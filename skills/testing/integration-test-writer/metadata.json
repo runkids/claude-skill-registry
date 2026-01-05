@@ -1,0 +1,12 @@
+{
+  "name": "integration-test-writer",
+  "description": "Generate comprehensive integration tests for component interactions,",
+  "repo": "matteocervelli/llms",
+  "category": "testing",
+  "tags": [
+    "integration",
+    "test",
+    "writer"
+  ],
+  "stars": 10
+}

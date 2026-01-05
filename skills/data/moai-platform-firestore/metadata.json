@@ -1,0 +1,12 @@
+{
+  "name": "moai-platform-firestore",
+  "description": "Firebase Firestore specialist covering NoSQL patterns, real-time sync, offline caching, and Security Rules. Use when building mobile-first apps with offline support, implementing real-time listeners, ",
+  "repo": "junseokandylee/RallyApp",
+  "category": "data",
+  "tags": [
+    "moai",
+    "platform",
+    "firestore"
+  ],
+  "stars": 1
+}

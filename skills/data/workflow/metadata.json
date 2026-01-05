@@ -1,0 +1,10 @@
+{
+  "name": "workflow",
+  "description": "Manage GitHub Actions workflows using gh CLI. Use to check CI status, view run logs, analyze failures, and rerun workflows.",
+  "repo": "johnlindquist/claude",
+  "category": "data",
+  "tags": [
+    "workflow"
+  ],
+  "stars": 0
+}

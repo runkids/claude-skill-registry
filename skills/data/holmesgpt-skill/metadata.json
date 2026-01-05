@@ -1,0 +1,11 @@
+{
+  "name": "holmesgpt-skill",
+  "description": "Guide for implementing HolmesGPT - an AI agent for troubleshooting cloud-native environments. Use when investigating Kubernetes issues, analyzing alerts from Prometheus/AlertManager/PagerDuty, perform",
+  "repo": "julianobarbosa/claude-code-skills",
+  "category": "data",
+  "tags": [
+    "holmesgpt",
+    "skill"
+  ],
+  "stars": 0
+}

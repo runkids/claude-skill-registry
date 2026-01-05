@@ -1,0 +1,11 @@
+{
+  "name": "goal-management",
+  "description": "FLEXIBLE skill for North Star goal tracking with Serena MCP persistence.Parses vague goals into measurable criteria, tracks progress percentages,maintains goal history, integrates with wave execution.",
+  "repo": "krzemienski/shannon-framework",
+  "category": "data",
+  "tags": [
+    "goal",
+    "management"
+  ],
+  "stars": 1
+}

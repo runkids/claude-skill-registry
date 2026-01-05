@@ -1,0 +1,11 @@
+{
+  "name": "security-headers",
+  "description": "Validate and implement HTTP security headers to protect web applications.",
+  "repo": "CuriousLearner/devkit",
+  "category": "security",
+  "tags": [
+    "security",
+    "headers"
+  ],
+  "stars": 13
+}

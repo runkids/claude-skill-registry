@@ -1,0 +1,11 @@
+{
+  "name": "rate-limiting",
+  "description": "API rate limiting and quota management implementation. Use when implementing request throttling, API quotas, backpressure handling, or protection against abuse. Keywords: rate limiting, throttling, to",
+  "repo": "cosmix/claude-code-setup",
+  "category": "data",
+  "tags": [
+    "rate",
+    "limiting"
+  ],
+  "stars": 2
+}

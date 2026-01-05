@@ -1,0 +1,11 @@
+{
+  "name": "discover-database",
+  "description": "Automatically discover database skills when working with SQL, PostgreSQL, MongoDB, Redis, database schema design, query optimization, migrations, connection pooling, ORMs, or database selection. Activ",
+  "repo": "rand/cc-polymath",
+  "category": "data",
+  "tags": [
+    "discover",
+    "database"
+  ],
+  "stars": 33
+}

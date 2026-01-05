@@ -1,0 +1,10 @@
+{
+  "name": "governance",
+  "description": "Toggle PAI governance enforcement on/off. Control chain-of-command routing and session-end requirements.",
+  "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+  "category": "data",
+  "tags": [
+    "governance"
+  ],
+  "stars": 2
+}

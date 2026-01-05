@@ -1,0 +1,11 @@
+{
+  "name": "typescript-zod",
+  "description": "Apply when validating external data (API inputs, form data, environment variables) with TypeScript type inference.",
+  "repo": "CoderMariusz/MonoPilot",
+  "category": "data",
+  "tags": [
+    "typescript",
+    "zod"
+  ],
+  "stars": 1
+}

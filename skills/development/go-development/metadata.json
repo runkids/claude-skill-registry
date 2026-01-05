@@ -1,0 +1,12 @@
+{
+  "name": "go-development",
+  "description": "Production-grade Go development patterns",
+  "repo": "netresearch/claude-code-marketplace",
+  "category": "development",
+  "tags": [
+    "go",
+    "golang",
+    "patterns"
+  ],
+  "stars": 0
+}

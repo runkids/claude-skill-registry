@@ -1,0 +1,10 @@
+{
+  "name": "ci-monitoring",
+  "description": "Use after creating PR - monitor CI pipeline, resolve failures cyclically until green or issue is identified as unresolvable",
+  "repo": "troykelly/claude-skills",
+  "category": "data",
+  "tags": [
+    "monitoring"
+  ],
+  "stars": 1
+}

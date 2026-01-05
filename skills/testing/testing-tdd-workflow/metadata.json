@@ -1,0 +1,12 @@
+{
+  "name": "testing-tdd-workflow",
+  "description": "Apply when implementing new features, fixing bugs, or refactoring code. TDD ensures tests drive design and all code is covered.",
+  "repo": "CoderMariusz/MonoPilot",
+  "category": "testing",
+  "tags": [
+    "testing",
+    "tdd",
+    "workflow"
+  ],
+  "stars": 1
+}

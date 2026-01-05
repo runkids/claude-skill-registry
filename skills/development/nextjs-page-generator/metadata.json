@@ -1,0 +1,12 @@
+{
+  "name": "nextjs-page-generator",
+  "description": "Generates Next.js 13+ pages with App Router, Server Components, Client Components, API routes, and proper data fetching. Use when building Next.js applications.",
+  "repo": "Dexploarer/hyper-forge",
+  "category": "development",
+  "tags": [
+    "nextjs",
+    "page",
+    "generator"
+  ],
+  "stars": 2
+}

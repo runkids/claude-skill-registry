@@ -1,0 +1,12 @@
+{
+  "name": "kubecon-llm-k8s",
+  "description": "Slidev presentation about taming dependency chaos for LLM in Kubernetes.",
+  "repo": "Eng0AI/eng0-template-skills",
+  "category": "development",
+  "tags": [
+    "kubecon",
+    "llm",
+    "k8s"
+  ],
+  "stars": 0
+}

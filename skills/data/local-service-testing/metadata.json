@@ -1,0 +1,12 @@
+{
+  "name": "local-service-testing",
+  "description": "Use when code changes touch database, cache, queue, or other service-dependent components - enforces testing against real local services instead of mocks",
+  "repo": "troykelly/claude-skills",
+  "category": "data",
+  "tags": [
+    "local",
+    "service",
+    "testing"
+  ],
+  "stars": 1
+}

@@ -1,0 +1,11 @@
+{
+  "name": "query-builder",
+  "description": "Interactive database query builder for generating optimized SQL and NoSQL queries.",
+  "repo": "CuriousLearner/devkit",
+  "category": "data",
+  "tags": [
+    "query",
+    "builder"
+  ],
+  "stars": 13
+}

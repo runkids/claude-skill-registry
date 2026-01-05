@@ -1,0 +1,11 @@
+{
+  "name": "typescript-testing",
+  "description": "TypeScript/JavaScript testing practices with Bun's test runner. Activate when working with bun test, .test.ts, .test.js, .spec.ts, .spec.js, testing TypeScript/JavaScript, bunfig.toml, testing configu",
+  "repo": "ilude/claude-code-config",
+  "category": "testing",
+  "tags": [
+    "typescript",
+    "testing"
+  ],
+  "stars": 5
+}

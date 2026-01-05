@@ -1,0 +1,12 @@
+{
+  "name": "shadcn-code-review",
+  "description": "Reviews shadcn/ui components for CVA patterns, composition with asChild, accessibility states, and data-slot usage. Use when reviewing React components using shadcn/ui, Radix primitives, or Tailwind s",
+  "repo": "existential-birds/beagle",
+  "category": "data",
+  "tags": [
+    "shadcn",
+    "code",
+    "review"
+  ],
+  "stars": 4
+}

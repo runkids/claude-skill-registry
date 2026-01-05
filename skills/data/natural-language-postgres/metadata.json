@@ -1,0 +1,12 @@
+{
+  "name": "natural-language-postgres",
+  "description": "Chat app that lets you ask questions in plain English and query your PostgreSQL database.",
+  "repo": "Eng0AI/eng0-template-skills",
+  "category": "data",
+  "tags": [
+    "natural",
+    "language",
+    "postgres"
+  ],
+  "stars": 0
+}

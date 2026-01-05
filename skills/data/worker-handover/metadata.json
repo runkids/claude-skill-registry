@@ -1,0 +1,11 @@
+{
+  "name": "worker-handover",
+  "description": "Defines context handover format when workers hit turn limit. Posts structured handover to GitHub issue comments enabling replacement workers to continue seamlessly.",
+  "repo": "troykelly/claude-skills",
+  "category": "data",
+  "tags": [
+    "worker",
+    "handover"
+  ],
+  "stars": 1
+}

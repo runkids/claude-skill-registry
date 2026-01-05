@@ -1,0 +1,12 @@
+{
+  "name": "sla-monitor-generator",
+  "description": "Generate SLA/SLO/SLI monitoring configurations for reliability tracking and error budget management. Activates for SLO setup, reliability targets, and error budget configuration.",
+  "repo": "Dexploarer/hyper-forge",
+  "category": "development",
+  "tags": [
+    "sla",
+    "monitor",
+    "generator"
+  ],
+  "stars": 2
+}

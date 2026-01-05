@@ -1,0 +1,12 @@
+{
+  "name": "moai-platform-supabase",
+  "description": "Supabase specialist covering PostgreSQL 16, pgvector, RLS, real-time subscriptions, and Edge Functions. Use when building full-stack apps with Supabase backend.",
+  "repo": "junseokandylee/RallyApp",
+  "category": "data",
+  "tags": [
+    "moai",
+    "platform",
+    "supabase"
+  ],
+  "stars": 1
+}

@@ -1,0 +1,11 @@
+{
+  "name": "package-upgrade",
+  "description": "Use when the user asks to analyze package upgrades, check for outdated dependencies, plan npm/NuGet updates, or assess breaking changes in package updates. Triggers on keywords like \"upgrade packages\"",
+  "repo": "duc01226/EasyPlatform",
+  "category": "devops",
+  "tags": [
+    "package",
+    "upgrade"
+  ],
+  "stars": 2
+}

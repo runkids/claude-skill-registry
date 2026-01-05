@@ -1,0 +1,12 @@
+{
+  "name": "layout-spacing-checker",
+  "description": "[Design System] Validate margin/padding/gap values against spacing scale and grid rules. Use when (1) checking if spacing values follow the design system scale, (2) finding off-scale or inconsistent s",
+  "repo": "CANTAGESTUDIO/CosmicAtlasPacker",
+  "category": "data",
+  "tags": [
+    "layout",
+    "spacing",
+    "checker"
+  ],
+  "stars": 1
+}

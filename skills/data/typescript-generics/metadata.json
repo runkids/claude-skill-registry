@@ -1,0 +1,11 @@
+{
+  "name": "typescript-generics",
+  "description": "Apply when writing reusable functions, components, or utilities that work with multiple types while maintaining type safety.",
+  "repo": "CoderMariusz/MonoPilot",
+  "category": "data",
+  "tags": [
+    "typescript",
+    "generics"
+  ],
+  "stars": 1
+}

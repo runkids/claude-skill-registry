@@ -1,0 +1,11 @@
+{
+  "name": "reasoning-abductive",
+  "description": "Generate and evaluate explanatory hypotheses from incomplete observations. Use when diagnosing anomalies, explaining unexpected outcomes, or inferring causes from effects. Produces ranked hypotheses w",
+  "repo": "BellaBe/lean-os",
+  "category": "data",
+  "tags": [
+    "reasoning",
+    "abductive"
+  ],
+  "stars": 12
+}

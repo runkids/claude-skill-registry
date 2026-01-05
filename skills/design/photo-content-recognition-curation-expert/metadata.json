@@ -1,0 +1,14 @@
+{
+  "name": "photo-content-recognition-curation-expert",
+  "description": "Expert in photo content recognition, intelligent curation, and quality filtering. Specializes in face/animal/place recognition, perceptual hashing for de-duplication, screenshot/meme detection, burst ",
+  "repo": "erichowens/some_claude_skills",
+  "category": "design",
+  "tags": [
+    "photo",
+    "content",
+    "recognition",
+    "curation",
+    "expert"
+  ],
+  "stars": 1
+}

@@ -1,0 +1,11 @@
+{
+  "name": "readme-updates",
+  "description": "Maintain README files with setup instructions, features, tech stack, and usage examples. Use when updating project documentation, adding new features, or improving onboarding.",
+  "repo": "sgcarstrends/sgcarstrends",
+  "category": "documents",
+  "tags": [
+    "readme",
+    "updates"
+  ],
+  "stars": 13
+}

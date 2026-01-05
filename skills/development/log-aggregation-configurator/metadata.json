@@ -1,0 +1,12 @@
+{
+  "name": "log-aggregation-configurator",
+  "description": "Set up centralized logging with ELK, Loki, or Splunk for log management",
+  "repo": "Dexploarer/hyper-forge",
+  "category": "development",
+  "tags": [
+    "log",
+    "aggregation",
+    "configurator"
+  ],
+  "stars": 2
+}

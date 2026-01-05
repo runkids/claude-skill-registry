@@ -1,0 +1,12 @@
+{
+  "name": "red-team-tactics",
+  "description": "Red team attack tactics, techniques, and procedures (TTPs) based on MITRE ATT&CK framework. Covers reconnaissance, initial access, privilege escalation, lateral movement, and exfiltration.",
+  "repo": "xenitV1/claude-code-maestro",
+  "category": "data",
+  "tags": [
+    "red",
+    "team",
+    "tactics"
+  ],
+  "stars": 47
+}

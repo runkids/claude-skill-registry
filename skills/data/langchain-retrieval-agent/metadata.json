@@ -1,0 +1,12 @@
+{
+  "name": "langchain-retrieval-agent",
+  "description": "AI agent with retrieval tool for document Q&A using RAG and LangGraph.",
+  "repo": "Eng0AI/eng0-template-skills",
+  "category": "data",
+  "tags": [
+    "langchain",
+    "retrieval",
+    "agent"
+  ],
+  "stars": 0
+}

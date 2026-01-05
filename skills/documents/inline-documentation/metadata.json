@@ -1,0 +1,11 @@
+{
+  "name": "inline-documentation",
+  "description": "Use when writing code - ensure complete JSDoc, docstrings, and inline comments assuming documentation will be generated from code",
+  "repo": "troykelly/claude-skills",
+  "category": "documents",
+  "tags": [
+    "inline",
+    "documentation"
+  ],
+  "stars": 1
+}

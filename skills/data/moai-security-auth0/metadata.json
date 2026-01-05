@@ -1,0 +1,12 @@
+{
+  "name": "moai-security-auth0",
+  "description": "Auth0 security specialist covering attack protection, multi-factor authentication, token security, sender constraining, and compliance. Use when implementing Auth0 security features, configuring attac",
+  "repo": "junseokandylee/RallyApp",
+  "category": "data",
+  "tags": [
+    "moai",
+    "security",
+    "auth0"
+  ],
+  "stars": 1
+}

@@ -1,0 +1,12 @@
+{
+  "name": "moai-platform-auth0",
+  "description": "Auth0 enterprise authentication specialist covering SSO, SAML, OIDC, organizations, and B2B multi-tenancy. Use when implementing enterprise identity federation or complex auth workflows.",
+  "repo": "junseokandylee/RallyApp",
+  "category": "data",
+  "tags": [
+    "moai",
+    "platform",
+    "auth0"
+  ],
+  "stars": 1
+}

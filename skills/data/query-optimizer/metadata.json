@@ -1,0 +1,11 @@
+{
+  "name": "query-optimizer",
+  "description": "Analyze and optimize SQL queries for better performance and efficiency.",
+  "repo": "CuriousLearner/devkit",
+  "category": "data",
+  "tags": [
+    "query",
+    "optimizer"
+  ],
+  "stars": 13
+}

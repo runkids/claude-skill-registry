@@ -1,0 +1,11 @@
+{
+  "name": "happiness-dashboard",
+  "description": "Evidence framework data dashboard with DuckDB. Write SQL in markdown to create visualizations.",
+  "repo": "Eng0AI/eng0-template-skills",
+  "category": "data",
+  "tags": [
+    "happiness",
+    "dashboard"
+  ],
+  "stars": 0
+}

@@ -1,0 +1,11 @@
+{
+  "name": "testing-jest",
+  "description": "Apply when writing unit tests with Jest: assertions, mocking, async tests, and test organization.",
+  "repo": "CoderMariusz/MonoPilot",
+  "category": "testing",
+  "tags": [
+    "testing",
+    "jest"
+  ],
+  "stars": 1
+}

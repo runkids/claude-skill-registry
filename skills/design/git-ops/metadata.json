@@ -1,0 +1,11 @@
+{
+  "name": "git-ops",
+  "description": "Use when performing git operations or generating smart commit messages - provides safe git workflow guidance, validation checks, and conventional commit formatting.",
+  "repo": "NickCrew/claude-cortex",
+  "category": "design",
+  "tags": [
+    "git",
+    "ops"
+  ],
+  "stars": 4
+}

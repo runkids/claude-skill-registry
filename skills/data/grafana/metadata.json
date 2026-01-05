@@ -1,0 +1,10 @@
+{
+  "name": "grafana",
+  "description": "Observability visualization with Grafana and the LGTM stack (Loki, Grafana, Tempo, Mimir). Use when implementing dashboards, log aggregation, distributed tracing, or metrics visualization. Triggers: g",
+  "repo": "cosmix/claude-code-setup",
+  "category": "data",
+  "tags": [
+    "grafana"
+  ],
+  "stars": 2
+}

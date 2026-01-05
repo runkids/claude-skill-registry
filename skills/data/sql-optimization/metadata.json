@@ -1,0 +1,11 @@
+{
+  "name": "sql-optimization",
+  "description": "Analyzes and optimizes SQL queries for better performance, including index design and query rewriting. Trigger keywords: sql, query optimization, slow query, index, explain, performance, database tuni",
+  "repo": "cosmix/claude-code-setup",
+  "category": "data",
+  "tags": [
+    "sql",
+    "optimization"
+  ],
+  "stars": 2
+}

@@ -1,0 +1,11 @@
+{
+  "name": "react-component",
+  "description": "Create React components with TypeScript, following best practices for hooks, state management, accessibility, and testing. Use when building new UI components or refactoring existing ones.",
+  "repo": "vapvarun/claude-backup",
+  "category": "development",
+  "tags": [
+    "react",
+    "component"
+  ],
+  "stars": 3
+}

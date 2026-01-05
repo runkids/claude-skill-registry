@@ -1,0 +1,11 @@
+{
+  "name": "openapi-generator",
+  "description": "Generate comprehensive OpenAPI/Swagger specifications from existing code and APIs.",
+  "repo": "CuriousLearner/devkit",
+  "category": "development",
+  "tags": [
+    "openapi",
+    "generator"
+  ],
+  "stars": 13
+}

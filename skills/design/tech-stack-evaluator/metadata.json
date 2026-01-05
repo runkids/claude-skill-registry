@@ -1,0 +1,12 @@
+{
+  "name": "tech-stack-evaluator",
+  "description": "Auto-activates during requirements analysis to evaluate technical stack",
+  "repo": "matteocervelli/llms",
+  "category": "design",
+  "tags": [
+    "tech",
+    "stack",
+    "evaluator"
+  ],
+  "stars": 10
+}

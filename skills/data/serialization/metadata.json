@@ -1,0 +1,10 @@
+{
+  "name": "serialization",
+  "description": "Data serialization formats and techniques. Use when implementing data exchange, API payloads, storage formats, or cross-language communication. Keywords: serialization, JSON, Protocol Buffers, protobu",
+  "repo": "cosmix/claude-code-setup",
+  "category": "data",
+  "tags": [
+    "serialization"
+  ],
+  "stars": 2
+}

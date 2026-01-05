@@ -1,0 +1,12 @@
+{
+  "name": "check-constitutional-alignment",
+  "description": "Verify feature requests align with project constitutional principles - applies decision framework systematically and provides clear align/reject/revise recommendation with detailed reasoning",
+  "repo": "samjhecht/wrangler",
+  "category": "data",
+  "tags": [
+    "check",
+    "constitutional",
+    "alignment"
+  ],
+  "stars": 1
+}

@@ -1,0 +1,11 @@
+{
+  "name": "react-router-v7",
+  "description": "React Router v7 best practices for data-driven routing. Use when implementing routes, loaders, actions, Form components, fetchers, navigation guards, protected routes, or URL search params. Triggers o",
+  "repo": "existential-birds/beagle",
+  "category": "data",
+  "tags": [
+    "react",
+    "router"
+  ],
+  "stars": 4
+}

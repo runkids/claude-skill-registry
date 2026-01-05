@@ -1,0 +1,12 @@
+{
+  "name": "multi-agent-ai-projects",
+  "description": "Guidelines for multi-agent AI and learning projects with lesson-based structures. Activate when working with AI learning projects, experimental directories like .spec/, lessons/ directories, STATUS.md",
+  "repo": "ilude/claude-code-config",
+  "category": "data",
+  "tags": [
+    "multi",
+    "agent",
+    "projects"
+  ],
+  "stars": 5
+}

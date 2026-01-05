@@ -1,0 +1,11 @@
+{
+  "name": "supabase-storage",
+  "description": "Apply when handling file uploads, downloads, and storage management in Supabase.",
+  "repo": "CoderMariusz/MonoPilot",
+  "category": "development",
+  "tags": [
+    "supabase",
+    "storage"
+  ],
+  "stars": 1
+}

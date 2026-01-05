@@ -1,0 +1,13 @@
+{
+  "name": "enterprise-readiness",
+  "description": "OpenSSF security assessment and compliance",
+  "repo": "netresearch/claude-code-marketplace",
+  "category": "development",
+  "tags": [
+    "openssf",
+    "security",
+    "compliance",
+    "enterprise"
+  ],
+  "stars": 0
+}

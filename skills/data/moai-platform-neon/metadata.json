@@ -1,0 +1,12 @@
+{
+  "name": "moai-platform-neon",
+  "description": "Neon serverless PostgreSQL specialist covering auto-scaling, database branching, PITR, and connection pooling. Use when building serverless apps needing PostgreSQL.",
+  "repo": "junseokandylee/RallyApp",
+  "category": "data",
+  "tags": [
+    "moai",
+    "platform",
+    "neon"
+  ],
+  "stars": 1
+}

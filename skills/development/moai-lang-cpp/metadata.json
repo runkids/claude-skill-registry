@@ -1,0 +1,12 @@
+{
+  "name": "moai-lang-cpp",
+  "description": "Modern C++ (C++23/C++20) development specialist covering RAII, smart pointers, concepts, ranges, modules, and CMake. Use when developing high-performance applications, games, system software, or embed",
+  "repo": "junseokandylee/RallyApp",
+  "category": "development",
+  "tags": [
+    "moai",
+    "lang",
+    "cpp"
+  ],
+  "stars": 1
+}

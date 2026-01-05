@@ -1,0 +1,12 @@
+{
+  "name": "nextjs-data-fetching",
+  "description": "Apply when fetching data in Next.js App Router: server components, caching strategies, revalidation, and streaming.",
+  "repo": "CoderMariusz/MonoPilot",
+  "category": "data",
+  "tags": [
+    "nextjs",
+    "data",
+    "fetching"
+  ],
+  "stars": 1
+}

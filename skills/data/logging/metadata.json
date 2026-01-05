@@ -1,0 +1,10 @@
+{
+  "name": "logging",
+  "description": "Structured client-side logging and error reporting. Use when implementing console logging, error tracking, user session tracking, or analytics event patterns.",
+  "repo": "ProfPowell/project-template",
+  "category": "data",
+  "tags": [
+    "logging"
+  ],
+  "stars": 0
+}

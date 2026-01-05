@@ -1,0 +1,11 @@
+{
+  "name": "comprehensive-review",
+  "description": "Use after implementing features - 7-criteria code review with MANDATORY artifact posting to GitHub issue; blocks PR creation until complete",
+  "repo": "troykelly/claude-skills",
+  "category": "development",
+  "tags": [
+    "comprehensive",
+    "review"
+  ],
+  "stars": 1
+}

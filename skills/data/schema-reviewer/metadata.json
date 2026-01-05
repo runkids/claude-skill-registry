@@ -1,0 +1,11 @@
+{
+  "name": "schema-reviewer",
+  "description": "WHEN: Database schema review, table design, normalization, constraints, index planningWHAT: Normalization analysis + Constraint validation + Index strategy + Data types + Relationship designWHEN NOT: ",
+  "repo": "physics91/claude-vibe",
+  "category": "data",
+  "tags": [
+    "schema",
+    "reviewer"
+  ],
+  "stars": 0
+}

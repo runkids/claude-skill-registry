@@ -1,0 +1,11 @@
+{
+  "name": "diff-preview",
+  "description": "Preview and analyze git diffs with AI explanations. Use to understand changes before committing, get impact analysis, and compare branches or commits.",
+  "repo": "johnlindquist/claude",
+  "category": "data",
+  "tags": [
+    "diff",
+    "preview"
+  ],
+  "stars": 0
+}

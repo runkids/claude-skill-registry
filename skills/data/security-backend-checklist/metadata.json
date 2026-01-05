@@ -1,0 +1,12 @@
+{
+  "name": "security-backend-checklist",
+  "description": "When implementing backend APIs, database queries, authentication, or handling user input.",
+  "repo": "CoderMariusz/MonoPilot",
+  "category": "data",
+  "tags": [
+    "security",
+    "backend",
+    "checklist"
+  ],
+  "stars": 1
+}

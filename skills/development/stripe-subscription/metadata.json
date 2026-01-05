@@ -1,0 +1,11 @@
+{
+  "name": "stripe-subscription",
+  "description": "Stripe Checkout for recurring subscriptions with Customer Portal. Auto-creates plans if not configured.",
+  "repo": "Eng0AI/eng0-template-skills",
+  "category": "development",
+  "tags": [
+    "stripe",
+    "subscription"
+  ],
+  "stars": 0
+}

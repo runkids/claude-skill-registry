@@ -1,0 +1,12 @@
+{
+  "name": "tasks-bug-diagnosis",
+  "description": "Use when diagnosing bugs, analyzing errors/stack traces, or performing root cause analysis with evidence-based debugging protocols.",
+  "repo": "duc01226/EasyPlatform",
+  "category": "development",
+  "tags": [
+    "tasks",
+    "bug",
+    "diagnosis"
+  ],
+  "stars": 2
+}

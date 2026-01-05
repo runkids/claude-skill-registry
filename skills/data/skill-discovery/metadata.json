@@ -1,0 +1,11 @@
+{
+  "name": "skill-discovery",
+  "description": "Use when needing to discover available skills across project/user directories - automatically scansfor SKILL.md files, parses YAML frontmatter, extracts metadata (name, description, type, MCP requirem",
+  "repo": "krzemienski/shannon-framework",
+  "category": "data",
+  "tags": [
+    "skill",
+    "discovery"
+  ],
+  "stars": 1
+}

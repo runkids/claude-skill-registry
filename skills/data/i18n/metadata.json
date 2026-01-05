@@ -1,0 +1,10 @@
+{
+  "name": "i18n",
+  "description": "Write internationalization-friendly HTML pages. Use when creating multilingual content, setting lang attributes, handling RTL languages, or preparing content for translation.",
+  "repo": "ProfPowell/project-template",
+  "category": "data",
+  "tags": [
+    "i18n"
+  ],
+  "stars": 0
+}

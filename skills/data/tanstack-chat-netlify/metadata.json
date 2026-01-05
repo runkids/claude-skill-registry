@@ -1,0 +1,12 @@
+{
+  "name": "tanstack-chat-netlify",
+  "description": "Modern chat app with TanStack Router and Claude AI for Netlify.",
+  "repo": "Eng0AI/eng0-template-skills",
+  "category": "data",
+  "tags": [
+    "tanstack",
+    "chat",
+    "netlify"
+  ],
+  "stars": 0
+}

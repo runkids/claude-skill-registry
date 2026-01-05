@@ -1,0 +1,11 @@
+{
+  "name": "implementation-workflow",
+  "description": "Use when turning PRDs or feature specs into actionable implementation workflows - provides structured task decomposition, dependency mapping, and validation gates.",
+  "repo": "NickCrew/claude-cortex",
+  "category": "productivity",
+  "tags": [
+    "implementation",
+    "workflow"
+  ],
+  "stars": 4
+}

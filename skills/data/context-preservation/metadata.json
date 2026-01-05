@@ -1,0 +1,11 @@
+{
+  "name": "context-preservation",
+  "description": "PROTOCOL skill for checkpoint-based context preservation using Serena MCP.Automatically creates checkpoints at wave boundaries and before PreCompact.Enables zero-context-loss multi-session work with s",
+  "repo": "krzemienski/shannon-framework",
+  "category": "data",
+  "tags": [
+    "context",
+    "preservation"
+  ],
+  "stars": 1
+}

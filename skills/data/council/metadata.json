@@ -1,0 +1,10 @@
+{
+  "name": "council",
+  "description": "Query multiple AI agents in parallel for diverse perspectives. Use when you want multiple viewpoints on a question, to compare approaches, or to find consensus among AI models.",
+  "repo": "johnlindquist/claude",
+  "category": "data",
+  "tags": [
+    "council"
+  ],
+  "stars": 0
+}

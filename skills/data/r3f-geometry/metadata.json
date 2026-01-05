@@ -1,0 +1,11 @@
+{
+  "name": "r3f-geometry",
+  "description": "BufferGeometry creation, built-in geometries, custom geometry with buffer attributes, instanced meshes for rendering thousands of objects, and geometry manipulation. Use when creating custom shapes, o",
+  "repo": "Bbeierle12/Skill-MCP-Claude",
+  "category": "data",
+  "tags": [
+    "r3f",
+    "geometry"
+  ],
+  "stars": 2
+}

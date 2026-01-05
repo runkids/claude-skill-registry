@@ -1,0 +1,11 @@
+{
+  "name": "mcp-discovery",
+  "description": "Intelligent MCP server recommendation engine based on quantitative domain analysis. Maps projectdomains (Frontend %, Backend %, Database %, etc.) to appropriate MCP servers using tier-basedpriority sy",
+  "repo": "krzemienski/shannon-framework",
+  "category": "data",
+  "tags": [
+    "mcp",
+    "discovery"
+  ],
+  "stars": 1
+}

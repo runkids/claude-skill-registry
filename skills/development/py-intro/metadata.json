@@ -1,0 +1,10 @@
+{
+  "name": "py-intro",
+  "description": "Slidev presentation for teaching Python with interactive code execution.",
+  "repo": "Eng0AI/eng0-template-skills",
+  "category": "development",
+  "tags": [
+    "intro"
+  ],
+  "stars": 0
+}

@@ -1,0 +1,11 @@
+{
+  "name": "langchain-retrieval",
+  "description": "Document Q&A with RAG using Supabase pgvector store.",
+  "repo": "Eng0AI/eng0-template-skills",
+  "category": "data",
+  "tags": [
+    "langchain",
+    "retrieval"
+  ],
+  "stars": 0
+}
