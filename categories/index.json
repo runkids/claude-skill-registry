@@ -3,43 +3,44 @@
   "categories": [
     {
       "name": "data",
-      "count": 7629
+      "count": 3096
     },
     {
       "name": "design",
-      "count": 4390
+      "count": 2010
     },
     {
       "name": "development",
-      "count": 14758
+      "count": 6916
     },
     {
       "name": "devops",
-      "count": 2242
+      "count": 902
     },
     {
       "name": "documents",
-      "count": 2561
+      "count": 1259
     },
     {
       "name": "marketing",
-      "count": 473
+      "count": 201
     },
     {
       "name": "product",
-      "count": 507
+      "count": 199
     },
     {
       "name": "productivity",
-      "count": 2205
+      "count": 959
     },
     {
       "name": "security",
-      "count": 606
+      "count": 250
     },
     {
       "name": "testing",
-      "count": 4276
+      "count": 2043
     }
-  ]
+  ],
+  "total_skills": 17835
 }
