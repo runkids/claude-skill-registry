@@ -1,0 +1,12 @@
+{
+  "name": "rate-limit-setup",
+  "description": "Implement rate limiting for API endpoints. Use when user mentions \"rate limit\", \"quota\", \"usage tracking\", \"throttle\", or \"limit requests\".",
+  "repo": "AppleLamps/xpic2",
+  "category": "development",
+  "tags": [
+    "rate",
+    "limit",
+    "setup"
+  ],
+  "stars": 0
+}

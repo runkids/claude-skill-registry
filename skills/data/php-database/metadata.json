@@ -1,0 +1,11 @@
+{
+  "name": "php-database",
+  "description": "PHP database mastery - PDO, Eloquent, Doctrine, query optimization, and migrations",
+  "repo": "pluginagentmarketplace/custom-plugin-php",
+  "category": "data",
+  "tags": [
+    "php",
+    "database"
+  ],
+  "stars": 1
+}

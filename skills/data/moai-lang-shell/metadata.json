@@ -1,0 +1,12 @@
+{
+  "name": "moai-lang-shell",
+  "description": "Shell scripting best practices with bats-core 1.11, shellcheck 0.10, and POSIX compliance.",
+  "repo": "kivo360/quickhooks",
+  "category": "data",
+  "tags": [
+    "moai",
+    "lang",
+    "shell"
+  ],
+  "stars": 0
+}

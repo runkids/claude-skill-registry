@@ -1,0 +1,12 @@
+{
+  "name": "moai-foundation-trust",
+  "description": "Validates TRUST 5-principles (Test 85%+, Readable, Unified, Secured, Trackable). Use when aligning with TRUST governance.",
+  "repo": "kivo360/quickhooks",
+  "category": "testing",
+  "tags": [
+    "moai",
+    "foundation",
+    "trust"
+  ],
+  "stars": 0
+}

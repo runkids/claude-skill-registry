@@ -1,0 +1,10 @@
+{
+  "name": "troubleshoot",
+  "description": "Diagnose and fix cluster issues. Use when pods fail, deployments don't work, or services are unreachable.",
+  "repo": "X-McKay/kubani",
+  "category": "data",
+  "tags": [
+    "troubleshoot"
+  ],
+  "stars": 1
+}

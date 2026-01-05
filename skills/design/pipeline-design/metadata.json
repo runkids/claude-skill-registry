@@ -1,0 +1,11 @@
+{
+  "name": "pipeline-design",
+  "description": "Design ETL/ELT pipeline architectures with proper patterns for reliability and scalability.",
+  "repo": "timequity/vibe-coder",
+  "category": "design",
+  "tags": [
+    "pipeline",
+    "design"
+  ],
+  "stars": 0
+}

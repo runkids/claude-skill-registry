@@ -1,0 +1,12 @@
+{
+  "name": "implementation-plan-reviewer",
+  "description": "Use when reviewing implementation plans before execution, especially plans derived from design documents. Performs exhaustive analysis to ensure the plan is detailed enough for agents to execute witho",
+  "repo": "axiomantic/spellbook",
+  "category": "data",
+  "tags": [
+    "implementation",
+    "plan",
+    "reviewer"
+  ],
+  "stars": 0
+}

@@ -1,0 +1,11 @@
+{
+  "name": "numpy-core",
+  "description": "Fundamental NumPy operations including ndarray creation, dtypes, shape manipulation, and basic operations with a focus on memory alignment and data views. Triggers: numpy, ndarray, dtype, reshape, mem",
+  "repo": "cuba6112/skillfactory",
+  "category": "data",
+  "tags": [
+    "numpy",
+    "core"
+  ],
+  "stars": 0
+}

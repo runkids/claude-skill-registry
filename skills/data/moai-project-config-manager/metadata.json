@@ -1,0 +1,13 @@
+{
+  "name": "moai-project-config-manager",
+  "description": "Complete config.json CRUD operations with validation, merge strategy, and error recovery",
+  "repo": "kivo360/quickhooks",
+  "category": "data",
+  "tags": [
+    "moai",
+    "project",
+    "config",
+    "manager"
+  ],
+  "stars": 0
+}

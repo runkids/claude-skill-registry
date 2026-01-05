@@ -1,0 +1,10 @@
+{
+  "name": "runway",
+  "description": "Runway AI API for video generation via curl. Use this skill to generate videos from images, text, or other videos.",
+  "repo": "vm0-ai/vm0-skills",
+  "category": "data",
+  "tags": [
+    "runway"
+  ],
+  "stars": 8
+}

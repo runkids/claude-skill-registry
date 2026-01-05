@@ -1,0 +1,12 @@
+{
+  "name": "user-state-debugging",
+  "description": "Expert knowledge on debugging user account issues, diagnostic scripts (inspect-user-state.js), fix scripts (fix-user-billing-state.js, reset-user-onboarding.js), onboarding problems, billing sync issu",
+  "repo": "Sanchay-T/influencer-platform-app",
+  "category": "data",
+  "tags": [
+    "user",
+    "state",
+    "debugging"
+  ],
+  "stars": 1
+}

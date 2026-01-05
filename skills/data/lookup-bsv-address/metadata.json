@@ -1,0 +1,12 @@
+{
+  "name": "lookup-bsv-address",
+  "description": "Look up BSV address information using WhatsOnChain API. Shows balance, transaction history, and UTXO details.",
+  "repo": "b-open-io/bsv-skills",
+  "category": "data",
+  "tags": [
+    "lookup",
+    "bsv",
+    "address"
+  ],
+  "stars": 0
+}

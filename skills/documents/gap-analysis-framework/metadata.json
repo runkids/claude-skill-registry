@@ -1,0 +1,12 @@
+{
+  "name": "gap-analysis-framework",
+  "description": "Comprehensive gap analysis framework for identifying missing capabilities, coverage, and requirements. Use for requirements vs implementation gaps, test coverage analysis, documentation gaps, security",
+  "repo": "doctorduke/claude-config",
+  "category": "documents",
+  "tags": [
+    "gap",
+    "analysis",
+    "framework"
+  ],
+  "stars": 0
+}

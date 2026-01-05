@@ -1,0 +1,13 @@
+{
+  "name": "moai-alfred-config-schema",
+  "description": ".moai/config.json official schema documentation, structure validation, project metadata, language settings, and configuration migration guide. Use when setting up project configuration or understandin",
+  "repo": "kivo360/quickhooks",
+  "category": "data",
+  "tags": [
+    "moai",
+    "alfred",
+    "config",
+    "schema"
+  ],
+  "stars": 0
+}

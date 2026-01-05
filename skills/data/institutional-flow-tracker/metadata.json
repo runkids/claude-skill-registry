@@ -1,0 +1,12 @@
+{
+  "name": "institutional-flow-tracker",
+  "description": "Use this skill to track institutional investor ownership changes and portfolio flows using 13F filings data. Analyzes hedge funds, mutual funds, and other institutional holders to identify stocks with",
+  "repo": "tradermonty/claude-trading-skills",
+  "category": "data",
+  "tags": [
+    "institutional",
+    "flow",
+    "tracker"
+  ],
+  "stars": 1
+}

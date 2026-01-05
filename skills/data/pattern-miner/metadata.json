@@ -1,0 +1,11 @@
+{
+  "name": "pattern-miner",
+  "description": "Mine historical data for patterns and predictive insights",
+  "repo": "mehdic/bazinga",
+  "category": "data",
+  "tags": [
+    "pattern",
+    "miner"
+  ],
+  "stars": 2
+}

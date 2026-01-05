@@ -1,14 +1,6 @@
 {
   "name": "using-git-worktrees",
-  "description": "Manages parallel development branches with git worktrees",
   "repo": "obra/superpowers",
   "category": "development",
-  "tags": [
-    "git",
-    "worktrees",
-    "branching",
-    "parallel"
-  ],
-  "stars": 0,
-  "source": "Community Skills"
+  "source": "Superpowers"
 }

@@ -1,0 +1,11 @@
+{
+  "name": "model-queries",
+  "description": "Building database queries with the Options API",
+  "repo": "griffnb/techboss-ai-go",
+  "category": "data",
+  "tags": [
+    "model",
+    "queries"
+  ],
+  "stars": 0
+}

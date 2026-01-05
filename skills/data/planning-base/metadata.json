@@ -1,0 +1,11 @@
+{
+  "name": "planning-base",
+  "description": "Framework for planning at any time scale (daily, weekly, monthly, quarterly, yearly). Trigger with \"plan my day\", \"weekly planning\", \"monthly planning\", etc. Identifies constraints FIRST, then suggest",
+  "repo": "ZachBeta/claude-as-coach",
+  "category": "data",
+  "tags": [
+    "planning",
+    "base"
+  ],
+  "stars": 3
+}

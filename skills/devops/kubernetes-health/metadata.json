@@ -1,0 +1,11 @@
+{
+  "name": "kubernetes-health",
+  "description": "Comprehensive Kubernetes cluster health diagnostics using dynamic API discovery. Use when checking cluster health, troubleshooting K8s issues, or running health assessments.",
+  "repo": "nodnarbnitram/claude-code-extensions",
+  "category": "devops",
+  "tags": [
+    "kubernetes",
+    "health"
+  ],
+  "stars": 1
+}

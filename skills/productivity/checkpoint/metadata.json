@@ -1,0 +1,10 @@
+{
+  "name": "checkpoint",
+  "description": "Robust workflow checkpoint and resume. Handles session interruption, state recovery, and safe resume across all workflow phases.",
+  "repo": "Clouder0/dotagent",
+  "category": "productivity",
+  "tags": [
+    "checkpoint"
+  ],
+  "stars": 0
+}

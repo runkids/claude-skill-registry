@@ -1,0 +1,11 @@
+{
+  "name": "content-analysis",
+  "description": "Analyze any text content including meeting notes, emails, book excerpts, or generic text files. Use when the user wants to analyze content that doesn't fit YouTube, article, or paper categories, or me",
+  "repo": "az9713/cerebro",
+  "category": "data",
+  "tags": [
+    "content",
+    "analysis"
+  ],
+  "stars": 0
+}

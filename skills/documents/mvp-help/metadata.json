@@ -1,0 +1,11 @@
+{
+  "name": "mvp-help",
+  "description": "Help and documentation for Idea to MVP plugin.Use when: user asks about building MVPs, vibe coding, or available commands.Triggers: \"help\", \"what can you do\", \"mvp help\", \"how to build\".",
+  "repo": "timequity/vibe-coder",
+  "category": "documents",
+  "tags": [
+    "mvp",
+    "help"
+  ],
+  "stars": 0
+}

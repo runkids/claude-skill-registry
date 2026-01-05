@@ -1,0 +1,13 @@
+{
+  "name": "project-coach-setup-base",
+  "description": "Initial project setup for goal coaching system. Use when user says \"set up my project\", \"configure my coaching project\", \"initialize my goals\", or when starting a fresh coaching project with no existi",
+  "repo": "ZachBeta/claude-as-coach",
+  "category": "data",
+  "tags": [
+    "project",
+    "coach",
+    "setup",
+    "base"
+  ],
+  "stars": 3
+}

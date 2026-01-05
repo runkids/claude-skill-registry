@@ -1,0 +1,12 @@
+{
+  "name": "video-thumbnail-extractor",
+  "description": "Extract frames from videos at specific timestamps or intervals, find best frames, and generate thumbnail grids for previews.",
+  "repo": "dkyazzentwatwa/chatgpt-skills",
+  "category": "data",
+  "tags": [
+    "video",
+    "thumbnail",
+    "extractor"
+  ],
+  "stars": 1
+}

@@ -1,0 +1,11 @@
+{
+  "name": "version-bump",
+  "description": "Manage semantic version updates for any project. Handles patch, minor, and major version increments following semantic versioning. Updates all version-tracked files (e.g., package.json, pyproject.toml",
+  "repo": "gahoccode/PRDs",
+  "category": "data",
+  "tags": [
+    "version",
+    "bump"
+  ],
+  "stars": 0
+}

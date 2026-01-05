@@ -1,0 +1,12 @@
+{
+  "name": "google-gemini-embeddings",
+  "description": "This skill provides complete coverage of Google Gemini embeddings API (gemini-embedding-001) for building RAG systems, semantic search, document clustering, and similarity matching. Use when implement",
+  "repo": "jackspace/ClaudeSkillz",
+  "category": "testing",
+  "tags": [
+    "google",
+    "gemini",
+    "embeddings"
+  ],
+  "stars": 0
+}

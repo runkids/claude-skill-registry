@@ -1,0 +1,11 @@
+{
+  "name": "plugin-ideation",
+  "description": "Adaptive brainstorming for plugin concepts and improvements when exploring ideas, not implementing. Autonomous triggers: \"I want to make...\", \"Explore improvements to...\", \"brainstorm\", \"ideate\", \"new",
+  "repo": "glittercowboy/plugin-freedom-system",
+  "category": "data",
+  "tags": [
+    "plugin",
+    "ideation"
+  ],
+  "stars": 47
+}

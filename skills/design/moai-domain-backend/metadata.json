@@ -1,0 +1,12 @@
+{
+  "name": "moai-domain-backend",
+  "description": "Provides backend architecture and scaling guidance; use when the project targets server-side APIs or infrastructure design decisions.",
+  "repo": "kivo360/quickhooks",
+  "category": "design",
+  "tags": [
+    "moai",
+    "domain",
+    "backend"
+  ],
+  "stars": 0
+}

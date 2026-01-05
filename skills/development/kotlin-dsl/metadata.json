@@ -1,0 +1,11 @@
+{
+  "name": "kotlin-dsl",
+  "description": "Kotlin DSL - type-safe builders, Gradle DSL, @DslMarker",
+  "repo": "pluginagentmarketplace/custom-plugin-kotlin",
+  "category": "development",
+  "tags": [
+    "kotlin",
+    "dsl"
+  ],
+  "stars": 1
+}

@@ -1,0 +1,11 @@
+{
+  "name": "model-selection",
+  "description": "Select appropriate Claude model (Opus 4.5, Sonnet, Haiku) for agents, commands, or Task tool invocations based on task complexity, reasoning depth, and cost/speed requirements.",
+  "repo": "tstapler/dotfiles",
+  "category": "data",
+  "tags": [
+    "model",
+    "selection"
+  ],
+  "stars": 5
+}

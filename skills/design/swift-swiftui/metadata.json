@@ -1,0 +1,11 @@
+{
+  "name": "swift-swiftui",
+  "description": "Build modern UIs with SwiftUI - views, state management, animations, navigation",
+  "repo": "pluginagentmarketplace/custom-plugin-swift",
+  "category": "design",
+  "tags": [
+    "swift",
+    "swiftui"
+  ],
+  "stars": 1
+}

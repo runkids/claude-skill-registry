@@ -1,0 +1,12 @@
+{
+  "name": "generate-import-html",
+  "description": "Generate structured HTML from authoring analysis for AEM Edge Delivery Services. Creates section structure, applies block tables, handles metadata, and manages images folder.",
+  "repo": "ddttom/webcomponents-with-eds",
+  "category": "data",
+  "tags": [
+    "generate",
+    "import",
+    "html"
+  ],
+  "stars": 5
+}

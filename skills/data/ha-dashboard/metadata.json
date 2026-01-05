@@ -1,0 +1,10 @@
+{
+  "name": "ha-dashboard",
+  "description": "Configure Home Assistant Lovelace dashboards, cards, views, and themes. Use when working with dashboard YAML, card configuration, view layouts, custom cards, or frontend theming.",
+  "repo": "nodnarbnitram/claude-code-extensions",
+  "category": "data",
+  "tags": [
+    "dashboard"
+  ],
+  "stars": 1
+}

@@ -1,0 +1,13 @@
+{
+  "name": "ln-630-test-auditor",
+  "description": "Test suite quality coordinator and analysis",
+  "repo": "levnikolaevich/claude-code-skills",
+  "category": "testing",
+  "tags": [
+    "testing",
+    "audit",
+    "quality",
+    "linear"
+  ],
+  "stars": 0
+}

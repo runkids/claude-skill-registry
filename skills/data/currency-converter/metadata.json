@@ -1,0 +1,11 @@
+{
+  "name": "currency-converter",
+  "description": "Convert currencies with real-time exchange rates, historical data, and multi-currency calculations.",
+  "repo": "dkyazzentwatwa/chatgpt-skills",
+  "category": "data",
+  "tags": [
+    "currency",
+    "converter"
+  ],
+  "stars": 1
+}

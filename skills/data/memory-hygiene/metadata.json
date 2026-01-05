@@ -1,0 +1,11 @@
+{
+  "name": "memory-hygiene",
+  "description": "Maintains memory cleanliness with deduplication, validation, and expiration",
+  "repo": "benreceveur/claude-workflow-engine",
+  "category": "data",
+  "tags": [
+    "memory",
+    "hygiene"
+  ],
+  "stars": 3
+}

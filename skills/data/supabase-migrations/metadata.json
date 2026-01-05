@@ -1,0 +1,11 @@
+{
+  "name": "supabase-migrations",
+  "description": "Create and manage Supabase database migrations using MCP tools. Use when creating tables, modifying schemas, adding RLS policies, or working with database structure.",
+  "repo": "jonit-dev/pixelperfect",
+  "category": "data",
+  "tags": [
+    "supabase",
+    "migrations"
+  ],
+  "stars": 0
+}

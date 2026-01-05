@@ -1,0 +1,12 @@
+{
+  "name": "voice-dna-creator",
+  "description": "Analyze writing samples to create a comprehensive voice DNA profile. Use when the user wants to capture their unique writing voice, needs to create a voice profile for AI content, or is setting up a n",
+  "repo": "az9713/ai-co-writing-claude-skills",
+  "category": "data",
+  "tags": [
+    "voice",
+    "dna",
+    "creator"
+  ],
+  "stars": 1
+}

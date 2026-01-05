@@ -1,0 +1,13 @@
+{
+  "name": "moai-alfred-expertise-detection",
+  "description": "Guide Alfred to detect user expertise level (Beginner/Intermediate/Expert) through in-session behavioral signals without memory file access",
+  "repo": "kivo360/quickhooks",
+  "category": "data",
+  "tags": [
+    "moai",
+    "alfred",
+    "expertise",
+    "detection"
+  ],
+  "stars": 0
+}

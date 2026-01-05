@@ -1,0 +1,11 @@
+{
+  "name": "land-branch",
+  "description": "Land a feature branch: pull from main, rebase the branch, create a PR, and merge it via rebase with automatic branch deletion. Use when ready to land a completed feature branch.",
+  "repo": "jkomoros/community-patterns",
+  "category": "data",
+  "tags": [
+    "land",
+    "branch"
+  ],
+  "stars": 6
+}

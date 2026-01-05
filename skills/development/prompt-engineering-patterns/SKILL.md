@@ -1,201 +1,201 @@
 ---
 name: prompt-engineering-patterns
-description: 掌握高级提示工程技术，以最大化生产环境中LLM的性能、可靠性和可控性。在优化提示、改进LLM输出或设计生产提示模板时使用。
+description: Master advanced prompt engineering techniques to maximize LLM performance, reliability, and controllability in production. Use when optimizing prompts, improving LLM outputs, or designing production prompt templates.
 ---
 
-# 提示工程模式
+# Prompt Engineering Patterns
 
-掌握高级提示工程技术，以最大化LLM的性能、可靠性和可控性。
+Master advanced prompt engineering techniques to maximize LLM performance, reliability, and controllability.
 
-## 何时使用此技能
+## When to Use This Skill
 
-- 为生产级LLM应用程序设计复杂提示
-- 优化提示性能和一致性
-- 实现结构化推理模式（思维链、思维树）
-- 构建具有动态示例选择的小样本学习系统
-- 创建具有变量插值功能可重用的提示模板
-- 调试和优化产生不一致输出的提示
-- 为专用AI助手实现系统提示
+- Designing complex prompts for production LLM applications
+- Optimizing prompt performance and consistency
+- Implementing structured reasoning patterns (chain-of-thought, tree-of-thought)
+- Building few-shot learning systems with dynamic example selection
+- Creating reusable prompt templates with variable interpolation
+- Debugging and refining prompts that produce inconsistent outputs
+- Implementing system prompts for specialized AI assistants
 
-## 核心能力
+## Core Capabilities
 
-### 1. 小样本学习
-- 示例选择策略（语义相似性、多样性采样）
-- 在上下文窗口约束下平衡示例数量
-- 构建有效的输入输出对示范
-- 从知识库动态检索示例
-- 通过策略性示例选择处理边界情况
+### 1. Few-Shot Learning
+- Example selection strategies (semantic similarity, diversity sampling)
+- Balancing example count with context window constraints
+- Constructing effective demonstrations with input-output pairs
+- Dynamic example retrieval from knowledge bases
+- Handling edge cases through strategic example selection
 
-### 2. 思维链提示
-- 逐步推理引导
-- 零样本CoT："让我们一步步思考"
-- 少样本CoT与推理轨迹
-- 自一致性技术（采样多个推理路径）
-- 验证和确认步骤
+### 2. Chain-of-Thought Prompting
+- Step-by-step reasoning elicitation
+- Zero-shot CoT with "Let's think step by step"
+- Few-shot CoT with reasoning traces
+- Self-consistency techniques (sampling multiple reasoning paths)
+- Verification and validation steps
 
-### 3. 提示优化
-- 迭代优化工作流
-- 提示变体的A/B测试
-- 测量提示性能指标（准确性、一致性、延迟）
-- 在保持质量的同时减少token使用
-- 处理边界情况和失败模式
+### 3. Prompt Optimization
+- Iterative refinement workflows
+- A/B testing prompt variations
+- Measuring prompt performance metrics (accuracy, consistency, latency)
+- Reducing token usage while maintaining quality
+- Handling edge cases and failure modes
 
-### 4. 模板系统
-- 变量插值和格式化
-- 条件提示部分
-- 多轮对话模板
-- 基于角色的提示组合
-- 模块化提示组件
+### 4. Template Systems
+- Variable interpolation and formatting
+- Conditional prompt sections
+- Multi-turn conversation templates
+- Role-based prompt composition
+- Modular prompt components
 
-### 5. 系统提示设计
-- 设置模型行为和约束
-- 定义输出格式和结构
-- 建立角色和专业能力
-- 安全准则和内容策略
-- 上下文设置和背景信息
+### 5. System Prompt Design
+- Setting model behavior and constraints
+- Defining output formats and structure
+- Establishing role and expertise
+- Safety guidelines and content policies
+- Context setting and background information
 
-## 快速开始
+## Quick Start
 
 ```python
 from prompt_optimizer import PromptTemplate, FewShotSelector
 
-# 定义结构化提示模板
+# Define a structured prompt template
 template = PromptTemplate(
-    system="你是一位专家级SQL开发者。生成高效、安全的SQL查询。",
-    instruction="将以下自然语言查询转换为SQL：\n{query}",
+    system="You are an expert SQL developer. Generate efficient, secure SQL queries.",
+    instruction="Convert the following natural language query to SQL:\n{query}",
     few_shot_examples=True,
-    output_format="带有解释性注释的SQL代码块"
+    output_format="SQL code block with explanatory comments"
 )
 
-# 配置小样本学习
+# Configure few-shot learning
 selector = FewShotSelector(
     examples_db="sql_examples.jsonl",
     selection_strategy="semantic_similarity",
     max_examples=3
 )
 
-# 生成优化提示
+# Generate optimized prompt
 prompt = template.render(
-    query="查找过去30天内注册的所有用户",
-    examples=selector.select(query="用户注册日期筛选")
+    query="Find all users who registered in the last 30 days",
+    examples=selector.select(query="user registration date filter")
 )
 ```
 
-## 关键模式
+## Key Patterns
 
-### 渐进式披露
-从简单提示开始，仅在需要时增加复杂性：
+### Progressive Disclosure
+Start with simple prompts, add complexity only when needed:
 
-1. **级别1**：直接指令
-   - "总结这篇文章"
+1. **Level 1**: Direct instruction
+   - "Summarize this article"
 
-2. **级别2**：添加约束
-   - "用3个要点总结这篇文章，重点关注关键发现"
+2. **Level 2**: Add constraints
+   - "Summarize this article in 3 bullet points, focusing on key findings"
 
-3. **级别3**：添加推理
-   - "阅读这篇文章，识别主要发现，然后用3个要点总结"
+3. **Level 3**: Add reasoning
+   - "Read this article, identify the main findings, then summarize in 3 bullet points"
 
-4. **级别4**：添加示例
-   - 包含2-3个带有输入输出对的示例总结
+4. **Level 4**: Add examples
+   - Include 2-3 example summaries with input-output pairs
 
-### 指令层次结构
+### Instruction Hierarchy
 ```
-[系统上下文] → [任务指令] → [示例] → [输入数据] → [输出格式]
+[System Context] → [Task Instruction] → [Examples] → [Input Data] → [Output Format]
 ```
 
-### 错误恢复
-构建能够优雅处理失败的提示：
-- 包含备用指令
-- 请求置信度分数
-- 在不确定时要求替代解释
-- 指定如何表示缺失信息
+### Error Recovery
+Build prompts that gracefully handle failures:
+- Include fallback instructions
+- Request confidence scores
+- Ask for alternative interpretations when uncertain
+- Specify how to indicate missing information
 
-## 最佳实践
+## Best Practices
 
-1. **具体明确**：模糊的提示会产生不一致的结果
-2. **展示而非描述**：示例比描述更有效
-3. **广泛测试**：在多样化、代表性的输入上进行评估
-4. **快速迭代**：小的改动可能产生重大影响
-5. **监控性能**：在生产环境中跟踪指标
-6. **版本控制**：将提示作为代码进行适当的版本管理
-7. **记录意图**：解释为什么提示要这样构建
+1. **Be Specific**: Vague prompts produce inconsistent results
+2. **Show, Don't Tell**: Examples are more effective than descriptions
+3. **Test Extensively**: Evaluate on diverse, representative inputs
+4. **Iterate Rapidly**: Small changes can have large impacts
+5. **Monitor Performance**: Track metrics in production
+6. **Version Control**: Treat prompts as code with proper versioning
+7. **Document Intent**: Explain why prompts are structured as they are
 
-## 常见陷阱
+## Common Pitfalls
 
-- **过度工程化**：在尝试简单提示之前就从复杂提示开始
-- **示例污染**：使用与目标任务不匹配的示例
-- **上下文溢出**：通过过多示例超出token限制
-- **模糊指令**：留出多种解释空间
-- **忽略边界情况**：不在异常或边界输入上测试
+- **Over-engineering**: Starting with complex prompts before trying simple ones
+- **Example pollution**: Using examples that don't match the target task
+- **Context overflow**: Exceeding token limits with excessive examples
+- **Ambiguous instructions**: Leaving room for multiple interpretations
+- **Ignoring edge cases**: Not testing on unusual or boundary inputs
 
-## 集成模式
+## Integration Patterns
 
-### 与RAG系统集成
+### With RAG Systems
 ```python
-# 将检索到的上下文与提示工程结合
-prompt = f"""基于以下上下文：
+# Combine retrieved context with prompt engineering
+prompt = f"""Given the following context:
 {retrieved_context}
 
 {few_shot_examples}
 
-问题：{user_question}
+Question: {user_question}
 
-仅根据上述上下文提供详细答案。如果上下文信息不足，请明确说明缺失的内容。"""
+Provide a detailed answer based solely on the context above. If the context doesn't contain enough information, explicitly state what's missing."""
 ```
 
-### 与验证集成
+### With Validation
 ```python
-# 添加自我验证步骤
+# Add self-verification step
 prompt = f"""{main_task_prompt}
 
-生成回答后，请验证其是否符合这些标准：
-1. 直接回答问题
-2. 仅使用所提供上下文中的信息
-3. 引用具体来源
-4. 承认任何不确定性
+After generating your response, verify it meets these criteria:
+1. Answers the question directly
+2. Uses only information from provided context
+3. Cites specific sources
+4. Acknowledges any uncertainty
 
-如果验证失败，请修改你的回答。"""
+If verification fails, revise your response."""
 ```
 
-## 性能优化
+## Performance Optimization
 
-### Token效率
-- 移除冗余词语和短语
-- 在首次定义后一致使用缩写
-- 合并相似指令
-- 将稳定内容移至系统提示
+### Token Efficiency
+- Remove redundant words and phrases
+- Use abbreviations consistently after first definition
+- Consolidate similar instructions
+- Move stable content to system prompts
 
-### 延迟降低
-- 在不牺牲质量的前提下最小化提示长度
-- 对长篇输出使用流式处理
-- 缓存常用提示前缀
-- 尽可能批量处理相似请求
+### Latency Reduction
+- Minimize prompt length without sacrificing quality
+- Use streaming for long-form outputs
+- Cache common prompt prefixes
+- Batch similar requests when possible
 
-## 资源
+## Resources
 
-- **references/few-shot-learning.md**：深入探讨示例选择和构建
-- **references/chain-of-thought.md**：高级推理引导技术
-- **references/prompt-optimization.md**：系统化优化工作流
-- **references/prompt-templates.md**：可重用模板模式
-- **references/system-prompts.md**：系统级提示设计
-- **assets/prompt-template-library.md**：经过实战检验的提示模板
-- **assets/few-shot-examples.json**：精选示例数据集
-- **scripts/optimize-prompt.py**：自动化提示优化工具
+- **references/few-shot-learning.md**: Deep dive on example selection and construction
+- **references/chain-of-thought.md**: Advanced reasoning elicitation techniques
+- **references/prompt-optimization.md**: Systematic refinement workflows
+- **references/prompt-templates.md**: Reusable template patterns
+- **references/system-prompts.md**: System-level prompt design
+- **assets/prompt-template-library.md**: Battle-tested prompt templates
+- **assets/few-shot-examples.json**: Curated example datasets
+- **scripts/optimize-prompt.py**: Automated prompt optimization tool
 
-## 成功指标
+## Success Metrics
 
-为你的提示跟踪这些KPI：
-- **准确性**：输出的正确性
-- **一致性**：相似输入的可重现性
-- **延迟**：响应时间（P50、P95、P99）
-- **Token使用**：每次请求的平均token数
-- **成功率**：有效输出的百分比
-- **用户满意度**：评分和反馈
+Track these KPIs for your prompts:
+- **Accuracy**: Correctness of outputs
+- **Consistency**: Reproducibility across similar inputs
+- **Latency**: Response time (P50, P95, P99)
+- **Token Usage**: Average tokens per request
+- **Success Rate**: Percentage of valid outputs
+- **User Satisfaction**: Ratings and feedback
 
-## 后续步骤
+## Next Steps
 
-1. 查看提示模板库中的常见模式
-2. 为你的特定用例尝试小样本学习
-3. 实现提示版本管理和A/B测试
-4. 设置自动化评估管道
-5. 记录你的提示工程决策和经验教训
+1. Review the prompt template library for common patterns
+2. Experiment with few-shot learning for your specific use case
+3. Implement prompt versioning and A/B testing
+4. Set up automated evaluation pipelines
+5. Document your prompt engineering decisions and learnings

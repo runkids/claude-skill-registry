@@ -1,0 +1,12 @@
+{
+  "name": "competitor-price-tracker",
+  "description": "Monitor competitor pricing pages and send alerts when prices change. Track discount patterns, promotional cycles, and pricing strategy shifts.",
+  "repo": "OneWave-AI/claude-skills",
+  "category": "devops",
+  "tags": [
+    "competitor",
+    "price",
+    "tracker"
+  ],
+  "stars": 10
+}

@@ -1,0 +1,11 @@
+{
+  "name": "pr-author-reviewer",
+  "description": "Raise PR quality with templates, checklists, and security reviews",
+  "repo": "benreceveur/claude-workflow-engine",
+  "category": "data",
+  "tags": [
+    "author",
+    "reviewer"
+  ],
+  "stars": 3
+}

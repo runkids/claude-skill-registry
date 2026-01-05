@@ -1,0 +1,10 @@
+{
+  "name": "tg-deployment",
+  "description": "Production deployment patterns for the World of Darkness Django application. Use when deploying to staging/production, configuring security settings, setting up Redis cache, planning database migratio",
+  "repo": "charlesmsiegel/tg",
+  "category": "data",
+  "tags": [
+    "deployment"
+  ],
+  "stars": 1
+}

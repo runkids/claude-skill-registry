@@ -1,0 +1,12 @@
+{
+  "name": "kml-geojson-converter",
+  "description": "Use when asked to convert between KML and GeoJSON formats, or convert geo data for mapping applications.",
+  "repo": "dkyazzentwatwa/chatgpt-skills",
+  "category": "data",
+  "tags": [
+    "kml",
+    "geojson",
+    "converter"
+  ],
+  "stars": 1
+}

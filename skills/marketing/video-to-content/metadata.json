@@ -1,0 +1,11 @@
+{
+  "name": "video-to-content",
+  "description": "Convert video transcripts, podcasts, and SRT files into blog posts, social clips, and other content formats. Use for repurposing video content.",
+  "repo": "mattppal/prompts",
+  "category": "marketing",
+  "tags": [
+    "video",
+    "content"
+  ],
+  "stars": 0
+}

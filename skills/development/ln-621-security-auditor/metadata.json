@@ -1,0 +1,13 @@
+{
+  "name": "ln-621-security-auditor",
+  "description": "Security vulnerability scanning for codebases",
+  "repo": "levnikolaevich/claude-code-skills",
+  "category": "development",
+  "tags": [
+    "security",
+    "audit",
+    "vulnerabilities",
+    "linear"
+  ],
+  "stars": 0
+}

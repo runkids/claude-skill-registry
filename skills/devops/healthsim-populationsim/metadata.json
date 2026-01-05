@@ -1,0 +1,11 @@
+{
+  "name": "healthsim-populationsim",
+  "description": "PopulationSim provides population-level intelligence using public data sources. Use this skill for ANY request involving: (1) population demographics or profiles, (2) geographic health patterns or dis",
+  "repo": "mark64oswald/healthsim-workspace",
+  "category": "devops",
+  "tags": [
+    "healthsim",
+    "populationsim"
+  ],
+  "stars": 3
+}

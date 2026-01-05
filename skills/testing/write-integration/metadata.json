@@ -1,0 +1,11 @@
+{
+  "name": "write-integration",
+  "description": "Write external integrations following the Epic architecture patterns. Use when creating services for third-party APIs, email, payments, or complex business logic. Triggers on \"create an integration\", ",
+  "repo": "coeus-ventures/web-template",
+  "category": "testing",
+  "tags": [
+    "write",
+    "integration"
+  ],
+  "stars": 0
+}

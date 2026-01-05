@@ -1,0 +1,12 @@
+{
+  "name": "nextjs-app-router",
+  "description": "Next.js 15 App Router patterns for Server/Client Components, async params, layouts, route handlers, Server Actions, and data fetching. Use when creating routes, pages, layouts, API endpoints, or imple",
+  "repo": "canatufkansu/claude-skills",
+  "category": "data",
+  "tags": [
+    "nextjs",
+    "app",
+    "router"
+  ],
+  "stars": 0
+}

@@ -1,12 +1,6 @@
 {
   "name": "executing-plans",
-  "description": "Use when you have a written implementation plan to execute in a separate session with review checkpoints",
-  "repo": "abudhahir/cp-ninja",
+  "repo": "obra/superpowers",
   "category": "development",
-  "tags": [
-    "executing",
-    "plans"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "Superpowers"
 }

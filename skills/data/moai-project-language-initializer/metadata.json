@@ -1,0 +1,13 @@
+{
+  "name": "moai-project-language-initializer",
+  "description": "Handle comprehensive project language and user setup workflows including language selection, agent prompt configuration, user profiles, team settings, and domain selection",
+  "repo": "kivo360/quickhooks",
+  "category": "data",
+  "tags": [
+    "moai",
+    "project",
+    "language",
+    "initializer"
+  ],
+  "stars": 0
+}

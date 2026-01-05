@@ -1,0 +1,11 @@
+{
+  "name": "tzurot-db-vector",
+  "description": "PostgreSQL and pgvector patterns for Tzurot v3 - Connection management, vector operations, migrations, and Railway-specific considerations. Use when working with database or memory retrieval.",
+  "repo": "lbds137/tzurot",
+  "category": "data",
+  "tags": [
+    "tzurot",
+    "vector"
+  ],
+  "stars": 7
+}

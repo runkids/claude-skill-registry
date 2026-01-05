@@ -1,0 +1,12 @@
+{
+  "name": "theory-grounding-reflector",
+  "description": "Extract lessons from task failures using Reflector agent, merge insights via Curator pattern, achieving 10% accuracy improvement without context collapse. Use for post-failure analysis, lesson extract",
+  "repo": "dredd-us/seashells",
+  "category": "development",
+  "tags": [
+    "theory",
+    "grounding",
+    "reflector"
+  ],
+  "stars": 0
+}

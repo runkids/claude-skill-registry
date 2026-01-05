@@ -1,0 +1,12 @@
+{
+  "name": "global-coding-style",
+  "description": "Apply consistent coding style and formatting standards using automated tools (ESLint, Prettier, Ruff) with clear naming conventions, top-down code organization, and appropriate function/component sizi",
+  "repo": "TheophilusChinomona/theochinomona.tech",
+  "category": "data",
+  "tags": [
+    "global",
+    "coding",
+    "style"
+  ],
+  "stars": 0
+}

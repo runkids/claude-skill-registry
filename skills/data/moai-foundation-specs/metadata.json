@@ -1,0 +1,12 @@
+{
+  "name": "moai-foundation-specs",
+  "description": "SPEC YAML frontmatter validation (7 required fields) and HISTORY section enforcement.",
+  "repo": "kivo360/quickhooks",
+  "category": "data",
+  "tags": [
+    "moai",
+    "foundation",
+    "specs"
+  ],
+  "stars": 0
+}

@@ -1,0 +1,11 @@
+{
+  "name": "network-diagnostics",
+  "description": "Automated network troubleshooting and diagnostics for WSL/Linux environments",
+  "repo": "jackspace/ClaudeSkillz",
+  "category": "design",
+  "tags": [
+    "network",
+    "diagnostics"
+  ],
+  "stars": 0
+}

@@ -1,0 +1,12 @@
+{
+  "name": "sql-query-optimization",
+  "description": "Analyze and optimize SQL queries for performance. Use when improving slow queries, reducing execution time, or analyzing query performance in PostgreSQL and MySQL.",
+  "repo": "aj-geddes/useful-ai-prompts",
+  "category": "data",
+  "tags": [
+    "sql",
+    "query",
+    "optimization"
+  ],
+  "stars": 25
+}

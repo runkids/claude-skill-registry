@@ -1,0 +1,10 @@
+{
+  "name": "vague",
+  "description": "Use when writing Vague (.vague) files - a declarative language for generating realistic test data with superposition, constraints, and cross-references",
+  "repo": "mcclowes/omg",
+  "category": "data",
+  "tags": [
+    "vague"
+  ],
+  "stars": 1
+}

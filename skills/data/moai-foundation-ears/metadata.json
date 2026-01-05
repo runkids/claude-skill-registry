@@ -1,0 +1,12 @@
+{
+  "name": "moai-foundation-ears",
+  "description": "EARS requirement authoring guide (Ubiquitous/Event-driven/State-driven/Optional/Unwanted Behaviors) with 5 official patterns.",
+  "repo": "kivo360/quickhooks",
+  "category": "data",
+  "tags": [
+    "moai",
+    "foundation",
+    "ears"
+  ],
+  "stars": 0
+}

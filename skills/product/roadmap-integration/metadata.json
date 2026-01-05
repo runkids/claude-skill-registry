@@ -1,0 +1,11 @@
+{
+  "name": "roadmap-integration",
+  "description": "\"Standard Operating Procedure for /roadmap usage. Manage product roadmap via GitHub Issues (brainstorm, prioritize, track). Auto-validates features against project vision (from overview.md) before add",
+  "repo": "marcusgoll/robinhood-algo-trading-bot",
+  "category": "product",
+  "tags": [
+    "roadmap",
+    "integration"
+  ],
+  "stars": 0
+}

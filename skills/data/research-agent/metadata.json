@@ -1,0 +1,11 @@
+{
+  "name": "research-agent",
+  "description": "Use when researching AI agents, LLMs, hosting solutions, OCR technologies, video generation models, or evaluating technology stacks. Apply when user asks to research, compare, evaluate, or investigate",
+  "repo": "MRenAIAgent/mini_agent",
+  "category": "data",
+  "tags": [
+    "research",
+    "agent"
+  ],
+  "stars": 0
+}

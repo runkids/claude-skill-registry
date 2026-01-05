@@ -1,0 +1,13 @@
+{
+  "name": "moai-alfred-session-state",
+  "description": "Session state management, runtime state tracking, session handoff protocols, and context continuity for Alfred workflows",
+  "repo": "kivo360/quickhooks",
+  "category": "data",
+  "tags": [
+    "moai",
+    "alfred",
+    "session",
+    "state"
+  ],
+  "stars": 0
+}

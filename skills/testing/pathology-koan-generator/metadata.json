@@ -1,0 +1,12 @@
+{
+  "name": "pathology-koan-generator",
+  "description": "Generate diagnostic koans to test reasoning boundaries and edge cases.",
+  "repo": "starwreckntx/IRP__METHODOLOGIES-",
+  "category": "testing",
+  "tags": [
+    "pathology",
+    "koan",
+    "generator"
+  ],
+  "stars": 1
+}

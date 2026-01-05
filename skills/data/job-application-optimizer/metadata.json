@@ -1,0 +1,12 @@
+{
+  "name": "job-application-optimizer",
+  "description": "Optimize job applications by tailoring resumes to job postings, generating customized cover letters, and preparing role-specific interview questions. Analyzes job descriptions to highlight relevant sk",
+  "repo": "OneWave-AI/claude-skills",
+  "category": "data",
+  "tags": [
+    "job",
+    "application",
+    "optimizer"
+  ],
+  "stars": 10
+}

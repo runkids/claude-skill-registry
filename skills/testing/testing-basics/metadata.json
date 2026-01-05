@@ -1,0 +1,11 @@
+{
+  "name": "testing-basics",
+  "description": "Essential testing patterns for any project.Use when: writing tests, setting up testing, or fixing test issues.Triggers: \"test\", \"testing\", \"unit test\", \"write tests\".",
+  "repo": "timequity/vibe-coder",
+  "category": "testing",
+  "tags": [
+    "testing",
+    "basics"
+  ],
+  "stars": 0
+}

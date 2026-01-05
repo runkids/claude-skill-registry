@@ -1,0 +1,12 @@
+{
+  "name": "scientific-email-polishing",
+  "description": "Use when writing or polishing professional scientific emails, journal cover letters, or responses to reviewers. Invoke when user mentions email to collaborator, cover letter to editor, reviewer respon",
+  "repo": "lyndonkl/claude",
+  "category": "data",
+  "tags": [
+    "scientific",
+    "email",
+    "polishing"
+  ],
+  "stars": 8
+}

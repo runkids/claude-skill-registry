@@ -1,0 +1,11 @@
+{
+  "name": "sikhaid-data",
+  "description": "Use when working with data, state management, Firebase, or Firestore in SikhAid project. Covers Svelte stores, data flow patterns, Firebase initialization, Firestore CRUD operations, and data types.",
+  "repo": "the-non-expert/SikhAidSPA",
+  "category": "data",
+  "tags": [
+    "sikhaid",
+    "data"
+  ],
+  "stars": 0
+}

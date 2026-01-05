@@ -1,0 +1,12 @@
+{
+  "name": "pnpm-workspace-generator",
+  "description": "Generate pnpm workspace configuration files for monorepo package management. Triggers on \"create pnpm workspace\", \"generate pnpm-workspace.yaml\", \"pnpm monorepo setup\", \"workspace config\".",
+  "repo": "ehtbanton/ClaudeSkillsRepo",
+  "category": "data",
+  "tags": [
+    "pnpm",
+    "workspace",
+    "generator"
+  ],
+  "stars": 0
+}

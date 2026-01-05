@@ -1,0 +1,12 @@
+{
+  "name": "window-function-builder",
+  "description": "Эксперт SQL window functions. Используй для аналитических запросов, OVER clauses и ranking functions.",
+  "repo": "dengineproblem/agents-monorepo",
+  "category": "development",
+  "tags": [
+    "window",
+    "function",
+    "builder"
+  ],
+  "stars": 0
+}

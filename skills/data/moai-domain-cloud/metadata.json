@@ -1,0 +1,12 @@
+{
+  "name": "moai-domain-cloud",
+  "description": "\"Enterprise-grade cloud architecture expertise with production-ready patterns for AWS (Lambda 3.13, ECS/Fargate 1.4.0, RDS, CDK 2.223.0), GCP (Cloud Run Gen2, Cloud Functions 2nd gen, Cloud SQL), Azur",
+  "repo": "dolsoon/my-awesome-project",
+  "category": "data",
+  "tags": [
+    "moai",
+    "domain",
+    "cloud"
+  ],
+  "stars": 0
+}

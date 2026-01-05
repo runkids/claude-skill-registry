@@ -1,0 +1,12 @@
+{
+  "name": "orchestration-coordination-framework",
+  "description": "Production-scale multi-agent coordination, task orchestration, and workflow automation. Use for distributed system orchestration, agent communication protocols, DAG workflows, state machines, error ha",
+  "repo": "doctorduke/claude-config",
+  "category": "productivity",
+  "tags": [
+    "orchestration",
+    "coordination",
+    "framework"
+  ],
+  "stars": 0
+}

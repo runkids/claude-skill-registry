@@ -1,0 +1,12 @@
+{
+  "name": "learning-faq-generator",
+  "description": "Generate comprehensive FAQs from common learner questions, analytics, discussion forums, and support tickets. Use for self-service support. Activates on \"FAQ\", \"common questions\", \"help documentation\"",
+  "repo": "pauljbernard/content",
+  "category": "documents",
+  "tags": [
+    "learning",
+    "faq",
+    "generator"
+  ],
+  "stars": 0
+}

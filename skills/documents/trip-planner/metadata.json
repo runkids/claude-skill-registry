@@ -1,0 +1,11 @@
+{
+  "name": "trip-planner",
+  "description": "Create detailed travel itineraries with activities, logistics, and day-by-day schedules. Use for vacation planning, trip organization, and travel documentation.",
+  "repo": "mattppal/prompts",
+  "category": "documents",
+  "tags": [
+    "trip",
+    "planner"
+  ],
+  "stars": 0
+}

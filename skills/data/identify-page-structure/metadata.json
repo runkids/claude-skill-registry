@@ -1,0 +1,12 @@
+{
+  "name": "identify-page-structure",
+  "description": "Identify section boundaries and content sequences within a scraped webpage for AEM Edge Delivery Services import. Performs two-level analysis (sections, then sequences per section) and surveys availab",
+  "repo": "ddttom/webcomponents-with-eds",
+  "category": "data",
+  "tags": [
+    "identify",
+    "page",
+    "structure"
+  ],
+  "stars": 5
+}

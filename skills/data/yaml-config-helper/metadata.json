@@ -1,0 +1,12 @@
+{
+  "name": "yaml-config-helper",
+  "description": "Validate, format, and troubleshoot YAML configuration files",
+  "repo": "jackspace/ClaudeSkillz",
+  "category": "data",
+  "tags": [
+    "yaml",
+    "config",
+    "helper"
+  ],
+  "stars": 0
+}

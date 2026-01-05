@@ -1,0 +1,11 @@
+{
+  "name": "seo-lookup",
+  "description": "Looks up SEO best practices for meta tags, Open Graph, Twitter Cards, and structured data (JSON-LD), returning Google/official documentation URLs with concise summaries. Use when user asks about SEO r",
+  "repo": "naporin0624/claude-web-audit-plugins",
+  "category": "documents",
+  "tags": [
+    "seo",
+    "lookup"
+  ],
+  "stars": 0
+}

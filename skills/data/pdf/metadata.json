@@ -1,0 +1,10 @@
+{
+  "name": "pdf",
+  "description": "\"Comprehensive PDF manipulation, extraction, and generation with support for text extraction, form filling, merging, splitting, annotations, and creation. Use when working with .pdf files for: (1) Ext",
+  "repo": "AutumnsGrove/ClaudeSkills",
+  "category": "data",
+  "tags": [
+    "pdf"
+  ],
+  "stars": 1
+}

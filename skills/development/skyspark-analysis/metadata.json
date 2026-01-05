@@ -1,0 +1,11 @@
+{
+  "name": "skyspark-analysis",
+  "description": "SkySpark analytics for building automation systems including Axon queries, trend analysis, fault detection, and performance optimization using haystack tagging standards",
+  "repo": "mbcoalson/skills",
+  "category": "development",
+  "tags": [
+    "skyspark",
+    "analysis"
+  ],
+  "stars": 0
+}

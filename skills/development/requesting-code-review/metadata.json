@@ -1,13 +1,6 @@
 {
   "name": "requesting-code-review",
-  "description": "Use when completing tasks, implementing major features, or before merging to verify work meets requirements",
-  "repo": "davila7/claude-code-templates",
+  "repo": "obra/superpowers",
   "category": "development",
-  "tags": [
-    "requesting",
-    "code",
-    "review"
-  ],
-  "stars": 14334,
-  "source": "SkillsMP Synced Skills"
+  "source": "Superpowers"
 }

@@ -1,11 +1,6 @@
 {
   "name": "brainstorming",
-  "description": "Use when creating or developing anything, before writing code or implementation plans - refines rough ideas into fully-formed designs through structured Socratic questioning, alternative exploration, ",
-  "repo": "alexsandrocruz/ZenPowers",
+  "repo": "obra/superpowers",
   "category": "development",
-  "tags": [
-    "brainstorming"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "source": "Superpowers"
 }

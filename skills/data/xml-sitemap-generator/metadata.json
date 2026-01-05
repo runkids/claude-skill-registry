@@ -1,0 +1,12 @@
+{
+  "name": "xml-sitemap-generator",
+  "description": "Generate valid XML sitemap files for websites with proper URL entries, priorities, change frequencies, and optional image/video extensions. Triggers on \"create sitemap\", \"generate sitemap.xml\", \"XML s",
+  "repo": "ehtbanton/ClaudeSkillsRepo",
+  "category": "data",
+  "tags": [
+    "xml",
+    "sitemap",
+    "generator"
+  ],
+  "stars": 0
+}

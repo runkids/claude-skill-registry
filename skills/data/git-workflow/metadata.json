@@ -1,0 +1,11 @@
+{
+  "name": "git-workflow",
+  "description": "Quick reference for common Git commands and workflows. Use when working with version control, committing changes, managing branches, or resolving Git issues. Covers daily Git operations, branching str",
+  "repo": "dudusoar/skillOS",
+  "category": "data",
+  "tags": [
+    "git",
+    "workflow"
+  ],
+  "stars": 0
+}

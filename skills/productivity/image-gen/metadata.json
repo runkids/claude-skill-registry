@@ -1,0 +1,11 @@
+{
+  "name": "image-gen",
+  "description": "Generate images using Google's Nano Banana Pro (Gemini 3 Pro Image) with workflow-based prompting",
+  "repo": "krishagel/geoffrey",
+  "category": "productivity",
+  "tags": [
+    "image",
+    "gen"
+  ],
+  "stars": 0
+}

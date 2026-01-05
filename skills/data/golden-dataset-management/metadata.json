@@ -1,0 +1,12 @@
+{
+  "name": "golden-dataset-management",
+  "description": "Backup, restore, and validate golden datasets for AI/ML systems - ensuring test data integrity and preventing catastrophic data loss",
+  "repo": "yonatangross/create-yg-app",
+  "category": "data",
+  "tags": [
+    "golden",
+    "dataset",
+    "management"
+  ],
+  "stars": 0
+}

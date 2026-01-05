@@ -1,0 +1,11 @@
+{
+  "name": "docker-security",
+  "description": "Secure Docker containers and images with hardening, scanning, and secrets management",
+  "repo": "pluginagentmarketplace/custom-plugin-docker",
+  "category": "data",
+  "tags": [
+    "docker",
+    "security"
+  ],
+  "stars": 1
+}

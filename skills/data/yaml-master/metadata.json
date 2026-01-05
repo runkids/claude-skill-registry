@@ -1,0 +1,11 @@
+{
+  "name": "yaml-master",
+  "description": "Proactive YAML intelligence: automatically activates when working with YAML files.Use when appropriate context detected. Trigger with relevant phrases based on skill purpose.",
+  "repo": "gahoccode/PRDs",
+  "category": "data",
+  "tags": [
+    "yaml",
+    "master"
+  ],
+  "stars": 0
+}

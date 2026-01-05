@@ -1,0 +1,11 @@
+{
+  "name": "database-migrator",
+  "description": "Schema version control, migration script generation, rollback management",
+  "repo": "benreceveur/claude-workflow-engine",
+  "category": "data",
+  "tags": [
+    "database",
+    "migrator"
+  ],
+  "stars": 3
+}

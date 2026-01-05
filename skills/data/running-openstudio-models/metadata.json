@@ -1,0 +1,12 @@
+{
+  "name": "running-openstudio-models",
+  "description": "Use this skill when working with OpenStudio 3.10 .osm models to adjust HVAC systems, equipment, thermal zones, schedules, or constructions, then run simulations to validate changes. Handles applying e",
+  "repo": "mbcoalson/skills",
+  "category": "data",
+  "tags": [
+    "running",
+    "openstudio",
+    "models"
+  ],
+  "stars": 0
+}

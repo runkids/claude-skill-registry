@@ -1,0 +1,12 @@
+{
+  "name": "postgres-query-expert",
+  "description": "A comprehensive guide for interacting with PostgreSQL 16 databases. Use this skill for constructing standard and advanced SQL queries, optimizing performance, debugging errors, managing schema objects",
+  "repo": "ratacat/claude-skills",
+  "category": "data",
+  "tags": [
+    "postgres",
+    "query",
+    "expert"
+  ],
+  "stars": 8
+}

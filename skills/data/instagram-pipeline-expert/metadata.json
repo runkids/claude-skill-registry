@@ -1,0 +1,12 @@
+{
+  "name": "instagram-pipeline-expert",
+  "description": "Expert knowledge on Instagram search providers (Serper vs Apify), rate limiting, data normalization, and cost optimization. Use this skill when user asks about \"instagram search\", \"serper\", \"apify\", \"",
+  "repo": "Sanchay-T/influencer-platform-app",
+  "category": "data",
+  "tags": [
+    "instagram",
+    "pipeline",
+    "expert"
+  ],
+  "stars": 1
+}

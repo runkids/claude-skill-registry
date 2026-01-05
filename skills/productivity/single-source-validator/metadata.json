@@ -1,0 +1,12 @@
+{
+  "name": "single-source-validator",
+  "description": "ENFORCEMENT tool that detects when Skills automation is duplicated in agent definitions, lessons learned, or process docs. Prevents \"single source of truth nightmare\" by finding bash commands, step-by",
+  "repo": "DarkMonkDev/WitchCityRope",
+  "category": "productivity",
+  "tags": [
+    "single",
+    "source",
+    "validator"
+  ],
+  "stars": 0
+}

@@ -1,13 +1,6 @@
 {
   "name": "dispatching-parallel-agents",
-  "description": "Use multiple Claude agents to investigate and fix independent problems concurrently",
-  "repo": "bobmatnyc/claude-mpm",
+  "repo": "obra/superpowers",
   "category": "development",
-  "tags": [
-    "dispatching",
-    "parallel",
-    "agents"
-  ],
-  "stars": 33,
-  "source": "SkillsMP Synced Skills"
+  "source": "Superpowers"
 }

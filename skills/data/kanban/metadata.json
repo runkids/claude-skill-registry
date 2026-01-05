@@ -1,0 +1,10 @@
+{
+  "name": "kanban",
+  "description": "Kanban methodology including boards, WIP limits, flow metrics, and continuous delivery. Activate for Kanban boards, workflow visualization, and lean project management.",
+  "repo": "Lobbi-Docs/claude",
+  "category": "data",
+  "tags": [
+    "kanban"
+  ],
+  "stars": 0
+}

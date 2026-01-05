@@ -1,0 +1,11 @@
+{
+  "name": "gmail-intelligence",
+  "description": "Transform Gmail into a business intelligence system for MTL Craft Cocktails. Answer questions about emails, detect leads, draft responses, and track client communications with context about the cockta",
+  "repo": "ashleytower/claude-skills-collection",
+  "category": "data",
+  "tags": [
+    "gmail",
+    "intelligence"
+  ],
+  "stars": 0
+}

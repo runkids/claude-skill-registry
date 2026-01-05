@@ -1,0 +1,11 @@
+{
+  "name": "writing-specs",
+  "description": "Creates feature specifications capturing requirements and acceptance criteria. Use when writing specs, documenting features, or defining requirements.",
+  "repo": "jkappers/claude-code-software-delivery-plugin",
+  "category": "design",
+  "tags": [
+    "writing",
+    "specs"
+  ],
+  "stars": 0
+}

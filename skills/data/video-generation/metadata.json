@@ -1,0 +1,11 @@
+{
+  "name": "video-generation",
+  "description": "AI video generation with Sora, Veo, and Kling. Use when creating Reels, video prompts, or handling video generation workflows.",
+  "repo": "olivenet-iot/olivenet-social-bot",
+  "category": "data",
+  "tags": [
+    "video",
+    "generation"
+  ],
+  "stars": 0
+}

@@ -1,0 +1,10 @@
+{
+  "name": "logging",
+  "description": "Centralized logging with ELK Stack, Loki, Fluentd, and log analysis for distributed systems",
+  "repo": "pluginagentmarketplace/custom-plugin-devops",
+  "category": "development",
+  "tags": [
+    "logging"
+  ],
+  "stars": 2
+}

@@ -1,0 +1,13 @@
+{
+  "name": "moai-project-batch-questions",
+  "description": "Standardize AskUserQuestion patterns and provide reusable question templates for batch optimization",
+  "repo": "kivo360/quickhooks",
+  "category": "data",
+  "tags": [
+    "moai",
+    "project",
+    "batch",
+    "questions"
+  ],
+  "stars": 0
+}

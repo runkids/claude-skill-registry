@@ -1,0 +1,12 @@
+{
+  "name": "golden-dataset-validation",
+  "description": "Validation rules, schema checks, duplicate detection, and coverage analysis for golden dataset integrity",
+  "repo": "yonatangross/create-yg-app",
+  "category": "data",
+  "tags": [
+    "golden",
+    "dataset",
+    "validation"
+  ],
+  "stars": 0
+}

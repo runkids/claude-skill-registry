@@ -1,0 +1,12 @@
+{
+  "name": "using-git-spice",
+  "description": "Use when working with stacked branches, managing dependent PRs/CRs, or uncertain about git-spice commands (stack vs upstack vs downstack) - provides command reference, workflow patterns, and common pi",
+  "repo": "arittr/spectacular",
+  "category": "data",
+  "tags": [
+    "using",
+    "git",
+    "spice"
+  ],
+  "stars": 5
+}

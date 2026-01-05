@@ -1,0 +1,11 @@
+{
+  "name": "moai-cc-skills",
+  "description": "Creating and Optimizing Claude Code Skills. Design reusable knowledge capsules with progressive disclosure (metadata → content → resources). Apply freedom levels (high/medium/low), create examples, va",
+  "repo": "kivo360/quickhooks",
+  "category": "data",
+  "tags": [
+    "moai",
+    "skills"
+  ],
+  "stars": 0
+}

@@ -1,0 +1,12 @@
+{
+  "name": "connect-mcp-server",
+  "description": "Guide for connecting MCP (Model Context Protocol) servers to Claude Code with HTTP, stdio, and SSE transports. Covers installation, configuration, authentication, environment variables, and security. ",
+  "repo": "ronnycoding/.claude",
+  "category": "development",
+  "tags": [
+    "connect",
+    "mcp",
+    "server"
+  ],
+  "stars": 3
+}

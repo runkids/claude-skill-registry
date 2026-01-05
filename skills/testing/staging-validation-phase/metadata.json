@@ -1,0 +1,12 @@
+{
+  "name": "staging-validation-phase",
+  "description": "\"Standard Operating Procedure for staging validation. Manual testing before production.\"",
+  "repo": "marcusgoll/robinhood-algo-trading-bot",
+  "category": "testing",
+  "tags": [
+    "staging",
+    "validation",
+    "phase"
+  ],
+  "stars": 0
+}

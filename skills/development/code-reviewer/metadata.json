@@ -1,12 +1,5 @@
 {
   "name": "code-reviewer",
-  "description": "Use during verification phase when conducting thorough code reviews and providing constructive feedback based on universal software quality principles.",
-  "repo": "TheBushidoCollective/han",
-  "category": "development",
-  "tags": [
-    "code",
-    "reviewer"
-  ],
-  "stars": 45,
-  "source": "SkillsMP Synced Skills"
+  "repo": "alirezarezvani/claude-skills",
+  "category": "development"
 }

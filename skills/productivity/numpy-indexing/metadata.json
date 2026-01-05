@@ -1,0 +1,11 @@
+{
+  "name": "numpy-indexing",
+  "description": "Advanced indexing techniques including slicing, fancy indexing, and boolean masks, along with memory implications of views vs. copies. Triggers: indexing, slicing, fancy indexing, boolean mask, np.whe",
+  "repo": "cuba6112/skillfactory",
+  "category": "productivity",
+  "tags": [
+    "numpy",
+    "indexing"
+  ],
+  "stars": 0
+}

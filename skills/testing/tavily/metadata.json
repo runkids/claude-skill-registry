@@ -1,0 +1,10 @@
+{
+  "name": "tavily",
+  "description": "Tavily AI search API integration via curl. Use this skill to perform live web search and RAG-style retrieval.",
+  "repo": "vm0-ai/vm0-skills",
+  "category": "testing",
+  "tags": [
+    "tavily"
+  ],
+  "stars": 8
+}

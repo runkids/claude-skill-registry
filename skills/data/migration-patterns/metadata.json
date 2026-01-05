@@ -1,0 +1,11 @@
+{
+  "name": "migration-patterns",
+  "description": "Database migration creation with mandatory RLS policies and ARCHitect approval workflow. Use when creating migrations, adding tables with RLS, or updating Prisma schema.",
+  "repo": "bybren-llc/wtfb-safe-agentic-workflow",
+  "category": "data",
+  "tags": [
+    "migration",
+    "patterns"
+  ],
+  "stars": 11
+}

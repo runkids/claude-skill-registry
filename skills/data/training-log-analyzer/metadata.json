@@ -1,0 +1,12 @@
+{
+  "name": "training-log-analyzer",
+  "description": "Track workouts, stats, progress over time. Identify improvement areas, plateaus, rest/recovery needs, peak performance timing, injury risk.",
+  "repo": "OneWave-AI/claude-skills",
+  "category": "data",
+  "tags": [
+    "training",
+    "log",
+    "analyzer"
+  ],
+  "stars": 10
+}

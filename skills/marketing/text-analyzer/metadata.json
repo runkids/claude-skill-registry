@@ -1,0 +1,11 @@
+{
+  "name": "text-analyzer",
+  "description": "Comprehensive text analysis coordinator. Execute Python script for multi-aspect text analysis. Use when you need grammar, sentiment, readability, and SEO analysis combined.",
+  "repo": "yoshiwatanabe/agent-patterns",
+  "category": "marketing",
+  "tags": [
+    "text",
+    "analyzer"
+  ],
+  "stars": 0
+}

@@ -1,0 +1,11 @@
+{
+  "name": "game-loop",
+  "description": "Server-side game loop implementation with fixed timestep, physics simulation, and tick rate optimization",
+  "repo": "pluginagentmarketplace/custom-plugin-server-side-game-dev",
+  "category": "development",
+  "tags": [
+    "game",
+    "loop"
+  ],
+  "stars": 1
+}

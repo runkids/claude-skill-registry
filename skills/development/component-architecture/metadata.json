@@ -1,0 +1,11 @@
+{
+  "name": "component-architecture",
+  "description": "Reusable component patterns for cards, sections, forms, and layouts with consistent prop interfaces and composition strategies. Use when creating new components, refactoring existing ones, or establis",
+  "repo": "canatufkansu/claude-skills",
+  "category": "development",
+  "tags": [
+    "component",
+    "architecture"
+  ],
+  "stars": 0
+}

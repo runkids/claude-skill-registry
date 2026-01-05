@@ -1,0 +1,13 @@
+{
+  "name": "pubmed-multi-source-search",
+  "description": "Cross-database search using multiple academic sources. Triggers: 跨資料庫, multi-source, Semantic Scholar, OpenAlex, CORE, Europe PMC, 綜合搜尋",
+  "repo": "u9401066/pubmed-search-mcp",
+  "category": "data",
+  "tags": [
+    "pubmed",
+    "multi",
+    "source",
+    "search"
+  ],
+  "stars": 0
+}

@@ -1,0 +1,11 @@
+{
+  "name": "numpy-interop",
+  "description": "Protocols for cross-library data exchange including DLPack, buffer interfaces, and __array_ufunc__ for overriding NumPy functions. Triggers: DLPack, interoperability, __array_interface__, __array_ufun",
+  "repo": "cuba6112/skillfactory",
+  "category": "data",
+  "tags": [
+    "numpy",
+    "interop"
+  ],
+  "stars": 0
+}

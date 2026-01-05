@@ -1,0 +1,12 @@
+{
+  "name": "security-headers-configuration",
+  "description": "Configure HTTP security headers including CSP, HSTS, X-Frame-Options, and XSS protection. Use when hardening web applications against common attacks.",
+  "repo": "aj-geddes/useful-ai-prompts",
+  "category": "data",
+  "tags": [
+    "security",
+    "headers",
+    "configuration"
+  ],
+  "stars": 25
+}

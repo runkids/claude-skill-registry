@@ -1,0 +1,12 @@
+{
+  "name": "queue-based-flow",
+  "description": "Stack prompts in queue while agent runs, minimizing context switches to achieve sustained 6k lines per day output and preserved flow state. Use for heavy coding sessions, iterative refinements, rapid ",
+  "repo": "dredd-us/seashells",
+  "category": "data",
+  "tags": [
+    "queue",
+    "based",
+    "flow"
+  ],
+  "stars": 0
+}

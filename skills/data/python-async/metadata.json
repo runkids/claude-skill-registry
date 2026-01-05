@@ -1,0 +1,11 @@
+{
+  "name": "python-async",
+  "description": "Asyncio patterns in Python for high-concurrency IO-bound tasks. Includes coroutines, task management, and asynchronous resource handling. Triggers: asyncio, python-async, coroutine, await, async-gathe",
+  "repo": "cuba6112/skillfactory",
+  "category": "data",
+  "tags": [
+    "python",
+    "async"
+  ],
+  "stars": 0
+}

@@ -1,0 +1,12 @@
+{
+  "name": "redis-advanced-types",
+  "description": "Master Redis advanced data types - Bitmaps, HyperLogLog, Streams, and Geospatial indexes for specialized use cases",
+  "repo": "pluginagentmarketplace/custom-plugin-redis",
+  "category": "data",
+  "tags": [
+    "redis",
+    "advanced",
+    "types"
+  ],
+  "stars": 1
+}

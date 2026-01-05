@@ -1,0 +1,12 @@
+{
+  "name": "kinesis-stream-processor",
+  "description": "Эксперт AWS Kinesis. Используй для stream processing, real-time data и Kinesis patterns.",
+  "repo": "dengineproblem/agents-monorepo",
+  "category": "data",
+  "tags": [
+    "kinesis",
+    "stream",
+    "processor"
+  ],
+  "stars": 0
+}

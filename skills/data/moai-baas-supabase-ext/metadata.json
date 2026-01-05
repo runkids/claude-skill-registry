@@ -1,0 +1,13 @@
+{
+  "name": "moai-baas-supabase-ext",
+  "description": "Enterprise Supabase PostgreSQL Platform with AI-powered open-source BaaS architecture, Context7 integration, and intelligent PostgreSQL orchestration for scalable modern applications",
+  "repo": "dolsoon/my-awesome-project",
+  "category": "data",
+  "tags": [
+    "moai",
+    "baas",
+    "supabase",
+    "ext"
+  ],
+  "stars": 0
+}

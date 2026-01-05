@@ -1,0 +1,11 @@
+{
+  "name": "monorepo-management",
+  "description": "Manage monorepo architectures using Lerna, Turborepo, and Nx. Configure workspaces, dependency versioning, and cross-package testing.",
+  "repo": "aj-geddes/useful-ai-prompts",
+  "category": "testing",
+  "tags": [
+    "monorepo",
+    "management"
+  ],
+  "stars": 25
+}

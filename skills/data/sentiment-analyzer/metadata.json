@@ -1,0 +1,11 @@
+{
+  "name": "sentiment-analyzer",
+  "description": "Analyze emotional tone, sentiment polarity, and psychological impact of text. Execute Python script for detailed sentiment analysis. Use when analyzing mood, attitude, or emotional content.",
+  "repo": "yoshiwatanabe/agent-patterns",
+  "category": "data",
+  "tags": [
+    "sentiment",
+    "analyzer"
+  ],
+  "stars": 0
+}

@@ -1,0 +1,11 @@
+{
+  "name": "kotlin-fundamentals",
+  "description": "Kotlin language fundamentals - syntax, null safety, data classes, extensions",
+  "repo": "pluginagentmarketplace/custom-plugin-kotlin",
+  "category": "data",
+  "tags": [
+    "kotlin",
+    "fundamentals"
+  ],
+  "stars": 1
+}

@@ -1,0 +1,11 @@
+{
+  "name": "prompt-engineering",
+  "description": "Prompt design, optimization, few-shot learning, and chain of thought techniques for LLM applications.",
+  "repo": "pluginagentmarketplace/custom-plugin-ai-engineer",
+  "category": "data",
+  "tags": [
+    "prompt",
+    "engineering"
+  ],
+  "stars": 1
+}

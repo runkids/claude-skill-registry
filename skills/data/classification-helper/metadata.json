@@ -1,0 +1,11 @@
+{
+  "name": "classification-helper",
+  "description": "Quick classifier training with automatic model selection, hyperparameter tuning, and comprehensive evaluation metrics.",
+  "repo": "dkyazzentwatwa/chatgpt-skills",
+  "category": "data",
+  "tags": [
+    "classification",
+    "helper"
+  ],
+  "stars": 1
+}

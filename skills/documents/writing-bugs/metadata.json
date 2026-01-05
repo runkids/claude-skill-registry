@@ -1,0 +1,11 @@
+{
+  "name": "writing-bugs",
+  "description": "Creates actionable bug reports with reproduction steps. Use when documenting bugs, creating defect tickets, or improving existing bug reports.",
+  "repo": "jkappers/claude-code-software-delivery-plugin",
+  "category": "documents",
+  "tags": [
+    "writing",
+    "bugs"
+  ],
+  "stars": 0
+}

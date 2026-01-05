@@ -1,0 +1,10 @@
+{
+  "name": "nanobanana",
+  "description": "Guide for generating and editing images using generative AI with the nanobanana CLI",
+  "repo": "maragudk/skills",
+  "category": "data",
+  "tags": [
+    "nanobanana"
+  ],
+  "stars": 17
+}

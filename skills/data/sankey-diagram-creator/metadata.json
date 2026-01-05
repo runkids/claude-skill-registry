@@ -1,0 +1,12 @@
+{
+  "name": "sankey-diagram-creator",
+  "description": "Create interactive Sankey diagrams for flow visualization from CSV, DataFrame, or dict data. Supports node/link styling and HTML/PNG/SVG export.",
+  "repo": "dkyazzentwatwa/chatgpt-skills",
+  "category": "data",
+  "tags": [
+    "sankey",
+    "diagram",
+    "creator"
+  ],
+  "stars": 1
+}

@@ -1,0 +1,12 @@
+{
+  "name": "swift-core-data",
+  "description": "Persist data with Core Data - models, contexts, fetch requests, migrations, SwiftData",
+  "repo": "pluginagentmarketplace/custom-plugin-swift",
+  "category": "data",
+  "tags": [
+    "swift",
+    "core",
+    "data"
+  ],
+  "stars": 1
+}

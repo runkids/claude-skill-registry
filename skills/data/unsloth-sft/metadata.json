@@ -1,0 +1,11 @@
+{
+  "name": "unsloth-sft",
+  "description": "Supervised fine-tuning using SFTTrainer, instruction formatting, and multi-turn dataset preparation with triggers like sft, instruction tuning, chat templates, sharegpt, alpaca, conversation_extension",
+  "repo": "cuba6112/skillfactory",
+  "category": "data",
+  "tags": [
+    "unsloth",
+    "sft"
+  ],
+  "stars": 0
+}

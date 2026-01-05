@@ -1,0 +1,10 @@
+{
+  "name": "discord",
+  "description": "Discord Bot API via curl. Use this skill to interact with channels, guilds, users, and messages using a bot token.",
+  "repo": "vm0-ai/vm0-skills",
+  "category": "design",
+  "tags": [
+    "discord"
+  ],
+  "stars": 8
+}

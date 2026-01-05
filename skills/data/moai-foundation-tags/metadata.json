@@ -1,0 +1,12 @@
+{
+  "name": "moai-foundation-tags",
+  "description": "TAG inventory management, scanning, and orphan detection (Consolidated from moai-alfred-tag-scanning).",
+  "repo": "kivo360/quickhooks",
+  "category": "data",
+  "tags": [
+    "moai",
+    "foundation",
+    "tags"
+  ],
+  "stars": 0
+}

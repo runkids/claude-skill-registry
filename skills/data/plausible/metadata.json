@@ -1,0 +1,10 @@
+{
+  "name": "plausible",
+  "description": "Plausible Analytics API for querying website statistics and managing sites. Use this skill to get visitor counts, pageviews, traffic sources, and manage analytics sites.",
+  "repo": "vm0-ai/vm0-skills",
+  "category": "data",
+  "tags": [
+    "plausible"
+  ],
+  "stars": 8
+}

@@ -1,0 +1,12 @@
+{
+  "name": "moai-domain-devops",
+  "description": "CI/CD pipelines, Docker 27, Kubernetes 1.32, and infrastructure as code.",
+  "repo": "kivo360/quickhooks",
+  "category": "devops",
+  "tags": [
+    "moai",
+    "domain",
+    "devops"
+  ],
+  "stars": 0
+}

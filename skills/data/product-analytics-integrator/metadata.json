@@ -1,0 +1,12 @@
+{
+  "name": "product-analytics-integrator",
+  "description": "Expert guidance for designing event tracking systems, implementing analytics SDKs (PostHog, Mixpanel, GA4, Amplitude), creating semantic event taxonomies, validating instrumentation, building dashboar",
+  "repo": "sitechfromgeorgia/georgian-distribution-system",
+  "category": "data",
+  "tags": [
+    "product",
+    "analytics",
+    "integrator"
+  ],
+  "stars": 0
+}

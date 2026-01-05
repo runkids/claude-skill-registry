@@ -1,0 +1,12 @@
+{
+  "name": "rls-policy-validator",
+  "description": "Expert assistant for validating and creating Row Level Security (RLS) policies in the KR92 Bible Voice Supabase database. Use when creating RLS policies, validating user data protection, checking admi",
+  "repo": "Spectaculous-Code/raamattu-nyt",
+  "category": "data",
+  "tags": [
+    "rls",
+    "policy",
+    "validator"
+  ],
+  "stars": 0
+}

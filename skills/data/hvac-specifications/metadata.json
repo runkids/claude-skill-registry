@@ -1,0 +1,11 @@
+{
+  "name": "hvac-specifications",
+  "description": "Look up HVAC equipment specifications (capacity, efficiency, dimensions, electrical requirements) by brand and model number. Use when the user mentions equipment specs, model numbers, AHU, VAV, chille",
+  "repo": "mbcoalson/skills",
+  "category": "data",
+  "tags": [
+    "hvac",
+    "specifications"
+  ],
+  "stars": 0
+}

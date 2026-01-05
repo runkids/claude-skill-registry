@@ -1,0 +1,10 @@
+{
+  "name": "minimax",
+  "description": "MiniMax API via curl. Use this skill for Chinese LLM chat, text-to-speech, and AI video generation.",
+  "repo": "vm0-ai/vm0-skills",
+  "category": "data",
+  "tags": [
+    "minimax"
+  ],
+  "stars": 8
+}

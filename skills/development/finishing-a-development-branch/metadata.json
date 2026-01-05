@@ -1,13 +1,6 @@
 {
   "name": "finishing-a-development-branch",
-  "description": "Branch completion workflow - guides merge/PR/cleanup decisions after implementationis verified complete.",
-  "repo": "LerianStudio/ring",
+  "repo": "obra/superpowers",
   "category": "development",
-  "tags": [
-    "finishing",
-    "development",
-    "branch"
-  ],
-  "stars": 25,
-  "source": "SkillsMP Synced Skills"
+  "source": "Superpowers"
 }

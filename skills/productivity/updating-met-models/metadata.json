@@ -1,0 +1,12 @@
+{
+  "name": "updating-met-models",
+  "description": "Updates HEC-HMS meteorologic model files (.met) including precipitation methods,gage assignments, evapotranspiration, and Atlas 14 frequency storms. Use whenconfiguring precipitation, assigning gages ",
+  "repo": "gpt-cmdr/hms-commander",
+  "category": "productivity",
+  "tags": [
+    "updating",
+    "met",
+    "models"
+  ],
+  "stars": 1
+}

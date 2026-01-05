@@ -1,0 +1,11 @@
+{
+  "name": "openapi-documentation",
+  "description": "Эксперт по OpenAPI документации. Используй для создания Swagger спецификаций, API schemas и автогенерации документации.",
+  "repo": "dengineproblem/agents-monorepo",
+  "category": "documents",
+  "tags": [
+    "openapi",
+    "documentation"
+  ],
+  "stars": 0
+}

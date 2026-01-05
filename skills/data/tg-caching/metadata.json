@@ -1,0 +1,10 @@
+{
+  "name": "tg-caching",
+  "description": "Django caching patterns for the World of Darkness application. Use when implementing view caching, queryset caching, cache invalidation, or optimizing database queries. Triggers on performance optimiz",
+  "repo": "charlesmsiegel/tg",
+  "category": "data",
+  "tags": [
+    "caching"
+  ],
+  "stars": 1
+}

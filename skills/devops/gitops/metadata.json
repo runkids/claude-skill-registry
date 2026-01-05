@@ -1,0 +1,10 @@
+{
+  "name": "gitops",
+  "description": "GitOps practices with ArgoCD, FluxCD, and declarative infrastructure management",
+  "repo": "pluginagentmarketplace/custom-plugin-devops",
+  "category": "devops",
+  "tags": [
+    "gitops"
+  ],
+  "stars": 2
+}

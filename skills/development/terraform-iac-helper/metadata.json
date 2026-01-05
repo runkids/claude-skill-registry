@@ -1,0 +1,12 @@
+{
+  "name": "terraform-iac-helper",
+  "description": "Expert helper for Terraform and infrastructure-as-code best practices",
+  "repo": "jackspace/ClaudeSkillz",
+  "category": "development",
+  "tags": [
+    "terraform",
+    "iac",
+    "helper"
+  ],
+  "stars": 0
+}

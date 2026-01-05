@@ -1,0 +1,11 @@
+{
+  "name": "funnel-analysis",
+  "description": "Analyze user conversion funnels, calculate step-by-step conversion rates, create interactive visualizations, and identify optimization opportunities. Use when working with multi-step user journey data",
+  "repo": "liangdabiao/claude-data-analysis-ultra-main",
+  "category": "data",
+  "tags": [
+    "funnel",
+    "analysis"
+  ],
+  "stars": 32
+}

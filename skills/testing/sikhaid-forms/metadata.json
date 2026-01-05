@@ -1,0 +1,11 @@
+{
+  "name": "sikhaid-forms",
+  "description": "Use when creating or modifying forms in SikhAid project. Covers form patterns, validation logic, submission workflows, Firestore integration, error handling, and success feedback.",
+  "repo": "the-non-expert/SikhAidSPA",
+  "category": "testing",
+  "tags": [
+    "sikhaid",
+    "forms"
+  ],
+  "stars": 0
+}

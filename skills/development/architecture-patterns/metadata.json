@@ -1,12 +1,6 @@
 {
   "name": "architecture-patterns",
-  "description": "DO NOT invoke directly - loaded by workflow agents via cc10x-router.Always loaded by: planner, integration-verifier.Conditionally loaded by: code-reviewer (API code), component-builder (API endpoint),",
-  "repo": "romiluz13/cc10x",
+  "repo": "wshobson/agents",
   "category": "development",
-  "tags": [
-    "architecture",
-    "patterns"
-  ],
-  "stars": 19,
-  "source": "SkillsMP Synced Skills"
+  "path": "plugins/backend-development/skills/architecture-patterns"
 }

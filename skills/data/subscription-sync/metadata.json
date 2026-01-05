@@ -1,0 +1,11 @@
+{
+  "name": "subscription-sync",
+  "description": "Real-time data synchronization patterns for ChainGraph frontend. Use when working on WebSocket subscriptions, event buffers, tRPC subscriptions, flow synchronization, or execution event streaming. Cov",
+  "repo": "chaingraphlabs/chaingraph",
+  "category": "data",
+  "tags": [
+    "subscription",
+    "sync"
+  ],
+  "stars": 10
+}

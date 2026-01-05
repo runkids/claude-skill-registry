@@ -1,0 +1,11 @@
+{
+  "name": "prompt-optimization",
+  "description": "Transform vague requests into production-ready, hallucination-free prompts optimized for Claude 4.x. Applies investigation-first protocols, anti-hallucination guards, extended thinking patterns, and m",
+  "repo": "sitechfromgeorgia/georgian-distribution-system",
+  "category": "devops",
+  "tags": [
+    "prompt",
+    "optimization"
+  ],
+  "stars": 0
+}

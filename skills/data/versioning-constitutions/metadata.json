@@ -1,0 +1,11 @@
+{
+  "name": "versioning-constitutions",
+  "description": "Use when architectural patterns evolve, tech stack changes, or foundational rules need updates - creates new constitution version directory, migrates/organizes content into modular files, updates syml",
+  "repo": "arittr/spectacular",
+  "category": "data",
+  "tags": [
+    "versioning",
+    "constitutions"
+  ],
+  "stars": 5
+}

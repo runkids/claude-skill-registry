@@ -1,0 +1,12 @@
+{
+  "name": "parallel-session-orchestration",
+  "description": "Run multiple agent tasks in parallel cloud sandboxes with real-time progress monitoring, achieving 2x throughput vs sequential execution. Use for multi-repo tasks, independent bug fixes, concurrent fe",
+  "repo": "dredd-us/seashells",
+  "category": "productivity",
+  "tags": [
+    "parallel",
+    "session",
+    "orchestration"
+  ],
+  "stars": 0
+}

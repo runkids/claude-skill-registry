@@ -1,0 +1,11 @@
+{
+  "name": "mongodb-atlas",
+  "description": "MongoDB Atlas cloud database management including clusters, schemas, aggregation pipelines, and Prisma ORM integration. Activate for MongoDB queries, schema design, indexing, and Atlas administration.",
+  "repo": "Lobbi-Docs/claude",
+  "category": "data",
+  "tags": [
+    "mongodb",
+    "atlas"
+  ],
+  "stars": 0
+}

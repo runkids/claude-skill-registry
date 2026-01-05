@@ -1,0 +1,10 @@
+{
+  "name": "go-kubernetes",
+  "description": "Kubernetes operators and client-go development",
+  "repo": "pluginagentmarketplace/custom-plugin-go",
+  "category": "development",
+  "tags": [
+    "kubernetes"
+  ],
+  "stars": 1
+}

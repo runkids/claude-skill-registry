@@ -1,0 +1,11 @@
+{
+  "name": "performance-profiler",
+  "description": "CPU/memory profiling, database query optimization, and performance analysis",
+  "repo": "benreceveur/claude-workflow-engine",
+  "category": "data",
+  "tags": [
+    "performance",
+    "profiler"
+  ],
+  "stars": 3
+}

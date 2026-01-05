@@ -1,0 +1,12 @@
+{
+  "name": "moai-alfred-workflow",
+  "description": "Guide 4-step workflow execution with task tracking and quality gates",
+  "repo": "kivo360/quickhooks",
+  "category": "productivity",
+  "tags": [
+    "moai",
+    "alfred",
+    "workflow"
+  ],
+  "stars": 0
+}

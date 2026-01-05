@@ -1,0 +1,12 @@
+{
+  "name": "graphql-schema-generator",
+  "description": "Generate GraphQL schema definition files (SDL) with types, queries, mutations, subscriptions, and resolvers for API development. Triggers on \"create GraphQL schema\", \"generate GraphQL types\", \"GraphQL",
+  "repo": "ehtbanton/ClaudeSkillsRepo",
+  "category": "development",
+  "tags": [
+    "graphql",
+    "schema",
+    "generator"
+  ],
+  "stars": 0
+}

@@ -1,0 +1,12 @@
+{
+  "name": "query-performance-analysis",
+  "description": "Detect N+1 queries, analyze slow queries with EXPLAIN, identify missing indexes, and ensure safe online index migrations. Use when optimizing query performance, preventing performance regressions, or ",
+  "repo": "VilnaCRM-Org/core-service",
+  "category": "data",
+  "tags": [
+    "query",
+    "performance",
+    "analysis"
+  ],
+  "stars": 0
+}

@@ -1,0 +1,12 @@
+{
+  "name": "time-series-analysis",
+  "description": "Analyze temporal data patterns including trends, seasonality, autocorrelation, and forecasting for time series decomposition, trend analysis, and forecasting models",
+  "repo": "aj-geddes/useful-ai-prompts",
+  "category": "data",
+  "tags": [
+    "time",
+    "series",
+    "analysis"
+  ],
+  "stars": 25
+}

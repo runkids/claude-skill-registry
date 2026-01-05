@@ -1,0 +1,12 @@
+{
+  "name": "gh-batch-merge-by-labels",
+  "description": "Batch merge multiple PRs by label (e.g., all 'ready-to-merge' PRs). Use when you have multiple approved PRs to merge.",
+  "repo": "mvillmow/ProjectOdyssey",
+  "category": "development",
+  "tags": [
+    "batch",
+    "merge",
+    "labels"
+  ],
+  "stars": 8
+}

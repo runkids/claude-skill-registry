@@ -1,0 +1,10 @@
+{
+  "name": "go-concurrency",
+  "description": "Go concurrency patterns - goroutines, channels, sync primitives",
+  "repo": "pluginagentmarketplace/custom-plugin-go",
+  "category": "development",
+  "tags": [
+    "concurrency"
+  ],
+  "stars": 1
+}

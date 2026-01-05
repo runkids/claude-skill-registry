@@ -1,0 +1,10 @@
+{
+  "name": "llm",
+  "description": "Access and interact with Large Language Models from the command line using Simon Willison's llm CLI tool. Supports OpenAI, Anthropic, Gemini, Llama, and dozens of other models via plugins. Features in",
+  "repo": "SecKatie/katies-ai-skills",
+  "category": "data",
+  "tags": [
+    "llm"
+  ],
+  "stars": 0
+}

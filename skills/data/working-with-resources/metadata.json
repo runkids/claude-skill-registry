@@ -1,0 +1,12 @@
+{
+  "name": "working-with-resources",
+  "description": "Work with Resource datasets (mutable state tracking) using OPAL temporal joins. Use when you need to enrich Events/Intervals with contextual state information, track resource state changes over time, ",
+  "repo": "rustomax/observe-community-mcp",
+  "category": "data",
+  "tags": [
+    "working",
+    "with",
+    "resources"
+  ],
+  "stars": 1
+}

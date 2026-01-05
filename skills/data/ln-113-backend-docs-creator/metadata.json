@@ -1,0 +1,13 @@
+{
+  "name": "ln-113-backend-docs-creator",
+  "description": "Creates 2 backend docs (api_spec.md, database_schema.md). L3 Worker invoked CONDITIONALLY when hasBackend or hasDatabase detected.",
+  "repo": "levnikolaevich/claude-code-skills",
+  "category": "data",
+  "tags": [
+    "113",
+    "backend",
+    "docs",
+    "creator"
+  ],
+  "stars": 13
+}

@@ -1,0 +1,11 @@
+{
+  "name": "vector-databases",
+  "description": "Vector database selection, indexing strategies, and semantic search optimization.",
+  "repo": "pluginagentmarketplace/custom-plugin-ai-engineer",
+  "category": "data",
+  "tags": [
+    "vector",
+    "databases"
+  ],
+  "stars": 1
+}

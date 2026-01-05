@@ -1,0 +1,12 @@
+{
+  "name": "setup-dev-env",
+  "description": "開発環境セットアップスキル（依存関係インストール、DB初期化、環境変数設定）",
+  "repo": "Crearize/ProjectTemplate",
+  "category": "development",
+  "tags": [
+    "setup",
+    "dev",
+    "env"
+  ],
+  "stars": 0
+}

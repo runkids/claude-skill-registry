@@ -1,0 +1,11 @@
+{
+  "name": "product-marketing",
+  "description": "Эксперт по продуктовому маркетингу. Используй для go-to-market стратегий, позиционирования продукта, messaging и launch планов.",
+  "repo": "dengineproblem/agents-monorepo",
+  "category": "marketing",
+  "tags": [
+    "product",
+    "marketing"
+  ],
+  "stars": 0
+}

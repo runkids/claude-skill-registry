@@ -1,0 +1,12 @@
+{
+  "name": "spring-rest-api",
+  "description": "Build production-ready REST APIs with Spring MVC - controllers, validation, exception handling, OpenAPI",
+  "repo": "pluginagentmarketplace/custom-plugin-spring-boot",
+  "category": "development",
+  "tags": [
+    "spring",
+    "rest",
+    "api"
+  ],
+  "stars": 1
+}

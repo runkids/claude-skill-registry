@@ -1,0 +1,12 @@
+{
+  "name": "secure-coding-practices",
+  "description": "Secure coding practices and defensive programming patterns for building security-first applications. Use when implementing authentication, handling user input, managing sensitive data, or conducting s",
+  "repo": "NickCrew/claude-ctx-plugin",
+  "category": "development",
+  "tags": [
+    "secure",
+    "coding",
+    "practices"
+  ],
+  "stars": 1
+}

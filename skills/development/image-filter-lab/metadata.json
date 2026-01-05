@@ -1,0 +1,12 @@
+{
+  "name": "image-filter-lab",
+  "description": "Apply artistic filters to images including vintage, sepia, B&W, blur, sharpen, vignette, and color adjustments. Create custom filter presets.",
+  "repo": "dkyazzentwatwa/chatgpt-skills",
+  "category": "development",
+  "tags": [
+    "image",
+    "filter",
+    "lab"
+  ],
+  "stars": 1
+}

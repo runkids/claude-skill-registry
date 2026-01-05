@@ -1,0 +1,11 @@
+{
+  "name": "new-agent",
+  "description": "Create a new AI agent from template. Use when adding a new agent to the cluster, starting a new monitoring or automation project.",
+  "repo": "X-McKay/kubani",
+  "category": "data",
+  "tags": [
+    "new",
+    "agent"
+  ],
+  "stars": 1
+}

@@ -1,0 +1,12 @@
+{
+  "name": "learning-recommendation-engine",
+  "description": "Generate personalized content recommendations based on learner profiles, performance, preferences, and learning analytics. Use for adaptive learning systems, content discovery, and personalized guidan",
+  "repo": "pauljbernard/content",
+  "category": "data",
+  "tags": [
+    "learning",
+    "recommendation",
+    "engine"
+  ],
+  "stars": 0
+}

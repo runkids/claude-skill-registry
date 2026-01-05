@@ -1,0 +1,10 @@
+{
+  "name": "github-pr",
+  "description": "This skill should be used when working with GitHub pull requests, reviewing PRs, creating PRs, checking PR status, viewing PR comments, analyzing CI failures, or using gh CLI commands. Emphasizes toke",
+  "repo": "tstapler/dotfiles",
+  "category": "data",
+  "tags": [
+    "github"
+  ],
+  "stars": 5
+}

@@ -1,0 +1,12 @@
+{
+  "name": "content-similarity-checker",
+  "description": "Compare document similarity using TF-IDF, cosine similarity, and Jaccard index. Use for plagiarism detection, duplicate finding, or content matching.",
+  "repo": "dkyazzentwatwa/chatgpt-skills",
+  "category": "documents",
+  "tags": [
+    "content",
+    "similarity",
+    "checker"
+  ],
+  "stars": 1
+}

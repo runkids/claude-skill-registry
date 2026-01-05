@@ -1,0 +1,13 @@
+{
+  "name": "newsletter-events-add-source",
+  "description": "Add Instagram accounts or web aggregators to sources.yaml configuration",
+  "repo": "aniketpanjwani/local_media_tools",
+  "category": "data",
+  "tags": [
+    "newsletter",
+    "events",
+    "add",
+    "source"
+  ],
+  "stars": 7
+}

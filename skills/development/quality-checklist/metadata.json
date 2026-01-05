@@ -1,0 +1,11 @@
+{
+  "name": "quality-checklist",
+  "description": "Code review quality checklist. Use before commits and during code review.",
+  "repo": "bartoszwarzocha/kalahari",
+  "category": "development",
+  "tags": [
+    "quality",
+    "checklist"
+  ],
+  "stars": 0
+}

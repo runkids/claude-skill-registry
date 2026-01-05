@@ -1,0 +1,10 @@
+{
+  "name": "implement",
+  "description": "Use when spec exists and is validated - generates implementation plan FROM spec, executes with TDD, and verifies spec compliance throughout",
+  "repo": "rhuss/cc-superpowers-sdd",
+  "category": "testing",
+  "tags": [
+    "implement"
+  ],
+  "stars": 1
+}

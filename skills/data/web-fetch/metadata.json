@@ -1,0 +1,11 @@
+{
+  "name": "web-fetch",
+  "description": "Retrieves and analyzes content from user-provided URLs or search results using the WebFetch tool. Manages domain filtering and max_uses limits to prevent data exfiltration. Use when users provide URLs",
+  "repo": "Wesley1600/ClaudeCodeFrameWork",
+  "category": "data",
+  "tags": [
+    "web",
+    "fetch"
+  ],
+  "stars": 0
+}

@@ -1,0 +1,10 @@
+{
+  "name": "teacher",
+  "description": "Guide learning and deep understanding through proven methodologies (Socratic, Feynman, Problem-Based). Use when user says \"help me understand\", \"teach me\", \"explain this\", \"learn about\", \"socratic\", \"",
+  "repo": "fernandobandeira/djinn",
+  "category": "data",
+  "tags": [
+    "teacher"
+  ],
+  "stars": 6
+}

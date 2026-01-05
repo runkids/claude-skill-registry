@@ -1,0 +1,10 @@
+{
+  "name": "qdrant",
+  "description": "Qdrant vector database REST API via curl. Use this skill to store, search, and manage vector embeddings.",
+  "repo": "vm0-ai/vm0-skills",
+  "category": "data",
+  "tags": [
+    "qdrant"
+  ],
+  "stars": 8
+}

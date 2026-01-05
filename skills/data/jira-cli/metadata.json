@@ -1,0 +1,11 @@
+{
+  "name": "jira-cli",
+  "description": "Manage Jira tickets from the command line using jira-cli. Contains essential setup instructions, non-interactive command patterns with required flags (--plain, --raw, etc.), authentication troubleshoo",
+  "repo": "SecKatie/katies-ai-skills",
+  "category": "data",
+  "tags": [
+    "jira",
+    "cli"
+  ],
+  "stars": 0
+}

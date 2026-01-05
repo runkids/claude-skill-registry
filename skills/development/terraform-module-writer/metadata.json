@@ -1,0 +1,12 @@
+{
+  "name": "terraform-module-writer",
+  "description": "Эксперт по Terraform модулям. Используй для создания переиспользуемых модулей, variables, outputs и best practices.",
+  "repo": "dengineproblem/agents-monorepo",
+  "category": "development",
+  "tags": [
+    "terraform",
+    "module",
+    "writer"
+  ],
+  "stars": 0
+}

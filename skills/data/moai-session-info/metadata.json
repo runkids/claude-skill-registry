@@ -1,0 +1,12 @@
+{
+  "name": "moai-session-info",
+  "description": "Display comprehensive project and session information including Git status, SPEC progress, version details, and system resources. Use when starting new sessions, checking project status, reviewing pro",
+  "repo": "kivo360/quickhooks",
+  "category": "data",
+  "tags": [
+    "moai",
+    "session",
+    "info"
+  ],
+  "stars": 0
+}

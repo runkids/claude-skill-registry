@@ -1,0 +1,11 @@
+{
+  "name": "security-validation",
+  "description": "Pre-merge security validation detecting secrets, user-specific paths, insecure SSH configurations, and security-weakening flags",
+  "repo": "auldsyababua/instructor-workflow",
+  "category": "devops",
+  "tags": [
+    "security",
+    "validation"
+  ],
+  "stars": 0
+}

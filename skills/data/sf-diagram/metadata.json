@@ -1,0 +1,10 @@
+{
+  "name": "sf-diagram",
+  "description": "Creates Salesforce architecture diagrams using Mermaid with ASCII fallback. Use when visualizing OAuth flows, data models (ERDs), integration sequences, system landscapes, role hierarchies, or Agentfo",
+  "repo": "Jaganpro/sf-skills",
+  "category": "data",
+  "tags": [
+    "diagram"
+  ],
+  "stars": 16
+}

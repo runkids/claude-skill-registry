@@ -1,0 +1,12 @@
+{
+  "name": "utm-parameter-generator",
+  "description": "Create standardized UTM tracking for all campaigns. Ensure consistent naming conventions across team and generate tracking reports.",
+  "repo": "OneWave-AI/claude-skills",
+  "category": "data",
+  "tags": [
+    "utm",
+    "parameter",
+    "generator"
+  ],
+  "stars": 10
+}

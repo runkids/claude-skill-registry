@@ -1,0 +1,11 @@
+{
+  "name": "production-deploy",
+  "description": "Deploys WitchCityRope to production environment on DigitalOcean. Automates build, registry push, server deployment, database migrations (if needed), health verification, and rollback capability. SINGL",
+  "repo": "DarkMonkDev/WitchCityRope",
+  "category": "data",
+  "tags": [
+    "production",
+    "deploy"
+  ],
+  "stars": 0
+}

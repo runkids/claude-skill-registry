@@ -1,0 +1,10 @@
+{
+  "name": "streak",
+  "description": "Gmail-integrated CRM for managing pipelines, deals (boxes), contacts, and email threads",
+  "repo": "vm0-ai/vm0-skills",
+  "category": "data",
+  "tags": [
+    "streak"
+  ],
+  "stars": 8
+}

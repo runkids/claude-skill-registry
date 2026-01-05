@@ -1,0 +1,11 @@
+{
+  "name": "observability-monitor",
+  "description": "Comprehensive observability and monitoring workflow that orchestrates metrics collection, logging, distributed tracing, and alerting systems. Handles everything from monitoring architecture design and",
+  "repo": "ajianaz/skills-collection",
+  "category": "productivity",
+  "tags": [
+    "observability",
+    "monitor"
+  ],
+  "stars": 0
+}

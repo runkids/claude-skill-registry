@@ -1,0 +1,13 @@
+{
+  "name": "swift-concurrency-expert-guide",
+  "description": "\"Deep dive into Swift's async/await runtime, Sendable enforcement, actors, and migration strategies.\"",
+  "repo": "mosif16/codex-Skills",
+  "category": "data",
+  "tags": [
+    "swift",
+    "concurrency",
+    "expert",
+    "guide"
+  ],
+  "stars": 4
+}

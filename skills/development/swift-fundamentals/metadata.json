@@ -1,0 +1,11 @@
+{
+  "name": "swift-fundamentals",
+  "description": "Master Swift programming fundamentals - syntax, types, optionals, protocols, error handling",
+  "repo": "pluginagentmarketplace/custom-plugin-swift",
+  "category": "development",
+  "tags": [
+    "swift",
+    "fundamentals"
+  ],
+  "stars": 1
+}

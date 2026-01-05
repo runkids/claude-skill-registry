@@ -1,0 +1,12 @@
+{
+  "name": "named-entity-extractor",
+  "description": "Extract named entities (people, organizations, locations, dates) from text using NLP. Use for document analysis, information extraction, or data enrichment.",
+  "repo": "dkyazzentwatwa/chatgpt-skills",
+  "category": "data",
+  "tags": [
+    "named",
+    "entity",
+    "extractor"
+  ],
+  "stars": 1
+}

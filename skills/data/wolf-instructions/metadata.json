@@ -1,0 +1,11 @@
+{
+  "name": "wolf-instructions",
+  "description": "Four-level instruction cascading system (Global → Domain → Project → Role) with priority-based conflict resolution",
+  "repo": "Nice-Wolf-Studio/wolf-skills-marketplace",
+  "category": "data",
+  "tags": [
+    "wolf",
+    "instructions"
+  ],
+  "stars": 0
+}

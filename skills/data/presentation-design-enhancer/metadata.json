@@ -1,0 +1,12 @@
+{
+  "name": "presentation-design-enhancer",
+  "description": "Transform text-heavy slides into visual storytelling. Suggest layout improvements, icon usage, and data visualization.",
+  "repo": "OneWave-AI/claude-skills",
+  "category": "data",
+  "tags": [
+    "presentation",
+    "design",
+    "enhancer"
+  ],
+  "stars": 10
+}

@@ -1,0 +1,10 @@
+{
+  "name": "matchmaking",
+  "description": "Skill-based matchmaking systems, ranking algorithms, and queue management for fair multiplayer matches",
+  "repo": "pluginagentmarketplace/custom-plugin-server-side-game-dev",
+  "category": "data",
+  "tags": [
+    "matchmaking"
+  ],
+  "stars": 1
+}

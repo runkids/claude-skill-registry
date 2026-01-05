@@ -1,0 +1,12 @@
+{
+  "name": "moai-essentials-perf",
+  "description": "Performance optimization with profiling, bottleneck detection, and tuning strategies.",
+  "repo": "kivo360/quickhooks",
+  "category": "data",
+  "tags": [
+    "moai",
+    "essentials",
+    "perf"
+  ],
+  "stars": 0
+}

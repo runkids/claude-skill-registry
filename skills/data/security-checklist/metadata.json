@@ -1,0 +1,11 @@
+{
+  "name": "security-checklist",
+  "description": "Prevents RCE, SQL injection, and common vulnerabilities through validation and safe coding practices. Use when implementing or reviewing security-sensitive code involving user input, database queries,",
+  "repo": "binee108/nine-step-workflow-plugin",
+  "category": "data",
+  "tags": [
+    "security",
+    "checklist"
+  ],
+  "stars": 0
+}

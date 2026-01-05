@@ -1,0 +1,13 @@
+{
+  "name": "monorepo-spec-kit-structure",
+  "description": "Standard project layout and Spec-Kit usage patterns for AI-driven, spec-driven monorepos that host frontend, backend, and specs in a single repository.",
+  "repo": "Okashanadeem/GIAIC-HACKATHON-II",
+  "category": "data",
+  "tags": [
+    "monorepo",
+    "spec",
+    "kit",
+    "structure"
+  ],
+  "stars": 0
+}

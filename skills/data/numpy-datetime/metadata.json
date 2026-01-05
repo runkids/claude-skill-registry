@@ -1,0 +1,11 @@
+{
+  "name": "numpy-datetime",
+  "description": "Date and time handling with datetime64 and timedelta64, including business day offsets and naive time parsing. Triggers: datetime64, timedelta64, busday, time series, naive time.",
+  "repo": "cuba6112/skillfactory",
+  "category": "data",
+  "tags": [
+    "numpy",
+    "datetime"
+  ],
+  "stars": 0
+}

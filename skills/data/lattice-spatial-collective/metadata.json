@@ -1,0 +1,12 @@
+{
+  "name": "lattice-spatial-collective",
+  "description": "Multi-agent distributed context preservation protocol using cryptographic sharding, gossip propagation, and Byzantine fault tolerance to maintain coherent shared memory across dynamic agent networks.",
+  "repo": "starwreckntx/IRP__METHODOLOGIES-",
+  "category": "data",
+  "tags": [
+    "lattice",
+    "spatial",
+    "collective"
+  ],
+  "stars": 1
+}

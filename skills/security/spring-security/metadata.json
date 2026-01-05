@@ -1,0 +1,11 @@
+{
+  "name": "spring-security",
+  "description": "Secure Spring Boot applications - authentication, authorization, OAuth2, JWT, CORS/CSRF protection",
+  "repo": "pluginagentmarketplace/custom-plugin-spring-boot",
+  "category": "security",
+  "tags": [
+    "spring",
+    "security"
+  ],
+  "stars": 1
+}

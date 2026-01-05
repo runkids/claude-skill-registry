@@ -1,0 +1,12 @@
+{
+  "name": "sql-query-helper",
+  "description": "Generate, optimize, and explain SQL queries with best practices. Use when writing database queries or optimizing SQL performance.",
+  "repo": "ntaksh42/agents",
+  "category": "data",
+  "tags": [
+    "sql",
+    "query",
+    "helper"
+  ],
+  "stars": 0
+}

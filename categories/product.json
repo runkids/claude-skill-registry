@@ -3,180 +3,34 @@
   "updated_at": "2026-01-04T04:09:30.871825Z",
   "skills": [
     {
-      "name": "create-tasks",
-      "description": "Creates well-formed tasks following a template that engineers can implement. Use when creating tasks, defining work items, creating tasks from PRD, breaking down features, or converting requirements i",
-      "install": "NTCoding/claude-skillz",
-      "repo": "NTCoding/claude-skillz",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "create",
-        "tasks"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 87,
-      "featured": true
-    },
-    {
-      "name": "creating-kiro-packages",
-      "description": "Use when creating Kiro steering files or hooks - provides inclusion modes (always/fileMatch/manual), foundational files (product.md/tech.md/structure.md), and JSON hook configuration with event trigge",
-      "install": "pr-pm/prpm",
-      "repo": "pr-pm/prpm",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "creating",
-        "kiro",
-        "packages"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 70,
-      "featured": true
-    },
-    {
-      "name": "product-management",
-      "description": "Assist with core product management activities including writing PRDs, analyzing features, synthesizing user research, planning roadmaps, and communicating product decisions. Use when you need help wi",
-      "install": "julianromli/ai-skills",
-      "repo": "julianromli/ai-skills",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "product",
-        "management"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 120,
-      "featured": true
-    },
-    {
-      "name": "product-management",
-      "description": "This skill should be used when the user asks to \"analyze my product\", \"research competitors\", \"find feature gaps\", \"create feature request\", \"prioritize backlog\", \"generate PRD\", \"plan roadmap\", \"what",
-      "install": "ooiyeefei/ccc",
-      "repo": "ooiyeefei/ccc",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "product",
-        "management"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 86,
-      "featured": true
-    },
-    {
-      "name": "product-requirements",
-      "description": "Interactive Product Owner skill for requirements gathering, analysis, and PRD generation. Triggers when users request product requirements, feature specification, PRD creation, or need help understand",
-      "install": "cexll/myclaude",
-      "repo": "cexll/myclaude",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "product",
-        "requirements"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 1535,
-      "featured": true
-    },
-    {
-      "name": "prompt-optimizer",
-      "description": "Transform vague prompts into precise, well-structured specifications using EARS (Easy Approach to Requirements Syntax) methodology. This skill should be used when users provide loose requirements, amb",
-      "install": "daymade/claude-code-skills",
-      "repo": "daymade/claude-code-skills",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "prompt",
-        "optimizer"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 110,
-      "featured": true
-    },
-    {
-      "name": "task-breakdown",
-      "description": "Convert technical designs into actionable, sequenced implementation tasks. Create clear coding tasks that enable incremental progress, respect dependencies, and provide a roadmap for systematic featur",
-      "install": "jasonkneen/kiro",
-      "repo": "jasonkneen/kiro",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "task",
-        "breakdown"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 417,
-      "featured": true
-    },
-    {
-      "name": "using-git-worktrees",
-      "description": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with smart directory selection and safety verificat",
-      "install": "davila7/claude-code-templates",
-      "repo": "davila7/claude-code-templates",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "using",
-        "git",
-        "worktrees"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 14334,
-      "featured": true
-    },
-    {
-      "name": "using-git-worktrees",
-      "description": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with smart directory selection and safety verificat",
-      "install": "obra/superpowers",
-      "repo": "obra/superpowers",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "using",
-        "git",
-        "worktrees"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 12395,
-      "featured": true
-    },
-    {
       "name": "add-feature",
       "description": "Add a new feature to the Next.js app following best practices",
-      "install": "gregsantos/nexturbo",
       "repo": "gregsantos/nexturbo",
-      "path": "",
       "category": "product",
       "tags": [
         "add",
         "feature"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 4,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "add-keyboard-nav",
       "description": "Add keyboard navigation to a feature using CommandRegistryService. Use when implementing keyboard shortcuts, vim-style navigation, or hotkeys for a page or component.",
-      "install": "alysson-souza/hnews",
       "repo": "alysson-souza/hnews",
-      "path": "",
       "category": "product",
       "tags": [
         "add",
         "keyboard",
         "nav"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "advanced-text-search-matching",
       "description": "Production-grade text search algorithms for finding and matching text in large documents with millisecond performance. Includes Boyer-Moore search, n-gram similarity, fuzzy matching, and intelligent i",
-      "install": "vishalsachdev/claude-skills",
       "repo": "vishalsachdev/claude-skills",
-      "path": "",
       "category": "product",
       "tags": [
         "advanced",
@@ -184,274 +38,227 @@
         "search",
         "matching"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "agent-product-manager",
       "description": "Expert product manager specializing in product strategy, user-centric development, and business outcomes. Masters roadmap planning, feature prioritization, and cross-functional leadership with focus o",
-      "install": "Tony363/SuperClaude",
       "repo": "Tony363/SuperClaude",
-      "path": "",
       "category": "product",
       "tags": [
         "agent",
         "product",
         "manager"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 10,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "aggregating-gauge-metrics",
       "description": "Aggregate pre-computed metrics (gauge, counter, delta types) using OPAL. Use when analyzing request counts, error rates, resource utilization, or any numeric metrics over time. Covers align + m() + ag",
-      "install": "rustomax/observe-community-mcp",
       "repo": "rustomax/observe-community-mcp",
-      "path": "",
       "category": "product",
       "tags": [
         "aggregating",
         "gauge",
         "metrics"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 1,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "agile-product-owner",
+      "description": "",
+      "repo": "alirezarezvani/claude-skills",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "source": ""
     },
     {
       "name": "ai-model-cascade",
       "description": "A production-ready pattern for integrating AI models (specifically Google Gemini) with automatic fallback, retry logic, structured output via Zod schemas, and comprehensive error handling. Use when in",
-      "install": "vishalsachdev/claude-skills",
       "repo": "vishalsachdev/claude-skills",
-      "path": "",
       "category": "product",
       "tags": [
         "model",
         "cascade"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "analyzing-tdigest-metrics",
       "description": "Analyze percentile metrics (tdigest type) using OPAL for latency analysis and SLO tracking. Use when calculating p50, p95, p99 from pre-aggregated duration or latency metrics. Covers the critical doub",
-      "install": "rustomax/observe-community-mcp",
       "repo": "rustomax/observe-community-mcp",
-      "path": "",
       "category": "product",
       "tags": [
         "analyzing",
         "tdigest",
         "metrics"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 1,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "api-generator",
       "description": "Generate CRUD API endpoints automatically. User doesn't see routes.Use when: features need backend logic.Triggers: internal use only.",
-      "install": "timequity/vibe-coder",
       "repo": "timequity/vibe-coder",
-      "path": "",
       "category": "product",
       "tags": [
         "api",
         "generator"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "architecture-review",
       "description": "Use after implementing features to verify architecture compliance. Checks for layer violations, missing interfaces, and tight coupling.",
-      "install": "ZainRizvi/ClaudeSettings",
       "repo": "ZainRizvi/ClaudeSettings",
-      "path": "",
       "category": "product",
       "tags": [
         "architecture",
         "review"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "asset-management",
       "description": "Complete asset management feature for Polkadot dApps using the Assets pallet. Use when user needs fungible token/asset functionality including creating custom tokens, minting tokens to accounts, trans",
-      "install": "QuantumFusion-network/w3zard-gen",
       "repo": "QuantumFusion-network/w3zard-gen",
-      "path": "",
       "category": "product",
       "tags": [
         "asset",
         "management"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 1,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "astro-setup",
       "description": "Astro project initialization and configuration patterns. Use when setting up new Astro projects or configuring Astro features.",
-      "install": "wlfmnstr/blog-hello-world",
       "repo": "wlfmnstr/blog-hello-world",
-      "path": "",
       "category": "product",
       "tags": [
         "astro",
         "setup"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "bash-basics",
       "description": "Production-grade Bash fundamentals - syntax, variables, control flow, functions",
-      "install": "pluginagentmarketplace/custom-plugin-bash-shell",
       "repo": "pluginagentmarketplace/custom-plugin-bash-shell",
-      "path": "",
       "category": "product",
       "tags": [
         "bash",
         "basics"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 1,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "better-auth-v2",
       "description": "Production-ready authentication system using Better Auth v2 with latest features. Includes OAuth providers, advanced RBAC, multi-tenant support, and security best practices.",
-      "install": "MrOwaisAbdullah/ai-humanoid-robotics",
       "repo": "MrOwaisAbdullah/ai-humanoid-robotics",
-      "path": "",
       "category": "product",
       "tags": [
         "better",
         "auth"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "bidi",
       "description": "ADK Bidi-streaming expert with comprehensive knowledge of streaming architecture, implementation patterns, and production best practices",
-      "install": "kazunori279/gcp-blogs",
       "repo": "kazunori279/gcp-blogs",
-      "path": "",
       "category": "product",
       "tags": [
         "bidi"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 3,
-      "featured": false
-    },
-    {
-      "name": "bidi",
-      "description": "ADK Bidi-streaming expert with comprehensive knowledge of streaming architecture, implementation patterns, and production best practices",
-      "install": "kazunori279/adk-streaming-guide",
-      "repo": "kazunori279/adk-streaming-guide",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "bidi"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 1,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "blog-writer",
       "description": "Create category-aware, AEO-optimized blog posts for Lightfast. Use when writing technology deep-dives, company announcements, or product launches.",
-      "install": "lightfastai/lightfast",
       "repo": "lightfastai/lightfast",
-      "path": "",
       "category": "product",
       "tags": [
         "blog",
         "writer"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 13,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "bmad-product-planning",
       "description": "Creates PRDs and plans features.",
-      "install": "bacoco/BMad-Skills",
       "repo": "bacoco/BMad-Skills",
-      "path": "",
       "category": "product",
       "tags": [
         "bmad",
         "product",
         "planning"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 1,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "brainstorming-features",
       "description": "Facilitates creative ideation sessions for mobile and web app features, generating structured ideas with user stories, technical considerations, and implementation suggestions. Use when planning new f",
-      "install": "Emz1998/avaris-ai",
       "repo": "Emz1998/avaris-ai",
-      "path": "",
       "category": "product",
       "tags": [
         "brainstorming",
         "features"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "btr-stats",
       "description": "Display LOCAL BTR statistics (NOT ByteRover/brv). Use when the user asks \"how much time saved\", \"context statistics\", \"usage metrics\", \"BTR statistics\", \"BTR metrics\", \"BTR usage\", or wants to see the",
-      "install": "beetz12/btr-app",
       "repo": "beetz12/btr-app",
-      "path": "",
       "category": "product",
       "tags": [
         "btr",
         "stats"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "building-nextjs-apps",
       "description": "Specialized skill for building Next.js 15 App Router applications with React Server Components, Server Actions, and production-ready patterns. Use when implementing Next.js features, components, or ap",
-      "install": "swapkats/robin",
       "repo": "swapkats/robin",
-      "path": "",
       "category": "product",
       "tags": [
         "building",
         "nextjs",
         "apps"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "ceo-advisor",
+      "description": "",
+      "repo": "alirezarezvani/claude-skills",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "source": ""
     },
     {
       "name": "chain-spec-risk-metrics",
       "description": "Use when planning high-stakes initiatives (migrations, launches, strategic changes) that require clear specifications, proactive risk identification (premortem/register), and measurable success criter",
-      "install": "lyndonkl/claude",
       "repo": "lyndonkl/claude",
-      "path": "",
       "category": "product",
       "tags": [
         "chain",
@@ -459,90 +266,72 @@
         "risk",
         "metrics"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 8,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "changelog-manager",
       "description": "Automatically create and update CHANGELOG.md files for scripts and tools following Keep a Changelog format. Use when creating new scripts, updating existing scripts, fixing bugs, or adding features to",
-      "install": "poncardasm/tech-support-tools",
       "repo": "poncardasm/tech-support-tools",
-      "path": "",
       "category": "product",
       "tags": [
         "changelog",
         "manager"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "changelog-skill",
       "description": "Use after completing any feature, fix, or change - updates CHANGELOG.md [Unreleased] section in Slovak",
-      "install": "mcsdodo/kniha-jazd",
       "repo": "mcsdodo/kniha-jazd",
-      "path": "",
       "category": "product",
       "tags": [
         "changelog",
         "skill"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "changelog-updater",
       "description": "Auto-update CHANGELOG.md following Keep a Changelog format.LOAD THIS SKILL WHEN: User mentions \"changelog\", \"version\", \"release notes\" | says \"更新日誌\", \"版本\", \"變更記錄\" | before releases | after completing ",
-      "install": "u9401066/copilot-capability-manager",
       "repo": "u9401066/copilot-capability-manager",
-      "path": "",
       "category": "product",
       "tags": [
         "changelog",
         "updater"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "check-metrics",
       "description": "Query Prometheus metrics, check resource usage, and analyze platform performance in the Kagenti platform",
-      "install": "redhat-et/kagenti-demo-deployment",
       "repo": "redhat-et/kagenti-demo-deployment",
-      "path": "",
       "category": "product",
       "tags": [
         "check",
         "metrics"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "clerk",
       "description": "Get user metrics from Clerk (total users, active users, new users)",
-      "install": "vm0-ai/vm0-cookbooks",
       "repo": "vm0-ai/vm0-cookbooks",
-      "path": "",
       "category": "product",
       "tags": [
         "clerk"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 4,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "cloudflare-full-stack-scaffold",
       "description": "Production-ready starter project for React + Cloudflare Workers + Hono with core services(D1, KV, R2, Workers AI) and optional advanced features (Clerk Auth, AI Chat, Queues, Vectorize).Complete with ",
-      "install": "jackspace/ClaudeSkillz",
       "repo": "jackspace/ClaudeSkillz",
-      "path": "",
       "category": "product",
       "tags": [
         "cloudflare",
@@ -550,45 +339,36 @@
         "stack",
         "scaffold"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "coeditor",
       "description": "Build React applications with CopilotKit and LangGraph for AI-powered collaborative editing. Creates production-ready editor applications (text, document, or node-based) with real-time AI assistance, ",
-      "install": "chrisvoncsefalvay/claude-skills",
       "repo": "chrisvoncsefalvay/claude-skills",
-      "path": "",
       "category": "product",
       "tags": [
         "coeditor"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": ""
     },
     {
       "name": "competitive-intelligence",
       "description": "Monitors and analyzes competitors through systematic tracking of products, pricing, strategies, market positioning, and competitive moves. Use when the user requests competitor tracking, competitive a",
-      "install": "jesseotremblay/claude-skills",
       "repo": "jesseotremblay/claude-skills",
-      "path": "",
       "category": "product",
       "tags": [
         "competitive",
         "intelligence"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": ""
     },
     {
       "name": "convex-agents-usage-tracking",
       "description": "\"Tracks LLM token consumption and usage metrics for billing, monitoring, and optimization. Use this to log token usage, calculate costs, generate invoices, and understand which agents or users consume",
-      "install": "Sstobo/convex-skills",
       "repo": "Sstobo/convex-skills",
-      "path": "",
       "category": "product",
       "tags": [
         "convex",
@@ -596,202 +376,173 @@
         "usage",
         "tracking"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 5,
-      "featured": false
+      "source": ""
     },
     {
       "name": "create-brownfield-prd",
       "description": "Generate Product Requirements Documents (PRD) for existing systems through systematic codebase analysis, feature extraction, and gap identification with confidence scoring for validation-needed areas.",
-      "install": "adolfoaranaes12/BMAD-ENHANCED",
       "repo": "adolfoaranaes12/BMAD-ENHANCED",
-      "path": "",
       "category": "product",
       "tags": [
         "create",
         "brownfield",
         "prd"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 1,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "create-prd",
       "description": "Generate Product Requirements Document (PRD) through interactive Q&A.Use when: clarifying feature requirements, defining user stories, establishing acceptance criteria, starting a new feature.Keywords",
-      "install": "yurenju/eyerolling-skills",
       "repo": "yurenju/eyerolling-skills",
-      "path": "",
       "category": "product",
       "tags": [
         "create",
         "prd"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 13,
-      "featured": false
-    },
-    {
-      "name": "create-prd",
-      "description": "Create comprehensive Product Requirements Documents (PRD) from high-level product ideas with structured market analysis, feature definition, and success metrics for both greenfield and brownfield cont",
-      "install": "adolfoaranaes12/BMAD-ENHANCED",
-      "repo": "adolfoaranaes12/BMAD-ENHANCED",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "create",
-        "prd"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 1,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "create-pull-request",
       "description": "Create GitHub pull requests with proper issue linking, comprehensive descriptions, and quality metrics for WescoBar project",
-      "install": "BerryKuipers/claude-code-toolkit",
       "repo": "BerryKuipers/claude-code-toolkit",
-      "path": "",
       "category": "product",
       "tags": [
         "create",
         "pull",
         "request"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 3,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "create-tasks",
       "description": "Creates well-formed tasks following a template that engineers can implement. Use when creating tasks, defining work items, creating tasks from PRD, breaking down features, or converting requirements i",
-      "install": "audunstrand/status-app",
-      "repo": "audunstrand/status-app",
-      "path": "",
+      "repo": "NTCoding/claude-skillz",
       "category": "product",
       "tags": [
         "create",
         "tasks"
       ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 0,
-      "featured": false
+      "stars": 87,
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "create-ticket",
       "description": "Creates Jira tickets with proper formatting, acceptance criteria, and optionally sets up git branches and pull requests. Use when users want to create a new ticket, log a bug, request a feature, or wh",
-      "install": "IHKREDDY/agent-skills-ts",
       "repo": "IHKREDDY/agent-skills-ts",
-      "path": "",
       "category": "product",
       "tags": [
         "create",
         "ticket"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": ""
+    },
+    {
+      "name": "creating-kiro-packages",
+      "description": "Use when creating Kiro steering files or hooks - provides inclusion modes (always/fileMatch/manual), foundational files (product.md/tech.md/structure.md), and JSON hook configuration with event trigge",
+      "repo": "pr-pm/prpm",
+      "category": "product",
+      "tags": [
+        "creating",
+        "kiro",
+        "packages"
+      ],
+      "stars": 70,
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "cto-advisor",
+      "description": "",
+      "repo": "alirezarezvani/claude-skills",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "source": ""
     },
     {
       "name": "customer-feedback-analyzer",
       "description": "Synthesize user feedback from multiple channels and identify patterns to inform product decisions. Use when analyzing feedback, prioritizing feature requests, conducting NPS surveys, or understanding ",
-      "install": "daffy0208/ai-dev-standards",
       "repo": "daffy0208/ai-dev-standards",
-      "path": "",
       "category": "product",
       "tags": [
         "customer",
         "feedback",
         "analyzer"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 2,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "datadog-cli",
       "description": "Datadog CLI for searching logs, querying metrics, tracing requests, and managing dashboards. Use this when debugging production issues or working with Datadog observability.",
-      "install": "leonardocouy/cc-datadog",
       "repo": "leonardocouy/cc-datadog",
-      "path": "",
       "category": "product",
       "tags": [
         "datadog",
         "cli"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "ddd-context-generator",
       "description": "Generate complete DDD bounded context with all 4 layers (Domain, Application, Infrastructure, Presentation). Use when user wants to create new business capability, scaffold complete context with CRUD,",
-      "install": "moasadi/ddd-bun-api-boilerplate",
       "repo": "moasadi/ddd-bun-api-boilerplate",
-      "path": "",
       "category": "product",
       "tags": [
         "ddd",
         "context",
         "generator"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 2,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "depth-interviewing-product",
       "description": "サービス開発のためのデプスインタビューを実施し、ユーザーの真のニーズ・課題・動機を引き出す。5 Whys、ラダリング法を用いてプロダクト開発に活かせるインサイトを発見し、すべての会話をファイルに記録する。ユーザーリサーチ、課題発見、ペルソナ構築時に使用する。",
-      "install": "windschord/claude_skils",
       "repo": "windschord/claude_skils",
-      "path": "",
       "category": "product",
       "tags": [
         "depth",
         "interviewing",
         "product"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "designing-innovation-experiments",
       "description": "Turn Innovation PRDs into concrete experiment plans with explicit hypotheses, metrics, and evaluation methods for RAG quality, agents, and automation outcomes.",
-      "install": "Poll-The-People/customgpt-claude-code",
       "repo": "Poll-The-People/customgpt-claude-code",
-      "path": "",
       "category": "product",
       "tags": [
         "designing",
         "innovation",
         "experiments"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "doc-prd",
       "description": "Create Product Requirements Documents (PRD) following SDD methodology - Layer 2 artifact defining product features and user needs",
-      "install": "vladm3105/aidoc-flow-framework",
       "repo": "vladm3105/aidoc-flow-framework",
-      "path": "",
       "category": "product",
       "tags": [
         "doc",
         "prd"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 1,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "drafting-innovation-prd-one-pagers",
       "description": "Generate tight, one-page PRDs for CustomGPT.ai Labs projects aligned to Why/How/What, success metrics, and fast experimentation constraints.",
-      "install": "Poll-The-People/customgpt-claude-code",
       "repo": "Poll-The-People/customgpt-claude-code",
-      "path": "",
       "category": "product",
       "tags": [
         "drafting",
@@ -800,684 +551,539 @@
         "one",
         "pagers"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "epic-initializer",
       "description": "Initializes a new epic with EPIC_TRACKING.md and story-level directory structure.Creates the foundation for managing all stories within an epic. Use when starting a new epic orwhen restructuring an ex",
-      "install": "sebc-dev/website",
       "repo": "sebc-dev/website",
-      "path": "",
       "category": "product",
       "tags": [
         "epic",
         "initializer"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 1,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "error-handling",
       "description": "Implement robust error handling in Node.js with custom error classes, async patterns, Express middleware, and production monitoring",
-      "install": "pluginagentmarketplace/custom-plugin-nodejs",
       "repo": "pluginagentmarketplace/custom-plugin-nodejs",
-      "path": "",
       "category": "product",
       "tags": [
         "error",
         "handling"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 1,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "error-tracking",
       "description": "Implement error tracking with Sentry for automatic exception monitoring, release tracking, and performance issues. Use when setting up error monitoring, tracking bugs in production, or analyzing appli",
-      "install": "aj-geddes/useful-ai-prompts",
       "repo": "aj-geddes/useful-ai-prompts",
-      "path": "",
       "category": "product",
       "tags": [
         "error",
         "tracking"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 25,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "evaluation-metrics",
       "description": "LLM evaluation frameworks, benchmarks, and quality metrics for production systems.",
-      "install": "pluginagentmarketplace/custom-plugin-ai-engineer",
       "repo": "pluginagentmarketplace/custom-plugin-ai-engineer",
-      "path": "",
       "category": "product",
       "tags": [
         "evaluation",
         "metrics"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 1,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "evaluation-quality",
       "description": "Instrument evaluation metrics, quality scores, and feedback loops",
-      "install": "nexus-labs-automation/agent-observability",
       "repo": "nexus-labs-automation/agent-observability",
-      "path": "",
       "category": "product",
       "tags": [
         "evaluation",
         "quality"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "face-recognition",
       "description": "Face recognition system patterns for attendance. Use when working with face detection, verification, enrollment, liveness detection, or any biometric authentication features.",
-      "install": "omanjaya/attendancedev",
       "repo": "omanjaya/attendancedev",
-      "path": "",
       "category": "product",
       "tags": [
         "face",
         "recognition"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "feature-generator",
       "description": "React Native Feature 模块生成指南。当用户提到\"创建 feature\"、\"新建模块\"、\"生成功能\"、\"添加功能模块\"、\"feature 模板\"时使用此 skill。",
-      "install": "aidenreed937/Kairo-Expo",
       "repo": "aidenreed937/Kairo-Expo",
-      "path": "",
       "category": "product",
       "tags": [
         "feature",
         "generator"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": ""
     },
     {
       "name": "feature-impact-analyzer",
       "description": "Product strategist for scoring and ranking feature ideas using RICE/ICE prioritization frameworks, connecting features to business KPIs (retention, growth, revenue), and identifying quick wins vs stra",
-      "install": "sitechfromgeorgia/georgian-distribution-system",
       "repo": "sitechfromgeorgia/georgian-distribution-system",
-      "path": "",
       "category": "product",
       "tags": [
         "feature",
         "impact",
         "analyzer"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "feature-orchestration",
       "description": "Story orchestration with progress tracking, standardized directory structure, and validation",
-      "install": "vineethsoma/agent-packages",
       "repo": "vineethsoma/agent-packages",
-      "path": "",
       "category": "product",
       "tags": [
         "feature",
         "orchestration"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "feature-scaffolding",
       "description": "BoxLogの新しいFeatureモジュールを作成。stores, hooks, components, types の統一構造を生成。",
-      "install": "t3-nico/boxlog-app",
       "repo": "t3-nico/boxlog-app",
-      "path": "",
       "category": "product",
       "tags": [
         "feature",
         "scaffolding"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "feature-spec-author",
       "description": "Draft detailed engineering specs from an approved PRD. Use when generating or updating the engineering specification for a feature, before implementation begins.",
-      "install": "pcortes/swarm-attack",
       "repo": "pcortes/swarm-attack",
-      "path": "",
       "category": "product",
       "tags": [
         "feature",
         "spec",
         "author"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "feature-spec-moderator",
       "description": "Chief Architect review - critically evaluate peer feedback on an engineering spec. Integrate valid suggestions, push back on scope creep, and maintain alignment with the PRD. Enforce startup simplicit",
-      "install": "pcortes/swarm-attack",
       "repo": "pcortes/swarm-attack",
-      "path": "",
       "category": "product",
       "tags": [
         "feature",
         "spec",
         "moderator"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "file-operations",
       "description": "Production-grade file operations - permissions, find, archives, rsync",
-      "install": "pluginagentmarketplace/custom-plugin-bash-shell",
       "repo": "pluginagentmarketplace/custom-plugin-bash-shell",
-      "path": "",
       "category": "product",
       "tags": [
         "file",
         "operations"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 1,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "financial-unit-economics",
       "description": "Use when evaluating business model viability, analyzing profitability per customer/product/transaction, validating startup metrics (CAC, LTV, payback period), making pricing decisions, assessing scala",
-      "install": "lyndonkl/claude",
       "repo": "lyndonkl/claude",
-      "path": "",
       "category": "product",
       "tags": [
         "financial",
         "unit",
         "economics"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 8,
-      "featured": false
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "generate-prd",
       "description": "Generate or update PRD documents interactively with the user. Use this skill when the user wants to create new product requirements, refine existing PRD docs, or document a new feature. Asks clarifyin",
-      "install": "jayprimer/ppt",
       "repo": "jayprimer/ppt",
-      "path": "",
       "category": "product",
       "tags": [
         "generate",
         "prd"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": ""
     },
     {
       "name": "git-branch-manager",
       "description": "Create, switch, and manage git branches with proper handling of uncommitted changes. Use when creating feature branches, switching contexts, or cleaning up after merges.",
-      "install": "EdanStarfire/claudecode_webui",
       "repo": "EdanStarfire/claudecode_webui",
-      "path": "",
       "category": "product",
       "tags": [
         "git",
         "branch",
         "manager"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 2,
-      "featured": false
+      "source": ""
     },
     {
       "name": "git-workflow",
       "description": "Git branch management, commits, pull requests, and IJACK Roadmap project board integration. Use when creating feature branches, committing code, creating pull requests, managing git workflows, or addi",
-      "install": "ijack-technologies/postgresql-scheduler",
       "repo": "ijack-technologies/postgresql-scheduler",
-      "path": "",
       "category": "product",
       "tags": [
         "git",
         "workflow"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": ""
+    },
+    {
+      "name": "github-copilot",
+      "description": "GitHub Copilot REST API via curl. Use this skill to manage Copilot subscriptions and retrieve usage metrics.",
+      "repo": "vm0-ai/vm0-skills",
+      "category": "product",
+      "tags": [
+        "github",
+        "copilot"
+      ],
+      "stars": 8,
+      "source": ""
     },
     {
       "name": "grafana-billing",
       "description": "Query Prometheus and Loki billing metrics from Grafana. Use when discussing observability costs, active series, ingestion rates, storage usage, or cardinality analysis.",
-      "install": "nodnarbnitram/claude-code-extensions",
       "repo": "nodnarbnitram/claude-code-extensions",
-      "path": "",
       "category": "product",
       "tags": [
         "grafana",
         "billing"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 1,
-      "featured": false
+      "source": ""
     },
     {
       "name": "implement-issue",
       "description": "Implement a feature or fix based on an issue. Use when given an issue URL to work on, or when implementing changes described in a tracked issue. Supports GitHub, Linear, and GitLab.",
-      "install": "bendrucker/claude",
       "repo": "bendrucker/claude",
-      "path": "",
       "category": "product",
       "tags": [
         "implement",
         "issue"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 2,
-      "featured": false
+      "source": ""
     },
     {
       "name": "implementation-process",
       "description": "Implement a feature using the written implementation plan. Use when you have a fully-formed written implementation plan to execute in a separate session with review checkpoints",
-      "install": "serpro69/claude-starter-kit",
       "repo": "serpro69/claude-starter-kit",
-      "path": "",
       "category": "product",
       "tags": [
         "implementation",
         "process"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 29,
-      "featured": false
+      "source": ""
     },
     {
       "name": "incident-log-analyzer",
       "description": "Analyze incident logs, extract error patterns, identify root causes, generate insights and metrics. Use when user mentions logs, incidents, errors, failures, debugging, troubleshooting, log analysis, ",
-      "install": "mverab/claude-beyond-code",
       "repo": "mverab/claude-beyond-code",
-      "path": "",
       "category": "product",
       "tags": [
         "incident",
         "log",
         "analyzer"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 9,
-      "featured": false
+      "source": ""
     },
     {
       "name": "invest-stories",
       "description": "When writing, reviewing, or validating user stories. Used by ARCHITECT-AGENT and PRODUCT-OWNER.",
-      "install": "CoderMariusz/MonoPilot",
       "repo": "CoderMariusz/MonoPilot",
-      "path": "",
       "category": "product",
       "tags": [
         "invest",
         "stories"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 1,
-      "featured": false
+      "source": ""
+    },
+    {
+      "name": "issue-template-generator",
+      "description": "Generate GitHub issue templates for bug reports, feature requests, and questions. Triggers on \"create issue template\", \"generate github issue template\", \"bug report template\", \"feature request templat",
+      "repo": "ehtbanton/ClaudeSkillsRepo",
+      "category": "product",
+      "tags": [
+        "issue",
+        "template",
+        "generator"
+      ],
+      "stars": 0,
+      "source": ""
     },
     {
       "name": "issue-tracking",
       "description": "Creates and manages issues via tissue for tracking work items, bugs, and features. Use for organizing work, checking ready issues, or updating status.",
-      "install": "evil-mind-evil-sword/idle",
       "repo": "evil-mind-evil-sword/idle",
-      "path": "",
       "category": "product",
       "tags": [
         "issue",
         "tracking"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": ""
     },
     {
       "name": "jira-safe",
       "description": "Implement SAFe methodology in Jira. Use when creating Epics, Features, Stories with proper hierarchy, acceptance criteria, and parent-child linking.",
-      "install": "01000001-01001110/agent-jira-skills",
       "repo": "01000001-01001110/agent-jira-skills",
-      "path": "",
       "category": "product",
       "tags": [
         "jira",
         "safe"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": ""
     },
     {
       "name": "kotlin-patterns",
       "description": "Kotlin/Spring Boot patterns for Orca service - use when implementing backend features, writing services, repositories, or controllers",
-      "install": "ashchupliak/dream-team",
       "repo": "ashchupliak/dream-team",
-      "path": "",
       "category": "product",
       "tags": [
         "kotlin",
         "patterns"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 1,
-      "featured": false
+      "source": ""
     },
     {
       "name": "kpi-pr-throughput",
       "description": "KPI for measuring and improving PR throughput. Defines metrics, measurement methods, and improvement strategies. Use to optimize how many quality PRs get merged.",
-      "install": "Anveio/conveaux",
       "repo": "Anveio/conveaux",
-      "path": "",
       "category": "product",
       "tags": [
         "kpi",
         "throughput"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": ""
     },
     {
       "name": "launch-planner",
       "description": "Converts app ideas into shippable MVPs by providing structured product planning, technical guidance, and decision-making support focused on rapid validation. Use when the user shares an app idea, need",
-      "install": "rspeciale0519/MailingListManager",
       "repo": "rspeciale0519/MailingListManager",
-      "path": "",
       "category": "product",
       "tags": [
         "launch",
         "planner"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 1,
-      "featured": false
-    },
-    {
-      "name": "launch-planner",
-      "description": "Transforms app ideas into shippable MVPs using a ship-fast, validate-first philosophy with Next.js/Supabase stack. Use when user presents product ideas, requests PRDs, asks about feature prioritizatio",
-      "install": "williamgarciadev/Registro-participantes",
-      "repo": "williamgarciadev/Registro-participantes",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "launch",
-        "planner"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 0,
-      "featured": false
-    },
-    {
-      "name": "launch-planner",
-      "description": "Transform app ideas into shippable MVPs using rapid validation methodology. Use when the user wants to build a new app, evaluate an idea, generate a PRD, create Claude Code prompts, scope an MVP, or m",
-      "install": "skycruzer/fleet-management-v2",
-      "repo": "skycruzer/fleet-management-v2",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "launch",
-        "planner"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 0,
-      "featured": false
-    },
-    {
-      "name": "launch-planner",
-      "description": "Transforms validated app ideas into shippable MVPs with ruthless scope control, tech-stack-specific guidance (Next.js/Supabase/Vercel), PRD generation, and anti-feature-creep enforcement. Use when pla",
-      "install": "jeremyspofford/dotfiles",
-      "repo": "jeremyspofford/dotfiles",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "launch",
-        "planner"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 0,
-      "featured": false
-    },
-    {
-      "name": "launch-planner",
-      "description": "Helps turn app ideas into shippable MVPs with opinionated guidance on scoping, tech stack (Next.js, Supabase, Vercel), and avoiding feature creep. Use when the user wants to plan an MVP, create a PRD,",
-      "install": "sgueye00/andmoov",
-      "repo": "sgueye00/andmoov",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "launch",
-        "planner"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 0,
-      "featured": false
-    },
-    {
-      "name": "launch-planner",
-      "description": "\"Transform app ideas into shippable MVPs with speed and focus. Use when: (1) evaluating new app or product ideas, (2) creating PRDs or product specs, (3) scoping features for an MVP, (4) generating st",
-      "install": "AIBPM42/hodgesfooshee-site-spark",
-      "repo": "AIBPM42/hodgesfooshee-site-spark",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "launch",
-        "planner"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 0,
-      "featured": false
+      "source": ""
     },
     {
       "name": "lsp-implementation",
       "description": "Use when implementing Language Server Protocol features - covers completions, hover, diagnostics, and navigation",
-      "install": "mcclowes/lea",
       "repo": "mcclowes/lea",
-      "path": "",
       "category": "product",
       "tags": [
         "lsp",
         "implementation"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 3,
-      "featured": false
+      "source": ""
     },
     {
       "name": "mechinterp-cluster-mapper",
       "description": "Analyze relationships across multiple SAE features - co-activation patterns, shared drivers, and subsystem identification",
-      "install": "cesaregarza/SplatNLP",
       "repo": "cesaregarza/SplatNLP",
-      "path": "",
       "category": "product",
       "tags": [
         "mechinterp",
         "cluster",
         "mapper"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": ""
     },
     {
       "name": "mechinterp-crossmodel-matcher",
       "description": "Match SAE features between Ultra (24K) and Full (2K) models based on activation patterns and token overlap",
-      "install": "cesaregarza/SplatNLP",
       "repo": "cesaregarza/SplatNLP",
-      "path": "",
       "category": "product",
       "tags": [
         "mechinterp",
         "crossmodel",
         "matcher"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": ""
     },
     {
       "name": "mechinterp-investigator",
       "description": "Orchestrate a systematic research program to investigate and meaningfully label SAE features",
-      "install": "cesaregarza/SplatNLP",
       "repo": "cesaregarza/SplatNLP",
-      "path": "",
       "category": "product",
       "tags": [
         "mechinterp",
         "investigator"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": ""
     },
     {
       "name": "mechinterp-patterns",
       "description": "Reference catalog of recurring SAE feature patterns - check when labeling new features, add new patterns as discovered",
-      "install": "cesaregarza/SplatNLP",
       "repo": "cesaregarza/SplatNLP",
-      "path": "",
       "category": "product",
       "tags": [
         "mechinterp",
         "patterns"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": ""
     },
     {
       "name": "mechinterp-state",
       "description": "Manage research state for SAE feature analysis including hypotheses, evidence tracking, and research history",
-      "install": "cesaregarza/SplatNLP",
       "repo": "cesaregarza/SplatNLP",
-      "path": "",
       "category": "product",
       "tags": [
         "mechinterp",
         "state"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": ""
+    },
+    {
+      "name": "metrics-tree",
+      "description": "Use when setting product North Star metrics, decomposing high-level business metrics into actionable sub-metrics and leading indicators, mapping strategy to measurable outcomes, identifying which metr",
+      "repo": "lyndonkl/claude",
+      "category": "product",
+      "tags": [
+        "metrics",
+        "tree"
+      ],
+      "stars": 8,
+      "source": ""
     },
     {
       "name": "mobile-feature",
       "description": "Use when creating or modifying React Native features in apps/mobile. Enforces React Native safety patterns, i18n, and Expo best practices.",
-      "install": "nizarghribi/hounii-monorepo-first",
       "repo": "nizarghribi/hounii-monorepo-first",
-      "path": "",
       "category": "product",
       "tags": [
         "mobile",
         "feature"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": ""
     },
     {
       "name": "module-improve",
       "description": "Version management, bug fixes, feature additions for VCV Rack modules",
-      "install": "davidorex/vcv-rack-module-creation-framework",
       "repo": "davidorex/vcv-rack-module-creation-framework",
-      "path": "",
       "category": "product",
       "tags": [
         "module",
         "improve"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 1,
-      "featured": false
+      "source": ""
     },
     {
       "name": "module-scaffold",
       "description": "Use when creating a new feature module in libs/. Triggers on \"create a module\", \"add a feature module\", \"scaffold module for X\", or \"new library for Y\"",
-      "install": "hmcts/expressjs-monorepo-template",
       "repo": "hmcts/expressjs-monorepo-template",
-      "path": "",
       "category": "product",
       "tags": [
         "module",
         "scaffold"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": ""
     },
     {
       "name": "monitoring",
       "description": "Game server monitoring with metrics, alerting, and performance tracking for production reliability",
-      "install": "pluginagentmarketplace/custom-plugin-server-side-game-dev",
       "repo": "pluginagentmarketplace/custom-plugin-server-side-game-dev",
-      "path": "",
       "category": "product",
       "tags": [
         "monitoring"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 1,
-      "featured": false
+      "source": ""
+    },
+    {
+      "name": "neutral-target-baseline",
+      "description": "Establish neutral baseline metrics for unbiased assessment.",
+      "repo": "starwreckntx/IRP__METHODOLOGIES-",
+      "category": "product",
+      "tags": [
+        "neutral",
+        "target",
+        "baseline"
+      ],
+      "stars": 1,
+      "source": ""
     },
     {
       "name": "new-feature",
       "description": "新功能開發流程。當用戶提到「新功能」「新增」「開發」「實作」「建立」等關鍵字時自動使用。執行 PRD → BDD → TDD → Code → Review 流程。",
-      "install": "insightdigit/ai_coding_flow",
       "repo": "insightdigit/ai_coding_flow",
-      "path": "",
       "category": "product",
       "tags": [
         "new",
         "feature"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": ""
     },
     {
       "name": "nextjs-supabase-auth",
       "description": "Production-ready authentication system for Next.js 15 + Supabase. Use when setting up auth, login, signup, OAuth, Google login, password reset, or user authentication.",
-      "install": "Henry229/antigravity-blog",
       "repo": "Henry229/antigravity-blog",
-      "path": "",
       "category": "product",
       "tags": [
         "nextjs",
         "supabase",
         "auth"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": ""
     },
     {
       "name": "nextjs-supabase-saas-planner",
       "description": "Comprehensive SaaS architecture planner for Next.js and Supabase applications. Converts ideas into production-ready technical plans with database schemas, file structures, feature breakdowns, and week",
-      "install": "sitechfromgeorgia/georgian-distribution-system",
       "repo": "sitechfromgeorgia/georgian-distribution-system",
-      "path": "",
       "category": "product",
       "tags": [
         "nextjs",
@@ -1485,286 +1091,171 @@
         "saas",
         "planner"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": ""
     },
     {
       "name": "nimble-create-prd",
       "description": "Guide for creating Product Requirements Documents (PRDs) following Nimble's standard. Use when creating new PRDs, defining requirements, documenting features, or planning product releases. Covers stru",
-      "install": "nimblehq/claude-skills",
       "repo": "nimblehq/claude-skills",
-      "path": "",
       "category": "product",
       "tags": [
         "nimble",
         "create",
         "prd"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": ""
     },
     {
       "name": "nimble-user-stories",
       "description": "Comprehensive guidance for writing user stories following Nimble's product development standards. Use when creating product requirements, organizing backlogs, writing user stories, documenting bugs, o",
-      "install": "nimblehq/claude-skills",
       "repo": "nimblehq/claude-skills",
-      "path": "",
       "category": "product",
       "tags": [
         "nimble",
         "user",
         "stories"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": ""
     },
     {
       "name": "observability-instrumentation",
       "description": "Comprehensive observability methodology implementing three pillars (logs, metrics, traces) with structured logging using Go slog, Prometheus-style metrics, and distributed tracing patterns. Use when a",
-      "install": "yaleh/meta-cc",
       "repo": "yaleh/meta-cc",
-      "path": "",
       "category": "product",
       "tags": [
         "observability",
         "instrumentation"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 15,
-      "featured": false
+      "source": ""
+    },
+    {
+      "name": "one-pager-prd",
+      "description": "Use when proposing new features/products, documenting product requirements, creating concise specs for stakeholder alignment, pitching initiatives, scoping projects before detailed design, capturing u",
+      "repo": "lyndonkl/claude",
+      "category": "product",
+      "tags": [
+        "one",
+        "pager",
+        "prd"
+      ],
+      "stars": 8,
+      "source": ""
     },
     {
       "name": "performance-monitoring",
       "description": "Set up application monitoring, logging, error tracking, and performance metrics tracking. Use when implementing monitoring or debugging production issues.",
-      "install": "PrasadTelasula/EvokeQOne",
       "repo": "PrasadTelasula/EvokeQOne",
-      "path": "",
       "category": "product",
       "tags": [
         "performance",
         "monitoring"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": ""
     },
     {
       "name": "plan-implementation",
       "description": "Break down feature specifications into manageable implementation phases with TDD vertical slices. Creates actionable task lists for immediate development. Use when you have a feature spec and need a c",
-      "install": "ovation22/TripleDerby",
       "repo": "ovation22/TripleDerby",
-      "path": "",
       "category": "product",
       "tags": [
         "plan",
         "implementation"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 3,
-      "featured": false
+      "source": ""
     },
     {
       "name": "planning-architect",
       "description": "Expert in creating comprehensive task files, planning docs, PRDs, tech specs, and implementation roadmaps with proper sequencing, testing strategy, and production checklists. Use when planning feature",
-      "install": "amo-tech-ai/medellin-spark",
       "repo": "amo-tech-ai/medellin-spark",
-      "path": "",
       "category": "product",
       "tags": [
         "planning",
         "architect"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": ""
     },
     {
       "name": "pmc-planning",
       "description": "Update planning docs from PRD files or discrepancies report. Use this skill to update roadmap and dependencies without creating tickets. Works directly with PRD documents and/or 99-discrepancies.md wh",
-      "install": "jayprimer/ppt",
       "repo": "jayprimer/ppt",
-      "path": "",
       "category": "product",
       "tags": [
         "pmc",
         "planning"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": ""
     },
     {
       "name": "portal-component",
       "description": "Generate Next.js components for the portal app with proper patterns. Use when creating new pages, components, or features in apps/portal.",
-      "install": "legacy3/wowlab",
       "repo": "legacy3/wowlab",
-      "path": "",
       "category": "product",
       "tags": [
         "portal",
         "component"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 1,
-      "featured": false
-    },
-    {
-      "name": "prd",
-      "description": "Complete PRD (Product Requirements Document) creation workflow that guides users from initial idea to implementation-ready specification using the integrated toolset in this repository. Handles everyt",
-      "install": "dy9759/SpecSkillsForClaudeCode",
-      "repo": "dy9759/SpecSkillsForClaudeCode",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "prd"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 1,
-      "featured": false
+      "source": ""
     },
     {
       "name": "prd",
       "description": "\"Guides product managers through creating comprehensive PRDs via structured conversation. Adapts depth and format based on project complexity—from quick feature specs to full product requirements with",
-      "install": "mohi86/prd",
       "repo": "mohi86/prd",
-      "path": "",
       "category": "product",
       "tags": [
         "prd"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
-    },
-    {
-      "name": "prd-authoring",
-      "description": "Use this skill for early-stage project planning. It leverages the Gemini CLI to generate high-quality first drafts of Product Briefs, Research Documents, and full PRDs, guiding users from idea to vali",
-      "install": "bodangren/git-workflow",
-      "repo": "bodangren/git-workflow",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "prd",
-        "authoring"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 7,
-      "featured": false
+      "source": ""
     },
     {
       "name": "prd-authoring",
       "description": "Use this skill for early-stage project planning through Product Requirements Documents (PRDs). Guides users from initial project ideas through product briefs, market research, PRD creation, validation",
-      "install": "bodangren/bus-math-v2",
       "repo": "bodangren/bus-math-v2",
-      "path": "",
       "category": "product",
       "tags": [
         "prd",
         "authoring"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
-    },
-    {
-      "name": "prd-authoring",
-      "description": "Use this skill for early-stage project planning. It leverages the Gemini CLI to generate high-quality first drafts of Product Briefs, Research Documents, and full PRDs, guiding users from idea to vali",
-      "install": "Reading-Advantage-Thailand/codecamp-advantage",
-      "repo": "Reading-Advantage-Thailand/codecamp-advantage",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "prd",
-        "authoring"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 0,
-      "featured": false
-    },
-    {
-      "name": "prd-authoring",
-      "description": "Generates a research-grade Product Requirements Document (PRD) defining problems, goals, scope, constraints, and success criteria. Use when creating or updating a PRD for a product or major initiative",
-      "install": "Z1-Test/temp-rajan-s2",
-      "repo": "Z1-Test/temp-rajan-s2",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "prd",
-        "authoring"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 0,
-      "featured": false
+      "source": ""
     },
     {
       "name": "prd-creator",
       "description": "This skill should be used when creating, validating, or converting Product Requirements Documents (PRDs) to LLM-native format. Use this skill when the user asks to write a PRD, review a PRD for compli",
-      "install": "auldsyababua/instructor-workflow",
       "repo": "auldsyababua/instructor-workflow",
-      "path": "",
       "category": "product",
       "tags": [
         "prd",
         "creator"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
-    },
-    {
-      "name": "prd-generator",
-      "description": "Generate comprehensive Product Requirements Documents (PRDs) for product managers. Use this skill when users ask to \"create a PRD\", \"write product requirements\", \"document a feature\", or need help str",
-      "install": "jamesrochabrun/skills",
-      "repo": "jamesrochabrun/skills",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "prd",
-        "generator"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 8,
-      "featured": false
-    },
-    {
-      "name": "prd-generator",
-      "description": "Smart PRD generator. Generates comprehensive technical PRDs optimized for task breakdown. Use when user requests \"PRD\", \"product requirements\", \"regenrate existing PDR\", or mentions task-driven develo",
-      "install": "letehaha/budget-tracker",
-      "repo": "letehaha/budget-tracker",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "prd",
-        "generator"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 2,
-      "featured": false
+      "source": ""
     },
     {
       "name": "prd-generator",
       "description": "Transform product requirements, ideas, or concepts into professional development resources. Use when users request help with product planning, PRD creation, work breakdown, or converting ideas into st",
-      "install": "johncarpenter/claude-code-resources",
       "repo": "johncarpenter/claude-code-resources",
-      "path": "",
       "category": "product",
       "tags": [
         "prd",
         "generator"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 2,
-      "featured": false
+      "source": ""
     },
     {
       "name": "prd-generator-for-taskmaster",
       "description": "Smart PRD generator with TaskMaster integration. Detects existing PRDs and offers execute/update/replace options. Generates comprehensive technical PRDs optimized for task breakdown, validates with 13",
-      "install": "anombyte93/prd-taskmaster",
       "repo": "anombyte93/prd-taskmaster",
-      "path": "",
       "category": "product",
       "tags": [
         "prd",
@@ -1772,784 +1263,443 @@
         "for",
         "taskmaster"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 11,
-      "featured": false
+      "source": ""
     },
     {
       "name": "prd-maker",
       "description": "\"Create comprehensive Product Requirements Documents (PRDs), break down features into epics and user stories, and establish clear acceptance criteria. Use this skill when you need to: (1) Transform a ",
-      "install": "Mharbulous/Listbot.ca",
       "repo": "Mharbulous/Listbot.ca",
-      "path": "",
       "category": "product",
       "tags": [
         "prd",
         "maker"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 1,
-      "featured": false
-    },
-    {
-      "name": "prd-writer",
-      "description": "Expert PRD (Product Requirements Document) writer for the AI era. Use when users want to create PRDs, spec documents, product specifications, feature specs, or technical requirements documents. Also u",
-      "install": "breethomas/pm-thought-partner",
-      "repo": "breethomas/pm-thought-partner",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "prd",
-        "writer"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 8,
-      "featured": false
+      "source": ""
     },
     {
       "name": "prd-writer",
       "description": "Write comprehensive Product Requirements Documents (PRDs)",
-      "install": "k5tuck/Selek",
       "repo": "k5tuck/Selek",
-      "path": "",
       "category": "product",
       "tags": [
         "prd",
         "writer"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": ""
     },
     {
-      "name": "prd-writer",
-      "description": "Create a clear, actionable PRD with clarifying questions and a junior-friendly structure.",
-      "install": "dundas/teleportation-cli",
-      "repo": "dundas/teleportation-cli",
-      "path": "",
+      "name": "pricing-strategist",
+      "description": "Design and optimize pricing strategies for SaaS products including tiering, packaging, value metrics, and experimentation. Use when setting initial pricing, optimizing conversion, expanding revenue, o",
+      "repo": "daffy0208/ai-dev-standards",
       "category": "product",
       "tags": [
-        "prd",
-        "writer"
+        "pricing",
+        "strategist"
       ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 0,
-      "featured": false
+      "stars": 2,
+      "source": ""
     },
     {
-      "name": "product-management",
-      "description": ">",
-      "install": "vasilyu1983/AI-Agents-public",
-      "repo": "vasilyu1983/AI-Agents-public",
-      "path": "",
+      "name": "prioritization-effort-impact",
+      "description": "Use when ranking backlogs, deciding what to do first based on effort vs impact (quick wins vs big bets), prioritizing feature roadmaps, triaging bugs or technical debt, allocating resources across ini",
+      "repo": "lyndonkl/claude",
       "category": "product",
       "tags": [
-        "product",
-        "management"
+        "prioritization",
+        "effort",
+        "impact"
       ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 21,
-      "featured": false
+      "stars": 8,
+      "source": ""
     },
     {
-      "name": "product-management",
-      "description": "Creates PRDs with user stories for brownfield enhancements. Analyzes existing projects, defines requirements, and generates implementable user stories with acceptance criteria, tasks, and dev notes.",
-      "install": "normcrandall/claudeskills",
-      "repo": "normcrandall/claudeskills",
-      "path": "",
+      "name": "product-analyst",
+      "description": "Track user metrics and provide data-driven insights for product decisions. Use when measuring product health, analyzing user behavior, conducting cohort analysis, or optimizing key metrics. Covers acq",
+      "repo": "daffy0208/ai-dev-standards",
       "category": "product",
       "tags": [
         "product",
-        "management"
+        "analyst"
       ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 1,
-      "featured": false
+      "stars": 2,
+      "source": ""
     },
     {
-      "name": "product-management",
-      "description": "Assist with core product management activities including writing PRDs, analyzing features, synthesizing user research, planning roadmaps, and communicating product decisions. Use when you need help wi",
-      "install": "GrupoUS/aegiswallet",
-      "repo": "GrupoUS/aegiswallet",
-      "path": "",
+      "name": "product-analytics",
+      "description": "Measure what matters with proper event tracking, funnels, cohorts, and metrics. Use when setting up analytics, tracking features, or understanding behavior.",
+      "repo": "daffy0208/ai-dev-standards",
       "category": "product",
       "tags": [
         "product",
-        "management"
+        "analytics"
       ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 1,
-      "featured": false
+      "stars": 2,
+      "source": ""
     },
     {
       "name": "product-management",
       "description": "Assist with core product management activities including writing PRDs, analyzing features, synthesizing user research, planning roadmaps, and communicating product decisions. Use when you need help wi",
-      "install": "bhska/shopify-laravel",
-      "repo": "bhska/shopify-laravel",
-      "path": "",
+      "repo": "julianromli/ai-skills",
       "category": "product",
       "tags": [
         "product",
         "management"
       ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 0,
-      "featured": false
-    },
-    {
-      "name": "product-manager",
-      "description": "Expert product manager specializing in product strategy, user-centric development, and business outcomes. Masters roadmap planning, feature prioritization, and cross-functional leadership with focus o",
-      "install": "zenobi-us/dotfiles",
-      "repo": "zenobi-us/dotfiles",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "product",
-        "manager"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 21,
-      "featured": false
-    },
-    {
-      "name": "product-manager",
-      "description": "Decomposes large features into concrete development phases with DAG dependencies. Each phase produces fully functional code. Outputs YAML manifest. Triggers on keywords: decompose feature, phase plann",
-      "install": "MatiasComercio/agentic-config",
-      "repo": "MatiasComercio/agentic-config",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "product",
-        "manager"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 15,
-      "featured": false
-    },
-    {
-      "name": "product-manager",
-      "description": "\"Senior product manager for end-to-end product development from requirements to design. Use when users need: (1) Requirements analysis and product direction, (2) User personas and scenario analysis, (",
-      "install": "shining319/claude-code-single-person-workflow",
-      "repo": "shining319/claude-code-single-person-workflow",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "product",
-        "manager"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 3,
-      "featured": false
-    },
-    {
-      "name": "product-manager",
-      "description": "Product manager for Doggy Dogs Car Dog Alarm app focusing on user value, feature prioritization, requirements clarity, and product strategy. Use for defining user stories, acceptance criteria, feature",
-      "install": "r0man/doggy-dogs-car-dog-alarm",
-      "repo": "r0man/doggy-dogs-car-dog-alarm",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "product",
-        "manager"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 0,
-      "featured": false
-    },
-    {
-      "name": "product-manager",
-      "description": "Expert Product Manager specializing in B2B SaaS platforms, multi-tenant systems, and subscription-based business models. Activated for product strategy, feature prioritization, requirements gathering,",
-      "install": "tariron/saasodoo",
-      "repo": "tariron/saasodoo",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "product",
-        "manager"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 0,
-      "featured": false
+      "stars": 120,
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "product-manager",
       "description": "Expert product management guidance for product strategy, roadmap planning, feature prioritization, user research, requirements gathering, metrics, and go-to-market strategy. Use when discussing produc",
-      "install": "AlenaMus/EmailSkillAgents",
       "repo": "AlenaMus/EmailSkillAgents",
-      "path": "",
       "category": "product",
       "tags": [
         "product",
         "manager"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": ""
     },
     {
-      "name": "product-manager",
-      "description": "Analyze user research, write PRDs, prioritize features using RICE, draft stakeholder communications, and interpret product metrics. Use when the user mentions user feedback, feature prioritization, pr",
-      "install": "jk278/veld",
-      "repo": "jk278/veld",
-      "path": "",
+      "name": "product-manager-toolkit",
+      "description": "",
+      "repo": "alirezarezvani/claude-skills",
       "category": "product",
-      "tags": [
-        "product",
-        "manager"
-      ],
-      "source": "SkillsMP Synced Skills",
+      "tags": [],
       "stars": 0,
-      "featured": false
-    },
-    {
-      "name": "product-manager",
-      "description": "Use when prioritizing animation features, building motion roadmaps, or when a PM needs to understand the business value of animation principles.",
-      "install": "dylantarre/animation-principles",
-      "repo": "dylantarre/animation-principles",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "product",
-        "manager"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 0,
-      "featured": false
+      "source": ""
     },
     {
       "name": "product-planning",
       "description": "Use when specs/product/ is empty or incomplete to create mission.md, roadmap.md and tech-stack.md through incremental brainstorming and validation.",
-      "install": "marcos-abreu/connect_kit",
       "repo": "marcos-abreu/connect_kit",
-      "path": "",
       "category": "product",
       "tags": [
         "product",
         "planning"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 1,
-      "featured": false
+      "source": ""
     },
     {
-      "name": "product-planning",
-      "description": "Standards and templates for product vision, roadmap planning, and technology selection. Use when establishing product foundation or making strategic decisions.",
-      "install": "IvanTorresEdge/molcajete.ai",
-      "repo": "IvanTorresEdge/molcajete.ai",
-      "path": "",
+      "name": "product-requirements",
+      "description": "Interactive Product Owner skill for requirements gathering, analysis, and PRD generation. Triggers when users request product requirements, feature specification, PRD creation, or need help understand",
+      "repo": "cexll/myclaude",
       "category": "product",
       "tags": [
         "product",
-        "planning"
+        "requirements"
       ],
-      "source": "SkillsMP Synced Skills",
+      "stars": 1535,
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "product-strategist",
+      "description": "",
+      "repo": "alirezarezvani/claude-skills",
+      "category": "product",
+      "tags": [],
       "stars": 0,
-      "featured": false
-    },
-    {
-      "name": "product-requirements",
-      "description": "Transform Canvas strategy into user stories. Use when creating backlogs, writing requirements, defining features, or extracting product context from Canvas.",
-      "install": "BellaBe/lean-os",
-      "repo": "BellaBe/lean-os",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "product",
-        "requirements"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 12,
-      "featured": false
-    },
-    {
-      "name": "product-requirements",
-      "description": "Transform Canvas strategy into product requirements and user stories. Use when translating business goals into features, creating user stories, or building product backlogs.",
-      "install": "BellaBe/ideas-os",
-      "repo": "BellaBe/ideas-os",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "product",
-        "requirements"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 1,
-      "featured": false
+      "source": ""
     },
     {
       "name": "product-strategy-advisor",
       "description": "Senior AI product strategist who challenges assumptions and pushes back on flawed ideas. Use this skill when planning features, making product decisions, prioritizing AI capabilities, or evaluating co",
-      "install": "zxj777/mind-fuse",
       "repo": "zxj777/mind-fuse",
-      "path": "",
       "category": "product",
       "tags": [
         "product",
         "strategy",
         "advisor"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 4,
-      "featured": false
+      "source": ""
     },
     {
       "name": "production-eval-strategy",
       "description": "Strategies for evaluating agents in production - sampling, baselines, and regression detection",
-      "install": "nexus-labs-automation/agent-observability",
       "repo": "nexus-labs-automation/agent-observability",
-      "path": "",
       "category": "product",
       "tags": [
         "production",
         "eval",
         "strategy"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": ""
     },
     {
       "name": "project-feature",
       "description": "Adds new fields or features to Project entity. Use when extending project schema, adding new properties, updating forms, or modifying project display. Includes type updates, API changes, and validatio",
-      "install": "jhlee0409/sidedish",
       "repo": "jhlee0409/sidedish",
-      "path": "",
       "category": "product",
       "tags": [
         "project",
         "feature"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": ""
     },
     {
       "name": "prompt-engineering",
       "description": "Expert prompt optimization system for building production-ready AI features. Use when users request help improving prompts, want to create system prompts, need prompt review/critique, ask for prompt o",
-      "install": "breethomas/pm-thought-partner",
       "repo": "breethomas/pm-thought-partner",
-      "path": "",
       "category": "product",
       "tags": [
         "prompt",
         "engineering"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 8,
-      "featured": false
+      "source": ""
+    },
+    {
+      "name": "prompt-optimizer",
+      "description": "Transform vague prompts into precise, well-structured specifications using EARS (Easy Approach to Requirements Syntax) methodology. This skill should be used when users provide loose requirements, amb",
+      "repo": "daymade/claude-code-skills",
+      "category": "product",
+      "tags": [
+        "prompt",
+        "optimizer"
+      ],
+      "stars": 110,
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "quality-dashboard",
       "description": "Unified project health dashboard aggregating all quality metrics",
-      "install": "mehdic/bazinga",
       "repo": "mehdic/bazinga",
-      "path": "",
       "category": "product",
       "tags": [
         "quality",
         "dashboard"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 2,
-      "featured": false
+      "source": ""
     },
     {
       "name": "react",
       "description": "This skill should be used when working with React 19, including hooks, components, server components, concurrent features, and React DOM APIs. Provides comprehensive knowledge of React patterns, best ",
-      "install": "purrgrammer/grimoire",
       "repo": "purrgrammer/grimoire",
-      "path": "",
       "category": "product",
       "tags": [
         "react"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 11,
-      "featured": false
+      "source": ""
     },
     {
       "name": "react-hooks-patterns",
       "description": "Master React Hooks including useState, useEffect, useContext, useReducer, and custom hooks with production-grade patterns",
-      "install": "pluginagentmarketplace/custom-plugin-react",
       "repo": "pluginagentmarketplace/custom-plugin-react",
-      "path": "",
       "category": "product",
       "tags": [
         "react",
         "hooks",
         "patterns"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 1,
-      "featured": false
+      "source": ""
     },
     {
       "name": "react-router",
       "description": "Master React Router v6 for production routing with error boundaries, lazy loading, and navigation guards",
-      "install": "pluginagentmarketplace/custom-plugin-react",
       "repo": "pluginagentmarketplace/custom-plugin-react",
-      "path": "",
       "category": "product",
       "tags": [
         "react",
         "router"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 1,
-      "featured": false
+      "source": ""
     },
     {
       "name": "requirements-discovery",
       "description": "Stakeholder interview and requirements elicitation. Discovers hidden needs, surfaces contradictions, and produces structured specifications. Use when gathering requirements, conducting discovery inter",
-      "install": "1ambda/dataops-platform",
       "repo": "1ambda/dataops-platform",
-      "path": "",
       "category": "product",
       "tags": [
         "requirements",
         "discovery"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 1,
-      "featured": false
+      "source": ""
     },
     {
       "name": "researching-features",
       "description": "\"Research external APIs/services/libraries for feature implementation. Interviews user, researches options, confirms choice, gathers implementation notes. Creates .claude/plans file.\"",
-      "install": "seanchiuai/claude-code-workflow",
       "repo": "seanchiuai/claude-code-workflow",
-      "path": "",
       "category": "product",
       "tags": [
         "researching",
         "features"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": ""
+    },
+    {
+      "name": "roadmap-backcast",
+      "description": "Use when planning with fixed deadline or target outcome, working backward from future goal to present, defining milestones and dependencies, mapping critical path, identifying what must happen when, p",
+      "repo": "lyndonkl/claude",
+      "category": "product",
+      "tags": [
+        "roadmap",
+        "backcast"
+      ],
+      "stars": 8,
+      "source": ""
     },
     {
       "name": "roadmap-builder",
       "description": "Decide what to build next with brutal prioritization using impact/effort analysis. Use when planning sprints, evaluating features, or auditing an overgrown roadmap.",
-      "install": "mjmiller3416/recipe-app",
       "repo": "mjmiller3416/recipe-app",
-      "path": "",
       "category": "product",
       "tags": [
         "roadmap",
         "builder"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 1,
-      "featured": false
-    },
-    {
-      "name": "roadmap-builder",
-      "description": "Prioritizes features using Impact vs Effort matrix and stage-based rules (Retention > Core > Monetization > Growth). Challenges feature ideas, prevents feature creep, and keeps roadmap focused on real",
-      "install": "jeremyspofford/dotfiles",
-      "repo": "jeremyspofford/dotfiles",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "roadmap",
-        "builder"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 0,
-      "featured": false
-    },
-    {
-      "name": "roadmap-builder",
-      "description": "Provides ruthless prioritization framework for product decisions. Use when advising what to build next, challenging feature ideas, evaluating new features against Impact vs Effort matrix, applying sta",
-      "install": "skycruzer/fleet-management-v2",
-      "repo": "skycruzer/fleet-management-v2",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "roadmap",
-        "builder"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 0,
-      "featured": false
-    },
-    {
-      "name": "roadmap-builder",
-      "description": "Helps prioritize features and decide what to build next using Impact vs Effort matrix, category prioritization (Retention, Core, Monetization, Growth in order), and stage-based rules. Use when decidin",
-      "install": "sgueye00/andmoov",
-      "repo": "sgueye00/andmoov",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "roadmap",
-        "builder"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 0,
-      "featured": false
-    },
-    {
-      "name": "roadmap-builder",
-      "description": "Product roadmap prioritization and feature decision framework. Use when the user needs help deciding what to build next, evaluating feature ideas, prioritizing their backlog, challenging feature reque",
-      "install": "AIBPM42/hodgesfooshee-site-spark",
-      "repo": "AIBPM42/hodgesfooshee-site-spark",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "roadmap",
-        "builder"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 0,
-      "featured": false
-    },
-    {
-      "name": "roadmap-builder",
-      "description": "Ruthless feature prioritization using Impact vs Effort matrix and stage-based rules. Prevents feature creep by focusing on retention → core features → monetization → growth. Challenges ideas with vali",
-      "install": "bearhedge/APE-YOLO",
-      "repo": "bearhedge/APE-YOLO",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "roadmap",
-        "builder"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 0,
-      "featured": false
-    },
-    {
-      "name": "roadmap-integration",
-      "description": "Manages product roadmap via GitHub Issues (brainstorm, prioritize, track). Auto-validates features against project vision (from overview.md) before adding to roadmap. Use when running /roadmap command",
-      "install": "marcusgoll/Spec-Flow",
-      "repo": "marcusgoll/Spec-Flow",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "roadmap",
-        "integration"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 16,
-      "featured": false
-    },
-    {
-      "name": "roadmap-integration",
-      "description": "\"Standard Operating Procedure for /roadmap usage. Manage product roadmap (brainstorm, prioritize, track).\"",
-      "install": "oxie/portfolio-cms-project",
-      "repo": "oxie/portfolio-cms-project",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "roadmap",
-        "integration"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 0,
-      "featured": false
+      "source": ""
     },
     {
       "name": "roadmap-integration",
       "description": "\"Standard Operating Procedure for /roadmap usage. Manage product roadmap via GitHub Issues (brainstorm, prioritize, track). Auto-validates features against project vision (from overview.md) before add",
-      "install": "marcusgoll/robinhood-algo-trading-bot",
       "repo": "marcusgoll/robinhood-algo-trading-bot",
-      "path": "",
       "category": "product",
       "tags": [
         "roadmap",
         "integration"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": ""
     },
     {
       "name": "roadmap-updater",
       "description": "更新 ROADMAP.md 狀態。觸發：roadmap、路線、規劃、里程碑。",
-      "install": "u9401066/med-paper-assistant",
       "repo": "u9401066/med-paper-assistant",
-      "path": "",
       "category": "product",
       "tags": [
         "roadmap",
         "updater"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 3,
-      "featured": false
-    },
-    {
-      "name": "roadmap-updater",
-      "description": "Auto-update ROADMAP.md status based on completed features.LOAD THIS SKILL WHEN: User says \"更新 roadmap\", \"完成功能\", \"里程碑\" | features completed | planning new milestones | before releases.CAPABILITIES: Sta",
-      "install": "u9401066/copilot-capability-manager",
-      "repo": "u9401066/copilot-capability-manager",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "roadmap",
-        "updater"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 0,
-      "featured": false
-    },
-    {
-      "name": "roadmap-updater",
-      "description": "Auto-update ROADMAP.md status based on completed features. Triggers: RM, roadmap, 路線, 規劃, 完成功能, milestone, 里程碑.",
-      "install": "u9401066/asset-aware-mcp",
-      "repo": "u9401066/asset-aware-mcp",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "roadmap",
-        "updater"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 0,
-      "featured": false
+      "source": ""
     },
     {
       "name": "role-product-pm",
       "description": "顶级通信产品经理。负责内网穿透产品规划、用户场景分析、竞品研究、商业化策略、需求优先级。专注企业级隧道产品的市场定位和用户体验。关键词：产品、需求、场景、商业化、PRD、用户。",
-      "install": "tunnox-net/tunnox-core",
       "repo": "tunnox-net/tunnox-core",
-      "path": "",
       "category": "product",
       "tags": [
         "role",
         "product"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 4,
-      "featured": false
+      "source": ""
     },
     {
       "name": "ros2-standards",
       "description": "Authoritative guidelines for writing production-grade ROS 2 (Humble) Python 3.11+ code (leveraging 3.12+ features where compatible) for Physical AI applications.",
-      "install": "uneezaismail/Physical-AI-Humanoid-Robotics",
       "repo": "uneezaismail/Physical-AI-Humanoid-Robotics",
-      "path": "",
       "category": "product",
       "tags": [
         "ros2",
         "standards"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 1,
-      "featured": false
+      "source": ""
     },
     {
       "name": "rpi",
       "description": "Use when implementing features from Jira tickets, PRDs, or user requirements. Orchestrates Research-Plan-Implement workflow with quality gates for hallucination, overengineering, and underengineering ",
-      "install": "ferdiangunawan/skills",
       "repo": "ferdiangunawan/skills",
-      "path": "",
       "category": "product",
       "tags": [
         "rpi"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 2,
-      "featured": false
+      "source": ""
     },
     {
       "name": "rust-observability",
       "description": "Production observability with tracing, OpenTelemetry, and Prometheus metrics including structured logging, instrumented functions, distributed tracing, health checks, and request correlation. Use when",
-      "install": "matthewharwood/engmanager.xyz",
       "repo": "matthewharwood/engmanager.xyz",
-      "path": "",
       "category": "product",
       "tags": [
         "rust",
         "observability"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 1,
-      "featured": false
+      "source": ""
     },
     {
       "name": "saas-architect",
       "description": "Comprehensive SaaS architecture planner for Next.js + Supabase applications. Converts ideas into production-ready technical plans with database schemas, file structures, feature breakdowns, and week-b",
-      "install": "sitechfromgeorgia/georgian-distribution-system",
       "repo": "sitechfromgeorgia/georgian-distribution-system",
-      "path": "",
       "category": "product",
       "tags": [
         "saas",
         "architect"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": ""
     },
     {
       "name": "saas-launch-planner",
       "description": "Comprehensive SaaS planning system for solo developers using Next.js + Supabase + Stripe stack. Converts ideas into shippable subscription products with scope control, feature prioritization, billing ",
-      "install": "sitechfromgeorgia/georgian-distribution-system",
       "repo": "sitechfromgeorgia/georgian-distribution-system",
-      "path": "",
       "category": "product",
       "tags": [
         "saas",
         "launch",
         "planner"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": ""
     },
     {
       "name": "shipany-quick-start",
       "description": "Automate first-pass customization of a new ShipAny (ShipAny Two) project from a short project brief (app name, domain/app URL, product description/features, reference links, and branding preferences).",
-      "install": "joey-goodjob/shipanytwo",
       "repo": "joey-goodjob/shipanytwo",
-      "path": "",
       "category": "product",
       "tags": [
         "shipany",
         "quick",
         "start"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 4,
-      "featured": false
+      "source": ""
     },
     {
       "name": "skill-finder",
       "description": "Full-featured Agent Skills management: Search 35+ skills, install locally, star favorites, update from sources. Supports tag search (#azure #bicep), category filtering, and similar skill recommendatio",
-      "install": "aktsmm/Agent-Skills",
       "repo": "aktsmm/Agent-Skills",
-      "path": "",
       "category": "product",
       "tags": [
         "skill",
         "finder"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": ""
     },
     {
       "name": "spec-validation",
       "description": "Self-evaluation and quality validation for specifications and documents. Identifies gaps, contradictions, and missing details using structured checklists. Use after drafting specs, PRDs, or feature do",
-      "install": "1ambda/dataops-platform",
       "repo": "1ambda/dataops-platform",
-      "path": "",
       "category": "product",
       "tags": [
         "spec",
         "validation"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 1,
-      "featured": false
+      "source": ""
     },
     {
       "name": "supabase-react-best-practices",
       "description": "Comprehensive guide for building production-ready React applications with Supabase, TypeScript, and TanStack Query. Use when implementing auth, data fetching, real-time features, or optimizing Supabas",
-      "install": "amo-tech-ai/event-studio",
       "repo": "amo-tech-ai/event-studio",
-      "path": "",
       "category": "product",
       "tags": [
         "supabase",
@@ -2557,495 +1707,181 @@
         "best",
         "practices"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": ""
     },
     {
       "name": "switch-feature",
       "description": "Commit or stash current work, then switch to another existing worktree. Use when switching between features or stories, ensures changes are saved before switching.",
-      "install": "michael-menard/monorepo",
       "repo": "michael-menard/monorepo",
-      "path": "",
       "category": "product",
       "tags": [
         "switch",
         "feature"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": ""
+    },
+    {
+      "name": "symbol-map-entropy-calc",
+      "description": "Calculate entropy metrics for symbolic mapping and semantic drift.",
+      "repo": "starwreckntx/IRP__METHODOLOGIES-",
+      "category": "product",
+      "tags": [
+        "symbol",
+        "map",
+        "entropy",
+        "calc"
+      ],
+      "stars": 1,
+      "source": ""
     },
     {
       "name": "sync-planning",
       "description": "Update planning docs and create tickets based on discrepancies report. Use this skill after running analyze-gaps to create tickets for unbuilt features and update roadmap. Handles DOCUMENTED_NOT_IMPLE",
-      "install": "jayprimer/ppt",
       "repo": "jayprimer/ppt",
-      "path": "",
       "category": "product",
       "tags": [
         "sync",
         "planning"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": ""
+    },
+    {
+      "name": "task-breakdown",
+      "description": "Convert technical designs into actionable, sequenced implementation tasks. Create clear coding tasks that enable incremental progress, respect dependencies, and provide a roadmap for systematic featur",
+      "repo": "jasonkneen/kiro",
+      "category": "product",
+      "tags": [
+        "task",
+        "breakdown"
+      ],
+      "stars": 417,
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "tg-character-templates",
       "description": "Character template system for World of Darkness character creation. Use when implementing template selection in character creation flows, creating/managing CharacterTemplate objects, adding template s",
-      "install": "charlesmsiegel/tg",
       "repo": "charlesmsiegel/tg",
-      "path": "",
       "category": "product",
       "tags": [
         "character",
         "templates"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 1,
-      "featured": false
+      "source": ""
     },
     {
       "name": "tg-permissions",
       "description": "Permission and access control patterns for the World of Darkness Django application. Use when implementing view permissions, checking user access levels, creating limited forms for owners, using Permi",
-      "install": "charlesmsiegel/tg",
       "repo": "charlesmsiegel/tg",
-      "path": "",
       "category": "product",
       "tags": [
         "permissions"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 1,
-      "featured": false
+      "source": ""
     },
     {
       "name": "us-market-bubble-detector",
       "description": "Evaluates market bubble risk through quantitative data-driven analysis using the revised Minsky/Kindleberger framework v2.1. Prioritizes objective metrics (Put/Call, VIX, margin debt, breadth, IPO dat",
-      "install": "tradermonty/claude-trading-skills",
       "repo": "tradermonty/claude-trading-skills",
-      "path": "",
       "category": "product",
       "tags": [
         "market",
         "bubble",
         "detector"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 1,
-      "featured": false
+      "source": ""
     },
     {
       "name": "use-zfeats",
       "description": "Plan large features by drafting step-by-step checklists in zfeats/*.md using - [ ] items, then implement and mark items done as - [x]. Use when breaking down or executing multi-step tech plans.",
-      "install": "lollipopkit/cc-skills",
       "repo": "lollipopkit/cc-skills",
-      "path": "",
       "category": "product",
       "tags": [
         "use",
         "zfeats"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": ""
     },
     {
       "name": "user-feedback-interpreter",
       "description": "Comprehensive UX research assistant that analyzes user feedback from surveys, reviews, and interviews to identify trends, cluster themes, surface friction points, and generate actionable product roadm",
-      "install": "sitechfromgeorgia/georgian-distribution-system",
       "repo": "sitechfromgeorgia/georgian-distribution-system",
-      "path": "",
       "category": "product",
       "tags": [
         "user",
         "feedback",
         "interpreter"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": ""
     },
     {
       "name": "using-git-worktrees",
       "description": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with smart directory selection and safety verificat",
-      "install": "zenobi-us/dotfiles",
-      "repo": "zenobi-us/dotfiles",
-      "path": "",
+      "repo": "obra/superpowers",
       "category": "product",
       "tags": [
         "using",
         "git",
         "worktrees"
       ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 21,
-      "featured": false
-    },
-    {
-      "name": "using-git-worktrees",
-      "description": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with smart directory selection and safety verificat",
-      "install": "ReinaMacCredy/maestro",
-      "repo": "ReinaMacCredy/maestro",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "using",
-        "git",
-        "worktrees"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 18,
-      "featured": false
-    },
-    {
-      "name": "using-git-worktrees",
-      "description": "Use when starting feature work or reviewing PRs - uses git-worktree-new/pr/prune shell functions with automatic git-crypt support, Husky disabled, and .worktrees/ location. No manual setup needed.",
-      "install": "otahontas/dotfiles",
-      "repo": "otahontas/dotfiles",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "using",
-        "git",
-        "worktrees"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 8,
-      "featured": false
-    },
-    {
-      "name": "using-git-worktrees",
-      "description": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with smart directory selection and safety verificat",
-      "install": "alexanderop/workoutTracker",
-      "repo": "alexanderop/workoutTracker",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "using",
-        "git",
-        "worktrees"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 3,
-      "featured": false
-    },
-    {
-      "name": "using-git-worktrees",
-      "description": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with smart directory selection and safety verificat",
-      "install": "Sentry01/Copilot-CLI-Harness",
-      "repo": "Sentry01/Copilot-CLI-Harness",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "using",
-        "git",
-        "worktrees"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 3,
-      "featured": false
-    },
-    {
-      "name": "using-git-worktrees",
-      "description": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with smart directory selection and safety verificat",
-      "install": "cipherstash/cipherpowers",
-      "repo": "cipherstash/cipherpowers",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "using",
-        "git",
-        "worktrees"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 2,
-      "featured": false
-    },
-    {
-      "name": "using-git-worktrees",
-      "description": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with smart directory selection and safety verificat",
-      "install": "lv416e/dotfiles",
-      "repo": "lv416e/dotfiles",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "using",
-        "git",
-        "worktrees"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 1,
-      "featured": false
-    },
-    {
-      "name": "using-git-worktrees",
-      "description": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with smart directory selection and safety verificat",
-      "install": "marcos-abreu/connect_kit",
-      "repo": "marcos-abreu/connect_kit",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "using",
-        "git",
-        "worktrees"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 1,
-      "featured": false
-    },
-    {
-      "name": "using-git-worktrees",
-      "description": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with smart directory selection and safety verificat",
-      "install": "WesleyMFrederick/cc-workflows",
-      "repo": "WesleyMFrederick/cc-workflows",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "using",
-        "git",
-        "worktrees"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 1,
-      "featured": false
-    },
-    {
-      "name": "using-git-worktrees",
-      "description": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with smart directory selection and safety verificat",
-      "install": "samjhecht/wrangler",
-      "repo": "samjhecht/wrangler",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "using",
-        "git",
-        "worktrees"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 1,
-      "featured": false
-    },
-    {
-      "name": "using-git-worktrees",
-      "description": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with smart directory selection and safety verificat",
-      "install": "JohnStrunk/template",
-      "repo": "JohnStrunk/template",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "using",
-        "git",
-        "worktrees"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 1,
-      "featured": false
-    },
-    {
-      "name": "using-git-worktrees",
-      "description": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with smart directory selection and safety verificat",
-      "install": "alexsandrocruz/ZenPowers",
-      "repo": "alexsandrocruz/ZenPowers",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "using",
-        "git",
-        "worktrees"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 0,
-      "featured": false
-    },
-    {
-      "name": "using-git-worktrees",
-      "description": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with smart directory selection and safety verificat",
-      "install": "pproenca/dot-claude",
-      "repo": "pproenca/dot-claude",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "using",
-        "git",
-        "worktrees"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 0,
-      "featured": false
-    },
-    {
-      "name": "using-git-worktrees",
-      "description": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with smart directory selection and safety verificat",
-      "install": "d-oit/do-novelist-ai",
-      "repo": "d-oit/do-novelist-ai",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "using",
-        "git",
-        "worktrees"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 0,
-      "featured": false
-    },
-    {
-      "name": "using-git-worktrees",
-      "description": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with smart directory selection and safety verificat",
-      "install": "arturas-bes/kainuguru-api",
-      "repo": "arturas-bes/kainuguru-api",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "using",
-        "git",
-        "worktrees"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 0,
-      "featured": false
-    },
-    {
-      "name": "using-git-worktrees",
-      "description": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with smart directory selection and safety verificat",
-      "install": "synqing/Lightwave-Ledstrip",
-      "repo": "synqing/Lightwave-Ledstrip",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "using",
-        "git",
-        "worktrees"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 0,
-      "featured": false
-    },
-    {
-      "name": "using-git-worktrees",
-      "description": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans. Creates isolated git worktrees with smart directory selection and safety verificati",
-      "install": "julianobarbosa/claude-code-skills",
-      "repo": "julianobarbosa/claude-code-skills",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "using",
-        "git",
-        "worktrees"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 0,
-      "featured": false
-    },
-    {
-      "name": "using-git-worktrees",
-      "description": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with smart directory selection and safety verificat",
-      "install": "zebbern/backround_remover",
-      "repo": "zebbern/backround_remover",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "using",
-        "git",
-        "worktrees"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 0,
-      "featured": false
-    },
-    {
-      "name": "using-git-worktrees",
-      "description": "Use when starting feature work, setting up fork, or creating isolated workspaces in NEO project",
-      "install": "NAGAGroup/CodeAccelerate-Bootstrap",
-      "repo": "NAGAGroup/CodeAccelerate-Bootstrap",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "using",
-        "git",
-        "worktrees"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 0,
-      "featured": false
+      "stars": 12395,
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "vector-search",
       "description": "Semantic search using vector embeddings and similarity metrics. Apply when implementing search with embeddings (OpenAI, Sentence Transformers) or distance-based ranking. Covers cosine similarity, Eucl",
-      "install": "vineethsoma/agent-packages",
       "repo": "vineethsoma/agent-packages",
-      "path": "",
       "category": "product",
       "tags": [
         "vector",
         "search"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": ""
     },
     {
       "name": "wordpress-modern",
       "description": "Modern WordPress 6.8+ features including asset loading optimization, speculative loading, enqueue strategies, settings API, AJAX handlers, activation hooks, and performance best practices. Use when op",
-      "install": "mikkelkrogsholm/wp-plugins",
       "repo": "mikkelkrogsholm/wp-plugins",
-      "path": "",
       "category": "product",
       "tags": [
         "wordpress",
         "modern"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": ""
     },
     {
       "name": "write-prd",
       "description": "사용자의 기능 아이디어를 시니어 전문가 관점에서 검토하고 PRD를 작성합니다. 기획/API/비즈니스/개발 관점에서 일반 방법론과 비교하여 문제점과 트레이드오프를 분석합니다.",
-      "install": "NB993/olhaeolhae",
       "repo": "NB993/olhaeolhae",
-      "path": "",
       "category": "product",
       "tags": [
         "write",
         "prd"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
-    },
-    {
-      "name": "write-prd",
-      "description": "Create comprehensive Product Requirements Documents from initial ideas with modern best practices and templates",
-      "install": "dikini/scaffold",
-      "repo": "dikini/scaffold",
-      "path": "",
-      "category": "product",
-      "tags": [
-        "write",
-        "prd"
-      ],
-      "source": "SkillsMP Synced Skills",
-      "stars": 0,
-      "featured": false
+      "source": ""
     },
     {
       "name": "wt-finish",
       "description": "Finish a feature by merging it to the base branch and cleaning up the worktree. Use when completing a feature or story, handles merge, push, and cleanup automatically.",
-      "install": "michael-menard/monorepo",
       "repo": "michael-menard/monorepo",
-      "path": "",
       "category": "product",
       "tags": [
         "finish"
       ],
-      "source": "SkillsMP Synced Skills",
       "stars": 0,
-      "featured": false
+      "source": ""
     }
   ],
   "count": 507,
-  "total_count": 199
+  "total_count": 154
 }

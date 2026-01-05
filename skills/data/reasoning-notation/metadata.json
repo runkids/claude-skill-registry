@@ -1,0 +1,11 @@
+{
+  "name": "reasoning-notation",
+  "description": "Meta-skill that wraps reasoning skills to capture notes in real-time, protecting against context compression. Creates checkpoint files during reasoning sessions.",
+  "repo": "agentgptsmith/MonadFramework",
+  "category": "data",
+  "tags": [
+    "reasoning",
+    "notation"
+  ],
+  "stars": 0
+}

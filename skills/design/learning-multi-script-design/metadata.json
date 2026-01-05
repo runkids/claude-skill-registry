@@ -1,0 +1,13 @@
+{
+  "name": "learning-multi-script-design",
+  "description": "Design learning materials for right-to-left languages, complex scripts, bidirectional text, and multi-script environments. Calculate text expansion factors and specify typography requirements. Use whe",
+  "repo": "pauljbernard/content",
+  "category": "design",
+  "tags": [
+    "learning",
+    "multi",
+    "script",
+    "design"
+  ],
+  "stars": 0
+}

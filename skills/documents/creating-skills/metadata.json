@@ -1,0 +1,11 @@
+{
+  "name": "creating-skills",
+  "description": "Use when creating new skills, documenting workflows, or standardizing processes into reusable skill definitions.",
+  "repo": "BPSAI/paircoder",
+  "category": "documents",
+  "tags": [
+    "creating",
+    "skills"
+  ],
+  "stars": 2
+}

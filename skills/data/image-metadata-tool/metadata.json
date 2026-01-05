@@ -1,0 +1,12 @@
+{
+  "name": "image-metadata-tool",
+  "description": "Extract EXIF metadata from images including GPS coordinates, camera settings, and timestamps. Map photo locations and strip metadata for privacy.",
+  "repo": "dkyazzentwatwa/chatgpt-skills",
+  "category": "data",
+  "tags": [
+    "image",
+    "metadata",
+    "tool"
+  ],
+  "stars": 1
+}

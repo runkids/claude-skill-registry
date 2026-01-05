@@ -1,0 +1,11 @@
+{
+  "name": "pr-review-assistant",
+  "description": "Philosophy-aware PR reviews checking alignment with amplihack principles.Use when reviewing PRs to ensure ruthless simplicity, modular design, and zero-BS implementation.Suggests simplifications, iden",
+  "repo": "rysweet/MicrosoftHackathon2025-AgenticCoding",
+  "category": "data",
+  "tags": [
+    "review",
+    "assistant"
+  ],
+  "stars": 10
+}

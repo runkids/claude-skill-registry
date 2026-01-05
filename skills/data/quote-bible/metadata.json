@@ -1,0 +1,11 @@
+{
+  "name": "quote-bible",
+  "description": "Fetch and display Bible verses in multiple translations when users explicitly request to quote a specific verse or passage. This skill should be used when users say \"quote\" followed by a Bible referen",
+  "repo": "authenticwalk/context-grounded-bible",
+  "category": "data",
+  "tags": [
+    "quote",
+    "bible"
+  ],
+  "stars": 2
+}

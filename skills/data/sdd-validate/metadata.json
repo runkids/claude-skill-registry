@@ -1,0 +1,11 @@
+{
+  "name": "sdd-validate",
+  "description": "Validate SDD JSON specs, auto-fix common issues, generate detailed reports, and analyze dependencies.",
+  "repo": "tylerburleigh/claude-sdd-toolkit",
+  "category": "data",
+  "tags": [
+    "sdd",
+    "validate"
+  ],
+  "stars": 3
+}

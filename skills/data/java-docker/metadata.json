@@ -1,0 +1,11 @@
+{
+  "name": "java-docker",
+  "description": "Containerize Java applications - Dockerfile optimization, JVM settings, security",
+  "repo": "pluginagentmarketplace/custom-plugin-java",
+  "category": "data",
+  "tags": [
+    "java",
+    "docker"
+  ],
+  "stars": 1
+}

@@ -1,0 +1,11 @@
+{
+  "name": "seo-analyzer",
+  "description": "Analyzes HTML files for SEO issues using static analysis with cheerio. Checks meta tags, Open Graph, Twitter Cards, heading structure, and JSON-LD structured data. Use when user mentions \"SEO check\", ",
+  "repo": "naporin0624/claude-web-audit-plugins",
+  "category": "data",
+  "tags": [
+    "seo",
+    "analyzer"
+  ],
+  "stars": 0
+}

@@ -1,0 +1,12 @@
+{
+  "name": "react-native-state",
+  "description": "Master state management - Redux Toolkit, Zustand, TanStack Query, and data persistence",
+  "repo": "pluginagentmarketplace/custom-plugin-react-native",
+  "category": "data",
+  "tags": [
+    "react",
+    "native",
+    "state"
+  ],
+  "stars": 1
+}

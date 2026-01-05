@@ -1,0 +1,11 @@
+{
+  "name": "sector-analyst",
+  "description": "This skill should be used when analyzing sector and industry performance charts to assess market positioning and rotation patterns. Use this skill when the user provides performance chart images (1-we",
+  "repo": "tradermonty/claude-trading-skills",
+  "category": "data",
+  "tags": [
+    "sector",
+    "analyst"
+  ],
+  "stars": 1
+}

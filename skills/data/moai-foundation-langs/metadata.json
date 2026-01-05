@@ -1,0 +1,12 @@
+{
+  "name": "moai-foundation-langs",
+  "description": "Auto-detects project language from package.json, pyproject.toml, go.mod, Cargo.toml, etc.",
+  "repo": "kivo360/quickhooks",
+  "category": "data",
+  "tags": [
+    "moai",
+    "foundation",
+    "langs"
+  ],
+  "stars": 0
+}

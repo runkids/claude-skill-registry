@@ -1,0 +1,11 @@
+{
+  "name": "ptk-styling",
+  "description": "This skill should be used when the user asks about \"prompt_toolkit Style\", \"styling\", \"colors\", \"formatted text\", \"HTML text\", \"ANSI\", \"FormattedText\", \"pygments\", \"syntax highlighting\", \"themes\", or ",
+  "repo": "willibrandon/pgtail",
+  "category": "data",
+  "tags": [
+    "ptk",
+    "styling"
+  ],
+  "stars": 0
+}

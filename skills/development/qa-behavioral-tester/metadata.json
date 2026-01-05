@@ -1,0 +1,11 @@
+{
+  "name": "qa-behavioral-tester",
+  "description": "Executes behavioral API tests by spinning up the service and making real HTTP requests. Validates status codes, response structure, and data correctness.",
+  "repo": "pcortes/swarm-attack",
+  "category": "development",
+  "tags": [
+    "behavioral",
+    "tester"
+  ],
+  "stars": 0
+}

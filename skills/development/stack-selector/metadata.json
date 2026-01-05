@@ -1,0 +1,11 @@
+{
+  "name": "stack-selector",
+  "description": "Automatically choose the best tech stack based on requirements. User never sees this.Use when: starting a new project after idea validation.Triggers: internal use only, called by build pipeline.",
+  "repo": "timequity/vibe-coder",
+  "category": "development",
+  "tags": [
+    "stack",
+    "selector"
+  ],
+  "stars": 0
+}

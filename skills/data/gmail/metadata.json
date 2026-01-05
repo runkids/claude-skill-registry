@@ -1,0 +1,10 @@
+{
+  "name": "gmail",
+  "description": "This skill should be used when searching, fetching, or downloading emails from Gmail. Use for queries like \"search Gmail for...\", \"find emails from John\", \"show unread emails\", \"emails about project X",
+  "repo": "glebis/claude-skills",
+  "category": "data",
+  "tags": [
+    "gmail"
+  ],
+  "stars": 4
+}

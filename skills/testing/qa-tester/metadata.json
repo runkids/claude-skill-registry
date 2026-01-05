@@ -1,0 +1,10 @@
+{
+  "name": "qa-tester",
+  "description": "Specialized QA testing for morphir-dotnet. Use when user asks to create test plans, run tests, validate packages, report bugs, perform regression testing, or verify PR completion. Triggers include \"te",
+  "repo": "finos/morphir-dotnet",
+  "category": "testing",
+  "tags": [
+    "tester"
+  ],
+  "stars": 12
+}

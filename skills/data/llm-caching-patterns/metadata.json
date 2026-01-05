@@ -1,0 +1,12 @@
+{
+  "name": "llm-caching-patterns",
+  "description": "Multi-level caching strategies for LLM applications - semantic caching (Redis), prompt caching (Claude/OpenAI native), cache hierarchies, cost optimization, and Langfuse cost tracking with hierarchica",
+  "repo": "yonatangross/create-yg-app",
+  "category": "data",
+  "tags": [
+    "llm",
+    "caching",
+    "patterns"
+  ],
+  "stars": 0
+}

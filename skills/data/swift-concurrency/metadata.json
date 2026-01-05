@@ -1,0 +1,11 @@
+{
+  "name": "swift-concurrency",
+  "description": "Master Swift concurrency - async/await, actors, structured concurrency, Sendable, TaskGroups",
+  "repo": "pluginagentmarketplace/custom-plugin-swift",
+  "category": "data",
+  "tags": [
+    "swift",
+    "concurrency"
+  ],
+  "stars": 1
+}

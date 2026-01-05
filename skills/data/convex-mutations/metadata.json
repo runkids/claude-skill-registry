@@ -1,0 +1,11 @@
+{
+  "name": "convex-mutations",
+  "description": "This skill should be used when implementing Convex mutation functions. It provides comprehensive guidelines for defining, registering, calling, and scheduling mutations, including database operations,",
+  "repo": "Sstobo/convex-skills",
+  "category": "data",
+  "tags": [
+    "convex",
+    "mutations"
+  ],
+  "stars": 5
+}

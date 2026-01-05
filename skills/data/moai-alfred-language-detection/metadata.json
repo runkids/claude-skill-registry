@@ -1,0 +1,13 @@
+{
+  "name": "moai-alfred-language-detection",
+  "description": "Auto-detects project language and framework from package.json, pyproject.toml, etc.",
+  "repo": "kivo360/quickhooks",
+  "category": "data",
+  "tags": [
+    "moai",
+    "alfred",
+    "language",
+    "detection"
+  ],
+  "stars": 0
+}

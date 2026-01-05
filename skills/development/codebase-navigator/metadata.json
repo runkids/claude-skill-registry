@@ -1,0 +1,11 @@
+{
+  "name": "codebase-navigator",
+  "description": "Fast repository comprehension and safer edits through structured exploration",
+  "repo": "benreceveur/claude-workflow-engine",
+  "category": "development",
+  "tags": [
+    "codebase",
+    "navigator"
+  ],
+  "stars": 3
+}

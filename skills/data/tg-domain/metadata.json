@@ -1,0 +1,10 @@
+{
+  "name": "tg-domain",
+  "description": "World of Darkness domain terminology and game concepts for the Tellurium Games application. Use when encountering WoD-specific terms, understanding gameline abbreviations, interpreting character stats",
+  "repo": "charlesmsiegel/tg",
+  "category": "data",
+  "tags": [
+    "domain"
+  ],
+  "stars": 1
+}

@@ -1,0 +1,12 @@
+{
+  "name": "org-chart-generator",
+  "description": "Generate organizational hierarchy charts from CSV, JSON, or nested data. Supports multiple layouts, department coloring, and PNG/SVG/PDF export.",
+  "repo": "dkyazzentwatwa/chatgpt-skills",
+  "category": "data",
+  "tags": [
+    "org",
+    "chart",
+    "generator"
+  ],
+  "stars": 1
+}

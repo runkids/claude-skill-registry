@@ -1,0 +1,10 @@
+{
+  "name": "go-test",
+  "description": "Provides Go standard testing package expertise and best practices. Ensures proper table-driven test patterns, subtests organization, benchmark implementation, and test coverage strategies. Specializes",
+  "repo": "specvital/web",
+  "category": "testing",
+  "tags": [
+    "test"
+  ],
+  "stars": 1
+}

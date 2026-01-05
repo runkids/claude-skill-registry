@@ -1,0 +1,11 @@
+{
+  "name": "minimal-modeling",
+  "description": "Use when designing database schemas from business requirements, translating vague requirements into concrete SQL definitions, or validating database designs with non-technical stakeholders. Provides a",
+  "repo": "kcc989/logoer",
+  "category": "data",
+  "tags": [
+    "minimal",
+    "modeling"
+  ],
+  "stars": 0
+}

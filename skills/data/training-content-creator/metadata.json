@@ -1,0 +1,12 @@
+{
+  "name": "training-content-creator",
+  "description": "This skill should be used when generating actual training content including learner workbooks, facilitator guides, practice exercises, discussion questions, and activity descriptions based on learning",
+  "repo": "bailejl/AI-Enablement-Resources",
+  "category": "data",
+  "tags": [
+    "training",
+    "content",
+    "creator"
+  ],
+  "stars": 0
+}

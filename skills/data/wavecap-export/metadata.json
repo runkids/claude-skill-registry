@@ -1,0 +1,11 @@
+{
+  "name": "wavecap-export",
+  "description": "Export WaveCap transcriptions and pager data. Use when the user wants to export transcriptions as JSON, download reviewed transcriptions with audio, or export pager feed data.",
+  "repo": "TobiasWooldridge/WaveCap",
+  "category": "data",
+  "tags": [
+    "wavecap",
+    "export"
+  ],
+  "stars": 0
+}

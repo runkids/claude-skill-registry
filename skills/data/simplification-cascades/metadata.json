@@ -1,0 +1,11 @@
+{
+  "name": "simplification-cascades",
+  "description": "Find one insight that eliminates multiple components - \"if this is true, we don't need X, Y, or Z\". Use when implementing the same concept multiple ways, accumulating special cases, or complexity is s",
+  "repo": "agentgptsmith/MonadFramework",
+  "category": "data",
+  "tags": [
+    "simplification",
+    "cascades"
+  ],
+  "stars": 0
+}

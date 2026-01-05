@@ -1,0 +1,12 @@
+{
+  "name": "quota-setting-calculator",
+  "description": "Top-down vs bottom-up quota models. Historical attainment, market growth assumptions, ramp periods, territory complexity.",
+  "repo": "OneWave-AI/claude-skills",
+  "category": "data",
+  "tags": [
+    "quota",
+    "setting",
+    "calculator"
+  ],
+  "stars": 10
+}

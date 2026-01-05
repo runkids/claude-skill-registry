@@ -1,0 +1,12 @@
+{
+  "name": "mapping-visualization-scaffolds",
+  "description": "Use when complex systems need visual documentation, mapping component relationships and dependencies, creating hierarchies or taxonomies, documenting process flows or decision trees, understanding sys",
+  "repo": "lyndonkl/claude",
+  "category": "data",
+  "tags": [
+    "mapping",
+    "visualization",
+    "scaffolds"
+  ],
+  "stars": 8
+}

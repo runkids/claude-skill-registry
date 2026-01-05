@@ -1,0 +1,11 @@
+{
+  "name": "moai-domain-ml",
+  "description": "Machine learning model training, evaluation, deployment, and MLOps workflows.",
+  "repo": "kivo360/quickhooks",
+  "category": "data",
+  "tags": [
+    "moai",
+    "domain"
+  ],
+  "stars": 0
+}

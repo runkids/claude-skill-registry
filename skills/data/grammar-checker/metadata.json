@@ -1,0 +1,11 @@
+{
+  "name": "grammar-checker",
+  "description": "Analyze text for grammar, spelling, punctuation, and style issues. Execute Python script to perform detailed analysis. Use when checking grammar or proofreading.",
+  "repo": "yoshiwatanabe/agent-patterns",
+  "category": "data",
+  "tags": [
+    "grammar",
+    "checker"
+  ],
+  "stars": 0
+}

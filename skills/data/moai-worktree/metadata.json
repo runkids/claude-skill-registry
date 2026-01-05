@@ -1,0 +1,11 @@
+{
+  "name": "moai-worktree",
+  "description": "Git worktree management for parallel SPEC development with isolated workspaces, automatic registration, and seamless MoAI-ADK integration",
+  "repo": "tjdwls101010/seongjin_extension_youtube-summarize",
+  "category": "data",
+  "tags": [
+    "moai",
+    "worktree"
+  ],
+  "stars": 0
+}

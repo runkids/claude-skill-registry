@@ -1,0 +1,11 @@
+{
+  "name": "strategic-investigation",
+  "description": "Proactive recovery using plan mode and subagents. After 1-2 failed attempts, STOP trying variations. Enter plan mode and launch parallel Explore/Plan agents to find idiomatic solutions instead of spin",
+  "repo": "jkomoros/community-patterns",
+  "category": "data",
+  "tags": [
+    "strategic",
+    "investigation"
+  ],
+  "stars": 6
+}

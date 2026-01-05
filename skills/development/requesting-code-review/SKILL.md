@@ -1,108 +1,105 @@
 ---
 name: requesting-code-review
-description: "Structured code review workflow for SRTD development. Use after implementing features, fixing bugs, or before merging to main. Ensures production-readiness through systematic review."
+description: Use when completing tasks, implementing major features, or before merging to verify work meets requirements
 ---
 
 # Requesting Code Review
 
-**Review early, review often.** Catch issues before they compound across multiple changes.
+Dispatch superpowers:code-reviewer subagent to catch issues before they cascade.
+
+**Core principle:** Review early, review often.
 
 ## When to Request Review
 
-### Mandatory
-- After completing a feature or bug fix
-- Before merging to main
-- After significant refactoring
-- When security-sensitive code is modified
+**Mandatory:**
+- After each task in subagent-driven development
+- After completing major feature
+- Before merge to main
 
-### Optional (But Recommended)
-- When stuck on a design decision
-- After complex debugging sessions
-- Before deleting or deprecating code
+**Optional but valuable:**
+- When stuck (fresh perspective)
+- Before refactoring (baseline check)
+- After fixing complex bug
 
-## How to Request Review
+## How to Request
 
-### Step 1: Identify the Change Range
-
+**1. Get git SHAs:**
 ```bash
-# Get the commits to review
-git log --oneline main..HEAD
-
-# Or specific commit range
-BASE_SHA=$(git merge-base main HEAD)
+BASE_SHA=$(git rev-parse HEAD~1)  # or origin/main
 HEAD_SHA=$(git rev-parse HEAD)
 ```
 
-### Step 2: Dispatch the Code Reviewer
+**2. Dispatch code-reviewer subagent:**
 
-Use the code-reviewer reference to conduct the review:
+Use Task tool with superpowers:code-reviewer type, fill template at `code-reviewer.md`
+
+**Placeholders:**
+- `{WHAT_WAS_IMPLEMENTED}` - What you just built
+- `{PLAN_OR_REQUIREMENTS}` - What it should do
+- `{BASE_SHA}` - Starting commit
+- `{HEAD_SHA}` - Ending commit
+- `{DESCRIPTION}` - Brief summary
+
+**3. Act on feedback:**
+- Fix Critical issues immediately
+- Fix Important issues before proceeding
+- Note Minor issues for later
+- Push back if reviewer is wrong (with reasoning)
+
+## Example
 
 ```
-Review the changes from ${BASE_SHA} to ${HEAD_SHA}.
+[Just completed Task 2: Add verification function]
 
-What was implemented: [brief description]
-Requirements: [link to issue or spec]
+You: Let me request code review before proceeding.
 
-See: .claude/skills/requesting-code-review/code-reviewer.md
+BASE_SHA=$(git log --oneline | grep "Task 1" | head -1 | awk '{print $1}')
+HEAD_SHA=$(git rev-parse HEAD)
+
+[Dispatch superpowers:code-reviewer subagent]
+  WHAT_WAS_IMPLEMENTED: Verification and repair functions for conversation index
+  PLAN_OR_REQUIREMENTS: Task 2 from docs/plans/deployment-plan.md
+  BASE_SHA: a7981ec
+  HEAD_SHA: 3df7661
+  DESCRIPTION: Added verifyIndex() and repairIndex() with 4 issue types
+
+[Subagent returns]:
+  Strengths: Clean architecture, real tests
+  Issues:
+    Important: Missing progress indicators
+    Minor: Magic number (100) for reporting interval
+  Assessment: Ready to proceed
+
+You: [Fix progress indicators]
+[Continue to Task 3]
 ```
 
-### Step 3: Address Feedback by Severity
+## Integration with Workflows
 
-| Severity | Action Required |
-|----------|-----------------|
-| **Critical** | STOP. Fix immediately before any other work. |
-| **Important** | Fix before merging or proceeding to next task. |
-| **Minor** | Note for later. Can merge with these outstanding. |
+**Subagent-Driven Development:**
+- Review after EACH task
+- Catch issues before they compound
+- Fix before moving to next task
 
-## Responding to Feedback
+**Executing Plans:**
+- Review after each batch (3 tasks)
+- Get feedback, apply, continue
 
-### When You Agree
-Fix the issue, then request re-review of the fix.
+**Ad-Hoc Development:**
+- Review before merge
+- Review when stuck
 
-### When You Disagree
-You may push back IF you have:
-1. Technical justification (not just preference)
-2. Evidence (code, tests, benchmarks)
-3. Clear explanation of trade-offs
+## Red Flags
 
-Example: "I kept the nested structure because flattening would require N+1 queries. See benchmark in test/perf/nested-vs-flat.ts showing 3x slowdown."
+**Never:**
+- Skip review because "it's simple"
+- Ignore Critical issues
+- Proceed with unfixed Important issues
+- Argue with valid technical feedback
 
-## SRTD-Specific Review Focus
+**If reviewer wrong:**
+- Push back with technical reasoning
+- Show code/tests that prove it works
+- Request clarification
 
-When reviewing SRTD code, pay extra attention to:
-
-### Service Boundaries
-- Is state mutation only in StateService?
-- Is file I/O only in FileSystemService?
-- Is database access only in DatabaseService?
-
-### State Machine Integrity
-- Are template states transitioning correctly? (UNSEEN → CHANGED → APPLIED/BUILT → SYNCED)
-- Is hash comparison working correctly?
-
-### Build Log Handling
-- Are both `.buildlog.json` and `.buildlog.local.json` updated appropriately?
-- Is the distinction maintained? (built vs applied)
-
-### Error Handling
-- Are database errors properly categorized?
-- Is retry logic correct (3 attempts, exponential backoff)?
-- Are advisory locks used for concurrent access?
-
-## Anti-Patterns (Red Flags)
-
-- "This change is too simple to review" → Simple changes break production
-- "I'll fix that in a follow-up" for Critical/Important issues → Fix now
-- Ignoring review feedback without justification → Explain or fix
-- Reviewing your own code without fresh eyes → Request external review
-
-## Integration with Development Flow
-
-### After Each Task
-Request review before marking task complete.
-
-### Before PR Creation
-Run full review to catch issues before they're public.
-
-### After CI Feedback
-Re-review if CI reveals issues not caught initially.
+See template at: requesting-code-review/code-reviewer.md

@@ -1,0 +1,10 @@
+{
+  "name": "rollback",
+  "description": "Rollback AI agent to a previous version. Use when reverting a deployment, undoing changes, or recovering from failed deploys.",
+  "repo": "X-McKay/kubani",
+  "category": "data",
+  "tags": [
+    "rollback"
+  ],
+  "stars": 1
+}

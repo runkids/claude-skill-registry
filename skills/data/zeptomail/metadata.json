@@ -1,0 +1,10 @@
+{
+  "name": "zeptomail",
+  "description": "Zoho ZeptoMail transactional email API. Use this skill for sending password resets, OTPs, order confirmations, and other transactional emails.",
+  "repo": "vm0-ai/vm0-skills",
+  "category": "data",
+  "tags": [
+    "zeptomail"
+  ],
+  "stars": 8
+}

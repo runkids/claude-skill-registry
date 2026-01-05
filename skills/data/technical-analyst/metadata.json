@@ -1,0 +1,11 @@
+{
+  "name": "technical-analyst",
+  "description": "This skill should be used when analyzing weekly price charts for stocks, stock indices, cryptocurrencies, or forex pairs. Use this skill when the user provides chart images and requests technical anal",
+  "repo": "tradermonty/claude-trading-skills",
+  "category": "data",
+  "tags": [
+    "technical",
+    "analyst"
+  ],
+  "stars": 1
+}

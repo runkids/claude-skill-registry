@@ -1,0 +1,11 @@
+{
+  "name": "research-synthesis",
+  "description": "Synthesizes research findings into coherent narratives with uncertainty quantification. Use when integrating findings from multiple sources, creating research summaries, drawing conclusions from evide",
+  "repo": "poemswe/co-researcher",
+  "category": "data",
+  "tags": [
+    "research",
+    "synthesis"
+  ],
+  "stars": 1
+}

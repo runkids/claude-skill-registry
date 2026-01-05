@@ -1,0 +1,13 @@
+{
+  "name": "ln-500-story-quality-gate",
+  "description": "Story quality validation coordinator with gates",
+  "repo": "levnikolaevich/claude-code-skills",
+  "category": "testing",
+  "tags": [
+    "quality",
+    "validation",
+    "gates",
+    "linear"
+  ],
+  "stars": 0
+}

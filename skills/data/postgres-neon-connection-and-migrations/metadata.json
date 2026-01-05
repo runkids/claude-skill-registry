@@ -1,0 +1,14 @@
+{
+  "name": "postgres-neon-connection-and-migrations",
+  "description": "Standard patterns for connecting applications to Neon Postgres and managing schema changes via migrations (Alembic / SQLModel / SQLAlchemy), with attention to serverless connection behaviour.",
+  "repo": "Okashanadeem/GIAIC-HACKATHON-II",
+  "category": "data",
+  "tags": [
+    "postgres",
+    "neon",
+    "connection",
+    "and",
+    "migrations"
+  ],
+  "stars": 0
+}

@@ -1,0 +1,12 @@
+{
+  "name": "json-schema-validator",
+  "description": "Validate JSON data against JSON Schema specifications. Use for API validation, config file validation, or data quality checks.",
+  "repo": "dkyazzentwatwa/chatgpt-skills",
+  "category": "data",
+  "tags": [
+    "json",
+    "schema",
+    "validator"
+  ],
+  "stars": 1
+}

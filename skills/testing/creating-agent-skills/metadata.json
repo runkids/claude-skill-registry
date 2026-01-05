@@ -1,0 +1,12 @@
+{
+  "name": "creating-agent-skills",
+  "description": "Creates or improves Agent Skills following official documentation and best practices. Use when creating new skills, improving existing skills, evaluating skill quality, or ensuring skills follow namin",
+  "repo": "kynoptic/markdownlint-trap",
+  "category": "testing",
+  "tags": [
+    "creating",
+    "agent",
+    "skills"
+  ],
+  "stars": 1
+}

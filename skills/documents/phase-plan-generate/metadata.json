@@ -1,0 +1,12 @@
+{
+  "name": "phase-plan-generate",
+  "description": "Generate comprehensive plan documentation following Template 1 format. Use when creating plan.md files for new components or subsections.",
+  "repo": "mvillmow/ProjectOdyssey",
+  "category": "documents",
+  "tags": [
+    "phase",
+    "plan",
+    "generate"
+  ],
+  "stars": 8
+}

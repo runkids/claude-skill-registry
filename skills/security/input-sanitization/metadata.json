@@ -1,0 +1,11 @@
+{
+  "name": "input-sanitization",
+  "description": "Эксперт по санитизации ввода. Используй для XSS prevention, encoding, validation и security headers.",
+  "repo": "dengineproblem/agents-monorepo",
+  "category": "security",
+  "tags": [
+    "input",
+    "sanitization"
+  ],
+  "stars": 0
+}

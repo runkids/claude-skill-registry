@@ -1,0 +1,13 @@
+{
+  "name": "moai-alfred-spec-authoring",
+  "description": "SPEC document authoring guide - YAML metadata, EARS syntax (5 patterns with Unwanted Behaviors), validation checklist",
+  "repo": "kivo360/quickhooks",
+  "category": "data",
+  "tags": [
+    "moai",
+    "alfred",
+    "spec",
+    "authoring"
+  ],
+  "stars": 0
+}

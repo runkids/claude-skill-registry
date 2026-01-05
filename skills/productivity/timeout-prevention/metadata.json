@@ -1,0 +1,11 @@
+{
+  "name": "timeout-prevention",
+  "description": "Prevent request timeouts in Claude Code sessions by chunking long operations, implementing progress checkpoints, using background processes, and optimizing tool usage patterns. Use when performing bul",
+  "repo": "jackspace/ClaudeSkillz",
+  "category": "productivity",
+  "tags": [
+    "timeout",
+    "prevention"
+  ],
+  "stars": 0
+}

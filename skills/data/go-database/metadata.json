@@ -1,0 +1,10 @@
+{
+  "name": "go-database",
+  "description": "Go database operations - SQL, ORMs, transactions, migrations",
+  "repo": "pluginagentmarketplace/custom-plugin-go",
+  "category": "data",
+  "tags": [
+    "database"
+  ],
+  "stars": 1
+}

@@ -1,0 +1,12 @@
+{
+  "name": "skill-contract-generator",
+  "description": "Generates evolution contracts for skills, defining what can be updated, what must remain stable, and how to extract knowledge. Use when creating new skills or formalizing update rules for existing ski",
+  "repo": "dudusoar/skillOS",
+  "category": "data",
+  "tags": [
+    "skill",
+    "contract",
+    "generator"
+  ],
+  "stars": 0
+}

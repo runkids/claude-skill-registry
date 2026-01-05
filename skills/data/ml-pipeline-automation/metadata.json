@@ -1,0 +1,11 @@
+{
+  "name": "ml-pipeline-automation",
+  "description": "Build end-to-end ML pipelines with automated data processing, training, validation, and deployment using Airflow, Kubeflow, and Jenkins",
+  "repo": "aj-geddes/useful-ai-prompts",
+  "category": "data",
+  "tags": [
+    "pipeline",
+    "automation"
+  ],
+  "stars": 25
+}

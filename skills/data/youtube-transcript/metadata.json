@@ -1,0 +1,11 @@
+{
+  "name": "youtube-transcript",
+  "description": "Extract YouTube video transcripts with metadata and save as Markdown to Obsidian vault. Use this skill when the user requests downloading YouTube transcripts, converting YouTube videos to text, or ext",
+  "repo": "glebis/claude-skills",
+  "category": "data",
+  "tags": [
+    "youtube",
+    "transcript"
+  ],
+  "stars": 4
+}

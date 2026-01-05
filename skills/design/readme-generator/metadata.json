@@ -1,0 +1,11 @@
+{
+  "name": "readme-generator",
+  "description": "Эксперт по README файлам. Используй для создания документации проектов, badges, installation guides и usage examples.",
+  "repo": "dengineproblem/agents-monorepo",
+  "category": "design",
+  "tags": [
+    "readme",
+    "generator"
+  ],
+  "stars": 0
+}

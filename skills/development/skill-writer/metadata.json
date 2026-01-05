@@ -1,0 +1,11 @@
+{
+  "name": "skill-writer",
+  "description": "Creates and validates Claude Code skills with proper format. Use when creating new skills, writing SKILL.md files, validating existing skills, or when user mentions \"skill format\", \"create skill\", \"sk",
+  "repo": "Ming-Kai-LC/self-learn",
+  "category": "development",
+  "tags": [
+    "skill",
+    "writer"
+  ],
+  "stars": 0
+}

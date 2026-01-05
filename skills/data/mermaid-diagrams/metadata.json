@@ -1,0 +1,11 @@
+{
+  "name": "mermaid-diagrams",
+  "description": "Use when creating Mermaid diagrams - covers flowcharts, sequence diagrams, and AST visualization",
+  "repo": "mcclowes/lea",
+  "category": "data",
+  "tags": [
+    "mermaid",
+    "diagrams"
+  ],
+  "stars": 3
+}

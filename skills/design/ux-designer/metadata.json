@@ -1,10 +1,6 @@
 {
   "name": "ux-designer",
-  "description": "Expert UI/UX design guidance for building unique, accessible, and user-centered interfaces. Use when designing interfaces, making visual design decisions, choosing colors/typography, implementing resp",
-  "repo": "Cornjebus/amair",
+  "repo": "aj-geddes/claude-code-bmad-skills",
   "category": "design",
-  "tags": [
-    "designer"
-  ],
-  "stars": 0
+  "path": "bmad-v6/skills/bmm/ux-designer"
 }

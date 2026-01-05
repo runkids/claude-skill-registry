@@ -1,0 +1,11 @@
+{
+  "name": "incident-triage",
+  "description": "Faster on-call handoffs and better postmortems with triage SOPs",
+  "repo": "benreceveur/claude-workflow-engine",
+  "category": "devops",
+  "tags": [
+    "incident",
+    "triage"
+  ],
+  "stars": 3
+}

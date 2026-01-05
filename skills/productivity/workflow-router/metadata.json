@@ -1,0 +1,11 @@
+{
+  "name": "workflow-router",
+  "description": "Determine next agent based on state machine rules. Use AFTER receiving any BAZINGA agent response to decide what to do next.",
+  "repo": "mehdic/bazinga",
+  "category": "productivity",
+  "tags": [
+    "workflow",
+    "router"
+  ],
+  "stars": 2
+}

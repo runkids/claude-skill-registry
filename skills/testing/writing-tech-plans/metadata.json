@@ -1,0 +1,12 @@
+{
+  "name": "writing-tech-plans",
+  "description": "Architectural planning and ADR creation. Use when evaluating feasibility, making technology choices, or defining system integration.",
+  "repo": "jkappers/claude-code-software-delivery-plugin",
+  "category": "testing",
+  "tags": [
+    "writing",
+    "tech",
+    "plans"
+  ],
+  "stars": 0
+}

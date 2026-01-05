@@ -1,0 +1,11 @@
+{
+  "name": "retrospective-base",
+  "description": "Framework for retrospectives at any time scale (daily, weekly, monthly, quarterly, yearly). Trigger with \"daily retro\", \"weekly retro\", \"monthly retro\", etc. Answers three questions - what worked, wha",
+  "repo": "ZachBeta/claude-as-coach",
+  "category": "data",
+  "tags": [
+    "retrospective",
+    "base"
+  ],
+  "stars": 3
+}

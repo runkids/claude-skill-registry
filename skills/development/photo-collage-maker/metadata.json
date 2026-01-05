@@ -1,0 +1,12 @@
+{
+  "name": "photo-collage-maker",
+  "description": "Create photo collages with grid layouts, custom arrangements, borders, and backgrounds. Combine multiple images into single compositions.",
+  "repo": "dkyazzentwatwa/chatgpt-skills",
+  "category": "development",
+  "tags": [
+    "photo",
+    "collage",
+    "maker"
+  ],
+  "stars": 1
+}

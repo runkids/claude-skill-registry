@@ -1,0 +1,11 @@
+{
+  "name": "clarification-phase",
+  "description": "\"Standard Operating Procedure for /clarify phase. Covers question generation, prioritization, structured formats, and spec integration.\"",
+  "repo": "marcusgoll/robinhood-algo-trading-bot",
+  "category": "testing",
+  "tags": [
+    "clarification",
+    "phase"
+  ],
+  "stars": 0
+}

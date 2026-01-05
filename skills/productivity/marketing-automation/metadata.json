@@ -1,0 +1,11 @@
+{
+  "name": "marketing-automation",
+  "description": "Эксперт по автоматизации маркетинга. Используй для настройки HubSpot, Marketo, email sequences, lead scoring и workflows.",
+  "repo": "dengineproblem/agents-monorepo",
+  "category": "productivity",
+  "tags": [
+    "marketing",
+    "automation"
+  ],
+  "stars": 0
+}

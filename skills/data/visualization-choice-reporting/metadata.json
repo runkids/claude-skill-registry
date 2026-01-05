@@ -1,0 +1,12 @@
+{
+  "name": "visualization-choice-reporting",
+  "description": "Use when you need to choose the right visualization for your data and question, then create a narrated report that highlights insights and recommends actions. Invoke when analyzing data for patterns (",
+  "repo": "lyndonkl/claude",
+  "category": "data",
+  "tags": [
+    "visualization",
+    "choice",
+    "reporting"
+  ],
+  "stars": 8
+}

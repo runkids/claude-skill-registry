@@ -1,0 +1,11 @@
+{
+  "name": "readability-scorer",
+  "description": "Assess text readability using multiple metrics. Execute Python script for detailed readability analysis. Use when evaluating text complexity, comprehension level, or audience fit.",
+  "repo": "yoshiwatanabe/agent-patterns",
+  "category": "data",
+  "tags": [
+    "readability",
+    "scorer"
+  ],
+  "stars": 0
+}

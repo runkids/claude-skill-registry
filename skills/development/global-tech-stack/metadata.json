@@ -1,0 +1,12 @@
+{
+  "name": "global-tech-stack",
+  "description": "Your approach to handling global tech stack. Use this skill when working on files where global tech stack comes into play.",
+  "repo": "nanorepublica/django-prodserver",
+  "category": "development",
+  "tags": [
+    "global",
+    "tech",
+    "stack"
+  ],
+  "stars": 45
+}

@@ -1,0 +1,11 @@
+{
+  "name": "numpy-structured",
+  "description": "Structured and record arrays for C-interoperability, binary blob interpretation, and multi-field tabular data handling. Triggers: structured array, record array, compound dtype, multi-field index.",
+  "repo": "cuba6112/skillfactory",
+  "category": "data",
+  "tags": [
+    "numpy",
+    "structured"
+  ],
+  "stars": 0
+}

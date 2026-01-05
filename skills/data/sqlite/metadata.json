@@ -1,0 +1,10 @@
+{
+  "name": "sqlite",
+  "description": "Expert guidance for SQLite database with better-sqlite3 Node.js driver including database setup, queries, transactions, migrations, performance optimization, and integration with TypeScript. Use this ",
+  "repo": "oriolrius/pki-manager-web",
+  "category": "data",
+  "tags": [
+    "sqlite"
+  ],
+  "stars": 1
+}

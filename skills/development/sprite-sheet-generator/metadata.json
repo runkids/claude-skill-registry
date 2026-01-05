@@ -1,0 +1,12 @@
+{
+  "name": "sprite-sheet-generator",
+  "description": "Combine multiple images into sprite sheets with customizable grid layouts and generate CSS sprite maps for web development.",
+  "repo": "dkyazzentwatwa/chatgpt-skills",
+  "category": "development",
+  "tags": [
+    "sprite",
+    "sheet",
+    "generator"
+  ],
+  "stars": 1
+}

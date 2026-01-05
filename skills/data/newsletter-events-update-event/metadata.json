@@ -1,0 +1,13 @@
+{
+  "name": "newsletter-events-update-event",
+  "description": "Manually refresh specific event pages to update event data",
+  "repo": "aniketpanjwani/local_media_tools",
+  "category": "data",
+  "tags": [
+    "newsletter",
+    "events",
+    "update",
+    "event"
+  ],
+  "stars": 7
+}

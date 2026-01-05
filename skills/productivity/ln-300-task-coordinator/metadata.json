@@ -1,0 +1,13 @@
+{
+  "name": "ln-300-task-coordinator",
+  "description": "Task decomposition coordinator for development",
+  "repo": "levnikolaevich/claude-code-skills",
+  "category": "productivity",
+  "tags": [
+    "agile",
+    "tasks",
+    "decomposition",
+    "linear"
+  ],
+  "stars": 0
+}

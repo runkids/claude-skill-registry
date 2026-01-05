@@ -1,0 +1,12 @@
+{
+  "name": "learning-tutor-assistant",
+  "description": "Provide personalized tutoring support with adaptive explanations, worked examples, hints, and misconception remediation. Use for one-on-one learning support. Activates on \"tutor\", \"explain this\", \"I d",
+  "repo": "pauljbernard/content",
+  "category": "data",
+  "tags": [
+    "learning",
+    "tutor",
+    "assistant"
+  ],
+  "stars": 0
+}

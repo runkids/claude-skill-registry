@@ -1,0 +1,10 @@
+{
+  "name": "journal",
+  "description": "Guide for using the AI's persistent journal database",
+  "repo": "maragudk/skills",
+  "category": "data",
+  "tags": [
+    "journal"
+  ],
+  "stars": 17
+}

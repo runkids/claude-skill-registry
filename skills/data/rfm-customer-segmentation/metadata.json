@@ -1,0 +1,12 @@
+{
+  "name": "rfm-customer-segmentation",
+  "description": "Perform RFM (Recency, Frequency, Monetary) customer segmentation analysis on e-commerce data. Use when you need to analyze customer value, identify VIP customers, or create marketing segments. Automat",
+  "repo": "liangdabiao/claude-data-analysis-ultra-main",
+  "category": "data",
+  "tags": [
+    "rfm",
+    "customer",
+    "segmentation"
+  ],
+  "stars": 32
+}

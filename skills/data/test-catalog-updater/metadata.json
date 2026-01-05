@@ -1,0 +1,12 @@
+{
+  "name": "test-catalog-updater",
+  "description": "Automates TEST_CATALOG updates after test execution. Records test metrics, pass/fail status, coverage data, and execution time. Maintains single source of truth for all test files and their health sta",
+  "repo": "DarkMonkDev/WitchCityRope",
+  "category": "data",
+  "tags": [
+    "test",
+    "catalog",
+    "updater"
+  ],
+  "stars": 0
+}

@@ -1,0 +1,10 @@
+{
+  "name": "researching",
+  "description": "A guide for performing effective research across several domains. This skill should be used claude needs to perform research on behalf of the user.",
+  "repo": "alavida-ai/vf-owwo",
+  "category": "data",
+  "tags": [
+    "researching"
+  ],
+  "stars": 0
+}

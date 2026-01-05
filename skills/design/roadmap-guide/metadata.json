@@ -1,0 +1,11 @@
+{
+  "name": "roadmap-guide",
+  "description": "在编写、更新、维护 roadmap.md 的时候触发",
+  "repo": "MMorit00/fund-portfolio-bot",
+  "category": "design",
+  "tags": [
+    "roadmap",
+    "guide"
+  ],
+  "stars": 0
+}

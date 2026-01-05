@@ -1,0 +1,12 @@
+{
+  "name": "standards-updates-tracker",
+  "description": "Track changes to standards frameworks over time, identify when standards are revised, analyze impact on existing curriculum, recommend updates, and flag deprecated standards. Use for maintaining curre",
+  "repo": "pauljbernard/content",
+  "category": "data",
+  "tags": [
+    "standards",
+    "updates",
+    "tracker"
+  ],
+  "stars": 0
+}

@@ -1,0 +1,10 @@
+{
+  "name": "go-docker",
+  "description": "Docker containerization for Go applications",
+  "repo": "pluginagentmarketplace/custom-plugin-go",
+  "category": "data",
+  "tags": [
+    "docker"
+  ],
+  "stars": 1
+}

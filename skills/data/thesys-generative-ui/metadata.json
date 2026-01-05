@@ -1,0 +1,11 @@
+{
+  "name": "thesys-generative-ui",
+  "description": "Production-ready skill for integrating TheSys C1 Generative UI API into React applications. This skill should be used when building AI-powered interfaces that stream interactive components (forms, cha",
+  "repo": "jackspace/ClaudeSkillz",
+  "category": "data",
+  "tags": [
+    "thesys",
+    "generative"
+  ],
+  "stars": 0
+}

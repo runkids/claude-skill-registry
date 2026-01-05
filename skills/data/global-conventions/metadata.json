@@ -1,0 +1,11 @@
+{
+  "name": "global-conventions",
+  "description": "Follow project-wide development conventions for project structure, documentation, version control, code review, environment configuration, dependency management, and security practices. Use this skill",
+  "repo": "TheophilusChinomona/theochinomona.tech",
+  "category": "data",
+  "tags": [
+    "global",
+    "conventions"
+  ],
+  "stars": 0
+}

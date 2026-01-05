@@ -1,0 +1,12 @@
+{
+  "name": "context-engineering-framework",
+  "description": "Optimize context windows, manage token budgets, compress context, and create effective handoff documents for long-running multi-agent workflows",
+  "repo": "doctorduke/claude-config",
+  "category": "documents",
+  "tags": [
+    "context",
+    "engineering",
+    "framework"
+  ],
+  "stars": 0
+}

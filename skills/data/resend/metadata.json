@@ -1,0 +1,10 @@
+{
+  "name": "resend",
+  "description": "Resend email API via curl. Use this skill to send transactional emails, manage contacts, domains, and API keys.",
+  "repo": "vm0-ai/vm0-skills",
+  "category": "data",
+  "tags": [
+    "resend"
+  ],
+  "stars": 8
+}

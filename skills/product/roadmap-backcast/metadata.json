@@ -1,0 +1,11 @@
+{
+  "name": "roadmap-backcast",
+  "description": "Use when planning with fixed deadline or target outcome, working backward from future goal to present, defining milestones and dependencies, mapping critical path, identifying what must happen when, p",
+  "repo": "lyndonkl/claude",
+  "category": "product",
+  "tags": [
+    "roadmap",
+    "backcast"
+  ],
+  "stars": 8
+}

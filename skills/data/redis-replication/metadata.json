@@ -1,0 +1,11 @@
+{
+  "name": "redis-replication",
+  "description": "Master Redis replication - master-replica setup, Sentinel for HA, failover handling, and read scaling patterns",
+  "repo": "pluginagentmarketplace/custom-plugin-redis",
+  "category": "data",
+  "tags": [
+    "redis",
+    "replication"
+  ],
+  "stars": 1
+}

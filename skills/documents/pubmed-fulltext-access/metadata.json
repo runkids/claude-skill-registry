@@ -1,0 +1,12 @@
+{
+  "name": "pubmed-fulltext-access",
+  "description": "Full text access via Europe PMC, CORE, and other open access sources. Triggers: 全文, fulltext, PDF, open access, 免費下載, PMC, 開放取用",
+  "repo": "u9401066/pubmed-search-mcp",
+  "category": "documents",
+  "tags": [
+    "pubmed",
+    "fulltext",
+    "access"
+  ],
+  "stars": 0
+}

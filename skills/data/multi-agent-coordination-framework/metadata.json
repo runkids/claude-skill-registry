@@ -1,0 +1,13 @@
+{
+  "name": "multi-agent-coordination-framework",
+  "description": "Advanced multi-agent coordination for managing AI agent pods and human teams. Includes agent architectures, communication patterns (pub/sub, message queues), task distribution, consensus mechanisms, c",
+  "repo": "doctorduke/claude-config",
+  "category": "data",
+  "tags": [
+    "multi",
+    "agent",
+    "coordination",
+    "framework"
+  ],
+  "stars": 0
+}

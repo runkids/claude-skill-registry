@@ -1,0 +1,12 @@
+{
+  "name": "model-comparison-tool",
+  "description": "Use when asked to compare multiple ML models, perform cross-validation, evaluate metrics, or select the best model for a classification/regression task.",
+  "repo": "dkyazzentwatwa/chatgpt-skills",
+  "category": "data",
+  "tags": [
+    "model",
+    "comparison",
+    "tool"
+  ],
+  "stars": 1
+}

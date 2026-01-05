@@ -1,0 +1,12 @@
+{
+  "name": "ruby-rails-application",
+  "description": "Develop Ruby on Rails applications with models, controllers, views, Active Record ORM, authentication, and RESTful routes. Use when building Rails applications, managing database relationships, and im",
+  "repo": "aj-geddes/useful-ai-prompts",
+  "category": "data",
+  "tags": [
+    "ruby",
+    "rails",
+    "application"
+  ],
+  "stars": 25
+}

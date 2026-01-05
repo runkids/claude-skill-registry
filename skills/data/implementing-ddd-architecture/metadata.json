@@ -1,0 +1,12 @@
+{
+  "name": "implementing-ddd-architecture",
+  "description": "Design and implement DDD patterns (entities, value objects, aggregates, CQRS). Use when creating new domain objects, implementing bounded contexts, designing repository interfaces, or learning proper ",
+  "repo": "VilnaCRM-Org/core-service",
+  "category": "data",
+  "tags": [
+    "implementing",
+    "ddd",
+    "architecture"
+  ],
+  "stars": 0
+}

@@ -1,0 +1,11 @@
+{
+  "name": "pine-backtester",
+  "description": "Implements comprehensive backtesting capabilities for Pine Script indicators and strategies. Use when adding performance metrics, trade analysis, equity curves, win rates, drawdown tracking, or statis",
+  "repo": "TradersPost/pinescript-agents",
+  "category": "testing",
+  "tags": [
+    "pine",
+    "backtester"
+  ],
+  "stars": 17
+}

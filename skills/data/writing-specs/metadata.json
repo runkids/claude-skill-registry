@@ -1,0 +1,11 @@
+{
+  "name": "writing-specs",
+  "description": "Use when creating feature specifications after brainstorming - generates lean spec documents that reference constitutions heavily, link to external docs instead of embedding examples, and focus on WHA",
+  "repo": "arittr/spectacular",
+  "category": "data",
+  "tags": [
+    "writing",
+    "specs"
+  ],
+  "stars": 5
+}

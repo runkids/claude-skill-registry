@@ -1,0 +1,11 @@
+{
+  "name": "plan-review",
+  "description": "Use after plan is written to validate implementation plans across completeness, quality, feasibility, and scope dimensions - spawns specialized validators for failed dimensions and refines plan intera",
+  "repo": "seanGSISG/crispy-claude",
+  "category": "data",
+  "tags": [
+    "plan",
+    "review"
+  ],
+  "stars": 0
+}

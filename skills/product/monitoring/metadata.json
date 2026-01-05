@@ -1,0 +1,10 @@
+{
+  "name": "monitoring",
+  "description": "Game server monitoring with metrics, alerting, and performance tracking for production reliability",
+  "repo": "pluginagentmarketplace/custom-plugin-server-side-game-dev",
+  "category": "product",
+  "tags": [
+    "monitoring"
+  ],
+  "stars": 1
+}

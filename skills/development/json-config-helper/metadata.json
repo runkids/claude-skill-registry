@@ -1,0 +1,12 @@
+{
+  "name": "json-config-helper",
+  "description": "Validate, format, and work with JSON configuration files",
+  "repo": "jackspace/ClaudeSkillz",
+  "category": "development",
+  "tags": [
+    "json",
+    "config",
+    "helper"
+  ],
+  "stars": 0
+}

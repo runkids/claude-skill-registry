@@ -1,0 +1,11 @@
+{
+  "name": "priority-classification",
+  "description": "Automatically classifies tasks into four priority levels (VERY IMPORTANT, HIGH, MEDIUM, LOW) based on due dates, urgency keywords, and explicit priority settings. Triggers special behaviors for VERY I",
+  "repo": "Syedaashnaghazanfar/full-stack-todo-app",
+  "category": "productivity",
+  "tags": [
+    "priority",
+    "classification"
+  ],
+  "stars": 1
+}

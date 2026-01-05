@@ -1,0 +1,11 @@
+{
+  "name": "runbook-generator",
+  "description": "Эксперт по runbooks. Используй для создания операционных процедур, incident response и maintenance документации.",
+  "repo": "dengineproblem/agents-monorepo",
+  "category": "data",
+  "tags": [
+    "runbook",
+    "generator"
+  ],
+  "stars": 0
+}

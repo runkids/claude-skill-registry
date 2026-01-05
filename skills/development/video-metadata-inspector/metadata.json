@@ -1,0 +1,12 @@
+{
+  "name": "video-metadata-inspector",
+  "description": "Use when asked to inspect video file metadata, get video duration, resolution, codec information, frame rate, or bitrate.",
+  "repo": "dkyazzentwatwa/chatgpt-skills",
+  "category": "development",
+  "tags": [
+    "video",
+    "metadata",
+    "inspector"
+  ],
+  "stars": 1
+}

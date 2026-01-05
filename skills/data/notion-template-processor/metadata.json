@@ -1,0 +1,12 @@
+{
+  "name": "notion-template-processor",
+  "description": "Fills Notion database templates with data and delivers via email using Notion MCP integration",
+  "repo": "ashleytower/claude-skills-collection",
+  "category": "data",
+  "tags": [
+    "notion",
+    "template",
+    "processor"
+  ],
+  "stars": 0
+}

@@ -1,0 +1,12 @@
+{
+  "name": "global-error-handling",
+  "description": "Implement robust error handling with user-friendly messages without technical details, fail fast with explicit error messages, specific exception types for targeted handling, centralized error handlin",
+  "repo": "FlorianRiquelme/statamic-assets",
+  "category": "data",
+  "tags": [
+    "global",
+    "error",
+    "handling"
+  ],
+  "stars": 0
+}

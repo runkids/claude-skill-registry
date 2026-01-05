@@ -1,0 +1,11 @@
+{
+  "name": "moai-streaming-ui",
+  "description": "Enhanced streaming UI system with progress indicators, status displays, and interactive feedback mechanisms. Use when running long-running operations, displaying progress, providing user feedback, or ",
+  "repo": "kivo360/quickhooks",
+  "category": "data",
+  "tags": [
+    "moai",
+    "streaming"
+  ],
+  "stars": 0
+}

@@ -1,0 +1,11 @@
+{
+  "name": "technical-writer",
+  "description": "Expert communication craftsperson for morphir-dotnet. Master of Hugo/Docsy, Mermaid/PlantUML diagrams, and technical writing. Use when user asks to create documentation, update docs, write tutorials, ",
+  "repo": "finos/morphir-dotnet",
+  "category": "data",
+  "tags": [
+    "technical",
+    "writer"
+  ],
+  "stars": 12
+}

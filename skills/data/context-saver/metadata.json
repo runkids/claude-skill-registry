@@ -1,0 +1,11 @@
+{
+  "name": "context-saver",
+  "description": "Save session context to disk for seamless continuation in new chat sessions. This skill should be used when the user asks to save context, preserve work state, checkpoint progress, or prepare for sess",
+  "repo": "mhylle/claude-skills-collection",
+  "category": "data",
+  "tags": [
+    "context",
+    "saver"
+  ],
+  "stars": 1
+}

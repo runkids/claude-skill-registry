@@ -1,0 +1,259 @@
+---
+name: planning-base
+description: Framework for planning at any time scale (daily, weekly, monthly, quarterly, yearly). Trigger with "plan my day", "weekly planning", "monthly planning", etc. Identifies constraints FIRST, then suggests priorities. Uses Level 0-3 success framework. Inputs vary by scale - daily uses yesterday summary, weekly uses weekly retro, monthly uses monthly retro, etc.
+---
+
+# Planning (Base Framework)
+
+**Core insight:** The planning process is the same at any time scale. What changes is the inputs, the time horizon, and the granularity of experiments.
+
+## The Core Structure
+
+Every planning session covers:
+
+1. **Coming From** → Where capacity/state is now
+2. **Constraints** → What's fixed that we plan around
+3. **Priorities** → 2-3 key focuses (max)
+4. **Experiments** → What to test/try/explore
+5. **Success Levels** → What "good enough" looks like (0-3)
+
+## Time Scale as Parameter
+
+| Scale | Inputs | Horizon | Output |
+|-------|--------|---------|--------|
+| Daily | Yesterday's summary | 1 day | Today's focus |
+| Weekly | Weekly retro | 7 days | Weekly plan |
+| Monthly | Monthly retro | 4 weeks | Monthly plan |
+| Quarterly | Quarterly retro | 3 months | Quarterly plan |
+| Yearly | Yearly retro | 12 months | Yearly plan |
+
+**Natural flow:** Retro → Planning at same scale. Insights fresh, immediately inform forward planning.
+
+## Process
+
+### 1. Establish Boundaries
+
+```bash
+# Verify current date
+TZ='America/New_York' date '+%A, %B %d, %Y - %I:%M %p %Z'
+```
+
+**Confirm the period being planned:**
+- Daily: "Planning [Date]. Correct?"
+- Weekly: "Planning [Start] - [End]. Correct?"
+- Monthly: "Planning [Month Year]. Correct?"
+- Quarterly: "Planning Q[X] [Year]. Correct?"
+- Yearly: "Planning [Year]. Correct?"
+
+### 2. Load Context
+
+**Load inputs appropriate to scale:**
+- Daily: Yesterday's summary, today's calendar
+- Weekly: This week's retro, monthly goals
+- Monthly: This month's retro, quarterly goals
+- Quarterly: This quarter's retro, yearly goals
+- Yearly: This year's retro, multi-year vision
+
+**Purpose:** Understand current capacity and context before planning.
+
+### 3. Identify Constraints FIRST ⚠️ CRITICAL
+
+**Before suggesting priorities, identify what's fixed:**
+
+Ask about:
+- **Non-negotiables:** Deadlines, appointments, obligations (can't move)
+- **Known drains:** High-effort tasks, energy-intensive work (need buffer)
+- **Timeline pressures:** Reverse-engineering from future dates
+- **Ongoing experiments:** Maintain consistency, don't disrupt data
+
+**Scale-appropriate questions:**
+- Daily: "What's on the calendar? Any energy drains today?"
+- Weekly: "What commitments this week? Any dense days?"
+- Monthly: "Major milestones? Travel? Known capacity constraints?"
+- Quarterly: "Key deliverables? Seasonal factors?"
+- Yearly: "Major life events? Strategic bets?"
+
+**Why this matters:** Suggesting priorities that ignore fixed constraints = plan sets user up for failure.
+
+### 4. Generate Provisional Plan
+
+**After constraints identified, create initial artifact.**
+
+**Filename template:**
+```
+[Scale]-Plan-[Date-Range].md
+```
+
+**Examples:**
+- `Daily-Focus-2025-12-05.md`
+- `Weekly-Plan-2025-12-01-to-07.md`
+- `Monthly-Plan-2025-12.md`
+- `Quarterly-Plan-2025-Q1.md`
+- `Yearly-Plan-2026.md`
+
+### 5. Framework Structure
+
+```markdown
+# [Scale] Plan: [Theme/Focus]
+
+**Period:** [Date range]
+
+---
+
+## Coming From
+
+- [Capacity insight from retro]
+- [Major constraints identified]
+- [What worked/didn't from previous period]
+- [2-3 bullets max, scannable]
+
+---
+
+## This [Period]'s Priorities
+
+Based on constraints and patterns:
+
+1. [Priority 1 - often constraint-driven]
+2. [Priority 2 - from "what worked" + goals]
+3. [Priority 3 - stretch, optional]
+
+Does this ordering work given [specific constraint]?
+
+---
+
+## Experiments to Try
+
+From retro "What Didn't Work":
+- [Experiment 1]
+- [Experiment 2]
+
+---
+
+## Success Looks Like
+
+### Level 0: Foundation
+*Minimum viable engagement with the [period]*
+*What counts as "showed up" given current context*
+[Fill conversationally]
+
+### Level 1: Base
+[Minimum viable progress given current capacity]
+
+### Level 2: Target
+[Good [period] for current capacity]
+
+### Level 3: Reach
+[Exceptional but achievable]
+
+**Good enough = Level 0 always counts. Level 1 is solid. Level 2 is great. Level 3 is amazing.**
+
+---
+
+## Notes
+
+[Period-specific context, reminders, meta-observations]
+```
+
+### 6. Fill Through Conversation
+
+**Pattern:**
+1. Suggest based on constraints + retro data
+2. User reacts (confirms, reorders, adds context)
+3. Update artifact in real-time
+4. Calibrate success levels together
+
+**Pacing by section:**
+- "Coming From" → flows fast (pull from retro)
+- "Priorities" → needs depth (constraint-aware suggestions → reactions)
+- "Experiments" → semi-automatic (select from retro proposals)
+- "Success Levels" → interactive (calibrate to current capacity)
+
+**Core principle:** Constraints → Suggestions → Reactions → Refinement
+
+### 7. Save Final Version
+
+**Save to:** `/mnt/user-data/outputs/[filename]`
+
+**Remind user:** "Click 'add to project' to save permanently."
+
+## Success Level Framework
+
+**Level 0: Foundation**
+- Always counts
+- "I engaged with this at all"
+- Protects against all-or-nothing thinking
+- Even on hardest days, L0 is achievable
+
+**Level 1: Base**
+- Solid progress given capacity
+- Sustainable, repeatable
+- Not heroic, just consistent
+
+**Level 2: Target**
+- What a good [period] looks like
+- Stretch but realistic
+- Builds momentum
+
+**Level 3: Reach**
+- Exceptional outcome
+- Everything aligned
+- Amazing but not required
+
+**Calibration:** Levels adapt to current capacity. Level 2 during recovery ≠ Level 2 at full capacity.
+
+## Core Principles
+
+**2-3 priorities max:** More than that diffuses focus.
+
+**Constraints first:** Understand what's fixed before suggesting what's flexible.
+
+**Work with what is:** Start from actual capacity, not imagined capacity.
+
+**Experiments over commitments:** Frame as tests, not obligations. Permission to pivot.
+
+**Level 0 always counts:** Foundation protects against perfectionism spirals.
+
+**Plans are hypotheses:** Execution adapts in real-time. Retro captures what actually happened.
+
+## Edge Cases
+
+**First plan at a scale:**
+- No retro to pull from
+- Start with constraint identification
+- Set conservative success levels
+- Retro at end will establish patterns
+
+**Retro → Planning same session:**
+- Natural flow if context headroom available
+- Check tokens before proceeding
+- Benefits: insights fresh, no context loss
+- Risk: may max out mid-planning
+
+**Capacity unknown:**
+- Set Level 0 very low
+- Let the period reveal capacity
+- Retro will capture what was actually possible
+
+## Planning-Retro (Meta-Improvement)
+
+**At end of planning session, briefly reflect:**
+
+- What worked about this planning process?
+- What was awkward or missing?
+- Skill updates needed?
+
+**Document in Notes section of plan.**
+
+## Flexibility
+
+**Structure is guide, not prescription:**
+- Skip sections if not relevant
+- Add domain-specific sections
+- Adapt length to complexity
+- Focus on actionable over comprehensive
+
+**Different scales, same muscles:**
+- Daily planning is quick (5-10 min)
+- Weekly planning is medium (20-30 min)
+- Monthly+ planning is deeper (45-60 min)
+- Same structure, different depth

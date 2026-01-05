@@ -1,0 +1,12 @@
+{
+  "name": "n8n-node-configuration",
+  "description": "Operation-aware n8n node configuration guidance",
+  "repo": "czlonkowski/n8n-skills",
+  "category": "development",
+  "tags": [
+    "n8n",
+    "configuration",
+    "nodes"
+  ],
+  "stars": 0
+}

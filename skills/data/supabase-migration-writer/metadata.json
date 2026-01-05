@@ -1,0 +1,12 @@
+{
+  "name": "supabase-migration-writer",
+  "description": "Expert assistant for creating database migrations for the KR92 Bible Voice Supabase project. Use when creating database migrations, adding tables, modifying schemas, creating RPC functions, or writing",
+  "repo": "Spectaculous-Code/raamattu-nyt",
+  "category": "data",
+  "tags": [
+    "supabase",
+    "migration",
+    "writer"
+  ],
+  "stars": 0
+}

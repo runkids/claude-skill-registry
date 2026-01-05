@@ -1,0 +1,11 @@
+{
+  "name": "unsloth-grpo",
+  "description": "Implementation of Group Relative Policy Optimization (GRPO) for training reasoning models, optimized for 8x memory savings (triggers: GRPO, reasoning, DeepSeek-R1, reinforcement learning, RLVR, GRPOTr",
+  "repo": "cuba6112/skillfactory",
+  "category": "data",
+  "tags": [
+    "unsloth",
+    "grpo"
+  ],
+  "stars": 0
+}

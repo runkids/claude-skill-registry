@@ -1,0 +1,12 @@
+{
+  "name": "n8n-validation-expert",
+  "description": "Interpret validation errors and troubleshoot n8n workflows",
+  "repo": "czlonkowski/n8n-skills",
+  "category": "development",
+  "tags": [
+    "n8n",
+    "validation",
+    "troubleshooting"
+  ],
+  "stars": 0
+}

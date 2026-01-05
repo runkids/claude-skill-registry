@@ -1,0 +1,11 @@
+{
+  "name": "presentation-generator",
+  "description": "Generate interactive HTML presentations with neobrutalism styling, ASCII art decorations, and Agency brand colors. Outputs HTML (interactive with navigation), PNG (individual slides via Playwright), a",
+  "repo": "glebis/claude-skills",
+  "category": "testing",
+  "tags": [
+    "presentation",
+    "generator"
+  ],
+  "stars": 4
+}

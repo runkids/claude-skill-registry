@@ -1,0 +1,11 @@
+{
+  "name": "tzurot-observability",
+  "description": "Use when adding logging, debugging production issues, checking service health, or performing routine operations (adding personalities, database queries). Covers structured logging, correlation IDs, Ra",
+  "repo": "lbds137/tzurot",
+  "category": "data",
+  "tags": [
+    "tzurot",
+    "observability"
+  ],
+  "stars": 7
+}

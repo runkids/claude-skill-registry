@@ -1,0 +1,12 @@
+{
+  "name": "github-project-automation",
+  "description": "This skill provides comprehensive automation for GitHub repository setup and configuration.It should be used when creating new projects, setting up CI/CD pipelines, configuring issuetemplates, enablin",
+  "repo": "jackspace/ClaudeSkillz",
+  "category": "devops",
+  "tags": [
+    "github",
+    "project",
+    "automation"
+  ],
+  "stars": 0
+}

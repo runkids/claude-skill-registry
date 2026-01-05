@@ -1,0 +1,12 @@
+{
+  "name": "golden-dataset-curation",
+  "description": "Quality criteria, workflows, and multi-agent analysis patterns for curating high-quality golden dataset entries",
+  "repo": "yonatangross/create-yg-app",
+  "category": "data",
+  "tags": [
+    "golden",
+    "dataset",
+    "curation"
+  ],
+  "stars": 0
+}

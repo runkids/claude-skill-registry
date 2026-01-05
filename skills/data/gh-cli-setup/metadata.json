@@ -1,0 +1,11 @@
+{
+  "name": "gh-cli-setup",
+  "description": "Use when gh CLI is not installed, not configured, or authentication fails - provides installation steps, authentication methods, and troubleshooting for all platforms",
+  "repo": "aaddrick/gh-cli-search",
+  "category": "data",
+  "tags": [
+    "cli",
+    "setup"
+  ],
+  "stars": 1
+}

@@ -1,0 +1,12 @@
+{
+  "name": "moai-security-ssrf",
+  "description": "Enterprise SSRF Security Protection with AI-powered request validation, Context7 integration, and intelligent URL filtering for web application security",
+  "repo": "dolsoon/my-awesome-project",
+  "category": "testing",
+  "tags": [
+    "moai",
+    "security",
+    "ssrf"
+  ],
+  "stars": 0
+}

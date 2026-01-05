@@ -1,0 +1,11 @@
+{
+  "name": "ml-api-endpoint",
+  "description": "Эксперт ML API. Используй для model serving, inference endpoints, FastAPI и ML deployment.",
+  "repo": "dengineproblem/agents-monorepo",
+  "category": "data",
+  "tags": [
+    "api",
+    "endpoint"
+  ],
+  "stars": 0
+}

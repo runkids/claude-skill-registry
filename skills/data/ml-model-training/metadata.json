@@ -1,0 +1,11 @@
+{
+  "name": "ml-model-training",
+  "description": "Build and train machine learning models using scikit-learn, PyTorch, and TensorFlow for classification, regression, and clustering tasks",
+  "repo": "aj-geddes/useful-ai-prompts",
+  "category": "data",
+  "tags": [
+    "model",
+    "training"
+  ],
+  "stars": 25
+}

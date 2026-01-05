@@ -1,0 +1,11 @@
+{
+  "name": "tailscale-deploy",
+  "description": "Deploy F# applications with Tailscale sidecar for private network access.Use when: \"deploy\", \"production\", \"Tailscale\", \"docker-compose\", \"Docker\",\"Portainer\", \"private network\", \"deployment\", \"ship i",
+  "repo": "heimeshoff/Cinemarco",
+  "category": "data",
+  "tags": [
+    "tailscale",
+    "deploy"
+  ],
+  "stars": 1
+}
