@@ -1,0 +1,11 @@
+{
+  "name": "playwright-automation",
+  "description": "Use when Codex must browse, interact with, or test web flows via the remote Playwright MCP server hosted on Glama.",
+  "repo": "amit-sw/mcp_skills",
+  "category": "testing",
+  "tags": [
+    "playwright",
+    "automation"
+  ],
+  "stars": 0
+}

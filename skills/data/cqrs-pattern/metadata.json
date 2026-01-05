@@ -1,0 +1,11 @@
+{
+  "name": "cqrs-pattern",
+  "description": "Implement CQRS (Command Query Responsibility Segregation) pattern for Electron services. Use when creating service methods, separating read/write operations, or implementing reactive data streams with",
+  "repo": "naporin0624/claude-plugin-hono-electron",
+  "category": "data",
+  "tags": [
+    "cqrs",
+    "pattern"
+  ],
+  "stars": 0
+}

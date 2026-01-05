@@ -1,0 +1,12 @@
+{
+  "name": "excel-processor",
+  "description": "Process Excel files with data manipulation, formula generation, and chart creation. Use when working with spreadsheets or Excel data.",
+  "repo": "ntaksh42/agents",
+  "category": "data",
+  "tags": [
+    "excel",
+    "processor"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

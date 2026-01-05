@@ -1,0 +1,11 @@
+{
+  "name": "sql-db-architecture",
+  "description": "Understand the toy relational database architecture, crate organization, data flow, and implementation patterns. Use when exploring the database codebase, understanding query execution, debugging stor",
+  "repo": "wcygan/sql-database",
+  "category": "data",
+  "tags": [
+    "sql",
+    "architecture"
+  ],
+  "stars": 0
+}

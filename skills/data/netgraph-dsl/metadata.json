@@ -1,0 +1,11 @@
+{
+  "name": "netgraph-dsl",
+  "description": "NetGraph scenario DSL for defining network topologies, traffic demands, failure policies, and analysis workflows in YAML. Use when: creating or editing .yaml/.yml network scenarios, defining nodes/lin",
+  "repo": "networmix/NetGraph",
+  "category": "data",
+  "tags": [
+    "netgraph",
+    "dsl"
+  ],
+  "stars": 0
+}

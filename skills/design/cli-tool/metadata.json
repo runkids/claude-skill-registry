@@ -1,0 +1,12 @@
+{
+  "name": "cli-tool",
+  "description": "Build command-line tools with argument parsing, subcommands, and nice UX.Use when: creating CLI, terminal app, command-line utility.Triggers: \"cli\", \"command line\", \"terminal\", \"clap\", \"typer\", \"comma",
+  "repo": "timequity/vibe-coder",
+  "category": "design",
+  "tags": [
+    "cli",
+    "tool"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

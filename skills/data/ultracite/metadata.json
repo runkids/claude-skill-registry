@@ -1,0 +1,11 @@
+{
+  "name": "ultracite",
+  "description": "Ultracite Rules - AI-Ready Formatter and Linter Applies to files matching: **/*.{ts,tsx,js,jsx,json,jsonc,html,vue,svelte,astro,css,yaml,yml,graphql,gql,md,mdx,grit}.",
+  "repo": "FranciscoMoretti/sparka",
+  "category": "data",
+  "tags": [
+    "ultracite"
+  ],
+  "stars": 842,
+  "source": "SkillsMP Synced Skills"
+}

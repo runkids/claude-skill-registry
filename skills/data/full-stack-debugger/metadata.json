@@ -1,0 +1,12 @@
+{
+  "name": "full-stack-debugger",
+  "description": "This skill should be used when debugging full-stack issues that span UI, backend, and database layers. It provides a systematic workflow to detect errors, analyze root causes, apply fixes iteratively,",
+  "repo": "ingpoc/robo-trader",
+  "category": "data",
+  "tags": [
+    "full",
+    "stack",
+    "debugger"
+  ],
+  "stars": 0
+}

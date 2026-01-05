@@ -1,0 +1,11 @@
+{
+  "name": "switch-feature",
+  "description": "Commit or stash current work, then switch to another existing worktree. Use when switching between features or stories, ensures changes are saved before switching.",
+  "repo": "michael-menard/monorepo",
+  "category": "product",
+  "tags": [
+    "switch",
+    "feature"
+  ],
+  "stars": 0
+}

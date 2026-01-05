@@ -1,0 +1,14 @@
+{
+  "name": "extracting-filemaker-business-logic",
+  "description": "Use when analyzing FileMaker DDR to extract calculations, custom functions, and business logic for PostgreSQL import processes or maintenance scripts - focuses on understanding and adapting FileMaker ",
+  "repo": "AJBcoding/claude-skill-eval",
+  "category": "data",
+  "tags": [
+    "extracting",
+    "filemaker",
+    "business",
+    "logic"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

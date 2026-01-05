@@ -1,0 +1,11 @@
+{
+  "name": "service-implementation",
+  "description": "Implement Effect services as fine-grained capabilities avoiding monolithic designs",
+  "repo": "front-depiction/cli-stock",
+  "category": "data",
+  "tags": [
+    "service",
+    "implementation"
+  ],
+  "stars": 1
+}

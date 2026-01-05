@@ -1,0 +1,12 @@
+{
+  "name": "coolify-manager",
+  "description": "Manage and troubleshoot Coolify deployments using the official CLI and API. Use this skill when the user needs help with Coolify server management, WordPress troubleshooting on Coolify, debugging serv",
+  "repo": "ajmcclary/Coolify-Manager",
+  "category": "data",
+  "tags": [
+    "coolify",
+    "manager"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

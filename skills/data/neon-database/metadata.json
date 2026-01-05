@@ -1,0 +1,11 @@
+{
+  "name": "neon-database",
+  "description": "Use when working with Neon serverless PostgreSQL database. Covers database setup, CLI commands, Drizzle ORM integration, schema migrations, connection pooling, and user data storage patterns for authe",
+  "repo": "muhammad-anas35/RAGai",
+  "category": "data",
+  "tags": [
+    "neon",
+    "database"
+  ],
+  "stars": 0
+}

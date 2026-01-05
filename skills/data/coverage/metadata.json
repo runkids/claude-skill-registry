@@ -1,0 +1,10 @@
+{
+  "name": "coverage",
+  "description": "Generate a code coverage report for the Pinhole Rust project. Use this when the user asks for coverage analysis, test coverage metrics, or wants to see which code is tested. Automatically runs tests w",
+  "repo": "michaelmelanson/pinhole",
+  "category": "data",
+  "tags": [
+    "coverage"
+  ],
+  "stars": 1
+}

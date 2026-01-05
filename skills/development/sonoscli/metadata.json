@@ -1,0 +1,11 @@
+{
+  "name": "sonoscli",
+  "description": "Control Sonos speakers (discover/status/play/volume/group).",
+  "repo": "steipete/clawdis",
+  "category": "development",
+  "tags": [
+    "sonoscli"
+  ],
+  "stars": 430,
+  "source": "SkillsMP Synced Skills"
+}

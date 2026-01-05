@@ -1,0 +1,12 @@
+{
+  "name": "multi-agent-coordination",
+  "description": "Instrument multi-agent workflows, handoffs, and parent-child relationships",
+  "repo": "nexus-labs-automation/agent-observability",
+  "category": "productivity",
+  "tags": [
+    "multi",
+    "agent",
+    "coordination"
+  ],
+  "stars": 0
+}

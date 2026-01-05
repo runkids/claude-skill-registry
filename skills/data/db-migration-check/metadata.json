@@ -1,0 +1,12 @@
+{
+  "name": "db-migration-check",
+  "description": "Detect dangerous operations in database migrations before deployment",
+  "repo": "mehdic/bazinga",
+  "category": "data",
+  "tags": [
+    "migration",
+    "check"
+  ],
+  "stars": 2,
+  "source": "SkillsMP Synced Skills"
+}

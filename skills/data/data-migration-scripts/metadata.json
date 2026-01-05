@@ -1,0 +1,13 @@
+{
+  "name": "data-migration-scripts",
+  "description": "Create safe, reversible database migration scripts with rollback capabilities, data validation, and zero-downtime deployments. Use when changing database schemas, migrating data between systems, or pe",
+  "repo": "aj-geddes/useful-ai-prompts",
+  "category": "data",
+  "tags": [
+    "data",
+    "migration",
+    "scripts"
+  ],
+  "stars": 25,
+  "source": "SkillsMP Synced Skills"
+}

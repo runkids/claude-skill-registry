@@ -1,0 +1,12 @@
+{
+  "name": "using-flake-parts",
+  "description": "Expert guidance for using flake-parts framework in Nix flakes. Use when converting flakes to flake-parts, organizing modular flake configurations, working with perSystem, creating reusable flake modul",
+  "repo": "Omegaice/dotfiles",
+  "category": "development",
+  "tags": [
+    "using",
+    "flake",
+    "parts"
+  ],
+  "stars": 2
+}

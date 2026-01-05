@@ -1,0 +1,13 @@
+{
+  "name": "doc-to-skill-scraper",
+  "description": "Scrape external documentation (API references, library docs, protocol specifications) and generate Claude Agent Skills in SKILL.md format. Use when creating skills from documentation, integrating thir",
+  "repo": "dredd-us/seashells",
+  "category": "documents",
+  "tags": [
+    "doc",
+    "skill",
+    "scraper"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

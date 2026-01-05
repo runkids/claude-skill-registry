@@ -1,0 +1,11 @@
+{
+  "name": "project-sync",
+  "description": "Sync GameGen SceneLayout from DynamoDB to Godot .tscn files. Exports current layout without AI parsing.",
+  "repo": "Zycroft/GameGen",
+  "category": "data",
+  "tags": [
+    "project",
+    "sync"
+  ],
+  "stars": 0
+}

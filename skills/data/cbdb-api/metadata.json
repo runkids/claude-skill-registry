@@ -1,0 +1,12 @@
+{
+  "name": "cbdb-api",
+  "description": "Query the China Biographical Database (CBDB) API to retrieve comprehensive biographical data about historical Chinese figures. Use this skill when searching for information about Chinese historical fi",
+  "repo": "kltng/humanities-skills",
+  "category": "data",
+  "tags": [
+    "cbdb",
+    "api"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "git-commit-helper",
+  "description": "Automated git workflow management for Vigil Guard v2.0.0. Use for Conventional Commits formatting, CHANGELOG generation, commit validation, pre-commit hooks, release versioning, and semantic commits. ",
+  "repo": "tbartel74/Vigil-Code",
+  "category": "data",
+  "tags": [
+    "git",
+    "commit",
+    "helper"
+  ],
+  "stars": 5
+}

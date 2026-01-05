@@ -1,0 +1,12 @@
+{
+  "name": "developing-csharp",
+  "description": "Use when working with .cs files, .NET projects, implementing C# features, advising on C#/.NET architecture and patterns, or answering questions about C#/.NET development. Covers async patterns, depend",
+  "repo": "jkappers/claude-code-software-delivery-plugin",
+  "category": "testing",
+  "tags": [
+    "developing",
+    "csharp"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

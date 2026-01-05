@@ -1,0 +1,11 @@
+{
+  "name": "adr",
+  "description": "Create Architecture Decision Records (ADRs) following project standards. Guides template usage, process, and best practices for documenting architecturally significant decisions.",
+  "repo": "asterkin/openxr-quest-tutorial",
+  "category": "design",
+  "tags": [
+    "adr"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

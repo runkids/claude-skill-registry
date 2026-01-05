@@ -1,0 +1,12 @@
+{
+  "name": "avalonia-collectionview",
+  "description": "\"AvaloniaUI에서 CollectionView 대안 (DataGridCollectionView, ReactiveUI)\"",
+  "repo": "christian289/wpf-tutorials",
+  "category": "data",
+  "tags": [
+    "avalonia",
+    "collectionview"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

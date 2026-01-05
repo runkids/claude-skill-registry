@@ -1,0 +1,10 @@
+{
+  "name": "tailscale",
+  "description": "Troubleshoot Tailscale connectivity or access internal services via Tailscale hostnames.",
+  "repo": "proompteng/lab",
+  "category": "data",
+  "tags": [
+    "tailscale"
+  ],
+  "stars": 4
+}

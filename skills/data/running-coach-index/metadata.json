@@ -1,0 +1,12 @@
+{
+  "name": "running-coach-index",
+  "description": "Reference catalog for all running coach AI skills, shared TypeScript contracts, safety guardrails, and telemetry conventions. Use when working with any running coach feature to understand data schemas",
+  "repo": "nadavyigal/Running-coach-",
+  "category": "data",
+  "tags": [
+    "running",
+    "coach",
+    "index"
+  ],
+  "stars": 1
+}

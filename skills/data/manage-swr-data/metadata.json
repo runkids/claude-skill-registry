@@ -1,0 +1,12 @@
+{
+  "name": "manage-swr-data",
+  "description": "useSWR/useSWRMutationでサーバーデータを管理します。データ取得、変更、SWRキー管理を含む、カスタムフックパターンを実装します。",
+  "repo": "nayukata/notify-patch-notes",
+  "category": "data",
+  "tags": [
+    "manage",
+    "swr",
+    "data"
+  ],
+  "stars": 0
+}

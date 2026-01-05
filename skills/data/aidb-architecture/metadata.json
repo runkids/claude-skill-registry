@@ -1,0 +1,12 @@
+{
+  "name": "aidb-architecture",
+  "description": "Comprehensive architectural reference for AIDB core and MCP integration. Covers 6-layer architecture (MCP, Service, Session, Adapter, DAP Client, Protocol), component organization, data flow patterns,",
+  "repo": "ai-debugger-inc/aidb",
+  "category": "data",
+  "tags": [
+    "aidb",
+    "architecture"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

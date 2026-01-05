@@ -1,0 +1,12 @@
+{
+  "name": "debugging-systematic",
+  "description": "Expert systematic debugging through root cause analysis. Reflects on 5-7 possible sources, distills to 1-2 most likely causes, adds strategic logging to validate assumptions, and confirms diagnosis be",
+  "repo": "T1nker-1220/.claude",
+  "category": "data",
+  "tags": [
+    "debugging",
+    "systematic"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

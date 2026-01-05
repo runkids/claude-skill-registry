@@ -1,0 +1,12 @@
+{
+  "name": "chain-of-thought",
+  "description": "Step-by-step reasoning patterns for complex problem solving",
+  "repo": "pluginagentmarketplace/custom-plugin-prompt-engineering",
+  "category": "data",
+  "tags": [
+    "chain",
+    "thought"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

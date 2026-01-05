@@ -1,0 +1,10 @@
+{
+  "name": "planning",
+  "description": "Generate and optimize PRDs, Implementation Plans, and Progress Tracking documents optimized as AI artifacts for development agents. Use when creating new feature plans, breaking down long planning doc",
+  "repo": "miethe/skillmeat",
+  "category": "data",
+  "tags": [
+    "planning"
+  ],
+  "stars": 0
+}

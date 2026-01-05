@@ -1,0 +1,12 @@
+{
+  "name": "daily-workflow",
+  "description": "每日工作流。晨间计划、午间检查、晚间收尾的结构化流程。当用户说「晨间」「午间」「晚间」「收工」或需要每日生产力流程时使用。适用于 life-os/ 目录。",
+  "repo": "yellinzero/your-mind",
+  "category": "data",
+  "tags": [
+    "daily",
+    "workflow"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

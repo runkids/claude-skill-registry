@@ -1,0 +1,12 @@
+{
+  "name": "dev-server",
+  "description": "Manage the development server lifecycle. Use when starting, stopping, restarting the dev server, checking server status, viewing server logs, or before testing changes that require a running server.",
+  "repo": "sydevs/SahajCloud",
+  "category": "testing",
+  "tags": [
+    "dev",
+    "server"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

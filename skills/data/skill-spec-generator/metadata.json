@@ -1,0 +1,12 @@
+{
+  "name": "skill-spec-generator",
+  "description": "Generate structured skill specifications for independent skill creators. Use when asked to ideate, brainstorm, or specify multiple skills for a domain, workflow, or problem space. Outputs self-contain",
+  "repo": "OhadRubin/skills",
+  "category": "data",
+  "tags": [
+    "skill",
+    "spec",
+    "generator"
+  ],
+  "stars": 1
+}

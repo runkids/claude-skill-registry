@@ -1,0 +1,12 @@
+{
+  "name": "ascii-visualizer",
+  "description": "Create beautiful ASCII art visualizations for plans, architectures, workflows, and data",
+  "repo": "yonatangross/skillforge-claude-plugin",
+  "category": "data",
+  "tags": [
+    "ascii",
+    "visualizer"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

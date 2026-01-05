@@ -1,0 +1,12 @@
+{
+  "name": "code-formatter",
+  "description": "Format Python code using black, ruff, and isort to ensure consistent style. This skill should be used before committing code to maintain code quality standards and pass CI/CD checks.",
+  "repo": "omriwen/PRISM",
+  "category": "devops",
+  "tags": [
+    "code",
+    "formatter"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

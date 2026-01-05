@@ -1,0 +1,13 @@
+{
+  "name": "moai-connector-nano-banana",
+  "description": "Professional image generation with Google Nano Banana Pro (Gemini 3 Pro)",
+  "repo": "globalmsq/msq-relayer-service",
+  "category": "data",
+  "tags": [
+    "moai",
+    "connector",
+    "nano",
+    "banana"
+  ],
+  "stars": 0
+}

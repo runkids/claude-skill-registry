@@ -1,0 +1,11 @@
+{
+  "name": "markdown-optimizer",
+  "description": "Optimize markdown files for LLM consumption by adding YAML front-matter with metadata and TOC, normalizing heading hierarchy, removing noise and redundancy, converting verbose prose to structured form",
+  "repo": "mvdmakesthings/skills",
+  "category": "data",
+  "tags": [
+    "markdown",
+    "optimizer"
+  ],
+  "stars": 0
+}

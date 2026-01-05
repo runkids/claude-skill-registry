@@ -1,0 +1,13 @@
+{
+  "name": "domain-driven-design",
+  "description": "Apply DDD tactical patterns (Entities, Value Objects, Aggregates, Domain Services, Repositories) and strategic design (Ubiquitous Language, Bounded Contexts). Use when modeling complex business logic.",
+  "repo": "SmidigStorm/regelverk-python",
+  "category": "design",
+  "tags": [
+    "domain",
+    "driven",
+    "design"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

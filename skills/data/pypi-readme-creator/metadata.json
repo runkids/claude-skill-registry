@@ -1,0 +1,12 @@
+{
+  "name": "pypi-readme-creator",
+  "description": "When creating a README for a Python package. When preparing a package for PyPI publication. When README renders incorrectly on PyPI. When choosing between README.md and README.rst. When running twine ",
+  "repo": "Jamie-BitFlight/claude_skills",
+  "category": "data",
+  "tags": [
+    "pypi",
+    "readme",
+    "creator"
+  ],
+  "stars": 4
+}

@@ -1,0 +1,14 @@
+{
+  "name": "questions-are-not-instructions",
+  "description": "Ensures questions are answered literally before taking action. Triggers on user input containing '?' or patterns like 'why did you...?', 'will that work?', 'have you considered...?'. Use when user ask",
+  "repo": "NTCoding/claude-skillz",
+  "category": "data",
+  "tags": [
+    "questions",
+    "are",
+    "not",
+    "instructions"
+  ],
+  "stars": 87,
+  "source": "SkillsMP Synced Skills"
+}

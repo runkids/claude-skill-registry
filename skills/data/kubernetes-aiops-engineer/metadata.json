@@ -1,0 +1,12 @@
+{
+  "name": "kubernetes-aiops-engineer",
+  "description": "Expert in managing Kubernetes clusters using kubectl-ai and kagent. Use this for generating Helm charts, troubleshooting pods, and automating cluster operations.",
+  "repo": "hammadurrehman2006/the_evolution_of_todo",
+  "category": "data",
+  "tags": [
+    "kubernetes",
+    "aiops",
+    "engineer"
+  ],
+  "stars": 0
+}

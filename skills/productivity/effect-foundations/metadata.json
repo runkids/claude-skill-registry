@@ -1,0 +1,12 @@
+{
+  "name": "effect-foundations",
+  "description": "Core Effect foundations and style for a coding agent. Use when starting an Effect task, choosing operators, or structuring a small pipeline.",
+  "repo": "mepuka/effect-ontology",
+  "category": "productivity",
+  "tags": [
+    "effect",
+    "foundations"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

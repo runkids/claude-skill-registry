@@ -1,0 +1,11 @@
+{
+  "name": "screen-recreator",
+  "description": "Production-ready React Native screen creator that implements screens following established project patterns, enforcing best practices (NO mock data, real Supabase queries, BaseScreen wrapper, safe nav",
+  "repo": "singhaldeoli104-bit/manushi-coaching-latest-working-",
+  "category": "data",
+  "tags": [
+    "screen",
+    "recreator"
+  ],
+  "stars": 0
+}

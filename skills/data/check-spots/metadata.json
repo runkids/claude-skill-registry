@@ -1,0 +1,12 @@
+{
+  "name": "check-spots",
+  "description": "Validate spots.json for common issues including missing fields, invalid URLs, duplicate entries, and data consistency problems",
+  "repo": "pwittchen/varun.surf",
+  "category": "data",
+  "tags": [
+    "check",
+    "spots"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "technical-indicators",
+  "description": "计算股票技术指标（MA、MACD、RSI、BOLL等）。适用于技术分析、量化回测、趋势判断等场景。支持单个指标计算或批量计算所有指标，返回包含指标值的DataFrame。",
+  "repo": "YFOOOO/financial_agent",
+  "category": "data",
+  "tags": [
+    "technical",
+    "indicators"
+  ],
+  "stars": 0
+}

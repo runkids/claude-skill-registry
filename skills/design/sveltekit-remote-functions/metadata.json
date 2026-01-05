@@ -1,0 +1,13 @@
+{
+  "name": "sveltekit-remote-functions",
+  "description": "SvelteKit remote functions guidance. Use for command(), query(), form() patterns in .remote.ts files.",
+  "repo": "spences10/svelte-claude-skills",
+  "category": "design",
+  "tags": [
+    "sveltekit",
+    "remote",
+    "functions"
+  ],
+  "stars": 107,
+  "source": "SkillsMP Synced Skills"
+}

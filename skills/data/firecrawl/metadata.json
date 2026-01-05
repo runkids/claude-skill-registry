@@ -1,0 +1,11 @@
+{
+  "name": "firecrawl",
+  "description": "Firecrawl web scraping API via curl. Use this skill to scrape webpages, crawl websites, discover URLs, search the web, or extract structured data.",
+  "repo": "vm0-ai/vm0-skills",
+  "category": "data",
+  "tags": [
+    "firecrawl"
+  ],
+  "stars": 8,
+  "source": "SkillsMP Synced Skills"
+}

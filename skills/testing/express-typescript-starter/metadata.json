@@ -1,0 +1,13 @@
+{
+  "name": "express-typescript-starter",
+  "description": "Express + TypeScript starter with Biome, Docker, and Vitest.",
+  "repo": "Eng0AI/eng0-template-skills",
+  "category": "testing",
+  "tags": [
+    "express",
+    "typescript",
+    "starter"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

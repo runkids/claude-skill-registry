@@ -1,0 +1,11 @@
+{
+  "name": "prompt-architect",
+  "description": "Analyzes and transforms prompts using 7 research-backed frameworks (CO-STAR, RISEN, RISE-IE, RISE-IX, TIDD-EC, RTF, Chain of Thought, Chain of Density). Provides framework recommendations, asks target",
+  "repo": "ckelsoe/claude-skill-prompt-architect",
+  "category": "data",
+  "tags": [
+    "prompt",
+    "architect"
+  ],
+  "stars": 0
+}

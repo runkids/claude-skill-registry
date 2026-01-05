@@ -1,0 +1,12 @@
+{
+  "name": "create-component",
+  "description": "Create CVA + DaisyUI components following Iridium patterns. Use when asked to create UI components, buttons, inputs, cards, modals, alerts, or any reusable UI element.",
+  "repo": "tech-with-seth/iridium",
+  "category": "data",
+  "tags": [
+    "create",
+    "component"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

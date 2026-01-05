@@ -1,0 +1,12 @@
+{
+  "name": "data-orchestrator",
+  "description": "Coordinates data pipeline tasks (ETL, analytics, feature engineering). Use when implementing data ingestion, transformations, quality checks, or analytics. Applies data-quality-standard.md (95% minimu",
+  "repo": "Brownbull/ayni_core",
+  "category": "data",
+  "tags": [
+    "data",
+    "orchestrator"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

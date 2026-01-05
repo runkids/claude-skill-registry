@@ -1,0 +1,11 @@
+{
+  "name": "quality-gates",
+  "description": "Run ruff + pytest and fix issues minimally.",
+  "repo": "moumit-b/Agentic-Comodity-Trading-System",
+  "category": "testing",
+  "tags": [
+    "quality",
+    "gates"
+  ],
+  "stars": 0
+}

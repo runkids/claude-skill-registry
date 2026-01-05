@@ -1,0 +1,13 @@
+{
+  "name": "fluxwing-component-viewer",
+  "description": "View detailed information about a specific uxscii component including metadata, states, props, and ASCII preview. Use when working with .uxm files, when user wants to see, view, inspect, or get detail",
+  "repo": "trabian/fluxwing-skills",
+  "category": "data",
+  "tags": [
+    "fluxwing",
+    "component",
+    "viewer"
+  ],
+  "stars": 9,
+  "source": "SkillsMP Synced Skills"
+}

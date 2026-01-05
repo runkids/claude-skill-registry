@@ -1,0 +1,10 @@
+{
+  "name": "reflexion",
+  "description": "Record feedback on whether patterns retrieved via get-pattern were helpful. Essential for training the recommendation system.",
+  "repo": "dug-21/neural-data-platform",
+  "category": "data",
+  "tags": [
+    "reflexion"
+  ],
+  "stars": 0
+}

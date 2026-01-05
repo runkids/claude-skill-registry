@@ -1,0 +1,12 @@
+{
+  "name": "newsletter-campaign-workflow",
+  "description": "Guide for working with newsletter campaigns, RSS processing workflows, article generation, MailerLite integration, multi-tenant isolation, campaign status management, Vercel workflows, advertorial rot",
+  "repo": "Venture-Formations/aiprodaily",
+  "category": "data",
+  "tags": [
+    "newsletter",
+    "campaign",
+    "workflow"
+  ],
+  "stars": 0
+}

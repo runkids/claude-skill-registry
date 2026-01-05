@@ -1,0 +1,10 @@
+{
+  "name": "glossary",
+  "description": "Add a glossary item to a project in the Obsidian Vault",
+  "repo": "channingwalton/dotfiles",
+  "category": "development",
+  "tags": [
+    "glossary"
+  ],
+  "stars": 3
+}

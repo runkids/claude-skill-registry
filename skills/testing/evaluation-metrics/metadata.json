@@ -1,0 +1,12 @@
+{
+  "name": "evaluation-metrics",
+  "description": "Automatically applies when evaluating LLM performance. Ensures proper eval datasets, metrics computation, A/B testing, LLM-as-judge patterns, and experiment tracking.",
+  "repo": "ricardoroche/ricardos-claude-code",
+  "category": "testing",
+  "tags": [
+    "evaluation",
+    "metrics"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

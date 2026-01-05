@@ -1,0 +1,12 @@
+{
+  "name": "generate-meta-prompt",
+  "description": "Generate effective prompts based on task descriptions. Use when you need to create structured prompts for AI models.",
+  "repo": "datanooblol/broskills",
+  "category": "data",
+  "tags": [
+    "generate",
+    "meta",
+    "prompt"
+  ],
+  "stars": 0
+}

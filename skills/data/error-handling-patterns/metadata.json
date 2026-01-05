@@ -1,0 +1,13 @@
+{
+  "name": "error-handling-patterns",
+  "description": "Svelte 5 error handling. Use for error boundaries, async await expressions, loading states, and form errors.",
+  "repo": "spences10/devhub-crm",
+  "category": "data",
+  "tags": [
+    "error",
+    "handling",
+    "patterns"
+  ],
+  "stars": 6,
+  "source": "SkillsMP Synced Skills"
+}

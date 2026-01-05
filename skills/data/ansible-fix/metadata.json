@@ -1,0 +1,12 @@
+{
+  "name": "ansible-fix",
+  "description": "ALWAYS use this skill immediately after running 'ansible-galaxy init' to create a new Ansible role. Also use when the user asks to fix ansible-lint errors or when ansible-lint output shows fixable iss",
+  "repo": "jphetphoumy/skillstack",
+  "category": "data",
+  "tags": [
+    "ansible",
+    "fix"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

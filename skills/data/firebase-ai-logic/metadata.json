@@ -1,0 +1,12 @@
+{
+  "name": "firebase-ai-logic",
+  "description": "Guide for integrating Gemini AI models with Firebase using Firebase AI Logic SDK. This skill should be used when implementing Gemini features (chat, content generation, structured JSON output), config",
+  "repo": "Just-mpm/LideraAI",
+  "category": "data",
+  "tags": [
+    "firebase",
+    "logic"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

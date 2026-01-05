@@ -1,0 +1,11 @@
+{
+  "name": "drizzle-db",
+  "description": "Query the project's database using Drizzle ORM. Use when the user asks about database contents, schema inspection, or data queries. Supports read-only mode for safety.",
+  "repo": "Fawwaz-2009/tally",
+  "category": "data",
+  "tags": [
+    "drizzle"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

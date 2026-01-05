@@ -1,0 +1,12 @@
+{
+  "name": "gemini-image-gen",
+  "description": "Generate and edit images using Google's Gemini API (gemini-3-pro-image-preview model). Use when users request (1) Generating images from text prompts, (2) Editing existing images with AI instructions,",
+  "repo": "St3v3a/gemini-image-skill",
+  "category": "data",
+  "tags": [
+    "gemini",
+    "image",
+    "gen"
+  ],
+  "stars": 1
+}

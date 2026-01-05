@@ -1,0 +1,11 @@
+{
+  "name": "prisma-patterns",
+  "description": "Prisma ORM patterns - use for database access in Next.js, schema design, migrations, transactions, and relations",
+  "repo": "ashchupliak/dream-team",
+  "category": "data",
+  "tags": [
+    "prisma",
+    "patterns"
+  ],
+  "stars": 1
+}

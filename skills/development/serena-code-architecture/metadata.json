@@ -1,0 +1,12 @@
+{
+  "name": "serena-code-architecture",
+  "description": "Architectural analysis workflow using Serena symbols and Forgetful memory. Use when analyzing project structure, documenting architecture, creating component entities, or building knowledge graphs fro",
+  "repo": "ScottRBK/context-hub-plugin",
+  "category": "development",
+  "tags": [
+    "serena",
+    "code",
+    "architecture"
+  ],
+  "stars": 3
+}

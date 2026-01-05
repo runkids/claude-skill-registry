@@ -1,0 +1,12 @@
+{
+  "name": "design-decisions",
+  "description": "Forces documentation of the reasoning behind every significant design decision. Creates a decision log that explains WHY choices were made, alternatives considered, and trade-offs accepted. Prevents u",
+  "repo": "vinzenz/jules-agentic-software-builder-for-claude",
+  "category": "documents",
+  "tags": [
+    "design",
+    "decisions"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

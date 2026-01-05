@@ -1,0 +1,11 @@
+{
+  "name": "lint",
+  "description": ">",
+  "repo": "DataDog/dd-trace-py",
+  "category": "development",
+  "tags": [
+    "lint"
+  ],
+  "stars": 607,
+  "source": "SkillsMP Synced Skills"
+}

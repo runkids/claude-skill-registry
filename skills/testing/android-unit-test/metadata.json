@@ -1,0 +1,13 @@
+{
+  "name": "android-unit-test",
+  "description": "Эксперт Android тестирования. Используй для JUnit, Espresso и Android test patterns.",
+  "repo": "dengineproblem/agents-monorepo",
+  "category": "testing",
+  "tags": [
+    "android",
+    "unit",
+    "test"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

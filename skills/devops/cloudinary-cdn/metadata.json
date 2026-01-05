@@ -1,0 +1,12 @@
+{
+  "name": "cloudinary-cdn",
+  "description": "Video CDN yonetimi. Use when uploading videos for Instagram Reels.",
+  "repo": "olivenet-iot/olivenet-social-bot",
+  "category": "devops",
+  "tags": [
+    "cloudinary",
+    "cdn"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

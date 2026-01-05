@@ -1,0 +1,11 @@
+{
+  "name": "postgresql-expert",
+  "description": "Expert PostgreSQL database guidance using Bun.sql client. Provides comprehensive patternsfor queries, schema design, JSON/JSONB operations, full-text search, indexing, PL/pgSQL,pgvector, and performan",
+  "repo": "lammesen/skills",
+  "category": "data",
+  "tags": [
+    "postgresql",
+    "expert"
+  ],
+  "stars": 0
+}

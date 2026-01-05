@@ -1,0 +1,11 @@
+{
+  "name": "constitution-enforcer",
+  "description": "Validate Kubernetes manifests, Helm charts, and Dapr configs against security and governance rules. Use when: (1) Generating K8s manifests, (2) Creating Helm charts, (3) Building Docker configurations",
+  "repo": "gurupak/todo-evolution",
+  "category": "devops",
+  "tags": [
+    "constitution",
+    "enforcer"
+  ],
+  "stars": 0
+}

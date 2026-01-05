@@ -1,0 +1,13 @@
+{
+  "name": "odoo-app-landing-page",
+  "description": "Create or update index.html landing pages for Odoo modules following App Store restrictions and best practices",
+  "repo": "smartops-aero/smartops-odoo-flight",
+  "category": "data",
+  "tags": [
+    "odoo",
+    "app",
+    "landing",
+    "page"
+  ],
+  "stars": 2
+}

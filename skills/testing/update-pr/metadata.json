@@ -1,0 +1,10 @@
+{
+  "name": "update-pr",
+  "description": "Creates comprehensive PR descriptions by systematically reviewing ALL changes - features, bug fixes, tests, docs, and infrastructure. Use when user wants to update PR description, prepare PR for revie",
+  "repo": "propstreet/claude-powerpack",
+  "category": "testing",
+  "tags": [
+    "update"
+  ],
+  "stars": 1
+}

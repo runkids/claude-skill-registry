@@ -1,0 +1,10 @@
+{
+  "name": "tables",
+  "description": "Preview denmark statistics fact tables and inspect their metadata",
+  "repo": "josca42/varro",
+  "category": "data",
+  "tags": [
+    "tables"
+  ],
+  "stars": 1
+}

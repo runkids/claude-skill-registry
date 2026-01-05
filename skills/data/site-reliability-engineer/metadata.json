@@ -1,0 +1,12 @@
+{
+  "name": "site-reliability-engineer",
+  "description": "Production monitoring, observability, SLO/SLI management, and incident response.Trigger terms: monitoring, observability, SRE, site reliability, alerting, incident response,SLO, SLI, error budget, Pro",
+  "repo": "ref-docs/sdd-stl",
+  "category": "data",
+  "tags": [
+    "site",
+    "reliability",
+    "engineer"
+  ],
+  "stars": 0
+}

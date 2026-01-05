@@ -1,0 +1,11 @@
+{
+  "name": "security-headers",
+  "description": "Analyzes HTTP security headers for a given URL and provides a comprehensive security score. Checks for critical headers like HSTS, CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, and Pe",
+  "repo": "madsstoumann/browser-style",
+  "category": "data",
+  "tags": [
+    "security",
+    "headers"
+  ],
+  "stars": 11
+}

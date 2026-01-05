@@ -1,0 +1,11 @@
+{
+  "name": "convex-patterns",
+  "description": "Convex backend patterns with security, validation, and performance best practices",
+  "repo": "JasonDocton/rad-claude",
+  "category": "security",
+  "tags": [
+    "convex",
+    "patterns"
+  ],
+  "stars": 0
+}

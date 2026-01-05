@@ -1,0 +1,11 @@
+{
+  "name": "tailwind-patterns",
+  "description": "Efficient Tailwind CSS patterns using inheritance and custom config",
+  "repo": "JasonDocton/rad-claude",
+  "category": "design",
+  "tags": [
+    "tailwind",
+    "patterns"
+  ],
+  "stars": 0
+}

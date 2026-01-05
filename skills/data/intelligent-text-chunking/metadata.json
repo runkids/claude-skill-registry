@@ -1,0 +1,12 @@
+{
+  "name": "intelligent-text-chunking",
+  "description": "Split large texts into meaningful, AI-optimized chunks while preserving semantic coherence and document structure. Use when processing large documents for AI training, RAG systems, or when you need to",
+  "repo": "findinfinitelabs/chuuk",
+  "category": "data",
+  "tags": [
+    "intelligent",
+    "text",
+    "chunking"
+  ],
+  "stars": 0
+}

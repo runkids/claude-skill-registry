@@ -1,0 +1,12 @@
+{
+  "name": "infrastructure-software-upgrades",
+  "description": "Generic guidelines on how to perform infrastructure component upgrades in a reliable way",
+  "repo": "stakpak/community-paks",
+  "category": "development",
+  "tags": [
+    "infrastructure",
+    "software",
+    "upgrades"
+  ],
+  "stars": 3
+}

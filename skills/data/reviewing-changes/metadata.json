@@ -1,0 +1,12 @@
+{
+  "name": "reviewing-changes",
+  "description": "Performs comprehensive code reviews for Bitwarden iOS projects, verifying architecture compliance, style guidelines, compilation safety, test coverage, and security requirements. Use when reviewing pu",
+  "repo": "bitwarden/ios",
+  "category": "data",
+  "tags": [
+    "reviewing",
+    "changes"
+  ],
+  "stars": 460,
+  "source": "SkillsMP Synced Skills"
+}

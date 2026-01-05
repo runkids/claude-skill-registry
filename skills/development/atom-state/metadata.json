@@ -1,0 +1,12 @@
+{
+  "name": "atom-state",
+  "description": "Implement reactive state management with Effect Atom for React applications",
+  "repo": "front-depiction/cli-stock",
+  "category": "development",
+  "tags": [
+    "atom",
+    "state"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "tufte-slide-design",
+  "description": "This skill applies Edward Tufte's data visualization principles from \"The Visual Display of Quantitative Information\" to create high-impact slides. Use when designing presentations, creating charts/gr",
+  "repo": "ingpoc/SKILLS",
+  "category": "data",
+  "tags": [
+    "tufte",
+    "slide",
+    "design"
+  ],
+  "stars": 3
+}

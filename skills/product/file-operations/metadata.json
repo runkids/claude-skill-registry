@@ -1,0 +1,12 @@
+{
+  "name": "file-operations",
+  "description": "Production-grade file operations - permissions, find, archives, rsync",
+  "repo": "pluginagentmarketplace/custom-plugin-bash-shell",
+  "category": "product",
+  "tags": [
+    "file",
+    "operations"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

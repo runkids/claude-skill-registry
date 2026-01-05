@@ -1,0 +1,12 @@
+{
+  "name": "create-branch",
+  "description": "Create a new git branch from main/master with a maximum of 17 characters. Prompts for branch name or infers from context.",
+  "repo": "seanogdev/dotfiles",
+  "category": "data",
+  "tags": [
+    "create",
+    "branch"
+  ],
+  "stars": 2,
+  "source": "SkillsMP Synced Skills"
+}

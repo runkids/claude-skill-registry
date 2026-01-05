@@ -1,0 +1,12 @@
+{
+  "name": "ios-knowledge-skill",
+  "description": "Skill providing structured iOS lane knowledge: SwiftUI vs UIKit/TCA/MVVM patterns, data stack choices, and OS 4.1 iOS standards. Uses context7 libraries for global guidance.",
+  "repo": "adilkalam/orca",
+  "category": "data",
+  "tags": [
+    "ios",
+    "knowledge",
+    "skill"
+  ],
+  "stars": 0
+}

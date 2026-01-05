@@ -1,0 +1,10 @@
+{
+  "name": "fecfile",
+  "description": "Analyze FEC (Federal Election Commission) campaign finance filings. Use when working with FEC filing IDs, campaign finance data, contributions, disbursements, or political committee financial reports.",
+  "repo": "hodgesmr/agent-fecfile",
+  "category": "data",
+  "tags": [
+    "fecfile"
+  ],
+  "stars": 4
+}

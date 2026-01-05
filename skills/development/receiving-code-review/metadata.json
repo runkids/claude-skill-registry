@@ -1,0 +1,13 @@
+{
+  "name": "receiving-code-review",
+  "description": "Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not performative",
+  "repo": "obra/superpowers",
+  "category": "development",
+  "tags": [
+    "receiving",
+    "code",
+    "review"
+  ],
+  "stars": 12395,
+  "source": "SkillsMP Synced Skills"
+}

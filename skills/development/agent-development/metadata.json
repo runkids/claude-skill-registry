@@ -1,0 +1,12 @@
+{
+  "name": "agent-development",
+  "description": "This skill should be used when the user asks to \"create an agent\", \"add an agent\", \"write a subagent\", \"agent frontmatter\", \"when to use description\", \"agent examples\", \"agent tools\", \"agent colors\", ",
+  "repo": "basher83/lunar-claude",
+  "category": "development",
+  "tags": [
+    "agent",
+    "development"
+  ],
+  "stars": 8,
+  "source": "SkillsMP Synced Skills"
+}

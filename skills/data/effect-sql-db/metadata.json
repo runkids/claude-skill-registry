@@ -1,0 +1,12 @@
+{
+  "name": "effect-sql-db",
+  "description": "Effect patterns for SQL databases (Drizzle/Kysely/Prisma): services, transactions, retries, streaming, and observability.",
+  "repo": "mepuka/effect-ontology",
+  "category": "data",
+  "tags": [
+    "effect",
+    "sql"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "smart-router",
+  "description": "Use when multiple tools are available for a task and intelligent routing is needed. Activates when routing-detector hook suggests it, or when user asks \"which tool should I use\" or \"what's the best pl",
+  "repo": "Blockchain-Oracle/smart-router",
+  "category": "data",
+  "tags": [
+    "smart",
+    "router"
+  ],
+  "stars": 0
+}

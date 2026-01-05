@@ -1,0 +1,12 @@
+{
+  "name": "beads-cli",
+  "description": "Task tracking with the bd (Beads) CLI. Use when creating tasks, claiming work, closing beads, managing dependencies, or when the user mentions \"beads\", \"bd\", or \"tasks\".",
+  "repo": "Mburdo/knowledge_and_vibes",
+  "category": "data",
+  "tags": [
+    "beads",
+    "cli"
+  ],
+  "stars": 42,
+  "source": "SkillsMP Synced Skills"
+}

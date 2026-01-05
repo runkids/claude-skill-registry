@@ -1,0 +1,14 @@
+{
+  "name": "cloudflare-observability-logging-monitoring",
+  "description": "\"Use this skill whenever the user wants to improve or set up logging, tracing, metrics, and monitoring for Cloudflare Workers/Pages (e.g. Hono + TypeScript), including Wrangler tail, Workers Analytics",
+  "repo": "AgentiveCity/SkillFactory",
+  "category": "data",
+  "tags": [
+    "cloudflare",
+    "observability",
+    "logging",
+    "monitoring"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "agent-workflow",
+  "description": "Multi-agent development workflow system. Load when orchestrating development tasks, spawning subagents, or managing workflow phases.",
+  "repo": "Clouder0/dotagent",
+  "category": "productivity",
+  "tags": [
+    "agent",
+    "workflow"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

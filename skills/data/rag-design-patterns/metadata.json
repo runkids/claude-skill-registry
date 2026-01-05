@@ -1,0 +1,12 @@
+{
+  "name": "rag-design-patterns",
+  "description": "Automatically applies when building RAG (Retrieval Augmented Generation) systems. Ensures proper chunking strategies, vector database patterns, embedding management, reranking, and retrieval optimizat",
+  "repo": "ricardoroche/ricardos-claude-code",
+  "category": "data",
+  "tags": [
+    "rag",
+    "design",
+    "patterns"
+  ],
+  "stars": 0
+}

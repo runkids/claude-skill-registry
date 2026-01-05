@@ -1,0 +1,13 @@
+{
+  "name": "multi-agent-parallel-investigation",
+  "description": "Decompose complex questions into 4-6 parallel investigations with different perspectives, synthesize into phased decision framework. Use when facing architecture decisions with multiple unknowns in cr",
+  "repo": "terrylica/binance-futures-availability",
+  "category": "data",
+  "tags": [
+    "multi",
+    "agent",
+    "parallel",
+    "investigation"
+  ],
+  "stars": 0
+}

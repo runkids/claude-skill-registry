@@ -1,0 +1,11 @@
+{
+  "name": "pptx-to-html",
+  "description": "Convert PowerPoint (.pptx) presentations to standalone HTML format with FULL style, position, and formatting preservation. Accurately replicates slides with exact fonts, colors, shapes, backgrounds, l",
+  "repo": "cskwork/pptx-to-html-updated",
+  "category": "data",
+  "tags": [
+    "pptx",
+    "html"
+  ],
+  "stars": 0
+}

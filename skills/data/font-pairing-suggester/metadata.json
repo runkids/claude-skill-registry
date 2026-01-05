@@ -1,0 +1,13 @@
+{
+  "name": "font-pairing-suggester",
+  "description": "Recommend font combinations for different use cases. Provide Google Fonts alternatives to premium fonts with hierarchy examples.",
+  "repo": "OneWave-AI/claude-skills",
+  "category": "data",
+  "tags": [
+    "font",
+    "pairing",
+    "suggester"
+  ],
+  "stars": 10,
+  "source": "SkillsMP Synced Skills"
+}

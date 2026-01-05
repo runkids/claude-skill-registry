@@ -1,0 +1,13 @@
+{
+  "name": "web-asset-generator",
+  "description": "Generate favicons, app icons, social media images with WCAG compliance",
+  "repo": "alonw0/web-asset-generator",
+  "category": "design",
+  "tags": [
+    "favicon",
+    "icons",
+    "pwa",
+    "assets"
+  ],
+  "stars": 0
+}

@@ -1,0 +1,11 @@
+{
+  "name": "google-workspace",
+  "description": "Manage Google Workspace with Docs, Sheets, Slides, Drive, Gmail, Calendar, and Contacts operations. Full document/spreadsheet/presentation editing, file management, email, and scheduling.",
+  "repo": "andmarios/google-workspace-skill",
+  "category": "data",
+  "tags": [
+    "google",
+    "workspace"
+  ],
+  "stars": 0
+}

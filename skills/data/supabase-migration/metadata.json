@@ -1,0 +1,11 @@
+{
+  "name": "supabase-migration",
+  "description": "Safe database migration creation and management for Supabase PostgreSQL",
+  "repo": "amo-tech-ai/skybox-gamehub",
+  "category": "data",
+  "tags": [
+    "supabase",
+    "migration"
+  ],
+  "stars": 0
+}

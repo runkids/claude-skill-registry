@@ -1,0 +1,10 @@
+{
+  "name": "omeka-s",
+  "description": "Expert Omeka S developer assistant for Docker-based installations. Covers theme development (SCSS/CSS, templates), module creation (PHP, events, database), configuration management, and troubleshootin",
+  "repo": "szweibel/claude-skills",
+  "category": "data",
+  "tags": [
+    "omeka"
+  ],
+  "stars": 0
+}

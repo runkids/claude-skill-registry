@@ -1,0 +1,11 @@
+{
+  "name": "image-gen",
+  "description": "Generate and edit images using AI models (Gemini, OpenAI, BFL FLUX, or Poe). Use this skill when you need to create images from text prompts, edit existing images, or generate variations. Supports mul",
+  "repo": "PederHP/image-gen-cli",
+  "category": "data",
+  "tags": [
+    "image",
+    "gen"
+  ],
+  "stars": 0
+}

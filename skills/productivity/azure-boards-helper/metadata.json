@@ -1,0 +1,13 @@
+{
+  "name": "azure-boards-helper",
+  "description": "Manage Azure Boards work items including user stories, tasks, and bugs with WIQL queries. Use when managing Azure Boards work items or creating sprint backlogs.",
+  "repo": "ntaksh42/agents",
+  "category": "productivity",
+  "tags": [
+    "azure",
+    "boards",
+    "helper"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

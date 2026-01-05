@@ -1,0 +1,12 @@
+{
+  "name": "project-setup-expert",
+  "description": "Multi-module 구조 설계, Gradle 설정, Version Catalog, 의존성 관리.헥사고날 아키텍처 모듈 분리. Domain 외부 의존성 금지, 순환 의존성 금지.QA 도구 (Checkstyle, SpotBugs, PMD, JaCoCo) 설정.",
+  "repo": "ryu-qqq/AuthHub",
+  "category": "data",
+  "tags": [
+    "project",
+    "setup",
+    "expert"
+  ],
+  "stars": 0
+}

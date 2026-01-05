@@ -1,0 +1,13 @@
+{
+  "name": "database-design-patterns",
+  "description": "Database schema design including normalization, denormalization, indexes, migrations, foreign keys, constraints, and query optimization. Covers PostgreSQL, MySQL, and general SQL patterns. Use when de",
+  "repo": "randalmurphal/claude-config",
+  "category": "data",
+  "tags": [
+    "database",
+    "design",
+    "patterns"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

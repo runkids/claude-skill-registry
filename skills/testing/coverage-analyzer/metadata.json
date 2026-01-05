@@ -1,0 +1,12 @@
+{
+  "name": "coverage-analyzer",
+  "description": "Analyze test coverage with detailed metrics, identify gaps, and generate",
+  "repo": "matteocervelli/llms",
+  "category": "testing",
+  "tags": [
+    "coverage",
+    "analyzer"
+  ],
+  "stars": 10,
+  "source": "SkillsMP Synced Skills"
+}

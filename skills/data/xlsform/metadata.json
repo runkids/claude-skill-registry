@@ -1,0 +1,10 @@
+{
+  "name": "xlsform",
+  "description": "Authoring data collection forms in Excel for mobile surveys. XLSForm converts Excel files to XForms for ODK, KoBoToolbox, and similar platforms. Use for field surveys, data collection, conditional for",
+  "repo": "mberg/claude-skills",
+  "category": "data",
+  "tags": [
+    "xlsform"
+  ],
+  "stars": 0
+}

@@ -1,0 +1,11 @@
+{
+  "name": "wp-block-development",
+  "description": "Use when developing WordPress (Gutenberg) blocks: block.json metadata, register_block_type(_from_metadata), attributes/serialization, supports, dynamic rendering (render.php/render_callback), deprecat",
+  "repo": "Automattic/agent-skills",
+  "category": "development",
+  "tags": [
+    "block",
+    "development"
+  ],
+  "stars": 26
+}

@@ -1,0 +1,11 @@
+{
+  "name": "synalinks",
+  "description": "Build neuro-symbolic LLM applications with Synalinks framework. Use when working with DataModel, Program, Generator, Module, training LLM pipelines, in-context learning, structured output, JSON operat",
+  "repo": "SynaLinks/synalinks-skills",
+  "category": "data",
+  "tags": [
+    "synalinks"
+  ],
+  "stars": 891,
+  "source": "SkillsMP Synced Skills"
+}

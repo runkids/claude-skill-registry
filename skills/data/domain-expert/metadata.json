@@ -1,0 +1,12 @@
+{
+  "name": "domain-expert",
+  "description": "DDD Aggregate Root 설계, Law of Demeter 적용, Tell Don't Ask 패턴 강제. /kb-domain 명령 시 자동 활성화.",
+  "repo": "ryu-qqq/MarketPlace",
+  "category": "data",
+  "tags": [
+    "domain",
+    "expert"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

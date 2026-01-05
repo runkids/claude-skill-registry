@@ -1,0 +1,11 @@
+{
+  "name": "difit",
+  "description": "Git diff viewer with web UI and AI prompt generation. Use when \"difit\" is mentioned, or when reviewing diffs/PRs with AI-friendly output.",
+  "repo": "MH4GF/dotfiles",
+  "category": "data",
+  "tags": [
+    "difit"
+  ],
+  "stars": 2,
+  "source": "SkillsMP Synced Skills"
+}

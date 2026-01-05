@@ -1,0 +1,13 @@
+{
+  "name": "share-transfer-consent-expert",
+  "description": "Expert in consent to share transfer agreements where tenant's ownership changes but the corporate tenant remains the same (unlike assignment). Use when reviewing change of control provisions in leases",
+  "repo": "reggiechan74/vp-real-estate",
+  "category": "data",
+  "tags": [
+    "share",
+    "transfer",
+    "consent",
+    "expert"
+  ],
+  "stars": 4
+}

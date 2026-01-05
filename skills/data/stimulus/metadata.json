@@ -1,0 +1,10 @@
+{
+  "name": "stimulus",
+  "description": "Best practices for using Stimulus controllers to add JavaScript behavior to HTML",
+  "repo": "sandnap/easy_notes",
+  "category": "data",
+  "tags": [
+    "stimulus"
+  ],
+  "stars": 6
+}

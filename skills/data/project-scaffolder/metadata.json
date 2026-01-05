@@ -1,0 +1,11 @@
+{
+  "name": "project-scaffolder",
+  "description": "프론트엔드 프로젝트 구조를 분석하고 정리하여 AI 에이전트가 활용할 수 있는 컨텍스트 문서를 생성하는 스킬. \"프로젝트 구조 잡아줘\", \"폴더 구조 정리해줘\", \"아키텍처 문서화해줘\", \"프로젝트 초기 설정해줘\" 등의 요청에 트리거된다. Next.js, Supabase, React 등 다양한 프론트엔드 스택에서 범용적으로 사용 가능하다.",
+  "repo": "rungchan2/frontend-skills",
+  "category": "data",
+  "tags": [
+    "project",
+    "scaffolder"
+  ],
+  "stars": 0
+}

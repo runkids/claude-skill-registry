@@ -1,0 +1,8 @@
+{
+  "name": "uv",
+  "description": "Build self-contained Python executables using uv script metadata.",
+  "repo": "lostmygithubaccount/dotfiles",
+  "category": "data",
+  "tags": [],
+  "stars": 1
+}

@@ -1,0 +1,12 @@
+{
+  "name": "output-style-selector",
+  "description": "Automatically choose the best output style (tables, bullets, YAML, HTML, concise) to improve scanability and save tokens",
+  "repo": "MacroMan5/claude-code-workflow-plugins",
+  "category": "data",
+  "tags": [
+    "output",
+    "style",
+    "selector"
+  ],
+  "stars": 1
+}

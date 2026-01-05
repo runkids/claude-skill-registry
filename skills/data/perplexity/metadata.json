@@ -1,0 +1,10 @@
+{
+  "name": "perplexity",
+  "description": "AI-powered web search and reasoning using Perplexity API through the scraper MCP server. Invoked when searching the web with AI synthesis, conducting research with citations, performing complex reason",
+  "repo": "cotdp/scraper-mcp",
+  "category": "data",
+  "tags": [
+    "perplexity"
+  ],
+  "stars": 4
+}

@@ -1,0 +1,13 @@
+{
+  "name": "failsafe-shatter-recalibrate",
+  "description": "Execute emergency protocol reset when critical system integrity is compromised.",
+  "repo": "starwreckntx/IRP__METHODOLOGIES-",
+  "category": "data",
+  "tags": [
+    "failsafe",
+    "shatter",
+    "recalibrate"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

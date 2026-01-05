@@ -1,0 +1,12 @@
+{
+  "name": "agent-audit",
+  "description": "Validates agent configurations for model selection appropriateness, tool restriction accuracy, focus area quality, and approach completeness. Use when reviewing, auditing, or improving agents, checkin",
+  "repo": "philoserf/claude-code-setup",
+  "category": "data",
+  "tags": [
+    "agent",
+    "audit"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

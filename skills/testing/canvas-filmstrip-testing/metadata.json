@@ -1,0 +1,13 @@
+{
+  "name": "canvas-filmstrip-testing",
+  "description": "Visual regression for canvas-rendered matrix progressions. Tests filmstrip strips that show how 2D data evolves visually over time. Auto-apply when editing *Progressions.ts strip definitions or storie",
+  "repo": "surfdeeper/surfing-game",
+  "category": "testing",
+  "tags": [
+    "canvas",
+    "filmstrip",
+    "testing"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

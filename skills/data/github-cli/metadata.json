@@ -1,0 +1,11 @@
+{
+  "name": "github-cli",
+  "description": "Wrapper for GitHub CLI (gh) in Claude.ai. Covers installation, authentication, and common operations like pushing files, creating branches, PRs, issues, and releases.",
+  "repo": "apanoia/my_completely_irrelevant_claude_skillls",
+  "category": "data",
+  "tags": [
+    "github",
+    "cli"
+  ],
+  "stars": 0
+}

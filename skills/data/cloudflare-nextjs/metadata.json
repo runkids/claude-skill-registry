@@ -1,0 +1,12 @@
+{
+  "name": "cloudflare-nextjs",
+  "description": "Deploy Next.js applications (App Router and Pages Router) to Cloudflare Workers using the OpenNext adapter. This skill should be used when deploying Next.js apps with SSR, ISR, or server components to",
+  "repo": "jackspace/ClaudeSkillz",
+  "category": "data",
+  "tags": [
+    "cloudflare",
+    "nextjs"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "grant-compliance-checking",
+  "description": "Expert knowledge of research grant compliance requirements, deliverables tracking, and funder expectations. Use when reviewing work against grant specifications, preparing progress reports, or ensurin",
+  "repo": "seabbs/claude-code-config",
+  "category": "data",
+  "tags": [
+    "grant",
+    "compliance",
+    "checking"
+  ],
+  "stars": 5
+}

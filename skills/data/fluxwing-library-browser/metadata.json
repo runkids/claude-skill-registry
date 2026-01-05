@@ -1,0 +1,13 @@
+{
+  "name": "fluxwing-library-browser",
+  "description": "Browse and view all available uxscii components including bundled templates, user components, and screens. Use when working with .uxm files, when user wants to see, list, browse, or search .uxm compon",
+  "repo": "trabian/fluxwing-skills",
+  "category": "data",
+  "tags": [
+    "fluxwing",
+    "library",
+    "browser"
+  ],
+  "stars": 9,
+  "source": "SkillsMP Synced Skills"
+}

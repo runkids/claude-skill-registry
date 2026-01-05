@@ -1,0 +1,11 @@
+{
+  "name": "skill-refinement",
+  "description": "Feedback-driven skill improvement through tool outcome analysis. Collects executiondata and surfaces insights for skill refinement. Use this skill when you want to:- Understand how skills are performi",
+  "repo": "zenbase-ai/code-voyager",
+  "category": "data",
+  "tags": [
+    "skill",
+    "refinement"
+  ],
+  "stars": 0
+}

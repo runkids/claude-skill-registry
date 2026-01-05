@@ -1,0 +1,12 @@
+{
+  "name": "create-agent",
+  "description": "Quickly create a new specialized subagent when needed. Use when you need a specialist that doesn't exist yet for a specific task domain.",
+  "repo": "Dexploarer/hyper-forge",
+  "category": "data",
+  "tags": [
+    "create",
+    "agent"
+  ],
+  "stars": 2,
+  "source": "SkillsMP Synced Skills"
+}

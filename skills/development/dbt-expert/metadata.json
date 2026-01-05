@@ -1,0 +1,12 @@
+{
+  "name": "dbt-expert",
+  "description": "dbt エキスパートエンジニアスキル - dbt 開発のベストプラクティス、コマンド実行、環境設定に関する包括的なガイドを提供",
+  "repo": "i9wa4/dotfiles",
+  "category": "development",
+  "tags": [
+    "dbt",
+    "expert"
+  ],
+  "stars": 4,
+  "source": "SkillsMP Synced Skills"
+}

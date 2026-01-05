@@ -1,0 +1,11 @@
+{
+  "name": "cloudflare-kv",
+  "description": "Store key-value data globally with Cloudflare KV's edge network. Use when: caching API responses, storing configuration, managing user preferences, handling TTL expiration, or troubleshooting KV_ERROR",
+  "repo": "jezweb/claude-skills",
+  "category": "data",
+  "tags": [
+    "cloudflare"
+  ],
+  "stars": 109,
+  "source": "SkillsMP Synced Skills"
+}

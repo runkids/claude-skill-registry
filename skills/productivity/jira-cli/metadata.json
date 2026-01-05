@@ -1,0 +1,11 @@
+{
+  "name": "jira-cli",
+  "description": "Interactive command-line tool for Atlassian Jira. This skill should be used when users want to interact with Jira issues, epics, sprints, or when they mention Jira workflows, issue management, or need",
+  "repo": "mgiovani/cc-arsenal",
+  "category": "productivity",
+  "tags": [
+    "jira",
+    "cli"
+  ],
+  "stars": 1
+}

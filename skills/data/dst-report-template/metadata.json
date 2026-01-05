@@ -1,0 +1,13 @@
+{
+  "name": "dst-report-template",
+  "description": "Generate HTML research reports with embedded data, charts, and analysis.Use when creating final research deliverables. Supports single comprehensivereports or multiple focused reports. Handles styling",
+  "repo": "mikkelkrogsholm/dst-skills",
+  "category": "data",
+  "tags": [
+    "dst",
+    "report",
+    "template"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

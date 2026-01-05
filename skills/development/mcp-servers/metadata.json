@@ -1,0 +1,11 @@
+{
+  "name": "mcp-servers",
+  "description": "Speech feedback to user via MCP audio servers. Use when providing status updates or asking questions.",
+  "repo": "ywatanabe1989/melbourne-moving-sale",
+  "category": "development",
+  "tags": [
+    "mcp",
+    "servers"
+  ],
+  "stars": 0
+}

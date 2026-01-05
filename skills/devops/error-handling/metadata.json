@@ -1,0 +1,12 @@
+{
+  "name": "error-handling",
+  "description": "Comprehensive error handling patterns for API responses, React Error Boundaries, webhook processing, user-facing messages, and monitoring with Baselime.",
+  "repo": "jonit-dev/pixelperfect",
+  "category": "devops",
+  "tags": [
+    "error",
+    "handling"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "prompt-engineering-patterns",
+  "description": "掌握高级提示工程技术，以最大化生产环境中LLM的性能、可靠性和可控性。在优化提示、改进LLM输出或设计生产提示模板时使用。",
+  "repo": "evanfang0054/cc-system-creator-scripts",
+  "category": "development",
+  "tags": [
+    "prompt",
+    "engineering",
+    "patterns"
+  ],
+  "stars": 0
+}

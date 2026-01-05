@@ -1,0 +1,12 @@
+{
+  "name": "architecture-validator",
+  "description": "Validates project architecture against Fractary standards and best practices for Manager-as-Agent patterns",
+  "repo": "fractary/claude-plugins",
+  "category": "data",
+  "tags": [
+    "architecture",
+    "validator"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

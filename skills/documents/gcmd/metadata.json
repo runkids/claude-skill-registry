@@ -1,0 +1,10 @@
+{
+  "name": "gcmd",
+  "description": "Export and access Google Drive files (docs, sheets, meeting notes)",
+  "repo": "benthomasson/claude-skills",
+  "category": "documents",
+  "tags": [
+    "gcmd"
+  ],
+  "stars": 0
+}

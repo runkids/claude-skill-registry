@@ -1,0 +1,11 @@
+{
+  "name": "typo3-conformance",
+  "description": "Evaluate TYPO3 extensions for conformance to official TYPO3 12/13 LTS standards, coding guidelines (PSR-12, TYPO3 CGL), and architecture patterns. Use when assessing extension quality, generating conf",
+  "repo": "netresearch/typo3-conformance-skill",
+  "category": "testing",
+  "tags": [
+    "typo3",
+    "conformance"
+  ],
+  "stars": 1
+}

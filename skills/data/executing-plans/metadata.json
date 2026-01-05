@@ -1,0 +1,12 @@
+{
+  "name": "executing-plans",
+  "description": "Execute implementation plans step-by-step with quality guardrails (ask when unclear, minimal-change bias, readability checklist, verification). Use when the user asks to execute or follow a plan, run ",
+  "repo": "JoaquinCampo/codex-skills",
+  "category": "data",
+  "tags": [
+    "executing",
+    "plans"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

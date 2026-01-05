@@ -1,0 +1,12 @@
+{
+  "name": "dependency-updater",
+  "description": "Analyze and update Python dependencies in pyproject.toml, checking for compatibility and security vulnerabilities. Use when: updating dependencies, checking security issues, dependency analysis, versi",
+  "repo": "omerlefaruk/CasareRPA",
+  "category": "security",
+  "tags": [
+    "dependency",
+    "updater"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

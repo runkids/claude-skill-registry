@@ -1,0 +1,12 @@
+{
+  "name": "comp-scout-scrape",
+  "description": "Scrape competition websites, extract structured data, and auto-persist to GitHub issues. Creates issues for new competitions, adds comments for duplicates.",
+  "repo": "discreteds/competition-scout",
+  "category": "data",
+  "tags": [
+    "comp",
+    "scout",
+    "scrape"
+  ],
+  "stars": 0
+}

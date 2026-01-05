@@ -1,0 +1,14 @@
+{
+  "name": "cloudflare-zero-trust-access",
+  "description": "Use this skill when integrating Cloudflare Zero Trust Access authentication with Cloudflare Workers applications. Provides Hono middleware setup, manual JWT validation patterns, service token authenti",
+  "repo": "jackspace/ClaudeSkillz",
+  "category": "development",
+  "tags": [
+    "cloudflare",
+    "zero",
+    "trust",
+    "access"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

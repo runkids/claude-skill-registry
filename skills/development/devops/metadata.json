@@ -1,0 +1,11 @@
+{
+  "name": "devops",
+  "description": "Generates DevOps configurations and scripts for deploying and managing Laravel applications. Run local commands to debug and deploy.",
+  "repo": "Mentor-Wizard/mentor-wizard-webapp",
+  "category": "development",
+  "tags": [
+    "devops"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "local-first",
+  "description": "Enforces local-first architecture principles for Breath of Now. Use this skill when working with data, state management, or sync features. Ensures IndexedDB (Dexie.js) is always the source of truth.",
+  "repo": "diogo-heleno/breathofnow",
+  "category": "data",
+  "tags": [
+    "local",
+    "first"
+  ],
+  "stars": 1
+}

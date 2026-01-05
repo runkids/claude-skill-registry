@@ -1,0 +1,13 @@
+{
+  "name": "fastapi-code-review",
+  "description": "Comprehensive code review skill for FastAPI projects. Analyzes codebase against industry best practices covering async patterns, project structure, Pydantic usage, dependency injection, database patte",
+  "repo": "mvilrokx/claude-skills",
+  "category": "data",
+  "tags": [
+    "fastapi",
+    "code",
+    "review"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

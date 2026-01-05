@@ -1,0 +1,12 @@
+{
+  "name": "database-optimizer",
+  "description": "Use when investigating slow queries, analyzing execution plans, or optimizing database performance. Invoke for index design, query rewrites, configuration tuning, partitioning strategies, lock content",
+  "repo": "Jeffallan/claude-skills",
+  "category": "data",
+  "tags": [
+    "database",
+    "optimizer"
+  ],
+  "stars": 12,
+  "source": "SkillsMP Synced Skills"
+}

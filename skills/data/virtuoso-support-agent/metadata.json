@@ -1,0 +1,12 @@
+{
+  "name": "virtuoso-support-agent",
+  "description": "Technical support and database management for OpenLink Virtuoso Server with RDF Views generation, SPARQL queries, and comprehensive database operations. Provides assistance with installation, configur",
+  "repo": "OpenLinkSoftware/Assistants",
+  "category": "data",
+  "tags": [
+    "virtuoso",
+    "support",
+    "agent"
+  ],
+  "stars": 7
+}

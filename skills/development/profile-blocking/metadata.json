@@ -1,0 +1,11 @@
+{
+  "name": "profile-blocking",
+  "description": "Find blocking calls in reactive WebFlux code that can cause performance issues and thread starvation",
+  "repo": "pwittchen/varun.surf",
+  "category": "development",
+  "tags": [
+    "profile",
+    "blocking"
+  ],
+  "stars": 1
+}

@@ -1,0 +1,13 @@
+{
+  "name": "creating-windsurf-packages",
+  "description": "Use when creating Windsurf rules - provides plain markdown format with NO frontmatter, 12,000 character limit, and single-file structure requirements",
+  "repo": "pr-pm/prpm",
+  "category": "data",
+  "tags": [
+    "creating",
+    "windsurf",
+    "packages"
+  ],
+  "stars": 70,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "package-upgrade",
+  "description": "Systematic approach for upgrading packages in the Baseplate monorepo, ensuring consistency between monorepo dependencies and generated project code.",
+  "repo": "halfdomelabs/baseplate",
+  "category": "development",
+  "tags": [
+    "package",
+    "upgrade"
+  ],
+  "stars": 3
+}

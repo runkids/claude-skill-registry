@@ -1,0 +1,13 @@
+{
+  "name": "database-schema-designer",
+  "description": "Copilot agent for database schema design, ER diagrams, normalization, DDL generation, and performance optimizationTrigger terms: database design, schema design, ER diagram, normalization, DDL, databas",
+  "repo": "nahisaho/MUSUBI",
+  "category": "data",
+  "tags": [
+    "database",
+    "schema",
+    "designer"
+  ],
+  "stars": 19,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "openai-api",
+  "description": "The OpenAI REST API. Please see https://platform.openai.com/docs/api-reference for more details.",
+  "repo": "matdac12/openai-skill",
+  "category": "data",
+  "tags": [
+    "openai",
+    "api"
+  ],
+  "stars": 1
+}

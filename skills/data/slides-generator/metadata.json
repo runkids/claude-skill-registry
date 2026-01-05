@@ -1,0 +1,11 @@
+{
+  "name": "slides-generator",
+  "description": "Generate interactive presentation slides using React + Tailwind. Triggers on keywords like \"slides\", \"presentation\", \"PPT\", \"demo\", \"benchmark\".",
+  "repo": "NanmiCoder/claude-code-skills",
+  "category": "data",
+  "tags": [
+    "slides",
+    "generator"
+  ],
+  "stars": 8
+}

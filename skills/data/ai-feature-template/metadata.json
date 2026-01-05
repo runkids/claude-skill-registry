@@ -1,0 +1,12 @@
+{
+  "name": "ai-feature-template",
+  "description": "Create new AI-powered features using xAI Grok. Use when user mentions \"new AI feature\", \"add Grok\", \"create prompt\", \"AI analysis\", or \"generate with AI\".",
+  "repo": "AppleLamps/xpic2",
+  "category": "data",
+  "tags": [
+    "feature",
+    "template"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

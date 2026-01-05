@@ -1,0 +1,11 @@
+{
+  "name": "cloudflare-d1",
+  "description": "Build with D1 serverless SQLite database on Cloudflare's edge. Use when: creating databases, writing SQL migrations, querying D1 from Workers, handling relational data, or troubleshooting D1_ERROR, st",
+  "repo": "jezweb/claude-skills",
+  "category": "data",
+  "tags": [
+    "cloudflare"
+  ],
+  "stars": 109,
+  "source": "SkillsMP Synced Skills"
+}

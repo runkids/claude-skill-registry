@@ -1,0 +1,11 @@
+{
+  "name": "nuxt-content",
+  "description": "Use when answering questions about OR implementing features with Nuxt Content (queries, MDC components, document-driven mode), especially when uncertain about current API - Nuxt Content is frequently ",
+  "repo": "alexanderop/awesome-claude-code-vue",
+  "category": "data",
+  "tags": [
+    "nuxt",
+    "content"
+  ],
+  "stars": 1
+}

@@ -1,0 +1,11 @@
+{
+  "name": "openai-agents",
+  "description": "Use when integrating OpenAI GPT models for conversational AI. Covers chat completions, streaming responses, function calling, system prompts, token management, cost optimization, error handling, and b",
+  "repo": "muhammad-anas35/RAGai",
+  "category": "development",
+  "tags": [
+    "openai",
+    "agents"
+  ],
+  "stars": 0
+}

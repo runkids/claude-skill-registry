@@ -1,0 +1,11 @@
+{
+  "name": "market-analysis",
+  "description": "Use this skill when analyzing stocks, performing technical analysis, or evaluating market conditions. Provides comprehensive stock analysis using TradingAgents framework including technical indicators",
+  "repo": "AkhilGurrapu/kubera",
+  "category": "data",
+  "tags": [
+    "market",
+    "analysis"
+  ],
+  "stars": 0
+}

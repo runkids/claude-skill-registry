@@ -1,0 +1,12 @@
+{
+  "name": "post-run-debrief",
+  "description": "Converts run telemetry and user notes into structured reflections with confidence scores. Use after runs to capture qualitative feedback and generate next-step guidance with safety checks for pain or ",
+  "repo": "nadavyigal/Running-coach-",
+  "category": "data",
+  "tags": [
+    "post",
+    "run",
+    "debrief"
+  ],
+  "stars": 1
+}

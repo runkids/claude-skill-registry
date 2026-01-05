@@ -1,0 +1,13 @@
+{
+  "name": "braiins-api-mapper",
+  "description": "Maps Braiins Pool API endpoints to MCP tool implementations with properauthentication, rate limiting, retry logic, and error handling patterns.",
+  "repo": "Ryno-Crypto-Mining-Services/braiins-pool-mcp-server",
+  "category": "data",
+  "tags": [
+    "braiins",
+    "api",
+    "mapper"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

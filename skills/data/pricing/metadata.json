@@ -1,0 +1,11 @@
+{
+  "name": "pricing",
+  "description": "Guide for updating model pricing in Splitrail. Use when adding new AI model costs or updating existing pricing data.",
+  "repo": "Piebald-AI/splitrail",
+  "category": "data",
+  "tags": [
+    "pricing"
+  ],
+  "stars": 75,
+  "source": "SkillsMP Synced Skills"
+}

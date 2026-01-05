@@ -1,0 +1,10 @@
+{
+  "name": "mcp",
+  "description": "Model Context Protocol (MCP) server development and tool management. Languages: Python, TypeScript. Capabilities: build MCP servers, integrate external APIs, discover/execute MCP tools, manage multi-s",
+  "repo": "samhvw8/dot-claude",
+  "category": "development",
+  "tags": [
+    "mcp"
+  ],
+  "stars": 1
+}

@@ -1,0 +1,12 @@
+{
+  "name": "dbc-schema",
+  "description": "Generate Effect Schema definitions for WoW DBC tables. Use when adding new game data tables or updating existing schemas.",
+  "repo": "legacy3/wowlab",
+  "category": "data",
+  "tags": [
+    "dbc",
+    "schema"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

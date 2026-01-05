@@ -1,0 +1,11 @@
+{
+  "name": "rails-security",
+  "description": "Specialized skill for Rails security, authorization, and data protection. Use when implementing Pundit policies, Lockbox encryption, Blind Index searches, authentication, secure configuration, or fixi",
+  "repo": "alec-c4/claude-skills-rails-dev",
+  "category": "data",
+  "tags": [
+    "rails",
+    "security"
+  ],
+  "stars": 18
+}

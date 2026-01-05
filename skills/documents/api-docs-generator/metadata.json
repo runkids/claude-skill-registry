@@ -1,0 +1,13 @@
+{
+  "name": "api-docs-generator",
+  "description": "Generate comprehensive API documentation from OpenAPI specs, code docstrings, JSDoc/TSDoc comments, and Markdown annotations. Use when creating or updating API documentation in /docs/API.md from vario",
+  "repo": "tomique34/claude-skill-creator",
+  "category": "documents",
+  "tags": [
+    "api",
+    "docs",
+    "generator"
+  ],
+  "stars": 3,
+  "source": "SkillsMP Synced Skills"
+}

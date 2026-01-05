@@ -1,0 +1,11 @@
+{
+  "name": "hello-world",
+  "description": "A minimal test skill that demonstrates the basic skill structure",
+  "repo": "LA3D/skillhelper",
+  "category": "testing",
+  "tags": [
+    "hello",
+    "world"
+  ],
+  "stars": 0
+}

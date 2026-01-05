@@ -1,0 +1,13 @@
+{
+  "name": "fastapi-jwt-auth",
+  "description": "Provides a complete solution for JWT-based authentication in FastAPI applications. Use this skill when a user wants to add secure token-based authentication to their FastAPI project. This skill handle",
+  "repo": "MUmerRazzaq/fast-next-todo",
+  "category": "data",
+  "tags": [
+    "fastapi",
+    "jwt",
+    "auth"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

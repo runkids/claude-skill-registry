@@ -1,0 +1,11 @@
+{
+  "name": "image-generation",
+  "description": "Generate AI images with various themes, styles, and aspect ratios. Use when asked to generate images, create artwork, make graphics, generate backgrounds, or create visual assets.",
+  "repo": "sudo-vaibhav/ondc-vaatun",
+  "category": "data",
+  "tags": [
+    "image",
+    "generation"
+  ],
+  "stars": 1
+}

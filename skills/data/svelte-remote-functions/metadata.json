@@ -1,0 +1,12 @@
+{
+  "name": "svelte-remote-functions",
+  "description": "Guide for SvelteKit Remote Functions. Use this skill by default for all SvelteKit projects doing type-safe client-server communication with query (data fetching), form (progressive enhancement), comma",
+  "repo": "wiesson/svelte-remote-functions",
+  "category": "data",
+  "tags": [
+    "svelte",
+    "remote",
+    "functions"
+  ],
+  "stars": 0
+}

@@ -1,0 +1,12 @@
+{
+  "name": "doc-sync",
+  "description": "Keeps IdeaVim documentation in sync with code changes. Use this skill when you need to verify documentation accuracy after code changes, or when checking if documentation (in doc/, README.md, CONTRIBU",
+  "repo": "JetBrains/ideavim",
+  "category": "documents",
+  "tags": [
+    "doc",
+    "sync"
+  ],
+  "stars": 10026,
+  "source": "SkillsMP Synced Skills"
+}

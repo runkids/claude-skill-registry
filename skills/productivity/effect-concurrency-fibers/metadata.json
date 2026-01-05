@@ -1,0 +1,13 @@
+{
+  "name": "effect-concurrency-fibers",
+  "description": "Concurrency with Effect.all, forEach concurrency, Fiber lifecycle, race and timeouts. Use for parallelizing tasks safely.",
+  "repo": "mepuka/effect-ontology",
+  "category": "productivity",
+  "tags": [
+    "effect",
+    "concurrency",
+    "fibers"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,13 @@
+{
+  "name": "agent-validate-config",
+  "description": "Validate agent YAML frontmatter and configuration. Use before committing agent changes or in CI.",
+  "repo": "mvillmow/ProjectOdyssey",
+  "category": "data",
+  "tags": [
+    "agent",
+    "validate",
+    "config"
+  ],
+  "stars": 8,
+  "source": "SkillsMP Synced Skills"
+}

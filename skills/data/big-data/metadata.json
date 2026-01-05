@@ -1,0 +1,12 @@
+{
+  "name": "big-data",
+  "description": "Apache Spark, Hadoop, distributed computing, and large-scale data processing",
+  "repo": "pluginagentmarketplace/custom-plugin-data-engineer",
+  "category": "data",
+  "tags": [
+    "big",
+    "data"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

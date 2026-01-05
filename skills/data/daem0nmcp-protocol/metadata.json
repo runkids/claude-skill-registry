@@ -1,0 +1,12 @@
+{
+  "name": "daem0nmcp-protocol",
+  "description": "Use when Daem0nMCP tools are available - enforces the sacred covenant (commune at session start, seek counsel before changes, inscribe decisions, seal outcomes)",
+  "repo": "DasBluEyedDevil/Daem0n-MCP",
+  "category": "data",
+  "tags": [
+    "daem0nmcp",
+    "protocol"
+  ],
+  "stars": 2,
+  "source": "SkillsMP Synced Skills"
+}

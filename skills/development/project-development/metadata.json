@@ -1,0 +1,12 @@
+{
+  "name": "project-development",
+  "description": "This skill should be used when the user asks to \"start an LLM project\", \"design batch pipeline\", \"evaluate task-model fit\", \"structure agent project\", or mentions pipeline architecture, agent-assisted",
+  "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
+  "category": "development",
+  "tags": [
+    "project",
+    "development"
+  ],
+  "stars": 5035,
+  "source": "SkillsMP Synced Skills"
+}

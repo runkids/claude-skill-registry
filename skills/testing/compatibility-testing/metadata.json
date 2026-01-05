@@ -1,0 +1,12 @@
+{
+  "name": "compatibility-testing",
+  "description": "Cross-browser, cross-platform, and cross-device compatibility testing ensuring consistent experience across environments. Use when validating browser support, testing responsive design, or ensuring pl",
+  "repo": "proffesor-for-testing/agentic-qe",
+  "category": "testing",
+  "tags": [
+    "compatibility",
+    "testing"
+  ],
+  "stars": 103,
+  "source": "SkillsMP Synced Skills"
+}

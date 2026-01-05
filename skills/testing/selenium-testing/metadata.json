@@ -1,0 +1,11 @@
+{
+  "name": "selenium-testing",
+  "description": "Browser automation with Selenium WebDriver for Python. (project)",
+  "repo": "paunchygent/skriptoteket",
+  "category": "testing",
+  "tags": [
+    "selenium",
+    "testing"
+  ],
+  "stars": 0
+}

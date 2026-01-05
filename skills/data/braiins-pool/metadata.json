@@ -1,0 +1,12 @@
+{
+  "name": "braiins-pool",
+  "description": "Comprehensive Braiins Pool skill - oldest Bitcoin mining pool with FPPS rewards, Lightning payouts, and Stratum V2 support",
+  "repo": "enuno/claude-command-and-control",
+  "category": "data",
+  "tags": [
+    "braiins",
+    "pool"
+  ],
+  "stars": 3,
+  "source": "SkillsMP Synced Skills"
+}

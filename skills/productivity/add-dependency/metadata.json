@@ -1,0 +1,12 @@
+{
+  "name": "add-dependency",
+  "description": "Add a new third-party dependency to the project following the version catalog and approval workflow.",
+  "repo": "AnySoftKeyboard/janus",
+  "category": "productivity",
+  "tags": [
+    "add",
+    "dependency"
+  ],
+  "stars": 15,
+  "source": "SkillsMP Synced Skills"
+}

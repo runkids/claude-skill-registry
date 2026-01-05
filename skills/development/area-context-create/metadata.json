@@ -1,0 +1,13 @@
+{
+  "name": "area-context-create",
+  "description": "Create codebase area context skills for rapid navigation. MUST BE USED for creating area context skills.Handles ONE-TIME auto-detection with Serena, template-based generation, and manual maintenance.U",
+  "repo": "stars-end/affordabot",
+  "category": "development",
+  "tags": [
+    "area",
+    "context",
+    "create"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

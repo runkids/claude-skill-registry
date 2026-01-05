@@ -1,0 +1,11 @@
+{
+  "name": "convex-core",
+  "description": "Core Convex development guidelines - functions, validators, schema, queries, mutations, and database patterns",
+  "repo": "astersnake/convex-claude-plugin",
+  "category": "data",
+  "tags": [
+    "convex",
+    "core"
+  ],
+  "stars": 0
+}

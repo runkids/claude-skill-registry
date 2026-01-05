@@ -1,0 +1,11 @@
+{
+  "name": "model-optimization",
+  "description": "Quantization, pruning, AutoML, hyperparameter tuning, and performance optimization. Use for improving model performance, reducing size, or automated ML.",
+  "repo": "pluginagentmarketplace/custom-plugin-ai-data-scientist",
+  "category": "data",
+  "tags": [
+    "model",
+    "optimization"
+  ],
+  "stars": 0
+}

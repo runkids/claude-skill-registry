@@ -1,0 +1,13 @@
+{
+  "name": "acceptance-criteria-verification",
+  "description": "Use after implementing features - verifies each acceptance criterion with structured testing and posts verification reports to the GitHub issue",
+  "repo": "troykelly/claude-skills",
+  "category": "testing",
+  "tags": [
+    "acceptance",
+    "criteria",
+    "verification"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

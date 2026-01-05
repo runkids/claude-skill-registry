@@ -1,0 +1,12 @@
+{
+  "name": "backend-queries",
+  "description": "Write optimized and secure database queries using parameterized queries, eager loading, and proper indexing strategies. Use this skill when writing database queries, constructing SQL statements, using",
+  "repo": "pdovhomilja/dovhomilja-cz",
+  "category": "data",
+  "tags": [
+    "backend",
+    "queries"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

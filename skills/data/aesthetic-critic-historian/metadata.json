@@ -1,0 +1,13 @@
+{
+  "name": "aesthetic-critic-historian",
+  "description": "[Aesthetics] Positions aesthetics within art/design history, identifies what traditions it echoes, and spots clichés, generic trends, and AI-slop patterns to avoid. Outputs Critical Notes as Memo node",
+  "repo": "CANTAGESTUDIO/CosmicAtlasPacker",
+  "category": "data",
+  "tags": [
+    "aesthetic",
+    "critic",
+    "historian"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

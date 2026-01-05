@@ -1,0 +1,14 @@
+{
+  "name": "claude-get-session-info",
+  "description": "Shared utility script for getting Claude PID and Session ID. Source this in other scripts to access CLAUDE_PID and SESSION_ID variables.",
+  "repo": "ManuelKugelmann/BitBot",
+  "category": "development",
+  "tags": [
+    "claude",
+    "get",
+    "session",
+    "info"
+  ],
+  "stars": 2,
+  "source": "SkillsMP Synced Skills"
+}

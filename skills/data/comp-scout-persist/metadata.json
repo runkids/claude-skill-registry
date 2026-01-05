@@ -1,0 +1,12 @@
+{
+  "name": "comp-scout-persist",
+  "description": "\"[DEPRECATED] Persistence logic has been merged into comp-scout-scrape. This skill remains for reference only.\"",
+  "repo": "discreteds/competition-scout",
+  "category": "data",
+  "tags": [
+    "comp",
+    "scout",
+    "persist"
+  ],
+  "stars": 0
+}

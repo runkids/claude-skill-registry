@@ -1,0 +1,11 @@
+{
+  "name": "youtube-cache",
+  "description": "YouTube video cache operations with Qdrant. Auto-checks cache when YouTube URLs detected. Provides semantic search, verification, ingestion, and archive access. Shows metadata by default, transcript o",
+  "repo": "ilude/agent-spike",
+  "category": "data",
+  "tags": [
+    "youtube",
+    "cache"
+  ],
+  "stars": 0
+}

@@ -1,0 +1,10 @@
+{
+  "name": "pagent",
+  "description": "Guide for using pagent - a PRD-to-code orchestration tool. Use when users ask how to use pagent, run agents, create PRDs, or transform requirements into code.",
+  "repo": "tuannvm/pagent",
+  "category": "development",
+  "tags": [
+    "pagent"
+  ],
+  "stars": 0
+}

@@ -1,0 +1,13 @@
+{
+  "name": "business-card-scanner",
+  "description": "Extract contact information from business card images using OCR - name, company, email, phone, address.",
+  "repo": "dkyazzentwatwa/chatgpt-skills",
+  "category": "data",
+  "tags": [
+    "business",
+    "card",
+    "scanner"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

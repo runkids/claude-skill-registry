@@ -1,0 +1,12 @@
+{
+  "name": "architecture-adr",
+  "description": "When making significant architectural decisions that need to be documented. Used by ARCHITECT-AGENT.",
+  "repo": "CoderMariusz/MonoPilot",
+  "category": "documents",
+  "tags": [
+    "architecture",
+    "adr"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

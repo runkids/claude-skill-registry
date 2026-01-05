@@ -1,0 +1,11 @@
+{
+  "name": "python-fastapi-ai",
+  "description": "Python FastAPI patterns, Alembic migrations, Pydantic v2, and AI Engineering (raw patterns, LangChain, Google ADK). This skill should be used when working with Python APIs, database migrations, or AI/",
+  "repo": "tenlisboa/.claude",
+  "category": "data",
+  "tags": [
+    "python",
+    "fastapi"
+  ],
+  "stars": 1
+}

@@ -1,0 +1,12 @@
+{
+  "name": "data-governance",
+  "description": "Use when defining data contracts, consent policies, and monitoring for automation programs.",
+  "repo": "gtmagents/gtm-agents",
+  "category": "data",
+  "tags": [
+    "data",
+    "governance"
+  ],
+  "stars": 31,
+  "source": "SkillsMP Synced Skills"
+}

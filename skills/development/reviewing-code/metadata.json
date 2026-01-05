@@ -1,0 +1,11 @@
+{
+  "name": "reviewing-code",
+  "description": "ベースブランチに対する変更差分をもとにコードレビューを実施します。ベースブランチを指示として含めることができます。含めない場合は main をベースブランチとしてレビューを行います。",
+  "repo": "harusame0616/formawork.ai",
+  "category": "development",
+  "tags": [
+    "reviewing",
+    "code"
+  ],
+  "stars": 0
+}

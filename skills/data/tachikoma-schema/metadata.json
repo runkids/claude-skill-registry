@@ -1,0 +1,11 @@
+{
+  "name": "tachikoma-schema",
+  "description": "Analyze a Context Lake workspace and propose schema improvements. Use when asked to run schema cleanup, analyze workspace structure, create or update schema.yaml, or identify entity types.",
+  "repo": "joshuacook/motoko",
+  "category": "data",
+  "tags": [
+    "tachikoma",
+    "schema"
+  ],
+  "stars": 0
+}

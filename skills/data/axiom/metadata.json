@@ -1,0 +1,11 @@
+{
+  "name": "axiom",
+  "description": "Axiom observability platform for logs, events, and analytics via REST API",
+  "repo": "vm0-ai/vm0-skills",
+  "category": "data",
+  "tags": [
+    "axiom"
+  ],
+  "stars": 8,
+  "source": "SkillsMP Synced Skills"
+}

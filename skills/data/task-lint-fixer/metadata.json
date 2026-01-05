@@ -1,0 +1,12 @@
+{
+  "name": "task-lint-fixer",
+  "description": "Fix lint errors and update typescript-coding skill with lessons learned. Use when fixing Biome lint errors, resolving linting issues, or when lint check fails. Automatically extracts patterns from fix",
+  "repo": "Anveio/conveaux",
+  "category": "data",
+  "tags": [
+    "task",
+    "lint",
+    "fixer"
+  ],
+  "stars": 0
+}

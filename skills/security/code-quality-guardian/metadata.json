@@ -1,0 +1,13 @@
+{
+  "name": "code-quality-guardian",
+  "description": "Expert code reviewer that enforces best practices, clean code principles, strong typing (TypeScript), architecture guidelines, and security standards. Reviews PRs and code snippets for bugs, code smel",
+  "repo": "sitechfromgeorgia/georgian-distribution-system",
+  "category": "security",
+  "tags": [
+    "code",
+    "quality",
+    "guardian"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

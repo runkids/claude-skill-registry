@@ -1,0 +1,12 @@
+{
+  "name": "moai-lang-r",
+  "description": "R 4.4+ best practices with testthat 3.2, lintr 3.2, and data analysis patterns.",
+  "repo": "modu-ai/moai-adk",
+  "category": "data",
+  "tags": [
+    "moai",
+    "lang"
+  ],
+  "stars": 310,
+  "source": "SkillsMP Synced Skills"
+}

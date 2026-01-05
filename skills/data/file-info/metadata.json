@@ -1,0 +1,12 @@
+{
+  "name": "file-info",
+  "description": "Provides detailed file statistics including lines, size, and modification time when user asks for file info or stats",
+  "repo": "swtch1/dotfiles",
+  "category": "data",
+  "tags": [
+    "file",
+    "info"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "tools",
+  "description": "Use when implementing function calling, tool use, or agents with LLMs - unified tool API works across OpenAI, Anthropic, Google, and Ollama with consistent tool definition and execution patterns",
+  "repo": "juanre/llmring",
+  "category": "data",
+  "tags": [
+    "tools"
+  ],
+  "stars": 3
+}

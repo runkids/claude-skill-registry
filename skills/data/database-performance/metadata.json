@@ -1,0 +1,12 @@
+{
+  "name": "database-performance",
+  "description": "Analyze and optimize database performance through index analysis and query profiling. Identify missing/unused indexes, interpret EXPLAIN plans, find performance bottlenecks, and recommend optimization",
+  "repo": "Hieubkav/wincellarCloneBackend",
+  "category": "data",
+  "tags": [
+    "database",
+    "performance"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

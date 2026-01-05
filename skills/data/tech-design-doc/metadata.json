@@ -1,0 +1,12 @@
+{
+  "name": "tech-design-doc",
+  "description": "Generate technical design documents with proper structure, diagrams, and implementation details. Default language is English unless user requests Chinese.",
+  "repo": "acking-you/myclaude-skills",
+  "category": "data",
+  "tags": [
+    "tech",
+    "design",
+    "doc"
+  ],
+  "stars": 2
+}

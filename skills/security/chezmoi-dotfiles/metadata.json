@@ -1,0 +1,12 @@
+{
+  "name": "chezmoi-dotfiles",
+  "description": "Secure dotfiles management with chezmoi. Use when helping users initialize chezmoi repositories, add/manage dotfiles, handle secrets with age encryption, create templates for multi-machine configs, tr",
+  "repo": "rghamilton3/dotfiles",
+  "category": "security",
+  "tags": [
+    "chezmoi",
+    "dotfiles"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

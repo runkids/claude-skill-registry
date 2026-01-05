@@ -1,0 +1,12 @@
+{
+  "name": "ai-slop-detector",
+  "description": "Detects and removes AI writing patterns from text. Use when polishing drafts, cleaning AI-generated content, or ensuring writing sounds authentically human. Invoke with \"run through slop detector\", \"c",
+  "repo": "Eddale/powerhouse-lab",
+  "category": "data",
+  "tags": [
+    "slop",
+    "detector"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

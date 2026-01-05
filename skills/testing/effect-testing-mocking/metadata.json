@@ -1,0 +1,13 @@
+{
+  "name": "effect-testing-mocking",
+  "description": "Testing patterns with layers, mocks, and deterministic time. Use when preparing testable services and small smoke tests.",
+  "repo": "mepuka/effect-ontology",
+  "category": "testing",
+  "tags": [
+    "effect",
+    "testing",
+    "mocking"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

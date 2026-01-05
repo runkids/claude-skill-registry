@@ -1,0 +1,13 @@
+{
+  "name": "ethics-safety-impact",
+  "description": "Use when decisions could affect groups differently and need to anticipate harms/benefits, assess fairness and safety concerns, identify vulnerable populations, propose risk mitigations, define monitor",
+  "repo": "lyndonkl/claude",
+  "category": "data",
+  "tags": [
+    "ethics",
+    "safety",
+    "impact"
+  ],
+  "stars": 8,
+  "source": "SkillsMP Synced Skills"
+}

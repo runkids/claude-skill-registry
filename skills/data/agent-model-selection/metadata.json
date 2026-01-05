@@ -1,0 +1,13 @@
+{
+  "name": "agent-model-selection",
+  "description": "Guidelines for selecting appropriate AI model (Sonnet vs Haiku) based on task complexity, ensuring cost efficiency while maintaining quality. Use when assigning work.",
+  "repo": "binee108/nine-step-workflow-plugin",
+  "category": "data",
+  "tags": [
+    "agent",
+    "model",
+    "selection"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

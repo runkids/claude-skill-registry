@@ -1,0 +1,10 @@
+{
+  "name": "tmux",
+  "description": "Use tmux to programmatically control interactive CLI tools like VisiData, PDB, database shells, and REPLs. Send keystrokes and capture output without requiring user interaction.",
+  "repo": "botassembly/jn",
+  "category": "data",
+  "tags": [
+    "tmux"
+  ],
+  "stars": 1
+}

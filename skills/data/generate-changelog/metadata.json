@@ -1,0 +1,11 @@
+{
+  "name": "generate-changelog",
+  "description": "Generate changelog entries from git commits, plan files, or structured data. Use for version releases, creating CHANGELOG.md sections, or documenting changes between versions.",
+  "repo": "maslennikov-ig/claude-code-orchestrator-kit",
+  "category": "data",
+  "tags": [
+    "generate",
+    "changelog"
+  ],
+  "stars": 27
+}

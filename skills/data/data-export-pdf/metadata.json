@@ -1,0 +1,13 @@
+{
+  "name": "data-export-pdf",
+  "description": "Create professional PDF reports with text, tables, and embedded images using reportlab. Works with ANY LLM provider (GPT, Gemini, Claude, etc.).",
+  "repo": "Starlitnightly/omicverse",
+  "category": "data",
+  "tags": [
+    "data",
+    "export",
+    "pdf"
+  ],
+  "stars": 783,
+  "source": "SkillsMP Synced Skills"
+}

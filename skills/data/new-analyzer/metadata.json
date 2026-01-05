@@ -1,0 +1,12 @@
+{
+  "name": "new-analyzer",
+  "description": "Guide for adding a new AI coding agent analyzer to Splitrail. Use when implementing support for a new tool like Copilot, Cline, or similar.",
+  "repo": "Piebald-AI/splitrail",
+  "category": "data",
+  "tags": [
+    "new",
+    "analyzer"
+  ],
+  "stars": 75,
+  "source": "SkillsMP Synced Skills"
+}

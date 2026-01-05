@@ -1,0 +1,12 @@
+{
+  "name": "denuvo-slides",
+  "description": "Slidev presentation about reverse engineering Denuvo in Hogwarts Legacy.",
+  "repo": "Eng0AI/eng0-template-skills",
+  "category": "development",
+  "tags": [
+    "denuvo",
+    "slides"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

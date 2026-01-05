@@ -1,0 +1,13 @@
+{
+  "name": "curriculum-package-lms",
+  "description": "Generate LMS-ready packages in SCORM, Canvas, Moodle formats with proper structure, sequencing, and grade passback. Use when exporting to LMS, creating SCORM packages, or preparing Canvas/Moodle impor",
+  "repo": "pauljbernard/content",
+  "category": "devops",
+  "tags": [
+    "curriculum",
+    "package",
+    "lms"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

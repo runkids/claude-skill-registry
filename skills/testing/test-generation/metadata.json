@@ -1,0 +1,11 @@
+{
+  "name": "test-generation",
+  "description": "Generate comprehensive unit and integration tests for JavaScript/TypeScript code",
+  "repo": "gatewaybuddy/forgekeeper",
+  "category": "testing",
+  "tags": [
+    "test",
+    "generation"
+  ],
+  "stars": 1
+}

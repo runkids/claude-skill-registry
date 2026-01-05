@@ -1,0 +1,12 @@
+{
+  "name": "report-architecture-analysis",
+  "description": "Specialized skill for conducting detailed architectural analysis of lunar rover systems and subsystems.",
+  "repo": "Official-MoonDao/LORS",
+  "category": "data",
+  "tags": [
+    "report",
+    "architecture",
+    "analysis"
+  ],
+  "stars": 3
+}

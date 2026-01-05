@@ -1,0 +1,10 @@
+{
+  "name": "nlss",
+  "description": "Workspace-first R statistics suite with subskills and agent-run metaskills (including run-demo for guided onboarding, explain-statistics for concept explanations, explain-results for interpreting outp",
+  "repo": "docmh/nlss",
+  "category": "data",
+  "tags": [
+    "nlss"
+  ],
+  "stars": 0
+}

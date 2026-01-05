@@ -1,0 +1,12 @@
+{
+  "name": "refactoring-patterns",
+  "description": "Apply safe refactoring patterns to improve code structure without changing behavior. Use when cleaning up code, reducing technical debt, or improving maintainability.",
+  "repo": "proffesor-for-testing/agentic-qe",
+  "category": "development",
+  "tags": [
+    "refactoring",
+    "patterns"
+  ],
+  "stars": 103,
+  "source": "SkillsMP Synced Skills"
+}

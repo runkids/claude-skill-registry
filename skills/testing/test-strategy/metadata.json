@@ -1,0 +1,11 @@
+{
+  "name": "test-strategy",
+  "description": "Production-grade test strategy skill with risk-based testing, coverage analysis, quality gates, and resource optimization",
+  "repo": "pluginagentmarketplace/custom-plugin-qa",
+  "category": "testing",
+  "tags": [
+    "test",
+    "strategy"
+  ],
+  "stars": 1
+}

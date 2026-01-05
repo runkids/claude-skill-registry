@@ -1,0 +1,12 @@
+{
+  "name": "grok-skill",
+  "description": "Route Twitter/X prompts to Grok-4 Live Search",
+  "repo": "mikedemarais/grok-skill",
+  "category": "productivity",
+  "tags": [
+    "grok",
+    "twitter",
+    "search"
+  ],
+  "stars": 0
+}

@@ -1,0 +1,11 @@
+{
+  "name": "gemini-cli",
+  "description": "Gemini CLIを使った任意のタスクを実行するスキル。長文翻訳、PDF翻訳、Q&A、コード生成など、gemini_wrapperを活用して様々なタスクを自動化できる。",
+  "repo": "daishir0/gemini-cli-wrapper",
+  "category": "documents",
+  "tags": [
+    "gemini",
+    "cli"
+  ],
+  "stars": 0
+}

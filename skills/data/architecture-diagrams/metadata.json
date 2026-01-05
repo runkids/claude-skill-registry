@@ -1,0 +1,12 @@
+{
+  "name": "architecture-diagrams",
+  "description": "Create system architecture diagrams using Mermaid, PlantUML, C4 model, flowcharts, and sequence diagrams. Use when documenting architecture, system design, data flows, or technical workflows.",
+  "repo": "aj-geddes/useful-ai-prompts",
+  "category": "data",
+  "tags": [
+    "architecture",
+    "diagrams"
+  ],
+  "stars": 25,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "docker-helper",
+  "description": "Expert helper for Docker containers, Docker Compose, and container optimization",
+  "repo": "jackspace/ClaudeSkillz",
+  "category": "data",
+  "tags": [
+    "docker",
+    "helper"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

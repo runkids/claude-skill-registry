@@ -1,0 +1,11 @@
+{
+  "name": "decisions",
+  "description": "Load past architectural decisions. Use when making new decisions to ensure consistency.",
+  "repo": "Clouder0/dotagent",
+  "category": "devops",
+  "tags": [
+    "decisions"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

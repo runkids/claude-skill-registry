@@ -1,0 +1,13 @@
+{
+  "name": "acceptance-test-writing",
+  "description": "Guide for writing high-quality acceptance criteria and acceptance tests using industry-standard BDD (Behavior-Driven Development) and ATDD (Acceptance Test-Driven Development) practices. Use this skil",
+  "repo": "vinceh/recipe",
+  "category": "testing",
+  "tags": [
+    "acceptance",
+    "test",
+    "writing"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

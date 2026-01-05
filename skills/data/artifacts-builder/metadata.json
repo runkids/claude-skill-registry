@@ -1,0 +1,12 @@
+{
+  "name": "artifacts-builder",
+  "description": "Create interactive, self-contained artifacts like mini-apps, visualizations, calculators, and tools that can be embedded or used standalone. Use when building interactive calculators, creating data vi",
+  "repo": "korallis/Droidz",
+  "category": "data",
+  "tags": [
+    "artifacts",
+    "builder"
+  ],
+  "stars": 49,
+  "source": "SkillsMP Synced Skills"
+}

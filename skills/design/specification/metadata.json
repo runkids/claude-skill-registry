@@ -1,0 +1,10 @@
+{
+  "name": "specification",
+  "description": "Write specifications following project conventions - includes requirement format, scenario structure, and Given/When/Then patterns",
+  "repo": "craigtkhill/stdd-agents",
+  "category": "design",
+  "tags": [
+    "specification"
+  ],
+  "stars": 0
+}

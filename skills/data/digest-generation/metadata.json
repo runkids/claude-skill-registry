@@ -1,0 +1,12 @@
+{
+  "name": "digest-generation",
+  "description": "Generate a weekly AI intelligence digest from synthesized topic analyses and hype assessments. Use after synthesis and hype assessment to produce a readable, opinionated summary for sophisticated tech",
+  "repo": "rickoslyder/HypeDelta",
+  "category": "data",
+  "tags": [
+    "digest",
+    "generation"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

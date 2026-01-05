@@ -1,0 +1,12 @@
+{
+  "name": "generating-commit-messages",
+  "description": "MANDATORY skill for ALL commits. Must be used EVERY TIME before creating any git commit. No exceptions.",
+  "repo": "maxmurr/htms",
+  "category": "development",
+  "tags": [
+    "generating",
+    "commit",
+    "messages"
+  ],
+  "stars": 0
+}

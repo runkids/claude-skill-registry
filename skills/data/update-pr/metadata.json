@@ -1,0 +1,10 @@
+{
+  "name": "update-pr",
+  "description": "Update a pull request description. Use when asked to update PR description, edit PR body, or refresh PR details.",
+  "repo": "kristofferremback/threa",
+  "category": "data",
+  "tags": [
+    "update"
+  ],
+  "stars": 1
+}

@@ -1,0 +1,11 @@
+{
+  "name": "example",
+  "description": "Use this skill when required to run the example script.",
+  "repo": "stbenjam/claude-code-bug-reproducers",
+  "category": "design",
+  "tags": [
+    "example"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "managing-dotfiles",
+  "description": "Use this skill when working with dotfiles managed by yadm. This includes pulling remote changes, committing and pushing dotfile changes, modifying configuration files (shell, editor, terminal, git, et",
+  "repo": "tdhopper/dotfiles2.0",
+  "category": "data",
+  "tags": [
+    "managing",
+    "dotfiles"
+  ],
+  "stars": 0
+}

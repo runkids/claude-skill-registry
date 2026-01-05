@@ -1,0 +1,12 @@
+{
+  "name": "collimator-optics",
+  "description": "Use profunctor optics from the Collimator library for Lean 4. Use when working with lenses, prisms, traversals, or nested data access.",
+  "repo": "nathanial/lean-workspace",
+  "category": "data",
+  "tags": [
+    "collimator",
+    "optics"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

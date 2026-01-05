@@ -1,0 +1,11 @@
+{
+  "name": "critique",
+  "description": "Generate critical analyses of Univrs.io ecosystem releases. Use when critiquing DOL, VUDO, Spirit, ENR, CryptoSaint, learn.univrs.io, or vudo.univrs.io changes. Invoked via /critique to ask \"Who benef",
+  "repo": "ardeshir/krzy",
+  "category": "data",
+  "tags": [
+    "critique"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

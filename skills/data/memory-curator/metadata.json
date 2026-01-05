@@ -1,0 +1,11 @@
+{
+  "name": "memory-curator",
+  "description": "Manage architectural decisions and insights in memory.jsonl. Use when you need to document strategic decisions, lessons learned, fixed problems, or architectural insights. Append-only audit trail for ",
+  "repo": "tomsuharto-git/F1-Fantasy-League",
+  "category": "data",
+  "tags": [
+    "memory",
+    "curator"
+  ],
+  "stars": 0
+}

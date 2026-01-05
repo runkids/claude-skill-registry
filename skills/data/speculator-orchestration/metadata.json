@@ -1,0 +1,11 @@
+{
+  "name": "speculator-orchestration",
+  "description": "Multi-agent task orchestration using the spec CLI. Guides agents on claiming tasks, parallel execution, blocking, and coordination. Use when working with multiple agents, claiming tasks, or managing p",
+  "repo": "wbeard/speculator",
+  "category": "data",
+  "tags": [
+    "speculator",
+    "orchestration"
+  ],
+  "stars": 2
+}

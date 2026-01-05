@@ -1,0 +1,12 @@
+{
+  "name": "multi-agent-coordination",
+  "description": "Coordinate work between multiple AI agents in Agent Hive. Use this skill when multiple agents need to collaborate, managing dependencies between projects, preventing conflicts, using the coordination ",
+  "repo": "intertwine/hive-orchestrator",
+  "category": "data",
+  "tags": [
+    "multi",
+    "agent",
+    "coordination"
+  ],
+  "stars": 6
+}

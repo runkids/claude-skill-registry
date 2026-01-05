@@ -1,0 +1,11 @@
+{
+  "name": "skill-porter",
+  "description": "Converts Claude Code skills to Gemini CLI extensions and vice versa. Use when the user wants to make a skill cross-platform compatible, port a skill between platforms, or create a universal extension ",
+  "repo": "jduncan-rva/skill-porter",
+  "category": "development",
+  "tags": [
+    "skill",
+    "porter"
+  ],
+  "stars": 17
+}

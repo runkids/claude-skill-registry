@@ -1,0 +1,11 @@
+{
+  "name": "review-guidelines",
+  "description": "コードレビューの基準とチェックリスト",
+  "repo": "kami8ma8810/cat-home",
+  "category": "design",
+  "tags": [
+    "review",
+    "guidelines"
+  ],
+  "stars": 0
+}

@@ -1,0 +1,12 @@
+{
+  "name": "component-tester",
+  "description": "Run Vitest tests for a specific component with coverage. Use when making changes to React components to ensure tests pass and coverage is maintained.",
+  "repo": "sgcarstrends/sgcarstrends",
+  "category": "testing",
+  "tags": [
+    "component",
+    "tester"
+  ],
+  "stars": 13,
+  "source": "SkillsMP Synced Skills"
+}

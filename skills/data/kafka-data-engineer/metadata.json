@@ -1,0 +1,12 @@
+{
+  "name": "kafka-data-engineer",
+  "description": "Expert in event-driven architecture using Kafka. Use this for designing topics, schemas, and processing logic for asynchronous tasks.",
+  "repo": "hammadurrehman2006/the_evolution_of_todo",
+  "category": "data",
+  "tags": [
+    "kafka",
+    "data",
+    "engineer"
+  ],
+  "stars": 0
+}

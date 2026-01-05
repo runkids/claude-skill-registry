@@ -1,0 +1,11 @@
+{
+  "name": "secrets-guardian",
+  "description": "Protect repositories from accidental secret commits. Essential when working with AI agents.Use when: setting up new project, adding pre-commit hooks, scanning for secrets, fixing leaked credentials.Tr",
+  "repo": "timequity/vibe-coder",
+  "category": "data",
+  "tags": [
+    "secrets",
+    "guardian"
+  ],
+  "stars": 0
+}

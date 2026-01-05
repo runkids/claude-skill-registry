@@ -1,0 +1,12 @@
+{
+  "name": "docusaurus-glossary",
+  "description": "Use when working with docusaurus-plugin-glossary to configure, manage glossary terms, troubleshoot issues, and explain features",
+  "repo": "mcclowes/docusaurus-plugin-glossary",
+  "category": "data",
+  "tags": [
+    "docusaurus",
+    "glossary"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

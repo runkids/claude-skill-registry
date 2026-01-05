@@ -1,0 +1,12 @@
+{
+  "name": "managing-fighter-images",
+  "description": "Use this skill when working with UFC fighter images including downloading from multiple sources (Wikimedia, Sherdog, Bing), detecting and replacing placeholder images, handling duplicates, normalizing",
+  "repo": "wolfiesch/UFC-pokedex",
+  "category": "data",
+  "tags": [
+    "managing",
+    "fighter",
+    "images"
+  ],
+  "stars": 1
+}

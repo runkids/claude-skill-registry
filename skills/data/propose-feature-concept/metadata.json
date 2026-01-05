@@ -1,0 +1,12 @@
+{
+  "name": "propose-feature-concept",
+  "description": "Create a new feature concept document to pitch the idea and explain the problem/solution",
+  "repo": "cbgbt/bottlerocket-forest",
+  "category": "data",
+  "tags": [
+    "propose",
+    "feature",
+    "concept"
+  ],
+  "stars": 3
+}

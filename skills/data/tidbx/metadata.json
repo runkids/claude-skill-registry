@@ -1,0 +1,10 @@
+{
+  "name": "tidbx",
+  "description": "Provision TiDB Cloud Serverless clusters and related resources. Use when creating, deleting, or listing clusters/branches, or managing SQL users via the console.",
+  "repo": "pingcap/agent-rules",
+  "category": "data",
+  "tags": [
+    "tidbx"
+  ],
+  "stars": 11
+}

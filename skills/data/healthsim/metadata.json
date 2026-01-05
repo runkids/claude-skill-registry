@@ -1,0 +1,10 @@
+{
+  "name": "healthsim",
+  "description": "\"HealthSim generates realistic synthetic healthcare data for testing EMR systems, claims processing, pharmacy benefits, and analytics. Use for ANY request involving: (1) synthetic patients, clinical d",
+  "repo": "mark64oswald/healthsim-skills",
+  "category": "data",
+  "tags": [
+    "healthsim"
+  ],
+  "stars": 2
+}

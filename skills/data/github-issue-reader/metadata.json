@@ -1,0 +1,13 @@
+{
+  "name": "github-issue-reader",
+  "description": "Load comprehensive GitHub issue information including title, description, comments, labels, assignees, milestones, and related items (linked PRs and cross-references). This skill should be used when p",
+  "repo": "jumppad-labs/jumppad",
+  "category": "data",
+  "tags": [
+    "github",
+    "issue",
+    "reader"
+  ],
+  "stars": 261,
+  "source": "SkillsMP Synced Skills"
+}

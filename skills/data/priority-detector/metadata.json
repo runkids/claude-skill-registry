@@ -1,0 +1,11 @@
+{
+  "name": "priority-detector",
+  "description": "Analyse les lifelogs Limitless et extrait engagements, demandes, deadlines pour Christian Boulet",
+  "repo": "chrisboulet/Nexus",
+  "category": "data",
+  "tags": [
+    "priority",
+    "detector"
+  ],
+  "stars": 0
+}

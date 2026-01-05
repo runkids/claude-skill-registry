@@ -1,0 +1,11 @@
+{
+  "name": "gtm-javascript",
+  "description": "Generate ES5-compliant JavaScript for Google Tag Manager Custom HTML tags. Use when writing GTM tags, dataLayer code, or analytics implementations.",
+  "repo": "ekusiadadus/claude-skill-gtm-javascript",
+  "category": "data",
+  "tags": [
+    "gtm",
+    "javascript"
+  ],
+  "stars": 0
+}

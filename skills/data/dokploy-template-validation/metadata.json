@@ -1,0 +1,13 @@
+{
+  "name": "dokploy-template-validation",
+  "description": "Validate Dokploy templates against conventions: YAML syntax, network structure, health checks, environment variables, security patterns, and quality standards.",
+  "repo": "enuno/dokploy",
+  "category": "data",
+  "tags": [
+    "dokploy",
+    "template",
+    "validation"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

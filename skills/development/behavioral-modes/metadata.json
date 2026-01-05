@@ -1,0 +1,12 @@
+{
+  "name": "behavioral-modes",
+  "description": "Defines different operational modes for AI behavior. Each mode optimizes for specific scenarios like brainstorming, implementation, or debugging.",
+  "repo": "xenitV1/claude-code-maestro",
+  "category": "development",
+  "tags": [
+    "behavioral",
+    "modes"
+  ],
+  "stars": 47,
+  "source": "SkillsMP Synced Skills"
+}

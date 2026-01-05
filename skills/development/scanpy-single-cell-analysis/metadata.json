@@ -1,0 +1,13 @@
+{
+  "name": "scanpy-single-cell-analysis",
+  "description": "Python-based single cell analysis using Scanpy for .h5ad files in conda scanpy environment",
+  "repo": "Ketomihine/my_skills",
+  "category": "development",
+  "tags": [
+    "scanpy",
+    "single",
+    "cell",
+    "analysis"
+  ],
+  "stars": 0
+}

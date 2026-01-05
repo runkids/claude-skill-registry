@@ -1,0 +1,12 @@
+{
+  "name": "clarity-gate",
+  "description": "Pre-ingestion verification for epistemic quality in RAG systems. Use when reviewing documents before they enter knowledge bases, checking if claims could be misinterpreted as facts, or validating that",
+  "repo": "frmoretto/clarity-gate",
+  "category": "data",
+  "tags": [
+    "clarity",
+    "gate"
+  ],
+  "stars": 2,
+  "source": "SkillsMP Synced Skills"
+}

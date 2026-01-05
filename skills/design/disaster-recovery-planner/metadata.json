@@ -1,0 +1,13 @@
+{
+  "name": "disaster-recovery-planner",
+  "description": "Design disaster recovery strategies including backup, failover, RTO/RPO planning, and multi-region deployment for business continuity.",
+  "repo": "Dexploarer/hyper-forge",
+  "category": "design",
+  "tags": [
+    "disaster",
+    "recovery",
+    "planner"
+  ],
+  "stars": 2,
+  "source": "SkillsMP Synced Skills"
+}

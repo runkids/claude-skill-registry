@@ -1,0 +1,12 @@
+{
+  "name": "documentation-generator",
+  "description": "Auto-generate JSDoc, docstrings, README files, and API documentation.",
+  "repo": "CuriousLearner/devkit",
+  "category": "documents",
+  "tags": [
+    "documentation",
+    "generator"
+  ],
+  "stars": 13,
+  "source": "SkillsMP Synced Skills"
+}

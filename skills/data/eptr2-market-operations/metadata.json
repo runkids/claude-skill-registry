@@ -1,0 +1,13 @@
+{
+  "name": "eptr2-market-operations",
+  "description": "Query Turkish electricity market operations data including Day-Ahead Market (GÖP) orders and clearing, Intraday Market (GİP) transactions and order books, bilateral contracts (İA), and Balancing Power",
+  "repo": "Tideseed/eptr2",
+  "category": "data",
+  "tags": [
+    "eptr2",
+    "market",
+    "operations"
+  ],
+  "stars": 15,
+  "source": "SkillsMP Synced Skills"
+}

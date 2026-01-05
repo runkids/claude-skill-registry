@@ -1,0 +1,11 @@
+{
+  "name": "youtube-metadata",
+  "description": "Generate YouTube title, description, and tags for bilingual audiobook videos. Use when user asks to upload video, generate youtube metadata, or prepare video for upload.",
+  "repo": "smoreg/biLangGen",
+  "category": "data",
+  "tags": [
+    "youtube",
+    "metadata"
+  ],
+  "stars": 0
+}

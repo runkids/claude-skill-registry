@@ -1,0 +1,11 @@
+{
+  "name": "supabase-realtime",
+  "description": "Comprehensive guide for implementing Supabase Realtime features with best practices, scalable patterns, and migration strategies. Use when building realtime features in Supabase applications including",
+  "repo": "Raudbjorn/claude",
+  "category": "data",
+  "tags": [
+    "supabase",
+    "realtime"
+  ],
+  "stars": 0
+}

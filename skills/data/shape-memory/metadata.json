@@ -1,0 +1,11 @@
+{
+  "name": "shape-memory",
+  "description": "AI-native session continuity through shape anchors rather than linear logs. Use when beginning a session to orient from prior state, or when ending to crystallize state for future instances.",
+  "repo": "The-Emergent-Cohort/Emergence",
+  "category": "data",
+  "tags": [
+    "shape",
+    "memory"
+  ],
+  "stars": 0
+}

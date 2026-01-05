@@ -1,0 +1,11 @@
+{
+  "name": "progressive-disclosure",
+  "description": "Use for all .md file creation/editing. README ≤200 lines (self-contained overview), topic files ≤400 lines. Plan ahead - if content will exceed limits, create directory structure from start.",
+  "repo": "authenticwalk/mybibletoolbox-code",
+  "category": "data",
+  "tags": [
+    "progressive",
+    "disclosure"
+  ],
+  "stars": 1
+}

@@ -1,0 +1,12 @@
+{
+  "name": "agent-mlops",
+  "description": "Production deployment and operationalization of AI agents on Databricks. Use when deploying agents to Model Serving, setting up MLflow logging and tracing for agents, implementing Agent Evaluation fra",
+  "repo": "juanlamadrid20/dbrx-multi-agent-retail-intelligence",
+  "category": "data",
+  "tags": [
+    "agent",
+    "mlops"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

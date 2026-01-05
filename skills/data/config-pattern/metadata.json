@@ -1,0 +1,12 @@
+{
+  "name": "config-pattern",
+  "description": "Add configuration parameters following BobTheSkull's full-stack pattern (BobConfig.py, config_manager.py, HTML templates, JavaScript). Use when adding new config parameters, settings, or configuration",
+  "repo": "want2bet/BobTheSkull5",
+  "category": "data",
+  "tags": [
+    "config",
+    "pattern"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

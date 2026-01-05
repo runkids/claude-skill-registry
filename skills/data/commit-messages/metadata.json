@@ -1,0 +1,11 @@
+{
+  "name": "commit-messages",
+  "description": "Conventional Commits formatting guide for creating standardized commit messages. Use when Claude needs to create git commits, ensuring consistent message format with type prefixes (feat, fix, docs, ch",
+  "repo": "hisami/grpc-practice",
+  "category": "data",
+  "tags": [
+    "commit",
+    "messages"
+  ],
+  "stars": 0
+}

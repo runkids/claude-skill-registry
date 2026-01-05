@@ -1,0 +1,13 @@
+{
+  "name": "analyzing-root-causes",
+  "description": "5 Whys方法論によるソフトウェア問題の根本原因分析。 トリガー: 根本原因, root cause, 5 Whys, なぜなぜ分析, 対症療法, patch, symptom, 症状, 表面的, workaround, ワークアラウンド, 本質的, 応急処置, bandaid, quick fix.",
+  "repo": "thkt/claude-config",
+  "category": "data",
+  "tags": [
+    "analyzing",
+    "root",
+    "causes"
+  ],
+  "stars": 3,
+  "source": "SkillsMP Synced Skills"
+}

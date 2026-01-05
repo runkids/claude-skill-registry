@@ -1,0 +1,10 @@
+{
+  "name": "gemini",
+  "description": "Shell out to Gemini CLI from Claude for any task. Use when asked to \"pipe content to Gemini\", \"get Gemini perspective\", \"use gemini CLI\", \"run headless AI task\", \"parallel analysis with Gemini\", or \"g",
+  "repo": "SpillwaveSolutions/gemini-skill",
+  "category": "data",
+  "tags": [
+    "gemini"
+  ],
+  "stars": 2
+}

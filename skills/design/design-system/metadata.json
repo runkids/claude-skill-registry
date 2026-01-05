@@ -1,0 +1,12 @@
+{
+  "name": "design-system",
+  "description": "Complete reference for Rubin Observatory design system CSS variables and design tokens. Use this skill when styling components, referencing CSS custom properties, understanding the design token archit",
+  "repo": "lsst-sqre/squareone",
+  "category": "design",
+  "tags": [
+    "design",
+    "system"
+  ],
+  "stars": 2,
+  "source": "SkillsMP Synced Skills"
+}

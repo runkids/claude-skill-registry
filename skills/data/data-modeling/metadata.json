@@ -1,0 +1,12 @@
+{
+  "name": "data-modeling",
+  "description": "Use when designing data models, database schemas, or choosing between modeling approaches. Covers dimensional modeling, star schema, data vault, entity-relationship design, and schema evolution.",
+  "repo": "melodic-software/claude-code-plugins",
+  "category": "data",
+  "tags": [
+    "data",
+    "modeling"
+  ],
+  "stars": 3,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "mcp",
+  "description": "Guide for working with Splitrail's MCP server. Use when adding tools, resources, or modifying the MCP interface.",
+  "repo": "Piebald-AI/splitrail",
+  "category": "data",
+  "tags": [
+    "mcp"
+  ],
+  "stars": 75,
+  "source": "SkillsMP Synced Skills"
+}

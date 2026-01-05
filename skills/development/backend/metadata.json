@@ -1,0 +1,11 @@
+{
+  "name": "backend",
+  "description": "FastAPI, SQLModel, async services for Pulse Radar backend development.",
+  "repo": "djimontyp/task-tracker",
+  "category": "development",
+  "tags": [
+    "backend"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

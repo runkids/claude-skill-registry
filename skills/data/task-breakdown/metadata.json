@@ -1,0 +1,11 @@
+{
+  "name": "task-breakdown",
+  "description": "Activate when breaking down implementation plans into detailed task lists with agent contexts, acceptance criteria, and status tracking",
+  "repo": "vinnie357/claudio",
+  "category": "data",
+  "tags": [
+    "task",
+    "breakdown"
+  ],
+  "stars": 10
+}

@@ -1,0 +1,11 @@
+{
+  "name": "release-notes",
+  "description": "Generate clear, skimmable GitHub release notes with **⚠️ Breaking Changes prominently displayed FIRST** (if any exist), followed by Highlights and detailed categorized sections. **Every listed change ",
+  "repo": "NASA-PDS/pds-claude-skills",
+  "category": "data",
+  "tags": [
+    "release",
+    "notes"
+  ],
+  "stars": 0
+}

@@ -1,0 +1,11 @@
+{
+  "name": "skill-creator",
+  "description": "Create exceptional, deterministic Claude skills that guide AI behavior with precision. Use this skill when the user asks to create new skills, document capabilities, or codify expertise into reusable ",
+  "repo": "mahidalhan/skilled-intelligence-marketplace",
+  "category": "data",
+  "tags": [
+    "skill",
+    "creator"
+  ],
+  "stars": 18
+}

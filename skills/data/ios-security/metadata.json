@@ -1,0 +1,11 @@
+{
+  "name": "ios-security",
+  "description": "iOSセキュリティ実装ガイド。認証・認可、データ暗号化、Keychain、証明書ピンニング、App Transport Security、脱獄検知、難読化など、セキュアなiOSアプリケーション開発のベストプラクティス。",
+  "repo": "Gaku52/claude-code-skills",
+  "category": "data",
+  "tags": [
+    "ios",
+    "security"
+  ],
+  "stars": 1
+}

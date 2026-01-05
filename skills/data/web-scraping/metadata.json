@@ -1,0 +1,11 @@
+{
+  "name": "web-scraping",
+  "description": "Web scraping toolkit using MCP scraper tools. Invoked when extracting content from web pages, converting HTML to markdown, extracting plain text, or harvesting links from URLs. Provides four specializ",
+  "repo": "cotdp/scraper-mcp",
+  "category": "data",
+  "tags": [
+    "web",
+    "scraping"
+  ],
+  "stars": 4
+}

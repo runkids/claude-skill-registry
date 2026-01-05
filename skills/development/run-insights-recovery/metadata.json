@@ -1,0 +1,12 @@
+{
+  "name": "run-insights-recovery",
+  "description": "Converts run telemetry into insights, recovery recommendations, and next-session nudges.",
+  "repo": "nadavyigal/Running-coach-",
+  "category": "development",
+  "tags": [
+    "run",
+    "insights",
+    "recovery"
+  ],
+  "stars": 1
+}

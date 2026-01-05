@@ -1,0 +1,13 @@
+{
+  "name": "code-review-auto",
+  "description": "Automatic code review and fixes before showing to user.Use when: code generation is complete, before preview.Triggers: internal use only.",
+  "repo": "timequity/vibe-coder",
+  "category": "development",
+  "tags": [
+    "code",
+    "review",
+    "auto"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

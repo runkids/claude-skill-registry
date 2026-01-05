@@ -1,0 +1,11 @@
+{
+  "name": "elevenlabs",
+  "description": "ElevenLabs AI voice generation API via curl. Use this skill to convert text to speech with realistic AI voices.",
+  "repo": "vm0-ai/vm0-skills",
+  "category": "data",
+  "tags": [
+    "elevenlabs"
+  ],
+  "stars": 8,
+  "source": "SkillsMP Synced Skills"
+}

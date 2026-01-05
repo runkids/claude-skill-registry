@@ -1,0 +1,12 @@
+{
+  "name": "api-client",
+  "description": "Fetch API patterns with error handling, retry logic, and caching. Use when building API integrations, handling network failures, or implementing offline-first data fetching.",
+  "repo": "ProfPowell/project-template",
+  "category": "data",
+  "tags": [
+    "api",
+    "client"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "rpg-map-creator",
+  "description": "\"Expert RPG map creation and generation for tabletop and online games. Specializes in creating visual descriptions and optimized prompts for z-image turbo model in ComfyUI. Covers all map types (world",
+  "repo": "aa-parky/pipemind-comfyui",
+  "category": "data",
+  "tags": [
+    "rpg",
+    "map",
+    "creator"
+  ],
+  "stars": 0
+}

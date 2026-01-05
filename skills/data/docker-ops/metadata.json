@@ -1,0 +1,12 @@
+{
+  "name": "docker-ops",
+  "description": "Obsidian LiveSync の Docker Compose 環境を操作・トラブルシューティングします。compose.yaml の構成理解、環境変数（.env）の設定、CouchDB と livesync-proxy のヘルスチェック、バックアップサービスの実行、ログ確認とデバッグを行います。Docker 環境の起動・停止、コンテナの状態確認、トラブルシューティングを依頼されたときに使用",
+  "repo": "ystk-kai/obsidian-sync",
+  "category": "data",
+  "tags": [
+    "docker",
+    "ops"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

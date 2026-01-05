@@ -1,0 +1,13 @@
+{
+  "name": "fastapi-code-review",
+  "description": "Reviews FastAPI code for routing patterns, dependency injection, validation, and async handlers. Use when reviewing FastAPI apps, checking APIRouter setup, Depends() usage, or response models.",
+  "repo": "existential-birds/beagle",
+  "category": "development",
+  "tags": [
+    "fastapi",
+    "code",
+    "review"
+  ],
+  "stars": 4,
+  "source": "SkillsMP Synced Skills"
+}

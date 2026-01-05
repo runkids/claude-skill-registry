@@ -1,0 +1,12 @@
+{
+  "name": "rust-best-practice",
+  "description": "\"\"\"Best practices and patterns for writing idiomatic Rust code.",
+  "repo": "FireSpoonYZ/rust-bdd-template",
+  "category": "development",
+  "tags": [
+    "rust",
+    "best",
+    "practice"
+  ],
+  "stars": 0
+}

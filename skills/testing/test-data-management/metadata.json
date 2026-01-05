@@ -1,0 +1,13 @@
+{
+  "name": "test-data-management",
+  "description": "Strategic test data generation, management, and privacy compliance. Use when creating test data, handling PII, ensuring GDPR/CCPA compliance, or scaling data generation for realistic testing scenarios",
+  "repo": "proffesor-for-testing/agentic-qe",
+  "category": "testing",
+  "tags": [
+    "test",
+    "data",
+    "management"
+  ],
+  "stars": 103,
+  "source": "SkillsMP Synced Skills"
+}

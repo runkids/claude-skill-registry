@@ -1,0 +1,11 @@
+{
+  "name": "ticket-track",
+  "description": "Frontmatter-based Ticket tracking system. Provides two core capabilities: (1) READ operations for querying ticket info without loading full files - use query/list/summary commands, (2) UPDATE operatio",
+  "repo": "tarrragon/claude",
+  "category": "data",
+  "tags": [
+    "ticket",
+    "track"
+  ],
+  "stars": 1
+}

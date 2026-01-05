@@ -1,0 +1,13 @@
+{
+  "name": "csv-data-summarizer",
+  "description": "Analyzes CSV files, generates summary stats, and plots quick visualizations using Python and pandas.",
+  "repo": "coffeefuelbump/csv-data-summarizer-claude-skill",
+  "category": "data",
+  "tags": [
+    "csv",
+    "data",
+    "summarizer"
+  ],
+  "stars": 72,
+  "source": "SkillsMP Synced Skills"
+}

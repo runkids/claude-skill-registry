@@ -1,0 +1,14 @@
+{
+  "name": "composable-rust-event-sourcing",
+  "description": "Expert knowledge for implementing event sourcing in Composable Rust. Use when implementing event-sourced aggregates, working with EventStore trait or PostgreSQL, designing event schemas, implementing ",
+  "repo": "jonathanbelolo/composable-rust",
+  "category": "data",
+  "tags": [
+    "composable",
+    "rust",
+    "event",
+    "sourcing"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

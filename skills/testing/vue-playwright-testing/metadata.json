@@ -1,0 +1,12 @@
+{
+  "name": "vue-playwright-testing",
+  "description": "Comprehensive guide for testing Vue 3 applications with Playwright (2025). This skill should be used when writing end-to-end tests or component tests for Vue apps, testing Vue Router navigation, react",
+  "repo": "vinceh/recipe",
+  "category": "testing",
+  "tags": [
+    "vue",
+    "playwright",
+    "testing"
+  ],
+  "stars": 0
+}

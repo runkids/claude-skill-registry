@@ -1,0 +1,12 @@
+{
+  "name": "docs-check",
+  "description": "Analyze git diff to identify code changes requiring documentation updates. Categorizes changes (database/schema, API endpoints, components, configuration, authentication) and suggests relevant documen",
+  "repo": "LukasStrickler/ai-dev-atelier",
+  "category": "data",
+  "tags": [
+    "docs",
+    "check"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

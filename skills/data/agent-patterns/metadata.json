@@ -1,0 +1,12 @@
+{
+  "name": "agent-patterns",
+  "description": "Modular orchestration of agent patterns from Anthropic's engineering guide. Intelligently selects and implements prompt chaining, routing, parallelization, orchestrator-workers, evaluator-optimizer, a",
+  "repo": "markpitt/claude-skills",
+  "category": "data",
+  "tags": [
+    "agent",
+    "patterns"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "sop-code-review",
+  "description": "Comprehensive code review workflow coordinating quality, security, performance, and documentation reviewers. 4-hour timeline for thorough multi-agent review.",
+  "repo": "DNYoussef/ai-chrome-extension",
+  "category": "documents",
+  "tags": [
+    "sop",
+    "code",
+    "review"
+  ],
+  "stars": 0
+}

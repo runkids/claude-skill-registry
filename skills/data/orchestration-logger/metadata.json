@@ -1,0 +1,11 @@
+{
+  "name": "orchestration-logger",
+  "description": "Unified logging system for AI orchestration workflows with current state metadata and execution logs in a single file",
+  "repo": "sagerstack/agentic-sdlc",
+  "category": "data",
+  "tags": [
+    "orchestration",
+    "logger"
+  ],
+  "stars": 0
+}

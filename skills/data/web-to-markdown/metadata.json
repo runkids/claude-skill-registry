@@ -1,0 +1,11 @@
+{
+  "name": "web-to-markdown",
+  "description": "Convert web pages to Markdown format using Jina AI's reader service. Use when the user asks to convert, generate, create, transform, or download a web page, website, or URL into Markdown, MD, or md fo",
+  "repo": "CuriousDima/claude-web-to-markdown-skill",
+  "category": "data",
+  "tags": [
+    "web",
+    "markdown"
+  ],
+  "stars": 0
+}

@@ -1,0 +1,12 @@
+{
+  "name": "gemini-image-generator",
+  "description": "Generate images using Google Gemini with customizable options",
+  "repo": "mkdev-me/claude-skills",
+  "category": "development",
+  "tags": [
+    "gemini",
+    "image",
+    "generator"
+  ],
+  "stars": 0
+}

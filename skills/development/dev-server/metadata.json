@@ -1,0 +1,12 @@
+{
+  "name": "dev-server",
+  "description": "Manage development servers for vacay-photo-map. Use when starting, stopping, or checking status of postgres, frontend (Vite), or API (Bun) servers.",
+  "repo": "joeczar/vacay-photo-map",
+  "category": "development",
+  "tags": [
+    "dev",
+    "server"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

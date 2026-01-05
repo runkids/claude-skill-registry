@@ -1,0 +1,11 @@
+{
+  "name": "test-runner",
+  "description": "Run tests with Jest, Vitest, or Playwright, fix failing tests, and generate missing test coverage. Use when user says \"run tests\", \"test this\", \"fix failing tests\", \"write tests\", or when tests need t",
+  "repo": "ainexllc/ClaudeCodeTraining",
+  "category": "testing",
+  "tags": [
+    "test",
+    "runner"
+  ],
+  "stars": 0
+}

@@ -1,0 +1,12 @@
+{
+  "name": "binary-analysis",
+  "description": "Analyzes binary files for vulnerabilities and develops exploits. Use when working with ELF/PE executables, pwn challenges, buffer overflow, heap exploitation, ROP chains, format string bugs, or shellc",
+  "repo": "kiwamizamurai/cctf",
+  "category": "development",
+  "tags": [
+    "binary",
+    "analysis"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

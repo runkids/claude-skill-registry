@@ -1,0 +1,10 @@
+{
+  "name": "visualization",
+  "description": "Knowledge about pyecharts chart creation, HTML report generation, and visualization best practices",
+  "repo": "T-Klug/aws-cur-report-generator",
+  "category": "data",
+  "tags": [
+    "visualization"
+  ],
+  "stars": 0
+}

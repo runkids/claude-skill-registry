@@ -1,0 +1,11 @@
+{
+  "name": "spec-validation",
+  "description": "Validates specification quality for technology-agnosticism, testability, and completeness. Automatically invoked when reviewing specs, checking requirements, or before transitioning from specify to pl",
+  "repo": "jmanhype/speckit",
+  "category": "testing",
+  "tags": [
+    "spec",
+    "validation"
+  ],
+  "stars": 2
+}

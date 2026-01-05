@@ -1,0 +1,12 @@
+{
+  "name": "sqlite-extension-generator",
+  "description": "\"Generate optimized SQLite extensions in C, Rust, or Mojo\"",
+  "repo": "codetalcott/fixiplug",
+  "category": "data",
+  "tags": [
+    "sqlite",
+    "extension",
+    "generator"
+  ],
+  "stars": 0
+}

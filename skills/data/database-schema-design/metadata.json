@@ -1,0 +1,13 @@
+{
+  "name": "database-schema-design",
+  "description": "Design database schemas with normalization, relationships, and constraints. Use when creating new database schemas, designing tables, or planning data models for PostgreSQL and MySQL.",
+  "repo": "aj-geddes/useful-ai-prompts",
+  "category": "data",
+  "tags": [
+    "database",
+    "schema",
+    "design"
+  ],
+  "stars": 25,
+  "source": "SkillsMP Synced Skills"
+}

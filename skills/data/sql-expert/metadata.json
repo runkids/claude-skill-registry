@@ -1,0 +1,11 @@
+{
+  "name": "sql-expert",
+  "description": "\"Expert SQL query writing, optimization, and database schema design with support for PostgreSQL, MySQL, SQLite, and SQL Server. Use when working with databases for: (1) Writing complex SQL queries wit",
+  "repo": "QuestForTech-Investments/claude-code-skills",
+  "category": "data",
+  "tags": [
+    "sql",
+    "expert"
+  ],
+  "stars": 2
+}

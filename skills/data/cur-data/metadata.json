@@ -1,0 +1,12 @@
+{
+  "name": "cur-data",
+  "description": "Knowledge about AWS Cost and Usage Report data structure, column formats, and analysis patterns",
+  "repo": "T-Klug/aws-cur-report-generator",
+  "category": "data",
+  "tags": [
+    "cur",
+    "data"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

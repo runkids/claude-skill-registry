@@ -1,0 +1,10 @@
+{
+  "name": "headless-ui",
+  "description": "Build headless UI hooks that encapsulate data fetching, state management, routing, and mutations without UI rendering. The presenter layer in MVP architecture.Use when: building page-level hooks, crea",
+  "repo": "joshcox/hello-world",
+  "category": "data",
+  "tags": [
+    "headless"
+  ],
+  "stars": 0
+}

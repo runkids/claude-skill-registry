@@ -1,0 +1,13 @@
+{
+  "name": "axum-web-framework",
+  "description": "Complete guide for Axum web framework including routing, extractors, middleware, state management, error handling, and production deployment",
+  "repo": "manutej/luxor-claude-marketplace",
+  "category": "design",
+  "tags": [
+    "axum",
+    "web",
+    "framework"
+  ],
+  "stars": 10,
+  "source": "SkillsMP Synced Skills"
+}

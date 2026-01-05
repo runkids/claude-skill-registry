@@ -1,0 +1,11 @@
+{
+  "name": "cloudflare-r2",
+  "description": "Cloudflare R2 S3-compatible object storage. Use for buckets, uploads, CORS, presigned URLs, or encountering R2_ERROR, CORS failures, multipart issues.",
+  "repo": "secondsky/claude-skills",
+  "category": "data",
+  "tags": [
+    "cloudflare"
+  ],
+  "stars": 6,
+  "source": "SkillsMP Synced Skills"
+}

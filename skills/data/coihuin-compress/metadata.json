@@ -1,0 +1,12 @@
+{
+  "name": "coihuin-compress",
+  "description": "Context compression for long coding sessions. Creates checkpoints (state snapshots) and maintains them as you work.",
+  "repo": "mabrax/coihuin-compress",
+  "category": "data",
+  "tags": [
+    "coihuin",
+    "compress"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "api-generator",
+  "description": "Generate complete CRUD API endpoints with async patterns, Pydantic validation, JWT authentication, and proper error handling. Activates when creating new API resources or routes.",
+  "repo": "gizix/cc_projects",
+  "category": "development",
+  "tags": [
+    "api",
+    "generator"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

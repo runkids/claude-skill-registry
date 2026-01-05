@@ -1,0 +1,11 @@
+{
+  "name": "supabase-expert",
+  "description": "Expert guide for Supabase integration - database schemas, RLS policies, auth, Edge Functions, and real-time subscriptions. Use when working with Supabase backend features.",
+  "repo": "eddiebe147/claude-settings",
+  "category": "data",
+  "tags": [
+    "supabase",
+    "expert"
+  ],
+  "stars": 0
+}

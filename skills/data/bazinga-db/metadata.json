@@ -1,0 +1,11 @@
+{
+  "name": "bazinga-db",
+  "description": "Database operations for BAZINGA orchestration system. This skill should be used when agents need to save or retrieve orchestration state, logs, task groups, token usage, or skill outputs. Replaces fil",
+  "repo": "mehdic/bazinga",
+  "category": "data",
+  "tags": [
+    "bazinga"
+  ],
+  "stars": 2,
+  "source": "SkillsMP Synced Skills"
+}

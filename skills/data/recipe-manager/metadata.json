@@ -1,0 +1,11 @@
+{
+  "name": "recipe-manager",
+  "description": "Helps add, edit, validate, and manage recipe data in recipes.js. Use this when the user wants to create new recipes, modify existing ones, fix recipe formatting, or validate recipe structure.",
+  "repo": "AdamFehse/cookmodeV2",
+  "category": "data",
+  "tags": [
+    "recipe",
+    "manager"
+  ],
+  "stars": 0
+}

@@ -1,0 +1,12 @@
+{
+  "name": "eval-analyzer",
+  "description": "Analyze evaluation baseline results, identify failure patterns, and generate actionable insights. Use after running eval baselines or when user asks to analyze eval results, check benchmarks, investig",
+  "repo": "sunholo-data/ailang",
+  "category": "data",
+  "tags": [
+    "eval",
+    "analyzer"
+  ],
+  "stars": 13,
+  "source": "SkillsMP Synced Skills"
+}

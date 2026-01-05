@@ -1,0 +1,11 @@
+{
+  "name": "research",
+  "description": "Research topics by verifying actual source content. Use when asked to research or study links and documentation.",
+  "repo": "spences10/svelte-claude-skills",
+  "category": "documents",
+  "tags": [
+    "research"
+  ],
+  "stars": 107,
+  "source": "SkillsMP Synced Skills"
+}

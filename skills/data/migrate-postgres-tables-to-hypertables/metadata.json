@@ -1,0 +1,14 @@
+{
+  "name": "migrate-postgres-tables-to-hypertables",
+  "description": "Comprehensive guide for migrating PostgreSQL tables to TimescaleDB hypertables with optimal configuration and performance validation",
+  "repo": "timescale/pg-aiguide",
+  "category": "data",
+  "tags": [
+    "migrate",
+    "postgres",
+    "tables",
+    "hypertables"
+  ],
+  "stars": 158,
+  "source": "SkillsMP Synced Skills"
+}

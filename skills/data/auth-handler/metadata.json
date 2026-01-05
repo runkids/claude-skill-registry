@@ -1,0 +1,12 @@
+{
+  "name": "auth-handler",
+  "description": "Manage authentication, authorization, and user sessions. Use when dealing with login, sign-up, API protection, middleware, or user data fetching.",
+  "repo": "AayushBaniya2006/blinkfund",
+  "category": "data",
+  "tags": [
+    "auth",
+    "handler"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

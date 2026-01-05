@@ -1,0 +1,13 @@
+{
+  "name": "nvidia-supply-chain-analysis",
+  "description": "Comprehensive toolkit for analyzing and anticipating Nvidia and semiconductor supply chain stock movements. Use when users need to (1) analyze Nvidia ecosystem dependencies and correlations, (2) ident",
+  "repo": "nmarchand73/skills_sandbox",
+  "category": "data",
+  "tags": [
+    "nvidia",
+    "supply",
+    "chain",
+    "analysis"
+  ],
+  "stars": 0
+}

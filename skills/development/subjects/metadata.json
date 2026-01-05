@@ -1,0 +1,10 @@
+{
+  "name": "subjects",
+  "description": "Explore denmark statistics subject hierarchy for all fact tables",
+  "repo": "josca42/varro",
+  "category": "development",
+  "tags": [
+    "subjects"
+  ],
+  "stars": 1
+}

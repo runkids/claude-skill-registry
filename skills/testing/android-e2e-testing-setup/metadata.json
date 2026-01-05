@@ -1,0 +1,14 @@
+{
+  "name": "android-e2e-testing-setup",
+  "description": "Setup UI Automator 2.4 smoke test for validating app launches (works with debug and release builds)",
+  "repo": "hitoshura25/claude-devtools",
+  "category": "testing",
+  "tags": [
+    "android",
+    "e2e",
+    "testing",
+    "setup"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

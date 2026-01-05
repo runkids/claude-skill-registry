@@ -1,0 +1,12 @@
+{
+  "name": "rails-business-logic",
+  "description": "Specialized skill for Rails business logic with ActiveInteraction, AASM state machines, and ActiveDecorator. Use when implementing complex operations, state transitions, or presentation logic. Enforce",
+  "repo": "alec-c4/claude-skills-rails-dev",
+  "category": "data",
+  "tags": [
+    "rails",
+    "business",
+    "logic"
+  ],
+  "stars": 18
+}

@@ -1,0 +1,12 @@
+{
+  "name": "chattwo-debug",
+  "description": "Use this skill to read ChatTwo chat logs as a debug console. Covers querying the SQLite database, finding script runs, and extracting debug evidence for bug analysis.",
+  "repo": "vaoan/SND",
+  "category": "data",
+  "tags": [
+    "chattwo",
+    "debug"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

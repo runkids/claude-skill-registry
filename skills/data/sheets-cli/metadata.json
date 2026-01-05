@@ -1,0 +1,11 @@
+{
+  "name": "sheets-cli",
+  "description": "Read, write, and update Google Sheets data via CLI. Use when the user asks to read spreadsheet data, update cells, append rows, or work with Google Sheets. Triggers on mentions of spreadsheets, sheets",
+  "repo": "gmickel/sheets-cli",
+  "category": "data",
+  "tags": [
+    "sheets",
+    "cli"
+  ],
+  "stars": 11
+}

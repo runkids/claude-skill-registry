@@ -1,0 +1,11 @@
+{
+  "name": "spark-basics",
+  "description": "PySpark fundamentals for distributed data processing.",
+  "repo": "timequity/vibe-coder",
+  "category": "data",
+  "tags": [
+    "spark",
+    "basics"
+  ],
+  "stars": 0
+}

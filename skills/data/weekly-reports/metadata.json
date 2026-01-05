@@ -1,0 +1,11 @@
+{
+  "name": "weekly-reports",
+  "description": "Génération et mise à jour de rapports hebdomadaires avec CFD (Cumulative Flow Diagram). Activer ce skill quand l'utilisateur parle de récapitulatif, bilan hebdomadaire, rapport de la semaine, ou CFD.",
+  "repo": "bastien-gallay/cv-bastien-gallay",
+  "category": "data",
+  "tags": [
+    "weekly",
+    "reports"
+  ],
+  "stars": 0
+}

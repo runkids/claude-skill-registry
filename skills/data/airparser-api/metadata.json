@@ -1,0 +1,12 @@
+{
+  "name": "airparser-api",
+  "description": "Guia para integrar con el servicio de parsing de documentos Airparser via API, webhooks y Make.com. Usar cuando se configuren inboxes, esquemas de extraccion, o flujos de automatizacion para procesami",
+  "repo": "guillempuche/transports-pau-automatizaciones",
+  "category": "data",
+  "tags": [
+    "airparser",
+    "api"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

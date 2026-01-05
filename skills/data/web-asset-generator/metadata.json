@@ -1,0 +1,13 @@
+{
+  "name": "web-asset-generator",
+  "description": "Generate web assets including favicons, app icons (PWA), and social media meta images (Open Graph) for Facebook, Twitter, WhatsApp, and LinkedIn. Use when users need icons, favicons, social sharing im",
+  "repo": "alonw0/web-asset-generator",
+  "category": "data",
+  "tags": [
+    "web",
+    "asset",
+    "generator"
+  ],
+  "stars": 60,
+  "source": "SkillsMP Synced Skills"
+}

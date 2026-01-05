@@ -1,0 +1,12 @@
+{
+  "name": "heme-onc-consultant",
+  "description": "\"Heme/Onc consultant: Rapid clinical decision support for hematology and oncology with multi-level analysis. Provides immediate guidance followed by deep adversarial validation, tumor board simulation",
+  "repo": "ericbuess/claude-skills",
+  "category": "data",
+  "tags": [
+    "heme",
+    "onc",
+    "consultant"
+  ],
+  "stars": 0
+}

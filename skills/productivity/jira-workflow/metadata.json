@@ -1,0 +1,11 @@
+{
+  "name": "jira-workflow",
+  "description": "Manage J4C project tasks via Jira API. Use for ALL Jira project management tasks including creating tasks, checking ready work, linking dependencies, transitioning status, or adding comments.",
+  "repo": "fwojciec/jira4claude",
+  "category": "productivity",
+  "tags": [
+    "jira",
+    "workflow"
+  ],
+  "stars": 0
+}

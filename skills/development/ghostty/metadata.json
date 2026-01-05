@@ -1,0 +1,10 @@
+{
+  "name": "ghostty",
+  "description": "Configure and manage Ghostty terminal emulator settings. Use when modifying ghostty config, validating configuration, checking window settings, themes, fonts, keybindings, or troubleshooting ghostty s",
+  "repo": "whilp/dotfiles",
+  "category": "development",
+  "tags": [
+    "ghostty"
+  ],
+  "stars": 9
+}

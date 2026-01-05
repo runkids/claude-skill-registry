@@ -1,0 +1,13 @@
+{
+  "name": "conversational-goal-discovery",
+  "description": "Chat-based goal classification (habit/distance/speed/race) with constraint clarification. Use during onboarding or when user wants to update their running goals through conversation with weekly commit",
+  "repo": "nadavyigal/Running-coach-",
+  "category": "data",
+  "tags": [
+    "conversational",
+    "goal",
+    "discovery"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

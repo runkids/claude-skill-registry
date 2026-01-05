@@ -1,0 +1,11 @@
+{
+  "name": "verification-gate",
+  "description": "Enforce mandatory pre-action verification checkpoints to prevent pattern-matching from overriding explicit reasoning. Use this skill when about to execute implementation actions (Bash, Write, Edit, Mu",
+  "repo": "Jamie-BitFlight/claude_skills",
+  "category": "devops",
+  "tags": [
+    "verification",
+    "gate"
+  ],
+  "stars": 4
+}

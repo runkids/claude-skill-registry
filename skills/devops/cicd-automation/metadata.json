@@ -1,0 +1,12 @@
+{
+  "name": "cicd-automation",
+  "description": "Set up GitHub Actions workflows for CI/CD with automated testing, linting, and deployment for Python/UV projects. Use when creating CI pipelines, automating tests, or setting up deployment workflows.",
+  "repo": "AutumnsGrove/GroveEngine",
+  "category": "devops",
+  "tags": [
+    "cicd",
+    "automation"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

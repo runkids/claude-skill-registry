@@ -1,0 +1,12 @@
+{
+  "name": "docker-compose",
+  "description": "Generate Compose configs with services, networking, volumes, and health checks",
+  "repo": "mwguerra/claude-code-plugins",
+  "category": "documents",
+  "tags": [
+    "docker",
+    "compose"
+  ],
+  "stars": 3,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "backend-development",
+  "description": "Provides development guidance for implementing backend features using Domain-Driven Design, hexagonal architecture, event-driven patterns, and HATEOAS conventions. Use when implementing new domain fea",
+  "repo": "zabiny/klabis",
+  "category": "design",
+  "tags": [
+    "backend",
+    "development"
+  ],
+  "stars": 2,
+  "source": "SkillsMP Synced Skills"
+}

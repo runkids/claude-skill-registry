@@ -1,0 +1,12 @@
+{
+  "name": "blockchain-basics",
+  "description": "Master blockchain fundamentals including consensus, cryptography, and distributed systems",
+  "repo": "pluginagentmarketplace/custom-plugin-blockchain",
+  "category": "data",
+  "tags": [
+    "blockchain",
+    "basics"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

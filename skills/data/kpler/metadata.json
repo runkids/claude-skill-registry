@@ -1,0 +1,10 @@
+{
+  "name": "kpler",
+  "description": "Use when fetching oil/gas trade flow data from Kpler. Covers authentication, trade queries, flow aggregations, entity search, vessel positions, and company fleet data.",
+  "repo": "data-desk-eco/uscg-incidents",
+  "category": "data",
+  "tags": [
+    "kpler"
+  ],
+  "stars": 0
+}

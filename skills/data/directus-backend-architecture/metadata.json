@@ -1,0 +1,13 @@
+{
+  "name": "directus-backend-architecture",
+  "description": "\"Master Directus backend internals: API extensions, hooks, flows, services, and database operations\"",
+  "repo": "gumpen-app/directapp",
+  "category": "data",
+  "tags": [
+    "directus",
+    "backend",
+    "architecture"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

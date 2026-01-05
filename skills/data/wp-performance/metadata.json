@@ -1,0 +1,10 @@
+{
+  "name": "wp-performance",
+  "description": "Use when investigating or improving WordPress performance (backend-only agent): profiling and measurement (WP-CLI profile/doctor, Server-Timing, Query Monitor via REST headers), database/query optimiz",
+  "repo": "Automattic/agent-skills",
+  "category": "data",
+  "tags": [
+    "performance"
+  ],
+  "stars": 26
+}

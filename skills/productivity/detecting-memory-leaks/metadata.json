@@ -1,0 +1,13 @@
+{
+  "name": "detecting-memory-leaks",
+  "description": "Detects memory leak vulnerabilities by identifying unfreed memory allocations and missing cleanup in error paths. Use when analyzing long-running processes, resource management, or investigating memor",
+  "repo": "waiwai24/BinaryX-Agent",
+  "category": "productivity",
+  "tags": [
+    "detecting",
+    "memory",
+    "leaks"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

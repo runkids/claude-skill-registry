@@ -1,0 +1,13 @@
+{
+  "name": "backend-design-optimizer",
+  "description": "Find the best backend architecture, database design, and API patterns using deep research. Use when user asks \"best database for...\", \"optimize API\", \"backend architecture for...\", or \"scale this serv",
+  "repo": "HR-AR/Project-Conductor",
+  "category": "data",
+  "tags": [
+    "backend",
+    "design",
+    "optimizer"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,13 @@
+{
+  "name": "mcp-server-enhancement",
+  "description": "Guide for safely adding new MCP tools to the AI Counsel server",
+  "repo": "blueman82/ai-counsel",
+  "category": "data",
+  "tags": [
+    "mcp",
+    "server",
+    "enhancement"
+  ],
+  "stars": 166,
+  "source": "SkillsMP Synced Skills"
+}

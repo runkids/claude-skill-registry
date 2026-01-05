@@ -1,0 +1,12 @@
+{
+  "name": "analysis-phase",
+  "description": "Validates cross-artifact consistency and detects breaking changes during feature analysis. Use when running /analyze command, validating spec-plan alignment, checking task-implementation consistency, ",
+  "repo": "marcusgoll/Spec-Flow",
+  "category": "data",
+  "tags": [
+    "analysis",
+    "phase"
+  ],
+  "stars": 16,
+  "source": "SkillsMP Synced Skills"
+}

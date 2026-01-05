@@ -1,0 +1,13 @@
+{
+  "name": "data-viz-plots",
+  "description": "Create publication-quality plots and visualizations using matplotlib and seaborn. Works with ANY LLM provider (GPT, Gemini, Claude, etc.).",
+  "repo": "Starlitnightly/omicverse",
+  "category": "data",
+  "tags": [
+    "data",
+    "viz",
+    "plots"
+  ],
+  "stars": 783,
+  "source": "SkillsMP Synced Skills"
+}

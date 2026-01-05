@@ -1,0 +1,11 @@
+{
+  "name": "brainstorming",
+  "description": "코드나 구현 계획을 작성하기 전, 무언가를 생성하거나 개발할 때 사용합니다. 협력적인 질문, 대안 탐색 및 점진적 검증을 통해 거친 아이디어를 구체화된 설계로 발전시킵니다. 명확한 'Mechanical' 프로세스 중에는 사용하지 마십시오.",
+  "repo": "icartsh/icartsh_plugin",
+  "category": "data",
+  "tags": [
+    "brainstorming"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

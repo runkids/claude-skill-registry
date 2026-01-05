@@ -1,0 +1,11 @@
+{
+  "name": "create-table",
+  "description": "将已有 SQL 接入到数据栈的某一层（ODS/DIM/DWD/ADS）。当用户需要添加新表、接入数据源、配置数据层时使用。支持配置 sources、table_dependencies、创建 migration 文件。",
+  "repo": "isMxy0934/the-nomad-data-stack",
+  "category": "data",
+  "tags": [
+    "create",
+    "table"
+  ],
+  "stars": 0
+}

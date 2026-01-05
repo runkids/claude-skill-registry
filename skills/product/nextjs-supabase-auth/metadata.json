@@ -1,0 +1,12 @@
+{
+  "name": "nextjs-supabase-auth",
+  "description": "Production-ready authentication system for Next.js 15 + Supabase. Use when setting up auth, login, signup, OAuth, Google login, password reset, or user authentication.",
+  "repo": "Henry229/antigravity-blog",
+  "category": "product",
+  "tags": [
+    "nextjs",
+    "supabase",
+    "auth"
+  ],
+  "stars": 0
+}

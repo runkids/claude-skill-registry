@@ -1,0 +1,11 @@
+{
+  "name": "go-cli-builder",
+  "description": "Build Go-based command-line tools following established patterns with Cobra CLI framework, Viper configuration, SQLite database, and automated GitHub Actions workflows for releases. Use when creating ",
+  "repo": "lmorchard/lmorchard-agent-skills",
+  "category": "data",
+  "tags": [
+    "cli",
+    "builder"
+  ],
+  "stars": 0
+}

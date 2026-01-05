@@ -1,0 +1,12 @@
+{
+  "name": "api-documentation",
+  "description": "\"Document APIs comprehensively with signatures, parameters, return values, errors, and working code examples for developer reference\"",
+  "repo": "dasien/RemoteCredentialRequestPOC",
+  "category": "development",
+  "tags": [
+    "api",
+    "documentation"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

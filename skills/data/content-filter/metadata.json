@@ -1,0 +1,12 @@
+{
+  "name": "content-filter",
+  "description": "Filter and classify AI research content for relevance. Use when processing raw content from Twitter, Substacks, blogs, or podcasts to determine if it's worth extracting claims from. Assigns relevance ",
+  "repo": "rickoslyder/HypeDelta",
+  "category": "data",
+  "tags": [
+    "content",
+    "filter"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

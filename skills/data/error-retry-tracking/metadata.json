@@ -1,0 +1,13 @@
+{
+  "name": "error-retry-tracking",
+  "description": "Instrument error handling, retries, fallbacks, and failure patterns",
+  "repo": "nexus-labs-automation/agent-observability",
+  "category": "data",
+  "tags": [
+    "error",
+    "retry",
+    "tracking"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

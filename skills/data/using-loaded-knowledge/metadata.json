@@ -1,0 +1,12 @@
+{
+  "name": "using-loaded-knowledge",
+  "description": "MANDATORY protocol enforcing knowledge check before EVERY response - prevents explaining systems without reading docs, claiming without verification, and ignoring auto-loaded context",
+  "repo": "adilkalam/orca",
+  "category": "data",
+  "tags": [
+    "using",
+    "loaded",
+    "knowledge"
+  ],
+  "stars": 0
+}

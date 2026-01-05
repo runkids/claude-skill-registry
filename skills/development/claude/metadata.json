@@ -1,0 +1,11 @@
+{
+  "name": "claude",
+  "description": "Delegate prompts to Claude Code CLI",
+  "repo": "sbluemin/llm-interaction-patterns",
+  "category": "development",
+  "tags": [
+    "claude"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "regression-testing",
+  "description": "Strategic regression testing with test selection, impact analysis, and continuous regression management. Use when verifying fixes don't break existing functionality, planning regression suites, or opt",
+  "repo": "proffesor-for-testing/agentic-qe",
+  "category": "testing",
+  "tags": [
+    "regression",
+    "testing"
+  ],
+  "stars": 103,
+  "source": "SkillsMP Synced Skills"
+}

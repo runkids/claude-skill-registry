@@ -1,0 +1,12 @@
+{
+  "name": "categorical-encoder",
+  "description": "Эксперт categorical encoding. Используй для ML feature engineering, one-hot, target encoding и embeddings.",
+  "repo": "dengineproblem/agents-monorepo",
+  "category": "development",
+  "tags": [
+    "categorical",
+    "encoder"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

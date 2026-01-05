@@ -1,0 +1,11 @@
+{
+  "name": "translate-it-article",
+  "description": "专业IT技术文章翻译工具，将英文技术文档、博客文章、学术论文翻译成通俗易懂、引人入胜的简体中文，并保持格式完整保存到本地。",
+  "repo": "zsutxz/ClaudeLearning",
+  "category": "development",
+  "tags": [
+    "translate",
+    "article"
+  ],
+  "stars": 0
+}

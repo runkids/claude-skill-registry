@@ -1,0 +1,12 @@
+{
+  "name": "idea-validation",
+  "description": "Validate idea and create detailed PRD. Saves docs/PRD.md to project.Use when: user describes an app idea, wants to create something new.Triggers: \"I want to build\", \"create app\", \"make website\", \"buil",
+  "repo": "timequity/vibe-coder",
+  "category": "development",
+  "tags": [
+    "idea",
+    "validation"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

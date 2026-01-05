@@ -1,0 +1,12 @@
+{
+  "name": "fastapi-patterns",
+  "description": "Advanced FastAPI patterns including hierarchical dependency injection, background task management, and type-safe dependency annotation. Triggers: fastapi, dependency-injection, background-tasks, annot",
+  "repo": "cuba6112/skillfactory",
+  "category": "data",
+  "tags": [
+    "fastapi",
+    "patterns"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

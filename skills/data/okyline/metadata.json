@@ -1,0 +1,10 @@
+{
+  "name": "okyline",
+  "description": "Expert assistant for the Okyline schema language. Okyline enables JSON data  validation by example, where constraints are expressed inline on field names.  Use when creating, editing, or converting JS",
+  "repo": "Okyline/Okyline-skill",
+  "category": "data",
+  "tags": [
+    "okyline"
+  ],
+  "stars": 3
+}

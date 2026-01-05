@@ -1,0 +1,12 @@
+{
+  "name": "context-bridge",
+  "description": "Synchronize task state and metadata across Claude, Cursor, and Factory Droid sessions. Use when handing off tasks between platforms, sharing plans, or updating external trackers like Linear or Jira.",
+  "repo": "oimiragieo/LLM-RULES",
+  "category": "data",
+  "tags": [
+    "context",
+    "bridge"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

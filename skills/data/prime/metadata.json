@@ -1,0 +1,10 @@
+{
+  "name": "prime",
+  "description": "New agent startup checklist for Agent Mail and Beads. Use when starting a new agent session, when the user says \"prime\" or \"startup\", or when beginning work on a multi-agent project.",
+  "repo": "Mburdo/knowledge_and_vibes",
+  "category": "data",
+  "tags": [
+    "prime"
+  ],
+  "stars": 42
+}

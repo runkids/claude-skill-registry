@@ -1,0 +1,12 @@
+{
+  "name": "incident-response",
+  "description": "Respond to production incidents systematically with triage, investigation, resolution, and post-mortem analysis to minimize downtime and prevent recurrence. Use when handling production outages, triag",
+  "repo": "korallis/Droidz",
+  "category": "devops",
+  "tags": [
+    "incident",
+    "response"
+  ],
+  "stars": 49,
+  "source": "SkillsMP Synced Skills"
+}

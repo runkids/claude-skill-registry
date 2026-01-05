@@ -1,0 +1,10 @@
+{
+  "name": "gh-fix-ci",
+  "description": "Inspect GitHub PR for CI failures, merge conflicts, change requests, and unresolved review threads. Create fix plans and implement after user approval. Resolve review threads and notify reviewers afte",
+  "repo": "akiojin/skills",
+  "category": "data",
+  "tags": [
+    "fix"
+  ],
+  "stars": 0
+}

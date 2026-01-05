@@ -1,0 +1,11 @@
+{
+  "name": "debugging",
+  "description": "Auto-triggered debugging skill for bug/issue diagnosis and fix. Runs systematic root cause analysis, unit tests, deep tracing, and implements fixes.",
+  "repo": "jobayerarman/Supplier_Management_System",
+  "category": "testing",
+  "tags": [
+    "debugging"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

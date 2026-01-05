@@ -1,0 +1,11 @@
+{
+  "name": "supabase-patterns",
+  "description": "Critical reference for all Supabase database operations. Use this whenever reading from or writing to the database to ensure correct client usage (supabaseServer vs supabase), schema names, and query ",
+  "repo": "ziouzitsou/fossapp",
+  "category": "data",
+  "tags": [
+    "supabase",
+    "patterns"
+  ],
+  "stars": 0
+}

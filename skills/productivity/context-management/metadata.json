@@ -1,0 +1,11 @@
+{
+  "name": "context-management",
+  "description": "\"Manages personal knowledge about the user through Basic Memory. Use this skill when: (1) User requests to search/retrieve past information, (2) User requests to record/save information, or (3) Import",
+  "repo": "t-chito/dotfiles",
+  "category": "productivity",
+  "tags": [
+    "context",
+    "management"
+  ],
+  "stars": 0
+}

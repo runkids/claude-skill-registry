@@ -1,0 +1,12 @@
+{
+  "name": "compare-architectures",
+  "description": "Generate and compare multiple architecture options (minimal, moderate, full modernization) with comprehensive trade-offs analysis across cost, timeline, risk, performance, and maintainability dimensio",
+  "repo": "adolfoaranaes12/BMAD-ENHANCED",
+  "category": "data",
+  "tags": [
+    "compare",
+    "architectures"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

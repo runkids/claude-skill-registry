@@ -1,0 +1,10 @@
+{
+  "name": "commit",
+  "description": "Create a git commit with proper message formatting. Use when asked to commit changes, handles sandbox heredoc limitations.",
+  "repo": "kristofferremback/threa",
+  "category": "documents",
+  "tags": [
+    "commit"
+  ],
+  "stars": 1
+}

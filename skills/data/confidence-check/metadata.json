@@ -1,0 +1,12 @@
+{
+  "name": "confidence-check",
+  "description": "Use before implementing when uncertainty exists. Weighted scoring across 5 checks (requires ≥80%). Triggers: \"before implementing\", \"verify readiness\", \"should I proceed\", \"am I ready\". If thinking \"t",
+  "repo": "pvillega/claude-templates",
+  "category": "data",
+  "tags": [
+    "confidence",
+    "check"
+  ],
+  "stars": 11,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "coding-rules",
+  "description": "Applies coding standards for clean, maintainable code. Use when: writing functions, handling errors, refactoring, or reviewing code style.",
+  "repo": "shinpr/agentic-code",
+  "category": "development",
+  "tags": [
+    "coding",
+    "rules"
+  ],
+  "stars": 30,
+  "source": "SkillsMP Synced Skills"
+}

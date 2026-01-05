@@ -1,0 +1,11 @@
+{
+  "name": "mobile-feature",
+  "description": "Use when creating or modifying React Native features in apps/mobile. Enforces React Native safety patterns, i18n, and Expo best practices.",
+  "repo": "nizarghribi/hounii-monorepo-first",
+  "category": "product",
+  "tags": [
+    "mobile",
+    "feature"
+  ],
+  "stars": 0
+}

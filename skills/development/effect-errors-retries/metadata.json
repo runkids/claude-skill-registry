@@ -1,0 +1,13 @@
+{
+  "name": "effect-errors-retries",
+  "description": "Error modeling and recovery with TaggedError, catchTag(s), mapError, and retry schedules. Use when defining errors or adding resilience.",
+  "repo": "mepuka/effect-ontology",
+  "category": "development",
+  "tags": [
+    "effect",
+    "errors",
+    "retries"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "stock-analyzer",
+  "description": "Provides comprehensive technical analysis for stocks and ETFs using RSI, MACD, Bollinger Bands, and other indicators. Activates when user requests stock analysis, technical indicators, trading signals",
+  "repo": "FrancyJGLisboa/agent-skill-creator",
+  "category": "devops",
+  "tags": [
+    "stock",
+    "analyzer"
+  ],
+  "stars": 118,
+  "source": "SkillsMP Synced Skills"
+}

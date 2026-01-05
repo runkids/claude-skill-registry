@@ -1,0 +1,11 @@
+{
+  "name": "performance-auditor",
+  "description": "Audit, optimize, and maintain 60fps performance for emotive-mascot",
+  "repo": "joshtol/emotive-engine",
+  "category": "data",
+  "tags": [
+    "performance",
+    "auditor"
+  ],
+  "stars": 10
+}

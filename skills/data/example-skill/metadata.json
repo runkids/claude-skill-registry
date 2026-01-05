@@ -1,0 +1,12 @@
+{
+  "name": "example-skill",
+  "description": "\"Example skill demonstrating YAML best practices. Use when learning skill structure, reviewing formatting standards, or creating new skills as a reference.\"",
+  "repo": "okgoogle13/careercopilot",
+  "category": "data",
+  "tags": [
+    "example",
+    "skill"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

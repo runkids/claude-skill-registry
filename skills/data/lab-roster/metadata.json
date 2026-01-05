@@ -1,0 +1,11 @@
+{
+  "name": "lab-roster",
+  "description": "Generate comprehensive lab member rosters in both markdown and CSV formats. Analyzes member profiles, git history, and alumni information to create detailed rosters with role transitions, team assignm",
+  "repo": "talmolab/lab-website",
+  "category": "data",
+  "tags": [
+    "lab",
+    "roster"
+  ],
+  "stars": 1
+}

@@ -1,0 +1,13 @@
+{
+  "name": "creating-opencode-agents",
+  "description": "Use when creating OpenCode agents - provides markdown format with YAML frontmatter, mode/tools/permission configuration, and best practices for specialized AI assistants",
+  "repo": "pr-pm/prpm",
+  "category": "data",
+  "tags": [
+    "creating",
+    "opencode",
+    "agents"
+  ],
+  "stars": 70,
+  "source": "SkillsMP Synced Skills"
+}

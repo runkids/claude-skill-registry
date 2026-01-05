@@ -1,0 +1,12 @@
+{
+  "name": "cost-optimization",
+  "description": "Expert cloud cost optimization strategies for AWS, Azure, GCP, and serverless platforms. Covers FinOps principles, right-sizing, reserved instances, savings plans, spot instances, storage optimization",
+  "repo": "anton-abyzov/specweave",
+  "category": "data",
+  "tags": [
+    "cost",
+    "optimization"
+  ],
+  "stars": 16,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "comp-scout-notify",
+  "description": "Send beautifully formatted HTML digest emails summarizing open competitions, their status, and strategy. Supports dark mode, closing soon highlights, and multiple recipients.",
+  "repo": "discreteds/competition-scout",
+  "category": "data",
+  "tags": [
+    "comp",
+    "scout",
+    "notify"
+  ],
+  "stars": 0
+}

@@ -1,0 +1,12 @@
+{
+  "name": "better-auth",
+  "description": "Implement authentication and authorization with Better Auth - a framework-agnostic TypeScript authentication framework. Features include email/password authentication with verification, OAuth provider",
+  "repo": "mrgoonie/claudekit-skills",
+  "category": "data",
+  "tags": [
+    "better",
+    "auth"
+  ],
+  "stars": 1108,
+  "source": "SkillsMP Synced Skills"
+}

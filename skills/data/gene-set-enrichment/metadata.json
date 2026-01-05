@@ -1,0 +1,12 @@
+{
+  "name": "gene-set-enrichment",
+  "description": "Perform gene set enrichment analysis using AI research providers. Analyzes lists of genes to identify biological themes, pathways, and functional associations.",
+  "repo": "monarch-initiative/deep-research-client",
+  "category": "data",
+  "tags": [
+    "gene",
+    "set",
+    "enrichment"
+  ],
+  "stars": 9
+}

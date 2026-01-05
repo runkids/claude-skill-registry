@@ -1,0 +1,11 @@
+{
+  "name": "context-optimizer",
+  "description": "Optimizes token usage and context management for large tasks, cleanup operations, multi-step workflows, code audits, and complex agent operations. Automatically triggers when handling cleanup commands",
+  "repo": "mikev10/EchoGraph",
+  "category": "productivity",
+  "tags": [
+    "context",
+    "optimizer"
+  ],
+  "stars": 0
+}

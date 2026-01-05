@@ -1,0 +1,13 @@
+{
+  "name": "multi-tool-pipeline",
+  "description": "Template for chaining multiple MCP tools in a single script",
+  "repo": "parcadei/Continuous-Claude-v2",
+  "category": "data",
+  "tags": [
+    "multi",
+    "tool",
+    "pipeline"
+  ],
+  "stars": 1318,
+  "source": "SkillsMP Synced Skills"
+}

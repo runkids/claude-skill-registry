@@ -1,0 +1,13 @@
+{
+  "name": "bulk-operations-patterns",
+  "description": "Bulk data operations with Excel import/export, batch processing, and validation for ABP Framework. Use when: (1) implementing bulk import/update from Excel/CSV, (2) batch processing with progress trac",
+  "repo": "thapaliyabikendra/ai-artifacts",
+  "category": "data",
+  "tags": [
+    "bulk",
+    "operations",
+    "patterns"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

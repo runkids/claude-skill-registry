@@ -1,0 +1,11 @@
+{
+  "name": "sql",
+  "description": "Run SQL queries against the WordPress development database. Use when querying database tables, inspecting Simple History events, checking WordPress data, debugging database issues, or when the user sa",
+  "repo": "bonny/WordPress-Simple-History",
+  "category": "data",
+  "tags": [
+    "sql"
+  ],
+  "stars": 313,
+  "source": "SkillsMP Synced Skills"
+}

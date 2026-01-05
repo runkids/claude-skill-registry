@@ -1,0 +1,11 @@
+{
+  "name": "vision-analytics",
+  "description": "Advanced visibility analysis using head pose, face mesh, and temporal patterns. Use for face-visible vs body-only breakdowns.",
+  "repo": "therealityreport/screenalytics",
+  "category": "data",
+  "tags": [
+    "vision",
+    "analytics"
+  ],
+  "stars": 0
+}

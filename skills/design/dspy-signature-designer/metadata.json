@@ -1,0 +1,13 @@
+{
+  "name": "dspy-signature-designer",
+  "description": "Design type-safe DSPy signatures with InputField, OutputField, and advanced type hints",
+  "repo": "OmidZamani/dspy-skills",
+  "category": "design",
+  "tags": [
+    "dspy",
+    "signature",
+    "designer"
+  ],
+  "stars": 2,
+  "source": "SkillsMP Synced Skills"
+}

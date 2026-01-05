@@ -1,0 +1,14 @@
+{
+  "name": "bel-crm-schema-write-db",
+  "description": "This skill should be used when working with the CRM PostgreSQL database for sales, contacts, companies, and opportunities. Use this skill when the user asks to insert, update, query, or analyze data i",
+  "repo": "bennoloeffler/bassi",
+  "category": "data",
+  "tags": [
+    "bel",
+    "crm",
+    "schema",
+    "write"
+  ],
+  "stars": 2,
+  "source": "SkillsMP Synced Skills"
+}

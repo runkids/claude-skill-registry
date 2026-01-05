@@ -1,0 +1,12 @@
+{
+  "name": "sqlite-best-practices",
+  "description": "SQLite best practices, optimization, and common patterns for Go applications",
+  "repo": "billybbuffum/budget",
+  "category": "data",
+  "tags": [
+    "sqlite",
+    "best",
+    "practices"
+  ],
+  "stars": 0
+}

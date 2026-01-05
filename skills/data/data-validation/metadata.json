@@ -1,0 +1,12 @@
+{
+  "name": "data-validation",
+  "description": "Data validation patterns including schema validation, input sanitization, output encoding, and type coercion. Use when implementing form validation, API input validation, JSON Schema, Zod, Pydantic, s",
+  "repo": "cosmix/claude-code-setup",
+  "category": "data",
+  "tags": [
+    "data",
+    "validation"
+  ],
+  "stars": 2,
+  "source": "SkillsMP Synced Skills"
+}

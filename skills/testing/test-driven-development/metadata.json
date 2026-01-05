@@ -1,0 +1,13 @@
+{
+  "name": "test-driven-development",
+  "description": "TDD discipline with RED-GREEN-REFACTOR cycle. Ensures tests genuinely verify behavior",
+  "repo": "obra/superpowers",
+  "category": "testing",
+  "tags": [
+    "tdd",
+    "testing",
+    "red-green-refactor"
+  ],
+  "stars": 0,
+  "source": "Community Skills"
+}

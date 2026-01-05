@@ -1,0 +1,12 @@
+{
+  "name": "backend-api",
+  "description": "Handle client-side API consumption and data fetching in this static website, including loading JSON data files and managing external data sources. Use this skill when working with data fetching, clien",
+  "repo": "adigunners/adigunners.github.io",
+  "category": "data",
+  "tags": [
+    "backend",
+    "api"
+  ],
+  "stars": 2,
+  "source": "SkillsMP Synced Skills"
+}

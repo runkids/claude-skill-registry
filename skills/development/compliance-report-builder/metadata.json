@@ -1,0 +1,13 @@
+{
+  "name": "compliance-report-builder",
+  "description": "Эксперт по compliance отчётам. Используй для SOX, GDPR, HIPAA, SOC 2 аудитов и документации соответствия.",
+  "repo": "dengineproblem/agents-monorepo",
+  "category": "development",
+  "tags": [
+    "compliance",
+    "report",
+    "builder"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

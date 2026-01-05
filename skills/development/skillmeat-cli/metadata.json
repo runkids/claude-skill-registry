@@ -1,0 +1,11 @@
+{
+  "name": "skillmeat-cli",
+  "description": "Manage Claude Code environments using natural language. Use this skill when:- User wants to add, deploy, or manage Claude Code artifacts (skills, commands, agents, MCP servers)- User asks about availa",
+  "repo": "miethe/skillmeat",
+  "category": "development",
+  "tags": [
+    "skillmeat",
+    "cli"
+  ],
+  "stars": 0
+}

@@ -1,0 +1,11 @@
+{
+  "name": "changelog",
+  "description": "Generate and maintain CHANGELOG.md using semantic-release and conventional commits. Use when preparing releases, documenting changes, or reviewing version history.",
+  "repo": "sgcarstrends/sgcarstrends",
+  "category": "data",
+  "tags": [
+    "changelog"
+  ],
+  "stars": 13,
+  "source": "SkillsMP Synced Skills"
+}

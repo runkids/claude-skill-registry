@@ -1,0 +1,11 @@
+{
+  "name": "patent-reviewer",
+  "description": "Expert system for reviewing utility patent applications against USPTO MPEP guidelines.",
+  "repo": "RobThePCGuy/utility-patent-reviewer",
+  "category": "data",
+  "tags": [
+    "patent",
+    "reviewer"
+  ],
+  "stars": 1
+}

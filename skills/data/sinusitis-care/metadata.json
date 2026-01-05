@@ -1,0 +1,11 @@
+{
+  "name": "sinusitis-care",
+  "description": "Expert sinusitis consultant. IMMEDIATELY search 10+ authoritative sources (UpToDate, AAO-HNS, EPOS, Mayo, PubMed/PMC, Cleveland Clinic, Hopkins, Springer, NORD, ENT Today, USA Sinus) for ANY sinus que",
+  "repo": "milsonson/--claude-skill",
+  "category": "data",
+  "tags": [
+    "sinusitis",
+    "care"
+  ],
+  "stars": 1
+}

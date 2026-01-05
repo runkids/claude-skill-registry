@@ -1,0 +1,12 @@
+{
+  "name": "changelog-manager",
+  "description": "Update project changelog with uncommitted changes, synchronize package versions, and create version releases with automatic commit, conditional git tags, GitHub Releases, and push",
+  "repo": "Interstellar-code/claud-skills",
+  "category": "development",
+  "tags": [
+    "changelog",
+    "manager"
+  ],
+  "stars": 4,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "confidence-honesty",
+  "description": "Force honest confidence assessment before claiming conclusions. Triggers on 'root cause identified', 'problem identified', 'complete clarity'. Express confidence as percentage, explain what's stopping",
+  "repo": "NTCoding/claude-skillz",
+  "category": "data",
+  "tags": [
+    "confidence",
+    "honesty"
+  ],
+  "stars": 87,
+  "source": "SkillsMP Synced Skills"
+}

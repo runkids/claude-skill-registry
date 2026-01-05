@@ -1,0 +1,12 @@
+{
+  "name": "changelog-generator",
+  "description": "Generate CHANGELOG.md files following Keep a Changelog format. Triggers on \"create changelog\", \"generate changelog\", \"release notes template\", \"version history\".",
+  "repo": "ehtbanton/ClaudeSkillsRepo",
+  "category": "development",
+  "tags": [
+    "changelog",
+    "generator"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

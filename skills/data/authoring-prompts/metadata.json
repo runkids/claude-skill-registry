@@ -1,0 +1,12 @@
+{
+  "name": "authoring-prompts",
+  "description": "Invoke this skill first when authoring any AI agent instructions. Foundational principles for writing LLM instructions (skills, CLAUDE.md, rules, commands). Covers token economics, imperative language",
+  "repo": "jkappers/claude-code-software-delivery-plugin",
+  "category": "data",
+  "tags": [
+    "authoring",
+    "prompts"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

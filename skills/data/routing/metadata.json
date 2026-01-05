@@ -1,0 +1,10 @@
+{
+  "name": "routing",
+  "description": "Routes queries to appropriate data sources (vectordb, web_search, direct_llm) and selects collections to search. Use when analyzing user queries, determining search strategy, or when the user mentions",
+  "repo": "edangx100/adaptive_rag_vercel",
+  "category": "data",
+  "tags": [
+    "routing"
+  ],
+  "stars": 0
+}

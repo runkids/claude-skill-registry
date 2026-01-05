@@ -1,0 +1,11 @@
+{
+  "name": "builder",
+  "description": "Build applications that require compilation. Use this skill before testing or running apps that need a build phase (e.g., C++ desktop app).",
+  "repo": "jayprimer/ppt",
+  "category": "testing",
+  "tags": [
+    "builder"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

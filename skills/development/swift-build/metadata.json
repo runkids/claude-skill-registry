@@ -1,0 +1,11 @@
+{
+  "name": "swift-build",
+  "description": "SwiftプロジェクトのビルドとテストをXcodeコマンドラインで実行（iOS/macOS対応）。Use when: ビルド、テスト、xcodebuild、swift test を依頼された時。",
+  "repo": "miyakawa2449/KiroBookmark",
+  "category": "development",
+  "tags": [
+    "swift",
+    "build"
+  ],
+  "stars": 0
+}

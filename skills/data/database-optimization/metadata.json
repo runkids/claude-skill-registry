@@ -1,0 +1,12 @@
+{
+  "name": "database-optimization",
+  "description": "Optimize SQL queries, analyze indexes, review Alembic migrations, and identify N+1 problems. Provides query execution plans, index recommendations, and migration best practices for SQLAlchemy async.",
+  "repo": "ils15/copilot-global-config",
+  "category": "data",
+  "tags": [
+    "database",
+    "optimization"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

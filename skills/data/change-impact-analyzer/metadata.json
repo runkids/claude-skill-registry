@@ -1,0 +1,13 @@
+{
+  "name": "change-impact-analyzer",
+  "description": "Analyzes impact of proposed changes on existing systems (brownfield projects) with delta spec validation.Trigger terms: change impact, impact analysis, brownfield, delta spec, change proposal,change m",
+  "repo": "nahisaho/MUSUBI",
+  "category": "data",
+  "tags": [
+    "change",
+    "impact",
+    "analyzer"
+  ],
+  "stars": 19,
+  "source": "SkillsMP Synced Skills"
+}

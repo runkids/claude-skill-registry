@@ -1,0 +1,12 @@
+{
+  "name": "agents-md-generator",
+  "description": "Generate or update CLAUDE.md/AGENTS.md files for AI coding agents through auto-scanning project files combined with interactive Q&A. Supports multiple tech stacks, development environments, and preser",
+  "repo": "thienanblog/awesome-ai-agent-skills",
+  "category": "development",
+  "tags": [
+    "agents",
+    "generator"
+  ],
+  "stars": 16,
+  "source": "SkillsMP Synced Skills"
+}

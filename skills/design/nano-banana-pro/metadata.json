@@ -1,0 +1,12 @@
+{
+  "name": "nano-banana-pro",
+  "description": "Generate and edit images using Google's Nano Banana Pro (Gemini 3 Pro Image) API. Use when the user asks to generate, create, draw, design, make, edit, modify, change, alter, or update images. Also us",
+  "repo": "ferdousbhai/nano-banana-pro",
+  "category": "design",
+  "tags": [
+    "nano",
+    "banana",
+    "pro"
+  ],
+  "stars": 0
+}

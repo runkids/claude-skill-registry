@@ -1,0 +1,12 @@
+{
+  "name": "ash-postgres",
+  "description": "Rules for working with AshPostgres",
+  "repo": "joshprice/claude-skills-from-usage-rules",
+  "category": "development",
+  "tags": [
+    "ash",
+    "postgres"
+  ],
+  "stars": 2,
+  "source": "SkillsMP Synced Skills"
+}

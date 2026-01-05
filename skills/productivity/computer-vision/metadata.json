@@ -1,0 +1,11 @@
+{
+  "name": "computer-vision",
+  "description": "Image processing, object detection, segmentation, and vision models. Use for image classification, object detection, or visual analysis tasks.",
+  "repo": "pluginagentmarketplace/custom-plugin-ai-data-scientist",
+  "category": "productivity",
+  "tags": [
+    "computer",
+    "vision"
+  ],
+  "stars": 0
+}

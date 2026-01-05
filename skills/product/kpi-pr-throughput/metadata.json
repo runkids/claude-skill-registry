@@ -1,0 +1,11 @@
+{
+  "name": "kpi-pr-throughput",
+  "description": "KPI for measuring and improving PR throughput. Defines metrics, measurement methods, and improvement strategies. Use to optimize how many quality PRs get merged.",
+  "repo": "Anveio/conveaux",
+  "category": "product",
+  "tags": [
+    "kpi",
+    "throughput"
+  ],
+  "stars": 0
+}

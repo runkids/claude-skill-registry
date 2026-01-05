@@ -1,0 +1,12 @@
+{
+  "name": "business-consistency",
+  "description": "Maintain NAP (Name, Address, Phone) consistency across all platforms. Use when managing citations, updating business info, or generating schema markup.",
+  "repo": "CleanExpo/Unite-Hub",
+  "category": "data",
+  "tags": [
+    "business",
+    "consistency"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

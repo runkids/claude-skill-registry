@@ -1,0 +1,11 @@
+{
+  "name": "coach",
+  "description": "Self-improving learning system that detects friction signals and proposes rule updates. This skill should be used when Claude needs to learn from mistakes, when users repeatedly correct behavior, when",
+  "repo": "netresearch/claude-coach-plugin",
+  "category": "data",
+  "tags": [
+    "coach"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

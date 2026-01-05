@@ -1,0 +1,12 @@
+{
+  "name": "ensue-memory",
+  "description": "Persistent memory layer for AI agents via Ensue Memory Network API. Use when users ask to remember, recall, search memories, manage permissions, subscribe to updates, or ask what they can do with Ensu",
+  "repo": "mutable-state-inc/ensue-skill",
+  "category": "data",
+  "tags": [
+    "ensue",
+    "memory"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

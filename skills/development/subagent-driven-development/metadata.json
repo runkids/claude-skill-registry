@@ -1,0 +1,13 @@
+{
+  "name": "subagent-driven-development",
+  "description": "Two-stage review process - spec compliance then code quality",
+  "repo": "obra/superpowers",
+  "category": "development",
+  "tags": [
+    "subagents",
+    "review",
+    "quality"
+  ],
+  "stars": 0,
+  "source": "Community Skills"
+}

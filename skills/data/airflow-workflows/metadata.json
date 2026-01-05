@@ -1,0 +1,12 @@
+{
+  "name": "airflow-workflows",
+  "description": "Apache Airflow DAG design, operators, and scheduling best practices.",
+  "repo": "timequity/vibe-coder",
+  "category": "data",
+  "tags": [
+    "airflow",
+    "workflows"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

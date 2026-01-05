@@ -1,0 +1,11 @@
+{
+  "name": "gdpr-auditor",
+  "description": "This skill should be used when analyzing codebases, applications, databases, or systems for GDPR (General Data Protection Regulation) compliance. Use this skill when users need to audit data protectio",
+  "repo": "diegocconsolini/ClaudeSkillCollection",
+  "category": "data",
+  "tags": [
+    "gdpr",
+    "auditor"
+  ],
+  "stars": 2
+}

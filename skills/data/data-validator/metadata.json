@@ -1,0 +1,12 @@
+{
+  "name": "data-validator",
+  "description": "Validate data against schemas, business rules, and data quality standards.",
+  "repo": "CuriousLearner/devkit",
+  "category": "data",
+  "tags": [
+    "data",
+    "validator"
+  ],
+  "stars": 13,
+  "source": "SkillsMP Synced Skills"
+}

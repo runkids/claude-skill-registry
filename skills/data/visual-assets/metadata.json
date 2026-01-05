@@ -1,0 +1,11 @@
+{
+  "name": "visual-assets",
+  "description": "Create and manage diagrams, illustrations, tables, and visual components for the textbook. Use when adding architecture diagrams, flowcharts, hardware schematics, or data tables.",
+  "repo": "maneeshanif/Textbook_hackhathon",
+  "category": "data",
+  "tags": [
+    "visual",
+    "assets"
+  ],
+  "stars": 0
+}

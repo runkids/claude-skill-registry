@@ -1,0 +1,10 @@
+{
+  "name": "pptx",
+  "description": "Generates PowerPoint presentations from templates with consistent styling across tables, charts, and Mermaid diagrams. Use when creating PPTX files, working with template-based presentations, or apply",
+  "repo": "Aki2022/skills",
+  "category": "data",
+  "tags": [
+    "pptx"
+  ],
+  "stars": 0
+}

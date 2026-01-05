@@ -1,0 +1,11 @@
+{
+  "name": "test-manager",
+  "description": "Run visual tests, compare golden files, and report bugs for Stapledons Voyage. Use when user asks to run tests, check golden files, or report visual regressions.",
+  "repo": "sunholo-data/stapledons_voyage",
+  "category": "testing",
+  "tags": [
+    "test",
+    "manager"
+  ],
+  "stars": 0
+}

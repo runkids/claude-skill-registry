@@ -1,0 +1,12 @@
+{
+  "name": "distribution-analyzer",
+  "description": "Эксперт анализа распределений. Используй для statistical distributions, data analysis и hypothesis testing.",
+  "repo": "dengineproblem/agents-monorepo",
+  "category": "testing",
+  "tags": [
+    "distribution",
+    "analyzer"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

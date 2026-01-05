@@ -1,0 +1,12 @@
+{
+  "name": "parse-git-status",
+  "description": "Parse git status output into structured data showing staged, modified, and untracked files. Use for pre-flight validation, checking clean working directory, or listing changed files before commits.",
+  "repo": "maslennikov-ig/claude-code-orchestrator-kit",
+  "category": "data",
+  "tags": [
+    "parse",
+    "git",
+    "status"
+  ],
+  "stars": 27
+}

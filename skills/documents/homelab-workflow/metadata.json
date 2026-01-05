@@ -1,0 +1,11 @@
+{
+  "name": "homelab-workflow",
+  "description": "Enforce homelab-proxmox workflow patterns including single source of truth documentation, prompt logging, git commits, environment variables, and phase tracking. Use this skill when completing tasks, ",
+  "repo": "CodeOfficer/homelab-proxmox",
+  "category": "documents",
+  "tags": [
+    "homelab",
+    "workflow"
+  ],
+  "stars": 0
+}

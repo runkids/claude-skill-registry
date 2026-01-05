@@ -1,0 +1,11 @@
+{
+  "name": "accessibility",
+  "description": "Web accessibility patterns and WCAG compliance guidelines. Use when implementing accessible UI components, keyboard navigation, screen reader support, or auditing for a11y compliance. Triggers: access",
+  "repo": "cosmix/claude-code-setup",
+  "category": "data",
+  "tags": [
+    "accessibility"
+  ],
+  "stars": 2,
+  "source": "SkillsMP Synced Skills"
+}

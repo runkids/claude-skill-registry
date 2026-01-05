@@ -1,0 +1,12 @@
+{
+  "name": "test-agent-skill",
+  "description": "Complete TDD workflow for creating comprehensive failing test suites across all architectural layers (entities, use cases, services, APIs, E2E) using Vitest, Playwright, and Testing Library. Mandatory",
+  "repo": "fercracix33/poli2-clean-architecture",
+  "category": "testing",
+  "tags": [
+    "test",
+    "agent",
+    "skill"
+  ],
+  "stars": 0
+}

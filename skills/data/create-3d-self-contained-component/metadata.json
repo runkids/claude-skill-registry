@@ -1,0 +1,14 @@
+{
+  "name": "create-3d-self-contained-component",
+  "description": "3D 환경에서 사용하는 자기완결 컴포넌트를 생성합니다. 페이지에 의존하지 않고 스스로 데이터를 fetch하며, Shadow DOM 팝업을 사용합니다. Use when creating 3D asset components, self-contained components with datasetInfo, or components with Shadow DOM pop",
+  "repo": "JSKIM-90/FIGMA_INTEGRATED",
+  "category": "data",
+  "tags": [
+    "create",
+    "self",
+    "contained",
+    "component"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

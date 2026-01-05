@@ -1,0 +1,10 @@
+{
+  "name": "review-pr",
+  "description": "Review pull requests using GitHub CLI. Invoke with /review-pr <pr-number-or-url>",
+  "repo": "mitch-mitchel/claude-starter",
+  "category": "development",
+  "tags": [
+    "review"
+  ],
+  "stars": 0
+}

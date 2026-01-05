@@ -1,0 +1,13 @@
+{
+  "name": "eve-esi-api",
+  "description": "EVE Online ESI API patterns and zkillboard integration. Covers ESI endpoints, authentication, data models, zkillboard RedisQ listener, caching strategies, and EVE-specific IDs (characters, corporation",
+  "repo": "ocn/zk-activity",
+  "category": "data",
+  "tags": [
+    "eve",
+    "esi",
+    "api"
+  ],
+  "stars": 6,
+  "source": "SkillsMP Synced Skills"
+}

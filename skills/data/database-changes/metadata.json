@@ -1,0 +1,12 @@
+{
+  "name": "database-changes",
+  "description": "Make database schema changes in IdeaForge. Triggers: create migration, add table/column, modify column type, add index, use JSONB, use pgvector. File-based migrations with raw SQL, no ORM.",
+  "repo": "Holo00/IdeaForge",
+  "category": "data",
+  "tags": [
+    "database",
+    "changes"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

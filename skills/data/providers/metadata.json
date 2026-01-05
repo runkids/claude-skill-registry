@@ -1,0 +1,10 @@
+{
+  "name": "providers",
+  "description": "Use when switching between LLM providers, accessing provider-specific features (Anthropic caching, OpenAI logprobs), or using raw SDK clients - covers multi-provider patterns and direct SDK access for",
+  "repo": "juanre/llmring",
+  "category": "data",
+  "tags": [
+    "providers"
+  ],
+  "stars": 3
+}

@@ -1,0 +1,13 @@
+{
+  "name": "database-performance-debugging",
+  "description": "Debug database performance issues through query analysis, index optimization, and execution plan review. Identify and fix slow queries.",
+  "repo": "aj-geddes/useful-ai-prompts",
+  "category": "data",
+  "tags": [
+    "database",
+    "performance",
+    "debugging"
+  ],
+  "stars": 25,
+  "source": "SkillsMP Synced Skills"
+}

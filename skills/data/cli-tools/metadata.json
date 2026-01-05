@@ -1,0 +1,12 @@
+{
+  "name": "cli-tools",
+  "description": "Agent Skill: CLI tool management. Use when commands fail with 'command not found', installing tools, or checking project environments. By Netresearch.",
+  "repo": "netresearch/claude-code-marketplace",
+  "category": "data",
+  "tags": [
+    "cli",
+    "tools"
+  ],
+  "stars": 8,
+  "source": "SkillsMP Synced Skills"
+}

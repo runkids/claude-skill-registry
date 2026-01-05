@@ -1,0 +1,12 @@
+{
+  "name": "dst-query",
+  "description": "Execute SQL queries on Danmarks Statistik data stored in DuckDB. Use when user needs specific data analysis, filtering, aggregation, or joins. Also includes table summary functionality.",
+  "repo": "mikkelkrogsholm/dst-skills",
+  "category": "data",
+  "tags": [
+    "dst",
+    "query"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

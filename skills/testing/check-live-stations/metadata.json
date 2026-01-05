@@ -1,0 +1,13 @@
+{
+  "name": "check-live-stations",
+  "description": "Analyze live weather station integrations, validate data sources, and identify spots missing live conditions",
+  "repo": "pwittchen/varun.surf",
+  "category": "testing",
+  "tags": [
+    "check",
+    "live",
+    "stations"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "ai-integration",
+  "description": "Use when integrating LLMs (OpenAI, Qwen, Claude), extracting structured data from text, building prompts, parsing AI responses, handling JSON output, or implementing multi-step AI workflows",
+  "repo": "aixier/n8n-automation-hub",
+  "category": "data",
+  "tags": [
+    "integration"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

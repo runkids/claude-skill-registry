@@ -1,0 +1,13 @@
+{
+  "name": "clip-aware-embeddings",
+  "description": "Semantic image-text matching with CLIP and alternatives. Use for image search, zero-shot classification, similarity matching. NOT for counting objects, fine-grained classification (celebrities, car mo",
+  "repo": "erichowens/some_claude_skills",
+  "category": "data",
+  "tags": [
+    "clip",
+    "aware",
+    "embeddings"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

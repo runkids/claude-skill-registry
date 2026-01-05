@@ -1,0 +1,11 @@
+{
+  "name": "db-seeder",
+  "description": "This skill should be used when seeding databases with realistic fake data for development, testing, or staging environments. Supports PostgreSQL, MySQL, SQLite, MongoDB with ORM-based seeding (SQLAlch",
+  "repo": "AIA-11-HN-MIB/MIB-MockInterviewAIBot",
+  "category": "data",
+  "tags": [
+    "seeder"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

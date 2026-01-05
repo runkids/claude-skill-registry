@@ -1,0 +1,13 @@
+{
+  "name": "ai-training-data-generation",
+  "description": "Generate high-quality training datasets from documents, text corpora, and structured content. Use when creating AI training data from dictionaries, documents, or when generating examples for machine l",
+  "repo": "findinfinitelabs/chuuk",
+  "category": "data",
+  "tags": [
+    "training",
+    "data",
+    "generation"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

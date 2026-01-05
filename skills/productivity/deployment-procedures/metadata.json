@@ -1,0 +1,12 @@
+{
+  "name": "deployment-procedures",
+  "description": "Production deployment procedures including pre-deployment checklist, deployment workflow, post-deployment verification, and rollback procedures. CRITICAL skill for safe deployments.",
+  "repo": "xenitV1/claude-code-maestro",
+  "category": "productivity",
+  "tags": [
+    "deployment",
+    "procedures"
+  ],
+  "stars": 47,
+  "source": "SkillsMP Synced Skills"
+}

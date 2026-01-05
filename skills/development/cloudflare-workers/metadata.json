@@ -1,0 +1,12 @@
+{
+  "name": "cloudflare-workers",
+  "description": "Rapid development with Cloudflare Workers - build and deploy serverless applications on Cloudflare's global network. Use when building APIs, full-stack web apps, edge functions, background jobs, or re",
+  "repo": "tenequm/claude-plugins",
+  "category": "development",
+  "tags": [
+    "cloudflare",
+    "workers"
+  ],
+  "stars": 7,
+  "source": "SkillsMP Synced Skills"
+}

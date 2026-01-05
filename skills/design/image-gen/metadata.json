@@ -1,0 +1,11 @@
+{
+  "name": "image-gen",
+  "description": "Generate images using Gemini via ZenMux",
+  "repo": "MarkShawn2020/.claude",
+  "category": "design",
+  "tags": [
+    "image",
+    "gen"
+  ],
+  "stars": 2
+}

@@ -1,0 +1,12 @@
+{
+  "name": "task-completion-report",
+  "description": "Generate a detailed task completion report for any milestone spec, showing overall completion percentage, per-phase breakdown with progress bars, and status indicators. Invoked when user asks for prog",
+  "repo": "NarubyRiverlione/FishBowl",
+  "category": "data",
+  "tags": [
+    "task",
+    "completion",
+    "report"
+  ],
+  "stars": 0
+}

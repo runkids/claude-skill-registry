@@ -1,0 +1,11 @@
+{
+  "name": "workout-explainer",
+  "description": "Translates planned workouts into execution cues, purpose explanations, and common mistakes to avoid. Use before workouts when user asks \"what should I do?\" or \"how do I run this session?\" with beginne",
+  "repo": "nadavyigal/Running-coach-",
+  "category": "data",
+  "tags": [
+    "workout",
+    "explainer"
+  ],
+  "stars": 1
+}

@@ -1,0 +1,11 @@
+{
+  "name": "task-manager",
+  "description": "Manage project tasks. Create, list, update, and track dependencies of tasks.",
+  "repo": "julwrites/agent-harness",
+  "category": "productivity",
+  "tags": [
+    "task",
+    "manager"
+  ],
+  "stars": 0
+}

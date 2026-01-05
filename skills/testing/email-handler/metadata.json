@@ -1,0 +1,12 @@
+{
+  "name": "email-handler",
+  "description": "Create and send transactional emails using React Email. Covers templates, layout integration, and sending logic.",
+  "repo": "AayushBaniya2006/blinkfund",
+  "category": "testing",
+  "tags": [
+    "email",
+    "handler"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

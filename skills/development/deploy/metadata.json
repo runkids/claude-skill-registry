@@ -1,0 +1,11 @@
+{
+  "name": "deploy",
+  "description": "Execute the complete TestFlight deployment workflow for this Flutter iOS app. Use when the user asks to deploy, release, publish, or upload the app to TestFlight, or says things like \"deploy to testfl",
+  "repo": "AndrewBert/log-everything",
+  "category": "development",
+  "tags": [
+    "deploy"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "forms",
+  "description": "HTML5 forms, Constraint Validation API, accessible form patterns, and modern input types",
+  "repo": "pluginagentmarketplace/custom-plugin-html",
+  "category": "data",
+  "tags": [
+    "forms"
+  ],
+  "stars": 1
+}

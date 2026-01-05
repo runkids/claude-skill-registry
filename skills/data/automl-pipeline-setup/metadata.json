@@ -1,0 +1,13 @@
+{
+  "name": "automl-pipeline-setup",
+  "description": "Эксперт AutoML. Используй для automated machine learning, hyperparameter tuning и model selection.",
+  "repo": "dengineproblem/agents-monorepo",
+  "category": "data",
+  "tags": [
+    "automl",
+    "pipeline",
+    "setup"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

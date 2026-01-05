@@ -1,0 +1,13 @@
+{
+  "name": "android-fastlane-setup",
+  "description": "Setup Fastlane for Play Store deployment with supply and screengrab",
+  "repo": "hitoshura25/claude-devtools",
+  "category": "devops",
+  "tags": [
+    "android",
+    "fastlane",
+    "setup"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

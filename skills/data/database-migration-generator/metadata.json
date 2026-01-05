@@ -1,0 +1,13 @@
+{
+  "name": "database-migration-generator",
+  "description": "Generate database migration scripts with rollback support for various databases. Use when creating schema migrations or database changes.",
+  "repo": "ntaksh42/agents",
+  "category": "data",
+  "tags": [
+    "database",
+    "migration",
+    "generator"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

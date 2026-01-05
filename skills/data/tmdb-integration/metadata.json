@@ -1,0 +1,11 @@
+{
+  "name": "tmdb-integration",
+  "description": "TMDB (The Movie Database) API integration for React Native TV streaming apps. Use when users need help with movie/TV show data, poster images, search, trending content, or video trailers from TMDB.",
+  "repo": "giolaq/Multi-TV-dev-power",
+  "category": "data",
+  "tags": [
+    "tmdb",
+    "integration"
+  ],
+  "stars": 2
+}

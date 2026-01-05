@@ -1,0 +1,13 @@
+{
+  "name": "ascii-diagram-creator",
+  "description": "Use PROACTIVELY when user asks for ASCII diagrams, text diagrams, or visual representations of systems, workflows, or relationships. Triggers on \"ascii diagram\", \"text diagram\", \"visualize\", \"show how",
+  "repo": "cskiro/claudex",
+  "category": "data",
+  "tags": [
+    "ascii",
+    "diagram",
+    "creator"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

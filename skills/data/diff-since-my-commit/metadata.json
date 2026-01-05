@@ -1,0 +1,13 @@
+{
+  "name": "diff-since-my-commit",
+  "description": "Show changes to a git branch since your last commit, filtered to only files you touched. Use when user asks to see what others changed on their branch, review changes since they last committed, or com",
+  "repo": "OhadRubin/skills",
+  "category": "data",
+  "tags": [
+    "diff",
+    "since",
+    "commit"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

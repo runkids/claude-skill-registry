@@ -1,0 +1,12 @@
+{
+  "name": "email-integration",
+  "description": "Implement email functionality using FastAPI-Mail for password reset, notifications, and transactional emails. Use when setting up email services or notification systems.",
+  "repo": "PrasadTelasula/EvokeQOne",
+  "category": "testing",
+  "tags": [
+    "email",
+    "integration"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

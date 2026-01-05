@@ -1,0 +1,11 @@
+{
+  "name": "databases",
+  "description": "Work with MongoDB (document database, BSON documents, aggregation pipelines, Atlas cloud) and PostgreSQL (relational database, SQL queries, psql CLI, pgAdmin). Use when designing database schemas, wri",
+  "repo": "mrgoonie/claudekit-skills",
+  "category": "data",
+  "tags": [
+    "databases"
+  ],
+  "stars": 1108,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "test-pattern-detector",
+  "description": "Delegates test pattern detection to a lightweight agent. Use when you need to understand existing test conventions without loading test files into context.",
+  "repo": "leonj1/cat-emails",
+  "category": "testing",
+  "tags": [
+    "test",
+    "pattern",
+    "detector"
+  ],
+  "stars": 0
+}

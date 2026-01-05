@@ -1,0 +1,12 @@
+{
+  "name": "newsletter-events-research",
+  "description": "Research events from Instagram and Facebook for local newsletter. Use when scraping event sources, downloading flyer images, or extracting event details.",
+  "repo": "aniketpanjwani/local_newsletter_tools",
+  "category": "data",
+  "tags": [
+    "newsletter",
+    "events",
+    "research"
+  ],
+  "stars": 0
+}

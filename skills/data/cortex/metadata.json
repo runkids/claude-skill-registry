@@ -1,0 +1,10 @@
+{
+  "name": "cortex",
+  "description": "CLI for managing the Cortex email automation pipeline. Use this skill when the user wants to query emails, check queue status, trigger backfills, view classifications, or manage the email triage syste",
+  "repo": "devonjones/cortex-utils",
+  "category": "data",
+  "tags": [
+    "cortex"
+  ],
+  "stars": 0
+}

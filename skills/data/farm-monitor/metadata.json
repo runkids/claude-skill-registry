@@ -1,0 +1,12 @@
+{
+  "name": "farm-monitor",
+  "description": "Braiins Farm Monitor - Bitcoin mining fleet monitoring and management",
+  "repo": "enuno/claude-command-and-control",
+  "category": "data",
+  "tags": [
+    "farm",
+    "monitor"
+  ],
+  "stars": 3,
+  "source": "SkillsMP Synced Skills"
+}

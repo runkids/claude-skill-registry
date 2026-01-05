@@ -1,0 +1,13 @@
+{
+  "name": "feature-spec-critic",
+  "description": "Review and score engineering specs against a startup-focused quality rubric. Penalize over-engineering and reward simplicity.",
+  "repo": "pcortes/swarm-attack",
+  "category": "data",
+  "tags": [
+    "feature",
+    "spec",
+    "critic"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

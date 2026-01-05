@@ -1,0 +1,12 @@
+{
+  "name": "database-seeding",
+  "description": "Idempotent seeder patterns with core/reference/dev separation and environment-specific execution using firstOrCreate/updateOrCreate",
+  "repo": "hackur/web-standards-playground-showcase",
+  "category": "data",
+  "tags": [
+    "database",
+    "seeding"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

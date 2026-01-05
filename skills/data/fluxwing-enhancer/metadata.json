@@ -1,0 +1,12 @@
+{
+  "name": "fluxwing-enhancer",
+  "description": "Enhance uxscii components from sketch to production fidelity. Use when working with .uxm files marked as \"fidelity: sketch\" or when user wants to add detail and polish to components.",
+  "repo": "trabian/fluxwing-skills",
+  "category": "data",
+  "tags": [
+    "fluxwing",
+    "enhancer"
+  ],
+  "stars": 9,
+  "source": "SkillsMP Synced Skills"
+}

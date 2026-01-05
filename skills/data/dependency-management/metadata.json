@@ -1,0 +1,12 @@
+{
+  "name": "dependency-management",
+  "description": "Automatically applies when managing Python dependencies. Ensures proper use of uv/Poetry, lock files, version constraints, conflict resolution, and dependency security.",
+  "repo": "ricardoroche/ricardos-claude-code",
+  "category": "data",
+  "tags": [
+    "dependency",
+    "management"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

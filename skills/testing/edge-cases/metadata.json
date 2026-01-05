@@ -1,0 +1,12 @@
+{
+  "name": "edge-cases",
+  "description": "Analyze checkpoint tests and suggest missing edge cases. Use after writing tests or when reviewing test coverage. Invoke with /edge-cases <problem> <checkpoint>.",
+  "repo": "SprocketLab/slop-code-bench",
+  "category": "testing",
+  "tags": [
+    "edge",
+    "cases"
+  ],
+  "stars": 6,
+  "source": "SkillsMP Synced Skills"
+}

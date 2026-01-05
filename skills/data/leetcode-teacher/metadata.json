@@ -1,0 +1,11 @@
+{
+  "name": "leetcode-teacher",
+  "description": "Interactive LeetCode-style teacher for technical interview preparation. Generates coding playgrounds with real product challenges, teaches patterns and techniques, supports Python/TypeScript/Kotlin/Sw",
+  "repo": "jamesrochabrun/skills",
+  "category": "data",
+  "tags": [
+    "leetcode",
+    "teacher"
+  ],
+  "stars": 8
+}

@@ -1,0 +1,13 @@
+{
+  "name": "dst-join-analysis",
+  "description": "Perform SQL joins and multi-table analysis on DST data in DuckDB. Use whenresearch requires combining multiple tables on common dimensions (time, region).Provides patterns for common DST dimension joi",
+  "repo": "mikkelkrogsholm/dst-skills",
+  "category": "data",
+  "tags": [
+    "dst",
+    "join",
+    "analysis"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

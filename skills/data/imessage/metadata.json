@@ -1,0 +1,10 @@
+{
+  "name": "imessage",
+  "description": "Interact with Messages app - read conversations, send messages, and check for new messages using AppleScript and SQLite database access",
+  "repo": "dvdsgl/claude-imessage",
+  "category": "data",
+  "tags": [
+    "imessage"
+  ],
+  "stars": 0
+}

@@ -1,0 +1,14 @@
+{
+  "name": "claude-d3js-skill",
+  "description": "D3.js visualization skill for creating interactive data visualizations",
+  "repo": "chrisvoncsefalvay/claude-d3js-skill",
+  "category": "data",
+  "tags": [
+    "d3",
+    "visualization",
+    "charts",
+    "javascript"
+  ],
+  "stars": 0,
+  "source": "Community Skills"
+}

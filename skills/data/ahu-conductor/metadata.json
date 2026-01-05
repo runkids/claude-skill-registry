@@ -1,0 +1,12 @@
+{
+  "name": "ahu-conductor",
+  "description": "Air Handler Design Pipeline Orchestrator",
+  "repo": "toneron2/RWS",
+  "category": "data",
+  "tags": [
+    "ahu",
+    "conductor"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

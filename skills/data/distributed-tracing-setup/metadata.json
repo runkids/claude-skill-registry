@@ -1,0 +1,13 @@
+{
+  "name": "distributed-tracing-setup",
+  "description": "Configure distributed tracing with Jaeger, Zipkin, or Datadog for microservices observability",
+  "repo": "Dexploarer/hyper-forge",
+  "category": "data",
+  "tags": [
+    "distributed",
+    "tracing",
+    "setup"
+  ],
+  "stars": 2,
+  "source": "SkillsMP Synced Skills"
+}

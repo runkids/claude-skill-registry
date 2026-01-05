@@ -1,0 +1,12 @@
+{
+  "name": "artifact-publisher",
+  "description": "Publish and share Claude Artifacts with Projects, Cursor, and downstream agents. Use when a user wants to \"save\", \"share\", or \"finalize\" a generated artifact.",
+  "repo": "oimiragieo/LLM-RULES",
+  "category": "development",
+  "tags": [
+    "artifact",
+    "publisher"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

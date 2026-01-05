@@ -1,0 +1,11 @@
+{
+  "name": "diagramming",
+  "description": "Create professional diagrams using Mermaid or DOT/Graphviz. Mermaid for flowcharts, sequences, classes, ER, Gantt, architecture with semantic coloring and WCAG AA accessibility. DOT/Graphviz for pure ",
+  "repo": "sparkling/claude-config",
+  "category": "data",
+  "tags": [
+    "diagramming"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

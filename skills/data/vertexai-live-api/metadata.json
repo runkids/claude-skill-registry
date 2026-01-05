@@ -1,0 +1,12 @@
+{
+  "name": "vertexai-live-api",
+  "description": "Google Cloud Gemini Live API documents",
+  "repo": "kazunori279/gcp-blogs",
+  "category": "data",
+  "tags": [
+    "vertexai",
+    "live",
+    "api"
+  ],
+  "stars": 3
+}

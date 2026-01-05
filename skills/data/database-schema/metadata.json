@@ -1,0 +1,12 @@
+{
+  "name": "database-schema",
+  "description": "Enforces Head Shakers database schema conventions when creating or modifying Drizzle ORM table definitions, including constraints, indexes, relations, and column patterns. This skill should be used pr",
+  "repo": "JasonPaff/head-shakers",
+  "category": "data",
+  "tags": [
+    "database",
+    "schema"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

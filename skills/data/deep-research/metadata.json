@@ -1,0 +1,12 @@
+{
+  "name": "deep-research",
+  "description": "Multi-agent parallel investigation for complex JUCE problems. Use when troubleshooting fails after Level 3, problems require novel research, or user requests /research command.",
+  "repo": "glittercowboy/plugin-freedom-system",
+  "category": "data",
+  "tags": [
+    "deep",
+    "research"
+  ],
+  "stars": 47,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "global-coding-style",
+  "description": "Maintain consistent code formatting, naming conventions, type safety, and automated code quality standards across PHP and TypeScript/JavaScript. Use this skill when writing or editing any PHP files (.",
+  "repo": "DevanB/lucidlog",
+  "category": "development",
+  "tags": [
+    "global",
+    "coding",
+    "style"
+  ],
+  "stars": 0
+}

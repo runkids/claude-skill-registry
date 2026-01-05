@@ -1,0 +1,11 @@
+{
+  "name": "wp-plugin-development",
+  "description": "Use when developing WordPress plugins: architecture and hooks, activation/deactivation/uninstall, admin UI and Settings API, data storage, cron/tasks, security (nonces/capabilities/sanitization/escapi",
+  "repo": "Automattic/agent-skills",
+  "category": "development",
+  "tags": [
+    "plugin",
+    "development"
+  ],
+  "stars": 26
+}

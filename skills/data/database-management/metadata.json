@@ -1,0 +1,12 @@
+{
+  "name": "database-management",
+  "description": "Управление БД, миграциями, SCD Type 2 и Closure Table",
+  "repo": "ikeniborn/familyBudget",
+  "category": "data",
+  "tags": [
+    "database",
+    "management"
+  ],
+  "stars": 4,
+  "source": "SkillsMP Synced Skills"
+}

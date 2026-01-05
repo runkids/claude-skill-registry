@@ -1,0 +1,11 @@
+{
+  "name": "route-builder",
+  "description": "Generates route specifications (distance, elevation, constraints) compatible with the app’s mapping layer.",
+  "repo": "nadavyigal/Running-coach-",
+  "category": "development",
+  "tags": [
+    "route",
+    "builder"
+  ],
+  "stars": 1
+}

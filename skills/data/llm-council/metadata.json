@@ -1,0 +1,11 @@
+{
+  "name": "llm-council",
+  "description": "Orchestrate multiple LLMs as a council, generating collective intelligence through peer review and chairman synthesis",
+  "repo": "shuntacurosu/llm_council_skill",
+  "category": "data",
+  "tags": [
+    "llm",
+    "council"
+  ],
+  "stars": 0
+}

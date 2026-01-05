@@ -1,0 +1,13 @@
+{
+  "name": "browser-testing-playwright",
+  "description": "A skill for setting up and running end-to-end browser tests using Playwright. It includes guidance on project setup, the Page Object Model, user flow testing, visual regression, cross-browser configur",
+  "repo": "MUmerRazzaq/fast-next-todo",
+  "category": "testing",
+  "tags": [
+    "browser",
+    "testing",
+    "playwright"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

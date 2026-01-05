@@ -1,0 +1,11 @@
+{
+  "name": "git-helper",
+  "description": "Assists with git workflows, commit messages, branch strategies, and resolving common git issues",
+  "repo": "onlyoneaman/agent-skills",
+  "category": "productivity",
+  "tags": [
+    "git",
+    "helper"
+  ],
+  "stars": 1
+}

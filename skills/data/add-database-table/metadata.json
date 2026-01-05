@@ -1,0 +1,13 @@
+{
+  "name": "add-database-table",
+  "description": "Add a new database table with Drizzle ORM",
+  "repo": "gregsantos/nexturbo",
+  "category": "data",
+  "tags": [
+    "add",
+    "database",
+    "table"
+  ],
+  "stars": 4,
+  "source": "SkillsMP Synced Skills"
+}

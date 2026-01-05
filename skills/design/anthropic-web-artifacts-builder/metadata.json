@@ -1,0 +1,14 @@
+{
+  "name": "anthropic-web-artifacts-builder",
+  "description": "Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state manag",
+  "repo": "theflysurfer/claude-skills-marketplace",
+  "category": "design",
+  "tags": [
+    "anthropic",
+    "web",
+    "artifacts",
+    "builder"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

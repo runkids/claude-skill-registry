@@ -1,0 +1,11 @@
+{
+  "name": "ai-chatbot",
+  "description": "Full-featured AI chatbot with Next.js 15, Auth.js, Drizzle ORM, and multi-model support.",
+  "repo": "Eng0AI/eng0-template-skills",
+  "category": "data",
+  "tags": [
+    "chatbot"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

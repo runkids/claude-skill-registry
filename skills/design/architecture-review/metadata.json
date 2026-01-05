@@ -1,0 +1,12 @@
+{
+  "name": "architecture-review",
+  "description": "Flequit のクリーンアーキテクチャ、レイヤードアーキテクチャへの準拠をチェックします。レイヤー間の依存関係、crate 間のアクセス制御、Store と Service の分離、アンチパターンの検出などのアーキテクチャレビューに使用します。",
+  "repo": "varubogu/flequit",
+  "category": "design",
+  "tags": [
+    "architecture",
+    "review"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

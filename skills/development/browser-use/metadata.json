@@ -1,0 +1,12 @@
+{
+  "name": "browser-use",
+  "description": "Web scraping, screenshots, form filling, file downloads/uploads, Google/DuckDuckGo image search, YouTube video downloading, and TikTok video downloading.",
+  "repo": "kudosx/claude-skill-browser-use",
+  "category": "development",
+  "tags": [
+    "browser",
+    "use"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

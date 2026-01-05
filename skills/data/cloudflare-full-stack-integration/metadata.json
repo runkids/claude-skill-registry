@@ -1,0 +1,14 @@
+{
+  "name": "cloudflare-full-stack-integration",
+  "description": "Production-tested integration patterns for connecting React frontends to Cloudflare Worker backendswith Hono, Clerk authentication, and D1 databases. Prevents common frontend-backend connection issues",
+  "repo": "jackspace/ClaudeSkillz",
+  "category": "data",
+  "tags": [
+    "cloudflare",
+    "full",
+    "stack",
+    "integration"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

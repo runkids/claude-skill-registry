@@ -1,0 +1,12 @@
+{
+  "name": "kubernetes-ops",
+  "description": "Kubernetes deployments, troubleshooting, and operational best practices.",
+  "repo": "timequity/vibe-coder",
+  "category": "devops",
+  "tags": [
+    "kubernetes",
+    "ops"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "ci-cd-pipelines",
+  "description": "GitHub Actions, GitLab CI, Jenkins, and automated deployment workflows.",
+  "repo": "pluginagentmarketplace/custom-plugin-machine-learning",
+  "category": "devops",
+  "tags": [
+    "pipelines"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

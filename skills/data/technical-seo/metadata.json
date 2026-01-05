@@ -1,0 +1,11 @@
+{
+  "name": "technical-seo",
+  "description": "Implements Schema.org structured data for AndesRC articles. Adds ExercisePlan, HowTo, and FAQPage markup. Optimizes meta titles and descriptions. Use before publication.",
+  "repo": "dasalazarr/andes",
+  "category": "data",
+  "tags": [
+    "technical",
+    "seo"
+  ],
+  "stars": 0
+}

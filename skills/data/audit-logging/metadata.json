@@ -1,0 +1,12 @@
+{
+  "name": "audit-logging",
+  "description": "Implement comprehensive audit logging for all admin actions, capturing user ID, action type, entity changes, IP address, and user agent. Use when tracking system activities or adding audit trails.",
+  "repo": "PrasadTelasula/EvokeQOne",
+  "category": "data",
+  "tags": [
+    "audit",
+    "logging"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

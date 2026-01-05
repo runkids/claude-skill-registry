@@ -1,0 +1,11 @@
+{
+  "name": "voicemode",
+  "description": "This skill provides voice interaction capabilities for AI assistants. This skill should be used when users mention \"voice mode\", \"voicemode\", \"speak to me\", \"talk to me\", \"have a voice conversation\", ",
+  "repo": "mbailey/voicemode",
+  "category": "data",
+  "tags": [
+    "voicemode"
+  ],
+  "stars": 532,
+  "source": "SkillsMP Synced Skills"
+}

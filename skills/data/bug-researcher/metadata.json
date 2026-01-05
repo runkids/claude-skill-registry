@@ -1,0 +1,12 @@
+{
+  "name": "bug-researcher",
+  "description": "Reproduce bugs and gather evidence for root cause analysis. Use when investigating a bug report to confirm reproduction and collect detailed information about the failure.",
+  "repo": "pcortes/swarm-attack",
+  "category": "data",
+  "tags": [
+    "bug",
+    "researcher"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

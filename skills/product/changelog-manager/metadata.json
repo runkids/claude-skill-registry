@@ -1,0 +1,12 @@
+{
+  "name": "changelog-manager",
+  "description": "Automatically create and update CHANGELOG.md files for scripts and tools following Keep a Changelog format. Use when creating new scripts, updating existing scripts, fixing bugs, or adding features to",
+  "repo": "poncardasm/tech-support-tools",
+  "category": "product",
+  "tags": [
+    "changelog",
+    "manager"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "version",
+  "description": "Search and fetch the latest version of a Go or Python package.",
+  "repo": "alexhholmes/skills",
+  "category": "testing",
+  "tags": [
+    "version"
+  ],
+  "stars": 1
+}

@@ -1,0 +1,12 @@
+{
+  "name": "code-annotations",
+  "description": "Code annotation requirements for pikru. Use when writing or porting Rust functions from C code. All ported functions must have cref comments.",
+  "repo": "bearcove/pikru",
+  "category": "development",
+  "tags": [
+    "code",
+    "annotations"
+  ],
+  "stars": 6,
+  "source": "SkillsMP Synced Skills"
+}

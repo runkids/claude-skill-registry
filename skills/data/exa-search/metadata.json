@@ -1,0 +1,12 @@
+{
+  "name": "exa-search",
+  "description": "Find similar companies using Exa.ai's neural search API",
+  "repo": "vm0-ai/vm0-cookbooks",
+  "category": "data",
+  "tags": [
+    "exa",
+    "search"
+  ],
+  "stars": 4,
+  "source": "SkillsMP Synced Skills"
+}

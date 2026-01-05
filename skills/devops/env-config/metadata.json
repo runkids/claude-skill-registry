@@ -1,0 +1,12 @@
+{
+  "name": "env-config",
+  "description": "Implement environment variable management with .env files, validation, and environment-specific configs. Use when setting up configuration, handling secrets, or managing different deployment environme",
+  "repo": "ProfPowell/project-template",
+  "category": "devops",
+  "tags": [
+    "env",
+    "config"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

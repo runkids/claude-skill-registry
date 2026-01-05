@@ -1,0 +1,12 @@
+{
+  "name": "flyway-migrations",
+  "description": "Flyway database migrations - use for schema changes, data migrations, version management, and PostgreSQL DDL",
+  "repo": "ashchupliak/dream-team",
+  "category": "data",
+  "tags": [
+    "flyway",
+    "migrations"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

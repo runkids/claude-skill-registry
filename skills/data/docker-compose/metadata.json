@@ -1,0 +1,12 @@
+{
+  "name": "docker-compose",
+  "description": "Multi-service orchestration with Docker Compose, focusing on network isolation, environment-specific profiles, and service discovery. Triggers: docker-compose, container-networking, docker-profiles, s",
+  "repo": "cuba6112/skillfactory",
+  "category": "data",
+  "tags": [
+    "docker",
+    "compose"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

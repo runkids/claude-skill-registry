@@ -1,0 +1,13 @@
+{
+  "name": "anthropic-prompt-engineer",
+  "description": "Master Anthropic's prompt engineering techniques to generate new prompts or improve existing ones using best practices for Claude AI models.",
+  "repo": "jamesrochabrun/skills",
+  "category": "data",
+  "tags": [
+    "anthropic",
+    "prompt",
+    "engineer"
+  ],
+  "stars": 8,
+  "source": "SkillsMP Synced Skills"
+}

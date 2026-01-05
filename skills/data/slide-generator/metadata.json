@@ -1,0 +1,11 @@
+{
+  "name": "slide-generator",
+  "description": "Generate professional HTML presentation slides from Markdown files or raw content. Use when creating presentations, slide decks, or when asked to make slides. Fully automated workflow - Markdown analy",
+  "repo": "tomohiro-owada/slide-generator-skill",
+  "category": "data",
+  "tags": [
+    "slide",
+    "generator"
+  ],
+  "stars": 0
+}

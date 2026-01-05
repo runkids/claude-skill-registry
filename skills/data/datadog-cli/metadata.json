@@ -1,0 +1,12 @@
+{
+  "name": "datadog-cli",
+  "description": "Datadog CLI for debugging and triaging. Use this skill when you need to:search Datadog logs, query metrics, tail logs in real-time, trace distributed requests,investigate errors, compare time periods,",
+  "repo": "ctdio/datadog-cli",
+  "category": "data",
+  "tags": [
+    "datadog",
+    "cli"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,13 @@
+{
+  "name": "html-css-to-wpf-xaml",
+  "description": "HTML/CSS를 WPF CustomControl XAML로 변환할 때 필요한 가이드. CSS 애니메이션, overflow 클리핑, pseudo-element, 회전 요소 등을 WPF로 변환할 때 발생하는 일반적인 실수와 올바른 패턴을 제공한다. 다음 상황에서 사용: (1) HTML/CSS를 WPF XAML로 변환, (2) CSS 애니메이션을 WPF Sto",
+  "repo": "christian289/dotnet-with-claudecode",
+  "category": "data",
+  "tags": [
+    "html",
+    "css",
+    "wpf",
+    "xaml"
+  ],
+  "stars": 0
+}

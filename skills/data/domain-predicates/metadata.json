@@ -1,0 +1,12 @@
+{
+  "name": "domain-predicates",
+  "description": "Generate comprehensive predicates and orders for domain types using typeclass patterns",
+  "repo": "front-depiction/cli-stock",
+  "category": "data",
+  "tags": [
+    "domain",
+    "predicates"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

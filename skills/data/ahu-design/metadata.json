@@ -1,0 +1,12 @@
+{
+  "name": "ahu-design",
+  "description": "Air Handler Configuration & Sizing Agent",
+  "repo": "toneron2/RWS",
+  "category": "data",
+  "tags": [
+    "ahu",
+    "design"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

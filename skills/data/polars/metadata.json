@@ -1,0 +1,10 @@
+{
+  "name": "polars",
+  "description": "Lightning-fast DataFrame library written in Rust for high-performance data manipulation and analysis. Use when user wants blazing fast data transformations, working with large datasets, lazy evaluatio",
+  "repo": "silvainfm/claude-skills",
+  "category": "data",
+  "tags": [
+    "polars"
+  ],
+  "stars": 0
+}

@@ -1,0 +1,11 @@
+{
+  "name": "mindmap-skill",
+  "description": "Maintain and evolve interactive mind maps generated from OPML outlines and XML palettes.",
+  "repo": "planetoftheweb/mindmap-skill",
+  "category": "data",
+  "tags": [
+    "mindmap",
+    "skill"
+  ],
+  "stars": 3
+}

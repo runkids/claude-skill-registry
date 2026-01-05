@@ -1,0 +1,12 @@
+{
+  "name": "architecture-validation",
+  "description": "Generic architecture validation that validates implementations against any plan files in the plans/ folder",
+  "repo": "d-o-hub/rust-self-learning-memory",
+  "category": "data",
+  "tags": [
+    "architecture",
+    "validation"
+  ],
+  "stars": 3,
+  "source": "SkillsMP Synced Skills"
+}

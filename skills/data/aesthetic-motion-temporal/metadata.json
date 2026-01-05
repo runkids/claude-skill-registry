@@ -1,0 +1,13 @@
+{
+  "name": "aesthetic-motion-temporal",
+  "description": "[Aesthetics] Defines temporal aesthetics: speed, acceleration habits, tempo, static vs dynamic balance, motion weight and inertia. Produces Motion Bible as Memo nodes in Brain canvas.",
+  "repo": "CANTAGESTUDIO/CosmicAtlasPacker",
+  "category": "data",
+  "tags": [
+    "aesthetic",
+    "motion",
+    "temporal"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

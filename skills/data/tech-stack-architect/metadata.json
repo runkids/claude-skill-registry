@@ -1,0 +1,12 @@
+{
+  "name": "tech-stack-architect",
+  "description": "Design complete technology stack and system architecture from project requirements - generates TECH-STACK.md with frontend/backend/database/DevOps choices plus rationale, and ARCHITECTURE.md with comp",
+  "repo": "MacroMan5/claude-code-workflow-plugins",
+  "category": "data",
+  "tags": [
+    "tech",
+    "stack",
+    "architect"
+  ],
+  "stars": 1
+}

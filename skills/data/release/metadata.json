@@ -1,0 +1,10 @@
+{
+  "name": "release",
+  "description": "Use this skill when the user asks to create a release, cut a release, publish a new version, or perform release-related tasks for the envsense project.This skill provides comprehensive guidance for th",
+  "repo": "technicalpickles/envsense",
+  "category": "data",
+  "tags": [
+    "release"
+  ],
+  "stars": 5
+}

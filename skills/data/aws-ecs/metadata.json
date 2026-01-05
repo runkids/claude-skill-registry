@@ -1,0 +1,12 @@
+{
+  "name": "aws-ecs",
+  "description": "Deploy and manage containerized applications on ECS/Fargate",
+  "repo": "pluginagentmarketplace/custom-plugin-aws",
+  "category": "data",
+  "tags": [
+    "aws",
+    "ecs"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

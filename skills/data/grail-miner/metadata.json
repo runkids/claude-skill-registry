@@ -1,0 +1,11 @@
+{
+  "name": "grail-miner",
+  "description": "This skill should be used when setting up, managing, or optimizing Grail miners on Bittensor Subnet 81. Use it for GRAIL protocol tasks including miner setup, R2 storage configuration, model checkpoin",
+  "repo": "synapz-org/grail-miner-claude-skill",
+  "category": "data",
+  "tags": [
+    "grail",
+    "miner"
+  ],
+  "stars": 0
+}

@@ -1,0 +1,11 @@
+{
+  "name": "cleanup",
+  "description": "Weekly Claude Code maintenance - cleans debug logs, shell snapshots, and old todo files to free up disk space. Run this weekly to keep Claude Code lean.",
+  "repo": "vapvarun/claude-backup",
+  "category": "development",
+  "tags": [
+    "cleanup"
+  ],
+  "stars": 3,
+  "source": "SkillsMP Synced Skills"
+}

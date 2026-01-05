@@ -1,0 +1,12 @@
+{
+  "name": "data-fetching",
+  "description": "Server-Side + Client-Side Data Fetching with Orval + TanStack Query HydrationBoundary Pattern. ALWAYS use Orval - NEVER manual fetch()!",
+  "repo": "atilladeniz/next-go-pg",
+  "category": "data",
+  "tags": [
+    "data",
+    "fetching"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

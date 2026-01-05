@@ -1,0 +1,11 @@
+{
+  "name": "security-check",
+  "description": "Automatic OWASP security checks on generated code.Use when: any code is generated in the pipeline.Triggers: internal use only.",
+  "repo": "timequity/vibe-coder",
+  "category": "security",
+  "tags": [
+    "security",
+    "check"
+  ],
+  "stars": 0
+}

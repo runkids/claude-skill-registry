@@ -1,0 +1,13 @@
+{
+  "name": "openai-whisper-api",
+  "description": "Transcribe audio via OpenAI Audio Transcriptions API (Whisper).",
+  "repo": "steipete/clawdis",
+  "category": "data",
+  "tags": [
+    "openai",
+    "whisper",
+    "api"
+  ],
+  "stars": 430,
+  "source": "SkillsMP Synced Skills"
+}

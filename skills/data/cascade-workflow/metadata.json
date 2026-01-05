@@ -1,0 +1,12 @@
+{
+  "name": "cascade-workflow",
+  "description": "Graceful degradation through cascading fallback strategies - ensures system always completes while maintaining acceptable functionality",
+  "repo": "rysweet/MicrosoftHackathon2025-AgenticCoding",
+  "category": "data",
+  "tags": [
+    "cascade",
+    "workflow"
+  ],
+  "stars": 10,
+  "source": "SkillsMP Synced Skills"
+}

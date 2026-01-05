@@ -1,0 +1,11 @@
+{
+  "name": "rails-inertia",
+  "description": "Specialized skill for building modern SPAs with Inertia.js, React/Vue/Svelte, and Rails. Use when creating Inertia pages, handling forms, implementing client-side routing, managing shared data, or bui",
+  "repo": "alec-c4/claude-skills-rails-dev",
+  "category": "data",
+  "tags": [
+    "rails",
+    "inertia"
+  ],
+  "stars": 18
+}

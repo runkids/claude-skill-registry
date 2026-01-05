@@ -1,0 +1,12 @@
+{
+  "name": "changelog-generator",
+  "description": "Generate comprehensive changelogs from git history following Keep a Changelog format. Use when creating release notes or maintaining version history.",
+  "repo": "ntaksh42/agents",
+  "category": "data",
+  "tags": [
+    "changelog",
+    "generator"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

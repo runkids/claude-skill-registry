@@ -1,0 +1,13 @@
+{
+  "name": "claude-typescript-sdk",
+  "description": "Build AI applications with the Anthropic TypeScript SDK. Use when creating Claude integrations, building agents, implementing tool use, streaming responses, or working with the @anthropic-ai/sdk packa",
+  "repo": "Anveio/conveaux",
+  "category": "development",
+  "tags": [
+    "claude",
+    "typescript",
+    "sdk"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

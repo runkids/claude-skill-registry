@@ -1,0 +1,12 @@
+{
+  "name": "parse-package-json",
+  "description": "Extract version, dependencies, and metadata from package.json files. Use when needing project version, dependency list, or package metadata for releases, audits, or reports.",
+  "repo": "maslennikov-ig/claude-code-orchestrator-kit",
+  "category": "data",
+  "tags": [
+    "parse",
+    "package",
+    "json"
+  ],
+  "stars": 27
+}

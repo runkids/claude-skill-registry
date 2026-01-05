@@ -1,0 +1,11 @@
+{
+  "name": "maintenance",
+  "description": "Cleans up and organizes project files. Use when user mentions '整理', 'cleanup', 'アーカイブ', 'archive', '肥大化', 'Plans.md', 'session-log', or asks to clean up old tasks, archive completed items, or organize",
+  "repo": "Chachamaru127/claude-code-harness",
+  "category": "data",
+  "tags": [
+    "maintenance"
+  ],
+  "stars": 85,
+  "source": "SkillsMP Synced Skills"
+}

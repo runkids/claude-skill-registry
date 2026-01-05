@@ -1,0 +1,12 @@
+{
+  "name": "ai-evaluation-suite",
+  "description": "Comprehensive AI/LLM evaluation toolkit for production AI systems. Covers LLM output quality, prompt engineering, RAG evaluation, agent performance, hallucination detection, bias assessment, cost/toke",
+  "repo": "doctorduke/claude-config",
+  "category": "data",
+  "tags": [
+    "evaluation",
+    "suite"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

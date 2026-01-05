@@ -1,0 +1,12 @@
+{
+  "name": "business-intelligence",
+  "description": "BI tools, dashboards, and enterprise analytics platforms",
+  "repo": "pluginagentmarketplace/custom-plugin-data-analyst",
+  "category": "data",
+  "tags": [
+    "business",
+    "intelligence"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

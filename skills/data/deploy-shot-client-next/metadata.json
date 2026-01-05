@@ -1,0 +1,14 @@
+{
+  "name": "deploy-shot-client-next",
+  "description": "DEPRECATED - Use deploy-phoenix-client for production or deploy-rails-client for legacy Rails backend. This skill redirects to the appropriate deployment skill.",
+  "repo": "progressions/chi-war-automation",
+  "category": "data",
+  "tags": [
+    "deploy",
+    "shot",
+    "client",
+    "next"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

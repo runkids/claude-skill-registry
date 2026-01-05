@@ -1,0 +1,11 @@
+{
+  "name": "performance-optimization",
+  "description": "Optimize training performance for Kaggle competitions. Use PROACTIVELY when training is slow, GPU memory issues occur, or user asks about performance tuning. Keywords: 遅い, 最適化, OOM, CUDA, batch_size, ",
+  "repo": "kigasudayooo/kaggle-template",
+  "category": "data",
+  "tags": [
+    "performance",
+    "optimization"
+  ],
+  "stars": 0
+}

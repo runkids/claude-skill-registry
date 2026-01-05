@@ -1,0 +1,12 @@
+{
+  "name": "data-processor",
+  "description": "Process and transform arrays of data with common operations like filtering, mapping, and aggregation",
+  "repo": "ArtemisAI/code-execution-with-MCP",
+  "category": "data",
+  "tags": [
+    "data",
+    "processor"
+  ],
+  "stars": 2,
+  "source": "SkillsMP Synced Skills"
+}

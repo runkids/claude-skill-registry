@@ -1,0 +1,13 @@
+{
+  "name": "create-task-spec",
+  "description": "Create hyper-detailed task specifications with embedded context, eliminating implementation lookups. This skill should be used for breaking features into implementable tasks with complete architecture",
+  "repo": "adolfoaranaes12/BMAD-ENHANCED",
+  "category": "data",
+  "tags": [
+    "create",
+    "task",
+    "spec"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

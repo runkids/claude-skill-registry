@@ -1,0 +1,11 @@
+{
+  "name": "security-analyzer",
+  "description": "Comprehensive security vulnerability analysis for codebases and infrastructure. Scans dependencies (npm, pip, gem, go, cargo), containers (Docker, Kubernetes), cloud IaC (Terraform, CloudFormation), a",
+  "repo": "Cornjebus/security-analyzer",
+  "category": "devops",
+  "tags": [
+    "security",
+    "analyzer"
+  ],
+  "stars": 2
+}

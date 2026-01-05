@@ -1,0 +1,11 @@
+{
+  "name": "instrumentation-planning",
+  "description": "Plan what to measure in AI agent systems using tiered approach",
+  "repo": "nexus-labs-automation/agent-observability",
+  "category": "data",
+  "tags": [
+    "instrumentation",
+    "planning"
+  ],
+  "stars": 0
+}

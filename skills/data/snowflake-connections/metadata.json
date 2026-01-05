@@ -1,0 +1,11 @@
+{
+  "name": "snowflake-connections",
+  "description": "Configuring Snowflake connections using connections.toml (for Snowflake CLI, Streamlit, Snowpark) or profiles.yml (for dbt) with multiple authentication methods (SSO, key pair, username/password, OAut",
+  "repo": "sfc-gh-dflippo/snowflake-dbt-demo",
+  "category": "data",
+  "tags": [
+    "snowflake",
+    "connections"
+  ],
+  "stars": 23
+}

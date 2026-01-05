@@ -1,0 +1,12 @@
+{
+  "name": "lien-discovery-skill",
+  "description": "Discover and analyze lien positions from AcclaimWeb and RealTDM to detect HOA foreclosures and senior mortgage survival",
+  "repo": "breverdbidder/brevard-bidder-landing",
+  "category": "data",
+  "tags": [
+    "lien",
+    "discovery",
+    "skill"
+  ],
+  "stars": 0
+}

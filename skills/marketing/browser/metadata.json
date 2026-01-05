@@ -1,0 +1,11 @@
+{
+  "name": "browser",
+  "description": "Web scraping using shot-scraper. Read web pages, extract content, interact with websites.",
+  "repo": "ciallo-agent/ciallo-agent",
+  "category": "marketing",
+  "tags": [
+    "browser"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

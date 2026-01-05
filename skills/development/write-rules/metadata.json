@@ -1,0 +1,11 @@
+{
+  "name": "write-rules",
+  "description": "Create Claude Code rule files for .claude/rules/. Writes conventions and shared guidelines that auto-inject into context. Use for path-specific coding conventions or shared project guidelines. NOT for",
+  "repo": "wayne930242/Reflexive-Claude-Code",
+  "category": "development",
+  "tags": [
+    "write",
+    "rules"
+  ],
+  "stars": 6
+}

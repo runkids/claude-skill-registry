@@ -1,0 +1,11 @@
+{
+  "name": "gemini-cli",
+  "description": "\"Use Gemini CLI when processing images, PDFs, large files, needing 1M+ token context, or requiring Gemini's strong reasoning and fine-grained domain knowledge.",
+  "repo": "metrovoc/cc-skill-gemini-cli",
+  "category": "data",
+  "tags": [
+    "gemini",
+    "cli"
+  ],
+  "stars": 1
+}

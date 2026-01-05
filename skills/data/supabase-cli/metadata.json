@@ -1,0 +1,11 @@
+{
+  "name": "supabase-cli",
+  "description": "Comprehensive guide for Supabase CLI usage covering database initialization, migrations, type generation, API key management, and direct query execution. Use this skill when working with Supabase loca",
+  "repo": "XIYO/zheon",
+  "category": "data",
+  "tags": [
+    "supabase",
+    "cli"
+  ],
+  "stars": 0
+}

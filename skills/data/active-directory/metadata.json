@@ -1,0 +1,12 @@
+{
+  "name": "active-directory",
+  "description": "Query and manage Active Directory: users, groups, computers, OUs, GPO status. Use when user asks about AD objects or domain information.",
+  "repo": "djcyphers/network-copilot-cli",
+  "category": "data",
+  "tags": [
+    "active",
+    "directory"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "building-skills",
+  "description": "Expert at creating and modifying Claude Code skills. Auto-invokes when the user wants to create, update, modify, enhance, validate, or standardize skills, or when modifying skill YAML frontmatter fiel",
+  "repo": "C0ntr0lledCha0s/claude-code-plugin-automations",
+  "category": "development",
+  "tags": [
+    "building",
+    "skills"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

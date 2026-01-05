@@ -1,0 +1,13 @@
+{
+  "name": "eptr2-generation-tracking",
+  "description": "Query Turkish electricity generation data including real-time generation by resource type, plant-level production, UEVM (settlement generation/Uzlaştırmaya Esas Veriş Miktarı), and generation forecast",
+  "repo": "Tideseed/eptr2",
+  "category": "data",
+  "tags": [
+    "eptr2",
+    "generation",
+    "tracking"
+  ],
+  "stars": 15,
+  "source": "SkillsMP Synced Skills"
+}

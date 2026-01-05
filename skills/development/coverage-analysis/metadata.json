@@ -1,0 +1,12 @@
+{
+  "name": "coverage-analysis",
+  "description": "Analyze test coverage, generate reports, and identify untested code. Use when improving test coverage, ensuring code quality, or preparing for production.",
+  "repo": "sgcarstrends/sgcarstrends",
+  "category": "development",
+  "tags": [
+    "coverage",
+    "analysis"
+  ],
+  "stars": 13,
+  "source": "SkillsMP Synced Skills"
+}

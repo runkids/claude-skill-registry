@@ -1,0 +1,13 @@
+{
+  "name": "database-architect-role",
+  "description": "Role assignment for Claude Agent #1 - Database schema architect for Lead Hunter Prime. Build ONLY database schema (11 tables, RLS policies, seed data). Do NOT build APIs, dashboards, or N8N workflows.",
+  "repo": "AIBPM42/hodgesfooshee-site-spark",
+  "category": "data",
+  "tags": [
+    "database",
+    "architect",
+    "role"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,13 @@
+{
+  "name": "data-systems-architecture",
+  "description": "Use when designing databases for data-heavy applications, making schema decisions for performance, choosing between normalization and denormalization, selecting storage/indexing strategies, planning f",
+  "repo": "ratacat/claude-skills",
+  "category": "data",
+  "tags": [
+    "data",
+    "systems",
+    "architecture"
+  ],
+  "stars": 8,
+  "source": "SkillsMP Synced Skills"
+}

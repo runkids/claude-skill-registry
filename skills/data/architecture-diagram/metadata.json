@@ -1,0 +1,12 @@
+{
+  "name": "architecture-diagram",
+  "description": "Create professional, dark-themed architecture diagrams as standalone HTML files with SVG graphics. Use when the user asks for system architecture diagrams, infrastructure diagrams, cloud architecture ",
+  "repo": "Cocoon-AI/architecture-diagram-generator",
+  "category": "data",
+  "tags": [
+    "architecture",
+    "diagram"
+  ],
+  "stars": 3,
+  "source": "SkillsMP Synced Skills"
+}

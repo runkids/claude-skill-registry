@@ -1,0 +1,11 @@
+{
+  "name": "test-skill",
+  "description": "answers with the secret",
+  "repo": "uptownhr/claude-code-agent",
+  "category": "testing",
+  "tags": [
+    "test",
+    "skill"
+  ],
+  "stars": 1
+}

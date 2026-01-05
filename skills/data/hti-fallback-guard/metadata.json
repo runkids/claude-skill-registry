@@ -1,0 +1,12 @@
+{
+  "name": "hti-fallback-guard",
+  "description": "In this repo, avoid sloppy fallback logic. Prefer explicit failures, narrow error handling, and clearly marked TODOs over fake success paths.",
+  "repo": "moviesR/hti-zen-harness",
+  "category": "data",
+  "tags": [
+    "hti",
+    "fallback",
+    "guard"
+  ],
+  "stars": 0
+}

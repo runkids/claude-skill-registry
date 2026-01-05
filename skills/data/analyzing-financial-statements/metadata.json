@@ -1,0 +1,13 @@
+{
+  "name": "analyzing-financial-statements",
+  "description": "This skill calculates key financial ratios and metrics from financial statement data for investment analysis",
+  "repo": "ronnycoding/.claude",
+  "category": "data",
+  "tags": [
+    "analyzing",
+    "financial",
+    "statements"
+  ],
+  "stars": 3,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "trpc-patterns",
+  "description": "TRPC with Tanstack Query patterns Applies to files matching: *.tsx.",
+  "repo": "FranciscoMoretti/sparka",
+  "category": "development",
+  "tags": [
+    "trpc",
+    "patterns"
+  ],
+  "stars": 842,
+  "source": "SkillsMP Synced Skills"
+}

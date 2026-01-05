@@ -1,0 +1,13 @@
+{
+  "name": "aoc-daily-solver",
+  "description": "Automate Advent of Code daily puzzle solving - fetch puzzle, implement solution, test, and submit answers",
+  "repo": "ejfn/advent-of-code",
+  "category": "development",
+  "tags": [
+    "aoc",
+    "daily",
+    "solver"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

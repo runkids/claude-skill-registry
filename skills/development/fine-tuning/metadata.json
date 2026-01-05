@@ -1,0 +1,12 @@
+{
+  "name": "fine-tuning",
+  "description": "LLM fine-tuning and prompt-tuning techniques",
+  "repo": "pluginagentmarketplace/custom-plugin-prompt-engineering",
+  "category": "development",
+  "tags": [
+    "fine",
+    "tuning"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

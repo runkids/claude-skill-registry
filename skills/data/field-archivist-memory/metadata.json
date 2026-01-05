@@ -1,0 +1,13 @@
+{
+  "name": "field-archivist-memory",
+  "description": "Archive and retrieve field session data for cross-session memory continuity.",
+  "repo": "starwreckntx/IRP__METHODOLOGIES-",
+  "category": "data",
+  "tags": [
+    "field",
+    "archivist",
+    "memory"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

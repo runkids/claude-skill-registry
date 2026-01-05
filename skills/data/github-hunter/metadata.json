@@ -1,0 +1,11 @@
+{
+  "name": "github-hunter",
+  "description": "Automatically discover, score, and archive relevant GitHub repositories for BidDeed.AI and Life OS projects. Use this skill when the user requests to find GitHub repositories for specific topics, tech",
+  "repo": "breverdbidder/biddeed-conversational-ai",
+  "category": "data",
+  "tags": [
+    "github",
+    "hunter"
+  ],
+  "stars": 0
+}

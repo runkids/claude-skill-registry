@@ -1,0 +1,13 @@
+{
+  "name": "batch-execution-validator",
+  "description": "Validate production batch execution - trigger daily runs and analyze traces for architecture completeness and result quality",
+  "repo": "mberto10/web_research_agent",
+  "category": "data",
+  "tags": [
+    "batch",
+    "execution",
+    "validator"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

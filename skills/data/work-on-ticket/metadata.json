@@ -1,0 +1,11 @@
+{
+  "name": "work-on-ticket",
+  "description": "Pulls ticket details from Jira, creates feature branches with proper naming conventions, and handles planning steps. Use when starting work on a Jira ticket, creating branches for tickets, or when use",
+  "repo": "IHKREDDY/agent-skills",
+  "category": "data",
+  "tags": [
+    "work",
+    "ticket"
+  ],
+  "stars": 0
+}

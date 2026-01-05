@@ -1,0 +1,12 @@
+{
+  "name": "blog-workflow",
+  "description": "Orchestrate the mycelium blog workflow - scan repos, draft posts, review changes, build graph, and publish",
+  "repo": "vanmarkic/mycelium-blog",
+  "category": "development",
+  "tags": [
+    "blog",
+    "workflow"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

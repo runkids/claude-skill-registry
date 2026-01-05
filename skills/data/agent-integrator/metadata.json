@@ -1,0 +1,12 @@
+{
+  "name": "agent-integrator",
+  "description": "Use this skill to create or update the root AGENTS.md file to register SynthesisFlow skills for AI agent discovery. Triggers include \"register SynthesisFlow\", \"update AGENTS.md\", \"setup agent guide\", ",
+  "repo": "Reading-Advantage-Thailand/codecamp-advantage",
+  "category": "data",
+  "tags": [
+    "agent",
+    "integrator"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

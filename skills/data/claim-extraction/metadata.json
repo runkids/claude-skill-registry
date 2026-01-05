@@ -1,0 +1,12 @@
+{
+  "name": "claim-extraction",
+  "description": "Extract structured claims, predictions, hints, and opinions from AI research content. Use when processing tweets, blog posts, substacks, or other content from AI researchers to identify substantive as",
+  "repo": "rickoslyder/HypeDelta",
+  "category": "data",
+  "tags": [
+    "claim",
+    "extraction"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

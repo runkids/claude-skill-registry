@@ -1,0 +1,13 @@
+{
+  "name": "aws-sso-refresh",
+  "description": "Automatically refresh AWS SSO authentication tokens when encountering expiration errors. Use when AWS MCP tools fail due to expired SSO sessions.",
+  "repo": "veelenga/aws-sso-mcp",
+  "category": "data",
+  "tags": [
+    "aws",
+    "sso",
+    "refresh"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

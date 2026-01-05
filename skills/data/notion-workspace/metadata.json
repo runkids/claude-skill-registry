@@ -1,0 +1,11 @@
+{
+  "name": "notion-workspace",
+  "description": "Interactive Notion workspace management using MCP tools. Use for searching pages/databases, querying database entries, creating pages with custom properties, managing workspace structure, and explorat",
+  "repo": "waleking/weijing_claude_skills",
+  "category": "data",
+  "tags": [
+    "notion",
+    "workspace"
+  ],
+  "stars": 0
+}

@@ -1,0 +1,12 @@
+{
+  "name": "brave-search",
+  "description": "Use when searching the web via Brave Search API, finding images, news, or getting AI-grounded answers with citations. Triggers on \"search brave\", \"brave search\", needing current web info, image search",
+  "repo": "ratacat/claude-skills",
+  "category": "data",
+  "tags": [
+    "brave",
+    "search"
+  ],
+  "stars": 8,
+  "source": "SkillsMP Synced Skills"
+}

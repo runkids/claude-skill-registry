@@ -1,0 +1,13 @@
+{
+  "name": "context-database-schema",
+  "description": "Supabase PostgreSQL schema management, 86+ migrations, RLS policies, and type generation.Handles table creation, schema changes, migrations, foreign key constraints, and migration workflows.Use when w",
+  "repo": "stars-end/affordabot",
+  "category": "data",
+  "tags": [
+    "context",
+    "database",
+    "schema"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

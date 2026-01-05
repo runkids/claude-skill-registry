@@ -1,0 +1,11 @@
+{
+  "name": "svelte5-development",
+  "description": "Comprehensive Svelte 5 and SvelteKit development guidance. Use this skill when building Svelte components, working with runes, or developing SvelteKit applications. Covers reactive patterns, component",
+  "repo": "splinesreticulating/claude-svelte5-skill",
+  "category": "development",
+  "tags": [
+    "svelte5",
+    "development"
+  ],
+  "stars": 1
+}

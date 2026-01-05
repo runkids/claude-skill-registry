@@ -1,0 +1,11 @@
+{
+  "name": "hive-mcp",
+  "description": "Use the Agent Hive MCP (Model Context Protocol) server for programmatic project management. Use this skill when working with MCP tools to list projects, claim/release projects, update status, add note",
+  "repo": "intertwine/hive-orchestrator",
+  "category": "data",
+  "tags": [
+    "hive",
+    "mcp"
+  ],
+  "stars": 6
+}

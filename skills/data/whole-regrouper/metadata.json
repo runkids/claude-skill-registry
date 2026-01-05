@@ -1,0 +1,11 @@
+{
+  "name": "whole-regrouper",
+  "description": "Phân tích, gom nhóm, và ĐỒNG BỘ THÔNG MINH giữa Tổng Quan listing và actual group headers.v5.0.0: Intelligent Analysis - không giả định grouping nào tốt hơn, phân tích thực sự cả hai.",
+  "repo": "Goobee811/Whole",
+  "category": "data",
+  "tags": [
+    "whole",
+    "regrouper"
+  ],
+  "stars": 1
+}

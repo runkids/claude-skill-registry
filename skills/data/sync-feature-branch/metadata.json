@@ -1,0 +1,12 @@
+{
+  "name": "sync-feature-branch",
+  "description": "Commit current work to feature branch with Beads metadata tracking and git integration. MUST BE USED for all commit operations.Handles Feature-Key trailers, Beads status updates, and optional quick li",
+  "repo": "stars-end/agent-skills",
+  "category": "data",
+  "tags": [
+    "sync",
+    "feature",
+    "branch"
+  ],
+  "stars": 0
+}

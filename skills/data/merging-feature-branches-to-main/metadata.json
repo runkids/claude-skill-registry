@@ -1,0 +1,13 @@
+{
+  "name": "merging-feature-branches-to-main",
+  "description": "Use when feature branch is complete and reviewed, ready to merge to main - squashes multiple commits into single clean commit in main using git merge --squash",
+  "repo": "WesleyMFrederick/cc-workflows",
+  "category": "data",
+  "tags": [
+    "merging",
+    "feature",
+    "branches",
+    "main"
+  ],
+  "stars": 1
+}

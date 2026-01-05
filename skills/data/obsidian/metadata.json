@@ -1,0 +1,10 @@
+{
+  "name": "obsidian",
+  "description": "Read, write, search, and manage Obsidian vault notes. Use when: (1) Reading/writing markdown notes, (2) Searching vault content, (3) Managing daily/periodic notes, (4) Tracking tasks or oncall inciden",
+  "repo": "kennyg/obsidian-skill",
+  "category": "data",
+  "tags": [
+    "obsidian"
+  ],
+  "stars": 0
+}

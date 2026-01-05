@@ -1,0 +1,11 @@
+{
+  "name": "surrealdb-python",
+  "description": "Master SurrealDB 2.3.x with Python for multi-model database operations including CRUD, graph relationships, vector search, and real-time queries. Use when working with SurrealDB databases, implementin",
+  "repo": "ActiveInferenceInstitute/Journal-Utilities",
+  "category": "data",
+  "tags": [
+    "surrealdb",
+    "python"
+  ],
+  "stars": 9
+}

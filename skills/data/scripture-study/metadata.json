@@ -1,0 +1,11 @@
+{
+  "name": "scripture-study",
+  "description": "Study scripture by retrieving and merging all available commentary data for one or more verses. Supports verse ranges, depth levels (light/medium/full), and optional filtering by tool type.",
+  "repo": "authenticwalk/mybibletoolbox-code",
+  "category": "data",
+  "tags": [
+    "scripture",
+    "study"
+  ],
+  "stars": 1
+}

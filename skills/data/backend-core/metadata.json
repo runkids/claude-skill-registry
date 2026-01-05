@@ -1,0 +1,12 @@
+{
+  "name": "backend-core",
+  "description": "Language-agnostic backend patterns: API design, authentication, security, databases.Use when: designing APIs, implementing auth, securing endpoints, modeling data.Triggers: \"api design\", \"rest api\", \"",
+  "repo": "timequity/vibe-coder",
+  "category": "data",
+  "tags": [
+    "backend",
+    "core"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

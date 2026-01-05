@@ -1,0 +1,11 @@
+{
+  "name": "postgresql-psql",
+  "description": "Comprehensive guide for PostgreSQL psql - the interactive terminal client for PostgreSQL. Use when connecting to PostgreSQL databases, executing queries, managing databases/tables, configuring connect",
+  "repo": "akornmeier/claude-config",
+  "category": "data",
+  "tags": [
+    "postgresql",
+    "psql"
+  ],
+  "stars": 0
+}

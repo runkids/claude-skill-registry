@@ -1,0 +1,12 @@
+{
+  "name": "adr-review",
+  "description": "Reviews implemented ADRs by comparing them against actual implementation and updating feedback sections. Use this when the user wants to review an ADR implementation, validate architectural decisions,",
+  "repo": "cmd-llm/cllm",
+  "category": "data",
+  "tags": [
+    "adr",
+    "review"
+  ],
+  "stars": 7,
+  "source": "SkillsMP Synced Skills"
+}

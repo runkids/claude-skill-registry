@@ -1,0 +1,11 @@
+{
+  "name": "prompt-generator",
+  "description": "Allows claude to help you craft a perfect PROMPT",
+  "repo": "pastjean/dotfiles",
+  "category": "development",
+  "tags": [
+    "prompt",
+    "generator"
+  ],
+  "stars": 8
+}

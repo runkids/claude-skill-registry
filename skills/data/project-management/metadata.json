@@ -1,0 +1,11 @@
+{
+  "name": "project-management",
+  "description": "Gestion de projet et relation client pour agence Web - Brief, estimation, planning, suivi, communication, livraison, facturation",
+  "repo": "truchot/claude-skills-test",
+  "category": "data",
+  "tags": [
+    "project",
+    "management"
+  ],
+  "stars": 0
+}

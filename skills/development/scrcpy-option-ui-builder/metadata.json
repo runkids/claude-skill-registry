@@ -1,0 +1,12 @@
+{
+  "name": "scrcpy-option-ui-builder",
+  "description": "This skill should modify the category screens and add the requested scrcpy options to the UI, depending on the type of the option (text, toggle, dropdown, etc.). Use this skill for adding new scrcpy o",
+  "repo": "Codertainment/scrcpy_buddy",
+  "category": "development",
+  "tags": [
+    "scrcpy",
+    "option",
+    "builder"
+  ],
+  "stars": 1
+}

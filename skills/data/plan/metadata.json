@@ -1,0 +1,10 @@
+{
+  "name": "plan",
+  "description": "Creates detailed implementation plan from validated research. Produces task breakdown with dependencies.",
+  "repo": "ferdiangunawan/skills",
+  "category": "data",
+  "tags": [
+    "plan"
+  ],
+  "stars": 2
+}

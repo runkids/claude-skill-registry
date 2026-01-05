@@ -1,0 +1,11 @@
+{
+  "name": "gmcli",
+  "description": "Gmail CLI for searching emails, reading threads, sending messages, managing drafts, and handling labels/attachments.",
+  "repo": "badlogic/pi-skills",
+  "category": "data",
+  "tags": [
+    "gmcli"
+  ],
+  "stars": 72,
+  "source": "SkillsMP Synced Skills"
+}

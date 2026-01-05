@@ -1,0 +1,11 @@
+{
+  "name": "agents",
+  "description": "List all AI agents with versions and deployment status. Use when checking agent health, versions, or deployment state.",
+  "repo": "X-McKay/kubani",
+  "category": "data",
+  "tags": [
+    "agents"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

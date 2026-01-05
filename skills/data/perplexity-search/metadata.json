@@ -1,0 +1,12 @@
+{
+  "name": "perplexity-search",
+  "description": "Perform AI-powered web searches with real-time information using Perplexity models via LiteLLM and OpenRouter. This skill should be used when conducting web searches for current information, finding r",
+  "repo": "davila7/claude-code-templates",
+  "category": "data",
+  "tags": [
+    "perplexity",
+    "search"
+  ],
+  "stars": 14334,
+  "source": "SkillsMP Synced Skills"
+}

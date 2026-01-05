@@ -1,0 +1,10 @@
+{
+  "name": "python",
+  "description": "Guidelines when creating, reading, updating, or deleting Python code",
+  "repo": "joeyagreco/dotfiles",
+  "category": "development",
+  "tags": [
+    "python"
+  ],
+  "stars": 2
+}

@@ -1,0 +1,12 @@
+{
+  "name": "linear-cli",
+  "description": "Manage Linear issues from the command line using the linear cli. This skill allows automating linear management.",
+  "repo": "schpet/linear-cli",
+  "category": "development",
+  "tags": [
+    "linear",
+    "cli"
+  ],
+  "stars": 116,
+  "source": "SkillsMP Synced Skills"
+}

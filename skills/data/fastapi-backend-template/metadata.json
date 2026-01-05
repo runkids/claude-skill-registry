@@ -1,0 +1,13 @@
+{
+  "name": "fastapi-backend-template",
+  "description": "FastAPI with PostgreSQL, async SQLAlchemy 2.0, Alembic, and Docker.",
+  "repo": "Eng0AI/eng0-template-skills",
+  "category": "data",
+  "tags": [
+    "fastapi",
+    "backend",
+    "template"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

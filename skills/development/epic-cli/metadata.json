@@ -1,0 +1,12 @@
+{
+  "name": "epic-cli",
+  "description": "Use the Epic CLI for project management, issue tracking, PR workflows, git worktrees, and debugging. Triggers on requests like \"create a project\", \"start an issue\", \"work on PR\", \"create worktree\", or",
+  "repo": "coeus-ventures/web-template",
+  "category": "development",
+  "tags": [
+    "epic",
+    "cli"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

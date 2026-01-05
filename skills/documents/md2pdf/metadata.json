@@ -1,0 +1,10 @@
+{
+  "name": "md2pdf",
+  "description": "Convert a markdown file to PDF using pandoc",
+  "repo": "stanleyhsu/hello-mcp",
+  "category": "documents",
+  "tags": [
+    "md2pdf"
+  ],
+  "stars": 0
+}

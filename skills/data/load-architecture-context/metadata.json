@@ -1,0 +1,12 @@
+{
+  "name": "load-architecture-context",
+  "description": "Load architecture principles and core conventions for grounding work against project standards - simple context loading for all workflow stages",
+  "repo": "WesleyMFrederick/cc-workflows",
+  "category": "data",
+  "tags": [
+    "load",
+    "architecture",
+    "context"
+  ],
+  "stars": 1
+}

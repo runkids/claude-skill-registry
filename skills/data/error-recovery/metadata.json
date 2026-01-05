@@ -1,0 +1,12 @@
+{
+  "name": "error-recovery",
+  "description": "Classify workflow failures and attempt automatic recovery. Use when sprint/feature fails during implementation to determine if auto-fix is possible or manual intervention required.",
+  "repo": "marcusgoll/Spec-Flow",
+  "category": "data",
+  "tags": [
+    "error",
+    "recovery"
+  ],
+  "stars": 16,
+  "source": "SkillsMP Synced Skills"
+}

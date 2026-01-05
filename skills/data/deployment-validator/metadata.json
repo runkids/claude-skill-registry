@@ -1,0 +1,12 @@
+{
+  "name": "deployment-validator",
+  "description": "Validates application readiness for Render/production deployment. Auto-runs when user mentions deployment. Prevents \"works locally, fails in production\" issues. Always run this BEFORE any deployment.",
+  "repo": "HR-AR/Project-Conductor",
+  "category": "data",
+  "tags": [
+    "deployment",
+    "validator"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

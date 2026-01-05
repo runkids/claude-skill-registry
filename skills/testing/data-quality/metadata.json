@@ -1,0 +1,12 @@
+{
+  "name": "data-quality",
+  "description": "Data quality testing with dbt tests, Great Expectations, and monitoring.",
+  "repo": "timequity/vibe-coder",
+  "category": "testing",
+  "tags": [
+    "data",
+    "quality"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

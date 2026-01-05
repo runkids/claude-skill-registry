@@ -1,0 +1,11 @@
+{
+  "name": "nano-banana",
+  "description": "Generate, edit, and compose images using Google's Gemini 3 Pro Image model (Nano Banana Pro). Use this skill when the user asks to create images, generate visuals, edit photos, compose multiple images",
+  "repo": "devonjones/skill-nano-banana",
+  "category": "data",
+  "tags": [
+    "nano",
+    "banana"
+  ],
+  "stars": 0
+}

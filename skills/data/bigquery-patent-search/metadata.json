@@ -1,0 +1,13 @@
+{
+  "name": "bigquery-patent-search",
+  "description": "Fast, cloud-based patent searching across 76 million+ worldwide patents using Google BigQuery - keyword search, CPC classification, patent details retrieval",
+  "repo": "RobThePCGuy/Claude-Patent-Creator",
+  "category": "data",
+  "tags": [
+    "bigquery",
+    "patent",
+    "search"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

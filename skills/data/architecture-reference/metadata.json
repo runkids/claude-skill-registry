@@ -1,0 +1,12 @@
+{
+  "name": "architecture-reference",
+  "description": "Quick reference for Portfolio Buddy 2 project structure. Use when: adding new features, modifying existing components, understanding data flow, or onboarding to the codebase. Contains component hierar",
+  "repo": "5MinFutures/futures-arena",
+  "category": "data",
+  "tags": [
+    "architecture",
+    "reference"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "agent-design",
+  "description": "AI agent design and tool-use prompting patterns",
+  "repo": "pluginagentmarketplace/custom-plugin-prompt-engineering",
+  "category": "data",
+  "tags": [
+    "agent",
+    "design"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

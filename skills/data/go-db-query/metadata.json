@@ -1,0 +1,10 @@
+{
+  "name": "go-db-query",
+  "description": "Skills for querying Gene Ontology annotation databases in DuckDB format. Use this for queries about GO annotations, genes, terms, evidence codes, or taxonomic relationships in GO-DB databases (db/*.dd",
+  "repo": "cmungall/go-db",
+  "category": "data",
+  "tags": [
+    "query"
+  ],
+  "stars": 1
+}

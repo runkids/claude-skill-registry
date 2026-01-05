@@ -1,0 +1,14 @@
+{
+  "name": "n8n-mcp-tools-expert",
+  "description": "n8n-mcp MCP tools, validation profiles, nodeType formats",
+  "repo": "czlonkowski/n8n-skills",
+  "category": "development",
+  "tags": [
+    "n8n",
+    "mcp",
+    "automation",
+    "tools"
+  ],
+  "stars": 0,
+  "source": "Community Skills"
+}

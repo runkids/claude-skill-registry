@@ -1,0 +1,12 @@
+{
+  "name": "data-extraction",
+  "description": "Extract structured data from neurosurgical studies",
+  "repo": "matheus-rech/meta-agent",
+  "category": "data",
+  "tags": [
+    "data",
+    "extraction"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

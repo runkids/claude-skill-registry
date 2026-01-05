@@ -1,0 +1,12 @@
+{
+  "name": "fastapi-patterns",
+  "description": "Automatically applies when creating FastAPI endpoints, routers, and API structures. Enforces best practices for endpoint definitions, dependency injection, error handling, and documentation.",
+  "repo": "ricardoroche/ricardos-claude-code",
+  "category": "documents",
+  "tags": [
+    "fastapi",
+    "patterns"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "prompt-engineer",
+  "description": "Use this skill when creating, improving, or optimizing prompts for Claude. Applies Anthropic's best practices for prompt engineering including clarity, structure, consistency, hallucination reduction,",
+  "repo": "chrispangg/deepagentsdk",
+  "category": "data",
+  "tags": [
+    "prompt",
+    "engineer"
+  ],
+  "stars": 57,
+  "source": "SkillsMP Synced Skills"
+}

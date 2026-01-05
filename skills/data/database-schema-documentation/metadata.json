@@ -1,0 +1,13 @@
+{
+  "name": "database-schema-documentation",
+  "description": "Document database schemas, ERD diagrams, table relationships, indexes, and constraints. Use when documenting database schema, creating ERD diagrams, or writing table documentation.",
+  "repo": "aj-geddes/useful-ai-prompts",
+  "category": "data",
+  "tags": [
+    "database",
+    "schema",
+    "documentation"
+  ],
+  "stars": 25,
+  "source": "SkillsMP Synced Skills"
+}

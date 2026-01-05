@@ -1,0 +1,12 @@
+{
+  "name": "consensus-voting",
+  "description": "Multi-agent consensus voting with domain-weighted expertise for critical decisions requiring structured validation",
+  "repo": "rysweet/MicrosoftHackathon2025-AgenticCoding",
+  "category": "data",
+  "tags": [
+    "consensus",
+    "voting"
+  ],
+  "stars": 10,
+  "source": "SkillsMP Synced Skills"
+}

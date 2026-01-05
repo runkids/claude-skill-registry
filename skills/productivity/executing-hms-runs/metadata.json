@@ -1,0 +1,13 @@
+{
+  "name": "executing-hms-runs",
+  "description": "Executes HEC-HMS simulations using HmsCmdr.compute_run(), handles parallelexecution across multiple runs, and manages Jython script generation. Use whenrunning HMS simulations, executing runs, computi",
+  "repo": "gpt-cmdr/hms-commander",
+  "category": "productivity",
+  "tags": [
+    "executing",
+    "hms",
+    "runs"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

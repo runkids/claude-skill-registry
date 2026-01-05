@@ -1,0 +1,10 @@
+{
+  "name": "marimo",
+  "description": "Create reactive Python notebooks for IMSA racing data analysis using marimo. Use for building interactive filtering UIs (seasons, classes, events), connecting to DuckDB databases, creating reactive vi",
+  "repo": "tobi/imsa_data",
+  "category": "data",
+  "tags": [
+    "marimo"
+  ],
+  "stars": 0
+}

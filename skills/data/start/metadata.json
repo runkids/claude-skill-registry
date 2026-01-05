@@ -1,0 +1,10 @@
+{
+  "name": "start",
+  "description": "Lean session start. Asks focus area first, then loads only relevant context. Use when \"start\" is said at session beginning.",
+  "repo": "joshuacook/motoko",
+  "category": "data",
+  "tags": [
+    "start"
+  ],
+  "stars": 0
+}

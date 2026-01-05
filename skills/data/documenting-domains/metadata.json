@@ -1,0 +1,12 @@
+{
+  "name": "documenting-domains",
+  "description": "コードベース分析からドメイン理解ドキュメントを生成。 エンティティ、ビジネスロジック、ドメイン用語、概念関係を抽出。 トリガー: domain understanding, glossary, entities, business logic, domain model, ER diagram, use cases.",
+  "repo": "thkt/claude-config",
+  "category": "data",
+  "tags": [
+    "documenting",
+    "domains"
+  ],
+  "stars": 3,
+  "source": "SkillsMP Synced Skills"
+}

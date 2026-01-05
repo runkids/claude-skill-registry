@@ -1,0 +1,11 @@
+{
+  "name": "evaluator",
+  "description": "Skill evaluation and telemetry framework. Collects anonymous usage data and feedback via GitHub Issues and Projects. Privacy-first, opt-in, transparent. Helps improve ClaudeShack skills based on real-",
+  "repo": "Overlord-Z/ClaudeShack",
+  "category": "data",
+  "tags": [
+    "evaluator"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "health-checks",
+  "description": "Implement liveness, readiness, and dependency health checks",
+  "repo": "nexus-labs-automation/backend-observability",
+  "category": "development",
+  "tags": [
+    "health",
+    "checks"
+  ],
+  "stars": 0
+}

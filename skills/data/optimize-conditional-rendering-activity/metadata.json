@@ -1,0 +1,13 @@
+{
+  "name": "optimize-conditional-rendering-activity",
+  "description": "Activityコンポーネントを使用してすべての条件付きレンダリングを処理します。タブ、モーダル、表示/非表示UI、APIレスポンス状態（loading、error、empty、data）に必須です。",
+  "repo": "nayukata/notify-patch-notes",
+  "category": "data",
+  "tags": [
+    "optimize",
+    "conditional",
+    "rendering",
+    "activity"
+  ],
+  "stars": 0
+}

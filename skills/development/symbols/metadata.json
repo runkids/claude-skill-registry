@@ -1,0 +1,10 @@
+{
+  "name": "symbols",
+  "description": "Token-efficient codebase navigation through intelligent symbol loading and querying. Use this skill when implementing new features (find existing patterns), exploring codebase structure, searching for",
+  "repo": "miethe/skillmeat",
+  "category": "development",
+  "tags": [
+    "symbols"
+  ],
+  "stars": 0
+}

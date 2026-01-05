@@ -1,0 +1,12 @@
+{
+  "name": "better-auth-ts",
+  "description": "Better Auth TypeScript/JavaScript authentication library. Use when implementing auth in Next.js, React, Express, or any TypeScript project. Covers email/password, OAuth, JWT, sessions, 2FA, magic link",
+  "repo": "Syedaashnaghazanfar/full-stack-todo-app",
+  "category": "data",
+  "tags": [
+    "better",
+    "auth"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

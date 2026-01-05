@@ -1,0 +1,12 @@
+{
+  "name": "cascade-orchestrator",
+  "description": "Creates sophisticated workflow cascades coordinating multiple micro-skills with sequential pipelines, parallel execution, conditional branching, and Codex sandbox iteration. Enhanced with multi-model ",
+  "repo": "DNYoussef/context-cascade",
+  "category": "productivity",
+  "tags": [
+    "cascade",
+    "orchestrator"
+  ],
+  "stars": 5,
+  "source": "SkillsMP Synced Skills"
+}

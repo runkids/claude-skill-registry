@@ -1,0 +1,11 @@
+{
+  "name": "create-app",
+  "description": "Use this skill whenever creating a new application. IMPORTANT: This should be the FIRST thing you read when starting a new project. IMPORTANT: Read this before planning or brainstorming.",
+  "repo": "akulkarni/0perator",
+  "category": "data",
+  "tags": [
+    "create",
+    "app"
+  ],
+  "stars": 0
+}

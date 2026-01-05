@@ -1,0 +1,12 @@
+{
+  "name": "repomix-unmixer",
+  "description": "Extracts files from repomix-packed repositories, restoring original directory structures from XML/Markdown/JSON formats. Activates when users need to unmix repomix files, extract packed repositories, ",
+  "repo": "daymade/claude-code-skills",
+  "category": "data",
+  "tags": [
+    "repomix",
+    "unmixer"
+  ],
+  "stars": 110,
+  "source": "SkillsMP Synced Skills"
+}

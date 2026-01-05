@@ -1,0 +1,13 @@
+{
+  "name": "docker-compose-setup",
+  "description": "Set up multi-container applications with Docker Compose including services, networks, and volumes",
+  "repo": "pluginagentmarketplace/custom-plugin-docker",
+  "category": "data",
+  "tags": [
+    "docker",
+    "compose",
+    "setup"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

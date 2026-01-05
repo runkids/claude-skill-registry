@@ -1,0 +1,13 @@
+{
+  "name": "careercopilot-agent-scaffolder",
+  "description": "\"Scaffolds a new Python agent file in 'src/agents/' from a template. Use when asked to create a new agent.\"",
+  "repo": "okgoogle13/careercopilot",
+  "category": "development",
+  "tags": [
+    "careercopilot",
+    "agent",
+    "scaffolder"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

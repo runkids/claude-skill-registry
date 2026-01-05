@@ -1,0 +1,11 @@
+{
+  "name": "react",
+  "description": "React rules for the project Applies to files matching: **/*.tsx.",
+  "repo": "FranciscoMoretti/sparka",
+  "category": "development",
+  "tags": [
+    "react"
+  ],
+  "stars": 842,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "structured-output",
+  "description": "Use when extracting structured data from LLMs, parsing JSON responses, or enforcing output schemas - unified JSON schema API works across OpenAI, Anthropic, Google, and Ollama with automatic validatio",
+  "repo": "juanre/llmring",
+  "category": "data",
+  "tags": [
+    "structured",
+    "output"
+  ],
+  "stars": 3
+}

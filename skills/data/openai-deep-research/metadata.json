@@ -1,0 +1,12 @@
+{
+  "name": "openai-deep-research",
+  "description": "Use OpenAI's Deep Research API (o3 / o4 models) to automate multi-step, citation-backed research workflows.",
+  "repo": "closedloop-technologies/awesome-deep-researchers",
+  "category": "data",
+  "tags": [
+    "openai",
+    "deep",
+    "research"
+  ],
+  "stars": 2
+}

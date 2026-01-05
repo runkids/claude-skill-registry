@@ -1,0 +1,11 @@
+{
+  "name": "brainstorm",
+  "description": "Interactive idea refinement using Socratic questioning methodology. This skill should be used when users want to explore an idea, find gaps in concepts, enhance proposals, or structure thoughts before",
+  "repo": "mhylle/claude-skills-collection",
+  "category": "data",
+  "tags": [
+    "brainstorm"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

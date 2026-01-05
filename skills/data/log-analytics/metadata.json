@@ -1,0 +1,11 @@
+{
+  "name": "log-analytics",
+  "description": "Generate and execute Python code to analyze large log datasets, detect patterns, and extract actionable insights",
+  "repo": "My3VM/CladeSkillDemo",
+  "category": "data",
+  "tags": [
+    "log",
+    "analytics"
+  ],
+  "stars": 0
+}

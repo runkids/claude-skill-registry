@@ -1,0 +1,12 @@
+{
+  "name": "etl-tools",
+  "description": "Apache Airflow, Spark, Kafka, Flink, dbt, and modern data transformation tools",
+  "repo": "pluginagentmarketplace/custom-plugin-data-engineer",
+  "category": "data",
+  "tags": [
+    "etl",
+    "tools"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

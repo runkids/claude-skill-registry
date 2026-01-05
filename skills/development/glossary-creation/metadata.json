@@ -1,0 +1,11 @@
+{
+  "name": "glossary-creation",
+  "description": "用語集を作成するための詳細ガイドとテンプレート。用語集作成時にのみ使用。",
+  "repo": "GenerativeAgents/claude-code-book-chapter8",
+  "category": "development",
+  "tags": [
+    "glossary",
+    "creation"
+  ],
+  "stars": 1
+}

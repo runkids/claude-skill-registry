@@ -1,0 +1,11 @@
+{
+  "name": "project-scaffolding",
+  "description": "IDE-grade project scaffolding wizard for creating new projects with comprehensive configuration. Supports 50+ project types including HTML/CSS websites, React, Next.js, Vue, Astro, Remix, React Native",
+  "repo": "hmohamed01/Claude-Code-Scaffolding-Skill",
+  "category": "data",
+  "tags": [
+    "project",
+    "scaffolding"
+  ],
+  "stars": 18
+}

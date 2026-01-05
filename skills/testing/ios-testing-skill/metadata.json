@@ -1,0 +1,12 @@
+{
+  "name": "ios-testing-skill",
+  "description": "Skill describing modern iOS testing patterns: Swift Testing vs XCTest, XCUITest best practices, and OS 4.1 expectations for coverage and flakiness.",
+  "repo": "adilkalam/orca",
+  "category": "testing",
+  "tags": [
+    "ios",
+    "testing",
+    "skill"
+  ],
+  "stars": 0
+}

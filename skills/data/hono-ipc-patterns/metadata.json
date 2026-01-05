@@ -1,0 +1,12 @@
+{
+  "name": "hono-ipc-patterns",
+  "description": "Advanced patterns for Hono-based Electron IPC including CQRS, Zod validation, error handling, and reactive data with RxJS. Use when implementing complex IPC patterns or needing guidance on architectur",
+  "repo": "naporin0624/claude-plugin-hono-electron",
+  "category": "data",
+  "tags": [
+    "hono",
+    "ipc",
+    "patterns"
+  ],
+  "stars": 0
+}

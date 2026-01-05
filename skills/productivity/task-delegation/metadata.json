@@ -1,0 +1,11 @@
+{
+  "name": "task-delegation",
+  "description": "Delegate user stories with complete context, clear acceptance criteria, and validation",
+  "repo": "vineethsoma/agent-packages",
+  "category": "productivity",
+  "tags": [
+    "task",
+    "delegation"
+  ],
+  "stars": 0
+}

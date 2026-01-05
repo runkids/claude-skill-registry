@@ -1,0 +1,13 @@
+{
+  "name": "database-reset-production",
+  "description": "Resets production database with full schema drop. EXTREME CAUTION - deletes all production data. SINGLE SOURCE OF TRUTH for production database reset automation.",
+  "repo": "DarkMonkDev/WitchCityRope",
+  "category": "data",
+  "tags": [
+    "database",
+    "reset",
+    "production"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

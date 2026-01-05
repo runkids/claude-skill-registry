@@ -1,0 +1,14 @@
+{
+  "name": "android-release-notes-structure",
+  "description": "Create Play Store release notes directory structure with locale templates (Fastlane metadata)",
+  "repo": "hitoshura25/claude-devtools",
+  "category": "data",
+  "tags": [
+    "android",
+    "release",
+    "notes",
+    "structure"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

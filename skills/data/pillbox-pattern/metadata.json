@@ -1,0 +1,11 @@
+{
+  "name": "pillbox-pattern",
+  "description": "User interface pattern. When Claude needs to create an editable text region that contains inline pills or tokens, along with the ability to add them using a mention menu.",
+  "repo": "toddmoy/protobox",
+  "category": "data",
+  "tags": [
+    "pillbox",
+    "pattern"
+  ],
+  "stars": 0
+}

@@ -1,0 +1,11 @@
+{
+  "name": "model-skill",
+  "description": "Create Pydantic v2 data models with validation, type hints, and proper configuration. Use when designing data structures or schemas.",
+  "repo": "maneeshanif/cli-todo-app-speckit",
+  "category": "data",
+  "tags": [
+    "model",
+    "skill"
+  ],
+  "stars": 0
+}

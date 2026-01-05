@@ -1,0 +1,11 @@
+{
+  "name": "researching-features",
+  "description": "\"Research external APIs/services/libraries for feature implementation. Interviews user, researches options, confirms choice, gathers implementation notes. Creates .claude/plans file.\"",
+  "repo": "seanchiuai/claude-code-workflow",
+  "category": "product",
+  "tags": [
+    "researching",
+    "features"
+  ],
+  "stars": 0
+}

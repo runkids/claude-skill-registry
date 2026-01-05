@@ -1,0 +1,11 @@
+{
+  "name": "git-expert",
+  "description": "Git domain expert.Knows about:- Status, Switch, Create Branch, Commit, Pull, Push, LogUse when:- User asks about git operations- Context needed before starting work- Reviewing git status- Managing git",
+  "repo": "nathanvale/vtm-cli",
+  "category": "data",
+  "tags": [
+    "git",
+    "expert"
+  ],
+  "stars": 0
+}

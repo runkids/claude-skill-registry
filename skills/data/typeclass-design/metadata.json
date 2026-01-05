@@ -1,0 +1,11 @@
+{
+  "name": "typeclass-design",
+  "description": "Implement typeclasses with curried signatures and dual APIs for both data-first and data-last usage",
+  "repo": "front-depiction/cli-stock",
+  "category": "data",
+  "tags": [
+    "typeclass",
+    "design"
+  ],
+  "stars": 1
+}

@@ -1,0 +1,13 @@
+{
+  "name": "effect-layers-services",
+  "description": "Define services, provide layers, compose dependencies, and switch live/test. Use for DI boundaries and app composition.",
+  "repo": "mepuka/effect-ontology",
+  "category": "testing",
+  "tags": [
+    "effect",
+    "layers",
+    "services"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

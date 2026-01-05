@@ -1,0 +1,10 @@
+{
+  "name": "writing",
+  "description": "\"Assists with writing and editing general prose using Strunk & White's Elements of Style and Wikipedia's AI writing detection guide. Use when composing articles, blog posts, or editing text for clarit",
+  "repo": "edwinhu/claude-code-writing-skill",
+  "category": "data",
+  "tags": [
+    "writing"
+  ],
+  "stars": 0
+}

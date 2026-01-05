@@ -1,0 +1,12 @@
+{
+  "name": "arch-check",
+  "description": "Verify architecture health including layer violations, circular dependencies, package structure, and design pattern compliance",
+  "repo": "pwittchen/varun.surf",
+  "category": "design",
+  "tags": [
+    "arch",
+    "check"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

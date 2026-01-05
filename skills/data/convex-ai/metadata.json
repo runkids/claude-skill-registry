@@ -1,0 +1,10 @@
+{
+  "name": "convex-ai",
+  "description": "Convex AI Integration - OpenAI, actions, streaming, and AI patterns with database integration",
+  "repo": "astersnake/convex-claude-plugin",
+  "category": "data",
+  "tags": [
+    "convex"
+  ],
+  "stars": 0
+}

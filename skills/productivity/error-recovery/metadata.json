@@ -1,0 +1,12 @@
+{
+  "name": "error-recovery",
+  "description": "RPA error handling patterns (fallback, retry, skip, user notification) for resilient automation workflows. Use when: handling errors in RPA workflows, error recovery strategies, retry patterns, gracef",
+  "repo": "omerlefaruk/CasareRPA",
+  "category": "productivity",
+  "tags": [
+    "error",
+    "recovery"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

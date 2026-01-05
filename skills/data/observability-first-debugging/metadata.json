@@ -1,0 +1,13 @@
+{
+  "name": "observability-first-debugging",
+  "description": "Systematic debugging methodology that eliminates guessing and speculation. Add instrumentation to gather specific data that fully explains the problem. Evidence before hypothesis. Observation before s",
+  "repo": "NTCoding/claude-skillz",
+  "category": "data",
+  "tags": [
+    "observability",
+    "first",
+    "debugging"
+  ],
+  "stars": 87,
+  "source": "SkillsMP Synced Skills"
+}

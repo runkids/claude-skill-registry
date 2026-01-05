@@ -1,0 +1,13 @@
+{
+  "name": "effect-collections-datastructs",
+  "description": "Value-based data structures (Data.struct, tuple, array) and high-performance collections (Chunk, HashSet). Use for safe comparisons and pipelines.",
+  "repo": "mepuka/effect-ontology",
+  "category": "data",
+  "tags": [
+    "effect",
+    "collections",
+    "datastructs"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

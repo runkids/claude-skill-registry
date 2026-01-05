@@ -1,0 +1,14 @@
+{
+  "name": "bcpao-data-extraction-skill",
+  "description": "Extract property data from Brevard County Property Appraiser GIS API including photos, valuations, and parcel details",
+  "repo": "breverdbidder/brevard-bidder-landing",
+  "category": "data",
+  "tags": [
+    "bcpao",
+    "data",
+    "extraction",
+    "skill"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

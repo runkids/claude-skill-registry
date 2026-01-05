@@ -1,0 +1,11 @@
+{
+  "name": "maintain-designs",
+  "description": "Skill for maintaining clear, DRY, and easy-to-navigate design documents for architect agents.",
+  "repo": "nibsbin/quillmark",
+  "category": "data",
+  "tags": [
+    "maintain",
+    "designs"
+  ],
+  "stars": 9
+}

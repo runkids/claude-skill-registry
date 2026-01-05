@@ -1,0 +1,13 @@
+{
+  "name": "curate-genome-assembly",
+  "description": "Process genome assembly datasets for VEuPathDB resources",
+  "repo": "VEuPathDB/dataset-curator",
+  "category": "data",
+  "tags": [
+    "curate",
+    "genome",
+    "assembly"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "ai-models",
+  "description": "OpenAI APIモデル選定、GPT-5/GPT-4.1使い分け、AI機能実装。AIモデル、OpenAI、GPT、API呼び出し、モデル選択時に使用。",
+  "repo": "kimny1143/mued_v2",
+  "category": "data",
+  "tags": [
+    "models"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

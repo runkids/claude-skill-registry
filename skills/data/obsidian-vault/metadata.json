@@ -1,0 +1,11 @@
+{
+  "name": "obsidian-vault",
+  "description": "Integrate with Obsidian vaults through the Local REST API plugin.Use this skill when the user wants to:- Search notes in their Obsidian vault- Read specific notes- Create new notes- Modify existing no",
+  "repo": "hancengiz/cc-obsidian-vault-api-skill",
+  "category": "data",
+  "tags": [
+    "obsidian",
+    "vault"
+  ],
+  "stars": 0
+}

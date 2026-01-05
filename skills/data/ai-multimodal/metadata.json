@@ -1,0 +1,11 @@
+{
+  "name": "ai-multimodal",
+  "description": "Process and generate multimedia content using Google Gemini API. Capabilities include analyze audio files (transcription with timestamps, summarization, speech understanding, music/sound analysis up t",
+  "repo": "mrgoonie/claudekit-skills",
+  "category": "data",
+  "tags": [
+    "multimodal"
+  ],
+  "stars": 1108,
+  "source": "SkillsMP Synced Skills"
+}

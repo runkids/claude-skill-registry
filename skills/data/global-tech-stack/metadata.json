@@ -1,0 +1,12 @@
+{
+  "name": "global-tech-stack",
+  "description": "Understand and utilize the project's technology stack including NestJS, Next.js, Prisma, PostgreSQL, and TypeScript. Use this skill when making technology decisions, when choosing libraries or package",
+  "repo": "imkdw/imkdw-dev",
+  "category": "data",
+  "tags": [
+    "global",
+    "tech",
+    "stack"
+  ],
+  "stars": 0
+}

@@ -1,0 +1,11 @@
+{
+  "name": "swarm-mail",
+  "description": "Coordinate with other agents using Swarm mail and file locking",
+  "repo": "tOgg1/forge",
+  "category": "data",
+  "tags": [
+    "swarm",
+    "mail"
+  ],
+  "stars": 1
+}

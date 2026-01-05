@@ -1,0 +1,10 @@
+{
+  "name": "performance",
+  "description": "Production-grade performance testing skill with k6, JMeter, load testing, stress testing, and performance optimization guidance",
+  "repo": "pluginagentmarketplace/custom-plugin-qa",
+  "category": "testing",
+  "tags": [
+    "performance"
+  ],
+  "stars": 1
+}

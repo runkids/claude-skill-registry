@@ -1,0 +1,11 @@
+{
+  "name": "db-handler",
+  "description": "Manage database schemas, Drizzle ORM, migrations, and data modeling. Use when creating tables, modifying columns, or planning database changes.",
+  "repo": "AayushBaniya2006/blinkfund",
+  "category": "data",
+  "tags": [
+    "handler"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

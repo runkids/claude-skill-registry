@@ -1,0 +1,13 @@
+{
+  "name": "data-fetching-patterns",
+  "description": "SWR-based data fetching and caching patterns used throughout the monorepo. Use this skill when implementing API interactions, creating custom data hooks, handling loading/error states, or working with",
+  "repo": "lsst-sqre/squareone",
+  "category": "data",
+  "tags": [
+    "data",
+    "fetching",
+    "patterns"
+  ],
+  "stars": 2,
+  "source": "SkillsMP Synced Skills"
+}

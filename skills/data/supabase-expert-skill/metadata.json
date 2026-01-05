@@ -1,0 +1,12 @@
+{
+  "name": "supabase-expert-skill",
+  "description": "Complete workflow for implementing data services and database architecture after the Implementer Agent has completed use cases. Provides rigorous step-by-step processes for making data service tests p",
+  "repo": "fercracix33/poli2-clean-architecture",
+  "category": "data",
+  "tags": [
+    "supabase",
+    "expert",
+    "skill"
+  ],
+  "stars": 0
+}

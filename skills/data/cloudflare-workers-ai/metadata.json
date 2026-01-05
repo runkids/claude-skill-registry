@@ -1,0 +1,12 @@
+{
+  "name": "cloudflare-workers-ai",
+  "description": "Complete knowledge domain for Cloudflare Workers AI - Run AI models on serverless GPUs across Cloudflare's global network.Use when: implementing AI inference on Workers, running LLM models, generating",
+  "repo": "jackspace/ClaudeSkillz",
+  "category": "data",
+  "tags": [
+    "cloudflare",
+    "workers"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

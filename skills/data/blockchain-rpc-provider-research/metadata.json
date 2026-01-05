@@ -1,0 +1,14 @@
+{
+  "name": "blockchain-rpc-provider-research",
+  "description": "Systematic workflow for researching and validating blockchain RPC providers. Use when evaluating RPC providers for historical data collection, rate limits, archive access, compute unit costs, or timel",
+  "repo": "terrylica/gapless-network-data",
+  "category": "data",
+  "tags": [
+    "blockchain",
+    "rpc",
+    "provider",
+    "research"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

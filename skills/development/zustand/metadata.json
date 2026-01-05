@@ -1,0 +1,10 @@
+{
+  "name": "zustand",
+  "description": "Zustand 5+ state management. Use when creating stores, selectors, middleware, or persisting state.",
+  "repo": "tirtza-weinfeld/hippocampx",
+  "category": "development",
+  "tags": [
+    "zustand"
+  ],
+  "stars": 0
+}

@@ -1,0 +1,13 @@
+{
+  "name": "apache-nifi-registry",
+  "description": "Expert guidance for Apache NiFi Registry including flow versioning, buckets, Git integration, security, and registry client configuration. Use this when working with flow version control and registry ",
+  "repo": "oriolrius/nifi-cluster",
+  "category": "testing",
+  "tags": [
+    "apache",
+    "nifi",
+    "registry"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

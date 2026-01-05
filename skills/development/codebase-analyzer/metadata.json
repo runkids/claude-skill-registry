@@ -1,0 +1,12 @@
+{
+  "name": "codebase-analyzer",
+  "description": "Analyze codebases to find patterns and anti-patterns, identify code duplication, suggest optimizations, analyze dependencies, and perform automated code reviews",
+  "repo": "deve1993/Quickfy-website",
+  "category": "development",
+  "tags": [
+    "codebase",
+    "analyzer"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

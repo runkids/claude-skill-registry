@@ -1,0 +1,13 @@
+{
+  "name": "analyze-simd-usage",
+  "description": "Analyze SIMD usage opportunities in Mojo code. Use to find performance optimization opportunities.",
+  "repo": "mvillmow/ProjectOdyssey",
+  "category": "development",
+  "tags": [
+    "analyze",
+    "simd",
+    "usage"
+  ],
+  "stars": 8,
+  "source": "SkillsMP Synced Skills"
+}

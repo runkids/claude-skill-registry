@@ -1,0 +1,11 @@
+{
+  "name": "performance",
+  "description": "Performance optimization guidelines for Splitrail. Use when optimizing parsing, reducing memory usage, or improving throughput.",
+  "repo": "Piebald-AI/splitrail",
+  "category": "data",
+  "tags": [
+    "performance"
+  ],
+  "stars": 75,
+  "source": "SkillsMP Synced Skills"
+}
