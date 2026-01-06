@@ -1,0 +1,8 @@
+{
+  "name": "svelte-game-writer",
+  "repo": "maximxlss/codextris",
+  "category": "development",
+  "description": "End-to-end planning, building, and testing of small-scale browser games in SvelteKit + TypeScript running in Docker, including scaffolding, game loop, input, UI, tests, and Docker dev/release setups. ",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:02:31.010706Z"
+}

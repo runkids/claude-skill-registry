@@ -1,0 +1,8 @@
+{
+  "name": "pyspark-transformer",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "data",
+  "description": "Pyspark Transformer - Auto-activating skill for Data Pipelines.Triggers on: pyspark transformer, pyspark transformerPart of the Data Pipelines skill category.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:55:53.644969Z"
+}

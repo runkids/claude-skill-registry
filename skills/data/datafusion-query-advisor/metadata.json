@@ -1,0 +1,8 @@
+{
+  "name": "datafusion-query-advisor",
+  "repo": "EmilLindfors/claude-marketplace",
+  "category": "data",
+  "description": "Reviews SQL queries and DataFrame operations for optimization opportunities including predicate pushdown, partition pruning, column projection, and join ordering. Activates when users write DataFusion",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:05:25.245473Z"
+}

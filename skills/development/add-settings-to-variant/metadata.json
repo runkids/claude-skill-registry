@@ -1,0 +1,8 @@
+{
+  "name": "add-settings-to-variant",
+  "repo": "cbgbt/bottlerocket-forest",
+  "category": "development",
+  "description": "Wire an existing settings model into a Bottlerocket variant via settings-plugins",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:28.509207Z"
+}

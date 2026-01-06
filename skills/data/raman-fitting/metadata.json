@@ -1,0 +1,8 @@
+{
+  "name": "raman-fitting",
+  "repo": "letta-ai/skills",
+  "category": "data",
+  "description": "This skill provides guidance for Raman spectrum peak fitting tasks. It should be used when analyzing spectroscopic data, fitting Lorentzian or Gaussian peaks to Raman spectra, or working with graphene",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:58:19.896784Z"
+}

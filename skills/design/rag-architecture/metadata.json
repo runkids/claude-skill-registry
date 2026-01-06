@@ -1,0 +1,8 @@
+{
+  "name": "rag-architecture",
+  "repo": "melodic-software/claude-code-plugins",
+  "category": "design",
+  "description": "Design retrieval-augmented generation pipelines including chunking, embedding, retrieval, and context assembly strategies.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:59:57.892883Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "dart-get-selected-widget",
+  "repo": "X-School-Academy/ai-dev-swarm",
+  "category": "development",
+  "description": "To find the currently selected Flutter widget in the running app, get the selected widget after connecting to the Dart Tooling Daemon.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:59:11.798212Z"
+}

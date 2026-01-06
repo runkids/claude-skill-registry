@@ -1,0 +1,8 @@
+{
+  "name": "kiro-integration",
+  "repo": "melodic-software/claude-code-plugins",
+  "category": "testing",
+  "description": "AWS Kiro specification patterns and synchronization. Use when working with Kiro IDE, syncing requirements.md/design.md/tasks.md files, or configuring steering files for AI agent context.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:11.314364Z"
+}

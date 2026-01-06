@@ -1,0 +1,8 @@
+{
+  "name": "structured-errors",
+  "repo": "ricardoroche/ricardos-claude-code",
+  "category": "data",
+  "description": "Automatically applies when writing error handling in APIs and tools. Ensures errors are returned as structured JSON with error, request_id, and timestamp (not plain strings).",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:07:54.589988Z"
+}

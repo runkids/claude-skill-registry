@@ -1,0 +1,8 @@
+{
+  "name": "nemo-guardrails",
+  "repo": "zechenzhangAGI/AI-research-SKILLs",
+  "category": "product",
+  "description": "NVIDIA's runtime safety framework for LLM applications. Features jailbreak detection, input/output validation, fact-checking, hallucination detection, PII filtering, toxicity detection. Uses Colang 2.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:18.731367Z"
+}

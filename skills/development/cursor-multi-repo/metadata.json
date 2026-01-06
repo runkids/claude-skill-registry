@@ -1,0 +1,8 @@
+{
+  "name": "cursor-multi-repo",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "development",
+  "description": "Work with multiple repositories in Cursor. Triggers on \"cursor multi repo\",\"cursor multiple projects\", \"cursor monorepo\", \"cursor workspace\".",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:10.959456Z"
+}

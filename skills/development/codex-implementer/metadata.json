@@ -1,0 +1,8 @@
+{
+  "name": "codex-implementer",
+  "repo": "jiunbae/agent-skills",
+  "category": "development",
+  "description": "Codex CLI\ub97c sub-agent\ub85c \ud65c\uc6a9\ud558\uc5ec \uc2e4\uc81c \uad6c\ud604 \uc791\uc5c5\uc744 \uc218\ud589\ud569\ub2c8\ub2e4. Claude\uac00 \uc791\uc5c5\uc744 \ubd84\uc11d/\ubd84\ud574\ud558\uace0, Codex\uac00 \ucf54\ub4dc \uc791\uc131/\uc218\uc815/\ub9ac\ud329\ud1a0\ub9c1\uc744 \ub2f4\ub2f9\ud569\ub2c8\ub2e4. \"Codex\ub85c \uad6c\ud604\", \"\uad6c\ud604\ud574\uc918\", \"\ucf54\ub4dc \uc791\uc131\ud574\uc918\", \"\ubcd1\ub82c \uad6c\ud604\" \uc694\uccad \uc2dc \ud65c\uc131\ud654\ub429\ub2c8\ub2e4.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:06:23.515654Z"
+}

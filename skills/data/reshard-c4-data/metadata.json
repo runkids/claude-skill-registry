@@ -1,0 +1,8 @@
+{
+  "name": "reshard-c4-data",
+  "repo": "letta-ai/skills",
+  "category": "data",
+  "description": "Guidance for data resharding tasks that involve reorganizing files across directory structures with constraints on file sizes and directory contents. This skill applies when redistributing datasets, s",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:58:19.893690Z"
+}

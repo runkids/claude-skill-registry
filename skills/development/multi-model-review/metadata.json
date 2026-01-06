@@ -1,0 +1,8 @@
+{
+  "name": "multi-model-review",
+  "repo": "mozuq-lab/multi-model-review",
+  "category": "development",
+  "description": "\u30de\u30eb\u30c1\u30e2\u30c7\u30eb\u30b3\u30fc\u30c9\u30ec\u30d3\u30e5\u30fc\u3002LLM\u304c\u30b3\u30fc\u30c9\u30ec\u30d3\u30e5\u30fc\u3092\u884c\u3063\u305f\u5f8c\u3001GitHub Copilot CLI\u306b\u7cbe\u67fb\u3055\u305b\u3066\u53cc\u65b9\u306e\u8996\u70b9\u3092\u7d71\u5408\u3057\u305f\u6700\u7d42\u30ec\u30d3\u30e5\u30fc\u3092\u63d0\u4f9b\u3002Use when user wants multi-model code review, second opinion, or wants to cross-check review findings with another AI. Trigger",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:07:13.326252Z"
+}

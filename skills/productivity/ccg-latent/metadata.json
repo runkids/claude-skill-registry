@@ -1,0 +1,8 @@
+{
+  "name": "ccg-latent",
+  "repo": "phuongrealmax/code-guardian",
+  "category": "productivity",
+  "description": "Use this skill for multi-step development tasks. Latent Chain Mode reduces token usage by 70-80% through hidden-state reasoning with 4-phase workflow: analysis \u2192 plan \u2192 impl \u2192 review.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:02:41.443274Z"
+}

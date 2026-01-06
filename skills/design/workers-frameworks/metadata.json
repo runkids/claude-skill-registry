@@ -1,0 +1,8 @@
+{
+  "name": "workers-frameworks",
+  "repo": "secondsky/claude-skills",
+  "category": "design",
+  "description": "Framework integration for Cloudflare Workers. Use when building with Hono, Remix, Next.js, Astro, SvelteKit, Qwik, or Nuxt on Workers. Covers routing, SSR, static assets, and edge deployment.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:58:43.424688Z"
+}

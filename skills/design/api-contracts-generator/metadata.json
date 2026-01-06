@@ -1,0 +1,8 @@
+{
+  "name": "api-contracts-generator",
+  "repo": "RomualdP/hoki",
+  "category": "design",
+  "description": "G\u00e9n\u00e8re des contrats API coh\u00e9rents entre Frontend (Next.js) et Backend (NestJS) avec types synchronis\u00e9s, validation standardis\u00e9e et error handling uniforme. \u00c0 utiliser lors de la cr\u00e9ation d'APIs, DTOs,",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:07:56.712517Z"
+}

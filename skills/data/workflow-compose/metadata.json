@@ -1,0 +1,8 @@
+{
+  "name": "workflow-compose",
+  "repo": "epieczko/betty",
+  "category": "data",
+  "description": "Executes multi-step workflows by chaining Betty Framework skills.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:05:28.130042Z"
+}

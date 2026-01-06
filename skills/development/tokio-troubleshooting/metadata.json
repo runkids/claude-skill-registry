@@ -1,0 +1,8 @@
+{
+  "name": "tokio-troubleshooting",
+  "repo": "geoffjay/claude-plugins",
+  "category": "development",
+  "description": "Debugging and troubleshooting Tokio applications using tokio-console, detecting deadlocks, memory leaks, and performance issues. Use when diagnosing async runtime problems.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:05:53.163498Z"
+}

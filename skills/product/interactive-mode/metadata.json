@@ -1,0 +1,8 @@
+{
+  "name": "interactive-mode",
+  "repo": "reggiechan74/claude-plugins",
+  "category": "product",
+  "description": "Interactive mode features including keyboard shortcuts, vim mode, command history, and background tasks. Use when user asks about REPL, keyboard shortcuts, interactive features, or vim mode.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:07:51.182871Z"
+}

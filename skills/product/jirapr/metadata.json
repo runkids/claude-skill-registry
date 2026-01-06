@@ -1,0 +1,8 @@
+{
+  "name": "jirapr",
+  "repo": "Lobbi-Docs/claude",
+  "category": "product",
+  "description": "Create pull request linked to Jira issue. Use when the user wants to \"create PR\", \"open pull request\", \"submit for review\", or \"jira pr\".",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:06:50.399009Z"
+}

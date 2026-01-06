@@ -1,0 +1,8 @@
+{
+  "name": "memory-keeper-proactive-context-maintenance",
+  "repo": "b4CU-R4U/neuroverse-presentation-automator",
+  "category": "development",
+  "description": "Automatically detect and maintain memory freshness by monitoring context staleness, significant code changes, task completions, and phase transitions. Proactively suggests and executes memory sync ope",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:01:32.361335Z"
+}

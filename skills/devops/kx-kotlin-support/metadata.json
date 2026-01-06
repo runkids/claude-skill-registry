@@ -1,0 +1,8 @@
+{
+  "name": "kx-kotlin-support",
+  "repo": "mypojo/kx_kotlin_support",
+  "category": "devops",
+  "description": "Kotlin \uba40\ud2f0\ud504\ub85c\uc81d\ud2b8 \ub77c\uc774\ube0c\ub7ec\ub9ac \uac1c\ubc1c \uc9c0\uc6d0 - AWS \uc11c\ube44\uc2a4 \ud1b5\ud569(Kinesis, DynamoDB, S3, Lambda, CDK), Spring Boot, JPA, Hibernate, \uc720\ud2f8\ub9ac\ud2f0(JSON, CSV, Time, Collection \ub4f1).Core(\ucd5c\uc18c \uc758\uc874\uc131), Light(AWS Lambda\uc6a9), Heavy(Spring Boot + DB\uc6a9) ",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:02:35.284021Z"
+}

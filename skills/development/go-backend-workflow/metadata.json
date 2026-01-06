@@ -1,0 +1,8 @@
+{
+  "name": "go-backend-workflow",
+  "repo": "no-problem-dev/claude-code-plugins",
+  "category": "development",
+  "description": "Go\u30d0\u30c3\u30af\u30a8\u30f3\u30c9\u306e\u30d3\u30eb\u30c9\u30fb\u30c6\u30b9\u30c8\u30fbLint\u30ef\u30fc\u30af\u30d5\u30ed\u30fc\u3002\u300cGo\u30d3\u30eb\u30c9\u300d\u300c\u30d0\u30c3\u30af\u30a8\u30f3\u30c9\u30c6\u30b9\u30c8\u300d\u300cgolangci-lint\u300d\u300cgo mod\u300d\u300cgo test\u300d\u300cswagger\u300d\u306a\u3069\u306e\u30ad\u30fc\u30ef\u30fc\u30c9\u3067\u81ea\u52d5\u9069\u7528\u3002",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:07:23.358824Z"
+}

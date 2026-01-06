@@ -1,0 +1,8 @@
+{
+  "name": "tech-debt-resolver",
+  "repo": "diegofornalha/skills-futuro",
+  "category": "devops",
+  "description": "Loop automatizado de melhoria cont\u00ednua que usa o Chat RAG para identificar d\u00e9bitos t\u00e9cnicos, implementa corre\u00e7\u00f5es, reingere a base de conhecimento e valida at\u00e9 eliminar 100% dos d\u00e9bitos.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:10:07.396316Z"
+}

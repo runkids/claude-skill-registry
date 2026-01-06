@@ -1,0 +1,8 @@
+{
+  "name": "managing-github-issue-dependencies",
+  "repo": "kynoptic/markdownlint-trap",
+  "category": "development",
+  "description": "Manages GitHub issue blocking/blocked-by relationships using the native dependencies feature via GraphQL API. Use when showing that one issue must complete before another can proceed, querying depende",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:02:19.324882Z"
+}

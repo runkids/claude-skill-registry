@@ -1,0 +1,8 @@
+{
+  "name": "migration-planning",
+  "repo": "melodic-software/claude-code-plugins",
+  "category": "data",
+  "description": "Plan ETL/ELT pipelines, data migrations, change data capture, and rollback strategies.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:02.050175Z"
+}

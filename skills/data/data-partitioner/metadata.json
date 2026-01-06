@@ -1,0 +1,8 @@
+{
+  "name": "data-partitioner",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "data",
+  "description": "Data Partitioner - Auto-activating skill for Data Pipelines.Triggers on: data partitioner, data partitionerPart of the Data Pipelines skill category.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:55:56.763269Z"
+}

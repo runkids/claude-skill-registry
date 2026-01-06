@@ -1,0 +1,8 @@
+{
+  "name": "data-lineage-tracker",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "data",
+  "description": "Data Lineage Tracker - Auto-activating skill for Data Pipelines.Triggers on: data lineage tracker, data lineage trackerPart of the Data Pipelines skill category.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:06.890752Z"
+}

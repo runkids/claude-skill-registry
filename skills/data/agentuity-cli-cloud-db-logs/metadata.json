@@ -1,0 +1,8 @@
+{
+  "name": "agentuity-cli-cloud-db-logs",
+  "repo": "agentuity/examples",
+  "category": "data",
+  "description": "Get query logs for a specific database. Requires authentication. Use for Agentuity cloud platform operations",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:32.971127Z"
+}

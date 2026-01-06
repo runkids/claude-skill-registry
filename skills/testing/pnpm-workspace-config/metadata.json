@@ -1,0 +1,8 @@
+{
+  "name": "pnpm-workspace-config",
+  "repo": "metasaver/claude-marketplace",
+  "category": "testing",
+  "description": "pnpm workspace YAML configuration templates and validation logic for monorepo workspace patterns. Includes 5 required standards (architecture-specific patterns for consumer vs library repos, exact pat",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:07:05.971256Z"
+}

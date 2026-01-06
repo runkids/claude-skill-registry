@@ -1,0 +1,8 @@
+{
+  "name": "tune-mjcf",
+  "repo": "letta-ai/skills",
+  "category": "data",
+  "description": "Guidance for optimizing MuJoCo MJCF model files for simulation performance while maintaining numerical accuracy. This skill should be used when tuning physics simulation parameters, optimizing MuJoCo ",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:58:20.263589Z"
+}

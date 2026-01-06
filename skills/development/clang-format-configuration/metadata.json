@@ -1,0 +1,8 @@
+{
+  "name": "clang-format-configuration",
+  "repo": "Jamie-BitFlight/claude_skills",
+  "category": "development",
+  "description": "The model must invoke this skill when any trigger occurs - (1) user mentions \"clang-format\" or \".clang-format\", (2) user requests analyzing code style/formatting patterns/conventions, (3) user request",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:59:33.324501Z"
+}

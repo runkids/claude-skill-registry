@@ -1,0 +1,8 @@
+{
+  "name": "transformer-lens-interpretability",
+  "repo": "zechenzhangAGI/AI-research-SKILLs",
+  "category": "testing",
+  "description": "Provides guidance for mechanistic interpretability research using TransformerLens to inspect and manipulate transformer internals via HookPoints and activation caching. Use when reverse-engineering mo",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:18.307802Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "finetuning",
+  "repo": "atrawog/bazzite-ai-plugins",
+  "category": "data",
+  "description": "Model fine-tuning with PyTorch and HuggingFace Trainer. Covers datasetpreparation, tokenization, training loops, TrainingArguments, SFTTrainerfor instruction tuning, evaluation, and checkpoint managem",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:04:04.868434Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "skill-share",
+  "repo": "davila7/claude-code-templates",
+  "category": "data",
+  "description": "A skill that creates new Claude skills and automatically shares them on Slack using Rube for seamless team collaboration and skill discovery.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:55:39.478279Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "agentuity-cli-cloud-secret-get",
+  "repo": "agentuity/examples",
+  "category": "design",
+  "description": "Get a secret value. Requires authentication. Use for Agentuity cloud platform operations",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:32.239848Z"
+}

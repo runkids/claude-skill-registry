@@ -1,0 +1,8 @@
+{
+  "name": "registry-sync-validator",
+  "repo": "tikazyq/agentic-spec-forge",
+  "category": "data",
+  "description": "\u5ba1\u8ba1Registry\u662f\u5426\u4e0e\u8bbe\u8ba1artifacts\u4fdd\u6301\u4e00\u81f4\uff0c\u751f\u6210\u540c\u6b65\u7387\u62a5\u544a\u548c\u9057\u6f0f\u6e05\u5355\u3002\u5f53\u5b8c\u6210\u8bbe\u8ba1\u540e\u3001CONSTRAINT\u9a8c\u6536\u524d\u4f7f\u7528\uff0c\u907f\u514dRegistry\u4e0d\u4e00\u81f4\u5bfc\u81f4\u9a8c\u6536\u5931\u8d25\u3002",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:09:54.711564Z"
+}

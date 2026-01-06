@@ -1,0 +1,8 @@
+{
+  "name": "slow-query-detector",
+  "repo": "haru01/sample_university_management_system",
+  "category": "data",
+  "description": "Detect slow queries and performance issues in Entity Framework Core codebases. Use when analyzing database performance, finding N+1 queries, identifying missing indexes, reviewing repository patterns,",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:06:00.376659Z"
+}

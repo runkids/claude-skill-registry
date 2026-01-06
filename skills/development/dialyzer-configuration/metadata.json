@@ -1,0 +1,8 @@
+{
+  "name": "dialyzer-configuration",
+  "repo": "TheBushidoCollective/han",
+  "category": "development",
+  "description": "Use when configuring Dialyzer for Erlang/Elixir type checking and static analysis.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:57:02.566892Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "test-pyramid-design",
+  "repo": "melodic-software/claude-code-plugins",
+  "category": "testing",
+  "description": "Design optimal test pyramids with unit/integration/E2E ratios. Identify anti-patterns and recommend architecture-specific testing strategies.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:14.429677Z"
+}

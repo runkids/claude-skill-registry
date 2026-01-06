@@ -1,0 +1,8 @@
+{
+  "name": "vpc-network-setup",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "devops",
+  "description": "Vpc Network Setup - Auto-activating skill for GCP Skills.Triggers on: vpc network setup, vpc network setupPart of the GCP Skills skill category.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:00.875773Z"
+}

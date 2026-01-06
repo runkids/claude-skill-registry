@@ -1,0 +1,8 @@
+{
+  "name": "markdowntown-atlas-scan",
+  "repo": "joelklabo/markdowntown-cli",
+  "category": "documents",
+  "description": "Atlas Simulator scan flow and next-step guidance for markdowntown. Use when working on folder scanning, tool detection, cwd handling, results panels, or scan-to-workbench CTAs.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:10:25.160460Z"
+}

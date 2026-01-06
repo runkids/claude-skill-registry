@@ -1,0 +1,8 @@
+{
+  "name": "plan-validate-execute-template",
+  "repo": "djankies/claude-configs",
+  "category": "testing",
+  "description": "[REPLACE] Plan changes, validate before execution, execute with verification. Use when [REPLACE with specific triggers].",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:05:00.962008Z"
+}

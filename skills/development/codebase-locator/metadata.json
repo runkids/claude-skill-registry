@@ -1,0 +1,8 @@
+{
+  "name": "codebase-locator",
+  "repo": "billlzzz10/bl1nk-mood",
+  "category": "development",
+  "description": "Locates files, directories, and components relevant to a feature or task. Call `codebase-locator` with human language prompt describing what you're looking for. Basically a \"Super Grep/Glob/LS tool\" \u2014",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:11:13.915027Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "mongodb-aggregation-pipeline-optimization",
+  "repo": "randalmurphal/claude-config",
+  "category": "development",
+  "description": "General MongoDB aggregation pipeline optimization techniques including early filtering, index usage, array operators vs $unwind, $lookup optimization, and performance debugging. Use when writing aggre",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:07:48.852225Z"
+}

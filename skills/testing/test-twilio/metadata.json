@@ -1,0 +1,8 @@
+{
+  "name": "test-twilio",
+  "repo": "cncorp/arsenal",
+  "category": "testing",
+  "description": "Place Twilio test calls. Use when user invokes /test-twilio.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:58:47.708670Z"
+}

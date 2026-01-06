@@ -1,0 +1,8 @@
+{
+  "name": "impl-repository",
+  "repo": "ciandt-fulvio/synth-lab",
+  "category": "devops",
+  "description": "Implementar reposit\u00f3rios de acesso a dados em repositories/. Use quando criar repository, acesso a banco, queries SQL, ou persist\u00eancia.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:04:30.533433Z"
+}

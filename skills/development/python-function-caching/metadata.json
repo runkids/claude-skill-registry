@@ -1,0 +1,8 @@
+{
+  "name": "python-function-caching",
+  "repo": "gordonwatts/atlas-mcp",
+  "category": "development",
+  "description": "Provide a reusable pattern for memoizing deterministic function calls to reduce latency and repeated computation. Backed by the `python` diskcache package. Use skill when updating or editing everythin",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:03:36.949824Z"
+}

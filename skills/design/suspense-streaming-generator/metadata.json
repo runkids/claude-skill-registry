@@ -1,0 +1,8 @@
+{
+  "name": "suspense-streaming-generator",
+  "repo": "RomualdP/hoki",
+  "category": "design",
+  "description": "Impl\u00e9mente Suspense et Streaming pour progressive rendering. MANDATORY pour async Server Components. \u00c0 utiliser lors de async data, loading states, ou quand l'utilisateur mentionne \"suspense\", \"stream",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:07:57.753913Z"
+}

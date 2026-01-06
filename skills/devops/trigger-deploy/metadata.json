@@ -1,0 +1,8 @@
+{
+  "name": "trigger-deploy",
+  "repo": "semicolon-devteam/semo",
+  "category": "devops",
+  "description": "**GitHub Actions \uae30\ubc18** \ud504\ub85c\uc81d\ud2b8 \ubc30\ud3ec (Milestone Close \u2192 CI/CD \ud2b8\ub9ac\uac70).Use when:(1) \ud504\ub85c\uc81d\ud2b8 \ubcc4\uce6d + \ud658\uacbd (\uc608: \"\ub79c\ub4dc stg \ubc30\ud3ec\", \"\uc624\ud53c\uc2a4 prd \ubc30\ud3ec\"),(2) Milestone \uae30\ubc18 \ub9b4\ub9ac\uc988 \uad00\ub9ac,(3) GitHub Actions CI/CD \ubc30\ud3ec,(4) \"stg\uc5d0 \ubb50 \uc62c\ub77c\uac00\uc788\uc5b4?\", \"prd \ucd5c\uc2e0 \ubc84\uc804",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:02:52.832478Z"
+}

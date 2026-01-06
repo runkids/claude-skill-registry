@@ -1,0 +1,8 @@
+{
+  "name": "claude-researcher",
+  "repo": "eLafo/ouroboros",
+  "category": "product",
+  "description": "Research, fetch, analyze, investigate, explain, and clarify official Claude Code documentation from code.claude.com. Retrieve and consult authoritative information about subagents, hooks, skills, comm",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:05:23.014917Z"
+}

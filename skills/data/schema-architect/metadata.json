@@ -1,0 +1,8 @@
+{
+  "name": "schema-architect",
+  "repo": "mavric/devenv",
+  "category": "data",
+  "description": "Designs database schemas with multi-tenancy, relationships, and best practices. Triggers when user needs to design data model, create entities, or plan database structure.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:09:56.188660Z"
+}

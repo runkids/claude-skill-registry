@@ -1,0 +1,8 @@
+{
+  "name": "markdowntown-testing",
+  "repo": "joelklabo/markdowntown-cli",
+  "category": "testing",
+  "description": "Use this when running or adding tests (compile/lint/unit/E2E), updating test utilities, or working with Playwright/visual testing in markdowntown.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:10:13.859512Z"
+}

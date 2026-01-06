@@ -1,0 +1,8 @@
+{
+  "name": "scanpy",
+  "repo": "davila7/claude-code-templates",
+  "category": "data",
+  "description": "Single-cell RNA-seq analysis. Load .h5ad/10X data, QC, normalization, PCA/UMAP/t-SNE, Leiden clustering, marker genes, cell type annotation, trajectory, for scRNA-seq analysis.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:55:38.832943Z"
+}

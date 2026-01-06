@@ -1,0 +1,8 @@
+{
+  "name": "segment",
+  "repo": "treasure-data/td-skills",
+  "category": "data",
+  "description": "Manages CDP child segments using `tdx sg` commands with YAML rule configs. Covers filtering with operators (Equal, In, Greater, TimeWithinPast, Contain), folder organization, and activations for Sales",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:24.402996Z"
+}

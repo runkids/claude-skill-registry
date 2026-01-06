@@ -1,0 +1,8 @@
+{
+  "name": "multi-service-debug",
+  "repo": "dseirz-rgb/worker",
+  "category": "development",
+  "description": "\u591a\u670d\u52a1\u8c03\u8bd5\u6280\u80fd\uff1a\u9488\u5bf9 Vercel + GCP Cloud Run \u6df7\u5408\u67b6\u6784\u7684\u8c03\u8bd5\u5de5\u4f5c\u6d41\u3002Use when: \u8de8\u670d\u52a1\u95ee\u9898\u6392\u67e5\u3001\u65e5\u5fd7\u805a\u5408\u5206\u6790\u3001\u670d\u52a1\u95f4\u901a\u4fe1\u8c03\u8bd5\u3001\u751f\u4ea7\u73af\u5883\u6545\u969c\u5b9a\u4f4d\u3002Triggers: \"\u8c03\u8bd5\", \"debug\", \"\u65e5\u5fd7\", \"logs\", \"\u9519\u8bef\", \"error\", \"\u670d\u52a1\", \"service\", \"\u901a\u4fe1\", \"\u8d85\u65f6\", \"timeout\"",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:10:30.568626Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "explain-nexus",
+  "repo": "abdullahbeam/nexus-design-abdullah",
+  "category": "data",
+  "description": "Explain what Nexus is and how it works. Load when user says \"explain nexus\", \"what is nexus\", \"how does nexus work\", \"nexus overview\", \"about nexus\", or asks for help understanding the system.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:03:44.264536Z"
+}

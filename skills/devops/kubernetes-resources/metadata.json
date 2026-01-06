@@ -1,0 +1,8 @@
+{
+  "name": "kubernetes-resources",
+  "repo": "TheBushidoCollective/han",
+  "category": "devops",
+  "description": "Use when managing Kubernetes resources including deployments, services, configmaps, and secrets.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:57:05.221636Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "dotnet-backend",
+  "repo": "anton-abyzov/specweave",
+  "category": "data",
+  "description": ".NET/C# backend developer for ASP.NET Core APIs with Entity Framework Core. Builds REST APIs, minimal APIs, gRPC services, authentication with Identity/JWT, authorization, database operations, backgro",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:58:07.738820Z"
+}

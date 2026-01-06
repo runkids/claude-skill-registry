@@ -1,0 +1,8 @@
+{
+  "name": "wheels-migration-generator",
+  "repo": "wheels-dev/wheels",
+  "category": "data",
+  "description": "Generate database-agnostic Wheels migrations for creating tables, altering schemas, and managing database changes. Use when creating or modifying database schema, adding tables, columns, indexes, or f",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:28.545288Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "scvi-tools",
+  "repo": "davila7/claude-code-templates",
+  "category": "testing",
+  "description": "This skill should be used when working with single-cell omics data analysis using scvi-tools, including scRNA-seq, scATAC-seq, CITE-seq, spatial transcriptomics, and other single-cell modalities. Use ",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:55:38.849246Z"
+}

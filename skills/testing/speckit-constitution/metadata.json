@@ -1,0 +1,8 @@
+{
+  "name": "speckit-constitution",
+  "repo": "dceoy/gh-actions-for-devops",
+  "category": "testing",
+  "description": "Create or update the project constitution from interactive or provided principle inputs, ensuring all dependent templates stay in sync.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:03:26.993941Z"
+}

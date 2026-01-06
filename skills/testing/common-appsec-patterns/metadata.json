@@ -1,0 +1,8 @@
+{
+  "name": "common-appsec-patterns",
+  "repo": "transilienceai/communitytools",
+  "category": "testing",
+  "description": "Application security testing coordinator for common vulnerability patterns including XSS, injection flaws, and client-side security issues. Orchestrates specialized testing agents to identify and vali",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:03:16.177305Z"
+}

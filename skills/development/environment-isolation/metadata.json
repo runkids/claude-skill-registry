@@ -1,0 +1,8 @@
+{
+  "name": "environment-isolation",
+  "repo": "daishiman/AIWorkflowOrchestrator",
+  "category": "development",
+  "description": "\u74b0\u5883\u5206\u96e2\u3068\u30a2\u30af\u30bb\u30b9\u5236\u5fa1\u30b9\u30ad\u30eb\u3002\u958b\u767a\u30fb\u30b9\u30c6\u30fc\u30b8\u30f3\u30b0\u30fb\u672c\u756a\u74b0\u5883\u306e\u53b3\u683c\u306a\u5206\u96e2\u3001\u74b0\u5883\u9593Secret\u5171\u6709\u306e\u9632\u6b62\u3001\u6700\u5c0f\u6a29\u9650\u539f\u5247\u306e\u5fb9\u5e95\u3092\u63d0\u4f9b\u3057\u307e\u3059\u3002Anchors:\u2022 Building Secure and Reliable Systems / \u9069\u7528: Defense in Depth\u539f\u5247 / \u76ee\u7684: \u591a\u5c64\u9632\u5fa1\u8a2d\u8a08\u2022 The Twelve-Factor App / \u9069\u7528: Config\u8981\u7d20\u3068\u30b3\u30fc\u30c9\u306e\u5206\u96e2 / \u76ee",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:42.174022Z"
+}

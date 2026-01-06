@@ -1,0 +1,8 @@
+{
+  "name": "count-dataset-tokens",
+  "repo": "letta-ai/skills",
+  "category": "data",
+  "description": "Guidance for counting tokens in datasets, particularly from HuggingFace or similar sources. This skill should be used when tasks involve counting tokens in datasets, understanding dataset schemas, fil",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:58:17.866637Z"
+}

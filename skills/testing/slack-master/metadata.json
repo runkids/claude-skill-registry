@@ -1,0 +1,8 @@
+{
+  "name": "slack-master",
+  "repo": "abdullahbeam/nexus-design-abdullah",
+  "category": "testing",
+  "description": "Shared resource library for Slack integration skills. DO NOT load directly - provides common references (setup, API docs, error handling, authentication) and scripts used by slack-connect and individu",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:03:44.266786Z"
+}

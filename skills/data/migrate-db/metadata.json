@@ -1,0 +1,8 @@
+{
+  "name": "migrate-db",
+  "repo": "semicolon-devteam/semo",
+  "category": "data",
+  "description": "Prisma/SQL \ub9c8\uc774\uadf8\ub808\uc774\uc158 \uad00\ub9ac. Use when:(1) \uc2a4\ud0a4\ub9c8 \ubcc0\uacbd, (2) \ub9c8\uc774\uadf8\ub808\uc774\uc158 \uc0dd\uc131/\uc801\uc6a9, (3) DB \ub3d9\uae30\ud654,(4) \ub9c8\uc774\uadf8\ub808\uc774\uc158 \uc0c1\ud0dc \ud655\uc778, (5) \ub864\ubc31 \ud544\uc694 \uc2dc.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:02:51.945253Z"
+}

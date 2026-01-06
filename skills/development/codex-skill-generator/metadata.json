@@ -1,0 +1,8 @@
+{
+  "name": "codex-skill-generator",
+  "repo": "nishiyuki0501-wanto/skills_template",
+  "category": "development",
+  "description": "Codex CLI\u7528\u306e\u30b9\u30ad\u30eb\u4f5c\u6210\u30ac\u30a4\u30c9\u3002YAML frontmatter\u3001\u30c7\u30a3\u30ec\u30af\u30c8\u30ea\u69cb\u9020\u3001\u30d9\u30b9\u30c8\u30d7\u30e9\u30af\u30c6\u30a3\u30b9\u3092\u89e3\u8aac\u3002Use when creating new Codex skills, updating existing skills, or learning about Codex skill development.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:07:23.142904Z"
+}

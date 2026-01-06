@@ -1,0 +1,8 @@
+{
+  "name": "onboarding-gaps-verifier",
+  "repo": "OhadRubin/skills",
+  "category": "documents",
+  "description": "Identify documentation gaps and pitfalls. Creates gaps_pitfalls.md. Triggered by onboarding-start during gaps-pitfalls-identification phase.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:03:39.020021Z"
+}

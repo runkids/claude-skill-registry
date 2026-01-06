@@ -1,0 +1,8 @@
+{
+  "name": "fof-preflight",
+  "repo": "Tupatuko2023/Python-R-Scripts",
+  "category": "data",
+  "description": "Diff-aware guardrail checker for Fear-of-Falling (FOF) changes; fails closed on raw data edits, Kxx intro/req_cols mismatches, and output discipline risks.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:10:21.787201Z"
+}

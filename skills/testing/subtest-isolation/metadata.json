@@ -1,0 +1,8 @@
+{
+  "name": "subtest-isolation",
+  "repo": "bearcove/pikru",
+  "category": "testing",
+  "description": "Create minimal subtests to isolate and fix complex bugs. Use when a test fails and the issue is buried in complexity.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:59:00.019472Z"
+}

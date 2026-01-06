@@ -1,0 +1,8 @@
+{
+  "name": "managing-changelog",
+  "repo": "thoeltig/claude-code-toolkit",
+  "category": "documents",
+  "description": "Creates, updates, and maintains CHANGELOG.md files following Common Changelog and Keep a Changelog standards. Use when creating changelogs, adding release entries, updating unreleased sections, valida",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:08:59.313655Z"
+}

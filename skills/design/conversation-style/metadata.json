@@ -1,0 +1,8 @@
+{
+  "name": "conversation-style",
+  "repo": "motlin/claude-code-plugins",
+  "category": "design",
+  "description": "Conversation style guidelines. Use when responding to the user.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:07:12.937351Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "scanning-for-secrets",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "development",
+  "description": "Detect exposed secrets, API keys, and credentials in code. Use when auditing for secret leaks. Trigger with 'scan for secrets', 'find exposed keys', or 'check credentials'.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:55:52.356534Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "swap-execution",
+  "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+  "category": "data",
+  "description": "Execute resident-requested swaps with safety checks, audit trails, rollback capabilities, and escalation procedures. Use when processing swap requests, validating against constraints, or managing swap",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:50.778749Z"
+}

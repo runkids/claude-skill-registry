@@ -1,0 +1,8 @@
+{
+  "name": "csharpener",
+  "repo": "lawless-m/claude-skills",
+  "category": "documents",
+  "description": "C# static analysis tool for call graphs, unused code detection, impact analysis, HTML documentation generation, and Graphviz diagram export",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:59:18.672104Z"
+}

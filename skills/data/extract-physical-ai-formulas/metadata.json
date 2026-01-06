@@ -1,0 +1,8 @@
+{
+  "name": "extract-physical-ai-formulas",
+  "repo": "MuhammadHassaanArain/Book-PAI",
+  "category": "data",
+  "description": "Extract and explain formulas used in Physical AI and Humanoid Robotics from text, lecture notes, or papers. Use when user asks to identify or understand relevant formulas.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:07:13.702861Z"
+}

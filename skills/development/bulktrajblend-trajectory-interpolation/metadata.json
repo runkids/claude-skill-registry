@@ -1,0 +1,8 @@
+{
+  "name": "bulktrajblend-trajectory-interpolation",
+  "repo": "Starlitnightly/omicverse",
+  "category": "development",
+  "description": "Extend scRNA-seq developmental trajectories with BulkTrajBlend by generating intermediate cells from bulk RNA-seq, training beta-VAE and GNN models, and interpolating missing states.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:15.271932Z"
+}

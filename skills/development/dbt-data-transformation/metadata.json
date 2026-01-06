@@ -1,0 +1,8 @@
+{
+  "name": "dbt-data-transformation",
+  "repo": "manutej/luxor-claude-marketplace",
+  "category": "development",
+  "description": "Complete guide for dbt data transformation including models, tests, documentation, incremental builds, macros, packages, and production workflows",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:58:36.927103Z"
+}

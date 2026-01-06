@@ -1,0 +1,8 @@
+{
+  "name": "mongodb-queries",
+  "repo": "donggyun112/ai-librarian",
+  "category": "documents",
+  "description": "ICJC MongoDB \ub370\uc774\ud130\ubca0\uc774\uc2a4 \uc811\uadfc \ubc0f \ucffc\ub9ac. Use when: (1) mongodb, mongo, DB, \ub370\uc774\ud130\ubca0\uc774\uc2a4, \ucffc\ub9ac \uad00\ub828 \uc694\uccad, (2) collection, document \uc870\ud68c/\uc5c5\ub370\uc774\ud2b8/\uc0ad\uc81c, (3) \ub370\uc774\ud130 \ud655\uc778\uc774\ub098 \ub514\ubc84\uae45\uc744 \uc704\ud55c DB \uc870\ud68c \ud544\uc694\uc2dc. IN7DB(\uba54\uc778\uc571), AgentDB(\uc5d0\uc774\uc804\ud2b8) \ub370\uc774\ud130\ubca0\uc774\uc2a4 \uc9c0\uc6d0.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:28.090099Z"
+}

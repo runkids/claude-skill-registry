@@ -1,0 +1,8 @@
+{
+  "name": "architecture-paradigm-space-based",
+  "repo": "athola/claude-night-market",
+  "category": "data",
+  "description": "Data-grid architecture for high-traffic stateful workloads with linear scalability.Triggers: space-based, data grid, in-memory, linear scaling, high trafficUse when: traffic overwhelms database nodes ",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:47.624124Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "programming-assistant",
+  "repo": "regyo997/github-copilot-agent-skills-practice",
+  "category": "development",
+  "description": "\u5354\u52a9\u958b\u767c\u8005\u9032\u884c\u7a0b\u5f0f\u958b\u767c\uff0c\u5305\u542b\u516c\u53f8 API \u8a2d\u8a08\u898f\u7bc4\u6307\u5f15\u548c Spring Boot \u5c08\u6848\u5feb\u901f\u5efa\u7acb\u3002\u7528\u65bc\uff1a(1) \u958b\u767c\u65b0\u7684 API \u7aef\u9ede\u6642\u3001(2) \u898f\u5283\u548c\u8a2d\u8a08 API \u6642\u3001(3) \u9700\u8981\u5feb\u901f\u5efa\u7acb\u65b0\u7684 Spring Boot \u5c08\u6848\u6642\u3001(4) Code Review \u6642\u9a57\u8b49 API \u662f\u5426\u7b26\u5408\u516c\u53f8\u898f\u7bc4\u6642",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:10:30.831478Z"
+}

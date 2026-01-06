@@ -1,0 +1,8 @@
+{
+  "name": "team-workflow",
+  "repo": "jeremyodell/team-workflow-plugin",
+  "category": "development",
+  "description": "Deterministic team development workflow for Claude Code. Enforces a mandatory sequence of phases (Setup \u2192 Brainstorm \u2192 Plan \u2192 Execute \u2192 Quality Check \u2192 Ship) with Linear integration, TDD requirements,",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:09:55.305193Z"
+}

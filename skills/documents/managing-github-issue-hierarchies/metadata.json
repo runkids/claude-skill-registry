@@ -1,0 +1,8 @@
+{
+  "name": "managing-github-issue-hierarchies",
+  "repo": "kynoptic/markdownlint-trap",
+  "category": "documents",
+  "description": "Manages GitHub issue parent-child relationships and sub-issues using REST and GraphQL APIs. Use when breaking down large work into Epics/Features/Tasks, creating work breakdown structures, converting ",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:02:19.296583Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "healthkit-cli",
+  "repo": "EvanBacon/apple-health",
+  "category": "data",
+  "description": "Seed and verify HealthKit data in running Expo apps using the apple-health CLI",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:59:24.756301Z"
+}

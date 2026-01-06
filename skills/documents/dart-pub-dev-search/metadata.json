@@ -1,0 +1,8 @@
+{
+  "name": "dart-pub-dev-search",
+  "repo": "X-School-Academy/ai-dev-swarm",
+  "category": "documents",
+  "description": "To search pub.dev for relevant Dart packages, query by keywords and return download counts, topics, license, and publisher.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:59:11.926523Z"
+}

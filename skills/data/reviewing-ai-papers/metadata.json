@@ -1,0 +1,8 @@
+{
+  "name": "reviewing-ai-papers",
+  "repo": "oaustegard/claude-skills",
+  "category": "data",
+  "description": "Analyze AI/ML technical content (papers, articles, blog posts) and extract actionable insights filtered through enterprise AI engineering lens. Use when user provides URL/document for AI/ML content an",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:57:55.041569Z"
+}

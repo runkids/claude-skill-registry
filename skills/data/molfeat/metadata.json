@@ -1,0 +1,8 @@
+{
+  "name": "molfeat",
+  "repo": "davila7/claude-code-templates",
+  "category": "data",
+  "description": "Molecular featurization for ML (100+ featurizers). ECFP, MACCS, descriptors, pretrained models (ChemBERTa), convert SMILES to features, for QSAR and molecular ML.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:55:37.918503Z"
+}

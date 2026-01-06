@@ -1,0 +1,8 @@
+{
+  "name": "mastering-langgraph-agent-skill",
+  "repo": "majiayu000/claude-skill-registry",
+  "category": "development",
+  "description": "Build stateful AI agents and agentic workflows with LangGraph in Python. Use when asked to \"build a LangGraph agent\", \"create a stateful workflow\", \"add persistence to an agent\", \"implement human-in-t",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:10:43.925399Z"
+}

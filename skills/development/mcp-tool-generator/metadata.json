@@ -1,0 +1,8 @@
+{
+  "name": "mcp-tool-generator",
+  "repo": "daispacy/py-claude-marketplace",
+  "category": "development",
+  "description": "Generate new MCP tools for GitLab operations following the project's standardized pattern. Creates complete TypeScript files with imports, registration functions, Zod schemas, error handling, and form",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:04:47.823254Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "agentuity-cli-cloud-stream-list",
+  "repo": "agentuity/examples",
+  "category": "design",
+  "description": "List recent streams with optional filtering. Requires authentication. Use for Agentuity cloud platform operations",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:33.004229Z"
+}

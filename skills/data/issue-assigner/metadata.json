@@ -1,0 +1,8 @@
+{
+  "name": "issue-assigner",
+  "repo": "fractary/claude-plugins",
+  "category": "data",
+  "description": "Assign and unassign issues to users (CLI not yet available)",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:02:00.105295Z"
+}

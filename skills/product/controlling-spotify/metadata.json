@@ -1,0 +1,8 @@
+{
+  "name": "controlling-spotify",
+  "repo": "oaustegard/claude-skills",
+  "category": "product",
+  "description": "Control Spotify playback and manage playlists via MCP server. Use when user requests playing music, controlling Spotify, creating playlists, searching songs, or managing their Spotify library.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:57:54.797561Z"
+}

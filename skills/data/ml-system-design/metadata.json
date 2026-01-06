@@ -1,0 +1,8 @@
+{
+  "name": "ml-system-design",
+  "repo": "melodic-software/claude-code-plugins",
+  "category": "data",
+  "description": "End-to-end ML system design for production. Use when designing ML pipelines, feature stores, model training infrastructure, or serving systems. Covers the complete lifecycle from data ingestion to mod",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:12.181325Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "mise-expert",
+  "repo": "samhvw8/dotfiles",
+  "category": "documents",
+  "description": "Mise development environment manager (asdf + direnv + make replacement). Capabilities: tool version management (node, python, go, ruby, rust), environment variables, task runners, project-local config",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:58:57.207924Z"
+}

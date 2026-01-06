@@ -1,0 +1,8 @@
+{
+  "name": "capability-mapping",
+  "repo": "melodic-software/claude-code-plugins",
+  "category": "data",
+  "description": "Business capability modeling using BABOK Business Capability Analysis. Creates hierarchical capability maps (L1-L3) linking strategy to architecture with Mermaid visualization.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:59:58.081484Z"
+}

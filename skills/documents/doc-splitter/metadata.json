@@ -1,0 +1,8 @@
+{
+  "name": "doc-splitter",
+  "repo": "jmagly/ai-writing-guide",
+  "category": "documents",
+  "description": "Split large documentation (10K+ pages) into focused sub-skills with intelligent routing. Use for massive doc sites like Godot, AWS, or MSDN.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:57.360493Z"
+}

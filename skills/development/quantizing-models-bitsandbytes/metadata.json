@@ -1,0 +1,8 @@
+{
+  "name": "quantizing-models-bitsandbytes",
+  "repo": "zechenzhangAGI/AI-research-SKILLs",
+  "category": "development",
+  "description": "Quantizes LLMs to 8-bit or 4-bit for 50-75% memory reduction with minimal accuracy loss. Use when GPU memory is limited, need to fit larger models, or want faster inference. Supports INT8, NF4, FP4 fo",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:18.784925Z"
+}

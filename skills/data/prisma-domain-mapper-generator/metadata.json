@@ -1,0 +1,8 @@
+{
+  "name": "prisma-domain-mapper-generator",
+  "repo": "RomualdP/hoki",
+  "category": "data",
+  "description": "G\u00e9n\u00e8re des mappers bidirectionnels entre Domain Entities et Prisma Models pour l'isolation de la couche persistence. \u00c0 utiliser lors de la cr\u00e9ation de mappers, repositories, ou quand l'utilisateur men",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:07:57.402782Z"
+}

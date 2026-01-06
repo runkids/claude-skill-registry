@@ -1,0 +1,8 @@
+{
+  "name": "huggingface-accelerate",
+  "repo": "zechenzhangAGI/AI-research-SKILLs",
+  "category": "development",
+  "description": "Simplest distributed training API. 4 lines to add distributed support to any PyTorch script. Unified API for DeepSpeed/FSDP/Megatron/DDP. Automatic device placement, mixed precision (FP16/BF16/FP8). I",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:18.739478Z"
+}

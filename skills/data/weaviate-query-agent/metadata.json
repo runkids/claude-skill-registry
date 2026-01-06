@@ -1,0 +1,8 @@
+{
+  "name": "weaviate-query-agent",
+  "repo": "saskinosie/weaviate-claude-skills",
+  "category": "data",
+  "description": "Search and retrieve data from local Weaviate using semantic search, filters, RAG, and hybrid queries",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:57:19.443672Z"
+}

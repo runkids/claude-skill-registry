@@ -1,0 +1,8 @@
+{
+  "name": "targeted-testing",
+  "repo": "metabench/copilot-dl-news",
+  "category": "testing",
+  "description": "Pick and run the smallest correct validation step (checks \u2192 focused Jest by path \u2192 broader suites). Use whenever you modify code and need confidence quickly.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:07:05.784612Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "frappe-api",
+  "repo": "UnityAppSuite/frappe-claude",
+  "category": "data",
+  "description": "Frappe Python and JavaScript API reference including document operations, database queries, utilities, and REST API patterns. Use when working with frappe.get_doc, frappe.db, frappe.call, or any Frapp",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:09:19.545171Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "clinicaltrials-database",
+  "repo": "davila7/claude-code-templates",
+  "category": "data",
+  "description": "Query ClinicalTrials.gov via API v2. Search trials by condition, drug, location, status, or phase. Retrieve trial details by NCT ID, export data, for clinical research and patient matching.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:55:36.549278Z"
+}

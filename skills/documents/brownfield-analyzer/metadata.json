@@ -1,0 +1,8 @@
+{
+  "name": "brownfield-analyzer",
+  "repo": "anton-abyzov/specweave",
+  "category": "documents",
+  "description": "Analyzes existing brownfield projects to map documentation structure to SpecWeave's PRD/HLD/Spec/Runbook pattern. Scans folders, classifies documents, detects external tools (Jira, ADO, GitHub), and c",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:58:09.638606Z"
+}

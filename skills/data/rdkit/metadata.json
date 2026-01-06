@@ -1,0 +1,8 @@
+{
+  "name": "rdkit",
+  "repo": "davila7/claude-code-templates",
+  "category": "data",
+  "description": "Cheminformatics toolkit for fine-grained molecular control. SMILES/SDF parsing, descriptors (MW, LogP, TPSA), fingerprints, substructure search, 2D/3D generation, similarity, reactions. For standard w",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:55:38.707828Z"
+}

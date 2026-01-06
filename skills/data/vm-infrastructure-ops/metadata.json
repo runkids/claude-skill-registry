@@ -1,0 +1,8 @@
+{
+  "name": "vm-infrastructure-ops",
+  "repo": "terrylica/gapless-network-data",
+  "category": "data",
+  "description": "Troubleshoot and manage GCP e2-micro VM running eth-realtime-collector. Use when VM service is down, systemd failures occur, real-time data stream stops, or VM network issues arise. Keywords systemd, ",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:08:53.228095Z"
+}

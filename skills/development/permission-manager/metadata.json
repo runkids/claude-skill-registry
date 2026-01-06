@@ -1,0 +1,8 @@
+{
+  "name": "permission-manager",
+  "repo": "fractary/claude-plugins",
+  "category": "development",
+  "description": "Manages Claude Code permissions in .claude/settings.json for repo plugin operations",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:01:59.514042Z"
+}

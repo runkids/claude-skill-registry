@@ -1,0 +1,8 @@
+{
+  "name": "core-api-reference",
+  "repo": "juanre/pgdbm",
+  "category": "data",
+  "description": "Use when implementing pgdbm database operations - provides complete AsyncDatabaseManager and DatabaseConfig API with all methods and parameters",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:06:32.295902Z"
+}

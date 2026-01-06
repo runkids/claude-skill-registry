@@ -1,0 +1,8 @@
+{
+  "name": "fix-eslint",
+  "repo": "otrebu/agents",
+  "category": "development",
+  "description": "Automatically fix ESLint errors by modifying code to comply with linting rules. For small codebases (\u226420 errors), fixes directly. For larger codebases (>20 errors), spawns parallel agents per director",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:07:27.533130Z"
+}

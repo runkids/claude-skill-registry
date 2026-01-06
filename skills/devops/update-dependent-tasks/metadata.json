@@ -1,0 +1,8 @@
+{
+  "name": "update-dependent-tasks",
+  "repo": "cowwoc/styler",
+  "category": "devops",
+  "description": "Automatically unblock tasks when dependencies are satisfied",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:59:49.926284Z"
+}

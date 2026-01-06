@@ -1,0 +1,8 @@
+{
+  "name": "deno-graphql-backend",
+  "repo": "sail-sail/nest",
+  "category": "development",
+  "description": "\u521b\u5efa Deno GraphQL \u540e\u7aef\u63a5\u53e3\u7684\u5b8c\u6574\u5f00\u53d1\u6307\u5357\u3002\u5305\u542b\u4e09\u5c42\u67b6\u6784\uff08GraphQL/Resolver/Service\uff09\u3001DAO \u51fd\u6570\u4f7f\u7528\u3001\u4e8b\u52a1\u5904\u7406\u3001\u8ba4\u8bc1\u6743\u9650\u3001\u9519\u8bef\u5904\u7406\u3002\u5f53\u9700\u8981\u521b\u5efa\u3001\u4fee\u6539\u540e\u7aef API \u63a5\u53e3\u65f6\u4f7f\u7528\u6b64\u6280\u80fd\u3002",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:58:31.875045Z"
+}

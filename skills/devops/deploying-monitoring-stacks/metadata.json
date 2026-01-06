@@ -1,0 +1,8 @@
+{
+  "name": "deploying-monitoring-stacks",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "devops",
+  "description": "Use when deploying monitoring stacks including Prometheus, Grafana, and Datadog. Trigger with phrases like \"deploy monitoring stack\", \"setup prometheus\", \"configure grafana\", or \"install datadog agent",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:55:48.820548Z"
+}

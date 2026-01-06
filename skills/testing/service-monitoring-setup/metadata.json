@@ -1,0 +1,8 @@
+{
+  "name": "service-monitoring-setup",
+  "repo": "terrylica/gapless-network-data",
+  "category": "testing",
+  "description": "Autonomous setup and management of external service monitoring using UptimeRobot (HTTP endpoint monitoring) and Healthchecks.io (heartbeat/Dead Man's Switch monitoring). Use when setting up monitoring",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:08:53.056108Z"
+}

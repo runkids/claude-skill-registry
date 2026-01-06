@@ -1,0 +1,8 @@
+{
+  "name": "vsa-implementation-guard",
+  "repo": "akiramei/blazor-enterprise-architecture-poc",
+  "category": "development",
+  "description": "Blazor VSA \u30a2\u30fc\u30ad\u30c6\u30af\u30c1\u30e3\u306e\u5b9f\u88c5\u30df\u30b9\u9632\u6b62\u30ac\u30fc\u30c9\u3002Handler\u3001Validator\u3001 BoundaryService\u3001Entity \u306a\u3069\u306e C# \u30b3\u30fc\u30c9\u3092\u751f\u6210\u30fb\u4fee\u6b63\u3059\u308b\u969b\u306b\u81ea\u52d5\u7684\u306b \u9069\u7528\u3055\u308c\u308b\u77e5\u8b58\u3002SaveChangesAsync \u306e\u7981\u6b62\u3001BoundaryService \u3067\u306e\u696d\u52d9\u30ed\u30b8\u30c3\u30af \u7981\u6b62\u3001Result<T> \u30d1\u30bf\u30fc\u30f3\u306e\u5f37\u5236\u3001Value Object \u6bd4\u8f03\u30eb\u30fc\u30eb\u306a\u3069\u3001 \u30ab\u30bf\u30ed\u30b0\u99c6\u52d5\u958b",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:01:30.413845Z"
+}

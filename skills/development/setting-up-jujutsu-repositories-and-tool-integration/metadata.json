@@ -1,0 +1,8 @@
+{
+  "name": "setting-up-jujutsu-repositories-and-tool-integration",
+  "repo": "edmundmiller/dotfiles",
+  "category": "development",
+  "description": "Set up jj repositories including colocation decisions, integrate with development tools like Vite/Vitest, and choose between jj library and CLI for tooling. Use when setting up new repositories, exper",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:57:12.187195Z"
+}

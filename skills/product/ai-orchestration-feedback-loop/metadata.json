@@ -1,0 +1,8 @@
+{
+  "name": "ai-orchestration-feedback-loop",
+  "repo": "creator-hian/claude-code-plugins",
+  "category": "product",
+  "description": "Multi-AI engineering loop orchestrating Claude, Codex, and Gemini for comprehensive validation. USE WHEN (1) mission-critical features requiring multi-perspective validation, (2) complex architectural",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:39.387645Z"
+}

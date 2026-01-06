@@ -1,0 +1,8 @@
+{
+  "name": "nowait-reasoning-optimizer",
+  "repo": "davila7/claude-code-templates",
+  "category": "design",
+  "description": "Implements the NOWAIT technique for efficient reasoning in R1-style LLMs. Use when optimizing inference of reasoning models (QwQ, DeepSeek-R1, Phi4-Reasoning, Qwen3, Kimi-VL, QvQ), reducing chain-of-t",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:55:36.245912Z"
+}

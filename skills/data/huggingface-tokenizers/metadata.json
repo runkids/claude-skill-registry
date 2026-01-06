@@ -1,0 +1,8 @@
+{
+  "name": "huggingface-tokenizers",
+  "repo": "zechenzhangAGI/AI-research-SKILLs",
+  "category": "data",
+  "description": "Fast tokenizers optimized for research and production. Rust-based implementation tokenizes 1GB in <20 seconds. Supports BPE, WordPiece, and Unigram algorithms. Train custom vocabularies, track alignme",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:18.125040Z"
+}

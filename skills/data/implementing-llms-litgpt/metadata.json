@@ -1,0 +1,8 @@
+{
+  "name": "implementing-llms-litgpt",
+  "repo": "zechenzhangAGI/AI-research-SKILLs",
+  "category": "data",
+  "description": "Implements and trains LLMs using Lightning AI's LitGPT with 20+ pretrained architectures (Llama, Gemma, Phi, Qwen, Mistral). Use when need clean model implementations, educational understanding of arc",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:18.108083Z"
+}

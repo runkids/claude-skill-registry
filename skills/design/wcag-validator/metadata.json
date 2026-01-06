@@ -1,0 +1,8 @@
+{
+  "name": "wcag-validator",
+  "repo": "astoeffer/plugin-marketplace",
+  "category": "design",
+  "description": "Automatically validate Moodle templates, JavaScript, and CSS for WCAG 2.1 Level AA accessibility compliance. Checks semantic HTML, ARIA patterns, keyboard navigation, color contrast, and screen reader",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:04:03.754348Z"
+}

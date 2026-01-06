@@ -1,0 +1,8 @@
+{
+  "name": "gemini-mcp-integration",
+  "repo": "melodic-software/claude-code-plugins",
+  "category": "testing",
+  "description": "Expert guide for Model Context Protocol (MCP) integration with Gemini CLI. Covers MCP server configuration (HTTP, SSE, Stdio), connection management, and tool permissions. Use when adding MCP servers ",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:08.187495Z"
+}

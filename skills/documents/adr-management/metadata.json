@@ -1,0 +1,8 @@
+{
+  "name": "adr-management",
+  "repo": "melodic-software/claude-code-plugins",
+  "category": "documents",
+  "description": "Create and manage Architecture Decision Records (ADRs). Use when documenting technology choices, design decisions, or architectural changes that need to be tracked over time.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:02.519640Z"
+}

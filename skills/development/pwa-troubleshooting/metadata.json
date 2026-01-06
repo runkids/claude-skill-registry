@@ -1,0 +1,8 @@
+{
+  "name": "pwa-troubleshooting",
+  "repo": "skaihigh/claude-agent-command-templates",
+  "category": "development",
+  "description": "Automatically helps debug PWA issues including service workers, caching, offline functionality, and storage problems in VSSK-shadecn",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:08:26.399511Z"
+}

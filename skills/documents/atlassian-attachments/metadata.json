@@ -1,0 +1,8 @@
+{
+  "name": "atlassian-attachments",
+  "repo": "jpoutrin/product-forge",
+  "category": "documents",
+  "description": "Attach documents, screenshots, PDFs, and files to Jira issues and Confluence pages via REST API. Use when uploading evidence, documentation, or media to Atlassian products.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:06:29.522300Z"
+}

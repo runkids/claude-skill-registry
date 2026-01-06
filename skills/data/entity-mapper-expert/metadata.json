@@ -1,0 +1,8 @@
+{
+  "name": "entity-mapper-expert",
+  "repo": "ryu-qqq/setof-commerce",
+  "category": "data",
+  "description": "JPA Entity Long FK \uc804\ub7b5, BaseAuditEntity/SoftDeletableEntity \uc0c1\uc18d, EntityMapper Domain\u21c4Entity \ubcc0\ud658.JPA \uad00\uacc4 \uc5b4\ub178\ud14c\uc774\uc158(@ManyToOne, @OneToMany) \uae08\uc9c0. Lombok \uae08\uc9c0, Setter \uae08\uc9c0.Entity\ub294 of() static factory method\ub9cc public, \uc0dd",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:08:01.225038Z"
+}

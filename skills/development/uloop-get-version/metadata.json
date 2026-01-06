@@ -1,0 +1,8 @@
+{
+  "name": "uloop-get-version",
+  "repo": "hatayama/uLoopMCP",
+  "category": "development",
+  "description": "Get Unity and project information via uloop CLI. Use when you need to verify Unity version, check project settings (ProductName, CompanyName, Version), or troubleshoot environment issues.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:44.052661Z"
+}

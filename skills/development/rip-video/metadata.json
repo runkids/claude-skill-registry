@@ -1,0 +1,8 @@
+{
+  "name": "rip-video",
+  "repo": "mojito-llm/freeship-skills",
+  "category": "development",
+  "description": "\u6839\u636e todolist.md \u4f7f\u7528 MCP \u4ece MP4 \u89c6\u9891\u63d0\u53d6\u97f3\u9891\u548c\u5b57\u5e55\u3002\u8bfb\u53d6\u4efb\u52a1\u6e05\u5355\uff0c\u8c03\u7528 MCP \u670d\u52a1\u63d0\u53d6\u5c01\u9762\u3001\u97f3\u9891(mp3)\u548c\u5b57\u5e55(srt)\uff0c\u66f4\u65b0\u4efb\u52a1\u5b8c\u6210\u72b6\u6001\u3002",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:07:12.260056Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "skill-doc-generator",
+  "repo": "Exploration-labs/Nates-Substack-Skills",
+  "category": "documents",
+  "description": "Auto-generates standardized README documentation from SKILL.md files, validates consistency (frontmatter, descriptions, terminology), and creates usage examples. Use when documenting individual skills",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:59:16.723499Z"
+}

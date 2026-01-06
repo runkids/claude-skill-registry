@@ -1,0 +1,8 @@
+{
+  "name": "review-rules",
+  "repo": "yurake/skills",
+  "category": "development",
+  "description": "\u30bb\u30c3\u30b7\u30e7\u30f3\u306e\u4f1a\u8a71\u304b\u3089\u6052\u4e45\u7684\u306a\u632f\u308b\u821e\u3044\u30eb\u30fc\u30eb\u3092\u62bd\u51fa\u3057\u3001AGENTS.md \u3068\u7a81\u304d\u5408\u308f\u305b\u3066\u8ffd\u52a0\u3059\u3079\u304d\u3082\u306e\u3092\u63d0\u793a\u3059\u308b\u3002\u51fa\u529b\u306f rules \u3068 agents_md_patch \u306e\u4e8c\u90e8\u69cb\u6210\u3002",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:09:41.437823Z"
+}

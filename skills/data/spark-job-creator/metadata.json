@@ -1,0 +1,8 @@
+{
+  "name": "spark-job-creator",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "data",
+  "description": "Spark Job Creator - Auto-activating skill for Data Pipelines.Triggers on: spark job creator, spark job creatorPart of the Data Pipelines skill category.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:14.072042Z"
+}

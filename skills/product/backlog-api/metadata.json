@@ -1,0 +1,8 @@
+{
+  "name": "backlog-api",
+  "repo": "abekdwight/claude-code-plugin",
+  "category": "product",
+  "description": "This skill should be used when the user asks to \"create issue\", \"search issues\", \"update ticket\", \"check notifications\", mentions \"Backlog\", \"\u30d0\u30c3\u30af\u30ed\u30b0\", \"\u8ab2\u984c\", \"\u30c1\u30b1\u30c3\u30c8\", discusses project management with Nu",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:03:44.812950Z"
+}

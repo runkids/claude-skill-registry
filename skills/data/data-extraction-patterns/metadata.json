@@ -1,0 +1,8 @@
+{
+  "name": "data-extraction-patterns",
+  "repo": "MadAppGang/claude-code",
+  "category": "data",
+  "description": "Common patterns for extracting and combining analytics data from GA4, GSC, and SE Ranking.Includes API patterns, rate limiting, caching, and error handling.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:29.602882Z"
+}

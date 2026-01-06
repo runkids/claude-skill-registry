@@ -1,0 +1,8 @@
+{
+  "name": "klingai-known-pitfalls",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "data",
+  "description": "Avoid common mistakes when using Kling AI. Use when troubleshooting issues or learningbest practices to prevent problems. Trigger with phrases like 'klingai pitfalls','kling ai mistakes', 'klingai got",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:10.284992Z"
+}

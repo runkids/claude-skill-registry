@@ -1,0 +1,8 @@
+{
+  "name": "deploy-railway",
+  "repo": "dralgorhythm/claude-agentic-framework",
+  "category": "data",
+  "description": "Deploy applications to Railway. Use when deploying services, databases, or full-stack applications to Railway PaaS. Covers Railway CLI and configuration.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:01:49.362016Z"
+}

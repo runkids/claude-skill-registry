@@ -1,0 +1,8 @@
+{
+  "name": "code-style-reviewer",
+  "repo": "devstefancho/claude-plugins",
+  "category": "development",
+  "description": "\ucf54\ub4dc \uc2a4\ud0c0\uc77c \uc6d0\uce59 \uae30\ubc18 \ub9ac\ubdf0 - \ub2e8\uc77c\ucc45\uc784\uc6d0\uce59(SRP), DRY(Don't Repeat Yourself), \ub2e8\uc21c\ud654 \uc6b0\uc120, YAGNI(You Aren't Gonna Need It), \ud0c0\uc785 \uc548\uc804\uc131\uc744 \uac80\uc0ac\ud569\ub2c8\ub2e4. \ucf54\ub4dc \uad6c\uc870\uc640 \uba85\uba85\uaddc\uce59\ub3c4 \ud568\uaed8 \ud3c9\uac00\ud569\ub2c8\ub2e4. \ucf54\ub4dc \ub9ac\ubdf0\uac00 \ud544\uc694\ud560 \ub54c \uc790\ub3d9\uc73c\ub85c \uc0ac\uc6a9\ub429\ub2c8\ub2e4.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:04:58.781909Z"
+}

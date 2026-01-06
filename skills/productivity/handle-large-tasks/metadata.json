@@ -1,0 +1,8 @@
+{
+  "name": "handle-large-tasks",
+  "repo": "tilework-tech/nori-profiles",
+  "category": "productivity",
+  "description": "Use this skill to split large plans into smaller chunks. This skill manages your context window for large tasks. Use it when a task will take a long time and cause context issues.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:51.498523Z"
+}

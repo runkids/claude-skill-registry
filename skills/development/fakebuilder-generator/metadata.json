@@ -1,0 +1,8 @@
+{
+  "name": "fakebuilder-generator",
+  "repo": "edneyreis999/zord-project",
+  "category": "development",
+  "description": "Gera FakeBuilders para agregados DDD usando Chance.js seguindo padr\u00e3o do projeto com PropOrFactory, type augmentation e dados realistas para testes.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:05:21.032311Z"
+}

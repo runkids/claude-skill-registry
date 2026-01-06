@@ -1,0 +1,8 @@
+{
+  "name": "pytorch-common-pitfalls",
+  "repo": "smith6jt-cop/Skills_Registry",
+  "category": "development",
+  "description": "Fix common PyTorch bugs: percentile calculations, LayerNorm for Conv1d, buffer edge cases. Trigger when writing PyTorch code for RL or neural networks.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:10:15.919409Z"
+}

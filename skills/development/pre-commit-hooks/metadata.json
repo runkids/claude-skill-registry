@@ -1,0 +1,8 @@
+{
+  "name": "pre-commit-hooks",
+  "repo": "IvanTorresEdge/molcajete.ai",
+  "category": "development",
+  "description": "Pre-commit hook setup with Husky and lint-staged. Use when configuring git hooks.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:06:20.999039Z"
+}

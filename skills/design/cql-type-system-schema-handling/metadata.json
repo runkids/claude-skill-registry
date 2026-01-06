@@ -1,0 +1,8 @@
+{
+  "name": "cql-type-system-schema-handling",
+  "repo": "pmcfadin/cqlite",
+  "category": "design",
+  "description": "Implement and deserialize all CQL types including primitives (int, text, timestamp, uuid, varint, decimal), collections (list, set, map), tuples, UDTs (user-defined types), and frozen types. Use when ",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:07:40.350412Z"
+}

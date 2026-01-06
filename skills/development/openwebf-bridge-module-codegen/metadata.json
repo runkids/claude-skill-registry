@@ -1,0 +1,8 @@
+{
+  "name": "openwebf-bridge-module-codegen",
+  "repo": "archview-ai/webf-plugin",
+  "category": "development",
+  "description": "Build a WebF bridge module/native plugin using the module-codegen workflow (*.module.d.ts \u2192 codegen \u2192 Dart implementation \u2192 registration \u2192 JS usage). Use when the user mentions module-codegen, bridge ",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:03:59.050933Z"
+}

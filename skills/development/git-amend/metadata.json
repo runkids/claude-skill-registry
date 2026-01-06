@@ -1,0 +1,8 @@
+{
+  "name": "git-amend",
+  "repo": "cowwoc/styler",
+  "category": "development",
+  "description": "Safely amend commits (HEAD or non-HEAD) with selective staging and safety checks",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:59:48.198308Z"
+}

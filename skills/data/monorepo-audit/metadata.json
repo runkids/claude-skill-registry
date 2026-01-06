@@ -1,0 +1,8 @@
+{
+  "name": "monorepo-audit",
+  "repo": "metasaver/claude-marketplace",
+  "category": "data",
+  "description": "File-to-agent mapping and manifest generation for composite monorepo audits. Provides dynamic discovery of all config agents, generates structured audit manifests with priority-ordered spawn instructi",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:07:06.716417Z"
+}

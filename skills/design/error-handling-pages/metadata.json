@@ -1,0 +1,8 @@
+{
+  "name": "error-handling-pages",
+  "repo": "daishiman/AIWorkflowOrchestrator",
+  "category": "design",
+  "description": "Next.js App Router\u306e\u30a8\u30e9\u30fc\u30cf\u30f3\u30c9\u30ea\u30f3\u30b0\u3092\u5c02\u9580\u3068\u3059\u308b\u30b9\u30ad\u30eb\u3002error.tsx\u3001not-found.tsx\u3001global-error.tsx\u3092\u4f7f\u7528\u3057\u305f\u30a8\u30e9\u30fc\u5883\u754c\u3068\u30ea\u30ab\u30d0\u30ea\u30fc\u3092\u5b9f\u73fe\u3002Anchors:- The Pragmatic Programmer / \u9069\u7528: \u30a8\u30e9\u30fc\u30cf\u30f3\u30c9\u30ea\u30f3\u30b0\u539f\u5247 / \u76ee\u7684: \u54c1\u8cea\u7dad\u6301\u3068\u5805\u7262\u6027- Next.js Error Handling / \u9069\u7528: erro",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:42.218857Z"
+}

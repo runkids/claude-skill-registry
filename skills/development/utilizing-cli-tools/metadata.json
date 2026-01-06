@@ -1,0 +1,8 @@
+{
+  "name": "utilizing-cli-tools",
+  "repo": "thkt/claude-config",
+  "category": "development",
+  "description": "git\u3001gh\u3001npm\u3001\u305d\u306e\u4ed6\u306e\u958b\u767a\u30c4\u30fc\u30eb\u306eCLI\u30c4\u30fc\u30eb\u30ac\u30a4\u30c9\u3002 \u958b\u767a\u30ef\u30fc\u30af\u30d5\u30ed\u30fc\u3067\u306e\u30b3\u30de\u30f3\u30c9\u30e9\u30a4\u30f3\u64cd\u4f5c\u306e\u30d9\u30b9\u30c8\u30d7\u30e9\u30af\u30c6\u30a3\u30b9\u3002 \u30c8\u30ea\u30ac\u30fc: CLI, command line, git, gh, npm, yarn, pnpm, terminal, \u30b3\u30de\u30f3\u30c9\u30e9\u30a4\u30f3, \u30bf\u30fc\u30df\u30ca\u30eb, GitHub CLI, package manager, \u30d1\u30c3\u30b1\u30fc\u30b8\u30de\u30cd\u30fc\u30b8\u30e3, Conventional Commit",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:23.701129Z"
+}

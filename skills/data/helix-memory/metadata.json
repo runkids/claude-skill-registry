@@ -1,0 +1,8 @@
+{
+  "name": "helix-memory",
+  "repo": "MarcinDudekDev/helix-memory",
+  "category": "data",
+  "description": "Long-term memory system for Claude Code using HelixDB graph-vector database. Store and retrieve facts, preferences, context, and relationships across sessions using semantic search, reasoning chains, ",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T07:53:16.141970Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "build-chatwindow",
+  "repo": "SomtechSolutionMAxime/somtech-pack",
+  "category": "development",
+  "description": "Construit des chatwindows avec widgets interactifs ChatWidget. Guide la cr\u00e9ation de widgets selon le contrat ChatWidget, leur int\u00e9gration dans ChatWindow, la configuration des workflows (OpenAI Agent ",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:11:14.524223Z"
+}

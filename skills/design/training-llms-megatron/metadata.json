@@ -1,0 +1,8 @@
+{
+  "name": "training-llms-megatron",
+  "repo": "zechenzhangAGI/AI-research-SKILLs",
+  "category": "design",
+  "description": "Trains large language models (2B-462B parameters) using NVIDIA Megatron-Core with advanced parallelism strategies. Use when training models >1B parameters, need maximum GPU efficiency (47% MFU on H100",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:18.739746Z"
+}

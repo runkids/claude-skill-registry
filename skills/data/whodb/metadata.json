@@ -1,0 +1,8 @@
+{
+  "name": "whodb",
+  "repo": "clidey/whodb",
+  "category": "data",
+  "description": "Database operations including querying, schema exploration, and data analysis. Activates for tasks involving PostgreSQL, MySQL, MariaDB, SQLite, MongoDB, Redis, Elasticsearch, or ClickHouse databases.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:55:40.149685Z"
+}

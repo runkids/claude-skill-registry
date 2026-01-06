@@ -1,0 +1,8 @@
+{
+  "name": "prisma",
+  "repo": "blencorp/claude-code-kit",
+  "category": "data",
+  "description": "Prisma ORM patterns including Prisma Client usage, queries, mutations, relations, transactions, and schema management. Use when working with Prisma database operations or schema definitions.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:57:12.963682Z"
+}

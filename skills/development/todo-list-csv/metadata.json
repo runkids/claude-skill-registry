@@ -1,0 +1,8 @@
+{
+  "name": "todo-list-csv",
+  "repo": "lili-luo/aicoding-cookbook",
+  "category": "development",
+  "description": "\u5f53\u9700\u8981\u4fee\u6539\u9879\u76ee\uff08\u589e\u5220\u6539\u6587\u4ef6\uff09\u5e76\u5e0c\u671b\u5c06 update_plan \u4e0e CSV \u6709\u673a\u540c\u6b65\u65f6\u4f7f\u7528\u6b64\u6280\u80fd\uff1a\u5728\u9879\u76ee\u6839\u76ee\u5f55\u521b\u5efa\u201c{\u4efb\u52a1\u540d} TO DO list.csv\u201d\uff0c\u7528 TODO/IN_PROGRESS/DONE \u9a71\u52a8 plan \u7684 pending/in_progress/completed\uff0c\u540c\u6b65\u63a8\u8fdb\uff0c\u5168\u90e8\u5b8c\u6210\u540e\u5220\u9664\u8be5\u6587\u4ef6\u3002",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:58:56.785041Z"
+}

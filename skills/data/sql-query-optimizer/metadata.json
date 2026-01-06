@@ -1,0 +1,8 @@
+{
+  "name": "sql-query-optimizer",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "data",
+  "description": "Sql Query Optimizer - Auto-activating skill for Data Analytics.Triggers on: sql query optimizer, sql query optimizerPart of the Data Analytics skill category.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:55:53.619385Z"
+}

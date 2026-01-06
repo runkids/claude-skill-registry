@@ -1,0 +1,8 @@
+{
+  "name": "arifos-workflow-gitforge",
+  "repo": "ariffazil/arifOS",
+  "category": "development",
+  "description": "Analyze git branch entropy and hot zones using arifOS Trinity forge. Use when the user types /gitforge, asks for branch entropy/hot zones/risk score, or wants a pre-change risk/\u0394S assessment.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:58:02.967789Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "ray-data",
+  "repo": "zechenzhangAGI/AI-research-SKILLs",
+  "category": "data",
+  "description": "Scalable data processing for ML workloads. Streaming execution across CPU/GPU, supports Parquet/CSV/JSON/images. Integrates with Ray Train, PyTorch, TensorFlow. Scales from single machine to 100s of n",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:18.455591Z"
+}

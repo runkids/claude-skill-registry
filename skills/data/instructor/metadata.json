@@ -1,0 +1,8 @@
+{
+  "name": "instructor",
+  "repo": "zechenzhangAGI/AI-research-SKILLs",
+  "category": "data",
+  "description": "Extract structured data from LLM responses with Pydantic validation, retry failed extractions automatically, parse complex JSON with type safety, and stream partial results with Instructor - battle-te",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:19.751187Z"
+}

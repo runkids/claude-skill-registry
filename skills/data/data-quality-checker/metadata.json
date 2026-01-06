@@ -1,0 +1,8 @@
+{
+  "name": "data-quality-checker",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "data",
+  "description": "Data Quality Checker - Auto-activating skill for Data Pipelines.Triggers on: data quality checker, data quality checkerPart of the Data Pipelines skill category.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:55:56.805443Z"
+}

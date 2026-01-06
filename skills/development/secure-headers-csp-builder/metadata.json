@@ -1,0 +1,8 @@
+{
+  "name": "secure-headers-csp-builder",
+  "repo": "patricio0312rev/skillset",
+  "category": "development",
+  "description": "Implements security headers and Content Security Policy with safe rollout strategy (report-only \u2192 enforce), testing, and compatibility checks. Use for \"security headers\", \"CSP\", \"HTTP headers\", or \"XS",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:01:09.497906Z"
+}

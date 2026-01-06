@@ -1,0 +1,8 @@
+{
+  "name": "webapi-real-testing",
+  "repo": "yaochangyu/api.template",
+  "category": "testing",
+  "description": "Web API \u6e2c\u8a66\u5be6\u4f5c\u6280\u80fd,\u5354\u52a9\u958b\u767c\u8005\u4f7f\u7528 Testcontainers + Reqnroll \u64b0\u5beb\u5b8c\u6574\u7684 API \u6574\u5408\u6e2c\u8a66,\u5305\u542b Docker \u6e2c\u8a66\u74b0\u5883\u3001BDD \u60c5\u5883\u5b9a\u7fa9\u8207\u6e2c\u8a66\u6b65\u9a5f\u5be6\u4f5c\u3002",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:03:36.174461Z"
+}

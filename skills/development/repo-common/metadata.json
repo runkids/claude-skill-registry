@@ -1,0 +1,8 @@
+{
+  "name": "repo-common",
+  "repo": "fractary/claude-plugins",
+  "category": "development",
+  "description": "Shared utilities and configuration management for repo plugin skills including validation and semantic formatting",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:01:59.553111Z"
+}

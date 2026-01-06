@@ -1,0 +1,8 @@
+{
+  "name": "feedback-handler",
+  "repo": "fractary/claude-plugins",
+  "category": "productivity",
+  "description": "Handles FABER workflow feedback requests - posting to issues and tracking responses",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:01:57.524575Z"
+}

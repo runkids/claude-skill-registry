@@ -1,0 +1,8 @@
+{
+  "name": "translating-technical-articles",
+  "repo": "camoneart/claude-code",
+  "category": "documents",
+  "description": "Translates English technical articles (engineering blogs, documentation) to Japanese while preserving layout and structure. Use when the user asks to translate an article, convert English content to J",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:36.371495Z"
+}

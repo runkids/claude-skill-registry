@@ -1,0 +1,8 @@
+{
+  "name": "epistemic-checkpoint",
+  "repo": "ANcpLua/ancplua-claude-plugins",
+  "category": "devops",
+  "description": "Force verification before answering questions involving versions, dates, status, or \"current\"state. Prevents hallucinations at the REASONING level by checking assertions.yaml and WebSearchbefore formi",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:01:30.828972Z"
+}

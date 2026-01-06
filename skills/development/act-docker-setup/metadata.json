@@ -1,0 +1,8 @@
+{
+  "name": "act-docker-setup",
+  "repo": "TheBushidoCollective/han",
+  "category": "development",
+  "description": "Use when configuring Docker environments for act, selecting runner images, managing container resources, or troubleshooting Docker-related issues with local GitHub Actions testing.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:57:00.398382Z"
+}

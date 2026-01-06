@@ -1,0 +1,8 @@
+{
+  "name": "smart-reopen-detector",
+  "repo": "anton-abyzov/specweave",
+  "category": "documents",
+  "description": "Detects when user reports issues with recently completed work and suggests reopening relevant tasks, user stories, or increments. Auto-activates on keywords: not working, broken, bug, issue, problem, ",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:58:10.488109Z"
+}

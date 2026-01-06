@@ -1,0 +1,8 @@
+{
+  "name": "observability-patterns",
+  "repo": "melodic-software/claude-code-plugins",
+  "category": "testing",
+  "description": "Use when implementing observability strategy, correlating signals, or designing monitoring systems. Covers the three pillars (logs, metrics, traces) and their integration.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:12.385823Z"
+}

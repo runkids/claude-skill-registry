@@ -1,0 +1,8 @@
+{
+  "name": "template-update",
+  "repo": "metasaver/metasaver-marketplace",
+  "category": "data",
+  "description": "Updates template files in metasaver-marketplace as the source of truth before applying changes elsewhere. Use when standardizing configs across repos - updates template FIRST, then uses it for remedia",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:07:08.545696Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "when-chaining-agent-pipelines-use-stream-chain",
+  "repo": "DNYoussef/ai-chrome-extension",
+  "category": "data",
+  "description": "Chain agent outputs as inputs in sequential or parallel pipelines for data flow orchestration",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:05:09.784775Z"
+}

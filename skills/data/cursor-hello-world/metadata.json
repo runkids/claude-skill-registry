@@ -1,0 +1,8 @@
+{
+  "name": "cursor-hello-world",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "data",
+  "description": "Create your first project with Cursor AI features. Triggers on \"cursor hello world\",\"first cursor project\", \"cursor getting started\", \"try cursor ai\", \"cursor basics\".",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:55:57.292433Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "faber-director-legacy",
+  "repo": "fractary/claude-plugins",
+  "category": "testing",
+  "description": "\u26a0\ufe0f DEPRECATED - Use faber-planner + faber-executor instead.This skill is preserved for reference only.See: SPEC-20251208-faber-two-phase-architecture.md",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:01:57.359072Z"
+}

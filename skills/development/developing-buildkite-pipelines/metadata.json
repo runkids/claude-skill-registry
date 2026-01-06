@@ -1,0 +1,8 @@
+{
+  "name": "developing-buildkite-pipelines",
+  "repo": "technicalpickles/pickled-claude-plugins",
+  "category": "development",
+  "description": "Use when creating, modifying, or debugging Buildkite pipeline YAML files - ensures current syntax from official docs, validates configurations before proposing changes, and references Buildkite best p",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:08:45.977650Z"
+}

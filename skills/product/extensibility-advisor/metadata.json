@@ -1,0 +1,8 @@
+{
+  "name": "extensibility-advisor",
+  "repo": "squirrelsoft-dev/claude-builder",
+  "category": "product",
+  "description": "Advises on choosing the right Claude Code extensibility approach (Skills, Commands, Subagents, Hooks, Plugins, MCP, Output Styles). Activates when user discusses extending Claude Code, creating automa",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:27.390516Z"
+}

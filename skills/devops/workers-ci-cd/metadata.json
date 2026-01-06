@@ -1,0 +1,8 @@
+{
+  "name": "workers-ci-cd",
+  "repo": "secondsky/claude-skills",
+  "category": "devops",
+  "description": "Complete CI/CD guide for Cloudflare Workers using GitHub Actions and GitLab CI. Use for automated testing, deployment pipelines, preview environments, secrets management, or encountering deployment fa",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:58:43.420797Z"
+}

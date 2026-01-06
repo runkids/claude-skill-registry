@@ -1,0 +1,8 @@
+{
+  "name": "flox-services",
+  "repo": "flox/flox-agentic",
+  "category": "data",
+  "description": "Running services and background processes in Flox environments. Use for service configuration, network services, logging, database setup, and service debugging.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:59:51.339472Z"
+}

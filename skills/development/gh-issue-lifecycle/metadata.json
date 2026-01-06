@@ -1,0 +1,8 @@
+{
+  "name": "gh-issue-lifecycle",
+  "repo": "poindexter12/waypoint",
+  "category": "development",
+  "description": "GitHub issue state machine and code integration patterns. Covers state transitions (needs-triage \u2192 accepted \u2192 in-progress \u2192 completed), branch naming (feat/123-desc), PR linking (Closes",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:07:41.111586Z"
+}

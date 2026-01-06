@@ -1,0 +1,8 @@
+{
+  "name": "mova-skill-scaffolder-basic-wrapper",
+  "repo": "Leryk1981/mova_wf_cycle",
+  "category": "development",
+  "description": "LLM-only skill that takes a textual description of a new skill and generates a complete minimal file plan for a new MOVA skill (schemas, envelope, manifest, prompt profile, runtime binding, docs, case",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:06:47.919051Z"
+}

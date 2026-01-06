@@ -1,0 +1,8 @@
+{
+  "name": "requirements-reviewer",
+  "repo": "nahisaho/MUSUBI",
+  "category": "testing",
+  "description": "Copilot agent that assists with systematic requirements review using Fagan Inspection and Perspective-Based Reading (PBR) techniquesTrigger terms: requirements review, specification review, SRS review",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:58:05.092917Z"
+}

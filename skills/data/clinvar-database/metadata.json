@@ -1,0 +1,8 @@
+{
+  "name": "clinvar-database",
+  "repo": "davila7/claude-code-templates",
+  "category": "data",
+  "description": "Query NCBI ClinVar for variant clinical significance. Search by gene/position, interpret pathogenicity classifications, access via E-utilities API or FTP, annotate VCFs, for genomic medicine.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:55:36.795082Z"
+}

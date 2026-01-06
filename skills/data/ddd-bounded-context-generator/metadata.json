@@ -1,0 +1,8 @@
+{
+  "name": "ddd-bounded-context-generator",
+  "repo": "RomualdP/hoki",
+  "category": "data",
+  "description": "G\u00e9n\u00e8re des bounded contexts DDD complets avec architecture en couches (Domain, Application, Infrastructure, Presentation). \u00c0 utiliser lors de la cr\u00e9ation de nouvelles features backend, bounded context",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:07:57.102249Z"
+}

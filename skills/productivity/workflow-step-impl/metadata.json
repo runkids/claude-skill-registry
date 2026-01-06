@@ -1,0 +1,8 @@
+{
+  "name": "workflow-step-impl",
+  "repo": "rozwer/cross2B-Pro",
+  "category": "productivity",
+  "description": "Temporal+LangGraph \u306e\u5de5\u7a0b\uff08step\uff09\u8ffd\u52a0/\u4fee\u6b63\u306e\u5b9f\u88c5\u30c6\u30f3\u30d7\u30ec\u3002Activity \u51aa\u7b49\u6027\u3001output_path/output_digest\u3001\u627f\u8a8d\u5f85\u3061\u3001\u76e3\u67fb\u30ed\u30b0\u3092\u542b\u3080\u3002",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:07:58.432436Z"
+}

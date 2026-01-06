@@ -1,0 +1,8 @@
+{
+  "name": "laravel-backup",
+  "repo": "Hieubkav/wincellarCloneBackend",
+  "category": "data",
+  "description": "Configure, implement, and manage Laravel application backups using spatie/laravel-backup. Create automated backup schedules, configure file and database backups, set up backup storage (S3, local), man",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:06:01.817562Z"
+}

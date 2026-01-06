@@ -1,0 +1,8 @@
+{
+  "name": "code-auditor",
+  "repo": "mhattingpete/claude-skills-marketplace",
+  "category": "testing",
+  "description": "Performs comprehensive codebase analysis covering architecture, code quality, security, performance, testing, and maintainability. Use when user wants to audit code quality, identify technical debt, f",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:42.822238Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "documenting-with-audit",
+  "repo": "bryonjacob/aug",
+  "category": "documents",
+  "description": "Automated documentation auditing - ensures CLAUDE.md coverage, updates stale docs, recommends structural improvements",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:04:18.215400Z"
+}

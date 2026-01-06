@@ -1,0 +1,8 @@
+{
+  "name": "opportunityiq-mvp-scanner",
+  "repo": "Generative-Bricks/claude-code-agent",
+  "category": "data",
+  "description": "Scans client data against revenue opportunity scenarios to identify and rank the top sales opportunities. Matches clients to scenarios like FIA replacements approaching surrender, cash drag opportunit",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:05:51.852133Z"
+}

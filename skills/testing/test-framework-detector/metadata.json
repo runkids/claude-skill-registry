@@ -1,0 +1,8 @@
+{
+  "name": "test-framework-detector",
+  "repo": "FortiumPartners/ai-mesh",
+  "category": "testing",
+  "description": "Automatically detect test frameworks (Jest, pytest, RSpec, xUnit) in projects by analyzing configuration files and dependencies",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:59:17.262670Z"
+}

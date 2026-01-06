@@ -1,0 +1,8 @@
+{
+  "name": "llamaindex",
+  "repo": "zechenzhangAGI/AI-research-SKILLs",
+  "category": "data",
+  "description": "Data framework for building LLM applications with RAG. Specializes in document ingestion (300+ connectors), indexing, and querying. Features vector indices, query engines, agents, and multi-modal supp",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:19.337559Z"
+}

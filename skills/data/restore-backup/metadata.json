@@ -1,0 +1,8 @@
+{
+  "name": "restore-backup",
+  "repo": "mpryc/ai-agents-and-skills",
+  "category": "data",
+  "description": "Restores applications and data from Velero backups with proper configuration, validation, and verification.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:07:13.380980Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "ac-verification",
+  "repo": "metasaver/metasaver-marketplace",
+  "category": "testing",
+  "description": "Verify that implemented code meets acceptance criteria from user stories. Use when validating story completion - performs code inspection, test execution, and manual checks against each AC criterion.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:07:07.616164Z"
+}

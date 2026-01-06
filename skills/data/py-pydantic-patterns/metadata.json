@@ -1,0 +1,8 @@
+{
+  "name": "py-pydantic-patterns",
+  "repo": "CJHarmath/claude-agents-skills",
+  "category": "data",
+  "description": "Pydantic v2 patterns for validation and serialization. Use when creating schemas, validating data, or working with request/response models.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:04:31.040979Z"
+}

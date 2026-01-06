@@ -1,0 +1,8 @@
+{
+  "name": "hallucination-detector",
+  "repo": "marcusgoll/Spec-Flow",
+  "category": "data",
+  "description": "Detect and prevent hallucinated technical decisions during feature work. Auto-trigger when suggesting technologies, frameworks, APIs, database schemas, or external services. Validates all tech decisio",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:58:11.571526Z"
+}

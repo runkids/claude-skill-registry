@@ -1,0 +1,8 @@
+{
+  "name": "provider-verification",
+  "repo": "melodic-software/claude-code-plugins",
+  "category": "testing",
+  "description": "Provider verification workflow for contract testing",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:01.266939Z"
+}

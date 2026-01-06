@@ -1,0 +1,8 @@
+{
+  "name": "weaviate-connection",
+  "repo": "saskinosie/weaviate-claude-skills",
+  "category": "data",
+  "description": "Connect to local Weaviate vector database and verify connection health",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:57:19.399355Z"
+}

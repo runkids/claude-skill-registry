@@ -1,0 +1,8 @@
+{
+  "name": "using-celery",
+  "repo": "FortiumPartners/ensemble",
+  "category": "productivity",
+  "description": "Celery 5.3+ distributed task queue with Beat scheduler, Redis/RabbitMQ brokers, workflow patterns, and FastAPI integration. Use for background jobs, periodic tasks, and async processing.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:09:57.040837Z"
+}

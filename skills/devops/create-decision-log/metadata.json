@@ -1,0 +1,8 @@
+{
+  "name": "create-decision-log",
+  "repo": "semicolon-devteam/semo",
+  "category": "devops",
+  "description": "\uc758\uc0ac\uacb0\uc815 \ub85c\uadf8 Discussion \uc0dd\uc131. \ud68c\uc758/Slack/PR \ub4f1\uc5d0\uc11c \uacb0\uc815\ub41c \uc0ac\ud56d\uc744 command-center\uc5d0 \uae30\ub85d.Use when (1) \uc758\uc0ac\uacb0\uc815 \uae30\ub85d \uc694\uccad, (2) \ud68c\uc758 \uacb0\uc815\uc0ac\ud56d \ubb38\uc11c\ud654, (3) summarize-meeting \uc2a4\ud0ac\uc5d0\uc11c \ud638\ucd9c.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:02:51.056330Z"
+}

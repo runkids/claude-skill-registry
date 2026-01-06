@@ -1,0 +1,8 @@
+{
+  "name": "agentuity-cli-cloud-vector-upsert",
+  "repo": "agentuity/examples",
+  "category": "design",
+  "description": "Add or update vectors in the vector storage. Requires authentication. Use for Agentuity cloud platform operations",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:30.837849Z"
+}

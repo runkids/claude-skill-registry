@@ -1,0 +1,8 @@
+{
+  "name": "file-watcher-observability",
+  "repo": "daishiman/AIWorkflowOrchestrator",
+  "category": "documents",
+  "description": "\u30d5\u30a1\u30a4\u30eb\u76e3\u8996\u30b7\u30b9\u30c6\u30e0\u306e\u53ef\u89b3\u6e2c\u6027\uff08Observability\uff09\u30923\u672c\u67f1\uff08Metrics\u3001Logs\u3001Traces\uff09\u306b\u57fa\u3065\u3044\u3066\u5b9f\u88c5\u3059\u308b\u30b9\u30ad\u30eb\u3002Prometheus/Grafana\u7d71\u5408\u3067SLA\u9075\u5b88\u6e2c\u5b9a\u3001\u30d1\u30d5\u30a9\u30fc\u30de\u30f3\u30b9\u76e3\u8996\u3001\u969c\u5bb3\u6839\u672c\u539f\u56e0\u5206\u6790\u3092\u652f\u63f4\u3002Anchors:\u2022 Observability Engineering\uff08Charity Majors\uff09 / \u9069\u7528: 3\u672c\u67f1\u8a2d\u8a08 / \u76ee\u7684: \u30e1\u30c8\u30ea\u30af\u30b9\u30fb\u30ed\u30b0\u30fb\u30c8\u30ec",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:42.346962Z"
+}

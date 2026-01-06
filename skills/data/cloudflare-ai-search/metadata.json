@@ -1,0 +1,8 @@
+{
+  "name": "cloudflare-ai-search",
+  "repo": "enuno/claude-command-and-control",
+  "category": "data",
+  "description": "Cloudflare AI Search for semantic search and vector embeddings in Workers",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:27.528577Z"
+}

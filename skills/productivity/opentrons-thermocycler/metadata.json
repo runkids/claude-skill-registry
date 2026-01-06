@@ -1,0 +1,8 @@
+{
+  "name": "opentrons-thermocycler",
+  "repo": "jkitchin/skillz",
+  "category": "productivity",
+  "description": "Opentrons Thermocycler Module - automated PCR thermal cycling with independent block (4-99\u00b0C) and lid (37-110\u00b0C) temperature control, profile execution, and auto-sealing lid support (GEN2) for high-th",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:59:52.601605Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "prediction-tracking",
+  "repo": "rickoslyder/HypeDelta",
+  "category": "data",
+  "description": "Track and evaluate AI predictions over time to assess accuracy. Use when reviewing past predictions to determine if they came true, failed, or remain uncertain.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:02:51.757666Z"
+}

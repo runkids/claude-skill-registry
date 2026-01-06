@@ -1,0 +1,8 @@
+{
+  "name": "subagent-coordination",
+  "repo": "outfitter-dev/agents",
+  "category": "productivity",
+  "description": "Orchestrate baselayer subagents for complex tasks. Defines available agents, their skills, and workflows for multi-agent scenarios. Load when coordinating work across agents, delegating tasks, or deci",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:59:37.811112Z"
+}

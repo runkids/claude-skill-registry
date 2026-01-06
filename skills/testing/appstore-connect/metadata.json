@@ -1,0 +1,8 @@
+{
+  "name": "appstore-connect",
+  "repo": "jiunbae/agent-skills",
+  "category": "testing",
+  "description": "App Store Connect \uc790\ub3d9\ud654 \uc2a4\ud0ac. JWT API/Playwright \ud558\uc774\ube0c\ub9ac\ub4dc \ubc29\uc2dd\uc73c\ub85c \uc571 \uc815\ubcf4, \ube4c\ub4dc, TestFlight \ubc30\ud3ec, \uc2a4\ud06c\ub9b0\uc0f7 \uc5c5\ub85c\ub4dc, \uc571 \uc81c\ucd9c \uc9c0\uc6d0. \"ASC\", \"TestFlight\", \"\uc571\uc2a4\ud1a0\uc5b4\" \ud0a4\uc6cc\ub4dc\ub85c \ud65c\uc131\ud654.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:06:23.804291Z"
+}

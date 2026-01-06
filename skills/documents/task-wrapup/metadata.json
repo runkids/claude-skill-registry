@@ -1,0 +1,8 @@
+{
+  "name": "task-wrapup",
+  "repo": "arlenagreer/claude_configuration_docs",
+  "category": "documents",
+  "description": "Comprehensive work session wrap-up orchestrator that generates summaries, sends notifications across multiple channels (email, SMS, Slack), logs work time, and updates project documentation",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:04:00.640891Z"
+}

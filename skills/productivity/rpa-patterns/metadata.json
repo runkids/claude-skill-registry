@@ -1,0 +1,8 @@
+{
+  "name": "rpa-patterns",
+  "repo": "omerlefaruk/CasareRPA",
+  "category": "productivity",
+  "description": "Common RPA automation patterns (retry, polling, circuit breaker) for resilient automation. Use when: implementing RPA workflows, error handling, resilient automation, retry with backoff, polling for c",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:07:26.085131Z"
+}

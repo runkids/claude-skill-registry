@@ -1,0 +1,8 @@
+{
+  "name": "generating-tdd-tests",
+  "repo": "thkt/claude-config",
+  "category": "testing",
+  "description": "RGRC\u30b5\u30a4\u30af\u30eb\u3068Baby Steps\u65b9\u6cd5\u8ad6\u3092\u7528\u3044\u305fTDD\u3002\u30c8\u30ea\u30ac\u30fc: TDD, \u30c6\u30b9\u30c8\u99c6\u52d5\u958b\u767a, Red-Green-Refactor, Baby Steps, test generation, \u30c6\u30b9\u30c8\u751f\u6210, \u30c6\u30b9\u30c8\u8a2d\u8a08, \u30c6\u30b9\u30c8\u30b1\u30fc\u30b9, boundary value, \u5883\u754c\u5024\u5206\u6790, coverage, \u30ab\u30d0\u30ec\u30c3\u30b8, unit test",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:23.207004Z"
+}

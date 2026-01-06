@@ -1,0 +1,8 @@
+{
+  "name": "uloop-get-project-info",
+  "repo": "hatayama/uLoopMCP",
+  "category": "development",
+  "description": "Get Unity project information via uloop CLI. Use when you need to check project settings, Unity version, platform, or other project metadata.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:44.048219Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "tla-specification",
+  "repo": "melodic-software/claude-code-plugins",
+  "category": "testing",
+  "description": "TLA+ formal specification language for distributed systems and concurrent algorithms",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:06.520891Z"
+}

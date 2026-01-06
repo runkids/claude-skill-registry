@@ -1,0 +1,8 @@
+{
+  "name": "codegen-bug-fix",
+  "repo": "nihiyama/ffq",
+  "category": "development",
+  "description": "Fix bugs using TDD starting from README + Issue (following codegen-test), aligning with existing implementation conventions, and leveraging Serena MCP semantic search/editing to implement changes with",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:01:22.763267Z"
+}

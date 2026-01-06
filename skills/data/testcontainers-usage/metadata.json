@@ -1,0 +1,8 @@
+{
+  "name": "testcontainers-usage",
+  "repo": "IvanTorresEdge/molcajete.ai",
+  "category": "data",
+  "description": "Docker-based testing with testcontainers. Use when running tests with real databases.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:06:15.816552Z"
+}

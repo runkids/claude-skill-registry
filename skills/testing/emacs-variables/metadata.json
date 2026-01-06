@@ -1,0 +1,8 @@
+{
+  "name": "emacs-variables",
+  "repo": "jingtaozf/emacs-claude-agent",
+  "category": "testing",
+  "description": "Use when inspecting or modifying Emacs variables - provides elisp patterns for variable handling, customization, and state management",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:11:16.490154Z"
+}

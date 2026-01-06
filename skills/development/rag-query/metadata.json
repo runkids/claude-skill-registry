@@ -1,0 +1,8 @@
+{
+  "name": "rag-query",
+  "repo": "aaronbassett/midnight-summit-hackathon-2025",
+  "category": "development",
+  "description": "This skill should be used when users ask questions about pod network development, pod smart contract language, pod APIs, pod tooling, or pod-specific features. It provides semantic search over the pod",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:03:42.076016Z"
+}

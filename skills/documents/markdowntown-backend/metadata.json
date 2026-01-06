@@ -1,0 +1,8 @@
+{
+  "name": "markdowntown-backend",
+  "repo": "joelklabo/markdowntown-cli",
+  "category": "documents",
+  "description": "Backend API routes, Prisma schema/migrations, and server-side validation patterns for markdowntown. Use when editing Next.js App Router API handlers, Prisma models/migrations, auth/session gating, rat",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:09:59.123860Z"
+}

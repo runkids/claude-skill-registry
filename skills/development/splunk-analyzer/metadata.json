@@ -1,0 +1,8 @@
+{
+  "name": "splunk-analyzer",
+  "repo": "srsubramanian/splunk-analyzer-skill",
+  "category": "development",
+  "description": "Automate Splunk queries and analyze results using Chrome DevTools MCP. Use when the user wants to run Splunk searches, export log data, or analyze Splunk results. Triggers on requests like \"check erro",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:08:32.862357Z"
+}

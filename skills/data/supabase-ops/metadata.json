@@ -1,0 +1,8 @@
+{
+  "name": "supabase-ops",
+  "repo": "breverdbidder/life-os",
+  "category": "data",
+  "description": "Supabase database operations for BidDeed.AI and Life OS ecosystems. Handles inserts, queries, and data management for tables including insights, historical_auctions, activities, daily_metrics, michael",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:04:17.260918Z"
+}

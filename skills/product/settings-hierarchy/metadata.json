@@ -1,0 +1,8 @@
+{
+  "name": "settings-hierarchy",
+  "repo": "melodic-software/claude-code-plugins",
+  "category": "product",
+  "description": "Hierarchical settings patterns for SaaS. Covers org, team, and user-level settings with inheritance and override patterns.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:09.542322Z"
+}

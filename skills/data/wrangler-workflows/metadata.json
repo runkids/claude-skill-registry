@@ -1,0 +1,8 @@
+{
+  "name": "wrangler-workflows",
+  "repo": "involvex/involvex-claude-marketplace",
+  "category": "data",
+  "description": "This skill should be used when the user mentions \"wrangler\", \"wrangler.toml\", \"wrangler.jsonc\", \"wrangler commands\", \"local development\", \"wrangler dev\", \"wrangler deploy\", \"wrangler publish\", \"secret",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:06:14.026065Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "pyvene-interventions",
+  "repo": "zechenzhangAGI/AI-research-SKILLs",
+  "category": "testing",
+  "description": "Provides guidance for performing causal interventions on PyTorch models using pyvene's declarative intervention framework. Use when conducting causal tracing, activation patching, interchange interven",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:18.213807Z"
+}

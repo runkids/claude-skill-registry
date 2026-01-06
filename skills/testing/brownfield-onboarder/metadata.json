@@ -1,0 +1,8 @@
+{
+  "name": "brownfield-onboarder",
+  "repo": "anton-abyzov/specweave",
+  "category": "testing",
+  "description": "Intelligently onboards brownfield projects by merging existing CLAUDE.md backups into SpecWeave structure. Extracts project-specific knowledge, domain context, team conventions, and technical details ",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:58:09.755093Z"
+}

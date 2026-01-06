@@ -1,0 +1,8 @@
+{
+  "name": "oracle-teach",
+  "repo": "laris-co/nat-agents-core",
+  "category": "documents",
+  "description": "Generate learning materials from mature patterns. Use when user says \"teach me\", \"explain this pattern\", \"create a guide\", \"how does X work\", \"document this for others\". Auto-trigger when sharing know",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:10:02.710086Z"
+}

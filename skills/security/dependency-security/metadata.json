@@ -1,0 +1,8 @@
+{
+  "name": "dependency-security",
+  "repo": "IvanTorresEdge/molcajete.ai",
+  "category": "security",
+  "description": "Dependency security scanning. Use when auditing npm packages for vulnerabilities.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:06:15.234162Z"
+}

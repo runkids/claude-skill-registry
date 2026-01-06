@@ -1,0 +1,8 @@
+{
+  "name": "agents-md-assistant",
+  "repo": "dmitriiweb/extract-emails",
+  "category": "testing",
+  "description": "Inspect a repository and draft an AGENTS.md file using the standard template, capturing commands, structure, and workflow rules.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:44.031573Z"
+}

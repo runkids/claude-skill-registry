@@ -1,0 +1,8 @@
+{
+  "name": "validating-query-inputs",
+  "repo": "djankies/claude-configs",
+  "category": "data",
+  "description": "Validate all external input with Zod before Prisma operations. Use when accepting user input, API requests, or form data.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:05:02.670728Z"
+}

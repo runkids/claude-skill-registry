@@ -1,0 +1,8 @@
+{
+  "name": "vnstock-quote-best-practices",
+  "repo": "gahoccode/PRDs",
+  "category": "devops",
+  "description": "Best practices for using vnstock3 Quote class with VCI source. Use when fetching Vietnamese stock price data, implementing batch processing, caching, error handling, or data validation for vnstock Quo",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:05:48.232406Z"
+}

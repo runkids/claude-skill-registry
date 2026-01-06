@@ -1,0 +1,8 @@
+{
+  "name": "pymc-fundamentals",
+  "repo": "choxos/BayesianAgent",
+  "category": "development",
+  "description": "Foundational knowledge for writing PyMC 5 models including syntax, distributions, sampling, and ArviZ diagnostics. Use when creating or reviewing PyMC models.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:04:27.871252Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "mlops-patterns",
+  "repo": "colingwuyu/optaic-trading",
+  "category": "data",
+  "description": "Follow these patterns when implementing MLOps features in OptAIC. Use for ML model definitions (5-component structure), model instances, training/inference pipelines, model registry, and monitoring. C",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:09:54.059685Z"
+}

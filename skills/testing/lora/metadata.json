@@ -1,0 +1,8 @@
+{
+  "name": "lora",
+  "repo": "itsmostafa/llm-engineering-skills",
+  "category": "testing",
+  "description": "Parameter-efficient fine-tuning with Low-Rank Adaptation (LoRA). Use when fine-tuning large language models with limited GPU memory, creating task-specific adapters, or when you need to train multiple",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:03:36.783106Z"
+}

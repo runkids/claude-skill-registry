@@ -1,0 +1,8 @@
+{
+  "name": "newman-testing",
+  "repo": "vanman2024/dev-lifecycle-marketplace",
+  "category": "testing",
+  "description": "Newman/Postman collection testing patterns for API testing with environment variables, test assertions, and reporting. Use when building API tests, running Newman collections, testing REST APIs, valid",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:09:27.248678Z"
+}

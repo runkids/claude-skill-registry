@@ -1,0 +1,8 @@
+{
+  "name": "codex-cli-docs",
+  "repo": "melodic-software/claude-code-plugins",
+  "category": "documents",
+  "description": "Single source of truth and librarian for ALL OpenAI Codex CLI documentation. Manages local documentation storage, scraping, discovery, and resolution. Use when finding, locating, searching, or resolvi",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:08.316835Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "agentuity-cli-cloud-session-logs",
+  "repo": "agentuity/examples",
+  "category": "testing",
+  "description": "Get logs for a specific session. Requires authentication. Use for Agentuity cloud platform operations",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:32.817780Z"
+}

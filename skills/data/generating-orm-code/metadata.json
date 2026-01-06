@@ -1,0 +1,8 @@
+{
+  "name": "generating-orm-code",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "data",
+  "description": "Use when you need to work with ORM code generation.This skill provides ORM model and code generation with comprehensive guidance and automation.Trigger with phrases like \"generate ORM models\", \"create",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:55:47.586480Z"
+}

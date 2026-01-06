@@ -1,0 +1,8 @@
+{
+  "name": "entry-point-check",
+  "repo": "tikazyq/agentic-spec-forge",
+  "category": "testing",
+  "description": "\u9a8c\u8bc1 VS \u7684 entry_points \u5b57\u6bb5\u662f\u5426\u4e0e SPEC_PRJ_ENTRYPOINTS\uff08\u5165\u53e3\u7c7b\u578b\u6807\u7b7e\uff09\u4e00\u81f4\uff0c\u751f\u6210\u7f3a\u5931\u5165\u53e3\u6e05\u5355\u548c\u8865\u5145\u5efa\u8bae\u3002\u5f53\u51c6\u5907 CONSTRAINT \u9a8c\u6536\u524d\u4f7f\u7528\u3002",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:10:07.065581Z"
+}

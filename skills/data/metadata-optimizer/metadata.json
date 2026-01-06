@@ -1,0 +1,8 @@
+{
+  "name": "metadata-optimizer",
+  "repo": "huifer/claude-code-seo",
+  "category": "data",
+  "description": "\u5206\u6790\u548c\u4f18\u5316 Next.js \u9879\u76ee\u7684\u5143\u6570\u636e\uff0c\u5305\u62ec title\u3001description\u3001Open Graph\u3001Twitter Cards\u3002\u81ea\u52a8\u68c0\u6d4b App Router \u6216 Pages Router\uff0c\u63d0\u4f9b\u957f\u5ea6\u5efa\u8bae\u3001\u5173\u952e\u8bcd\u4f18\u5316\u548c\u6700\u4f73\u5b9e\u8df5\u6307\u5bfc\u3002\u652f\u6301\u4e2d\u82f1\u6587\u53cc\u8bed SEO \u5206\u6790\u3002",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:10:41.372682Z"
+}

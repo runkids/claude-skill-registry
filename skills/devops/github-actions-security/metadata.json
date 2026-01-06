@@ -1,0 +1,8 @@
+{
+  "name": "github-actions-security",
+  "repo": "daishiman/AIWorkflowOrchestrator",
+  "category": "devops",
+  "description": "GitHub Actions\u30ef\u30fc\u30af\u30d5\u30ed\u30fc\u306e\u30bb\u30ad\u30e5\u30ea\u30c6\u30a3\u5f37\u5316\u30b9\u30ad\u30eb\u3002Repository/Environment Secrets\u306e\u5b89\u5168\u7ba1\u7406\u3001\u30ed\u30b0\u30de\u30b9\u30ad\u30f3\u30b0\u3001\u54c1\u8cea\u30b2\u30fc\u30c8\u7d71\u5408\u3001CI/CD\u30d1\u30a4\u30d7\u30e9\u30a4\u30f3\u306e\u8105\u5a01\u5bfe\u7b56\u3092\u884c\u3046\u3002Anchors:\u2022 OWASP Top 10 CI/CD Security Risks / \u9069\u7528: \u30ea\u30b9\u30af\u8a55\u4fa1\u30fb\u8105\u5a01\u7279\u5b9a / \u76ee\u7684: \u696d\u754c\u6a19\u6e96\u306b\u57fa\u3065\u304f\u30ea\u30b9\u30af\u512a\u5148\u5ea6\u6c7a\u5b9a\u2022 GitHub Act",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:43.043826Z"
+}

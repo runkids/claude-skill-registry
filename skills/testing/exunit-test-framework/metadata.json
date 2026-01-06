@@ -1,0 +1,8 @@
+{
+  "name": "exunit-test-framework",
+  "repo": "FortiumPartners/ai-mesh",
+  "category": "testing",
+  "description": "Execute and generate ExUnit tests for Elixir projects with setup callbacks, describe blocks, and async testing support",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:59:17.007666Z"
+}

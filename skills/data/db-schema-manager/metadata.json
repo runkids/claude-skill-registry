@@ -1,0 +1,8 @@
+{
+  "name": "db-schema-manager",
+  "repo": "psh355q-ui/szdi57465yt",
+  "category": "data",
+  "description": "Manages all database table schemas for the AI Trading System. Use when: creating tables, validating data before insert/update, checking schema compatibility, generating migrations, or when user mentio",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:07:45.159773Z"
+}

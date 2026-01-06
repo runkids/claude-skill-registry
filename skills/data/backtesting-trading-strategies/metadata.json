@@ -1,0 +1,8 @@
+{
+  "name": "backtesting-trading-strategies",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "data",
+  "description": "Backtest crypto trading strategies against historical data with performance metrics.Use when validating trading strategies with historical data.Trigger with phrases like \"backtest strategy\", \"test tra",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:55:46.971147Z"
+}

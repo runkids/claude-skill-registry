@@ -1,0 +1,8 @@
+{
+  "name": "td-scale-fit",
+  "repo": "teradata-labs/claude-cookbooks",
+  "category": "data",
+  "description": "Data scaling and normalization using TD_ScaleFit and TD_ScaleTransform",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:08:51.473590Z"
+}

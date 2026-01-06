@@ -1,0 +1,8 @@
+{
+  "name": "docx-generator",
+  "repo": "jwynia/agent-skills",
+  "category": "documents",
+  "description": "Create and manipulate Word DOCX files programmatically. Use when the user needs to generate documents, modify DOCX templates, extract document content, or automate Word document workflows. Supports bo",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:06:34.404796Z"
+}

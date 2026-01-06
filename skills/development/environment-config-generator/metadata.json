@@ -1,0 +1,8 @@
+{
+  "name": "environment-config-generator",
+  "repo": "tikazyq/agentic-spec-forge",
+  "category": "development",
+  "description": "\u751f\u6210\u591a\u73af\u5883\u914d\u7f6e\u6e05\u5355\u548cdotenv\u6a21\u677f\u6587\u4ef6\uff0c\u786e\u4fdddev/test/staging/prod\u73af\u5883\u914d\u7f6e\u5b8c\u6574\u3002\u5f53\u9700\u8981\u521b\u5efa\u73af\u5883\u914d\u7f6e\u3001\u751f\u6210.env.example\u6a21\u677f\u3001\u6587\u6863\u5316\u6d4b\u8bd5\u6846\u67b6setup\u3001\u6620\u5c04CI\u73af\u5883\u53d8\u91cf\u65f6\u4f7f\u7528\u3002\u89e3\u51b3dotenv\u7ecf\u5e38\u88ab\u5ffd\u89c6\u7684\u75db\u70b9\u3002",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:09:57.715794Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "elixir-no-shortcuts",
+  "repo": "mkreyman/bmad-elixir",
+  "category": "data",
+  "description": "BLOCKS shortcuts like modifying dialyzer.ignore or .credo.exs excludes. Enforces fixing actual problems. Use when encountering ANY error, warning, or quality tool complaint.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:07:11.277894Z"
+}

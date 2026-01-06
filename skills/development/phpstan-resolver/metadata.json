@@ -1,0 +1,8 @@
+{
+  "name": "phpstan-resolver",
+  "repo": "atournayre/claude-marketplace",
+  "category": "development",
+  "description": "R\u00e9sout automatiquement les erreurs PHPStan en analysant et corrigeant les probl\u00e8mes de types. Boucle jusqu'\u00e0 z\u00e9ro erreur ou stagnation.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:58:59.664633Z"
+}

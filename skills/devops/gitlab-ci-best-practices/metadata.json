@@ -1,0 +1,8 @@
+{
+  "name": "gitlab-ci-best-practices",
+  "repo": "TheBushidoCollective/han",
+  "category": "devops",
+  "description": "Use when optimizing GitLab CI/CD pipelines for performance, reliability, or maintainability. Covers pipeline optimization and organizational patterns.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:57:03.953632Z"
+}

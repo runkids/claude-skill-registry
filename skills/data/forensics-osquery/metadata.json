@@ -1,0 +1,8 @@
+{
+  "name": "forensics-osquery",
+  "repo": "AgentSecOps/SecOpsAgentKit",
+  "category": "data",
+  "description": "SQL-powered forensic investigation and system interrogation using osquery to query operating systems as relational databases. Enables rapid evidence collection, threat hunting, and incident response a",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:59:26.319747Z"
+}

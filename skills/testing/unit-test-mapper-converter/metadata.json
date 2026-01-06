@@ -1,0 +1,8 @@
+{
+  "name": "unit-test-mapper-converter",
+  "repo": "giuseppe-trisciuoglio/developer-kit",
+  "category": "testing",
+  "description": "Unit tests for mappers and converters (MapStruct, custom mappers). Test object transformation logic in isolation. Use when ensuring correct data transformation between DTOs and domain objects.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:57:13.789017Z"
+}

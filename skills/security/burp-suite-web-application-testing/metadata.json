@@ -1,0 +1,8 @@
+{
+  "name": "burp-suite-web-application-testing",
+  "repo": "zebbern/claude-code-guide",
+  "category": "security",
+  "description": "This skill should be used when the user asks to \"intercept HTTP traffic\", \"modify web requests\", \"use Burp Suite for testing\", \"perform web vulnerability scanning\", \"test with Burp Repeater\", \"analyze",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:55:40.721128Z"
+}

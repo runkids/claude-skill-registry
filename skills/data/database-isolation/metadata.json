@@ -1,0 +1,8 @@
+{
+  "name": "database-isolation",
+  "repo": "melodic-software/claude-code-plugins",
+  "category": "data",
+  "description": "Use when implementing tenant data isolation in databases. Covers Row-Level Security (RLS), schema-per-tenant, database-per-tenant patterns with EF Core, SQL Server, PostgreSQL, and Cosmos DB implement",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:09.566993Z"
+}

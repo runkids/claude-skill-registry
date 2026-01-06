@@ -1,0 +1,8 @@
+{
+  "name": "feature-next",
+  "repo": "mylukin/agent-foreman",
+  "category": "productivity",
+  "description": "Implements a single task following the next \u2192 implement \u2192 check \u2192 done workflow with TDD support. Use when working on one specific task, implementing a single feature from the backlog, or following TD",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:27.532969Z"
+}

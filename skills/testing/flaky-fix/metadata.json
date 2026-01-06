@@ -1,0 +1,8 @@
+{
+  "name": "flaky-fix",
+  "repo": "jmagly/ai-writing-guide",
+  "category": "testing",
+  "description": "Suggest and apply fixes for flaky tests based on detected patterns. Use after flaky-detect identifies unreliable tests that need repair.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:57.598030Z"
+}

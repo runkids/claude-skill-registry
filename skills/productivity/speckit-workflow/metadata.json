@@ -1,0 +1,8 @@
+{
+  "name": "speckit-workflow",
+  "repo": "melodic-software/claude-code-plugins",
+  "category": "productivity",
+  "description": "GitHub Spec Kit 5-phase workflow. Use when following the Constitution \u2192 Specify \u2192 Plan \u2192 Tasks \u2192 Implement cycle. Provides phase guidance, file templates, and workflow orchestration.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:11.658828Z"
+}

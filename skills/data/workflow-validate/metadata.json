@@ -1,0 +1,8 @@
+{
+  "name": "workflow-validate",
+  "repo": "epieczko/betty",
+  "category": "data",
+  "description": "Validates workflow YAML files to ensure structure and schema correctness.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:05:28.089756Z"
+}

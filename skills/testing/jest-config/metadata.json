@@ -1,0 +1,8 @@
+{
+  "name": "jest-config",
+  "repo": "sayali-ingle-pdl/adusa-ai-vuejs-app-template",
+  "category": "testing",
+  "description": "Generates jest.config.cjs for unit testing configuration. Configures Jest with Vue, TypeScript support, coverage thresholds, and test environment settings.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:08:08.313667Z"
+}

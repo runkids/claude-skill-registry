@@ -1,0 +1,8 @@
+{
+  "name": "zephyr-driver-development",
+  "repo": "ale-alfaro/dotfiles",
+  "category": "testing",
+  "description": "Full development cycle for Zephyr RTOS C/C++ drivers using Zephyr\u2019s device model best practices. Use for creating or updating drivers, including devicetree bindings, driver implementation, device API ",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:11:15.858070Z"
+}

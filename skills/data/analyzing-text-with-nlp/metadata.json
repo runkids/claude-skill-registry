@@ -1,0 +1,8 @@
+{
+  "name": "analyzing-text-with-nlp",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "data",
+  "description": "This skill enables AI assistant to perform natural language processing and text analysis using the nlp-text-analyzer plugin. it should be used when the user requests analysis of text, including sentim",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:55:45.123086Z"
+}

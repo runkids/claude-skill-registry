@@ -1,0 +1,8 @@
+{
+  "name": "execution-phase",
+  "repo": "metasaver/metasaver-marketplace",
+  "category": "testing",
+  "description": "TDD-paired Gantt-style execution with compact waves. Each story gets tester agent (writes tests) BEFORE implementation agent (passes tests). Waves execute continuously with /compact between each wave.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:07:08.235443Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "awq-quantization",
+  "repo": "zechenzhangAGI/AI-research-SKILLs",
+  "category": "devops",
+  "description": "Activation-aware weight quantization for 4-bit LLM compression with 3x speedup and minimal accuracy loss. Use when deploying large models (7B-70B) on limited GPU memory, when you need faster inference",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:19.043856Z"
+}

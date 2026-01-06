@@ -1,0 +1,8 @@
+{
+  "name": "japanese-tts-reading",
+  "repo": "taiyousan15/taisun_agent",
+  "category": "development",
+  "description": "\u65e5\u672c\u8a9e\u30c6\u30ad\u30b9\u30c8\u3092\u97f3\u58f0\u306b\u5909\u63db\u3059\u308bTTS\uff08Text-to-Speech\uff09\u30b9\u30ad\u30eb\u3002\u30ca\u30ec\u30fc\u30b7\u30e7\u30f3\u539f\u7a3f\u306e\u8aad\u307f\u4e0a\u3052\u3001\u30b3\u30f3\u30c6\u30f3\u30c4\u306e\u97f3\u58f0\u5316\u3001\u30a2\u30af\u30bb\u30b7\u30d3\u30ea\u30c6\u30a3\u5bfe\u5fdc\u306b\u4f7f\u7528\u3002",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:08:42.190056Z"
+}

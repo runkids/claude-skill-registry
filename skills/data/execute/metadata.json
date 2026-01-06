@@ -1,0 +1,8 @@
+{
+  "name": "execute",
+  "repo": "eaasxt/Farmhand",
+  "category": "data",
+  "description": "Parallel execution orchestrator. Picks up existing beads, computes parallel tracks, spawns worker agents, coordinates via Agent Mail, runs calibration at phase boundaries.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:05:19.854685Z"
+}

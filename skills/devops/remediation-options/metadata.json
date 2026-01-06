@@ -1,0 +1,8 @@
+{
+  "name": "remediation-options",
+  "repo": "metasaver/claude-marketplace",
+  "category": "devops",
+  "description": "Standardized remediation workflow presenting three options for handling config violations - Conform to template, Update template, or Ignore. Adapts recommendations based on repository type (library vs",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:07:06.670588Z"
+}

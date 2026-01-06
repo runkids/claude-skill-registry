@@ -1,0 +1,8 @@
+{
+  "name": "scope-capture",
+  "repo": "Ramblurr/nix-devenv",
+  "category": "development",
+  "description": "REPL debugging tool for capturing and inspecting local scope at runtime.Use when debugging functions, investigating test failures, understanding intermediate values,or when you need to recreate the ru",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:07:48.187300Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "service-registry",
+  "repo": "athola/claude-night-market",
+  "category": "testing",
+  "description": "Registry pattern for managing external service connections, configurations,and health checks.Triggers: service registry, service discovery, health checks, service configuration,multi-service integrati",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:48.315266Z"
+}

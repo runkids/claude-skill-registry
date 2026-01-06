@@ -1,0 +1,8 @@
+{
+  "name": "db-common",
+  "repo": "SeSiTing/siti-claude-marketplace",
+  "category": "data",
+  "description": "\u63d0\u4f9b\u901a\u7528\u7684\u6570\u636e\u5e93\u67e5\u8be2\u5de5\u4f5c\u6d41\u7a0b\u3001SQL \u6a21\u677f\u548c\u7ed3\u679c\u5206\u6790\u65b9\u6cd5\u3002\u4f7f\u7528 exec_sql \u5de5\u5177\u6267\u884c\u67e5\u8be2\u3002",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:08:16.550239Z"
+}

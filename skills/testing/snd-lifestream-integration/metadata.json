@@ -1,0 +1,8 @@
+{
+  "name": "snd-lifestream-integration",
+  "repo": "vaoan/SND",
+  "category": "testing",
+  "description": "Use this skill when implementing teleportation, world travel, or instance management in SND macros using the Lifestream plugin. Covers aethernet teleportation, world changes, housing, and instance swi",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:09:27.914699Z"
+}

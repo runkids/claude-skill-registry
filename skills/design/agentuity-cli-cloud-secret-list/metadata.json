@@ -1,0 +1,8 @@
+{
+  "name": "agentuity-cli-cloud-secret-list",
+  "repo": "agentuity/examples",
+  "category": "design",
+  "description": "List all secrets. Requires authentication. Use for Agentuity cloud platform operations",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:33.160136Z"
+}

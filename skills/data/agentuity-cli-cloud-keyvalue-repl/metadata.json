@@ -1,0 +1,8 @@
+{
+  "name": "agentuity-cli-cloud-keyvalue-repl",
+  "repo": "agentuity/examples",
+  "category": "data",
+  "description": "Start an interactive repl for working with keyvalue database. Requires authentication. Use for Agentuity cloud platform operations",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:31.219998Z"
+}

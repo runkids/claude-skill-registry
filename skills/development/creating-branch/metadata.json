@@ -1,0 +1,8 @@
+{
+  "name": "creating-branch",
+  "repo": "cblecker/claude-skills",
+  "category": "development",
+  "description": "Standard workflow for all branch operations ('create branch', 'new branch', 'start branch for'): replaces bash-based git checkout/branch workflows\u2014determines base branch, generates convention-based na",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:01:41.185595Z"
+}

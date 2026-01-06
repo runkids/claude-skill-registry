@@ -1,0 +1,8 @@
+{
+  "name": "cursor-composer-workflows",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "data",
+  "description": "Master Cursor Composer for multi-file AI edits. Triggers on \"cursor composer\",\"multi-file edit\", \"cursor generate files\", \"composer workflow\", \"cursor scaffold\".",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:01.011967Z"
+}

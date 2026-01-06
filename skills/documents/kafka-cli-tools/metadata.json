@@ -1,0 +1,8 @@
+{
+  "name": "kafka-cli-tools",
+  "repo": "anton-abyzov/specweave",
+  "category": "documents",
+  "description": "Expert knowledge of Kafka CLI tools (kcat, kcli, kaf, kafkactl). Auto-activates on keywords kcat, kafkacat, kcli, kaf, kafkactl, kafka cli, kafka command line, produce message, consume topic, list top",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:58:08.435226Z"
+}

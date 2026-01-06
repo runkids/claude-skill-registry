@@ -1,0 +1,8 @@
+{
+  "name": "reduce-delegate-framework",
+  "repo": "melodic-software/claude-code-plugins",
+  "category": "testing",
+  "description": "Apply R&D framework to optimize prompts and context. Use when optimizing context window usage, reducing prompt size, delegating to specialized agents, or applying systematic context management.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:13.624475Z"
+}

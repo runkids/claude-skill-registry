@@ -1,0 +1,8 @@
+{
+  "name": "search-interceptor",
+  "repo": "MadAppGang/claude-code",
+  "category": "development",
+  "description": "\u26d4 INTERCEPT TRIGGER: Automatically invoked BEFORE Read 3+ files OR Glob with broad patterns. Validates whether bulk file operations should be replaced with semantic search. Prevents token waste from s",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:29.019662Z"
+}

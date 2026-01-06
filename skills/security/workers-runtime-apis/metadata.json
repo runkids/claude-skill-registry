@@ -1,0 +1,8 @@
+{
+  "name": "workers-runtime-apis",
+  "repo": "secondsky/claude-skills",
+  "category": "security",
+  "description": "Cloudflare Workers Runtime APIs including Fetch, Streams, Crypto, Cache, WebSockets, and Encoding. Use for HTTP requests, streaming, encryption, caching, real-time connections, or encountering API com",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:58:43.590482Z"
+}

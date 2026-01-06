@@ -1,0 +1,8 @@
+{
+  "name": "bdd-scenario-quality-check",
+  "repo": "tikazyq/agentic-spec-forge",
+  "category": "development",
+  "description": "\u68c0\u67e5Given-When-Then\u683c\u5f0f\u89c4\u8303\u6027\uff0c\u53d1\u73b0\u573a\u666f\u7f3a\u53e3\uff0c\u63d0\u4f9b\u4e30\u5bcc\u5efa\u8bae\u3002\u5f53BDD\u573a\u666f\u7f16\u5199\u5b8c\u6210\u540e\u4f7f\u7528\uff0c\u786e\u4fdd\u573a\u666f\u8d28\u91cf\u7b26\u5408CRAFT\u6807\u51c6\u3002",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:09:53.812179Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "conditional-docs-setup",
+  "repo": "melodic-software/claude-code-plugins",
+  "category": "documents",
+  "description": "Set up conditional documentation loading to prevent context pollution. Use when organizing project docs, implementing progressive disclosure, or reducing CLAUDE.md token consumption with on-demand loa",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:12.883341Z"
+}

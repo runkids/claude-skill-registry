@@ -1,0 +1,8 @@
+{
+  "name": "controller-expert",
+  "repo": "ryu-qqq/setof-commerce",
+  "category": "testing",
+  "description": "REST Controller \uc804\ubb38\uac00. Thin Controller \ud328\ud134, CQRS Command/Query Controller \ubd84\ub9ac,ResponseEntity<ApiResponse<T>> \ub798\ud551, @Valid \uac80\uc99d \ud544\uc218. DELETE \uae08\uc9c0(PATCH \uc0ac\uc6a9).TestRestTemplate \ud544\uc218 (MockMvc \uae08\uc9c0). UseCase \uc758\uc874. Mapper DI.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:08:01.116361Z"
+}

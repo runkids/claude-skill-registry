@@ -1,0 +1,8 @@
+{
+  "name": "mteb-leaderboard",
+  "repo": "letta-ai/skills",
+  "category": "data",
+  "description": "Guidance for querying ML model leaderboards and benchmarks (MTEB, HuggingFace, embedding benchmarks). This skill applies when tasks involve finding top-performing models on specific benchmarks, compar",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:58:19.169696Z"
+}

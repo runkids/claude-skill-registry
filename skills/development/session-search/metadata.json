@@ -1,0 +1,8 @@
+{
+  "name": "session-search",
+  "repo": "pchalasani/claude-code-tools",
+  "category": "development",
+  "description": "For CLI agents WITHOUT subagent support (e.g., Codex CLI). Search previous code agent sessions for specific work, decisions, or code patterns.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:55:42.889910Z"
+}

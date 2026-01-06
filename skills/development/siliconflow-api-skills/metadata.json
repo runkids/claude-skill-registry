@@ -1,0 +1,8 @@
+{
+  "name": "siliconflow-api-skills",
+  "repo": "wwwzhouhui/skills_collection",
+  "category": "development",
+  "description": "\u7845\u57fa\u6d41\u52a8\uff08SiliconFlow\uff09\u4e91\u670d\u52a1\u5e73\u53f0\u6587\u6863\u3002\u7528\u4e8e\u5927\u8bed\u8a00\u6a21\u578b API \u8c03\u7528\u3001\u56fe\u7247\u751f\u6210\u3001\u5411\u91cf\u6a21\u578b\u3001\u5728 Claude Code \u4e2d\u4f7f\u7528\u7845\u57fa\u6d41\u52a8\u3001Chat Completions API\u3001Stream \u6a21\u5f0f\u7b49\u3002",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:58:14.923140Z"
+}

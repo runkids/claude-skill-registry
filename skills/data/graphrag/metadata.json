@@ -1,0 +1,8 @@
+{
+  "name": "graphrag",
+  "repo": "titabash/claude-plugins",
+  "category": "data",
+  "description": "PostgreSQL + pgvector + PGroonga \u3067 GraphRAG \u3092\u69cb\u7bc9\u3002\u81ea\u7136\u8a00\u8a9e\u3067\u30d7\u30ed\u30b8\u30a7\u30af\u30c8\u3092\u8aac\u660e\u3059\u308b\u3068\u3001\u6700\u9069\u306aEntity/Edge\u578b\u3001\u30b9\u30ad\u30fc\u30de\u3001\u30af\u30a8\u30ea\u30d1\u30bf\u30fc\u30f3\u3092\u8a2d\u8a08\u30fb\u751f\u6210\u3002Use when the user mentions \"GraphRAG\", \"knowledge graph\", or wants to build RAG with relationships.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:09:03.833171Z"
+}

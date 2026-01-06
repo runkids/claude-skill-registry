@@ -1,0 +1,8 @@
+{
+  "name": "multi-site-theming",
+  "repo": "melodic-software/claude-code-plugins",
+  "category": "testing",
+  "description": "Use when implementing per-site themes, white-labeling, or brand override systems. Covers tenant-specific branding, theme inheritance, CSS variable hierarchies, and dynamic theme switching for multi-si",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:01.080553Z"
+}

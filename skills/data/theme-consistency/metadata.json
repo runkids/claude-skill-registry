@@ -1,0 +1,8 @@
+{
+  "name": "theme-consistency",
+  "repo": "marcusgoll/Spec-Flow",
+  "category": "data",
+  "description": "Enforce consistent theming across all prototype mockup screens. Auto-loads theme.yaml, validates CSS variable usage, prevents hardcoded values, and maintains visual consistency session-to-session. Use",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:58:11.685919Z"
+}

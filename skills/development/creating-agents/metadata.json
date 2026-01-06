@@ -1,0 +1,8 @@
+{
+  "name": "creating-agents",
+  "repo": "BrendanShields/spec-flow",
+  "category": "development",
+  "description": "Creates Claude Code subagents for task delegation. Guides through agent configuration,tool selection, and system prompts. Use this skill when the user wants to create a new agent,delegate tasks to spe",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:04:16.958817Z"
+}

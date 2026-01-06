@@ -1,0 +1,8 @@
+{
+  "name": "sync-openapi",
+  "repo": "semicolon-devteam/semo",
+  "category": "development",
+  "description": "core-interface OpenAPI \uc2a4\ud399 \uc870\ud68c \ubc0f \ub3d9\uae30\ud654. Use when:(1) API \uad6c\ud604 \uc804 \uc2a4\ud399 \ud655\uc778, (2) Controller \uc791\uc131 \uc2dc DTO \ud655\uc778,(3) Response \ud615\uc2dd \ud655\uc778, (4) v0.4.x CODE \ub2e8\uacc4.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:02:52.329350Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "analyzing-agentscope-library",
+  "repo": "agentscope-ai/agentscope",
+  "category": "development",
+  "description": "This skill provides a way to retrieve information from the AgentScope library for analysis and decision-making.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:55:35.248917Z"
+}

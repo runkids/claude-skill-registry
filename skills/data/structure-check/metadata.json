@@ -1,0 +1,8 @@
+{
+  "name": "structure-check",
+  "repo": "metasaver/metasaver-marketplace",
+  "category": "data",
+  "description": "Use when validating project structure during Standards Audit phase. Detects package type from package.json metasaver.projectType, loads structure rules from domain skills (react-app-structure, prisma-",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:07:07.616550Z"
+}

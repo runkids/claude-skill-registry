@@ -1,0 +1,8 @@
+{
+  "name": "reviewing-dependencies",
+  "repo": "djankies/claude-configs",
+  "category": "development",
+  "description": "Automated tooling and detection patterns for analyzing npm dependencies, unused packages, and dead code. Provides tool commands and what to look for\u2014not how to structure output.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:05:03.658847Z"
+}

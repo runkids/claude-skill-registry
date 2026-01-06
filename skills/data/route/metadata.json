@@ -1,0 +1,8 @@
+{
+  "name": "route",
+  "repo": "0xrdan/claude-router",
+  "category": "data",
+  "description": "Manually route a query to the optimal Claude model (Haiku/Sonnet/Opus)",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:58:45.177996Z"
+}

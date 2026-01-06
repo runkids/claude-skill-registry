@@ -1,0 +1,8 @@
+{
+  "name": "metabolomics-workbench-database",
+  "repo": "davila7/claude-code-templates",
+  "category": "data",
+  "description": "Access NIH Metabolomics Workbench via REST API (4,200+ studies). Query metabolites, RefMet nomenclature, MS/NMR data, m/z searches, study metadata, for metabolomics and biomarker discovery.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:55:37.739163Z"
+}

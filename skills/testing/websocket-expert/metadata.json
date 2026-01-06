@@ -1,0 +1,8 @@
+{
+  "name": "websocket-expert",
+  "repo": "Smith-Happens/xlightsfpptester",
+  "category": "testing",
+  "description": "Selects and configures agents from the agents repo based on PRD tech stack.Runs after task decomposition, before specification generation.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:08:27.288462Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "flink-job-creator",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "data",
+  "description": "Flink Job Creator - Auto-activating skill for Data Pipelines.Triggers on: flink job creator, flink job creatorPart of the Data Pipelines skill category.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:55:55.725481Z"
+}

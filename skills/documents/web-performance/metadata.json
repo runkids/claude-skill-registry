@@ -1,0 +1,8 @@
+{
+  "name": "web-performance",
+  "repo": "daishiman/AIWorkflowOrchestrator",
+  "category": "documents",
+  "description": "Next.js\u30a2\u30d7\u30ea\u30b1\u30fc\u30b7\u30e7\u30f3\u306e\u30d1\u30d5\u30a9\u30fc\u30de\u30f3\u30b9\u6700\u9069\u5316\u30b9\u30ad\u30eb\u3002Core Web Vitals\uff08LCP\u3001FID\u3001CLS\uff09\u6539\u5584\u3001\u30d0\u30f3\u30c9\u30eb\u30b5\u30a4\u30ba\u524a\u6e1b\u3001\u753b\u50cf\u30fb\u30d5\u30a9\u30f3\u30c8\u6700\u9069\u5316\u3092\u63d0\u4f9b\u3059\u308b\u3002Anchors:\u2022 \u300eHigh Performance Browser Networking\u300f(Ilya Grigorik) / \u9069\u7528: \u30cd\u30c3\u30c8\u30ef\u30fc\u30af\u6700\u9069\u5316 / \u76ee\u7684: \u30ec\u30a4\u30c6\u30f3\u30b7\u524a\u6e1b\u2022 Web Vitals (Google)",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:45.989283Z"
+}

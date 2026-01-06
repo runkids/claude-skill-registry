@@ -1,0 +1,8 @@
+{
+  "name": "modular-architecture",
+  "repo": "melodic-software/claude-code-plugins",
+  "category": "data",
+  "description": "Module organization patterns including ports and adapters (hexagonal), module communication, and data isolation. Use when structuring modular monoliths, defining module boundaries, setting up inter-mo",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:02.777464Z"
+}

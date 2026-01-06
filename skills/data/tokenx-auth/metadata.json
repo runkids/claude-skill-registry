@@ -1,0 +1,8 @@
+{
+  "name": "tokenx-auth",
+  "repo": "navikt/copilot",
+  "category": "data",
+  "description": "Service-to-service authentication using TokenX token exchange in Nais",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:59:20.356371Z"
+}

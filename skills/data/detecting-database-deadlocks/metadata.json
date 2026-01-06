@@ -1,0 +1,8 @@
+{
+  "name": "detecting-database-deadlocks",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "data",
+  "description": "Use when you need to work with deadlock detection.This skill provides deadlock detection and resolution with comprehensive guidance and automation.Trigger with phrases like \"detect deadlocks\", \"resolv",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:55:47.343994Z"
+}

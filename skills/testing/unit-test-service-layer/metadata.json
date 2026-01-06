@@ -1,0 +1,8 @@
+{
+  "name": "unit-test-service-layer",
+  "repo": "giuseppe-trisciuoglio/developer-kit",
+  "category": "testing",
+  "description": "Unit tests for service layer with Mockito. Test business logic in isolation by mocking dependencies. Use when validating service behaviors and business logic without database or external services.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:57:13.911614Z"
+}

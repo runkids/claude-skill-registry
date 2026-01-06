@@ -1,0 +1,8 @@
+{
+  "name": "docker-testing",
+  "repo": "kilburn/AIseminar",
+  "category": "design",
+  "description": "Guidance for running and debugging tests in Docker environments for FastAPI\u00a0+\u00a0Vue/Tailwind projects.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:06:39.677158Z"
+}

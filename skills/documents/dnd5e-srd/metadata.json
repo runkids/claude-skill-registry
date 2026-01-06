@@ -1,0 +1,8 @@
+{
+  "name": "dnd5e-srd",
+  "repo": "datapizza-labs/rag-dataset-builder",
+  "category": "documents",
+  "description": "Retrieval-augmented generation (RAG) skill for the D&D 5e System Reference Document (SRD). Use when answering questions about D&D 5e core rules, spells, combat, equipment, conditions, monsters, and ot",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:57:29.206073Z"
+}

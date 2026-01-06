@@ -1,0 +1,8 @@
+{
+  "name": "chromatin-state-inference",
+  "repo": "BIsnake2001/ChromSkills",
+  "category": "data",
+  "description": "This skill should be used when users need to infer chromatin states from histone modification ChIP-seq data using chromHMM. It provides workflows for chromatin state segmentation, model training, stat",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:35.098067Z"
+}

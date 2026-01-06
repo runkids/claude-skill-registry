@@ -1,0 +1,8 @@
+{
+  "name": "hic-normalization",
+  "repo": "BIsnake2001/ChromSkills",
+  "category": "data",
+  "description": "Automatically detect and normalize Hi-C data. Only .cool or .mcool file is supported. All .mcool files are then checked for existing normalization (supports bins/weight only) and balanced if none of t",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:35.067108Z"
+}

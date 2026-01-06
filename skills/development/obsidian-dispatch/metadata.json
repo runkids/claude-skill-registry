@@ -1,0 +1,8 @@
+{
+  "name": "obsidian-dispatch",
+  "repo": "AlejandroIglesiasCalvo/Coddex-Obsidian-Skills",
+  "category": "development",
+  "description": "Router de intenci\u00f3n para Obsidian en Codex CLI. Selecciona la skill m\u00e1s adecuada (o pide la m\u00ednima aclaraci\u00f3n), aplica guardrails de lectura real y ejecuta el flujo correcto sin inflar AGENTS.md.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:09:57.293557Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "gh-issue-triage",
+  "repo": "joelhooks/swarm-tools",
+  "category": "development",
+  "description": "GitHub issue triage workflow with contributor profile extraction. Analyze \u2192 clarify \u2192 file cells \u2192 tag \u2192 implement \u2192 credit. Captures Twitter handles for changeset acknowledgments.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:26.225522Z"
+}

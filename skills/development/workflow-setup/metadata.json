@@ -1,0 +1,8 @@
+{
+  "name": "workflow-setup",
+  "repo": "athola/claude-night-market",
+  "category": "development",
+  "description": "Configure GitHub Actions workflows for CI/CD (test, lint, typecheck, publish)",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:50.905221Z"
+}

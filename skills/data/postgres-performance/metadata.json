@@ -1,0 +1,8 @@
+{
+  "name": "postgres-performance",
+  "repo": "CJHarmath/claude-agents-skills",
+  "category": "data",
+  "description": "High-performance PostgreSQL patterns. Use when optimizing queries, designing for scale, or debugging performance issues.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:04:30.659369Z"
+}

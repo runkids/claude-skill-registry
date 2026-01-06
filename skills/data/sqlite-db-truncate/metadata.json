@@ -1,0 +1,8 @@
+{
+  "name": "sqlite-db-truncate",
+  "repo": "letta-ai/skills",
+  "category": "data",
+  "description": "Guidance for recovering data from corrupted or truncated SQLite database files through binary analysis and manual parsing. This skill applies when working with damaged SQLite databases that cannot be ",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:58:20.185656Z"
+}

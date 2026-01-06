@@ -1,0 +1,8 @@
+{
+  "name": "snd-autoretainer-integration",
+  "repo": "vaoan/SND",
+  "category": "data",
+  "description": "Use this skill when implementing retainer management in SND macros using the AutoRetainer plugin. Covers character data access, retainer inventory, task management, multi-mode, auto-login, and venture",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:09:27.484452Z"
+}

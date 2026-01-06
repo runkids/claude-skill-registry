@@ -1,0 +1,8 @@
+{
+  "name": "brenda-database",
+  "repo": "davila7/claude-code-templates",
+  "category": "data",
+  "description": "Access BRENDA enzyme database via SOAP API. Retrieve kinetic parameters (Km, kcat), reaction equations, organism data, and substrate-specific enzyme information for biochemical research and metabolic ",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:55:36.435403Z"
+}

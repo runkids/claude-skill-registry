@@ -1,0 +1,8 @@
+{
+  "name": "optimizing-query-performance",
+  "repo": "djankies/claude-configs",
+  "category": "devops",
+  "description": "Optimize queries with indexes, batching, and efficient Prisma operations for production performance.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:05:01.420336Z"
+}

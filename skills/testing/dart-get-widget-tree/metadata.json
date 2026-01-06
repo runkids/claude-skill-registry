@@ -1,0 +1,8 @@
+{
+  "name": "dart-get-widget-tree",
+  "repo": "X-School-Academy/ai-dev-swarm",
+  "category": "testing",
+  "description": "To inspect the Flutter widget tree of the running app, retrieve the widget hierarchy after connecting to the Dart Tooling Daemon.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:59:13.671542Z"
+}

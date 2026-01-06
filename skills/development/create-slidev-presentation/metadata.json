@@ -1,0 +1,8 @@
+{
+  "name": "create-slidev-presentation",
+  "repo": "AJBcoding/claude-skill-eval",
+  "category": "development",
+  "description": "This skill should be used when asked to create or edit Slidev (sli.dev) presentation slide decks.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:03:47.721331Z"
+}

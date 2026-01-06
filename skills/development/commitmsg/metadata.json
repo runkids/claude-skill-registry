@@ -1,0 +1,8 @@
+{
+  "name": "commitmsg",
+  "repo": "trufae/mai",
+  "category": "development",
+  "description": "Generate a concise commit message by analyzing git diff changes",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:58:30.563735Z"
+}

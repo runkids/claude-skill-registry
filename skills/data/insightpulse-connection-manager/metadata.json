@@ -1,0 +1,8 @@
+{
+  "name": "insightpulse-connection-manager",
+  "repo": "jgtolentino/insightpulse-odoo",
+  "category": "data",
+  "description": "Supabase-style connection UI for managing InsightPulse AI infrastructure (Supabase, Odoo, Superset, MCP servers, PostgreSQL, APIs). Self-hosted connection manager module for Odoo 19 that provides unif",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:02:11.743005Z"
+}

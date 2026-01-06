@@ -1,0 +1,8 @@
+{
+  "name": "pix-validation-expert",
+  "repo": "Lucasdoreac/mutuapix-workspace",
+  "category": "design",
+  "description": "Validates PIX key requirements for MutuaPIX platform, ensuring email used for login matches PIX key email for payment processing",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:06:53.213475Z"
+}

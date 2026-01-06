@@ -1,0 +1,8 @@
+{
+  "name": "fda-database",
+  "repo": "davila7/claude-code-templates",
+  "category": "data",
+  "description": "Query openFDA API for drugs, devices, adverse events, recalls, regulatory submissions (510k, PMA), substance identification (UNII), for FDA regulatory data analysis and safety research.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:55:37.135254Z"
+}

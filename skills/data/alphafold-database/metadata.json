@@ -1,0 +1,8 @@
+{
+  "name": "alphafold-database",
+  "repo": "davila7/claude-code-templates",
+  "category": "data",
+  "description": "Access AlphaFold's 200M+ AI-predicted protein structures. Retrieve structures by UniProt ID, download PDB/mmCIF files, analyze confidence metrics (pLDDT, PAE), for drug discovery and structural biolog",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:55:36.310825Z"
+}

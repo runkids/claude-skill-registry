@@ -1,0 +1,8 @@
+{
+  "name": "claude-agent-validation",
+  "repo": "outfitter-dev/agents",
+  "category": "development",
+  "description": "Validates and reviews Claude Code agents against best practices. Checks YAML syntax, naming conventions, description quality, system prompt effectiveness, and tool configuration. Provides improvement ",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:59:36.526483Z"
+}

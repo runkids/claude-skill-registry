@@ -1,0 +1,8 @@
+{
+  "name": "extracting-design-tokens",
+  "repo": "farmanlab/ai_agent_orchestra",
+  "category": "documents",
+  "description": "Extracts and documents design tokens (colors, typography, spacing, shadows, etc.) from Figma designs. Updates the \"\u30c7\u30b6\u30a4\u30f3\u30c8\u30fc\u30af\u30f3\" section in screen spec.md.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:01:51.447213Z"
+}

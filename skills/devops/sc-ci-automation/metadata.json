@@ -1,0 +1,8 @@
+{
+  "name": "sc-ci-automation",
+  "repo": "randlee/synaptic-canvas",
+  "category": "devops",
+  "description": "Run CI quality gates with optional auto-fix and PR creation.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:07:49.113005Z"
+}

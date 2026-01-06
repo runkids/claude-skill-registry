@@ -1,0 +1,8 @@
+{
+  "name": "spring-boot-dependency-injection",
+  "repo": "giuseppe-trisciuoglio/developer-kit",
+  "category": "productivity",
+  "description": "Dependency injection workflow for Spring Boot projects covering constructor-first patterns, optional collaborator handling, bean selection, and validation practices.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:57:14.354935Z"
+}

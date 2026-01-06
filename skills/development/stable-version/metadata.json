@@ -1,0 +1,8 @@
+{
+  "name": "stable-version",
+  "repo": "sk8metalme/ai-agent-setup",
+  "category": "development",
+  "description": "\u5404\u8a00\u8a9e/\u30d5\u30ec\u30fc\u30e0\u30ef\u30fc\u30af\u306e\u5b89\u5b9a\u7248\u30d0\u30fc\u30b8\u30e7\u30f3\u78ba\u8a8d\u30ac\u30a4\u30c9\u3002LTS\u306e\u8003\u3048\u65b9\u3001EOL\u30c1\u30a7\u30c3\u30af\u3001\u30a2\u30c3\u30d7\u30b0\u30ec\u30fc\u30c9\u5224\u65ad\u3092\u30b5\u30dd\u30fc\u30c8\u3002",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:02:56.365302Z"
+}

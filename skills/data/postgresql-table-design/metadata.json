@@ -1,0 +1,8 @@
+{
+  "name": "postgresql-table-design",
+  "repo": "wshobson/agents",
+  "category": "data",
+  "description": "Design a PostgreSQL-specific schema. Covers best-practices, data types, indexing, constraints, performance patterns, and advanced features",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:55:33.387865Z"
+}

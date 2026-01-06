@@ -1,0 +1,8 @@
+{
+  "name": "deploy-aws-ecs",
+  "repo": "dralgorhythm/claude-agentic-framework",
+  "category": "devops",
+  "description": "Deploy containerized applications to AWS ECS/Fargate. Use when deploying containers to AWS, managing ECS services, or setting up Fargate tasks. Covers task definitions and ECR.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:01:49.224348Z"
+}

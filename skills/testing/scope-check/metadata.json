@@ -1,0 +1,8 @@
+{
+  "name": "scope-check",
+  "repo": "metasaver/metasaver-marketplace",
+  "category": "testing",
+  "description": "Use when determining which repositories or files a task affects. Distinguishes between target repos (where changes happen) and reference repos (for learning patterns). Supports both standard mode retu",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:07:07.529492Z"
+}

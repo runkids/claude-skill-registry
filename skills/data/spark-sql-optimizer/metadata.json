@@ -1,0 +1,8 @@
+{
+  "name": "spark-sql-optimizer",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "data",
+  "description": "Spark Sql Optimizer - Auto-activating skill for Data Pipelines.Triggers on: spark sql optimizer, spark sql optimizerPart of the Data Pipelines skill category.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:05.105908Z"
+}

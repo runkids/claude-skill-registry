@@ -1,0 +1,8 @@
+{
+  "name": "factory-assembler-expert",
+  "repo": "ryu-qqq/setof-commerce",
+  "category": "data",
+  "description": "Factory & Assembler \ubcc0\ud658 \uc804\ubb38\uac00. CommandFactory Command\u2192Domain \ubcc0\ud658, QueryFactory Query\u2192Criteria \ubcc0\ud658,Assembler Domain\u2192Response \ubcc0\ud658. PersistBundle \uc601\uc18d\ud654 \ubb36\uc74c, QueryBundle \uc870\ud68c \uacb0\uacfc \ubb36\uc74c.\ub2e8\ubc29\ud5a5 \ubcc0\ud658 \uc6d0\uce59: Factory\ub294 \uc0dd\uc131\ub9cc, Assembler",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:08:01.187397Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "nodemailer",
+  "repo": "mgd34msu/goodvibes-plugin",
+  "category": "data",
+  "description": "Sends emails from Node.js applications using SMTP or other transports with Nodemailer. Use when implementing email functionality with full control over transport configuration.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:10:25.345002Z"
+}

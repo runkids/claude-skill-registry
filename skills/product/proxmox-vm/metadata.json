@@ -1,0 +1,8 @@
+{
+  "name": "proxmox-vm",
+  "repo": "agentydragon/ducktape",
+  "category": "product",
+  "description": "Interact with Proxmox VMs - screenshots, keystrokes, network info (user)",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:09:50.210880Z"
+}

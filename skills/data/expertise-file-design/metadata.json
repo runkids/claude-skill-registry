@@ -1,0 +1,8 @@
+{
+  "name": "expertise-file-design",
+  "repo": "melodic-software/claude-code-plugins",
+  "category": "data",
+  "description": "Design YAML expertise file structures for agent experts. Use when creating mental models for domain-specific agents, defining expertise schema, or structuring knowledge for Act-Learn-Reuse workflows.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:13.091394Z"
+}

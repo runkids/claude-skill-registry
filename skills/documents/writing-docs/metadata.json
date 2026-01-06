@@ -1,0 +1,8 @@
+{
+  "name": "writing-docs",
+  "repo": "C0ntr0lledCha0s/claude-code-plugin-automations",
+  "category": "documents",
+  "description": "Expert at writing high-quality documentation for code, APIs, and projects. Auto-invokes when generating docstrings, creating README files, writing API documentation, adding code comments, or producing",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:01:39.407972Z"
+}

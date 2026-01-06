@@ -1,0 +1,8 @@
+{
+  "name": "component-composition-patterns",
+  "repo": "daishiman/AIWorkflowOrchestrator",
+  "category": "design",
+  "description": "\u30b3\u30f3\u30dd\u30fc\u30cd\u30f3\u30c8\u5408\u6210\u30d1\u30bf\u30fc\u30f3\u3092\u7528\u3044\u305f\u518d\u5229\u7528\u53ef\u80fd\u306aUI\u69cb\u9020\u8a2d\u8a08\u3092\u652f\u63f4\u3059\u308b\u30b9\u30ad\u30eb\u3002Compound Components\u3001Polymorphic Components\u3001Slot Pattern \u306e\u9078\u5b9a\u3068\u8a2d\u8a08\u624b\u9806\u3092\u6574\u7406\u3059\u308b\u3002Anchors:\u2022 Don't Make Me Think / \u9069\u7528: UI\u8a2d\u8a08\u30fb\u30e6\u30fc\u30b6\u30d3\u30ea\u30c6\u30a3 / \u76ee\u7684: \u518d\u5229\u7528\u6027\u3068\u4fdd\u5b88\u6027\u5411\u4e0a\u2022 Atomic Design / \u9069\u7528: \u30b3\u30f3\u30dd\u30fc\u30cd",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:41.513218Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "list-regressions",
+  "repo": "openshift-eng/ai-helpers",
+  "category": "design",
+  "description": "Fetch and analyze component health regressions for OpenShift releases",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:57:18.168882Z"
+}

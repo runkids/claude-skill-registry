@@ -1,0 +1,8 @@
+{
+  "name": "refactoring-deprecated-code",
+  "repo": "kynoptic/markdownlint-trap",
+  "category": "development",
+  "description": "Systematically scans for deprecated library functions, APIs, and language features, then automatically updates code to use modern alternatives. Handles migration guides, version compatibility, and int",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:02:19.197635Z"
+}

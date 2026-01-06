@@ -1,0 +1,8 @@
+{
+  "name": "jirareview",
+  "repo": "Lobbi-Docs/claude",
+  "category": "development",
+  "description": "Review code changes for Jira issue. Use when the user wants to \"review code\", \"code review\", \"jira review\", or \"check implementation\".",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:06:50.519927Z"
+}

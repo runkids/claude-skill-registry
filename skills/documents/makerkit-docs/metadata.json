@@ -1,0 +1,8 @@
+{
+  "name": "makerkit-docs",
+  "repo": "membranaestudio/claude-plugins",
+  "category": "documents",
+  "description": "Consulta la documentaci\u00f3n oficial de MakerKit (next-supabase-turbo) bajo demanda. Usa cuando necesites informaci\u00f3n sobre patrones, configuraci\u00f3n o APIs de MakerKit que no est\u00e9 en el c\u00f3digo local. Incl",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:09:56.797357Z"
+}

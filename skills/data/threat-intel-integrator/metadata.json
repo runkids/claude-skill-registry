@@ -1,0 +1,8 @@
+{
+  "name": "threat-intel-integrator",
+  "repo": "tekgrunt/boot-test",
+  "category": "data",
+  "description": "Activate when the user needs help integrating threat intelligence feeds, configuring API-based lookups, creating custom threat feeds, or enriching detections with threat intelligence data in LimaCharl",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:08:47.909244Z"
+}

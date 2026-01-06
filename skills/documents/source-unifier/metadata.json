@@ -1,0 +1,8 @@
+{
+  "name": "source-unifier",
+  "repo": "jmagly/ai-writing-guide",
+  "category": "documents",
+  "description": "Merge multiple documentation sources (docs, GitHub, PDF) with conflict detection. Use when combining docs + code for complete skill coverage.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:57.440779Z"
+}

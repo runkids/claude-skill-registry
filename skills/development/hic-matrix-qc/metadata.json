@@ -1,0 +1,8 @@
+{
+  "name": "hic-matrix-qc",
+  "repo": "BIsnake2001/ChromSkills",
+  "category": "development",
+  "description": "This skill performs standardized quality control (QC) on Hi-C contact matrices stored in .mcool or .cool format. It computes coverage and cis/trans ratios, distance-dependent contact decay (P(s) curve",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:35.723721Z"
+}

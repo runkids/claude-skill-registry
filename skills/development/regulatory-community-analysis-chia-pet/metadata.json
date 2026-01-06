@@ -1,0 +1,8 @@
+{
+  "name": "regulatory-community-analysis-chia-pet",
+  "repo": "BIsnake2001/ChromSkills",
+  "category": "development",
+  "description": "This skill performs protein-mediated regulatory community analysis from ChIA-PET datasets and provide a way for visualizing the communities. Use this skill when you have a annotated peak file (in BED ",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:35.625168Z"
+}

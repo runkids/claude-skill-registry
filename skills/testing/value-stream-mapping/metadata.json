@@ -1,0 +1,8 @@
+{
+  "name": "value-stream-mapping",
+  "repo": "melodic-software/claude-code-plugins",
+  "category": "testing",
+  "description": "Lean value stream mapping for identifying waste and optimization opportunities. Creates current/future state maps with cycle time analysis and improvement recommendations.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:59:59.222525Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "wget-reader",
+  "repo": "beshkenadze/claude-skills-marketplace",
+  "category": "data",
+  "description": "Fetch data from URLs. Use when asked to download content, fetch remote files, or read web data.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:04:11.295707Z"
+}

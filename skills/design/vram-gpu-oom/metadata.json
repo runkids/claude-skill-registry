@@ -1,0 +1,8 @@
+{
+  "name": "vram-gpu-oom",
+  "repo": "lawless-m/claude-skills",
+  "category": "design",
+  "description": "GPU VRAM management patterns for sharing memory across services (Ollama, Whisper, ComfyUI). OOM retry logic, auto-unload on idle, and service signaling protocol.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:59:18.956150Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "snd-yesalready-integration",
+  "repo": "vaoan/SND",
+  "category": "testing",
+  "description": "Use this skill when implementing automatic dialog confirmation or UI automation in SND macros using the YesAlready plugin. Covers plugin control, feature management, and temporary pausing.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:09:28.047529Z"
+}

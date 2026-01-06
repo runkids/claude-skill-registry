@@ -1,0 +1,8 @@
+{
+  "name": "mcp-builder-skill",
+  "repo": "jjmartres/opencode",
+  "category": "design",
+  "description": "Guide for creating high-quality MCP (Model Context Protocol) servers that enable LLMs to interact with external services through well-designed tools. Use when building MCP servers to integrate externa",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:03:30.899544Z"
+}

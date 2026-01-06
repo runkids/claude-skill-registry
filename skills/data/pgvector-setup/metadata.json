@@ -1,0 +1,8 @@
+{
+  "name": "pgvector-setup",
+  "repo": "vanman2024/ai-dev-marketplace",
+  "category": "data",
+  "description": "Configure pgvector extension for vector search in Supabase - includes embedding storage, HNSW/IVFFlat indexes, hybrid search setup, and AI-optimized query patterns. Use when setting up vector search, ",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:09:25.521926Z"
+}

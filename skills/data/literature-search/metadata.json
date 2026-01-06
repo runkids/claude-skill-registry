@@ -1,0 +1,8 @@
+{
+  "name": "literature-search",
+  "repo": "u9401066/copilot-capability-manager",
+  "category": "data",
+  "description": "Search and retrieve academic literature from multiple databases.LOAD THIS SKILL WHEN: User says \"\u641c\u5c0b\u6587\u737b\", \"search literature\", \"find papers\", \"PubMed\", \"\u5b78\u8853\u641c\u5c0b\" | needs to find research articles | startin",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:09:15.648000Z"
+}

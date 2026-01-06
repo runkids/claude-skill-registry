@@ -1,0 +1,8 @@
+{
+  "name": "phase-management",
+  "repo": "Lobbi-Docs/claude",
+  "category": "documents",
+  "description": "This skill should be used when the user asks about \"phase management\", \"6-phase protocol\", \"explore phase\", \"plan phase\", \"code phase\", \"test phase\", \"fix phase\", \"document phase\", \"phase transitions\"",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:06:51.849793Z"
+}

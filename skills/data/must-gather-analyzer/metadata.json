@@ -1,0 +1,8 @@
+{
+  "name": "must-gather-analyzer",
+  "repo": "openshift-eng/ai-helpers",
+  "category": "data",
+  "description": "Analyze OpenShift must-gather diagnostic data including cluster operators, pods, nodes,and network components. Use this skill when the user asks about cluster health, operator status,pod issues, node ",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:57:18.918397Z"
+}

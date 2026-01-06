@@ -1,0 +1,8 @@
+{
+  "name": "handler-generator",
+  "repo": "mesbahtanvir/ishkul",
+  "category": "testing",
+  "description": "Generates new Go HTTP handlers following Ishkul patterns. Creates handler with proper request/response types, error handling, validation, structured logging, and matching test file. Use when adding ne",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:03:23.533321Z"
+}

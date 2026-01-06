@@ -1,0 +1,8 @@
+{
+  "name": "agent-check",
+  "repo": "metasaver/metasaver-marketplace",
+  "category": "data",
+  "description": "Use when mapping audit targets to appropriate config or domain agents. Analyzes file types, patterns, and content to determine which agents should audit each file/target. Returns agents[] needed for a",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:07:07.396462Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "setup-linting-ci",
+  "repo": "diegofornalha/skills-futuro",
+  "category": "development",
+  "description": "Configura linting autom\u00e1tico com pre-commit hooks e CI/CD para projetos Python",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:09:48.006738Z"
+}

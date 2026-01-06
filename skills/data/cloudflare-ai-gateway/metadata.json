@@ -1,0 +1,8 @@
+{
+  "name": "cloudflare-ai-gateway",
+  "repo": "enuno/claude-command-and-control",
+  "category": "data",
+  "description": "Cloudflare AI Gateway for unified interface to AI providers with caching, rate limiting, and analytics",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:26.393399Z"
+}

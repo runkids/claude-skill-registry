@@ -1,0 +1,8 @@
+{
+  "name": "defense-in-depth-validation",
+  "repo": "mrgoonie/claudekit-skills",
+  "category": "data",
+  "description": "Validate at every layer data passes through to make bugs impossible",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:55:42.153298Z"
+}

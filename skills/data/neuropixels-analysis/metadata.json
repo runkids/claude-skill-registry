@@ -1,0 +1,8 @@
+{
+  "name": "neuropixels-analysis",
+  "repo": "davila7/claude-code-templates",
+  "category": "data",
+  "description": "Neuropixels neural recording analysis. Load SpikeGLX/OpenEphys data, preprocess, motion correction, Kilosort4 spike sorting, quality metrics, Allen/IBL curation, AI-assisted visual analysis, for Neuro",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:55:38.076527Z"
+}

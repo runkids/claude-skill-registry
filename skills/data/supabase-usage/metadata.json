@@ -1,0 +1,8 @@
+{
+  "name": "supabase-usage",
+  "repo": "fcakyon/claude-codex-settings",
+  "category": "data",
+  "description": "This skill should be used when user asks to \"query Supabase\", \"list Supabase tables\", \"get Supabase schema\", \"search Supabase records\", \"check Supabase database\", \"Supabase auth\", \"Supabase authentica",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:27.316903Z"
+}

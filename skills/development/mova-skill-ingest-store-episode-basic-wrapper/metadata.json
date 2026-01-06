@@ -1,0 +1,8 @@
+{
+  "name": "mova-skill-ingest-store-episode-basic-wrapper",
+  "repo": "Leryk1981/mova_wf_cycle",
+  "category": "development",
+  "description": "Persists ds.episode_skill_ingest_run_v1 in the lab\u2019s genetic file store.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:06:47.853968Z"
+}

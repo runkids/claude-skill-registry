@@ -1,0 +1,8 @@
+{
+  "name": "cqrs-implementation",
+  "repo": "wshobson/agents",
+  "category": "development",
+  "description": "Implement Command Query Responsibility Segregation for scalable architectures. Use when separating read and write models, optimizing query performance, or building event-sourced systems.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:55:32.809084Z"
+}

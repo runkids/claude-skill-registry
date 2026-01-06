@@ -1,0 +1,8 @@
+{
+  "name": "professional-commit-workflow",
+  "repo": "talent-factory/dotfiles",
+  "category": "development",
+  "description": "Erstellt professionelle Git-Commits mit automatischen Pre-Commit-Checks f\u00fcr Java, Python, React und Dokumentation. Generiert Emoji Conventional Commit-Nachrichten und analysiert Staging-Status. Atomar",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:03:13.642797Z"
+}

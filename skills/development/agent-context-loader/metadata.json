@@ -1,0 +1,8 @@
+{
+  "name": "agent-context-loader",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "development",
+  "description": "Proactive auto-loading: automatically detects and loads agents.md files.Use when appropriate context detected. Trigger with relevant phrases based on skill purpose.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:55:50.031917Z"
+}

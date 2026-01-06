@@ -1,0 +1,8 @@
+{
+  "name": "model-tracking-protocol",
+  "repo": "MadAppGang/claude-code",
+  "category": "documents",
+  "description": "MANDATORY tracking protocol for multi-model validation. Creates structured tracking tables BEFORE launching models, tracks progress during execution, and ensures complete results presentation. Use whe",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:29.246531Z"
+}

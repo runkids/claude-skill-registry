@@ -1,0 +1,8 @@
+{
+  "name": "test-fix",
+  "repo": "d-o-hub/rust-self-learning-memory",
+  "category": "data",
+  "description": "Systematic approach to diagnosing and fixing failing tests in Rust projects. Use when tests fail and you need to diagnose root causes, fix async/await issues, handle race conditions, or resolve databa",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:59:49.173634Z"
+}

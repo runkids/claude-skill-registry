@@ -1,0 +1,8 @@
+{
+  "name": "kafka-stream-processor",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "data",
+  "description": "Kafka Stream Processor - Auto-activating skill for Data Pipelines.Triggers on: kafka stream processor, kafka stream processorPart of the Data Pipelines skill category.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:13.501196Z"
+}

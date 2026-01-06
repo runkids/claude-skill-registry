@@ -1,0 +1,8 @@
+{
+  "name": "agentuity-cli-cloud-db-create",
+  "repo": "agentuity/examples",
+  "category": "data",
+  "description": "Create a new database resource. Requires authentication. Use for Agentuity cloud platform operations",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:31.771799Z"
+}

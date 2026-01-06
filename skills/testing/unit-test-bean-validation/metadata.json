@@ -1,0 +1,8 @@
+{
+  "name": "unit-test-bean-validation",
+  "repo": "giuseppe-trisciuoglio/developer-kit",
+  "category": "testing",
+  "description": "Unit testing Jakarta Bean Validation (@Valid, @NotNull, @Min, @Max, etc.) with custom validators and constraint violations. Test validation logic without Spring context. Use when ensuring data integri",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:57:13.530755Z"
+}

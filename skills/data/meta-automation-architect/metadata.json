@@ -1,0 +1,8 @@
+{
+  "name": "meta-automation-architect",
+  "repo": "comzine/claude-code-marketplace",
+  "category": "data",
+  "description": "Use when user wants to set up comprehensive automation for their project. Generates custom subagents, skills, commands, and hooks tailored to project needs. Creates a multi-agent system with robust co",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:04:43.308739Z"
+}

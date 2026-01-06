@@ -1,0 +1,8 @@
+{
+  "name": "checkpoint-ambiguity-review",
+  "repo": "SprocketLab/slop-code-bench",
+  "category": "testing",
+  "description": "Review checkpoint specs and tests to identify tests that encode ambiguous interpretations rather than explicit requirements. Use when asked to check checkpoint_N.md against test_checkpoint_N.py, when ",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:58:57.276667Z"
+}

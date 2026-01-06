@@ -1,0 +1,8 @@
+{
+  "name": "audit-workflow",
+  "repo": "metasaver/claude-marketplace",
+  "category": "data",
+  "description": "Bi-directional comparison workflow for config auditing. Compares what agents expect (from templates/standards) against what repositories actually have, presenting differences with remediation options.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:07:06.671355Z"
+}

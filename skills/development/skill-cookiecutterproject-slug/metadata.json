@@ -1,0 +1,8 @@
+{
+  "name": "skill-cookiecutterproject-slug",
+  "repo": "dnvriend/cookiecutter-python-cli-uv",
+  "category": "development",
+  "description": "{{cookiecutter.project_description}}",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:05:07.612796Z"
+}

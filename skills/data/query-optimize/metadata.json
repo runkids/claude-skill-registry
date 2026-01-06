@@ -1,0 +1,8 @@
+{
+  "name": "query-optimize",
+  "repo": "letta-ai/skills",
+  "category": "data",
+  "description": "Guidance for SQL query optimization tasks. This skill should be used when optimizing slow SQL queries, improving database performance, or rewriting queries to be more efficient. Covers query plan anal",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:58:19.867753Z"
+}

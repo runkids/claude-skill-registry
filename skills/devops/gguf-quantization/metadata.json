@@ -1,0 +1,8 @@
+{
+  "name": "gguf-quantization",
+  "repo": "zechenzhangAGI/AI-research-SKILLs",
+  "category": "devops",
+  "description": "GGUF format and llama.cpp quantization for efficient CPU/GPU inference. Use when deploying models on consumer hardware, Apple Silicon, or when needing flexible quantization from 2-8 bit without GPU re",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:18.980982Z"
+}

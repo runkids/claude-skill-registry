@@ -1,0 +1,8 @@
+{
+  "name": "postgres-mcp-analyst",
+  "repo": "taiyousan15/taisun_agent",
+  "category": "data",
+  "description": "PostgreSQL MCP\u3067\u30b9\u30ad\u30fc\u30de\u78ba\u8a8d\u3068read-only\u5206\u6790\u3092\u884c\u3046\u3002\u96c6\u8a08\u30fb\u610f\u601d\u6c7a\u5b9a\u8cc7\u6599\u304c\u5fc5\u8981\u306a\u6642\u306b\u4f7f\u3046\u3002",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:08:42.527768Z"
+}

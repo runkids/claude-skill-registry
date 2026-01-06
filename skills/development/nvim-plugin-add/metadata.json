@@ -1,0 +1,8 @@
+{
+  "name": "nvim-plugin-add",
+  "repo": "tkancf/dotfiles",
+  "category": "development",
+  "description": "Add and configure Neovim plugins in this dotfiles repo using lazy.nvim. Use when asked to install a plugin, create its config module, update lazy.nvim imports, read plugin README/docs, and add keymaps",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:03:27.087998Z"
+}

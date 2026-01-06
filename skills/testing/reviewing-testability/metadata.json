@@ -1,0 +1,8 @@
+{
+  "name": "reviewing-testability",
+  "repo": "thkt/claude-config",
+  "category": "testing",
+  "description": "TypeScript/React\u30a2\u30d7\u30ea\u30b1\u30fc\u30b7\u30e7\u30f3\u5411\u3051\u30c6\u30b9\u30c8\u53ef\u80fd\u306a\u30b3\u30fc\u30c9\u8a2d\u8a08\u30d1\u30bf\u30fc\u30f3\u3002 \u30c8\u30ea\u30ac\u30fc: \u30c6\u30b9\u30bf\u30d3\u30ea\u30c6\u30a3, testability, \u30c6\u30b9\u30c8\u53ef\u80fd, \u30c6\u30b9\u30c8\u3057\u3084\u3059\u3044, \u30e2\u30c3\u30af, mock, \u7d14\u7c8b\u95a2\u6570, pure function, \u4f9d\u5b58\u6027\u6ce8\u5165, dependency injection, DI, \u526f\u4f5c\u7528, side effect, \u526f\u4f5c\u7528\u5206\u96e2, \u30c6\u30b9\u30c8\u56f0\u96e3, hard to test.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:23.506268Z"
+}

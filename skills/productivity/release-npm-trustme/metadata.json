@@ -1,0 +1,8 @@
+{
+  "name": "release-npm-trustme",
+  "repo": "regenrek/npm-trustme",
+  "category": "productivity",
+  "description": "Release automation for npm-trustme. Use when asked to cut a new npm-trustme version, run the release script, or tag/publish a new release.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:26.824130Z"
+}

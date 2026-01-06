@@ -1,0 +1,8 @@
+{
+  "name": "parse-video",
+  "repo": "mojito-llm/freeship-skills",
+  "category": "development",
+  "description": "\u6839\u636e todolist.md \u4f7f\u7528 MCP \u89e3\u6790\u89c6\u9891\u5143\u6570\u636e\u5e76\u4e0b\u8f7d\u3002\u8bfb\u53d6\u4efb\u52a1\u6e05\u5355\uff0c\u8c03\u7528 MCP \u670d\u52a1\u4e0b\u8f7d\u89c6\u9891\u548c\u5c01\u9762\uff0c\u4fdd\u5b58\u5143\u6570\u636e JSON\uff0c\u66f4\u65b0\u4efb\u52a1\u5b8c\u6210\u72b6\u6001\u3002",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:07:12.304928Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "dynamodb-table-designer",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "design",
+  "description": "Dynamodb Table Designer - Auto-activating skill for AWS Skills.Triggers on: dynamodb table designer, dynamodb table designerPart of the AWS Skills skill category.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:09.037687Z"
+}

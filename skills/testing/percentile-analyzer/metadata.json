@@ -1,0 +1,8 @@
+{
+  "name": "percentile-analyzer",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "testing",
+  "description": "Percentile Analyzer - Auto-activating skill for Performance Testing.Triggers on: percentile analyzer, percentile analyzerPart of the Performance Testing skill category.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:10.849381Z"
+}

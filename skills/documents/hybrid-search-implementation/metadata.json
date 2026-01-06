@@ -1,0 +1,8 @@
+{
+  "name": "hybrid-search-implementation",
+  "repo": "wshobson/agents",
+  "category": "documents",
+  "description": "Combine vector and keyword search for improved retrieval. Use when implementing RAG systems, building search engines, or when neither approach alone provides sufficient recall.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:55:34.038091Z"
+}

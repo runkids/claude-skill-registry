@@ -1,0 +1,8 @@
+{
+  "name": "snd-vnavmesh-integration",
+  "repo": "vaoan/SND",
+  "category": "testing",
+  "description": "Use this skill when implementing navigation or movement in SND macros using the vnavmesh plugin. Covers pathfinding, movement control, navmesh utilities, and movement patterns.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:09:27.998106Z"
+}

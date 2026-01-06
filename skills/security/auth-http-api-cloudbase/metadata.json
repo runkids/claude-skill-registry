@@ -1,0 +1,8 @@
+{
+  "name": "auth-http-api-cloudbase",
+  "repo": "TencentCloudBase/awesome-cloudbase-examples",
+  "category": "security",
+  "description": "Use when you need to implement CloudBase Auth v2 over raw HTTP endpoints (login/signup, tokens, user operations) from backends or scripts that are not using the Web or Node SDKs.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:25.273285Z"
+}

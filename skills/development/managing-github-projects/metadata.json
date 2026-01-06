@@ -1,0 +1,8 @@
+{
+  "name": "managing-github-projects",
+  "repo": "kynoptic/markdownlint-trap",
+  "category": "development",
+  "description": "Manages GitHub Projects V2 items and custom fields using GitHub CLI commands. Use when adding issues/PRs to projects, updating Status (Backlog/Todo/Doing/Done), Value (Essential/Useful/Nice-to-have), ",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:02:19.586546Z"
+}

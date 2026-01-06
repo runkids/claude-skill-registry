@@ -1,0 +1,8 @@
+{
+  "name": "usage-logging",
+  "repo": "athola/claude-night-market",
+  "category": "data",
+  "description": "Session-aware usage logging for audit trails, cost tracking, and analytics with JSONL format.Triggers: usage logging, audit trails, cost tracking, session logging, analytics, structured logging, JSONL",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:48.067117Z"
+}

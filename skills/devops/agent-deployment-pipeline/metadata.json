@@ -1,0 +1,8 @@
+{
+  "name": "agent-deployment-pipeline",
+  "repo": "raphaelmansuy/k8s-agent-stack",
+  "category": "devops",
+  "description": "Implement CI/CD pipelines for AI agent deployment with evaluation gates. Use for GitHub Actions workflows, GitOps with ArgoCD, container image building, and automated testing. Triggers on \"CI/CD\", \"pi",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:01:13.622288Z"
+}

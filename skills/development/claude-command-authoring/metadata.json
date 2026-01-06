@@ -1,0 +1,8 @@
+{
+  "name": "claude-command-authoring",
+  "repo": "outfitter-dev/agents",
+  "category": "development",
+  "description": "Creates custom slash commands for Claude Code with proper syntax, frontmatter, arguments, bash execution, and file references. Use when building slash commands, creating custom Claude Code commands, s",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:59:36.721834Z"
+}

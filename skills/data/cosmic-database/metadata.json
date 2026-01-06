@@ -1,0 +1,8 @@
+{
+  "name": "cosmic-database",
+  "repo": "davila7/claude-code-templates",
+  "category": "data",
+  "description": "Access COSMIC cancer mutation database. Query somatic mutations, Cancer Gene Census, mutational signatures, gene fusions, for cancer research and precision oncology. Requires authentication.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:55:36.832894Z"
+}

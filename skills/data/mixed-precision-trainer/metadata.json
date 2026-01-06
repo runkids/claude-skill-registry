@@ -1,0 +1,8 @@
+{
+  "name": "mixed-precision-trainer",
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "category": "data",
+  "description": "Mixed Precision Trainer - Auto-activating skill for ML Training.Triggers on: mixed precision trainer, mixed precision trainerPart of the ML Training skill category.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:55:59.327262Z"
+}

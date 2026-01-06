@@ -1,0 +1,8 @@
+{
+  "name": "ios-reactive-list-generator",
+  "repo": "daispacy/py-claude-marketplace",
+  "category": "testing",
+  "description": "Generate reactive iOS list screens with RxSwift MVVM Input/Output pattern. Creates complete list features with reactive bindings, pagination (date range/page number), ViewModel, ViewController, Naviga",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:04:47.656262Z"
+}

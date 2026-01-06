@@ -1,0 +1,8 @@
+{
+  "name": "frontend-verification-testing",
+  "repo": "kojder/photo-map-app",
+  "category": "design",
+  "description": "Verify and test Angular 18 frontend changes using Chrome DevTools MCP. Automatically check console errors, network requests, and visual rendering after implementing tasks or when fixing UI bugs. Use w",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:06:41.134473Z"
+}

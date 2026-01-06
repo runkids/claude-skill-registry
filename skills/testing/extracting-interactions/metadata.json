@@ -1,0 +1,8 @@
+{
+  "name": "extracting-interactions",
+  "repo": "farmanlab/ai_agent_orchestra",
+  "category": "testing",
+  "description": "Extracts interaction specifications from Figma designs (hover states, transitions, animations, triggers). Updates the \"\u30a4\u30f3\u30bf\u30e9\u30af\u30b7\u30e7\u30f3\" section in screen spec.md.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:01:51.470078Z"
+}

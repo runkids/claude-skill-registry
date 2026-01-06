@@ -1,0 +1,8 @@
+{
+  "name": "guide",
+  "repo": "XiaoLFeng/claude-marketplace",
+  "category": "design",
+  "description": "LLM Memory \u5b8c\u6574\u4f7f\u7528\u6307\u5357 - \u4f7f\u7528 llm-memory MCP \u5de5\u5177\u65f6\u5fc5\u987b\u8c03\u7528\u6b64 Skill\u3002\u63d0\u4f9b\u8ba1\u5212(Plan)\u3001\u5f85\u529e(Todo)\u3001\u8bb0\u5fc6(Memory)\u7684\u5b8c\u6574\u7ba1\u7406\u6307\u5357\uff0c\u5305\u62ec\u65b0\u5bf9\u8bdd\u521d\u59cb\u5316\u3001\u9879\u76ee\u89c4\u5212\u3001\u4efb\u52a1\u7ba1\u7406\u3001\u77e5\u8bc6\u8bb0\u5f55\u7b49\u5de5\u4f5c\u6d41\u3002Use when: llm-memory MCP is available, new conversation starts, need to manage pl",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:03:19.319625Z"
+}

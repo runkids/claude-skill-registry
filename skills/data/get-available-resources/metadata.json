@@ -1,0 +1,8 @@
+{
+  "name": "get-available-resources",
+  "repo": "davila7/claude-code-templates",
+  "category": "data",
+  "description": "This skill should be used at the start of any computationally intensive scientific task to detect and report available system resources (CPU cores, GPUs, memory, disk space). It creates a JSON file wi",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:55:37.456073Z"
+}

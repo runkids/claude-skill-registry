@@ -1,0 +1,8 @@
+{
+  "name": "spring-boot-crud-patterns",
+  "repo": "giuseppe-trisciuoglio/developer-kit",
+  "category": "data",
+  "description": "Provide repeatable CRUD workflows for Spring Boot 3 services with Spring Data JPA and feature-focused architecture; apply when modeling aggregates, repositories, controllers, and DTOs for REST APIs.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:57:14.389244Z"
+}

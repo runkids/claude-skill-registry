@@ -1,0 +1,8 @@
+{
+  "name": "arboreto",
+  "repo": "davila7/claude-code-templates",
+  "category": "data",
+  "description": "Infer gene regulatory networks (GRNs) from gene expression data using scalable algorithms (GRNBoost2, GENIE3). Use when analyzing transcriptomics data (bulk RNA-seq, single-cell RNA-seq) to identify t",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:55:36.346307Z"
+}

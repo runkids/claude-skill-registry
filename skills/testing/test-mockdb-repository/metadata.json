@@ -1,0 +1,8 @@
+{
+  "name": "test-mockdb-repository",
+  "repo": "madooei/backend-template",
+  "category": "testing",
+  "description": "Write tests for MockDB (in-memory) repository implementations. Use when testing MockDB repositories, in-memory data access, or mock repository behavior. Triggers on \"test mockdb\", \"mockdb tests\", \"tes",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:03:27.937457Z"
+}

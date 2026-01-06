@@ -1,0 +1,8 @@
+{
+  "name": "probitas-setup",
+  "repo": "jsr-probitas/claude-plugins",
+  "category": "testing",
+  "description": "Probitas project setup and installation. Use when initializing Probitas, setting up E2E testing, or installing probitas CLI.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:06:31.226065Z"
+}

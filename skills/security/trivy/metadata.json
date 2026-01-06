@@ -1,0 +1,8 @@
+{
+  "name": "trivy",
+  "repo": "plinde/claude-plugins",
+  "category": "security",
+  "description": "This skill should be used when scanning container images, filesystems, or repositories for vulnerabilities using Trivy. Use for CVE detection, security analysis, vulnerability comparison across image ",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:02:41.722043Z"
+}

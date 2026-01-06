@@ -1,0 +1,8 @@
+{
+  "name": "sast-semgrep",
+  "repo": "AgentSecOps/SecOpsAgentKit",
+  "category": "testing",
+  "description": "Static application security testing (SAST) using Semgrep for vulnerability detection, security code review, and secure coding guidance with OWASP and CWE framework mapping. Use when: (1) Scanning code",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:59:25.906466Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "branch-namer",
+  "repo": "fractary/claude-plugins",
+  "category": "data",
+  "description": "Generate semantic branch names from work item metadata following conventions",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:01:59.222043Z"
+}

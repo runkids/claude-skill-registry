@@ -1,0 +1,8 @@
+{
+  "name": "managing-slash-commands",
+  "repo": "thoeltig/claude-code-toolkit",
+  "category": "data",
+  "description": "Creates, analyzes, updates, and improves slash commands including YAML frontmatter, argument handling, and command authoring workflows. Use when user asks how slash commands work, explaining command s",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:08:59.654290Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "himalaya-email-manager",
+  "repo": "akaihola/skills-akaihola",
+  "category": "data",
+  "description": "Email management using Himalaya CLI tool (IMAP). Search, summarize, and delete emails from an IMAP account. Supports natural language queries for email operations.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:10:46.632716Z"
+}

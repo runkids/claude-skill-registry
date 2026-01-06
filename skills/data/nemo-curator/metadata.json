@@ -1,0 +1,8 @@
+{
+  "name": "nemo-curator",
+  "repo": "zechenzhangAGI/AI-research-SKILLs",
+  "category": "data",
+  "description": "GPU-accelerated data curation for LLM training. Supports text/image/video/audio. Features fuzzy deduplication (16\u00d7 faster), quality filtering (30+ heuristics), semantic deduplication, PII redaction, N",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:18.440700Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "sentry-error-capturing",
+  "repo": "TheBushidoCollective/han",
+  "category": "development",
+  "description": "Use when capturing and reporting errors to Sentry, adding context, or handling exceptions. Covers error boundaries, context enrichment, and fingerprinting.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:57:08.655051Z"
+}

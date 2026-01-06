@@ -1,0 +1,8 @@
+{
+  "name": "wheels-anti-pattern-detector",
+  "repo": "wheels-dev/wheels",
+  "category": "data",
+  "description": "Automatically detect and prevent common Wheels framework errors before code is generated. This skill activates during ANY Wheels code generation (models, controllers, views, migrations) to validate pa",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T08:56:28.269251Z"
+}

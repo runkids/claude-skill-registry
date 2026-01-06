@@ -1,0 +1,8 @@
+{
+  "name": "agentuity-cli-cloud-db-sql",
+  "repo": "agentuity/examples",
+  "category": "data",
+  "description": "Execute SQL query on a database. Requires authentication. Use for Agentuity cloud platform operations",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:32.450012Z"
+}

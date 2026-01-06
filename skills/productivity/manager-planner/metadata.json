@@ -1,0 +1,8 @@
+{
+  "name": "manager-planner",
+  "repo": "ACSKamloops/shs-engine",
+  "category": "productivity",
+  "description": "Orchestrates Pukaist agents, enforces plan-first workflow, runs integrity tests, and delegates tasks; use for coordination or system audits.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:11:18.446239Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "sqlmodel-data-modeling",
+  "repo": "MUmerRazzaq/fast-next-todo",
+  "category": "data",
+  "description": "Guide for ORM-based data modeling with SQLModel. Use for defining database models, fields, constraints, relationships (1:N, N:M), inheritance, validators, and handling JSON fields and timestamps. Prov",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:07:14.823713Z"
+}

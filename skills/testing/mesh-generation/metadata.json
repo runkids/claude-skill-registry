@@ -1,0 +1,8 @@
+{
+  "name": "mesh-generation",
+  "repo": "HeshamFS/materials-simulation-skills",
+  "category": "testing",
+  "description": "Plan and evaluate mesh generation for numerical simulations. Use when choosing grid resolution, checking aspect ratios/skewness, or estimating mesh quality constraints for PDE discretization.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:06:00.969619Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "rust-conventions",
+  "repo": "JoernStoehler/msc-viterbo",
+  "category": "testing",
+  "description": "Work on Rust crates in packages/rust_viterbo. Use for crate layout, commands (fmt/clippy/test/bench), and coding conventions.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:06:26.969568Z"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "synthetic-data-generation",
+  "repo": "databricks-solutions/ai-dev-kit",
+  "category": "data",
+  "description": "Generate realistic synthetic data using Faker and Spark, with non-linear distributions, integrity constraints, and save to Databricks Volumes. Use when creating test data, demo datasets, or synthetic ",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:01:46.434632Z"
+}

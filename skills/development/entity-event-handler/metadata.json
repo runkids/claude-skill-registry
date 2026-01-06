@@ -1,0 +1,8 @@
+{
+  "name": "entity-event-handler",
+  "repo": "duc01226/EasyPlatform",
+  "category": "development",
+  "description": "Use when creating entity event handlers for side effects (notifications, external APIs, cross-service sync) triggered by entity CRUD operations.",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-06T09:00:48.677867Z"
+}
