@@ -1,0 +1,8 @@
+{
+  "name": "mcp-tool-writer",
+  "repo": "Sunalamye/Naki",
+  "category": "data",
+  "description": "Create, modify, and manage MCP tools for the Naki mahjong AI assistant. Use when adding new MCP tools, modifying existing tools, or fixing tool-related issues. This skill understands the Protocol-base",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-08T02:55:30.700787Z"
+}

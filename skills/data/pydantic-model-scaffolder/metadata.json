@@ -1,0 +1,8 @@
+{
+  "name": "pydantic-model-scaffolder",
+  "repo": "okgoogle13/careercopilot",
+  "category": "data",
+  "description": "\"Scaffolds Pydantic models for request/response validation. Use when creating data models for API endpoints or database schemas.\"",
+  "source": "SkillsMP + GitHub Raw",
+  "downloaded_at": "2026-01-08T02:53:48.279258Z"
+}
