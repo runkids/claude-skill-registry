@@ -1,0 +1,8 @@
+{
+  "name": "tmux-tdd",
+  "repo": "ianphil/my-skills",
+  "category": "testing",
+  "description": "Interact with tmux-based TDD environments. Use when running tests in tmux panes, checking test output, parsing test failures, or orchestrating TDD workflows. Works with any language (Rust, Python, Jav",
+  "source": "GitHub Search API",
+  "downloaded_at": "2026-01-08T03:29:12.699300Z"
+}

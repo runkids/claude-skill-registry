@@ -1,0 +1,8 @@
+{
+  "name": "agent-sdk",
+  "repo": "aircrushin/promptMinder",
+  "category": "development",
+  "description": "Expert in Claude Agent SDK development. Use when users ask about SDK API, agent configuration, MCP servers, hooks, permissions, file checkpointing, or when they mention @AGENT_SDK_DOCS.md. Provides ac",
+  "source": "GitHub Search API",
+  "downloaded_at": "2026-01-08T03:20:08.653896Z"
+}

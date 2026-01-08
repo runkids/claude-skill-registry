@@ -1,0 +1,8 @@
+{
+  "name": "protocol-expert",
+  "repo": "raintree-technology/claude-starter",
+  "category": "documents",
+  "description": "Expert on Shelby Protocol architecture, erasure coding, placement groups, read/write procedures, Clay Codes, chunking, storage providers, RPC servers, and decentralized storage system design on Aptos ",
+  "source": "GitHub Search API",
+  "downloaded_at": "2026-01-08T03:20:44.897523Z"
+}

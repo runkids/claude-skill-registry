@@ -1,0 +1,8 @@
+{
+  "name": "handover",
+  "repo": "Mharbulous/StoryTree1",
+  "category": "data",
+  "description": "Use when starting a session (resume previous work) or ending a session (create handover for next). Automatically detects mode based on conversation state. Cascades through completed handovers via Haik",
+  "source": "GitHub Search API",
+  "downloaded_at": "2026-01-08T03:24:09.991023Z"
+}

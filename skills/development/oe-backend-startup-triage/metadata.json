@@ -1,0 +1,8 @@
+{
+  "name": "oe-backend-startup-triage",
+  "repo": "shami-ah/OpenEvent-AI",
+  "category": "development",
+  "description": "Debug \u201cbackend won\u2019t start / first request 500 / ports stuck\u201d quickly. Use when uvicorn reload behaves strangely, ports 8000/3000 are blocked, or you see first-request errors like \u201cunexpected keyword ",
+  "source": "GitHub Search API",
+  "downloaded_at": "2026-01-08T03:30:46.257864Z"
+}

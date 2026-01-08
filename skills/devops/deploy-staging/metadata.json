@@ -1,0 +1,8 @@
+{
+  "name": "deploy-staging",
+  "repo": "rrader/light-bot",
+  "category": "devops",
+  "description": "Deploy the Light Bot application to the staging server using SSH and Docker Compose.",
+  "source": "GitHub Search API",
+  "downloaded_at": "2026-01-08T03:24:14.152214Z"
+}

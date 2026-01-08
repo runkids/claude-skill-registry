@@ -1,0 +1,8 @@
+{
+  "name": "oe-security-prompt-injection",
+  "repo": "shami-ah/OpenEvent-AI",
+  "category": "testing",
+  "description": "Maintain and extend prompt-injection defenses. Use when adding new user-input surfaces, changing prompt templates, or when a new injection pattern is observed; run the security regression suite and ad",
+  "source": "GitHub Search API",
+  "downloaded_at": "2026-01-08T03:31:07.422350Z"
+}

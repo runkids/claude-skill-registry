@@ -1,0 +1,8 @@
+{
+  "name": "custom-node",
+  "repo": "trkbt10/react-wireflow",
+  "category": "data",
+  "description": "Create custom node definitions with renderers, ports, external data, and constraints. Use when implementing new node types, custom node appearances, or node-specific behaviors.",
+  "source": "GitHub Search API",
+  "downloaded_at": "2026-01-08T03:28:45.380981Z"
+}

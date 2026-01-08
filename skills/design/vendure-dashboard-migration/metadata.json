@@ -1,0 +1,8 @@
+{
+  "name": "vendure-dashboard-migration",
+  "repo": "vendurehq/vendure",
+  "category": "design",
+  "description": "Migrates Vendure Admin UI extensions (legacy Angular-based) to the new React Dashboard.",
+  "source": "GitHub Search API",
+  "downloaded_at": "2026-01-08T03:20:00.446716Z"
+}
