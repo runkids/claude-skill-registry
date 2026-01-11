@@ -1,0 +1,57 @@
+{
+  "category": "official",
+  "count": 5,
+  "updated_at": "2026-01-11T14:42:12.237778Z",
+  "skills": [
+    {
+      "name": "doc-coauthoring",
+      "description": "Guide users through a structured workflow for co-authoring documentation. Use when user wants to write documentation, proposals, technical specs, decision docs, or similar structured content. This wor",
+      "repo": "anthropics/skills",
+      "path": "official/doc-coauthoring",
+      "category": "official",
+      "tags": [],
+      "stars": 0,
+      "source": "Anthropic Official"
+    },
+    {
+      "name": "docx",
+      "description": "Comprehensive document creation, editing, and analysis with support for tracked changes, comments, formatting preservation, and text extraction. When Claude needs to work with professional documents (",
+      "repo": "anthropics/skills",
+      "path": "official/docx",
+      "category": "official",
+      "tags": [],
+      "stars": 0,
+      "source": "Anthropic Official"
+    },
+    {
+      "name": "pdf",
+      "description": "Comprehensive PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/splitting documents, and handling forms. When Claude needs to fill in a PDF form or programmatically p",
+      "repo": "anthropics/skills",
+      "path": "official/pdf",
+      "category": "official",
+      "tags": [],
+      "stars": 0,
+      "source": "Anthropic Official"
+    },
+    {
+      "name": "slack-gif-creator",
+      "description": "Knowledge and utilities for creating animated GIFs optimized for Slack. Provides constraints, validation tools, and animation concepts. Use when users request animated GIFs for Slack like \"make me a G",
+      "repo": "anthropics/skills",
+      "path": "official/slack-gif-creator",
+      "category": "official",
+      "tags": [],
+      "stars": 0,
+      "source": "Anthropic Official"
+    },
+    {
+      "name": "xlsx",
+      "description": "Comprehensive spreadsheet creation, editing, and analysis with support for formulas, formatting, data analysis, and visualization. When Claude needs to work with spreadsheets (.xlsx, .xlsm, .csv, .tsv",
+      "repo": "anthropics/skills",
+      "path": "official/xlsx",
+      "category": "official",
+      "tags": [],
+      "stars": 0,
+      "source": "Anthropic Official"
+    }
+  ]
+}

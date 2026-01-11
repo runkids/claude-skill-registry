@@ -1,0 +1,147 @@
+{
+  "category": "other",
+  "count": 14,
+  "updated_at": "2026-01-11T14:42:12.237453Z",
+  "skills": [
+    {
+      "name": "agent-mlops",
+      "description": "Production deployment and operationalization of AI agents on Databricks. Use when deploying agents to Model Serving, setting up MLflow logging and tracing for agents, implementing Agent Evaluation fra",
+      "repo": "",
+      "path": "other/agent-mlops",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "local"
+    },
+    {
+      "name": "bulk-operations-patterns",
+      "description": "Bulk data operations with Excel import/export, batch processing, and validation for ABP Framework. Use when: (1) implementing bulk import/update from Excel/CSV, (2) batch processing with progress trac",
+      "repo": "",
+      "path": "other/bulk-operations-patterns",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "local"
+    },
+    {
+      "name": "composable-svelte-maps",
+      "description": "Interactive maps and geospatial visualizations for Composable Svelte. Use when implementing maps, geolocation, markers, overlays, or geospatial data visualization. Covers Map component, markers, popup",
+      "repo": "",
+      "path": "other/composable-svelte-maps",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "local"
+    },
+    {
+      "name": "dst-check-freshness",
+      "description": "Check data freshness and age for DST tables in DuckDB. Use when determining if data needs refreshing or validating data currency before analysis.",
+      "repo": "",
+      "path": "other/dst-check-freshness",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "local"
+    },
+    {
+      "name": "grail-miner",
+      "description": "This skill should be used when setting up, managing, or optimizing Grail miners on Bittensor Subnet 81. Use it for GRAIL protocol tasks including miner setup, R2 storage configuration, model checkpoin",
+      "repo": "",
+      "path": "other/grail-miner",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "local"
+    },
+    {
+      "name": "homelab-workflow",
+      "description": "Enforce homelab-proxmox workflow patterns including single source of truth documentation, prompt logging, git commits, environment variables, and phase tracking. Use this skill when completing tasks, ",
+      "repo": "",
+      "path": "other/homelab-workflow",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "local"
+    },
+    {
+      "name": "ios-stop-app",
+      "description": "Stop the iOS app running on connected iPhone. Cleanly terminates the app using SIGTERM. Use when stopping the app for debugging, testing, or cleanup.",
+      "repo": "",
+      "path": "other/ios-stop-app",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "local"
+    },
+    {
+      "name": "multi-agent-parallel-investigation",
+      "description": "Decompose complex questions into 4-6 parallel investigations with different perspectives, synthesize into phased decision framework. Use when facing architecture decisions with multiple unknowns in cr",
+      "repo": "",
+      "path": "other/multi-agent-parallel-investigation",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "local"
+    },
+    {
+      "name": "qdrant-doc-deleter",
+      "description": "Deletes specific PDF documents from Qdrant vector database collection. Use when user wants to remove, delete, or clean up PDF documents from the vector database, Qdrant collection, or needs to manage ",
+      "repo": "",
+      "path": "other/qdrant-doc-deleter",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "local"
+    },
+    {
+      "name": "readme-template-generator",
+      "description": "Generate comprehensive README.md templates for open source projects. Triggers on \"create readme\", \"generate readme template\", \"project readme\", \"documentation readme\".",
+      "repo": "",
+      "path": "other/readme-template-generator",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "local"
+    },
+    {
+      "name": "sonar-graphql",
+      "description": "Execute GraphQL queries against Sonar ISP API.\nUse when querying customer data, services, billing, invoices, payments, tickets, jobs, or network info from Sonar.\nSupports live mode via fetch_customer_",
+      "repo": "",
+      "path": "other/sonar-graphql",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "local"
+    },
+    {
+      "name": "svelte-remote-functions",
+      "description": "Guide for SvelteKit Remote Functions. Use this skill by default for all SvelteKit projects doing type-safe client-server communication with query (data fetching), form (progressive enhancement), comma",
+      "repo": "",
+      "path": "other/svelte-remote-functions",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "local"
+    },
+    {
+      "name": "using-github-search",
+      "description": "Use when researching GitHub issues, PRs, and discussions for community solutions and known gotchas - searches via WebSearch with site filters and extracts problem-solution patterns",
+      "repo": "",
+      "path": "other/using-github-search",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "local"
+    },
+    {
+      "name": "wt-prune",
+      "description": "Clean up stale git worktree references and metadata. Use when git shows worktrees that no longer exist, or after manually deleting worktree directories. Fixes inconsistencies.",
+      "repo": "",
+      "path": "other/wt-prune",
+      "category": "other",
+      "tags": [],
+      "stars": 0,
+      "source": "local"
+    }
+  ]
+}

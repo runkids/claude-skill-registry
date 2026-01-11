@@ -1,16 +1,23 @@
 # Claude Skills Registry
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Skills-100+-purple?style=flat-square" alt="Skills">
+  <img src="https://img.shields.io/badge/Skills-29,000+-purple?style=flat-square" alt="Skills">
   <img src="https://img.shields.io/badge/Updated-Daily-green?style=flat-square" alt="Updated">
   <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="License">
 </p>
 
-> The official skills registry for [sk](https://github.com/majiayu000/caude-skill-manager) - Claude Skills Manager
+> The most comprehensive Claude Code skills registry - **29,000+ skills indexed**
 
 ## What is this?
 
-This repository maintains a curated index of Claude Code skills, enabling fast and reliable skill discovery through the `sk` CLI.
+The largest searchable index of Claude Code skills, aggregated from GitHub and community sources. Use with the [sk CLI](https://github.com/majiayu000/caude-skill-manager) for fast skill discovery and installation.
+
+## Highlights
+
+- **29,000+ Skills** - The most comprehensive collection available
+- **12 Categories** - Development, Testing, DevOps, Design, and more
+- **Daily Updates** - Automated crawling and validation
+- **Quality Indexed** - Metadata, descriptions, and star counts
 
 ## Using the Registry
 
@@ -72,16 +79,18 @@ skill-registry/
 
 ## Categories
 
-| Category | Description |
-|----------|-------------|
-| `documents` | Document creation/editing (docx, pdf, pptx) |
-| `development` | Development tools and workflows |
-| `design` | UI/UX design and frontend |
-| `testing` | Testing and QA |
-| `ai` | AI/ML tools and integrations |
-| `productivity` | Productivity and automation |
-| `data` | Data processing and analysis |
-| `devops` | DevOps and infrastructure |
+| Category | Count | Description |
+|----------|-------|-------------|
+| `development` | 11,185 | Development tools, frameworks, workflows |
+| `data` | 4,242 | Data processing, analysis, databases |
+| `design` | 3,894 | UI/UX design, frontend, styling |
+| `testing` | 2,966 | Testing, QA, automation |
+| `devops` | 2,073 | DevOps, CI/CD, infrastructure |
+| `documents` | 1,973 | Document creation/editing (docx, pdf, pptx) |
+| `productivity` | 1,088 | Productivity and automation |
+| `product` | 818 | Product management, planning |
+| `security` | 501 | Security, auditing, compliance |
+| `marketing` | 339 | Marketing, content, SEO |
 
 ## API
 
@@ -89,10 +98,10 @@ The registry can be accessed directly via raw GitHub URLs:
 
 ```bash
 # Full registry
-curl https://raw.githubusercontent.com/majiayu000/skill-registry/main/registry.json
+curl https://raw.githubusercontent.com/majiayu000/claude-skill-registry/main/registry.json
 
 # Specific category
-curl https://raw.githubusercontent.com/majiayu000/skill-registry/main/categories/documents.json
+curl https://raw.githubusercontent.com/majiayu000/claude-skill-registry/main/categories/development.json
 ```
 
 ## Auto-Updates
