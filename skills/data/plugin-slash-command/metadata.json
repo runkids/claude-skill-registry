@@ -1,0 +1,9 @@
+{
+  "name": "plugin-slash-command",
+  "description": "Generate new Navigator slash commands following project conventions. Use when user says \"add slash command\", \"create command\", \"new /nav command\", or \"add /nav:[name] command\".",
+  "repo": "alekspetrov/navigator",
+  "category": "product",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

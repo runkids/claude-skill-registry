@@ -1,0 +1,12 @@
+{
+  "name": "documentation-patterns",
+  "description": "Apply when writing code documentation: JSDoc comments, README files, API documentation, and inline comments.",
+  "repo": "CoderMariusz/MonoPilot",
+  "category": "documents",
+  "tags": [
+    "documentation",
+    "patterns"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

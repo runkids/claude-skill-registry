@@ -1,0 +1,12 @@
+{
+  "name": "phase-cleanup",
+  "description": "Refactor and finalize code after parallel phases complete, addressing technical debt. Use in cleanup phase to polish code before merge.",
+  "repo": "mvillmow/ProjectOdyssey",
+  "category": "development",
+  "tags": [
+    "phase",
+    "cleanup"
+  ],
+  "stars": 8,
+  "source": "local"
+}

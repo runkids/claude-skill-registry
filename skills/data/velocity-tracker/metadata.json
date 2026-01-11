@@ -1,0 +1,12 @@
+{
+  "name": "velocity-tracker",
+  "description": "Track development velocity, cycle times, and identify trends for PM decision-making",
+  "repo": "mehdic/bazinga",
+  "category": "development",
+  "tags": [
+    "velocity",
+    "tracker"
+  ],
+  "stars": 2,
+  "source": "local"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "pr-creation",
+  "description": "Use when creating pull requests to auto-generate PR descriptions from plan, execution context, and memory - handles pre-flight checks, description generation, and GitHub CLI integration",
+  "repo": "seanGSISG/crispy-claude",
+  "category": "testing",
+  "tags": [
+    "creation"
+  ],
+  "stars": 0,
+  "source": "local"
+}

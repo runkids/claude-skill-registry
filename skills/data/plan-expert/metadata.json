@@ -1,0 +1,12 @@
+{
+  "name": "plan-expert",
+  "description": "Planning and architecture decision domain expert.Knows about:- Creating ADRs (Architecture Decision Records)- Creating technical specifications- Listing and discovering planning artifacts- Transformin",
+  "repo": "nathanvale/vtm-cli",
+  "category": "productivity",
+  "tags": [
+    "plan",
+    "expert"
+  ],
+  "stars": 0,
+  "source": "local"
+}

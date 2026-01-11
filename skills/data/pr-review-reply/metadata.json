@@ -1,0 +1,12 @@
+{
+  "name": "pr-review-reply",
+  "description": "Reply to and resolve GitHub PR review comments using the GitHub CLI and GraphQL API.",
+  "repo": "stacklok/toolhive",
+  "category": "development",
+  "tags": [
+    "review",
+    "reply"
+  ],
+  "stars": 1484,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "vue-nuxt",
+  "description": "Master Nuxt.js - SSR, SSG, Nitro Server, Modules, Auto-imports, Deployment",
+  "repo": "pluginagentmarketplace/custom-plugin-vue",
+  "category": "design",
+  "tags": [
+    "vue",
+    "nuxt"
+  ],
+  "stars": 1,
+  "source": "local"
+}

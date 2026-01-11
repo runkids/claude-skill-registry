@@ -1,0 +1,12 @@
+{
+  "name": "java-testing",
+  "description": "Test Java applications - JUnit 5, Mockito, integration testing, TDD patterns",
+  "repo": "pluginagentmarketplace/custom-plugin-java",
+  "category": "testing",
+  "tags": [
+    "java",
+    "testing"
+  ],
+  "stars": 1,
+  "source": "local"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "moai-cc-memory",
+  "description": "Managing Claude Code Session Memory & Context. Understand session context limits, use just-in-time retrieval, cache insights, manage memory files. Use when optimizing context usage, handling large pro",
+  "repo": "kivo360/quickhooks",
+  "category": "productivity",
+  "tags": [
+    "moai",
+    "memory"
+  ],
+  "stars": 0,
+  "source": "local"
+}

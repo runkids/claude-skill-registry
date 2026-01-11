@@ -1,0 +1,12 @@
+{
+  "name": "cl-coding-style",
+  "description": "Common Lispのコーディング規約を適用。Lispコード作成・レビュー時に使用",
+  "repo": "cxxxr/.claude",
+  "category": "development",
+  "tags": [
+    "coding",
+    "style"
+  ],
+  "stars": 1,
+  "source": "local"
+}

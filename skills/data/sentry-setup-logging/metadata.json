@@ -1,0 +1,9 @@
+{
+  "name": "sentry-setup-logging",
+  "description": "Setup Sentry Logging in any project. Use this when asked to add Sentry logs, enable structured logging, setup console log capture, or integrate logging with Sentry. Supports JavaScript, TypeScript, Py",
+  "repo": "getsentry/sentry-for-claude",
+  "category": "design",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

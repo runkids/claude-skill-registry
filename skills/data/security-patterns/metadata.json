@@ -1,0 +1,12 @@
+{
+  "name": "security-patterns",
+  "description": "Security patterns for input validation, PII protection, and cryptographic operations",
+  "repo": "JasonDocton/rad-claude",
+  "category": "security",
+  "tags": [
+    "security",
+    "patterns"
+  ],
+  "stars": 0,
+  "source": "local"
+}

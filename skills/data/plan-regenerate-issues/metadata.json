@@ -1,0 +1,13 @@
+{
+  "name": "plan-regenerate-issues",
+  "description": "DEPRECATED: The notes/plan/ directory has been removed. Planning is now done directly through GitHub issues. See gh-read-issue-context and gh-post-issue-update skills instead.",
+  "repo": "mvillmow/ProjectOdyssey",
+  "category": "productivity",
+  "tags": [
+    "plan",
+    "regenerate",
+    "issues"
+  ],
+  "stars": 8,
+  "source": "local"
+}

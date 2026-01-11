@@ -1,0 +1,12 @@
+{
+  "name": "inclusive-language",
+  "description": "Use when writing code, documentation, or comments - always use accessible and respectful terminology",
+  "repo": "troykelly/claude-skills",
+  "category": "documents",
+  "tags": [
+    "inclusive",
+    "language"
+  ],
+  "stars": 1,
+  "source": "local"
+}

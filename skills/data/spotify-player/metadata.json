@@ -1,0 +1,12 @@
+{
+  "name": "spotify-player",
+  "description": "Terminal Spotify client (TUI + CLI commands) for playback and search.",
+  "repo": "steipete/clawdis",
+  "category": "design",
+  "tags": [
+    "spotify",
+    "player"
+  ],
+  "stars": 430,
+  "source": "SkillsMP Synced Skills"
+}

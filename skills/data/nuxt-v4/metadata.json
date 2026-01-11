@@ -1,0 +1,11 @@
+{
+  "name": "nuxt-v4",
+  "description": "Production-ready Nuxt 4 framework development with SSR, composables,data fetching, server routes, and Cloudflare deployment.Use when: building Nuxt 4 applications, implementing SSR patterns,creating c",
+  "repo": "ChrisTowles/blog",
+  "category": "development",
+  "tags": [
+    "nuxt"
+  ],
+  "stars": 3,
+  "source": "local"
+}

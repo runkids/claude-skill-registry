@@ -1,0 +1,13 @@
+{
+  "name": "playwright-e2e-testing",
+  "description": "Write end-to-end tests with Playwright for web applications. Includes fixtures, page objects, test templates, visual regression testing, and accessibility audits.",
+  "repo": "ils15/copilot-global-config",
+  "category": "testing",
+  "tags": [
+    "playwright",
+    "e2e",
+    "testing"
+  ],
+  "stars": 0,
+  "source": "local"
+}

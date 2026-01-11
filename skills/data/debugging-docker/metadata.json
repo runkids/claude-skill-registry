@@ -1,0 +1,9 @@
+{
+  "name": "debugging-docker",
+  "description": "Debugs Docker build failures, container runtime errors, platform architecture issues (ARM64/AMD64/WSL2), AWS ECR/ECS pull failures, and optimizes Docker workflows. Use when encountering Docker build e",
+  "repo": "Danik911/thesis_project",
+  "category": "devops",
+  "tags": [],
+  "stars": 0,
+  "source": "GitHub Search API"
+}

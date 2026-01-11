@@ -1,0 +1,12 @@
+{
+  "name": "security-compliance",
+  "description": "Implement comprehensive security for shared library. Use when working with security audits, dependency vulnerabilities, API security, token encryption, or secure coding practices for library consumers",
+  "repo": "RicherTunes/Lidarr.Plugin.Common",
+  "category": "security",
+  "tags": [
+    "security",
+    "compliance"
+  ],
+  "stars": 0,
+  "source": "local"
+}

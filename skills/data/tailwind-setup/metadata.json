@@ -1,0 +1,12 @@
+{
+  "name": "tailwind-setup",
+  "description": "Configure Tailwind CSS and shadcn/ui for React frontends with Django backends, including dark mode support and theme tokens. This skill should be used when setting up a new React project or adding Tai",
+  "repo": "otoshek/Claude-Code-Toolkit",
+  "category": "design",
+  "tags": [
+    "tailwind",
+    "setup"
+  ],
+  "stars": 0,
+  "source": "local"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "widget-tester",
+  "description": "Expert assistant for testing the embeddable Bible widget functionality in the KR92 Bible Voice project. Use when creating widget tests, validating embed API responses, testing reference formats, check",
+  "repo": "Spectaculous-Code/raamattu-nyt",
+  "category": "testing",
+  "tags": [
+    "widget",
+    "tester"
+  ],
+  "stars": 0,
+  "source": "local"
+}

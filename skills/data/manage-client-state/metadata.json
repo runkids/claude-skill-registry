@@ -1,0 +1,13 @@
+{
+  "name": "manage-client-state",
+  "description": "クライアント状態をグローバル/URL状態で型安全に管理します。サイドバーやフィルタはuseSWRImmutable、ページネーションはnuqs。",
+  "repo": "nayukata/notify-patch-notes",
+  "category": "development",
+  "tags": [
+    "manage",
+    "client",
+    "state"
+  ],
+  "stars": 0,
+  "source": "local"
+}

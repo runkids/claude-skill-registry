@@ -1,0 +1,12 @@
+{
+  "name": "documentation-audit",
+  "description": "Use when documentation drift is detected. Comprehensively audits codebase and creates/updates Swagger, features docs, and general documentation to achieve full sync.",
+  "repo": "troykelly/claude-skills",
+  "category": "documents",
+  "tags": [
+    "documentation",
+    "audit"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

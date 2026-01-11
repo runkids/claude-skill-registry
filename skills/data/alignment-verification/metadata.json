@@ -1,0 +1,12 @@
+{
+  "name": "alignment-verification",
+  "description": "Zero-tolerance alignment verification protocol. Alignment is binary - elements are either in line or they're not. Report exact measurements, no tolerances, no \"close enough.\"",
+  "repo": "adilkalam/orca",
+  "category": "development",
+  "tags": [
+    "alignment",
+    "verification"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

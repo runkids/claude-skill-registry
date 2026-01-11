@@ -1,0 +1,12 @@
+{
+  "name": "platform-health",
+  "description": "Check comprehensive platform health including ArgoCD apps, pods, services, certificates, and resources across the Kagenti platform",
+  "repo": "redhat-et/kagenti-demo-deployment",
+  "category": "devops",
+  "tags": [
+    "platform",
+    "health"
+  ],
+  "stars": 0,
+  "source": "local"
+}

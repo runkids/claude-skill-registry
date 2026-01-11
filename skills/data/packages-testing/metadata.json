@@ -1,0 +1,12 @@
+{
+  "name": "packages-testing",
+  "description": "Your approach to handling packages testing. Use this skill when working on files where packages testing comes into play.",
+  "repo": "leaderiop/hex-di",
+  "category": "testing",
+  "tags": [
+    "packages",
+    "testing"
+  ],
+  "stars": 5,
+  "source": "local"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "phase-3-validator",
+  "description": "Validates Implementation Phase completion before advancing to Testing Phase. Checks code compilation, test coverage, implementation completeness, and code quality standards.",
+  "repo": "DarkMonkDev/WitchCityRope",
+  "category": "testing",
+  "tags": [
+    "phase",
+    "validator"
+  ],
+  "stars": 0,
+  "source": "local"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "kotlin-compose",
+  "description": "Jetpack Compose - composables, state, effects, theming",
+  "repo": "pluginagentmarketplace/custom-plugin-kotlin",
+  "category": "development",
+  "tags": [
+    "kotlin",
+    "compose"
+  ],
+  "stars": 1,
+  "source": "local"
+}

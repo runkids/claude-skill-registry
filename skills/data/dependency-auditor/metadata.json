@@ -1,0 +1,12 @@
+{
+  "name": "dependency-auditor",
+  "description": "Automated security auditing of project dependencies to identify known vulnerabilities.",
+  "repo": "CuriousLearner/devkit",
+  "category": "security",
+  "tags": [
+    "dependency",
+    "auditor"
+  ],
+  "stars": 13,
+  "source": "local"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "pinpoint-security",
+  "description": "Security patterns, CSP nonces, input validation, auth checks, Supabase SSR patterns. Use when implementing authentication, forms, security features, or when user mentions security/validation/auth.",
+  "repo": "timothyfroehlich/PinPoint",
+  "category": "security",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

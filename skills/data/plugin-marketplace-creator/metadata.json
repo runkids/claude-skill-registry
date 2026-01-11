@@ -1,0 +1,9 @@
+{
+  "name": "plugin-marketplace-creator",
+  "description": "Plugin Marketplace構造を対話的に生成し、marketplace.json、plugin.json、ディレクトリ構造を自動作成するスキル。Use when users mention",
+  "repo": "Wonderplanet/glow-brain",
+  "category": "product",
+  "tags": [],
+  "stars": 0,
+  "source": "GitHub Search API"
+}

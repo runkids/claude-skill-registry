@@ -1,0 +1,9 @@
+{
+  "name": "openshift-popeye-analysis",
+  "description": "OpenShift-specific cluster health analysis and troubleshooting based on Popeye's issue detection patterns. Use this skill when:(1) Analyzing OpenShift cluster operators and platform health(2) Troubles",
+  "repo": "kcns008/cluster-code",
+  "category": "devops",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

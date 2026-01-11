@@ -1,0 +1,9 @@
+{
+  "name": "project-analysis",
+  "description": "Analyze and understand codebase structure, dependencies, and patterns. Use when onboarding to a new project or auditing existing code.",
+  "repo": "mjohnson518/claude_superpowers",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "GitHub Search API"
+}

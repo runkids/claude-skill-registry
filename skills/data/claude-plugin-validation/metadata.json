@@ -1,0 +1,9 @@
+{
+  "name": "claude-plugin-validation",
+  "description": "Comprehensive validation system for Claude Code plugins to ensure compliance with official plugin development guidelines and prevent installation failures",
+  "repo": "bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

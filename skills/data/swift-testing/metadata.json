@@ -1,0 +1,12 @@
+{
+  "name": "swift-testing",
+  "description": "Test Swift applications - XCTest, Swift Testing, UI tests, mocking, TDD, CI/CD",
+  "repo": "pluginagentmarketplace/custom-plugin-swift",
+  "category": "testing",
+  "tags": [
+    "swift",
+    "testing"
+  ],
+  "stars": 1,
+  "source": "local"
+}

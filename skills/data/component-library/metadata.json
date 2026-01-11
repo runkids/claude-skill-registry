@@ -1,0 +1,12 @@
+{
+  "name": "component-library",
+  "description": "Build production-grade, accessible, and tested component libraries with Storybook, Chromatic, and design tokens",
+  "repo": "pluginagentmarketplace/custom-plugin-react",
+  "category": "design",
+  "tags": [
+    "component",
+    "library"
+  ],
+  "stars": 1,
+  "source": "local"
+}

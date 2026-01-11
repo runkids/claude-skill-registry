@@ -1,0 +1,9 @@
+{
+  "name": "pre-push-quality-checks",
+  "description": "このスキルは、PR作成やgit push前にコード品質チェックを強制実行します。",
+  "repo": "ludiscan/ludiscan-webapp",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

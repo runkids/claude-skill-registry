@@ -1,0 +1,9 @@
+{
+  "name": "kratos-service-layer",
+  "description": "Generates gRPC/HTTP service handlers for go-kratos microservices. Creates service structs, handler methods, and integrates with protobuf definitions. Use when implementing service layer for kratos ser",
+  "repo": "alecszaharia/brizy-microservices-go",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

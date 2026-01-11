@@ -1,0 +1,9 @@
+{
+  "name": "pre-push-validation",
+  "description": "Ensures CLAUDE.md, README.md, and CHANGELOG.md are updated before git push operations",
+  "repo": "ddttom/allaboutv2",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

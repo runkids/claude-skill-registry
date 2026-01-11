@@ -1,0 +1,13 @@
+{
+  "name": "numpy-string-ops",
+  "description": "Vectorized string manipulation using the char module and modern string alternatives, including cleaning and search operations. Triggers: string operations, numpy.char, text cleaning, substring search.",
+  "repo": "cuba6112/skillfactory",
+  "category": "development",
+  "tags": [
+    "numpy",
+    "string",
+    "ops"
+  ],
+  "stars": 0,
+  "source": "local"
+}

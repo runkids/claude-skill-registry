@@ -1,0 +1,12 @@
+{
+  "name": "npm-workspaces",
+  "description": "Use when managing npm workspaces monorepos - package dependencies, build ordering, cross-package development, and publishing workflows",
+  "repo": "mcclowes/omg",
+  "category": "development",
+  "tags": [
+    "npm",
+    "workspaces"
+  ],
+  "stars": 1,
+  "source": "local"
+}

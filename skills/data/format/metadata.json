@@ -1,0 +1,9 @@
+{
+  "name": "format",
+  "description": "Format Rust and Meson code using justfile tasks (just fmt-rs, just fmt-meson). Use when editing .rs or meson files, mentions formatting, code style, rustfmt, cleanup, or before commits/PRs. Ensures co",
+  "repo": "nx-std/mono",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

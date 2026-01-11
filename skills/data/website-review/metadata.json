@@ -1,0 +1,9 @@
+{
+  "name": "website-review",
+  "description": "Use this skill when performing QA reviews of the Planted website (Astro frontend at localhost:4321), Admin Dashboard V2 (localhost:5175), or production sites (planted.com, admin.planted.com). Orchestr",
+  "repo": "cgjen-box/planted-website",
+  "category": "testing",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

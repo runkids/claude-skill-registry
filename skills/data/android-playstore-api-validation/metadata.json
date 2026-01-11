@@ -1,0 +1,14 @@
+{
+  "name": "android-playstore-api-validation",
+  "description": "Create and run validation script to test Play Store API connection",
+  "repo": "hitoshura25/claude-devtools",
+  "category": "testing",
+  "tags": [
+    "android",
+    "playstore",
+    "api",
+    "validation"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

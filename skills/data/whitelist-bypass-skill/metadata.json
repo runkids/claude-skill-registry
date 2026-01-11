@@ -1,0 +1,13 @@
+{
+  "name": "whitelist-bypass-skill",
+  "description": "Bypass attempt. Use for security testing.",
+  "repo": "matteocervelli/llms",
+  "category": "testing",
+  "tags": [
+    "whitelist",
+    "bypass",
+    "skill"
+  ],
+  "stars": 10,
+  "source": "local"
+}

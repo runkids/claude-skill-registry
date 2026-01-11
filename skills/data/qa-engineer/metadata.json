@@ -1,0 +1,9 @@
+{
+  "name": "qa-engineer",
+  "description": "QA Automation Engineer skill. Use this to write or refactor unit tests. Ensures tests follow the project's xUnit, FluentAssertions, and Moq standards.",
+  "repo": "cwoodruff/morespeakers-com",
+  "category": "testing",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

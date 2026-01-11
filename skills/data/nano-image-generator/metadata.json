@@ -1,0 +1,13 @@
+{
+  "name": "nano-image-generator",
+  "description": "\"Generate images using Nano Banana Pro (Gemini 3 Pro Preview). Use when creating app icons, logos, UI graphics, marketing banners, social media images, illustrations, diagrams, or any visual assets. T",
+  "repo": "livelabs-ventures/nano-skills",
+  "category": "marketing",
+  "tags": [
+    "nano",
+    "image",
+    "generator"
+  ],
+  "stars": 0,
+  "source": "local"
+}

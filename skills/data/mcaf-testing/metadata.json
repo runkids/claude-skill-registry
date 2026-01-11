@@ -1,0 +1,9 @@
+{
+  "name": "mcaf-testing",
+  "description": "Add or update automated tests for a change (bugfix, feature, refactor) using the repository’s testing rules in `AGENTS.md`. Use TDD where applicable; derive scenarios from docs/Features/* and ADR inva",
+  "repo": "managedcode/MCAF",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

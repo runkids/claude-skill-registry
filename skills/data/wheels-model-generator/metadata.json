@@ -1,0 +1,9 @@
+{
+  "name": "wheels-model-generator",
+  "description": "Generate Wheels ORM models with proper validations, associations, and methods. Use when the user wants to create or modify a Wheels model, add validations, define associations (hasMany, belongsTo, has",
+  "repo": "wheels-dev/wheels",
+  "category": "testing",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

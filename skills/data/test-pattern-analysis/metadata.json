@@ -1,0 +1,13 @@
+{
+  "name": "test-pattern-analysis",
+  "description": "Analyze existing tests to identify patterns, fixtures, and conventions before writing new tests",
+  "repo": "mehdic/bazinga",
+  "category": "testing",
+  "tags": [
+    "test",
+    "pattern",
+    "analysis"
+  ],
+  "stars": 2,
+  "source": "local"
+}

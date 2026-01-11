@@ -1,0 +1,9 @@
+{
+  "name": "frontend-test",
+  "description": "Generate frontend component tests (unit, snapshot, e2e). Auto-invoke when user says \"test this component\", \"write component test\", or \"add component test\".",
+  "repo": "alekspetrov/navigator",
+  "category": "testing",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

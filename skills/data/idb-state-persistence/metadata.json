@@ -1,0 +1,9 @@
+{
+  "name": "idb-state-persistence",
+  "description": "IndexedDB patterns for local-first state persistence using the idb library. Use when implementing features that require persistent state across navigation and sessions. Covers data modeling, defaults,",
+  "repo": "matthewharwood/fantasy-phonics",
+  "category": "design",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

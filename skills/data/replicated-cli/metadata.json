@@ -1,0 +1,12 @@
+{
+  "name": "replicated-cli",
+  "description": "This skill should be used when the user asks to \"create a Replicated release\", \"promote a release\", \"manage CMX VMs\", \"create a CMX cluster\", \"SSH to a CMX VM\", \"install Embedded Cluster\", \"lint Repli",
+  "repo": "adamancini/dotfiles",
+  "category": "testing",
+  "tags": [
+    "replicated",
+    "cli"
+  ],
+  "stars": 1,
+  "source": "local"
+}

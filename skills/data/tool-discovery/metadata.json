@@ -1,0 +1,9 @@
+{
+  "name": "tool-discovery",
+  "description": "Recommend the right agents and skills for any task. Covers both heavyweight agents (Task tool) and lightweight skills (Skill tool). Triggers on: which agent, which skill, what tool should I use, help ",
+  "repo": "0xDarkMatter/claude-mods",
+  "category": "productivity",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

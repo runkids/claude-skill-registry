@@ -1,0 +1,11 @@
+{
+  "name": "qa-orchestrator",
+  "description": "Coordinates adaptive QA testing across behavioral, contract, and regression dimensions. Routes to specialized sub-agents based on context and depth.",
+  "repo": "pcortes/swarm-attack",
+  "category": "testing",
+  "tags": [
+    "orchestrator"
+  ],
+  "stars": 0,
+  "source": "local"
+}

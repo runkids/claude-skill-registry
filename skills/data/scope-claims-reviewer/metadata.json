@@ -1,0 +1,13 @@
+{
+  "name": "scope-claims-reviewer",
+  "description": "Review test cases for Scope and Claims handling. Covers openid scope requirement, standard scopes (profile, email, address, phone), claims request parameter, and claim types per OIDC Core 1.0 Section ",
+  "repo": "maronnjapan/maronn-openid-provider",
+  "category": "testing",
+  "tags": [
+    "scope",
+    "claims",
+    "reviewer"
+  ],
+  "stars": 0,
+  "source": "local"
+}

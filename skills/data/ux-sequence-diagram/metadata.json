@@ -1,0 +1,12 @@
+{
+  "name": "ux-sequence-diagram",
+  "description": "[UI/UX] Visualizes interaction sequences and system communications as ASCII diagrams. Represents user-system interactions, API call sequences, and event flows. Use when requesting 'sequence diagram', ",
+  "repo": "CANTAGESTUDIO/CosmicAtlasPacker",
+  "category": "design",
+  "tags": [
+    "sequence",
+    "diagram"
+  ],
+  "stars": 1,
+  "source": "local"
+}

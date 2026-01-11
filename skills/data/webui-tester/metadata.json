@@ -1,0 +1,9 @@
+{
+  "name": "webui-tester",
+  "description": "Test, debug, and modify Majsoul WebUI (Laya engine) within the Naki app. Use when the user asks to adjust \"the screen\" or \"UI\" - clarify whether they mean Naki's SwiftUI app or Majsoul's WebUI. This s",
+  "repo": "Sunalamye/Naki",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "layer-design",
+  "description": "Design and compose Effect layers for clean dependency management",
+  "repo": "front-depiction/cli-stock",
+  "category": "design",
+  "tags": [
+    "layer",
+    "design"
+  ],
+  "stars": 1,
+  "source": "local"
+}

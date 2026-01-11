@@ -1,0 +1,12 @@
+{
+  "name": "us-stock-analysis",
+  "description": "Comprehensive US stock analysis including fundamental analysis (financial metrics, business quality, valuation), technical analysis (indicators, chart patterns, support/resistance), stock comparisons,",
+  "repo": "tradermonty/claude-trading-skills",
+  "category": "devops",
+  "tags": [
+    "stock",
+    "analysis"
+  ],
+  "stars": 1,
+  "source": "local"
+}

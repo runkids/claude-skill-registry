@@ -1,0 +1,13 @@
+{
+  "name": "android-screenshot-automation",
+  "description": "Setup automated screenshot capture for Play Store using Fastlane Screengrab",
+  "repo": "hitoshura25/claude-devtools",
+  "category": "productivity",
+  "tags": [
+    "android",
+    "screenshot",
+    "automation"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

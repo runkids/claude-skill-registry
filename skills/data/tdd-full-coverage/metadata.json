@@ -1,0 +1,13 @@
+{
+  "name": "tdd-full-coverage",
+  "description": "Use when implementing features or fixes - test-driven development with RED-GREEN-REFACTOR cycle and full code coverage requirement",
+  "repo": "troykelly/claude-skills",
+  "category": "development",
+  "tags": [
+    "tdd",
+    "full",
+    "coverage"
+  ],
+  "stars": 1,
+  "source": "local"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "threat-modeling",
+  "description": "Use when implementing auth, file uploads, payments, or external APIs. Applies STRIDE framework systematically. Triggers: \"authentication\", \"file upload\", \"payment\", \"multi-tenant\", \"external API\". If ",
+  "repo": "pvillega/claude-templates",
+  "category": "security",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

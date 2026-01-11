@@ -1,0 +1,12 @@
+{
+  "name": "design-synthesizer",
+  "description": "Auto-activates when synthesizing outputs from multiple parallel sub-agents",
+  "repo": "matteocervelli/llms",
+  "category": "design",
+  "tags": [
+    "design",
+    "synthesizer"
+  ],
+  "stars": 10,
+  "source": "SkillsMP Synced Skills"
+}

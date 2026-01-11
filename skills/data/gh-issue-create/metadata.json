@@ -1,0 +1,9 @@
+{
+  "name": "gh-issue-create",
+  "description": "Create GitHub issues using gh CLI with templates, labels, and assignments. Use when user wants to report bugs, request features, or create tasks.",
+  "repo": "dceoy/gh-actions-for-devops",
+  "category": "product",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

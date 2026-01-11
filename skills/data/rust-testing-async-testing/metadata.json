@@ -1,0 +1,9 @@
+{
+  "name": "rust-testing-async-testing",
+  "description": "Write async tests with tokio::test and configure multi-threaded test runtimes. Use when testing async code.",
+  "repo": "gar-ai/mallorn",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "GitHub Search API"
+}

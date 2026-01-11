@@ -1,0 +1,9 @@
+{
+  "name": "rn-performance",
+  "description": "Performance optimization for React Native. Use when optimizing lists, preventing re-renders, memoizing components, or debugging performance issues in Expo/React Native apps.",
+  "repo": "CJHarmath/claude-agents-skills",
+  "category": "design",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

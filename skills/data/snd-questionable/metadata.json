@@ -1,0 +1,12 @@
+{
+  "name": "snd-questionable",
+  "description": "Use this skill when implementing quest automation in SND macros using the Questionable plugin. Covers command usage and integration with leveling workflows.",
+  "repo": "vaoan/SND",
+  "category": "productivity",
+  "tags": [
+    "snd",
+    "questionable"
+  ],
+  "stars": 0,
+  "source": "local"
+}

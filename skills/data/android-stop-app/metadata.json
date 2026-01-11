@@ -1,0 +1,9 @@
+{
+  "name": "android-stop-app",
+  "description": "Stop the Android app running on connected device. Cleanly terminates the app using force-stop. Use when stopping the app for debugging, testing, or cleanup.",
+  "repo": "asnar00/miso",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "GitHub Search API"
+}

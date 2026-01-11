@@ -1,0 +1,13 @@
+{
+  "name": "tech-debt-analyzer",
+  "description": "Analyze and prioritize technical debt with refactoring recommendations. Use when evaluating code quality or planning debt reduction.",
+  "repo": "ntaksh42/agents",
+  "category": "development",
+  "tags": [
+    "tech",
+    "debt",
+    "analyzer"
+  ],
+  "stars": 0,
+  "source": "local"
+}

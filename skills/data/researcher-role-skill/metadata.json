@@ -1,0 +1,13 @@
+{
+  "name": "researcher-role-skill",
+  "description": "Professional technical solutions research skill for investigating technologies,analyzing best practices, evaluating feasibility, and producing comprehensivereports with actionable recommendations for ",
+  "repo": "enuno/claude-command-and-control",
+  "category": "development",
+  "tags": [
+    "researcher",
+    "role",
+    "skill"
+  ],
+  "stars": 3,
+  "source": "local"
+}

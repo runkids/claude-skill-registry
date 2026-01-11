@@ -1,0 +1,12 @@
+{
+  "name": "chain-tester",
+  "description": "Node chain testing templates for quality agent. WorkflowBuilder patterns, tier-based testing (simple/complex/full), and assertion patterns.",
+  "repo": "omerlefaruk/CasareRPA",
+  "category": "testing",
+  "tags": [
+    "chain",
+    "tester"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "social-media-generator",
+  "description": "This skill should be used when the user requests social media content creation for Twitter, Instagram, LinkedIn, or Facebook. It generates platform-optimized posts and saves them in an organized folde",
+  "repo": "agent-trust-protocol/atp-core",
+  "category": "marketing",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

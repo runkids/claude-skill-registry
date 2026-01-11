@@ -1,0 +1,12 @@
+{
+  "name": "release-planning",
+  "description": "Plan, coordinate, and execute software releases across environments. Manage versioning, rollout strategies, rollback procedures, and stakeholder communication for smooth deployments.",
+  "repo": "aj-geddes/useful-ai-prompts",
+  "category": "development",
+  "tags": [
+    "release",
+    "planning"
+  ],
+  "stars": 25,
+  "source": "local"
+}

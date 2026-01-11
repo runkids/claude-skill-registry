@@ -1,0 +1,9 @@
+{
+  "name": "regression-test-generator",
+  "description": "Generate regression tests when bugs are discovered during /debug or continuous checks. Auto-detects test framework, creates Arrange-Act-Assert tests, and links to error-log.md entries. (project)",
+  "repo": "marcusgoll/Spec-Flow",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

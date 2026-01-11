@@ -1,0 +1,12 @@
+{
+  "name": "testing-playwright",
+  "description": "Apply when writing end-to-end tests: user flows, cross-browser testing, visual regression, and API testing.",
+  "repo": "CoderMariusz/MonoPilot",
+  "category": "testing",
+  "tags": [
+    "testing",
+    "playwright"
+  ],
+  "stars": 1,
+  "source": "local"
+}

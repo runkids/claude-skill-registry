@@ -1,0 +1,9 @@
+{
+  "name": "sentry-setup-ai-monitoring",
+  "description": "Setup Sentry AI Agent Monitoring in any project. Use this when asked to add AI monitoring, track LLM calls, monitor AI agents, or instrument OpenAI/Anthropic/Vercel AI/LangChain/Google GenAI. Automati",
+  "repo": "getsentry/sentry-for-claude",
+  "category": "testing",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

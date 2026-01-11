@@ -1,0 +1,13 @@
+{
+  "name": "event-driven-architecture",
+  "description": "Event-driven architecture patterns with event sourcing, CQRS, and message-driven communication. Use when designing distributed systems, microservices communication, or systems requiring eventual consi",
+  "repo": "NickCrew/claude-cortex",
+  "category": "design",
+  "tags": [
+    "event",
+    "driven",
+    "architecture"
+  ],
+  "stars": 4,
+  "source": "SkillsMP Synced Skills"
+}

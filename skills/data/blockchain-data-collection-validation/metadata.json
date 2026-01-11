@@ -1,0 +1,14 @@
+{
+  "name": "blockchain-data-collection-validation",
+  "description": "Empirical validation workflow for blockchain data collection pipelines before production implementation. Use when validating data sources, testing DuckDB integration, building POC collectors, or verif",
+  "repo": "terrylica/gapless-network-data",
+  "category": "testing",
+  "tags": [
+    "blockchain",
+    "data",
+    "collection",
+    "validation"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

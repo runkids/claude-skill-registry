@@ -1,0 +1,13 @@
+{
+  "name": "audit-log-generator",
+  "description": "Эксперт по аудит-логам. Используй для создания систем логирования, compliance требований, структуры логов и мониторинга.",
+  "repo": "dengineproblem/agents-monorepo",
+  "category": "security",
+  "tags": [
+    "audit",
+    "log",
+    "generator"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

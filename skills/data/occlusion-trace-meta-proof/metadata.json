@@ -1,0 +1,14 @@
+{
+  "name": "occlusion-trace-meta-proof",
+  "description": "Generate meta-proofs for occluded reasoning traces.",
+  "repo": "starwreckntx/IRP__METHODOLOGIES-",
+  "category": "development",
+  "tags": [
+    "occlusion",
+    "trace",
+    "meta",
+    "proof"
+  ],
+  "stars": 1,
+  "source": "local"
+}

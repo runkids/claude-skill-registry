@@ -1,0 +1,9 @@
+{
+  "name": "py-fastapi-patterns",
+  "description": "FastAPI patterns for API design. Use when creating endpoints, handling dependencies, error handling, or working with OpenAPI schemas.",
+  "repo": "CJHarmath/claude-agents-skills",
+  "category": "design",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

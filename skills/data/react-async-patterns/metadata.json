@@ -1,0 +1,9 @@
+{
+  "name": "react-async-patterns",
+  "description": "Async/await correctness in React with Zustand. Use when debugging race conditions, missing awaits, floating promises, or async timing issues. Works for both React web and React Native.",
+  "repo": "CJHarmath/claude-agents-skills",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "onboard",
+  "description": "Analyze brownfield codebase and create initial continuity ledger",
+  "repo": "parcadei/Continuous-Claude-v2",
+  "category": "development",
+  "tags": [
+    "onboard"
+  ],
+  "stars": 1318,
+  "source": "SkillsMP Synced Skills"
+}

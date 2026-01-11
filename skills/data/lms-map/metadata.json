@@ -1,0 +1,9 @@
+{
+  "name": "lms-map",
+  "description": "NWEA MAP Growth assessment data integration for KCIS LMS. Use this skill when implementing MAP assessment features including data import from CDF CSV, displaying student RIT scores, tracking growth tr",
+  "repo": "geonook/learning-management-system-esid",
+  "category": "devops",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

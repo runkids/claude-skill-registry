@@ -1,0 +1,13 @@
+{
+  "name": "diagnostic-handshake-protocol",
+  "description": "Execute diagnostic handshake to verify system state and calibration.",
+  "repo": "starwreckntx/IRP__METHODOLOGIES-",
+  "category": "development",
+  "tags": [
+    "diagnostic",
+    "handshake",
+    "protocol"
+  ],
+  "stars": 1,
+  "source": "local"
+}

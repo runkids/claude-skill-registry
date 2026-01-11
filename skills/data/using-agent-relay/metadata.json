@@ -1,0 +1,9 @@
+{
+  "name": "using-agent-relay",
+  "description": "Use when coordinating multiple AI agents in real-time - provides inter-agent messaging via tmux wrapper (sub-5ms latency) or file-based team inbox for async workflows",
+  "repo": "AgentWorkforce/relay",
+  "category": "design",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

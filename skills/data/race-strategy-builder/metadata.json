@@ -1,0 +1,13 @@
+{
+  "name": "race-strategy-builder",
+  "description": "Generates pacing and fueling strategies for target races based on current fitness and course constraints.",
+  "repo": "nadavyigal/Running-coach-",
+  "category": "development",
+  "tags": [
+    "race",
+    "strategy",
+    "builder"
+  ],
+  "stars": 1,
+  "source": "local"
+}

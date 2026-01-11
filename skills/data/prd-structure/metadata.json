@@ -1,0 +1,12 @@
+{
+  "name": "prd-structure",
+  "description": "When creating or reviewing Product Requirements Documents. Used by PM-AGENT.",
+  "repo": "CoderMariusz/MonoPilot",
+  "category": "product",
+  "tags": [
+    "prd",
+    "structure"
+  ],
+  "stars": 1,
+  "source": "local"
+}

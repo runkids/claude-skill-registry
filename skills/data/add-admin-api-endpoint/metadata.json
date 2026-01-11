@@ -1,0 +1,9 @@
+{
+  "name": "add-admin-api-endpoint",
+  "description": "Add a new endpoint or endpoints to Ghost",
+  "repo": "TryGhost/Ghost",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "GitHub Search API"
+}

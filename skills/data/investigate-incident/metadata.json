@@ -1,0 +1,12 @@
+{
+  "name": "investigate-incident",
+  "description": "Investigate platform incidents, perform RCA, create incident documentation, and follow alert runbooks in the Kagenti platform",
+  "repo": "redhat-et/kagenti-demo-deployment",
+  "category": "documents",
+  "tags": [
+    "investigate",
+    "incident"
+  ],
+  "stars": 0,
+  "source": "local"
+}

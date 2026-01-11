@@ -1,0 +1,9 @@
+{
+  "name": "chatkit-backend",
+  "description": "Build FastAPI backend for OpenAI ChatKit with SSE streaming, conversation persistence, and AI agent integration. Handles /chatkit endpoint, ChatKit-compatible SSE format, conversation models, and mess",
+  "repo": "maneeshanif/todo-spec-driven",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "GitHub Search API"
+}

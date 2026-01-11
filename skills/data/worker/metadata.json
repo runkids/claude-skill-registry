@@ -1,0 +1,9 @@
+{
+  "name": "worker",
+  "description": "Spawn a Claude worker in an isolated git worktree for parallel development. Use when you need to work on a task in isolation without affecting current work.",
+  "repo": "schmug/karkinos",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "label-management",
+  "description": "Manage GitHub labels - create, edit, delete, apply labels, and organize with color coding using gh CLI",
+  "repo": "Nice-Wolf-Studio/agent-github-skills",
+  "category": "development",
+  "tags": [
+    "label",
+    "management"
+  ],
+  "stars": 0,
+  "source": "local"
+}

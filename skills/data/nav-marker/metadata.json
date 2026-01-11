@@ -1,0 +1,9 @@
+{
+  "name": "nav-marker",
+  "description": "Create context save points to preserve conversation state before breaks, risky changes, or compaction. Use when user says \"save my progress\", \"create checkpoint\", \"mark this point\", or before clearing",
+  "repo": "alekspetrov/navigator",
+  "category": "product",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

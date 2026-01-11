@@ -1,0 +1,13 @@
+{
+  "name": "refactor-change-report",
+  "description": "[Code Quality] Generates summary report of refactoring changes for review. Use after completing a refactoring session to document what changed, why, and what to verify.",
+  "repo": "CANTAGESTUDIO/CosmicAtlasPacker",
+  "category": "development",
+  "tags": [
+    "refactor",
+    "change",
+    "report"
+  ],
+  "stars": 1,
+  "source": "local"
+}

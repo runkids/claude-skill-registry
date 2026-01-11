@@ -1,0 +1,9 @@
+{
+  "name": "recipes",
+  "description": "Generate meal plans and recipes from optimization results. Use when user wants recipes, meal ideas, cooking instructions, or a weekly meal plan from their optimized food list. Triggers on \"create reci",
+  "repo": "ddarmon/llmn",
+  "category": "devops",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

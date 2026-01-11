@@ -1,0 +1,11 @@
+{
+  "name": "understand",
+  "description": "Document and name functions, structs, and fields in Melee decompilation. Use for improving readability, discovering function purposes, and naming unknown fields. Invoked with /understand <target> wher",
+  "repo": "itsgrimetime/melee-decomp",
+  "category": "documents",
+  "tags": [
+    "understand"
+  ],
+  "stars": 2,
+  "source": "local"
+}

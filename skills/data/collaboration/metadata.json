@@ -1,0 +1,11 @@
+{
+  "name": "collaboration",
+  "description": "Team collaboration - remote, fetch, pull, push, clone, and team workflows",
+  "repo": "pluginagentmarketplace/custom-plugin-git-github",
+  "category": "productivity",
+  "tags": [
+    "collaboration"
+  ],
+  "stars": 1,
+  "source": "local"
+}

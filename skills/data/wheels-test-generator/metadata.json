@@ -1,0 +1,9 @@
+{
+  "name": "wheels-test-generator",
+  "description": "Generate TestBox BDD test specs for Wheels models, controllers, and integration tests. Use when creating tests for models (validations, associations), controllers (actions, filters), or integration wo",
+  "repo": "wheels-dev/wheels",
+  "category": "testing",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "ru",
+  "description": "Repo Updater - automation-friendly CLI for synchronizing GitHub repositories. Keep dozens or hundreds of repos in sync with a single command. Pure Bash with git plumbing, JSON output, meaningful exit ",
+  "repo": "Dicklesworthstone/agent_flywheel_clawdbot_skills_and_integrations",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

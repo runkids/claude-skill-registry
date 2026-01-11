@@ -1,0 +1,11 @@
+{
+  "name": "caching",
+  "description": "Comprehensive caching strategies and patterns for performance optimization. Use when implementing cache layers, cache invalidation, TTL policies, or distributed caching with Redis/Memcached. Triggers:",
+  "repo": "cosmix/claude-code-setup",
+  "category": "devops",
+  "tags": [
+    "caching"
+  ],
+  "stars": 2,
+  "source": "SkillsMP Synced Skills"
+}

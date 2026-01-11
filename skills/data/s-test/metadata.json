@@ -1,0 +1,9 @@
+{
+  "name": "s-test",
+  "description": "Write and run unit tests for WoW addons using Busted and the Mechanic test framework. Covers test structure, mocking WoW APIs, and coverage analysis. Use when adding tests, fixing bugs with regression",
+  "repo": "Falkicon/Mechanic",
+  "category": "testing",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

@@ -1,0 +1,13 @@
+{
+  "name": "skill-quality-standards",
+  "description": "When creating or validating skills. Reference for SKILL-CREATOR and SKILL-VALIDATOR.",
+  "repo": "CoderMariusz/MonoPilot",
+  "category": "development",
+  "tags": [
+    "skill",
+    "quality",
+    "standards"
+  ],
+  "stars": 1,
+  "source": "local"
+}

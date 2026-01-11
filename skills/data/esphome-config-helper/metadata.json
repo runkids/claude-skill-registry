@@ -1,0 +1,13 @@
+{
+  "name": "esphome-config-helper",
+  "description": "This skill should be used when the user asks to \"create an esphome config\", \"set up an esp32 device\", \"configure esphome yaml\", \"add a sensor to esphome\", \"fix esphome compile error\", or mentions \"gpi",
+  "repo": "nodnarbnitram/claude-code-extensions",
+  "category": "development",
+  "tags": [
+    "esphome",
+    "config",
+    "helper"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

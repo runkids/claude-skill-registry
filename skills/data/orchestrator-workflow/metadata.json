@@ -1,0 +1,9 @@
+{
+  "name": "orchestrator-workflow",
+  "description": "Coordinates agent assignments, validates merge states, and manages ticket lifecycle.",
+  "repo": "RoM4iK/tinker-public",
+  "category": "productivity",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

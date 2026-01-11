@@ -1,0 +1,14 @@
+{
+  "name": "moai-alfred-issue-labels",
+  "description": "GitHub issue label configuration, label taxonomy, and workflow automation mapping for MoAI-ADK projects",
+  "repo": "kivo360/quickhooks",
+  "category": "productivity",
+  "tags": [
+    "moai",
+    "alfred",
+    "issue",
+    "labels"
+  ],
+  "stars": 0,
+  "source": "local"
+}

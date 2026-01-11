@@ -1,0 +1,11 @@
+{
+  "name": "sc-explain",
+  "description": "Provide clear explanations of code, concepts, and system behavior with educational clarity. Use when understanding code, learning concepts, or knowledge transfer.",
+  "repo": "Tony363/SuperClaude",
+  "category": "development",
+  "tags": [
+    "explain"
+  ],
+  "stars": 10,
+  "source": "local"
+}

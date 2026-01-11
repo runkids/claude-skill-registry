@@ -1,0 +1,11 @@
+{
+  "name": "notification-ui",
+  "description": "Renders notification bell icon with unread count badge, pulse animations for new notifications, and dropdown panel (320px × max 400px) displaying notification items with purple theme for VERY IMPORTAN",
+  "repo": "Syedaashnaghazanfar/full-stack-todo-app",
+  "category": "design",
+  "tags": [
+    "notification"
+  ],
+  "stars": 1,
+  "source": "local"
+}

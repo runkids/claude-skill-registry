@@ -1,0 +1,12 @@
+{
+  "name": "twitter-content",
+  "description": "Transform changelogs, user showcases, and product updates into Twitter posts. Use for social media content creation with Matt Palmer's casual voice.",
+  "repo": "mattppal/prompts",
+  "category": "marketing",
+  "tags": [
+    "twitter",
+    "content"
+  ],
+  "stars": 0,
+  "source": "local"
+}

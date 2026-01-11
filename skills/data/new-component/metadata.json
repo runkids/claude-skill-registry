@@ -1,0 +1,12 @@
+{
+  "name": "new-component",
+  "description": "React コンポーネントとStorybookストーリーを生成。新しいコンポーネントを作成する際に使用。TailwindCSSカスタムトークン、ArteOdyssey UIライブラリを活用。",
+  "repo": "k35o/k8o",
+  "category": "design",
+  "tags": [
+    "new",
+    "component"
+  ],
+  "stars": 5,
+  "source": "local"
+}

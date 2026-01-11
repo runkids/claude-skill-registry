@@ -1,0 +1,11 @@
+{
+  "name": "quality",
+  "description": "Code quality validation, formatting, linting, and pre-commit checks. Auto-activates on keywords quality, lint, format, precommit, naming, black, ruff, mypy, validation. Routes to specialized quality w",
+  "repo": "williaby/.claude",
+  "category": "development",
+  "tags": [
+    "quality"
+  ],
+  "stars": 0,
+  "source": "local"
+}

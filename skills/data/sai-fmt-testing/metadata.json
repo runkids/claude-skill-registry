@@ -1,0 +1,13 @@
+{
+  "name": "sai-fmt-testing",
+  "description": "Use this skill when the user asks you to test the sai fmt commandin a given project.",
+  "repo": "dhamidi/sai",
+  "category": "testing",
+  "tags": [
+    "sai",
+    "fmt",
+    "testing"
+  ],
+  "stars": 0,
+  "source": "local"
+}

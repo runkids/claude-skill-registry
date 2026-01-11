@@ -1,0 +1,9 @@
+{
+  "name": "validation-expert",
+  "description": "Comprehensive validation for Project Conductor using deep research for best practices. Use when user mentions \"validate\", \"check quality\", \"review code\", \"test coverage\", or before deployment.",
+  "repo": "HR-AR/Project-Conductor",
+  "category": "testing",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

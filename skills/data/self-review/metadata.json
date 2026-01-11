@@ -1,0 +1,9 @@
+{
+  "name": "self-review",
+  "description": "タスク完了前のセルフレビュー。Gemini CLI + Claude subagentで多角的に検証。",
+  "repo": "K9i-0/flutter_e2e_investigation",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

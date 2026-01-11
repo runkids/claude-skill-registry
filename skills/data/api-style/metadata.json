@@ -1,0 +1,9 @@
+{
+  "name": "api-style",
+  "description": "Follow API development conventions including RESTful design, Fastify patterns, Zod validation, error handling, and versioning. Use when building API endpoints, adding routes, or working with API code.",
+  "repo": "lastcow/innozverse",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "GitHub Search API"
+}

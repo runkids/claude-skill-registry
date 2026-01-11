@@ -1,0 +1,9 @@
+{
+  "name": "nav-skill-creator",
+  "description": "Analyze codebase patterns and create custom skills for repetitive workflows. Use when project needs automation or pattern enforcement. Auto-invoke when user says \"create a skill for...\", \"automate thi",
+  "repo": "alekspetrov/navigator",
+  "category": "productivity",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

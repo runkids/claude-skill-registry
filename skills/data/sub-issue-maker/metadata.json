@@ -1,0 +1,13 @@
+{
+  "name": "sub-issue-maker",
+  "description": "Provide the task granularity for cutting subissues.",
+  "repo": "uuta/dotfiles",
+  "category": "productivity",
+  "tags": [
+    "sub",
+    "issue",
+    "maker"
+  ],
+  "stars": 1,
+  "source": "local"
+}

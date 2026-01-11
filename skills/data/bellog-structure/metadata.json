@@ -1,0 +1,12 @@
+{
+  "name": "bellog-structure",
+  "description": "Provides file organization and naming conventions for the Bellog project. Triggers when creating new files or reorganizing code.",
+  "repo": "whddltjdwhd/bellog",
+  "category": "development",
+  "tags": [
+    "bellog",
+    "structure"
+  ],
+  "stars": 2,
+  "source": "SkillsMP Synced Skills"
+}

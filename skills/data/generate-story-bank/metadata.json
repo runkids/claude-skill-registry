@@ -1,0 +1,13 @@
+{
+  "name": "generate-story-bank",
+  "description": "Generate interview-ready stories using HPARL format (Hook, Principles, Action, Results, Learnings). Transforms achievements into compelling narratives for behavioral interviews.",
+  "repo": "fotescodev/portfolio",
+  "category": "devops",
+  "tags": [
+    "generate",
+    "story",
+    "bank"
+  ],
+  "stars": 1,
+  "source": "local"
+}

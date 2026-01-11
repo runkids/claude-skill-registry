@@ -1,0 +1,12 @@
+{
+  "name": "swiftui-animation",
+  "description": "This skill provides comprehensive guidance for implementing advanced SwiftUI animations, transitions, matched geometry effects, and Metal shader integration. Use when building animations, view transit",
+  "repo": "jamesrochabrun/skills",
+  "category": "design",
+  "tags": [
+    "swiftui",
+    "animation"
+  ],
+  "stars": 8,
+  "source": "local"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "ux-ascii-visualizer",
+  "description": "[UI/UX] Visualizes UI screen structures and components as ASCII art. Represents wireframes, layouts, and UI components as text-based diagrams. Use when requesting 'ASCII wireframe', 'screen structure ",
+  "repo": "CANTAGESTUDIO/CosmicAtlasPacker",
+  "category": "design",
+  "tags": [
+    "ascii",
+    "visualizer"
+  ],
+  "stars": 1,
+  "source": "local"
+}

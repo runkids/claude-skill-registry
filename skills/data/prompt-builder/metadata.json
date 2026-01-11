@@ -1,0 +1,12 @@
+{
+  "name": "prompt-builder",
+  "description": "Build complete agent prompts deterministically via Python script. Use BEFORE spawning any BAZINGA agent (Developer, QA, Tech Lead, PM, etc.).",
+  "repo": "mehdic/bazinga",
+  "category": "development",
+  "tags": [
+    "prompt",
+    "builder"
+  ],
+  "stars": 2,
+  "source": "local"
+}

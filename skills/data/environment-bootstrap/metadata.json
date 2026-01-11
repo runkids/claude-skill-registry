@@ -1,0 +1,12 @@
+{
+  "name": "environment-bootstrap",
+  "description": "Use for development environment setup - create and maintain init scripts, run smoke tests, ensure consistent environment across sessions",
+  "repo": "troykelly/claude-skills",
+  "category": "development",
+  "tags": [
+    "environment",
+    "bootstrap"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

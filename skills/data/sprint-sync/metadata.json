@@ -1,0 +1,12 @@
+{
+  "name": "sprint-sync",
+  "description": "Multi-perspective project onboarding and sprint briefing. Simulates a cross-functional leadership team (PM, Designer, Architect, Engineer) ramping up on project status. Updates the Current Status sect",
+  "repo": "fotescodev/portfolio",
+  "category": "design",
+  "tags": [
+    "sprint",
+    "sync"
+  ],
+  "stars": 1,
+  "source": "local"
+}

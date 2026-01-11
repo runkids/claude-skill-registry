@@ -1,0 +1,13 @@
+{
+  "name": "youtube-transcript-analyzer",
+  "description": "Use when analyzing YouTube videos for research, learning, or understanding how content",
+  "repo": "TechNickAI/python-template",
+  "category": "marketing",
+  "tags": [
+    "youtube",
+    "transcript",
+    "analyzer"
+  ],
+  "stars": 1,
+  "source": "local"
+}

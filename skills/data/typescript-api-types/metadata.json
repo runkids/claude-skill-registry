@@ -1,0 +1,13 @@
+{
+  "name": "typescript-api-types",
+  "description": "Apply when defining API request/response types, DTOs, and shared types between frontend and backend.",
+  "repo": "CoderMariusz/MonoPilot",
+  "category": "design",
+  "tags": [
+    "typescript",
+    "api",
+    "types"
+  ],
+  "stars": 1,
+  "source": "local"
+}

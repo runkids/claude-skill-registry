@@ -1,0 +1,12 @@
+{
+  "name": "task-rsid",
+  "description": "Recursive Self-Improvement Development. Continually improve the codebase.",
+  "repo": "Anveio/conveaux",
+  "category": "development",
+  "tags": [
+    "task",
+    "rsid"
+  ],
+  "stars": 0,
+  "source": "local"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "task-tagging",
+  "description": "Provides categorical organization for tasks using a predefined set of seven standard tags (Work, Personal, Shopping, Health, Finance, Learning, Urgent). Enforces tag validation rules including duplica",
+  "repo": "Syedaashnaghazanfar/full-stack-todo-app",
+  "category": "productivity",
+  "tags": [
+    "task",
+    "tagging"
+  ],
+  "stars": 1,
+  "source": "local"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "textmate-grammar",
+  "description": "Use when creating or editing TextMate grammar files for VS Code syntax highlighting - patterns, scopes, and language tokenization",
+  "repo": "mcclowes/omg",
+  "category": "development",
+  "tags": [
+    "textmate",
+    "grammar"
+  ],
+  "stars": 1,
+  "source": "local"
+}

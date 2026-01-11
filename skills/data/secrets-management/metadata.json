@@ -1,0 +1,12 @@
+{
+  "name": "secrets-management",
+  "description": "Implement secrets management with HashiCorp Vault, AWS Secrets Manager, or Kubernetes Secrets for secure credential storage and rotation.",
+  "repo": "aj-geddes/useful-ai-prompts",
+  "category": "devops",
+  "tags": [
+    "secrets",
+    "management"
+  ],
+  "stars": 25,
+  "source": "local"
+}

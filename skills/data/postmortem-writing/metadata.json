@@ -1,0 +1,12 @@
+{
+  "name": "postmortem-writing",
+  "description": "Document root cause analysis for team learning. Blameless, actionable, preventive.",
+  "repo": "timequity/vibe-coder",
+  "category": "documents",
+  "tags": [
+    "postmortem",
+    "writing"
+  ],
+  "stars": 0,
+  "source": "local"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "log-analyzer",
+  "description": "智能日志分析工具，帮助快速定位应用错误和性能瓶颈",
+  "repo": "huifer/skill-security-scan",
+  "category": "development",
+  "tags": [
+    "log",
+    "analyzer"
+  ],
+  "stars": 21,
+  "source": "local"
+}

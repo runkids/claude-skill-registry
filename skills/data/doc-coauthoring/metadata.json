@@ -1,0 +1,9 @@
+{
+  "name": "doc-coauthoring",
+  "description": "Guide users through a structured workflow for co-authoring documentation. Use when user wants to write documentation, proposals, technical specs, decision docs, or similar structured content. This wor",
+  "repo": "anthropics/skills",
+  "category": "official",
+  "tags": [],
+  "stars": 0,
+  "source": "Anthropic Official"
+}

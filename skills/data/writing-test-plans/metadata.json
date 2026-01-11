@@ -1,0 +1,13 @@
+{
+  "name": "writing-test-plans",
+  "description": "Creates risk-based test plans and strategies. Use when planning testing, defining test scope, or documenting QA approach.",
+  "repo": "jkappers/claude-code-software-delivery-plugin",
+  "category": "testing",
+  "tags": [
+    "writing",
+    "test",
+    "plans"
+  ],
+  "stars": 0,
+  "source": "local"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "security-scanner",
+  "description": "OWASP compliance",
+  "repo": "databayt/hogwarts",
+  "category": "security",
+  "tags": [
+    "security",
+    "scanner"
+  ],
+  "stars": 10,
+  "source": "local"
+}

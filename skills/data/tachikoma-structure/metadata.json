@@ -1,0 +1,12 @@
+{
+  "name": "tachikoma-structure",
+  "description": "Analyze Context Lake file organization and propose structural changes. Use when asked to run structure cleanup, find misplaced files, identify orphans, archive old content, or merge duplicates.",
+  "repo": "joshuacook/motoko",
+  "category": "marketing",
+  "tags": [
+    "tachikoma",
+    "structure"
+  ],
+  "stars": 0,
+  "source": "local"
+}

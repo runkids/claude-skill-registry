@@ -1,0 +1,12 @@
+{
+  "name": "snippet-manager",
+  "description": "Save, organize, search, and retrieve code snippets with tags, categories, and smart search capabi...",
+  "repo": "CuriousLearner/devkit",
+  "category": "development",
+  "tags": [
+    "snippet",
+    "manager"
+  ],
+  "stars": 13,
+  "source": "local"
+}

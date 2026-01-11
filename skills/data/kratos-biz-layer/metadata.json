@@ -1,0 +1,9 @@
+{
+  "name": "kratos-biz-layer",
+  "description": "Generates business logic layer components for go-kratos microservices following Clean Architecture. Creates use cases, repository interfaces, business models, and validators. Use when adding business ",
+  "repo": "alecszaharia/brizy-microservices-go",
+  "category": "design",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

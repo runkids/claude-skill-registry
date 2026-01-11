@@ -1,0 +1,12 @@
+{
+  "name": "cookbook-audit",
+  "description": "Audit an Anthropic Cookbook notebook based on a rubric. Use whenever a notebook review or audit is requested.",
+  "repo": "anthropics/claude-cookbooks",
+  "category": "security",
+  "tags": [
+    "cookbook",
+    "audit"
+  ],
+  "stars": 28337,
+  "source": "SkillsMP Synced Skills"
+}

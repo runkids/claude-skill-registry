@@ -1,0 +1,12 @@
+{
+  "name": "instagram-api",
+  "description": "Instagram Graph API entegrasyonu. Use when publishing content, fetching insights, or working with Instagram media.",
+  "repo": "olivenet-iot/olivenet-social-bot",
+  "category": "marketing",
+  "tags": [
+    "instagram",
+    "api"
+  ],
+  "stars": 0,
+  "source": "local"
+}

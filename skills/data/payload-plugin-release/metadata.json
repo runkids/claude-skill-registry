@@ -1,0 +1,9 @@
+{
+  "name": "payload-plugin-release",
+  "description": "Automates the release workflow for the Payload Newsletter Plugin. Use when releasing a new version, bumping the version, or publishing to npm.",
+  "repo": "aniketpanjwani/payload-plugin-email-newsletter",
+  "category": "productivity",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

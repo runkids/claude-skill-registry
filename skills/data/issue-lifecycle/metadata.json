@@ -1,0 +1,12 @@
+{
+  "name": "issue-lifecycle",
+  "description": "Use throughout all work - ensures GitHub issues are updated continuously as work happens, not batched at the end",
+  "repo": "troykelly/claude-skills",
+  "category": "development",
+  "tags": [
+    "issue",
+    "lifecycle"
+  ],
+  "stars": 1,
+  "source": "local"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "file-upload",
+  "description": "Complete guide for implementing file uploads in IntelliFill with React-dropzone frontend, Multer backend, file validation, Bull queue processing, and security best practices",
+  "repo": "Intellifill/IntelliFill",
+  "category": "design",
+  "tags": [
+    "file",
+    "upload"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

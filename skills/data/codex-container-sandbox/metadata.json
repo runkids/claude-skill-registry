@@ -1,0 +1,9 @@
+{
+  "name": "codex-container-sandbox",
+  "description": "Run Codex CLI inside a Podman container with full internet access but filesystem exposure limited to the repo root + explicit bind mounts; use when you want yolo/web-search without giving the agent ac",
+  "repo": "santiago-afonso/codex-container-sandbox",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

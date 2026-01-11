@@ -1,0 +1,12 @@
+{
+  "name": "test-coverage",
+  "description": "Analyze test coverage and generate a detailed coverage report",
+  "repo": "jinnovation/shortcut.el",
+  "category": "testing",
+  "tags": [
+    "test",
+    "coverage"
+  ],
+  "stars": 1,
+  "source": "local"
+}

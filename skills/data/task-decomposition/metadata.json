@@ -1,0 +1,12 @@
+{
+  "name": "task-decomposition",
+  "description": "Break down OAK plans into structured tasks using oak.plan-tasks conventions. Use when generating tasks.md, structuring work for export to GitHub/ADO, or organizing implementation phases.",
+  "repo": "sirkirby/unifi-network-rules",
+  "category": "productivity",
+  "tags": [
+    "task",
+    "decomposition"
+  ],
+  "stars": 43,
+  "source": "local"
+}

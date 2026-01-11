@@ -1,0 +1,12 @@
+{
+  "name": "memory-optimization",
+  "description": "Profile and optimize application memory usage. Identify memory leaks, reduce memory footprint, and improve efficiency for better performance and reliability.",
+  "repo": "aj-geddes/useful-ai-prompts",
+  "category": "productivity",
+  "tags": [
+    "memory",
+    "optimization"
+  ],
+  "stars": 25,
+  "source": "local"
+}

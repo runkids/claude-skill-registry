@@ -1,0 +1,12 @@
+{
+  "name": "docs-style",
+  "description": "Automatically applies when drafting or revising documentation to enforce repository voice, clarity, and navigation patterns.",
+  "repo": "ricardoroche/ricardos-claude-code",
+  "category": "documents",
+  "tags": [
+    "docs",
+    "style"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

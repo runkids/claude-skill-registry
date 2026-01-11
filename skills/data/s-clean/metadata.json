@@ -1,0 +1,9 @@
+{
+  "name": "s-clean",
+  "description": "Find and remove dead code and stale documentation. Covers unused functions, orphaned files, dead links, and outdated references. Use for maintenance, pre-release cleanup, or codebase hygiene. Triggers",
+  "repo": "Falkicon/Mechanic",
+  "category": "documents",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

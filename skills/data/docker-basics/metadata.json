@@ -1,0 +1,12 @@
+{
+  "name": "docker-basics",
+  "description": "Apply when containerizing applications: writing Dockerfiles, docker-compose configurations, and multi-stage builds.",
+  "repo": "CoderMariusz/MonoPilot",
+  "category": "development",
+  "tags": [
+    "docker",
+    "basics"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

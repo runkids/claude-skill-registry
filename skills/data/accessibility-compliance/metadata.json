@@ -1,0 +1,12 @@
+{
+  "name": "accessibility-compliance",
+  "description": "Implement WCAG 2.1 AA accessibility compliance with ARIA labels, keyboard navigation, screen reader support, and color contrast. Use when ensuring accessibility or fixing a11y issues.",
+  "repo": "PrasadTelasula/EvokeQOne",
+  "category": "development",
+  "tags": [
+    "accessibility",
+    "compliance"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

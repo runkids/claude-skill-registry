@@ -1,0 +1,13 @@
+{
+  "name": "azure-service-connections",
+  "description": "Configure Azure DevOps service connections for deployments. Use when setting up cloud service integrations or deployment credentials.",
+  "repo": "ntaksh42/agents",
+  "category": "devops",
+  "tags": [
+    "azure",
+    "service",
+    "connections"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

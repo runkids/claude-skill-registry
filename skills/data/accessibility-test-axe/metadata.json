@@ -1,0 +1,13 @@
+{
+  "name": "accessibility-test-axe",
+  "description": "Эксперт по a11y тестированию. Используй для axe-core, automated testing и accessibility audits.",
+  "repo": "dengineproblem/agents-monorepo",
+  "category": "testing",
+  "tags": [
+    "accessibility",
+    "test",
+    "axe"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

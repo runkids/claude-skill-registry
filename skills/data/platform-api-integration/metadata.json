@@ -1,0 +1,13 @@
+{
+  "name": "platform-api-integration",
+  "description": "Guide for discovering and integrating with Rubin Science Platform (RSP) APIs using OpenAPI specifications. Use this skill when working with Gafaelfawr authentication APIs (/auth/*), Times Square noteb",
+  "repo": "lsst-sqre/squareone",
+  "category": "development",
+  "tags": [
+    "platform",
+    "api",
+    "integration"
+  ],
+  "stars": 2,
+  "source": "local"
+}

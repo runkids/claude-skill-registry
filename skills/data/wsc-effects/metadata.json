@@ -1,0 +1,12 @@
+{
+  "name": "wsc-effects",
+  "description": "Apply chronicle event effects to world state. Use when events need to modify entities (battles change force strength, treaties change relationships, deaths remove agents). This is the core simulation ",
+  "repo": "NicoFlows/WSC",
+  "category": "development",
+  "tags": [
+    "wsc",
+    "effects"
+  ],
+  "stars": 0,
+  "source": "local"
+}

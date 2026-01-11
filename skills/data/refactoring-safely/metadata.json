@@ -1,0 +1,12 @@
+{
+  "name": "refactoring-safely",
+  "description": "Use when refactoring code - test-preserving transformations in small steps, running tests between each change",
+  "repo": "withzombies/hyperpowers",
+  "category": "development",
+  "tags": [
+    "refactoring",
+    "safely"
+  ],
+  "stars": 13,
+  "source": "local"
+}

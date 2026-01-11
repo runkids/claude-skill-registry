@@ -1,0 +1,13 @@
+{
+  "name": "test-diff-analyzer",
+  "description": "Analyze test differences between runs to identify flaky tests and consistency issues. Use to find tests that fail intermittently.",
+  "repo": "mvillmow/ProjectOdyssey",
+  "category": "testing",
+  "tags": [
+    "test",
+    "diff",
+    "analyzer"
+  ],
+  "stars": 8,
+  "source": "local"
+}

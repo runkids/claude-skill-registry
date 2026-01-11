@@ -1,0 +1,12 @@
+{
+  "name": "frontend-component",
+  "description": "Generate React components for IntelliFill following patterns (forwardRef, CVA variants, Radix UI, TailwindCSS). Use when creating UI components, forms, or pages.",
+  "repo": "Intellifill/IntelliFill",
+  "category": "design",
+  "tags": [
+    "frontend",
+    "component"
+  ],
+  "stars": 1,
+  "source": "local"
+}

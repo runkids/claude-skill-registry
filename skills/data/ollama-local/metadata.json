@@ -1,0 +1,9 @@
+{
+  "name": "ollama-local",
+  "description": "Local LLM inference with Ollama. Use when setting up local models for development, CI pipelines, or cost reduction. Covers model selection, LangChain integration, and performance tuning.",
+  "repo": "yonatangross/skillforge-claude-plugin",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

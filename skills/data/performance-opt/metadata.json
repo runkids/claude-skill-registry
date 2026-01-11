@@ -1,0 +1,12 @@
+{
+  "name": "performance-opt",
+  "description": "Analyze and optimize application performance including bundle size, render performance, and API response times. Use when investigating slow pages or optimizing production builds.",
+  "repo": "sgcarstrends/sgcarstrends",
+  "category": "development",
+  "tags": [
+    "performance",
+    "opt"
+  ],
+  "stars": 13,
+  "source": "local"
+}

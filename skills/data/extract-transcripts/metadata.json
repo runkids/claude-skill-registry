@@ -1,0 +1,9 @@
+{
+  "name": "extract-transcripts",
+  "description": "Extract readable transcripts from Claude Code and Codex CLI session JSONL files",
+  "repo": "0xBigBoss/claude-code",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

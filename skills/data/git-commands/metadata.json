@@ -1,0 +1,9 @@
+{
+  "name": "git-commands",
+  "description": "Git command conventions for pikru. Use when running any git commands to avoid blocking on interactive pager.",
+  "repo": "bearcove/pikru",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

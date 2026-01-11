@@ -1,0 +1,13 @@
+{
+  "name": "recognition-program-builder",
+  "description": "Эксперт employee recognition. Используй для программ признания, награждения и employee engagement.",
+  "repo": "dengineproblem/agents-monorepo",
+  "category": "development",
+  "tags": [
+    "recognition",
+    "program",
+    "builder"
+  ],
+  "stars": 0,
+  "source": "local"
+}

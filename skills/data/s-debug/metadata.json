@@ -1,0 +1,9 @@
+{
+  "name": "s-debug",
+  "description": "Diagnose and fix bugs using evidence-based investigation. Requires runtime evidence before fixes—never guess based on code alone. Covers hypothesis-driven debugging, instrumentation logging, Lua error",
+  "repo": "Falkicon/Mechanic",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

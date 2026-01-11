@@ -1,0 +1,9 @@
+{
+  "name": "code-fix-assistant",
+  "description": "Automated code quality assistant that formats code, fixes syntax/type errors, detects bugs, and validates fixes across Python, JavaScript, TypeScript, Java, Go, and Rust",
+  "repo": "chaorenex1/coding-workflow",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

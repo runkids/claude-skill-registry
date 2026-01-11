@@ -1,0 +1,13 @@
+{
+  "name": "moai-platform-baas",
+  "description": "Comprehensive unified BaaS (Backend-as-a-Service) integration hub for 9 major providers: Auth0, Clerk, Firebase Auth, Supabase, Neon, Convex, Firebase Firestore, Vercel, and Railway with AI-powered pr",
+  "repo": "globalmsq/msq-relayer-service",
+  "category": "testing",
+  "tags": [
+    "moai",
+    "platform",
+    "baas"
+  ],
+  "stars": 0,
+  "source": "local"
+}

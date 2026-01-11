@@ -1,0 +1,12 @@
+{
+  "name": "testing-patterns",
+  "description": "Testing patterns and standards for this codebase, including async effects, fakes vs mocks, and property-based testing.",
+  "repo": "lambdamechanic/tooltest",
+  "category": "testing",
+  "tags": [
+    "testing",
+    "patterns"
+  ],
+  "stars": 3,
+  "source": "local"
+}

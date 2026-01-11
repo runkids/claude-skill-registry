@@ -1,0 +1,9 @@
+{
+  "name": "burp-suite-testing",
+  "description": "This skill should be used when the user asks to",
+  "repo": "zebbern/claude-code-guide",
+  "category": "testing",
+  "tags": [],
+  "stars": 0,
+  "source": "GitHub Search API"
+}

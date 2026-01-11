@@ -1,0 +1,12 @@
+{
+  "name": "bellog-theme",
+  "description": "Provides theme integration guidelines and CSS variable usage patterns for the Bellog blog. Triggers when creating styled components or working with colors.",
+  "repo": "whddltjdwhd/bellog",
+  "category": "design",
+  "tags": [
+    "bellog",
+    "theme"
+  ],
+  "stars": 2,
+  "source": "SkillsMP Synced Skills"
+}

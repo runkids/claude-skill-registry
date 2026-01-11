@@ -1,0 +1,12 @@
+{
+  "name": "supabase-queries",
+  "description": "Apply when writing Supabase client queries for CRUD operations, filtering, joins, and real-time subscriptions.",
+  "repo": "CoderMariusz/MonoPilot",
+  "category": "development",
+  "tags": [
+    "supabase",
+    "queries"
+  ],
+  "stars": 1,
+  "source": "local"
+}

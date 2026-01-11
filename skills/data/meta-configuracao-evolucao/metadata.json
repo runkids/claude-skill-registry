@@ -1,0 +1,9 @@
+{
+  "name": "meta-configuracao-evolucao",
+  "description": "Automatiza processo de pesquisa de documentação oficial, extração de melhores práticas e aplicação no projeto Plataforma B2B de treinamento técnico corporativo através de skills/agents/hooks",
+  "repo": "joaopelegrino/app-controle",
+  "category": "documents",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

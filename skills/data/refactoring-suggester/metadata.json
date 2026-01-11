@@ -1,0 +1,12 @@
+{
+  "name": "refactoring-suggester",
+  "description": "Suggest refactoring opportunities to improve code structure and maintainability. Use when improving code design or reducing complexity.",
+  "repo": "ntaksh42/agents",
+  "category": "development",
+  "tags": [
+    "refactoring",
+    "suggester"
+  ],
+  "stars": 0,
+  "source": "local"
+}

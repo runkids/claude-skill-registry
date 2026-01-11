@@ -1,0 +1,12 @@
+{
+  "name": "jest-generator",
+  "description": "Generate Jest-based unit tests for JavaScript/TypeScript code. Creates",
+  "repo": "matteocervelli/llms",
+  "category": "testing",
+  "tags": [
+    "jest",
+    "generator"
+  ],
+  "stars": 10,
+  "source": "local"
+}

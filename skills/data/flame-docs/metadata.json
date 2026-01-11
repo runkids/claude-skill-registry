@@ -1,0 +1,12 @@
+{
+  "name": "flame-docs",
+  "description": "[Flame] Flame engine quick reference. Component lifecycle, Collision, Effects, Camera and core API reference. (project)",
+  "repo": "CANTAGESTUDIO/CosmicAtlasPacker",
+  "category": "design",
+  "tags": [
+    "flame",
+    "docs"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

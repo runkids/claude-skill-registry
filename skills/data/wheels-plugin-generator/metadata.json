@@ -1,0 +1,9 @@
+{
+  "name": "wheels-plugin-generator",
+  "description": "Generate Wheels plugins with proper structure, configuration, and ForgeBox packaging. Use when creating plugins, extending Wheels functionality, or packaging reusable components. Ensures plugins follo",
+  "repo": "wheels-dev/wheels",
+  "category": "design",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "react-state-flows",
+  "description": "Complex multi-step operations in React. Use when implementing flows with multiple async steps, state machine patterns, or debugging flow ordering issues. Works for both React web and React Native.",
+  "repo": "CJHarmath/claude-agents-skills",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "braintrust-analyze",
+  "description": "Analyze Claude Code sessions via Braintrust",
+  "repo": "parcadei/Continuous-Claude-v2",
+  "category": "development",
+  "tags": [
+    "braintrust",
+    "analyze"
+  ],
+  "stars": 1318,
+  "source": "SkillsMP Synced Skills"
+}

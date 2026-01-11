@@ -1,0 +1,12 @@
+{
+  "name": "blog-repurposer",
+  "description": "Repurpose blog content into multiple formats (X threads, newsletters, summaries). USE WHEN user says 'create thread from post', 'repurpose blog', 'newsletter version', 'multi-format output', OR wants ",
+  "repo": "Zura1555/agents",
+  "category": "marketing",
+  "tags": [
+    "blog",
+    "repurposer"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

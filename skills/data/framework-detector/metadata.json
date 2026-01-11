@@ -1,0 +1,12 @@
+{
+  "name": "framework-detector",
+  "description": "Multi-signal framework detection with confidence scoring for 6 major frameworks",
+  "repo": "FortiumPartners/ai-mesh",
+  "category": "development",
+  "tags": [
+    "framework",
+    "detector"
+  ],
+  "stars": 5,
+  "source": "local"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "review-workflow",
+  "description": "Use when reviewing pull requests. Covers PR examination, code quality checks, adding feedback, and pass/fail decisions.",
+  "repo": "RoM4iK/tinker-public",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

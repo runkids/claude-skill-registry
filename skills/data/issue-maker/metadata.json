@@ -1,0 +1,9 @@
+{
+  "name": "issue-maker",
+  "description": "Create GitHub issues following Pollinations team conventions. Use when asked to create issues, track work, or plan features.",
+  "repo": "pollinations/pollinations",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "GitHub Search API"
+}

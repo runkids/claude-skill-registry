@@ -1,0 +1,9 @@
+{
+  "name": "wheels-view-generator",
+  "description": "Generate Wheels view templates with proper query handling, form helpers, and association display. Use when creating or modifying views, forms, layouts, or partials. Prevents common view errors like qu",
+  "repo": "wheels-dev/wheels",
+  "category": "design",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

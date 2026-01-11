@@ -1,0 +1,9 @@
+{
+  "name": "git-commit-summarizer",
+  "description": "Summarizes git commits for specified users over a given time period and generates markdown reports",
+  "repo": "chaorenex1/coding-workflow",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

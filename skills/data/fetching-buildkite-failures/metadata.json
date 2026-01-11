@@ -1,0 +1,9 @@
+{
+  "name": "fetching-buildkite-failures",
+  "description": "Use when CI fails on Buildkite and you need to diagnose and fix failures - fetches build results for current branch, extracts errors from logs, and helps fix them",
+  "repo": "mikeastock/agents",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

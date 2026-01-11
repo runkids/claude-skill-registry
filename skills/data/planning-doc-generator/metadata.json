@@ -1,0 +1,13 @@
+{
+  "name": "planning-doc-generator",
+  "description": "Generate project assessment markdown documents from JSON data with WHY/WHO/WHAT",
+  "repo": "matteocervelli/llms",
+  "category": "documents",
+  "tags": [
+    "planning",
+    "doc",
+    "generator"
+  ],
+  "stars": 10,
+  "source": "local"
+}

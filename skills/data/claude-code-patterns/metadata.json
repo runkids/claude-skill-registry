@@ -1,0 +1,9 @@
+{
+  "name": "claude-code-patterns",
+  "description": "Use when deciding whether to create a skill, command, or agent. Provides decision framework, templates, and best practices for Claude Code abstractions.",
+  "repo": "sreejithraman/shayna",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

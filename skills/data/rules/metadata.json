@@ -1,0 +1,11 @@
+{
+  "name": "rules",
+  "description": "Strict file creation rules. Loaded FIRST by orchestrator and all agents before any action. Prevents pollution with .md, .json, scripts. Only allows code files and .build/ docs.",
+  "repo": "nera0875/blv_htmx",
+  "category": "development",
+  "tags": [
+    "rules"
+  ],
+  "stars": 0,
+  "source": "local"
+}

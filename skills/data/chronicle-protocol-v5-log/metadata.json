@@ -1,0 +1,13 @@
+{
+  "name": "chronicle-protocol-v5-log",
+  "description": "Log events using Chronicle Protocol v5 structured format.",
+  "repo": "starwreckntx/IRP__METHODOLOGIES-",
+  "category": "development",
+  "tags": [
+    "chronicle",
+    "protocol",
+    "log"
+  ],
+  "stars": 1,
+  "source": "local"
+}

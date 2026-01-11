@@ -1,0 +1,13 @@
+{
+  "name": "refactor-arch-hotspots",
+  "description": "[Code Quality] Identifies architectural hotspots: high-churn files, coupling issues, layer violations, and dependency tangles. Use to find systemic issues that cause repeated bugs or slow development.",
+  "repo": "CANTAGESTUDIO/CosmicAtlasPacker",
+  "category": "development",
+  "tags": [
+    "refactor",
+    "arch",
+    "hotspots"
+  ],
+  "stars": 1,
+  "source": "local"
+}

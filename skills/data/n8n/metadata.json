@@ -1,0 +1,11 @@
+{
+  "name": "n8n",
+  "description": "Develop workflows, custom nodes, and integrations for n8n automation platform",
+  "repo": "vladm3105/aidoc-flow-framework",
+  "category": "productivity",
+  "tags": [
+    "n8n"
+  ],
+  "stars": 1,
+  "source": "local"
+}

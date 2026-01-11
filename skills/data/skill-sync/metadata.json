@@ -1,0 +1,9 @@
+{
+  "name": "skill-sync",
+  "description": "Syncs Claude Skills with other AI coding tools like Cursor, Copilot, and Codeium by creating cross-references and shared knowledge bases. Invoke when user wants to leverage skills across multiple tool",
+  "repo": "KyleKing/vcr-tui",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

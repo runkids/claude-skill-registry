@@ -1,0 +1,12 @@
+{
+  "name": "testing-xunit",
+  "description": "Use when writing unit tests, integration tests, or setting up test projects in C#. Covers xUnit patterns, Moq mocking, Bogus test data generation, and Alba integration testing.",
+  "repo": "jkappers/claude-code-software-delivery-plugin",
+  "category": "testing",
+  "tags": [
+    "testing",
+    "xunit"
+  ],
+  "stars": 0,
+  "source": "local"
+}

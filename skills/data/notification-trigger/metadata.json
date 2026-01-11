@@ -1,0 +1,12 @@
+{
+  "name": "notification-trigger",
+  "description": "Triggers notifications exclusively for VERY IMPORTANT priority tasks that are incomplete and due within 6 hours. Repeats every 10 minutes with duplicate prevention tracking in memory. Clears tracking ",
+  "repo": "Syedaashnaghazanfar/full-stack-todo-app",
+  "category": "productivity",
+  "tags": [
+    "notification",
+    "trigger"
+  ],
+  "stars": 1,
+  "source": "local"
+}

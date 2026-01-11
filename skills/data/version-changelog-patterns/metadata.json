@@ -1,0 +1,13 @@
+{
+  "name": "version-changelog-patterns",
+  "description": "When checking if skill content matches current library/framework version.",
+  "repo": "CoderMariusz/MonoPilot",
+  "category": "marketing",
+  "tags": [
+    "version",
+    "changelog",
+    "patterns"
+  ],
+  "stars": 1,
+  "source": "local"
+}

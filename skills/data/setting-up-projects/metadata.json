@@ -1,0 +1,9 @@
+{
+  "name": "setting-up-projects",
+  "description": "Automates project setup with best practices including pre-commit hooks, linting, formatting, and boilerplate. Activates when creating new projects, missing configuration files, or setting up developme",
+  "repo": "rysweet/MicrosoftHackathon2025-AgenticCoding",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

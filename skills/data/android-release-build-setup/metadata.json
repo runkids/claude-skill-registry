@@ -1,0 +1,14 @@
+{
+  "name": "android-release-build-setup",
+  "description": "Complete Android release build configuration - orchestrates keystore, ProGuard, and signing setup",
+  "repo": "hitoshura25/claude-devtools",
+  "category": "development",
+  "tags": [
+    "android",
+    "release",
+    "build",
+    "setup"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "summarize",
+  "description": "Summarize URLs or files with the summarize CLI (web, PDFs, images, audio, YouTube).",
+  "repo": "steipete/clawdis",
+  "category": "documents",
+  "tags": [
+    "summarize"
+  ],
+  "stars": 430,
+  "source": "SkillsMP Synced Skills"
+}

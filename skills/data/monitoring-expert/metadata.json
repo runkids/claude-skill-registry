@@ -1,0 +1,12 @@
+{
+  "name": "monitoring-expert",
+  "description": "Use when setting up monitoring systems, logging, metrics, tracing, or alerting. Invoke for dashboards, Prometheus/Grafana, load testing, profiling, capacity planning. Keywords: monitoring, observabili",
+  "repo": "Jeffallan/claude-skills",
+  "category": "testing",
+  "tags": [
+    "monitoring",
+    "expert"
+  ],
+  "stars": 12,
+  "source": "local"
+}

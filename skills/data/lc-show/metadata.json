@@ -1,0 +1,9 @@
+{
+  "name": "lc-show",
+  "description": "Show LeetCode problem details and generate Rust template (project)",
+  "repo": "iQeda/MyRust-NeetCode",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "GitHub Search API"
+}

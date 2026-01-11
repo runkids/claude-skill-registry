@@ -1,0 +1,12 @@
+{
+  "name": "google-adk",
+  "description": "Agent Development Kit from Google",
+  "repo": "kazunori279/gcp-blogs",
+  "category": "development",
+  "tags": [
+    "google",
+    "adk"
+  ],
+  "stars": 3,
+  "source": "local"
+}

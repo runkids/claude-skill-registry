@@ -1,0 +1,12 @@
+{
+  "name": "network-analysis",
+  "description": "Analyze network structures, identify communities, measure centrality, and visualize relationships for social networks and organizational structures",
+  "repo": "aj-geddes/useful-ai-prompts",
+  "category": "testing",
+  "tags": [
+    "network",
+    "analysis"
+  ],
+  "stars": 25,
+  "source": "local"
+}

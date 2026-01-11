@@ -1,0 +1,12 @@
+{
+  "name": "sandbox-configurator",
+  "description": "Configure Claude Code sandbox security with file system and network isolation boundaries",
+  "repo": "DNYoussef/ai-chrome-extension",
+  "category": "development",
+  "tags": [
+    "sandbox",
+    "configurator"
+  ],
+  "stars": 0,
+  "source": "local"
+}

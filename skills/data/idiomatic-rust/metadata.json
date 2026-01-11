@@ -1,0 +1,9 @@
+{
+  "name": "idiomatic-rust",
+  "description": "Idiomatic Rust patterns for pikru C port. Use when writing or reviewing Rust code ported from C. Don't write C in Rust - the goal is correct behavior, not line-by-line translation.",
+  "repo": "bearcove/pikru",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

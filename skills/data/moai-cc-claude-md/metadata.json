@@ -1,0 +1,12 @@
+{
+  "name": "moai-cc-claude-md",
+  "description": "Authoring CLAUDE.md Project Instructions. Design project-specific AI guidance, document workflows, define architecture patterns. Use when creating CLAUDE.md files for projects, documenting team standa",
+  "repo": "kivo360/quickhooks",
+  "category": "design",
+  "tags": [
+    "moai",
+    "claude"
+  ],
+  "stars": 0,
+  "source": "local"
+}

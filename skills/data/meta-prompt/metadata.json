@@ -1,0 +1,12 @@
+{
+  "name": "meta-prompt",
+  "description": "Generate prompt variations from templates. Use when creating new commands, skills, or workflows.",
+  "repo": "seanchiuai/claude-web-template",
+  "category": "productivity",
+  "tags": [
+    "meta",
+    "prompt"
+  ],
+  "stars": 1,
+  "source": "local"
+}

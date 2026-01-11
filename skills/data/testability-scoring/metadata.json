@@ -1,0 +1,12 @@
+{
+  "name": "testability-scoring",
+  "description": "AI-powered testability assessment using 10 principles of intrinsic testability with Playwright and optional Vibium integration. Evaluates web applications against Observability, Controllability, Algor",
+  "repo": "proffesor-for-testing/agentic-qe",
+  "category": "testing",
+  "tags": [
+    "testability",
+    "scoring"
+  ],
+  "stars": 103,
+  "source": "SkillsMP Synced Skills"
+}

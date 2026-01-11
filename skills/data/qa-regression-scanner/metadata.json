@@ -1,0 +1,9 @@
+{
+  "name": "qa-regression-scanner",
+  "description": "Analyzes code diffs to identify affected endpoints and prioritize regression testing. Focuses QA effort on changed areas.",
+  "repo": "pcortes/swarm-attack",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

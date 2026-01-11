@@ -1,0 +1,12 @@
+{
+  "name": "artifact-management",
+  "description": "Artifact repositories with Nexus, Artifactory, and container registries for build artifact storage",
+  "repo": "pluginagentmarketplace/custom-plugin-devops",
+  "category": "development",
+  "tags": [
+    "artifact",
+    "management"
+  ],
+  "stars": 2,
+  "source": "SkillsMP Synced Skills"
+}

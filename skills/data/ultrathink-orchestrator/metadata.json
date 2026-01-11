@@ -1,0 +1,12 @@
+{
+  "name": "ultrathink-orchestrator",
+  "description": "Auto-invokes ultrathink workflow for any work request (default orchestrator)",
+  "repo": "rysweet/MicrosoftHackathon2025-AgenticCoding",
+  "category": "productivity",
+  "tags": [
+    "ultrathink",
+    "orchestrator"
+  ],
+  "stars": 10,
+  "source": "local"
+}

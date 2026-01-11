@@ -1,0 +1,9 @@
+{
+  "name": "transaction-expert",
+  "description": "Transaction 경계 전문가. TransactionManager(단일 Port persist), ReadManager(단일 Query Port findBy/get),CommandFacade(2+ Manager persist* 조합), QueryFacade(2+ ReadManager fetch* 조합).@Transactional 메서드 단위 필수. @C",
+  "repo": "ryu-qqq/setof-commerce",
+  "category": "design",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

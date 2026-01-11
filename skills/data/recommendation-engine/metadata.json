@@ -1,0 +1,12 @@
+{
+  "name": "recommendation-engine",
+  "description": "Build recommendation systems using collaborative filtering, content-based filtering, matrix factorization, and neural network approaches",
+  "repo": "aj-geddes/useful-ai-prompts",
+  "category": "development",
+  "tags": [
+    "recommendation",
+    "engine"
+  ],
+  "stars": 25,
+  "source": "local"
+}

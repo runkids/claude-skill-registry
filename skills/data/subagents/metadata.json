@@ -1,0 +1,9 @@
+{
+  "name": "subagents",
+  "description": "Execution-layer skill for spawning subagents via runAgent",
+  "repo": "CsHeng/dot-claude",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

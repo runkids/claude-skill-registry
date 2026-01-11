@@ -1,0 +1,9 @@
+{
+  "name": "push-pr",
+  "description": "Push current branch to origin and create a PR to upstream. Checks for uncommitted changes first.",
+  "repo": "Positronic-Robotics/positronic",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

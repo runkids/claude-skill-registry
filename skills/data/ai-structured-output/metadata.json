@@ -1,0 +1,12 @@
+{
+  "name": "ai-structured-output",
+  "description": "Generate type-safe AI content using Gemini structured output with Zod validation and Code Execution Tool. Use when building AI generation functions that need guaranteed output format.",
+  "repo": "sgcarstrends/sgcarstrends",
+  "category": "development",
+  "tags": [
+    "structured",
+    "output"
+  ],
+  "stars": 13,
+  "source": "SkillsMP Synced Skills"
+}

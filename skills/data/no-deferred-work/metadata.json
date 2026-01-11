@@ -1,0 +1,12 @@
+{
+  "name": "no-deferred-work",
+  "description": "Use during all development - no TODOs, no FIXMEs, no \"we'll add this later\"; do it now or get explicit deferral permission",
+  "repo": "troykelly/claude-skills",
+  "category": "development",
+  "tags": [
+    "deferred",
+    "work"
+  ],
+  "stars": 1,
+  "source": "local"
+}

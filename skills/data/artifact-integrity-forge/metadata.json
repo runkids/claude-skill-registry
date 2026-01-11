@@ -1,0 +1,13 @@
+{
+  "name": "artifact-integrity-forge",
+  "description": "Create and verify integrity signatures for protocol artifacts.",
+  "repo": "starwreckntx/IRP__METHODOLOGIES-",
+  "category": "development",
+  "tags": [
+    "artifact",
+    "integrity",
+    "forge"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

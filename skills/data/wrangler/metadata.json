@@ -1,0 +1,9 @@
+{
+  "name": "wrangler",
+  "description": "Deploy and manage Cloudflare Workers, Pages, KV, R2, D1, and other Cloudflare services using the `wrangler` CLI.",
+  "repo": "Dicklesworthstone/agent_flywheel_clawdbot_skills_and_integrations",
+  "category": "devops",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

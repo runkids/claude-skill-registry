@@ -1,0 +1,9 @@
+{
+  "name": "visual-regression",
+  "description": "Setup visual regression testing with Storybook stories, configuration, and CI/CD workflows. Supports Chromatic, Percy, BackstopJS. Auto-invoke when user says \"set up visual regression\", \"add Chromatic",
+  "repo": "alekspetrov/navigator",
+  "category": "devops",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

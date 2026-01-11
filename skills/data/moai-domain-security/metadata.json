@@ -1,0 +1,13 @@
+{
+  "name": "moai-domain-security",
+  "description": "OWASP Top 10, SAST/DAST, dependency security, and secrets management.",
+  "repo": "kivo360/quickhooks",
+  "category": "security",
+  "tags": [
+    "moai",
+    "domain",
+    "security"
+  ],
+  "stars": 0,
+  "source": "local"
+}

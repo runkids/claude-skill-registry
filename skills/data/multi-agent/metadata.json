@@ -1,0 +1,12 @@
+{
+  "name": "multi-agent",
+  "description": "Build multi-agent systems - orchestration, coordination, workflows, and distributed architectures",
+  "repo": "pluginagentmarketplace/custom-plugin-ai-agents",
+  "category": "development",
+  "tags": [
+    "multi",
+    "agent"
+  ],
+  "stars": 1,
+  "source": "local"
+}

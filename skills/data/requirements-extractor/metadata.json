@@ -1,0 +1,12 @@
+{
+  "name": "requirements-extractor",
+  "description": "Auto-activates when analyzing GitHub issues to extract functional requirements,",
+  "repo": "matteocervelli/llms",
+  "category": "design",
+  "tags": [
+    "requirements",
+    "extractor"
+  ],
+  "stars": 10,
+  "source": "local"
+}

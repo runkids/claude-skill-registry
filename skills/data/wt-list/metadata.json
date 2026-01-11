@@ -1,0 +1,11 @@
+{
+  "name": "wt-list",
+  "description": "List all active git worktrees with their status. Use when checking what worktrees exist, their branches, and which has uncommitted changes. Quick overview command.",
+  "repo": "michael-menard/monorepo",
+  "category": "design",
+  "tags": [
+    "list"
+  ],
+  "stars": 0,
+  "source": "local"
+}

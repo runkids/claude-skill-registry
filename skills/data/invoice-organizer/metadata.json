@@ -1,0 +1,12 @@
+{
+  "name": "invoice-organizer",
+  "description": "Automatically organizes invoices and receipts for tax preparation by reading messy files, extracting key information, renaming them consistently, and sorting them into logical folders. Turns hours of ",
+  "repo": "ashleytower/claude-skills-collection",
+  "category": "development",
+  "tags": [
+    "invoice",
+    "organizer"
+  ],
+  "stars": 0,
+  "source": "local"
+}

@@ -1,0 +1,13 @@
+{
+  "name": "architect-role-skill",
+  "description": "Professional software architecture skill for analyzing existing codebases,designing new systems, creating comprehensive planning documents, and guidingtechnical decision-making through structured arch",
+  "repo": "enuno/claude-command-and-control",
+  "category": "development",
+  "tags": [
+    "architect",
+    "role",
+    "skill"
+  ],
+  "stars": 3,
+  "source": "SkillsMP Synced Skills"
+}

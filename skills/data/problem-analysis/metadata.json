@@ -1,0 +1,12 @@
+{
+  "name": "problem-analysis",
+  "description": "Invoke IMMEDIATELY for structured problem analysis and solution discovery.",
+  "repo": "solatis/claude-config",
+  "category": "development",
+  "tags": [
+    "problem",
+    "analysis"
+  ],
+  "stars": 342,
+  "source": "SkillsMP Synced Skills"
+}

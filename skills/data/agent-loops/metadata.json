@@ -1,0 +1,9 @@
+{
+  "name": "agent-loops",
+  "description": "Agentic workflow patterns for autonomous LLM reasoning. Use when building ReAct agents, implementing reasoning loops, or creating LLMs that plan and execute multi-step tasks.",
+  "repo": "yonatangross/skillforge-claude-plugin",
+  "category": "design",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

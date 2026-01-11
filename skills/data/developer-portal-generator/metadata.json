@@ -1,0 +1,13 @@
+{
+  "name": "developer-portal-generator",
+  "description": "Create developer portals using Backstage or custom solutions",
+  "repo": "Dexploarer/hyper-forge",
+  "category": "development",
+  "tags": [
+    "developer",
+    "portal",
+    "generator"
+  ],
+  "stars": 2,
+  "source": "SkillsMP Synced Skills"
+}

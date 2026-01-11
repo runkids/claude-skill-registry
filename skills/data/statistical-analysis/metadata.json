@@ -1,0 +1,12 @@
+{
+  "name": "statistical-analysis",
+  "description": "Probability, distributions, hypothesis testing, and statistical inference. Use for A/B testing, experimental design, or statistical validation.",
+  "repo": "pluginagentmarketplace/custom-plugin-ai-data-scientist",
+  "category": "testing",
+  "tags": [
+    "statistical",
+    "analysis"
+  ],
+  "stars": 0,
+  "source": "local"
+}

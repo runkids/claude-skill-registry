@@ -1,0 +1,12 @@
+{
+  "name": "observability-monitoring",
+  "description": "Structured logging, metrics, distributed tracing, and alerting strategies",
+  "repo": "yonatangross/create-yg-app",
+  "category": "devops",
+  "tags": [
+    "observability",
+    "monitoring"
+  ],
+  "stars": 0,
+  "source": "local"
+}

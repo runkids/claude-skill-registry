@@ -1,0 +1,9 @@
+{
+  "name": "doc-review",
+  "description": "Review a single file or all files in a folder for data inconsistencies, reference errors, typos, and unclear terminology using parallel sub-agents",
+  "repo": "vladm3105/aidoc-flow-framework",
+  "category": "devops",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

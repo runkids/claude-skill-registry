@@ -1,0 +1,9 @@
+{
+  "name": "run-comprehensive-tests",
+  "description": "Execute comprehensive test suite (Vitest/Jest) with coverage reporting and failure analysis. Returns structured output with test counts (total/passed/failed), coverage percentage, duration, and detail",
+  "repo": "BerryKuipers/claude-code-toolkit",
+  "category": "testing",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

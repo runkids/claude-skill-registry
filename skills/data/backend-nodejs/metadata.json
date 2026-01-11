@@ -1,0 +1,12 @@
+{
+  "name": "backend-nodejs",
+  "description": "Node.js/TypeScript backend expert. Handles Express/Fastify API routes, TypeScript strict mode, Prisma ORM, Zod validation, error handling, configuration management. Use when project is Node.js backend",
+  "repo": "nera0875/blv_htmx",
+  "category": "development",
+  "tags": [
+    "backend",
+    "nodejs"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

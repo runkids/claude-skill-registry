@@ -1,0 +1,13 @@
+{
+  "name": "trading-plan-generator",
+  "description": "Generate comprehensive trading plans with risk management, position sizing, entry/exit strategies, and performance tracking to trade with discipline and consistency.",
+  "repo": "jamesrochabrun/skills",
+  "category": "devops",
+  "tags": [
+    "trading",
+    "plan",
+    "generator"
+  ],
+  "stars": 8,
+  "source": "local"
+}

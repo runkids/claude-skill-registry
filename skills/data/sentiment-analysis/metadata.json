@@ -1,0 +1,12 @@
+{
+  "name": "sentiment-analysis",
+  "description": "Classify text sentiment using NLP techniques, lexicon-based analysis, and machine learning for opinion mining, brand monitoring, and customer feedback analysis",
+  "repo": "aj-geddes/useful-ai-prompts",
+  "category": "marketing",
+  "tags": [
+    "sentiment",
+    "analysis"
+  ],
+  "stars": 25,
+  "source": "local"
+}

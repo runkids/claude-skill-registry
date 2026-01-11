@@ -1,0 +1,12 @@
+{
+  "name": "go-best-practices",
+  "description": "Provides Go patterns for type-first development with custom types, interfaces, functional options, and error handling. Must use when reading or writing Go files.",
+  "repo": "0xBigBoss/claude-code",
+  "category": "development",
+  "tags": [
+    "best",
+    "practices"
+  ],
+  "stars": 23,
+  "source": "local"
+}

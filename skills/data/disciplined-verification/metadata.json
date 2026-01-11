@@ -1,0 +1,9 @@
+{
+  "name": "disciplined-verification",
+  "description": "Phase 4 of disciplined development. Verifies implementation against designthrough unit and integration testing. Builds traceability matrices, trackscoverage, and loops defects back to originating left",
+  "repo": "terraphim/codex-skills",
+  "category": "testing",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

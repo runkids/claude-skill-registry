@@ -1,0 +1,12 @@
+{
+  "name": "estimate-stories",
+  "description": "Calculate story point estimates for user stories using structured formula (Complexity × Effort + Risk). Analyzes acceptance criteria, assesses complexity (1-5), effort (1-5), and risk (0-3), then docu",
+  "repo": "adolfoaranaes12/BMAD-ENHANCED",
+  "category": "documents",
+  "tags": [
+    "estimate",
+    "stories"
+  ],
+  "stars": 1,
+  "source": "SkillsMP Synced Skills"
+}

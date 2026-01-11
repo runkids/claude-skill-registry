@@ -1,0 +1,13 @@
+{
+  "name": "code-review-large",
+  "description": "In-depth code review for large PRs (>500 lines). Full analysis including architecture, performance, security, and maintainability.",
+  "repo": "breaking-brake/cc-wf-studio",
+  "category": "development",
+  "tags": [
+    "code",
+    "review",
+    "large"
+  ],
+  "stars": 1523,
+  "source": "SkillsMP Synced Skills"
+}

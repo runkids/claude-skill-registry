@@ -1,0 +1,13 @@
+{
+  "name": "whatsapp-message-management",
+  "description": "Use when user wants to capture tasks, send briefings, or manage life via WhatsApp - leverages existing WhatsApp MCP for mobile-first workflow",
+  "repo": "natea/ExoMind",
+  "category": "productivity",
+  "tags": [
+    "whatsapp",
+    "message",
+    "management"
+  ],
+  "stars": 8,
+  "source": "local"
+}

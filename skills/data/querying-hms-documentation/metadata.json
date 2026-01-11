@@ -1,0 +1,13 @@
+{
+  "name": "querying-hms-documentation",
+  "description": "Queries official HEC-HMS documentation to answer technical questions. Provides access toUser's Manual, Technical Reference Manual, Release Notes, and community resources.Use when seeking official docu",
+  "repo": "gpt-cmdr/hms-commander",
+  "category": "development",
+  "tags": [
+    "querying",
+    "hms",
+    "documentation"
+  ],
+  "stars": 1,
+  "source": "local"
+}

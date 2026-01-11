@@ -1,0 +1,9 @@
+{
+  "name": "mcaf-feature-spec",
+  "description": "Create or update a feature spec under `docs/Features/` using `docs/templates/Feature-Template.md`: business rules, user flows, system behaviour, Mermaid diagram(s), verification plan, and Definition o",
+  "repo": "managedcode/MCAF",
+  "category": "testing",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

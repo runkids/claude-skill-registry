@@ -1,0 +1,9 @@
+{
+  "name": "cicd-pipeline-generator",
+  "description": "This skill should be used when creating or configuring CI/CD pipeline files for automated testing, building, and deployment. Use this for generating GitHub Actions workflows, GitLab CI configs, Circle",
+  "repo": "agent-trust-protocol/atp-core",
+  "category": "devops",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

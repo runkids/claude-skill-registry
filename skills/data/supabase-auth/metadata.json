@@ -1,0 +1,12 @@
+{
+  "name": "supabase-auth",
+  "description": "Apply when implementing authentication: sign up, sign in, OAuth providers, session management, and protected routes.",
+  "repo": "CoderMariusz/MonoPilot",
+  "category": "development",
+  "tags": [
+    "supabase",
+    "auth"
+  ],
+  "stars": 1,
+  "source": "local"
+}

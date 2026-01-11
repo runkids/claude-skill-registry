@@ -1,0 +1,12 @@
+{
+  "name": "local-marketing",
+  "description": "Эксперт по локальному маркетингу. Используй для гео-таргетинга, local SEO, маркетинга для офлайн-бизнеса и региональных кампаний.",
+  "repo": "dengineproblem/agents-monorepo",
+  "category": "marketing",
+  "tags": [
+    "local",
+    "marketing"
+  ],
+  "stars": 0,
+  "source": "local"
+}

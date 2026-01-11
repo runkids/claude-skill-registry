@@ -1,0 +1,12 @@
+{
+  "name": "cl-condition-system",
+  "description": "condition/restartパターンを適用。エラーハンドリング実装時に使用",
+  "repo": "cxxxr/.claude",
+  "category": "development",
+  "tags": [
+    "condition",
+    "system"
+  ],
+  "stars": 1,
+  "source": "local"
+}

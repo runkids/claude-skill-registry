@@ -1,0 +1,9 @@
+{
+  "name": "claude-code-slash-commands",
+  "description": "Create custom slash commands for Claude Code. Use when the user wants to create, generate, or build a slash command (.md file) for Claude Code, or when they ask about slash command syntax, frontmatter",
+  "repo": "JamesPrial/claudefiles",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

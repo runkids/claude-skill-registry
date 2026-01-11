@@ -1,0 +1,9 @@
+{
+  "name": "wheels-deployment",
+  "description": "Configure Wheels applications for production deployment with security hardening, performance optimization, and environment-specific settings. Use when preparing for production, configuring servers, or",
+  "repo": "wheels-dev/wheels",
+  "category": "devops",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "document-formatter",
+  "description": "Format and style documents with consistent formatting. Use when standardizing document formatting or cleaning up text.",
+  "repo": "ntaksh42/agents",
+  "category": "documents",
+  "tags": [
+    "document",
+    "formatter"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

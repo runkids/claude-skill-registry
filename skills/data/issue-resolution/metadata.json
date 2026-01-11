@@ -1,0 +1,9 @@
+{
+  "name": "issue-resolution",
+  "description": "GitHub 이슈 해결 워크플로우. 분석 → 구현 → 검증 자동화.",
+  "repo": "garimto81/claude",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

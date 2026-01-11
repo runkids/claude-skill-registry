@@ -1,0 +1,9 @@
+{
+  "name": "google-spaces-updates",
+  "description": "Post team updates to Google Chat Spaces via webhook. Supports deployment notifications, bug fixes,feature announcements, and questions. Reads config from .claude/settings.json, formats messageswith ri",
+  "repo": "jezweb/claude-skills",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

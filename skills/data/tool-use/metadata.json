@@ -1,0 +1,12 @@
+{
+  "name": "tool-use",
+  "description": "Tool use patterns for Claude including schema design, tool_choice modes, result handling, parallel execution, error recovery, and extended thinking integration.",
+  "repo": "Lobbi-Docs/claude",
+  "category": "testing",
+  "tags": [
+    "tool",
+    "use"
+  ],
+  "stars": 0,
+  "source": "local"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "sikhaid-payment",
+  "description": "Use when working with donations, payments, or Razorpay integration in SikhAid project. Covers Razorpay setup, payment validation, donation flow, success/failure handling, and payment configuration.",
+  "repo": "the-non-expert/SikhAidSPA",
+  "category": "testing",
+  "tags": [
+    "sikhaid",
+    "payment"
+  ],
+  "stars": 0,
+  "source": "local"
+}
