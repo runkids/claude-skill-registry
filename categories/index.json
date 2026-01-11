@@ -1,46 +1,37 @@
 {
-  "updated_at": "2026-01-04T04:09:30.871825Z",
+  "updated_at": "2026-01-11T03:51:39.636132Z",
   "categories": [
     {
       "name": "data",
-      "count": 2354
+      "count": 13
     },
     {
       "name": "design",
-      "count": 1299
+      "count": 16
     },
     {
       "name": "development",
-      "count": 4495
-    },
-    {
-      "name": "devops",
-      "count": 738
+      "count": 74
     },
     {
       "name": "documents",
-      "count": 794
+      "count": 13
     },
     {
       "name": "marketing",
-      "count": 172
+      "count": 5
     },
     {
       "name": "product",
-      "count": 154
+      "count": 5
     },
     {
       "name": "productivity",
-      "count": 651
-    },
-    {
-      "name": "security",
-      "count": 146
+      "count": 27
     },
     {
       "name": "testing",
-      "count": 1207
+      "count": 12
     }
-  ],
-  "total_skills": 12026
+  ]
 }
