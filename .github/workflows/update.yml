@@ -25,16 +25,11 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Build Registry
-        run: python scripts/build_registry.py
+      - name: Install dependencies
+        run: pip install pyyaml
 
-      - name: Update Stars
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python scripts/update_stars.py
-
-      - name: Rebuild Registry
-        run: python scripts/build_registry.py
+      - name: Rebuild Registry from skills
+        run: python scripts/rebuild_registry.py
 
       - name: Commit and Push
         run: |
