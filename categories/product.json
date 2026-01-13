@@ -1,8 +1,22 @@
 {
   "category": "product",
-  "count": 818,
-  "updated_at": "2026-01-12T13:22:10.697483Z",
+  "count": 838,
+  "updated_at": "2026-01-13T00:42:41.306543Z",
   "skills": [
+    {
+      "name": "using-git-worktrees",
+      "description": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with smart directory selection and safety verificat",
+      "repo": "obra/superpowers",
+      "path": "product/using-git-worktrees",
+      "category": "product",
+      "tags": [
+        "using",
+        "git",
+        "worktrees"
+      ],
+      "stars": 12395,
+      "source": "SkillsMP Synced Skills"
+    },
     {
       "name": "product-requirements",
       "description": "Interactive Product Owner skill for requirements gathering, analysis, and PRD generation. Triggers when users request product requirements, feature specification, PRD creation, or need help understand",
@@ -27,6 +41,19 @@
         "breakdown"
       ],
       "stars": 417,
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "product-management",
+      "description": "Assist with core product management activities including writing PRDs, analyzing features, synthesizing user research, planning roadmaps, and communicating product decisions. Use when you need help wi",
+      "repo": "julianromli/ai-skills",
+      "path": "product/product-management",
+      "category": "product",
+      "tags": [
+        "product",
+        "management"
+      ],
+      "stars": 120,
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -96,6 +123,19 @@
       "source": "local"
     },
     {
+      "name": "error-tracking",
+      "description": "Implement error tracking with Sentry for automatic exception monitoring, release tracking, and performance issues. Use when setting up error monitoring, tracking bugs in production, or analyzing appli",
+      "repo": "aj-geddes/useful-ai-prompts",
+      "path": "product/error-tracking",
+      "category": "product",
+      "tags": [
+        "error",
+        "tracking"
+      ],
+      "stars": 25,
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "observability-instrumentation",
       "description": "Comprehensive observability methodology implementing three pillars (logs, metrics, traces) with structured logging using Go slog, Prometheus-style metrics, and distributed tracing patterns. Use when a",
       "repo": "yaleh/meta-cc",
@@ -145,6 +185,18 @@
         "generator",
         "for",
         "taskmaster"
+      ],
+      "stars": 11,
+      "source": "local"
+    },
+    {
+      "name": "react",
+      "description": "This skill should be used when working with React 19, including hooks, components, server components, concurrent features, and React DOM APIs. Provides comprehensive knowledge of React patterns, best ",
+      "repo": "purrgrammer/grimoire",
+      "path": "product/react",
+      "category": "product",
+      "tags": [
+        "react"
       ],
       "stars": 11,
       "source": "local"
@@ -261,6 +313,19 @@
       "source": "local"
     },
     {
+      "name": "prompt-engineering",
+      "description": "Expert prompt optimization system for building production-ready AI features. Use when users request help improving prompts, want to create system prompts, need prompt review/critique, ask for prompt o",
+      "repo": "breethomas/pm-thought-partner",
+      "path": "product/prompt-engineering",
+      "category": "product",
+      "tags": [
+        "prompt",
+        "engineering"
+      ],
+      "stars": 8,
+      "source": "local"
+    },
+    {
       "name": "roadmap-backcast",
       "description": "Use when planning with fixed deadline or target outcome, working backward from future goal to present, defining milestones and dependencies, mapping critical path, identifying what must happen when, p",
       "repo": "lyndonkl/claude",
@@ -367,6 +432,20 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "create-pull-request",
+      "description": "Create GitHub pull requests with proper issue linking, comprehensive descriptions, and quality metrics for WescoBar project",
+      "repo": "BerryKuipers/claude-code-toolkit",
+      "path": "product/create-pull-request",
+      "category": "product",
+      "tags": [
+        "create",
+        "pull",
+        "request"
+      ],
+      "stars": 3,
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "lsp-implementation",
       "description": "Use when implementing Language Server Protocol features - covers completions, hover, diagnostics, and navigation",
       "repo": "mcclowes/lea",
@@ -456,6 +535,19 @@
       "tags": [
         "implement",
         "issue"
+      ],
+      "stars": 2,
+      "source": "local"
+    },
+    {
+      "name": "logging-observability",
+      "description": "Comprehensive logging and observability patterns for production systems. Use when implementing structured logging, distributed tracing, metrics collection, or alerting. Triggers: logging, logs, observ",
+      "repo": "cosmix/claude-code-setup",
+      "path": "product/logging-observability",
+      "category": "product",
+      "tags": [
+        "logging",
+        "observability"
       ],
       "stars": 2,
       "source": "local"
@@ -672,6 +764,19 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "error-handling",
+      "description": "Implement robust error handling in Node.js with custom error classes, async patterns, Express middleware, and production monitoring",
+      "repo": "pluginagentmarketplace/custom-plugin-nodejs",
+      "path": "product/error-handling",
+      "category": "product",
+      "tags": [
+        "error",
+        "handling"
+      ],
+      "stars": 1,
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "evaluation-metrics",
       "description": "LLM evaluation frameworks, benchmarks, and quality metrics for production systems.",
       "repo": "pluginagentmarketplace/custom-plugin-ai-engineer",
@@ -758,6 +863,18 @@
       "tags": [
         "module",
         "improve"
+      ],
+      "stars": 1,
+      "source": "local"
+    },
+    {
+      "name": "monitoring",
+      "description": "Game server monitoring with metrics, alerting, and performance tracking for production reliability",
+      "repo": "pluginagentmarketplace/custom-plugin-server-side-game-dev",
+      "path": "product/monitoring",
+      "category": "product",
+      "tags": [
+        "monitoring"
       ],
       "stars": 1,
       "source": "local"
@@ -1267,6 +1384,19 @@
       "source": "GitHub Search API"
     },
     {
+      "name": "api-generator",
+      "description": "Generate CRUD API endpoints automatically. User doesn't see routes.Use when: features need backend logic.Triggers: internal use only.",
+      "repo": "timequity/vibe-coder",
+      "path": "product/api-generator",
+      "category": "product",
+      "tags": [
+        "api",
+        "generator"
+      ],
+      "stars": 0,
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "apodc",
       "description": "Download NASA's Astronomy Picture of the Day (user)",
       "repo": "zeulewan/zeul-claude-plugins",
@@ -1295,6 +1425,19 @@
       "tags": [],
       "stars": 0,
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "architecture-review",
+      "description": "Use after implementing features to verify architecture compliance. Checks for layer violations, missing interfaces, and tight coupling.",
+      "repo": "ZainRizvi/ClaudeSettings",
+      "path": "product/architecture-review",
+      "category": "product",
+      "tags": [
+        "architecture",
+        "review"
+      ],
+      "stars": 0,
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "arduino-code-generator",
@@ -1669,6 +1812,20 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "building-nextjs-apps",
+      "description": "Specialized skill for building Next.js 15 App Router applications with React Server Components, Server Actions, and production-ready patterns. Use when implementing Next.js features, components, or ap",
+      "repo": "swapkats/robin",
+      "path": "product/building-nextjs-apps",
+      "category": "product",
+      "tags": [
+        "building",
+        "nextjs",
+        "apps"
+      ],
+      "stars": 0,
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "bulk-summarize",
       "description": "This skill should be used when the user asks to \"summarize videos\", \"summarize podcasts\", \"research a topic using media\", \"bulk summarize content\", \"scan YouTube channels\", \"scan podcast feeds\", \"crea",
       "repo": "smerchek/bulk-summarize",
@@ -1759,6 +1916,19 @@
       "source": "GitHub Search API"
     },
     {
+      "name": "changelog-manager",
+      "description": "Automatically create and update CHANGELOG.md files for scripts and tools following Keep a Changelog format. Use when creating new scripts, updating existing scripts, fixing bugs, or adding features to",
+      "repo": "poncardasm/tech-support-tools",
+      "path": "product/changelog-manager",
+      "category": "product",
+      "tags": [
+        "changelog",
+        "manager"
+      ],
+      "stars": 0,
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "changelog-skill",
       "description": "Use after completing any feature, fix, or change - updates CHANGELOG.md [Unreleased] section in Slovak",
       "repo": "mcsdodo/kniha-jazd",
@@ -1767,6 +1937,19 @@
       "tags": [
         "changelog",
         "skill"
+      ],
+      "stars": 0,
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "changelog-updater",
+      "description": "Auto-update CHANGELOG.md following Keep a Changelog format.LOAD THIS SKILL WHEN: User mentions \"changelog\", \"version\", \"release notes\" | says \"更新日誌\", \"版本\", \"變更記錄\" | before releases | after completing ",
+      "repo": "u9401066/copilot-capability-manager",
+      "path": "product/changelog-updater",
+      "category": "product",
+      "tags": [
+        "changelog",
+        "updater"
       ],
       "stars": 0,
       "source": "SkillsMP Synced Skills"
@@ -2333,6 +2516,19 @@
       "tags": [],
       "stars": 0,
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "create-ticket",
+      "description": "Creates Jira tickets with proper formatting, acceptance criteria, and optionally sets up git branches and pull requests. Use when users want to create a new ticket, log a bug, request a feature, or wh",
+      "repo": "IHKREDDY/agent-skills-ts",
+      "path": "product/create-ticket",
+      "category": "product",
+      "tags": [
+        "create",
+        "ticket"
+      ],
+      "stars": 0,
+      "source": "local"
     },
     {
       "name": "create-tutorial",
@@ -3098,6 +3294,19 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "feature-generator",
+      "description": "React Native Feature 模块生成指南。当用户提到\"创建 feature\"、\"新建模块\"、\"生成功能\"、\"添加功能模块\"、\"feature 模板\"时使用此 skill。",
+      "repo": "aidenreed937/Kairo-Expo",
+      "path": "product/feature-generator",
+      "category": "product",
+      "tags": [
+        "feature",
+        "generator"
+      ],
+      "stars": 0,
+      "source": "local"
+    },
+    {
       "name": "feature-impact-analyzer",
       "description": "Product strategist for scoring and ranking feature ideas using RICE/ICE prioritization frameworks, connecting features to business KPIs (retention, growth, revenue), and identifying quick wins vs stra",
       "repo": "sitechfromgeorgia/georgian-distribution-system",
@@ -3617,6 +3826,19 @@
       "tags": [],
       "stars": 0,
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "git-workflow",
+      "description": "Git branch management, commits, pull requests, and IJACK Roadmap project board integration. Use when creating feature branches, committing code, creating pull requests, managing git workflows, or addi",
+      "repo": "ijack-technologies/postgresql-scheduler",
+      "path": "product/git-workflow",
+      "category": "product",
+      "tags": [
+        "git",
+        "workflow"
+      ],
+      "stars": 0,
+      "source": "local"
     },
     {
       "name": "gmacko-init-plan",
@@ -6218,6 +6440,16 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "product-strategist",
+      "description": "Strategic product leadership toolkit for Head of Product including OKR cascade generation, market analysis, vision setting, and team scaling. Use for strategic planning, goal alignment, competitive an",
+      "repo": "alirezarezvani/claude-skills",
+      "path": "product/product-strategist",
+      "category": "product",
+      "tags": [],
+      "stars": 0,
+      "source": "local"
+    },
+    {
       "name": "product-strategy",
       "description": "Chief Product Officer expertise with proven frameworks and strategic guidance. Use when discussing product strategy, market analysis, competitive positioning, feature prioritization, or business model",
       "repo": "jpoutrin/product-forge",
@@ -6865,6 +7097,19 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "researching-features",
+      "description": "\"Research external APIs/services/libraries for feature implementation. Interviews user, researches options, confirms choice, gathers implementation notes. Creates .claude/plans file.\"",
+      "repo": "seanchiuai/claude-code-workflow",
+      "path": "product/researching-features",
+      "category": "product",
+      "tags": [
+        "researching",
+        "features"
+      ],
+      "stars": 0,
+      "source": "local"
+    },
+    {
       "name": "researching-markets",
       "description": "Conducts comprehensive market research including industry analysis, competitor analysis, market trends, customer insights, and regulatory landscape. Use when the user requests market research, industr",
       "repo": "jesseotremblay/claude-skills",
@@ -7326,6 +7571,19 @@
       "tags": [],
       "stars": 0,
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "skill-finder",
+      "description": "Full-featured Agent Skills management: Search 35+ skills, install locally, star favorites, update from sources. Supports tag search (#azure #bicep), category filtering, and similar skill recommendatio",
+      "repo": "aktsmm/Agent-Skills",
+      "path": "product/skill-finder",
+      "category": "product",
+      "tags": [
+        "skill",
+        "finder"
+      ],
+      "stars": 0,
+      "source": "local"
     },
     {
       "name": "skillstash-research",

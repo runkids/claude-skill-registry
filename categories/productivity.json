@@ -1,7 +1,7 @@
 {
   "category": "productivity",
-  "count": 1088,
-  "updated_at": "2026-01-12T13:22:10.650037Z",
+  "count": 1112,
+  "updated_at": "2026-01-13T00:42:41.208714Z",
   "skills": [
     {
       "name": "agent-memory",
@@ -17,6 +17,19 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "agent-builder",
+      "description": "Design and build AI agents for any domain. Use when users:(1) ask to \"create an agent\", \"build an assistant\", or \"design an AI system\"(2) want to understand agent architecture, agentic patterns, or au",
+      "repo": "shareAI-lab/learn-claude-code",
+      "path": "productivity/agent-builder",
+      "category": "productivity",
+      "tags": [
+        "agent",
+        "builder"
+      ],
+      "stars": 11933,
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "flow-nexus-swarm",
       "description": "Cloud-based AI swarm deployment and event-driven workflow automation with Flow Nexus platform",
       "repo": "ruvnet/claude-flow",
@@ -26,6 +39,20 @@
         "flow",
         "nexus",
         "swarm"
+      ],
+      "stars": 9856,
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "github-project-management",
+      "description": "Comprehensive GitHub project management with swarm-coordinated issue tracking, project board automation, and sprint planning",
+      "repo": "ruvnet/claude-flow",
+      "path": "productivity/github-project-management",
+      "category": "productivity",
+      "tags": [
+        "github",
+        "project",
+        "management"
       ],
       "stars": 9856,
       "source": "SkillsMP Synced Skills"
@@ -150,6 +177,19 @@
         "runner"
       ],
       "stars": 1737,
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "dev-browser",
+      "description": "Browser automation with persistent page state. Use when users ask to navigate websites, fill forms, take screenshots, extract web data, test web apps, or automate browser workflows. Trigger phrases in",
+      "repo": "SawyerHood/dev-browser",
+      "path": "productivity/dev-browser",
+      "category": "productivity",
+      "tags": [
+        "dev",
+        "browser"
+      ],
+      "stars": 1450,
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -312,6 +352,20 @@
         "google",
         "chat",
         "api"
+      ],
+      "stars": 109,
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "project-session-management",
+      "description": "Track progress across work sessions using SESSION.md with git checkpoints and concrete next actions. Converts IMPLEMENTATION_PHASES.md into trackable session state with phase status, progress markers,",
+      "repo": "jezweb/claude-skills",
+      "path": "productivity/project-session-management",
+      "category": "productivity",
+      "tags": [
+        "project",
+        "session",
+        "management"
       ],
       "stars": 109,
       "source": "SkillsMP Synced Skills"
@@ -872,6 +926,20 @@
       "source": "local"
     },
     {
+      "name": "git-workflow-manager",
+      "description": "Use when committing, releasing, or managing changelogs - enforces conventional commits, semantic versioning, and consistent release notes format",
+      "repo": "serejaris/ris-claude-code",
+      "path": "productivity/git-workflow-manager",
+      "category": "productivity",
+      "tags": [
+        "git",
+        "workflow",
+        "manager"
+      ],
+      "stars": 29,
+      "source": "local"
+    },
+    {
       "name": "bug-health-inline",
       "description": "Inline orchestration workflow for automated bug detection and fixing. Provides step-by-step phases for bug-hunter detection, priority-based fixing with bug-fixer, and verification cycles.",
       "repo": "maslennikov-ig/claude-code-orchestrator-kit",
@@ -1326,6 +1394,19 @@
       "tags": [
         "nist",
         "compliance"
+      ],
+      "stars": 11,
+      "source": "local"
+    },
+    {
+      "name": "orchestration-patterns",
+      "description": "Agentic orchestration patterns for long-running tasks. Implements evidence-based delivery and Simon Willison's agent loop. Use when managing multi-step work, coordinating subagents, or orchestrating P",
+      "repo": "bybren-llc/wtfb-safe-agentic-workflow",
+      "path": "productivity/orchestration-patterns",
+      "category": "productivity",
+      "tags": [
+        "orchestration",
+        "patterns"
       ],
       "stars": 11,
       "source": "local"
@@ -2206,6 +2287,19 @@
       "source": "local"
     },
     {
+      "name": "agent-orchestration",
+      "description": "This skill should be used when the model's ROLE_TYPE is orchestrator and needs to delegate tasks to specialist sub-agents. Provides scientific delegation framework ensuring world-building context (WHE",
+      "repo": "Jamie-BitFlight/claude_skills",
+      "path": "productivity/agent-orchestration",
+      "category": "productivity",
+      "tags": [
+        "agent",
+        "orchestration"
+      ],
+      "stars": 4,
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "bsky",
       "description": "Use this when working with BlueSky - fetching threads, reading posts, creating content. Shows you how to use pdsx MCP tools for the task.",
       "repo": "zzstoatzz/pdsx",
@@ -2885,6 +2979,18 @@
       "source": "local"
     },
     {
+      "name": "gitlab",
+      "description": "GitLab workflow best practices and glab CLI usage. Use when working with GitLab repositories, merge requests, issues, pipelines, or GitLab API interactions.",
+      "repo": "bendrucker/claude",
+      "path": "productivity/gitlab",
+      "category": "productivity",
+      "tags": [
+        "gitlab"
+      ],
+      "stars": 2,
+      "source": "local"
+    },
+    {
       "name": "graphite-workflow",
       "description": "Use this skill when working with Graphite (gt) for stacked PRs, when the user mentions pull requests, Graphite, stacking, or gt commands. Ensures proper use of gt commands instead of raw git for stack",
       "repo": "narrowstacks/dorkroom",
@@ -3481,6 +3587,19 @@
       "source": "local"
     },
     {
+      "name": "deployment-workflow",
+      "description": "Staging and production deployment using Laravel Deployer with health checks, cache management, and rollback support (HUMAN-ONLY execution)",
+      "repo": "hackur/web-standards-playground-showcase",
+      "path": "productivity/deployment-workflow",
+      "category": "productivity",
+      "tags": [
+        "deployment",
+        "workflow"
+      ],
+      "stars": 1,
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "drone-cv-expert",
       "description": "Expert in drone systems, computer vision, and autonomous navigation. Specializes in flight control, SLAM, object detection, sensor fusion, and path planning. Activate on \"drone\", \"UAV\", \"SLAM\", \"visua",
       "repo": "erichowens/some_claude_skills",
@@ -3583,6 +3702,19 @@
       "tags": [
         "git",
         "pushing"
+      ],
+      "stars": 1,
+      "source": "local"
+    },
+    {
+      "name": "git-worktrees",
+      "description": "Use Git worktrees to isolate tasks and keep diffs small and parallelizable",
+      "repo": "MacroMan5/claude-code-workflow-plugins",
+      "path": "productivity/git-worktrees",
+      "category": "productivity",
+      "tags": [
+        "git",
+        "worktrees"
       ],
       "stars": 1,
       "source": "local"
@@ -4033,6 +4165,19 @@
         "rust",
         "async",
         "runtime"
+      ],
+      "stars": 1,
+      "source": "local"
+    },
+    {
+      "name": "sdd-orchestrator",
+      "description": "Use when the user is starting a project or wants to catch up on project progress - scans the specs/ folder, surfaces current status, proposes the next SDD phase, and routes to the appropriate workflow",
+      "repo": "marcos-abreu/connect_kit",
+      "path": "productivity/sdd-orchestrator",
+      "category": "productivity",
+      "tags": [
+        "sdd",
+        "orchestrator"
       ],
       "stars": 1,
       "source": "local"
@@ -4573,6 +4718,19 @@
       "tags": [
         "agent",
         "prompts"
+      ],
+      "stars": 0,
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "agentic-development",
+      "description": "Workflow for long-running agentic development across multiple context windows. Use when working on multi-phase projects, complex feature implementations, or any development task spanning multiple sess",
+      "repo": "samasastudio/basilisk-av",
+      "path": "productivity/agentic-development",
+      "category": "productivity",
+      "tags": [
+        "agentic",
+        "development"
       ],
       "stars": 0,
       "source": "SkillsMP Synced Skills"
@@ -5601,6 +5759,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "checkpoint",
+      "description": "Robust workflow checkpoint and resume. Handles session interruption, state recovery, and safe resume across all workflow phases.",
+      "repo": "Clouder0/dotagent",
+      "path": "productivity/checkpoint",
+      "category": "productivity",
+      "tags": [
+        "checkpoint"
+      ],
+      "stars": 0,
+      "source": "local"
+    },
+    {
       "name": "checkpoint-manager",
       "description": "Skill for tracking and managing task progress. Checks pending tasks at conversation start, proposes task creation for new requests, suggests completion reports when work is done. Integrates with check",
       "repo": "dobachi/AI_Instruction_Kits",
@@ -5975,6 +6145,19 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "computer-vision",
+      "description": "Image processing, object detection, segmentation, and vision models. Use for image classification, object detection, or visual analysis tasks.",
+      "repo": "pluginagentmarketplace/custom-plugin-ai-data-scientist",
+      "path": "productivity/computer-vision",
+      "category": "productivity",
+      "tags": [
+        "computer",
+        "vision"
+      ],
+      "stars": 0,
+      "source": "local"
+    },
+    {
       "name": "concise-execution-mode",
       "description": "Execute tasks efficiently with minimal explanations. Deliver results first, explanations only when needed. Optimized for action-focused workflows and ADHD-friendly responses.",
       "repo": "sellersessions/SKILLS-FILES-CLAUDE-DESKTOP-PROJECT",
@@ -6033,6 +6216,19 @@
       "tags": [],
       "stars": 0,
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "context-management",
+      "description": "\"Manages personal knowledge about the user through Basic Memory. Use this skill when: (1) User requests to search/retrieve past information, (2) User requests to record/save information, or (3) Import",
+      "repo": "t-chito/dotfiles",
+      "path": "productivity/context-management",
+      "category": "productivity",
+      "tags": [
+        "context",
+        "management"
+      ],
+      "stars": 0,
+      "source": "local"
     },
     {
       "name": "context-master",
@@ -6520,6 +6716,20 @@
         "detecting",
         "memory",
         "corruption"
+      ],
+      "stars": 0,
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "detecting-memory-leaks",
+      "description": "Detects memory leak vulnerabilities by identifying unfreed memory allocations and missing cleanup in error paths. Use when analyzing long-running processes, resource management, or investigating memor",
+      "repo": "waiwai24/BinaryX-Agent",
+      "path": "productivity/detecting-memory-leaks",
+      "category": "productivity",
+      "tags": [
+        "detecting",
+        "memory",
+        "leaks"
       ],
       "stars": 0,
       "source": "SkillsMP Synced Skills"
@@ -7538,6 +7748,20 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "grok-skill",
+      "description": "Route Twitter/X prompts to Grok-4 Live Search",
+      "repo": "mikedemarais/grok-skill",
+      "path": "productivity/grok-skill",
+      "category": "productivity",
+      "tags": [
+        "grok",
+        "twitter",
+        "search"
+      ],
+      "stars": 0,
+      "source": "local"
+    },
+    {
       "name": "group-collaboration",
       "description": "Best practices for inter-group communication, knowledge sharing, and collaborative workflows in four-tier architecture",
       "repo": "bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
@@ -8288,6 +8512,36 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "ln-210-epic-coordinator",
+      "description": "Epic creation and management for Agile workflows",
+      "repo": "levnikolaevich/claude-code-skills",
+      "path": "productivity/ln-210-epic-coordinator",
+      "category": "productivity",
+      "tags": [
+        "agile",
+        "epic",
+        "planning",
+        "linear"
+      ],
+      "stars": 0,
+      "source": "local"
+    },
+    {
+      "name": "ln-220-story-coordinator",
+      "description": "Story operations coordinator for Agile teams",
+      "repo": "levnikolaevich/claude-code-skills",
+      "path": "productivity/ln-220-story-coordinator",
+      "category": "productivity",
+      "tags": [
+        "agile",
+        "stories",
+        "planning",
+        "linear"
+      ],
+      "stars": 0,
+      "source": "local"
+    },
+    {
       "name": "ln-300-task-coordinator",
       "description": "Task decomposition coordinator for development",
       "repo": "levnikolaevich/claude-code-skills",
@@ -8669,6 +8923,21 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "moai-alfred-context-budget",
+      "description": "Claude Code context window optimization strategies, JIT retrieval, progressive loading, memory file patterns, and cleanup practices. Use when optimizing context usage, managing large projects, or impl",
+      "repo": "kivo360/quickhooks",
+      "path": "productivity/moai-alfred-context-budget",
+      "category": "productivity",
+      "tags": [
+        "moai",
+        "alfred",
+        "context",
+        "budget"
+      ],
+      "stars": 0,
+      "source": "local"
+    },
+    {
       "name": "moai-alfred-issue-labels",
       "description": "GitHub issue label configuration, label taxonomy, and workflow automation mapping for MoAI-ADK projects",
       "repo": "kivo360/quickhooks",
@@ -8706,6 +8975,20 @@
       "tags": [
         "moai",
         "memory"
+      ],
+      "stars": 0,
+      "source": "local"
+    },
+    {
+      "name": "moai-foundation-git",
+      "description": "GitFlow automation and PR policy enforcement for MoAI-ADK workflows.",
+      "repo": "kivo360/quickhooks",
+      "path": "productivity/moai-foundation-git",
+      "category": "productivity",
+      "tags": [
+        "moai",
+        "foundation",
+        "git"
       ],
       "stars": 0,
       "source": "local"
@@ -9567,6 +9850,18 @@
       "tags": [],
       "stars": 0,
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "pipeline",
+      "description": "Manage the content pipeline and idea backlog. Use when checking pipeline status, evaluating pillar distribution, reviewing idea statuses, or planning content calendar. Includes idea template, pillar d",
+      "repo": "xavierfuentes/xavierfuentes.com",
+      "path": "productivity/pipeline",
+      "category": "productivity",
+      "tags": [
+        "pipeline"
+      ],
+      "stars": 0,
+      "source": "local"
     },
     {
       "name": "piter-setup",
@@ -11588,6 +11883,19 @@
       "source": "local"
     },
     {
+      "name": "task-planning",
+      "description": "Orchestrates the complete task planning workflow including codebase exploration, requirements gathering, and technical plan creation. Use when the user provides a new feature request, bug fix, or refa",
+      "repo": "AIGP-Health/task-planner-aigp",
+      "path": "productivity/task-planning",
+      "category": "productivity",
+      "tags": [
+        "task",
+        "planning"
+      ],
+      "stars": 0,
+      "source": "local"
+    },
+    {
       "name": "task-progress",
       "description": "Track developer task progress with automated checklist and workflow support. Use when (1) developer is assigned an issue, (2) checking current progress status, (3) tracking development workflow from a",
       "repo": "semicolon-devteam/semo",
@@ -11703,6 +12011,19 @@
       "tags": [
         "telegram",
         "assistant"
+      ],
+      "stars": 0,
+      "source": "local"
+    },
+    {
+      "name": "telegram-bot",
+      "description": "Telegram bot komutlari ve handler referansi. Use when working with Telegram bot commands, callbacks, or approval workflows.",
+      "repo": "olivenet-iot/olivenet-social-bot",
+      "path": "productivity/telegram-bot",
+      "category": "productivity",
+      "tags": [
+        "telegram",
+        "bot"
       ],
       "stars": 0,
       "source": "local"

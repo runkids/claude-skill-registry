@@ -1,7 +1,7 @@
 {
   "category": "security",
-  "count": 501,
-  "updated_at": "2026-01-12T13:22:10.604711Z",
+  "count": 499,
+  "updated_at": "2026-01-13T00:42:41.203135Z",
   "skills": [
     {
       "name": "cookbook-audit",
@@ -14,6 +14,20 @@
         "audit"
       ],
       "stars": 28337,
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "claude-agent-sdk",
+      "description": "Build autonomous AI agents with Claude Agent SDK. Structured outputs (v0.1.45, Nov 2025) guarantee JSON schema validation, plugins system, hooks for event-driven workflows. Use when: building coding a",
+      "repo": "jezweb/claude-skills",
+      "path": "security/claude-agent-sdk",
+      "category": "security",
+      "tags": [
+        "claude",
+        "agent",
+        "sdk"
+      ],
+      "stars": 109,
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -40,19 +54,6 @@
         "cleaner"
       ],
       "stars": 90,
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "code-review",
-      "description": "Systematically review pull requests, feature implementations, and code changes to ensure quality, maintainability, security, and adherence to best practices. Use when reviewing code before merging, co",
-      "repo": "korallis/Droidz",
-      "path": "security/code-review",
-      "category": "security",
-      "tags": [
-        "code",
-        "review"
-      ],
-      "stars": 49,
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -736,19 +737,6 @@
       "source": "local"
     },
     {
-      "name": "api-expert",
-      "description": "\"Expert API architect specializing in RESTful API design, GraphQL, gRPC, and API security. Deep expertise in OpenAPI 3.1, authentication patterns (OAuth2, JWT), rate limiting, pagination, and OWASP AP",
-      "repo": "martinholovsky/claude-skills-generator",
-      "path": "security/api-expert",
-      "category": "security",
-      "tags": [
-        "api",
-        "expert"
-      ],
-      "stars": 3,
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "audit-logging",
       "description": "Immutable audit logging patterns for compliance and security. Covers event design, storage strategies, retention policies, and audit trail analysis.",
       "repo": "melodic-software/claude-code-plugins",
@@ -839,6 +827,18 @@
       ],
       "stars": 3,
       "source": "local"
+    },
+    {
+      "name": "auth",
+      "description": "Authentication and authorization patterns including OAuth2, JWT, RBAC/ABAC, session management, API keys, password hashing, and MFA. Use when implementing login, access control, identity management, t",
+      "repo": "cosmix/claude-code-setup",
+      "path": "security/auth",
+      "category": "security",
+      "tags": [
+        "auth"
+      ],
+      "stars": 2,
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "dependency-scan",
@@ -1978,33 +1978,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "code-review-checklist",
-      "description": "Review code changes for correctness, security, performance, and maintainability. Use for PR reviews,code audits, pre-merge checks, or quality validation of Laravel + React code. EXCLUSIVE to reviewer ",
-      "repo": "htooayelwinict/claude-config",
-      "path": "security/code-review-checklist",
-      "category": "security",
-      "tags": [
-        "code",
-        "review",
-        "checklist"
-      ],
-      "stars": 0,
-      "source": "local"
-    },
-    {
-      "name": "code-reviewer",
-      "description": "\"Use this when user requests code review, pull request analysis, or quality assessment. Provides systematic 6-category checklist: functionality, security (OWASP), code quality (SOLID), performance, te",
-      "repo": "PearlThoughts/CodeCompass",
-      "path": "security/code-reviewer",
-      "category": "security",
-      "tags": [
-        "code",
-        "reviewer"
-      ],
-      "stars": 0,
-      "source": "local"
-    },
-    {
       "name": "code-reviewer-advanced",
       "description": "Use when reviewing code for quality, design issues, implementation problems, security vulnerabilities, or architectural concerns. Apply when user asks to review code, check implementation, find issues",
       "repo": "MRenAIAgent/mini_agent",
@@ -2251,6 +2224,19 @@
       "tags": [],
       "stars": 0,
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "deep-analysis",
+      "description": "Analytical thinking patterns for comprehensive evaluation, code audits, security analysis, and performance reviews. Provides structured templates for thorough investigation with extended thinking supp",
+      "repo": "Lobbi-Docs/claude",
+      "path": "security/deep-analysis",
+      "category": "security",
+      "tags": [
+        "deep",
+        "analysis"
+      ],
+      "stars": 0,
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "delonauth-authentication-authorization",
@@ -4751,19 +4737,6 @@
       "path": "security/senior-security",
       "category": "security",
       "tags": [],
-      "stars": 0,
-      "source": "local"
-    },
-    {
-      "name": "seo-optimizer",
-      "description": "Audit and optimize WordPress SEO (Yoast/Rank Math) - checks focus keywords, meta descriptions, featured images. Uses Unsplash API for missing images. Run on all pages/posts to identify and fix SEO iss",
-      "repo": "CrazySwami/wordpress-dev-skills",
-      "path": "security/seo-optimizer",
-      "category": "security",
-      "tags": [
-        "seo",
-        "optimizer"
-      ],
       "stars": 0,
       "source": "local"
     },

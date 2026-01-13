@@ -1,7 +1,7 @@
 {
   "category": "marketing",
-  "count": 339,
-  "updated_at": "2026-01-12T13:22:10.694150Z",
+  "count": 353,
+  "updated_at": "2026-01-13T00:42:41.338137Z",
   "skills": [
     {
       "name": "digital-brain",
@@ -14,6 +14,19 @@
         "brain"
       ],
       "stars": 5035,
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "social-media",
+      "description": "Social media post guidelines for LinkedIn, Reddit, and Twitter/X. Use when drafting posts, announcements, or sharing technical content on social platforms.",
+      "repo": "EpicenterHQ/epicenter",
+      "path": "marketing/social-media",
+      "category": "marketing",
+      "tags": [
+        "social",
+        "media"
+      ],
+      "stars": 3797,
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -55,6 +68,19 @@
         "generator"
       ],
       "stars": 575,
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "brave-search",
+      "description": "Web search and content extraction via Brave Search API.",
+      "repo": "steipete/clawdis",
+      "path": "marketing/brave-search",
+      "category": "marketing",
+      "tags": [
+        "brave",
+        "search"
+      ],
+      "stars": 430,
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -111,6 +137,20 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "domain-name-brainstormer",
+      "description": "Generate creative, memorable, and available domain name ideas for projects, products, and businesses with consideration for branding, SEO, and availability. Use when naming new projects, finding avail",
+      "repo": "korallis/Droidz",
+      "path": "marketing/domain-name-brainstormer",
+      "category": "marketing",
+      "tags": [
+        "domain",
+        "name",
+        "brainstormer"
+      ],
+      "stars": 49,
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "seo-fundamentals",
       "description": "SEO fundamentals, E-E-A-T, Core Web Vitals, and 2025 Google algorithm updates",
       "repo": "xenitV1/claude-code-maestro",
@@ -122,6 +162,19 @@
       ],
       "stars": 47,
       "source": "local"
+    },
+    {
+      "name": "competitor-analysis",
+      "description": "Analyzes competitor SEO and GEO strategies including their ranking keywords, content approaches, backlink profiles, and AI citation patterns. Reveals opportunities to outperform competition.",
+      "repo": "aaron-he-zhu/seo-geo-claude-skills",
+      "path": "marketing/competitor-analysis",
+      "category": "marketing",
+      "tags": [
+        "competitor",
+        "analysis"
+      ],
+      "stars": 45,
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "content-analysis",
@@ -186,6 +239,18 @@
         "social",
         "media",
         "strategist"
+      ],
+      "stars": 13,
+      "source": "local"
+    },
+    {
+      "name": "seo",
+      "description": "SEO audit and optimization skill for Meryll Dindin's personal portfolio website. Activates when discussing meta tags, Schema.org, structured data, personal branding SEO, search optimization, or conten",
+      "repo": "merylldindin/helix",
+      "path": "marketing/seo",
+      "category": "marketing",
+      "tags": [
+        "seo"
       ],
       "stars": 13,
       "source": "local"
@@ -387,6 +452,20 @@
       "source": "local"
     },
     {
+      "name": "applying-brand-guidelines",
+      "description": "Apply brand voice, tone, and style guidelines to written content across platforms. Use this skill when writing or editing content that needs to reflect a specific brand identity, adapting content for ",
+      "repo": "jamesgray007/hoai-course",
+      "path": "marketing/applying-brand-guidelines",
+      "category": "marketing",
+      "tags": [
+        "applying",
+        "brand",
+        "guidelines"
+      ],
+      "stars": 8,
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "article-title-optimizer",
       "description": "This skill analyzes article content in-depth and generates optimized, marketable titles in the format 'Title: Subtitle' (10-12 words maximum). The skill should be used when users request title optimiz",
       "repo": "rawveg/skillsforge-marketplace",
@@ -490,6 +569,18 @@
       "tags": [
         "astro",
         "content"
+      ],
+      "stars": 6,
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "blog",
+      "description": "Create a new blog post for dabase.com using Hugo with SEO-friendly title and description",
+      "repo": "kaihendry/dabase.com",
+      "path": "marketing/blog",
+      "category": "marketing",
+      "tags": [
+        "blog"
       ],
       "stars": 6,
       "source": "SkillsMP Synced Skills"
@@ -685,6 +776,18 @@
         "blog",
         "post",
         "optimizer"
+      ],
+      "stars": 1,
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "browser",
+      "description": "Web scraping using shot-scraper. Read web pages, extract content, interact with websites.",
+      "repo": "ciallo-agent/ciallo-agent",
+      "path": "marketing/browser",
+      "category": "marketing",
+      "tags": [
+        "browser"
       ],
       "stars": 1,
       "source": "SkillsMP Synced Skills"
@@ -1232,6 +1335,19 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "batch-processing",
+      "description": "Process multiple content items from a batch list file. Use when the user wants to analyze multiple videos, articles, or papers at once, mentions batch processing, or has a list of items to process.",
+      "repo": "az9713/cerebro",
+      "path": "marketing/batch-processing",
+      "category": "marketing",
+      "tags": [
+        "batch",
+        "processing"
+      ],
+      "stars": 0,
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "bible-tools",
       "description": "Orchestrate Bible study tools for generating messages, Sabbath School outlines, and studies. Use when asked about sermons, messages, Sabbath School lessons, Bible studies, or church content generation",
       "repo": "cevr/bible-tools",
@@ -1773,6 +1889,19 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "content-writer",
+      "description": "Write fraternity-branded content for Alpha Phi Alpha Beta Chapter. Use when creating module descriptions, week summaries, motivational text, or any site copy.",
+      "repo": "msftsean/ai-1907",
+      "path": "marketing/content-writer",
+      "category": "marketing",
+      "tags": [
+        "content",
+        "writer"
+      ],
+      "stars": 0,
+      "source": "local"
+    },
+    {
       "name": "conversion-psychology",
       "description": "Psychology of conversion for sponsored content. Includes emotional triggers, social proof, scarcity, urgency, and persuasion principles for video marketing. Auto-activates when discussing conversions,",
       "repo": "mike-coulbourn/claude-vibes",
@@ -2072,6 +2201,20 @@
       "source": "local"
     },
     {
+      "name": "gemini-image-generator",
+      "description": "Generate images using Google Gemini Nano Banana (gemini-2.5-flash-image) model. Use when asked to create images, generate visuals, design graphics, or produce artwork for marketing materials like Five",
+      "repo": "yonggao/claude-plugins",
+      "path": "marketing/gemini-image-generator",
+      "category": "marketing",
+      "tags": [
+        "gemini",
+        "image",
+        "generator"
+      ],
+      "stars": 0,
+      "source": "local"
+    },
+    {
       "name": "gemini-video-understanding",
       "description": "Analyze and understand videos using Google's Gemini API. Use when the user asks to analyze, understand, describe, summarize, transcribe, or extract information from videos. Supports local video files ",
       "repo": "ferdousbhai/gemini-video-understanding",
@@ -2094,6 +2237,18 @@
       "tags": [],
       "stars": 0,
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "github",
+      "description": "Use gh CLI for all GitHub operations - issues, PRs, file content, and repository info",
+      "repo": "getlarge/claude-aip-plugins",
+      "path": "marketing/github",
+      "category": "marketing",
+      "tags": [
+        "github"
+      ],
+      "stars": 0,
+      "source": "local"
     },
     {
       "name": "google-search-console",
@@ -3365,6 +3520,19 @@
       "source": "local"
     },
     {
+      "name": "seo-optimizer",
+      "description": "Analyze and optimize text for search engines. Execute Python script for detailed SEO analysis. Use when optimizing for keywords, search visibility, or content structure.",
+      "repo": "yoshiwatanabe/agent-patterns",
+      "path": "marketing/seo-optimizer",
+      "category": "marketing",
+      "tags": [
+        "seo",
+        "optimizer"
+      ],
+      "stars": 0,
+      "source": "local"
+    },
+    {
       "name": "seo-researcher",
       "description": "Researches SEO competition, keywords, and content gaps for Italian business/fiscal topics. Use when you need to research article topics, analyze competition, find keyword opportunities, or validate co",
       "repo": "proclama2022/dobusinessinitaly",
@@ -3841,6 +4009,18 @@
       "tags": [
         "video",
         "content"
+      ],
+      "stars": 0,
+      "source": "local"
+    },
+    {
+      "name": "vision",
+      "description": "Analyzes and processes images using Claude's vision capabilities. Supports OCR, image classification, diagram comparison, chart analysis, visual Q&A, and more. Use when users need to understand, extra",
+      "repo": "Wesley1600/ClaudeCodeFrameWork",
+      "path": "marketing/vision",
+      "category": "marketing",
+      "tags": [
+        "vision"
       ],
       "stars": 0,
       "source": "local"

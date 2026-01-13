@@ -1,21 +1,8 @@
 {
   "category": "devops",
-  "count": 2073,
-  "updated_at": "2026-01-12T13:22:10.609246Z",
+  "count": 2079,
+  "updated_at": "2026-01-13T00:42:41.315564Z",
   "skills": [
-    {
-      "name": "internal-comms",
-      "description": "A set of resources to help me write all kinds of internal communications, using the formats that my company likes to use. Claude should use this skill whenever asked to write some sort of internal com",
-      "repo": "anthropics/skills",
-      "path": "devops/internal-comms",
-      "category": "devops",
-      "tags": [
-        "internal",
-        "comms"
-      ],
-      "stars": 24530,
-      "source": "SkillsMP Synced Skills"
-    },
     {
       "name": "writing-skills",
       "description": "Use when creating new skills, editing existing skills, or verifying skills work before deployment",
@@ -1907,6 +1894,19 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "dependency-analyzer",
+      "description": "Analyze story dependencies, detect issues, and generate visual dependency graphs",
+      "repo": "matteocervelli/llms",
+      "path": "devops/dependency-analyzer",
+      "category": "devops",
+      "tags": [
+        "dependency",
+        "analyzer"
+      ],
+      "stars": 10,
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "ethicist-analyst",
       "description": "Analyzes moral dimensions and value conflicts through ethical frameworks using deontology, consequentialism,virtue ethics, and applied ethics methodologies.Provides insights on moral obligations, righ",
       "repo": "rysweet/MicrosoftHackathon2025-AgenticCoding",
@@ -2504,6 +2504,19 @@
       "source": "local"
     },
     {
+      "name": "backend-development",
+      "description": "Production backend systems development. Stack: Node.js/TypeScript, Python, Go, Rust | NestJS, FastAPI, Django, Express | PostgreSQL, MongoDB, Redis. Capabilities: REST/GraphQL/gRPC APIs, OAuth 2.1/JWT",
+      "repo": "samhvw8/dotfiles",
+      "path": "devops/backend-development",
+      "category": "devops",
+      "tags": [
+        "backend",
+        "development"
+      ],
+      "stars": 5,
+      "source": "SkillsMP Synced Skills"
+    },
+    {
       "name": "ci-github-actions",
       "description": "Your approach to handling ci github actions. Use this skill when working on files where ci github actions comes into play.",
       "repo": "leaderiop/hex-di",
@@ -2913,6 +2926,19 @@
       ],
       "stars": 3,
       "source": "local"
+    },
+    {
+      "name": "customer-support",
+      "description": "Handle customer support tickets for themes and plugins with empathy, clarity, and efficiency. Use when responding to support tickets, troubleshooting issues, writing help responses, or managing Zoho D",
+      "repo": "vapvarun/claude-backup",
+      "path": "devops/customer-support",
+      "category": "devops",
+      "tags": [
+        "customer",
+        "support"
+      ],
+      "stars": 3,
+      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "decision-critic",
@@ -4574,20 +4600,6 @@
       "source": "local"
     },
     {
-      "name": "gemini-image-generator",
-      "description": "Generate, edit, or transform images with Gemini Nano Banana using bundled Python scripts (Flash or Pro) including aspect ratio, resolution, image-to-image edits, logo overlays, and reference images. U",
-      "repo": "feed-mob/agent-skills",
-      "path": "devops/gemini-image-generator",
-      "category": "devops",
-      "tags": [
-        "gemini",
-        "image",
-        "generator"
-      ],
-      "stars": 1,
-      "source": "local"
-    },
-    {
       "name": "generate-story-bank",
       "description": "Generate interview-ready stories using HPARL format (Hook, Principles, Action, Results, Learnings). Transforms achievements into compelling narratives for behavioral interviews.",
       "repo": "fotescodev/portfolio",
@@ -5036,6 +5048,19 @@
         "react",
         "state",
         "management"
+      ],
+      "stars": 1,
+      "source": "local"
+    },
+    {
+      "name": "readme-generator",
+      "description": "Generate professionally formatted README.md files following a specific centered table-based structure. Use when creating or reformatting README files for GitHub repositories, particularly for Ghost's ",
+      "repo": "GhostTypes/ff-5mp-api-py",
+      "path": "devops/readme-generator",
+      "category": "devops",
+      "tags": [
+        "readme",
+        "generator"
       ],
       "stars": 1,
       "source": "local"
@@ -7485,18 +7510,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "blog",
-      "description": "Create and edit blog posts for Ghost CMS. Use when creating blog post projections from ideas, editing existing posts, or working with Ghost frontmatter and SEO. Includes blog-specific voice, structure",
-      "repo": "xavierfuentes/xavierfuentes.com",
-      "path": "devops/blog",
-      "category": "devops",
-      "tags": [
-        "blog"
-      ],
-      "stars": 0,
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "blog-topic-research",
       "description": "Validate topic uniqueness and identify unique angles before writing. Prevents generic content and helps find your specific value.Trigger phrases: \"topic research\", \"validate topic\", \"should I write\", ",
       "repo": "fgrehm/fabiorehm.com",
@@ -8900,6 +8913,19 @@
       "source": "SkillsMP Synced Skills"
     },
     {
+      "name": "code-quality",
+      "description": "Run comprehensive code quality checks including TypeScript typecheck, ESLint linting, Prettier formatting, and Markdown validation. Auto-fixes formatting issues in agent mode or provides read-only che",
+      "repo": "LukasStrickler/ai-dev-atelier",
+      "path": "devops/code-quality",
+      "category": "devops",
+      "tags": [
+        "code",
+        "quality"
+      ],
+      "stars": 0,
+      "source": "local"
+    },
+    {
       "name": "coercion-duress",
       "description": "Clerk for forced surrenders, threats, procedural irregularities, and lack of informed consent; use for Coercion_Duress queue.",
       "repo": "ACSKamloops/shs-engine",
@@ -9572,20 +9598,6 @@
       "tags": [],
       "stars": 0,
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "create-pull-request",
-      "description": "Create GitHub pull request with atomic Beads issue closure. MUST BE USED for opening PRs.Asks if work is complete - if YES, closes Beads issue BEFORE creating PR (JSONL merges atomically with code).If",
-      "repo": "stars-end/agent-skills",
-      "path": "devops/create-pull-request",
-      "category": "devops",
-      "tags": [
-        "create",
-        "pull",
-        "request"
-      ],
-      "stars": 0,
-      "source": "local"
     },
     {
       "name": "create-purchase-claim",
@@ -10587,6 +10599,18 @@
       "tags": [
         "deploying",
         "aws"
+      ],
+      "stars": 0,
+      "source": "SkillsMP Synced Skills"
+    },
+    {
+      "name": "deployment",
+      "description": "Deploy web applications to Cloudflare Pages/Workers or DigitalOcean VPS. Use when configuring deployment, setting up production environments, or managing releases.",
+      "repo": "ProfPowell/project-template",
+      "path": "devops/deployment",
+      "category": "devops",
+      "tags": [
+        "deployment"
       ],
       "stars": 0,
       "source": "SkillsMP Synced Skills"
@@ -19320,6 +19344,19 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "research-methodology",
+      "description": "Systematic approach to gathering book research including source evaluation, citation formatting, fact-checking, and research organization. Use when conducting research, evaluating sources, or managing",
+      "repo": "Azeem-2/final-docusarus",
+      "path": "devops/research-methodology",
+      "category": "devops",
+      "tags": [
+        "research",
+        "methodology"
+      ],
+      "stars": 0,
+      "source": "local"
+    },
+    {
       "name": "researching",
       "description": "Comprehensive research with cited sources. Use for complex research that should be verified and persist.",
       "repo": "evil-mind-evil-sword/idle",
@@ -20562,6 +20599,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "spec",
+      "description": "Create traceable specifications from architecture. Use after architecture is approved to define invariants, edge cases, and acceptance criteria.",
+      "repo": "matte1782/lecture-mind",
+      "path": "devops/spec",
+      "category": "devops",
+      "tags": [
+        "spec"
+      ],
+      "stars": 0,
+      "source": "local"
+    },
+    {
       "name": "spec-and-plan-generation",
       "description": "This skill should be used when commands need to generate specifications or implementation plans, when the user asks about \"how to write specs\", \"how to create plans\", \"spec structure\", \"plan hierarchy",
       "repo": "ShalomObongo/claude-conductor",
@@ -21798,6 +21847,18 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
+      "name": "troubleshoot",
+      "description": "Diagnoses Kubernetes pod issues automatically. Use when pods are in CrashLoopBackOff, ImagePullBackOff, Pending, or Error state. Analyzes events, logs, and resource status to identify root causes.",
+      "repo": "ziwon/homelab",
+      "path": "devops/troubleshoot",
+      "category": "devops",
+      "tags": [
+        "troubleshoot"
+      ],
+      "stars": 0,
+      "source": "local"
+    },
+    {
       "name": "troubleshooting-bundler-compatibility",
       "description": "Diagnose and fix third-party library loading failures in Vite, Webpack, or other bundlers. Use when encountering \"Failed to fetch dynamically imported module\", worker loading failures, CDN 404 errors,",
       "repo": "swannysec/privacy-distiller",
@@ -21900,6 +21961,18 @@
       "tags": [],
       "stars": 0,
       "source": "SkillsMP + GitHub Raw"
+    },
+    {
+      "name": "ultrathink",
+      "description": "First-principles deep thinking for significant problems. Use when you need to question assumptions, craft elegant solutions, and challenge beliefs.",
+      "repo": "genomewalker/cc-soul",
+      "path": "devops/ultrathink",
+      "category": "devops",
+      "tags": [
+        "ultrathink"
+      ],
+      "stars": 0,
+      "source": "local"
     },
     {
       "name": "unified-consciousness-framework",
