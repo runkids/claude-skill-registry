@@ -1,13 +1,7 @@
 {
   "name": "architecture-decision-record",
-  "description": "Use this skill when documenting significant architectural decisions. Provides ADR templates following the Nygard format with sections for context, decision, consequences, and alternatives. Helps teams",
   "repo": "ArieGoldkin/ai-agent-hub",
-  "category": "data",
-  "tags": [
-    "architecture",
-    "decision",
-    "record"
-  ],
-  "stars": 6,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/architecture-decision-record/SKILL.md",
+  "source": "github.com/ArieGoldkin/ai-agent-hub",
+  "downloaded_at": "2026-01-14T03:52:04.300742Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "testing-helper",
-  "description": "Create comprehensive tests for elizaOS plugins, characters, and actions. Triggers on \"create tests\", \"test elizaOS plugin\", or \"write agent tests\"",
   "repo": "Dexploarer/hyper-forge",
-  "category": "testing",
-  "tags": [
-    "testing",
-    "helper"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": ".claude/skills/testing-helper/SKILL.md",
+  "source": "github.com/Dexploarer/hyper-forge",
+  "downloaded_at": "2026-01-14T03:02:50.214490Z"
 }

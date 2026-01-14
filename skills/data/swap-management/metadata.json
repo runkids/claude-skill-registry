@@ -1,12 +1,7 @@
 {
   "name": "swap-management",
-  "description": "Schedule swap workflow expertise for faculty and resident shift exchanges. Use when processing swap requests, finding compatible matches, or resolving scheduling conflicts. Integrates with swap auto-m",
   "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
-  "category": "productivity",
-  "tags": [
-    "swap",
-    "management"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": ".claude/skills/swap-management/SKILL.md",
+  "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager",
+  "downloaded_at": "2026-01-14T02:32:34.348788Z"
 }

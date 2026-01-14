@@ -1,8 +1,7 @@
 {
   "name": "fullstory-page-properties",
-  "repo": "fullstorydev/fs-skills",
-  "category": "data",
-  "description": "Comprehensive guide for implementing Fullstory's Page Properties API (setProperties with type 'page') for web applications. Teaches proper page naming, contextual data capture, SPA navigation handling",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:51.572413Z"
+  "repo": "rcmaples/btx",
+  "path": ".claude/skills/fullstory-page-properties/SKILL.md",
+  "source": "github.com/rcmaples/btx",
+  "downloaded_at": "2026-01-14T03:39:22.719174Z"
 }

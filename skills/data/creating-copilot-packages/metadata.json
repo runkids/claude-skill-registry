@@ -1,13 +1,7 @@
 {
   "name": "creating-copilot-packages",
-  "description": "Use when creating GitHub Copilot instructions - provides repository-wide and path-specific formats, applyTo patterns, excludeAgent options, and natural language markdown style",
   "repo": "pr-pm/prpm",
-  "category": "documents",
-  "tags": [
-    "creating",
-    "copilot",
-    "packages"
-  ],
-  "stars": 70,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/creating-copilot-packages/SKILL.md",
+  "source": "github.com/pr-pm/prpm",
+  "downloaded_at": "2026-01-14T01:14:34.856670Z"
 }

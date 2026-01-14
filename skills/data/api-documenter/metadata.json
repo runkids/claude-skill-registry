@@ -1,12 +1,7 @@
 {
   "name": "api-documenter",
-  "description": "WHEN: API documentation, JSDoc/TSDoc comments, Props documentation, Storybook story writingWHAT: Function/class/type JSDoc + React Props table + Markdown API docs + Storybook storiesWHEN NOT: README w",
-  "repo": "physics91/claude-vibe",
-  "category": "documents",
-  "tags": [
-    "api",
-    "documenter"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "Charon-Fan/agent-playbook",
+  "path": "skills/api-documenter/SKILL.md",
+  "source": "github.com/Charon-Fan/agent-playbook",
+  "downloaded_at": "2026-01-14T01:45:08.928910Z"
 }

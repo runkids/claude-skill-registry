@@ -1,11 +1,7 @@
 {
   "name": "aesthetic",
-  "description": "Create aesthetically beautiful interfaces following proven design principles. Use when building UI/UX, analyzing designs from inspiration sites, generating design images with ai-multimodal, implementi",
-  "repo": "mrgoonie/claudekit-skills",
-  "category": "design",
-  "tags": [
-    "aesthetic"
-  ],
-  "stars": 1108,
-  "source": "SkillsMP Synced Skills"
+  "repo": "The1Studio/theone-training-skills",
+  "path": ".claude/skills/aesthetic/SKILL.md",
+  "source": "github.com/The1Studio/theone-training-skills",
+  "downloaded_at": "2026-01-14T03:48:45.219859Z"
 }

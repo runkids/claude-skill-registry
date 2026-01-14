@@ -1,9 +1,7 @@
 {
   "name": "rackspace-spot-best-practices",
-  "description": "Best practices for running GitHub Actions ARC runners on Rackspace Spot Kubernetes. Covers spot instance management, preemption handling, cost optimization, and resilience strategies. Activates on \"ra",
   "repo": "Matchpoint-AI/matchpoint-github-runners-helm",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/rackspace-spot-best-practices/SKILL.md",
+  "source": "github.com/Matchpoint-AI/matchpoint-github-runners-helm",
+  "downloaded_at": "2026-01-14T03:05:54.474371Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "spawn-search-agents",
-  "description": "정보 수집이 필요할 때 검색 에이전트 활용 가이드. 코드 탐색, 레퍼런스, 웹검색",
   "repo": "Zeliper/z-coder",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/spawn-search-agents/SKILL.md",
+  "source": "github.com/Zeliper/z-coder",
+  "downloaded_at": "2026-01-14T02:57:05.689280Z"
 }

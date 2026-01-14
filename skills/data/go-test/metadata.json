@@ -1,11 +1,7 @@
 {
   "name": "go-test",
-  "description": "Provides Go standard testing package expertise and best practices. Ensures proper table-driven test patterns, subtests organization, benchmark implementation, and test coverage strategies. Specializes",
-  "repo": "specvital/web",
-  "category": "testing",
-  "tags": [
-    "test"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "KubrickCode/Repo-Management",
+  "path": ".claude/skills/go-test/SKILL.md",
+  "source": "github.com/KubrickCode/Repo-Management",
+  "downloaded_at": "2026-01-14T04:01:56.652960Z"
 }

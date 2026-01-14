@@ -1,9 +1,7 @@
 {
   "name": "privilege-escalation-methods",
-  "description": "This skill should be used when the user asks to \"escalate privileges\", \"get root access\", \"become administrator\", \"privesc techniques\", \"abuse sudo\", \"exploit SUID binaries\", \"Kerberoasting\", \"pass-th",
   "repo": "zebbern/claude-code-guide",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/privilege-escalation-methods/SKILL.md",
+  "source": "github.com/zebbern/claude-code-guide",
+  "downloaded_at": "2026-01-14T03:20:27.739623Z"
 }

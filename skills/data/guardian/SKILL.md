@@ -1,379 +1,382 @@
 ---
 name: guardian
-description: Automatic quality gate and session health monitor. Spawns focused Haiku agents for code review and task planning when degradation detected. Validates suggestions against Oracle knowledge. Learns from user feedback to adjust sensitivity. Uses minimal context passing. Integrates with oracle and evaluator.
-allowed-tools: Read, Glob, Grep, Task
+description: Proactively audit Cloudflare configurations for security vulnerabilities, resilience gaps, cost traps, AND budget/privacy risks. Use this skill when reviewing wrangler configs, before deployments, investigating issues, or when ANY architecture decision involves Durable Objects, R2, Workers AI, or high-volume operations. This skill PROACTIVELY warns about cost impacts before users ask.
 ---
 
-# Guardian: Quality Gate & Session Health Monitor
+# Cloudflare Guardian Skill
 
-You are the **Guardian** - an automatic quality and session health monitor that works in the background to detect when intervention would be helpful.
+Audit wrangler configurations for security vulnerabilities, performance issues, cost traps, resilience gaps, **and proactively enforce budget/privacy constraints**. Acts as a senior SRE and FinOps engineer reviewing infrastructure-as-code.
 
-## Core Principles
+## Cost Watchlist Reference
 
-1. **Minimal Context Passing**: Never pass full conversations to subagents - only relevant code and specific questions
-2. **Suggestion Mode**: Present findings as suggestions for user consideration, not commands
-3. **Oracle Validation**: Cross-check all suggestions against known patterns before presenting
-4. **Learn from Feedback**: Adjust sensitivity based on user acceptance rates
-5. **Haiku Only**: All subagents use haiku model (fast & cheap)
-6. **User Authority**: User has final say - accept, reject, or add context
-7. **Read-Only Subagents**: Subagents can ONLY read files and analyze code - they CANNOT modify, write, edit, or execute any changes. All modifications require user approval via Guardian's suggestion system.
+**IMPORTANT**: For detailed cost trap documentation, reference `${CLAUDE_PLUGIN_ROOT}/COST_SENSITIVE_RESOURCES.md`.
 
-## When Guardian Activates
+When issuing cost warnings, use provenance tags:
+- `[STATIC:COST_WATCHLIST]` - Pattern detected via code analysis
+- `[LIVE-VALIDATED:COST_WATCHLIST]` - Confirmed by observability data
+- `[REFUTED:COST_WATCHLIST]` - Pattern exists but not hitting thresholds
 
-### Automatic Triggers (Background Monitoring)
+## Budget Whisperer Behavior
 
-Guardian monitors in the background and activates when:
+**CRITICAL**: When Claude suggests ANY code change involving the following, the guardian skill MUST trigger proactive checks:
 
-1. **Code Volume Threshold**: >50 lines of code written (adjustable)
-2. **Repeated Errors**: Same error appears 3+ times
-3. **File Churn**: Same file edited 5+ times in 10 minutes
-4. **Repeated Corrections**: User says "that's wrong" 3+ times
-5. **Context Bloat**: Approaching token limits (70%+)
-
-### User-Requested Triggers
-
-User can manually invoke:
-- "guardian review" - Review recent code
-- "guardian check this" - Review specific file
-- "guardian plan this" - Break down complex task
-- "guardian status" - Show current session health
-
-## Guardian Workflow
+### D1 Write Operations
+If suggesting code that includes `.run()`, `.first()`, or database writes:
+1. **Search for `.batch()`** - If missing, warn about per-row insert costs
+2. **Search for `CREATE INDEX`** - If querying unindexed columns, warn about scan costs
+3. **Cite**: `TRAP-D1-001` or `TRAP-D1-002` from COST_SENSITIVE_RESOURCES.md
 
 ```
-1. Monitor Session
-   ↓ Trigger detected
-2. Check Oracle for Contradictions
-   ↓ No contradictions
-3. Extract Minimal Context (ONLY what's needed)
-   ↓
-4. Spawn Haiku Agent (focused task)
-   ↓
-5. Validate Suggestions against Oracle
-   ↓
-6. Present to User (with confidence scores)
-   ↓
-7. Learn from Feedback (adjust thresholds)
+Budget Whisperer Check:
+- Detected: D1 write operation in proposed code
+- Searched for: db.batch() usage
+- Found: ❌ Missing batch operations
+- Warning: [STATIC:COST_WATCHLIST] TRAP-D1-001
+  Per-row INSERT detected. At 10K rows, this costs $0.01 vs $0.00001 batched.
+  Recommendation: Wrap in db.batch() with max 1000 statements per batch.
 ```
 
-## How to Use Guardian
+### R2 Write Operations
+If suggesting code that includes `.put()`:
+1. **Check loop context** - Is `.put()` inside a loop or frequently called handler?
+2. **Search for buffering** - Any aggregation before write?
+3. **Cite**: `TRAP-R2-001` from COST_SENSITIVE_RESOURCES.md
 
-### Example 1: Auto Code Review
+### Durable Objects Usage
+If suggesting DO architecture:
+1. **Check use case** - Is coordination/locking actually needed?
+2. **Suggest alternatives** - KV for simple storage, D1 for relational
+3. **Cite**: `TRAP-DO-001` from COST_SENSITIVE_RESOURCES.md
 
+## Vibecoder Proactive Safeguards
+
+**IMPORTANT**: This skill should proactively warn users about cost and privacy impacts BEFORE they deploy or even ask about costs. When reviewing ANY architecture that includes the following, immediately surface budget/privacy alerts:
+
+### Budget Enforcement Triggers
+
+| Service/Pattern | Threshold | Proactive Warning |
+|-----------------|-----------|-------------------|
+| Durable Objects | Any usage | "DO charges ~$0.15/GB-month storage + $0.50/M requests. Consider KV for simple key-value." |
+| R2 Class A ops | >1M/month | "R2 writes cost $4.50/M. Buffer writes or use presigned URLs for client uploads." |
+| D1 Writes | >10M/month | "D1 writes cost $1/M. Detected pattern suggests >$10/mo. Batch to ≤1,000 rows." |
+| Workers AI (>8B) | Any usage | "Large models (Llama 11B+) cost $0.68/M tokens. Use 8B or smaller for bulk." |
+| Vectorize | >1M vectors | "Approaching 5M vector limit. Plan sharding strategy." |
+| KV Writes | >5M/month | "KV writes cost $5/M (10× reads). Consider D1 or R2 for write-heavy." |
+
+### Privacy Enforcement Triggers
+
+| Pattern | Severity | Proactive Warning |
+|---------|----------|-------------------|
+| PII in logs | CRITICAL | "Detected potential PII logging. Use structured logging with redaction." |
+| User data in KV keys | HIGH | "KV keys with user IDs may leak via Workers dashboard. Hash or encrypt." |
+| AI prompts with PII | HIGH | "AI Gateway logs may contain user data. Enable prompt redaction." |
+| R2 public buckets | HIGH | "R2 bucket appears public. Verify intentional or add authentication." |
+| Analytics with user IDs | MEDIUM | "User IDs in Analytics Engine may persist. Use anonymized identifiers." |
+
+## Audit Categories
+
+### Security Audit Rules
+
+| ID | Name | Severity | Check |
+|----|------|----------|-------|
+| SEC001 | Secrets in plaintext | CRITICAL | `vars.*` contains API_KEY, SECRET, PASSWORD, TOKEN patterns |
+| SEC002 | Missing route auth | HIGH | Routes without `cf.access` or auth middleware |
+| SEC003 | CORS wildcard | MEDIUM | `cors.origins` includes `*` |
+| SEC004 | Exposed admin routes | HIGH | `/admin/*` routes without auth |
+| SEC005 | Missing rate limiting | MEDIUM | No rate limit bindings for public APIs |
+| SEC006 | Debug mode enabled | LOW | `ENVIRONMENT` or `DEBUG` set to development/true |
+
+### Performance Audit Rules
+
+| ID | Name | Severity | Check |
+|----|------|----------|-------|
+| PERF001 | Missing Smart Placement | LOW | `placement.mode` not set |
+| PERF002 | D1 without indexes | MEDIUM | D1 bindings but no CREATE INDEX in migrations |
+| PERF003 | Large bundled dependencies | MEDIUM | Bundle >10MB (check `main` entry) |
+| PERF004 | Missing observability | LOW | No `observability` config block |
+| PERF005 | Frequent cron | LOW | Cron more often than every 5 minutes |
+
+### Cost Audit Rules
+
+| ID | Name | Severity | Check |
+|----|------|----------|-------|
+| COST001 | Queue retries high | MEDIUM | `max_retries > 1` for potentially idempotent consumers |
+| COST002 | No cron batching | LOW | Multiple crons that could be combined |
+| COST003 | AI without caching | MEDIUM | AI bindings but no AI Gateway |
+| COST004 | Large model usage | LOW | Workers AI with >8B parameter models |
+| COST005 | Missing Analytics Engine | INFO | Using D1/KV for metrics instead of free AE |
+
+### Resilience Audit Rules
+
+| ID | Name | Severity | Check |
+|----|------|----------|-------|
+| RES001 | Missing DLQ | HIGH | Queues without `dead_letter_queue` binding |
+| RES002 | No concurrency limit | MEDIUM | `max_concurrency` not set for queue consumers |
+| RES003 | Single region | LOW | No `cf.smart_placement` for latency-sensitive |
+| RES004 | Missing retry config | MEDIUM | Queue consumer without explicit retry config |
+| RES005 | No circuit breaker | LOW | External API calls without timeout/fallback |
+
+### Budget Audit Rules (Proactive)
+
+| ID | Name | Severity | Check |
+|----|------|----------|-------|
+| BUDGET001 | Durable Objects usage | INFO | Any DO binding - proactively explain cost model |
+| BUDGET002 | R2 write-heavy pattern | MEDIUM | Frequent R2 Class A ops without buffering |
+| BUDGET003 | D1 per-row inserts | HIGH | Loop-based INSERTs instead of batch |
+| BUDGET004 | Large AI model | MEDIUM | Workers AI with >8B parameter model |
+| BUDGET005 | KV write-heavy | MEDIUM | >5M KV writes/month pattern |
+| BUDGET006 | Vectorize scaling | INFO | >1M vectors - warn about 5M limit |
+
+### Privacy Audit Rules
+
+| ID | Name | Severity | Check |
+|----|------|----------|-------|
+| PRIV001 | PII in logs | CRITICAL | console.log with user data patterns |
+| PRIV002 | User IDs in KV keys | HIGH | KV key patterns containing user/email/phone |
+| PRIV003 | AI prompts PII | HIGH | AI bindings without redaction middleware |
+| PRIV004 | R2 public access | HIGH | R2 bucket without authentication |
+| PRIV005 | Analytics PII | MEDIUM | User identifiers in Analytics Engine writes |
+
+## Audit Workflow
+
+### Step 1: Parse Wrangler Config
+
+Support both TOML and JSONC formats:
 ```
-# User writes 60 lines of authentication code
-# Guardian detects threshold crossed
-
-Guardian: "I notice you've written 60 lines of authentication code.
-Let me do a quick security review..."
-
-[Spawns Haiku agent with ONLY the auth code + security patterns from Oracle]
-
-Guardian: "Review found 2 suggestions:
-
-✓ [0.85] Use bcrypt instead of MD5 for password hashing
-    File: auth.py:42
-    Note: High confidence - aligns with known security patterns
-
-? [0.45] Consider rate limiting on login endpoint
-    File: auth.py:67
-    ⚠️  WARNING: Oracle shows we previously rejected this for API endpoints
-    Previous reason: 'We handle rate limiting at nginx level'
-
-Accept suggestions? [a=all high-conf, 1=first only, r=reject with reason, d=discuss]"
-```
-
-### Example 2: Session Degradation Detection
-
-```
-# Same error appears 4 times in 15 minutes
-
-Guardian: "I've detected we've hit the same error 4 times:
-  'TypeError: cannot unpack non-iterable NoneType object'
-
-This suggests our approach might be fundamentally wrong.
-
-Should I:
-1. Spawn a planning agent to break down the problem?
-2. Search Oracle for similar past issues?
-3. Continue current approach?
-
-[1/2/3]"
-```
-
-### Example 3: Complex Task Planning
-
-```
-User: "Build a REST API with auth, rate limiting, caching, and WebSocket support"
-
-Guardian: "This is a complex multi-component task. Let me break it down...
-
-[Spawns Haiku planner with ONLY the requirement description]
-
-Guardian: "Proposed breakdown (5 subtasks):
-1. Core REST structure (routes, middleware) - Est: 100 lines
-2. JWT authentication - Est: 80 lines
-3. Rate limiting middleware - Est: 40 lines
-4. Redis caching layer - Est: 60 lines
-5. WebSocket integration - Est: 120 lines
-
-I'll tackle these with isolated contexts to prevent context pollution.
-Proceed? [y/n/modify]"
-```
-
-## Minimal Context Extraction
-
-Guardian NEVER passes the full conversation. It extracts only:
-
-```python
-# For Code Review:
-context = {
-    'files': {
-        'auth.py': '<file contents>'  # ONLY the file being reviewed
-    },
-    'oracle_patterns': [
-        '- Use bcrypt for password hashing',
-        '- Always use timing-safe comparison for tokens'
-    ],  # ONLY relevant patterns (max 5)
-    'recent_corrections': [
-        '- Don\'t use MD5 for passwords'
-    ],  # ONLY recent corrections in this area (max 3)
-    'focus': 'Review for security issues in authentication code'
-}
-
-# NOT included: full conversation, user messages, design rationale, etc.
-```
-
-## Subagent Read-Only Constraints
-
-**CRITICAL**: Guardian subagents are READ-ONLY. They exist solely to analyze and suggest.
-
-### What Subagents CAN Do:
-- ✅ Read files provided in minimal context
-- ✅ Analyze code patterns and structure
-- ✅ Review for issues (security, performance, style, etc.)
-- ✅ Plan task breakdowns
-- ✅ Return suggestions and recommendations
-
-### What Subagents CANNOT Do:
-- ❌ Write new files
-- ❌ Edit existing files
-- ❌ Execute code or commands
-- ❌ Make any modifications to the codebase
-- ❌ Access tools: Write, Edit, NotebookEdit, Bash (except read-only git commands)
-- ❌ Access the full conversation history
-
-### Spawning Read-Only Subagents
-
-When spawning via Task tool, Guardian includes explicit constraints:
-
-```python
-prompt = f"""
-You are a READ-ONLY code reviewer. You can ONLY analyze and suggest.
-
-CONSTRAINTS:
-- DO NOT use Write, Edit, NotebookEdit, or Bash tools
-- DO NOT modify any files
-- DO NOT execute any code
-- ONLY read the provided files and return suggestions
-
-Task: {context['focus']}
-
-{minimal_context}
-
-Return suggestions in this format:
-[
-  {{
-    "text": "suggestion text",
-    "category": "security|performance|style|etc",
-    "file": "file path",
-    "line": line_number (if applicable)
-  }}
-]
-"""
+1. Read wrangler.toml or wrangler.jsonc
+2. Parse into structured format
+3. Extract: name, bindings, routes, triggers, vars
 ```
 
-### Why Read-Only?
+### Step 2: Run Security Checks
 
-1. **Safety**: Prevents automated tools from making unreviewed changes
-2. **User Control**: All modifications go through user approval
-3. **Auditability**: Clear separation between analysis and action
-4. **Trust**: User always knows exactly what will change before it happens
-
-## Oracle Validation
-
-Before presenting suggestions, Guardian validates:
-
-```python
-def validate_suggestion(suggestion):
-    # Check against known patterns
-    if contradicts_oracle_pattern(suggestion):
-        return {
-            'confidence': 0.2,
-            'warning': 'Contradicts known pattern: X',
-            'should_present': False
-        }
-
-    # Check rejection history
-    if previously_rejected_similar(suggestion):
-        return {
-            'confidence': 0.3,
-            'warning': 'Similar suggestion rejected before',
-            'reason': '<previous rejection reason>',
-            'should_present': True  # Show but flag
-        }
-
-    # Calculate confidence from acceptance history
-    acceptance_rate = get_acceptance_rate(suggestion.type)
-    return {
-        'confidence': acceptance_rate,
-        'should_present': acceptance_rate > 0.3
-    }
+```
+For each security rule:
+1. Check if pattern exists in config
+2. If violation found:
+   - Record rule ID, severity, location
+   - Generate specific recommendation
+   - Include docs URL if available
 ```
 
-## Learning from Feedback
+### Step 3: Run Performance Checks
 
-Guardian adjusts based on user responses:
-
-```python
-# User accepts suggestion
-→ Validate pattern (it was good)
-→ If acceptance rate > 90%: decrease threshold (trigger more often)
-
-# User rejects suggestion
-→ Record rejection reason in Oracle
-→ If acceptance rate < 50%: increase threshold (trigger less often)
-→ Add to anti-patterns if specific reason given
-
-# Example:
-# Week 1: lines_threshold = 50, acceptance_rate = 40%
-# Week 2: lines_threshold = 75 (adjusted up - too many false positives)
-# Week 3: acceptance_rate = 65%
-# Week 4: lines_threshold = 70 (adjusted down slightly - better balance)
+```
+For each performance rule:
+1. Check config for anti-patterns
+2. Cross-reference with migrations (for D1 index checks)
+3. Record findings with optimization recommendations
 ```
 
-## Configuration
+### Step 4: Run Cost Checks
 
-Guardian behavior is configured in `.guardian/config.json`:
+```
+For each cost rule:
+1. Identify cost-amplifying patterns
+2. Estimate impact if possible
+3. Provide specific fixes
+```
 
-```json
+### Step 5: Run Resilience Checks
+
+```
+For each resilience rule:
+1. Check for missing failure handling
+2. Identify single points of failure
+3. Recommend redundancy patterns
+```
+
+### Step 5b: Run Budget Enforcement Checks (Proactive)
+
+```
+For bindings that trigger budget warnings:
+1. Detect Durable Objects → Explain cost model proactively
+2. Detect R2 writes → Check for buffering patterns
+3. Detect D1 writes → Check for batch vs per-row
+4. Detect Workers AI → Check model size selection
+5. Detect high-volume KV → Suggest alternatives
+```
+
+**Key principle**: Surface budget impacts BEFORE the user asks about costs.
+
+### Step 5c: Run Privacy Checks
+
+```
+For privacy-sensitive patterns:
+1. Scan code for console.log with user data patterns
+2. Check KV key naming for PII patterns
+3. Verify AI prompts have redaction middleware
+4. Check R2 bucket access controls
+5. Review Analytics Engine write patterns
+```
+
+### Step 6: Calculate Score
+
+```
+score = 100 - (critical × 25) - (high × 15) - (medium × 5) - (low × 2)
+```
+
+Grades:
+- 90-100: A (Production ready)
+- 80-89: B (Minor issues)
+- 70-79: C (Address before deployment)
+- 60-69: D (Significant issues)
+- <60: F (Critical problems)
+
+## Output Format
+
+```markdown
+# Cloudflare Configuration Audit
+
+**Score**: XX/100 (Grade: X)
+**File**: wrangler.jsonc
+
+## Proactive Budget & Privacy Alerts
+
+> **Budget Impact Detected**: [List any BUDGET* findings with cost estimates]
+> **Privacy Concern**: [List any PRIV* findings requiring attention]
+
+## Summary
+
+| Category | Critical | High | Medium | Low | Info |
+|----------|----------|------|--------|-----|------|
+| Security | X | X | X | X | - |
+| Performance | X | X | X | X | - |
+| Cost | X | X | X | X | - |
+| Resilience | X | X | X | X | - |
+| Budget | - | X | X | - | X |
+| Privacy | X | X | X | - | - |
+
+## Critical Issues (Must Fix)
+
+### SEC001: Secrets in plaintext
+- **Location**: `vars.API_KEY`
+- **Issue**: Plaintext API key in configuration
+- **Fix**: Use `wrangler secret put API_KEY`
+- **Docs**: https://developers.cloudflare.com/workers/configuration/secrets/
+
+## High Priority Issues
+
+### RES001: Missing dead letter queue
+- **Location**: `queues[0]` (harvest-queue)
+- **Issue**: No DLQ for failed message inspection
+- **Fix**: Add `dead_letter_queue = "harvest-dlq"`
+
+## Medium Priority Issues
+
+[List all medium issues]
+
+## Low Priority Issues
+
+[List all low issues]
+
+## Recommendations
+
+1. [ ] Move secrets to wrangler secret
+2. [ ] Add DLQ for all production queues
+3. [ ] Enable Smart Placement
+4. [ ] Consider Analytics Engine for metrics
+```
+
+## Migration Checks
+
+When D1 bindings exist, also scan migration files:
+
+```sql
+-- Good: Has index
+CREATE INDEX idx_projects_source ON projects(source);
+
+-- Bad: Missing index for common query pattern
+SELECT * FROM projects WHERE source = ? ORDER BY created_at DESC;
+```
+
+Flag missing indexes for:
+- Columns in WHERE clauses
+- Columns in ORDER BY
+- Compound queries (need compound indexes)
+
+## Wrangler Config Patterns
+
+### Good Patterns to Recognize
+
+```jsonc
 {
-  "enabled": true,
-  "sensitivity": {
-    "lines_threshold": 50,
-    "error_repeat_threshold": 3,
-    "file_churn_threshold": 5,
-    "correction_threshold": 3,
-    "context_warning_percent": 0.7
-  },
-  "trigger_phrases": {
-    "review_needed": ["can you review", "does this look right"],
-    "struggling": ["still not working", "same error"],
-    "complexity": ["this is complex", "not sure how to"]
-  },
-  "auto_review": {
-    "enabled": true,
-    "always_review": ["auth", "security", "crypto", "payment"],
-    "never_review": ["test", "mock", "fixture"]
-  },
-  "learning": {
-    "acceptance_rate_target": 0.7,
-    "adjustment_speed": 0.1,
-    "memory_window_days": 30
-  },
-  "model": "haiku"
+  // Smart Placement enabled
+  "placement": { "mode": "smart" },
+
+  // Observability configured
+  "observability": { "logs": { "enabled": true } },
+
+  // Queue with DLQ
+  "queues": {
+    "consumers": [{
+      "queue": "my-queue",
+      "dead_letter_queue": "my-dlq",
+      "max_retries": 1,
+      "max_concurrency": 10
+    }]
+  }
 }
 ```
 
-## Commands Available
+### Bad Patterns to Flag
 
-When Guardian activates, you can respond with:
+```jsonc
+{
+  // Secrets in vars
+  "vars": { "API_KEY": "sk-xxxxx" },
 
-- `a` - Accept all high-confidence suggestions (>0.7)
-- `1,3,5` - Accept specific suggestions by number
-- `r` - Reject all with reason
-- `i <reason>` - Reject and add to anti-patterns
-- `d <num>` - Discuss specific suggestion
-- `q` - Dismiss review
-- `config` - Adjust Guardian sensitivity
+  // No DLQ
+  "queues": { "consumers": [{ "queue": "my-queue" }] },
 
-## Session Health Metrics
-
-Guardian tracks:
-
-```
-Session Health: 85/100
-├─ Error Rate: Good (2 errors in 45min)
-├─ Correction Rate: Good (1 correction in 30min)
-├─ File Churn: Warning (auth.py edited 4 times)
-├─ Context Usage: 45% (safe)
-└─ Review Acceptance: 75% (well-calibrated)
-
-Recommendations:
-- Consider taking a break from auth.py (high churn)
-- Session is healthy overall
+  // High retries
+  "queues": { "consumers": [{ "max_retries": 10 }] }
+}
 ```
 
-## Anti-Patterns (What Guardian Won't Do)
+## Live Validation with Probes
 
-Guardian will NOT:
-- ❌ Pass full conversation to subagents
-- ❌ Blindly accept subagent suggestions
-- ❌ Make changes without user approval
-- ❌ Allow subagents to modify files (read-only only)
-- ❌ Trigger on every small edit
-- ❌ Ignore Oracle knowledge
-- ❌ Use expensive models (always haiku)
-- ❌ Override user decisions
+When MCP tools are available (via `--validate` mode in `/cf-audit`), enhance static findings with live data.
 
-## Integration with Oracle
+Reference @skills/probes/SKILL.md for detailed query patterns.
 
-Guardian automatically:
-- Records all reviews in Oracle
-- Saves validated suggestions as patterns
-- Tracks rejection reasons as anti-patterns
-- Updates acceptance rates
-- Learns danger patterns per file type
+### Security Validation
+- **Error rate analysis**: High errors on specific paths may indicate attacks
+- **Request patterns**: Verify authentication is actually enforced
+- **Resource exposure**: Check KV/R2 for public access settings
 
-## Guardian Wisdom Examples
+### Performance Validation
+- **EXPLAIN QUERY PLAN**: Verify D1 index usage
+- **Latency percentiles**: P50/P95/P99 analysis
+- **CPU time analysis**: Identify hotspots
 
-After learning from sessions:
+### Resilience Validation
+- **Queue health**: Check DLQ depth and retry rates
+- **Error patterns**: Identify cascading failures
 
-```
-"When working with auth code, users accept 90% of security suggestions"
-→ Guardian triggers more aggressively for auth files
+## Provenance Tagging
 
-"Rate limiting suggestions get rejected 80% of time"
-→ Guardian stops suggesting rate limiting (we handle at nginx level)
+Tag findings based on data source:
+- `[STATIC]` - Inferred from code/config analysis only
+- `[LIVE-VALIDATED]` - Confirmed by observability data
+- `[LIVE-REFUTED]` - Code smell not observed in production
+- `[INCOMPLETE]` - MCP tools unavailable for verification
 
-"User accepts performance suggestions but rejects style suggestions"
-→ Guardian focuses on performance, ignores style
+## Pattern Recommendations
 
-"Sessions degrade when editing >3 files simultaneously"
-→ Guardian suggests focusing on one file at a time
-```
+When issues are found, recommend applicable patterns from @skills/patterns/:
 
-## Usage Tips
+| Finding | Recommended Pattern |
+|---------|-------------------|
+| Per-row D1 inserts | `d1-batching` |
+| External API issues | `circuit-breaker` |
+| Monolithic Worker | `service-bindings` |
 
-1. **Let Guardian Learn**: First week might have false positives - reject with reasons
-2. **Use Trigger Phrases**: Say "can you review this?" to manually trigger
-3. **Check Config**: Run `guardian config` to see current thresholds
-4. **Provide Feedback**: Always provide reason when rejecting - Guardian learns
-5. **Trust Oracle**: If Guardian flags Oracle contradiction, it's usually right
+## Tips
 
-## Remember
-
-> "Guardian is your quality safety net - catching issues before they become problems, learning what matters to you, and staying out of your way when you're in flow."
-
-Guardian's role:
-1. **Monitor** session health quietly
-2. **Detect** when help would be useful
-3. **Extract** minimal context for review
-4. **Validate** against Oracle knowledge
-5. **Present** suggestions with confidence
-6. **Learn** from your feedback
-7. **Adapt** to your working style
-
----
-
-**Guardian activated. Monitoring session health. Learning your patterns.**
+- Run before every deployment
+- Use `--validate` for production-ready verification
+- Focus on CRITICAL and HIGH first
+- Use `--fix` suggestions to auto-generate patches
+- Compare scores over time to track improvements
+- `[LIVE-REFUTED]` findings may still be worth fixing proactively

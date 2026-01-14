@@ -1,11 +1,7 @@
 {
   "name": "project",
-  "description": "Manage route-agent project: check status, find next tasks, spawn parallel work. Use when starting work, checking progress, or asking \"what's next?\"",
-  "repo": "bendrucker/route-agent",
-  "category": "productivity",
-  "tags": [
-    "project"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "laris-co/nat-agents-core",
+  "path": "bundles/skills/project/skill.md",
+  "source": "github.com/laris-co/nat-agents-core",
+  "downloaded_at": "2026-01-14T01:24:45.691426Z"
 }

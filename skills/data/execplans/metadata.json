@@ -1,11 +1,7 @@
 {
   "name": "execplans",
-  "description": "Write and maintain self-contained ExecPlans (execution plans) that a novice can follow end-to-end; use when planning or implementing non-trivial repo changes.",
   "repo": "leynos/agent-helper-scripts",
-  "category": "data",
-  "tags": [
-    "execplans"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/execplans/SKILL.md",
+  "source": "github.com/leynos/agent-helper-scripts",
+  "downloaded_at": "2026-01-14T01:07:45.407452Z"
 }

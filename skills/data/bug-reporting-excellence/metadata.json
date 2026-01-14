@@ -1,13 +1,7 @@
 {
   "name": "bug-reporting-excellence",
-  "description": "Write high-quality bug reports that get fixed quickly. Use when reporting bugs, training teams on bug reporting, or establishing bug report standards.",
-  "repo": "proffesor-for-testing/agentic-qe",
-  "category": "data",
-  "tags": [
-    "bug",
-    "reporting",
-    "excellence"
-  ],
-  "stars": 103,
-  "source": "SkillsMP Synced Skills"
+  "repo": "proffesor-for-testing/sentinel-api-testing",
+  "path": ".claude/skills/bug-reporting-excellence/SKILL.md",
+  "source": "github.com/proffesor-for-testing/sentinel-api-testing",
+  "downloaded_at": "2026-01-14T01:57:34.373532Z"
 }

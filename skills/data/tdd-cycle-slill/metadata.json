@@ -1,9 +1,7 @@
 {
   "name": "tdd-cycle-slill",
-  "description": "明示的に呼び出されたときにのみ読み込みます。エージェントが自律的に呼び出す必要はありません。",
   "repo": "rimanem18/hoxt-backlog",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "GitHub Search API"
+  "path": ".claude/skills/tdd-cycle-slill/SKILL.md",
+  "source": "github.com/rimanem18/hoxt-backlog",
+  "downloaded_at": "2026-01-14T03:35:56.690197Z"
 }

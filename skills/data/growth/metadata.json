@@ -1,8 +1,7 @@
 {
   "name": "growth",
-  "repo": "eddiebe147/claude-settings",
-  "category": "data",
-  "description": "Growth engine for ID8Labs. Systematic experimentation and optimization to scale products through data-driven decisions, retention focus, and sustainable acquisition channels.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:20.444069Z"
+  "repo": "SylphxAI/flow",
+  "path": "packages/flow/assets/skills/growth/SKILL.md",
+  "source": "github.com/SylphxAI/flow",
+  "downloaded_at": "2026-01-14T03:51:25.176771Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "visual-regression",
-  "description": "Setup visual regression testing with Storybook stories, configuration, and CI/CD workflows. Supports Chromatic, Percy, BackstopJS. Auto-invoke when user says \"set up visual regression\", \"add Chromatic",
-  "repo": "alekspetrov/navigator",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "anton-abyzov/specweave",
+  "path": "plugins/specweave-ui/skills/visual-regression/SKILL.md",
+  "source": "github.com/anton-abyzov/specweave",
+  "downloaded_at": "2026-01-14T03:26:45.257704Z"
 }

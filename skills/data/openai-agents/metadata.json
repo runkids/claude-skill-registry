@@ -1,12 +1,7 @@
 {
   "name": "openai-agents",
-  "description": "Build AI applications with OpenAI Agents SDK - text agents, voice agents (realtime), multi-agent workflows with handoffs, tools with Zod schemas, input/output guardrails, structured outputs, and strea",
   "repo": "jezweb/claude-skills",
-  "category": "devops",
-  "tags": [
-    "openai",
-    "agents"
-  ],
-  "stars": 109,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/openai-agents/SKILL.md",
+  "source": "github.com/jezweb/claude-skills",
+  "downloaded_at": "2026-01-14T04:01:50.276347Z"
 }

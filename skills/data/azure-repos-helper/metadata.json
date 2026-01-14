@@ -1,13 +1,7 @@
 {
   "name": "azure-repos-helper",
-  "description": "Manage Azure Repos including branches, pull requests, and code reviews. Use when working with Azure Repos or managing repository operations.",
   "repo": "ntaksh42/agents",
-  "category": "development",
-  "tags": [
-    "azure",
-    "repos",
-    "helper"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/azure-repos-helper/SKILL.md",
+  "source": "github.com/ntaksh42/agents",
+  "downloaded_at": "2026-01-14T03:51:01.346553Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "context-synthesis",
-  "description": "Token-efficient context gathering and synthesis from multiple sources (memory, docs, web). Orchestrates MCP tools to build comprehensive context before analysis or interviews. Use when starting discov",
   "repo": "1ambda/dataops-platform",
-  "category": "productivity",
-  "tags": [
-    "context",
-    "synthesis"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".copilot/skills/context-synthesis/SKILL.md",
+  "source": "github.com/1ambda/dataops-platform",
+  "downloaded_at": "2026-01-14T03:12:24.786308Z"
 }

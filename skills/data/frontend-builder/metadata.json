@@ -1,12 +1,7 @@
 {
   "name": "frontend-builder",
-  "description": "Build modern React/Next.js frontends. Use when creating web applications, choosing frontend stack, structuring components, or implementing UI/UX designs. Covers React, Next.js, Tailwind CSS, and compo",
   "repo": "daffy0208/ai-dev-standards",
-  "category": "design",
-  "tags": [
-    "frontend",
-    "builder"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": "skills/frontend-builder/SKILL.md",
+  "source": "github.com/daffy0208/ai-dev-standards",
+  "downloaded_at": "2026-01-14T03:33:09.828549Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "version-changelog-patterns",
-  "description": "When checking if skill content matches current library/framework version.",
   "repo": "CoderMariusz/MonoPilot",
-  "category": "marketing",
-  "tags": [
-    "version",
-    "changelog",
-    "patterns"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/version-changelog-patterns/SKILL.md",
+  "source": "github.com/CoderMariusz/MonoPilot",
+  "downloaded_at": "2026-01-14T03:46:39.911571Z"
 }

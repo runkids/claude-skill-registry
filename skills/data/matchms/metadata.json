@@ -1,8 +1,7 @@
 {
   "name": "matchms",
-  "repo": "davila7/claude-code-templates",
-  "category": "data",
-  "description": "Mass spectrometry analysis. Process mzML/MGF/MSP, spectral similarity (cosine, modified cosine), metadata harmonization, compound ID, for metabolomics and MS data processing.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:37.652436Z"
+  "repo": "drshailesh88/integrated_content_OS",
+  "path": "skills/scientific/matchms/SKILL.md",
+  "source": "github.com/drshailesh88/integrated_content_OS",
+  "downloaded_at": "2026-01-14T04:02:21.753371Z"
 }

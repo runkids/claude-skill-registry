@@ -1,13 +1,7 @@
 {
   "name": "collage-layout-expert",
-  "description": "\"Expert in ALL computational collage composition: photo mosaics, grid layouts, scrapbook/journal styles, magazine editorial, vision boards, mood boards, social media collages, memory walls, abstract/g",
   "repo": "erichowens/some_claude_skills",
-  "category": "data",
-  "tags": [
-    "collage",
-    "layout",
-    "expert"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/collage-layout-expert/SKILL.md",
+  "source": "github.com/erichowens/some_claude_skills",
+  "downloaded_at": "2026-01-14T02:58:39.637346Z"
 }

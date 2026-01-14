@@ -1,9 +1,7 @@
 {
   "name": "interactive-checklist",
-  "description": "Create interactive, guided checklists for multi-step workflows, validation processes, onboarding sequences, and complex procedures with step-by-step tracking and decision trees. Use when documenting c",
   "repo": "adolfoaranaes12/BMAD-ENHANCED",
-  "category": "documents",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/interactive-checklist/SKILL.md",
+  "source": "github.com/adolfoaranaes12/BMAD-ENHANCED",
+  "downloaded_at": "2026-01-14T03:09:02.665265Z"
 }

@@ -1,11 +1,7 @@
 {
   "name": "commander",
-  "description": "Use when building CLI tools with Commander.js - commands, options, arguments, and help text for Node.js command-line applications",
   "repo": "mcclowes/omg",
-  "category": "development",
-  "tags": [
-    "commander"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/commander/SKILL.md",
+  "source": "github.com/mcclowes/omg",
+  "downloaded_at": "2026-01-14T04:01:34.363342Z"
 }

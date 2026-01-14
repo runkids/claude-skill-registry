@@ -1,11 +1,7 @@
 {
   "name": "ai-handler",
-  "description": "Integrate Replicate AI models with background processing, S3 storage, and credit systems",
   "repo": "AayushBaniya2006/blinkfund",
-  "category": "data",
-  "tags": [
-    "handler"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/ai-handler/SKILL.md",
+  "source": "github.com/AayushBaniya2006/blinkfund",
+  "downloaded_at": "2026-01-14T00:52:46.238309Z"
 }

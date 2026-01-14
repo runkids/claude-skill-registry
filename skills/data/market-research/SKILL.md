@@ -1,263 +1,431 @@
 ---
 name: market-research
-description: "Professional market research and competitive analysis using McKinsey/BCG/Bain consulting methodologies. Use when analyzing markets, competitive landscapes, customer insights, or strategic positioning. Generates hypothesis-driven research with PPTX presentation deliverables."
-license: Proprietary. Complete terms in LICENSE.txt
-allowed-tools: Read, Grep, Glob, WebFetch, WebSearch, Write, Bash
+description: Deep market analysis for iOS/macOS apps including market sizing (TAM/SAM/SOM), growth trends, market maturity, entry barriers, distribution channels, and revenue potential. Use when user asks for market research, market size, market opportunity, growth potential, TAM/SAM/SOM, or market trends.
+allowed-tools: Bash(product-agent:*), Read, WebSearch, WebFetch
 ---
 
-# Market Research: MBB-Grade Analysis & PPTX Deliverables
+# Market Research Skill
 
-Execute professional market research using proven methodologies from top consulting firms (McKinsey, BCG, Bain). This skill generates hypothesis-driven analysis structured as a four-level pyramid: Segment/Market → Customers → Competitors → Your Company, culminating in a presentation-ready PPTX artifact.
+Performs deep market research for iOS/macOS app ideas. Provides market sizing, growth analysis, and opportunity assessment.
 
 ## When to Use This Skill
 
-Activate this skill when the user requests:
-- Market sizing and industry analysis
-- Competitive landscape assessment
-- Customer needs and behavioral research
-- Strategic positioning evaluation
-- Business intelligence gathering
-- Client-ready market research presentations
+Use this Skill when the user wants to:
+- Understand market size and potential
+- Analyze market growth trends
+- Calculate TAM/SAM/SOM
+- Assess market maturity
+- Identify entry barriers
+- Understand distribution channels
+- Estimate revenue potential
+- Deep-dive after initial problem discovery
 
-## Quality Standard
+**This is a follow-up to product-agent discovery** - use this when you need market depth.
 
-Work must demonstrate **master-level execution** typical of top consulting firms:
-- Every insight backed by solid numbers and cited sources
-- Strategic rigor matching McKinsey/BCG/Bain standards
-- Professional-grade visual design (avoid AI slop: no purple gradients, no centered-everything layouts, no generic templates)
-- CRAAP-validated sources only
-- Multi-source triangulation for critical findings
+## What This Skill Does
 
----
+### 1. Market Sizing (TAM/SAM/SOM)
 
-## Three-Phase Workflow
+- **TAM (Total Addressable Market):** Total revenue opportunity if you captured 100% of the market
+- **SAM (Serviceable Available Market):** Segment of TAM you can reach with your product/distribution
+- **SOM (Serviceable Obtainable Market):** Realistic share you can capture in near term (1-3 years)
 
-### Phase 1: Research Philosophy (30 minutes)
+### 2. Growth Analysis
+- Historical growth rates
+- Future projections (3-5 years)
+- Growth drivers
+- Market trends
 
-Create the strategic foundation using hypothesis-driven methodology.
+### 3. Market Maturity Assessment
+- Stage: Emerging, Growing, Mature, or Declining
+- Market lifecycle position
+- Implications for new entrants
 
-**Execute these steps:**
+### 4. Entry Barriers
+- Technical barriers
+- Brand/network effects
+- Regulatory requirements
+- Capital requirements
+- Customer acquisition costs
 
-1. **Define the problem** using SMART criteria (Specific, Measurable, Achievable, Relevant, Time-bound)
-2. **Build hypothesis tree** applying MECE principle (Mutually Exclusive, Collectively Exhaustive)
-   - Reference: `references/MBB_METHODOLOGY.md` for MECE framework details
-3. **Identify source strategy** prioritizing free, high-credibility resources
-   - Reference: `references/FREE_SOURCES_GUIDE.md` for Tier 1-3 source hierarchy
-4. **Generate research brief** using template: `templates/research-brief.md`
-5. **Establish success metrics** and validation criteria
+### 5. Distribution Channels
+- How apps in this category reach users
+- App Store dynamics
+- Alternative channels (web, enterprise, etc.)
 
-**Deliverable:** Research brief document (4-6 paragraphs) articulating:
-- Core research question and decision context
-- Hypothesis structure (MECE-validated)
-- Source identification strategy
-- Success criteria and timeline
+### 6. Revenue Potential
+- Average revenue per user (ARPU)
+- Conversion rates
+- LTV (Lifetime Value)
+- Revenue models in use
 
-**Standard:** Brief must demonstrate "strategic clarity typical of top consulting firms" - clear problem definition, structured thinking, actionable scope.
+## Output Structure
 
----
-
-### Phase 2: Pyramídová Analýza (1-2 days)
-
-Systematically collect and validate data across four analytical levels, building from broad market context (bottom) to specific company positioning (top).
-
-#### Level 4 (Pyramid Bottom): Segment & Market Analysis
-
-**Analyze:**
-- Market size (TAM, SAM, SOM)
-- Growth rate (CAGR, historical trends)
-- Key market drivers and trends
-- Development opportunities and threats
-
-**Source priority:**
-- Tier 1: Government statistics (Eurostat, US Census Bureau, national statistical offices)
-- Tier 1: Academic journals (Google Scholar, JSTOR)
-- Tier 2: Industry associations, trade publications
-- Tier 2: World Bank, OECD, IMF datasets
-
-**Validate:** Apply CRAAP test to each source (reference: `references/VALIDATION_FRAMEWORKS.md`)
-
-#### Level 3: Customer Insights
-
-**Investigate:**
-- Customer segments and demographics
-- Needs, motivations, pain points
-- Purchase barriers and decision-making process
-- Behavioral patterns and preferences
-
-**Source priority:**
-- Consumer survey data (academic research, government consumer reports)
-- Industry white papers and market research reports
-- Academic studies on consumer behavior
-- Trade association consumer research
-
-**Triangulate:** Minimum 2-3 independent sources per critical finding
-
-#### Level 2: Competitive Landscape
-
-**Profile top 3-5 competitors:**
-- Market positioning and differentiation
-- Product/service offering analysis
-- Communication strategy and brand messaging
-- How they address customer needs
-- Strengths and vulnerabilities
-
-**Source priority:**
-- Company websites and press releases
-- News articles and media coverage
-- Crunchbase, LinkedIn, public filings
-- Industry analyst reports
-- Academic case studies
-
-**Cross-validate:** Compare competitor claims against independent sources
-
-#### Level 1 (Pyramid Top): Your Company Position
-
-**Assess:**
-- Current strategy and business model
-- Organizational culture and capabilities
-- Core strengths and unique advantages
-- Brand positioning potential
-- Strategic fit with market opportunities
-
-**Synthesize:**
-- Internal documentation analysis
-- Competitive benchmarking against Level 2 findings
-- Gap analysis (market needs vs. company capabilities)
-- Strategic recommendations
-
-**Continuous synthesis:** Create "Day 1 draft" insights immediately, refine continuously. Never accumulate analysis until the end.
-
-#### Data Collection Standards
-
-For each pyramid level:
-1. **Source tracking:** Document every source in `templates/source-bibliography.md`
-2. **CRAAP validation:** Score Currency, Relevance, Authority, Accuracy, Purpose
-3. **Triangulation:** Validate critical findings with 2-3 independent sources
-4. **Documentation:** Capture methodology, limitations, confidence levels
-
-**Output:** Completed pyramid analysis using `templates/pyramid-analysis.md` structure
-
-**McKinsey principle:** "Any solution not backed by solid numbers carries heavy burden of proof"
-
----
-
-### Phase 3: PPTX Artifact Generation (1-2 hours)
-
-Transform analysis into presentation-ready PPTX using professional design standards.
-
-**Execute these steps:**
-
-1. **Prepare HTML slides** using `templates/slide-deck.html`:
-   - Dimensions: 720pt width × 405pt height (16:9 aspect ratio)
-   - ALL text must be in `<p>`, `<h1>`-`<h6>`, `<ul>`, or `<ol>` tags (html2pptx requirement)
-   - Use professional color scheme from `assets/color-scheme.json`
-   - Apply pyramid visual from `assets/pyramid-diagram.svg`
-
-2. **Generate slide content** (7-9 slides):
-   - **Slide 1:** Title - Project name, client, date
-   - **Slide 2:** Executive Summary - 3-5 key findings
-   - **Slide 3:** Segment & Market Analysis (Pyramid Level 4)
-   - **Slide 4:** Customer Insights (Pyramid Level 3)
-   - **Slide 5:** Competitive Landscape (Pyramid Level 2)
-   - **Slide 6:** Your Company Position (Pyramid Level 1)
-   - **Slide 7:** Strategic Recommendations - Action items with ownership
-   - **Slide 8:** Next Steps - Timeline and priorities
-   - **Slide 9:** Appendix: Sources Bibliography
-
-3. **Invoke PPTX generation:**
-   - Option A: Use `scripts/generate-slides.js` wrapper for document-skills/pptx
-   - Option B: Directly invoke the `pptx` skill with generated HTML
-   - Follow html2pptx workflow (see document-skills/pptx/html2pptx.md)
-
-4. **Quality validation:**
-   - Verify all text is visible (check no text in plain `<div>` or `<span>`)
-   - Confirm professional visual design (no AI slop patterns)
-   - Validate source citations on every data point
-   - Check slide flow and narrative coherence
-
-**Deliverable:** `market-research-report.pptx` - Professional presentation matching MBB standards
-
-**Standard:** "Museum-quality execution" with "meticulous attention to craft" - every slide should appear professionally designed, every insight substantiated.
-
----
-
-## Helper Scripts
-
-### Initialize New Research Project
-
-```bash
-bash scripts/init-research.sh <client-name> <industry>
+```json
+{
+  "market_category": "Task Management",
+  "market_sizing": {
+    "tam": {
+      "value": "$4.5B",
+      "description": "Global productivity software market",
+      "methodology": "Total potential revenue if product served all users globally"
+    },
+    "sam": {
+      "value": "$900M",
+      "description": "iOS/macOS task management apps (20% of TAM)",
+      "methodology": "Addressable via App Store distribution on Apple platforms"
+    },
+    "som": {
+      "value": "$45M",
+      "description": "Realistic 3-year capture (5% of SAM)",
+      "methodology": "Based on typical indie app market share penetration"
+    }
+  },
+  "market_growth": {
+    "historical_growth": "12% CAGR (2021-2025)",
+    "projected_growth": "10% CAGR (2026-2030)",
+    "growth_drivers": [
+      "Remote work adoption",
+      "Increased digital task management",
+      "Mobile-first workflows"
+    ],
+    "headwinds": [
+      "Market saturation",
+      "Consolidation toward major players"
+    ]
+  },
+  "market_maturity": {
+    "stage": "Mature",
+    "characteristics": [
+      "Established leaders (Todoist, Things)",
+      "Clear product categories",
+      "Slowing growth rate",
+      "Focus on feature differentiation"
+    ],
+    "implications": "Differentiation critical. Hard to compete on basics. Must have unique angle."
+  },
+  "entry_barriers": {
+    "low": [
+      "Technical implementation (task management is straightforward)"
+    ],
+    "medium": [
+      "Building user base in crowded market",
+      "Achieving reliable sync across devices"
+    ],
+    "high": [
+      "Brand recognition (Todoist, Things have 10+ years)",
+      "Network effects (team collaboration features)",
+      "Customer switching costs (data lock-in)"
+    ],
+    "overall_assessment": "Medium-High - Technical execution is achievable, but market position is difficult"
+  },
+  "distribution_channels": {
+    "primary": {
+      "channel": "App Store",
+      "percentage": "75%",
+      "dynamics": "Discoverability challenging. ASO critical. Top charts dominated by established apps."
+    },
+    "secondary": [
+      {
+        "channel": "Direct website",
+        "percentage": "15%",
+        "dynamics": "For power users. Allows higher pricing. Better for subscription retention."
+      },
+      {
+        "channel": "Word of mouth / Communities",
+        "percentage": "10%",
+        "dynamics": "Productivity communities, Reddit, Twitter. High-intent users."
+      }
+    ]
+  },
+  "revenue_potential": {
+    "arpu": {
+      "freemium": "$12/year (5% convert at $20/year)",
+      "paid_only": "$30-40/year",
+      "premium": "$60-100/year"
+    },
+    "conversion_rates": {
+      "free_to_paid": "3-7% industry average",
+      "trial_to_paid": "15-25% with 14-day trial"
+    },
+    "ltv": "$150-300 (2-5 year user lifecycle)",
+    "realistic_year_1": "$50K-200K (1K-5K users at $40 ARPU)",
+    "realistic_year_3": "$500K-2M (10K-50K users with growth)",
+    "path_to_scale": "Requires strong differentiation, word-of-mouth growth, and retention >85%"
+  },
+  "market_opportunity_score": "6/10 - Moderate",
+  "reasoning": "Large market with growth, but mature and competitive. Success requires clear differentiation and excellent execution. Not a 'gold rush' market, but sustainable business possible for well-positioned product."
+}
 ```
 
-Creates project structure with pre-populated templates.
+## How to Perform Market Research
 
-### Automated Source Validation
+### Step 1: Define Market Scope
 
-```bash
-python scripts/validate-sources.py <bibliography-file>
+```
+Question: What exact market are you analyzing?
+- "Task management apps" (broad)
+- "iOS task management apps" (narrower)
+- "AI-powered task management for Apple users" (specific)
+
+Start specific for better analysis.
 ```
 
-Runs automated CRAAP scoring on all documented sources, outputs validation report.
+### Step 2: Size the Market (TAM/SAM/SOM)
 
-### Generate PPTX from Analysis
+**TAM Calculation:**
+```
+Method 1: Top-down
+- Global productivity software market: $50B
+- Task management segment: ~10% = $5B TAM
 
-```bash
-node scripts/generate-slides.js <pyramid-analysis-file>
+Method 2: Bottom-up
+- Potential users globally: 500M knowledge workers
+- Willing to pay for task management: 20% = 100M
+- Average spend: $50/year
+- TAM = 100M × $50 = $5B
 ```
 
-Converts completed pyramid analysis to HTML slides, invokes document-skills/pptx for final PPTX generation.
-
----
-
-## References
-
-Detailed methodologies are in `references/` for deep consultation:
-
-- **MBB_METHODOLOGY.md** - McKinsey 7-step problem-solving process, MECE principle, Pyramid Principle, Issue Trees, 80/20 rule
-- **FREE_SOURCES_GUIDE.md** - Comprehensive guide to Tier 1-3 data sources with focus on free government and academic resources
-- **VALIDATION_FRAMEWORKS.md** - Complete CRAAP test framework, Six Essential Questions, triangulation methods
-
-Grep these files when needing specific framework details during analysis.
-
----
-
-## Common Pitfalls to Avoid
-
-1. **Accepting sources at face value** → Apply systematic CRAAP evaluation
-2. **Cherry-picking data** → Use comprehensive search, document all relevant sources
-3. **Ignoring original context** → Understand data collection purpose and limitations
-4. **Over-reliance on single database** → Multi-source triangulation mandatory
-5. **Outdated information** → Check publication dates, verify currency
-6. **Unclear methodology** → Only use sources with transparent methodology
-
----
-
-## Integration with document-skills
-
-This skill requires the **pptx** skill from Anthropic's document-skills suite for Phase 3 PPTX generation.
-
-**Setup option 1 (recommended):** Add document-skills as git submodule:
-```bash
-git submodule add https://github.com/anthropics/skills document-skills
+**SAM Calculation:**
+```
+Filter TAM by what you can reach:
+- TAM: $5B global
+- Your distribution: iOS/macOS App Store only
+- Apple users: ~30% of market = $1.5B
+- Addressable via App Store: 60% = $900M SAM
 ```
 
-**Setup option 2:** Ensure the `pptx` skill is available in your Claude environment and invoke it when Phase 3 requires PPTX generation.
+**SOM Calculation:**
+```
+Realistic capture in 3 years:
+- SAM: $900M
+- New entrant market share: 0.5-2% realistic
+- With strong differentiation: 5% optimistic
+- SOM = $900M × 1-5% = $9M-45M
+```
 
-Reference: https://github.com/anthropics/skills/tree/main/document-skills/pptx
+### Step 3: Assess Growth
+
+Use WebSearch to find:
+- Market research reports
+- Growth rate data
+- Trend articles
+
+**Key searches:**
+```
+"[category] market size 2026"
+"[category] growth rate"
+"[category] market trends 2026"
+```
+
+### Step 4: Determine Maturity
+
+**Indicators:**
+
+**Emerging** (Good for new entrants):
+- High growth (>20% CAGR)
+- No clear leaders
+- Rapid innovation
+- Unclear best practices
+
+**Growing** (Good opportunity):
+- Strong growth (10-20% CAGR)
+- Leaders emerging
+- Product-market fit established
+- Room for differentiation
+
+**Mature** (Differentiation required):
+- Moderate growth (5-10% CAGR)
+- Clear leaders
+- Established patterns
+- Compete on specific niches
+
+**Declining** (Avoid):
+- Negative or flat growth
+- Consolidation
+- Commoditization
+
+### Step 5: Identify Barriers
+
+**Low barriers → Easier entry but more competition**
+**High barriers → Harder entry but better moat if you succeed**
+
+Assess:
+- Technical complexity
+- Brand importance
+- Network effects
+- Switching costs
+- Capital needs
+
+### Step 6: Map Distribution
+
+**For iOS/macOS apps:**
+- App Store (primary) - understand ranking factors
+- TestFlight (beta)
+- Direct website (for pro users)
+- SetApp / Bundle services
+- Enterprise/B2B channels
+
+### Step 7: Estimate Revenue
+
+**Key metrics to research:**
+- Industry ARPU
+- Typical conversion rates
+- Churn rates
+- User acquisition costs
+
+**Reality check:**
+```
+Year 1: 1K-5K users (realistic for indie)
+Year 2: 5K-20K users (with growth)
+Year 3: 20K-100K users (if successful)
+
+At $40 ARPU:
+Year 1: $40K-200K
+Year 2: $200K-800K
+Year 3: $800K-4M
+```
+
+## Common Questions
+
+### "How do I calculate TAM without market reports?"
+
+**Bottom-up approach:**
+1. Estimate target user count (e.g., "iOS users who manage tasks")
+2. Research willingness to pay (look at competitor pricing)
+3. Multiply: TAM = Users × Average Spend
+
+**Proxy approach:**
+1. Find similar market (e.g., "Calendar apps")
+2. Adjust for your market differences
+3. Validate with multiple sources
+
+### "What's a 'good' market size?"
+
+**For indie developers:**
+- **SOM > $5M:** Good opportunity
+- **SOM $1-5M:** Viable if low competition
+- **SOM < $1M:** Likely too small unless niche/passion project
+
+**Remember:** $1M SOM = ~25K users at $40 ARPU (achievable!)
+
+### "How mature is too mature?"
+
+**Mature markets CAN work if:**
+- You have clear differentiation
+- Targeting underserved niche
+- Better execution than incumbents
+- Novel business model
+
+**Avoid if:**
+- No differentiation angle
+- Dominant players with network effects
+- Declining growth
+- Your idea is "me too"
+
+## Integration with Other Skills
+
+Use market-research **after** initial discovery:
+
+```
+1. product-agent discover → Problem validation
+2. market-research → Market opportunity sizing
+3. competitive-analysis → Understand players
+4. → Decision: Build vs. Don't Build
+```
+
+## Example Research Flow
+
+**User asks:** "Research the market for habit tracking apps"
+
+**You do:**
+
+1. **Define scope:**
+   - "iOS habit tracking apps targeting personal development users"
+
+2. **Calculate TAM/SAM/SOM:**
+   - TAM: Personal development app market $3B
+   - SAM: iOS habit tracking apps $300M (10%)
+   - SOM: Realistic 3-year capture $15M (5%)
+
+3. **Growth analysis (WebSearch):**
+   - Search: "habit tracking app market growth 2026"
+   - Result: 15% CAGR, driven by wellness trends
+
+4. **Maturity:**
+   - Stage: Growing (strong leaders emerging but room for innovation)
+   - Key players: Streaks, Habitica, Way of Life
+
+5. **Barriers:**
+   - Low: Technical (habit tracking is simple)
+   - Medium: Building habit formation psychology
+   - High: Established apps have user data (switching cost)
+
+6. **Distribution:**
+   - App Store: 80% (ASO critical)
+   - Wellness communities: 15%
+   - Influencer partnerships: 5%
+
+7. **Revenue potential:**
+   - ARPU: $20/year (mix of $2.99 one-time and $5/mo subscriptions)
+   - Year 3 realistic: $300K (15K users)
+
+8. **Present findings:**
+   ```
+   Market Research: Habit Tracking Apps
+
+   Market Size:
+   - TAM: $3B (personal development apps)
+   - SAM: $300M (iOS habit tracking)
+   - SOM: $15M (5% realistic 3-year capture)
+
+   Growth: 15% CAGR (wellness trend-driven)
+   Maturity: Growing (opportunity for innovation)
+
+   Opportunity Score: 7/10 - Good
+
+   Reasoning: Growing market with room for differentiation.
+   Not overcrowded like task management. Wellness trend tailwind.
+   Success depends on unique habit formation approach and
+   strong retention (>70%).
+
+   Revenue Potential:
+   - Year 1: $20K-100K
+   - Year 3: $200K-1M
+   - Requires: Good ASO, word-of-mouth, community building
+   ```
+
+## Tips for Accurate Research
+
+1. **Use Multiple Sources:** Don't rely on one number
+2. **Be Conservative:** Better to underestimate than over
+3. **Validate with Proxies:** Compare to similar successful apps
+4. **Check App Annie/Sensor Tower:** For actual app market data
+5. **Read Financial Reports:** Public companies disclose market data
+
+## When to Run This Analysis
+
+**Perfect timing:**
+- After discovery shows potential
+- Before committing to development
+- When seeking funding (investors want market size)
+- When setting revenue goals
+
+**Skip if:**
+- Discovery showed "DON'T BUILD"
+- Just experimenting/learning
+- Building for personal use only
+
+## Output File Location
+
+Save market research results to one of these locations:
+- `market-research.md` (project root)
+- `docs/market-research.md` (if docs folder exists)
+
+**Format**: Use the JSON structure in the Output Structure section, wrapped in a markdown code block with context and summary.
+
+**Integration**: The PRD generator skill will automatically look for this file and integrate the insights into the PRD's Market Context section (TAM/SAM/SOM, growth trends, entry barriers, revenue expectations).
 
 ---
 
-## Success Checklist
-
-Before delivering research to client, verify:
-
-✓ Research brief demonstrates clear hypothesis-driven approach
-✓ All four pyramid levels analyzed with CRAAP-validated sources
-✓ Critical findings triangulated with 2-3 independent sources
-✓ Every quantitative claim backed by cited source
-✓ Source bibliography complete with validation scores
-✓ PPTX presentation follows professional design standards
-✓ No AI slop patterns (generic layouts, purple gradients, etc.)
-✓ Slide narrative flows logically from market to company
-✓ Recommendations are specific, actionable, and prioritized
-✓ Final deliverable matches McKinsey/BCG/Bain quality standards
+**Remember:** Market research informs GO/NO-GO decisions. A big market with competition beats a tiny market with no competition (usually).

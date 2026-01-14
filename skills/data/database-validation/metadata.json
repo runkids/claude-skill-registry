@@ -1,8 +1,7 @@
 {
   "name": "database-validation",
   "repo": "Hieubkav/wincellarCloneBackend",
-  "category": "data",
-  "description": "Comprehensive database security scanning and data integrity validation. Identify security vulnerabilities, enforce OWASP compliance, validate data types/formats/ranges, ensure referential integrity, a",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:01.430158Z"
+  "path": ".claude/skills/database/database-validation/SKILL.md",
+  "source": "github.com/Hieubkav/wincellarCloneBackend",
+  "downloaded_at": "2026-01-14T01:35:22.261316Z"
 }

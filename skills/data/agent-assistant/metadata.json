@@ -1,8 +1,7 @@
 {
   "name": "agent-assistant",
-  "repo": "nahisaho/MUSUBI",
-  "category": "data",
-  "description": "Agent assistance skill that provides stuck detection, memory management, and session learning capabilities for AI agentsTrigger terms: agent stuck, loop detected, session memory, agent learning, conde",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:05.008588Z"
+  "repo": "gaebalai/itda-sdd",
+  "path": "src/templates/agents/claude-code/skills/agent-assistant/SKILL.md",
+  "source": "github.com/gaebalai/itda-sdd",
+  "downloaded_at": "2026-01-14T03:55:15.491647Z"
 }

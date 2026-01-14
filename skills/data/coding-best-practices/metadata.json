@@ -1,13 +1,7 @@
 {
   "name": "coding-best-practices",
-  "description": "Reviews Swift/iOS code for adherence to modern Swift idioms, Apple platform best practices, architecture patterns, and code quality standards. Use when user mentions best practices, code review, clean",
-  "repo": "rshankras/claude-code-ios-skills",
-  "category": "development",
-  "tags": [
-    "coding",
-    "best",
-    "practices"
-  ],
-  "stars": 5,
-  "source": "local"
+  "repo": "rshankras/claude-code-apple-skills",
+  "path": "skills/macos/coding-best-practices/skill.md",
+  "source": "github.com/rshankras/claude-code-apple-skills",
+  "downloaded_at": "2026-01-14T02:22:10.325541Z"
 }

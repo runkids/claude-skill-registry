@@ -13,27 +13,27 @@ Extract the current session and generate an improvement prompt:
 
 ```bash
 # Auto-detect agent and extract current session
-./scripts/extract-session.js
+./scripts/extract-session.cjs
 ```
 
 ## Session Extraction
 
-The `extract-session.js` script finds and parses session files from any of the three agents:
+The `extract-session.cjs` script finds and parses session files from any of the three agents:
 
 ```bash
 # Auto-detect (uses most recent session for current working directory)
-./scripts/extract-session.js
+./scripts/extract-session.cjs
 
 # Specify agent type
-./scripts/extract-session.js --agent claude
-./scripts/extract-session.js --agent pi
-./scripts/extract-session.js --agent codex
+./scripts/extract-session.cjs --agent claude
+./scripts/extract-session.cjs --agent pi
+./scripts/extract-session.cjs --agent codex
 
 # Specify a different working directory
-./scripts/extract-session.js --cwd /path/to/project
+./scripts/extract-session.cjs --cwd /path/to/project
 
 # Use a specific session file
-./scripts/extract-session.js /path/to/session.jsonl
+./scripts/extract-session.cjs /path/to/session.jsonl
 ```
 
 **Session file locations:**
@@ -47,7 +47,7 @@ When asked to improve a skill based on a session:
 
 1. **Extract the session transcript:**
    ```bash
-   ./scripts/extract-session.js > /tmp/session-transcript.txt
+   ./scripts/extract-session.cjs > /tmp/session-transcript.txt
    ```
 
 2. **Find the existing skill** in one of these locations:
@@ -58,9 +58,9 @@ When asked to improve a skill based on a session:
 3. **Generate an improvement prompt** for a new session:
 
 ```
-═══════════════════════════════════════════════════════════════════════════════
+===============================================================================
 COPY THE FOLLOWING PROMPT INTO A NEW AGENT SESSION:
-═══════════════════════════════════════════════════════════════════════════════
+===============================================================================
 
 I need to improve the "<skill-name>" skill based on a session where I used it.
 
@@ -84,7 +84,7 @@ Based on this analysis, improve the skill by:
 
 Write the improved skill back to the same location.
 
-═══════════════════════════════════════════════════════════════════════════════
+===============================================================================
 ```
 
 ## Workflow: Create a New Skill
@@ -93,15 +93,15 @@ When asked to create a new skill from a session:
 
 1. **Extract the session transcript:**
    ```bash
-   ./scripts/extract-session.js > /tmp/session-transcript.txt
+   ./scripts/extract-session.cjs > /tmp/session-transcript.txt
    ```
 
 2. **Generate a creation prompt** for a new session:
 
 ```
-═══════════════════════════════════════════════════════════════════════════════
+===============================================================================
 COPY THE FOLLOWING PROMPT INTO A NEW AGENT SESSION:
-═══════════════════════════════════════════════════════════════════════════════
+===============================================================================
 
 Analyze this session transcript to extract a reusable skill called "<skill-name>":
 
@@ -131,7 +131,7 @@ description: "<one-line description>"
 
 <instructions and examples>
 
-═══════════════════════════════════════════════════════════════════════════════
+===============================================================================
 ```
 
 ## Why a Separate Session?

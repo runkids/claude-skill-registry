@@ -1,11 +1,7 @@
 {
   "name": "json-transformer",
-  "description": "Transform, manipulate, and analyze JSON data structures with advanced operations.",
   "repo": "CuriousLearner/devkit",
-  "category": "data",
-  "tags": [
-    "json",
-    "transformer"
-  ],
-  "stars": 13
+  "path": "skills/json-transformer/SKILL.md",
+  "source": "github.com/CuriousLearner/devkit",
+  "downloaded_at": "2026-01-14T02:22:36.261543Z"
 }

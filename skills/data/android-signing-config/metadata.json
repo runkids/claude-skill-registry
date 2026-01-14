@@ -1,13 +1,7 @@
 {
   "name": "android-signing-config",
-  "description": "Configure Android release build signing with dual-source credentials (env vars + gradle.properties)",
   "repo": "hitoshura25/claude-devtools",
-  "category": "development",
-  "tags": [
-    "android",
-    "signing",
-    "config"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/android-signing-config/SKILL.md",
+  "source": "github.com/hitoshura25/claude-devtools",
+  "downloaded_at": "2026-01-14T03:07:10.652916Z"
 }

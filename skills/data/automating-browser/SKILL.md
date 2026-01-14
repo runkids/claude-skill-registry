@@ -1,99 +1,95 @@
 ---
 name: automating-browser
 description: >
-  Interactive browser automation using claude-in-chrome MCP tools.
-  Best for: demos, documentation GIFs, manual testing, live browser control.
-  For automated E2E testing in CI/CD, use webapp-testing skill instead.
-  Triggers: browser automation, ブラウザ自動化, screenshot, スクリーンショット,
+  claude-in-chrome MCPツールを使用したインタラクティブブラウザ自動化。
+  最適な用途: デモ、ドキュメントGIF、手動テスト、ライブブラウザ制御。
+  CI/CDでの自動E2Eテストには、代わりにwebapp-testingスキルを使用。
+  トリガー: browser automation, ブラウザ自動化, screenshot, スクリーンショット,
   form fill, フォーム入力, click, navigate, GIF recording, GIF録画,
   ブラウザ操作, Chrome, demo, デモ, live browser.
-allowed-tools:
-  - Read
-  - Glob
-  - mcp__claude-in-chrome__*
-context: fork
+allowed-tools: Read, Glob, mcp__claude-in-chrome__*
 ---
 
-# Browser Automation Guide
+# ブラウザ自動化ガイド
 
-Interactive browser control using claude-in-chrome MCP extension.
+claude-in-chrome MCP拡張機能を使用したインタラクティブなブラウザ制御。
 
-## Purpose
+## 目的
 
-Enable **interactive** browser automation for:
+以下のための**インタラクティブ**ブラウザ自動化を有効化:
 
-- Demo recordings and GIF documentation
-- Manual testing with live browser feedback
-- Form filling and real-time interaction
-- Screenshot capture for visual verification
-- Web data extraction from current browser
+- デモ録画とGIFドキュメント
+- ライブブラウザフィードバック付き手動テスト
+- フォーム入力とリアルタイムインタラクション
+- 視覚的検証のためのスクリーンショットキャプチャ
+- 現在のブラウザからのWebデータ抽出
 
-## When to Use This Skill
+## このスキルの使用タイミング
 
-| Use Case                      | This Skill      | webapp-testing (official) |
-| ----------------------------- | --------------- | ------------------------- |
-| GIF recording / demos         | [Best]          | [Not supported]           |
-| Manual testing / verification | [Best]          | [OK]                      |
-| CI/CD automated testing       | [OK]            | [Best]                    |
-| Testing with server lifecycle | [Not supported] | [Best] with_server.py     |
-| Using existing Chrome session | [Supported]     | [Not supported]           |
+| ユースケース                     | このスキル | webapp-testing（公式） |
+| -------------------------------- | ---------- | ---------------------- |
+| GIF録画/デモ                     | [最適]     | [非対応]               |
+| 手動テスト/検証                  | [最適]     | [OK]                   |
+| CI/CD自動テスト                  | [OK]       | [最適]                 |
+| サーバーライフサイクル付きテスト | [非対応]   | [最適] with_server.py  |
+| 既存Chromeセッションの使用       | [対応]     | [非対応]               |
 
-**Quick decision**: "Show & verify" → this skill, "Automate & run" → webapp-testing
+**クイック判断**: 「見せて検証」→このスキル、「自動化して実行」→webapp-testing
 
-## Getting Started
+## はじめに
 
-### 1. Tab Context Required
+### 1. タブコンテキスト必須
 
-**Always start with**:
+**常にここから開始**:
 
 ```text
 mcp__claude-in-chrome__tabs_context_mcp
 ```
 
-This provides available tab IDs for subsequent operations.
+これにより、後続の操作に使用可能なタブIDが提供される。
 
-### 2. Create or Reuse Tab
+### 2. タブの作成または再利用
 
 ```markdown
-# Create new tab
+# 新しいタブを作成
 
 mcp**claude-in-chrome**tabs_create_mcp
 
-# Or use existing tab from context
+# またはコンテキストから既存のタブを使用
 ```
 
-### 3. Navigation
+### 3. ナビゲーション
 
 ```text
 mcp__claude-in-chrome__navigate
   url: "https://example.com"
-  tabId: {obtained from tabs_context_mcp}
+  tabId: {tabs_context_mcpから取得}
 ```
 
-## Core Tools
+## コアツール
 
-| Tool               | Purpose                         |
-| ------------------ | ------------------------------- |
-| `tabs_context_mcp` | Get available tabs              |
-| `tabs_create_mcp`  | Create new tab                  |
-| `navigate`         | Go to URL                       |
-| `read_page`        | Get page structure              |
-| `find`             | Natural language element search |
-| `form_input`       | Fill form fields                |
-| `computer`         | Mouse/keyboard actions          |
-| `get_page_text`    | Extract text content            |
-| `gif_creator`      | Record interactions             |
+| ツール             | 目的                        |
+| ------------------ | --------------------------- |
+| `tabs_context_mcp` | 利用可能なタブを取得        |
+| `tabs_create_mcp`  | 新しいタブを作成            |
+| `navigate`         | URLに移動                   |
+| `read_page`        | ページ構造を取得            |
+| `find`             | 自然言語での要素検索        |
+| `form_input`       | フォームフィールドを入力    |
+| `computer`         | マウス/キーボードアクション |
+| `get_page_text`    | テキストコンテンツを抽出    |
+| `gif_creator`      | インタラクションを録画      |
 
-## Reading Page Content
+## ページコンテンツの読み取り
 
-| Tool                                     | Use Case                               |
-| ---------------------------------------- | -------------------------------------- |
-| `read_page`                              | Get accessibility tree (DOM structure) |
-| `read_page` with `filter: "interactive"` | Buttons, links, inputs only            |
-| `find`                                   | Natural language element search        |
-| `get_page_text`                          | Extract article/main text              |
+| ツール                                   | ユースケース                            |
+| ---------------------------------------- | --------------------------------------- |
+| `read_page`                              | アクセシビリティツリー（DOM構造）を取得 |
+| `read_page` with `filter: "interactive"` | ボタン、リンク、入力のみ                |
+| `find`                                   | 自然言語での要素検索                    |
+| `get_page_text`                          | 記事/メインテキストを抽出               |
 
-### Example: Read Interactive Elements
+### 例: インタラクティブ要素の読み取り
 
 ```text
 mcp__claude-in-chrome__read_page
@@ -101,13 +97,13 @@ mcp__claude-in-chrome__read_page
   filter: "interactive"
 ```
 
-## Common Patterns
+## 一般的なパターン
 
-### Form Filling
+### フォーム入力
 
-1. `read_page` with `filter: "interactive"` to find inputs
-2. Identify input `ref_id` (e.g., `ref_1`, `ref_2`)
-3. `form_input` with ref and value
+1. `read_page` with `filter: "interactive"` で入力を検索
+2. 入力の `ref_id` を特定（例: `ref_1`, `ref_2`）
+3. `form_input` で ref と値を指定
 
 ```text
 mcp__claude-in-chrome__form_input
@@ -116,16 +112,16 @@ mcp__claude-in-chrome__form_input
   value: "user@example.com"
 ```
 
-### Click Actions
+### クリックアクション
 
 ```text
 mcp__claude-in-chrome__computer
   tabId: 123
   action: "left_click"
-  ref: "ref_10"  # Or coordinate: [100, 200]
+  ref: "ref_10"  # または座標: [100, 200]
 ```
 
-### Screenshot Capture
+### スクリーンショットキャプチャ
 
 ```text
 mcp__claude-in-chrome__computer
@@ -133,31 +129,31 @@ mcp__claude-in-chrome__computer
   action: "screenshot"
 ```
 
-### GIF Recording
+### GIF録画
 
-1. Start recording
-2. Take screenshot (initial frame)
-3. Perform actions
-4. Take screenshot (final frame)
-5. Stop recording
-6. Export
+1. 録画開始
+2. スクリーンショット撮影（初期フレーム）
+3. アクション実行
+4. スクリーンショット撮影（最終フレーム）
+5. 録画停止
+6. エクスポート
 
 ```markdown
-# Start
+# 開始
 
 mcp**claude-in-chrome**gif_creator
 tabId: 123
 action: "start_recording"
 
-# ... perform actions with screenshots ...
+# ... スクリーンショット付きでアクション実行 ...
 
-# Stop
+# 停止
 
 mcp**claude-in-chrome**gif_creator
 tabId: 123
 action: "stop_recording"
 
-# Export
+# エクスポート
 
 mcp**claude-in-chrome**gif_creator
 tabId: 123
@@ -166,34 +162,34 @@ download: true
 filename: "workflow-demo.gif"
 ```
 
-## Detailed References
+## 詳細参照
 
-| Reference                                                                         | Purpose                     |
-| --------------------------------------------------------------------------------- | --------------------------- |
-| [@./references/claude-in-chrome-tools.md](./references/claude-in-chrome-tools.md) | Complete tool documentation |
-| [@./references/common-patterns.md](./references/common-patterns.md)               | Reusable workflow patterns  |
-| [@./references/e2e-testing.md](./references/e2e-testing.md)                       | E2E testing methodology     |
+| 参照                                                                              | 目的                             |
+| --------------------------------------------------------------------------------- | -------------------------------- |
+| [@./references/claude-in-chrome-tools.md](./references/claude-in-chrome-tools.md) | 完全なツールドキュメント         |
+| [@./references/common-patterns.md](./references/common-patterns.md)               | 再利用可能なワークフローパターン |
+| [@./references/e2e-testing.md](./references/e2e-testing.md)                       | E2Eテスト方法論                  |
 
-## Security Notes
+## セキュリティ注意事項
 
-- Always use `update_plan` for multi-domain operations
-- Sensitive data handling requires user confirmation
-- Never auto-submit forms with financial information
-- Be aware of bot detection systems (CAPTCHA)
+- 複数ドメイン操作には常に `update_plan` を使用
+- 機密データ処理にはユーザー確認が必要
+- 金融情報を含むフォームを自動送信しない
+- ボット検出システム（CAPTCHA）に注意
 
-## References
+## 参照
 
-### Related Skills
+### 関連スキル
 
-- `webapp-testing` (official) - Playwright E2E automated testing (CI/CD optimized)
-- `utilizing-cli-tools` - CLI tools guide
-- `generating-tdd-tests` - Test design
+- `webapp-testing`（公式） - Playwright E2E自動テスト（CI/CD最適化）
+- `utilizing-cli-tools` - CLIツールガイド
+- `generating-tdd-tests` - テスト設計
 
-### Used by Commands
+### 使用コマンド
 
-- `/e2e` - E2E test + documentation generation
-- `/test` - E2E test execution (includes browser testing)
+- `/e2e` - E2Eテスト + ドキュメント生成
+- `/test` - E2Eテスト実行（ブラウザテスト含む）
 
-### See Also
+### 参照
 
-- `/example-skills:webapp-testing` - Official skill (Playwright + with_server.py)
+- `/example-skills:webapp-testing` - 公式スキル（Playwright + with_server.py）

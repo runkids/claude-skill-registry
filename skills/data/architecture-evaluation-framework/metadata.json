@@ -1,13 +1,7 @@
 {
   "name": "architecture-evaluation-framework",
-  "description": "Comprehensive architectural analysis and evaluation framework for system architecture assessment. Use for architecture pattern identification, SOLID principles evaluation, coupling/cohesion analysis, ",
   "repo": "doctorduke/claude-config",
-  "category": "data",
-  "tags": [
-    "architecture",
-    "evaluation",
-    "framework"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/architecture-evaluation-framework/SKILL.md",
+  "source": "github.com/doctorduke/claude-config",
+  "downloaded_at": "2026-01-14T03:47:48.524383Z"
 }

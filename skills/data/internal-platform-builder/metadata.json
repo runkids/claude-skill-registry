@@ -1,13 +1,7 @@
 {
   "name": "internal-platform-builder",
-  "description": "Design and build internal developer platforms for self-service infrastructure",
   "repo": "Dexploarer/hyper-forge",
-  "category": "development",
-  "tags": [
-    "internal",
-    "platform",
-    "builder"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": ".claude/skills/internal-platform-builder/SKILL.md",
+  "source": "github.com/Dexploarer/hyper-forge",
+  "downloaded_at": "2026-01-14T03:02:58.314828Z"
 }

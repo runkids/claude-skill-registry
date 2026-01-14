@@ -1,11 +1,7 @@
 {
   "name": "caveman",
-  "description": "Compress and simplify prompts to preserve meaning while reducing use of context",
   "repo": "jwiegley/claude-prompts",
-  "category": "devops",
-  "tags": [
-    "caveman"
-  ],
-  "stars": 4,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/caveman/SKILL.md",
+  "source": "github.com/jwiegley/claude-prompts",
+  "downloaded_at": "2026-01-14T03:43:31.961899Z"
 }

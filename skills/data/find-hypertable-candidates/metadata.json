@@ -1,13 +1,7 @@
 {
   "name": "find-hypertable-candidates",
-  "description": "Analyze an existing PostgreSQL database to identify tables that would benefit from conversion to TimescaleDB hypertables",
   "repo": "timescale/pg-aiguide",
-  "category": "data",
-  "tags": [
-    "find",
-    "hypertable",
-    "candidates"
-  ],
-  "stars": 158,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/find-hypertable-candidates/SKILL.md",
+  "source": "github.com/timescale/pg-aiguide",
+  "downloaded_at": "2026-01-14T01:53:07.520398Z"
 }

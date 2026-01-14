@@ -1,13 +1,7 @@
 {
   "name": "researcher-role-skill",
-  "description": "Professional technical solutions research skill for investigating technologies,analyzing best practices, evaluating feasibility, and producing comprehensivereports with actionable recommendations for ",
-  "repo": "enuno/claude-command-and-control",
-  "category": "development",
-  "tags": [
-    "researcher",
-    "role",
-    "skill"
-  ],
-  "stars": 3,
-  "source": "local"
+  "repo": "Ryno-Crypto-Mining-Services/braiins-insights-mcp-server",
+  "path": "docs/claude/skills/researcher-role-skill/SKILL.md",
+  "source": "github.com/Ryno-Crypto-Mining-Services/braiins-insights-mcp-server",
+  "downloaded_at": "2026-01-14T00:59:36.285382Z"
 }

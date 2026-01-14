@@ -1,12 +1,7 @@
 {
   "name": "context-degradation",
-  "description": "This skill should be used when the user asks to \"diagnose context problems\", \"fix lost-in-middle issues\", \"debug agent failures\", \"understand context poisoning\", or mentions context degradation, atten",
-  "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
-  "category": "development",
-  "tags": [
-    "context",
-    "degradation"
-  ],
-  "stars": 5035,
-  "source": "SkillsMP Synced Skills"
+  "repo": "mjunaidca/mjs-agent-skills",
+  "path": ".claude/skills/context-degradation/SKILL.md",
+  "source": "github.com/mjunaidca/mjs-agent-skills",
+  "downloaded_at": "2026-01-14T01:43:14.223053Z"
 }

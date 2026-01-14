@@ -1,7 +1,13 @@
 ---
 name: Confidence Honesty
-description: "Force honest confidence assessment before claiming conclusions. Triggers on 'root cause identified', 'problem identified', 'complete clarity'. Express confidence as percentage, explain what's stopping 100%, validate assumptions before presenting."
-version: 1.0.0
+description: Force honest confidence assessment before claiming conclusions. Triggers on 'root cause identified', 'problem identified', 'complete clarity'. Express confidence as percentage, explain what's stopping 100%, validate assumptions before presenting.
+---
+
+# GitHub Copilot Skill: confidence-honesty
+
+> **Note:** This skill has been adapted from [claude-skillz](https://github.com/NTCoding/claude-skillz) 
+> for use with GitHub Copilot Agent Skills.
+
 ---
 
 # Confidence Honesty

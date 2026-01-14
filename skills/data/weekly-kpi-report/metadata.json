@@ -1,12 +1,7 @@
 {
   "name": "weekly-kpi-report",
-  "description": "Generate McKinsey-style board presentation PPTs from weekly auto insurance data. Automatically calculates 16+ KPIs, creates executive-level slides with actionable insights, and supports week-over-week",
   "repo": "alongor666/chexianduoweifenxi",
-  "category": "data",
-  "tags": [
-    "weekly",
-    "kpi",
-    "report"
-  ],
-  "stars": 0
+  "path": ".claude/skills/weekly-kpi-report/SKILL.md",
+  "source": "github.com/alongor666/chexianduoweifenxi",
+  "downloaded_at": "2026-01-14T02:29:04.289831Z"
 }

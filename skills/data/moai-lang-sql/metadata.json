@@ -1,12 +1,7 @@
 {
   "name": "moai-lang-sql",
-  "description": "SQL best practices with pgTAP, sqlfluff 3.2, query optimization, and migration management.",
   "repo": "kivo360/quickhooks",
-  "category": "data",
-  "tags": [
-    "moai",
-    "lang",
-    "sql"
-  ],
-  "stars": 0
+  "path": ".claude/skills/moai-lang-sql/SKILL.md",
+  "source": "github.com/kivo360/quickhooks",
+  "downloaded_at": "2026-01-14T03:32:55.451861Z"
 }

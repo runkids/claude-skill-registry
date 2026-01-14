@@ -1,9 +1,7 @@
 {
   "name": "skill-creator-plus",
-  "description": "Enhanced skill creation framework emphasizing philosophy-first design, anti-pattern prevention, and variation encouragement. Use when creating new skills, improving existing skills, analyzing skill qu",
   "repo": "andhikapraa/curhatin-ai",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/skill-creator-plus/SKILL.md",
+  "source": "github.com/andhikapraa/curhatin-ai",
+  "downloaded_at": "2026-01-14T03:36:16.135615Z"
 }

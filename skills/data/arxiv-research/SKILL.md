@@ -1,37 +1,49 @@
 ---
 name: arxiv-research
-description: Download and analyze academic papers from arXiv. Use when users want to download a specific paper by ID (e.g., "download paper arxiv:1234.5678") or read/analyze papers they've already downloaded.
+description: arXiv paper search and academic research
+allowed-tools: [Bash, Read, WebFetch]
 ---
 
-# arXiv Research
+# arXiv Research Skill
 
-Download and analyze academic papers from arXiv by paper ID.
+## Overview
 
-## Scripts
+Academic paper search and research on arXiv. 90%+ context savings.
 
-All scripts in `scripts/` directory. Run with `uv run --with pymupdf python <script>` (pymupdf only needed for read_paper.py).
+## Tools (Progressive Disclosure)
 
-### download_paper.py
-```bash
-python scripts/download_paper.py PAPER_ID [--json]
-```
-Downloads PDF to `~/.arxiv-papers/`
+### Search
 
-### list_papers.py
-```bash
-python scripts/list_papers.py [--json]
-```
-Lists all downloaded papers.
+| Tool            | Description            |
+| --------------- | ---------------------- |
+| search          | Search papers by query |
+| search-author   | Search by author       |
+| search-category | Search by category     |
 
-### read_paper.py
-```bash
-uv run --with pymupdf python scripts/read_paper.py PAPER_ID [-p MAX_PAGES] [--json]
-```
-Extracts text from downloaded PDF. Requires pymupdf.
+### Paper Details
 
-## Workflow
+| Tool         | Description        |
+| ------------ | ------------------ |
+| get-paper    | Get paper metadata |
+| get-abstract | Get paper abstract |
+| get-pdf      | Download PDF link  |
 
-1. Download paper by ID: `python scripts/download_paper.py ID`
-2. Read: `uv run --with pymupdf python scripts/read_paper.py ID`
+### Categories
 
-Storage: `~/.arxiv-papers/` (override with `ARXIV_STORAGE_PATH` env var)
+| Tool            | Description               |
+| --------------- | ------------------------- |
+| list-categories | List arXiv categories     |
+| recent-papers   | Recent papers in category |
+
+### Common Categories
+
+- cs.AI (Artificial Intelligence)
+- cs.LG (Machine Learning)
+- cs.CL (Computation and Language)
+- cs.CV (Computer Vision)
+- cs.SE (Software Engineering)
+
+## Agent Integration
+
+- **analyst** (primary): Research analysis
+- **llm-architect** (secondary): AI paper research

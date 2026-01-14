@@ -1,12 +1,7 @@
 {
   "name": "model-comparison-tool",
-  "description": "Use when asked to compare multiple ML models, perform cross-validation, evaluate metrics, or select the best model for a classification/regression task.",
   "repo": "dkyazzentwatwa/chatgpt-skills",
-  "category": "data",
-  "tags": [
-    "model",
-    "comparison",
-    "tool"
-  ],
-  "stars": 1
+  "path": "model-comparison-tool/SKILL.md",
+  "source": "github.com/dkyazzentwatwa/chatgpt-skills",
+  "downloaded_at": "2026-01-14T01:42:55.828243Z"
 }

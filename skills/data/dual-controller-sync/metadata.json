@@ -1,13 +1,7 @@
 {
   "name": "dual-controller-sync",
-  "description": "Debug and synchronize communication between the robocar main controller (Heltec WiFi LoRa 32) and camera module (ESP32-CAM)",
   "repo": "laurigates/mcu-tinkering-lab",
-  "category": "development",
-  "tags": [
-    "dual",
-    "controller",
-    "sync"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/dual-controller-sync/SKILL.md",
+  "source": "github.com/laurigates/mcu-tinkering-lab",
+  "downloaded_at": "2026-01-14T02:06:55.734764Z"
 }

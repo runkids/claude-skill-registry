@@ -1,12 +1,7 @@
 {
   "name": "project-estimation",
-  "description": "Estimate project scope, timeline, and resource requirements using multiple estimation techniques including bottom-up, top-down, and analogous estimation methods for accurate project planning.",
   "repo": "aj-geddes/useful-ai-prompts",
-  "category": "design",
-  "tags": [
-    "project",
-    "estimation"
-  ],
-  "stars": 25,
-  "source": "local"
+  "path": "skills/project-estimation/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:10.363173Z"
 }

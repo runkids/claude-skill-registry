@@ -1,0 +1,13 @@
+{
+  "name": "api-endpoint-creator",
+  "description": "新しいAPIエンドポイントを追加する際に使用。Huma API、Echo、Handler/Service/Repositoryの3層構成、エンドポイント登録パターンを適用。REST API、新規エンドポイント、CRUD APIを追加する場合に使用。",
+  "repo": "taku-o/go-webdb-template",
+  "category": "development",
+  "tags": [
+    "api",
+    "endpoint",
+    "creator"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

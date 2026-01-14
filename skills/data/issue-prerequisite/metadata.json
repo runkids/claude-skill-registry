@@ -1,12 +1,7 @@
 {
   "name": "issue-prerequisite",
-  "description": "Use before starting ANY work - hard gate ensuring a GitHub issue exists, creating one if needed through user questioning",
-  "repo": "troykelly/claude-skills",
-  "category": "design",
-  "tags": [
-    "issue",
-    "prerequisite"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "troykelly/codex-skills",
+  "path": "skills/issue-prerequisite/SKILL.md",
+  "source": "github.com/troykelly/codex-skills",
+  "downloaded_at": "2026-01-14T03:34:03.346009Z"
 }

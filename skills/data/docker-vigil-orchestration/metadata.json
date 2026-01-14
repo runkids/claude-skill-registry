@@ -1,13 +1,7 @@
 {
   "name": "docker-vigil-orchestration",
-  "description": "Docker Compose orchestration for Vigil Guard v2.0.0 microservices (11 services). Use when deploying services, managing containers, troubleshooting Docker network issues, working with vigil-net, config",
   "repo": "tbartel74/Vigil-Code",
-  "category": "devops",
-  "tags": [
-    "docker",
-    "vigil",
-    "orchestration"
-  ],
-  "stars": 5,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/docker-vigil-orchestration/SKILL.md",
+  "source": "github.com/tbartel74/Vigil-Code",
+  "downloaded_at": "2026-01-14T02:46:39.333422Z"
 }

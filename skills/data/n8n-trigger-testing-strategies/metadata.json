@@ -1,14 +1,7 @@
 {
   "name": "n8n-trigger-testing-strategies",
-  "description": "Webhook testing, schedule validation, event-driven triggers, and polling mechanism testing for n8n workflows. Use when testing how workflows are triggered.",
-  "repo": "proffesor-for-testing/agentic-qe",
-  "category": "testing",
-  "tags": [
-    "n8n",
-    "trigger",
-    "testing",
-    "strategies"
-  ],
-  "stars": 103,
-  "source": "SkillsMP Synced Skills"
+  "repo": "natea/ai-news-influencer",
+  "path": ".claude/skills/n8n-trigger-testing-strategies/SKILL.md",
+  "source": "github.com/natea/ai-news-influencer",
+  "downloaded_at": "2026-01-14T01:54:48.906282Z"
 }

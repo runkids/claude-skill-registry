@@ -1,8 +1,7 @@
 {
   "name": "video-transcribe",
   "repo": "taiyousan15/taisun_agent",
-  "category": "data",
-  "description": "\u52d5\u753b\u30fb\u97f3\u58f0\u306e\u6587\u5b57\u8d77\u3053\u3057\u3002\u30ed\u30fc\u30ab\u30ebWhisper\uff08\u7121\u6599\uff09\u3068OpenAI API\uff08\u9ad8\u901f\uff09\u306e2\u30e2\u30fc\u30c9\u5bfe\u5fdc\u3002",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:42.982332Z"
+  "path": ".claude/skills/video-transcribe/SKILL.md",
+  "source": "github.com/taiyousan15/taisun_agent",
+  "downloaded_at": "2026-01-14T03:51:15.210736Z"
 }

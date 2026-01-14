@@ -1,12 +1,7 @@
 {
   "name": "seo-expert",
-  "description": "Эксперт SEO. Используй для поисковой оптимизации, keyword research, technical SEO и link building.",
   "repo": "dengineproblem/agents-monorepo",
-  "category": "development",
-  "tags": [
-    "seo",
-    "expert"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/seo-expert/SKILL.md",
+  "source": "github.com/dengineproblem/agents-monorepo",
+  "downloaded_at": "2026-01-14T02:07:57.344827Z"
 }

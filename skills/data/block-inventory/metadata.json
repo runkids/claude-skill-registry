@@ -1,12 +1,7 @@
 {
   "name": "block-inventory",
-  "description": "Survey available blocks from local AEM Edge Delivery Services project and Block Collection to understand the block palette available for authoring. Returns block inventory with purposes to inform cont",
-  "repo": "ddttom/webcomponents-with-eds",
-  "category": "data",
-  "tags": [
-    "block",
-    "inventory"
-  ],
-  "stars": 5,
-  "source": "SkillsMP Synced Skills"
+  "repo": "ddttom/allaboutv2",
+  "path": ".claude/skills/block-inventory/SKILL.md",
+  "source": "github.com/ddttom/allaboutv2",
+  "downloaded_at": "2026-01-14T03:56:58.936529Z"
 }

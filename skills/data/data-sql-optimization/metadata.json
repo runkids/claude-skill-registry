@@ -1,8 +1,7 @@
 {
   "name": "data-sql-optimization",
   "repo": "vasilyu1983/AI-Agents-public",
-  "category": "data",
-  "description": "Production-grade SQL optimization with AI-assisted query analysis, EXPLAIN ANALYZE automation, balanced indexing strategies, performance tuning, schema design, and operations across PostgreSQL, MySQL,",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:59.039648Z"
+  "path": "frameworks/shared-skills/skills/data-sql-optimization/SKILL.md",
+  "source": "github.com/vasilyu1983/AI-Agents-public",
+  "downloaded_at": "2026-01-14T03:09:10.663875Z"
 }

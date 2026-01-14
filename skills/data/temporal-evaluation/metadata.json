@@ -1,12 +1,7 @@
 {
   "name": "temporal-evaluation",
-  "description": "Calculates time-based task status including overdue detection, urgency levels (urgent/upcoming/soon), and relative time displays. Updates temporal status every 60 seconds with timezone-aware compariso",
-  "repo": "Syedaashnaghazanfar/full-stack-todo-app",
-  "category": "productivity",
-  "tags": [
-    "temporal",
-    "evaluation"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "SOFIA-ASIF/TaskFlow-ToDo-APP",
+  "path": ".claude/skills/temporal-evaluation/SKILL.md",
+  "source": "github.com/SOFIA-ASIF/TaskFlow-ToDo-APP",
+  "downloaded_at": "2026-01-14T03:11:59.079586Z"
 }

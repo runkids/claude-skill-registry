@@ -1,10 +1,7 @@
 {
   "name": "cortex",
-  "description": "CLI for managing the Cortex email automation pipeline. Use this skill when the user wants to query emails, check queue status, trigger backfills, view classifications, or manage the email triage syste",
-  "repo": "devonjones/cortex-utils",
-  "category": "data",
-  "tags": [
-    "cortex"
-  ],
-  "stars": 0
+  "repo": "bacoco/EvolveSkill",
+  "path": ".claude/skills/cortex/SKILL.md",
+  "source": "github.com/bacoco/EvolveSkill",
+  "downloaded_at": "2026-01-14T04:03:33.925483Z"
 }

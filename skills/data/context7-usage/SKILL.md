@@ -1,159 +1,133 @@
 ---
 name: context7-usage
-description: Tips and best practices for using Context7 MCP server to get library documentation
+description: "Patterns for using Context7 MCP for library documentation (v2.25)"
 ---
 
-# Context7 Usage Guide
+**ultrathink** - Take a deep breath. We're not here to write code. We're here to make a dent in the universe.
 
-This skill provides guidance for using the Context7 MCP server effectively.
+## The Vision
+Documentation retrieval should be precise, fast, and authoritative.
+
+## Your Work, Step by Step
+1. **Identify library**: Extract from the user’s request.
+2. **Resolve ID**: Use Context7 to find the exact source.
+3. **Query**: Ask for targeted, actionable guidance.
+4. **Fallback**: Use MiniMax when Context7 lacks coverage.
+
+## Ultrathink Principles in Practice
+- **Think Different**: Prefer indexed docs over scraping.
+- **Obsess Over Details**: Ensure the right library ID.
+- **Plan Like Da Vinci**: Define the query before running it.
+- **Craft, Don't Code**: Return only relevant excerpts.
+- **Iterate Relentlessly**: Re-query for clarity.
+- **Simplify Ruthlessly**: Avoid unnecessary searches.
+
+# Context7 MCP Usage Patterns
 
 ## Overview
 
-Context7 provides documentation lookup for popular libraries and frameworks. It has two main tools:
-- `resolveLibraryId` - Find the library ID for a given library name
-- `getLibraryDocs` - Get documentation for a specific topic
+Context7 MCP provides indexed documentation for popular libraries and frameworks. It's more efficient than web scraping because it uses pre-indexed, structured documentation.
 
-## Resolving Library IDs
+## Available Tools
 
-The `resolveLibraryId` tool returns results that are **automatically parsed** into structured objects. The response includes:
+| Tool | Purpose | Parameters |
+|------|---------|------------|
+| `mcp__plugin_context7_context7__resolve-library-id` | Find Context7 library ID | `libraryName`, `query` |
+| `mcp__plugin_context7_context7__query-docs` | Query documentation | `libraryId`, `query` |
 
-```typescript
-{
-  libraries: Array<{
-    id: string;           // Context7-compatible library ID
-    name: string;         // Library title
-    description: string;  // Short description
-    codeSnippets: number; // Number of code examples
-    sourceReputation: string; // "High", "Medium", "Low", or "Unknown"
-    benchmarkScore?: number;  // Quality score (optional)
-  }>;
-  raw: string;  // Original text response
-}
+## Usage Pattern
+
+```yaml
+# Step 1: Resolve library ID
+mcp__plugin_context7_context7__resolve-library-id:
+  libraryName: "React"  # Extract from user query
+  query: "useTransition hook usage"  # Full query for ranking
+
+# Step 2: Query docs with resolved ID
+mcp__plugin_context7_context7__query-docs:
+  libraryId: "/vercel/next.js"  # From step 1
+  query: "How to use useTransition hook"
 ```
 
-Here's how to pick the right library:
+## Decision Tree
 
-### Library ID Naming Patterns
-
-| Pattern | Description | Example |
-|---------|-------------|---------|
-| `/websites/<name>` | Official documentation (usually best) | `/websites/laravel` |
-| `/websites/<name>-<version>` | Version-specific docs | `/websites/laravel-11.x` |
-| `/websites/<name>_<version>` | Version-specific (alt format) | `/websites/laravel_12_x` |
-| `/<org>/<repo>` | GitHub repository content | `/laravel/laravel` |
-
-### Recommended Library IDs by Framework
-
-| Framework | Recommended ID | Notes |
-|-----------|---------------|-------|
-| **Laravel 12** | `/websites/laravel_12_x` | Latest version |
-| **Laravel 11** | `/websites/laravel-11.x` | Previous LTS |
-| **Laravel (latest)** | `/websites/laravel` | General docs |
-| **React** | `/websites/react` | Official React docs |
-| **Vue 3** | `/websites/vue` | Vue.js documentation |
-| **Next.js** | `/websites/nextjs` | Next.js framework |
-| **TypeScript** | `/websites/typescript` | TS documentation |
-| **Node.js** | `/websites/nodejs` | Node.js docs |
-
-### Selection Tips
-
-1. **Look for "High" reputation** - Libraries with high reputation have better quality content
-2. **Check snippet count** - More snippets = more comprehensive content
-3. **Use version-specific IDs** - When you need docs for a specific version
-4. **Prefer `/websites/` prefix** - These are usually official documentation
-
-## Using getLibraryDocs
-
-### Parameters
-
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `context7CompatibleLibraryID` | Yes | The library ID from resolveLibraryId |
-| `topic` | Yes | What you want to learn about |
-| `mode` | No | `"code"` for examples, `"docs"` for explanations |
-
-### Example Usage
-
-```typescript
-import { resolveLibraryId, getLibraryDocs } from '../servers/context7/index.js';
-
-// Step 1: Find the library - result is automatically parsed
-const result = await resolveLibraryId.call({ libraryName: "Laravel" });
-
-// Step 2: Access the parsed libraries array
-console.log(`Found ${result.libraries.length} libraries`);
-
-// Step 3: Find best match programmatically
-const best = result.libraries
-  .filter(lib => lib.sourceReputation === 'High')
-  .sort((a, b) => b.codeSnippets - a.codeSnippets)[0];
-
-// Step 4: Get documentation using the library ID
-const docs = await getLibraryDocs.call({
-  context7CompatibleLibraryID: best?.id || "/websites/laravel_12_x",
-  topic: "middleware",
-  mode: "code"  // Get code examples
-});
-console.log(docs);
+```
+Is this about a library/framework?
+|
++-- YES --> Is it in Context7?
+|   |
+|   +-- YES --> Use Context7 MCP
+|   |   1. resolve-library-id
+|   |   2. query-docs
+|   |
+|   +-- NO --> Fallback to MiniMax MCP
+|
++-- NO --> Use WebSearch (native) or MiniMax MCP
 ```
 
-### Using Known Library IDs (Faster)
+## Supported Libraries (Examples)
 
-Skip the resolve step when you know the library ID:
+### Frontend
+- React (`/facebook/react`)
+- Next.js (`/vercel/next.js`)
+- Vue.js (`/vuejs/vue`)
+- Angular (`/angular/angular`)
+- Svelte (`/sveltejs/svelte`)
 
-```typescript
-// Direct usage with known IDs
-const docs = await getLibraryDocs.call({
-  context7CompatibleLibraryID: "/websites/laravel_12_x",
-  topic: "middleware"
-});
+### Languages
+- TypeScript (`/microsoft/TypeScript`)
+- JavaScript (MDN)
+
+### Backend
+- Node.js (`/nodejs/node`)
+- Express (`/expressjs/express`)
+- Fastify (`/fastify/fastify`)
+
+### CSS/UI
+- Tailwind CSS (`/tailwindlabs/tailwindcss`)
+- Chakra UI (`/chakra-ui/chakra-ui`)
+
+### Databases
+- PostgreSQL
+- MongoDB (`/mongodb/docs`)
+- Redis
+
+## Cost Optimization
+
+| Approach | Token Usage | Quality |
+|----------|-------------|---------|
+| Context7 | ~50% less | High (official docs) |
+| Web Search | Baseline | Variable |
+| MiniMax | Baseline | High |
+
+**Why Context7 saves tokens:**
+- Pre-indexed documentation
+- Structured responses
+- No web scraping overhead
+- Focused, relevant content
+
+## Integration with Ralph Loop
+
+```bash
+# CLI usage
+ralph library "React 19 useTransition"
+ralph lib "Next.js 15 app router"
+ralph docs "TypeScript generics"
+
+# Slash command
+/library-docs React hooks best practices
 ```
 
-### Mode Options
+## Fallback Strategy
 
-- `"code"` - Returns code examples and snippets (best for implementation)
-- `"docs"` - Returns explanatory documentation (best for understanding concepts)
+If Context7 doesn't have the library:
+1. Log warning: "Library not found in Context7"
+2. Fallback to `mcp__MiniMax__web_search`
+3. Return results from MiniMax
 
-## Common Issues
+## Best Practices
 
-### Too Many Results from resolveLibraryId
-
-**Problem:** You get 30+ results and don't know which to pick.
-
-**Solution:** Use the parsed `libraries` array to filter programmatically:
-
-```typescript
-const result = await resolveLibraryId.call({ libraryName: "React" });
-
-// Filter to high-reputation libraries with many snippets
-const best = result.libraries
-  .filter(lib => lib.sourceReputation === 'High' && lib.codeSnippets > 100)
-  .sort((a, b) => b.codeSnippets - a.codeSnippets);
-
-console.log('Best matches:', best.map(l => `${l.name} (${l.id})`));
-```
-
-Or use the recommended IDs table above for common frameworks.
-
-### Library ID Not Found
-
-**Problem:** `getLibraryDocs` fails with "library not found".
-
-**Solution:**
-1. Run `resolveLibraryId` first to get valid IDs
-2. Copy the exact ID from the results (case-sensitive)
-3. Check for typos in the library ID
-
-## Quick Reference
-
-```typescript
-// Common library IDs (no need to resolve)
-const LIBRARY_IDS = {
-  laravel12: "/websites/laravel_12_x",
-  laravel11: "/websites/laravel-11.x",
-  react: "/websites/react",
-  vue: "/websites/vue",
-  nextjs: "/websites/nextjs",
-  typescript: "/websites/typescript",
-  nodejs: "/websites/nodejs",
-};
+1. **Extract library name first** - Parse user query to identify the library
+2. **Use full query for ranking** - Pass complete query to resolve-library-id
+3. **Handle not-found gracefully** - Always have MiniMax fallback ready
+4. **Combine with code examples** - Request code snippets in your prompt

@@ -1,12 +1,7 @@
 {
   "name": "customer-support",
-  "description": "Handle customer inquiries with empathy and effective problem resolution",
-  "repo": "tatat/agents-playground",
-  "category": "design",
-  "tags": [
-    "customer",
-    "support"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "repo": "taiyousan15/taisun_agent",
+  "path": ".claude/skills/customer-support/SKILL.md",
+  "source": "github.com/taiyousan15/taisun_agent",
+  "downloaded_at": "2026-01-14T03:51:12.821696Z"
 }

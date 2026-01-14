@@ -1,12 +1,7 @@
 {
   "name": "audit-style",
-  "description": "Audit and refactor CSS to comply with Game Loopers design system and BEM methodology",
   "repo": "njculpin/BudgetZero",
-  "category": "design",
-  "tags": [
-    "audit",
-    "style"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/audit-style/SKILL.md",
+  "source": "github.com/njculpin/BudgetZero",
+  "downloaded_at": "2026-01-14T02:07:05.879741Z"
 }

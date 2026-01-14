@@ -1,12 +1,7 @@
 {
   "name": "swift-testing",
-  "description": "Test Swift applications - XCTest, Swift Testing, UI tests, mocking, TDD, CI/CD",
-  "repo": "pluginagentmarketplace/custom-plugin-swift",
-  "category": "testing",
-  "tags": [
-    "swift",
-    "testing"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "bluewaves-creations/bluewaves-skills",
+  "path": "plugins/swift-apple-dev/skills/swift-testing/SKILL.md",
+  "source": "github.com/bluewaves-creations/bluewaves-skills",
+  "downloaded_at": "2026-01-14T02:03:03.274011Z"
 }

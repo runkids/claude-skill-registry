@@ -1,12 +1,7 @@
 {
   "name": "typescript-test",
-  "description": "Provides Vitest-based TypeScript testing expertise and best practices. Ensures proper test structure, mocking strategies, async handling patterns, and coverage optimization. Specializes in unit testin",
-  "repo": "specvital/web",
-  "category": "testing",
-  "tags": [
-    "typescript",
-    "test"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "KubrickCode/Repo-Management",
+  "path": ".claude/skills/typescript-test/SKILL.md",
+  "source": "github.com/KubrickCode/Repo-Management",
+  "downloaded_at": "2026-01-14T04:01:56.735149Z"
 }

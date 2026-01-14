@@ -1,12 +1,7 @@
 {
   "name": "context-packer",
-  "description": "Build a compact, high-signal context brief (files, symbols, recent commits) instead of pasting large code blocks",
   "repo": "MacroMan5/claude-code-workflow-plugins",
-  "category": "development",
-  "tags": [
-    "context",
-    "packer"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/context-packer/SKILL.md",
+  "source": "github.com/MacroMan5/claude-code-workflow-plugins",
+  "downloaded_at": "2026-01-14T03:37:13.123789Z"
 }

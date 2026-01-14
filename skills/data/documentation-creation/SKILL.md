@@ -54,9 +54,10 @@ cat Dockerfile
 cat docker-compose.yml
 
 # Identify bounded contexts
-ls -la src/Core/
-ls -la src/Shared/
-ls -la src/Internal/
+ls -la src/Core/ 2>/dev/null
+ls -la src/User/ 2>/dev/null
+ls -la src/Shared/ 2>/dev/null
+ls -la src/Internal/ 2>/dev/null
 
 # Check for entities
 find src -path "*/Entity/*.php"
@@ -86,7 +87,7 @@ grep -i "php:" Dockerfile
 grep -i "symfony" composer.json
 
 # Database
-grep -i "mongo\|postgres" docker-compose.yml
+grep -i "mysql\|postgres\|mongo" docker-compose.yml
 
 # Available make commands
 grep -E "^[a-zA-Z][a-zA-Z0-9_-]*:" Makefile | head -30
@@ -97,10 +98,10 @@ Create a technology summary table:
 | Component  | Technology | Version |
 | ---------- | ---------- | ------- |
 | Language   | PHP        | X.Y     |
-| Runtime    | PHP-FPM    | -       |
+| Runtime    | {Runtime}  | -       |
 | Framework  | Symfony    | X.Y     |
-| Database   | MongoDB    | X.Y     |
-| Web Server | Caddy      | -       |
+| Database   | {Database} | X.Y     |
+| Web Server | {Server}   | -       |
 
 ### Step 3: Create Documentation Files
 
@@ -123,6 +124,8 @@ Create each documentation file following this order:
 15. **legal-and-licensing.md** - License and dependencies
 16. **release-notes.md** - Release process
 17. **versioning.md** - Versioning policy
+
+> Add project-specific docs as needed (e.g., `performance-frankenphp.md` for FrankenPHP projects)
 
 ### Step 4: Write Each Documentation File
 
@@ -147,27 +150,22 @@ For each documentation file:
 
 ### Step 5: Verify Accuracy
 
-Run comprehensive verification:
+Run comprehensive verification using [reference/verification-checklist.md](reference/verification-checklist.md):
 
 1. **Technology Stack Verification**:
 
    ```bash
-   # Verify PHP version
    grep -i "php" Dockerfile
-
-   # Verify framework
    grep -i "symfony" composer.json
-
-   # Verify database
-   grep -i "mongo\|postgres" docker-compose.yml
+   grep -i "mysql\|mongo\|postgres" docker-compose.yml
    ```
 
 2. **Directory Structure Verification**:
 
    ```bash
-   # Verify all mentioned src directories
-   for dir in "Shared" "Core" "Internal"; do
-     ls -la src/$dir/ 2>/dev/null || echo "Missing: src/$dir"
+   # Verify all mentioned src directories exist
+   for dir in $(ls src/); do
+     ls -la src/$dir/ 2>/dev/null || echo "Check: src/$dir"
    done
    ```
 
@@ -175,7 +173,7 @@ Run comprehensive verification:
 
    ```bash
    # Verify mentioned make commands exist
-   for cmd in "unit-tests" "integration-tests" "behat" "infection"; do
+   for cmd in "unit-tests" "integration-tests" "behat" "ci"; do
      grep -q "^$cmd:" Makefile && echo "Found: $cmd" || echo "Missing: $cmd"
    done
    ```
@@ -205,7 +203,7 @@ Welcome to the **{Project Name}** documentation...
 | --------- | ---------- | ------- |
 | Language  | PHP        | X.Y     |
 | Framework | Symfony    | X.Y     |
-| Database  | MongoDB    | X.Y     |
+| Database  | {Database} | X.Y     |
 ```
 
 ### Getting Started (getting-started.md)
@@ -300,7 +298,7 @@ After creating documentation:
 
 ```bash
 # Verify before documenting
-grep -i "fpm" Dockerfile
+grep -i "fpm\|franken" Dockerfile
 cat docker-compose.yml
 # Only document what actually exists
 ```
@@ -314,7 +312,6 @@ cat docker-compose.yml
 ```bash
 # Verify before documenting
 ls -la src/
-ls -la src/Core/
 # Update to match actual structure
 ```
 
@@ -421,10 +418,10 @@ find src -name "*Command.php"
 grep -E "^[a-zA-Z][a-zA-Z0-9_-]*:" Makefile
 
 # Verify runtime
-grep -i "fpm" Dockerfile
+grep -i "fpm\|franken" Dockerfile
 
 # Check database
-grep -i "mongo\|postgres" docker-compose.yml
+grep -i "mysql\|mongo\|postgres" docker-compose.yml
 
 # Verify technology stack
 grep -i "php:" Dockerfile

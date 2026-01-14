@@ -1,12 +1,7 @@
 {
   "name": "2-categorize-files",
-  "description": "Second step in building instruction context for codebase",
   "repo": "bitovi/context-generation-mvp",
-  "category": "development",
-  "tags": [
-    "categorize",
-    "files"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/2-categorize-files/SKILL.md",
+  "source": "github.com/bitovi/context-generation-mvp",
+  "downloaded_at": "2026-01-14T03:29:41.110426Z"
 }

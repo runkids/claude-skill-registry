@@ -1,11 +1,7 @@
 {
   "name": "commit-messages",
-  "description": "Conventional Commits formatting guide for creating standardized commit messages. Use when Claude needs to create git commits, ensuring consistent message format with type prefixes (feat, fix, docs, ch",
-  "repo": "hisami/grpc-practice",
-  "category": "data",
-  "tags": [
-    "commit",
-    "messages"
-  ],
-  "stars": 0
+  "repo": "athola/claude-night-market",
+  "path": "plugins/sanctum/skills/commit-messages/SKILL.md",
+  "source": "github.com/athola/claude-night-market",
+  "downloaded_at": "2026-01-14T01:32:39.452665Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "risk-assessment",
-  "description": "Use this skill when evaluating portfolio risk, checking position sizes, assessing market volatility, or performing risk management checks before trade execution. Based on TradingAgents risk management",
-  "repo": "AkhilGurrapu/kubera",
-  "category": "development",
-  "tags": [
-    "risk",
-    "assessment"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "aj-geddes/useful-ai-prompts",
+  "path": "skills/risk-assessment/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:06.314171Z"
 }

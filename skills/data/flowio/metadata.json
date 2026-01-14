@@ -1,8 +1,7 @@
 {
   "name": "flowio",
-  "repo": "davila7/claude-code-templates",
-  "category": "data",
-  "description": "Parse FCS (Flow Cytometry Standard) files v2.0-3.1. Extract events as NumPy arrays, read metadata/channels, convert to CSV/DataFrame, for flow cytometry data preprocessing.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:37.155040Z"
+  "repo": "drshailesh88/integrated_content_OS",
+  "path": "skills/scientific/flowio/SKILL.md",
+  "source": "github.com/drshailesh88/integrated_content_OS",
+  "downloaded_at": "2026-01-14T04:02:20.440792Z"
 }

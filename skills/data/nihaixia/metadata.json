@@ -1,8 +1,7 @@
 {
   "name": "nihaixia",
   "repo": "blicktz/knowledge_base_repo",
-  "category": "data",
-  "description": "Talk to Nihaixia Suanming about their expertise. Nihaixia Suanming provides authentic advice using their mental models, core beliefs, and real-world examples.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:13.465201Z"
+  "path": ".claude/skills/nihaixia/SKILL.md",
+  "source": "github.com/blicktz/knowledge_base_repo",
+  "downloaded_at": "2026-01-14T01:24:05.261360Z"
 }

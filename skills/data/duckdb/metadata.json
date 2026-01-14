@@ -1,11 +1,7 @@
 {
   "name": "duckdb",
-  "description": "Fast in-process analytical database for SQL queries on DataFrames, CSV, Parquet, JSON files, and more. Use when user wants to perform SQL analytics on data files or Python DataFrames (pandas, Polars),",
-  "repo": "silvainfm/paie_reflex",
-  "category": "data",
-  "tags": [
-    "duckdb"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "silvainfm/monaco_paie",
+  "path": ".claude/skills/duckdb/SKILL.md",
+  "source": "github.com/silvainfm/monaco_paie",
+  "downloaded_at": "2026-01-14T03:24:28.142027Z"
 }

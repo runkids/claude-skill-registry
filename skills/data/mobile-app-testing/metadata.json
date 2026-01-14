@@ -1,13 +1,7 @@
 {
   "name": "mobile-app-testing",
-  "description": "Comprehensive mobile app testing strategies for iOS and Android. Covers unit tests, UI tests, integration tests, performance testing, and test automation with Detox, Appium, and XCTest.",
   "repo": "aj-geddes/useful-ai-prompts",
-  "category": "testing",
-  "tags": [
-    "mobile",
-    "app",
-    "testing"
-  ],
-  "stars": 25,
-  "source": "local"
+  "path": "skills/mobile-app-testing/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:11.814792Z"
 }

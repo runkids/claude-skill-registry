@@ -1,308 +1,502 @@
 ---
 name: javascript
-description: Use when writing JavaScript for Discourse core, themes, or plugins - covers jQuery phaseout, Ember patterns, singleton imports, lifecycle hooks, and cleanup requirements
+description: Write modern JavaScript/ES6+ code following best practices for performance, security, and maintainability. Use when writing JS code, fixing bugs, or implementing frontend functionality.
 ---
 
-# Discourse JavaScript Patterns
+# JavaScript Skill
 
-## Overview
+## Instructions
 
-Required patterns for JavaScript in Discourse (Ember-based application). These patterns are **prescriptive** - don't follow every pattern you see in existing code. Follow these rules instead.
+When writing JavaScript:
 
-## Critical: Don't Follow All Existing Patterns
-
-**Just because code exists in the codebase doesn't mean you should copy it.**
-
-Discourse is actively modernizing JavaScript. Old patterns remain while being phased out. When you see conflicting patterns, follow this skill's guidance.
-
-## Never Use jQuery
-
-**Rule:** Never use jQuery in new code. Use native DOM methods instead.
-
-**Why:** Browsers now support jQuery's functionality natively. jQuery is being phased out.
-
-| jQuery                | Native Equivalent                     |
-| --------------------- | ------------------------------------- |
-| `$('.selector')`      | `document.querySelector('.selector')` |
-| `$('.class')`         | `document.querySelectorAll('.class')` |
-| `.addClass('foo')`    | `.classList.add('foo')`               |
-| `.removeClass('foo')` | `.classList.remove('foo')`            |
-| `.on('click', fn)`    | `.addEventListener('click', fn)`      |
-| `.fadeIn()`           | CSS transitions + `.classList`        |
-
-**Example - Button click handler:**
+### 1. Modern Syntax
 
 ```javascript
-// ❌ NEVER - jQuery
-$(".submit-btn").on("click", function () {
-  $(".success").fadeIn();
-});
+// Use const by default, let when needed
+const API_URL = 'https://api.example.com';
+let count = 0;
 
-// ✅ ALWAYS - Native DOM
-const btn = document.querySelector(".submit-btn");
-btn.addEventListener("click", () => {
-  document.querySelector(".success").classList.add("visible");
-});
+// Arrow functions
+const add = (a, b) => a + b;
+const greet = name => `Hello, ${name}!`;
+
+// Destructuring
+const { name, email } = user;
+const [first, second, ...rest] = items;
+
+// Spread operator
+const newArray = [...oldArray, newItem];
+const newObject = { ...oldObject, newProp: value };
+
+// Template literals
+const message = `User ${name} has ${count} items`;
+
+// Optional chaining
+const city = user?.address?.city;
+
+// Nullish coalescing
+const value = input ?? defaultValue;
 ```
 
-## Never Import Singletons
-
-**Rule:** Use dependency injection, not singleton imports.
-
-**Why:** Singletons bypass Ember's container and make testing difficult.
+### 2. Async/Await
 
 ```javascript
-// ❌ NEVER - Singleton import
-import Site from "discourse/models/site";
-console.log(Site.currentProp("top_menu_items"));
+// Async function
+async function fetchData(url) {
+  try {
+    const response = await fetch(url);
 
-// ✅ ALWAYS - Dependency injection
-// In components, routes, controllers - site is auto-injected:
-console.log(this.site.top_menu_items);
+    if (!response.ok) {
+      throw new Error(`HTTP error: ${response.status}`);
+    }
 
-// In initializers:
-let site = container.lookup("site:main");
-console.log(site.top_menu_items);
-```
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Fetch failed:', error);
+    throw error;
+  }
+}
 
-**The site model is automatically injected** into components, routes, and controllers. Just use `this.site`.
+// Parallel requests
+async function fetchAll(urls) {
+  const promises = urls.map(url => fetch(url));
+  const responses = await Promise.all(promises);
+  return Promise.all(responses.map(r => r.json()));
+}
 
-**For services, use @service decorator:**
+// With timeout
+async function fetchWithTimeout(url, timeout = 5000) {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeout);
 
-```javascript
-import { service } from "@ember/service";
-
-export default class extends Component {
-  @service router;
-  @service currentUser;
-  @service store;
-
-  navigateToProfile() {
-    this.router.transitionTo("user", this.currentUser.username);
+  try {
+    const response = await fetch(url, { signal: controller.signal });
+    return await response.json();
+  } finally {
+    clearTimeout(timeoutId);
   }
 }
 ```
 
-**Common services:** `router`, `store`, `currentUser`, `site`, `siteSettings`, `session`, `dialog`, `modal`.
-
-## Never Use self = this
-
-**Rule:** Use arrow functions, not `self = this`.
-
-**Why:** Arrow functions preserve context automatically and are widely supported.
+### 3. Array Methods
 
 ```javascript
-// ❌ NEVER - self = this pattern
-let self = this;
-setTimeout(function () {
-  self.doSomething();
-}, 1000);
+const users = [
+  { id: 1, name: 'Alice', age: 25, active: true },
+  { id: 2, name: 'Bob', age: 30, active: false },
+  { id: 3, name: 'Charlie', age: 35, active: true },
+];
 
-// ✅ ALWAYS - Arrow function
-setTimeout(() => {
-  this.doSomething();
-}, 1000);
+// map - transform items
+const names = users.map(user => user.name);
+
+// filter - select items
+const activeUsers = users.filter(user => user.active);
+
+// find - get first match
+const bob = users.find(user => user.name === 'Bob');
+
+// some/every - check conditions
+const hasActive = users.some(user => user.active);
+const allActive = users.every(user => user.active);
+
+// reduce - aggregate
+const totalAge = users.reduce((sum, user) => sum + user.age, 0);
+
+// Chaining
+const activeNames = users
+  .filter(user => user.active)
+  .map(user => user.name)
+  .sort();
 ```
 
-**When you can't use arrow functions** (passing to library expecting function object):
+### 4. DOM Manipulation
 
 ```javascript
-import { bind } from "discourse-common/utils/decorators";
+// Selecting elements
+const element = document.querySelector('.class');
+const elements = document.querySelectorAll('.class');
 
-@bind
-myMethod() {
-  console.log(this.property);
-}
+// Creating elements
+const div = document.createElement('div');
+div.className = 'card';
+div.innerHTML = `
+  <h2>${title}</h2>
+  <p>${description}</p>
+`;
 
-// Pass bound method reference
-library.setup({ callback: this.myMethod });
-```
-
-## Lifecycle Hooks: Use Explicit Methods
-
-**Rule:** Write explicit lifecycle methods. Never use `@on` decorators.
-
-**Why:** Glimmer doesn't support `@on`. Explicit methods make execution order obvious.
-
-```javascript
-// ❌ NEVER - @on decorator
-@on("init")
-setupComponent() {
-  this.set("data", []);
-}
-
-@on("init")
-setupOther() {
-  this.loadData();
-}
-
-// ✅ ALWAYS - Explicit lifecycle method
-init() {
-  this._super(...arguments);
-  this.data = [];
-  this.loadData();
-}
-```
-
-**Execution order is clear** with explicit methods. Multiple `@on("init")` methods have unclear execution order.
-
-## Always Clean Up
-
-**Rule:** Remove listeners and cancel timers in willDestroyElement.
-
-**Why:** Prevents memory leaks and zombie listeners.
-
-```javascript
-export default Component.extend({
-  didInsertElement() {
-    this._super(...arguments);
-    this.clickHandler = () => this.handleClick();
-    document.addEventListener("click", this.clickHandler);
-
-    this.timerId = setTimeout(() => {
-      this.doSomething();
-    }, 5000);
-  },
-
-  willDestroyElement() {
-    this._super(...arguments);
-    // Clean up listener
-    document.removeEventListener("click", this.clickHandler);
-
-    // Cancel timer
-    clearTimeout(this.timerId);
-  },
-});
-```
-
-**Always store references** to listeners and timer IDs so you can clean them up.
-
-## Never Use Default Objects or Arrays
-
-**Rule:** Initialize objects and arrays in `init()`, not as default values.
-
-**Why:** Default objects/arrays are shared across all instances (shared reference).
-
-```javascript
-// ❌ NEVER - Default objects/arrays
-export default EmberObject.extend({
-  items: [],      // SHARED REFERENCE
-  config: {}      // SHARED REFERENCE
+// Event handling
+element.addEventListener('click', (event) => {
+  event.preventDefault();
+  // Handle click
 });
 
-// ✅ ALWAYS - Initialize in init() (EmberObject)
-export default EmberObject.extend({
-  items: null,
-  config: null,
-
-  init() {
-    this._super(...arguments);
-    this.items = [];
-    this.config = {};
+// Event delegation
+document.querySelector('.list').addEventListener('click', (event) => {
+  if (event.target.matches('.item')) {
+    handleItemClick(event.target);
   }
 });
 
-// ✅ OR - Use native classes (no issue)
-export default class {
-  items = [];   // Each instance gets own array
-  config = {};  // Each instance gets own object
-}
+// IntersectionObserver (lazy loading, animations)
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.animate').forEach(el => observer.observe(el));
 ```
 
-## Private Fields: Use # Syntax
-
-**Rule:** Make fields truly private with `#` unless decorator needed or used in template.
+### 5. Classes
 
 ```javascript
-export default class extends Component {
-  // Public - used in template
-  @tracked count = 0;
+class User {
+  #privateField; // Private field
 
-  // Public - decorator doesn't work on private
-  @action
-  increment() {
-    this.#updateCount();
+  constructor(name, email) {
+    this.name = name;
+    this.email = email;
+    this.#privateField = 'secret';
   }
 
-  // Private - not used in template
-  #internalState = null;
+  // Getter
+  get displayName() {
+    return this.name.toUpperCase();
+  }
 
-  #updateCount() {
-    this.count++;
+  // Setter
+  set displayName(value) {
+    this.name = value.trim();
+  }
+
+  // Method
+  greet() {
+    return `Hello, I'm ${this.name}`;
+  }
+
+  // Static method
+  static create(data) {
+    return new User(data.name, data.email);
+  }
+}
+
+// Inheritance
+class Admin extends User {
+  constructor(name, email, role) {
+    super(name, email);
+    this.role = role;
+  }
+
+  greet() {
+    return `${super.greet()} and I'm an ${this.role}`;
   }
 }
 ```
 
-**Don't use underscore prefix** (`_field`) - that's the old way. Use `#` for true privacy.
-
-## Avoid Array Prototype Extensions
-
-**Rule:** Use native Array methods, not Ember's prototype extensions.
-
-**Why:** Ember's prototype extensions are deprecated.
+### 6. Modules
 
 ```javascript
-const items = [{ name: "foo" }, { name: "bar" }];
+// Named exports
+export const API_URL = 'https://api.example.com';
+export function fetchData() { /* ... */ }
+export class User { /* ... */ }
 
-// ❌ NEVER - Ember prototype extension
-items.findBy("name", "foo");
+// Default export
+export default function main() { /* ... */ }
 
-// ✅ ALWAYS - Native method
-items.find((item) => item.name === "foo");
+// Importing
+import main, { API_URL, fetchData, User } from './module.js';
+
+// Dynamic import
+const module = await import('./heavy-module.js');
 ```
 
-For arrays that need reactivity, use `TrackedArray` instead of native array.
-
-## Avoid Observers
-
-**Rule:** Use action handlers for user events. Use native getters for derived data.
-
-**Why:** From Ember docs: "Observers are often over-used by new Ember developers. Most of the time, you will be observing an action the user took, such as clicking a button. Instead of an observer, consider putting that code in the action handler itself."
+### 7. Error Handling
 
 ```javascript
-// ❌ NEVER - Observer
-@observes('userInput')
-inputChanged() {
-  this.processInput();
+// Custom error
+class ValidationError extends Error {
+  constructor(message, field) {
+    super(message);
+    this.name = 'ValidationError';
+    this.field = field;
+  }
 }
 
-// ✅ ALWAYS - Action handler for user events
-<input {{on "input" this.processInput}} />
-```
-
-**When you need derived data** (not side effects), use native getters:
-
-```javascript
-// ✅ Native getter for computed values
-get fullName() {
-  return `${this.firstName} ${this.lastName}`;
+// Try-catch with specific handling
+try {
+  await submitForm(data);
+} catch (error) {
+  if (error instanceof ValidationError) {
+    showFieldError(error.field, error.message);
+  } else if (error instanceof NetworkError) {
+    showToast('Network error. Please try again.');
+  } else {
+    console.error('Unexpected error:', error);
+    showToast('Something went wrong.');
+  }
 }
 ```
 
-**Don't use getters for side effects** - use action handlers instead.
+### 8. Local Storage
 
-## Common Mistakes
+```javascript
+// Store data
+const saveData = (key, data) => {
+  localStorage.setItem(key, JSON.stringify(data));
+};
 
-| Mistake                                  | Fix                                                               |
-| ---------------------------------------- | ----------------------------------------------------------------- |
-| Using jQuery because it exists           | Use native DOM methods - jQuery is being phased out               |
-| Importing singletons "just to check"     | Use dependency injection - `this.site`, `this.siteSettings`, etc. |
-| "self = this for backward compatibility" | Arrow functions are widely supported - use them                   |
-| Following @on pattern from old code      | Use explicit lifecycle methods - better for Glimmer               |
-| Skipping cleanup "it's just a demo"      | Always clean up - prevents real bugs in production                |
-| underscore prefix for "private"          | Use # for true private fields                                     |
+// Retrieve data
+const getData = (key, defaultValue = null) => {
+  const stored = localStorage.getItem(key);
+  return stored ? JSON.parse(stored) : defaultValue;
+};
 
-## Rationalization Red Flags
+// Remove data
+const removeData = (key) => {
+  localStorage.removeItem(key);
+};
+```
 
-These thoughts mean STOP - check this skill:
+### 9. Debounce & Throttle
 
-| Rationalization                        | Reality                                                        |
-| -------------------------------------- | -------------------------------------------------------------- |
-| "jQuery is already in the codebase"    | Being present ≠ permission to use. Use native methods.         |
-| "Need backward compatibility"          | Arrow functions are ES6 (2015). Widely supported. Use them.    |
-| "Matching codebase style I saw"        | Not all existing patterns should be copied. Follow this skill. |
-| "Standard pattern in older JavaScript" | Modern alternatives exist. Don't use old patterns.             |
-| "This code works fine"                 | Working ≠ best practice. Follow current patterns.              |
-| "It's technically correct"             | Technically correct but wrong approach. Check alternatives.    |
+```javascript
+// Debounce - wait until stopped
+function debounce(func, delay) {
+  let timeoutId;
+  return (...args) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => func(...args), delay);
+  };
+}
 
-**All of these mean: Review this skill and use current patterns.**
+const debouncedSearch = debounce((query) => {
+  fetchResults(query);
+}, 300);
+
+// Throttle - limit frequency
+function throttle(func, limit) {
+  let inThrottle;
+  return (...args) => {
+    if (!inThrottle) {
+      func(...args);
+      inThrottle = true;
+      setTimeout(() => inThrottle = false, limit);
+    }
+  };
+}
+
+const throttledScroll = throttle(() => {
+  updatePosition();
+}, 100);
+```
+
+### 10. Best Practices
+
+- Use `const` by default
+- Prefer arrow functions
+- Use async/await over callbacks
+- Handle all errors
+- Avoid global variables
+- Use meaningful variable names
+- Keep functions small and focused
+- Comment complex logic
+- Use strict equality (`===`)
+- Validate user input
+
+---
+
+## WordPress-Specific JavaScript
+
+### 11. Enqueueing Scripts Properly
+
+```php
+function theme_enqueue_scripts() {
+    // Frontend script
+    wp_enqueue_script(
+        'theme-main',
+        get_template_directory_uri() . '/assets/js/main.js',
+        array(), // dependencies
+        '1.0.0',
+        true // in footer
+    );
+
+    // With jQuery dependency
+    wp_enqueue_script(
+        'theme-jquery-script',
+        get_template_directory_uri() . '/assets/js/custom.js',
+        array('jquery'),
+        '1.0.0',
+        true
+    );
+
+    // Pass PHP data to JavaScript
+    wp_localize_script('theme-main', 'themeData', array(
+        'ajaxUrl' => admin_url('admin-ajax.php'),
+        'restUrl' => rest_url('theme/v1/'),
+        'nonce'   => wp_create_nonce('theme_nonce'),
+        'i18n'    => array(
+            'loading' => __('Loading...', 'theme'),
+            'error'   => __('An error occurred', 'theme'),
+        ),
+    ));
+}
+add_action('wp_enqueue_scripts', 'theme_enqueue_scripts');
+```
+
+### 12. AJAX with admin-ajax.php
+
+```javascript
+// Frontend JavaScript
+async function submitForm(formData) {
+    const data = new FormData();
+    data.append('action', 'theme_submit_form');
+    data.append('nonce', themeData.nonce);
+    data.append('name', formData.name);
+    data.append('email', formData.email);
+
+    try {
+        const response = await fetch(themeData.ajaxUrl, {
+            method: 'POST',
+            body: data,
+            credentials: 'same-origin',
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            return result.data;
+        } else {
+            throw new Error(result.data.message || 'Request failed');
+        }
+    } catch (error) {
+        console.error('AJAX Error:', error);
+        throw error;
+    }
+}
+```
+
+```php
+// PHP handler
+add_action('wp_ajax_theme_submit_form', 'theme_handle_form');
+add_action('wp_ajax_nopriv_theme_submit_form', 'theme_handle_form');
+
+function theme_handle_form() {
+    // Verify nonce
+    if (!wp_verify_nonce($_POST['nonce'], 'theme_nonce')) {
+        wp_send_json_error(array('message' => 'Invalid nonce'));
+    }
+
+    // Sanitize input
+    $name = sanitize_text_field($_POST['name']);
+    $email = sanitize_email($_POST['email']);
+
+    // Process...
+
+    wp_send_json_success(array('message' => 'Form submitted'));
+}
+```
+
+### 13. REST API Requests
+
+```javascript
+// GET request
+async function getPosts() {
+    const response = await fetch(`${themeData.restUrl}posts`, {
+        headers: {
+            'X-WP-Nonce': themeData.nonce,
+        },
+    });
+    return response.json();
+}
+
+// POST request
+async function createPost(data) {
+    const response = await fetch(`${themeData.restUrl}posts`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-WP-Nonce': themeData.nonce,
+        },
+        body: JSON.stringify(data),
+    });
+    return response.json();
+}
+
+// Using wp.apiFetch (Gutenberg)
+wp.apiFetch({ path: '/wp/v2/posts' }).then(posts => {
+    console.log(posts);
+});
+```
+
+### 14. jQuery Compatibility
+
+```javascript
+// WordPress jQuery no-conflict wrapper
+(function($) {
+    $(document).ready(function() {
+        // Your jQuery code here
+        $('.element').on('click', function() {
+            $(this).toggleClass('active');
+        });
+    });
+})(jQuery);
+
+// Or with modern syntax
+jQuery(($) => {
+    $('.element').on('click', function() {
+        $(this).toggleClass('active');
+    });
+});
+```
+
+### 15. Gutenberg/Block Editor JavaScript
+
+```javascript
+// Using wp.data for state
+const { select, dispatch } = wp.data;
+
+// Get current post
+const post = select('core/editor').getCurrentPost();
+
+// Get blocks
+const blocks = select('core/block-editor').getBlocks();
+
+// Using wp.hooks for filters
+wp.hooks.addFilter(
+    'blocks.registerBlockType',
+    'theme/modify-block',
+    (settings, name) => {
+        if (name === 'core/paragraph') {
+            settings.attributes.customAttr = {
+                type: 'string',
+                default: '',
+            };
+        }
+        return settings;
+    }
+);
+
+// Using wp.i18n for translations
+const { __, _n, sprintf } = wp.i18n;
+const message = __('Hello World', 'theme');
+const items = sprintf(_n('%d item', '%d items', count, 'theme'), count);
+```
+
+### 16. WordPress JavaScript Best Practices
+
+- **Always use nonces** for security in AJAX/REST requests
+- **Use wp_localize_script()** to pass data from PHP to JS
+- **Wrap jQuery code** in no-conflict wrapper
+- **Prefer REST API** over admin-ajax for new projects
+- **Use wp.apiFetch** in Gutenberg context
+- **Namespace your code** to avoid conflicts
+- **Load scripts in footer** when possible (`true` as last param)
+- **Use dependencies array** correctly (e.g., `array('jquery', 'wp-element')`)
+- **Handle errors gracefully** with user-friendly messages
+- **Test in both frontend and admin** contexts

@@ -1,11 +1,7 @@
 {
   "name": "convex",
-  "description": "Provides comprehensive guidance for Convex backend development including database operations, queries, mutations, actions, schemas, authentication, file storage, real-time subscriptions, scheduling, H",
-  "repo": "ThijmenGThN/next-leaflet",
-  "category": "data",
-  "tags": [
-    "convex"
-  ],
-  "stars": 16,
-  "source": "SkillsMP Synced Skills"
+  "repo": "Ghostspeak/GhostSpeak",
+  "path": ".claude/skills/convex/SKILL.md",
+  "source": "github.com/Ghostspeak/GhostSpeak",
+  "downloaded_at": "2026-01-14T02:14:02.753505Z"
 }

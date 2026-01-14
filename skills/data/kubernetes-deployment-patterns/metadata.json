@@ -1,13 +1,7 @@
 {
   "name": "kubernetes-deployment-patterns",
-  "description": "Kubernetes deployment strategies and workload patterns for production-grade applications. Use when deploying to Kubernetes, implementing rollout strategies, or designing cloud-native application archi",
-  "repo": "NickCrew/claude-ctx-plugin",
-  "category": "devops",
-  "tags": [
-    "kubernetes",
-    "deployment",
-    "patterns"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "NickCrew/claude-cortex",
+  "path": "skills/kubernetes-deployment-patterns/SKILL.md",
+  "source": "github.com/NickCrew/claude-cortex",
+  "downloaded_at": "2026-01-14T02:11:09.583455Z"
 }

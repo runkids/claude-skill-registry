@@ -1,9 +1,7 @@
 {
   "name": "issue-resolution",
-  "description": "GitHub 이슈 해결 워크플로우. 분석 → 구현 → 검증 자동화.",
-  "repo": "garimto81/claude",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "draphonix/skills",
+  "path": ".agents/skills/issue-resolution/SKILL.md",
+  "source": "github.com/draphonix/skills",
+  "downloaded_at": "2026-01-14T03:05:39.250029Z"
 }

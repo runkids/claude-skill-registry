@@ -1,8 +1,7 @@
 {
   "name": "performance-reporter",
   "repo": "aaron-he-zhu/seo-geo-claude-skills",
-  "category": "data",
-  "description": "Generates comprehensive SEO and GEO performance reports combining rankings, traffic, backlinks, and AI visibility metrics. Creates executive summaries and detailed analyses for stakeholder reporting.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:10.673953Z"
+  "path": "monitor/performance-reporter/SKILL.md",
+  "source": "github.com/aaron-he-zhu/seo-geo-claude-skills",
+  "downloaded_at": "2026-01-14T01:02:49.365204Z"
 }

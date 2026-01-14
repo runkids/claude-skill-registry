@@ -1,8 +1,7 @@
 {
   "name": "arch-performance-optimization",
-  "repo": "CongDon1207/AGENTS.md",
-  "category": "data",
-  "description": "Use when analyzing and improving performance for database queries, API endpoints, or frontend rendering.",
-  "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:31:04.385665Z"
+  "repo": "duc01226/EasyPlatform",
+  "path": ".claude/skills/arch-performance-optimization/SKILL.md",
+  "source": "github.com/duc01226/EasyPlatform",
+  "downloaded_at": "2026-01-14T03:30:52.814375Z"
 }

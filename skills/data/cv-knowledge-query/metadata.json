@@ -1,12 +1,7 @@
 {
   "name": "cv-knowledge-query",
-  "description": "Query the CV knowledge base to find achievements, stories, and metrics by theme, skill, company, or keyword. Use when user asks about experience, wants to find specific accomplishments, or needs data ",
   "repo": "fotescodev/portfolio",
-  "category": "data",
-  "tags": [
-    "knowledge",
-    "query"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/cv-knowledge-query/SKILL.md",
+  "source": "github.com/fotescodev/portfolio",
+  "downloaded_at": "2026-01-14T03:54:51.549718Z"
 }

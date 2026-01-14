@@ -1,11 +1,7 @@
 {
   "name": "writing-plans",
-  "description": "Create detailed implementation plans before coding (saves tokens later)",
-  "repo": "LEEI1337/phantom-neural-cortex",
-  "category": "data",
-  "tags": [
-    "writing",
-    "plans"
-  ],
-  "stars": 1
+  "repo": "neardws/droid-skills",
+  "path": "skills/superpowers/writing-plans/SKILL.md",
+  "source": "github.com/neardws/droid-skills",
+  "downloaded_at": "2026-01-14T04:02:13.888846Z"
 }

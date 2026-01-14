@@ -1,12 +1,7 @@
 {
   "name": "python-expert",
-  "description": "Use for Python development requiring async programming, type system expertise, testing patterns, or performance optimization.",
-  "repo": "rstarkey/s5y-plugins",
-  "category": "development",
-  "tags": [
-    "python",
-    "expert"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "mdpman2/Unified-Agent-Framework",
+  "path": "skills/python-expert/SKILL.md",
+  "source": "github.com/mdpman2/Unified-Agent-Framework",
+  "downloaded_at": "2026-01-14T01:38:41.977739Z"
 }

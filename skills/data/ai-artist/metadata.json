@@ -1,11 +1,7 @@
 {
   "name": "ai-artist",
-  "description": "Write and optimize prompts for AI-generated outcomes across text and image models. Use when crafting prompts for LLMs (Claude, GPT, Gemini), image generators (Midjourney, DALL-E, Stable Diffusion, Ima",
-  "repo": "binhmuc/autobot-review",
-  "category": "development",
-  "tags": [
-    "artist"
-  ],
-  "stars": 19,
-  "source": "SkillsMP Synced Skills"
+  "repo": "duc01226/EasyPlatform",
+  "path": ".claude/skills/ai-artist/SKILL.md",
+  "source": "github.com/duc01226/EasyPlatform",
+  "downloaded_at": "2026-01-14T03:30:53.760478Z"
 }

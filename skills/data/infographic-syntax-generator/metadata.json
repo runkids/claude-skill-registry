@@ -1,8 +1,7 @@
 {
   "name": "infographic-syntax-generator",
-  "repo": "cosZone/astro-koharu",
-  "category": "data",
-  "description": "Generate AntV Infographic syntax outputs. Use when asked to turn user content into the Infographic DSL (template selection, data structuring, theme), or to output `infographic <template>` plain syntax",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:54.371872Z"
+  "repo": "zhuxingwan/Infographic",
+  "path": ".skills/infographic-syntax-generator/SKILL.md",
+  "source": "github.com/zhuxingwan/Infographic",
+  "downloaded_at": "2026-01-14T02:53:01.656104Z"
 }

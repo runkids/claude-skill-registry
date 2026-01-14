@@ -1,8 +1,7 @@
 {
   "name": "contracts-package",
   "repo": "metasaver/metasaver-marketplace",
-  "category": "data",
-  "description": "Use when creating, auditing, or validating MetaSaver contracts packages. Includes Zod validation schemas, TypeScript types, barrel exports, and database type re-exports. File types: .ts, package.json,",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:07.669958Z"
+  "path": "plugins/metasaver-core/skills/domain/contracts-package/SKILL.md",
+  "source": "github.com/metasaver/metasaver-marketplace",
+  "downloaded_at": "2026-01-14T01:43:50.289141Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "predictive-skill-loading",
-  "description": "Anticipates and pre-loads optimal skills before task execution based on pattern matching and historical success rates",
   "repo": "bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/predictive-skill-loading/SKILL.md",
+  "source": "github.com/bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
+  "downloaded_at": "2026-01-14T01:09:09.778570Z"
 }

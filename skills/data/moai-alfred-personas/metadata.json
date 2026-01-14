@@ -1,12 +1,7 @@
 {
   "name": "moai-alfred-personas",
-  "description": "Adaptive communication patterns and role selection based on user expertise level and request type (Consolidated from moai-alfred-persona-roles)",
   "repo": "kivo360/quickhooks",
-  "category": "data",
-  "tags": [
-    "moai",
-    "alfred",
-    "personas"
-  ],
-  "stars": 0
+  "path": ".claude/skills/moai-alfred-personas/SKILL.md",
+  "source": "github.com/kivo360/quickhooks",
+  "downloaded_at": "2026-01-14T03:32:57.368578Z"
 }

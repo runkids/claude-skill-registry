@@ -1,8 +1,7 @@
 {
   "name": "network-netcat",
   "repo": "AgentSecOps/SecOpsAgentKit",
-  "category": "data",
-  "description": "Network utility for reading and writing data across TCP/UDP connections, port scanning, file transfers, and backdoor communication channels. Use when: (1) Testing network connectivity and port availab",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:26.419937Z"
+  "path": "skills/offsec/network-netcat/SKILL.md",
+  "source": "github.com/AgentSecOps/SecOpsAgentKit",
+  "downloaded_at": "2026-01-14T01:14:21.292110Z"
 }

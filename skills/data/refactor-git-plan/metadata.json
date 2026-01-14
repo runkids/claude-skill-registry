@@ -1,13 +1,7 @@
 {
   "name": "refactor-git-plan",
-  "description": "[Code Quality] Plans Git commit strategy for refactoring: branch naming, commit granularity, commit messages, and safe merge approach. Use to structure version control for reversible, reviewable chang",
   "repo": "CANTAGESTUDIO/CosmicAtlasPacker",
-  "category": "development",
-  "tags": [
-    "refactor",
-    "git",
-    "plan"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".factory/skills/refactor-git-plan/SKILL.md",
+  "source": "github.com/CANTAGESTUDIO/CosmicAtlasPacker",
+  "downloaded_at": "2026-01-14T02:43:51.049044Z"
 }

@@ -1,8 +1,7 @@
 {
   "name": "clip",
-  "repo": "zechenzhangAGI/AI-research-SKILLs",
-  "category": "data",
-  "description": "OpenAI's model connecting vision and language. Enables zero-shot image classification, image-text matching, and cross-modal retrieval. Trained on 400M image-text pairs. Use for image search, content m",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:19.945522Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/clip/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-14T01:56:12.620142Z"
 }

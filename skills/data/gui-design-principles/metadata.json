@@ -1,9 +1,7 @@
 {
   "name": "gui-design-principles",
-  "description": "Comprehensive design principles and best practices for creating beautiful, functional GUI applications including dashboards, web apps, and mobile apps",
   "repo": "bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/gui-design-principles/SKILL.md",
+  "source": "github.com/bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
+  "downloaded_at": "2026-01-14T01:09:10.871462Z"
 }

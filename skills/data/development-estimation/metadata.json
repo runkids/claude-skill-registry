@@ -1,12 +1,7 @@
 {
   "name": "development-estimation",
-  "description": "Use when estimating time, effort, or complexity for features or projects - provides structured estimation workflows with breakdowns, risks, and confidence intervals.",
   "repo": "NickCrew/claude-cortex",
-  "category": "development",
-  "tags": [
-    "development",
-    "estimation"
-  ],
-  "stars": 4,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/development-estimation/SKILL.md",
+  "source": "github.com/NickCrew/claude-cortex",
+  "downloaded_at": "2026-01-14T02:11:07.000097Z"
 }

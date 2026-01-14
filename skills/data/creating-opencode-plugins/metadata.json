@@ -1,13 +1,7 @@
 {
   "name": "creating-opencode-plugins",
-  "description": "Use when creating OpenCode plugins that hook into command, file, LSP, message, permission, server, session, todo, tool, or TUI events - provides plugin structure, event API specifications, and impleme",
   "repo": "pr-pm/prpm",
-  "category": "development",
-  "tags": [
-    "creating",
-    "opencode",
-    "plugins"
-  ],
-  "stars": 70,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/creating-opencode-plugins/SKILL.md",
+  "source": "github.com/pr-pm/prpm",
+  "downloaded_at": "2026-01-14T01:14:34.950198Z"
 }

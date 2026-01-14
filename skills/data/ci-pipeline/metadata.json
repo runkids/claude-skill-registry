@@ -1,11 +1,7 @@
 {
   "name": "ci-pipeline",
-  "description": "GitHub Actions CI/CD pipelines with caching, matrix builds, and deployment strategies. Focuses on build speed, reliability, and security. Use when creating or optimizing CI/CD workflows, debugging pip",
   "repo": "1ambda/dataops-platform",
-  "category": "devops",
-  "tags": [
-    "pipeline"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".copilot/skills/ci-pipeline/SKILL.md",
+  "source": "github.com/1ambda/dataops-platform",
+  "downloaded_at": "2026-01-14T03:12:18.556793Z"
 }

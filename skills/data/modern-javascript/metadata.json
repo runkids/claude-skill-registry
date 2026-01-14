@@ -1,9 +1,7 @@
 {
   "name": "modern-javascript",
-  "description": "Modern ES6+ JavaScript features including classes, modules, destructuring, iterators, proxies, and latest ECMAScript features.",
   "repo": "pluginagentmarketplace/custom-plugin-javascript",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/modern-javascript/SKILL.md",
+  "source": "github.com/pluginagentmarketplace/custom-plugin-javascript",
+  "downloaded_at": "2026-01-14T02:21:44.188471Z"
 }

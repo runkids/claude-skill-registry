@@ -1,11 +1,7 @@
 {
   "name": "conductor",
-  "description": "Context-driven development methodology. Understands projects set up with Conductor (via Gemini CLI, Claude Code, Amp Code, Codex, or any Agent Skills compatible CLI). Use when working with conductor/ ",
-  "repo": "ReinaMacCredy/maestro",
-  "category": "development",
-  "tags": [
-    "conductor"
-  ],
-  "stars": 18,
-  "source": "SkillsMP Synced Skills"
+  "repo": "enuno/claude-command-and-control",
+  "path": "skills-templates/conductor/SKILL.md",
+  "source": "github.com/enuno/claude-command-and-control",
+  "downloaded_at": "2026-01-14T00:52:35.817296Z"
 }

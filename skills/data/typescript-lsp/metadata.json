@@ -1,12 +1,7 @@
 {
   "name": "typescript-lsp",
-  "description": "TypeScript Language Server Protocol capabilities for navigating TypeScript/JavaScript code. Resolves imported symbols to their definitions (including node_modules), finds all references to functions/c",
-  "repo": "tenequm/obsidian-debug",
-  "category": "development",
-  "tags": [
-    "typescript",
-    "lsp"
-  ],
-  "stars": 2,
-  "source": "local"
+  "repo": "plaited/plaited",
+  "path": ".claude/skills/typescript-lsp/SKILL.md",
+  "source": "github.com/plaited/plaited",
+  "downloaded_at": "2026-01-14T02:05:47.613305Z"
 }

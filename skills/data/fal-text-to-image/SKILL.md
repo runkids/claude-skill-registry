@@ -1,237 +1,522 @@
 ---
 name: fal-text-to-image
-description: Generate high-quality images from text prompts using fal.ai's text-to-image models. Supports intelligent model selection, style transfer, and professional-grade outputs.
+description: Complete fal.ai text-to-image system. PROACTIVELY activate for: (1) FLUX.1/2 Pro/Dev/Schnell generation, (2) SDXL and Fast SDXL, (3) Image size presets (square_hd, landscape_16_9), (4) Guidance scale and inference steps, (5) LoRA model application, (6) Seed for reproducibility, (7) Batch generation (num_images), (8) Ideogram for text in images, (9) Recraft for design assets. Provides: Model endpoints, parameter reference, prompt engineering, quality vs speed trade-offs. Ensures optimal text-to-image generation.
 ---
 
-# fal.ai Text-to-Image Generation Skill
+## Quick Reference
 
-Generate production-quality images from text prompts using fal.ai's state-of-the-art text-to-image models including FLUX, Recraft V3, Imagen4, and more.
+| Model | Endpoint | Speed | Quality | Cost |
+|-------|----------|-------|---------|------|
+| FLUX.2 Pro | `fal-ai/flux-2-pro` | Medium | Highest | $$$ |
+| FLUX.1 Dev | `fal-ai/flux/dev` | Medium | High | $$ |
+| FLUX Schnell | `fal-ai/flux/schnell` | Fast | Good | $ |
+| Fast SDXL | `fal-ai/fast-sdxl` | Fast | Good | $ |
+
+| Image Size | Preset | Dimensions |
+|------------|--------|------------|
+| Square HD | `square_hd` | 1024x1024 |
+| Landscape | `landscape_16_9` | 1024x576 |
+| Portrait | `portrait_16_9` | 576x1024 |
+| Custom | `{ width, height }` | Any |
+
+| Parameter | FLUX Default | SDXL Default |
+|-----------|--------------|--------------|
+| `guidance_scale` | 3.5 | 7.5 |
+| `num_inference_steps` | 28 | 25 |
+| `num_images` | 1 | 1 |
 
 ## When to Use This Skill
 
-Trigger when user:
-- Requests image generation from text descriptions
-- Wants to create images with specific styles (vector, realistic, typography)
-- Needs high-resolution professional images (up to 2K)
-- Wants to use a reference image for style transfer
-- Mentions specific models like FLUX, Recraft, or Imagen
-- Asks for logo, poster, or brand-style image generation
+Use for **text-to-image generation**:
+- Generating images from text prompts
+- Choosing between FLUX and SDXL models
+- Configuring image sizes and quality parameters
+- Using LoRA models for custom styles
+- Batch generating multiple images
 
-## Quick Start
+**Related skills:**
+- For image editing: see `fal-image-to-image`
+- For model comparison: see `fal-model-guide`
+- For API integration: see `fal-api-reference`
 
-### Basic Usage
-```bash
-uv run python fal-text-to-image "A cyberpunk city at sunset with neon lights"
+---
+
+# fal.ai Text-to-Image Models
+
+Complete reference for all text-to-image generation models on fal.ai.
+
+## FLUX Models
+
+### FLUX.1 [dev]
+**Endpoint:** `fal-ai/flux/dev`
+**Pricing:** $0.025/megapixel
+**Best For:** High-quality open-source generation
+
+The 12B parameter FLUX.1 model offers excellent quality with open-source accessibility.
+
+```typescript
+import { fal } from "@fal-ai/client";
+
+const result = await fal.subscribe("fal-ai/flux/dev", {
+  input: {
+    prompt: "A serene Japanese garden with cherry blossoms, koi pond, wooden bridge, soft morning light",
+    image_size: "landscape_16_9",
+    num_inference_steps: 28,
+    guidance_scale: 3.5,
+    num_images: 1,
+    seed: 42,
+    enable_safety_checker: true,
+    output_format: "jpeg"
+  }
+});
+
+console.log(result.images[0].url);
 ```
 
-### With Specific Model
-```bash
-uv run python fal-text-to-image -m flux-pro/v1.1-ultra "Professional headshot of a business executive"
+```python
+import fal_client
+
+result = fal_client.subscribe(
+    "fal-ai/flux/dev",
+    arguments={
+        "prompt": "A serene Japanese garden with cherry blossoms",
+        "image_size": "landscape_16_9",
+        "num_inference_steps": 28,
+        "guidance_scale": 3.5,
+        "num_images": 1,
+        "seed": 42,
+        "enable_safety_checker": True,
+        "output_format": "jpeg"
+    }
+)
+print(result["images"][0]["url"])
 ```
 
-### With Style Reference Image
-```bash
-uv run python fal-text-to-image -i reference.jpg "A mountain landscape" -m flux-2/lora/edit
+### FLUX Schnell
+**Endpoint:** `fal-ai/flux/schnell`
+**Pricing:** Lower cost per image
+**Best For:** Fast iteration, previews, 4-step generation
+
+Optimized for speed with only 4 inference steps required.
+
+```typescript
+const result = await fal.subscribe("fal-ai/flux/schnell", {
+  input: {
+    prompt: "A colorful abstract painting",
+    image_size: "square_hd",
+    num_inference_steps: 4,  // Optimized for 4 steps
+    num_images: 1
+  }
+});
+```
+
+### FLUX Pro
+**Endpoint:** `fal-ai/flux-pro`
+**Pricing:** Premium
+**Best For:** Production workloads
+
+```typescript
+const result = await fal.subscribe("fal-ai/flux-pro", {
+  input: {
+    prompt: "Professional product photography of a luxury watch",
+    image_size: "square_hd",
+    num_inference_steps: 28,
+    guidance_scale: 3.5
+  }
+});
+```
+
+### FLUX.2 [pro]
+**Endpoint:** `fal-ai/flux-2-pro`
+**Pricing:** $0.03/megapixel
+**Best For:** Highest quality, automatic prompt enhancement
+
+The latest FLUX model with built-in prompt optimization.
+
+```typescript
+const result = await fal.subscribe("fal-ai/flux-2-pro", {
+  input: {
+    prompt: "A majestic lion in the savanna at golden hour",
+    image_size: "landscape_16_9",
+    num_inference_steps: 28,
+    guidance_scale: 3.5,
+    // FLUX 2 Pro features
+    safety_tolerance: "2",  // 1-6, higher = more permissive
+    raw: false  // Set true to disable prompt enhancement
+  }
+});
+```
+
+**FLUX.2 Pro Specific Parameters:**
+- `safety_tolerance`: 1-6, controls content filtering sensitivity
+- `raw`: Boolean, set to `true` to disable automatic prompt enhancement
+
+### FLUX LoRA
+**Endpoint:** `fal-ai/flux-lora`
+**Best For:** Custom trained styles and subjects
+
+Apply custom LoRA models to FLUX generation.
+
+```typescript
+const result = await fal.subscribe("fal-ai/flux-lora", {
+  input: {
+    prompt: "A portrait in the style of <lora_trigger>",
+    loras: [
+      {
+        path: "https://huggingface.co/user/lora-model/resolve/main/lora.safetensors",
+        scale: 0.8
+      }
+    ],
+    image_size: "portrait_4_3",
+    num_inference_steps: 28,
+    guidance_scale: 3.5
+  }
+});
+```
+
+**LoRA Parameters:**
+- `loras`: Array of LoRA configurations
+  - `path`: URL to LoRA weights (.safetensors)
+  - `scale`: 0-1, strength of LoRA effect
+
+### FLUX Realism
+**Endpoint:** `fal-ai/flux-realism`
+**Best For:** Photorealistic images
+
+```typescript
+const result = await fal.subscribe("fal-ai/flux-realism", {
+  input: {
+    prompt: "A photorealistic portrait of a young woman, natural lighting, 85mm lens",
+    image_size: "portrait_4_3",
+    num_inference_steps: 28
+  }
+});
+```
+
+### FLUX Fill (Outpainting)
+**Endpoint:** `fal-ai/flux-pro/v1/fill`
+**Best For:** Extending images beyond boundaries
+
+```typescript
+const result = await fal.subscribe("fal-ai/flux-pro/v1/fill", {
+  input: {
+    prompt: "Continue the landscape with mountains",
+    image_url: "https://example.com/partial-image.jpg",
+    mask_url: "https://example.com/outpaint-mask.png"
+  }
+});
+```
+
+## Stable Diffusion Models
+
+### Fast SDXL
+**Endpoint:** `fal-ai/fast-sdxl`
+**Best For:** Speed and cost efficiency
+
+```typescript
+const result = await fal.subscribe("fal-ai/fast-sdxl", {
+  input: {
+    prompt: "A fantasy castle on a cliff, dramatic lighting",
+    negative_prompt: "blurry, low quality, distorted",
+    image_size: "landscape_16_9",
+    num_inference_steps: 25,
+    guidance_scale: 7.5,
+    num_images: 1,
+    seed: 42
+  }
+});
+```
+
+**SDXL-Specific Parameters:**
+- `negative_prompt`: What to avoid in generation
+- Higher `guidance_scale` (7-12) works better for SDXL
+
+### Stable Diffusion 3 Medium
+**Endpoint:** `fal-ai/stable-diffusion-v3-medium`
+**Best For:** SD3 architecture, good text rendering
+
+```typescript
+const result = await fal.subscribe("fal-ai/stable-diffusion-v3-medium", {
+  input: {
+    prompt: "A sign that says 'Hello World' in neon lights",
+    negative_prompt: "blurry, distorted text",
+    image_size: "square_hd",
+    num_inference_steps: 28,
+    guidance_scale: 7.0
+  }
+});
+```
+
+### SDXL Turbo
+**Endpoint:** `fal-ai/sdxl-turbo`
+**Best For:** Ultra-fast, single-step generation
+
+```typescript
+const result = await fal.subscribe("fal-ai/sdxl-turbo", {
+  input: {
+    prompt: "A cute robot",
+    num_inference_steps: 1,  // Single step!
+    guidance_scale: 0  // No guidance needed
+  }
+});
+```
+
+### SDXL Lightning
+**Endpoint:** `fal-ai/fast-lightning-sdxl`
+**Best For:** Fast 4-step SDXL
+
+```typescript
+const result = await fal.subscribe("fal-ai/fast-lightning-sdxl", {
+  input: {
+    prompt: "A beautiful sunset",
+    num_inference_steps: 4,
+    guidance_scale: 1.5
+  }
+});
+```
+
+## Specialized Models
+
+### Recraft V3
+**Endpoint:** `fal-ai/recraft-v3`
+**Best For:** Design assets, illustrations, vector-style
+
+```typescript
+const result = await fal.subscribe("fal-ai/recraft-v3", {
+  input: {
+    prompt: "A minimalist logo for a tech startup, clean lines",
+    image_size: "square_hd",
+    style: "digital_illustration"  // or "realistic_image", "vector_illustration"
+  }
+});
+```
+
+**Recraft Styles:**
+- `realistic_image`
+- `digital_illustration`
+- `vector_illustration`
+- `icon`
+
+### Ideogram
+**Endpoint:** `fal-ai/ideogram`
+**Best For:** Text in images, typography
+
+```typescript
+const result = await fal.subscribe("fal-ai/ideogram", {
+  input: {
+    prompt: "A vintage poster with the text 'JAZZ FESTIVAL' in art deco style",
+    aspect_ratio: "portrait_4_3"
+  }
+});
+```
+
+### Playground v2.5
+**Endpoint:** `fal-ai/playground-v25`
+**Best For:** Creative, artistic images
+
+```typescript
+const result = await fal.subscribe("fal-ai/playground-v25", {
+  input: {
+    prompt: "A surreal dreamscape with floating islands",
+    image_size: "landscape_16_9",
+    guidance_scale: 3.0
+  }
+});
+```
+
+### AuraFlow
+**Endpoint:** `fal-ai/aura-flow`
+**Best For:** Open-source flow-based model
+
+```typescript
+const result = await fal.subscribe("fal-ai/aura-flow", {
+  input: {
+    prompt: "A magical forest with bioluminescent plants",
+    num_inference_steps: 28,
+    guidance_scale: 3.5
+  }
+});
+```
+
+### Kolors
+**Endpoint:** `fal-ai/kolors`
+**Best For:** Artistic, colorful generations
+
+```typescript
+const result = await fal.subscribe("fal-ai/kolors", {
+  input: {
+    prompt: "A vibrant street market in Morocco",
+    image_size: "landscape_4_3"
+  }
+});
+```
+
+## Common Parameters Reference
+
+### Image Size Options
+
+| Preset | Dimensions | Aspect Ratio |
+|--------|------------|--------------|
+| `square` | 512x512 | 1:1 |
+| `square_hd` | 1024x1024 | 1:1 |
+| `portrait_4_3` | 768x1024 | 3:4 |
+| `portrait_16_9` | 576x1024 | 9:16 |
+| `landscape_4_3` | 1024x768 | 4:3 |
+| `landscape_16_9` | 1024x576 | 16:9 |
+
+**Custom Dimensions:**
+```typescript
+image_size: { width: 1920, height: 1080 }
+```
+
+### Complete Parameter Reference
+
+```typescript
+interface TextToImageInput {
+  // Required
+  prompt: string;
+
+  // Image dimensions
+  image_size?:
+    | "square" | "square_hd"
+    | "portrait_4_3" | "portrait_16_9"
+    | "landscape_4_3" | "landscape_16_9"
+    | { width: number; height: number };
+
+  // Generation parameters
+  num_inference_steps?: number;  // 1-50, default varies by model
+  guidance_scale?: number;       // 1-20, default: 3.5 (FLUX) or 7.5 (SDXL)
+  num_images?: number;           // 1-4, default: 1
+  seed?: number;                 // For reproducibility
+
+  // Output options
+  output_format?: "jpeg" | "png";
+  enable_safety_checker?: boolean;
+
+  // SDXL-specific
+  negative_prompt?: string;
+
+  // FLUX 2 Pro specific
+  safety_tolerance?: string;     // "1" to "6"
+  raw?: boolean;                 // Disable prompt enhancement
+
+  // LoRA specific
+  loras?: Array<{
+    path: string;
+    scale: number;
+  }>;
+}
+```
+
+### Response Structure
+
+```typescript
+interface TextToImageOutput {
+  images: Array<{
+    url: string;
+    width: number;
+    height: number;
+    content_type: string;
+  }>;
+  seed: number;
+  prompt: string;
+  has_nsfw_concepts?: boolean[];
+  timings?: {
+    inference: number;
+  };
+}
 ```
 
 ## Model Selection Guide
 
-The script intelligently selects the best model based on task context:
-
-### **flux-pro/v1.1-ultra** (Default for High-Res)
-- **Best for**: Professional photography, high-resolution outputs (up to 2K)
-- **Strengths**: Photo realism, professional quality
-- **Use when**: User needs publication-ready images
-- **Endpoint**: `fal-ai/flux-pro/v1.1-ultra`
-
-### **recraft/v3/text-to-image** (SOTA Quality)
-- **Best for**: Typography, vector art, brand-style images, long text
-- **Strengths**: Industry-leading benchmark scores, precise text rendering
-- **Use when**: Creating logos, posters, or text-heavy designs
-- **Endpoint**: `fal-ai/recraft/v3/text-to-image`
-
-### **flux-2** (Best Balance)
-- **Best for**: General-purpose image generation
-- **Strengths**: Enhanced realism, crisp text, native editing
-- **Use when**: Standard image generation needs
-- **Endpoint**: `fal-ai/flux-2`
-
-### **flux-2/lora** (Custom Styles)
-- **Best for**: Domain-specific styles, fine-tuned variations
-- **Strengths**: Custom style adaptation
-- **Use when**: User wants specific artistic styles
-- **Endpoint**: `fal-ai/flux-2/lora`
-
-### **flux-2/lora/edit** (Style Transfer)
-- **Best for**: Image-to-image editing with style references
-- **Strengths**: Specialized style transfer
-- **Use when**: User provides reference image with `-i` flag
-- **Endpoint**: `fal-ai/flux-2/lora/edit`
-
-### **imagen4/preview** (Google Quality)
-- **Best for**: High-quality general images
-- **Strengths**: Google's highest quality model
-- **Use when**: User specifically requests Imagen or Google models
-- **Endpoint**: `fal-ai/imagen4/preview`
-
-### **stable-diffusion-v35-large** (Typography & Style)
-- **Best for**: Complex prompts, typography, style control
-- **Strengths**: Advanced prompt understanding, resource efficiency
-- **Use when**: Complex multi-element compositions
-- **Endpoint**: `fal-ai/stable-diffusion-v35-large`
-
-### **ideogram/v2** (Typography Specialist)
-- **Best for**: Posters, logos, text-heavy designs
-- **Strengths**: Exceptional typography, realistic outputs
-- **Use when**: Text accuracy is critical
-- **Endpoint**: `fal-ai/ideogram/v2`
-
-### **bria/text-to-image/3.2** (Commercial Safe)
-- **Best for**: Commercial projects requiring licensed training data
-- **Strengths**: Safe for commercial use, excellent text rendering
-- **Use when**: Legal/licensing concerns matter
-- **Endpoint**: `fal-ai/bria/text-to-image/3.2`
-
-## Command-Line Interface
-
-```bash
-uv run python fal-text-to-image [OPTIONS] PROMPT
-
-Arguments:
-  PROMPT                    Text description of the image to generate
-
-Options:
-  -m, --model TEXT         Model to use (see model list above)
-  -i, --image TEXT         Path or URL to reference image for style transfer
-  -o, --output TEXT        Output filename (default: generated_image.png)
-  -s, --size TEXT          Image size (e.g., "1024x1024", "landscape_16_9")
-  --seed INTEGER           Random seed for reproducibility
-  --steps INTEGER          Number of inference steps (model-dependent)
-  --guidance FLOAT         Guidance scale (higher = more prompt adherence)
-  --help                   Show this message and exit
-```
-
-## Authentication Setup
-
-Before first use, set your fal.ai API key:
-
-```bash
-export FAL_KEY="your-api-key-here"
-```
-
-Or create a `.env` file in the skill directory:
-```env
-FAL_KEY=your-api-key-here
-```
-
-Get your API key from: https://fal.ai/dashboard/keys
-
-## Advanced Examples
-
-### High-Resolution Professional Photo
-```bash
-uv run python fal-text-to-image \
-  -m flux-pro/v1.1-ultra \
-  "Professional headshot of a business executive in modern office" \
-  -s 2048x2048
-```
-
-### Logo/Typography Design
-```bash
-uv run python fal-text-to-image \
-  -m recraft/v3/text-to-image \
-  "Modern tech startup logo with text 'AI Labs' in minimalist style"
-```
-
-### Style Transfer from Reference
-```bash
-uv run python fal-text-to-image \
-  -m flux-2/lora/edit \
-  -i artistic_style.jpg \
-  "Portrait of a woman in a garden"
-```
-
-### Reproducible Generation
-```bash
-uv run python fal-text-to-image \
-  -m flux-2 \
-  --seed 42 \
-  "Futuristic cityscape with flying cars"
-```
-
-## Model Selection Logic
-
-The script automatically selects the best model when `-m` is not specified:
-
-1. **If `-i` provided**: Uses `flux-2/lora/edit` for style transfer
-2. **If prompt contains typography keywords** (logo, text, poster, sign): Uses `recraft/v3/text-to-image`
-3. **If prompt suggests high-res needs** (professional, portrait, headshot): Uses `flux-pro/v1.1-ultra`
-4. **If prompt mentions vector/brand**: Uses `recraft/v3/text-to-image`
-5. **Default**: Uses `flux-2` for general purpose
-
-## Output Format
-
-Generated images are saved with metadata:
-- Filename includes timestamp and model name
-- EXIF data stores prompt, model, and parameters
-- Console displays generation time and cost estimate
-
-## Troubleshooting
-
-| Problem | Solution |
-|---------|----------|
-| `FAL_KEY not set` | Export FAL_KEY environment variable or create .env file |
-| `Model not found` | Check model name against supported list |
-| `Image reference fails` | Ensure image path/URL is accessible |
-| `Generation timeout` | Some models take longer; wait or try faster model |
-| `Rate limit error` | Check fal.ai dashboard for usage limits |
-
-## Cost Optimization
-
-- **Free tier**: FLUX.2 offers 100 free requests (expires Dec 25, 2025)
-- **Pay per use**: FLUX Pro charges per megapixel
-- **Budget option**: Use `flux-2` or `stable-diffusion-v35-large` for general use
-- **Premium**: Use `flux-pro/v1.1-ultra` only when high-res is required
-
-## File Structure
-
-```
-fal-text-to-image/
-├── SKILL.md                    # This file
-├── pyproject.toml              # Dependencies (uv)
-├── fal-text-to-image           # Main executable script
-├── references/
-│   └── model-comparison.md     # Detailed model benchmarks
-└── outputs/                    # Generated images (created on first run)
-```
-
-## Dependencies
-
-Managed via `uv`:
-- `fal-client`: Official fal.ai Python SDK
-- `python-dotenv`: Environment variable management
-- `pillow`: Image handling and EXIF metadata
-- `click`: CLI interface
+| Use Case | Recommended Model | Why |
+|----------|-------------------|-----|
+| Best quality | `fal-ai/flux-2-pro` | Latest model, prompt enhancement |
+| Open source | `fal-ai/flux/dev` | 12B params, high quality |
+| Fast iteration | `fal-ai/flux/schnell` | 4-step generation |
+| Budget | `fal-ai/fast-sdxl` | Lower cost per image |
+| Ultra-fast | `fal-ai/sdxl-turbo` | Single step |
+| Custom styles | `fal-ai/flux-lora` | LoRA support |
+| Text in images | `fal-ai/ideogram` | Typography focus |
+| Design assets | `fal-ai/recraft-v3` | Vector-style output |
+| Photorealistic | `fal-ai/flux-realism` | Realism optimized |
 
 ## Best Practices
 
-1. **Model Selection**: Let the script auto-select unless you have specific needs
-2. **Reference Images**: Use high-quality references for best style transfer results
-3. **Prompt Engineering**: Be specific and descriptive for better outputs
-4. **Cost Awareness**: Monitor usage on fal.ai dashboard
-5. **Reproducibility**: Use `--seed` for consistent results during iteration
+### Prompt Engineering
 
-## Resources
+**For FLUX models:**
+- Be descriptive and specific
+- Include style, lighting, composition
+- FLUX 2 Pro auto-enhances prompts (use `raw: true` to disable)
+- Guidance scale 3-4 works best
 
-- fal.ai Documentation: https://docs.fal.ai/
-- Model Playground: https://fal.ai/explore/search
-- API Keys: https://fal.ai/dashboard/keys
-- Pricing: https://fal.ai/pricing
+**For SDXL models:**
+- Use negative prompts
+- Higher guidance (7-12) for better prompt adherence
+- Include quality keywords: "high quality, detailed, 8k"
 
-## Limitations
+### Quality vs Speed Trade-offs
 
-- Requires active fal.ai API key
-- Subject to fal.ai rate limits and quotas
-- Internet connection required
-- Some models have usage costs (check pricing)
-- Image reference features limited to specific models
+```typescript
+// Quality priority
+const quality = await fal.subscribe("fal-ai/flux-2-pro", {
+  input: {
+    prompt: "...",
+    num_inference_steps: 28,
+    guidance_scale: 3.5
+  }
+});
+
+// Speed priority
+const fast = await fal.subscribe("fal-ai/flux/schnell", {
+  input: {
+    prompt: "...",
+    num_inference_steps: 4
+  }
+});
+
+// Balance
+const balanced = await fal.subscribe("fal-ai/flux/dev", {
+  input: {
+    prompt: "...",
+    num_inference_steps: 20,
+    guidance_scale: 3.5
+  }
+});
+```
+
+### Batch Generation
+
+```typescript
+// Generate multiple variations
+const result = await fal.subscribe("fal-ai/flux/dev", {
+  input: {
+    prompt: "A beautiful landscape",
+    num_images: 4,
+    seed: 42  // Same seed = similar outputs
+  }
+});
+
+// Access all images
+result.images.forEach((img, i) => {
+  console.log(`Image ${i + 1}: ${img.url}`);
+});
+```
+
+### Reproducibility
+
+```typescript
+// Use seed for reproducible results
+const seed = 12345;
+
+const result1 = await fal.subscribe("fal-ai/flux/dev", {
+  input: { prompt: "A cat", seed }
+});
+
+const result2 = await fal.subscribe("fal-ai/flux/dev", {
+  input: { prompt: "A cat", seed }
+});
+
+// result1 and result2 will be identical
+```

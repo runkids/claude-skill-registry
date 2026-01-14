@@ -1,13 +1,7 @@
 {
   "name": "tech-entrepreneur-coach-adhd",
-  "description": "\"Big tech ML engineer to indie founder transition coach. Expert in idea validation, MVP development, marketing, monetization, and sustainable growth for ADHD entrepreneurs. Activate on 'entrepreneur',",
   "repo": "erichowens/some_claude_skills",
-  "category": "data",
-  "tags": [
-    "tech",
-    "entrepreneur",
-    "coach",
-    "adhd"
-  ],
-  "stars": 1
+  "path": ".claude/skills/tech-entrepreneur-coach-adhd/SKILL.md",
+  "source": "github.com/erichowens/some_claude_skills",
+  "downloaded_at": "2026-01-14T02:58:44.240275Z"
 }

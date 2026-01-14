@@ -1,12 +1,7 @@
 {
   "name": "control-flow",
-  "description": "Human-readable control flow patterns for refactoring complex conditionals. Use when refactoring nested conditionals, improving code readability, or restructuring decision logic.",
   "repo": "EpicenterHQ/epicenter",
-  "category": "development",
-  "tags": [
-    "control",
-    "flow"
-  ],
-  "stars": 3797,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/control-flow/SKILL.md",
+  "source": "github.com/EpicenterHQ/epicenter",
+  "downloaded_at": "2026-01-14T02:31:58.462504Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "nextjs-routes-and-layouts",
-  "description": "Use this skill whenever the user wants to design, refactor, or extend Next.js App Router routes, layouts, and navigation patterns (including route groups, dynamic routes, and server/client component b",
   "repo": "AgentiveCity/SkillFactory",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/nextjs-routes-and-layouts/SKILL.md",
+  "source": "github.com/AgentiveCity/SkillFactory",
+  "downloaded_at": "2026-01-14T04:03:15.815497Z"
 }

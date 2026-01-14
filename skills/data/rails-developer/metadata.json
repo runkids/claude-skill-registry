@@ -1,12 +1,7 @@
 {
   "name": "rails-developer",
-  "description": "Эксперт Ruby on Rails. Используй для Rails приложений, ActiveRecord, Hotwire и Rails best practices.",
   "repo": "dengineproblem/agents-monorepo",
-  "category": "development",
-  "tags": [
-    "rails",
-    "developer"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/rails-developer/SKILL.md",
+  "source": "github.com/dengineproblem/agents-monorepo",
+  "downloaded_at": "2026-01-14T02:07:58.123867Z"
 }

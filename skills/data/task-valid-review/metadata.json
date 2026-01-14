@@ -1,13 +1,7 @@
 {
   "name": "task-valid-review",
-  "description": "[Task Mgmt] Verification tool for validating task completion in Review section. Use when checking if tasks are actually done before moving from Review to Done. Verifies subtask completion, code/file c",
   "repo": "CANTAGESTUDIO/CosmicAtlasPacker",
-  "category": "development",
-  "tags": [
-    "task",
-    "valid",
-    "review"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".factory/skills/task-valid-review/SKILL.md",
+  "source": "github.com/CANTAGESTUDIO/CosmicAtlasPacker",
+  "downloaded_at": "2026-01-14T02:43:50.963659Z"
 }

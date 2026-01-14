@@ -1,12 +1,7 @@
 {
   "name": "cross-context",
-  "description": "處理跨 Bounded Context 的依賴關係。當需求涉及多個限界上下文（如權限管理、付款、通知）時觸發，設計 Anti-Corruption Layer 和 Context Mapping。",
   "repo": "knowlet/skills",
-  "category": "development",
-  "tags": [
-    "cross",
-    "context"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/cross-context/SKILL.md",
+  "source": "github.com/knowlet/skills",
+  "downloaded_at": "2026-01-14T02:33:59.676851Z"
 }

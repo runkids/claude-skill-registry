@@ -1,7 +1,82 @@
 ---
-name: "AgentDB Advanced Features"
-description: "Master advanced AgentDB features including QUIC synchronization, multi-database management, custom distance metrics, hybrid search, and distributed systems integration. Use when building distributed AI systems, multi-agent coordination, or advanced vector search applications."
+name: agentdb-advanced-features
+description: Master advanced AgentDB features including QUIC synchronization, multi-database management, custom distance metrics, hybrid search, and distributed systems integration. Use when building distributed AI systems, multi-agent coordination, or advanced vector search applications.
+allowed-tools: Read, Write, Edit, Bash, Task, TodoWrite, Glob, Grep, WebFetch
 ---
+
+
+
+---
+
+## LIBRARY-FIRST PROTOCOL (MANDATORY)
+
+**Before writing ANY code, you MUST check:**
+
+### Step 1: Library Catalog
+- Location: `.claude/library/catalog.json`
+- If match >70%: REUSE or ADAPT
+
+### Step 2: Patterns Guide
+- Location: `.claude/docs/inventories/LIBRARY-PATTERNS-GUIDE.md`
+- If pattern exists: FOLLOW documented approach
+
+### Step 3: Existing Projects
+- Location: `D:\Projects\*`
+- If found: EXTRACT and adapt
+
+### Decision Matrix
+| Match | Action |
+|-------|--------|
+| Library >90% | REUSE directly |
+| Library 70-90% | ADAPT minimally |
+| Pattern exists | FOLLOW pattern |
+| In project | EXTRACT |
+| No match | BUILD (add to library after) |
+
+---
+
+## When NOT to Use This Skill
+
+- Local-only operations with no vector search needs
+- Simple key-value storage without semantic similarity
+- Real-time streaming data without persistence requirements
+- Operations that do not require embedding-based retrieval
+
+## Success Criteria
+
+- Vector search query latency: <10ms for 99th percentile
+- Embedding generation: <100ms per document
+- Index build time: <1s per 1000 vectors
+- Recall@10: >0.95 for similar documents
+- Database connection success rate: >99.9%
+- Memory footprint: <2GB for 1M vectors with quantization
+
+## Edge Cases & Error Handling
+
+- **Rate Limits**: AgentDB local instances have no rate limits; cloud deployments may vary
+- **Connection Failures**: Implement retry logic with exponential backoff (max 3 retries)
+- **Index Corruption**: Maintain backup indices; rebuild from source if corrupted
+- **Memory Overflow**: Use quantization (4-bit, 8-bit) to reduce memory by 4-32x
+- **Stale Embeddings**: Implement TTL-based refresh for dynamic content
+- **Dimension Mismatch**: Validate embedding dimensions (384 for sentence-transformers) before insertion
+
+## Guardrails & Safety
+
+- NEVER expose database connection strings in logs or error messages
+- ALWAYS validate vector dimensions before insertion
+- ALWAYS sanitize metadata to prevent injection attacks
+- NEVER store PII in vector metadata without encryption
+- ALWAYS implement access control for multi-tenant deployments
+- ALWAYS validate search results before returning to users
+
+## Evidence-Based Validation
+
+- Verify database health: Check connection status and index integrity
+- Validate search quality: Measure recall/precision on test queries
+- Monitor performance: Track query latency, throughput, and memory usage
+- Test failure recovery: Simulate connection drops and index corruption
+- Benchmark improvements: Compare against baseline metrics (e.g., 150x speedup claim)
+
 
 # AgentDB Advanced Features
 
@@ -548,3 +623,44 @@ const result = await adapter.retrieveWithReasoning(queryEmbedding, {
 **Category**: Advanced / Distributed Systems
 **Difficulty**: Advanced
 **Estimated Time**: 45-60 minutes
+## Core Principles
+
+AgentDB Advanced Features operates on 3 fundamental principles:
+
+### Principle 1: Distributed Consistency Through QUIC Synchronization
+Achieve sub-millisecond cross-node synchronization with automatic retry, multiplexing, and TLS 1.3 encryption for distributed vector databases.
+
+In practice:
+- QUIC enables <1ms pattern synchronization across network boundaries with UDP + reliability layer
+- Multiplexed streams allow simultaneous operations (queries, inserts, syncs) without head-of-line blocking
+- Event-based broadcasting ensures eventual consistency with configurable sync intervals (1s default)
+
+### Principle 2: Hybrid Search Combines Vector Similarity with Metadata Filtering
+Merge semantic understanding (embeddings) with structured constraints (metadata filters) for precision retrieval beyond pure vector search.
+
+In practice:
+- Vector search finds semantically similar documents, metadata filters enforce business rules (date ranges, categories, permissions)
+- MMR (Maximal Marginal Relevance) diversifies results to avoid redundancy while maintaining relevance
+- Custom distance metrics (cosine, Euclidean, dot product) optimize for different embedding types (text vs images)
+
+### Principle 3: Multi-Database Sharding Enables Horizontal Scaling
+Partition vector data across databases by domain or tenant for independent scaling and isolation.
+
+In practice:
+- Separate databases per domain (knowledge.db, conversations.db, code.db) prevent cross-contamination
+- Sharding by tenant or region enables geographic distribution and compliance (GDPR data residency)
+- Independent optimization per shard (different quantization, cache sizes) based on access patterns
+
+## Common Anti-Patterns
+
+| Anti-Pattern | Problem | Solution |
+|--------------|---------|----------|
+| **Synchronous QUIC Sync** | Blocking operations wait for sync completion, causing 10-100ms latency spikes | Enable async sync with configurable intervals (1s), batch sync operations (100 patterns), use fire-and-forget pattern |
+| **Over-Filtering Hybrid Search** | Too many metadata filters return empty results despite semantic matches | Start with k=100 for vector search, then apply filters; progressively relax filters if results <5 |
+| **Single Monolithic Database** | One database for all domains causes index bloat, slow queries, and cross-domain contamination | Shard by domain or tenant; use separate databases with independent indices and optimization strategies |
+
+## Conclusion
+
+AgentDB Advanced Features unlocks production-grade distributed AI systems by extending core vector search with QUIC synchronization for multi-node deployments, hybrid search for combining semantic and structured queries, and flexible sharding for horizontal scaling. These capabilities transform AgentDB from a local vector database into a distributed platform capable of supporting multi-agent coordination, geographic distribution, and enterprise-scale applications.
+
+Use this skill when building distributed AI systems requiring cross-node communication (<1ms QUIC sync), implementing RAG systems needing metadata filters beyond semantic search (hybrid search with date/category/permission constraints), or scaling beyond single-machine limits (multi-database sharding by domain/tenant). The key insight is architectural flexibility: QUIC enables distributed consistency, hybrid search adds precision to semantic retrieval, and sharding provides independent scaling per domain. Start with single-database deployment, add QUIC sync when distributing across nodes, enable hybrid search for complex filtering, and implement sharding only when hitting performance or isolation limits.

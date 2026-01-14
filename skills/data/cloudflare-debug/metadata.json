@@ -1,9 +1,7 @@
 {
   "name": "cloudflare-debug",
-  "description": "Debugging patterns for Cloudflare Workers. Activates when troubleshooting errors, checking logs, or investigating production issues.",
   "repo": "CavellTopDev/pitchey-app",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/cloudflare-debug/SKILL.md",
+  "source": "github.com/CavellTopDev/pitchey-app",
+  "downloaded_at": "2026-01-14T03:27:04.442250Z"
 }

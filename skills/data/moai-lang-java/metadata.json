@@ -1,13 +1,7 @@
 {
   "name": "moai-lang-java",
-  "description": "Java programming language patterns, object-oriented design, and enterprise application development. Use when building enterprise applications, Android apps, or large-scale systems.",
-  "repo": "modu-ai/moai-adk",
-  "category": "development",
-  "tags": [
-    "moai",
-    "lang",
-    "java"
-  ],
-  "stars": 310,
-  "source": "SkillsMP Synced Skills"
+  "repo": "windysky/claude_notification_wsl2",
+  "path": ".claude/skills/moai-lang-java/SKILL.md",
+  "source": "github.com/windysky/claude_notification_wsl2",
+  "downloaded_at": "2026-01-14T04:03:28.464256Z"
 }

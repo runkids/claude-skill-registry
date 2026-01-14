@@ -1,9 +1,7 @@
 {
   "name": "social-media-generator",
-  "description": "This skill should be used when the user requests social media content creation for Twitter, Instagram, LinkedIn, or Facebook. It generates platform-optimized posts and saves them in an organized folde",
-  "repo": "agent-trust-protocol/atp-core",
-  "category": "marketing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "mamba-mental/agent-skill-manager",
+  "path": ".claude/skills/social-media-generator/SKILL.md",
+  "source": "github.com/mamba-mental/agent-skill-manager",
+  "downloaded_at": "2026-01-14T01:45:03.315563Z"
 }

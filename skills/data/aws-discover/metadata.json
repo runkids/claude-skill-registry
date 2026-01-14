@@ -1,12 +1,7 @@
 {
   "name": "aws-discover",
-  "description": "Discover AWS infrastructure and save to JSON. Use when user asks to \"discover AWS\", \"explore AWS account\", \"scan AWS infrastructure\", or \"create infrastructure JSON\".",
   "repo": "mpuig/claude-cloud-diagrams",
-  "category": "devops",
-  "tags": [
-    "aws",
-    "discover"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/aws-discover/SKILL.md",
+  "source": "github.com/mpuig/claude-cloud-diagrams",
+  "downloaded_at": "2026-01-14T00:53:40.088267Z"
 }

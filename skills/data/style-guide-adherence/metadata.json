@@ -1,13 +1,7 @@
 {
   "name": "style-guide-adherence",
-  "description": "Use when writing code - follow Google style guides where available, otherwise follow established best practices for the language",
-  "repo": "troykelly/claude-skills",
-  "category": "development",
-  "tags": [
-    "style",
-    "guide",
-    "adherence"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "troykelly/codex-skills",
+  "path": "skills/style-guide-adherence/SKILL.md",
+  "source": "github.com/troykelly/codex-skills",
+  "downloaded_at": "2026-01-14T03:34:04.920031Z"
 }

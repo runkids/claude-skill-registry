@@ -1,12 +1,7 @@
 {
   "name": "rust-errors",
-  "description": "Rust to TypeScript error handling patterns for Tauri apps. Use when defining Rust errors that will be passed to TypeScript, handling Tauri command errors, or creating discriminated union error types.",
   "repo": "EpicenterHQ/epicenter",
-  "category": "development",
-  "tags": [
-    "rust",
-    "errors"
-  ],
-  "stars": 3797,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/rust-errors/SKILL.md",
+  "source": "github.com/EpicenterHQ/epicenter",
+  "downloaded_at": "2026-01-14T02:31:58.376017Z"
 }

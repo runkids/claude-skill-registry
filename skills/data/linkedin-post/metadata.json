@@ -1,12 +1,7 @@
 {
   "name": "linkedin-post",
-  "description": "Create engaging LinkedIn posts that drive engagement and build authority. Use when the user wants to write LinkedIn content, needs posts for their LinkedIn strategy, or wants to repurpose content for ",
   "repo": "az9713/ai-co-writing-claude-skills",
-  "category": "development",
-  "tags": [
-    "linkedin",
-    "post"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/linkedin-post/SKILL.md",
+  "source": "github.com/az9713/ai-co-writing-claude-skills",
+  "downloaded_at": "2026-01-14T03:13:59.977315Z"
 }

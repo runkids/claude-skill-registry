@@ -1,11 +1,7 @@
 {
   "name": "discover-ir",
-  "description": "Automatically discover intermediate representation and compiler skills when working with intermediate representation. Activates for ir development tasks.",
   "repo": "rand/cc-polymath",
-  "category": "development",
-  "tags": [
-    "discover"
-  ],
-  "stars": 33,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/discover-ir/SKILL.md",
+  "source": "github.com/rand/cc-polymath",
+  "downloaded_at": "2026-01-14T03:55:19.664348Z"
 }

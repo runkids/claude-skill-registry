@@ -1,11 +1,7 @@
 {
   "name": "security-review",
-  "description": "MANDATORY for security-sensitive code changes - OWASP-based security review with dedicated checklist, required before PR for auth, input handling, API, database, or credential code",
-  "repo": "troykelly/claude-skills",
-  "category": "data",
-  "tags": [
-    "security",
-    "review"
-  ],
-  "stars": 1
+  "repo": "troykelly/codex-skills",
+  "path": "skills/security-review/SKILL.md",
+  "source": "github.com/troykelly/codex-skills",
+  "downloaded_at": "2026-01-14T03:34:01.762506Z"
 }

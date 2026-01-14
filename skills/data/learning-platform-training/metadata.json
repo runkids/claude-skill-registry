@@ -1,12 +1,7 @@
 {
   "name": "learning-platform-training",
-  "description": "Creates platform-specific training for LMS, authoring tools, and educational technology.",
   "repo": "pauljbernard/content",
-  "category": "data",
-  "tags": [
-    "learning",
-    "platform",
-    "training"
-  ],
-  "stars": 0
+  "path": ".claude/skills/learning-platform-training/SKILL.md",
+  "source": "github.com/pauljbernard/content",
+  "downloaded_at": "2026-01-14T02:04:55.034789Z"
 }

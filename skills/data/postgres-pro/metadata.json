@@ -1,11 +1,7 @@
 {
   "name": "postgres-pro",
-  "description": "Use when optimizing PostgreSQL queries, configuring replication, or implementing advanced database features. Invoke for EXPLAIN analysis, JSONB operations, extension usage, VACUUM tuning, performance ",
   "repo": "Jeffallan/claude-skills",
-  "category": "data",
-  "tags": [
-    "postgres",
-    "pro"
-  ],
-  "stars": 12
+  "path": "skills/postgres-pro/SKILL.md",
+  "source": "github.com/Jeffallan/claude-skills",
+  "downloaded_at": "2026-01-14T02:36:35.916519Z"
 }

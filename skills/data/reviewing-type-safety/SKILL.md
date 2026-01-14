@@ -1,76 +1,70 @@
 ---
 name: reviewing-type-safety
 description: >
-  TypeScript type safety patterns and best practices for maximum type coverage.
-  Triggers: 型安全, type safety, any, unknown, 型推論, 型ガード, type guard,
+  最大の型カバレッジのためのTypeScript型安全パターンとベストプラクティス。
+  トリガー: 型安全, type safety, any, unknown, 型推論, 型ガード, type guard,
   discriminated union, 判別可能なUnion, strictNullChecks, 型定義, 型カバレッジ,
   TypeScript, 暗黙のany, implicit any, 型アサーション, type assertion.
-allowed-tools:
-  - Read
-  - Grep
-  - Glob
-  - Task
-agent: type-safety-reviewer
-user-invocable: false
+allowed-tools: Read, Grep, Glob, Task
 ---
 
-# Type Safety Review - TypeScript Best Practices
+# 型安全レビュー - TypeScriptベストプラクティス
 
-Target: Maximum type safety with minimal type gymnastics.
+目標: 最小限の型の体操で最大の型安全性。
 
-## Type Safety Metrics
+## 型安全メトリクス
 
-| Context         | Target             | Warning        |
-| --------------- | ------------------ | -------------- |
-| Type coverage   | 95%+               | < 90%          |
-| Any usage       | 0 (justified only) | > 5 instances  |
-| Type assertions | Minimal            | > 10 instances |
-| Implicit any    | 0                  | Any > 0        |
-| Strict mode     | All enabled        | Any disabled   |
+| コンテキスト   | ターゲット                | 警告             |
+| -------------- | ------------------------- | ---------------- |
+| 型カバレッジ   | 95%+                      | < 90%            |
+| Any使用        | 0（正当化がある場合のみ） | > 5インスタンス  |
+| 型アサーション | 最小限                    | > 10インスタンス |
+| 暗黙のany      | 0                         | Any > 0          |
+| Strictモード   | すべて有効                | いずれか無効     |
 
-## Section-Based Loading
+## セクションベースのロード
 
-| Section  | File                          | Focus                           | Triggers                   |
-| -------- | ----------------------------- | ------------------------------- | -------------------------- |
-| Coverage | `references/type-coverage.md` | Explicit types, avoiding any    | any, unknown, 型カバレッジ |
-| Guards   | `references/type-guards.md`   | Narrowing, discriminated unions | 型ガード, type guard       |
-| Strict   | `references/strict-mode.md`   | tsconfig, React types           | strictNullChecks, React    |
+| セクション | ファイル                      | フォーカス                    | トリガー                   |
+| ---------- | ----------------------------- | ----------------------------- | -------------------------- |
+| カバレッジ | `references/type-coverage.md` | 明示的な型、anyを避ける       | any, unknown, 型カバレッジ |
+| ガード     | `references/type-guards.md`   | ナローイング、判別可能なUnion | 型ガード, type guard       |
+| Strict     | `references/strict-mode.md`   | tsconfig、React型             | strictNullChecks, React    |
 
-## Quick Checklist
+## クイックチェックリスト
 
-### Type Coverage
+### 型カバレッジ
 
-- [ ] All functions have explicit return types
-- [ ] All parameters are typed (no implicit any)
-- [ ] Interface/type definitions for all data structures
-- [ ] No `any` without explicit justification
+- [ ] すべての関数に明示的な戻り値型
+- [ ] すべてのパラメータが型付き（暗黙のanyなし）
+- [ ] すべてのデータ構造にInterface/type定義
+- [ ] 明示的な正当化なしの`any`なし
 
-### Type Guards & Narrowing
+### 型ガードとナローイング
 
-- [ ] Type predicates for union types (`is` functions)
-- [ ] Discriminated unions for related types
-- [ ] Exhaustive checking with `never`
-- [ ] Avoid unsafe type assertions (`as`)
+- [ ] Union型に型述語（`is`関数）
+- [ ] 関連する型に判別可能なUnion
+- [ ] `never`による網羅的チェック
+- [ ] 安全でない型アサーション（`as`）を避ける
 
-### Strict Mode
+### Strictモード
 
 - [ ] `strictNullChecks: true`
 - [ ] `noImplicitAny: true`
 - [ ] `strictFunctionTypes: true`
-- [ ] React components extend proper HTML attributes
+- [ ] Reactコンポーネントが適切なHTML属性を拡張
 
-## Key Principles
+## 主要原則
 
-| Principle      | Application                                 |
-| -------------- | ------------------------------------------- |
-| Fail Fast      | Catch errors at compile-time, not runtime   |
-| Let TS Infer   | Don't over-type what's already clear        |
-| Types as Docs  | Good types serve as documentation           |
-| Prefer unknown | Use `unknown` over `any` for safer handling |
+| 原則             | 適用                                                   |
+| ---------------- | ------------------------------------------------------ |
+| Fail Fast        | 実行時ではなくコンパイル時にエラーをキャッチ           |
+| TSに推論させる   | 既に明確なものを過度に型付けしない                     |
+| 型はドキュメント | 良い型はドキュメントとして機能                         |
+| unknownを優先    | より安全なハンドリングのために`any`より`unknown`を使用 |
 
-## Common Patterns
+## 一般的なパターン
 
-### Type Guard Function
+### 型ガード関数
 
 ```typescript
 function isSuccess<T>(response: Response<T>): response is SuccessResponse<T> {
@@ -78,7 +72,7 @@ function isSuccess<T>(response: Response<T>): response is SuccessResponse<T> {
 }
 ```
 
-### Discriminated Union
+### 判別可能なUnion
 
 ```typescript
 type Action =
@@ -86,7 +80,7 @@ type Action =
   | { type: "DECREMENT"; payload: number }
   | { type: "RESET" };
 
-// Exhaustive check
+// 網羅的チェック
 function reducer(action: Action): number {
   switch (action.type) {
     case "INCREMENT":
@@ -102,7 +96,7 @@ function reducer(action: Action): number {
 }
 ```
 
-### Generic Component
+### ジェネリックコンポーネント
 
 ```typescript
 interface SelectProps<T> {
@@ -116,18 +110,21 @@ function Select<T>({ value, options, onChange }: SelectProps<T>) {
 }
 ```
 
-## References
+## 参照
 
-### Core Principles
+### スキル参照
 
-- [@../../skills/applying-code-principles/SKILL.md](../../skills/applying-code-principles/SKILL.md) - Don't over-type
-- [@../../skills/applying-code-principles/SKILL.md](../../skills/applying-code-principles/SKILL.md) - Type interfaces follow ISP
+- [@./references/result-type.md](./references/result-type.md) - Result型エラーハンドリングパターン
 
-### Related Skills
+### コア原則
 
-- `applying-code-principles` - General code quality principles
-- `generating-tdd-tests` - Type-safe test patterns
+- [@../../../skills/applying-code-principles/SKILL.md](../../../skills/applying-code-principles/SKILL.md) - 過度な型付けをしない、ISPに従う
 
-### Used by Agents
+### 関連スキル
 
-- `type-safety-reviewer` - Primary consumer of this skill
+- `applying-code-principles` - 一般的なコード品質原則
+- `generating-tdd-tests` - 型安全なテストパターン
+
+### 使用エージェント
+
+- `type-safety-reviewer` - このスキルの主要な使用者

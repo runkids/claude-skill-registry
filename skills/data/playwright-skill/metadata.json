@@ -1,14 +1,7 @@
 {
   "name": "playwright-skill",
-  "description": "Browser automation with Playwright - Claude writes and executes custom scripts",
   "repo": "lackeyjb/playwright-skill",
-  "category": "testing",
-  "tags": [
-    "playwright",
-    "browser",
-    "automation",
-    "testing"
-  ],
-  "stars": 0,
-  "source": "Community Skills"
+  "path": "skills/playwright-skill/SKILL.md",
+  "source": "github.com/lackeyjb/playwright-skill",
+  "downloaded_at": "2026-01-14T03:46:26.321713Z"
 }

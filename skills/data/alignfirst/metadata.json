@@ -1,9 +1,7 @@
 {
   "name": "alignfirst",
-  "description": "Collaborative problem-solving protocols: write technical specifications (spec, or alspec), create implementation plans (plan, or alplan), or use Align-and-Do Protocol (AAD). Also generates PR/MR descr",
   "repo": "paleo/alignfirst",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "GitHub Search API"
+  "path": "skills/alignfirst/SKILL.md",
+  "source": "github.com/paleo/alignfirst",
+  "downloaded_at": "2026-01-14T03:40:31.527751Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "agent-error-coordinator",
-  "description": "Expert error coordinator specializing in distributed error handling, failure recovery, and system resilience. Masters error correlation, cascade prevention, and automated recovery strategies across mu",
   "repo": "Tony363/SuperClaude",
-  "category": "data",
-  "tags": [
-    "agent",
-    "error",
-    "coordinator"
-  ],
-  "stars": 10,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/DEPRECATED/agent-error-coordinator/SKILL.md",
+  "source": "github.com/Tony363/SuperClaude",
+  "downloaded_at": "2026-01-14T03:29:14.506025Z"
 }

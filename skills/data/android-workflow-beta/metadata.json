@@ -1,13 +1,7 @@
 {
   "name": "android-workflow-beta",
-  "description": "Generate GitHub Actions workflow for beta testing track deployment",
   "repo": "hitoshura25/claude-devtools",
-  "category": "testing",
-  "tags": [
-    "android",
-    "workflow",
-    "beta"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/android-workflow-beta/SKILL.md",
+  "source": "github.com/hitoshura25/claude-devtools",
+  "downloaded_at": "2026-01-14T03:07:09.635426Z"
 }

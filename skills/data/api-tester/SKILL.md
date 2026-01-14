@@ -1,158 +1,846 @@
 ---
 name: api-tester
-description: Makes HTTP requests to any URL and returns the response (supports GET, POST, PUT, PATCH, DELETE)
-version: 2.0.0
+description: Quick API endpoint testing with comprehensive request/response validation.
 ---
 
 # API Tester Skill
 
-You are an expert at making HTTP requests to APIs and analyzing the responses. When this skill is activated, you should actually make HTTP requests using Python's requests library and provide detailed information about the response.
+Quick API endpoint testing with comprehensive request/response validation.
 
-## Core Capabilities
+## Instructions
 
-You can make real HTTP requests to any URL the user provides and analyze the responses.
+You are an API testing expert. When invoked:
 
-## How to Use This Skill
+1. **Test API Endpoints**:
+   - Validate HTTP methods (GET, POST, PUT, PATCH, DELETE)
+   - Test request headers and body formats
+   - Verify response status codes
+   - Validate response schema and data types
+   - Check authentication and authorization
 
-When a user asks you to make a request or test an API:
+2. **Generate Test Cases**:
+   - Create curl commands for testing
+   - Generate Postman collections
+   - Write automated test scripts
+   - Test edge cases and error scenarios
+   - Validate API contracts
 
-1. **Parse the user's request** to understand:
-   - The URL to request
-   - HTTP method (GET, POST, PUT, PATCH, DELETE) - default to GET if not specified
-   - Any headers needed (Authorization, Content-Type, etc.)
-   - Request body/payload if applicable (for POST/PUT/PATCH)
-   - Query parameters if applicable
+3. **Performance Testing**:
+   - Load testing with concurrent requests
+   - Response time benchmarking
+   - Rate limit verification
+   - Timeout handling
+   - Connection pooling tests
 
-2. **Write Python code** using the requests library to make the actual HTTP request:
+4. **Security Testing**:
+   - Authentication/authorization checks
+   - Input validation testing
+   - SQL injection prevention
+   - XSS prevention
+   - CORS configuration
 
-```python
-import requests
-import json
+## Usage Examples
 
-# Example GET request
-response = requests.get('https://api.example.com/users')
-print(f"Status Code: {response.status_code}")
-print(f"Headers: {dict(response.headers)}")
-print(f"Response Body: {response.text}")
-
-# Example POST request with JSON
-data = {"name": "John", "email": "john@example.com"}
-response = requests.post(
-    'https://api.example.com/users',
-    json=data,
-    headers={'Content-Type': 'application/json'}
-)
-print(f"Status Code: {response.status_code}")
-print(f"Response: {response.json()}")
-
-# Example with headers
-headers = {'Authorization': 'Bearer TOKEN', 'User-Agent': 'API-Tester/2.0'}
-response = requests.get('https://api.example.com/protected', headers=headers)
+```
+@api-tester
+@api-tester --endpoint /api/users
+@api-tester --method POST
+@api-tester --load-test
+@api-tester --generate-collection
 ```
 
-3. **Execute the Python code** to make the actual request
+## REST API Testing
 
-4. **Analyze and report** the response:
-   - HTTP status code and what it means
-   - Response headers (especially Content-Type, Cache-Control, etc.)
-   - Response body (formatted nicely if JSON)
-   - Response time
-   - Any errors or issues encountered
+### GET Request Examples
 
-## HTTP Methods
+#### Basic GET Request
+```bash
+# curl
+curl -X GET https://api.example.com/api/users \
+  -H "Content-Type: application/json"
 
-- **GET**: Retrieve data (no body needed)
-- **POST**: Create new resource (usually needs body)
-- **PUT**: Update/replace resource (needs body)
-- **PATCH**: Partially update resource (needs body)
-- **DELETE**: Remove resource (usually no body)
+# With authentication
+curl -X GET https://api.example.com/api/users \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json"
 
-## Common Headers
+# With query parameters
+curl -X GET "https://api.example.com/api/users?page=1&limit=10&sort=created_at" \
+  -H "Authorization: Bearer YOUR_TOKEN"
 
-```python
-headers = {
-    'Content-Type': 'application/json',  # For JSON requests
-    'Authorization': 'Bearer YOUR_TOKEN',  # For authenticated requests
-    'User-Agent': 'API-Tester/2.0',  # Identify your client
-    'Accept': 'application/json'  # Specify response format
+# Verbose output (includes headers)
+curl -v -X GET https://api.example.com/api/users
+```
+
+#### JavaScript/Node.js
+```javascript
+// Using fetch
+async function getUsers() {
+  const response = await fetch('https://api.example.com/api/users', {
+    method: 'GET',
+    headers: {
+      'Authorization': 'Bearer YOUR_TOKEN',
+      'Content-Type': 'application/json'
+    }
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  const data = await response.json();
+  return data;
+}
+
+// Using axios
+const axios = require('axios');
+
+async function getUsers() {
+  try {
+    const response = await axios.get('https://api.example.com/api/users', {
+      headers: {
+        'Authorization': 'Bearer YOUR_TOKEN'
+      },
+      params: {
+        page: 1,
+        limit: 10
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error:', error.response?.data || error.message);
+    throw error;
+  }
 }
 ```
 
-## Response Analysis
-
-Always provide:
-- Status code and meaning (200 OK, 404 Not Found, 500 Server Error, etc.)
-- Key response headers
-- Formatted response body (pretty-print JSON if applicable)
-- Response time/performance
-- Any warnings or issues
-
-## Example Interactions
-
-**Simple GET request:**
-```
-User: "make a request to example.com"
-You: [Write Python code to make GET request to https://example.com and execute it]
-     [Report status code, headers, and response content]
-```
-
-**POST with data:**
-```
-User: "POST to https://httpbin.org/post with data name=test"
-You: [Write Python code to make POST request with the data]
-     [Execute and report results]
-```
-
-**With authentication:**
-```
-User: "GET https://api.github.com/user with bearer token abc123"
-You: [Write Python code with Authorization header]
-     [Execute and report results]
-```
-
-## Important Notes
-
-- Always use HTTPS URLs when possible
-- Handle errors gracefully (connection errors, timeouts, etc.)
-- If the URL doesn't include http:// or https://, add https:// by default
-- Set reasonable timeouts (e.g., timeout=10)
-- Pretty-print JSON responses for readability
-- For large responses, summarize rather than showing everything
-
-## Error Handling
-
-Always wrap requests in try-except blocks:
-
+#### Python
 ```python
 import requests
 
-try:
-    response = requests.get('https://api.example.com/endpoint', timeout=10)
-    print(f"Status: {response.status_code}")
-    print(f"Response: {response.text}")
-except requests.exceptions.Timeout:
-    print("Request timed out after 10 seconds")
-except requests.exceptions.ConnectionError:
-    print("Failed to connect to the server")
-except requests.exceptions.RequestException as e:
-    print(f"Request failed: {e}")
-```
+# Basic GET request
+response = requests.get('https://api.example.com/api/users')
+print(response.json())
 
-## Response Formatting
+# With authentication and parameters
+headers = {
+    'Authorization': 'Bearer YOUR_TOKEN',
+    'Content-Type': 'application/json'
+}
 
-For JSON responses, format them nicely:
+params = {
+    'page': 1,
+    'limit': 10,
+    'sort': 'created_at'
+}
 
-```python
-import json
+response = requests.get(
+    'https://api.example.com/api/users',
+    headers=headers,
+    params=params
+)
 
-if response.headers.get('Content-Type', '').startswith('application/json'):
-    try:
-        data = response.json()
-        print(json.dumps(data, indent=2))
-    except json.JSONDecodeError:
-        print(response.text)
+if response.status_code == 200:
+    data = response.json()
+    print(data)
 else:
+    print(f"Error: {response.status_code}")
     print(response.text)
 ```
 
-Remember: You should ACTUALLY MAKE THE HTTP REQUEST using Python code, not just show examples. The user wants to see real responses from real API calls.
+### POST Request Examples
+
+#### Create Resource
+```bash
+# curl
+curl -X POST https://api.example.com/api/users \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "John Doe",
+    "email": "john@example.com",
+    "role": "user"
+  }'
+
+# From file
+curl -X POST https://api.example.com/api/users \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d @user.json
+```
+
+#### JavaScript/Node.js
+```javascript
+// Using fetch
+async function createUser(userData) {
+  const response = await fetch('https://api.example.com/api/users', {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer YOUR_TOKEN',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(userData)
+  });
+
+  const data = await response.json();
+  return data;
+}
+
+// Usage
+const newUser = {
+  name: 'John Doe',
+  email: 'john@example.com',
+  role: 'user'
+};
+
+createUser(newUser)
+  .then(user => console.log('Created:', user))
+  .catch(error => console.error('Error:', error));
+
+// Using axios with error handling
+async function createUser(userData) {
+  try {
+    const response = await axios.post(
+      'https://api.example.com/api/users',
+      userData,
+      {
+        headers: {
+          'Authorization': 'Bearer YOUR_TOKEN'
+        }
+      }
+    );
+    return response.data;
+  } catch (error) {
+    if (error.response) {
+      // Server responded with error
+      console.error('Error:', error.response.status);
+      console.error('Message:', error.response.data);
+    } else if (error.request) {
+      // No response received
+      console.error('No response from server');
+    } else {
+      console.error('Error:', error.message);
+    }
+    throw error;
+  }
+}
+```
+
+#### Python
+```python
+import requests
+
+# Create user
+user_data = {
+    'name': 'John Doe',
+    'email': 'john@example.com',
+    'role': 'user'
+}
+
+headers = {
+    'Authorization': 'Bearer YOUR_TOKEN',
+    'Content-Type': 'application/json'
+}
+
+response = requests.post(
+    'https://api.example.com/api/users',
+    json=user_data,
+    headers=headers
+)
+
+if response.status_code == 201:
+    print('User created:', response.json())
+else:
+    print(f'Error: {response.status_code}')
+    print(response.json())
+```
+
+### PUT/PATCH Request Examples
+
+```bash
+# PUT - Replace entire resource
+curl -X PUT https://api.example.com/api/users/123 \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "John Updated",
+    "email": "john.updated@example.com",
+    "role": "admin"
+  }'
+
+# PATCH - Partial update
+curl -X PATCH https://api.example.com/api/users/123 \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "role": "admin"
+  }'
+```
+
+### DELETE Request Examples
+
+```bash
+# Delete resource
+curl -X DELETE https://api.example.com/api/users/123 \
+  -H "Authorization: Bearer YOUR_TOKEN"
+
+# Delete with confirmation
+curl -X DELETE https://api.example.com/api/users/123 \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "X-Confirm-Delete: true"
+```
+
+## Authentication Examples
+
+### Bearer Token (JWT)
+```bash
+# Get token
+curl -X POST https://api.example.com/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "user@example.com",
+    "password": "password123"
+  }'
+
+# Use token
+curl -X GET https://api.example.com/api/users \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+```
+
+### API Key
+```bash
+# In header
+curl -X GET https://api.example.com/api/users \
+  -H "X-API-Key: your-api-key-here"
+
+# In query parameter
+curl -X GET "https://api.example.com/api/users?api_key=your-api-key-here"
+```
+
+### Basic Auth
+```bash
+# Username and password
+curl -X GET https://api.example.com/api/users \
+  -u username:password
+
+# Base64 encoded
+curl -X GET https://api.example.com/api/users \
+  -H "Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQ="
+```
+
+### OAuth 2.0
+```javascript
+// Get access token
+async function getAccessToken() {
+  const response = await fetch('https://oauth.example.com/token', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: new URLSearchParams({
+      grant_type: 'client_credentials',
+      client_id: 'YOUR_CLIENT_ID',
+      client_secret: 'YOUR_CLIENT_SECRET'
+    })
+  });
+
+  const data = await response.json();
+  return data.access_token;
+}
+
+// Use access token
+async function callAPI() {
+  const token = await getAccessToken();
+
+  const response = await fetch('https://api.example.com/api/users', {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  });
+
+  return response.json();
+}
+```
+
+## GraphQL Testing
+
+### Basic Query
+```bash
+# curl
+curl -X POST https://api.example.com/graphql \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "query": "{ users { id name email } }"
+  }'
+
+# With variables
+curl -X POST https://api.example.com/graphql \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "query": "query GetUser($id: ID!) { user(id: $id) { id name email } }",
+    "variables": { "id": "123" }
+  }'
+```
+
+### GraphQL Mutations
+```javascript
+// Create user mutation
+async function createUser(name, email) {
+  const query = `
+    mutation CreateUser($name: String!, $email: String!) {
+      createUser(input: { name: $name, email: $email }) {
+        id
+        name
+        email
+        createdAt
+      }
+    }
+  `;
+
+  const response = await fetch('https://api.example.com/graphql', {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer YOUR_TOKEN',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      query,
+      variables: { name, email }
+    })
+  });
+
+  const data = await response.json();
+  return data.data.createUser;
+}
+```
+
+## Automated Testing
+
+### Jest Test Suite
+```javascript
+const axios = require('axios');
+
+describe('User API Tests', () => {
+  const API_URL = 'https://api.example.com';
+  const token = 'YOUR_TEST_TOKEN';
+
+  const api = axios.create({
+    baseURL: API_URL,
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  });
+
+  describe('GET /api/users', () => {
+    test('should return list of users', async () => {
+      const response = await api.get('/api/users');
+
+      expect(response.status).toBe(200);
+      expect(Array.isArray(response.data)).toBe(true);
+      expect(response.data.length).toBeGreaterThan(0);
+    });
+
+    test('should return user by ID', async () => {
+      const response = await api.get('/api/users/123');
+
+      expect(response.status).toBe(200);
+      expect(response.data).toHaveProperty('id', '123');
+      expect(response.data).toHaveProperty('name');
+      expect(response.data).toHaveProperty('email');
+    });
+
+    test('should return 404 for non-existent user', async () => {
+      try {
+        await api.get('/api/users/999999');
+      } catch (error) {
+        expect(error.response.status).toBe(404);
+      }
+    });
+  });
+
+  describe('POST /api/users', () => {
+    test('should create new user', async () => {
+      const newUser = {
+        name: 'Test User',
+        email: 'test@example.com'
+      };
+
+      const response = await api.post('/api/users', newUser);
+
+      expect(response.status).toBe(201);
+      expect(response.data).toHaveProperty('id');
+      expect(response.data.name).toBe(newUser.name);
+      expect(response.data.email).toBe(newUser.email);
+    });
+
+    test('should validate required fields', async () => {
+      const invalidUser = { name: 'Test' }; // missing email
+
+      try {
+        await api.post('/api/users', invalidUser);
+      } catch (error) {
+        expect(error.response.status).toBe(400);
+        expect(error.response.data).toHaveProperty('error');
+      }
+    });
+
+    test('should prevent duplicate emails', async () => {
+      const user = {
+        name: 'Duplicate',
+        email: 'existing@example.com'
+      };
+
+      try {
+        await api.post('/api/users', user);
+      } catch (error) {
+        expect(error.response.status).toBe(409);
+      }
+    });
+  });
+
+  describe('Authentication', () => {
+    test('should reject requests without token', async () => {
+      const noAuthAPI = axios.create({ baseURL: API_URL });
+
+      try {
+        await noAuthAPI.get('/api/users');
+      } catch (error) {
+        expect(error.response.status).toBe(401);
+      }
+    });
+
+    test('should reject invalid token', async () => {
+      const badAuthAPI = axios.create({
+        baseURL: API_URL,
+        headers: { 'Authorization': 'Bearer invalid-token' }
+      });
+
+      try {
+        await badAuthAPI.get('/api/users');
+      } catch (error) {
+        expect(error.response.status).toBe(401);
+      }
+    });
+  });
+});
+```
+
+### Python pytest
+```python
+import pytest
+import requests
+
+API_URL = 'https://api.example.com'
+TOKEN = 'YOUR_TEST_TOKEN'
+
+@pytest.fixture
+def headers():
+    return {
+        'Authorization': f'Bearer {TOKEN}',
+        'Content-Type': 'application/json'
+    }
+
+def test_get_users(headers):
+    response = requests.get(f'{API_URL}/api/users', headers=headers)
+
+    assert response.status_code == 200
+    assert isinstance(response.json(), list)
+    assert len(response.json()) > 0
+
+def test_get_user_by_id(headers):
+    response = requests.get(f'{API_URL}/api/users/123', headers=headers)
+
+    assert response.status_code == 200
+    data = response.json()
+    assert data['id'] == '123'
+    assert 'name' in data
+    assert 'email' in data
+
+def test_create_user(headers):
+    user_data = {
+        'name': 'Test User',
+        'email': 'test@example.com'
+    }
+
+    response = requests.post(
+        f'{API_URL}/api/users',
+        json=user_data,
+        headers=headers
+    )
+
+    assert response.status_code == 201
+    data = response.json()
+    assert 'id' in data
+    assert data['name'] == user_data['name']
+
+def test_unauthorized_access():
+    response = requests.get(f'{API_URL}/api/users')
+    assert response.status_code == 401
+```
+
+## Postman Collection
+
+### Collection Structure
+```json
+{
+  "info": {
+    "name": "API Test Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{access_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Get All Users",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/users?page=1&limit=10",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "10" }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response is array', function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.be.an('array');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"{{$randomFullName}}\",\n  \"email\": \"{{$randomEmail}}\",\n  \"role\": \"user\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/users",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 201', function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "pm.test('User has ID', function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('id');",
+                  "    pm.environment.set('user_id', jsonData.id);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "https://api.example.com"
+    }
+  ]
+}
+```
+
+## Load Testing
+
+### Using Apache Bench
+```bash
+# 1000 requests, 10 concurrent
+ab -n 1000 -c 10 -H "Authorization: Bearer TOKEN" \
+  https://api.example.com/api/users
+
+# POST request with JSON
+ab -n 1000 -c 10 -p data.json -T application/json \
+  -H "Authorization: Bearer TOKEN" \
+  https://api.example.com/api/users
+```
+
+### Using Artillery
+```yaml
+# artillery.yml
+config:
+  target: 'https://api.example.com'
+  phases:
+    - duration: 60
+      arrivalRate: 10
+      name: Warm up
+    - duration: 300
+      arrivalRate: 50
+      name: Sustained load
+  defaults:
+    headers:
+      Authorization: 'Bearer YOUR_TOKEN'
+
+scenarios:
+  - name: "Get users"
+    flow:
+      - get:
+          url: "/api/users"
+          expect:
+            - statusCode: 200
+      - think: 1
+      - post:
+          url: "/api/users"
+          json:
+            name: "Test User"
+            email: "test@example.com"
+          expect:
+            - statusCode: 201
+```
+
+```bash
+# Run load test
+artillery run artillery.yml
+
+# Generate HTML report
+artillery run artillery.yml --output report.json
+artillery report report.json --output report.html
+```
+
+## Response Validation
+
+### Schema Validation
+```javascript
+const Ajv = require('ajv');
+const ajv = new Ajv();
+
+// Define schema
+const userSchema = {
+  type: 'object',
+  properties: {
+    id: { type: 'string' },
+    name: { type: 'string' },
+    email: { type: 'string', format: 'email' },
+    role: { type: 'string', enum: ['user', 'admin'] },
+    createdAt: { type: 'string', format: 'date-time' }
+  },
+  required: ['id', 'name', 'email', 'role']
+};
+
+const validate = ajv.compile(userSchema);
+
+// Validate response
+async function testUserAPI() {
+  const response = await fetch('https://api.example.com/api/users/123');
+  const data = await response.json();
+
+  const valid = validate(data);
+  if (!valid) {
+    console.error('Validation errors:', validate.errors);
+  } else {
+    console.log('Response is valid!');
+  }
+}
+```
+
+## Best Practices
+
+### Request Best Practices
+- Always set appropriate `Content-Type` headers
+- Use proper HTTP methods (GET for reads, POST for creates, etc.)
+- Include authentication tokens securely
+- Handle timeouts and retries
+- Validate input before sending
+- Use HTTPS for production APIs
+
+### Response Handling
+- Check status codes before parsing
+- Handle errors gracefully
+- Validate response schema
+- Log requests and responses for debugging
+- Implement exponential backoff for retries
+
+### Security Testing
+- Test with invalid tokens
+- Test without authentication
+- Attempt SQL injection in parameters
+- Test XSS in input fields
+- Verify CORS settings
+- Test rate limiting
+
+### Error Scenarios to Test
+- Invalid authentication
+- Missing required fields
+- Invalid data types
+- Duplicate resources
+- Not found (404)
+- Server errors (500)
+- Rate limit exceeded (429)
+- Network timeouts
+
+## Common HTTP Status Codes
+
+```
+200 OK - Request successful
+201 Created - Resource created
+204 No Content - Success, no response body
+400 Bad Request - Invalid request
+401 Unauthorized - Missing/invalid authentication
+403 Forbidden - Not allowed to access
+404 Not Found - Resource doesn't exist
+409 Conflict - Resource already exists
+422 Unprocessable Entity - Validation failed
+429 Too Many Requests - Rate limit exceeded
+500 Internal Server Error - Server error
+502 Bad Gateway - Upstream server error
+503 Service Unavailable - Server overloaded
+```
+
+## Notes
+
+- Always test in development/staging before production
+- Use environment variables for API URLs and tokens
+- Document all test cases and expected results
+- Automate testing in CI/CD pipeline
+- Monitor API performance and error rates
+- Keep Postman collections updated
+- Test edge cases and error scenarios
+- Validate both success and failure paths
+- Use proper authentication methods
+- Never commit API keys or tokens to version control

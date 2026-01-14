@@ -1,12 +1,7 @@
 {
   "name": "implement-feature",
-  "description": "Guide for implementing features in ClaudeBar following TDD, rich domain models, and Swift 6.2 patterns. Use this skill when:(1) Adding new functionality to the app(2) Creating domain models that follo",
-  "repo": "tddworks/ClaudeBar",
-  "category": "development",
-  "tags": [
-    "implement",
-    "feature"
-  ],
-  "stars": 329,
-  "source": "SkillsMP Synced Skills"
+  "repo": "adolfoaranaes12/BMAD-ENHANCED",
+  "path": ".claude/skills/implement-feature/SKILL.md",
+  "source": "github.com/adolfoaranaes12/BMAD-ENHANCED",
+  "downloaded_at": "2026-01-14T03:09:02.269672Z"
 }

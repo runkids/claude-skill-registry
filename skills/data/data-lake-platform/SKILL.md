@@ -1,11 +1,6 @@
 ---
 name: data-lake-platform
-description: >
-  Universal data lake and lakehouse patterns covering ingestion (dlt, Airbyte),
-  transformation (SQLMesh, dbt), storage formats (Iceberg, Delta, Hudi, Parquet),
-  query engines (ClickHouse, DuckDB, Doris, StarRocks), streaming (Kafka, Flink),
-  orchestration (Dagster, Airflow, Prefect), and visualization (Metabase, Superset, Grafana).
-  Self-hosted and cloud options.
+description: "Universal data lake and lakehouse patterns covering ingestion (dlt, Airbyte), transformation (SQLMesh, dbt), storage formats (Iceberg, Delta, Hudi, Parquet), query engines (ClickHouse, DuckDB, Doris, StarRocks), streaming (Kafka, Flink), orchestration (Dagster, Airflow, Prefect), and visualization (Metabase, Superset, Grafana). Self-hosted and cloud options."
 ---
 
 # Data Lake Platform — Quick Reference
@@ -327,6 +322,64 @@ See `templates/visualization/` and `resources/bi-visualization-patterns.md`
 | **Orchestration** | dagster-pipeline, airflow-dag, prefect-flow |
 | **Cloud** | snowflake-setup, bigquery-setup, redshift-setup |
 | **Visualization** | metabase (connection-checklist, dashboard-request, incident-playbook) |
+
+---
+
+## Data Quality & Governance
+
+**[templates/cross-platform/template-ingestion-governance-checklist.md](templates/cross-platform/template-ingestion-governance-checklist.md)** — Intake checklist for new datasets (contracts, access control, operability, cost).
+
+**[templates/cross-platform/template-data-quality-backfill-runbook.md](templates/cross-platform/template-data-quality-backfill-runbook.md)** — Runbook for data incidents, backfills, and safe reprocessing.
+
+**[templates/cross-platform/template-data-quality-governance.md](templates/cross-platform/template-data-quality-governance.md)** — Comprehensive checklist for production data platforms.
+
+### Key Sections
+
+- **Data Quality Contracts** — Schema, freshness SLAs, volume bounds, uniqueness
+- **Governance & Access Control** — RBAC, row/column security, classification
+- **Security** — Encryption at rest/transit, network isolation, audit trails
+- **Reliability** — Backfill procedures, idempotency patterns, reprocessing
+- **Cost Control** — Storage optimization, compute governance, monitoring
+
+### Do / Avoid
+
+#### GOOD: Do
+
+- Define data contracts before building pipelines
+- Implement quality gates at each tier (Bronze → Silver → Gold)
+- Use idempotent operations for all transformations
+- Enable audit logging from day one
+- Plan for backfills in pipeline design
+- Document SLAs for every critical table
+
+#### BAD: Avoid
+
+- Skipping data quality validation to "move fast"
+- Storing PII without classification and access controls
+- Creating pipelines that can't be re-run safely
+- Using shared service accounts without audit trails
+- Ignoring cost controls until the bill arrives
+- Manual schema changes without version control
+
+### Anti-Patterns
+
+| Anti-Pattern | Problem | Fix |
+|--------------|---------|-----|
+| **Schema on read only** | Quality issues discovered too late | Add schema validation at Bronze layer |
+| **No freshness SLA** | Stale data used in decisions | Define and monitor freshness contracts |
+| **Single partition strategy** | Query costs explode | Partition by most common filter column |
+| **Unversioned schemas** | Breaking changes surprise consumers | Use schema registry + contracts |
+| **No data owner** | Accountability vacuum | Assign owner to every dataset |
+
+---
+
+## Optional: AI/Automation
+
+> **Note**: These are enhancements, not requirements. Implement only after core governance is solid.
+
+- **Automated Quality Monitoring** — Anomaly detection on volumes and distributions
+- **AI-Assisted Governance** — Auto-classification of PII columns, metadata enrichment
+- **Bounded Claims** — AI detection should supplement, not replace, explicit rules; human review required for PII classification
 
 ---
 

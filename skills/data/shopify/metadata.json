@@ -1,11 +1,7 @@
 {
   "name": "shopify",
-  "description": "Build Shopify applications, extensions, and themes using GraphQL/REST APIs, Shopify CLI, Polaris UI components, and Liquid templating. Capabilities include app development with OAuth authentication, c",
-  "repo": "mrgoonie/claudekit-skills",
-  "category": "development",
-  "tags": [
-    "shopify"
-  ],
-  "stars": 1108,
-  "source": "SkillsMP Synced Skills"
+  "repo": "mrgoonie/xxxnaper",
+  "path": ".claude/skills/shopify/SKILL.md",
+  "source": "github.com/mrgoonie/xxxnaper",
+  "downloaded_at": "2026-01-14T04:00:30.154155Z"
 }

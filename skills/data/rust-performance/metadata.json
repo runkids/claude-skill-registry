@@ -1,12 +1,7 @@
 {
   "name": "rust-performance",
-  "description": "Rust performance optimization. Use when optimizing code, reducing allocations, improving cache locality, profiling, or benchmarking.",
-  "repo": "vanyastaff/paramdef",
-  "category": "development",
-  "tags": [
-    "rust",
-    "performance"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "terraphim/opencode-skills",
+  "path": "skill/rust-performance/SKILL.md",
+  "source": "github.com/terraphim/opencode-skills",
+  "downloaded_at": "2026-01-14T02:27:06.908909Z"
 }

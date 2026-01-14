@@ -1,11 +1,7 @@
 {
   "name": "main-orchestrator",
-  "description": "Decomposes requirements into executable tasks and coordinates domain orchestrators (frontend, backend, data, test, devops). Use when receiving PRDs, user requirements, or feature requests that span mu",
   "repo": "Brownbull/ayni_core",
-  "category": "data",
-  "tags": [
-    "main",
-    "orchestrator"
-  ],
-  "stars": 0
+  "path": ".claude/skills/main-orchestrator/SKILL.md",
+  "source": "github.com/Brownbull/ayni_core",
+  "downloaded_at": "2026-01-14T03:19:08.423415Z"
 }

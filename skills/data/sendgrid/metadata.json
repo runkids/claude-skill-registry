@@ -1,8 +1,7 @@
 {
   "name": "sendgrid",
   "repo": "mgd34msu/goodvibes-plugin",
-  "category": "data",
-  "description": "Sends transactional and marketing emails with SendGrid API. Use when integrating email delivery in Node.js applications with templates, analytics, and high deliverability.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:12.310602Z"
+  "path": "plugins/goodvibes/skills/webdev/skills/sendgrid/SKILL.md",
+  "source": "github.com/mgd34msu/goodvibes-plugin",
+  "downloaded_at": "2026-01-14T02:10:00.179082Z"
 }

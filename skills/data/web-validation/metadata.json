@@ -1,9 +1,7 @@
 {
   "name": "web-validation",
-  "description": "Comprehensive web page validation with authentication, screenshot capture, mobile testing, and enhanced error detection",
   "repo": "bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/web-validation/SKILL.md",
+  "source": "github.com/bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
+  "downloaded_at": "2026-01-14T01:09:09.287898Z"
 }

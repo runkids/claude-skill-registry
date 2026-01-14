@@ -1,12 +1,7 @@
 {
   "name": "braiins-ecosystem",
-  "description": "Unified Braiins ecosystem skill covering all Bitcoin mining tools - OS firmware, Pool, Toolbox, Manager, Proxy, and Insights calculator",
   "repo": "enuno/claude-command-and-control",
-  "category": "data",
-  "tags": [
-    "braiins",
-    "ecosystem"
-  ],
-  "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/braiins-ecosystem/SKILL.md",
+  "source": "github.com/enuno/claude-command-and-control",
+  "downloaded_at": "2026-01-14T00:52:42.635022Z"
 }

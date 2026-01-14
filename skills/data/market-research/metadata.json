@@ -1,11 +1,7 @@
 {
   "name": "market-research",
-  "description": "\"Professional market research and competitive analysis using McKinsey/BCG/Bain consulting methodologies. Use when analyzing markets, competitive landscapes, customer insights, or strategic positioning",
-  "repo": "mareksulik/claude-skills",
-  "category": "data",
-  "tags": [
-    "market",
-    "research"
-  ],
-  "stars": 1
+  "repo": "rshankras/claude-code-apple-skills",
+  "path": "skills/product/market-research/SKILL.md",
+  "source": "github.com/rshankras/claude-code-apple-skills",
+  "downloaded_at": "2026-01-14T02:22:10.143112Z"
 }

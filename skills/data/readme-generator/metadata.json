@@ -1,12 +1,7 @@
 {
   "name": "readme-generator",
-  "description": "Эксперт по README файлам. Используй для создания документации проектов, badges, installation guides и usage examples.",
-  "repo": "dengineproblem/agents-monorepo",
-  "category": "design",
-  "tags": [
-    "readme",
-    "generator"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "dongjin-ml/strands-skill-system",
+  "path": "skills/readme-generator/SKILL.md",
+  "source": "github.com/dongjin-ml/strands-skill-system",
+  "downloaded_at": "2026-01-14T03:11:55.311811Z"
 }

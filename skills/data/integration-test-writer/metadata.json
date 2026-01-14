@@ -1,13 +1,7 @@
 {
   "name": "integration-test-writer",
-  "description": "Generate comprehensive integration tests for component interactions,",
   "repo": "matteocervelli/llms",
-  "category": "testing",
-  "tags": [
-    "integration",
-    "test",
-    "writer"
-  ],
-  "stars": 10,
-  "source": "local"
+  "path": ".claude/skills/integration-test-writer/SKILL.md",
+  "source": "github.com/matteocervelli/llms",
+  "downloaded_at": "2026-01-14T03:06:53.017129Z"
 }

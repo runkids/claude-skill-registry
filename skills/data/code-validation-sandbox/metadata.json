@@ -1,13 +1,7 @@
 {
   "name": "code-validation-sandbox",
-  "description": "Validate code examples across the 4-Layer Teaching Method with intelligent strategy selection.Use when validating Python/Node/Rust code in book chapters. NOT for production deployment testing.",
-  "repo": "92Bilal26/TaskPilotAI",
-  "category": "testing",
-  "tags": [
-    "code",
-    "validation",
-    "sandbox"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "panaversity/agentfactory",
+  "path": ".claude/skills/code-validation-sandbox/SKILL.md",
+  "source": "github.com/panaversity/agentfactory",
+  "downloaded_at": "2026-01-14T01:33:01.560872Z"
 }

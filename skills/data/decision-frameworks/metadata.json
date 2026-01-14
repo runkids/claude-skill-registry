@@ -1,12 +1,7 @@
 {
   "name": "decision-frameworks",
-  "description": "Decision-making methodologies, scoring frameworks, and planning strategies for Group 2 agents in four-tier architecture",
   "repo": "bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
-  "category": "productivity",
-  "tags": [
-    "decision",
-    "frameworks"
-  ],
-  "stars": 8,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/decision-frameworks/SKILL.md",
+  "source": "github.com/bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
+  "downloaded_at": "2026-01-14T01:09:09.400638Z"
 }

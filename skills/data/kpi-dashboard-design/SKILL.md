@@ -1,382 +1,426 @@
 ---
 name: kpi-dashboard-design
-description: Design and build dashboards that track key performance indicators. Select relevant metrics, visualize data effectively, and communicate insights to stakeholders.
+description: Design effective KPI dashboards with metrics selection, visualization best practices, and real-time monitoring patterns. Use when building business dashboards, selecting metrics, or designing data visualization layouts.
 ---
 
 # KPI Dashboard Design
 
-## Overview
+Comprehensive patterns for designing effective Key Performance Indicator (KPI) dashboards that drive business decisions.
 
-Effective KPI dashboards make performance visible, enable data-driven decisions, and help teams align around shared goals.
+## When to Use This Skill
 
-## When to Use
+- Designing executive dashboards
+- Selecting meaningful KPIs
+- Building real-time monitoring displays
+- Creating department-specific metrics views
+- Improving existing dashboard layouts
+- Establishing metric governance
 
-- Creating performance measurement systems
-- Leadership reporting and visibility
-- Operational monitoring
-- Project progress tracking
-- Team performance management
-- Customer health monitoring
-- Financial reporting
+## Core Concepts
 
-## Instructions
+### 1. KPI Framework
 
-### 1. **KPI Selection Framework**
+| Level | Focus | Update Frequency | Audience |
+|-------|-------|------------------|----------|
+| **Strategic** | Long-term goals | Monthly/Quarterly | Executives |
+| **Tactical** | Department goals | Weekly/Monthly | Managers |
+| **Operational** | Day-to-day | Real-time/Daily | Teams |
+
+### 2. SMART KPIs
+
+```
+Specific: Clear definition
+Measurable: Quantifiable
+Achievable: Realistic targets
+Relevant: Aligned to goals
+Time-bound: Defined period
+```
+
+### 3. Dashboard Hierarchy
+
+```
+├── Executive Summary (1 page)
+│   ├── 4-6 headline KPIs
+│   ├── Trend indicators
+│   └── Key alerts
+├── Department Views
+│   ├── Sales Dashboard
+│   ├── Marketing Dashboard
+│   ├── Operations Dashboard
+│   └── Finance Dashboard
+└── Detailed Drilldowns
+    ├── Individual metrics
+    └── Root cause analysis
+```
+
+## Common KPIs by Department
+
+### Sales KPIs
+
+```yaml
+Revenue Metrics:
+  - Monthly Recurring Revenue (MRR)
+  - Annual Recurring Revenue (ARR)
+  - Average Revenue Per User (ARPU)
+  - Revenue Growth Rate
+
+Pipeline Metrics:
+  - Sales Pipeline Value
+  - Win Rate
+  - Average Deal Size
+  - Sales Cycle Length
+
+Activity Metrics:
+  - Calls/Emails per Rep
+  - Demos Scheduled
+  - Proposals Sent
+  - Close Rate
+```
+
+### Marketing KPIs
+
+```yaml
+Acquisition:
+  - Cost Per Acquisition (CPA)
+  - Customer Acquisition Cost (CAC)
+  - Lead Volume
+  - Marketing Qualified Leads (MQL)
+
+Engagement:
+  - Website Traffic
+  - Conversion Rate
+  - Email Open/Click Rate
+  - Social Engagement
+
+ROI:
+  - Marketing ROI
+  - Campaign Performance
+  - Channel Attribution
+  - CAC Payback Period
+```
+
+### Product KPIs
+
+```yaml
+Usage:
+  - Daily/Monthly Active Users (DAU/MAU)
+  - Session Duration
+  - Feature Adoption Rate
+  - Stickiness (DAU/MAU)
+
+Quality:
+  - Net Promoter Score (NPS)
+  - Customer Satisfaction (CSAT)
+  - Bug/Issue Count
+  - Time to Resolution
+
+Growth:
+  - User Growth Rate
+  - Activation Rate
+  - Retention Rate
+  - Churn Rate
+```
+
+### Finance KPIs
+
+```yaml
+Profitability:
+  - Gross Margin
+  - Net Profit Margin
+  - EBITDA
+  - Operating Margin
+
+Liquidity:
+  - Current Ratio
+  - Quick Ratio
+  - Cash Flow
+  - Working Capital
+
+Efficiency:
+  - Revenue per Employee
+  - Operating Expense Ratio
+  - Days Sales Outstanding
+  - Inventory Turnover
+```
+
+## Dashboard Layout Patterns
+
+### Pattern 1: Executive Summary
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  EXECUTIVE DASHBOARD                        [Date Range ▼]  │
+├─────────────┬─────────────┬─────────────┬─────────────────┤
+│   REVENUE   │   PROFIT    │  CUSTOMERS  │    NPS SCORE    │
+│   $2.4M     │    $450K    │    12,450   │       72        │
+│   ▲ 12%     │    ▲ 8%     │    ▲ 15%    │     ▲ 5pts     │
+├─────────────┴─────────────┴─────────────┴─────────────────┤
+│                                                             │
+│  Revenue Trend                    │  Revenue by Product     │
+│  ┌───────────────────────┐       │  ┌──────────────────┐   │
+│  │    /\    /\          │       │  │ ████████ 45%     │   │
+│  │   /  \  /  \    /\   │       │  │ ██████   32%     │   │
+│  │  /    \/    \  /  \  │       │  │ ████     18%     │   │
+│  │ /            \/    \ │       │  │ ██        5%     │   │
+│  └───────────────────────┘       │  └──────────────────┘   │
+│                                                             │
+├─────────────────────────────────────────────────────────────┤
+│  🔴 Alert: Churn rate exceeded threshold (>5%)              │
+│  🟡 Warning: Support ticket volume 20% above average        │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Pattern 2: SaaS Metrics Dashboard
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  SAAS METRICS                     Jan 2024  [Monthly ▼]     │
+├──────────────────────┬──────────────────────────────────────┤
+│  ┌────────────────┐  │  MRR GROWTH                          │
+│  │      MRR       │  │  ┌────────────────────────────────┐  │
+│  │    $125,000    │  │  │                          /──   │  │
+│  │     ▲ 8%       │  │  │                    /────/      │  │
+│  └────────────────┘  │  │              /────/            │  │
+│  ┌────────────────┐  │  │        /────/                  │  │
+│  │      ARR       │  │  │   /────/                       │  │
+│  │   $1,500,000   │  │  └────────────────────────────────┘  │
+│  │     ▲ 15%      │  │  J  F  M  A  M  J  J  A  S  O  N  D  │
+│  └────────────────┘  │                                      │
+├──────────────────────┼──────────────────────────────────────┤
+│  UNIT ECONOMICS      │  COHORT RETENTION                    │
+│                      │                                      │
+│  CAC:     $450       │  Month 1: ████████████████████ 100%  │
+│  LTV:     $2,700     │  Month 3: █████████████████    85%   │
+│  LTV/CAC: 6.0x       │  Month 6: ████████████████     80%   │
+│                      │  Month 12: ██████████████      72%   │
+│  Payback: 4 months   │                                      │
+├──────────────────────┴──────────────────────────────────────┤
+│  CHURN ANALYSIS                                             │
+│  ┌──────────┬──────────┬──────────┬──────────────────────┐ │
+│  │ Gross    │ Net      │ Logo     │ Expansion            │ │
+│  │ 4.2%     │ 1.8%     │ 3.1%     │ 2.4%                 │ │
+│  └──────────┴──────────┴──────────┴──────────────────────┘ │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Pattern 3: Real-time Operations
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  OPERATIONS CENTER                    Live ● Last: 10:42:15 │
+├────────────────────────────┬────────────────────────────────┤
+│  SYSTEM HEALTH             │  SERVICE STATUS                │
+│  ┌──────────────────────┐  │                                │
+│  │   CPU    MEM    DISK │  │  ● API Gateway      Healthy    │
+│  │   45%    72%    58%  │  │  ● User Service     Healthy    │
+│  │   ███    ████   ███  │  │  ● Payment Service  Degraded   │
+│  │   ███    ████   ███  │  │  ● Database         Healthy    │
+│  │   ███    ████   ███  │  │  ● Cache            Healthy    │
+│  └──────────────────────┘  │                                │
+├────────────────────────────┼────────────────────────────────┤
+│  REQUEST THROUGHPUT        │  ERROR RATE                    │
+│  ┌──────────────────────┐  │  ┌──────────────────────────┐  │
+│  │ ▁▂▃▄▅▆▇█▇▆▅▄▃▂▁▂▃▄▅ │  │  │ ▁▁▁▁▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁  │  │
+│  └──────────────────────┘  │  └──────────────────────────┘  │
+│  Current: 12,450 req/s     │  Current: 0.02%                │
+│  Peak: 18,200 req/s        │  Threshold: 1.0%               │
+├────────────────────────────┴────────────────────────────────┤
+│  RECENT ALERTS                                              │
+│  10:40  🟡 High latency on payment-service (p99 > 500ms)    │
+│  10:35  🟢 Resolved: Database connection pool recovered     │
+│  10:22  🔴 Payment service circuit breaker tripped          │
+└─────────────────────────────────────────────────────────────┘
+```
+
+## Implementation Patterns
+
+### SQL for KPI Calculations
+
+```sql
+-- Monthly Recurring Revenue (MRR)
+WITH mrr_calculation AS (
+    SELECT
+        DATE_TRUNC('month', billing_date) AS month,
+        SUM(
+            CASE subscription_interval
+                WHEN 'monthly' THEN amount
+                WHEN 'yearly' THEN amount / 12
+                WHEN 'quarterly' THEN amount / 3
+            END
+        ) AS mrr
+    FROM subscriptions
+    WHERE status = 'active'
+    GROUP BY DATE_TRUNC('month', billing_date)
+)
+SELECT
+    month,
+    mrr,
+    LAG(mrr) OVER (ORDER BY month) AS prev_mrr,
+    (mrr - LAG(mrr) OVER (ORDER BY month)) / LAG(mrr) OVER (ORDER BY month) * 100 AS growth_pct
+FROM mrr_calculation;
+
+-- Cohort Retention
+WITH cohorts AS (
+    SELECT
+        user_id,
+        DATE_TRUNC('month', created_at) AS cohort_month
+    FROM users
+),
+activity AS (
+    SELECT
+        user_id,
+        DATE_TRUNC('month', event_date) AS activity_month
+    FROM user_events
+    WHERE event_type = 'active_session'
+)
+SELECT
+    c.cohort_month,
+    EXTRACT(MONTH FROM age(a.activity_month, c.cohort_month)) AS months_since_signup,
+    COUNT(DISTINCT a.user_id) AS active_users,
+    COUNT(DISTINCT a.user_id)::FLOAT / COUNT(DISTINCT c.user_id) * 100 AS retention_rate
+FROM cohorts c
+LEFT JOIN activity a ON c.user_id = a.user_id
+    AND a.activity_month >= c.cohort_month
+GROUP BY c.cohort_month, EXTRACT(MONTH FROM age(a.activity_month, c.cohort_month))
+ORDER BY c.cohort_month, months_since_signup;
+
+-- Customer Acquisition Cost (CAC)
+SELECT
+    DATE_TRUNC('month', acquired_date) AS month,
+    SUM(marketing_spend) / NULLIF(COUNT(new_customers), 0) AS cac,
+    SUM(marketing_spend) AS total_spend,
+    COUNT(new_customers) AS customers_acquired
+FROM (
+    SELECT
+        DATE_TRUNC('month', u.created_at) AS acquired_date,
+        u.id AS new_customers,
+        m.spend AS marketing_spend
+    FROM users u
+    JOIN marketing_spend m ON DATE_TRUNC('month', u.created_at) = m.month
+    WHERE u.source = 'marketing'
+) acquisition
+GROUP BY DATE_TRUNC('month', acquired_date);
+```
+
+### Python Dashboard Code (Streamlit)
 
 ```python
-# Select relevant, measurable KPIs
+import streamlit as st
+import pandas as pd
+import plotly.express as px
+import plotly.graph_objects as go
 
-class KPISelection:
-    KPI_CRITERIA = {
-        'Relevant': 'Directly aligned with business strategy',
-        'Measurable': 'Can be quantified and tracked',
-        'Actionable': 'Team can influence the metric',
-        'Timely': 'Measured frequently (daily/weekly)',
-        'Bounded': 'Has clear target/threshold',
-        'Simple': 'Easy to understand'
-    }
+st.set_page_config(page_title="KPI Dashboard", layout="wide")
 
-    def identify_business_goals(self):
-        """Map goals to KPIs"""
-        return {
-            'Revenue Growth': [
-                'Monthly Recurring Revenue (MRR)',
-                'Annual Recurring Revenue (ARR)',
-                'Customer Lifetime Value (CLV)',
-                'Average Revenue Per User (ARPU)'
-            ],
-            'Customer Acquisition': [
-                'Customer Acquisition Cost (CAC)',
-                'Conversion Rate',
-                'Traffic to Lead Rate',
-                'Sales Pipeline Value'
-            ],
-            'Customer Retention': [
-                'Churn Rate',
-                'Net Promoter Score (NPS)',
-                'Customer Satisfaction (CSAT)',
-                'Retention Rate'
-            ],
-            'Operational Efficiency': [
-                'Cost per Customer',
-                'Time to Value',
-                'System Uptime',
-                'Support Response Time'
-            ],
-            'Product Quality': [
-                'Defect Rate',
-                'Feature Adoption',
-                'User Engagement',
-                'Performance Score'
-            ]
-        }
+# Header with date filter
+col1, col2 = st.columns([3, 1])
+with col1:
+    st.title("Executive Dashboard")
+with col2:
+    date_range = st.selectbox(
+        "Period",
+        ["Last 7 Days", "Last 30 Days", "Last Quarter", "YTD"]
+    )
 
-    def validate_kpi(self, kpi):
-        """Check KPI against criteria"""
-        validation = {}
+# KPI Cards
+def metric_card(label, value, delta, prefix="", suffix=""):
+    delta_color = "green" if delta >= 0 else "red"
+    delta_arrow = "▲" if delta >= 0 else "▼"
+    st.metric(
+        label=label,
+        value=f"{prefix}{value:,.0f}{suffix}",
+        delta=f"{delta_arrow} {abs(delta):.1f}%"
+    )
 
-        for criterion, definition in self.KPI_CRITERIA.items():
-            validation[criterion] = {
-                'definition': definition,
-                'assessment': self.assess_criterion(kpi, criterion),
-                'rating': 'Pass' if self.assess_criterion(kpi, criterion) else 'Fail'
-            }
+col1, col2, col3, col4 = st.columns(4)
+with col1:
+    metric_card("Revenue", 2400000, 12.5, prefix="$")
+with col2:
+    metric_card("Customers", 12450, 15.2)
+with col3:
+    metric_card("NPS Score", 72, 5.0)
+with col4:
+    metric_card("Churn Rate", 4.2, -0.8, suffix="%")
 
-        is_valid = all(v['rating'] == 'Pass' for v in validation.values())
+# Charts
+col1, col2 = st.columns(2)
 
-        return {
-            'kpi': kpi.name,
-            'validation': validation,
-            'is_valid': is_valid,
-            'recommendation': 'Include in dashboard' if is_valid else 'Refine or exclude'
-        }
+with col1:
+    st.subheader("Revenue Trend")
+    revenue_data = pd.DataFrame({
+        'Month': pd.date_range('2024-01-01', periods=12, freq='M'),
+        'Revenue': [180000, 195000, 210000, 225000, 240000, 255000,
+                    270000, 285000, 300000, 315000, 330000, 345000]
+    })
+    fig = px.line(revenue_data, x='Month', y='Revenue',
+                  line_shape='spline', markers=True)
+    fig.update_layout(height=300)
+    st.plotly_chart(fig, use_container_width=True)
 
-    def define_kpi_target(self, kpi):
-        """Set measurable targets"""
-        return {
-            'kpi': kpi.name,
-            'current_value': kpi.current,
-            'target_value': kpi.target,
-            'time_period': 'Q1 2025',
-            'improvement': f"{(kpi.target - kpi.current) / kpi.current * 100:.1f}%",
-            'owner': kpi.owner,
-            'review_frequency': 'Weekly',
-            'threshold_green': kpi.target,
-            'threshold_yellow': kpi.target * 0.9,
-            'threshold_red': kpi.target * 0.7
-        }
-```
+with col2:
+    st.subheader("Revenue by Product")
+    product_data = pd.DataFrame({
+        'Product': ['Enterprise', 'Professional', 'Starter', 'Other'],
+        'Revenue': [45, 32, 18, 5]
+    })
+    fig = px.pie(product_data, values='Revenue', names='Product',
+                 hole=0.4)
+    fig.update_layout(height=300)
+    st.plotly_chart(fig, use_container_width=True)
 
-### 2. **Dashboard Design**
+# Cohort Heatmap
+st.subheader("Cohort Retention")
+cohort_data = pd.DataFrame({
+    'Cohort': ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+    'M0': [100, 100, 100, 100, 100],
+    'M1': [85, 87, 84, 86, 88],
+    'M2': [78, 80, 76, 79, None],
+    'M3': [72, 74, 70, None, None],
+    'M4': [68, 70, None, None, None],
+})
+fig = go.Figure(data=go.Heatmap(
+    z=cohort_data.iloc[:, 1:].values,
+    x=['M0', 'M1', 'M2', 'M3', 'M4'],
+    y=cohort_data['Cohort'],
+    colorscale='Blues',
+    text=cohort_data.iloc[:, 1:].values,
+    texttemplate='%{text}%',
+    textfont={"size": 12},
+))
+fig.update_layout(height=250)
+st.plotly_chart(fig, use_container_width=True)
 
-```yaml
-Dashboard Design Template:
-
-Name: Sales Performance Dashboard
-Audience: Sales Team, Management
-Update Frequency: Daily
-Users: 15 sales reps, 3 managers
-
----
-
-## Dashboard Structure
-
-### Top Section: Executive Summary (30% height)
-  - Total Revenue (YTD): $2.5M (vs $2.2M target)
-  - Pipeline Value: $8.7M (vs $7.5M target)
-  - Win Rate: 28% (vs 25% target) - GREEN
-  - Average Deal Size: $125K (vs $120K target)
-
-### Left Column: Sales Performance (35% width)
-
-  Sales by Rep (Ranked)
-    - John Smith: $850K
-    - Jane Doe: $720K
-    - Bob Johnson: $630K
-    - ...visualization: Horizontal bar chart
-
-  Sales Trend (YTD)
-    - Chart type: Line chart
-    - X-axis: Months
-    - Y-axis: Revenue
-    - Target line overlaid
-    - Goal: Show trend vs plan
-
-### Right Column: Pipeline Analysis (35% width)
-
-  Pipeline by Stage
-    - Prospecting: $1.2M (12 deals)
-    - Qualification: $2.1M (18 deals)
-    - Proposal: $3.2M (15 deals)
-    - Negotiation: $2.2M (8 deals)
-    - Visualization: Funnel chart
-
-  Deal Velocity
-    - Avg days in stage by stage
-    - Bottlenecks identification
-    - Conversion rates
-
-### Bottom Section: Detailed Metrics (20% height)
-
-  Key Metrics Row:
-    - Deals Closed This Month: 6
-    - Average Sales Cycle: 45 days
-    - Win Rate vs. Competitors: 28% vs 22%
-    - Customer Satisfaction: 4.3/5
-
----
-
-## Visual Design Principles
-
-Color Coding:
-  Green (On Target):  #4CAF50
-  Yellow (At Risk):   #FFC107
-  Red (Off Track):    #F44336
-  Gray (No Data):     #9E9E9E
-
-Data Visualization:
-  - Sales Performance: Line or Column chart
-  - Pipeline Stage: Funnel or Waterfall chart
-  - Geographic: Map with heat zones
-  - Trend: Area or Line chart
-  - Distribution: Bar or Pie chart
-  - Comparison: Grouped bar chart
-
-Interactivity:
-  - Click to drill down to details
-  - Filter by rep, region, product
-  - Time period selector
-  - Export to PDF/Excel
-  - Alerts for threshold violations
-
----
-
-## Refresh Strategy
-
-Real-Time (every 5 minutes):
-  - Active sales calls
-  - Deal status changes
-
-Hourly:
-  - Revenue totals
-  - Pipeline updates
-
-Daily (overnight):
-  - Historical trends
-  - Aggregated reports
-
-Manual:
-  - Target adjustments
-  - Threshold changes
-```
-
-### 3. **Dashboard Implementation**
-
-```javascript
-// Build dashboard with data integration
-
-class KPIDashboard {
-  constructor(config) {
-    this.config = config;
-    this.widgets = [];
-    this.data = {};
-    this.alerts = [];
-  }
-
-  createWidget(kpi) {
-    return {
-      id: `widget-${kpi.id}`,
-      title: kpi.name,
-      metric_value: kpi.current_value,
-      target_value: kpi.target_value,
-      threshold: this.calculateThreshold(kpi),
-      visualization: {
-        type: kpi.chart_type, // 'gauge', 'number', 'chart'
-        config: this.getVisualizationConfig(kpi)
-      },
-      drill_down: true,
-      refresh_frequency: kpi.refresh_rate || 'hourly'
-    };
-  }
-
-  calculateThreshold(kpi) {
-    const range = kpi.target_value - kpi.minimum_value;
-
-    return {
-      green: kpi.target_value,
-      yellow: kpi.target_value - (range * 0.2),
-      red: kpi.target_value - (range * 0.5),
-      status: this.getStatus(kpi),
-      trend: this.calculateTrend(kpi)
-    };
-  }
-
-  getStatus(kpi) {
-    const percentOfTarget = kpi.current_value / kpi.target_value;
-
-    if (percentOfTarget >= 1) return 'Green';
-    if (percentOfTarget >= 0.8) return 'Yellow';
-    return 'Red';
-  }
-
-  calculateTrend(kpi) {
-    const change = kpi.current_value - kpi.previous_period_value;
-    const changePercent = (change / kpi.previous_period_value) * 100;
-
-    return {
-      direction: change > 0 ? 'Up' : 'Down',
-      value: Math.abs(changePercent).toFixed(1),
-      momentum: this.assessMomentum(change, kpi)
-    };
-  }
-
-  generateAlerts() {
-    return this.widgets
-      .filter(w => w.threshold.status !== 'Green')
-      .map(w => ({
-        severity: w.threshold.status,
-        message: `${w.title} is ${w.threshold.status} (${w.metric_value} vs ${w.target_value} target)`,
-        action: 'Review and investigate',
-        timestamp: new Date()
-      }));
-  }
-
-  exportReport() {
-    return {
-      format: ['PDF', 'Excel', 'CSV'],
-      include: ['Metrics', 'Charts', 'Trends', 'Commentary'],
-      schedule: 'Weekly, every Monday morning'
-    };
-  }
-}
-```
-
-### 4. **KPI Monitoring & Governance**
-
-```yaml
-KPI Governance Framework:
-
-Quarterly KPI Review:
-  - Review progress against targets
-  - Adjust targets if needed
-  - Celebrate achievements
-  - Identify improvement areas
-  - Update documentation
-
-Annual KPI Assessment:
-  - Reassess KPI relevance
-  - Align with strategy changes
-  - Remove obsolete metrics
-  - Add new metrics as needed
-  - Update dashboard design
-
----
-
-KPI Health Check:
-
-Ask these questions monthly:
-
-1. Is this KPI still relevant?
-   If No: Mark for retirement
-
-2. Do we have accurate data?
-   If No: Fix data source
-
-3. Is it actionable?
-   If No: Drill down to driver metrics
-
-4. Is target realistic?
-   If No: Adjust based on new data
-
-5. Are we taking action on insights?
-   If No: Improve governance/communication
-
----
-
-Common KPI Mistakes to Avoid:
-
-1. Too Many KPIs (limit to 5-7)
-2. Lagging metrics only (include leading too)
-3. No ownership assigned
-4. Targets not aligned with strategy
-5. Dashboard not updated regularly
-6. No drill-down capability
-7. Metrics not actionable by team
-8. Ignoring data quality issues
-9. No connection to compensation/goals
-10. Dashboard unused by stakeholders
+# Alerts Section
+st.subheader("Alerts")
+alerts = [
+    {"level": "error", "message": "Churn rate exceeded threshold (>5%)"},
+    {"level": "warning", "message": "Support ticket volume 20% above average"},
+]
+for alert in alerts:
+    if alert["level"] == "error":
+        st.error(f"🔴 {alert['message']}")
+    elif alert["level"] == "warning":
+        st.warning(f"🟡 {alert['message']}")
 ```
 
 ## Best Practices
 
-### ✅ DO
-- Start with business goals, not data
-- Limit dashboards to 5-7 core metrics
-- Include both leading and lagging indicators
-- Assign clear metric ownership
-- Update dashboards regularly
-- Make drill-down available
-- Use visual hierarchy effectively
-- Test with actual users
-- Include context and benchmarks
-- Document metric definitions
+### Do's
+- **Limit to 5-7 KPIs** - Focus on what matters
+- **Show context** - Comparisons, trends, targets
+- **Use consistent colors** - Red=bad, green=good
+- **Enable drilldown** - From summary to detail
+- **Update appropriately** - Match metric frequency
 
-### ❌ DON'T
-- Create dashboards without clear purpose
-- Include too many metrics (analysis paralysis)
-- Forget about data quality
-- Build without stakeholder input
-- Use confusing visualizations
-- Leave dashboards stale
-- Ignore mobile viewing experience
-- Skip training on dashboard usage
-- Create metrics no one can influence
-- Change metrics frequently
+### Don'ts
+- **Don't show vanity metrics** - Focus on actionable data
+- **Don't overcrowd** - White space aids comprehension
+- **Don't use 3D charts** - They distort perception
+- **Don't hide methodology** - Document calculations
+- **Don't ignore mobile** - Ensure responsive design
 
-## KPI Dashboard Tips
+## Resources
 
-- Use traffic light colors (green/yellow/red)
-- Include month-to-date and year-to-date views
-- Show trend arrows for quick scanning
-- Add comparison to previous period
-- Enable drill-down to supporting data
+- [Stephen Few's Dashboard Design](https://www.perceptualedge.com/articles/visual_business_intelligence/rules_for_using_color.pdf)
+- [Edward Tufte's Principles](https://www.edwardtufte.com/tufte/)
+- [Google Data Studio Gallery](https://datastudio.google.com/gallery)

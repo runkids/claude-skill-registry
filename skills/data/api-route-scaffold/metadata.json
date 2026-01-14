@@ -1,13 +1,7 @@
 {
   "name": "api-route-scaffold",
-  "description": "Create new Next.js API routes following project patterns. Use when user mentions \"new endpoint\", \"add API\", \"create route\", or \"POST/GET handler\".",
   "repo": "AppleLamps/xpic2",
-  "category": "development",
-  "tags": [
-    "api",
-    "route",
-    "scaffold"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/api-route-scaffold/SKILL.md",
+  "source": "github.com/AppleLamps/xpic2",
+  "downloaded_at": "2026-01-14T02:22:44.009746Z"
 }

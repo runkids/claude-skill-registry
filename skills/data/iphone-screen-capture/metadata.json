@@ -1,13 +1,7 @@
 {
   "name": "iphone-screen-capture",
-  "description": "Start the iPhone screen capture app to mirror a connected iPhone's screen on macOS. Use when the user wants to view their iPhone screen, mirror their device, or start screen capture.",
   "repo": "asnar00/miso",
-  "category": "development",
-  "tags": [
-    "iphone",
-    "screen",
-    "capture"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/iphone-screen-capture/SKILL.md",
+  "source": "github.com/asnar00/miso",
+  "downloaded_at": "2026-01-14T03:42:39.230031Z"
 }

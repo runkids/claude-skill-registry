@@ -1,141 +1,227 @@
 ---
 name: readability-scorer
-description: Assess text readability using multiple metrics. Execute Python script for detailed readability analysis. Use when evaluating text complexity, comprehension level, or audience fit.
+description: Calculate readability scores (Flesch-Kincaid, Gunning Fog, SMOG) and grade levels for text. Analyze writing complexity and get improvement suggestions.
 ---
 
 # Readability Scorer
 
-I assess how easy text is to read and understand for different audiences.
+Analyze text readability using industry-standard formulas. Get grade level estimates, complexity metrics, and suggestions for improving clarity.
 
-## How to Use This Skill
+## Quick Start
 
-When analyzing text readability, execute the readability scorer script:
+```python
+from scripts.readability_scorer import ReadabilityScorer
+
+# Score text
+scorer = ReadabilityScorer()
+scores = scorer.analyze("Your text to analyze goes here.")
+print(f"Grade Level: {scores['grade_level']}")
+print(f"Flesch Reading Ease: {scores['flesch_reading_ease']}")
+```
+
+## Features
+
+- **Multiple Formulas**: Flesch-Kincaid, Gunning Fog, SMOG, Coleman-Liau, ARI
+- **Grade Level**: US grade level estimate
+- **Reading Ease**: 0-100 ease score
+- **Text Statistics**: Words, sentences, syllables, complex words
+- **Batch Analysis**: Process multiple documents
+- **Comparison**: Compare readability across texts
+
+## API Reference
+
+### Initialization
+
+```python
+scorer = ReadabilityScorer()
+```
+
+### Analysis
+
+```python
+scores = scorer.analyze(text)
+# Returns:
+# {
+#     'flesch_reading_ease': 65.2,
+#     'flesch_kincaid_grade': 8.1,
+#     'gunning_fog': 10.2,
+#     'smog_index': 9.5,
+#     'coleman_liau': 9.8,
+#     'ari': 8.4,
+#     'grade_level': 8.5,  # Average
+#     'reading_time_minutes': 2.3,
+#     'stats': {
+#         'words': 250,
+#         'sentences': 15,
+#         'syllables': 380,
+#         'complex_words': 25,
+#         'avg_words_per_sentence': 16.7,
+#         'avg_syllables_per_word': 1.52
+#     }
+# }
+```
+
+### Individual Scores
+
+```python
+# Get specific scores
+fre = scorer.flesch_reading_ease(text)
+fkg = scorer.flesch_kincaid_grade(text)
+fog = scorer.gunning_fog(text)
+smog = scorer.smog_index(text)
+```
+
+### Batch Analysis
+
+```python
+texts = [text1, text2, text3]
+results = scorer.analyze_batch(texts)
+
+# From files
+results = scorer.analyze_files(["doc1.txt", "doc2.txt"])
+```
+
+### Comparison
+
+```python
+# Compare two texts
+comparison = scorer.compare(text1, text2)
+print(f"Text 1 grade: {comparison['text1']['grade_level']}")
+print(f"Text 2 grade: {comparison['text2']['grade_level']}")
+```
+
+## CLI Usage
 
 ```bash
-python /home/ywatanabe/dev/agent-patterns/.claude/skills/readability-scorer/run.py "text to analyze"
+# Analyze text
+python readability_scorer.py --text "Your text here"
+
+# Analyze file
+python readability_scorer.py --input document.txt
+
+# Compare files
+python readability_scorer.py --compare doc1.txt doc2.txt
+
+# Batch analyze directory
+python readability_scorer.py --input-dir ./docs --output report.csv
+
+# Specific formula only
+python readability_scorer.py --input doc.txt --formula flesch
 ```
 
-The script returns JSON results with readability scores, audience fit, and improvement suggestions.
+### CLI Arguments
 
-## What I Measure
+| Argument | Description | Default |
+|----------|-------------|---------|
+| `--text` | Text to analyze | - |
+| `--input` | Input file | - |
+| `--input-dir` | Directory of files | - |
+| `--output` | Output file (json/csv) | - |
+| `--compare` | Compare two files | - |
+| `--formula` | Specific formula | all |
 
-### Readability Metrics
-- **Flesch Reading Ease**: 0-100 scale (higher = easier)
-- **Flesch-Kincaid Grade Level**: U.S. school grade equivalent
-- **Average Sentence Length**: Words per sentence
-- **Average Word Length**: Syllables per word
-- **Complex Words**: Percentage of 3+ syllable words
+## Score Interpretation
 
-### Structural Analysis
-- Sentence variety (simple, compound, complex)
-- Paragraph length and structure
-- Use of transition words
-- Logical flow and organization
+### Flesch Reading Ease
 
-### Vocabulary Assessment
-- Technical jargon usage
-- Common vs. rare words
-- Active vs. passive voice ratio
-- Concrete vs. abstract language
+| Score | Difficulty | Grade Level |
+|-------|------------|-------------|
+| 90-100 | Very Easy | 5th grade |
+| 80-89 | Easy | 6th grade |
+| 70-79 | Fairly Easy | 7th grade |
+| 60-69 | Standard | 8th-9th grade |
+| 50-59 | Fairly Hard | 10th-12th grade |
+| 30-49 | Difficult | College |
+| 0-29 | Very Difficult | College graduate |
 
-### Audience Fit
-- Recommended audience (general public, professionals, experts)
-- Education level required
-- Domain expertise needed
+### Grade Level Scale
 
-## When This Skill Activates
+| Grade | Audience |
+|-------|----------|
+| 1-5 | Elementary school |
+| 6-8 | Middle school |
+| 9-12 | High school |
+| 13-16 | College |
+| 17+ | Graduate level |
 
-Activate when user requests:
-- "Check readability" or "reading level"
-- "Is this too complex/simple?"
-- "What audience is this for?"
-- "Simplify this text" or "make more accessible"
-- Any request about comprehension difficulty
+## Examples
 
-## Analysis Process
+### Analyze Blog Post
 
-1. **Calculate Metrics**: Compute readability scores
-2. **Analyze Structure**: Evaluate sentence and paragraph patterns
-3. **Assess Vocabulary**: Identify complex/technical terms
-4. **Determine Audience Fit**: Match to reader profiles
-5. **Provide Recommendations**: Suggest improvements
+```python
+scorer = ReadabilityScorer()
 
-## Output Format
+blog_post = """
+Writing clear content is essential for engaging readers.
+Short sentences help. Simple words work best.
+Your audience will thank you for making things easy to understand.
+"""
 
-Provide structured readability report:
+scores = scorer.analyze(blog_post)
+print(f"Flesch Reading Ease: {scores['flesch_reading_ease']:.1f}")
+print(f"Grade Level: {scores['grade_level']:.1f}")
+print(f"Reading Time: {scores['reading_time_minutes']:.1f} minutes")
 
-**Readability Scores**:
-- Flesch Reading Ease: [Score] ([Interpretation])
-- Flesch-Kincaid Grade: [Level] ([Equivalent])
-- Overall Assessment: [Very Easy/Easy/Moderate/Difficult/Very Difficult]
-
-**Structural Analysis**:
-- Average sentence length: [X words] ([Assessment])
-- Sentence variety: [Good/Needs improvement]
-- Paragraph structure: [Assessment]
-- Logical flow: [Clear/Confusing]
-
-**Vocabulary Analysis**:
-- Complex words: [X%]
-- Technical jargon: [Examples]
-- Passive voice: [X%]
-- Recommendations: [Specific suggestions]
-
-**Audience Fit**:
-- Best suited for: [Audience description]
-- Education level: [Grade level or equivalent]
-- Domain expertise: [None/Basic/Intermediate/Advanced]
-
-**Improvement Suggestions**:
-- Specific recommendations to improve readability
-- Examples of simplifications
-
-## Example Analysis
-
-**Input**: "The implementation of our sophisticated algorithmic framework necessitates comprehensive documentation to facilitate subsequent modifications and enhancements."
-
-**Output**:
-```
-Readability Scores:
-- Flesch Reading Ease: 12 (Very Difficult)
-- Flesch-Kincaid Grade: 18+ (College graduate level)
-- Overall Assessment: Very Difficult
-
-Structural Analysis:
-- Average sentence length: 19 words (Long)
-- Single complex sentence - needs variety
-- Heavy noun stacking
-
-Vocabulary Analysis:
-- Complex words: 65%
-- Technical jargon: "algorithmic framework"
-- Passive voice: 0% (good)
-- Unnecessarily complex: "implementation", "necessitates", "facilitate", "subsequent"
-
-Audience Fit:
-- Best suited for: Technical experts
-- Education level: College graduate+
-- Domain expertise: Advanced programming/CS
-
-Improvement Suggestions:
-1. Break into multiple sentences
-2. Replace complex words:
-   - "implementation" → "use"
-   - "necessitates" → "requires" or "needs"
-   - "facilitate" → "enable" or "help"
-   - "subsequent" → "future" or "later"
-
-Simplified version:
-"Our algorithm framework needs good documentation. This will help us make changes and improvements later."
-
-New scores:
-- Flesch Reading Ease: 72 (Fairly Easy)
-- Grade Level: 7th grade
+if scores['grade_level'] > 8:
+    print("Consider simplifying for a wider audience.")
 ```
 
-## Tone
+### Compare Document Versions
 
-- Educational and constructive
-- Data-driven
-- Audience-aware
-- Practical recommendations
+```python
+scorer = ReadabilityScorer()
+
+original = open("original.txt").read()
+simplified = open("simplified.txt").read()
+
+comparison = scorer.compare(original, simplified)
+
+print("Original:")
+print(f"  Grade Level: {comparison['text1']['grade_level']:.1f}")
+print(f"  Flesch Ease: {comparison['text1']['flesch_reading_ease']:.1f}")
+
+print("\nSimplified:")
+print(f"  Grade Level: {comparison['text2']['grade_level']:.1f}")
+print(f"  Flesch Ease: {comparison['text2']['flesch_reading_ease']:.1f}")
+
+improvement = comparison['text1']['grade_level'] - comparison['text2']['grade_level']
+print(f"\nImprovement: {improvement:.1f} grade levels easier")
+```
+
+### Batch Analyze Documentation
+
+```python
+scorer = ReadabilityScorer()
+import os
+
+results = []
+for filename in os.listdir("./docs"):
+    if filename.endswith(".md"):
+        text = open(f"./docs/{filename}").read()
+        scores = scorer.analyze(text)
+        results.append({
+            'file': filename,
+            'grade': scores['grade_level'],
+            'ease': scores['flesch_reading_ease']
+        })
+
+# Sort by difficulty
+results.sort(key=lambda x: x['grade'], reverse=True)
+
+print("Documents by Difficulty:")
+for r in results:
+    print(f"  {r['file']}: Grade {r['grade']:.1f}")
+```
+
+## Dependencies
+
+```
+nltk>=3.8.0
+```
+
+## Limitations
+
+- English language only
+- Formulas designed for prose (may not work well for lists, code, etc.)
+- Syllable counting is estimated (may have minor inaccuracies)
+- Doesn't assess comprehension, only surface-level complexity

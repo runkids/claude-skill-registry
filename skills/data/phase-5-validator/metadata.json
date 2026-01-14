@@ -1,12 +1,7 @@
 {
   "name": "phase-5-validator",
-  "description": "Validates Finalization Phase completion before workflow concludes. Checks documentation updates, file registry, git commits, deployment readiness, and lessons learned contributions.",
   "repo": "DarkMonkDev/WitchCityRope",
-  "category": "documents",
-  "tags": [
-    "phase",
-    "validator"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/phase-5-validator/SKILL.md",
+  "source": "github.com/DarkMonkDev/WitchCityRope",
+  "downloaded_at": "2026-01-14T01:18:29.984116Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "button-unification",
-  "description": "Standardize button component heights, padding, and transitions across all variants. Ensures consistent appearance for default, outline, secondary, ghost, and link variants. Updates button.tsx with uni",
-  "repo": "Manuelvillarvieites/energy-company",
-  "category": "development",
-  "tags": [
-    "button",
-    "unification"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "deomiarn/website-template",
+  "path": ".claude/skills/button-unification/SKILL.md",
+  "source": "github.com/deomiarn/website-template",
+  "downloaded_at": "2026-01-14T01:42:33.925510Z"
 }

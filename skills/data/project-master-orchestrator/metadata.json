@@ -1,13 +1,7 @@
 {
   "name": "project-master-orchestrator",
-  "description": "Central coordinator for multi-platform workflow management across GitHub, Plane.so, and ClickUp. Orchestrates monitoring, reporting, and issue management across platforms.",
   "repo": "Zura1555/agents",
-  "category": "productivity",
-  "tags": [
-    "project",
-    "master",
-    "orchestrator"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/project-master-orchestrator/SKILL.md",
+  "source": "github.com/Zura1555/agents",
+  "downloaded_at": "2026-01-14T01:20:40.210692Z"
 }

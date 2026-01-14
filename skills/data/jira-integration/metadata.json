@@ -1,11 +1,7 @@
 {
   "name": "jira-integration",
-  "description": "Agent Skill: Comprehensive Jira integration through lightweight Python scripts. AUTOMATICALLY TRIGGER when user mentions Jira URLs like 'https://jira.*/browse/*', 'https://*.atlassian.net/browse/*', o",
   "repo": "netresearch/claude-code-marketplace",
-  "category": "data",
-  "tags": [
-    "jira",
-    "integration"
-  ],
-  "stars": 8
+  "path": "skills/jira-integration/SKILL.md",
+  "source": "github.com/netresearch/claude-code-marketplace",
+  "downloaded_at": "2026-01-14T02:58:10.389476Z"
 }

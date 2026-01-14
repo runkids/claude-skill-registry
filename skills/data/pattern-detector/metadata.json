@@ -1,12 +1,7 @@
 {
   "name": "pattern-detector",
-  "description": "Detect design patterns and anti-patterns in code with recommendations.",
   "repo": "CuriousLearner/devkit",
-  "category": "development",
-  "tags": [
-    "pattern",
-    "detector"
-  ],
-  "stars": 13,
-  "source": "local"
+  "path": "skills/pattern-detector/SKILL.md",
+  "source": "github.com/CuriousLearner/devkit",
+  "downloaded_at": "2026-01-14T02:22:36.175389Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "global-error-handling",
-  "description": "Implement robust error handling with user-friendly messages without technical details, fail fast with explicit error messages, specific exception types for targeted handling, centralized error handlin",
-  "repo": "FlorianRiquelme/statamic-assets",
-  "category": "data",
-  "tags": [
-    "global",
-    "error",
-    "handling"
-  ],
-  "stars": 0
+  "repo": "nanorepublica/django-prodserver",
+  "path": ".claude/skills/global-error-handling/SKILL.md",
+  "source": "github.com/nanorepublica/django-prodserver",
+  "downloaded_at": "2026-01-14T03:44:35.211511Z"
 }

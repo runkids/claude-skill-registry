@@ -1,9 +1,7 @@
 {
   "name": "signal-analysis",
-  "description": "Perform signal processing, rainflow cycle counting, and spectral analysis",
   "repo": "vamseeachanta/digitalmodel",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "GitHub Search API"
+  "path": ".claude/skills/signal-analysis/SKILL.md",
+  "source": "github.com/vamseeachanta/digitalmodel",
+  "downloaded_at": "2026-01-14T02:36:11.570265Z"
 }

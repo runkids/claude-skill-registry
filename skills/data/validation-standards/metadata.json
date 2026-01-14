@@ -1,9 +1,7 @@
 {
   "name": "validation-standards",
-  "description": "Tool usage requirements, failure patterns, consistency checks, and validation methodologies for Claude Code operations",
   "repo": "bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/validation-standards/SKILL.md",
+  "source": "github.com/bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
+  "downloaded_at": "2026-01-14T01:09:09.946282Z"
 }

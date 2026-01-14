@@ -1,11 +1,7 @@
 {
   "name": "design",
-  "description": "Design Session - collaborative brainstorming to turn ideas into designs using Double Diamond methodology. Use when user types \"ds\" or wants to explore/design a feature before implementation.",
-  "repo": "ReinaMacCredy/maestro",
-  "category": "data",
-  "tags": [
-    "design"
-  ],
-  "stars": 18,
-  "source": "SkillsMP Synced Skills"
+  "repo": "pianzhu/my-claude-skills",
+  "path": "skills/HelloAgents/design/SKILL.md",
+  "source": "github.com/pianzhu/my-claude-skills",
+  "downloaded_at": "2026-01-14T03:20:14.629976Z"
 }

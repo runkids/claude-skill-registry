@@ -1,86 +1,75 @@
 ---
 name: documenting-apis
 description: >
-  Generate API specification documentation from codebase analysis.
-  Detects REST endpoints, function signatures, type definitions, and schemas.
-  Triggers: API specification, endpoints, REST API, type definitions,
+  コードベース分析からAPI仕様ドキュメントを生成。
+  RESTエンドポイント、関数シグネチャ、型定義、スキーマを検出。
+  トリガー: API specification, endpoints, REST API, type definitions,
   OpenAPI, Swagger, API documentation.
-allowed-tools:
-  - Read
-  - Write
-  - Grep
-  - Glob
-  - Bash
-  - Task
-context: fork
+allowed-tools: Read, Write, Grep, Glob, Bash, Task
 ---
 
-# docs:api - API Specification Generation
+# docs:api - API仕様生成
 
-Auto-generate API documentation from codebase analysis.
+コードベース分析からAPIドキュメントを自動生成。
 
-## Detection Items
+## 検出項目
 
-| Category       | Targets                                                      |
-| -------------- | ------------------------------------------------------------ |
-| REST Endpoints | Express, Fastify, Hono, Next.js, Flask, FastAPI, Django REST |
-| Functions      | tree-sitter extraction, TypeScript types, JSDoc, docstrings  |
-| Types          | interface, type, Zod, Yup, dataclass, Pydantic               |
-| OpenAPI        | openapi.yaml/json, swagger.yaml/json                         |
+| カテゴリ | 対象 |
+| --- | --- |
+| RESTエンドポイント | Express, Fastify, Hono, Next.js, Flask, FastAPI, Django REST |
+| 関数 | tree-sitter抽出、TypeScript型、JSDoc、docstrings |
+| 型 | interface, type, Zod, Yup, dataclass, Pydantic |
+| OpenAPI | openapi.yaml/json, swagger.yaml/json |
 
-## Framework Detection Patterns
+## フレームワーク検出パターン
 
-| Framework            | Pattern                                    |
-| -------------------- | ------------------------------------------ |
-| Express/Fastify/Hono | `app.get()`, `router.post()`               |
-| Next.js              | `app/api/**/route.ts`, `pages/api/**/*.ts` |
-| Flask                | `@app.route()`                             |
-| FastAPI              | `@app.get()`, `@app.post()`                |
-| Django REST          | `@api_view`                                |
+| フレームワーク | パターン |
+| --- | --- |
+| Express/Fastify/Hono | `app.get()`, `router.post()` |
+| Next.js | `app/api/**/route.ts`, `pages/api/**/*.ts` |
+| Flask | `@app.route()` |
+| FastAPI | `@app.get()`, `@app.post()` |
+| Django REST | `@api_view` |
 
-## Analysis Scripts
+## 分析スクリプト
 
-| Script                        | Purpose                                   |
-| ----------------------------- | ----------------------------------------- |
-| `scripts/detect-endpoints.sh` | HTTP method, path, handler, file location |
-| `scripts/extract-types.sh`    | Type name, fields, related types          |
+| スクリプト | 目的 |
+| --- | --- |
+| `scripts/detect-endpoints.sh` | HTTPメソッド、パス、ハンドラー、ファイル位置 |
+| `scripts/extract-types.sh` | 型名、フィールド、関連型 |
 
-## Generated Structure
+## 生成構造
 
 ```markdown
-# API Specification
+# API仕様
 
-## Endpoint List
-
+## エンドポイント一覧
 ### GET /api/users
+**リクエスト**: paramsテーブル
+**レスポンス**: JSON例
 
-**Request**: params table
-**Response**: JSON example
-
-## Type Definitions
-
+## 型定義
 ### User
-
-| Field | Type | Description |
+| フィールド | 型 | 説明 |
 ```
 
-## Usage
+## 使用方法
 
 ```bash
-/docs:api                    # Generate API docs
-"Generate API specification" # Natural language
+/docs:api                    # APIドキュメント生成
+"Generate API specification" # 自然言語
 ```
 
-## Markdown Validation
+## Markdownバリデーション
 
-After generation, validate output with:
+生成後、出力を検証:
 
 ```bash
 ~/.claude/skills/scripts/validate-markdown.sh {output-file}
 ```
 
-Non-blocking (warnings only) - style issues don't block document creation.
+ブロッキングなし（警告のみ） - スタイル問題はドキュメント作成をブロックしない。
 
-## References
+## 参照
 
-- Related: `documenting-architecture`, `setting-up-docs`, `documenting-domains`
+- 関連: `documenting-architecture`, `setting-up-docs`, `documenting-domains`

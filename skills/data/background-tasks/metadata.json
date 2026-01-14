@@ -1,12 +1,7 @@
 {
   "name": "background-tasks",
-  "description": "Run and manage long-running background tasks in the shell. Use for starting processes in background, monitoring output, listing active tasks, and killing processes. Essential for dev servers, watch mo",
   "repo": "untangledfinance/untangled-web",
-  "category": "development",
-  "tags": [
-    "background",
-    "tasks"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/background-tasks/SKILL.md",
+  "source": "github.com/untangledfinance/untangled-web",
+  "downloaded_at": "2026-01-14T02:37:24.388876Z"
 }

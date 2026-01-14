@@ -1,12 +1,7 @@
 {
   "name": "skill-forge",
-  "description": "Advanced skill creation system for Claude Code that combines deep intent analysis, evidence-based prompting principles, and systematic skill engineering. Use when creating new skills or refining exist",
-  "repo": "DNYoussef/ai-chrome-extension",
-  "category": "development",
-  "tags": [
-    "skill",
-    "forge"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "Cursedpotential/TheBigOne",
+  "path": "archive/04_Utilities/skill-forge-skill/skill-forge/SKILL.md",
+  "source": "github.com/Cursedpotential/TheBigOne",
+  "downloaded_at": "2026-01-14T03:49:41.912438Z"
 }

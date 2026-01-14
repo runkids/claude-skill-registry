@@ -1,12 +1,7 @@
 {
   "name": "commit-prepare",
-  "description": "Prepare git commit messages following conventional commits. Activates on: commit, prepare commit, commit this, commit message, ready to commit, stage and commit",
-  "repo": "williaby/image-preprocessing-detector",
-  "category": "development",
-  "tags": [
-    "commit",
-    "prepare"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "repo": "ByronWilliamsCPA/audio-processor",
+  "path": ".claude/skills/commit-prepare/SKILL.md",
+  "source": "github.com/ByronWilliamsCPA/audio-processor",
+  "downloaded_at": "2026-01-14T03:49:50.046028Z"
 }

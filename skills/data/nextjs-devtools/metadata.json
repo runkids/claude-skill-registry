@@ -1,12 +1,7 @@
 {
   "name": "nextjs-devtools",
-  "description": "Next.js development tooling via MCP. Inspect routes, components, build info, and debug Next.js apps.Use when working on Next.js applications, debugging routing, or inspecting app structure.NOT for gen",
-  "repo": "mjunaidca/mjs-agent-skills",
-  "category": "development",
-  "tags": [
-    "nextjs",
-    "devtools"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "oimiragieo/agent-studio",
+  "path": ".claude/skills/nextjs-devtools/SKILL.md",
+  "source": "github.com/oimiragieo/agent-studio",
+  "downloaded_at": "2026-01-14T03:17:05.685425Z"
 }

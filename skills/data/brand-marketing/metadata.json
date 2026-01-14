@@ -1,12 +1,7 @@
 {
   "name": "brand-marketing",
-  "description": "Эксперт по бренд-маркетингу. Используй для позиционирования, brand identity, tone of voice и brand strategy.",
   "repo": "dengineproblem/agents-monorepo",
-  "category": "marketing",
-  "tags": [
-    "brand",
-    "marketing"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/brand-marketing/SKILL.md",
+  "source": "github.com/dengineproblem/agents-monorepo",
+  "downloaded_at": "2026-01-14T02:07:57.622651Z"
 }

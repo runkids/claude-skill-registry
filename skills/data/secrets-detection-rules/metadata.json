@@ -1,13 +1,7 @@
 {
   "name": "secrets-detection-rules",
-  "description": "Эксперт по обнаружению секретов. Используй для создания правил детекции API keys, tokens и credentials в коде.",
   "repo": "dengineproblem/agents-monorepo",
-  "category": "development",
-  "tags": [
-    "secrets",
-    "detection",
-    "rules"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/secrets-detection-rules/SKILL.md",
+  "source": "github.com/dengineproblem/agents-monorepo",
+  "downloaded_at": "2026-01-14T02:08:03.469700Z"
 }

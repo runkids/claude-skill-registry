@@ -1,13 +1,7 @@
 {
   "name": "code-review-quality",
-  "description": "Conduct context-driven code reviews focusing on quality, testability, and maintainability. Use when reviewing code, providing feedback, or establishing review practices.",
-  "repo": "proffesor-for-testing/agentic-qe",
-  "category": "development",
-  "tags": [
-    "code",
-    "review",
-    "quality"
-  ],
-  "stars": 103,
-  "source": "SkillsMP Synced Skills"
+  "repo": "proffesor-for-testing/sentinel-api-testing",
+  "path": ".claude/skills/code-review-quality/SKILL.md",
+  "source": "github.com/proffesor-for-testing/sentinel-api-testing",
+  "downloaded_at": "2026-01-14T01:57:30.670619Z"
 }

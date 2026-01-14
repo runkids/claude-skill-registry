@@ -1,12 +1,7 @@
 {
   "name": "world-building",
-  "description": "World-building assistant for maintaining canonical lore of imaginary countries. Use when Saul wants to create new countries, add historical events, create biographies of figures, expand existing canon",
-  "repo": "rewbs/aerobea-canon",
-  "category": "development",
-  "tags": [
-    "world",
-    "building"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "gigi-f/babylon_fp",
+  "path": ".claude/skills/world-building/SKILL.md",
+  "source": "github.com/gigi-f/babylon_fp",
+  "downloaded_at": "2026-01-14T02:35:02.583215Z"
 }

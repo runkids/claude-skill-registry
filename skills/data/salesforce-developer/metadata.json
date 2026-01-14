@@ -1,12 +1,7 @@
 {
   "name": "salesforce-developer",
-  "description": "Use when developing Salesforce applications, Apex code, Lightning Web Components, SOQL queries, triggers, integrations, or CRM customizations. Invoke for governor limits, bulk processing, platform eve",
   "repo": "Jeffallan/claude-skills",
-  "category": "development",
-  "tags": [
-    "salesforce",
-    "developer"
-  ],
-  "stars": 12,
-  "source": "local"
+  "path": "skills/salesforce-developer/SKILL.md",
+  "source": "github.com/Jeffallan/claude-skills",
+  "downloaded_at": "2026-01-14T02:36:40.122450Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "deploying-kafka-k8s",
-  "description": "Deploys Apache Kafka on Kubernetes using the Strimzi operator with KRaft mode.Use when setting up Kafka for event-driven microservices, message queuing, or pub/sub patterns.Covers operator installatio",
   "repo": "mjunaidca/mjs-agent-skills",
-  "category": "testing",
-  "tags": [
-    "deploying",
-    "kafka",
-    "k8s"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/deploying-kafka-k8s/SKILL.md",
+  "source": "github.com/mjunaidca/mjs-agent-skills",
+  "downloaded_at": "2026-01-14T01:43:11.867605Z"
 }

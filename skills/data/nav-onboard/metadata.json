@@ -1,9 +1,7 @@
 {
   "name": "nav-onboard",
-  "description": "Interactive onboarding for Navigator - learn by doing. Auto-invoke when user says \"onboard me\", \"teach me Navigator\", \"how do I use Navigator\", \"Navigator tutorial\", \"learn Navigator\", \"new to Navigat",
   "repo": "alekspetrov/navigator",
-  "category": "product",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/nav-onboard/SKILL.md",
+  "source": "github.com/alekspetrov/navigator",
+  "downloaded_at": "2026-01-14T01:02:06.333924Z"
 }

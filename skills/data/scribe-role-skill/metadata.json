@@ -1,13 +1,7 @@
 {
   "name": "scribe-role-skill",
-  "description": "Professional technical writing and documentation skill for creating andmaintaining comprehensive, accurate, and user-friendly documentation forcodebases, APIs, deployment processes, and end-user guide",
-  "repo": "enuno/claude-command-and-control",
-  "category": "documents",
-  "tags": [
-    "scribe",
-    "role",
-    "skill"
-  ],
-  "stars": 3,
-  "source": "local"
+  "repo": "Ryno-Crypto-Mining-Services/braiins-insights-mcp-server",
+  "path": "docs/claude/skills/scribe-role-skill/SKILL.md",
+  "source": "github.com/Ryno-Crypto-Mining-Services/braiins-insights-mcp-server",
+  "downloaded_at": "2026-01-14T00:59:35.265012Z"
 }

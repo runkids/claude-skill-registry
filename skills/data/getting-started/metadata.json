@@ -1,8 +1,7 @@
 {
   "name": "getting-started",
-  "repo": "dylantarre/design-system-skills",
-  "category": "data",
-  "description": "Introduction to the design system skills plugin. Use when first installing the plugin, exploring available skills, or planning a design system implementation.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-08T03:08:17.637461Z"
+  "repo": "cncorp/arsenal",
+  "path": "dot-claude/skills/getting-started/SKILL.md",
+  "source": "github.com/cncorp/arsenal",
+  "downloaded_at": "2026-01-14T04:01:21.470630Z"
 }

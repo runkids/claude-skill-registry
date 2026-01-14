@@ -1,12 +1,7 @@
 {
   "name": "backend-fastapi",
-  "description": "Complete FastAPI development including framework fundamentals, architecture patterns (Clean Architecture, Hexagonal Architecture, DDD), dependency injection, async patterns, and best practices. Use wh",
   "repo": "shredbx/demo-3d-model",
-  "category": "development",
-  "tags": [
-    "backend",
-    "fastapi"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/backend-fastapi/SKILL.md",
+  "source": "github.com/shredbx/demo-3d-model",
+  "downloaded_at": "2026-01-14T03:59:02.698911Z"
 }

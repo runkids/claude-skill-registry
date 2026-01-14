@@ -1,9 +1,7 @@
 {
   "name": "docker-backend",
-  "description": "Dockerizes backend projects with auto-detection, latest base images via web search, Dockerfile generation, and Makefile with port override support.",
   "repo": "leonj1/external-claude-skills",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/docker-backend/SKILL.md",
+  "source": "github.com/leonj1/external-claude-skills",
+  "downloaded_at": "2026-01-14T02:08:52.359824Z"
 }

@@ -1,8 +1,7 @@
 {
   "name": "migration-database",
   "repo": "djimontyp/task-tracker",
-  "category": "data",
-  "description": "This skill should be used when working with database migrations in SQLModel-based projects. Trigger when user asks to create migrations for new/modified models, generate database schema changes, or ap",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:05.858232Z"
+  "path": ".claude/skills-old/migration-database/SKILL.md",
+  "source": "github.com/djimontyp/task-tracker",
+  "downloaded_at": "2026-01-14T02:09:11.317208Z"
 }

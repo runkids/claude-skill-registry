@@ -1,12 +1,7 @@
 {
   "name": "database-operations",
-  "description": "Connect to and query SQL databases, execute queries, and handle database transactions. Use when reading from or writing to databases, performing batch inserts, managing connections, or executing compl",
-  "repo": "benchflow-ai/skillsbench",
-  "category": "data",
-  "tags": [
-    "database",
-    "operations"
-  ],
-  "stars": 11,
-  "source": "SkillsMP Synced Skills"
+  "repo": "MUmerRazzaq/fast-next-todo",
+  "path": ".claude/skills/database-operations/SKILL.md",
+  "source": "github.com/MUmerRazzaq/fast-next-todo",
+  "downloaded_at": "2026-01-14T03:58:14.792429Z"
 }

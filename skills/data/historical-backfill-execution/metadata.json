@@ -1,8 +1,7 @@
 {
   "name": "historical-backfill-execution",
   "repo": "terrylica/gapless-network-data",
-  "category": "data",
-  "description": "Execute chunked historical blockchain data backfills using canonical 1-year pattern. Use when loading multi-year historical data, filling gaps in ClickHouse, or preventing OOM failures on Cloud Run. K",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:53.228303Z"
+  "path": ".claude/skills/historical-backfill-execution/SKILL.md",
+  "source": "github.com/terrylica/gapless-network-data",
+  "downloaded_at": "2026-01-14T03:29:38.452830Z"
 }

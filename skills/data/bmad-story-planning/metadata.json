@@ -1,13 +1,7 @@
 {
   "name": "bmad-story-planning",
-  "description": "Breaks epics into developer stories.",
   "repo": "bacoco/BMad-Skills",
-  "category": "development",
-  "tags": [
-    "bmad",
-    "story",
-    "planning"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/bmad-story-planning/SKILL.md",
+  "source": "github.com/bacoco/BMad-Skills",
+  "downloaded_at": "2026-01-14T02:53:13.190433Z"
 }

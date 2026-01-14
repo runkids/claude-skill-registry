@@ -1,12 +1,7 @@
 {
   "name": "flutter-ui-components",
-  "description": "M3-compliant UI components (buttons, cards, forms, inputs).USE WHEN: creating components <300 lines, M3 migrations, Design System work.NOT FOR: complete screens, features with business logic (use flut",
-  "repo": "weppa-cloud/bukeer-flutter",
-  "category": "design",
-  "tags": [
-    "flutter",
-    "components"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "antoineschaller/cortex-skills",
+  "path": "templates/skills/flutter-ui-components/SKILL.md",
+  "source": "github.com/antoineschaller/cortex-skills",
+  "downloaded_at": "2026-01-14T01:16:59.698054Z"
 }

@@ -1,11 +1,7 @@
 {
   "name": "hr-network-analyst",
-  "description": "Hypermodern HR data scientist specializing in professional network graph analysis to identify Gladwellian superconnectors, mavens, and influence brokers. Uses betweenness centrality, structural holes ",
   "repo": "erichowens/some_claude_skills",
-  "category": "data",
-  "tags": [
-    "network",
-    "analyst"
-  ],
-  "stars": 1
+  "path": ".claude/skills/hr-network-analyst/SKILL.md",
+  "source": "github.com/erichowens/some_claude_skills",
+  "downloaded_at": "2026-01-14T02:58:43.709883Z"
 }

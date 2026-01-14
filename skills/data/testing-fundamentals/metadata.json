@@ -1,9 +1,7 @@
 {
   "name": "testing-fundamentals",
-  "description": "TDD workflow, comprehensive test strategies, test coverage, and quality assurance patterns",
-  "repo": "Primadetaautomation/primadata-marketplace",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "nethercore-systems/nethercore-ai-plugins",
+  "path": "zx-test/skills/testing-fundamentals/SKILL.md",
+  "source": "github.com/nethercore-systems/nethercore-ai-plugins",
+  "downloaded_at": "2026-01-14T02:26:48.500826Z"
 }

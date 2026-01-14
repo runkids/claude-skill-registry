@@ -1,11 +1,7 @@
 {
   "name": "motion",
-  "description": "Build sophisticated React animations with Motion (formerly Framer Motion) - declarative animations, gestures (drag, hover, tap), scroll effects, spring physics, layout animations, and SVG manipulation",
   "repo": "jezweb/claude-skills",
-  "category": "design",
-  "tags": [
-    "motion"
-  ],
-  "stars": 109,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/motion/SKILL.md",
+  "source": "github.com/jezweb/claude-skills",
+  "downloaded_at": "2026-01-14T04:01:51.819426Z"
 }

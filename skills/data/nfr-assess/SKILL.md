@@ -1,357 +1,488 @@
----
+﻿---
 name: nfr-assess
-description: Assess non-functional requirements across 6 quality categories (Security, Performance, Reliability, Maintainability, Scalability, Usability) with measurable criteria, evidence-based evaluation, and automated checks. Scores each category, identifies gaps with severity ratings, and provides remediation guidance. Use during quality review to evaluate production readiness and NFR compliance.
-version: 2.0
-category: Quality
-acceptance:
-  all_categories_assessed: "All 6 NFR categories (Security, Performance, Reliability, Maintainability, Scalability, Usability) scored with evidence"
-  gaps_identified: "NFR gaps documented with severity ratings (CRITICAL/HIGH/MEDIUM) and remediation guidance"
-  automated_checks_executed: "Automated checks run where available (security scans, linting, test coverage, performance tests)"
-  report_generated: "Complete NFR assessment report generated with overall score, category scores, gap summary, and recommendations"
-inputs:
-  task_id:
-    required: true
-    description: "Task identifier to assess (e.g., 'task-007')"
-  task_file:
-    required: true
-    description: "Path to task specification file"
-  config_file:
-    required: false
-    description: "Path to project configuration (defaults to .claude/config.yaml)"
-  nfr_thresholds:
-    required: false
-    description: "Custom NFR thresholds (security, performance, maintainability)"
-outputs:
-  overall_nfr_score:
-    description: "Weighted overall NFR score (0-100)"
-  category_scores:
-    description: "Individual scores for each of 6 NFR categories"
-  overall_status:
-    description: "Overall NFR status (PASS/CONCERNS/FAIL)"
-  critical_gaps_count:
-    description: "Number of critical NFR gaps (P0)"
-  high_gaps_count:
-    description: "Number of high-severity NFR gaps (P1)"
-  report_path:
-    description: "Path to generated NFR assessment report"
-  quality_gate_impact:
-    description: "Predicted impact on quality gate (PASS/CONCERNS/FAIL)"
-telemetry:
-  emit: "skill.nfr-assess.completed"
-  track:
-    - task_id
-    - overall_nfr_score
-    - overall_status
-    - security_score
-    - performance_score
-    - reliability_score
-    - maintainability_score
-    - scalability_score
-    - usability_score
-    - critical_gaps_count
-    - high_gaps_count
-    - automated_checks_run
-    - assessment_duration_ms
+description: Use to assess non-functional requirements (security, performance, reliability, maintainability) through E2E integration testing patterns.
+version: 1.0.0
 ---
+<!-- Powered by PRISMâ„¢ System -->
 
-# Non-Functional Requirements Assessment
+# nfr-assess
 
-The **nfr-assess** skill performs comprehensive evaluation of non-functional requirements (NFRs) to ensure the implementation meets quality attributes beyond functional correctness. NFRs are cross-cutting concerns that determine system quality, reliability, and long-term viability. This skill assesses 6 critical quality categories with measurable criteria, evidence-based evaluation, and automated checks where possible.
+E2E integration-focused NFR validation targeting the core four: security, performance, reliability, maintainability through real system testing.
 
-Unlike functional requirements that define *what* the system does, non-functional requirements define *how well* the system performs. This skill provides objective assessment across Security (authentication, encryption, vulnerabilities), Performance (response times, throughput, resource usage), Reliability (error handling, monitoring, fault tolerance), Maintainability (code quality, documentation, testability), Scalability (horizontal scaling, database design, async processing), and Usability (API design, error messages, documentation).
+## Inputs
 
-The assessment produces a weighted overall NFR score, individual category scores, identifies gaps with severity ratings, and provides actionable recommendations. Results feed directly into the quality-gate skill to inform merge/release decisions. Automated checks (security scans, linting, test coverage, performance tests) are integrated where available to provide objective, reproducible metrics.
+```yaml
+required:
+  - story_id: '{epic}.{story}' # e.g., "1.3"
+  - story_path: `../core-config.yaml` for the `devStoryLocation`
 
-## When to Use This Skill
+optional:
+  - architecture_refs: `../core-config.yaml` for the `architecture.architectureFile`
+  - technical_preferences: `../core-config.yaml` for the `technicalPreferences`
+  - acceptance_criteria: From story file
+```
 
-**This skill should be used when:**
-- Non-functional quality attributes need validation during implementation review
-- System-wide quality concerns (security, performance, reliability) need assessment
-- Gaps in quality attributes need identification with severity ratings
-- Evidence-based NFR reports are required for audit/compliance
-- NFR metrics need to feed into quality gate decision-making
-- Production readiness needs validation from quality perspective
+## Purpose
 
-**This skill is particularly valuable:**
-- Before quality gate review (identifies issues early)
-- After functional testing completes (assess non-functional aspects)
-- During architectural review (validate design patterns for NFRs)
-- When preparing for production deployment (ensure production readiness)
-- For compliance validation (OWASP, WCAG, performance budgets)
-
-**This skill should NOT be used when:**
-- Functional requirements haven't been implemented yet (assess functionality first)
-- Task is purely planning/design (no implementation to assess)
-- You only need to test functional behavior (use run-tests instead)
+Assess non-functional requirements through E2E integration testing patterns and generate:
 
-## Prerequisites
+1. YAML block for the gate file's `nfr_validation` section with integration test evidence
+2. Brief markdown assessment emphasizing real system validation saved to `qa.qaLocation/assessments/{epic}.{story}-nfr-{YYYYMMDD}.md`
 
-Before running nfr-assess, ensure you have:
+## Process
 
-1. **Task specification file** with implementation record
-2. **Project configuration** (.claude/config.yaml) with quality settings
-3. **Implementation files** accessible for code review
-4. **Automated tools available** (optional but recommended):
-   - Security: `npm audit`, `semgrep`, or equivalent
-   - Code quality: linter (eslint, pylint, etc.)
-   - Test coverage: coverage tools (jest --coverage, pytest-cov, etc.)
-   - Performance: load testing tools (artillery, k6, etc.)
+### 0. Fail-safe for Missing Inputs
 
-**Dependencies on other skills:**
-- Optional: risk-profile (provides security/performance risk context)
-- Optional: trace-requirements (provides implementation evidence)
-- Optional: test-design (provides performance/load test specifications)
-
-## Sequential NFR Assessment Process
-
-This skill executes through 9 sequential steps. Each step must complete successfully before proceeding. The process is designed to systematically evaluate all 6 NFR categories with evidence collection, automated checks, and gap identification.
+If story_path or story file can't be found:
 
-### Step 0: Load Configuration and Context
+- Still create assessment file with note: "Source story not found"
+- Set all selected NFRs to CONCERNS with notes: "Target unknown / evidence missing"
+- Continue with assessment to provide value
 
-**Purpose:** Load project configuration, task specification, and all relevant context needed for NFR assessment. Identify implementation files, prepare automated checks, and determine which NFR categories are most relevant based on task type.
+### 1. Elicit Scope
 
-**Actions:**
-1. Load project configuration from `.claude/config.yaml` (quality settings, NFR thresholds)
-2. Read task specification file (extract task ID, title, type, NFR requirements, implementation record)
-3. Load related assessments if available (risk profile, traceability matrix, test design)
-4. Identify implementation files from implementation record (source, config, infrastructure, dependencies)
-5. Identify relevant NFR categories based on task type (e.g., API tasks prioritize Security/Performance)
-6. Prepare automated checks (security scans, linting, test coverage, performance tests)
-7. Prepare output file path (`.claude/quality/assessments/{task-id}-nfr-{YYYYMMDD}.md`)
+**Interactive mode:** Ask which NFRs to assess
+**Non-interactive mode:** Default to core four (security, performance, reliability, maintainability)
 
-**Halt If:**
-- Config file missing or invalid
-- Task file not found
-- Cannot create output directory
-
-**Output:** Configuration loaded, task spec loaded, related assessments checked, implementation files identified, NFR categories prioritized, automated checks prepared, output path set
-
-**See:** `references/templates.md#step-0-configuration-loading-output` for complete format and [nfr-categories.md](references/nfr-categories.md) for category descriptions
-
----
-
-### Step 1: Security Assessment
-
-**Purpose:** Evaluate security posture including authentication, authorization, input validation, dependency vulnerabilities, and security best practices. Leverage automated security scans (npm audit, semgrep) and manual code review to identify security gaps with evidence.
-
-**Actions:**
-1. Define security criteria (10 criteria: authentication, authorization, input validation, output encoding, dependency vulnerabilities, secrets management, HTTPS/TLS, rate limiting, CORS, security headers)
-2. Run automated security checks:
-   - Dependency vulnerability scan (`npm audit --json` or equivalent)
-   - Code security scan (`semgrep --config=auto` if available)
-   - Secret detection (check for hardcoded credentials)
-3. Manual code review for security:
-   - Search for authentication/authorization code
-   - Check input validation implementation (Zod, Joi, etc.)
-   - Check for SQL injection risks (parameterized queries?)
-   - Check for XSS risks (output encoding?)
-   - Check CORS configuration and rate limiting
-4. Collect evidence for each criterion (file paths, line numbers, code snippets, scan results)
-5. Score each criterion (PASS/CONCERNS/FAIL/UNCLEAR)
-6. Calculate overall security score (weighted average: PASS=100, CONCERNS=50, FAIL=0)
-7. Identify security gaps with severity ratings (CRITICAL/HIGH/MEDIUM)
-
-**Output:** Overall security score, criteria breakdown (PASS/CONCERNS/FAIL), automated check results (vulnerabilities, secrets), critical gaps count
-
-**See:** `references/templates.md#step-1-security-assessment-output` for complete format, [nfr-categories.md](references/nfr-categories.md#security-assessment) for criteria, [nfr-examples.md](references/nfr-examples.md#security-evidence) for evidence examples
-
----
-
-### Step 2: Performance Assessment
-
-**Purpose:** Evaluate performance characteristics including response times, throughput, resource usage, caching, and optimization. Run performance tests if available, analyze database queries for N+1 problems, and check algorithm complexity in hot paths.
-
-**Actions:**
-1. Define performance criteria (10 criteria: response time, throughput, resource usage, database queries, caching, asset optimization, algorithm complexity, connection pooling, async operations, load testing)
-2. Run automated performance checks:
-   - Performance tests (`npm run test:perf` if available)
-   - Load tests (artillery, k6, etc. if available)
-   - Bundle size analysis (if UI application)
-   - Database query analysis (EXPLAIN ANALYZE)
-3. Manual code review for performance:
-   - Check database queries for N+1 problems
-   - Check for blocking operations in request handlers
-   - Check algorithm complexity in hot paths (O(n log n) or better?)
-   - Check caching implementation (Redis, in-memory)
-   - Check connection pooling configuration
-4. Collect evidence (performance test results, query analysis, code review findings)
-5. Score each criterion (PASS/CONCERNS/FAIL/UNCLEAR)
-6. Calculate overall performance score
-7. Identify performance gaps (e.g., missing caching, N+1 queries, no load testing)
-
-**Output:** Overall performance score, response time metrics (p50/p95/p99), throughput, load test results, performance gaps
-
-**See:** `references/templates.md#step-2-performance-assessment-output` for complete format with benchmark tables
-
----
-
-### Step 3: Reliability Assessment
-
-**Purpose:** Evaluate system reliability including error handling, fault tolerance, recovery, monitoring, and logging. Check for comprehensive error handling, graceful degradation when dependencies fail, and proper observability (logging, monitoring, health checks).
-
-**Actions:**
-1. Define reliability criteria (10 criteria: error handling, input validation errors, graceful degradation, retry logic, circuit breakers, logging, monitoring, idempotency, data integrity, disaster recovery)
-2. Manual code review for reliability:
-   - Check try-catch blocks in async operations
-   - Check error response formatting
-   - Check database transaction usage
-   - Check logging implementation (winston, pino, structured logs?)
-   - Check health check endpoints
-   - Check monitoring integration (Prometheus, Datadog, etc.)
-3. Collect evidence (error handlers, logging examples, monitoring configuration)
-4. Score each criterion (PASS/CONCERNS/FAIL/UNCLEAR)
-5. Calculate overall reliability score
-6. Identify reliability gaps (e.g., no monitoring, no log aggregation, missing health checks)
-
-**Output:** Overall reliability score, error handling status, logging status (structured/aggregation), monitoring status (health checks/metrics), reliability gaps
-
-**See:** `references/templates.md#step-3-reliability-assessment-output` for complete format
-
----
+```text
+Which NFRs should I assess? (Enter numbers or press Enter for default)
+[1] Security (default)
+[2] Performance (default)
+[3] Reliability (default)
+[4] Maintainability (default)
+[5] Usability
+[6] Compatibility
+[7] Portability
+[8] Functional Suitability
 
-### Step 4: Maintainability Assessment
+> [Enter for 1-4]
+```
 
-**Purpose:** Evaluate code maintainability including code quality, documentation, testability, modularity, and technical debt. Leverage automated tools (linting, test coverage, complexity analysis) and manual review for documentation, naming, and code organization.
+### 2. Check for Thresholds
 
-**Actions:**
-1. Define maintainability criteria (10 criteria: code quality, test coverage, documentation, modularity, naming, complexity, duplication, type safety, dependencies, technical debt)
-2. Run automated maintainability checks:
-   - Linting (`npm run lint` or equivalent)
-   - Test coverage (`npm run test:coverage`)
-   - Complexity analysis (cyclomatic complexity ≤10?)
-   - Duplication detection (jscpd, etc.)
-   - Type checking (TypeScript strict mode)
-3. Manual code review for maintainability:
-   - Check code structure and organization
-   - Check naming conventions (clear, descriptive?)
-   - Check function/class sizes (≤50 lines?)
-   - Check documentation completeness (README, API docs, JSDoc)
-   - Check for technical debt (TODO/FIXME comments)
-4. Collect evidence (coverage reports, complexity metrics, lint results, documentation)
-5. Score each criterion (PASS/CONCERNS/FAIL/UNCLEAR)
-6. Calculate overall maintainability score
-7. Identify maintainability gaps (e.g., missing documentation, high complexity, low coverage)
+Look for NFR requirements in:
 
-**Output:** Overall maintainability score, test coverage %, avg/max complexity, linting results, documentation status, maintainability gaps
+- Story acceptance criteria
+- `docs/architecture/*.md` files
+- `docs/technical-preferences.md`
 
-**See:** `references/templates.md#step-4-maintainability-assessment-output` for complete format with metrics breakdown
+**Interactive mode:** Ask for missing thresholds
+**Non-interactive mode:** Mark as CONCERNS with "Target unknown"
 
----
+```text
+No performance requirements found. What's your target response time?
+> 200ms for API calls
 
-### Step 5: Scalability Assessment
+No security requirements found. Required auth method?
+> JWT with refresh tokens
+```
 
-**Purpose:** Evaluate system scalability including horizontal/vertical scaling capability, load handling, database design, and caching strategy. Check for stateless design, proper database indexing, async processing for expensive operations, and readiness for load balancing.
+**Unknown targets policy:** If a target is missing and not provided, mark status as CONCERNS with notes: "Target unknown"
 
-**Actions:**
-1. Define scalability criteria (10 criteria: stateless design, horizontal scaling, database design, connection pooling, caching, async processing, rate limiting, load balancing readiness, resource limits, auto-scaling)
-2. Review architecture for scalability:
-   - Check if application is stateless (no in-memory session state)
-   - Check database schema and indexing (foreign keys indexed?)
-   - Check for file uploads (should use object storage like S3)
-   - Check for background job processing (should use queue like Bull/BullMQ)
-   - Check for proper shutdown handlers (graceful shutdown)
-3. Collect evidence (architecture review, schema analysis, code review)
-4. Score each criterion (PASS/CONCERNS/FAIL/UNCLEAR)
-5. Calculate overall scalability score
-6. Identify scalability gaps (e.g., stateful design, missing indexes, no async processing)
+### 3. E2E Integration Assessment
 
-**Output:** Overall scalability score, stateless design status, database indexing (count/missing), async processing status, horizontal scaling readiness, scalability gaps
+For each selected NFR, prioritize integration test evidence:
 
-**See:** `references/templates.md#step-5-scalability-assessment-output` for complete format with DB analysis
+- Are there integration tests validating the NFR?
+- Can we measure it through real API calls?
+- Is multi-tenant isolation properly tested?
+- Are authentication/authorization flows validated end-to-end?
 
----
+### 4. Generate Outputs
 
-### Step 6: Usability Assessment
+## Output 1: Gate YAML Block
 
-**Purpose:** Evaluate system usability including API design, error messages, documentation, and accessibility (if UI). For APIs, check RESTful conventions, error message clarity, and API documentation. For UIs, check WCAG compliance, responsive design, and user experience.
+Generate ONLY for NFRs actually assessed (no placeholders):
 
-**Actions:**
-1. Define usability criteria:
-   - **For APIs** (10 criteria): API design, error messages, documentation, versioning, pagination, filtering, HTTP status codes, response format, HATEOAS, developer experience
-   - **For UIs** (10 criteria): accessibility (WCAG 2.1 AA), responsive design, loading states, error handling, keyboard navigation, color contrast, screen reader support, form validation, intuitive navigation, performance
-2. Review API/UI design:
-   - Check REST conventions (proper HTTP verbs, resource naming)
-   - Check error response format (clear, actionable messages?)
-   - Check API documentation (OpenAPI/Swagger spec?)
-   - Check pagination/filtering implementation
-   - For UIs: Check accessibility with automated tools (axe, lighthouse)
-3. Collect evidence (route definitions, error responses, documentation, accessibility scan results)
-4. Score each criterion (PASS/CONCERNS/FAIL/UNCLEAR)
-5. Calculate overall usability score
-6. Identify usability gaps (e.g., missing API docs, generic error messages, accessibility issues)
+```yaml
+# Gate YAML (copy/paste):
+nfr_validation:
+  _assessed: [security, performance, reliability, maintainability]
+  security:
+    status: CONCERNS
+    notes: 'Auth endpoints tested but no rate limiting integration tests'
+  performance:
+    status: PASS
+    notes: 'API response times < 200ms verified via integration tests with real DB'
+  reliability:
+    status: PASS
+    notes: 'Health check endpoints and DB failover tested via containers'
+  maintainability:
+    status: CONCERNS
+    notes: 'Integration test coverage at 65%, missing multi-tenant isolation tests'
+```
 
-**Output:** Overall usability score, API/UI design status, error messages quality, documentation status, accessibility status (if UI), usability gaps
+## Deterministic Status Rules
 
-**See:** `references/templates.md#step-6-usability-assessment-output` for API and UI formats
+- **FAIL**: Any selected NFR has critical gap or target clearly not met
+- **CONCERNS**: No FAILs, but any NFR is unknown/partial/missing evidence
+- **PASS**: All selected NFRs meet targets with evidence
 
----
+## Quality Score Calculation
 
-### Step 7: Generate NFR Assessment Report
+```
+quality_score = 100
+- 20 for each FAIL attribute
+- 10 for each CONCERNS attribute
+Floor at 0, ceiling at 100
+```
 
-**Purpose:** Create comprehensive NFR assessment report using template with all category assessments, overall score calculation, gap summary, and recommendations.
+If `technical-preferences.md` defines custom weights, use those instead.
 
-**Actions:**
-1. Load NFR assessment template
-2. Compute overall NFR score using weighted formula (Security 25%, Performance 20%, Reliability 20%, Maintainability 15%, Scalability 10%, Usability 10%)
-3. Determine overall status (≥90%: Excellent, 75-89%: Good, 60-74%: CONCERNS, <60%: FAIL)
-4. Aggregate gaps with priorities (P0/P1/P2)
-5. Generate prioritized recommendations
-6. Predict quality gate impact
-7. Populate template and write report
+## Output 2: Brief Assessment Report
 
-**Output:** Report path, overall NFR score/status, category scores, total gaps breakdown (P0/P1/P2), report size
+**ALWAYS save to:** `qa.qaLocation/assessments/{epic}.{story}-nfr-{YYYYMMDD}.md`
 
-**See:** `references/templates.md#step-7-overall-nfr-scoring-formula` for complete formula and examples, [nfr-scoring.md](references/nfr-scoring.md) for methodology, [nfr-gaps.md](references/nfr-gaps.md) for gap categorization
+```markdown
+# NFR Assessment: {epic}.{story}
 
----
+Date: {date}
+Reviewer: Quinn
 
-### Step 8: Present Summary to User
+<!-- Note: Source story not found (if applicable) -->
 
-**Purpose:** Provide concise summary with key metrics, critical gaps, quality gate impact, and recommended next steps.
+## Summary
 
-**Actions:**
-1. Display formatted summary: Task metadata, overall NFR score/status, category scores (6), critical gaps (P0), high gaps (P1), quality gate impact + reasoning, actionable recommendations with time estimates, report path
-2. Suggest next steps: Review report, prioritize P0 gaps, create tickets for P1 gaps, re-run after fixes, proceed to quality-gate when ≥75%
-3. Emit telemetry
+- Security: CONCERNS - Auth flows tested but missing rate limiting E2E tests
+- Performance: PASS - <200ms verified via integration tests with real containers
+- Reliability: PASS - Health checks and failover validated in test environment
+- Maintainability: CONCERNS - Integration test coverage below target
 
-**Output:** Complete formatted summary with scores, gaps, quality gate prediction, recommendations, next steps
+## Critical Issues
 
-**See:** `references/templates.md#step-8-complete-user-summary-format` for full formatted output, [nfr-examples.md](references/nfr-examples.md#summary-formats) for examples
+1. **Missing rate limiting integration tests** (Security)
+   - Risk: Auth endpoints vulnerable to brute force without E2E validation
+   - Fix: Add integration tests that verify rate limiting behavior
+
+2. **Insufficient multi-tenant isolation testing** (Maintainability)
+   - Risk: Cross-tenant data leakage not validated
+   - Fix: Add E2E tests that verify tenant isolation at API level
+
+## Quick Wins
+
+- Add rate limiting integration tests: ~3 hours
+- Add multi-tenant isolation E2E tests: ~4 hours
+- Add performance monitoring to existing integration tests: ~1 hour
+```
+
+## Output 3: Story Update Line
+
+**End with this line for the review task to quote:**
+
+```
+NFR assessment: qa.qaLocation/assessments/{epic}.{story}-nfr-{YYYYMMDD}.md
+```
+
+## Output 4: Gate Integration Line
+
+**Always print at the end:**
+
+```
+Gate NFR block ready â†’ paste into qa.qaLocation/gates/{epic}.{story}-{slug}.yml under nfr_validation
+```
+
+## Assessment Criteria
+
+### Security
+
+**PASS if:**
+
+- Authentication/authorization E2E tested with real tokens
+- Multi-tenant isolation validated via integration tests
+- Input validation tested through API calls
+- Secret management validated in containerized environment
+
+**CONCERNS if:**
+
+- Auth flows tested but missing rate limiting E2E tests
+- Token validation tested but missing security headers validation
+- Basic auth tested but missing authorization boundary tests
+
+**FAIL if:**
+
+- No authentication integration tests
+- Multi-tenant data leakage in E2E tests
+- Security vulnerabilities reproducible via integration tests
+
+### Performance
+
+**PASS if:**
+
+- Response time targets verified via integration tests with real DB
+- Performance measured through E2E API calls under load
+- Database performance validated with real queries in containers
+- Memory/CPU usage acceptable in integration test environment
+
+**CONCERNS if:**
+
+- Performance close to limits in integration tests
+- Missing performance validation in multi-tenant scenarios
+- No load testing of API endpoints
+
+**FAIL if:**
+
+- Response times exceed targets in integration tests
+- Memory leaks detected in containerized test runs
+- Database queries timeout in E2E tests
+
+### Reliability
+
+**PASS if:**
+
+- Health check endpoints return correct status in integration tests
+- Error handling validated through E2E failure scenarios
+- Database failover/recovery tested in containerized environment
+- Service resilience validated through integration tests
+
+**CONCERNS if:**
+
+- Health checks present but not comprehensively tested
+- Some error scenarios not covered in E2E tests
+- Database connection handling not fully validated
+
+**FAIL if:**
+
+- Health check endpoints fail in integration tests
+- System crashes during E2E error simulation
+- Database failures cause unrecoverable states in tests
+
+### Maintainability
+
+**PASS if:**
+
+- Integration test coverage meets target (focus on E2E scenarios)
+- Multi-tenant isolation properly tested
+- API contract tests validate breaking changes
+- Test environment closely mirrors production
+
+**CONCERNS if:**
+
+- Integration test coverage below target
+- Missing multi-tenant test scenarios
+- Some API endpoints not covered by E2E tests
+
+**FAIL if:**
+
+- No integration tests for critical paths
+- Multi-tenant scenarios completely untested
+- Test environment significantly different from production
+
+## Quick Reference
+
+### What to Check
+
+```yaml
+security:
+  - Auth/authz E2E test coverage
+  - Multi-tenant isolation tests
+  - Token validation in real scenarios
+  - Security headers validation
+  - Rate limiting integration tests
+
+performance:
+  - API response time integration tests
+  - Database performance with real queries
+  - Load testing of endpoints
+  - Container resource usage
+  - Multi-tenant performance isolation
+
+reliability:
+  - Health check endpoint tests
+  - Error handling E2E scenarios
+  - Database failover tests
+  - Service recovery tests
+  - Container restart resilience
+
+maintainability:
+  - Integration test coverage %
+  - Multi-tenant test scenarios
+  - API contract test coverage
+  - Test environment fidelity
+  - E2E test maintenance burden
+```
+
+## Key Principles
+
+- **E2E Integration First**: Prioritize NFR validation through real system testing over theoretical analysis
+- **Container-based Validation**: Leverage containerized test environments that mirror production
+- **Multi-tenant Focus**: Ensure NFR validation includes tenant isolation scenarios
+- **API-level Testing**: Validate NFRs through actual HTTP calls, not mocked interfaces
+- **Real Database Performance**: Use actual database queries and connections in performance validation
+- **Gate-ready Evidence**: Provide concrete test evidence for gate decisions
+- **Measurable Outcomes**: Focus on NFRs that can be measured through E2E tests
 
 ---
 
-## Integration with Other Skills
+## E2E NFR Testing Patterns
 
-**Integration with risk-profile:** Security/performance/reliability risks from risk profile inform NFR assessment priorities and amplify gap severity (e.g., HIGH gap + HIGH risk = CRITICAL P0)
+### Security Testing Patterns
 
-**Integration with trace-requirements:** Implementation evidence validates NFR implementation; NFR gaps feed back as coverage gaps in traceability matrix
+```csharp
+// Authentication/Authorization E2E Tests
+[Fact]
+public async Task Endpoint_WithoutAuthentication_ShouldReturnUnauthorized()
+{
+    var client = application.GetHttpClient();
+    client.DefaultRequestHeaders.Authorization = null;
+    
+    var response = await client.GetAsync("/api/protected-endpoint");
+    
+    response.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
+}
 
-**Integration with test-design:** Performance/load/security test specifications inform corresponding NFR category assessments
+// Multi-tenant Isolation Tests
+[Fact]
+public async Task Endpoint_ShouldNotLeakDataBetweenTenants()
+{
+    var client = application.GetHttpClient();
+    var tenant1Data = await CreateTenantSpecificData(tenant1Id);
+    var tenant2Token = await GetTenantToken(tenant2Id);
+    
+    client.DefaultRequestHeaders.Authorization = 
+        new AuthenticationHeaderValue("Bearer", tenant2Token);
+    var response = await client.GetAsync($"/api/tenant-data/{tenant1Data.Id}");
+    
+    response.StatusCode.ShouldBe(HttpStatusCode.Forbidden);
+}
+```
 
-**Integration with quality-gate:** Overall NFR score + category scores + critical gaps feed into quality gate decision (≥90%: PASS-excellent, 75-89%: PASS-good, 60-74%: CONCERNS, <60%: FAIL; Security/Reliability <50%: production blocker)
+### Performance Testing Patterns
 
-**See:** `references/templates.md#integration-examples` for detailed integration workflows and decision logic
+```csharp
+// API Response Time Validation
+[Fact]
+public async Task Endpoint_ShouldMeetPerformanceTarget()
+{
+    var client = application.GetHttpClient();
+    // Warm-up request to eliminate cold-start effects
+    await client.GetAsync("/api/endpoint");
+    
+    var stopwatch = Stopwatch.StartNew();
+    var response = await client.GetAsync("/api/endpoint");
+    stopwatch.Stop();
+    
+    response.StatusCode.ShouldBe(HttpStatusCode.OK);
+    stopwatch.ElapsedMilliseconds.ShouldBeLessThan(200);
+}
+
+// Database Performance with Real Queries
+[Fact]
+public async Task DatabaseQuery_ShouldPerformWithinLimits()
+{
+    var dbContext = await application.GetRequiredService<TenantDbContext>();
+    
+    var stopwatch = Stopwatch.StartNew();
+    var results = await dbContext.LargeTable
+        .Where(x => x.IndexedField == "value")
+        .ToListAsync();
+    stopwatch.Stop();
+    
+    stopwatch.ElapsedMilliseconds.ShouldBeLessThan(100);
+}
+```
+
+### Reliability Testing Patterns
+
+```csharp
+// Health Check Validation
+[Fact]
+public async Task HealthCheck_ShouldReportCorrectStatus()
+{
+    var client = application.GetHttpClient();
+    var response = await client.GetAsync("/health/tenant-id");
+    
+    response.StatusCode.ShouldBe(HttpStatusCode.OK);
+    var content = await response.Content.ReadAsStringAsync();
+    content.ShouldContain("Healthy");
+}
+
+// Database Connection Resilience
+[Fact]
+public async Task Service_ShouldHandleDatabaseFailure()
+{
+    var resolver = await application.GetRequiredService<IDbContextResolver>();
+    var connected = await resolver.ConnectToTenant(tenantId);
+    
+    connected.ShouldBeTrue();
+    // Simulate DB connection issues and verify graceful handling
+}
+```
+
+### Container-based Testing Setup
+
+```csharp
+// TestContainers for Real Database Integration
+public class DatabaseFixture : IAsyncLifetime
+{
+    private readonly MsSqlContainer container = new MsSqlBuilder().Build();
+    
+    public string ConnectionString => container.GetConnectionString();
+    
+    public Task InitializeAsync() => container.StartAsync();
+    public Task DisposeAsync() => container.DisposeAsync().AsTask();
+}
+
+// Application Factory with Real Dependencies
+public class TestApplicationFactory : WebApplicationFactory<Program>
+{
+    private readonly DatabaseFixture databaseFixture;
+    
+    protected override void ConfigureWebHost(IWebHostBuilder builder)
+    {
+        builder.ConfigureTestServices(services =>
+        {
+            // Use real database connection from TestContainer
+            services.AddDbContext<TenantDbContext>(options =>
+                options.UseSqlServer(databaseFixture.ConnectionString));
+        });
+    }
+}
+```
 
 ---
 
-## Best Practices
+## Appendix: ISO 25010 Reference
 
-Run NFR assessment before quality gate | Integrate automated checks (security, linting, coverage) | Document evidence thoroughly (file paths, line numbers, snippets) | Prioritize Security and Reliability (production blockers) | Set measurable thresholds in config | Re-run after fixes to validate | Customize category weights per project | Review with stakeholders (cross-functional decisions)
+<details>
+<summary>Full ISO 25010 Quality Model (click to expand)</summary>
 
----
+### All 8 Quality Characteristics
 
-## References
+1. **Functional Suitability**: Completeness, correctness, appropriateness
+2. **Performance Efficiency**: Time behavior, resource use, capacity
+3. **Compatibility**: Co-existence, interoperability
+4. **Usability**: Learnability, operability, accessibility
+5. **Reliability**: Maturity, availability, fault tolerance
+6. **Security**: Confidentiality, integrity, authenticity
+7. **Maintainability**: Modularity, reusability, testability
+8. **Portability**: Adaptability, installability
 
-- **[templates.md](references/templates.md)** - All output formats, complete examples, scoring formulas, integration workflows, JSON structures
+Use these when assessing beyond the core four.
 
-- **[nfr-categories.md](references/nfr-categories.md)** - Detailed assessment criteria for all 6 NFR categories with examples and thresholds
+</details>
 
-- **[nfr-scoring.md](references/nfr-scoring.md)** - Scoring methodology, weighting formulas, status thresholds, automated check integration
+<details>
+<summary>Example: E2E Performance Validation (click to expand)</summary>
 
-- **[nfr-gaps.md](references/nfr-gaps.md)** - Gap identification, severity levels (CRITICAL/HIGH/MEDIUM), prioritization (P0/P1/P2), remediation guidance
+```yaml
+performance_integration_testing:
+  api_response_times:
+    endpoint_auth: 45ms (target: <100ms)
+    endpoint_tenant_data: 180ms (target: <200ms)
+    endpoint_health_check: 25ms (target: <50ms)
+  database_performance:
+    tenant_connection_time: 15ms
+    query_large_table: 85ms (with proper indexes)
+    multi_tenant_isolation_overhead: 5ms
+  container_performance:
+    memory_usage: 245MB (target: <500MB)
+    cpu_usage: 15% (target: <50%)
+    startup_time: 3.2s (target: <5s)
+  load_testing_results:
+    concurrent_users: 50 (passed)
+    max_throughput: 150 rps
+    error_rate_under_load: 0.1%
+```
 
-- **[nfr-examples.md](references/nfr-examples.md)** - Complete example assessments, evidence formats, benchmarks, summary outputs
+</details>
 
----
-
-*NFR Assessment skill - Version 2.0 - Minimal V2 Architecture*

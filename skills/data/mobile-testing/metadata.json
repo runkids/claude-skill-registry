@@ -1,12 +1,7 @@
 {
   "name": "mobile-testing",
-  "description": "Comprehensive mobile testing for iOS and Android platforms including gestures, sensors, permissions, device fragmentation, and performance. Use when testing native apps, hybrid apps, or mobile web, en",
-  "repo": "proffesor-for-testing/agentic-qe",
-  "category": "testing",
-  "tags": [
-    "mobile",
-    "testing"
-  ],
-  "stars": 103,
-  "source": "SkillsMP Synced Skills"
+  "repo": "lapc506/flutter-agentic-boilerplate",
+  "path": "skills/flutter/mobile-testing/SKILL.md",
+  "source": "github.com/lapc506/flutter-agentic-boilerplate",
+  "downloaded_at": "2026-01-14T03:08:43.451630Z"
 }

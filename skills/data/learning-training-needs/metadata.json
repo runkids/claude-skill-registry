@@ -1,12 +1,7 @@
 {
   "name": "learning-training-needs",
-  "description": "training-needs for corporate and professional learning contexts.",
   "repo": "pauljbernard/content",
-  "category": "data",
-  "tags": [
-    "learning",
-    "training",
-    "needs"
-  ],
-  "stars": 0
+  "path": ".claude/skills/learning-training-needs/SKILL.md",
+  "source": "github.com/pauljbernard/content",
+  "downloaded_at": "2026-01-14T02:04:50.055703Z"
 }

@@ -1,155 +1,202 @@
 ---
 name: creating-pull-requests
-description: Use this skill when creating pull requests, drafting PR descriptions, or running `gh pr create`. Ensures proper PR formatting with active-voice titles and structured descriptions explaining why, how, and context links.
+description: Use when creating a pull request or preparing changes for review. Ensures PR titles and descriptions accurately reflect ALL changes in the branch AND link to related GitHub issues. Prevents accidentally omitting files, changes, or issue references from PR descriptions.
 ---
 
 # Creating Pull Requests
 
-Create well-structured pull requests with clear titles and comprehensive descriptions.
+## Overview
 
-# Critical Rules
+This skill ensures pull requests are comprehensive, accurate, and useful for future reference. PRs should document the COMPLETE set of changes in a branch, not just what was remembered from the current conversation. PRs must also link to related GitHub issues - most PRs have an associated issue, and these links are critical for tracking work and understanding context.
 
-**NEVER do these:**
-- Do NOT add yourself as a coauthor on commits (no `Co-Authored-By` headers)
-- Do NOT include phrases like "Generated with Claude Code" or "Created by Claude"
-- Do NOT mention AI or Claude anywhere in commits or PR descriptions
+## Critical Principles
 
-# PR Title Format
+1. **Trust git, not memory** - The git diff is the source of truth, not conversation history
+2. **Every changed file matters** - Files are rarely changed by accident; all changes deserve documentation
+3. **PRs are searchable documentation** - Titles and descriptions should contain keywords that help find this PR when debugging issues later
+4. **Complete > Concise** - A thorough PR description is more valuable than a brief one
+5. **Most PRs close an issue** - Actively search for related issues; don't assume none exist just because the user didn't mention one
 
-Use **active voice** with a present-tense verb:
+## Mandatory Workflow
 
-| Good | Bad |
-|------|-----|
-| Add user authentication | Added user authentication |
-| Fix memory leak in cache | Fixing memory leak |
-| Update dependencies to latest | Dependency updates |
-| Remove deprecated API endpoints | Removed deprecated API |
-| Refactor database connection pool | Database refactoring |
+When creating a pull request, execute these steps IN ORDER. Do not skip steps.
 
-**Pattern**: `<Verb> <what> [to/in/for <context>]`
+### Step 1: Gather Complete Change Information
 
-Common verbs: Add, Fix, Update, Remove, Refactor, Implement, Improve, Replace, Enable, Disable
-
-# PR Description Structure
-
-```markdown
-## Why
-
-[Explain the motivation for this change. What problem does it solve? What feature does it enable?]
-
-## Approach
-
-[Explain why this implementation was chosen over alternatives. What trade-offs were considered?]
-
-## How it works
-
-[Describe the technical implementation. How does the code achieve the goal?]
-
-## Links
-
-- [Ticket](url) or JIRA-123
-- [Slack thread](url)
-```
-
-# Step-by-Step Process
-
-## 1. Gather Context
-
-Before creating the PR, understand what's being changed:
+Run ALL of these commands to understand the full scope of changes:
 
 ```bash
-# See all commits on this branch vs main
-git log main..HEAD --oneline
+# See all files that differ from the base branch
+git diff --name-status $(git merge-base HEAD master)..HEAD
 
-# See the full diff
-git diff main...HEAD
+# See the full diff to understand what changed
+git diff $(git merge-base HEAD master)..HEAD
 
-# Check current branch name
-git branch --show-current
+# See all commits on this branch
+git log --oneline $(git merge-base HEAD master)..HEAD
+
+# Check for any uncommitted changes that should be included
+git status
 ```
 
-## 2. Identify Links and References
+**IMPORTANT**: Read the FULL output of these commands. Do not skim or summarize prematurely.
 
-Ask the user or search for:
-- Jira/ticket numbers (look in commit messages or branch name)
-- Related Slack conversations
-- Fusion run URLs
-- GCS paths for data or artifacts
+### Step 2: Search for Related GitHub Issues
 
-## 3. Draft the PR
+**Most PRs should close an issue.** Before creating the PR, actively search for related issues.
 
 ```bash
-gh pr create --title "Add feature X to service Y" --body "$(cat <<'EOF'
-## Why
+# Search all issues (open and closed) to find any related context
+gh issue list --search "keyword1 keyword2" --state all
 
-[Motivation here]
-
-## Approach
-
-[Implementation rationale here]
-
-## How it works
-
-[Technical details here]
-
-## Links
-
-- [Ticket](url)
-EOF
-)"
+# Example: If fixing email notifications, try multiple keyword variations:
+gh issue list --search "email notification" --state all
+gh issue list --search "notification not sent" --state all
 ```
 
-# Example
+**Extract keywords from:**
+- The branch name (e.g., `fix/email-notifications` → search "email notifications")
+- Commit messages from Step 1
+- The problem being solved (what would someone have reported?)
 
-**Branch**: `feature/add-retry-logic`
-**Commits**: Adds exponential backoff retry to HTTP client
+**If you find related issues:**
+- Note ALL issue numbers that this PR addresses
+- The PR description MUST include `Closes #XXX` or `Fixes #XXX` for each
 
-**Title**: `Add exponential backoff retry to HTTP client`
+**If no issues are found after searching:**
+- ASK THE USER: "I searched for related issues but didn't find any. Is there a GitHub issue this PR should close?"
+- Do NOT proceed without confirming - the user may know of an issue you missed
 
-**Description**:
-```markdown
-## Why
+**Common rationalization to avoid:**
+> "The user didn't mention an issue, so there probably isn't one"
 
-HTTP requests to external services occasionally fail due to transient network issues. Without retry logic, these failures cascade to users as errors.
+This is wrong. Users often forget to mention issue numbers. Your job is to find them.
 
-## Approach
+### Step 3: Categorize All Changes
 
-Chose exponential backoff over fixed-interval retry to avoid thundering herd problems during partial outages. Used a max of 3 retries with jitter to spread out retry attempts.
+Group every changed file into categories. Common categories include:
+- Bug fixes
+- New features
+- Refactoring
+- Configuration changes
+- Dependency updates
+- Test additions/changes
+- Documentation
 
-## How it works
+Every file from the diff MUST appear in at least one category.
 
-Wraps the existing HTTP client with a retry decorator. On 5xx responses or network errors, waits `2^attempt * 100ms + random(0-50ms)` before retrying. Logs each retry attempt for observability.
+### Step 4: Write a Comprehensive Title
 
-## Links
+The PR title should:
+- Summarize the PRIMARY purpose of the changes
+- Include keywords that would help find this PR later
+- Be specific enough to distinguish from similar PRs
 
-- [PROJ-1234](https://jira.example.com/browse/PROJ-1234)
-- [Slack discussion](https://slack.com/archives/...)
+**Good**: `fix(router): prevent redirect loop for API routes`
+**Bad**: `fix redirect issue`
+
+### Step 5: Write the PR Description
+
+The description MUST include:
+
+#### Summary Section
+- 2-5 bullet points covering the main changes
+- Each major change category should have at least one bullet
+- Reference specific files or components when helpful
+
+#### Files Changed Section
+List ALL changed files grouped by purpose. Example:
+```
+### Bug Fixes
+- `src/router.ts` - Fixed redirect logic
+
+### New Features
+- `src/components/Feature.tsx` - Added new component
+
+### Configuration
+- `config/settings.json` - Updated default values
 ```
 
-# CLI Commands
+#### Test Plan Section
+- How to verify the changes work
+- Any manual testing steps required
 
-```bash
-# Create PR interactively
-gh pr create
-
-# Create with title and body
-gh pr create --title "Add X" --body "Description here"
-
-# Create as draft
-gh pr create --draft --title "Add X" --body "..."
-
-# Create with specific base branch
-gh pr create --base develop --title "Add X" --body "..."
-
-# Create and immediately open in browser
-gh pr create --title "Add X" --body "..." --web
-```
-
-# Validation Checklist
+### Step 6: Self-Review Checklist
 
 Before creating the PR, verify:
-- [ ] Title uses active voice with present-tense verb
-- [ ] Description has Why, Approach, and How sections
-- [ ] All relevant links are included
-- [ ] No AI/Claude attribution anywhere
-- [ ] No Co-Authored-By headers in commits
+
+- [ ] Every file from `git diff --name-status` is mentioned in the description
+- [ ] The title contains searchable keywords related to the changes
+- [ ] The description explains WHY changes were made, not just WHAT changed
+- [ ] Any breaking changes or migration steps are clearly documented
+- [ ] **Issue search completed** - You searched GitHub issues with relevant keywords
+- [ ] **Issue linking resolved** - Either: (a) PR includes `Closes #XXX` for found issues, OR (b) You asked the user and confirmed no issue exists
+
+## Common Mistakes to Avoid
+
+### Relying on Session Memory
+**Wrong**: "I changed the router to fix redirects"
+**Right**: Run `git diff` and document ALL changes, including ones from earlier in the session or previous sessions
+
+### Omitting "Minor" Changes
+**Wrong**: Leaving out config file changes because they seem unimportant
+**Right**: Every changed file is documented - config changes often matter for deployment
+
+### Vague Descriptions
+**Wrong**: "Fixed some bugs and updated configs"
+**Right**: Specific descriptions of what was fixed and why, with file references
+
+### Forgetting Uncommitted Changes
+**Wrong**: Creating PR with unstaged changes still pending
+**Right**: Run `git status` first and decide if pending changes should be committed
+
+### Assuming No Issue Exists
+**Wrong**: "The user didn't mention an issue, so I'll just create the PR without one"
+**Right**: Search GitHub for related issues using keywords from the branch name and commit messages. If nothing found, ask the user before proceeding.
+
+### Treating Issue Links as Optional
+**Wrong**: `Fixes #1234 (if there was an issue)` or skipping the search entirely
+**Right**: Always search for issues. Most PRs have one. Include `Closes #XXX` for every related issue found.
+
+## PR Description Template
+
+Use this template structure:
+
+```markdown
+## Summary
+- [Primary change/fix with context]
+- [Secondary changes]
+- [Any additional notable changes]
+
+Closes #XXX
+
+## Changes
+
+### [Category 1]
+- `path/to/file.ext` - Description of change
+
+### [Category 2]
+- `path/to/file.ext` - Description of change
+
+## Test Plan
+- [ ] Step to verify change 1
+- [ ] Step to verify change 2
+
+## Notes
+[Any additional context, breaking changes, or follow-up work needed]
+```
+
+## Rationalizations That Mean You're About to Skip Issue Search
+
+If you catch yourself thinking any of these, STOP. You are rationalizing skipping a required step.
+
+| Excuse | Reality |
+|--------|---------|
+| "User didn't mention an issue" | Users forget. Search anyway. |
+| "This seems like new work, not a fix" | New features often have tracking issues too. Search. |
+| "I'll let the user add issue links" | Your job is to create a complete PR. Search. |
+| "Searching would slow things down" | It takes 10 seconds. Do it. |
+| "The PR description says 'if applicable'" | Issue search is NOT optional. Always search. |
+| "I already know what the PR is about" | You might miss related issues. Search. |
+
+**All of these mean: Run `gh issue list --search` before creating the PR.**

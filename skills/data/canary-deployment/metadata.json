@@ -1,12 +1,7 @@
 {
   "name": "canary-deployment",
-  "description": "Implement canary deployment strategies to gradually roll out new versions to subset of users with automatic rollback based on metrics.",
   "repo": "aj-geddes/useful-ai-prompts",
-  "category": "devops",
-  "tags": [
-    "canary",
-    "deployment"
-  ],
-  "stars": 25,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/canary-deployment/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:09.656288Z"
 }

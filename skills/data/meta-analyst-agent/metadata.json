@@ -1,8 +1,7 @@
 {
   "name": "meta-analyst-agent",
   "repo": "psh355q-ui/szdi57465yt",
-  "category": "data",
-  "description": "AI self-improvement analyst. Tracks AI agent mistakes, analyzes failure patterns, and proposes system improvements. Implements continuous learning loop for trading system enhancement.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:45.149938Z"
+  "path": "backend/ai/skills/system/meta-analyst-agent/SKILL.md",
+  "source": "github.com/psh355q-ui/szdi57465yt",
+  "downloaded_at": "2026-01-14T01:26:57.800827Z"
 }

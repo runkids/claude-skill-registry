@@ -15,7 +15,7 @@ Figma MCP는 필요하지 않습니다.
 
 | 구분 | 일반 컴포넌트 | 자기완결 컴포넌트 |
 |------|--------------|------------------|
-| **데이터 소스** | 페이지에서 발행 (GlobalDataPublisher) | 컴포넌트가 직접 fetch (WKit.fetchData) |
+| **데이터 소스** | 페이지에서 발행 (GlobalDataPublisher) | 컴포넌트가 직접 fetch (Wkit.fetchData) |
 | **구독 방식** | `this.subscriptions` | `this.datasetInfo` |
 | **렌더링 트리거** | 토픽 발행 시 자동 호출 | Public Method 호출 시 fetch → render |
 | **사용 환경** | 2D 대시보드 | 3D 씬 (클릭 이벤트 기반) |
@@ -32,7 +32,8 @@ RNBT_architecture/Projects/[프로젝트명]/page/components/[ComponentName]/
 ├── scripts/
 │   ├── register.js            # datasetInfo + 팝업 + Public Methods
 │   └── beforeDestroy.js       # destroyPopup 호출
-└── preview.html               # Mock 데이터 + 팝업 테스트
+├── preview.html               # Mock 데이터 + 팝업 테스트
+└── README.md                  # 컴포넌트 문서 (필수)
 ```
 
 ---
@@ -85,7 +86,53 @@ applyShadowPopupMixin(this, {
 });
 ```
 
-### 4. Template 기반 팝업 마크업
+### 4. 이벤트 처리 방식 결정 원칙
+
+3D 컴포넌트의 이벤트도 **내부 동작**과 **외부 알림**으로 구분됩니다.
+
+**질문: "이 동작의 결과를 페이지가 알아야 하는가?"**
+
+| 답변 | 처리 방식 | 예시 |
+|------|----------|------|
+| **아니오** (컴포넌트 내부 완결) | 팝업 내 직접 바인딩 | 닫기 버튼, 탭 전환, 차트 확대 |
+| **예** (페이지가 후속 처리) | `customEvents` (bind3DEvents) | 3D 오브젝트 클릭 → 상세 패널 |
+| **둘 다** | 둘 다 | 오브젝트 클릭 → 하이라이트(내부) + 정보 요청(외부) |
+
+```javascript
+// 외부 알림 (페이지에 이벤트 발생)
+this.customEvents = {
+    click: '@TBD_componentClicked'
+};
+bind3DEvents(this, this.customEvents);
+
+// 내부 동작 (팝업 내 이벤트)
+this.popupCreatedConfig = {
+    events: {
+        click: {
+            '.close-btn': () => this.hideDetail(),  // 익명 함수 OK
+            '.tab-btn': (e) => this.switchTab(e)    // 익명 함수 OK
+        }
+    }
+};
+```
+
+**중요:**
+- 페이지가 이벤트를 구독하지 않아도 컴포넌트는 독립적으로 동작해야 합니다.
+
+**2D vs 3D 팝업 이벤트 정리 차이:**
+
+| 구분 | 2D 컴포넌트 | 3D 팝업 (Shadow DOM) |
+|------|------------|---------------------|
+| **이벤트 바인딩** | `addEventListener` 직접 사용 | `bindPopupEvents` (PopupMixin) |
+| **정리 방식** | `removeEventListener` 개별 호출 | `destroyPopup()` 일괄 정리 |
+| **익명 함수** | ❌ 제거 불가 (`_internalHandlers` 필요) | ✅ 사용 가능 (Mixin이 정리) |
+
+3D 팝업에서 익명 함수가 허용되는 이유:
+- `bindPopupEvents`가 이벤트를 내부적으로 추적
+- `destroyPopup()` 호출 시 Shadow DOM과 함께 모든 이벤트 일괄 제거
+- 따라서 `_internalHandlers` 패턴 불필요
+
+### 5. Template 기반 팝업 마크업
 
 publishCode에서 template 태그로 팝업 HTML 제공:
 
@@ -119,7 +166,7 @@ publishCode에서 template 태그로 팝업 HTML 제공:
  * 7. Popup - template 기반 Shadow DOM 팝업
  */
 
-const { bind3DEvents, fetchData } = WKit;
+const { bind3DEvents, fetchData } = Wkit;
 const { applyShadowPopupMixin, applyEChartsMixin } = PopupMixin;
 
 // ======================
@@ -138,7 +185,7 @@ function initComponent() {
     // ======================
     // 1. 데이터 정의
     // ======================
-    const assetId = this.setter.ecoAssetInfo.assetId;
+    const assetId = this.setter?.ecoAssetInfo?.assetId || this.id;
 
     this.datasetInfo = [
         { datasetName: 'TBD_datasetName', param: { id: assetId }, render: ['renderInfo'] },
@@ -247,7 +294,9 @@ function hideDetail() {
 // RENDER FUNCTIONS
 // ======================
 
-function renderInfo(config, data) {
+function renderInfo(config, { response }) {
+    const { data } = response;
+    if (!data) return;
     fx.go(
         config,
         fx.each(({ key, selector, dataAttr, suffix }) => {
@@ -260,7 +309,9 @@ function renderInfo(config, data) {
     );
 }
 
-function renderChart(config, data) {
+function renderChart(config, { response }) {
+    const { data } = response;
+    if (!data) return;
     const { optionBuilder, ...chartConfig } = config;
     const option = optionBuilder(chartConfig, data);
     this.updateChart('.chart-container', option);
@@ -408,6 +459,9 @@ onEventBusHandlers(this.eventBusHandlers);
 | `applyShadowPopupMixin(this, ...)` | `this.destroyPopup()` |
 | `applyEChartsMixin(this)` | (destroyPopup 내부에서 처리) |
 | `bind3DEvents(this, customEvents)` | (프레임워크가 처리) |
+| `popupCreatedConfig` 내 addEventListener | (destroyPopup 내부에서 처리) |
+
+**참고:** Shadow DOM 팝업 내부의 이벤트 핸들러는 `destroyPopup()` 호출 시 Shadow DOM이 제거되면서 함께 정리됩니다. 별도의 `_internalHandlers` 패턴은 필요하지 않습니다.
 
 ---
 
@@ -467,7 +521,7 @@ this.templateConfig = {
 
         // MOCK IMPLEMENTATIONS
         const fx = { go: ..., each: ... };
-        const WKit = { bind3DEvents: ..., fetchData: ... };
+        const Wkit = { bind3DEvents: ..., fetchData: ... };
         const PopupMixin = { applyShadowPopupMixin: ..., applyEChartsMixin: ... };
 
         // MOCK DATA
@@ -492,6 +546,21 @@ this.templateConfig = {
 </body>
 </html>
 ```
+
+---
+
+## CSS 원칙
+
+**[CODING_STYLE.md](../CODING_STYLE.md)의 CSS 원칙 섹션 참조**
+
+핵심 요약:
+- **px 단위 사용** (rem/em 금지) - 3D 환경에서 팝업 크기 예측 가능성 보장
+- **Flexbox 우선** (Grid/absolute 지양)
+
+**absolute 허용 케이스** (팝업 전용):
+- 팝업 오버레이 (`.popup-overlay`)
+- 닫기 버튼 위치
+- 아이콘 내부 장식 요소
 
 ---
 
@@ -544,10 +613,86 @@ this.templateConfig = {
     - [ ] Mock data 정의
     - [ ] 다양한 상태 테스트 버튼
     - [ ] register.js 로직 복사
+- [ ] README.md 작성 (필수)
 - [ ] 브라우저에서 preview.html 열어 확인
 - [ ] datasetList.json에 API 등록
 - [ ] 페이지 eventBusHandler에 이벤트 등록
 ```
+
+---
+
+## README.md 템플릿 (필수)
+
+3D 자기완결 컴포넌트의 동작과 사용법을 문서화합니다.
+
+```markdown
+# [ComponentName]
+
+[컴포넌트 한 줄 설명] - 3D 자기완결 컴포넌트
+
+## 데이터 구조
+
+\`\`\`javascript
+{
+    name: "UPS-001",
+    status: "normal",
+    load: 75,
+    // ...
+}
+\`\`\`
+
+## datasetInfo
+
+| datasetName | param | 설명 |
+|-------------|-------|------|
+| `upsDetail` | `{ assetId }` | 자산 상세 정보 조회 |
+
+## Public Methods
+
+| 메서드 | 설명 |
+|--------|------|
+| `showDetail(assetId)` | 팝업 표시 + 데이터 fetch |
+| `hideDetail()` | 팝업 숨김 |
+
+## 발행 이벤트 (Events)
+
+| 이벤트 | 발생 시점 | payload |
+|--------|----------|---------|
+| `@TBD_3dObjectClicked` | 3D 오브젝트 클릭 | `{ event, targetInstance }` |
+
+## 내부 동작
+
+### 팝업 표시 흐름
+1. 3D 오브젝트 클릭 → `@3dObjectClicked` 이벤트 발행
+2. 페이지 핸들러가 `showDetail(assetId)` 호출
+3. 컴포넌트가 `Wkit.fetchData`로 데이터 fetch
+4. Shadow DOM 팝업 생성 및 렌더링
+
+### Shadow DOM 구조
+- 스타일 격리된 팝업
+- 외부 CSS 영향 없음
+
+## 파일 구조
+
+\`\`\`
+[ComponentName]/
+├── views/component.html      # 3D 오브젝트 마크업
+├── styles/component.css
+├── scripts/
+│   ├── register.js           # datasetInfo + Mixin
+│   └── beforeDestroy.js      # destroyPopup
+├── preview.html
+└── README.md
+\`\`\`
+```
+
+---
+
+## 참고 문서
+
+| 문서 | 내용 |
+|------|------|
+| [CODING_STYLE.md](../CODING_STYLE.md) | 함수형 코딩 지침 (필수 참고) |
 
 ---
 

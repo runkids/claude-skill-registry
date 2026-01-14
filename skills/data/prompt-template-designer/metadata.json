@@ -1,13 +1,7 @@
 {
   "name": "prompt-template-designer",
-  "description": "Design reusable prompt templates that encode domain-specific patterns for recurring AI development tasks.Use this skill when you've executed similar prompts 2+ times and need to capture the pattern as",
-  "repo": "92Bilal26/physical-ai-textbook",
-  "category": "development",
-  "tags": [
-    "prompt",
-    "template",
-    "designer"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "panaversity/agentfactory",
+  "path": ".claude/skills/prompt-template-designer/SKILL.md",
+  "source": "github.com/panaversity/agentfactory",
+  "downloaded_at": "2026-01-14T01:33:02.138589Z"
 }

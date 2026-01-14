@@ -1,12 +1,7 @@
 {
   "name": "moai-security-encryption",
-  "description": "Enterprise Encryption Security with AI-powered cryptographic architecture, Context7 integration, and intelligent encryption orchestration for data protection",
   "repo": "dolsoon/my-awesome-project",
-  "category": "data",
-  "tags": [
-    "moai",
-    "security",
-    "encryption"
-  ],
-  "stars": 0
+  "path": ".claude/skills/moai-security-encryption/SKILL.md",
+  "source": "github.com/dolsoon/my-awesome-project",
+  "downloaded_at": "2026-01-14T03:37:29.553746Z"
 }

@@ -1,88 +1,48 @@
 ---
 name: hook-creator
-description: Create and configure Claude Code hooks for customizing agent behavior. Use when the user wants to (1) create a new hook, (2) configure automatic formatting, logging, or notifications, (3) add file protection or custom permissions, (4) set up pre/post tool execution actions, or (5) asks about hook events like PreToolUse, PostToolUse, Notification, etc.
+description: プロジェクトの .claude/settings.json に新しいフックを追加する。「フック作成」「新しいフック」「フックを作って」「フック追加」「hook 作成」「フックを追加したい」「新規フック」などで起動。ツール実行前後やセッションイベントで実行されるフックを設定。
+allowed-tools: [Read, Write, Bash, Glob]
 ---
 
 # Hook Creator
 
-Create Claude Code hooks that execute shell commands at specific lifecycle events.
+プロジェクトの `.claude/settings.json` に新しいフックを追加します。
 
-## Hook Creation Workflow
+## ワークフロー
 
-1. **Identify the use case** - Determine what the hook should accomplish
-2. **Select the appropriate event** - Choose from available hook events (see references/hook-events.md)
-3. **Design the hook command** - Write shell command that processes JSON input from stdin
-4. **Configure the matcher** - Set tool/event filter (use `*` for all, or specific tool names like `Bash`, `Edit|Write`)
-5. **Choose storage location** - User settings (`~/.claude/settings.json`) or project (`.claude/settings.json`)
-6. **Test the hook** - Verify behavior with a simple test case
+### 1. コマンド実行
 
-## Hook Configuration Structure
+`/shiiman-claude:create-hook` を SlashCommand ツールで実行（実装は Commands に委譲）。
 
-```json
-{
-  "hooks": {
-    "<EventName>": [
-      {
-        "matcher": "<ToolPattern>",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "<shell-command>"
-          }
-        ]
-      }
-    ]
-  }
-}
-```
+## コマンド連携
 
-## Common Patterns
+実際の処理は `/shiiman-claude:create-hook` に委譲します（SSOT として扱う）。
 
-### Reading Input Data
+`/shiiman-claude:create-hook` コマンドは以下を行う:
 
-Hooks receive JSON via stdin. Use `jq` to extract fields:
+- イベントを聞く（PreToolUse, PostToolUse, SessionStart 等）
+- マッチャーを聞く（PreToolUse / PostToolUse の場合のみ）
+- フックタイプを聞く（command または prompt）
+- 実行するコマンドを聞く
+- settings.json の hooks セクションを更新
 
-```bash
-# Extract tool input field
-jq -r '.tool_input.file_path'
+## Hook イベント
 
-# Extract with fallback
-jq -r '.tool_input.description // "No description"'
+| イベント           | 説明                 | matcher |
+|--------------------|----------------------|---------|
+| `PreToolUse`       | ツール実行前         | 必須    |
+| `PostToolUse`      | ツール実行後         | 必須    |
+| `UserPromptSubmit` | プロンプト送信時     | 不要    |
+| `Notification`     | 通知時               | 不要    |
+| `Stop`             | レスポンス完了時     | 不要    |
+| `SubagentStop`     | サブエージェント完了 | 不要    |
+| `PreCompact`       | Compact 操作前       | 不要    |
+| `SessionStart`     | セッション開始時     | 不要    |
+| `SessionEnd`       | セッション終了時     | 不要    |
 
-# Conditional processing
-jq -r 'if .tool_input.file_path then .tool_input.file_path else empty end'
-```
+## 重要な注意事項
 
-### Exit Codes for PreToolUse
-
-- `0` - Allow the tool to proceed
-- `2` - Block the tool and provide feedback to Claude
-
-### Matcher Patterns
-
-- `*` - Match all tools
-- `Bash` - Match only Bash tool
-- `Edit|Write` - Match Edit or Write tools
-- `Read` - Match Read tool
-
-## Quick Examples
-
-**Log all bash commands:**
-```bash
-jq -r '"\(.tool_input.command)"' >> ~/.claude/bash-log.txt
-```
-
-**Auto-format TypeScript after edit:**
-```bash
-jq -r '.tool_input.file_path' | { read f; [[ "$f" == *.ts ]] && npx prettier --write "$f"; }
-```
-
-**Block edits to .env files:**
-```bash
-python3 -c "import json,sys; p=json.load(sys.stdin).get('tool_input',{}).get('file_path',''); sys.exit(2 if '.env' in p else 0)"
-```
-
-## Resources
-
-- **Hook Events Reference**: See `references/hook-events.md` for detailed event documentation with input/output schemas
-- **Example Configurations**: See `references/examples.md` for complete, tested hook configurations
+- ✅ PreToolUse / PostToolUse には必ず matcher を指定
+- ✅ `.claude/settings.json` の hooks セクションに設定
+- ❌ matcher が必要なイベントで matcher を省略しない
+- ❌ 別ファイル（hooks.json）は使用しない

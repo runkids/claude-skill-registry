@@ -1,12 +1,7 @@
 {
   "name": "media-processing",
-  "description": "Process multimedia files with FFmpeg (video/audio encoding, conversion, streaming, filtering, hardware acceleration) and ImageMagick (image manipulation, format conversion, batch processing, effects, ",
-  "repo": "mrgoonie/claudekit-skills",
-  "category": "development",
-  "tags": [
-    "media",
-    "processing"
-  ],
-  "stars": 1108,
-  "source": "SkillsMP Synced Skills"
+  "repo": "captain-corgi/marketplace-website",
+  "path": ".claude/skills/media-processing/SKILL.md",
+  "source": "github.com/captain-corgi/marketplace-website",
+  "downloaded_at": "2026-01-14T03:49:00.526830Z"
 }

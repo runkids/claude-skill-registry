@@ -1,9 +1,7 @@
 {
   "name": "game-development",
-  "description": "Core game development patterns and fundamentals applicable to all platforms. Use when working on game architecture, game loops, design patterns, or general game programming concepts.",
-  "repo": "xenitV1/claude-code-maestro",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "Deefunxion/pixel-flick-frenzy",
+  "path": ".claude/skills/game-development/SKILL.md",
+  "source": "github.com/Deefunxion/pixel-flick-frenzy",
+  "downloaded_at": "2026-01-14T03:59:25.700293Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "domain-dns-ops",
-  "description": "Domain/DNS ops across Cloudflare, DNSimple, Namecheap for Peter. Use for onboarding zones to Cloudflare, flipping nameservers, setting redirects (Page Rules/Rulesets/Workers), updating redirect-worker",
-  "repo": "steipete/agent-scripts",
-  "category": "data",
-  "tags": [
-    "domain",
-    "dns",
-    "ops"
-  ],
-  "stars": 546,
-  "source": "SkillsMP Synced Skills"
+  "repo": "nickromney/n-dotfiles",
+  "path": "skills/domain-dns-ops/SKILL.md",
+  "source": "github.com/nickromney/n-dotfiles",
+  "downloaded_at": "2026-01-14T03:19:34.816583Z"
 }

@@ -1,8 +1,7 @@
 {
   "name": "openalex-database",
-  "repo": "davila7/claude-code-templates",
-  "category": "data",
-  "description": "Query and analyze scholarly literature using the OpenAlex database. This skill should be used when searching for academic papers, analyzing research trends, finding works by authors or institutions, t",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:38.096620Z"
+  "repo": "K-Dense-AI/claude-scientific-skills",
+  "path": "scientific-skills/openalex-database/SKILL.md",
+  "source": "github.com/K-Dense-AI/claude-scientific-skills",
+  "downloaded_at": "2026-01-14T02:23:44.597656Z"
 }

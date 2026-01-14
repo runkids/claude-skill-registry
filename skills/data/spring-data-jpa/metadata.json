@@ -1,12 +1,7 @@
 {
   "name": "spring-data-jpa",
-  "description": "Master Spring Data JPA - repositories, queries, relationships, transactions, and performance",
-  "repo": "pluginagentmarketplace/custom-plugin-spring-boot",
-  "category": "data",
-  "tags": [
-    "spring",
-    "data",
-    "jpa"
-  ],
-  "stars": 1
+  "repo": "giuseppe-trisciuoglio/developer-kit",
+  "path": "skills/spring-boot/spring-data-jpa/SKILL.md",
+  "source": "github.com/giuseppe-trisciuoglio/developer-kit",
+  "downloaded_at": "2026-01-14T00:54:23.579078Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "backend-patterns",
-  "description": "Backend entity patterns - services with DI, Drizzle schemas (3-file pattern), ORPC routers, TypeIDs, neverthrow. Use when creating services, schemas, routers, or new entities.",
-  "repo": "grmkris/yoda.fun",
-  "category": "development",
-  "tags": [
-    "backend",
-    "patterns"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "claudeforge/orchestrator",
+  "path": "skills/backend-patterns/SKILL.md",
+  "source": "github.com/claudeforge/orchestrator",
+  "downloaded_at": "2026-01-14T01:37:23.345892Z"
 }

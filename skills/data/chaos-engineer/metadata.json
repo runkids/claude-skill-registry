@@ -1,12 +1,7 @@
 {
   "name": "chaos-engineer",
-  "description": "Use when designing chaos experiments, implementing failure injection frameworks, or conducting game day exercises. Invoke for chaos experiments, resilience testing, blast radius control, game days, an",
   "repo": "Jeffallan/claude-skills",
-  "category": "testing",
-  "tags": [
-    "chaos",
-    "engineer"
-  ],
-  "stars": 12,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/chaos-engineer/SKILL.md",
+  "source": "github.com/Jeffallan/claude-skills",
+  "downloaded_at": "2026-01-14T02:36:37.548224Z"
 }

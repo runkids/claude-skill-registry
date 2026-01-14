@@ -1,12 +1,7 @@
 {
   "name": "security-assessor",
-  "description": "Auto-activates during requirements analysis to assess security risks",
   "repo": "matteocervelli/llms",
-  "category": "design",
-  "tags": [
-    "security",
-    "assessor"
-  ],
-  "stars": 10,
-  "source": "local"
+  "path": ".claude/skills/security-assessor/SKILL.md",
+  "source": "github.com/matteocervelli/llms",
+  "downloaded_at": "2026-01-14T03:06:49.893741Z"
 }

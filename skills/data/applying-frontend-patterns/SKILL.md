@@ -1,108 +1,107 @@
 ---
 name: applying-frontend-patterns
 description: >
-  Framework-agnostic frontend component design patterns. Triggers: React, Vue, Angular,
+  フレームワーク非依存のフロントエンドコンポーネント設計パターン。トリガー: React, Vue, Angular,
   コンポーネント, パターン, hooks, カスタムフック, container, presentational, 分離,
   状態管理, state management, composition, HOC, render props
 allowed-tools: Read, Grep, Glob, Task
-user-invocable: false
 ---
 
-# Frontend Patterns
+# フロントエンドパターン
 
-## Purpose
+## 目的
 
-Component design patterns for maintainable frontend architecture. Patterns are universal; implementations differ by framework.
+保守可能なフロントエンドアーキテクチャのためのコンポーネント設計パターン。パターンは普遍的で、実装はフレームワークにより異なる。
 
-## Core Patterns Overview
+## コアパターン概要
 
-| Pattern                  | Concept                   | When to Use                       |
-| ------------------------ | ------------------------- | --------------------------------- |
-| Container/Presentational | Separate logic from UI    | Data fetching + display           |
-| Custom Hooks (React)     | Reusable stateful logic   | Shared behavior across components |
-| Composition              | Build complex from simple | Flexible, reusable components     |
-| State Management         | Organize application data | Local → Shared → Global           |
+| パターン                 | コンセプト                       | 使用タイミング                     |
+| ------------------------ | -------------------------------- | ---------------------------------- |
+| Container/Presentational | ロジックとUIの分離               | データ取得 + 表示                  |
+| カスタムフック（React）  | 再利用可能なステートフルロジック | コンポーネント間で共有する振る舞い |
+| コンポジション           | シンプルから複雑を構築           | 柔軟で再利用可能なコンポーネント   |
+| 状態管理                 | アプリケーションデータの整理     | ローカル → 共有 → グローバル       |
 
-## Container/Presentational Pattern
+## Container/Presentationalパターン
 
-**Key Principle**: Separate concerns
+**主要原則**: 関心の分離
 
-| Container (Logic) | Presentational (UI)     |
-| ----------------- | ----------------------- |
-| Fetches data      | Receives data via props |
-| Manages state     | Stateless (ideally)     |
-| Handles events    | Calls callback props    |
-| No styling        | All styling lives here  |
+| Container（ロジック） | Presentational（UI）        |
+| --------------------- | --------------------------- |
+| データを取得          | propsでデータを受け取る     |
+| 状態を管理            | ステートレス（理想）        |
+| イベントを処理        | コールバックpropsを呼び出す |
+| スタイリングなし      | すべてのスタイリングがここ  |
 
-**Application Rule**:
+**適用ルール**:
 
-1. Start with Presentational (UI only, props-driven)
-2. Add Container when logic is needed
-3. Extract to custom hooks when reusable
+1. Presentational（UIのみ、props駆動）から開始
+2. ロジックが必要なときにContainerを追加
+3. 再利用可能なときにカスタムフックに抽出
 
-## Hooks Guidelines (React)
+## Hooksガイドライン（React）
 
-| Hook         | Use For                | Pitfall to Avoid        |
-| ------------ | ---------------------- | ----------------------- |
-| useEffect    | Side effects           | Missing dependencies    |
-| useMemo      | Expensive computations | Premature optimization  |
-| useCallback  | Stable function refs   | Over-memoization        |
-| Custom hooks | Reusable logic         | Not starting with `use` |
+| Hook           | 用途                 | 避けるべき落とし穴 |
+| -------------- | -------------------- | ------------------ |
+| useEffect      | 副作用               | 依存関係の欠落     |
+| useMemo        | 高コストな計算       | 早すぎる最適化     |
+| useCallback    | 安定した関数参照     | 過度なメモ化       |
+| カスタムフック | 再利用可能なロジック | `use`で始めない    |
 
-**Dependencies Rule**: Always include all values used inside the effect.
+**依存関係ルール**: effect内で使用するすべての値を常に含める。
 
-## State Management Strategy
+## 状態管理戦略
 
-| Scope  | Tool (React)  | Example            |
-| ------ | ------------- | ------------------ |
-| Local  | useState      | Form input, toggle |
-| Shared | Context       | Theme, auth status |
-| Global | Zustand/Redux | App-wide cache     |
+| スコープ   | ツール（React） | 例                     |
+| ---------- | --------------- | ---------------------- |
+| ローカル   | useState        | フォーム入力、トグル   |
+| 共有       | Context         | テーマ、認証状態       |
+| グローバル | Zustand/Redux   | アプリ全体のキャッシュ |
 
-**Granularity Rule**: Split large state objects into separate states.
+**粒度ルール**: 大きな状態オブジェクトは別々の状態に分割。
 
-## Composition Patterns
+## コンポジションパターン
 
-| Pattern      | Use Case                               |
-| ------------ | -------------------------------------- |
-| children     | Wrapper components, cards, modals      |
-| render props | Dynamic rendering based on data        |
-| HOC          | Cross-cutting concerns (auth, logging) |
+| パターン     | ユースケース                             |
+| ------------ | ---------------------------------------- |
+| children     | ラッパーコンポーネント、カード、モーダル |
+| render props | データに基づく動的レンダリング           |
+| HOC          | 横断的関心事（認証、ロギング）           |
 
-## Framework Comparison
+## フレームワーク比較
 
-| Pattern      | React                    | Vue              | Angular    |
-| ------------ | ------------------------ | ---------------- | ---------- |
-| Separation   | Container/Presentational | Composition API  | Smart/Dumb |
-| State        | useState, Context        | ref, reactive    | Services   |
-| Side effects | useEffect                | watch, onMounted | ngOnInit   |
-| Slots        | children                 | slots            | ng-content |
+| パターン | React                    | Vue              | Angular    |
+| -------- | ------------------------ | ---------------- | ---------- |
+| 分離     | Container/Presentational | Composition API  | Smart/Dumb |
+| 状態     | useState, Context        | ref, reactive    | Services   |
+| 副作用   | useEffect                | watch, onMounted | ngOnInit   |
+| スロット | children                 | slots            | ng-content |
 
-## When NOT to Use Patterns
+## パターンを使わないとき
 
-- Simple one-off components
-- Prototypes (YAGNI)
-- No reuse expected
+- シンプルな一回限りのコンポーネント
+- プロトタイプ（YAGNI）
+- 再利用が期待されない
 
-**Rule**: Add patterns when pain is felt, not anticipated.
+**ルール**: 予測ではなく、痛みを感じたときにパターンを追加。
 
-## References
+## 参照
 
-### Patterns
+### パターン
 
-- [@./references/container-presentational.md](./references/container-presentational.md) - Detailed separation guide
+- [@./references/container-presentational.md](./references/container-presentational.md) - 詳細な分離ガイド
 
-### Related Skills
+### 関連スキル
 
-- `frontend-design` (official) - Visual design quality (typography, color, animation)
-- `enhancing-progressively` - CSS-first progressive enhancement
-- `integrating-storybook` - Component visualization
+- `frontend-design`（公式） - ビジュアルデザイン品質（タイポグラフィ、色、アニメーション）
+- `enhancing-progressively` - CSS優先プログレッシブエンハンスメント
+- `integrating-storybook` - コンポーネントの可視化
 
-### Used by Commands
+### 使用コマンド
 
-- `/code --frontend` - React component implementation
-- `/audit` - Frontend pattern verification
+- `/code --frontend` - Reactコンポーネント実装
+- `/audit` - フロントエンドパターン検証
 
-### See Also
+### 参照
 
-- `/example-skills:frontend-design` - Official skill for distinctive UI aesthetics
+- `/example-skills:frontend-design` - 特徴的なUIエステティクスの公式スキル

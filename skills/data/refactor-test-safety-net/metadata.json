@@ -1,14 +1,7 @@
 {
   "name": "refactor-test-safety-net",
-  "description": "[Code Quality] Establishes test coverage requirements before refactoring. Use to identify missing tests, create minimal safety net tests, and define verification strategy for behavior preservation.",
   "repo": "CANTAGESTUDIO/CosmicAtlasPacker",
-  "category": "development",
-  "tags": [
-    "refactor",
-    "test",
-    "safety",
-    "net"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".factory/skills/refactor-test-safety-net/SKILL.md",
+  "source": "github.com/CANTAGESTUDIO/CosmicAtlasPacker",
+  "downloaded_at": "2026-01-14T02:43:53.767272Z"
 }

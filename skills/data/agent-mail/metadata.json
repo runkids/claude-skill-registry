@@ -1,12 +1,7 @@
 {
   "name": "agent-mail",
-  "description": "Multi-agent coordination with Agent Mail MCP. Use when registering agents, reserving files, sending messages, coordinating with other agents, or when the user mentions \"agent mail\", \"coordination\", \"f",
-  "repo": "Mburdo/knowledge_and_vibes",
-  "category": "data",
-  "tags": [
-    "agent",
-    "mail"
-  ],
-  "stars": 42,
-  "source": "SkillsMP Synced Skills"
+  "repo": "leegonzales/AISkills",
+  "path": "AgentMail/agent-mail/SKILL.md",
+  "source": "github.com/leegonzales/AISkills",
+  "downloaded_at": "2026-01-14T02:13:20.856011Z"
 }

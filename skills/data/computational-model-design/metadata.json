@@ -1,13 +1,7 @@
 {
   "name": "computational-model-design",
-  "description": "Design computational models for cognitive simulation and analysis.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "design",
-  "tags": [
-    "computational",
-    "model",
-    "design"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/computational-model-design/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-14T01:08:31.309483Z"
 }

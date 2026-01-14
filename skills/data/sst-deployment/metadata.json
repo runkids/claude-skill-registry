@@ -1,12 +1,7 @@
 {
   "name": "sst-deployment",
-  "description": "Configure or update SST v3 infrastructure resources for AWS deployment. Use when adding new AWS resources, modifying Lambda configurations, or updating domain settings.",
   "repo": "sgcarstrends/sgcarstrends",
-  "category": "devops",
-  "tags": [
-    "sst",
-    "deployment"
-  ],
-  "stars": 13,
-  "source": "local"
+  "path": ".claude/skills/sst-deployment/SKILL.md",
+  "source": "github.com/sgcarstrends/sgcarstrends",
+  "downloaded_at": "2026-01-14T02:59:23.787055Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "performance-testing",
-  "description": "Test application performance, scalability, and resilience. Use when planning load testing, stress testing, or optimizing system performance.",
-  "repo": "proffesor-for-testing/agentic-qe",
-  "category": "testing",
-  "tags": [
-    "performance",
-    "testing"
-  ],
-  "stars": 103,
-  "source": "SkillsMP Synced Skills"
+  "repo": "aj-geddes/useful-ai-prompts",
+  "path": "skills/performance-testing/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:12.893995Z"
 }

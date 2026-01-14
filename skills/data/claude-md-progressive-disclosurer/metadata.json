@@ -1,13 +1,7 @@
 {
   "name": "claude-md-progressive-disclosurer",
-  "description": "Optimize user CLAUDE.md files by applying progressive disclosure principles. This skill should be used when users want to reduce CLAUDE.md bloat, move detailed content to references, extract reusable ",
-  "repo": "daymade/claude-code-skills",
-  "category": "data",
-  "tags": [
-    "claude",
-    "progressive",
-    "disclosurer"
-  ],
-  "stars": 110,
-  "source": "SkillsMP Synced Skills"
+  "repo": "nguyendinhquocx/code-ai",
+  "path": "skills/claude-md-progressive-disclosurer/SKILL.md",
+  "source": "github.com/nguyendinhquocx/code-ai",
+  "downloaded_at": "2026-01-14T01:13:40.232888Z"
 }

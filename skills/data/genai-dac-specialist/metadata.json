@@ -1,9 +1,7 @@
 {
   "name": "genai-dac-specialist",
-  "description": "Expert in OCI Generative AI Dedicated AI Clusters - deployment, fine-tuning, optimization, and production operations",
   "repo": "frankxai/ai-architect",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/genai-dac-specialist/SKILL.md",
+  "source": "github.com/frankxai/ai-architect",
+  "downloaded_at": "2026-01-14T01:14:42.854019Z"
 }

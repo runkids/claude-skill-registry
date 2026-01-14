@@ -1,186 +1,184 @@
 ---
 name: pdf-reader
-description: Extract text, tables, and images from PDF files using pdfplumber and PyMuPDF. Use when analyzing PDF documents, brand materials, reports, or any content that requires structured extraction from PDF format. Supports table detection, layout preservation, and high-quality image extraction.
+description: |
+  Read and extract content from PDF files using multiple methods.
+  LOAD THIS SKILL WHEN: User says "讀取 PDF", "read PDF", "打開論文", "看這篇" | has PDF file path | needs to extract text from PDF.
+  CAPABILITIES: PDF to markdown conversion, text extraction, figure detection, citation extraction.
 ---
 
-# PDF Reader
+# PDF 讀取技能 (PDF Reader)
 
-Extract comprehensive content from PDF files including text, tables, images, and metadata using industry-standard Python libraries.
+## 描述
 
-## When to Use This Skill
+使用多種方法讀取 PDF 檔案並轉換為結構化文字，支援本地檔案和網路 URL。
 
-Use this skill when:
-- Analyzing brand documents, design briefs, or company materials in PDF format
-- Extracting structured data from reports, invoices, or forms with tables
-- Retrieving images, logos, or graphics embedded in PDFs
-- Converting PDF content into markdown or structured formats for further processing
-- Investigating PDF metadata, page layouts, or document structure
+## 觸發條件
 
-## How It Works
+- 「讀取 PDF」「打開這篇論文」「看這個檔案」
+- "read PDF", "open paper", "extract from PDF"
+- 提供 PDF 檔案路徑或 URL
 
-This skill combines two powerful libraries:
-1. **pdfplumber** - Excels at text extraction with layout preservation and table detection
-2. **PyMuPDF** - Provides fast image extraction and comprehensive metadata access
+## 可用 Tools
 
-## Quick Start
+### MCP Tools (microsoft-mar)
 
-### Install Dependencies
+| Tool | 用途 | 參數 |
+|------|------|------|
+| `convert_to_markdown` | 將 PDF 轉換為 Markdown | uri (file:// 或 http://) |
 
-```bash
-pip install pdfplumber pymupdf pillow
-```
+### MCP Tools (pubmed-search)
 
-### Extract from PDF
+| Tool | 用途 | 參數 |
+|------|------|------|
+| `get_article_fulltext_links` | 取得全文連結 | pmid |
 
-```bash
-python scripts/extract_pdf.py <path/to/document.pdf> --output-dir ./output
-```
+### Python Scripts (可選)
 
-## Output Structure
-
-The script creates the following output:
-
-```
-output/
-├── extracted_text.md       # All text content with page numbers
-├── extracted_tables.json   # Structured table data
-├── metadata.json           # PDF metadata and page info
-└── images/                 # Extracted images
-    ├── page_1_image_1.png
-    ├── page_2_image_1.jpeg
-    └── ...
-```
-
-## Usage in Claude Code
-
-When a user provides a PDF file for analysis:
-
-1. **Check dependencies**: Verify pdfplumber and PyMuPDF are installed
-2. **Run extraction script**: Execute `scripts/extract_pdf.py` with the PDF path
-3. **Analyze output**: Read the generated markdown and JSON files
-4. **Present findings**: Summarize key content, tables, and images found
-
-Example workflow:
-
-```bash
-# Step 1: Extract PDF content
-python scripts/extract_pdf.py "brand_document.pdf" --output-dir ./brand_analysis
-
-# Step 2: Read extracted text
-cat ./brand_analysis/extracted_text.md
-
-# Step 3: Analyze tables
-cat ./brand_analysis/extracted_tables.json
-
-# Step 4: Check images
-ls ./brand_analysis/images/
-```
-
-## Advanced Features
-
-### Text Extraction Options
-
-The script uses `layout=True` to preserve formatting and spacing, which is crucial for:
-- Maintaining column layouts
-- Preserving visual hierarchy
-- Keeping address and contact information structured
-
-### Table Detection
-
-pdfplumber automatically detects tables using:
-- Line-based strategies for ruled tables
-- Text alignment strategies for borderless tables
-- Configurable tolerance settings for complex layouts
-
-### Image Quality
-
-PyMuPDF extracts images in their original format (JPEG, PNG) without re-encoding, preserving:
-- Original resolution and quality
-- Color profiles and metadata
-- Transparency and alpha channels
-
-## Troubleshooting
-
-### Missing Dependencies
-
-If the script fails with import errors:
-```bash
-pip install --upgrade pdfplumber pymupdf pillow
-```
-
-### Encrypted PDFs
-
-For password-protected PDFs, use PyMuPDF's authentication:
 ```python
-import pymupdf
-doc = pymupdf.open("encrypted.pdf")
-doc.authenticate("password")
+# scripts/pdf_utils.py
+
+import fitz  # PyMuPDF
+
+def extract_text(pdf_path: str) -> str:
+    """提取 PDF 文字"""
+    doc = fitz.open(pdf_path)
+    text = ""
+    for page in doc:
+        text += page.get_text()
+    return text
+
+def extract_images(pdf_path: str, output_dir: str) -> list:
+    """提取 PDF 圖片"""
+    # ...實作
+    pass
+
+def extract_references(pdf_path: str) -> list:
+    """提取參考文獻"""
+    # ...實作
+    pass
 ```
 
-### Large Files
+## 執行流程
 
-For very large PDFs (>100MB), process pages in batches to manage memory usage.
+### 1. 本地 PDF 讀取
 
-## Technical Details
-
-### Library Comparison
-
-| Feature | pdfplumber | PyMuPDF |
-|---------|-----------|---------|
-| Text extraction | ⭐⭐⭐ (Best layout preservation) | ⭐⭐ (Fast, good quality) |
-| Table detection | ⭐⭐⭐ (Excellent) | ⭐ (Basic) |
-| Image extraction | ⭐ (Basic) | ⭐⭐⭐ (Best performance) |
-| Speed | ⭐⭐ (Moderate) | ⭐⭐⭐ (Very fast) |
-| Memory usage | ⭐⭐ (Higher) | ⭐⭐⭐ (Lower) |
-
-### Why Both Libraries?
-
-Using both libraries provides optimal results:
-- **pdfplumber** for text and tables (superior accuracy)
-- **PyMuPDF** for images and metadata (superior performance)
-
-This combination ensures comprehensive extraction without compromise.
-
-## Examples
-
-### Brand Document Analysis
-
-```bash
-python scripts/extract_pdf.py "company_brand_guidelines.pdf" --output-dir ./brand_analysis
+```
+用戶提供本地路徑: C:\papers\article.pdf
+    ↓
+convert_to_markdown(uri="file:///C:/papers/article.pdf")
+    ↓
+返回 Markdown 格式文字
 ```
 
-Expected output:
-- Brand values and mission statements (text)
-- Color palette tables (tables)
-- Logo variations (images)
-- Document metadata (metadata)
+### 2. 網路 PDF 讀取
 
-### Design Brief Extraction
-
-```bash
-python scripts/extract_pdf.py "design_brief.pdf" --output-dir ./brief_analysis
+```
+用戶提供 URL 或 PMID
+    ↓
+(如果是 PMID) get_article_fulltext_links(pmid)
+    ↓
+取得 PDF URL
+    ↓
+convert_to_markdown(uri="https://...")
+    ↓
+返回 Markdown 格式文字
 ```
 
-Expected output:
-- Project requirements (text)
-- Timeline and milestones (tables)
-- Reference images (images)
-- Client information (metadata)
+### 3. 批次處理模式
 
-## Integration Tips
+```python
+# 處理多個 PDF
+pdf_files = [
+    "C:/papers/paper1.pdf",
+    "C:/papers/paper2.pdf",
+    "C:/papers/paper3.pdf"
+]
 
-### With Logo Design Workflows
+for pdf in pdf_files:
+    content = convert_to_markdown(uri=f"file:///{pdf}")
+    save_to_notes(content, pdf)
+    # Checkpoint: 記錄處理進度
+    update_checkpoint(processed=pdf)
+```
 
-After extracting brand guidelines:
-1. Review extracted text for brand keywords and values
-2. Analyze color palette tables for official brand colors
-3. Examine logo images for existing design elements
-4. Use findings to inform new logo design strategy
+## 輸出格式
 
-### With Research Workflows
+```markdown
+## PDF 讀取結果
 
-After extracting research documents:
-1. Convert extracted tables to structured data
-2. Process images for visual analysis
-3. Generate summary reports from text content
-4. Cross-reference metadata for document versioning
+**檔案**: article.pdf
+**頁數**: 12
+**處理時間**: 3.2s
+
+---
+
+### 提取內容
+
+# [論文標題]
+
+## Abstract
+[摘要內容...]
+
+## Introduction
+[介紹內容...]
+
+## Methods
+[方法內容...]
+
+## Results
+[結果內容...]
+
+## Discussion
+[討論內容...]
+
+## References
+1. Author et al. (2024). Title...
+2. ...
+
+---
+
+### 圖表清單
+
+| 圖表 | 頁碼 | 說明 |
+|------|------|------|
+| Figure 1 | p.3 | Study flowchart |
+| Table 1 | p.5 | Baseline characteristics |
+```
+
+## 使用範例
+
+**範例 1：本地 PDF**
+```
+用戶：「讀取 C:\papers\remimazolam-study.pdf」
+執行：convert_to_markdown(uri="file:///C:/papers/remimazolam-study.pdf")
+```
+
+**範例 2：從 PMID 取得 PDF**
+```
+用戶：「讀取 PMID 38353755 的全文」
+執行：
+1. get_article_fulltext_links(pmid="38353755")
+2. convert_to_markdown(uri=pmc_url)
+```
+
+**範例 3：批次讀取**
+```
+用戶：「讀取 papers/ 資料夾中的所有 PDF」
+執行：
+1. 列出資料夾中的 PDF 檔案
+2. 迴圈處理每個檔案
+3. 建立 Checkpoint 追蹤進度
+```
+
+## 錯誤處理
+
+| 錯誤 | 處理方式 |
+|------|----------|
+| PDF 加密 | 提示用戶提供密碼或使用其他版本 |
+| 圖片 PDF (掃描) | 提示需要 OCR，建議使用其他工具 |
+| 網路錯誤 | 重試 3 次，失敗後提示用戶下載 |
+
+## 相關技能
+
+- `note-writer` - 撰寫筆記
+- `report-writing` - 組合技能：讀取 + 撰寫

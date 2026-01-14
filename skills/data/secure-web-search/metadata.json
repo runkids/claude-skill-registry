@@ -1,13 +1,7 @@
 {
   "name": "secure-web-search",
-  "description": "Guide for performing secure web searches with privacy protection, source verification, and information validation. Use when the user wants to search the web securely, verify sources, fact-check inform",
   "repo": "ronnycoding/.claude",
-  "category": "design",
-  "tags": [
-    "secure",
-    "web",
-    "search"
-  ],
-  "stars": 3,
-  "source": "local"
+  "path": "skills/secure-web-search/SKILL.md",
+  "source": "github.com/ronnycoding/.claude",
+  "downloaded_at": "2026-01-14T02:57:26.563457Z"
 }

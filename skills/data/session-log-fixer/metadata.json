@@ -1,12 +1,7 @@
 {
   "name": "session-log-fixer",
-  "description": "Fix session protocol validation failures in GitHub Actions. Use when a PR fails with \"Session protocol validation failed\", \"MUST requirement(s) not met\", \"NON_COMPLIANT\" verdict, or \"Aggregate Results",
   "repo": "rjmurillo/ai-agents",
-  "category": "data",
-  "tags": [
-    "session",
-    "log",
-    "fixer"
-  ],
-  "stars": 3
+  "path": ".claude/skills/session-log-fixer/SKILL.md",
+  "source": "github.com/rjmurillo/ai-agents",
+  "downloaded_at": "2026-01-14T02:20:51.948486Z"
 }

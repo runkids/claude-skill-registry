@@ -1,9 +1,7 @@
 {
   "name": "disciplined-research",
-  "description": "Phase 1 of disciplined development. Deep problem understanding before design.Maps existing systems, identifies constraints, surfaces risks, and producesa research document for human approval before pr",
-  "repo": "terraphim/codex-skills",
-  "category": "documents",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "terraphim/opencode-skills",
+  "path": "skill/disciplined-research/SKILL.md",
+  "source": "github.com/terraphim/opencode-skills",
+  "downloaded_at": "2026-01-14T02:27:06.815423Z"
 }

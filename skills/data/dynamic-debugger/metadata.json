@@ -1,12 +1,7 @@
 {
   "name": "dynamic-debugger",
-  "description": "Interactive debugging via DAP-MCP for multiple languages with natural language commands",
-  "repo": "rysweet/MicrosoftHackathon2025-AgenticCoding",
-  "category": "development",
-  "tags": [
-    "dynamic",
-    "debugger"
-  ],
-  "stars": 10,
-  "source": "SkillsMP Synced Skills"
+  "repo": "rysweet/azlin",
+  "path": ".claude/skills/dynamic-debugger/SKILL.md",
+  "source": "github.com/rysweet/azlin",
+  "downloaded_at": "2026-01-14T03:30:04.250572Z"
 }

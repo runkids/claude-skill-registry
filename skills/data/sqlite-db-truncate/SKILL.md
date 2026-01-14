@@ -1,346 +1,374 @@
 ---
 name: sqlite-db-truncate
-description: Guidance for recovering data from corrupted or truncated SQLite database files through binary analysis and manual parsing. This skill applies when working with damaged SQLite databases that cannot be opened with standard tools, particularly when corruption is due to binary truncation, incomplete writes, or filesystem errors.
+description: This skill should be used when recovering data from corrupted or truncated SQLite databases. Apply this skill when a .db file cannot be opened with standard SQLite tools, when binary truncation has occurred, or when manual parsing of the SQLite binary format is needed to extract recoverable data.
 ---
 
-# SQLite Truncated Database Recovery
+# SQLite Database Truncation Recovery
 
-This skill provides systematic approaches for recovering data from SQLite database files that have been corrupted through binary truncation. It emphasizes understanding the SQLite file format before attempting recovery and avoiding common pitfalls that lead to multiple failed iterations.
+## Overview
 
-## When to Use This Skill
+Recover data from SQLite databases that have been corrupted through binary truncation. This skill provides a systematic approach to binary format analysis and data extraction when standard SQLite libraries fail.
 
-This skill applies when:
-- A SQLite database file cannot be opened with standard `sqlite3` commands
-- The database error indicates corruption or malformed data
-- File size is smaller than expected (suggesting truncation)
-- Standard recovery tools like `.recover` command fail
-- Manual binary parsing of SQLite page structure is required
+## Recommended Approach
 
-## Initial Assessment Strategy
+### Phase 1: Initial Assessment (Do This First)
 
-Before writing any recovery code, perform a thorough analysis of the corrupted file:
+Before writing any recovery code, perform thorough analysis:
 
-### Step 1: Examine File Characteristics
+1. **Check file size and basic properties**
+   ```python
+   import os
+   file_size = os.path.getsize('database.db')
+   print(f"File size: {file_size} bytes")
+   print(f"Expected pages: {file_size // 4096} (assuming 4KB pages)")
+   ```
 
-```bash
-# Check file size and basic properties
-ls -lh database.db
-file database.db
+2. **Attempt standard recovery methods first**
+   ```bash
+   # Try sqlite3 recovery (may work for partial corruption)
+   sqlite3 database.db ".recover" > recovered.sql 2>&1
+   sqlite3 database.db "PRAGMA integrity_check;"
+   ```
 
-# Create hex dump for analysis
-hexdump -C database.db | head -100
+3. **Create comprehensive hex dump before coding**
+   ```python
+   with open('database.db', 'rb') as f:
+       data = f.read()
+
+   # Examine first 256 bytes thoroughly
+   for i in range(0, min(256, len(data)), 16):
+       hex_str = ' '.join(f'{b:02x}' for b in data[i:i+16])
+       ascii_str = ''.join(chr(b) if 32 <= b < 127 else '.' for b in data[i:i+16])
+       print(f"{i:04x}: {hex_str:<48} {ascii_str}")
+   ```
+
+**Critical observations to document**:
+- Is the SQLite header present? (Bytes 0-15 should be "SQLite format 3\0")
+- What is the page size? (Bytes 16-17, big-endian)
+- Is page 0 corrupted/zeroed?
+- Where does data appear to start?
+- What page type byte is present? (Look for 0x0d = leaf table)
+
+### Phase 2: Recovery Method Selection
+
+Choose the appropriate method based on Phase 1 findings:
+
+**If standard SQLite tools work**: Use `sqlite3` library directly, no manual parsing needed.
+
+**If header is intact but data is truncated**: Standard recovery may partially work; supplement with manual parsing for truncated pages.
+
+**If header is corrupted/missing**: Manual binary parsing is required. Common scenario for truncated databases where first page is damaged.
+
+### Phase 3: Structured Binary Parsing
+
+Follow this order strictly to avoid iteration waste:
+
+#### Step 1: Identify Page Structure
+
+```python
+# For truncated DBs, data often starts at a page boundary
+# Common page types:
+# 0x0d (13) = Leaf table page (contains actual row data)
+# 0x05 (5) = Interior table page (contains child page pointers)
+# 0x0a (10) = Leaf index page
+# 0x02 (2) = Interior index page
+
+page_type = data[0]  # Or data[100] if header is intact
+if page_type == 0x0d:
+    print("Found leaf table page - contains recoverable data")
 ```
 
-Key observations to make:
-- **File size**: SQLite pages are typically 4096 bytes. Check if size aligns with page boundaries
-- **Magic bytes**: Valid SQLite files start with "SQLite format 3\000" (16 bytes)
-- **First byte after header**: Identifies page type (0x0d = table leaf page with actual data)
-
-### Step 2: Identify Corruption Pattern
-
-Common truncation scenarios:
-- **Header-only file**: Only the 100-byte header remains
-- **Missing header**: File starts with a data page (first byte is 0x0d, 0x05, 0x0a, or 0x02)
-- **Partial page**: File ends mid-page, truncating some cells
-
-If the file lacks the standard "SQLite format 3" magic header but starts with 0x0d, this indicates the file contains only a table leaf page without the database header.
-
-### Step 3: Try Standard Tools First
-
-Always attempt standard recovery before manual parsing:
-
-```bash
-# Check if sqlite3 can read the file
-sqlite3 database.db ".schema" 2>&1
-sqlite3 database.db "SELECT * FROM sqlite_master" 2>&1
-
-# Try built-in recovery
-sqlite3 database.db ".recover" > recovered.sql 2>&1
-
-# Try integrity check
-sqlite3 database.db "PRAGMA integrity_check;"
-```
-
-If these fail with "database disk image is malformed" or similar errors, proceed to manual binary parsing.
-
-## SQLite Page Structure Overview
-
-Understanding the page structure is essential before writing recovery code.
-
-### Table Leaf Page Layout (Page Type 0x0d)
-
-```
-Offset  Size   Description
-------  ----   -----------
-0       1      Page type (0x0d for table leaf)
-1       2      First freeblock offset (big-endian)
-3       2      Number of cells on page (big-endian)
-5       2      Cell content area start offset (big-endian)
-7       1      Fragmented free bytes count
-8+      varies Cell pointer array (2 bytes per cell, big-endian)
-...            [Gap/free space]
-End            Cell data (grows backward from page end)
-```
-
-### Cell Structure
-
-Each cell contains a database row:
-
-```
-[Payload size: varint]
-[Row ID: varint]
-[Header size: varint]
-[Serial type 1: varint]
-[Serial type 2: varint]
-...
-[Column 1 value]
-[Column 2 value]
-...
-```
-
-### Varint Encoding
-
-SQLite uses variable-length integers (varints):
-- Bytes 1-8: Use 7 bits for data, high bit (0x80) indicates continuation
-- Byte 9: Uses all 8 bits (no continuation)
-
-### Serial Types
-
-Serial types indicate how to interpret column data:
-
-| Type | Size | Meaning |
-|------|------|---------|
-| 0 | 0 | NULL |
-| 1 | 1 | 8-bit signed integer |
-| 2 | 2 | 16-bit big-endian signed integer |
-| 3 | 3 | 24-bit big-endian signed integer |
-| 4 | 4 | 32-bit big-endian signed integer |
-| 7 | 8 | IEEE 754 64-bit float (big-endian) |
-| 8 | 0 | Integer constant 0 |
-| 9 | 0 | Integer constant 1 |
-| N >= 12, even | (N-12)/2 | BLOB |
-| N >= 13, odd | (N-13)/2 | Text string (UTF-8) |
-
-Example: Serial type 0x21 (33) = text string of length (33-13)/2 = 10 bytes.
-
-## Recovery Approach
-
-### Build a Single, Modular Script
-
-Avoid creating multiple separate recovery scripts. Instead, build one script iteratively with clear debug output:
+#### Step 2: Extract Cell Count and Pointers
 
 ```python
 import struct
-import json
 
-DEBUG = True
+# For leaf table page (0x0d), header is 8 bytes
+# Bytes 3-4: number of cells (big-endian uint16)
+num_cells = struct.unpack('>H', data[3:5])[0]
+print(f"Cell count: {num_cells}")
 
-def read_varint(data, offset):
-    """Read SQLite variable-length integer."""
-    value = 0
-    for i in range(9):
-        if offset + i >= len(data):
-            return None, offset
-        byte = data[offset + i]
-        if i == 8:
-            value = (value << 8) | byte
-            return value, offset + i + 1
-        value = (value << 7) | (byte & 0x7f)
-        if (byte & 0x80) == 0:
-            return value, offset + i + 1
-    return value, offset
-
-def decode_value(data, offset, serial_type):
-    """Decode value based on serial type."""
-    if serial_type == 0:
-        return None, offset
-    elif serial_type == 1:
-        return struct.unpack('>b', data[offset:offset+1])[0], offset + 1
-    elif serial_type == 2:
-        return struct.unpack('>h', data[offset:offset+2])[0], offset + 2
-    elif serial_type == 4:
-        return struct.unpack('>i', data[offset:offset+4])[0], offset + 4
-    elif serial_type == 7:
-        return struct.unpack('>d', data[offset:offset+8])[0], offset + 8
-    elif serial_type == 8:
-        return 0, offset
-    elif serial_type == 9:
-        return 1, offset
-    elif serial_type >= 12:
-        if serial_type % 2 == 0:
-            length = (serial_type - 12) // 2
-            return data[offset:offset+length], offset + length
+# Cell pointer array starts at byte 8
+cell_pointers = []
+for i in range(num_cells):
+    ptr_offset = 8 + (i * 2)
+    if ptr_offset + 2 <= len(data):
+        ptr = struct.unpack('>H', data[ptr_offset:ptr_offset+2])[0]
+        # Validate pointer is within file bounds
+        if ptr < len(data):
+            cell_pointers.append(ptr)
         else:
-            length = (serial_type - 13) // 2
-            return data[offset:offset+length].decode('utf-8', errors='replace'), offset + length
-    return None, offset
+            print(f"Warning: Cell pointer {ptr} exceeds file size {len(data)}")
 ```
 
-### Parse Incrementally with Debug Output
+#### Step 3: Parse ONE Cell First (Critical)
 
-Parse one cell completely and verify before processing all cells:
+Before processing all cells, validate the parsing logic on a single cell:
 
 ```python
-def parse_cell(data, cell_offset, debug=DEBUG):
+def parse_cell_verbose(data, offset):
     """Parse a single cell with detailed debug output."""
-    if debug:
-        print(f"\nParsing cell at offset {cell_offset} (0x{cell_offset:04x})")
+    print(f"\n=== Cell at offset {offset} (0x{offset:04x}) ===")
+    print(f"Raw bytes: {' '.join(f'{b:02x}' for b in data[offset:offset+32])}")
 
-    # Read payload size
-    payload_size, offset = read_varint(data, cell_offset)
-    if debug:
-        print(f"  Payload size: {payload_size}")
+    # Read payload size (varint)
+    payload_size, pos = read_varint(data, offset)
+    print(f"Payload size: {payload_size} (next pos: {pos})")
 
-    # Read row ID
-    row_id, offset = read_varint(data, offset)
-    if debug:
-        print(f"  Row ID: {row_id}")
+    # Read row ID (varint)
+    row_id, pos = read_varint(data, pos)
+    print(f"Row ID: {row_id} (next pos: {pos})")
 
-    # Read header size
-    header_size, header_start = read_varint(data, offset)
-    if debug:
-        print(f"  Header size: {header_size}")
+    # Read header size (varint)
+    header_size, header_start = read_varint(data, pos)
+    print(f"Header size: {header_size} (header starts at: {header_start})")
 
-    # Parse serial types
+    # Calculate header end
+    header_end = pos + header_size
+    print(f"Header end: {header_end}")
+
+    # Read serial types
     serial_types = []
     current = header_start
-    header_end = offset + header_size
     while current < header_end:
-        st, current = read_varint(data, current)
-        serial_types.append(st)
+        serial_type, current = read_varint(data, current)
+        serial_types.append(serial_type)
+        print(f"  Serial type: {serial_type} (meaning: {describe_serial_type(serial_type)})")
 
-    if debug:
-        print(f"  Serial types: {serial_types}")
+    # Parse column values
+    body_offset = header_end
+    columns = []
+    for i, st in enumerate(serial_types):
+        value, body_offset = decode_serial_type(st, data, body_offset)
+        print(f"  Column {i}: {value}")
+        columns.append(value)
 
-    # Parse values
-    values = []
-    for st in serial_types:
-        val, current = decode_value(data, current, st)
-        values.append(val)
+    return {'row_id': row_id, 'columns': columns}
 
-    if debug:
-        print(f"  Values: {values}")
-
-    return {'row_id': row_id, 'values': values}
+# Test on first cell
+result = parse_cell_verbose(data, cell_pointers[0])
+print(f"\nParsed result: {result}")
 ```
 
-## Common Pitfalls and Prevention
+**Validation checks**:
+- Does the row ID look reasonable?
+- Do column values make sense for the expected schema?
+- Does string data decode properly as UTF-8?
+- Are numeric values within expected ranges?
 
-### Pitfall 1: Not Understanding the Corruption Pattern
+#### Step 4: Generalize to All Cells
 
-**Mistake**: Assuming the file has a standard SQLite header when it may only contain a data page.
+Only after single-cell validation succeeds:
 
-**Prevention**: Always examine the first few bytes with hexdump. If the file starts with 0x0d instead of "SQLite format 3", the header is missing. Adjust parsing offsets accordingly (no 100-byte header offset needed).
+```python
+recovered_rows = []
+failed_cells = []
 
-### Pitfall 2: Multiple Script Iterations
+for ptr in cell_pointers:
+    try:
+        if ptr >= len(data):
+            failed_cells.append({'offset': ptr, 'reason': 'beyond file boundary'})
+            continue
 
-**Mistake**: Creating many separate recovery scripts (recover1.py, recover2.py, etc.) based on trial and error.
+        result = parse_cell(data, ptr)
 
-**Prevention**:
-- Read the hex dump thoroughly first and annotate the structure manually
-- Build one script with debug flags
-- Reference the SQLite file format specification before coding
+        # Validate completeness
+        if all(v is not None for v in result['columns']):
+            recovered_rows.append(result)
+        else:
+            failed_cells.append({'offset': ptr, 'reason': 'incomplete data', 'partial': result})
+    except Exception as e:
+        failed_cells.append({'offset': ptr, 'reason': str(e)})
 
-### Pitfall 3: Reading Strings Beyond Their Boundaries
+print(f"Recovered: {len(recovered_rows)} rows")
+print(f"Failed: {len(failed_cells)} cells")
+```
 
-**Mistake**: Reading string data without checking the serial type length, resulting in incorrect strings (e.g., "testword052" instead of "testword05").
+### Phase 4: Output Generation
 
-**Prevention**: Always calculate string length from serial type: `length = (serial_type - 13) // 2`. Read exactly that many bytes.
+```python
+import json
 
-### Pitfall 4: Syntax Errors in Generated Code
+# Format output according to task requirements
+output = [
+    {'word': row['columns'][0], 'value': row['columns'][1]}
+    for row in recovered_rows
+    if row['columns'][0] is not None and row['columns'][1] is not None
+]
 
-**Mistake**: Missing spaces in operators like `if48` instead of `if 48`, or `12and` instead of `12 and`.
+with open('recover.json', 'w') as f:
+    json.dump(output, f, indent=2)
 
-**Prevention**: Validate syntax before running:
+# Also save recovery log for debugging
+with open('recovery.log', 'w') as f:
+    f.write(f"Total cells found: {len(cell_pointers)}\n")
+    f.write(f"Successfully recovered: {len(output)}\n")
+    f.write(f"Failed/partial: {len(failed_cells)}\n")
+    for fail in failed_cells:
+        f.write(f"  {fail}\n")
+```
+
+## Common Pitfalls to Avoid
+
+### Pitfall 1: Writing Multiple Trial Scripts
+
+**Problem**: Creating `attempt1.py`, `attempt2.py`, etc. wastes time and creates confusion.
+
+**Solution**: Build ONE modular script with helper functions. Use verbose debug output to understand issues rather than rewriting from scratch. Keep all utility functions (varint parsing, serial type decoding) in reusable form.
+
+### Pitfall 2: Skipping Initial Analysis
+
+**Problem**: Jumping straight to code without understanding the data structure leads to many wasted iterations.
+
+**Solution**: Always complete Phase 1 (Initial Assessment) fully. Document observations about:
+- Header presence/absence
+- Page size and type
+- Visible patterns in hex dump
+- Estimated truncation point
+
+### Pitfall 3: Not Validating Single Cell First
+
+**Problem**: Processing all cells with buggy parsing logic produces incorrect output that's hard to debug.
+
+**Solution**: Parse ONE cell with verbose output first (Phase 3, Step 3). Verify each field matches expectations before generalizing.
+
+### Pitfall 4: Including Incomplete Records
+
+**Problem**: Adding records with `null` values pollutes the output.
+
+**Solution**: Only include records where ALL required fields are successfully recovered. Log partial recoveries separately for debugging.
+
+### Pitfall 5: Cleaning Up Before Verification
+
+**Problem**: Deleting scripts/debug output before fully verifying results makes later debugging impossible.
+
+**Solution**: Keep all artifacts until final output is verified correct. Only clean up as a final step after confirmation.
+
+### Pitfall 6: Syntax Errors from Rushed Coding
+
+**Problem**: Basic syntax errors like `if48 <=` (missing space) or `12and` (missing space).
+
+**Solution**: Write code carefully. Review before executing. Common mistakes:
+- Missing spaces around operators
+- Incomplete string concatenation
+- Incorrect indentation
+
+### Pitfall 7: Confusing Serial Type Encoding
+
+**Problem**: Misinterpreting serial type codes leads to wrong data extraction.
+
+**Key formulas**:
+- TEXT length: `(serial_type - 13) // 2` (for odd values >= 13)
+- BLOB length: `(serial_type - 12) // 2` (for even values >= 12)
+- Type 1 = 8-bit int, Type 7 = 64-bit float
+
+## Verification Strategies
+
+### 1. Sanity Check Record Count
+
+```python
+# Cell count should match expected number of records
+print(f"Expected records: (check task description)")
+print(f"Cell pointers found: {len(cell_pointers)}")
+print(f"Successfully recovered: {len(recovered_rows)}")
+```
+
+### 2. Check Value Patterns
+
+```python
+# Look for expected patterns in recovered data
+words = [r['columns'][0] for r in recovered_rows]
+values = [r['columns'][1] for r in recovered_rows]
+
+print(f"Word pattern: {words[:3]} ... {words[-1]}")
+print(f"Value range: {min(values)} to {max(values)}")
+```
+
+### 3. Validate JSON Output
+
+```python
+# Re-read and validate output file
+with open('recover.json') as f:
+    output = json.load(f)
+
+print(f"Output records: {len(output)}")
+for record in output[:3]:
+    print(f"  {record}")
+
+# Check for null values
+null_count = sum(1 for r in output if None in r.values())
+print(f"Records with null values: {null_count}")
+```
+
+## Bundled Resources
+
+### scripts/sqlite_recovery.py
+
+Utility functions for SQLite binary parsing:
+- `read_varint(data, offset)` - Decode variable-length integers
+- `decode_serial_type(serial_type, data, offset)` - Extract column values based on serial type
+- `describe_serial_type(serial_type)` - Human-readable serial type description
+- `hex_dump(data, offset, length)` - Format binary data for debugging
+
+Execute the script directly to analyze a database file:
 ```bash
-python3 -m py_compile recovery_script.py
+python scripts/sqlite_recovery.py database.db
 ```
 
-### Pitfall 5: Wrong Byte Order
+### references/sqlite_format.md
 
-**Mistake**: Reading multi-byte integers with little-endian instead of big-endian.
+Comprehensive reference for SQLite binary format including:
+- Database header structure (100 bytes)
+- Page types and their headers
+- Varint encoding algorithm
+- Serial type codes (0-11 and formula-based for text/blob)
+- Cell structure for leaf table pages
+- Common truncation patterns
 
-**Prevention**: SQLite uses big-endian for all multi-byte integers. Always use `struct.unpack('>...', data)` with the `>` prefix.
+**Grep patterns for quick lookup**:
+- `"Serial Type"` - Find type code reference
+- `"Varint"` - Variable-length integer encoding
+- `"Page Header"` - Page structure details
+- `"Truncation"` - Handling truncated data
 
-### Pitfall 6: Not Handling Truncation Gracefully
+## Decision Flowchart
 
-**Mistake**: Script crashes when encountering truncated data at end of file.
-
-**Prevention**: Check bounds before every read operation:
-```python
-def safe_read(data, offset, length):
-    if offset + length > len(data):
-        return None
-    return data[offset:offset+length]
 ```
-
-## Verification Strategy
-
-### Step 1: Validate Cell Count
-
-Compare the number of cells reported in the page header (offset 3-4) with actual cells found.
-
-### Step 2: Validate Data Patterns
-
-If expected patterns are known (e.g., words matching "testwordXY"), verify extracted strings match the pattern.
-
-### Step 3: Check Value Ranges
-
-Verify extracted numeric values are within expected ranges. Watch for:
-- Unexpected negative numbers (sign bit interpretation)
-- Very large numbers (byte order issues)
-- NaN or infinity for floats
-
-### Step 4: Compare with Expected Output Format
-
-Before finalizing output, ensure JSON structure matches requirements:
-```python
-# Validate output structure
-for record in recovered_data:
-    assert 'word' in record and 'value' in record
-    assert isinstance(record['word'], str)
-    assert isinstance(record['value'], (int, float))
+Database recovery task
+        │
+        ▼
+┌─────────────────────────┐
+│ Phase 1: Initial        │
+│ Assessment              │
+│ - Check file size       │
+│ - Try standard sqlite3  │
+│ - Create hex dump       │
+│ - Document observations │
+└───────────┬─────────────┘
+            │
+            ▼
+    Standard tools work?
+       │         │
+      YES        NO
+       │         │
+       ▼         ▼
+  Use sqlite3   Manual parsing required
+  directly             │
+                       ▼
+        ┌─────────────────────────┐
+        │ Phase 3: Binary Parsing │
+        │ Step 1: Identify pages  │
+        │ Step 2: Extract cells   │
+        │ Step 3: Parse ONE cell  │◄── CRITICAL
+        │ Step 4: Validate        │
+        │ Step 5: Generalize      │
+        └───────────┬─────────────┘
+                    │
+                    ▼
+        ┌─────────────────────────┐
+        │ Phase 4: Output         │
+        │ - Only complete records │
+        │ - Log partial/failed    │
+        │ - Verify before cleanup │
+        └─────────────────────────┘
 ```
-
-## Output Generation
-
-Format recovered data according to the required output specification:
-
-```python
-def generate_output(recovered_rows, output_path):
-    """Format and save recovered data."""
-    results = []
-    for row in recovered_rows:
-        if len(row['values']) >= 2:
-            results.append({
-                'word': row['values'][0],
-                'value': row['values'][1]
-            })
-
-    with open(output_path, 'w') as f:
-        json.dump(results, f, indent=2)
-
-    print(f"Recovered {len(results)} records to {output_path}")
-    return results
-```
-
-## Summary Checklist
-
-Before writing recovery code:
-- [ ] Examined file with hexdump to understand corruption extent
-- [ ] Identified whether header is present or missing
-- [ ] Tried standard SQLite tools first
-- [ ] Reviewed SQLite file format specification
-
-During implementation:
-- [ ] Using a single script with debug output (not multiple scripts)
-- [ ] Validated Python syntax before running
-- [ ] Using big-endian byte order for all multi-byte integers
-- [ ] Calculating string lengths from serial types
-- [ ] Handling truncation with bounds checking
-
-After recovery:
-- [ ] Verified cell count matches expectation
-- [ ] Validated string patterns if known
-- [ ] Checked numeric value ranges
-- [ ] Confirmed output format matches requirements

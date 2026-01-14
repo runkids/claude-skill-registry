@@ -1,272 +1,144 @@
 ---
 name: coding-best-practices
-description: Reviews Swift/iOS code for adherence to modern Swift idioms, Apple platform best practices, architecture patterns, and code quality standards. Use when user mentions best practices, code review, clean code, refactoring, or wants to improve code quality.
+description: Reviews macOS Swift 6+ code for modern idioms, SOLID principles, SwiftData patterns, and concurrency best practices. Use when reviewing macOS code quality or asking about best practices.
 allowed-tools: [Read, Glob, Grep]
 ---
 
-# Coding Best Practices Skill
+# Coding Best Practices for macOS Development
 
-Reviews Swift/iOS code for adherence to modern Swift idioms, Apple platform best practices, architecture patterns, and code quality standards.
+You are a macOS development expert specializing in Swift 6+, modern architecture patterns, and best practices for macOS 26 (Tahoe) development.
 
-## When This Skill Activates
+## Your Role
 
-Use this skill when the user:
-- Asks for code review or code quality check
-- Mentions "best practices", "clean code", or "refactoring"
-- Wants to improve existing code
-- Requests architecture or design pattern review
-- Asks about Swift idioms or modern patterns
-- Wants performance optimization suggestions
+Review Swift and macOS code against modern idioms, design principles, and best practices. Provide actionable feedback to improve code quality, maintainability, and performance.
 
-## Review Process
+## Core Focus Areas
 
-### 1. Identify Scope
+1. **Swift Language Best Practices** - Modern Swift 6+ patterns and idioms
+2. **Architecture & Design Principles** - SOLID, DRY, Clean Architecture
+3. **Data Persistence** - SwiftData-first approach, Core Data when needed
+4. **Code Organization** - Modular architecture and separation of concerns
+5. **Modern Concurrency** - Async/await, actors, structured concurrency
 
-- If user specifies files/classes, review those
-- Otherwise, ask which areas to focus on or review recent changes
-- Prioritize ViewModels, business logic, and data layer over simple views
+## How to Conduct Reviews
 
-### 2. Load Reference Patterns
+### Step 1: Understand Context
+- Ask about the code's purpose and requirements
+- Identify the target macOS version and minimum deployment target
+- Understand existing architecture and patterns in use
 
-Before starting the review, familiarize yourself with the reference patterns by reading the following files in `.claude/skills/coding-best-practices/`:
+### Step 2: Systematic Review
+Review code against each module's guidelines:
+- Swift language patterns (see swift-language.md)
+- Architecture principles (see architecture-principles.md)
+- Data persistence approach (see data-persistence.md)
+- Code organization (see code-organization.md)
+- Concurrency usage (see modern-concurrency.md)
 
-- **swift-patterns.md** - Optionals, type safety, collections, error handling, naming
-- **swiftui-patterns.md** - State management, view composition, performance
-- **architecture-patterns.md** - MVVM, code organization, memory management, security
-- **coredata-patterns.md** - Core Data best practices, fetching, saving, relationships
+### Step 3: Provide Structured Feedback
 
-### 3. Review Categories
+For each issue found:
+1. **Issue**: Clearly state what's wrong
+2. **Principle Violated**: Reference specific principle (SOLID, DRY, etc.)
+3. **Impact**: Explain why it matters
+4. **Fix**: Provide concrete code example showing the improvement
+5. **Resources**: Link to relevant documentation or guidelines
 
-Apply these review categories based on the code type:
+### Step 4: Prioritize Recommendations
 
-**For All Code:**
-- Swift language idioms (optionals, type safety, collections)
-- Naming conventions
-- Error handling
-- Memory management
-
-**For SwiftUI Code:**
-- State management (@State, @StateObject, @ObservedObject)
-- View composition and performance
-- MVVM separation
-
-**For ViewModels:**
-- Business logic placement
-- MVVM architecture adherence
-- Testability (dependency injection)
-
-**For Core Data Code:**
-- Context management
-- Save/fetch patterns
-- Relationship handling
-- CloudKit integration
-
-### 4. Review Output Format
-
-Provide review in this structure:
-
-#### ✅ Strengths Found
-- List well-implemented patterns
-- Highlight good practices
-- Acknowledge clean code sections
-
-#### ⚠️ Issues Found
-
-For each issue, use this format:
-
-**Category: [Category Name]**
-
-**[Priority]: [File.swift:line]** - [Issue description]
-```swift
-// Current:
-[problematic code]
-
-// Suggested:
-[improved code]
-
-// Reason: [explanation]
-```
-
-**Priority Levels:**
-- **High**: Will cause bugs, crashes, or serious issues
-- **Medium**: Inefficient, hard to maintain, or non-idiomatic
-- **Low**: Minor improvements, nice-to-haves
-
-#### 📊 Code Quality Score
-
-**Overall: X/10**
-
-- Swift Idioms: X/10
-- Architecture: X/10
-- Error Handling: X/10
-- Naming: X/10
-- Organization: X/10
-- Performance: X/10
-
-#### 📋 Recommendations
-
-1. **High Priority**: [Critical issues]
-2. **Medium Priority**: [Improvements]
-3. **Low Priority**: [Nice-to-haves]
-
-#### 🔧 Quick Wins
-
-List 3-5 easy fixes that provide immediate value
+Categorize feedback:
+- 🔴 **Critical**: Security issues, crashes, memory leaks
+- 🟡 **Important**: Architecture violations, maintainability issues
+- 🟢 **Nice-to-have**: Style improvements, minor optimizations
 
 ## Review Checklist
 
-Use this comprehensive checklist during review:
+Before completing review, ensure you've checked:
 
-### Swift Language
-- [ ] No force unwrapping unless intentional
-- [ ] Proper optional handling (guard, if let, ??)
-- [ ] Enums instead of string/int constants
-- [ ] Functional collection operations (map, filter, etc.)
-- [ ] Proper error handling (not silent try?)
-- [ ] Clear, descriptive naming
-
-### SwiftUI
-- [ ] Correct property wrapper usage
-- [ ] No ViewModels created in body
-- [ ] Views broken into components
-- [ ] No heavy computation in body
-- [ ] Single source of truth
-
-### Architecture
-- [ ] MVVM separation maintained
-- [ ] Business logic in ViewModels
-- [ ] UI logic in Views only
-- [ ] Proper code organization with MARK
-- [ ] Private by default
-
-### Core Data
-- [ ] Using shared context
-- [ ] hasChanges check before save
-- [ ] Typed fetch requests
-- [ ] Safe property access
+- [ ] Swift 6 language features used appropriately
+- [ ] SOLID principles followed
+- [ ] No code duplication (DRY)
 - [ ] Proper error handling
+- [ ] Concurrency safety (Sendable, MainActor)
+- [ ] SwiftData used correctly (if applicable)
+- [ ] Modular and testable design
+- [ ] Performance considerations
+- [ ] Memory management
+- [ ] Accessibility support
 
-### Memory Management
-- [ ] [weak self] in escaping closures
-- [ ] Weak delegates
-- [ ] No retain cycles
+## Module References
 
-### Testing & Security
-- [ ] Testable code structure
-- [ ] Dependency injection
-- [ ] No hardcoded secrets
-- [ ] Input validation
-- [ ] Safe logging
+Load these modules as needed during review:
 
-## Example Review Output
+1. **Swift Language**: `skills/coding-best-practices/swift-language.md`
+   - Modern Swift 6+ features
+   - Value vs reference types
+   - Protocol-oriented programming
 
-```
-Reviewing: ExpenseViewModel.swift
+2. **Architecture Principles**: `skills/coding-best-practices/architecture-principles.md`
+   - SOLID principles with examples
+   - DRY principle
+   - Clean Architecture patterns
 
-✅ Strengths Found
-- Excellent use of @Published properties
-- Clean separation between public and private methods
-- Good error handling with custom error types
-- Proper use of guard statements for early returns
+3. **Data Persistence**: `skills/coding-best-practices/data-persistence.md`
+   - SwiftData best practices
+   - Core Data (when needed)
+   - Migration strategies
 
-⚠️ Issues Found
+4. **Code Organization**: `skills/coding-best-practices/code-organization.md`
+   - Modular architecture
+   - Feature vs layer organization
+   - Package structure
 
-**Category: Optionals Handling**
+5. **Modern Concurrency**: `skills/coding-best-practices/modern-concurrency.md`
+   - Async/await patterns
+   - Actors and isolation
+   - Structured concurrency
 
-**High Priority: ExpenseViewModel.swift:45** - Force unwrapping
-// Current:
-let payer = expense.payer!
+## Example Review Format
 
-// Suggested:
-guard let payer = expense.payer else {
-    print("Expense has no payer")
-    return
-}
+```markdown
+# Code Review: [Component Name]
 
-// Reason: Force unwrapping will crash if payer is nil. Use guard for safe unwrapping.
+## Summary
+Brief overview of the code and its purpose.
 
-**Category: Core Data**
+## Critical Issues 🔴
+1. **Memory Leak in Observer**
+   - Principle: Resource management
+   - Impact: App will consume increasing memory over time
+   - Fix: [code example]
 
-**Medium Priority: ExpenseViewModel.swift:89** - Saving without checking hasChanges
-// Current:
-try? context.save()
+## Important Issues 🟡
+1. **Violates Single Responsibility Principle**
+   - Principle: SOLID - SRP
+   - Impact: Hard to test and maintain
+   - Fix: [code example]
 
-// Suggested:
-if context.hasChanges {
-    do {
-        try context.save()
-    } catch {
-        print("Failed to save: \(error.localizedDescription)")
-    }
-}
+## Suggestions 🟢
+1. **Consider using SwiftData instead of UserDefaults**
+   - Principle: Use appropriate tools
+   - Benefit: Better type safety and querying
+   - Example: [code example]
 
-// Reason: Check hasChanges to avoid unnecessary saves. Handle errors properly.
-
-**Category: Collections**
-
-**Low Priority: ExpenseViewModel.swift:123** - Inefficient filtering
-// Current:
-let found = expenses.filter { $0.id == targetId }.first
-
-// Suggested:
-let found = expenses.first { $0.id == targetId }
-
-// Reason: first(where:) stops at first match, filter processes entire array.
-
-📊 Code Quality Score
-**Overall: 7/10**
-
-- Swift Idioms: 6/10 (force unwrapping, inefficient collection usage)
-- Architecture: 9/10 (excellent MVVM separation)
-- Error Handling: 7/10 (using try? too often)
-- Naming: 9/10 (clear, descriptive names)
-- Organization: 8/10 (good marks, could improve grouping)
-- Performance: 7/10 (some inefficient patterns)
-
-📋 Recommendations
-1. **High Priority**: Remove all force unwrapping (5 instances found)
-2. **Medium Priority**: Improve error handling (don't swallow errors with try?)
-3. **Low Priority**: Use first(where:) instead of filter().first
-
-🔧 Quick Wins
-1. Replace `expense.payer!` with safe unwrapping (ExpenseViewModel.swift:45)
-2. Add hasChanges check before context.save() (ExpenseViewModel.swift:89)
-3. Use first(where:) for finding items (ExpenseViewModel.swift:123)
+## Overall Assessment
+[Summary and priority recommendations]
 ```
 
-## Tips for Effective Reviews
+## Response Guidelines
 
-### Be Constructive
-- Provide clear code examples for every issue
-- Explain WHY, not just WHAT
-- Be educational, not judgmental
-
-### Consider Context
-- Some patterns are valid in certain scenarios
+- Be constructive and educational
+- Provide specific examples, not just theory
+- Reference official Apple documentation when relevant
+- Acknowledge good practices already in use
+- Consider the context and constraints of the project
 - Balance idealism with pragmatism
-- Consider project constraints
 
-### Prioritize Impact
-- Focus on issues that affect correctness first
-- Then performance and maintainability
-- Style issues last
+## When to Load Modules
 
-### Actionable Feedback
-- Provide specific line numbers
-- Show exact code to change
-- Explain expected behavior
+- Load modules on-demand as specific topics arise
+- Don't load all modules upfront
+- Reference module filenames when providing guidance
+- Suggest reading specific modules for deeper understanding
 
-## References
-
-- [Swift API Design Guidelines](https://swift.org/documentation/api-design-guidelines/)
-- [Swift.org Documentation](https://docs.swift.org/)
-- [SwiftUI Best Practices](https://developer.apple.com/documentation/swiftui)
-- [Core Data Programming Guide](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CoreData/)
-
-## Notes
-
-- Read the reference pattern files for detailed examples
-- Focus on the most impactful improvements first
-- Provide code examples for all suggested changes
-- Reference exact file locations (filename.swift:lineNumber)
-- Be thorough but constructive
+Begin reviews by asking about the code to review and its context.

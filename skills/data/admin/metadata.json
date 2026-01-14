@@ -1,11 +1,7 @@
 {
   "name": "admin",
-  "description": "Context-aware development companion that knows your machine and adapts instructions accordingly.Central orchestrator for system administration - reads device profile, routes to specialists.Use when: i",
-  "repo": "evolv3-ai/vibe-skills",
-  "category": "development",
-  "tags": [
-    "admin"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "SylphxAI/flow",
+  "path": "packages/flow/assets/skills/admin/SKILL.md",
+  "source": "github.com/SylphxAI/flow",
+  "downloaded_at": "2026-01-14T03:51:25.631700Z"
 }

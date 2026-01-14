@@ -1,11 +1,7 @@
 {
   "name": "futurist-analyst",
-  "description": "Analyzes events through futures lens using scenario planning, trend analysis, weak signals,drivers of change, and forecasting methods (exploratory, normative, backcasting).Provides insights on possibl",
-  "repo": "rysweet/MicrosoftHackathon2025-AgenticCoding",
-  "category": "data",
-  "tags": [
-    "futurist",
-    "analyst"
-  ],
-  "stars": 10
+  "repo": "rysweet/azlin",
+  "path": ".claude/skills/futurist-analyst/SKILL.md",
+  "source": "github.com/rysweet/azlin",
+  "downloaded_at": "2026-01-14T03:30:05.959975Z"
 }

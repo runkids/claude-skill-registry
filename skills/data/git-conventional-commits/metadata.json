@@ -1,12 +1,7 @@
 {
   "name": "git-conventional-commits",
-  "description": "Apply when writing commit messages to maintain consistent, readable git history that enables automated changelog generation.",
   "repo": "CoderMariusz/MonoPilot",
-  "category": "data",
-  "tags": [
-    "git",
-    "conventional",
-    "commits"
-  ],
-  "stars": 1
+  "path": ".claude/skills/git-conventional-commits/SKILL.md",
+  "source": "github.com/CoderMariusz/MonoPilot",
+  "downloaded_at": "2026-01-14T03:46:41.010223Z"
 }

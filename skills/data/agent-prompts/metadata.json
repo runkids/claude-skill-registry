@@ -1,12 +1,7 @@
 {
   "name": "agent-prompts",
-  "description": "Ready-to-use prompt templates for specialized agents. Use when building n8n workflows, AI integrations, or sales materials. Contains structured prompts for automation-architect, llm-engineer, and sale",
-  "repo": "dvorkinguy/claude-skills-agents",
-  "category": "productivity",
-  "tags": [
-    "agent",
-    "prompts"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "jsegov/shipspec-claude-code-plugin",
+  "path": "skills/agent-prompts/SKILL.md",
+  "source": "github.com/jsegov/shipspec-claude-code-plugin",
+  "downloaded_at": "2026-01-14T02:31:19.928325Z"
 }

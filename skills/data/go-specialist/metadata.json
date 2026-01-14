@@ -1,9 +1,7 @@
 {
   "name": "go-specialist",
-  "description": "Go language consultant providing guidance on best practices, testing with testify, concurrency patterns, error handling, and technology stack recommendations. Use when answering Go questions, reviewin",
   "repo": "yurifrl/cly",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".opencode/skill/go-specialist/SKILL.md",
+  "source": "github.com/yurifrl/cly",
+  "downloaded_at": "2026-01-14T01:26:18.027917Z"
 }

@@ -1,218 +1,147 @@
 ---
 name: nextjs-app-router
-description: Next.js 15 App Router patterns for Server/Client Components, async params, layouts, route handlers, Server Actions, and data fetching. Use when creating routes, pages, layouts, API endpoints, or implementing form submissions with revalidation.
+description: Apply when building Next.js 13-16 applications with App Router for routing, layouts, data fetching, and server components.
+version: 1.1.0
+tokens: ~950
+confidence: high
+sources:
+  - https://nextjs.org/docs/app/building-your-application/routing
+  - https://nextjs.org/docs/app/building-your-application/data-fetching
+  - https://nextjs.org/docs/messages/sync-dynamic-apis
+last_validated: 2025-12-10
+next_review: 2025-12-24
+tags: [nextjs, routing, frontend, ssr]
+nextjs_version: "13-16 (App Router)"
 ---
 
-# Next.js App Router
+## When to Use
 
-## Server vs Client Components
+Apply when building Next.js 13-16 applications with App Router for routing, layouts, data fetching, and server components.
 
-**Default to Server Components.** Only add `'use client'` when you need:
-- Event handlers (onClick, onChange, onSubmit)
-- Browser APIs (localStorage, window, navigator)
-- React hooks (useState, useEffect, useRef)
-- Third-party client libraries
+## Patterns
 
-```tsx
-// Server Component (default) - no directive needed
-export default async function Page() {
-  const data = await fetchData(); // Direct async/await
-  return <div>{data.title}</div>;
+### Pattern 1: Route Structure
+```
+app/
+├── layout.tsx          # Root layout (required)
+├── page.tsx            # Home page (/)
+├── loading.tsx         # Loading UI
+├── error.tsx           # Error boundary
+├── dashboard/
+│   ├── layout.tsx      # Nested layout
+│   ├── page.tsx        # /dashboard
+│   └── [id]/
+│       └── page.tsx    # /dashboard/:id
+└── api/
+    └── users/
+        └── route.ts    # API route /api/users
+```
+Source: https://nextjs.org/docs/app/building-your-application/routing
+
+### Pattern 2: Server Component (Default)
+```typescript
+// Source: https://nextjs.org/docs/app/building-your-application/data-fetching
+// app/posts/page.tsx - Server Component (no 'use client')
+async function PostsPage() {
+  const posts = await db.posts.findMany(); // Direct DB access
+
+  return (
+    <ul>
+      {posts.map(post => <li key={post.id}>{post.title}</li>)}
+    </ul>
+  );
 }
+export default PostsPage;
+```
 
-// Client Component - explicit directive
-'use client';
+### Pattern 3: Client Component
+```typescript
+// Source: https://nextjs.org/docs/app/building-your-application/rendering/client-components
+'use client'; // Mark as client component
+
 import { useState } from 'react';
-export default function Counter() {
+
+export function Counter() {
   const [count, setCount] = useState(0);
   return <button onClick={() => setCount(c => c + 1)}>{count}</button>;
 }
 ```
 
-## Next.js 15 Async Params (Critical)
-
-Params and searchParams are now Promises and must be awaited:
-
-```tsx
-// ✅ Correct - Next.js 15
-type Props = {
-  params: Promise<{ locale: string; slug: string }>;
-  searchParams: Promise<{ [key: string]: string | undefined }>;
-};
-
-export default async function Page({ params, searchParams }: Props) {
-  const { locale, slug } = await params;
-  const { theme } = await searchParams;
-  return <div>Locale: {locale}, Slug: {slug}</div>;
+### Pattern 4: Dynamic Routes with Params
+```typescript
+// Source: https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes
+// app/posts/[id]/page.tsx
+// Note: In Next.js 15+, params is a Promise and must be awaited.
+// Earlier versions used synchronous access (deprecated pattern).
+interface Props {
+  params: Promise<{ id: string }>;
 }
 
-// ✅ generateMetadata also uses async params
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { locale } = await params;
-  return { title: `Page - ${locale}` };
+export default async function PostPage({ params }: Props) {
+  const { id } = await params;
+  const post = await getPost(id);
+  return <article>{post.content}</article>;
 }
 ```
 
-## Route File Conventions
+### Pattern 5: Search Params (Query Strings)
+```typescript
+// Source: https://nextjs.org/docs/messages/sync-dynamic-apis
+// app/shop/page.tsx
+// Note: In Next.js 15+, searchParams is a Promise and must be awaited.
+interface Props {
+  searchParams: Promise<{ sort?: string; page?: string }>;
+}
 
-```
-app/
-├── layout.tsx          # Root layout (required)
-├── page.tsx            # Home page (/)
-├── loading.tsx         # Loading UI (Suspense boundary)
-├── error.tsx           # Error boundary ('use client' required)
-├── not-found.tsx       # 404 page
-├── [locale]/
-│   ├── layout.tsx      # Nested layout
-│   ├── page.tsx        # /[locale]
-│   └── services/
-│       ├── page.tsx    # /[locale]/services
-│       └── [slug]/
-│           └── page.tsx # /[locale]/services/[slug]
-└── api/
-    └── route.ts        # API route handler
-```
-
-## Layouts and Templates
-
-```tsx
-// app/[locale]/layout.tsx
-export default async function LocaleLayout({
-  children,
-  params,
-}: {
-  children: React.ReactNode;
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
-  return (
-    <html lang={locale}>
-      <body>{children}</body>
-    </html>
-  );
+export default async function ShopPage({ searchParams }: Props) {
+  const { sort, page } = await searchParams;
+  const products = await getProducts({ sort, page: Number(page) || 1 });
+  return <ProductList products={products} />;
 }
 ```
 
-## Server Actions
-
-```tsx
-// lib/actions.ts
-'use server';
-
-import { revalidatePath, revalidateTag } from 'next/cache';
-import { redirect } from 'next/navigation';
-
-export async function submitForm(formData: FormData) {
-  const email = formData.get('email') as string;
-  
-  // Validate with Zod (see zod-react-hook-form skill)
-  // Process data...
-  
-  revalidatePath('/[locale]/contact'); // Revalidate specific path
-  // OR revalidateTag('contact-submissions'); // Revalidate by tag
-  
-  redirect('/success'); // Optional redirect
-}
-
-// Usage in Client Component
-'use client';
-export function ContactForm() {
-  return (
-    <form action={submitForm}>
-      <input name="email" type="email" required />
-      <button type="submit">Submit</button>
-    </form>
-  );
-}
-```
-
-## Route Handlers (API Routes)
-
-```tsx
-// app/api/webhook/route.ts
+### Pattern 6: API Route Handler
+```typescript
+// Source: https://nextjs.org/docs/app/building-your-application/routing/route-handlers
+// app/api/users/route.ts
 import { NextRequest, NextResponse } from 'next/server';
+
+export async function GET(request: NextRequest) {
+  const users = await db.users.findMany();
+  return NextResponse.json(users);
+}
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
-  
-  // Process webhook...
-  
-  return NextResponse.json({ success: true }, { status: 200 });
-}
-
-export async function GET(request: NextRequest) {
-  const searchParams = request.nextUrl.searchParams;
-  const id = searchParams.get('id');
-  
-  return NextResponse.json({ id });
+  const user = await db.users.create({ data: body });
+  return NextResponse.json(user, { status: 201 });
 }
 ```
 
-## Data Fetching Patterns
-
-```tsx
-// Server Component with fetch
-async function getData() {
-  const res = await fetch('https://api.example.com/data', {
-    next: { revalidate: 3600 }, // ISR: revalidate every hour
-    // OR cache: 'no-store',    // SSR: always fresh
-    // OR next: { tags: ['data'] }, // On-demand with revalidateTag
-  });
-  
-  if (!res.ok) throw new Error('Failed to fetch');
-  return res.json();
-}
-
-export default async function Page() {
-  const data = await getData();
-  return <div>{data.title}</div>;
+### Pattern 7: Metadata for SEO
+```typescript
+// Source: https://nextjs.org/docs/app/building-your-application/optimizing/metadata
+// app/posts/[id]/page.tsx
+export async function generateMetadata({ params }: Props) {
+  const { id } = await params;
+  const post = await getPost(id);
+  return { title: post.title, description: post.excerpt };
 }
 ```
 
-## Static Generation
+## Anti-Patterns
 
-```tsx
-// Generate static params for dynamic routes
-export async function generateStaticParams() {
-  const locales = ['pt-PT', 'en', 'tr', 'es', 'fr', 'de'];
-  const services = await getServices();
-  
-  return locales.flatMap(locale =>
-    services.map(service => ({
-      locale,
-      slug: service.slug,
-    }))
-  );
-}
-```
+- **'use client' everywhere** - Default to server, add client only when needed
+- **Fetching in client components** - Fetch in server components, pass as props
+- **Direct DB in client** - Use API routes or server actions
+- **Missing loading.tsx** - Always add for async pages
+- **Accessing params/searchParams without await** - Next.js 15+ requires async access
 
-## Anti-Patterns to Avoid
+## Verification Checklist
 
-```tsx
-// ❌ Don't use params directly without awaiting (Next.js 15)
-export default function Page({ params }: { params: { id: string } }) {
-  return <div>{params.id}</div>; // Will cause errors
-}
-
-// ❌ Don't fetch in Client Components when Server Components work
-'use client';
-export default function Page() {
-  const [data, setData] = useState(null);
-  useEffect(() => { fetch('/api/data')... }, []); // Unnecessary
-}
-
-// ❌ Don't use 'use client' on entire pages unless necessary
-'use client';
-export default function Page() {
-  return <div>Static content</div>; // Should be Server Component
-}
-
-// ❌ Don't import Server Components into Client Components
-// Server Components can only be passed as children/props
-```
-
-## References
-
-For detailed patterns, see:
-- [PATTERNS.md](references/PATTERNS.md) - Advanced composition patterns
-- [DATA-FETCHING.md](references/DATA-FETCHING.md) - Caching strategies
+- [ ] Server components for data fetching (no 'use client')
+- [ ] Client components only for interactivity
+- [ ] Dynamic routes use params correctly (awaited in Next.js 15+)
+- [ ] searchParams awaited for query string access
+- [ ] loading.tsx exists for async pages
+- [ ] Metadata defined for SEO

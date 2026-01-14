@@ -1,13 +1,7 @@
 {
   "name": "mojo-simd-optimize",
-  "description": "Apply SIMD optimizations to Mojo code for parallel computation. Use when optimizing performance-critical tensor and array operations.",
   "repo": "mvillmow/ProjectOdyssey",
-  "category": "development",
-  "tags": [
-    "mojo",
-    "simd",
-    "optimize"
-  ],
-  "stars": 8,
-  "source": "local"
+  "path": ".claude/skills/mojo-simd-optimize/SKILL.md",
+  "source": "github.com/mvillmow/ProjectOdyssey",
+  "downloaded_at": "2026-01-14T01:08:57.894848Z"
 }

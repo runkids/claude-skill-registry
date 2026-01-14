@@ -1,12 +1,7 @@
 {
   "name": "implementation-phase",
-  "description": "\"Standard Operating Procedure for /implement phase. TDD workflow, anti-duplication checks, task execution, and continuous testing.\"",
-  "repo": "marcusgoll/robinhood-algo-trading-bot",
-  "category": "testing",
-  "tags": [
-    "implementation",
-    "phase"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "marcusgoll/Spec-Flow",
+  "path": ".claude/skills/implementation-phase/SKILL.md",
+  "source": "github.com/marcusgoll/Spec-Flow",
+  "downloaded_at": "2026-01-14T04:06:36.138304Z"
 }

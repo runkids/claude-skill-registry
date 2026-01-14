@@ -1,12 +1,7 @@
 {
   "name": "packages-graph",
-  "description": "Your approach to handling packages graph. Use this skill when working on files where packages graph comes into play.",
   "repo": "leaderiop/hex-di",
-  "category": "development",
-  "tags": [
-    "packages",
-    "graph"
-  ],
-  "stars": 5,
-  "source": "local"
+  "path": ".claude/skills/packages-graph/SKILL.md",
+  "source": "github.com/leaderiop/hex-di",
+  "downloaded_at": "2026-01-14T01:20:47.576839Z"
 }

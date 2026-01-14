@@ -1,7 +1,13 @@
 ---
 name: Questions Are Not Instructions
-description: "Ensures questions are answered literally before taking action. Triggers on user input containing '?' or patterns like 'why did you...?', 'will that work?', 'have you considered...?'. Use when user asks about your decisions, challenges an approach, or requests assessment. Prevents interpreting questions as implicit instructions or criticism."
-version: 1.0.0
+description: Ensures questions are answered literally before taking action. Triggers on user input containing '?' or patterns like 'why did you...?', 'will that work?', 'have you considered...?'. Use when user asks about your decisions, challenges an approach, or requests assessment. Prevents interpreting questions as implicit instructions or criticism.
+---
+
+# GitHub Copilot Skill: questions-are-not-instructions
+
+> **Note:** This skill has been adapted from [claude-skillz](https://github.com/NTCoding/claude-skillz) 
+> for use with GitHub Copilot Agent Skills.
+
 ---
 
 # Questions Are Not Instructions

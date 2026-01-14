@@ -1,8 +1,7 @@
 {
   "name": "hello-demo",
   "repo": "oaustegard/claude-skills",
-  "category": "data",
-  "description": "Delivers a static Hello World HTML demo page with bookmarklet. Use when user requests the hello demo, hello world demo, or demo page.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:54.797472Z"
+  "path": "hello-demo/SKILL.md",
+  "source": "github.com/oaustegard/claude-skills",
+  "downloaded_at": "2026-01-14T03:03:23.370013Z"
 }

@@ -1,375 +1,212 @@
 ---
 name: requirements-gathering
-description: Systematically collect, document, and validate requirements from stakeholders. Ensure clarity, completeness, and agreement before development begins to reduce scope creep and rework.
+description: Discovery questions, checklists, and techniques for gathering requirements. Use during discovery to ensure thorough understanding before creating issues.
 ---
 
-# Requirements Gathering
+# Requirements Gathering Skill
 
-## Overview
+This skill provides guidance for thorough requirements gathering during discovery.
 
-Effective requirements gathering establishes a shared understanding of what will be built, preventing misalignment and expensive changes later in the project.
+## Core Principle
 
-## When to Use
+**The more we nail down upfront, the better the results.** Don't assume - ASK.
 
-- Project kickoff and planning
-- Feature development initiation
-- Product roadmap planning
-- System modernization projects
-- Customer discovery
-- Stakeholder alignment sessions
-- Writing user stories and acceptance criteria
+## Your Job During Discovery
 
-## Instructions
+- Be thorough and inquisitive
+- Ask clarifying questions before creating any issues
+- Uncover hidden assumptions
+- Define the desired end state clearly
+- Identify edge cases early
+- Document what's in scope AND out of scope
 
-### 1. **Stakeholder Discovery**
+---
 
-```python
-# Identify and analyze stakeholders
+## Questions to Ask for Every Feature
 
-class StakeholderDiscovery:
-    STAKEHOLDER_CATEGORIES = [
-        'End Users',
-        'Business Owners',
-        'Technical Leads',
-        'Operations/Support',
-        'Customers',
-        'Regulatory Bodies',
-        'Integration Partners'
-    ]
+### Goals & Success
 
-    def identify_stakeholders(self, project):
-        """Map all stakeholder groups"""
-        return {
-            'primary': self.get_primary_stakeholders(project),
-            'secondary': self.get_secondary_stakeholders(project),
-            'tertiary': self.get_tertiary_stakeholders(project),
-            'total_to_engage': self.calculate_engagement_strategy(project)
-        }
+- What problem are we solving?
+- What does success look like? How will we measure it?
+- What's the priority relative to other work?
 
-    def analyze_stakeholder_needs(self, stakeholder):
-        """Understand what each stakeholder needs"""
-        return {
-            'stakeholder': stakeholder.name,
-            'role': stakeholder.role,
-            'goals': self.extract_goals(stakeholder),
-            'pain_points': self.extract_pain_points(stakeholder),
-            'constraints': self.extract_constraints(stakeholder),
-            'success_criteria': self.define_success(stakeholder),
-            'engagement_frequency': self.plan_engagement(stakeholder)
-        }
+### Users & Personas
 
-    def extract_goals(self, stakeholder):
-        """What does this stakeholder want to achieve?"""
-        return {
-            'business_goals': [],  # Revenue, efficiency, market share
-            'technical_goals': [],  # Performance, scalability, reliability
-            'user_goals': [],       # Ease of use, effectiveness
-            'operational_goals': []  # Support efficiency, uptime
-        }
+- Who are the users of this feature?
+- Are there different user types with different needs?
+- What permissions/roles are involved?
 
-    def extract_pain_points(self, stakeholder):
-        """What are current problems?"""
-        return [
-            'Current solution limitations',
-            'Integration challenges',
-            'Performance issues',
-            'User adoption barriers',
-            'Operational costs'
-        ]
+### Core Functionality
+
+- What is the primary goal?
+- Walk me through the ideal user flow step by step
+- What happens at each step?
+
+### Data & State
+
+- What data needs to be captured/stored?
+- What are the required fields vs optional?
+- Are there validation rules? (formats, lengths, ranges)
+- What's the initial/default state?
+
+### Edge Cases & Errors
+
+- What happens if [X] fails?
+- What if the user enters invalid data?
+- What about empty states? (no data yet)
+- What about concurrent access?
+- Rate limiting needed?
+
+### UI/UX (if applicable)
+
+- Is there a specific design or layout in mind?
+- Mobile responsive?
+- Accessibility requirements?
+- Loading states? Progress indicators?
+- Success/error feedback to user?
+
+### Integration
+
+- Does this connect to external services?
+- Are there existing patterns to follow?
+- API format preferences?
+
+### Security & Privacy
+
+- Is this data sensitive?
+- Authentication required?
+- Who can see/edit this data?
+
+### Architecture & Technical
+
+- What's the existing tech stack?
+- Are there performance requirements? (latency, throughput, scale)
+- What's the deployment environment?
+- Are there budget constraints?
+- What external services or APIs are involved?
+
+### Scope Boundaries
+
+- What is explicitly NOT included?
+- Are there future phases we should plan for but not build now?
+- What's the MVP vs nice-to-have?
+- What can we cut if we run short?
+
+---
+
+## Red Flags to Probe
+
+When the user says something vague, dig deeper:
+
+| User Says | Ask About |
+|-----------|-----------|
+| "Simple login" | What's simple? OAuth? Email/password? Magic links? |
+| "Just like [X site]" | Which specific features? They have many |
+| "Standard CRUD" | What fields? Validation? Permissions? |
+| "Users can edit" | Edit what exactly? All fields? Their own only? |
+| "Normal validation" | What's normal? Email format? Required fields? |
+| "Handle errors" | Which errors? How? Messages? Retry? |
+| "Make it secure" | What threats? Auth? Encryption? Rate limiting? |
+| "Real-time updates" | WebSockets? SSE? Polling? How fresh? |
+| "Good performance" | What's good? <100ms? <1s? Specific benchmarks? |
+
+---
+
+## Discovery Readiness Checklist
+
+**Don't move to issue creation until:**
+
+- [ ] You understand the complete user flow
+- [ ] You've identified all user types involved
+- [ ] You know what data is captured and validated
+- [ ] Edge cases and error handling are defined
+- [ ] Security/permission requirements are clear
+- [ ] You know what's explicitly OUT of scope
+- [ ] The user has confirmed your understanding
+- [ ] Architecture approach is validated
+- [ ] UI/UX requirements are captured (if applicable)
+
+---
+
+## Example: Requirements Interview
+
+**User says:** "Add user authentication"
+
+**Good discovery response:**
+
+```
+Before we design this, let me make sure I understand the full scope:
+
+**Users:**
+1. Is this for end-users, admins, or both?
+2. Will there be different roles/permissions?
+
+**Registration:**
+3. What fields are required? (email, password, name, etc.)
+4. Email verification required?
+5. Password requirements? (length, complexity)
+6. Terms of service acceptance?
+
+**Login:**
+7. Remember me / stay logged in option?
+8. Session timeout duration?
+9. Multiple device login allowed?
+
+**Password:**
+10. Password reset flow - email link or security questions?
+11. Password change when logged in?
+12. Account lockout after failed attempts?
+
+**Security:**
+13. Two-factor authentication needed?
+14. OAuth/social login? (Google, GitHub, etc.)
+15. Rate limiting on login attempts?
+
+**Edge cases:**
+16. What happens to existing data/users (if any)?
+17. Account deletion/deactivation?
+
+**Out of scope (confirm):**
+18. User profile editing - separate feature?
+19. Admin user management - separate feature?
 ```
 
-### 2. **Requirements Elicitation Techniques**
-
-```yaml
-Elicitation Techniques:
-
-1. Interviews (One-on-One)
-   Best For: Senior stakeholders, sensitive topics
-   Duration: 30-60 minutes
-   Output: Detailed requirements, context
-   Preparation: Create question guide, schedule in advance
-
-   Sample Questions:
-     - What are you trying to accomplish?
-     - What's currently preventing you?
-     - What would success look like?
-     - What metrics matter most?
-     - What are your biggest risks?
-
 ---
 
-2. Workshops (Group Sessions)
-   Best For: Cross-functional alignment, brainstorming
-   Duration: 2-4 hours
-   Output: Consensus, prioritization
-   Preparation: Agenda, facilitation guide, materials
+## Capturing Discovery Output
 
-   Format:
-     - Opening (10 min): Goals and agenda
-     - Brainstorm (45 min): Generate ideas
-     - Clarify (30 min): Understand each idea
-     - Prioritize (45 min): Rank by importance
-     - Decide (30 min): Commit to priorities
+As you gather requirements, document findings in structured format:
 
----
+```markdown
+## Goals
+- [Primary goal]
+- [Success metrics]
 
-3. User Observation (Contextual Inquiry)
-   Best For: Understanding actual workflows
-   Duration: 2-4 hours
-   Output: Realistic workflows, hidden requirements
-   Preparation: Gain access, create observation guide
+## Users
+- [User type 1]: [needs]
+- [User type 2]: [needs]
 
-   Focus On:
-     - Current workflow steps
-     - Pain points and workarounds
-     - Frequency of tasks
-     - Error handling
-     - Collaboration patterns
+## Requirements
+### Must Have (MVP)
+- [Requirement 1]
+- [Requirement 2]
 
----
+### Nice to Have
+- [Requirement 3]
 
-4. Surveys
-   Best For: Broad input from many people
-   Duration: 10-15 minutes per respondent
-   Output: Quantified preferences, trends
-   Preparation: Write clear questions, select sample
+## Architecture Considerations
+- [Technical approach]
+- [Constraints]
 
-   Types:
-     - Multiple choice (easy analysis)
-     - Rating scales (prioritization)
-     - Open-ended (discovery)
-     - Ranking (prioritization)
+## UI/UX Requirements
+- [Design notes]
 
----
+## Out of Scope
+- [Explicitly excluded item 1]
+- [Explicitly excluded item 2]
 
-5. Document Analysis
-   Best For: Understanding existing processes
-   Duration: Variable
-   Output: Current state understanding
-   Preparation: Request documents in advance
-
-   Review:
-     - Process documentation
-     - System specifications
-     - User manuals
-     - Incident reports
-     - Competitor products
+## Open Questions
+- [Any remaining unknowns]
 ```
 
-### 3. **Requirements Documentation**
-
-```javascript
-// Structure and document requirements
-
-class RequirementsDocument {
-  createRequirementStatement(requirement) {
-    return {
-      id: `REQ-${Date.now()}`,
-      title: requirement.title,
-      description: requirement.description,
-      rationale: 'Why is this important?',
-      source: requirement.stakeholder,
-      category: requirement.category, // Functional, non-functional, constraint
-      priority: requirement.priority, // Must, Should, Could, Won't
-      acceptance_criteria: [
-        {
-          criterion: 'Specific, measurable behavior',
-          test: 'How to verify'
-        }
-      ],
-      dependencies: [],
-      assumptions: [],
-      constraints: [],
-      estimated_effort: 'TBD',
-      status: 'Draft',
-      last_reviewed: new Date(),
-      review_comments: []
-    };
-  }
-
-  categorizeRequirements(requirements) {
-    return {
-      functional: requirements.filter(r => r.category === 'Functional'),
-      non_functional: requirements.filter(r => r.category === 'Non-Functional'),
-      constraints: requirements.filter(r => r.category === 'Constraint'),
-      prioritized: this.prioritizeRequirements(requirements)
-    };
-  }
-
-  prioritizeRequirements(requirements) {
-    // MoSCoW method: Must, Should, Could, Won't
-    return {
-      must: requirements.filter(r => r.priority === 'Must'),
-      should: requirements.filter(r => r.priority === 'Should'),
-      could: requirements.filter(r => r.priority === 'Could'),
-      wont: requirements.filter(r => r.priority === 'Won\'t')
-    };
-  }
-
-  validateRequirements(requirements) {
-    const issues = [];
-
-    requirements.forEach(req => {
-      // Check completeness
-      if (!req.acceptance_criteria || req.acceptance_criteria.length === 0) {
-        issues.push({
-          requirement: req.id,
-          issue: 'Missing acceptance criteria',
-          severity: 'High'
-        });
-      }
-
-      // Check clarity
-      if (req.description.length < 20) {
-        issues.push({
-          requirement: req.id,
-          issue: 'Description too vague',
-          severity: 'High'
-        });
-      }
-
-      // Check for ambiguous words
-      const ambiguousWords = ['quickly', 'easily', 'user-friendly', 'efficient'];
-      if (ambiguousWords.some(word => req.description.includes(word))) {
-        issues.push({
-          requirement: req.id,
-          issue: 'Contains ambiguous language',
-          severity: 'Medium'
-        });
-      }
-    });
-
-    return {
-      valid: issues.length === 0,
-      issues: issues,
-      recommendations: this.getRecommendations(issues)
-    };
-  }
-}
-```
-
-### 4. **Requirement Validation & Sign-Off**
-
-```yaml
-Requirements Review Checklist:
-
-Completeness:
-  [ ] All stakeholder needs documented
-  [ ] Functional requirements defined
-  [ ] Non-functional requirements specified
-  [ ] Constraints identified
-  [ ] Assumptions documented
-  [ ] Exclusions clearly stated
-
-Clarity:
-  [ ] Requirements are specific and measurable
-  [ ] No ambiguous language
-  [ ] Acceptance criteria clear
-  [ ] Technical team understands
-  [ ] Business team agrees
-
-Feasibility:
-  [ ] Requirements technically feasible
-  [ ] Timeline realistic
-  [ ] Resource requirements identified
-  [ ] Risk assessment completed
-  [ ] Dependencies identified
-
-Traceability:
-  [ ] Each requirement traced to stakeholder need
-  [ ] Each requirement linked to user story
-  [ ] Each requirement connected to tests
-
-Validation:
-  [ ] Stakeholder review completed
-  [ ] Business approval obtained
-  [ ] Technical feasibility confirmed
-  [ ] Sign-off received
-
----
-
-Sign-Off:
-
-Business Lead: ____________________  Date: ________
-Technical Lead: ____________________  Date: ________
-Project Manager: ____________________  Date: ________
-
-Requirements Baseline Established: February 1, 2025
-Approved For: Development Planning
-Change Control Process: Activated
-```
-
-### 5. **Requirements Traceability Matrix**
-
-```yaml
-Traceability Matrix:
-
-Stakeholder Need → Requirement → User Story → Test Case
-
----
-
-Stakeholder: CFO (Cost Reduction)
-Need: Reduce operational costs by 30%
-
-Requirements:
-  REQ-101: System must auto-scale infrastructure
-  REQ-102: Must support multi-region deployment
-  REQ-103: Database queries must complete in <500ms
-
-User Stories:
-  US-201: As an ops engineer, I can scale resources automatically
-  US-202: As a user, I can access service from any region
-
-Test Cases:
-  TC-301: Verify auto-scaling triggers at 80% capacity
-  TC-302: Verify <100ms latency between regions
-
----
-
-Stakeholder: VP Product
-Need: Improve user engagement by 25%
-
-Requirements:
-  REQ-104: Mobile-first responsive design
-  REQ-105: Push notifications support
-  REQ-106: Offline-first capability
-
-Related Metrics:
-  - Daily active users +25%
-  - Session duration +40%
-  - User retention +15%
-```
-
-## Best Practices
-
-### ✅ DO
-- Engage all key stakeholders early
-- Document requirements in writing
-- Use specific, measurable language
-- Define acceptance criteria
-- Prioritize using MoSCoW method
-- Get stakeholder sign-off
-- Create traceability matrix
-- Review requirements regularly
-- Distinguish must-haves from nice-to-haves
-- Document assumptions and constraints
-
-### ❌ DON'T
-- Rely on memory or verbal agreements
-- Create requirements without stakeholder input
-- Use ambiguous language (quickly, easily, etc.)
-- Skip non-functional requirements
-- Ignore constraints and dependencies
-- Over-document trivial details
-- Rush through requirements phase
-- Build without stakeholder agreement
-- Make scope changes without process
-- Forget about edge cases and error conditions
-
-## Requirements Gathering Tips
-
-- Use prototypes to clarify requirements
-- Review requirements in writing before meetings
-- Get one stakeholder representative
-- Use visual diagrams for complex workflows
-- Test requirements understanding through mock demos
+This structured output becomes the `discovery.md` document.

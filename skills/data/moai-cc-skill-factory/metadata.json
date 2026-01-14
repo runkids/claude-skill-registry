@@ -1,13 +1,7 @@
 {
   "name": "moai-cc-skill-factory",
-  "description": "Create and maintain high-quality Claude Code Skills through interactive discovery, web research, and comprehensive description writing standards. Use when building new Skills, researching latest best ",
   "repo": "kivo360/quickhooks",
-  "category": "development",
-  "tags": [
-    "moai",
-    "skill",
-    "factory"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/moai-cc-skill-factory/SKILL.md",
+  "source": "github.com/kivo360/quickhooks",
+  "downloaded_at": "2026-01-14T03:32:58.195118Z"
 }

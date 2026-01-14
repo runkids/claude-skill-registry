@@ -1,12 +1,7 @@
 {
   "name": "error-handling",
-  "description": "Error-handling conventions (error mapping/presentation, what to throw vs return, user-facing output). Use when adding errors or changing failure behavior.",
-  "repo": "Anveio/conveaux",
-  "category": "data",
-  "tags": [
-    "error",
-    "handling"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "YosrBennagra/3SC",
+  "path": ".github/skills/error-handling/SKILL.md",
+  "source": "github.com/YosrBennagra/3SC",
+  "downloaded_at": "2026-01-14T03:54:59.813547Z"
 }

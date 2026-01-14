@@ -1,298 +1,287 @@
 ---
+# ═══════════════════════════════════════════════════════════════════════════
+# SKILL: Data Engineering
+# Version: 2.0.0 | Updated: 2025-01
+# ═══════════════════════════════════════════════════════════════════════════
 name: data-engineering
-description: Data pipeline architecture, ETL/ELT patterns, data modeling, and production data platform design
+description: Data engineering, machine learning, AI, and MLOps. From data pipelines to production ML systems and LLM applications.
+
+# ACTIVATION TRIGGERS
+triggers:
+  - data engineering
+  - machine learning
+  - ml
+  - ai
+  - mlops
+  - spark
+  - airflow
+  - llm
+  - rag
+  - langchain
+
+# SKILL PARAMETERS
+parameters:
+  role:
+    type: string
+    enum: [data-engineer, ml-engineer, ai-engineer]
+    required: true
+  experience:
+    type: string
+    enum: [beginner, intermediate, advanced]
+    required: false
+    default: beginner
+
+# OUTPUT SPECIFICATION
+outputs:
+  learning_path:
+    type: array
+  tech_stack:
+    type: object
+  projects:
+    type: array
+
+# RELIABILITY
+retry:
+  max_attempts: 3
+  backoff: exponential
+
+# OBSERVABILITY
+observability:
+  log_level: info
+  metrics: [path_completion_rate]
+
+level: advanced
+prerequisites:
+  - programming-basics
+  - python-advanced
+
 sasmp_version: "1.3.0"
-bonded_agent: 01-data-engineer
+bonded_agent: 01-core-paths
 bond_type: PRIMARY_BOND
-skill_version: "2.0.0"
-last_updated: "2025-01"
-complexity: foundational
-estimated_mastery_hours: 100
-prerequisites: [python-programming, sql-databases]
-unlocks: [etl-tools, big-data, data-warehousing]
 ---
 
-# Data Engineering Fundamentals
+# Data Engineering Skill
 
-Core data engineering concepts, patterns, and practices for building production data platforms.
+## Quick Reference
 
-## Quick Start
-
-```python
-# Production Data Pipeline Pattern
-from dataclasses import dataclass
-from datetime import datetime
-from typing import Generator
-import logging
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-
-@dataclass
-class PipelineConfig:
-    source: str
-    destination: str
-    batch_size: int = 10000
-    retry_count: int = 3
-
-class DataPipeline:
-    """Production-ready data pipeline with error handling."""
-
-    def __init__(self, config: PipelineConfig):
-        self.config = config
-        self.metrics = {"extracted": 0, "transformed": 0, "loaded": 0, "errors": 0}
-
-    def extract(self) -> Generator[dict, None, None]:
-        """Extract data in batches from source."""
-        logger.info(f"Extracting from {self.config.source}")
-        offset = 0
-        while True:
-            batch = self._fetch_batch(offset, self.config.batch_size)
-            if not batch:
-                break
-            self.metrics["extracted"] += len(batch)
-            yield batch
-            offset += self.config.batch_size
-
-    def transform(self, batch: list[dict]) -> list[dict]:
-        """Apply transformations with validation."""
-        transformed = []
-        for record in batch:
-            try:
-                cleaned = self._clean_record(record)
-                enriched = self._enrich_record(cleaned)
-                transformed.append(enriched)
-            except Exception as e:
-                logger.warning(f"Transform error: {e}")
-                self.metrics["errors"] += 1
-        self.metrics["transformed"] += len(transformed)
-        return transformed
-
-    def load(self, batch: list[dict]) -> None:
-        """Load to destination with retry logic."""
-        for attempt in range(self.config.retry_count):
-            try:
-                self._write_batch(batch)
-                self.metrics["loaded"] += len(batch)
-                return
-            except Exception as e:
-                if attempt == self.config.retry_count - 1:
-                    raise
-                logger.warning(f"Load attempt {attempt + 1} failed: {e}")
-
-    def run(self) -> dict:
-        """Execute full ETL pipeline."""
-        start_time = datetime.now()
-        logger.info("Pipeline started")
-
-        for batch in self.extract():
-            transformed = self.transform(batch)
-            if transformed:
-                self.load(transformed)
-
-        duration = (datetime.now() - start_time).total_seconds()
-        self.metrics["duration_seconds"] = duration
-        logger.info(f"Pipeline completed: {self.metrics}")
-        return self.metrics
-```
-
-## Core Concepts
-
-### 1. Data Architecture Patterns
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                    Modern Data Architecture                      │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                  │
-│  Sources          Ingestion        Storage         Consumption  │
-│  ────────         ─────────        ───────         ───────────  │
-│  ┌──────┐        ┌─────────┐      ┌───────┐       ┌──────────┐ │
-│  │ APIs │───────▶│ Airbyte │─────▶│ Raw   │──────▶│ BI Tools │ │
-│  │ DBs  │        │ Fivetran│      │ Layer │       │ Dashboards│ │
-│  │ Files│        │ Kafka   │      │ (S3)  │       └──────────┘ │
-│  │ SaaS │        └─────────┘      └───┬───┘                    │
-│  └──────┘                             │                         │
-│                                       ▼                         │
-│                               ┌───────────────┐                 │
-│                               │  Transform    │                 │
-│                               │  (dbt/Spark)  │                 │
-│                               └───────┬───────┘                 │
-│                                       │                         │
-│                                       ▼                         │
-│                               ┌───────────────┐   ┌──────────┐ │
-│                               │   Warehouse   │──▶│ ML/AI    │ │
-│                               │  (Snowflake)  │   │ Pipelines│ │
-│                               └───────────────┘   └──────────┘ │
-│                                                                  │
-└─────────────────────────────────────────────────────────────────┘
-```
-
-### 2. ETL vs ELT
-
-```python
-# ETL Pattern (Transform before load)
-# Best for: Sensitive data, complex transformations, limited storage
-
-def etl_pipeline():
-    raw_data = extract_from_source()
-    cleaned_data = transform_and_clean(raw_data)  # Transform first
-    load_to_destination(cleaned_data)
-
-# ELT Pattern (Load then transform)
-# Best for: Cloud warehouses, large scale, exploratory analysis
-
-def elt_pipeline():
-    raw_data = extract_from_source()
-    load_to_staging(raw_data)  # Load raw first
-    # Transform in warehouse with SQL/dbt
-    run_dbt_models()
-```
-
-### 3. Data Quality Framework
-
-```python
-from dataclasses import dataclass
-from typing import Callable, Any
-import pandas as pd
-
-@dataclass
-class DataQualityCheck:
-    name: str
-    check_fn: Callable[[pd.DataFrame], bool]
-    severity: str  # "error" or "warning"
-
-class DataQualityValidator:
-    def __init__(self, checks: list[DataQualityCheck]):
-        self.checks = checks
-        self.results = []
-
-    def validate(self, df: pd.DataFrame) -> bool:
-        all_passed = True
-        for check in self.checks:
-            passed = check.check_fn(df)
-            self.results.append({
-                "check": check.name,
-                "passed": passed,
-                "severity": check.severity
-            })
-            if not passed and check.severity == "error":
-                all_passed = False
-        return all_passed
-
-# Define checks
-checks = [
-    DataQualityCheck(
-        name="no_nulls_in_id",
-        check_fn=lambda df: df["id"].notna().all(),
-        severity="error"
-    ),
-    DataQualityCheck(
-        name="positive_amounts",
-        check_fn=lambda df: (df["amount"] > 0).all(),
-        severity="error"
-    ),
-    DataQualityCheck(
-        name="valid_dates",
-        check_fn=lambda df: pd.to_datetime(df["date"], errors="coerce").notna().all(),
-        severity="warning"
-    ),
-]
-
-validator = DataQualityValidator(checks)
-if not validator.validate(df):
-    raise ValueError(f"Data quality checks failed: {validator.results}")
-```
-
-### 4. Idempotent Operations
-
-```python
-from datetime import date
-
-def idempotent_load(df: pd.DataFrame, table: str, partition_date: date):
-    """
-    Idempotent load: can be re-run safely without duplicates.
-    Uses delete-then-insert pattern.
-    """
-    # Delete existing data for this partition
-    db.execute(f"""
-        DELETE FROM {table}
-        WHERE partition_date = %(date)s
-    """, {"date": partition_date})
-
-    # Insert new data
-    df["partition_date"] = partition_date
-    df.to_sql(table, db, if_exists="append", index=False)
-
-# Alternative: MERGE/UPSERT pattern
-def upsert_records(df: pd.DataFrame, table: str, key_columns: list[str]):
-    """Upsert: Update existing, insert new."""
-    temp_table = f"{table}_staging"
-    df.to_sql(temp_table, db, if_exists="replace", index=False)
-
-    key_match = " AND ".join([f"t.{k} = s.{k}" for k in key_columns])
-
-    db.execute(f"""
-        MERGE INTO {table} t
-        USING {temp_table} s ON {key_match}
-        WHEN MATCHED THEN UPDATE SET ...
-        WHEN NOT MATCHED THEN INSERT ...
-    """)
-```
-
-## Tools & Technologies
-
-| Tool | Purpose | Version (2025) |
-|------|---------|----------------|
-| **Python** | Pipeline development | 3.12+ |
-| **SQL** | Data transformation | - |
-| **Airflow** | Orchestration | 2.8+ |
-| **dbt** | SQL transformations | 1.7+ |
-| **Spark** | Large-scale processing | 3.5+ |
-| **Airbyte** | Data integration | 0.55+ |
-| **Great Expectations** | Data quality | 0.18+ |
-
-## Troubleshooting Guide
-
-| Issue | Symptoms | Root Cause | Fix |
-|-------|----------|------------|-----|
-| **Duplicate Data** | Count mismatch | Non-idempotent load | Use MERGE, add dedup |
-| **Schema Drift** | Pipeline failure | Source schema changed | Schema validation, alerts |
-| **Data Freshness** | Stale data | Pipeline delays | Monitor SLAs, alerting |
-| **Memory Error** | OOM in pipeline | Large batch size | Chunked processing |
-
-## Best Practices
-
-```python
-# ✅ DO: Make pipelines idempotent
-delete_and_insert(partition_date)
-
-# ✅ DO: Add observability
-logger.info(f"Processed {count} records", extra={"metric": "records_processed"})
-
-# ✅ DO: Validate data at boundaries
-validate_schema(df, expected_schema)
-validate_constraints(df)
-
-# ✅ DO: Use incremental processing
-WHERE updated_at > last_run_timestamp
-
-# ❌ DON'T: Process all data every run
-# ❌ DON'T: Skip data quality checks
-# ❌ DON'T: Ignore schema changes
-```
-
-## Resources
-
-- [Data Engineering Wiki](https://dataengineering.wiki/)
-- [Fundamentals of Data Engineering (Book)](https://www.oreilly.com/library/view/fundamentals-of-data/9781098108298/)
-- [dbt Best Practices](https://docs.getdbt.com/guides/best-practices)
+| Role | Focus | Timeline | Entry From |
+|------|-------|----------|------------|
+| **Data Engineer** | Pipelines, Infra | 12-24 mo | Backend Dev |
+| **ML Engineer** | Models, Features | 12-24 mo | Data Scientist |
+| **AI Engineer** | LLMs, Agents | 6-12 mo | Any Developer |
 
 ---
 
-**Skill Certification Checklist:**
-- [ ] Can design end-to-end data pipelines
-- [ ] Can implement idempotent data loads
-- [ ] Can set up data quality validation
-- [ ] Can choose appropriate ETL vs ELT patterns
-- [ ] Can monitor and troubleshoot pipelines
+## Learning Paths
+
+### Data Engineer
+```
+[1] SQL Mastery (4-6 wk)
+ │  └─ Window functions, CTEs, optimization
+ │
+ ▼
+[2] Python for Data (4-6 wk)
+ │  └─ Pandas, file formats, scripting
+ │
+ ▼
+[3] ETL/ELT Pipelines (6-8 wk)
+ │  └─ Extract, transform, load patterns
+ │
+ ▼
+[4] Big Data: Spark (8-12 wk)
+ │  └─ PySpark, DataFrames, partitioning
+ │
+ ▼
+[5] Data Warehouse (4-6 wk)
+ │  └─ Star schema, dbt, Snowflake/BQ
+ │
+ ▼
+[6] Orchestration (4-6 wk)
+    └─ Airflow/Prefect, scheduling, monitoring
+```
+
+**2025 Stack:** Python + Spark + Airflow + dbt + Snowflake/BigQuery
+
+---
+
+### ML Engineer
+```
+[1] Python + NumPy (4-6 wk)
+ │
+ ▼
+[2] Math Foundations (6-8 wk)
+ │  └─ Linear algebra, calculus, statistics
+ │
+ ▼
+[3] Classical ML (8-12 wk)
+ │  └─ scikit-learn, XGBoost, evaluation
+ │
+ ▼
+[4] Deep Learning (8-12 wk)
+ │  └─ PyTorch, CNNs, Transformers
+ │
+ ▼
+[5] MLOps (6-8 wk)
+    └─ MLflow, model serving, monitoring
+```
+
+**2025 Stack:** Python + PyTorch + scikit-learn + MLflow + W&B
+
+---
+
+### AI Engineer (2025 Hot Path)
+```
+[1] LLM Fundamentals (2-3 wk)
+ │  └─ Tokens, embeddings, context windows
+ │
+ ▼
+[2] Prompt Engineering (2-3 wk)
+ │  └─ Few-shot, CoT, structured output
+ │
+ ▼
+[3] RAG Systems (3-4 wk)
+ │  └─ Embeddings, vector DBs, retrieval
+ │
+ ▼
+[4] AI Agents (4-6 wk)
+ │  └─ Tool calling, agent loops, memory
+ │
+ ▼
+[5] Production Deploy (ongoing)
+    └─ Evaluation, guardrails, monitoring
+```
+
+**2025 Stack:** Python + LangChain/LlamaIndex + OpenAI/Anthropic + ChromaDB
+
+---
+
+## 2025 Tool Matrix
+
+### Data Processing
+| Tool | Scale | Use Case |
+|------|-------|----------|
+| **Pandas** | <10GB | Prototyping, small data |
+| **Polars** | <100GB | Fast local processing |
+| **Spark** | >100GB | Distributed processing |
+| **dbt** | Any | Transformations, testing |
+
+### ML Frameworks
+| Framework | Best For | Complexity |
+|-----------|----------|------------|
+| **scikit-learn** | Classical ML | Low |
+| **XGBoost** | Tabular data | Low |
+| **PyTorch** | Research, flexibility | Medium |
+| **TensorFlow** | Production, mobile | Medium |
+
+### LLM/AI Tools
+| Tool | Use Case |
+|------|----------|
+| **LangChain** | LLM orchestration |
+| **LlamaIndex** | RAG systems |
+| **Claude/OpenAI** | LLM APIs |
+| **ChromaDB** | Vector storage |
+
+---
+
+## Algorithm Reference
+
+### Classical ML
+| Type | Algorithms |
+|------|------------|
+| Regression | Linear, Ridge, Lasso, ElasticNet |
+| Classification | Logistic, SVM, Decision Tree |
+| Ensemble | Random Forest, XGBoost, LightGBM |
+| Clustering | K-Means, DBSCAN, Hierarchical |
+
+### Deep Learning
+| Architecture | Use Case |
+|--------------|----------|
+| **CNN** | Images, vision |
+| **RNN/LSTM** | Sequences |
+| **Transformer** | NLP, LLMs |
+| **Diffusion** | Image generation |
+
+---
+
+## AI Agent Architecture (2025)
+
+```
+┌─────────────────────────────────────────┐
+│            AGENTIC LOOP                  │
+├─────────────────────────────────────────┤
+│  PERCEIVE → REASON → ACT → REFLECT      │
+│      │         │       │       │        │
+│      │         │       │       └─► Loop │
+│      │         │       └─► Execute tools│
+│      │         └─► LLM decides action   │
+│      └─► Gather context, observations   │
+└─────────────────────────────────────────┘
+
+Design Patterns (Anthropic 2025):
+• Prompt Chaining - Sequential fixed steps
+• Routing - Classify and dispatch
+• Parallelization - Concurrent subtasks
+• Orchestrator-Workers - Central delegation
+• Evaluator-Optimizer - Generate + critique
+```
+
+---
+
+## Troubleshooting
+
+```
+Which path to choose?
+├─► Love building infrastructure? → Data Engineer
+├─► Love algorithms/math? → ML Engineer
+├─► Want fastest AI entry? → AI Engineer
+└─► Uncertain? → Start with Python + SQL
+
+Model not performing well?
+├─► Data quality issues? → Clean data first
+├─► Feature engineering? → Create better features
+├─► Wrong algorithm? → Try different models
+├─► Overfitting? → More data, regularization
+└─► Hyperparameters? → Grid/random search
+
+LLM giving bad answers?
+├─► Prompt too vague? → Be more specific
+├─► Missing context? → Add relevant info
+├─► Hallucinating? → Use RAG, verify facts
+└─► Wrong tool? → Improve tool descriptions
+```
+
+---
+
+## Common Failure Modes
+
+| Symptom | Root Cause | Recovery |
+|---------|------------|----------|
+| Model fails in prod | Data drift | Monitor distributions |
+| Pipeline always late | Unoptimized queries | Profile, partition |
+| RAG finds wrong docs | Bad chunking | Tune chunk size, overlap |
+| Agent loops forever | No exit condition | Add max iterations |
+
+---
+
+## Portfolio Projects
+
+### Data Engineering
+1. ETL Pipeline (Airflow + dbt)
+2. Real-time Streaming (Kafka + Spark)
+3. Data Warehouse Design
+
+### ML Engineering
+1. Classification Model (scikit-learn)
+2. Deep Learning Model (PyTorch)
+3. ML Pipeline (MLflow)
+
+### AI Engineering
+1. RAG Chatbot (LangChain + ChromaDB)
+2. AI Agent with Tools
+3. Multi-Agent System
+
+---
+
+## Next Actions
+
+Specify your target role for a detailed learning plan.

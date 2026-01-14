@@ -1,13 +1,7 @@
 {
   "name": "log-aggregation-configurator",
-  "description": "Set up centralized logging with ELK, Loki, or Splunk for log management",
   "repo": "Dexploarer/hyper-forge",
-  "category": "development",
-  "tags": [
-    "log",
-    "aggregation",
-    "configurator"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": ".claude/skills/log-aggregation-configurator/SKILL.md",
+  "source": "github.com/Dexploarer/hyper-forge",
+  "downloaded_at": "2026-01-14T03:02:57.473009Z"
 }

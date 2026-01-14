@@ -1,9 +1,7 @@
 {
   "name": "nav-compact",
-  "description": "Clear conversation context while preserving knowledge via context marker. Use when user says \"clear context\", \"start fresh\", \"done with this task\", or when approaching token limits.",
   "repo": "alekspetrov/navigator",
-  "category": "productivity",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/nav-compact/SKILL.md",
+  "source": "github.com/alekspetrov/navigator",
+  "downloaded_at": "2026-01-14T01:02:05.384027Z"
 }

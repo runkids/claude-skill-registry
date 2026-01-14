@@ -1,13 +1,7 @@
 {
   "name": "multi-tool-pipeline",
-  "description": "Template for chaining multiple MCP tools in a single script",
-  "repo": "parcadei/Continuous-Claude-v2",
-  "category": "data",
-  "tags": [
-    "multi",
-    "tool",
-    "pipeline"
-  ],
-  "stars": 1318,
-  "source": "SkillsMP Synced Skills"
+  "repo": "yoloshii/mcp-code-execution-enhanced",
+  "path": ".claude/skills/multi-tool-pipeline/SKILL.md",
+  "source": "github.com/yoloshii/mcp-code-execution-enhanced",
+  "downloaded_at": "2026-01-14T01:51:15.833474Z"
 }

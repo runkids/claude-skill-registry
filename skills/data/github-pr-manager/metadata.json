@@ -1,12 +1,7 @@
 {
   "name": "github-pr-manager",
-  "description": "Create, view, and merge GitHub pull requests with validation. Use when creating PRs from branches, checking PR status, or merging approved PRs with cleanup.",
   "repo": "EdanStarfire/claudecode_webui",
-  "category": "development",
-  "tags": [
-    "github",
-    "manager"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": ".claude/skills/github-pr-manager/SKILL.md",
+  "source": "github.com/EdanStarfire/claudecode_webui",
+  "downloaded_at": "2026-01-14T01:51:07.581056Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "pubmed-gene-drug-research",
-  "description": "Gene, drug compound, and disease research using NCBI Extended databases. Triggers: 基因, gene, 藥物, drug, compound, PubChem, ClinVar, 變異, variant, 臨床意義",
   "repo": "u9401066/pubmed-search-mcp",
-  "category": "data",
-  "tags": [
-    "pubmed",
-    "gene",
-    "drug",
-    "research"
-  ],
-  "stars": 0
+  "path": ".claude/skills/pubmed-gene-drug-research/SKILL.md",
+  "source": "github.com/u9401066/pubmed-search-mcp",
+  "downloaded_at": "2026-01-14T03:06:43.555463Z"
 }

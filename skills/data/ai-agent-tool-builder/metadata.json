@@ -1,13 +1,7 @@
 {
   "name": "ai-agent-tool-builder",
-  "description": "Create MCP servers, function calling tools, and composable tool frameworks for AI agents",
   "repo": "doctorduke/claude-config",
-  "category": "development",
-  "tags": [
-    "agent",
-    "tool",
-    "builder"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/ai-agent-tool-builder/SKILL.md",
+  "source": "github.com/doctorduke/claude-config",
+  "downloaded_at": "2026-01-14T03:47:47.633892Z"
 }

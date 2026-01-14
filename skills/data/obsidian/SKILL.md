@@ -1,108 +1,55 @@
 ---
 name: obsidian
-description: "Read, write, search, and manage Obsidian vault notes. Use when: (1) Reading/writing markdown notes, (2) Searching vault content, (3) Managing daily/periodic notes, (4) Tracking tasks or oncall incidents. Supports filesystem access and Local REST API."
+description: Work with Obsidian vaults (plain Markdown notes) and automate via obsidian-cli.
+homepage: https://help.obsidian.md
+metadata: {"clawdbot":{"emoji":"💎","requires":{"bins":["obsidian-cli"]},"install":[{"id":"brew","kind":"brew","formula":"yakitrak/yakitrak/obsidian-cli","bins":["obsidian-cli"],"label":"Install obsidian-cli (brew)"}]}}
 ---
 
-# Obsidian Vault Integration
+# Obsidian
 
-## Configuration
+Obsidian vault = a normal folder on disk.
 
-```bash
-export OBSIDIAN_VAULT_PATH="/path/to/your/vault"
-export OBSIDIAN_API_KEY="your-api-key-here"           # From: Obsidian Settings → Local REST API
-export OBSIDIAN_DAILY_FORMAT="Journal/Daily/%Y-%m-%d.md"  # Optional
-export OBSIDIAN_TODO_FILE="Inbox/Tasks.md"            # Optional
-```
+Vault structure (typical)
+- Notes: `*.md` (plain text Markdown; edit with any editor)
+- Config: `.obsidian/` (workspace + plugin settings; usually don’t touch from scripts)
+- Canvases: `*.canvas` (JSON)
+- Attachments: whatever folder you chose in Obsidian settings (images/PDFs/etc.)
 
-## CLI Tools
+## Find the active vault(s)
 
-### Filesystem (obsidian.sh)
+Obsidian desktop tracks vaults here (source of truth):
+- `~/Library/Application Support/obsidian/obsidian.json`
 
-```bash
-./scripts/obsidian.sh fs-read <path>            # Read note
-./scripts/obsidian.sh fs-write <path> <content> # Write note
-./scripts/obsidian.sh fs-list [dir]             # List .md files
-./scripts/obsidian.sh fs-search <query>         # Grep search
-./scripts/obsidian.sh fs-daily-append <content> # Append to daily note
-```
+`obsidian-cli` resolves vaults from that file; vault name is typically the **folder name** (path suffix).
 
-### Thought (Daily Notes)
+Fast “what vault is active / where are the notes?”
+- If you’ve already set a default: `obsidian-cli print-default --path-only`
+- Otherwise, read `~/Library/Application Support/obsidian/obsidian.json` and use the vault entry with `"open": true`.
 
-```bash
-thought "Great idea for the app"
-thought "Meeting went well" meeting work
-```
+Notes
+- Multiple vaults common (iCloud vs `~/Documents`, work/personal, etc.). Don’t guess; read config.
+- Avoid writing hardcoded vault paths into scripts; prefer reading the config or using `print-default`.
 
-### Todo Tracking
+## obsidian-cli quick start
 
-```bash
-todo add "Review PR" work --due tomorrow --priority high
-todo done 1                    # Complete by number
-todo done "PR"                 # Complete by search
-todo delete 2                  # Remove task
-todo list                      # Show pending
-todo list work                 # Filter by tag
-```
+Pick a default vault (once):
+- `obsidian-cli set-default "<vault-folder-name>"`
+- `obsidian-cli print-default` / `obsidian-cli print-default --path-only`
 
-See: [references/todo.md](references/todo.md)
+Search
+- `obsidian-cli search "query"` (note names)
+- `obsidian-cli search-content "query"` (inside notes; shows snippets + lines)
 
-### Oncall Tracking
+Create
+- `obsidian-cli create "Folder/New note" --content "..." --open`
+- Requires Obsidian URI handler (`obsidian://…`) working (Obsidian installed).
+- Avoid creating notes under “hidden” dot-folders (e.g. `.something/...`) via URI; Obsidian may refuse.
 
-```bash
-oncall start                   # Start shift
-oncall log "Alert fired" incident database
-oncall resolve "Fixed it" database
-oncall summary                 # View current shift
-oncall end                     # End and archive
-```
+Move/rename (safe refactor)
+- `obsidian-cli move "old/path/note" "new/path/note"`
+- Updates `[[wikilinks]]` and common Markdown links across the vault (this is the main win vs `mv`).
 
-See: [references/oncall.md](references/oncall.md)
+Delete
+- `obsidian-cli delete "path/note"`
 
-### REST API (obsidian.sh)
-
-```bash
-./scripts/obsidian.sh status              # Check connection
-./scripts/obsidian.sh read <path>         # Read via API
-./scripts/obsidian.sh write <path> <content>
-./scripts/obsidian.sh daily               # Get daily note
-./scripts/obsidian.sh daily-append <content>
-./scripts/obsidian.sh search <query>      # Simple search
-```
-
-See: [references/api-reference.md](references/api-reference.md)
-
-## Quick Filesystem Access
-
-```bash
-# Read
-cat "$OBSIDIAN_VAULT_PATH/folder/note.md"
-
-# Write
-cat > "$OBSIDIAN_VAULT_PATH/folder/note.md" << 'EOF'
-# My Note
-Content here
-EOF
-
-# Search
-grep -r "term" "$OBSIDIAN_VAULT_PATH" --include="*.md"
-```
-
-## Decision Guide
-
-| Need                  | Method        |
-| --------------------- | ------------- |
-| Fast read/write       | Filesystem    |
-| Quick thoughts/notes  | `thought` CLI |
-| Task management       | `todo` CLI    |
-| Oncall/incidents      | `oncall` CLI  |
-| Search by frontmatter | REST API      |
-| Dataview queries      | REST API      |
-| Execute commands      | REST API      |
-| No Obsidian running   | Filesystem    |
-
-## Reference Docs
-
-- [API Reference](references/api-reference.md) - REST API endpoints and curl examples
-- [Thought Reference](references/thought.md) - Quick notes to daily journal
-- [Todo Reference](references/todo.md) - Task management with Obsidian Tasks format
-- [Oncall Reference](references/oncall.md) - Incident tracking and shift management
+Prefer direct edits when appropriate: open the `.md` file and change it; Obsidian will pick it up.

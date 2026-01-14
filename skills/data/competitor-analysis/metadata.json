@@ -1,12 +1,7 @@
 {
   "name": "competitor-analysis",
-  "description": "Analyze competitive landscape to identify strengths, weaknesses, opportunities, and threats. Inform product strategy and positioning based on market insights.",
   "repo": "aj-geddes/useful-ai-prompts",
-  "category": "testing",
-  "tags": [
-    "competitor",
-    "analysis"
-  ],
-  "stars": 25,
-  "source": "local"
+  "path": "skills/competitor-analysis/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:13.253502Z"
 }

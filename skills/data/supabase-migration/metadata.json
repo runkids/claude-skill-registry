@@ -1,11 +1,7 @@
 {
   "name": "supabase-migration",
-  "description": "Safe database migration creation and management for Supabase PostgreSQL",
-  "repo": "amo-tech-ai/skybox-gamehub",
-  "category": "data",
-  "tags": [
-    "supabase",
-    "migration"
-  ],
-  "stars": 0
+  "repo": "Klimabevaegelsen/landbruget.dk",
+  "path": ".claude/skills/supabase-migration/SKILL.md",
+  "source": "github.com/Klimabevaegelsen/landbruget.dk",
+  "downloaded_at": "2026-01-14T02:47:49.773778Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "extracting-keywords",
-  "description": "Extract keywords from documents using YAKE algorithm with support for 34 languages (Arabic to Chinese). Use when users request keyword extraction, key terms, topic identification, content summarizatio",
   "repo": "oaustegard/claude-skills",
-  "category": "data",
-  "tags": [
-    "extracting",
-    "keywords"
-  ],
-  "stars": 21,
-  "source": "SkillsMP Synced Skills"
+  "path": "extracting-keywords/SKILL.md",
+  "source": "github.com/oaustegard/claude-skills",
+  "downloaded_at": "2026-01-14T03:03:25.204098Z"
 }

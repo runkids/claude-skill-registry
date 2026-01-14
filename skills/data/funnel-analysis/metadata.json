@@ -1,11 +1,7 @@
 {
   "name": "funnel-analysis",
-  "description": "Analyze user conversion funnels, calculate step-by-step conversion rates, create interactive visualizations, and identify optimization opportunities. Use when working with multi-step user journey data",
-  "repo": "liangdabiao/claude-data-analysis-ultra-main",
-  "category": "data",
-  "tags": [
-    "funnel",
-    "analysis"
-  ],
-  "stars": 32
+  "repo": "cncorp/arsenal",
+  "path": "dot-claude/skills/funnel-analysis/SKILL.md",
+  "source": "github.com/cncorp/arsenal",
+  "downloaded_at": "2026-01-14T04:01:21.362680Z"
 }

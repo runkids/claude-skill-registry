@@ -1,12 +1,7 @@
 {
   "name": "windows-ui-automation",
-  "description": "\"Expert in Windows UI Automation (UIA) and Win32 APIs for desktop automation. Specializes in accessible, secure automation of Windows applications including element discovery, input simulation, and pr",
   "repo": "martinholovsky/claude-skills-generator",
-  "category": "design",
-  "tags": [
-    "windows",
-    "automation"
-  ],
-  "stars": 3,
-  "source": "local"
+  "path": "skills/windows-ui-automation/SKILL.md",
+  "source": "github.com/martinholovsky/claude-skills-generator",
+  "downloaded_at": "2026-01-14T02:36:19.540532Z"
 }

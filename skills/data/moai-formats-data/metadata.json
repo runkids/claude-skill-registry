@@ -1,12 +1,7 @@
 {
   "name": "moai-formats-data",
-  "description": "Data format specialist covering TOON encoding, JSON/YAML optimization, serialization patterns, and data validation for modern applications",
-  "repo": "tjdwls101010/seongjin_extension_youtube-summarize",
-  "category": "data",
-  "tags": [
-    "moai",
-    "formats",
-    "data"
-  ],
-  "stars": 0
+  "repo": "windysky/claude_notification_wsl2",
+  "path": ".claude/skills/moai-formats-data/SKILL.md",
+  "source": "github.com/windysky/claude_notification_wsl2",
+  "downloaded_at": "2026-01-14T04:03:28.995597Z"
 }

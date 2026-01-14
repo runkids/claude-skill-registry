@@ -1,11 +1,7 @@
 {
   "name": "backend",
-  "description": "Universal Python/Node.js backend expert. Handles API routes, database operations, business logic, configuration management, anti-duplication checks. Auto-activates on keywords \"backend\", \"API\", \"datab",
-  "repo": "nera0875/blv_htmx",
-  "category": "data",
-  "tags": [
-    "backend"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "tidemann/st44-home",
+  "path": ".claude/skills/backend/SKILL.md",
+  "source": "github.com/tidemann/st44-home",
+  "downloaded_at": "2026-01-14T03:15:16.955743Z"
 }

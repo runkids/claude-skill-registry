@@ -1,12 +1,7 @@
 {
   "name": "task-create",
-  "description": "Create structured task files for planning dev work. Use when user asks to \"create a task\", \"add a task\", \"plan a task\", or needs to document work items. Creates numbered markdown files in docs/plannin",
-  "repo": "otrebu/all-agents",
-  "category": "documents",
-  "tags": [
-    "task",
-    "create"
-  ],
-  "stars": 2,
-  "source": "local"
+  "repo": "spaarke-dev/spaarke",
+  "path": ".claude/skills/task-create/SKILL.md",
+  "source": "github.com/spaarke-dev/spaarke",
+  "downloaded_at": "2026-01-14T02:22:53.945298Z"
 }

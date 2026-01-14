@@ -7,6 +7,35 @@ description: "AvaloniaUI에서 CollectionView 대안 (DataGridCollectionView, Re
 
 **⚠️ 중요: AvaloniaUI는 WPF의 CollectionViewSource를 지원하지 않습니다.**
 
+## 프로젝트 구조
+
+templates 폴더에 .NET 9 AvaloniaUI 프로젝트 예제가 포함되어 있습니다.
+
+```
+templates/
+├── AvaloniaCollectionViewSample.Core/           ← 순수 C# 모델 및 인터페이스
+│   ├── Member.cs
+│   ├── IMemberCollectionService.cs
+│   └── AvaloniaCollectionViewSample.Core.csproj
+├── AvaloniaCollectionViewSample.ViewModels/     ← ViewModel (Avalonia 참조 없음)
+│   ├── MainViewModel.cs
+│   ├── GlobalUsings.cs
+│   └── AvaloniaCollectionViewSample.ViewModels.csproj
+├── AvaloniaCollectionViewSample.AvaloniaServices/ ← Avalonia Service Layer
+│   ├── MemberCollectionService.cs
+│   ├── GlobalUsings.cs
+│   └── AvaloniaCollectionViewSample.AvaloniaServices.csproj
+└── AvaloniaCollectionViewSample.App/            ← Avalonia Application
+    ├── Views/
+    │   ├── MainWindow.axaml
+    │   └── MainWindow.axaml.cs
+    ├── App.axaml
+    ├── App.axaml.cs
+    ├── Program.cs
+    ├── GlobalUsings.cs
+    └── AvaloniaCollectionViewSample.App.csproj
+```
+
 AvaloniaUI에서는 다음 방법들을 사용:
 
 #### 6.7.1 DataGridCollectionView 사용 (권장)

@@ -1,12 +1,7 @@
 {
   "name": "adhd-productivity",
-  "description": "ADHD-optimized productivity techniques and interventions. Invoke when user shows signs of task abandonment, context switching, or needs focus assistance.",
   "repo": "breverdbidder/life-os",
-  "category": "productivity",
-  "tags": [
-    "adhd",
-    "productivity"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/adhd-productivity/SKILL.md",
+  "source": "github.com/breverdbidder/life-os",
+  "downloaded_at": "2026-01-14T03:23:41.067472Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "code-documentation-generator",
-  "description": "Эксперт по документации кода. Используй для JSDoc, docstrings, комментариев и автогенерации документации.",
   "repo": "dengineproblem/agents-monorepo",
-  "category": "documents",
-  "tags": [
-    "code",
-    "documentation",
-    "generator"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/code-documentation-generator/SKILL.md",
+  "source": "github.com/dengineproblem/agents-monorepo",
+  "downloaded_at": "2026-01-14T02:08:05.311413Z"
 }

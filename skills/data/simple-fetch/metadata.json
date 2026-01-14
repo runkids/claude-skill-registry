@@ -1,12 +1,7 @@
 {
   "name": "simple-fetch",
-  "description": "Basic MCP skill demonstrating CLI-based execution pattern for fetching URL content",
   "repo": "yoloshii/mcp-code-execution-enhanced",
-  "category": "marketing",
-  "tags": [
-    "simple",
-    "fetch"
-  ],
-  "stars": 15,
-  "source": "local"
+  "path": ".claude/skills/simple-fetch/SKILL.md",
+  "source": "github.com/yoloshii/mcp-code-execution-enhanced",
+  "downloaded_at": "2026-01-14T01:51:15.720874Z"
 }

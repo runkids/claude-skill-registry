@@ -1,10 +1,7 @@
 {
   "name": "ml-researcher",
-  "description": "\"ML research for RAN with reinforcement learning, causal inference, and cognitive consciousness integration. Use when researching ML algorithms for RAN optimization, implementing reinforcement learnin",
-  "repo": "ricable/ericsson-ran-automation-agentdb",
-  "category": "data",
-  "tags": [
-    "researcher"
-  ],
-  "stars": 0
+  "repo": "ricable/ultimate-ai-agent",
+  "path": "sources/ricable/agentdb/.claude/skills/ml-researcher/SKILL.md",
+  "source": "github.com/ricable/ultimate-ai-agent",
+  "downloaded_at": "2026-01-14T01:42:38.461919Z"
 }

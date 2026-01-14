@@ -1,8 +1,7 @@
 {
   "name": "meta-loop-orchestrator",
   "repo": "DNYoussef/context-cascade",
-  "category": "data",
-  "description": "Run nested improvement loops with guardrails for iteration planning, validation, and convergence tracking.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:54.342145Z"
+  "path": "skills/orchestration/meta-loop-orchestrator/SKILL.md",
+  "source": "github.com/DNYoussef/context-cascade",
+  "downloaded_at": "2026-01-14T01:08:01.597344Z"
 }

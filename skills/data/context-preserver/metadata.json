@@ -1,12 +1,7 @@
 {
   "name": "context-preserver",
-  "description": "Automatically save and restore development context to minimize cognitive load when resuming work. Use when switching tasks, taking breaks, or returning after interruptions. Captures mental state, file",
   "repo": "daffy0208/ai-dev-standards",
-  "category": "development",
-  "tags": [
-    "context",
-    "preserver"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": "skills/context-preserver/SKILL.md",
+  "source": "github.com/daffy0208/ai-dev-standards",
+  "downloaded_at": "2026-01-14T03:33:10.902246Z"
 }

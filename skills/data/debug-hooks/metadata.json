@@ -1,12 +1,7 @@
 {
   "name": "debug-hooks",
-  "description": "Systematic hook debugging workflow. Use when hooks aren't firing, producing wrong output, or behaving unexpectedly.",
-  "repo": "parcadei/Continuous-Claude-v2",
-  "category": "development",
-  "tags": [
-    "debug",
-    "hooks"
-  ],
-  "stars": 1318,
-  "source": "SkillsMP Synced Skills"
+  "repo": "parcadei/Continuous-Claude-v3",
+  "path": ".claude/skills/debug-hooks/SKILL.md",
+  "source": "github.com/parcadei/Continuous-Claude-v3",
+  "downloaded_at": "2026-01-14T01:18:47.743489Z"
 }

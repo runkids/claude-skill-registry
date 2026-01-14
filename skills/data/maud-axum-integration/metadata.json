@@ -1,13 +1,7 @@
 {
   "name": "maud-axum-integration",
-  "description": "Production patterns for integrating Maud HTML templates with Axum 0.8.x web services. Covers IntoResponse implementation, handler patterns, state management with templates, error pages, layouts, and s",
   "repo": "matthewharwood/engmanager.xyz",
-  "category": "development",
-  "tags": [
-    "maud",
-    "axum",
-    "integration"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/maud-axum-integration/SKILL.md",
+  "source": "github.com/matthewharwood/engmanager.xyz",
+  "downloaded_at": "2026-01-14T03:04:54.650676Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "meeting-notes",
-  "description": "Generate structured meeting notes with action items, decisions, and summaries from transcripts. Use when documenting meetings or creating meeting summaries.",
   "repo": "ntaksh42/agents",
-  "category": "documents",
-  "tags": [
-    "meeting",
-    "notes"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/meeting-notes/SKILL.md",
+  "source": "github.com/ntaksh42/agents",
+  "downloaded_at": "2026-01-14T03:50:59.060561Z"
 }

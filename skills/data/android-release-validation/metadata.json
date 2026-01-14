@@ -1,13 +1,7 @@
 {
   "name": "android-release-validation",
-  "description": "Validate Android release builds before publishing to ensure quality and catch ProGuard issues",
   "repo": "hitoshura25/claude-devtools",
-  "category": "development",
-  "tags": [
-    "android",
-    "release",
-    "validation"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/android-release-validation/SKILL.md",
+  "source": "github.com/hitoshura25/claude-devtools",
+  "downloaded_at": "2026-01-14T03:07:10.456915Z"
 }

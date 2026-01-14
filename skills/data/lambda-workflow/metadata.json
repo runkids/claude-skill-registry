@@ -1,12 +1,7 @@
 {
   "name": "lambda-workflow",
-  "description": "One lifecycle for Lambda repos: choose a bd task, start work, land the PR, and watch GitHub via Dumbwaiter MCP until it merges.",
-  "repo": "lambdamechanic/tooltest",
-  "category": "productivity",
-  "tags": [
-    "lambda",
-    "workflow"
-  ],
-  "stars": 3,
-  "source": "local"
+  "repo": "lambdamechanic/sk",
+  "path": "skills/lambda-workflow/SKILL.md",
+  "source": "github.com/lambdamechanic/sk",
+  "downloaded_at": "2026-01-14T03:44:23.222503Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "bedrock",
-  "description": "AWS Bedrock foundation models for generative AI. Use when invoking foundation models, building AI applications, creating embeddings, configuring model access, or implementing RAG patterns.",
   "repo": "itsmostafa/aws-agent-skills",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "GitHub Search API"
+  "path": "skills/bedrock/SKILL.md",
+  "source": "github.com/itsmostafa/aws-agent-skills",
+  "downloaded_at": "2026-01-14T02:42:55.977244Z"
 }

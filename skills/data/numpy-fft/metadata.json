@@ -1,11 +1,7 @@
 {
   "name": "numpy-fft",
-  "description": "Discrete Fourier Transform routines for spectral analysis, signal filtering, and frequency-domain operations. Triggers: fft, fourier transform, spectral analysis, rfft, fftshift, ifft.",
   "repo": "cuba6112/skillfactory",
-  "category": "data",
-  "tags": [
-    "numpy",
-    "fft"
-  ],
-  "stars": 0
+  "path": "skills/numpy-fft/SKILL.md",
+  "source": "github.com/cuba6112/skillfactory",
+  "downloaded_at": "2026-01-14T02:37:43.540544Z"
 }

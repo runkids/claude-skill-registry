@@ -1,12 +1,7 @@
 {
   "name": "docs-write",
-  "description": "Write or update documentation (tutorial, how-to, reference, explanation) with clear style, structure, visuals, API/ADR/runbook patterns. Use when: (1) Creating or updating docs after code changes, (2)",
-  "repo": "LukasStrickler/ai-dev-atelier",
-  "category": "data",
-  "tags": [
-    "docs",
-    "write"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "vx-daniel/tb-docs-project",
+  "path": ".claude/skills/docs-write/SKILL.md",
+  "source": "github.com/vx-daniel/tb-docs-project",
+  "downloaded_at": "2026-01-14T03:42:22.735182Z"
 }

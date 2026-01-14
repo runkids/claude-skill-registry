@@ -1,12 +1,7 @@
 {
   "name": "frontend-ui-animator",
-  "description": "Analyze and implement purposeful UI animations for Next.js + Tailwind + React projects. Use when user asks to add animations, enhance UI motion, animate pages/components, or improve visual feedback. T",
-  "repo": "julianromli/ai-skills",
-  "category": "design",
-  "tags": [
-    "frontend",
-    "animator"
-  ],
-  "stars": 120,
-  "source": "SkillsMP Synced Skills"
+  "repo": "araaking/opencode-kuli-pro",
+  "path": "skills/frontend-ui-animator/SKILL.md",
+  "source": "github.com/araaking/opencode-kuli-pro",
+  "downloaded_at": "2026-01-14T01:48:07.368481Z"
 }

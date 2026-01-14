@@ -1,12 +1,7 @@
 {
   "name": "oracle-gemini",
-  "description": "This skill should be used when the user asks to \"use Gemini\", \"ask Gemini\", \"consult Gemini\", \"Gemini review\", \"use Gemini for planning\", \"ask Gemini to review\", \"get Gemini's opinion\", \"what does Gem",
   "repo": "PaulRBerg/dot-claude",
-  "category": "productivity",
-  "tags": [
-    "oracle",
-    "gemini"
-  ],
-  "stars": 58,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/oracle-gemini/SKILL.md",
+  "source": "github.com/PaulRBerg/dot-claude",
+  "downloaded_at": "2026-01-14T02:00:27.840902Z"
 }

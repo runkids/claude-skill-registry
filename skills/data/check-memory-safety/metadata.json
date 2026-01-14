@@ -1,13 +1,7 @@
 {
   "name": "check-memory-safety",
-  "description": "Check Mojo code for memory safety issues (ownership violations, use-after-free, etc.). Use to catch memory bugs.",
   "repo": "mvillmow/ProjectOdyssey",
-  "category": "development",
-  "tags": [
-    "check",
-    "memory",
-    "safety"
-  ],
-  "stars": 8,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/check-memory-safety/SKILL.md",
+  "source": "github.com/mvillmow/ProjectOdyssey",
+  "downloaded_at": "2026-01-14T01:09:01.714450Z"
 }

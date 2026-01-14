@@ -1,509 +1,385 @@
 ---
 name: cloudflare-r2
-description: Guide for implementing Cloudflare R2 - S3-compatible object storage with zero egress fees. Use when implementing file storage, uploads/downloads, data migration to/from R2, configuring buckets, integrating with Workers, or working with R2 APIs and SDKs.
+description: |
+  Store objects with R2's S3-compatible storage on Cloudflare's edge. Use when: uploading/downloading files, configuring CORS, generating presigned URLs, multipart uploads, managing metadata, or troubleshooting R2_ERROR, CORS failures, presigned URL issues, or quota errors.
+user-invocable: true
 ---
 
-# Cloudflare R2
+# Cloudflare R2 Object Storage
 
-S3-compatible object storage with zero egress bandwidth fees. Built on Cloudflare's global network for high durability (11 nines) and strong consistency.
+**Status**: Production Ready ✅
+**Last Updated**: 2026-01-09
+**Dependencies**: cloudflare-worker-base (for Worker setup)
+**Latest Versions**: wrangler@4.58.0, @cloudflare/workers-types@4.20260109.0, aws4fetch@1.0.20
 
-## When to Use This Skill
+**Recent Updates (2025)**:
+- **September 2025**: R2 SQL open beta (serverless query engine for Apache Iceberg), Pipelines GA (real-time stream ingestion), Remote bindings GA (local dev connects to deployed R2)
+- **May 2025**: Dashboard redesign (deeplink support, bucket settings centralization), Super Slurper 5x faster (rebuilt with Workers/Queues/Durable Objects)
+- **April 2025**: R2 Data Catalog open beta (managed Apache Iceberg catalog), Event Notifications open beta (5,000 msg/s per Queue)
+- **2025**: Bucket limits increased (1 million max), CRC-64/NVME checksums, Server-side encryption with customer keys, Infrequent Access storage class (beta), Oceania region, S3 API enhancements (sha256/sha1 checksums, ListParts, conditional CopyObject)
 
-- Implementing object storage for applications
-- Migrating from AWS S3 or other storage providers
-- Setting up file uploads/downloads
-- Configuring public or private buckets
-- Integrating R2 with Cloudflare Workers
-- Using R2 with S3-compatible tools and SDKs
-- Configuring CORS, lifecycles, or event notifications
-- Optimizing storage costs with zero egress fees
+---
 
-## Prerequisites
-
-**Required:**
-
-- Cloudflare account with R2 purchased
-- Account ID from Cloudflare dashboard
-
-**For API access:**
-
-- R2 Access Keys (Access Key ID + Secret Access Key)
-- Generate from: Cloudflare Dashboard → R2 → Manage R2 API Tokens
-
-**For Wrangler CLI:**
+## Quick Start (5 Minutes)
 
 ```bash
-npm install -g wrangler
-wrangler login
-```
+# 1. Create bucket
+npx wrangler r2 bucket create my-bucket
 
-## Core Concepts
+# 2. Add binding to wrangler.jsonc
+# {
+#   "r2_buckets": [{
+#     "binding": "MY_BUCKET",
+#     "bucket_name": "my-bucket",
+#     "preview_bucket_name": "my-bucket-preview"  // Optional: separate dev/prod
+#   }]
+# }
 
-### Architecture
+# 3. Upload/download from Worker
+type Bindings = { MY_BUCKET: R2Bucket };
 
-- **S3-compatible API** - works with AWS SDKs and tools
-- **Workers API** - native Cloudflare Workers integration
-- **Global network** - strong consistency across all regions
-- **Zero egress fees** - no bandwidth charges for data retrieval
-
-### Storage Classes
-
-- **Standard** - default, optimized for frequent access
-- **Infrequent Access** - lower storage cost, retrieval fees apply, 30-day minimum
-
-### Access Methods
-
-1. **R2 Workers Binding** - serverless integration (recommended for new apps)
-2. **S3 API** - compatibility with existing tools
-3. **Public buckets** - direct HTTP access via custom domains or r2.dev
-4. **Presigned URLs** - temporary access without credentials
-
-## Quick Start
-
-### 1. Create Bucket
-
-**Wrangler:**
-
-```bash
-wrangler r2 bucket create my-bucket
-```
-
-**With location hint:**
-
-```bash
-wrangler r2 bucket create my-bucket --location=wnam
-```
-
-Locations: `wnam` (West NA), `enam` (East NA), `weur` (West EU), `eeur` (East EU), `apac` (Asia Pacific)
-
-### 2. Upload Object
-
-**Wrangler:**
-
-```bash
-wrangler r2 object put my-bucket/file.txt --file=./local-file.txt
-```
-
-**Workers API:**
-
-```javascript
-await env.MY_BUCKET.put("file.txt", fileContents, {
-  httpMetadata: {
-    contentType: "text/plain",
-  },
+// Upload
+await env.MY_BUCKET.put('file.txt', data, {
+  httpMetadata: { contentType: 'text/plain' }
 });
-```
 
-### 3. Download Object
-
-**Wrangler:**
-
-```bash
-wrangler r2 object get my-bucket/file.txt --file=./downloaded.txt
-```
-
-**Workers API:**
-
-```javascript
-const object = await env.MY_BUCKET.get("file.txt");
-const contents = await object.text();
-```
-
-## Workers Integration
-
-### Binding Configuration
-
-**wrangler.toml:**
-
-```toml
-[[r2_buckets]]
-binding = "MY_BUCKET"
-bucket_name = "my-bucket"
-preview_bucket_name = "my-bucket-preview"
-```
-
-### Common Operations
-
-**Upload with metadata:**
-
-```javascript
-await env.MY_BUCKET.put("user-uploads/photo.jpg", imageData, {
-  httpMetadata: {
-    contentType: "image/jpeg",
-    cacheControl: "public, max-age=31536000",
-  },
-  customMetadata: {
-    uploadedBy: userId,
-    uploadDate: new Date().toISOString(),
-  },
-});
-```
-
-**Download with streaming:**
-
-```javascript
-const object = await env.MY_BUCKET.get("large-file.mp4");
-if (object === null) {
-  return new Response("Not found", { status: 404 });
-}
+// Download
+const object = await env.MY_BUCKET.get('file.txt');
+if (!object) return c.json({ error: 'Not found' }, 404);
 
 return new Response(object.body, {
   headers: {
-    "Content-Type": object.httpMetadata.contentType,
-    ETag: object.etag,
+    'Content-Type': object.httpMetadata?.contentType || 'application/octet-stream',
+    'ETag': object.httpEtag,
   },
 });
+
+# 4. Deploy
+npx wrangler deploy
 ```
 
-**List objects:**
+---
 
-```javascript
+## R2 Workers API
+
+### Core Methods
+
+```typescript
+// put() - Upload objects
+await env.MY_BUCKET.put('file.txt', data, {
+  httpMetadata: {
+    contentType: 'text/plain',
+    cacheControl: 'public, max-age=3600',
+  },
+  customMetadata: { userId: '123' },
+  md5: await crypto.subtle.digest('MD5', data),  // Checksum verification
+});
+
+// Conditional upload (prevent overwrites)
+const object = await env.MY_BUCKET.put('file.txt', data, {
+  onlyIf: { uploadedBefore: new Date('2020-01-01') }
+});
+if (!object) return c.json({ error: 'File already exists' }, 409);
+
+// get() - Download objects
+const object = await env.MY_BUCKET.get('file.txt');
+if (!object) return c.json({ error: 'Not found' }, 404);
+
+const text = await object.text();           // As string
+const json = await object.json();           // As JSON
+const buffer = await object.arrayBuffer();  // As ArrayBuffer
+
+// Range requests (partial downloads)
+const partial = await env.MY_BUCKET.get('video.mp4', {
+  range: { offset: 0, length: 1024 * 1024 }  // First 1MB
+});
+
+// head() - Get metadata only (no body download)
+const object = await env.MY_BUCKET.head('file.txt');
+console.log(object.size, object.etag, object.customMetadata);
+
+// delete() - Delete objects
+await env.MY_BUCKET.delete('file.txt');  // Single delete (idempotent)
+await env.MY_BUCKET.delete(['file1.txt', 'file2.txt']);  // Bulk delete (max 1000)
+
+// list() - List objects
 const listed = await env.MY_BUCKET.list({
-  prefix: "user-uploads/",
+  prefix: 'images/',  // Filter by prefix
   limit: 100,
+  cursor: cursor,     // Pagination
+  delimiter: '/',     // Folder-like listing
 });
 
 for (const object of listed.objects) {
-  console.log(object.key, object.size);
+  console.log(`${object.key}: ${object.size} bytes`);
 }
 ```
 
-**Delete object:**
-
-```javascript
-await env.MY_BUCKET.delete("old-file.txt");
-```
-
-**Check if object exists:**
-
-```javascript
-const object = await env.MY_BUCKET.head("file.txt");
-if (object) {
-  console.log("Exists:", object.size, "bytes");
-}
-```
-
-## S3 SDK Integration
-
-### AWS CLI
-
-**Configure:**
-
-```bash
-aws configure
-# Access Key ID: <your-key-id>
-# Secret Access Key: <your-secret>
-# Region: auto
-```
-
-**Operations:**
-
-```bash
-# List buckets
-aws s3api list-buckets --endpoint-url https://<accountid>.r2.cloudflarestorage.com
-
-# Upload file
-aws s3 cp file.txt s3://my-bucket/ --endpoint-url https://<accountid>.r2.cloudflarestorage.com
-
-# Generate presigned URL (expires in 1 hour)
-aws s3 presign s3://my-bucket/file.txt --endpoint-url https://<accountid>.r2.cloudflarestorage.com --expires-in 3600
-```
-
-### JavaScript (AWS SDK v3)
-
-```javascript
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
-
-const s3 = new S3Client({
-  region: "auto",
-  endpoint: `https://${accountId}.r2.cloudflarestorage.com`,
-  credentials: {
-    accessKeyId: process.env.R2_ACCESS_KEY_ID,
-    secretAccessKey: process.env.R2_SECRET_ACCESS_KEY,
-  },
-});
-
-await s3.send(
-  new PutObjectCommand({
-    Bucket: "my-bucket",
-    Key: "file.txt",
-    Body: fileContents,
-  }),
-);
-```
-
-### Python (Boto3)
-
-```python
-import boto3
-
-s3 = boto3.client(
-    service_name="s3",
-    endpoint_url=f'https://{account_id}.r2.cloudflarestorage.com',
-    aws_access_key_id=access_key_id,
-    aws_secret_access_key=secret_access_key,
-    region_name="auto",
-)
-
-# Upload file
-s3.upload_fileobj(file_obj, 'my-bucket', 'file.txt')
-
-# Download file
-s3.download_file('my-bucket', 'file.txt', './local-file.txt')
-```
-
-### Rclone (Large Files)
-
-**Configure:**
-
-```bash
-rclone config
-# Select: Amazon S3 → Cloudflare R2
-# Enter credentials and endpoint
-```
-
-**Upload with multipart optimization:**
-
-```bash
-# For large files (>100MB)
-rclone copy large-video.mp4 r2:my-bucket/ \
-  --s3-upload-cutoff=100M \
-  --s3-chunk-size=100M
-```
-
-## Public Buckets
-
-### Enable Public Access
-
-**Wrangler:**
-
-```bash
-wrangler r2 bucket create my-public-bucket
-# Then enable in dashboard: R2 → Bucket → Settings → Public Access
-```
-
-### Access URLs
-
-**r2.dev (development only, rate-limited):**
-
-```
-https://pub-<hash>.r2.dev/file.txt
-```
-
-**Custom domain (recommended for production):**
-
-1. Dashboard → R2 → Bucket → Settings → Public Access
-2. Add custom domain
-3. Cloudflare handles DNS/TLS automatically
-
-## CORS Configuration
-
-**Required for:**
-
-- Browser-based uploads
-- Cross-origin API calls
-- Presigned URL usage from web apps
-
-**Wrangler:**
-
-```bash
-wrangler r2 bucket cors put my-bucket --rules '[
-  {
-    "AllowedOrigins": ["https://example.com"],
-    "AllowedMethods": ["GET", "PUT", "POST"],
-    "AllowedHeaders": ["*"],
-    "ExposeHeaders": ["ETag"],
-    "MaxAgeSeconds": 3600
-  }
-]'
-```
-
-**Important:** Origins must match exactly (no trailing slash).
+---
 
 ## Multipart Uploads
 
-For files >100MB or parallel uploads:
+For files >100MB or resumable uploads. Use when: large files, browser uploads, parallelization needed.
 
-**Workers API:**
+```typescript
+// 1. Create multipart upload
+const multipart = await env.MY_BUCKET.createMultipartUpload('large-file.zip', {
+  httpMetadata: { contentType: 'application/zip' }
+});
 
-```javascript
-const multipart = await env.MY_BUCKET.createMultipartUpload("large-file.mp4");
-
-// Upload parts (5MiB - 5GiB each, max 10,000 parts)
+// 2. Upload parts (5MB-100MB each, max 10,000 parts)
+const multipart = env.MY_BUCKET.resumeMultipartUpload(key, uploadId);
 const part1 = await multipart.uploadPart(1, chunk1);
 const part2 = await multipart.uploadPart(2, chunk2);
 
-// Complete upload
-const object = await multipart.complete([part1, part2]);
+// 3. Complete upload
+const object = await multipart.complete([
+  { partNumber: 1, etag: part1.etag },
+  { partNumber: 2, etag: part2.etag },
+]);
+
+// 4. Abort if needed
+await multipart.abort();
 ```
 
-**Constraints:**
+**Limits**: Parts 5MB-100MB, max 10,000 parts per upload. Don't use for files <5MB (overhead).
 
-- Part size: 5MiB - 5GiB
-- Max parts: 10,000
-- Max object size: 5TB
-- Incomplete uploads auto-abort after 7 days (configurable via lifecycle)
+---
 
-## Data Migration
+## Presigned URLs
 
-### Sippy (Incremental, On-Demand)
+Allow clients to upload/download directly to/from R2 (bypasses Worker). Use aws4fetch library.
 
-Best for: Gradual migration, avoiding upfront egress fees
+```typescript
+import { AwsClient } from 'aws4fetch';
 
-```bash
-# Enable for bucket
-wrangler r2 bucket sippy enable my-bucket \
-  --provider=aws \
-  --bucket=source-bucket \
-  --region=us-east-1 \
-  --access-key-id=$AWS_KEY \
-  --secret-access-key=$AWS_SECRET
+const r2Client = new AwsClient({
+  accessKeyId: env.R2_ACCESS_KEY_ID,
+  secretAccessKey: env.R2_SECRET_ACCESS_KEY,
+});
+
+const url = new URL(
+  `https://${bucketName}.${accountId}.r2.cloudflarestorage.com/${filename}`
+);
+url.searchParams.set('X-Amz-Expires', '3600');  // 1 hour expiry
+
+const signed = await r2Client.sign(
+  new Request(url, { method: 'PUT' }),  // or 'GET' for downloads
+  { aws: { signQuery: true } }
+);
+
+// Client uploads directly to R2
+await fetch(signed.url, { method: 'PUT', body: file });
 ```
 
-Objects migrate when first requested. Subsequent requests served from R2.
+**CRITICAL Security:**
+- ❌ **NEVER** expose R2 access keys in client-side code
+- ✅ **ALWAYS** generate presigned URLs server-side
+- ✅ **ALWAYS** set expiry times (1-24 hours typical)
+- ✅ **ALWAYS** add authentication before generating URLs
+- ✅ **CONSIDER** scoping to user folders: `users/${userId}/${filename}`
 
-### Super Slurper (Bulk, One-Time)
+---
 
-Best for: Complete migration, known object list
+## CORS Configuration
 
-1. Dashboard → R2 → Data Migration → Super Slurper
-2. Select source provider (AWS, GCS, Azure)
-3. Enter credentials and bucket name
-4. Start migration
-
-## Lifecycle Rules
-
-Auto-delete or transition storage classes:
-
-**Wrangler:**
-
-```bash
-wrangler r2 bucket lifecycle put my-bucket --rules '[
-  {
-    "action": {"type": "AbortIncompleteMultipartUpload"},
-    "filter": {},
-    "abortIncompleteMultipartUploadDays": 7
-  },
-  {
-    "action": {"type": "Transition", "storageClass": "InfrequentAccess"},
-    "filter": {"prefix": "archives/"},
-    "daysFromCreation": 90
-  }
-]'
-```
-
-## Event Notifications
-
-Trigger Workers on bucket events:
-
-**Wrangler:**
-
-```bash
-wrangler r2 bucket notification create my-bucket \
-  --queue=my-queue \
-  --event-type=object-create
-```
-
-**Supported events:**
-
-- `object-create` - new uploads
-- `object-delete` - deletions
-
-**Message format:**
+Configure CORS in bucket settings (Dashboard → R2 → Bucket → Settings → CORS Policy) before browser access.
 
 ```json
 {
-  "account": "account-id",
-  "bucket": "my-bucket",
-  "object": { "key": "file.txt", "size": 1024, "etag": "..." },
-  "action": "PutObject",
-  "eventTime": "2024-01-15T12:00:00Z"
+  "CORSRules": [{
+    "AllowedOrigins": ["https://app.example.com"],
+    "AllowedMethods": ["GET", "PUT", "POST", "DELETE", "HEAD"],
+    "AllowedHeaders": ["Content-Type", "Content-MD5", "x-amz-meta-*"],
+    "ExposeHeaders": ["ETag"],
+    "MaxAgeSeconds": 3600
+  }]
 }
 ```
 
-## Best Practices
+**For presigned URLs**: CORS handled by R2 directly (configure on bucket, not Worker).
 
-### Performance
+---
 
-- Use Cloudflare Cache with custom domains for frequently accessed objects
-- Multipart uploads for files >100MB (faster, more reliable)
-- Rclone for batch operations (concurrent transfers)
-- Location hints match user geography
+## HTTP Metadata & Custom Metadata
 
-### Security
+```typescript
+// HTTP metadata (standard headers)
+await env.MY_BUCKET.put('file.pdf', data, {
+  httpMetadata: {
+    contentType: 'application/pdf',
+    cacheControl: 'public, max-age=31536000, immutable',
+    contentDisposition: 'attachment; filename="report.pdf"',
+    contentEncoding: 'gzip',
+  },
+  customMetadata: {
+    userId: '12345',
+    version: '1.0',
+  }  // Max 2KB total, keys/values must be strings
+});
 
-- Never commit Access Keys to version control
-- Use environment variables for credentials
-- Bucket-scoped tokens for least privilege
-- Presigned URLs for temporary access
-- Enable Cloudflare Access for additional protection
+// Read metadata
+const object = await env.MY_BUCKET.head('file.pdf');
+console.log(object.httpMetadata, object.customMetadata);
+```
 
-### Cost Optimization
+---
 
-- Infrequent Access storage for archives (30+ day retention)
-- Lifecycle rules to auto-transition or delete
-- Larger multipart chunks = fewer Class A operations
-- Monitor usage via dashboard analytics
+## Error Handling
 
-### Naming
+### Common R2 Errors
 
-- Bucket names: lowercase, hyphens, 3-63 chars
-- Avoid sequential prefixes for better performance (e.g., use hashed prefixes)
-- No dots in bucket names if using custom domains with TLS
+```typescript
+try {
+  await env.MY_BUCKET.put(key, data);
+} catch (error: any) {
+  const message = error.message;
 
-## Limits
+  if (message.includes('R2_ERROR')) {
+    // Generic R2 error
+  } else if (message.includes('exceeded')) {
+    // Quota exceeded
+  } else if (message.includes('precondition')) {
+    // Conditional operation failed
+  } else if (message.includes('multipart')) {
+    // Multipart upload error
+  }
 
-- **Buckets per account:** 1,000
-- **Object size:** 5TB max
-- **Bucket name:** 3-63 characters
-- **Lifecycle rules:** 1,000 per bucket
-- **Event notification rules:** 100 per bucket
-- **r2.dev rate limit:** 1,000 req/min (use custom domains for production)
+  console.error('R2 Error:', message);
+  return c.json({ error: 'Storage operation failed' }, 500);
+}
+```
 
-## Troubleshooting
+### Retry Logic
 
-**401 Unauthorized:**
+```typescript
+async function r2WithRetry<T>(
+  operation: () => Promise<T>,
+  maxRetries = 3
+): Promise<T> {
+  for (let attempt = 0; attempt < maxRetries; attempt++) {
+    try {
+      return await operation();
+    } catch (error: any) {
+      const message = error.message;
 
-- Verify Access Keys are correct
-- Check endpoint URL includes account ID
-- Ensure region is "auto" for most operations
+      // Retry on transient errors
+      const isRetryable =
+        message.includes('network') ||
+        message.includes('timeout') ||
+        message.includes('temporarily unavailable');
 
-**403 Forbidden:**
+      if (!isRetryable || attempt === maxRetries - 1) {
+        throw error;
+      }
 
-- Check bucket permissions and token scopes
-- Verify CORS configuration for browser requests
-- Confirm bucket exists and name is correct
+      // Exponential backoff
+      const delay = Math.min(1000 * Math.pow(2, attempt), 5000);
+      await new Promise(resolve => setTimeout(resolve, delay));
+    }
+  }
 
-**404 Not Found:**
+  throw new Error('Retry logic failed');
+}
 
-- Object key case-sensitive
-- Check bucket name spelling
-- Verify object was uploaded successfully
+// Usage
+const object = await r2WithRetry(() =>
+  env.MY_BUCKET.get('important-file.txt')
+);
+```
 
-**Presigned URLs not working:**
+---
 
-- Verify CORS configuration
-- Check URL expiry time
-- Ensure origin matches CORS rules exactly
+## Performance Optimization
 
-**Multipart upload failures:**
+```typescript
+// Batch delete (up to 1000 keys)
+await env.MY_BUCKET.delete(['file1.txt', 'file2.txt', 'file3.txt']);
 
-- Part size must be 5MiB - 5GiB
-- Max 10,000 parts per upload
-- Complete upload within 7 days (or configure lifecycle)
+// Range requests for large files
+const partial = await env.MY_BUCKET.get('video.mp4', {
+  range: { offset: 0, length: 10 * 1024 * 1024 }  // First 10MB
+});
 
-## Reference Files
+// Cache headers for immutable assets
+await env.MY_BUCKET.put('static/app.abc123.js', jsData, {
+  httpMetadata: { cacheControl: 'public, max-age=31536000, immutable' }
+});
 
-For detailed documentation, see:
+// Checksums for data integrity
+const md5Hash = await crypto.subtle.digest('MD5', fileData);
+await env.MY_BUCKET.put('important.dat', fileData, { md5: md5Hash });
+```
 
-- `references/api-reference.md` - Complete API endpoint documentation
-- `references/sdk-examples.md` - SDK examples for all languages
-- `references/workers-patterns.md` - Advanced Workers integration patterns
-- `references/pricing-guide.md` - Detailed pricing and cost optimization
+---
 
-## Additional Resources
+## Best Practices Summary
 
-- **Documentation:** https://developers.cloudflare.com/r2/
-- **Wrangler Commands:** https://developers.cloudflare.com/r2/reference/wrangler-commands/
-- **S3 Compatibility:** https://developers.cloudflare.com/r2/api/s3/api/
-- **Workers API:** https://developers.cloudflare.com/r2/api/workers/workers-api-reference/
+**Always Do:**
+- Set `contentType` for all uploads
+- Use batch delete for multiple objects (up to 1000)
+- Set cache headers for static assets
+- Use presigned URLs for large client uploads
+- Use multipart for files >100MB
+- Set CORS before browser uploads
+- Set expiry times on presigned URLs (1-24 hours)
+- Use `head()` when you only need metadata
+- Use conditional operations to prevent overwrites
+
+**Never Do:**
+- Never expose R2 access keys in client-side code
+- Never skip `contentType` (files download as binary)
+- Never delete in loops (use batch delete)
+- Never skip CORS for browser uploads
+- Never use multipart for small files (<5MB)
+- Never delete >1000 keys in single call
+- Never skip presigned URL expiry (security risk)
+
+---
+
+## Known Issues Prevented
+
+| Issue | Description | How to Avoid |
+|-------|-------------|--------------|
+| **CORS errors in browser** | Browser can't upload/download due to missing CORS policy | Configure CORS in bucket settings before browser access |
+| **Files download as binary** | Missing content-type causes browsers to download files instead of display | Always set `httpMetadata.contentType` on upload |
+| **Presigned URL expiry** | URLs never expire, posing security risk | Always set `X-Amz-Expires` (1-24 hours typical) |
+| **Multipart upload limits** | Parts exceed 100MB or >10,000 parts | Keep parts 5MB-100MB, max 10,000 parts per upload |
+| **Bulk delete limits** | Trying to delete >1000 keys fails | Chunk deletes into batches of 1000 |
+| **Custom metadata overflow** | Metadata exceeds 2KB limit | Keep custom metadata under 2KB total |
+
+---
+
+## Wrangler Commands Reference
+
+```bash
+# Bucket management
+wrangler r2 bucket create <BUCKET_NAME>
+wrangler r2 bucket list
+wrangler r2 bucket delete <BUCKET_NAME>
+
+# Object management
+wrangler r2 object put <BUCKET_NAME>/<KEY> --file=<FILE_PATH>
+wrangler r2 object get <BUCKET_NAME>/<KEY> --file=<OUTPUT_PATH>
+wrangler r2 object delete <BUCKET_NAME>/<KEY>
+
+# List objects
+wrangler r2 object list <BUCKET_NAME>
+wrangler r2 object list <BUCKET_NAME> --prefix="folder/"
+```
+
+---
+
+## Official Documentation
+
+- **R2 Overview**: https://developers.cloudflare.com/r2/
+- **Get Started**: https://developers.cloudflare.com/r2/get-started/
+- **Workers API**: https://developers.cloudflare.com/r2/api/workers/workers-api-reference/
+- **Multipart Upload**: https://developers.cloudflare.com/r2/api/workers/workers-multipart-usage/
+- **Presigned URLs**: https://developers.cloudflare.com/r2/api/s3/presigned-urls/
+- **CORS Configuration**: https://developers.cloudflare.com/r2/buckets/cors/
+- **Public Buckets**: https://developers.cloudflare.com/r2/buckets/public-buckets/
+
+---
+
+**Ready to store with R2!** 🚀

@@ -1,12 +1,7 @@
 {
   "name": "fastapi-expert",
-  "description": "\"Expert FastAPI developer specializing in production-ready async REST APIs with Pydantic v2, SQLAlchemy 2.0, OAuth2/JWT authentication, and comprehensive security. Deep expertise in dependency injecti",
-  "repo": "martinholovsky/claude-skills-generator",
-  "category": "data",
-  "tags": [
-    "fastapi",
-    "expert"
-  ],
-  "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "repo": "SHAJAR5110/Hackathon-II-phase2",
+  "path": ".claude/skills/fastapi-expert/SKILL.md",
+  "source": "github.com/SHAJAR5110/Hackathon-II-phase2",
+  "downloaded_at": "2026-01-14T04:08:29.972697Z"
 }

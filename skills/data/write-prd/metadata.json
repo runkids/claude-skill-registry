@@ -1,12 +1,7 @@
 {
   "name": "write-prd",
-  "description": "사용자의 기능 아이디어를 시니어 전문가 관점에서 검토하고 PRD를 작성합니다. 기획/API/비즈니스/개발 관점에서 일반 방법론과 비교하여 문제점과 트레이드오프를 분석합니다.",
-  "repo": "NB993/olhaeolhae",
-  "category": "product",
-  "tags": [
-    "write",
-    "prd"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "yebot/rad-cc-plugins",
+  "path": "plugins/webapp-team/skills/write-prd/SKILL.md",
+  "source": "github.com/yebot/rad-cc-plugins",
+  "downloaded_at": "2026-01-14T03:31:54.040171Z"
 }

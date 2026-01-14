@@ -1,12 +1,7 @@
 {
   "name": "js-worker-multithreading",
-  "description": "Implement, refactor, or review worker-based multithreading in TypeScript/JavaScript apps (browser or Node). Use when offloading CPU-heavy loops to Web Workers, setting up a worker pool, moving data ac",
-  "repo": "deadronos/NanoBotsIdle",
-  "category": "development",
-  "tags": [
-    "worker",
-    "multithreading"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "deadronos/deadronosurllist",
+  "path": ".github/skills/js-worker-multithreading/SKILL.md",
+  "source": "github.com/deadronos/deadronosurllist",
+  "downloaded_at": "2026-01-14T01:58:32.328609Z"
 }

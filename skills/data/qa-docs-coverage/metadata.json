@@ -1,8 +1,7 @@
 {
   "name": "qa-docs-coverage",
   "repo": "vasilyu1983/AI-Agents-public",
-  "category": "data",
-  "description": "Systematically audit codebases for documentation gaps, generate coverage reports, and create missing documentation using docs-codebase templates. Scans APIs, services, events, database schemas, and co",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:59.481841Z"
+  "path": "frameworks/shared-skills/skills/qa-docs-coverage/SKILL.md",
+  "source": "github.com/vasilyu1983/AI-Agents-public",
+  "downloaded_at": "2026-01-14T03:09:08.295676Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "architecture-synthesis",
-  "description": "Generate a reference architecture specification from analyzed frameworks. Use when (1) designing a new agent framework based on prior art, (2) defining core primitives (Message, State, Tool types), (3",
   "repo": "Dowwie/agent_framework_study",
-  "category": "development",
-  "tags": [
-    "architecture",
-    "synthesis"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/architecture-synthesis/SKILL.md",
+  "source": "github.com/Dowwie/agent_framework_study",
+  "downloaded_at": "2026-01-14T01:47:08.135433Z"
 }

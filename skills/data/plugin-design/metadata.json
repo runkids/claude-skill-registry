@@ -1,9 +1,7 @@
 {
   "name": "plugin-design",
-  "description": "Master plugin user experience design, command workflows, and interaction patterns. Create intuitive, user-friendly plugin interfaces.",
   "repo": "pluginagentmarketplace/custom-plugin-design-system",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/plugin-design/SKILL.md",
+  "source": "github.com/pluginagentmarketplace/custom-plugin-design-system",
+  "downloaded_at": "2026-01-14T03:12:01.963026Z"
 }

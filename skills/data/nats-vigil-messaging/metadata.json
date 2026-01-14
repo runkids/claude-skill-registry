@@ -1,13 +1,7 @@
 {
   "name": "nats-vigil-messaging",
-  "description": "NATS JetStream messaging for Vigil Guard 2.0+ migration. Use when implementing message queues, detection workers, request-reply API, async processing, Dead Letter Queues, or migrating from n8n webhook",
   "repo": "tbartel74/Vigil-Code",
-  "category": "development",
-  "tags": [
-    "nats",
-    "vigil",
-    "messaging"
-  ],
-  "stars": 5,
-  "source": "local"
+  "path": ".claude/skills/nats-vigil-messaging/SKILL.md",
+  "source": "github.com/tbartel74/Vigil-Code",
+  "downloaded_at": "2026-01-14T02:46:40.225132Z"
 }

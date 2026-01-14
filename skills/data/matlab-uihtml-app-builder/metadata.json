@@ -1,14 +1,7 @@
 {
   "name": "matlab-uihtml-app-builder",
-  "description": "Build interactive web applications using HTML/JavaScript interfaces with MATLAB computational backends via the uihtml component. Use when creating HTML-based MATLAB apps, JavaScript MATLAB interfaces,",
   "repo": "matlab/skills",
-  "category": "development",
-  "tags": [
-    "matlab",
-    "uihtml",
-    "app",
-    "builder"
-  ],
-  "stars": 5,
-  "source": "local"
+  "path": "skills/matlab-uihtml-app-builder/SKILL.md",
+  "source": "github.com/matlab/skills",
+  "downloaded_at": "2026-01-14T03:24:31.157381Z"
 }

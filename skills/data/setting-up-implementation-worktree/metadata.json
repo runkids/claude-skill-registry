@@ -1,13 +1,7 @@
 {
   "name": "setting-up-implementation-worktree",
-  "description": "Use when starting implementation work that needs isolation, before executing implementation plans, or when user says to begin development - creates clean worktree with verified environment, committed ",
   "repo": "WesleyMFrederick/cc-workflows",
-  "category": "development",
-  "tags": [
-    "setting",
-    "implementation",
-    "worktree"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/setting-up-implementation-worktree/SKILL.md",
+  "source": "github.com/WesleyMFrederick/cc-workflows",
+  "downloaded_at": "2026-01-14T02:32:23.601690Z"
 }

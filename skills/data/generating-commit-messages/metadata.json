@@ -1,13 +1,7 @@
 {
   "name": "generating-commit-messages",
-  "description": "MANDATORY skill for ALL commits. Must be used EVERY TIME before creating any git commit. No exceptions.",
-  "repo": "maxmurr/htms",
-  "category": "development",
-  "tags": [
-    "generating",
-    "commit",
-    "messages"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "drgaciw/academic-athletics-saas",
+  "path": ".claude/skills/generating-commit-messages/skill.md",
+  "source": "github.com/drgaciw/academic-athletics-saas",
+  "downloaded_at": "2026-01-14T04:05:26.925306Z"
 }

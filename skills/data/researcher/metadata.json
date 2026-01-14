@@ -1,11 +1,7 @@
 {
   "name": "researcher",
-  "description": "Researches topics in-depth and generates comprehensive summaries and references. Use when trying to deeply understand a topic or use a new framework.",
-  "repo": "MykalMachon/llm-config",
-  "category": "development",
-  "tags": [
-    "researcher"
-  ],
-  "stars": 3,
-  "source": "local"
+  "repo": "mgreenly/ikigai",
+  "path": ".claude/library/researcher/SKILL.md",
+  "source": "github.com/mgreenly/ikigai",
+  "downloaded_at": "2026-01-14T03:06:58.705729Z"
 }

@@ -1,182 +1,146 @@
 ---
 name: marketing-writer
-description: Genera copy de marketing con voz de marca consistente para landing pages, tweets, Product Hunt, emails de lanzamiento y más. Escribe claro, directo y persuasivo sin clichés corporativos. Úsalo para todo contenido de marketing y ventas.
+description: Writes marketing content (landing pages, tweets, emails) for product features with a casual, direct brand voice. Use when the user ships a feature, needs marketing copy, mentions "marketing content", "landing page", "tweet about", "launch email", "announce", or requests help promoting/explaining product features. Automatically analyzes the codebase to understand the product context before writing.
 ---
 
-# Marketing Writer - Voz de Marca Profesional
+# Marketing Writer
 
-## Propósito
+Generate marketing content that converts, using your product's actual features and value proposition.
 
-Este skill genera copy de marketing efectivo con una voz de marca consistente, directa y persuasiva. Evita jerga corporativa y clichés, optando por comunicación clara que convierte.
+## Workflow
 
-## Voz de Marca
+### 1. Understand the Product Context
 
-### Características de Nuestra Voz
+When triggered, analyze the codebase to extract:
+- **Core value proposition**: What problem does the product solve?
+- **Key features**: What can users actually do?
+- **Technical details**: Architecture, tech stack (for credibility if needed)
+- **User workflows**: How people interact with the product
 
-**Somos:**
-- ✅ Directos y claros (no corporativos ni vagos)
-- ✅ Confiados sin ser arrogantes
-- ✅ Humanos y conversacionales
-- ✅ Honestos sobre limitaciones
-- ✅ Enfocados en beneficios reales, no promesas vacías
-- ✅ Profesionales pero accesibles
+**Methods to gather context:**
+- Read README.md, package.json, or similar project files
+- Scan main application files (e.g., pages/, components/, src/)
+- Check documentation if available
+- Review route definitions or feature modules
+- Examine database schemas if relevant
 
-**NO somos:**
-- ❌ Genéricos o corporativos
-- ❌ Exageradamente entusiastas (!!!!)
-- ❌ Vagos o ambiguos
-- ❌ Pretenciosos o técnicos sin razón
-- ❌ Vendedores agresivos
+**If no codebase is provided:** Ask the user to either:
+1. Upload the project files
+2. Provide a GitHub repository URL (use github:get_file_contents)
+3. Give a brief description of the product and feature
 
-## Palabras Prohibidas (Clichés de Marketing)
+### 2. Select the Content Type
 
-**NUNCA uses:**
-- "Revolucionario" / "Disruptivo" / "Innovador"
-- "De clase mundial" / "Best-in-class"
-- "Empodera" / "Transforma"
-- "Solución integral" / "Ecosistema"
-- "Líder de la industria" / "Premier"
-- "Seamless" / "Sin esfuerzo"
-- "Próxima generación" / "Cutting-edge"
-- "Sinergia" / "Leverage" / "Touchpoint"
-- "Game-changer" / "Paradigm shift"
+Based on user request, choose:
+- **Landing page feature section**: Detailed explanation with Problem → Solution → Benefit
+- **Tweet thread**: 5-7 tweets for social media announcement
+- **Launch email**: Personal announcement to users
+- **Social post**: Single LinkedIn/Twitter post
+- **FAQ section**: Common questions answered
 
-**USA en su lugar:**
-- Descriptores específicos ("30% más rápido que X")
-- Beneficios concretos ("Ahorra 5 horas/semana")
-- Lenguaje simple y directo
+### 3. Load Templates and Brand Voice
 
-## Fórmulas de Copywriting
+**Before writing, read:**
+- `references/templates.md` - Exact structure for each content type
+- `references/brand-voice.md` - Tone, language rules, examples
 
-### Fórmula PAS (Problem-Agitate-Solution)
+### 4. Generate Content
 
+**Follow these rules:**
+1. Use the exact template structure from templates.md
+2. Apply brand voice guidelines strictly (casual, no buzzwords, specific benefits)
+3. Base content on actual product features, not assumptions
+4. Include concrete numbers/outcomes when possible
+5. Make the benefit obvious in the first sentence
+6. Keep it scannable (short paragraphs, bullets)
+
+**Content checklist:**
+- [ ] Benefit clear in first sentence?
+- [ ] No corporate buzzwords?
+- [ ] Specific outcome mentioned?
+- [ ] Simple language (8th-grade level)?
+- [ ] Would you say this to a friend?
+- [ ] CTA is obvious and easy?
+
+### 5. Output Format
+
+Present content ready to copy-paste:
 ```
-1. PROBLEMA: Identifica el dolor específico
-2. AGITACIÓN: Amplifica por qué es frustrante
-3. SOLUCIÓN: Presenta tu producto como la respuesta
-```
+[Content type header]
 
-**Ejemplo:**
-```
-❌ MAL:
-"Nuestro software revolucionario transforma tu workflow"
+[Generated content following template exactly]
 
-✅ BIEN:
-"Pierdes 2 horas diarias en tareas manuales repetitivas. [Problema]
-Mientras tanto, tu competencia está enviando features 2x más rápido. [Agitación]
-Automatiza lo aburrido en 5 minutos. Concéntrate en lo que importa. [Solución]"
-```
-
-## Templates por Tipo de Contenido
-
-### 1. Landing Page (Hero Section)
-
-**Headline (H1)**
-[Beneficio principal en 5-8 palabras]
-
-**Ejemplos:**
-- "Ship features 2x faster with automated testing"
-- "Turn customer feedback into product decisions"
-
-**CTA Principal**
-[Acción específica - 2-4 palabras]
-
-**Ejemplos:**
-- "Start free trial" (SI tienes trial)
-- "See it in action" (SI tienes demo)
-
-### 2. Tweet Thread (Lanzamiento)
-
-**Tweet 1: Hook + Anuncio**
-```
-[Problema específico]
-
-Hoy lanzamos [Producto]: [solución en 5-7 palabras]
-
-🧵 Thread de cómo funciona:
+---
+Quick edits if needed:
+- [Optional: suggest 1-2 variations for key sentences]
 ```
 
-**Tweet 2: El Problema**
-[Agita el dolor - sé específico]
+## Key Principles
 
-**Tweet 3: Cómo lo Resuelves**
-[Tu solución en 2-3 bullet points]
+**Always read the codebase first.** Never guess what the product does. Real features > assumptions.
 
-**Tweet 7: CTA**
-```
-Empieza gratis hoy:
-👉 [link]
+**Follow templates exactly.** They're battle-tested structures that convert.
 
-✓ No requiere CC
-✓ Setup en 2 minutos
-```
+**Brand voice is non-negotiable.** If it sounds corporate, rewrite it.
 
-### 3. Product Hunt Launch
+**Specific > Vague.** "Find files in 2 seconds" beats "Fast search".
 
-**TAGLINE (60 caracteres max)**
-[Qué hace + Para quién]
+**One clear benefit per section.** Don't overwhelm with feature lists.
 
-**Ejemplos:**
-✅ "Error tracking that filters the noise for you"
-✅ "API monitoring that actually alerts you on time"
+## Examples
 
-### 4. Launch Email
+### User Request: "Write a landing page section for our new search feature"
 
-**SUBJECT LINES:**
-- "Tu acceso a [Product] está listo"
-- "Di adiós a [problema] - empieza hoy"
+**Step 1:** Scan codebase
+- Found: ElasticSearch integration in `api/search.js`
+- Found: Search UI in `components/SearchBar.tsx`
+- Understanding: Full-text search across documents with instant results
 
-**BODY:**
-```
-Hola [Nombre],
+**Step 2:** Load templates.md (Landing Page Feature Section)
 
-Hace [X semanas] te uniste a nuestra waitlist.
-Hoy abrimos las puertas.
+**Step 3:** Load brand-voice.md
 
-[Problema recordatorio]
-[Solución clara]
-[CTA obvio]
+**Step 4:** Generate following template + brand voice
 
-P.S. Como early waitlister, tienes [beneficio exclusivo]
-```
+**Output:**
+```markdown
+### Instant Search
 
-## Principios de Copywriting Efectivo
+**The Problem:**
+You have hundreds of files scattered across folders. Finding anything takes forever because you can't remember where you saved it.
 
-### 1. Claridad > Inteligencia
+**How It Works:**
+Type what you're looking for and see results instantly. No waiting, no folder clicking. Search works on file names and content.
 
-```
-❌ "Leverage synergistic workflows to optimize your funnel"
-✅ "See where users drop off and fix it"
+**What You Get:**
+- Find any document in under 2 seconds
+- Search across all your files at once  
+- Works even if you only remember part of the name
+
+[Try Search →]
 ```
 
-### 2. Específico > Vago
+---
 
-```
-❌ "Mejora tu productividad"
-✅ "Ahorra 5 horas/semana en tareas manuales"
-```
+### User Request: "Tweet thread about the feature I just shipped"
 
-### 3. Beneficios > Features
+**If feature not obvious from context:** "Which feature did you ship? I'll scan the codebase to understand it first."
 
-```
-❌ "Tiene integración con Slack"
-✅ "Recibe alerts donde ya trabajas (Slack, Discord, Teams)"
-```
+**Once identified, follow workflow above for Tweet Thread template.**
 
-## Checklist de Calidad
+## Common Mistakes to Avoid
 
-- [ ] ¿Evité todas las palabras prohibidas/clichés?
-- [ ] ¿Mencioné beneficios específicos (no solo features)?
-- [ ] ¿Incluí números/métricas concretas?
-- [ ] ¿El CTA es claro y específico?
-- [ ] ¿Es escaneable (bullets, headlines, espaciado)?
-- [ ] ¿Sonaría natural si lo leyera en voz alta?
-- [ ] ¿Responde "¿Y a mí qué?" desde el usuario?
+- Writing before understanding the product (read code first!)
+- Using templates.md structure loosely (follow exactly)
+- Ignoring brand-voice.md rules (check every sentence)
+- Making up features or benefits (only use real ones)
+- Being vague about outcomes (numbers matter)
+- Corporate speak creeping in (friend test: would you say this?)
 
-## Referencias
+## When NOT to Use This Skill
 
-**Estudia el copy de:**
-- Linear (producto)
-- Stripe (B2B enterprise)
-- Notion (versatilidad)
-- Vercel (técnico pero accesible)
+- Technical documentation (that's different)
+- Legal content or policies
+- Internal communications (unless specifically requested)
+- Customer support responses
+- Blog posts or long-form content (too different in structure)

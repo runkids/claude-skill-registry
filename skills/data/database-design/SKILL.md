@@ -1,625 +1,427 @@
 ---
-name: database-design
-description: Expert database design and data modeling. Use when designing schemas, normalizing data, creating ER diagrams, or making architectural database decisions.
-allowed-tools: Bash, Read, Grep
+name: Database Design
+slug: database-design
+description: Expert guide for database schema design, Supabase/PostgreSQL best practices, RLS policies, and optimizations. Use when designing tables, relationships, or implementing data models.
+category: backend
+complexity: moderate
+version: "1.0.0"
+author: "ID8Labs"
+triggers:
+  - "design database"
+  - "create schema"
+  - "database tables"
+  - "RLS policies"
+  - "data model"
+  - "database optimization"
+  - "migration"
+  - "indexes"
+tags:
+  - database
+  - postgresql
+  - supabase
+  - schema
+  - rls
+  - migrations
+  - indexes
+  - sql
 ---
 
 # Database Design Skill
 
-Comprehensive knowledge for designing robust, scalable, and maintainable database schemas for SQL Server.
+Comprehensive guide for designing efficient, scalable database schemas for Next.js applications with Supabase and PostgreSQL. From table design and relationships to Row Level Security policies and query optimization, this skill covers everything needed for robust data modeling.
 
-## Database Design Principles
+Design normalized schemas, implement secure RLS policies, optimize query performance with proper indexing, and build maintainable data models that scale with your application.
 
-### 1. Understand the Domain
+## Core Workflows
 
-Before designing:
-- Identify all entities (nouns in requirements)
-- Identify relationships between entities
-- Understand business rules and constraints
-- Consider access patterns and query requirements
-- Plan for future growth and scalability
+### Workflow 1: Schema Design from Requirements
+**Purpose:** Translate business requirements into database schema
 
-### 2. Normalization
+**Steps:**
+1. Identify entities and relationships
+2. Define primary and foreign keys
+3. Choose appropriate data types
+4. Add constraints and defaults
+5. Create indexes for performance
 
-Apply normalization to eliminate redundancy and ensure data integrity.
-
-**First Normal Form (1NF)**
-- ❌ Violates 1NF: `Products(Id, Name, Tags VARCHAR)` where Tags = "laptop, computer, electronics"
-- ✓ Conforms to 1NF: Separate `ProductTags` table with one tag per row
-
-**Second Normal Form (2NF)**
-- ❌ Violates 2NF: `OrderItems(OrderId, ProductId, CustomerName)` - CustomerName depends on OrderId, not the composite key
-- ✓ Conforms to 2NF: Move CustomerName to Orders table
-
-**Third Normal Form (3NF)**
-- ❌ Violates 3NF: `Employees(Id, DepartmentId, DepartmentName)` - DepartmentName depends on DepartmentId (transitive dependency)
-- ✓ Conforms to 3NF: Create Departments table with DepartmentName
-
-**Boyce-Codd Normal Form (BCNF)**
-- Stricter version of 3NF
-- Every determinant must be a candidate key
-- Usually achieved when 3NF is properly implemented
-
-### When to Denormalize
-
-Sometimes denormalization is acceptable for:
-- **Performance**: Avoid complex joins for frequently accessed data
-- **Read-heavy workloads**: Optimize for reads at expense of writes
-- **Reporting databases**: Data warehouses often denormalize
-- **Caching computed values**: Store aggregates to avoid recalculation
-
-Examples:
-- Store CustomerName in Orders for faster order display
-- Maintain OrderCount on Customers table
-- Store denormalized product details in OrderItems for historical accuracy
-
-## Common Design Patterns
-
-### 1. One-to-Many Relationship
-
-**Example**: Customers → Orders
-
+**Implementation:**
 ```sql
-CREATE TABLE Customers (
-    CustomerId INT IDENTITY(1,1) PRIMARY KEY,
-    CustomerName NVARCHAR(100) NOT NULL,
-    Email NVARCHAR(255) NOT NULL UNIQUE,
-    CreatedAt DATETIME2 DEFAULT GETUTCDATE()
-);
-
-CREATE TABLE Orders (
-    OrderId INT IDENTITY(1,1) PRIMARY KEY,
-    CustomerId INT NOT NULL,
-    OrderDate DATETIME2 DEFAULT GETUTCDATE(),
-    TotalAmount DECIMAL(10,2) NOT NULL,
-
-    CONSTRAINT FK_Orders_Customers
-        FOREIGN KEY (CustomerId)
-        REFERENCES Customers(CustomerId)
-);
-
-CREATE NONCLUSTERED INDEX IX_Orders_CustomerId
-    ON Orders(CustomerId);
-```
-
-### 2. Many-to-Many Relationship
-
-**Example**: Students ↔ Courses
-
-```sql
-CREATE TABLE Students (
-    StudentId INT IDENTITY(1,1) PRIMARY KEY,
-    StudentName NVARCHAR(100) NOT NULL
-);
-
-CREATE TABLE Courses (
-    CourseId INT IDENTITY(1,1) PRIMARY KEY,
-    CourseName NVARCHAR(100) NOT NULL
-);
-
--- Junction/Bridge table
-CREATE TABLE Enrollments (
-    StudentId INT NOT NULL,
-    CourseId INT NOT NULL,
-    EnrollmentDate DATETIME2 DEFAULT GETUTCDATE(),
-    Grade CHAR(2),
-
-    PRIMARY KEY (StudentId, CourseId),
-
-    CONSTRAINT FK_Enrollments_Students
-        FOREIGN KEY (StudentId)
-        REFERENCES Students(StudentId),
-
-    CONSTRAINT FK_Enrollments_Courses
-        FOREIGN KEY (CourseId)
-        REFERENCES Courses(CourseId)
+-- Correct data types
+CREATE TABLE users (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  email TEXT NOT NULL,                    -- Use TEXT, not VARCHAR
+  age INTEGER CHECK (age >= 0),
+  balance DECIMAL(10, 2),                 -- For money
+  is_active BOOLEAN DEFAULT true,
+  metadata JSONB,                         -- Use JSONB for JSON
+  created_at TIMESTAMPTZ DEFAULT NOW()    -- Use TIMESTAMPTZ
 );
 ```
 
-### 3. One-to-One Relationship
+### Workflow 2: Common Relationship Patterns
+**Purpose:** Implement proper database relationships
 
-**Example**: Users → UserProfiles
-
+**One-to-Many:**
 ```sql
-CREATE TABLE Users (
-    UserId INT IDENTITY(1,1) PRIMARY KEY,
-    Username NVARCHAR(50) NOT NULL UNIQUE,
-    Email NVARCHAR(255) NOT NULL UNIQUE
+CREATE TABLE users (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  email TEXT UNIQUE NOT NULL,
+  name TEXT NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
-CREATE TABLE UserProfiles (
-    UserId INT PRIMARY KEY,  -- PK and FK combined
-    Bio NVARCHAR(MAX),
-    ProfilePictureUrl NVARCHAR(500),
-    DateOfBirth DATE,
-
-    CONSTRAINT FK_UserProfiles_Users
-        FOREIGN KEY (UserId)
-        REFERENCES Users(UserId)
-        ON DELETE CASCADE
+CREATE TABLE posts (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  title TEXT NOT NULL,
+  content TEXT,
+  created_at TIMESTAMPTZ DEFAULT NOW()
 );
+
+CREATE INDEX idx_posts_user_id ON posts(user_id);
 ```
 
-### 4. Self-Referencing Relationship
-
-**Example**: Employees (manager hierarchy)
-
+**Many-to-Many:**
 ```sql
-CREATE TABLE Employees (
-    EmployeeId INT IDENTITY(1,1) PRIMARY KEY,
-    EmployeeName NVARCHAR(100) NOT NULL,
-    ManagerId INT NULL,  -- References another Employee
-
-    CONSTRAINT FK_Employees_Manager
-        FOREIGN KEY (ManagerId)
-        REFERENCES Employees(EmployeeId)
+CREATE TABLE students (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  name TEXT NOT NULL
 );
+
+CREATE TABLE courses (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  name TEXT NOT NULL
+);
+
+CREATE TABLE enrollments (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  student_id UUID NOT NULL REFERENCES students(id) ON DELETE CASCADE,
+  course_id UUID NOT NULL REFERENCES courses(id) ON DELETE CASCADE,
+  enrolled_at TIMESTAMPTZ DEFAULT NOW(),
+  UNIQUE(student_id, course_id)
+);
+
+CREATE INDEX idx_enrollments_student ON enrollments(student_id);
+CREATE INDEX idx_enrollments_course ON enrollments(course_id);
 ```
 
-**Example**: Categories (tree structure)
-
+**Self-Referencing (Tree):**
 ```sql
-CREATE TABLE Categories (
-    CategoryId INT IDENTITY(1,1) PRIMARY KEY,
-    CategoryName NVARCHAR(100) NOT NULL,
-    ParentCategoryId INT NULL,
-
-    CONSTRAINT FK_Categories_Parent
-        FOREIGN KEY (ParentCategoryId)
-        REFERENCES Categories(CategoryId)
+CREATE TABLE comments (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  parent_id UUID REFERENCES comments(id) ON DELETE CASCADE,
+  user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  content TEXT NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW()
 );
+
+CREATE INDEX idx_comments_parent ON comments(parent_id);
 ```
 
-### 5. Polymorphic Associations (Use with Caution)
+### Workflow 3: Row Level Security (RLS)
+**Purpose:** Secure data access at the database level
 
-**Problem**: Multiple entity types sharing a relationship
-
-**Approach 1: Separate Foreign Keys** (Preferred)
+**Implementation:**
 ```sql
-CREATE TABLE Comments (
-    CommentId INT IDENTITY(1,1) PRIMARY KEY,
-    CommentText NVARCHAR(MAX),
-    PostId INT NULL,
-    PhotoId INT NULL,
+-- Enable RLS
+ALTER TABLE posts ENABLE ROW LEVEL SECURITY;
 
-    CONSTRAINT FK_Comments_Posts
-        FOREIGN KEY (PostId) REFERENCES Posts(PostId),
-    CONSTRAINT FK_Comments_Photos
-        FOREIGN KEY (PhotoId) REFERENCES Photos(PhotoId),
+-- Users can only read their own data
+CREATE POLICY "Users can read own posts"
+ON posts FOR SELECT
+USING (auth.uid() = user_id);
 
-    CONSTRAINT CK_Comments_OneParent
-        CHECK (
-            (PostId IS NOT NULL AND PhotoId IS NULL) OR
-            (PostId IS NULL AND PhotoId IS NOT NULL)
-        )
-);
-```
+-- Users can insert their own data
+CREATE POLICY "Users can create posts"
+ON posts FOR INSERT
+WITH CHECK (auth.uid() = user_id);
 
-**Approach 2: Supertype/Subtype** (Preferred for similar entities)
-```sql
-CREATE TABLE Media (
-    MediaId INT IDENTITY(1,1) PRIMARY KEY,
-    MediaType NVARCHAR(20) NOT NULL,  -- 'Post' or 'Photo'
-    CreatedAt DATETIME2 DEFAULT GETUTCDATE()
-);
+-- Users can update their own data
+CREATE POLICY "Users can update own posts"
+ON posts FOR UPDATE
+USING (auth.uid() = user_id)
+WITH CHECK (auth.uid() = user_id);
 
-CREATE TABLE Posts (
-    MediaId INT PRIMARY KEY,
-    Title NVARCHAR(200),
-    Content NVARCHAR(MAX),
+-- Users can delete their own data
+CREATE POLICY "Users can delete own posts"
+ON posts FOR DELETE
+USING (auth.uid() = user_id);
 
-    CONSTRAINT FK_Posts_Media
-        FOREIGN KEY (MediaId) REFERENCES Media(MediaId)
-);
+-- Public read, authenticated write
+CREATE POLICY "Public can read posts"
+ON posts FOR SELECT
+USING (true);
 
-CREATE TABLE Photos (
-    MediaId INT PRIMARY KEY,
-    Url NVARCHAR(500),
-    Caption NVARCHAR(500),
+CREATE POLICY "Authenticated users can create posts"
+ON posts FOR INSERT
+WITH CHECK (auth.role() = 'authenticated');
 
-    CONSTRAINT FK_Photos_Media
-        FOREIGN KEY (MediaId) REFERENCES Media(MediaId)
-);
-
-CREATE TABLE Comments (
-    CommentId INT IDENTITY(1,1) PRIMARY KEY,
-    MediaId INT NOT NULL,
-    CommentText NVARCHAR(MAX),
-
-    CONSTRAINT FK_Comments_Media
-        FOREIGN KEY (MediaId) REFERENCES Media(MediaId)
+-- Role-based access
+CREATE POLICY "Admins have full access"
+ON posts FOR ALL
+USING (
+  EXISTS (
+    SELECT 1 FROM users
+    WHERE id = auth.uid() AND role = 'admin'
+  )
 );
 ```
 
-### 6. Audit Pattern
+### Workflow 4: Indexes for Performance
+**Purpose:** Optimize query performance
 
-Track who created/modified records and when:
-
+**Implementation:**
 ```sql
-CREATE TABLE Products (
-    ProductId INT IDENTITY(1,1) PRIMARY KEY,
-    ProductName NVARCHAR(100) NOT NULL,
-    Price DECIMAL(10,2) NOT NULL,
+-- Single Column Index
+CREATE INDEX idx_users_email ON users(email);
 
-    -- Audit columns
-    CreatedAt DATETIME2 DEFAULT GETUTCDATE() NOT NULL,
-    CreatedBy INT NOT NULL,
-    UpdatedAt DATETIME2,
-    UpdatedBy INT,
-    IsDeleted BIT DEFAULT 0 NOT NULL,
-    DeletedAt DATETIME2,
-    DeletedBy INT,
+-- Composite Index
+CREATE INDEX idx_posts_user_created ON posts(user_id, created_at DESC);
 
-    CONSTRAINT FK_Products_CreatedBy
-        FOREIGN KEY (CreatedBy) REFERENCES Users(UserId),
-    CONSTRAINT FK_Products_UpdatedBy
-        FOREIGN KEY (UpdatedBy) REFERENCES Users(UserId),
-    CONSTRAINT FK_Products_DeletedBy
-        FOREIGN KEY (DeletedBy) REFERENCES Users(UserId)
-);
+-- Partial Index
+CREATE INDEX idx_active_users ON users(email) WHERE is_active = true;
+
+-- Full-Text Search Index
+CREATE INDEX idx_posts_search ON posts
+USING gin(to_tsvector('english', title || ' ' || content));
+
+-- Query with full-text search
+SELECT * FROM posts
+WHERE to_tsvector('english', title || ' ' || content)
+@@ plainto_tsquery('search term');
 ```
 
-### 7. Temporal Tables (SQL Server 2016+)
+### Workflow 5: Advanced Patterns
+**Purpose:** Implement common database patterns
 
-Automatic history tracking:
-
+**Soft Deletes:**
 ```sql
-CREATE TABLE Products (
-    ProductId INT PRIMARY KEY,
-    ProductName NVARCHAR(100),
-    Price DECIMAL(10,2),
-
-    -- System-versioning columns (required)
-    ValidFrom DATETIME2 GENERATED ALWAYS AS ROW START NOT NULL,
-    ValidTo DATETIME2 GENERATED ALWAYS AS ROW END NOT NULL,
-    PERIOD FOR SYSTEM_TIME (ValidFrom, ValidTo)
-)
-WITH (SYSTEM_VERSIONING = ON (HISTORY_TABLE = dbo.ProductsHistory));
-
--- Query historical data
-SELECT * FROM Products
-FOR SYSTEM_TIME AS OF '2024-01-01';
-
-SELECT * FROM Products
-FOR SYSTEM_TIME BETWEEN '2024-01-01' AND '2024-12-31';
-```
-
-### 8. Type Tables (Lookup Tables)
-
-For enumeration values:
-
-```sql
-CREATE TABLE OrderStatuses (
-    StatusId INT PRIMARY KEY,  -- Fixed values (1=Pending, 2=Processing, etc.)
-    StatusName NVARCHAR(50) NOT NULL UNIQUE,
-    DisplayOrder INT NOT NULL
+CREATE TABLE posts (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  title TEXT NOT NULL,
+  deleted_at TIMESTAMPTZ,
+  created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
-INSERT INTO OrderStatuses VALUES
-    (1, 'Pending', 1),
-    (2, 'Processing', 2),
-    (3, 'Shipped', 3),
-    (4, 'Delivered', 4),
-    (5, 'Cancelled', 5);
+CREATE INDEX idx_posts_not_deleted ON posts(id) WHERE deleted_at IS NULL;
 
-CREATE TABLE Orders (
-    OrderId INT IDENTITY(1,1) PRIMARY KEY,
-    StatusId INT NOT NULL DEFAULT 1,
-
-    CONSTRAINT FK_Orders_Status
-        FOREIGN KEY (StatusId)
-        REFERENCES OrderStatuses(StatusId)
-);
+CREATE POLICY "Users see non-deleted posts"
+ON posts FOR SELECT
+USING (deleted_at IS NULL);
 ```
 
-## Data Type Selection Guide
-
-### Strings
-
-| Type | Use When |
-|------|----------|
-| `NVARCHAR(n)` | Unicode text (names, addresses, international content) |
-| `VARCHAR(n)` | ASCII-only text (codes, slugs) |
-| `NVARCHAR(MAX)` | Large text (descriptions, content) - up to 2GB |
-| `CHAR(n)` | Fixed-length codes (country codes: 'US', 'UK') |
-
-**Examples**:
+**Audit Trail:**
 ```sql
-Email NVARCHAR(255)
-CountryCode CHAR(2)
-ProductDescription NVARCHAR(MAX)
-SKU VARCHAR(50)
-```
-
-### Numbers
-
-| Type | Range | Use When |
-|------|-------|----------|
-| `TINYINT` | 0 to 255 | Small counts, flags (0-255) |
-| `SMALLINT` | -32K to 32K | Small integers |
-| `INT` | -2.1B to 2.1B | Standard integers (most common) |
-| `BIGINT` | -9.2E18 to 9.2E18 | Large integers |
-| `DECIMAL(p,s)` | Exact | Money, precise calculations |
-| `FLOAT` | Approximate | Scientific data (avoid for money!) |
-
-**Examples**:
-```sql
-Age TINYINT
-Quantity SMALLINT
-UserId INT
-TransactionId BIGINT
-Price DECIMAL(10,2)
-TaxRate DECIMAL(5,4)  -- e.g., 0.0825 for 8.25%
-```
-
-### Dates and Times
-
-| Type | Use When |
-|------|----------|
-| `DATE` | Date only (birthdate, event date) |
-| `TIME` | Time only (opening hours) |
-| `DATETIME2` | Date and time (preferred, higher precision) |
-| `DATETIMEOFFSET` | Date/time with timezone |
-
-**Examples**:
-```sql
-DateOfBirth DATE
-OrderDate DATETIME2
-CreatedAt DATETIME2 DEFAULT GETUTCDATE()
-AppointmentTime TIME
-EventStartTime DATETIMEOFFSET
-```
-
-### Other Types
-
-```sql
--- Boolean
-IsActive BIT DEFAULT 1
-
--- GUID
-UniqueId UNIQUEIDENTIFIER DEFAULT NEWID()
-
--- Binary (files, images)
-ProfilePicture VARBINARY(MAX)
-
--- JSON
-Metadata NVARCHAR(MAX) CHECK (ISJSON(Metadata) = 1)
-
--- XML
-Configuration XML
-```
-
-## Indexing Strategy
-
-### Clustered Index (one per table)
-
-Usually on:
-- Primary key (default)
-- Most common filter/sort column
-- Narrow, unique, static column
-
-```sql
--- Default: clustered on PK
-CREATE TABLE Users (
-    UserId INT IDENTITY(1,1) PRIMARY KEY CLUSTERED
+CREATE TABLE audit_log (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  table_name TEXT NOT NULL,
+  record_id UUID NOT NULL,
+  action TEXT NOT NULL CHECK (action IN ('INSERT', 'UPDATE', 'DELETE')),
+  old_data JSONB,
+  new_data JSONB,
+  user_id UUID REFERENCES users(id),
+  created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Custom: clustered on different column
-CREATE TABLE Logs (
-    LogId BIGINT IDENTITY(1,1) PRIMARY KEY NONCLUSTERED,
-    LogDate DATETIME2 NOT NULL,
-    Message NVARCHAR(MAX)
-);
+CREATE OR REPLACE FUNCTION audit_trigger()
+RETURNS TRIGGER AS $$
+BEGIN
+  INSERT INTO audit_log (table_name, record_id, action, old_data, new_data, user_id)
+  VALUES (
+    TG_TABLE_NAME,
+    COALESCE(NEW.id, OLD.id),
+    TG_OP,
+    CASE WHEN TG_OP = 'DELETE' THEN to_jsonb(OLD) ELSE NULL END,
+    CASE WHEN TG_OP IN ('INSERT', 'UPDATE') THEN to_jsonb(NEW) ELSE NULL END,
+    auth.uid()
+  );
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
 
-CREATE CLUSTERED INDEX IX_Logs_LogDate ON Logs(LogDate);
+CREATE TRIGGER posts_audit
+AFTER INSERT OR UPDATE OR DELETE ON posts
+FOR EACH ROW EXECUTE FUNCTION audit_trigger();
 ```
 
-### Non-Clustered Indexes
+**Auto-update Timestamps:**
+```sql
+CREATE OR REPLACE FUNCTION update_updated_at()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.updated_at = NOW();
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
 
-Create for:
-- Foreign keys (JOIN columns)
-- WHERE clause columns
-- ORDER BY columns
-- Frequently searched columns
+CREATE TRIGGER posts_updated_at
+BEFORE UPDATE ON posts
+FOR EACH ROW EXECUTE FUNCTION update_updated_at();
+```
+
+## Quick Reference
+
+| Task | SQL Pattern |
+|------|-------------|
+| Create table | `CREATE TABLE name (columns)` |
+| Add column | `ALTER TABLE name ADD COLUMN col TYPE` |
+| Add index | `CREATE INDEX name ON table(columns)` |
+| Enable RLS | `ALTER TABLE name ENABLE ROW LEVEL SECURITY` |
+| Create policy | `CREATE POLICY name ON table FOR action USING (condition)` |
+| Create function | `CREATE FUNCTION name() RETURNS type AS $$ ... $$` |
+| Create trigger | `CREATE TRIGGER name AFTER/BEFORE action ON table` |
+
+## Migrations with Supabase
+
+```bash
+# Create Migration
+npx supabase migration new create_posts_table
+```
 
 ```sql
--- Basic index
-CREATE NONCLUSTERED INDEX IX_Orders_CustomerId
-    ON Orders(CustomerId);
+-- supabase/migrations/20240101000000_create_posts_table.sql
 
--- Composite index (order matters!)
-CREATE NONCLUSTERED INDEX IX_Orders_CustomerId_OrderDate
-    ON Orders(CustomerId, OrderDate DESC);
+CREATE TABLE posts (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  title TEXT NOT NULL,
+  content TEXT,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
 
--- Covering index (includes extra columns)
-CREATE NONCLUSTERED INDEX IX_Orders_CustomerId_Covering
-    ON Orders(CustomerId)
-    INCLUDE (OrderDate, TotalAmount);
+CREATE INDEX idx_posts_user_id ON posts(user_id);
 
--- Filtered index (partial index)
-CREATE NONCLUSTERED INDEX IX_Orders_Active
-    ON Orders(OrderDate)
-    WHERE IsActive = 1 AND IsDeleted = 0;
+ALTER TABLE posts ENABLE ROW LEVEL SECURITY;
 
--- Unique index
-CREATE UNIQUE NONCLUSTERED INDEX IX_Users_Email
-    ON Users(Email);
+CREATE POLICY "Users can read own posts"
+ON posts FOR SELECT
+USING (auth.uid() = user_id);
 ```
+
+```bash
+# Apply Migration
+npx supabase db push
+```
+
+## Querying with Supabase
+
+```typescript
+// Select all
+const { data } = await supabase.from('posts').select('*')
+
+// Select specific columns
+const { data } = await supabase.from('posts').select('id, title')
+
+// Filter
+const { data } = await supabase
+  .from('posts')
+  .select('*')
+  .eq('user_id', userId)
+
+// Join tables
+const { data } = await supabase
+  .from('posts')
+  .select(`
+    *,
+    users (
+      id,
+      name,
+      email
+    )
+  `)
+
+// Count
+const { count } = await supabase
+  .from('posts')
+  .select('*', { count: 'exact', head: true })
+
+// Pagination
+const { data } = await supabase
+  .from('posts')
+  .select('*')
+  .range(0, 9)
+
+// Order
+const { data } = await supabase
+  .from('posts')
+  .select('*')
+  .order('created_at', { ascending: false })
+```
+
+## Best Practices
+
+- **Use UUIDs:** Better for distributed systems and security
+- **Add Timestamps:** Always include created_at and updated_at
+- **Enable RLS:** On all tables by default
+- **Index Foreign Keys:** Create indexes for all foreign keys
+- **Use TIMESTAMPTZ:** Not TIMESTAMP for timezone awareness
+- **Use TEXT:** Not VARCHAR in PostgreSQL
+- **Use JSONB:** Not JSON for better performance
+- **Normalize First:** Denormalize only for performance
+- **Migrations Only:** Never modify schema directly in production
+- **Test RLS Policies:** Verify with different user contexts
+- **Use Transactions:** For related operations
+- **Document Schema:** Maintain ERD diagrams
 
 ## Constraints
 
-### Primary Key
 ```sql
--- Identity primary key
-UserId INT IDENTITY(1,1) PRIMARY KEY
+-- Primary Key
+id UUID PRIMARY KEY DEFAULT uuid_generate_v4()
 
--- GUID primary key
-UserId UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY
+-- Foreign Key
+user_id UUID REFERENCES users(id) ON DELETE CASCADE
 
--- Composite primary key
-PRIMARY KEY (StudentId, CourseId)
+-- Unique
+email TEXT UNIQUE NOT NULL
 
--- Named constraint
-CONSTRAINT PK_Users PRIMARY KEY (UserId)
+-- Check
+price DECIMAL CHECK (price > 0)
+status TEXT CHECK (status IN ('active', 'inactive'))
+
+-- Not Null
+name TEXT NOT NULL
 ```
 
-### Foreign Key
-```sql
-CONSTRAINT FK_Orders_Customers
-    FOREIGN KEY (CustomerId)
-    REFERENCES Customers(CustomerId)
-    ON DELETE CASCADE          -- Options: NO ACTION, CASCADE, SET NULL, SET DEFAULT
-    ON UPDATE CASCADE
+## Dependencies
+
+```bash
+# Supabase CLI for migrations
+npm install -D supabase
+
+# Generate types from schema
+npx supabase gen types typescript --local > types/database.ts
 ```
 
-### Unique
-```sql
-CONSTRAINT UQ_Users_Email UNIQUE (Email)
+## Error Handling
 
--- Multi-column unique
-CONSTRAINT UQ_Products_SKU_Supplier UNIQUE (SKU, SupplierId)
-```
+- **Foreign Key Violations:** Handle gracefully in application
+- **Unique Constraints:** Provide user-friendly error messages
+- **Check Constraints:** Validate in application before insert
+- **RLS Errors:** Return 404 instead of 403 for security
+- **Connection Limits:** Use connection pooling
 
-### Check
-```sql
--- Range check
-CONSTRAINT CK_Products_Price CHECK (Price >= 0)
+## Performance Tips
 
--- Pattern check
-CONSTRAINT CK_Users_Email CHECK (Email LIKE '%@%.%')
-
--- Multi-column check
-CONSTRAINT CK_Events_Dates CHECK (EndDate >= StartDate)
-
--- Complex business rule
-CONSTRAINT CK_Orders_Discount
-    CHECK (DiscountPercent >= 0 AND DiscountPercent <= 100)
-```
-
-### Default
-```sql
-CreatedAt DATETIME2 DEFAULT GETUTCDATE()
-IsActive BIT DEFAULT 1
-Status NVARCHAR(20) DEFAULT 'Pending'
-Quantity INT DEFAULT 0
-```
-
-## Schema Organization
-
-### Use Schemas for Logical Grouping
-
-```sql
--- Create schemas
-CREATE SCHEMA Sales;
-CREATE SCHEMA HR;
-CREATE SCHEMA Reporting;
-
--- Create tables in schemas
-CREATE TABLE Sales.Orders (...);
-CREATE TABLE Sales.Customers (...);
-CREATE TABLE HR.Employees (...);
-CREATE TABLE Reporting.SalesSummary (...);
-
--- Query with schema
-SELECT * FROM Sales.Orders;
-```
-
-Benefits:
-- Logical organization
-- Security (grant permissions per schema)
-- Namespace management
-
-## Common Anti-Patterns to Avoid
-
-### 1. Entity-Attribute-Value (EAV)
-```sql
--- ❌ Hard to query, poor performance
-CREATE TABLE EntityAttributes (
-    EntityId INT,
-    AttributeName NVARCHAR(50),
-    AttributeValue NVARCHAR(MAX)
-);
-
--- ✓ Proper design with columns
-CREATE TABLE Products (
-    ProductId INT PRIMARY KEY,
-    Name NVARCHAR(100),
-    Price DECIMAL(10,2),
-    Color NVARCHAR(50)
-);
-```
-
-### 2. Comma-Separated Values
-```sql
--- ❌ Violates 1NF, hard to query
-CREATE TABLE Products (
-    Tags NVARCHAR(500)  -- 'laptop,computer,electronics'
-);
-
--- ✓ Separate table
-CREATE TABLE ProductTags (
-    ProductId INT,
-    Tag NVARCHAR(50),
-    PRIMARY KEY (ProductId, Tag)
-);
-```
-
-### 3. Using Reserved Keywords
-```sql
--- ❌ Avoid
-CREATE TABLE User (...);  -- 'User' is reserved
-CREATE TABLE [Order] (...);  -- Needs brackets
-
--- ✓ Better
-CREATE TABLE Users (...);
-CREATE TABLE Orders (...);
-```
-
-### 4. No Foreign Keys
-```sql
--- ❌ No referential integrity
-CREATE TABLE Orders (
-    CustomerId INT  -- No FK constraint
-);
-
--- ✓ With foreign key
-CREATE TABLE Orders (
-    CustomerId INT NOT NULL,
-    CONSTRAINT FK_Orders_Customers
-        FOREIGN KEY (CustomerId) REFERENCES Customers(CustomerId)
-);
-```
-
-## Documentation
-
-Always document your schema:
-
-```sql
--- Table comments
-EXEC sp_addextendedproperty
-    @name = N'MS_Description',
-    @value = N'Stores customer information',
-    @level0type = N'SCHEMA', @level0name = 'dbo',
-    @level1type = N'TABLE',  @level1name = 'Customers';
-
--- Column comments
-EXEC sp_addextendedproperty
-    @name = N'MS_Description',
-    @value = N'Unique customer identifier',
-    @level0type = N'SCHEMA', @level0name = 'dbo',
-    @level1type = N'TABLE',  @level1name = 'Customers',
-    @level2type = N'COLUMN', @level2name = 'CustomerId';
-```
+- Use connection pooling (PgBouncer)
+- Add covering indexes for common queries
+- Use LIMIT and cursor pagination
+- Avoid SELECT * in production
+- Use prepared statements
+- Monitor slow queries with pg_stat_statements
+- Vacuum tables regularly
+- Consider table partitioning for large datasets
 
 ## When to Use This Skill
 
-Use this skill when:
-- Designing a new database schema
-- Normalizing existing tables
-- Creating entity-relationship diagrams
-- Choosing appropriate data types
-- Defining relationships and constraints
-- Planning indexes
-- Making architectural database decisions
-
-Simply mention database design, schema modeling, or data architecture, and this knowledge will be applied to help create robust, scalable database structures.
+Invoke this skill when:
+- Designing new database tables
+- Setting up relationships
+- Creating RLS policies
+- Optimizing query performance
+- Implementing soft deletes
+- Setting up audit trails
+- Writing migrations
+- Debugging database issues
+- Choosing data types
+- Creating indexes

@@ -1,13 +1,7 @@
 {
   "name": "context-driven-testing",
-  "description": "Apply context-driven testing principles where practices are chosen based on project context, not universal 'best practices'. Use when making testing decisions, questioning dogma, or adapting approache",
-  "repo": "proffesor-for-testing/agentic-qe",
-  "category": "testing",
-  "tags": [
-    "context",
-    "driven",
-    "testing"
-  ],
-  "stars": 103,
-  "source": "SkillsMP Synced Skills"
+  "repo": "proffesor-for-testing/sentinel-api-testing",
+  "path": ".claude/skills/context-driven-testing/SKILL.md",
+  "source": "github.com/proffesor-for-testing/sentinel-api-testing",
+  "downloaded_at": "2026-01-14T01:57:32.047831Z"
 }

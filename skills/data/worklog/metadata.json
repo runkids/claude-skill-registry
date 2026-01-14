@@ -1,8 +1,7 @@
 {
   "name": "worklog",
   "repo": "arlenagreer/claude_configuration_docs",
-  "category": "data",
-  "description": "Track billable hours for clients. This skill should be used when the user requests to log work hours, record time spent on client projects, view worklog entries, calculate total billable hours, or sum",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:00.564510Z"
+  "path": "skills/worklog/SKILL.md",
+  "source": "github.com/arlenagreer/claude_configuration_docs",
+  "downloaded_at": "2026-01-14T02:29:28.159354Z"
 }

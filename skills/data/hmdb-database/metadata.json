@@ -1,8 +1,7 @@
 {
   "name": "hmdb-database",
-  "repo": "davila7/claude-code-templates",
-  "category": "data",
-  "description": "Access Human Metabolome Database (220K+ metabolites). Search by name/ID/structure, retrieve chemical properties, biomarker data, NMR/MS spectra, pathways, for metabolomics and identification.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:37.578448Z"
+  "repo": "drshailesh88/integrated_content_OS",
+  "path": "skills/scientific/hmdb-database/SKILL.md",
+  "source": "github.com/drshailesh88/integrated_content_OS",
+  "downloaded_at": "2026-01-14T04:02:26.332619Z"
 }

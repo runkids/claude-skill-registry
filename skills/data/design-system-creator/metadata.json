@@ -1,13 +1,7 @@
 {
   "name": "design-system-creator",
-  "description": "Builds comprehensive design systems and design bibles with production-ready CSS. Expert in design tokens, component libraries, CSS architecture. Use for design system creation, token architecture, com",
   "repo": "erichowens/some_claude_skills",
-  "category": "design",
-  "tags": [
-    "design",
-    "system",
-    "creator"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/design-system-creator/SKILL.md",
+  "source": "github.com/erichowens/some_claude_skills",
+  "downloaded_at": "2026-01-14T02:58:43.792838Z"
 }

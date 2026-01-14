@@ -1,11 +1,7 @@
 {
   "name": "swap-analyzer",
-  "description": "Analyze swap compatibility and safety. Use when evaluating proposed schedule swaps to ensure they maintain ACGME compliance and operational coverage.",
   "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
-  "category": "data",
-  "tags": [
-    "swap",
-    "analyzer"
-  ],
-  "stars": 2
+  "path": ".claude/skills/swap-analyzer/SKILL.md",
+  "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager",
+  "downloaded_at": "2026-01-14T02:32:39.165786Z"
 }

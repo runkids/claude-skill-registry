@@ -1,12 +1,7 @@
 {
   "name": "form-ux-patterns",
-  "description": "UX patterns for complex forms including multi-step wizards, cognitive chunking (5-7 fields max), progressive disclosure, and conditional fields. Use when building checkout flows, onboarding wizards, o",
   "repo": "Bbeierle12/Skill-MCP-Claude",
-  "category": "design",
-  "tags": [
-    "form",
-    "patterns"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/form-ux-patterns/SKILL.md",
+  "source": "github.com/Bbeierle12/Skill-MCP-Claude",
+  "downloaded_at": "2026-01-14T03:54:10.636736Z"
 }

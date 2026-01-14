@@ -1,9 +1,7 @@
 {
   "name": "s-develop",
-  "description": "Core WoW addon development patterns using Ace3 framework and Blizzard UI APIs. Covers event-driven design, SavedVariables, frame architecture, and API resilience. Use when building addons, designing s",
   "repo": "Falkicon/Mechanic",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/s-develop/SKILL.md",
+  "source": "github.com/Falkicon/Mechanic",
+  "downloaded_at": "2026-01-14T01:39:54.847920Z"
 }

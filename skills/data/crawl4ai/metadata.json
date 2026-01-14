@@ -1,11 +1,7 @@
 {
   "name": "crawl4ai",
-  "description": "This skill should be used when users need to scrape websites, extract structured data, handle JavaScript-heavy pages, crawl multiple URLs, or build automated web data pipelines. Includes optimized ext",
-  "repo": "basher83/lunar-claude",
-  "category": "data",
-  "tags": [
-    "crawl4ai"
-  ],
-  "stars": 8,
-  "source": "SkillsMP Synced Skills"
+  "repo": "CavellTopDev/pitchey-app",
+  "path": "crawl4ai/SKILL.md",
+  "source": "github.com/CavellTopDev/pitchey-app",
+  "downloaded_at": "2026-01-14T03:27:03.778100Z"
 }

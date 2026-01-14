@@ -1,8 +1,7 @@
 {
   "name": "dart-connect-dart-tooling-daemon",
   "repo": "X-School-Academy/ai-dev-swarm",
-  "category": "data",
-  "description": "To connect to the Dart Tooling Daemon for editor/runtime data, connect using a user-provided DTD URI before using related Dart tools.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:12.551877Z"
+  "path": "dev-swarm/mcp-skills/dart-connect-dart-tooling-daemon/SKILL.md",
+  "source": "github.com/X-School-Academy/ai-dev-swarm",
+  "downloaded_at": "2026-01-14T02:33:46.963151Z"
 }

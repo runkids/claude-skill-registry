@@ -1,8 +1,7 @@
 {
   "name": "migration",
   "repo": "vneseyoungster/ChocoVine",
-  "category": "data",
-  "description": "Create reversible database migrations with rollback scripts. Use when modifying database schemas.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:13.767325Z"
+  "path": ".claude/skills/implementation/migration/SKILL.md",
+  "source": "github.com/vneseyoungster/ChocoVine",
+  "downloaded_at": "2026-01-14T02:56:22.838342Z"
 }

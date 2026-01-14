@@ -1,13 +1,7 @@
 {
   "name": "podcast-production-guide",
-  "description": "Эксперт podcast production. Используй для создания подкастов, audio editing и distribution.",
   "repo": "dengineproblem/agents-monorepo",
-  "category": "design",
-  "tags": [
-    "podcast",
-    "production",
-    "guide"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/podcast-production-guide/SKILL.md",
+  "source": "github.com/dengineproblem/agents-monorepo",
+  "downloaded_at": "2026-01-14T02:08:04.381179Z"
 }

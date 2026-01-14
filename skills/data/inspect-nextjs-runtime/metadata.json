@@ -1,13 +1,7 @@
 {
   "name": "inspect-nextjs-runtime",
-  "description": "MCPを使用してNext.jsランタイムを検査し、エラー診断、ログ、メタデータ、Server Actionsを確認します。エラーのデバッグ、ルートのチェック、コンポーネントの検査、プロジェクト構造の理解に使用します。",
   "repo": "nayukata/notify-patch-notes",
-  "category": "development",
-  "tags": [
-    "inspect",
-    "nextjs",
-    "runtime"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/inspect-nextjs-runtime/SKILL.md",
+  "source": "github.com/nayukata/notify-patch-notes",
+  "downloaded_at": "2026-01-14T03:51:43.905286Z"
 }

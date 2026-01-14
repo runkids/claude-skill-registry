@@ -1,10 +1,7 @@
 {
   "name": "logging",
-  "description": "Structured client-side logging and error reporting. Use when implementing console logging, error tracking, user session tracking, or analytics event patterns.",
-  "repo": "ProfPowell/project-template",
-  "category": "data",
-  "tags": [
-    "logging"
-  ],
-  "stars": 0
+  "repo": "cuioss/plan-marshall",
+  "path": "marketplace/bundles/plan-marshall/skills/logging/SKILL.md",
+  "source": "github.com/cuioss/plan-marshall",
+  "downloaded_at": "2026-01-14T03:33:21.958976Z"
 }

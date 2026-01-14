@@ -1,12 +1,7 @@
 {
   "name": "design-archivist",
-  "description": "Long-running design anthropologist that builds comprehensive visual databases from 500-1000 real-world examples, extracting color palettes, typography patterns, layout systems, and interaction design ",
   "repo": "erichowens/some_claude_skills",
-  "category": "data",
-  "tags": [
-    "design",
-    "archivist"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/design-archivist/SKILL.md",
+  "source": "github.com/erichowens/some_claude_skills",
+  "downloaded_at": "2026-01-14T02:58:37.802308Z"
 }

@@ -1,65 +1,25 @@
 ---
 name: ui
-description: "Generates UI components and feedback forms. Use when user mentions コンポーネント, component, UI, ヒーロー, hero, フォーム, form, フィードバック, feedback, 問い合わせ. Do NOT load for: 認証機能, バックエンド実装, データベース操作, ビジネスロジック."
-allowed-tools: ["Read", "Write", "Edit", "Bash"]
+description: Use when building UI components, styling, and following design patterns for mobile (React Native) and web (Next.js/shadcn).
 ---
 
-# UI Skills
+# UI Design
 
-UIコンポーネントとフォームの生成を担当するスキル群です。
+## Overview
 
-## 機能詳細
+UI/UX patterns for mobile (React Native) and web (shadcn/ui) components. Used by frontend-mobile and frontend-web agents.
 
-| 機能 | 詳細 |
-|------|------|
-| **コンポーネント生成** | See [references/component-generation.md](references/component-generation.md) |
-| **フィードバックフォーム** | See [references/feedback-forms.md](references/feedback-forms.md) |
+## When to Use
 
-## 実行手順
+- Creating reusable UI components
+- Applying consistent styling
+- Implementing responsive layouts
+- Following accessibility guidelines
 
-1. **品質判定ゲート**（Step 0）
-2. ユーザーのリクエストを分類
-3. 上記の「機能詳細」から適切な参照ファイルを読む
-4. その内容に従って生成
+## Topics
 
-### Step 0: 品質判定ゲート（a11y チェックリスト）
-
-UI コンポーネント生成時は、アクセシビリティを確保:
-
-```markdown
-♿ アクセシビリティチェックリスト
-
-生成する UI は以下を満たすことを推奨：
-
-### 必須項目
-- [ ] 画像に alt 属性を設定
-- [ ] フォーム要素に label を関連付け
-- [ ] キーボード操作可能（Tab でフォーカス移動）
-- [ ] フォーカス状態が視覚的に分かる
-
-### 推奨項目
-- [ ] 色だけに依存しない情報伝達
-- [ ] コントラスト比 4.5:1 以上（テキスト）
-- [ ] aria-label / aria-describedby の適切な使用
-- [ ] 見出し構造（h1 → h2 → h3）が論理的
-
-### インタラクティブ要素
-- [ ] ボタンに適切なラベル（「詳細」ではなく「製品詳細を見る」）
-- [ ] モーダル/ダイアログのフォーカストラップ
-- [ ] エラーメッセージがスクリーンリーダーで読まれる
-```
-
-### VibeCoder 向け
-
-```markdown
-♿ 誰でも使えるデザインにするために
-
-1. **画像には説明をつける**
-   - 「商品画像」ではなく「赤いスニーカー、正面から」
-
-2. **クリックできる場所はキーボードでも操作可能に**
-   - Tab キーで移動、Enter で決定
-
-3. **色だけで判断させない**
-   - 赤=エラー だけでなく、アイコン+テキストも
-```
+| Topic | Reference | Examples |
+|-------|-----------|----------|
+| foundations | [reference.md#foundations](reference.md#foundations) | - |
+| mobile | [reference.md#mobile](reference.md#mobile) | [examples.md#mobile](examples.md#mobile) |
+| web | [reference.md#web](reference.md#web) | [examples.md#web](examples.md#web) |

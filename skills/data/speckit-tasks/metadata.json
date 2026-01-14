@@ -1,0 +1,9 @@
+{
+  "name": "speckit-tasks",
+  "description": "Generate an actionable, dependency-ordered tasks.md for the feature based on available design artifacts.",
+  "repo": "dceoy/gh-actions-for-devops",
+  "category": "testing",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

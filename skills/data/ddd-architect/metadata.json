@@ -1,12 +1,7 @@
 {
   "name": "ddd-architect",
-  "description": "Backend DDD architecture expert for Novel-Engine. Ensures strict layer separation and domain purity.",
-  "repo": "Jackela/Novel-Engine",
-  "category": "data",
-  "tags": [
-    "ddd",
-    "architect"
-  ],
-  "stars": 4,
-  "source": "SkillsMP Synced Skills"
+  "repo": "u9401066/med-paper-assistant",
+  "path": ".claude/skills/ddd-architect/SKILL.md",
+  "source": "github.com/u9401066/med-paper-assistant",
+  "downloaded_at": "2026-01-14T03:21:47.999847Z"
 }

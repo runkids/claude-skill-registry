@@ -1,9 +1,7 @@
 {
   "name": "vsl",
-  "description": "VSL（ビデオセールスレター）の台本作成を支援。動画セールスレター、セールス動画、販売動画のスクリプトを書く際に使用。15章構成に対応。",
   "repo": "taiyousan15/taisun_agent",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/vsl/SKILL.md",
+  "source": "github.com/taiyousan15/taisun_agent",
+  "downloaded_at": "2026-01-14T03:51:08.476104Z"
 }

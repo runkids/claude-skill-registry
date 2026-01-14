@@ -1,283 +1,175 @@
 ---
 name: documentation-generator
-description: Automatically generate documentation when user mentions needing API docs, README files, user guides, developer guides, or changelogs. Analyzes code and generates appropriate documentation based on context. Invoke when user mentions "document", "docs", "README", "API documentation", "guide", "changelog", or "how to document".
+description: Auto-generate JSDoc, docstrings, README files, and API documentation.
 ---
 
-# Documentation Generator
+# Documentation Generator Skill
 
-Automatically generate documentation for code, APIs, and projects.
+Auto-generate JSDoc, docstrings, README files, and API documentation.
 
-## When to Use This Skill
+## Instructions
 
-Activate this skill when the user:
-- Says "I need to document this"
-- Asks "how do I write docs for this API?"
-- Mentions "README", "documentation", or "user guide"
-- Shows code and asks "what docs should I write?"
-- Says "need API documentation"
-- Asks about changelog or release notes
-- Mentions "developer guide" or "setup instructions"
+You are a documentation expert. When invoked:
 
-## Workflow
+1. **Analyze Code**: Examine code to understand:
+   - Function/method signatures and parameters
+   - Return types and values
+   - Exceptions/errors that may be thrown
+   - Side effects and dependencies
+   - Usage examples
 
-### 1. Determine Documentation Type
+2. **Generate Documentation**: Create appropriate documentation:
+   - **JSDoc** for JavaScript/TypeScript
+   - **Docstrings** for Python (Google, NumPy, or Sphinx style)
+   - **Rustdoc** for Rust
+   - **Javadoc** for Java
+   - **GoDoc** for Go
 
-**API Documentation** - For code interfaces:
-- Functions, methods, classes
-- Parameters and return types
-- Examples and usage
+3. **Include Essential Elements**:
+   - Brief description of purpose
+   - Parameter descriptions with types
+   - Return value description
+   - Exceptions/errors
+   - Usage examples
+   - Notes about edge cases or performance
 
-**README** - For project overview:
-- Installation instructions
-- Quick start guide
-- Features and requirements
+4. **README Generation**: For project-level docs:
+   - Project overview and purpose
+   - Installation instructions
+   - Usage examples
+   - API reference
+   - Configuration options
+   - Contributing guidelines
+   - License information
 
-**User Guide** - For end users:
-- How to use features
-- Screenshots and examples
-- Troubleshooting
+## Documentation Standards
 
-**Developer Guide** - For contributors:
-- Architecture overview
-- Setup and development
-- Coding standards
-
-**Changelog** - For releases:
-- Version history
-- What changed
-- Migration guides
-
-### 2. Analyze the Code/Project
-
-**For API Docs**:
-- Scan function signatures
-- Identify parameters and return types
-- Find existing comments
-- Detect dependencies
-
-**For README**:
-- Check for package managers (composer.json, package.json)
-- Identify framework (Drupal, WordPress, etc.)
-- Find entry points and main features
-
-**For Guides**:
-- Understand user workflows
-- Identify key features
-- Note prerequisites
-
-## Documentation Templates
-
-Complete templates are available for reference:
-
-- **[API Documentation Templates](templates/api-docs.md)** - PHPDoc/JSDoc for Drupal & WordPress
-- **[README Template](templates/readme.md)** - Complete project README structure
-- **[User Guide Template](templates/user-guide.md)** - End-user documentation
-- **[Changelog Template](templates/changelog.md)** - Version history (Keep a Changelog format)
-
-Use these templates as starting points, customizing for the specific project needs.
-
-## Generation Strategy
-
-### 1. Gather Information
-
-Ask clarifying questions:
-- "What documentation type do you need?"
-- "Who is the audience? (developers, end users, admins?)"
-- "What specific features should be documented?"
-
-### 2. Analyze Code
-
-For API docs:
-- Read function signatures
-- Extract existing comments
-- Identify dependencies
-- Find usage examples
-
-### 3. Structure Document
-
-Follow standard patterns:
-- Overview/introduction
-- Prerequisites
-- Main content (organized logically)
-- Examples
-- Troubleshooting
-- Resources
-
-### 4. Add Examples
-
-Include:
-- Code examples
-- Screenshots (placeholder references)
-- Before/after comparisons
-- Common use cases
-
-## Integration with CMS Cultivator
-
-This skill complements the `/docs-generate` slash command:
-
-- **This Skill**: Automatically triggered during conversation
-  - "How do I document this function?"
-  - "Need docs for this API"
-  - Quick single-function documentation
-
-- **`/docs-generate` Command**: Explicit batch generation
-  - Generate full project documentation
-  - Create comprehensive README
-  - Build complete user guides
-
-## Quick Response Patterns
-
-### For API Documentation
-
-When user shows a class or function:
-
-1. Identify the type (Drupal service, WordPress function, JS module)
-2. Generate appropriate docblock format
-3. Include:
-   - Description of purpose
-   - Parameter documentation
-   - Return type documentation
-   - Usage example in @code block
-   - Related functions (@see tags)
-
-### For README
-
-When user asks for project documentation:
-
-1. Scan project structure (composer.json, package.json)
-2. Identify platform (Drupal/WordPress/standalone)
-3. Generate sections in order:
-   - Title and description
-   - Features list
-   - Requirements
-   - Installation (Composer first)
-   - Quick start example
-   - Links to detailed docs
-
-### For User Guides
-
-When user needs end-user documentation:
-
-1. Ask about target audience
-2. Identify main workflows
-3. Structure with:
-   - Overview
-   - Prerequisites checklist
-   - Step-by-step instructions
-   - Screenshots placeholders
-   - Troubleshooting section
-   - FAQs
-
-### For Changelogs
-
-When user needs version history:
-
-1. Use Keep a Changelog format
-2. Categories: Added, Changed, Deprecated, Removed, Fixed, Security
-3. Include version numbers and dates
-4. Link to GitHub comparisons
-
-## Example Interactions
-
-**Example 1: API documentation**
-```
-User: "I need to document this service class"
-[Shows DataProcessor class]
-
-Skill: "I'll generate API documentation for your DataProcessor service.
-I see it has 3 public methods and uses dependency injection.
-I'll create docblocks with:
-- Class description with usage example
-- Constructor documentation
-- Method documentation with @param and @return
-- @code examples for each method
-
-[Generates documented code following Drupal standards]
-
-This follows Drupal documentation standards. Each method includes
-parameter types, return types, and usage examples."
+### JavaScript/TypeScript (JSDoc)
+```javascript
+/**
+ * Calculates the total price including tax and discounts
+ *
+ * @param {number} basePrice - The original price before adjustments
+ * @param {number} taxRate - Tax rate as decimal (e.g., 0.08 for 8%)
+ * @param {number} [discount=0] - Optional discount as decimal (0-1)
+ * @returns {number} The final price after tax and discounts
+ * @throws {Error} If basePrice or taxRate is negative
+ *
+ * @example
+ * const total = calculateTotal(100, 0.08, 0.1);
+ * // Returns 97.2 (100 - 10% discount + 8% tax)
+ */
 ```
 
-**Example 2: README**
-```
-User: "Need a README for my custom module"
+### Python (Google Style)
+```python
+def calculate_total(base_price: float, tax_rate: float, discount: float = 0) -> float:
+    """Calculates the total price including tax and discounts.
 
-Skill: "I'll create a comprehensive README for your module.
-Let me check the project structure...
+    Args:
+        base_price: The original price before adjustments
+        tax_rate: Tax rate as decimal (e.g., 0.08 for 8%)
+        discount: Optional discount as decimal (0-1). Defaults to 0.
 
-I see:
-- Drupal 10 module
-- Composer-based
-- Custom services and admin routes
+    Returns:
+        The final price after tax and discounts
 
-I'll generate a README with:
-- Installation via Composer
-- Feature list
-- Configuration steps
-- API usage examples
-- Links to extended docs
+    Raises:
+        ValueError: If base_price or tax_rate is negative
 
-[Generates README.md]"
-```
-
-**Example 3: Changelog Entry**
-```
-User: "What should I add to CHANGELOG for this release?"
-
-Skill: "Based on your recent commits, I'll generate a changelog entry
-following Keep a Changelog format:
-
-## [1.2.0] - 2025-01-15
-
-### Added
-- User profile export functionality (#234)
-- Bulk operations support
-
-### Changed
-- Improved query performance (30% faster)
-
-### Fixed
-- Permission check on admin pages (#145)
-
-Would you like me to add this to your CHANGELOG.md?"
+    Example:
+        >>> calculate_total(100, 0.08, 0.1)
+        97.2
+    """
 ```
 
-## Best Practices
+## Usage Examples
 
-1. **Clear and Concise** - Write for your audience's level
-2. **Examples** - Always include working code examples
-3. **Up to Date** - Document current functionality, not planned features
-4. **Structured** - Use consistent headings and format
-5. **Searchable** - Include keywords users will search for
-6. **Complete** - Cover common use cases and edge cases
+```
+@documentation-generator
+@documentation-generator src/utils/
+@documentation-generator --format jsdoc
+@documentation-generator --readme-only
+@documentation-generator UserService.js
+```
 
-## Platform-Specific Guidelines
+## README Template Structure
 
-### Drupal Documentation
-- Use PHPDoc format with @param, @return, @throws
-- Include @code examples in docblocks
-- Document services with usage examples
-- Reference related APIs with @see tags
-- Follow Drupal API documentation standards
+```markdown
+# Project Name
 
-### WordPress Documentation
-- Use PHPDoc with @since tags
-- Document hooks and filters
-- Include usage examples in docblocks
-- Reference WordPress functions
-- Follow WordPress inline documentation standards
+Brief description of what this project does
 
-### JavaScript Documentation
-- Use JSDoc format
-- Document parameters and return types
-- Include examples
-- Document React components with PropTypes
-- Follow project-specific standards (ESDoc, TSDoc)
+## Features
 
-## Resources
+- Key feature 1
+- Key feature 2
+- Key feature 3
 
-- [Write the Docs](https://www.writethedocs.org/)
-- [Drupal Documentation Standards](https://www.drupal.org/docs/develop/coding-standards/api-documentation-and-comment-standards)
-- [WordPress Inline Documentation Standards](https://developer.wordpress.org/coding-standards/inline-documentation-standards/)
-- [Keep a Changelog](https://keepachangelog.com/)
-- [Semantic Versioning](https://semver.org/)
+## Installation
+
+```bash
+npm install package-name
+```
+
+## Usage
+
+```javascript
+// Basic usage example
+```
+
+## API Reference
+
+### ClassName
+
+#### method(param1, param2)
+
+Description...
+
+## Configuration
+
+## Contributing
+
+## License
+```
+
+## Documentation Best Practices
+
+- **Be Concise**: Clear and to the point
+- **Use Examples**: Show real-world usage
+- **Keep Updated**: Documentation should match code
+- **Explain Why**: Not just what, but why decisions were made
+- **Link References**: Link to related functions, types, or docs
+- **Format Consistently**: Follow project conventions
+- **Avoid Jargon**: Use clear, accessible language
+
+## What to Document
+
+### Functions/Methods
+- Purpose and behavior
+- All parameters (name, type, constraints)
+- Return values
+- Side effects
+- Exceptions
+- Complexity (if relevant)
+
+### Classes
+- Purpose and responsibilities
+- Constructor parameters
+- Public methods and properties
+- Usage examples
+- Inheritance relationships
+
+### Modules/Packages
+- Overall purpose
+- Main exports
+- Dependencies
+- Getting started guide
+
+## Notes
+
+- Match existing documentation style in the project
+- Generate only missing documentation, don't overwrite custom docs
+- Include practical examples, not just trivial ones
+- Highlight important edge cases and gotchas
+- Keep documentation close to the code it describes

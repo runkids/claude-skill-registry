@@ -1,12 +1,7 @@
 {
   "name": "browser-use",
-  "description": "AI-driven browser automation via Model Context Protocol",
-  "repo": "Saik0s/mcp-browser-use",
-  "category": "data",
-  "tags": [
-    "browser",
-    "use"
-  ],
-  "stars": 858,
-  "source": "SkillsMP Synced Skills"
+  "repo": "Salmanferozkhan/Cloud-and-fast-api",
+  "path": ".claude/skills/browser-use/SKILL.md",
+  "source": "github.com/Salmanferozkhan/Cloud-and-fast-api",
+  "downloaded_at": "2026-01-14T02:30:04.150157Z"
 }

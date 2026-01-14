@@ -1,12 +1,7 @@
 {
   "name": "pulumi-troubleshooting",
-  "description": "Comprehensive guide to troubleshooting Pulumi TypeScript errors, infrastructure issues, and best practices - covers common errors, Outputs handling, AWS Beanstalk deployment, and cost optimization",
   "repo": "pr-pm/prpm",
-  "category": "devops",
-  "tags": [
-    "pulumi",
-    "troubleshooting"
-  ],
-  "stars": 70,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/pulumi-troubleshooting/SKILL.md",
+  "source": "github.com/pr-pm/prpm",
+  "downloaded_at": "2026-01-14T01:14:34.006001Z"
 }

@@ -1,11 +1,7 @@
 {
   "name": "numpy-masked",
-  "description": "Masked arrays for robust handling of missing or invalid data, ensuring they are excluded from statistical and mathematical computations. Triggers: masked array, numpy.ma, missing data, invalid values,",
   "repo": "cuba6112/skillfactory",
-  "category": "data",
-  "tags": [
-    "numpy",
-    "masked"
-  ],
-  "stars": 0
+  "path": "skills/numpy-masked/SKILL.md",
+  "source": "github.com/cuba6112/skillfactory",
+  "downloaded_at": "2026-01-14T02:37:44.037004Z"
 }

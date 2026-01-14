@@ -1,12 +1,7 @@
 {
   "name": "deep-research",
-  "description": "Multi-agent parallel investigation for complex JUCE problems. Use when troubleshooting fails after Level 3, problems require novel research, or user requests /research command.",
-  "repo": "glittercowboy/plugin-freedom-system",
-  "category": "data",
-  "tags": [
-    "deep",
-    "research"
-  ],
-  "stars": 47,
-  "source": "SkillsMP Synced Skills"
+  "repo": "agentpoet/Agentic-Coding-System-Self-Improving-Framework",
+  "path": ".claude/skills/deep-research/SKILL.md",
+  "source": "github.com/agentpoet/Agentic-Coding-System-Self-Improving-Framework",
+  "downloaded_at": "2026-01-14T03:24:40.546162Z"
 }

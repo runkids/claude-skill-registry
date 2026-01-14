@@ -1,11 +1,7 @@
 {
   "name": "search",
-  "description": "Elasticsearch and full-text search implementation. Use when implementing search functionality, autocomplete, faceted search, relevance tuning, or working with search indexes. Keywords: elasticsearch, ",
-  "repo": "cosmix/claude-code-setup",
-  "category": "development",
-  "tags": [
-    "search"
-  ],
-  "stars": 2,
-  "source": "local"
+  "repo": "cosmix/loom",
+  "path": "skills/search/SKILL.md",
+  "source": "github.com/cosmix/loom",
+  "downloaded_at": "2026-01-14T02:38:32.744883Z"
 }

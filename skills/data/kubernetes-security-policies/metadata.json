@@ -1,13 +1,7 @@
 {
   "name": "kubernetes-security-policies",
-  "description": "Kubernetes security policies, RBAC, and Pod Security Standards for hardened cluster deployments. Use when implementing cluster security, defining network policies, or enforcing security compliance in ",
-  "repo": "NickCrew/claude-ctx-plugin",
-  "category": "devops",
-  "tags": [
-    "kubernetes",
-    "security",
-    "policies"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "NickCrew/claude-cortex",
+  "path": "skills/kubernetes-security-policies/SKILL.md",
+  "source": "github.com/NickCrew/claude-cortex",
+  "downloaded_at": "2026-01-14T02:11:08.953062Z"
 }

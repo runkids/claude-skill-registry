@@ -1,9 +1,7 @@
 {
   "name": "write-pr",
-  "description": "Writing pull request titles and descriptions for the tldraw repository. Use when creating a new PR, updating an existing PR",
   "repo": "tldraw/tldraw",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "GitHub Search API"
+  "path": ".claude/skills/write-pr/SKILL.md",
+  "source": "github.com/tldraw/tldraw",
+  "downloaded_at": "2026-01-14T02:17:33.499829Z"
 }

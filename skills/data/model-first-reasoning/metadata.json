@@ -1,13 +1,7 @@
 {
   "name": "model-first-reasoning",
-  "description": "Apply Model-First Reasoning (MFR) to code generation tasks. Use when the user requests \"model-first\", \"MFR\", \"formal modeling before coding\", \"model then implement\", or when tasks involve complex logi",
-  "repo": "petekp/claude-skills",
-  "category": "development",
-  "tags": [
-    "model",
-    "first",
-    "reasoning"
-  ],
-  "stars": 5,
-  "source": "local"
+  "repo": "j0KZ/mcp-agents",
+  "path": "starter-kit/template/.claude/skills/model-first-reasoning/SKILL.md",
+  "source": "github.com/j0KZ/mcp-agents",
+  "downloaded_at": "2026-01-14T01:37:38.692459Z"
 }

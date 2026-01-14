@@ -1,11 +1,7 @@
 {
   "name": "avalonia",
-  "description": "Expert guidance for developing cross-platform desktop applications with Avalonia UI framework. Use when building, debugging, or optimizing Avalonia apps including MVVM architecture, XAML design, data ",
-  "repo": "markpitt/claude-skills",
-  "category": "development",
-  "tags": [
-    "avalonia"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "zsxawerdu/gitexplorer",
+  "path": ".claude/skills/avalonia/SKILL.md",
+  "source": "github.com/zsxawerdu/gitexplorer",
+  "downloaded_at": "2026-01-14T02:49:44.989599Z"
 }

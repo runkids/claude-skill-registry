@@ -1,63 +1,89 @@
 ---
-name: LLM Council
-description: Orchestrate multiple LLMs as a council, generating collective intelligence through peer review and chairman synthesis
-version: 1.0.0
-dependencies: python>=3.8, python-dotenv, loguru
+name: llm-council
+description: Multi-LLM collaborative brainstorming and planning. Use when user explicitly requests consultation with multiple AI models (ChatGPT, Gemini, other LLMs) before presenting an implementation plan, or asks to "consult the council", "ask other models", or "get perspectives from other AIs". Queries external LLM APIs, synthesizes their perspectives, and presents an adapted implementation plan.
 ---
 
-## Overview
+# LLM Council
 
-LLM Council is a Skill that organizes multiple LLMs as "council members" and generates high-quality responses through a 3-stage process.
+Consult multiple AI models (ChatGPT and Gemini) for their perspectives before presenting implementation plans to users.
 
-### Use Cases
+## Workflow
 
-- When you need multiple perspectives for important decisions
-- When you want multiple AIs to review code
-- When comparing and evaluating design proposals
-- When you need objective responses with reduced bias
+When user requests consultation with other AI models, use phrases like:
+- "Consult with ChatGPT and Gemini about..."
+- "Ask other AI models what they think about..."
+- "Get perspectives from the council on..."
+- "Consult the LLM council: [your question]"
 
-## 3-Stage Process
+**Process:**
 
-1. **Stage 1: Opinion Collection** - Each member (LLM) responds independently
-2. **Stage 2: Peer Review** - Anonymized responses are mutually ranked
-3. **Stage 3: Synthesis** - Chairman integrates all opinions and reviews into final response
+1. **Query external LLMs**: Run `scripts/query_llms.py` with the user's prompt to get perspectives from both ChatGPT and Gemini
+2. **Analyze responses**: Review what each model suggests, identifying valuable insights, alternative approaches, and potential concerns
+3. **Synthesize plan**: Create an implementation plan that incorporates the best ideas from all three models (Claude's own analysis + ChatGPT + Gemini)
+4. **Present to user**: Show the final plan along with a brief summary of key contributions from each model
 
-## Quick Start
+## Setup Requirements
 
-```bash
-# Basic question
-python scripts/run.py council_skill.py "What's the optimal caching strategy?"
+The skill requires API keys and optional model configuration stored in a `.env` file in the working directory:
 
-# With TUI dashboard
-python scripts/run.py cli.py --dashboard "What's the optimal caching strategy?"
+```
+OPENAI_API_KEY=sk-...
+GEMINI_API_KEY=...
 
-# Code fix (diff only)
-python scripts/run.py council_skill.py --dry-run "Fix the bug in buggy.py"
-
-# Auto-merge
-python scripts/run.py council_skill.py --auto-merge "Add error handling"
+# Optional: Specify which models to use (defaults shown below)
+OPENAI_MODEL=gpt-5-nano
+GEMINI_MODEL=gemini-3-flash-preview
 ```
 
-## Command Options
+**Default Models:**
+- ChatGPT: `gpt-5-nano` (fastest, most cost-efficient - $0.05/1M input, $0.40/1M output)
+- Gemini: `gemini-3-flash-preview` (balanced speed and intelligence)
 
-| Option | Description |
-|--------|-------------|
-| `--dashboard`, `-d` | TUI dashboard for real-time monitoring |
-| `--worktrees` | Git worktree mode - each member works independently |
-| `--dry-run` | Show diff without merging |
-| `--auto-merge` | Auto-merge the top-ranked proposal |
-| `--merge N` | Merge member N's proposal |
-| `--confirm` | Show confirmation prompt before merge |
-| `--no-commit` | Apply changes without staging |
-| `--list` | Show conversation history |
-| `--continue N` | Continue conversation N |
+**Upgrade Options for Better Collaboration:**
 
-## Setup
+*OpenAI models (ordered by capability and cost):*
+- `gpt-5-nano` - Fastest, most cost-efficient ($0.05/1M in, $0.40/1M out) - **DEFAULT**
+- `gpt-5-mini` - Faster, cost-efficient for well-defined tasks ($0.25/1M in, $2.00/1M out)
+- `gpt-5.2` - Best for coding and agentic tasks ($1.75/1M in, $14.00/1M out)
+- `gpt-5.2-pro` - Smarter, more precise for complex problems ($21.00/1M in, $168.00/1M out)
 
-1. Create `scripts/.env` to configure models
-2. Install and configure OpenCode CLI
-3. Run `python scripts/run.py council_skill.py --setup` for details
+All models support reasoning tokens, 400K context window, and image input.
 
-## Resources
+*Gemini models (ordered by capability):*
+- `gemini-2.5-flash-lite` - Ultra-fast, optimized for throughput
+- `gemini-2.5-flash` - Best price-performance, large-scale processing
+- `gemini-3-flash-preview` - Balanced speed and frontier intelligence (default)
+- `gemini-3-pro-preview` - Most intelligent multimodal model, best for complex reasoning
 
-See `README.md` for more details.
+Higher-tier models provide more sophisticated analysis but cost more per API call.
+
+If the `.env` file doesn't exist or keys are missing, inform the user and provide setup instructions.
+
+## Usage Example
+
+**User input:** "Consult the council: How should I architect a real-time data pipeline for IoT sensors?"
+
+**Claude's process:**
+1. Execute: `python3 scripts/query_llms.py "How should I architect a real-time data pipeline for IoT sensors?"`
+2. Parse JSON responses from ChatGPT and Gemini
+3. Analyze their suggestions (e.g., ChatGPT suggests Kafka, Gemini recommends considering edge computing)
+4. Synthesize final plan incorporating valuable insights from all models
+5. Present the adapted plan to user with attribution
+
+## Output Format
+
+Present the final implementation plan naturally, mentioning key insights from other models inline where relevant. For example:
+
+"Based on consultation with ChatGPT and Gemini, here's the recommended architecture:
+
+[Implementation plan with inline references like "ChatGPT highlighted the importance of..." or "Gemini suggested..."]
+
+Key contributions:
+- ChatGPT: [brief summary]
+- Gemini: [brief summary]"
+
+## Error Handling
+
+- If API keys are missing, inform user and provide setup instructions
+- If an API call fails, note which model's perspective is unavailable and proceed with available responses
+- If both APIs fail, inform user and offer to provide Claude's own analysis without external consultation

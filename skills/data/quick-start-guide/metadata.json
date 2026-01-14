@@ -1,13 +1,7 @@
 {
   "name": "quick-start-guide",
-  "description": "Эксперт по quick start гайдам. Используй для создания быстрых руководств, getting started документации и onboarding материалов.",
   "repo": "dengineproblem/agents-monorepo",
-  "category": "design",
-  "tags": [
-    "quick",
-    "start",
-    "guide"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/quick-start-guide/SKILL.md",
+  "source": "github.com/dengineproblem/agents-monorepo",
+  "downloaded_at": "2026-01-14T02:07:59.669412Z"
 }

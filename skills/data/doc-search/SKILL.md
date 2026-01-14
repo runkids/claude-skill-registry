@@ -1,114 +1,165 @@
 ---
 name: doc-search
-description: Automatically activates when documentation lookup is needed. Routes to the optimal source (Sanity MCP, Context7, Ref, or WebSearch) based on the technology being queried.
+description: Token-efficient documentation search using Serena Document Index. 90%+ token savings vs reading full files. Use BEFORE reading README.md or docs/ files. Triggers on architecture questions, pattern lookups, and project-specific documentation needs.
 ---
 
-# Smart Documentation Search
+# Document Search
 
-## Purpose
+Search project documentation efficiently using the Serena Document Index system.
 
-This skill automatically activates when you need to look up documentation, API references, or best practices. It intelligently routes to the best available source.
+## Why This Matters
 
-## When to Activate
+| Approach | Tokens | Use Case |
+|----------|--------|----------|
+| Read full README.md | 3000-8000 | Never (wasteful) |
+| Read docs/*.md | 2000-5000 each | Rarely needed |
+| **Document Index Search** | 100-500 | Always prefer |
+| **Section Retrieval** | 200-800 | After finding relevant section |
 
-Invoke this skill when the request involves:
-- Looking up how to use a library/framework feature
-- Finding API references or function signatures
-- Searching for code examples or patterns
-- Checking best practices or conventions
-- Verifying correct usage before writing code
+**Rule**: Never read documentation files until the document index fails to answer.
 
-## Routing Logic (Priority Order)
-
-### 1. Native MCP Tools (if available)
-
-**Always check if a dedicated MCP server exists for the technology.** MCP tools provide the most accurate, integrated results.
-
-| Technology | MCP Tools | Use For |
-|------------|-----------|---------|
-| Sanity | `mcp__Sanity__search_docs`, `mcp__Sanity__read_docs`, `mcp__Sanity__get_groq_specification`, `mcp__Sanity__get_sanity_rules` | Schemas, GROQ, Studio, Visual Editing |
-| GitHub | `mcp__github__*` (if configured) | Repos, issues, PRs |
-| Notion | `mcp__notion__*` (if configured) | Workspace docs |
-| Other MCPs | Check available tools | Varies |
-
-**How to detect:** If `mcp__[Technology]__` tools are available, use them first.
-
-### 2. Context7 (Popular Libraries)
-
-Use for well-indexed popular libraries. Context7 provides curated, high-quality code snippets.
+## Document Index Location
 
 ```
-Step 1: mcp__context7__resolve-library-id (get library ID)
-Step 2: mcp__context7__get-library-docs (fetch docs)
+.serena/cache/documents/document_index.json
 ```
 
-**Pre-resolved Library IDs (skip Step 1 for these):**
+**Index Types Available:**
+- `tag_index` - Search by tags (architecture, api, testing, etc.)
+- `title_index` - Search by section titles
+- `project_index` - Filter by project (basecamp-server, interface-cli, etc.)
+- `doc_type_index` - Filter by document type (readme, guide, api-reference, etc.)
+- `content_index` - Keyword-based content search
 
-| Technology | Context7 ID |
-|------------|-------------|
-| React Router | `/remix-run/react-router` |
-| React | `/websites/react_dev` |
-| Next.js | `/vercel/next.js` |
-| Tailwind CSS | `/tailwindlabs/tailwindcss` |
-| TypeScript | `/microsoft/typescript` |
-| Prisma | `/prisma/prisma` |
-| Zod | `/colinhacks/zod` |
-| Vite | `/vitejs/vite` |
-| Astro | `/withastro/astro` |
-| tRPC | `/trpc/trpc` |
-| Drizzle | `/drizzle-team/drizzle-orm` |
-| shadcn/ui | `/shadcn-ui/ui` |
+## Workflow Pattern
 
-**Parameters:**
-- `topic`: Focus the search (e.g., "loaders", "hooks", "validation")
-- `mode`: "code" for API/examples, "info" for concepts/architecture
+### Step 1: Search Document Index (Python CLI)
 
-### 3. Ref (Broader Search)
-
-Use for broader searches across multiple sources.
-
-```
-Step 1: mcp__Ref__ref_search_documentation (search)
-Step 2: mcp__Ref__ref_read_url (read specific URLs)
+```bash
+# Search for relevant documentation sections
+cd /Users/kun/github/1ambda/dataops-platform
+python3 scripts/serena/document_indexer.py --search "hexagonal architecture" --max-results 5
 ```
 
-**When to use:**
-- Library not found in Context7
-- Need to search private repositories (add `ref_src=private`)
-- Looking for blog posts, tutorials, or discussions
-- Obscure or niche libraries
+### Step 2: Read Specific Section Only
 
-### 4. WebSearch (Fallback)
+After finding relevant section from search:
 
-Use `WebSearch` as last resort for:
-- Very recent information (current year)
-- Comparing multiple solutions
-- Community discussions or Stack Overflow answers
-
-## Decision Flowchart
-
-```
-Is there an MCP for this technology?
-├─ YES → Use MCP tools
-└─ NO → Is it a popular library?
-         ├─ YES → Use Context7
-         └─ NO/Not found → Use Ref
-                           └─ Still not enough? → WebSearch
+```python
+# Use section coordinates from search result
+# Example: project-basecamp-server/docs/PATTERNS.md#module-placement-rules
+# Read only that section (lines 45-80) instead of entire file
+Read(file_path="project-basecamp-server/docs/PATTERNS.md", offset=45, limit=35)
 ```
 
-## Response Format
+### Step 3: Alternative - Direct JSON Query
 
-After retrieving documentation:
+```python
+# For programmatic access in agent workflows
+import json
+from pathlib import Path
 
-1. **Source**: Which tool was used and why
-2. **Summary**: Concise answer to the query
-3. **Code Examples**: Relevant snippets (if applicable)
-4. **Links**: Source URLs for further reading
+cache_path = Path(".serena/cache/documents/document_index.json")
+index = json.loads(cache_path.read_text())
 
-## Important Rules
+# Search by tag
+architecture_docs = index['tag_index'].get('architecture', [])
 
-- **NEVER guess** - always verify with documentation
-- **Check MCP availability first** - most accurate source
-- **Use topic parameter** in Context7 to focus results
-- **Combine sources** when query spans multiple technologies
-- **Cite sources** with URLs in your response
+# Search by project
+server_docs = index['project_index'].get('project-basecamp-server', [])
+
+# Get section content
+for ref in architecture_docs[:3]:
+    print(f"Section: {ref['section_title']}")
+    print(f"File: {ref['relative_path']}")
+    print(f"Lines: {ref['line_start']}-{ref['line_end']}")
+```
+
+## Decision Tree
+
+```
+Need documentation?
+|
++-- What patterns exist for X?
+|   +-- doc-search: tag_index["patterns"] or tag_index["architecture"]
+|
++-- How to implement feature in project Y?
+|   +-- doc-search: project_index["project-Y"] + tag_index["implementation"]
+|
++-- What does README say about Z?
+|   +-- doc-search: title_index["Z"] or content_index["keyword"]
+|
++-- Full context needed?
+    +-- Read specific section (lines from search result)
+    +-- LAST RESORT: Read full file
+```
+
+## Integration with mcp-efficiency
+
+Document search is the **first step** before Serena symbol queries:
+
+```python
+# 1. Search docs for patterns/context
+doc_search("hexagonal architecture", max_results=3)
+
+# 2. Use Serena for code structure
+serena.get_symbols_overview("module-core-domain/")
+
+# 3. Find specific symbols
+serena.find_symbol("RepositoryJpa", depth=1)
+```
+
+## Common Search Queries
+
+| Need | Search Query |
+|------|-------------|
+| Architecture patterns | `"hexagonal" OR "architecture"` |
+| API endpoints | `"api" OR "endpoint" OR "controller"` |
+| Testing patterns | `"test" OR "testing" OR "fixture"` |
+| Entity relationships | `"entity" OR "repository" OR "jpa"` |
+| CLI commands | `"command" OR "cli" OR "dli"` |
+| Configuration | `"config" OR "environment" OR "settings"` |
+
+## Token Savings Examples
+
+| Task | Without Doc Search | With Doc Search | Savings |
+|------|-------------------|-----------------|---------|
+| Find architecture pattern | 5000 tokens (full PATTERNS.md) | 300 tokens | 94% |
+| Check entity rules | 3000 tokens (full README) | 400 tokens | 87% |
+| Find API reference | 4000 tokens (full docs) | 250 tokens | 94% |
+| Implementation guide | 6000 tokens (multiple files) | 500 tokens | 92% |
+
+## Updating the Index
+
+```bash
+# Rebuild after documentation changes
+python3 scripts/serena/update-symbols.py --with-docs
+
+# Incremental update (changed files only)
+python3 scripts/serena/update-symbols.py --changed-only --with-docs
+
+# Full rebuild
+python3 scripts/serena/document_indexer.py --project-root . --rebuild
+```
+
+## Anti-Patterns
+
+| Anti-Pattern | Problem | Solution |
+|--------------|---------|----------|
+| Read full README.md first | 3000+ tokens wasted | Search index, read section |
+| Read all docs/*.md | 10000+ tokens wasted | Search by tag/title |
+| Skip doc search, use web | Slower, less relevant | Use indexed local docs |
+| Guess file locations | Miss relevant docs | Use project_index filter |
+
+## Quick Reference
+
+```bash
+# CLI search (recommended)
+python3 scripts/serena/document_indexer.py --search "QUERY" --max-results 5
+
+# Build/rebuild index
+python3 scripts/serena/update-symbols.py --with-docs
+
+# Check index stats
+python3 -c "import json; d=json.load(open('.serena/cache/documents/document_index.json')); print(d['metadata'])"
+```

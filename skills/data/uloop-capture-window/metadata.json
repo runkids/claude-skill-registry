@@ -1,9 +1,7 @@
 {
   "name": "uloop-capture-window",
-  "description": "Capture Unity EditorWindow and save as PNG. Use when you need to: (1) Take a screenshot of Game View, Scene View, Console, Inspector, etc., (2) Capture visual state for debugging or verification, (3) ",
   "repo": "hatayama/uLoopMCP",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/uloop-capture-window/SKILL.md",
+  "source": "github.com/hatayama/uLoopMCP",
+  "downloaded_at": "2026-01-14T03:18:20.107573Z"
 }

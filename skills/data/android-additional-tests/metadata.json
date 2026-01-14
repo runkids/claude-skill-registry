@@ -1,13 +1,7 @@
 {
   "name": "android-additional-tests",
-  "description": "Optional - Add comprehensive tests beyond the basic smoke test",
   "repo": "hitoshura25/claude-devtools",
-  "category": "testing",
-  "tags": [
-    "android",
-    "additional",
-    "tests"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/android-additional-tests/SKILL.md",
+  "source": "github.com/hitoshura25/claude-devtools",
+  "downloaded_at": "2026-01-14T03:07:11.789729Z"
 }

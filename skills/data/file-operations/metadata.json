@@ -1,12 +1,7 @@
 {
   "name": "file-operations",
-  "description": "Production-grade file operations - permissions, find, archives, rsync",
-  "repo": "pluginagentmarketplace/custom-plugin-bash-shell",
-  "category": "product",
-  "tags": [
-    "file",
-    "operations"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "repo": "mhattingpete/claude-skills-marketplace",
+  "path": "code-operations-plugin/skills/file-operations/SKILL.md",
+  "source": "github.com/mhattingpete/claude-skills-marketplace",
+  "downloaded_at": "2026-01-14T02:54:18.647726Z"
 }

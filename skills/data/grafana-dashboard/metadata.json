@@ -1,11 +1,7 @@
 {
   "name": "grafana-dashboard",
-  "description": "Create professional Grafana dashboards with visualizations, templating, and alerts. Use when building monitoring dashboards, creating data visualizations, or setting up operational insights.",
   "repo": "aj-geddes/useful-ai-prompts",
-  "category": "data",
-  "tags": [
-    "grafana",
-    "dashboard"
-  ],
-  "stars": 25
+  "path": "skills/grafana-dashboard/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:09.906702Z"
 }

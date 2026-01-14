@@ -1,11 +1,7 @@
 {
   "name": "reasoning-analogical",
-  "description": "Transfer knowledge from source domains to novel target situations through structural mapping. Use when facing new markets, products, or situations where past experience provides relevant patterns. Pro",
   "repo": "BellaBe/lean-os",
-  "category": "data",
-  "tags": [
-    "reasoning",
-    "analogical"
-  ],
-  "stars": 12
+  "path": ".claude/skills/reasoning-analogical/SKILL.md",
+  "source": "github.com/BellaBe/lean-os",
+  "downloaded_at": "2026-01-14T02:11:15.896236Z"
 }

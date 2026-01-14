@@ -1,14 +1,7 @@
 {
   "name": "brainstorm-proof-of-concept-plan",
-  "description": "Use when requirements specify risky technical assumptions, unfamiliar APIs, or complex integrations before implementing full features - creates sequential POC plans with parallel research validation, ",
   "repo": "WesleyMFrederick/cc-workflows",
-  "category": "design",
-  "tags": [
-    "brainstorm",
-    "proof",
-    "concept",
-    "plan"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/brainstorm-proof-of-concept-plan/SKILL.md",
+  "source": "github.com/WesleyMFrederick/cc-workflows",
+  "downloaded_at": "2026-01-14T02:32:23.339487Z"
 }

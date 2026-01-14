@@ -1,12 +1,7 @@
 {
   "name": "sql-research",
-  "description": "Guide for researching SQL syntax and behavior for database backends. Use when you need to research how a SQL function, command, or feature works in a specific database before implementing it in dbplyr",
-  "repo": "tidyverse/dbplyr",
-  "category": "data",
-  "tags": [
-    "sql",
-    "research"
-  ],
-  "stars": 496,
-  "source": "SkillsMP Synced Skills"
+  "repo": "Activer007/ordinary-claude-skills",
+  "path": "skills_all/sql-research/SKILL.md",
+  "source": "github.com/Activer007/ordinary-claude-skills",
+  "downloaded_at": "2026-01-14T03:21:38.892613Z"
 }

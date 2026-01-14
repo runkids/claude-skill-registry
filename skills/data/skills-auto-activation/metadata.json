@@ -1,13 +1,7 @@
 {
   "name": "skills-auto-activation",
-  "description": "Use when skills aren't activating reliably - covers official solutions (better descriptions) and custom hook system for deterministic skill activation",
   "repo": "withzombies/hyperpowers",
-  "category": "devops",
-  "tags": [
-    "skills",
-    "auto",
-    "activation"
-  ],
-  "stars": 13,
-  "source": "local"
+  "path": "skills/skills-auto-activation/SKILL.md",
+  "source": "github.com/withzombies/hyperpowers",
+  "downloaded_at": "2026-01-14T02:06:00.528873Z"
 }

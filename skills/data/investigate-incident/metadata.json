@@ -1,12 +1,7 @@
 {
   "name": "investigate-incident",
-  "description": "Investigate platform incidents, perform RCA, create incident documentation, and follow alert runbooks in the Kagenti platform",
   "repo": "redhat-et/kagenti-demo-deployment",
-  "category": "documents",
-  "tags": [
-    "investigate",
-    "incident"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/investigate-incident/SKILL.md",
+  "source": "github.com/redhat-et/kagenti-demo-deployment",
+  "downloaded_at": "2026-01-14T03:28:45.235832Z"
 }

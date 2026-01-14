@@ -1,106 +1,36 @@
 ---
 name: notify
-description: PAI Bot notification system. Use when long-running tasks, background jobs, reminders, task completion, progress updates needed.
+description: Send push notifications to the user via ntfy.sh
 ---
 
-# Notify Skill
+# Notify
 
-Send notifications to user via PAI Bot API.
+Send push notifications when user attention is needed.
 
-## When to Use
-
-**Required**:
-- Long-running tasks (> 1 minute)
-- Background jobs
-- Batch processing
-- Data collection / crawlers
-- Model training
-- Large file processing
-
-**Optional**:
-- Task start with estimated time
-- Progress updates
-- Warnings or errors
-- Key step completion
-
-## API
-
-**Endpoint**: `POST http://127.0.0.1:3000/api/notify`
-
-```json
-{
-  "message": "Message content",
-  "level": "info|warning|error|success"
-}
-```
-
-## Message Levels
-
-| Level | Use | Icon |
-|-------|-----|------|
-| `info` | General info, progress | ℹ️ ⏳ |
-| `warning` | Warnings, attention needed | ⚠️ |
-| `error` | Errors, failures | ❌ |
-| `success` | Completed successfully | ✅ |
-
-## Notification Frequency
-
-| Duration | Notifications |
-|----------|---------------|
-| < 1 min | None needed |
-| 1-5 min | Start + Complete |
-| 5-30 min | Start + Complete + Errors |
-| 30-60 min | Start + 2-3 progress + Complete |
-| > 60 min | Start + Every 15 min + Complete |
-
-## Usage Examples
+## Usage
 
 ```bash
-# Task start
-curl -X POST http://127.0.0.1:3000/api/notify \
-  -H "Content-Type: application/json" \
-  -d '{"message": "🚀 Task started: Data backup\nEstimated: 5 min", "level": "info"}'
-
-# Progress update
-curl -X POST http://127.0.0.1:3000/api/notify \
-  -d '{"message": "⏳ Data backup\nCompleted 50/100 files", "level": "info"}'
-
-# Task complete
-curl -X POST http://127.0.0.1:3000/api/notify \
-  -d '{"message": "✅ Task complete: Data backup\n100 files backed up\n⏱️ Duration: 4m32s", "level": "success"}'
-
-# Error
-curl -X POST http://127.0.0.1:3000/api/notify \
-  -d '{"message": "❌ Task failed: Data backup\nError: Disk space full", "level": "error"}'
+echo '{"title": "Title", "message": "Body"}' | .claude/scripts/notify
 ```
 
-## Message Templates
+## Input
 
-### Start
-```
-🚀 Task started: [Name]
-[Estimated time or scope]
-```
+- `title` - optional
+- `message` - required
 
-### Progress
-```
-⏳ [Name]
-Completed X/Y
-[Current item]
+## Output
+
+```json
+{"success": true, "status": 200}
+{"success": false, "status": 401, "error": "..."}
 ```
 
-### Complete
-```
-✅ Task complete: [Name]
-[Key results]
-⏱️ Duration: [time]
-```
+## Example
 
-### Error
-```
-❌ Task failed: [Name]
-Error: [message]
-[Suggested action]
-```
+```bash
+$ echo '{"title": "Build Complete", "message": "All tests passed"}' | .claude/scripts/notify
+{"success":true,"status":200}
 
-For code examples, see [references/code-examples.md](references/code-examples.md).
+$ echo '{"title": "Test"}' | .claude/scripts/notify
+{"success":false,"error":"message is required"}
+```

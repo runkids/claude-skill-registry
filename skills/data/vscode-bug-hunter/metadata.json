@@ -1,13 +1,7 @@
 {
   "name": "vscode-bug-hunter",
-  "description": "This skill provides systematic bug detection and discovery capabilities for VS Code extensions. Use when searching for hidden bugs, analyzing code for potential issues, investigating suspicious behavi",
   "repo": "s-hiraoku/vscode-sidebar-terminal",
-  "category": "development",
-  "tags": [
-    "vscode",
-    "bug",
-    "hunter"
-  ],
-  "stars": 6,
-  "source": "local"
+  "path": ".claude/skills/vscode-bug-hunter/SKILL.md",
+  "source": "github.com/s-hiraoku/vscode-sidebar-terminal",
+  "downloaded_at": "2026-01-14T03:50:54.623880Z"
 }

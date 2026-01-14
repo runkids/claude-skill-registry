@@ -33,7 +33,7 @@ Create curated, high-signal newsletter issues that build subscriber loyalty.
 
 ## Brand Reference
 
-See `docs/brand-guide.md` for:
+See `docs/guides/brand-guide.md` for:
 - Newsletter colour scheme (Deep Jungle header, Golden Amber accents)
 - Typography guidelines (Sora headings, Source Sans body)
 - Email template styling recommendations

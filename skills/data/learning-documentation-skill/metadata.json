@@ -1,9 +1,7 @@
 {
   "name": "learning-documentation-skill",
-  "description": "Document learning insights and activities to Supabase with proper categorization, formatting, and retrieval patterns",
   "repo": "breverdbidder/life-os",
-  "category": "documents",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/learning-documentation-skill/SKILL.md",
+  "source": "github.com/breverdbidder/life-os",
+  "downloaded_at": "2026-01-14T03:23:40.541303Z"
 }

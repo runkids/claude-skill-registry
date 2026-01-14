@@ -1,28 +1,64 @@
 ---
 name: remember
-description: |
-  Use this skill when asked to remember information about coding standards,
-  quality, or any other kind of future rule.
+description: Reloads critical instructions when behavior degrades. Use when forgetting tools, not delegating, or missing safety rules. Refreshes orchestration mode, tool awareness, and safety constraints.
+allowed-tools: Read
 ---
 
-# Remembering information
+# Remember
 
-Often you will discover important information during your work.
+Forcefully reload critical instructions without losing session state.
 
-Information that encodes general rules (what is allowed, how to do things, etc)
-is important as it affects future work.
+## When to Use
 
-In order to do that, you'll need to:
+- Agent doing work directly instead of delegating
+- Forgetting tools (Supabase CLI, Playwright MCP)
+- Missing safety rules or not spawning agents
+- User says "you forgot" or "remember to..."
+- Every 30-45 min in long sessions
 
-1. identify the right file for storing this information,
-2. synthesize the key information into clear examples and rules,
-3. finally review it and add concrete examples where necessary,
-4. and then append it to the file.
+## Immediate Actions
 
-## Choosing a file
+### 1. Confirm Safety
+- NO destructive DB commands (`supabase db reset`, `DROP TABLE`, `TRUNCATE`)
+- Use targeted SQL, `createAdminClient()`, incremental migrations instead
+- Inject safety rules into any spawned agents
 
-Rules that apply to the entire codebase should go into AGENTS.md in the project root.
+### 2. Confirm Orchestration
+- I am the **ORCHESTRATOR** — I plan, coordinate, synthesize
+- I **DELEGATE** implementation to specialized agents
+- Frontend work → @frontend-agent
+- Backend work → @backend-agent
+- Code exploration → @research-agent
+- Testing → @test-agent
 
-Rules that pertain only to specific areas, like the testharness or the interpreter, should go into AGENTS.md files in the respective directories.
+### 3. Confirm Tool Awareness
+- **Supabase CLI** — Use for ALL database questions
+- **Playwright MCP** — Use AFTER any UI changes
+- **Agent spawning** — Use for implementation work
 
-If the AGENTS.md file does not exist yet, create it and also create a symlink from that file to CLAUDE.md in the same directory (the two files must be adjacent).
+### 4. Confirm Process
+- 2-gate flow: doc-informed plan → execute with doc updates
+- Context management: spawn agents, query lazily, checkpoint regularly
+
+## Output
+
+```
+## Instructions Refreshed
+
+Safety: ACTIVE | Orchestration: ACTIVE | Tools: LOADED
+
+Behavioral Check:
+- [ ] Delegate frontend → @frontend-agent
+- [ ] Delegate backend → @backend-agent
+- [ ] Use Supabase CLI for database
+- [ ] Use Playwright MCP for UI
+- [ ] NO destructive commands
+
+Ready to continue.
+```
+
+## Related
+
+- Full instruction tiers: `CLAUDE.md` sections 2-4
+- Degradation fixes: See [reference/degradation-fixes.md](reference/degradation-fixes.md)
+- When to use /remember vs /compact: See [reference/decision-guide.md](reference/decision-guide.md)

@@ -1,8 +1,7 @@
 {
   "name": "project-index",
   "repo": "CongDon1207/AGENTS.md",
-  "category": "data",
-  "description": "Generate and maintain project structure index for fast AI navigation. Creates docs/structure.md with optimized file index. Load this skill when starting new project, after major changes, or when docs/",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:23.562284Z"
+  "path": ".opencode/skills/project-index/SKILL.md",
+  "source": "github.com/CongDon1207/AGENTS.md",
+  "downloaded_at": "2026-01-14T02:48:50.320809Z"
 }

@@ -1,88 +1,88 @@
 ---
 name: formatting-audits
 description: >
-  Design document review format definition with 100-point scoring system.
-  Provides quality evaluation criteria, scoring items, and pass/fail logic for SOW/Spec documents.
-  Combined with confidence markers (✓/→/?) to clarify evaluation evidence.
-  Triggers: SOW review, Spec review, document review, design review,
+  100点満点採点システムを持つ設計ドキュメントレビュー形式定義。
+  SOW/Specドキュメントの品質評価基準、採点項目、合否判定ロジックを提供。
+  信頼度マーカー（✓/→/?）と組み合わせて評価の証拠を明確化。
+  トリガー: SOW review, Spec review, document review, design review,
   ドキュメントレビュー, 設計レビュー, 90 points, scoring, grading,
   品質評価, スコアリング, 合否判定.
 allowed-tools: Read, Grep, Glob
 ---
 
-# Review Format - Design Document Scoring
+# レビュー形式 - 設計ドキュメント採点
 
-100-point scoring format for evaluating SOW/Spec document quality.
+SOW/Specドキュメント品質評価のための100点満点採点形式。
 
-## Scoring System
+## 採点システム
 
-| Item | Score | Focus | Criteria |
+| 項目 | スコア | フォーカス | 基準 |
 | --- | --- | --- | --- |
-| Accuracy | 0-25 | Facts vs inferences | ✓/→/? markers, evidence paths |
-| Completeness | 0-25 | Coverage | Testable criteria, risks, dependencies |
-| Relevance | 0-25 | Alignment | Goals ↔ solutions, scope, YAGNI |
-| Actionability | 0-25 | Implementability | Specific steps, feasibility, next actions |
+| 正確性 | 0-25 | 事実 vs 推論 | ✓/→/?マーカー、証拠パス |
+| 完全性 | 0-25 | カバレッジ | テスト可能な基準、リスク、依存関係 |
+| 関連性 | 0-25 | 整合性 | 目標 ↔ ソリューション、スコープ、YAGNI |
+| 実行可能性 | 0-25 | 実装可能性 | 具体的なステップ、実現可能性、次のアクション |
 
-## Judgment Criteria
+## 判定基準
 
-| Score | Judgment | Action |
+| スコア | 判定 | アクション |
 | --- | --- | --- |
-| 90-100 | ✅ PASS | Proceed to next phase |
-| 70-89 | ⚠️ CONDITIONAL | Re-review after fixes |
-| 0-69 | ❌ FAIL | Major revision needed |
+| 90-100 | ✅ PASS | 次のフェーズへ進行 |
+| 70-89 | ⚠️ CONDITIONAL | 修正後に再レビュー |
+| 0-69 | ❌ FAIL | 大幅な修正が必要 |
 
-## Score Guidelines
+## スコアガイドライン
 
-| Score Range | Quality Level |
+| スコア範囲 | 品質レベル |
 | --- | --- |
-| 23-25 | Excellent - All claims have evidence |
-| 18-22 | Acceptable - Most claims verified |
-| 13-17 | Needs work - Multiple gaps |
-| 0-12 | Insufficient - Major issues |
+| 23-25 | 優秀 - すべての主張に証拠あり |
+| 18-22 | 許容 - ほとんどの主張が検証済み |
+| 13-17 | 要改善 - 複数のギャップ |
+| 0-12 | 不十分 - 重大な問題 |
 
-## Output Format
+## 出力形式
 
 ```markdown
-## 📋 Design Document Review Result
+## 📋 設計ドキュメントレビュー結果
 
-### Total Score: {total}/100 {✅/⚠️/❌}
+### 合計スコア: {total}/100 {✅/⚠️/❌}
 
-| Item | Score | Marker |
+| 項目 | スコア | マーカー |
 |------|-------|--------|
-| Accuracy | /25 | ✓/→/? |
-| Completeness | /25 | ✓/→/? |
-| Relevance | /25 | ✓/→/? |
-| Actionability | /25 | ✓/→/? |
+| 正確性 | /25 | ✓/→/? |
+| 完全性 | /25 | ✓/→/? |
+| 関連性 | /25 | ✓/→/? |
+| 実行可能性 | /25 | ✓/→/? |
 
-### 🔗 SOW ↔ Spec Consistency
-| Check | Status |
+### 🔗 SOW ↔ Spec整合性
+| チェック | ステータス |
 |-------|--------|
-| Acceptance Criteria → FR | ✓/→/? |
-| Risks → Mitigations | ✓/→/? |
-| Dependencies | ✓/→/? |
-| Test Coverage | ✓/→/? |
+| 受け入れ基準 → FR | ✓/→/? |
+| リスク → 緩和策 | ✓/→/? |
+| 依存関係 | ✓/→/? |
+| テストカバレッジ | ✓/→/? |
 
-### 📝 Requested Modifications
-🔴 Required: [list]
-🟡 Recommended: [list]
+### 📝 要求される修正
+🔴 必須: [リスト]
+🟡 推奨: [リスト]
 
-### Next Action
+### 次のアクション
 ✅ PASS: /code
-⚠️ CONDITIONAL: Fix and re-review
-❌ FAIL: Re-plan with /think
+⚠️ CONDITIONAL: 修正して再レビュー
+❌ FAIL: /thinkで再計画
 ```
 
-## References
+## 参照
 
-### Related Skills
+### 関連スキル
 
-- `reviewing-readability` - Readability review skill
+- `reviewing-readability` - 可読性レビュースキル
 
-### Related Agents
+### 関連エージェント
 
-- `sow-spec-reviewer` - SOW/Spec verification agent
+- `sow-spec-reviewer` - SOW/Spec検証エージェント
 
-### Used by Commands
+### 使用コマンド
 
-- `/think` - SOW/Spec generation
-- `/audit` - Code review orchestration
+- `/think` - SOW/Spec生成
+- `/audit` - コードレビューオーケストレーション

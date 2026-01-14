@@ -1,12 +1,7 @@
 {
   "name": "cli-config",
-  "description": "Manage CLI application configuration with Cobra and Viper. Use when implementing config files, environment variables, flags binding, or when user mentions Viper, configuration management, config files",
   "repo": "yurifrl/cly",
-  "category": "development",
-  "tags": [
-    "cli",
-    "config"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".opencode/skill/cli-config/SKILL.md",
+  "source": "github.com/yurifrl/cly",
+  "downloaded_at": "2026-01-14T01:26:17.287732Z"
 }

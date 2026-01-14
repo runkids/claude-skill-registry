@@ -1,11 +1,7 @@
 {
   "name": "using-skills",
-  "description": "Use when starting any conversation - establishes mandatory workflows for finding and using skills, including using Skill tool before announcing usage, following brainstorming before coding, and creati",
-  "repo": "marcos-abreu/connect_kit",
-  "category": "data",
-  "tags": [
-    "using",
-    "skills"
-  ],
-  "stars": 1
+  "repo": "liauw-media/household-expense-tracker",
+  "path": ".claude/skills/using-skills/SKILL.md",
+  "source": "github.com/liauw-media/household-expense-tracker",
+  "downloaded_at": "2026-01-14T03:58:24.666637Z"
 }

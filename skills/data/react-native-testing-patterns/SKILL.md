@@ -1,11 +1,11 @@
 ---
 name: react-native-testing-patterns
-description: Implements testing strategies for React Native components, MST stores, and services using Jest, React Testing Library, and Maestro. Use when writing unit, integration, or E2E tests in Purrsuit Mobile App.
+description: Implements testing strategies for React Native components, MST stores, and services using Jest, React Testing Library, and Maestro. Use when writing unit, integration, or E2E tests in Fitness Tracker App.
 ---
 
 # React Native Testing Patterns
 
-This skill provides the established testing patterns for the Purrsuit Mobile App, ensuring high code quality and reliable automated verification.
+This skill provides the established testing patterns for the Fitness Tracker App, ensuring high code quality and reliable automated verification.
 
 ## When to Use This Skill
 

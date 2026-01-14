@@ -1,9 +1,7 @@
 {
   "name": "ffi-bindings",
-  "description": "Your approach to handling ffi bindings. Use this skill when working on files where ffi bindings comes into play.",
-  "repo": "cotw-fabier/spidart",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "nathanial/lean-workspace",
+  "path": ".claude/skills/ffi-bindings/SKILL.md",
+  "source": "github.com/nathanial/lean-workspace",
+  "downloaded_at": "2026-01-14T02:38:39.011989Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "architecture-documentation",
-  "description": "Create and maintain architecture documentation using standard formats",
-  "repo": "pluginagentmarketplace/custom-plugin-software-architect",
-  "category": "documents",
-  "tags": [
-    "architecture",
-    "documentation"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "repo": "wmeints/promptyard",
+  "path": ".claude/skills/architecture-documentation/SKILL.md",
+  "source": "github.com/wmeints/promptyard",
+  "downloaded_at": "2026-01-14T03:21:44.416317Z"
 }

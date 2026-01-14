@@ -1,8 +1,7 @@
 {
   "name": "erp-trade-doc",
   "repo": "jesseooxx/ERP-explore",
-  "category": "data",
-  "description": "\u67e5\u8a62 DataWin ERP \u8cbf\u6613\u6a21\u7d44\u6587\u6a94\uff0c\u7528\u65bc\u7a0b\u5f0f\u958b\u767c\u53c3\u8003\u3002\u7576\u7528\u6236\u8a62\u554f\u8cbf\u6613\u6a21\u7d44\u7684\u529f\u80fd\u3001\u6d41\u7a0b\u3001\u64cd\u4f5c\u6b65\u9a5f\u6642\u4f7f\u7528\u3002",
-  "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:21:22.183643Z"
+  "path": ".claude/skills/erp-trade-doc/skill.md",
+  "source": "github.com/jesseooxx/ERP-explore",
+  "downloaded_at": "2026-01-14T02:06:53.305672Z"
 }

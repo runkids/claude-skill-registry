@@ -1,15 +1,7 @@
 {
   "name": "cloudflare-d1-migrations-and-production-seeding",
-  "description": "\"Use this skill whenever the user wants to design, run, or refine Cloudflare D1 schema management, migrations, and data seeding for dev/staging/production environments, especially in conjunction with ",
   "repo": "AgentiveCity/SkillFactory",
-  "category": "development",
-  "tags": [
-    "cloudflare",
-    "migrations",
-    "and",
-    "production",
-    "seeding"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/cloudflare-d1-migrations-and-production-seeding/SKILL.md",
+  "source": "github.com/AgentiveCity/SkillFactory",
+  "downloaded_at": "2026-01-14T04:03:17.081435Z"
 }

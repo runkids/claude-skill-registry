@@ -1,12 +1,7 @@
 {
   "name": "task-sorting",
-  "description": "Provides stable task list sorting across four dimensions (Priority, Due Date, Created Date, Alphabetical) with ascending/descending toggles, tie-breaking rules, and visual sort indicators. Default sor",
-  "repo": "Syedaashnaghazanfar/full-stack-todo-app",
-  "category": "productivity",
-  "tags": [
-    "task",
-    "sorting"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "SOFIA-ASIF/TaskFlow-ToDo-APP",
+  "path": ".claude/skills/task-sorting/SKILL.md",
+  "source": "github.com/SOFIA-ASIF/TaskFlow-ToDo-APP",
+  "downloaded_at": "2026-01-14T03:11:58.456304Z"
 }

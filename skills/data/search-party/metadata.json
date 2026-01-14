@@ -1,12 +1,7 @@
 {
   "name": "search-party",
-  "description": "Parallel 120-probe reconnaissance using G-2 RECON agents. Deploy 12 G-2s commanding 10 D&D-inspired probes each. Use for comprehensive codebase exploration.",
   "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
-  "category": "development",
-  "tags": [
-    "search",
-    "party"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": ".claude/skills/search-party/SKILL.md",
+  "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager",
+  "downloaded_at": "2026-01-14T02:32:40.500910Z"
 }

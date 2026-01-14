@@ -1,11 +1,7 @@
 {
   "name": "container-scanner",
-  "description": "Scans containers and Dockerfiles for security issues. Wraps Hadolint for Dockerfile linting and Trivy for container image scanning. Use when user asks to \"scan Dockerfile\", \"lint Dockerfile\", \"contain",
   "repo": "naporin0624/claude-web-audit-plugins",
-  "category": "data",
-  "tags": [
-    "container",
-    "scanner"
-  ],
-  "stars": 0
+  "path": "skills/container-scanner/SKILL.md",
+  "source": "github.com/naporin0624/claude-web-audit-plugins",
+  "downloaded_at": "2026-01-14T02:31:14.886057Z"
 }

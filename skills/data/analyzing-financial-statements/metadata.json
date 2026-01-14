@@ -1,13 +1,7 @@
 {
   "name": "analyzing-financial-statements",
-  "description": "This skill calculates key financial ratios and metrics from financial statement data for investment analysis",
-  "repo": "ronnycoding/.claude",
-  "category": "data",
-  "tags": [
-    "analyzing",
-    "financial",
-    "statements"
-  ],
-  "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "repo": "anthropics/claude-cookbooks",
+  "path": "skills/custom_skills/analyzing-financial-statements/SKILL.md",
+  "source": "github.com/anthropics/claude-cookbooks",
+  "downloaded_at": "2026-01-14T03:48:37.777462Z"
 }

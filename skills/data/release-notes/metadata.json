@@ -1,11 +1,7 @@
 {
   "name": "release-notes",
-  "description": "Generate clear, skimmable GitHub release notes with **⚠️ Breaking Changes prominently displayed FIRST** (if any exist), followed by Highlights and detailed categorized sections. **Every listed change ",
-  "repo": "NASA-PDS/pds-claude-skills",
-  "category": "data",
-  "tags": [
-    "release",
-    "notes"
-  ],
-  "stars": 0
+  "repo": "tqer39/blog",
+  "path": ".claude/skills/release-notes/SKILL.md",
+  "source": "github.com/tqer39/blog",
+  "downloaded_at": "2026-01-14T01:17:35.953996Z"
 }

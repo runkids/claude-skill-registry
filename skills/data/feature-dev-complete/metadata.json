@@ -1,13 +1,7 @@
 {
   "name": "feature-dev-complete",
-  "description": "Complete feature development lifecycle from research to deployment. Uses Gemini Search for best practices, architecture design, Codex prototyping, comprehensive testing, and documentation generation. ",
   "repo": "DNYoussef/ai-chrome-extension",
-  "category": "development",
-  "tags": [
-    "feature",
-    "dev",
-    "complete"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/feature-dev-complete/SKILL.md",
+  "source": "github.com/DNYoussef/ai-chrome-extension",
+  "downloaded_at": "2026-01-14T03:10:15.555204Z"
 }

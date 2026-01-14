@@ -1,9 +1,7 @@
 {
   "name": "translate-article",
-  "description": "Translate MDX articles between English and Japanese for global engineers. Use when the user says \"translate this article\", \"convert to Japanese/English\", or asks to localize content in `src/content/do",
-  "repo": "nozomi-koborinai/koborin-ai",
-  "category": "marketing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "camoneart/claude-code",
+  "path": "skills/translate-article/SKILL.md",
+  "source": "github.com/camoneart/claude-code",
+  "downloaded_at": "2026-01-14T03:37:00.418272Z"
 }

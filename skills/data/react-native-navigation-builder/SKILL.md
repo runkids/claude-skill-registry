@@ -1,11 +1,11 @@
 ---
 name: react-native-navigation-builder
-description: Creates navigation structures following the app's nested navigator pattern. Handles type-safe navigation, stack and tab setup, and screen parameter management in Purrsuit Mobile App.
+description: Creates navigation structures following the app's nested navigator pattern. Handles type-safe navigation, stack and tab setup, and screen parameter management in Fitness Tracker App.
 ---
 
 # React Native Navigation Builder
 
-This skill helps create and maintain the navigation structure of the Purrsuit Mobile App, ensuring type safety and consistency across nested navigators.
+This skill helps create and maintain the navigation structure of the Fitness Tracker App, ensuring type safety and consistency across nested navigators.
 
 ## When to Use This Skill
 
@@ -31,7 +31,7 @@ The app uses a nested navigation structure:
 export type AppStackParamList = {
   Welcome: undefined
   MainTabs: NavigatorScreenParams<MainTabParamList>
-  EncounterDetail: { encounterId: string }
+  RoutineDetail: { routineId: string }
   // ...
 }
 ```
@@ -70,8 +70,8 @@ export const MyNewScreen = (props: AppStackScreenProps<"MyNewScreen">) => {
 ### Modal Presentation
 ```tsx
 <Stack.Screen
-  name="EncounterEdit"
-  component={EncounterEditScreen}
+  name="RoutineEdit"
+  component={RoutineEditScreen}
   options={{ presentation: "modal" }}
 />
 ```

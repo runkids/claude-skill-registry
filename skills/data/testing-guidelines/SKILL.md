@@ -1,65 +1,51 @@
 ---
 name: testing-guidelines
-description: >-
-  Pytest testing patterns, fixtures, mocking, and coverage for GMailArchiver.
-  Use when writing unit tests, integration tests, creating fixtures, mocking
-  Gmail API, or checking coverage. Triggers on: test, pytest, fixture, mock,
-  coverage, conftest, assert, unit test, integration test.
+description: How tests should be structured, named, and prioritized in this codebase.
 ---
 
-# Testing Guidelines for GMailArchiver
+# Testing Guidelines
 
-This skill provides guidance on testing practices and patterns.
+## Test Types
 
-## Source Documentation
+- **Unit tests**
+  - Fast, isolated, no network or DB.
+  - Test one behavior per test.
 
-**Always read the authoritative source:**
+- **Integration tests**
+  - Exercise real integrations (DB, queue, external service stubs).
+  - Focus on critical paths and failure modes.
 
-**`docs/TESTING.md`** - The definitive testing guidelines document containing:
-- Test organization and structure
-- Naming conventions for tests
-- Fixture patterns and usage
-- Mocking strategies (especially for Gmail API)
-- Coverage requirements and targets
-- Integration vs unit test guidelines
-- Test data management
+- **End-to-end (E2E) tests**
+  - Cover full user journeys.
+  - More expensive; keep the set small but meaningful.
 
-## Key Test Files
+## Naming & Structure
 
-- `tests/conftest.py` - Shared fixtures and configuration
-- `tests/test_*.py` - Test modules (match source structure)
+- Test files:
+  - Mirror source structure: `src/foo/bar.py` → `tests/foo/test_bar.py`
+- Test names:
+  - Use descriptive names reflecting behavior, e.g.:
+    - `def test_rejects_requests_without_authentication():`
 
-## Test Commands
+## Coverage Expectations
 
-```bash
-# Run all tests with coverage
-uv run pytest
+- Core domain logic: ≥ 80% line coverage
+- Peripheral or legacy code: best-effort; prioritize stability
+- Do not chase metrics blindly; focus on risk and impact.
 
-# Run specific test file
-uv run pytest tests/test_module.py -v
+## Fixtures & Data
 
-# Run specific test function
-uv run pytest tests/test_module.py::test_name -v
+- Prefer factory functions over static fixtures.
+- Make fixtures explicit and readable; avoid hidden magic.
 
-# Run without coverage (faster)
-uv run pytest --no-cov
+## Testing Conventions
 
-# Run with coverage report
-uv run pytest --cov=src/gmailarchiver --cov-report=html
-```
+- Arrange-Act-Assert structure where possible.
+- Avoid brittle tests that depend on:
+  - Exact error messages
+  - Implementation details that can change safely
 
-## Coverage Requirements
+## CI Requirements
 
-- Overall: 95%+ coverage
-- Core modules: Higher coverage expected
-- See `docs/TESTING.md` for specific targets
-
-## Usage
-
-When writing tests:
-1. Read `docs/TESTING.md` for current testing guidelines
-2. Check `tests/conftest.py` for available fixtures
-3. Follow existing test patterns in similar test files
-4. If guidelines change, update `docs/TESTING.md` (not this skill)
-
-The source documentation is the **single source of truth** - this skill just points you there.
+- All tests must pass before merge.
+- E2E tests may run on a separate pipeline if slow; document behavior.

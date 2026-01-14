@@ -1,12 +1,19 @@
 ---
 name: startup-fundraising
 description: Fundraising strategy, pitch preparation, investor relations, and capital raising execution
-version: "1.0"
+metadata:
+  version: "1.0"
 ---
 
 # Startup Fundraising
 
 Systematic framework for raising capital from pre-seed through growth stages.
+
+**Modern Best Practices (Dec 2025)**:
+- Fundraising readiness is milestone-based; keep metrics definitions consistent and source-backed.
+- Treat the data room as a product: clean structure, owners, and “one source of truth”.
+- Prefer believable narratives over inflated TAM; be explicit about assumptions and constraints.
+- Optional: AI / Automation can help with formatting and drafts; never fabricate metrics.
 
 ---
 
@@ -271,36 +278,36 @@ CLOSE (Slides 8-12)
 ### Data Room Organization
 
 ```
-📁 Company Overview
+[FILE] Company Overview
 ├── Pitch Deck (latest)
 ├── Executive Summary
 └── Company Fact Sheet
 
-📁 Financials
+[FILE] Financials
 ├── Financial Model
 ├── Historical Statements
 ├── Monthly Reports
 └── Bank Statements
 
-📁 Metrics
+[FILE] Metrics
 ├── Metrics Dashboard
 ├── Cohort Analysis
 ├── Unit Economics
 └── Customer List
 
-📁 Corporate
+[FILE] Corporate
 ├── Cap Table
 ├── Articles of Incorporation
 ├── Board Consents
 └── Stock Option Plan
 
-📁 Legal
+[FILE] Legal
 ├── Material Contracts
 ├── IP Assignments
 ├── Employment Agreements
 └── Pending Litigation (if any)
 
-📁 Product
+[FILE] Product
 ├── Product Roadmap
 ├── Technical Architecture
 └── Competitive Analysis
@@ -388,8 +395,8 @@ CLOSE (Slides 8-12)
 ## {{COMPANY}} - {{MONTH}} Update
 
 ### Highlights
-- 🎉 {{WIN_1}}
-- 🎉 {{WIN_2}}
+- [CELEBRATE] {{WIN_1}}
+- [CELEBRATE] {{WIN_2}}
 
 ### Key Metrics
 | Metric | This Month | Last Month | MoM |
@@ -428,9 +435,42 @@ CLOSE (Slides 8-12)
 | Template | Purpose |
 |----------|---------|
 | [fundraising-plan.md](templates/fundraising-plan.md) | Full fundraising strategy |
+| [fundraising-deck-outline.md](templates/fundraising-deck-outline.md) | Deck outline and slide takeaways |
+| [data-room-checklist.md](templates/data-room-checklist.md) | Diligence-ready data room checklist |
 
 ## Data
 
 | File | Purpose |
 |------|---------|
 | [sources.json](data/sources.json) | Fundraising resources |
+
+---
+
+## Do / Avoid (Dec 2025)
+
+### Do
+
+- Keep a metrics glossary with formulas and source links.
+- Prepare cohorts and retention views early (avoid “we’ll pull it later”).
+- Align the raise to milestones and a realistic runway plan.
+
+### Avoid
+
+- Inflated TAM without bottom-up assumptions.
+- Inconsistent metrics across deck, model, and data room.
+- Hiding churn or cohort issues (diligence will surface it).
+
+## What Good Looks Like
+
+- Narrative: one consistent story across deck, memo, and demo (problem → why now → wedge → proof).
+- Metrics: every KPI has a definition (formula + timeframe + source) and matches across artifacts.
+- Data room: diligence-ready folder with cohorts, pipeline, contracts/terms, and key policies.
+- Milestones: the raise maps to a milestone plan and runway model (best/base/worst case).
+- Process: a tracked pipeline with weekly cadence (outreach, meetings, follow-ups, learnings).
+
+## Optional: AI / Automation
+
+Use only when explicitly requested and policy-compliant.
+
+- Draft deck narratives and Q&A; humans verify every number and claim.
+- Format and restructure documents; do not invent customers, revenue, or pipeline.

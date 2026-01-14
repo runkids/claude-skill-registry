@@ -1,13 +1,7 @@
 {
   "name": "context-aware-delegation",
-  "description": "Understand agent context isolation and write effective prompts for spawned agents. Use when orchestrating multi-agent workflows to ensure subagents receive complete, self-contained context.",
   "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
-  "category": "data",
-  "tags": [
-    "context",
-    "aware",
-    "delegation"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/context-aware-delegation/SKILL.md",
+  "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager",
+  "downloaded_at": "2026-01-14T02:32:40.696874Z"
 }

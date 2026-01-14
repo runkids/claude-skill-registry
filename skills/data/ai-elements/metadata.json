@@ -1,11 +1,7 @@
 {
   "name": "ai-elements",
-  "description": "Vercel AI Elements for workflow UI components. Use when building chat interfaces, displaying tool execution, showing reasoning/thinking, or creating job queues. Triggers on ai-elements, Queue, Confirm",
-  "repo": "existential-birds/beagle",
-  "category": "development",
-  "tags": [
-    "elements"
-  ],
-  "stars": 4,
-  "source": "SkillsMP Synced Skills"
+  "repo": "laguagu/claude-code-nextjs-skills",
+  "path": "skills/ai-elements/SKILL.md",
+  "source": "github.com/laguagu/claude-code-nextjs-skills",
+  "downloaded_at": "2026-01-14T03:29:17.399030Z"
 }

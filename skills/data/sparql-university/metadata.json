@@ -1,8 +1,7 @@
 {
   "name": "sparql-university",
   "repo": "letta-ai/skills",
-  "category": "data",
-  "description": "Guidance for writing SPARQL queries against RDF/Turtle datasets, particularly for university or academic data. This skill should be used when tasks involve querying RDF data with SPARQL, filtering ent",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:20.104069Z"
+  "path": "letta/benchmarks/trajectory-only/sparql-university/SKILL.md",
+  "source": "github.com/letta-ai/skills",
+  "downloaded_at": "2026-01-14T00:54:33.822094Z"
 }

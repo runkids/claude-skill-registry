@@ -1,13 +1,7 @@
 {
   "name": "cloudflare-python-workers",
-  "description": "Build Python APIs on Cloudflare Workers using pywrangler CLI and WorkerEntrypoint class pattern.Includes Python Workflows for multi-step DAG automation with @step.do decorators.Use when: building Pyth",
   "repo": "jezweb/claude-skills",
-  "category": "development",
-  "tags": [
-    "cloudflare",
-    "python",
-    "workers"
-  ],
-  "stars": 109,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/cloudflare-python-workers/SKILL.md",
+  "source": "github.com/jezweb/claude-skills",
+  "downloaded_at": "2026-01-14T04:01:49.634298Z"
 }

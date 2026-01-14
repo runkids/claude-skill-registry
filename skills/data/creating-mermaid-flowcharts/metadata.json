@@ -1,13 +1,7 @@
 {
   "name": "creating-mermaid-flowcharts",
-  "description": "Use when creating or editing Mermaid flowchart diagrams, encountering parse errors, or unsure about node shapes, connection syntax, or styling - provides syntax guardrails using modern shape syntax fo",
   "repo": "WesleyMFrederick/cc-workflows",
-  "category": "data",
-  "tags": [
-    "creating",
-    "mermaid",
-    "flowcharts"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/creating-mermaid-flowcharts/SKILL.md",
+  "source": "github.com/WesleyMFrederick/cc-workflows",
+  "downloaded_at": "2026-01-14T02:32:22.783021Z"
 }

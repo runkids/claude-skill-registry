@@ -1,12 +1,7 @@
 {
   "name": "aws-monitoring",
-  "description": "Debug AWS resource issues, check Lambda logs, and monitor deployed services. Use when investigating production issues, checking CloudWatch logs, or debugging deployment failures.",
   "repo": "sgcarstrends/sgcarstrends",
-  "category": "development",
-  "tags": [
-    "aws",
-    "monitoring"
-  ],
-  "stars": 13,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/aws-monitoring/SKILL.md",
+  "source": "github.com/sgcarstrends/sgcarstrends",
+  "downloaded_at": "2026-01-14T02:59:22.555213Z"
 }

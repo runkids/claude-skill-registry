@@ -1,13 +1,7 @@
 {
   "name": "add-backend-tool",
-  "description": "Add a new tool to the backend OpenAI function calling system. Use when user mentions \"new tool\", \"add tool\", \"backend function\", \"agent capability\", or wants to extend what the AI agent can do.",
   "repo": "AppleLamps/web-term",
-  "category": "data",
-  "tags": [
-    "add",
-    "backend",
-    "tool"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/add-backend-tool/SKILL.md",
+  "source": "github.com/AppleLamps/web-term",
+  "downloaded_at": "2026-01-14T01:11:29.415382Z"
 }

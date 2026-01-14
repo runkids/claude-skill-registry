@@ -1,80 +1,69 @@
 ---
 name: setting-up-docs
 description: >
-  Generate environment setup guide documentation from codebase analysis.
-  Detects package managers, required tools, environment variables, and startup commands.
-  Triggers: setup guide, environment setup, development environment,
+  コードベース分析から環境セットアップガイドドキュメントを生成。
+  パッケージマネージャ、必要なツール、環境変数、起動コマンドを検出。
+  トリガー: setup guide, environment setup, development environment,
   installation guide, getting started, prerequisites.
-allowed-tools:
-  - Read
-  - Write
-  - Grep
-  - Glob
-  - Bash
-  - Task
-context: fork
+allowed-tools: Read, Write, Grep, Glob, Bash, Task
 ---
 
-# docs:setup - Environment Setup Guide Generation
+# docs:setup - 環境セットアップガイド生成
 
-Auto-generate setup documentation from codebase analysis.
+コードベース分析からセットアップドキュメントを自動生成。
 
-## Detection Items
+## 検出項目
 
-| Category         | Targets                                                                                                |
-| ---------------- | ------------------------------------------------------------------------------------------------------ |
-| Package Managers | package.json, yarn.lock, pnpm-lock, pyproject.toml, Cargo.toml, go.mod, pubspec.yaml, Gemfile, pom.xml |
-| Tool Versions    | .nvmrc, .python-version, .ruby-version, .tool-versions, rust-toolchain.toml                            |
-| Environment      | .env.example, .env.sample, .env.template                                                               |
-| Containers       | Dockerfile, docker-compose.yml, .devcontainer/                                                         |
-| Commands         | package.json scripts, Makefile, README                                                                 |
+| カテゴリ | 対象 |
+| --- | --- |
+| パッケージマネージャ | package.json, yarn.lock, pnpm-lock, pyproject.toml, Cargo.toml, go.mod, pubspec.yaml, Gemfile, pom.xml |
+| ツールバージョン | .nvmrc, .python-version, .ruby-version, .tool-versions, rust-toolchain.toml |
+| 環境 | .env.example, .env.sample, .env.template |
+| コンテナ | Dockerfile, docker-compose.yml, .devcontainer/ |
+| コマンド | package.json scripts, Makefile, README |
 
-## Generated Structure
+## 生成構造
 
 ```markdown
-# Environment Setup Guide
+# 環境セットアップガイド
 
-## Prerequisites
+## 前提条件
+- ランタイム & バージョン
+- 必要なツール
 
-- Runtime & versions
-- Required tools
+## インストール手順
+1. リポジトリをクローン
+2. 依存関係をインストール
+3. 環境変数を設定
 
-## Installation Steps
+## 環境変数
+| 変数 | 説明 | 必須 |
 
-1. Clone repository
-2. Install dependencies
-3. Configure environment variables
+## プロジェクトの実行
+- 開発サーバーを起動
+- ビルド
+- テストを実行
 
-## Environment Variables
-
-| Variable | Description | Required |
-
-## Running the Project
-
-- Start development server
-- Build
-- Run tests
-
-## Docker (Optional)
+## Docker（オプション）
 ```
 
-## Usage
+## 使用方法
 
 ```bash
-/docs:setup                   # Generate setup guide
-"Generate environment setup"  # Natural language
+/docs:setup                   # セットアップガイド生成
+"Generate environment setup"  # 自然言語
 ```
 
-## Markdown Validation
+## Markdownバリデーション
 
-After generation, validate output with:
+生成後、出力を検証:
 
 ```bash
 ~/.claude/skills/scripts/validate-markdown.sh {output-file}
 ```
 
-Non-blocking (warnings only) - style issues don't block document creation.
+ブロッキングなし（警告のみ） - スタイル問題はドキュメント作成をブロックしない。
 
-## References
+## 参照
 
-- Related: `documenting-architecture`, `documenting-apis`, `documenting-domains`
+- 関連: `documenting-architecture`, `documenting-apis`, `documenting-domains`

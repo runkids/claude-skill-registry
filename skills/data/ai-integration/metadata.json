@@ -1,11 +1,7 @@
 {
   "name": "ai-integration",
-  "description": "Use when integrating LLMs (OpenAI, Qwen, Claude), extracting structured data from text, building prompts, parsing AI responses, handling JSON output, or implementing multi-step AI workflows",
-  "repo": "aixier/n8n-automation-hub",
-  "category": "data",
-  "tags": [
-    "integration"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "sylin-org/koan-framework",
+  "path": ".claude/skills/ai-integration/SKILL.md",
+  "source": "github.com/sylin-org/koan-framework",
+  "downloaded_at": "2026-01-14T03:05:51.460057Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "triage-workflow",
-  "description": "SOC II triage workflow for creating Linear tickets, branches, OpenSpec proposals, commits, and PRs. Use when asked to triage an issue, create a triage ticket, or start SOC II workflow.",
   "repo": "nodnarbnitram/claude-code-extensions",
-  "category": "productivity",
-  "tags": [
-    "triage",
-    "workflow"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/triage-workflow/SKILL.md",
+  "source": "github.com/nodnarbnitram/claude-code-extensions",
+  "downloaded_at": "2026-01-14T01:55:08.789583Z"
 }

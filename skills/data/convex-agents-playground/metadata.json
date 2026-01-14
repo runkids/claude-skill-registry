@@ -1,0 +1,13 @@
+{
+  "name": "convex-agents-playground",
+  "description": "\"Sets up a web UI for testing, debugging, and developing agents without code. Use this to manually test agents, browse conversation history, and verify behavior in real-time.\"",
+  "repo": "Sstobo/convex-skills",
+  "category": "development",
+  "tags": [
+    "convex",
+    "agents",
+    "playground"
+  ],
+  "stars": 5,
+  "source": "local"
+}

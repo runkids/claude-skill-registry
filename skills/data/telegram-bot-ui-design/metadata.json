@@ -1,13 +1,7 @@
 {
   "name": "telegram-bot-ui-design",
-  "description": "Expert in designing Telegram bot interfaces with keyboards, buttons, conversational flows, and mobile-first UX patterns.",
   "repo": "ils15/copilot-global-config",
-  "category": "design",
-  "tags": [
-    "telegram",
-    "bot",
-    "design"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": "skills/telegram-bot-ui-design/SKILL.md",
+  "source": "github.com/ils15/copilot-global-config",
+  "downloaded_at": "2026-01-14T02:18:15.288724Z"
 }

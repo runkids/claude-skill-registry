@@ -1,12 +1,7 @@
 {
   "name": "clarification-phase",
-  "description": "Executes the /clarify phase using AskUserQuestion tool to resolve ambiguities through structured questions (≤3), prioritization, and answer integration. Use when spec.md contains [NEEDS CLARIFICATION]",
   "repo": "marcusgoll/Spec-Flow",
-  "category": "design",
-  "tags": [
-    "clarification",
-    "phase"
-  ],
-  "stars": 16,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/clarification-phase/SKILL.md",
+  "source": "github.com/marcusgoll/Spec-Flow",
+  "downloaded_at": "2026-01-14T04:06:35.962660Z"
 }

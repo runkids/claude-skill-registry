@@ -1,13 +1,7 @@
 {
   "name": "operating-production-services",
-  "description": "SRE patterns for production service reliability: SLOs, error budgets, postmortems, and incident response.Use when defining reliability targets, writing postmortems, implementing SLO alerting, or estab",
   "repo": "mjunaidca/mjs-agent-skills",
-  "category": "development",
-  "tags": [
-    "operating",
-    "production",
-    "services"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/operating-production-services/SKILL.md",
+  "source": "github.com/mjunaidca/mjs-agent-skills",
+  "downloaded_at": "2026-01-14T01:43:16.655285Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "skill-contributor",
-  "description": "Guides contributors through adding new skills to the claude-code-skills repository via Pull Request with proper validation and documentation",
   "repo": "WomenDefiningAI/claude-code-skills",
-  "category": "documents",
-  "tags": [
-    "skill",
-    "contributor"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/skill-contributor/SKILL.md",
+  "source": "github.com/WomenDefiningAI/claude-code-skills",
+  "downloaded_at": "2026-01-14T01:52:14.558662Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "optical-refinement",
-  "description": "Reviews designs for optical balance issues that mathematical precision misses. Covers typography kerning, visual alignment, spacing rhythm, color weight, and the human touch that distinguishes profess",
   "repo": "vinzenz/jules-agentic-software-builder-for-claude",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/optical-refinement/SKILL.md",
+  "source": "github.com/vinzenz/jules-agentic-software-builder-for-claude",
+  "downloaded_at": "2026-01-14T01:55:18.439885Z"
 }

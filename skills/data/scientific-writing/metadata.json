@@ -1,11 +1,7 @@
 {
   "name": "scientific-writing",
-  "description": "Apply rigorous scientific writing standards for academic manuscripts. Use when writing abstracts, introductions, methods, results, or discussions for papers, grants, theses, or mermaid figure.",
-  "repo": "ywatanabe1989/melbourne-moving-sale",
-  "category": "data",
-  "tags": [
-    "scientific",
-    "writing"
-  ],
-  "stars": 0
+  "repo": "jkitchin/skillz",
+  "path": "skills/communication/scientific-writing/SKILL.md",
+  "source": "github.com/jkitchin/skillz",
+  "downloaded_at": "2026-01-14T03:44:51.949991Z"
 }

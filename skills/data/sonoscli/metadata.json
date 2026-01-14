@@ -1,11 +1,7 @@
 {
   "name": "sonoscli",
-  "description": "Control Sonos speakers (discover/status/play/volume/group).",
-  "repo": "steipete/clawdis",
-  "category": "development",
-  "tags": [
-    "sonoscli"
-  ],
-  "stars": 430,
-  "source": "SkillsMP Synced Skills"
+  "repo": "clawdbot/clawdbot",
+  "path": "skills/sonoscli/SKILL.md",
+  "source": "github.com/clawdbot/clawdbot",
+  "downloaded_at": "2026-01-14T04:05:33.005803Z"
 }

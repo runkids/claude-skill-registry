@@ -1,12 +1,7 @@
 {
   "name": "capacity-planning",
-  "description": "Analyze team capacity, plan resource allocation, and balance workload across projects. Forecast staffing needs and optimize team utilization while maintaining sustainable pace.",
   "repo": "aj-geddes/useful-ai-prompts",
-  "category": "data",
-  "tags": [
-    "capacity",
-    "planning"
-  ],
-  "stars": 25,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/capacity-planning/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:09.566083Z"
 }

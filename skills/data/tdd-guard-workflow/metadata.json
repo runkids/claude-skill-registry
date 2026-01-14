@@ -1,13 +1,7 @@
 {
   "name": "tdd-guard-workflow",
-  "description": "Use when implementing features or fixes in projects with tdd-guard installed. This skill guides the RED-GREEN-REFACTOR cycle with proper test registration, preventing common TDD violations like writin",
   "repo": "akornmeier/claude-config",
-  "category": "development",
-  "tags": [
-    "tdd",
-    "guard",
-    "workflow"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": "skills/tdd-guard-workflow/SKILL.md",
+  "source": "github.com/akornmeier/claude-config",
+  "downloaded_at": "2026-01-14T02:33:37.491082Z"
 }

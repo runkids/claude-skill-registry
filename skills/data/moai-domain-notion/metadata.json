@@ -1,12 +1,7 @@
 {
   "name": "moai-domain-notion",
-  "description": "\"Enterprise Notion integration with MCP server architecture, database operations, and content management\"",
   "repo": "dolsoon/my-awesome-project",
-  "category": "data",
-  "tags": [
-    "moai",
-    "domain",
-    "notion"
-  ],
-  "stars": 0
+  "path": ".claude/skills/moai-domain-notion/SKILL.md",
+  "source": "github.com/dolsoon/my-awesome-project",
+  "downloaded_at": "2026-01-14T03:37:36.773513Z"
 }

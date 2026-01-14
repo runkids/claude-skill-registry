@@ -1,13 +1,7 @@
 {
   "name": "ground-truth-axiom-establishment",
-  "description": "Establish ground truth axioms as foundational constraints.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "data",
-  "tags": [
-    "ground",
-    "truth",
-    "axiom",
-    "establishment"
-  ],
-  "stars": 1
+  "path": "skills/ground-truth-axiom-establishment/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-14T01:08:24.614187Z"
 }

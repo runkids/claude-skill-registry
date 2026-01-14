@@ -1,11 +1,7 @@
 {
   "name": "video-generation",
-  "description": "AI video generation with Sora, Veo, and Kling. Use when creating Reels, video prompts, or handling video generation workflows.",
-  "repo": "olivenet-iot/olivenet-social-bot",
-  "category": "data",
-  "tags": [
-    "video",
-    "generation"
-  ],
-  "stars": 0
+  "repo": "agentpoet/Agentic-Coding-System-Self-Improving-Framework",
+  "path": ".claude/skills/video-generation/SKILL.md",
+  "source": "github.com/agentpoet/Agentic-Coding-System-Self-Improving-Framework",
+  "downloaded_at": "2026-01-14T03:24:41.136047Z"
 }

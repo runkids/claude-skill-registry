@@ -1,13 +1,7 @@
 {
   "name": "moai-project-batch-questions",
-  "description": "Standardize AskUserQuestion patterns and provide reusable question templates for batch optimization",
-  "repo": "kivo360/quickhooks",
-  "category": "data",
-  "tags": [
-    "moai",
-    "project",
-    "batch",
-    "questions"
-  ],
-  "stars": 0
+  "repo": "dolsoon/my-awesome-project",
+  "path": ".claude/skills/moai-project-batch-questions/SKILL.md",
+  "source": "github.com/dolsoon/my-awesome-project",
+  "downloaded_at": "2026-01-14T03:37:31.988389Z"
 }

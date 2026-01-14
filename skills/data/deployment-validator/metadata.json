@@ -1,12 +1,7 @@
 {
   "name": "deployment-validator",
-  "description": "Validates application readiness for Render/production deployment. Auto-runs when user mentions deployment. Prevents \"works locally, fails in production\" issues. Always run this BEFORE any deployment.",
-  "repo": "HR-AR/Project-Conductor",
-  "category": "data",
-  "tags": [
-    "deployment",
-    "validator"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+  "path": ".claude/skills/deployment-validator/SKILL.md",
+  "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager",
+  "downloaded_at": "2026-01-14T02:32:39.572587Z"
 }

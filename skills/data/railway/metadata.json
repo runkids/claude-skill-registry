@@ -1,10 +1,7 @@
 {
   "name": "railway",
-  "description": "Use when user mentions Railway deployment, production environment issues, environment variables, database migrations, deployment failures, or Railway CLI commands - provides Railway.com platform integ",
-  "repo": "mcclowes/knights-and-crosses",
-  "category": "data",
-  "tags": [
-    "railway"
-  ],
-  "stars": 0
+  "repo": "mgd34msu/goodvibes-plugin",
+  "path": "plugins/goodvibes/skills/webdev/deployment/railway/SKILL.md",
+  "source": "github.com/mgd34msu/goodvibes-plugin",
+  "downloaded_at": "2026-01-14T02:10:03.743042Z"
 }

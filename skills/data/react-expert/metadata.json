@@ -1,12 +1,7 @@
 {
   "name": "react-expert",
-  "description": "Use when building React 18+ applications requiring component architecture, hooks patterns, or state management. Invoke for Server Components, performance optimization, Suspense boundaries, React 19 fe",
-  "repo": "Jeffallan/claude-skills",
-  "category": "development",
-  "tags": [
-    "react",
-    "expert"
-  ],
-  "stars": 12,
-  "source": "local"
+  "repo": "SHAJAR5110/Hackathon-II-phase2",
+  "path": ".claude/skills/react-expert/SKILL.md",
+  "source": "github.com/SHAJAR5110/Hackathon-II-phase2",
+  "downloaded_at": "2026-01-14T04:08:29.512911Z"
 }

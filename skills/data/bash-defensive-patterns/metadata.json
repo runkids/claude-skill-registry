@@ -1,13 +1,7 @@
 {
   "name": "bash-defensive-patterns",
-  "description": "Use when writing or reviewing Bash scripts to apply defensive programming patterns including strict mode, proper error handling, safe variable handling, argument parsing, and idempotent design. Ensure",
-  "repo": "timbuchinger/loadout",
-  "category": "development",
-  "tags": [
-    "bash",
-    "defensive",
-    "patterns"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "vx-daniel/tb-docs-project",
+  "path": ".claude/skills/bash-defensive-patterns/SKILL.md",
+  "source": "github.com/vx-daniel/tb-docs-project",
+  "downloaded_at": "2026-01-14T03:42:24.712270Z"
 }

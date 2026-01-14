@@ -1,308 +1,412 @@
 ---
 name: feature-orchestrator
-description: Multi-feature autonomous builder. Takes a list of features, generates TODO docs in parallel, detects dependencies, creates a master tracking doc, then executes each feature through TDD → Code Review → PR Review workflow. Designed for long autonomous sessions with self-continuation. Use when building multiple related features or a complete project phase.
-allowed-tools: Read, Edit, Write, Bash, Glob, Grep, Task, TodoWrite
-model: opus
+description: Research-backed feature implementation workflow enforcing gap analysis, incremental planning, agent coordination, and continuous integration best practices. Auto-invoked for ALL feature implementation requests to prevent code duplication and ensure CLAUDE.md compliance.
 ---
 
-# Feature Orchestrator
+<!--
+Created by: Madina Gbotoe (https://madinagbotoe.com/)
+Portfolio Project: AI-Enhanced Professional Portfolio
+Version: 2.0 - Research-Backed Edition
+Created: October 28, 2025
+Last Updated: November 3, 2025
+License: Creative Commons Attribution 4.0 International (CC BY 4.0)
+Attribution Required: Yes - Include author name and link when sharing/modifying
+GitHub: https://github.com/mgbotoe/claude-code-share/tree/main/claude-code-skills/feature-orchestrator
 
-You are an autonomous project orchestrator. Your job is to take multiple feature descriptions, plan them in parallel, detect dependencies, and execute them sequentially through a rigorous TDD + Code Review workflow.
+Purpose: Feature Orchestrator skill - Enforces CI/CD best practices, prevents redundancy, ensures incremental delivery based on Google, Microsoft, and industry research
+-->
 
-## Critical Principles
+# Feature Orchestrator Skill
 
-### 1. Sub-Agent Context Discipline
-Every sub-agent you spawn has its own context window. They must return ONLY structured summaries, never full content. This prevents context bloat in long sessions.
+## 🚨 CRITICAL: This Skill Runs BEFORE Feature Implementation
 
-### 2. Output Contracts
-Define exactly what each sub-agent must return. Parse their output and store only what's needed.
+**Purpose:** Enforce research-backed CI/CD workflow, prevent code duplication, ensure incremental delivery
 
-### 3. State Persistence
-Always keep MASTER.md and individual TODO docs updated. If context runs low, state can be reconstructed from files.
+**When to invoke:** Automatically when user requests implementing ANY new feature, component, or functionality
 
-### 4. No Blocking on User
-After initial feature list approval, run autonomously. Only stop for critical blockers.
+**Auto-invoke triggers:**
+- "implement X feature"
+- "add Y functionality"
+- "build Z component"
+- "create new X"
+- "develop X feature"
 
----
-
-## Phase 1: Parse and Plan (Parallel)
-
-When given a feature list (comma-separated, numbered, or natural language):
-
-### 1.1 Extract Features
-Parse the input into discrete features. Example:
-- Input: "auth system, payment processing, user dashboard, email notifications"
-- Output: `["auth-system", "payment-processing", "user-dashboard", "email-notifications"]`
-
-### 1.2 Spawn Todo-Doc Generators (Parallel)
-For EACH feature, spawn a todo-doc-generator agent IN PARALLEL using the Task tool:
-
-```
-Use Task tool with subagent_type="todo-doc-generator" for each feature simultaneously.
-
-Prompt template for each:
-"Generate a TODO document for: [FEATURE_NAME]
-
-Project context: [BRIEF_PROJECT_CONTEXT]
-
-CRITICAL - Your response must end with a structured summary block:
----OUTPUT---
-path: .claude/features/[feature-slug]-TODO.md
-dependencies: [list of other features this depends on, or "none"]
-priority: [1-5, where 1 is foundational/blocking]
-phases: [number of implementation phases]
----END---
-
-Write the full TODO doc to the specified path, then output ONLY the summary block above."
-```
-
-### 1.3 Collect Results
-From each agent, extract only:
-- `path`: Where the TODO doc was written
-- `dependencies`: What this feature needs completed first
-- `priority`: How foundational is this feature
+**What this skill does NOT apply to:**
+- Bug fixes (< 10 lines changed)
+- Simple content/text updates
+- Documentation-only changes
+- Configuration tweaks
 
 ---
 
-## Phase 2: Dependency Resolution
+## 📚 Research Foundation
 
-### 2.1 Build Dependency Graph
-```
-features = [parsed results from Phase 1]
-graph = {}
-for feature in features:
-    graph[feature.name] = feature.dependencies
-```
+This workflow is backed by industry research from Google, Microsoft, IEEE, and leading software engineering organizations:
 
-### 2.2 Topological Sort
-Order features so dependencies come first:
-1. Features with no dependencies → first
-2. Features depending on completed ones → next
-3. Circular dependencies → flag as blocker, ask user
+**Incremental Development (Scrum.org, 2024):**
+> "Incremental delivery enables organizations to have greater visibility, decreases risks faster, delivers value sooner."
 
-### 2.3 Create Execution Queue
-Output: Ordered list of features with dependency chains visible.
+**Continuous Integration (Harness.io, 2024):**
+> "Small problems are easier to fix than big problems, and frequent commits make bugs easier to identify."
+
+**Code Review (Microsoft Research):**
+> "Reviewing 200–400 lines of code at a time detects up to 90% of defects."
+
+**DRY Principle (MetriDev, 2024):**
+> "Abstraction and modularity prevent code duplication through identifying common patterns for reuse."
+
+**For complete research citations and detailed procedures:** See `REFERENCE.md`
 
 ---
 
-## Phase 3: Create Master Document
+## 🎯 Four-Phase Workflow
 
-Write to `.claude/MASTER.md`:
+### Overview
+
+| Phase | Purpose | Time | Output |
+|-------|---------|------|--------|
+| **1. Gap Analysis** | Search for existing code | 2-3 min | Reuse opportunities identified |
+| **2. Planning** | Break into increments | 3-5 min | Implementation plan with todos |
+| **3. Review Gate** | Agent quality review | 1-2 min | Feedback incorporated |
+| **4. Execution** | Build incrementally | Varies | Feature complete, tests passing |
+
+---
+
+### Phase 1: Gap Analysis (MANDATORY)
+
+**Purpose:** Search for existing implementations BEFORE writing any code
+
+**Research:** DRY principle - < 5% duplication target (SonarQube standard)
+
+**Quick Procedure:**
+```bash
+# Search existing code
+glob "**/*[keyword]*.tsx"
+grep "[keyword]" --output_mode files_with_matches
+
+# If found: Reuse or extend
+# If not found: Create new with plan
+```
+
+**Template:** Use `resources/gap-analysis-template.md`
+
+**Detailed procedures:** See `REFERENCE.md` → Phase 1
+
+**Verification:**
+- [ ] Searched for existing implementations?
+- [ ] Identified reuse opportunities?
+- [ ] Reported findings to user?
+
+**If similar code exists:** Plan to extend/reuse → NO duplication
+
+---
+
+### Phase 2: Implementation Planning (MANDATORY per CLAUDE.md)
+
+**Purpose:** Break feature into incremental, testable steps
+
+**Research:** Agile INVEST criteria - Independent, Negotiable, Valuable, Estimable, Small, Testable
+
+**Required Elements:**
+1. **Objective** - What & Why & Success criteria
+2. **Technical Approach** - Components, data flow, architecture
+3. **Incremental Steps** - 30-60 min each, < 100 LOC each
+4. **Testing Strategy** - Unit, integration, E2E, accessibility
+5. **Performance** - React.memo(), useMemo(), code splitting
+6. **Rollback Plan** - Feature flags, gradual rollout
+
+**Template:** Use `resources/implementation-plan-template.md`
+
+**Detailed procedures:** See `REFERENCE.md` → Phase 2
+
+**Create TodoWrite Tracking:**
+```typescript
+TodoWrite({
+  todos: [
+    {
+      content: "Step 1: Description",
+      activeForm: "Step 1: Active form",
+      status: "pending"
+    },
+    // ... all steps
+  ]
+})
+```
+
+**Present plan to user → Get approval before proceeding**
+
+---
+
+### Phase 3: Review Gate (CONDITIONAL)
+
+**Purpose:** Invoke specialized agents for code/design review
+
+**Research:** Google code reviews < 4 hour median latency for fast feedback
+
+**Decision Matrix:**
+
+| Criteria | Threshold | Action |
+|----------|-----------|--------|
+| Lines of code | > 100 | Invoke critic-agent |
+| Security critical | Auth, payments | Always review |
+| User-facing UI | Any | Invoke ui-ux-designer |
+| Simple addition | < 50 lines | Skip review |
+
+**Invoke Agents in Parallel:**
+```markdown
+Use Task tool with multiple calls in ONE message:
+1. Task(subagent_type="critic-agent") → Code quality
+2. Task(subagent_type="ui-ux-designer") → UX/accessibility
+```
+
+**After review:** Incorporate feedback → Update plan → Update todos
+
+**Detailed procedures:** See `REFERENCE.md` → Phase 3
+
+---
+
+### Phase 4: Incremental Execution (MANDATORY)
+
+**Purpose:** Implement feature in small, testable increments
+
+**Research:** CI with frequent commits reduces integration issues (ResearchGate, 2024)
+
+**The Golden Rule: NEVER Break the Build**
+
+**For EACH increment:**
 
 ```markdown
-# Project Orchestration: [PROJECT_NAME]
-Generated: [DATE]
-Status: In Progress
+1. Mark todo as "in_progress"
 
-## Execution Queue (Dependency-Ordered)
+2. Implement (keep changes < 100 lines)
 
-| # | Feature | Status | TODO Doc | Dependencies | Phases |
-|---|---------|--------|----------|--------------|--------|
-| 1 | auth-system | ⏳ Pending | [TODO](.claude/features/auth-system-TODO.md) | none | 3 |
-| 2 | payment-processing | ⏳ Pending | [TODO](.claude/features/payment-processing-TODO.md) | auth-system | 4 |
-| 3 | email-notifications | ⏳ Pending | [TODO](.claude/features/email-notifications-TODO.md) | auth-system | 2 |
-| 4 | user-dashboard | ⏳ Pending | [TODO](.claude/features/user-dashboard-TODO.md) | auth-system, payment-processing | 5 |
+3. Test (MANDATORY - all must pass):
+   npm run lint        # Must pass
+   npm run type-check  # Must pass
+   npm run test        # Must pass
 
-## Status Legend
-- ⏳ Pending
-- 🔄 In Progress
-- 🔍 In Review
-- ✅ Complete
-- ❌ Blocked
+   # Or use automation:
+   ./scripts/validate-increment.sh  # Linux/Mac
+   ./scripts/validate-increment.bat # Windows
 
-## Progress Log
-<!-- Append entries as work progresses -->
+4. Mark todo as "completed" (immediately!)
+
+5. Commit (if appropriate)
+
+6. ONLY proceed if ALL tests pass
 ```
+
+**Template:** Use `resources/increment-checklist-template.md`
+
+**Code Quality Rules:**
+- **Component size:** < 200 lines (React), < 250 lines (services)
+- **Data separation:** Arrays >20 lines → data files
+- **Performance:** React.memo() for animations, expensive components
+- **Imports:** No file extensions, use path aliases (@/...)
+- **Accessibility:** WCAG 2.1 AA compliance
+
+**File Size Monitoring:**
+```bash
+# Check before editing
+./scripts/check-file-size.sh [file-path]
+
+# Thresholds:
+# 150-200 lines → ⚠️  Plan extraction
+# 200-300 lines → 🚨 Extract before adding
+# 300+ lines    → 🛑 MUST refactor first
+```
+
+**Detailed procedures:** See `REFERENCE.md` → Phase 4
+
+**Verification (per increment):**
+- [ ] Implemented ONLY this increment's scope?
+- [ ] All tests passing?
+- [ ] Todo marked completed?
 
 ---
 
-## Phase 4: Execute Features (Sequential)
+## 🔄 Complete Workflow Example
 
-For each feature in the execution queue:
-
-### 4.1 Mark In Progress
-Update MASTER.md: `⏳ Pending` → `🔄 In Progress`
-
-### 4.2 TDD Implementation
-Spawn tdd-task-executor agent:
-
-```
-Use Task tool with subagent_type="tdd-task-executor"
-
-Prompt:
-"Implement the feature defined in: [TODO_DOC_PATH]
-
-Read the TODO doc for full requirements. Follow TDD:
-1. Write failing tests first
-2. Implement to make tests pass
-3. Refactor if needed
-
-CRITICAL - End your response with:
----OUTPUT---
-phase_complete: [true/false]
-files_changed: [list of file paths]
-tests_passing: [true/false]
-test_count: [number of tests]
-blockers: [list of blockers, or "none"]
----END---"
-```
-
-### 4.3 Code Review
-Spawn code-reviewer agent:
-
-```
-Use Task tool with subagent_type="pr-review-toolkit:code-reviewer"
-
-Prompt:
-"Review the recent changes for feature: [FEATURE_NAME]
-
-Focus on:
-- Code quality and patterns
-- Test coverage
-- Security concerns
-- Performance issues
-
-CRITICAL - End your response with:
----OUTPUT---
-approved: [true/false]
-issues_count: [number]
-critical_issues: [list of critical issues, or "none"]
-suggestions: [list of non-blocking suggestions, or "none"]
----END---"
-```
-
-### 4.4 Fix Loop
-If `approved: false`:
-1. Send issues back to tdd-task-executor
-2. Re-review after fixes
-3. Max 3 iterations, then flag for user attention
-
-### 4.5 PR Review (Final Gate)
-Spawn pr-review-toolkit agent:
-
-```
-Use Task tool with subagent_type="pr-review-toolkit:review-pr"
-
-Prompt:
-"Final review for feature: [FEATURE_NAME]
-
-This is the merge gate. Check:
-- All tests pass
-- No critical issues
-- Follows project conventions
-- Ready for production
-
-CRITICAL - End your response with:
----OUTPUT---
-ready_to_merge: [true/false]
-blocking_issues: [list, or "none"]
----END---"
-```
-
-### 4.6 Commit (If Approved)
-If `ready_to_merge: true`:
-1. Stage relevant files
-2. Create commit with message: `feat([feature-name]): [description]`
-3. Do NOT push (user controls when to push)
-4. Update MASTER.md: `🔄 In Progress` → `✅ Complete`
-
-### 4.7 Update and Continue
-- Update MASTER.md progress log
-- Move to next feature in queue
-- Repeat from 4.1
+**See `EXAMPLES.md` for:**
+- Complete auth system implementation (2.5 hours)
+- Simple feature addition (5 minutes)
+- Gap analysis preventing duplication
+- Review gate catching security issues
 
 ---
 
-## Phase 5: Self-Continuation
+## 🎯 Integration with CLAUDE.md Rules
 
-### Context Management
-Monitor context usage. When approaching limits:
+This skill enforces ALL mandatory CLAUDE.md rules:
 
-1. Write state to `.claude/orchestrator-state.json`:
-```json
-{
-  "current_feature_index": 2,
-  "completed_features": ["auth-system", "payment-processing"],
-  "in_progress": "email-notifications",
-  "pending": ["user-dashboard"],
-  "last_phase": "code-review",
-  "timestamp": "2024-01-15T10:30:00Z"
-}
-```
-
-2. Update all TODO docs with current progress
-
-3. Output continuation message:
-```
----CONTINUATION REQUIRED---
-Progress saved. To resume, run:
-/feature-orchestrator --resume
-
-Completed: 2/4 features
-Current: email-notifications (in code review)
-Remaining: user-dashboard
----END---
-```
-
-### Resume Handling
-When invoked with `--resume`:
-1. Read `.claude/orchestrator-state.json`
-2. Read MASTER.md for current status
-3. Continue from last checkpoint
+1. ✅ **Search for existing code FIRST** (Phase 1: Gap Analysis)
+2. ✅ **Plan before implementing** (Phase 2: Implementation Planning)
+3. ✅ **Incremental implementation** (Phase 4: Never break the build)
+4. ✅ **Test between increments** (Phase 4: lint + type-check + test)
+5. ✅ **React.memo() for performance** (Phase 4: Code quality rules)
+6. ✅ **Coordinate agents** (Phase 3: Review gate)
+7. ✅ **TodoWrite tracking** (Phase 2 + Phase 4)
+8. ✅ **Component size limits** (Phase 4: File size monitoring)
 
 ---
 
-## Output Format
+## 🚨 Anti-Patterns This Skill Prevents
 
-At the end of each major phase, output a brief status:
+### ❌ What NOT to Do:
 
-```
----ORCHESTRATOR STATUS---
-Phase: [current phase]
-Features: [completed]/[total]
-Current: [feature name] - [sub-phase]
-Next: [next feature or "complete"]
-Blockers: [any blockers, or "none"]
----END---
-```
+1. **Starting without gap analysis** → Skill forces search first
+2. **No implementation plan** → Skill requires incremental plan
+3. **Large commits** → Skill enforces small increments
+4. **Breaking the build** → Skill tests after each increment
+5. **Skipping code review** → Skill invokes agents automatically
+6. **Giant components (>300 lines)** → Skill monitors file size
+7. **Missing optimization** → Skill checks React.memo(), etc.
 
 ---
 
-## Error Handling
+## 📋 Verification Checklist (Before Completing)
 
-### Contract Enforcement
-If a sub-agent response lacks the `---OUTPUT---...---END---` block:
-1. Log: "Contract missing from [agent-type]"
-2. Re-invoke with reinforced prompt:
-   ```
-   "Your previous response did not include the required output block.
+**Before marking feature complete, verify:**
 
-   You MUST end your response with exactly this format:
-   ---OUTPUT---
-   [key: value pairs as specified]
-   ---END---
+- [ ] Phase 1: Gap analysis completed?
+- [ ] Phase 1: Existing code reused where possible?
+- [ ] Phase 2: Implementation plan created?
+- [ ] Phase 2: TodoWrite tracking set up?
+- [ ] Phase 3: Agent review completed (if needed)?
+- [ ] Phase 4: All increments implemented?
+- [ ] Phase 4: All todos marked complete?
+- [ ] Phase 4: All tests passing?
+- [ ] Phase 4: No breaking changes introduced?
+- [ ] Phase 4: Performance optimized?
+- [ ] Phase 4: Accessibility verified (WCAG 2.1 AA)?
+- [ ] Phase 4: Component sizes within limits?
 
-   Please complete the task and include this block."
-   ```
-3. Max 2 retries, then extract what you can and flag incomplete
-
-### Non-Blocking Errors
-- Test failures: Flag in output, continue to review
-- Lint warnings: Include in review, don't block
-- Minor contract deviations: Parse what's available, log warning
-
-### Blocking Errors
-- Circular dependencies: Stop, output graph, ask user
-- 3+ failed review iterations: Stop, summarize issues, ask user
-- Missing dependencies (npm/external): Stop, list requirements, ask user
-- Repeated contract failures: Stop, log agent type, ask user to check agent config
+**If any answer is NO, STOP and complete that phase.**
 
 ---
 
-## Files Written
+## 🚀 Expected Outcomes
 
-| File | Purpose |
-|------|---------|
-| `.claude/MASTER.md` | Central tracking document |
-| `.claude/features/[name]-TODO.md` | Individual feature specs |
-| `.claude/orchestrator-state.json` | Resume state for continuation |
+**When this skill runs successfully:**
+
+1. ✅ **No duplicate code** - Gap analysis finds existing implementations
+2. ✅ **No redundancy** - Reuses existing components/services
+3. ✅ **Well-planned** - Clear roadmap with time estimates
+4. ✅ **Incrementally built** - Small, testable steps
+5. ✅ **High quality** - Agent reviews catch issues early
+6. ✅ **Well-tested** - Tests run after each increment
+7. ✅ **Performant** - Optimization applied automatically
+8. ✅ **Accessible** - WCAG compliance checked
+9. ✅ **Maintainable** - Component sizes controlled
+10. ✅ **Tracked** - TodoWrite shows clear progress
+
+---
+
+## 📊 Success Metrics
+
+**Measure skill effectiveness:**
+- ✅ Zero duplicate implementations in last 10 features
+- ✅ All features have implementation plans
+- ✅ No surprise breaking changes in commits
+- ✅ Test pass rate > 95% on first try
+- ✅ Code review feedback declining over time
+- ✅ Component sizes staying within limits
+- ✅ Feature delivery time predictable (within 20% of estimate)
+
+**For detailed metrics and KPIs:** See `REFERENCE.md` → Success Metrics
+
+---
+
+## 🔧 Automation Scripts
+
+**Validate increments:**
+```bash
+# Linux/Mac
+./scripts/validate-increment.sh
+
+# Windows
+./scripts/validate-increment.bat
+```
+
+**Check file sizes:**
+```bash
+./scripts/check-file-size.sh [file-path]
+```
+
+**All scripts include:**
+- Research citations
+- Clear pass/fail status
+- Actionable recommendations
+- Exit codes for CI/CD integration
+
+---
+
+## 📚 Supporting Documentation
+
+### For AI Assistants:
+
+- **`REFERENCE.md`** - Complete research citations, detailed procedures, troubleshooting
+- **`EXAMPLES.md`** - Real-world workflow examples, before/after scenarios
+- **`resources/gap-analysis-template.md`** - Gap analysis structure
+- **`resources/implementation-plan-template.md`** - Complete planning template
+- **`resources/increment-checklist-template.md`** - Per-increment verification
+
+### Research Sources:
+
+**Academic:**
+- Google Research: "Modern Code Review" (9M reviews analyzed)
+- Microsoft Research: "Expectations of Modern Code Review" (900+ devs surveyed)
+- IEEE: "Continuous Integration Research" (meta-analysis)
+- Scrum.org: "Incremental Delivery Research" (2024)
+
+**Industry:**
+- SonarQube: Code quality standards
+- Atlassian: Trunk-based development
+- Harness.io: CI/CD best practices
+- MetriDev: Code duplication research
+
+**Books:**
+- "The DevOps Handbook" (Gene Kim)
+- "Accelerate" (Nicole Forsgren)
+- "Building Maintainable Software" (O'Reilly)
+
+---
+
+## 💡 Tips for Maximum Effectiveness
+
+1. **Trust the process** - Let all 4 phases run
+2. **Don't skip gap analysis** - Even if you "know" nothing exists
+3. **Break steps small** - 30-45 min increments ideal
+4. **Test frequently** - After EVERY increment
+5. **Use agent reviews** - They catch issues you miss
+6. **Keep todos updated** - Reflects real progress
+7. **Use automation** - Scripts save time and reduce errors
+
+---
+
+## 🔄 Integration with Other Skills
+
+**Works with:**
+- **code-refactoring** - Triggered when files exceed size limits
+- **ui-ux-audit** - Invoked during Phase 3 for UI features
+- **devops-deployment** - After Phase 4 for production deployment
+- **qa-testing** - Referenced in Phase 2 for test strategy
+
+---
+
+## Final Note
+
+**This skill is not optional.** When user requests implementing any feature, this skill MUST run to enforce research-backed CI/CD workflow rules.
+
+**The goal:** Ship high-quality features faster by preventing common mistakes through automation.
+
+**Research-backed. Industry-proven. Battle-tested.**
+
+---
+
+## Version History
+
+- **v1.0** (Oct 2025): Initial version based on CLAUDE.md
+- **v2.0** (Nov 2025): Added research citations, progressive disclosure, automation scripts, templates
+
+**For complete version history and detailed research:** See `REFERENCE.md`

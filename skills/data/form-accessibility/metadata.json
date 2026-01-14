@@ -1,12 +1,7 @@
 {
   "name": "form-accessibility",
-  "description": "WCAG 2.2 AA compliance for forms, ARIA patterns, focus management, keyboard navigation, and screen reader support. Use when implementing accessible forms in any framework. The compliance foundation th",
   "repo": "Bbeierle12/Skill-MCP-Claude",
-  "category": "development",
-  "tags": [
-    "form",
-    "accessibility"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/form-accessibility/SKILL.md",
+  "source": "github.com/Bbeierle12/Skill-MCP-Claude",
+  "downloaded_at": "2026-01-14T03:54:13.391623Z"
 }

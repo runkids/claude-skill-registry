@@ -1,163 +1,278 @@
 ---
-name: github-issue-triage
-description: Analyze GitHub issues for the Nx repository and provide assignment recommendations based on technology stack, team expertise, and priority classification rules.
-allowed-tools: Bash, Read, Grep, Glob
+name: GitHub Issue Triage
+description: Monitor and triage GitHub issues against design docs and implementation status. Use when user asks to "check issues", "triage issues", "sync issues", "what issues are open", or wants to ensure issues are up-to-date with development progress.
 ---
 
-# GitHub Issue Triage Skill
+# GitHub Issue Triage
 
-This skill provides comprehensive logic for triaging GitHub issues in the Nx repository.
+**Monitor open GitHub issues, match them to design docs, identify closable issues, and keep the issue tracker synchronized with actual development progress.**
 
-## Team Expertise Mapping
+## Quick Start
 
-### Primary Team Members
-- **@barbados-clemens** - Documentation, lifecycle hooks, developer experience, API docs
-- **@lourw** - Java/Gradle
-- **@leosvelperez** - Angular (primary), TypeScript, testing tools (Jest/Cypress/Playwright), ESLint issues
-- **@Coly010** - Webpack/Rollup/Rspack configs, Module Federation, Storybook, Vue, bundler optimization, React Native, Nx Release, Publishing, migration utilities, React, Node/NestJS/Express, NextJS, Remix, create-nx-workspace, preset issues
-- **@AgentEnder** - Nx Core (caching/daemon/graph), installation issues, plugin system, devkit, affected calculation
-
-## Assignment Logic (Check in Order)
-
-### 1. Technology Keywords in Title/Body
-
-Look for these keywords and match to assignees:
-
-| Keywords | Assignee | Reason |
-|----------|----------|--------|
-| "Angular", "ng serve", "@angular" | @leosvelperez | Angular specialist |
-| "Nest", "NestJS", "@nx/nest" | @Coly010 | Backend framework support |
-| "Next", "NextJS", "@nx/next" | @Coly010 | Framework support |
-| "React", "@nx/react" | @Coly010 | Framework support |
-| "webpack", "rollup", "rspack", "bundler" | @Coly010 | Bundler expertise |
-| "Module Federation", "MF" | @Coly010 | Advanced bundling feature |
-| "create-nx-workspace", "preset" | @Coly010 | Workspace setup |
-| "cache", "daemon", "affected", "nx reset" | @AgentEnder | Nx core functionality |
-| "plugin", "generator", "executor" | @AgentEnder | Plugin system & devkit |
-| "docs", "documentation", "lifecycle" | @barbados-clemens | Documentation focus |
-
-### 2. Error Pattern Analysis
-
-Examine error messages and stack traces to identify:
-
-- **Compilation/build failures with Angular** → @leosvelperez
-- **Webpack configuration errors** → @Coly010
-- **Installation/dependency issues** → @AgentEnder
-- **Preset/generator failures** → Check technology first, fallback to @AgentEnder
-
-### 3. Scope Assignment
-
-Match scope labels to technology:
-
-- Use `scope: angular` for Angular-specific issues
-- Use `scope: react` for React-specific issues
-- Use `scope: node` for Node/NestJS/Express issues
-- Use `scope: bundlers` for webpack/rollup/rspack issues
-- Use `scope: core` only for caching/daemon/graph issues
-- Use `scope: misc` for installation/setup issues
-- Use `scope: dx` for documentation/developer experience issues
-
-## Priority Classification Rules
-
-Apply priorities conservatively:
-
-| Priority | Criteria |
-|----------|----------|
-| **High** | Blocks many users (workspace creation failures, compilation blockers, security CVEs) |
-| **Medium** | Standard bugs, configuration issues, generator problems |
-| **Low** | Documentation improvements, UI enhancements, edge cases |
-
-## Validation Steps
-
-Before finalizing assignments:
-
-1. **Check issue body** for actual error messages and stack traces
-2. **Review reproduction steps** to identify the root problem area
-3. **Consider scope** - does this affect a specific framework or Nx core?
-4. **Verify priority** - how many users would be blocked?
-5. **Cross-check** - does the technology keyword match the actual problem?
-
-## Bulk Operations
-
-### Assignment Command Template
-
+**Most common usage:**
 ```bash
-# Assign single issue
-gh issue edit 12345 --repo nrwl/nx --add-assignee username
+# Full triage report - shows all issues, matches to design docs, suggests closures
+.claude/skills/github-issue-triage/scripts/triage_report.sh
 
-# Batch assign to same person
-gh issue edit 12345 12346 12347 --repo nrwl/nx --add-assignee username
+# Just list open issues with labels and age
+.claude/skills/github-issue-triage/scripts/list_open_issues.sh
 
-# Batch assign to different people (sequential)
-gh issue edit 12345 12346 --repo nrwl/nx --add-assignee user1
-gh issue edit 12347 12348 --repo nrwl/nx --add-assignee user2
+# Find issues that have been implemented (design docs in implemented/)
+.claude/skills/github-issue-triage/scripts/find_closable.sh
+
+# Match issues to planned design docs (shows what's being worked on)
+.claude/skills/github-issue-triage/scripts/match_design_docs.sh --planned
 ```
 
-### Label Command Template
+## When to Use This Skill
 
+Invoke this skill when:
+- User asks "what issues are open?", "check our issues", "triage issues"
+- Starting a new development cycle and need to understand backlog
+- After completing a release to identify closable issues
+- Periodic housekeeping to keep issue tracker clean
+- User wants to understand which issues are covered by design docs
+
+## Available Scripts
+
+### `scripts/check_auth.sh`
+Verify GitHub CLI authentication matches expected user.
+
+**Usage:**
 ```bash
-# Apply scope labels
-gh issue edit 12345 12346 --repo nrwl/nx --add-label "scope: angular"
-
-# Apply priority labels
-gh issue edit 12345 --repo nrwl/nx --add-label "priority: high"
-gh issue edit 12346 12347 --repo nrwl/nx --add-label "priority: medium"
+.claude/skills/github-issue-triage/scripts/check_auth.sh
 ```
 
-## Browser Verification (MANDATORY)
+**What it checks:**
+1. `gh` CLI is installed
+2. User is authenticated to github.com
+3. Active account matches `github.expected_user` in config
 
-After all assignments are complete, open every assigned issue in the browser for manual review.
+**Exit codes:**
+- `0` - Auth OK, correct user active
+- `1` - Auth failed or wrong user active
 
-### Command by OS
+### `scripts/list_open_issues.sh [--json] [--labels LABELS]`
+List all open GitHub issues with details.
 
-**macOS:**
+**Usage:**
 ```bash
-for issue in ISSUE_NUMBERS; do open "https://github.com/nrwl/nx/issues/$issue"; done
+.claude/skills/github-issue-triage/scripts/list_open_issues.sh
+.claude/skills/github-issue-triage/scripts/list_open_issues.sh --json
+.claude/skills/github-issue-triage/scripts/list_open_issues.sh --labels bug,enhancement
 ```
 
-**Linux:**
+**Output includes:**
+- Issue number and title
+- Labels (bug, enhancement, etc.)
+- Age (days since creation)
+- Last updated date
+- Assignee (if any)
+
+### `scripts/match_design_docs.sh [--planned] [--implemented] [--all]`
+Match open issues to design documents.
+
+**Usage:**
 ```bash
-for issue in ISSUE_NUMBERS; do xdg-open "https://github.com/nrwl/nx/issues/$issue"; done
+.claude/skills/github-issue-triage/scripts/match_design_docs.sh           # All matches
+.claude/skills/github-issue-triage/scripts/match_design_docs.sh --planned # Only planned docs
+.claude/skills/github-issue-triage/scripts/match_design_docs.sh --implemented # Only implemented
 ```
 
-**Windows:**
-```bash
-for issue in ISSUE_NUMBERS; do start "https://github.com/nrwl/nx/issues/$issue"; done
+**Matching strategy:**
+1. Exact issue number references (`#123` in design doc)
+2. Title keyword matching (significant words from issue title)
+3. Bug ID matching (`M-BUG-XXX` patterns)
+
+**Output:**
+```
+Issue #29: Parser crash on empty input
+  Status: COVERED
+  Design doc: design_docs/planned/v0_6_1/m-bug-parser-crash.md
+  Match type: exact_reference (#29)
+
+Issue #31: Add async support
+  Status: NOT COVERED
+  No matching design doc found
+  Suggestion: Create design doc in design_docs/planned/v0_7_0/
 ```
 
-**Alternative (CLI-based, one at a time):**
+### `scripts/find_closable.sh [--close] [--dry-run]`
+Find issues that have been implemented and can be closed.
+
+**Usage:**
 ```bash
-gh issue view ISSUE_NUMBER --repo nrwl/nx --web
+.claude/skills/github-issue-triage/scripts/find_closable.sh           # Report only
+.claude/skills/github-issue-triage/scripts/find_closable.sh --dry-run # Preview close actions
+.claude/skills/github-issue-triage/scripts/find_closable.sh --close   # Actually close issues
 ```
 
-## Workflow Best Practices
+**What it checks:**
+1. Issue referenced in `design_docs/implemented/` directory
+2. Issue mentioned in CHANGELOG.md
+3. Issue keywords match implemented features
 
-1. **Always inspect the full issue** - Don't assign based on title alone
-2. **Check comments** - Users often provide context in discussions
-3. **Look for duplicate markers** - Sometimes issues reference others
-4. **Consider workload** - Don't overload one assignee
-5. **Validate assignments** - Browser verification is non-negotiable
-6. **Document reasoning** - Leave a comment explaining the assignment if complex
+### `scripts/triage_report.sh [--output FILE]`
+Generate a complete triage report combining all analysis.
 
-## Assignment Examples
+**Usage:**
+```bash
+.claude/skills/github-issue-triage/scripts/triage_report.sh
+.claude/skills/github-issue-triage/scripts/triage_report.sh --output /tmp/triage.md
+```
 
-**Example 1: Angular + Build Issue**
-- Title: "Angular build fails with Module Federation setup"
-- Keywords: "Angular", "Module Federation", "build fails"
-- Recommendation: @Coly010 (bundler + framework specialist)
-- Scope: `scope: bundlers`
-- Priority: `priority: high` (blocks users from building)
+**Report includes:**
+1. **Summary**: Total open, covered, closable, orphaned
+2. **Closable Issues**: Ready to close (implemented)
+3. **Covered Issues**: Have design docs (in progress)
+4. **Orphaned Issues**: No design doc coverage (need attention)
+5. **Stale Issues**: No activity in 30+ days
+6. **Recommendations**: Suggested actions
 
-**Example 2: Installation Problem**
-- Title: "npm install fails with peer dependency conflict"
-- Keywords: "install", "dependency"
-- Recommendation: @AgentEnder (installation issues)
-- Scope: `scope: misc`
-- Priority: `priority: high` (blocks workspace setup)
+## Triage Workflow
 
-**Example 3: Documentation Request**
-- Title: "Add lifecycle hooks documentation"
-- Keywords: "docs", "documentation", "lifecycle"
-- Recommendation: @barbados-clemens (documentation specialist)
-- Scope: `scope: dx`
-- Priority: `priority: low` (enhancement, not blocking)
+### 1. Check Authentication
+
+**Always verify correct GitHub account:**
+```bash
+.claude/skills/github-issue-triage/scripts/check_auth.sh
+```
+
+If wrong account:
+```bash
+gh auth switch --user MarkEdmondson1234
+```
+
+### 2. Generate Triage Report
+
+```bash
+.claude/skills/github-issue-triage/scripts/triage_report.sh
+```
+
+### 3. Handle Closable Issues
+
+**Review and close issues that have been implemented:**
+```bash
+# Preview what would be closed
+.claude/skills/github-issue-triage/scripts/find_closable.sh --dry-run
+
+# Close with proper comments
+.claude/skills/github-issue-triage/scripts/find_closable.sh --close
+```
+
+### 4. Review Orphaned Issues
+
+**For issues without design doc coverage:**
+1. Assess priority and feasibility
+2. Create design doc if work should proceed: `/design-doc-creator`
+3. Close with "won't fix" if out of scope
+4. Add to backlog for future versions
+
+### 5. Handle Stale Issues
+
+**For issues with no activity in 30+ days:**
+1. Check if still relevant
+2. Add comment requesting update from reporter
+3. Close if no response after additional time
+
+## Bot User Integration (sunholo-voight-kampff)
+
+**Status: ACTIVE** - Bot is configured and ready to use.
+
+**Bot account:** https://github.com/sunholo-voight-kampff
+
+### What Uses the Bot
+
+| Tool | Uses Bot? |
+|------|-----------|
+| `gh issue close/comment` | Yes (via `gh auth`) |
+| `ailang messages send --github` | Yes (via config) |
+| `ailang messages import-github` | Yes (via config) |
+| Issue triage scripts | Yes (uses `gh` CLI) |
+
+### Current Configuration
+
+The bot is configured in `~/.ailang/config.yaml`:
+```yaml
+github:
+  expected_user: sunholo-voight-kampff
+  default_repo: sunholo-data/ailang
+```
+
+### Switching Accounts
+
+```bash
+# Use bot (current)
+gh auth switch --user sunholo-voight-kampff
+
+# Use personal (update config too if using ailang messages --github)
+gh auth switch --user MarkEdmondson1234
+```
+
+### Benefits of Bot User
+
+- **Audit trail**: All automated actions attributed to bot
+- **Rate limits**: Separate from personal account limits
+- **Revocable access**: Easy to disable without affecting personal auth
+- **CI/CD integration**: Can use same token in automation
+- **Unified**: Both `gh` CLI and `ailang messages` use same account
+
+For detailed setup and troubleshooting, see [`resources/bot_user_guide.md`](resources/bot_user_guide.md)
+
+## Configuration
+
+Current config in `~/.ailang/config.yaml`:
+
+```yaml
+github:
+  expected_user: sunholo-voight-kampff  # Bot account (active)
+  default_repo: sunholo-data/ailang
+```
+
+## Integration with Other Skills
+
+### With release-manager
+```bash
+# Before release: find issues to close
+.claude/skills/github-issue-triage/scripts/find_closable.sh
+
+# During release: close issues
+.claude/skills/release-manager/scripts/collect_closable_issues.sh 0.6.1 --close
+```
+
+### With design-doc-creator
+```bash
+# Find uncovered issues, then create design doc
+.claude/skills/github-issue-triage/scripts/match_design_docs.sh --planned
+# For uncovered issue #42:
+/design-doc-creator M-ISSUE-42 "Fix for issue #42"
+```
+
+### With sprint-planner
+```bash
+# Use triage report to inform sprint scope
+.claude/skills/github-issue-triage/scripts/triage_report.sh --output /tmp/triage.md
+# Include high-priority uncovered issues in sprint
+```
+
+## Resources
+
+### Bot User Guide
+See [`resources/bot_user_guide.md`](resources/bot_user_guide.md) for complete bot account setup.
+
+### Triage Checklist
+See [`resources/triage_checklist.md`](resources/triage_checklist.md) for step-by-step checklist.
+
+## Prerequisites
+
+- GitHub CLI (`gh`) installed and authenticated
+- Correct user active (`gh auth status`)
+- Repository access (`sunholo-data/ailang`)
+- `~/.ailang/config.yaml` with `github.expected_user`
+
+## Notes
+
+- All scripts check auth before making changes
+- Close operations add proper comments with release/commit references
+- Designed for AILANG repo but can be adapted for others
+- Works with existing `ailang messages` GitHub integration

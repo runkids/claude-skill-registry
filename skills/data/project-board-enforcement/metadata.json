@@ -1,13 +1,7 @@
 {
   "name": "project-board-enforcement",
-  "description": "MANDATORY for all work - the project board is THE source of truth. This skill provides verification functions and gates that other skills MUST call. No work proceeds without project board compliance.",
-  "repo": "troykelly/claude-skills",
-  "category": "development",
-  "tags": [
-    "project",
-    "board",
-    "enforcement"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "troykelly/codex-skills",
+  "path": "skills/project-board-enforcement/SKILL.md",
+  "source": "github.com/troykelly/codex-skills",
+  "downloaded_at": "2026-01-14T03:34:06.034098Z"
 }

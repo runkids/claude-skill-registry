@@ -1,12 +1,7 @@
 {
   "name": "task-decomposition",
-  "description": "Break down OAK plans into structured tasks using oak.plan-tasks conventions. Use when generating tasks.md, structuring work for export to GitHub/ADO, or organizing implementation phases.",
-  "repo": "sirkirby/unifi-network-rules",
-  "category": "productivity",
-  "tags": [
-    "task",
-    "decomposition"
-  ],
-  "stars": 43,
-  "source": "local"
+  "repo": "d-o-hub/rust-self-learning-memory",
+  "path": ".claude/skills/task-decomposition/SKILL.md",
+  "source": "github.com/d-o-hub/rust-self-learning-memory",
+  "downloaded_at": "2026-01-14T03:40:10.487049Z"
 }

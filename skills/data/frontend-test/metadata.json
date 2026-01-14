@@ -1,9 +1,7 @@
 {
   "name": "frontend-test",
-  "description": "Generate frontend component tests (unit, snapshot, e2e). Auto-invoke when user says \"test this component\", \"write component test\", or \"add component test\".",
   "repo": "alekspetrov/navigator",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/frontend-test/SKILL.md",
+  "source": "github.com/alekspetrov/navigator",
+  "downloaded_at": "2026-01-14T01:02:06.738031Z"
 }

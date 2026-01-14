@@ -1,12 +1,7 @@
 {
   "name": "discord-bot",
-  "description": "Build Discord bots with modern frameworks.Use when: creating Discord bot, slash commands, moderation bot.Triggers: \"discord\", \"discord bot\", \"serenity\", \"discord.js\", \"discord.py\".",
-  "repo": "timequity/vibe-coder",
-  "category": "development",
-  "tags": [
-    "discord",
-    "bot"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "timequity/plugins",
+  "path": "vibe-coder/skills/discord-bot/SKILL.md",
+  "source": "github.com/timequity/plugins",
+  "downloaded_at": "2026-01-14T03:41:21.060148Z"
 }

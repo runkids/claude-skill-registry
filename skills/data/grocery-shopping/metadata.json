@@ -1,12 +1,7 @@
 {
   "name": "grocery-shopping",
-  "description": "Use when user needs to create grocery list from recipes - consolidates ingredients across recipes, checks pantry inventory, converts to purchasable quantities, and provides automation options for Cost",
   "repo": "natea/ExoMind",
-  "category": "productivity",
-  "tags": [
-    "grocery",
-    "shopping"
-  ],
-  "stars": 8,
-  "source": "local"
+  "path": "skills/grocery-shopping/SKILL.md",
+  "source": "github.com/natea/ExoMind",
+  "downloaded_at": "2026-01-14T01:45:41.846485Z"
 }

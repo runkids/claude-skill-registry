@@ -1,13 +1,7 @@
 {
   "name": "browser-extension-developer",
-  "description": "Use this skill when developing or maintaining browser extension code in the `browser/` directory, including Chrome/Firefox/Edge compatibility, content scripts, background scripts, or i18n updates.",
-  "repo": "yamadashy/repomix",
-  "category": "development",
-  "tags": [
-    "browser",
-    "extension",
-    "developer"
-  ],
-  "stars": 20912,
-  "source": "SkillsMP Synced Skills"
+  "repo": "tbartel74/Vigil-Code",
+  "path": ".claude/skills/browser-extension-developer/SKILL.md",
+  "source": "github.com/tbartel74/Vigil-Code",
+  "downloaded_at": "2026-01-14T02:46:39.828355Z"
 }

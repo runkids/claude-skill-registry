@@ -1,13 +1,7 @@
 {
   "name": "openai-image-gen",
-  "description": "Batch-generate images via OpenAI Images API. Random prompt sampler + `index.html` gallery.",
-  "repo": "steipete/agent-scripts",
-  "category": "data",
-  "tags": [
-    "openai",
-    "image",
-    "gen"
-  ],
-  "stars": 546,
-  "source": "SkillsMP Synced Skills"
+  "repo": "clawdbot/clawdbot",
+  "path": "skills/openai-image-gen/SKILL.md",
+  "source": "github.com/clawdbot/clawdbot",
+  "downloaded_at": "2026-01-14T04:05:35.017922Z"
 }

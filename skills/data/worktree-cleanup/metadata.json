@@ -1,12 +1,7 @@
 {
   "name": "worktree-cleanup",
-  "description": "Remove merged or stale git worktrees. Use after PRs are merged, work is done, or when worktrees are no longer needed.",
   "repo": "mvillmow/ProjectOdyssey",
-  "category": "development",
-  "tags": [
-    "worktree",
-    "cleanup"
-  ],
-  "stars": 8,
-  "source": "local"
+  "path": ".claude/skills/worktree-cleanup/SKILL.md",
+  "source": "github.com/mvillmow/ProjectOdyssey",
+  "downloaded_at": "2026-01-14T01:09:01.547570Z"
 }

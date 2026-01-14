@@ -1,9 +1,7 @@
 {
   "name": "chatgpt-pro",
-  "description": "Send prompts to ChatGPT Pro via Playwriter browser automation. Use for cross-validation, second opinions, or leveraging GPT-5.2 Pro's research-grade intelligence.",
   "repo": "erwinkn/pulse-ui",
-  "category": "productivity",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/chatgpt-pro/SKILL.md",
+  "source": "github.com/erwinkn/pulse-ui",
+  "downloaded_at": "2026-01-14T01:46:44.336675Z"
 }

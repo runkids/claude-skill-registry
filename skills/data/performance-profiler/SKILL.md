@@ -1,212 +1,289 @@
 ---
 name: performance-profiler
-description: CPU/memory profiling, database query optimization, and performance analysis
-version: 1.0.0
-tags: [performance, profiling, optimization, cpu, memory, database]
+description: Analyze code performance patterns and identify optimization opportunities.
 ---
 
 # Performance Profiler Skill
 
-## Purpose
+Analyze code performance patterns and identify optimization opportunities.
 
-The Performance Profiler Skill analyzes application performance, identifies bottlenecks, profiles CPU and memory usage, and optimizes database queries. It provides actionable insights to improve application speed and resource utilization.
+## Instructions
 
-**Key Capabilities:**
-- CPU profiling and hotspot detection
-- Memory profiling and leak detection
-- Database query analysis and optimization
-- Response time analysis
-- Resource utilization monitoring
-- Performance regression detection
+You are a performance optimization expert. When invoked:
 
-**Target Token Savings:** 65% (from ~2200 tokens to ~770 tokens)
+1. **Identify Performance Issues**:
+   - Inefficient algorithms (O(n²) where O(n) possible)
+   - Memory leaks and excessive allocations
+   - Unnecessary re-renders (React/Vue)
+   - Blocking operations on main thread
+   - N+1 query problems
+   - Excessive network requests
+   - Large bundle sizes
+   - Unoptimized loops and iterations
 
-## When to Use
+2. **Analyze Patterns**:
+   - Function call frequency and duration
+   - Memory usage patterns
+   - CPU-intensive operations
+   - I/O bottlenecks
+   - Database query efficiency
+   - Render performance (frontend)
 
-- Investigating slow performance
-- Optimizing application speed
-- Detecting memory leaks
-- Analyzing database queries
-- Profiling API endpoints
-- Monitoring resource usage
-- Finding performance bottlenecks
-- Regression testing
+3. **Measure Impact**:
+   - Time complexity analysis
+   - Space complexity analysis
+   - Actual runtime measurements (if possible)
+   - Memory footprint
+   - Bundle size impact
 
-## Operations
+4. **Provide Recommendations**:
+   - Specific optimization strategies
+   - Code examples showing improvements
+   - Expected performance gains
+   - Trade-offs and considerations
 
-### 1. profile-cpu
-Profiles CPU usage and identifies performance hotspots.
+## Performance Anti-Patterns
 
-### 2. profile-memory
-Analyzes memory usage and detects leaks.
-
-### 3. analyze-queries
-Examines database queries for optimization opportunities.
-
-### 4. profile-api
-Profiles API endpoint response times.
-
-### 5. analyze-all
-Comprehensive performance analysis.
-
-## Scripts
-
-```bash
-# CPU profiling
-python ~/.claude/skills/performance-profiler/scripts/main.py \
-  --operation profile-cpu \
-  --app-file app.py
-
-# Memory profiling
-python ~/.claude/skills/performance-profiler/scripts/main.py \
-  --operation profile-memory \
-  --app-file app.py
-
-# Query analysis
-python ~/.claude/skills/performance-profiler/scripts/main.py \
-  --operation analyze-queries \
-  --log-file queries.log
-
-# Comprehensive analysis
-python ~/.claude/skills/performance-profiler/scripts/main.py \
-  --operation analyze-all \
-  --app-file app.py
-```
-
-## Configuration
-
-```json
-{
-  "performance-profiler": {
-    "cpu": {
-      "threshold_percent": 80,
-      "sample_interval": 0.01
-    },
-    "memory": {
-      "threshold_mb": 100,
-      "track_allocations": true
-    },
-    "queries": {
-      "slow_query_threshold_ms": 100,
-      "max_queries": 1000
+### Inefficient Algorithms
+```javascript
+// ❌ O(n²) - Inefficient
+function findDuplicates(arr) {
+  const duplicates = [];
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[i] === arr[j]) duplicates.push(arr[i]);
     }
   }
+  return duplicates;
+}
+
+// ✓ O(n) - Efficient
+function findDuplicates(arr) {
+  const seen = new Set();
+  const duplicates = new Set();
+  for (const item of arr) {
+    if (seen.has(item)) duplicates.add(item);
+    seen.add(item);
+  }
+  return Array.from(duplicates);
 }
 ```
 
-## Examples
+### Unnecessary Re-renders
+```javascript
+// ❌ Re-renders on every parent update
+function ExpensiveComponent({ data }) {
+  const processed = expensiveCalculation(data);
+  return <div>{processed}</div>;
+}
 
-### Example 1: CPU Profiling
-
-```bash
-python ~/.claude/skills/performance-profiler/scripts/main.py \
-  --operation profile-cpu \
-  --app-file app.py
+// ✓ Memoized, only re-renders when data changes
+const ExpensiveComponent = React.memo(({ data }) => {
+  const processed = useMemo(() => expensiveCalculation(data), [data]);
+  return <div>{processed}</div>;
+});
 ```
 
-**Output:**
-```json
-{
-  "success": true,
-  "operation": "profile-cpu",
-  "total_time": 2.45,
-  "hotspots": [
-    {
-      "function": "process_data",
-      "time_percent": 45.2,
-      "calls": 1000,
-      "recommendation": "Consider caching or optimization"
-    }
-  ],
-  "execution_time_ms": 234
+### N+1 Query Problem
+```javascript
+// ❌ N+1 queries
+async function getPostsWithAuthors() {
+  const posts = await db.posts.findAll();
+  for (const post of posts) {
+    post.author = await db.users.findById(post.authorId); // N queries
+  }
+  return posts;
+}
+
+// ✓ Single query with join
+async function getPostsWithAuthors() {
+  return await db.posts.findAll({
+    include: [{ model: db.users, as: 'author' }]
+  });
 }
 ```
 
-### Example 2: Memory Profiling
+### Memory Leaks
+```javascript
+// ❌ Memory leak - event listener not cleaned up
+useEffect(() => {
+  window.addEventListener('scroll', handleScroll);
+  // Missing cleanup!
+}, []);
 
-```bash
-python ~/.claude/skills/performance-profiler/scripts/main.py \
-  --operation profile-memory \
-  --app-file app.py
+// ✓ Proper cleanup
+useEffect(() => {
+  window.addEventListener('scroll', handleScroll);
+  return () => window.removeEventListener('scroll', handleScroll);
+}, []);
 ```
 
-**Output:**
-```json
-{
-  "success": true,
-  "operation": "profile-memory",
-  "peak_memory_mb": 156.7,
-  "leaks_detected": 2,
-  "recommendations": [
-    "Large list allocation in loop - consider generator",
-    "Unclosed database connections detected"
-  ],
-  "execution_time_ms": 456
+## Usage Examples
+
+```
+@performance-profiler
+@performance-profiler src/
+@performance-profiler UserList.jsx
+@performance-profiler --focus algorithms
+@performance-profiler --include-bundle-size
+```
+
+## Report Format
+
+```markdown
+# Performance Analysis Report
+
+## Summary
+- Files analyzed: 23
+- Issues found: 18
+- High priority: 4
+- Medium priority: 9
+- Low priority: 5
+- Estimated improvement: 60% faster, 30% smaller bundle
+
+## Critical Issues (4)
+
+### 1. Inefficient Algorithm - src/utils/search.js:34
+**Issue**: O(n²) search algorithm
+**Current**: Linear search within loop (complexity: O(n²))
+**Impact**: ~850ms for 1000 items
+**Recommendation**: Use Map for O(1) lookups
+**Expected improvement**: 99% faster (~8ms for 1000 items)
+
+```javascript
+// Current (slow)
+function findMatches(items, queries) {
+  return queries.map(q => items.find(i => i.id === q));
+}
+
+// Optimized
+function findMatches(items, queries) {
+  const itemMap = new Map(items.map(i => [i.id, i]));
+  return queries.map(q => itemMap.get(q));
 }
 ```
 
-### Example 3: Query Analysis
+### 2. Unnecessary Re-renders - src/components/DataTable.jsx:45
+**Issue**: Component re-renders on every state change
+**Impact**: ~500ms render time for 100 rows
+**Recommendation**: Implement React.memo and useMemo
+**Expected improvement**: 80% reduction in render time
 
-```bash
-python ~/.claude/skills/performance-profiler/scripts/main.py \
-  --operation analyze-queries \
-  --log-file queries.log
+### 3. Bundle Size - Entire lodash imported
+**Issue**: Importing entire lodash library (71KB gzipped)
+**Current**: `import _ from 'lodash'`
+**Recommendation**: Import only needed functions
+**Expected improvement**: -65KB (91% reduction)
+
+```javascript
+// Instead of
+import _ from 'lodash';
+
+// Use
+import debounce from 'lodash/debounce';
+import throttle from 'lodash/throttle';
 ```
 
-**Output:**
-```json
-{
-  "success": true,
-  "operation": "analyze-queries",
-  "total_queries": 458,
-  "slow_queries": 12,
-  "recommendations": [
-    {
-      "query": "SELECT * FROM users WHERE email = ...",
-      "time_ms": 245,
-      "issue": "Missing index on email column",
-      "recommendation": "CREATE INDEX idx_users_email ON users(email)"
-    }
-  ],
-  "execution_time_ms": 123
-}
+### 4. N+1 Database Queries - src/api/posts.js:67
+**Issue**: Sequential database queries in loop
+**Impact**: ~2000ms for 50 posts
+**Recommendation**: Use eager loading/joins
+**Expected improvement**: 95% faster (~100ms)
+
+## Medium Priority Issues (9)
+
+### Memory Allocations in Loop - src/parsers/csv.js:23
+- Creating new objects in tight loop
+- Recommendation: Reuse objects or use object pool
+- Expected improvement: 40% less memory allocation
+
+### Blocking Main Thread - src/workers/processor.js:89
+- CPU-intensive calculation on main thread
+- Recommendation: Move to Web Worker
+- Expected improvement: UI remains responsive
+
+## Bundle Analysis
+
+**Total Bundle Size**: 487KB (gzipped: 142KB)
+
+**Largest Dependencies**:
+1. lodash - 71KB (use lodash-es or cherry-pick)
+2. moment - 68KB (use date-fns or day.js)
+3. chart.js - 52KB (consider lighter alternative)
+
+**Recommendations**:
+- Replace moment with date-fns: -55KB
+- Use lodash-es with tree shaking: -50KB
+- Lazy load chart.js: -52KB (move to async chunk)
+- Total potential savings: ~157KB (110% improvement)
+
+## Performance Metrics
+
+### Time Complexity Issues
+- O(n²): 3 instances (should be O(n) or O(n log n))
+- O(n³): 1 instance (should be optimized)
+
+### Memory Issues
+- Potential memory leaks: 2
+- Excessive allocations: 5
+- Large object creation in loops: 4
+
+## Recommendations Priority
+
+**High Priority (Do First)**:
+1. Fix O(n²) algorithm in search.js
+2. Add React.memo to DataTable
+3. Fix N+1 queries in posts API
+4. Remove unused lodash imports
+
+**Medium Priority**:
+1. Move heavy computations to workers
+2. Implement virtualization for long lists
+3. Optimize image loading (lazy load, WebP)
+4. Add response caching
+
+**Low Priority (Nice to Have)**:
+1. Code splitting for routes
+2. Preload critical resources
+3. Service worker for offline support
 ```
 
-### Example 4: Comprehensive Analysis
+## Optimization Techniques
 
-```bash
-python ~/.claude/skills/performance-profiler/scripts/main.py \
-  --operation analyze-all \
-  --app-file app.py
-```
+### Frontend Performance
+- **Memoization**: Cache expensive calculations
+- **Virtualization**: Render only visible items
+- **Lazy Loading**: Load code/images on demand
+- **Code Splitting**: Break bundle into chunks
+- **Debouncing/Throttling**: Limit function calls
+- **Web Workers**: Offload CPU-intensive tasks
 
-**Output:**
-```json
-{
-  "success": true,
-  "operation": "analyze-all",
-  "summary": {
-    "cpu_hotspots": 3,
-    "memory_issues": 2,
-    "slow_queries": 5,
-    "overall_score": 72
-  },
-  "execution_time_ms": 1234
-}
-```
+### Backend Performance
+- **Caching**: Redis, in-memory caches
+- **Query Optimization**: Indexes, joins, pagination
+- **Connection Pooling**: Reuse database connections
+- **Async Operations**: Non-blocking I/O
+- **Batching**: Combine multiple operations
 
-## Token Economics
+### General Optimizations
+- **Algorithm Choice**: Pick right data structure
+- **Early Returns**: Exit loops/functions early
+- **Avoid Premature Optimization**: Profile first
+- **Lazy Evaluation**: Compute only when needed
 
-**Without Skill:** ~2200 tokens (manual analysis)
-**With Skill:** ~770 tokens (65% savings)
+## Profiling Tools
 
-## Success Metrics
+- **JavaScript**: Chrome DevTools, React Profiler, Lighthouse
+- **Node.js**: clinic.js, 0x, node --prof
+- **Python**: cProfile, memory_profiler, py-spy
+- **Database**: Query analyzers, EXPLAIN plans
+- **Bundle**: webpack-bundle-analyzer, source-map-explorer
 
-- Execution time: <500ms for profiling
-- Hotspot detection: >95% accuracy
-- Memory leak detection: >90% accuracy
-- Query optimization: 50-80% performance improvement
+## Notes
 
----
-
-**Performance Profiler Skill v1.0.0** - Optimizing application performance
+- Always profile before optimizing
+- Measure actual impact after changes
+- Consider readability vs performance trade-offs
+- Focus on bottlenecks, not micro-optimizations
+- Test performance improvements with realistic data
+- Document why optimizations were made

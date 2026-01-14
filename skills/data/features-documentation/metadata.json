@@ -1,12 +1,7 @@
 {
   "name": "features-documentation",
-  "description": "Use when user-facing features change. Ensures features documentation is updated. Pauses work if documentation has drifted, triggering documentation-audit skill.",
-  "repo": "troykelly/claude-skills",
-  "category": "documents",
-  "tags": [
-    "features",
-    "documentation"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "repo": "troykelly/codex-skills",
+  "path": "skills/features-documentation/SKILL.md",
+  "source": "github.com/troykelly/codex-skills",
+  "downloaded_at": "2026-01-14T03:34:05.388241Z"
 }

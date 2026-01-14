@@ -1,12 +1,7 @@
 {
   "name": "app-planner",
-  "description": "Guides you through comprehensive iOS/Swift app planning and analysis. Use for new apps (concept to architecture) or existing apps (audit current state, plan improvements, evaluate tech stack). Covers ",
-  "repo": "rshankras/claude-code-ios-skills",
-  "category": "design",
-  "tags": [
-    "app",
-    "planner"
-  ],
-  "stars": 5,
-  "source": "SkillsMP Synced Skills"
+  "repo": "rshankras/claude-code-apple-skills",
+  "path": "skills/ios/app-planner/SKILL.md",
+  "source": "github.com/rshankras/claude-code-apple-skills",
+  "downloaded_at": "2026-01-14T02:22:09.211068Z"
 }

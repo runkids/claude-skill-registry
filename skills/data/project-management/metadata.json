@@ -1,11 +1,7 @@
 {
   "name": "project-management",
-  "description": "Gestion de projet et relation client pour agence Web - Brief, estimation, planning, suivi, communication, livraison, facturation",
-  "repo": "truchot/claude-skills-test",
-  "category": "data",
-  "tags": [
-    "project",
-    "management"
-  ],
-  "stars": 0
+  "repo": "u9401066/med-paper-assistant",
+  "path": "vscode-extension/skills/project-management/SKILL.md",
+  "source": "github.com/u9401066/med-paper-assistant",
+  "downloaded_at": "2026-01-14T03:21:51.779595Z"
 }

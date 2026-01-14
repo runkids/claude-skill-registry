@@ -1,11 +1,7 @@
 {
   "name": "pr-creation",
-  "description": "Use when creating pull requests to auto-generate PR descriptions from plan, execution context, and memory - handles pre-flight checks, description generation, and GitHub CLI integration",
-  "repo": "seanGSISG/crispy-claude",
-  "category": "testing",
-  "tags": [
-    "creation"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "troykelly/codex-skills",
+  "path": "skills/pr-creation/SKILL.md",
+  "source": "github.com/troykelly/codex-skills",
+  "downloaded_at": "2026-01-14T03:34:00.456047Z"
 }

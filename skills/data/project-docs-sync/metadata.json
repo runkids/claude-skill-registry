@@ -1,13 +1,7 @@
 {
   "name": "project-docs-sync",
-  "description": "Automatically synchronize project documentation when major changes occur (new tech, architecture changes, requirements shifts). Detects significant updates and propagates changes across TECH-STACK.md,",
   "repo": "MacroMan5/claude-code-workflow-plugins",
-  "category": "documents",
-  "tags": [
-    "project",
-    "docs",
-    "sync"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/project-docs-sync/SKILL.md",
+  "source": "github.com/MacroMan5/claude-code-workflow-plugins",
+  "downloaded_at": "2026-01-14T03:37:12.162758Z"
 }

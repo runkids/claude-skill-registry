@@ -1,12 +1,7 @@
 {
   "name": "skill-development",
-  "description": "This skill should be used when the user asks to \"create a skill\", \"write a new skill\", \"improve a skill description\", \"organize skill content\", \"update skill references\", \"update skill workflows\", \"re",
-  "repo": "tbhb/oaps",
-  "category": "development",
-  "tags": [
-    "skill",
-    "development"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "dwmkerr/claude-toolkit",
+  "path": "plugins/toolkit/skills/skill-development/SKILL.md",
+  "source": "github.com/dwmkerr/claude-toolkit",
+  "downloaded_at": "2026-01-14T04:08:34.059621Z"
 }

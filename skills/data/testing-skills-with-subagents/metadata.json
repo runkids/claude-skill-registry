@@ -1,14 +1,7 @@
 {
   "name": "testing-skills-with-subagents",
-  "description": "Use after writing a new skill and/or when testing existing skills, creating skill evaluations, or verifying skills work under pressure - applies TDD/RED-GREEN-REFACTOR to skill documentation by runnin",
-  "repo": "WesleyMFrederick/cc-workflows",
-  "category": "testing",
-  "tags": [
-    "testing",
-    "skills",
-    "with",
-    "subagents"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "liauw-media/household-expense-tracker",
+  "path": ".claude/skills/meta/testing-skills-with-subagents/SKILL.md",
+  "source": "github.com/liauw-media/household-expense-tracker",
+  "downloaded_at": "2026-01-14T03:58:27.034339Z"
 }

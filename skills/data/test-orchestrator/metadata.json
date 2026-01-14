@@ -1,9 +1,7 @@
 {
   "name": "test-orchestrator",
-  "description": "Coordinates testing strategy and execution across all test types. Use when creating test plans, implementing tests (unit/integration/E2E), or enforcing coverage requirements (80% minimum). Applies tes",
   "repo": "Brownbull/ayni_core",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/test-orchestrator/SKILL.md",
+  "source": "github.com/Brownbull/ayni_core",
+  "downloaded_at": "2026-01-14T03:19:08.970248Z"
 }

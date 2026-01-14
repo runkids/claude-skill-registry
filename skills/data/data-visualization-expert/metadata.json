@@ -1,8 +1,7 @@
 {
   "name": "data-visualization-expert",
   "repo": "dy9759/Text2KnowledgeCards",
-  "category": "data",
-  "description": "\u4e13\u4e1a\u6570\u636e\u53ef\u89c6\u5316\u4e13\u5bb6\uff0c\u7cbe\u901a\u73b0\u4ee3\u56fe\u8868\u5e93\u3001\u4eea\u8868\u677f\u8bbe\u8ba1\u548c\u4ea4\u4e92\u5f0f\u6570\u636e\u5c55\u793a\u3002\u80fd\u591f\u5c06\u590d\u6742\u6570\u636e\u8f6c\u5316\u4e3a\u76f4\u89c2\u3001\u7f8e\u89c2\u4e14\u5bcc\u6709\u6d1e\u5bdf\u529b\u7684\u53ef\u89c6\u5316\u4f5c\u54c1\u3002",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:13.975502Z"
+  "path": "skills/missing-skills/data-science/data-visualization-expert/SKILL.md",
+  "source": "github.com/dy9759/Text2KnowledgeCards",
+  "downloaded_at": "2026-01-14T02:08:15.927729Z"
 }

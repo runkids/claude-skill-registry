@@ -2,6 +2,18 @@
 name: knot-theory-educator
 description: "Expert in visualizing and explaining braid theory, knot mathematics, and topological concepts for educational purposes. Use for creating interactive visualizations, explainer cards, step-wise animations, and translating abstract algebra into intuitive understanding. Activate on keywords: braid theory, knot visualization, σ notation, crossing diagrams, Yang-Baxter, topological education. NOT for general math tutoring, pure knot invariant computation, or non-educational knot theory research."
 allowed-tools: Read,Write,Edit,Bash,Glob,Grep
+category: Content & Writing
+tags:
+  - knots
+  - topology
+  - braid-theory
+  - visualization
+  - education
+pairs-with:
+  - skill: diagramming-expert
+    reason: Visual representations of knots
+  - skill: technical-writer
+    reason: Educational content creation
 ---
 
 # Knot Theory Educator
@@ -137,11 +149,11 @@ For "why 3 dogs is fundamentally different from 2":
 
 ### Anti-Pattern: Notation Before Intuition
 
-**What it looks like**: Starting with "B₃ = ⟨σ₁, σ₂ | σ₁σ₂σ₁ = σ₂σ₁σ₂⟩"
+**Symptom**: Starting with "B₃ = ⟨σ₁, σ₂ | σ₁σ₂σ₁ = σ₂σ₁σ₂⟩"
 
-**Why it's wrong**: Readers without group theory background are immediately lost. The notation is correct but pedagogically backwards.
+**Problem**: Readers without group theory background are immediately lost. The notation is correct but pedagogically backwards.
 
-**What to do instead**:
+**Solution**:
 1. Start with physical demonstration (hold three strings)
 2. Name the basic moves (left-over-middle = σ₁)
 3. Show why certain moves can be reordered
@@ -149,11 +161,11 @@ For "why 3 dogs is fundamentally different from 2":
 
 ### Anti-Pattern: Static Diagrams for Dynamic Processes
 
-**What it looks like**: A single image showing "before and after" a braid operation
+**Symptom**: A single image showing "before and after" a braid operation
 
-**Why it's wrong**: Braiding is inherently a continuous process. Students need to see the motion, not just endpoints.
+**Problem**: Braiding is inherently a continuous process. Students need to see the motion, not just endpoints.
 
-**What to do instead**:
+**Solution**:
 - Use step-wise animations
 - Show intermediate states
 - Allow scrubbing forward/backward
@@ -161,11 +173,11 @@ For "why 3 dogs is fundamentally different from 2":
 
 ### Anti-Pattern: Complexity Without Consequence
 
-**What it looks like**: "The complexity is 7" without explaining what that means practically
+**Symptom**: "The complexity is 7" without explaining what that means practically
 
-**Why it's wrong**: Numbers are meaningless without grounding in physical reality
+**Problem**: Numbers are meaningless without grounding in physical reality
 
-**What to do instead**:
+**Solution**:
 - "Complexity 7 means you need at least 7 crossing moves to untangle"
 - "Complexity 3 vs 7: First takes 5 seconds, second takes 30+ seconds"
 - "High complexity = more friction when pulling (Capstan effect)"
@@ -272,44 +284,6 @@ class BraidDemo {
 - Robotics with illustrations
 - Quantum computing connection
 - Surgical robots, cable drones
-
-## CSS Classes for Styled Cards
-
-```css
-.explainer-card {
-  padding: 20px;
-  border-radius: 8px;
-  margin: 20px 0;
-}
-
-.explainer-card.graph-paper {
-  background: repeating-linear-gradient(
-    #f8f6f0,
-    #f8f6f0 19px,
-    #c9e2f5 19px,
-    #c9e2f5 20px
-  );
-  border: 2px solid #2c5282;
-}
-
-.explainer-card.chalkboard {
-  background: #2d4a3e;
-  color: #f0e6d3;
-  font-family: 'Caveat', cursive;
-}
-
-.explainer-card .intuition {
-  font-size: 1.2em;
-  font-style: italic;
-  color: #4a5568;
-}
-
-.explainer-card .formal {
-  font-family: 'Computer Modern', serif;
-  background: rgba(0,0,0,0.05);
-  padding: 10px;
-}
-```
 
 ## Decision Tree: What Visualization to Use
 

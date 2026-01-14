@@ -1,11 +1,7 @@
 {
   "name": "helper-reference",
-  "description": "Tum helper fonksiyonlari referansi. Use for quick lookup of available functions.",
   "repo": "olivenet-iot/olivenet-social-bot",
-  "category": "data",
-  "tags": [
-    "helper",
-    "reference"
-  ],
-  "stars": 0
+  "path": ".claude/skills/helper-reference/SKILL.md",
+  "source": "github.com/olivenet-iot/olivenet-social-bot",
+  "downloaded_at": "2026-01-14T01:36:17.337870Z"
 }

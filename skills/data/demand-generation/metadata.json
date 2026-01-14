@@ -1,12 +1,7 @@
 {
   "name": "demand-generation",
-  "description": "Эксперт demand generation. Используй для стратегий генерации спроса, lead scoring, кампаний и funnel optimization.",
   "repo": "dengineproblem/agents-monorepo",
-  "category": "development",
-  "tags": [
-    "demand",
-    "generation"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/demand-generation/SKILL.md",
+  "source": "github.com/dengineproblem/agents-monorepo",
+  "downloaded_at": "2026-01-14T02:07:59.859693Z"
 }

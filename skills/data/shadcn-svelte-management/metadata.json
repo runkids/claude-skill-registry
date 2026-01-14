@@ -1,13 +1,7 @@
 {
   "name": "shadcn-svelte-management",
-  "description": "Manage UI components using MCP tools with primary focus on Svelte ecosystem. Specialized in Svelte component libraries including shadcn-svelte, Skeleton UI, and Melt UI. Use when user needs to:(1) Add",
   "repo": "ajianaz/skills-collection",
-  "category": "development",
-  "tags": [
-    "shadcn",
-    "svelte",
-    "management"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": "skills/shadcn-svelte-management/SKILL.md",
+  "source": "github.com/ajianaz/skills-collection",
+  "downloaded_at": "2026-01-14T01:20:43.876349Z"
 }

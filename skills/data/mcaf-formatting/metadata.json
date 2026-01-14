@@ -1,9 +1,7 @@
 {
   "name": "mcaf-formatting",
-  "description": "Format code and keep style consistent using the repository’s canonical formatting/lint commands from `AGENTS.md`. Use after implementing changes or when formatting drift causes noisy diffs; keep forma",
   "repo": "managedcode/MCAF",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/mcaf-formatting/SKILL.md",
+  "source": "github.com/managedcode/MCAF",
+  "downloaded_at": "2026-01-14T02:22:46.693239Z"
 }

@@ -1,0 +1,12 @@
+{
+  "name": "scglue-complete",
+  "description": "scGLUE 单细胞多组学数据整合工具包 - 100%覆盖文档（完整API+教程+数据整合+图谱分析）",
+  "repo": "Ketomihine/my_skills",
+  "category": "development",
+  "tags": [
+    "scglue",
+    "complete"
+  ],
+  "stars": 0,
+  "source": "local"
+}

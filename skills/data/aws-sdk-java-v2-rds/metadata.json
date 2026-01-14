@@ -1,8 +1,7 @@
 {
   "name": "aws-sdk-java-v2-rds",
   "repo": "giuseppe-trisciuoglio/developer-kit",
-  "category": "data",
-  "description": "AWS RDS (Relational Database Service) management using AWS SDK for Java 2.x. Use when creating, modifying, monitoring, or managing Amazon RDS database instances, snapshots, parameter groups, and confi",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:13.390206Z"
+  "path": "skills/aws-java/aws-sdk-java-v2-rds/SKILL.md",
+  "source": "github.com/giuseppe-trisciuoglio/developer-kit",
+  "downloaded_at": "2026-01-14T00:54:21.926496Z"
 }

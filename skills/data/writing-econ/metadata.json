@@ -1,9 +1,7 @@
 {
   "name": "writing-econ",
-  "description": "This skill should be used when the user asks to \"write an economics paper\", \"draft a working paper\", \"edit finance writing\", \"review my econ paper\", \"write for a journal\", or needs guidance on economi",
   "repo": "edwinhu/workflows",
-  "category": "documents",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/writing-econ/SKILL.md",
+  "source": "github.com/edwinhu/workflows",
+  "downloaded_at": "2026-01-14T01:24:09.381988Z"
 }

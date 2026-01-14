@@ -1,230 +1,263 @@
 ---
 name: profile
-description: Analyzes CPU profiles to identify performance bottlenecks and generate optimization recommendations
+description: Generate full NPC profiles using Codex. Reads from character YAML and generates agenda, disposition modifiers, dialogue, secrets, and hooks.
+allowed-tools: Bash, Read, Glob, Write
+user-invocable: true
+proactive: false
 ---
 
-# Profile Skill
+# NPC Profile Generation
 
-Investigate performance bottlenecks through CPU profiling and benchmark analysis.
+Generate full NPC profiles using Codex CLI. Reads character appearance from YAML files and generates complete profiles with agenda, disposition modifiers, memory triggers, sample dialogue, secrets, and plot hooks.
 
-## Quick Start
+## Usage
 
-### 1. Collect CPU Profiles
-
-```bash
-SCENARIO=simple-object npm run profile:cpu         # Runs scenario + captures CPU profile
-SCENARIO=simple-object npm run profile:detailed      # With deopt/opt analysis
-
-# Or run directly with tsx
-PROFILE_ITERATIONS=5000 node ./node_modules/tsx/dist/cli.mjs benchmark/scenarios/complex-object.ts
+```
+/profile <character_name>
+/profile cipher
+/profile elder_kara
+/profile vex --context "He's been promoted recently"
 ```
 
-These scripts automatically build with debug symbols and run the specified scenario file while capturing profiles to `/profiles/*.cpuprofile`.
+## How It Works
 
-**Two-Phase Profiling:**
+1. Read the character YAML from `assets/characters/{name}.yaml`
+2. Build a detailed Codex prompt with faction context
+3. Call `codex exec --full-auto` directly via Bash
+4. Parse JSON from response
+5. Save to `sentinel-agent/generated_npcs/{name}.json`
+6. Report success with key profile details
 
-Scenarios generate two separate `.cpuprofile` files per run:
+## Step 1: Find and Read Character YAML
 
-- `{scenario-name}-schema-building-{timestamp}.cpuprofile` - Schema creation profiling
-- `{scenario-name}-parsing-{timestamp}.cpuprofile` - JSON parsing profiling
-
-**Available Scenarios:**
-
-- `simple-object` - Simple 4-field user object (default: 50,000 iterations)
-- `complex-object` - 100 users with nested structures (default: 5,000 iterations)
-- `1000-number-objects` - 1000 objects with 3 number fields (default: 5,000 iterations)
-- `10000-number-objects` - 10,000 objects with 3 number fields (default: 1,000 iterations)
-- `1000-user-objects-fail-fast` - 1000 user objects with validation failures (default: 500 iterations)
-- `fail-fast-user` - User validation that fails fast (default: 5,000 iterations)
-- `1000-simple-objects-70-30-valid` - 1000 simple objects (70% valid, default: 5,000 iterations)
-- `1000-simple-objects-90-10-valid` - 1000 simple objects (90% valid, default: 5,000 iterations)
-- `1000-nested-user-objects-70-30-valid` - 1000 nested user objects (70% valid, default: 1,000 iterations)
-- `1000-nested-user-objects-90-10-valid` - 1000 nested user objects (90% valid, default: 1,000 iterations)
-
-**Note:** The SCENARIO environment variable is required. Each scenario runs multiple iterations for profiling.
-
-### Configuring Iteration Counts
-
-All scenarios support environment variables to customize iteration counts:
-
-```bash
-# Run with custom iteration count
-PROFILE_ITERATIONS=100000 SCENARIO=simple-object npm run profile:cpu
-
-# For parsing-overhead scenario, customize both small and large payloads separately
-PROFILE_ITERATIONS=100000 PROFILE_ITERATIONS_LARGE=10000 SCENARIO=parsing-overhead npm run profile:cpu
-
-# Run fewer iterations for quick profiling (less CPU time)
-PROFILE_ITERATIONS=1000 SCENARIO=large-array npm run profile:cpu
+Look for the character file:
+```
+C:\dev\SENTINEL\assets\characters\{name}.yaml
+C:\dev\SENTINEL\assets\characters\{name}_detailed.yaml
 ```
 
-**Default Iteration Counts by Scenario:**
+If not found, ask the user for basic details (name, faction, role) to generate without physical description.
 
-| Scenario                              | Default | Use Case                                       |
-| ------------------------------------- | ------- | ---------------------------------------------- |
-| `simple-object`                       | 50,000  | High iteration count for sampling granularity  |
-| `complex-object`                      | 5,000   | Medium iteration count for nested structures   |
-| `1000-number-objects`                 | 5,000   | Medium iteration count for number parsing      |
-| `10000-number-objects`                | 1,000   | Lower count due to large payload size          |
-| `1000-user-objects-fail-fast`         | 500     | Lower count, error path overhead analysis      |
-| `fail-fast-user`                      | 5,000   | Medium count for both early/late failure paths |
-| `1000-simple-objects-70-30-valid`     | 5,000   | Mixed valid/invalid simple objects             |
-| `1000-simple-objects-90-10-valid`     | 5,000   | Mixed valid/invalid simple objects             |
-| `1000-nested-user-objects-70-30-valid`| 1,000   | Mixed valid/invalid nested objects             |
-| `1000-nested-user-objects-90-10-valid`| 1,000   | Mixed valid/invalid nested objects             |
+## Step 2: Build Physical Description
 
-**Tips for Iteration Counts:**
+From the YAML, build an explicit physical description string:
 
-- **Quick profiling** (2-5 sec): Use `PROFILE_ITERATIONS=1000` for faster turnaround
-- **Production-like** (30+ sec): Use defaults or increase to 100,000+ for stable profiles
-- **Memory pressure testing**: Increase iterations to stress allocation patterns
-- **Boundary crossing analysis**: Lower iterations (1,000-5,000) to focus on call overhead
+### Person Descriptor Mapping
 
-### 2. Verify Profile Quality
+| Skin Tone | Gender: Masculine | Gender: Feminine | Gender: Androgynous |
+|-----------|-------------------|------------------|---------------------|
+| pale | pale-skinned man | pale-skinned woman | pale-skinned person |
+| light | light-skinned man | light-skinned woman | light-skinned person |
+| medium | olive-skinned man | olive-skinned woman | olive-skinned person |
+| tan | tan man | tan woman | tan person |
+| brown | Black man | Black woman | Black person |
+| dark | dark-skinned Black man | dark-skinned Black woman | dark-skinned Black person |
 
-Before analyzing, check that the profile has good quality:
+For elderly characters, prepend "elderly" (e.g., "elderly olive-skinned woman").
 
-```bash
-# Find the latest profile
-ls -lt profiles/*.cpuprofile | head -1
+### Build Order
+1. Person descriptor with build (e.g., "Black man with lean build")
+2. Hair description (length, style, color)
+3. Eye description (color or "cybernetic eyes")
+4. Facial features (comma-separated)
+5. Distinguishing marks (scars, augmentations, tattoos, other)
+
+## Step 3: Build Codex Prompt
+
+### Faction Context
+
+| Faction | Tagline | Values | Culture | Speech |
+|---------|---------|--------|---------|--------|
+| nexus | The network that watches | information, prediction, control | Analytical, data-driven | Precise, clinical, uses statistics |
+| ember_colonies | We survived. We endure. | community, survival, mutual aid | Tight-knit survivors | Direct, warm to friends, guarded |
+| lattice | We keep the lights on | infrastructure, pragmatic cooperation | Engineers maintaining systems | Technical, problem-focused |
+| convergence | Become what you were meant to be | enhancement, transcendence | Transhumanists | Enthusiastic about potential |
+| covenant | We hold the line | oaths, sanctuary, ethical limits | Keepers of moral boundaries | Formal, principled |
+| wanderers | The road remembers | freedom, trade, neutrality | Nomadic traders | Casual, storytelling |
+| cultivators | From the soil, we rise | growth, patience, sustainability | Agrarian communities | Patient, agricultural metaphors |
+| steel_syndicate | Everything has a price | profit, leverage, deals | Criminal-adjacent traders | Transactional, direct about costs |
+| witnesses | We remember so you don't have to lie | truth, records, accountability | Archivists | Precise, cites sources |
+| architects | We built this world | legacy, credentials, legitimacy | Remnants of old order | Formal, references procedures |
+| ghost_networks | We were never here | anonymity, escape, protection | Underground railroad | Cautious, uses code words |
+
+### Role Suggestions
+
+| Role | Description |
+|------|-------------|
+| leader | Commands respect, burden of responsibility |
+| fixer | Solves problems, knows people, transactional |
+| elder | Wisdom from experience |
+| scout | Eyes and ears, often underestimated |
+| enforcer | Applies pressure, reputation for action |
+| medic | Healer, pragmatic about triage |
+| technician | Comfortable with machines |
+| trader | Deals in goods or information |
+| refugee | Displaced, seeking safety |
+| true_believer | Deeply committed to faction ideology |
+| skeptic | Questions their own faction |
+| veteran | Survived things, carries weight |
+
+### Prompt Template
+
+```
+You are generating an NPC for SENTINEL, a tactical tabletop RPG about navigating political tension and ethical tradeoffs in a post-collapse world.
+
+## NPC Details
+- **Name:** {name}
+- **Faction:** {faction_name} - "{tagline}"
+- **Role:** {role}
+
+## Faction Context
+- **Values:** {values}
+- **Culture:** {culture}
+- **Speech patterns:** {speech}
+
+## Role Context
+{role_description}
+
+## Physical Appearance (USE THIS EXACTLY)
+{physical_description}
+
+## Output Format
+
+Generate a complete NPC profile as JSON with this exact structure:
+
+{
+  "name": "{name}",
+  "faction": "{faction_id}",
+  "role": "{role}",
+  "physical_appearance": "{physical_description}",
+  "description": "2-3 sentence presence/demeanor description (NOT physical)",
+  "agenda": {
+    "wants": "Primary goal (specific, personal)",
+    "fears": "What they're afraid of (specific)",
+    "leverage": "What they could hold over the player (or null)",
+    "owes": "What they might owe the player (or null)",
+    "lie_to_self": "The self-deception that lets them sleep at night"
+  },
+  "disposition_modifiers": {
+    "hostile": {
+      "tone": "How they speak when hostile",
+      "reveals": ["What they share at this level"],
+      "withholds": ["What they hide"],
+      "tells": ["Behavioral cues"]
+    },
+    "wary": { ... },
+    "neutral": { ... },
+    "warm": { ... },
+    "loyal": { ... }
+  },
+  "memory_triggers": [
+    {
+      "condition": "tag like 'helped_ember'",
+      "effect": "What happens",
+      "disposition_shift": -2 to +2
+    }
+  ],
+  "sample_dialogue": {
+    "greeting_neutral": "...",
+    "greeting_warm": "...",
+    "refusal": "...",
+    "bargaining": "...",
+    "under_pressure": "..."
+  },
+  "secrets": ["Things the GM knows but player must discover"],
+  "hooks": ["Plot hooks involving this NPC"]
+}
+
+## Guidelines
+- Make the NPC feel like a real person with contradictions
+- The "lie_to_self" is crucial - everyone justifies their actions
+- Disposition modifiers should show meaningful progression
+- Memory triggers should reference realistic player actions
+- Secrets should create interesting dramatic irony
+- Hooks should tie into faction politics and player choice
+
+Generate the NPC now. Output ONLY the JSON, no explanation.
 ```
 
-Read the .cpuprofile file and verify:
+## Step 4: Execute Generation
 
-**Quality Checklist:**
-
-- ✓ Profile has `nodes` array with function names (not just addresses)
-- ✓ WASM function names are demangled (e.g., `atchara_wasm::lexer::parse` not just `wasm-function[123]`)
-- ✓ Profile has `samples` array with sufficient data points (>1000 samples)
-- ✓ `timeDeltas` are present and reasonable (microseconds)
-- ✓ Top functions show recognizable names from Atchara codebase
-
-**Red Flags:**
-
-- ✗ Most functions are anonymous or numeric IDs only
-- ✗ No WASM function names visible
-- ✗ Very few samples (<100)
-- ✗ Missing `nodes` or `samples` arrays
-
-If profile quality is poor, rebuild with debug symbols:
+Run the command directly via Bash:
 
 ```bash
-npm run build:profile
-SCENARIO=simple-object npm run profile:cpu
+codex exec --full-auto "PROMPT_HERE"
 ```
 
-### 3. Analyze the Profile
+For long prompts, write to a temp file first to avoid shell escaping issues:
+```bash
+# Write prompt to temp file
+# Then run:
+codex exec --full-auto "$(cat /tmp/npc_prompt.txt)"
+```
+
+Use a 5-minute timeout (300000ms) since Codex generation can be slow.
+
+## Step 5: Parse and Save
+
+1. Extract JSON from Codex response (may be wrapped in ```json blocks)
+2. Validate required fields exist
+3. Save to `C:\dev\SENTINEL\sentinel-agent\generated_npcs\{name}.json`
+
+## Step 6: Report Result
+
+Show the user:
+- Name and faction
+- Brief description
+- Key agenda items (wants, fears)
+- One sample dialogue line
+- File path
+
+Suggest running `/portrait {name}` to generate a matching portrait.
+
+## Example: Full Prompt for Cipher
+
+Character YAML:
+```yaml
+name: Cipher
+faction: nexus
+role: analyst
+gender: masculine
+age: adult
+skin_tone: brown
+build: lean
+hair_color: black
+hair_length: short
+hair_style: dreadlocks
+eye_color: augmented
+facial_features: [sharp, high cheekbones]
+augmentations: subtle blue data overlay in eyes, small temple implant
+other_features: always wears a data visor
+default_expression: neutral
+```
+
+Physical description built:
+```
+Black man with lean build, short dreadlocks black hair, cybernetic eyes, sharp, high cheekbones features, subtle blue data overlay in eyes, small temple implant, always wears a data visor
+```
+
+## Error Handling
+
+- **YAML not found**: Ask for name/faction/role to generate without physical description
+- **Codex not available**: Report error, suggest checking Codex CLI installation
+- **JSON parse fails**: Show raw response, suggest retrying
+- **Missing fields**: Fill with sensible defaults, warn user
+
+## Creating New Characters First
+
+If the user wants to create a new character with full appearance details first:
 
 ```bash
-# Basic analysis with WASM symbol enrichment
-node .claude/skills/profile/analyze-profile.mjs profiles/simple-object-parsing-*.cpuprofile
-
-# With WASM function disassembly
-node .claude/skills/profile/analyze-profile.mjs profiles/simple-object-parsing-*.cpuprofile --disassemble
-
-# JSON output for programmatic analysis
-node .claude/skills/profile/analyze-profile.mjs profiles/simple-object-parsing-*.cpuprofile --json
-
-# Help
-node .claude/skills/profile/analyze-profile.mjs --help
+python scripts/create_character.py
 ```
 
-The analyzer script automatically:
+Then run `/profile {name}` to generate the NPC profile.
 
-- Extracts WASM function symbols from the binary using `wasm-objdump`
-- Categorizes functions (WASM, GC, boundary crossing, string ops, etc.)
-- Calculates CPU time percentages and identifies hotspots
-- Flags performance issues (high GC, excessive boundary crossing)
-- Suggests specific optimization opportunities
-- Optionally disassembles hot WASM functions with `wasm2wat`
+## Chaining with Portrait
 
-## Performance Targets
-
-- **Parsing Logic**: <55% (WASM functions, tokens, validation)
-- **Garbage Collection**: <15% (allocation pressure)
-- **Boundary Crossing**: <2% (JS/WASM marshaling)
-- **String Operations**: <10% (UTF-8 encoding/decoding)
-
-### Red Flags (Automatic detection by analyzer)
-
-- GC > 25% = Memory allocation crisis
-- Boundary crossing > 5% = Excessive marshaling overhead
-- `Reflect` API in hot path = Expensive property lookups
-- String cloning in loops = Redundant copies
-
-## Commands Reference
-
-```bash
-# Build and profile
-npm run build:profile                                             # Build with debug symbols
-SCENARIO=<name> npm run profile:cpu                              # Capture CPU profile
-PROFILE_ITERATIONS=<count> SCENARIO=<name> npm run profile:cpu   # Custom iteration count
-
-# Analyze profiles
-node .claude/skills/profile/analyze-profile.mjs <profile.cpuprofile>              # Basic analysis
-node .claude/skills/profile/analyze-profile.mjs <profile.cpuprofile> --disassemble # With disassembly
-node .claude/skills/profile/analyze-profile.mjs <profile.cpuprofile> --json       # JSON output
-node .claude/skills/profile/analyze-profile.mjs <profile.cpuprofile> --top 30     # Show top 30 functions
-
-# Find latest profile
-ls -lt profiles/*.cpuprofile | head -1
-
-# Example workflow
-SCENARIO=1000-number-objects npm run profile:cpu
-node .claude/skills/profile/analyze-profile.mjs profiles/1000-number-objects-parsing-*.cpuprofile
+After generating a profile, suggest:
+```
+/portrait {name}
 ```
 
-## Profile Analyzer
-
-The `analyze-profile.mjs` script enriches .cpuprofile files with WASM debugging information.
-
-**Features:**
-
-- Extracts WASM function symbols (names, sizes) using `wasm-objdump`
-- Categorizes functions (WASM/Rust, GC, boundary crossing, string ops)
-- Calculates CPU time percentages and identifies hotspots
-- Detects red flags (high GC, excessive boundary crossing)
-- Provides optimization recommendations
-- Optional WASM disassembly with `wasm2wat`
-
-**Options:**
-
-- `--top <n>` - Show top N functions (default: 20)
-- `--disassemble` - Include WASM disassembly for hot functions
-- `--threshold <n>` - Disassemble functions >n% CPU time (default: 5)
-- `--json` - Output as JSON
-- `--wasm <path>` - Custom WASM binary location
-
-**Dependencies:** `brew install wabt binaryen`
-
-## Related Files
-
-- **profiles/\*.cpuprofile** - CPU profile data files
-- **benchmark/scenarios/** - Profiling scenario files
-- **benchmark/profiler.ts** - Profiler utility and API
-- **.claude/skills/profile/analyze-profile.mjs** - Profile analyzer script with WASM debugging
-- **package.json** - Benchmark and profiling npm scripts
-- **pkg/atchara_wasm_bg.wasm** - WASM binary with debug symbols
-- **wasm/src/lexer/** - Parsing implementation (optimization targets)
-- **wasm/src/parser/** - Schema validation (optimization targets)
-
-## Troubleshooting
-
-**No WASM symbols in profile:**
-
-```bash
-npm run build:profile  # Rebuild with debug symbols
-SCENARIO=<name> npm run profile:cpu
-```
-
-**Missing SCENARIO variable:**
-
-```bash
-SCENARIO=large-array npm run profile:cpu  # Must specify scenario
-```
-
-**Profile has few samples (<100):**
-
-```bash
-PROFILE_ITERATIONS=50000 SCENARIO=<name> npm run profile:cpu  # Increase iterations
-```
+This generates a matching portrait using the same character YAML.

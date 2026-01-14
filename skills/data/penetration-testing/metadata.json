@@ -1,12 +1,7 @@
 {
   "name": "penetration-testing",
-  "description": "Ethical hacking and security testing methodologies using penetration testing tools, exploit frameworks, and manual security validation. Use when assessing application security posture and identifying ",
   "repo": "aj-geddes/useful-ai-prompts",
-  "category": "testing",
-  "tags": [
-    "penetration",
-    "testing"
-  ],
-  "stars": 25,
-  "source": "local"
+  "path": "skills/penetration-testing/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:12.247252Z"
 }

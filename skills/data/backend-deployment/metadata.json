@@ -1,12 +1,7 @@
 {
   "name": "backend-deployment",
-  "description": "Your approach to handling backend deployment. Use this skill when working on files where backend deployment comes into play.",
   "repo": "jaypaulb/CanvusAPI-LLMDemo",
-  "category": "devops",
-  "tags": [
-    "backend",
-    "deployment"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/backend-deployment/SKILL.md",
+  "source": "github.com/jaypaulb/CanvusAPI-LLMDemo",
+  "downloaded_at": "2026-01-14T01:04:57.296120Z"
 }

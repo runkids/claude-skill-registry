@@ -1,12 +1,7 @@
 {
   "name": "video-comparer",
-  "description": "This skill should be used when comparing two videos to analyze compression results or quality differences. Generates interactive HTML reports with quality metrics (PSNR, SSIM) and frame-by-frame visua",
-  "repo": "daymade/claude-code-skills",
-  "category": "data",
-  "tags": [
-    "video",
-    "comparer"
-  ],
-  "stars": 110,
-  "source": "SkillsMP Synced Skills"
+  "repo": "nguyendinhquocx/code-ai",
+  "path": "skills/video-comparer/SKILL.md",
+  "source": "github.com/nguyendinhquocx/code-ai",
+  "downloaded_at": "2026-01-14T01:13:39.606262Z"
 }

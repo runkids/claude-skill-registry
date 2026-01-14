@@ -1,47 +1,54 @@
 ---
 name: supabase-db
-description: "PostgreSQL conventions overview for Supabase projects. Use when: (1) Need overview of database design principles, (2) Understanding tight-fit design philosophy, (3) Quick reference for standard table structure"
-license: Proprietary. LICENSE.txt has complete terms
+description: Supabase database, auth, and storage operations
+allowed-tools: [Bash, Read, WebFetch]
 ---
 
-# PostgreSQL Conventions for Supabase
+# Supabase Skill
 
-Overview of database design principles for Supabase projects.
+## Overview
 
-**Environment:** PostgreSQL 17 on Supabase.
+Supabase backend-as-a-service. 90%+ context savings.
 
-## Key Principles
+## Requirements
 
-1. **Consistency** - All objects follow predictable naming patterns
-2. **Self-documenting** - Names indicate purpose and type
-3. **Type safety** - Suffixes indicate data types
-4. **Tight-fit design** - Only add confirmed requirements
+- SUPABASE_URL
+- SUPABASE_ANON_KEY or SUPABASE_SERVICE_KEY
 
-## Tight-Fit Design
+## Tools (Progressive Disclosure)
 
-MUST NOT add speculative columns:
+### Database
 
-| Don't Add Speculatively | Add When |
-|-------------------------|----------|
-| `deleted_at` | Soft delete confirmed |
-| `created_by`, `updated_by` | Audit trail required |
-| `metadata jsonb` | Flexible data needed |
-| Indexes | Query patterns known |
+| Tool   | Description   | Confirmation |
+| ------ | ------------- | ------------ |
+| select | Query data    | No           |
+| insert | Insert rows   | Yes          |
+| update | Update rows   | Yes          |
+| delete | Delete rows   | **REQUIRED** |
+| rpc    | Call function | Yes          |
 
-## Standard Table Structure
+### Auth
 
-```sql
-CREATE TABLE tb_examples (
-    id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-    created_at timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
-```
+| Tool       | Description      |
+| ---------- | ---------------- |
+| list-users | List users       |
+| get-user   | Get user details |
 
-## Related Skills
+### Storage
 
-| Skill | Use For |
-|-------|---------|
-| **supabase-migration** | Creating migrations, naming conventions, security patterns |
-| **supabase-seeding** | Populating test data, bulk loading |
-| **supabase-bootstrap** | Setting up new projects, tooling config |
+| Tool         | Description   | Confirmation |
+| ------------ | ------------- | ------------ |
+| list-buckets | List buckets  | No           |
+| upload       | Upload file   | Yes          |
+| download     | Download file | No           |
+
+### BLOCKED
+
+| Tool          | Status      |
+| ------------- | ----------- |
+| delete-bucket | **BLOCKED** |
+
+## Agent Integration
+
+- **developer** (primary): Backend development
+- **database-architect** (secondary): Schema design

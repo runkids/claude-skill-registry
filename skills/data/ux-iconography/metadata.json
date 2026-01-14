@@ -1,9 +1,7 @@
 {
   "name": "ux-iconography",
-  "description": "Icon usage patterns using Material Symbols v3. Use when adding icons to buttons, navigation, or status indicators. Covers sizing, accessibility, animations, and color integration with project tokens.",
   "repo": "matthewharwood/fantasy-phonics",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/ux-iconography/SKILL.md",
+  "source": "github.com/matthewharwood/fantasy-phonics",
+  "downloaded_at": "2026-01-14T01:29:29.085644Z"
 }

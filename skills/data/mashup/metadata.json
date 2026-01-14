@@ -1,8 +1,7 @@
 {
   "name": "mashup",
   "repo": "NickCrew/claude-cortex",
-  "category": "data",
-  "description": "Force-fit patterns from other domains to spark novel concepts.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:36.022892Z"
+  "path": "skills/collaboration/mashup/SKILL.md",
+  "source": "github.com/NickCrew/claude-cortex",
+  "downloaded_at": "2026-01-14T02:11:05.919448Z"
 }

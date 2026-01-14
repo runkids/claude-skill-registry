@@ -1,12 +1,7 @@
 {
   "name": "spec-miner",
-  "description": "Use when understanding legacy or undocumented systems, creating documentation for existing code, or extracting specifications from implementations. Invoke for legacy analysis, code archaeology, undocu",
-  "repo": "Jeffallan/claude-skills",
-  "category": "documents",
-  "tags": [
-    "spec",
-    "miner"
-  ],
-  "stars": 12,
-  "source": "local"
+  "repo": "kamushadenes/nix",
+  "path": "home/common/ai/resources/claude-code/skills/spec-miner/SKILL.md",
+  "source": "github.com/kamushadenes/nix",
+  "downloaded_at": "2026-01-14T03:09:41.689106Z"
 }

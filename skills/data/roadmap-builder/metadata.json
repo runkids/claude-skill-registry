@@ -1,12 +1,7 @@
 {
   "name": "roadmap-builder",
-  "description": "Decide what to build next with brutal prioritization using impact/effort analysis. Use when planning sprints, evaluating features, or auditing an overgrown roadmap.",
-  "repo": "mjmiller3416/recipe-app",
-  "category": "product",
-  "tags": [
-    "roadmap",
-    "builder"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "AIBPM42/hodgesfooshee-site-spark",
+  "path": ".claude/skills/roadmap-builder/SKILL.md",
+  "source": "github.com/AIBPM42/hodgesfooshee-site-spark",
+  "downloaded_at": "2026-01-14T01:40:31.461499Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "code-refactoring-assistant",
-  "description": "Analyzes codebases by impact scope (low/medium/high), generates refactoring checklists, supports interactive review, executes refactors with QA, and produces detailed optimization reports.",
   "repo": "chaorenex1/coding-workflow",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/code-refactoring-assistant/SKILL.md",
+  "source": "github.com/chaorenex1/coding-workflow",
+  "downloaded_at": "2026-01-14T02:50:46.728109Z"
 }

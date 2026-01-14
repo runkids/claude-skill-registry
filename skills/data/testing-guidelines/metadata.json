@@ -1,12 +1,7 @@
 {
   "name": "testing-guidelines",
-  "description": "Pytest testing patterns, fixtures, mocking, and coverage for GMailArchiver. Use when writing unit tests, integration tests, creating fixtures, mocking Gmail API, or checking coverage. Triggers on: tes",
-  "repo": "tumma72/GMailArchiver",
-  "category": "testing",
-  "tags": [
-    "testing",
-    "guidelines"
-  ],
-  "stars": 2,
-  "source": "local"
+  "repo": "amattas/retail-demo",
+  "path": ".claude/skills/testing-guidelines/SKILL.md",
+  "source": "github.com/amattas/retail-demo",
+  "downloaded_at": "2026-01-14T03:45:23.814532Z"
 }

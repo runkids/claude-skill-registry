@@ -1,13 +1,7 @@
 {
   "name": "feature-flag-system",
-  "description": "Implement feature flags (toggles) for controlled feature rollouts, A/B testing, canary deployments, and kill switches. Use when deploying new features gradually, testing in production, or managing fea",
   "repo": "aj-geddes/useful-ai-prompts",
-  "category": "testing",
-  "tags": [
-    "feature",
-    "flag",
-    "system"
-  ],
-  "stars": 25,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/feature-flag-system/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:13.162598Z"
 }

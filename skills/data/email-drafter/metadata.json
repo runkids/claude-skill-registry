@@ -1,12 +1,7 @@
 {
   "name": "email-drafter",
-  "description": "Generates professional emails from bullet points or conversation summaries.Use when you need to draft emails quickly with consistent style and tone.Supports multiple tones: formal, casual, technicalSu",
-  "repo": "rysweet/MicrosoftHackathon2025-AgenticCoding",
-  "category": "data",
-  "tags": [
-    "email",
-    "drafter"
-  ],
-  "stars": 10,
-  "source": "SkillsMP Synced Skills"
+  "repo": "rysweet/azlin",
+  "path": ".claude/skills/email-drafter/SKILL.md",
+  "source": "github.com/rysweet/azlin",
+  "downloaded_at": "2026-01-14T03:30:07.356642Z"
 }

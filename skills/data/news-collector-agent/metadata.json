@@ -1,8 +1,7 @@
 {
   "name": "news-collector-agent",
   "repo": "psh355q-ui/szdi57465yt",
-  "category": "data",
-  "description": "Collects daily hot stock market issues and top movers for MeowStreet Wars video production. Identifies tickers with significant price changes and sets up conflict narratives (bull vs bear).",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:45.614815Z"
+  "path": "backend/ai/skills/video-production/news-collector-agent/SKILL.md",
+  "source": "github.com/psh355q-ui/szdi57465yt",
+  "downloaded_at": "2026-01-14T01:26:59.112259Z"
 }

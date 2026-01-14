@@ -1,9 +1,7 @@
 {
   "name": "notion-knowledge-mcp",
-  "description": "Notion MCPを使って社内ナレッジ検索/追記/整理を行う。議事録や調査結果をNotionに残す時に使う。",
   "repo": "taiyousan15/taisun_agent",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/notion-knowledge-mcp/SKILL.md",
+  "source": "github.com/taiyousan15/taisun_agent",
+  "downloaded_at": "2026-01-14T03:51:14.687611Z"
 }

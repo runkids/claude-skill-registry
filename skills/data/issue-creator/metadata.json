@@ -1,12 +1,7 @@
 {
   "name": "issue-creator",
-  "description": "Generate GitHub issues from an approved engineering specification. Use to break down a spec into implementable, atomic tasks with dependencies, sizing, and labels.",
   "repo": "pcortes/swarm-attack",
-  "category": "productivity",
-  "tags": [
-    "issue",
-    "creator"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": "swarm_attack/default_skills/issue-creator/SKILL.md",
+  "source": "github.com/pcortes/swarm-attack",
+  "downloaded_at": "2026-01-14T04:01:15.889715Z"
 }

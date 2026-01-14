@@ -1,13 +1,7 @@
 {
   "name": "dotnet-core-expert",
-  "description": "Use when building .NET 8 applications with minimal APIs, clean architecture, or cloud-native microservices. Invoke for Entity Framework Core, CQRS with MediatR, JWT authentication, AOT compilation. Ke",
   "repo": "Jeffallan/claude-skills",
-  "category": "development",
-  "tags": [
-    "dotnet",
-    "core",
-    "expert"
-  ],
-  "stars": 12,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/dotnet-core-expert/SKILL.md",
+  "source": "github.com/Jeffallan/claude-skills",
+  "downloaded_at": "2026-01-14T02:36:39.580991Z"
 }

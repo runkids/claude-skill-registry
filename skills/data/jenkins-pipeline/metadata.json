@@ -1,12 +1,7 @@
 {
   "name": "jenkins-pipeline",
-  "description": "Build Jenkins declarative and scripted pipelines with stages, agents, parameters, and plugins. Implement multi-branch pipelines and deployment automation.",
   "repo": "aj-geddes/useful-ai-prompts",
-  "category": "development",
-  "tags": [
-    "jenkins",
-    "pipeline"
-  ],
-  "stars": 25,
-  "source": "local"
+  "path": "skills/jenkins-pipeline/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:07.574858Z"
 }

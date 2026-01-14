@@ -1,12 +1,7 @@
 {
   "name": "openai-prompt-engineer",
-  "description": "Generate and improve prompts using best practices for OpenAI GPT-5 and other LLMs. Apply advanced techniques like chain-of-thought, few-shot prompting, and progressive disclosure.",
   "repo": "jamesrochabrun/skills",
-  "category": "data",
-  "tags": [
-    "openai",
-    "prompt",
-    "engineer"
-  ],
-  "stars": 8
+  "path": "skills/openai-prompt-engineer/SKILL.md",
+  "source": "github.com/jamesrochabrun/skills",
+  "downloaded_at": "2026-01-14T01:17:21.510292Z"
 }

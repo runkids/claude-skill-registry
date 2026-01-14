@@ -1,12 +1,7 @@
 {
   "name": "feature-orchestrator",
-  "description": "Multi-feature autonomous builder. Takes a list of features, generates TODO docs in parallel, detects dependencies, creates a master tracking doc, then executes each feature through TDD → Code Review →",
-  "repo": "dougwithseismic/dotoro-ads",
-  "category": "development",
-  "tags": [
-    "feature",
-    "orchestrator"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "repo": "WomenDefiningAI/claude-code-skills",
+  "path": "skills/feature-orchestrator/SKILL.md",
+  "source": "github.com/WomenDefiningAI/claude-code-skills",
+  "downloaded_at": "2026-01-14T01:52:14.719343Z"
 }

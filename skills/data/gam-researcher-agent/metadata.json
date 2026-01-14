@@ -1,13 +1,7 @@
 {
   "name": "gam-researcher-agent",
-  "description": "Automated context retrieval from Transmission Packet archive using iterative research loop. Implements GAM \"Read Path\" to complement manual \"Write Path\" (Memorizer).",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "development",
-  "tags": [
-    "gam",
-    "researcher",
-    "agent"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/gam-researcher-agent/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-14T01:08:29.176522Z"
 }

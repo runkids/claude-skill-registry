@@ -1,65 +1,65 @@
 ---
 name: integrating-storybook
 description: >
-  Storybook integration with spec.md. Auto-generates Stories from Component API.
-  Triggers: storybook, stories, component api, props, argTypes, variants,
+  spec.mdとのStorybook統合。Component APIからStoriesを自動生成。
+  トリガー: storybook, stories, component api, props, argTypes, variants,
   csf, csf3, autodocs, frontend component
 allowed-tools: Read, Write, Glob, Grep
 ---
 
-# Storybook Integration
+# Storybook統合
 
-## Purpose
+## 目的
 
-Auto-generate Stories skeletons from Component API specifications in spec.md.
+spec.mdのComponent API仕様からStoriesスケルトンを自動生成。
 
-## Core Concepts
+## コアコンセプト
 
-| Concept | Description |
+| コンセプト | 説明 |
 | --- | --- |
-| Component API | Props, Variants, States defined in spec.md |
+| Component API | spec.mdで定義されたProps、Variants、States |
 | CSF3 | Component Story Format 3 + autodocs |
-| Auto-generation | `/code` generates Stories from spec.md |
+| 自動生成 | `/code`がspec.mdからStoriesを生成 |
 
-## Component API Section (in spec.md)
+## Component APIセクション（spec.md内）
 
-Added automatically when `/think` detects frontend feature.
+`/think`がフロントエンド機能を検出すると自動追加。
 
-**Location**: `### 4.x Component API: [ComponentName]` in `## 4. UI Specification`
+**場所**: `## 4. UI仕様`内の`### 4.x Component API: [ComponentName]`
 
-**Contents**:
+**内容**:
 
-- Props Interface (TypeScript)
-- Variants (size, color, state)
-- States (default, hover, disabled, loading)
-- Usage Examples
+- Propsインターフェース（TypeScript）
+- Variants（size、color、state）
+- States（default、hover、disabled、loading）
+- 使用例
 
-## Workflow
+## ワークフロー
 
-| Command | Action |
+| コマンド | アクション |
 | --- | --- |
-| `/think "Add Button"` | Adds Component API section to spec.md |
-| `/code` | Generates `Button.stories.tsx` from spec |
+| `/think "Add Button"` | spec.mdにComponent APIセクションを追加 |
+| `/code` | specから`Button.stories.tsx`を生成 |
 
-## Existing Stories Integration
+## 既存Storiesとの統合
 
-When Stories file exists:
+Storiesファイルが存在する場合:
 
-| Option | Action |
+| オプション | アクション |
 | --- | --- |
-| [O] Overwrite | Replace existing file |
-| [S] Skip | Keep existing file |
-| [M] Merge | Show diff, manual integration |
-| [D] Diff only | Append new Stories only |
+| [O] 上書き | 既存ファイルを置き換え |
+| [S] スキップ | 既存ファイルを維持 |
+| [M] マージ | diffを表示、手動統合 |
+| [D] diffのみ | 新しいStoriesのみ追加 |
 
-## Frontend Detection Keywords
+## フロントエンド検出キーワード
 
-Triggers Component API generation:
+Component API生成をトリガー:
 
 - component, ui, button, form, modal, dialog, card, list, table
 
-## References
+## 参照
 
-- [@./references/component-api-template.md](./references/component-api-template.md) - Props/Variants template
-- [@./references/csf3-patterns.md](./references/csf3-patterns.md) - CSF3 patterns
+- [@./references/component-api-template.md](./references/component-api-template.md) - Props/Variantsテンプレート
+- [@./references/csf3-patterns.md](./references/csf3-patterns.md) - CSF3パターン
 - [Storybook Docs](https://storybook.js.org/docs/writing-stories)

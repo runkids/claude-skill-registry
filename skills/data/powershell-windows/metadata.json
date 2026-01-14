@@ -1,12 +1,7 @@
 {
   "name": "powershell-windows",
-  "description": "PowerShell scripting patterns for Windows including common pitfalls, operator syntax, Unicode handling, and best practices. CRITICAL for writing error-free PowerShell scripts on Windows.",
   "repo": "xenitV1/claude-code-maestro",
-  "category": "development",
-  "tags": [
-    "powershell",
-    "windows"
-  ],
-  "stars": 47,
-  "source": "local"
+  "path": "skills/powershell-windows/SKILL.md",
+  "source": "github.com/xenitV1/claude-code-maestro",
+  "downloaded_at": "2026-01-14T03:41:46.944912Z"
 }

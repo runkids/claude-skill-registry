@@ -1,11 +1,7 @@
 {
   "name": "using-zenpowers",
-  "description": "Use when starting any conversation - establishes mandatory workflows for finding and using ZenPowers skills, including using Read tool before announcing usage, following brainstorming before coding, a",
   "repo": "alexsandrocruz/ZenPowers",
-  "category": "data",
-  "tags": [
-    "using",
-    "zenpowers"
-  ],
-  "stars": 0
+  "path": "skills/using-zenpowers/SKILL.md",
+  "source": "github.com/alexsandrocruz/ZenPowers",
+  "downloaded_at": "2026-01-14T01:52:17.698521Z"
 }

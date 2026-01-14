@@ -1,12 +1,7 @@
 {
   "name": "research-strategy",
-  "description": "Conduct systematic research with confidence scoring, source validation, and structured reporting for technology decisions and codebase analysis. Use for complex research tasks, technology selection, o",
   "repo": "AutumnsGrove/GroveEngine",
-  "category": "development",
-  "tags": [
-    "research",
-    "strategy"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/research-strategy/SKILL.md",
+  "source": "github.com/AutumnsGrove/GroveEngine",
+  "downloaded_at": "2026-01-14T02:31:54.560520Z"
 }

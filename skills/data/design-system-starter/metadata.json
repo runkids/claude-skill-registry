@@ -1,13 +1,7 @@
 {
   "name": "design-system-starter",
-  "description": "Use this skill when creating or evolving design systems for applications. Provides design token structures, component architecture patterns, documentation templates, and accessibility guidelines. Ensu",
   "repo": "ArieGoldkin/ai-agent-hub",
-  "category": "design",
-  "tags": [
-    "design",
-    "system",
-    "starter"
-  ],
-  "stars": 6,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/design-system-starter/SKILL.md",
+  "source": "github.com/ArieGoldkin/ai-agent-hub",
+  "downloaded_at": "2026-01-14T03:52:03.173316Z"
 }

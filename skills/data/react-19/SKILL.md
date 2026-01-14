@@ -1,38 +1,124 @@
 ---
 name: react-19
-description: React 19.3+ patterns. Use for forms, async data, pre-rendering, transitions, refs, context, metadata.
+description: >
+  React 19 patterns with React Compiler.
+  Trigger: When writing React 19 components/hooks in .tsx (React Compiler rules, hook patterns, refs as props). If using Next.js App Router/Server Actions, also use nextjs-15.
+license: Apache-2.0
+metadata:
+  author: prowler-cloud
+  version: "1.0"
+  scope: [root, ui]
+  auto_invoke: "Writing React components"
+allowed-tools: Read, Edit, Write, Glob, Grep, Bash, WebFetch, WebSearch, Task
 ---
 
-# React 19.3+
+## No Manual Memoization (REQUIRED)
 
-## Avoid → Use
+```typescript
+// ✅ React Compiler handles optimization automatically
+function Component({ items }) {
+  const filtered = items.filter(x => x.active);
+  const sorted = filtered.sort((a, b) => a.name.localeCompare(b.name));
 
-- `useState` + `onChange` for forms → `useActionState` → `examples/form-action.tsx`
-- `await` in server components → pass promise, `use()` in client → `examples/use-server-promise.tsx`
-- `forwardRef` → `ref` as prop
-- `useCallback` / `useMemo` → compiler handles it
-- `useContext` → `use(Context)`
-- `Context.Provider` → `<Context value={}>`
-- Manual state reset on prop change → `key` prop
+  const handleClick = (id) => {
+    console.log(id);
+  };
 
-## Patterns
+  return <List items={sorted} onClick={handleClick} />;
+}
 
-- **Forms**: `useActionState(fn, init)` + `useOptimistic` + `useFormStatus` → `examples/form-action.tsx`
-- **Pre-rendering**: `<Activity mode="hidden">` → `examples/activity-prerender.tsx`
-- **Effect events**: `useEffectEvent()` for non-reactive logic in effects → `examples/effect-event.tsx`
-- **Async data**: pass promise from server, unwrap with `use()` → `examples/use-server-promise.tsx`
-- **ViewTransition**: wrap elements, use `startTransition()` + `addTransitionType()` → `examples/view-transition.tsx`
-- **Mutations outside forms**: `useTransition` + Server Action → `examples/server-action-mutation.tsx`
-- **Suspense**: `<Suspense fallback={...}>` wraps async components
-- **Deferred value**: `useDeferredValue(value, initialValue)`
-- **Request memoization**: `cache(async fn)` with `cacheSignal()`
-- **Server Action**: `"use server"` + `revalidatePath()` / `revalidateTag()`
-- **Metadata**: `<title>`, `<meta>`, `<link>` hoisted to `<head>`
-- **Refs**: `ref` as prop, cleanup via return function
+// ❌ NEVER: Manual memoization
+const filtered = useMemo(() => items.filter(x => x.active), [items]);
+const handleClick = useCallback((id) => console.log(id), []);
+```
 
-## Component structure
+## Imports (REQUIRED)
 
-- One component per file
-- Inner functions use arrow syntax: `const handleX = () => {}`
+```typescript
+// ✅ ALWAYS: Named imports
+import { useState, useEffect, useRef } from "react";
 
+// ❌ NEVER
+import React from "react";
+import * as React from "react";
+```
 
+## Server Components First
+
+```typescript
+// ✅ Server Component (default) - no directive
+export default async function Page() {
+  const data = await fetchData();
+  return <ClientComponent data={data} />;
+}
+
+// ✅ Client Component - only when needed
+"use client";
+export function Interactive() {
+  const [state, setState] = useState(false);
+  return <button onClick={() => setState(!state)}>Toggle</button>;
+}
+```
+
+## When to use "use client"
+
+- useState, useEffect, useRef, useContext
+- Event handlers (onClick, onChange)
+- Browser APIs (window, localStorage)
+
+## use() Hook
+
+```typescript
+import { use } from "react";
+
+// Read promises (suspends until resolved)
+function Comments({ promise }) {
+  const comments = use(promise);
+  return comments.map(c => <div key={c.id}>{c.text}</div>);
+}
+
+// Conditional context (not possible with useContext!)
+function Theme({ showTheme }) {
+  if (showTheme) {
+    const theme = use(ThemeContext);
+    return <div style={{ color: theme.primary }}>Themed</div>;
+  }
+  return <div>Plain</div>;
+}
+```
+
+## Actions & useActionState
+
+```typescript
+"use server";
+async function submitForm(formData: FormData) {
+  await saveToDatabase(formData);
+  revalidatePath("/");
+}
+
+// With pending state
+import { useActionState } from "react";
+
+function Form() {
+  const [state, action, isPending] = useActionState(submitForm, null);
+  return (
+    <form action={action}>
+      <button disabled={isPending}>
+        {isPending ? "Saving..." : "Save"}
+      </button>
+    </form>
+  );
+}
+```
+
+## ref as Prop (No forwardRef)
+
+```typescript
+// ✅ React 19: ref is just a prop
+function Input({ ref, ...props }) {
+  return <input ref={ref} {...props} />;
+}
+
+// ❌ Old way (unnecessary now)
+const Input = forwardRef((props, ref) => <input ref={ref} {...props} />);
+```

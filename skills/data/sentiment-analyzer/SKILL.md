@@ -1,123 +1,220 @@
 ---
 name: sentiment-analyzer
-description: Analyze emotional tone, sentiment polarity, and psychological impact of text. Execute Python script for detailed sentiment analysis. Use when analyzing mood, attitude, or emotional content.
+description: Analyze text sentiment (positive/negative/neutral) with confidence scores, emotion detection, and visualization. Supports single text, CSV batch, and trend analysis.
 ---
 
 # Sentiment Analyzer
 
-I analyze the emotional tone and psychological impact of text.
+Analyze the sentiment of text content with detailed scoring, emotion detection, and visualization capabilities. Process single texts, CSV files, or track sentiment trends over time.
 
-## How to Use This Skill
+## Quick Start
 
-When analyzing emotional content, execute the sentiment analyzer script:
+```python
+from scripts.sentiment_analyzer import SentimentAnalyzer
 
-```bash
-python /home/ywatanabe/dev/agent-patterns/.claude/skills/sentiment-analyzer/run.py "text to analyze"
+# Analyze single text
+analyzer = SentimentAnalyzer()
+result = analyzer.analyze("I love this product! It's amazing.")
+print(f"Sentiment: {result['sentiment']} ({result['score']:.2f})")
+
+# Batch analyze CSV
+results = analyzer.analyze_csv("reviews.csv", text_column="review")
+analyzer.plot_distribution("sentiment_dist.png")
 ```
 
-The script returns JSON results with sentiment scores, detected tones, and emotional themes.
+## Features
 
-## What I Analyze
+- **Sentiment Classification**: Positive, negative, neutral with confidence
+- **Polarity Scoring**: -1.0 (negative) to +1.0 (positive)
+- **Subjectivity Detection**: Objective vs subjective content
+- **Emotion Detection**: Joy, anger, sadness, fear, surprise
+- **Batch Processing**: Analyze CSV files with any text column
+- **Trend Analysis**: Track sentiment over time
+- **Visualizations**: Distribution plots, trend charts, word clouds
 
-### Sentiment Dimensions
-- **Polarity**: Positive, negative, neutral, mixed
-- **Intensity**: Strength of emotion (mild, moderate, strong)
-- **Subjectivity**: Objective facts vs. subjective opinions
-- **Emotional Tone**: Joy, anger, sadness, fear, surprise, disgust, trust
+## API Reference
 
-### Psychological Aspects
-- **Voice & Attitude**: Authoritative, friendly, aggressive, passive
-- **Persuasion Techniques**: Appeals to emotion, logic, credibility
-- **Emotional Triggers**: Words/phrases that evoke strong feelings
-- **Overall Mood**: Optimistic, pessimistic, neutral, balanced
+### Initialization
 
-### Audience Impact
-- How text likely makes readers feel
-- Potential emotional reactions
-- Alignment with intended message
-- Persuasiveness for target audience
+```python
+analyzer = SentimentAnalyzer()
+```
 
-## When This Skill Activates
+### Single Text Analysis
 
-Activate when user requests:
-- "Analyze sentiment" or "check emotional tone"
-- "How does this sound?" or "what's the mood?"
-- "Is this too negative/positive?"
-- "Analyze psychological impact"
-- Any request about emotional aspects
+```python
+result = analyzer.analyze("This is great!")
+# Returns:
+# {
+#     'text': 'This is great!',
+#     'sentiment': 'positive',  # positive, negative, neutral
+#     'score': 0.85,            # -1.0 to 1.0
+#     'confidence': 0.92,       # 0.0 to 1.0
+#     'subjectivity': 0.75,     # 0.0 (objective) to 1.0 (subjective)
+#     'emotions': {'joy': 0.8, 'anger': 0.0, ...}
+# }
+```
 
-## Analysis Process
+### Batch Analysis
 
-1. **Identify Sentiment Markers**: Emotional words, phrases, punctuation
-2. **Assess Polarity**: Overall positive/negative/neutral balance
-3. **Measure Intensity**: Strength of emotional expression
-4. **Detect Tone**: Dominant emotional characteristics
-5. **Evaluate Impact**: Likely reader response
+```python
+# From list
+texts = ["Great product!", "Terrible service.", "It's okay."]
+results = analyzer.analyze_batch(texts)
+
+# From CSV
+results = analyzer.analyze_csv(
+    "reviews.csv",
+    text_column="review_text",
+    output="results.csv"
+)
+```
+
+### Trend Analysis
+
+```python
+# Analyze sentiment over time
+results = analyzer.analyze_csv(
+    "posts.csv",
+    text_column="content",
+    date_column="posted_at"
+)
+analyzer.plot_trend("sentiment_trend.png")
+```
+
+### Visualizations
+
+```python
+# Sentiment distribution
+analyzer.plot_distribution("distribution.png")
+
+# Sentiment over time
+analyzer.plot_trend("trend.png")
+
+# Word cloud by sentiment
+analyzer.plot_wordcloud("positive", "positive_words.png")
+```
+
+## CLI Usage
+
+```bash
+# Analyze single text
+python sentiment_analyzer.py --text "I love this product!"
+
+# Analyze file
+python sentiment_analyzer.py --input reviews.csv --column review --output results.csv
+
+# With visualization
+python sentiment_analyzer.py --input reviews.csv --column text --plot distribution.png
+
+# Trend analysis
+python sentiment_analyzer.py --input posts.csv --column content --date posted_at --trend trend.png
+```
+
+### CLI Arguments
+
+| Argument | Description | Default |
+|----------|-------------|---------|
+| `--text` | Single text to analyze | - |
+| `--input` | Input CSV file | - |
+| `--column` | Text column name | `text` |
+| `--date` | Date column for trends | - |
+| `--output` | Output CSV file | - |
+| `--plot` | Save distribution plot | - |
+| `--trend` | Save trend plot | - |
+| `--format` | Output format (json, csv) | `json` |
+
+## Examples
+
+### Product Review Analysis
+
+```python
+analyzer = SentimentAnalyzer()
+results = analyzer.analyze_csv("amazon_reviews.csv", text_column="review")
+
+# Summary statistics
+positive = sum(1 for r in results if r['sentiment'] == 'positive')
+negative = sum(1 for r in results if r['sentiment'] == 'negative')
+print(f"Positive: {positive}, Negative: {negative}")
+
+# Average sentiment score
+avg_score = sum(r['score'] for r in results) / len(results)
+print(f"Average sentiment: {avg_score:.2f}")
+```
+
+### Social Media Monitoring
+
+```python
+analyzer = SentimentAnalyzer()
+
+# Analyze tweets with timestamps
+results = analyzer.analyze_csv(
+    "tweets.csv",
+    text_column="tweet_text",
+    date_column="created_at"
+)
+
+# Plot sentiment trend
+analyzer.plot_trend("twitter_sentiment.png", title="Brand Sentiment Over Time")
+```
+
+### Customer Feedback Categorization
+
+```python
+analyzer = SentimentAnalyzer()
+
+feedback = [
+    "Your support team was incredibly helpful!",
+    "The product broke after one day.",
+    "Shipping was on time.",
+    "I'm extremely disappointed with the quality.",
+    "It works as expected, nothing special."
+]
+
+for text in feedback:
+    result = analyzer.analyze(text)
+    print(f"{result['sentiment'].upper():8} ({result['score']:+.2f}): {text[:50]}")
+```
 
 ## Output Format
 
-Provide structured sentiment report:
+### JSON Output
 
-**Overall Sentiment**:
-- Polarity: [Positive/Negative/Neutral/Mixed]
-- Intensity: [Mild/Moderate/Strong]
-- Dominant Emotion: [Primary emotional tone]
-
-**Detailed Analysis**:
-- Positive elements: [Specific examples]
-- Negative elements: [Specific examples]
-- Neutral/factual elements: [Specific examples]
-
-**Emotional Triggers**:
-- Powerful phrases and their emotional impact
-- Words that evoke strong feelings
-
-**Tone Characteristics**:
-- Voice: [Authoritative/Friendly/Casual/Formal]
-- Attitude: [Optimistic/Pessimistic/Balanced]
-- Subjectivity: [Highly subjective/Mostly objective]
-
-**Audience Impact**:
-- Likely reader emotions
-- Persuasiveness assessment
-- Alignment with intent
-
-## Example Analysis
-
-**Input**: "Our revolutionary product absolutely transforms your workflow! Say goodbye to tedious manual tasks forever. You'll wonder how you ever managed without it."
-
-**Output**:
-```
-Overall Sentiment:
-- Polarity: Strongly Positive
-- Intensity: Strong
-- Dominant Emotion: Excitement / Enthusiasm
-
-Detailed Analysis:
-Positive Elements:
-- "revolutionary" - innovation, breakthrough
-- "absolutely transforms" - powerful change
-- "forever" - permanence, reliability
-
-Emotional Triggers:
-- "Say goodbye to tedious manual tasks" - relief from pain point
-- "You'll wonder how you ever managed" - creates FOMO
-
-Tone Characteristics:
-- Voice: Marketing/promotional, enthusiastic
-- Attitude: Very optimistic, confident
-- Subjectivity: Highly subjective with strong claims
-
-Audience Impact:
-- Likely creates excitement and curiosity
-- May feel overly promotional to skeptical readers
-- Effective for marketing-receptive audience
-- Consider toning down for professional/technical audiences
+```json
+{
+  "text": "I love this product!",
+  "sentiment": "positive",
+  "score": 0.85,
+  "confidence": 0.92,
+  "subjectivity": 0.75,
+  "emotions": {
+    "joy": 0.82,
+    "anger": 0.02,
+    "sadness": 0.01,
+    "fear": 0.03,
+    "surprise": 0.12
+  }
+}
 ```
 
-## Tone
+### CSV Output
 
-- Objective and analytical
-- Psychologically informed
-- Balanced perspective
-- Contextual awareness
+| text | sentiment | score | confidence | subjectivity |
+|------|-----------|-------|------------|--------------|
+| Great product! | positive | 0.85 | 0.91 | 0.80 |
+| Terrible... | negative | -0.72 | 0.88 | 0.65 |
+
+## Dependencies
+
+```
+textblob>=0.17.0
+pandas>=2.0.0
+matplotlib>=3.7.0
+```
+
+## Limitations
+
+- English language optimized (other languages may have reduced accuracy)
+- Sarcasm and irony may not be detected accurately
+- Context-dependent sentiment may be missed
+- Short texts (<5 words) have lower confidence

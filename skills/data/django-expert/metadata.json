@@ -1,12 +1,7 @@
 {
   "name": "django-expert",
-  "description": "Use when building Django web applications or REST APIs with Django REST Framework. Invoke for Django models, ORM optimization, DRF serializers, viewsets, authentication with JWT. Keywords: Django, DRF",
   "repo": "Jeffallan/claude-skills",
-  "category": "development",
-  "tags": [
-    "django",
-    "expert"
-  ],
-  "stars": 12,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/django-expert/SKILL.md",
+  "source": "github.com/Jeffallan/claude-skills",
+  "downloaded_at": "2026-01-14T02:36:36.399324Z"
 }

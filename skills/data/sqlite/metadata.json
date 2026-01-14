@@ -1,10 +1,7 @@
 {
   "name": "sqlite",
-  "description": "Expert guidance for SQLite database with better-sqlite3 Node.js driver including database setup, queries, transactions, migrations, performance optimization, and integration with TypeScript. Use this ",
-  "repo": "oriolrius/pki-manager-web",
-  "category": "data",
-  "tags": [
-    "sqlite"
-  ],
-  "stars": 1
+  "repo": "zzoohub/mealio",
+  "path": ".claude/skills/sqlite/SKILL.md",
+  "source": "github.com/zzoohub/mealio",
+  "downloaded_at": "2026-01-14T02:55:16.377256Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "agent-factory",
-  "description": "Create new PAI agents using AGENT_FACTORY.md patterns. Guides through archetype selection (Researcher, Validator, Generator, Critic, Synthesizer), validates against CONSTITUTION.md, and generates agen",
-  "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
-  "category": "data",
-  "tags": [
-    "agent",
-    "factory"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "repo": "alirezarezvani/claude-code-skill-factory",
+  "path": "generated-skills/agent-factory/SKILL.md",
+  "source": "github.com/alirezarezvani/claude-code-skill-factory",
+  "downloaded_at": "2026-01-14T03:52:53.232732Z"
 }

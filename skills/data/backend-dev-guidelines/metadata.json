@@ -1,13 +1,7 @@
 {
   "name": "backend-dev-guidelines",
-  "description": "Comprehensive Rust backend development guide for Tauri applications. Use when creating Tauri commands, database operations, error handling, state management, or async patterns. Covers layered architec",
-  "repo": "emilyantosch/hestia_tauri",
-  "category": "data",
-  "tags": [
-    "backend",
-    "dev",
-    "guidelines"
-  ],
-  "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "repo": "Bbeierle12/Skill-MCP-Claude",
+  "path": "skills/backend-dev-guidelines/SKILL.md",
+  "source": "github.com/Bbeierle12/Skill-MCP-Claude",
+  "downloaded_at": "2026-01-14T03:54:12.373921Z"
 }

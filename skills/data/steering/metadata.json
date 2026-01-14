@@ -1,9 +1,7 @@
 {
   "name": "steering",
-  "description": "steering skillTrigger terms: steering, project memory, codebase analysis, auto-update context, generate steering, architecture patterns, tech stack analysis, project structure, analyze codebase, under",
-  "repo": "nahisaho/MUSUBI",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "gaebalai/itda-sdd",
+  "path": "src/templates/agents/claude-code/skills/steering/SKILL.md",
+  "source": "github.com/gaebalai/itda-sdd",
+  "downloaded_at": "2026-01-14T03:55:15.873487Z"
 }

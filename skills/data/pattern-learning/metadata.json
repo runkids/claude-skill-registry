@@ -1,9 +1,7 @@
 {
   "name": "pattern-learning",
-  "description": "Enables autonomous pattern recognition, storage, and retrieval at project level with self-learning capabilities for continuous improvement",
   "repo": "bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/pattern-learning/SKILL.md",
+  "source": "github.com/bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
+  "downloaded_at": "2026-01-14T01:09:09.491969Z"
 }

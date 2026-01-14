@@ -1,12 +1,7 @@
 {
   "name": "recommendation-system",
-  "description": "Build collaborative and content-based recommendation engines for product recommendations, personalization, and improving user engagement",
-  "repo": "aj-geddes/useful-ai-prompts",
-  "category": "development",
-  "tags": [
-    "recommendation",
-    "system"
-  ],
-  "stars": 25,
-  "source": "local"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/recommendation-system/skills/recommendation-system/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-14T03:29:52.450692Z"
 }

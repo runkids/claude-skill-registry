@@ -1,20 +1,18 @@
 ---
 name: firecrawl-scraper
 description: |
-  Complete knowledge domain for Firecrawl v2 API - web scraping and crawling that converts websites into LLM-ready markdown or structured data.
+  Convert websites into LLM-ready markdown with Firecrawl v4 API. Handles JavaScript rendering, anti-bot bypass, and structured data extraction for RAG and AI applications.
 
-  Use when: scraping websites, crawling entire sites, extracting web content, converting HTML to markdown, building web scrapers, handling dynamic JavaScript content, bypassing anti-bot protection, extracting structured data from web pages, or when encountering "content not loading", "JavaScript rendering issues", or "blocked by bot detection".
-
-  Keywords: firecrawl, firecrawl api, web scraping, web crawler, scrape website, crawl website, extract content, html to markdown, site crawler, content extraction, web automation, firecrawl-py, firecrawl-js, llm ready data, structured data extraction, bot bypass, javascript rendering, scraping api, crawling api, map urls, batch scraping
-license: MIT
+  Use when: scraping websites, crawling sites, or troubleshooting content not loading, JavaScript rendering, or bot detection.
+user-invocable: true
 ---
 
 # Firecrawl Web Scraper Skill
 
 **Status**: Production Ready ✅
-**Last Updated**: 2025-10-24
+**Last Updated**: 2026-01-09
 **Official Docs**: https://docs.firecrawl.dev
-**API Version**: v2
+**API Version**: v4 (firecrawl-py 4.12.0+)
 
 ---
 
@@ -118,67 +116,61 @@ FIRECRAWL_API_KEY=fc-your-api-key-here
 pip install firecrawl-py
 ```
 
-**Latest Version**: `firecrawl-py v4.5.0+`
+**Latest Version**: `firecrawl-py v4.12.0+` (Jan 2026)
 
-### Basic Scrape
+### Basic Scrape (v4 API)
 
 ```python
 import os
-from firecrawl import FirecrawlApp
+from firecrawl import Firecrawl
 
-# Initialize client
-app = FirecrawlApp(api_key=os.environ.get("FIRECRAWL_API_KEY"))
+# Initialize client (reads FIRECRAWL_API_KEY from env automatically)
+app = Firecrawl(api_key=os.environ.get("FIRECRAWL_API_KEY"))
 
-# Scrape a single page
-result = app.scrape_url(
+# Scrape a single page - returns Pydantic Document object
+doc = app.scrape(
     url="https://example.com/article",
-    params={
-        "formats": ["markdown", "html"],
-        "onlyMainContent": True
-    }
+    formats=["markdown", "html"],
+    only_main_content=True
 )
 
-# Access markdown content
-markdown = result.get("markdown")
-print(markdown)
+# Access content via attributes (not .get())
+print(doc.markdown)
+print(doc.metadata)  # Page metadata (title, description, etc.)
 ```
 
 ### Crawl Multiple Pages
 
 ```python
 import os
-from firecrawl import FirecrawlApp
+from firecrawl import Firecrawl
 
-app = FirecrawlApp(api_key=os.environ.get("FIRECRAWL_API_KEY"))
+app = Firecrawl(api_key=os.environ.get("FIRECRAWL_API_KEY"))
 
-# Start crawl
-crawl_result = app.crawl_url(
+# Start crawl - returns Pydantic CrawlResult
+result = app.crawl(
     url="https://docs.example.com",
-    params={
-        "limit": 100,
-        "scrapeOptions": {
-            "formats": ["markdown"]
-        }
-    },
-    poll_interval=5  # Check status every 5 seconds
+    limit=100,
+    scrape_options={
+        "formats": ["markdown"]
+    }
 )
 
-# Process results
-for page in crawl_result.get("data", []):
-    url = page.get("url")
-    markdown = page.get("markdown")
-    print(f"Scraped: {url}")
+# Process results - result.data is list of Document objects
+for page in result.data:
+    print(f"Scraped: {page.metadata.source_url}")
+    print(f"Content: {page.markdown[:200]}...")
 ```
 
 ### Extract Structured Data
 
 ```python
 import os
-from firecrawl import FirecrawlApp
+from firecrawl import Firecrawl
 
-app = FirecrawlApp(api_key=os.environ.get("FIRECRAWL_API_KEY"))
+app = Firecrawl(api_key=os.environ.get("FIRECRAWL_API_KEY"))
 
-# Define schema
+# Define schema (JSON Schema format)
 schema = {
     "type": "object",
     "properties": {
@@ -192,10 +184,8 @@ schema = {
 # Extract data
 result = app.extract(
     urls=["https://example.com/product"],
-    params={
-        "schema": schema,
-        "systemPrompt": "Extract product information from the page"
-    }
+    schema=schema,
+    system_prompt="Extract product information from the page"
 )
 
 print(result)

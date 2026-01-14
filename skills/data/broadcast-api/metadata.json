@@ -1,12 +1,7 @@
 {
   "name": "broadcast-api",
-  "description": "Reference documentation for Broadcast API (sendbroadcast.net) integration. Use when working with the Broadcast email provider, creating/updating broadcasts, managing subscribers, or debugging API issu",
   "repo": "aniketpanjwani/payload-plugin-email-newsletter",
-  "category": "documents",
-  "tags": [
-    "broadcast",
-    "api"
-  ],
-  "stars": 32,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/broadcast-api/SKILL.md",
+  "source": "github.com/aniketpanjwani/payload-plugin-email-newsletter",
+  "downloaded_at": "2026-01-14T02:52:09.977011Z"
 }

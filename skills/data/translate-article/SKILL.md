@@ -1,86 +1,133 @@
 ---
-name: translate-article
-description: Translate MDX articles between English and Japanese for global engineers. Use when the user says "translate this article", "convert to Japanese/English", or asks to localize content in `src/content/docs/`. Auto-detects source language and outputs to the correct i18n path.
+name: Translating Technical Articles
+description: Translates English technical articles (engineering blogs, documentation) to Japanese while preserving layout and structure. Use when the user asks to translate an article, convert English content to Japanese, or mentions translating a URL or technical blog post.
 ---
 
-# Translate Article
+# Translating Technical Articles
 
-Translate MDX articles in `src/content/docs/` between English and Japanese, targeting global engineering audiences.
+## Overview
 
-## Workflow
+This Skill translates English technical articles to Japanese Markdown while preserving:
+- Heading structure and hierarchy
+- Image links and URLs
+- Code blocks and formatting
+- List structures (numbered, bulleted)
 
-1. **Detect source language** from the article content
-2. **Translate** using guidelines below
-3. **Write** to the correct output path
+## Translation workflow
 
-## Path Rules
+Copy this checklist and track progress:
 
-| Source | Target | Example |
-|--------|--------|---------|
-| English (root) | Japanese | `tech/foo.mdx` → `ja/tech/foo.mdx` |
-| Japanese (`ja/`) | English (root) | `ja/tech/foo.mdx` → `tech/foo.mdx` |
-
-## Translation Guidelines
-
-### Preserve (Do NOT translate)
-
-- Code blocks and inline code
-- Technical terms: API, JSON, REST, HTTP, OAuth, JWT, SDK, CLI, etc.
-- Product/service names: Firebase, Vercel, GitHub, etc.
-- URLs and file paths
-- Frontmatter fields: `slug`, `sidebar`, `draft`, `editUrl`
-
-### Translate
-
-- Frontmatter: `title`, `description`
-- Prose paragraphs
-- Comments explaining code (translate the explanation, not the code)
-- Alt text for images
-
-### Style for Global Engineers
-
-**English output:**
-- Use simple, direct sentences
-- Prefer active voice
-- Avoid idioms and cultural references
-- Use standard technical terminology
-
-**Japanese output:**
-- Use です/ます form
-- Keep sentences concise
-- Preserve English technical terms in katakana only when commonly used (e.g., クラウド, サーバー)
-- Keep original English for terms engineers use as-is (e.g., API, JSON, Firebase)
-
-## Example
-
-**English source** (`tech/auth.mdx`):
-```mdx
----
-title: Authentication Guide
-description: Learn how to implement OAuth 2.0 authentication.
----
-
-# Authentication Guide
-
-This guide explains how to set up OAuth 2.0 in your app.
-
-\`\`\`typescript
-const token = await getAccessToken();
-\`\`\`
+```
+Translation Progress:
+- [ ] Step 1: Fetch article content
+- [ ] Step 2: Translate to Japanese
+- [ ] Step 3: Save to file
+- [ ] Step 4: Verify translation (no garbled text)
+- [ ] Step 5: Create implementation log
 ```
 
-**Japanese output** (`ja/tech/auth.mdx`):
-```mdx
+### Step 1: Fetch article content
+
+**Priority order for fetching**:
+
+1. **Firecrawl MCP** (`mcp__firecrawl__firecrawl_scrape`): Most reliable
+   ```
+   🌟Claudeは Firecrawl MCP サーバー を唱えた！
+   ```
+   Use `formats: ["markdown"]` and `maxAge` for caching
+
+2. **Brave Search MCP**: If Firecrawl unavailable
+
+3. **WebFetch**: Last resort
+
+### Step 2: Translate to Japanese
+
+**Key translation principles**:
+
+- **Preserve layout**: Keep all heading levels, lists, images, code blocks
+- **Technical terms**:
+  - Proper nouns: Keep original (e.g., "Claude Code", "Agent Skills")
+  - Common tech terms: Translate with original in parentheses on first use
+  - Industry terms: Use original if well-established
+- **Natural Japanese**: Avoid literal translation, use natural expressions
+- **Consistency**: Use same translation for same terms throughout
+
+**Add metadata header**:
+
+```markdown
+# [Translated Title]
+
+**公開日:** YYYY年MM月DD日
+
+**原文:** [Original URL]
+
 ---
-title: 認証ガイド
-description: OAuth 2.0 認証の実装方法を解説します。
----
 
-# 認証ガイド
-
-このガイドでは、アプリに OAuth 2.0 を設定する方法を説明します。
-
-\`\`\`typescript
-const token = await getAccessToken();
-\`\`\`
+[Translated content]
 ```
+
+### Step 3: Save to file
+
+**File naming**:
+- Directory: User-specified path or kebab-case title directory
+- Filename: Kebab-case title + `.md`
+- Example: `cc-catch-up/agent-skills/agent-skills.md`
+
+### Step 4: Verify translation quality
+
+**Critical verification step**:
+
+After saving the translated file, **必ず必ず必ず最終確認**を実行すること：
+
+1. **Read the saved file** to verify content
+2. **Check for garbled text** (文字化け):
+   - Japanese characters display correctly
+   - No mojibake (e.g., "æ–‡å­—åŒ–ã'" instead of "文字化け")
+   - Code blocks and special characters intact
+3. **If garbled text found**:
+   - Identify the cause (encoding issue, incorrect character conversion)
+   - Fix the garbled sections immediately
+   - Save the corrected version
+   - Re-verify until no issues remain
+4. **If no issues found**:
+   - Confirm completion to user
+   - Proceed to Step 5
+
+**Important**: Do not skip this verification. Garbled text makes the translation unusable.
+
+### Step 5: Create implementation log
+
+Save log to `_docs/templates/YYYY-MM-DD_translated-title.md`:
+
+```markdown
+# [Feature Name]
+
+- **日付**: YYYY-MM-DD HH:MM:SS (from `date "+%Y-%m-%d %H:%M:%S"`)
+- **概要**: Translation purpose and background
+- **実装内容**: MCP server used, translation approach
+- **設計意図**: Why preserve layout, how handle technical terms
+- **翻訳のポイント**: Key translation decisions
+- **副作用**: Any concerns (e.g., external image dependencies)
+- **関連ファイル**: Path to translated file, original URL
+```
+
+## Quality checklist
+
+Before completion, verify:
+
+- [ ] Heading structure matches original
+- [ ] Image links and URLs preserved
+- [ ] Code blocks properly formatted
+- [ ] Technical terms consistent
+- [ ] Natural Japanese expressions
+- [ ] No garbled text (文字化けなし)
+- [ ] Metadata header included
+- [ ] Implementation log created
+
+## Example translation
+
+**Input**: "Agent Skills extend Claude's capabilities..."
+
+**Output**: "Agent Skillsは、Claudeの機能を拡張し..."
+
+Note: "Agent Skills" kept as original (proper noun), natural Japanese structure.

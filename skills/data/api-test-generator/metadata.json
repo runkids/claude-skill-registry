@@ -1,13 +1,7 @@
 {
   "name": "api-test-generator",
-  "description": "Generate comprehensive API endpoint tests for REST and GraphQL APIs.",
   "repo": "matteocervelli/llms",
-  "category": "testing",
-  "tags": [
-    "api",
-    "test",
-    "generator"
-  ],
-  "stars": 10,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/api-test-generator/SKILL.md",
+  "source": "github.com/matteocervelli/llms",
+  "downloaded_at": "2026-01-14T03:06:52.363719Z"
 }

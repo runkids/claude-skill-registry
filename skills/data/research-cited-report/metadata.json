@@ -1,9 +1,7 @@
 {
   "name": "research-cited-report",
-  "description": "調査→論点整理→出典付きレポート化。ユーザーが「調べて」「比較して」「根拠/出典付きで」等を求めたら使う。",
   "repo": "taiyousan15/taisun_agent",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/research-cited-report/SKILL.md",
+  "source": "github.com/taiyousan15/taisun_agent",
+  "downloaded_at": "2026-01-14T03:51:12.084318Z"
 }

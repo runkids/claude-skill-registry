@@ -1,13 +1,7 @@
 {
   "name": "code-review-checklist",
-  "description": "Review code changes for correctness, security, performance, and maintainability. Use for PR reviews,code audits, pre-merge checks, or quality validation of Laravel + React code. EXCLUSIVE to reviewer ",
-  "repo": "htooayelwinict/claude-config",
-  "category": "security",
-  "tags": [
-    "code",
-    "review",
-    "checklist"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "cpa03/blueprintify",
+  "path": ".opencode/skill/code-review-checklist/SKILL.md",
+  "source": "github.com/cpa03/blueprintify",
+  "downloaded_at": "2026-01-14T04:04:20.051704Z"
 }

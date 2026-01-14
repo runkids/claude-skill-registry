@@ -1,11 +1,7 @@
 {
   "name": "type-safety",
-  "description": "Fix type assertions and improve TypeScript type safety. Use when encountering 'as unknown as' casts, manual type definitions that duplicate schema types, or unclear type errors in database queries, es",
-  "repo": "wodsmith/thewodapp",
-  "category": "data",
-  "tags": [
-    "type",
-    "safety"
-  ],
-  "stars": 0
+  "repo": "mgd34msu/goodvibes-plugin",
+  "path": "plugins/goodvibes/skills/common/review/type-safety/SKILL.md",
+  "source": "github.com/mgd34msu/goodvibes-plugin",
+  "downloaded_at": "2026-01-14T02:10:03.920903Z"
 }

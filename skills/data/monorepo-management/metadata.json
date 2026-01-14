@@ -1,12 +1,7 @@
 {
   "name": "monorepo-management",
-  "description": "Manage monorepo architectures using Lerna, Turborepo, and Nx. Configure workspaces, dependency versioning, and cross-package testing.",
-  "repo": "aj-geddes/useful-ai-prompts",
-  "category": "testing",
-  "tags": [
-    "monorepo",
-    "management"
-  ],
-  "stars": 25,
-  "source": "local"
+  "repo": "GaitanS/AI-Mancare",
+  "path": ".claude/skills/plugins/developer-essentials/skills/monorepo-management/SKILL.md",
+  "source": "github.com/GaitanS/AI-Mancare",
+  "downloaded_at": "2026-01-14T03:16:30.828892Z"
 }

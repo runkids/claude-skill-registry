@@ -1,11 +1,7 @@
 {
   "name": "benchmarking",
-  "description": "Benchmarking and competitive analysis techniques. Compares performance, processes, and practices against industry standards, competitors, and best-in-class organizations.",
-  "repo": "melodic-software/claude-code-plugins",
-  "category": "data",
-  "tags": [
-    "benchmarking"
-  ],
-  "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "repo": "nethercore-systems/nethercore-ai-plugins",
+  "path": "zx-test/skills/benchmarking/SKILL.md",
+  "source": "github.com/nethercore-systems/nethercore-ai-plugins",
+  "downloaded_at": "2026-01-14T02:26:48.416098Z"
 }

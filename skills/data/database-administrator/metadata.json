@@ -1,12 +1,7 @@
 {
   "name": "database-administrator",
-  "description": "Expert database administrator specializing in high-availability systems, performance optimization, and disaster recovery. Masters PostgreSQL, MySQL, MongoDB, and Redis with focus on reliability, scala",
-  "repo": "zenobi-us/dotfiles",
-  "category": "data",
-  "tags": [
-    "database",
-    "administrator"
-  ],
-  "stars": 21,
-  "source": "SkillsMP Synced Skills"
+  "repo": "gaebalai/itda-sdd",
+  "path": "src/templates/agents/claude-code/skills/database-administrator/SKILL.md",
+  "source": "github.com/gaebalai/itda-sdd",
+  "downloaded_at": "2026-01-14T03:55:15.977572Z"
 }

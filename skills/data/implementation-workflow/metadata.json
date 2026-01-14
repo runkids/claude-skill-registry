@@ -1,12 +1,7 @@
 {
   "name": "implementation-workflow",
-  "description": "Use when turning PRDs or feature specs into actionable implementation workflows - provides structured task decomposition, dependency mapping, and validation gates.",
   "repo": "NickCrew/claude-cortex",
-  "category": "productivity",
-  "tags": [
-    "implementation",
-    "workflow"
-  ],
-  "stars": 4,
-  "source": "local"
+  "path": "skills/implementation-workflow/SKILL.md",
+  "source": "github.com/NickCrew/claude-cortex",
+  "downloaded_at": "2026-01-14T02:11:07.448016Z"
 }

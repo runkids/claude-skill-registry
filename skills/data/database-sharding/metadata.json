@@ -1,12 +1,7 @@
 {
   "name": "database-sharding",
-  "description": "Implement database sharding for horizontal scalability. Use when scaling large databases, distributing data across multiple servers, or designing sharded architectures.",
   "repo": "aj-geddes/useful-ai-prompts",
-  "category": "data",
-  "tags": [
-    "database",
-    "sharding"
-  ],
-  "stars": 25,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/database-sharding/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:10.071339Z"
 }

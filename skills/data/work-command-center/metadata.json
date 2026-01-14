@@ -1,12 +1,7 @@
 {
   "name": "work-command-center",
-  "description": "Orchestrate work management including deliverables tracking, deadline management, team coordination, priority coaching, and work-life balance. Provides structured task management, daily standups, and ",
   "repo": "mbcoalson/skills",
-  "category": "data",
-  "tags": [
-    "work",
-    "command",
-    "center"
-  ],
-  "stars": 0
+  "path": ".claude/skills/work-command-center/SKILL.md",
+  "source": "github.com/mbcoalson/skills",
+  "downloaded_at": "2026-01-14T01:48:02.425863Z"
 }

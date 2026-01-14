@@ -1,13 +1,7 @@
 {
   "name": "backup-retention-policy",
-  "description": "Эксперт по политикам бэкапов. Используй для стратегий резервного копирования, retention rules и disaster recovery.",
   "repo": "dengineproblem/agents-monorepo",
-  "category": "development",
-  "tags": [
-    "backup",
-    "retention",
-    "policy"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/backup-retention-policy/SKILL.md",
+  "source": "github.com/dengineproblem/agents-monorepo",
+  "downloaded_at": "2026-01-14T02:08:03.379819Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "azure-wiki-generator",
-  "description": "Generate and manage Azure DevOps Wiki pages with markdown content. Use when creating project documentation or wiki pages.",
   "repo": "ntaksh42/agents",
-  "category": "documents",
-  "tags": [
-    "azure",
-    "wiki",
-    "generator"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/azure-wiki-generator/SKILL.md",
+  "source": "github.com/ntaksh42/agents",
+  "downloaded_at": "2026-01-14T03:51:02.680516Z"
 }

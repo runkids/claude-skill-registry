@@ -1,8 +1,7 @@
 {
   "name": "airflow-dag-patterns",
-  "repo": "wshobson/agents",
-  "category": "data",
-  "description": "Build production Apache Airflow DAGs with best practices for operators, sensors, testing, and deployment. Use when creating data pipelines, orchestrating workflows, or scheduling batch jobs.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:33.388459Z"
+  "repo": "GaitanS/AI-Mancare",
+  "path": ".claude/skills/plugins/data-engineering/skills/airflow-dag-patterns/SKILL.md",
+  "source": "github.com/GaitanS/AI-Mancare",
+  "downloaded_at": "2026-01-14T03:16:28.310041Z"
 }

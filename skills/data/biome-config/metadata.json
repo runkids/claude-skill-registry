@@ -1,12 +1,7 @@
 {
   "name": "biome-config",
-  "description": "Update Biome linting rules, formatting configs, and import organization settings. Use when adding new lint rules, customizing code style, or fixing workspace-specific linting issues.",
   "repo": "sgcarstrends/sgcarstrends",
-  "category": "development",
-  "tags": [
-    "biome",
-    "config"
-  ],
-  "stars": 13,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/biome-config/SKILL.md",
+  "source": "github.com/sgcarstrends/sgcarstrends",
+  "downloaded_at": "2026-01-14T02:59:19.861488Z"
 }

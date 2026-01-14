@@ -1,8 +1,7 @@
 {
   "name": "wavecap-audio",
   "repo": "TobiasWooldridge/WaveCap",
-  "category": "data",
-  "description": "Analyze recorded audio files from WaveCap. Use when the user wants to inspect audio recordings, check audio quality, list available recordings, or get audio file metadata.",
-  "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:22:14.217634Z"
+  "path": ".claude/skills/wavecap-audio/skill.md",
+  "source": "github.com/TobiasWooldridge/WaveCap",
+  "downloaded_at": "2026-01-14T03:42:28.670842Z"
 }

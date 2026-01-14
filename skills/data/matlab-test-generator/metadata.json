@@ -1,13 +1,7 @@
 {
   "name": "matlab-test-generator",
-  "description": "Create comprehensive MATLAB unit tests using the MATLAB Testing Framework. Use when generating test files, test cases, unit tests, test suites, or when the user requests testing for MATLAB code, funct",
   "repo": "matlab/skills",
-  "category": "testing",
-  "tags": [
-    "matlab",
-    "test",
-    "generator"
-  ],
-  "stars": 5,
-  "source": "local"
+  "path": "skills/matlab-test-generator/SKILL.md",
+  "source": "github.com/matlab/skills",
+  "downloaded_at": "2026-01-14T03:24:31.357063Z"
 }

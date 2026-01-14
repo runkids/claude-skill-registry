@@ -1,12 +1,7 @@
 {
   "name": "sikhaid-payment",
-  "description": "Use when working with donations, payments, or Razorpay integration in SikhAid project. Covers Razorpay setup, payment validation, donation flow, success/failure handling, and payment configuration.",
   "repo": "the-non-expert/SikhAidSPA",
-  "category": "testing",
-  "tags": [
-    "sikhaid",
-    "payment"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/sikhaid-payment/SKILL.md",
+  "source": "github.com/the-non-expert/SikhAidSPA",
+  "downloaded_at": "2026-01-14T01:21:32.722552Z"
 }

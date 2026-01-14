@@ -1,11 +1,7 @@
 {
   "name": "authentication",
-  "description": "Authentication and authorization including JWT, OAuth2, sessions, and RBAC. Activate for login, auth flows, security, access control, and identity management.",
   "repo": "markus41/lobbi-design-system",
-  "category": "security",
-  "tags": [
-    "authentication"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/authentication/SKILL.md",
+  "source": "github.com/markus41/lobbi-design-system",
+  "downloaded_at": "2026-01-14T03:18:07.629565Z"
 }

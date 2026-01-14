@@ -1,12 +1,7 @@
 {
   "name": "package-audit",
-  "description": "Scan for security vulnerabilities using pnpm audit, Snyk, and automated tools. Use when checking security, before deployments, or resolving CVEs.",
   "repo": "sgcarstrends/sgcarstrends",
-  "category": "security",
-  "tags": [
-    "package",
-    "audit"
-  ],
-  "stars": 13,
-  "source": "local"
+  "path": ".claude/skills/package-audit/SKILL.md",
+  "source": "github.com/sgcarstrends/sgcarstrends",
+  "downloaded_at": "2026-01-14T02:59:22.460602Z"
 }

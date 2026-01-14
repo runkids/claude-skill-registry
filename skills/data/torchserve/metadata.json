@@ -1,11 +1,7 @@
 {
   "name": "torchserve",
-  "description": "Model serving engine for PyTorch. Focuses on MAR packaging, custom handlers for preprocessing/inference, and management of multi-GPU worker scaling. (torchserve, mar-file, handler, basehandler, model-",
   "repo": "cuba6112/skillfactory",
-  "category": "development",
-  "tags": [
-    "torchserve"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": "skills/torchserve/SKILL.md",
+  "source": "github.com/cuba6112/skillfactory",
+  "downloaded_at": "2026-01-14T02:37:38.398701Z"
 }

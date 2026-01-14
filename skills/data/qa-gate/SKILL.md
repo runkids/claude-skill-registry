@@ -1,391 +1,169 @@
----
+﻿---
 name: qa-gate
-description: Create or update a quality gate decision for a story or code changes. Runs quality checks, specialist reviews, and produces a persistent YAML gate file with actionable findings. Supports PASS, CONCERNS, FAIL, or WAIVED decisions.
+description: Use to create or update quality gate decision files for stories. Provides clear pass/fail decisions with actionable feedback.
+version: 1.0.0
 ---
+<!-- Powered by PRISMâ„¢ System -->
 
-# /qa-gate - Quality Gate Decision
+# qa-gate
 
-## Description
+Create or update a quality gate decision file for a story based on review findings.
 
-Generate a quality gate decision with persistent YAML output. Runs automated checks and optional specialist reviews, then produces a gate file that can be tracked and referenced.
+## Purpose
 
-**Key Features:**
-- Persistent YAML gate files for traceability
-- Standardized severity scale (low, medium, high)
-- Issue ID prefixes for categorization (SEC-, PERF-, TEST-, etc.)
-- WAIVED status with approval tracking
-- Updates story file with gate reference
-- NFR validation (security, performance, reliability, accessibility)
+Generate a standalone quality gate file that provides a clear pass/fail decision with actionable feedback. This gate serves as an advisory checkpoint for teams to understand quality status.
 
-## Usage
+## Prerequisites
 
-```bash
-# Quick gate for a story (tests, types, lint only)
-/qa-gate 3.1.5
+- Story has been reviewed (manually or via review-story task)
+- Review findings are available
+- Understanding of story requirements and implementation
 
-# Full gate with specialist reviews
-/qa-gate 3.1.5 --deep
+## Gate File Location
 
-# Gate for current branch (no story reference)
-/qa-gate --branch
+**ALWAYS** check the `../core-config.yaml` for the `qa.qaLocation/gates`
 
-# Gate with specific specialists
-/qa-gate 3.1.5 --security --performance
+Slug rules:
 
-# Waive known issues
-/qa-gate 3.1.5 --waive --reason "Accepted for MVP" --approved-by "Product Owner"
+- Convert to lowercase
+- Replace spaces with hyphens
+- Strip punctuation
+- Example: "User Auth - Login!" becomes "user-auth-login"
 
-# Quick check without persisting file
-/qa-gate 3.1.5 --dry-run
-```
-
-## Parameters
-
-- **story** - Story number (e.g., `3.1.5`) or omit for branch-based review
-- **--deep** - Run all specialist reviews (security, performance, accessibility)
-- **--security** - Run security specialist review
-- **--performance** - Run performance specialist review
-- **--accessibility** - Run accessibility specialist review
-- **--branch** - Review current branch without story reference
-- **--waive** - Mark gate as WAIVED (requires --reason and --approved-by)
-- **--reason** - Reason for waiver
-- **--approved-by** - Who approved the waiver
-- **--dry-run** - Run checks but don't persist gate file
-
----
-
-## EXECUTION INSTRUCTIONS
-
-### Phase 1: Parse Arguments & Locate Files
-
-```
-1. Parse story number or --branch flag
-2. If story provided:
-   - Find story file: docs/stories/{STORY_NUM}.*.md
-   - Extract story title and slug
-3. Determine gate file path: docs/qa/gates/{STORY_NUM}-{slug}.yml
-4. Check if gate file already exists (for history tracking)
-```
-
-### Phase 2: Run Required Checks
-
-**Always run these checks first:**
-
-```bash
-# Run in parallel for speed
-pnpm test --filter='...[origin/main]'
-pnpm check-types --filter='...[origin/main]'
-pnpm lint --filter='...[origin/main]'
-```
-
-**Collect results:**
-```yaml
-checks:
-  tests: { status: PASS|FAIL, details: "X tests passed" }
-  types: { status: PASS|FAIL, details: "No type errors" }
-  lint: { status: PASS|FAIL, details: "No lint errors" }
-```
-
-### Phase 3: Specialist Reviews (if --deep or specific flags)
-
-**Use haiku model for fast, focused reviews:**
-
-```
-# Security Review (if --deep or --security)
-Task(
-  subagent_type: "general-purpose",
-  model: "haiku",
-  description: "Security review",
-  prompt: "You are a security specialist. Review the code changes.
-
-           Check for:
-           - Authentication/authorization issues
-           - Injection vulnerabilities (SQL, XSS, command)
-           - Sensitive data exposure
-           - OWASP Top 10 issues
-           - Hardcoded secrets or credentials
-
-           For each finding, provide:
-           - id: SEC-{NNN}
-           - severity: low|medium|high
-           - finding: Brief description
-           - suggested_action: How to fix
-           - file: File path
-           - line: Line number (if applicable)
-
-           Return findings as YAML array."
-)
-
-# Performance Review (if --deep or --performance)
-Task(
-  subagent_type: "general-purpose",
-  model: "haiku",
-  description: "Performance review",
-  prompt: "You are a performance specialist. Review the code changes.
-
-           Check for:
-           - N+1 query patterns
-           - Missing database indexes
-           - Unnecessary re-renders in React
-           - Large bundle imports
-           - Missing memoization
-           - Inefficient algorithms
-
-           For each finding, provide:
-           - id: PERF-{NNN}
-           - severity: low|medium|high
-           - finding: Brief description
-           - suggested_action: How to fix
-           - file: File path
-
-           Return findings as YAML array."
-)
-
-# Accessibility Review (if --deep or --accessibility)
-Task(
-  subagent_type: "general-purpose",
-  model: "haiku",
-  description: "Accessibility review",
-  prompt: "You are an accessibility specialist. Review the code changes.
-
-           Check for:
-           - WCAG 2.1 AA compliance
-           - Keyboard navigation support
-           - Screen reader compatibility
-           - Missing ARIA labels/roles
-           - Color contrast issues
-           - Focus management
-
-           For each finding, provide:
-           - id: A11Y-{NNN}
-           - severity: low|medium|high
-           - finding: Brief description with WCAG criterion
-           - suggested_action: How to fix
-           - file: File path
-
-           Return findings as YAML array."
-)
-```
-
-### Phase 4: Determine Gate Decision
-
-**Decision logic:**
-
-```
-IF --waive flag provided:
-  gate = WAIVED
-ELSE IF any check FAILED OR any high severity issue:
-  gate = FAIL
-ELSE IF any medium severity issue:
-  gate = CONCERNS
-ELSE:
-  gate = PASS
-```
-
-**Status reason (1-2 sentences):**
-- PASS: "All checks passed with no significant issues."
-- CONCERNS: "Non-blocking issues found that should be addressed."
-- FAIL: "{reason for failure - e.g., 'Tests failing' or 'High severity security issue'}"
-- WAIVED: "{user-provided reason}"
-
-### Phase 5: Generate Gate File
-
-**Write YAML to `docs/qa/gates/{STORY_NUM}-{slug}.yml`:**
+## Minimal Required Schema
 
 ```yaml
 schema: 1
-story: "{STORY_NUM}"
-story_title: "{STORY_TITLE}"
+story: '{epic}.{story}'
 gate: PASS|CONCERNS|FAIL|WAIVED
-status_reason: "{1-2 sentence explanation}"
-reviewer: "Claude Code"
-updated: "{ISO-8601 timestamp}"
-
-# Waiver (only active if WAIVED)
-waiver:
-  active: false  # or true if WAIVED
-  reason: ""     # populated if WAIVED
-  approved_by: "" # populated if WAIVED
-
-# All issues found
-top_issues: []
-# Example:
-#   - id: "SEC-001"
-#     severity: high
-#     finding: "No rate limiting on login endpoint"
-#     suggested_action: "Add rate limiting middleware"
-#     file: "src/api/auth/login.ts"
-
-# NFR validation summary
-nfr_validation:
-  security: { status: PASS|CONCERNS|FAIL|SKIPPED, issue_count: 0 }
-  performance: { status: PASS|CONCERNS|FAIL|SKIPPED, issue_count: 0 }
-  accessibility: { status: PASS|CONCERNS|FAIL|SKIPPED, issue_count: 0 }
-  tests: { status: PASS|FAIL, details: "" }
-  types: { status: PASS|FAIL, details: "" }
-  lint: { status: PASS|FAIL, details: "" }
-
-# Risk summary
-risk_summary:
-  totals: { high: 0, medium: 0, low: 0 }
-  recommendations:
-    must_fix: []   # high severity items
-    should_fix: [] # medium severity items
+status_reason: '1-2 sentence explanation of gate decision'
+reviewer: 'Quinn'
+updated: '{ISO-8601 timestamp}'
+top_issues: [] # Empty array if no issues
+waiver: { active: false } # Only set active: true if WAIVED
 ```
 
-### Phase 6: Update Story File (if story provided)
+## Schema with Issues
 
-**Append to story's QA Results section:**
+```yaml
+schema: 1
+story: '1.3'
+gate: CONCERNS
+status_reason: 'Missing rate limiting on auth endpoints poses security risk.'
+reviewer: 'Quinn'
+updated: '2025-01-12T10:15:00Z'
+top_issues:
+  - id: 'SEC-001'
+    severity: high # ONLY: low|medium|high
+    finding: 'No rate limiting on login endpoint'
+    suggested_action: 'Add rate limiting middleware before production'
+  - id: 'TEST-001'
+    severity: medium
+    finding: 'No integration tests for auth flow'
+    suggested_action: 'Add integration test coverage'
+waiver: { active: false }
+```
+
+## Schema when Waived
+
+```yaml
+schema: 1
+story: '1.3'
+gate: WAIVED
+status_reason: 'Known issues accepted for MVP release.'
+reviewer: 'Quinn'
+updated: '2025-01-12T10:15:00Z'
+top_issues:
+  - id: 'PERF-001'
+    severity: low
+    finding: 'Dashboard loads slowly with 1000+ items'
+    suggested_action: 'Implement pagination in next sprint'
+waiver:
+  active: true
+  reason: 'MVP release - performance optimization deferred'
+  approved_by: 'Product Owner'
+```
+
+## Gate Decision Criteria
+
+### PASS
+
+- All acceptance criteria met
+- No high-severity issues
+- Test coverage meets project standards
+
+### CONCERNS
+
+- Non-blocking issues present
+- Should be tracked and scheduled
+- Can proceed with awareness
+
+### FAIL
+
+- Acceptance criteria not met
+- High-severity issues present
+- Recommend return to InProgress
+
+### WAIVED
+
+- Issues explicitly accepted
+- Requires approval and reason
+- Proceed despite known issues
+
+## Severity Scale
+
+**FIXED VALUES - NO VARIATIONS:**
+
+- `low`: Minor issues, cosmetic problems
+- `medium`: Should fix soon, not blocking
+- `high`: Critical issues, should block release
+
+## Issue ID Prefixes
+
+- `SEC-`: Security issues
+- `PERF-`: Performance issues
+- `REL-`: Reliability issues
+- `TEST-`: Testing gaps
+- `MNT-`: Maintainability concerns
+- `ARCH-`: Architecture issues
+- `DOC-`: Documentation gaps
+- `REQ-`: Requirements issues
+
+## Output Requirements
+
+1. **ALWAYS** create gate file at: `qa.qaLocation/gates` from `../core-config.yaml`
+2. **ALWAYS** append this exact format to story's QA Results section:
+
+   ```text
+   Gate: {STATUS} â†’ qa.qaLocation/gates/{epic}.{story}-{slug}.yml
+   ```
+
+3. Keep status_reason to 1-2 sentences maximum
+4. Use severity values exactly: `low`, `medium`, or `high`
+
+## Example Story Update
+
+After creating gate file, append to story's QA Results section:
 
 ```markdown
 ## QA Results
 
+### Review Date: 2025-01-12
+
+### Reviewed By: Quinn (Test Architect)
+
+[... existing review content ...]
+
 ### Gate Status
 
-Gate: {STATUS} → docs/qa/gates/{STORY_NUM}-{slug}.yml
-Updated: {ISO-8601 timestamp}
-Reviewer: Claude Code
-
-{If issues found:}
-Top Issues:
-- [{ID}] {severity}: {finding}
+Gate: CONCERNS â†’ qa.qaLocation/gates/{epic}.{story}-{slug}.yml
 ```
 
-### Phase 7: Report Summary
+## Key Principles
 
-```
-═══════════════════════════════════════════════════════
-  Quality Gate: {STORY_NUM} - {STORY_TITLE}
-═══════════════════════════════════════════════════════
+- Keep it minimal and predictable
+- Fixed severity scale (low/medium/high)
+- Always write to standard path
+- Always update story with gate reference
+- Clear, actionable findings
 
-Gate: {PASS|CONCERNS|FAIL|WAIVED}
-Reason: {status_reason}
-
-Checks:
-  Tests:    {PASS|FAIL}
-  Types:    {PASS|FAIL}
-  Lint:     {PASS|FAIL}
-
-{If specialist reviews run:}
-NFR Validation:
-  Security:      {STATUS} ({N} issues)
-  Performance:   {STATUS} ({N} issues)
-  Accessibility: {STATUS} ({N} issues)
-
-{If issues found:}
-Top Issues ({N} total):
-  [{ID}] {severity}: {finding}
-  ...
-
-Gate File: docs/qa/gates/{STORY_NUM}-{slug}.yml
-
-{If FAIL:}
-Recommendation: Address high-severity issues before proceeding.
-
-{If CONCERNS:}
-Recommendation: Review issues and proceed with awareness.
-
-{If WAIVED:}
-Waiver: {reason}
-Approved By: {approved_by}
-═══════════════════════════════════════════════════════
-```
-
----
-
-## Issue ID Prefixes
-
-| Prefix | Category |
-|--------|----------|
-| SEC- | Security issues |
-| PERF- | Performance issues |
-| A11Y- | Accessibility issues |
-| TEST- | Testing gaps |
-| REL- | Reliability issues |
-| MNT- | Maintainability concerns |
-| ARCH- | Architecture issues |
-| DOC- | Documentation gaps |
-| REQ- | Requirements issues |
-
-## Severity Scale
-
-**Fixed values - no variations:**
-
-| Severity | Description | Action |
-|----------|-------------|--------|
-| `high` | Critical issues, should block | Must fix before release |
-| `medium` | Should fix soon, not blocking | Schedule for soon |
-| `low` | Minor issues, cosmetic | Fix when convenient |
-
-## Gate Statuses
-
-| Status | Meaning | When to Use |
-|--------|---------|-------------|
-| `PASS` | All good | No issues or only low severity |
-| `CONCERNS` | Proceed with awareness | Medium severity issues present |
-| `FAIL` | Should not proceed | High severity issues or check failures |
-| `WAIVED` | Accepted despite issues | Explicitly approved to proceed |
-
----
-
-## Sub-Agent Architecture
-
-```
-Main Orchestrator (/qa-gate)
-    │
-    ├─▶ Required Checks (inline)
-    │   ├── pnpm test
-    │   ├── pnpm check-types
-    │   └── pnpm lint
-    │
-    └─▶ Specialist Reviews (parallel, haiku)
-        ├── Security specialist
-        ├── Performance specialist
-        └── Accessibility specialist
-```
-
----
-
-## Integration with /implement
-
-The `/implement` skill calls `/qa-gate` for its QA phase:
-
-```
-/implement 3.1.5
-    │
-    ├─▶ ... implementation phases ...
-    │
-    └─▶ /qa-gate 3.1.5 --deep
-            └── Produces gate file and updates story
-```
-
----
-
-## Examples
-
-### Quick Gate (tests only)
-```bash
-/qa-gate 3.1.5
-# Runs: tests, types, lint
-# Output: docs/qa/gates/3.1.5-my-story.yml
-```
-
-### Deep Gate (all specialists)
-```bash
-/qa-gate 3.1.5 --deep
-# Runs: tests, types, lint + security, performance, accessibility
-# Output: docs/qa/gates/3.1.5-my-story.yml
-```
-
-### Waive Known Issues
-```bash
-/qa-gate 3.1.5 --waive --reason "MVP release, will fix in v2" --approved-by "Tech Lead"
-# Sets gate to WAIVED with approval tracking
-```
-
-### Branch Review (no story)
-```bash
-/qa-gate --branch --deep
-# Reviews current branch without story reference
-# Output: docs/qa/gates/branch-{branch-name}.yml
-```

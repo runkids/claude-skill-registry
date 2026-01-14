@@ -1,14 +1,7 @@
 {
   "name": "five-field-handshake-execution",
-  "description": "Execute five-field diagnostic handshake protocol.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "development",
-  "tags": [
-    "five",
-    "field",
-    "handshake",
-    "execution"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/five-field-handshake-execution/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-14T01:08:19.653729Z"
 }

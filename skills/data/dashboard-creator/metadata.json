@@ -1,8 +1,7 @@
 {
   "name": "dashboard-creator",
   "repo": "mhattingpete/claude-skills-marketplace",
-  "category": "data",
-  "description": "Create HTML dashboards with KPI metric cards, bar/pie/line charts, progress indicators, and data visualizations. Use when users request dashboards, metrics displays, KPI visualizations, data charts, o",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:42.822324Z"
+  "path": "visual-documentation-plugin/skills/dashboard-creator/SKILL.md",
+  "source": "github.com/mhattingpete/claude-skills-marketplace",
+  "downloaded_at": "2026-01-14T02:54:19.243891Z"
 }

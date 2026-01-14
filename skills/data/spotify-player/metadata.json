@@ -1,12 +1,7 @@
 {
   "name": "spotify-player",
-  "description": "Terminal Spotify client (TUI + CLI commands) for playback and search.",
-  "repo": "steipete/clawdis",
-  "category": "design",
-  "tags": [
-    "spotify",
-    "player"
-  ],
-  "stars": 430,
-  "source": "SkillsMP Synced Skills"
+  "repo": "clawdbot/clawdbot",
+  "path": "skills/spotify-player/SKILL.md",
+  "source": "github.com/clawdbot/clawdbot",
+  "downloaded_at": "2026-01-14T04:05:34.750801Z"
 }

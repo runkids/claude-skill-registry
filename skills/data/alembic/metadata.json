@@ -1,11 +1,7 @@
 {
   "name": "alembic",
-  "description": "Comprehensive Alembic database migration management for customer support systems",
-  "repo": "manutej/luxor-claude-marketplace",
-  "category": "data",
-  "tags": [
-    "alembic"
-  ],
-  "stars": 10,
-  "source": "SkillsMP Synced Skills"
+  "repo": "SlanyCukr/riot-api-project",
+  "path": ".claude/skills/backend/alembic/SKILL.md",
+  "source": "github.com/SlanyCukr/riot-api-project",
+  "downloaded_at": "2026-01-14T01:29:24.015336Z"
 }

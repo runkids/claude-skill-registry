@@ -1,8 +1,7 @@
 {
   "name": "agentuity-cli-cloud-db-list",
-  "repo": "agentuity/examples",
-  "category": "data",
-  "description": "List database resources. Requires authentication. Use for Agentuity cloud platform operations",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:32.739408Z"
+  "repo": "agentuity/sdk-explorer",
+  "path": ".agents/skills/agentuity-cli-cloud-db-list/SKILL.md",
+  "source": "github.com/agentuity/sdk-explorer",
+  "downloaded_at": "2026-01-14T03:20:58.220134Z"
 }

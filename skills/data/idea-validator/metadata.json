@@ -1,12 +1,7 @@
 {
   "name": "idea-validator",
-  "description": "Critical-thinking brainstorming partner that acts as a requirements analyst. Use when users present ideas, feature requests, or problems they want to solve. Triggers include \"I want to build\", \"help m",
-  "repo": "luislavena/skills",
-  "category": "development",
-  "tags": [
-    "idea",
-    "validator"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "AIBPM42/hodgesfooshee-site-spark",
+  "path": ".claude/skills/idea-validator/SKILL.md",
+  "source": "github.com/AIBPM42/hodgesfooshee-site-spark",
+  "downloaded_at": "2026-01-14T01:40:31.254286Z"
 }

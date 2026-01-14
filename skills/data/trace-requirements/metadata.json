@@ -1,9 +1,7 @@
 {
   "name": "trace-requirements",
-  "description": "Create comprehensive bidirectional requirements traceability matrix mapping acceptance criteria → implementation → tests with gap analysis, severity ratings, and coverage assessment. Maps each AC to i",
-  "repo": "adolfoaranaes12/BMAD-ENHANCED",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "resolve-io/.prism",
+  "path": "plugins/prism-devtools/skills/trace-requirements/SKILL.md",
+  "source": "github.com/resolve-io/.prism",
+  "downloaded_at": "2026-01-14T03:09:56.107522Z"
 }

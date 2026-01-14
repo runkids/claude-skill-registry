@@ -1,12 +1,7 @@
 {
   "name": "security-audit",
-  "description": "Agent Skill: Security audit patterns for PHP/OWASP. Use when conducting security assessments, identifying vulnerabilities (XXE, SQL injection, XSS), or CVSS scoring. By Netresearch.",
-  "repo": "netresearch/security-audit-skill",
-  "category": "security",
-  "tags": [
-    "security",
-    "audit"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "cpa03/blueprintify",
+  "path": ".opencode/skill/security-audit/SKILL.md",
+  "source": "github.com/cpa03/blueprintify",
+  "downloaded_at": "2026-01-14T04:04:19.773276Z"
 }

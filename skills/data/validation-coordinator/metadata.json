@@ -1,12 +1,7 @@
 {
   "name": "validation-coordinator",
-  "description": "Auto-activates when coordinating sequential validation specialists with",
   "repo": "matteocervelli/llms",
-  "category": "devops",
-  "tags": [
-    "validation",
-    "coordinator"
-  ],
-  "stars": 10,
-  "source": "local"
+  "path": ".claude/skills/validation-coordinator/SKILL.md",
+  "source": "github.com/matteocervelli/llms",
+  "downloaded_at": "2026-01-14T03:06:48.691574Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "ai-doc-writing",
-  "description": "This skill should be used when writing, reviewing, or refactoring documentation that will be consumed as AI context. Optimizes documentation for LLM comprehension using principles of completeness, eff",
   "repo": "vinceh/recipe",
-  "category": "data",
-  "tags": [
-    "doc",
-    "writing"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/ai-doc-writing/SKILL.md",
+  "source": "github.com/vinceh/recipe",
+  "downloaded_at": "2026-01-14T02:39:40.434479Z"
 }

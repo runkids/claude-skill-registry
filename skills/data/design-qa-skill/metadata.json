@@ -1,12 +1,7 @@
 {
   "name": "design-qa-skill",
-  "description": "Skill providing design QA checklists and principles for visual review across lanes. Used by design-review agents to enforce hierarchy, spacing, color, and responsiveness.",
   "repo": "adilkalam/orca",
-  "category": "design",
-  "tags": [
-    "design",
-    "skill"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/design-qa-skill/SKILL.md",
+  "source": "github.com/adilkalam/orca",
+  "downloaded_at": "2026-01-14T03:33:02.026897Z"
 }

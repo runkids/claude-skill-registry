@@ -1,9 +1,7 @@
 {
   "name": "agentic-orchestration",
-  "description": "Patterns for multi-agent coordination, task decomposition, handoffs, and workflow orchestration. Best practices for building and managing agent systems.",
   "repo": "frankxai/ai-architect",
-  "category": "productivity",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/agentic-orchestration/SKILL.md",
+  "source": "github.com/frankxai/ai-architect",
+  "downloaded_at": "2026-01-14T01:14:42.570647Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "postgis",
-  "description": "MANDATORY when working with geographic data, spatial queries, geometry operations, or location-based features - enforces PostGIS 3.6.1 best practices including ST_CoverageClean, SFCGAL 3D functions, a",
-  "repo": "troykelly/claude-skills",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "troykelly/codex-skills",
+  "path": "skills/postgis/SKILL.md",
+  "source": "github.com/troykelly/codex-skills",
+  "downloaded_at": "2026-01-14T03:34:00.091357Z"
 }

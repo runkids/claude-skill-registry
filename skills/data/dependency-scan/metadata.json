@@ -1,12 +1,7 @@
 {
   "name": "dependency-scan",
-  "description": "Scans project dependencies for known vulnerabilities, outdated packages, and license compliance issues. Trigger keywords: dependency, vulnerability, CVE, npm audit, outdated, license, supply chain, SB",
-  "repo": "cosmix/claude-code-setup",
-  "category": "security",
-  "tags": [
-    "dependency",
-    "scan"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "repo": "jwynia/agent-skills",
+  "path": "skills/security/dependency-scan/SKILL.md",
+  "source": "github.com/jwynia/agent-skills",
+  "downloaded_at": "2026-01-14T03:19:17.936667Z"
 }

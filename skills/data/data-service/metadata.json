@@ -1,8 +1,7 @@
 {
   "name": "data-service",
   "repo": "metasaver/metasaver-marketplace",
-  "category": "data",
-  "description": "Use when scaffolding, auditing, or validating MetaSaver data service packages. Covers feature-based structure, service/controller/routes pattern, middleware integration, and API endpoint setup. Requir",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:07.680835Z"
+  "path": "plugins/metasaver-core/skills/domain/data-service/SKILL.md",
+  "source": "github.com/metasaver/metasaver-marketplace",
+  "downloaded_at": "2026-01-14T01:43:55.931591Z"
 }

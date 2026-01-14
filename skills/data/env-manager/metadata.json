@@ -1,12 +1,7 @@
 {
   "name": "env-manager",
-  "description": "Environment variable management, validation, and documentation.",
   "repo": "CuriousLearner/devkit",
-  "category": "documents",
-  "tags": [
-    "env",
-    "manager"
-  ],
-  "stars": 13,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/env-manager/SKILL.md",
+  "source": "github.com/CuriousLearner/devkit",
+  "downloaded_at": "2026-01-14T02:22:34.319335Z"
 }

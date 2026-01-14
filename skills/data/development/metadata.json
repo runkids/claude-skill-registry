@@ -1,11 +1,7 @@
 {
   "name": "development",
-  "description": "Provides expertise on development practices and code quality standards for this repo",
   "repo": "inocan-group/inferred-types",
-  "category": "development",
-  "tags": [
-    "development"
-  ],
-  "stars": 18,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/development/SKILL.md",
+  "source": "github.com/inocan-group/inferred-types",
+  "downloaded_at": "2026-01-14T01:47:55.622061Z"
 }

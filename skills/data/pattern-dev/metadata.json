@@ -1,12 +1,7 @@
 {
   "name": "pattern-dev",
-  "description": "Guide for developing CommonTools patterns (TypeScript modules that define reactive data transformations with UI). Use this skill when creating patterns, modifying existing patterns, linking patches (i",
-  "repo": "commontoolsinc/labs",
-  "category": "development",
-  "tags": [
-    "pattern",
-    "dev"
-  ],
-  "stars": 23,
-  "source": "local"
+  "repo": "jkomoros/community-patterns",
+  "path": ".claude/skills/pattern-dev/SKILL.md",
+  "source": "github.com/jkomoros/community-patterns",
+  "downloaded_at": "2026-01-14T03:36:19.522627Z"
 }

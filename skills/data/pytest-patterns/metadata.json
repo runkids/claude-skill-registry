@@ -1,12 +1,7 @@
 {
   "name": "pytest-patterns",
-  "description": "Advanced Python testing strategies with Pytest, covering fixtures, matrix testing with parametrization, and async test architecture. Triggers: pytest, fixtures, parametrize, pytest-asyncio, matrix-tes",
   "repo": "cuba6112/skillfactory",
-  "category": "testing",
-  "tags": [
-    "pytest",
-    "patterns"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": "skills/pytest-patterns/SKILL.md",
+  "source": "github.com/cuba6112/skillfactory",
+  "downloaded_at": "2026-01-14T02:37:37.165178Z"
 }

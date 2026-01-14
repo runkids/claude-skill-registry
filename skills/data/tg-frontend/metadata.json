@@ -1,11 +1,7 @@
 {
   "name": "tg-frontend",
-  "description": "Frontend design system for Tellurium Games World of Darkness web application. Use when creating/modifying HTML templates (detail views, forms, lists), implementing components or stat displays, applyin",
   "repo": "charlesmsiegel/tg",
-  "category": "design",
-  "tags": [
-    "frontend"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/tg-frontend/SKILL.md",
+  "source": "github.com/charlesmsiegel/tg",
+  "downloaded_at": "2026-01-14T04:01:30.954590Z"
 }

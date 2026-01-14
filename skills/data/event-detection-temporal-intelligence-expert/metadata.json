@@ -1,15 +1,7 @@
 {
   "name": "event-detection-temporal-intelligence-expert",
-  "description": "Expert in temporal event detection, spatio-temporal clustering (ST-DBSCAN), and photo context understanding. Use for detecting photo events, clustering by time/location, shareability prediction, place",
   "repo": "erichowens/some_claude_skills",
-  "category": "marketing",
-  "tags": [
-    "event",
-    "detection",
-    "temporal",
-    "intelligence",
-    "expert"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/event-detection-temporal-intelligence-expert/SKILL.md",
+  "source": "github.com/erichowens/some_claude_skills",
+  "downloaded_at": "2026-01-14T02:58:40.959463Z"
 }

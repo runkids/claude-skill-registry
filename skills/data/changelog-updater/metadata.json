@@ -1,12 +1,7 @@
 {
   "name": "changelog-updater",
-  "description": "Maintain and update the CHANGELOG.md file following Keep a Changelog format, documenting features, fixes, breaking changes, and migrations for each release.",
-  "repo": "omerlefaruk/CasareRPA",
-  "category": "data",
-  "tags": [
-    "changelog",
-    "updater"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "u9401066/med-paper-assistant",
+  "path": ".claude/skills/changelog-updater/SKILL.md",
+  "source": "github.com/u9401066/med-paper-assistant",
+  "downloaded_at": "2026-01-14T03:21:49.496694Z"
 }

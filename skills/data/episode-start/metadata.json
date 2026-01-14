@@ -1,12 +1,7 @@
 {
   "name": "episode-start",
-  "description": "Start a new learning episode in the self-learning memory system with proper context. Use this skill when beginning a new task that should be tracked for learning from execution patterns.",
   "repo": "d-o-hub/rust-self-learning-memory",
-  "category": "productivity",
-  "tags": [
-    "episode",
-    "start"
-  ],
-  "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/episode-start/SKILL.md",
+  "source": "github.com/d-o-hub/rust-self-learning-memory",
+  "downloaded_at": "2026-01-14T03:40:09.230356Z"
 }

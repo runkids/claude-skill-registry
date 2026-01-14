@@ -1,12 +1,7 @@
 {
   "name": "data-transform",
-  "description": "Transform, clean, reshape, and preprocess data using pandas and numpy. Works with ANY LLM provider (GPT, Gemini, Claude, etc.).",
-  "repo": "Starlitnightly/omicverse",
-  "category": "data",
-  "tags": [
-    "data",
-    "transform"
-  ],
-  "stars": 783,
-  "source": "SkillsMP Synced Skills"
+  "repo": "Activer007/ordinary-claude-skills",
+  "path": "skills_all/data-transform/SKILL.md",
+  "source": "github.com/Activer007/ordinary-claude-skills",
+  "downloaded_at": "2026-01-14T03:21:40.805867Z"
 }

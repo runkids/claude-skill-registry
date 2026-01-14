@@ -1,8 +1,7 @@
 {
   "name": "web-search-fallback",
   "repo": "bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
-  "category": "data",
-  "description": "Autonomous agent-based web search fallback for when WebSearch API fails or hits limits",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:46.476133Z"
+  "path": "skills/web-search-fallback/SKILL.md",
+  "source": "github.com/bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
+  "downloaded_at": "2026-01-14T01:09:09.590231Z"
 }

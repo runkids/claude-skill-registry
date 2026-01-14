@@ -1,12 +1,7 @@
 {
   "name": "how-to-guide",
-  "description": "Create comprehensive how-to guides and tutorials. Use when the user needs step-by-step instructional content, tutorials, documentation, or educational guides.",
   "repo": "az9713/ai-co-writing-claude-skills",
-  "category": "documents",
-  "tags": [
-    "how",
-    "guide"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/how-to-guide/SKILL.md",
+  "source": "github.com/az9713/ai-co-writing-claude-skills",
+  "downloaded_at": "2026-01-14T03:13:59.799835Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "executing-ai-development-workflow",
-  "description": "Execute a comprehensive AI-driven development workflow with planning, implementation, multi-layer review (Sub-agents + /review + CodeRabbit CLI), automated fixes, and PR creation. Use when implementin",
   "repo": "camoneart/claude-code",
-  "category": "development",
-  "tags": [
-    "executing",
-    "development",
-    "workflow"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/executing-ai-development-workflow/SKILL.md",
+  "source": "github.com/camoneart/claude-code",
+  "downloaded_at": "2026-01-14T03:37:03.937021Z"
 }

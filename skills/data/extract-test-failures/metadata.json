@@ -1,13 +1,7 @@
 {
   "name": "extract-test-failures",
-  "description": "Extract and summarize test failures from logs. Use to quickly understand what tests failed and why.",
   "repo": "mvillmow/ProjectOdyssey",
-  "category": "testing",
-  "tags": [
-    "extract",
-    "test",
-    "failures"
-  ],
-  "stars": 8,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/extract-test-failures/SKILL.md",
+  "source": "github.com/mvillmow/ProjectOdyssey",
+  "downloaded_at": "2026-01-14T01:09:03.762530Z"
 }

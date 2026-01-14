@@ -1,156 +1,106 @@
 ---
 name: database-optimization
-description: Optimize SQL queries, analyze indexes, review Alembic migrations, and identify N+1 problems. Provides query execution plans, index recommendations, and migration best practices for SQLAlchemy async.
+description: Use when optimizing database queries, indexes, N+1 problems, slow queries, or analyzing query performance.
 ---
 
-# Database Optimization Skill
+# Database Optimization for EasyPlatform
 
-## When to Use
+## N+1 Query Problem
 
-Use this skill when:
-- Optimizing slow SQL queries
-- Analyzing missing or redundant indexes
-- Reviewing Alembic migrations for safety
-- Identifying N+1 query problems
-- Designing database schemas
-- Planning data migrations
-- Reviewing query execution plans
+```csharp
+// BAD: N+1 queries
+var employees = await repo.GetAllAsync(e => e.CompanyId == companyId, ct);
+foreach (var emp in employees)
+{
+    var dept = await deptRepo.GetByIdAsync(emp.DepartmentId, ct);  // N queries!
+}
 
-## Optimization Checklist
+// GOOD: Eager loading
+var employees = await repo.GetAllAsync(
+    e => e.CompanyId == companyId, ct,
+    loadRelatedEntities: e => e.Department);  // Single query with join
 
-### 1. Index Analysis
+// GOOD: Batch load
+var employees = await repo.GetAllAsync(e => e.CompanyId == companyId, ct);
+var deptIds = employees.Select(e => e.DepartmentId).Distinct().ToList();
+var departments = await deptRepo.GetByIdsAsync(deptIds, ct);
+var deptMap = departments.ToDictionary(d => d.Id);
+```
+
+## Projection (Fetch Only Needed Columns)
+
+```csharp
+// BAD: Fetching entire entity
+var employee = await repo.GetByIdAsync(id, ct);
+return employee.Id;
+
+// GOOD: Projection
+var employeeId = await repo.FirstOrDefaultAsync(
+    query => query.Where(Employee.UniqueExpr(userId, companyId)).Select(e => e.Id), ct);
+```
+
+## Parallel Independent Queries
+
+```csharp
+// BAD: Sequential
+var count = await repo.CountAsync(filter, ct);
+var items = await repo.GetAllAsync(filter, ct);
+
+// GOOD: Parallel tuple queries
+var (count, items, stats) = await (
+    repo.CountAsync((uow, q) => queryBuilder(uow, q), ct),
+    repo.GetAllAsync((uow, q) => queryBuilder(uow, q).PageBy(skip, take), ct),
+    statsRepo.GetAsync(companyId, ct)
+);
+```
+
+## Reusable Query Builder
+
+```csharp
+var queryBuilder = repo.GetQueryBuilder((uow, q) => q
+    .Where(Employee.OfCompanyExpr(RequestContext.CurrentCompanyId()))
+    .WhereIf(req.Statuses.Any(), e => req.Statuses.Contains(e.Status))
+    .WhereIf(req.DepartmentId.IsNotNullOrEmpty(), e => e.DepartmentId == req.DepartmentId)
+    .PipeIf(req.SearchText.IsNotNullOrEmpty(), q =>
+        fullTextSearch.Search(q, req.SearchText, Employee.SearchColumns())));
+
+var (total, items) = await (
+    repo.CountAsync((uow, q) => queryBuilder(uow, q), ct),
+    repo.GetAllAsync((uow, q) => queryBuilder(uow, q)
+        .OrderByDescending(e => e.CreatedDate)
+        .PageBy(req.SkipCount, req.MaxResultCount), ct)
+);
+```
+
+## Index Recommendations
+
+### MongoDB
+
+```javascript
+{ "CompanyId": 1 }                           // Single field
+{ "CompanyId": 1, "Status": 1, "CreatedDate": -1 }  // Compound
+{ "FullName": "text", "Email": "text" }      // Text index
+```
+
+### SQL Server
 
 ```sql
--- Check missing indexes
-SELECT schemaname, tablename, indexname, indexdef
-FROM pg_indexes
-WHERE tablename = 'your_table';
-
--- Identify unused indexes
-SELECT * FROM pg_stat_user_indexes
-WHERE idx_scan = 0;
+CREATE INDEX IX_Employee_Company_Status
+ON Employees (CompanyId, Status)
+INCLUDE (FullName, Email, CreatedDate);
 ```
 
-**Index Recommendations:**
-```
-✅ Always index:
-- Primary keys (automatic)
-- Foreign keys
-- Columns in WHERE clauses
-- Columns in ORDER BY
-- Columns in JOIN conditions
+## Bulk Operations
 
-❌ Avoid indexing:
-- Low cardinality columns (boolean, status)
-- Frequently updated columns
-- Small tables (<1000 rows)
+```csharp
+await repo.CreateManyAsync(entities, ct);
+await repo.UpdateManyAsync(entities, dismissSendEvent: true, checkDiff: false, ct);
+await repo.DeleteManyAsync(e => e.Status == Status.Deleted, ct);
 ```
 
-### 2. N+1 Query Detection
+## Anti-Patterns
 
-```python
-# ❌ N+1 Problem
-users = await session.execute(select(User))
-for user in users:
-    # This triggers N additional queries!
-    orders = await session.execute(
-        select(Order).where(Order.user_id == user.id)
-    )
-
-# ✅ Solution: Eager loading
-from sqlalchemy.orm import selectinload
-
-users = await session.execute(
-    select(User).options(selectinload(User.orders))
-)
-```
-
-### 3. Query Optimization Patterns
-
-```python
-# ✅ Use pagination
-from sqlalchemy import select
-from app.models import Product
-
-async def get_products(skip: int = 0, limit: int = 20):
-    query = select(Product).offset(skip).limit(limit)
-    result = await session.execute(query)
-    return result.scalars().all()
-
-# ✅ Use specific columns (not SELECT *)
-query = select(Product.id, Product.name, Product.price)
-
-# ✅ Use exists() for existence checks
-from sqlalchemy import exists
-query = select(exists().where(User.email == email))
-```
-
-### 4. Migration Safety
-
-```python
-# ✅ Safe migration patterns
-def upgrade():
-    # Add column with default (no table lock)
-    op.add_column('users', sa.Column('status', sa.String(20), 
-                                      server_default='active'))
-
-# ❌ Dangerous patterns
-def upgrade():
-    # Avoid: Rename column (breaks app)
-    op.alter_column('users', 'name', new_column_name='full_name')
-    
-    # Avoid: Change column type (data loss risk)
-    op.alter_column('users', 'age', type_=sa.String())
-```
-
-### 5. Async Best Practices
-
-```python
-# ✅ Proper async session handling
-from sqlalchemy.ext.asyncio import AsyncSession
-
-async def get_user(session: AsyncSession, user_id: int):
-    result = await session.execute(
-        select(User).where(User.id == user_id)
-    )
-    return result.scalar_one_or_none()
-
-# ✅ Bulk operations
-async def bulk_insert(session: AsyncSession, items: list):
-    session.add_all(items)
-    await session.commit()
-```
-
-## Output Format
-
-```markdown
-## Database Optimization Report
-
-### Query Analysis
-- Queries analyzed: X
-- Slow queries (>100ms): X
-- N+1 problems: X
-
-### Index Recommendations
-| Table | Column | Type | Reason |
-|-------|--------|------|--------|
-| users | email | UNIQUE | WHERE clause filter |
-| orders | user_id | INDEX | Foreign key JOIN |
-
-### Optimization Suggestions
-1. [Query] - [Current time] - [Optimized time] - [How]
-
-### Migration Review
-- ✅ Safe to run
-- ⚠️ Requires maintenance window
-- ❌ Breaking change detected
-```
-
-## Example Usage
-
-```
-@database Optimize the slow query in order_service.py:120
-@database Review the new migration for safety issues
-@database Find N+1 problems in the user module
-@database Suggest indexes for the products table
-```
+- **Loading entire collections**: Always filter and paginate
+- **Fetching unused data**: Use projections
+- **Sequential independent queries**: Use parallel tuple queries
+- **Skip without ordering**: Always order before pagination

@@ -1,11 +1,7 @@
 {
   "name": "linear-skills",
-  "description": "Lightweight Linear skill for fetching issue details. Returns only essential data (title, description, state, assignee) to optimize context usage compared to full Linear MCP.",
   "repo": "conorluddy/linear-skills",
-  "category": "data",
-  "tags": [
-    "linear",
-    "skills"
-  ],
-  "stars": 1
+  "path": "linear-skills/SKILL.md",
+  "source": "github.com/conorluddy/linear-skills",
+  "downloaded_at": "2026-01-14T02:44:39.719162Z"
 }

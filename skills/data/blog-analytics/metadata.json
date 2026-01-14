@@ -1,12 +1,7 @@
 {
   "name": "blog-analytics",
-  "description": "Track blog post performance and generate insights for continuous improvement. USE WHEN user says 'track post performance', 'analyze blog metrics', 'what posts performed well', 'blog analytics', OR req",
   "repo": "Zura1555/agents",
-  "category": "data",
-  "tags": [
-    "blog",
-    "analytics"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/blog-analytics/SKILL.md",
+  "source": "github.com/Zura1555/agents",
+  "downloaded_at": "2026-01-14T01:20:39.300279Z"
 }

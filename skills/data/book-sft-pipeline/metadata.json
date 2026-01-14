@@ -1,13 +1,7 @@
 {
   "name": "book-sft-pipeline",
-  "description": "This skill should be used when the user asks to \"fine-tune on books\", \"create SFT dataset\", \"train style model\", \"extract ePub text\", or mentions style transfer, LoRA training, book segmentation, or a",
   "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
-  "category": "data",
-  "tags": [
-    "book",
-    "sft",
-    "pipeline"
-  ],
-  "stars": 5035,
-  "source": "SkillsMP Synced Skills"
+  "path": "examples/book-sft-pipeline/SKILL.md",
+  "source": "github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
+  "downloaded_at": "2026-01-14T01:40:44.989891Z"
 }

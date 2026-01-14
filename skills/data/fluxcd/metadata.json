@@ -1,11 +1,7 @@
 {
   "name": "fluxcd",
-  "description": "GitOps toolkit with Flux CD for Kubernetes continuous delivery. Use when implementing GitOps workflows, Helm releases, Kustomize deployments, or image automation. Triggers: fluxcd, flux, gitops, gitre",
-  "repo": "cosmix/claude-code-setup",
-  "category": "devops",
-  "tags": [
-    "fluxcd"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "repo": "cosmix/loom",
+  "path": "skills/fluxcd/SKILL.md",
+  "source": "github.com/cosmix/loom",
+  "downloaded_at": "2026-01-14T02:38:34.297019Z"
 }

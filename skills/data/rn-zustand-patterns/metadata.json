@@ -1,9 +1,7 @@
 {
   "name": "rn-zustand-patterns",
-  "description": "Zustand state management patterns for React Native. Use when working with Zustand stores, debugging state timing issues, or implementing async actions in Zustand.",
   "repo": "CJHarmath/claude-agents-skills",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/rn-zustand-patterns/SKILL.md",
+  "source": "github.com/CJHarmath/claude-agents-skills",
+  "downloaded_at": "2026-01-14T02:34:05.319576Z"
 }

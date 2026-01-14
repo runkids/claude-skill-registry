@@ -1,11 +1,7 @@
 {
   "name": "git",
-  "description": "Git commit and pull request guidelines using conventional commits. Use when creating commits, writing commit messages, creating PRs, or reviewing PR descriptions.",
-  "repo": "EpicenterHQ/epicenter",
-  "category": "design",
-  "tags": [
-    "git"
-  ],
-  "stars": 3797,
-  "source": "SkillsMP Synced Skills"
+  "repo": "oriolrius/nifi-cluster",
+  "path": ".claude/skills/git/SKILL.md",
+  "source": "github.com/oriolrius/nifi-cluster",
+  "downloaded_at": "2026-01-14T04:01:38.626751Z"
 }

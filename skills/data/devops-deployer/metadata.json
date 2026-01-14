@@ -1,12 +1,7 @@
 {
   "name": "devops-deployer",
-  "description": "Comprehensive DevOps and deployment workflow that orchestrates infrastructure automation, CI/CD pipelines, container orchestration, and cloud deployment. Handles everything from infrastructure as code",
   "repo": "ajianaz/skills-collection",
-  "category": "devops",
-  "tags": [
-    "devops",
-    "deployer"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": "skills/devops-deployer/SKILL.md",
+  "source": "github.com/ajianaz/skills-collection",
+  "downloaded_at": "2026-01-14T01:20:43.792726Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "performance-scaling",
-  "description": "Cross-model performance optimization and scaling configurations for autonomous agents",
   "repo": "bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/performance-scaling/SKILL.md",
+  "source": "github.com/bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
+  "downloaded_at": "2026-01-14T01:09:10.032049Z"
 }

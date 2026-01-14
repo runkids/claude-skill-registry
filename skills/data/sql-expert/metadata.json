@@ -1,11 +1,7 @@
 {
   "name": "sql-expert",
-  "description": "\"Expert SQL query writing, optimization, and database schema design with support for PostgreSQL, MySQL, SQLite, and SQL Server. Use when working with databases for: (1) Writing complex SQL queries wit",
-  "repo": "QuestForTech-Investments/claude-code-skills",
-  "category": "data",
-  "tags": [
-    "sql",
-    "expert"
-  ],
-  "stars": 2
+  "repo": "AutumnsGrove/ClaudeSkills",
+  "path": "sql-expert/SKILL.md",
+  "source": "github.com/AutumnsGrove/ClaudeSkills",
+  "downloaded_at": "2026-01-14T02:23:54.939762Z"
 }

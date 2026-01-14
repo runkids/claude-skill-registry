@@ -1,13 +1,7 @@
 {
   "name": "github-issue-reader",
-  "description": "Load comprehensive GitHub issue information including title, description, comments, labels, assignees, milestones, and related items (linked PRs and cross-references). This skill should be used when p",
-  "repo": "jumppad-labs/jumppad",
-  "category": "data",
-  "tags": [
-    "github",
-    "issue",
-    "reader"
-  ],
-  "stars": 261,
-  "source": "SkillsMP Synced Skills"
+  "repo": "EdanStarfire/claudecode_webui",
+  "path": ".claude/skills/github-issue-reader/SKILL.md",
+  "source": "github.com/EdanStarfire/claudecode_webui",
+  "downloaded_at": "2026-01-14T01:51:07.938521Z"
 }

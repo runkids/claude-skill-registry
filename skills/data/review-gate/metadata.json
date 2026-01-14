@@ -1,12 +1,7 @@
 {
   "name": "review-gate",
-  "description": "HARD GATE before PR creation - verifies review artifact exists in issue comments, all findings addressed or tracked, blocks PR creation if requirements not met",
-  "repo": "troykelly/claude-skills",
-  "category": "design",
-  "tags": [
-    "review",
-    "gate"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "troykelly/codex-skills",
+  "path": "skills/review-gate/SKILL.md",
+  "source": "github.com/troykelly/codex-skills",
+  "downloaded_at": "2026-01-14T03:34:00.372766Z"
 }

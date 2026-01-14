@@ -1,11 +1,7 @@
 {
   "name": "understand",
-  "description": "Document and name functions, structs, and fields in Melee decompilation. Use for improving readability, discovering function purposes, and naming unknown fields. Invoked with /understand <target> wher",
   "repo": "itsgrimetime/melee-decomp",
-  "category": "documents",
-  "tags": [
-    "understand"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": ".claude/skills/understand/SKILL.md",
+  "source": "github.com/itsgrimetime/melee-decomp",
+  "downloaded_at": "2026-01-14T01:51:04.744515Z"
 }

@@ -1,14 +1,7 @@
 {
   "name": "refactor-dedupe-and-cleanup",
-  "description": "[Code Quality] Removes code duplication and cleans up dead code. Use to eliminate copy-paste code, consolidate similar logic, and remove unused code paths.",
   "repo": "CANTAGESTUDIO/CosmicAtlasPacker",
-  "category": "development",
-  "tags": [
-    "refactor",
-    "dedupe",
-    "and",
-    "cleanup"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".factory/skills/refactor-dedupe-and-cleanup/SKILL.md",
+  "source": "github.com/CANTAGESTUDIO/CosmicAtlasPacker",
+  "downloaded_at": "2026-01-14T02:43:52.846718Z"
 }

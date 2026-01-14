@@ -1,13 +1,7 @@
 {
   "name": "security-testing-patterns",
-  "description": "Security testing patterns including SAST, DAST, penetration testing, and vulnerability assessment techniques. Use when implementing security testing pipelines, conducting security audits, or validatin",
-  "repo": "NickCrew/claude-ctx-plugin",
-  "category": "security",
-  "tags": [
-    "security",
-    "testing",
-    "patterns"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "NickCrew/claude-cortex",
+  "path": "skills/security-testing-patterns/SKILL.md",
+  "source": "github.com/NickCrew/claude-cortex",
+  "downloaded_at": "2026-01-14T02:11:08.131921Z"
 }

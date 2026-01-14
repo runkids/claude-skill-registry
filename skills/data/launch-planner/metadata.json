@@ -1,12 +1,7 @@
 {
   "name": "launch-planner",
-  "description": "Converts app ideas into shippable MVPs by providing structured product planning, technical guidance, and decision-making support focused on rapid validation. Use when the user shares an app idea, need",
-  "repo": "rspeciale0519/MailingListManager",
-  "category": "product",
-  "tags": [
-    "launch",
-    "planner"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "AIBPM42/hodgesfooshee-site-spark",
+  "path": ".claude/skills/launch-planner/SKILL.md",
+  "source": "github.com/AIBPM42/hodgesfooshee-site-spark",
+  "downloaded_at": "2026-01-14T01:40:31.358154Z"
 }

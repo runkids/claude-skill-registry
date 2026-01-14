@@ -14,7 +14,7 @@ Figma MCP는 필요하지 않습니다.
 
 Figma Conversion에서 생성된 정적 파일:
 ```
-Figma_Conversion/Conversion/[프로젝트명]/[컴포넌트명]/
+Figma_Conversion/Static_Components/[프로젝트명]/[컴포넌트명]/
 ├── assets/
 ├── [컴포넌트명].html
 └── [컴포넌트명].css
@@ -31,7 +31,8 @@ RNBT_architecture/Projects/[프로젝트명]/page/components/[ComponentName]/
 ├── scripts/
 │   ├── register.js            # 초기화 + 메서드 정의
 │   └── beforeDestroy.js       # 정리
-└── preview.html               # 독립 테스트 (Mock 데이터 포함)
+├── preview.html               # 독립 테스트 (Mock 데이터 포함)
+└── README.md                  # 컴포넌트 문서 (필수)
 ```
 
 ---
@@ -91,8 +92,23 @@ RNBT_architecture/Projects/[프로젝트명]/page/components/[ComponentName]/
 
 | 단계 | 파일 | 접근 가능 요소 |
 |------|------|---------------|
-| **register** | `register.js` | `this.element` (`appendElement`) |
-| **beforeDestroy** | `beforeDestroy.js` | `this.element` |
+| **register** | `register.js` | `this.appendElement` |
+| **beforeDestroy** | `beforeDestroy.js` | `this.appendElement` |
+
+### appendElement (컴포넌트 컨테이너)
+
+`this.appendElement`는 컴포넌트의 가장 최상단 컨테이너입니다.
+
+- **2D 컴포넌트**: instance id를 id 속성으로 가진 HTMLElement(div)
+- **3D 컴포넌트**: "MainGroup"을 이름으로 가진 THREE.Object3D
+
+```javascript
+// DOM 요소 접근
+const chart = this.appendElement.querySelector('.chart-container');
+
+// 이벤트 위임
+this.appendElement.addEventListener('click', handler);
+```
 
 ### 페이지 라이프사이클 (참고)
 
@@ -162,7 +178,7 @@ fx.go(
 fx.go(
     config.fields,
     fx.each(({ key, selector, suffix }) => {
-        const el = this.element.querySelector(selector);
+        const el = this.appendElement.querySelector(selector);
         if (el) el.textContent = suffix ? `${data[key]}${suffix}` : data[key];
     })
 );
@@ -252,10 +268,10 @@ fx.go(
 );
 ```
 
-### 2. Event-Driven 패턴 (WEventBus)
+### 2. Event-Driven 패턴 (Weventbus)
 
 ```javascript
-const { bindEvents, removeCustomEvents } = WKit;
+const { bindEvents, removeCustomEvents } = Wkit;
 
 // ==================
 // CUSTOM EVENTS
@@ -273,6 +289,52 @@ this.customEvents = {
 
 bindEvents(this, this.customEvents);
 ```
+
+### 이벤트 처리 방식 결정 원칙
+
+컴포넌트 이벤트는 **내부 동작**과 **외부 알림** 두 가지로 구분됩니다. 두 방식은 공존 가능합니다.
+
+**질문: "이 동작의 결과를 페이지가 알아야 하는가?"**
+
+| 답변 | 처리 방식 | 예시 |
+|------|----------|------|
+| **아니오** (컴포넌트 내부 완결) | `setupInternalHandlers`만 | Clear, Toggle, 내부 탭 전환 |
+| **예** (페이지가 후속 처리) | `customEvents`만 | 행 선택 → 상세 패널, Export → 파일 다운로드 |
+| **둘 다** (내부 완결 + 알림) | 둘 다 | 노드 클릭 → 선택 표시(내부) + 상세 요청(외부) |
+
+**더 구체적인 기준:**
+1. **UI 상태 변경만** → 내부 (setupInternalHandlers)
+2. **데이터 요청/페이지 변화 필요** → 외부 (customEvents)
+3. **확신 없으면** → 둘 다 (내부 동작 필수, 외부 알림 선택적)
+
+```javascript
+// 내부 동작 (setupInternalHandlers) - _internalHandlers로 참조 저장
+this._internalHandlers = {};
+
+function setupInternalHandlers() {
+    const root = this.appendElement;
+
+    // 핸들러 참조 저장 (beforeDestroy에서 제거용)
+    this._internalHandlers.clearClick = () => this.clearLogs();
+    this._internalHandlers.toggleClick = () => this.toggleAutoScroll();
+
+    // 핸들러 바인딩
+    root.querySelector('.btn-clear')?.addEventListener('click', this._internalHandlers.clearClick);
+    root.querySelector('.btn-toggle')?.addEventListener('click', this._internalHandlers.toggleClick);
+}
+setupInternalHandlers.call(this);
+
+// beforeDestroy.js에서 정리:
+// const root = this.appendElement;
+// root.querySelector('.btn-clear')?.removeEventListener('click', this._internalHandlers.clearClick);
+// root.querySelector('.btn-toggle')?.removeEventListener('click', this._internalHandlers.toggleClick);
+// this._internalHandlers = null;
+```
+
+**중요:**
+- 핸들러 참조를 `this._internalHandlers`에 저장해야 beforeDestroy에서 `removeEventListener`로 정리 가능
+- 익명 함수(`() => ...`)를 직접 사용하면 제거 불가능
+- 페이지가 이벤트를 구독하지 않아도 컴포넌트는 독립적으로 동작해야 합니다.
 
 ### 3. Config 패턴 (What to render)
 
@@ -398,7 +460,7 @@ function renderList(config, { response }) {
     const { data } = response;
     if (!data || !data.items) return;
 
-    const root = this.element;
+    const root = this.appendElement;
     const list = root.querySelector(config.selectors.list);
     const template = root.querySelector(config.selectors.template);
 
@@ -475,7 +537,7 @@ data.items.forEach(itemData => {
  */
 
 const { subscribe } = GlobalDataPublisher;
-const { bindEvents } = WKit;
+const { bindEvents } = Wkit;
 
 // ==================
 // CONFIG
@@ -539,7 +601,7 @@ function renderData(config, { response }) {
     fx.go(
         config.fields,
         fx.each(({ key, selector, suffix, dataAttr }) => {
-            const el = this.element.querySelector(selector);
+            const el = this.appendElement.querySelector(selector);
             if (!el) return;
 
             const value = data[key];
@@ -565,7 +627,7 @@ function renderData(config, { response }) {
  */
 
 const { unsubscribe } = GlobalDataPublisher;
-const { removeCustomEvents } = WKit;
+const { removeCustomEvents } = Wkit;
 
 // ==================
 // UNSUBSCRIBE
@@ -608,23 +670,21 @@ console.log('[ComponentName] Destroyed');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>[ComponentName] Preview</title>
+    <!-- Component CSS (컨테이너 크기 포함) -->
+    <link rel="stylesheet" href="styles/component.css">
     <style>
+        /* Reset & Base - 인라인 스타일 최소화 */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: #f1f5f9;
-            padding: 2rem;
-        }
-        #component-container {
-            width: 524px;   /* Figma 프레임 크기 */
-            height: 350px;
-            margin: 0 auto;
+            padding: 32px;
         }
     </style>
-    <link rel="stylesheet" href="styles/component.css">
 </head>
 <body>
-    <div id="component-container">
+    <!-- 컨테이너 ID는 컴포넌트별 고유: #[component-name]-container -->
+    <div id="[component-name]-container">
         <!-- views/component.html 내용 복사 -->
     </div>
 
@@ -642,7 +702,8 @@ console.log('[ComponentName] Destroyed');
 
     <!-- Render Test -->
     <script>
-        const container = document.getElementById('component-container');
+        // 컨테이너 ID는 실제 컴포넌트명으로 변경 (예: 'transaction-table-container')
+        const container = document.getElementById('[component-name]-container');
 
         function renderData(data) {
             const { fieldName } = data;
@@ -667,6 +728,8 @@ console.log('[ComponentName] Destroyed');
 | `subscribe(topic, this, handler)` | `unsubscribe(topic, this)` |
 | `this.customEvents = {...}` | `this.customEvents = null` |
 | `bindEvents(this, customEvents)` | `removeCustomEvents(this, customEvents)` |
+| `this._internalHandlers = {}` | `this._internalHandlers = null` |
+| `addEventListener(event, this._internalHandlers.xxx)` | `removeEventListener(event, this._internalHandlers.xxx)` |
 | `this.renderData = fn.bind(this)` | `this.renderData = null` |
 | `this.chartInstance = echarts.init(...)` | `this.chartInstance.dispose()` |
 | `this.tableInstance = new Tabulator(...)` | `this.tableInstance.destroy()` |
@@ -674,38 +737,21 @@ console.log('[ComponentName] Destroyed');
 
 ---
 
-## CSS 레이아웃 원칙
+## CSS 원칙
 
-### 레이아웃 컨테이너: flexbox 우선
+**[CODING_STYLE.md](../CODING_STYLE.md)의 CSS 원칙 섹션 참조**
 
-**레이아웃 컨테이너**에는 `position: absolute` 대신 **flexbox**를 사용합니다.
+핵심 요약:
+- **px 단위 사용** (rem/em 금지)
+- **Flexbox 우선** (Grid/absolute 지양)
 
+**컴포넌트 스크롤 패턴:**
 ```css
-/* ❌ absolute 레이아웃 */
-.component {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-}
-
-/* ✅ flexbox 레이아웃 */
-.component {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
 .component__content {
     flex: 1;
     min-height: 0;  /* overflow 스크롤 작동에 필요 */
 }
 ```
-
-**absolute 허용 케이스**:
-- 배경 레이어 (`z-index: 0`으로 분리)
-- 오버레이, 팝업
-- 아이콘 내부 장식 요소
 
 ---
 
@@ -717,9 +763,67 @@ console.log('[ComponentName] Destroyed');
 | **Tabulator** | 테이블 | `new Tabulator(selector, options)` | `.destroy()` |
 | **ResizeObserver** | 리사이즈 감지 | `new ResizeObserver(callback)` | `.disconnect()` |
 
-### Tabulator height: 100%
+---
 
-`height: '100%'`가 작동하려면 부모가 flexbox 레이아웃이어야 합니다. (CSS 레이아웃 원칙 참고)
+## 차트 컴포넌트 필수 규칙
+
+**Figma에서 차트가 정적 SVG로 제공되더라도, 동적 데이터를 표시하는 차트는 반드시 ECharts로 구현한다.**
+
+```
+❌ 잘못된 접근:
+- Figma SVG를 그대로 사용 → "디자인 일치하니까 정적으로 두자"
+- ECharts 구현을 TBD로 미루기
+- "나중에 동적으로 바꾸면 되지" 생각
+
+✅ 올바른 접근:
+- 차트 영역 식별 → ECharts 컨테이너로 대체
+- Figma의 정적 SVG 차트는 제거
+- Figma 디자인은 차트 스타일(색상, 그리드, 레전드 등) 참고용으로만 사용
+- config.chart에 ECharts 설정 정의
+```
+
+**이유**: create-component의 목적은 "동적 컴포넌트" 생성이다. 정적 SVG 차트는 데이터 변경 시 업데이트가 불가능하여 컴포넌트의 목적에 맞지 않는다.
+
+### 차트 변환 예시
+
+```javascript
+// Figma: 정적 SVG 라인 차트
+// → 제거하고 ECharts 컨테이너로 대체
+
+// HTML
+<div class="component__chart-container"></div>
+
+// register.js
+const chartConfig = {
+    container: '.component__chart-container',
+    xKey: 'TBD_timestamps',
+    series: [
+        { yKey: 'TBD_yesterday', name: '전일', color: '#038c8c' },
+        { yKey: 'TBD_today', name: '금일', color: '#5bdcc6' }
+    ]
+};
+
+// ECharts 초기화
+const chartContainer = this.appendElement.querySelector(chartConfig.container);
+this.chartInstance = echarts.init(chartContainer);
+
+// 렌더링 함수에서 차트 업데이트
+function renderChart(config, { response }) {
+    const { data } = response;
+    if (!data || !this.chartInstance) return;
+
+    const option = {
+        xAxis: { data: data[config.xKey] },
+        series: config.series.map(s => ({
+            name: s.name,
+            type: 'line',
+            data: data[s.yKey],
+            itemStyle: { color: s.color }
+        }))
+    };
+    this.chartInstance.setOption(option);
+}
+```
 
 ---
 
@@ -751,7 +855,7 @@ console.log('[ComponentName] Destroyed');
 ```
 - [ ] 정적 HTML 구조 분석 완료
 - [ ] views/component.html 생성 (data-bind 속성 포함)
-- [ ] styles/component.css 생성 (#component-container 스코프)
+- [ ] styles/component.css 생성 (#[component-name]-container 스코프)
 - [ ] register.js 작성
     - [ ] subscriptions 정의
     - [ ] customEvents 정의
@@ -765,7 +869,61 @@ console.log('[ComponentName] Destroyed');
 - [ ] preview.html 작성
     - [ ] Mock 데이터 정의
     - [ ] 독립 렌더링 테스트
+- [ ] README.md 작성 (필수)
 - [ ] 브라우저에서 preview.html 열어 확인
+```
+
+---
+
+## README.md 템플릿 (필수)
+
+각 컴포넌트에 README.md를 작성하여 컴포넌트의 동작과 사용법을 문서화합니다.
+
+```markdown
+# [ComponentName]
+
+[컴포넌트 한 줄 설명]
+
+## 데이터 구조
+
+\`\`\`javascript
+{
+    field1: "value",        // 필드 설명
+    items: [                // 배열 필드 설명
+        { id: 1, name: "Item" }
+    ]
+}
+\`\`\`
+
+## 구독 (Subscriptions)
+
+| Topic | 함수 | 설명 |
+|-------|------|------|
+| `topicName` | `renderData` | 데이터 수신 시 렌더링 |
+
+## 발행 이벤트 (Events)
+
+| 이벤트 | 발생 시점 | payload |
+|--------|----------|---------|
+| `@eventName` | 버튼 클릭 시 | `{ event, targetInstance }` |
+
+## 내부 동작
+
+### [기능 1]
+- 동작 설명
+
+## 파일 구조
+
+\`\`\`
+[ComponentName]/
+├── views/component.html
+├── styles/component.css
+├── scripts/
+│   ├── register.js
+│   └── beforeDestroy.js
+├── preview.html
+└── README.md
+\`\`\`
 ```
 
 ---
@@ -774,6 +932,7 @@ console.log('[ComponentName] Destroyed');
 
 | 문서 | 참고 시점 | 내용 |
 |------|----------|------|
+| [CODING_STYLE.md](../CODING_STYLE.md) | **코드 작성 시 (필수)** | 함수형 코딩 지침, 안티패턴, 권장 패턴 |
 | `discussions/2025-12-30_component_standalone.md` | API/Figma 없이 컴포넌트 개발 시 | 미리 완성 가능한 것 vs TBD 항목 구분 |
 | `discussions/2025-12-31_config_pattern_catalog.md` | Config 구조 설계 시 | Field, Chart, Table 등 Config 패턴 카탈로그 |
 
@@ -781,6 +940,6 @@ console.log('[ComponentName] Destroyed');
 
 | 예제 | 참고 시점 | 특징 |
 |------|----------|------|
-| `RNBT_architecture/Examples/example_tutorial/` | 처음 시작할 때 | 기본 구조, 교육용 대시보드 |
+| `RNBT_architecture/Examples/SimpleDashboard/` | 표준 예제 (필수 참고) | CODING_STYLE 적용, 1920x1080 레이아웃, 컨테이너 ID 패턴 |
 | `RNBT_architecture/Projects/ECO/` | 실제 프로젝트 패턴 확인 시 | 데이터센터 관리, 다양한 컴포넌트 |
 | `RNBT_architecture/Projects/HANA_BANK_HIT_Dev/` | 동적 리스트 구현 시 | PerformanceMonitoring (template clone 패턴) |

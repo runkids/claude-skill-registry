@@ -1,13 +1,7 @@
 {
   "name": "best-practice-search",
-  "description": "搜索并提炼业界/开源最佳实践的 SOP，强调可信来源、适用边界与可执行建议。",
   "repo": "cklxx/elephant.ai",
-  "category": "development",
-  "tags": [
-    "best",
-    "practice",
-    "search"
-  ],
-  "stars": 7,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/best-practice-search/SKILL.md",
+  "source": "github.com/cklxx/elephant.ai",
+  "downloaded_at": "2026-01-14T02:17:23.284614Z"
 }

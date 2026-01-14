@@ -1,13 +1,7 @@
 {
   "name": "tdd-full-coverage",
-  "description": "Use when implementing features or fixes - test-driven development with RED-GREEN-REFACTOR cycle and full code coverage requirement",
-  "repo": "troykelly/claude-skills",
-  "category": "development",
-  "tags": [
-    "tdd",
-    "full",
-    "coverage"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "troykelly/codex-skills",
+  "path": "skills/tdd-full-coverage/SKILL.md",
+  "source": "github.com/troykelly/codex-skills",
+  "downloaded_at": "2026-01-14T03:34:03.167508Z"
 }

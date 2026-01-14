@@ -1,9 +1,7 @@
 {
   "name": "local-knowledge",
-  "description": "Leverage personal notes and documentation through Terraphim's role-based search.AI agents can search developer's local knowledge organized by domain (Rust, frontend, architecture)using the terraphim-a",
-  "repo": "terraphim/codex-skills",
-  "category": "documents",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "terraphim/opencode-skills",
+  "path": "skill/local-knowledge/SKILL.md",
+  "source": "github.com/terraphim/opencode-skills",
+  "downloaded_at": "2026-01-14T02:27:08.930989Z"
 }

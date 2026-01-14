@@ -1,11 +1,7 @@
 {
   "name": "vitest",
-  "description": "Use when writing or configuring Vitest tests - assertions, mocking, coverage, and workspace-aware testing for TypeScript projects",
   "repo": "mcclowes/omg",
-  "category": "testing",
-  "tags": [
-    "vitest"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/vitest/SKILL.md",
+  "source": "github.com/mcclowes/omg",
+  "downloaded_at": "2026-01-14T04:01:34.259474Z"
 }

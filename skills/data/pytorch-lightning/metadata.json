@@ -1,12 +1,7 @@
 {
   "name": "pytorch-lightning",
-  "description": "High-level training framework for PyTorch that abstracts boilerplate while maintaining flexibility. Includes the Trainer, LightningModule, and support for multi-GPU scaling and reproducibility. (light",
   "repo": "cuba6112/skillfactory",
-  "category": "development",
-  "tags": [
-    "pytorch",
-    "lightning"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": "skills/pytorch-lightning/SKILL.md",
+  "source": "github.com/cuba6112/skillfactory",
+  "downloaded_at": "2026-01-14T02:37:39.639061Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "testing-strategy",
-  "description": "Use when writing tests, reviewing test code, or discussing testing approach for walkerOS packages. Covers env pattern, dev examples, and package-specific strategies.",
-  "repo": "elbwalker/walkerOS",
-  "category": "development",
-  "tags": [
-    "testing",
-    "strategy"
-  ],
-  "stars": 309,
-  "source": "SkillsMP Synced Skills"
+  "repo": "Doyajin174/myskills",
+  "path": ".public/skills/testing-strategy/SKILL.md",
+  "source": "github.com/Doyajin174/myskills",
+  "downloaded_at": "2026-01-14T03:45:37.206424Z"
 }

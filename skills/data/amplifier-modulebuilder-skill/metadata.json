@@ -1,13 +1,7 @@
 {
   "name": "amplifier-modulebuilder-skill",
-  "description": "Build amplifier-foundation modules using \"bricks and studs\" architecture. Covers tool, hook, provider, context, and orchestrator modules with testing, publishing, and best practices.",
   "repo": "michaeljabbour/amplifier-modulebuilder-skill",
-  "category": "testing",
-  "tags": [
-    "amplifier",
-    "modulebuilder",
-    "skill"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/amplifier-modulebuilder-skill/SKILL.md",
+  "source": "github.com/michaeljabbour/amplifier-modulebuilder-skill",
+  "downloaded_at": "2026-01-14T01:49:00.155999Z"
 }

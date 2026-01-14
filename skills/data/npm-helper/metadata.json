@@ -1,12 +1,7 @@
 {
   "name": "npm-helper",
-  "description": "NPM and Node.js package management, project configuration, and dependency troubleshooting.",
   "repo": "CuriousLearner/devkit",
-  "category": "development",
-  "tags": [
-    "npm",
-    "helper"
-  ],
-  "stars": 13,
-  "source": "local"
+  "path": "skills/npm-helper/SKILL.md",
+  "source": "github.com/CuriousLearner/devkit",
+  "downloaded_at": "2026-01-14T02:22:34.143636Z"
 }

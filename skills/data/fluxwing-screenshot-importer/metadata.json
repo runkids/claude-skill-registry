@@ -1,13 +1,7 @@
 {
   "name": "fluxwing-screenshot-importer",
-  "description": "Import UI screenshots and generate uxscii components automatically using vision analysis. Use when user wants to import, convert, or generate .uxm components from screenshots or images.",
   "repo": "trabian/fluxwing-skills",
-  "category": "design",
-  "tags": [
-    "fluxwing",
-    "screenshot",
-    "importer"
-  ],
-  "stars": 9,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/fluxwing-screenshot-importer/SKILL.md",
+  "source": "github.com/trabian/fluxwing-skills",
+  "downloaded_at": "2026-01-14T03:53:53.246216Z"
 }

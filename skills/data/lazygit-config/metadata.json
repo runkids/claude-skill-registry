@@ -1,12 +1,7 @@
 {
   "name": "lazygit-config",
-  "description": "Configure lazygit TUI including config.yml setup, custom pagers (especially delta integration), themes, keybindings, and custom commands. Use when setting up lazygit, configuring git diff viewers, int",
   "repo": "wcygan/dotfiles",
-  "category": "testing",
-  "tags": [
-    "lazygit",
-    "config"
-  ],
-  "stars": 182,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/lazygit-config/SKILL.md",
+  "source": "github.com/wcygan/dotfiles",
+  "downloaded_at": "2026-01-14T02:53:06.934688Z"
 }

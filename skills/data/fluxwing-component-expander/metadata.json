@@ -1,13 +1,7 @@
 {
   "name": "fluxwing-component-expander",
-  "description": "Add interaction states like hover, focus, disabled, active, error to existing uxscii components. Use when working with .uxm files, when user wants to expand, enhance, or add states to .uxm components.",
   "repo": "trabian/fluxwing-skills",
-  "category": "design",
-  "tags": [
-    "fluxwing",
-    "component",
-    "expander"
-  ],
-  "stars": 9,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/fluxwing-component-expander/SKILL.md",
+  "source": "github.com/trabian/fluxwing-skills",
+  "downloaded_at": "2026-01-14T03:53:53.112824Z"
 }

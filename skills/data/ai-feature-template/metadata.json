@@ -1,12 +1,7 @@
 {
   "name": "ai-feature-template",
-  "description": "Create new AI-powered features using xAI Grok. Use when user mentions \"new AI feature\", \"add Grok\", \"create prompt\", \"AI analysis\", or \"generate with AI\".",
   "repo": "AppleLamps/xpic2",
-  "category": "data",
-  "tags": [
-    "feature",
-    "template"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/ai-feature-template/SKILL.md",
+  "source": "github.com/AppleLamps/xpic2",
+  "downloaded_at": "2026-01-14T02:22:44.099485Z"
 }

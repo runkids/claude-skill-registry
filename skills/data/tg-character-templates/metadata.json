@@ -1,12 +1,7 @@
 {
   "name": "tg-character-templates",
-  "description": "Character template system for World of Darkness character creation. Use when implementing template selection in character creation flows, creating/managing CharacterTemplate objects, adding template s",
   "repo": "charlesmsiegel/tg",
-  "category": "product",
-  "tags": [
-    "character",
-    "templates"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/tg-character-templates/SKILL.md",
+  "source": "github.com/charlesmsiegel/tg",
+  "downloaded_at": "2026-01-14T04:01:31.513857Z"
 }

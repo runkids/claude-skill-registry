@@ -1,8 +1,7 @@
 {
   "name": "reward",
-  "repo": "atrawog/bazzite-ai-plugins",
-  "category": "data",
-  "description": "Reward model training for RLHF pipelines. Covers RewardTrainer, preference datasetpreparation, sequence classification heads, and reward scaling for stablereinforcement learning. Includes thinking qua",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:11:12.501529Z"
+  "repo": "SimHacker/moollm",
+  "path": "skills/reward/SKILL.md",
+  "source": "github.com/SimHacker/moollm",
+  "downloaded_at": "2026-01-14T01:56:38.646480Z"
 }

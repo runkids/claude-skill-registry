@@ -1,13 +1,7 @@
 {
   "name": "dispatching-parallel-agents",
-  "description": "Use when facing 3+ independent failures that can be investigated without shared state or dependencies - dispatches multiple Claude agents to investigate and fix independent problems concurrently",
-  "repo": "TheBBz/HFTPM",
-  "category": "data",
-  "tags": [
-    "dispatching",
-    "parallel",
-    "agents"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "neardws/droid-skills",
+  "path": "skills/superpowers/dispatching-parallel-agents/SKILL.md",
+  "source": "github.com/neardws/droid-skills",
+  "downloaded_at": "2026-01-14T04:02:14.850516Z"
 }

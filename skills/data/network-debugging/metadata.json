@@ -1,12 +1,7 @@
 {
   "name": "network-debugging",
-  "description": "Debug network issues using browser tools and network analysis. Diagnose connection problems, latency, and data transmission issues.",
   "repo": "aj-geddes/useful-ai-prompts",
-  "category": "development",
-  "tags": [
-    "network",
-    "debugging"
-  ],
-  "stars": 25,
-  "source": "local"
+  "path": "skills/network-debugging/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:08.643618Z"
 }

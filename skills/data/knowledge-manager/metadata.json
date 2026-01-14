@@ -1,12 +1,7 @@
 {
   "name": "knowledge-manager",
-  "description": "Manages a structured knowledge base of patterns, troubleshooting guides, best practices, and workflows. Activates when discovering reusable insights, solving technical problems, or establishing new st",
-  "repo": "fubira/claude-code-settings",
-  "category": "design",
-  "tags": [
-    "knowledge",
-    "manager"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "huifer/Claude-Code-KnowCraft",
+  "path": ".claude/skills/knowledge-manager/skill.md",
+  "source": "github.com/huifer/Claude-Code-KnowCraft",
+  "downloaded_at": "2026-01-14T02:24:08.087333Z"
 }

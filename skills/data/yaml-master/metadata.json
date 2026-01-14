@@ -1,11 +1,7 @@
 {
   "name": "yaml-master",
-  "description": "Proactive YAML intelligence: automatically activates when working with YAML files.Use when appropriate context detected. Trigger with relevant phrases based on skill purpose.",
   "repo": "gahoccode/PRDs",
-  "category": "data",
-  "tags": [
-    "yaml",
-    "master"
-  ],
-  "stars": 0
+  "path": "skills/yaml-master/SKILL.md",
+  "source": "github.com/gahoccode/PRDs",
+  "downloaded_at": "2026-01-14T02:45:00.064378Z"
 }

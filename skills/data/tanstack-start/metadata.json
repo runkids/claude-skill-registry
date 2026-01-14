@@ -1,12 +1,7 @@
 {
   "name": "tanstack-start",
-  "description": "Build full-stack React applications with TanStack Start on Cloudflare Workers. Type-safe routing, server functions, SSR/streaming, and seamless D1/KV/R2 integration.Use when: building full-stack React",
   "repo": "jezweb/claude-skills",
-  "category": "development",
-  "tags": [
-    "tanstack",
-    "start"
-  ],
-  "stars": 109,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/tanstack-start/SKILL.md",
+  "source": "github.com/jezweb/claude-skills",
+  "downloaded_at": "2026-01-14T04:01:49.706249Z"
 }

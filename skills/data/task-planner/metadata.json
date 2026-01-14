@@ -1,12 +1,7 @@
 {
   "name": "task-planner",
-  "description": "Generate structured task lists from specs or requirements. IMPORTANT: After completing ANY spec via ExitSpecMode, ALWAYS ask the user: \"Would you like me to generate a task list for this spec?\" Use wh",
   "repo": "ajianaz/skills-collection",
-  "category": "design",
-  "tags": [
-    "task",
-    "planner"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": "skills/task-planner/SKILL.md",
+  "source": "github.com/ajianaz/skills-collection",
+  "downloaded_at": "2026-01-14T01:20:42.950771Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "springboot-patterns",
-  "description": "Spring Boot and Java best practices for SpecFlux backend. Use when developing REST APIs, services, repositories, or any Java code. Applies DDD architecture, OpenAPI-first workflow, transaction managem",
-  "repo": "cliangdev/specflux-backend",
-  "category": "development",
-  "tags": [
-    "springboot",
-    "patterns"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "cliangdev/specflux",
+  "path": "src/templates/files/skills/springboot-patterns/SKILL.md",
+  "source": "github.com/cliangdev/specflux",
+  "downloaded_at": "2026-01-14T02:02:05.730872Z"
 }

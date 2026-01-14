@@ -1,12 +1,7 @@
 {
   "name": "accessibility-audit",
-  "description": "Use PROACTIVELY when user asks for accessibility review, a11y audit, WCAG compliance check, screen reader testing, keyboard navigation validation, or color contrast analysis. Audits React/TypeScript a",
-  "repo": "cskiro/claudex",
-  "category": "testing",
-  "tags": [
-    "accessibility",
-    "audit"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "astoeffer/plugin-marketplace",
+  "path": "plugins/moodle-dev-pro/skills/accessibility-audit/SKILL.md",
+  "source": "github.com/astoeffer/plugin-marketplace",
+  "downloaded_at": "2026-01-14T03:02:33.709627Z"
 }

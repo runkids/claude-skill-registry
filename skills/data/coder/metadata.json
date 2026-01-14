@@ -1,11 +1,7 @@
 {
   "name": "coder",
-  "description": "Implementation Agent: Full TDD workflow in a single context window. Writes tests, implements code, and iterates until all tests pass.",
   "repo": "pcortes/swarm-attack",
-  "category": "testing",
-  "tags": [
-    "coder"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": "swarm_attack/default_skills/coder/SKILL.md",
+  "source": "github.com/pcortes/swarm-attack",
+  "downloaded_at": "2026-01-14T04:01:14.422221Z"
 }

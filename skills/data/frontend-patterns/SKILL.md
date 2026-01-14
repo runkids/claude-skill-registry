@@ -1,287 +1,180 @@
 ---
 name: frontend-patterns
-description: >
-  CRITICAL: Use this skill when creating/debugging React UI components, Radix UI, forms, modals, or drag & drop.
-
-  AUTO-ACTIVATE when user mentions (FR/EN):
-  - select, Select, SelectValue, SelectItem, Radix
-  - modal, modale, dialog, Dialog, DialogContent
-  - form, formulaire, validation, Zod, React Hook Form, shadcn
-  - drag, drop, DnD, @dnd-kit, sortable, réordonner
-  - UI bug, composant, component, affiche ID, shows ID, undefined
-  - Button, Input, Label, Checkbox, Switch, Badge, Card
-  - créer composant, create component, nouveau composant
-
-  This skill contains TESTED patterns for Radix UI Select (ID vs Name), Modal CRUD templates,
-  Drag & Drop with @dnd-kit, Form validation with Zod + shadcn/ui Form.
+description: Frontend patterns for Next.js App Router, Clerk auth, shadcn/Radix UI, and PostHog analytics. Use when building UI components, creating pages, implementing auth flows, or adding analytics events. Ensures consistent UX patterns and accessibility standards.
 ---
 
-# Frontend Patterns - Mathildanesth UI Components
+# Frontend Patterns Skill
 
-**Stack**: React 18, Next.js 15, Radix UI, Zustand, @dnd-kit, shadcn/ui
-**Purpose**: Reusable patterns to avoid recurring UI bugs
+## Purpose
 
----
+Ensure consistent frontend development using established patterns for Next.js App Router, Clerk authentication, shadcn/ui components, and PostHog analytics.
 
-## 🎯 Problems Solved
+## When This Skill Applies
 
-### ❌ Bugs Without This Guide
-```tsx
-// ❌ BUG 1: Select displays IDs instead of names
-<SelectValue placeholder="Select site" />
-// Shows: "site-123-abc" instead of "Clinique Mathilde"
+Invoke this skill when:
 
-// ❌ BUG 2: Modal doesn't reset state after close
-const [isOpen, setIsOpen] = useState(false);
-// Open, close, reopen → old content still visible
+- Building new UI components or pages
+- Implementing authentication flows
+- Adding forms with validation
+- Integrating PostHog analytics events
+- Creating protected/authenticated routes
+- Working with shadcn/ui or Radix components
 
-// ❌ BUG 3: Inconsistent form validation
-if (!name || name === '') { ... }  // Repeated 15 times
-```
+## Next.js App Router Patterns
 
----
+### Server vs Client Components
 
-## ✅ PATTERN 1: Radix UI Select (ID vs Name)
+```typescript
+// SERVER COMPONENT (default) - Use for:
+// - Data fetching
+// - Auth checks
+// - SEO-critical content
+// app/dashboard/page.tsx
+import { auth } from "@clerk/nextjs/server";
 
-### The Problem
-**Symptom**: Select shows technical ID ("site-123") instead of display name ("Clinique Mathilde")
-
-**Root Cause**: `SelectValue` with only `placeholder` doesn't handle displaying value when `value` is ID.
-
-### ✅ Correct Pattern (Tested & Validated)
-
-```tsx
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
-
-interface Site {
-  id: string;
-  name: string;
+export default async function DashboardPage() {
+  const { userId } = await auth();
+  // Fetch data server-side...
 }
 
-// ✅ COMPLETE PATTERN
-<Select value={selectedSiteId} onValueChange={setSelectedSiteId}>
-  <SelectTrigger>
-    <SelectValue>
-      {selectedSiteId
-        ? sites.find(s => s.id === selectedSiteId)?.name || 'Site selected'
-        : 'Select a site'}
-    </SelectValue>
-  </SelectTrigger>
-  <SelectContent>
-    {sites.map(site => (
-      <SelectItem key={site.id} value={site.id}>
-        {site.name}
-      </SelectItem>
-    ))}
-  </SelectContent>
-</Select>
+// CLIENT COMPONENT - Use for:
+// - Interactivity (onClick, onChange)
+// - Browser APIs (localStorage, window)
+// - Hooks (useState, useEffect)
+// app/dashboard/_components/interactive-widget.tsx
+("use client");
+
+import { useState } from "react";
+
+export function InteractiveWidget() {
+  const [count, setCount] = useState(0);
+  // Interactive logic...
+}
 ```
 
-**Files**: `src/app/admin/views/SitesView.tsx:1234, 1328, 1542, 1651, 893`
+### Protected Pages
 
----
+**CRITICAL**: Always use `export const dynamic = 'force-dynamic'` for authenticated pages:
 
-## ✅ PATTERN 2: Modal CRUD Templates
+```typescript
+// app/dashboard/[page]/page.tsx
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
-### General Pattern: State & Handlers
+// REQUIRED - Auth context unavailable at build time
+export const dynamic = "force-dynamic";
 
-```tsx
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { useState } from 'react';
+export default async function ProtectedPage() {
+  const { userId } = await auth();
 
-// ✅ Separate states for create and edit
-const [createDialogOpen, setCreateDialogOpen] = useState(false);
-const [editDialogOpen, setEditDialogOpen] = useState(false);
-const [editingItem, setEditingItem] = useState<Item | null>(null);
-
-// Form states
-const [newItemName, setNewItemName] = useState('');
-const [newItemDescription, setNewItemDescription] = useState('');
-
-// ✅ Reset states on close
-const handleCloseCreate = () => {
-  setCreateDialogOpen(false);
-  setNewItemName('');
-  setNewItemDescription('');
-};
-
-const handleCloseEdit = () => {
-  setEditDialogOpen(false);
-  setEditingItem(null);
-  setNewItemName('');
-  setNewItemDescription('');
-};
-```
-
-### Template: Create Modal
-
-```tsx
-{/* ✅ CREATE MODAL */}
-<Dialog open={createDialogOpen} onOpenChange={setCreateDialogOpen}>
-  <DialogContent className="sm:max-w-[500px]">
-    <DialogHeader>
-      <DialogTitle>Create new item</DialogTitle>
-    </DialogHeader>
-    <div className="space-y-4 py-4">
-      <div>
-        <Label htmlFor="item-name">Name *</Label>
-        <Input
-          id="item-name"
-          value={newItemName}
-          onChange={(e) => setNewItemName(e.target.value)}
-          placeholder="Enter name..."
-          required
-        />
-      </div>
-    </div>
-
-    <div className="flex justify-end gap-2">
-      <Button variant="outline" onClick={handleCloseCreate}>
-        Cancel
-      </Button>
-      <Button onClick={handleCreateItem} disabled={!newItemName.trim()}>
-        Create
-      </Button>
-    </div>
-  </DialogContent>
-</Dialog>
-```
-
-**Handler**:
-```tsx
-const handleCreateItem = async () => {
-  try {
-    const response = await fetch('/api/items', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: newItemName, description: newItemDescription })
-    });
-
-    if (!response.ok) {
-      const error = await response.json();
-      alert(`Error: ${error.error || 'Failed'}`);
-      return;
-    }
-
-    const newItem = await response.json();
-    setItems(prev => [...prev, newItem]);  // ✅ Update local state
-    handleCloseCreate();  // ✅ Close and reset
-  } catch (error) {
-    console.error('Error:', error);
-    alert('Network error');
+  if (!userId) {
+    redirect("/sign-in");
   }
-};
-```
 
-**Files**: `src/app/admin/views/SitesView.tsx:1200-1700`
-
----
-
-## ✅ PATTERN 3: Drag & Drop (@dnd-kit)
-
-### Installation
-```bash
-npm install @dnd-kit/core @dnd-kit/sortable @dnd-kit/utilities
-```
-
-### Pattern: Sortable List
-
-```tsx
-import {
-  DndContext,
-  closestCenter,
-  PointerSensor,
-  useSensor,
-  useSensors,
-  DragEndEvent
-} from '@dnd-kit/core';
-import {
-  arrayMove,
-  SortableContext,
-  verticalListSortingStrategy,
-  useSortable
-} from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
-
-function SortableList() {
-  const [items, setItems] = useState([...]);
-
-  const sensors = useSensors(
-    useSensor(PointerSensor, {
-      activationConstraint: {
-        distance: 5  // ✅ Avoids conflicts with click
-      }
-    })
-  );
-
-  const handleDragEnd = (event: DragEndEvent) => {
-    const { active, over } = event;
-    if (!over || active.id === over.id) return;
-
-    setItems((items) => {
-      const oldIndex = items.findIndex(i => i.id === active.id);
-      const newIndex = items.findIndex(i => i.id === over.id);
-      return arrayMove(items, oldIndex, newIndex);
-    });
-  };
-
-  return (
-    <DndContext
-      sensors={sensors}
-      collisionDetection={closestCenter}
-      onDragEnd={handleDragEnd}
-    >
-      <SortableContext items={items.map(i => i.id)} strategy={verticalListSortingStrategy}>
-        <div className="space-y-2">
-          {items.map(item => (
-            <SortableItem key={item.id} item={item} />
-          ))}
-        </div>
-      </SortableContext>
-    </DndContext>
-  );
-}
-
-function SortableItem({ item }) {
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    isDragging
-  } = useSortable({ id: item.id });
-
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-    opacity: isDragging ? 0.5 : 1
-  };
-
-  return (
-    <div ref={setNodeRef} style={style} className="p-4 bg-white border rounded-lg">
-      <button {...attributes} {...listeners} className="cursor-grab">
-        <GripVertical className="w-4 h-4" />
-      </button>
-      <span>{item.name}</span>
-    </div>
-  );
+  // Render protected content...
 }
 ```
 
-**Files**: `src/app/admin/views/SitesView.tsx:650-750`, `src/modules/planning/components/DraggablePlanningGrid.tsx`
+### Route Organization
 
----
+```text
+app/
+├── (auth)/                    # Auth routes (sign-in, sign-up)
+│   ├── sign-in/[[...sign-in]]/page.tsx
+│   └── sign-up/[[...sign-up]]/page.tsx
+├── (marketing)/               # Public marketing pages
+│   ├── page.tsx               # Homepage
+│   └── pricing/page.tsx
+├── dashboard/                 # Protected user area
+│   ├── page.tsx
+│   └── _components/           # Page-specific components
+└── admin/                     # Admin-only area
+    └── page.tsx
+```
 
-## ✅ PATTERN 4: Form Validation (Zod + shadcn/ui)
+## Clerk Authentication Patterns
 
-```tsx
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
+### Auth-Enabled Mode
+
+```typescript
+// Server component auth check
+import { auth } from '@clerk/nextjs/server';
+
+export default async function Page() {
+  const { userId } = await auth();
+  // userId is string | null
+}
+
+// Client component auth
+"use client"
+import { useUser, useAuth } from '@clerk/nextjs';
+
+export function UserProfile() {
+  const { user, isLoaded, isSignedIn } = useUser();
+  const { signOut } = useAuth();
+
+  if (!isLoaded) return <Skeleton />;
+  if (!isSignedIn) return <SignInPrompt />;
+
+  return <div>Welcome, {user.firstName}!</div>;
+}
+```
+
+### Auth-Disabled Mode (Feature Toggle)
+
+When auth is disabled via feature flags, provide graceful fallbacks:
+
+```typescript
+// Check feature flag
+import { FEATURES } from '@/config/features';
+
+export function AuthWrapper({ children }) {
+  if (!FEATURES.AUTH_ENABLED) {
+    // Show demo/guest experience
+    return <GuestExperience>{children}</GuestExperience>;
+  }
+
+  return <AuthenticatedWrapper>{children}</AuthenticatedWrapper>;
+}
+```
+
+### Admin Verification
+
+```typescript
+// app/admin/page.tsx
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
+
+export const dynamic = "force-dynamic";
+
+export default async function AdminPage() {
+  const { userId, orgId, orgRole } = await auth();
+
+  if (!userId) {
+    redirect("/sign-in");
+  }
+
+  // Verify admin role
+  const ADMIN_ORG_ID = process.env.CLERK_ADMIN_ORG_ID;
+  const ADMIN_ROLE = "org:admin";
+
+  if (orgId !== ADMIN_ORG_ID || orgRole !== ADMIN_ROLE) {
+    redirect("/admin-denied");
+  }
+
+  // Render admin content...
+}
+```
+
+## shadcn/ui Component Patterns
+
+### Import Convention
+
+```typescript
+// Always use @/components/ui path alias
+import { Button } from "@/components/ui/button";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import {
   Form,
   FormControl,
@@ -289,30 +182,37 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
+} from "@/components/ui/form";
+```
 
-// ✅ Define schema
-const itemSchema = z.object({
-  name: z.string().min(1, 'Name required').max(100),
-  email: z.string().email('Invalid email').optional().or(z.literal('')),
-  category: z.enum(['STANDARD', 'PREMIUM'], { errorMap: () => ({ message: 'Invalid' }) }),
+### Form Pattern (React Hook Form + Zod)
+
+```typescript
+"use client"
+
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { Button } from '@/components/ui/button';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+
+const FormSchema = z.object({
+  email: z.string().email('Invalid email'),
+  name: z.string().min(1, 'Name is required'),
 });
 
-type FormData = z.infer<typeof itemSchema>;
+type FormData = z.infer<typeof FormSchema>;
 
-function ItemForm() {
+export function MyForm() {
   const form = useForm<FormData>({
-    resolver: zodResolver(itemSchema),
-    defaultValues: { name: '', category: 'STANDARD' }
+    resolver: zodResolver(FormSchema),
+    defaultValues: { email: '', name: '' },
   });
 
-  const onSubmit = async (data: FormData) => {
-    await fetch('/api/items', {
-      method: 'POST',
-      body: JSON.stringify(data)
-    });
-    form.reset();
-  };
+  async function onSubmit(data: FormData) {
+    // Handle submission...
+  }
 
   return (
     <Form {...form}>
@@ -322,35 +222,268 @@ function ItemForm() {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Name *</FormLabel>
+              <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input placeholder="Enter name..." {...field} />
+                <Input {...field} />
               </FormControl>
-              <FormMessage />  {/* ✅ Auto error display */}
+              <FormMessage />
             </FormItem>
           )}
         />
-
-        <Button type="submit" disabled={form.formState.isSubmitting}>
-          {form.formState.isSubmitting ? 'Creating...' : 'Create'}
-        </Button>
+        <Button type="submit">Submit</Button>
       </form>
     </Form>
   );
 }
 ```
 
----
+### Button Variants
 
-## 📚 Progressive Resources
+```typescript
+// Primary action
+<Button>Save Changes</Button>
 
-For complete templates and variants:
-- **`resources/select-pattern.md`** - Variants + edge cases
-- **`resources/modal-crud-templates.md`** - Complete Create/Edit/Delete modals
-- **`resources/dnd-patterns.md`** - Advanced @dnd-kit patterns
-- **`resources/form-validation.md`** - Zod schemas + validation patterns
+// Secondary action
+<Button variant="secondary">Cancel</Button>
 
----
+// Destructive action
+<Button variant="destructive">Delete</Button>
 
-**Files**: `src/components/ui/`, `src/app/admin/views/SitesView.tsx`
-**Last Update**: 27 October 2025
+// Ghost/subtle
+<Button variant="ghost">Learn More</Button>
+
+// Link style
+<Button variant="link" asChild>
+  <Link href="/docs">Documentation</Link>
+</Button>
+
+// Loading state
+<Button disabled={isLoading}>
+  {isLoading ? 'Saving...' : 'Save'}
+</Button>
+```
+
+## PostHog Analytics Patterns
+
+### Event Naming Convention
+
+Use snake_case with category prefix:
+
+```typescript
+// User actions
+"user_signed_up";
+"user_signed_in";
+"user_profile_updated";
+
+// Feature usage
+"feature_dark_mode_toggled";
+"feature_export_clicked";
+
+// Payments
+"payment_checkout_started";
+"payment_completed";
+"subscription_upgraded";
+
+// Content
+"content_video_watched";
+"content_pdf_downloaded";
+
+// Navigation
+"page_viewed";
+"cta_clicked";
+```
+
+### Event Tracking
+
+```typescript
+"use client"
+
+import { usePostHog } from 'posthog-js/react';
+
+export function TrackableButton() {
+  const posthog = usePostHog();
+
+  function handleClick() {
+    posthog?.capture('cta_clicked', {
+      button_text: 'Get Started',
+      page: '/pricing',
+      variant: 'primary',
+    });
+  }
+
+  return <Button onClick={handleClick}>Get Started</Button>;
+}
+```
+
+### Page View Tracking
+
+```typescript
+// Automatic via PostHogProvider (already configured)
+// Manual tracking for SPAs:
+"use client";
+
+import { usePathname } from "next/navigation";
+import { usePostHog } from "posthog-js/react";
+import { useEffect } from "react";
+
+export function PageViewTracker() {
+  const pathname = usePathname();
+  const posthog = usePostHog();
+
+  useEffect(() => {
+    if (pathname && posthog) {
+      posthog.capture("$pageview", { path: pathname });
+    }
+  }, [pathname, posthog]);
+
+  return null;
+}
+```
+
+### Feature Flags
+
+```typescript
+"use client"
+
+import { useFeatureFlagEnabled } from 'posthog-js/react';
+
+export function FeatureFlaggedComponent() {
+  const showNewFeature = useFeatureFlagEnabled('new-checkout-flow');
+
+  if (showNewFeature) {
+    return <NewCheckoutFlow />;
+  }
+
+  return <LegacyCheckoutFlow />;
+}
+```
+
+## Accessibility Checklist
+
+### Required for All Components
+
+- [ ] **Keyboard Navigation**: All interactive elements focusable via Tab
+- [ ] **Focus Indicators**: Visible focus ring (Tailwind: `focus:ring-2`)
+- [ ] **Color Contrast**: 4.5:1 minimum for text
+- [ ] **Alt Text**: All images have descriptive alt text
+- [ ] **ARIA Labels**: Form inputs have labels or aria-label
+- [ ] **Error States**: Form errors announced to screen readers
+
+### Patterns
+
+```typescript
+// Accessible button
+<Button aria-label="Close dialog">
+  <X className="h-4 w-4" />
+</Button>
+
+// Accessible form field
+<FormItem>
+  <FormLabel htmlFor="email">Email</FormLabel>
+  <FormControl>
+    <Input id="email" type="email" aria-describedby="email-error" />
+  </FormControl>
+  <FormMessage id="email-error" />
+</FormItem>
+
+// Skip link for keyboard users
+<a href="#main-content" className="sr-only focus:not-sr-only">
+  Skip to main content
+</a>
+```
+
+## Responsive Design Patterns
+
+### Tailwind Breakpoints
+
+```typescript
+// Mobile-first approach
+<div className="
+  px-4           // Mobile: 16px padding
+  md:px-6        // Tablet: 24px padding
+  lg:px-8        // Desktop: 32px padding
+">
+
+// Responsive grid
+<div className="
+  grid
+  grid-cols-1    // Mobile: 1 column
+  md:grid-cols-2 // Tablet: 2 columns
+  lg:grid-cols-3 // Desktop: 3 columns
+  gap-4
+">
+
+// Hide/show at breakpoints
+<div className="hidden md:block">Desktop only</div>
+<div className="md:hidden">Mobile only</div>
+```
+
+### Container Pattern
+
+```typescript
+// Standard container
+<div className="container mx-auto px-4 md:px-6">
+  {/* Content */}
+</div>
+
+// Max-width constrained
+<div className="max-w-4xl mx-auto px-4">
+  {/* Narrower content like articles */}
+</div>
+```
+
+## Common Mistakes to Avoid
+
+### DON'T Do This
+
+```typescript
+// ❌ Missing 'use client' for interactive components
+import { useState } from 'react';  // Will error!
+
+// ❌ Using hooks in server components
+export default async function Page() {
+  const [state, setState] = useState();  // Will error!
+}
+
+// ❌ Missing force-dynamic on auth pages
+export default async function ProtectedPage() {
+  const { userId } = await auth();  // May fail at build!
+}
+
+// ❌ Direct DOM manipulation
+document.getElementById('foo');  // Use refs instead
+
+// ❌ Inline styles (use Tailwind)
+<div style={{ marginTop: '20px' }}>  // Use className="mt-5"
+```
+
+### DO This Instead
+
+```typescript
+// ✅ Proper client component
+"use client"
+import { useState } from 'react';
+
+// ✅ Server component with auth
+export const dynamic = 'force-dynamic';
+export default async function Page() {
+  const { userId } = await auth();
+}
+
+// ✅ Use refs for DOM access
+const inputRef = useRef<HTMLInputElement>(null);
+
+// ✅ Tailwind classes
+<div className="mt-5">
+```
+
+## Authoritative References
+
+- **UI Patterns**: `docs/patterns/ui/`
+  - `authenticated-page.md` - Protected page pattern
+  - `form-with-validation.md` - React Hook Form + Zod
+  - `data-table.md` - Server-side paginated tables
+  - `marketing-page.md` - Public marketing pages
+- **Component Library**: `components/ui/` (shadcn/ui)
+- **PostHog Setup**: `lib/posthog/`
+- **Feature Flags**: `config/features.ts`

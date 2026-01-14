@@ -1,12 +1,7 @@
 {
   "name": "database-migration",
-  "description": "Create database migration with schema changes and rollback. Auto-invoke when user says \"create migration\", \"add table\", \"modify schema\", or \"change database\".",
-  "repo": "alekspetrov/navigator",
-  "category": "data",
-  "tags": [
-    "database",
-    "migration"
-  ],
-  "stars": 46,
-  "source": "SkillsMP Synced Skills"
+  "repo": "Doyajin174/myskills",
+  "path": ".public/skills/database-migration/SKILL.md",
+  "source": "github.com/Doyajin174/myskills",
+  "downloaded_at": "2026-01-14T03:45:38.988083Z"
 }

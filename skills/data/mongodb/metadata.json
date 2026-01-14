@@ -1,11 +1,7 @@
 {
   "name": "mongodb",
-  "description": "Guide for implementing MongoDB - a document database platform with CRUD operations, aggregation pipelines, indexing, replication, sharding, search capabilities, and comprehensive security. Use when wo",
-  "repo": "akornmeier/claude-config",
-  "category": "devops",
-  "tags": [
-    "mongodb"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "mrgoonie/xxxnaper",
+  "path": ".claude/skills/mongodb/SKILL.md",
+  "source": "github.com/mrgoonie/xxxnaper",
+  "downloaded_at": "2026-01-14T04:00:29.156712Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "japanese-tts-reading",
-  "description": "日本語テキストを音声に変換するTTS（Text-to-Speech）スキル。ナレーション原稿の読み上げ、コンテンツの音声化、アクセシビリティ対応に使用。",
   "repo": "taiyousan15/taisun_agent",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/japanese-tts-reading/SKILL.md",
+  "source": "github.com/taiyousan15/taisun_agent",
+  "downloaded_at": "2026-01-14T03:51:14.614491Z"
 }

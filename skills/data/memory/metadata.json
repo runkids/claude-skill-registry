@@ -1,10 +1,7 @@
 {
   "name": "memory",
-  "description": "Long-term memory across sessions. Always use memory_search at the start of any user request (unless the user explicitly says not to), especially for questions about the user (profile/personal info/pre",
-  "repo": "zoubingwu/memory-skill",
-  "category": "data",
-  "tags": [
-    "memory"
-  ],
-  "stars": 18
+  "repo": "reggiechan74/claude-plugins",
+  "path": "plugins/claude-code-metaskill/skills/memory/SKILL.md",
+  "source": "github.com/reggiechan74/claude-plugins",
+  "downloaded_at": "2026-01-14T03:58:20.880438Z"
 }

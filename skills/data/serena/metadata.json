@@ -1,11 +1,7 @@
 {
   "name": "serena",
-  "description": "Semantic code search, analysis, and editing. Use for understanding code structure, finding classes/functions, refactoring, and impact analysis. Triggers on \"where is this function\", \"show references\",",
-  "repo": "sano-suguru/go-event-ticket-reservation",
-  "category": "development",
-  "tags": [
-    "serena"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "Activer007/ordinary-claude-skills",
+  "path": "skills_all/serena/SKILL.md",
+  "source": "github.com/Activer007/ordinary-claude-skills",
+  "downloaded_at": "2026-01-14T03:21:33.342665Z"
 }

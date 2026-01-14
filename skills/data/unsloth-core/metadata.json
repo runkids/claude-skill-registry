@@ -1,11 +1,7 @@
 {
   "name": "unsloth-core",
-  "description": "Core fundamentals of Unsloth for fast LLM fine-tuning, covering FastLanguageModel setup, optimized gradient checkpointing, and native inference acceleration (triggers: unsloth, FastLanguageModel, from",
   "repo": "cuba6112/skillfactory",
-  "category": "data",
-  "tags": [
-    "unsloth",
-    "core"
-  ],
-  "stars": 0
+  "path": "skills/unsloth-core/SKILL.md",
+  "source": "github.com/cuba6112/skillfactory",
+  "downloaded_at": "2026-01-14T02:37:39.823001Z"
 }

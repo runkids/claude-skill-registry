@@ -1,9 +1,7 @@
 {
   "name": "setting-up-projects",
-  "description": "Automates project setup with best practices including pre-commit hooks, linting, formatting, and boilerplate. Activates when creating new projects, missing configuration files, or setting up developme",
-  "repo": "rysweet/MicrosoftHackathon2025-AgenticCoding",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "rysweet/azlin",
+  "path": ".claude/skills/development/setting-up-projects/SKILL.md",
+  "source": "github.com/rysweet/azlin",
+  "downloaded_at": "2026-01-14T03:30:08.288754Z"
 }

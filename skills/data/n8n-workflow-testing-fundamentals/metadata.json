@@ -1,14 +1,7 @@
 {
   "name": "n8n-workflow-testing-fundamentals",
-  "description": "Comprehensive n8n workflow testing including execution lifecycle, node connection patterns, data flow validation, and error handling strategies. Use when testing n8n workflow automation applications.",
-  "repo": "proffesor-for-testing/agentic-qe",
-  "category": "testing",
-  "tags": [
-    "n8n",
-    "workflow",
-    "testing",
-    "fundamentals"
-  ],
-  "stars": 103,
-  "source": "SkillsMP Synced Skills"
+  "repo": "natea/ai-news-influencer",
+  "path": ".claude/skills/n8n-workflow-testing-fundamentals/SKILL.md",
+  "source": "github.com/natea/ai-news-influencer",
+  "downloaded_at": "2026-01-14T01:54:46.876258Z"
 }

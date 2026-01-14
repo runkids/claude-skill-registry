@@ -1,9 +1,7 @@
 {
   "name": "k-ecosystem",
-  "description": "Context for the Mechanic/Fen WoW addon development ecosystem. Covers all components (Mechanic, FenCore, FenUI, MechanicLib), their relationships, and AFD principles. Load this at the start of addon wo",
   "repo": "Falkicon/Mechanic",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/k-ecosystem/SKILL.md",
+  "source": "github.com/Falkicon/Mechanic",
+  "downloaded_at": "2026-01-14T01:39:54.565202Z"
 }

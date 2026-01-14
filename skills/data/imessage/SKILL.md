@@ -1,197 +1,129 @@
 ---
 name: imessage
-description: Interact with Messages app - read conversations, send messages, and check for new messages using AppleScript and SQLite database access
+description: Send and read iMessages/SMS from macOS. Use for texting contacts, scheduling services, or automating message-based workflows. Triggers on queries about texting, messaging, SMS, iMessage, or contacting someone via text.
 ---
 
-# iMessage Management Skill
+# iMessage Integration
 
-This skill provides comprehensive Messages app interaction capabilities through command-line tools.
+Send and read iMessages/SMS using the `imsg` CLI tool on macOS.
 
-## Available Tools
+## Setup
 
-All tools are located in `.claude/skills/imessage/` and use either AppleScript or direct SQLite database access to interact with the Messages app.
+### 1. Build the imsg CLI
 
-### Database vs AppleScript Approach
-
-- **Database tools** (`*-db.sh`): Read messages directly from the Messages SQLite database (`~/Library/Messages/chat.db`). More reliable and faster, supports full message history including sent messages with proper text extraction.
-- **AppleScript tools** (original): Use AppleScript automation. Sending works reliably, but reading messages may have permission issues on some macOS systems.
-
-**Recommended**: Use database tools for reading (`read-messages-db.sh`, `check-new-messages-db.sh`) and AppleScript for sending (`send-message.sh`, `send-to-chat.sh`).
-
-### 1. Read Messages from Database (`read-messages-db.sh`) ⭐ RECOMMENDED
-
-Read messages directly from the Messages SQLite database. This is the most reliable method for reading message history.
-
-**Usage:**
+Clone and build the tool:
 ```bash
-# Read recent messages by phone number
-.claude/skills/imessage/read-messages-db.sh "1234567890" --limit 10
-
-# Read recent messages (all conversations)
-.claude/skills/imessage/read-messages-db.sh --limit 20
+git clone https://github.com/letta-ai/imsg.git ~/repos/imsg
+cd ~/repos/imsg
+swift build -c release
 ```
 
-**Features:**
-- Reads both incoming and outgoing messages
-- Extracts text from outgoing messages (stored in attributedBody)
-- Fast and reliable
-- Shows formatted timestamps
-- No permission issues
+The binary will be at `~/repos/imsg/.build/release/imsg` (or use the pre-built binary if available at `~/repos/imsg/bin/imsg`).
 
-### 2. Check New Messages from Database (`check-new-messages-db.sh`) ⭐ RECOMMENDED
+### 2. Grant Permissions
 
-Check for recent incoming messages from the database. Used by the iMessage auto-reply daemon.
+Required macOS permissions (System Settings → Privacy & Security):
 
-**Usage:**
+| Permission | Location | Required For |
+|------------|----------|--------------|
+| Full Disk Access | Privacy & Security → Full Disk Access | Reading message history |
+| Automation | Privacy & Security → Automation | Sending messages via Messages.app |
+
+### 3. Enable SMS Relay (Optional)
+
+To send SMS (green bubbles) to non-iMessage users:
+1. On iPhone: Settings → Messages → Text Message Forwarding
+2. Enable forwarding to your Mac
+
+## Commands
+
+### List Recent Chats
 ```bash
-# Check recent messages from specific number
-.claude/skills/imessage/check-new-messages-db.sh "1234567890"
-
-# Check all recent incoming messages
-.claude/skills/imessage/check-new-messages-db.sh
+imsg chats --limit 10
+imsg chats --limit 10 --json
 ```
 
-**Output Format:**
-```
-MSG_ID: <unique_hash>
-ROWID: <message_id>
-DATE: <readable_timestamp>
-TEXT: <message_text>
-FROM: <phone_number>
-CHAT: <chat_identifier>
----
-```
+Output format: `[chat_id] (identifier) last=timestamp`
 
-### 3. Send Message (`send-message.sh`) ⭐ RECOMMENDED
-
-Send a message to a contact or phone number via AppleScript.
-
-**Usage:**
+### View Chat History
 ```bash
-# Send to contact name
-.claude/skills/imessage/send-message.sh "John Doe" "Hey, how are you?"
+# View last 20 messages in a chat
+imsg history --chat-id <id> --limit 20
 
+# With attachments metadata
+imsg history --chat-id <id> --limit 20 --attachments
+
+# Filter by date
+imsg history --chat-id <id> --start 2026-01-01T00:00:00Z --json
+```
+
+### Send a Message
+```bash
 # Send to phone number
-.claude/skills/imessage/send-message.sh "+1234567890" "Message text here"
+imsg send --to "+15555555555" --text "Hello!"
 
-# Send with content from stdin
-echo "Message content" | .claude/skills/imessage/send-message.sh "John Doe"
+# Send with attachment
+imsg send --to "+15555555555" --text "Here's the file" --file /path/to/file.jpg
+
+# Force iMessage or SMS
+imsg send --to "+15555555555" --text "Hi" --service imessage
+imsg send --to "+15555555555" --text "Hi" --service sms
+
+# Send to existing chat by ID
+imsg send --chat-id 86 --text "Hello!"
 ```
 
-### 4. Send to Chat (`send-to-chat.sh`)
-
-Send a message to a specific chat by chat identifier (useful for group chats).
-
-**Usage:**
+### Watch for New Messages
 ```bash
-# Send to group chat
-echo "Message text" | .claude/skills/imessage/send-to-chat.sh "chat123456789"
-
-# Send directly
-.claude/skills/imessage/send-to-chat.sh "chat123456789" "Message text"
+imsg watch --chat-id <id> --debounce 250ms
 ```
-
-### 5. Send File (`send-file.sh`)
-
-Send images, documents, or other files via iMessage using AppleScript.
-
-**Usage:**
-```bash
-# Send file to phone number
-.claude/skills/imessage/send-file.sh "+1234567890" "/path/to/file.jpg"
-
-# Send file to contact name
-.claude/skills/imessage/send-file.sh "John Doe" "/Users/user/Desktop/image.png"
-```
-
-**Supported file types:**
-- Images: JPG, PNG, HEIC, GIF
-- Documents: PDF, DOCX, TXT
-- Videos: MP4, MOV
-- Any file type supported by iMessage
-
-### 6. List Conversations (`list-conversations.sh`)
-
-List recent conversations with contact names and message counts.
-
-**Usage:**
-```bash
-# List all conversations
-.claude/skills/imessage/list-conversations.sh
-
-# List first N conversations
-.claude/skills/imessage/list-conversations.sh --limit 10
-```
-
-### 7. Get Message Attachments (`get-message-attachments.sh`)
-
-Retrieve and process attachments from received messages.
-
-**Usage:**
-```bash
-# Get attachments from a specific message (use ROWID from check-new-messages-db.sh)
-.claude/skills/imessage/get-message-attachments.sh <message_rowid>
-```
-
-**Output format:**
-```
-IMAGE|/path/to/output.jpg|image/jpeg|original.jpg|1024x768|125K
-FILE|/path/to/file.pdf|application/pdf|document.pdf||2.3M
-```
-
-**Features:**
-- Automatically converts HEIC images to JPEG
-- Downscales large images to 1024px max dimension
-- Saves processed images to `~/tmp/`
-- Preserves original files for non-image attachments
-
-## Workflow Guidelines
-
-### When building iMessage automation:
-
-1. **Reading Messages** (Database Approach - Recommended)
-   - Use `read-messages-db.sh` with phone number to see conversation history
-   - Displays both incoming and outgoing messages with proper text
-   - Shows clear timestamps and message direction
-
-2. **Sending Messages**
-   - Verify the contact name or phone number format
-   - Use `send-message.sh` for direct messages
-   - Use `send-to-chat.sh` for group chats
-   - Confirm the message was sent successfully
-
-3. **Checking New Messages** (Database Approach - Recommended)
-   - Use `check-new-messages-db.sh` to check for recent incoming messages
-   - Filter by phone number for specific contacts
-   - Parse output to track which messages have been processed
-   - Used by the iMessage auto-reply daemon
-
-4. **For Automated Daemons**
-   - Use `check-new-messages-db.sh` to poll for new messages
-   - Track processed messages using message IDs
-   - Use `read-messages-db.sh` to get conversation context
-   - Use `send-message.sh` or `send-to-chat.sh` to send replies
 
 ## Best Practices
 
-- **Contact Names**: Use exact contact names as they appear in Messages
-- **Phone Numbers**: Use full format with country code (e.g., +1234567890)
-- **Message Privacy**: Be mindful of sensitive information in messages
-- **User Confirmation**: Always confirm before sending messages
-- **Error Handling**: Check for errors and inform the user
-- **Quoting**: Always properly quote contact names and message content in bash commands
+### Phone Number Format
+- Use E.164 format: `+1XXXXXXXXXX` for US numbers
+- Include country code for international
 
-## Important Notes
+### SMS vs iMessage
+- **iMessage** (blue bubble): Default for Apple device users, free
+- **SMS** (green bubble): Requires iPhone relay, may have carrier charges
+- Use `--service sms` when recipient doesn't have iMessage
 
-- All scripts require macOS with the Messages app
-- Messages app must be signed in to iMessage or SMS
-- AppleScript support is built into macOS
-- The Messages app does not need to be open for these tools to work
-- Some operations may require Full Disk Access permission in System Preferences
+### Message Etiquette for Agents
+- **Be concise** - Keep messages short and clear
+- **Be human** - Write naturally, not robotically
+- **Identify context** - If following up, reference previous conversation
+- **Respect timing** - Avoid early morning/late night messages
+
+## Common Use Cases
+
+### Scheduling Services
+```bash
+imsg send --to "+14155551234" --text "Hi! Do you have availability this Saturday for a cleaning?"
+```
+
+### Following Up
+```bash
+imsg send --to "+14155551234" --text "Just wanted to follow up on my earlier message. Let me know when you have a chance!"
+```
+
+### Confirming Appointments
+```bash
+imsg send --to "+14155551234" --text "Confirming our appointment for Saturday at 10am. See you then!"
+```
 
 ## Troubleshooting
 
-- If contacts aren't found, try using their phone number instead
-- Check that Messages has proper permissions in System Preferences > Security & Privacy
-- Ensure you're signed in to iMessage in the Messages app
-- If sending fails, verify the recipient's contact information
+| Issue | Solution |
+|-------|----------|
+| "not authorized" error | Grant Automation permission to terminal |
+| Can't read messages | Grant Full Disk Access to terminal |
+| SMS not sending | Enable Text Message Forwarding on iPhone |
+| Message stuck sending | Check Messages.app is signed in and working |
+
+## Technical Notes
+
+- Uses AppleScript for sending (no private APIs)
+- Read operations are read-only on the Messages SQLite database
+- Requires macOS 14+ with Messages.app configured
+- Binary location: `~/repos/imsg/bin/imsg` (adjust path as needed)

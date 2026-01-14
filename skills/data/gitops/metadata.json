@@ -1,11 +1,7 @@
 {
   "name": "gitops",
-  "description": "GitOps practices with ArgoCD, FluxCD, and declarative infrastructure management",
-  "repo": "pluginagentmarketplace/custom-plugin-devops",
-  "category": "devops",
-  "tags": [
-    "gitops"
-  ],
-  "stars": 2,
-  "source": "local"
+  "repo": "liauw-media/CodeAssist",
+  "path": "skills/platform-engineering/gitops/SKILL.md",
+  "source": "github.com/liauw-media/CodeAssist",
+  "downloaded_at": "2026-01-14T03:27:46.604328Z"
 }

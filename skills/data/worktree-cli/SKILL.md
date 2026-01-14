@@ -22,15 +22,15 @@ description: Git worktree management with worktree.py CLI. Use for creating work
 
 | Command | Purpose | Key Flags |
 |---------|---------|-----------|
-| `setup <issue>` | Create worktree + claim beads | `--no-seed`, `--no-start`, `--build` |
+| `setup <issue>` | Create worktree from GH issue | `--no-seed`, `--no-start`, `--build` |
 | `complete <pr>` | **RECOMMENDED**: Full lifecycle completion | - |
 | `teardown <name>` | Remove worktree only | `-f/--force`, `--keep-branch` |
 | `list` | Show all worktrees | `-c/--compact` |
-| `merge-pr <num>` | Merge PR + teardown (no beads) | `--skip-sync`, `--skip-teardown` |
+| `merge-pr <num>` | Merge PR + teardown | `--skip-sync`, `--skip-teardown` |
 | `cleanup` | Remove merged branches | `-f/--force` (required to execute) |
 | `logs` | View Docker logs | `-n <lines>`, `-f/--follow` |
 
-**Prefer `complete` over `merge-pr`** - it handles beads task closure and sync automatically.
+**Prefer `complete` over `merge-pr`** - it handles issue closure and sync automatically.
 
 ## Common Workflows
 
@@ -44,7 +44,7 @@ cd ../42-feature-name
 ### Complete Work
 ```bash
 # After PR created (orchestrator calls this):
-./worktree.py complete 123          # Merge + close beads + sync + teardown
+./worktree.py complete 123          # Merge + close issue + sync + teardown
 ```
 
 ### Maintenance
@@ -236,7 +236,7 @@ Options:
 
 ### complete
 
-**RECOMMENDED**: Complete a PR lifecycle atomically (merge + close beads + sync + teardown).
+**RECOMMENDED**: Complete a PR lifecycle atomically (merge + close issue + sync + teardown).
 
 ```
 Usage: worktree.py complete PR_NUMBER
@@ -248,9 +248,7 @@ Arguments:
 **What it does:**
 1. Verifies/merges the PR (skips if already merged)
 2. Closes the linked GitHub issue
-3. Finds and closes the beads task
-4. Syncs beads to remote (with retries)
-5. Tears down the worktree (Docker, files, branch)
+3. Tears down the worktree (Docker, files, branch)
 
 **Use this instead of `merge-pr`** for orchestrator-managed workflows.
 
@@ -278,8 +276,6 @@ Options:
 3. Auto-tears down the merged worktree (prevents rebase issues)
 4. Updates main branch
 5. Rebases all active feature worktrees onto new main
-
-**Note:** Does NOT handle beads. Use `complete` for full lifecycle.
 
 ---
 

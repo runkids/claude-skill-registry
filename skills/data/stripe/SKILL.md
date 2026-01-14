@@ -1,267 +1,442 @@
 ---
 name: stripe
-description: >
-  Implement Stripe Connect payments for PhotoVault marketplace using
-  destination charges. Use when working with checkout sessions, webhook
-  handlers, platform subscriptions ($22/month), commission splits (50/50),
-  Connect onboarding, failed payment handling (dunning), or debugging
-  payment issues. Includes idempotency patterns and PhotoVault product IDs.
+description: >-
+  This skill should be used when the user asks to "integrate Stripe",
+  "add payments", "create subscriptions", "handle webhooks", "usage-based billing",
+  "per-seat pricing", "tiered plans", "checkout session", "customer portal",
+  "sync Stripe data", "Stripe Sync Engine", "payment processing", "MRR analytics",
+  "revenue reporting", or mentions 'Stripe', 'subscription', 'billing', 'webhook',
+  'checkout', 'metered billing', 'payment intent', 'stripe schema'.
+  Automatically triggers for payment, subscription, and billing analytics work.
+version: 1.1.0
 ---
 
-# ⚠️ MANDATORY WORKFLOW - DO NOT SKIP
+# Stripe Integration Expert
 
-**When this skill activates, you MUST follow the expert workflow before writing any code:**
+Comprehensive guidance for integrating Stripe payments including subscriptions, usage-based billing, webhooks, and multi-platform support (Next.js, iOS, Android, Flutter) with Supabase database synchronization.
 
-1. **Spawn Domain Expert** using the Task tool with this prompt:
-   ```
-   Read the expert prompt at: C:\Users\natha\Stone-Fence-Brain\VENTURES\PhotoVault\claude\experts\stripe-expert.md
+> **Philosophy:** Use Stripe Checkout for simplicity, Payment Intents for customization. Always verify webhooks. For Supabase sync, prefer **Stripe Sync Engine** (one-click, zero maintenance) unless you need custom schemas. Never expose secret keys to clients.
 
-   Then research the codebase and write an implementation plan to: docs/claude/plans/stripe-[task-name]-plan.md
+## Critical Rules
 
-   Task: [describe the user's request]
-   ```
+### API Keys Security
 
-2. **Spawn QA Critic** after expert returns, using Task tool:
-   ```
-   Read the QA critic prompt at: C:\Users\natha\Stone-Fence-Brain\VENTURES\PhotoVault\claude\experts\qa-critic-expert.md
+| Key Type | Prefix | Safety | Use Case |
+|----------|--------|--------|----------|
+| Publishable | `pk_live_` / `pk_test_` | Client-safe | Browser, mobile apps |
+| Secret | `sk_live_` / `sk_test_` | Backend ONLY | Servers, Edge Functions |
+| Restricted | `rk_live_` / `rk_test_` | Backend ONLY | Limited permissions |
+| Webhook Secret | `whsec_` | Backend ONLY | Signature verification |
 
-   Review the plan at: docs/claude/plans/stripe-[task-name]-plan.md
-   Write critique to: docs/claude/plans/stripe-[task-name]-critique.md
-   ```
+**NEVER:**
+- Expose secret keys in client code
+- Commit keys to version control
+- Log full API keys
+- Use secret keys in browser/mobile apps
 
-3. **Present BOTH plan and critique to user** - wait for approval before implementing
+**ALWAYS:**
+- Use environment variables for all keys
+- Use publishable key for client-side Stripe.js
+- Use restricted keys for specific operations
+- Rotate keys immediately if compromised
 
-**DO NOT read files and start coding. DO NOT rationalize that "this is simple." Follow the workflow.**
-
----
-
-# Stripe Integration
-
-## Core Principles
-
-### Idempotency is Non-Negotiable
-
-Webhooks can fire multiple times. API calls can timeout and retry. Your code must handle duplicates gracefully.
+### Webhook Security (CRITICAL)
 
 ```typescript
-async function handlePaymentSucceeded(paymentIntent: Stripe.PaymentIntent) {
-  const existing = await db.payments.findOne({
-    stripe_payment_intent_id: paymentIntent.id
-  })
+// CORRECT: Use raw body for signature verification
+const body = await req.text()  // Raw string, NOT parsed
+const signature = req.headers.get('stripe-signature')!
+const event = stripe.webhooks.constructEvent(body, signature, webhookSecret)
 
-  if (existing) {
-    console.log(`Payment ${paymentIntent.id} already processed, skipping`)
-    return
+// WRONG: This will FAIL signature verification
+const body = await req.json()  // DON'T parse first!
+```
+
+**Webhook Rules:**
+- ALWAYS verify signatures before processing
+- Use raw request body (NOT parsed JSON)
+- Implement idempotency (track processed events)
+- Return 200 quickly, process asynchronously
+- Handle retries gracefully
+
+### PCI Compliance
+
+- NEVER collect card numbers directly on your server
+- ALWAYS use Stripe.js, Elements, or Checkout
+- Use Payment Intents or Checkout Sessions
+- Enable SCA for EU customers (automatic with Checkout)
+- Log payment events but NEVER log card details
+
+## Quick Reference
+
+### Subscription Billing Models
+
+| Model | Use Case | Implementation |
+|-------|----------|----------------|
+| Flat Rate | Fixed monthly/yearly | Single price, `licensed` |
+| Per-Seat | Per user pricing | `quantity` on subscription |
+| Usage-Based | Pay for consumption | Meters + `metered` billing |
+| Tiered | Volume discounts | `tiered` pricing |
+| Hybrid | Base + usage | Multiple prices on subscription |
+
+### Essential Webhook Events
+
+| Event | When | Action |
+|-------|------|--------|
+| `checkout.session.completed` | Successful checkout | Provision access |
+| `customer.subscription.created` | New subscription | Create local record |
+| `customer.subscription.updated` | Plan change/renewal | Update local record |
+| `customer.subscription.deleted` | Cancellation | Revoke access |
+| `invoice.paid` | Successful payment | Update billing status |
+| `invoice.payment_failed` | Payment failure | Notify customer |
+
+### Environment Variables
+
+```bash
+# .env.local (Next.js)
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_...
+STRIPE_SECRET_KEY=sk_test_...
+STRIPE_WEBHOOK_SECRET=whsec_...
+
+# Supabase Edge Functions
+# Set via: supabase secrets set STRIPE_SECRET_KEY=sk_test_...
+```
+
+## Workflow Decision Tree
+
+```
+User mentions Stripe/payments?
+├─> Setting up Stripe?
+│   └─> Use: Initial Setup (below)
+├─> Creating subscriptions?
+│   ├─> Simple flat rate?
+│   │   └─> Use: Checkout Session pattern
+│   ├─> Per-seat pricing?
+│   │   └─> See: references/subscriptions.md
+│   └─> Usage-based/metered?
+│       └─> See: references/subscriptions.md
+├─> Handling webhooks?
+│   └─> See: references/webhooks.md
+├─> Next.js integration?
+│   └─> See: references/nextjs-integration.md
+├─> Mobile integration?
+│   └─> See: references/mobile-integration.md
+├─> Syncing with Supabase?
+│   ├─> Zero-maintenance sync? (Recommended)
+│   │   └─> Use: Stripe Sync Engine (references/supabase-sync.md)
+│   ├─> Custom schema/transformations?
+│   │   └─> Use: Webhook Sync (references/supabase-sync.md)
+│   └─> Real-time admin queries?
+│       └─> Use: Stripe Wrapper FDW (references/supabase-sync.md)
+└─> MRR/Revenue analytics?
+    └─> See: references/supabase-sync.md (Business Analytics Queries)
+```
+
+## Initial Setup
+
+### 1. Install Dependencies
+
+**Next.js:**
+```bash
+npm install stripe @stripe/stripe-js
+```
+
+**iOS (Swift Package Manager):**
+```
+https://github.com/stripe/stripe-ios
+```
+
+**Android (Gradle):**
+```kotlin
+implementation("com.stripe:stripe-android:20.+")
+```
+
+**Flutter:**
+```yaml
+dependencies:
+  flutter_stripe: ^11.0.0
+```
+
+### 2. Initialize Stripe
+
+**Server (Next.js):**
+```typescript
+// lib/stripe/server.ts
+import Stripe from 'stripe'
+
+export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+  apiVersion: '2024-12-18.acacia',
+  typescript: true,
+})
+```
+
+**Client (Next.js):**
+```typescript
+// lib/stripe/client.ts
+import { loadStripe, Stripe } from '@stripe/stripe-js'
+
+let stripePromise: Promise<Stripe | null>
+
+export function getStripe() {
+  if (!stripePromise) {
+    stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
   }
-
-  await db.payments.create({
-    stripe_payment_intent_id: paymentIntent.id,
-    amount: paymentIntent.amount,
-    status: 'completed'
-  })
+  return stripePromise
 }
 ```
 
-### Use Destination Charges for Marketplaces
+## Checkout Session Quick Reference
 
-PhotoVault uses Stripe Connect with Express accounts. Destination charges:
-- Route money directly to photographer
-- Deduct platform fee automatically
-- Create charge + transfer atomically
-
+**Server Action (Next.js):**
 ```typescript
-const session = await stripe.checkout.sessions.create({
-  mode: 'payment',
-  line_items: [{ price: priceId, quantity: 1 }],
-  payment_intent_data: {
-    application_fee_amount: platformFeeCents, // 50% to PhotoVault
-    transfer_data: {
-      destination: photographer.stripe_connect_account_id,
+'use server'
+
+import { redirect } from 'next/navigation'
+import { stripe } from '@/lib/stripe/server'
+import { createClient } from '@/lib/supabase/server'
+
+export async function createCheckoutSession(priceId: string) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+
+  if (!user) {
+    redirect('/login')
+  }
+
+  // Get or create Stripe customer
+  const { data: customer } = await supabase
+    .from('customers')
+    .select('stripe_customer_id')
+    .eq('user_id', user.id)
+    .single()
+
+  const session = await stripe.checkout.sessions.create({
+    customer: customer?.stripe_customer_id,
+    customer_email: !customer ? user.email : undefined,
+    mode: 'subscription',
+    payment_method_types: ['card'],
+    line_items: [{ price: priceId, quantity: 1 }],
+    success_url: `${process.env.NEXT_PUBLIC_APP_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/pricing`,
+    metadata: {
+      user_id: user.id,
     },
-  },
-})
-```
-
-### Always Verify Webhook Signatures
-
-```typescript
-const event = stripe.webhooks.constructEvent(
-  rawBody,
-  signature,
-  webhookSecret
-)
-```
-
-## Anti-Patterns
-
-### Webhook Mistakes
-
-**Not verifying webhook signatures**
-```typescript
-// WRONG
-const event = JSON.parse(req.body)
-
-// RIGHT
-const event = stripe.webhooks.constructEvent(body, sig, secret)
-```
-
-**Not handling duplicate events**
-```typescript
-// WRONG
-case 'checkout.session.completed':
-  await createCommission(session)  // Duplicates on retry!
-
-// RIGHT
-case 'checkout.session.completed':
-  const exists = await db.commissions.findOne({
-    stripe_session_id: session.id
   })
-  if (!exists) {
-    await createCommission(session)
+
+  redirect(session.url!)
+}
+```
+
+## Customer Portal Quick Reference
+
+```typescript
+'use server'
+
+import { redirect } from 'next/navigation'
+import { stripe } from '@/lib/stripe/server'
+import { createClient } from '@/lib/supabase/server'
+
+export async function createPortalSession() {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+
+  if (!user) {
+    redirect('/login')
   }
-```
 
-**Processing webhooks synchronously**
-```typescript
-// WRONG: Slow response, timeout risk
-app.post('/webhook', async (req, res) => {
-  await sendEmails()
-  await updateDatabase()
-  res.json({ received: true })
-})
+  const { data: customer } = await supabase
+    .from('customers')
+    .select('stripe_customer_id')
+    .eq('user_id', user.id)
+    .single()
 
-// RIGHT: Acknowledge fast
-app.post('/webhook', async (req, res) => {
-  await queueForProcessing(event)
-  res.json({ received: true })
-})
-```
-
-### Connect Mistakes
-
-**Using transfers when you should use destination charges**
-```typescript
-// WRONG: Two API calls, race condition risk
-const charge = await stripe.paymentIntents.create({ amount: 10000 })
-const transfer = await stripe.transfers.create({ amount: 5000, destination: accountId })
-
-// RIGHT: Atomic destination charge
-const session = await stripe.checkout.sessions.create({
-  payment_intent_data: {
-    application_fee_amount: 5000,
-    transfer_data: { destination: accountId }
+  if (!customer?.stripe_customer_id) {
+    redirect('/pricing')
   }
-})
+
+  const session = await stripe.billingPortal.sessions.create({
+    customer: customer.stripe_customer_id,
+    return_url: `${process.env.NEXT_PUBLIC_APP_URL}/settings/billing`,
+  })
+
+  redirect(session.url)
+}
 ```
 
-## Webhook Handler Pattern
+## Webhook Handler Quick Reference
 
 ```typescript
-import Stripe from 'stripe'
-import { NextRequest, NextResponse } from 'next/server'
+// app/api/webhooks/stripe/route.ts
+import { headers } from 'next/headers'
+import { stripe } from '@/lib/stripe/server'
+import { createClient } from '@supabase/supabase-js'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
+const supabaseAdmin = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SECRET_KEY!
+)
 
-export async function POST(req: NextRequest) {
+export async function POST(req: Request) {
   const body = await req.text()
-  const signature = req.headers.get('stripe-signature')!
+  const headersList = await headers()
+  const signature = headersList.get('stripe-signature')!
 
-  let event: Stripe.Event
+  let event
+
   try {
     event = stripe.webhooks.constructEvent(
       body,
       signature,
       process.env.STRIPE_WEBHOOK_SECRET!
     )
-  } catch (err) {
-    return NextResponse.json({ error: 'Invalid signature' }, { status: 400 })
+  } catch (err: any) {
+    console.error('Webhook signature verification failed:', err.message)
+    return new Response(`Webhook Error: ${err.message}`, { status: 400 })
   }
 
+  // Idempotency check
+  const { data: existing } = await supabaseAdmin
+    .from('stripe_events')
+    .select('stripe_event_id')
+    .eq('stripe_event_id', event.id)
+    .single()
+
+  if (existing) {
+    return new Response(JSON.stringify({ received: true, cached: true }))
+  }
+
+  // Handle the event
   try {
     switch (event.type) {
       case 'checkout.session.completed':
-        await handleCheckoutComplete(event.data.object as Stripe.Checkout.Session)
+        await handleCheckoutComplete(event.data.object)
         break
-      case 'invoice.paid':
-        await handleInvoicePaid(event.data.object as Stripe.Invoice)
+      case 'customer.subscription.created':
+      case 'customer.subscription.updated':
+        await handleSubscriptionChange(event.data.object)
+        break
+      case 'customer.subscription.deleted':
+        await handleSubscriptionDeleted(event.data.object)
         break
       case 'invoice.payment_failed':
-        await handlePaymentFailed(event.data.object as Stripe.Invoice)
+        await handlePaymentFailed(event.data.object)
         break
     }
+
+    // Record processed event
+    await supabaseAdmin
+      .from('stripe_events')
+      .insert({
+        stripe_event_id: event.id,
+        type: event.type,
+      })
+
   } catch (err) {
-    console.error(`Error processing ${event.type}:`, err)
+    console.error('Error processing webhook:', err)
+    return new Response('Webhook handler failed', { status: 500 })
   }
 
-  return NextResponse.json({ received: true })
+  return new Response(JSON.stringify({ received: true }))
 }
 ```
 
-## PhotoVault Configuration
+## Subscription Check in Proxy
 
-### Stripe Products (Test Mode)
+```typescript
+// proxy.ts
+import { createServerClient } from '@supabase/ssr'
+import { NextResponse, type NextRequest } from 'next/server'
 
-| Product | ID | Price |
-|---------|-----|-------|
-| Year Package | `prod_TV5f6EOT5K3wKt` | $100 + $8/mo |
-| 6-Month Package | `prod_TV5f1eAehZIlA2` | $50 + $8/mo |
-| 6-Month Trial | `prod_TV5fYvY8l0WaaV` | $20 one-time |
-| Client Monthly | `prod_TV5gXyg5nNn635` | $8/month |
-| Direct Monthly | `prod_TV6BkuQUCil1ZD` | $8/month (0% commission) |
-| Platform Fee | `prod_TV5evkNAa2Ezo5` | $22/month |
+export async function proxy(request: NextRequest) {
+  // ... Supabase client setup ...
 
-### Key Files
+  const { data: { user } } = await supabase.auth.getUser()
 
+  // Check subscription for premium routes
+  if (user && request.nextUrl.pathname.startsWith('/dashboard')) {
+    const { data: subscription } = await supabase
+      .from('subscriptions')
+      .select('status, current_period_end')
+      .eq('customer_id', user.id)
+      .in('status', ['active', 'trialing'])
+      .single()
+
+    if (!subscription) {
+      return NextResponse.redirect(new URL('/pricing', request.url))
+    }
+  }
+
+  return supabaseResponse
+}
 ```
-src/
-├── lib/stripe.ts                    # Stripe config & helpers
-├── app/api/
-│   ├── stripe/
-│   │   ├── create-checkout/         # Checkout session creation
-│   │   ├── connect/                 # Connect onboarding
-│   │   └── platform-subscription/
-│   └── webhooks/stripe/             # Webhook handler
-```
 
-### Environment Variables
+## Pre-Flight Checklist
+
+Before ANY Stripe integration:
+
+- [ ] Secret key in environment variables only
+- [ ] Publishable key for client-side code
+- [ ] Webhook secret configured
+- [ ] Webhook signature verification implemented
+- [ ] Idempotency handling for webhooks
+- [ ] Using Stripe.js for card collection (PCI compliance)
+- [ ] Test mode keys for development
+- [ ] Customer portal configured in Stripe Dashboard
+- [ ] Supabase tables created for sync
+- [ ] RLS policies on Stripe-synced tables
+- [ ] Error handling for all Stripe API calls
+
+## Resources
+
+### Reference Files (Load as needed)
+
+- **`references/subscriptions.md`** - Billing models, lifecycle, per-seat, usage-based
+- **`references/webhooks.md`** - Signature verification, event handling, idempotency
+- **`references/nextjs-integration.md`** - Complete Next.js patterns
+- **`references/mobile-integration.md`** - iOS, Android, Flutter integration
+- **`references/supabase-sync.md`** - Database schema, sync patterns, RLS
+
+## Common Mistakes to Avoid
+
+1. **Parsing body before signature verification** - Use raw text body
+2. **Not implementing idempotency** - Events can be sent multiple times
+3. **Exposing secret keys in client code** - Use publishable keys only
+4. **Collecting card numbers directly** - Always use Stripe.js/Elements
+5. **Not handling subscription status changes** - Sync via webhooks
+6. **Hardcoding prices** - Use Stripe Dashboard or API for prices
+7. **Not testing webhooks locally** - Use `stripe listen --forward-to`
+8. **Missing error handling** - Stripe API can fail
+
+## Testing
+
+### Local Webhook Testing
 
 ```bash
-STRIPE_SECRET_KEY=sk_test_...
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_...
-STRIPE_WEBHOOK_SECRET=whsec_...
-STRIPE_PRICE_PLATFORM_MONTHLY=price_...
-```
+# Install Stripe CLI
+brew install stripe/stripe-cli/stripe
 
-### Commission Rate
+# Login
+stripe login
 
-- Platform takes 50% (`PHOTOGRAPHER_COMMISSION_RATE = 0.50`)
-- API Version: `2025-09-30.clover`
-
-## Testing with Stripe CLI
-
-```bash
 # Forward webhooks to local server
-stripe listen --forward-to localhost:3002/api/webhooks/stripe
+stripe listen --forward-to localhost:3000/api/webhooks/stripe
 
 # Trigger test events
 stripe trigger checkout.session.completed
-stripe trigger invoice.payment_failed
+stripe trigger customer.subscription.updated
 ```
 
-### Test Cards
+### Test Card Numbers
 
-| Card | Number | Result |
-|------|--------|--------|
-| Success | `4242 4242 4242 4242` | Payment succeeds |
+| Card | Number | Use Case |
+|------|--------|----------|
+| Success | `4242 4242 4242 4242` | Successful payment |
 | Decline | `4000 0000 0000 0002` | Card declined |
-| 3D Secure | `4000 0025 0000 3155` | Requires auth |
-| Insufficient | `4000 0000 0000 9995` | Insufficient funds |
+| Auth Required | `4000 0025 0000 3155` | 3D Secure required |
+| Insufficient Funds | `4000 0000 0000 9995` | Insufficient funds |
 
-## Debugging Checklist
+---
 
-1. Check Stripe Dashboard → Payments → Find the payment
-2. Check webhook logs → Developers → Webhooks → Recent events
-3. Verify Connect account → Connect → Accounts → Is it enabled?
-4. Check your logs → Console for errors
-5. Verify webhook secret → Is it correct for this endpoint?
-6. Check idempotency → Is the commission already created?
+**Skill Version:** 1.0.0
+**Last Updated:** 2025-01-07
+**Documentation:** https://docs.stripe.com

@@ -1,12 +1,7 @@
 {
   "name": "fetch-url",
-  "description": "渲染网页 URL，去噪提取正文并输出为 Markdown（默认）或其他格式/原始 HTML，以减少 Token。",
-  "repo": "DCjanus/prompts",
-  "category": "data",
-  "tags": [
-    "fetch",
-    "url"
-  ],
-  "stars": 12,
-  "source": "SkillsMP Synced Skills"
+  "repo": "aiskillstore/marketplace",
+  "path": "skills/dcjanus/fetch-url/SKILL.md",
+  "source": "github.com/aiskillstore/marketplace",
+  "downloaded_at": "2026-01-14T01:23:50.035805Z"
 }

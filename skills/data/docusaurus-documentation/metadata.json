@@ -1,12 +1,7 @@
 {
   "name": "docusaurus-documentation",
-  "description": "Use when looking up information from the latest Docusaurus documentation at https://docusaurus.io/docs",
-  "repo": "mcclowes/lea",
-  "category": "documents",
-  "tags": [
-    "docusaurus",
-    "documentation"
-  ],
-  "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "repo": "mcclowes/omg",
+  "path": "docusaurus/.claude/skills/docusaurus-documentation/SKILL.md",
+  "source": "github.com/mcclowes/omg",
+  "downloaded_at": "2026-01-14T04:01:36.332143Z"
 }

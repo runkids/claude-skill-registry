@@ -1,13 +1,7 @@
 {
   "name": "natural-language-postgres-presentation",
-  "description": "Presentation-focused Natural Language to SQL app with PPT-style visualizations.",
-  "repo": "Eng0AI/eng0-template-skills",
-  "category": "data",
-  "tags": [
-    "natural",
-    "language",
-    "postgres",
-    "presentation"
-  ],
-  "stars": 0
+  "repo": "rebyteai-template/rebyte-skills",
+  "path": "natural-language-postgres-presentation/SKILL.md",
+  "source": "github.com/rebyteai-template/rebyte-skills",
+  "downloaded_at": "2026-01-14T01:01:11.803911Z"
 }

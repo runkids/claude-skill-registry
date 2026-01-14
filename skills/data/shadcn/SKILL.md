@@ -1,246 +1,420 @@
 ---
 name: shadcn
-description: >
-  Implement shadcn/ui components for PhotoVault with accessibility and theming.
-  Use when working with UI components, forms, dialogs, buttons, cards, tables,
-  Tailwind styling, or fixing accessibility issues. Includes PhotoVault theme
-  system and established UI patterns.
+description: This skill should be used when the user asks to "add a component", "use shadcn", "install Button", "create Dialog", "add Form", "use DataTable", "implement dark mode toggle", "use cn utility", or discusses UI components, component libraries, or accessible components. Always use the latest shadcn/ui version and modern patterns.
+version: 1.0.0
 ---
 
-# ⚠️ MANDATORY WORKFLOW - DO NOT SKIP
+# shadcn/ui Development
 
-**When this skill activates, you MUST follow the expert workflow before writing any code:**
+This skill provides guidance for building interfaces with shadcn/ui, focusing on **always using the latest version** and modern patterns.
 
-1. **Spawn Domain Expert** using the Task tool with this prompt:
-   ```
-   Read the expert prompt at: C:\Users\natha\Stone-Fence-Brain\VENTURES\PhotoVault\claude\experts\shadcn-expert.md
+> **Philosophy:** Copy and own your components. Use the `new-york` style. Leverage Radix UI primitives for accessibility.
 
-   Then research the codebase and write an implementation plan to: docs/claude/plans/ui-[task-name]-plan.md
+## Quick Reference
 
-   Task: [describe the user's request]
-   ```
+| Feature | Modern Approach | Legacy (Avoid) |
+|---------|----------------|----------------|
+| Style | `new-york` | `default` (deprecated) |
+| Toast | `sonner` | `toast` component |
+| Animation | CSS/tw-animate-css | `tailwindcss-animate` |
+| forwardRef | Direct `ref` prop (React 19) | `forwardRef` wrapper |
 
-2. **Spawn QA Critic** after expert returns, using Task tool:
-   ```
-   Read the QA critic prompt at: C:\Users\natha\Stone-Fence-Brain\VENTURES\PhotoVault\claude\experts\qa-critic-expert.md
+## Installation
 
-   Review the plan at: docs/claude/plans/ui-[task-name]-plan.md
-   Write critique to: docs/claude/plans/ui-[task-name]-critique.md
-   ```
+### Initialize in Next.js
 
-3. **Present BOTH plan and critique to user** - wait for approval before implementing
-
-**DO NOT read files and start coding. DO NOT rationalize that "this is simple." Follow the workflow.**
-
----
-
-# shadcn/ui Integration
-
-## Core Principles
-
-### Accessibility First, Always
-
-Every interactive component MUST be keyboard navigable and screen reader friendly. shadcn/ui is built on Radix primitives which handle most accessibility out of the box.
-
-```tsx
-<Button aria-label="Close dialog" onClick={onClose}>
-  <X className="h-4 w-4" />
-</Button>
+```bash
+npx shadcn@latest init
 ```
 
-### Composition Over Configuration
+Configuration prompts:
+- Style: **new-york** (recommended)
+- Base color: neutral, slate, zinc, gray, or stone
+- CSS variables: **Yes** (recommended)
 
-shadcn/ui components are meant to be composed, not configured with dozens of props.
+### Add Components
 
-```tsx
-// ✅ RIGHT: Compose components
-<Card>
-  <CardHeader>
-    <CardTitle>Title</CardTitle>
-    <CardDescription>Description</CardDescription>
-  </CardHeader>
-  <CardContent>Content here</CardContent>
-  <CardFooter>
-    <Button>Action</Button>
-  </CardFooter>
-</Card>
+```bash
+# Add individual components
+npx shadcn@latest add button
+npx shadcn@latest add card dialog form input
 
-// ❌ WRONG: Mega-component with too many props
-<Card title="Title" description="..." content="..." footerButton="Action" />
+# Add multiple components
+npx shadcn@latest add button card dialog form input label textarea
 ```
 
-### Always Use Semantic Color Tokens
+## The cn() Utility
 
-Never hardcode colors. Use semantic tokens for theming support.
+Merge Tailwind classes conditionally:
 
 ```tsx
-// ❌ WRONG: Hardcoded colors break theming
-<div className="bg-white text-black" />
+import { cn } from "@/lib/utils"
 
-// ✅ RIGHT: Semantic tokens
-<div className="bg-background text-foreground" />
-```
-
-## Anti-Patterns
-
-**Not forwarding refs on custom components**
-```tsx
-// WRONG: Refs don't work
-const CustomButton = ({ className, ...props }) => {
-  return <Button className={className} {...props} />
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: 'default' | 'destructive' | 'outline'
+  size?: 'sm' | 'md' | 'lg'
 }
 
-// RIGHT: Forward refs
-const CustomButton = React.forwardRef<
-  HTMLButtonElement,
-  React.ComponentPropsWithoutRef<typeof Button>
->(({ className, ...props }, ref) => {
-  return <Button ref={ref} className={className} {...props} />
-})
-CustomButton.displayName = "CustomButton"
-```
-
-**Not using cn() for class merging**
-```tsx
-// WRONG: Classes override unpredictably
-<Button className={`${baseClasses} ${conditionalClasses}`}>
-
-// RIGHT: Use cn() for proper merging
-import { cn } from "@/lib/utils"
-<Button className={cn(baseClasses, conditionalClasses)}>
-```
-
-**Nesting interactive elements**
-```tsx
-// WRONG: Button inside clickable card (accessibility violation)
-<Card onClick={handleClick}>
-  <Button onClick={handleAction}>Action</Button>
-</Card>
-
-// RIGHT: Separate interactive areas
-<Card>
-  <CardContent onClick={handleClick}>...</CardContent>
-  <CardFooter>
-    <Button onClick={handleAction}>Action</Button>
-  </CardFooter>
-</Card>
-```
-
-**Not connecting labels to inputs**
-```tsx
-// WRONG: Label not connected
-<Label>Email</Label>
-<Input type="email" />
-
-// RIGHT: Use FormField pattern
-<FormField
-  control={form.control}
-  name="email"
-  render={({ field }) => (
-    <FormItem>
-      <FormLabel>Email</FormLabel>
-      <FormControl>
-        <Input {...field} />
-      </FormControl>
-      <FormMessage />
-    </FormItem>
-  )}
-/>
-```
-
-## Button Variants
-
-```tsx
-<Button>Save Changes</Button>                    // Primary
-<Button variant="secondary">Cancel</Button>      // Secondary
-<Button variant="destructive">Delete</Button>    // Destructive
-<Button variant="ghost">Edit</Button>            // Subtle
-<Button variant="outline">View Details</Button>  // Outline
-
-// Icon button with accessibility
-<Button variant="ghost" size="icon" aria-label="Settings">
-  <Settings className="h-4 w-4" />
-</Button>
-
-// Loading state
-<Button disabled>
-  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-  Please wait
-</Button>
-```
-
-## Dialog Pattern
-
-```tsx
-import {
-  Dialog, DialogContent, DialogDescription,
-  DialogFooter, DialogHeader, DialogTitle, DialogTrigger,
-} from "@/components/ui/dialog"
-
-function ConfirmDialog({ onConfirm }: { onConfirm: () => void }) {
-  const [open, setOpen] = useState(false)
-
+export function Button({
+  className,
+  variant = 'default',
+  size = 'md',
+  ...props
+}: ButtonProps) {
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button variant="destructive">Delete Item</Button>
-      </DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Are you sure?</DialogTitle>
-          <DialogDescription>This action cannot be undone.</DialogDescription>
-        </DialogHeader>
-        <DialogFooter>
-          <Button variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
-          <Button variant="destructive" onClick={() => { onConfirm(); setOpen(false) }}>
-            Delete
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+    <button
+      className={cn(
+        // Base styles
+        "inline-flex items-center justify-center rounded-md font-medium transition-colors",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+        "disabled:pointer-events-none disabled:opacity-50",
+
+        // Variants
+        variant === 'default' && "bg-primary text-primary-foreground hover:bg-primary/90",
+        variant === 'destructive' && "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+        variant === 'outline' && "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+
+        // Sizes
+        size === 'sm' && "h-8 px-3 text-xs",
+        size === 'md' && "h-10 px-4 text-sm",
+        size === 'lg' && "h-12 px-6 text-base",
+
+        // Custom classes
+        className
+      )}
+      {...props}
+    />
   )
 }
 ```
 
-## Form Pattern (react-hook-form + zod)
+## Core Components
+
+### Button
 
 ```tsx
-import { zodResolver } from "@hookform/resolvers/zod"
+import { Button } from "@/components/ui/button"
+
+// Variants
+<Button>Default</Button>
+<Button variant="secondary">Secondary</Button>
+<Button variant="outline">Outline</Button>
+<Button variant="ghost">Ghost</Button>
+<Button variant="link">Link</Button>
+<Button variant="destructive">Destructive</Button>
+
+// Sizes
+<Button size="sm">Small</Button>
+<Button size="default">Default</Button>
+<Button size="lg">Large</Button>
+<Button size="icon"><IconSearch /></Button>
+
+// States
+<Button disabled>Disabled</Button>
+<Button asChild>
+  <Link href="/about">As Link</Link>
+</Button>
+```
+
+### Card
+
+```tsx
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+
+<Card>
+  <CardHeader>
+    <CardTitle>Card Title</CardTitle>
+    <CardDescription>Card description goes here</CardDescription>
+  </CardHeader>
+  <CardContent>
+    <p>Card content</p>
+  </CardContent>
+  <CardFooter>
+    <Button>Action</Button>
+  </CardFooter>
+</Card>
+```
+
+### Dialog
+
+```tsx
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogClose,
+} from "@/components/ui/dialog"
+
+<Dialog>
+  <DialogTrigger asChild>
+    <Button>Open Dialog</Button>
+  </DialogTrigger>
+  <DialogContent>
+    <DialogHeader>
+      <DialogTitle>Are you sure?</DialogTitle>
+      <DialogDescription>
+        This action cannot be undone.
+      </DialogDescription>
+    </DialogHeader>
+    <div className="py-4">
+      Dialog body content
+    </div>
+    <DialogFooter>
+      <DialogClose asChild>
+        <Button variant="outline">Cancel</Button>
+      </DialogClose>
+      <Button>Confirm</Button>
+    </DialogFooter>
+  </DialogContent>
+</Dialog>
+```
+
+### Input & Label
+
+```tsx
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+
+<div className="grid gap-2">
+  <Label htmlFor="email">Email</Label>
+  <Input
+    id="email"
+    type="email"
+    placeholder="you@example.com"
+  />
+</div>
+```
+
+### Select
+
+```tsx
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+
+<Select>
+  <SelectTrigger className="w-[200px]">
+    <SelectValue placeholder="Select option" />
+  </SelectTrigger>
+  <SelectContent>
+    <SelectItem value="option1">Option 1</SelectItem>
+    <SelectItem value="option2">Option 2</SelectItem>
+    <SelectItem value="option3">Option 3</SelectItem>
+  </SelectContent>
+</Select>
+```
+
+## Form Handling
+
+### With React Hook Form + Zod
+
+```tsx
+'use client'
+
 import { useForm } from "react-hook-form"
-import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod"
+import * as z from "zod"
+import { Button } from "@/components/ui/button"
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
 
 const formSchema = z.object({
-  email: z.string().email("Please enter a valid email"),
-  name: z.string().min(2, "Name must be at least 2 characters"),
+  username: z.string().min(2, "Username must be at least 2 characters"),
+  email: z.string().email("Invalid email address"),
 })
 
-function ContactForm() {
-  const form = useForm<z.infer<typeof formSchema>>({
+type FormValues = z.infer<typeof formSchema>
+
+export function ProfileForm() {
+  const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: { email: "", name: "" },
+    defaultValues: {
+      username: "",
+      email: "",
+    },
   })
+
+  function onSubmit(values: FormValues) {
+    console.log(values)
+  }
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <FormField
           control={form.control}
-          name="name"
+          name="username"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Name</FormLabel>
+              <FormLabel>Username</FormLabel>
               <FormControl>
-                <Input placeholder="John Doe" {...field} />
+                <Input placeholder="johndoe" {...field} />
+              </FormControl>
+              <FormDescription>
+                Your public display name.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input type="email" placeholder="john@example.com" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit" disabled={form.formState.isSubmitting}>
-          {form.formState.isSubmitting ? "Submitting..." : "Submit"}
-        </Button>
+
+        <Button type="submit">Submit</Button>
       </form>
     </Form>
+  )
+}
+```
+
+### With Server Actions
+
+```tsx
+'use client'
+
+import { useActionState } from 'react'
+import { createUser } from './actions'
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+
+export function SignupForm() {
+  const [state, formAction, isPending] = useActionState(createUser, {
+    error: null
+  })
+
+  return (
+    <form action={formAction} className="space-y-4">
+      <div className="space-y-2">
+        <Label htmlFor="email">Email</Label>
+        <Input
+          id="email"
+          name="email"
+          type="email"
+          disabled={isPending}
+        />
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="password">Password</Label>
+        <Input
+          id="password"
+          name="password"
+          type="password"
+          disabled={isPending}
+        />
+      </div>
+
+      {state.error && (
+        <p className="text-sm text-destructive">{state.error}</p>
+      )}
+
+      <Button type="submit" disabled={isPending}>
+        {isPending ? 'Creating...' : 'Create Account'}
+      </Button>
+    </form>
+  )
+}
+```
+
+## Dark Mode
+
+### Theme Provider Setup
+
+```tsx
+// components/theme-provider.tsx
+'use client'
+
+import * as React from 'react'
+import { ThemeProvider as NextThemesProvider } from 'next-themes'
+
+export function ThemeProvider({
+  children,
+  ...props
+}: React.ComponentProps<typeof NextThemesProvider>) {
+  return <NextThemesProvider {...props}>{children}</NextThemesProvider>
+}
+```
+
+```tsx
+// app/layout.tsx
+import { ThemeProvider } from "@/components/theme-provider"
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
+      </body>
+    </html>
+  )
+}
+```
+
+### Theme Toggle
+
+```tsx
+'use client'
+
+import { useTheme } from 'next-themes'
+import { Button } from "@/components/ui/button"
+import { Moon, Sun } from "lucide-react"
+
+export function ThemeToggle() {
+  const { theme, setTheme } = useTheme()
+
+  return (
+    <Button
+      variant="ghost"
+      size="icon"
+      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+    >
+      <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+      <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+      <span className="sr-only">Toggle theme</span>
+    </Button>
   )
 }
 ```
@@ -248,77 +422,152 @@ function ContactForm() {
 ## Toast Notifications (Sonner)
 
 ```tsx
+// app/layout.tsx
+import { Toaster } from "@/components/ui/sonner"
+
+export default function RootLayout({ children }) {
+  return (
+    <html>
+      <body>
+        {children}
+        <Toaster />
+      </body>
+    </html>
+  )
+}
+```
+
+```tsx
+// In components
 import { toast } from "sonner"
 
-toast.success("Changes saved successfully")
-toast.error("Failed to save changes")
+function MyComponent() {
+  return (
+    <Button
+      onClick={() => {
+        toast.success("Success!", {
+          description: "Your changes have been saved."
+        })
+      }}
+    >
+      Save
+    </Button>
+  )
+}
 
-// Promise toast
+// Other toast types
+toast("Default toast")
+toast.success("Success message")
+toast.error("Error message")
+toast.warning("Warning message")
+toast.info("Info message")
+toast.loading("Loading...")
+
+// With action
+toast("Event created", {
+  action: {
+    label: "Undo",
+    onClick: () => console.log("Undo")
+  }
+})
+
+// Promise-based
 toast.promise(saveData(), {
   loading: "Saving...",
-  success: "Data saved!",
-  error: "Could not save data",
+  success: "Saved!",
+  error: "Error saving"
 })
 ```
 
-## PhotoVault Configuration
+## Common Patterns
 
-### Theme System
+### Responsive Sheet/Dialog
 
-PhotoVault has 5 color themes in `src/lib/themes.ts`:
-- **Warm Gallery** - Cream background, terracotta primary (default)
-- **Cool Professional** - Cool slate, indigo primary
-- **Gallery Dark** - Warm charcoal, amber accents
-- **Soft Sage** - Sage green, emerald + pink accents
-- **Original Teal** - Original PhotoVault theme
-
-### PhotoVault UI Patterns
-
-**Gallery Card:**
 ```tsx
-<Card className="overflow-hidden transition-shadow hover:shadow-lg">
-  <div className="aspect-[4/3] relative">
-    <Image src={coverImage} alt={galleryName} fill className="object-cover" />
-  </div>
-  <CardContent className="p-4">
-    <h3 className="font-semibold truncate">{galleryName}</h3>
-    <p className="text-sm text-muted-foreground">{photoCount} photos</p>
-  </CardContent>
-</Card>
+'use client'
+
+import { useMediaQuery } from "@/hooks/use-media-query"
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet"
+
+interface ResponsiveModalProps {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  title: string
+  children: React.ReactNode
+}
+
+export function ResponsiveModal({
+  open,
+  onOpenChange,
+  title,
+  children
+}: ResponsiveModalProps) {
+  const isDesktop = useMediaQuery("(min-width: 768px)")
+
+  if (isDesktop) {
+    return (
+      <Dialog open={open} onOpenChange={onOpenChange}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{title}</DialogTitle>
+          </DialogHeader>
+          {children}
+        </DialogContent>
+      </Dialog>
+    )
+  }
+
+  return (
+    <Sheet open={open} onOpenChange={onOpenChange}>
+      <SheetContent side="bottom">
+        <SheetHeader>
+          <SheetTitle>{title}</SheetTitle>
+        </SheetHeader>
+        {children}
+      </SheetContent>
+    </Sheet>
+  )
+}
 ```
 
-**Paywall UI:**
+### Loading Button
+
 ```tsx
-<div className="text-center py-12 px-4">
-  <Lock className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-  <h2 className="text-2xl font-bold mb-2">Gallery Access Required</h2>
-  <p className="text-muted-foreground mb-6">Pay to unlock all photos</p>
-  <Button size="lg" onClick={handlePayment}>Pay Now - ${price}</Button>
-</div>
+import { Loader2 } from "lucide-react"
+import { Button } from "@/components/ui/button"
+
+interface LoadingButtonProps extends React.ComponentProps<typeof Button> {
+  loading?: boolean
+}
+
+export function LoadingButton({
+  children,
+  loading,
+  disabled,
+  ...props
+}: LoadingButtonProps) {
+  return (
+    <Button disabled={loading || disabled} {...props}>
+      {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+      {children}
+    </Button>
+  )
+}
 ```
 
-### Semantic Color Tokens
+## Additional Resources
 
-| Token | Purpose |
-|-------|---------|
-| `bg-background` | Page background |
-| `bg-card` | Card backgrounds |
-| `bg-primary` | Primary buttons |
-| `bg-secondary` | Secondary elements |
-| `bg-destructive` | Delete/error actions |
-| `text-muted-foreground` | Subtle text |
-| `border-border` | Borders |
-
-### Component Installation
-
-```bash
-npx shadcn@latest add button card dialog form input
-```
-
-## Debugging Checklist
-
-1. Are you using semantic color tokens? Check for hardcoded colors
-2. Is cn() being used for class merging?
-3. Are refs being forwarded in custom components?
-4. Is the component accessible? Test with keyboard
-5. Are form fields properly connected to labels?
+For detailed patterns, see reference files:
+- **`references/components.md`** - Full component catalog
+- **`references/theming.md`** - Theme customization

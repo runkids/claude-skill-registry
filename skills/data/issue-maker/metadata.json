@@ -1,9 +1,7 @@
 {
   "name": "issue-maker",
-  "description": "Create GitHub issues following Pollinations team conventions. Use when asked to create issues, track work, or plan features.",
   "repo": "pollinations/pollinations",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "GitHub Search API"
+  "path": ".claude/skills/issue-maker/SKILL.md",
+  "source": "github.com/pollinations/pollinations",
+  "downloaded_at": "2026-01-14T02:03:34.676017Z"
 }

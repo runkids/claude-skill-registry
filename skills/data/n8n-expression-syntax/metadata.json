@@ -1,13 +1,7 @@
 {
   "name": "n8n-expression-syntax",
-  "description": "Validate n8n expression syntax and fix common errors. Use when writing n8n expressions, using {{}} syntax, accessing $json/$node variables, troubleshooting expression errors, or working with webhook d",
-  "repo": "czlonkowski/n8n-skills",
-  "category": "data",
-  "tags": [
-    "n8n",
-    "expression",
-    "syntax"
-  ],
-  "stars": 144,
-  "source": "SkillsMP Synced Skills"
+  "repo": "alexadark/shorts-generator",
+  "path": ".claude/skills/n8n-expression-syntax/SKILL.md",
+  "source": "github.com/alexadark/shorts-generator",
+  "downloaded_at": "2026-01-14T01:17:04.816224Z"
 }

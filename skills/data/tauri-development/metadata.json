@@ -1,0 +1,9 @@
+{
+  "name": "tauri-development",
+  "description": "Guide for developing Tauri v2 desktop apps on macOS. Covers debugging native apps (Rust panics, Sentry integration, thread-local issues), app signing and updater setup, global shortcuts, Keychain secr",
+  "repo": "ebiyy/traylingo",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

@@ -1,11 +1,7 @@
 {
   "name": "screenshots",
-  "description": "Use this skill to read screenshots from the user's ShareX folder for visual game information. Covers finding recent screenshots and reading game UI state.",
   "repo": "vaoan/SND",
-  "category": "design",
-  "tags": [
-    "screenshots"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/screenshots/SKILL.md",
+  "source": "github.com/vaoan/SND",
+  "downloaded_at": "2026-01-14T03:46:35.095143Z"
 }

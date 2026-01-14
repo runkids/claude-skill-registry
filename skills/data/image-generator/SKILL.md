@@ -1,6 +1,7 @@
 ---
 name: image-generator
-description: Visual generation converges toward accepting first output ("looks good enough") and following technical specifications rigidly. This produces generic aesthetics and misses Gemini 3's reasoning capabilities. This skill provides multi-turn reasoning partnership methodology with professional quality standards.
+description: This skill should be used when generating images for educational content. It provides multi-turn reasoning partnership methodology with Gemini for professional quality visual generation.
+version: "1.0.0"
 ---
 
 # Image Generator Skill
@@ -66,24 +67,18 @@ Smallest: Context
 
 **Initialize once:**
 1. Navigate to https://gemini.google.com/ (Playwright MCP)
-2. User signs in:
-   - Click "Sign in" button.
-   - Type "cornuni1414@gmail.com" into email field and click "Next".
-   - Type "Islam67890" into password field and click "Next".
-   - Skip any other options if they appear. (session persists)
-3. Click "Tools" in Gemini chat.
-4. Select "🍌 Create Image" tool (Nano Banana Pro).
+2. User signs in if needed (session persists)
+3. Select "🍌 Create Image" tool (Nano Banana Pro)
 
 **For EACH visual:**
 1. **Type creative brief** directly into Gemini chat textbox (use condensed format in batch mode - see Token Conservation below)
 2. **Press Enter** to submit
 3. **Wait 30-35 seconds** for generation
-4. **Open image**, then **right click and "Open image in new tab"**
-5. **Download the image** from the new tab.
-6. **Wait 3-5 seconds** for download completion
+4. **Click "Download full size image"** button when ready
+5. **Wait 3-5 seconds** for download completion
 6. **Verify quality IMMEDIATELY** (6 gates below)
 7. **If gates fail**: Continue in same chat with principle-based feedback (max 3 iterations)
-8. **If gates pass**: Copy from `./.playwright-mcp/Gemini-Generated-Image-*.png` to `./static/img/chapter-{NN}/{filename}.png`
+8. **If gates pass**: Copy from `.playwright-mcp/Gemini-Generated-Image-*.png` to `robolearn-interface/static/img/part-{N}/chapter-{NN}/{filename}.png`
 9. **Embed in lesson** (Step 8.5 below)
 10. **Start NEW CHAT** for next visual (prevents context contamination)
 
@@ -179,7 +174,7 @@ Role: 'Strategic oversight, contract validation', Gold (#fbbf24), Large hexagon.
 
 1. **Determine lesson file:**
    - Read creative brief's `Chapter` and `Lesson` metadata
-   - Target: `book-source/docs/[chapter]/[lesson-file].md`
+   - Target: `robolearn-interface/docs/[part]/[chapter]/[lesson-file].md`
 
 2. **Find insertion point:**
    - Search for concept explanation section related to this visual
@@ -188,7 +183,7 @@ Role: 'Strategic oversight, contract validation', Gold (#fbbf24), Large hexagon.
 
 3. **Insert reference:**
    ```markdown
-   ![{Alt text from creative brief}](/img/chapter-YY/{filename}.png)
+   ![{Alt text from creative brief}](/img/part-X/chapter-YY/{filename}.png)
    ```
 
 4. **Verify no code block interruption:**
@@ -272,7 +267,7 @@ Total: 18 visuals
 ✅ Generated: 16 (2K, avg 2-3 iterations)
 ⚠️ Deferred: 2 (quality issues after 3 tries)
 Time: ~45 min
-Location: book-source/static/img/chapter-{NN}/
+Location: robolearn-interface/static/img/part-{N}/chapter-{NN}/
 ```
 
 **Principle:** Autonomous execution without interruption = efficient batch processing
@@ -343,10 +338,10 @@ Location: book-source/static/img/chapter-{NN}/
 
 **If session ends mid-batch (token limit, context overflow):**
 
-**Create checkpoint file:** `history/visual-assets/checkpoints/chapter-{N}-checkpoint.md`
+**Create checkpoint file:** `history/visual-assets/checkpoints/part-{N}-checkpoint.md`
 
 ```markdown
-## Batch Status: Chapter {N}
+## Batch Status: Part {N}
 **Date:** 2025-11-24
 **Status:** INTERRUPTED at {X}/{Y} images
 

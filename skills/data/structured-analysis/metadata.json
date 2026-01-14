@@ -1,12 +1,7 @@
 {
   "name": "structured-analysis",
-  "description": "Apply structured analytical frameworks to any artifact (prompts, systems, documents, code). 12 frameworks in 3 tiers: Core (4 universal), Auto-Invoke (specialized), On-Demand (advanced). Includes adve",
   "repo": "ilude/claude-code-config",
-  "category": "development",
-  "tags": [
-    "structured",
-    "analysis"
-  ],
-  "stars": 5,
-  "source": "local"
+  "path": "skills/structured-analysis/SKILL.md",
+  "source": "github.com/ilude/claude-code-config",
+  "downloaded_at": "2026-01-14T01:02:42.139920Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "model-detection",
-  "description": "Universal model detection and capability assessment for optimal cross-model compatibility",
   "repo": "bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/model-detection/SKILL.md",
+  "source": "github.com/bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
+  "downloaded_at": "2026-01-14T01:09:10.965473Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "gh-read-issue-context",
-  "description": "Read context from GitHub issue including body and comments. Use before starting implementation work or when prior context is needed.",
   "repo": "mvillmow/ProjectOdyssey",
-  "category": "development",
-  "tags": [
-    "read",
-    "issue",
-    "context"
-  ],
-  "stars": 8,
-  "source": "local"
+  "path": ".claude/skills/gh-read-issue-context/SKILL.md",
+  "source": "github.com/mvillmow/ProjectOdyssey",
+  "downloaded_at": "2026-01-14T01:08:59.127767Z"
 }

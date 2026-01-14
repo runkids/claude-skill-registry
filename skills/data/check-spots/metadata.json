@@ -1,12 +1,7 @@
 {
   "name": "check-spots",
-  "description": "Validate spots.json for common issues including missing fields, invalid URLs, duplicate entries, and data consistency problems",
   "repo": "pwittchen/varun.surf",
-  "category": "data",
-  "tags": [
-    "check",
-    "spots"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/check-spots/SKILL.md",
+  "source": "github.com/pwittchen/varun.surf",
+  "downloaded_at": "2026-01-14T02:48:59.432831Z"
 }

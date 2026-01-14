@@ -1,11 +1,7 @@
 {
   "name": "d3-viz",
-  "description": "Creating interactive data visualisations using d3.js. This skill should be used when creating custom charts, graphs, network diagrams, geographic visualisations, or any complex SVG-based data visualis",
-  "repo": "chrisvoncsefalvay/claude-d3js-skill",
-  "category": "data",
-  "tags": [
-    "viz"
-  ],
-  "stars": 22,
-  "source": "SkillsMP Synced Skills"
+  "repo": "Doyajin174/myskills",
+  "path": ".public/skills/d3-viz/SKILL.md",
+  "source": "github.com/Doyajin174/myskills",
+  "downloaded_at": "2026-01-14T03:45:36.375095Z"
 }

@@ -1,11 +1,7 @@
 {
   "name": "unsloth-dpo",
-  "description": "Direct Preference Optimization (DPO) for aligning models with preference data without separate reward models. Triggers: dpo, preference optimization, rlhf, ref_model=none, patchdpotrainer, dpotrainer.",
   "repo": "cuba6112/skillfactory",
-  "category": "data",
-  "tags": [
-    "unsloth",
-    "dpo"
-  ],
-  "stars": 0
+  "path": "skills/unsloth-dpo/SKILL.md",
+  "source": "github.com/cuba6112/skillfactory",
+  "downloaded_at": "2026-01-14T02:37:39.208351Z"
 }

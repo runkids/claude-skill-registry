@@ -1,12 +1,7 @@
 {
   "name": "ben-heath",
-  "description": "Talk to Ben Heath Youtuber about their expertise. Ben Heath Youtuber provides authentic advice using their mental models, core beliefs, and real-world examples.",
   "repo": "blicktz/knowledge_base_repo",
-  "category": "development",
-  "tags": [
-    "ben",
-    "heath"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/ben-heath/SKILL.md",
+  "source": "github.com/blicktz/knowledge_base_repo",
+  "downloaded_at": "2026-01-14T01:24:05.441751Z"
 }

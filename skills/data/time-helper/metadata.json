@@ -1,12 +1,7 @@
 {
   "name": "time-helper",
-  "description": "This skill should be used when users request current time information, timezone conversions, or any time-related queries. It provides a simple interface to Claude's built-in time-tools functionality f",
-  "repo": "ramhaidar/Code-Executor-MCP",
-  "category": "design",
-  "tags": [
-    "time",
-    "helper"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "Interstellar-code/claud-skills",
+  "path": "generic-claude-framework/skills/time-helper/skill.md",
+  "source": "github.com/Interstellar-code/claud-skills",
+  "downloaded_at": "2026-01-14T01:32:25.340765Z"
 }

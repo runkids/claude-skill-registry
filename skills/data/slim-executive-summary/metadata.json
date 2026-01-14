@@ -1,8 +1,7 @@
 {
   "name": "slim-executive-summary",
   "repo": "NASA-AMMOS/slim",
-  "category": "data",
-  "description": "Generate comprehensive executive summaries from workspace communication files using AI analysis with automatic context discovery",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:28.172913Z"
+  "path": "static/marketplace/skills/slim-executive-summary/SKILL.md",
+  "source": "github.com/NASA-AMMOS/slim",
+  "downloaded_at": "2026-01-14T01:59:49.492965Z"
 }

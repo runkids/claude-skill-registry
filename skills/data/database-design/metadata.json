@@ -1,12 +1,7 @@
 {
   "name": "database-design",
-  "description": "Design scalable, normalized database schemas with proper relationships, indexes, constraints, and migration strategies for relational and NoSQL databases. Use when designing database schemas, planning",
-  "repo": "korallis/Droidz",
-  "category": "data",
-  "tags": [
-    "database",
-    "design"
-  ],
-  "stars": 49,
-  "source": "SkillsMP Synced Skills"
+  "repo": "eddiebe147/claude-settings",
+  "path": "skills/database-design/skill.md",
+  "source": "github.com/eddiebe147/claude-settings",
+  "downloaded_at": "2026-01-14T03:53:00.005824Z"
 }

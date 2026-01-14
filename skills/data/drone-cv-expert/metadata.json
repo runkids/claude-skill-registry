@@ -1,12 +1,7 @@
 {
   "name": "drone-cv-expert",
-  "description": "Expert in drone systems, computer vision, and autonomous navigation. Specializes in flight control, SLAM, object detection, sensor fusion, and path planning. Activate on \"drone\", \"UAV\", \"SLAM\", \"visua",
   "repo": "erichowens/some_claude_skills",
-  "category": "productivity",
-  "tags": [
-    "drone",
-    "expert"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/drone-cv-expert/SKILL.md",
+  "source": "github.com/erichowens/some_claude_skills",
+  "downloaded_at": "2026-01-14T02:58:41.331055Z"
 }

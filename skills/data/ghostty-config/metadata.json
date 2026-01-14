@@ -1,12 +1,7 @@
 {
   "name": "ghostty-config",
-  "description": "Configure and optimize Ghostty terminal with themes, fonts, keybindings, and performance settings. Use when setting up Ghostty, creating terminal configs, customizing keybinds, or troubleshooting term",
   "repo": "wcygan/dotfiles",
-  "category": "development",
-  "tags": [
-    "ghostty",
-    "config"
-  ],
-  "stars": 182,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/ghostty-config/SKILL.md",
+  "source": "github.com/wcygan/dotfiles",
+  "downloaded_at": "2026-01-14T02:53:07.026557Z"
 }

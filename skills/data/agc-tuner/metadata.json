@@ -1,12 +1,7 @@
 {
   "name": "agc-tuner",
-  "description": "Analyze and optimize AGC (Automatic Gain Control) parameters for WaveCap-SDR channels. Use when audio is too quiet, too loud, has pumping artifacts, or when tuning AGC attack/release/target settings f",
   "repo": "TobiasWooldridge/WaveCap-SDR",
-  "category": "data",
-  "tags": [
-    "agc",
-    "tuner"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/agc-tuner/SKILL.md",
+  "source": "github.com/TobiasWooldridge/WaveCap-SDR",
+  "downloaded_at": "2026-01-14T01:59:41.198914Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "markdown-table-generator",
-  "description": "Generate well-formatted markdown tables from data. Use when creating documentation tables or formatting tabular data.",
   "repo": "ntaksh42/agents",
-  "category": "documents",
-  "tags": [
-    "markdown",
-    "table",
-    "generator"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/markdown-table-generator/SKILL.md",
+  "source": "github.com/ntaksh42/agents",
+  "downloaded_at": "2026-01-14T03:51:04.837519Z"
 }

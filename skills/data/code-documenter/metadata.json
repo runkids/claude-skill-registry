@@ -1,12 +1,7 @@
 {
   "name": "code-documenter",
-  "description": "Use when adding docstrings, creating API documentation, or building documentation sites. Invoke for OpenAPI/Swagger specs, JSDoc, doc portals, tutorials, user guides. Keywords: documentation, docstrin",
-  "repo": "Jeffallan/claude-skills",
-  "category": "development",
-  "tags": [
-    "code",
-    "documenter"
-  ],
-  "stars": 12,
-  "source": "SkillsMP Synced Skills"
+  "repo": "robertguss/claude-skills",
+  "path": "code-documenter/SKILL.md",
+  "source": "github.com/robertguss/claude-skills",
+  "downloaded_at": "2026-01-14T03:03:10.284150Z"
 }

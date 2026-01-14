@@ -1,12 +1,7 @@
 {
   "name": "readme-updates",
-  "description": "Maintain README files with setup instructions, features, tech stack, and usage examples. Use when updating project documentation, adding new features, or improving onboarding.",
   "repo": "sgcarstrends/sgcarstrends",
-  "category": "documents",
-  "tags": [
-    "readme",
-    "updates"
-  ],
-  "stars": 13,
-  "source": "local"
+  "path": ".claude/skills/readme-updates/SKILL.md",
+  "source": "github.com/sgcarstrends/sgcarstrends",
+  "downloaded_at": "2026-01-14T02:59:21.641282Z"
 }

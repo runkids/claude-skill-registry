@@ -1,12 +1,7 @@
 {
   "name": "schedule-verification",
-  "description": "Human verification checklist for generated schedules. Use when reviewing Block 10 or any generated schedule to ensure it makes operational sense. Covers FMIT, call, Night Float, clinic days, and absen",
   "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
-  "category": "development",
-  "tags": [
-    "schedule",
-    "verification"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": ".claude/skills/schedule-verification/SKILL.md",
+  "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager",
+  "downloaded_at": "2026-01-14T02:32:34.673816Z"
 }

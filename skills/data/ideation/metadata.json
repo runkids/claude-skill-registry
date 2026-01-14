@@ -1,10 +1,7 @@
 {
   "name": "ideation",
-  "description": "Generate creative ideas through structured brainstorming techniques. Use when user wants to \"brainstorm\", \"generate ideas\", \"think creatively\", \"SCAMPER\", \"walt disney method\", \"reverse brainstorm\", \"",
-  "repo": "fernandobandeira/djinn",
-  "category": "data",
-  "tags": [
-    "ideation"
-  ],
-  "stars": 6
+  "repo": "turbobeest/squawk",
+  "path": ".claude/skills/ideation/SKILL.md",
+  "source": "github.com/turbobeest/squawk",
+  "downloaded_at": "2026-01-14T01:57:14.391642Z"
 }

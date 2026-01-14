@@ -1,0 +1,9 @@
+{
+  "name": "codex-implement",
+  "description": "Delegate complex implementation tasks to Codex. Use when user says codex implement, delegate implementation, or has a complex coding task.",
+  "repo": "antorsae/dual-agent",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

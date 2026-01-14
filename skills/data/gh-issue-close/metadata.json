@@ -1,0 +1,9 @@
+{
+  "name": "gh-issue-close",
+  "description": "Close and resolve GitHub issues using gh CLI. Mark issues as completed, won't fix, or duplicate. Use when issue is resolved, invalid, or no longer relevant.",
+  "repo": "dceoy/gh-actions-for-devops",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

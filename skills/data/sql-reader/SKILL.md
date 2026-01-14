@@ -166,17 +166,17 @@ grep "^class.*Base" api/src/data -r --include="*.py" | grep -v test
 ```bash
 # First refresh the prompt cache to get latest intervention conditions
 cd .claude/skills/langfuse-prompt-and-trace-debugger
-uv run python refresh_prompt_cache.py group_message_intervention_conditions_yaml
+uv run python refresh_prompt_cache.py group_message_intervention_conditions_dsl
 
 # Then view the intervention logic
-cat ../../docs/cached_prompts/group_message_intervention_conditions_yaml_production.txt
+cat ../../docs/cached_prompts/group_message_intervention_conditions_dsl_production.txt
 ```
 
 **Why this matters:**
 - Shows when interventions trigger
 - Explains timing rules (last minute, last 6 hours, etc.)
 - Maps intervention types to Langfuse prompts used
-- Reveals the SQL logic behind intervention decisions
+- Reveals the DSL logic behind intervention decisions
 - Critical for understanding `intervention` and `intervention_message` tables
 
 **🚨 CRITICAL SCHEMA INSIGHT - Schema Migrations (Late August 2025):**
@@ -620,7 +620,7 @@ When using this skill in Claude Code:
 # Step 3: Describe key table structures
 # Step 4: Read enums: cat api/src/data/models/enums.py
 # Step 5: See all models: grep "^class.*Base" api/src/data -r --include="*.py" | grep -v test
-# Step 6: View intervention logic (group_message_intervention_conditions_yaml)
+# Step 6: View intervention logic (group_message_intervention_conditions_dsl)
 
 # Then investigate specific issues
 arsenal/dot-claude/skills/sql-reader/connect.sh "SELECT COUNT(*) FROM message WHERE created_at > NOW() - INTERVAL '24 hours';"

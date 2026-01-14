@@ -1,118 +1,149 @@
 ---
-name: content-filter
-description: Filter and classify AI research content for relevance. Use when processing raw content from Twitter, Substacks, blogs, or podcasts to determine if it's worth extracting claims from. Assigns relevance scores, topics, and author categories.
+name: hint-detection
+description: Detect hints about unreleased AI research or capabilities from lab researcher communications. Use when analyzing tweets, posts, or interviews from people at major AI labs to identify signals about upcoming work.
 ---
 
-# Content Filter Skill
+# Hint Detection Skill
 
-Assess content for relevance to AI research intelligence gathering. Filter noise and classify what remains.
+Lab researchers often hint at work before publication. This skill identifies these signals.
 
-## Assessment Criteria
+## Hint Patterns
 
-### 1. Relevance Score (0.0-1.0)
+### 1. Vague Progress Claims
+Language that implies results without specifics:
+- "We've been seeing interesting results with..."
+- "There's been a lot of progress on..."
+- "Things are moving faster than people think in..."
 
-How relevant is this to understanding AI research progress, capabilities, limitations, or field direction?
+### 2. Deflection with Signal
+Answers that acknowledge something exists:
+- "I can't say much, but..."
+- "You'll see soon..."
+- "No comment ;)"
+- "That's a great question" (followed by non-answer)
 
-| Score Range | Meaning | Examples |
-|-------------|---------|----------|
-| 0.0-0.3 | Not relevant | Personal updates, off-topic, promotional |
-| 0.3-0.6 | Tangentially relevant | General tech news, adjacent topics |
-| 0.6-0.8 | Relevant | Discusses AI research, capabilities, field |
-| 0.8-1.0 | Highly relevant | Substantive claims, predictions, research insights |
+### 3. Future Tense Confidence
+Certainty about unreleased capabilities:
+- "You'll see that..."
+- "This will become clear when..."
+- "The next generation will..."
 
-### 2. Topic Classification
+### 4. Unusual Enthusiasm
+Disproportionate excitement about a topic:
+- Sudden interest in a specific area
+- Detailed knowledge about approaches not in their published work
+- Defending an approach more vigorously than expected
 
-Assign ONE primary topic:
+### 5. Specific Denials
+Sometimes denial calls attention:
+- "We're definitely NOT working on..."
+- "That's not what we're focused on" (when they clearly are)
+- Overly specific denials
 
-- `scaling`: Scaling laws, compute, training efficiency
-- `reasoning`: LLM reasoning, chain-of-thought, planning capabilities
-- `agents`: AI agents, tool use, autonomy
-- `safety`: AI safety, alignment, control
-- `interpretability`: Mechanistic interpretability, understanding models
-- `multimodal`: Vision, audio, video models
-- `rlhf`: RLHF, preference learning, Constitutional AI
-- `robotics`: Embodied AI, robotics
-- `benchmarks`: Evals, benchmarks, capability measurement
-- `infrastructure`: Training infra, chips, hardware
-- `policy`: AI policy, regulation, governance
-- `general`: General AI commentary
-- `other`: Doesn't fit above categories
+### 6. Timeline Hints
+Suggestions about release timing:
+- "In the coming weeks/months..."
+- "Stay tuned"
+- "Sooner than you think"
+- Mentions of specific events (conferences, dates)
 
-### 3. Content Type
+### 7. Capability Hedging
+Language implying current vs future:
+- "Current models can't do X yet"
+- "With today's approaches..."
+- "The bottleneck right now is..."
 
-What kind of content is this?
+### 8. Recruitment Signals
+Hiring patterns can indicate direction:
+- Sudden push for specific expertise
+- "We're building a team for..."
+- Job postings for unrevealed projects
 
-- `prediction`: Makes claims about future AI capabilities/timelines
-- `research-hint`: Hints at ongoing/unpublished research
-- `opinion`: Expresses opinion on AI progress/direction
-- `factual`: Reports factual information about released work
-- `critique`: Critiques AI capabilities or claims
-- `meta`: Meta-commentary on the field
-- `noise`: Not substantive
+## Author Context
 
-### 4. Substantiveness
+Weight hints by author credibility:
+- **Lab leadership** (Dario, Sam, Demis): High signal, often deliberate
+- **Research leads**: Technical hints about their area
+- **Individual researchers**: May hint at their specific work
+- **Former employees**: Sometimes reveal direction
+- **Adjacent figures** (investors, partners): Second-hand signals
 
-Does this contain actual claims, arguments, or insights?
+## Analysis Framework
 
-**Substantive examples:**
-- "We found that CoT prompting shows diminishing returns beyond 8 steps"
-- "The next generation will likely solve ARC-AGI"
-- "Interpretability research is underrated"
+For each potential hint:
 
-**Non-substantive examples:**
-- "Cool paper!" (reaction only)
-- "Link: [url]" (link share without commentary)
-- "Having coffee ☕" (personal update)
+### 1. Quote the relevant passage
+Extract the exact language that suggests a hint.
 
-### 5. Author Category
+### 2. Implied capability
+What capability or result is being hinted at?
 
-Classify the author:
+### 3. Confidence level (0.0-1.0)
+How confident are you this is a real hint vs. noise?
 
-- `lab-researcher`: Works at major AI lab (Anthropic, OpenAI, DeepMind, Meta AI, xAI, Mistral, Cohere)
-- `critic`: Known AI skeptic/critic with credentials (Marcus, Chollet, Mitchell, Bender, Brooks)
-- `academic`: University researcher
-- `independent`: Independent researcher/commentator
-- `journalist`: AI journalist
-- `unknown`: Cannot determine
+Consider:
+- Author's position and knowledge
+- Specificity of language
+- Pattern match to known hint types
+- Context of conversation
+
+### 4. Estimated timeframe
+When might this be revealed?
+- `imminent`: Days to weeks
+- `near-term`: 1-3 months
+- `medium-term`: 3-12 months
+- `unclear`: No timing signal
+
+### 5. Domain
+What area of AI?
+- reasoning, agents, safety, multimodal, scaling, etc.
 
 ## Output Format
 
 Return JSON:
 ```json
 {
-  "assessments": [
+  "hints": [
     {
-      "itemIndex": 0,
-      "relevance": 0.85,
-      "topic": "reasoning",
-      "contentType": "research-hint",
-      "isSubstantive": true,
-      "authorCategory": "lab-researcher",
-      "brief": "One sentence summary"
+      "hintText": "The exact quote suggesting a hint",
+      "author": "Author name",
+      "affiliation": "Company/org",
+      "impliedCapability": "What they're hinting at",
+      "confidence": 0.7,
+      "reasoning": "Why you think this is a hint",
+      "timeframe": "near-term",
+      "domain": "reasoning",
+      "sourceUrl": "URL if available"
     }
-  ]
+  ],
+  "noHintsFound": false
 }
 ```
 
-## Filtering Heuristics
+If no credible hints are detected, return:
+```json
+{
+  "hints": [],
+  "noHintsFound": true,
+  "notes": "Brief explanation of why content doesn't contain hints"
+}
+```
 
-### High Signal Indicators
-- Lab researchers discussing their own work area
-- Specific technical claims with numbers/benchmarks
-- Predictions with timeframes
-- Explicit disagreements between notable figures
-- Hints using hedged language ("we've been seeing...", "I can't say much but...")
+## False Positive Avoidance
 
-### Low Signal Indicators
-- Pure link shares without commentary
-- Conference attendance announcements
-- Hiring posts
-- Generic congratulations
-- Retweets without quote
-- Personal life updates
-- Product launches (unless with technical claims)
+Not every comment is a hint. Exclude:
+- General optimism without specifics
+- Restatement of public roadmaps
+- Academic speculation
+- Marketing language in official announcements
+- Obvious jokes or sarcasm
+- Old information presented as new
 
-### Gray Areas
-- Paper summaries (relevant if includes opinion/analysis)
-- Q&A responses (depends on question depth)
-- Thread continuations (may need full thread context)
+## High-Value Hint Indicators
+
+Prioritize hints that:
+- Come from people with direct knowledge
+- Reference specific capabilities or benchmarks
+- Include uncharacteristic certainty
+- Align with known research directions
+- Are followed by unusual silence on the topic

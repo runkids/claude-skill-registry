@@ -1,12 +1,7 @@
 {
   "name": "code-conventions",
-  "description": "Defines project-wide code conventions for magic number elimination, constant usage, performance optimization, and coordinate system separation. Use when implementing, testing, or reviewing code to ens",
-  "repo": "shiroinock/Darts-Score-Trainer",
-  "category": "testing",
-  "tags": [
-    "code",
-    "conventions"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "5t111111/tailwind-theme-figma-variables",
+  "path": ".github/skills/code-conventions/SKILL.md",
+  "source": "github.com/5t111111/tailwind-theme-figma-variables",
+  "downloaded_at": "2026-01-14T03:46:45.485059Z"
 }

@@ -1,8 +1,7 @@
 {
   "name": "verify-known-issues",
   "repo": "beshkenadze/claude-skills-marketplace",
-  "category": "data",
-  "description": "Verify claims about known issues in libraries or tools. Use when about to state something is a \"known issue\", \"known bug\", or \"known limitation\".",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:11.267189Z"
+  "path": "skills/meta/verify-known-issues/SKILL.md",
+  "source": "github.com/beshkenadze/claude-skills-marketplace",
+  "downloaded_at": "2026-01-14T01:46:10.570302Z"
 }

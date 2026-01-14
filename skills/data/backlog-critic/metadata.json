@@ -1,12 +1,7 @@
 {
   "name": "backlog-critic",
-  "description": "Engineering critic for backlog prioritization debates. Challenges proposed rankings with feasibility concerns, hidden complexity, and realistic effort estimates.",
   "repo": "pcortes/swarm-attack",
-  "category": "development",
-  "tags": [
-    "backlog",
-    "critic"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/backlog-critic/SKILL.md",
+  "source": "github.com/pcortes/swarm-attack",
+  "downloaded_at": "2026-01-14T04:01:09.604010Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "python-testing-patterns",
-  "description": "Python testing patterns and best practices using pytest, mocking, and property-based testing. Use when writing unit tests, integration tests, or implementing test-driven development in Python projects",
-  "repo": "NickCrew/claude-ctx-plugin",
-  "category": "testing",
-  "tags": [
-    "python",
-    "testing",
-    "patterns"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "GaitanS/AI-Mancare",
+  "path": ".claude/skills/plugins/python-development/skills/python-testing-patterns/SKILL.md",
+  "source": "github.com/GaitanS/AI-Mancare",
+  "downloaded_at": "2026-01-14T03:16:32.746832Z"
 }

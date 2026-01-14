@@ -1,11 +1,7 @@
 {
   "name": "unsloth-quantization",
-  "description": "Utilizing Dynamic 4-bit quantization, FP8 training, and 8-bit optimizers to minimize VRAM usage without sacrificing accuracy. Triggers: quantization, dynamic 4-bit, fp8, bitsandbytes, adamw_8bit, qat.",
   "repo": "cuba6112/skillfactory",
-  "category": "data",
-  "tags": [
-    "unsloth",
-    "quantization"
-  ],
-  "stars": 0
+  "path": "skills/unsloth-quantization/SKILL.md",
+  "source": "github.com/cuba6112/skillfactory",
+  "downloaded_at": "2026-01-14T02:37:39.106155Z"
 }

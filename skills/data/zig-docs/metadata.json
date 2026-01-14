@@ -1,12 +1,7 @@
 {
   "name": "zig-docs",
-  "description": "Fetches Zig language and standard library documentation via CLI. Activates when needing Zig API details, std lib function signatures, or language reference content that isn't covered in zig-best-pract",
   "repo": "0xBigBoss/claude-code",
-  "category": "documents",
-  "tags": [
-    "zig",
-    "docs"
-  ],
-  "stars": 23,
-  "source": "local"
+  "path": ".claude/skills/zig-docs/SKILL.md",
+  "source": "github.com/0xBigBoss/claude-code",
+  "downloaded_at": "2026-01-14T03:25:43.975919Z"
 }

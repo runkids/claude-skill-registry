@@ -1,12 +1,7 @@
 {
   "name": "product-analyst",
-  "description": "Track user metrics and provide data-driven insights for product decisions. Use when measuring product health, analyzing user behavior, conducting cohort analysis, or optimizing key metrics. Covers acq",
   "repo": "daffy0208/ai-dev-standards",
-  "category": "product",
-  "tags": [
-    "product",
-    "analyst"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": "skills/product-analyst/SKILL.md",
+  "source": "github.com/daffy0208/ai-dev-standards",
+  "downloaded_at": "2026-01-14T03:33:11.435560Z"
 }

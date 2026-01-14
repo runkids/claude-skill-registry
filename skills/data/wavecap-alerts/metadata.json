@@ -1,12 +1,7 @@
 {
   "name": "wavecap-alerts",
-  "description": "Manage WaveCap alert rules and keyword triggers. Use when the user wants to view, add, update, or remove alert phrases and notification rules.",
   "repo": "TobiasWooldridge/WaveCap",
-  "category": "development",
-  "tags": [
-    "wavecap",
-    "alerts"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/wavecap-alerts/SKILL.md",
+  "source": "github.com/TobiasWooldridge/WaveCap",
+  "downloaded_at": "2026-01-14T03:42:28.572735Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "responsive-images",
-  "description": "Modern responsive image techniques using picture element, srcset, sizes, and modern formats. Use when adding images that need to adapt to different screen sizes, resolutions, or support modern image f",
-  "repo": "ProfPowell/project-template",
-  "category": "development",
-  "tags": [
-    "responsive",
-    "images"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "jezweb/claude-skills",
+  "path": "skills/responsive-images/SKILL.md",
+  "source": "github.com/jezweb/claude-skills",
+  "downloaded_at": "2026-01-14T04:01:44.195220Z"
 }

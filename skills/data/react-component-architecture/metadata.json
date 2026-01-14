@@ -1,13 +1,7 @@
 {
   "name": "react-component-architecture",
-  "description": "Design scalable React components using functional components, hooks, composition patterns, and TypeScript. Use when building reusable component libraries and maintainable UI systems.",
-  "repo": "aj-geddes/useful-ai-prompts",
-  "category": "design",
-  "tags": [
-    "react",
-    "component",
-    "architecture"
-  ],
-  "stars": 25,
-  "source": "local"
+  "repo": "autohandai/community-skills",
+  "path": "react-component-architecture/SKILL.md",
+  "source": "github.com/autohandai/community-skills",
+  "downloaded_at": "2026-01-14T02:30:11.043693Z"
 }

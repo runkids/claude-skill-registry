@@ -1,437 +1,339 @@
 ---
 name: stakeholder-communication
-description: Manage stakeholder expectations and engagement through targeted communication, regular updates, and relationship building. Tailor messaging for different stakeholder groups and priorities.
+description: Adapting technical communication for different audiences - engineers, product managers, executives, and customers. Use when communicating across functions, translating technical concepts, presenting to leadership, or building shared understanding with non-technical stakeholders.
+allowed-tools: Read, Glob, Grep
 ---
 
-# Stakeholder Communication
+# Stakeholder Communication Skill
 
-## Overview
+A framework for adapting technical communication to different audiences, ensuring your message lands effectively whether speaking with engineers, product managers, executives, or customers.
 
-Effective stakeholder communication ensures alignment, manages expectations, builds trust, and keeps projects on track by addressing concerns proactively.
+## When to Use This Skill
 
-## When to Use
+- Presenting technical decisions to non-technical stakeholders
+- Writing status updates for different audience levels
+- Translating complex technical concepts for business partners
+- Building alignment across engineering, product, and business teams
+- Communicating with executives (brevity, business impact)
+- Customer-facing technical communication
+- Cross-functional project coordination
 
-- Project kickoff and initiation
-- Weekly/monthly status updates
-- Major milestone achievements
-- Changes to scope, timeline, or budget
-- Risks or issues requiring escalation
-- Stakeholder onboarding
-- Handling difficult conversations
+## Core Framework: Audience-First Communication
 
-## Instructions
+### The Fundamental Question
 
-### 1. **Stakeholder Analysis**
+Before any communication, ask: **"Who is my audience and what do they need?"**
 
-```python
-# Stakeholder identification and engagement planning
+Different stakeholders have different:
 
-class StakeholderAnalysis:
-    ENGAGEMENT_LEVELS = {
-        'Unaware': 'Provide basic information',
-        'Resistant': 'Address concerns, build trust',
-        'Neutral': 'Keep informed, demonstrate value',
-        'Supportive': 'Engage as advocates',
-        'Champion': 'Leverage for change leadership'
-    }
+- **Knowledge levels:** Technical depth they can absorb
+- **Decision criteria:** What matters for their decisions
+- **Time constraints:** How much attention they can give
+- **Action orientation:** What they need to do with this information
 
-    def __init__(self, project_name):
-        self.project_name = project_name
-        self.stakeholders = []
+### The Four Audience Types
 
-    def identify_stakeholders(self):
-        """Common stakeholder categories"""
-        return {
-            'Executive Sponsors': {
-                'interests': ['ROI', 'Strategic alignment', 'Timeline'],
-                'communication': 'Monthly executive summary',
-                'influence': 'High',
-                'impact': 'High'
-            },
-            'Project Team': {
-                'interests': ['Task clarity', 'Resources', 'Support'],
-                'communication': 'Daily standup, weekly planning',
-                'influence': 'High',
-                'impact': 'High'
-            },
-            'End Users': {
-                'interests': ['Usability', 'Value delivery', 'Support'],
-                'communication': 'Beta testing, training, feedback sessions',
-                'influence': 'Medium',
-                'impact': 'High'
-            },
-            'Technical Governance': {
-                'interests': ['Architecture', 'Security', 'Compliance'],
-                'communication': 'Technical reviews, design docs',
-                'influence': 'High',
-                'impact': 'Medium'
-            },
-            'Department Heads': {
-                'interests': ['Resource impact', 'Timeline', 'Business impact'],
-                'communication': 'Bi-weekly updates, resource requests',
-                'influence': 'Medium',
-                'impact': 'Medium'
-            }
-        }
+| Audience | Primary Concern | Communication Style |
+| -------- | --------------- | ------------------- |
+| Engineers | How it works | Technical depth, implementation details |
+| Product Managers | What it does | Features, trade-offs, timeline impact |
+| Executives | Why it matters | Business impact, risks, decisions needed |
+| Customers | How it helps them | Benefits, reliability, trust |
 
-    def create_engagement_plan(self, stakeholder):
-        """Design communication strategy for each stakeholder"""
-        return {
-            'name': stakeholder.name,
-            'role': stakeholder.role,
-            'power': stakeholder.influence_level,  # High/Medium/Low
-            'interest': stakeholder.interest_level,  # High/Medium/Low
-            'strategy': self.determine_strategy(
-                stakeholder.influence_level,
-                stakeholder.interest_level
-            ),
-            'communication_frequency': self.frequency_mapping(stakeholder),
-            'key_messages': self.tailor_messages(stakeholder),
-            'escalation_threshold': self.set_escalation_rules(stakeholder)
-        }
+## Quick Adaptation Guide
 
-    def determine_strategy(self, power, interest):
-        """Stakeholder power/interest matrix"""
-        if power == 'High' and interest == 'High':
-            return 'Manage closely (key stakeholders)'
-        elif power == 'High' and interest == 'Low':
-            return 'Keep satisfied'
-        elif power == 'Low' and interest == 'High':
-            return 'Keep informed'
-        else:
-            return 'Monitor'
+### For Engineers
 
-    def frequency_mapping(self, stakeholder):
-        strategies = {
-            'Manage closely': 'Weekly',
-            'Keep satisfied': 'Bi-weekly',
-            'Keep informed': 'Monthly',
-            'Monitor': 'Quarterly'
-        }
-        return strategies.get(stakeholder.strategy, 'Monthly')
+**Focus on:**
+
+- Technical architecture and design decisions
+- Implementation approach and trade-offs
+- Code quality, testing, and reliability
+- Performance characteristics and constraints
+
+**Avoid:**
+
+- Over-simplified explanations (they'll feel condescended to)
+- Hiding technical debt or known issues
+- Vague timelines without technical justification
+
+### For Product Managers
+
+**Focus on:**
+
+- Feature capabilities and limitations
+- Timeline and scope trade-offs
+- User impact and experience changes
+- Dependencies and risks to roadmap
+
+**Avoid:**
+
+- Deep implementation details (unless relevant to decisions)
+- Technical jargon without context
+- Binary answers when trade-offs exist
+
+### For Executives
+
+**Focus on:**
+
+- Business impact (revenue, cost, risk)
+- Decision points requiring their input
+- Progress against strategic objectives
+- Resource implications
+
+**Avoid:**
+
+- Technical details (unless specifically asked)
+- Problems without proposed solutions
+- Lengthy explanations (get to the point)
+
+### For Customers
+
+**Focus on:**
+
+- Benefits and value they receive
+- Reliability and trust signals
+- Clear, jargon-free explanations
+- What they need to do (if anything)
+
+**Avoid:**
+
+- Internal technical details
+- Blame or excuses
+- Uncertainty without reassurance
+
+## The Translation Principle
+
+**Technical → Business Translation:**
+
+| Technical Concept | Business Translation |
+| ----------------- | -------------------- |
+| "Refactoring the codebase" | "Improving system reliability and reducing future bugs" |
+| "Database migration" | "Upgrading our data infrastructure for better performance" |
+| "Technical debt" | "Accumulated shortcuts that slow new feature development" |
+| "API rate limiting" | "Protection against system overload" |
+| "Microservices architecture" | "Modular design that allows faster, independent updates" |
+
+**The Formula:**
+
+```text
+[Technical action] → [Business benefit] + [Risk if not done]
 ```
 
-### 2. **Communication Planning**
+Example:
 
-```yaml
-Stakeholder Communication Plan:
+- Technical: "We need to upgrade from .NET 6 to .NET 8"
+- Business: "Upgrading our framework ensures continued security support and enables 20% faster response times, avoiding security vulnerabilities when .NET 6 support ends in November"
 
-Project: Customer Portal Redesign
-Duration: 6 months
-Start Date: January 1
+## Communication Patterns
 
----
+### The Executive Summary Pattern
 
-Stakeholder Group: Executive Leadership
-Members: CEO, CFO, CMO
-Interests: ROI, Timeline, Brand impact
-Engagement: Manage closely
+For any executive communication:
 
-Communication Strategy:
-  Frequency: Monthly (30-min executive briefing)
-  Format: Presentation + 1-page summary
-  Medium: Video conference
-  Owner: Project Manager
+1. **Bottom Line Up Front (BLUF):** Lead with the conclusion or ask
+2. **Context:** Minimal background needed to understand
+3. **Options/Recommendation:** What you suggest and why
+4. **Ask:** What you need from them
 
-Key Messages:
-  - Project progress vs. milestone targets
-  - Budget status and variance
-  - Business value realized/projected
-  - Any critical issues requiring decision
-
-Sample Agenda:
-  5 min: Status summary (Green/Yellow/Red)
-  10 min: Key achievements & milestones
-  5 min: Budget & resource update
-  10 min: Risks & critical decisions needed
-
----
-
-Stakeholder Group: Technical Governance
-Members: Solutions Architect, Security Lead, Infrastructure Lead
-Interests: Architecture, Security, Performance
-Engagement: Manage closely
-
-Communication Strategy:
-  Frequency: Bi-weekly (60-min technical sync)
-  Format: Technical review, design discussions
-  Medium: In-person / Video conference
-  Owner: Technical Lead
-
-Key Messages:
-  - Architecture decisions & trade-offs
-  - Security review status
-  - Performance benchmarks
-  - Technical debt & mitigation
-
----
-
-Stakeholder Group: End Users
-Members: 500+ portal users
-Interests: Functionality, Usability, Support
-Engagement: Keep informed
-
-Communication Strategy:
-  Frequency: Quarterly (user sessions), ongoing feedback
-  Format: Demos, surveys, support channels
-  Medium: In-app notifications, email, forums
-  Owner: Product Manager
-
-Key Messages:
-  - New features and capabilities
-  - Timeline for improvements
-  - How feedback is being used
-  - Support & training resources
-```
-
-### 3. **Status Communication Templates**
-
-```javascript
-// Status report generation and distribution
-
-class StatusReporting {
-  constructor(project) {
-    this.project = project;
-    this.reportDate = new Date();
-  }
-
-  generateExecutiveStatus() {
-    return {
-      projectName: this.project.name,
-      reportDate: this.reportDate,
-      status: 'Green', // Green/Yellow/Red
-      summary: `Project is on track. Completed Phase 1 milestones with 95%
-                budget adherence. Minor delay in vendor integration (handled).`,
-
-      keyMetrics: {
-        schedulePercentComplete: 45,
-        budgetUtilization: 42,
-        scope: 'On track',
-        quality: 'All tests passing'
-      },
-
-      achievements: [
-        'Completed user research and documented requirements',
-        'Finalized system architecture and technology stack',
-        'Established development pipeline and CI/CD',
-        'Delivered Phase 1 prototype to stakeholders'
-      ],
-
-      risks: [
-        {
-          risk: 'Third-party API delay',
-          impact: 'Medium',
-          mitigation: 'Using mock service, 80% contingency time built in'
-        }
-      ],
-
-      nextSteps: [
-        'Begin Phase 2 development (Week 5)',
-        'User acceptance testing planning',
-        'Production environment setup'
-      ],
-
-      decisionsNeeded: [
-        'Approval for enhanced security requirements (+1 week)',
-        'Budget for additional load testing tools'
-      ]
-    };
-  }
-
-  generateDetailedStatus() {
-    return {
-      ...this.generateExecutiveStatus(),
-
-      detailedMetrics: {
-        scheduleVariance: '+0.5 weeks (ahead)',
-        costVariance: '-$5,000 (under)',
-        qualityMetrics: {
-          testCoverage: 85,
-          defectDensity: '0.2 per 1000 lines',
-          codeReviewCompliance: 100
-        }
-      },
-
-      phaseBreakdown: [
-        {
-          phase: 'Phase 1: Planning & Design',
-          status: 'Complete',
-          percentComplete: 100,
-          owner: 'John Smith'
-        },
-        {
-          phase: 'Phase 2: Development',
-          status: 'In Progress',
-          percentComplete: 45,
-          owner: 'Sarah Johnson'
-        }
-      ],
-
-      issueLog: [
-        {
-          id: 'ISS-001',
-          description: 'Vendor API documentation incomplete',
-          severity: 'Medium',
-          owner: 'Tech Lead',
-          targetResolution: '2025-01-15'
-        }
-      ]
-    };
-  }
-
-  sendStatusReport(recipients, format = 'email') {
-    const report = this.generateExecutiveStatus();
-
-    return {
-      to: recipients,
-      subject: `[${report.status}] ${report.projectName} Status - Week of ${this.reportDate}`,
-      body: this.formatReportBody(report),
-      attachments: ['detailed_status.pdf'],
-      scheduledSend: false
-    };
-  }
-
-  formatReportBody(report) {
-    return `
-Project Status: ${report.status}
-Report Date: ${this.reportDate.toISOString().split('T')[0]}
-
-EXECUTIVE SUMMARY
-${report.summary}
-
-KEY METRICS
-- Schedule: ${report.keyMetrics.schedulePercentComplete}% Complete
-- Budget: ${report.keyMetrics.budgetUtilization}% Utilized
-- Quality: ${report.keyMetrics.quality}
-
-ACHIEVEMENTS THIS PERIOD
-${report.achievements.map(a => `• ${a}`).join('\n')}
-
-UPCOMING MILESTONES
-${report.nextSteps.map(s => `• ${s}`).join('\n')}
-
-RISKS & ISSUES
-${report.risks.map(r => `• ${r.risk} (${r.impact} Impact): ${r.mitigation}`).join('\n')}
-
-DECISIONS NEEDED
-${report.decisionsNeeded.map(d => `• ${d}`).join('\n')}
-    `;
-  }
-}
-```
-
-### 4. **Difficult Conversations**
+**Template:**
 
 ```markdown
-## Handling Difficult Stakeholder Conversations
+**Summary:** [One sentence: what this is about and what you need]
 
-### Preparing for Difficult Conversations
+**Context:** [2-3 sentences: why this matters now]
 
-1. **Gather Facts**
-   - Be clear about the issue/change
-   - Have data to support your position
-   - Understand implications for stakeholder
+**Recommendation:** [What you propose]
 
-2. **Anticipate Reactions**
-   - What concerns might arise?
-   - What are valid pain points?
-   - What mitigations can you offer?
+**Ask:** [Specific decision or action needed]
 
-3. **Plan the Conversation**
-   - One-on-one preferred for sensitive topics
-   - Choose appropriate timing and location
-   - Prepare talking points
-   - Identify decision-maker authority
-
-### Delivering Bad News
-
-Bad News Template:
-
-1. **Context** (30 seconds)
-   - What is the situation?
-   - Why are we discussing this?
-
-2. **The News** (Direct & Clear)
-   - State clearly what's changed
-   - Provide specific impact
-   - Avoid softening language
-
-3. **Root Cause** (if applicable)
-   - Explain what happened
-   - Take responsibility if appropriate
-   - Avoid blame
-
-4. **Impact Assessment**
-   - Timeline impact
-   - Budget impact
-   - Scope impact
-
-5. **Mitigation Plan**
-   - What will you do about it?
-   - Specific actions & timeline
-   - How will you prevent recurrence?
-
-6. **Next Steps**
-   - What decisions are needed?
-   - When will you follow up?
-   - How can stakeholder help?
-
-### Example Conversation
-
-**Issue:** Timeline extension needed (2 weeks)
-
-"Thank you for your time. I need to share an important update about
-our timeline.
-
-We've discovered that the integration with the payment system requires
-more extensive security hardening than initially estimated. We've run
-performance tests and determined we need an additional 2 weeks to meet
-our security and compliance requirements.
-
-This impacts our delivery date from March 15 to March 29. Budget impact
-is minimal ($8K for additional testing).
-
-Here's what we're doing to manage this: We're running security tests
-in parallel with development, we've engaged the security team early,
-and we've built in validation checkpoints to catch issues early.
-
-The alternative is to launch with reduced security, which we cannot
-recommend given our risk profile.
-
-I need your approval to proceed with the extended timeline. Can we
-schedule a 30-minute call with you and the executive team tomorrow
-to discuss?"
+**Details:** [Available if they want to dig deeper]
 ```
 
-## Best Practices
+### The Cross-Functional Update Pattern
 
-### ✅ DO
-- Tailor messages to stakeholder interests and influence
-- Communicate proactively, not reactively
-- Be transparent about issues and risks
-- Provide regular scheduled updates
-- Document decisions and communication
-- Acknowledge stakeholder concerns
-- Follow up on action items
-- Build relationships outside crisis mode
-- Use multiple communication channels
-- Celebrate wins together
+For status updates that go to mixed audiences:
 
-### ❌ DON'T
-- Overcommunicate or undercommunicate
-- Use jargon stakeholders don't understand
-- Surprise stakeholders with bad news
-- Promise what you can't deliver
-- Make excuses without solutions
-- Communicate through intermediaries for critical issues
-- Ignore feedback or concerns
-- Change communication style inconsistently
-- Share inappropriate confidential details
-- Communicate budget/timeline bad news via email
+1. **Progress:** What's done (accomplishments, metrics)
+2. **Plans:** What's next (upcoming work, timeline)
+3. **Problems:** What's blocking (issues, risks, needs)
 
-## Communication Tips
+**Template:**
 
-- Schedule communication at consistent times
-- Use visual dashboards for metrics
-- Record important conversations
-- Share why, not just what changed
+```markdown
+## [Project Name] Update - [Date]
+
+### Progress
+- [Accomplishment with metric or outcome]
+- [Accomplishment with metric or outcome]
+
+### Plans
+- [Upcoming work] - [Target date]
+- [Upcoming work] - [Target date]
+
+### Problems
+- [Issue]: [Impact] - [Proposed solution or ask]
+```
+
+### The Technical Decision Pattern
+
+For communicating technical decisions to non-technical stakeholders:
+
+1. **Decision:** What we decided
+2. **Why:** Business rationale (not technical details)
+3. **Impact:** What changes for them
+4. **Timeline:** When it happens
+
+**Template:**
+
+```markdown
+**Decision:** We're [decision].
+
+**Why:** This [business benefit] and [risk mitigation].
+
+**Impact:** [What they'll see/experience differently].
+
+**Timeline:** [When this takes effect].
+```
+
+## Common Mistakes
+
+### Mistake 1: Same Message to All Audiences
+
+**Problem:** Sending identical communication to engineers and executives.
+
+**Fix:** Create layered communication:
+
+- Executive summary for leadership
+- Detailed version for technical teams
+- Customer-facing version if applicable
+
+### Mistake 2: Leading with Technical Details
+
+**Problem:** Starting with how something works before why it matters.
+
+**Fix:** Always lead with business impact, then offer technical details for those who want them.
+
+### Mistake 3: Assuming Shared Context
+
+**Problem:** Using acronyms, project names, or references others don't know.
+
+**Fix:** Define terms, provide context, link to background information.
+
+### Mistake 4: All Problems, No Solutions
+
+**Problem:** Escalating issues without proposed solutions.
+
+**Fix:** Always bring options. "We have a problem" → "We have a problem. I recommend X because Y."
+
+### Mistake 5: Binary Answers to Complex Questions
+
+**Problem:** "Yes we can" or "No we can't" without nuance.
+
+**Fix:** "Yes, with these trade-offs" or "Not as asked, but here's what we could do."
+
+## References (Load When Needed)
+
+### Detailed Frameworks
+
+- **[Audience Adaptation Matrix](references/audience-adaptation-matrix.md)**: Complete communication tactics by audience type
+- **[Technical Translation](references/technical-translation.md)**: Simplifying jargon for non-technical audiences
+- **[Executive Communication](references/executive-communication.md)**: Business impact framing and brevity techniques
+- **[Cross-Functional Alignment](references/cross-functional-alignment.md)**: Building shared understanding across teams
+
+## Related Skills and Commands
+
+- `professional-communication` skill - General communication patterns
+- `difficult-conversations` skill - Challenging stakeholder discussions
+- `/soft-skills:adapt-communication` command - Transform content for audience
+
+## Example Scenarios
+
+### Scenario 1: Explaining a Delay to Executives
+
+```markdown
+**Situation:** Feature launch delayed 2 weeks due to unexpected technical complexity.
+
+**Bad:** "The API integration is taking longer because the third-party
+documentation was incorrect and we had to reverse-engineer their
+authentication flow, plus we discovered race conditions in our queue
+processing that required refactoring."
+
+**Good:** "Launch is moving to [date] - 2 weeks later than planned.
+The integration was more complex than estimated based on available
+documentation. We've de-risked the remaining work and are confident
+in the new date. Impact: [business impact]. No action needed from you
+unless you have questions."
+```
+
+### Scenario 2: Technical Update for Mixed Audience
+
+```markdown
+**Situation:** Database migration completed successfully.
+
+**For Engineers:**
+"Migration complete. 2.3M records transferred with zero data loss.
+Rollback scripts tested and available. New indexes improving query
+performance by 40% on high-traffic endpoints. Monitoring dashboard
+updated. On-call runbook in wiki."
+
+**For Executives:**
+"Database upgrade complete. System is faster and more reliable.
+No customer impact during transition. Cost savings of $X/month
+from improved efficiency."
+
+**For Customers (if applicable):**
+"We've upgraded our systems to serve you better. You may notice
+faster load times. No action needed on your end."
+```
+
+### Scenario 3: Requesting Resources
+
+```markdown
+**Situation:** Need additional engineer for critical project.
+
+**Bad:** "We're behind and need help."
+
+**Good:** "Request: 1 additional engineer for [project] through [date].
+
+Why: Current velocity puts us 3 weeks behind [strategic goal].
+Adding capacity now enables on-time delivery.
+
+Impact of not acting: [Specific business consequence].
+
+Recommendation: Temporarily reassign [name] from [lower-priority work].
+
+Cost: [Lower-priority work] delayed by [X weeks].
+
+Ask: Approve reassignment by [date] to maintain timeline."
+```
+
+## Anti-Patterns to Avoid
+
+### In Written Communication
+
+- **Wall of text:** Break into scannable sections
+- **Buried lead:** Put the key point first
+- **Jargon soup:** Define terms or use plain language
+- **Missing ask:** Be clear about what you need
+
+### In Verbal Communication
+
+- **Monologuing:** Pause for questions and reactions
+- **Defensive posture:** Be open to feedback
+- **Over-explaining:** Match depth to audience interest
+- **Vague commitments:** Be specific about next steps
+
+## Success Metrics
+
+Effective stakeholder communication achieves:
+
+- **Understanding:** They grasp what you're saying
+- **Alignment:** They agree on direction or know how to disagree
+- **Action:** They can take appropriate next steps
+- **Trust:** They feel informed and respected
+- **Efficiency:** Neither party's time was wasted
+
+## Version History
+
+- v1.0.0 (2025-12-23): Initial release with audience-first framework

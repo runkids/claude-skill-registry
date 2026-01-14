@@ -1,13 +1,7 @@
 {
   "name": "discover-build-systems",
-  "description": "Automatically discover build system skills when working with build systems. Activates for build-systems development tasks.",
   "repo": "rand/cc-polymath",
-  "category": "development",
-  "tags": [
-    "discover",
-    "build",
-    "systems"
-  ],
-  "stars": 33,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/discover-build-systems/SKILL.md",
+  "source": "github.com/rand/cc-polymath",
+  "downloaded_at": "2026-01-14T03:55:22.716092Z"
 }

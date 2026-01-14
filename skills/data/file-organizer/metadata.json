@@ -1,12 +1,7 @@
 {
   "name": "file-organizer",
-  "description": "Intelligently organizes files and directories by type, project, date, or custom criteria",
-  "repo": "onlyoneaman/agent-skills",
-  "category": "development",
-  "tags": [
-    "file",
-    "organizer"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "davepoon/buildwithclaude",
+  "path": "plugins/all-skills/skills/file-organizer/SKILL.md",
+  "source": "github.com/davepoon/buildwithclaude",
+  "downloaded_at": "2026-01-14T03:55:25.783221Z"
 }

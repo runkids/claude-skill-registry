@@ -1,13 +1,7 @@
 {
   "name": "nextjs-server-components",
-  "description": "When building Next.js App Router pages and deciding between Server and Client Components.",
   "repo": "CoderMariusz/MonoPilot",
-  "category": "development",
-  "tags": [
-    "nextjs",
-    "server",
-    "components"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/nextjs-server-components/SKILL.md",
+  "source": "github.com/CoderMariusz/MonoPilot",
+  "downloaded_at": "2026-01-14T03:46:40.923032Z"
 }

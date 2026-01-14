@@ -1,9 +1,7 @@
 {
   "name": "documentary-producer",
-  "description": "Coordinate Tutopanda CLI and MCP to generate, edit, inspect, and preview documentary videos (video-audio-music blueprint with FinalVideo export). Use when users ask for Tutopanda to build, edit, or re",
   "repo": "keremk/tutopanda-claude",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "GitHub Search API"
+  "path": "skills/documentary-producer/SKILL.md",
+  "source": "github.com/keremk/tutopanda-claude",
+  "downloaded_at": "2026-01-14T01:40:26.263789Z"
 }

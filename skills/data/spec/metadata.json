@@ -1,11 +1,7 @@
 {
   "name": "spec",
-  "description": "Create specifications directly from clear requirements - uses spec-kit tools to create formal, executable specs following WHAT/WHY principle (not HOW)",
-  "repo": "rhuss/cc-superpowers-sdd",
-  "category": "design",
-  "tags": [
-    "spec"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "breethomas/pm-thought-partner",
+  "path": "skills/spec/SKILL.md",
+  "source": "github.com/breethomas/pm-thought-partner",
+  "downloaded_at": "2026-01-14T03:54:54.380122Z"
 }

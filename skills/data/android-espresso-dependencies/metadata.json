@@ -1,13 +1,7 @@
 {
   "name": "android-espresso-dependencies",
-  "description": "Add Espresso and AndroidX Test dependencies to Android project",
   "repo": "hitoshura25/claude-devtools",
-  "category": "testing",
-  "tags": [
-    "android",
-    "espresso",
-    "dependencies"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/android-espresso-dependencies/SKILL.md",
+  "source": "github.com/hitoshura25/claude-devtools",
+  "downloaded_at": "2026-01-14T03:07:10.553106Z"
 }

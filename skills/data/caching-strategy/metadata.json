@@ -1,12 +1,7 @@
 {
   "name": "caching-strategy",
-  "description": "Implement efficient caching strategies using Redis, Memcached, CDN, and cache invalidation patterns. Use when optimizing application performance, reducing database load, or improving response times.",
-  "repo": "aj-geddes/useful-ai-prompts",
-  "category": "data",
-  "tags": [
-    "caching",
-    "strategy"
-  ],
-  "stars": 25,
-  "source": "SkillsMP Synced Skills"
+  "repo": "marcusgoll/Spec-Flow",
+  "path": ".claude/skills/caching-strategy/SKILL.md.tmp.157752.1763608954130",
+  "source": "github.com/marcusgoll/Spec-Flow",
+  "downloaded_at": "2026-01-14T04:06:34.697048Z"
 }

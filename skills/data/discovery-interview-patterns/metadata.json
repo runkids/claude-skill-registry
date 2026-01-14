@@ -1,13 +1,7 @@
 {
   "name": "discovery-interview-patterns",
-  "description": "When gathering requirements for new features or projects. Used by DISCOVERY-AGENT.",
   "repo": "CoderMariusz/MonoPilot",
-  "category": "design",
-  "tags": [
-    "discovery",
-    "interview",
-    "patterns"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/discovery-interview-patterns/SKILL.md",
+  "source": "github.com/CoderMariusz/MonoPilot",
+  "downloaded_at": "2026-01-14T03:46:41.789824Z"
 }

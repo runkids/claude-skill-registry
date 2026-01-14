@@ -1,12 +1,7 @@
 {
   "name": "demo-builder",
-  "description": "Automatically generate playable game demos from concept documents. Parses game designs, creates Three.js prototypes with scoring, characters, textures, and music. Transforms ideas into interactive exp",
   "repo": "natea/fitfinder",
-  "category": "design",
-  "tags": [
-    "demo",
-    "builder"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/demo-builder/SKILL.md",
+  "source": "github.com/natea/fitfinder",
+  "downloaded_at": "2026-01-14T02:32:06.287361Z"
 }

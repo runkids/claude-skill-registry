@@ -1,12 +1,7 @@
 {
   "name": "domain-management",
-  "description": "Configure domain routing and Cloudflare DNS for sgcarstrends.com and subdomains. Use when adding new services, updating domain patterns, or debugging DNS issues.",
   "repo": "sgcarstrends/sgcarstrends",
-  "category": "development",
-  "tags": [
-    "domain",
-    "management"
-  ],
-  "stars": 13,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/domain-management/SKILL.md",
+  "source": "github.com/sgcarstrends/sgcarstrends",
+  "downloaded_at": "2026-01-14T02:59:21.210238Z"
 }

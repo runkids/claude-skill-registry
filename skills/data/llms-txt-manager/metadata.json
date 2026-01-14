@@ -1,9 +1,7 @@
 {
   "name": "llms-txt-manager",
-  "description": "Comprehensive system for managing llms.txt and my-blog.json files across the project. Handles creation, updating, and synchronization of AI-readable content catalogs. Automatically detects when workin",
   "repo": "ddttom/allaboutv2",
-  "category": "documents",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/llms-txt-manager/SKILL.md",
+  "source": "github.com/ddttom/allaboutv2",
+  "downloaded_at": "2026-01-14T03:56:59.309396Z"
 }

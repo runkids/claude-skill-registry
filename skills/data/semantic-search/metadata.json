@@ -1,12 +1,7 @@
 {
   "name": "semantic-search",
-  "description": "\"Use this when deciding between semantic search and grep/glob for code discovery. Apply for concept-based queries (find payment processing), intent-based searches (how is auth implemented), or when us",
-  "repo": "PearlThoughts/CodeCompass",
-  "category": "development",
-  "tags": [
-    "semantic",
-    "search"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "cncorp/arsenal",
+  "path": "dot-claude/skills/semantic-search/SKILL.md",
+  "source": "github.com/cncorp/arsenal",
+  "downloaded_at": "2026-01-14T04:01:21.573840Z"
 }

@@ -1,59 +1,67 @@
 ---
 name: pr
-description: Commit changes, bump version, update changelog, and open a PR
+description: Creates pull requests with proper formatting. Use when creating PRs, opening pull requests, or preparing changes for review.
 ---
 
-# /pr - Prepare and Submit Changes
+# Pull Requests
 
-## Purpose
+## PR Title
 
-Commit changes to a feature branch, bump version if needed, update changelog, and open a PR.
+Use the [Conventional Commit Format](https://www.conventionalcommits.org/), same as commit messages:
 
-## Before Starting
+```text
+<type>(<scope>): <description>
+```
 
-- Check for uncommitted changes: `git status --porcelain`
-- Ensure tests pass: `make test` or equivalent
-- Confirm current branch (create one if on main)
+## Types
 
-## Process
+- `feat`: User-facing features or behavior changes (must change production code)
+- `fix`: Bug fixes (must change production code)
+- `docs`: Documentation only
+- `style`: Code style/formatting (no logic changes)
+- `refactor`: Code restructuring without behavior change
+- `test`: Adding or updating tests
+- `chore`: CI/CD, tooling, dependency bumps, configs (no production code)
 
-1. **Create or verify feature branch**
+## PR Description Template
 
-   If on main, create a branch from the work context:
-   ```
-   git checkout -b <descriptive-branch-name>
-   ```
+```markdown
+## Summary
+One sentence describing the overall change.
 
-2. **Stage and commit changes**
+- Optional supporting details
+- If needed
 
-   Use the user's git identity (never sign as Claude, no Co-authored-by).
-   Write conventional commit messages:
-   - `feat: add remote file sync`
-   - `fix: resolve timeout on large files`
+## Test plan
+- [ ] How to verify it works
+```
 
-3. **Bump version if warranted**
+## Labels
 
-   - Bug fixes → patch
-   - New features → minor
-   - Breaking changes → major
+Apply labels using `gh pr create --label <label>` or `gh pr edit --add-label <label>`:
 
-   Update version in pyproject.toml (or equivalent).
+- `enhancement` - User-facing features or improvements (must change production code behavior)
+- `refactor` - Production code changes that don't alter behavior
+- `bug` - Fixes broken production code functionality
+- `test` - Changes to tests
+- `documentation` - Documentation changes
 
-4. **Update CHANGELOG.md**
+**No label needed** for dependency bumps, CI/CD, tooling, or infrastructure changes.
 
-   Use /changelog skill to generate entry if changes are user-facing.
+## Branch Naming
 
-5. **Push and create PR**
+Use `type/short-description`:
 
-   ```
-   git push -u origin <branch>
-   gh pr create --fill
-   ```
+```text
+feat/cache-policy
+fix/robots-txt-503
+chore/pre-commit-hooks
+```
 
-   PR description should summarize changes. Link issues if referenced in commits.
+## Instructions
 
-## Notes
-
-- Don't add "Signed-off-by" or "Co-authored-by: Claude" trailers
-- Ask before force-pushing
-- If tests fail, stop and report
+1. Run `git log main..HEAD` to see commits for this branch
+2. Run `git diff main...HEAD` to see all changes
+3. Summarize the changes in 1-2 sentences
+4. Create a test plan with verification steps
+5. Apply appropriate labels

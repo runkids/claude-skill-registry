@@ -1,93 +1,83 @@
 ---
-name: vibe-coder
-description: |
-  Describe your idea, get a deployed product. All Craft Coder skills + brainstorm, validation, marketing.
-  Use when: user wants to build something from an idea, prototype, or MVP.
-  Triggers: "build app", "create website", "make MVP", "I have an idea",
-  "хочу приложение", "создать сайт", "сделать MVP".
+name: data-quality
+description: Data quality testing with dbt tests, Great Expectations, and monitoring.
 ---
 
-# Vibe Coder
+# Data Quality
 
-Describe what you want. Get a deployed product.
+## Quality Dimensions
 
-## The Vibe
+| Dimension | Description | Test |
+|-----------|-------------|------|
+| **Completeness** | No missing values | NOT NULL, count checks |
+| **Uniqueness** | No duplicates | UNIQUE, distinct counts |
+| **Validity** | Values in range | Range checks, regex |
+| **Consistency** | Matches across sources | Cross-table checks |
+| **Timeliness** | Data is fresh | Freshness checks |
 
+## dbt Tests
+
+### Schema Tests
+
+```yaml
+models:
+  - name: fct_orders
+    columns:
+      - name: order_id
+        tests:
+          - unique
+          - not_null
+      - name: status
+        tests:
+          - accepted_values:
+              values: ['pending', 'completed', 'cancelled']
+      - name: amount
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+              max_value: 1000000
 ```
-You: "I want an app for tracking expenses"
-     ↓
-Claude: Asks a few questions
-     ↓
-Claude: Builds everything (hidden complexity)
-     ↓
-You: ✅ Done! [Preview] [Deploy]
+
+### Custom Tests
+
+```sql
+-- tests/assert_positive_revenue.sql
+select *
+from {{ ref('fct_orders') }}
+where amount < 0
 ```
 
-## What's Included
+### Relationship Tests
 
-### MVP Workflow (unique to Vibe Coder)
-| Skill | What it does |
-|-------|--------------|
-| `brainstorming` | Refine ideas with Socratic dialogue |
-| `idea-validation` | Validate problem/solution fit |
-| `stack-selector` | Choose tech stack automatically |
-| `ui-generator` | Create UI from descriptions |
-| `feature-builder` | Add features incrementally |
-| `db-designer` | Design database schema |
-| `api-generator` | Generate API endpoints |
-| `deploy-automation` | Deploy to production |
+```yaml
+- name: customer_id
+  tests:
+    - relationships:
+        to: ref('dim_customer')
+        field: customer_id
+```
 
-### All Craft Coder Skills (40+)
-- **Backend**: Python, Node.js, Rust
-- **Frontend**: React, design systems
-- **Mobile**: React Native, Expo
-- **Data**: Pipelines, dbt, Airflow
-- **Infrastructure**: Terraform, K8s, monitoring
-- **Quality**: Testing, code review, debugging
+## Great Expectations
 
-## Commands
+```python
+import great_expectations as gx
 
-| Command | Purpose |
-|---------|---------|
-| `/vibe:brainstorm` | Refine idea with Socratic dialogue |
-| `/vibe:idea` | Start from scratch with simple questions |
-| `/vibe:build` | Create the app (full pipeline) |
-| `/vibe:add` | Add feature to existing app |
-| `/vibe:preview` | Show current state |
-| `/vibe:deploy` | Publish to production |
+context = gx.get_context()
 
-## Agents
+validator = context.sources.pandas_default.read_csv("data.csv")
 
-- **vibe-coder** — Build apps from descriptions
-- **code-reviewer** — Review code automatically
+validator.expect_column_values_to_not_be_null("order_id")
+validator.expect_column_values_to_be_unique("order_id")
+validator.expect_column_values_to_be_between("amount", 0, 1000000)
 
-## Hidden Pipeline
+results = validator.validate()
+```
 
-Every change runs through:
-1. TDD (test first, then implement)
-2. Automated tests
-3. Security checks (OWASP)
-4. Code review (auto-fix issues)
+## Monitoring
 
-User only sees ✅ or ❌ — never the process.
-
-## Templates
-
-| Template | When to use |
-|----------|-------------|
-| nextjs-supabase | Web apps, SaaS, dashboards |
-| fastapi-postgres | APIs, backends, AI/ML projects |
-| hono-drizzle | Edge, serverless, Cloudflare |
-| landing-page | Marketing sites, portfolios |
-
-Stack selector chooses automatically.
-
-## No Technical Jargon
-
-You never need to know:
-- What framework to use
-- How to structure code
-- What tests to write
-- How to deploy
-
-Just describe what you want. Vibe coding at its finest.
+- Row count trends
+- Null percentage trends
+- Schema drift detection
+- Freshness SLAs
+- Anomaly detection

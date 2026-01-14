@@ -1,103 +1,316 @@
 ---
 name: model-selection
-description: Select appropriate Claude model (Opus 4.5, Sonnet, Haiku) for agents, commands, or Task tool invocations based on task complexity, reasoning depth, and cost/speed requirements.
+description: Choose appropriate model for custom agent tasks. Use when selecting between Haiku, Sonnet, and Opus for agents, optimizing cost vs quality tradeoffs, or matching model capability to task complexity.
+allowed-tools: Read, Grep, Glob, AskUserQuestion
 ---
 
-# Model Selection Guide
+# Model Selection Skill
 
-Select the appropriate Claude model based on task requirements.
+Choose the right model for custom agent tasks based on complexity, cost, and performance requirements.
 
-## Quick Decision Matrix
+## Interactive Model Selection
 
+Use AskUserQuestion to understand requirements and recommend the optimal model:
+
+```yaml
+# Question 1: Primary Priority (MCP: CLI best practices - tradeoff selection)
+question: "What is your primary priority for this agent?"
+header: "Priority"
+options:
+  - label: "Cost Efficiency (Recommended)"
+    description: "Minimize API costs, high-volume operations"
+  - label: "Balanced Performance"
+    description: "Good quality at reasonable cost for most tasks"
+  - label: "Maximum Quality"
+    description: "Best results regardless of cost, complex reasoning"
+  - label: "Lowest Latency"
+    description: "Real-time responses, user-facing interactions"
+
+# Question 2: Task Complexity (MCP: Agent SDK model selection)
+question: "How complex is the task this agent will perform?"
+header: "Complexity"
+options:
+  - label: "Simple"
+    description: "Transformations, extraction, formatting, classification"
+  - label: "Moderate"
+    description: "Code generation, analysis, planning, most tasks"
+  - label: "Complex"
+    description: "Architecture decisions, multi-step reasoning, critical code"
+  - label: "Variable"
+    description: "Mix of simple and complex tasks in one agent"
 ```
-Is deep reasoning across multiple domains required?
-├── YES → Opus 4.5
-└── NO → Is specialized domain analysis needed?
-    ├── YES → Sonnet
-    └── NO → Is it pure execution/formatting?
-        ├── YES → Haiku
-        └── NO → Default to Sonnet
-```
+
+Use these responses to apply the decision tree and recommend the appropriate model.
+
+## Purpose
+
+Guide selection of appropriate Claude model (Haiku, Sonnet, Opus) for custom agent tasks to optimize cost, speed, and quality.
+
+## When to Use
+
+- Designing a new custom agent
+- Optimizing existing agent performance
+- Balancing cost vs quality
+- Meeting specific latency requirements
 
 ## Model Overview
 
-| Model | Strengths | Cost/Speed | Use When |
-|-------|-----------|------------|----------|
-| **Opus 4.5** | Deep reasoning, synthesis, architecture | Highest/Slower | Complex multi-domain tasks |
-| **Sonnet** | Balanced reasoning, efficient | Moderate | Specialized domain tasks |
-| **Haiku** | Fast execution, simple tasks | Lowest/Fastest | Formatting, pattern matching |
+| Model | Speed | Cost | Quality | Use Case |
+| --- | --- | --- | --- | --- |
+| **Haiku** | Fastest | Lowest | Good | Simple tasks, high volume |
+| **Sonnet** | Fast | Medium | Very Good | Most tasks, balanced |
+| **Opus** | Slowest | Highest | Best | Complex reasoning |
 
-## Use Opus 4.5 For
+## Selection Decision Tree
 
-**Deep Architectural Reasoning**:
-- System architecture across multiple domains
-- Trade-off analysis with competing constraints
-- Novel design patterns or hybrid approaches
+```text
+START
+  │
+  ├── Is task simple transformation?
+  │   └── YES → Haiku
+  │
+  ├── Is cost the primary concern?
+  │   └── YES → Haiku (if adequate) or Sonnet
+  │
+  ├── Is quality critical (no room for error)?
+  │   └── YES → Opus
+  │
+  ├── Does task require complex reasoning?
+  │   └── YES → Opus
+  │
+  ├── Is latency critical (real-time)?
+  │   └── YES → Haiku
+  │
+  └── DEFAULT → Sonnet (best balance)
+```
 
-**Complex Synthesis**:
-- Combining knowledge from multiple sources
-- Creating plans from ambiguous requirements
-- Cross-cutting concerns (security, performance, scalability)
+## Model Selection by Task Type
 
-**Meta-Cognitive Tasks**:
-- Prompt engineering and agent design
-- Code review with deep pattern recognition
-- UX analysis requiring user psychology
+### Haiku Tasks
 
-**Multi-Agent Coordination**:
-- Orchestrating parallel work streams
-- Feature decomposition into parallel components
+Best for:
 
-## Use Sonnet For
+- Text transformations (uppercase, formatting)
+- Simple classification
+- Data extraction
+- High-volume operations
+- Real-time processing
+- Pattern matching
 
-**Focused Domain Expertise**:
-- Database optimization within known patterns
-- Test debugging with established methodologies
-- CI/CD pipeline troubleshooting
-- Git operations and PR management
+```python
+# Haiku examples
+model="claude-3-5-haiku-20241022"
 
-**Execution-Oriented Tasks**:
-- Running test suites and analyzing failures
-- Parsing logs for known patterns
-- Generating documentation from code
-- Creating tickets from templates
+# Echo agent - simple transformation
+# Calculator - straightforward math
+# Stream processor - high volume, low complexity
+```
 
-**Time-Sensitive Operations**:
-- Quick debugging cycles
-- Rapid iteration on test fixes
-- Interactive development sessions
+### Sonnet Tasks
 
-## Use Haiku For
+Best for:
 
-**Pure Formatting**:
-- Commit message formatting
-- Code style adjustments
-- Template filling
+- Code generation
+- Code review
+- Planning and analysis
+- Most custom agents
+- Balanced performance
 
-**Pattern Matching Without Reasoning**:
-- Finding duplicate content
-- Extracting metrics from files
-- Simple search and replace
+```python
+# Sonnet examples
+model="claude-sonnet-4-20250514"
 
-**Shell Script Execution**:
-- Running predefined commands
-- Collecting build outputs
-- Simple file operations
+# QA agent - codebase analysis
+# Builder agent - code implementation
+# General-purpose agents
+```
 
-## Cost Optimization Tips
+### Opus Tasks
 
-- Don't use Opus for simple debugging loops
-- Don't use Haiku for tasks requiring nuanced understanding
-- Consider task duration: Opus for one-time planning, Sonnet for iterative work
+Best for:
 
-## When to Upgrade/Downgrade
+- Strategic planning
+- Complex architectural decisions
+- Critical code review
+- Multi-step reasoning
+- Novel problem solving
 
-**Upgrade to Opus when**:
-- Agent produces shallow analysis
-- Tasks require synthesizing from multiple codebases
-- Users report missing important considerations
+```python
+# Opus examples
+model="claude-opus-4-20250514"
 
-**Downgrade to Haiku when**:
-- Agent does mostly formatting/transformation
-- Reasoning is minimal and pattern-based
-- Speed is critical and quality is consistent
+# Planner agent - strategic decisions
+# Reviewer agent - critical validation
+# Architect agent - system design
+```
+
+## Cost Considerations
+
+### Relative Costs
+
+| Model | Input Tokens | Output Tokens | Relative Cost |
+| --- | --- | --- | --- |
+| Haiku | Low | Low | 1x |
+| Sonnet | Medium | Medium | ~10x |
+| Opus | High | High | ~30x |
+
+### Cost Optimization Strategies
+
+1. **Start with Haiku**: Test if simpler model is adequate
+2. **Use Haiku for preprocessing**: Filter/classify before main task
+3. **Reserve Opus for critical paths**: Only where quality is paramount
+4. **Monitor costs**: Track `ResultMessage.total_cost_usd`
+
+```python
+# Cost tracking
+async for message in client.receive_response():
+    if isinstance(message, ResultMessage):
+        print(f"Query cost: ${message.total_cost_usd:.6f}")
+```
+
+## Speed Considerations
+
+### Latency Profiles
+
+| Model | First Token | Total Time | Throughput |
+| --- | --- | --- | --- |
+| Haiku | ~500ms | Fast | Highest |
+| Sonnet | ~1s | Medium | Good |
+| Opus | ~2s | Slower | Lower |
+
+### Speed Optimization
+
+1. **Real-time needs Haiku**: Sub-second response
+2. **Interactive needs Sonnet**: Acceptable latency
+3. **Batch allows Opus**: Latency less critical
+
+## Quality Considerations
+
+### Capability Differences
+
+| Capability | Haiku | Sonnet | Opus |
+| --- | --- | --- | --- |
+| Simple reasoning | ✓ | ✓ | ✓ |
+| Code generation | Limited | Good | Excellent |
+| Complex planning | Poor | Good | Excellent |
+| Multi-step reasoning | Limited | Good | Excellent |
+| Novel problems | Poor | Adequate | Excellent |
+
+### Quality Requirements
+
+- **Haiku**: Acceptable for well-defined, simple tasks
+- **Sonnet**: Good for most development tasks
+- **Opus**: Required for critical decisions
+
+## Multi-Model Patterns
+
+### Tiered Processing
+
+```python
+# Tier 1: Haiku for classification
+classification = await classify_task(task, model="haiku")
+
+# Tier 2: Route to appropriate model
+if classification == "simple":
+    result = await process(task, model="haiku")
+elif classification == "complex":
+    result = await process(task, model="opus")
+else:
+    result = await process(task, model="sonnet")
+```
+
+### Multi-Agent with Different Models
+
+```python
+# Planner: Opus for strategic decisions
+planner_options = ClaudeAgentOptions(
+    model="claude-opus-4-20250514"
+)
+
+# Builder: Sonnet for implementation
+builder_options = ClaudeAgentOptions(
+    model="claude-sonnet-4-20250514"
+)
+
+# Reviewer: Opus for critical review
+reviewer_options = ClaudeAgentOptions(
+    model="claude-opus-4-20250514"
+)
+```
+
+## Output Format
+
+When recommending model selection:
+
+```markdown
+## Model Selection
+
+**Task:** [description]
+**Recommended Model:** [Haiku/Sonnet/Opus]
+
+### Decision Factors
+
+| Factor | Weight | Assessment |
+| --- | --- | --- |
+| Complexity | [H/M/L] | [assessment] |
+| Cost sensitivity | [H/M/L] | [assessment] |
+| Quality requirement | [H/M/L] | [assessment] |
+| Latency requirement | [H/M/L] | [assessment] |
+
+### Rationale
+
+[Why this model is appropriate]
+
+### Alternatives
+
+- If cost is concern: [alternative]
+- If quality is critical: [alternative]
+
+### Configuration
+
+```
+
+options = ClaudeAgentOptions(
+    model="[model-id]",
+    ...
+)
+
+```text
+
+```
+
+## Selection Checklist
+
+- [ ] Task complexity assessed
+- [ ] Cost constraints identified
+- [ ] Quality requirements defined
+- [ ] Latency requirements considered
+- [ ] Model selected with rationale
+- [ ] Alternatives documented
+
+## Key Insights
+
+> "Choose wisely: Claude Haiku for simple, fast tasks. Claude Sonnet for balanced performance. Claude Opus for complex reasoning."
+
+Model selection directly impacts:
+
+- User experience (latency)
+- Operational cost (tokens)
+- Output quality (accuracy)
+
+## Cross-References
+
+- @core-four-custom.md - Model in Core Four
+- @custom-agent-design skill - Agent design workflow
+- @agent-deployment-forms.md - Deployment considerations
+
+## Version History
+
+- **v1.0.0** (2025-12-26): Initial release
+
+---
+
+## Last Updated
+
+**Date:** 2025-12-26
+**Model:** claude-opus-4-5-20251101

@@ -1,11 +1,7 @@
 {
   "name": "codex-review",
-  "description": "AUTOMATICALLY run Codex review after writing security-sensitive code (auth, crypto, SQL) - get a second opinion from OpenAI Codex",
   "repo": "Donaldshen27/xtrend-vanilla",
-  "category": "data",
-  "tags": [
-    "codex",
-    "review"
-  ],
-  "stars": 0
+  "path": ".claude/skills/codex-review/SKILL.md",
+  "source": "github.com/Donaldshen27/xtrend-vanilla",
+  "downloaded_at": "2026-01-14T03:51:51.071339Z"
 }

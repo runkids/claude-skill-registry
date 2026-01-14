@@ -1,11 +1,7 @@
 {
   "name": "typescript",
-  "description": "This skill should be used when the user asks to \"configure TypeScript\", \"fix type errors\", \"use dayjs\", \"add type definitions\", \"set up React with TypeScript\", mentions \".ts\" or \".tsx\" files, or asks ",
-  "repo": "PaulRBerg/dot-claude",
-  "category": "devops",
-  "tags": [
-    "typescript"
-  ],
-  "stars": 58,
-  "source": "SkillsMP Synced Skills"
+  "repo": "KubrickCode/Repo-Management",
+  "path": ".claude/skills/typescript/SKILL.md",
+  "source": "github.com/KubrickCode/Repo-Management",
+  "downloaded_at": "2026-01-14T04:01:56.468568Z"
 }

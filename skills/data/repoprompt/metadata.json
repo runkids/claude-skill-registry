@@ -1,11 +1,7 @@
 {
   "name": "repoprompt",
-  "description": "Use RepoPrompt CLI for token-efficient codebase exploration",
-  "repo": "parcadei/Continuous-Claude-v2",
-  "category": "development",
-  "tags": [
-    "repoprompt"
-  ],
-  "stars": 1318,
-  "source": "SkillsMP Synced Skills"
+  "repo": "parcadei/Continuous-Claude-v3",
+  "path": ".claude/skills/repoprompt/SKILL.md",
+  "source": "github.com/parcadei/Continuous-Claude-v3",
+  "downloaded_at": "2026-01-14T01:18:43.709151Z"
 }

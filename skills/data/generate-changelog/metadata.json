@@ -1,11 +1,7 @@
 {
   "name": "generate-changelog",
-  "description": "Generate changelog entries from git commits, plan files, or structured data. Use for version releases, creating CHANGELOG.md sections, or documenting changes between versions.",
-  "repo": "maslennikov-ig/claude-code-orchestrator-kit",
-  "category": "data",
-  "tags": [
-    "generate",
-    "changelog"
-  ],
-  "stars": 27
+  "repo": "mvillmow/ProjectOdyssey",
+  "path": ".claude/skills/tier-2/generate-changelog/SKILL.md",
+  "source": "github.com/mvillmow/ProjectOdyssey",
+  "downloaded_at": "2026-01-14T01:09:02.168575Z"
 }

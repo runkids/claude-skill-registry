@@ -1,13 +1,7 @@
 {
   "name": "fix-markdown-fences",
-  "description": "Repair malformed markdown code fence closings. Use when markdown files have closing fences with language identifiers (```text instead of ```) or when generating markdown with code blocks to ensure pro",
   "repo": "rjmurillo/ai-agents",
-  "category": "development",
-  "tags": [
-    "fix",
-    "markdown",
-    "fences"
-  ],
-  "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/fix-markdown-fences/SKILL.md",
+  "source": "github.com/rjmurillo/ai-agents",
+  "downloaded_at": "2026-01-14T02:20:50.852681Z"
 }

@@ -1,561 +1,326 @@
 ---
 name: label-management
-description: Manage GitHub labels - create, edit, delete, apply labels, and organize with color coding using gh CLI
+description: Create, edit, delete, and organize GitHub Issue labels and milestones. Use for label operations, milestone management, or organizing issue taxonomy.
 ---
-# GitHub Label Management Skill
 
-This skill provides operations for managing repository labels, including creating, editing, deleting labels, and applying them to issues and pull requests for better organization and triage.
+# Label & Milestone Management
 
-## Available Operations
+**Capability:** Complete label and milestone CRUD operations with native GitHub CLI
 
-### 1. Create Label
-Create new labels with custom names, descriptions, and colors.
+**When to use:** Managing labels, milestones, and metadata organization
 
-### 2. List Labels
-View all labels in a repository.
+**No Extension Required:** All operations use native `gh` commands
 
-### 3. Edit Label
-Update label properties (name, color, description).
+---
 
-### 4. Delete Label
-Remove labels from a repository.
-
-### 5. Clone Labels
-Copy labels from one repository to another.
-
-### 6. Apply Labels to Issues/PRs
-Add labels to issues and pull requests.
-
-### 7. Remove Labels
-Remove labels from issues and pull requests.
-
-## Usage Examples
-
-### Create Label
-
-**Create basic label:**
-```bash
-gh label create bug --repo owner/repo-name \
-  --description "Something isn't working" \
-  --color d73a4a
-```
-
-**Create multiple labels:**
-```bash
-gh label create enhancement --repo owner/repo-name --description "New feature or request" --color a2eeef
-gh label create documentation --repo owner/repo-name --description "Improvements or additions to documentation" --color 0075ca
-gh label create "good first issue" --repo owner/repo-name --description "Good for newcomers" --color 7057ff
-```
-
-**Create with default color:**
-```bash
-gh label create "needs triage" --repo owner/repo-name --description "Needs initial review"
-```
-
-**Using API:**
-```bash
-gh api repos/owner/repo-name/labels \
-  -f name="security" \
-  -f description="Security related issues" \
-  -f color="d93f0b"
-```
+## Label Operations
 
 ### List Labels
 
-**List all labels:**
 ```bash
-gh label list --repo owner/repo-name
+# List all labels
+gh label list
+
+# List with JSON output
+gh label list --json name,color,description
+
+# Filter and format
+gh label list --json name,color --jq '.[] | "\(.name): #\(.color)"'
 ```
 
-**Limit results:**
+### Create Labels
+
 ```bash
-gh label list --repo owner/repo-name --limit 100
+# Basic creation
+gh label create "bug" --color "ff0000" --description "Something isn't working"
+
+# Multiple labels at once
+gh label create "priority:high" --color "ff0000"
+gh label create "priority:medium" --color "ffaa00"
+gh label create "priority:low" --color "00ff00"
+
+# Knowledge base labels
+gh label create "claude-code" --color "0366d6" --description "Claude Code tips and tricks"
+gh label create "github-cli" --color "2ea44f" --description "GitHub CLI workflows"
 ```
 
-**Search labels:**
+### Update Labels
+
 ```bash
-gh label list --repo owner/repo-name --search "bug"
+# Update color
+gh label edit "bug" --color "d73a4a"
+
+# Update description
+gh label edit "bug" --description "Confirmed bugs"
+
+# Rename label
+gh label edit "old-name" --name "new-name"
 ```
 
-**Order by name:**
+### Delete Labels
+
 ```bash
-gh label list --repo owner/repo-name --order asc
+# Delete single label
+gh label delete "wontfix"
+
+# Delete with confirmation skip
+gh label delete "duplicate" --yes
+
+# Batch delete (careful!)
+gh label list --json name --jq '.[].name' | grep "temp-" | xargs -I {} gh label delete {} --yes
 ```
 
-**JSON output:**
+---
+
+## Label Organization Strategies
+
+### Knowledge Base Labels
+
 ```bash
-gh label list --repo owner/repo-name --json name,description,color
+# Topic categories
+gh label create "claude-code" --color "0366d6"
+gh label create "github-cli" --color "2ea44f"
+gh label create "git" --color "5319e7"
+gh label create "terminal" --color "0e8a16"
+
+# Content types
+gh label create "tips" --color "c5def5"
+gh label create "troubleshooting" --color "d93f0b"
+gh label create "how-to" --color "bfdadc"
+gh label create "reference" --color "d4c5f9"
+gh label create "example" --color "c2e0c6"
+
+# Workflows
+gh label create "workflow" --color "fbca04"
+gh label create "mcp" --color "f9d0c4"
 ```
 
-**Using API:**
+### Priority System
+
 ```bash
-gh api repos/owner/repo-name/labels --jq '.[] | {name, description, color}'
+# Hierarchical priorities
+gh label create "priority:critical" --color "b60205" --description "Urgent - immediate action required"
+gh label create "priority:high" --color "d93f0b" --description "Important - address soon"
+gh label create "priority:medium" --color "fbca04" --description "Normal priority"
+gh label create "priority:low" --color "0e8a16" --description "Low priority - nice to have"
 ```
 
-### Edit Label
+### Status Tracking
 
-**Update label name:**
 ```bash
-gh label edit bug --repo owner/repo-name --name "bug-report"
+# Workflow states
+gh label create "status:needs-triage" --color "ededed"
+gh label create "status:in-progress" --color "fbca04"
+gh label create "status:blocked" --color "d93f0b"
+gh label create "status:review" --color "0366d6"
+gh label create "status:ready" --color "0e8a16"
 ```
 
-**Update color:**
+---
+
+## Cloning Labels Between Repositories
+
 ```bash
-gh label edit bug --repo owner/repo-name --color ff0000
+# Export labels from source repo
+gh label list --repo source-owner/source-repo --json name,color,description > labels.json
+
+# Import to target repo
+cat labels.json | jq -r '.[] | @sh "gh label create \(.name) --color \(.color) --description \(.description) --repo target-owner/target-repo"' | sh
 ```
 
-**Update description:**
+---
+
+## Milestone Operations
+
+### List Milestones
+
 ```bash
-gh label edit bug --repo owner/repo-name --description "Critical bug requiring immediate attention"
+# Using gh api (no native gh milestone command)
+gh api repos/{owner}/{repo}/milestones --jq '.[] | {number, title, state}'
+
+# With full details
+gh api repos/{owner}/{repo}/milestones --jq '.[] | {number, title, description, due_on, state, open_issues, closed_issues}'
 ```
 
-**Update multiple properties:**
+### Create Milestone
+
 ```bash
-gh label edit enhancement --repo owner/repo-name \
-  --name feature \
-  --description "New feature request" \
-  --color 00ff00
+# Basic milestone
+gh api repos/{owner}/{repo}/milestones \
+  --method POST \
+  --field title="v1.0.0" \
+  --field description="First stable release" \
+  --field due_on="2025-12-31T23:59:59Z"
+
+# With state (open/closed)
+gh api repos/{owner}/{repo}/milestones \
+  --method POST \
+  --field title="Q1 2025" \
+  --field state="open"
 ```
 
-**Using API:**
+### Update Milestone
+
 ```bash
-gh api repos/owner/repo-name/labels/bug \
-  -X PATCH \
-  -f new_name="critical-bug" \
-  -f color="ff0000" \
-  -f description="Critical issues"
+# Update milestone
+gh api repos/{owner}/{repo}/milestones/MILESTONE_NUMBER \
+  --method PATCH \
+  --field title="Updated Title" \
+  --field description="Updated description" \
+  --field state="closed"
 ```
 
-### Delete Label
+### Delete Milestone
 
-**Delete single label:**
 ```bash
-gh label delete bug --repo owner/repo-name
+# Delete milestone
+gh api repos/{owner}/{repo}/milestones/MILESTONE_NUMBER --method DELETE
 ```
 
-**Delete with confirmation:**
+---
+
+## Batch Label Operations
+
+### Apply Label to Multiple Issues
+
 ```bash
-gh label delete bug --repo owner/repo-name --yes
+# Add label to all open bugs
+gh issue list --label bug --state open --json number --jq '.[].number' | \
+  xargs -I {} gh issue edit {} --add-label priority:high
+
+# Remove label from closed issues
+gh issue list --label needs-triage --state closed --json number --jq '.[].number' | \
+  xargs -I {} gh issue edit {} --remove-label needs-triage
 ```
 
-**Delete multiple labels:**
+### Rename Labels Across Issues
+
 ```bash
-for label in "wontfix" "duplicate" "invalid"; do
-  gh label delete "$label" --repo owner/repo-name --yes
+# 1. Get all issues with old label
+ISSUES=$(gh issue list --label old-label --json number --jq '.[].number')
+
+# 2. Add new label, remove old label
+for issue in $ISSUES; do
+  gh issue edit $issue --add-label new-label --remove-label old-label
 done
+
+# 3. Delete old label
+gh label delete old-label
 ```
 
-**Using API:**
+---
+
+## Label Analytics
+
+### Label Usage Statistics
+
 ```bash
-gh api repos/owner/repo-name/labels/wontfix -X DELETE
+#!/bin/bash
+# Count issues per label
+
+gh label list --json name --jq '.[].name' | while read -r label; do
+  count=$(gh issue list --label "$label" --json number --jq '. | length')
+  echo "$label: $count issues"
+done | sort -t: -k2 -rn
 ```
 
-### Clone Labels
+### Milestone Progress
 
-**Copy labels from another repository:**
 ```bash
-# Get labels from source repo
-gh label list --repo source-owner/source-repo --json name,description,color > labels.json
-
-# Create labels in target repo
-cat labels.json | jq -r '.[] | "\(.name)|\(.description)|\(.color)"' | \
-  while IFS='|' read name desc color; do
-    gh label create "$name" --repo owner/repo-name --description "$desc" --color "$color" 2>/dev/null || true
-  done
+# Get milestone progress
+gh api repos/{owner}/{repo}/milestones/MILESTONE_NUMBER --jq '{
+  title,
+  open: .open_issues,
+  closed: .closed_issues,
+  percent_complete: ((.closed_issues / (.open_issues + .closed_issues)) * 100 | round)
+}'
 ```
 
-**Clone from template repository:**
-```bash
-# Script to clone labels
-SOURCE_REPO="template-owner/template-repo"
-TARGET_REPO="owner/new-repo"
+---
 
-gh api repos/$SOURCE_REPO/labels --jq '.[]' | \
-  jq -c '{name, description, color}' | \
-  while read label; do
-    gh api repos/$TARGET_REPO/labels \
-      -f name="$(echo $label | jq -r '.name')" \
-      -f description="$(echo $label | jq -r '.description')" \
-      -f color="$(echo $label | jq -r '.color')"
-  done
-```
+## Common Workflows
 
-### Apply Labels to Issues/PRs
-
-**Add label to issue:**
-```bash
-gh issue edit 123 --repo owner/repo-name --add-label "bug"
-```
-
-**Add multiple labels:**
-```bash
-gh issue edit 123 --repo owner/repo-name --add-label "bug,critical,needs-review"
-```
-
-**Add label to PR:**
-```bash
-gh pr edit 456 --repo owner/repo-name --add-label "enhancement"
-```
-
-**Using API:**
-```bash
-gh api repos/owner/repo-name/issues/123/labels \
-  -f 'labels[]=bug' \
-  -f 'labels[]=critical'
-```
-
-### Remove Labels
-
-**Remove label from issue:**
-```bash
-gh issue edit 123 --repo owner/repo-name --remove-label "bug"
-```
-
-**Remove multiple labels:**
-```bash
-gh issue edit 123 --repo owner/repo-name --remove-label "bug,wontfix"
-```
-
-**Remove all labels:**
-```bash
-# Get all labels on issue
-LABELS=$(gh issue view 123 --repo owner/repo-name --json labels --jq '.labels[].name' | tr '\n' ',')
-gh issue edit 123 --repo owner/repo-name --remove-label "$LABELS"
-```
-
-**Using API:**
-```bash
-# Remove specific label
-gh api repos/owner/repo-name/issues/123/labels/bug -X DELETE
-
-# Remove all labels
-gh api repos/owner/repo-name/issues/123/labels -X DELETE
-```
-
-## Common Patterns
-
-### Standard Label Set
+### Knowledge Base Setup
 
 ```bash
-REPO="owner/repo-name"
+# 1. Create label structure
+gh label create "claude-code" --color "0366d6"
+gh label create "tips" --color "c5def5"
+gh label create "how-to" --color "bfdadc"
 
-# Issue Types
-gh label create "bug" --repo $REPO --description "Something isn't working" --color "d73a4a"
-gh label create "enhancement" --repo $REPO --description "New feature or request" --color "a2eeef"
-gh label create "documentation" --repo $REPO --description "Improvements or additions to documentation" --color "0075ca"
-gh label create "question" --repo $REPO --description "Further information is requested" --color "d876e3"
+# 2. Create issues with labels
+gh issue create --title "Tip: Plan Mode" --label claude-code,tips,how-to --body-file tip.md
 
-# Priority
-gh label create "priority: high" --repo $REPO --description "High priority" --color "ff0000"
-gh label create "priority: medium" --repo $REPO --description "Medium priority" --color "ffaa00"
-gh label create "priority: low" --repo $REPO --description "Low priority" --color "00ff00"
-
-# Status
-gh label create "status: in progress" --repo $REPO --description "Work in progress" --color "fbca04"
-gh label create "status: blocked" --repo $REPO --description "Blocked by dependencies" --color "b60205"
-gh label create "status: needs review" --repo $REPO --description "Needs code review" --color "0e8a16"
-
-# Community
-gh label create "good first issue" --repo $REPO --description "Good for newcomers" --color "7057ff"
-gh label create "help wanted" --repo $REPO --description "Extra attention is needed" --color "008672"
+# 3. Search by label
+gh search issues --label claude-code,tips
 ```
 
 ### Issue Triage Workflow
 
 ```bash
-REPO="owner/repo-name"
-
 # 1. List untriaged issues
-gh issue list --repo $REPO --label "needs-triage" --state open
+gh issue list --label needs-triage
 
-# 2. Review issue
-gh issue view 123 --repo $REPO
+# 2. Review and categorize
+gh issue edit 123 --add-label bug,priority:high --remove-label needs-triage
 
-# 3. Apply appropriate labels
-gh issue edit 123 --repo $REPO \
-  --add-label "bug,priority: high" \
-  --remove-label "needs-triage"
-
-# 4. Assign to team member
-gh issue edit 123 --repo $REPO --add-assignee developer1
+# 3. Assign milestone
+gh api repos/{owner}/{repo}/issues/123 --method PATCH --field milestone=1
 ```
 
-### Bulk Label Operations
+---
 
-```bash
-REPO="owner/repo-name"
+## Color Palette (Standard GitHub)
 
-# Add label to multiple issues
-for issue in 101 102 103 104 105; do
-  gh issue edit $issue --repo $REPO --add-label "sprint-3"
-done
+| Color  | Hex       | Use Case                |
+| ------ | --------- | ----------------------- |
+| Red    | `#d73a4a` | Bugs, critical          |
+| Orange | `#d93f0b` | Warnings, high priority |
+| Yellow | `#fbca04` | Medium priority, needs  |
+| Green  | `#0e8a16` | Improvements, low       |
+| Blue   | `#0366d6` | Enhancements, features  |
+| Purple | `#5319e7` | Questions, research     |
+| Gray   | `#ededed` | Meta, wontfix           |
 
-# Remove stale label from closed issues
-gh issue list --repo $REPO --state closed --label "stale" --json number --jq '.[].number' | \
-  while read issue; do
-    gh issue edit $issue --repo $REPO --remove-label "stale"
-  done
-```
-
-### Label Cleanup
-
-```bash
-REPO="owner/repo-name"
-
-# Find unused labels
-ALL_LABELS=$(gh label list --repo $REPO --json name --jq '.[].name')
-
-for label in $ALL_LABELS; do
-  # Count issues with label
-  COUNT=$(gh issue list --repo $REPO --label "$label" --state all --limit 1000 --json number --jq '. | length')
-
-  if [ "$COUNT" -eq 0 ]; then
-    echo "Unused label: $label"
-    # Optionally delete
-    # gh label delete "$label" --repo $REPO --yes
-  fi
-done
-```
-
-### Rename Label Across Issues
-
-```bash
-REPO="owner/repo-name"
-OLD_LABEL="bug"
-NEW_LABEL="defect"
-
-# 1. Create new label
-gh label create "$NEW_LABEL" --repo $REPO --description "Software defect" --color "d73a4a"
-
-# 2. Find all issues with old label
-gh issue list --repo $REPO --label "$OLD_LABEL" --state all --limit 1000 --json number --jq '.[].number' | \
-  while read issue; do
-    # Add new label
-    gh issue edit $issue --repo $REPO --add-label "$NEW_LABEL"
-    # Remove old label
-    gh issue edit $issue --repo $REPO --remove-label "$OLD_LABEL"
-  done
-
-# 3. Delete old label
-gh label delete "$OLD_LABEL" --repo $REPO --yes
-```
-
-### Color-Coded Categories
-
-```bash
-REPO="owner/repo-name"
-
-# Type labels (Red shades)
-gh label create "type: bug" --repo $REPO --color "d73a4a"
-gh label create "type: feature" --repo $REPO --color "ff6b6b"
-gh label create "type: refactor" --repo $REPO --color "ee5a6f"
-
-# Area labels (Blue shades)
-gh label create "area: frontend" --repo $REPO --color "0052cc"
-gh label create "area: backend" --repo $REPO --color "0e8a16"
-gh label create "area: database" --repo $REPO --color "1d76db"
-
-# Effort labels (Green shades)
-gh label create "effort: small" --repo $REPO --color "c2e0c6"
-gh label create "effort: medium" --repo $REPO --color "7bcf8e"
-gh label create "effort: large" --repo $REPO --color "0e8a16"
-```
-
-## Advanced Usage
-
-### Label Analytics
-
-**Count issues by label:**
-```bash
-gh label list --repo owner/repo-name --json name --jq '.[].name' | \
-  while read label; do
-    count=$(gh issue list --repo owner/repo-name --label "$label" --state all --json number --jq '. | length')
-    echo "$label: $count"
-  done | sort -t: -k2 -nr
-```
-
-**Most used labels:**
-```bash
-gh api repos/owner/repo-name/labels --jq '.[] | "\(.name)|\(.color)"' | \
-  while IFS='|' read name color; do
-    count=$(gh issue list --repo owner/repo-name --label "$name" --state all --limit 1000 --json number --jq '. | length')
-    echo "$count|$name|$color"
-  done | sort -t'|' -k1 -nr | head -10
-```
-
-### Label Templates
-
-**Bug report labels:**
-```bash
-#!/bin/bash
-REPO=$1
-
-gh label create "severity: critical" --repo $REPO --color "b60205"
-gh label create "severity: high" --repo $REPO --color "d93f0b"
-gh label create "severity: medium" --repo $REPO --color "ff9800"
-gh label create "severity: low" --repo $REPO --color "ffeb3b"
-
-gh label create "status: confirmed" --repo $REPO --color "0e8a16"
-gh label create "status: in progress" --repo $REPO --color "fbca04"
-gh label create "status: fixed" --repo $REPO --color "00ff00"
-```
-
-**Project management labels:**
-```bash
-#!/bin/bash
-REPO=$1
-
-# Sprints
-gh label create "sprint-1" --repo $REPO --color "bfd4f2"
-gh label create "sprint-2" --repo $REPO --color "c5def5"
-gh label create "sprint-3" --repo $REPO --color "d4e6f1"
-
-# Milestones
-gh label create "milestone: v1.0" --repo $REPO --color "0052cc"
-gh label create "milestone: v2.0" --repo $REPO --color "1d76db"
-
-# Dependencies
-gh label create "dependencies" --repo $REPO --color "0366d6"
-gh label create "blocked" --repo $REPO --color "b60205"
-```
-
-### Sync Labels Across Organization
-
-```bash
-#!/bin/bash
-ORG="my-org"
-TEMPLATE_REPO="my-org/template"
-
-# Get all repos in org
-gh api orgs/$ORG/repos --paginate --jq '.[].name' | \
-  while read repo; do
-    echo "Syncing labels for $ORG/$repo"
-
-    # Get template labels
-    gh api repos/$TEMPLATE_REPO/labels --jq '.[]' | \
-      jq -c '{name, description, color}' | \
-      while read label; do
-        NAME=$(echo $label | jq -r '.name')
-        DESC=$(echo $label | jq -r '.description')
-        COLOR=$(echo $label | jq -r '.color')
-
-        # Create or update label
-        gh api repos/$ORG/$repo/labels \
-          -f name="$NAME" \
-          -f description="$DESC" \
-          -f color="$COLOR" 2>/dev/null || \
-        gh api repos/$ORG/$repo/labels/"$NAME" \
-          -X PATCH \
-          -f description="$DESC" \
-          -f color="$COLOR"
-      done
-  done
-```
-
-### Auto-Label Based on File Changes
-
-```bash
-# In a PR workflow
-REPO="owner/repo-name"
-PR_NUMBER=123
-
-# Get changed files
-FILES=$(gh pr view $PR_NUMBER --repo $REPO --json files --jq '.files[].path')
-
-# Auto-apply labels based on paths
-if echo "$FILES" | grep -q "^frontend/"; then
-  gh pr edit $PR_NUMBER --repo $REPO --add-label "area: frontend"
-fi
-
-if echo "$FILES" | grep -q "^backend/"; then
-  gh pr edit $PR_NUMBER --repo $REPO --add-label "area: backend"
-fi
-
-if echo "$FILES" | grep -q "\.test\."; then
-  gh pr edit $PR_NUMBER --repo $REPO --add-label "tests"
-fi
-
-if echo "$FILES" | grep -q "\.md$"; then
-  gh pr edit $PR_NUMBER --repo $REPO --add-label "documentation"
-fi
-```
-
-## Error Handling
-
-### Label Already Exists
-```bash
-# Check if label exists
-gh label list --repo owner/repo-name --search "bug" --json name --jq '.[].name' | grep -q "^bug$" && echo "Exists" || echo "Does not exist"
-
-# Create or update
-gh label create "bug" --repo owner/repo-name --color "d73a4a" 2>&1 | grep -q "already exists" && \
-  gh label edit "bug" --repo owner/repo-name --color "d73a4a"
-```
-
-### Label Not Found
-```bash
-# Verify label exists before editing
-if gh label list --repo owner/repo-name --search "bug" --json name --jq '.[].name' | grep -q "^bug$"; then
-  gh label edit "bug" --repo owner/repo-name --color "ff0000"
-else
-  echo "Label 'bug' not found"
-fi
-```
-
-### Invalid Color Code
-```bash
-# Validate hex color (6 characters, no #)
-COLOR="d73a4a"
-if [[ $COLOR =~ ^[0-9a-fA-F]{6}$ ]]; then
-  gh label create "bug" --repo owner/repo-name --color "$COLOR"
-else
-  echo "Invalid color code: $COLOR"
-fi
-```
+---
 
 ## Best Practices
 
-1. **Use consistent naming**: Adopt a naming convention (e.g., "type: bug", "priority: high")
-2. **Limit label count**: Too many labels reduce effectiveness (aim for 15-30)
-3. **Use color coding**: Group related labels with similar colors
-4. **Document labels**: Use descriptions to explain when to use each label
-5. **Regular cleanup**: Remove unused labels periodically
-6. **Template across repos**: Use consistent labels across organization
-7. **Combine labels**: Use multiple labels for detailed categorization
-8. **Avoid redundancy**: Don't create overlapping labels
-9. **Make discoverable**: Use clear, searchable names
-10. **Review usage**: Analyze which labels are actually being used
+1. **Consistent naming** - Use prefixes for hierarchies (`priority:high`, `type:bug`)
+2. **Clear descriptions** - Help users understand when to use each label
+3. **Limited set** - 10-20 core labels, avoid label proliferation
+4. **Color coding** - Use colors meaningfully (red=urgent, green=low-priority)
+5. **Regular cleanup** - Remove unused labels, consolidate duplicates
+6. **Document system** - Maintain label guide in repository docs
 
-## Common Label Categories
+---
 
-### Issue Types
-- bug, enhancement, documentation, question, feature
+## Label Anti-Patterns
 
-### Priority
-- priority: critical, priority: high, priority: medium, priority: low
+❌ **Too many labels** - Hard to choose, inconsistent application
+❌ **Duplicate meanings** - "bug" vs "defect" vs "broken"
+❌ **Unclear names** - "label1", "misc", "other"
+❌ **No descriptions** - Users don't know when to apply
+❌ **Random colors** - No meaningful color coding
 
-### Status
-- status: in progress, status: blocked, status: needs review, status: ready
+---
 
-### Area/Component
-- area: frontend, area: backend, area: api, area: database, area: ui
+## Migration: Deprecated Extensions
 
-### Effort/Size
-- size: xs, size: s, size: m, size: l, size: xl
+**DON'T USE:**
 
-### Community
-- good first issue, help wanted, hacktoberfest, beginner-friendly
+- `gh-label` extension (last updated 2022) → Use native `gh label` instead
+- `gh-milestone` extension (last updated 2023) → Use `gh api` instead
 
-## Integration with Other Skills
+**Native commands are:**
 
-- Use `issue-management` to apply labels during issue creation
-- Use `pull-request-management` to label PRs automatically
-- Use `workflow-management` to auto-label based on CI/CD results
-- Use `project-management` to organize by labels in project boards
+- ✅ Better maintained
+- ✅ Faster (no extension overhead)
+- ✅ More reliable
+- ✅ Always available
 
-## References
+---
 
-- [GitHub CLI Label Documentation](https://cli.github.com/manual/gh_label)
-- [GitHub Labels Guide](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels)
-- [Label Best Practices](https://medium.com/@dave_lunny/sane-github-labels-c5d2e6004b63)
-- [GitHub Labels API](https://docs.github.com/en/rest/issues/labels)
+**Empirical Testing:** 40+ test cases covering all label operations
+
+**Full Operational Guide:** [AI_AGENT_OPERATIONAL_GUIDE.md](/docs/guides/AI_AGENT_OPERATIONAL_GUIDE.md)

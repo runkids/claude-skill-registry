@@ -1,12 +1,7 @@
 {
   "name": "portfolio-optimization",
-  "description": "Portfolio optimization using PyPortfolioOpt for mean-variance optimization, efficient frontier analysis, risk modeling, and discrete allocation. Use when building investment portfolios, calculating op",
   "repo": "gahoccode/PRDs",
-  "category": "development",
-  "tags": [
-    "portfolio",
-    "optimization"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": "skills/portfolio-optimization/SKILL.md",
+  "source": "github.com/gahoccode/PRDs",
+  "downloaded_at": "2026-01-14T02:45:01.479989Z"
 }

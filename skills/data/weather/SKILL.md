@@ -1,24 +1,49 @@
 ---
 name: weather
-description: 直接从专业天气API获取实时天气数据和历史天气信息。当需要查询任意城市的当前天气、未来预报、空气质量等精准气象数据时使用该技能。
-author: Alice
-version: 1.0.0
+description: Get current weather and forecasts (no API key required).
+homepage: https://wttr.in/:help
+metadata: {"clawdbot":{"emoji":"🌤️","requires":{"bins":["curl"]}}}
 ---
 
-# Weather 技能
+# Weather
 
-## 功能概述
-本技能通过直接调用专业天气服务API获取气象数据，提供比搜索工具更实时、更准确的天气信息。
+Two free services, no API keys needed.
 
-## 核心能力
-- 实时天气查询（温度、湿度、风力、天气状况）
-- 未来预报查询（24小时预报、多日预报）
-- 空气质量查询
-- 支持全球城市搜索
+## wttr.in (primary)
 
-## 使用说明
-调用 weather_tool.py 并传入城市名称即可获取天气数据。
+Quick one-liner:
+```bash
+curl -s "wttr.in/London?format=3"
+# Output: London: ⛅️ +8°C
+```
 
-## 依赖
-- 天气API服务接入（需要API Key）
-- requests 库
+Compact format:
+```bash
+curl -s "wttr.in/London?format=%l:+%c+%t+%h+%w"
+# Output: London: ⛅️ +8°C 71% ↙5km/h
+```
+
+Full forecast:
+```bash
+curl -s "wttr.in/London?T"
+```
+
+Format codes: `%c` condition · `%t` temp · `%h` humidity · `%w` wind · `%l` location · `%m` moon
+
+Tips:
+- URL-encode spaces: `wttr.in/New+York`
+- Airport codes: `wttr.in/JFK`
+- Units: `?m` (metric) `?u` (USCS)
+- Today only: `?1` · Current only: `?0`
+- PNG: `curl -s "wttr.in/Berlin.png" -o /tmp/weather.png`
+
+## Open-Meteo (fallback, JSON)
+
+Free, no key, good for programmatic use:
+```bash
+curl -s "https://api.open-meteo.com/v1/forecast?latitude=51.5&longitude=-0.12&current_weather=true"
+```
+
+Find coordinates for a city, then query. Returns JSON with temp, windspeed, weathercode.
+
+Docs: https://open-meteo.com/en/docs

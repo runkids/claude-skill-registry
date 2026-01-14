@@ -1,9 +1,7 @@
 {
   "name": "remind-gabe-os-context",
-  "description": "Proactively remind about Gabe-OS workflows when context may have been lost, especially after /compact operations. Prevent manual implementation by checking for existing specs first.",
   "repo": "gabe-almeida/next-js-my-contractor-now",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/remind-gabe-os-context/SKILL.md",
+  "source": "github.com/gabe-almeida/next-js-my-contractor-now",
+  "downloaded_at": "2026-01-14T03:43:42.148973Z"
 }

@@ -1,8 +1,7 @@
 {
   "name": "weaviate-rag",
   "repo": "astoeffer/plugin-marketplace",
-  "category": "data",
-  "description": "Implement RAG systems using Weaviate vector database. Use when building semantic search, document retrieval, or knowledge base systems.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:03.309958Z"
+  "path": "plugins/cloodle-ai-integration/skills/weaviate-rag/SKILL.md",
+  "source": "github.com/astoeffer/plugin-marketplace",
+  "downloaded_at": "2026-01-14T03:02:33.807312Z"
 }

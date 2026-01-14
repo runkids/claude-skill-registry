@@ -38,14 +38,14 @@ Check these locations in order:
 ./README.md
 
 # User's memory storage
-/home/toowired/.claude-memories/index.json
-/home/toowired/.claude-sessions/current.json
-/home/toowired/.claude-sessions/projects/
+~/.claude-memories/ (Linux/macOS) or %USERPROFILE%\.claude-memories\ (Windows)index.json
+~/.claude-sessions/ (Linux/macOS) or %USERPROFILE%\.claude-sessions\ (Windows)current.json
+~/.claude-sessions/ (Linux/macOS) or %USERPROFILE%\.claude-sessions\ (Windows)projects/
 ```
 
 ### 2. Load Memory Index
 
-Read `/home/toowired/.claude-memories/index.json`:
+Read `~/.claude-memories/ (Linux/macOS) or %USERPROFILE%\.claude-memories\ (Windows)index.json`:
 
 ```json
 {
@@ -79,7 +79,7 @@ Determine project from:
 
 ### 4. Create Session Dashboard
 
-Generate HTML file at `/home/toowired/.claude-artifacts/session-dashboard-{timestamp}.html`:
+Generate HTML file at `~/.claude-artifacts/ (Linux/macOS) or %USERPROFILE%\.claude-artifacts\ (Windows)session-dashboard-{timestamp}.html`:
 
 ```html
 <!DOCTYPE html>
@@ -182,9 +182,9 @@ Generate HTML file at `/home/toowired/.claude-artifacts/session-dashboard-{times
 
     <div class="section">
         <h2>⚡ Quick Actions</h2>
-        <a href="file:///home/toowired/.claude-memories/index.json" class="action">View All Memories</a>
+        <a href="file://~/.claude-memories/ (Linux/macOS) or %USERPROFILE%\.claude-memories\ (Windows)index.json" class="action">View All Memories</a>
         <a href="file://{project_path}" class="action">Open Project</a>
-        <a href="file:///home/toowired/.claude-artifacts/" class="action">View Artifacts</a>
+        <a href="file://~/.claude-artifacts/ (Linux/macOS) or %USERPROFILE%\.claude-artifacts\ (Windows)" class="action">View Artifacts</a>
     </div>
 </body>
 </html>
@@ -252,7 +252,7 @@ Filter memories by:
 
 Before ending conversation (if user says "goodbye", "see you", "done for now"):
 
-1. Create/update `/home/toowired/.claude-sessions/current.json`:
+1. Create/update `~/.claude-sessions/ (Linux/macOS) or %USERPROFILE%\.claude-sessions\ (Windows)current.json`:
 
 ```json
 {
@@ -288,7 +288,7 @@ Before ending conversation (if user says "goodbye", "see you", "done for now"):
 For multi-project users, maintain:
 
 ```
-/home/toowired/.claude-sessions/projects/
+~/.claude-sessions/ (Linux/macOS) or %USERPROFILE%\.claude-sessions\ (Windows)projects/
 ├── boostbox.json
 ├── toolhub.json
 ├── 88dimensions.json
@@ -344,7 +344,7 @@ I couldn't find existing session context, so let's establish some:
 ```
 ⚠️ Memory index appears corrupted.
 
-Creating backup at: /home/toowired/.claude-memories/backups/index-{timestamp}.json
+Creating backup at: ~/.claude-memories/ (Linux/macOS) or %USERPROFILE%\.claude-memories\ (Windows)backups/index-{timestamp}.json
 Initializing fresh index...
 
 ✅ Fresh index created. Previous memories backed up.
@@ -385,10 +385,10 @@ Which project would you like to work on?
 
 ### File Locations
 
-- **Memory index**: `/home/toowired/.claude-memories/index.json`
-- **Current session**: `/home/toowired/.claude-sessions/current.json`
-- **Project sessions**: `/home/toowired/.claude-sessions/projects/{name}.json`
-- **Dashboards**: `/home/toowired/.claude-artifacts/session-dashboard-*.html`
+- **Memory index**: `~/.claude-memories/ (Linux/macOS) or %USERPROFILE%\.claude-memories\ (Windows)index.json`
+- **Current session**: `~/.claude-sessions/ (Linux/macOS) or %USERPROFILE%\.claude-sessions\ (Windows)current.json`
+- **Project sessions**: `~/.claude-sessions/ (Linux/macOS) or %USERPROFILE%\.claude-sessions\ (Windows)projects/{name}.json`
+- **Dashboards**: `~/.claude-artifacts/ (Linux/macOS) or %USERPROFILE%\.claude-artifacts\ (Windows)session-dashboard-*.html`
 
 ### Trigger Phrases
 

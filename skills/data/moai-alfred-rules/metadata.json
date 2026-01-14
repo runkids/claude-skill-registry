@@ -1,12 +1,7 @@
 {
   "name": "moai-alfred-rules",
-  "description": "\"Alfred SuperAgent의 필수 규칙을 정의합니다. November 2025 enterprise standard 기반. 3-Layer architecture, 4-Step workflow, Agent-first paradigm, Skill invocation rules, AskUserQuestion patterns, TRUST 5 quality g",
   "repo": "dolsoon/my-awesome-project",
-  "category": "data",
-  "tags": [
-    "moai",
-    "alfred",
-    "rules"
-  ],
-  "stars": 0
+  "path": ".claude/skills/moai-alfred-rules/SKILL.md",
+  "source": "github.com/dolsoon/my-awesome-project",
+  "downloaded_at": "2026-01-14T03:37:39.506834Z"
 }

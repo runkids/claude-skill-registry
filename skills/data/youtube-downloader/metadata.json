@@ -1,12 +1,7 @@
 {
   "name": "youtube-downloader",
-  "description": "Download YouTube videos and HLS streams (m3u8) from platforms like Mux, Vimeo, etc. using yt-dlp and ffmpeg. Use this skill when users request downloading videos, extracting audio, handling protected ",
-  "repo": "daymade/claude-code-skills",
-  "category": "data",
-  "tags": [
-    "youtube",
-    "downloader"
-  ],
-  "stars": 110,
-  "source": "SkillsMP Synced Skills"
+  "repo": "jackspace/ClaudeSkillz",
+  "path": "skills/youtube-downloader/SKILL.md",
+  "source": "github.com/jackspace/ClaudeSkillz",
+  "downloaded_at": "2026-01-14T02:48:09.777205Z"
 }

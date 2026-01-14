@@ -1,12 +1,7 @@
 {
   "name": "recovering-sessions",
-  "description": "Recover from crashed, failed, or interrupted Claude Code sessions. Use this skill when: session crashed during multi-agent parallel execution, need to determine what work was completed vs incomplete, ",
   "repo": "miethe/skillmeat",
-  "category": "development",
-  "tags": [
-    "recovering",
-    "sessions"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/recovering-sessions/SKILL.md",
+  "source": "github.com/miethe/skillmeat",
+  "downloaded_at": "2026-01-14T01:23:05.631502Z"
 }

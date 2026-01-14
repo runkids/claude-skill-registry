@@ -1,9 +1,7 @@
 {
   "name": "solidity-development",
-  "description": "Master Solidity smart contract development with patterns, testing, and best practices",
   "repo": "pluginagentmarketplace/custom-plugin-blockchain",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/solidity-development/SKILL.md",
+  "source": "github.com/pluginagentmarketplace/custom-plugin-blockchain",
+  "downloaded_at": "2026-01-14T02:23:37.398533Z"
 }

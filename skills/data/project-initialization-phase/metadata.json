@@ -1,12 +1,7 @@
 {
   "name": "project-initialization-phase",
-  "description": "\"Standard Operating Procedure for /init-project phase. Guide one-time project setup with interactive questionnaire, brownfield codebase scanning, 8-document generation (overview, architecture, tech-st",
-  "repo": "marcusgoll/robinhood-algo-trading-bot",
-  "category": "data",
-  "tags": [
-    "project",
-    "initialization",
-    "phase"
-  ],
-  "stars": 0
+  "repo": "marcusgoll/Spec-Flow",
+  "path": ".claude/skills/project-initialization-phase/SKILL.md",
+  "source": "github.com/marcusgoll/Spec-Flow",
+  "downloaded_at": "2026-01-14T04:06:35.351920Z"
 }

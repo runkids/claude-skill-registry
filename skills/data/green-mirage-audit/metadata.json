@@ -1,13 +1,7 @@
 {
   "name": "green-mirage-audit",
-  "description": "Use when reviewing test suites, after test runs pass, or when user asks about test quality - performs exhaustive line-by-line audit tracing code paths through entire program, verifying tests actually ",
   "repo": "axiomantic/spellbook",
-  "category": "development",
-  "tags": [
-    "green",
-    "mirage",
-    "audit"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": "skills/green-mirage-audit/SKILL.md",
+  "source": "github.com/axiomantic/spellbook",
+  "downloaded_at": "2026-01-14T03:44:30.335701Z"
 }

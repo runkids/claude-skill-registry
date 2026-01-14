@@ -1,12 +1,7 @@
 {
   "name": "roadmap-integration",
-  "description": "\"Standard Operating Procedure for /roadmap usage. Manage product roadmap via GitHub Issues (brainstorm, prioritize, track). Auto-validates features against project vision (from overview.md) before add",
-  "repo": "marcusgoll/robinhood-algo-trading-bot",
-  "category": "product",
-  "tags": [
-    "roadmap",
-    "integration"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "marcusgoll/Spec-Flow",
+  "path": ".claude/skills/roadmap-integration/SKILL.md",
+  "source": "github.com/marcusgoll/Spec-Flow",
+  "downloaded_at": "2026-01-14T04:06:34.797428Z"
 }

@@ -1,11 +1,7 @@
 {
   "name": "radio-tuner",
-  "description": "Adjust SDR radio settings (frequency, gain, squelch, bandwidth, filters, AGC) in WaveCap-SDR. Use when changing tuning parameters, optimizing reception, or configuring channels.",
   "repo": "TobiasWooldridge/WaveCap-SDR",
-  "category": "data",
-  "tags": [
-    "radio",
-    "tuner"
-  ],
-  "stars": 0
+  "path": ".claude/skills/radio-tuner/SKILL.md",
+  "source": "github.com/TobiasWooldridge/WaveCap-SDR",
+  "downloaded_at": "2026-01-14T01:59:41.684606Z"
 }

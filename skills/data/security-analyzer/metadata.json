@@ -1,12 +1,7 @@
 {
   "name": "security-analyzer",
-  "description": "Comprehensive security vulnerability analysis for codebases and infrastructure. Scans dependencies (npm, pip, gem, go, cargo), containers (Docker, Kubernetes), cloud IaC (Terraform, CloudFormation), a",
   "repo": "Cornjebus/security-analyzer",
-  "category": "devops",
-  "tags": [
-    "security",
-    "analyzer"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": ".claude/skills/security-analyzer/SKILL.md",
+  "source": "github.com/Cornjebus/security-analyzer",
+  "downloaded_at": "2026-01-14T03:22:39.530780Z"
 }

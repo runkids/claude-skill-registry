@@ -1,13 +1,7 @@
 {
   "name": "agentic-quality-engineering",
-  "description": "AI agents as force multipliers for quality work. Core skill for all 19 QE agents using PACT principles.",
-  "repo": "proffesor-for-testing/agentic-qe",
-  "category": "data",
-  "tags": [
-    "agentic",
-    "quality",
-    "engineering"
-  ],
-  "stars": 103,
-  "source": "SkillsMP Synced Skills"
+  "repo": "proffesor-for-testing/sentinel-api-testing",
+  "path": ".claude/skills/agentic-quality-engineering/SKILL.md",
+  "source": "github.com/proffesor-for-testing/sentinel-api-testing",
+  "downloaded_at": "2026-01-14T01:57:34.025798Z"
 }

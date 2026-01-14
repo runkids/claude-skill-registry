@@ -1,8 +1,7 @@
 {
   "name": "architect-phase",
   "repo": "metasaver/metasaver-marketplace",
-  "category": "data",
-  "description": "Takes user stories and enriches them with implementation details, patterns, and file references. Spawns architect to add API endpoints, database models, component names, and cross-cutting concerns. Us",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:07.763973Z"
+  "path": "plugins/metasaver-core/skills/workflow-steps/architect-phase/SKILL.md",
+  "source": "github.com/metasaver/metasaver-marketplace",
+  "downloaded_at": "2026-01-14T01:43:52.063172Z"
 }

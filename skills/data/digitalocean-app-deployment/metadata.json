@@ -1,8 +1,7 @@
 {
   "name": "digitalocean-app-deployment",
   "repo": "vanman2024/dev-lifecycle-marketplace",
-  "category": "data",
-  "description": "DigitalOcean App Platform deployment using doctl CLI for containerized applications, web services, static sites, and databases. Includes app spec generation, deployment orchestration, environment mana",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:26.766162Z"
+  "path": "plugins/deployment/skills/digitalocean-app-deployment/SKILL.md",
+  "source": "github.com/vanman2024/dev-lifecycle-marketplace",
+  "downloaded_at": "2026-01-14T03:07:43.569706Z"
 }

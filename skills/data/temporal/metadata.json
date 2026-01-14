@@ -1,11 +1,7 @@
 {
   "name": "temporal",
-  "description": "\"Manage Temporal workflows: server lifecycle, worker processes, workflow execution, monitoring, and troubleshooting for Python SDK with temporal server start-dev.\"",
-  "repo": "steveandroulakis/temporal-conductor-migration-agent",
-  "category": "development",
-  "tags": [
-    "temporal"
-  ],
-  "stars": 2,
-  "source": "local"
+  "repo": "mmbianco78/signalroom",
+  "path": ".claude/skills/temporal/SKILL.md",
+  "source": "github.com/mmbianco78/signalroom",
+  "downloaded_at": "2026-01-14T02:23:40.481878Z"
 }

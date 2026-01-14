@@ -1,12 +1,7 @@
 {
   "name": "spec-creation",
-  "description": "Spec creation with pattern references, acceptance criteria, and demo scripts. Use when creating implementation specs, defining acceptance criteria, or breaking down user stories.",
   "repo": "bybren-llc/wtfb-safe-agentic-workflow",
-  "category": "development",
-  "tags": [
-    "spec",
-    "creation"
-  ],
-  "stars": 11,
-  "source": "local"
+  "path": ".claude/skills/spec-creation/SKILL.md",
+  "source": "github.com/bybren-llc/wtfb-safe-agentic-workflow",
+  "downloaded_at": "2026-01-14T02:13:28.383264Z"
 }

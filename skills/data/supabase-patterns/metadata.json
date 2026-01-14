@@ -1,11 +1,7 @@
 {
   "name": "supabase-patterns",
-  "description": "Critical reference for all Supabase database operations. Use this whenever reading from or writing to the database to ensure correct client usage (supabaseServer vs supabase), schema names, and query ",
-  "repo": "ziouzitsou/fossapp",
-  "category": "data",
-  "tags": [
-    "supabase",
-    "patterns"
-  ],
-  "stars": 0
+  "repo": "ADLenehan/battery",
+  "path": ".claude/skills/supabase-patterns/SKILL.md",
+  "source": "github.com/ADLenehan/battery",
+  "downloaded_at": "2026-01-14T02:27:48.604282Z"
 }

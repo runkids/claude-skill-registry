@@ -1,11 +1,7 @@
 {
   "name": "rule-selector",
-  "description": "Analyzes project tech stack and recommends optimal rule configuration. Detects frameworks from package.json, requirements.txt, go.mod, and other config files. Generates custom manifest.yaml profiles f",
-  "repo": "oimiragieo/LLM-RULES",
-  "category": "data",
-  "tags": [
-    "rule",
-    "selector"
-  ],
-  "stars": 1
+  "repo": "oimiragieo/agent-studio",
+  "path": ".claude/skills/rule-selector/SKILL.md",
+  "source": "github.com/oimiragieo/agent-studio",
+  "downloaded_at": "2026-01-14T03:17:10.851195Z"
 }

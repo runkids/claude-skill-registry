@@ -1,12 +1,7 @@
 {
   "name": "novelist-analyst",
-  "description": "Analyzes events through narrative lens using story structure, character arc analysis, dramatic tension,thematic development, and narrative theory (three-act structure, hero's journey, conflict-resolut",
-  "repo": "rysweet/MicrosoftHackathon2025-AgenticCoding",
-  "category": "development",
-  "tags": [
-    "novelist",
-    "analyst"
-  ],
-  "stars": 10,
-  "source": "local"
+  "repo": "rysweet/azlin",
+  "path": ".claude/skills/novelist-analyst/SKILL.md",
+  "source": "github.com/rysweet/azlin",
+  "downloaded_at": "2026-01-14T03:30:10.075904Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "feature-builder",
-  "description": "Guides feature implementation through 8 phases (Phase 0 Architecture → Phase 7 Documentation). Automatically detects when user starts coding without Phase 0 and enforces architecture-first development",
-  "repo": "matthew-bram/enterprise-confluent-test-probe",
-  "category": "development",
-  "tags": [
-    "feature",
-    "builder"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "timequity/plugins",
+  "path": "vibe-coder/skills/feature-builder/SKILL.md",
+  "source": "github.com/timequity/plugins",
+  "downloaded_at": "2026-01-14T03:41:21.513647Z"
 }

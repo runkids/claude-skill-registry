@@ -1,11 +1,7 @@
 {
   "name": "sentry",
-  "description": "Fetch and analyze Sentry issues and search logs directly from the API. Helps agents understand errors, stack traces, logs, and issue context.",
-  "repo": "mitsuhiko/agent-commands",
-  "category": "development",
-  "tags": [
-    "sentry"
-  ],
-  "stars": 455,
-  "source": "SkillsMP Synced Skills"
+  "repo": "mitsuhiko/agent-stuff",
+  "path": "skills/sentry/SKILL.md",
+  "source": "github.com/mitsuhiko/agent-stuff",
+  "downloaded_at": "2026-01-14T02:26:59.850745Z"
 }

@@ -1,8 +1,7 @@
 {
   "name": "setup-mongodb",
   "repo": "madooei/backend-template",
-  "category": "data",
-  "description": "Configure MongoDB connection and test infrastructure. Use when adding MongoDB support to the project. Triggers on \"setup mongodb\", \"add mongodb\", \"configure database\", \"mongodb connection\".",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:30.211788Z"
+  "path": ".claude/skills/setup-mongodb/SKILL.md",
+  "source": "github.com/madooei/backend-template",
+  "downloaded_at": "2026-01-14T03:53:22.165512Z"
 }

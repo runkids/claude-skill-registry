@@ -1,12 +1,7 @@
 {
   "name": "enforcing-pnpm",
-  "description": "Ensure pnpm is used exclusively for package management, blocking npm/yarn commands. Use when running package scripts, installing dependencies, or when user mentions package manager/依存関係/パッケージ.",
   "repo": "camoneart/claude-code",
-  "category": "devops",
-  "tags": [
-    "enforcing",
-    "pnpm"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/enforcing-pnpm/SKILL.md",
+  "source": "github.com/camoneart/claude-code",
+  "downloaded_at": "2026-01-14T03:36:59.946197Z"
 }

@@ -1,11 +1,7 @@
 {
   "name": "offline-first",
-  "description": "Local storage, data sync, and conflict resolution for offline-capable apps.",
-  "repo": "timequity/vibe-coder",
-  "category": "data",
-  "tags": [
-    "offline",
-    "first"
-  ],
-  "stars": 0
+  "repo": "timequity/plugins",
+  "path": "craft-coder/mobile/offline-first/SKILL.md",
+  "source": "github.com/timequity/plugins",
+  "downloaded_at": "2026-01-14T03:41:24.761225Z"
 }

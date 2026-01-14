@@ -1,12 +1,7 @@
 {
   "name": "internal-comms",
-  "description": "A set of resources to help me write all kinds of internal communications, using the formats that my company likes to use. Claude should use this skill whenever asked to write some sort of internal com",
-  "repo": "anthropics/skills",
-  "category": "devops",
-  "tags": [
-    "internal",
-    "comms"
-  ],
-  "stars": 24530,
-  "source": "SkillsMP Synced Skills"
+  "repo": "archubbuck/workspace-architect",
+  "path": "assets/skills/internal-comms/SKILL.md",
+  "source": "github.com/archubbuck/workspace-architect",
+  "downloaded_at": "2026-01-14T04:03:37.794910Z"
 }

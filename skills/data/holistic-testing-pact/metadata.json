@@ -1,13 +1,7 @@
 {
   "name": "holistic-testing-pact",
-  "description": "Apply the Holistic Testing Model evolved with PACT (Proactive, Autonomous, Collaborative, Targeted) principles. Use when designing comprehensive test strategies for Classical, AI-assisted, Agent based",
-  "repo": "proffesor-for-testing/agentic-qe",
-  "category": "testing",
-  "tags": [
-    "holistic",
-    "testing",
-    "pact"
-  ],
-  "stars": 103,
-  "source": "SkillsMP Synced Skills"
+  "repo": "proffesor-for-testing/sentinel-api-testing",
+  "path": ".claude/skills/holistic-testing-pact/SKILL.md",
+  "source": "github.com/proffesor-for-testing/sentinel-api-testing",
+  "downloaded_at": "2026-01-14T01:57:34.651061Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "api-contract-validation",
-  "description": "Detect breaking changes in API contracts (OpenAPI/Swagger specs)",
   "repo": "mehdic/bazinga",
-  "category": "development",
-  "tags": [
-    "api",
-    "contract",
-    "validation"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/api-contract-validation/SKILL.md",
+  "source": "github.com/mehdic/bazinga",
+  "downloaded_at": "2026-01-14T01:51:27.391017Z"
 }

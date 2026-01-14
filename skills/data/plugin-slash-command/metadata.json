@@ -1,9 +1,7 @@
 {
   "name": "plugin-slash-command",
-  "description": "Generate new Navigator slash commands following project conventions. Use when user says \"add slash command\", \"create command\", \"new /nav command\", or \"add /nav:[name] command\".",
   "repo": "alekspetrov/navigator",
-  "category": "product",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/plugin-slash-command/SKILL.md",
+  "source": "github.com/alekspetrov/navigator",
+  "downloaded_at": "2026-01-14T01:02:05.220739Z"
 }

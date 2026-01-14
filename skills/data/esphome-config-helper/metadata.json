@@ -1,13 +1,7 @@
 {
   "name": "esphome-config-helper",
-  "description": "This skill should be used when the user asks to \"create an esphome config\", \"set up an esp32 device\", \"configure esphome yaml\", \"add a sensor to esphome\", \"fix esphome compile error\", or mentions \"gpi",
   "repo": "nodnarbnitram/claude-code-extensions",
-  "category": "development",
-  "tags": [
-    "esphome",
-    "config",
-    "helper"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/esphome-config-helper/SKILL.md",
+  "source": "github.com/nodnarbnitram/claude-code-extensions",
+  "downloaded_at": "2026-01-14T01:55:09.315570Z"
 }

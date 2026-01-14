@@ -1,13 +1,7 @@
 {
   "name": "exa-code-context",
-  "description": "Search for relevant code snippets, examples, and documentation from billions of GitHub repositories, documentation pages, and Stack Overflow posts. Use this skill when coding tasks require real workin",
-  "repo": "mahidalhan/skilled-intelligence-marketplace",
-  "category": "documents",
-  "tags": [
-    "exa",
-    "code",
-    "context"
-  ],
-  "stars": 18,
-  "source": "SkillsMP Synced Skills"
+  "repo": "mahidalhan/claude-hacks",
+  "path": "skills/exa-code-context/skills/exa-code-context/SKILL.md",
+  "source": "github.com/mahidalhan/claude-hacks",
+  "downloaded_at": "2026-01-14T01:59:29.004413Z"
 }

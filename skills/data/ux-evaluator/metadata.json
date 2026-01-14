@@ -1,11 +1,7 @@
 {
   "name": "ux-evaluator",
-  "description": "This skill should be used when evaluating UI components against UX best practices. Use for reviewing buttons, navigation elements, spacing, visual hierarchy, or any interface element. Provides a syste",
-  "repo": "92Bilal26/TaskPilotAI",
-  "category": "design",
-  "tags": [
-    "evaluator"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "mjunaidca/mjs-agent-skills",
+  "path": "docs/taskflow-vault/skills/engineering/ux-evaluator/SKILL.md",
+  "source": "github.com/mjunaidca/mjs-agent-skills",
+  "downloaded_at": "2026-01-14T01:43:17.124823Z"
 }

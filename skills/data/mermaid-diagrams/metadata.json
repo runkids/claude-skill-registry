@@ -1,11 +1,7 @@
 {
   "name": "mermaid-diagrams",
-  "description": "Use when creating Mermaid diagrams - covers flowcharts, sequence diagrams, and AST visualization",
-  "repo": "mcclowes/lea",
-  "category": "data",
-  "tags": [
-    "mermaid",
-    "diagrams"
-  ],
-  "stars": 3
+  "repo": "ccheney/cc-plugins",
+  "path": "skills/mermaid-diagrams/SKILL.md",
+  "source": "github.com/ccheney/cc-plugins",
+  "downloaded_at": "2026-01-14T03:38:04.592866Z"
 }

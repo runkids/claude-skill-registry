@@ -1,9 +1,7 @@
 {
   "name": "taipei-parking",
-  "description": "Query real-time parking availability in Taipei City. Shows available parking spaces, capacity, status (green/available, orange/moderate, red/full), address, phone, and payment info. Supports undergrou",
   "repo": "tzangms/uparkinlot",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "GitHub Search API"
+  "path": ".claude/skills/taipei-parking/SKILL.md",
+  "source": "github.com/tzangms/uparkinlot",
+  "downloaded_at": "2026-01-14T02:17:20.404498Z"
 }

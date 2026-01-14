@@ -1,12 +1,7 @@
 {
   "name": "gap-analysis",
-  "description": "Identify differences between current state and desired future state. Analyze gaps in capabilities, processes, skills, and technology to plan improvements and investments.",
   "repo": "aj-geddes/useful-ai-prompts",
-  "category": "development",
-  "tags": [
-    "gap",
-    "analysis"
-  ],
-  "stars": 25,
-  "source": "local"
+  "path": "skills/gap-analysis/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:04.071360Z"
 }

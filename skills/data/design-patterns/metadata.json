@@ -1,12 +1,7 @@
 {
   "name": "design-patterns",
-  "description": "Game server design patterns including ECS, command pattern, and event sourcing",
-  "repo": "pluginagentmarketplace/custom-plugin-server-side-game-dev",
-  "category": "design",
-  "tags": [
-    "design",
-    "patterns"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "repo": "mauromedda/agent-toolkit",
+  "path": "skills/design-patterns/SKILL.md",
+  "source": "github.com/mauromedda/agent-toolkit",
+  "downloaded_at": "2026-01-14T03:39:06.448623Z"
 }

@@ -1,8 +1,7 @@
 {
   "name": "ai",
-  "repo": "glideapps/glide-code",
-  "category": "data",
-  "description": "Add AI features to Glide apps using AI columns like Generate Text, Image to Text, Audio to Text.Use when adding AI-powered functionality, text generation, OCR, transcription, or auto-categorization.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:24.802498Z"
+  "repo": "pluginagentmarketplace/custom-plugin-typescript",
+  "path": "skills/ai/SKILL.md",
+  "source": "github.com/pluginagentmarketplace/custom-plugin-typescript",
+  "downloaded_at": "2026-01-14T01:25:21.255449Z"
 }

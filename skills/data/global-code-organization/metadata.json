@@ -1,13 +1,7 @@
 {
   "name": "global-code-organization",
-  "description": "Your approach to handling global code organization. Use this skill when working on files where global code organization comes into play.",
   "repo": "jaypaulb/CanvusAPI-LLMDemo",
-  "category": "development",
-  "tags": [
-    "global",
-    "code",
-    "organization"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": ".claude/skills/global-code-organization/SKILL.md",
+  "source": "github.com/jaypaulb/CanvusAPI-LLMDemo",
+  "downloaded_at": "2026-01-14T01:04:58.221295Z"
 }

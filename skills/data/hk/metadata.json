@@ -1,0 +1,9 @@
+{
+  "name": "hk",
+  "description": "Use jdx/hk git hook manager to setup, configure, and manage git hooks and linters. Invoke when user asks to setup hk, configure hooks, add linters, or work with pre-commit/pre-push hooks.",
+  "repo": "KyleKing/vcr-tui",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

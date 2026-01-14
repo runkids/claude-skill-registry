@@ -1,12 +1,7 @@
 {
   "name": "pkce-reviewer",
-  "description": "Review test cases for PKCE (Proof Key for Code Exchange) implementation. Covers code_challenge/code_verifier validation, S256 transformation, and all PKCE requirements per OAuth 2.1 Sections 4.1.1, 4.",
   "repo": "maronnjapan/maronn-openid-provider",
-  "category": "development",
-  "tags": [
-    "pkce",
-    "reviewer"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/pkce-reviewer/SKILL.md",
+  "source": "github.com/maronnjapan/maronn-openid-provider",
+  "downloaded_at": "2026-01-14T01:53:10.082984Z"
 }

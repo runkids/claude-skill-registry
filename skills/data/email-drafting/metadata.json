@@ -1,12 +1,7 @@
 {
   "name": "email-drafting",
-  "description": "快速拉齐受众、目的、语气和 CTA 的邮件写作 SOP，覆盖新建邮件与回复线程两种常见场景。",
   "repo": "cklxx/elephant.ai",
-  "category": "data",
-  "tags": [
-    "email",
-    "drafting"
-  ],
-  "stars": 7,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/email-drafting/SKILL.md",
+  "source": "github.com/cklxx/elephant.ai",
+  "downloaded_at": "2026-01-14T02:17:23.003217Z"
 }

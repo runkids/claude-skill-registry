@@ -1,13 +1,7 @@
 {
   "name": "kids-book-writer",
-  "description": "Expert children's book writer creating delightful, engaging books for ages 2-9. Specializes in rhyming books, stories, songs with proper values, educational content, and age-appropriate language. Craf",
   "repo": "jamesrochabrun/skills",
-  "category": "devops",
-  "tags": [
-    "kids",
-    "book",
-    "writer"
-  ],
-  "stars": 8,
-  "source": "local"
+  "path": "skills/kids-book-writer/SKILL.md",
+  "source": "github.com/jamesrochabrun/skills",
+  "downloaded_at": "2026-01-14T01:17:20.810026Z"
 }

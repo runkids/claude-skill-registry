@@ -1,11 +1,11 @@
 ---
 name: react-native-storage-manager
-description: Handles MMKV storage operations and data persistence patterns with encryption. Use when implementing data persistence, caching, or user preferences in Purrsuit Mobile App.
+description: Handles MMKV storage operations and data persistence patterns with encryption. Use when implementing data persistence, caching, or user preferences in Fitness Tracker App.
 ---
 
 # React Native Storage Manager
 
-This skill provides established patterns for data persistence using MMKV and Expo SecureStore in the Purrsuit Mobile App.
+This skill provides established patterns for data persistence using MMKV and Expo SecureStore in the Fitness Tracker App.
 
 ## When to Use This Skill
 
@@ -71,7 +71,7 @@ Centralize storage keys to avoid typos and ensure consistency.
 export const STORAGE_KEYS = {
   USER_PREFS: "user_preferences",
   AUTH_TOKEN: "auth_token",
-  ENCOUNTERS_CACHE: "encounters_cache",
+  ENCOUNTERS_CACHE: "workouts_cache",
 } as const
 ```
 

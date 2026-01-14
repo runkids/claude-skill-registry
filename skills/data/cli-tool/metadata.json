@@ -1,12 +1,7 @@
 {
   "name": "cli-tool",
-  "description": "Build command-line tools with argument parsing, subcommands, and nice UX.Use when: creating CLI, terminal app, command-line utility.Triggers: \"cli\", \"command line\", \"terminal\", \"clap\", \"typer\", \"comma",
-  "repo": "timequity/vibe-coder",
-  "category": "design",
-  "tags": [
-    "cli",
-    "tool"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "timequity/plugins",
+  "path": "vibe-coder/skills/cli-tool/SKILL.md",
+  "source": "github.com/timequity/plugins",
+  "downloaded_at": "2026-01-14T03:41:27.681192Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "reflex-dev",
-  "description": "Guide for building full-stack web applications using Reflex, a Python framework that compiles to React frontend and FastAPI backend. Use when creating, modifying, or debugging Reflex apps - covers sta",
   "repo": "silvainfm/paie_reflex",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/reflex-dev/SKILL.md",
+  "source": "github.com/silvainfm/paie_reflex",
+  "downloaded_at": "2026-01-14T03:22:24.637322Z"
 }

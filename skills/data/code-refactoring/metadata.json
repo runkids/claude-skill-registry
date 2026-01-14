@@ -1,12 +1,7 @@
 {
   "name": "code-refactoring",
-  "description": "BAIME-aligned refactoring protocol for Go hotspots (CLIs, services, MCP tooling) with automated metrics (e.g., metrics-cli, metrics-mcp) and documentation.",
-  "repo": "yaleh/meta-cc",
-  "category": "development",
-  "tags": [
-    "code",
-    "refactoring"
-  ],
-  "stars": 15,
-  "source": "SkillsMP Synced Skills"
+  "repo": "skillcreatorai/Ai-Agent-Skills",
+  "path": "skills/code-refactoring/SKILL.md",
+  "source": "github.com/skillcreatorai/Ai-Agent-Skills",
+  "downloaded_at": "2026-01-14T02:51:13.305926Z"
 }

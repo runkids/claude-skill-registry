@@ -1,239 +1,169 @@
 ---
 name: prompt-engineer
-description: Use this skill when creating, improving, or optimizing prompts for Claude. Applies Anthropic's best practices for prompt engineering including clarity, structure, consistency, hallucination reduction, and security. Useful when users request help with writing prompts, improving existing prompts, reducing errors, increasing consistency, or implementing specific techniques like chain-of-thought, multishot prompting, or XML structuring.
+description: Prompt 工程最佳实践指南。当用户需要优化 AI 提示词、设计系统提示、提升 LLM 输出质量、或构建 AI 应用的提示策略时使用此技能。
 ---
 
-# Prompt Engineering Skill
+# Prompt Engineer
 
-This skill provides comprehensive guidance for creating effective prompts for Claude based on Anthropic's official best practices. Use this skill whenever working on prompt design, optimization, or troubleshooting.
+掌握与大语言模型高效沟通的艺术，设计出能够产生高质量、一致性输出的提示词。
 
-## Overview
+## 核心原则
 
-Apply proven prompt engineering techniques to create high-quality, reliable prompts that produce consistent, accurate outputs while minimizing hallucinations and implementing appropriate security measures.
+1. **清晰具体**：明确说明你想要什么
+2. **提供上下文**：给模型足够的背景信息
+3. **结构化输出**：指定期望的输出格式
+4. **迭代优化**：持续测试和改进
 
-## When to Use This Skill
+## Prompt 结构模板
 
-Trigger this skill when users request:
-- Help writing a prompt for a specific task
-- Improving an existing prompt that isn't performing well
-- Making Claude more consistent, accurate, or secure
-- Creating system prompts for specialized roles
-- Implementing specific techniques (chain-of-thought, multishot, XML tags)
-- Reducing hallucinations or errors in outputs
-- Debugging prompt performance issues
+### 基础结构
 
-## Workflow
-
-### Step 1: Understand Requirements
-
-Ask clarifying questions to understand:
-- **Task goal**: What should the prompt accomplish?
-- **Use case**: One-time use, API integration, or production system?
-- **Constraints**: Output format, length, style, tone requirements
-- **Quality needs**: Consistency, accuracy, security priorities
-- **Complexity**: Simple task or multi-step workflow?
-
-### Step 2: Identify Applicable Techniques
-
-Based on requirements, determine which techniques to apply:
-
-**Core techniques (for all prompts):**
-- Be clear and direct
-- Use XML tags for structure
-
-**Specialized techniques:**
-- **Role-specific expertise** → System prompts
-- **Complex reasoning** → Chain of thought
-- **Format consistency** → Multishot prompting
-- **Multi-step tasks** → Prompt chaining
-- **Long documents** → Long context tips
-- **Deep analysis** → Extended thinking
-- **Factual accuracy** → Hallucination reduction
-- **Output consistency** → Consistency techniques
-- **Security concerns** → Jailbreak mitigation
-
-### Step 3: Load Relevant References
-
-Read the appropriate reference file(s) based on techniques needed:
-
-**For basic prompt improvement:**
 ```
-Read references/core_prompting.md
-```
-Covers: clarity, system prompts, XML tags
+[角色定义]
+你是一个{专业领域} 专家，擅长 {具体技能}。
 
-**For complex tasks:**
-```
-Read references/advanced_patterns.md
-```
-Covers: chain of thought, multishot, chaining, long context, extended thinking
+[任务描述]
+请帮我{具体任务}。
 
-**For specific quality issues:**
-```
-Read references/quality_improvement.md
-```
-Covers: hallucinations, consistency, security
+[上下文信息]
+背景：{相关背景}
+约束：{限制条件}
 
-### Step 4: Design the Prompt
+[输出要求]
+请以 {格式} 输出，包含 {具体要素}。
 
-Apply techniques from references to create the prompt structure:
-
-**Basic Template:**
-```
-[System prompt - optional, for role assignment]
-
-<context>
-Relevant background information
-</context>
-
-<instructions>
-Clear, specific task instructions
-Use numbered steps for multi-step tasks
-</instructions>
-
-<examples>
-  <example>
-    <input>Sample input</input>
-    <output>Expected output</output>
-  </example>
-  [2-4 more examples if using multishot]
-</examples>
-
-<output_format>
-Specify exact format (JSON, XML, markdown, etc.)
-</output_format>
-
-[Actual task/question]
+[示例]（可选）
+输入：{示例输入}
+输出：{示例输出}
 ```
 
-**Key Design Principles:**
-1. **Clarity**: Be explicit and specific
-2. **Structure**: Use XML tags to organize
-3. **Examples**: Provide 3-5 concrete examples for complex formats
-4. **Context**: Give relevant background
-5. **Constraints**: Specify output requirements clearly
+## 关键技巧
 
-### Step 5: Add Quality Controls
+### 1. 角色设定（Role Prompting）
 
-Based on quality needs, add appropriate safeguards:
+```
+你是一位有10 年经验的高级后端工程师，专注于：
+- 分布式系统设计
+- 性能优化
+- 代码质量把控
 
-**For factual accuracy:**
-- Grant permission to say "I don't know"
-- Request quote extraction before analysis
-- Require citations for claims
-- Limit to provided information sources
+请以这个角色审查以下代码...
+```
 
-**For consistency:**
-- Provide explicit format specifications
-- Use response prefilling
-- Include diverse examples
-- Consider prompt chaining
+### 2. 少样本学习（Few-shot Learning）
 
-**For security:**
-- Add harmlessness screening
-- Establish clear ethical boundaries
-- Implement input validation
-- Use layered protection
+```
+将用户反馈分类为：正面、负面、中性
 
-### Step 6: Optimize and Test
+示例1：
+输入："这个产品太棒了！"
+输出：正面
 
-**Optimization checklist:**
-- [ ] Could someone with minimal context follow the instructions?
-- [ ] Are all terms and requirements clearly defined?
-- [ ] Is the desired output format explicitly specified?
-- [ ] Are examples diverse and relevant?
-- [ ] Are XML tags used consistently?
-- [ ] Is the prompt as concise as possible while remaining clear?
+示例2：
+输入："送货太慢了，很失望"
+输出：负面
 
-**Testing approach:**
-- Run prompt multiple times with varied inputs
-- Check consistency across runs
-- Verify outputs match expected format
-- Test edge cases
-- Validate quality controls work
+现在分类：
+输入："产品还行，价格有点贵"
+输出：
+```
 
-### Step 7: Iterate Based on Results
+### 3. 思维链（Chain of Thought）
 
-**Debugging process:**
-1. Identify failure points
-2. Review relevant reference material
-3. Apply appropriate techniques
-4. Test and measure improvement
-5. Repeat until satisfactory
+```
+请一步步分析这个问题：
 
-**Common Issues and Solutions:**
+1. 首先，理解问题的核心是什么
+2. 然后，列出可能的解决方案
+3. 接着，评估每个方案的优缺点
+4. 最后，给出推荐方案和理由
+```
 
-| Issue | Solution | Reference |
-|-------|----------|-----------|
-| Inconsistent format | Add examples, use prefilling | quality_improvement.md |
-| Hallucinations | Add uncertainty permission, quote grounding | quality_improvement.md |
-| Missing steps | Break into subtasks, use chaining | advanced_patterns.md |
-| Wrong tone | Add role to system prompt | core_prompting.md |
-| Misunderstands task | Add clarity, provide context | core_prompting.md |
-| Complex reasoning fails | Add chain of thought | advanced_patterns.md |
+### 4. 输出格式控制
 
-## Important Principles
+```
+请以 JSON 格式返回，结构如下：
+{
+  "summary": "简要总结",
+  "key_points": ["要点1", "要点2"],
+  "recommendation": "建议",
+  "confidence": 0.0-1.0
+}
+```
 
-**Progressive Disclosure**
-Start with core techniques and add advanced patterns only when needed. Don't over-engineer simple prompts.
+## System Prompt 设计
 
-**Documentation**
-When delivering prompts, explain which techniques were used and why. This helps users understand and maintain them.
+### 通用模板
 
-**Validation**
-Always validate critical outputs, especially for high-stakes applications. No prompting technique eliminates all errors.
+```
+## 角色
+你是 {角色名称}，{角色描述}。
 
-**Experimentation**
-Prompt engineering is iterative. Small changes can have significant impacts. Test variations and measure results.
+## 能力
+- {能力1}
+- {能力2}
 
-## Quick Reference Guide
+## 行为准则
+- {准则1}
+- {准则2}
 
-### Technique Selection Matrix
+## 限制
+- 不要 {限制1}
+- 避免 {限制2}
 
-| User Need | Primary Technique | Reference File |
-|-----------|------------------|----------------|
-| Better clarity | Be clear and direct | core_prompting.md |
-| Domain expertise | System prompts | core_prompting.md |
-| Organized structure | XML tags | core_prompting.md |
-| Complex reasoning | Chain of thought | advanced_patterns.md |
-| Format consistency | Multishot prompting | advanced_patterns.md |
-| Multi-step process | Prompt chaining | advanced_patterns.md |
-| Long documents (100K+ tokens) | Long context tips | advanced_patterns.md |
-| Deep analysis | Extended thinking | advanced_patterns.md |
-| Reduce false information | Hallucination reduction | quality_improvement.md |
-| Consistent outputs | Consistency techniques | quality_improvement.md |
-| Security/safety | Jailbreak mitigation | quality_improvement.md |
+## 输出风格
+{风格描述}
+```
 
-### When to Combine Techniques
+### 代码助手示例
 
-- **Structured analysis**: XML tags + Chain of thought
-- **Consistent formatting**: Multishot + Response prefilling
-- **Complex workflows**: Prompt chaining + XML tags
-- **Factual reports**: Quote grounding + Citation verification
-- **Production systems**: System prompts + Input validation + Consistency techniques
+```
+## 角色
+你是一个专业的编程助手。
 
-## Resources
+## 行为准则
+- 代码要有清晰的注释
+- 优先考虑可读性和可维护性
+- 主动指出潜在问题
+- 解释关键设计决策
 
-This skill includes three comprehensive reference files:
+## 输出格式
+1. 先简要说明方案
+2. 提供完整代码
+3. 解释关键部分
+4. 列出注意事项
+```
 
-### references/core_prompting.md
-Essential techniques for all prompts:
-- Being clear and direct
-- System prompts and role assignment
-- Using XML tags effectively
+## 常见问题与解决
 
-### references/advanced_patterns.md
-Sophisticated techniques for complex tasks:
-- Chain of thought prompting
-- Multishot prompting
-- Prompt chaining
-- Long context handling
-- Extended thinking
+| 问题 | 解决方案 |
+|------|----------|
+| 输出太长 | 添加字数限制："请在200字以内" |
+| 输出不一致 | 提供更多示例，明确格式要求 |
+| 理解偏差 | 分解任务，逐步确认 |
+| 幻觉问题 | 要求引用来源，添加"如不确定请说明" |
 
-### references/quality_improvement.md
-Techniques for specific quality issues:
-- Reducing hallucinations
-- Increasing consistency
-- Mitigating jailbreaks and prompt injections
+## 高级技巧
 
-Load these files as needed based on the workflow steps above.
+### 1. 自我反思提示
+
+```
+完成任务后，请：
+1. 检查是否满足所有要求
+2. 指出可能的改进点
+3. 评估置信度（1-10）
+```
+
+### 2. 约束边界
+
+```
+重要约束：
+- 只使用提供的信息
+- 不确定时明确说明
+- 不要编造数据或引用
+```
+
+## 参考资源
+
+- Anthropic Prompt Engineering: https://docs.anthropic.com/claude/docs/prompt-engineering
+- OpenAI Best Practices: https://platform.openai.com/docs/guides/prompt-engineering

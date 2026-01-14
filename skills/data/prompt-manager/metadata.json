@@ -1,9 +1,7 @@
 {
   "name": "prompt-manager",
-  "description": "Optimize and manage AILANG teaching prompts for maximum conciseness and accuracy. Use when user asks to create/update prompts, optimize prompt length, or verify prompt accuracy.",
   "repo": "sunholo-data/ailang",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/prompt-manager/SKILL.md",
+  "source": "github.com/sunholo-data/ailang",
+  "downloaded_at": "2026-01-14T01:04:00.778222Z"
 }

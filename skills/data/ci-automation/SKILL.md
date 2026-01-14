@@ -1,50 +1,58 @@
 ---
-name: ci-automation
-version: 0.7.0
-description: Run CI quality gates with optional auto-fix and PR creation.
-entry_point: /ci-automation
+name: CI Automation
+description: |
+  This skill provides CI/CD automation for Nethercore ZX games. Use when the user asks about "CI", "CD", "GitHub Actions", "automation", "build pipeline", "release workflow", "continuous integration", or "quality gates".
+
+  **Load references when:**
+  - Full workflow templates needed → `references/workflow-templates.md`
+  - Quality gate details → `references/quality-gates.md`
+version: 1.0.0
 ---
 
-# CI Automation Skill
+# CI/CD Automation for Nethercore ZX
 
-Coordinates pull → build → test → fix → PR. Keeps instructions lean; heavy details live in references and contracts file. Agent Runner is required for all agent calls (registry-enforced, audited).
+Automate building, testing, and releasing ZX games with GitHub Actions.
 
-## Commands
-- `/ci-automation` (flags: `--build`, `--test`, `--dest`, `--src`, `--allow-warnings`, `--yolo`, `--help`)
+## Quick Reference
 
-## Agents (v0.1.0)
-- `ci-validate-agent`: pre-flight checks (clean repo, config present, auth available)
-- `ci-pull-agent`: pull target branch, handle simple conflicts
-- `ci-build-agent`: run build, classify failures
-- `ci-test-agent`: run tests, classify failures/warnings
-- `ci-fix-agent`: apply straightforward fixes
-- `ci-root-cause-agent`: summarize unresolved issues, recommend actions
-- `ci-pr-agent`: commit/push/PR when gates pass
+| Command | Purpose |
+|---------|---------|
+| `nether build --release` | Compile WASM + pack ROM |
+| `nether run --sync-test` | Verify determinism |
+| `cargo clippy -- -D warnings` | Lint check |
+| `cargo test` | Unit tests |
 
-## Flow
-0. Validate via Agent Runner → `ci-validate-agent`
-1. Pull via Agent Runner → `ci-pull-agent` (dest inferred from tracking; `--dest` overrides)
-2. Build via Agent Runner → `ci-build-agent`
-3. On build fail: Agent Runner → `ci-fix-agent` (only straightforward fixes), repeat
-4. Test via Agent Runner → `ci-test-agent`
-5. On test/warn fail: Agent Runner → `ci-fix-agent` if straightforward, else `ci-root-cause-agent`
-6. If clean and confirmed (or `--yolo`): Agent Runner → `ci-pr-agent` to commit/push/PR
+## Quality Gates (Run In Order)
 
-## Config
-Preferred: `.claude/ci-automation.yaml` (fallback: `.claude/config.yaml`) with `upstream_branch`, `build_command`, `test_command`, `warn_patterns`, `allow_warnings`, `auto_fix_enabled`, `pr_template_path`, `repo_root`. Detect stack (e.g., .NET/Python/Node) and prompt to save suggested commands.
+| Gate | Command | Purpose |
+|------|---------|---------|
+| Format | `cargo fmt --check` | Code style |
+| Lint | `cargo clippy -- -D warnings` | Static analysis |
+| Test | `cargo test` | Logic correctness |
+| Build | `nether build --release` | WASM compilation |
+| Sync | `nether run --sync-test --frames 1000` | Determinism |
 
-## Safety
-- No force-push; respect protected branches.
-- Default is conservative: auto-fix only; stop before commit/PR unless clean and confirmed.
-- `--yolo`: allow commit/push/PR after gates pass.
-- Warnings block PR unless `--allow-warnings` or config override.
-- Explicit confirmation for PRs to main/master unless `--dest main` provided.
-- Audit: Agent Runner logs to `.claude/state/logs/ci-automation/`.
+## Versioning
 
-## References
-- `.claude/references/ci-automation-commands.md`
-- `.claude/references/ci-automation-checklists.md`
-- `.claude/references/ci-automation-contracts.md`
+Use semantic versioning in `nether.toml`:
 
-## Size Guidance
-- Keep SKILL.md under ~2KB: overview, flags, agent list, flow summary, contracts, config, safety, references.
+```toml
+[game]
+version = "1.2.3"
+```
+
+**Tag format**: `v1.2.3`
+
+**Release process**:
+1. Update version in `nether.toml`
+2. Update `CHANGELOG.md`
+3. Commit, tag, push
+
+## Key Files
+
+- `.github/workflows/build.yml` - Build + test on push/PR
+- `.github/workflows/release.yml` - Tag-triggered releases
+- `CHANGELOG.md` - Version history
+
+See `references/workflow-templates.md` for complete YAML templates.
+See `references/quality-gates.md` for detailed gate configuration.

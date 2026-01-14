@@ -1,13 +1,7 @@
 {
   "name": "gandalf-the-prompt",
-  "description": "Audits prompts and skills against Claude best practices. Finds clarity issues, structural problems, and enhancement opportunities. Provides fixes and grades.",
   "repo": "fotescodev/portfolio",
-  "category": "testing",
-  "tags": [
-    "gandalf",
-    "the",
-    "prompt"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/gandalf-the-prompt/SKILL.md",
+  "source": "github.com/fotescodev/portfolio",
+  "downloaded_at": "2026-01-14T03:54:51.459889Z"
 }

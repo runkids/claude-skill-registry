@@ -1,0 +1,9 @@
+{
+  "name": "plan-feature",
+  "description": "Plan a new feature with analysis, design, and implementation steps. Use when the user asks to plan a feature or run /plan-feature.",
+  "repo": "DavidOpDeBeeck/guessimate",
+  "category": "product",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

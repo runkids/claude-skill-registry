@@ -1,93 +1,76 @@
 ---
-name: vibe-coder
+name: backend-core
 description: |
-  Describe your idea, get a deployed product. All Craft Coder skills + brainstorm, validation, marketing.
-  Use when: user wants to build something from an idea, prototype, or MVP.
-  Triggers: "build app", "create website", "make MVP", "I have an idea",
-  "хочу приложение", "создать сайт", "сделать MVP".
+  Language-agnostic backend patterns: API design, authentication, security, databases.
+  Use when: designing APIs, implementing auth, securing endpoints, modeling data.
+  Triggers: "api design", "rest api", "graphql", "authentication", "jwt", "oauth",
+  "security", "owasp", "database schema", "migrations", "sql".
 ---
 
-# Vibe Coder
+# Backend Core Patterns
 
-Describe what you want. Get a deployed product.
+## Quick Reference
 
-## The Vibe
+| Topic | When to Use | Reference |
+|-------|-------------|-----------|
+| API Design | REST/GraphQL/gRPC endpoints | [api-design.md](references/api-design.md) |
+| Authentication | JWT, OAuth, sessions, magic links | [authentication.md](references/authentication.md) |
+| Security | Input validation, OWASP, rate limiting | [security.md](references/security.md) |
+| Databases | Schema design, migrations, queries | [databases.md](references/databases.md) |
+
+## API Design Decision Tree
 
 ```
-You: "I want an app for tracking expenses"
-     ↓
-Claude: Asks a few questions
-     ↓
-Claude: Builds everything (hidden complexity)
-     ↓
-You: ✅ Done! [Preview] [Deploy]
+What type of API?
+├─ Public API → REST + OpenAPI spec
+├─ Internal microservices → gRPC (performance) or REST (simplicity)
+├─ Real-time → WebSocket or SSE
+└─ Complex queries → GraphQL
 ```
 
-## What's Included
+## Auth Decision Tree
 
-### MVP Workflow (unique to Vibe Coder)
-| Skill | What it does |
-|-------|--------------|
-| `brainstorming` | Refine ideas with Socratic dialogue |
-| `idea-validation` | Validate problem/solution fit |
-| `stack-selector` | Choose tech stack automatically |
-| `ui-generator` | Create UI from descriptions |
-| `feature-builder` | Add features incrementally |
-| `db-designer` | Design database schema |
-| `api-generator` | Generate API endpoints |
-| `deploy-automation` | Deploy to production |
+```
+Auth method?
+├─ SPA/Mobile → JWT (access + refresh tokens)
+├─ Server-rendered → Session cookies
+├─ Third-party login → OAuth 2.0 / OIDC
+├─ Passwordless → Magic link (email) or WebAuthn
+└─ API-to-API → API keys or mTLS
+```
 
-### All Craft Coder Skills (40+)
-- **Backend**: Python, Node.js, Rust
-- **Frontend**: React, design systems
-- **Mobile**: React Native, Expo
-- **Data**: Pipelines, dbt, Airflow
-- **Infrastructure**: Terraform, K8s, monitoring
-- **Quality**: Testing, code review, debugging
+## Security Essentials
 
-## Commands
+**Always:**
+- Validate all inputs at boundaries
+- Use parameterized queries (never string concat SQL)
+- Hash passwords with bcrypt/argon2 (cost ≥ 10)
+- HTTPS everywhere, HSTS headers
+- Rate limit auth endpoints
 
-| Command | Purpose |
-|---------|---------|
-| `/vibe:brainstorm` | Refine idea with Socratic dialogue |
-| `/vibe:idea` | Start from scratch with simple questions |
-| `/vibe:build` | Create the app (full pipeline) |
-| `/vibe:add` | Add feature to existing app |
-| `/vibe:preview` | Show current state |
-| `/vibe:deploy` | Publish to production |
+**Never:**
+- Store secrets in code or git
+- Trust client-side validation alone
+- Log sensitive data (passwords, tokens, PII)
+- Use MD5/SHA1 for passwords
 
-## Agents
+## Database Patterns
 
-- **vibe-coder** — Build apps from descriptions
-- **code-reviewer** — Review code automatically
+```
+Schema design:
+├─ Start normalized (3NF)
+├─ Denormalize only for proven bottlenecks
+├─ Always have created_at, updated_at
+├─ Use UUIDs for public IDs, integers for internal FKs
+└─ Soft delete (deleted_at) for important data
+```
 
-## Hidden Pipeline
+## Anti-patterns
 
-Every change runs through:
-1. TDD (test first, then implement)
-2. Automated tests
-3. Security checks (OWASP)
-4. Code review (auto-fix issues)
-
-User only sees ✅ or ❌ — never the process.
-
-## Templates
-
-| Template | When to use |
-|----------|-------------|
-| nextjs-supabase | Web apps, SaaS, dashboards |
-| fastapi-postgres | APIs, backends, AI/ML projects |
-| hono-drizzle | Edge, serverless, Cloudflare |
-| landing-page | Marketing sites, portfolios |
-
-Stack selector chooses automatically.
-
-## No Technical Jargon
-
-You never need to know:
-- What framework to use
-- How to structure code
-- What tests to write
-- How to deploy
-
-Just describe what you want. Vibe coding at its finest.
+| Don't | Do Instead |
+|-------|------------|
+| N+1 queries | Eager load / batch queries |
+| SELECT * | Select only needed columns |
+| No indexes on WHERE/JOIN columns | Add indexes |
+| Storing files in DB | Use object storage (S3, R2) |
+| God objects | Bounded contexts, single responsibility |

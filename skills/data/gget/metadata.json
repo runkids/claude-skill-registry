@@ -1,8 +1,7 @@
 {
   "name": "gget",
-  "repo": "davila7/claude-code-templates",
-  "category": "data",
-  "description": "CLI/Python toolkit for rapid bioinformatics queries. Preferred for quick BLAST searches. Access to 20+ databases: gene info (Ensembl/UniProt), AlphaFold, ARCHS4, Enrichr, OpenTargets, COSMIC, genome d",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:37.508809Z"
+  "repo": "drshailesh88/integrated_content_OS",
+  "path": "skills/scientific/gget/SKILL.md",
+  "source": "github.com/drshailesh88/integrated_content_OS",
+  "downloaded_at": "2026-01-14T04:02:18.685472Z"
 }

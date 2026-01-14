@@ -1,12 +1,7 @@
 {
   "name": "skill-factory",
-  "description": ">",
-  "repo": "basher83/agent-auditor",
-  "category": "development",
-  "tags": [
-    "skill",
-    "factory"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
+  "path": ".claude/skills/skill-factory/SKILL.md",
+  "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager",
+  "downloaded_at": "2026-01-14T02:32:36.266834Z"
 }

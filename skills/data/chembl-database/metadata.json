@@ -1,8 +1,7 @@
 {
   "name": "chembl-database",
-  "repo": "davila7/claude-code-templates",
-  "category": "data",
-  "description": "Query ChEMBL's bioactive molecules and drug discovery data. Search compounds by structure/properties, retrieve bioactivity data (IC50, Ki), find inhibitors, perform SAR studies, for medicinal chemistr",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:36.456855Z"
+  "repo": "drshailesh88/integrated_content_OS",
+  "path": "skills/scientific/chembl-database/SKILL.md",
+  "source": "github.com/drshailesh88/integrated_content_OS",
+  "downloaded_at": "2026-01-14T04:02:27.558585Z"
 }

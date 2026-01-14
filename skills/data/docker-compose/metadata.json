@@ -1,12 +1,7 @@
 {
   "name": "docker-compose",
-  "description": "Multi-service orchestration with Docker Compose, focusing on network isolation, environment-specific profiles, and service discovery. Triggers: docker-compose, container-networking, docker-profiles, s",
-  "repo": "cuba6112/skillfactory",
-  "category": "data",
-  "tags": [
-    "docker",
-    "compose"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "oriolrius/nifi-cluster",
+  "path": ".claude/skills/docker-compose/SKILL.md",
+  "source": "github.com/oriolrius/nifi-cluster",
+  "downloaded_at": "2026-01-14T04:01:40.754689Z"
 }

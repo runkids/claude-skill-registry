@@ -1,544 +1,259 @@
 ---
 name: supabase-patterns
-description: Critical reference for all Supabase database operations. Use this whenever reading from or writing to the database to ensure correct client usage (supabaseServer vs supabase), schema names, and query patterns. CRITICAL for security.
+description: Patterns for Supabase integration in Battery. Use this skill when working with database schemas, row-level security policies, edge functions, or Supabase client usage in Next.js.
 ---
 
-# Supabase Patterns for FOSSAPP
+# Supabase Patterns
 
-**CRITICAL:** Using the wrong Supabase client is a **security vulnerability**. This skill ensures you always use the correct client for the context.
+## Database Schema Conventions
 
----
+### Naming
 
-## ⚠️ Dual Supabase Client Pattern (CRITICAL)
+- Tables: `snake_case`, plural (e.g., `organizations`, `deployed_apps`)
+- Columns: `snake_case`
+- Primary keys: `id` (UUID)
+- Foreign keys: `{table_singular}_id`
 
-FOSSAPP uses TWO different Supabase clients with different access levels:
+### Standard Columns
 
-### Server-Side Client (ADMIN ACCESS)
+Every table should include:
 
-**File:** `src/lib/supabase-server.ts`
-**Key:** `SUPABASE_SERVICE_ROLE_KEY` (full admin access)
-**Use in:** Server actions, API routes
+```sql
+CREATE TABLE deployed_apps (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  -- domain columns here
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
 
-```typescript
-import { supabaseServer } from '@/lib/supabase-server'
-
-export async function serverAction() {
-  const { data, error } = await supabaseServer
-    .from('items.product_info')
-    .select('*')
-
-  return data
-}
+-- Auto-update updated_at
+CREATE TRIGGER update_deployed_apps_updated_at
+  BEFORE UPDATE ON deployed_apps
+  FOR EACH ROW
+  EXECUTE FUNCTION update_updated_at_column();
 ```
 
-**⚠️ NEVER expose to client!** This client bypasses Row Level Security (RLS).
+### Update Trigger Function
 
-### Client-Side Client (LIMITED ACCESS)
-
-**File:** `src/lib/supabase.ts`
-**Key:** `NEXT_PUBLIC_SUPABASE_ANON_KEY` (limited permissions)
-**Use in:** Browser components only
-
-```typescript
-'use client'
-
-import { supabase } from '@/lib/supabase'
-
-export function ClientComponent() {
-  const fetchData = async () => {
-    const { data } = await supabase
-      .from('items.product_info')
-      .select('*')
-    return data
-  }
-}
+```sql
+CREATE OR REPLACE FUNCTION update_updated_at_column()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.updated_at = now();
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
 ```
 
-### Decision Tree
+## Row-Level Security (RLS)
 
-```
-┌─ Where is this code running? ──────────────────────┐
-│                                                     │
-│  Server Actions ('use server')                     │
-│  API Routes (route.ts)              ────────────▶  supabaseServer
-│  Server Components (no 'use client')               │
-│                                                     │
-│  Client Components ('use client')   ────────────▶  supabase (or better: use server action)
-│                                                     │
-└─────────────────────────────────────────────────────┘
+### Enable RLS
+
+```sql
+ALTER TABLE deployed_apps ENABLE ROW LEVEL SECURITY;
 ```
 
-**Rule of Thumb:** When in doubt, use a server action with `supabaseServer`.
-
----
-
-## Database Schema Organization
-
-### Available Schemas
-
-```
-items.*        → Product catalog data (56K+ products)
-  ├── product              (base product table)
-  ├── product_detail       (descriptions, classifications)
-  ├── product_feature      (ETIM features)
-  ├── product_info         (materialized view - USE THIS for queries)
-  └── product_price        (pricing data)
-
-etim.*         → ETIM classification system
-  ├── class                (product classes: EC001744, etc.)
-  ├── feature              (feature definitions: EF000004, etc.)
-  ├── value                (predefined values: EV006167, etc.)
-  ├── unit                 (units of measure: EU570448, etc.)
-  └── classfeaturemap      (class-to-feature mappings)
-
-search.*       → Advanced search system
-  ├── taxonomy             (human-friendly categories)
-  ├── classification_rules (ETIM → taxonomy mapping)
-  ├── product_taxonomy_flags (boolean: indoor, ceiling, dimmable)
-  ├── product_filter_index (filter values: CCT, IP, voltage)
-  └── filter_facets        (pre-aggregated counts)
-
-analytics.*    → User tracking and metrics
-  ├── page_views
-  ├── user_sessions
-  └── product_interactions
-
-projects.*     → Project management (future)
-customers.*    → Customer data (future)
-```
-
-### Schema Usage Examples
-
-```typescript
-// Query products (use materialized view)
-const { data } = await supabaseServer
-  .from('items.product_info')  // Schema prefix required
-  .select('*')
-
-// Query ETIM classifications
-const { data } = await supabaseServer
-  .schema('etim')              // Can set schema once
-  .from('class')
-  .select('*')
-
-// Call RPC function
-const { data } = await supabaseServer
-  .schema('items')
-  .rpc('get_dashboard_stats')
-
-// Search with filters
-const { data } = await supabaseServer
-  .schema('search')
-  .rpc('search_products_with_filters', {
-    search_query: 'downlight',
-    taxonomy_codes: ['LUM_CEIL_REC']
-  })
-```
-
----
-
-## Common Query Patterns
-
-### Select Specific Columns (Performance)
-
-```typescript
-// ✅ GOOD: Specific columns
-const { data } = await supabaseServer
-  .from('items.product_info')
-  .select('product_id, description_short, supplier_name, prices')
-  .limit(50)
-
-// ❌ BAD: SELECT * (transfers unnecessary data)
-const { data } = await supabaseServer
-  .from('items.product_info')
-  .select('*')
-```
-
-### Filtering
-
-```typescript
-// Exact match
-.eq('supplier_name', 'Delta Light')
-
-// Case-insensitive search
-.ilike('description_short', `%${query}%`)
-
-// Multiple conditions
-.eq('supplier_name', 'Delta Light')
-.ilike('description_short', '%LED%')
-
-// IN clause
-.in('supplier_name', ['Delta Light', 'Modular'])
-
-// Range
-.gte('price', 100)
-.lte('price', 500)
-```
-
-### Single Record
-
-```typescript
-const { data, error } = await supabaseServer
-  .from('items.product_info')
-  .select('*')
-  .eq('product_id', id)
-  .single()  // Expect exactly one result
-
-if (error) {
-  console.error('Product not found:', error)
-  return null
-}
-```
-
-### Always Limit Results
-
-```typescript
-// Search queries
-.limit(50)
-
-// List views
-.limit(100)
-
-// Single record
-.single()
-```
-
----
-
-## RPC Functions (PostgreSQL Functions)
-
-### When to Use RPC
-
-Use PostgreSQL functions for:
-1. **Aggregations** - COUNT, SUM, GROUP BY
-2. **Complex joins** - Let PostgreSQL optimize
-3. **Multiple queries** - Batch into single call
-4. **Performance** - Reduce data transfer
-
-### Calling RPC Functions
-
-```typescript
-const { data, error } = await supabaseServer
-  .schema('items')
-  .rpc('get_dashboard_stats', {
-    // Parameters (snake_case in database)
-    p_catalog_id: catalogId,
-    p_limit: 10
-  })
-
-if (error) {
-  console.error('RPC error:', error)
-  return defaultValue
-}
-
-// Map database response to TypeScript
-return (data || []).map((row: DBRow) => ({
-  name: row.name,
-  count: Number(row.count)  // bigint → number conversion
-}))
-```
-
-### Common RPC Functions
-
-```typescript
-// Dashboard stats
-items.get_dashboard_stats()
-items.get_supplier_stats()
-items.get_active_catalogs_with_counts()
-
-// Search
-search.search_products_with_filters(search_query, taxonomy_codes, ...)
-search.get_dynamic_facets(search_query, ...)
-search.count_products_with_filters(...)
-
-// Analytics
-analytics.get_most_active_users(p_limit)
-analytics.track_page_view(p_user_id, p_page_url)
-```
-
----
-
-## Error Handling
-
-### Standard Pattern
-
-```typescript
-try {
-  const { data, error } = await supabaseServer
-    .from('items.product_info')
-    .select('*')
-    .eq('product_id', id)
-    .single()
-
-  if (error) {
-    console.error('Database error:', {
-      message: error.message,
-      code: error.code,
-      details: error.details
-    })
-    return null  // or throw error, depending on context
-  }
-
-  return data
-} catch (error) {
-  console.error('Unexpected error:',
-    error instanceof Error ? error.message : 'Unknown error'
-  )
-  return null
-}
-```
-
-### HTTP Error Codes (API Routes)
-
-```typescript
-// 400 Bad Request
-if (!productId || !uuidRegex.test(productId)) {
-  return NextResponse.json(
-    { error: 'Invalid product ID' },
-    { status: 400 }
-  )
-}
-
-// 404 Not Found
-if (!data) {
-  return NextResponse.json(
-    { error: 'Product not found' },
-    { status: 404 }
-  )
-}
-
-// 500 Internal Server Error
-if (error) {
-  console.error('Database error:', error)
-  return NextResponse.json(
-    { error: 'Internal server error' },
-    { status: 500 }
-  )
-}
-```
-
----
-
-## Authentication Context
-
-### Protected Server Actions
-
-```typescript
-'use server'
-
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/lib/auth'
-import { supabaseServer } from '@/lib/supabase-server'
-
-export async function protectedAction() {
-  const session = await getServerSession(authOptions)
-
-  if (!session) {
-    throw new Error('Unauthorized')
-  }
-
-  // Now safe to use supabaseServer with user context
-  const { data } = await supabaseServer
-    .from('items.product_info')
-    .select('*')
-
-  return data
-}
-```
-
-### Protected API Routes
-
-```typescript
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/lib/auth'
-
-export async function GET(request: NextRequest) {
-  const session = await getServerSession(authOptions)
-
-  if (!session) {
-    return NextResponse.json(
-      { error: 'Unauthorized' },
-      { status: 401 }
+### Organization-Based Access
+
+Battery uses organizations for multi-tenancy:
+
+```sql
+-- Users can only see apps in their organization
+CREATE POLICY "Users can view org apps"
+  ON deployed_apps
+  FOR SELECT
+  USING (
+    org_id IN (
+      SELECT org_id FROM org_members WHERE user_id = auth.uid()
     )
-  }
+  );
 
-  // Proceed with authenticated request
+-- Only admins can delete apps
+CREATE POLICY "Admins can delete org apps"
+  ON deployed_apps
+  FOR DELETE
+  USING (
+    EXISTS (
+      SELECT 1 FROM org_members
+      WHERE user_id = auth.uid()
+        AND org_id = deployed_apps.org_id
+        AND role = 'admin'
+    )
+  );
+```
+
+### Service Role Bypass
+
+For server-side operations that need to bypass RLS:
+
+```typescript
+import { createClient } from '@supabase/supabase-js'
+
+// Use service role key (server-side only!)
+const supabaseAdmin = createClient(
+  process.env.SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+)
+
+// This bypasses RLS
+await supabaseAdmin.from('deployed_apps').insert({ ... })
+```
+
+## Client Usage in Next.js
+
+### Server Components
+
+```typescript
+// lib/supabase/server.ts
+import { createServerClient } from '@supabase/ssr'
+import { cookies } from 'next/headers'
+
+export async function createClient() {
+  const cookieStore = await cookies()
+
+  return createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return cookieStore.getAll()
+        },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value, options }) => {
+            cookieStore.set(name, value, options)
+          })
+        },
+      },
+    }
+  )
 }
 ```
 
----
-
-## Materialized Views
-
-### items.product_info (Primary Product View)
-
-**ALWAYS use this view** for product queries, not the base `product` table.
+### Client Components
 
 ```typescript
-// ✅ CORRECT
-const { data } = await supabaseServer
-  .from('items.product_info')
-  .select('*')
+// lib/supabase/client.ts
+import { createBrowserClient } from '@supabase/ssr'
 
-// ❌ WRONG (joins are expensive, data is incomplete)
-const { data } = await supabaseServer
-  .from('items.product')
-  .select('*')
+export function createClient() {
+  return createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  )
+}
 ```
 
-**Refresh:** Materialized views are refreshed daily after catalog imports.
-
-**Columns available:**
-- `product_id` (uuid)
-- `foss_pid` (text) - Product identifier
-- `description_short`, `description_long` (text)
-- `supplier_name` (text)
-- `manufacturer_pid` (text)
-- `class` (text) - ETIM class code (e.g., EC001744)
-- `family`, `subfamily` (text)
-- `prices` (jsonb array)
-- `multimedia` (jsonb array)
-- `features` (jsonb array)
-- `supplier_logo`, `supplier_logo_dark` (text URLs)
-
----
-
-## Security Best Practices
-
-### Input Validation
+### Route Handlers
 
 ```typescript
-// ✅ ALWAYS validate and sanitize
-const sanitizedQuery = query.trim().slice(0, 100)
-
-// ✅ Use parameterized queries (Supabase handles this)
-.ilike('description_short', `%${sanitizedQuery}%`)
-
-// ❌ NEVER concatenate SQL strings
-// (Supabase client prevents this, but be aware)
-```
-
-### Row Level Security (RLS)
-
-- **supabaseServer:** Bypasses RLS (service role)
-- **supabase:** Respects RLS (anon role)
-
-**Current setup:** Most tables have permissive RLS for authenticated users.
-
-### Secrets Management
-
-```typescript
-// ✅ Server-side only
-const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
-
-// ✅ Client-side safe
-const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-
-// ❌ NEVER expose service role key to client
-```
-
----
-
-## Performance Optimization
-
-### Database Queries
-
-```typescript
-// ✅ Select only needed columns
-.select('product_id, description_short, supplier_name')
-
-// ✅ Always limit results
-.limit(50)
-
-// ✅ Use indexes (already set up)
-.eq('supplier_name', 'Delta Light')  // Indexed
-
-// ✅ Use RPC for aggregations
-.rpc('get_supplier_stats')  // Better than client-side grouping
-```
-
-### Caching Strategy
-
-```typescript
-// API routes: Revalidate every 60 seconds
-export const revalidate = 60
+// app/api/apps/route.ts
+import { createClient } from '@/lib/supabase/server'
+import { NextResponse } from 'next/server'
 
 export async function GET() {
-  const data = await fetchData()
-  return NextResponse.json({ data })
+  const supabase = await createClient()
+
+  const { data, error } = await supabase
+    .from('deployed_apps')
+    .select('*')
+    .order('created_at', { ascending: false })
+
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 })
+  }
+
+  return NextResponse.json(data)
 }
 ```
 
----
+## Edge Functions
 
-## TypeScript Patterns
+### Structure
 
-### Database Response Types
+```
+supabase/
+  functions/
+    deploy-webhook/
+      index.ts
+    scan-credentials/
+      index.ts
+```
+
+### Basic Edge Function
 
 ```typescript
-// Define database row type
-interface ProductRow {
-  product_id: string
-  description_short: string
-  prices: { amount: number; currency: string }[]
-}
+// supabase/functions/deploy-webhook/index.ts
+import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
-// Map to application type
-const { data } = await supabaseServer
-  .from('items.product_info')
-  .select('product_id, description_short, prices')
+serve(async (req) => {
+  const supabase = createClient(
+    Deno.env.get('SUPABASE_URL')!,
+    Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
+  )
 
-const products: ProductInfo[] = (data || []).map((row: ProductRow) => ({
-  id: row.product_id,
-  name: row.description_short,
-  pricing: row.prices.map(p => ({
-    value: p.amount,
-    currency: p.currency
-  }))
-}))
+  const { deployment_id, status } = await req.json()
+
+  const { error } = await supabase
+    .from('deployments')
+    .update({ status })
+    .eq('id', deployment_id)
+
+  if (error) {
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    })
+  }
+
+  return new Response(JSON.stringify({ success: true }), {
+    headers: { 'Content-Type': 'application/json' },
+  })
+})
 ```
 
-### Handling bigint
+## Type Generation
+
+Generate TypeScript types from your schema:
+
+```bash
+pnpm supabase gen types typescript --project-id $PROJECT_ID > lib/database.types.ts
+```
+
+### Using Generated Types
 
 ```typescript
-// PostgreSQL bigint → JavaScript number
-const count = Number(row.count)
+import { Database } from '@/lib/database.types'
 
-// Handle potential overflow
-const safeCount = BigInt(row.count) > Number.MAX_SAFE_INTEGER
-  ? Number.MAX_SAFE_INTEGER
-  : Number(row.count)
+type DeployedApp = Database['public']['Tables']['deployed_apps']['Row']
+type InsertApp = Database['public']['Tables']['deployed_apps']['Insert']
+
+// Typed client
+const supabase = createClient<Database>(url, key)
+
+const { data } = await supabase
+  .from('deployed_apps')
+  .select('id, name, status')
+  .returns<Pick<DeployedApp, 'id' | 'name' | 'status'>[]>()
 ```
 
----
+## Vault for Credentials
 
-## Quick Reference
+Battery stores extracted credentials in Supabase Vault:
 
-### Client Selection Flowchart
+```sql
+-- Store a secret
+SELECT vault.create_secret('snowflake_password', 'secret_value', 'Snowflake password for app X');
 
-```
-Is this a client component ('use client')?
-├─ YES → Can you move this to a server action?
-│        ├─ YES → Create server action with supabaseServer ✅
-│        └─ NO  → Use supabase (anon key) ⚠️
-│
-└─ NO  → Use supabaseServer ✅
+-- Retrieve a secret (in edge function or with service role)
+SELECT vault.decrypted_secrets WHERE name = 'snowflake_password';
 ```
 
-### Common Mistakes
+## Patterns to Follow
 
-| ❌ Wrong | ✅ Correct |
-|---------|-----------|
-| `import { supabase } from '@/lib/supabase'` in server action | `import { supabaseServer } from '@/lib/supabase-server'` |
-| `.select('*')` for large tables | `.select('product_id, name, ...')` |
-| No `.limit()` on queries | `.limit(50)` or `.limit(100)` |
-| Using base `product` table | Use `product_info` materialized view |
-| Forgetting schema prefix | `.from('items.product_info')` |
-
----
-
-## See Also
-
-- API patterns: [docs/architecture/api-patterns.md](../../docs/architecture/api-patterns.md)
-- Database schema: [docs/database/schema.md](../../docs/database/schema.md)
-- Security auditing: [docs/security/auditing.md](../../docs/security/auditing.md)
+1. **Always enable RLS** on tables with user data
+2. **Use server components** for initial data fetching
+3. **Type everything** with generated types
+4. **Use transactions** for multi-table operations
+5. **Service role** only on server, never expose to client

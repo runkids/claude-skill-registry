@@ -1,11 +1,7 @@
 {
   "name": "calendar",
-  "description": "Interact with Apple Calendar via AppleScript. Use when the user asks to check calendar, view events, create events, manage schedule, find free time, or list calendars. Triggers include \"my calendar\", ",
-  "repo": "jacobrask/claude-skills",
-  "category": "data",
-  "tags": [
-    "calendar"
-  ],
-  "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "repo": "arlenagreer/claude_configuration_docs",
+  "path": "skills/calendar/SKILL.md",
+  "source": "github.com/arlenagreer/claude_configuration_docs",
+  "downloaded_at": "2026-01-14T02:29:30.258797Z"
 }

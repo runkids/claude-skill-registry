@@ -1,8 +1,7 @@
 {
   "name": "errors",
   "repo": "mgreenly/ikigai",
-  "category": "data",
-  "description": "Error Handling skill for the ikigai project",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:29.345325Z"
+  "path": ".claude/library/errors/SKILL.md",
+  "source": "github.com/mgreenly/ikigai",
+  "downloaded_at": "2026-01-14T03:06:56.951799Z"
 }

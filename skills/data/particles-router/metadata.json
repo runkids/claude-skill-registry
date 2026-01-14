@@ -1,12 +1,7 @@
 {
   "name": "particles-router",
-  "description": "Decision framework for particle system projects. Routes to specialized particle skills (gpu, physics, lifecycle) based on task requirements. Use when building particle effects or needing guidance on w",
   "repo": "Bbeierle12/Skill-MCP-Claude",
-  "category": "development",
-  "tags": [
-    "particles",
-    "router"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": "skills/particles-router/SKILL.md",
+  "source": "github.com/Bbeierle12/Skill-MCP-Claude",
+  "downloaded_at": "2026-01-14T03:54:10.725078Z"
 }

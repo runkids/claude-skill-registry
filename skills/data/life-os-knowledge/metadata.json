@@ -1,9 +1,7 @@
 {
   "name": "life-os-knowledge",
-  "description": "Personal knowledge base for Shapira family daily life. Use when querying or storing information about hotels, swim meet venues, travel logistics, restaurants, service providers, or any location-based ",
   "repo": "breverdbidder/life-os",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/life-os-knowledge/SKILL.md",
+  "source": "github.com/breverdbidder/life-os",
+  "downloaded_at": "2026-01-14T03:23:37.824160Z"
 }

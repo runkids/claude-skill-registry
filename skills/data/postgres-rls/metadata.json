@@ -1,8 +1,7 @@
 {
   "name": "postgres-rls",
-  "repo": "troykelly/claude-skills",
-  "category": "data",
-  "description": "MANDATORY when touching auth tables, tenant isolation, RLS policies, or multi-tenant database code - enforces Row Level Security best practices and catches common bypass vulnerabilities",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:35.100374Z"
+  "repo": "troykelly/codex-skills",
+  "path": "skills/postgres-rls/SKILL.md",
+  "source": "github.com/troykelly/codex-skills",
+  "downloaded_at": "2026-01-14T03:34:00.827042Z"
 }

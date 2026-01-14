@@ -1,13 +1,7 @@
 {
   "name": "auto-analysis-219c9431a85d",
-  "description": "Auto-generated skill for analysis. Triggers on: analyze this brd, analyze the brd.",
   "repo": "HR-AR/Project-Conductor",
-  "category": "development",
-  "tags": [
-    "auto",
-    "analysis",
-    "219c9431a85d"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/auto-analysis-219c9431a85d/SKILL.md",
+  "source": "github.com/HR-AR/Project-Conductor",
+  "downloaded_at": "2026-01-14T01:02:58.055633Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "frontend-patterns",
-  "description": ">",
-  "repo": "vperreard/Mathildanesth",
-  "category": "design",
-  "tags": [
-    "frontend",
-    "patterns"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "bybren-llc/wtfb-safe-agentic-workflow",
+  "path": ".claude/skills/frontend-patterns/SKILL.md",
+  "source": "github.com/bybren-llc/wtfb-safe-agentic-workflow",
+  "downloaded_at": "2026-01-14T02:13:29.100408Z"
 }

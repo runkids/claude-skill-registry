@@ -1,11 +1,7 @@
 {
   "name": "pytorch-distributed",
-  "description": "Distributed training strategies including DistributedDataParallel (DDP) and Fully Sharded Data Parallel (FSDP). Covers multi-node setup, checkpointing, and process management using torchrun. (ddp, fsd",
   "repo": "cuba6112/skillfactory",
-  "category": "data",
-  "tags": [
-    "pytorch",
-    "distributed"
-  ],
-  "stars": 0
+  "path": "skills/pytorch-distributed/SKILL.md",
+  "source": "github.com/cuba6112/skillfactory",
+  "downloaded_at": "2026-01-14T02:37:43.876861Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "moai-lang-csharp",
-  "description": "\"Enterprise C# 13 development with .NET 9, async/await, LINQ, Entity Framework Core, ASP.NET Core, and Context7 MCP integration for modern backend and enterprise applications.\"",
-  "repo": "modu-ai/moai-adk",
-  "category": "development",
-  "tags": [
-    "moai",
-    "lang",
-    "csharp"
-  ],
-  "stars": 310,
-  "source": "SkillsMP Synced Skills"
+  "repo": "windysky/claude_notification_wsl2",
+  "path": ".claude/skills/moai-lang-csharp/SKILL.md",
+  "source": "github.com/windysky/claude_notification_wsl2",
+  "downloaded_at": "2026-01-14T04:03:28.027504Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "testing-tdd-workflow",
-  "description": "Apply when implementing new features, fixing bugs, or refactoring code. TDD ensures tests drive design and all code is covered.",
   "repo": "CoderMariusz/MonoPilot",
-  "category": "testing",
-  "tags": [
-    "testing",
-    "tdd",
-    "workflow"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/testing-tdd-workflow/SKILL.md",
+  "source": "github.com/CoderMariusz/MonoPilot",
+  "downloaded_at": "2026-01-14T03:46:42.812708Z"
 }

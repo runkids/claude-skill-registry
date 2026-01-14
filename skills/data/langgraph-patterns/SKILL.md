@@ -1,314 +1,303 @@
 ---
-name: langgraph-patterns
-description: Advanced LangGraph patterns for production applications. Use when implementing streaming (tokens, updates, custom data), parallel node execution, subgraphs for modular workflows, error handling and retries, or Command-based control flow. Covers stream modes, fan-out/fan-in, nested graphs, and production best practices.
+name: LangGraph Patterns Expert
+description: Build production-grade agentic workflows with LangGraph using graph-based orchestration, state machines, human-in-the-loop, and advanced control flow
+version: 1.1.0
+last_updated: 2026-01-06
+external_version: "LangGraph 1.0 GA, langgraph-sdk 0.3.1"
 ---
 
-# LangGraph Patterns
+# LangGraph Patterns Expert Skill
 
-Advanced patterns for production LangGraph applications.
+## Purpose
+Master LangGraph for building production-ready AI agents with fine-grained control, checkpointing, streaming, and complex state management.
 
-## Streaming
+## LangGraph 1.0 (GA - October 2025)
 
-### Stream Modes
+LangGraph 1.0 is the first stable major release in the durable agent framework space. After powering agents at Uber, LinkedIn, and Klarna, it's officially production-ready.
 
-| Mode | Output | Use Case |
-|------|--------|----------|
-| `"values"` | Full state after each step | Debugging |
-| `"updates"` | Partial updates per node | Progress tracking |
-| `"messages"` | LLM tokens as generated | Chat UX |
-| `"custom"` | User-defined data | Custom progress |
+## Core Philosophy
 
-### Basic Streaming
+**LangGraph is:** An orchestration framework with both declarative and imperative APIs focused on control and durability for production agents.
+
+**Not:** High-level abstractions that hide complexity - instead provides building blocks for full control.
+
+**BREAKING CHANGE (v1.0):** `langgraph.prebuilt` is deprecated. Use `langchain.agents` instead for prebuilt components.
+
+## The Six Production Features
+
+1. **Parallelization** - Run multiple nodes concurrently
+2. **Streaming** - Real-time partial outputs
+3. **Checkpointing** - Pause/resume execution
+4. **Human-in-the-Loop** - Approval/correction workflows
+5. **Tracing** - Observability and debugging
+6. **Task Queue** - Asynchronous job processing
+
+## Graph-Based Architecture
 
 ```python
-# Updates mode (most common)
-for event in app.stream(inputs, stream_mode="updates"):
-    for node_name, output in event.items():
-        print(f"{node_name}: {output}")
+from langgraph.graph import StateGraph, END
 
-# Async streaming
-async for event in app.astream(inputs, stream_mode="updates"):
-    print(event)
+# Define state
+class AgentState(TypedDict):
+    messages: Annotated[list, add_messages]
+    next_action: str
+
+# Create graph
+graph = StateGraph(AgentState)
+
+# Add nodes
+graph.add_node("analyze", analyze_node)
+graph.add_node("execute", execute_node)
+graph.add_node("verify", verify_node)
+
+# Define edges
+graph.add_edge("analyze", "execute")
+graph.add_conditional_edges(
+    "execute",
+    should_verify,
+    {"yes": "verify", "no": END}
+)
+
+# Compile
+app = graph.compile()
 ```
 
-### Token Streaming
+## Core Patterns
 
-Stream LLM tokens as they generate:
-
+### Pattern 1: Agent with Tools
 ```python
-for msg, metadata in app.stream(inputs, stream_mode="messages"):
-    if msg.content:
-        print(msg.content, end="", flush=True)
+from langgraph.prebuilt import create_react_agent
+
+tools = [search_tool, calculator_tool, db_query_tool]
+
+agent = create_react_agent(
+    model=llm,
+    tools=tools,
+    checkpointer=MemorySaver()
+)
+
+# Run with streaming
+for chunk in agent.stream({"messages": [("user", "Analyze sales data")]}):
+    print(chunk)
 ```
 
-Filter by node:
-
+### Pattern 2: Multi-Agent Collaboration
 ```python
-for msg, metadata in app.stream(inputs, stream_mode="messages"):
-    if metadata["langgraph_node"] == "agent":
-        print(msg.content, end="")
+# Supervisor coordinates specialist agents
+supervisor_graph = StateGraph(SupervisorState)
+
+supervisor_graph.add_node("supervisor", supervisor_node)
+supervisor_graph.add_node("researcher", researcher_agent)
+supervisor_graph.add_node("analyst", analyst_agent)
+supervisor_graph.add_node("writer", writer_agent)
+
+# Supervisor routes to specialists
+supervisor_graph.add_conditional_edges(
+    "supervisor",
+    route_to_agent,
+    {
+        "research": "researcher",
+        "analyze": "analyst",
+        "write": "writer",
+        "finish": END
+    }
+)
 ```
 
-### Custom Streaming
-
-Send custom data from within nodes:
-
+### Pattern 3: Human-in-the-Loop
 ```python
-from langgraph.config import get_stream_writer
+from langgraph.checkpoint.sqlite import SqliteSaver
 
-def my_node(state: State) -> dict:
-    writer = get_stream_writer()
-    writer({"progress": "Starting analysis..."})
-    # ... do work ...
-    writer({"progress": "50% complete"})
-    return {"result": "done"}
-
-# Receive custom data
-for event in app.stream(inputs, stream_mode=["updates", "custom"]):
-    print(event)
-```
-
-### Multiple Stream Modes
-
-```python
-for event in app.stream(inputs, stream_mode=["updates", "messages"]):
-    # event contains both update and message data
-    pass
-```
-
-## Parallel Execution
-
-### Fan-Out / Fan-In
-
-Multiple nodes execute in parallel, then merge:
-
-```python
-from typing import Annotated
-import operator
-
-class State(TypedDict):
-    input: str
-    results: Annotated[list, operator.add]
-
-def task_a(state: State) -> dict:
-    return {"results": [f"A: {state['input']}"]}
-
-def task_b(state: State) -> dict:
-    return {"results": [f"B: {state['input']}"]}
-
-def merge(state: State) -> dict:
-    return {"final": " + ".join(state["results"])}
+checkpointer = SqliteSaver.from_conn_string("checkpoints.db")
 
 graph = StateGraph(State)
-graph.add_node("task_a", task_a)
-graph.add_node("task_b", task_b)
-graph.add_node("merge", merge)
+graph.add_node("propose_action", propose)
+graph.add_node("human_approval", interrupt())  # Pauses here
+graph.add_node("execute_action", execute)
 
-graph.add_edge(START, "task_a")
-graph.add_edge(START, "task_b")
-graph.add_edge(["task_a", "task_b"], "merge")  # Wait for both
-graph.add_edge("merge", END)
+app = graph.compile(checkpointer=checkpointer)
+
+# Run until human input needed
+result = app.invoke(input, config={"configurable": {"thread_id": "123"}})
+
+# Human reviews, then resume
+app.invoke(None, config={"configurable": {"thread_id": "123"}})
 ```
 
-### Async Parallel Within Node
+## State Management
 
+### Short-Term Memory (Session)
 ```python
-import asyncio
+class ConversationState(TypedDict):
+    messages: Annotated[list, add_messages]
+    context: dict
 
-async def parallel_node(state: State) -> dict:
-    tasks = [
-        fetch_data_a(state["query"]),
-        fetch_data_b(state["query"]),
-        fetch_data_c(state["query"]),
-    ]
-    results = await asyncio.gather(*tasks, return_exceptions=True)
-    
-    # Handle failures
-    successful = [r for r in results if not isinstance(r, Exception)]
-    return {"data": successful}
+checkpointer = MemorySaver()
+app = graph.compile(checkpointer=checkpointer)
+
+# Maintains context across turns
+config = {"configurable": {"thread_id": "user_123"}}
+app.invoke({"messages": [("user", "Hello")]}, config)
+app.invoke({"messages": [("user", "What did I just say?")]}, config)
 ```
 
-## Subgraphs
-
-Compose graphs for modularity:
-
+### Long-Term Memory (Persistent)
 ```python
-# Define subgraph
-class SubState(TypedDict):
-    query: str
-    result: str
+from langgraph.checkpoint.postgres import PostgresSaver
 
-sub_builder = StateGraph(SubState)
-sub_builder.add_node("process", process_node)
-sub_builder.add_edge(START, "process")
-sub_builder.add_edge("process", END)
-subgraph = sub_builder.compile()
+checkpointer = PostgresSaver.from_conn_string(db_url)
 
-# Use in parent graph
-class ParentState(TypedDict):
-    query: str
-    result: str
-    other_data: str
-
-parent = StateGraph(ParentState)
-parent.add_node("subgraph", subgraph)  # Add compiled graph as node
-parent.add_node("finalize", finalize_node)
-parent.add_edge(START, "subgraph")
-parent.add_edge("subgraph", "finalize")
-parent.add_edge("finalize", END)
+# Persists across sessions
+app = graph.compile(checkpointer=checkpointer)
 ```
 
-State mapping (when schemas differ):
+## Advanced Control Flow
 
+### Conditional Routing
 ```python
-def call_subgraph(state: ParentState) -> dict:
-    # Map parent state to subgraph input
-    sub_input = {"query": state["query"]}
-    result = subgraph.invoke(sub_input)
-    # Map subgraph output to parent state
-    return {"result": result["result"]}
+def route_next(state):
+    if state["confidence"] > 0.9:
+        return "approve"
+    elif state["confidence"] > 0.5:
+        return "review"
+    else:
+        return "reject"
 
-parent.add_node("subgraph", call_subgraph)
-```
-
-## Command-Based Control Flow
-
-Use `Command` for complex routing:
-
-```python
-from langgraph.types import Command
-from typing import Literal
-
-def router_node(state: State) -> Command[Literal["path_a", "path_b", "__end__"]]:
-    if state["condition_a"]:
-        return Command(
-            update={"route": "a"},
-            goto="path_a"
-        )
-    elif state["condition_b"]:
-        return Command(
-            update={"route": "b"},
-            goto="path_b"
-        )
-    return Command(goto="__end__")
-```
-
-### Jump to Parent Graph
-
-From subgraph, return control to parent:
-
-```python
-def subgraph_node(state: State) -> Command:
-    return Command(
-        update={"result": "done"},
-        goto="parent_node",
-        graph=Command.PARENT
-    )
-```
-
-## Error Handling
-
-### Retry Logic
-
-```python
-from tenacity import retry, stop_after_attempt, wait_exponential
-
-@retry(
-    stop=stop_after_attempt(3),
-    wait=wait_exponential(multiplier=1, min=1, max=10)
+graph.add_conditional_edges(
+    "classifier",
+    route_next,
+    {
+        "approve": "auto_approve",
+        "review": "human_review",
+        "reject": "reject_node"
+    }
 )
-async def resilient_node(state: State) -> dict:
-    result = await flaky_api_call()
-    return {"data": result}
 ```
 
-### Graceful Degradation
-
+### Cycles and Loops
 ```python
-def safe_node(state: State) -> dict:
+def should_continue(state):
+    if state["iterations"] < 3 and not state["success"]:
+        return "retry"
+    return "finish"
+
+graph.add_conditional_edges(
+    "process",
+    should_continue,
+    {"retry": "process", "finish": END}
+)
+```
+
+### Parallel Execution
+```python
+from langgraph.graph import START
+
+# Fan out to parallel nodes
+graph.add_edge(START, ["agent_a", "agent_b", "agent_c"])
+
+# Fan in to aggregator
+graph.add_edge(["agent_a", "agent_b", "agent_c"], "synthesize")
+```
+
+## Production Deployment
+
+### Streaming for UX
+```python
+async for event in app.astream_events(input, version="v2"):
+    if event["event"] == "on_chat_model_stream":
+        print(event["data"]["chunk"].content, end="")
+```
+
+### Error Handling
+```python
+def error_handler(state):
     try:
-        result = risky_operation(state["input"])
-        return {"result": result, "error": None}
+        return execute_risky_operation(state)
     except Exception as e:
-        return {"result": None, "error": str(e)}
+        return {"error": str(e), "next": "fallback"}
 
-def error_handler(state: State) -> str:
-    if state["error"]:
-        return "fallback"
-    return "continue"
-
-graph.add_conditional_edges("safe_node", error_handler)
+graph.add_node("risky_op", error_handler)
+graph.add_conditional_edges(
+    "risky_op",
+    lambda s: "fallback" if "error" in s else "success"
+)
 ```
 
-### Checkpoint Recovery
-
-With checkpointing, resume from last successful step:
-
+### Monitoring with LangSmith
 ```python
-try:
-    result = app.invoke(inputs, config)
-except Exception:
-    # Get last successful state
-    snapshot = app.get_state(config)
-    # Resume or handle error
-    result = app.invoke(None, config)  # Retry from checkpoint
+import os
+os.environ["LANGCHAIN_TRACING_V2"] = "true"
+os.environ["LANGCHAIN_API_KEY"] = "..."
+
+# All agent actions automatically logged to LangSmith
+app.invoke(input)
 ```
 
-## Production Patterns
+## Best Practices
 
-### Rate Limiting
+**DO:**
+✅ Use checkpointing for long-running tasks
+✅ Stream outputs for better UX
+✅ Implement human approval for critical actions
+✅ Use conditional edges for complex routing
+✅ Leverage parallel execution when possible
+✅ Monitor with LangSmith in production
 
+**DON'T:**
+❌ Use AgentExecutor (deprecated)
+❌ Skip error handling on nodes
+❌ Forget to set thread_id for stateful conversations
+❌ Over-complicate graphs unnecessarily
+❌ Ignore memory management for long conversations
+
+## Integration Examples
+
+### With Claude
 ```python
-from asyncio import Semaphore
+from langchain_anthropic import ChatAnthropic
 
-semaphore = Semaphore(5)  # Max 5 concurrent
-
-async def rate_limited_node(state: State) -> dict:
-    async with semaphore:
-        result = await api_call()
-    return {"result": result}
+llm = ChatAnthropic(model="claude-sonnet-4-5")
+agent = create_react_agent(llm, tools)
 ```
 
-### Timeout
-
+### With OpenAI
 ```python
-import asyncio
+from langchain_openai import ChatOpenAI
 
-async def timed_node(state: State) -> dict:
-    try:
-        result = await asyncio.wait_for(
-            slow_operation(),
-            timeout=30.0
-        )
-        return {"result": result}
-    except asyncio.TimeoutError:
-        return {"result": None, "error": "timeout"}
+llm = ChatOpenAI(model="gpt-4o")
+agent = create_react_agent(llm, tools)
 ```
 
-### Logging and Observability
-
+### With MCP Servers
 ```python
-import logging
-from langchain.callbacks import tracing_v2_enabled
+from langchain_mcp import MCPTool
 
-logger = logging.getLogger(__name__)
-
-def logged_node(state: State) -> dict:
-    logger.info(f"Processing: {state['input'][:50]}...")
-    result = process(state)
-    logger.info(f"Completed with {len(result)} items")
-    return {"result": result}
-
-# With LangSmith tracing
-with tracing_v2_enabled(project_name="my-project"):
-    result = app.invoke(inputs)
+github_tool = MCPTool.from_server("github-mcp")
+tools = [github_tool, ...]
+agent = create_react_agent(llm, tools)
 ```
 
-## Key Points
+## Decision Framework
 
-- Use `stream_mode="updates"` for progress, `"messages"` for chat
-- Fan-in with `add_edge([nodes], target)` waits for all
-- Subgraphs enable modular, reusable workflows
-- `Command` provides explicit routing control
-- Always handle errors gracefully in production
-- Use checkpointing for fault-tolerance
+**Use LangGraph when:**
+- Need fine-grained control over agent execution
+- Building complex state machines
+- Require human-in-the-loop workflows
+- Want production-grade durability (checkpointing)
+- Need to support multiple LLM providers
+
+**Use alternatives when:**
+- Want managed platform (use OpenAI AgentKit)
+- Need visual builder (use AgentKit)
+- Want simpler API (use Claude SDK directly)
+- Building on Oracle Cloud only (use Oracle ADK)
+
+## Resources
+
+- Docs: https://langchain-ai.github.io/langgraph/
+- GitHub: https://github.com/langchain-ai/langgraph
+- Tutorials: https://langchain-ai.github.io/langgraph/tutorials/
+
+---
+
+*LangGraph is the production-grade choice for complex agentic workflows requiring maximum control.*

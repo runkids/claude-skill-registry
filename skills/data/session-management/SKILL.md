@@ -1,572 +1,526 @@
 ---
 name: session-management
-description: Implement secure session management systems with JWT tokens, session storage, token refresh, logout handling, and CSRF protection. Use when managing user authentication state, handling token lifecycle, and securing sessions.
+description: Context preservation, tiered summarization, resumability
 ---
 
-# Session Management
+# Session Management Skill
 
-## Overview
+*Load with: base.md*
 
-Implement comprehensive session management systems with secure token handling, session persistence, token refresh mechanisms, proper logout procedures, and CSRF protection across different backend frameworks.
+For maintaining context across long development sessions and enabling seamless resume after breaks.
 
-## When to Use
+---
 
-- Implementing user authentication systems
-- Managing session state and user context
-- Handling JWT token refresh cycles
-- Implementing logout functionality
-- Protecting against CSRF attacks
-- Managing session expiration and cleanup
+## Core Principle
 
-## Instructions
+**Checkpoint at natural breakpoints, resume instantly.**
 
-### 1. **JWT Token Generation and Validation**
+Long development sessions risk context loss. Proactively document state, decisions, and progress so any session can resume exactly where it left off - whether returning after a break or hitting context limits.
 
-```python
-# Python/Flask Example
-from flask import current_app
-from datetime import datetime, timedelta
-import jwt
-import os
+---
 
-class TokenManager:
-    def __init__(self, secret_key=None):
-        self.secret_key = secret_key or os.getenv('JWT_SECRET')
-        self.algorithm = 'HS256'
-        self.access_token_expires_hours = 1
-        self.refresh_token_expires_days = 7
+## Tiered Summarization Rules
 
-    def generate_tokens(self, user_id, email, role='user'):
-        """Generate both access and refresh tokens"""
-        now = datetime.utcnow()
+### Tier 1: Quick Update (current-state.md only)
+**Trigger**: After completing any small task or todo item
+**Action**: Update "Active Task", "Progress", and "Next Steps" sections
+**Time**: ~30 seconds
 
-        # Access token
-        access_payload = {
-            'user_id': user_id,
-            'email': email,
-            'role': role,
-            'type': 'access',
-            'iat': now,
-            'exp': now + timedelta(hours=self.access_token_expires_hours)
-        }
-        access_token = jwt.encode(access_payload, self.secret_key, algorithm=self.algorithm)
+### Tier 2: Full Checkpoint (current-state.md + decisions.md)
+**Trigger**:
+- After completing a feature or significant change
+- After any architectural/library decision
+- After ~20 tool calls during active work
+- When switching to a different area of the codebase
 
-        # Refresh token
-        refresh_payload = {
-            'user_id': user_id,
-            'type': 'refresh',
-            'iat': now,
-            'exp': now + timedelta(days=self.refresh_token_expires_days)
-        }
-        refresh_token = jwt.encode(refresh_payload, self.secret_key, algorithm=self.algorithm)
+**Action**:
+1. Update full current-state.md
+2. Log any decisions to decisions.md
+3. Update files being modified table
 
-        return {
-            'access_token': access_token,
-            'refresh_token': refresh_token,
-            'expires_in': self.access_token_expires_hours * 3600,
-            'token_type': 'Bearer'
-        }
+### Tier 3: Session Archive (archive/ + full checkpoint)
+**Trigger**:
+- End of work session
+- Completing a major feature/milestone
+- Before a significant context shift
+- When context feels heavy (~50+ tool calls)
 
-    def verify_token(self, token, token_type='access'):
-        """Verify and decode JWT token"""
-        try:
-            payload = jwt.decode(token, self.secret_key, algorithms=[self.algorithm])
+**Action**:
+1. Create archive entry: `archive/YYYY-MM-DD[-topic].md`
+2. Full checkpoint
+3. Clear verbose notes from current-state.md
+4. Update code-landmarks.md if new patterns introduced
 
-            # Check token type matches
-            if payload.get('type') != token_type:
-                return None, 'Invalid token type'
-
-            return payload, None
-        except jwt.ExpiredSignatureError:
-            return None, 'Token expired'
-        except jwt.InvalidTokenError:
-            return None, 'Invalid token'
-
-    def refresh_access_token(self, refresh_token):
-        """Generate new access token from refresh token"""
-        payload, error = self.verify_token(refresh_token, token_type='refresh')
-        if error:
-            return None, error
-
-        new_access_token = self.generate_tokens(
-            payload['user_id'],
-            payload.get('email', ''),
-            payload.get('role', 'user')
-        )
-
-        return new_access_token, None
+### Decision Heuristic
+```
+┌─────────────────────────────────────────────────────┐
+│ After completing work, ask:                         │
+├─────────────────────────────────────────────────────┤
+│ Was a decision made?        → Log to decisions.md   │
+│ Task took >10 tool calls?   → Full Checkpoint       │
+│ Major feature complete?     → Archive               │
+│ Ending session?             → Archive + Handoff     │
+│ Otherwise                   → Quick Update          │
+└─────────────────────────────────────────────────────┘
 ```
 
-### 2. **Node.js/Express JWT Implementation**
+---
 
-```javascript
-// Node.js/Express Example
-const jwt = require('jsonwebtoken');
-const crypto = require('crypto');
-const redis = require('redis');
+## Session State Structure
 
-class SessionManager {
-    constructor() {
-        this.secretKey = process.env.JWT_SECRET || 'dev-secret';
-        this.algorithm = 'HS256';
-        this.accessTokenExpiry = '1h';
-        this.refreshTokenExpiry = '7d';
-        this.redisClient = redis.createClient();
-    }
+Create `_project_specs/session/` directory:
 
-    generateTokens(userId, email, role = 'user') {
-        const now = new Date();
-        const jti = crypto.randomBytes(16).toString('hex');
+```
+_project_specs/
+└── session/
+    ├── current-state.md      # Live session state (update frequently)
+    ├── decisions.md          # Key decisions log (append-only)
+    ├── code-landmarks.md     # Important code locations
+    └── archive/              # Past session summaries
+        └── 2025-01-15.md
+```
 
-        const accessToken = jwt.sign(
-            {
-                userId,
-                email,
-                role,
-                type: 'access',
-                jti,
-                iat: Math.floor(now.getTime() / 1000)
-            },
-            this.secretKey,
-            { algorithm: this.algorithm, expiresIn: this.accessTokenExpiry }
-        );
+---
 
-        const refreshToken = jwt.sign(
-            {
-                userId,
-                type: 'refresh',
-                jti,
-                iat: Math.floor(now.getTime() / 1000)
-            },
-            this.secretKey,
-            { algorithm: this.algorithm, expiresIn: this.refreshTokenExpiry }
-        );
+## Current State File
 
-        return {
-            accessToken,
-            refreshToken,
-            expiresIn: 3600,
-            tokenType: 'Bearer'
-        };
-    }
+**`_project_specs/session/current-state.md`** - Update every 15-20 minutes or after significant progress.
 
-    verifyToken(token, tokenType = 'access') {
-        try {
-            const decoded = jwt.verify(token, this.secretKey, {
-                algorithms: [this.algorithm]
-            });
+```markdown
+# Current Session State
 
-            if (decoded.type !== tokenType) {
-                return { payload: null, error: 'Invalid token type' };
-            }
+*Last updated: 2025-01-15 14:32*
 
-            return { payload: decoded, error: null };
-        } catch (err) {
-            if (err.name === 'TokenExpiredError') {
-                return { payload: null, error: 'Token expired' };
-            }
-            return { payload: null, error: 'Invalid token' };
-        }
-    }
+## Active Task
+[One sentence: what are we working on right now]
 
-    async isTokenBlacklisted(jti) {
-        const result = await this.redisClient.get(`blacklist:${jti}`);
-        return result !== null;
-    }
+Example: Implementing user authentication flow with JWT tokens
 
-    async blacklistToken(jti, expiresIn) {
-        await this.redisClient.setex(`blacklist:${jti}`, expiresIn, '1');
-    }
+## Current Status
+- **Phase**: [exploring | planning | implementing | testing | debugging | refactoring]
+- **Progress**: [X of Y steps complete, or percentage]
+- **Blocking Issues**: [None, or describe blockers]
 
-    async logout(token) {
-        const decoded = jwt.decode(token);
-        if (decoded && decoded.jti) {
-            const expiresIn = decoded.exp - Math.floor(Date.now() / 1000);
-            await this.blacklistToken(decoded.jti, expiresIn);
-        }
-    }
+## Context Summary
+[2-3 sentences summarizing the current state of work]
 
-    refreshAccessToken(refreshToken) {
-        const { payload, error } = this.verifyToken(refreshToken, 'refresh');
-        if (error) {
-            return { tokens: null, error };
-        }
+Example: Created auth middleware and login endpoint. JWT signing works.
+Currently implementing token refresh logic. Need to add refresh token
+rotation for security.
 
-        return {
-            tokens: this.generateTokens(payload.userId, payload.email, payload.role),
-            error: null
-        };
-    }
+## Files Being Modified
+| File | Status | Notes |
+|------|--------|-------|
+| src/auth/middleware.ts | Done | JWT verification |
+| src/auth/refresh.ts | In Progress | Token rotation |
+| src/auth/types.ts | Done | Token interfaces |
+
+## Next Steps
+1. [ ] Complete refresh token rotation in refresh.ts
+2. [ ] Add token blacklist for logout
+3. [ ] Write integration tests for auth flow
+
+## Key Context to Preserve
+- Using RS256 algorithm (not HS256) per security requirements
+- Refresh tokens stored in HttpOnly cookies
+- Access tokens: 15 min, Refresh tokens: 7 days
+
+## Resume Instructions
+To continue this work:
+1. Read src/auth/refresh.ts - currently at line 45
+2. The rotateRefreshToken() function needs error handling
+3. Check decisions.md for why we chose RS256 over HS256
+```
+
+---
+
+## Decision Log
+
+**`_project_specs/session/decisions.md`** - Append-only log of architectural and implementation decisions.
+
+```markdown
+# Decision Log
+
+Track key decisions for future reference. Never delete entries.
+
+---
+
+## [2025-01-15] JWT Algorithm Choice
+
+**Decision**: Use RS256 instead of HS256 for JWT signing
+
+**Context**: Implementing authentication system
+
+**Options Considered**:
+1. HS256 (symmetric) - Simpler, single secret
+2. RS256 (asymmetric) - Public/private key pair
+
+**Choice**: RS256
+
+**Reasoning**:
+- Allows token verification without exposing signing key
+- Better for microservices (services only need public key)
+- Industry standard for production systems
+
+**Trade-offs**:
+- Slightly more complex key management
+- Larger token size
+
+**References**:
+- src/auth/keys/ - Key storage
+- docs/security.md - Security architecture
+
+---
+
+## [2025-01-14] Database Schema Approach
+
+**Decision**: Use Drizzle ORM with PostgreSQL
+
+**Context**: Setting up data layer
+
+**Options Considered**:
+1. Prisma - Popular, good DX
+2. Drizzle - Type-safe, SQL-like
+3. Raw SQL - Maximum control
+
+**Choice**: Drizzle
+
+**Reasoning**:
+- Better TypeScript inference than Prisma
+- More transparent SQL generation
+- Lighter weight, faster cold starts
+
+**References**:
+- src/db/schema.ts - Schema definitions
+- src/db/migrations/ - Migration files
+```
+
+---
+
+## Code Landmarks
+
+**`_project_specs/session/code-landmarks.md`** - Important code locations for quick reference.
+
+```markdown
+# Code Landmarks
+
+Quick reference to important parts of the codebase.
+
+## Entry Points
+| Location | Purpose |
+|----------|---------|
+| src/index.ts | Main application entry |
+| src/api/routes.ts | API route definitions |
+| src/workers/index.ts | Background job entry |
+
+## Core Business Logic
+| Location | Purpose |
+|----------|---------|
+| src/core/auth/ | Authentication system |
+| src/core/billing/ | Payment processing |
+| src/core/workflows/ | Main workflow engine |
+
+## Configuration
+| Location | Purpose |
+|----------|---------|
+| src/config/index.ts | Environment config |
+| src/config/features.ts | Feature flags |
+| drizzle.config.ts | Database config |
+
+## Key Patterns
+| Pattern | Example Location | Notes |
+|---------|------------------|-------|
+| Service Layer | src/services/user.ts | Business logic encapsulation |
+| Repository | src/repos/user.ts | Data access abstraction |
+| Middleware | src/middleware/auth.ts | Request processing |
+
+## Testing
+| Location | Purpose |
+|----------|---------|
+| tests/unit/ | Unit tests |
+| tests/integration/ | API tests |
+| tests/e2e/ | End-to-end tests |
+| tests/fixtures/ | Test data |
+
+## Gotchas & Non-Obvious Behavior
+| Location | Issue | Notes |
+|----------|-------|-------|
+| src/utils/date.ts | Timezone handling | Always use UTC internally |
+| src/api/middleware.ts:45 | Auth bypass | Skip auth for health checks |
+| src/db/pool.ts | Connection limit | Max 10 connections in dev |
+```
+
+---
+
+## CLAUDE.md Session Rules
+
+Add this section to CLAUDE.md:
+
+```markdown
+## Session Management
+
+**IMPORTANT**: Follow session-management.md skill. Update session state at natural breakpoints.
+
+### After Every Task Completion
+Ask yourself:
+1. Was a decision made? → Log to `decisions.md`
+2. Did this take >10 tool calls? → Full checkpoint to `current-state.md`
+3. Is a major feature complete? → Create archive entry
+4. Otherwise → Quick update to `current-state.md`
+
+### Checkpoint Triggers
+**Quick Update** (current-state.md):
+- After any todo completion
+- After small changes
+
+**Full Checkpoint** (current-state.md + decisions.md):
+- After significant changes
+- After ~20 tool calls
+- After any decision
+- When switching focus areas
+
+**Archive** (archive/ + full checkpoint):
+- End of session
+- Major feature complete
+- Context feels heavy
+
+### Session Start Protocol
+When beginning work:
+1. Read `_project_specs/session/current-state.md`
+2. Check `_project_specs/todos/active.md`
+3. Review recent `decisions.md` entries if needed
+4. Continue from "Next Steps"
+
+### Session End Protocol
+Before ending or when context limit approaches:
+1. Create archive: `_project_specs/session/archive/YYYY-MM-DD.md`
+2. Update current-state.md with handoff format
+3. Ensure next steps are specific and actionable
+```
+
+---
+
+## Compression Strategies
+
+### When to Compress (Tier 3 Archive)
+
+| Trigger | Action |
+|---------|--------|
+| ~50+ tool calls | Summarize progress, archive verbose notes |
+| Major feature complete | Archive feature details, update landmarks |
+| Context shift | Summarize previous context, archive, start fresh |
+| End of session | Full session handoff with archive |
+
+### What to Keep vs Archive
+
+**Keep in active context:**
+- Current task and immediate next steps
+- Active file list with status
+- Blocking issues
+- Key decisions affecting current work
+
+**Archive/summarize:**
+- Exploration paths that didn't work out
+- Detailed debugging traces (keep conclusion only)
+- Verbose error messages (keep root cause only)
+- Research notes (keep recommendations only)
+
+### Compression Template
+
+When compressing, use this format:
+
+```markdown
+## Compressed Context - [Topic]
+
+**Summary**: [1-2 sentences]
+
+**Key Findings**:
+- [Bullet points of important discoveries]
+
+**Decisions Made**:
+- [Reference to decisions.md entries]
+
+**Relevant Code**:
+- [File:line references]
+
+**Archived Details**: [Link to archive file if created]
+```
+
+---
+
+## Session Archive
+
+After significant work or at session end, create archive:
+
+**`_project_specs/session/archive/YYYY-MM-DD[-topic].md`**
+
+```markdown
+# Session Archive: [Date] - [Topic]
+
+## Summary
+[Paragraph summarizing what was accomplished]
+
+## Tasks Completed
+- [TODO-XXX] Description - Done
+- [TODO-YYY] Description - Done
+
+## Key Decisions
+- [Reference decisions.md entries made this session]
+
+## Code Changes
+| File | Change Type | Description |
+|------|-------------|-------------|
+| src/auth/login.ts | Created | Login endpoint |
+| src/auth/types.ts | Modified | Added RefreshToken type |
+
+## Tests Added
+- tests/auth/login.test.ts - Login flow tests
+- tests/auth/refresh.test.ts - Token refresh tests
+
+## Open Items Carried Forward
+- [Anything not finished, now in active.md]
+
+## Session Stats
+- Duration: ~3 hours
+- Tool calls: ~120
+- Files modified: 8
+- Tests added: 12
+```
+
+---
+
+## Integration with Todo System
+
+### Link Todos to Sessions
+
+In active todos, reference session context:
+
+```markdown
+## [TODO-042] Implement token refresh
+
+**Status:** in-progress
+**Session Context:** See current-state.md
+
+### Progress Notes
+- 2025-01-15: Started implementation, base structure done
+- 2025-01-15: Added rotation logic, need error handling
+```
+
+### Auto-Update on Todo Completion
+
+When completing a todo:
+1. Mark todo complete in active.md
+2. Update current-state.md progress
+3. Log any decisions made
+4. Update code-landmarks.md if new patterns introduced
+
+---
+
+## Quick Commands
+
+Add to project scripts or aliases:
+
+```bash
+# Show current session state
+alias session-status="cat _project_specs/session/current-state.md"
+
+# Quick edit session state
+alias session-edit="$EDITOR _project_specs/session/current-state.md"
+
+# View recent decisions
+alias decisions="tail -100 _project_specs/session/decisions.md"
+
+# Create session archive
+session-archive() {
+  cp _project_specs/session/current-state.md \
+     "_project_specs/session/archive/$(date +%Y-%m-%d).md"
+  echo "Archived to _project_specs/session/archive/$(date +%Y-%m-%d).md"
 }
-
-// Middleware
-const authMiddleware = (req, res, next) => {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
-
-    if (!token) {
-        return res.status(401).json({ error: 'No token provided' });
-    }
-
-    const sessionManager = new SessionManager();
-    const { payload, error } = sessionManager.verifyToken(token);
-
-    if (error) {
-        return res.status(401).json({ error });
-    }
-
-    req.user = payload;
-    next();
-};
 ```
 
-### 3. **Session Storage with Redis**
+---
 
-```python
-# Python/Flask with Redis
-import redis
-import json
-from datetime import timedelta
-from functools import wraps
+## Enforcement Mechanisms
 
-class RedisSessionManager:
-    def __init__(self, redis_url='redis://localhost:6379'):
-        self.redis = redis.from_url(redis_url, decode_responses=True)
-        self.prefix = 'session:'
+### 1. CLAUDE.md as Entry Point
+CLAUDE.md must reference session-management.md in the Skills section. Claude reads CLAUDE.md first, which directs it to follow session rules.
 
-    def create_session(self, user_id, data, expire_hours=24):
-        """Create a session for user"""
-        session_data = {
-            'user_id': user_id,
-            'data': data,
-            'created_at': datetime.utcnow().isoformat(),
-            'last_activity': datetime.utcnow().isoformat()
-        }
+### 2. Session File Headers with Reminders
+Include enforcement reminders in session file headers:
 
-        session_id = secrets.token_urlsafe(32)
-        key = f'{self.prefix}{session_id}'
-
-        self.redis.setex(
-            key,
-            timedelta(hours=expire_hours),
-            json.dumps(session_data)
-        )
-
-        return session_id
-
-    def get_session(self, session_id):
-        """Retrieve session data"""
-        key = f'{self.prefix}{session_id}'
-        data = self.redis.get(key)
-
-        if not data:
-            return None
-
-        session_data = json.loads(data)
-
-        # Update last activity
-        session_data['last_activity'] = datetime.utcnow().isoformat()
-        self.redis.setex(key, timedelta(hours=24), json.dumps(session_data))
-
-        return session_data
-
-    def destroy_session(self, session_id):
-        """Destroy a session"""
-        key = f'{self.prefix}{session_id}'
-        self.redis.delete(key)
-
-    def update_session(self, session_id, updates):
-        """Update session data"""
-        session_data = self.get_session(session_id)
-        if not session_data:
-            return False
-
-        session_data['data'].update(updates)
-        key = f'{self.prefix}{session_id}'
-        self.redis.setex(
-            key,
-            timedelta(hours=24),
-            json.dumps(session_data)
-        )
-        return True
-
-    def get_user_sessions(self, user_id):
-        """Get all sessions for a user"""
-        cursor = 0
-        sessions = []
-
-        while True:
-            cursor, keys = self.redis.scan(cursor, match=f'{self.prefix}*')
-            for key in keys:
-                data = json.loads(self.redis.get(key))
-                if data['user_id'] == user_id:
-                    sessions.append({
-                        'session_id': key.replace(self.prefix, ''),
-                        'created_at': data['created_at'],
-                        'last_activity': data['last_activity']
-                    })
-
-            if cursor == 0:
-                break
-
-        return sessions
-
-    def invalidate_all_user_sessions(self, user_id):
-        """Logout user from all devices"""
-        sessions = self.get_user_sessions(user_id)
-        for session in sessions:
-            self.destroy_session(session['session_id'])
+**current-state.md header:**
+```markdown
+<!--
+CHECKPOINT RULES (from session-management.md):
+- Quick update: After any todo completion
+- Full checkpoint: After ~20 tool calls or decisions
+- Archive: End of session or major feature complete
+-->
 ```
 
-### 4. **CSRF Protection**
-
-```python
-# Flask CSRF Protection
-from flask_wtf.csrf import CSRFProtect
-from flask import session, request
-
-csrf = CSRFProtect()
-
-@app.route('/login', methods=['POST'])
-@csrf.protect
-def login():
-    # CSRF token is automatically verified
-    email = request.json.get('email')
-    password = request.json.get('password')
-
-    user = User.query.filter_by(email=email).first()
-    if user and user.verify_password(password):
-        session['user_id'] = user.id
-        session['csrf_token'] = csrf.generate_csrf()
-        return jsonify({'success': True}), 200
-
-    return jsonify({'error': 'Invalid credentials'}), 401
-
-# JavaScript client
-async function login(email, password) {
-    const response = await fetch('/csrf-token');
-    const { csrfToken } = await response.json();
-
-    return fetch('/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-Token': csrfToken
-        },
-        body: JSON.stringify({ email, password })
-    });
-}
+### 3. Self-Check Questions
+After completing any task, Claude should ask:
+```
+□ Did I make a decision? → Log it
+□ Did this take >10 tool calls? → Full checkpoint
+□ Is a feature complete? → Archive
+□ Am I ending/switching context? → Archive + handoff
 ```
 
-### 5. **Session Middleware Chain**
+### 4. Session Start Verification
+When starting a session, Claude must:
+1. Check if `current-state.md` exists and read it
+2. Announce what it found: "Resuming from: [last state]"
+3. Confirm next steps before proceeding
 
-```javascript
-// Node.js middleware chain
-const express = require('express');
-const app = express();
+### 5. Periodic Self-Audit
+Every ~20 tool calls, Claude should check:
+- Is current-state.md up to date?
+- Are there unlogged decisions?
+- Is context getting heavy?
 
-// 1. Parse cookies
-app.use(express.json());
-app.use(cookieParser(process.env.COOKIE_SECRET));
+### 6. User Prompts
+Users can enforce by asking:
+- "Update session state" → Triggers checkpoint
+- "What's the current state?" → Claude reads and reports
+- "End session" → Triggers archive + handoff
+- "Resume from last session" → Claude reads state files first
 
-// 2. Session middleware
-app.use(session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
-        maxAge: 24 * 60 * 60 * 1000
-    },
-    store: new RedisStore({ client: redisClient })
-}));
+---
 
-// 3. CSRF protection
-const csrfProtection = csrf({ cookie: false });
+## Anti-Patterns
 
-// 4. Rate limiting per session
-const sessionRateLimit = rateLimit({
-    store: new RedisStore({ client: redisClient }),
-    keyGenerator: (req) => req.sessionID,
-    windowMs: 15 * 60 * 1000,
-    max: 100
-});
+- **No state tracking** - Flying blind, can't resume
+- **Overly verbose state** - Keep it scannable, not a novel
+- **Stale state files** - Update regularly or they become useless
+- **Missing decisions** - Future you won't remember why
+- **No code landmarks** - Wastes time re-discovering the codebase
+- **Never archiving** - Session files become cluttered
+- **Ignoring compression signals** - Context overload degrades performance
+- **Skipping checkpoint after decisions** - Key context lost
+- **No handoff at session end** - Next session starts blind
 
-app.use(sessionRateLimit);
+---
 
-// 5. Authentication check
-const requireAuth = (req, res, next) => {
-    if (!req.session.user) {
-        return res.status(401).json({ error: 'Unauthorized' });
-    }
-    req.user = req.session.user;
-    next();
-};
+## Quick Reference
 
-app.post('/api/login', csrfProtection, async (req, res) => {
-    // Verify credentials
-    const user = await User.findOne({ email: req.body.email });
-    if (user && await user.verifyPassword(req.body.password)) {
-        req.session.user = { id: user.id, email: user.email, role: user.role };
-        req.session.regenerate((err) => {
-            if (err) return res.status(500).json({ error: 'Server error' });
-            res.json({ success: true });
-        });
-    } else {
-        res.status(401).json({ error: 'Invalid credentials' });
-    }
-});
-
-app.post('/api/logout', requireAuth, (req, res) => {
-    req.session.destroy((err) => {
-        if (err) return res.status(500).json({ error: 'Logout failed' });
-        res.clearCookie('connect.sid');
-        res.json({ success: true });
-    });
-});
+### Checkpoint Decision Tree
+```
+Task completed?
+    │
+    ├── Decision made? ──────────────────→ Log to decisions.md
+    │
+    ├── >10 tool calls OR significant? ──→ Full Checkpoint
+    │
+    ├── Major feature done? ─────────────→ Archive
+    │
+    └── Otherwise ───────────────────────→ Quick Update
 ```
 
-### 6. **Token Refresh Endpoint**
-
-```python
-# Flask token refresh endpoint
-from flask import request, jsonify
-from functools import wraps
-
-@app.route('/api/auth/refresh', methods=['POST'])
-def refresh_token():
-    data = request.get_json()
-    refresh_token = data.get('refresh_token')
-
-    if not refresh_token:
-        return jsonify({'error': 'Refresh token required'}), 400
-
-    token_manager = TokenManager()
-    tokens, error = token_manager.refresh_access_token(refresh_token)
-
-    if error:
-        return jsonify({'error': error}), 401
-
-    return jsonify(tokens), 200
-
-@app.route('/api/auth/logout', methods=['POST'])
-@require_auth
-def logout():
-    token = request.headers['Authorization'].split(' ')[1]
-    session_manager = RedisSessionManager()
-    session_manager.destroy_session(token)
-
-    return jsonify({'message': 'Logged out successfully'}), 200
-```
-
-### 7. **Session Cleanup and Maintenance**
-
-```python
-# Scheduled cleanup task with APScheduler
-from apscheduler.schedulers.background import BackgroundScheduler
-import atexit
-
-class SessionCleanup:
-    def __init__(self, redis_client, cleanup_interval_minutes=60):
-        self.redis = redis_client
-        self.cleanup_interval = cleanup_interval_minutes
-        self.scheduler = BackgroundScheduler()
-
-    def start(self):
-        self.scheduler.add_job(
-            func=self.cleanup_expired_sessions,
-            trigger='interval',
-            minutes=self.cleanup_interval,
-            id='cleanup_expired_sessions',
-            replace_existing=True
-        )
-        self.scheduler.start()
-        atexit.register(lambda: self.scheduler.shutdown())
-
-    def cleanup_expired_sessions(self):
-        """Remove expired sessions from Redis"""
-        cursor = 0
-        removed_count = 0
-
-        while True:
-            cursor, keys = self.redis.scan(cursor, match='session:*')
-            for key in keys:
-                ttl = self.redis.ttl(key)
-                if ttl == -2:  # Key doesn't exist
-                    removed_count += 1
-                elif ttl < 300:  # Less than 5 minutes left
-                    self.redis.delete(key)
-                    removed_count += 1
-
-            if cursor == 0:
-                break
-
-        return removed_count
-
-# Initialize on app startup
-cleanup = SessionCleanup(redis_client)
-cleanup.start()
-```
-
-## Best Practices
-
-### ✅ DO
-- Use HTTPS for all session transmission
-- Implement secure cookies (httpOnly, sameSite, secure flags)
-- Use JWT with proper expiration times
-- Implement token refresh mechanism
-- Store refresh tokens securely
-- Validate tokens on every request
-- Use strong secret keys
-- Implement session timeout
-- Log authentication events
-- Clear session data on logout
-- Use CSRF tokens for state-changing requests
-
-### ❌ DON'T
-- Store sensitive data in tokens
-- Use short secret keys
-- Transmit tokens in URLs
-- Ignore token expiration
-- Reuse token secrets across environments
-- Store tokens in localStorage (use httpOnly cookies)
-- Implement session without HTTPS
-- Forget to validate token signatures
-- Expose session IDs in logs
-- Use predictable session IDs
-
-## Complete Example
-
-```python
-from flask import Flask, request, jsonify
-from datetime import datetime, timedelta
-import jwt
-
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your-secret-key'
-
-TOKEN_MANAGER = TokenManager()
-
-@app.route('/login', methods=['POST'])
-def login():
-    data = request.json
-    user = User.query.filter_by(email=data['email']).first()
-
-    if user and user.verify_password(data['password']):
-        tokens = TOKEN_MANAGER.generate_tokens(user.id, user.email, user.role)
-        return jsonify(tokens), 200
-
-    return jsonify({'error': 'Invalid credentials'}), 401
-
-@app.route('/refresh', methods=['POST'])
-def refresh():
-    refresh_token = request.json.get('refresh_token')
-    tokens, error = TOKEN_MANAGER.refresh_access_token(refresh_token)
-
-    if error:
-        return jsonify({'error': error}), 401
-
-    return jsonify(tokens), 200
-```
+### Files at a Glance
+| File | Update Frequency | Purpose |
+|------|------------------|---------|
+| current-state.md | Every task | Live state, next steps |
+| decisions.md | When deciding | Architectural choices |
+| code-landmarks.md | When patterns change | Code navigation |
+| archive/*.md | End of session/feature | Historical record |

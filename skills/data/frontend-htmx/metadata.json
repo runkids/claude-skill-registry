@@ -1,12 +1,7 @@
 {
   "name": "frontend-htmx",
-  "description": "Axum + Askama + HTMX stack for single-binary web apps.Use when: building server-rendered UI, lightweight frontends, single deployable binary.Triggers: \"htmx\", \"askama\", \"templates\", \"server-rendered\",",
-  "repo": "timequity/vibe-coder",
-  "category": "design",
-  "tags": [
-    "frontend",
-    "htmx"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "timequity/plugins",
+  "path": "vibe-coder/skills/frontend-htmx/SKILL.md",
+  "source": "github.com/timequity/plugins",
+  "downloaded_at": "2026-01-14T03:41:21.342068Z"
 }

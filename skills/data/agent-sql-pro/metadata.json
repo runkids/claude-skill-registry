@@ -1,13 +1,7 @@
 {
   "name": "agent-sql-pro",
-  "description": "Expert SQL developer specializing in complex query optimization, database design, and performance tuning across PostgreSQL, MySQL, SQL Server, and Oracle. Masters advanced SQL features, indexing strat",
   "repo": "Tony363/SuperClaude",
-  "category": "data",
-  "tags": [
-    "agent",
-    "sql",
-    "pro"
-  ],
-  "stars": 10,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/DEPRECATED/agent-sql-pro/SKILL.md",
+  "source": "github.com/Tony363/SuperClaude",
+  "downloaded_at": "2026-01-14T03:29:08.694733Z"
 }

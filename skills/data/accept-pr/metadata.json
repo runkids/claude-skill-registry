@@ -1,11 +1,7 @@
 {
   "name": "accept-pr",
-  "description": "Land one PR end-to-end (changelog + thanks, lint, merge, back to main).",
   "repo": "doubleflannel/12-30-test-codex-ip",
-  "category": "data",
-  "tags": [
-    "accept"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/accept-pr/SKILL.md",
+  "source": "github.com/doubleflannel/12-30-test-codex-ip",
+  "downloaded_at": "2026-01-14T04:02:40.705697Z"
 }

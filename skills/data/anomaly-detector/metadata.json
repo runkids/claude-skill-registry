@@ -1,8 +1,7 @@
 {
   "name": "anomaly-detector",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "data",
-  "description": "Anomaly Detector - Auto-activating skill for Data Analytics.Triggers on: anomaly detector, anomaly detectorPart of the Data Analytics skill category.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:14.125918Z"
+  "repo": "anton-abyzov/specweave",
+  "path": "plugins/specweave-ml/skills/anomaly-detector/SKILL.md",
+  "source": "github.com/anton-abyzov/specweave",
+  "downloaded_at": "2026-01-14T03:26:43.829976Z"
 }

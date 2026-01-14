@@ -1,8 +1,7 @@
 {
   "name": "deep-reasoning-agent",
   "repo": "psh355q-ui/szdi57465yt",
-  "category": "data",
-  "description": "Three-stage Chain of Thought (CoT) analyzer for /deep-reasoning page. Performs comprehensive analysis in 3 stages Direct Impact \u2192 Secondary Effects \u2192 Final Conclusion for complex news articles. Optimi",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:43.824285Z"
+  "path": "backend/ai/skills/analysis/deep-reasoning-agent/SKILL.md",
+  "source": "github.com/psh355q-ui/szdi57465yt",
+  "downloaded_at": "2026-01-14T01:26:58.319670Z"
 }

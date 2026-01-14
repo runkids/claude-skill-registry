@@ -1,8 +1,7 @@
 {
   "name": "pubchem-database",
-  "repo": "davila7/claude-code-templates",
-  "category": "data",
-  "description": "Query PubChem via PUG-REST API/PubChemPy (110M+ compounds). Search by name/CID/SMILES, retrieve properties, similarity/substructure searches, bioactivity, for cheminformatics.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:38.166777Z"
+  "repo": "x-cmd/skill",
+  "path": "data/k-dense-ai/pubchem-database/SKILL.md",
+  "source": "github.com/x-cmd/skill",
+  "downloaded_at": "2026-01-14T02:45:42.369056Z"
 }

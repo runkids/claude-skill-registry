@@ -1,12 +1,7 @@
 {
   "name": "ddd-architecture",
-  "description": "Domain-Driven Design and Clean Architecture implementation guide",
-  "repo": "haginot/ddd-boilerplate",
-  "category": "design",
-  "tags": [
-    "ddd",
-    "architecture"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "LlechiKaito/taiho-app",
+  "path": ".claude/skills/ddd-architecture/SKILL.md",
+  "source": "github.com/LlechiKaito/taiho-app",
+  "downloaded_at": "2026-01-14T01:29:00.971114Z"
 }

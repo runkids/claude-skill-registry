@@ -1,150 +1,400 @@
 ---
 name: session-start
-description: Starts a session and generates a startup prompt for use in the target project repo. Use when user wants to start a session, generate a startup prompt, or begin working on a project.
-allowed-tools: Read, Write, Glob, Grep, Bash
+description: Use at the beginning of every work session - establishes context by checking GitHub project state, reading memory, verifying environment, and orienting before starting work
 ---
 
-# Session Start（开 Session）
+# Session Start
 
-> **使用位置**：vibehub-testing
->
-> **用途**：通过对话确定 session 内容，最终输出一个可以带到实际项目 repo 使用的「启动 prompt」。
+## Overview
 
-## 触发条件
+Get your bearings before doing any work. Every session starts here.
 
-用户说类似：
-- "我要开一个 session"
-- "帮我生成一个启动 prompt"
-- "我想在 XXX 项目上开始干活"
-- "生成启动 prompt"
+**Core principle:** Understand the current state before taking action.
 
-## 执行步骤
+**Announce at start:** "I'm using session-start to get oriented before beginning work."
 
-### Step 1: 检查是否有 prep
+## The Protocol
 
-查看 `sessions/` 目录，是否有对应项目的 prep：
-- 如果有，阅读 `prep/raw_dump.md` 提取信息
-- 如果没有，进入 Step 2 对话收集
+Execute these steps in order at the start of every session:
 
-### Step 2: 对话收集信息
+### Step 1: Environment Check
 
-询问用户关键问题：
+Verify required tools and environment variables are available.
 
-1. **项目名/代号**：这个项目叫什么？
-2. **目标**：你这次想做什么？
-3. **背景信息**：
-   - 有什么相关的 Drive 文档？
-   - 有什么相关的代码/文件？
-   - 需要我了解什么背景？
-4. **目标项目 repo**：代码仓库在哪里？（路径）
+```bash
+# Check GitHub CLI authentication
+gh auth status
 
-### Step 3: 对话澄清
+# Check git is available
+git --version
 
-通过对话确认：
-- 项目的核心目标
-- 需要参考的资料
-- 工作范围和边界
-- 任何特殊要求
+# Verify GITHUB_PROJECT is set
+echo $GITHUB_PROJECT
+```
 
-### Step 4: 生成 session.md
+**If any check fails:** Report to user before proceeding.
 
-在 `sessions/{timestamp}-{project}/` 下生成或更新 `session.md`：
+**Skill:** `environment-bootstrap`
+
+---
+
+### Step 1.5: Development Services
+
+Check for available development services (docker-compose).
+
+```bash
+# Detect compose services
+if [ -f "docker-compose.yml" ] || [ -f ".devcontainer/docker-compose.yml" ]; then
+    docker-compose config --services
+    docker-compose ps
+fi
+```
+
+**Key questions:**
+- What services are available (postgres, redis, etc.)?
+- Which are currently running?
+- Do any need to be started for this work?
+
+**If services are available but not running:**
+```bash
+# Start all services
+docker-compose up -d
+
+# Or start specific service
+docker-compose up -d postgres
+```
+
+**Skill:** `local-service-testing`
+
+---
+
+### Step 2: Repository State
+
+Understand the current state of the repository.
+
+```bash
+# Current branch
+git branch --show-current
+
+# Working directory status
+git status
+
+# Recent commits
+git log --oneline -5
+
+# Any stashed changes?
+git stash list
+```
+
+**Key questions:**
+- Am I on a feature branch or main?
+- Are there uncommitted changes?
+- Is there work in progress?
+
+---
+
+### Step 3: GitHub Project State (Source of Truth)
+
+Check the current state of work via the **GitHub Project Board** (the source of truth).
+
+```bash
+# Verify project is accessible
+gh project view "$GITHUB_PROJECT_NUM" --owner "$GH_PROJECT_OWNER" --format json
+
+# Get all project items with their status
+gh project item-list "$GITHUB_PROJECT_NUM" --owner "$GH_PROJECT_OWNER" --format json | \
+  jq '.items[] | {number: .content.number, title: .content.title, status: .status.name}'
+```
+
+**Key questions:**
+- What issues have Status = "In Progress"?
+- What issues have Status = "Ready" (pending work)?
+- Are there any Status = "Blocked" items?
+- What's the highest priority Ready item?
+
+**Query by status:**
+
+```bash
+# Get Ready issues (work available)
+gh project item-list "$GITHUB_PROJECT_NUM" --owner "$GH_PROJECT_OWNER" --format json | \
+  jq -r '.items[] | select(.status.name == "Ready") | .content.number'
+
+# Get In Progress issues
+gh project item-list "$GITHUB_PROJECT_NUM" --owner "$GH_PROJECT_OWNER" --format json | \
+  jq -r '.items[] | select(.status.name == "In Progress") | .content.number'
+
+# Get Blocked issues
+gh project item-list "$GITHUB_PROJECT_NUM" --owner "$GH_PROJECT_OWNER" --format json | \
+  jq -r '.items[] | select(.status.name == "Blocked") | .content.number'
+```
+
+---
+
+### Step 3.5: Project Board Sync Verification
+
+**MANDATORY:** Verify project board state matches actual work state.
+
+```bash
+# Check for sync issues between project board and reality
+
+echo "## Project Board Sync Check"
+echo ""
+
+# 1. Issues marked "In Progress" should have active branches
+echo "### Checking: In Progress issues have branches"
+for issue in $(gh project item-list "$GITHUB_PROJECT_NUM" --owner "$GH_PROJECT_OWNER" \
+  --format json | jq -r '.items[] | select(.status.name == "In Progress") | .content.number'); do
+
+  branch=$(git branch -r 2>/dev/null | grep -E "feature/$issue-" | head -1)
+  if [ -z "$branch" ]; then
+    echo "⚠️ Issue #$issue is 'In Progress' but has no branch"
+  fi
+done
+
+# 2. Active branches should have issues marked "In Progress"
+echo ""
+echo "### Checking: Active branches have In Progress issues"
+for branch in $(git branch -r 2>/dev/null | grep -E 'origin/feature/[0-9]+' | sed 's/.*feature\///' | cut -d- -f1 | sort -u); do
+  status=$(gh project item-list "$GITHUB_PROJECT_NUM" --owner "$GH_PROJECT_OWNER" \
+    --format json | jq -r ".items[] | select(.content.number == $branch) | .status.name")
+
+  if [ "$status" != "In Progress" ] && [ "$status" != "In Review" ]; then
+    echo "⚠️ Branch for #$branch exists but project Status='$status' (expected: In Progress or In Review)"
+  fi
+done
+
+# 3. Open PRs should have issues marked "In Review"
+echo ""
+echo "### Checking: Open PRs have In Review issues"
+for pr in $(gh pr list --json number,body --jq '.[] | select(.body | contains("Closes #")) | .body' 2>/dev/null | grep -oE 'Closes #[0-9]+' | grep -oE '[0-9]+'); do
+  status=$(gh project item-list "$GITHUB_PROJECT_NUM" --owner "$GH_PROJECT_OWNER" \
+    --format json | jq -r ".items[] | select(.content.number == $pr) | .status.name")
+
+  if [ "$status" != "In Review" ]; then
+    echo "⚠️ Issue #$pr has open PR but project Status='$status' (expected: In Review)"
+  fi
+done
+
+echo ""
+echo "Sync check complete."
+```
+
+**If sync issues found:**
+
+1. Report discrepancies to user before proceeding
+2. Fix critical discrepancies (In Progress with no branch = stale state)
+3. Document any unresolved sync issues
+
+**Skill:** `project-board-enforcement`
+
+---
+
+### Step 3.6: Active Orchestration Detection
+
+**CRITICAL:** Check if autonomous orchestration was running and needs to resume.
+
+```bash
+# Check MCP Memory for active orchestration marker
+ACTIVE_ORCH=$(mcp__memory__open_nodes({"names": ["ActiveOrchestration"]}))
+```
+
+**If ActiveOrchestration entity exists:**
 
 ```markdown
----
-session_id: {timestamp}-{project}
-project_handle: {project}
-target_repo: {目标项目路径}
-status: ready
-created_at: {ISO timestamp}
----
+## ⚠️ ACTIVE ORCHESTRATION DETECTED
 
-# Session: {项目名}
+**Status:** [from entity]
+**Scope:** [from entity]
+**Tracking Issue:** #[from entity]
+**Last Loop:** [from entity]
+**Repository:** [from entity]
 
-## 目标
-{这次要做什么}
+### Action Required
 
-## 背景信息
-{相关的 Drive 文档、代码位置、关键概念}
+Context was compacted mid-orchestration. Resuming now.
 
-## 工作范围
-{明确要做什么、不做什么}
-
-## 启动 Prompt
-见下方独立输出
+1. Verify tracking issue still exists
+2. Resume orchestration via `autonomous-orchestration` skill
+3. Continue from current phase (BOOTSTRAP or MAIN_LOOP)
 ```
 
-### Step 5: 生成「启动 Prompt」
+**Resume orchestration immediately** - do not wait for user input. The original request for autonomous operation is still the active consent.
 
-**这是核心输出**——一段可以直接复制到项目 repo 的 Claude Code 会话中使用的 prompt。
-
-**重要：启动 Prompt 必须包含 Drive 搜索指引！**
-
-输出格式：
-
-```
----
-
-## 启动 Prompt（复制到项目 repo 使用）
-
-### 项目背景
-
-{项目是什么、要做什么}
-
-### Drive 文档（重要！）
-
-在开始工作前，请让我提供以下 Drive 文档的内容：
-
-| 文档 | Drive 路径 | 用途 |
-|------|-----------|------|
-| {文档1} | My Drive/Projects/{项目}/xxx | {用途} |
-| {文档2} | My Drive/Projects/{项目}/references/xxx | {用途} |
-
-**搜索关键词**：{keyword1}, {keyword2}, {keyword3}
-
-> 注意：当你需要这些文档时，请告诉我「请提供 XXX 文档的内容」，我会从 Drive 复制给你。
-
-### 代码位置
-
-- 入口文件：{入口文件路径}
-- 关键目录：{目录}
-- 配置文件：{配置}
-
-### 本次目标
-
-{具体要完成的任务}
-
-### 工作方式
-
-1. **先读 Drive 文档**：告诉我你需要哪些文档，我会提供内容
-2. 阅读相关代码，理解现状
-3. 制定实现计划，让我确认
-4. 逐步实现，每完成一步汇报
-5. 遇到问题及时沟通
-
-### 开始
-
-请先告诉我你需要阅读哪些 Drive 文档，然后我会提供内容。
+**If no ActiveOrchestration entity:** Continue to Step 4.
 
 ---
+
+### Step 4: Memory Recall
+
+Search for relevant context from previous sessions.
+
+**Episodic Memory:**
+- Search for current issue number
+- Search for feature/project name
+- Search for recent work in this repository
+
+**Knowledge Graph (mcp__memory):**
+- Check for entities related to this project
+- Look for documented decisions or patterns
+
+**Skill:** `memory-integration`
+
+---
+
+### Step 5: Active Work Detection
+
+Determine if there's work in progress to resume.
+
+**Indicators of active work:**
+- Branch is not main
+- Uncommitted changes exist
+- Issue marked "In Progress" in project
+- Previous session notes reference ongoing work
+
+**If active work detected:**
+1. Read the associated issue
+2. Check last commit message for context
+3. Review any verification reports
+4. Determine current step in `issue-driven-development` process
+
+---
+
+### Step 6: Environment Bootstrap
+
+If starting fresh or environment needs setup:
+
+```bash
+# Run init script if it exists
+if [ -f scripts/init.sh ]; then
+    ./scripts/init.sh
+fi
+
+# Or common alternatives
+pnpm install --frozen-lockfile  # Node projects
+pip install                     # Python projects
 ```
 
-### Step 6: 引导用户
+**Verify basic functionality works before starting new work.**
 
-告诉用户：
-> session.md 已生成：`sessions/{path}/session.md`
->
-> **启动 Prompt 已包含 Drive 搜索指引。**
->
-> 请复制上面的「启动 Prompt」，到项目 repo `{target_repo}` 打开 Claude Code，贴入开始工作。
->
-> 当 Claude 需要 Drive 文档时，你可以：
-> 1. 在 Drive 搜索相关关键词
-> 2. 打开文档，复制内容给 Claude
+**Skill:** `environment-bootstrap`
 
-## 输出清单
+---
 
-1. `sessions/{timestamp}-{project}/session.md`
-2. **启动 Prompt**（包含 Drive 搜索指引）
-3. **Drive 关键词清单**
-4. 下一步指引
+### Step 7: Orient and Report
+
+Summarize current state to user:
+
+```markdown
+## Session State
+
+**Repository:** [owner/repo]
+**Branch:** [current branch]
+**Working Directory:** [clean/dirty]
+
+**Active Work:**
+- Issue: #[number] - [title]
+- Status: [project status]
+- Progress: [what's been done]
+
+**Environment:**
+- [tool versions]
+- [any issues detected]
+
+**Development Services:**
+- postgres: [running/stopped] @ localhost:5432
+- redis: [running/stopped] @ localhost:6379
+- [other services from docker-compose]
+
+**Ready to:** [resume work on X / start new issue / await instructions]
+```
+
+---
+
+## Decision Tree
+
+```
+Start Session
+     │
+     ▼
+┌─────────────────┐
+│ Environment OK? │──No──► Report issues, await fix
+└────────┬────────┘
+         │ Yes
+         ▼
+┌─────────────────┐
+│ On main branch? │──Yes──► Ready for new work
+└────────┬────────┘
+         │ No
+         ▼
+┌─────────────────┐
+│ Uncommitted     │──Yes──► Resume in-progress work
+│ changes exist?  │
+└────────┬────────┘
+         │ No
+         ▼
+┌─────────────────┐
+│ Issue marked    │──Yes──► Resume in-progress work
+│ In Progress?    │
+└────────┬────────┘
+         │ No
+         ▼
+Ready for new work
+```
+
+## Resuming In-Progress Work
+
+If resuming work from a previous session:
+
+1. **Read the issue** - Full description and all comments
+2. **Check last commit** - What was the last completed step?
+3. **Run tests** - Is the codebase in a working state?
+4. **Review verification** - What criteria are already met?
+5. **Determine next step** - Map to `issue-driven-development` steps
+
+Then continue from the appropriate step in `issue-driven-development`.
+
+## Starting New Work
+
+If no work in progress:
+
+1. Check GitHub Project for highest priority "Ready" item
+2. Or await user instructions for which issue to work on
+3. Begin `issue-driven-development` from Step 1
+
+## Common Issues
+
+| Issue | Resolution |
+|-------|------------|
+| GITHUB_PROJECT not set | Ask user for project URL |
+| Not authenticated to gh | Run `gh auth login` |
+| Dirty working directory on main | Stash or discard before proceeding |
+| Issue "In Progress" but branch deleted | Reset issue status, start fresh |
+
+## Checklist
+
+Before proceeding to work:
+
+- [ ] Environment verified (gh, git, env vars)
+- [ ] **GITHUB_PROJECT_NUM and GH_PROJECT_OWNER set**
+- [ ] Development services detected and status reported
+- [ ] Repository state understood
+- [ ] **GitHub Project state checked (via project board, not labels)**
+- [ ] **Project board sync verified (Step 3.5)**
+- [ ] **Sync discrepancies reported/fixed**
+- [ ] **Active orchestration checked (Step 3.6)** - Resume if found
+- [ ] Memory searched for context
+- [ ] Active work detected or new work identified
+- [ ] Environment bootstrapped if needed
+- [ ] Required services started (if applicable)
+- [ ] State reported to user
+
+**Skill:** `project-board-enforcement`
+
+## Integration
+
+After session-start completes, proceed to either:
+
+- **Resume:** Continue from current step in `issue-driven-development`
+- **New work:** Begin `issue-driven-development` from Step 1
+
+Always operate under `autonomous-operation` mode.

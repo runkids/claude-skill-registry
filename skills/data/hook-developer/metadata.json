@@ -1,12 +1,7 @@
 {
   "name": "hook-developer",
-  "description": "Complete Claude Code hooks reference - input/output schemas, registration, testing patterns",
-  "repo": "parcadei/Continuous-Claude-v2",
-  "category": "development",
-  "tags": [
-    "hook",
-    "developer"
-  ],
-  "stars": 1318,
-  "source": "SkillsMP Synced Skills"
+  "repo": "parcadei/Continuous-Claude-v3",
+  "path": ".claude/skills/hook-developer/SKILL.md",
+  "source": "github.com/parcadei/Continuous-Claude-v3",
+  "downloaded_at": "2026-01-14T01:18:49.828104Z"
 }

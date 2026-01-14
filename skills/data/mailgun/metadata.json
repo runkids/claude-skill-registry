@@ -1,8 +1,7 @@
 {
   "name": "mailgun",
   "repo": "enuno/claude-command-and-control",
-  "category": "data",
-  "description": "Comprehensive assistance with mailgun",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:26.827617Z"
+  "path": "skills-templates/mailgun/SKILL.md",
+  "source": "github.com/enuno/claude-command-and-control",
+  "downloaded_at": "2026-01-14T00:52:39.551762Z"
 }

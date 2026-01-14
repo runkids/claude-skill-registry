@@ -1,9 +1,7 @@
 {
   "name": "threat-modeling",
-  "description": "Use when implementing auth, file uploads, payments, or external APIs. Applies STRIDE framework systematically. Triggers: \"authentication\", \"file upload\", \"payment\", \"multi-tenant\", \"external API\". If ",
-  "repo": "pvillega/claude-templates",
-  "category": "security",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "proflead/codex-skills-library",
+  "path": "skills/security/threat-modeling/SKILL.md",
+  "source": "github.com/proflead/codex-skills-library",
+  "downloaded_at": "2026-01-14T01:38:22.083876Z"
 }

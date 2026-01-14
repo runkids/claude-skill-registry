@@ -1,12 +1,7 @@
 {
   "name": "debugging-wizard",
-  "description": "Use when investigating errors, analyzing stack traces, or finding root causes of unexpected behavior. Invoke for error investigation, troubleshooting, log analysis, root cause analysis. Keywords: debu",
   "repo": "Jeffallan/claude-skills",
-  "category": "development",
-  "tags": [
-    "debugging",
-    "wizard"
-  ],
-  "stars": 12,
-  "source": "local"
+  "path": "skills/debugging-wizard/SKILL.md",
+  "source": "github.com/Jeffallan/claude-skills",
+  "downloaded_at": "2026-01-14T02:36:38.509164Z"
 }

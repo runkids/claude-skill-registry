@@ -1,12 +1,7 @@
 {
   "name": "comparative-matrix",
-  "description": "Generate structured comparisons and decision matrices across analyzed frameworks. Use when (1) comparing multiple frameworks or approaches side-by-side, (2) making architectural decisions between alte",
   "repo": "Dowwie/agent_framework_study",
-  "category": "documents",
-  "tags": [
-    "comparative",
-    "matrix"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/comparative-matrix/SKILL.md",
+  "source": "github.com/Dowwie/agent_framework_study",
+  "downloaded_at": "2026-01-14T01:47:07.594085Z"
 }

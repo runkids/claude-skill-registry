@@ -1,8 +1,7 @@
 {
   "name": "backlog-curator",
-  "repo": "CheekyCodexConjurer/aera-chart-engine",
-  "category": "data",
-  "description": "Maintain a lightweight backlog of high-value tasks discovered during work.",
-  "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:31:53.388280Z"
+  "repo": "rysweet/azlin",
+  "path": ".claude/skills/backlog-curator/skill.md",
+  "source": "github.com/rysweet/azlin",
+  "downloaded_at": "2026-01-14T03:30:03.968397Z"
 }

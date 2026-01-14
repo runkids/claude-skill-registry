@@ -1,12 +1,7 @@
 {
   "name": "bellog-notion",
-  "description": "Provides Notion CMS integration patterns and best practices for Bellog. Triggers when working with Notion data or implementing Notion-based features.",
   "repo": "whddltjdwhd/bellog",
-  "category": "testing",
-  "tags": [
-    "bellog",
-    "notion"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/bellog-notion/SKILL.md",
+  "source": "github.com/whddltjdwhd/bellog",
+  "downloaded_at": "2026-01-14T01:13:20.438575Z"
 }

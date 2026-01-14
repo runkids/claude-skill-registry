@@ -1,13 +1,7 @@
 {
   "name": "dev-code-quality",
-  "description": "Code Quality Standards. Use it everytime you plan or implement any code.",
   "repo": "shredbx/demo-3d-model",
-  "category": "development",
-  "tags": [
-    "dev",
-    "code",
-    "quality"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/dev-code-quality/SKILL.md",
+  "source": "github.com/shredbx/demo-3d-model",
+  "downloaded_at": "2026-01-14T03:59:03.063741Z"
 }

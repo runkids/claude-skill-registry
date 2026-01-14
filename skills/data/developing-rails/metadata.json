@@ -1,12 +1,7 @@
 {
   "name": "developing-rails",
-  "description": "Use when working with Rails projects, ActiveRecord models, controllers, routes, or Rails-specific patterns. Covers naming conventions, models, migrations, service objects, and testing with RSpec.",
   "repo": "jkappers/claude-code-software-delivery-plugin",
-  "category": "testing",
-  "tags": [
-    "developing",
-    "rails"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/developing-rails/SKILL.md",
+  "source": "github.com/jkappers/claude-code-software-delivery-plugin",
+  "downloaded_at": "2026-01-14T02:51:59.094388Z"
 }

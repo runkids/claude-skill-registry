@@ -1,12 +1,7 @@
 {
   "name": "doc-bdd",
-  "description": "Layer 4 artifact for Behavior-Driven Development test scenarios using Gherkin Given-When-Then format",
   "repo": "vladm3105/aidoc-flow-framework",
-  "category": "development",
-  "tags": [
-    "doc",
-    "bdd"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/doc-bdd/SKILL.md",
+  "source": "github.com/vladm3105/aidoc-flow-framework",
+  "downloaded_at": "2026-01-14T03:58:00.585803Z"
 }

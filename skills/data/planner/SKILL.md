@@ -1,77 +1,41 @@
 ---
 name: planner
-description: Interactive planning and execution for complex tasks. Use when user asks to use or invoke planner skill.
+description: Planner role for the ikigai project
 ---
 
-# Planner Skill
+# Planner
 
-Two workflows: **planning** (13-step plan creation + review) and **execution**
-(implement plans).
+**Purpose:** Create implementation plans and task files for unattended execution.
 
-## Activation
+## Responsibilities
 
-When this skill activates, IMMEDIATELY invoke the corresponding script. The
-script IS the workflow.
+1. **Analyze** - Understand requirements from user stories and research
+2. **Design** - Create architecture and implementation approach
+3. **Break Down** - Split into smallest testable, executable tasks
+4. **Author Tasks** - Write complete task files with all context needed
 
-| Mode      | Intent                             | Command                                                                                                             |
-| --------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| planning  | "plan", "design", "architect"      | `<invoke working-dir=".claude/skills/scripts" cmd="python3 -m skills.planner.planner --step 1 --total-steps 13" />` |
-| execution | "execute", "implement", "run plan" | `<invoke working-dir=".claude/skills/scripts" cmd="python3 -m skills.planner.executor --step 1 --total-steps 9" />` |
+## Outputs
 
-## When to Use
+- `cdd/plan/*.md` - Architecture decisions, interface designs, library choices
+- `cdd/tasks/*.md` - Individual task files for orchestration
+- `cdd/tasks/order.json` - Execution order and task metadata
 
-Use when task has:
+## Plan Content
 
-- Multiple milestones with dependencies
-- Architectural decisions requiring documentation
-- Complexity benefiting from forced reflection pauses
+Plans define the coordination layer between tasks - the contracts that independent tasks must agree on. Include function signatures (names, parameters, return types), struct definitions (member names and types), enums, and inter-module interfaces. Describe *what* each function does and *when* it should be called, but never include function bodies, algorithms, or implementation code. The plan answers "what is the interface?" while tasks answer "how do I implement it?"
 
-Skip when task is:
+## Mindset
 
-- Single-step with obvious implementation
-- Quick fix or minor change
-- Already well-specified by user
+- Spend generously planning to save massively during execution
+- Tasks execute unattended - include everything the sub-agent needs
+- No numeric prefixes in filenames - order.json defines sequence
 
-## Resources
+## Verification Prompts
 
-| Resource                             | Contents                   | Read When                                       |
-| ------------------------------------ | -------------------------- | ----------------------------------------------- |
-| `.claude/conventions/diff-format.md` | Unified diff specification | Writing code changes in milestones              |
-| `resources/plan-format.md`           | Plan template structure    | Completing planning phase (injected by script)  |
-| `.claude/conventions/temporal.md`    | Comment hygiene heuristics | Writing comments in code snippets               |
-| `.claude/conventions/structural.md`  | Structural conventions     | Making decisions without explicit user guidance |
+Before considering a plan complete, verify each of these:
 
-## Planning Workflow (13 steps)
+**Integration specification:** When the plan involves replacing existing code with new code, verify the integration is fully specified. Trace the complete call chain from existing callers to new functions. For each integration point, confirm: (1) exact function signature changes (current → new), (2) struct modifications needed to pass new dependencies (e.g., registry), and (3) data format compatibility between old consumers and new producers. Identify any friction where existing code cannot call new interfaces without additional changes. Document missing specifications as gaps.
 
-**Steps 1-5: Planning**
+**No function bodies:** Verify plan documents do not contain function implementation code. Plans SHOULD have: function signatures, new struct/enum definitions with all fields, behavioral descriptions ("calls X, then Y"), and JSON format contracts. Plans should NOT have: function bodies with logic inside braces, if/else/for/while statements inside functions, or algorithm steps. When modifying existing structs, show only the new fields being added (not the full existing struct). Exception: removal-specification.md may show exact code to find/replace since it's a patch specification.
 
-1. Context Discovery - explore, gather requirements
-2. Testing Strategy Discovery - identify test patterns
-3. Approach Generation - generate options with tradeoffs
-4. Assumption Surfacing - user confirmation of choices
-5. Approach Selection & Milestones - decide, write milestones + Code Intent
-
-**Steps 6-13: Review**
-
-6. QR-Completeness - validate plan structure
-7. Gate - route based on QR result
-8. Developer Fills Diffs - convert Code Intent to diffs
-9. QR-Code - validate diffs and code quality
-10. Gate - route based on QR result
-11. TW Documentation Scrub - clean comments, inject WHY
-12. QR-Docs - validate comment hygiene
-13. Gate - PLAN APPROVED
-
-## Execution Workflow (9 steps)
-
-1. Execution planning - wave analysis
-2. Reconciliation (conditional) - validate existing code
-3. Implementation - wave-aware parallel dispatch to developers
-4. Code QR - verify code quality (RULE 0/1/2)
-5. Code QR Gate - route to step 3 on fail
-6. Documentation - create CLAUDE.md/README.md
-7. Doc QR - verify documentation quality
-8. Doc QR Gate - route to step 6 on fail
-9. Retrospective - summary presentation
-
-Scripts inject step-specific guidance. Invoke and follow output.
+**Test strategy defined:** Verify the plan specifies what should be tested and how. For each major component, confirm: (1) unit test scope (which functions/behaviors), (2) integration test scope (which interactions), and (3) test tooling/patterns to use. The plan doesn't need detailed test code, but tasks need clear guidance on what to test.

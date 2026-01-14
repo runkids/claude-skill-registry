@@ -1,12 +1,7 @@
 {
   "name": "treatment-plans",
-  "description": "Generate concise (3-4 page), focused medical treatment plans in LaTeX/PDF format for all clinical specialties. Supports general medical treatment, rehabilitation therapy, mental health care, chronic d",
   "repo": "davila7/claude-code-templates",
-  "category": "data",
-  "tags": [
-    "treatment",
-    "plans"
-  ],
-  "stars": 14334,
-  "source": "SkillsMP Synced Skills"
+  "path": "cli-tool/components/skills/scientific/treatment-plans/SKILL.md",
+  "source": "github.com/davila7/claude-code-templates",
+  "downloaded_at": "2026-01-14T02:44:47.757821Z"
 }

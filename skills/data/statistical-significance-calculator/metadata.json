@@ -1,8 +1,7 @@
 {
   "name": "statistical-significance-calculator",
   "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "data",
-  "description": "Statistical Significance Calculator - Auto-activating skill for Data Analytics.Triggers on: statistical significance calculator, statistical significance calculatorPart of the Data Analytics skill cat",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:05.644811Z"
+  "path": "skills/12-data-analytics/statistical-significance-calculator/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-01-14T02:49:08.658307Z"
 }

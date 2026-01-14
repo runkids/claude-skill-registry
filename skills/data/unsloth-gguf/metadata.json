@@ -1,11 +1,7 @@
 {
   "name": "unsloth-gguf",
-  "description": "Exporting fine-tuned models to GGUF format for deployment in llama.cpp, Ollama, and local serving tools. Triggers: gguf, quantization export, llama.cpp, ollama, save_pretrained_gguf, modelfile.",
   "repo": "cuba6112/skillfactory",
-  "category": "data",
-  "tags": [
-    "unsloth",
-    "gguf"
-  ],
-  "stars": 0
+  "path": "skills/unsloth-gguf/SKILL.md",
+  "source": "github.com/cuba6112/skillfactory",
+  "downloaded_at": "2026-01-14T02:37:39.384725Z"
 }

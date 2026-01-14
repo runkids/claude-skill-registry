@@ -1,13 +1,7 @@
 {
   "name": "html-lint-runner",
-  "description": "Runs automated HTML linting using @axe-core/playwright (WCAG accessibility) and markuplint (HTML standards). Use when user asks to \"lint HTML\", \"run automated checks\", \"validate HTML\", \"check accessib",
   "repo": "naporin0624/claude-web-audit-plugins",
-  "category": "testing",
-  "tags": [
-    "html",
-    "lint",
-    "runner"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": "skills/html-lint-runner/SKILL.md",
+  "source": "github.com/naporin0624/claude-web-audit-plugins",
+  "downloaded_at": "2026-01-14T02:31:14.524065Z"
 }

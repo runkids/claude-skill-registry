@@ -1,12 +1,7 @@
 {
   "name": "dependency-upgrade",
-  "description": "Upgrade dependencies safely using pnpm catalog, checking for breaking changes, and testing upgrades. Use when updating packages, applying security patches, or upgrading major versions.",
-  "repo": "sgcarstrends/sgcarstrends",
-  "category": "testing",
-  "tags": [
-    "dependency",
-    "upgrade"
-  ],
-  "stars": 13,
-  "source": "SkillsMP Synced Skills"
+  "repo": "camoneart/claude-code",
+  "path": "skills/dependency-upgrade/SKILL.md",
+  "source": "github.com/camoneart/claude-code",
+  "downloaded_at": "2026-01-14T03:37:01.213133Z"
 }

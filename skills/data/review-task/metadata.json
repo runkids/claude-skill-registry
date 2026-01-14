@@ -1,9 +1,7 @@
 {
   "name": "review-task",
-  "description": "Orchestrate comprehensive quality assessment by executing 5 specialized quality skills in sequence and synthesizing results into a unified quality gate decision. This skill should be used when perform",
   "repo": "adolfoaranaes12/BMAD-ENHANCED",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/review-task/SKILL.md",
+  "source": "github.com/adolfoaranaes12/BMAD-ENHANCED",
+  "downloaded_at": "2026-01-14T03:09:01.659405Z"
 }

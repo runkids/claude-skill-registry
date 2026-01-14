@@ -1,100 +1,244 @@
 ---
 name: rust-testing
-description: Rust testing patterns and best practices. Use this skill when writing, reviewing, or modifying Rust tests. Covers test organization, assertions with pretty_assertions, parameterized tests, and testing multiple input formats.
+description: Write and run Rust tests using cargo test with unit tests, integration tests, doc tests, and property-based testing. Use when writing Rust tests or setting up test infrastructure.
 ---
 
-# Rust Testing Guide
+# Rust Testing Skill
 
-Project-specific testing patterns for consistent, readable tests.
+## When to Activate
 
-## Test Organization
+Activate this skill when:
+- Writing Rust unit tests
+- Creating integration tests
+- Working with doc tests
+- Setting up property-based testing
+- Running benchmarks
 
-- Colocate tests with code in `#[cfg(test)]` modules (not separate `tests/` directories)
-- Write tests integration-style (test public APIs) not unit-style (test internals)
+## Quick Commands
 
-## Assertions with pretty_assertions
+```bash
+# Run all tests
+cargo test
 
-Import with prefixes to avoid shadowing (see hurry/tests/it/passthrough.rs:7 or hurry/src/cargo/build_args.rs:650):
+# With output
+cargo test -- --nocapture
 
-```rust
-use pretty_assertions::assert_eq as pretty_assert_eq;
+# Run specific test
+cargo test test_user_create
+
+# Run tests in module
+cargo test auth::
+
+# Run ignored tests
+cargo test -- --ignored
+
+# Doc tests only
+cargo test --doc
+
+# Integration tests only
+cargo test --test integration
 ```
 
-### Key Pattern: Construct Full Expected Value First
-
-Always construct the ENTIRE expected value upfront and compare in ONE operation:
+## Unit Tests (Same File)
 
 ```rust
-// ✅ Prefer: Declare expected value first, single assertion
-let expected = serde_json::json!({
-    "written": [key1, key2, key3],
-    "skipped": [],
-    "errors": [],
-});
-let body = response.json::<Value>();
-pretty_assert_eq!(body, expected);
+pub fn add(a: i32, b: i32) -> i32 {
+    a + b
+}
 
-// ❌ Avoid: Property-by-property assertions
-let body = response.json::<Value>();
-pretty_assert_eq!(body["written"].len(), 3);
-pretty_assert_eq!(body["skipped"], serde_json::json!([]));
-assert!(body["written"].contains(&key1));
-```
+#[cfg(test)]
+mod tests {
+    use super::*;
 
-### When Values Are Non-Deterministic
+    #[test]
+    fn test_add() {
+        assert_eq!(add(2, 3), 5);
+    }
 
-For unpredictable values (like error messages), keep property checks minimal:
-
-```rust
-// ✅ Good: Check structure separately
-pretty_assert_eq!(body["written"], serde_json::json!([]));
-pretty_assert_eq!(body["errors"].as_array().unwrap().len(), 1);
-assert!(body["errors"][0]["error"].as_str().unwrap().contains("expected substring"));
-```
-
-**See** `references/assertion-patterns.md` for more examples
-
-## Parameterized Tests
-
-Use `simple_test_case` for tests with multiple variations (see hurry/tests/it/passthrough.rs:55-65 or hurry/src/cargo/build_args.rs:655-662):
-
-```rust
-use simple_test_case::test_case;
-
-#[test_case("--release"; "long")]
-#[test_case("-r"; "short")]
-#[test]
-fn parses_release_flag(flag: &str) {
-    let args = CargoBuildArguments::from_iter(vec![flag]);
-    assert!(args.is_release());
-    pretty_assert_eq!(args.profile(), Some("release"));
+    #[test]
+    fn test_add_negative() {
+        assert_eq!(add(-1, -1), -2);
+    }
 }
 ```
 
-Each case runs independently: `parses_release_flag::long`, `parses_release_flag::short`
+## Test Attributes
 
-**See** `references/parameterized-tests.md` for testing multiple input formats
+```rust
+#[test]
+fn regular_test() { }
 
-## Running Tests
+#[test]
+#[ignore]
+fn slow_test() { }  // Skip unless --ignored
 
-Use cargo nextest:
-```bash
-cargo nextest run -p {PACKAGE_NAME}
+#[test]
+#[should_panic]
+fn test_panic() {
+    panic!("This should panic");
+}
+
+#[test]
+#[should_panic(expected = "specific message")]
+fn test_panic_message() {
+    panic!("specific message here");
+}
+
+#[test]
+fn test_with_result() -> Result<(), String> {
+    let result = some_operation()?;
+    assert_eq!(result, expected);
+    Ok(())
+}
 ```
 
-Available packages: `hurry`, `courier`, `clients`, `e2e`
+## Assertions
 
-### Workflow
+```rust
+// Basic
+assert_eq!(1 + 1, 2);
+assert_ne!(1 + 1, 3);
+assert!(true);
 
-1. Write tests
-2. Run tests for the package
-3. If successful, commit
-4. If tests fail, fix issues before committing
+// With messages
+assert_eq!(result, expected, "values should match: got {}", result);
 
-## When to Use This Skill
+// Pattern matching
+assert!(matches!(value, Pattern::Variant(_)));
 
-Invoke when:
-- Writing new tests
-- Reviewing test code
-- Debugging test failures
-- Setting up test patterns for new modules
+// Option/Result
+assert!(some_option.is_some());
+assert!(some_result.is_ok());
+```
+
+## Integration Tests
+
+```rust
+// tests/api_integration.rs
+use my_crate::{Config, Server};
+
+#[test]
+fn test_server_startup() {
+    let config = Config::default();
+    let server = Server::new(config);
+    assert!(server.start().is_ok());
+}
+```
+
+## Directory Structure
+
+```
+project/
+├── Cargo.toml
+├── src/
+│   ├── lib.rs          # Unit tests in #[cfg(test)]
+│   └── user.rs         # Module with inline tests
+└── tests/              # Integration tests
+    ├── common/
+    │   └── mod.rs      # Shared utilities
+    └── api_test.rs
+```
+
+## Mocking with Traits
+
+```rust
+pub trait UserRepository {
+    fn find_by_id(&self, id: u64) -> Option<User>;
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::collections::HashMap;
+
+    struct MockUserRepo {
+        users: HashMap<u64, User>,
+    }
+
+    impl UserRepository for MockUserRepo {
+        fn find_by_id(&self, id: u64) -> Option<User> {
+            self.users.get(&id).cloned()
+        }
+    }
+
+    #[test]
+    fn test_user_service() {
+        let mut users = HashMap::new();
+        users.insert(1, User { id: 1, email: "test@example.com".into() });
+        let repo = MockUserRepo { users };
+
+        let service = UserService::new(Box::new(repo));
+        let user = service.get_user(1).unwrap();
+        assert_eq!(user.email, "test@example.com");
+    }
+}
+```
+
+## Async Testing (tokio)
+
+```rust
+#[tokio::test]
+async fn test_async_operation() {
+    let result = fetch_data().await;
+    assert!(result.is_ok());
+}
+
+#[tokio::test]
+async fn test_with_timeout() {
+    let result = tokio::time::timeout(
+        Duration::from_secs(5),
+        slow_operation()
+    ).await;
+    assert!(result.is_ok());
+}
+```
+
+## Doc Tests
+
+```rust
+/// Adds two numbers together.
+///
+/// # Examples
+///
+/// ```
+/// use my_crate::add;
+/// let result = add(2, 3);
+/// assert_eq!(result, 5);
+/// ```
+pub fn add(a: i32, b: i32) -> i32 {
+    a + b
+}
+```
+
+## Property-Based Testing (proptest)
+
+```rust
+use proptest::prelude::*;
+
+proptest! {
+    #[test]
+    fn test_add_commutative(a: i32, b: i32) {
+        prop_assert_eq!(add(a, b), add(b, a));
+    }
+}
+```
+
+## Coverage
+
+```bash
+# Using cargo-tarpaulin
+cargo install cargo-tarpaulin
+cargo tarpaulin --out Html
+
+# Using cargo-llvm-cov
+cargo install cargo-llvm-cov
+cargo llvm-cov --html
+```
+
+## Related Resources
+
+See `AgentUsage/testing_rust.md` for complete documentation including:
+- Benchmarking with criterion
+- Setup/teardown patterns
+- Mockall crate usage
+- CI configuration

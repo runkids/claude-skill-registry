@@ -1,12 +1,7 @@
 {
   "name": "polymorphic-analytics-instantiation",
-  "description": "Instantiate polymorphic analytics for multi-context analysis.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "data",
-  "tags": [
-    "polymorphic",
-    "analytics",
-    "instantiation"
-  ],
-  "stars": 1
+  "path": "skills/polymorphic-analytics-instantiation/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-14T01:08:20.910536Z"
 }

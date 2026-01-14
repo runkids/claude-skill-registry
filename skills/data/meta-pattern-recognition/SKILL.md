@@ -1,19 +1,11 @@
 ---
-name: meta-pattern-recognition
-description: Spot patterns appearing in 3+ domains to find universal principles. Use when noticing the same pattern across 3+ different domains or experiencing déjà vu in problem-solving.
-tier: e
-morpheme: e
-dewey_id: e.3.1.3
-dependencies:
-  - gremlin-brain-v2
-  - synthesis-engine
-  - recursive-refiner
-  - coherence
+name: Meta-Pattern Recognition
+description: Spot patterns appearing in 3+ domains to find universal principles
+when_to_use: when noticing the same pattern across 3+ different domains or experiencing déjà vu in problem-solving
+version: 1.1.0
 ---
 
 # Meta-Pattern Recognition
-
-*Part of the GONAD: Gremlin Obnoxious Network of Actual Discovery*
 
 ## Overview
 

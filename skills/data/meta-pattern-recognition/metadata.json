@@ -1,12 +1,7 @@
 {
   "name": "meta-pattern-recognition",
-  "description": "Spot patterns appearing in 3+ domains to find universal principles. Use when noticing the same pattern across 3+ different domains or experiencing déjà vu in problem-solving.",
-  "repo": "agentgptsmith/MonadFramework",
-  "category": "data",
-  "tags": [
-    "meta",
-    "pattern",
-    "recognition"
-  ],
-  "stars": 0
+  "repo": "mrgoonie/xxxnaper",
+  "path": ".claude/skills/problem-solving/meta-pattern-recognition/SKILL.md",
+  "source": "github.com/mrgoonie/xxxnaper",
+  "downloaded_at": "2026-01-14T04:00:32.278770Z"
 }

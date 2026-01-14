@@ -1,12 +1,7 @@
 {
   "name": "economist-analyst",
-  "description": "Analyzes events through economic lens using supply/demand, incentive structures, market dynamics,and multiple schools of economic thought (Classical, Keynesian, Austrian, Behavioral).Provides insights",
-  "repo": "rysweet/MicrosoftHackathon2025-AgenticCoding",
-  "category": "testing",
-  "tags": [
-    "economist",
-    "analyst"
-  ],
-  "stars": 10,
-  "source": "SkillsMP Synced Skills"
+  "repo": "rysweet/azlin",
+  "path": ".claude/skills/economist-analyst/SKILL.md",
+  "source": "github.com/rysweet/azlin",
+  "downloaded_at": "2026-01-14T03:30:06.885112Z"
 }

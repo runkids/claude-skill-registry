@@ -1,13 +1,7 @@
 {
   "name": "variant-consistency-checker",
-  "description": "[Design System] Validate UI component usage against design system specifications. Use when (1) checking component variants/sizes are valid, (2) verifying required props are present, (3) detecting depr",
   "repo": "CANTAGESTUDIO/CosmicAtlasPacker",
-  "category": "design",
-  "tags": [
-    "variant",
-    "consistency",
-    "checker"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".factory/skills/variant-consistency-checker/SKILL.md",
+  "source": "github.com/CANTAGESTUDIO/CosmicAtlasPacker",
+  "downloaded_at": "2026-01-14T02:43:53.186489Z"
 }

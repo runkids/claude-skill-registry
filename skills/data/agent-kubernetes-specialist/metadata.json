@@ -1,13 +1,7 @@
 {
   "name": "agent-kubernetes-specialist",
-  "description": "Expert Kubernetes specialist mastering container orchestration, cluster management, and cloud-native architectures. Specializes in production-grade deployments, security hardening, and performance opt",
   "repo": "Tony363/SuperClaude",
-  "category": "devops",
-  "tags": [
-    "agent",
-    "kubernetes",
-    "specialist"
-  ],
-  "stars": 10,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/agent-kubernetes-specialist/SKILL.md",
+  "source": "github.com/Tony363/SuperClaude",
+  "downloaded_at": "2026-01-14T03:29:09.133219Z"
 }

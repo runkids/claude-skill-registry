@@ -1,520 +1,345 @@
 ---
-name: work-on-ticket
-description: Pulls ticket details from Jira, creates feature branches with proper naming conventions, and handles planning steps. Use when starting work on a Jira ticket, creating branches for tickets, or when users mention "work on ticket", "start ticket", "create branch for", or Jira ticket IDs.
+name: Work on Ticket
+description: Fetches Jira ticket details, creates an appropriately named branch, and initiates the task planning workflow. Use when the user says "work on [TICKET_ID]" or similar phrases.
 license: MIT
-metadata:
-  author: agent-skills-demo
-  version: "1.0"
-  category: development
-compatibility: Requires Python 3.8+ with requests library, git, and Jira API access
+compatibility: opencode
 ---
 
-# Work on Ticket Skill
+# Work on Ticket
+
+Streamlined workflow to start work on a Jira ticket by fetching ticket details, creating a branch, and initiating task planning.
 
 ## When to Use This Skill
 
-Use this skill when:
-- Starting work on a Jira ticket
-- Creating a feature branch for a ticket
-- Fetching ticket details and acceptance criteria
-- Setting up workspace for new development work
-- Users mention ticket IDs like "PROJ-123" or "work on ticket"
+Activate this skill when:
 
-## Prerequisites
+- The user says "work on AGP-123" or "start work on AGP-123"
+- The user says "pick up AGP-123" or "begin AGP-123"
+- The user mentions starting work on a specific Jira ticket ID
+- Pattern: `work on [TICKET_ID]` or similar intent
 
-### 1. Jira API Authentication
+## Workflow
 
-**This project is configured for https://ihkreddy.atlassian.net/**
+### 1. Parse Ticket ID
 
-Edit `work-on-ticket/.jira-config` with your credentials:
+Extract the Jira ticket ID from the user's message. Common patterns:
 
-```ini
-[DEFAULT]
-default_profile = ihkreddy
+- `work on AGP-782`
+- `start AGP-782`
+- `pick up PROJ-123`
 
-[ihkreddy]
-url = https://ihkreddy.atlassian.net
-email = your-email@example.com
-token = your-api-token
+Ticket ID format: `[A-Z]+-[0-9]+` (e.g., AGP-782, AICC-123)
+
+### 2. Fetch Jira Ticket Details
+
+Use the MCP Zapier tool to fetch the ticket:
+
+```typescript
+mcp__zapier-frontend__jira_software_cloud_find_issue_by_key({
+  instructions: "Get details for ticket [TICKET_ID]",
+  key: "[TICKET_ID]",
+  fields: "summary,description,issuetype,priority,status"
+})
 ```
 
-**To get your Jira API token:**
-1. Go to https://id.atlassian.com/manage-profile/security/api-tokens
-2. Click "Create API token"
-3. Give it a name (e.g., "Agent Skills")
-4. Copy the token and paste it in `.jira-config`
+**Extract from response:**
 
-**Security**: This file is in `.gitignore` - never committed to git.
+- Summary (title)
+- Description
+- Issue type
+- Status
+- Any other relevant context
 
-### 2. Git Configuration
+### 3. Generate Branch Name
 
-Ensure git is configured:
-```bash
-git config --global user.name "Your Name"
-git config --global user.email "your-email@example.com"
+Create a branch name using this format:
+
+```
+[TICKET_ID]-[kebab-case-summary]
 ```
 
-## Workflow Process
+**Branch Naming Rules:**
 
-### 1. Fetch Ticket Details
-
-**Use the script:**
-```bash
-python scripts/fetch-ticket.py --ticket PROJ-123
-```
-
-This retrieves:
-- Ticket summary and description
-- Status and priority
-- Assignee and reporter
-- Acceptance criteria
-- Related tickets
-- Comments and attachments
-
-**API call structure:**
-```python
-import requests
-from requests.auth import HTTPBasicAuth
-
-def fetch_ticket(ticket_id):
-    url = f"{JIRA_URL}/rest/api/3/issue/{ticket_id}"
-    
-    auth = HTTPBasicAuth(JIRA_EMAIL, JIRA_API_TOKEN)
-    
-    response = requests.get(url, auth=auth)
-    return response.json()
-```
-
-### 2. Create Feature Branch
-
-**Automatic branch creation:**
-```bash
-python scripts/create-branch.py --ticket PROJ-123
-```
-
-This will:
-1. Fetch the ticket details
-2. Generate branch name following conventions
-3. Create and checkout the branch
-4. Optionally update ticket status to "In Progress"
-
-**Branch naming conventions:**
-- Feature: `feature/PROJ-123-short-description`
-- Bug fix: `bugfix/PROJ-123-short-description`
-- Hotfix: `hotfix/PROJ-123-short-description`
-
-**Manual branch creation:**
-```bash
-# Fetch ticket info first
-python scripts/fetch-ticket.py --ticket PROJ-123
-
-# Create branch manually
-git checkout -b feature/PROJ-123-add-user-authentication
-```
-
-### 3. Display Ticket Context
-
-**Get formatted ticket summary:**
-```bash
-python scripts/fetch-ticket.py --ticket PROJ-123 --format markdown
-```
-
-Output example:
-```markdown
-# [PROJ-123] Add User Authentication
-
-**Type:** Story
-**Status:** To Do
-**Priority:** High
-**Assignee:** John Doe
-
-## Description
-Implement user authentication system with OAuth 2.0 support.
-
-## Acceptance Criteria
-- [ ] Users can log in with email/password
-- [ ] OAuth 2.0 integration with Google
-- [ ] Session management implemented
-- [ ] Password reset functionality
-
-## Technical Notes
-- Use JWT for tokens
-- Store hashed passwords with bcrypt
-- Rate limit login attempts
-```
-
-### 4. Update Ticket Status
-
-**Transition ticket to "In Progress":**
-```bash
-python scripts/update-ticket.py --ticket PROJ-123 --status "In Progress"
-```
-
-**Add work log:**
-```bash
-python scripts/update-ticket.py --ticket PROJ-123 --log-work "2h" --comment "Set up authentication scaffolding"
-```
-
-### 5. Complete Workflow
-
-**Full workflow in one command:**
-```bash
-python scripts/start-work.py --ticket PROJ-123
-```
-
-This will:
-1. ✅ Fetch ticket details
-2. ✅ Display summary and acceptance criteria
-3. ✅ Create feature branch with proper naming
-4. ✅ Transition ticket to "In Progress"
-5. ✅ Assign ticket to you (if not assigned)
-6. ✅ Add comment: "Started working on this ticket"
-
-## Script Reference
-
-### fetch-ticket.py
-
-Retrieves complete ticket information from Jira.
-
-**Usage:**
-```bash
-# Basic fetch
-python scripts/fetch-ticket.py --ticket PROJ-123
-
-# With formatting
-python scripts/fetch-ticket.py --ticket PROJ-123 --format markdown
-
-# Include comments
-python scripts/fetch-ticket.py --ticket PROJ-123 --include-comments
-
-# Save to file
-python scripts/fetch-ticket.py --ticket PROJ-123 --output ticket-details.md
-```
-
-### create-branch.py
-
-Creates git branch based on ticket information.
-
-**Usage:**
-```bash
-# Auto-generate branch name
-python scripts/create-branch.py --ticket PROJ-123
-
-# Custom branch name
-python scripts/create-branch.py --ticket PROJ-123 --name "feature/custom-name"
-
-# Specify branch type
-python scripts/create-branch.py --ticket PROJ-123 --type bugfix
-
-# Update ticket status
-python scripts/create-branch.py --ticket PROJ-123 --update-status
-```
-
-### update-ticket.py
-
-Updates ticket status and adds information.
-
-**Usage:**
-```bash
-# Change status
-python scripts/update-ticket.py --ticket PROJ-123 --status "In Progress"
-
-# Add comment
-python scripts/update-ticket.py --ticket PROJ-123 --comment "Working on authentication module"
-
-# Log work time
-python scripts/update-ticket.py --ticket PROJ-123 --log-work "3h" --comment "Completed OAuth integration"
-
-# Assign to user
-python scripts/update-ticket.py --ticket PROJ-123 --assign "john.doe@example.com"
-```
-
-### start-work.py
-
-Complete workflow automation - fetches ticket, creates branch, updates status.
-
-**Usage:**
-```bash
-# Full automated workflow
-python scripts/start-work.py --ticket PROJ-123
-
-# Custom branch type
-python scripts/start-work.py --ticket PROJ-123 --branch-type bugfix
-
-# Skip status update
-python scripts/start-work.py --ticket PROJ-123 --no-status-update
-```
-
-## Jira API Reference
-
-See [references/JIRA-API.md](references/JIRA-API.md) for detailed API documentation.
-
-**Common endpoints:**
-- Get issue: `GET /rest/api/3/issue/{issueIdOrKey}`
-- Update issue: `PUT /rest/api/3/issue/{issueIdOrKey}`
-- Transitions: `POST /rest/api/3/issue/{issueIdOrKey}/transitions`
-- Add comment: `POST /rest/api/3/issue/{issueIdOrKey}/comment`
-- Log work: `POST /rest/api/3/issue/{issueIdOrKey}/worklog`
-
-## Branch Naming Standards
-
-**Format:**
-```
-<type>/<ticket-id>-<short-description>
-```
-
-**Types:**
-- `feature/` - New features or enhancements
-- `bugfix/` - Bug fixes
-- `hotfix/` - Urgent production fixes
-- `refactor/` - Code refactoring
-- `docs/` - Documentation updates
-- `test/` - Test additions or updates
-
-**Description rules:**
-- Use lowercase
-- Separate words with hyphens
-- Max 50 characters
-- Be descriptive but concise
+- Start with the ticket ID (e.g., `AGP-782-`)
+- Convert summary to kebab-case (lowercase, dashes instead of spaces)
+- Remove special characters
+- Keep it concise (max 50 characters total)
+- Use meaningful words from the summary
 
 **Examples:**
-```
-feature/PROJ-123-user-authentication
-bugfix/PROJ-456-fix-login-validation
-hotfix/PROJ-789-patch-security-vulnerability
-refactor/PROJ-234-optimize-database-queries
-```
 
-## Best Practices
+- `AGP-782-migrate-existing-mcp-server`
+- `AICC-123-fix-auth-token-expiry`
+- `PROJ-456-add-user-settings-page`
 
-### 1. Always Fetch Before Creating Branch
+**Implementation:**
+
 ```bash
-# Good: Check ticket details first
-python scripts/fetch-ticket.py --ticket PROJ-123
-python scripts/create-branch.py --ticket PROJ-123
-
-# Better: Use automated workflow
-python scripts/start-work.py --ticket PROJ-123
+# Convert summary to kebab-case
+# Example: "Migrate existing MCP server" -> "migrate-existing-mcp-server"
 ```
 
-### 2. Keep Branches Up to Date
+### 4. Check Current Git State
+
+Before creating a branch, check the current state:
+
 ```bash
-# Before starting work
-git checkout main
-git pull origin main
-python scripts/create-branch.py --ticket PROJ-123
+# Check current branch
+git branch --show-current
+
+# Check for uncommitted changes
+git status --porcelain
 ```
 
-### 3. Link Commits to Tickets
+**If uncommitted changes exist:**
+
+- STOP and inform User
+- Suggest: "You have uncommitted changes. Should I commit them first, stash them, or continue anyway?"
+- Wait for User's decision
+
+**If not on staging/main:**
+
+- STOP and inform User
+- Suggest: "You're currently on branch [CURRENT_BRANCH]. Should I switch to staging first?"
+- Wait for User's decision
+
+### 5. Create Branch
+
+Once it's safe to proceed:
+
 ```bash
-# Include ticket ID in commit messages
-git commit -m "PROJ-123: Implement OAuth authentication"
-git commit -m "PROJ-123: Add login form validation"
+# Ensure we're on the latest staging
+git checkout staging
+git pull origin staging
+
+# Create and checkout new branch
+git checkout -b [TICKET_ID]-[kebab-case-summary]
 ```
 
-### 4. Update Ticket Status Regularly
+Confirm to User: "Created and checked out branch: [BRANCH_NAME]"
+
+### 6. Build Task Planning Prompt
+
+Analyze the Jira ticket and create a comprehensive prompt for the `/eng:chore` command:
+
+**Prompt should include:**
+
+- The ticket summary
+- Key details from the description
+- Any acceptance criteria mentioned
+- Relevant technical context
+
+**Example prompt construction:**
+
+```
+Summary: [ticket.summary]
+
+Description: [ticket.description]
+
+Acceptance Criteria:
+[extracted criteria if present]
+```
+
+### 7. Execute Task Planning
+
+Run the `/eng:chore` slash command with the ticket number and constructed prompt:
+
 ```bash
-# When starting
-python scripts/update-ticket.py --ticket PROJ-123 --status "In Progress"
-
-# When ready for review
-python scripts/update-ticket.py --ticket PROJ-123 --status "In Review"
-
-# When completed
-python scripts/update-ticket.py --ticket PROJ-123 --status "Done"
+/eng:chore [TICKET_ID] [CONSTRUCTED_PROMPT]
 ```
 
-### 5. Log Your Time
+**Example:**
+
 ```bash
-# Log work with comments
-python scripts/update-ticket.py --ticket PROJ-123 \
-  --log-work "2h 30m" \
-  --comment "Implemented OAuth flow and tests"
+AGP-782 Migrate existing MCP server implementation to new architecture
+
+Description: We need to refactor the MCP server to use the new modular architecture. This includes updating the tool registry, migrating existing tools, and ensuring backward compatibility.
+
+Acceptance Criteria:
+- All existing tools work with new architecture
+- Tests pass
+- No breaking changes to API
 ```
 
-## Troubleshooting
+## Error Handling
 
-### Authentication Errors
+**If ticket not found:**
 
-**Problem:** `401 Unauthorized`
+- Inform User: "Couldn't find ticket [TICKET_ID] in Jira. Please check the ticket ID."
+- STOP - don't proceed with branch creation
 
-**Solution:**
-```bash
-# Verify credentials
-echo $JIRA_URL
-echo $JIRA_EMAIL
-# DON'T echo API token for security
+**If branch already exists:**
 
-# Re-generate API token if needed
-# Visit: https://id.atlassian.com/manage-profile/security/api-tokens
-```
+- Inform User: "Branch [BRANCH_NAME] already exists."
+- Ask: "Should I check it out, create a new branch with a different name, or stop?"
+- Wait for decision
 
-### Ticket Not Found
+**If git operations fail:**
 
-**Problem:** `404 Not Found`
+- Show the error to User
+- STOP - don't proceed to task planning
 
-**Solution:**
-- Verify ticket ID format (e.g., `PROJ-123`, not `proj-123`)
-- Check if ticket exists in your Jira instance
-- Ensure you have permission to view the ticket
+## Example Usage
 
-### Branch Creation Fails
+### Example 1: Simple Ticket
 
-**Problem:** Branch already exists
+**User:** "work on AGP-782"
 
-**Solution:**
-```bash
-# Check existing branches
-git branch -a
+**Claude:**
 
-# Delete local branch if needed
-git branch -D feature/PROJ-123-description
+1. Fetches AGP-782 from Jira
+2. Finds summary: "Migrate existing MCP server"
+3. Checks git state (clean, on staging)
+4. Creates branch: `AGP-782-migrate-existing-mcp-server`
+5. Runs: `/eng:chore AGP-782 Migrate existing MCP server implementation...`
 
-# Force create new branch
-git checkout -b feature/PROJ-123-new-description
-```
+### Example 2: With Uncommitted Changes
 
-### Transition Errors
+**User:** "work on AICC-456"
 
-**Problem:** Cannot transition ticket status
+**Claude:**
 
-**Solution:**
-```bash
-# Get available transitions
-python scripts/fetch-ticket.py --ticket PROJ-123 --show-transitions
+1. Fetches AICC-456 from Jira
+2. Checks git state - finds uncommitted changes
+3. **STOPS** and asks: "You have uncommitted changes. Should I commit them first, stash them, or continue anyway?"
+4. Waits for User's decision
 
-# Use exact transition name
-python scripts/update-ticket.py --ticket PROJ-123 --status "In Progress"
-```
+### Example 3: Ticket Not Found
 
-## Configuration
+**User:** "work on BAD-999"
 
-### Custom Branch Prefixes
+**Claude:**
 
-Edit `scripts/config.py`:
-```python
-BRANCH_PREFIXES = {
-    'Story': 'feature',
-    'Bug': 'bugfix',
-    'Task': 'task',
-    'Epic': 'epic',
-    'Subtask': 'feature'
+1. Tries to fetch BAD-999 from Jira
+2. Ticket not found
+3. Informs User: "Couldn't find ticket BAD-999 in Jira. Please check the ticket ID."
+4. STOPS
+
+## Coding Standards
+
+**CRITICAL RULE - NESTED CONDITIONALS:**
+
+- **NEVER EVER EVER USE NESTED CONDITIONALS** when working on tickets
+- If you find yourself nesting if statements, STOP immediately
+- Refactor using early returns, guard clauses, or extract functions
+- This rule applies to all code written while working on any ticket
+- Violation of this rule is FAILURE
+
+**Why this matters:**
+
+- Nested conditionals reduce readability and increase cognitive load
+- They make code harder to test and maintain
+- Early returns and guard clauses are always clearer
+
+**Instead of:**
+
+```typescript
+if (condition1) {
+  if (condition2) {
+    // do something
+  }
 }
 ```
 
-### Status Mappings
+**Do this:**
 
-Configure status transitions:
-```python
-STATUS_MAPPINGS = {
-    'start': 'In Progress',
-    'review': 'In Review',
-    'done': 'Done',
-    'blocked': 'Blocked'
+```typescript
+if (!condition1) return;
+if (!condition2) return;
+// do something
+```
+
+**CRITICAL RULE - NO UNNECESSARY INLINE COMMENTS:**
+
+- **NEVER add simple, obvious inline comments** that just restate what the code does
+- Code should be self-documenting through clear variable names, function names, and structure
+- Only add comments when they explain **WHY** something is done, not **WHAT** is being done
+- Remove unnecessary comments during refactoring
+- This rule applies to all code written while working on any ticket
+- Violation of this rule is FAILURE
+
+**Bad comments (obvious, unnecessary):**
+
+```typescript
+// Set the user's name
+user.name = "Alice";
+
+// Loop through the items
+for (const item of items) {
+  // Process the item
+  processItem(item);
 }
+
+// Return true if valid
+return isValid;
 ```
 
-## Integration with Other Tools
+**Good comments (explain WHY, add context):**
 
-### VS Code Integration
+```typescript
+// Cache user data for 5 minutes to reduce API calls
+const cachedUser = await cache.get(userId, { ttl: 300 });
 
-Add to `.vscode/tasks.json`:
-```json
-{
-  "version": "2.0.0",
-  "tasks": [
-    {
-      "label": "Start Work on Ticket",
-      "type": "shell",
-      "command": "python scripts/start-work.py --ticket ${input:ticketId}",
-      "problemMatcher": []
-    }
-  ],
-  "inputs": [
-    {
-      "id": "ticketId",
-      "type": "promptString",
-      "description": "Enter Jira ticket ID"
-    }
-  ]
+// Process items in batches to avoid memory issues with large datasets
+for (const batch of chunkArray(items, 100)) {
+  await processBatch(batch);
 }
+
+// Skip validation for admin users per security requirement SEC-123
+if (user.isAdmin) return true;
 ```
 
-### Git Hooks
+**When comments ARE appropriate:**
 
-Add to `.git/hooks/commit-msg`:
-```bash
-#!/bin/bash
-# Ensure commit messages include ticket ID
+- Explaining non-obvious business logic or requirements
+- Documenting workarounds for external bugs (with issue links)
+- Clarifying performance optimizations
+- Noting security considerations
+- Referencing ticket numbers or external documentation
 
-commit_msg=$(cat "$1")
-if ! echo "$commit_msg" | grep -qE "^[A-Z]+-[0-9]+:"; then
-    echo "Error: Commit message must start with ticket ID (e.g., PROJ-123:)"
-    exit 1
-fi
+**When to use NO comments:**
+
+- If the code is self-explanatory
+- If a better variable/function name would make it clear
+- If the comment just repeats what the code obviously does
+
+**CRITICAL RULE - VITEST TESTING:**
+
+- **ALWAYS use the Vitest TDD Expert skill** when writing or working with Vitest tests
+- Before writing any Vitest tests, activate the Vitest TDD Expert skill by invoking it with the Skill tool
+- The Vitest TDD Expert skill enforces:
+  - **Red-Green-Refactor TDD cycle** (test first, always)
+  - **95%+ coverage requirements** with quality metrics
+  - **FIRST principles** (Fast, Independent, Repeatable, Self-validating, Timely)
+  - **Behavior-focused testing** (not implementation details)
+  - **Comprehensive edge case coverage** and error path testing
+  - **Anti-pattern avoidance** (no brittle tests, no excessive mocking)
+- This ensures high-quality, maintainable test suites that provide confidence
+- Violation of this rule means tests may be brittle, incomplete, or low quality
+
+**When to activate Vitest TDD Expert:**
+
+```typescript
+// Before writing Vitest tests, invoke:
+Skill({ skill: "vitest-tdd" })
 ```
 
-## Example Workflow
+## Important Notes
 
-```bash
-# 1. Morning standup - pick up ticket
-python scripts/start-work.py --ticket PROJ-123
+- **Always check git state** before creating branches
+- **Never force-create branches** or overwrite existing branches
+- **Never proceed** if there are uncommitted changes without User's approval
+- **Keep branch names concise** - aim for clarity over completeness
+- **Include ticket context** in the task planning prompt to give the planner maximum context
+- **The `/eng:chore` command** will handle the detailed planning - this skill just sets up the environment
 
-# Output:
-# ✓ Fetched ticket: [PROJ-123] Add User Authentication
-# ✓ Created branch: feature/PROJ-123-add-user-authentication
-# ✓ Updated status: In Progress
-# ✓ Added comment: Started working on this ticket
-# 
-# Ready to code! 🚀
+## Success Criteria
 
-# 2. Work on feature
-# ... code, code, code ...
+The skill is successful when:
 
-# 3. Make commits with ticket ID
-git add .
-git commit -m "PROJ-123: Implement OAuth 2.0 flow"
-git commit -m "PROJ-123: Add password hashing with bcrypt"
-
-# 4. Log time periodically
-python scripts/update-ticket.py --ticket PROJ-123 --log-work "3h"
-
-# 5. Push and create PR
-git push origin feature/PROJ-123-add-user-authentication
-
-# 6. Update ticket for review
-python scripts/update-ticket.py --ticket PROJ-123 --status "In Review"
-```
-
-## Security Notes
-
-- ⚠️ Never commit API tokens to version control
-- ⚠️ Use environment variables for credentials
-- ⚠️ Rotate API tokens regularly
-- ⚠️ Use read-only tokens when possible
-- ⚠️ Limit token scope to required permissions
-
-## Tips for Efficiency
-
-1. **Create aliases** for common commands:
-   ```bash
-   alias jira-fetch="python work-on-ticket/scripts/fetch-ticket.py --ticket"
-   alias jira-start="python work-on-ticket/scripts/start-work.py --ticket"
-   ```
-
-2. **Use shell functions** for quick access:
-   ```bash
-   function start-ticket() {
-       cd ~/Agents/AgentSkills
-       python work-on-ticket/scripts/start-work.py --ticket $1
-   }
-   ```
-
-3. **Bookmark Jira board** for quick reference
-
-4. **Set up notifications** for ticket updates
-
-5. **Use JQL filters** for finding your tickets:
-   ```
-   assignee = currentUser() AND status = "To Do" ORDER BY priority DESC
-   ```
+1. ✅ Jira ticket is fetched successfully
+2. ✅ Appropriate branch name is generated
+3. ✅ Git state is verified (no uncommitted changes or user approved)
+4. ✅ New branch is created and checked out
+5. ✅ `/eng:chore` command is executed with ticket context
+6. ✅ User is informed of each major step

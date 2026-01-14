@@ -1,9 +1,7 @@
 {
   "name": "refine-story",
-  "description": "Transform vague or incomplete user stories into sprint-ready stories with clear acceptance criteria, test scenarios, and technical guidance. This skill should be used before sprint commitment for defi",
   "repo": "adolfoaranaes12/BMAD-ENHANCED",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/refine-story/SKILL.md",
+  "source": "github.com/adolfoaranaes12/BMAD-ENHANCED",
+  "downloaded_at": "2026-01-14T03:09:02.869818Z"
 }

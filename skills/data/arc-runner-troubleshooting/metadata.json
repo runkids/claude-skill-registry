@@ -1,13 +1,7 @@
 {
   "name": "arc-runner-troubleshooting",
-  "description": "Troubleshoot ARC (Actions Runner Controller) runners on Rackspace Spot Kubernetes. Diagnose stuck jobs, scaling issues, and cluster access. Activates on \"runner\", \"ARC\", \"stuck job\", \"queued\", \"GitHub",
   "repo": "Matchpoint-AI/matchpoint-github-runners-helm",
-  "category": "devops",
-  "tags": [
-    "arc",
-    "runner",
-    "troubleshooting"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/arc-runner-troubleshooting/SKILL.md",
+  "source": "github.com/Matchpoint-AI/matchpoint-github-runners-helm",
+  "downloaded_at": "2026-01-14T03:05:54.393107Z"
 }

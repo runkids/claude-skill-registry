@@ -1,12 +1,7 @@
 {
   "name": "named-entity-extractor",
-  "description": "Extract named entities (people, organizations, locations, dates) from text using NLP. Use for document analysis, information extraction, or data enrichment.",
   "repo": "dkyazzentwatwa/chatgpt-skills",
-  "category": "data",
-  "tags": [
-    "named",
-    "entity",
-    "extractor"
-  ],
-  "stars": 1
+  "path": "named-entity-extractor/SKILL.md",
+  "source": "github.com/dkyazzentwatwa/chatgpt-skills",
+  "downloaded_at": "2026-01-14T01:42:56.327526Z"
 }

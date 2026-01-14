@@ -1,12 +1,7 @@
 {
   "name": "streaming-api-patterns",
-  "description": "Implement real-time data streaming with Server-Sent Events (SSE), WebSockets, and ReadableStream APIs. Master backpressure handling, reconnection strategies, and LLM streaming for 2025+ real-time appl",
   "repo": "ArieGoldkin/ai-agent-hub",
-  "category": "data",
-  "tags": [
-    "streaming",
-    "api",
-    "patterns"
-  ],
-  "stars": 6
+  "path": "skills/streaming-api-patterns/SKILL.md",
+  "source": "github.com/ArieGoldkin/ai-agent-hub",
+  "downloaded_at": "2026-01-14T03:52:03.869251Z"
 }

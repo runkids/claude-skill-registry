@@ -1,14 +1,7 @@
 {
   "name": "account-based-marketing-agent",
-  "description": "AI агент для ABM. Используй для автоматизации ABM кампаний и персонализации outreach.",
   "repo": "dengineproblem/agents-monorepo",
-  "category": "data",
-  "tags": [
-    "account",
-    "based",
-    "marketing",
-    "agent"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/account-based-marketing-agent/SKILL.md",
+  "source": "github.com/dengineproblem/agents-monorepo",
+  "downloaded_at": "2026-01-14T02:08:05.597344Z"
 }

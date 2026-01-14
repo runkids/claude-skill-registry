@@ -1,13 +1,7 @@
 {
   "name": "testing-framework-helper",
-  "description": "Generates comprehensive test suites with unit tests, integration tests, and E2E tests for various frameworks (Jest, Pytest, Vitest, etc.). Use when writing tests.",
   "repo": "Dexploarer/hyper-forge",
-  "category": "testing",
-  "tags": [
-    "testing",
-    "framework",
-    "helper"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": ".claude/skills/testing-framework-helper/SKILL.md",
+  "source": "github.com/Dexploarer/hyper-forge",
+  "downloaded_at": "2026-01-14T03:02:59.696729Z"
 }

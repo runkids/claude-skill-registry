@@ -1,12 +1,7 @@
 {
   "name": "csharp-developer",
-  "description": "Use when building C# applications with .NET 8+, ASP.NET Core APIs, or Blazor web apps. Invoke for Entity Framework Core, minimal APIs, async patterns, CQRS with MediatR. Keywords: C#, .NET, ASP.NET Co",
   "repo": "Jeffallan/claude-skills",
-  "category": "development",
-  "tags": [
-    "csharp",
-    "developer"
-  ],
-  "stars": 12,
-  "source": "local"
+  "path": "skills/csharp-developer/SKILL.md",
+  "source": "github.com/Jeffallan/claude-skills",
+  "downloaded_at": "2026-01-14T02:36:38.313887Z"
 }

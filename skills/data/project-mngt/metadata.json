@@ -1,12 +1,7 @@
 {
   "name": "project-mngt",
-  "description": "Product Owner / Project Manager skill for MVP/MMP/MMR implementation planning",
   "repo": "vladm3105/aidoc-flow-framework",
-  "category": "productivity",
-  "tags": [
-    "project",
-    "mngt"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/project-mngt/SKILL.md",
+  "source": "github.com/vladm3105/aidoc-flow-framework",
+  "downloaded_at": "2026-01-14T03:58:00.411087Z"
 }

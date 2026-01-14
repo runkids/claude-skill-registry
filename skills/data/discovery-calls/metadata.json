@@ -1,8 +1,7 @@
 {
   "name": "discovery-calls",
   "repo": "gtmagents/gtm-agents",
-  "category": "data",
-  "description": "Use when planning, running, or summarizing discovery calls to uncover pain, timeline, and authority.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:26.116137Z"
+  "path": "plugins/sales-prospecting/skills/discovery-calls/SKILL.md",
+  "source": "github.com/gtmagents/gtm-agents",
+  "downloaded_at": "2026-01-14T01:13:13.556115Z"
 }

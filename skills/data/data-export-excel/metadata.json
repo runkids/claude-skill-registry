@@ -1,13 +1,7 @@
 {
   "name": "data-export-excel",
-  "description": "Export analysis results, data tables, and formatted spreadsheets to Excel files using openpyxl. Works with ANY LLM provider (GPT, Gemini, Claude, etc.).",
   "repo": "Starlitnightly/omicverse",
-  "category": "data",
-  "tags": [
-    "data",
-    "export",
-    "excel"
-  ],
-  "stars": 783,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/data-export-excel/SKILL.md",
+  "source": "github.com/Starlitnightly/omicverse",
+  "downloaded_at": "2026-01-14T02:16:27.038750Z"
 }

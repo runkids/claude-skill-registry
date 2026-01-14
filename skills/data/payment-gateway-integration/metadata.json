@@ -1,13 +1,7 @@
 {
   "name": "payment-gateway-integration",
-  "description": "Integrate payment gateways like Stripe, PayPal, and Square with backends for payment processing, subscription management, and webhook handling. Use when building e-commerce platforms, implementing bil",
-  "repo": "aj-geddes/useful-ai-prompts",
-  "category": "development",
-  "tags": [
-    "payment",
-    "gateway",
-    "integration"
-  ],
-  "stars": 25,
-  "source": "local"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/payment-gateway-integration/skills/payment-gateway-integration/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-14T03:29:56.803430Z"
 }

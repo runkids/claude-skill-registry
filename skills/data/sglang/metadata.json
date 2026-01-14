@@ -1,8 +1,7 @@
 {
   "name": "sglang",
-  "repo": "zechenzhangAGI/AI-research-SKILLs",
-  "category": "data",
-  "description": "Fast structured generation and serving for LLMs with RadixAttention prefix caching. Use for JSON/regex outputs, constrained decoding, agentic workflows with tool calls, or when you need 5\u00d7 faster infe",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:19.185870Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/sglang/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-14T01:56:15.594456Z"
 }

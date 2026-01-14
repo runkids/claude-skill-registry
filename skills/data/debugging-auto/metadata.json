@@ -1,12 +1,7 @@
 {
   "name": "debugging-auto",
-  "description": "Hidden automatic debugging when something breaks - user sees simple question or \"fixing...\" not stack traces or technical errors",
-  "repo": "timequity/vibe-coder",
-  "category": "development",
-  "tags": [
-    "debugging",
-    "auto"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "timequity/plugins",
+  "path": "vibe-coder/skills/debugging-auto/SKILL.md",
+  "source": "github.com/timequity/plugins",
+  "downloaded_at": "2026-01-14T03:41:25.634267Z"
 }

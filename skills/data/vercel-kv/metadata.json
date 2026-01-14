@@ -1,11 +1,7 @@
 {
   "name": "vercel-kv",
-  "description": "Integrate Redis-compatible Vercel KV for caching, session management, and rate limiting in Next.js applications. Powered by Upstash with strong consistency and TTL support.Use when implementing cache ",
   "repo": "jezweb/claude-skills",
-  "category": "development",
-  "tags": [
-    "vercel"
-  ],
-  "stars": 109,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/vercel-kv/SKILL.md",
+  "source": "github.com/jezweb/claude-skills",
+  "downloaded_at": "2026-01-14T04:01:52.119213Z"
 }

@@ -1,10 +1,7 @@
 {
   "name": "supabase",
-  "description": "Comprehensive Supabase development expert covering Edge Functions, database schema management, migrations, PostgreSQL functions, and RLS policies. Use for any Supabase development including TypeScript",
-  "repo": "Raudbjorn/claude",
-  "category": "data",
-  "tags": [
-    "supabase"
-  ],
-  "stars": 0
+  "repo": "artofrawr/claude-control",
+  "path": "skills/supabase/SKILL.md",
+  "source": "github.com/artofrawr/claude-control",
+  "downloaded_at": "2026-01-14T03:44:40.669168Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "cpp-pro",
-  "description": "Use when building C++ applications requiring modern C++20/23 features, template metaprogramming, or high-performance systems. Invoke for concepts, ranges, coroutines, SIMD optimization, memory managem",
   "repo": "Jeffallan/claude-skills",
-  "category": "development",
-  "tags": [
-    "cpp",
-    "pro"
-  ],
-  "stars": 12,
-  "source": "local"
+  "path": "skills/cpp-pro/SKILL.md",
+  "source": "github.com/Jeffallan/claude-skills",
+  "downloaded_at": "2026-01-14T02:36:35.093211Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "agent-creator",
-  "description": "Create specialized Claude Code agents (subagents) with proper YAML frontmatter, tool permissions, and domain expertise. Use when: creating new agents, designing agent prompts, configuring agent tools ",
-  "repo": "petbrains/mvp-builder",
-  "category": "data",
-  "tags": [
-    "agent",
-    "creator"
-  ],
-  "stars": 4,
-  "source": "SkillsMP Synced Skills"
+  "repo": "enoch-robinson/agent-skill-collection",
+  "path": "skills/meta/agent-creator/SKILL.md",
+  "source": "github.com/enoch-robinson/agent-skill-collection",
+  "downloaded_at": "2026-01-14T03:49:45.235852Z"
 }

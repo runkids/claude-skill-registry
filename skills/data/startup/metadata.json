@@ -1,11 +1,7 @@
 {
   "name": "startup",
-  "description": "Review essential documentation and context at session start. Use when beginning a new session to load AI rules, git state, and pending tasks.",
   "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
-  "category": "documents",
-  "tags": [
-    "startup"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": ".claude/skills/startup/SKILL.md",
+  "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager",
+  "downloaded_at": "2026-01-14T02:32:34.973649Z"
 }

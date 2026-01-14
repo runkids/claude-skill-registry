@@ -1,11 +1,7 @@
 {
   "name": "prisma-database",
-  "description": "Prisma schema design and database operations for IntelliFill. Use when modifying database schema, writing queries, or managing migrations.",
   "repo": "Intellifill/IntelliFill",
-  "category": "data",
-  "tags": [
-    "prisma",
-    "database"
-  ],
-  "stars": 1
+  "path": ".claude/skills/prisma-database/SKILL.md",
+  "source": "github.com/Intellifill/IntelliFill",
+  "downloaded_at": "2026-01-14T04:00:07.018715Z"
 }

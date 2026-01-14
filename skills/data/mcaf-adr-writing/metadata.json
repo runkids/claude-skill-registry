@@ -1,8 +1,7 @@
 {
   "name": "mcaf-adr-writing",
   "repo": "managedcode/MCAF",
-  "category": "data",
-  "description": "Create or update an ADR (Architecture Decision Record) under `docs/ADR/` using `docs/templates/ADR-Template.md`: context, decision, alternatives, consequences, rollout, and verification. Use when chan",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:27.818850Z"
+  "path": "skills/mcaf-adr-writing/SKILL.md",
+  "source": "github.com/managedcode/MCAF",
+  "downloaded_at": "2026-01-14T02:22:46.778665Z"
 }

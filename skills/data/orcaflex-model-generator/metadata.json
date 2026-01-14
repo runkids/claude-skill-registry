@@ -1,9 +1,7 @@
 {
   "name": "orcaflex-model-generator",
-  "description": "Generate OrcaFlex models from templates using component assembly with",
   "repo": "vamseeachanta/digitalmodel",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "GitHub Search API"
+  "path": ".claude/skills/orcaflex-model-generator/SKILL.md",
+  "source": "github.com/vamseeachanta/digitalmodel",
+  "downloaded_at": "2026-01-14T02:36:11.768113Z"
 }

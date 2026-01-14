@@ -1,12 +1,7 @@
 {
   "name": "documentation-updater",
-  "description": "Keep CLAUDE.md and README.md documentation in sync with the actual dotfiles configuration. Use when the user wants to update documentation, sync README with changes, maintain CLAUDE.md, document new f",
-  "repo": "ruchernchong/dotfiles",
-  "category": "documents",
-  "tags": [
-    "documentation",
-    "updater"
-  ],
-  "stars": 11,
-  "source": "SkillsMP Synced Skills"
+  "repo": "Lucasdoreac/mutuapix-workspace",
+  "path": ".claude/skills/documentation-updater/SKILL.md",
+  "source": "github.com/Lucasdoreac/mutuapix-workspace",
+  "downloaded_at": "2026-01-14T03:19:11.770655Z"
 }

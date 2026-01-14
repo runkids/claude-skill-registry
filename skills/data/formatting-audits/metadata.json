@@ -1,12 +1,7 @@
 {
   "name": "formatting-audits",
-  "description": "Design document review format definition with 100-point scoring system. Provides quality evaluation criteria, scoring items, and pass/fail logic for SOW/Spec documents. Combined with confidence marker",
   "repo": "thkt/claude-config",
-  "category": "data",
-  "tags": [
-    "formatting",
-    "audits"
-  ],
-  "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "path": ".ja/skills/formatting-audits/SKILL.md",
+  "source": "github.com/thkt/claude-config",
+  "downloaded_at": "2026-01-14T03:15:10.032857Z"
 }

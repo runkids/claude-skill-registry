@@ -1,11 +1,7 @@
 {
   "name": "skill-creator",
-  "description": "Create exceptional, deterministic Claude skills that guide AI behavior with precision. Use this skill when the user asks to create new skills, document capabilities, or codify expertise into reusable ",
-  "repo": "mahidalhan/skilled-intelligence-marketplace",
-  "category": "data",
-  "tags": [
-    "skill",
-    "creator"
-  ],
-  "stars": 18
+  "repo": "ioku24/autorankr",
+  "path": ".claude/skills/skill-creator/SKILL.md",
+  "source": "github.com/ioku24/autorankr",
+  "downloaded_at": "2026-01-14T04:07:26.673362Z"
 }

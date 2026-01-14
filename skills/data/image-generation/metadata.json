@@ -1,11 +1,7 @@
 {
   "name": "image-generation",
-  "description": "Generate AI images with various themes, styles, and aspect ratios. Use when asked to generate images, create artwork, make graphics, generate backgrounds, or create visual assets.",
-  "repo": "sudo-vaibhav/ondc-vaatun",
-  "category": "data",
-  "tags": [
-    "image",
-    "generation"
-  ],
-  "stars": 1
+  "repo": "jkitchin/skillz",
+  "path": "skills/creative/image-generation/SKILL.md",
+  "source": "github.com/jkitchin/skillz",
+  "downloaded_at": "2026-01-14T03:44:50.913097Z"
 }

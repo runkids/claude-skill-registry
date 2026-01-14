@@ -1,12 +1,7 @@
 {
   "name": "email-composer",
-  "description": "Draft professional emails for various business and personal contexts",
-  "repo": "tatat/agents-playground",
-  "category": "data",
-  "tags": [
-    "email",
-    "composer"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "repo": "erichowens/some_claude_skills",
+  "path": ".claude/skills/email-composer/SKILL.md",
+  "source": "github.com/erichowens/some_claude_skills",
+  "downloaded_at": "2026-01-14T02:58:37.553898Z"
 }

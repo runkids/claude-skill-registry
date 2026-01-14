@@ -1,13 +1,7 @@
 {
   "name": "api-integration-specialist",
-  "description": "Expert guidance for designing, integrating, and maintaining third-party APIs with best practices for authentication, error handling, rate limiting, security, and data transformation. Use when integrat",
-  "repo": "sitechfromgeorgia/georgian-distribution-system",
-  "category": "data",
-  "tags": [
-    "api",
-    "integration",
-    "specialist"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "Spectaculous-Code/raamattu-nyt",
+  "path": ".claude/skills/api-integration-specialist/SKILL.md",
+  "source": "github.com/Spectaculous-Code/raamattu-nyt",
+  "downloaded_at": "2026-01-14T02:15:28.406764Z"
 }

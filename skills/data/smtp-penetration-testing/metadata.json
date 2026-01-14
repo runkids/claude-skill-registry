@@ -1,9 +1,7 @@
 {
   "name": "smtp-penetration-testing",
-  "description": "This skill should be used when the user asks to \"perform SMTP penetration testing\", \"enumerate email users\", \"test for open mail relays\", \"grab SMTP banners\", \"brute force email credentials\", or \"asse",
   "repo": "zebbern/claude-code-guide",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/smtp-penetration-testing/SKILL.md",
+  "source": "github.com/zebbern/claude-code-guide",
+  "downloaded_at": "2026-01-14T03:20:27.183435Z"
 }

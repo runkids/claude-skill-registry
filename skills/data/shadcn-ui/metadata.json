@@ -1,10 +1,7 @@
 {
   "name": "shadcn-ui",
-  "description": "shadcn/ui component patterns with Radix primitives and Tailwind styling. Use when building UI components, using CVA variants, implementing compound components, or styling with data-slot attributes. Tr",
-  "repo": "existential-birds/beagle",
-  "category": "data",
-  "tags": [
-    "shadcn"
-  ],
-  "stars": 4
+  "repo": "mrgoonie/xxxnaper",
+  "path": ".claude/skills/shadcn-ui/SKILL.md",
+  "source": "github.com/mrgoonie/xxxnaper",
+  "downloaded_at": "2026-01-14T04:00:29.346424Z"
 }

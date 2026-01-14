@@ -1,457 +1,717 @@
 ---
-name: storybook
-description: |
-  Storybook CSF3 story authoring methodology for UI component catalogs.
-  Prioritizes visual showcase patterns over exhaustive argTypes enumeration.
-  Reference for creating scannable, maintainable component documentation.
+name: agent-storybook
+description: Storybook expert for Angular 21+ component development, visual testing, and design system documentation
+tags:
+  - storybook
+  - angular
+  - components
+  - testing
+  - design-system
+  - frontend
+version: 1.0.0
 ---
 
 # Storybook Skill
 
-## Philosophy: Catalog over Controls
+Expert in Storybook for Angular 21+ - component-driven development, visual testing, and living design system documentation.
 
-**Problem with argTypes exhaustion:**
-- Dozens of stories for every prop combination
-- Hard to scan and find what you need
-- Maintenance burden grows exponentially
-- Controls panel becomes primary interaction
+## When to Use This Skill
 
-**Solution: Visual Showcase Pattern**
-- One story shows multiple variants in a grid
-- Immediate visual comparison
-- Self-documenting code
-- Controls for interactive exploration only
+Use this skill when:
 
-## CSF3 Story Patterns
+- Creating or updating component stories
+- Setting up Storybook for a project
+- Creating design system documentation stories
+- Visual testing and accessibility testing
+- Troubleshooting Storybook issues
+- Configuring Storybook addons
+- Writing component documentation
 
-### 1. Showcase Story (Primary Pattern)
+## Core Principles
 
-Display all variants of a prop in a single story:
+### Component-Driven Development
 
-```tsx
-/**
- * All button variants displayed together for visual comparison.
- */
-export const Variants: Story = {
-  render: () => (
-    <div className="grid grid-cols-2 gap-4 items-center">
-      <span className="text-sm text-muted-foreground">Primary</span>
-      <Button variant="primary">Primary</Button>
+- Build components in isolation before integrating into app
+- Test all component states and variants
+- Document component API (inputs, outputs, methods)
+- Use Storybook as the single source of truth for UI components
 
-      <span className="text-sm text-muted-foreground">Secondary</span>
-      <Button variant="secondary">Secondary</Button>
+### Story Best Practices
 
-      <span className="text-sm text-muted-foreground">Ghost</span>
-      <Button variant="ghost">Ghost</Button>
+- One story file per component (`.stories.ts`)
+- Export multiple story variants showing different states
+- Use descriptive story names (Primary, Disabled, Loading, Error, etc.)
+- Include all edge cases and states
+- Add accessibility testing to every story
 
-      <span className="text-sm text-muted-foreground">Destructive</span>
-      <Button variant="destructive">Delete</Button>
-    </div>
-  ),
-}
+## Project Structure
+
+### Standard Storybook Setup
+
+```
+apps/frontend/
+├── .storybook/
+│   ├── main.ts          # Main configuration
+│   ├── preview.ts       # Global decorators & parameters
+│   └── manager.ts       # UI customization (optional)
+├── src/
+│   └── app/
+│       ├── components/
+│       │   └── button/
+│       │       ├── button.component.ts
+│       │       └── button.stories.ts
+│       └── pages/
+│           └── home/
+│               ├── home.component.ts
+│               └── home.stories.ts
 ```
 
-### 2. State Matrix Story
+## Story Naming Convention
 
-Show component states in a grid:
+### Hierarchical Structure
 
-```tsx
-/**
- * Button states: normal, disabled, and loading.
- */
-export const States: Story = {
-  render: () => (
-    <div className="grid grid-cols-3 gap-4 items-center">
-      {/* Header row */}
-      <span className="text-sm text-muted-foreground">Normal</span>
-      <span className="text-sm text-muted-foreground">Disabled</span>
-      <span className="text-sm text-muted-foreground">Loading</span>
+Use `/` separator for organization:
 
-      {/* Primary row */}
-      <Button>Save</Button>
-      <Button disabled>Save</Button>
-      <Button loading>Saving...</Button>
+**Components:**
 
-      {/* Secondary row */}
-      <Button variant="secondary">Cancel</Button>
-      <Button variant="secondary" disabled>Cancel</Button>
-      <Button variant="secondary" loading>Loading...</Button>
-    </div>
-  ),
-}
-```
+- `Components/Button` - Basic button
+- `Components/Forms/Input` - Nested form input
+- `Components/Cards/TaskCard` - Card components
 
-### 3. Use Case Story
+**Pages:**
 
-Show real-world usage patterns:
+- `Pages/Home` - Page-level story
+- `Pages/Auth/Login` - Nested page
 
-```tsx
-/**
- * Common button patterns in real UI contexts.
- */
-export const UseCases: Story = {
-  render: () => (
-    <div className="flex flex-col gap-6">
-      {/* Form Actions */}
-      <div className="flex gap-2 justify-end p-4 border border-border rounded-md">
-        <Button variant="ghost">Cancel</Button>
-        <Button variant="primary" iconBefore={<Save />}>
-          Save Changes
-        </Button>
-      </div>
+**Design System:**
 
-      {/* Destructive Action */}
-      <div className="flex gap-2 p-4 border border-border rounded-md">
-        <Button variant="destructive" iconBefore={<Trash2 />}>
-          Delete Item
-        </Button>
-      </div>
-    </div>
-  ),
-}
-```
+- `Design System/Colors` - Color palette
+- `Design System/Typography` - Font styles
+- `Design System/Spacing` - Spacing tokens
 
-### 4. A11y Test Story (with play function)
+**Examples:**
 
-Verify accessibility requirements:
+- `Examples/Forms/LoginForm` - Complete form example
+- `Examples/Layouts/Dashboard` - Layout example
 
-```tsx
-/**
- * Accessibility test: Verifies aria-label is properly set.
- */
-export const A11yAriaLabel: Story = {
+## Story Template (Angular 21+ Standalone)
+
+### Basic Component Story
+
+```typescript
+import type { Meta, StoryObj } from '@storybook/angular';
+import { ButtonComponent } from './button.component';
+
+const meta: Meta<ButtonComponent> = {
+  title: 'Components/Button',
+  component: ButtonComponent,
+  tags: ['autodocs'], // Automatic documentation
+  argTypes: {
+    variant: {
+      control: 'select',
+      options: ['primary', 'secondary', 'danger'],
+      description: 'Button visual style',
+    },
+    size: {
+      control: 'select',
+      options: ['small', 'medium', 'large'],
+    },
+    disabled: {
+      control: 'boolean',
+    },
+    loading: {
+      control: 'boolean',
+    },
+  },
+};
+
+export default meta;
+type Story = StoryObj<ButtonComponent>;
+
+// Primary state
+export const Primary: Story = {
   args: {
-    icon: <X />,
-    "aria-label": "Close panel",
+    label: 'Click me',
+    variant: 'primary',
+    size: 'medium',
   },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const button = canvas.getByRole("button", { name: "Close panel" })
-    await expect(button).toBeInTheDocument()
-    await expect(button).toHaveAccessibleName("Close panel")
+};
+
+// Secondary state
+export const Secondary: Story = {
+  args: {
+    label: 'Click me',
+    variant: 'secondary',
   },
-}
+};
+
+// Disabled state
+export const Disabled: Story = {
+  args: {
+    label: 'Click me',
+    disabled: true,
+  },
+};
+
+// Loading state
+export const Loading: Story = {
+  args: {
+    label: 'Please wait...',
+    loading: true,
+  },
+};
+
+// All sizes comparison
+export const AllSizes: Story = {
+  render: (args) => ({
+    props: args,
+    template: `
+      <div style="display: flex; gap: 1rem; align-items: center;">
+        <app-button size="small" [label]="label"></app-button>
+        <app-button size="medium" [label]="label"></app-button>
+        <app-button size="large" [label]="label"></app-button>
+      </div>
+    `,
+  }),
+  args: {
+    label: 'Click me',
+  },
+};
 ```
 
-## Story Organization
+### Component with Services/Dependencies
 
-### Naming Convention
+```typescript
+import type { Meta, StoryObj } from '@storybook/angular';
+import { applicationConfig } from '@storybook/angular';
+import { provideHttpClient } from '@angular/common/http';
+import { TaskCardComponent } from './task-card.component';
 
+const meta: Meta<TaskCardComponent> = {
+  title: 'Components/Cards/TaskCard',
+  component: TaskCardComponent,
+  tags: ['autodocs'],
+  decorators: [
+    applicationConfig({
+      providers: [
+        provideHttpClient(),
+        // Add other providers here
+      ],
+    }),
+  ],
+};
+
+export default meta;
+type Story = StoryObj<TaskCardComponent>;
+
+export const Default: Story = {
+  args: {
+    task: {
+      id: '1',
+      title: 'Clean bathroom',
+      assignee: 'Alex',
+      points: 10,
+      completed: false,
+    },
+  },
+};
+
+export const Completed: Story = {
+  args: {
+    task: {
+      id: '2',
+      title: 'Take out trash',
+      assignee: 'Sarah',
+      points: 5,
+      completed: true,
+    },
+  },
+};
 ```
-Components/
-├── Button           # Component name
-│   ├── Variants     # Visual showcase
-│   ├── Sizes        # Size showcase
-│   ├── States       # State matrix
-│   ├── WithIcons    # Feature showcase
-│   ├── UseCases     # Real-world examples
-│   ├── A11yBasic    # A11y verification
-│   └── A11yFocus    # A11y verification
-```
 
-### Story Order Priority
+### Complex Layout Story
 
-1. **Showcase stories first** - Visual comparison grids
-2. **Feature stories** - Icons, loading, etc.
-3. **Use case stories** - Real-world patterns
-4. **A11y test stories** - Verification with play functions
+```typescript
+import type { Meta, StoryObj } from '@storybook/angular';
+import { HomeComponent } from './home.component';
+import { TaskCardComponent } from '../../components/task-card/task-card.component';
+import { StatCardComponent } from '../../components/stat-card/stat-card.component';
 
-## Meta Configuration
-
-### Minimal argTypes
-
-```tsx
-const meta: Meta<typeof IconButton> = {
-  title: "Components/IconButton",
-  component: IconButton,
+const meta: Meta<HomeComponent> = {
+  title: 'Pages/Home',
+  component: HomeComponent,
+  tags: ['autodocs'],
   parameters: {
-    layout: "centered",
-    docs: {
-      description: {
-        component: `Brief component description with key features.`,
+    layout: 'fullscreen', // Use full viewport
+  },
+  decorators: [
+    applicationConfig({
+      providers: [
+        /* ... */
+      ],
+    }),
+  ],
+};
+
+export default meta;
+type Story = StoryObj<HomeComponent>;
+
+export const Default: Story = {};
+
+export const WithManyTasks: Story = {
+  args: {
+    tasks: [
+      { id: '1', title: 'Task 1' /* ... */ },
+      { id: '2', title: 'Task 2' /* ... */ },
+      { id: '3', title: 'Task 3' /* ... */ },
+    ],
+  },
+};
+
+export const EmptyState: Story = {
+  args: {
+    tasks: [],
+  },
+};
+```
+
+## Design System Documentation
+
+### Color Palette Story
+
+```typescript
+import type { Meta, StoryObj } from '@storybook/angular';
+
+const meta: Meta = {
+  title: 'Design System/Colors',
+  tags: ['autodocs'],
+};
+
+export default meta;
+
+export const Primary: StoryObj = {
+  render: () => ({
+    template: `
+      <div style="display: grid; gap: 1rem;">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <div style="width: 100px; height: 100px; background: var(--color-primary); border-radius: 8px;"></div>
+          <div>
+            <h3>Primary</h3>
+            <p>--color-primary: #6366F1</p>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <div style="width: 100px; height: 100px; background: var(--color-secondary); border-radius: 8px;"></div>
+          <div>
+            <h3>Secondary</h3>
+            <p>--color-secondary: #EC4899</p>
+          </div>
+        </div>
+        <!-- Add more colors -->
+      </div>
+    `,
+  }),
+};
+
+export const AllColors: StoryObj = {
+  render: () => ({
+    template: `
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;">
+        <div style="background: var(--color-primary); padding: 2rem; border-radius: 8px; color: white;">
+          <div style="font-weight: bold;">Primary</div>
+          <div style="font-size: 0.875rem;">#6366F1</div>
+        </div>
+        <div style="background: var(--color-secondary); padding: 2rem; border-radius: 8px; color: white;">
+          <div style="font-weight: bold;">Secondary</div>
+          <div style="font-size: 0.875rem;">#EC4899</div>
+        </div>
+        <!-- Add all design system colors -->
+      </div>
+    `,
+  }),
+};
+```
+
+### Typography Story
+
+```typescript
+export const Typography: StoryObj = {
+  render: () => ({
+    template: `
+      <div style="font-family: var(--font-body);">
+        <h1 style="font-family: var(--font-heading); font-size: 48px; font-weight: 700;">
+          Heading 1 - Fredoka
+        </h1>
+        <h2 style="font-family: var(--font-heading); font-size: 36px; font-weight: 600;">
+          Heading 2 - Fredoka
+        </h2>
+        <p style="font-size: 16px;">
+          Body text - Outfit Regular
+        </p>
+        <p style="font-size: 16px; font-weight: 600;">
+          Body text - Outfit Semibold
+        </p>
+      </div>
+    `,
+  }),
+};
+```
+
+## Storybook Configuration
+
+### Main Configuration (`main.ts`)
+
+```typescript
+import type { StorybookConfig } from '@storybook/angular';
+
+const config: StorybookConfig = {
+  stories: ['../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
+  addons: [
+    '@storybook/addon-essentials',
+    '@storybook/addon-a11y',
+    '@storybook/addon-interactions',
+    '@storybook/addon-links',
+  ],
+  framework: {
+    name: '@storybook/angular',
+    options: {},
+  },
+  docs: {
+    autodocs: 'tag', // Generate docs for components with 'autodocs' tag
+  },
+};
+
+export default config;
+```
+
+### Preview Configuration (`preview.ts`)
+
+```typescript
+import type { Preview } from '@storybook/angular';
+import { setCompodocJson } from '@storybook/addon-docs/angular';
+import docJson from '../documentation.json';
+
+setCompodocJson(docJson);
+
+const preview: Preview = {
+  parameters: {
+    actions: { argTypesRegex: '^on[A-Z].*' },
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/i,
+      },
+    },
+    backgrounds: {
+      default: 'light',
+      values: [
+        { name: 'light', value: '#F8F9FF' },
+        { name: 'dark', value: '#1E293B' },
+        { name: 'white', value: '#FFFFFF' },
+      ],
+    },
+    viewport: {
+      viewports: {
+        mobile: {
+          name: 'Mobile',
+          styles: { width: '375px', height: '667px' },
+          type: 'mobile',
+        },
+        tablet: {
+          name: 'Tablet',
+          styles: { width: '768px', height: '1024px' },
+          type: 'tablet',
+        },
+        desktop: {
+          name: 'Desktop',
+          styles: { width: '1440px', height: '900px' },
+          type: 'desktop',
+        },
       },
     },
   },
-  argTypes: {
-    // Only disable complex/function props
-    icon: { control: false },
-    onClick: { control: false },
-    // Let simple props auto-generate controls
-    variant: {
-      control: "select",
-      options: ["default", "ghost", "destructive"],
-    },
-  },
-}
+};
+
+export default preview;
 ```
 
-### Layout Parameters
+## Essential Addons
 
-| Layout | Use Case |
-|--------|----------|
-| `centered` | Single components, buttons, inputs |
-| `padded` | Containers, cards, panels |
-| `fullscreen` | Page layouts, full-width components |
+### @storybook/addon-essentials
 
-## Play Function Patterns
+Includes: Controls, Actions, Viewport, Backgrounds, Toolbars, Measure, Outline
 
-### Role-Based Queries (Preferred)
+**Usage:**
 
-```tsx
-play: async ({ canvasElement }) => {
-  const canvas = within(canvasElement)
+- **Controls** - Interactive component props
+- **Actions** - Log component events (@Output)
+- **Viewport** - Test responsive behavior
+- **Backgrounds** - Test on different backgrounds
 
-  // ✅ Query by role
-  const button = canvas.getByRole("button", { name: "Submit" })
-  const input = canvas.getByRole("textbox", { name: "Email" })
-  const menu = canvas.getByRole("menu")
+### @storybook/addon-a11y
 
-  // ✅ Verify accessibility
-  await expect(button).toHaveAccessibleName("Submit")
-  await expect(button).not.toBeDisabled()
-}
-```
+Accessibility testing with axe-core
 
-### User Interaction
+**Usage:**
 
-```tsx
-play: async ({ canvasElement }) => {
-  const canvas = within(canvasElement)
-  const user = userEvent.setup()
-
-  const button = canvas.getByRole("button", { name: "Open menu" })
-  await user.click(button)
-
-  // Verify state change
-  await expect(button).toHaveAttribute("aria-expanded", "true")
-
-  const menu = canvas.getByRole("menu")
-  await expect(menu).toBeInTheDocument()
-}
-```
-
-### Focus Verification
-
-```tsx
-play: async ({ canvasElement }) => {
-  const canvas = within(canvasElement)
-  const button = canvas.getByRole("button")
-
-  button.focus()
-  await expect(button).toHaveFocus()
-}
-```
-
-### Step Function for Complex Flows
-
-Organize multi-step interactions for better debugging:
-
-```tsx
-import { step } from "@storybook/test"
-
-play: async ({ canvasElement }) => {
-  const canvas = within(canvasElement)
-  const user = userEvent.setup()
-
-  await step("Open the dialog", async () => {
-    await user.click(canvas.getByRole("button", { name: "Settings" }))
-    await expect(canvas.getByRole("dialog")).toBeInTheDocument()
-  })
-
-  await step("Fill in the form", async () => {
-    await user.type(canvas.getByLabelText("Name"), "Test User")
-    await user.selectOptions(canvas.getByLabelText("Theme"), "dark")
-  })
-
-  await step("Submit and verify", async () => {
-    await user.click(canvas.getByRole("button", { name: "Save" }))
-    await expect(canvas.getByText("Settings saved")).toBeInTheDocument()
-  })
-}
-```
-
-## A11y Testing Checklist
-
-Each component should have stories verifying:
-
-- [ ] `aria-label` / `aria-labelledby` for unlabeled elements
-- [ ] `aria-expanded` for expandable elements
-- [ ] `aria-pressed` for toggle buttons
-- [ ] `aria-selected` for selectable items
-- [ ] Focus visibility and keyboard navigation
-- [ ] Role attributes (`button`, `menu`, `tab`, `tablist`, etc.)
-
----
-
-## Form Component Story Patterns
-
-### BorderRadiusCheck Story
-
-Add a story using descender-heavy text (`"gggjjjyyyqqqppp"`) to verify text doesn't clip at rounded corners. Test all size variants.
-
-### Recommended Stories for Form Components
-
-`Sizes`, `States`, `WithLabel`, `BorderRadiusCheck`, `A11yWithLabel`, `A11yDisabled`, `A11yError`
-
-## File Structure
-
-```
-packages/ui/
-├── .storybook/
-│   ├── main.ts          # Storybook config
-│   ├── preview.ts       # Global decorators, a11y config
-│   └── storybook.css    # Theme import + @source
-├── src/
-│   └── components/
-│       ├── Button.tsx
-│       ├── Button.stories.tsx
-│       ├── IconButton.tsx
-│       └── IconButton.stories.tsx
-```
-
-## Configuration
-
-### main.ts
-
-```ts
-import type { StorybookConfig } from "@storybook/react-vite"
-import tailwindcss from "@tailwindcss/vite"
-
-const config: StorybookConfig = {
-  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
-  addons: [
-    "@storybook/addon-vitest",  // Component testing
-    "@storybook/addon-a11y",    // Accessibility panel
-    "@storybook/addon-docs",    // Documentation
-  ],
-  framework: "@storybook/react-vite",
-  async viteFinal(config) {
-    config.plugins = config.plugins
-      ? [...config.plugins, tailwindcss()]
-      : [tailwindcss()]
-    return config
-  },
-}
-```
-
-### preview.ts
-
-```ts
-import type { Preview } from "@storybook/react-vite"
-import "./storybook.css"
-
-const preview: Preview = {
+```typescript
+export const MyComponent: Story = {
   parameters: {
     a11y: {
       config: {
         rules: [
-          { id: "color-contrast", enabled: true },
-          { id: "aria-required-attr", enabled: true },
-          { id: "button-name", enabled: true },
-          { id: "label", enabled: true },
+          {
+            id: 'color-contrast',
+            enabled: true,
+          },
         ],
       },
     },
-    docs: {
-      toc: true,  // Table of contents in docs
-    },
   },
-}
+};
 ```
 
-### storybook.css
+**Check for:**
 
-```css
-@import "@internal/theme/index.css";
+- Color contrast (WCAG AA: 4.5:1 for text, 3:1 for UI)
+- ARIA labels
+- Keyboard navigation
+- Focus indicators
+- Semantic HTML
 
-@source "../src/**/*.tsx";
-```
+### @storybook/addon-interactions
 
-## Anti-Patterns
+Test user interactions
 
-### ❌ One story per variant
+```typescript
+import { within, userEvent } from '@storybook/testing-library';
+import { expect } from '@storybook/jest';
 
-```tsx
-// DON'T: Creates too many sidebar entries
-export const Primary: Story = { args: { variant: "primary" } }
-export const Secondary: Story = { args: { variant: "secondary" } }
-export const Ghost: Story = { args: { variant: "ghost" } }
-export const Destructive: Story = { args: { variant: "destructive" } }
-```
+export const ClickButton: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole('button');
 
-### ✅ Single showcase story
-
-```tsx
-// DO: One story showing all variants
-export const Variants: Story = {
-  render: () => (
-    <div className="grid grid-cols-2 gap-4">
-      <Button variant="primary">Primary</Button>
-      <Button variant="secondary">Secondary</Button>
-      <Button variant="ghost">Ghost</Button>
-      <Button variant="destructive">Destructive</Button>
-    </div>
-  ),
-}
-```
-
-### ❌ Relying on Controls for documentation
-
-```tsx
-// DON'T: Users must interact with controls to see variants
-export const Default: Story = {
-  args: {
-    variant: "primary",
-    size: "md",
+    await userEvent.click(button);
+    await expect(button).toHaveClass('clicked');
   },
-}
+};
 ```
 
-### ✅ Visual documentation
+## Component Development Workflow
 
-```tsx
-// DO: All variants visible at once
-export const Sizes: Story = {
-  render: () => (
-    <div className="flex items-center gap-4">
-      <Button size="sm">Small</Button>
-      <Button size="md">Medium</Button>
-      <Button size="lg">Large</Button>
-    </div>
-  ),
-}
+### Step 1: Create Component
+
+```bash
+# Generate component
+cd apps/frontend
+ng generate component components/button --standalone
 ```
 
-## Portable Stories (Storybook 8+)
+### Step 2: Create Story
 
-Use stories in external test runners:
-
-```tsx
-// Button.test.tsx
-import { composeStories } from "@storybook/react"
-import { render, screen } from "@testing-library/react"
-import * as stories from "./Button.stories"
-
-const { Primary, Disabled } = composeStories(stories)
-
-test("renders primary button", () => {
-  render(<Primary />)
-  expect(screen.getByRole("button")).toBeInTheDocument()
-})
-
-test("disabled button is not interactive", () => {
-  render(<Disabled />)
-  expect(screen.getByRole("button")).toBeDisabled()
-})
+```bash
+# Create story file
+touch src/app/components/button/button.stories.ts
 ```
 
-**Benefits:**
-- Reuse stories in Vitest/Jest
-- Single source of truth for component states
-- Decorators and args automatically applied
+### Step 3: Develop in Storybook
+
+```bash
+# Run Storybook
+npm run storybook
+
+# Storybook opens at localhost:6006
+# Hot reload automatically updates as you code
+```
+
+### Step 4: Test All States
+
+Create stories for:
+
+- Default state
+- All variants (primary, secondary, danger, etc.)
+- All sizes (small, medium, large)
+- Disabled state
+- Loading state
+- Error state
+- Empty state (if applicable)
+- With long text / edge cases
+
+### Step 5: Accessibility Check
+
+- Use a11y addon (bottom panel)
+- Check all violations
+- Fix color contrast issues
+- Add ARIA labels
+- Test keyboard navigation
+
+### Step 6: Visual Review
+
+- Test on all viewports (mobile, tablet, desktop)
+- Test on all backgrounds (light, dark, white)
+- Check hover states
+- Check focus states
+- Check animations
+
+### Step 7: Integration
+
+Once component is complete in Storybook:
+
+- Import into parent component
+- Use in actual app
+- E2E test in real context
+
+## Common Commands
+
+### Development
+
+```bash
+# Start Storybook dev server
+npm run storybook
+
+# Build static Storybook
+npm run build-storybook
+
+# Generate Compodoc documentation
+npm run storybook:docs
+
+# Run both Compodoc and Storybook
+npm run storybook:docs && npm run storybook
+```
+
+### Story Creation
+
+```bash
+# Create new story file
+touch src/app/components/my-component/my-component.stories.ts
+
+# Follow naming convention: {component-name}.stories.ts
+```
+
+## Troubleshooting
+
+### Issue: Component not rendering
+
+**Solution:**
+
+- Check that component is standalone or imported in moduleMetadata
+- Check that all dependencies are provided (services, HTTP client)
+- Check console for errors
+
+### Issue: Styles not loading
+
+**Solution:**
+
+- Import global styles in `preview.ts`
+- Check component styleUrls path
+- Ensure CSS variables are defined
+
+### Issue: Compodoc failing
+
+**Solution:**
+
+```bash
+# Regenerate documentation
+npm run storybook:docs
+
+# Check for TypeScript errors
+npm run type-check
+```
+
+### Issue: Hot reload not working
+
+**Solution:**
+
+- Restart Storybook
+- Clear browser cache
+- Check for conflicting ports
+
+## Best Practices Checklist
+
+### Every Component Story Should Have:
+
+- [ ] Multiple story variants (Default, Disabled, Loading, etc.)
+- [ ] All input combinations tested
+- [ ] Accessibility testing enabled (a11y addon)
+- [ ] Proper argTypes with descriptions
+- [ ] Tags: ['autodocs'] for automatic documentation
+- [ ] JSDoc comments on @Input() and @Output()
+
+### Every Design System Story Should Have:
+
+- [ ] Visual representation
+- [ ] Code examples
+- [ ] Usage guidelines
+- [ ] Do's and Don'ts (optional)
+
+### Story Organization:
+
+- [ ] Hierarchical naming (Components/, Pages/, Design System/)
+- [ ] Alphabetical ordering within categories
+- [ ] Consistent naming convention
+
+## Integration with CI/CD
+
+### Build Storybook in CI
+
+```yaml
+# GitHub Actions example
+- name: Build Storybook
+  run: |
+    cd apps/frontend
+    npm run storybook:docs
+    npm run build-storybook
+```
+
+### Deploy Storybook
+
+```bash
+# Build static version
+npm run build-storybook
+
+# Deploy to static hosting (Netlify, Vercel, GitHub Pages)
+# Output directory: storybook-static/
+```
+
+### Visual Regression Testing
+
+Consider adding:
+
+- Chromatic (visual testing platform)
+- Percy (visual review)
+- Storybook test runner
+
+## Success Criteria
+
+After implementing this skill:
+
+- ✅ All components have corresponding stories
+- ✅ Design system fully documented
+- ✅ Accessibility testing on every component
+- ✅ Visual regression testing enabled
+- ✅ Developers can create stories in < 5 minutes
+- ✅ Storybook deployed for team collaboration
 
 ## References
 
-- [Storybook Documentation](https://storybook.js.org/docs)
-- [Storybook Test Runner](https://storybook.js.org/docs/writing-tests/test-runner)
-- [Portable Stories](https://storybook.js.org/docs/api/portable-stories)
+### Official Documentation
+
+- [Storybook for Angular](https://storybook.js.org/docs/get-started/frameworks/angular)
+- [Writing Stories](https://storybook.js.org/docs/writing-stories)
+- [Essential Addons](https://storybook.js.org/docs/essentials)
+- [Accessibility Addon](https://storybook.js.org/addons/@storybook/addon-a11y)
+
+### Angular-Specific
+
+- [Angular Standalone Components](https://angular.dev/guide/components)
+- [Angular Signals](https://angular.dev/guide/signals)
+- [Angular OnPush Change Detection](https://angular.dev/best-practices/runtime-performance)
+
+## Related Skills
+
+Use together with:
+
+- **frontend** skill - Angular 21+ component development
+- **frontend-design** skill - UI design principles
+- **ux-design** skill - User experience patterns

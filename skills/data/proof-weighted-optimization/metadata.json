@@ -1,13 +1,7 @@
 {
   "name": "proof-weighted-optimization",
-  "description": "Optimize decisions using proof-weighted scoring.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "devops",
-  "tags": [
-    "proof",
-    "weighted",
-    "optimization"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/proof-weighted-optimization/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-14T01:08:21.088361Z"
 }

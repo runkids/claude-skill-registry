@@ -1,13 +1,7 @@
 {
   "name": "python-project-skel",
-  "description": "Generate production-ready Python project skeletons with Astral UV package manager, Hatchling build backend with dynamic versioning, and modern tooling (ruff, mypy, pytest, bandit). Use when creating n",
   "repo": "zircote/.claude",
-  "category": "development",
-  "tags": [
-    "python",
-    "project",
-    "skel"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": "skills/python-project-skel/SKILL.md",
+  "source": "github.com/zircote/.claude",
+  "downloaded_at": "2026-01-14T01:04:17.948704Z"
 }

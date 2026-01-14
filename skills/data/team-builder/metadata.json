@@ -1,12 +1,7 @@
 {
   "name": "team-builder",
-  "description": "Designs high-performing team structures using organizational psychology AND creates new skills on-the-fly when team needs unmet expertise. Expert in team composition, personality balancing, collaborat",
   "repo": "erichowens/some_claude_skills",
-  "category": "design",
-  "tags": [
-    "team",
-    "builder"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/team-builder/SKILL.md",
+  "source": "github.com/erichowens/some_claude_skills",
+  "downloaded_at": "2026-01-14T02:58:44.421209Z"
 }

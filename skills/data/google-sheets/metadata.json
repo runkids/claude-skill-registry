@@ -1,11 +1,7 @@
 {
   "name": "google-sheets",
-  "description": "Google Sheets API via curl. Use this skill to read, write, and manage spreadsheet data programmatically.",
-  "repo": "vm0-ai/vm0-skills",
-  "category": "data",
-  "tags": [
-    "google",
-    "sheets"
-  ],
-  "stars": 8
+  "repo": "arlenagreer/claude_configuration_docs",
+  "path": "skills/google-sheets/SKILL.md",
+  "source": "github.com/arlenagreer/claude_configuration_docs",
+  "downloaded_at": "2026-01-14T02:29:29.545788Z"
 }

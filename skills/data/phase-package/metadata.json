@@ -1,12 +1,7 @@
 {
   "name": "phase-package",
-  "description": "Create distributable packages including .mojopkg files and archives. Use during package phase to prepare components for distribution.",
   "repo": "mvillmow/ProjectOdyssey",
-  "category": "development",
-  "tags": [
-    "phase",
-    "package"
-  ],
-  "stars": 8,
-  "source": "local"
+  "path": ".claude/skills/phase-package/SKILL.md",
+  "source": "github.com/mvillmow/ProjectOdyssey",
+  "downloaded_at": "2026-01-14T01:08:58.518692Z"
 }

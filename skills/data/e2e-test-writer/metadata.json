@@ -1,13 +1,7 @@
 {
   "name": "e2e-test-writer",
-  "description": "Write comprehensive end-to-end tests using Playwright with page object",
   "repo": "matteocervelli/llms",
-  "category": "testing",
-  "tags": [
-    "e2e",
-    "test",
-    "writer"
-  ],
-  "stars": 10,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/e2e-test-writer/SKILL.md",
+  "source": "github.com/matteocervelli/llms",
+  "downloaded_at": "2026-01-14T03:06:52.733304Z"
 }

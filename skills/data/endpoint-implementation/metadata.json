@@ -1,12 +1,7 @@
 {
   "name": "endpoint-implementation",
-  "description": "Use this skill to implement endpoints in the API",
   "repo": "wmeints/promptyard",
-  "category": "development",
-  "tags": [
-    "endpoint",
-    "implementation"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/endpoint-implementation/SKILL.md",
+  "source": "github.com/wmeints/promptyard",
+  "downloaded_at": "2026-01-14T03:21:44.247105Z"
 }

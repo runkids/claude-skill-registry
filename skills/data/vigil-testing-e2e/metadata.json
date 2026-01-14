@@ -1,13 +1,7 @@
 {
   "name": "vigil-testing-e2e",
-  "description": "End-to-end testing with Vitest for Vigil Guard v2.0.0 detection engine. Use when writing tests, debugging test failures, managing fixtures, validating 3-branch detection, working with 8 test files, an",
   "repo": "tbartel74/Vigil-Code",
-  "category": "testing",
-  "tags": [
-    "vigil",
-    "testing",
-    "e2e"
-  ],
-  "stars": 5,
-  "source": "local"
+  "path": ".claude/skills/vigil-testing-e2e/SKILL.md",
+  "source": "github.com/tbartel74/Vigil-Code",
+  "downloaded_at": "2026-01-14T02:46:39.251389Z"
 }

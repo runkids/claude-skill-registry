@@ -1,531 +1,378 @@
 ---
 name: database-migration
-description: Use when working with Supabase database schemas, migrations, RLS policies, or PostGIS features. Enforces UUID standards, timestamp columns, and security best practices.
+description: Manage database schema changes with version control. Use when modifying DB schema, adding tables/columns, or setting up new projects. Covers Prisma, Drizzle, and migration best practices.
+allowed-tools: Read, Glob, Grep, Edit, Write, Bash
+license: MIT
+metadata:
+  author: antigravity-team
+  version: "1.0"
 ---
 
-# Database Migration Skill
+# Database Migration
 
-Use this skill when working with Supabase database schemas, migrations, RLS policies, or PostGIS features.
+데이터베이스 스키마 변경을 버전 관리하는 스킬입니다.
 
-## Critical Rules
+## Core Principle
 
-### Never Use Service Role Keys in Client Code
+> **"DB 스키마도 코드처럼 버전 관리한다."**
+> **"수동으로 ALTER TABLE 치는 순간, 협업이 망가진다."**
 
-**❌ DANGEROUS:**
-```typescript
-// NEVER expose service role keys in apps/mobile or apps/web
-const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
-```
+## Rules
 
-**✅ SAFE:**
-```typescript
-// Client apps ONLY use anonymous keys
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-```
+| 규칙 | 상태 | 설명 |
+|------|------|------|
+| 마이그레이션 파일 생성 | 🔴 필수 | 수동 SQL 실행 금지 |
+| 롤백 가능 | 🔴 필수 | down migration 필수 |
+| 순차 실행 | 🔴 필수 | 마이그레이션 순서 보장 |
+| 프로덕션 백업 | 🔴 필수 | 마이그레이션 전 백업 |
 
-Service role keys bypass RLS - only use in:
-- Backend services
-- Admin tools (apps/admin with proper auth)
-- Database migrations
-- Edge functions
+## Prisma (권장)
 
-### RLS Must Be Enabled by Default
-
-**Every table MUST have RLS enabled:**
-
-```sql
--- ✅ REQUIRED pattern
-CREATE TABLE users (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  email TEXT UNIQUE NOT NULL,
-  created_at TIMESTAMPTZ DEFAULT now(),
-  updated_at TIMESTAMPTZ DEFAULT now()
-);
-
--- CRITICAL: Enable RLS
-ALTER TABLE users ENABLE ROW LEVEL SECURITY;
-
--- Create policies
-CREATE POLICY "Users can view own profile"
-  ON users FOR SELECT
-  USING (auth.uid() = id);
-
-CREATE POLICY "Users can update own profile"
-  ON users FOR UPDATE
-  USING (auth.uid() = id);
-```
-
-### Standard Table Structure
-
-Every table should follow this pattern:
-
-```sql
-CREATE TABLE table_name (
-  -- Primary key: UUID
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-
-  -- Your columns here
-  name TEXT NOT NULL,
-  description TEXT,
-
-  -- Audit columns (REQUIRED)
-  created_at TIMESTAMPTZ DEFAULT now() NOT NULL,
-  updated_at TIMESTAMPTZ DEFAULT now() NOT NULL
-);
-
--- RLS (REQUIRED)
-ALTER TABLE table_name ENABLE ROW LEVEL SECURITY;
-
--- Updated_at trigger (RECOMMENDED)
-CREATE TRIGGER set_updated_at
-  BEFORE UPDATE ON table_name
-  FOR EACH ROW
-  EXECUTE FUNCTION update_updated_at_column();
-```
-
-## Migration Workflow
-
-### Using MCP Supabase Tools
-
-The monorepo has Supabase MCP tools available:
-
-```typescript
-// Check existing tables
-mcp__supabase__list_tables({ schemas: ['public'] })
-
-// Execute DDL (schema changes)
-mcp__supabase__apply_migration({
-  name: 'create_posts_table',
-  query: 'CREATE TABLE posts (...)'
-})
-
-// Execute queries (data operations)
-mcp__supabase__execute_sql({
-  query: 'SELECT * FROM users WHERE id = $1'
-})
-
-// Get security advisors
-mcp__supabase__get_advisors({ type: 'security' })
-```
-
-### Migration File Organization
-
-**IMPORTANT**: Migrations are organized by type in folders for better maintainability:
-
-```
-supabase/migrations/
-├── tables/
-│   ├── 20240101120000_create_users.sql
-│   ├── 20240101120100_create_profiles.sql
-│   ├── 20240102120000_create_pets.sql
-│   └── 20240103120000_create_posts.sql
-├── views/
-│   ├── 20240104120000_create_user_stats_view.sql
-│   └── 20240105120000_create_pet_nearby_view.sql
-├── functions/
-│   ├── 20240106120000_create_update_timestamp_function.sql
-│   ├── 20240107120000_create_calculate_distance_function.sql
-│   └── 20240108120000_create_search_pets_function.sql
-├── triggers/
-│   ├── 20240109120000_add_update_timestamp_trigger_users.sql
-│   └── 20240110120000_add_update_timestamp_trigger_pets.sql
-├── policies/
-│   ├── 20240111120000_add_rls_policies_users.sql
-│   ├── 20240112120000_add_rls_policies_profiles.sql
-│   └── 20240113120000_add_rls_policies_pets.sql
-└── indexes/
-    ├── 20240114120000_add_users_email_index.sql
-    └── 20240115120000_add_pets_location_gist_index.sql
-```
-
-### Migration Organization Rules
-
-1. **Folder Structure**:
-   - `tables/` - CREATE TABLE statements, ALTER TABLE for columns
-   - `views/` - CREATE VIEW, CREATE MATERIALIZED VIEW
-   - `functions/` - CREATE FUNCTION, CREATE OR REPLACE FUNCTION
-   - `triggers/` - CREATE TRIGGER statements
-   - `policies/` - RLS policies (ALTER TABLE ... ENABLE RLS, CREATE POLICY)
-   - `indexes/` - CREATE INDEX statements
-
-2. **File Placement Logic**:
-   ```
-   - Creating a new table? → tables/
-   - Adding RLS policies? → policies/
-   - Creating helper function? → functions/
-   - Adding trigger to call function? → triggers/
-   - Creating spatial index? → indexes/
-   - Creating view for queries? → views/
-   ```
-
-3. **Cross-Folder Dependencies**:
-   - Tables must be created before policies
-   - Functions must be created before triggers
-   - Tables must exist before views that reference them
-   - Use timestamps to enforce order across folders
-
-4. **Example Workflow**:
-   ```
-   1. tables/20240101_create_users.sql
-      - Create users table
-      - Enable RLS (basic)
-
-   2. functions/20240102_update_timestamp.sql
-      - Create update_updated_at_column() function
-
-   3. triggers/20240103_users_timestamp_trigger.sql
-      - Add trigger to users table
-
-   4. policies/20240104_users_rls.sql
-      - Add comprehensive RLS policies to users
-
-   5. indexes/20240105_users_email_index.sql
-      - Add performance indexes
-
-   6. views/20240106_user_stats.sql
-      - Create views that depend on users table
-   ```
-
-### Migration Naming Convention
-
-Use timestamp + descriptive name:
-
-```
-YYYYMMDDHHMMSS_description.sql
-
-Examples:
-tables/20240315120000_create_users.sql
-policies/20240315120100_add_rls_users.sql
-functions/20240315120200_create_distance_calc.sql
-triggers/20240315120300_add_timestamp_trigger_users.sql
-indexes/20240315120400_add_users_email_index.sql
-views/20240315120500_create_user_stats_view.sql
-```
-
-### When to Create a New Migration
-
-**Create separate migration files for**:
-- Each new table
-- Each new function
-- Each set of RLS policies for a table
-- Each new view
-- Each new trigger
-- Each new index or set of related indexes
-
-**Combine into single file**:
-- Multiple indexes for the same table (if added at once)
-- Related RLS policies for the same table
-- Helper functions that work together
-
-## RLS Policy Patterns
-
-### User-Owned Resources
-
-```sql
--- Users can only see/modify their own data
-CREATE POLICY "Users manage own data"
-  ON user_profiles
-  FOR ALL
-  USING (auth.uid() = user_id);
-```
-
-### Public Read, Authenticated Write
-
-```sql
--- Anyone can read, authenticated users can write
-CREATE POLICY "Public read access"
-  ON posts
-  FOR SELECT
-  USING (true);
-
-CREATE POLICY "Authenticated write access"
-  ON posts
-  FOR INSERT
-  WITH CHECK (auth.role() = 'authenticated');
-```
-
-### Role-Based Access
-
-```sql
--- Admin-only access
-CREATE POLICY "Admin full access"
-  ON sensitive_data
-  FOR ALL
-  USING (
-    EXISTS (
-      SELECT 1 FROM user_roles
-      WHERE user_id = auth.uid()
-      AND role = 'admin'
-    )
-  );
-```
-
-### Tenant Isolation
-
-```sql
--- Multi-tenant data isolation
-CREATE POLICY "Tenant isolation"
-  ON tenant_data
-  FOR ALL
-  USING (
-    tenant_id IN (
-      SELECT tenant_id FROM user_tenants
-      WHERE user_id = auth.uid()
-    )
-  );
-```
-
-## PostGIS Integration
-
-For location-based features (pet finding, maps):
-
-```sql
--- Enable PostGIS extension
-CREATE EXTENSION IF NOT EXISTS postgis;
-
--- Add location column
-ALTER TABLE pets
-ADD COLUMN location GEOGRAPHY(POINT, 4326);
-
--- Spatial index for performance
-CREATE INDEX pets_location_idx
-  ON pets
-  USING GIST(location);
-
--- Find pets within radius (in meters)
-SELECT *
-FROM pets
-WHERE ST_DWithin(
-  location,
-  ST_MakePoint(longitude, latitude)::geography,
-  5000  -- 5km radius
-);
-```
-
-## Foreign Key Relationships
-
-Always use proper foreign keys with cascade rules:
-
-```sql
-CREATE TABLE posts (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-  title TEXT NOT NULL,
-  created_at TIMESTAMPTZ DEFAULT now()
-);
-
--- Index foreign keys for performance
-CREATE INDEX posts_user_id_idx ON posts(user_id);
-```
-
-## Common Functions
-
-### Updated At Trigger
-
-Create once, reuse everywhere:
-
-```sql
-CREATE OR REPLACE FUNCTION update_updated_at_column()
-RETURNS TRIGGER AS $$
-BEGIN
-  NEW.updated_at = now();
-  RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
--- Apply to any table
-CREATE TRIGGER set_updated_at
-  BEFORE UPDATE ON table_name
-  FOR EACH ROW
-  EXECUTE FUNCTION update_updated_at_column();
-```
-
-### Generate Slug
-
-```sql
-CREATE OR REPLACE FUNCTION generate_slug(text_input TEXT)
-RETURNS TEXT AS $$
-BEGIN
-  RETURN lower(
-    regexp_replace(
-      regexp_replace(text_input, '[^a-zA-Z0-9\s-]', '', 'g'),
-      '\s+', '-', 'g'
-    )
-  );
-END;
-$$ LANGUAGE plpgsql IMMUTABLE;
-```
-
-## Type Generation
-
-After migrations, regenerate TypeScript types:
+### 초기 설정
 
 ```bash
-# Using MCP tool
-mcp__supabase__generate_typescript_types()
+# Prisma 설치
+npm install prisma @prisma/client
 
-# Or via CLI (if configured)
-pnpm --filter @hounii/api gen:types
+# 초기화
+npx prisma init
+
+# .env에 DATABASE_URL 설정
+# DATABASE_URL="postgresql://user:password@localhost:5432/mydb"
 ```
 
-Update types in `packages/api/src/types/database.ts`.
+### 스키마 정의
 
-## Migration Checklist
+```prisma
+// prisma/schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
 
-Before applying a migration:
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
 
-- [ ] **Table Structure**
-  - [ ] UUID primary key with `gen_random_uuid()`
-  - [ ] `created_at` and `updated_at` columns
-  - [ ] Proper column types and constraints
-  - [ ] Foreign keys with cascade rules
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String?
+  posts     Post[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
 
-- [ ] **Security**
-  - [ ] RLS enabled: `ALTER TABLE ... ENABLE ROW LEVEL SECURITY`
-  - [ ] Policies defined for all operations (SELECT, INSERT, UPDATE, DELETE)
-  - [ ] Policies tested for edge cases
-  - [ ] No service role keys in client code
+model Post {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String?
+  published Boolean  @default(false)
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+```
 
-- [ ] **Performance**
-  - [ ] Indexes on foreign keys
-  - [ ] Indexes on frequently queried columns
-  - [ ] GiST indexes for PostGIS columns
+### 마이그레이션 워크플로우
 
-- [ ] **Functions & Triggers**
-  - [ ] `updated_at` trigger added
-  - [ ] Custom functions documented
+```bash
+# 1. 스키마 변경 후 마이그레이션 생성
+npx prisma migrate dev --name add_user_table
 
-- [ ] **Type Safety**
-  - [ ] TypeScript types regenerated
-  - [ ] Types exported from `@hounii/api`
+# 2. 마이그레이션 파일 확인
+ls prisma/migrations/
 
-- [ ] **Testing**
-  - [ ] Test policies with different user roles
-  - [ ] Verify cascade deletes work correctly
-  - [ ] Check PostGIS queries return expected results
+# 3. 프로덕션 배포
+npx prisma migrate deploy
 
-## Security Advisors
+# 4. 클라이언트 재생성
+npx prisma generate
+```
 
-After migrations, check for security issues:
+### 마이그레이션 파일 구조
+
+```
+prisma/
+├── schema.prisma
+└── migrations/
+    ├── 20240101000000_init/
+    │   └── migration.sql
+    ├── 20240102000000_add_user_table/
+    │   └── migration.sql
+    └── migration_lock.toml
+```
+
+### 마이그레이션 명령어
+
+```bash
+# 개발: 마이그레이션 생성 + 적용
+npx prisma migrate dev --name <migration_name>
+
+# 프로덕션: 마이그레이션만 적용
+npx prisma migrate deploy
+
+# 상태 확인
+npx prisma migrate status
+
+# 리셋 (⚠️ 개발용만)
+npx prisma migrate reset
+```
+
+## Drizzle ORM
+
+### 초기 설정
+
+```bash
+# Drizzle 설치
+npm install drizzle-orm postgres
+npm install -D drizzle-kit
+```
+
+### 스키마 정의
 
 ```typescript
-// Run security advisors
-mcp__supabase__get_advisors({ type: 'security' })
+// src/db/schema.ts
+import { pgTable, serial, text, timestamp, boolean, integer } from 'drizzle-orm/pg-core';
 
-// Check for:
-// - Tables without RLS
-// - Missing indexes
-// - Overly permissive policies
-```
+export const users = pgTable('users', {
+  id: serial('id').primaryKey(),
+  email: text('email').notNull().unique(),
+  name: text('name'),
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow(),
+});
 
-## Common Pitfalls
-
-### ❌ Missing RLS
-
-```sql
-CREATE TABLE posts (...);
--- ❌ FORGOT: ALTER TABLE posts ENABLE ROW LEVEL SECURITY;
-```
-
-Result: All data exposed to everyone!
-
-### ❌ Wrong UUID Generation
-
-```sql
--- ❌ WRONG: No default
-id UUID PRIMARY KEY
-
--- ❌ WRONG: Using uuid_generate_v4() (requires extension)
-id UUID PRIMARY KEY DEFAULT uuid_generate_v4()
-
--- ✅ CORRECT: Built-in generator
-id UUID PRIMARY KEY DEFAULT gen_random_uuid()
-```
-
-### ❌ Missing Timestamps
-
-```sql
--- ❌ INCOMPLETE: No audit trail
-CREATE TABLE posts (
-  id UUID PRIMARY KEY,
-  title TEXT
-);
-
--- ✅ COMPLETE: Full audit trail
-CREATE TABLE posts (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  title TEXT NOT NULL,
-  created_at TIMESTAMPTZ DEFAULT now() NOT NULL,
-  updated_at TIMESTAMPTZ DEFAULT now() NOT NULL
-);
-```
-
-### ❌ Overly Permissive RLS
-
-```sql
--- ❌ DANGEROUS: Everyone can do everything
-CREATE POLICY "Allow all"
-  ON sensitive_data
-  FOR ALL
-  USING (true);
-
--- ✅ SECURE: Proper isolation
-CREATE POLICY "Users own data"
-  ON sensitive_data
-  FOR ALL
-  USING (auth.uid() = user_id);
-```
-
-## Data Migration Safety
-
-When migrating existing data:
-
-```sql
--- ❌ DANGEROUS: No rollback
-UPDATE users SET role = 'admin' WHERE email = 'admin@example.com';
-
--- ✅ SAFE: Use transactions
-BEGIN;
-  UPDATE users SET role = 'admin' WHERE email = 'admin@example.com';
-  -- Verify changes
-  SELECT * FROM users WHERE role = 'admin';
-  -- If wrong: ROLLBACK;
-COMMIT;
-```
-
-**Do NOT hardcode generated IDs in data migrations** - UUIDs are non-deterministic.
-
-## Edge Functions Integration
-
-For complex logic, use Edge Functions:
-
-```typescript
-// supabase/functions/example/index.ts
-import { createClient } from '@supabase/supabase-js';
-
-Deno.serve(async (req) => {
-  // Use service role key in Edge Functions (secure)
-  const supabase = createClient(
-    Deno.env.get('SUPABASE_URL')!,
-    Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
-  );
-
-  // Your logic here
+export const posts = pgTable('posts', {
+  id: serial('id').primaryKey(),
+  title: text('title').notNull(),
+  content: text('content'),
+  published: boolean('published').default(false),
+  authorId: integer('author_id').references(() => users.id),
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow(),
 });
 ```
 
-Deploy with MCP tools:
+### drizzle.config.ts
 
 ```typescript
-mcp__supabase__deploy_edge_function({
-  name: 'example',
-  files: [{ name: 'index.ts', content: '...' }]
-})
+import type { Config } from 'drizzle-kit';
+
+export default {
+  schema: './src/db/schema.ts',
+  out: './drizzle',
+  driver: 'pg',
+  dbCredentials: {
+    connectionString: process.env.DATABASE_URL!,
+  },
+} satisfies Config;
 ```
+
+### 마이그레이션 명령어
+
+```bash
+# 마이그레이션 생성
+npx drizzle-kit generate:pg
+
+# 마이그레이션 적용
+npx drizzle-kit push:pg
+
+# 스키마 시각화
+npx drizzle-kit studio
+```
+
+## 마이그레이션 Best Practices
+
+### 1. 작은 단위로 마이그레이션
+
+```sql
+-- ❌ BAD: 한 번에 많은 변경
+-- migration: big_refactor
+ALTER TABLE users ADD COLUMN age INT;
+ALTER TABLE users ADD COLUMN address TEXT;
+ALTER TABLE users DROP COLUMN old_field;
+CREATE TABLE new_table (...);
+DROP TABLE old_table;
+
+-- ✅ GOOD: 작은 단위로 분리
+-- migration: add_user_age
+ALTER TABLE users ADD COLUMN age INT;
+
+-- migration: add_user_address
+ALTER TABLE users ADD COLUMN address TEXT;
+```
+
+### 2. 안전한 컬럼 추가
+
+```sql
+-- ❌ BAD: NOT NULL without default (기존 데이터 문제)
+ALTER TABLE users ADD COLUMN status TEXT NOT NULL;
+
+-- ✅ GOOD: default 값 포함
+ALTER TABLE users ADD COLUMN status TEXT NOT NULL DEFAULT 'active';
+
+-- 또는 nullable로 추가 후 나중에 마이그레이션
+ALTER TABLE users ADD COLUMN status TEXT;
+UPDATE users SET status = 'active' WHERE status IS NULL;
+ALTER TABLE users ALTER COLUMN status SET NOT NULL;
+```
+
+### 3. 안전한 컬럼 삭제
+
+```sql
+-- ❌ BAD: 바로 삭제
+ALTER TABLE users DROP COLUMN old_field;
+
+-- ✅ GOOD: 단계적 삭제
+-- Step 1: 코드에서 컬럼 사용 제거
+-- Step 2: 배포 후 안정화 확인
+-- Step 3: 마이그레이션으로 컬럼 삭제
+```
+
+### 4. 인덱스 추가
+
+```sql
+-- ❌ BAD: 큰 테이블에 동기 인덱스 생성 (락 발생)
+CREATE INDEX idx_users_email ON users(email);
+
+-- ✅ GOOD: CONCURRENTLY 사용 (PostgreSQL)
+CREATE INDEX CONCURRENTLY idx_users_email ON users(email);
+```
+
+## 롤백 전략
+
+### Prisma 롤백
+
+```bash
+# 마지막 마이그레이션 롤백
+npx prisma migrate resolve --rolled-back <migration_name>
+
+# 또는 특정 시점으로 복구
+npx prisma migrate reset  # ⚠️ 개발용만!
+```
+
+### 수동 롤백 스크립트
+
+```sql
+-- migrations/20240102_add_status/down.sql
+ALTER TABLE users DROP COLUMN status;
+```
+
+## CI/CD 통합
+
+### GitHub Actions
+
+```yaml
+# .github/workflows/migrate.yml
+name: Database Migration
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'prisma/**'
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run migrations
+        run: npx prisma migrate deploy
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+```
+
+### 마이그레이션 검증
+
+```yaml
+# PR에서 마이그레이션 유효성 검사
+jobs:
+  validate-migration:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_PASSWORD: test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run migrations on test DB
+        run: npx prisma migrate deploy
+        env:
+          DATABASE_URL: postgresql://postgres:test@localhost:5432/test
+```
+
+## 프로덕션 체크리스트
+
+### 마이그레이션 전
+
+- [ ] 데이터베이스 백업 완료
+- [ ] 마이그레이션 SQL 리뷰 완료
+- [ ] 테스트 환경에서 검증 완료
+- [ ] 롤백 계획 준비
+- [ ] 유지보수 알림 (필요시)
+
+### 마이그레이션 중
+
+- [ ] 모니터링 대시보드 확인
+- [ ] 에러 로그 모니터링
+- [ ] 락 타임아웃 확인
+
+### 마이그레이션 후
+
+- [ ] 애플리케이션 정상 동작 확인
+- [ ] 데이터 무결성 확인
+- [ ] 성능 저하 여부 확인
+
+## Workflow
+
+### 개발 시
+
+```
+1. 스키마 파일 수정 (schema.prisma)
+2. npx prisma migrate dev --name <description>
+3. 생성된 SQL 확인
+4. Git 커밋 (스키마 + 마이그레이션 파일)
+```
+
+### 배포 시
+
+```
+1. PR 머지
+2. CI에서 npx prisma migrate deploy 실행
+3. 프로덕션 확인
+4. (문제 시) 롤백 실행
+```
+
+## Checklist
+
+- [ ] 마이그레이션 도구 설정 (Prisma/Drizzle)
+- [ ] 마이그레이션 파일 Git 추적
+- [ ] CI/CD에 마이그레이션 단계 추가
+- [ ] 롤백 스크립트 준비
+- [ ] 프로덕션 백업 자동화
 
 ## References
 
-- Main config: [CLAUDE.md](../../../CLAUDE.md)
-- Supabase migrations: [supabase/migrations/](../../../supabase/migrations/)
-- API package: [packages/api/](../../../packages/api/)
-- Supabase docs: Use `mcp__supabase__search_docs` for latest info
+- [Prisma Migrate](https://www.prisma.io/docs/concepts/components/prisma-migrate)
+- [Drizzle Kit](https://orm.drizzle.team/kit-docs/overview)
+- [Zero-downtime migrations](https://planetscale.com/blog/safely-making-database-schema-changes)

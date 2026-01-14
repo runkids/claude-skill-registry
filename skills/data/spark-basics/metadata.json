@@ -1,11 +1,7 @@
 {
   "name": "spark-basics",
-  "description": "PySpark fundamentals for distributed data processing.",
-  "repo": "timequity/vibe-coder",
-  "category": "data",
-  "tags": [
-    "spark",
-    "basics"
-  ],
-  "stars": 0
+  "repo": "timequity/plugins",
+  "path": "vibe-coder/skills/data/spark-basics/SKILL.md",
+  "source": "github.com/timequity/plugins",
+  "downloaded_at": "2026-01-14T03:41:28.390843Z"
 }

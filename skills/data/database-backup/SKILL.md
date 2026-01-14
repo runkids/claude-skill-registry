@@ -1,131 +1,101 @@
 ---
 name: database-backup
-description: Safe database migration workflow with Spatie backup integration. Always backup before migration, update mermaid.rb schema, keep max 10 recent backups. USE WHEN creating migrations, running migrations, restoring database, managing schema changes, or any risky database operations.
+description: "Backup database before tests, migrations, or other database operations"
 ---
-## When to Activate This Skill
 
-- User says "chạy migration"
-- User says "create migration"
-- User mentions "database backup"
-- User wants to "restore database"
-- Before ANY risky database operation
-- Updating database schema
+# Database Backup
 
-## 🚨 CRITICAL: ALWAYS Backup First!
+## Core Principle
 
-**Before EVERY migration:**
-```bash
-php artisan backup:run --only-db
-```
+Create a backup before running any operation that could modify or destroy database data.
 
-## Core Workflow
+## When to Use
 
-**Step 1: Backup Database
+Before running:
+- Tests (`npm test`, `pytest`, `php artisan test`)
+- Migrations (`php artisan migrate`, `prisma migrate`)
+- Seeders (`php artisan db:seed`)
+- Any destructive queries
 
-Execute backup command:
-```bash
-php artisan backup:run --only-db
-```
-
-**Output location:**
-```
-database/backups/Laravel/YYYY-MM-DD-HH-MM-SS.zip
-```
-
-**Naming convention:**
-```
-2025-11-09-21-30-00_add-images-table.zip
-```
-
-**Step 2: Run Migration
-
-After backup success:
-```bash
-php artisan migrate
-```
-
-Or specific migration:
-```bash
-php artisan migrate --path=database/migrations/2025_11_09_create_images_table.php
-```
-
-**Step 3: Update Schema Documentation
-
-Edit `mermaid.rb` to reflect changes:
-```ruby
-ActiveRecord::Schema[7.0].define(version: 2025_11_09_123456) do
-  create_table "images", force: :cascade do |t|
-    t.string "file_path", limit: 2048, null: false
-    t.string "disk", limit: 191, default: "public"
-    # ... all columns
-  end
-end
-```
-
-**Step 4: Verify Success
-
-Check migration status:
-```bash
-php artisan migrate:status
-```
-
-## Backup Configuration
-
-**Location:** `config/backup.php`
-
-**Key settings:**
-- **Max backups:** 10 (auto-delete oldest)
-- **Disk:** local (`database/backups/`)
-- **Only database:** Skip files for faster backup
-
-**Spatie backup installed:**
-```bash
-composer require spatie/laravel-backup
-```
-
-## Restore Workflow
-
-**If Migration Fails:
-
-**Step 1: Rollback**
-```bash
-php artisan migrate:rollback
-```
-
-**Step 2: Restore from Backup**
-```bash
-# Extract .zip
-unzip database/backups/Laravel/2025-11-09-21-30-00.zip
-
-# Import .sql
-mysql -u username -p database_name < Laravel/db-dumps/mysql-database_name.sql
-```
-
-**Test Restore:
-```bash
-# Check database connection
-php artisan db:show
-
-# Verify tables
-php artisan tinker
->>> DB::table('users')->count();
-```
-
-## Common Commands
+## Quick Start
 
 ```bash
-# Backup database only
-php artisan backup:run --only-db
+# Create backup
+./scripts/backup-database.sh
 
-# Backup everything (db + files)
-php artisan backup:run
+# Run tests with automatic backup
+./scripts/safe-test.sh npm test
 
-# List backups
-php artisan backup:list
+# Run migrations with automatic backup
+./scripts/safe-migrate.sh php artisan migrate
 
-# Clean old backups
-php artisan backup:clean
-
-# Check backup health
-php artisan backup:monitor
+# Restore if needed
+./scripts/restore-database.sh --latest
 ```
+
+## Why This Matters
+
+Real incidents that informed this practice:
+- Tests running against production database wiped 6 months of data
+- `migrate:fresh` in wrong terminal reset staging database
+
+A backup takes seconds. Recovery without one can take hours or be impossible.
+
+## Protocol
+
+### Step 1: Check Your Database Connection
+
+```bash
+# Verify which database you're connected to
+cat .env | grep DB_
+```
+
+If you see production credentials, stop and switch to a test database.
+
+### Step 2: Create Backup
+
+```bash
+./scripts/backup-database.sh
+```
+
+Or use the safe wrappers which backup automatically:
+```bash
+./scripts/safe-test.sh [your test command]
+./scripts/safe-migrate.sh [your migration command]
+```
+
+### Step 3: Run Your Operation
+
+After backup is confirmed, proceed with your operation.
+
+### Step 4: Verify
+
+If something went wrong:
+```bash
+./scripts/restore-database.sh --latest
+```
+
+## Safety Scripts
+
+| Script | Purpose |
+|--------|---------|
+| `backup-database.sh` | Create timestamped backup |
+| `restore-database.sh` | Restore from backup |
+| `safe-test.sh` | Backup + run tests |
+| `safe-migrate.sh` | Backup + run migrations |
+
+See `scripts/README.md` for detailed usage.
+
+## Checklist
+
+Before database operations:
+- [ ] Verified database connection (not production)
+- [ ] Created backup or using safe wrapper
+- [ ] Know how to restore if needed
+
+## Tips
+
+- Use `.env.testing` for test database configuration
+- Keep backups for at least a few days
+- Test your restore process occasionally
+- For production, use your hosting provider's backup features

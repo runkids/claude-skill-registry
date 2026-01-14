@@ -1,0 +1,9 @@
+{
+  "name": "new-skill",
+  "description": "Creates a new Claude Code Skill following best practices. Use when the user wants to create a new skill, add a skill, or asks about writing skills for Claude Code. Fetches latest documentation before ",
+  "repo": "OneKeyHQ/app-monorepo",
+  "category": "documents",
+  "tags": [],
+  "stars": 0,
+  "source": "GitHub Search API"
+}

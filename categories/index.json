@@ -1,17 +1,17 @@
 {
-  "updated_at": "2026-01-13T00:42:41.342573Z",
+  "updated_at": "2026-01-14T04:12:18.573896Z",
   "categories": [
     {
       "name": "data",
-      "count": 4388
+      "count": 14133
     },
     {
       "name": "design",
-      "count": 3755
+      "count": 2545
     },
     {
       "name": "development",
-      "count": 10953
+      "count": 7746
     },
     {
       "name": "devops",
@@ -31,7 +31,7 @@
     },
     {
       "name": "other",
-      "count": 3
+      "count": 1
     },
     {
       "name": "product",
@@ -39,7 +39,7 @@
     },
     {
       "name": "productivity",
-      "count": 1112
+      "count": 748
     },
     {
       "name": "security",

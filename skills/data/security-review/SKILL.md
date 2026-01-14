@@ -1,12 +1,6 @@
 ---
 name: security-review
 description: MANDATORY for security-sensitive code changes - OWASP-based security review with dedicated checklist, required before PR for auth, input handling, API, database, or credential code
-allowed-tools:
-  - Read
-  - Grep
-  - Glob
-  - mcp__github__*
-model: opus
 ---
 
 # Security Review
@@ -215,7 +209,7 @@ Add to the main review artifact:
 ### Security Review
 
 **Security-Sensitive:** YES
-**Reviewed By:** [WORKER_ID or security-reviewer subagent]
+**Reviewed By:** [WORKER_ID or codex-subagent security-reviewer]
 **OWASP Categories Checked:** 10/10
 
 #### Security Findings
@@ -246,7 +240,7 @@ If security review is extensive, post as separate comment:
 | Property | Value |
 |----------|-------|
 | Issue | #123 |
-| Reviewer | `security-reviewer` subagent |
+| Reviewer | `security-reviewer` subagent (codex-subagent) |
 | Reviewed | 2025-12-29T10:30:00Z |
 
 ### Files Reviewed
@@ -297,12 +291,12 @@ Before completing security review:
 This skill is triggered by:
 - Changes to security-sensitive file patterns
 - Explicit invocation
-- `security-reviewer` subagent
+- `codex-subagent security-reviewer`
 
 This skill integrates with:
 - `comprehensive-review` - Security is criterion #4
 - `review-gate` - Verifies security review for sensitive changes
 
 This skill is enforced by:
-- `.claude/rules/security-sensitive.md` conditional rules
-- `PreToolUse` hook (PR blocked if security-sensitive without review)
+- `.codex/rules/security-sensitive.md` conditional rules
+- PR gate automation (block PR if security-sensitive without review)

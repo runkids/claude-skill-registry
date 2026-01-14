@@ -1,11 +1,7 @@
 {
   "name": "oauth2",
-  "description": "Expert guidance for OAuth 2.0 protocol including authorization flows, grant types, token management, OpenID Connect, security best practices, and implementation patterns. Use this when implementing au",
   "repo": "oriolrius/pki-manager-web",
-  "category": "design",
-  "tags": [
-    "oauth2"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/oauth2/SKILL.md",
+  "source": "github.com/oriolrius/pki-manager-web",
+  "downloaded_at": "2026-01-14T02:21:23.767035Z"
 }

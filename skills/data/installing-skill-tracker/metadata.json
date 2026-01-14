@@ -1,13 +1,7 @@
 {
   "name": "installing-skill-tracker",
-  "description": "Installs Claude Code hooks for automatic skill usage measurement.Use when setting up skill tracking infrastructure in a new project.NOT when hooks are already installed (run verify.py to check).",
   "repo": "mjunaidca/mjs-agent-skills",
-  "category": "development",
-  "tags": [
-    "installing",
-    "skill",
-    "tracker"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/installing-skill-tracker/SKILL.md",
+  "source": "github.com/mjunaidca/mjs-agent-skills",
+  "downloaded_at": "2026-01-14T01:43:12.045418Z"
 }

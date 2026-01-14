@@ -1,8 +1,7 @@
 {
   "name": "hono-d1-integration",
   "repo": "AgentiveCity/SkillFactory",
-  "category": "data",
-  "description": "Use this skill whenever the user wants to design, set up, or refactor Cloudflare D1 database usage in a Hono + TypeScript app running on Cloudflare Workers/Pages, including schema management, bindings",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:46.169173Z"
+  "path": ".claude/skills/hono-d1-integration/SKILL.md",
+  "source": "github.com/AgentiveCity/SkillFactory",
+  "downloaded_at": "2026-01-14T04:03:14.798549Z"
 }

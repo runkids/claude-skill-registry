@@ -1,11 +1,7 @@
 {
   "name": "zod",
-  "description": "Zod 4+ validation patterns. Use when validating forms, API responses, env vars, or inferring types from schemas.",
-  "repo": "tirtza-weinfeld/hippocampx",
-  "category": "development",
-  "tags": [
-    "zod"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/zod/skills/zod/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-14T03:29:51.105691Z"
 }

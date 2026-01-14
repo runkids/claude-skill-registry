@@ -1,381 +1,285 @@
 ---
 name: refactoring
-description: |
-  Martin Fowlerのリファクタリング方法論に基づいた体系的なコード改善スキル。
-  コードスメルの検出から安全なリファクタリングの実施まで、テストを安全網として
-  段階的に品質を向上させます。「2つの帽子」を意識し、機能追加と分離して実施。
+description: Use when restructuring code without changing behavior - extract method, extract class, rename, move, inline, introduce parameter object. Triggers on keywords like "extract", "rename", "move method", "inline", "restructure", "decompose".
+allowed-tools: Read, Write, Edit, Bash, Grep, Glob, Task, TodoWrite
+infer: true
 ---
 
-# Refactoring Skill
+# Code Refactoring
 
-外部から見た振る舞いを変えずに、内部の構造を改善するスキル。
+Expert code restructuring agent for EasyPlatform. Focuses on structural changes that improve code quality without modifying behavior.
 
-## 対応領域
+## Refactoring Catalog
 
-| 領域 | フォーカス | 詳細ガイド |
-|------|-----------|-----------|
-| Code Smell Detection | コードスメルの特定と優先順位付け | `./agents/code-smell-detector.md` |
-| Backend | Python/FastAPIコードのリファクタリング | `./agents/backend-refactorer.md` |
-| Frontend | TypeScript/SvelteKitコードのリファクタリング | `./agents/frontend-refactorer.md` |
+### Extract Patterns
 
-## 判断フロー
+| Pattern                | When to Use                         | Platform Example                          |
+| ---------------------- | ----------------------------------- | ----------------------------------------- |
+| **Extract Method**     | Long method, duplicated code        | Move logic to private method              |
+| **Extract Class**      | Class has multiple responsibilities | Create Helper, Service, or Strategy class |
+| **Extract Interface**  | Need abstraction for testing/DI     | Create `I{ClassName}` interface           |
+| **Extract Expression** | Complex inline expression           | Move to Entity static expression          |
+| **Extract Validator**  | Repeated validation logic           | Create validator extension method         |
 
-```
-リファクタリングが必要な状況は？
-│
-├─ 大規模コードベースの改善 ────────→ ✅ サブエージェント並列実行
-│
-├─ Backend/Frontend両方の改善 ────→ ✅ サブエージェント並列実行
-│
-├─ 単一の関数/クラスの改善 ────────→ ✅ 直接リファクタリング
-│
-├─ 変数名/メソッド名の変更のみ ───→ ✅ 直接リファクタリング（軽量）
-│
-├─ テストがない/不十分 ────────────→ ❌ 先にテストを追加
-│
-├─ 本番リリース直前 ───────────────→ ❌ リファクタリング延期
-│
-└─ 機能追加と同時に行おうとする ──→ ❌ 別々に実施
-```
+### Move Patterns
 
-## サブエージェント並列リファクタリング
+| Pattern               | When to Use                       | Platform Example                         |
+| --------------------- | --------------------------------- | ---------------------------------------- |
+| **Move Method**       | Method belongs to different class | Move from Handler to Helper/Entity       |
+| **Move to Extension** | Reusable repository logic         | Create `{Entity}RepositoryExtensions`    |
+| **Move to DTO**       | Mapping logic in handler          | Use `PlatformEntityDto.MapToEntity()`    |
+| **Move to Entity**    | Business logic in handler         | Add instance method or static expression |
 
-大規模なリファクタリングが必要な場合、専門サブエージェントを並列起動。
+### Simplify Patterns
 
-```
-┌──────────────────────────────────────────────────────────────┐
-│ 1. 分析フェーズ                                              │
-│    └── Code Smell Detector でコードスメルを特定              │
-├──────────────────────────────────────────────────────────────┤
-│ 2. 計画フェーズ                                              │
-│    └── 検出結果に基づいてリファクタリング計画を策定          │
-├──────────────────────────────────────────────────────────────┤
-│ 3. 実行フェーズ（並列可能）                                  │
-│    ├── Backend Refactorer  → Pythonコードのリファクタリング  │
-│    └── Frontend Refactorer → TypeScriptコードのリファクタリング│
-├──────────────────────────────────────────────────────────────┤
-│ 4. 検証フェーズ                                              │
-│    └── テスト実行と動作確認                                  │
-└──────────────────────────────────────────────────────────────┘
-```
+| Pattern                     | When to Use                  | Platform Example                   |
+| --------------------------- | ---------------------------- | ---------------------------------- |
+| **Inline Variable**         | Temporary variable used once | Remove intermediate variable       |
+| **Inline Method**           | Method body is obvious       | Replace call with body             |
+| **Replace Conditional**     | Complex if/switch            | Use Strategy pattern or expression |
+| **Introduce Parameter Obj** | Method has many parameters   | Create Command/Query DTO           |
 
-## 基本原則（Martin Fowler）
+## Workflow
 
-### リファクタリングとは
+### Phase 1: Analysis
 
-> 「外部から見た振る舞いを変えずに、内部の構造を改善すること」
+1. **Identify Target**: Locate code to refactor
+2. **Map Dependencies**: Find all usages with Grep
+3. **Assess Impact**: List affected files and tests
+4. **Verify Tests**: Ensure test coverage exists
 
-**重要な特性**:
-- 小さなステップで進める
-- 各ステップ後にテストが通ることを確認
-- 新機能の追加とリファクタリングを混ぜない
+### Phase 2: Plan
 
-### 2つの帽子
+Document refactoring plan:
 
-```
-🎩 機能追加の帽子          🧢 リファクタリングの帽子
-├── 新しい機能を追加       ├── コードの構造を改善
-├── 既存コードは変更しない  ├── 機能は追加しない
-└── テストを追加           └── 既存のテストが通り続ける
+```markdown
+## Refactoring Plan
 
-⚠️ 両方の帽子を同時にかぶらない！
+**Target**: [file:line_number]
+**Type**: [Extract Method | Move to Extension | etc.]
+**Reason**: [Why this refactoring improves code]
+
+### Changes
+
+1. [ ] Create/modify [file]
+2. [ ] Update usages in [files]
+3. [ ] Run tests
+
+### Risks
+
+- [Potential issues]
 ```
 
-### 3回の法則
+### Phase 3: Execute
 
-```
-1回目: とにかく実装する
-2回目: 似たようなことをする時、重複を感じつつも進める
-3回目: 同じことを3回目にする時、リファクタリングする
-```
+```csharp
+// BEFORE: Logic in handler
+protected override async Task<Result> HandleAsync(Command req, CancellationToken ct)
+{
+    var isValid = entity.Status == Status.Active &&
+                  entity.User?.IsActive == true &&
+                  !entity.IsDeleted;
+    if (!isValid) throw new Exception();
+}
 
-## リファクタリングワークフロー（5ステップ）
+// AFTER: Extracted to entity static expression
+// In Entity.cs
+public static Expression<Func<Entity, bool>> IsActiveExpr()
+    => e => e.Status == Status.Active &&
+            e.User != null && e.User.IsActive &&
+            !e.IsDeleted;
 
-```
-    ┌───────────────────────────────────────────────────────┐
-    │                                                       │
-    ▼                                                       │
-┌────────┐   ┌────────┐   ┌────────┐   ┌────────┐         │
-│準備    │──→│テスト  │──→│小さな  │──→│繰り返し│         │
-│        │   │確認    │   │ステップ│   │        │         │
-└────────┘   └────────┘   └────────┘   └────────┘         │
-                                            │              │
-                                            ▼              │
-                                       ┌────────┐         │
-                                       │完了確認│─────────┘
-                                       └────────┘
-```
-
-### Step 1: 準備
-
-| 項目 | 内容 |
-|------|------|
-| テストカバレッジ確認 | 対象コードのテストが存在するか確認 |
-| コードスメル特定 | 問題のあるコードパターンを識別 |
-| 範囲決定 | 影響範囲を特定、小さな単位に分割 |
-
-### Step 2: テストの確認
-
-```bash
-# Backend
-poetry run pytest
-poetry run pytest --cov=src --cov-report=term-missing
-
-# Frontend
-npm run test
+// In Handler
+var entity = await repository.FirstOrDefaultAsync(Entity.IsActiveExpr(), ct)
+    .EnsureFound("Entity not active");
 ```
 
-- すべてのテストがグリーンであること
-- カバレッジが十分であること（目標: 80%以上）
+### Phase 4: Verify
 
-### Step 3: 小さなステップで変更
+1. Run affected tests
+2. Verify no behavior change
+3. Check code compiles
+4. Review for consistency
 
-1. **1つのリファクタリングを選択** → 最小単位に分解
-2. **変更を適用** → コンパイル/構文チェック
-3. **テストを実行** → `poetry run pytest -x`
-4. **コミット** → 小さな単位でコミット
+## Platform-Specific Refactorings
 
-### Step 4: 繰り返し
+### Handler to Helper
 
-- Step 3を繰り返す
-- 各ステップ後にテストを実行
-- 問題があれば即座にロールバック
+```csharp
+// BEFORE: Reused logic in multiple handlers
+var employee = await repo.FirstOrDefaultAsync(Employee.UniqueExpr(userId, companyId), ct)
+    ?? await CreateEmployeeAsync(userId, companyId, ct);
 
-### Step 5: 完了確認
-
-- 全テストを実行
-- コードレビュー（変更前後の比較）
-- 動作確認（開発サーバーでの確認）
-
-## コードスメル一覧
-
-### Bloaters（肥大化）
-
-| コードスメル | 症状 | 対処法 |
-|-------------|------|--------|
-| Long Method | 長すぎるメソッド | Extract Method |
-| Large Class | 責務が多すぎるクラス | Extract Class |
-| Primitive Obsession | プリミティブ型の多用 | Replace Primitive with Object |
-| Long Parameter List | パラメータが多すぎる | Introduce Parameter Object |
-
-### Object-Orientation Abusers（OOP違反）
-
-| コードスメル | 症状 | 対処法 |
-|-------------|------|--------|
-| Switch Statements | 条件分岐の多用 | Replace Conditional with Polymorphism |
-| Temporary Field | 時々しか使わないフィールド | Extract Class |
-| Refused Bequest | 継承の誤用 | Replace Inheritance with Delegation |
-
-### Change Preventers（変更困難）
-
-| コードスメル | 症状 | 対処法 |
-|-------------|------|--------|
-| Divergent Change | 1つのクラスが複数の理由で変更 | Extract Class |
-| Shotgun Surgery | 1つの変更が複数クラスに影響 | Move Method, Move Field |
-
-### Dispensables（不要なもの）
-
-| コードスメル | 症状 | 対処法 |
-|-------------|------|--------|
-| Duplicate Code | 重複コード | Extract Method, Pull Up Method |
-| Dead Code | 使われていないコード | 削除 |
-| Speculative Generality | 過剰な汎用化 | 不要な抽象化を削除 |
-
-### Couplers（結合度の問題）
-
-| コードスメル | 症状 | 対処法 |
-|-------------|------|--------|
-| Feature Envy | 他クラスのデータを多用 | Move Method |
-| Inappropriate Intimacy | クラス間の過度な結合 | Move Method, Extract Class |
-| Message Chains | 長いメソッドチェーン | Hide Delegate |
-
-## 主要リファクタリングカタログ
-
-### Extract Method（メソッドの抽出）
-
-```python
-# Before: 長いメソッド
-def print_owing(self):
-    print("***********************")
-    print("*** Customer Owes ***")
-    print("***********************")
-    outstanding = sum(order.amount for order in self._orders)
-    print(f"name: {self._name}")
-    print(f"amount: {outstanding}")
-
-# After: メソッドを抽出
-def print_owing(self):
-    self._print_banner()
-    outstanding = self._calculate_outstanding()
-    self._print_details(outstanding)
-
-def _print_banner(self): ...
-def _calculate_outstanding(self) -> float: ...
-def _print_details(self, outstanding: float): ...
+// AFTER: Extracted to Helper
+// In EmployeeHelper.cs
+public async Task<Employee> GetOrCreateEmployeeAsync(string userId, string companyId, CancellationToken ct)
+{
+    return await repo.FirstOrDefaultAsync(Employee.UniqueExpr(userId, companyId), ct)
+        ?? await CreateEmployeeAsync(userId, companyId, ct);
+}
 ```
 
-### Extract Class（クラスの抽出）
+### Handler to Repository Extension
 
-```python
-# Before: 責務が多すぎるクラス
-class Person:
-    def __init__(self, name: str, office_area_code: str, office_number: str):
-        self._name = name
-        self._office_area_code = office_area_code
-        self._office_number = office_number
+```csharp
+// BEFORE: Query logic in handler
+var employees = await repo.GetAllAsync(
+    e => e.CompanyId == companyId && e.Status == Status.Active && e.DepartmentIds.Contains(deptId), ct);
 
-# After: 電話番号を別クラスに抽出
-@dataclass
-class TelephoneNumber:
-    area_code: str
-    number: str
-
-class Person:
-    def __init__(self, name: str, telephone: TelephoneNumber):
-        self._name = name
-        self._telephone = telephone
+// AFTER: Extracted to extension
+// In EmployeeRepositoryExtensions.cs
+public static async Task<List<Employee>> GetActiveByDepartmentAsync(
+    this IPlatformQueryableRootRepository<Employee> repo, string companyId, string deptId, CancellationToken ct)
+{
+    return await repo.GetAllAsync(
+        Employee.OfCompanyExpr(companyId)
+            .AndAlso(Employee.IsActiveExpr())
+            .AndAlso(e => e.DepartmentIds.Contains(deptId)), ct);
+}
 ```
 
-### Replace Conditional with Polymorphism
+### Mapping to DTO
 
-```python
-# Before: switch文による条件分岐
-def calculate_pay(employee_type: str, hours: int) -> float:
-    if employee_type == "engineer":
-        return hours * 50
-    elif employee_type == "manager":
-        return hours * 75 + bonus()
-    # ...
+```csharp
+// BEFORE: Mapping in handler
+var config = new AuthConfig
+{
+    ClientId = req.Dto.ClientId,
+    Secret = encryptService.Encrypt(req.Dto.Secret)
+};
 
-# After: ポリモーフィズムを使用
-class Employee(ABC):
-    @abstractmethod
-    def calculate_pay(self, hours: int) -> float: pass
+// AFTER: DTO owns mapping
+// In AuthConfigDto.cs : PlatformDto<AuthConfig>
+public override AuthConfig MapToObject() => new AuthConfig
+{
+    ClientId = ClientId,
+    Secret = Secret  // Handler applies encryption
+};
 
-class Engineer(Employee):
-    def calculate_pay(self, hours: int) -> float:
-        return hours * 50
+// In Handler
+var config = req.Dto.MapToObject()
+    .With(c => c.Secret = encryptService.Encrypt(c.Secret));
 ```
 
-## 安全なリファクタリングルール
+## Safety Checklist
 
-### DO ✅
+Before any refactoring:
 
-- **テストファースト**: リファクタリング前にテストがグリーンであることを確認
-- **小さなステップ**: 1つのリファクタリングを完了 → テスト → コミット → 次へ
-- **機能追加との分離**: リファクタリングを完了してから機能追加
-- **ロールバック準備**: `git reset --hard HEAD` で即座に戻れる状態を維持
+- [ ] Searched all usages (static + dynamic)?
+- [ ] Test coverage exists?
+- [ ] Documented in todo list?
+- [ ] Changes are incremental?
+- [ ] No behavior change verified?
 
-### DON'T ❌
+## Code Responsibility Refactoring (Priority Check)
 
-- 複数のリファクタリングを同時に実施
-- テストを実行せずに進める
-- 「ついでに機能も追加しよう」
-- 「このバグも一緒に直そう」
+**Before any refactoring, verify logic is in the LOWEST appropriate layer:**
 
-## レイヤー別リファクタリング
-
-### Domain層
-
-```python
-# Before: プリミティブ型の多用
-class Order:
-    def __init__(self, amount: float, currency: str): ...
-
-# After: 値オブジェクトの抽出
-@dataclass(frozen=True)
-class Money:
-    amount: Decimal
-    currency: str
-
-class Order:
-    def __init__(self, total: Money): ...
+```
+Entity/Model (Lowest)  →  Service  →  Component/Handler (Highest)
 ```
 
-### UseCase層
+| Wrong Location | Move To           | Example                                     |
+| -------------- | ----------------- | ------------------------------------------- |
+| Component      | Entity/Model      | Dropdown options, display helpers, defaults |
+| Component      | Service (Factory) | Command building, data transformation       |
+| Handler        | Entity            | Business rules, static expressions          |
+| Handler        | Repository Ext    | Reusable query patterns                     |
 
-```python
-# Before: 複数の責務を持つユースケース
-class UserUseCase:
-    def create_user(self, data): ...
-    def update_user(self, id, data): ...
-    def delete_user(self, id): ...
+```typescript
+// Frontend: Component → Entity refactoring
+// BEFORE: Logic in component (causes duplication)
+readonly statusTypes = [{ value: 1, label: 'Active' }, { value: 2, label: 'Inactive' }];
+getStatusClass(config) { return !config.isEnabled ? 'disabled' : 'active'; }
 
-# After: 単一責務に分割
-class CreateUserUseCase:
-    def execute(self, input: CreateUserInput) -> CreateUserOutput: ...
+// AFTER: Logic in entity (enables reuse)
+readonly statusTypes = EntityConfiguration.getStatusTypeOptions();
+getStatusClass(config) { return config.getStatusCssClass(); }
 ```
 
-### API層
+## Component HTML Template Standard (BEM Classes)
 
-```python
-# Before: ルーターにロジックが混在
-@router.post("/users")
-async def create_user(data: dict):
-    if not data.get("email"):
-        raise HTTPException(400, "Email required")
-    # ビジネスロジックがここに...
+**All UI elements in component templates MUST have BEM classes, even without styling needs.** This makes HTML self-documenting like OOP class hierarchy.
 
-# After: ルーターは薄く
-@router.post("/users", response_model=UserResponse)
-async def create_user(
-    data: UserCreateRequest,
-    usecase: CreateUserUseCase = Depends(get_create_user_usecase)
-):
-    return await usecase.execute(data)
+```html
+<!-- ✅ CORRECT: All elements have BEM classes -->
+<div class="settings-panel">
+    <div class="settings-panel__header">
+        <h2 class="settings-panel__title">Settings</h2>
+    </div>
+    <div class="settings-panel__body">
+        <div class="settings-panel__section">
+            <label class="settings-panel__label">Option</label>
+            <input class="settings-panel__input" formControlName="option" />
+        </div>
+    </div>
+</div>
+
+<!-- ❌ WRONG: Missing BEM classes -->
+<div class="settings-panel">
+    <div>
+        <h2>Settings</h2>
+    </div>
+    <div>
+        <div>
+            <label>Option</label>
+            <input formControlName="option" />
+        </div>
+    </div>
+</div>
 ```
 
-## リファクタリングチェックリスト
+**Refactoring Action**: When refactoring components, ensure all HTML elements have proper BEM classes.
 
-### 🔴 開始前（必須）
+## Component SCSS Standard
 
-- [ ] テストが存在し、すべてグリーン
-- [ ] コードスメルを特定した
-- [ ] リファクタリングの範囲を決めた
-- [ ] 影響範囲を把握した
+Always style both the **host element** (Angular selector) and the **main wrapper class**:
 
-### 🟡 各ステップ（推奨）
+```scss
+@import '~assets/scss/variables';
 
-- [ ] 1つのリファクタリングのみを実施
-- [ ] テストを実行した
-- [ ] テストがグリーン
-- [ ] 変更をコミットした
+// Host element styling - ensures Angular element is a proper block container
+my-component {
+    display: flex;
+    flex-direction: column;
+}
 
-### 🟢 完了時
+// Main wrapper class with full styling
+.my-component {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex-grow: 1;
 
-- [ ] すべてのテストがグリーン
-- [ ] コードの可読性が向上した
-- [ ] 新たなコードスメルが発生していない
+    &__header {
+        // BEM child elements...
+    }
 
-## ベストプラクティス
+    &__content {
+        flex: 1;
+        overflow-y: auto;
+    }
+}
+```
 
-### DO ✅
+**Why both?**
 
-- テストを安全網として活用
-- 小さなステップで進める
-- 各ステップ後にコミット
-- 80%の改善で良しとする
-- 残りは次のイテレーションで
+- **Host element**: Makes the Angular element a real layout element (not an unknown element without display)
+- **Main class**: Contains the full styling, matches the wrapper div in HTML
 
-### DON'T ❌
+```csharp
+// Backend: Handler → Entity refactoring
+// BEFORE: Logic in handler
+var isValid = entity.Status == Status.Active && entity.User?.IsActive == true;
 
-- テストなしでリファクタリング
-- 大きな変更を一度に実施
-- 機能追加と同時に実施
-- 完璧主義に陥る
-- 範囲を広げすぎる
+// AFTER: Logic in entity
+var entity = await repository.FirstOrDefaultAsync(Entity.IsActiveExpr(), ct);
+```
 
-## 参照ファイル
+## Anti-Patterns
 
-| ファイル | 説明 |
-|---------|------|
-| `./agents/code-smell-detector.md` | コードスメル検出詳細 |
-| `./agents/backend-refactorer.md` | Backendリファクタリング詳細 |
-| `./agents/frontend-refactorer.md` | Frontendリファクタリング詳細 |
-| `.claude/rules/code-style.md` | コードスタイル規約 |
-| `.claude/rules/backend/layer-rules.md` | Backendレイヤールール |
-
-## 参考資料
-
-- Martin Fowler『リファクタリング（第2版）』
-- Refactoring Guru: https://refactoring.guru/
+- **Big Bang Refactoring**: Make small, incremental changes
+- **Refactoring Without Tests**: Ensure coverage first
+- **Mixing Refactoring with Features**: Do one or the other
+- **Breaking Public APIs**: Maintain backward compatibility
+- **Logic in Wrong Layer**: Leads to duplicated code - move to lowest appropriate layer

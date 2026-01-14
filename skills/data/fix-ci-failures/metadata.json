@@ -1,12 +1,7 @@
 {
   "name": "fix-ci-failures",
-  "description": "Diagnose and fix CI/CD failures by analyzing logs, reproducing locally, and applying fixes. Use when CI checks fail on pull requests.",
   "repo": "mvillmow/ProjectOdyssey",
-  "category": "devops",
-  "tags": [
-    "fix",
-    "failures"
-  ],
-  "stars": 8,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/fix-ci-failures/SKILL.md",
+  "source": "github.com/mvillmow/ProjectOdyssey",
+  "downloaded_at": "2026-01-14T01:09:00.006533Z"
 }

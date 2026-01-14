@@ -1,8 +1,7 @@
 {
   "name": "coles-invoice-processor",
   "repo": "evgeny-trushin/claude-skills-collection",
-  "category": "data",
-  "description": "Processes Coles grocery invoices to extract structured data and predict future orders. Use when user uploads/pastes invoice content, asks to analyze grocery purchases, or wants shopping predictions.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:31.686457Z"
+  "path": "shopping/03-coles-invoice-processor-claude-skill/coles-invoice-processor/SKILL.md",
+  "source": "github.com/evgeny-trushin/claude-skills-collection",
+  "downloaded_at": "2026-01-14T04:08:39.118064Z"
 }

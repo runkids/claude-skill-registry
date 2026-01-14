@@ -1,12 +1,7 @@
 {
   "name": "main-workflow-router",
-  "description": "Routes work to OpenSpec (L0-1) or BMAD (L2-4). Tracks status and guides through phases.",
   "repo": "bacoco/BMad-Skills",
-  "category": "data",
-  "tags": [
-    "main",
-    "workflow",
-    "router"
-  ],
-  "stars": 1
+  "path": ".claude/skills/main-workflow-router/SKILL.md",
+  "source": "github.com/bacoco/BMad-Skills",
+  "downloaded_at": "2026-01-14T02:53:13.754566Z"
 }

@@ -11,7 +11,7 @@ Install shadcnblocks sections and implement i18n for a page.
 
 1. **Install Sections** - Install only NEW sections
    - Check if component file exists in `components/`
-   - If exists: Skip installation, reuse existing component
+   - If exists: Skip installation, reuse existing component, do it with prop-based consolidation with variant prop if needed
    - If new: Run `pnpm dlx shadcn add @shadcnblocks/[section]`
    - **Never overwrite existing files**
 2. **Create Page File** - Create/update app/[locale]/[route]/page.tsx

@@ -1,14 +1,7 @@
 {
   "name": "canvas-design",
-  "description": "HTML5 Canvas design and visualization",
-  "repo": "anthropics/skills",
-  "category": "design",
-  "tags": [
-    "canvas",
-    "design",
-    "visualization",
-    "graphics"
-  ],
-  "stars": 0,
-  "source": "Anthropic Official"
+  "repo": "archubbuck/workspace-architect",
+  "path": "assets/skills/canvas-design/SKILL.md",
+  "source": "github.com/archubbuck/workspace-architect",
+  "downloaded_at": "2026-01-14T04:03:37.713880Z"
 }

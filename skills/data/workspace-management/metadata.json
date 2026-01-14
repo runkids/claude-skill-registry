@@ -1,12 +1,7 @@
 {
   "name": "workspace-management",
-  "description": "Manage pnpm workspaces, add packages, configure dependencies, and organize monorepo structure. Use when adding new packages, restructuring workspace, or managing cross-package dependencies.",
   "repo": "sgcarstrends/sgcarstrends",
-  "category": "devops",
-  "tags": [
-    "workspace",
-    "management"
-  ],
-  "stars": 13,
-  "source": "local"
+  "path": ".claude/skills/workspace-management/SKILL.md",
+  "source": "github.com/sgcarstrends/sgcarstrends",
+  "downloaded_at": "2026-01-14T02:59:23.113829Z"
 }

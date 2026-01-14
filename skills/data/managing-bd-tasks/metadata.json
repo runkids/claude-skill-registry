@@ -1,12 +1,7 @@
 {
   "name": "managing-bd-tasks",
-  "description": "Use for advanced bd operations - splitting tasks mid-flight, merging duplicates, changing dependencies, archiving epics, querying metrics, cross-epic dependencies",
   "repo": "withzombies/hyperpowers",
-  "category": "productivity",
-  "tags": [
-    "managing",
-    "tasks"
-  ],
-  "stars": 13,
-  "source": "local"
+  "path": "skills/managing-bd-tasks/SKILL.md",
+  "source": "github.com/withzombies/hyperpowers",
+  "downloaded_at": "2026-01-14T02:05:59.857702Z"
 }

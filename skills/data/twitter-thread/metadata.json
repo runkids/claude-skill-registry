@@ -1,11 +1,7 @@
 {
   "name": "twitter-thread",
-  "description": "Create viral Twitter/X threads that educate, entertain, and grow your audience. Use when the user wants to write threads, needs to break down complex topics, or wants to repurpose long-form content in",
   "repo": "az9713/ai-co-writing-claude-skills",
-  "category": "data",
-  "tags": [
-    "twitter",
-    "thread"
-  ],
-  "stars": 1
+  "path": ".claude/skills/twitter-thread/SKILL.md",
+  "source": "github.com/az9713/ai-co-writing-claude-skills",
+  "downloaded_at": "2026-01-14T03:14:00.043246Z"
 }

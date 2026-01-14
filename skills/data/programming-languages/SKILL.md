@@ -1,157 +1,211 @@
 ---
-name: programming-languages
-description: Core programming languages for game server development including C++, C#, Go, Rust
-sasmp_version: "1.3.0"
+name: game-programming-languages
 version: "2.0.0"
-bonded_agent: 01-game-server-architect
+description: |
+  Game programming languages - C#, C++, GDScript. Learn syntax, patterns,
+  and engine-specific idioms for professional game development.
+sasmp_version: "1.3.0"
+bonded_agent: 02-game-programmer
 bond_type: PRIMARY_BOND
 
-# Parameters
 parameters:
-  required:
-    - language
-  optional:
-    - runtime_version
-    - optimization_level
-  validation:
-    language:
-      type: string
-      enum: [cpp, csharp, go, rust, java, nodejs]
-    optimization_level:
-      type: string
-      enum: [debug, release, profile]
-      default: release
+  - name: language
+    type: string
+    required: false
+    validation:
+      enum: [csharp, cpp, gdscript, rust, lua]
+  - name: engine
+    type: string
+    required: false
+    validation:
+      enum: [unity, unreal, godot, custom]
 
-# Retry Configuration
-retry_config:
-  max_attempts: 1
-  fallback: none
+retry_policy:
+  enabled: true
+  max_attempts: 3
+  backoff: exponential
 
-# Observability
 observability:
-  logging:
-    level: info
-    fields: [language, compile_time_ms]
-  metrics:
-    - name: compilation_duration_seconds
-      type: histogram
+  log_events: [start, complete, error]
+  metrics: [code_quality_score, compilation_time]
 ---
 
-# Programming Languages for Game Servers
+# Game Programming Languages
 
-Master **high-performance languages** for real-time game server development.
+## C# (Unity)
 
-## Language Comparison
+**Easiest to learn**, **most used for game dev**
 
-| Language | Performance | Memory | Concurrency | Use Case |
-|----------|-------------|--------|-------------|----------|
-| C++ | Highest | Manual | Threads | AAA, FPS |
-| Rust | High | Safe | Async | New projects |
-| Go | High | GC | Goroutines | Microservices |
-| C# | Medium | GC | Async | Unity, casual |
-| Java | Medium | GC | Threads | MMO |
+```csharp
+// ✅ Production-Ready: Unity MonoBehaviour Template
+public class GameEntity : MonoBehaviour
+{
+    [SerializeField] private float _speed = 5f;
+    [SerializeField] private int _health = 100;
 
-## C++ Game Server
+    public event Action<int> OnHealthChanged;
+    public event Action OnDeath;
+
+    private Rigidbody _rb;
+    private bool _isInitialized;
+
+    private void Awake()
+    {
+        _rb = GetComponent<Rigidbody>();
+        _isInitialized = true;
+    }
+
+    public void TakeDamage(int amount)
+    {
+        if (!_isInitialized) return;
+
+        _health = Mathf.Max(0, _health - amount);
+        OnHealthChanged?.Invoke(_health);
+
+        if (_health <= 0)
+            OnDeath?.Invoke();
+    }
+}
+```
+
+**Key Features:**
+- Object-oriented, managed memory
+- LINQ for data queries
+- Coroutines for async game logic
+- Events and delegates
+- Garbage collection (requires optimization)
+
+**Learning Path**: 2-3 weeks basics, 2-3 months mastery
+
+## C++ (Unreal Engine)
+
+**Most powerful**, **steepest learning curve**
 
 ```cpp
-#include <boost/asio.hpp>
+// ✅ Production-Ready: Unreal Actor Template
+UCLASS()
+class MYGAME_API AGameEntity : public AActor
+{
+    GENERATED_BODY()
 
-class GameServer {
 public:
-    GameServer(boost::asio::io_context& io, short port)
-        : acceptor_(io, tcp::endpoint(tcp::v4(), port)) {
-        start_accept();
-    }
+    AGameEntity();
 
-private:
-    void start_accept() {
-        auto socket = std::make_shared<tcp::socket>(acceptor_.get_executor());
-        acceptor_.async_accept(*socket,
-            [this, socket](boost::system::error_code ec) {
-                if (!ec) handle_connection(socket);
-                start_accept();
-            });
-    }
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+    float Speed = 500.0f;
 
-    tcp::acceptor acceptor_;
+    UPROPERTY(ReplicatedUsing = OnRep_Health)
+    int32 Health = 100;
+
+    UFUNCTION(BlueprintCallable, Category = "Combat")
+    void TakeDamage(int32 Amount);
+
+    DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHealthChanged, int32, NewHealth);
+    UPROPERTY(BlueprintAssignable)
+    FOnHealthChanged OnHealthChanged;
+
+protected:
+    virtual void BeginPlay() override;
+
+    UFUNCTION()
+    void OnRep_Health();
 };
 ```
 
-## Go Server
+**Key Features:**
+- Manual memory management (smart pointers)
+- Templates and STL
+- Maximum performance
+- Unreal reflection system (UPROPERTY, UFUNCTION)
+- Blueprint integration
 
-```go
-type GameServer struct {
-    players sync.Map
-    tick    *time.Ticker
-}
+**Learning Path**: 4-6 weeks basics, 4-6 months proficiency
 
-func (s *GameServer) handlePlayer(conn net.Conn) {
-    defer conn.Close()
-    for {
-        msg := readMessage(conn)
-        go s.processMessage(msg)
-    }
-}
+## GDScript (Godot)
+
+**Python-like**, **easiest syntax**
+
+```gdscript
+# ✅ Production-Ready: Godot Node Template
+extends CharacterBody2D
+class_name GameEntity
+
+signal health_changed(new_health: int)
+signal died
+
+@export var speed: float = 200.0
+@export var max_health: int = 100
+
+var _health: int = max_health
+
+func _ready() -> void:
+    _health = max_health
+
+func take_damage(amount: int) -> void:
+    _health = max(0, _health - amount)
+    health_changed.emit(_health)
+
+    if _health <= 0:
+        died.emit()
+        queue_free()
+
+func _physics_process(delta: float) -> void:
+    var direction = Input.get_vector("left", "right", "up", "down")
+    velocity = direction * speed
+    move_and_slide()
 ```
 
-## Rust Server
+**Key Features:**
+- Dynamic typing with optional type hints
+- Simple, Python-like syntax
+- Signals for messaging
+- First-class functions
+- Growing ecosystem
 
-```rust
-async fn handle_player(stream: TcpStream) -> Result<()> {
-    let (reader, writer) = stream.split();
-    loop {
-        let msg = read_message(&mut reader).await?;
-        let response = process_command(&msg).await;
-        write_message(&mut writer, &response).await?;
-    }
-}
+**Learning Path**: 1-2 weeks basics, 4-8 weeks proficiency
+
+## Language Comparison
+
+| Feature | C# (Unity) | C++ (Unreal) | GDScript |
+|---------|------------|--------------|----------|
+| Memory | Managed (GC) | Manual | Managed |
+| Speed | Fast | Fastest | Moderate |
+| Learning | Moderate | Hard | Easy |
+| Typing | Static | Static | Dynamic |
+| Industry | Mobile/Indie | AAA | Indie |
+
+## 🔧 Troubleshooting
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ PROBLEM: Garbage collection spikes in C#                   │
+├─────────────────────────────────────────────────────────────┤
+│ SOLUTIONS:                                                   │
+│ → Use object pooling                                        │
+│ → Avoid allocations in Update()                             │
+│ → Cache GetComponent results                                │
+│ → Use structs for small data                                │
+└─────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
+│ PROBLEM: Memory leaks in C++                                │
+├─────────────────────────────────────────────────────────────┤
+│ SOLUTIONS:                                                   │
+│ → Use TSharedPtr/TWeakPtr                                   │
+│ → UPROPERTY for UObject pointers                            │
+│ → Run memory profiler regularly                             │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-## Selection Criteria
+## Best Practices
 
-| Factor | Best Choice |
-|--------|-------------|
-| Latency critical | C++, Rust |
-| Rapid development | Go, C# |
-| Team expertise | Match existing |
-| Scalability | Go, Erlang |
+| Practice | Benefit |
+|----------|---------|
+| Consistent naming | Readable code |
+| Early returns | Reduced nesting |
+| Composition over inheritance | Flexible design |
+| Cache frequently used values | Performance |
 
-## Troubleshooting
+---
 
-### Common Failure Modes
-
-| Error | Root Cause | Solution |
-|-------|------------|----------|
-| Memory leak | Manual mgmt | Use RAII/smart ptrs |
-| GC pauses | Allocation | Pool objects |
-| Thread deadlock | Lock order | Lock hierarchy |
-| Segfault | Pointer bug | Use Rust/sanitizers |
-
-### Debug Checklist
-
-```bash
-# C++ memory check
-valgrind --leak-check=full ./game-server
-
-# Go profiling
-go tool pprof http://localhost:6060/debug/pprof/heap
-
-# Rust optimization
-cargo build --release
-```
-
-## Unit Test Template
-
-```cpp
-TEST(GameServer, AcceptsConnections) {
-    GameServer server(8080);
-    TcpClient client;
-    client.connect("localhost", 8080);
-    EXPECT_TRUE(client.isConnected());
-}
-```
-
-## Resources
-
-- `assets/` - Language templates
-- `references/` - Performance guides
+**Use this skill**: When learning game programming languages or optimizing code.

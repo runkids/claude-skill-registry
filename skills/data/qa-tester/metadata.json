@@ -1,11 +1,7 @@
 {
   "name": "qa-tester",
-  "description": "Specialized QA testing for morphir-dotnet. Use when user asks to create test plans, run tests, validate packages, report bugs, perform regression testing, or verify PR completion. Triggers include \"te",
-  "repo": "finos/morphir-dotnet",
-  "category": "testing",
-  "tags": [
-    "tester"
-  ],
-  "stars": 12,
-  "source": "local"
+  "repo": "ajianaz/skills-collection",
+  "path": "skills/qa-tester/SKILL.md",
+  "source": "github.com/ajianaz/skills-collection",
+  "downloaded_at": "2026-01-14T01:20:42.863491Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "dev-workflows",
-  "description": "Use when running builds, executing tests, or improving developer experience workflows - provides structured guidance for build/test execution and DX improvement.",
   "repo": "NickCrew/claude-cortex",
-  "category": "development",
-  "tags": [
-    "dev",
-    "workflows"
-  ],
-  "stars": 4,
-  "source": "SkillsMP Synced Skills"
+  "path": "claude_ctx_py/assets/skills/dev-workflows/SKILL.md",
+  "source": "github.com/NickCrew/claude-cortex",
+  "downloaded_at": "2026-01-14T02:11:11.192147Z"
 }

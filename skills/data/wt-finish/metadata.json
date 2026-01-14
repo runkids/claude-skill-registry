@@ -1,11 +1,7 @@
 {
   "name": "wt-finish",
-  "description": "Finish a feature by merging it to the base branch and cleaning up the worktree. Use when completing a feature or story, handles merge, push, and cleanup automatically.",
   "repo": "michael-menard/monorepo",
-  "category": "product",
-  "tags": [
-    "finish"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/wt-finish/SKILL.md",
+  "source": "github.com/michael-menard/monorepo",
+  "downloaded_at": "2026-01-14T02:05:19.171407Z"
 }

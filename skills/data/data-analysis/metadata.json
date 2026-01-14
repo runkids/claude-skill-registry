@@ -1,12 +1,7 @@
 {
   "name": "data-analysis",
-  "description": "Perform data analysis tasks including data cleaning, statistical analysis, visualization, and insight generation. Use when the user asks to analyze data, perform statistical analysis, create visualiza",
-  "repo": "meirm/askGPT",
-  "category": "data",
-  "tags": [
-    "data",
-    "analysis"
-  ],
-  "stars": 9,
-  "source": "SkillsMP Synced Skills"
+  "repo": "alongor666/chexianduoweifenxi",
+  "path": ".claude/skills/data-analysis/SKILL.md",
+  "source": "github.com/alongor666/chexianduoweifenxi",
+  "downloaded_at": "2026-01-14T02:29:03.939864Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "query-sub-agent",
-  "description": "專責處理 IDF (Information Display Frame) 類型的需求。讀取規格目錄結構，生成/審查 Query Side 設計與實作。支援 Java、TypeScript、Go 多語言。",
   "repo": "knowlet/skills",
-  "category": "development",
-  "tags": [
-    "query",
-    "sub",
-    "agent"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/query-sub-agent/SKILL.md",
+  "source": "github.com/knowlet/skills",
+  "downloaded_at": "2026-01-14T02:33:59.845272Z"
 }

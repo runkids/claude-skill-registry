@@ -1,13 +1,7 @@
 {
   "name": "research-source-evaluation",
-  "description": "When searching for authoritative sources for skills or validating existing source links.",
   "repo": "CoderMariusz/MonoPilot",
-  "category": "development",
-  "tags": [
-    "research",
-    "source",
-    "evaluation"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/research-source-evaluation/SKILL.md",
+  "source": "github.com/CoderMariusz/MonoPilot",
+  "downloaded_at": "2026-01-14T03:46:41.096837Z"
 }

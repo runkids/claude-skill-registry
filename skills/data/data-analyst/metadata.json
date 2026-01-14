@@ -1,11 +1,7 @@
 {
   "name": "data-analyst",
-  "description": "데이터 분석 전문가. pandas, numpy, 시각화, 통계 분석 지원.",
-  "repo": "mdpman2/Unified-Agent-Framework",
-  "category": "data",
-  "tags": [
-    "data",
-    "analyst"
-  ],
-  "stars": 7
+  "repo": "mamba-mental/agent-skill-manager",
+  "path": ".claude/skills/data-analyst/SKILL.md",
+  "source": "github.com/mamba-mental/agent-skill-manager",
+  "downloaded_at": "2026-01-14T01:45:02.060352Z"
 }

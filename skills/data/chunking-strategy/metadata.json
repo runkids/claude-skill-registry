@@ -1,8 +1,7 @@
 {
   "name": "chunking-strategy",
   "repo": "giuseppe-trisciuoglio/developer-kit",
-  "category": "data",
-  "description": "Implement optimal chunking strategies in RAG systems and document processing pipelines. Use when building retrieval-augmented generation systems, vector databases, or processing large documents that r",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:13.239636Z"
+  "path": "skills/ai/chunking-strategy/SKILL.md",
+  "source": "github.com/giuseppe-trisciuoglio/developer-kit",
+  "downloaded_at": "2026-01-14T00:54:21.846870Z"
 }

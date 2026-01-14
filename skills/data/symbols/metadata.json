@@ -1,11 +1,7 @@
 {
   "name": "symbols",
-  "description": "Token-efficient codebase navigation through intelligent symbol loading and querying. Use this skill when implementing new features (find existing patterns), exploring codebase structure, searching for",
-  "repo": "miethe/skillmeat",
-  "category": "development",
-  "tags": [
-    "symbols"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "miethe/ai-scratchpad",
+  "path": ".claude/skills/symbols/SKILL.md",
+  "source": "github.com/miethe/ai-scratchpad",
+  "downloaded_at": "2026-01-14T03:49:37.684487Z"
 }

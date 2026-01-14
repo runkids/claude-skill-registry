@@ -1,12 +1,7 @@
 {
   "name": "terraform-infrastructure",
-  "description": "Infrastructure as Code using Terraform with modular components, state management, and multi-cloud deployments. Use for provisioning and managing cloud resources.",
-  "repo": "aj-geddes/useful-ai-prompts",
-  "category": "devops",
-  "tags": [
-    "terraform",
-    "infrastructure"
-  ],
-  "stars": 25,
-  "source": "local"
+  "repo": "Hamza123545/Todo_giaic_five_phases",
+  "path": ".claude/skills/terraform-infrastructure/SKILL.md",
+  "source": "github.com/Hamza123545/Todo_giaic_five_phases",
+  "downloaded_at": "2026-01-14T02:32:57.541809Z"
 }

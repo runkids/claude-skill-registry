@@ -1,9 +1,7 @@
 {
   "name": "live-debug",
-  "description": "Debug the live solution at home.st44.no using Chrome browser tools",
   "repo": "tidemann/st44-home",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/live-debug/SKILL.md",
+  "source": "github.com/tidemann/st44-home",
+  "downloaded_at": "2026-01-14T03:15:17.301689Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "ccw-help",
-  "description": "Workflow command guide for Claude Code Workflow (78 commands). Search/browse commands, get next-step recommendations, view documentation, report issues. Triggers \"CCW-help\", \"CCW-issue\", \"ccw-help\", \"",
-  "repo": "catlog22/Claude-Code-Workflow",
-  "category": "documents",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/ccw-help/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-14T01:56:18.262129Z"
 }

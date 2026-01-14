@@ -1,13 +1,7 @@
 {
   "name": "moai-domain-devops",
-  "description": "CI/CD pipelines, Docker 27, Kubernetes 1.32, and infrastructure as code.",
-  "repo": "kivo360/quickhooks",
-  "category": "devops",
-  "tags": [
-    "moai",
-    "domain",
-    "devops"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "dolsoon/my-awesome-project",
+  "path": ".claude/skills/moai-domain-devops/SKILL.md",
+  "source": "github.com/dolsoon/my-awesome-project",
+  "downloaded_at": "2026-01-14T03:37:27.259370Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "starship-config",
-  "description": "Configure and optimize Starship cross-shell prompt with presets, custom modules, and performance tuning. Use when setting up Starship, creating prompt configs, customizing prompt appearance, or troubl",
   "repo": "wcygan/dotfiles",
-  "category": "data",
-  "tags": [
-    "starship",
-    "config"
-  ],
-  "stars": 182,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/starship-config/SKILL.md",
+  "source": "github.com/wcygan/dotfiles",
+  "downloaded_at": "2026-01-14T02:53:07.115673Z"
 }

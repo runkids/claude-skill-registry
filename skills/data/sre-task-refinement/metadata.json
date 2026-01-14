@@ -1,13 +1,7 @@
 {
   "name": "sre-task-refinement",
-  "description": "Use when you have to refine subtasks into actionable plans ensuring that all corner cases are handled and we understand all the requirements.",
   "repo": "withzombies/hyperpowers",
-  "category": "design",
-  "tags": [
-    "sre",
-    "task",
-    "refinement"
-  ],
-  "stars": 13,
-  "source": "local"
+  "path": "skills/sre-task-refinement/SKILL.md",
+  "source": "github.com/withzombies/hyperpowers",
+  "downloaded_at": "2026-01-14T02:06:00.148398Z"
 }

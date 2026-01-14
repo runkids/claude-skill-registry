@@ -1,13 +1,7 @@
 {
   "name": "api-versioning-strategy",
-  "description": "Implement API versioning strategies including URL versioning, header versioning, backward compatibility, deprecation strategies, and migration guides. Use when dealing with API versions, deprecating e",
-  "repo": "aj-geddes/useful-ai-prompts",
-  "category": "design",
-  "tags": [
-    "api",
-    "versioning",
-    "strategy"
-  ],
-  "stars": 25,
-  "source": "SkillsMP Synced Skills"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/api-versioning-strategy/skills/api-versioning-strategy/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-14T03:29:53.488710Z"
 }

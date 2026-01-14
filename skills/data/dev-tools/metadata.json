@@ -1,12 +1,7 @@
 {
   "name": "dev-tools",
-  "description": "Run CLI dev tools for game development (world inspection, benchmarks, assets, simulation). Use when user wants to 'check performance', 'inspect world', 'validate assets', 'stress test', or asks about ",
   "repo": "sunholo-data/stapledons_voyage",
-  "category": "development",
-  "tags": [
-    "dev",
-    "tools"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/dev-tools/SKILL.md",
+  "source": "github.com/sunholo-data/stapledons_voyage",
+  "downloaded_at": "2026-01-14T02:06:06.888072Z"
 }

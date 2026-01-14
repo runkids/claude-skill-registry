@@ -1,8 +1,7 @@
 {
   "name": "ai-tool-assessment",
   "repo": "vamseeachanta/workspace-hub",
-  "category": "data",
-  "description": "Assess and report on AI tool subscriptions, usage patterns, and cost-effectiveness. Use for reviewing AI subscriptions, analyzing tool usage, optimizing AI spend.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:13.463812Z"
+  "path": ".claude/skills/tools/ai-tool-assessment/SKILL.md",
+  "source": "github.com/vamseeachanta/workspace-hub",
+  "downloaded_at": "2026-01-14T01:21:46.563292Z"
 }

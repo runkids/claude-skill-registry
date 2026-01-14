@@ -1,12 +1,7 @@
 {
   "name": "clojure-eval",
-  "description": "Evaluate Clojure code via nREPL using clj-nrepl-eval. Use this when you need to test code, check if edited files compile, verify function behavior, or interact with a running REPL session.",
-  "repo": "bhauman/clojure-mcp-light",
-  "category": "development",
-  "tags": [
-    "clojure",
-    "eval"
-  ],
-  "stars": 81,
-  "source": "SkillsMP Synced Skills"
+  "repo": "Ramblurr/nix-devenv",
+  "path": "prompts/skills/clojure-eval/SKILL.md",
+  "source": "github.com/Ramblurr/nix-devenv",
+  "downloaded_at": "2026-01-14T01:53:19.267106Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "applying-frontend-patterns",
-  "description": "Framework-agnostic frontend component design patterns. Triggers: React, Vue, Angular, コンポーネント, パターン, hooks, カスタムフック, container, presentational, 分離, 状態管理, state management, composition, HOC, render pro",
   "repo": "thkt/claude-config",
-  "category": "design",
-  "tags": [
-    "applying",
-    "frontend",
-    "patterns"
-  ],
-  "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "path": ".ja/skills/applying-frontend-patterns/SKILL.md",
+  "source": "github.com/thkt/claude-config",
+  "downloaded_at": "2026-01-14T03:15:10.794115Z"
 }

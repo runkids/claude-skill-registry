@@ -1,13 +1,7 @@
 {
   "name": "persona-memory-archivist",
-  "description": "Archive persona-specific memory and behavioral patterns.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "productivity",
-  "tags": [
-    "persona",
-    "memory",
-    "archivist"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/persona-memory-archivist/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-14T01:08:23.070385Z"
 }

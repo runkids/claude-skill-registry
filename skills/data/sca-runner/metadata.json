@@ -1,12 +1,7 @@
 {
   "name": "sca-runner",
-  "description": "Runs Software Composition Analysis (SCA) to detect vulnerable dependencies. Wraps npm audit and Trivy fs. Use when user asks to \"scan dependencies\", \"check npm vulnerabilities\", \"SCA scan\", \"dependenc",
   "repo": "naporin0624/claude-web-audit-plugins",
-  "category": "development",
-  "tags": [
-    "sca",
-    "runner"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": "skills/sca-runner/SKILL.md",
+  "source": "github.com/naporin0624/claude-web-audit-plugins",
+  "downloaded_at": "2026-01-14T02:31:13.773660Z"
 }

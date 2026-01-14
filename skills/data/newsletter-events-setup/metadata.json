@@ -1,13 +1,7 @@
 {
   "name": "newsletter-events-setup",
-  "description": "Set up environment for local newsletter events plugin. Use when first installing, updating dependencies, or verifying configuration.",
   "repo": "aniketpanjwani/local_media_tools",
-  "category": "devops",
-  "tags": [
-    "newsletter",
-    "events",
-    "setup"
-  ],
-  "stars": 7,
-  "source": "local"
+  "path": "skills/newsletter-events-setup/SKILL.md",
+  "source": "github.com/aniketpanjwani/local_media_tools",
+  "downloaded_at": "2026-01-14T03:42:32.322724Z"
 }

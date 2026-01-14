@@ -1,245 +1,142 @@
 ---
 name: code-review-skill
-description: Use to review code implementations for quality, correctness, and best practices
+description: Comprehensive code review and analysis. AUTO-TRIGGERS when user asks to review, refactor, debug, critique, or analyze code.
+keywords:
+  - review
+  - refactor
+  - debug
+  - critique
+  - analyze code
+  - code quality
+  - bugs
+  - vulnerabilities
+  - performance
+  - best practices
 ---
 
 # Code Review Skill
 
-Two-phase review: First analyze and document findings, then apply approved fixes.
+## What This Skill Does
 
-**Preset Configuration:**
-- Focus: Code quality, correctness, best practices
-- Quality Gate: No new findings for 1 iteration (review comprehensive)
-- Reviewer Type: Senior Code Reviewer
-- Max Iterations: 4
+This skill **automatically activates** when you ask Claude to review, refactor, debug, or analyze code. It's a demonstration of the **auto-trigger pattern**—the skill detects your intent and applies specialized code review expertise without you explicitly requesting "code review mode."
 
-## When to Use
+## Auto-Trigger Keywords
 
-- After completing implementation of a feature
-- Before creating a pull request
-- When refactoring significant code
-- Post-merge quality verification
+This skill engages when you mention:
+- "review" (code review, peer review, security review)
+- "refactor" (improve, restructure, simplify)
+- "debug" (find the bug, what's wrong, why doesn't it work)
+- "analyze" (code analysis, code smell, technical debt)
+- "critique" (code critique, feedback, improvement)
+- "vulnerabilities" (security issues, exploits, vulnerabilities)
+- "performance" (optimization, slow, inefficient)
+- "best practices" (coding standards, conventions, idiomatic)
 
-## Required Information
+## Review Workflow
 
-1. **Target** - code path or git range (e.g., `src-tauri/src/calculations.rs` or `HEAD~3..HEAD`)
-2. **Reference** - plan or spec the code implements
+### Step 1: Understand the Context
+- Identify the programming language
+- Determine the purpose/intent of the code
+- Note the specific area of focus (performance, security, clarity, etc.)
 
----
+### Step 2: Structured Analysis
+Review across these dimensions:
+1. **Correctness** - Does it do what it's supposed to?
+2. **Readability** - Is the code clear and maintainable?
+3. **Performance** - Are there inefficiencies?
+4. **Security** - Are there vulnerabilities or risks?
+5. **Best Practices** - Does it follow language conventions?
+6. **Testing** - Is the code testable? Are edge cases handled?
 
-## Phase 1: Review (Findings Only)
+### Step 3: Provide Feedback
+- Highlight what works well (positive feedback)
+- Point out specific issues with line references
+- Suggest concrete improvements
+- Explain the "why" behind recommendations
 
-### Step 1: Gather Code Context
+### Step 4: Prioritize Suggestions
+- **Critical** - Security issues, bugs, breaking issues
+- **Important** - Performance, maintainability, design
+- **Nice-to-have** - Style, minor improvements
 
-If git range provided:
-```bash
-git diff --stat {BASE}..{HEAD}
-git diff {BASE}..{HEAD}
+## Review Scenarios (Examples)
+
+### Example 1: Security Review
+**User:** "Review this for vulnerabilities"
+```python
+import hashlib
+password = input("Enter password: ")
+hash = hashlib.md5(password.encode()).hexdigest()
 ```
+**Response:** (Auto-triggers code-review-skill)
+- Point out: MD5 is cryptographically broken
+- Suggest: Use bcrypt, scrypt, or Argon2 instead
+- Explain: MD5 is vulnerable to collision attacks
 
-If file path provided:
-- Read the file(s)
-- Identify recent changes
-
-### Step 2: Run Tests (Baseline)
-
-```bash
-npm run test:backend
+### Example 2: Refactoring Request
+**User:** "How can I refactor this to be cleaner?"
+```python
+if x > 5:
+    if y > 10:
+        if z < 3:
+            print("conditions met")
 ```
+**Response:** (Auto-triggers code-review-skill)
+- Suggest: Use logical operators to flatten nesting
+- Show: `if x > 5 and y > 10 and z < 3:`
+- Explain: Reduces cognitive complexity
 
-Note test status for review context (pass/fail). Do NOT fix yet.
-
-### Step 3: Create Review Document
-
-Create `_code-review.md` in project root or task folder:
-
-```markdown
-# Code Review
-
-**Target:** {TARGET}
-**Reference:** {REFERENCE}
-**Started:** YYYY-MM-DD
-**Status:** In Progress
-**Focus:** Quality, correctness, best practices
-
-**Baseline Test Status:** [Pass / N failures]
-
-## Iteration 1
-
-### Findings
-
-[To be filled by review agent]
+### Example 3: Performance Analysis
+**User:** "This code is slow, find the bottleneck"
+```python
+result = []
+for item in large_list:
+    if item not in result:
+        result.append(item)
 ```
+**Response:** (Auto-triggers code-review-skill)
+- Identify: O(n²) behavior due to list lookup
+- Suggest: Use `set()` for O(1) lookups
+- Show: `result = list(set(large_list))`
 
-### Step 4: Execute Review Loop
-
-For each iteration (max 4):
-
-**Spawn Review Agent:**
-
+### Example 4: Bug Hunting
+**User:** "Debug this—there's a logic error"
+```javascript
+for (let i = 0; i <= arr.length; i++) {
+    console.log(arr[i]);
+}
 ```
-Task tool (superpowers:code-reviewer):
-  Use template from requesting-code-review/code-reviewer.md
+**Response:** (Auto-triggers code-review-skill)
+- Spot: Off-by-one error (i <= arr.length)
+- Explain: arr[arr.length] is undefined
+- Fix: Change `<=` to `<`
 
-  WHAT_WAS_IMPLEMENTED: {description from reference}
-  PLAN_OR_REQUIREMENTS: {REFERENCE}
-  BASE_SHA: {BASE or N/A}
-  HEAD_SHA: {HEAD or current}
+## Key Points
 
-  IMPORTANT: Document findings only. Do not apply fixes.
-```
+- **Auto-trigger is implicit** - Just ask about code quality/bugs, and this skill engages
+- **Context-aware** - Adapts to language, domain, and review focus
+- **Positive & constructive** - Always acknowledge good practices first
+- **Specific feedback** - Reference line numbers and concrete examples
+- **Educational** - Explain the "why" behind suggestions
 
-**Update Review Document:** Append findings to `_code-review.md`:
-```markdown
-## Iteration N
+## When This Skill Doesn't Apply
 
-### New Findings
-- [Critical] Issue description - `file:line` - Suggested fix
-- [Important] Issue description - `file:line` - Suggested fix
-- [Minor] Issue description - `file:line` - Suggested fix
+This skill focuses on **code itself**. For other needs, use different tools:
+- Architecture design → Use planning/design tools
+- Project setup → Use project initialization tools
+- Documentation → Use documentation skills
+- Testing framework selection → Use research skills
 
-### Test Gaps
-[Any missing test coverage noted]
+## Review Priorities
 
-### Coverage Assessment
-[Areas reviewed / Areas remaining]
-```
+**Always check first (if relevant):**
+1. Security vulnerabilities
+2. Correctness/logic bugs
+3. Performance critical paths
+4. Maintainability
+5. Style/conventions
 
-**Commit Review Only:**
-```bash
-git add _code-review.md
-git commit -m "review(code): iteration N findings for {TARGET}"
-```
-
-**Quality Gate:** Exit when no new findings for 1 iteration (review is comprehensive).
-
-### Step 5: Finalize Review Document
-
-Update `_code-review.md` with summary:
-
-```markdown
-## Review Summary
-
-**Status:** Ready for User Review
-**Iterations:** N
-**Total Findings:** X Critical, Y Important, Z Minor
-**Test Status:** [Pass / Fail]
-
-### All Findings (Consolidated)
-
-#### Critical
-1. [ ] Issue - `file:line` - Suggested fix
-
-#### Important
-1. [ ] Issue - `file:line` - Suggested fix
-
-#### Minor
-1. [ ] Issue - `file:line` - Suggested fix
-
-### Test Gaps
-- [ ] Missing test for X
-- [ ] Edge case Y not covered
-
-### Recommendation
-[Ready to merge / Needs fixes / Major issues]
-```
-
-**Commit:**
-```bash
-git add _code-review.md
-git commit -m "review(code): complete findings for {TARGET}"
-```
-
-### Step 6: Present Review for Approval
-
-Inform user:
-
-> **Code review complete.**
->
-> Please review `_code-review.md` for findings.
->
-> After your review, let me know:
-> - Which findings to fix
-> - Which to skip (with reason)
-> - Any questions about findings
-
-**STOP and wait for user direction.**
-
----
-
-## Phase 2: Apply Approved Fixes
-
-*Only proceed after user approval.*
-
-### Step 7: Apply Approved Fixes
-
-For each user-approved finding:
-
-1. Implement the fix
-2. Check the finding as addressed in `_code-review.md`: `[x]`
-
-### Step 8: Run Tests
-
-```bash
-npm run test:backend
-```
-
-If tests fail:
-- Diagnose the failure
-- Fix or report to user for decision
-
-### Step 9: Commit Changes
-
-```bash
-git add -A
-git commit -m "fix: address code review findings
-
-Addressed:
-- [list of fixed issues]"
-```
-
-### Step 10: Final Assessment
-
-Update `_code-review.md`:
-
-```markdown
-## Resolution
-
-**Addressed:** N findings
-**Skipped:** M findings (user decision)
-**Test Status:** All passing
-**Status:** Complete
-
-### Applied Fixes
-- Finding 1: [how resolved]
-- Finding 2: [how resolved]
-
-### Skipped Items
-- Finding X: [user's reason]
-```
-
----
-
-## Domain-Specific Checklist
-
-Review should verify:
-- [ ] Tests pass
-- [ ] No obvious bugs
-- [ ] Error handling present
-- [ ] No security vulnerabilities (input validation, etc.)
-- [ ] Code matches plan/spec
-- [ ] No scope creep (extra features not requested)
-- [ ] Follows project patterns (see CLAUDE.md)
-
-## Example
-
-```
-User: /code-review src-tauri/src/suggestions.rs against _tasks/19-feature/02-plan.md
-
-Claude: [Executes Phase 1 - runs tests, creates _code-review.md, iterates until comprehensive]
-Claude: Code review complete. Please review _code-review.md for findings.
-
-User: Fix all Critical issues. Skip the Minor style suggestions.
-
-Claude: [Executes Phase 2 - applies approved fixes, runs tests, commits]
-```
+**Only after above are addressed:**
+6. Minor improvements
+7. Code style preferences
+8. Formatting

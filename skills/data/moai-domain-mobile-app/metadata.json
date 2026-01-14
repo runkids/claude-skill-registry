@@ -1,14 +1,7 @@
 {
   "name": "moai-domain-mobile-app",
-  "description": "Flutter 3.27/React Native 0.76 with state management and native integration.",
-  "repo": "kivo360/quickhooks",
-  "category": "testing",
-  "tags": [
-    "moai",
-    "domain",
-    "mobile",
-    "app"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "dolsoon/my-awesome-project",
+  "path": ".claude/skills/moai-domain-mobile-app/SKILL.md",
+  "source": "github.com/dolsoon/my-awesome-project",
+  "downloaded_at": "2026-01-14T03:37:35.556288Z"
 }

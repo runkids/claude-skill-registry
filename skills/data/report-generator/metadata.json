@@ -1,11 +1,7 @@
 {
   "name": "report-generator",
-  "description": "Generate professional PDF/HTML reports with charts, tables, and narrative from data. Supports templates, branding, and automated report generation.",
-  "repo": "dkyazzentwatwa/chatgpt-skills",
-  "category": "data",
-  "tags": [
-    "report",
-    "generator"
-  ],
-  "stars": 1
+  "repo": "u9401066/copilot-capability-manager",
+  "path": ".claude/skills/report-generator/SKILL.md",
+  "source": "github.com/u9401066/copilot-capability-manager",
+  "downloaded_at": "2026-01-14T02:33:32.087217Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "swift-concurrency-expert",
-  "description": "Swift Concurrency review and remediation for Swift 6.2+. Use when asked to review Swift Concurrency usage, improve concurrency compliance, or fix Swift concurrency compiler errors in a feature or file",
-  "repo": "steipete/agent-scripts",
-  "category": "development",
-  "tags": [
-    "swift",
-    "concurrency",
-    "expert"
-  ],
-  "stars": 546,
-  "source": "SkillsMP Synced Skills"
+  "repo": "nickromney/n-dotfiles",
+  "path": "skills/swift-concurrency-expert/SKILL.md",
+  "source": "github.com/nickromney/n-dotfiles",
+  "downloaded_at": "2026-01-14T03:19:34.372258Z"
 }

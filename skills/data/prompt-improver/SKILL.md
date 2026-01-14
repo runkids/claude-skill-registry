@@ -1,228 +1,160 @@
 ---
 name: prompt-improver
-description: Improve prompts for AI agents and Telegram bots using OpenAI's prompt engineering best practices. Analyzes clarity, specificity, context, and output format. Returns structured improvements.
+description: This skill enriches vague prompts with targeted research and clarification before execution. Should be used when a prompt is determined to be vague and requires systematic research, question generation, and execution guidance.
 ---
 
 # Prompt Improver Skill
 
-**Version:** 1.0  
-**Domain:** AI Prompting & Bot Communication  
-**Focus:** Optimize prompts for Telegram bots, increase clarity and response quality
+## Purpose
 
-## Overview
+Transform vague, ambiguous prompts into actionable, well-defined requests through systematic research and targeted clarification. This skill is invoked when the hook has already determined a prompt needs enrichment.
 
-The Prompt Improver skill enhances prompts designed for bots by applying OpenAI's prompt engineering best practices, domain-specific optimizations, and bot-communication patterns. It analyzes prompts against a systematic framework and provides structured improvements.
+## When This Skill is Invoked
 
-## Core Capabilities
+**Automatic invocation:**
+- UserPromptSubmit hook evaluates prompt
+- Hook determines prompt is vague (missing specifics, context, or clear target)
+- Hook invokes this skill to guide research and questioning
 
-### 1. **Prompt Analysis Framework**
-- **Clarity Assessment** - Measures clarity on 1-10 scale
-- **Specificity Check** - Evaluates technical detail level
-- **Context Sufficiency** - Validates background information
-- **Role Definition** - Confirms actor/persona clarity
-- **Output Format** - Checks expected response structure
-- **Constraint Identification** - Lists limitations and requirements
+**Manual invocation:**
+- To enrich a vague prompt with research-based questions
+- When building or testing prompt evaluation systems
+- When prompt lacks sufficient context even with conversation history
 
-### 2. **Improvement Strategies**
+**Assumptions:**
+- Prompt has already been identified as vague
+- Evaluation phase is complete (done by hook)
+- Proceed directly to research and clarification
 
-#### ✅ Clarity Enhancements
-- Remove ambiguous language
-- Define technical terms inline
-- Use concrete examples
-- Replace vague phrases with specific actions
+## Core Workflow
 
-#### ✅ Specificity Optimization
-- Add measurable outcomes
-- Include input/output examples
-- Define edge cases to handle
-- Specify tone and style
+This skill follows a 4-phase approach to prompt enrichment:
 
-#### ✅ Bot-Specific Optimizations
-- Telegram command syntax (`/start`, `/help`)
-- Message formatting (markdown, buttons, keyboards)
-- Conversation flow patterns
-- Error handling strategies
-- Response length constraints (4096 char limit)
+### Phase 1: Research
 
-#### ✅ Context Enrichment
-- Suggest background information
-- Include relevant examples
-- Define expected user scenarios
-- Add domain-specific terminology
+Create a dynamic research plan using TodoWrite before asking questions.
 
-### 3. **Analysis Output Structure**
+**Research Plan Template:**
+1. **Check conversation history first** - Avoid redundant exploration if context already exists
+2. **Review codebase** if needed:
+   - Task/Explore for architecture and project structure
+   - Grep/Glob for specific patterns, related files
+   - Check git log for recent changes
+   - Search for errors, failing tests, TODO/FIXME comments
+3. **Gather additional context** as needed:
+   - Read local documentation files
+   - WebFetch for online documentation
+   - WebSearch for best practices, common approaches, current information
+4. **Document findings** to ground questions in actual project context
 
-```markdown
-## 📊 ORIGINAL PROMPT ANALYSIS
-- Clarity Score: [1-10]
-- Specificity Level: [Low/Medium/High]
-- Context Richness: [Insufficient/Adequate/Rich]
-- Bot Compatibility: [⚠️ Issues / ✅ Compatible]
-- Key Issues: [List]
+**Critical Rules:**
+- NEVER skip research
+- Check conversation history before exploring codebase
+- Questions must be grounded in actual findings, not assumptions or base knowledge
 
-## 🎯 IMPROVEMENT RECOMMENDATIONS
-1. [Specific improvement with reasoning]
-2. [Next improvement]
-...
+For detailed research strategies, patterns, and examples, see [references/research-strategies.md](references/research-strategies.md).
 
-## ✨ IMPROVED PROMPT
-[Optimized version]
+### Phase 2: Generate Targeted Questions
 
-## 📝 EXPLANATION
-- Why changes were made
-- Expected quality improvement
-- Bot-specific considerations
+Based on research findings, formulate 1-6 questions that will clarify the ambiguity.
+
+**Question Guidelines:**
+- **Grounded**: Every option comes from research (codebase findings, documentation, common patterns)
+- **Specific**: Avoid vague options like "Other approach"
+- **Multiple choice**: Provide 2-4 concrete options per question
+- **Focused**: Each question addresses one decision point
+- **Contextual**: Include brief explanations of trade-offs
+
+**Number of Questions:**
+- **1-2 questions**: Simple ambiguity (which file? which approach?)
+- **3-4 questions**: Moderate complexity (scope + approach + validation)
+- **5-6 questions**: Complex scenarios (major feature with multiple decision points)
+
+For question templates, effective patterns, and examples, see [references/question-patterns.md](references/question-patterns.md).
+
+### Phase 3: Get Clarification
+
+Use the AskUserQuestion tool to present your research-grounded questions.
+
+**AskUserQuestion Format:**
+```
+- question: Clear, specific question ending with ?
+- header: Short label (max 12 chars) for UI display
+- multiSelect: false (unless choices aren't mutually exclusive)
+- options: Array of 2-4 specific choices from research
+  - label: Concise choice text (1-5 words)
+  - description: Context about this option (trade-offs, implications)
 ```
 
-## Usage Patterns
+**Important:** Always include multiSelect field (true/false). User can always select "Other" for custom input.
 
-### Pattern 1: Bot Command Enhancement
-```
-User: "Improve this prompt for my Telegram bot"
-[Prompt about listing products]
+### Phase 4: Execute with Context
 
-Skill Response:
-- Analysis of current prompt
-- Bot-specific suggestions (keyboard layout, response format)
-- Improved version with Telegram best practices
-```
+Proceed with the original user request using:
+- Original prompt intent
+- Clarification answers from user
+- Research findings and context
+- Conversation history
 
-### Pattern 2: Conversation Flow Design
-```
-User: "Design a conversational flow for..."
-Skill provides:
-- Multi-turn conversation structure
-- Button/keyboard layouts
-- Error handling prompts
-- Exit strategies
-```
+Execute the request as if it had been clear from the start.
 
-### Pattern 3: AI Integration Optimization
-```
-User: "Improve this prompt for Gemini/ChatGPT API calls"
-Skill provides:
-- Model-specific optimizations
-- Token efficiency improvements
-- System prompt + user prompt separation
-- Temperature/parameter suggestions
-```
+## Examples
 
-## Bot-Specific Best Practices
+### Example 1: Skill Invocation → Research → Questions → Execution
 
-### Telegram Bots
-- **Message Limits:** 4096 characters per message
-- **Markdown:** Use `**bold**`, `_italic_`, `` `code` ``
-- **Keyboards:** Suggest inline buttons or reply keyboards
-- **Callbacks:** Design stateless callback handlers
-- **Rate Limits:** Consider API rate limiting
+**Hook evaluation:** Determined prompt is vague
+**Original prompt:** "fix the bug"
+**Skill invoked:** Yes (prompt lacks target and context)
 
-### WhatsApp Bots (WAHA)
-- **Templates:** Use message templates for broadcasts
-- **Media:** Support image/document responses
-- **Formatting:** Limited markdown support
-- **Buttons:** Button payloads max 256 chars
+**Research plan:**
+1. Check conversation history for recent errors
+2. Explore codebase for failing tests
+3. Grep for TODO/FIXME comments
+4. Check git log for recent problem areas
 
-### Multi-Platform Coordination
-- **Prompt Versioning:** Different prompts per platform
-- **Fallbacks:** Handle unsupported features gracefully
-- **Context Preservation:** Maintain conversation state
+**Research findings:**
+- Recent conversation mentions login failures
+- auth.py:145 has try/catch swallowing errors
+- Tests failing in test_auth.py
 
-## Integration Points
+**Questions generated:**
+1. Which bug are you referring to?
+   - Login authentication failure (auth.py:145)
+   - Session timeout issues (session.py:89)
+   - Other
 
-### With Telegram UI Design Skill
-- Complements keyboard/button design
-- Provides instruction text for UI elements
-- Optimizes for message formatting constraints
+**User answer:** Login authentication failure
 
-### With Backend Services
-- Prepares prompts for API calls
-- Structures responses for database storage
-- Defines error handling responses
+**Execution:** Fix the error handling in auth.py:145 that's causing login failures
 
-## Evaluation Metrics
+### Example 2: Clear Prompt (Skill Not Invoked)
 
-| Metric | Goal | Measurement |
-|--------|------|------------|
-| Clarity | +3 points | User understanding increase |
-| Specificity | Clear outputs | Unambiguous bot response |
-| Token Efficiency | -20% tokens | Reduced API costs |
-| Bot Compatibility | 0 errors | No formatting violations |
+**Original prompt:** "Refactor the getUserById function in src/api/users.ts to use async/await instead of promises"
 
-## Templates & Examples
+**Hook evaluation:** Passes all checks
+- Specific target: getUserById in src/api/users.ts
+- Clear action: refactor to async/await
+- Success criteria: use async/await instead of promises
 
-### Template: System Prompt for Affiliate Bot
-```
-You are an Affiliate Product Recommendation Bot for OfertaChina.
-Your role: Help users find the best deals on Chinese products.
-Constraints: Keep responses under 300 words, max 2 product recommendations per message.
-Format: Use inline buttons [View Deal] [Add to List] [Share]
-Tone: Friendly, helpful, professional
-Error Handling: If product not found, suggest similar categories
-```
+**Skill invoked:** No (prompt is clear, proceeds immediately without skill invocation)
 
-### Template: Conversation Flow for Product Search
-```
-[START] → Ask category preference
-  ↓
-[CATEGORY_SELECT] → Show category buttons
-  ↓
-[FILTER_OPTIONS] → Price range, brand, rating
-  ↓
-[RESULTS] → Display products with inline buttons
-  ↓
-[DETAIL_VIEW] → Full product info with affiliate link
-  ↓
-[ACTION] → Add to list, share, or new search
-```
+For comprehensive examples showing various prompt types and transformations, see [references/examples.md](references/examples.md).
 
-## Command Patterns for Automation
+## Key Principles
 
-```bash
-# Improve prompt for telegram
-@prompt-improver Optimize this prompt: "List products"
+1. **Assume Vagueness**: Skill is only invoked for vague prompts (evaluation done by hook)
+2. **Research First**: Always gather context before formulating questions
+3. **Ground Questions**: Use research findings, not assumptions or base knowledge
+4. **Be Specific**: Provide concrete options from actual codebase/context
+5. **Stay Focused**: Max 1-6 questions, each addressing one decision point
+6. **Systematic Approach**: Follow 4-phase workflow (Research → Questions → Clarify → Execute)
 
-# Design conversation flow
-@prompt-improver Design a product search flow for Telegram
+## Progressive Disclosure
 
-# API integration prep
-@prompt-improver Prepare prompt for Gemini API integration
+This SKILL.md contains the core workflow and essentials. For deeper guidance:
 
-# Error handling
-@prompt-improver Improve error messages for this bot
-```
+- **Research strategies**: [references/research-strategies.md](references/research-strategies.md)
+- **Question patterns**: [references/question-patterns.md](references/question-patterns.md)
+- **Comprehensive examples**: [references/examples.md](references/examples.md)
 
-## Advanced Features
-
-### 1. **Prompt Versioning**
-- Track prompt iterations
-- Compare performance metrics
-- A/B test different versions
-
-### 2. **Domain-Specific Libraries**
-- Affiliate marketing prompts
-- E-commerce product descriptions
-- Customer service patterns
-- Content generation templates
-
-### 3. **Performance Tuning**
-- Optimize for response latency
-- Reduce token consumption
-- Improve accuracy metrics
-- Measure user satisfaction
-
-## References & Learning Resources
-
-- [OpenAI Prompt Engineering Guide](https://platform.openai.com/docs/guides/prompt-engineering)
-- [Telegram Bot API Documentation](https://core.telegram.org/bots/api)
-- [Claude Prompt Engineering](https://claude.ai/resources)
-- [WAHA Documentation](https://waha.dev/)
-
-## Changelog
-
-- **v1.0** (2025-12-19): Initial release with Telegram/WhatsApp optimization, conversation flow design, API integration prep
-
----
-
-**Status:** ✅ Production Ready  
-**Maintenance:** Active  
-**Last Updated:** December 19, 2025
+Load these references only when detailed guidance is needed on specific aspects of prompt improvement.

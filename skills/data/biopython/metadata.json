@@ -1,8 +1,7 @@
 {
   "name": "biopython",
-  "repo": "davila7/claude-code-templates",
-  "category": "data",
-  "description": "Primary Python toolkit for molecular biology. Preferred for Python-based PubMed/NCBI queries (Bio.Entrez), sequence manipulation, file parsing (FASTA, GenBank, FASTQ, PDB), advanced BLAST workflows, s",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:36.382094Z"
+  "repo": "drshailesh88/integrated_content_OS",
+  "path": "skills/scientific/biopython/SKILL.md",
+  "source": "github.com/drshailesh88/integrated_content_OS",
+  "downloaded_at": "2026-01-14T04:02:23.451301Z"
 }

@@ -1,142 +1,122 @@
 ---
 name: sparql-university
-description: Guidance for writing SPARQL queries against RDF/Turtle datasets, particularly for university or academic data. This skill should be used when tasks involve querying RDF data with SPARQL, filtering entities based on multiple criteria, aggregating results, or working with Turtle (.ttl) files.
+description: Guidance for writing and verifying SPARQL queries against RDF datasets, particularly university/academic ontologies. This skill should be used when tasks involve querying RDF data with SPARQL, working with academic datasets (students, professors, departments, courses), or performing complex graph pattern matching with filters and aggregations.
 ---
 
 # SPARQL University Query Tasks
 
 ## Overview
 
-This skill provides guidance for writing SPARQL queries against RDF/Turtle datasets, with emphasis on ensuring complete data analysis, proper query construction, and thorough verification.
+This skill provides structured approaches for writing SPARQL queries against RDF datasets, with emphasis on university/academic ontologies. It covers ontology analysis, query construction, verification strategies, and common pitfalls to avoid.
 
 ## Workflow
 
-### Step 1: Complete Data Acquisition
+### Step 1: Analyze the Ontology Structure
 
-Before writing any query, ensure complete visibility of the source data.
+Before writing any query, thoroughly understand the RDF schema:
 
-**Critical actions:**
-- Read the entire Turtle (.ttl) or RDF file without truncation
-- If data appears truncated, request additional content or use pagination
-- Count distinct entities to verify data completeness
-- Document all entity types, predicates, and relationships observed
+1. **Identify relevant classes** - Determine which classes represent the entities in the query (e.g., `uni:Person`, `uni:Department`, `uni:Course`, `uni:Student`)
+2. **Map predicates** - Find predicates connecting entities:
+   - Person → Department relationships (e.g., `uni:worksIn`)
+   - Person → Role relationships (e.g., `uni:hasRole`)
+   - Student → Course relationships (e.g., `uni:enrolledIn`)
+   - Course → Department relationships (e.g., `uni:offeredBy`)
+3. **Understand data types** - Check for string patterns, date formats, country codes
+4. **Examine sample data** - Query a few instances to verify assumptions about the data structure
 
-**Verification checkpoint:** Confirm the number of distinct entities matches expectations before proceeding.
+### Step 2: Decompose Complex Requirements
 
-### Step 2: Schema Understanding
+Break down multi-condition queries into discrete logical components:
 
-Map out the data structure before query construction.
+1. **Entity identification** - Define criteria for selecting primary entities (e.g., "Full Professor" means roles starting with "Professor of" but excluding "Assistant Professor")
+2. **Relationship filtering** - Specify how entities connect across the graph
+3. **Aggregation logic** - Define grouping and counting requirements
+4. **Temporal conditions** - Handle date-based filters (e.g., "currently enrolled" means no graduation date OR graduation date in the future)
+5. **Geographic/categorical filters** - Prepare explicit value lists (e.g., EU-27 country codes)
 
-**Key elements to identify:**
-- All entity types (classes) in the dataset
-- All predicates/properties used
-- Relationships between entities (e.g., professor → department → students)
-- Data types for literals (strings, dates, integers)
-- Naming conventions and value formats
+### Step 3: Construct the Query Incrementally
 
-**Common patterns in academic data:**
-- Roles/titles often use specific prefixes (e.g., "Professor of", "Associate Professor")
-- Dates may require comparison logic for "current" status
-- Geographic codes may use ISO standards (country codes)
-- Enrollment may span multiple departments
+Build queries layer by layer, testing each component:
 
-### Step 3: Criteria Decomposition
+```sparql
+# Start with basic pattern matching
+SELECT ?entity WHERE {
+  ?entity rdf:type uni:Person .
+  ?entity uni:hasRole ?role .
+}
 
-Break down filtering requirements into discrete, testable conditions.
+# Add role filtering
+FILTER(STRSTARTS(?role, "Professor of") && !STRSTARTS(?role, "Assistant Professor"))
 
-**For each criterion:**
-1. Identify the exact predicate path to the relevant data
-2. Determine the comparison type (equality, prefix match, membership, numeric)
-3. Consider edge cases in the criterion interpretation
-4. Test each criterion independently before combining
+# Add subquery or EXISTS clause for complex conditions
+FILTER EXISTS {
+  # Nested pattern for conditional logic
+}
+```
 
-**Example decomposition:**
-- "Full professors" → Filter where role starts with specific prefix
-- "Working in EU countries" → Filter country codes against EU membership list
-- "Departments with >10 students" → Count students per department, apply threshold
+**Key query patterns:**
 
-### Step 4: Query Construction
+- Use `STRSTARTS()` or `CONTAINS()` for string matching on roles/titles
+- Use `FILTER EXISTS { }` for conditional relationship requirements
+- Use `COUNT(DISTINCT ?var)` when entities may appear multiple times
+- Use `GROUP BY` with `HAVING` for aggregate conditions
+- Use `IN (...)` for explicit value lists (e.g., country codes)
 
-Build the query incrementally with validation at each stage.
+### Step 4: Verify the Query
 
-**Construction sequence:**
-1. Start with the most restrictive filter to reduce result set
-2. Add one filter at a time, verifying intermediate results
-3. Include all necessary SELECT variables
-4. Add aggregation (GROUP BY, GROUP_CONCAT) last
+**Critical: Always verify file contents after writing.**
 
-**Syntax validation:**
-- Verify all prefixes are declared
-- Ensure FILTER expressions are properly closed
-- Check string comparisons use correct functions (STRSTARTS, CONTAINS, regex)
-- Confirm numeric comparisons handle data types correctly
+1. **Read back the written file** - After using Write tool, immediately Read the file to confirm complete content
+2. **Check for truncation** - Verify closing brackets, complete filter lists, and proper termination
+3. **Validate syntax** - Install and use `rdflib` or another SPARQL parser to check syntax before execution:
 
-**Output format considerations:**
-- Determine if results need aggregation (e.g., concatenating multiple values)
-- Specify sort order and separators for concatenated values
-- Distinguish between filtering criteria and output requirements (e.g., filter by EU countries but output ALL countries)
+```python
+from rdflib import Graph
+g = Graph()
+g.parse("data.ttl", format="turtle")
+results = g.query(open("solution.sparql").read())
+```
 
-### Step 5: Verification Strategy
+4. **Verify results against expectations** - Cross-check output against known test cases or sample data
 
-Test the query against known expectations.
+### Step 5: Handle Result Interpretation
 
-**Verification methods:**
-1. Run the query and examine raw output
-2. Manually trace through data for at least 2-3 entities to verify correctness
-3. Check for both inclusion (expected entities present) AND exclusion (unexpected entities absent)
-4. Verify aggregated values by manual count
+Understand what the query returns vs. what qualifies entities:
 
-**Cross-reference checklist:**
-- Do the returned entities match manual analysis?
-- Are all expected entities present in results?
-- Are any unexpected entities incorrectly included?
-- Do aggregated counts/values match manual verification?
+- A professor qualifies based on meeting criteria in ONE department
+- The query returns ALL associated data (e.g., all countries where they work)
+- Non-qualifying values in output (e.g., non-EU countries) appear because the entity qualified through other relationships
 
 ## Common Pitfalls
 
-### Incomplete Data Reading
-- **Problem:** Working with truncated data leads to missing entities
-- **Prevention:** Always confirm complete file content; re-read if truncated
+### File Writing Issues
 
-### Query Truncation
-- **Problem:** Long queries may be incompletely written
-- **Prevention:** After writing, read back the query file to verify completeness
+- **Truncated writes** - Long FILTER IN clauses with many values (e.g., country codes) may appear truncated in tool output. Always read the file back to verify.
+- **Incomplete syntax** - Missing closing parentheses, brackets, or GROUP BY clauses cause silent failures
 
-### Criterion Misinterpretation
-- **Problem:** Confusing filter criteria with output requirements
-- **Prevention:** Distinguish between "filter BY X" vs "output X" - these may differ
+### Logic Errors
 
-### Date/Time Edge Cases
-- **Problem:** Incorrect handling of boundary dates
-- **Prevention:** Clarify whether comparisons are inclusive or exclusive; test boundaries
+- **Role matching** - "Full Professor" typically excludes "Assistant Professor" - use compound string conditions
+- **Date handling** - "Currently enrolled" usually means either no end date OR end date >= reference date
+- **Distinct counting** - Students enrolled in multiple courses in one department should count once per department
 
-### Aggregation Errors
-- **Problem:** Missing GROUP BY clauses or incorrect GROUP_CONCAT usage
-- **Prevention:** Verify aggregation syntax matches the query structure
+### Query Structure
 
-### EU Country List
-- **Problem:** Incomplete or outdated list of EU member country codes
-- **Prevention:** Use comprehensive list: AT, BE, BG, HR, CY, CZ, DK, EE, FI, FR, DE, GR, HU, IE, IT, LV, LT, LU, MT, NL, PL, PT, RO, SK, SI, ES, SE
+- **EXISTS vs. direct pattern** - Use EXISTS when the condition determines qualification but shouldn't affect output structure
+- **Subquery placement** - COUNT aggregations often require subqueries to avoid GROUP BY complications
+- **Variable scope** - Variables in EXISTS clauses don't bind to outer query
 
-### Cross-Entity Relationships
-- **Problem:** Miscounting entities across relationships (e.g., students in departments)
-- **Prevention:** Trace the full predicate path; verify join conditions
+## Verification Checklist
 
-## Testing Protocol
+Before submitting any SPARQL solution:
 
-1. **Syntax check:** Ensure query parses without errors
-2. **Subset test:** Run on a known subset of data with expected results
-3. **Full test:** Run on complete dataset
-4. **Manual verification:** Trace 2-3 results through source data
-5. **Boundary test:** Check edge cases in filters (dates, counts, string matches)
+- [ ] Read the solution file back to verify complete content
+- [ ] Verify all closing brackets and parentheses are present
+- [ ] Confirm filter value lists are complete (especially long lists like country codes)
+- [ ] Test syntax with an RDF library (rdflib, Apache Jena)
+- [ ] Verify results match expected output format
+- [ ] Confirm edge cases are handled (null values, multiple relationships)
 
-## Iteration Approach
+## Resources
 
-If initial results do not match expectations:
-
-1. Isolate which filter condition is causing discrepancies
-2. Test each filter independently
-3. Examine entities that should appear but don't (false negatives)
-4. Examine entities that shouldn't appear but do (false positives)
-5. Adjust filter logic based on findings
-6. Re-verify after each adjustment
+See `references/sparql_patterns.md` for common SPARQL patterns and syntax examples.

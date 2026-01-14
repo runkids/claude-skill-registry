@@ -1,12 +1,7 @@
 {
   "name": "data-seeding",
-  "description": "Create or update database seed scripts for development and testing environments. Use when setting up test data or initializing development databases.",
   "repo": "sgcarstrends/sgcarstrends",
-  "category": "testing",
-  "tags": [
-    "data",
-    "seeding"
-  ],
-  "stars": 13,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/data-seeding/SKILL.md",
+  "source": "github.com/sgcarstrends/sgcarstrends",
+  "downloaded_at": "2026-01-14T02:59:23.606239Z"
 }

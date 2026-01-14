@@ -1,11 +1,7 @@
 {
   "name": "query-optimization",
-  "description": "Automatically applies when optimizing database queries. Ensures EXPLAIN analysis, proper indexing, N+1 prevention, query performance monitoring, and efficient SQL patterns.",
-  "repo": "ricardoroche/ricardos-claude-code",
-  "category": "data",
-  "tags": [
-    "query",
-    "optimization"
-  ],
-  "stars": 0
+  "repo": "sgcarstrends/sgcarstrends",
+  "path": ".claude/skills/query-optimization/SKILL.md",
+  "source": "github.com/sgcarstrends/sgcarstrends",
+  "downloaded_at": "2026-01-14T02:59:21.294495Z"
 }

@@ -1,14 +1,7 @@
 {
   "name": "react-native-i18n-workflow",
-  "description": "Manages internationalization strings and translation workflows using i18next and react-i18next. Use when adding new text, supporting additional languages, or implementing pluralization and interpolati",
-  "repo": "PlaneInABottle/purrsuit",
-  "category": "design",
-  "tags": [
-    "react",
-    "native",
-    "i18n",
-    "workflow"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "PlaneInABottle/fitnessMobileApp",
+  "path": ".claude/skills/react-native-i18n-workflow/SKILL.md",
+  "source": "github.com/PlaneInABottle/fitnessMobileApp",
+  "downloaded_at": "2026-01-14T03:27:53.294889Z"
 }

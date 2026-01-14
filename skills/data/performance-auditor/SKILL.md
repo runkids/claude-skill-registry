@@ -1,554 +1,423 @@
 ---
 name: performance-auditor
-description:
-    Audit, optimize, and maintain 60fps performance for emotive-mascot
-    animations. Use when diagnosing performance issues, optimizing particle
-    systems, reducing bundle size, or ensuring smooth animations across devices.
-trigger:
-    performance, optimization, fps, lag, slow, bundle size, mobile performance
+description: Expert assistant for monitoring and optimizing performance in the KR92 Bible Voice project. Use when analyzing query performance, optimizing database indexes, reviewing React Query caching, monitoring AI call costs, or identifying N+1 queries.
 ---
 
 # Performance Auditor
 
-You are an expert in optimizing the emotive-mascot engine for maximum
-performance across all devices.
-
-## When to Use This Skill
-
-- Diagnosing frame rate drops or stuttering
-- Optimizing particle counts and physics calculations
-- Reducing bundle size
-- Improving mobile performance
-- Auditing render performance
-- Profiling animation bottlenecks
-- Memory leak investigation
+## Capabilities
+- Analyze query performance
+- Suggest index improvements
+- Review React Query usage
+- Identify expensive AI calls
+- Monitor database metrics
 
 ## Performance Targets
 
-### Frame Rate
+| Operation | Target | Current |
+|-----------|--------|---------|
+| Single verse lookup | <20ms | Check with `EXPLAIN ANALYZE` |
+| Chapter load | <50ms | Check with `EXPLAIN ANALYZE` |
+| Text search | <100ms | Check with `EXPLAIN ANALYZE` |
+| AI translation | <500ms | Monitor in `ai_usage_logs` |
+| Page load (FCP) | <1.5s | Chrome DevTools |
+| API response | <200ms | Network tab |
 
-- **Desktop**: 60 FPS consistent
-- **Mobile**: 30-60 FPS (adaptive)
-- **Low-end devices**: 30 FPS minimum
+## Usage Examples
 
-### Bundle Size
+### Example 1: Analyze Query Performance
+**User:** "Check performance of verse lookup queries"
 
-- **Full bundle**: < 250 KB gzipped
-- **Minimal bundle**: < 120 KB gzipped
-- **Audio bundle**: < 200 KB gzipped
+**Assistant:**
+```sql
+-- Test single verse lookup performance
+EXPLAIN ANALYZE
+SELECT * FROM public.get_verse_by_ref(
+  'John', 3, 16, 'finstlk201', 'fi'
+);
 
-### Memory
+-- Test chapter lookup performance
+EXPLAIN ANALYZE
+SELECT * FROM public.get_chapter_by_ref(
+  'Genesis', 1, 'finstlk201', 'fi'
+);
 
-- **Initial load**: < 50 MB
-- **Runtime peak**: < 100 MB
-- **No memory leaks** over extended use
+-- Test search performance
+EXPLAIN ANALYZE
+SELECT * FROM public.search_text('rakkaus', 'finstlk201', 50);
 
-### Particle Counts
+-- Check execution time statistics
+SELECT
+  query,
+  calls,
+  total_exec_time,
+  mean_exec_time,
+  max_exec_time
+FROM pg_stat_statements
+WHERE query LIKE '%get_verse_by_ref%'
+  OR query LIKE '%get_chapter_by_ref%'
+  OR query LIKE '%search_text%'
+ORDER BY mean_exec_time DESC
+LIMIT 10;
+```
 
-- **Desktop**: 800-1000 particles max
-- **Mobile**: 400-600 particles max
-- **Low-end**: 200-400 particles max
+### Example 2: Identify Missing Indexes
+**User:** "Find queries that need indexes"
 
-## Diagnostic Tools
+**Assistant:**
+```sql
+-- Check for sequential scans (potential missing indexes)
+SELECT
+  schemaname,
+  tablename,
+  seq_scan,
+  seq_tup_read,
+  idx_scan,
+  seq_tup_read / NULLIF(seq_scan, 0) as avg_seq_tup_read,
+  CASE
+    WHEN seq_scan > idx_scan THEN 'Consider index'
+    ELSE 'OK'
+  END as recommendation
+FROM pg_stat_user_tables
+WHERE schemaname IN ('public', 'bible_schema')
+ORDER BY seq_scan DESC
+LIMIT 20;
 
-### Built-in Performance Monitor
+-- Check index usage
+SELECT
+  schemaname,
+  tablename,
+  indexname,
+  idx_scan,
+  idx_tup_read,
+  idx_tup_fetch
+FROM pg_stat_user_indexes
+WHERE schemaname IN ('public', 'bible_schema')
+ORDER BY idx_scan ASC
+LIMIT 20;
 
-```javascript
-const mascot = new EmotiveMascot({
-    containerId: 'mascot',
-    debug: true, // Enables FPS counter and debug overlay
+-- Suggest indexes for frequently queried columns
+SELECT
+  'CREATE INDEX idx_' || table_name || '_' || column_name ||
+  ' ON ' || table_schema || '.' || table_name || '(' || column_name || ');' as suggested_index
+FROM information_schema.columns
+WHERE table_schema IN ('public', 'bible_schema')
+  AND table_name IN (
+    SELECT tablename
+    FROM pg_stat_user_tables
+    WHERE seq_scan > 1000 AND seq_scan > idx_scan
+  )
+  AND column_name IN ('user_id', 'verse_id', 'created_at', 'osis', 'status');
+```
+
+### Example 3: Monitor AI Call Performance
+**User:** "Analyze AI call latency and costs"
+
+**Assistant:**
+```sql
+-- AI performance metrics (last 7 days)
+SELECT
+  feature,
+  ai_vendor,
+  ai_model,
+  COUNT(*) as call_count,
+  ROUND(AVG(latency_ms), 2) as avg_latency_ms,
+  ROUND(MAX(latency_ms), 2) as max_latency_ms,
+  ROUND(MIN(latency_ms), 2) as min_latency_ms,
+  ROUND(AVG(total_tokens), 0) as avg_tokens,
+  ROUND(SUM(cost_usd), 4) as total_cost_usd,
+  ROUND(AVG(cost_usd), 6) as avg_cost_per_call,
+  COUNT(CASE WHEN status = 'error' THEN 1 END) as errors,
+  ROUND(100.0 * COUNT(CASE WHEN status = 'error' THEN 1 END) / COUNT(*), 2) as error_rate_percent
+FROM bible_schema.ai_usage_logs
+WHERE created_at > NOW() - INTERVAL '7 days'
+GROUP BY feature, ai_vendor, ai_model
+ORDER BY call_count DESC;
+
+-- Slowest AI calls (last 24 hours)
+SELECT
+  feature,
+  ai_model,
+  latency_ms,
+  total_tokens,
+  cost_usd,
+  context_ref,
+  created_at,
+  status,
+  error_message
+FROM bible_schema.ai_usage_logs
+WHERE created_at > NOW() - INTERVAL '24 hours'
+  AND status = 'success'
+ORDER BY latency_ms DESC
+LIMIT 20;
+
+-- High-cost AI calls
+SELECT
+  feature,
+  ai_model,
+  cost_usd,
+  total_tokens,
+  latency_ms,
+  context_ref,
+  created_at
+FROM bible_schema.ai_usage_logs
+WHERE created_at > NOW() - INTERVAL '7 days'
+ORDER BY cost_usd DESC
+LIMIT 20;
+
+-- AI cache effectiveness (for translations)
+WITH cache_stats AS (
+  SELECT
+    COUNT(*) as total_requests,
+    COUNT(CASE WHEN source IN ('topic', 'manual') THEN 1 END) as cache_hits,
+    COUNT(CASE WHEN source = 'ai' THEN 1 END) as ai_calls
+  FROM bible_schema.term_translations
+  WHERE created_at > NOW() - INTERVAL '30 days'
+)
+SELECT
+  total_requests,
+  cache_hits,
+  ai_calls,
+  ROUND(100.0 * cache_hits / total_requests, 2) as cache_hit_rate_percent,
+  ROUND(100.0 * ai_calls / total_requests, 2) as ai_call_rate_percent
+FROM cache_stats;
+```
+
+### Example 4: Optimize React Query Usage
+**User:** "Review React Query configuration for optimal caching"
+
+**Assistant:**
+
+Create performance monitoring hook:
+```typescript
+// hooks/usePerformanceMonitor.ts
+import { useEffect } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
+
+export const usePerformanceMonitor = () => {
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    // Log cache statistics
+    const cache = queryClient.getQueryCache();
+    const queries = cache.getAll();
+
+    console.log('React Query Cache Stats:', {
+      totalQueries: queries.length,
+      activeQueries: queries.filter(q => q.state.fetchStatus === 'fetching').length,
+      staleQueries: queries.filter(q => q.isStale()).length,
+      cacheSize: JSON.stringify(queries).length / 1024 + ' KB'
+    });
+
+    // Monitor slow queries
+    queries.forEach(query => {
+      if (query.state.dataUpdateCount > 0) {
+        const lastFetchTime = query.state.dataUpdatedAt - (query.state.dataUpdatedAt - 1000);
+        if (lastFetchTime > 1000) {
+          console.warn('Slow query detected:', {
+            queryKey: query.queryKey,
+            fetchTime: lastFetchTime + 'ms'
+          });
+        }
+      }
+    });
+  }, [queryClient]);
+};
+
+// Usage in main component
+import { usePerformanceMonitor } from '@/hooks/usePerformanceMonitor';
+
+function App() {
+  usePerformanceMonitor(); // Monitor in dev mode
+  // ...
+}
+```
+
+Optimize query configuration:
+```typescript
+// Recommended React Query configuration
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * 60 * 1000, // 5 minutes
+      gcTime: 10 * 60 * 1000, // 10 minutes (formerly cacheTime)
+      retry: 1,
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+    },
+  },
 });
 
-// Access performance stats
-mascot.getPerformanceStats();
-// Returns:
-// {
-//   fps: 60,
-//   frameTime: 16.67,
-//   particleCount: 800,
-//   memoryUsage: 45.2,
-//   renderTime: 12.3
-// }
+// Bible verses - longer cache (rarely change)
+const { data: verses } = useQuery({
+  queryKey: ['chapter', book, chapter, version],
+  queryFn: () => fetchChapter(book, chapter, version),
+  staleTime: 30 * 60 * 1000, // 30 minutes
+  gcTime: 60 * 60 * 1000, // 1 hour
+});
+
+// User data - shorter cache (may change frequently)
+const { data: bookmarks } = useQuery({
+  queryKey: ['bookmarks', userId],
+  queryFn: () => fetchBookmarks(userId),
+  staleTime: 1 * 60 * 1000, // 1 minute
+  gcTime: 5 * 60 * 1000, // 5 minutes
+});
+
+// AI results - cache aggressively
+const { data: translation } = useQuery({
+  queryKey: ['translation', term],
+  queryFn: () => translateTerm(term),
+  staleTime: Infinity, // Never goes stale
+  gcTime: 24 * 60 * 60 * 1000, // 24 hours
+});
 ```
 
-### Browser DevTools Profiling
+### Example 5: Identify N+1 Query Problems
+**User:** "Find N+1 query issues in the codebase"
 
-```javascript
-// Start profiling
-performance.mark('mascot-start');
+**Assistant:**
 
-await mascot.transitionTo('joy', { duration: 1000 });
+Common N+1 patterns to avoid:
+```typescript
+// ❌ BAD: N+1 queries
+const { data: topics } = useQuery(['topics'], fetchTopics);
 
-performance.mark('mascot-end');
-performance.measure('mascot-transition', 'mascot-start', 'mascot-end');
+// For each topic, fetch verses separately
+topics?.forEach(topic => {
+  const { data: verses } = useQuery(
+    ['verses', topic.id],
+    () => fetchTopicVerses(topic.id) // N queries!
+  );
+});
 
-const measures = performance.getEntriesByName('mascot-transition');
-console.log('Transition took:', measures[0].duration, 'ms');
+// ✅ GOOD: Single query with JOIN
+const { data: topicsWithVerses } = useQuery(
+  ['topics-with-verses'],
+  async () => {
+    const { data } = await supabase
+      .from('topics')
+      .select(`
+        *,
+        topic_verses(
+          verse:verses(*)
+        )
+      `);
+    return data;
+  }
+);
+
+// ✅ BETTER: Use RPC function
+const { data: topicsWithVerses } = useQuery(
+  ['topics-with-verses'],
+  async () => {
+    const { data } = await supabase.rpc('get_topics_with_verses');
+    return data;
+  }
+);
 ```
 
-### Chrome Performance Tab
-
-1. Open DevTools → Performance tab
-2. Click Record
-3. Interact with mascot (emotion changes, gestures)
-4. Stop recording
-5. Analyze:
-    - **Main thread**: Look for long tasks (>50ms)
-    - **Frames**: Check for frame drops (red bars)
-    - **Memory**: Check for growth over time
-
-## Common Performance Issues
-
-### Issue 1: Low Frame Rate
-
-**Symptoms**: FPS < 60 on desktop, stuttering animations
-
-**Diagnosis**:
-
-```javascript
-// Check particle count
-console.log(mascot.getCurrentParticleCount());
-
-// Check render time
-const stats = mascot.getPerformanceStats();
-console.log('Render time:', stats.renderTime, 'ms');
-```
-
-**Solutions**:
-
-1. Reduce particle count in emotion configs
-2. Optimize physics calculations
-3. Reduce trail length
-4. Disable glow effects on low-end devices
-
-**Example fix**:
-
-```javascript
-// Before (laggy)
-joy: {
-  particleCount: 1200,
-  trailLength: 15,
-  glow: true
-}
-
-// After (optimized)
-joy: {
-  particleCount: 800,
-  trailLength: 5,
-  glow: false  // or conditional based on device
-}
-```
-
-### Issue 2: Mobile Performance
-
-**Symptoms**: Slow on mobile, high battery drain
-
-**Diagnosis**:
-
-```javascript
-// Detect mobile and adjust
-const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
-const isLowEnd = navigator.hardwareConcurrency <= 4;
-
-console.log('Mobile:', isMobile, 'Low-end:', isLowEnd);
-```
-
-**Solutions**:
-
-1. Adaptive particle counts
-2. Lower target FPS (30 instead of 60)
-3. Disable expensive features
-4. Use requestAnimationFrame throttling
-
-**Example fix**:
-
-```javascript
-const mascotConfig = {
-    containerId: 'mascot',
-    targetFPS: isMobile ? 30 : 60,
-    enableGazeTracking: !isMobile,
-    audioEnabled: !isLowEnd,
-    particleMultiplier: isMobile ? 0.6 : 1.0,
-};
-
-const mascot = new EmotiveMascot(mascotConfig);
-```
-
-### Issue 3: Memory Leaks
-
-**Symptoms**: Memory usage grows over time, page slows down
-
-**Diagnosis**:
-
-```javascript
-// Monitor memory over time
-setInterval(() => {
-    if (performance.memory) {
-        console.log('Memory:', {
-            used:
-                (performance.memory.usedJSHeapSize / 1048576).toFixed(2) +
-                ' MB',
-            total:
-                (performance.memory.totalJSHeapSize / 1048576).toFixed(2) +
-                ' MB',
-        });
+Detect N+1 in logs:
+```typescript
+// Add query logging in development
+if (process.env.NODE_ENV === 'development') {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        onSuccess: (data, query) => {
+          console.log('Query executed:', {
+            queryKey: query.queryKey,
+            dataSize: JSON.stringify(data).length,
+            timestamp: Date.now()
+          });
+        }
+      }
     }
-}, 5000);
+  });
+
+  // Alert on rapid sequential queries
+  let queryTimes: number[] = [];
+  setInterval(() => {
+    if (queryTimes.length > 10) {
+      console.warn('Potential N+1 detected: ', queryTimes.length, 'queries in short succession');
+    }
+    queryTimes = [];
+  }, 1000);
+}
 ```
 
-**Common causes**:
+## Performance Optimization Checklist
 
-- Event listeners not removed
-- Particles not cleaned up
-- Animation frames not cancelled
-- Canvas contexts not released
+### Database
+- [ ] Indexes on foreign keys
+- [ ] Indexes on frequently filtered columns
+- [ ] GIN indexes for full-text search
+- [ ] Composite indexes for common query patterns
+- [ ] VACUUM and ANALYZE run regularly
+- [ ] Connection pooling configured
 
-**Solutions**:
+### React Query
+- [ ] Appropriate staleTime for each query type
+- [ ] No unnecessary refetches
+- [ ] Prefetching for predictable navigation
+- [ ] Query invalidation on mutations
+- [ ] No N+1 query patterns
+- [ ] Cache size monitored
 
+### AI Calls
+- [ ] Caching enabled for translations
+- [ ] Appropriate model selection (cost vs performance)
+- [ ] Token limits set
+- [ ] Timeout handling
+- [ ] Retry logic with exponential backoff
+- [ ] Batch processing where possible
+
+### Frontend
+- [ ] Code splitting for routes
+- [ ] Lazy loading components
+- [ ] Image optimization
+- [ ] Debouncing for search inputs
+- [ ] Virtual scrolling for long lists
+- [ ] Service worker for caching
+
+## Monitoring Tools
+
+### Supabase Dashboard
+- Database → Performance
+- Database → Query Performance
+- Edge Functions → Logs
+
+### Browser DevTools
 ```javascript
-// Proper cleanup in React
-useEffect(() => {
-    const mascot = new EmotiveMascot({ containerId: 'mascot' });
-    mascot.initialize();
+// Measure page load performance
+window.addEventListener('load', () => {
+  const perfData = performance.getEntriesByType('navigation')[0];
+  console.log('Page Performance:', {
+    domContentLoaded: perfData.domContentLoadedEventEnd - perfData.fetchStart,
+    loadComplete: perfData.loadEventEnd - perfData.fetchStart,
+    firstPaint: performance.getEntriesByName('first-contentful-paint')[0]?.startTime
+  });
+});
 
-    return () => {
-        mascot.destroy(); // Critical: cleanup on unmount
-    };
-}, []);
+// Monitor API calls
+const originalFetch = window.fetch;
+window.fetch = async (...args) => {
+  const start = performance.now();
+  const result = await originalFetch(...args);
+  const duration = performance.now() - start;
 
-// Manual cleanup
-mascot.destroy(); // Removes listeners, stops animation, clears particles
-```
+  if (duration > 500) {
+    console.warn('Slow API call:', {
+      url: args[0],
+      duration: duration.toFixed(2) + 'ms'
+    });
+  }
 
-### Issue 4: Large Bundle Size
-
-**Symptoms**: Slow initial load, high bandwidth usage
-
-**Diagnosis**:
-
-```bash
-# Check bundle size
-npm run build
-ls -lh dist/
-
-# Analyze bundle composition
-npm run build:analyze
-```
-
-**Solutions**:
-
-1. Use code splitting
-2. Import only needed features
-3. Use minimal build
-4. Enable tree-shaking
-
-**Example fixes**:
-
-```javascript
-// Import only needed features
-import { EmotiveMascot } from '@joshtol/emotive-engine/minimal';
-
-// Dynamic import
-const loadMascot = async () => {
-    const { EmotiveMascot } = await import('@joshtol/emotive-engine');
-    return new EmotiveMascot({ containerId: 'mascot' });
-};
-
-// Lazy load audio module
-const loadAudio = async () => {
-    const { AudioEngine } = await import('@joshtol/emotive-engine/audio');
-    return new AudioEngine();
+  return result;
 };
 ```
 
-## Optimization Techniques
-
-### 1. Particle Pool Recycling
-
-Instead of creating/destroying particles, reuse them:
-
-```javascript
-// In PhysicsEngine.js
-class ParticlePool {
-    constructor(maxSize = 1000) {
-        this.pool = [];
-        this.active = [];
-        this.maxSize = maxSize;
-    }
-
-    acquire() {
-        return this.pool.pop() || this.createParticle();
-    }
-
-    release(particle) {
-        if (this.pool.length < this.maxSize) {
-            particle.reset();
-            this.pool.push(particle);
-        }
-    }
-}
-```
-
-### 2. Adaptive Quality
-
-Automatically adjust quality based on performance:
-
-```javascript
-class AdaptiveQualityManager {
-    constructor(mascot) {
-        this.mascot = mascot;
-        this.targetFPS = 60;
-        this.currentFPS = 60;
-        this.checkInterval = 1000; // Check every second
-    }
-
-    monitor() {
-        setInterval(() => {
-            const stats = this.mascot.getPerformanceStats();
-            this.currentFPS = stats.fps;
-
-            if (this.currentFPS < this.targetFPS - 10) {
-                this.reduceQuality();
-            } else if (this.currentFPS >= this.targetFPS) {
-                this.increaseQuality();
-            }
-        }, this.checkInterval);
-    }
-
-    reduceQuality() {
-        // Reduce particle count by 20%
-        this.mascot.setParticleMultiplier(0.8);
-        // Disable trails
-        this.mascot.setTrailsEnabled(false);
-    }
-
-    increaseQuality() {
-        // Restore particle count
-        this.mascot.setParticleMultiplier(1.0);
-        // Enable trails
-        this.mascot.setTrailsEnabled(true);
-    }
-}
-```
-
-### 3. Render Optimization
-
-Minimize canvas operations:
-
-```javascript
-// Batch operations
-ctx.save();
-// ... multiple operations
-ctx.restore();
-
-// Use transforms instead of recalculating
-ctx.translate(x, y);
-ctx.rotate(angle);
-// ... draw
-ctx.resetTransform();
-
-// Avoid unnecessary state changes
-const prevFillStyle = ctx.fillStyle;
-if (prevFillStyle !== newColor) {
-    ctx.fillStyle = newColor;
-}
-```
-
-### 4. Physics Optimization
-
-Reduce physics calculations:
-
-```javascript
-// Spatial partitioning for collision detection
-class SpatialGrid {
-    constructor(cellSize = 50) {
-        this.cellSize = cellSize;
-        this.grid = new Map();
-    }
-
-    insert(particle) {
-        const cellX = Math.floor(particle.x / this.cellSize);
-        const cellY = Math.floor(particle.y / this.cellSize);
-        const key = `${cellX},${cellY}`;
-
-        if (!this.grid.has(key)) {
-            this.grid.set(key, []);
-        }
-        this.grid.get(key).push(particle);
-    }
-
-    getNearby(particle) {
-        const cellX = Math.floor(particle.x / this.cellSize);
-        const cellY = Math.floor(particle.y / this.cellSize);
-        const nearby = [];
-
-        // Check 3x3 grid around particle
-        for (let dx = -1; dx <= 1; dx++) {
-            for (let dy = -1; dy <= 1; dy++) {
-                const key = `${cellX + dx},${cellY + dy}`;
-                if (this.grid.has(key)) {
-                    nearby.push(...this.grid.get(key));
-                }
-            }
-        }
-
-        return nearby;
-    }
-}
-```
-
-## Performance Checklist
-
-### Before Release
-
-- [ ] Test on low-end mobile devices (iPhone SE, Android mid-range)
-- [ ] Profile with Chrome DevTools Performance tab
-- [ ] Check bundle size (< 250 KB gzipped)
-- [ ] Verify no memory leaks over 5 minutes
-- [ ] Test with 1000+ particles on desktop
-- [ ] Test with 400 particles on mobile
-- [ ] Verify 60fps on desktop, 30fps on mobile
-- [ ] Check battery drain on mobile (< 5% per 10 minutes)
-
-### During Development
-
-- [ ] Use `debug: true` to monitor FPS
-- [ ] Profile each new emotion/gesture
-- [ ] Test transitions between all emotions
-- [ ] Check memory usage after each feature
-- [ ] Verify cleanup in React/Vue components
-
-### Production Monitoring
-
-- [ ] Track FPS metrics in analytics
-- [ ] Monitor bundle load time
-- [ ] Track memory usage patterns
-- [ ] Monitor device performance distribution
-
-## Profiling Script
-
-```javascript
-// Add to demo pages for quick profiling
-class PerformanceProfiler {
-    constructor(mascot) {
-        this.mascot = mascot;
-        this.results = [];
-    }
-
-    async profileEmotion(emotion, duration = 5000) {
-        console.log(`Profiling ${emotion}...`);
-
-        const startMem = performance.memory?.usedJSHeapSize || 0;
-        const startTime = performance.now();
-        let frameCount = 0;
-        let totalFrameTime = 0;
-
-        const measureFrame = () => {
-            const frameStart = performance.now();
-            frameCount++;
-            const frameTime = performance.now() - frameStart;
-            totalFrameTime += frameTime;
-        };
-
-        const interval = setInterval(measureFrame, 16);
-
-        await this.mascot.transitionTo(emotion);
-        await new Promise(resolve => setTimeout(resolve, duration));
-
-        clearInterval(interval);
-
-        const endTime = performance.now();
-        const endMem = performance.memory?.usedJSHeapSize || 0;
-
-        const result = {
-            emotion,
-            avgFPS: frameCount / (duration / 1000),
-            avgFrameTime: totalFrameTime / frameCount,
-            memoryDelta: (endMem - startMem) / 1048576,
-            totalTime: endTime - startTime,
-        };
-
-        this.results.push(result);
-        console.table(result);
-
-        return result;
-    }
-
-    async profileAll(emotions = ['calm', 'joy', 'excitement', 'focus']) {
-        for (const emotion of emotions) {
-            await this.profileEmotion(emotion);
-            await new Promise(resolve => setTimeout(resolve, 1000));
-        }
-
-        console.log('=== PERFORMANCE SUMMARY ===');
-        console.table(this.results);
-
-        return this.results;
-    }
-}
-
-// Usage:
-const profiler = new PerformanceProfiler(mascot);
-await profiler.profileAll();
-```
-
-## Bundle Size Optimization
-
-### Current bundle sizes:
-
-```json
-{
-    "emotive-mascot.umd.js": "900 KB uncompressed, 234 KB gzipped",
-    "emotive-mascot.minimal.js": "400 KB uncompressed, 120 KB gzipped",
-    "emotive-mascot.audio.js": "700 KB uncompressed, 200 KB gzipped"
-}
-```
-
-### Reducing bundle size:
-
-```javascript
-// rollup.config.js optimizations
-import terser from '@rollup/plugin-terser';
-import { visualizer } from 'rollup-plugin-visualizer';
-
-export default {
-    plugins: [
-        terser({
-            compress: {
-                drop_console: true, // Remove console.logs in production
-                drop_debugger: true,
-                pure_funcs: ['console.log', 'console.debug'],
-            },
-            mangle: {
-                properties: {
-                    regex: /^_/, // Mangle private properties
-                },
-            },
-        }),
-        visualizer({
-            filename: 'bundle-analysis.html',
-            open: true,
-        }),
-    ],
-    treeshake: {
-        moduleSideEffects: false,
-        propertyReadSideEffects: false,
-    },
-};
-```
-
-## Key Files
-
-- **Performance Monitor**: `src/core/PerformanceMonitor.js`
-- **Physics Engine**: `src/core/PhysicsEngine.js`
-- **Particle System**: `src/core/ParticleSystem.js`
-- **Render Engine**: `src/core/RenderEngine.js`
-- **Bundle Config**: `rollup.config.js`
-- **Package Config**: `package.json` (bundlesize settings)
-
-## Resources
-
-- [Web Performance API](https://developer.mozilla.org/en-US/docs/Web/API/Performance)
-- [Chrome DevTools Performance](https://developer.chrome.com/docs/devtools/performance/)
-- [Canvas Optimization](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas)
-- [Bundle Size Guide](../../docs/bundle-optimization.md)
+## Related Documentation
+- See `Docs/02-DESIGN.md` for architecture
+- See `Docs/05-DEV.md` for query patterns
+- See `Docs/06-AI-ARCHITECTURE.md` for AI optimization

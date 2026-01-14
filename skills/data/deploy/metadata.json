@@ -1,11 +1,7 @@
 {
   "name": "deploy",
-  "description": "Sets up deployment, analytics, and health monitoring for projects. Use when user mentions デプロイ, deploy, Vercel, Netlify, 公開, アナリティクス, analytics, GA, Google Analytics, 環境診断, health check. Do NOT load f",
-  "repo": "Chachamaru127/claude-code-harness",
-  "category": "data",
-  "tags": [
-    "deploy"
-  ],
-  "stars": 85,
-  "source": "SkillsMP Synced Skills"
+  "repo": "marcoloco23/claude-workflow",
+  "path": ".claude/skills/deploy/SKILL.md",
+  "source": "github.com/marcoloco23/claude-workflow",
+  "downloaded_at": "2026-01-14T03:32:47.346351Z"
 }

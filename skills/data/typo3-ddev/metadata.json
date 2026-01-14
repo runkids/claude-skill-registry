@@ -1,12 +1,7 @@
 {
   "name": "typo3-ddev",
-  "description": "Agent Skill: DDEV setup for TYPO3 extension development. Use when setting up local dev environment or multi-version testing (11.5/12.4/13.4/14.0). By Netresearch.",
-  "repo": "netresearch/typo3-ddev-skill",
-  "category": "testing",
-  "tags": [
-    "typo3",
-    "ddev"
-  ],
-  "stars": 3,
-  "source": "local"
+  "repo": "dirnbauer/claude-cursor-typo3-skills",
+  "path": "skills/typo3-ddev/SKILL.md",
+  "source": "github.com/dirnbauer/claude-cursor-typo3-skills",
+  "downloaded_at": "2026-01-14T03:08:56.215309Z"
 }

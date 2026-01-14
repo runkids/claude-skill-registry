@@ -1,13 +1,7 @@
 {
   "name": "codex-law-governor",
-  "description": "Govern agent behavior through enforcement of the Codex Laws framework.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "development",
-  "tags": [
-    "codex",
-    "law",
-    "governor"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/codex-law-governor/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-14T01:08:18.836390Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "deep-analysis",
-  "description": "Execute high-density architectural analysis on user ideas. Move from 'Vague' to 'Verified' using a 5-step logic chain: Calibration → Decomposition → Excavation → Re-Architecting → Inversion. This skil",
   "repo": "pianzhu/my-claude-skills",
-  "category": "data",
-  "tags": [
-    "deep",
-    "analysis"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/deep-analysis/SKILL.md",
+  "source": "github.com/pianzhu/my-claude-skills",
+  "downloaded_at": "2026-01-14T03:20:15.925758Z"
 }

@@ -1,11 +1,7 @@
 {
   "name": "xp-practices",
-  "description": "Apply XP practices including pair programming, ensemble programming, continuous integration, and sustainable pace. Use when implementing agile development practices, improving team collaboration, or a",
-  "repo": "proffesor-for-testing/agentic-qe",
-  "category": "development",
-  "tags": [
-    "practices"
-  ],
-  "stars": 103,
-  "source": "SkillsMP Synced Skills"
+  "repo": "proffesor-for-testing/sentinel-api-testing",
+  "path": ".claude/skills/xp-practices/SKILL.md",
+  "source": "github.com/proffesor-for-testing/sentinel-api-testing",
+  "downloaded_at": "2026-01-14T01:57:29.745135Z"
 }

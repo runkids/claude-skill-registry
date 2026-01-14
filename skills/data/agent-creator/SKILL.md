@@ -1,74 +1,234 @@
 ---
 name: agent-creator
-description: Create specialized Claude Code agents (subagents) with proper YAML frontmatter, tool permissions, and domain expertise. Use when: creating new agents, designing agent prompts, configuring agent tools and models. Triggers: create agent, new agent, agent template, subagent, agent design.
-allowed-tools: Read, Write
+description: AI Agent 自动化创建工具。当用户需要设计、创建、配置 AI Agent，包括定义 Agent 角色、设计 System Prompt、规划工具集、编排工作流程时使用此技能。支持对话型、任务型、研究型、多Agent协作等多种架构。
 ---
 
 # Agent Creator
 
-Create specialized Claude Code agents in `.claude/agents/` directory.
+自动化创建高质量 AI Agent 的完整指南和工具集。
 
-**Template:** See `references/template.md` for YAML structure, format rules, tools, skills, models, color, and examples.
+## Agent 核心组成
 
-## Process
+一个完整的 Agent 包含以下要素：
 
-**ANALYZE → DESIGN → IMPLEMENT → VALIDATE**
+| 组件 | 作用 | 必需 |
+|------|------|------|
+| **Identity** | 角色定位、能力边界 | ✅ |
+| **System Prompt** | 行为指令、输出规范 | ✅ |
+| **Tools** | 可调用的工具/API | ⚡ |
+| **Memory** | 上下文管理策略 | ⚡ |
+| **Workflow** | 决策逻辑、状态流转 | ⚡ |
+| **Guardrails** | 安全边界、错误处理 | ✅ |
 
-## Step 1: Analyze
+⚡ = 根据 Agent 类型决定
 
-Determine agent requirements:
-- What specific domain or task?
-- What tools needed?
-- What model appropriate?
-- Clear trigger conditions?
+## Agent 类型速查
 
-## Step 2: Design
+| 类型 | 特点 | 适用场景 |
+|------|------|----------|
+| **Conversational** | 多轮对话、上下文理解 | 客服、助手、咨询 |
+| **Task** | 目标驱动、自主执行 | 自动化、数据处理 |
+| **Research** | 信息收集、分析综合 | 调研、报告生成 |
+| **Multi-Agent** | 角色分工、协作完成 | 复杂任务、模拟 |
 
-### Agent Type
+详细模板见 `templates/` 目录。
 
-| Type | Pattern | Example |
-|------|---------|---------|
-| Technical | `[technology]-expert` | `react-expert`, `postgres-expert` |
-| Domain | `[domain]-specialist` | `security-specialist`, `performance-specialist` |
-| Process | `[process]-agent` | `code-review-agent`, `refactor-agent` |
+## 创建工作流
 
-### Color by Domain
+### Phase 1: 需求定义
 
-| Domain | Color |
-|--------|-------|
-| Frontend | blue |
-| Backend | green |
-| Security | red |
-| Performance | yellow |
-| Testing | purple |
-| DevOps | gray |
+```
+1. 明确 Agent 要解决的核心问题
+2. 确定目标用户和使用场景
+3. 列出成功标准和约束条件
+```
 
-## Step 3: Implement
+**关键问题清单：**
+- Agent 的主要职责是什么？
+- 用户会如何与它交互？
+- 它需要访问哪些数据/系统？
+- 有哪些绝对不能做的事？
+- 如何衡量它的表现？
 
-Create file `.claude/agents/<name>.md` following @.claude/skills/agent-creator/references/template.md exactly.
+### Phase 2: 角色设计
 
-**Important:** Follow Format Rules from template.md for YAML fields.
+```
+1. 定义 Agent 身份和人设
+2. 明确能力范围和边界
+3. 设定交互风格和语气
+```
 
-## Step 4: Validate
+**Identity 模板：**
+```
+你是 [角色名称]，一个专注于 [领域] 的 AI 助手。
 
-Check before saving:
-- [ ] Name matches filename (kebab-case)
-- [ ] Description explains when to use
-- [ ] Tools minimal (only what needed)
-- [ ] YAML format per template.md Format Rules
-- [ ] Clear expertise boundaries
-- [ ] Constraints defined
+##核心能力
+- [能力1]
+- [能力2]
 
-## Decision Rules
+## 边界
+- 你可以：[允许的行为]
+- 你不能：[禁止的行为]
+```
 
-### Tool Restriction
+### Phase 3: 工具规划
 
-Restrict tools when:
-- Agent should only read, not modify
-- Limited to specific commands (e.g., `Bash(git:*)`)
-- Security-sensitive domain
+```
+1. 列出完成任务所需的工具
+2. 定义每个工具的 schema
+3. 设计工具调用的决策逻辑
+```
 
-Grant all tools when:
-- General-purpose agent
-- Needs full file system access
-- Complex multi-step workflows
+**工具定义规范见** `references/tool-schema.md`
+
+### Phase 4: Prompt 工程
+
+```
+1. 编写 System Prompt
+2. 设计输出格式规范
+3. 添加 few-shot 示例
+```
+
+**Prompt 结构：**
+```
+[Identity] - 角色定义
+[Context] - 背景信息
+[Instructions] - 行为指令
+[Constraints] - 约束条件
+[Output Format] - 输出规范
+[Examples] - 示例（可选）
+```
+
+### Phase 5: 安全设计
+
+```
+1. 定义输入验证规则
+2. 设置输出过滤机制
+3. 配置错误处理策略
+4. 添加人工介入触发条件
+```
+
+### Phase 6: 测试验证
+
+```
+1. 正常场景测试
+2. 边界条件测试
+3. 对抗性测试
+4. 性能压力测试
+```
+
+## System Prompt 设计原则
+
+### 1. 清晰具体
+
+```
+❌ 你是一个有帮助的助手
+✅ 你是一个专业的代码审查助手，专注于 Python 代码的安全性和性能优化
+```
+
+### 2. 结构化指令
+
+```
+❌ 帮用户写代码，要写得好一点
+✅ 当用户请求代码帮助时：1. 先理解需求，必要时提问澄清
+   2. 提供带注释的完整代码
+   3. 解释关键实现决策
+   4. 指出潜在的边界情况
+```
+
+### 3. 明确边界
+
+```
+✅ 你只处理与[领域] 相关的问题。对于超出范围的请求，礼貌说明并建议合适的资源。
+```
+
+### 4. 输出格式化
+
+```
+✅ 响应格式：
+   - 简短问题：直接回答，不超过3句
+   - 复杂问题：使用标题分段，包含示例
+   - 代码请求：使用代码块，添加语言标识
+```
+
+## 常见架构模式
+
+### ReAct (Reasoning + Acting)
+
+```
+思考 → 行动 → 观察 → 思考 → ...
+
+适用：需要多步推理和工具调用的任务
+```
+
+### Plan-and-Execute
+
+```
+规划完整步骤 → 逐步执行 → 验证结果
+
+适用：复杂任务分解、项目规划
+```
+
+### Router Pattern
+
+```
+分析请求 → 路由到专门处理器 → 返回结果
+
+适用：多功能 Agent、意图分类
+```
+
+### Reflection Pattern
+
+```
+生成输出 → 自我评估 → 改进 → 最终输出
+
+适用：高质量内容生成、代码优化
+```
+
+## 快速开始
+
+### 创建简单 Agent
+
+```python
+# 最小可用 Agent 配置
+agent_config = {
+    "name": "my-agent",
+    "system_prompt": """
+你是一个专业的 [领域] 助手。
+
+## 职责
+- [主要职责]
+
+## 约束
+- [关键约束]
+""",
+    "tools": [],# 按需添加
+    "temperature": 0.7
+}
+```
+
+### 使用模板
+
+根据需求选择合适的模板：
+- `templates/conversational-agent.md` - 对话型
+- `templates/task-agent.md` - 任务型
+- `templates/research-agent.md` - 研究型
+- `templates/multi-agent.md` - 多Agent协作
+
+## 检查清单
+
+创建 Agent 前确认：
+
+- [ ] 明确定义了 Agent 的核心职责
+- [ ] System Prompt 结构清晰、指令具体
+- [ ] 工具定义完整、schema 规范
+- [ ] 设置了适当的安全边界
+- [ ] 定义了错误处理策略
+- [ ] 准备了测试用例
+- [ ] 考虑了边界情况和对抗场景
+
+## 参考资源
+
+- `templates/` - Agent 类型模板
+- `references/tool-schema.md` - 工具定义规范
+- `references/prompt-patterns.md` - Prompt 设计模式

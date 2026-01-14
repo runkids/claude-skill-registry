@@ -1,12 +1,7 @@
 {
   "name": "vision-multimodal",
-  "description": "Vision and multimodal capabilities for Claude including image analysis, PDF processing, and document understanding. Activate for image input, base64 encoding, multiple images, and visual analysis.",
   "repo": "Lobbi-Docs/claude",
-  "category": "documents",
-  "tags": [
-    "vision",
-    "multimodal"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/vision-multimodal/SKILL.md",
+  "source": "github.com/Lobbi-Docs/claude",
+  "downloaded_at": "2026-01-14T02:21:59.485666Z"
 }

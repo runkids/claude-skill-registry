@@ -1,11 +1,7 @@
 {
   "name": "eval-frameworks",
-  "description": "Evaluation framework patterns for RAG and LLMs, including faithfulness metrics, synthetic dataset generation, and LLM-as-a-judge patterns. Triggers: ragas, deepeval, llm-eval, faithfulness, hallucinat",
   "repo": "cuba6112/skillfactory",
-  "category": "data",
-  "tags": [
-    "eval",
-    "frameworks"
-  ],
-  "stars": 0
+  "path": "skills/eval-frameworks/SKILL.md",
+  "source": "github.com/cuba6112/skillfactory",
+  "downloaded_at": "2026-01-14T02:37:40.970095Z"
 }

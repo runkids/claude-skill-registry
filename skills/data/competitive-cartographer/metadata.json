@@ -1,12 +1,7 @@
 {
   "name": "competitive-cartographer",
-  "description": "Strategic analyst that maps competitive landscapes, identifies white space opportunities, and provides positioning recommendations. Use when users need competitive analysis, market positioning strateg",
   "repo": "erichowens/some_claude_skills",
-  "category": "testing",
-  "tags": [
-    "competitive",
-    "cartographer"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/competitive-cartographer/SKILL.md",
+  "source": "github.com/erichowens/some_claude_skills",
+  "downloaded_at": "2026-01-14T02:58:40.145741Z"
 }

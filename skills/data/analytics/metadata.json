@@ -1,8 +1,7 @@
 {
   "name": "analytics",
   "repo": "pluginagentmarketplace/custom-plugin-product-manager",
-  "category": "data",
-  "description": "Master metrics definition, KPI tracking, dashboarding, A/B testing, and data-driven decision making. Use data to guide product decisions.",
-  "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:29:10.581024Z"
+  "path": "skills/analytics/SKILL.md",
+  "source": "github.com/pluginagentmarketplace/custom-plugin-product-manager",
+  "downloaded_at": "2026-01-14T01:40:41.461366Z"
 }

@@ -1,11 +1,7 @@
 {
   "name": "ansible",
-  "description": "Create, update, or run Ansible playbooks and inventory in this repo for multi-node changes (ansible/). Use for node bootstrap, package installs, or cluster-wide config updates.",
-  "repo": "proompteng/lab",
-  "category": "development",
-  "tags": [
-    "ansible"
-  ],
-  "stars": 4,
-  "source": "SkillsMP Synced Skills"
+  "repo": "liauw-media/CodeAssist",
+  "path": "skills/infrastructure/ansible/SKILL.md",
+  "source": "github.com/liauw-media/CodeAssist",
+  "downloaded_at": "2026-01-14T03:27:45.372726Z"
 }

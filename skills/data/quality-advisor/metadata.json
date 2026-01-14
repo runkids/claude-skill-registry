@@ -1,12 +1,7 @@
 {
   "name": "quality-advisor",
-  "description": "Proactive quality guidance system that monitors artifact creation and provides real-time feedback on documentation quality",
   "repo": "vladm3105/aidoc-flow-framework",
-  "category": "documents",
-  "tags": [
-    "quality",
-    "advisor"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/quality-advisor/SKILL.md",
+  "source": "github.com/vladm3105/aidoc-flow-framework",
+  "downloaded_at": "2026-01-14T03:58:03.721703Z"
 }

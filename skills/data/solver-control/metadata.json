@@ -1,12 +1,7 @@
 {
   "name": "solver-control",
-  "description": "Solver kill-switch and progress monitoring for schedule generation. Use when aborting runaway solvers, monitoring long-running schedule generation, or integrating abort checks into solver loops.",
   "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
-  "category": "development",
-  "tags": [
-    "solver",
-    "control"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": ".claude/skills/solver-control/SKILL.md",
+  "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager",
+  "downloaded_at": "2026-01-14T02:32:34.064332Z"
 }

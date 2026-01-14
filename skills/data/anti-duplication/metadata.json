@@ -1,12 +1,7 @@
 {
   "name": "anti-duplication",
-  "description": "Before implementing new code (endpoints, components, services, models), search the codebase for existing patterns to reuse. Prevent code duplication by finding and suggesting similar implementations. ",
   "repo": "marcusgoll/Spec-Flow",
-  "category": "development",
-  "tags": [
-    "anti",
-    "duplication"
-  ],
-  "stars": 16,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/anti-duplication/SKILL.md",
+  "source": "github.com/marcusgoll/Spec-Flow",
+  "downloaded_at": "2026-01-14T04:06:33.239647Z"
 }

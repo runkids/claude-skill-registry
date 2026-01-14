@@ -1,8 +1,7 @@
 {
   "name": "implementing-real-user-monitoring",
-  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "data",
-  "description": "Implement Real User Monitoring (RUM) to capture actual user performance data including Core Web Vitals and page load times. Use when setting up user experience monitoring or tracking custom performanc",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:49.459100Z"
+  "repo": "spagett1maker/TransNovel",
+  "path": ".claude/skills/implementing-real-user-monitoring/SKILL.md",
+  "source": "github.com/spagett1maker/TransNovel",
+  "downloaded_at": "2026-01-14T00:56:28.947113Z"
 }

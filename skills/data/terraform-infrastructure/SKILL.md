@@ -1,394 +1,504 @@
 ---
 name: terraform-infrastructure
-description: Infrastructure as Code using Terraform with modular components, state management, and multi-cloud deployments. Use for provisioning and managing cloud resources.
+description: Infrastructure as Code with Terraform for cloud Kubernetes clusters. Covers OKE (Oracle), AKS (Azure), GKE (Google) provisioning, multi-cloud patterns, and state management.
 ---
 
-# Terraform Infrastructure
+# Terraform Infrastructure Skill
 
-## Overview
+Infrastructure as Code patterns using Terraform for provisioning cloud Kubernetes clusters.
 
-Build scalable infrastructure as code with Terraform, managing AWS, Azure, GCP, and on-premise resources through declarative configuration, remote state, and automated provisioning.
+## Quick Start
 
-## When to Use
-
-- Cloud infrastructure provisioning
-- Multi-environment management (dev, staging, prod)
-- Infrastructure versioning and code review
-- Cost tracking and resource optimization
-- Disaster recovery and environment replication
-- Automated infrastructure testing
-- Cross-region deployments
-
-## Implementation Examples
-
-### 1. **AWS Infrastructure Module**
-
-```hcl
-# terraform/main.tf
-terraform {
-  required_version = ">= 1.0"
-
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
-  }
-
-  # Remote state configuration
-  backend "s3" {
-    bucket         = "terraform-state-prod"
-    key            = "prod/terraform.tfstate"
-    region         = "us-east-1"
-    encrypt        = true
-    dynamodb_table = "terraform-locks"
-  }
-}
-
-provider "aws" {
-  region = var.aws_region
-
-  default_tags {
-    tags = {
-      Environment = var.environment
-      ManagedBy   = "Terraform"
-      Project     = var.project_name
-    }
-  }
-}
-
-# VPC and networking
-resource "aws_vpc" "main" {
-  cidr_block           = var.vpc_cidr
-  enable_dns_hostnames = true
-  enable_dns_support   = true
-
-  tags = {
-    Name = "${var.project_name}-vpc"
-  }
-}
-
-resource "aws_subnet" "public" {
-  count                   = length(var.public_subnets)
-  vpc_id                  = aws_vpc.main.id
-  cidr_block              = var.public_subnets[count.index]
-  availability_zone       = data.aws_availability_zones.available.names[count.index]
-  map_public_ip_on_launch = true
-
-  tags = {
-    Name = "${var.project_name}-public-${count.index + 1}"
-  }
-}
-
-resource "aws_subnet" "private" {
-  count             = length(var.private_subnets)
-  vpc_id            = aws_vpc.main.id
-  cidr_block        = var.private_subnets[count.index]
-  availability_zone = data.aws_availability_zones.available.names[count.index]
-
-  tags = {
-    Name = "${var.project_name}-private-${count.index + 1}"
-  }
-}
-
-# Internet Gateway
-resource "aws_internet_gateway" "main" {
-  vpc_id = aws_vpc.main.id
-
-  tags = {
-    Name = "${var.project_name}-igw"
-  }
-}
-
-# NAT Gateway for private subnets
-resource "aws_eip" "nat" {
-  count  = length(var.public_subnets)
-  domain = "vpc"
-
-  tags = {
-    Name = "${var.project_name}-eip-${count.index + 1}"
-  }
-
-  depends_on = [aws_internet_gateway.main]
-}
-
-resource "aws_nat_gateway" "main" {
-  count         = length(var.public_subnets)
-  allocation_id = aws_eip.nat[count.index].id
-  subnet_id     = aws_subnet.public[count.index].id
-
-  tags = {
-    Name = "${var.project_name}-nat-${count.index + 1}"
-  }
-
-  depends_on = [aws_internet_gateway.main]
-}
-
-# Route tables
-resource "aws_route_table" "public" {
-  vpc_id = aws_vpc.main.id
-
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.main.id
-  }
-
-  tags = {
-    Name = "${var.project_name}-public-rt"
-  }
-}
-
-resource "aws_route_table" "private" {
-  count  = length(var.private_subnets)
-  vpc_id = aws_vpc.main.id
-
-  route {
-    cidr_block     = "0.0.0.0/0"
-    nat_gateway_id = aws_nat_gateway.main[count.index].id
-  }
-
-  tags = {
-    Name = "${var.project_name}-private-rt-${count.index + 1}"
-  }
-}
-
-# Route table associations
-resource "aws_route_table_association" "public" {
-  count          = length(var.public_subnets)
-  subnet_id      = aws_subnet.public[count.index].id
-  route_table_id = aws_route_table.public.id
-}
-
-resource "aws_route_table_association" "private" {
-  count          = length(var.private_subnets)
-  subnet_id      = aws_subnet.private[count.index].id
-  route_table_id = aws_route_table.private[count.index].id
-}
-
-# Security Group
-resource "aws_security_group" "alb" {
-  name        = "${var.project_name}-alb-sg"
-  description = "Security group for ALB"
-  vpc_id      = aws_vpc.main.id
-
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name = "${var.project_name}-alb-sg"
-  }
-}
-
-# Application Load Balancer
-resource "aws_lb" "main" {
-  name               = "${var.project_name}-alb"
-  internal           = false
-  load_balancer_type = "application"
-  security_groups    = [aws_security_group.alb.id]
-  subnets            = aws_subnet.public[*].id
-
-  enable_deletion_protection = var.environment == "production" ? true : false
-
-  tags = {
-    Name = "${var.project_name}-alb"
-  }
-}
-
-# Data source for availability zones
-data "aws_availability_zones" "available" {
-  state = "available"
-}
-```
-
-### 2. **Variables and Outputs**
-
-```hcl
-# terraform/variables.tf
-variable "aws_region" {
-  description = "AWS region"
-  type        = string
-  default     = "us-east-1"
-}
-
-variable "environment" {
-  description = "Environment name"
-  type        = string
-  validation {
-    condition     = contains(["dev", "staging", "production"], var.environment)
-    error_message = "Environment must be dev, staging, or production."
-  }
-}
-
-variable "project_name" {
-  description = "Project name for resource naming"
-  type        = string
-}
-
-variable "vpc_cidr" {
-  description = "CIDR block for VPC"
-  type        = string
-  default     = "10.0.0.0/16"
-}
-
-variable "public_subnets" {
-  description = "Public subnet CIDR blocks"
-  type        = list(string)
-  default     = ["10.0.1.0/24", "10.0.2.0/24"]
-}
-
-variable "private_subnets" {
-  description = "Private subnet CIDR blocks"
-  type        = list(string)
-  default     = ["10.0.10.0/24", "10.0.11.0/24"]
-}
-
-# terraform/outputs.tf
-output "vpc_id" {
-  description = "VPC ID"
-  value       = aws_vpc.main.id
-}
-
-output "vpc_cidr" {
-  description = "VPC CIDR block"
-  value       = aws_vpc.main.cidr_block
-}
-
-output "public_subnet_ids" {
-  description = "Public subnet IDs"
-  value       = aws_subnet.public[*].id
-}
-
-output "private_subnet_ids" {
-  description = "Private subnet IDs"
-  value       = aws_subnet.private[*].id
-}
-
-output "alb_dns_name" {
-  description = "DNS name of the ALB"
-  value       = aws_lb.main.dns_name
-}
-
-output "alb_arn" {
-  description = "ARN of the ALB"
-  value       = aws_lb.main.arn
-}
-```
-
-### 3. **Terraform Deployment Script**
+### Installation
 
 ```bash
-#!/bin/bash
-# deploy-terraform.sh - Terraform deployment automation
+# Terraform
+# See: https://developer.hashicorp.com/terraform/downloads
+```
 
-set -euo pipefail
+## 1. Terraform Structure
 
-ENVIRONMENT="${1:-dev}"
-ACTION="${2:-plan}"
-TF_DIR="terraform"
+### Directory Layout
 
-echo "Terraform $ACTION for environment: $ENVIRONMENT"
+```
+terraform/
+├── oke/
+│   ├── main.tf
+│   ├── variables.tf
+│   ├── outputs.tf
+│   └── terraform.tfstate
+├── aks/
+│   ├── main.tf
+│   ├── variables.tf
+│   └── outputs.tf
+└── gke/
+    ├── main.tf
+    ├── variables.tf
+    └── outputs.tf
+```
 
-cd "$TF_DIR"
+## 2. OKE (Oracle Kubernetes Engine) - Primary
 
-# Initialize Terraform
-echo "Initializing Terraform..."
-terraform init -upgrade
+### main.tf
 
-# Format and validate
-echo "Validating Terraform configuration..."
-terraform fmt -recursive -check .
-terraform validate
+```terraform
+terraform {
+  required_providers {
+    oci = {
+      source  = "oracle/oci"
+      version = "~> 5.0"
+    }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = ">= 2.0"
+    }
+  }
+}
 
-# Create/select workspace
-echo "Creating/selecting workspace: $ENVIRONMENT"
-terraform workspace select -or-create "$ENVIRONMENT"
+provider "oci" {
+  tenancy_ocid     = var.tenancy_ocid
+  user_ocid        = var.user_ocid
+  fingerprint      = var.fingerprint
+  private_key_path = var.private_key_path
+  region           = var.region
+}
 
-# Plan or apply
-case "$ACTION" in
-  plan)
-    echo "Creating Terraform plan..."
-    terraform plan \
-      -var-file="environments/$ENVIRONMENT.tfvars" \
-      -out="tfplan-$ENVIRONMENT"
-    ;;
-  apply)
-    echo "Applying Terraform changes..."
-    terraform apply \
-      -var-file="environments/$ENVIRONMENT.tfvars" \
-      -auto-approve
-    ;;
-  destroy)
-    echo "WARNING: Destroying infrastructure in $ENVIRONMENT"
-    read -p "Are you sure? (yes/no): " confirm
-    if [ "$confirm" = "yes" ]; then
-      terraform destroy \
-        -var-file="environments/$ENVIRONMENT.tfvars" \
-        -auto-approve
-    fi
-    ;;
-  *)
-    echo "Unknown action: $ACTION"
-    exit 1
-    ;;
-esac
+# OKE Cluster
+resource "oci_containerengine_cluster" "todo_cluster" {
+  compartment_id     = var.compartment_ocid
+  kubernetes_version = "v1.28.2"
+  name               = "todo-oke-cluster"
+  vcn_id             = oci_core_vcn.todo_vcn.id
 
-echo "Terraform $ACTION complete!"
+  options {
+    service_lb_subnet_ids = [
+      oci_core_subnet.todo_lb_subnet.id
+    ]
+  }
+}
+
+# Node Pool (Always-Free Tier)
+resource "oci_containerengine_node_pool" "todo_node_pool" {
+  cluster_id         = oci_containerengine_cluster.todo_cluster.id
+  compartment_id     = var.compartment_ocid
+  kubernetes_version = "v1.28.2"
+  name               = "todo-node-pool"
+
+  node_config_details {
+    size = 2  # Always-free: 2 nodes
+
+    placement_configs {
+      availability_domain = data.oci_identity_availability_domains.ads.availability_domains[0].name
+      subnet_id           = oci_core_subnet.todo_node_subnet.id
+    }
+
+    node_pool_pod_network_options_details {
+      cni_type = "OCI_VCN_IP_NATIVE"
+    }
+  }
+
+  node_shape_config {
+    memory_in_gbs = 12  # Always-free: 12GB per node
+    ocpus         = 2   # Always-free: 2 OCPUs per node
+  }
+
+  node_source_details {
+    image_id    = data.oci_core_images.node_images.images[0].id
+    source_type = "IMAGE"
+  }
+
+  node_shape = "VM.Standard.A1.Flex"  # Always-free shape
+}
+
+# VCN
+resource "oci_core_vcn" "todo_vcn" {
+  compartment_id = var.compartment_ocid
+  cidr_blocks    = ["10.0.0.0/16"]
+  display_name   = "todo-vcn"
+  dns_label      = "todovcn"
+}
+
+# Subnets
+resource "oci_core_subnet" "todo_node_subnet" {
+  cidr_block     = "10.0.1.0/24"
+  compartment_id = var.compartment_ocid
+  vcn_id         = oci_core_vcn.todo_vcn.id
+  display_name   = "todo-node-subnet"
+}
+
+resource "oci_core_subnet" "todo_lb_subnet" {
+  cidr_block     = "10.0.2.0/24"
+  compartment_id = var.compartment_ocid
+  vcn_id         = oci_core_vcn.todo_vcn.id
+  display_name   = "todo-lb-subnet"
+}
+
+# Data Sources
+data "oci_identity_availability_domains" "ads" {
+  compartment_id = var.tenancy_ocid
+}
+
+data "oci_core_images" "node_images" {
+  compartment_id           = var.compartment_ocid
+  operating_system         = "Oracle Linux"
+  operating_system_version = "8"
+  shape                    = "VM.Standard.A1.Flex"
+  sort_by                  = "TIMECREATED"
+  sort_order               = "DESC"
+}
+
+# Kubernetes Provider
+provider "kubernetes" {
+  host                   = oci_containerengine_cluster.todo_cluster.endpoints[0].kubernetes_api_endpoint
+  cluster_ca_certificate = base64decode(oci_containerengine_cluster.todo_cluster.kubeconfig[0].cluster_ca_certificate)
+  exec {
+    api_version = "client.authentication.k8s.io/v1beta1"
+    command     = "oci"
+    args = [
+      "ce", "cluster", "create-kubeconfig",
+      "--cluster-id", oci_containerengine_cluster.todo_cluster.id,
+      "--file", "/dev/stdout",
+      "--region", var.region,
+      "--token-version", "2.0.0"
+    ]
+  }
+}
+
+# Dapr Installation
+resource "null_resource" "dapr_init" {
+  provisioner "local-exec" {
+    command = <<-EOT
+      kubectl config use-context ${oci_containerengine_cluster.todo_cluster.name}
+      dapr init -k --runtime-version 1.12 --enable-mtls=true
+    EOT
+  }
+
+  depends_on = [
+    oci_containerengine_node_pool.todo_node_pool
+  ]
+}
+```
+
+### variables.tf
+
+```terraform
+variable "tenancy_ocid" {
+  description = "OCI Tenancy OCID"
+  type        = string
+}
+
+variable "user_ocid" {
+  description = "OCI User OCID"
+  type        = string
+}
+
+variable "fingerprint" {
+  description = "OCI API Key Fingerprint"
+  type        = string
+}
+
+variable "private_key_path" {
+  description = "Path to OCI API Key Private Key"
+  type        = string
+}
+
+variable "compartment_ocid" {
+  description = "OCI Compartment OCID"
+  type        = string
+}
+
+variable "region" {
+  description = "OCI Region"
+  type        = string
+  default     = "us-ashburn-1"
+}
+```
+
+### outputs.tf
+
+```terraform
+output "cluster_id" {
+  description = "OKE Cluster ID"
+  value       = oci_containerengine_cluster.todo_cluster.id
+}
+
+output "cluster_endpoint" {
+  description = "OKE Cluster Endpoint"
+  value       = oci_containerengine_cluster.todo_cluster.endpoints[0].kubernetes_api_endpoint
+}
+
+output "kubeconfig" {
+  description = "Kubeconfig for OKE cluster"
+  value       = oci_containerengine_cluster.todo_cluster.kubeconfig[0].content
+  sensitive   = true
+}
+```
+
+## 3. AKS (Azure Kubernetes Service) - Secondary
+
+### main.tf
+
+```terraform
+terraform {
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~> 3.0"
+    }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = ">= 2.0"
+    }
+  }
+}
+
+provider "azurerm" {
+  features {}
+}
+
+# Resource Group
+resource "azurerm_resource_group" "todo_rg" {
+  name     = "todo-resource-group"
+  location = var.location
+}
+
+# AKS Cluster
+resource "azurerm_kubernetes_cluster" "todo_cluster" {
+  name                = "todo-aks-cluster"
+  location            = azurerm_resource_group.todo_rg.location
+  resource_group_name = azurerm_resource_group.todo_rg.name
+  dns_prefix          = "todoaks"
+  kubernetes_version  = "1.28"
+
+  default_node_pool {
+    name       = "default"
+    node_count = 2
+    vm_size    = "Standard_B2s"  # 2 vCPUs, 4GB RAM
+  }
+
+  identity {
+    type = "SystemAssigned"
+  }
+}
+
+# Kubernetes Provider
+provider "kubernetes" {
+  host                   = azurerm_kubernetes_cluster.todo_cluster.kube_config[0].host
+  client_certificate     = base64decode(azurerm_kubernetes_cluster.todo_cluster.kube_config[0].client_certificate)
+  client_key             = base64decode(azurerm_kubernetes_cluster.todo_cluster.kube_config[0].client_key)
+  cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.todo_cluster.kube_config[0].cluster_ca_certificate)
+}
+
+# Dapr Installation
+resource "null_resource" "dapr_init" {
+  provisioner "local-exec" {
+    command = <<-EOT
+      az aks get-credentials --resource-group ${azurerm_resource_group.todo_rg.name} --name ${azurerm_kubernetes_cluster.todo_cluster.name}
+      dapr init -k --runtime-version 1.12 --enable-mtls=true
+    EOT
+  }
+}
+```
+
+## 4. GKE (Google Kubernetes Engine) - Secondary
+
+### main.tf
+
+```terraform
+terraform {
+  required_providers {
+    google = {
+      source  = "hashicorp/google"
+      version = "~> 5.0"
+    }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = ">= 2.0"
+    }
+  }
+}
+
+provider "google" {
+  project = var.project_id
+  region  = var.region
+}
+
+# GKE Cluster
+resource "google_container_cluster" "todo_cluster" {
+  name     = "todo-gke-cluster"
+  location = var.region
+
+  remove_default_node_pool = true
+  initial_node_count       = 1
+
+  network    = google_compute_network.todo_vpc.name
+  subnetwork = google_compute_subnetwork.todo_subnet.name
+}
+
+# Node Pool
+resource "google_container_node_pool" "todo_node_pool" {
+  name       = "todo-node-pool"
+  location   = var.region
+  cluster    = google_container_cluster.todo_cluster.name
+  node_count = 2
+
+  node_config {
+    machine_type = "e2-medium"  # 2 vCPUs, 4GB RAM
+    disk_size_gb = 20
+  }
+}
+
+# VPC Network
+resource "google_compute_network" "todo_vpc" {
+  name = "todo-vpc"
+}
+
+resource "google_compute_subnetwork" "todo_subnet" {
+  name          = "todo-subnet"
+  ip_cidr_range = "10.0.0.0/16"
+  region        = var.region
+  network       = google_compute_network.todo_vpc.id
+}
+
+# Kubernetes Provider
+data "google_client_config" "default" {}
+
+data "google_container_cluster" "todo_cluster" {
+  name     = google_container_cluster.todo_cluster.name
+  location = var.region
+}
+
+provider "kubernetes" {
+  host                   = "https://${data.google_container_cluster.todo_cluster.endpoint}"
+  token                  = data.google_client_config.default.access_token
+  cluster_ca_certificate = base64decode(data.google_container_cluster.todo_cluster.master_auth[0].cluster_ca_certificate)
+}
+
+# Dapr Installation
+resource "null_resource" "dapr_init" {
+  provisioner "local-exec" {
+    command = <<-EOT
+      gcloud container clusters get-credentials ${google_container_cluster.todo_cluster.name} --region ${var.region}
+      dapr init -k --runtime-version 1.12 --enable-mtls=true
+    EOT
+  }
+}
+```
+
+## 5. Multi-Cloud Pattern
+
+### Shared Variables
+
+```terraform
+# variables.tf (shared)
+variable "cluster_name" {
+  description = "Kubernetes cluster name"
+  type        = string
+  default     = "todo-cluster"
+}
+
+variable "node_count" {
+  description = "Number of nodes"
+  type        = number
+  default     = 2
+}
+
+variable "kubernetes_version" {
+  description = "Kubernetes version"
+  type        = string
+  default     = "1.28"
+}
+```
+
+## 6. Terraform Commands
+
+### Initialize
+
+```bash
+cd terraform/oke
+terraform init
+```
+
+### Plan
+
+```bash
+terraform plan -var-file="terraform.tfvars"
+```
+
+### Apply
+
+```bash
+terraform apply -var-file="terraform.tfvars"
+```
+
+### Destroy
+
+```bash
+terraform destroy -var-file="terraform.tfvars"
+```
+
+## 7. State Management
+
+### Remote State (Optional)
+
+```terraform
+terraform {
+  backend "s3" {
+    bucket = "todo-terraform-state"
+    key    = "oke/terraform.tfstate"
+    region = "us-east-1"
+  }
+}
+```
+
+### Local State (Default)
+
+```bash
+# State file: terraform.tfstate
+# Backup before changes
+cp terraform.tfstate terraform.tfstate.backup
 ```
 
 ## Best Practices
 
-### ✅ DO
-- Use remote state (S3, Terraform Cloud)
-- Implement state locking (DynamoDB)
-- Organize code into modules
-- Use workspaces for environments
-- Apply tags consistently
-- Use variables for flexibility
-- Implement code review before apply
-- Keep sensitive data in separate variable files
+### 1. Use Variables for Configuration
 
-### ❌ DON'T
-- Store state files locally in git
-- Use hardcoded values
-- Mix environments in single state
-- Skip terraform plan review
-- Use root module for everything
-- Store secrets in code
-- Disable state locking
-
-## Terraform Commands
-
-```bash
-terraform init        # Initialize Terraform
-terraform validate    # Validate configuration
-terraform fmt         # Format code
-terraform plan        # Preview changes
-terraform apply       # Apply changes
-terraform destroy     # Remove resources
-terraform workspace   # Manage workspaces
+```terraform
+variable "node_count" {
+  type    = number
+  default = 2
+}
 ```
 
-## Resources
+### 2. Output Important Values
 
-- [Terraform Documentation](https://www.terraform.io/docs/)
-- [Terraform AWS Provider](https://registry.terraform.io/providers/hashicorp/aws/latest)
-- [Terraform Module Registry](https://registry.terraform.io/)
-- [Terraform Best Practices](https://www.terraform.io/docs/language/values/variables#best-practices)
+```terraform
+output "cluster_endpoint" {
+  value = oci_containerengine_cluster.todo_cluster.endpoints[0].kubernetes_api_endpoint
+}
+```
+
+### 3. Use Data Sources
+
+```terraform
+data "oci_identity_availability_domains" "ads" {
+  compartment_id = var.tenancy_ocid
+}
+```
+
+### 4. Dapr Installation After Cluster
+
+```terraform
+resource "null_resource" "dapr_init" {
+  depends_on = [oci_containerengine_node_pool.todo_node_pool]
+  # ...
+}
+```
+
+## References
+
+- [Terraform Documentation](https://developer.hashicorp.com/terraform)
+- [OCI Provider](https://registry.terraform.io/providers/oracle/oci/latest/docs)
+- [Azure Provider](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs)
+- [Google Provider](https://registry.terraform.io/providers/hashicorp/google/latest/docs)
+

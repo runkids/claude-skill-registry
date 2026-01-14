@@ -12,7 +12,6 @@ Tailwind CSS is a utility-first CSS framework that enables rapid UI development 
 ## When to Use This Skill
 
 Use this skill when:
-
 - Building responsive layouts with mobile-first design
 - Implementing dark mode and theme customization
 - Creating custom design systems with consistent spacing, colors, and typography
@@ -41,7 +40,6 @@ Tailwind provides low-level utility classes that you apply directly to HTML elem
 ```
 
 **Benefits:**
-
 - No CSS file switching - styles live with markup
 - No naming conventions needed
 - Automatic dead code elimination
@@ -55,10 +53,10 @@ Tailwind scans your source files at build-time and generates only the CSS classe
 ```javascript
 // Tailwind analyzes these files
 content: [
-  './src/**/*.{js,jsx,ts,tsx}',
-  './app/**/*.{js,jsx,ts,tsx}',
-  './components/**/*.{js,jsx,ts,tsx}',
-];
+  "./src/**/*.{js,jsx,ts,tsx}",
+  "./app/**/*.{js,jsx,ts,tsx}",
+  "./components/**/*.{js,jsx,ts,tsx}"
+]
 ```
 
 Result: Optimized production bundles with zero runtime overhead.
@@ -81,19 +79,19 @@ yarn add -D tailwindcss @tailwindcss/vite
 
 ```javascript
 // vite.config.ts
-import { defineConfig } from 'vite';
-import tailwindcss from '@tailwindcss/vite';
+import { defineConfig } from 'vite'
+import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
-  plugins: [tailwindcss()],
-});
+  plugins: [tailwindcss()]
+})
 ```
 
 **Step 3: Import in CSS**
 
 ```css
 /* src/index.css */
-@import 'tailwindcss';
+@import "tailwindcss";
 ```
 
 **Step 4: Reference stylesheet in HTML**
@@ -102,7 +100,7 @@ export default defineConfig({
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="./src/index.css" />
+    <link rel="stylesheet" href="./src/index.css">
   </head>
   <body>
     <div class="bg-blue-500 text-white p-4">Hello Tailwind!</div>
@@ -113,41 +111,38 @@ export default defineConfig({
 ### Framework-Specific Setup
 
 **Next.js (App Router):**
-
 ```bash
 npx create-next-app@latest --tailwind
 ```
 
 **Next.js (Manual):**
-
 ```javascript
 // tailwind.config.js
 module.exports = {
-  content: ['./app/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
-};
+  content: [
+    "./app/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}"
+  ]
+}
 ```
 
 **React with Vite:**
-
 ```bash
 npm create vite@latest my-app -- --template react
 npm install -D tailwindcss @tailwindcss/vite
 ```
 
 **Vue:**
-
 ```bash
 npm install -D tailwindcss @tailwindcss/vite
 ```
 
 **Svelte:**
-
 ```bash
 npm install -D tailwindcss @tailwindcss/vite
 ```
 
 **Astro:**
-
 ```bash
 npx astro add tailwind
 ```
@@ -164,9 +159,9 @@ npx tailwindcss init -p
 export default {
   plugins: {
     tailwindcss: {},
-    autoprefixer: {},
-  },
-};
+    autoprefixer: {}
+  }
+}
 ```
 
 ## Design System & Tokens
@@ -187,7 +182,7 @@ Tailwind includes a comprehensive default design system:
 Use the `@theme` directive in CSS:
 
 ```css
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @theme {
   /* Custom colors */
@@ -196,8 +191,8 @@ Use the `@theme` directive in CSS:
   --color-brand-900: oklch(0.25 0.15 264);
 
   /* Custom fonts */
-  --font-display: 'Satoshi', 'Inter', sans-serif;
-  --font-body: 'Inter', system-ui, sans-serif;
+  --font-display: "Satoshi", "Inter", sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
 
   /* Custom spacing */
   --spacing-18: calc(var(--spacing) * 18);
@@ -213,15 +208,15 @@ Use the `@theme` directive in CSS:
 ```
 
 **Usage:**
-
 ```html
-<div class="bg-brand-500 font-display shadow-glow">Custom themed element</div>
+<div class="bg-brand-500 font-display shadow-glow">
+  Custom themed element
+</div>
 ```
 
 ### Color System
 
 **Using default colors:**
-
 ```html
 <div class="bg-blue-500">Background</div>
 <p class="text-red-600">Text</p>
@@ -229,7 +224,6 @@ Use the `@theme` directive in CSS:
 ```
 
 **Color scale:**
-
 - 50: Lightest
 - 100-400: Light variations
 - 500: Base color
@@ -237,7 +231,6 @@ Use the `@theme` directive in CSS:
 - 950: Darkest
 
 **Color opacity modifiers:**
-
 ```html
 <div class="bg-black/75">75% opacity</div>
 <div class="text-blue-500/30">30% opacity</div>
@@ -249,7 +242,6 @@ Use the `@theme` directive in CSS:
 ### Layout
 
 **Display:**
-
 ```html
 <div class="block">Block</div>
 <div class="inline-block">Inline Block</div>
@@ -260,7 +252,6 @@ Use the `@theme` directive in CSS:
 ```
 
 **Flexbox:**
-
 ```html
 <div class="flex items-center justify-between gap-4">
   <div>Item 1</div>
@@ -273,7 +264,6 @@ Use the `@theme` directive in CSS:
 ```
 
 **Grid:**
-
 ```html
 <div class="grid grid-cols-3 gap-4">
   <div>Column 1</div>
@@ -289,7 +279,6 @@ Use the `@theme` directive in CSS:
 ```
 
 **Positioning:**
-
 ```html
 <div class="relative">
   <div class="absolute top-0 right-0">Positioned</div>
@@ -302,7 +291,6 @@ Use the `@theme` directive in CSS:
 ### Spacing
 
 **Padding & Margin:**
-
 ```html
 <div class="p-4">Padding all sides</div>
 <div class="px-6 py-3">Padding X and Y</div>
@@ -313,7 +301,6 @@ Use the `@theme` directive in CSS:
 ```
 
 **Gap (Flexbox/Grid):**
-
 ```html
 <div class="flex gap-4">Flex with gap</div>
 <div class="grid grid-cols-3 gap-x-6 gap-y-4">Grid with X/Y gap</div>
@@ -322,7 +309,6 @@ Use the `@theme` directive in CSS:
 ### Typography
 
 **Font Size:**
-
 ```html
 <p class="text-xs">Extra small</p>
 <p class="text-sm">Small</p>
@@ -334,7 +320,6 @@ Use the `@theme` directive in CSS:
 ```
 
 **Font Weight:**
-
 ```html
 <p class="font-light">Light (300)</p>
 <p class="font-normal">Normal (400)</p>
@@ -344,7 +329,6 @@ Use the `@theme` directive in CSS:
 ```
 
 **Text Alignment:**
-
 ```html
 <p class="text-left">Left aligned</p>
 <p class="text-center">Center aligned</p>
@@ -353,7 +337,6 @@ Use the `@theme` directive in CSS:
 ```
 
 **Line Height:**
-
 ```html
 <p class="leading-tight">Tight line height</p>
 <p class="leading-normal">Normal line height</p>
@@ -361,23 +344,24 @@ Use the `@theme` directive in CSS:
 ```
 
 **Combining font utilities:**
-
 ```html
-<h1 class="text-4xl/tight font-bold">Font size 4xl with tight line-height</h1>
+<h1 class="text-4xl/tight font-bold">
+  Font size 4xl with tight line-height
+</h1>
 ```
 
 ### Colors & Backgrounds
 
 **Background colors:**
-
 ```html
 <div class="bg-white">White background</div>
 <div class="bg-gray-100">Gray background</div>
-<div class="bg-gradient-to-r from-blue-500 to-purple-600">Gradient background</div>
+<div class="bg-gradient-to-r from-blue-500 to-purple-600">
+  Gradient background
+</div>
 ```
 
 **Text colors:**
-
 ```html
 <p class="text-gray-900">Dark text</p>
 <p class="text-blue-600">Blue text</p>
@@ -413,7 +397,6 @@ Use the `@theme` directive in CSS:
 Tailwind uses a mobile-first approach. Base styles apply to all screen sizes, then use breakpoint prefixes to override at larger sizes:
 
 **Breakpoints:**
-
 - `sm:` - 640px and up
 - `md:` - 768px and up
 - `lg:` - 1024px and up
@@ -421,7 +404,6 @@ Tailwind uses a mobile-first approach. Base styles apply to all screen sizes, th
 - `2xl:` - 1536px and up
 
 **Example:**
-
 ```html
 <!-- Mobile: 1 column, Tablet: 2 columns, Desktop: 4 columns -->
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -438,7 +420,9 @@ Tailwind uses a mobile-first approach. Base styles apply to all screen sizes, th
 <div class="block lg:hidden">Mobile only content</div>
 
 <!-- Responsive text sizes -->
-<h1 class="text-2xl md:text-4xl lg:text-6xl">Responsive heading</h1>
+<h1 class="text-2xl md:text-4xl lg:text-6xl">
+  Responsive heading
+</h1>
 ```
 
 ### Custom Breakpoints
@@ -451,7 +435,9 @@ Tailwind uses a mobile-first approach. Base styles apply to all screen sizes, th
 ```
 
 ```html
-<div class="tablet:grid-cols-2 3xl:grid-cols-6">Custom breakpoints</div>
+<div class="tablet:grid-cols-2 3xl:grid-cols-6">
+  Custom breakpoints
+</div>
 ```
 
 ### Max-width Queries
@@ -470,7 +456,9 @@ Style elements based on parent container width:
 
 ```html
 <div class="@container">
-  <div class="@md:grid-cols-2 @lg:grid-cols-3">Responds to parent width</div>
+  <div class="@md:grid-cols-2 @lg:grid-cols-3">
+    Responds to parent width
+  </div>
 </div>
 ```
 
@@ -479,11 +467,17 @@ Style elements based on parent container width:
 ### Hover States
 
 ```html
-<button class="bg-blue-500 hover:bg-blue-700 text-white">Hover me</button>
+<button class="bg-blue-500 hover:bg-blue-700 text-white">
+  Hover me
+</button>
 
-<a class="text-blue-600 hover:underline"> Hover link </a>
+<a class="text-blue-600 hover:underline">
+  Hover link
+</a>
 
-<div class="scale-100 hover:scale-105 transition-transform">Scale on hover</div>
+<div class="scale-100 hover:scale-105 transition-transform">
+  Scale on hover
+</div>
 ```
 
 ### Focus States
@@ -499,7 +493,9 @@ Style elements based on parent container width:
 ### Active States
 
 ```html
-<button class="bg-blue-500 active:bg-blue-800">Click me</button>
+<button class="bg-blue-500 active:bg-blue-800">
+  Click me
+</button>
 ```
 
 ### Disabled States
@@ -526,7 +522,9 @@ Style elements based on parent container width:
 
 ```html
 <div class="group hover:bg-gray-100">
-  <p class="group-hover:text-blue-600">Text changes when parent is hovered</p>
+  <p class="group-hover:text-blue-600">
+    Text changes when parent is hovered
+  </p>
   <img class="group-hover:opacity-50" src="..." />
 </div>
 ```
@@ -535,10 +533,14 @@ Style elements based on parent container width:
 
 ```html
 <input type="checkbox" class="peer" id="terms" />
-<label for="terms" class="peer-checked:text-blue-600"> I accept terms </label>
+<label for="terms" class="peer-checked:text-blue-600">
+  I accept terms
+</label>
 
 <input type="email" class="peer" required />
-<p class="hidden peer-invalid:block text-red-600">Invalid email</p>
+<p class="hidden peer-invalid:block text-red-600">
+  Invalid email
+</p>
 ```
 
 ## Dark Mode
@@ -546,7 +548,6 @@ Style elements based on parent container width:
 ### Setup Dark Mode
 
 **Media query approach (automatic):**
-
 ```html
 <div class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
   Auto switches based on system preference
@@ -557,7 +558,7 @@ Style elements based on parent container width:
 
 ```javascript
 // Add .dark class to <html> element
-document.documentElement.classList.toggle('dark');
+document.documentElement.classList.toggle('dark')
 ```
 
 ### Dark Mode Utilities
@@ -572,8 +573,12 @@ document.documentElement.classList.toggle('dark');
 
 <!-- Complete example -->
 <div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-6">
-  <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Dark mode card</h2>
-  <p class="text-gray-600 dark:text-gray-300">Content adapts to theme</p>
+  <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+    Dark mode card
+  </h2>
+  <p class="text-gray-600 dark:text-gray-300">
+    Content adapts to theme
+  </p>
 </div>
 ```
 
@@ -582,16 +587,15 @@ document.documentElement.classList.toggle('dark');
 ```javascript
 // Store preference
 function toggleDarkMode() {
-  const isDark = document.documentElement.classList.toggle('dark');
-  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  const isDark = document.documentElement.classList.toggle('dark')
+  localStorage.setItem('theme', isDark ? 'dark' : 'light')
 }
 
 // Initialize on load
-if (
-  localStorage.theme === 'dark' ||
-  (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
-) {
-  document.documentElement.classList.add('dark');
+if (localStorage.theme === 'dark' ||
+    (!('theme' in localStorage) &&
+     window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+  document.documentElement.classList.add('dark')
 }
 ```
 
@@ -600,7 +604,6 @@ if (
 Use square brackets for one-off custom values:
 
 **Pixel values:**
-
 ```html
 <div class="top-[117px]">Custom position</div>
 <p class="text-[22px]">Custom font size</p>
@@ -608,7 +611,6 @@ Use square brackets for one-off custom values:
 ```
 
 **Colors:**
-
 ```html
 <div class="bg-[#bada55]">Custom hex color</div>
 <div class="text-[rgb(123,45,67)]">RGB color</div>
@@ -616,14 +618,12 @@ Use square brackets for one-off custom values:
 ```
 
 **CSS variables:**
-
 ```html
 <div class="bg-[var(--my-brand-color)]">CSS variable</div>
 <div class="text-[length:var(--my-font-size)]">Type hint</div>
 ```
 
 **Complex values:**
-
 ```html
 <div class="grid-cols-[1fr_500px_2fr]">Custom grid</div>
 <div class="content-['>']">Custom content</div>
@@ -635,11 +635,17 @@ Use square brackets for one-off custom values:
 ### Transitions
 
 ```html
-<button class="bg-blue-500 transition-colors hover:bg-blue-700">Smooth color transition</button>
+<button class="bg-blue-500 transition-colors hover:bg-blue-700">
+  Smooth color transition
+</button>
 
-<div class="transform transition-transform hover:scale-110">Scale with transition</div>
+<div class="transform transition-transform hover:scale-110">
+  Scale with transition
+</div>
 
-<div class="transition-all duration-300 ease-in-out hover:shadow-lg">Multiple transitions</div>
+<div class="transition-all duration-300 ease-in-out hover:shadow-lg">
+  Multiple transitions
+</div>
 
 <!-- Duration options -->
 <div class="transition duration-150">Fast</div>
@@ -664,7 +670,9 @@ Use square brackets for one-off custom values:
 <div class="skew-x-12">Skew</div>
 
 <!-- Combined -->
-<div class="transform scale-110 rotate-3 translate-x-2">Multiple transforms</div>
+<div class="transform scale-110 rotate-3 translate-x-2">
+  Multiple transforms
+</div>
 ```
 
 ### Animations
@@ -726,7 +734,9 @@ Create reusable utility classes:
 ```
 
 ```html
-<div theme-midnight:bg-navy-900>Applies when data-theme="midnight"</div>
+<div theme-midnight:bg-navy-900>
+  Applies when data-theme="midnight"
+</div>
 ```
 
 ### Layer Organization
@@ -773,16 +783,12 @@ Extract repeated utilities into CSS classes:
 
 ```html
 <!-- Primary button -->
-<button
-  class="bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-semibold px-6 py-3 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:opacity-50 disabled:cursor-not-allowed"
->
+<button class="bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-semibold px-6 py-3 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:opacity-50 disabled:cursor-not-allowed">
   Click me
 </button>
 
 <!-- Secondary button -->
-<button
-  class="bg-white hover:bg-gray-50 border-2 border-gray-300 text-gray-700 font-semibold px-6 py-3 rounded-lg"
->
+<button class="bg-white hover:bg-gray-50 border-2 border-gray-300 text-gray-700 font-semibold px-6 py-3 rounded-lg">
   Secondary
 </button>
 
@@ -795,13 +801,15 @@ Extract repeated utilities into CSS classes:
 ### Card Component
 
 ```html
-<div
-  class="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-shadow overflow-hidden"
->
+<div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-shadow overflow-hidden">
   <img class="w-full h-48 object-cover" src="..." alt="Card image" />
   <div class="p-6">
-    <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Card Title</h3>
-    <p class="text-gray-600 dark:text-gray-300 mb-4">Card description text goes here</p>
+    <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+      Card Title
+    </h3>
+    <p class="text-gray-600 dark:text-gray-300 mb-4">
+      Card description text goes here
+    </p>
     <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-lg">
       Learn More
     </button>
@@ -836,10 +844,7 @@ Extract repeated utilities into CSS classes:
     />
   </div>
 
-  <button
-    type="submit"
-    class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition-colors"
-  >
+  <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition-colors">
     Sign In
   </button>
 </form>
@@ -854,15 +859,9 @@ Extract repeated utilities into CSS classes:
       <div class="flex items-center gap-8">
         <a href="/" class="text-2xl font-bold text-blue-600">Logo</a>
         <div class="hidden md:flex gap-6">
-          <a href="#" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 transition-colors"
-            >Home</a
-          >
-          <a href="#" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 transition-colors"
-            >About</a
-          >
-          <a href="#" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 transition-colors"
-            >Services</a
-          >
+          <a href="#" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 transition-colors">Home</a>
+          <a href="#" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 transition-colors">About</a>
+          <a href="#" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 transition-colors">Services</a>
         </div>
       </div>
       <button class="md:hidden p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800">
@@ -889,52 +888,51 @@ Extract repeated utilities into CSS classes:
 ## Best Practices
 
 ### 1. Use Consistent Spacing Scale
-
 ```html
 <!-- Good: Use spacing scale -->
 <div class="p-4 mb-6">
-  <!-- Avoid: Arbitrary values unless necessary -->
-  <div class="p-[17px] mb-[23px]"></div>
-</div>
+
+<!-- Avoid: Arbitrary values unless necessary -->
+<div class="p-[17px] mb-[23px]">
 ```
 
 ### 2. Leverage Design Tokens
-
 ```html
 <!-- Good: Use semantic color names -->
 <button class="bg-blue-600 hover:bg-blue-700">
-  <!-- Avoid: One-off colors -->
-  <button class="bg-[#3B82F6] hover:bg-[#2563EB]"></button>
-</button>
+
+<!-- Avoid: One-off colors -->
+<button class="bg-[#3B82F6] hover:bg-[#2563EB]">
 ```
 
 ### 3. Mobile-First Responsive Design
-
 ```html
 <!-- Good: Mobile first, then scale up -->
 <div class="text-base md:text-lg lg:text-xl">
-  <!-- Avoid: Desktop first -->
-  <div class="text-xl lg:text-base"></div>
-</div>
+
+<!-- Avoid: Desktop first -->
+<div class="text-xl lg:text-base">
 ```
 
 ### 4. Component Extraction
-
 ```javascript
 // React component with Tailwind
 function Button({ children, variant = 'primary' }) {
-  const baseClasses = 'font-semibold px-6 py-3 rounded-lg transition-colors';
+  const baseClasses = "font-semibold px-6 py-3 rounded-lg transition-colors"
   const variants = {
-    primary: 'bg-blue-600 hover:bg-blue-700 text-white',
-    secondary: 'bg-gray-200 hover:bg-gray-300 text-gray-900',
-  };
+    primary: "bg-blue-600 hover:bg-blue-700 text-white",
+    secondary: "bg-gray-200 hover:bg-gray-300 text-gray-900"
+  }
 
-  return <button className={`${baseClasses} ${variants[variant]}`}>{children}</button>;
+  return (
+    <button className={`${baseClasses} ${variants[variant]}`}>
+      {children}
+    </button>
+  )
 }
 ```
 
 ### 5. Use @apply for Repeated Patterns
-
 ```css
 /* Only use @apply for truly repeated patterns */
 @layer components {
@@ -945,9 +943,10 @@ function Button({ children, variant = 'primary' }) {
 ```
 
 ### 6. Accessibility First
-
 ```html
-<button class="focus:outline-none focus:ring-4 focus:ring-blue-300">Accessible button</button>
+<button class="focus:outline-none focus:ring-4 focus:ring-blue-300">
+  Accessible button
+</button>
 
 <a class="text-blue-600 hover:underline focus:outline-2 focus:outline-offset-2">
   Accessible link
@@ -955,18 +954,14 @@ function Button({ children, variant = 'primary' }) {
 ```
 
 ### 7. Performance Optimization
-
 - Use PurgeCSS in production (automatic with modern setup)
 - Avoid dynamic class names: `class={`text-${color}-500`}` won't work
 - Use safelist for dynamic classes if needed
 
 ### 8. Dark Mode Consistency
-
 ```html
 <!-- Ensure all elements have dark mode variants -->
-<div
-  class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700"
->
+<div class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700">
   Complete dark mode support
 </div>
 ```
@@ -974,7 +969,6 @@ function Button({ children, variant = 'primary' }) {
 ## Common Patterns
 
 ### Centering Content
-
 ```html
 <!-- Horizontal center -->
 <div class="flex justify-center">Content</div>
@@ -984,17 +978,19 @@ function Button({ children, variant = 'primary' }) {
 <div class="flex items-center h-screen">Content</div>
 
 <!-- Center both axes -->
-<div class="flex items-center justify-center h-screen">Centered content</div>
+<div class="flex items-center justify-center h-screen">
+  Centered content
+</div>
 ```
 
 ### Full-Width Container with Max Width
-
 ```html
-<div class="container mx-auto px-4 max-w-7xl">Content with consistent max width</div>
+<div class="container mx-auto px-4 max-w-7xl">
+  Content with consistent max width
+</div>
 ```
 
 ### Aspect Ratio Boxes
-
 ```html
 <div class="aspect-square">Square</div>
 <div class="aspect-video">16:9 video</div>
@@ -1002,15 +998,15 @@ function Button({ children, variant = 'primary' }) {
 ```
 
 ### Truncate Text
-
 ```html
 <p class="truncate">Long text that will be truncated with ellipsis...</p>
 
-<p class="line-clamp-3">Long text that will be truncated after 3 lines with ellipsis...</p>
+<p class="line-clamp-3">
+  Long text that will be truncated after 3 lines with ellipsis...
+</p>
 ```
 
 ### Smooth Scrolling
-
 ```html
 <html class="scroll-smooth">
   <a href="#section">Smooth scroll to section</a>
@@ -1022,17 +1018,15 @@ function Button({ children, variant = 'primary' }) {
 ### Classes Not Working
 
 1. **Check content configuration:**
-
 ```javascript
 // tailwind.config.js
 content: [
-  './src/**/*.{js,jsx,ts,tsx}',
+  "./src/**/*.{js,jsx,ts,tsx}",
   // Add all file paths where you use Tailwind
-];
+]
 ```
 
 2. **Dynamic classes won't work:**
-
 ```javascript
 // ❌ Won't work
 const color = 'blue'
@@ -1043,7 +1037,6 @@ const color = 'blue'
 ```
 
 3. **Specificity issues:**
-
 ```css
 /* Use !important sparingly */
 <div class="!text-red-500">Overrides other styles</div>
@@ -1060,13 +1053,14 @@ npm run dev
 ### IntelliSense Not Working
 
 Install official extension:
-
 - VS Code: "Tailwind CSS IntelliSense"
 - Configure in `.vscode/settings.json`:
 
 ```json
 {
-  "tailwindCSS.experimental.classRegex": [["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]]
+  "tailwindCSS.experimental.classRegex": [
+    ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
+  ]
 }
 ```
 
@@ -1082,7 +1076,6 @@ Install official extension:
 ## Framework Integration Examples
 
 ### React
-
 ```jsx
 export function Card({ title, description }) {
   return (
@@ -1090,12 +1083,11 @@ export function Card({ title, description }) {
       <h3 className="text-2xl font-bold mb-2">{title}</h3>
       <p className="text-gray-600">{description}</p>
     </div>
-  );
+  )
 }
 ```
 
 ### Vue
-
 ```vue
 <template>
   <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
@@ -1105,12 +1097,11 @@ export function Card({ title, description }) {
 </template>
 
 <script setup>
-defineProps(['title', 'description']);
+defineProps(['title', 'description'])
 </script>
 ```
 
 ### Svelte
-
 ```svelte
 <script>
   export let title

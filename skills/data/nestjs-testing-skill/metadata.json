@@ -1,9 +1,7 @@
 {
   "name": "nestjs-testing-skill",
-  "description": "Use this skill whenever the user wants to set up, write, or refactor tests for a NestJS TypeScript backend, including unit tests, integration tests, and e2e tests with Jest, TestingModule, and Superte",
   "repo": "AgentiveCity/SkillFactory",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/nestjs-testing-skill/SKILL.md",
+  "source": "github.com/AgentiveCity/SkillFactory",
+  "downloaded_at": "2026-01-14T04:03:14.990730Z"
 }

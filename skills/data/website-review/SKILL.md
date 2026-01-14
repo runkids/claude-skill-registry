@@ -1,11 +1,11 @@
 ---
 name: website-review
-description: Use this skill when performing QA reviews of the Planted website (Astro frontend at localhost:4321), Admin Dashboard V2 (localhost:5175), or production sites (planted.com, admin.planted.com). Orchestrates visual inspection, console/network error detection, accessibility auditing, Core Web Vitals measurement, and interactive testing using Chrome DevTools MCP.
+description: Use this skill when performing QA reviews of the EVOLEA website (Astro frontend at localhost:4321), Admin Dashboard V2 (localhost:5175), or production sites (planted.com, admin.planted.com). Orchestrates visual inspection, console/network error detection, accessibility auditing, Core Web Vitals measurement, and interactive testing using Chrome DevTools MCP. (project)
 ---
 
 # Website Review Workflow
 
-This skill enables comprehensive QA workflows for Planted web properties using Chrome DevTools MCP integration.
+This skill enables comprehensive QA workflows for EVOLEA web properties using Chrome DevTools MCP integration.
 
 ## Prerequisites
 
@@ -19,18 +19,21 @@ This skill enables comprehensive QA workflows for Planted web properties using C
    - Verify with `/mcp` command - look for `chrome-devtools` server
    - If not connected, restart Claude Code (MCP servers load on startup)
 
-3. **For Production Auth Sites**
-   - Login to admin.planted.com in the debug Chrome window first
+3. **For Keystatic CMS**
+   - Production: https://www.evolea.ch/keystatic
+   - Staging: https://evolea-website.pages.dev/keystatic
    - Auth state persists in `%USERPROFILE%\.chrome-debug-profile`
 
 ## Target Sites
 
 | Site | URL | Auth Required | Notes |
 |------|-----|---------------|-------|
-| Astro Website (dev) | http://localhost:4321 | No | Run `pnpm dev` in planted-astro |
-| Admin Dashboard V2 (dev) | http://localhost:5175 | No | Run `pnpm dev` in admin-dashboard-v2 |
-| Production Website | https://planted.com | No | Public site |
-| Production Admin | https://admin.planted.com | Yes | Login first in debug Chrome |
+| Local Dev | http://localhost:4321 | No | Run `npm run dev` |
+| Production | https://www.evolea.ch | No | Primary custom domain |
+| Staging | https://evolea-website.pages.dev | No | Cloudflare Pages default |
+| GitHub Pages | https://cgjen-box.github.io/evolea-website/ | No | Static fallback |
+
+**Note:** `https://evolea.ch` redirects to `https://www.evolea.ch` (301)
 
 ## Workflow Overview
 
@@ -175,10 +178,7 @@ Use `TEST-REPORT-TEMPLATE.md` to create structured report including:
 
 ```bash
 # Start local Astro dev server
-cd planted-astro && pnpm dev
-
-# Start Admin Dashboard dev server
-cd planted-availability-db/packages/admin-dashboard-v2 && pnpm dev
+npm run dev
 
 # Start Chrome in debug mode
 scripts\chrome-debug.bat
@@ -241,4 +241,4 @@ scripts\chrome-debug.bat
 - `TESTING-MANUAL.md` - Detailed test cases for each page type
 - `TEST-REPORT-TEMPLATE.md` - Report format
 - `AUTH-SETUP.md` - Production authentication setup
-- `.claude/skills/design-brand/SKILL.md` - Visual design reference
+- `.claude/skills/EVOLEA-SKILL.md` - Visual design reference

@@ -1,12 +1,7 @@
 {
   "name": "documentation-sync",
-  "description": "Keep documentation in sync with code changes. Use when implementing features, modifying APIs, changing architecture, adding configuration, updating security, or making any changes that affect user-fac",
-  "repo": "VilnaCRM-Org/core-service",
-  "category": "development",
-  "tags": [
-    "documentation",
-    "sync"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "VilnaCRM-Org/user-service",
+  "path": ".claude/skills/documentation-sync/SKILL.md",
+  "source": "github.com/VilnaCRM-Org/user-service",
+  "downloaded_at": "2026-01-14T02:10:10.592022Z"
 }

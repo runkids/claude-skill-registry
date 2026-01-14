@@ -1,12 +1,7 @@
 {
   "name": "observability-monitoring",
-  "description": "Structured logging, metrics, distributed tracing, and alerting strategies",
-  "repo": "yonatangross/create-yg-app",
-  "category": "devops",
-  "tags": [
-    "observability",
-    "monitoring"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "ArieGoldkin/ai-agent-hub",
+  "path": "skills/observability-monitoring/SKILL.md",
+  "source": "github.com/ArieGoldkin/ai-agent-hub",
+  "downloaded_at": "2026-01-14T03:52:03.960674Z"
 }

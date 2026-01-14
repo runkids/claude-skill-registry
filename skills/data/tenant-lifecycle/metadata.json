@@ -1,8 +1,7 @@
 {
   "name": "tenant-lifecycle",
   "repo": "melodic-software/claude-code-plugins",
-  "category": "data",
-  "description": "Tenant state management patterns for SaaS applications. Covers Trial, Active, Suspended, Deleted states with transitions, grace periods, and data retention.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:10.233460Z"
+  "path": "plugins/saas-patterns/skills/tenant-lifecycle/SKILL.md",
+  "source": "github.com/melodic-software/claude-code-plugins",
+  "downloaded_at": "2026-01-14T03:00:21.284387Z"
 }

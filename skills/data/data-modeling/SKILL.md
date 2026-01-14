@@ -1,47 +1,34 @@
 ---
 name: data-modeling
-description: Firestore 데이터 모델링과 스키마 설계 패턴을 적용합니다. 새 컬렉션 추가, 관계 설계, 인덱스 최적화, 데이터 마이그레이션 시 사용하세요. NoSQL 특성에 맞는 비정규화 전략을 포함합니다.
-allowed-tools: Read, Glob, Grep
+description: Data modeling - entities, relationships, schemas. Use when designing data structures.
 ---
 
-# Data Modeling Skill
+# Data Modeling Guideline
 
-## Instructions
+## Tech Stack
 
-1. **Denormalize** frequently accessed data (NoSQL has no joins)
-2. Use **composite keys** for unique relationships (e.g., `${userId}_${projectId}`)
-3. Maintain **counters** on parent documents for read optimization
-4. Use **soft delete** for legal compliance
-5. Apply consistent **timestamp patterns**
+* **API**: tRPC
+* **Framework**: Next.js (with Turbopack)
+* **Database**: Neon (Postgres)
+* **ORM**: Drizzle
 
-## Current Collections
+## Non-Negotiables
 
-```
-firestore/
-├── projects        # Main content
-├── users           # User profiles
-├── comments        # Project comments
-├── whispers        # Private feedback
-├── ai_usage        # AI rate limiting
-├── likes           # User-project likes (composite key)
-├── digests         # Newsletter digests
-└── subscriptions   # Newsletter subscriptions
-```
+* All authorization must be server-enforced (no client-trust)
+* Platform is source of truth — third-party services sync FROM platform
+* UI must never contradict server-truth
+* High-value mutations must have audit trail (who/when/why/before/after)
 
-## Key Patterns
+## Context
 
-```typescript
-// Denormalization: embed author info
-const project = {
-  authorId: 'user123',
-  authorName: '홍길동',  // Copied from user
-}
+Data modeling is conceptual — entities, relationships, domain boundaries. Physical implementation (indexes, migrations, query performance) lives in `database`.
 
-// Composite Key: unique constraint
-const likeId = `${userId}_${projectId}`
+Consider: what are the real-world entities? How do they relate? What invariants must hold? What will break when requirements change?
 
-// Counter Pattern
-await docRef.update({ likes: FieldValue.increment(1) })
-```
+## Driving Questions
 
-For complete schemas, design patterns, and migration strategies, see [reference.md](reference.md).
+* If we were designing this from scratch, what would be different?
+* Where will the current model break as the product scales?
+* What implicit assumptions are waiting to cause bugs?
+* Where is complexity hiding that makes the system hard to reason about?
+* What domain boundaries are we violating?

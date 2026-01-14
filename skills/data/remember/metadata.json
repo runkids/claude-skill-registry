@@ -1,11 +1,7 @@
 {
   "name": "remember",
-  "description": "Use this skill when asked to remember information about coding standards,quality, or any other kind of future rule.",
-  "repo": "feather-lang/feather",
-  "category": "development",
-  "tags": [
-    "remember"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "RustyLindquist/EnhancedHR",
+  "path": ".claude/skills/remember/SKILL.md",
+  "source": "github.com/RustyLindquist/EnhancedHR",
+  "downloaded_at": "2026-01-14T01:28:17.364848Z"
 }

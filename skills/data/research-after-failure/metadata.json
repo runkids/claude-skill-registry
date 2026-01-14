@@ -1,13 +1,7 @@
 {
   "name": "research-after-failure",
-  "description": "Use after 2 consecutive failed attempts at solving a problem - STOP guessing and research documentation, codebase, and online resources before resuming",
-  "repo": "troykelly/claude-skills",
-  "category": "documents",
-  "tags": [
-    "research",
-    "after",
-    "failure"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "troykelly/codex-skills",
+  "path": "skills/research-after-failure/SKILL.md",
+  "source": "github.com/troykelly/codex-skills",
+  "downloaded_at": "2026-01-14T03:34:05.479242Z"
 }

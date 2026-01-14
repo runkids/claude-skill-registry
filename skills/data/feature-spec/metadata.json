@@ -1,12 +1,7 @@
 {
   "name": "feature-spec",
-  "description": "Guide users through structured feature specification creation from idea to complete spec. Use when user wants to create a feature specification, product requirements document (PRD), technical spec for",
-  "repo": "techops-services/vibeyard",
-  "category": "productivity",
-  "tags": [
-    "feature",
-    "spec"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "techops-services/vibecode-template",
+  "path": ".claude/skills/feature-spec/SKILL.md",
+  "source": "github.com/techops-services/vibecode-template",
+  "downloaded_at": "2026-01-14T02:29:53.039857Z"
 }

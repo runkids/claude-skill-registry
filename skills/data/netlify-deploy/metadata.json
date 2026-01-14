@@ -1,9 +1,7 @@
 {
   "name": "netlify-deploy",
-  "description": "Déploiement et gestion du site MyGGV GPS sur Netlify. Utiliser pour déployer, vérifier le statut, gérer les variables d'environnement et les configurations de projet.",
-  "repo": "Karlito8888/new-ggv-gps",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "oimiragieo/agent-studio",
+  "path": ".claude/skills/netlify-deploy/SKILL.md",
+  "source": "github.com/oimiragieo/agent-studio",
+  "downloaded_at": "2026-01-14T03:17:07.525616Z"
 }

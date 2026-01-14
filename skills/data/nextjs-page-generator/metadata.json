@@ -1,12 +1,7 @@
 {
   "name": "nextjs-page-generator",
-  "description": "Generate Next.js page components with App Router, Server Components, and data fetching. Triggers on \"create nextjs page\", \"generate next.js route\", \"nextjs app router page\", \"next page component\".",
-  "repo": "ehtbanton/ClaudeSkillsRepo",
-  "category": "data",
-  "tags": [
-    "nextjs",
-    "page",
-    "generator"
-  ],
-  "stars": 0
+  "repo": "Dexploarer/hyper-forge",
+  "path": ".claude/skills/nextjs-page-generator/SKILL.md",
+  "source": "github.com/Dexploarer/hyper-forge",
+  "downloaded_at": "2026-01-14T03:02:59.516718Z"
 }

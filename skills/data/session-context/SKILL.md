@@ -1,84 +1,160 @@
 ---
-name: session-context
-description: Gathers session context for project-analysis agent including git history, recent plans, and pending work detection.
-tools: Read, Glob, Grep, Bash
+name: start
+description: Session startup with context recovery. USE WHEN starting session, after /clear, or recovering from autocompact.
 ---
 
-# Skill: session-context
+# /start - Session Startup & Context Recovery
 
-Gathers session context for project-analysis agent: git history, recent plans, and pending work detection.
+Gather project context and recover from handoffs automatically.
 
-## Trigger
+## Data Source Priority
 
-Agent invokes skill with: "Gather session context for [session_type]"
+**1. Pre-loaded (preferred)**: Check for "Pre-loaded Session Status" in the SessionStart hook output (appears in system-reminder tags at conversation start with `additionalContext`). If found, parse the JSON code block and use this data directly—no MCP call needed.
 
-Where `session_type` is one of: `startup`, `resume`, `clear`, `compact`
+**2. MCP fallback**: If no pre-loaded data exists, call `get_session_status` with appropriate level.
 
-## Usage
-
-```bash
-uv run --directory ${CLAUDE_SKILLS_PATH}/session-context python -m src [session_type] [--json]
+Look for a section like this in the startup system-reminders:
 ```
+# Pre-loaded Session Status
 
-## Arguments
-
-- `session_type`: One of `startup`, `resume`, `clear`, `compact` (default: `startup`)
-- `--json`: Output as JSON (default: human-readable)
-
-## Output
-
-Returns structured context including:
-
-### Git Context
-- Current branch
-- Recent commits (configurable limit)
-- Uncommitted changes summary
-- Pending work flag
-
-### Recent Plans
-- Last N plans from `.claude/plans/`
-- Topic, date, completion status for each
-
-### Configuration
-- Session behavior settings from config.yml
-
-## Example Output (JSON)
+The following session context was gathered at startup...
 
 ```json
 {
-  "session_type": "startup",
-  "git": {
-    "branch": "main",
-    "last_commits": [
-      {"hash": "abc123", "message": "feat: add feature", "date": "2025-01-15"}
-    ],
-    "uncommitted_changes": {
-      "staged": 2,
-      "unstaged": 1,
-      "untracked": 0
-    },
-    "has_pending_work": true
-  },
-  "recent_plans": [
-    {
-      "filename": "20250115_120000_feature-impl.md",
-      "topic": "feature-impl",
-      "date": "2025-01-15",
-      "has_incomplete_todos": false
-    }
-  ],
-  "config": {
-    "session_behavior": "full"
+  "level": "standard",
+  "integrations": {...},
+  "recovery": {...},
+  "project": {...},
+  "beads_triage": {...}
+}
+```
+
+The pre-loaded data has the same structure as the MCP response—format and display it the same way.
+
+## Quick Start (MCP Fallback)
+
+```typescript
+// Fresh session - full context
+get_session_status({ level: "full" })
+
+// Context recovery mid-session
+get_session_status()  // defaults to minimal
+
+// Restore specific handoff
+get_session_status({ handoff: "h7k2m" })
+```
+
+## Output Levels
+
+| Level | Use Case | Sections |
+|-------|----------|----------|
+| `minimal` | Context recovery | project, harness, beads counts |
+| `standard` | Most session starts | + beads_triage, agentmail |
+| `full` | Fresh session | + claude_mem references |
+
+## Auto-Recovery
+
+The plugin tracks your work automatically via hooks. If context is lost (autocompact, /clear), recovery options appear:
+
+### Session Marker Detection
+
+If you see a marker like `<!-- session:abc123 -->` in context but lack detailed memory:
+
+1. This means autocompact occurred mid-session
+2. Immediately call: `get_session_status({ handoff: "abc123" })`
+3. The MCP returns full working context
+4. Resume work without asking user - just continue
+
+### Rolling Checkpoint
+
+If no marker but a recent checkpoint exists (< 24h), the response includes:
+
+```json
+{
+  "recovery": {
+    "available": true,
+    "id": "abc123",
+    "age": "2h"
   }
 }
 ```
 
-## Dependencies
+Offer to restore: "Found recent work checkpoint. Resume?"
 
-- gitpython: Git repository interaction
-- pyyaml: Config file parsing
-- structlog: Logging
+## Display Format
 
-## Integration
+### Restored Session
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  SESSION RESTORED: {id}                                         │
+├─────────────────────────────────────────────────────────────────┤
+│  Task: {context.task}                                           │
+│  Last active: {age}                                             │
+├─────────────────────────────────────────────────────────────────┤
+│  RESTORED CONTEXT                                               │
+│  • Plan: {plan.path} (cached)                                   │
+│  • Files: {files.length} modified                               │
+│  • Decisions: {userDecisions.length}                            │
+│  • Todos: {todos.length} items                                  │
+├─────────────────────────────────────────────────────────────────┤
+│  FRESH STATE                                                    │
+│  • Branch: {branch} ({uncommitted} uncommitted)                 │
+│  • Integrations: {detected integrations}                        │
+├─────────────────────────────────────────────────────────────────┤
+│  Continuing from: "{nextSteps[0]}"                              │
+└─────────────────────────────────────────────────────────────────┘
+```
 
-This skill is invoked by the `project-analysis` agent to gather context before presenting session analysis.
+### Normal Session Start
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  SESSION START                                                   │
+├─────────────────────────────────────────────────────────────────┤
+│  Project: {project.root}                                        │
+│  Branch: {branch} ({uncommitted} uncommitted)                   │
+├─────────────────────────────────────────────────────────────────┤
+│  Integrations: {list available}                                 │
+│  Harness: {if present, show status}                            │
+│  Beads: {open} open | {actionable} actionable                   │
+├─────────────────────────────────────────────────────────────────┤
+│  {recommendations based on state}                               │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+## Session Tracking
+
+After completing significant work, append a session marker to enable auto-recovery:
+
+```markdown
+<!-- session:{handoff_id} -->
+```
+
+This marker survives autocompact summarization and enables seamless recovery.
+
+## Integrations
+
+The plugin auto-detects and enhances with:
+
+| Integration | Detection | Enhancement |
+|-------------|-----------|-------------|
+| **Git** | Always | Branch, uncommitted, recent commits |
+| **Beads** | `.beads/` exists | Issue triage, actionable work |
+| **Harness** | `.claude-harness/` exists | Features, memory, loop state |
+| **Agent Mail** | MCP configured | Inbox status, file reservations |
+| **Claude-Mem** | MCP configured | Observation ID references |
+
+## Recommendations Logic
+
+Based on state, recommend next action:
+
+1. **Handoff recovered** → Continue from `nextSteps[0]`
+2. **Loop in_progress** (harness) → Resume implementation
+3. **Feature failing** (harness) → Fix failing verification
+4. **Issue in_progress** (beads) → Continue that issue
+5. **Actionable work** (beads) → Show top picks
+6. **No tracked work** → Suggest adding work
+
+## Related Commands
+
+- `/handoff` - Create explicit checkpoint for session end
+- `/session-context:handoff` - Same as above (full name)

@@ -1,11 +1,7 @@
 {
   "name": "sc-explain",
-  "description": "Provide clear explanations of code, concepts, and system behavior with educational clarity. Use when understanding code, learning concepts, or knowledge transfer.",
   "repo": "Tony363/SuperClaude",
-  "category": "development",
-  "tags": [
-    "explain"
-  ],
-  "stars": 10,
-  "source": "local"
+  "path": ".claude/skills/sc-explain/SKILL.md",
+  "source": "github.com/Tony363/SuperClaude",
+  "downloaded_at": "2026-01-14T03:29:07.155561Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "golang-ecosystem",
-  "description": "This skill should be used when the user asks to",
   "repo": "motoki317/dotfiles",
-  "category": "product",
-  "tags": [],
-  "stars": 0,
-  "source": "GitHub Search API"
+  "path": ".claude/skills/golang-ecosystem/SKILL.md",
+  "source": "github.com/motoki317/dotfiles",
+  "downloaded_at": "2026-01-14T02:27:59.978003Z"
 }

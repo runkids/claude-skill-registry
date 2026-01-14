@@ -1,536 +1,452 @@
 ---
 name: obsidian-markdown
-description: Comprehensive Obsidian PKM skill covering markdown syntax, MCP integration, plugin ecosystem (Templater, QuickAdd, Tasks, Periodic Notes), workflows (daily review, weekly planning, capture, project management), visual tools (Canvas, Excalidraw, Graph), and metadata schemas. Triggers on Obsidian notes, PKM workflows, vault operations, or plugin configuration.
+category: document-processing
+description: Create and edit Obsidian Flavored Markdown with wikilinks, embeds, callouts, properties, and other Obsidian-specific syntax. Use when working with .md files in Obsidian, or when the user mentions wikilinks, callouts, frontmatter, tags, embeds, or Obsidian notes.
 ---
 
-# Obsidian PKM Skill
+# Obsidian Flavored Markdown
 
-Comprehensive personal knowledge management with Obsidian. This skill covers markdown syntax, MCP-powered vault operations, plugin ecosystem, workflows, and visual tools.
+This skill enables Claude Code to create and edit valid Obsidian Flavored Markdown including wikilinks, embeds, callouts, properties, and all related syntax.
 
-## Skill Contents
+## When to Use This Skill
 
-### References
+- Working with .md files in an Obsidian vault
+- Creating notes with wikilinks or internal links
+- Adding embeds for notes, images, audio, or PDFs
+- Using callouts (info boxes, warnings, tips, etc.)
+- Managing frontmatter/properties in YAML format
+- Working with tags and nested tags
+- Creating block references and block IDs
 
-| Reference | Description |
-|-----------|-------------|
-| `references/mcp-integration.md` | Deep MCP tool documentation and patterns |
-| `references/templater.md` | Dynamic templates with JavaScript |
-| `references/quickadd.md` | Workflow automation and macros |
-| `references/tasks-plugin.md` | Task management with queries |
-| `references/periodic-notes.md` | Daily, weekly, monthly notes |
-| `references/canvas.md` | Infinite canvas and JSON format |
-| `references/excalidraw.md` | Visual thinking and diagrams |
-| `references/graph-view.md` | Knowledge graph visualization |
-| `references/properties-schema.md` | Metadata design and validation |
-| `references/dataview.md` | Query language reference |
-| `references/bases.md` | Native database views |
-| `references/mcp-server.md` | MCP server setup guide |
+## Basic Formatting
 
-### Workflows
+### Paragraphs and Line Breaks
 
-| Workflow | Description |
-|----------|-------------|
-| `workflows/daily-review.md` | Morning and evening routines |
-| `workflows/weekly-planning.md` | Weekly review and planning |
-| `workflows/capture-inbox.md` | Quick capture and processing |
-| `workflows/project-management.md` | Project tracking in Obsidian |
+Paragraphs are separated by blank lines. Single line breaks within a paragraph are ignored unless you use:
+- Two spaces at the end of a line
+- Or use `<br>` for explicit breaks
 
-### Recipes (MCP-Powered)
+### Headings
 
-| Recipe | Description |
-|--------|-------------|
-| `recipes/bulk-tag-update.md` | Batch tag operations |
-| `recipes/frontmatter-migration.md` | Property schema updates |
-| `recipes/vault-health-audit.md` | Comprehensive vault analysis |
-| `recipes/orphan-cleanup.md` | Find and resolve orphan notes |
-| `recipes/link-consistency.md` | Link validation and fixes |
-
-## Quick Start
-
-### For Documentation (GitHub-compatible)
-
-Use GFM-compatible syntax. See main content below.
-
-### For PKM Workflows
-
-See `workflows/` for daily review, weekly planning, capture, and project management patterns.
-
-### For Vault Operations (MCP)
-
-See `references/mcp-integration.md` and `recipes/` for programmatic vault operations.
-
-### For Plugin Setup
-
-See `references/templater.md`, `references/quickadd.md`, `references/tasks-plugin.md`, `references/periodic-notes.md`.
-
----
-
-## Markdown Fundamentals
-
-Create markdown for Obsidian vaults that renders cleanly in both Obsidian and GitHub. Prioritize portability, structured metadata, and documentation that lives alongside code.
-
-## Portability Principles
-
-**GitHub renders:** Standard markdown, GFM tables, Mermaid, code blocks, frontmatter (hidden), relative links, images.
-
-**Obsidian-only:** Wiki links `[[note]]`, callouts `> [!note]`, embeds `![[file]]`, block references `^id`, Dataview, Bases.
-
-**Strategy:** Use GFM-compatible syntax as the foundation. Add Obsidian features only when they provide significant value and acceptable degradation on GitHub.
-
-## Frontmatter (Properties)
-
-Every documentation note should have frontmatter. GitHub hides it; Obsidian indexes it for queries.
-
-### Minimal Doc Frontmatter
-
-```yaml
----
-title: "Component Name"
-tags:
-  - docs
-  - api
-created: 2025-01-15
----
+```markdown
+# Heading 1
+## Heading 2
+### Heading 3
+#### Heading 4
+##### Heading 5
+###### Heading 6
 ```
 
-### Full Project Doc Frontmatter
+### Text Styling
+
+```markdown
+**Bold text**
+*Italic text*
+***Bold and italic***
+~~Strikethrough~~
+==Highlighted text==
+```
+
+## Internal Links (Wikilinks)
+
+### Basic Wikilinks
+
+```markdown
+[[Note Name]]
+[[Note Name|Display Text]]
+[[Folder/Note Name]]
+```
+
+### Heading Links
+
+```markdown
+[[Note Name#Heading]]
+[[Note Name#Heading|Display Text]]
+[[#Heading in Current Note]]
+```
+
+### Block References
+
+```markdown
+[[Note Name#^block-id]]
+[[Note Name#^block-id|Display Text]]
+[[#^block-id]]
+```
+
+### Creating Block IDs
+
+Add a block ID at the end of any paragraph or list item:
+
+```markdown
+This is a paragraph you can reference. ^my-block-id
+
+- List item with ID ^list-block
+```
+
+## Embeds
+
+### Embedding Notes
+
+```markdown
+![[Note Name]]
+![[Note Name#Heading]]
+![[Note Name#^block-id]]
+```
+
+### Embedding Images
+
+```markdown
+![[image.png]]
+![[image.png|400]]
+![[image.png|400x300]]
+```
+
+### Embedding Audio
+
+```markdown
+![[audio.mp3]]
+```
+
+### Embedding PDFs
+
+```markdown
+![[document.pdf]]
+![[document.pdf#page=5]]
+![[document.pdf#height=400]]
+```
+
+### Embedding Videos
+
+```markdown
+![[video.mp4]]
+```
+
+## Callouts
+
+### Basic Callout Syntax
+
+```markdown
+> [!note]
+> This is a note callout.
+
+> [!warning]
+> This is a warning callout.
+
+> [!tip] Custom Title
+> This callout has a custom title.
+```
+
+### Callout Types
+
+| Type | Aliases | Description |
+|------|---------|-------------|
+| `note` | | Default blue info box |
+| `abstract` | `summary`, `tldr` | Abstract/summary |
+| `info` | | Information |
+| `todo` | | Task/todo item |
+| `tip` | `hint`, `important` | Helpful tip |
+| `success` | `check`, `done` | Success message |
+| `question` | `help`, `faq` | Question/FAQ |
+| `warning` | `caution`, `attention` | Warning message |
+| `failure` | `fail`, `missing` | Failure message |
+| `danger` | `error` | Error/danger |
+| `bug` | | Bug report |
+| `example` | | Example content |
+| `quote` | `cite` | Quotation |
+
+### Foldable Callouts
+
+```markdown
+> [!note]+ Expanded by default
+> Content visible initially.
+
+> [!note]- Collapsed by default
+> Content hidden initially.
+```
+
+### Nested Callouts
+
+```markdown
+> [!question] Can callouts be nested?
+> > [!answer] Yes!
+> > Callouts can be nested inside each other.
+```
+
+## Lists
+
+### Unordered Lists
+
+```markdown
+- Item 1
+- Item 2
+  - Nested item
+  - Another nested item
+- Item 3
+```
+
+### Ordered Lists
+
+```markdown
+1. First item
+2. Second item
+   1. Nested numbered item
+3. Third item
+```
+
+### Task Lists
+
+```markdown
+- [ ] Uncompleted task
+- [x] Completed task
+- [ ] Another task
+```
+
+## Code Blocks
+
+### Inline Code
+
+```markdown
+Use `inline code` for short snippets.
+```
+
+### Fenced Code Blocks
+
+````markdown
+```javascript
+function hello() {
+  console.log("Hello, world!");
+}
+```
+````
+
+### Supported Languages
+
+Obsidian supports syntax highlighting for many languages including:
+`javascript`, `typescript`, `python`, `rust`, `go`, `java`, `c`, `cpp`, `csharp`, `ruby`, `php`, `html`, `css`, `json`, `yaml`, `markdown`, `bash`, `sql`, and many more.
+
+## Tables
+
+```markdown
+| Header 1 | Header 2 | Header 3 |
+|----------|:--------:|---------:|
+| Left     | Center   | Right    |
+| aligned  | aligned  | aligned  |
+```
+
+## Math (LaTeX)
+
+### Inline Math
+
+```markdown
+The equation $E = mc^2$ is famous.
+```
+
+### Block Math
+
+```markdown
+$$
+\frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+$$
+```
+
+## Diagrams (Mermaid)
+
+````markdown
+```mermaid
+graph TD
+    A[Start] --> B{Decision}
+    B -->|Yes| C[Do Something]
+    B -->|No| D[Do Something Else]
+    C --> E[End]
+    D --> E
+```
+````
+
+## Footnotes
+
+```markdown
+This is a sentence with a footnote.[^1]
+
+[^1]: This is the footnote content.
+```
+
+## Comments
+
+```markdown
+%%
+This is a comment that won't be rendered.
+%%
+
+Inline %%comment%% within text.
+```
+
+## Properties (Frontmatter)
+
+### Basic Properties
 
 ```yaml
 ---
-title: "Authentication Service"
-aliases:
-  - auth
-  - auth-service
+title: My Note Title
+date: 2024-01-15
 tags:
-  - docs
-  - service
-  - security
-status: active
-owner: "[[People/jane-doe]]"
-related:
-  - "[[Services/user-service]]"
-  - "[[Specs/auth-spec]]"
-created: 2025-01-15
-updated: 2025-01-20
+  - tag1
+  - tag2
+author: John Doe
 ---
 ```
 
 ### Property Types
 
-| Type | Format | Use Case |
-|------|--------|----------|
-| Text | `key: "value"` | Titles, descriptions |
-| List | `tags: [a, b, c]` | Tags, related docs |
-| Date | `created: 2025-01-15` | Timestamps |
-| Boolean | `published: true` | Flags |
-| Link | `owner: "[[Person]]"` | Relationships (quote wiki links) |
+| Type | Example |
+|------|---------|
+| Text | `title: My Title` |
+| Number | `rating: 5` |
+| Checkbox | `completed: true` |
+| Date | `date: 2024-01-15` |
+| Date & time | `created: 2024-01-15T10:30:00` |
+| List | `tags: [a, b, c]` or multiline |
+| Link | `related: "[[Other Note]]"` |
 
-### Standard Properties for Docs
-
-```yaml
-title:      # Display name
-aliases:    # Alternative names for linking
-tags:       # Categorization
-status:     # draft | active | deprecated | archived
-owner:      # Responsible person/team
-related:    # Related documents
-created:    # Creation date
-updated:    # Last meaningful update
-```
-
-## Tagging Strategy
-
-Tags categorize; links relate. Use tags for filtering/querying, links for relationships.
-
-### Tag Hierarchy
+### Multi-value Properties
 
 ```yaml
+---
 tags:
-  - docs                    # Top-level type
-  - docs/api                # Nested for specificity
-  - docs/api/rest
+  - project
+  - work
+  - important
+aliases:
+  - My Alias
+  - Another Name
+cssclasses:
+  - wide-page
+  - cards
+---
 ```
 
-### Recommended Tag Taxonomy
+## Tags
 
-```
-docs/           → Documentation type
-  api
-  guide
-  spec
-  adr             → Architecture Decision Records
-  runbook
+### Inline Tags
 
-component/      → System components
-  service
-  library
-  config
-
-status/         → Lifecycle state (alternative to status property)
-  draft
-  review
-  stable
-  deprecated
+```markdown
+This note is about #productivity and #tools.
 ```
 
-### Tag vs Property for Status
+### Nested Tags
 
-**Property approach** (recommended for queryability):
+```markdown
+#project/work
+#status/in-progress
+#priority/high
+```
+
+### Tags in Frontmatter
 
 ```yaml
-status: active
-```
-
-**Tag approach** (visible in GitHub):
-
-```yaml
+---
 tags:
+  - project
+  - project/work
   - status/active
+---
 ```
 
-Pick one convention and stick with it.
+## HTML Support
 
-## Linking Patterns
-
-### Relative Links (GitHub-Compatible)
+Obsidian supports a subset of HTML:
 
 ```markdown
-See the [API documentation](./api/README.md)
-Check the [auth spec](../specs/auth-spec.md)
+<div class="my-class">
+  Custom HTML content
+</div>
+
+<details>
+<summary>Click to expand</summary>
+Hidden content here
+</details>
+
+<kbd>Ctrl</kbd> + <kbd>C</kbd>
 ```
 
-✅ Works in GitHub, Obsidian, and most markdown renderers.
-
-### Wiki Links (Obsidian-Enhanced)
-
-```markdown
-[[API Documentation]]
-[[Auth Spec|authentication spec]]
-[[Services/Auth Service#Configuration]]
-```
-
-⚠️ Obsidian-only. GitHub shows raw `[[text]]`.
-
-### When to Use Each
-
-| Context | Use | Reason |
-|---------|-----|--------|
-| README, root docs | Relative links | GitHub landing pages |
-| Internal notes | Wiki links | Speed, auto-complete, refactor-safe |
-| Cross-repo links | Relative/URLs | Must work outside vault |
-| People, concepts | Wiki links | Relationship mapping |
-
-### Hybrid Approach
-
-For critical docs that must work everywhere:
-
-```markdown
-See the [Authentication Service](./services/auth-service.md) for details.
-```
-
-For internal knowledge that can degrade gracefully:
-
-```markdown
-Owned by [[People/Jane Doe]]. Related: [[Specs/Auth Spec]].
-```
-
-## Document Structure
-
-### Standard Doc Template
+## Complete Example
 
 ```markdown
 ---
-title: "Service Name"
-tags: [docs, service]
+title: Project Alpha Overview
+date: 2024-01-15
+tags:
+  - project
+  - documentation
 status: active
-created: 2025-01-15
 ---
 
-# Service Name
+# Project Alpha Overview
 
-Brief description (1-2 sentences).
+## Summary
 
-## Overview
+This document outlines the key aspects of **Project Alpha**. For related materials, see [[Project Alpha/Resources]] and [[Team Members]].
 
-What this service does and why it exists.
+> [!info] Quick Facts
+> - Start Date: January 2024
+> - Team Size: 5 members
+> - Status: Active
+
+## Key Features
+
+1. [[Feature A]] - Core functionality
+2. [[Feature B]] - User interface
+3. [[Feature C]] - API integration
+
+### Feature A Details
+
+The main equation governing our approach is $f(x) = ax^2 + bx + c$.
+
+![[feature-a-diagram.png|500]]
+
+> [!tip] Implementation Note
+> See [[Technical Specs#^impl-note]] for implementation details.
+
+## Tasks
+
+- [x] Initial planning ^planning-task
+- [ ] Development phase
+- [ ] Testing phase
+- [ ] Deployment
+
+## Code Example
+
+```python
+def process_data(input):
+    return transform(input)
+```
 
 ## Architecture
 
-` ``mermaid
+```mermaid
 graph LR
-    A[Client] --> B[API Gateway]
-    B --> C[This Service]
-    C --> D[(Database)]
-` ``
-
-## Configuration
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `PORT` | Server port | `3000` |
-| `DB_URL` | Database connection | required |
-
-## API
-
-### `GET /resource`
-
-Description of endpoint.
-
-## Related
-
-- [Upstream Service](./upstream.md)
-- [API Spec](../specs/api-spec.md)
+    A[Input] --> B[Process]
+    B --> C[Output]
 ```
 
-### Maps of Content (MOCs)
+## Notes
 
-Index notes that organize related content:
+This approach was inspired by ==recent research==[^1].
 
-```markdown
----
-title: "Services"
-tags: [moc, docs]
----
+[^1]: Smith, J. (2024). Modern Approaches to Data Processing.
 
-# Services
+%%
+TODO: Add more examples
+Review with team next week
+%%
 
-## Core Services
-
-- [[Auth Service]] - Authentication and authorization
-- [[User Service]] - User management
-- [[API Gateway]] - Request routing
-
-## Supporting Services
-
-- [[Logging Service]]
-- [[Metrics Service]]
-
-## By Status
-
-### Active
-` ``dataview
-LIST
-FROM #service AND -#moc
-WHERE status = "active"
-` ``
-
-### Deprecated
-` ``dataview
-LIST
-FROM #service
-WHERE status = "deprecated"
-` ``
+#project/alpha #documentation
 ```
 
-MOCs provide navigation GitHub can render (the static links) with Obsidian enhancements (Dataview queries).
+## References
 
-## Mermaid Diagrams
-
-Mermaid renders in both GitHub and Obsidian. Prefer over Canvas or images.
-
-### Flowchart
-
-```mermaid
-graph TD
-    A[Start] --> B{Decision}
-    B -->|Yes| C[Action]
-    B -->|No| D[Other Action]
-    C --> E[End]
-    D --> E
-```
-
-### Sequence Diagram
-
-```mermaid
-sequenceDiagram
-    participant C as Client
-    participant A as Auth Service
-    participant D as Database
-
-    C->>A: Login request
-    A->>D: Validate credentials
-    D-->>A: User data
-    A-->>C: JWT token
-```
-
-### Entity Relationship
-
-```mermaid
-erDiagram
-    USER ||--o{ ORDER : places
-    ORDER ||--|{ LINE_ITEM : contains
-    PRODUCT ||--o{ LINE_ITEM : "ordered in"
-```
-
-### State Diagram
-
-```mermaid
-stateDiagram-v2
-    [*] --> Draft
-    Draft --> Review
-    Review --> Draft: Changes requested
-    Review --> Published
-    Published --> Deprecated
-    Deprecated --> [*]
-```
-
-### Architecture (C4-Style)
-
-```mermaid
-graph TB
-    subgraph External
-        U[Users]
-        E[External API]
-    end
-
-    subgraph System
-        GW[API Gateway]
-        A[Auth Service]
-        B[Business Service]
-        DB[(Database)]
-    end
-
-    U --> GW
-    GW --> A
-    GW --> B
-    B --> DB
-    B --> E
-```
-
-## Callouts
-
-Obsidian-only but degrade gracefully (GitHub shows as blockquotes).
-
-```markdown
-> [!warning] Breaking Change
-> The v2 API removes the `legacy_field` parameter.
-
-> [!tip] Performance
-> Enable caching for 10x throughput improvement.
-
-> [!note]
-> This section is under active development.
-```
-
-**GitHub renders as:**
-> **warning** Breaking Change
-> The v2 API removes the `legacy_field` parameter.
-
-Acceptable degradation for internal docs.
-
-## Code Blocks
-
-Standard fenced blocks with language hints:
-
-```typescript
-interface User {
-  id: string;
-  email: string;
-  role: 'admin' | 'user';
-}
-```
-
-```bash
-# Deploy command
-./deploy.sh --env production
-```
-
-```sql
-SELECT * FROM users WHERE active = true;
-```
-
-## Tables
-
-GFM tables work everywhere:
-
-```markdown
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/users` | List users |
-| POST | `/users` | Create user |
-| GET | `/users/:id` | Get user |
-```
-
-Align columns:
-
-```markdown
-| Left | Center | Right |
-|:-----|:------:|------:|
-| a    |   b    |     c |
-```
-
-## What to Avoid
-
-❌ **Canvas files** - Not portable, binary-ish JSON, no GitHub render. Use Mermaid.
-❌ **Excessive wiki links in READMEs** - GitHub shows ugly `[[raw text]]`.
-❌ **Dataview in user-facing docs** - Requires plugin, no GitHub render.
-❌ **Block references** - `^block-id` syntax has no graceful degradation.
-❌ **Deeply nested tags** - `#docs/api/rest/v2/auth` is unmaintainable. Max 2-3 levels.
-❌ **Embeds in portable docs** - `![[note]]` shows raw text on GitHub.
-
-## Vault Structure for Repos
-
-```
-docs/
-├── README.md              # Entry point (pure GFM)
-├── ARCHITECTURE.md        # System overview
-├── index.md               # MOC for Obsidian
-├── services/
-│   ├── auth-service.md
-│   └── user-service.md
-├── specs/
-│   ├── api-spec.md
-│   └── data-model.md
-├── adrs/                  # Architecture Decision Records
-│   ├── 001-use-postgres.md
-│   └── 002-jwt-auth.md
-├── runbooks/
-│   └── deploy.md
-└── assets/
-    └── images/            # Only for non-Mermaid images
-```
-
-## Quick Reference
-
-### Frontmatter Starter
-
-```yaml
----
-title: ""
-tags: []
-status: draft
-created: YYYY-MM-DD
----
-```
-
-### GFM-Safe Syntax
-
-| Element | Syntax |
-|---------|--------|
-| Bold | `**text**` |
-| Italic | `*text*` |
-| Code | `` `code` `` |
-| Link | `[text](url)` |
-| Image | `![alt](path)` |
-| Heading | `#` through `######` |
-| List | `- item` or `1. item` |
-| Task | `- [ ] task` |
-| Table | `\| a \| b \|` |
-| Quote | `> text` |
-| HR | `---` |
-| Code block | ` ``` lang ` |
-| Mermaid | ` ```mermaid ` |
-
-### Obsidian Extras (Use Sparingly)
-
-| Element | Syntax | GitHub Shows |
-|---------|--------|--------------|
-| Wiki link | `[[Note]]` | `[[Note]]` raw |
-| Embed | `![[Note]]` | `![[Note]]` raw |
-| Callout | `> [!type]` | Plain blockquote |
-| Tag | `#tag` | `#tag` as text |
-| Highlight | `==text==` | `==text==` raw |
-| Comment | `%%hidden%%` | `%%hidden%%` raw |
-
-See `references/dataview.md` for query syntax (internal use only).
-See `references/bases.md` for Bases syntax (internal use only).
+- [Obsidian Formatting Syntax](https://help.obsidian.md/Editing+and+formatting/Basic+formatting+syntax)
+- [Advanced Formatting](https://help.obsidian.md/Editing+and+formatting/Advanced+formatting+syntax)
+- [Internal Links](https://help.obsidian.md/Linking+notes+and+files/Internal+links)
+- [Embedding Files](https://help.obsidian.md/Linking+notes+and+files/Embed+files)
+- [Callouts](https://help.obsidian.md/Editing+and+formatting/Callouts)
+- [Properties](https://help.obsidian.md/Editing+and+formatting/Properties)

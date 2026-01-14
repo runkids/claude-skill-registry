@@ -1,9 +1,7 @@
 {
   "name": "analyzing-projects",
-  "description": "Analyzes codebases to understand structure, tech stack, patterns, and conventions. Use when onboarding to a new project, exploring unfamiliar code, or when asked \"how does this work?\" or \"what's the a",
-  "repo": "CloudAI-X/claude-workflow-v2",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "CloudAI-X/opencode-workflow",
+  "path": "skills/analyzing-projects/SKILL.md",
+  "source": "github.com/CloudAI-X/opencode-workflow",
+  "downloaded_at": "2026-01-14T03:45:33.506099Z"
 }

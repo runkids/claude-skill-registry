@@ -1,13 +1,7 @@
 {
   "name": "mcp-cli-scripts",
-  "description": "Build CLI scripts alongside MCP servers for terminal environments. Scripts provide file I/O, batch processing, caching,and richer output formats that remote MCP servers cannot offer. Includes template",
   "repo": "jezweb/claude-skills",
-  "category": "development",
-  "tags": [
-    "mcp",
-    "cli",
-    "scripts"
-  ],
-  "stars": 109,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/mcp-cli-scripts/SKILL.md",
+  "source": "github.com/jezweb/claude-skills",
+  "downloaded_at": "2026-01-14T04:01:51.363361Z"
 }

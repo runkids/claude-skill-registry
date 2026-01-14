@@ -1,11 +1,7 @@
 {
   "name": "structured-output",
-  "description": "Use when extracting structured data from LLMs, parsing JSON responses, or enforcing output schemas - unified JSON schema API works across OpenAI, Anthropic, Google, and Ollama with automatic validatio",
-  "repo": "juanre/llmring",
-  "category": "data",
-  "tags": [
-    "structured",
-    "output"
-  ],
-  "stars": 3
+  "repo": "athola/claude-night-market",
+  "path": "plugins/imbue/skills/structured-output/SKILL.md",
+  "source": "github.com/athola/claude-night-market",
+  "downloaded_at": "2026-01-14T01:32:40.407163Z"
 }

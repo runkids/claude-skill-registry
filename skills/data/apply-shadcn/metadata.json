@@ -1,12 +1,7 @@
 {
   "name": "apply-shadcn",
-  "description": "Apply shadcn/ui components to React pages and components. This skill should be used when styling specific pages or components with shadcn/ui in a React project that has custom theming. The user will s",
   "repo": "otoshek/Claude-Code-Toolkit",
-  "category": "design",
-  "tags": [
-    "apply",
-    "shadcn"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/apply-shadcn/SKILL.md",
+  "source": "github.com/otoshek/Claude-Code-Toolkit",
+  "downloaded_at": "2026-01-14T03:18:13.852787Z"
 }

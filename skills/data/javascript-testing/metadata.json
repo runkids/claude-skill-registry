@@ -1,12 +1,7 @@
 {
   "name": "javascript-testing",
-  "description": "Write and run JavaScript/TypeScript tests using Vitest or Jest with mocking, component testing, and coverage. Use when writing JS/TS tests, testing Svelte/React components, or setting up test configur",
   "repo": "AutumnsGrove/GroveEngine",
-  "category": "testing",
-  "tags": [
-    "javascript",
-    "testing"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/javascript-testing/SKILL.md",
+  "source": "github.com/AutumnsGrove/GroveEngine",
+  "downloaded_at": "2026-01-14T02:31:54.733399Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "devcontainer-workflow",
-  "description": "DevContainer configuration for consistent development environments with Docker, multi-stage builds, non-root users, environment management, Docker-in-Docker support, and Python with uv. Activate when ",
   "repo": "ilude/claude-code-config",
-  "category": "development",
-  "tags": [
-    "devcontainer",
-    "workflow"
-  ],
-  "stars": 5,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/devcontainer-workflow/SKILL.md",
+  "source": "github.com/ilude/claude-code-config",
+  "downloaded_at": "2026-01-14T01:02:39.189396Z"
 }

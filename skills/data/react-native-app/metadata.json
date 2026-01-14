@@ -1,13 +1,7 @@
 {
   "name": "react-native-app",
-  "description": "Build cross-platform mobile apps with React Native. Covers navigation with React Navigation, state management with Redux/Context API, API integration, and platform-specific features.",
   "repo": "aj-geddes/useful-ai-prompts",
-  "category": "design",
-  "tags": [
-    "react",
-    "native",
-    "app"
-  ],
-  "stars": 25,
-  "source": "local"
+  "path": "skills/react-native-app/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:07.106331Z"
 }

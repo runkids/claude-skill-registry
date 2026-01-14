@@ -1,337 +1,136 @@
 ---
 name: app-store-deployment
-description: Deploy iOS and Android apps to App Store and Google Play. Covers signing, versioning, build configuration, submission process, and release management.
+description: Publishes mobile applications to iOS App Store and Google Play with code signing, versioning, and CI/CD automation. Use when preparing app releases, configuring signing certificates, or setting up automated deployment pipelines.
 ---
 
 # App Store Deployment
 
-## Overview
+Publish mobile applications to iOS App Store and Google Play with proper procedures.
 
-Publish mobile applications to official app stores with proper code signing, versioning, testing, and submission procedures.
+## iOS Deployment
 
-## When to Use
-
-- Publishing apps to App Store and Google Play
-- Managing app versions and releases
-- Configuring signing certificates and provisioning profiles
-- Automating build and deployment processes
-- Managing app updates and rollouts
-
-## Instructions
-
-### 1. **iOS Deployment Setup**
-
+### Build and Archive
 ```bash
-# Create development and distribution signing certificates
-# Step 1: Generate Certificate Signing Request (CSR) in Keychain Access
-# Step 2: Create App ID in Apple Developer Portal
-# Step 3: Create provisioning profiles (Development, Distribution)
-
-# Xcode configuration for signing
-# Set Team ID, Bundle Identifier, and select provisioning profiles
-# Build Settings:
-# - Code Sign Identity: "iPhone Distribution"
-# - Provisioning Profile: Select appropriate profile
-# - Code Sign Style: Automatic (recommended)
-
-# Info.plist settings
-<?xml version="1.0" encoding="UTF-8"?>
-<plist version="1.0">
-<dict>
-  <key>CFBundleShortVersionString</key>
-  <string>1.0.0</string>
-  <key>CFBundleVersion</key>
-  <string>1</string>
-  <key>NSAppTransportSecurity</key>
-  <dict>
-    <key>NSAllowsArbitraryLoads</key>
-    <false/>
-  </dict>
-  <key>NSUserTrackingUsageDescription</key>
-  <string>We use tracking for analytics</string>
-</dict>
-</plist>
-
-# Build for App Store submission
-xcodebuild -workspace MyApp.xcworkspace \
-  -scheme MyApp \
+# Build archive
+xcodebuild -workspace App.xcworkspace \
+  -scheme App \
+  -sdk iphoneos \
   -configuration Release \
-  -archivePath ~/Desktop/MyApp.xcarchive \
+  -archivePath build/App.xcarchive \
   archive
 
-# Export for distribution
+# Export IPA
 xcodebuild -exportArchive \
-  -archivePath ~/Desktop/MyApp.xcarchive \
+  -archivePath build/App.xcarchive \
   -exportOptionsPlist ExportOptions.plist \
-  -exportPath ~/Desktop/MyApp
+  -exportPath build/
+```
 
-# ExportOptions.plist
-<?xml version="1.0" encoding="UTF-8"?>
-<plist version="1.0">
-<dict>
-  <key>teamID</key>
-  <string>YOUR_TEAM_ID</string>
-  <key>signingStyle</key>
-  <string>automatic</string>
-  <key>method</key>
-  <string>app-store</string>
-</dict>
-</plist>
-
-# Upload to App Store
-xcrun altool --upload-app --file MyApp.ipa \
+### Upload to App Store Connect
+```bash
+xcrun altool --upload-app \
   --type ios \
-  -u your-apple-id@example.com \
-  -p your-app-specific-password
+  --file build/App.ipa \
+  --username "$APPLE_ID" \
+  --password "$APP_SPECIFIC_PASSWORD"
 ```
 
-### 2. **Android Deployment Setup**
+## Android Deployment
 
-```gradle
-// build.gradle configuration
-android {
-  compileSdkVersion 33
-
-  defaultConfig {
-    applicationId "com.example.myapp"
-    minSdkVersion 21
-    targetSdkVersion 33
-    versionCode 1
-    versionName "1.0.0"
-  }
-
-  signingConfigs {
-    release {
-      storeFile file("keystore.jks")
-      storePassword System.getenv("KEYSTORE_PASSWORD")
-      keyAlias System.getenv("KEY_ALIAS")
-      keyPassword System.getenv("KEY_PASSWORD")
-    }
-  }
-
-  buildTypes {
-    release {
-      signingConfig signingConfigs.release
-      minifyEnabled true
-      shrinkResources true
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-    }
-  }
-}
-
-dependencies {
-  implementation 'com.google.android.play:core:1.10.3'
-}
-```
-
+### Build Release APK/Bundle
 ```bash
-# Create keystore for app signing
-keytool -genkey -v \
-  -keystore ~/my-release-key.jks \
-  -keyalg RSA \
-  -keysize 2048 \
-  -validity 10950 \
-  -alias my-key-alias
+# Generate keystore (once)
+keytool -genkey -v -keystore release.keystore \
+  -alias app -keyalg RSA -keysize 2048 -validity 10000
 
-# Build App Bundle
+# Build release bundle
 ./gradlew bundleRelease
-
-# Build APK for testing
-./gradlew assembleRelease
-
-# Verify APK signature
-jarsigner -verify -verbose -certs app/build/outputs/apk/release/app-release.apk
 ```
 
-### 3. **Version Management**
+### gradle.properties
+```properties
+RELEASE_STORE_FILE=release.keystore
+RELEASE_KEY_ALIAS=app
+RELEASE_STORE_PASSWORD=****
+RELEASE_KEY_PASSWORD=****
+```
 
-```bash
-# Version tracking
-# package.json
+## Version Management
+
+```json
 {
-  "name": "myapp",
-  "version": "1.0.0",
-  "build": {
-    "ios": { "buildNumber": "1" },
-    "android": { "versionCode": 1 }
-  }
+  "version": "1.2.3",
+  "ios": { "buildNumber": "45" },
+  "android": { "versionCode": 45 }
 }
-
-# Increment version script
-#!/bin/bash
-CURRENT=$(jq -r '.version' package.json)
-IFS='.' read -ra VER <<< "$CURRENT"
-
-MAJOR=${VER[0]}
-MINOR=${VER[1]}
-PATCH=${VER[2]}
-
-PATCH=$((PATCH + 1))
-NEW_VERSION="$MAJOR.$MINOR.$PATCH"
-
-jq ".version = \"$NEW_VERSION\"" package.json > package.json.tmp
-mv package.json.tmp package.json
-
-echo "Version updated to $NEW_VERSION"
 ```
 
-### 4. **Automated CI/CD with GitHub Actions**
+## Pre-Deployment Checklist
+
+- [ ] All tests passing (>80% coverage)
+- [ ] App icons for all sizes
+- [ ] Screenshots for store listing
+- [ ] Privacy policy URL configured
+- [ ] Permissions justified
+- [ ] Tested on minimum supported OS
+- [ ] Release notes prepared
+
+## CI/CD (GitHub Actions)
 
 ```yaml
-name: Deploy to App Stores
-
 on:
   push:
-    tags:
-      - 'v*'
+    tags: ['v*']
 
 jobs:
-  build-ios:
+  deploy-ios:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build iOS App
+      - name: Set up environment
         run: |
-          cd ios
-          pod install
-          xcodebuild -workspace MyApp.xcworkspace \
-            -scheme MyApp \
+          # Accept Xcode license if needed
+          sudo xcodebuild -license accept || true
+
+      - name: Build archive
+        run: |
+          xcodebuild -workspace App.xcworkspace \
+            -scheme App \
+            -sdk iphoneos \
             -configuration Release \
-            -archivePath ~/Desktop/MyApp.xcarchive \
+            -archivePath build/App.xcarchive \
             archive
 
-      - name: Upload to App Store
+      - name: Export IPA
+        run: |
+          xcodebuild -exportArchive \
+            -archivePath build/App.xcarchive \
+            -exportOptionsPlist ExportOptions.plist \
+            -exportPath build/
+
+      - name: Upload to App Store Connect
         env:
           APPLE_ID: ${{ secrets.APPLE_ID }}
-          APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
+          APP_SPECIFIC_PASSWORD: ${{ secrets.APP_SPECIFIC_PASSWORD }}
         run: |
           xcrun altool --upload-app \
-            --file MyApp.ipa \
             --type ios \
-            -u $APPLE_ID \
-            -p $APPLE_PASSWORD
+            --file build/App.ipa \
+            --username "$APPLE_ID" \
+            --password "$APP_SPECIFIC_PASSWORD"
 
-  build-android:
+  deploy-android:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-
-      - name: Setup Java
-        uses: actions/setup-java@v3
-        with:
-          java-version: '11'
-
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build Android App
-        env:
-          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
-          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
-          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-        run: |
-          cd android
-          ./gradlew bundleRelease
-
-      - name: Upload to Google Play
-        uses: r0adkll/upload-google-play@v1
-        with:
-          serviceAccountJsonPlainText: ${{ secrets.PLAY_STORE_SERVICE_ACCOUNT }}
-          packageName: com.example.myapp
-          releaseFiles: android/app/build/outputs/bundle/release/app.aab
-          track: internal
-          status: completed
-
-  create-release:
-    runs-on: ubuntu-latest
-    needs: [build-ios, build-android]
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Create GitHub Release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          body: Release notes here
-          draft: false
-          prerelease: false
-```
-
-### 5. **Pre-Deployment Checklist**
-
-```markdown
-# iOS Checklist
-- [ ] Increment version (CFBundleShortVersionString)
-- [ ] Update build number (CFBundleVersion)
-- [ ] Run all tests (>80% coverage)
-- [ ] Test on minimum iOS version
-- [ ] Review crash logs
-- [ ] Check for deprecated APIs
-- [ ] Verify all permissions documented
-- [ ] Test offline functionality
-- [ ] Verify app icon (1024x1024)
-- [ ] Set privacy policy URL
-- [ ] Archive and verify build
-- [ ] Test on real devices
-
-# Android Checklist
-- [ ] Increment versionCode and versionName
-- [ ] Run all tests (>80% coverage)
-- [ ] Test on API 21+ devices
-- [ ] Verify navigation
-- [ ] Check battery optimization
-- [ ] Enable app signing
-- [ ] Build release AAB
-- [ ] Verify ProGuard obfuscation
-- [ ] Test landscape/portrait
-- [ ] Upload screenshots
-- [ ] Add release notes
-- [ ] Test on multiple devices
+      - uses: actions/checkout@v4
+      - run: ./gradlew bundleRelease
+      - uses: r0adkll/upload-google-play@v1
 ```
 
 ## Best Practices
 
-### ✅ DO
-- Use signed certificates and provisioning profiles
-- Automate builds with CI/CD
-- Test on real devices before submission
-- Keep version numbers consistent
-- Document deployment procedures
-- Use environment-specific configurations
-- Implement proper error tracking
-- Monitor app performance post-launch
-- Plan rollout strategy
-- Keep backup of signing materials
-- Test offline functionality
-- Maintain release notes
-
-### ❌ DON'T
-- Commit signing materials to git
-- Skip device testing
-- Release untested code
-- Ignore store policies
-- Use hardcoded API keys
-- Skip security reviews
-- Deploy without monitoring
-- Ignore crash reports
-- Make large version jumps
-- Use invalid certificates
-- Deploy without backups
-- Release during holidays
+- Automate deployment with CI/CD
+- Test on physical devices
+- Secure signing materials separately
+- Monitor crash reports post-launch

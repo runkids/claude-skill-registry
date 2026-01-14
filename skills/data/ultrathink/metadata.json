@@ -1,11 +1,7 @@
 {
   "name": "ultrathink",
-  "description": "Elevates thinking for complex problems with intellectual honesty. Activates deep analysis while avoiding performative contrarianism. Use when facing decisions that deserve more than the first answer, ",
-  "repo": "fotescodev/portfolio",
-  "category": "design",
-  "tags": [
-    "ultrathink"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "marcusgoll/Spec-Flow",
+  "path": ".claude/skills/ultrathink/SKILL.md",
+  "source": "github.com/marcusgoll/Spec-Flow",
+  "downloaded_at": "2026-01-14T04:06:32.246531Z"
 }

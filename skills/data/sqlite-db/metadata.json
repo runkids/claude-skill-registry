@@ -1,8 +1,7 @@
 {
   "name": "sqlite-db",
   "repo": "oimiragieo/agent-studio",
-  "category": "data",
-  "description": "SQLite database operations and queries",
-  "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:21:09.404132Z"
+  "path": ".claude/skills/sqlite-db/SKILL.md",
+  "source": "github.com/oimiragieo/agent-studio",
+  "downloaded_at": "2026-01-14T03:17:02.776237Z"
 }

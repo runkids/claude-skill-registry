@@ -1,12 +1,7 @@
 {
   "name": "sveltia-cms",
-  "description": "Set up Sveltia CMS - the lightweight Git-backed CMS successor to Decap/Netlify CMS with 5x smaller bundle (300 KB), GraphQL performance, and 270+ fixed predecessor issues. Framework-agnostic for Hugo,",
   "repo": "jezweb/claude-skills",
-  "category": "data",
-  "tags": [
-    "sveltia",
-    "cms"
-  ],
-  "stars": 109,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/sveltia-cms/SKILL.md",
+  "source": "github.com/jezweb/claude-skills",
+  "downloaded_at": "2026-01-14T04:01:48.421632Z"
 }

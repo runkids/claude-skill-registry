@@ -1,12 +1,7 @@
 {
   "name": "django-setup",
-  "description": "Initialize Django projects for HTTPS development with virtual environments and mkcert SSL certificates",
   "repo": "otoshek/Claude-Code-Toolkit",
-  "category": "development",
-  "tags": [
-    "django",
-    "setup"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/django-setup/SKILL.md",
+  "source": "github.com/otoshek/Claude-Code-Toolkit",
+  "downloaded_at": "2026-01-14T03:18:14.116110Z"
 }

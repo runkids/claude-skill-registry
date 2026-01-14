@@ -1,458 +1,365 @@
 ---
 name: risk-assessment
-description: Use this skill when evaluating portfolio risk, checking position sizes, assessing market volatility, or performing risk management checks before trade execution. Based on TradingAgents risk management framework with conservative/aggressive/neutral debate system.
+description: Identify, analyze, and prioritize project risks using qualitative and quantitative methods. Develop mitigation strategies to minimize impact and maximize project success probability.
 ---
 
-# Risk Assessment Skill
+# Risk Assessment
+
+## Overview
+
+Risk assessment is a systematic process of identifying potential threats to project success and developing strategies to mitigate, avoid, or accept them.
 
 ## When to Use
-Activate when:
-- Evaluating trade risk before execution
-- Checking portfolio exposure and concentration
-- Assessing market volatility levels
-- Determining appropriate position sizes
-- Reviewing risk/reward ratios
-- Performing pre-trade risk checks
 
-## Risk Management Framework (refs/TradingAgents/)
+- Project initiation and planning phases
+- Before major milestones or decisions
+- When introducing new technologies
+- Third-party dependencies or integration
+- Organizational or resource changes
+- Budget or timeline constraints
+- Regulatory or compliance concerns
 
-### Risk Debate System (refs/TradingAgents/tradingagents/agents/risk_mgmt/)
+## Instructions
 
-**Three Risk Perspectives**:
-1. **Conservative Debator** (conservative_debator.py)
-   - Focuses on downside protection
-   - Emphasizes capital preservation
-   - Advocates for smaller positions
-   - Highlights potential risks
-
-2. **Aggressive Debator** (aggresive_debator.py)
-   - Focuses on upside potential
-   - Advocates for larger positions
-   - Emphasizes opportunity cost
-   - Pushes for action
-
-3. **Neutral Debator** (neutral_debator.py)
-   - Balanced perspective
-   - Data-driven analysis
-   - Objective risk assessment
-   - Mediation between extremes
-
-### Risk Manager (refs/TradingAgents/tradingagents/agents/managers/risk_manager.py)
-
-**Responsibilities**:
-- Evaluate portfolio risk continuously
-- Assess market volatility
-- Check liquidity conditions
-- Review proposed trades
-- Provide final approval/rejection
-- Monitor overall portfolio health
-
-## Risk Assessment Process
-
-### Step 1: Portfolio Risk Analysis
+### 1. **Risk Identification Techniques**
 
 ```python
-def assess_portfolio_risk(portfolio: Dict, market_data: Dict) -> Dict:
-    """
-    Analyze current portfolio risk metrics
-    """
+# Risk identification framework
 
-    # 1. Calculate portfolio value
-    total_value = portfolio["cash"]
-    for ticker, shares in portfolio["positions"].items():
-        current_price = market_data[ticker]["price"]
-        total_value += shares * current_price
+class RiskIdentification:
+    RISK_CATEGORIES = {
+        'Technical': [
+            'Technology maturity',
+            'Integration complexity',
+            'Performance requirements',
+            'Security vulnerabilities',
+            'Data integrity'
+        ],
+        'Resource': [
+            'Team skill gaps',
+            'Staff availability',
+            'Budget constraints',
+            'Equipment/infrastructure',
+            'Vendor availability'
+        ],
+        'Schedule': [
+            'Unrealistic deadlines',
+            'Dependency delays',
+            'Scope creep',
+            'Approval delays',
+            'Resource conflicts'
+        ],
+        'External': [
+            'Regulatory changes',
+            'Market conditions',
+            'Vendor stability',
+            'Political/economic factors',
+            'Natural disasters'
+        ],
+        'Organizational': [
+            'Stakeholder misalignment',
+            'Priority changes',
+            'Organizational restructuring',
+            'Politics/conflicts',
+            'Requirement changes'
+        ]
+    }
 
-    # 2. Position concentration
-    concentrations = {}
-    for ticker, shares in portfolio["positions"].items():
-        position_value = shares * market_data[ticker]["price"]
-        concentration_pct = (position_value / total_value) * 100
-        concentrations[ticker] = concentration_pct
+    @staticmethod
+    def brainstorm_risks(project_context):
+        """
+        Facilitated brainstorming session to identify risks
+        """
+        risks = []
+        for category, risk_types in RiskIdentification.RISK_CATEGORIES.items():
+            for risk_type in risk_types:
+                risks.append({
+                    'category': category,
+                    'description': risk_type,
+                    'identified_by': [],
+                    'probability': None,
+                    'impact': None
+                })
 
-    # 3. Identify concentration risk
-    max_concentration = max(concentrations.values()) if concentrations else 0
-    high_concentration = max_concentration > 20  # Alert if >20% in one position
+        return risks
 
-    # 4. Calculate diversification
-    num_positions = len([s for s in portfolio["positions"].values() if s > 0])
-    diversification_score = min(num_positions / 10, 1.0)  # Ideal: 10+ positions
+    @staticmethod
+    def analyze_assumptions_as_risks(assumptions):
+        """
+        Convert project assumptions into potential risks
+        """
+        assumption_risks = []
+        for assumption in assumptions:
+            assumption_risks.append({
+                'risk_type': 'Assumption Violation',
+                'description': f"Assumption '{assumption}' is invalid",
+                'trigger': f"Evidence that {assumption} is false",
+                'impact': 'High' if assumption.startswith('Critical') else 'Medium'
+            })
 
-    # 5. Cash buffer
-    cash_pct = (portfolio["cash"] / total_value) * 100
-    adequate_cash = cash_pct >= 10  # Want at least 10% cash
+        return assumption_risks
+```
+
+### 2. **Risk Analysis Matrix**
+
+```javascript
+// Qualitative and quantitative risk analysis
+
+class RiskAnalysis {
+  constructor() {
+    this.riskMatrix = [];
+    this.priorityMap = [];
+  }
+
+  // Probability scale 1-5
+  static PROBABILITY = {
+    1: { name: 'Very Low', percentage: 0.1, color: 'Green' },
+    2: { name: 'Low', percentage: 0.3, color: 'Green' },
+    3: { name: 'Medium', percentage: 0.5, color: 'Yellow' },
+    4: { name: 'High', percentage: 0.7, color: 'Orange' },
+    5: { name: 'Very High', percentage: 0.9, color: 'Red' }
+  };
+
+  // Impact scale 1-5
+  static IMPACT = {
+    1: { name: 'Negligible', value: 1, scope: 'Minor inconvenience' },
+    2: { name: 'Minor', value: 10, scope: 'Some delay or cost' },
+    3: { name: 'Moderate', value: 100, scope: 'Significant delay or cost' },
+    4: { name: 'Major', value: 1000, scope: 'Critical failure risk' },
+    5: { name: 'Catastrophic', value: 10000, scope: 'Project cancellation' }
+  };
+
+  analyzeRisk(risk) {
+    const probability = this.PROBABILITY[risk.probability];
+    const impact = this.IMPACT[risk.impact];
+
+    // Risk Score = Probability × Impact
+    const riskScore = risk.probability * risk.impact;
+
+    // Risk Exposure = Probability × Financial Impact
+    const riskExposure = probability.percentage * impact.value;
 
     return {
-        "total_value": total_value,
-        "cash_pct": cash_pct,
-        "adequate_cash": adequate_cash,
-        "num_positions": num_positions,
-        "max_concentration": max_concentration,
-        "high_concentration_risk": high_concentration,
-        "diversification_score": diversification_score,
-        "concentrations": concentrations
-    }
-```
+      riskId: risk.id,
+      riskScore,
+      riskExposure,
+      priority: this.calculatePriority(riskScore),
+      severity: this.calculateSeverity(riskScore),
+      mitigationUrgency: riskExposure > 100 ? 'Immediate' : 'Planned'
+    };
+  }
 
-### Step 2: Market Volatility Assessment
+  calculatePriority(riskScore) {
+    if (riskScore >= 16) return 'Critical';
+    if (riskScore >= 12) return 'High';
+    if (riskScore >= 6) return 'Medium';
+    if (riskScore >= 2) return 'Low';
+    return 'Very Low';
+  }
 
-```python
-def assess_market_volatility(ticker: str, market_data: Dict) -> Dict:
-    """
-    Evaluate current market volatility using technical indicators
-    """
-
-    # Use indicators from market-analysis skill
-    indicators = get_indicators(
-        ticker,
-        ["atr", "boll_ub", "boll_lb", "boll"],
-        start_date,
-        end_date
-    )
-
-    # ATR (Average True Range) - absolute volatility
-    atr = indicators["atr"][-1]  # Latest value
-    price = market_data[ticker]["price"]
-    atr_pct = (atr / price) * 100  # As percentage of price
-
-    # Bollinger Band width - relative volatility
-    bb_width = ((indicators["boll_ub"][-1] - indicators["boll_lb"][-1])
-                / indicators["boll"][-1]) * 100
-
-    # Classify volatility
-    if atr_pct < 2:
-        volatility_level = "Low"
-    elif atr_pct < 4:
-        volatility_level = "Medium"
-    else:
-        volatility_level = "High"
-
+  calculateSeverity(riskScore) {
     return {
-        "ticker": ticker,
-        "atr": atr,
-        "atr_pct": atr_pct,
-        "bb_width": bb_width,
-        "volatility_level": volatility_level,
-        "high_volatility": atr_pct > 4
-    }
-```
+      score: riskScore,
+      rating: this.calculatePriority(riskScore),
+      responseNeeded: riskScore >= 12
+    };
+  }
 
-### Step 3: Position Sizing
+  // Risk Matrix
+  createRiskMatrix(risks) {
+    const matrix = {
+      critical: [],
+      high: [],
+      medium: [],
+      low: [],
+      veryLow: []
+    };
 
-```python
-def calculate_position_size(
-    ticker: str,
-    portfolio: Dict,
-    volatility: Dict,
-    risk_tolerance: str = "medium"
-) -> Dict:
-    """
-    Determine appropriate position size based on risk
-    """
+    risks.forEach(risk => {
+      const analysis = this.analyzeRisk(risk);
+      const priority = analysis.priority.toLowerCase();
 
-    total_value = calculate_portfolio_value(portfolio, market_data)
+      if (matrix[priority]) {
+        matrix[priority].push({
+          ...risk,
+          ...analysis
+        });
+      }
+    });
 
-    # Risk tolerance factors
-    risk_factors = {
-        "conservative": 0.02,  # Risk 2% per position
-        "medium": 0.05,        # Risk 5% per position
-        "aggressive": 0.10     # Risk 10% per position
-    }
-
-    risk_factor = risk_factors.get(risk_tolerance, 0.05)
-
-    # Adjust for volatility
-    if volatility["volatility_level"] == "High":
-        risk_factor *= 0.5  # Reduce position size in high volatility
-    elif volatility["volatility_level"] == "Low":
-        risk_factor *= 1.2  # Can increase slightly in low volatility
-
-    # Maximum position value
-    max_position_value = total_value * risk_factor
-
-    # Calculate shares
-    current_price = market_data[ticker]["price"]
-    max_shares = int(max_position_value / current_price)
-
-    # Ensure we have enough cash
-    available_cash = portfolio["cash"]
-    affordable_shares = int(available_cash / current_price)
-
-    recommended_shares = min(max_shares, affordable_shares)
-
-    return {
-        "ticker": ticker,
-        "recommended_shares": recommended_shares,
-        "position_value": recommended_shares * current_price,
-        "pct_of_portfolio": (recommended_shares * current_price / total_value) * 100,
-        "risk_factor_used": risk_factor,
-        "volatility_adjusted": volatility["volatility_level"] != "Medium"
-    }
-```
-
-### Step 4: Trade Evaluation
-
-```python
-def evaluate_proposed_trade(
-    action: str,
-    ticker: str,
-    shares: int,
-    portfolio: Dict,
-    market_data: Dict,
-    analysis: Dict
-) -> Dict:
-    """
-    Full risk assessment of proposed trade
-    Run the 3-way risk debate (conservative/aggressive/neutral)
-    """
-
-    # 1. Get current risk metrics
-    portfolio_risk = assess_portfolio_risk(portfolio, market_data)
-    volatility = assess_market_volatility(ticker, market_data)
-
-    # 2. Conservative perspective
-    conservative_view = {
-        "recommendation": "REDUCE_SIZE" if action == "BUY" else "APPROVE",
-        "concerns": [],
-        "suggested_adjustment": 0.5  # Reduce by 50%
-    }
-
-    if portfolio_risk["high_concentration_risk"]:
-        conservative_view["concerns"].append("Portfolio too concentrated")
-    if not portfolio_risk["adequate_cash"]:
-        conservative_view["concerns"].append("Insufficient cash buffer")
-    if volatility["high_volatility"]:
-        conservative_view["concerns"].append("High market volatility")
-
-    # 3. Aggressive perspective
-    aggressive_view = {
-        "recommendation": "APPROVE" if action in ["BUY", "SELL"] else "INCREASE",
-        "opportunities": [],
-        "suggested_adjustment": 1.5  # Increase by 50%
-    }
-
-    if action == "BUY" and analysis.get("strong_signal"):
-        aggressive_view["opportunities"].append("Strong buy signal")
-    if portfolio_risk["cash_pct"] > 50:
-        aggressive_view["opportunities"].append("Excess cash - opportunity cost")
-
-    # 4. Neutral/balanced perspective
-    position_size = calculate_position_size(ticker, portfolio, volatility)
-
-    neutral_view = {
-        "recommendation": "APPROVE_WITH_ADJUSTMENT",
-        "suggested_shares": position_size["recommended_shares"],
-        "reasoning": "Balanced approach based on portfolio size and volatility"
-    }
-
-    # 5. Risk Manager final decision
-    final_decision = make_final_risk_decision(
-        conservative_view,
-        aggressive_view,
-        neutral_view,
-        portfolio_risk
-    )
-
-    return {
-        "trade_details": {
-            "action": action,
-            "ticker": ticker,
-            "requested_shares": shares,
-            "price": market_data[ticker]["price"]
-        },
-        "risk_assessment": {
-            "portfolio_risk": portfolio_risk,
-            "market_volatility": volatility
-        },
-        "debate_views": {
-            "conservative": conservative_view,
-            "aggressive": aggressive_view,
-            "neutral": neutral_view
-        },
-        "final_decision": final_decision,
-        "approved": final_decision["approved"],
-        "final_shares": final_decision.get("final_shares", shares)
-    }
-
-def make_final_risk_decision(
-    conservative: Dict,
-    aggressive: Dict,
-    neutral: Dict,
-    portfolio_risk: Dict
-) -> Dict:
-    """Risk manager makes final call"""
-
-    # Default to neutral recommendation
-    approved = True
-    final_shares = neutral["suggested_shares"]
-    reasoning = neutral["reasoning"]
-
-    # Override if major risks
-    critical_risks = [
-        portfolio_risk["high_concentration_risk"],
-        not portfolio_risk["adequate_cash"],
-        portfolio_risk["diversification_score"] < 0.3
-    ]
-
-    if any(critical_risks):
-        approved = False
-        reasoning = "Trade rejected due to critical portfolio risks: " + \
-                   ", ".join(conservative["concerns"])
-
-    return {
-        "approved": approved,
-        "final_shares": final_shares if approved else 0,
-        "reasoning": reasoning,
-        "risk_level": "HIGH" if any(critical_risks) else "MODERATE"
-    }
-```
-
-## Risk Report Format
-
-```markdown
-## Risk Assessment Report
-
-### Portfolio Status
-- **Total Value**: ${total_value}
-- **Cash**: ${cash} ({cash_pct}%)
-- **Positions**: {num_positions}
-- **Diversification Score**: {score}/1.0
-
-### Concentration Analysis
-| Ticker | Value | % of Portfolio | Risk Level |
-|--------|-------|----------------|------------|
-| AAPL   | $2500 | 25%            | HIGH       |
-| NVDA   | $1800 | 18%            | MEDIUM     |
-| MSFT   | $1200 | 12%            | OK         |
-
-### Market Volatility
-- **{Ticker} ATR**: {value}% - {volatility_level}
-- **Bollinger Width**: {value}%
-- **Assessment**: {interpretation}
-
-### Proposed Trade Evaluation
-**Trade**: {action} {shares} shares of {ticker} @ ${price}
-
-**Risk Debate Summary**:
-- **Conservative**: {recommendation} - Concerns: {list}
-- **Aggressive**: {recommendation} - Opportunities: {list}
-- **Neutral**: {recommendation} - {reasoning}
-
-**Final Decision**: {APPROVED/REJECTED}
-**Recommended Shares**: {final_shares}
-**Risk Level**: {HIGH/MODERATE/LOW}
-
-**Reasoning**: {detailed explanation}
-```
-
-## Integration with Trading Flow
-
-### Pre-Trade Risk Check
-```python
-async def execute_trade_with_risk_check(
-    model_name: str,
-    action: str,
-    ticker: str,
-    shares: int
-) -> Dict:
-    """
-    Always perform risk assessment before trade execution
-    """
-
-    # 1. Get current portfolio and market data
-    portfolio = get_model_portfolio(model_name)
-    market_data = get_current_market_data([ticker])
-
-    # 2. Get analysis that led to this decision
-    analysis = get_latest_analysis(model_name, ticker)
-
-    # 3. Run risk assessment
-    risk_eval = evaluate_proposed_trade(
-        action, ticker, shares,
-        portfolio, market_data, analysis
-    )
-
-    # 4. Log risk assessment to ModelChat
-    await log_risk_assessment(model_name, ticker, risk_eval)
-
-    # 5. Execute only if approved
-    if risk_eval["approved"]:
-        final_shares = risk_eval["final_decision"]["final_shares"]
-        result = await execute_trade(
-            model_name, action, ticker,
-            final_shares, market_data[ticker]["price"]
-        )
-        return {
-            "success": True,
-            "trade": result,
-            "risk_assessment": risk_eval
-        }
-    else:
-        return {
-            "success": False,
-            "reason": risk_eval["final_decision"]["reasoning"],
-            "risk_assessment": risk_eval
-        }
-```
-
-## Risk Limits & Guardrails
-
-### Hard Limits
-```python
-RISK_LIMITS = {
-    "max_position_pct": 20,      # No single position >20% of portfolio
-    "min_cash_pct": 10,          # Keep at least 10% cash
-    "max_concentration_top3": 50, # Top 3 positions <50% combined
-    "min_diversification": 5,     # At least 5 different positions
-    "max_daily_trades": 10,       # Limit to 10 trades per day
-    "max_leverage": 1.0           # No leverage (paper trading)
+    return matrix;
+  }
 }
-
-def check_hard_limits(portfolio: Dict, proposed_trade: Dict) -> Dict:
-    """
-    Check if trade violates hard limits
-    """
-    violations = []
-
-    # Check each limit
-    # ... (implementation details)
-
-    return {
-        "passed": len(violations) == 0,
-        "violations": violations
-    }
 ```
 
-## Code References
+### 3. **Risk Response Planning**
 
-All code from `refs/TradingAgents/`:
-- Risk Manager: `tradingagents/agents/managers/risk_manager.py`
-- Conservative Debator: `tradingagents/agents/risk_mgmt/conservative_debator.py`
-- Aggressive Debator: `tradingagents/agents/risk_mgmt/aggresive_debator.py`
-- Neutral Debator: `tradingagents/agents/risk_mgmt/neutral_debator.py`
-- Agent States: `tradingagents/agents/utils/agent_states.py`
+```yaml
+Risk Response Strategies:
+
+Risk 1: Integration Delay with Third-Party API
+  Probability: High (4/5)
+  Impact: Major (4/5)
+  Risk Score: 16 (Critical)
+
+  Response Strategy: MITIGATION
+
+  Actions:
+    - Engage vendor early in planning (Week 1)
+    - Develop fallback solution in parallel (Week 2-4)
+    - Allocate 20% more development time (buffer)
+    - Weekly sync with vendor team
+    - Performance testing starts Month 2
+
+  Owner: Technical Lead
+  Budget Impact: +$15,000
+  Timeline: 6 weeks vs. 4 weeks planned
+
+---
+
+Risk 2: Scope Creep from Stakeholders
+  Probability: High (4/5)
+  Impact: Moderate (3/5)
+  Risk Score: 12 (High)
+
+  Response Strategy: AVOIDANCE & MITIGATION
+
+  Actions:
+    - Establish change control process (Week 1)
+    - Lock requirements for Phase 1 (Week 2)
+    - Monthly scope review meetings
+    - Create feature backlog for Phase 2
+    - Strict change request evaluation criteria
+
+  Owner: Project Manager
+  Cost of Avoidance: 5 hours/week PM time
+  Alternative: Accept 2-week timeline extension
+
+---
+
+Risk 3: Key Person Departure
+  Probability: Medium (3/5)
+  Impact: Major (4/5)
+  Risk Score: 12 (High)
+
+  Response Strategy: MITIGATION & CONTINGENCY
+
+  Actions:
+    - Knowledge transfer documentation (ongoing)
+    - Cross-training second developer (Week 1)
+    - Maintain up-to-date runbooks
+    - Competitive salary review (HR)
+    - Mentoring program setup
+
+  Owner: HR Manager
+  Contingency: Hire contractor within 1 week
+  Estimated Cost: $20,000
+```
+
+### 4. **Risk Monitoring & Control**
+
+```javascript
+// Risk tracking and monitoring dashboard
+
+class RiskMonitoring {
+  constructor() {
+    this.risks = [];
+    this.triggers = [];
+    this.escalations = [];
+  }
+
+  createRiskRegister(risks) {
+    return risks.map((risk, index) => ({
+      id: `RK-${String(index + 1).padStart(3, '0')}`,
+      description: risk.description,
+      category: risk.category,
+      probability: risk.probability,
+      impact: risk.impact,
+      riskScore: risk.probability * risk.impact,
+      responseStrategy: risk.strategy,
+      owner: risk.owner,
+      status: 'Active',
+      triggers: risk.triggers,
+      contingencyPlan: risk.contingency,
+      createdDate: new Date(),
+      lastReviewDate: new Date(),
+      closeDate: null
+    }));
+  }
+
+  identifyRiskTriggers(risk) {
+    return {
+      riskId: risk.id,
+      triggers: [
+        {
+          trigger: 'Vendor communication delay >1 week',
+          indicator: 'No response from vendor',
+          escalationAction: 'Contact vendor PM, evaluate alternatives'
+        },
+        {
+          trigger: 'Team member absence >3 days',
+          indicator: 'Unplanned time off',
+          escalationAction: 'Activate cross-training plan'
+        },
+        {
+          trigger: 'Performance test fails baseline',
+          indicator: 'Response time > 500ms',
+          escalationAction: 'Emergency optimization sprint'
+        }
+      ],
+      reviewFrequency: 'Weekly standup'
+    };
+  }
+
+  monitorRisks(riskRegister) {
+    const statusReport = {
+      timestamp: new Date(),
+      summary: {
+        total: riskRegister.length,
+        active: riskRegister.filter(r => r.status === 'Active').length,
+        mitigated: riskRegister.filter(r => r.status === 'Mitigated').length,
+        closed: riskRegister.filter(r => r.status === 'Closed').length
+      },
+      criticalRisks: riskRegister.filter(r => r.riskScore >= 16),
+      highRisks: riskRegister.filter(r => r.riskScore >= 12 && r.riskScore < 16),
+      triggeredRisks: riskRegister.filter(r => r.triggered === true)
+    };
+
+    return statusReport;
+  }
+}
+```
 
 ## Best Practices
 
-1. **Always run risk check before trade execution**
-2. **Use 3-way debate** for balanced perspective
-3. **Adjust for volatility** - reduce size in volatile markets
-4. **Monitor concentration** - no single position >20%
-5. **Maintain cash buffer** - keep minimum 10% cash
-6. **Diversify holdings** - aim for 10+ positions
-7. **Log all risk decisions** to ModelChat for audit trail
-8. **Respect hard limits** - never override critical guardrails
+### ✅ DO
+- Identify risks early in project planning
+- Involve diverse team members in risk identification
+- Quantify risk impact when possible
+- Prioritize based on risk score and exposure
+- Develop specific mitigation plans
+- Assign clear risk ownership
+- Monitor triggers regularly
+- Review and update risk register monthly
+- Document lessons learned from realized risks
+- Communicate risks transparently to stakeholders
 
-## Usage Example
+### ❌ DON'T
+- Wait until problems occur to identify risks
+- Assume risks will not materialize
+- Treat all risks as equal priority
+- Plan mitigation without clear trigger conditions
+- Ignore early warning signs
+- Make risk management a one-time activity
+- Skip contingency planning for critical risks
+- Hide negative risks from stakeholders
+- Eliminate all risk (impossible and uneconomical)
+- Blame individuals for realized risks
 
-**User**: "Check if it's safe to buy 100 shares of NVDA"
+## Risk Management Tips
 
-**Execution**:
-1. Fetch current portfolio state
-2. Analyze NVDA volatility (ATR, Bollinger Bands)
-3. Check portfolio concentration
-4. Run 3-way risk debate
-5. Calculate recommended position size
-6. Make final approval decision
-7. Generate detailed risk report
-8. Log to ModelChat
+- Risk ownership motivates accountability
+- Regular risk review prevents surprises
+- Risk response should be cost-effective
+- Some risk tolerance is healthy and necessary
+- Documented risks are easier to manage

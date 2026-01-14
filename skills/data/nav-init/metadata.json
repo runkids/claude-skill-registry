@@ -1,9 +1,7 @@
 {
   "name": "nav-init",
-  "description": "Initialize Navigator documentation structure in a project. Auto-invokes when user says \"Initialize Navigator\", \"Set up Navigator\", \"Create Navigator structure\", or \"Bootstrap Navigator\".",
   "repo": "alekspetrov/navigator",
-  "category": "documents",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/nav-init/SKILL.md",
+  "source": "github.com/alekspetrov/navigator",
+  "downloaded_at": "2026-01-14T01:02:05.059548Z"
 }

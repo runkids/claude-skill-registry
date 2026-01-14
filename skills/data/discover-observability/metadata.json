@@ -1,12 +1,7 @@
 {
   "name": "discover-observability",
-  "description": "Automatically discover observability and monitoring skills when working with monitoring. Activates for observability development tasks.",
   "repo": "rand/cc-polymath",
-  "category": "development",
-  "tags": [
-    "discover",
-    "observability"
-  ],
-  "stars": 33,
-  "source": "local"
+  "path": "skills/discover-observability/SKILL.md",
+  "source": "github.com/rand/cc-polymath",
+  "downloaded_at": "2026-01-14T03:55:22.813729Z"
 }

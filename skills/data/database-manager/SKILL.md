@@ -1,323 +1,383 @@
 ---
-name: Database Manager
-description: Manages Supabase database schema, migrations, and queries for CookMode V2. Use this when the user needs to create/modify tables, write migrations, update RLS policies, or troubleshoot database issues.
+name: database-manager
+description: Comprehensive database management workflow that orchestrates database architecture, schema design, performance optimization, and data governance. Handles everything from database design and implementation to performance tuning, backup strategies, and data migration.
+license: Apache 2.0
+tools: []
 ---
 
-# Database Manager Skill
+# Database Manager - Complete Database Management Workflow
 
-## Your Role
+## Overview
 
-You specialize in Supabase PostgreSQL database operations for CookMode V2. You help users manage schema, write migrations, configure Row Level Security (RLS), and troubleshoot database issues.
+This skill provides end-to-end database management services by orchestrating database architects, performance specialists, and data governance experts. It transforms data requirements into optimized database systems with comprehensive design, performance optimization, and operational excellence.
+
+**Key Capabilities:**
+- 🏗️ **Database Architecture Design** - Multi-database architecture and schema design
+- ⚡ **Performance Optimization** - Query optimization, indexing, and performance tuning
+- 🔄 **Data Migration & Replication** - Seamless data migration and replication strategies
+- 📊 **Data Governance & Security** - Data quality, security, and compliance management
+- 🛡️ **Backup & Recovery** - Comprehensive backup strategies and disaster recovery
 
 ## When to Use This Skill
 
-Invoke this skill when the user wants to:
-- Create or modify database tables
-- Write SQL migrations
-- Add/update RLS policies
-- Debug database errors
-- Optimize queries
-- Add new database features
+**Perfect for:**
+- Database architecture design and implementation
+- Schema design and data modeling
+- Performance optimization and query tuning
+- Data migration and database modernization
+- Backup and disaster recovery implementation
+- Data governance and compliance management
 
-## Current Database Schema
+**Triggers:**
+- "Design database architecture for [application]"
+- "Optimize database performance for [system]"
+- "Implement data migration from [source] to [target]"
+- "Set up backup and disaster recovery for databases"
+- "Implement data governance and security measures"
 
-### Tables Overview
+## Database Expert Panel
 
-1. **ingredient_checks**
-   - Tracks ingredient completion status
-   - Real-time synced across clients
+### **Database Architect** (Database Design & Architecture)
+- **Focus**: Database architecture, schema design, data modeling
+- **Techniques**: Normalization, indexing strategies, data modeling, database patterns
+- **Considerations**: Scalability, performance, data integrity, maintainability
 
-2. **step_checks**
-   - Tracks instruction step completion
-   - Real-time synced across clients
+### **Performance Specialist** (Database Optimization)
+- **Focus**: Query optimization, performance tuning, indexing strategies
+- **Techniques**: Query analysis, performance profiling, caching strategies, optimization
+- **Considerations**: Response times, throughput, resource utilization, scalability
 
-3. **recipe_status**
-   - Workflow status: gathered, complete, plated, packed
-   - One status per recipe
+### **Data Migration Expert** (Migration & Replication)
+- **Focus**: Data migration, database replication, data synchronization
+- **Techniques**: ETL processes, data transformation, replication strategies, migration planning
+- **Considerations**: Data integrity, minimal downtime, data consistency, rollback procedures
 
-4. **recipe_order_counts**
-   - Number of orders for each recipe (1-50)
-   - Used for ingredient scaling
+### **Data Governance Specialist** (Data Quality & Security)
+- **Focus**: Data governance, data quality, security, compliance
+- **Techniques**: Data quality management, access control, encryption, compliance frameworks
+- **Considerations**: Data privacy, regulatory compliance, audit trails, data classification
 
-5. **recipe_chef_names**
-   - Chef assignment with color badge
-   - Includes `name` and `color` fields
+### **Backup & Recovery Expert** (Backup & Disaster Recovery)
+- **Focus**: Backup strategies, disaster recovery, high availability
+- **Techniques**: Backup automation, point-in-time recovery, failover strategies, testing
+- **Considerations**: RPO/RTO requirements, data retention, recovery testing, business continuity
 
-### Schema Files
-- **Primary**: `/supabase-schema.sql`
-- **Migrations**: `/supabase-migration-*.sql`
+## Database Management Workflow
 
-## Table Schemas
+### Phase 1: Database Requirements Analysis & Planning
+**Use when**: Starting database design or database modernization
 
-### ingredient_checks
-```sql
-CREATE TABLE ingredient_checks (
-    recipe_slug TEXT NOT NULL,
-    ingredient_index INTEGER NOT NULL,
-    component_name TEXT NOT NULL,
-    ingredient_text TEXT,
-    is_checked BOOLEAN DEFAULT FALSE,
-    updated_at TIMESTAMP DEFAULT NOW(),
-    PRIMARY KEY (recipe_slug, ingredient_index, component_name)
-);
+**Tools Used:**
+```bash
+/sc:analyze database-requirements
+Database Architect: database requirements analysis and architecture planning
+Performance Specialist: performance requirements and optimization needs
+Data Governance Specialist: governance and compliance requirements
 ```
 
-### step_checks
-```sql
-CREATE TABLE step_checks (
-    recipe_slug TEXT NOT NULL,
-    step_index INTEGER NOT NULL,
-    step_text TEXT,
-    is_checked BOOLEAN DEFAULT FALSE,
-    updated_at TIMESTAMP DEFAULT NOW(),
-    PRIMARY KEY (recipe_slug, step_index)
-);
+**Activities:**
+- Analyze data requirements and usage patterns
+- Define database architecture and technology selection
+- Identify performance requirements and scalability needs
+- Assess data governance and compliance requirements
+- Plan migration strategies and timelines
+
+### Phase 2: Database Architecture & Schema Design
+**Use when**: Designing database structure and data models
+
+**Tools Used:**
+```bash
+/sc:design --type database schema-architecture
+Database Architect: comprehensive database design and schema creation
+Performance Specialist: performance-optimized schema design
+Data Governance Specialist: data classification and security design
 ```
 
-### recipe_status
-```sql
-CREATE TABLE recipe_status (
-    recipe_slug TEXT PRIMARY KEY,
-    status TEXT CHECK (status IN ('gathered', 'complete', 'plated', 'packed')),
-    updated_at TIMESTAMP DEFAULT NOW()
-);
+**Activities:**
+- Design database architecture and technology selection
+- Create normalized data models and schemas
+- Design indexing strategies for optimal performance
+- Plan data partitioning and distribution strategies
+- Define data relationships and integrity constraints
+
+### Phase 3: Database Implementation & Optimization
+**Use when**: Implementing database and optimizing performance
+
+**Tools Used:**
+```bash
+/sc:implement database-optimization
+Performance Specialist: query optimization and performance tuning
+Database Architect: database implementation and best practices
+Data Governance Specialist: security implementation and access control
 ```
 
-### recipe_order_counts
-```sql
-CREATE TABLE recipe_order_counts (
-    recipe_slug TEXT PRIMARY KEY,
-    order_count INTEGER DEFAULT 1 CHECK (order_count >= 1 AND order_count <= 50),
-    updated_at TIMESTAMP DEFAULT NOW()
-);
+**Activities:**
+- Implement database schema and data models
+- Optimize queries and implement indexing strategies
+- Configure database parameters for optimal performance
+- Implement caching strategies and query optimization
+- Set up database monitoring and performance metrics
+
+### Phase 4: Data Migration & Integration
+**Use when**: Migrating data or integrating with other systems
+
+**Tools Used:**
+```bash
+/sc:implement data-migration
+Data Migration Expert: migration planning and execution
+Database Architect: target database design and validation
+Performance Specialist: migration performance optimization
 ```
 
-### recipe_chef_names
-```sql
-CREATE TABLE recipe_chef_names (
-    recipe_slug TEXT PRIMARY KEY,
-    name TEXT NOT NULL,
-    color TEXT NOT NULL DEFAULT '#9333ea',
-    updated_at TIMESTAMP DEFAULT NOW()
-);
+**Activities:**
+- Design ETL processes and data transformation logic
+- Implement data validation and quality checks
+- Execute data migration with minimal downtime
+- Validate data integrity and consistency
+- Implement data synchronization and replication
+
+### Phase 5: Data Governance & Security Implementation
+**Use when**: Implementing data governance and security measures
+
+**Tools Used:**
+```bash
+/sc:implement data-governance
+Data Governance Specialist: governance framework implementation
+Database Architect: security architecture and access control
+Performance Specialist: security-optimized database configuration
 ```
 
-## Row Level Security (RLS)
+**Activities:**
+- Implement data classification and access controls
+- Set up data encryption and security measures
+- Create audit trails and compliance reporting
+- Implement data quality management processes
+- Configure data retention and deletion policies
 
-CookMode V2 currently uses **permissive RLS** - all users can read/write all data.
+### Phase 6: Backup & Disaster Recovery Setup
+**Use when**: Setting up backup strategies and disaster recovery
 
-```sql
--- Enable RLS
-ALTER TABLE ingredient_checks ENABLE ROW LEVEL SECURITY;
-
--- Allow all operations (current policy)
-CREATE POLICY "Enable all access" ON ingredient_checks
-    FOR ALL USING (true);
+**Tools Used:**
+```bash
+/sc:implement backup-recovery
+Backup & Recovery Expert: backup strategy and disaster recovery implementation
+Database Architect: recovery architecture and testing
+Performance Specialist: backup performance optimization
 ```
 
-**Note**: This is suitable for trusted kitchen environments. For multi-tenant setups, implement user-specific policies.
+**Activities:**
+- Design backup strategies and retention policies
+- Implement automated backup procedures
+- Set up disaster recovery and failover mechanisms
+- Create recovery testing and validation procedures
+- Document backup and recovery procedures
 
-## Real-Time Subscriptions
+## Integration Patterns
 
-Tables with real-time sync enabled:
-- `ingredient_checks`
-- `step_checks`
-- `recipe_status`
-- `recipe_order_counts`
-- `recipe_chef_names`
+### **SuperClaude Command Integration**
 
-Configured in `/js/hooks/useRealtime.js:15-80`
+| Command | Use Case | Output |
+|---------|---------|--------|
+| `/sc:design --type database` | Database design | Complete database architecture |
+| `/sc:implement database-optimization` | Performance tuning | Optimized database configuration |
+| `/sc:implement data-migration` | Data migration | Complete migration solution |
+| `/sc:implement data-governance` | Data governance | Governance framework |
+| `/sc:implement backup-recovery` | Backup/DR | Backup and disaster recovery |
 
-## Migration Best Practices
+### **Database Technology Integration**
 
-### Creating a Migration
+| Technology | Role | Capabilities |
+|------------|------|------------|
+| **PostgreSQL** | Relational database | Advanced relational database features |
+| **MongoDB** | NoSQL database | Document-oriented database |
+| **Redis** | Cache/database | In-memory caching and data store |
+| **MySQL** | Relational database | Popular relational database |
 
-1. **Name convention**: `supabase-migration-{feature-name}.sql`
-2. **Include rollback**: Add comments for manual rollback steps
-3. **Test locally**: Verify migration before applying
+### **MCP Server Integration**
 
-### Migration Template
+| Server | Expertise | Use Case |
+|--------|----------|---------|
+| **Sequential** | Database reasoning | Complex database design and problem-solving |
+| **Web Search** | Database trends | Latest database practices and optimizations |
+| **Firecrawl** | Documentation | Database documentation and best practices |
 
-```sql
--- Migration: Add new feature
--- Date: 2025-01-XX
--- Description: Brief description of changes
+## Usage Examples
 
--- ============================================
--- NEW TABLE
--- ============================================
+### Example 1: Complete Database Architecture Design
+```
+User: "Design a scalable database architecture for an e-commerce platform with high performance requirements"
 
-CREATE TABLE IF NOT EXISTS new_table (
-    id SERIAL PRIMARY KEY,
-    recipe_slug TEXT NOT NULL,
-    data TEXT,
-    created_at TIMESTAMP DEFAULT NOW(),
-    updated_at TIMESTAMP DEFAULT NOW()
-);
+Workflow:
+1. Phase 1: Analyze e-commerce data requirements and performance needs
+2. Phase 2: Design multi-database architecture with proper data distribution
+3. Phase 3: Implement optimized schemas with proper indexing
+4. Phase 4: Set up data migration and integration with payment systems
+5. Phase 5: Implement data governance and security measures
+6. Phase 6: Configure backup and disaster recovery procedures
 
--- ============================================
--- INDEXES
--- ============================================
-
-CREATE INDEX idx_new_table_recipe ON new_table(recipe_slug);
-
--- ============================================
--- ROW LEVEL SECURITY
--- ============================================
-
-ALTER TABLE new_table ENABLE ROW LEVEL SECURITY;
-
-CREATE POLICY "Enable all access" ON new_table
-    FOR ALL USING (true);
-
--- ============================================
--- ROLLBACK (Manual)
--- ============================================
--- DROP TABLE IF EXISTS new_table CASCADE;
+Output: Scalable database architecture with optimized performance and comprehensive governance
 ```
 
-## Common Database Operations
+### Example 2: Database Performance Optimization
+```
+User: "Optimize our database performance for better response times and throughput"
 
-### Adding a New Table
+Workflow:
+1. Phase 1: Analyze current database performance and identify bottlenecks
+2. Phase 2: Design optimization strategies with proper indexing
+3. Phase 3: Implement query optimization and caching strategies
+4. Phase 4: Configure database parameters for optimal performance
+5. Phase 5: Set up performance monitoring and alerting
+6. Phase 6: Validate performance improvements and document results
 
-1. Define schema with constraints
-2. Add indexes for performance
-3. Enable RLS and create policies
-4. Document in this skill
-5. Update hooks if real-time needed
-
-### Modifying Existing Table
-
-```sql
--- Add new column
-ALTER TABLE recipe_status
-ADD COLUMN priority INTEGER DEFAULT 0;
-
--- Modify column
-ALTER TABLE recipe_chef_names
-ALTER COLUMN color SET DEFAULT '#10b981';
-
--- Add constraint
-ALTER TABLE recipe_order_counts
-ADD CONSTRAINT valid_count CHECK (order_count > 0);
+Output: Optimized database with significant performance improvements and monitoring
 ```
 
-### Querying Data
+### Example 3: Data Migration Project
+```
+User: "Migrate our legacy database to a modern database system with minimal downtime"
 
-Use Supabase client in hooks:
+Workflow:
+1. Phase 1: Analyze legacy database and migration requirements
+2. Phase 2: Design migration strategy with minimal downtime approach
+3. Phase 3: Implement ETL processes and data transformation
+4. Phase 4: Execute migration with data validation and testing
+5. Phase 5: Set up data synchronization and cutover procedures
+6. Phase 6: Validate migration success and decommission legacy system
 
-```javascript
-// Select
-const { data, error } = await supabase
-    .from('recipe_status')
-    .select('*')
-    .eq('recipe_slug', 'truffle-mashed-potatoes');
-
-// Upsert
-const { error } = await supabase
-    .from('recipe_order_counts')
-    .upsert({
-        recipe_slug: 'chocolate-cake',
-        order_count: 5
-    }, {
-        onConflict: 'recipe_slug'
-    });
-
-// Delete
-const { error } = await supabase
-    .from('step_checks')
-    .delete()
-    .eq('recipe_slug', 'old-recipe');
+Output: Successful database migration with minimal downtime and data integrity
 ```
 
-## Database Connection
+## Quality Assurance Mechanisms
 
-### Configuration
-Supabase connection configured in `/js/hooks/useSupabase.js`:
-- **URL**: From environment or config
-- **Anon Key**: Public key for client-side access
-- **Real-time**: WebSocket connection for live updates
+### **Multi-Layer Database Validation**
+- **Design Validation**: Database architecture and schema validation
+- **Performance Validation**: Performance testing and optimization validation
+- **Data Integrity Validation**: Data consistency and integrity validation
+- **Security Validation**: Security controls and compliance validation
 
-### Initialization Flow
-1. `useSupabase()` creates client
-2. Returns `{supabase, isSupabaseConnected}`
-3. App checks connection before operations
+### **Automated Quality Checks**
+- **Schema Validation**: Automated schema validation and compliance checking
+- **Performance Monitoring**: Automated performance monitoring and alerting
+- **Data Quality Checks**: Automated data quality validation and reporting
+- **Security Monitoring**: Automated security monitoring and vulnerability scanning
+
+### **Continuous Database Improvement**
+- **Performance Optimization**: Ongoing performance monitoring and optimization
+- **Schema Evolution**: Continuous schema improvement and adaptation
+- **Data Quality Management**: Ongoing data quality monitoring and improvement
+- **Security Enhancement**: Continuous security assessment and improvement
+
+## Output Deliverables
+
+### Primary Deliverable: Complete Database System
+```
+database-system/
+├── architecture/
+│   ├── schemas/                  # Database schemas and data models
+│   ├── indexes/                  # Indexing strategies and implementations
+│   ├── partitions/               # Data partitioning and distribution
+│   └── relationships/            # Data relationships and constraints
+├── optimization/
+│   ├── queries/                  # Optimized queries and procedures
+│   ├── caching/                  # Caching strategies and implementations
+│   ├── configuration/            # Database configuration and tuning
+│   └── monitoring/               # Performance monitoring and metrics
+├── migration/
+│   ├── etl-processes/            # ETL processes and data transformation
+│   ├── validation/               # Data validation and quality checks
+│   ├── synchronization/          # Data synchronization and replication
+│   └── rollback/                 # Rollback procedures and scripts
+├── governance/
+│   ├── security/                 # Security controls and access management
+│   ├── audit-logs/               # Audit trails and compliance reporting
+│   ├── data-quality/             # Data quality management processes
+│   └── policies/                 # Data policies and procedures
+├── backup-recovery/
+│   ├── backup-scripts/           # Automated backup scripts and procedures
+│   ├── recovery-procedures/      # Disaster recovery procedures
+│   ├── testing/                  # Backup and recovery testing
+│   └── documentation/            # Backup and recovery documentation
+└── documentation/
+    ├── architecture-docs/        # Database architecture documentation
+    ├── performance-docs/          # Performance optimization documentation
+    ├── migration-docs/           # Migration procedures and documentation
+    └── governance-docs/          # Data governance and security documentation
+```
+
+### Supporting Artifacts
+- **Database Architecture Documents**: Complete database design and architecture documentation
+- **Performance Reports**: Database performance analysis and optimization recommendations
+- **Migration Documentation**: Detailed migration procedures and validation results
+- **Governance Documentation**: Data governance policies and compliance documentation
+- **Backup and Recovery Procedures**: Complete backup and disaster recovery documentation
+
+## Advanced Features
+
+### **Intelligent Database Optimization**
+- AI-powered query optimization and performance tuning
+- Automated indexing strategy and implementation
+- Intelligent caching strategies and optimization
+- Predictive performance analysis and optimization
+
+### **Advanced Data Governance**
+- AI-powered data quality assessment and improvement
+- Automated data classification and security implementation
+- Intelligent data lineage and impact analysis
+- Automated compliance validation and reporting
+
+### **Smart Migration Strategies**
+- AI-powered migration planning and execution
+- Automated data transformation and validation
+- Intelligent risk assessment and mitigation
+- Automated rollback and recovery procedures
+
+### **Advanced Backup and Recovery**
+- AI-powered backup optimization and scheduling
+- Intelligent disaster recovery planning and testing
+- Automated recovery procedures and validation
+- Predictive failure analysis and prevention
 
 ## Troubleshooting
 
-### Common Issues
+### Common Database Management Challenges
+- **Performance Issues**: Use proper indexing, query optimization, and caching
+- **Data Integrity Problems**: Implement proper constraints, validation, and audit trails
+- **Migration Challenges**: Use proper planning, testing, and rollback procedures
+- **Security Issues**: Implement proper access controls, encryption, and monitoring
 
-**Issue**: Changes not syncing
-- Check real-time subscription in useRealtime.js
-- Verify table has RLS policy
-- Check browser console for Supabase errors
+### Database Optimization Issues
+- **Query Performance**: Use proper indexing, query optimization, and caching
+- **Resource Utilization**: Optimize configuration, resource allocation, and monitoring
+- **Scalability Problems**: Use proper partitioning, distribution, and scaling strategies
+- **Data Growth**: Implement proper archiving, retention, and cleanup procedures
 
-**Issue**: Constraint violation
-- Review table constraints (CHECK, UNIQUE, FK)
-- Validate data before insert/update
+## Best Practices
 
-**Issue**: RLS blocking queries
-- Verify policies allow operation
-- Check user authentication status
+### **For Database Design**
+- Use proper normalization and data modeling techniques
+- Implement appropriate indexing strategies for performance
+- Design for scalability and maintainability
+- Use proper data types and constraints for data integrity
 
-### Debug Queries
+### **For Performance Optimization**
+- Monitor performance metrics and identify bottlenecks
+- Use appropriate caching strategies and query optimization
+- Implement proper indexing and partitioning strategies
+- Regularly review and optimize database configuration
 
-```sql
--- Check table structure
-\d+ ingredient_checks
+### **For Data Migration**
+- Plan migration carefully with proper testing and validation
+- Use appropriate ETL tools and data transformation techniques
+- Implement proper rollback procedures and contingency plans
+- Validate data integrity and consistency throughout migration
 
--- View all policies
-SELECT * FROM pg_policies WHERE tablename = 'recipe_status';
+### **For Data Governance**
+- Implement proper data classification and access controls
+- Use comprehensive audit trails and compliance monitoring
+- Implement data quality management and validation processes
+- Regularly review and update governance policies and procedures
 
--- Check real-time configuration
-SELECT * FROM pg_publication_tables WHERE pubname = 'supabase_realtime';
-```
+---
 
-## Performance Considerations
-
-### Indexes
-Current indexes target:
-- Primary keys (automatic)
-- Foreign key columns
-- Frequently filtered columns (recipe_slug)
-
-### Optimistic Updates
-UI updates immediately, syncs to DB asynchronously:
-```javascript
-// Optimistic update
-setCompletedIngredients(prev => ({ ...prev, [key]: true }));
-
-// Then sync to Supabase
-await supabase.from('ingredient_checks').upsert(...);
-```
-
-## Schema Evolution
-
-When modifying schema:
-1. **Never drop data without backup**
-2. **Use migrations for all changes**
-3. **Test with realistic data volumes**
-4. **Update hooks if data access changes**
-5. **Document changes in CLAUDE.md**
-
-## Example: Adding Recipe Notes Table
-
-```sql
--- Migration: Add recipe notes feature
-CREATE TABLE recipe_notes (
-    id SERIAL PRIMARY KEY,
-    recipe_slug TEXT NOT NULL,
-    note_text TEXT NOT NULL,
-    created_by TEXT,
-    created_at TIMESTAMP DEFAULT NOW()
-);
-
-CREATE INDEX idx_recipe_notes_slug ON recipe_notes(recipe_slug);
-
-ALTER TABLE recipe_notes ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Enable all access" ON recipe_notes FOR ALL USING (true);
-```
-
-Then update `/js/hooks/useRecipeData.js` to fetch and manage notes.
-
-Remember: Keep the database simple and cook-friendly, just like the UI!
+This database manager skill transforms the complex process of database management into a guided, expert-supported workflow that ensures optimized, secure, and maintainable database systems with comprehensive governance and operational excellence.

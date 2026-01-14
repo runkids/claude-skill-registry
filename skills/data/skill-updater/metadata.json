@@ -1,11 +1,7 @@
 {
   "name": "skill-updater",
-  "description": "Updates skills during project work according to their contracts. Adds references, improves explanations, and refines examples while respecting skill boundaries. Use when discovering patterns, encounte",
   "repo": "dudusoar/skillOS",
-  "category": "data",
-  "tags": [
-    "skill",
-    "updater"
-  ],
-  "stars": 0
+  "path": ".claude/skills/skill-updater/SKILL.md",
+  "source": "github.com/dudusoar/skillOS",
+  "downloaded_at": "2026-01-14T03:38:16.462415Z"
 }

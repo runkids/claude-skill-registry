@@ -1,12 +1,7 @@
 {
   "name": "artifact-management",
-  "description": "Artifact repositories with Nexus, Artifactory, and container registries for build artifact storage",
-  "repo": "pluginagentmarketplace/custom-plugin-devops",
-  "category": "development",
-  "tags": [
-    "artifact",
-    "management"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "repo": "aj-geddes/useful-ai-prompts",
+  "path": "skills/artifact-management/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:12.625369Z"
 }

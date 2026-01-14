@@ -1,13 +1,7 @@
 {
   "name": "brand-guidelines-doc",
-  "description": "Эксперт по документам с руководящими принципами бренда. Используй для создания brand books, style guides, visual standards и brand identity documentation.",
   "repo": "dengineproblem/agents-monorepo",
-  "category": "documents",
-  "tags": [
-    "brand",
-    "guidelines",
-    "doc"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/brand-guidelines-doc/SKILL.md",
+  "source": "github.com/dengineproblem/agents-monorepo",
+  "downloaded_at": "2026-01-14T02:08:02.026179Z"
 }

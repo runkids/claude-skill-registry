@@ -1,12 +1,7 @@
 {
   "name": "test-generation",
-  "description": "Use when generating tests for new or existing code to improve coverage - provides a structured workflow for analyzing code, creating tests, and validating coverage goals.",
-  "repo": "NickCrew/claude-cortex",
-  "category": "development",
-  "tags": [
-    "test",
-    "generation"
-  ],
-  "stars": 4,
-  "source": "local"
+  "repo": "duc01226/EasyPlatform",
+  "path": ".claude/skills/test-generation/SKILL.md",
+  "source": "github.com/duc01226/EasyPlatform",
+  "downloaded_at": "2026-01-14T03:30:55.145973Z"
 }

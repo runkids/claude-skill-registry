@@ -1,12 +1,7 @@
 {
   "name": "debate-workflow",
-  "description": "Structured multi-perspective debate for important architectural decisions and complex trade-offs",
-  "repo": "rysweet/MicrosoftHackathon2025-AgenticCoding",
-  "category": "productivity",
-  "tags": [
-    "debate",
-    "workflow"
-  ],
-  "stars": 10,
-  "source": "SkillsMP Synced Skills"
+  "repo": "rysweet/azlin",
+  "path": ".claude/skills/debate-workflow/SKILL.md",
+  "source": "github.com/rysweet/azlin",
+  "downloaded_at": "2026-01-14T03:30:09.030695Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "android-playstore-pipeline",
-  "description": "Complete end-to-end Android Play Store deployment pipeline setup in one command",
   "repo": "hitoshura25/claude-devtools",
-  "category": "devops",
-  "tags": [
-    "android",
-    "playstore",
-    "pipeline"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/android-playstore-pipeline/SKILL.md",
+  "source": "github.com/hitoshura25/claude-devtools",
+  "downloaded_at": "2026-01-14T03:07:10.935488Z"
 }

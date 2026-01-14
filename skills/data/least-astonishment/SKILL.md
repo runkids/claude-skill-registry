@@ -1,170 +1,117 @@
 ---
 name: least-astonishment
-description: Principle of Least Astonishment (POLA) - ensure code changes behave as users and developers expect. Activate when making code changes, refactoring, modifying APIs, renaming functions/variables, changing file structure, or reviewing proposed implementations. Guides predictable, convention-following changes.
+description:
+  El sistema debe comportarse como el usuario espera. Use cuando diseñe
+  interacciones, tome decisiones sobre comportamientos, o evalúe sorpresas en la
+  UX.
+metadata:
+  author: ux-ui-skills
+  version: "1.0"
+  category: design-principles
 ---
 
-# Principle of Least Astonishment (POLA)
+# Principio de Mínima Sorpresa
 
-**Auto-activate when:** Making code changes, refactoring, modifying existing functions, changing APIs, renaming things, moving files, or reviewing implementations. Should activate alongside development-philosophy for any non-trivial changes.
+## Resumen
 
-## Core Principle
+Un sistema debe comportarse de manera que minimice la sorpresa del usuario. Si
+una función necesaria es inherentemente sorprendente, puede ser necesario
+rediseñar.
 
-**Every change should be predictable to someone familiar with the codebase.**
+## Origen
 
-If a change would surprise a developer who knows the project, either:
-1. Don't make it
-2. Make a smaller, less surprising change
-3. Explain clearly before proceeding
+- **Contexto**: Diseño de lenguajes de programación y sistemas
+- **Popularizado**: IBM Systems Journal, comunidad Unix
+- **Año**: ~1970s-1980s
 
----
+## Fundamento
 
-## Before Making Changes
+Las sorpresas son costosas:
 
-### The Surprise Check
+- Causan errores y confusión
+- Erosionan confianza
+- Aumentan carga cognitiva
+- Generan frustración
+- Requieren soporte
 
-Ask yourself:
+## Expectativas del Usuario
 
-1. **Would this surprise someone reading a diff?**
-   - Unexpected file modifications
-   - Unrelated changes bundled together
-   - Renamed things without clear reason
+### Formadas por:
 
-2. **Does this follow existing patterns?**
-   - Check neighboring files first
-   - Match naming conventions already in use
-   - Use established abstractions, don't invent new ones
+- Experiencias previas con el sistema
+- Convenciones de plataforma
+- Patrones de industria
+- Conocimiento del mundo real
+- Promesas del producto
 
-3. **Is the scope what was requested?**
-   - No unrequested refactors
-   - No "improvements" beyond the ask
-   - No adding features "while I'm here"
+### Violaciones típicas:
 
-4. **Would the function/API do what its name suggests?**
-   - No hidden side effects
-   - No surprising return values
-   - No unexpected mutations
+- Comportamiento inesperado de controles
+- Side effects no comunicados
+- Resultados diferentes a los anticipados
+- Cambios sin aviso
 
----
+## Aplicación en Diseño
 
-## Common POLA Violations
+### Interacciones
 
-### ❌ Scope Creep
-```
-Asked: "Fix the null check in validateUser"
-Did: Fixed null check + refactored 3 other functions + added logging
-```
-**Why surprising:** Reviewer expects a small fix, gets a large diff.
+- Botón "Guardar" debe guardar, no preguntar
+- "Cancelar" debe cancelar sin efectos
+- Back debe volver, no ir a otro lugar
+- Links deben llevar a donde dicen
 
-### ❌ Hidden Side Effects
-```python
-def get_user(id):
-    user = db.find(id)
-    user.last_accessed = now()  # Mutation in a "get" function
-    db.save(user)
-    return user
-```
-**Why surprising:** "get" implies read-only; this writes.
+### Comportamientos
 
-### ❌ Inconsistent Naming
-```python
-# Existing codebase uses:
-fetch_user(), fetch_orders(), fetch_products()
+- Acciones consistentes en toda la app
+- Resultados proporcionales a acciones
+- Sin side effects inesperados
+- Cambios de estado claros
 
-# New code adds:
-retrieve_customer()  # Different verb AND different noun
-```
-**Why surprising:** Breaks established vocabulary.
+### Comunicación
 
-### ❌ Unexpected File Changes
-```
-PR title: "Update README"
-Files changed: README.md, config.py, utils.py, test_utils.py
-```
-**Why surprising:** Unrelated files modified.
+- Nombrar features por lo que hacen
+- Mensajes que coinciden con acciones
+- Errores que explican qué pasó
+- Confirmaciones que confirman lo esperado
 
-### ❌ Silent Behavior Changes
-```python
-# Before: returned empty list on error
-# After: raises exception on error
-```
-**Why surprising:** Callers expecting old behavior will break.
+### Datos
 
----
+- Cambios guardados cuando se espera
+- Datos mostrados actualizados
+- Ordenamientos predecibles
+- Filtros que funcionan como se nombran
 
-## POLA-Compliant Patterns
+## Ejemplos
 
-### ✅ Minimal Diffs
-Change only what's necessary. If you notice something else that needs fixing, mention it separately.
+- **Gmail Undo Send**: Comportamiento inesperado pero comunicado
+- **iOS Back Gesture**: Siempre vuelve al contexto anterior
+- **Browser Refresh**: Recarga la página actual
+- **Ctrl+S**: Siempre guarda
+- **ESC**: Siempre cierra/cancela
 
-### ✅ Match Existing Vocabulary
-```python
-# Codebase uses "fetch_*" pattern
-def fetch_payments():  # Follows convention
-    ...
-```
+## Anti-patterns
 
-### ✅ Explicit Over Implicit
-```python
-# Instead of hidden side effect:
-def get_user(id):
-    return db.find(id)
+- ❌ "Close" que guarda automáticamente sin avisar
+- ❌ Links que abren modales en lugar de navegar
+- ❌ Ordenamiento que cambia sin input
+- ❌ Acciones con side effects ocultos
+- ❌ Back que pierde cambios sin warning
 
-def get_and_update_access(id):  # Name reveals behavior
-    user = db.find(id)
-    user.last_accessed = now()
-    db.save(user)
-    return user
-```
+## Métricas
 
-### ✅ Backward-Compatible Changes
-```python
-# Adding parameter with default preserves existing behavior
-def process(data, validate=True):  # Old callers unaffected
-    ...
-```
+- **Expectation Match Score**: Comportamiento vs expectativa
+- **Surprise Event Rate**: Acciones con resultados inesperados
+- **User Error Rate**: Errores por comportamiento sorprendente
+- **Trust Score**: Confianza en el sistema
 
-### ✅ Predictable Return Types
-```python
-# Always return same type
-def find_users(query) -> list[User]:
-    # Return [] not None when empty
-    return results or []
-```
+## Principios Relacionados
 
----
+- [[jakobs-law]] - Expectativas de otros sitios
+- [[nielsen-consistency]] - Comportamiento consistente
+- [[feedback-principle]] - Comunicar qué está pasando
 
-## When Larger Changes Are Needed
+## Referencias
 
-Sometimes breaking POLA is necessary. When it is:
-
-1. **Announce it** - "This will change behavior for X"
-2. **Explain why** - "Current approach causes Y problems"
-3. **Offer alternatives** - "We could also do Z, which is less disruptive"
-4. **Get explicit approval** - Don't assume silence means consent
-
----
-
-## Quick Reference
-
-| Situation | POLA-Compliant Approach |
-|-----------|------------------------|
-| Fixing a bug | Fix only that bug |
-| Adding a feature | Add only that feature |
-| Refactoring | Only when explicitly requested |
-| Renaming | Match existing conventions |
-| Changing return types | Add new function, deprecate old |
-| Modifying APIs | Backward-compatible by default |
-
----
-
-## Integration with Other Principles
-
-- **KISS** - Simple solutions are usually less surprising
-- **DRY** - But don't create abstractions that surprise (premature DRY violates POLA)
-- **Consistency** - Following patterns is core to POLA
-
----
-
-## TL;DR
-
-**Do what the code reader expects. Match existing patterns. Keep changes focused. No surprises.**
+- Saltzer, J.H. & Kaashoek, M.F. (2009). "Principles of Computer System Design"
+- Raymond, E.S. (2003). "The Art of Unix Programming"
+- https://www.nngroup.com/articles/principle-of-least-surprise/

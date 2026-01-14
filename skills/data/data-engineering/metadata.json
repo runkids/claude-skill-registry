@@ -1,12 +1,7 @@
 {
   "name": "data-engineering",
-  "description": "Data pipelines, ETL/ELT systems, workflow orchestration, and data modeling",
-  "repo": "pluginagentmarketplace/custom-plugin-data-engineer",
-  "category": "data",
-  "tags": [
-    "data",
-    "engineering"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "pluginagentmarketplace/custom-plugin-cloudflare",
+  "path": "skills/data-engineering/SKILL.md",
+  "source": "github.com/pluginagentmarketplace/custom-plugin-cloudflare",
+  "downloaded_at": "2026-01-14T01:29:58.950761Z"
 }

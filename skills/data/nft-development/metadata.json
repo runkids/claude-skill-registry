@@ -1,8 +1,7 @@
 {
   "name": "nft-development",
   "repo": "pluginagentmarketplace/custom-plugin-blockchain",
-  "category": "data",
-  "description": "Master NFT development with token standards, metadata, marketplaces, and on-chain art",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:43.893078Z"
+  "path": "skills/nft-development/SKILL.md",
+  "source": "github.com/pluginagentmarketplace/custom-plugin-blockchain",
+  "downloaded_at": "2026-01-14T02:23:37.214267Z"
 }

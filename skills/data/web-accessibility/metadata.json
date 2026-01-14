@@ -1,11 +1,7 @@
 {
   "name": "web-accessibility",
-  "description": "Webアクセシビリティ対応ガイド。WCAG 2.1準拠、セマンティックHTML、ARIA属性、キーボード操作、スクリーンリーダー対応など、誰もが使えるWebアプリケーション構築のベストプラクティス。",
-  "repo": "Gaku52/claude-code-skills",
-  "category": "data",
-  "tags": [
-    "web",
-    "accessibility"
-  ],
-  "stars": 1
+  "repo": "hoodini/ai-agents-skills",
+  "path": "skills/web-accessibility/SKILL.md",
+  "source": "github.com/hoodini/ai-agents-skills",
+  "downloaded_at": "2026-01-14T01:23:01.374385Z"
 }

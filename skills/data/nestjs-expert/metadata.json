@@ -1,12 +1,7 @@
 {
   "name": "nestjs-expert",
-  "description": "Use when building NestJS applications requiring modular architecture, dependency injection, or TypeScript backend development. Invoke for modules, controllers, services, DTOs, guards, interceptors, Ty",
   "repo": "Jeffallan/claude-skills",
-  "category": "development",
-  "tags": [
-    "nestjs",
-    "expert"
-  ],
-  "stars": 12,
-  "source": "local"
+  "path": "skills/nestjs-expert/SKILL.md",
+  "source": "github.com/Jeffallan/claude-skills",
+  "downloaded_at": "2026-01-14T02:36:36.955715Z"
 }

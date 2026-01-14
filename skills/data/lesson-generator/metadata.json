@@ -1,12 +1,7 @@
 {
   "name": "lesson-generator",
-  "description": "カリキュラムからレッスン番号を指定してJavaScript学習教材のmdファイルを生成する。ユーザーが「レッスンXXの教材を作成して」と依頼したときに使用する。",
-  "repo": "mesa2a/JavaScriptOnlineLessons",
-  "category": "development",
-  "tags": [
-    "lesson",
-    "generator"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "mjunaidca/robolearn",
+  "path": ".claude/skills/lesson-generator/SKILL.md",
+  "source": "github.com/mjunaidca/robolearn",
+  "downloaded_at": "2026-01-14T02:06:13.259655Z"
 }

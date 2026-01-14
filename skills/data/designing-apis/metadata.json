@@ -1,9 +1,7 @@
 {
   "name": "designing-apis",
-  "description": "Designs REST and GraphQL APIs including endpoints, error handling, versioning, and documentation. Use when creating new APIs, designing endpoints, reviewing API contracts, or when asked about REST, Gr",
-  "repo": "CloudAI-X/claude-workflow-v2",
-  "category": "documents",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "CloudAI-X/opencode-workflow",
+  "path": "skills/designing-apis/SKILL.md",
+  "source": "github.com/CloudAI-X/opencode-workflow",
+  "downloaded_at": "2026-01-14T03:45:33.416234Z"
 }

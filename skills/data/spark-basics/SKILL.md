@@ -1,93 +1,89 @@
 ---
-name: vibe-coder
-description: |
-  Describe your idea, get a deployed product. All Craft Coder skills + brainstorm, validation, marketing.
-  Use when: user wants to build something from an idea, prototype, or MVP.
-  Triggers: "build app", "create website", "make MVP", "I have an idea",
-  "хочу приложение", "создать сайт", "сделать MVP".
+name: spark-basics
+description: PySpark fundamentals for distributed data processing.
 ---
 
-# Vibe Coder
+# Spark Basics
 
-Describe what you want. Get a deployed product.
+## SparkSession
 
-## The Vibe
+```python
+from pyspark.sql import SparkSession
 
-```
-You: "I want an app for tracking expenses"
-     ↓
-Claude: Asks a few questions
-     ↓
-Claude: Builds everything (hidden complexity)
-     ↓
-You: ✅ Done! [Preview] [Deploy]
+spark = SparkSession.builder \
+    .appName("ETL Job") \
+    .config("spark.sql.adaptive.enabled", "true") \
+    .getOrCreate()
 ```
 
-## What's Included
+## Reading Data
 
-### MVP Workflow (unique to Vibe Coder)
-| Skill | What it does |
-|-------|--------------|
-| `brainstorming` | Refine ideas with Socratic dialogue |
-| `idea-validation` | Validate problem/solution fit |
-| `stack-selector` | Choose tech stack automatically |
-| `ui-generator` | Create UI from descriptions |
-| `feature-builder` | Add features incrementally |
-| `db-designer` | Design database schema |
-| `api-generator` | Generate API endpoints |
-| `deploy-automation` | Deploy to production |
+```python
+# CSV
+df = spark.read.csv("s3://bucket/data.csv", header=True, inferSchema=True)
 
-### All Craft Coder Skills (40+)
-- **Backend**: Python, Node.js, Rust
-- **Frontend**: React, design systems
-- **Mobile**: React Native, Expo
-- **Data**: Pipelines, dbt, Airflow
-- **Infrastructure**: Terraform, K8s, monitoring
-- **Quality**: Testing, code review, debugging
+# Parquet
+df = spark.read.parquet("s3://bucket/data/")
 
-## Commands
+# JSON
+df = spark.read.json("s3://bucket/data.json")
 
-| Command | Purpose |
-|---------|---------|
-| `/vibe:brainstorm` | Refine idea with Socratic dialogue |
-| `/vibe:idea` | Start from scratch with simple questions |
-| `/vibe:build` | Create the app (full pipeline) |
-| `/vibe:add` | Add feature to existing app |
-| `/vibe:preview` | Show current state |
-| `/vibe:deploy` | Publish to production |
+# Delta Lake
+df = spark.read.format("delta").load("s3://bucket/delta/")
+```
 
-## Agents
+## Transformations
 
-- **vibe-coder** — Build apps from descriptions
-- **code-reviewer** — Review code automatically
+```python
+from pyspark.sql import functions as F
 
-## Hidden Pipeline
+# Select and rename
+df = df.select(
+    F.col("id").alias("user_id"),
+    F.col("name"),
+    F.col("created_at").cast("timestamp")
+)
 
-Every change runs through:
-1. TDD (test first, then implement)
-2. Automated tests
-3. Security checks (OWASP)
-4. Code review (auto-fix issues)
+# Filter
+df = df.filter(F.col("status") == "active")
 
-User only sees ✅ or ❌ — never the process.
+# Aggregate
+summary = df.groupBy("category").agg(
+    F.count("*").alias("count"),
+    F.sum("amount").alias("total"),
+    F.avg("amount").alias("average")
+)
 
-## Templates
+# Join
+result = orders.join(customers, "customer_id", "left")
 
-| Template | When to use |
-|----------|-------------|
-| nextjs-supabase | Web apps, SaaS, dashboards |
-| fastapi-postgres | APIs, backends, AI/ML projects |
-| hono-drizzle | Edge, serverless, Cloudflare |
-| landing-page | Marketing sites, portfolios |
+# Window functions
+from pyspark.sql.window import Window
 
-Stack selector chooses automatically.
+window = Window.partitionBy("user_id").orderBy("created_at")
+df = df.withColumn("row_num", F.row_number().over(window))
+```
 
-## No Technical Jargon
+## Writing Data
 
-You never need to know:
-- What framework to use
-- How to structure code
-- What tests to write
-- How to deploy
+```python
+# Parquet with partitions
+df.write \
+    .partitionBy("year", "month") \
+    .mode("overwrite") \
+    .parquet("s3://bucket/output/")
 
-Just describe what you want. Vibe coding at its finest.
+# Delta Lake
+df.write \
+    .format("delta") \
+    .mode("merge") \
+    .save("s3://bucket/delta/")
+```
+
+## Optimization
+
+- Use `cache()` for reused DataFrames
+- Avoid `collect()` on large data
+- Broadcast small tables
+- Repartition before joins
+- Use predicate pushdown

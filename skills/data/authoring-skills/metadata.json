@@ -1,12 +1,7 @@
 {
   "name": "authoring-skills",
-  "description": "MUST BE USED when creating, improving, or reviewing Skills. Use PROACTIVELY when user mentions \"create a skill\", \"new skill\", \"write a skill\", \"improve skill\", \"skill description\", or \"progressive dis",
-  "repo": "Git-Fg/my-skill-dev",
-  "category": "design",
-  "tags": [
-    "authoring",
-    "skills"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "jkappers/claude-code-software-delivery-plugin",
+  "path": ".claude/skills/authoring-skills/SKILL.md",
+  "source": "github.com/jkappers/claude-code-software-delivery-plugin",
+  "downloaded_at": "2026-01-14T02:51:59.007174Z"
 }

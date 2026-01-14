@@ -1,13 +1,7 @@
 {
   "name": "fine-tuning-expert",
-  "description": "Use when fine-tuning LLMs, training custom models, or optimizing model performance for specific tasks. Invoke for parameter-efficient methods, dataset preparation, or model adaptation.",
   "repo": "Jeffallan/claude-skills",
-  "category": "data",
-  "tags": [
-    "fine",
-    "tuning",
-    "expert"
-  ],
-  "stars": 12,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/fine-tuning-expert/SKILL.md",
+  "source": "github.com/Jeffallan/claude-skills",
+  "downloaded_at": "2026-01-14T02:36:39.842377Z"
 }

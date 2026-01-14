@@ -1,13 +1,7 @@
 {
   "name": "notion-knowledge-capture",
-  "description": "Transforms conversations and discussions into structured documentation pages in Notion. Captures insights, decisions, and knowledge from chat context, formats appropriately, and saves to wikis or data",
   "repo": "Prat011/awesome-llm-skills",
-  "category": "data",
-  "tags": [
-    "notion",
-    "knowledge",
-    "capture"
-  ],
-  "stars": 462,
-  "source": "SkillsMP Synced Skills"
+  "path": "notion-knowledge-capture/SKILL.md",
+  "source": "github.com/Prat011/awesome-llm-skills",
+  "downloaded_at": "2026-01-14T03:50:47.551830Z"
 }

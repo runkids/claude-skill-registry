@@ -1,12 +1,7 @@
 {
   "name": "charm-stack",
-  "description": "Build terminal UIs with Bubbletea, Bubbles, Lipgloss, and Huh. Use when creating TUI applications, interactive forms, styled terminal output, or when user mentions Bubbletea, Bubbles, Lipgloss, Huh, C",
   "repo": "yurifrl/cly",
-  "category": "development",
-  "tags": [
-    "charm",
-    "stack"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".opencode/skill/charm-stack/SKILL.md",
+  "source": "github.com/yurifrl/cly",
+  "downloaded_at": "2026-01-14T01:26:17.663107Z"
 }

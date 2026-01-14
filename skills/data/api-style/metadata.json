@@ -1,9 +1,7 @@
 {
   "name": "api-style",
-  "description": "Follow API development conventions including RESTful design, Fastify patterns, Zod validation, error handling, and versioning. Use when building API endpoints, adding routes, or working with API code.",
   "repo": "lastcow/innozverse",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "GitHub Search API"
+  "path": ".claude/skills/api-style/SKILL.md",
+  "source": "github.com/lastcow/innozverse",
+  "downloaded_at": "2026-01-14T03:01:33.038130Z"
 }

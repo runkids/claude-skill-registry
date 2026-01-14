@@ -1,13 +1,7 @@
 {
   "name": "edge-computing-patterns",
-  "description": "Deploy to edge runtimes (Cloudflare Workers, Vercel Edge, Deno Deploy) for globally distributed, low-latency applications. Master edge middleware, streaming, and runtime constraints for 2025+ edge com",
   "repo": "ArieGoldkin/ai-agent-hub",
-  "category": "data",
-  "tags": [
-    "edge",
-    "computing",
-    "patterns"
-  ],
-  "stars": 6,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/edge-computing-patterns/SKILL.md",
+  "source": "github.com/ArieGoldkin/ai-agent-hub",
+  "downloaded_at": "2026-01-14T03:52:03.637479Z"
 }

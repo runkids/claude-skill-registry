@@ -1,12 +1,7 @@
 {
   "name": "test-catalog-updater",
-  "description": "Automates TEST_CATALOG updates after test execution. Records test metrics, pass/fail status, coverage data, and execution time. Maintains single source of truth for all test files and their health sta",
   "repo": "DarkMonkDev/WitchCityRope",
-  "category": "data",
-  "tags": [
-    "test",
-    "catalog",
-    "updater"
-  ],
-  "stars": 0
+  "path": ".claude/skills/test-catalog-updater/SKILL.md",
+  "source": "github.com/DarkMonkDev/WitchCityRope",
+  "downloaded_at": "2026-01-14T01:18:31.537866Z"
 }

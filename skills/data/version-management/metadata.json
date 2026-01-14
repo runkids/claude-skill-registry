@@ -1,11 +1,7 @@
 {
   "name": "version-management",
-  "description": "Maintains versions of skills, prompts, or documents. Provides version tagging, release management, changelogs, and rollback capabilities. Tracks changes to SKILL.md files, scripts, and resources using",
-  "repo": "Wesley1600/ClaudeCodeFrameWork",
-  "category": "data",
-  "tags": [
-    "version",
-    "management"
-  ],
-  "stars": 0
+  "repo": "vanman2024/dev-lifecycle-marketplace",
+  "path": ".archive/old-numbered-plugins/01-core/skills/version-management/SKILL.md",
+  "source": "github.com/vanman2024/dev-lifecycle-marketplace",
+  "downloaded_at": "2026-01-14T03:07:44.640183Z"
 }

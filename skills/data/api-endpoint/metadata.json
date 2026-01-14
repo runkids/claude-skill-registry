@@ -1,12 +1,7 @@
 {
   "name": "api-endpoint",
-  "description": "Creates Next.js API routes with Firebase. Use when adding GET/POST/PATCH/DELETE endpoints, implementing pagination, adding auth checks, or handling file uploads. Includes route templates and error han",
-  "repo": "jhlee0409/sidedish",
-  "category": "development",
-  "tags": [
-    "api",
-    "endpoint"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "Holo00/IdeaForge",
+  "path": ".claude/skills/api-endpoint/SKILL.md",
+  "source": "github.com/Holo00/IdeaForge",
+  "downloaded_at": "2026-01-14T02:10:53.373049Z"
 }

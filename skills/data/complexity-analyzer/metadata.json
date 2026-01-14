@@ -1,12 +1,7 @@
 {
   "name": "complexity-analyzer",
-  "description": "Measure and report code complexity metrics with actionable recommendations.",
   "repo": "CuriousLearner/devkit",
-  "category": "development",
-  "tags": [
-    "complexity",
-    "analyzer"
-  ],
-  "stars": 13,
-  "source": "local"
+  "path": "skills/complexity-analyzer/SKILL.md",
+  "source": "github.com/CuriousLearner/devkit",
+  "downloaded_at": "2026-01-14T02:22:38.155010Z"
 }

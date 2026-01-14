@@ -1,12 +1,7 @@
 {
   "name": "setting-up-prettier",
-  "description": "Configure Prettier for any JavaScript/TypeScript project with recommended settings. Use when setting up code formatting, adding Prettier to existing projects, or when user mentions Prettier setup/フォーマ",
   "repo": "camoneart/claude-code",
-  "category": "development",
-  "tags": [
-    "setting",
-    "prettier"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": "skills/setting-up-prettier/SKILL.md",
+  "source": "github.com/camoneart/claude-code",
+  "downloaded_at": "2026-01-14T03:37:01.984977Z"
 }

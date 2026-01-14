@@ -1,14 +1,7 @@
 {
   "name": "adding-markdown-highlighted-comments",
-  "description": "Use when adding responses to markdown documents with user-highlighted comments, encountering markup errors, or unsure about mark tag placement - ensures proper model-highlight formatting with required",
   "repo": "WesleyMFrederick/cc-workflows",
-  "category": "documents",
-  "tags": [
-    "adding",
-    "markdown",
-    "highlighted",
-    "comments"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/adding-markdown-highlighted-comments/SKILL.md",
+  "source": "github.com/WesleyMFrederick/cc-workflows",
+  "downloaded_at": "2026-01-14T02:32:23.684140Z"
 }

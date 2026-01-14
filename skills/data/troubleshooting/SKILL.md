@@ -1,424 +1,213 @@
 ---
 name: troubleshooting
-description: Diagnose and resolve common issues during spec-driven development and implementation. Learn strategies for handling spec-reality divergence, dependency blocks, unclear requirements, and other execution challenges.
-license: MIT
-compatibility: Claude Code, Cursor, VS Code, Windsurf
-metadata:
-  category: methodology
-  complexity: intermediate
-  author: Kiro Team
-  version: "1.0.0"
+description: Common issues and solutions for Claude Code installation, authentication, performance, and IDE integration. Use when user encounters errors, problems, or asks about debugging.
 ---
 
-# Troubleshooting
+# Claude Code Troubleshooting
 
-Diagnose and resolve common problems that arise during spec-driven development and feature implementation.
+## Installation Issues
 
-## When to Use This Skill
+### Windows WSL Problems
 
-Use troubleshooting strategies when:
-- Implementation doesn't match spec expectations
-- Tasks are blocked by dependencies
-- Requirements are unclear during coding
-- Tests are failing or hard to write
-- Performance doesn't meet requirements
-- Integration problems occur
+**OS/platform detection issues:**
+May require running `npm config set os linux` before installation.
 
-## Issue 1: Spec and Reality Diverge
+**Node.js path conflicts:**
+WSL may use Windows npm instead of Linux versions.
+- Check with `which npm` and `which node`
+- Identify whether Linux or Windows paths are active
+- nvm version conflicts can be resolved by ensuring nvm loads in shell configuration files
 
-### Symptoms
-- Code structure doesn't match spec assumptions
-- APIs are unavailable or deprecated
-- Performance differs from expectations
-- Integration points work differently than specified
-
-### Resolution
-
-**Immediate Actions:**
-1. Document the gap exactly
-2. Assess impact (minor detail vs fundamental issue)
-3. Stop implementing until you understand implications
-
-**Resolution Options:**
-
-**Option 1: Update Spec (Minor Deviations)**
-```
-If difference is minor and doesn't affect requirements:
-1. Update design section with actual approach
-2. Adjust affected tasks
-3. Document why change was needed
-4. Continue implementation
+**Recommended Solution:**
+Use the native Claude Code installer as an alternative to npm:
+```bash
+curl -fsSL https://claude.ai/install.sh | bash
 ```
 
-**Option 2: Redesign (Major Deviations)**
-```
-If core assumptions are wrong:
-1. Return to design phase
-2. Incorporate new understanding
-3. Re-validate against requirements
-4. Create new task breakdown
-5. Restart with corrected plan
+### Linux/Mac Permission Errors
+
+**Native installer (recommended):**
+```bash
+curl -fsSL https://claude.ai/install.sh | bash
 ```
 
-**Option 3: Adjust Requirements (Fundamental Issues)**
-```
-If requirements can't be met as stated:
-1. Document why requirements aren't achievable
-2. Propose alternative approach
-3. Get stakeholder approval
-4. Update entire spec
-5. Restart process
+**Migration from npm:**
+Migrate to local installation to avoid future permission issues:
+```bash
+claude migrate-installer
 ```
 
-### Prevention
-- Validate assumptions with code exploration during design
-- Prototype risky integrations before finalizing spec
-- Include technical spikes in task breakdown
+## Authentication & Permissions
 
-## Issue 2: Task Dependencies Block Progress
+### Reset Authentication
 
-### Symptoms
-- Can't complete task without later features
-- Multiple tasks need same file changes
-- Tests need features not yet built
-- Circular dependencies between tasks
+Run `/logout` and restart Claude Code to reset authentication.
 
-### Resolution
-
-**Strategy 1: Reorder Tasks**
-```
-If dependency was missed in planning:
-1. Identify the prerequisite task
-2. Complete it first
-3. Return to blocked task
-4. Update task sequence for future
+For persistent issues, remove stored auth data:
+```bash
+rm -rf ~/.config/claude-code/auth.json
 ```
 
-**Strategy 2: Split Tasks**
-```
-If task is too large:
-1. Break blocked task into smaller pieces
-2. Complete parts that aren't blocked
-3. Queue dependent parts for later
-4. Update task breakdown
-```
+### Manage Permissions
 
-**Strategy 3: Use Mocking/Stubbing**
-```
-If dependency is complex:
-1. Create minimal stub/mock of dependency
-2. Complete current task against stub
-3. Replace stub when real dependency ready
-4. Add integration testing task
-```
+Use `/permissions` to allow specific tools without repeated approval prompts.
 
-**Strategy 4: Parallel Development**
-```
-If dependency is in progress:
-1. Define clear interface/contract
-2. Implement against interface
-3. Test with mock implementation
-4. Integrate when dependency completes
-```
+## Performance Issues
 
-### Prevention
-- Map dependencies explicitly during task planning
-- Order tasks to minimize blocking
-- Identify tasks that can be parallelized
+### Reduce Context Size
 
-## Issue 3: Requirements Unclear During Implementation
+Use `/compact` regularly to reduce context size for large codebases.
 
-### Symptoms
-- Multiple valid interpretations
-- Edge cases not addressed
-- Conflicting requirements discovered
-- UX details missing
+### Cancel Unresponsive Operations
 
-### Resolution
+Press `Ctrl+C` to cancel unresponsive operations.
 
-**Step 1: Analyze the Ambiguity**
-- What exactly is unclear?
-- What are possible interpretations?
-- What's the impact of each?
-- Is this common or edge case?
+### Fix Search Functionality
 
-**Step 2: Propose Solution**
-- What's most consistent with existing requirements?
-- What aligns with user needs?
-- What's technically simplest?
-- Make recommendation with rationale
+Install system `ripgrep` to fix search functionality:
+```bash
+# macOS
+brew install ripgrep
 
-**Step 3: Get Clarification**
-- Update requirements with clarification
-- Update acceptance criteria if needed
-- Document decision rationale
-- Proceed with implementation
+# Ubuntu/Debian
+sudo apt install ripgrep
 
-**Step 4: Update Tasks**
-- Adjust current task if needed
-- Add new tasks if solution is complex
-- Update testing tasks
-
-### Prevention
-- Probe for edge cases during requirements phase
-- Use examples to clarify requirements
-- Review requirements with developers before design
-
-## Issue 4: Technical Debt Creates Friction
-
-### Symptoms
-- Need to refactor before adding feature
-- Tests are brittle or missing
-- Code is tightly coupled
-- No clear extension points
-
-### Resolution
-
-**Strategy 1: Refactor-First**
-```
-If refactoring is bounded and low-risk:
-1. Create refactoring tasks separate from feature
-2. Get approval for additional work
-3. Complete refactoring with tests
-4. Proceed with feature
+# Fedora
+sudo dnf install ripgrep
 ```
 
-**Strategy 2: Parallel Track**
-```
-If refactoring is extensive:
-1. Implement feature with workarounds
-2. Create separate refactoring initiative
-3. Document technical debt created
-4. Plan future cleanup
-```
+## IDE Integration Issues
 
-**Strategy 3: Incremental Improvement**
-```
-If refactoring can be done in pieces:
-1. Refactor only what you touch
-2. Leave code better than you found it
-3. Add tests for refactored areas
-4. Continue feature implementation
+### JetBrains on WSL2
+
+**Firewall Issues:**
+Configure Windows Firewall or enable mirrored networking mode.
+
+Add to `.wslconfig`:
+```ini
+[wsl2]
+networkingMode=mirrored
 ```
 
-### Prevention
-- Assess existing code quality during design
-- Include refactoring tasks when needed
-- Set realistic timelines accounting for debt
+### ESC Key Not Working (JetBrains)
 
-## Issue 5: Tests Failing or Hard to Write
+Go to Settings → Tools → Terminal and disable "Move focus to the editor with Escape."
 
-### Symptoms
-- Tests fail randomly (flaky)
-- Setup code is complex
-- Mocking is complicated
-- Tests take too long
+Or delete the "Switch focus to Editor" shortcut.
 
-### Resolution
+## Markdown Issues
 
-**For Tightly Coupled Code:**
-- Extract interfaces for dependencies
-- Use dependency injection
-- Create test fixtures/factories
-- Implement test doubles
+### Missing Language Tags
 
-**For Complex Setup:**
-- Create reusable test utilities
-- Use test builders/factories
-- Implement setup helpers
-- Share fixtures across tests
+Request language tags explicitly:
+```
+"Add appropriate language tags to all code blocks."
+```
 
-**For Flaky Tests:**
-- Remove timing dependencies
-- Eliminate global state
-- Mock external dependencies
-- Use deterministic test data
+### Automatic Formatting
 
-**For Slow Tests:**
-- Use test doubles for expensive operations
-- Parallelize test execution
-- Optimize database setup/teardown
-- Cache expensive setups
+Use formatting hooks for automatic post-processing validation.
 
-### Prevention
-- Design for testability during design phase
-- Include test strategy in design document
-- Write tests alongside implementation
+## Common Error Messages
 
-## Issue 6: Performance Problems
+### "Command not found: claude"
 
-### Symptoms
-- Slow response times
-- High memory usage
-- Database query issues
-- Excessive network calls
+**Solution:**
+1. Verify installation: `npm list -g @anthropic-ai/claude-code`
+2. Check PATH includes npm global bin directory
+3. Restart terminal
+4. Reinstall if necessary
 
-### Resolution
+### "Authentication failed"
 
-**Step 1: Measure**
-- Profile the code
-- Identify bottlenecks
-- Quantify the gap
-- Establish baseline
+**Solution:**
+1. Run `/logout` then `/login`
+2. Verify API key is valid
+3. Check network connectivity
+4. Remove auth file: `rm -rf ~/.config/claude-code/auth.json`
 
-**Step 2: Analyze**
-- Algorithmic complexity?
-- Database inefficiency?
-- Network latency?
-- Resource contention?
+### "Permission denied"
 
-**Step 3: Optimize**
-- Target biggest bottleneck first
-- Make one change at a time
-- Measure after each change
-- Document optimizations
+**Solution:**
+1. Check file permissions in project directory
+2. Verify user has write access
+3. Use `/permissions` to configure allowed operations
+4. Check settings.json for overly restrictive deny rules
 
-**Step 4: Validate**
-- Verify requirements met
-- Check no regressions
-- Add performance tests
-- Document characteristics
+### "Context too large"
 
-**Common Fixes:**
-- Database: Add indexes, optimize queries, implement caching
-- Algorithm: Better data structures, reduce complexity, lazy loading
-- Network: Batch requests, compression, reduce payload size
+**Solution:**
+1. Run `/compact` to reduce context
+2. Be more specific in queries
+3. Use subagents for isolated tasks
+4. Clear conversation with `/clear`
 
-### Prevention
-- Include performance requirements in spec
-- Design with performance in mind
-- Profile early and often
+### "Rate limit exceeded"
 
-## Issue 7: Integration Problems
+**Solution:**
+1. Wait before retrying
+2. Check API usage limits
+3. Use `--max-turns` to limit operations
+4. Implement delays in automation scripts
 
-### Symptoms
-- Works locally, fails in integration
-- Timing issues in production
-- Data format mismatches
-- Auth failures
+## Getting Help
 
-### Resolution
+### Built-in Diagnostics
 
-**Step 1: Isolate Problem**
-- Does it work in isolation?
-- Which integration point fails?
-- Consistent or intermittent?
-- What's different in integration environment?
+**Report bugs:**
+```
+/bug
+```
 
-**Step 2: Verify Contracts**
-- Check API specifications
-- Validate data formats
-- Verify authentication flow
-- Review error responses
+**Check installation health:**
+```
+/doctor
+```
 
-**Step 3: Test Integration Points**
-- Test each integration separately
-- Use integration test environment
-- Verify error handling
-- Check timeout behavior
+### External Resources
 
-**Step 4: Fix and Validate**
-- Implement fix
-- Add integration tests
-- Verify in integration environment
-- Update spec if assumptions wrong
+- **GitHub Issues**: https://github.com/anthropics/claude-code/issues
+- **Documentation**: https://docs.claude.com/en/docs/claude-code
+- **Community Support**: Check GitHub Discussions
 
-**Common Issues:**
-- Configuration differences (URLs, credentials)
-- Data format issues (dates, encoding, nulls)
-- Timing issues (race conditions, timeouts)
+## Debug Mode
 
-### Prevention
-- Test in integration environment early
-- Document integration requirements clearly
-- Include integration tests in task breakdown
+Enable verbose logging:
+```bash
+claude --debug
+claude --verbose
+```
 
-## Issue 8: Scope Creep During Implementation
+View detailed output:
+```bash
+claude --output-format json
+```
 
-### Symptoms
-- "While I'm here, I should also..."
-- "It would be easy to add..."
-- Tasks taking longer than estimated
-- Feature complexity growing
+## Reinstallation
 
-### Resolution
+If all else fails, completely reinstall:
 
-**Step 1: Recognize It**
-- Notice when going beyond spec
-- Identify additions vs requirements
-- Assess if it's scope creep
+```bash
+# Uninstall
+npm uninstall -g @anthropic-ai/claude-code
 
-**Step 2: Evaluate**
-- Is it required for current requirements?
-- Is it a bug fix or enhancement?
-- Cost of doing now vs later?
+# Clear cache
+rm -rf ~/.config/claude-code
+rm -rf ~/.claude
 
-**Step 3: Decide**
+# Reinstall
+npm install -g @anthropic-ai/claude-code
 
-**Option A: Required for Current Feature**
-- Update spec with new requirement
-- Add to current work
-- Adjust timeline
+# Or use native installer
+curl -fsSL https://claude.ai/install.sh | bash
+```
 
-**Option B: Nice to Have**
-- Document as future enhancement
-- Complete current spec first
-- Create separate spec later
+## Prevention Tips
 
-**Option C: Out of Scope**
-- Note as explicitly excluded
-- Create future spec if valuable
-- Stay focused on current work
-
-### Red Flags
-- "Just one more feature"
-- "While we're changing this..."
-- Refactoring beyond what's needed
-- Gold-plating solutions
-
-### Prevention
-- Clear requirements and acceptance criteria
-- Regular review against spec
-- Time-box implementation tasks
-
-## Debugging Strategies
-
-### Rubber Duck Debugging
-Explain the problem out loud. Often the explanation reveals the solution.
-
-### Binary Search
-Isolate by dividing code in half repeatedly until you find the issue.
-
-### Strategic Logging
-Add logging to understand code flow and data transformations.
-
-### Minimal Reproduction
-Create smallest test case that reproduces the issue.
-
-### Compare Working vs Broken
-Find similar working code and compare differences.
-
-## When to Update the Spec
-
-**Always Update When:**
-- Design assumptions were wrong
-- Requirements need clarification
-- Tasks need reordering
-- New edge cases discovered
-- Technical approach changes
-
-**Document:**
-- Why changes were made
-- When they were made
-- Impact on timeline
-- Alternatives considered
-
-## Getting Unstuck
-
-When truly blocked:
-1. **Take a break** - Solution often comes when you step away
-2. **Review the spec** - Re-read requirements and design
-3. **Ask for help** - Get a second pair of eyes
-4. **Simplify** - Solve a simpler version first
-5. **Prototype** - Try multiple approaches quickly
-6. **Go back a phase** - Maybe the spec needs work
+1. Keep Claude Code updated: `claude update`
+2. Regularly run `/compact` for large projects
+3. Use specific queries rather than vague requests
+4. Configure permissions appropriately
+5. Monitor API usage and costs
+6. Use version control for important changes
+7. Enable checkpointing for easy recovery

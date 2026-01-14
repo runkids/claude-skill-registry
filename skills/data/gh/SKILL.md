@@ -1,35 +1,93 @@
 ---
 name: gh
-description: Use GitHub CLI for searching and working with Ascend repositories.
+description: GitHub CLI (212 man pages).
+version: 1.0.0
 ---
 
-# GitHub CLI for Ascend repos
 
-Use the `gh` CLI to search and work with Ascend repositories.
+# gh
 
-## Key repositories
+GitHub CLI (212 man pages).
 
-| Repo | Purpose |
-|------|---------|
-| `ascend-io/ascend-core` | Python SDK, Pydantic models, CLI |
-| `ascend-io/ascend-backend` | Backend services, API |
-| `ascend-io/ascend-ui` | Frontend application |
-| `ascend-io/ascend-docs` | Documentation |
-| `ascend-io/ascend-community-internal` | Community projects |
-
-## Search Ascend repos
+## Auth
 
 ```bash
-# search issues/PRs
-gh search issues "query" --owner ascend-io
-gh search prs "query" --owner ascend-io
-
-# search code across all Ascend repos
-gh search code "pattern" --owner ascend-io
+gh auth login
+gh auth status
+gh auth token
 ```
-## Create PRs
 
-Use `gh pr create -t $TITLE -b $BODY` to create a PR.
+## Repo
 
-Maintain our concise, technically precise style.
+```bash
+gh repo clone owner/repo
+gh repo create name --public
+gh repo view --web
+```
 
+## PR
+
+```bash
+gh pr create --title "Title" --body "Body"
+gh pr list --state open
+gh pr checkout 123
+gh pr merge --squash
+```
+
+## Issue
+
+```bash
+gh issue create
+gh issue list --label bug
+gh issue close 42
+```
+
+## API
+
+```bash
+gh api repos/{owner}/{repo}/issues
+gh api graphql -f query='{ viewer { login } }'
+```
+
+## Actions
+
+```bash
+gh run list
+gh run view 12345
+gh workflow run deploy.yml
+```
+
+
+
+## Scientific Skill Interleaving
+
+This skill connects to the K-Dense-AI/claude-scientific-skills ecosystem:
+
+### Graph Theory
+- **networkx** [○] via bicomodule
+  - Universal graph hub
+
+### Bibliography References
+
+- `general`: 734 citations in bib.duckdb
+
+## Cat# Integration
+
+This skill maps to **Cat# = Comod(P)** as a bicomodule in the equipment structure:
+
+```
+Trit: 0 (ERGODIC)
+Home: Prof
+Poly Op: ⊗
+Kan Role: Adj
+Color: #26D826
+```
+
+### GF(3) Naturality
+
+The skill participates in triads satisfying:
+```
+(-1) + (0) + (+1) ≡ 0 (mod 3)
+```
+
+This ensures compositional coherence in the Cat# equipment structure.

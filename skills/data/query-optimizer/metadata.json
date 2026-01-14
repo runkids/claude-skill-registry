@@ -1,11 +1,7 @@
 {
   "name": "query-optimizer",
-  "description": "Analyze and optimize SQL queries for better performance and efficiency.",
   "repo": "CuriousLearner/devkit",
-  "category": "data",
-  "tags": [
-    "query",
-    "optimizer"
-  ],
-  "stars": 13
+  "path": "skills/query-optimizer/SKILL.md",
+  "source": "github.com/CuriousLearner/devkit",
+  "downloaded_at": "2026-01-14T02:22:35.986525Z"
 }

@@ -1,194 +1,198 @@
 ---
 name: react-patterns
-description: Modern React 19+ patterns with TypeScript
+description: Modern React patterns and principles. Hooks, composition, performance, TypeScript best practices.
+allowed-tools: Read, Write, Edit, Glob, Grep
 ---
 
 # React Patterns
 
-**Purpose**: Modern React 19+ with TypeScript (type safety, error handling, component best practices)
+> Principles for building production-ready React applications.
 
-- Keywords: component, react, hook, jsx, tsx, useState, useEffect, useCallback, useMemo, ReactNode, form, FormEvent, input, validation, props, children, ref, render, conditional
+---
 
-## Quick Reference
+## 1. Component Design Principles
 
-| Pattern | ✅ Modern (React 19+) | ❌ Avoid |
-|---------|----------------------|----------|
-| Components | Named exports | Default exports |
-| Props | `readonly` always | Mutable props |
-| Types | No `React.FC` | `React.FC<Props>` |
-| Props | Explicit typing | `defaultProps` |
-| State | Discriminated unions | Bag of optionals |
-| Error handling | Result types | Unchecked try/catch |
+### Component Types
 
-## Component Structure
+| Type | Use | State |
+|------|-----|-------|
+| **Server** | Data fetching, static | None |
+| **Client** | Interactivity | useState, effects |
+| **Presentational** | UI display | Props only |
+| **Container** | Logic/state | Heavy state |
 
-```tsx
-import type { ReactNode } from "react"
+### Design Rules
 
-interface ButtonProps {
-  readonly variant: "primary" | "secondary"
-  readonly onClick: () => void
-  readonly disabled?: boolean          // Safe defaults only
-  readonly userId: string | undefined  // Critical: explicit
-  readonly children?: ReactNode
-}
+- One responsibility per component
+- Props down, events up
+- Composition over inheritance
+- Prefer small, focused components
 
-export function Button({ variant, onClick, disabled, children }: ButtonProps) {
-  return (
-    <button
-      onClick={onClick}
-      disabled={disabled}
-      className={variant === "primary" ? "btn-primary" : "btn-secondary"}
-    >
-      {children}
-    </button>
-  )
-}
-```
+---
 
-**Key**:
-- Named export (not default)
-- No `React.FC` (outdated in React 19)
-- Props interface with `readonly`
-- Explicit `undefined` for critical fields
-- Optional `?` only for safe defaults
+## 2. Hook Patterns
 
-## State with Discriminated Unions
+### When to Extract Hooks
 
-```tsx
-import { useState, useEffect } from "react"
+| Pattern | Extract When |
+|---------|-------------|
+| **useLocalStorage** | Same storage logic needed |
+| **useDebounce** | Multiple debounced values |
+| **useFetch** | Repeated fetch patterns |
+| **useForm** | Complex form state |
 
-type AsyncState<T> =
-  | { status: "idle" }
-  | { status: "loading" }
-  | { status: "success"; data: T }
-  | { status: "error"; error: Error }
+### Hook Rules
 
-export function UserProfile({ userId }: { readonly userId: string }) {
-  const [state, setState] = useState<AsyncState<User>>({ status: "idle" })
+- Hooks at top level only
+- Same order every render
+- Custom hooks start with "use"
+- Clean up effects on unmount
 
-  useEffect(() => {
-    setState({ status: "loading" })
-    fetchUser(userId).then(
-      data => setState({ status: "success", data }),
-      error => setState({ status: "error", error })
-    )
-  }, [userId])
+---
 
-  switch (state.status) {
-    case "idle": return null
-    case "loading": return <Spinner />
-    case "success": return <UserCard user={state.data} />
-    case "error": return <ErrorMessage error={state.error} />
-  }
-}
-```
+## 3. State Management Selection
 
-## Event Handlers
+| Complexity | Solution |
+|------------|----------|
+| Simple | useState, useReducer |
+| Shared local | Context |
+| Server state | React Query, SWR |
+| Complex global | Zustand, Redux Toolkit |
 
-```tsx
-export function OrderForm() {
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault()
-    // ...
-  }
+### State Placement
 
-  const handleAmountChange = (value: string) => { /* ... */ }
+| Scope | Where |
+|-------|-------|
+| Single component | useState |
+| Parent-child | Lift state up |
+| Subtree | Context |
+| App-wide | Global store |
 
-  return <form onSubmit={handleSubmit}>...</form>
-}
-```
+---
 
-**Convention**: `handle*` prefix
+## 4. React 19 Patterns
 
-## Props Readonly Always
+### New Hooks
 
-```tsx
-interface OrderFormProps {
-  readonly initialAmount: string
-  readonly onSubmit: (order: Order) => void
-  readonly onCancel?: () => void
-}
+| Hook | Purpose |
+|------|---------|
+| **useActionState** | Form submission state |
+| **useOptimistic** | Optimistic UI updates |
+| **use** | Read resources in render |
 
-export function OrderForm({ initialAmount, onSubmit }: OrderFormProps) {
-  return <form>...</form>
-}
-```
+### Compiler Benefits
 
-## Result Types
+- Automatic memoization
+- Less manual useMemo/useCallback
+- Focus on pure components
 
-```tsx
-type Result<T, E extends Error> =
-  | { ok: true; value: T }
-  | { ok: false; error: E }
+---
 
-const parseJson = (input: string): Result<unknown, Error> => {
-  try {
-    return { ok: true, value: JSON.parse(input) }
-  } catch (e) {
-    return { ok: false, error: e as Error }
-  }
-}
+## 5. Composition Patterns
 
-// Usage
-const result = parseJson(userInput)
-if (!result.ok) return <Error message={result.error.message} />
-// TypeScript knows result.value is safe
-```
+### Compound Components
 
-**When to throw vs Result**:
-- ✅ Throw: Framework handlers, validation, critical failures
-- ✅ Result: Parsing (JSON/dates), file ops, network
+- Parent provides context
+- Children consume context
+- Flexible slot-based composition
+- Example: Tabs, Accordion, Dropdown
 
-## Check Latest Docs First
+### Render Props vs Hooks
 
-**Identify framework**:
-- `next.config.js` = Next.js
-- `routeTree.gen.ts` = TanStack Start
-- `convex/` = Convex
+| Use Case | Prefer |
+|----------|--------|
+| Reusable logic | Custom hook |
+| Render flexibility | Render props |
+| Cross-cutting | Higher-order component |
 
-**Consult**:
-- [React 19](https://react.dev/blog/2024/12/05/react-19)
-- [React 19.2](https://react.dev/blog/2025/10/01/react-19-2)
-- [TypeScript 5.9+](https://typescriptlang.org/docs/handbook/release-notes/typescript-5-9.html)
-- Framework docs (Next.js 16, TanStack Start v1, Convex)
+---
 
-## JSDoc When Helpful
+## 6. Performance Principles
 
-```tsx
-/**
- * Formats bitcoin amount with proper decimals
- * @link {parseBitcoinAmount} for parsing
- */
-export function formatBitcoinAmount(sats: number): string {
-  return (sats / 100_000_000).toFixed(8)
-}
-```
+### When to Optimize
 
-**Guidelines**: Only when behavior isn't self-evident, use `@link` for internal refs
+| Signal | Action |
+|--------|--------|
+| Slow renders | Profile first |
+| Large lists | Virtualize |
+| Expensive calc | useMemo |
+| Stable callbacks | useCallback |
 
-## Avoid Outdated Patterns
+### Optimization Order
 
-```tsx
-// ❌ React.FC (discouraged React 19)
-const Button: React.FC<Props> = ({ children }) => { }
+1. Check if actually slow
+2. Profile with DevTools
+3. Identify bottleneck
+4. Apply targeted fix
 
-// ❌ defaultProps (deprecated React 19)
-Button.defaultProps = { variant: "primary" }
+---
 
-// ✅ ES6 defaults
-export function Button({ variant = "primary" }: Props) { }
+## 7. Error Handling
 
-// ❌ Default exports (except framework requirements)
-export default function MyComponent() { }
+### Error Boundary Usage
 
-// ❌ Mutable props
-interface Props { count: number }  // Should be readonly
-```
+| Scope | Placement |
+|-------|-----------|
+| App-wide | Root level |
+| Feature | Route/feature level |
+| Component | Around risky component |
 
-## Resources
+### Error Recovery
 
-- `resources/react-19-2-features.md` - useEffectEvent, Activity, cacheSignal
-- `resources/hooks-best-practices.md` - useEffect, useCallback, useMemo
-- `resources/error-boundaries.md` - Error boundary patterns
-- `resources/performance.md` - React.memo, useMemo, useCallback
+- Show fallback UI
+- Log error
+- Offer retry option
+- Preserve user data
+
+---
+
+## 8. TypeScript Patterns
+
+### Props Typing
+
+| Pattern | Use |
+|---------|-----|
+| Interface | Component props |
+| Type | Unions, complex |
+| Generic | Reusable components |
+
+### Common Types
+
+| Need | Type |
+|------|------|
+| Children | ReactNode |
+| Event handler | MouseEventHandler |
+| Ref | RefObject<Element> |
+
+---
+
+## 9. Testing Principles
+
+| Level | Focus |
+|-------|-------|
+| Unit | Pure functions, hooks |
+| Integration | Component behavior |
+| E2E | User flows |
+
+### Test Priorities
+
+- User-visible behavior
+- Edge cases
+- Error states
+- Accessibility
+
+---
+
+## 10. Anti-Patterns
+
+| ❌ Don't | ✅ Do |
+|----------|-------|
+| Prop drilling deep | Use context |
+| Giant components | Split smaller |
+| useEffect for everything | Server components |
+| Premature optimization | Profile first |
+| Index as key | Stable unique ID |
+
+---
+
+> **Remember:** React is about composition. Build small, combine thoughtfully.

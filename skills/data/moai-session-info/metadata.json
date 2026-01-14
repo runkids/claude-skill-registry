@@ -1,12 +1,7 @@
 {
   "name": "moai-session-info",
-  "description": "Display comprehensive project and session information including Git status, SPEC progress, version details, and system resources. Use when starting new sessions, checking project status, reviewing pro",
-  "repo": "kivo360/quickhooks",
-  "category": "data",
-  "tags": [
-    "moai",
-    "session",
-    "info"
-  ],
-  "stars": 0
+  "repo": "dolsoon/my-awesome-project",
+  "path": ".claude/skills/moai-session-info/SKILL.md",
+  "source": "github.com/dolsoon/my-awesome-project",
+  "downloaded_at": "2026-01-14T03:37:35.306926Z"
 }

@@ -1,11 +1,7 @@
 {
   "name": "copywriting",
-  "description": "Write compelling copy using proven frameworks. Use when: (1) Creating headlines, ads, or CTAs, (2) Writing sales pages or emails, (3) Positioning products, (4) Validating copy quality.",
-  "repo": "walcon/opencode-example",
-  "category": "data",
-  "tags": [
-    "copywriting"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "repo": "dengineproblem/agents-monorepo",
+  "path": ".claude/skills/copywriting/SKILL.md",
+  "source": "github.com/dengineproblem/agents-monorepo",
+  "downloaded_at": "2026-01-14T02:07:57.441769Z"
 }

@@ -1,11 +1,7 @@
 {
   "name": "r3f-geometry",
-  "description": "BufferGeometry creation, built-in geometries, custom geometry with buffer attributes, instanced meshes for rendering thousands of objects, and geometry manipulation. Use when creating custom shapes, o",
   "repo": "Bbeierle12/Skill-MCP-Claude",
-  "category": "data",
-  "tags": [
-    "r3f",
-    "geometry"
-  ],
-  "stars": 2
+  "path": "skills/r3f-geometry/SKILL.md",
+  "source": "github.com/Bbeierle12/Skill-MCP-Claude",
+  "downloaded_at": "2026-01-14T03:54:08.103246Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "arc-terraform-deployment",
-  "description": "Deploy ARC (Actions Runner Controller) infrastructure using Terraform on Rackspace Spot. Handles CRD registration, ArgoCD installation, and namespace management. Use when deploying or troubleshooting ",
   "repo": "Matchpoint-AI/matchpoint-github-runners-helm",
-  "category": "devops",
-  "tags": [
-    "arc",
-    "terraform",
-    "deployment"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/arc-terraform-deployment/SKILL.md",
+  "source": "github.com/Matchpoint-AI/matchpoint-github-runners-helm",
+  "downloaded_at": "2026-01-14T03:05:54.572220Z"
 }

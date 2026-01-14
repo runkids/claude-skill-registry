@@ -1,9 +1,7 @@
 {
   "name": "shadcn-setup-and-theming",
-  "description": "Use this skill whenever the user wants to install, configure, or adjust shadcn/ui itself (CLI, components.json, Tailwind integration, theming, radius/colors/typography, dark mode) in a React + TypeScr",
   "repo": "AgentiveCity/SkillFactory",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/shadcn-setup-and-theming/SKILL.md",
+  "source": "github.com/AgentiveCity/SkillFactory",
+  "downloaded_at": "2026-01-14T04:03:15.544371Z"
 }

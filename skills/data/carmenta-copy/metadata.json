@@ -1,12 +1,7 @@
 {
   "name": "carmenta-copy",
-  "description": "Invoke for Carmenta user-facing copy and voice review",
   "repo": "carmentacollective/carmenta",
-  "category": "devops",
-  "tags": [
-    "carmenta",
-    "copy"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/carmenta-copy/SKILL.md",
+  "source": "github.com/carmentacollective/carmenta",
+  "downloaded_at": "2026-01-14T01:20:52.061152Z"
 }

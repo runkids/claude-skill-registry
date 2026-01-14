@@ -1,8 +1,7 @@
 {
   "name": "jira-communication",
   "repo": "netresearch/claude-code-marketplace",
-  "category": "data",
-  "description": "Jira API operations via Python CLI scripts. AUTOMATICALLY TRIGGER when user mentions Jira URLs (https://jira.*/browse/*, https://*.atlassian.net/browse/*), issue keys (PROJ-123), or asks about Jira is",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:38.418783Z"
+  "path": "skills/jira-integration/skills/jira-communication/SKILL.md",
+  "source": "github.com/netresearch/claude-code-marketplace",
+  "downloaded_at": "2026-01-14T02:58:11.860168Z"
 }

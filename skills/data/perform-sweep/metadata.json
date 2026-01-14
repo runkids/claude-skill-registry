@@ -1,0 +1,12 @@
+{
+  "name": "perform-sweep",
+  "description": "Design, configure, launch, and analyze ablation sweeps for GRPO training. Use for hypothesis testing, hyperparameter experiments, and systematic comparisons.",
+  "repo": "bglick13/diplomacy-v2",
+  "category": "testing",
+  "tags": [
+    "perform",
+    "sweep"
+  ],
+  "stars": 0,
+  "source": "local"
+}

@@ -1,9 +1,7 @@
 {
   "name": "webf-quickstart",
-  "description": "Get started with WebF development - setup WebF Go, create a React/Vue/Svelte project with Vite, and load your first app. Use when starting a new WebF project, onboarding new developers, or setting up ",
   "repo": "openwebf/webf",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "GitHub Search API"
+  "path": "skills/webf-quickstart/SKILL.md",
+  "source": "github.com/openwebf/webf",
+  "downloaded_at": "2026-01-14T02:29:49.761842Z"
 }

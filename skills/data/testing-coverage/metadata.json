@@ -1,12 +1,7 @@
 {
   "name": "testing-coverage",
-  "description": "Your approach to handling testing coverage. Use this skill when working on files where testing coverage comes into play.",
   "repo": "nanorepublica/django-prodserver",
-  "category": "testing",
-  "tags": [
-    "testing",
-    "coverage"
-  ],
-  "stars": 45,
-  "source": "local"
+  "path": ".claude/skills/testing-coverage/SKILL.md",
+  "source": "github.com/nanorepublica/django-prodserver",
+  "downloaded_at": "2026-01-14T03:44:34.159424Z"
 }

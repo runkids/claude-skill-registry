@@ -1,9 +1,7 @@
 {
   "name": "metasploit-framework",
-  "description": "This skill should be used when the user asks to \"use Metasploit for penetration testing\", \"exploit vulnerabilities with msfconsole\", \"create payloads with msfvenom\", \"perform post-exploitation\", \"use ",
   "repo": "zebbern/claude-code-guide",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/metasploit-framework/SKILL.md",
+  "source": "github.com/zebbern/claude-code-guide",
+  "downloaded_at": "2026-01-14T03:20:26.373819Z"
 }

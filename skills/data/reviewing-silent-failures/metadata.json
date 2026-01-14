@@ -1,8 +1,7 @@
 {
   "name": "reviewing-silent-failures",
   "repo": "thkt/claude-config",
-  "category": "data",
-  "description": "\u30d5\u30ed\u30f3\u30c8\u30a8\u30f3\u30c9\u30b3\u30fc\u30c9\u306e\u30b5\u30a4\u30ec\u30f3\u30c8\u969c\u5bb3\u691c\u51fa\u30d1\u30bf\u30fc\u30f3\u3002 \u30c8\u30ea\u30ac\u30fc: \u30b5\u30a4\u30ec\u30f3\u30c8\u969c\u5bb3, silent failure, \u7a7a\u306ecatch, empty catch, \u672a\u51e6\u7406Promise, unhandled rejection, unhandled promise, Error Boundary, fire and forget, \u30a8\u30e9\u30fc\u30cf\u30f3\u30c9\u30ea\u30f3\u30b0, error handling, try-catch",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:23.231597Z"
+  "path": ".ja/skills/reviewing-silent-failures/SKILL.md",
+  "source": "github.com/thkt/claude-config",
+  "downloaded_at": "2026-01-14T03:15:10.703407Z"
 }

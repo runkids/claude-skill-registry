@@ -1,12 +1,7 @@
 {
   "name": "plan-analysis",
-  "description": "Use when the user provides an implementation plan file and asks to analyze it, assess impact, update specifications, or verify planned changes. Triggers on keywords like \"analyze plan\", \"implementatio",
   "repo": "duc01226/EasyPlatform",
-  "category": "devops",
-  "tags": [
-    "plan",
-    "analysis"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": ".claude/skills/plan-analysis/SKILL.md",
+  "source": "github.com/duc01226/EasyPlatform",
+  "downloaded_at": "2026-01-14T03:30:47.860846Z"
 }

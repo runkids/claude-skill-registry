@@ -1,133 +1,510 @@
 ---
 name: compound-docs
-description: Document solved problems for knowledge persistence
+description: Capture solved problems as categorized documentation with YAML frontmatter for fast lookup
+allowed-tools:
+  - Read # Parse conversation context
+  - Write # Create resolution docs
+  - Bash # Create directories
+  - Grep # Search existing docs
+preconditions:
+  - Problem has been solved (not in-progress)
+  - Solution has been verified working
 ---
 
-# Compound Documentation Skill
+# compound-docs Skill
 
-Manages solution documentation in `docs/solutions/` for knowledge persistence across sessions.
+**Purpose:** Automatically document solved problems to build searchable institutional knowledge with category-based organization (enum-validated problem types).
 
 ## Overview
 
-When you solve a problem, document it so the solution can be found and reused later.
+This skill captures problem solutions immediately after confirmation, creating structured documentation that serves as a searchable knowledge base for future sessions.
 
-## What do you want to do?
-
-1. **Document a solution** → Use `/compound` workflow
-2. **Find existing solutions** → See "Searching Solutions" below
-3. **Promote to pattern** → See "Pattern Promotion" below
-4. **Validate schema** → See "YAML Validation" below
+**Organization:** Single-file architecture - each problem documented as one markdown file in its symptom category directory (e.g., `.claude/solutions/performance-issues/n-plus-one-briefs.md`). Files use YAML frontmatter for metadata and searchability.
 
 ---
 
-## Instrumentation
+<critical_sequence name="documentation-capture" enforce_order="strict">
+
+## 7-Step Process
+
+<step number="1" required="true">
+### Step 1: Detect Confirmation
+
+**Auto-invoke after phrases:**
+
+- "that worked"
+- "it's fixed"
+- "working now"
+- "problem solved"
+- "that did it"
+
+**OR manual:** `/doc-fix` command
+
+**Non-trivial problems only:**
+
+- Multiple investigation attempts needed
+- Tricky debugging that took time
+- Non-obvious solution
+- Future sessions would benefit
+
+**Skip documentation for:**
+
+- Simple typos
+- Obvious syntax errors
+- Trivial fixes immediately corrected
+</step>
+
+<step number="2" required="true" depends_on="1">
+### Step 2: Gather Context
+
+Extract from conversation history:
+
+**Required information:**
+
+- **Module name**: Which CORA module had the problem
+- **Symptom**: Observable error/behavior (exact error messages)
+- **Investigation attempts**: What didn't work and why
+- **Root cause**: Technical explanation of actual problem
+- **Solution**: What fixed it (code/config changes)
+- **Prevention**: How to avoid in future
+
+**Environment details:**
+
+- Rails version
+- Stage (0-6 or post-implementation)
+- OS version
+- File/line references
+
+**BLOCKING REQUIREMENT:** If critical context is missing (module name, exact error, stage, or resolution steps), ask user and WAIT for response before proceeding to Step 3:
+
+```
+I need a few details to document this properly:
+
+1. Which module had this issue? [ModuleName]
+2. What was the exact error message or symptom?
+3. What stage were you in? (0-6 or post-implementation)
+
+[Continue after user provides details]
+```
+</step>
+
+<step number="3" required="false" depends_on="2">
+### Step 3: Check Existing Docs
+
+Search .claude/solutions/ for similar issues:
 
 ```bash
-# Log usage when using this skill
-./scripts/log-skill.sh "compound-docs" "manual" "$$"
+# Search by error message keywords
+grep -r "exact error phrase" .claude/solutions/
+
+# Search by symptom category
+ls .claude/solutions/[category]/
 ```
 
-## Searching Solutions
+**IF similar issue found:**
+
+THEN present decision options:
+
+```
+Found similar issue: .claude/solutions/[path]
+
+What's next?
+1. Create new doc with cross-reference (recommended)
+2. Update existing doc (only if same root cause)
+3. Other
+
+Choose (1-3): _
+```
+
+WAIT for user response, then execute chosen action.
+
+**ELSE** (no similar issue found):
+
+Proceed directly to Step 4 (no user interaction needed).
+</step>
+
+<step number="4" required="true" depends_on="2">
+### Step 4: Generate Filename
+
+Format: `[sanitized-symptom]-[module]-[YYYYMMDD].md`
+
+**Sanitization rules:**
+
+- Lowercase
+- Replace spaces with hyphens
+- Remove special characters except hyphens
+- Truncate to reasonable length (< 80 chars)
+
+**Examples:**
+
+- `missing-include-BriefSystem-20251110.md`
+- `parameter-not-saving-state-EmailProcessing-20251110.md`
+- `webview-crash-on-resize-Assistant-20251110.md`
+</step>
+
+<step number="5" required="true" depends_on="4" blocking="true">
+### Step 5: Validate YAML Schema
+
+**CRITICAL:** All docs require validated YAML frontmatter with enum validation.
+
+<validation_gate name="yaml-schema" blocking="true">
+
+**Validate against schema:**
+Load `schema.yaml` and classify the problem against the enum values defined in [yaml-schema.md](./references/yaml-schema.md). Ensure all required fields are present and match allowed values exactly.
+
+**BLOCK if validation fails:**
+
+```
+❌ YAML validation failed
+
+Errors:
+- problem_type: must be one of schema enums, got "compilation_error"
+- severity: must be one of [critical, moderate, minor], got "high"
+- symptoms: must be array with 1-5 items, got string
+
+Please provide corrected values.
+```
+
+**GATE ENFORCEMENT:** Do NOT proceed to Step 6 (Create Documentation) until YAML frontmatter passes all validation rules defined in `schema.yaml`.
+
+</validation_gate>
+</step>
+
+<step number="6" required="true" depends_on="5">
+### Step 6: Create Documentation
+
+**Determine category from problem_type:** Use the category mapping defined in [yaml-schema.md](./references/yaml-schema.md) (lines 49-61).
+
+**Create documentation file:**
 
 ```bash
-# Search by keyword
-grep -r "keyword" docs/solutions/
+PROBLEM_TYPE="[from validated YAML]"
+CATEGORY="[mapped from problem_type]"
+FILENAME="[generated-filename].md"
+DOC_PATH=".claude/solutions/${CATEGORY}/${FILENAME}"
 
-# Search by tag
-grep -l "tags:.*performance" docs/solutions/**/*.md
+# Create directory if needed
+mkdir -p ".claude/solutions/${CATEGORY}"
 
-# Search by problem type
-ls docs/solutions/performance-issues/
+# Write documentation using template from assets/resolution-template.md
+# (Content populated with Step 2 context and validated YAML frontmatter)
 ```
 
-## Pattern Promotion
+**Result:**
+- Single file in category directory
+- Enum validation ensures consistent categorization
 
-When an issue occurs 3+ times:
+**Create documentation:** Populate the structure from `assets/resolution-template.md` with context gathered in Step 2 and validated YAML frontmatter from Step 5.
+</step>
 
-1. Search for similar solutions:
-   ```bash
-   grep -r "similar terms" docs/solutions/
-   ```
+<step number="7" required="false" depends_on="6">
+### Step 7: Cross-Reference & Critical Pattern Detection
 
-2. Add to critical patterns:
-   ```bash
-   # Edit docs/solutions/patterns/critical-patterns.md
-   ```
+If similar issues found in Step 3:
 
-3. Format:
-   ```markdown
-   ### Pattern #{N}: {Name}
-   
-   **Problem:** {What goes wrong}
-   
-   **❌ WRONG:**
-   ```code
-   {incorrect}
-   ```
-   
-   **✅ CORRECT:**
-   ```code
-   {correct}
-   ```
-   ```
+**Update existing doc:**
 
-## YAML Validation
+```bash
+# Add Related Issues link to similar doc
+echo "- See also: [$FILENAME]($REAL_FILE)" >> [similar-doc.md]
+```
 
-All solutions must have valid frontmatter:
+**Update new doc:**
+Already includes cross-reference from Step 6.
 
-```yaml
+**Update patterns if applicable:**
+
+If this represents a common pattern (3+ similar issues):
+
+```bash
+# Add to .claude/solutions/patterns/common-solutions.md
+cat >> .claude/solutions/patterns/common-solutions.md << 'EOF'
+
+## [Pattern Name]
+
+**Common symptom:** [Description]
+**Root cause:** [Technical explanation]
+**Solution pattern:** [General approach]
+
+**Examples:**
+- [Link to doc 1]
+- [Link to doc 2]
+- [Link to doc 3]
+EOF
+```
+
+**Critical Pattern Detection (Optional Proactive Suggestion):**
+
+If this issue has automatic indicators suggesting it might be critical:
+- Severity: `critical` in YAML
+- Affects multiple modules OR foundational stage (Stage 2 or 3)
+- Non-obvious solution
+
+Then in the decision menu (Step 8), add a note:
+```
+💡 This might be worth adding to Required Reading (Option 2)
+```
+
+But **NEVER auto-promote**. User decides via decision menu (Option 2).
+
+**Template for critical pattern addition:**
+
+When user selects Option 2 (Add to Required Reading), use the template from `assets/critical-pattern-template.md` to structure the pattern entry. Number it sequentially based on existing patterns in `.claude/solutions/patterns/cora-critical-patterns.md`.
+</step>
+
+</critical_sequence>
+
 ---
-date: "YYYY-MM-DD"
-problem_type: "{from schema.yaml}"
-severity: "critical|high|medium|low"
-symptoms:
-  - "symptom 1"
-root_cause: "{from schema.yaml}"
-tags:
-  - tag1
+
+<decision_gate name="post-documentation" wait_for_user="true">
+
+## Decision Menu After Capture
+
+After successful documentation, present options and WAIT for user response:
+
+```
+✓ Solution documented
+
+File created:
+- .claude/solutions/[category]/[filename].md
+
+What's next?
+1. Continue workflow (recommended)
+2. Add to Required Reading - Promote to critical patterns (cora-critical-patterns.md)
+3. Link related issues - Connect to similar problems
+4. Add to existing skill - Add to a learning skill (e.g., hotwire-native)
+5. Create new skill - Extract into new learning skill
+6. View documentation - See what was captured
+7. Other
+```
+
+**Handle responses:**
+
+**Option 1: Continue workflow**
+
+- Return to calling skill/workflow
+- Documentation is complete
+
+**Option 2: Add to Required Reading** ⭐ PRIMARY PATH FOR CRITICAL PATTERNS
+
+User selects this when:
+- System made this mistake multiple times across different modules
+- Solution is non-obvious but must be followed every time
+- Foundational requirement (Rails, Rails API, threading, etc.)
+
+Action:
+1. Extract pattern from the documentation
+2. Format as ❌ WRONG vs ✅ CORRECT with code examples
+3. Add to `.claude/solutions/patterns/cora-critical-patterns.md`
+4. Add cross-reference back to this doc
+5. Confirm: "✓ Added to Required Reading. All subagents will see this pattern before code generation."
+
+**Option 3: Link related issues**
+
+- Prompt: "Which doc to link? (provide filename or describe)"
+- Search .claude/solutions/ for the doc
+- Add cross-reference to both docs
+- Confirm: "✓ Cross-reference added"
+
+**Option 4: Add to existing skill**
+
+User selects this when the documented solution relates to an existing learning skill:
+
+Action:
+1. Prompt: "Which skill? (hotwire-native, etc.)"
+2. Determine which reference file to update (resources.md, patterns.md, or examples.md)
+3. Add link and brief description to appropriate section
+4. Confirm: "✓ Added to [skill-name] skill in [file]"
+
+Example: For Hotwire Native Tailwind variants solution:
+- Add to `hotwire-native/references/resources.md` under "CORA-Specific Resources"
+- Add to `hotwire-native/references/examples.md` with link to solution doc
+
+**Option 5: Create new skill**
+
+User selects this when the solution represents the start of a new learning domain:
+
+Action:
+1. Prompt: "What should the new skill be called? (e.g., stripe-billing, email-processing)"
+2. Run `python3 .claude/skills/skill-creator/scripts/init_skill.py [skill-name]`
+3. Create initial reference files with this solution as first example
+4. Confirm: "✓ Created new [skill-name] skill with this solution as first example"
+
+**Option 6: View documentation**
+
+- Display the created documentation
+- Present decision menu again
+
+**Option 7: Other**
+
+- Ask what they'd like to do
+
+</decision_gate>
+
 ---
+
+<integration_protocol>
+
+## Integration Points
+
+**Invoked by:**
+- /compound command (primary interface)
+- Manual invocation in conversation after solution confirmed
+- Can be triggered by detecting confirmation phrases like "that worked", "it's fixed", etc.
+
+**Invokes:**
+- None (terminal skill - does not delegate to other skills)
+
+**Handoff expectations:**
+All context needed for documentation should be present in conversation history before invocation.
+
+</integration_protocol>
+
+---
+
+<success_criteria>
+
+## Success Criteria
+
+Documentation is successful when ALL of the following are true:
+
+- ✅ YAML frontmatter validated (all required fields, correct formats)
+- ✅ File created in .claude/solutions/[category]/[filename].md
+- ✅ Enum values match schema.yaml exactly
+- ✅ Code examples included in solution section
+- ✅ Cross-references added if related issues found
+- ✅ User presented with decision menu and action confirmed
+
+</success_criteria>
+
+---
+
+## Error Handling
+
+**Missing context:**
+
+- Ask user for missing details
+- Don't proceed until critical info provided
+
+**YAML validation failure:**
+
+- Show specific errors
+- Present retry with corrected values
+- BLOCK until valid
+
+**Similar issue ambiguity:**
+
+- Present multiple matches
+- Let user choose: new doc, update existing, or link as duplicate
+
+**Module not in CORA-MODULES.md:**
+
+- Warn but don't block
+- Proceed with documentation
+- Suggest: "Add [Module] to CORA-MODULES.md if not there"
+
+---
+
+## Execution Guidelines
+
+**MUST do:**
+- Validate YAML frontmatter (BLOCK if invalid per Step 5 validation gate)
+- Extract exact error messages from conversation
+- Include code examples in solution section
+- Create directories before writing files (`mkdir -p`)
+- Ask user and WAIT if critical context missing
+
+**MUST NOT do:**
+- Skip YAML validation (validation gate is blocking)
+- Use vague descriptions (not searchable)
+- Omit code examples or cross-references
+
+---
+
+## Quality Guidelines
+
+**Good documentation has:**
+
+- ✅ Exact error messages (copy-paste from output)
+- ✅ Specific file:line references
+- ✅ Observable symptoms (what you saw, not interpretations)
+- ✅ Failed attempts documented (helps avoid wrong paths)
+- ✅ Technical explanation (not just "what" but "why")
+- ✅ Code examples (before/after if applicable)
+- ✅ Prevention guidance (how to catch early)
+- ✅ Cross-references (related issues)
+
+**Avoid:**
+
+- ❌ Vague descriptions ("something was wrong")
+- ❌ Missing technical details ("fixed the code")
+- ❌ No context (which version? which file?)
+- ❌ Just code dumps (explain why it works)
+- ❌ No prevention guidance
+- ❌ No cross-references
+
+---
+
+## Example Scenario
+
+**User:** "That worked! The N+1 query is fixed."
+
+**Skill activates:**
+
+1. **Detect confirmation:** "That worked!" triggers auto-invoke
+2. **Gather context:**
+   - Module: Brief System
+   - Symptom: Brief generation taking >5 seconds, N+1 query when loading email threads
+   - Failed attempts: Added pagination (didn't help), checked background job performance
+   - Solution: Added eager loading with `includes(:emails)` on Brief model
+   - Root cause: Missing eager loading causing separate database query per email thread
+3. **Check existing:** No similar issue found
+4. **Generate filename:** `n-plus-one-brief-generation-BriefSystem-20251110.md`
+5. **Validate YAML:**
+   ```yaml
+   module: Brief System
+   date: 2025-11-10
+   problem_type: performance_issue
+   component: rails_model
+   symptoms:
+     - "N+1 query when loading email threads"
+     - "Brief generation taking >5 seconds"
+   root_cause: missing_include
+   severity: high
+   tags: [n-plus-one, eager-loading, performance]
+   ```
+   ✅ Valid
+6. **Create documentation:**
+   - `.claude/solutions/performance-issues/n-plus-one-brief-generation-BriefSystem-20251110.md`
+7. **Cross-reference:** None needed (no similar issues)
+
+**Output:**
+
+```
+✓ Solution documented
+
+File created:
+- .claude/solutions/performance-issues/n-plus-one-brief-generation-BriefSystem-20251110.md
+
+What's next?
+1. Continue workflow (recommended)
+2. Add to Required Reading - Promote to critical patterns (cora-critical-patterns.md)
+3. Link related issues - Connect to similar problems
+4. Add to existing skill - Add to a learning skill (e.g., hotwire-native)
+5. Create new skill - Extract into new learning skill
+6. View documentation - See what was captured
+7. Other
 ```
 
-See `docs/solutions/schema.yaml` for valid enum values.
+---
 
-## Documenting Failures & Learnings
+## Future Enhancements
 
-When documenting solutions, capture the full journey:
+**Not in Phase 7 scope, but potential:**
 
-### What to Include
-- ✅ Failed attempts with explanations
-- ✅ Incorrect assumptions and corrections
-- ✅ Key insights from mistakes
-- ✅ Course corrections and why
-- ✅ Time investment (helps prioritize future similar issues)
-
-### Example Pattern
-```markdown
-## Investigation Steps
-
-| Attempt | Hypothesis | Result |
-|---------|------------|--------|
-| 1. Check API logs | API might be timing out | ❌ No timeouts found |
-| 2. Review database queries | N+1 query suspected | ❌ Queries were optimized |
-| 3. Check cache invalidation | Cache might be stale | ✅ Found cache not clearing |
-
-## Lessons Learned
-
-### Mistakes Made
-- **Assumption:** Assumed the API was the bottleneck
-  - **Why wrong:** Didn't check cache layer first
-  - **Correction:** Should always check cache before API
-
-### Key Breakthrough
-- **Insight:** Realized cache invalidation logic was only running on UPDATE, not DELETE
-  - **Impact:** Led directly to the solution
-```
-
-> [!TIP]
-> **Document the journey, not just the destination.** Future readers learn from understanding WHY failed approaches didn't work.
-
-## References
-
-- Schema: `docs/solutions/schema.yaml`
-- Template: `docs/solutions/templates/solution-template.md`
-- Patterns: `docs/solutions/patterns/critical-patterns.md`
+- Search by date range
+- Filter by severity
+- Tag-based search interface
+- Metrics (most common issues, resolution time)
+- Export to shareable format (community knowledge sharing)
+- Import community solutions

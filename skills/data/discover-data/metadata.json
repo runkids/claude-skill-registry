@@ -1,12 +1,7 @@
 {
   "name": "discover-data",
-  "description": "Automatically discover data pipeline and ETL skills when working with ETL. Activates for data development tasks.",
   "repo": "rand/cc-polymath",
-  "category": "development",
-  "tags": [
-    "discover",
-    "data"
-  ],
-  "stars": 33,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/discover-data/SKILL.md",
+  "source": "github.com/rand/cc-polymath",
+  "downloaded_at": "2026-01-14T03:55:20.306515Z"
 }

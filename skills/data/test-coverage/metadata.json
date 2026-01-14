@@ -1,12 +1,7 @@
 {
   "name": "test-coverage",
-  "description": "Analyze test coverage and generate a detailed coverage report",
-  "repo": "jinnovation/shortcut.el",
-  "category": "testing",
-  "tags": [
-    "test",
-    "coverage"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "jmagly/ai-writing-guide",
+  "path": ".factory/skills/test-coverage/SKILL.md",
+  "source": "github.com/jmagly/ai-writing-guide",
+  "downloaded_at": "2026-01-14T03:20:47.457223Z"
 }

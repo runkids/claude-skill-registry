@@ -1,12 +1,7 @@
 {
   "name": "go-mod-helper",
-  "description": "Go module system, dependency management, and project configuration assistance.",
   "repo": "CuriousLearner/devkit",
-  "category": "development",
-  "tags": [
-    "mod",
-    "helper"
-  ],
-  "stars": 13,
-  "source": "local"
+  "path": "skills/go-mod-helper/SKILL.md",
+  "source": "github.com/CuriousLearner/devkit",
+  "downloaded_at": "2026-01-14T02:22:34.689660Z"
 }

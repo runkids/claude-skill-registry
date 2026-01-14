@@ -1,9 +1,7 @@
 {
   "name": "website-to-vite-scraper",
-  "description": "Multi-provider website scraper that converts any website (including CSR/SPA) to deployable static sites. Uses Playwright, Apify RAG Browser, Crawl4AI, and Firecrawl for comprehensive scraping. Trigger",
   "repo": "breverdbidder/life-os",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/website-to-vite-scraper/SKILL.md",
+  "source": "github.com/breverdbidder/life-os",
+  "downloaded_at": "2026-01-14T03:23:38.794109Z"
 }

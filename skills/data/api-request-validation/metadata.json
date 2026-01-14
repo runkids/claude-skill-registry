@@ -1,13 +1,7 @@
 {
   "name": "api-request-validation",
-  "description": "A skill for implementing robust API request validation in Python web frameworks like FastAPI using Pydantic. Covers Pydantic models, custom validators (email, password), field-level and cross-field va",
   "repo": "MUmerRazzaq/fast-next-todo",
-  "category": "data",
-  "tags": [
-    "api",
-    "request",
-    "validation"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/api-request-validation/SKILL.md",
+  "source": "github.com/MUmerRazzaq/fast-next-todo",
+  "downloaded_at": "2026-01-14T03:58:15.093069Z"
 }

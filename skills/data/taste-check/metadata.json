@@ -1,12 +1,7 @@
 {
   "name": "taste-check",
-  "description": "Review code using Linus Torvalds' \"good taste\" philosophy. Eliminates defensive code, special cases, and deep nesting. Use when reviewing code quality, refactoring, or checking for code smells.",
-  "repo": "kingkongshot/prompts",
-  "category": "development",
-  "tags": [
-    "taste",
-    "check"
-  ],
-  "stars": 2303,
-  "source": "SkillsMP Synced Skills"
+  "repo": "Activer007/ordinary-claude-skills",
+  "path": "skills_all/taste-check/SKILL.md",
+  "source": "github.com/Activer007/ordinary-claude-skills",
+  "downloaded_at": "2026-01-14T03:21:37.659019Z"
 }

@@ -1,484 +1,490 @@
 ---
-name: python-best-practices
-description: Python development best practices including PEP 8 style guidelines, type hints, docstring conventions, and common patterns. Use when writing or modifying Python code.
+name: Python Best Practices
+description: Type hints, dataclasses, async patterns, testing with pytest, and modern Python tooling
+keywords:
+  - python
+  - type-hints
+  - async
+  - pytest
+  - dataclasses
+  - pydantic
 ---
 
 # Python Best Practices
 
-## Purpose
+## When to Use
 
-This skill provides guidance on Python development best practices to ensure code quality, maintainability, and consistency across your Python projects.
+**Perfect for:**
+- Data processing and analysis (pandas, numpy)
+- Web backends and APIs (FastAPI, Django)
+- Automation and scripting
+- Machine learning and AI workflows
+- DevOps and infrastructure tooling
 
-## When to Use This Skill
+**Not ideal for:**
+- Hard real-time systems (use Rust/C++ instead)
+- Mobile app development (use Swift/Kotlin)
+- GUI applications (consider Qt, but weigh alternatives)
 
-Auto-activates when:
+## Quick Reference
 
-- Working with Python files (*.py)
-- Mentions of "python", "best practices", "style guide"
-- Adding type hints or docstrings
-- Code refactoring in Python
-
-## Style Guidelines
-
-### PEP 8 Compliance
-
-Follow PEP 8 style guide for Python code:
-
-- **Indentation**: 4 spaces per indentation level
-- **Line Length**: Maximum 79 characters for code, 72 for docstrings/comments
-- **Blank Lines**: 2 blank lines between top-level definitions, 1 between methods
-- **Imports**: Always at top of file, grouped (stdlib, third-party, local)
-- **Naming Conventions**:
-  - `snake_case` for functions, variables, modules
-  - `PascalCase` for classes
-  - `UPPER_SNAKE_CASE` for constants
-  - Leading underscore `_name` for internal/private
-
-### Import Organization
-
-Always organize imports in this order:
-
+### Type Hints
 ```python
-# 1. Standard library imports
-import os
-import sys
-from pathlib import Path
+from typing import Optional, List, Dict, Union, Callable, TypeVar, Generic
+from collections.abc import Sequence, Mapping
 
-# 2. Third-party imports
-import requests
-import numpy as np
+# Function type hints
+def process_items(items: List[str], count: int = 10) -> Dict[str, int]:
+    """Process items and return counts."""
+    return {item: len(item) for item in items[:count]}
 
-# 3. Local application imports
-from myapp.core import MyClass
-from myapp.utils import helper_function
+# Optional parameters
+def get_user(user_id: int, default: Optional[str] = None) -> Optional[str]:
+    return default
+
+# Union types (Python 3.10+ use |)
+def handle_value(value: str | int | float) -> str:
+    return str(value)
+
+# Callable types
+def register_handler(callback: Callable[[int], str]) -> None:
+    result = callback(42)
+
+# TypeVar for generics
+T = TypeVar('T')
+
+def get_first(items: List[T]) -> T:
+    return items[0]
+
+# Type aliases
+UserID = int
+UserName = str
+UserData = Dict[UserID, UserName]
 ```
 
-Avoid circular imports by using `TYPE_CHECKING`:
-
-```python
-from typing import TYPE_CHECKING
-
-if TYPE_CHECKING:
-    from myapp.other_module import OtherClass
-
-def my_function(obj: "OtherClass") -> None:
-    """Function that uses OtherClass only for type hints."""
-    pass
-```
-
-## Type Hints
-
-### Always Use Type Hints
-
-Type hints improve code clarity and catch errors early:
-
-```python
-def process_data(
-    items: list[str],
-    max_count: int | None = None,
-    verbose: bool = False
-) -> dict[str, int]:
-    """Process items and return counts.
-
-    Parameters
-    ----------
-    items : list[str]
-        List of items to process
-    max_count : int | None, optional
-        Maximum items to process, by default None
-    verbose : bool, optional
-        Enable verbose output, by default False
-
-    Returns
-    -------
-    dict[str, int]
-        Dictionary mapping items to counts
-    """
-    result: dict[str, int] = {}
-
-    for item in items[:max_count]:
-        result[item] = result.get(item, 0) + 1
-        if verbose:
-            print(f"Processed: {item}")
-
-    return result
-```
-
-### Modern Type Syntax (Python 3.10+)
-
-Use modern union syntax with `|` instead of `Union`:
-
-```python
-# Good (Python 3.10+)
-def get_value(key: str) -> int | None:
-    pass
-
-# Avoid (old style)
-from typing import Union, Optional
-def get_value(key: str) -> Optional[int]:
-    pass
-```
-
-### Generic Types
-
-Use built-in generic types (Python 3.9+):
-
-```python
-# Good (Python 3.9+)
-def process_list(items: list[str]) -> dict[str, int]:
-    pass
-
-# Avoid (old style)
-from typing import List, Dict
-def process_list(items: List[str]) -> Dict[str, int]:
-    pass
-```
-
-## Docstrings
-
-### NumPy Style Docstrings
-
-Use NumPy-style docstrings for consistency:
-
-```python
-def calculate_statistics(
-    data: list[float],
-    include_median: bool = True
-) -> dict[str, float]:
-    """Calculate statistical measures for a dataset.
-
-    This function computes mean, standard deviation, and optionally
-    median for the provided dataset.
-
-    Parameters
-    ----------
-    data : list[float]
-        List of numerical values to analyze
-    include_median : bool, optional
-        Whether to calculate median, by default True
-
-    Returns
-    -------
-    dict[str, float]
-        Dictionary containing:
-        - 'mean': arithmetic mean
-        - 'std': standard deviation
-        - 'median': median value (if include_median=True)
-
-    Raises
-    ------
-    ValueError
-        If data is empty or contains non-numeric values
-
-    Examples
-    --------
-    >>> calculate_statistics([1.0, 2.0, 3.0, 4.0, 5.0])
-    {'mean': 3.0, 'std': 1.414, 'median': 3.0}
-
-    Notes
-    -----
-    Standard deviation uses Bessel's correction (ddof=1).
-    """
-    if not data:
-        raise ValueError("Data cannot be empty")
-
-    # Implementation here
-    pass
-```
-
-### Class Docstrings
-
-```python
-class DataProcessor:
-    """Process and transform data from various sources.
-
-    This class provides methods for loading, transforming, and
-    validating data from multiple input formats.
-
-    Parameters
-    ----------
-    source_dir : Path
-        Directory containing source data files
-    cache_enabled : bool, optional
-        Enable result caching, by default True
-
-    Attributes
-    ----------
-    source_dir : Path
-        Directory path for source files
-    cache : dict[str, Any]
-        Cache for processed results
-
-    Examples
-    --------
-    >>> processor = DataProcessor(Path("/data"))
-    >>> results = processor.process_files()
-    """
-
-    def __init__(self, source_dir: Path, cache_enabled: bool = True):
-        """Initialize the DataProcessor."""
-        self.source_dir = source_dir
-        self.cache: dict[str, Any] = {} if cache_enabled else None
-```
-
-## Error Handling
-
-### Specific Exception Types
-
-Use specific exception types, not bare `except`:
-
-```python
-# Good
-try:
-    with open(file_path) as f:
-        data = f.read()
-except FileNotFoundError:
-    logger.error(f"File not found: {file_path}")
-    raise
-except PermissionError:
-    logger.error(f"Permission denied: {file_path}")
-    raise
-
-# Avoid
-try:
-    with open(file_path) as f:
-        data = f.read()
-except:  # Too broad!
-    pass
-```
-
-### Context Managers
-
-Always use context managers for resources:
-
-```python
-# Good
-with open(file_path) as f:
-    content = f.read()
-
-# Avoid
-f = open(file_path)
-content = f.read()
-f.close()  # Easy to forget!
-```
-
-### Custom Exceptions
-
-Define custom exceptions for domain-specific errors:
-
-```python
-class ValidationError(Exception):
-    """Raised when data validation fails."""
-    pass
-
-class DataProcessingError(Exception):
-    """Raised when data processing encounters an error."""
-
-    def __init__(self, message: str, item_id: str):
-        super().__init__(message)
-        self.item_id = item_id
-```
-
-## Common Patterns
-
-### Dataclasses for Data Structures
-
-Use `dataclasses` for simple data containers:
-
+### Dataclasses
 ```python
 from dataclasses import dataclass, field
+from typing import List
 
 @dataclass
 class User:
-    """User profile information."""
-
-    username: str
+    """User with type hints and validation."""
+    id: int
+    name: str
     email: str
-    age: int
-    tags: list[str] = field(default_factory=list)
-    is_active: bool = True
+    age: int = 0
+    tags: List[str] = field(default_factory=list)
 
     def __post_init__(self):
-        """Validate fields after initialization."""
+        """Validate after initialization."""
         if self.age < 0:
             raise ValueError("Age cannot be negative")
-```
-
-### Enums for Fixed Sets
-
-Use `Enum` for fixed sets of values:
-
-```python
-from enum import Enum, auto
-
-class Status(Enum):
-    """Processing status values."""
-
-    PENDING = auto()
-    PROCESSING = auto()
-    COMPLETED = auto()
-    FAILED = auto()
 
 # Usage
-current_status = Status.PENDING
-if current_status == Status.COMPLETED:
-    print("Done!")
+user = User(id=1, name="Alice", email="alice@example.com", age=30)
+print(user)  # User(id=1, name='Alice', email='alice@example.com', age=30, tags=[])
 ```
 
-### Pathlib for File Operations
-
-Use `pathlib.Path` instead of `os.path`:
-
+### Pydantic Models
 ```python
-from pathlib import Path
+from pydantic import BaseModel, Field, field_validator
 
-# Good
-data_dir = Path("/data")
-file_path = data_dir / "input.txt"
+class User(BaseModel):
+    """User model with validation."""
+    id: int
+    name: str = Field(..., min_length=1, max_length=100)
+    email: str = Field(..., pattern=r'^[\w\.-]+@[\w\.-]+\.\w+$')
+    age: int = Field(default=0, ge=0, le=150)
+    tags: list[str] = Field(default_factory=list)
 
-if file_path.exists():
-    content = file_path.read_text()
+    @field_validator('name')
+    def name_must_be_titlecase(cls, v):
+        if not v.istitle():
+            raise ValueError('Name must be title case')
+        return v
 
-# Avoid
-import os
-data_dir = "/data"
-file_path = os.path.join(data_dir, "input.txt")
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "id": 1,
+                "name": "John Doe",
+                "email": "john@example.com",
+                "age": 30,
+                "tags": ["admin", "user"]
+            }
+        }
 
-if os.path.exists(file_path):
-    with open(file_path) as f:
-        content = f.read()
+# Usage with validation
+try:
+    user = User(id=1, name="Alice Smith", email="alice@example.com")
+except ValueError as e:
+    print(f"Validation error: {e}")
+
+# JSON schema
+print(User.model_json_schema())
 ```
 
-### List Comprehensions
-
-Use comprehensions for clarity and performance:
-
+### Async/Await Patterns
 ```python
-# Good
-squared = [x**2 for x in range(10) if x % 2 == 0]
+import asyncio
+from typing import Coroutine
 
-# Avoid
-squared = []
-for x in range(10):
-    if x % 2 == 0:
-        squared.append(x**2)
+# Basic async function
+async def fetch_data(url: str) -> str:
+    """Simulate async data fetch."""
+    await asyncio.sleep(1)
+    return f"Data from {url}"
+
+# Concurrent execution
+async def fetch_multiple(urls: list[str]) -> list[str]:
+    tasks = [fetch_data(url) for url in urls]
+    return await asyncio.gather(*tasks)
+
+# Async context manager
+class Database:
+    async def __aenter__(self):
+        await asyncio.sleep(0.1)
+        return self
+
+    async def __aexit__(self, exc_type, exc, tb):
+        await asyncio.sleep(0.1)
+
+async def use_db():
+    async with Database() as db:
+        # Use database
+        pass
+
+# Run async code
+# asyncio.run(fetch_multiple(['url1', 'url2', 'url3']))
 ```
 
-## Code Organization
-
-### Module Structure
-
-Organize modules with clear sections:
-
+### Error Handling
 ```python
-"""Module for data processing utilities.
+from contextlib import contextmanager
+from typing import Generator
 
-This module provides functions for loading, transforming, and
-validating data from various sources.
-"""
-
-# Standard library imports
-import os
-import sys
-from pathlib import Path
-
-# Third-party imports
-import requests
-import pandas as pd
-
-# Local imports
-from myapp.core import BaseProcessor
-from myapp.utils import validate_input
-
-# Constants
-MAX_RETRIES = 3
-DEFAULT_TIMEOUT = 30
-
-# Exceptions
-class ProcessingError(Exception):
-    """Raised when processing fails."""
+# Custom exceptions
+class ValidationError(Exception):
+    """Raised when validation fails."""
     pass
 
-# Functions
-def load_data(source: str) -> pd.DataFrame:
-    """Load data from source."""
+class DatabaseError(Exception):
+    """Raised when database operation fails."""
     pass
 
-# Classes
-class DataProcessor(BaseProcessor):
-    """Process and validate data."""
-    pass
+# Try/except pattern
+def process_data(data: dict) -> str:
+    try:
+        value = data['key']
+        if not isinstance(value, str):
+            raise ValidationError("Key must be string")
+        return value
+    except KeyError:
+        raise ValidationError("Missing required key") from None
+    except ValidationError:
+        raise  # Re-raise validation errors
+    except Exception as e:
+        raise DatabaseError(f"Unexpected error: {e}") from e
 
-# Module initialization
-if __name__ == "__main__":
-    # CLI entry point
-    main()
+# Context manager for resources
+@contextmanager
+def managed_resource() -> Generator:
+    """Context manager example."""
+    resource = None
+    try:
+        resource = "initialized"
+        yield resource
+    except Exception as e:
+        print(f"Error: {e}")
+        raise
+    finally:
+        print("Cleanup")
 ```
 
-### Avoid Magic Numbers
-
-Use named constants instead of magic numbers:
-
-```python
-# Good
-MAX_RETRIES = 3
-TIMEOUT_SECONDS = 30
-
-def fetch_data(url: str) -> dict:
-    for attempt in range(MAX_RETRIES):
-        response = requests.get(url, timeout=TIMEOUT_SECONDS)
-        if response.status_code == 200:
-            return response.json()
-
-# Avoid
-def fetch_data(url: str) -> dict:
-    for attempt in range(3):  # What is 3?
-        response = requests.get(url, timeout=30)  # Why 30?
-        if response.status_code == 200:
-            return response.json()
-```
-
-## Testing
-
-### Use pytest for Testing
-
+### Testing with Pytest
 ```python
 import pytest
-from myapp.processor import DataProcessor
+from unittest.mock import Mock, patch
 
-def test_process_valid_data():
-    """Test processing with valid input."""
-    processor = DataProcessor()
-    result = processor.process([1, 2, 3])
-    assert result == [2, 4, 6]
+# Simple test
+def test_add():
+    assert 2 + 2 == 4
 
-def test_process_empty_data():
-    """Test processing with empty input."""
-    processor = DataProcessor()
-    with pytest.raises(ValueError):
-        processor.process([])
+# Parametrized tests
+@pytest.mark.parametrize("input,expected", [
+    ([1, 2, 3], 6),
+    ([0], 0),
+    ([-1, 1], 0),
+])
+def test_sum(input, expected):
+    assert sum(input) == expected
 
+# Fixtures
 @pytest.fixture
-def sample_data():
-    """Provide sample data for tests."""
-    return [1, 2, 3, 4, 5]
+def sample_user():
+    return {"id": 1, "name": "Alice"}
 
-def test_with_fixture(sample_data):
-    """Test using fixture."""
-    processor = DataProcessor()
-    result = processor.process(sample_data)
-    assert len(result) == len(sample_data)
+def test_user_name(sample_user):
+    assert sample_user["name"] == "Alice"
+
+# Async tests
+@pytest.mark.asyncio
+async def test_async_fetch():
+    result = await fetch_data("url")
+    assert "url" in result
+
+# Mocking
+@patch('requests.get')
+def test_with_mock(mock_get):
+    mock_get.return_value.text = "mocked"
+    result = fetch_url("url")
+    assert result == "mocked"
+
+# Exception testing
+def test_raises():
+    with pytest.raises(ValidationError, match="Invalid"):
+        process_data({})
 ```
 
-## Key Takeaways
+## Deep Dive
 
-1. Follow PEP 8 style guidelines consistently
-2. Always use type hints for function signatures
-3. Write NumPy-style docstrings for all public functions/classes
-4. Use specific exception types, not bare `except`
-5. Prefer `pathlib.Path` over `os.path`
-6. Use dataclasses and enums for structured data
-7. Organize imports: stdlib → third-party → local
-8. Avoid magic numbers, use named constants
-9. Write tests using pytest
-10. Use modern Python syntax (3.9+)
+### Advanced Type Hints
+```python
+from typing import Protocol, TypedDict, Literal, Final
+from abc import ABC, abstractmethod
+
+# Protocol for structural typing
+class Drawable(Protocol):
+    def draw(self) -> None: ...
+
+# TypedDict for dictionaries with specific structure
+class UserDict(TypedDict):
+    id: int
+    name: str
+    email: str
+
+# Literal types for specific values
+def set_log_level(level: Literal["DEBUG", "INFO", "WARNING", "ERROR"]) -> None:
+    pass
+
+# Final for constants
+MAX_RETRIES: Final = 3
+MAX_TIMEOUT: Final[int] = 30
+
+# Abstract base classes
+class DataSource(ABC):
+    @abstractmethod
+    def fetch(self, query: str) -> str:
+        pass
+
+class APIDataSource(DataSource):
+    def fetch(self, query: str) -> str:
+        return f"API result: {query}"
+```
+
+### Modern Project Structure
+```
+my_project/
+├── pyproject.toml          # Project metadata and dependencies (uv)
+├── README.md
+├── src/
+│   └── my_package/
+│       ├── __init__.py
+│       ├── main.py
+│       └── utils/
+│           ├── __init__.py
+│           └── helpers.py
+├── tests/
+│   ├── conftest.py         # Pytest configuration
+│   ├── unit/
+│   │   └── test_main.py
+│   └── integration/
+│       └── test_api.py
+└── .gitignore
+```
+
+### pyproject.toml Example
+```toml
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "my-package"
+version = "0.1.0"
+description = "My awesome package"
+requires-python = ">=3.9"
+dependencies = [
+    "requests>=2.31.0",
+    "pydantic>=2.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.1.0",
+    "mypy>=1.5.0",
+    "ruff>=0.1.0",
+]
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+```
+
+### Async Context Managers
+```python
+class AsyncResource:
+    """Async context manager for managing resources."""
+
+    def __init__(self, name: str):
+        self.name = name
+
+    async def __aenter__(self):
+        print(f"Opening {self.name}")
+        await asyncio.sleep(0.1)
+        return self
+
+    async def __aexit__(self, exc_type, exc, tb):
+        print(f"Closing {self.name}")
+        await asyncio.sleep(0.1)
+        if exc_type:
+            print(f"Error: {exc_type.__name__}: {exc}")
+        return False  # Don't suppress exceptions
+
+async def main():
+    async with AsyncResource("MyResource") as resource:
+        print(f"Using {resource.name}")
+```
+
+### Dependency Injection Pattern
+```python
+from typing import Protocol
+from abc import ABC, abstractmethod
+
+# Define interfaces
+class Logger(Protocol):
+    def log(self, message: str) -> None: ...
+
+class Repository(ABC):
+    @abstractmethod
+    async def get(self, id: int) -> dict:
+        pass
+
+# Implementations
+class ConsoleLogger:
+    def log(self, message: str) -> None:
+        print(message)
+
+class DatabaseRepository(Repository):
+    async def get(self, id: int) -> dict:
+        return {"id": id, "name": "Item"}
+
+# Service with dependency injection
+class UserService:
+    def __init__(self, logger: Logger, repository: Repository):
+        self.logger = logger
+        self.repository = repository
+
+    async def get_user(self, user_id: int) -> dict:
+        self.logger.log(f"Fetching user {user_id}")
+        return await self.repository.get(user_id)
+
+# Usage
+logger = ConsoleLogger()
+repo = DatabaseRepository()
+service = UserService(logger, repo)
+```
+
+## Anti-Patterns
+
+### DON'T: Skip Type Hints
+```python
+# Bad - no type information
+def process(items, count=10):
+    return {item: len(item) for item in items[:count]}
+
+# Good - clear types
+def process(items: list[str], count: int = 10) -> dict[str, int]:
+    return {item: len(item) for item in items[:count]}
+```
+
+### DON'T: Use Bare Except
+```python
+# Bad - catches all exceptions including KeyboardInterrupt
+try:
+    do_something()
+except:
+    pass
+
+# Good - specific exception handling
+try:
+    do_something()
+except ValueError as e:
+    print(f"Invalid value: {e}")
+except Exception as e:
+    print(f"Unexpected error: {e}")
+```
+
+### DON'T: Modify Loop Variables
+```python
+# Bad - confusing and error-prone
+items = [1, 2, 3]
+for i, item in enumerate(items):
+    items[i] = item * 2  # Modifying while iterating
+
+# Good - use list comprehension or copy
+items = [item * 2 for item in items]
+```
+
+### DON'T: Use Mutable Default Arguments
+```python
+# Bad - default list shared across calls
+def append_item(item, items=[]):
+    items.append(item)
+    return items
+
+# Good - use None and create new list
+def append_item(item, items=None):
+    if items is None:
+        items = []
+    items.append(item)
+    return items
+```
+
+### DON'T: Mix Sync and Async Without Care
+```python
+# Bad - mixing sync and async
+async def mixed():
+    sync_result = slow_sync_operation()  # Blocks event loop
+    await async_operation()
+
+# Good - keep async clean
+async def async_only():
+    result = await async_fetch()
+    processed = await async_process(result)
+```
+
+### DON'T: Hardcode Configuration
+```python
+# Bad - hardcoded values
+DATABASE_URL = "postgresql://localhost/mydb"
+API_KEY = "sk_live_xxxxx"
+
+# Good - use environment variables
+import os
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://localhost/mydb")
+API_KEY = os.getenv("API_KEY")  # Fail if not set
+```

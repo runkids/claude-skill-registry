@@ -1,12 +1,7 @@
 {
   "name": "rule-auditor",
-  "description": "Validates code against currently loaded rules and reports compliance violations. Use after implementing features, during code review, or to ensure coding standards are followed. Provides actionable fe",
-  "repo": "oimiragieo/LLM-RULES",
-  "category": "development",
-  "tags": [
-    "rule",
-    "auditor"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "oimiragieo/agent-studio",
+  "path": ".claude/skills/rule-auditor/SKILL.md",
+  "source": "github.com/oimiragieo/agent-studio",
+  "downloaded_at": "2026-01-14T03:17:06.178772Z"
 }

@@ -1,11 +1,7 @@
 {
   "name": "ci-cd-generator",
-  "description": "Generate CI/CD pipeline configurations for GitHub Actions, GitLab CI, Jenkins. Use when setting up automated build and deployment pipelines.",
   "repo": "ntaksh42/agents",
-  "category": "devops",
-  "tags": [
-    "generator"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/ci-cd-generator/SKILL.md",
+  "source": "github.com/ntaksh42/agents",
+  "downloaded_at": "2026-01-14T03:51:00.364400Z"
 }

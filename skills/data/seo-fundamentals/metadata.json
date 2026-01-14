@@ -1,12 +1,7 @@
 {
   "name": "seo-fundamentals",
-  "description": "SEO fundamentals, E-E-A-T, Core Web Vitals, and 2025 Google algorithm updates",
   "repo": "xenitV1/claude-code-maestro",
-  "category": "marketing",
-  "tags": [
-    "seo",
-    "fundamentals"
-  ],
-  "stars": 47,
-  "source": "local"
+  "path": "skills/seo-fundamentals/SKILL.md",
+  "source": "github.com/xenitV1/claude-code-maestro",
+  "downloaded_at": "2026-01-14T03:41:49.145425Z"
 }

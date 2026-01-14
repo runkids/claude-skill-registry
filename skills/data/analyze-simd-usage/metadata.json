@@ -1,13 +1,7 @@
 {
   "name": "analyze-simd-usage",
-  "description": "Analyze SIMD usage opportunities in Mojo code. Use to find performance optimization opportunities.",
   "repo": "mvillmow/ProjectOdyssey",
-  "category": "development",
-  "tags": [
-    "analyze",
-    "simd",
-    "usage"
-  ],
-  "stars": 8,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/analyze-simd-usage/SKILL.md",
+  "source": "github.com/mvillmow/ProjectOdyssey",
+  "downloaded_at": "2026-01-14T01:08:59.930298Z"
 }

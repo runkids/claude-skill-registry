@@ -1,13 +1,7 @@
 {
   "name": "apply-all-findings",
-  "description": "Use after code review - implement ALL findings; any finding not fixed MUST have tracking issue created; no finding disappears without trace",
-  "repo": "troykelly/claude-skills",
-  "category": "development",
-  "tags": [
-    "apply",
-    "all",
-    "findings"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "repo": "troykelly/codex-skills",
+  "path": "skills/apply-all-findings/SKILL.md",
+  "source": "github.com/troykelly/codex-skills",
+  "downloaded_at": "2026-01-14T03:34:03.605400Z"
 }

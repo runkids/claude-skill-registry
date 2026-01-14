@@ -1,12 +1,7 @@
 {
   "name": "reasoning-inductive",
-  "description": "Extract patterns and generalizations from multiple observations. Use when detecting recurring themes, building predictive rules, or identifying systemic behaviors from accumulated data. Produces valid",
   "repo": "BellaBe/lean-os",
-  "category": "development",
-  "tags": [
-    "reasoning",
-    "inductive"
-  ],
-  "stars": 12,
-  "source": "local"
+  "path": ".claude/skills/reasoning-inductive/SKILL.md",
+  "source": "github.com/BellaBe/lean-os",
+  "downloaded_at": "2026-01-14T02:11:16.419054Z"
 }

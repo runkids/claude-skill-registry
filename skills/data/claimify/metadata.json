@@ -1,8 +1,7 @@
 {
   "name": "claimify",
   "repo": "leegonzales/AISkills",
-  "category": "data",
-  "description": "Extract and structure claims from discourse into analyzable argument maps with logical relationships and assumptions. Use when analyzing arguments, red-teaming reasoning, synthesizing debates, or tran",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:50.113781Z"
+  "path": "Claimify/claimify/SKILL.md",
+  "source": "github.com/leegonzales/AISkills",
+  "downloaded_at": "2026-01-14T02:13:20.596603Z"
 }

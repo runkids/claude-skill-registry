@@ -1,12 +1,7 @@
 {
   "name": "debug-phase",
-  "description": "Systematic debugging techniques including error classification, root cause analysis (5 Whys), reproduction strategies, and error documentation. Use when debugging errors, investigating failures, analy",
   "repo": "marcusgoll/Spec-Flow",
-  "category": "documents",
-  "tags": [
-    "debug",
-    "phase"
-  ],
-  "stars": 16,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/debug-phase/SKILL.md",
+  "source": "github.com/marcusgoll/Spec-Flow",
+  "downloaded_at": "2026-01-14T04:06:35.083626Z"
 }

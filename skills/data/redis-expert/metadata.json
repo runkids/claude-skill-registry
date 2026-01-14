@@ -1,11 +1,7 @@
 {
   "name": "redis-expert",
-  "description": "Redis database expert for caching, data structures, Pub/Sub, Streams, Lua scripting,and performance optimization using Bun.redis native client.Use when working with Redis, caching strategies, key-valu",
-  "repo": "lammesen/skills",
-  "category": "data",
-  "tags": [
-    "redis",
-    "expert"
-  ],
-  "stars": 0
+  "repo": "ryu-qqq/AuthHub",
+  "path": ".claude/skills/redis-expert/SKILL.md",
+  "source": "github.com/ryu-qqq/AuthHub",
+  "downloaded_at": "2026-01-14T03:00:33.662555Z"
 }

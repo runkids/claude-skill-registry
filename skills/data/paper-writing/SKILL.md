@@ -1,374 +1,200 @@
 ---
 name: paper-writing
-description: Expert guidance for writing high-quality academic and research papers. Use when the user wants to write, structure, revise, or improve academic papers, research articles, conference papers, or technical reports. Provides comprehensive support for all stages from planning to final polish.
-license: MIT
-compatibility: Works with any text editor or document format. Optimized for academic writing in LaTeX, Markdown, Word, or plain text.
-metadata:
-  category: writing
-  version: 1.0.0
-  author: Claude Code Community
+description: Scientific manuscript preparation for geoscience journals. Includes IMRAD structure, journal styles (Nature, EPSL, GSA), citation formatting, figure standards, and supplementary materials.
+triggers:
+  - write paper
+  - draft manuscript
+  - format citation
+  - journal style
+  - IMRAD
+  - GSA style
+  - bibliography
+  - DOI
+location: user
 ---
 
-# Academic Paper Writing Skill
-
-This skill provides comprehensive guidance for writing excellent academic and research papers across all disciplines. It covers structure, style, argumentation, and best practices from initial planning through final revision.
+# Paper Writing for Geoscience Research
 
 ## When to Use This Skill
 
-Use this skill when working on:
-- Research papers and journal articles
-- Conference papers and proceedings
-- Technical reports and white papers
-- Thesis chapters and dissertations
-- Literature reviews and survey papers
-- Position papers and perspectives
+Invoke when:
+- Drafting manuscript sections
+- Formatting citations and bibliography
+- Preparing figures and tables
+- Adapting to journal-specific styles
+- Organizing supplementary materials
 
-## Quick Start
+## IMRAD Structure
 
-For immediate guidance, see the task-specific workflows below. For comprehensive reference material, consult:
-- `references/REFERENCE.md` - Complete writing guidelines and best practices
-- `references/STRUCTURE.md` - Detailed templates for different paper types
-- `references/STYLE.md` - Writing style and clarity guidelines
-- `assets/` - Ready-to-use paper templates
+Standard structure for geoscience papers:
 
-## Core Workflow
+### Introduction
+- **Hook**: Why should anyone care? (1-2 paragraphs)
+- **Context**: What's known? What's the gap?
+- **Objective**: What question are we answering?
+- **Approach**: Brief methodology preview
+- **Findings preview**: "Here we show that..."
 
-### 1. Planning Phase
+### Methods
+- **Study sites**: Location, geology, relevance
+- **Data collection**: What, when, how
+- **Analytical methods**: Lab procedures, quality control
+- **Statistical analysis**: Tests used, software
+- **Reproducibility**: Data availability statement
 
-**Understand the Requirements**
-- Identify target venue (journal, conference, report)
-- Check formatting requirements (APA, IEEE, ACM, Chicago, etc.)
-- Note page limits, section requirements, and citation style
-- Clarify submission deadlines and review process
+### Results
+- Present findings WITHOUT interpretation
+- Lead with most important result
+- One main finding per paragraph
+- Reference all figures/tables
+- Use past tense
 
-**Define the Research Question**
-- Formulate a clear, focused research question or hypothesis
-- Ensure the question is specific, measurable, and answerable
-- Identify the gap in existing knowledge or practice
-- State the contribution your work will make
+### Discussion
+- **Interpretation**: What do results mean?
+- **Comparison**: How do they fit prior work?
+- **Implications**: Why does this matter?
+- **Limitations**: What could be wrong?
+- **Future work**: What's next?
 
-**Create an Outline**
-- Draft section headings based on paper type (see Structure section)
-- Allocate approximate space to each section
-- Identify key points for each section
-- Map evidence and references to sections
+### Conclusions
+- 3-5 key takeaways
+- No new information
+- Broader significance
 
-### 2. Writing Phase
+## Journal-Specific Styles
 
-**Follow the Structured Approach**
+### Nature Geoscience
+- **Length**: 3,000 words main text
+- **Abstract**: 150 words, no refs
+- **Methods**: Separate section (online)
+- **Refs**: Numbered, Nature style
+- **Style**: High impact, accessible to broad audience
 
-Work section-by-section, not necessarily in order. Many authors write in this sequence:
-1. Methods (clearest, most concrete)
-2. Results (present findings)
-3. Introduction (frame the problem)
-4. Discussion (interpret results)
-5. Conclusion (summarize contributions)
-6. Abstract (last, summarizes everything)
+### EPSL (Earth and Planetary Science Letters)
+- **Length**: 6,000-8,000 words
+- **Abstract**: 300 words, structured OK
+- **Keywords**: 5-6 required
+- **Refs**: Author-year (Harvard style)
+- **Style**: Technical, detailed methods OK
 
-**Section-Specific Guidance**
+### GSA Bulletin
+- **Length**: 8,000-12,000 words
+- **Abstract**: 250 words
+- **Refs**: Author-year, GSA style
+- **Supplementary**: Encouraged for data
+- **Style**: Regional focus, detailed stratigraphy
 
-**Abstract (150-300 words)**
-- State the problem and motivation (1-2 sentences)
-- Describe your approach/method (1-2 sentences)
-- Summarize key results (2-3 sentences)
-- State conclusions and implications (1-2 sentences)
-- Make it self-contained (no citations, no undefined acronyms)
+## Citation Formatting
 
-**Introduction**
-- Hook: Why should anyone care? (1 paragraph)
-- Context: What's the broader problem space? (1-2 paragraphs)
-- Gap: What's missing in current solutions? (1 paragraph)
-- Your contribution: What does this paper do? (1 paragraph)
-- Paper organization: Brief roadmap (optional, 1 paragraph)
-
-**Related Work / Literature Review**
-- Group work thematically, not chronologically
-- Compare and contrast approaches
-- Identify limitations of existing work
-- Position your work clearly vs. alternatives
-- Be fair and accurate (don't strawman competitors)
-
-**Methodology / Approach**
-- Describe methods with enough detail for replication
-- Justify design choices
-- Define metrics and evaluation criteria
-- Explain data collection and analysis procedures
-- Include diagrams for complex processes
-
-**Results**
-- Present findings objectively without interpretation
-- Use tables and figures effectively (see Visualization section)
-- Report statistical significance where applicable
-- Address both positive and negative results
-- Organize by research question or hypothesis
-
-**Discussion**
-- Interpret results in context of research questions
-- Compare with related work
-- Explain unexpected findings
-- Acknowledge limitations honestly
-- Discuss implications for theory and practice
-
-**Conclusion**
-- Restate key contributions (1 paragraph)
-- Summarize main findings (1 paragraph)
-- Discuss broader implications (1 paragraph)
-- Suggest future work (1 paragraph)
-- End with a strong closing statement
-
-### 3. Refinement Phase
-
-**First Revision: Structure and Argument**
-- Does each section serve its purpose?
-- Is the argument logical and complete?
-- Are transitions between sections smooth?
-- Does evidence support all claims?
-- Are counterarguments addressed?
-
-**Second Revision: Clarity and Style**
-- Remove jargon and define technical terms
-- Eliminate redundancy and wordiness
-- Use active voice for clarity (prefer "We analyzed" over "Analysis was performed")
-- Ensure parallel structure in lists
-- Check paragraph length (aim for 4-8 sentences)
-
-**Third Revision: Polish**
-- Check grammar, spelling, punctuation
-- Verify all citations are formatted correctly
-- Ensure figures/tables are referenced in text
-- Number sections, equations, figures consistently
-- Proofread carefully (reading aloud helps)
-
-## Visualization Best Practices
-
-**Tables**
-- Use for precise numerical comparisons
-- Keep simple and readable (avoid excessive gridlines)
-- Include clear column headers and units
-- Caption goes above the table
-- Reference in text before the table appears
-
-**Figures**
-- Use for trends, patterns, relationships
-- Ensure axes are labeled with units
-- Use readable fonts (at least 10pt in final size)
-- Caption goes below the figure
-- Make interpretable in grayscale (avoid color-only distinctions)
-
-**General Rules**
-- Every table/figure must be referenced in the text
-- Each should be self-explanatory with its caption
-- Number consecutively (Figure 1, Figure 2, etc.)
-- Place close to first reference when possible
-
-## Common Pitfalls to Avoid
-
-**Structural Issues**
-- ❌ Burying the contribution in the middle
-- ✅ State contribution clearly in introduction
-- ❌ Results section that interprets rather than presents
-- ✅ Keep results objective, interpret in discussion
-- ❌ Conclusion that introduces new information
-- ✅ Conclusion only synthesizes existing content
-
-**Writing Issues**
-- ❌ Passive constructions: "It was found that..."
-- ✅ Active voice: "We found that..."
-- ❌ Hedging excessively: "It seems to possibly suggest..."
-- ✅ Be direct: "The results indicate..."
-- ❌ Undefined acronyms and jargon
-- ✅ Define terms on first use
-
-**Citation Issues**
-- ❌ Missing citations for claims
-- ✅ Every factual claim needs a source
-- ❌ Over-citing obvious facts
-- ✅ Common knowledge doesn't need citation
-- ❌ Citing without reading (citation padding)
-- ✅ Cite only what you've actually read and verified
-
-## Discipline-Specific Considerations
-
-**Computer Science / Engineering**
-- Emphasize reproducibility and implementation details
-- Include complexity analysis where relevant
-- Provide algorithm pseudocode or code snippets
-- Compare against state-of-the-art baselines
-- Make code/data available when possible
-
-**Natural Sciences**
-- Follow strict IMRAD structure (Intro, Methods, Results, Discussion)
-- Report statistical power and effect sizes
-- Include detailed experimental protocols
-- Address confounding variables
-- Report null results honestly
-
-**Social Sciences**
-- Contextualize within theoretical frameworks
-- Justify sampling and participant selection
-- Report demographic information
-- Address potential biases
-- Discuss generalizability limitations
-
-**Humanities**
-- Develop clear thesis statement
-- Support arguments with textual evidence
-- Engage with scholarly debates
-- Use close reading and analysis
-- Contextualize within historical/cultural frameworks
-
-## Conversation-First Approach
-
-When helping users write papers, prioritize natural conversation over rapid-fire questions:
-
-1. **Start simple**: Ask ONE opening question to understand their situation
-   - "What's your paper about?" (topic/working title)
-   - OR "What stage are you at?" (if they're already focused)
-
-2. **Listen and follow up**: Based on their answer, ask the next most relevant question
-   - If they're starting: Ask about target venue or research gap
-   - If they're revising: Ask which section needs work
-   - If they're stuck: Ask what specific challenge they're facing
-
-3. **Build context progressively**: Let information emerge naturally through dialogue
-
-4. **Provide targeted help**: Focus on their immediate need, not all possible topics
-
-5. **Maintain author voice**: Edit to improve, not to rewrite in a different style
-
-6. **Explain recommendations**: Help them understand why changes strengthen their paper
-
-7. **Load references as needed**: Use reference documents for deeper guidance only when relevant
-
-## Using Reference Materials
-
-This skill includes detailed reference materials for deeper guidance:
-
-- **Load `references/REFERENCE.md`** for comprehensive writing guidelines, style guides, and detailed best practices
-- **Load `references/STRUCTURE.md`** for complete templates for different paper types (journal article, conference paper, thesis, etc.)
-- **Load `references/STYLE.md`** for in-depth guidance on academic writing style, word choice, and clarity
-- **Check `assets/`** for ready-to-use templates in various formats
-
-Only load these materials when needed to conserve context. For most tasks, the guidance above is sufficient.
-
-## Progressive Enhancement
-
-**Basic use**: Follow the Core Workflow for writing or revising papers
-
-**Intermediate use**: Consult reference materials for specific sections or challenges
-
-**Advanced use**: Use templates from assets/ and customize for specific venues
-
-## Quality Checklist
-
-Before considering a paper complete, verify:
-
-- [ ] Clear research question or contribution stated in introduction
-- [ ] All claims supported by evidence or citations
-- [ ] Logical flow from section to section
-- [ ] Methods sufficiently detailed for replication
-- [ ] Results presented objectively
-- [ ] Discussion interprets results and addresses limitations
-- [ ] All figures/tables referenced in text and have clear captions
-- [ ] Citations formatted consistently
-- [ ] Abstract accurately summarizes the paper
-- [ ] No typos or grammatical errors
-- [ ] Meets venue requirements (format, length, style)
-
-## Examples
-
-**Example 1: Progressive discovery—starting fresh**
-
+### Author-Year (Harvard/GSA)
 ```
-User: Help me write a research paper.
+In-text: (Smith and Jones, 2020) or Smith and Jones (2020)
+Multiple: (Smith, 2018; Jones, 2019; Chen et al., 2020)
+Three+ authors: (Chen et al., 2020)
 
-Claude: What's your paper about? (topic, working title, or research question)
-
-User: It's about federated learning for edge devices.
-
-Claude: Got it—that's a focused topic. Are you at the stage of having completed
-research and needing to write it up, or are you still planning the work?
-
-User: I've done the research and have preliminary results. I just don't know
-where to start.
-
-Claude: Perfect—let me help you structure this. What's your target venue?
-(e.g., a specific conference, journal, or is this a thesis chapter?)
+Reference list:
+Smith, J.A., and Jones, B.C., 2020, Title of paper: Journal Name, v. 50, p. 100-120, doi:10.1234/example.
 ```
 
-Notice: One question asked, then the next, building naturally from their answers.
-
----
-
-**Example 2: Targeted revision (existing draft)**
-
+### Numbered (Nature)
 ```
-User: My introduction feels weak and I'm not sure why.
+In-text: Previous work¹⁻³ showed...
 
-Claude: I'd like to take a look. Can you share what you have, or tell me
-what the main challenge is? (e.g., doesn't grab attention, doesn't explain
-why this work matters, etc.)
-
-User: I think I'm not making the research gap clear enough. Here's what I wrote...
-
-Claude: [Reads their draft]
-
-Looking at your introduction, I see you've identified the problem nicely,
-but you're right—the gap (what's missing in current solutions) isn't
-explicit. Here's what I'd suggest...
+Reference list:
+1. Smith, J.A. & Jones, B.C. Title of paper. J. Name 50, 100-120 (2020).
 ```
 
-Notice: Start with curiosity about their specific challenge, then provide
-targeted feedback on the actual content.
+### Database Citations
 
----
+**SISAL v3**:
+> Comas-Bru, L., et al. (2020). SISALv2: A comprehensive speleothem isotope database with multiple age-depth models. Earth System Science Data, 12, 2579-2606.
 
-**Example 3: Stuck in the middle**
+**USGS Earthquake Catalog**:
+> U.S. Geological Survey (2023). Earthquake Hazards Program. https://earthquake.usgs.gov
 
+**DISS**:
+> DISS Working Group (2021). Database of Individual Seismogenic Sources (DISS), Version 3.3.1: A compilation of potential sources for earthquakes larger than M 5.5 in Italy and surrounding areas. https://diss.ingv.it
+
+## DOI Resolution
+
+To get citation metadata from DOI:
+1. Use CrossRef API: `https://api.crossref.org/works/{DOI}`
+2. Extract: authors, title, journal, year, volume, pages
+3. Format according to target journal style
+
+**Example**:
 ```
-User: I have my methods section written, but I'm stuck on results.
-
-Claude: What's tripping you up about the results section specifically?
-(e.g., how to organize findings, whether to include raw data, interpretation
-vs. presentation, etc.)
-
-User: I have a lot of data. I don't know what to include and how to present it
-so it's not overwhelming.
-
-Claude: That's a common challenge. Let me help you think through data selection
-and visualization...
+DOI: 10.1038/ngeo2681
+→ Toohey, M. & Sigl, M. Volcanic stratospheric sulfur injections and aerosol optical depth from 500 BCE to 1900 CE. Earth Syst. Sci. Data 9, 809-831 (2017).
 ```
 
-Notice: Rather than lecturing about results sections in general, we drill down
-into their specific problem first.
+## Figure Standards
 
-## Tips for Success
+### General Guidelines
+- **Resolution**: 300+ DPI for publication
+- **Width**: Single column (8.5 cm) or double (17.5 cm)
+- **Font**: Sans-serif (Arial, Helvetica), 8-10 pt
+- **Colors**: Colorblind-friendly palette
+- **Labels**: A, B, C for panels (bold, upper left)
 
-**Writing Process**
-- Write regularly in focused sessions (2-3 hours)
-- Don't edit while drafting (separate creation from refinement)
-- Get feedback early and often
-- Read papers in your target venue for style/structure
+### Required Figures for Paleoseismic Paper
+1. **Location map**: Study site with tectonic context
+2. **Stratigraphic column**: Sample positions, ages
+3. **Time series**: Main proxy data with anomalies marked
+4. **Discrimination plot**: Seismic vs climatic signals
+5. **Correlation figure**: Cross-validation evidence
 
-**Revision Strategy**
-- Take breaks between revision passes
-- Read paper aloud to catch awkward phrasing
-- Get fresh eyes (colleagues, advisors)
-- Use revision checklist systematically
+### Figure Captions
+- First sentence: What the figure SHOWS
+- Subsequent: Methods, abbreviations, interpretation hints
+- No conclusions in captions
 
-**Time Management**
-- Allocate 40% planning, 30% writing, 30% revision
-- Build in buffer time before deadlines
-- Start with rough drafts, refine iteratively
-- Don't aim for perfection in first draft
+## Table Standards
 
-Remember: All good papers go through multiple revisions. Writing is rewriting.
+- Horizontal lines only (no vertical)
+- Units in header, not cells
+- Footnotes for exceptions (a, b, c)
+- Round to appropriate precision
 
-## Sources and Credits
+## Supplementary Materials
 
-This skill is based on authoritative academic writing resources:
+### What to Include
+- Extended methods (lab protocols, code)
+- Additional figures (supporting evidence)
+- Data tables (raw measurements)
+- Sensitivity analyses
 
-- **Thatcher, Jason Bennett** (2024). "Rules for Writing Elite Information Systems Papers." Available at SSRN: https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5993034 or http://dx.doi.org/10.2139/ssrn.5993034
-- **APA Publication Manual** (7th Edition)
-- **IEEE Editorial Style Manual**
-- Academic writing best practices from Ohio University, Duke University, MIT, USC, and UCSD
+### What to Keep in Main Text
+- Key results
+- Essential methods
+- Most compelling figures
+
+## Writing Tips
+
+### Clarity
+- One idea per sentence
+- Active voice preferred
+- Define acronyms on first use
+- Avoid jargon when possible
+
+### Hedging Language
+- "We suggest that..." (uncertainty)
+- "Our data are consistent with..." (not proof)
+- "One interpretation is..." (alternatives exist)
+
+### Transitions
+- "Building on this..."
+- "In contrast to X..."
+- "These findings suggest..."
+- "Taken together..."
+
+## Checklist Before Submission
+
+- [ ] Word count within limits
+- [ ] All figures/tables referenced in text
+- [ ] References formatted correctly
+- [ ] Data availability statement included
+- [ ] Author contributions listed
+- [ ] Conflicts of interest declared
+- [ ] Cover letter written
+- [ ] Suggested reviewers listed

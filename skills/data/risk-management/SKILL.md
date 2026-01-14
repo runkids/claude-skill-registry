@@ -1,285 +1,330 @@
 ---
 name: risk-management
-description: |
-  Portfolio-level risk management skill for identifying, assessing, and mitigating
-  risks across multiple projects. Maintains RAID logs and tracks risk responses.
-
-trigger: |
-  - Need portfolio risk assessment
-  - Creating or updating RAID log
-  - Risk response planning
-  - Risk correlation analysis
-
-skip_when: |
-  - Single project risk → handle in project scope
-  - Financial risk only → use ring-finops-team
-  - Technical risk in code → use qa-analyst
-
-related:
-  complementary: [portfolio-planning, project-health-check]
+description: Enterprise risk management expertise for ERM frameworks, risk assessment, business continuity, insurance strategy, third-party risk, and reputational risk. Use when assessing risks, building continuity plans, or managing organizational risk exposure.
 ---
 
-# Risk Management Skill
-
-Systematic portfolio-level risk identification, assessment, and mitigation.
-
-## Purpose
-
-This skill provides a framework for:
-- Portfolio risk identification
-- Risk assessment and scoring
-- Risk correlation analysis
-- Mitigation planning
-- RAID log management
-
----
-
-## Prerequisites
-
-Before risk assessment, ensure:
-
-| Prerequisite | Required For | Source |
-|--------------|--------------|--------|
-| Project risk registers | Risk aggregation | Project managers |
-| Historical risk data | Pattern identification | Previous projects |
-| Stakeholder input | Risk identification | Key stakeholders |
-| Impact criteria | Risk scoring | PMO standards |
-
----
-
-## Risk Management Gates
-
-### Gate 1: Risk Identification
-
-**Objective:** Identify all portfolio-level risks
-
-**Actions:**
-1. Collect project-level risks
-2. Identify cross-project risks
-3. Capture portfolio-level risks
-4. Document assumptions and dependencies
-
-**Risk Categories:**
-
-| Category | Examples |
-|----------|----------|
-| **Strategic** | Market changes, competition, regulation |
-| **Resource** | Key person departure, skill shortage, capacity |
-| **Technical** | Technology obsolescence, integration, security |
-| **Financial** | Budget cuts, cost overruns, currency |
-| **Schedule** | Dependencies, delays, scope creep |
-| **External** | Vendor, regulatory, geopolitical |
-
-**Output:** `docs/pmo/{date}/risk-register.md`
-
----
-
-### Gate 2: Risk Assessment
-
-**Objective:** Assess probability and impact of each risk
-
-**Actions:**
-1. Assess probability (1-5 scale)
-2. Assess impact (1-5 scale)
-3. Calculate risk score (P x I)
-4. Assign severity level
-
-**Risk Severity Matrix:**
-
-See [shared-patterns/pmo-metrics.md](../shared-patterns/pmo-metrics.md) for risk severity matrix.
-
-| Impact / Likelihood | Low (1-2) | Medium (3) | High (4-5) |
-|---------------------|-----------|------------|------------|
-| **High (4-5)** | Medium | High | Critical |
-| **Medium (3)** | Low | Medium | High |
-| **Low (1-2)** | Low | Low | Medium |
-
-**Output:** `docs/pmo/{date}/risk-assessment.md`
-
----
-
-### Gate 3: Risk Correlation
-
-**Objective:** Identify correlated risks across portfolio
-
-**Actions:**
-1. Identify shared risk factors
-2. Map risk dependencies
-3. Calculate compound risk exposure
-4. Flag correlated critical risks
-
-**Correlation Types:**
-
-| Type | Description | Action |
-|------|-------------|--------|
-| **Shared cause** | Same root cause affects multiple projects | Mitigate root cause |
-| **Sequential** | One risk triggers another | Plan cascade response |
-| **Resource** | Same resource/skill shortage | Diversify or hire |
-| **Vendor** | Same vendor dependency | Diversify suppliers |
-
-**Output:** `docs/pmo/{date}/risk-correlation.md`
-
----
-
-### Gate 4: Response Planning
-
-**Objective:** Create mitigation plans for significant risks
-
-**Actions:**
-1. Select response strategy per risk
-2. Define mitigation actions
-3. Assign owners and dates
-4. Allocate contingency
-
-**Response Strategies:**
-
-See [shared-patterns/pmo-metrics.md](../shared-patterns/pmo-metrics.md) for response types.
-
-| Response | When to Use | Example |
-|----------|-------------|---------|
-| **Avoid** | Risk unacceptable, can change scope | Remove risky feature |
-| **Transfer** | Risk better managed by others | Insurance, outsource |
-| **Mitigate** | Reduce probability or impact | Testing, redundancy |
-| **Accept** | Cost of mitigation > impact | Document and monitor |
-
-**Output:** `docs/pmo/{date}/risk-response-plan.md`
-
----
-
-### Gate 5: RAID Log Update
-
-**Objective:** Maintain comprehensive RAID log
-
-**Actions:**
-1. Update Risk section
-2. Update Assumptions section
-3. Update Issues section
-4. Update Dependencies section
-
-**RAID Categories:**
-
-| Category | Contents | Review Frequency |
-|----------|----------|------------------|
-| **R**isks | Potential future issues | Weekly |
-| **A**ssumptions | Believed true, not verified | At milestones |
-| **I**ssues | Current problems requiring action | Daily |
-| **D**ependencies | External inputs/outputs | Weekly |
-
-**Output:** `docs/pmo/{date}/raid-log.md`
-
----
-
-## Anti-Rationalization Table
-
-See [shared-patterns/anti-rationalization.md](../shared-patterns/anti-rationalization.md) for universal anti-rationalizations.
-
-### Risk-Specific Anti-Rationalizations
-
-| Rationalization | Why It's WRONG | Required Action |
-|-----------------|----------------|-----------------|
-| "We've seen this risk before" | Context changes. Each occurrence needs fresh assessment. | **Assess current state** |
-| "Low probability, don't document" | Low probability × high impact = significant risk. | **Document ALL identified risks** |
-| "Team will handle it" | Unplanned handling = crisis response. Plan required. | **Document response plan** |
-| "Risk register is up to date" | Registers decay. Continuous validation required. | **Validate at every review** |
-| "That won't happen" | Famous last words. Document and monitor. | **Document ALL risks** |
-
----
-
-## Pressure Resistance
-
-See [shared-patterns/pressure-resistance.md](../shared-patterns/pressure-resistance.md) for universal pressure scenarios.
-
-### Risk-Specific Pressures
-
-| Pressure Type | Request | Agent Response |
-|---------------|---------|----------------|
-| "Don't include that risk, it will worry people" | "Risk transparency is non-negotiable. Including with mitigation plan to provide balanced view." |
-| "That's been mitigated, remove it" | "Mitigated risks remain in register until formally closed with evidence. Updating status, not removing." |
-| "Risk assessment takes too long" | "Unassessed risks cause larger delays when they materialize. Completing assessment." |
-
----
-
-## Blocker Criteria - STOP and Report
-
-**ALWAYS pause and report blocker for:**
-
-| Situation | Required Action |
-|-----------|-----------------|
-| Critical risk without mitigation plan | STOP. Escalate. Risk cannot be accepted without plan. |
-| Multiple correlated critical risks | STOP. Report compound exposure. Wait for portfolio decision. |
-| Risk owner not identified | STOP. Unowned risks are unmanaged. Require owner assignment. |
-| Assumption invalidated | STOP. Trigger re-planning based on new reality. |
-
----
-
-## Output Format
-
-### Risk Summary
-
-```markdown
-# Portfolio Risk Summary - [Date]
-
-## Risk Overview
-
-| Metric | Value |
-|--------|-------|
-| Total Risks | N |
-| Critical | N |
-| High | N |
-| Medium | N |
-| Low | N |
-| Mitigations Defined | N/N |
-| Overdue Actions | N |
-
-## Top Risks
-
-| ID | Risk | Severity | Owner | Status |
-|----|------|----------|-------|--------|
-| R-001 | [Description] | Critical/High | [Owner] | [Status] |
-
-## Risk Correlations
-
-| Correlation | Risks | Combined Exposure | Action |
-|-------------|-------|-------------------|--------|
-| [ID] | [Risk IDs] | [Exposure] | [Action] |
-
-## RAID Summary
-
-| Category | Total | New | Closed | Overdue |
-|----------|-------|-----|--------|---------|
-| Risks | N | N | N | N |
-| Assumptions | N | N | N | N |
-| Issues | N | N | N | N |
-| Dependencies | N | N | N | N |
-
-## Recommendations
-
-1. [Recommendation with rationale]
-2. [Recommendation with rationale]
-
-## Decisions Required
-
-1. [Decision needed: Accept/Mitigate/Avoid risk X]
+# Risk Management Expert
+
+Comprehensive risk frameworks for enterprise risk assessment, business continuity, and risk mitigation.
+
+**Detailed References:**
+
+- [ERM Framework & Risk Appetite](references/erm-framework.md) - COSO framework, risk appetite, quantitative analysis
+- [Business Continuity Management](references/business-continuity.md) - BCM lifecycle, recovery objectives, crisis management
+- [Insurance & Risk Transfer](references/insurance-risk-transfer.md) - Insurance programs, risk financing strategies
+
+## Risk Categories
+
+| Category          | Description                      | Examples                            |
+| ----------------- | -------------------------------- | ----------------------------------- |
+| **Strategic**     | Risks to business model/strategy | Competitive disruption, M&A failure |
+| **Operational**   | Risks in day-to-day operations   | Process failures, supply chain      |
+| **Financial**     | Financial loss risks             | Credit, market, liquidity           |
+| **Compliance**    | Regulatory/legal risks           | Regulatory changes, lawsuits        |
+| **Reputational**  | Brand and stakeholder risks      | Negative publicity, social media    |
+| **Technology**    | IT and cyber risks               | Cyber attacks, system failures      |
+| **Human Capital** | People-related risks             | Key person, talent shortage         |
+| **External**      | Environmental/external risks     | Natural disasters, geopolitical     |
+
+## Risk Assessment Process
+
+```
+RISK ASSESSMENT STEPS:
+
+1. RISK IDENTIFICATION
+   - Environmental scanning
+   - Stakeholder interviews
+   - Workshop facilitation
+   - Historical analysis
+   - Scenario analysis
+
+2. RISK ANALYSIS
+   - Probability assessment
+   - Impact assessment
+   - Velocity consideration
+   - Control effectiveness
+
+3. RISK EVALUATION
+   - Risk prioritization
+   - Comparison to appetite
+   - Aggregation analysis
+   - Interdependency mapping
+
+4. RISK RESPONSE
+   - Accept (within appetite)
+   - Mitigate (reduce likelihood/impact)
+   - Transfer (insurance, contracts)
+   - Avoid (eliminate activity)
+
+5. MONITORING & REPORTING
+   - Key Risk Indicators (KRIs)
+   - Risk dashboards
+   - Escalation triggers
+   - Periodic reassessment
 ```
 
----
+## Risk Heat Map
 
-## Execution Report
+```
+RISK MATRIX:
 
-Base metrics per [shared-patterns/execution-report.md](../shared-patterns/execution-report.md):
+         IMPACT
+         Low    Medium    High    Critical
+LIKELIHOOD
+Very High   3      6        9        12
+High        2      4        6         9
+Medium      1      2        4         6
+Low         1      1        2         3
 
-| Metric | Value |
-|--------|-------|
-| Analysis Date | YYYY-MM-DD |
-| Scope | [Portfolio/Projects] |
-| Duration | Xh Ym |
-| Result | COMPLETE/PARTIAL/BLOCKED |
+SCORING:
+1-2: Accept/Monitor
+3-4: Active Management
+6: Senior Management Attention
+9-12: Executive/Board Attention
+```
 
-### Risk-Specific Details
+## Third-Party Risk Management
 
-| Metric | Value |
-|--------|-------|
-| risks_identified | N |
-| risks_by_severity | C/H/M/L |
-| mitigation_plans | N |
-| overdue_actions | N |
+### Vendor Risk Framework
+
+```
+TPRM LIFECYCLE:
+
+1. PLANNING
+   - Vendor inventory
+   - Risk categorization
+   - Assessment requirements
+
+2. DUE DILIGENCE
+   - Questionnaires
+   - Documentation review
+   - On-site assessments
+   - Reference checks
+
+3. CONTRACTING
+   - Security requirements
+   - SLAs
+   - Audit rights
+   - Termination provisions
+
+4. ONGOING MONITORING
+   - Performance tracking
+   - Risk reassessment
+   - Issue management
+
+5. TERMINATION
+   - Data return/destruction
+   - Access revocation
+   - Transition planning
+```
+
+### Vendor Risk Tiers
+
+| Tier         | Criteria                        | Assessment              |
+| ------------ | ------------------------------- | ----------------------- |
+| **Critical** | Core business, high data access | Full assessment, annual |
+| **High**     | Significant operations impact   | Comprehensive, annual   |
+| **Medium**   | Moderate business impact        | Standard, biennial      |
+| **Low**      | Limited impact                  | Self-assessment         |
+
+### Vendor Assessment Areas
+
+```
+ASSESSMENT DOMAINS:
+
+INFORMATION SECURITY:
+- Security controls
+- Data protection
+- Incident response
+- Access management
+
+OPERATIONAL:
+- Business continuity
+- Change management
+- Performance history
+
+FINANCIAL:
+- Financial stability
+- Insurance coverage
+- Pricing sustainability
+
+COMPLIANCE:
+- Regulatory compliance
+- Certifications
+- Audit history
+
+REPUTATIONAL:
+- Market reputation
+- Legal history
+- References
+```
+
+## Operational Risk Management
+
+### Operational Risk Framework
+
+```
+OPERATIONAL RISK CATEGORIES:
+
+PEOPLE:
+- Human error
+- Inadequate training
+- Fraud
+- Key person dependency
+
+PROCESS:
+- Control failures
+- Procedure gaps
+- Documentation issues
+- Capacity constraints
+
+SYSTEMS:
+- IT failures
+- Data integrity
+- System integration
+- Technology obsolescence
+
+EXTERNAL:
+- Vendor failures
+- Regulatory changes
+- Natural disasters
+- Market disruptions
+```
+
+### Key Risk Indicators (KRIs)
+
+| Risk Area       | KRI                | Threshold     |
+| --------------- | ------------------ | ------------- |
+| **Operational** | Process exceptions | >5%           |
+| **Technology**  | System downtime    | >99.9% uptime |
+| **People**      | Staff turnover     | <15%          |
+| **Vendor**      | SLA breaches       | <5%           |
+| **Compliance**  | Policy violations  | 0 critical    |
+
+### Control Assessment
+
+```
+CONTROL EVALUATION:
+
+DESIGN EFFECTIVENESS:
+- Is the control properly designed?
+- Does it address the risk?
+- Is it documented?
+
+OPERATING EFFECTIVENESS:
+- Is it consistently applied?
+- Is it working as intended?
+- Is evidence maintained?
+
+CONTROL RATINGS:
+Effective: Control works as designed
+Needs Improvement: Minor gaps
+Inadequate: Significant gaps
+Absent: No control in place
+```
+
+## Reputational Risk
+
+### Reputation Risk Framework
+
+```
+REPUTATION DRIVERS:
+
+PRODUCTS & SERVICES:
+- Quality
+- Safety
+- Value
+
+CORPORATE BEHAVIOR:
+- Ethics
+- Governance
+- Environmental impact
+
+WORKPLACE:
+- Culture
+- Diversity
+- Employee treatment
+
+LEADERSHIP:
+- Integrity
+- Competence
+- Communication
+
+FINANCIAL:
+- Performance
+- Transparency
+- Investor relations
+```
+
+### Reputation Monitoring
+
+```
+MONITORING SOURCES:
+
+MEDIA:
+- Traditional news
+- Online publications
+- Broadcast
+
+SOCIAL:
+- Twitter/X
+- LinkedIn
+- Reddit
+- Industry forums
+
+STAKEHOLDER:
+- Customer feedback
+- Employee surveys
+- Investor calls
+- Analyst reports
+
+METRICS:
+- Sentiment score
+- Share of voice
+- Message pull-through
+- Crisis response time
+```
+
+## Risk Reporting
+
+### Board Risk Reporting
+
+```
+BOARD REPORT ELEMENTS:
+
+EXECUTIVE SUMMARY:
+- Top risks
+- Emerging risks
+- Risk appetite status
+
+RISK DASHBOARD:
+- Heat map
+- Trend analysis
+- KRI status
+
+DEEP DIVES:
+- Focus areas
+- Incident summary
+- Response effectiveness
+
+FORWARD LOOK:
+- Emerging risks
+- Strategic risks
+- Mitigation plans
+```
+
+### Risk Metrics Dashboard
+
+| Category          | Metric                 | Target | Status |
+| ----------------- | ---------------------- | ------ | ------ |
+| **Risk Appetite** | Risks within tolerance | 100%   |        |
+| **Incidents**     | Material losses        | 0      |        |
+| **Controls**      | Effective controls     | >90%   |        |
+| **Issues**        | Overdue remediation    | <5%    |        |
+| **Training**      | Completion rate        | >95%   |        |
+
+## See Also
+
+- [Fortune 50 Security](../fortune50-security/SKILL.md)
+- [Fortune 50 Legal/Compliance](../fortune50-legal-compliance/SKILL.md)
+- [Fortune 50 Finance](../fortune50-finance/SKILL.md)

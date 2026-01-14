@@ -1,11 +1,7 @@
 {
   "name": "forge",
-  "description": "Claude Code skill creation and validation toolkit. Activates when creating new skills, validating skill structure, or packaging skills for distribution. Provides templates, validation scripts (quick_v",
   "repo": "bacoco/EvolveSkill",
-  "category": "development",
-  "tags": [
-    "forge"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/forge/SKILL.md",
+  "source": "github.com/bacoco/EvolveSkill",
+  "downloaded_at": "2026-01-14T04:03:33.838975Z"
 }

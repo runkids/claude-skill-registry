@@ -1,13 +1,7 @@
 {
   "name": "moai-domain-data-science",
-  "description": "Data analysis, visualization, statistical modeling, and reproducible research workflows.",
   "repo": "kivo360/quickhooks",
-  "category": "data",
-  "tags": [
-    "moai",
-    "domain",
-    "data",
-    "science"
-  ],
-  "stars": 0
+  "path": ".claude/skills/moai-domain-data-science/SKILL.md",
+  "source": "github.com/kivo360/quickhooks",
+  "downloaded_at": "2026-01-14T03:32:55.970016Z"
 }

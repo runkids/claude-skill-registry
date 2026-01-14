@@ -1,11 +1,7 @@
 {
   "name": "filesystem",
-  "description": "Filesystem operations and codebase navigation. Use when exploring project structure, finding files, searching code, reading/writing files, or understanding codebase organization.",
-  "repo": "vanyastaff/paramdef",
-  "category": "development",
-  "tags": [
-    "filesystem"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "oimiragieo/agent-studio",
+  "path": ".claude/skills/filesystem/SKILL.md",
+  "source": "github.com/oimiragieo/agent-studio",
+  "downloaded_at": "2026-01-14T03:17:12.722207Z"
 }

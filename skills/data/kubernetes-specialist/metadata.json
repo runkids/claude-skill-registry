@@ -1,12 +1,7 @@
 {
   "name": "kubernetes-specialist",
-  "description": "Use when deploying or managing Kubernetes workloads requiring cluster configuration, security hardening, or troubleshooting. Invoke for Helm charts, RBAC policies, NetworkPolicies, storage configurati",
   "repo": "Jeffallan/claude-skills",
-  "category": "devops",
-  "tags": [
-    "kubernetes",
-    "specialist"
-  ],
-  "stars": 12,
-  "source": "local"
+  "path": "skills/kubernetes-specialist/SKILL.md",
+  "source": "github.com/Jeffallan/claude-skills",
+  "downloaded_at": "2026-01-14T02:36:40.395922Z"
 }

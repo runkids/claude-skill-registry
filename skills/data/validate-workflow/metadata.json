@@ -1,11 +1,7 @@
 {
   "name": "validate-workflow",
-  "description": "Validate GitHub Actions workflow files for syntax, best practices, and correctness. Use before committing workflow changes or when workflows fail.",
   "repo": "mvillmow/ProjectOdyssey",
-  "category": "data",
-  "tags": [
-    "validate",
-    "workflow"
-  ],
-  "stars": 8
+  "path": ".claude/skills/validate-workflow/SKILL.md",
+  "source": "github.com/mvillmow/ProjectOdyssey",
+  "downloaded_at": "2026-01-14T01:08:59.220753Z"
 }

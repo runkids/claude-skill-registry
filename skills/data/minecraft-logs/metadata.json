@@ -1,9 +1,7 @@
 {
   "name": "minecraft-logs",
-  "description": "Capture Minecraft Bedrock network packets using a proxy relay. Start packet capture, save raw binary dumps and processed JSON logs. Use when debugging Bedrock protocol, analyzing bot behavior, or reco",
   "repo": "mc-zuri/mineflayer-bedrock",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/minecraft-logs/SKILL.md",
+  "source": "github.com/mc-zuri/mineflayer-bedrock",
+  "downloaded_at": "2026-01-14T01:50:21.436473Z"
 }

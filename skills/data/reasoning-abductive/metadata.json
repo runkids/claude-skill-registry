@@ -1,11 +1,7 @@
 {
   "name": "reasoning-abductive",
-  "description": "Generate and evaluate explanatory hypotheses from incomplete observations. Use when diagnosing anomalies, explaining unexpected outcomes, or inferring causes from effects. Produces ranked hypotheses w",
   "repo": "BellaBe/lean-os",
-  "category": "data",
-  "tags": [
-    "reasoning",
-    "abductive"
-  ],
-  "stars": 12
+  "path": ".claude/skills/reasoning-abductive/SKILL.md",
+  "source": "github.com/BellaBe/lean-os",
+  "downloaded_at": "2026-01-14T02:11:15.354649Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "braiins-manager",
-  "description": "Braiins Manager - web-based dashboard for monitoring and managing Bitcoin mining operations with real-time metrics, alerts, and multi-user access control",
   "repo": "enuno/claude-command-and-control",
-  "category": "data",
-  "tags": [
-    "braiins",
-    "manager"
-  ],
-  "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/braiins-manager/SKILL.md",
+  "source": "github.com/enuno/claude-command-and-control",
+  "downloaded_at": "2026-01-14T00:52:41.111287Z"
 }

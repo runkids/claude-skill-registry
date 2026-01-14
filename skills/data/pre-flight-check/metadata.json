@@ -1,13 +1,7 @@
 {
   "name": "pre-flight-check",
-  "description": "INVOKE FIRST before any code work. Validates git workflow (branch, issue, worklog) and checks approach. Use at START of every task and END before completing. Prevents skipped steps.",
-  "repo": "ProfPowell/project-template",
-  "category": "productivity",
-  "tags": [
-    "pre",
-    "flight",
-    "check"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "munlucky/claude-settings",
+  "path": ".claude/skills/pre-flight-check/SKILL.md",
+  "source": "github.com/munlucky/claude-settings",
+  "downloaded_at": "2026-01-14T01:13:32.649902Z"
 }

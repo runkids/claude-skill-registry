@@ -1,13 +1,7 @@
 {
   "name": "drizzle-schema-guide",
-  "description": "Modify Drizzle ORM database schema safely. Use when user mentions \"add table\", \"new column\", \"database schema\", \"migration\", or \"drizzle\".",
   "repo": "AppleLamps/xpic2",
-  "category": "data",
-  "tags": [
-    "drizzle",
-    "schema",
-    "guide"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/drizzle-schema-guide/SKILL.md",
+  "source": "github.com/AppleLamps/xpic2",
+  "downloaded_at": "2026-01-14T02:22:44.187355Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "quality-fixer",
-  "description": "Automatically apply safe quality fixes including formatting (Black, isort), linting (Ruff auto-fixes), and resolve formatter conflicts. Use when quality checks fail or before committing code.",
   "repo": "Atyantik/python-modern-template",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "template/.claude/skills/quality-fixer/SKILL.md.jinja",
+  "source": "github.com/Atyantik/python-modern-template",
+  "downloaded_at": "2026-01-14T01:08:45.849852Z"
 }

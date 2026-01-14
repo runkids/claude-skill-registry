@@ -1,12 +1,7 @@
 {
   "name": "svelte-deployment",
-  "description": "Svelte deployment guidance. Use for adapters, Vite config, pnpm setup, library authoring, PWA, or production builds.",
-  "repo": "spences10/svelte-claude-skills",
-  "category": "development",
-  "tags": [
-    "svelte",
-    "deployment"
-  ],
-  "stars": 107,
-  "source": "SkillsMP Synced Skills"
+  "repo": "spences10/svelte-skills-kit",
+  "path": "plugins/svelte-skills/skills/svelte-deployment/SKILL.md",
+  "source": "github.com/spences10/svelte-skills-kit",
+  "downloaded_at": "2026-01-14T02:57:51.107857Z"
 }

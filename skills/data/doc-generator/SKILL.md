@@ -1,268 +1,76 @@
 ---
-name: doc-generator
-description: Generate documentation for code including JSDoc, docstrings, README, and API docs. Use when documenting code, creating README files, or generating API documentation.
-allowed-tools: Bash, Read, Write, Grep, Glob
+name: api-documentation-generator
+description: Generate comprehensive, accurate API documentation from source code. Use when creating or updating API documentation, generating OpenAPI specs, or when users mention API docs, endpoints, or documentation.
 ---
 
-# Doc Generator
+# API Documentation Generator Skill
 
-**Version**: 1.0.0
-**Purpose**: Generate comprehensive documentation
+## Generates
 
----
+- OpenAPI/Swagger specifications
+- API endpoint documentation
+- SDK usage examples
+- Integration guides
+- Error code references
+- Authentication guides
 
-## Triggers
+## Documentation Structure
 
-| Trigger | Examples |
-|---------|----------|
-| Document | "document this", "ドキュメント生成", "add docs" |
-| README | "create README", "README作成" |
-| API docs | "generate API docs", "API文書" |
-| JSDoc | "add JSDoc", "コメント追加" |
+### For Each Endpoint
 
----
+```markdown
+## GET /api/v1/users/:id
 
-## Documentation Types
+### Description
+Brief explanation of what this endpoint does
 
-### 1. JSDoc/TSDoc
+### Parameters
 
-```typescript
-/**
- * Calculates the total price including tax.
- *
- * @param items - Array of items with price property
- * @param taxRate - Tax rate as decimal (e.g., 0.1 for 10%)
- * @returns Total price including tax
- *
- * @example
- * ```ts
- * const total = calculateTotal([{ price: 100 }], 0.1);
- * // Returns: 110
- * ```
- *
- * @throws {Error} If items array is empty
- * @see {@link Item} for item structure
- */
-function calculateTotal(items: Item[], taxRate: number): number {
-  // implementation
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| id | string | Yes | User ID |
+
+### Response
+
+**200 Success**
+```json
+{
+  "id": "usr_123",
+  "name": "John Doe",
+  "email": "john@example.com",
+  "created_at": "2025-01-15T10:30:00Z"
 }
 ```
 
-### 2. Interface Documentation
-
-```typescript
-/**
- * Represents a user in the system.
- *
- * @interface User
- * @property {string} id - Unique identifier
- * @property {string} email - User's email address
- * @property {Date} createdAt - Account creation timestamp
- */
-interface User {
-  id: string;
-  email: string;
-  createdAt: Date;
+**404 Not Found**
+```json
+{
+  "error": "USER_NOT_FOUND",
+  "message": "User does not exist"
 }
 ```
 
-### 3. README Structure
+### Examples
 
-```markdown
-# Project Name
-
-> One-line description
-
-[![npm](https://img.shields.io/npm/v/package-name)](https://npmjs.com/package/package-name)
-[![License](https://img.shields.io/npm/l/package-name)](LICENSE)
-
-## Features
-
-- Feature 1
-- Feature 2
-
-## Installation
-
-\`\`\`bash
-npm install package-name
-\`\`\`
-
-## Quick Start
-
-\`\`\`typescript
-import { something } from 'package-name';
-
-const result = something();
-\`\`\`
-
-## API Reference
-
-### `functionName(param)`
-
-Description of function.
-
-**Parameters:**
-- `param` (Type) - Description
-
-**Returns:** Type - Description
-
-**Example:**
-\`\`\`typescript
-const result = functionName('value');
-\`\`\`
-
-## Configuration
-
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| option1 | string | 'default' | Description |
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md)
-
-## License
-
-MIT
-```
-
-### 4. CHANGELOG
-
-```markdown
-# Changelog
-
-All notable changes to this project will be documented in this file.
-
-## [1.2.0] - 2025-01-15
-
-### Added
-- New feature X (#123)
-
-### Changed
-- Updated dependency Y
-
-### Fixed
-- Bug in Z (#124)
-
-### Deprecated
-- Old API method
-
-### Removed
-- Legacy code
-
-### Security
-- Fixed vulnerability
-```
-
----
-
-## Workflow
-
-### Step 1: Analyze Code
-
+**cURL**
 ```bash
-# Find undocumented functions
-grep -r "^export function" src/ | grep -v "/\*\*"
+curl -X GET "https://api.example.com/api/v1/users/usr_123" \
+  -H "Authorization: Bearer YOUR_TOKEN"
 ```
 
-### Step 2: Generate Docs
-
-For each function/class:
-1. Read implementation
-2. Understand purpose
-3. Write description
-4. Add parameters
-5. Add return type
-6. Add examples
-
-### Step 3: Verify
-
-```bash
-# TypeScript doc check
-npx typedoc --validation
-
-# Lint docs
-npx eslint --rule 'jsdoc/*' src/
+**JavaScript**
+```javascript
+const user = await fetch('/api/v1/users/usr_123', {
+  headers: { 'Authorization': 'Bearer token' }
+}).then(r => r.json());
 ```
 
----
-
-## Best Practices
-
-### Do
-
-```typescript
-/**
- * Validates email format.
- *
- * @param email - Email address to validate
- * @returns True if email is valid
- */
-function isValidEmail(email: string): boolean { }
+**Python**
+```python
+response = requests.get(
+    'https://api.example.com/api/v1/users/usr_123',
+    headers={'Authorization': 'Bearer token'}
+)
+user = response.json()
 ```
-
-### Don't
-
-```typescript
-/**
- * This function validates emails.
- * It takes an email parameter.
- * It returns a boolean.
- */
-function isValidEmail(email: string): boolean { }
 ```
-
----
-
-## Templates
-
-### Function Doc
-
-```typescript
-/**
- * [Brief description in imperative mood]
- *
- * [Longer description if needed]
- *
- * @param paramName - [Description]
- * @returns [Description]
- *
- * @example
- * \`\`\`ts
- * [Usage example]
- * \`\`\`
- *
- * @throws {ErrorType} [When this error occurs]
- * @since [version]
- * @deprecated [Use X instead]
- */
-```
-
-### Class Doc
-
-```typescript
-/**
- * [Brief description]
- *
- * [Longer description]
- *
- * @example
- * \`\`\`ts
- * const instance = new ClassName(options);
- * instance.method();
- * \`\`\`
- */
-class ClassName { }
-```
-
----
-
-## Checklist
-
-- [ ] All public APIs documented
-- [ ] Examples included
-- [ ] Parameters described
-- [ ] Return values described
-- [ ] Errors documented
-- [ ] README is current
-- [ ] CHANGELOG updated

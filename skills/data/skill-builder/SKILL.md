@@ -1,611 +1,303 @@
 ---
-name: "Skill Builder"
-description: "Guide for creating new skills following best practices"
-tags: ["skill", "create", "template", "workflow", "pattern", "reusable", "document", "technique", "instructions", "metadata"]
-intent: "Guide for creating new skills following best practices. Use when user asks to create a new skill, document a technique, capture a workflow, or add instructions for future sessions. Triggers when you discover a pattern worth reusing, when user says 'make a skill', 'write this down', or wants to standardize a recurring process."
-version: "1.0.0"
-languages: all
+name: skill-builder
+description: Create new Claude Code agent skills. Automatically analyzes requirements and generates complete skill with proper structure, triggers, and tools. Use when you want to "create a skill", "build a new skill", "make a skill for", or automate repetitive tasks.
+allowed-tools: Read, Write, Glob, Bash
 ---
 
 # Skill Builder
 
-## Overview
+Autonomously create new Claude Code agent skills with intelligent analysis and generation.
 
-This skill teaches you how to create new skills properly. Skills are reusable instruction sets that extend your capabilities with specialized knowledge, workflows, and best practices.
+## When to Activate
 
-**Core principle:** Write skills that future instances of Codex can discover and apply without human intervention.
+- "create a skill for...", "build a new skill"
+- "make a skill that...", "I need a skill to..."
+- "generate a skill for..."
 
-## When to Use This Skill
+## Autonomous Creation Process
 
-Use this skill when:
-- User asks to "create a skill" or "make a skill"
-- You discover a technique that should be reusable
-- User wants to document a workflow or pattern
-- You're asked to "write this down for next time"
-- A process keeps recurring and should be standardized
+### Step 1: Analyze User Request
 
-## What Makes a Good Skill
+**Automatically infer from the request:**
 
-**Good skills are:**
-- ✅ Reusable across multiple projects
-- ✅ Clear and actionable (step-by-step)
-- ✅ Discoverable (rich metadata)
-- ✅ Self-contained (all info needed to use it)
+1. **Task Type Detection**:
+   - Review/Check → Code Review Skill (Read, Grep, Glob)
+   - Generate/Create → Code Generator (Read, Write, Glob)
+   - Analyze/Report → Analyzer (Read, Grep, Glob, Bash)
+   - Refactor/Improve → Refactoring Assistant (Read, Write, Grep, Glob)
+   - Test → Test Assistant (Read, Write, Bash)
+   - Document → Documentation Generator (Read, Write, Glob)
 
-**Don't create skills for:**
-- ❌ One-off solutions
-- ❌ Project-specific code (that goes in project docs)
-- ❌ Things already well-documented elsewhere
-- ❌ Personal preferences without broad applicability
+2. **Skill Name Derivation**:
+   - Extract key technology/concept from request
+   - Format: `[technology]-[action]` (e.g., "check iOS performance" → `ios-performance-check`)
+   - Keep lowercase with hyphens, max 64 chars
 
-## SKILL.md Structure
+3. **Trigger Keywords Extraction**:
+   - Parse user's language for natural phrases
+   - Add common variations and synonyms
+   - Include file type mentions if applicable
 
-Every skill must have this structure:
+4. **Tool Requirements**:
+   - Read-only tasks → `Read, Grep, Glob`
+   - Generation tasks → `Read, Write, Glob`
+   - Command/build tasks → `Read, Write, Bash`
+   - Complex workflows → No restrictions
 
-```markdown
----
-name: "Human-Readable Skill Name"
-description: "One-line summary of what this does"
-tags: ["keyword1", "keyword2", "keyword3"]
-intent: "Detailed triggers, symptoms, and situations when this applies. Include error messages, user phrases, and specific scenarios."
-version: "1.0.0"
-languages: all | ["python", "javascript"] | specific language
----
+5. **Output Format Selection**:
+   - Review/Check → Report with issues and fixes
+   - Generate → File creation confirmation with examples
+   - Analyze → Metrics report with visualizations
+   - Refactor → Proposal with before/after
+   - Test → Test results and coverage report
+   - Document → Generated documentation preview
 
-# Skill Name
+### Step 2: Smart Question Strategy
 
-## Overview
-2-3 sentence explanation of what this skill does and the core principle.
+**Only ask if truly ambiguous:**
+- Multiple valid approaches? → Ask which approach
+- Unclear scope? → Ask for scope clarification
+- Critical choices? → Ask for user preference
 
-## When to Use
-Bullet list of:
-- Specific triggers (error messages, situations)
-- Symptoms that indicate you need this
-- Types of tasks where this applies
-- When NOT to use this
+**Never ask if inferable:**
+- Skill name → Auto-generate from request
+- Basic tools → Auto-select based on task type
+- Common triggers → Auto-generate from context
+- Output format → Auto-select based on skill type
 
-## Core Pattern (if showing before/after)
-Brief example showing the wrong way and the right way.
+### Step 3: Auto-Generate Skill Structure
 
-## Quick Reference
-Table or bullet list of common operations/commands for quick scanning.
+**Automatically create complete skill with:**
 
-## Implementation
-Step-by-step instructions:
-1. First step
-2. Second step
-3. Third step
+#### Auto-Generated Skill Name
+Format: `[technology]-[action]`
+Examples:
+- "check iOS naming" → `ios-naming-check`
+- "generate React component" → `react-component-generator`
+- "analyze dependencies" → `dependency-analyzer`
 
-Include code examples inline when relevant.
-
-## Common Mistakes
-What goes wrong + how to fix it:
-- ❌ Don't do this
-- ✅ Do this instead
-
-## Examples
-Real-world concrete examples of using this skill.
+#### Auto-Generated Description
+Template:
+```
+[Verb] [what] [context]. [Specifics]. Use when [trigger1], [trigger2], "[quoted phrases]", or [patterns].
 ```
 
-## The Critical YAML Frontmatter
+Auto-include:
+- Specific action extracted from request
+- What it checks/generates/analyzes
+- Trigger phrases derived from user's language
+- File types if mentioned
+- Natural language variations
 
-The YAML section at the top is **critical for discovery**. Codex finds skills by matching patterns in these fields.
+#### Auto-Selected Tools
+Based on detected task type:
+- Review/Check → `Read, Grep, Glob`
+- Generate → `Read, Write, Glob`
+- Analyze with commands → `Read, Grep, Glob, Bash`
+- Refactor → `Read, Write, Grep, Glob`
+- Test with execution → `Read, Write, Bash`
 
-### Required Fields (Codex will fail to load skills missing these)
+#### Auto-Generated Content Structure
 
-**`name:`** - Human-readable title (REQUIRED)
-- Use active voice: "Creating Skills" not "Skill Creation"
-- Descriptive: "Time Awareness" not just "Time"
-- Use quotes for strings with special characters
+Select appropriate template based on task type (from templates.md):
+- Code Review → Template 1
+- Code Generator → Template 2
+- Analyzer/Reporter → Template 3
+- Refactoring Assistant → Template 4
+- Test Assistant → Template 5
+- Documentation Generator → Template 6
 
-**`description:`** - One-line summary (REQUIRED by Codex)
-- What does it do in plain language?
-- This shows in skill listings
-- **Codex will skip loading skills without this field**
+Populate template with:
+- Auto-generated name, description, tools
+- Task-specific process steps
+- Relevant output format
+- Examples from similar skills (from examples.md)
 
-**`tags:`** - Discovery keywords (recommended)
-- Array of keywords for matching user queries
-- Include synonyms and related terms
-- Example: `["git", "worktree", "branch", "parallel"]`
+### Step 4: Generate and Validate
 
-**`intent:`** - Discovery metadata (MOST IMPORTANT for matching)
-- Be extremely specific
-- Include error messages, symptoms, trigger words
-- This is how Codex knows to load your skill
-- More detail = better discovery
-
-**`version:`** - Semantic version (start with 1.0.0)
-
-**`languages:`** - Which languages/contexts apply
-- `all` for universal skills
-- `["python", "javascript"]` for language-specific
-- `["typescript"]` for single language
-
-### Example of Good vs Bad intent
-
-❌ **Bad - Too vague:**
-```yaml
-intent: "For git workflows"
-```
-
-✅ **Good - Specific triggers:**
-```yaml
-intent: "When working on multiple features simultaneously, when you need to preserve work-in-progress, when switching contexts frequently, when you see 'detached HEAD' state, or when user mentions 'git worktrees'"
-```
-
-## Step-by-Step Skill Creation Process
-
-### Step 1: Identify the Pattern
-
-Ask yourself:
-- What technique/pattern did we just use?
-- Would this be useful again in a different context?
-- Can it be generalized?
-- Is it already well-documented elsewhere?
-
-### Step 2: Choose a Name
-
-Use this format:
-- Action-based: "debugging-with-logs", "creating-tests"
-- Pattern-based: "condition-based-waiting"
-- Clear and searchable: "git-worktree-workflow"
-
-Avoid:
-- Generic names: "helper", "utils"
-- Abbreviations: "db-mgmt"
-- Unclear references: "the-pattern"
-
-### Step 3: Write Discovery Metadata
-
-This is THE MOST IMPORTANT part. Write `intent` with:
-
-**Include specific triggers:**
-- Error messages: "ENOENT", "Cannot find module"
-- Symptoms: "flaky tests", "race conditions"
-- Keywords: "async", "parallel", "concurrent"
-- User phrases: "how do I...", "keep getting..."
-
-**Include context:**
-- When in the workflow: "before writing code", "when debugging"
-- Project types: "React projects", "CLI tools"
-- Situations: "when tests are slow", "when merging is difficult"
-
-### Step 4: Write Clear Instructions
-
-**Use imperative mood:**
-- ✅ "Run this command"
-- ❌ "You should run this command"
-
-**Number steps:**
-1. First do this
-2. Then do this
-3. Finally do this
-
-**Show code examples inline:**
+**Auto-create directory structure:**
 ```bash
-# Good examples are commented and complete
-git worktree add ../feature-branch feature-branch
+mkdir -p .claude/skills/[auto-generated-name]
 ```
 
-**Explain WHY, not just WHAT:**
+**Auto-generate files:**
+
+1. **`SKILL.md`** (Required, Concise)
+   - Frontmatter (name, description, allowed-tools)
+   - When to Activate (trigger phrases)
+   - Process steps (core workflow)
+   - Output format (template structure)
+   - Keep under 150 lines - core instructions only!
+
+2. **`templates.md`** (Optional, for code/structure templates)
+   - Code templates
+   - File structure templates
+   - Boilerplate examples
+   - Use when skill generates code or files
+
+3. **`examples.md`** (Optional, for detailed examples)
+   - Real-world usage examples
+   - Before/after code samples
+   - Complex scenarios
+   - Use when skill needs detailed guidance
+
+4. **`standards.md`** (Optional, for rules/guidelines)
+   - Coding standards
+   - Naming conventions
+   - Best practices
+   - Reference documentation
+   - Use when skill enforces specific rules
+
+**Separation principle:**
+- SKILL.md = Concise instructions (what to do, how to do it)
+- Separate files = Supporting details (templates, examples, references)
+
+**Auto-validate:**
+- ✓ Valid YAML frontmatter with `---` delimiters
+- ✓ Name lowercase with hyphens
+- ✓ Description specific with quoted triggers
+- ✓ Tools appropriate for task type
+- ✓ Process steps clear and actionable
+- ✓ SKILL.md concise (under 150 lines)
+- ✓ Extra content moved to separate files
+
+### Step 5: Present and Test
+
+**Show user:**
 ```markdown
-## Why condition-based waiting works
+✅ Created skill: [name]
 
-Polling with conditions is more reliable than fixed timeouts because...
+📁 Location: `.claude/skills/[name]/SKILL.md`
+
+🎯 Try these phrases:
+- "[trigger phrase 1]"
+- "[trigger phrase 2]"
+- "[trigger phrase 3]"
+
+📖 Description: [generated description]
 ```
 
-### Step 5: Add Examples
+## Quick Reference: Task Types
 
-Include 2-3 real-world examples:
-- Simple case
-- Edge case
-- Common variation
+| Type | Tools | Output | Example Name |
+|------|-------|--------|--------------|
+| Review | Read, Grep, Glob | Issues report | `security-review` |
+| Generator | Read, Write, Glob | New files | `component-generator` |
+| Analyzer | Read, Grep, Glob, Bash | Metrics report | `dependency-analyzer` |
+| Refactor | Read, Write, Grep, Glob | Modified files | `extract-method` |
+| Test | Read, Write, Bash | Test results | `test-runner` |
+| Document | Read, Write, Glob | Documentation | `api-docs-generator` |
 
-Make them **concrete** - actual code, actual commands, actual scenarios.
+## Auto-Generation Examples
 
-### Step 6: Document Common Mistakes
+### Example 1: User says "create a skill to check TODO comments"
+**Auto-analysis:**
+- Task type: Review (check/find)
+- Name: `todo-finder`
+- Tools: `Read, Grep, Glob`
+- Triggers: "find todos", "check todos", "show todos", "list fixmes"
+- Output: Report organized by priority
 
-Every skill should have this section:
+**Action:** Auto-generate complete skill, create files, show confirmation
+
+### Example 2: User says "I need to generate React components"
+**Auto-analysis:**
+- Task type: Generator (create/generate)
+- Name: `react-component-generator`
+- Tools: `Read, Write, Glob`
+- Triggers: "create component", "generate component", "new component"
+- Output: Component files with tests
+
+**Action:** Auto-generate complete skill, create files, show confirmation
+
+### Example 3: User says "make a skill for iOS performance issues"
+**Auto-analysis:**
+- Task type: Analyzer (check performance)
+- Name: `ios-performance-check`
+- Tools: `Read, Grep, Glob, Bash`
+- Triggers: "check performance", "performance issues", "slow code"
+- Output: Performance report with fixes
+
+**Action:** Auto-generate complete skill, create files, show confirmation
+
+## Standard Workflow
+
+When user requests a skill:
+
+1. **Analyze** request → Detect task type, extract key concepts
+2. **Generate** skill name, description, triggers automatically
+3. **Select** appropriate template and tools
+4. **Create** `.claude/skills/[name]/SKILL.md` with complete content
+5. **Validate** frontmatter, structure, triggers
+6. **Present** summary with test phrases
+
+**No questions asked unless truly ambiguous!**
+
+## Creation Output Format
+
+After auto-generating skill, show:
+
 ```markdown
-## Common Mistakes
+✅ Skill Created: [name]
 
-❌ **Mistake:** Description of what goes wrong
-✅ **Fix:** How to do it correctly
+📁 Files created:
+  - `.claude/skills/[name]/SKILL.md` (core instructions)
+  - `.claude/skills/[name]/templates.md` (if applicable)
+  - `.claude/skills/[name]/examples.md` (if applicable)
+  - `.claude/skills/[name]/standards.md` (if applicable)
 
-❌ **Mistake:** Another common error
-✅ **Fix:** The right approach
+🔧 Type: [task-type]
+🛠️  Tools: [tool-list]
+📄 Lines: [line-count] (SKILL.md is concise!)
+
+🎯 Test with these phrases:
+- "[natural trigger 1]"
+- "[natural trigger 2]"
+- "[natural trigger 3]"
+
+📖 Full description:
+[Generated description with all triggers]
+
+✅ Ready to use! Try one of the test phrases above.
 ```
 
-### Step 7: Create the File
-
-```bash
-# Create skill directory (DOTCODEX_DIR defaults to ../dotcodex)
-default_dotcodex="${DOTCODEX_DIR:-$(cd .. && pwd)/dotcodex}"
-skills_dir="${default_dotcodex}/skills"
-mkdir -p "${skills_dir}/skill-name"
-
-# Create SKILL.md file
-cat > "${skills_dir}/skill-name/SKILL.md" <<'EOF'
-[paste your skill content here]
-EOF
-
-# Verify it appears
-codex-skills list
-
-# Test loading it
-codex-skills use skill-name
-```
-
-## Skill Templates by Type
-
-### Technique Skill (How-to)
-
-For teaching a specific technique or method.
-
-**Focus on:**
-- Clear step-by-step process
-- Code examples
-- Before/after comparisons
-
-**Example:** time-awareness, systematic-debugging
-
-### Pattern Skill (Conceptual)
-
-For teaching a way of thinking or mental model.
-
-**Focus on:**
-- The principle/concept
-- When to apply it
-- Recognition patterns
-
-**Example:** defensive-programming, separation-of-concerns
-
-### Workflow Skill (Process)
-
-For multi-step processes or workflows.
-
-**Focus on:**
-- Ordered steps
-- Decision points
-- Checkpoints
-
-**Example:** git-worktree-workflow, code-review-process
-
-### Reference Skill (Documentation)
-
-For API docs, command references, syntax guides.
-
-**Focus on:**
-- Quick reference tables
-- Command syntax
-- Common operations
-
-**Example:** docker-commands, regex-patterns
-
-## Testing Your Skill
-
-After creating a skill, test it:
-
-### 1. Discovery Test
-```bash
-# Does it show up?
-codex-skills list | grep -i "your-skill-name"
-```
-
-### 2. Loading Test
-```bash
-# Does it load properly?
-codex-skills use your-skill-name
-```
-
-### 3. Format Test
-- [ ] YAML frontmatter has `---` delimiters
-- [ ] All required fields present
-- [ ] No tabs in YAML (use spaces)
-- [ ] Headers use `##` format
-- [ ] Code blocks use triple backticks
-
-### 4. Practical Test
-- Start a new Codex session
-- Create a situation where the skill should apply
-- Does Codex discover and use the skill?
-- Do the instructions work as expected?
-
-## Common Mistakes When Creating Skills
-
-### ❌ Vague intent
-```yaml
-intent: "For testing"
-```
-✅ **Better:**
-```yaml
-intent: "When writing unit tests, when tests are flaky, when you see 'test timeout' errors, when mocking external dependencies"
-```
-
-### ❌ No concrete examples
-```markdown
-Use the command with appropriate flags.
-```
-✅ **Better:**
-```markdown
-## Example
-```bash
-git worktree add ../feature-branch feature-branch
-cd ../feature-branch
-# Now you can work here independently
-```
-```
-
-### ❌ Missing the "why"
-```markdown
-Run this command.
-```
-✅ **Better:**
-```markdown
-Run this command to avoid race conditions. Fixed timeouts fail when systems are slow; condition-based waiting adapts.
-```
-
-### ❌ Narrative instead of instructions
-```markdown
-Last week we had a bug where...
-```
-✅ **Better:**
-```markdown
-## Common Mistakes
-When files are locked, you'll see EBUSY errors. Use graceful-fs to retry automatically.
-```
-
-## Skill Creation Checklist
-
-When creating a new skill, verify:
-
-**Discovery:**
-- [ ] `description` field is present (REQUIRED by Codex)
-- [ ] `intent` includes specific trigger words
-- [ ] `intent` includes error messages if applicable
-- [ ] `intent` includes symptoms/situations
-- [ ] `tags` include relevant keywords
-- [ ] Name is descriptive and searchable
-
-**Content:**
-- [ ] Overview explains core principle
-- [ ] When to Use section is comprehensive
-- [ ] Instructions are step-by-step and imperative
-- [ ] Code examples are complete and commented
-- [ ] Common mistakes section included
-- [ ] Real-world examples provided
-
-**Format:**
-- [ ] YAML frontmatter properly formatted
-- [ ] All required fields present
-- [ ] Sections use ## headers
-- [ ] Code uses triple backtick blocks
-- [ ] No tabs in YAML (spaces only)
-
-**Testing:**
-- [ ] Appears in `codex-skills list`
-- [ ] Loads with `codex-skills use skill-name`
-- [ ] Actually helps with the intended task
-- [ ] Can be found when needed
-
-## Integration with Workflow
-
-After creating a skill:
-
-1. **Announce it:** Tell the user "I've created a new skill: [name]"
-2. **Explain when to use it:** Summarize the triggers
-3. **Offer to test:** "Would you like me to test loading this skill?"
-4. **Document it:** Keep a project log of custom skills if relevant
-
-## Example: Creating a Skill (Full Walkthrough)
-
-**User asks:** "Can you write down how to handle environment variables properly so we don't forget next time?"
-
-**You respond:**
-
-"I'll create a skill for environment variable handling. Let me structure this properly..."
-
-```bash
-default_dotcodex="${DOTCODEX_DIR:-$(cd .. && pwd)/dotcodex}"
-skills_dir="${default_dotcodex}/skills"
-mkdir -p "${skills_dir}/env-var-handling"
-```
-
-**You create:**
-```markdown
----
-name: "Environment Variable Handling"
-description: "Best practices for managing environment variables securely in applications"
-tags: ["env", "environment", "secrets", "config", "dotenv", ".env", "configuration"]
-intent: "When setting up new projects, when you see hardcoded secrets, when configuring deployments, when user mentions 'env vars' or '.env files', when debugging configuration issues"
-version: "1.0.0"
-languages: all
----
-
-# Environment Variable Handling
-
-## Overview
-Proper environment variable management keeps secrets out of code, enables configuration across environments, and prevents security vulnerabilities.
-
-## When to Use
-- Starting a new project that needs configuration
-- See hardcoded API keys or secrets in code
-- Deploying to different environments (dev/staging/prod)
-- User mentions environment variables or configuration
-- Debugging "works on my machine" issues
-
-## Core Pattern
-
-❌ **Wrong:**
-```python
-API_KEY = "sk-abc123..."  # Hardcoded secret
-DATABASE_URL = "postgres://localhost"
-```
-
-✅ **Right:**
-```python
-import os
-API_KEY = os.environ.get('API_KEY')
-DATABASE_URL = os.environ.get('DATABASE_URL')
-```
-
-## Implementation
-
-1. **Create .env file for local development:**
-```bash
-cat > .env << 'EOF'
-API_KEY=your-key-here
-DATABASE_URL=postgres://localhost:5432/mydb
-NODE_ENV=development
-EOF
-```
-
-2. **Add .env to .gitignore:**
-```bash
-echo ".env" >> .gitignore
-```
-
-3. **Create .env.example template:**
-```bash
-cat > .env.example << 'EOF'
-API_KEY=your-api-key-here
-DATABASE_URL=your-database-url
-NODE_ENV=development
-EOF
-```
-
-4. **Load in application:**
-```python
-# Python
-from dotenv import load_dotenv
-load_dotenv()
-```
-
-```javascript
-// Node.js
-require('dotenv').config()
-```
-
-5. **Access variables:**
-```python
-import os
-api_key = os.environ.get('API_KEY')
-if not api_key:
-    raise ValueError("API_KEY not set")
-```
-
-## Common Mistakes
-
-❌ **Committing .env to git**
-- Add .env to .gitignore FIRST
-- Check with: `git status` before committing
-
-❌ **No validation**
-```python
-# Bad - fails silently
-api_key = os.environ.get('API_KEY')
-```
-
-✅ **Validate required vars:**
-```python
-# Good - fails fast with clear error
-api_key = os.environ.get('API_KEY')
-if not api_key:
-    raise ValueError("API_KEY environment variable required")
-```
-
-❌ **Inconsistent naming**
-- Use UPPER_SNAKE_CASE consistently
-- Not `apiKey` or `api-key`
-
-## Examples
-
-**Example 1: Python Flask app**
-```python
-from flask import Flask
-import os
-
-app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
-app.config['DATABASE_URI'] = os.environ.get('DATABASE_URL')
-
-if not app.config['SECRET_KEY']:
-    raise ValueError("SECRET_KEY must be set")
-```
-
-**Example 2: Node.js Express app**
-```javascript
-require('dotenv').config()
-
-const app = express()
-const PORT = process.env.PORT || 3000
-const DB_URL = process.env.DATABASE_URL
-
-if (!DB_URL) {
-  throw new Error('DATABASE_URL must be set')
-}
-```
-
-## Production Deployment
-
-For production:
-- Set env vars in hosting platform (Heroku, AWS, etc.)
-- Never commit production secrets
-- Use secret management tools for sensitive data
-- Rotate secrets regularly
+## Internal References
+
+Use these for generation (don't show to user):
+- **templates.md**: 6 skill templates for different task types
+- **examples.md**: 5 complete real-world examples
+- **Official documentation**: https://code.claude.com/docs/en/skills
+
+## Key Principles
+
+1. **Be autonomous**: Infer everything possible from the user's request
+2. **Ask minimally**: Only ask if genuinely ambiguous (approach, scope, critical choices)
+3. **Generate completely**: Create full SKILL.md with all sections
+4. **Validate automatically**: Check frontmatter, structure, triggers before presenting
+5. **Present clearly**: Show what was created and how to test it
+
+## Important Rules
+
+### Auto-Generation
+- **Auto-generate** skill name from request (lowercase-with-hyphens)
+- **Auto-detect** task type to select template and tools
+- **Auto-extract** trigger phrases from user's language
+- **Auto-create** description with specific triggers in quotes
+- **Auto-select** appropriate tools based on task type
+
+### Quality Standards
+- **No generic names**: Always use specific technology/action names
+- **No vague descriptions**: Always include specific triggers and file types
+- **Valid YAML**: Always use `---` delimiters and proper frontmatter format
+  - `allowed-tools` must be comma-separated (e.g., `Read, Write, Glob`) not array format
+
+### File Organization
+- **SKILL.md must be concise**: Under 150 lines, core instructions only
+- **Separate templates**: Move code templates to `templates.md`
+- **Separate examples**: Move detailed examples to `examples.md`
+- **Separate standards**: Move rules/guidelines to `standards.md`
+- **Clear separation**: Instructions in SKILL.md, details in other files
 
 ---
 
-Remember: If it's a secret or configuration, it belongs in an environment variable, not in code.
-```
-
-**You save it:**
-```bash
-# Save the skill
-cat > "${skills_dir}/env-var-handling/SKILL.md" <<'EOF'
-[content above]
-EOF
-```
-
-**You verify:**
-```bash
-codex-skills list
-# Should show: Environment Variable Handling
-```
-
-**You announce:**
-"I've created the 'env-var-handling' skill. It will activate whenever you mention environment variables, configuration, or when I see hardcoded secrets. You can load it anytime with `codex-skills use env-var-handling`."
-
-## Advanced: Skill Families
-
-Related skills can reference each other:
-
-```markdown
-## Related Skills
-
-See also:
-- `codex-skills use security-best-practices` for broader security patterns
-- `codex-skills use docker-config` for containerized deployments
-```
-
-This creates a knowledge graph of interconnected skills.
-
-## Meta-Skill: Using This Skill
-
-**When user asks you to create a skill:**
-
-1. Announce: "I'll create a new skill for [topic]"
-2. Ask clarifying questions if needed:
-   - What should trigger this skill?
-   - What are common error messages?
-   - What mistakes should we warn about?
-3. Follow this skill's structure
-4. Create the file in `${DOTCODEX_DIR:-../dotcodex}/skills/` (symlinked to `~/.codex/skills/`)
-5. Verify with `codex-skills list`
-6. Announce completion and when it will activate
-
-**Remember:** You're creating instructions for your future self. Be clear, be specific, be helpful.
-
----
-
-**This skill is itself an example of a well-structured skill. Use it as a template!**
+**Ready for autonomous skill generation!** Just tell me what skill you need.

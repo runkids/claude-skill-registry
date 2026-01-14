@@ -1,100 +1,62 @@
 ---
-name: "writing"
-description: "Assists with writing and editing general prose using Strunk & White's Elements of Style and Wikipedia's AI writing detection guide. Use when composing articles, blog posts, or editing text for clarity and authenticity."
+name: writing
+description: Precision editing for prose and copy. Use when user says "edit this", "improve this", "review my writing", "use [name]'s voice", or provides draft text to refine. Triggers on editing, voice extraction, voice library, narrative structure, microcopy.
 ---
 
-# Writing and Editing
+# Writing Skill
 
-This skill provides foundational style guides for clear, effective writing. Use this skill when drafting or editing any substantial text.
+Router skill for writing and content workflows. Detects task type and routes to appropriate workflow.
 
-## When to Use This Skill
+## When This Skill Activates
 
-Invoke this skill when:
+You're working on:
 
-- Writing articles, blog posts, or essays
-- Editing prose for clarity, conciseness, or style
-- Need to avoid AI writing anti-patterns
-- User mentions writing, editing, style guides, or Elements of Style
+- Editing prose or documentation
+- Extracting or matching author voice
+- Managing saved voice profiles (list, apply, delete)
+- Structuring narratives or stories
+- Writing UI microcopy
+- Evaluating content quality
 
-## Available Style Guides
+## Workflow Selection
 
-This skill includes two essential style guides organized in `style-guides/`:
+Announce which workflow you're using:
 
-1. **General Writing** - `style-guides/elements-of-style.md`
-   - Strunk & White's Elements of Style
-   - Universal grammar, usage, and composition principles
-   - Use for: all writing as foundational reference
+| Task Type                                    | Workflow            | Reference                   |
+| -------------------------------------------- | ------------------- | --------------------------- |
+| Analyze writing style, extract voice profile | Voice Extraction    | `references/voice.md`       |
+| List, apply, or delete saved voices          | Voice Library       | `/wordsmith:voices` command |
+| Edit text, cut fluff, tighten prose          | Precision Editing   | `references/editing.md`     |
+| Structure story, build narrative arc         | Narrative Structure | `references/narrative.md`   |
+| Write UI copy, tone variations               | Microcopy Tones     | `references/copy.md`        |
+| Evaluate blog/content quality, score         | Content Evaluation  | `references/eval.md`        |
+| Create RFC, ADR, design doc, or blog         | Document Template   | `../template/SKILL.md`      |
 
-2. **AI Pattern Detection** - `style-guides/wikipedia-signs-of-ai-writing.md`
-   - Wikipedia's guide to identifying and avoiding AI writing patterns
-   - Use for: final review of all AI-assisted writing
+## Strategic Framework
 
-## How to Use This Skill
+| Framework | Purpose | When to Use |
+|-----------|---------|-------------|
+| [Open Loop](references/open-loop.md) | Make messages memorable via Zeigarnik effect | Copy, presentations, emails that need to stick |
 
-### Step 1: Understand Your Task
+## Related Thinking Tools
 
-Determine what type of editing or writing assistance is needed:
+From `hope/skills/soul/references/tools/`:
 
-- Drafting new content → Start with Elements of Style principles
-- Editing existing content → Apply Elements of Style rules + check AI patterns
-- Final review → Always check Wikipedia AI anti-patterns guide
+| Tool                                                                      | When to Use                                |
+| ------------------------------------------------------------------------- | ------------------------------------------ |
+| [Minto Pyramid](../../hope/skills/soul/references/tools/minto-pyramid.md) | Structure executive summaries, SCQA format |
+| [Productive Thinking](../../hope/skills/soul/references/tools/productive-thinking.md) | Multi-perspective content review |
 
-### Step 2: Access Relevant Guides
+## Usage
 
-The style guides are complete references:
+1. Detect which workflow applies based on user's task
+2. Announce: "I'm using the writing skill for [workflow]"
+3. Load the appropriate reference file
+4. Execute the workflow exactly as written
 
-- Read `style-guides/elements-of-style.md` for fundamental writing principles
-- Read `style-guides/wikipedia-signs-of-ai-writing.md` for AI pattern detection
+## Rules
 
-### Step 3: Apply Principles
-
-Follow this workflow:
-
-**Before Writing:**
-
-1. Review Elements of Style chapters on structure
-2. Identify your thesis or main point
-3. Plan your argument
-
-**During Drafting:**
-
-1. Write in prose (avoid bullet points unless requested)
-2. Use concrete language and active voice
-3. Follow structural guidance from Elements of Style
-
-**During Editing:**
-
-1. Apply Elements of Style editing rules
-2. Check for logical, rhetorical, and word-choice problems
-3. Review against AI writing anti-patterns (always)
-
-## Critical Writing Rules
-
-1. **Always write in prose** - Avoid bullet points, lists, and outlines unless explicitly requested
-2. **Use concrete examples** - Don't rely on abstractions or generalizations
-3. **Active voice preferred** - Use passive voice only when necessary
-4. **Check AI patterns** - Always review against the AI anti-patterns guide
-5. **Follow prescriptive rules** - The style guide rules are proven; follow them unless you have specific reason not to
-
-## Examples
-
-**For any writing structure:**
-
-```
-Read style-guides/elements-of-style.md
-Apply: principles of composition, common errors to avoid, clarity
-```
-
-**For final editing:**
-
-```
-Read style-guides/wikipedia-signs-of-ai-writing.md
-Check: repetitive phrasing, formulaic structure, authentic voice
-```
-
-## Notes
-
-- Elements of Style is universal and applies to all domains
-- Wikipedia's AI detection guide helps ensure authentic, human voice
-- These two guides form a complete foundation for clear, effective writing
-- Load guides as needed for your current task to keep context efficient
+- Use Ask tool to gather input before proceeding
+- Preserve author voice when editing
+- Be specific about changes and rationale
+- For evaluations, provide exact replacement text for fixes

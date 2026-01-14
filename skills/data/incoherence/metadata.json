@@ -1,11 +1,7 @@
 {
   "name": "incoherence",
-  "description": "Detect and resolve incoherence in documentation, code, specs vs implementation. Includes reconciliation phase for applying user-provided resolutions.",
-  "repo": "solatis/claude-config",
-  "category": "documents",
-  "tags": [
-    "incoherence"
-  ],
-  "stars": 342,
-  "source": "SkillsMP Synced Skills"
+  "repo": "rjmurillo/ai-agents",
+  "path": ".claude/skills/incoherence/SKILL.md",
+  "source": "github.com/rjmurillo/ai-agents",
+  "downloaded_at": "2026-01-14T02:20:49.968658Z"
 }

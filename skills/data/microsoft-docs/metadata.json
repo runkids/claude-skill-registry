@@ -1,12 +1,7 @@
 {
   "name": "microsoft-docs",
-  "description": "Query official Microsoft documentation to understand concepts, find tutorials, and learn how services work. Use for Azure, .NET, Microsoft 365, Windows, Power Platform, and all Microsoft technologies.",
   "repo": "MicrosoftDocs/mcp",
-  "category": "documents",
-  "tags": [
-    "microsoft",
-    "docs"
-  ],
-  "stars": 1212,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/microsoft-docs/SKILL.md",
+  "source": "github.com/MicrosoftDocs/mcp",
+  "downloaded_at": "2026-01-14T02:16:31.812421Z"
 }

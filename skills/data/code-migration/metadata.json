@@ -1,12 +1,7 @@
 {
   "name": "code-migration",
-  "description": "Strategies and patterns for safe code migrations and upgrades. Use when upgrading frameworks, migrating between technologies, handling deprecations, or planning incremental migrations. Triggers: migra",
-  "repo": "cosmix/claude-code-setup",
-  "category": "development",
-  "tags": [
-    "code",
-    "migration"
-  ],
-  "stars": 2,
-  "source": "local"
+  "repo": "cosmix/loom",
+  "path": "skills/code-migration/SKILL.md",
+  "source": "github.com/cosmix/loom",
+  "downloaded_at": "2026-01-14T02:38:33.729045Z"
 }

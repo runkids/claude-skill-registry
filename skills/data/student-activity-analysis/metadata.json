@@ -1,13 +1,7 @@
 {
   "name": "student-activity-analysis",
-  "description": "Analyze student git activity, lab submissions, and project work for software engineering courses. Use when asked to \"update student analysis\", \"check student activity\", \"analyze the class\", or when wo",
   "repo": "nibzard/2025-intro-swe",
-  "category": "development",
-  "tags": [
-    "student",
-    "activity",
-    "analysis"
-  ],
-  "stars": 8,
-  "source": "local"
+  "path": ".claude/skills/student-activity-analysis/SKILL.md",
+  "source": "github.com/nibzard/2025-intro-swe",
+  "downloaded_at": "2026-01-14T00:56:44.723197Z"
 }

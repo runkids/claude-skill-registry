@@ -1,12 +1,7 @@
 {
   "name": "web-browser",
-  "description": "Allows to interact with web pages by performing actions such as clicking buttons, filling out forms, and navigating links. It works by remote controlling Google Chrome or Chromium browsers using the C",
   "repo": "mitsuhiko/agent-stuff",
-  "category": "development",
-  "tags": [
-    "web",
-    "browser"
-  ],
-  "stars": 512,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/web-browser/SKILL.md",
+  "source": "github.com/mitsuhiko/agent-stuff",
+  "downloaded_at": "2026-01-14T02:27:00.377372Z"
 }

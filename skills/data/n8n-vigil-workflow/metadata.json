@@ -1,13 +1,7 @@
 {
   "name": "n8n-vigil-workflow",
-  "description": "Expert guidance for n8n workflow development in Vigil Guard v2.0.0. Use when working with the 24-node 3-branch parallel detection pipeline, arbiter decision logic, unified_config.json management, dual",
   "repo": "tbartel74/Vigil-Code",
-  "category": "development",
-  "tags": [
-    "n8n",
-    "vigil",
-    "workflow"
-  ],
-  "stars": 5,
-  "source": "local"
+  "path": ".claude/skills/n8n-vigil-workflow/SKILL.md",
+  "source": "github.com/tbartel74/Vigil-Code",
+  "downloaded_at": "2026-01-14T02:46:39.737308Z"
 }

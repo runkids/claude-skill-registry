@@ -1,11 +1,7 @@
 {
   "name": "changelog",
-  "description": "Generate and maintain CHANGELOG.md using semantic-release and conventional commits. Use when preparing releases, documenting changes, or reviewing version history.",
-  "repo": "sgcarstrends/sgcarstrends",
-  "category": "data",
-  "tags": [
-    "changelog"
-  ],
-  "stars": 13,
-  "source": "SkillsMP Synced Skills"
+  "repo": "kasperjunge/agent-resources-legacy",
+  "path": ".claude/skills/changelog/SKILL.md",
+  "source": "github.com/kasperjunge/agent-resources-legacy",
+  "downloaded_at": "2026-01-14T03:25:47.971571Z"
 }

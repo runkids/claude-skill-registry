@@ -1,12 +1,7 @@
 {
   "name": "agent-coordination",
-  "description": "Coordinate multiple specialized Skills and Task Agents through parallel, sequential, swarm, hybrid, or iterative execution strategies. CRITICAL - Skills use Skill tool (rust-code-quality, architecture",
   "repo": "d-o-hub/rust-self-learning-memory",
-  "category": "development",
-  "tags": [
-    "agent",
-    "coordination"
-  ],
-  "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "path": ".opencode/skill/agent-coordination/SKILL.md",
+  "source": "github.com/d-o-hub/rust-self-learning-memory",
+  "downloaded_at": "2026-01-14T03:40:12.444830Z"
 }

@@ -1,11 +1,7 @@
 {
   "name": "svelte",
-  "description": "Svelte 5 patterns including TanStack Query mutations, shadcn-svelte components, and component composition. Use when writing Svelte components, using TanStack Query, or working with shadcn-svelte UI.",
   "repo": "EpicenterHQ/epicenter",
-  "category": "design",
-  "tags": [
-    "svelte"
-  ],
-  "stars": 3797,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/svelte/SKILL.md",
+  "source": "github.com/EpicenterHQ/epicenter",
+  "downloaded_at": "2026-01-14T02:31:57.850007Z"
 }

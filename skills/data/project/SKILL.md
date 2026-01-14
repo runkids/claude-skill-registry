@@ -1,107 +1,142 @@
 ---
 name: project
-description: |
-  Manage route-agent project: check status, find next tasks, spawn parallel work. Use when starting work, checking progress, or asking "what's next?"
-allowed-tools:
-  - Bash(gh:*)
-  - Bash(git:*)
-  - mcp__github
-  - Task
+description: Clone and track external repos. Use when user shares GitHub URL to study or develop, or says "search repos", "find repo", "where is [project]". Actions - learn (clone for study), incubate (clone for development), search/find (search repos), list (show tracked).
 ---
 
-# Project Management
+# project-manager
 
-Assess project status, find ready tasks, and orchestrate parallel work.
+Track and manage external repos: Learn (study) | Incubate (develop)
 
-## Commands
+## Golden Rule
 
-| Command | Action |
-|---------|--------|
-| `/project` | Show milestone progress and ready tasks |
-| `/project next` | Recommend single next task |
-| `/project work` | Spawn sub-agents for ready tasks (parallel) |
-| `/project work #N` | Work on specific issue |
-| `/project cleanup` | Remove worktrees for merged PRs |
+**ghq owns the clone → ψ/ owns the symlink**
 
-## Quick Start
+Never copy. Always symlink. One source of truth.
+
+## When to Use
+
+Invoke this skill when:
+- User shares a GitHub URL and wants to study/clone it
+- User mentions wanting to learn from a codebase
+- User wants to start developing on an external repo
+- Need to find where a previously cloned project lives
+
+## Actions
+
+### learn [url|slug]
+
+Clone repo for **study** (read-only reference).
 
 ```bash
-# Milestone progress
-gh api repos/bendrucker/route-agent/milestones --jq '.[] | "\(.title): \(.closed_issues)/\(.open_issues + .closed_issues)"'
+# 1. Clone via ghq
+ghq get -u https://github.com/owner/repo
 
-# Open issues
-gh issue list --repo bendrucker/route-agent --state open --json number,title,milestone,body --limit 100
+# 2. Create flat symlink (NOT nested!)
+GHQ_ROOT=$(ghq root)
+ln -sf "$GHQ_ROOT/github.com/owner/repo" ψ/learn/repo-name
 ```
 
-## Finding Ready Tasks
+**Output**: "✓ Linked [repo] to ψ/learn/repo-name"
 
-**Ready** = No "Depends On" section, OR all dependencies closed.
+### incubate [url|slug]
 
-Parse from issue body:
-```markdown
-## Depends On
-- Issue title here
+Clone repo for **active development**.
+
+```bash
+# Same flow, different target
+ghq get -u https://github.com/owner/repo
+GHQ_ROOT=$(ghq root)
+ln -sf "$GHQ_ROOT/github.com/owner/repo" ψ/incubate/repo-name
 ```
 
-## Parallel Work (`/project work`)
+**Output**: "✓ Linked [repo] to ψ/incubate/repo-name"
 
-1. **Find ready tasks** - Parse dependencies, filter unblocked
-2. **Create worktrees** - One per issue in `./worktrees/<N>/` (inside project, sandbox-allowed)
-3. **Spawn sub-agents** - Each works in background, creates PR
-4. **Report** - List spawned agents for monitoring
+### find [query]
 
-See [references/worktrees.md](references/worktrees.md) for details.
+Search for project across all locations:
 
-### Sub-Agent Prompt
+```bash
+# Search ghq repos
+ghq list | grep -i "query"
 
-```
-Work on issue #N in worktree at <path>.
-
-Issue: <title>
-<body>
-
-1. cd to worktree
-2. Read CLAUDE.md and relevant docs
-3. Implement requirements
-4. Commit with descriptive message
-5. Push and create PR with "Closes #N"
-6. Return PR URL
+# Search learn/incubate symlinks
+ls -la ψ/learn/ ψ/incubate/ 2>/dev/null | grep -i "query"
 ```
 
-## Milestone Priority
+**Output**: List matches with their ghq paths
 
-1. Foundation
-2. Eval Setup (parallel)
-3. Strava Integration
-4. GraphHopper Integration
-5. Route Synthesis
-6. Place Search, Water Stops, Climb Integration, Weather Integration
-7. Ride Preparation, Narrative Research
-8. Research Quality, Route Refinement
-9. Evaluation Framework
+### list
 
-## Output
+Show all tracked projects:
 
-**Status:**
-```
-## Project Status
+```bash
+echo "📚 Learn"
+ls -la ψ/learn/ | grep "^l" | awk '{print "  " $NF " → " $11}'
 
-### Foundation (1/2)
-- [x] #2 SDK project structure
-- [ ] #3 Checkpoint system - READY
+echo "🌱 Incubate"
+ls -la ψ/incubate/ | grep "^l" | awk '{print "  " $NF " → " $11}'
 
-### Ready (2)
-- #3 Checkpoint system (Foundation)
-- #4 Promptfoo setup (Eval Setup)
+echo "🏠 External (ghq)"
+ghq list | head -10
 ```
 
-**Work:**
+## Directory Structure
+
 ```
-## Parallel Work
+ψ/
+├── learn/<slug>     → ~/Code/github.com/owner/repo  (symlink)
+└── incubate/<slug>  → ~/Code/github.com/owner/repo  (symlink)
 
-Spawning:
-- #3 Checkpoint system → worktree created, agent launched
-- #4 Promptfoo setup → worktree created, agent launched
+~/Code/               ← ghq root (source of truth)
+└── github.com/owner/repo/  (actual clone)
+```
 
-Monitor with /tasks. PRs appear for review.
+## Health Check
+
+When listing, verify symlinks are valid:
+
+```bash
+# Check for broken symlinks
+find ψ/learn ψ/incubate -type l ! -exec test -e {} \; -print 2>/dev/null
+```
+
+If broken: `ghq get -u [url]` to restore source.
+
+## Examples
+
+```
+# User shares URL
+User: "I want to learn from https://github.com/SawyerHood/dev-browser"
+→ ghq get -u https://github.com/SawyerHood/dev-browser
+→ ln -sf ~/Code/github.com/SawyerHood/dev-browser ψ/learn/dev-browser
+
+# User wants to develop
+User: "I want to contribute to claude-mem"
+→ ghq get -u https://github.com/thedotmack/claude-mem
+→ ln -sf ~/Code/github.com/thedotmack/claude-mem ψ/incubate/claude-mem
+```
+
+## Anti-Patterns
+
+| ❌ Wrong | ✅ Right |
+|----------|----------|
+| `git clone` directly to ψ/ | `ghq get` then symlink |
+| Nested paths: `ψ/learn/repo/github.com/...` | Flat: `ψ/learn/repo-name` |
+| Copy files | Symlink always |
+| Manual clone outside ghq | Everything through ghq |
+
+## Quick Reference
+
+```bash
+# Add to learn
+ghq get -u URL && ln -sf "$(ghq root)/github.com/owner/repo" ψ/learn/name
+
+# Add to incubate
+ghq get -u URL && ln -sf "$(ghq root)/github.com/owner/repo" ψ/incubate/name
+
+# Update source
+ghq get -u URL
+
+# Find repo
+ghq list | grep name
 ```

@@ -1,73 +1,100 @@
 ---
 name: blog-creator
-description: Create SEO-optimized MDX blog posts with proper frontmatter
+description: テーマから高品質なブログ記事、画像生成プロンプト、SNS展開コンテンツまでを体系的に作成するワークフロー。「ブログを書きたい」「記事を作りたい」「コンテンツを制作したい」「記事企画」「SNS展開」「音声台本」「ポッドキャスト原稿」などのリクエストに使用。10段階（C1〜C10）の構造化されたステップで、リサーチ計画からマルチメディア展開まで一貫して生成。
+allowed-tools: Read, Grep, Glob, Write, Edit, Bash
+user-invocable: true
 ---
 
-# Blog Post Creator Skill
+# Blog Creator
 
-This skill helps you create high-quality, SEO-optimized blog posts using the MDX content engine.
+テーマから高品質なブログ記事とマルチメディアコンテンツを体系的に作成するスキル。
 
-## Directory Structure
+## 成果物一覧（C1〜C10）
 
-- **Content Location**: `src/content/blog/*.mdx`
-- **Images**: `/public/assets/images/` (reference as `/assets/images/...`)
-- **Engine**: `src/lib/mdx/blogs.ts`
-- **Frontend**: `src/app/(website-layout)/blog/`
+| Step | 成果物 | ファイル名 |
+|------|--------|-----------|
+| C1 | ソース準備計画 | `sources/c2/01_source_plan.md` |
+| C2 | ソース格納と整合チェック | `sources/c2/02_source_summary.md` |
+| C3 | 詳細アジェンダ | `03_detailed_agenda.md` |
+| C4 | ブログ記事（10,000〜15,000文字） | `04_blog_post.md` |
+| C5 | サムネイル画像プロンプト | `05_thumbnail_prompts.md` |
+| C6 | セクション画像プロンプト | `06_section_prompts.md` |
+| C6-2 | 画像挿入済みブログ記事 | `06_blog_post_with_images.md` |
+| C7 | Xスレッド（3〜5ポスト） | `07_x_thread.md` |
+| C7.5 | 10秒動画生成プロンプト | `07.5_video_prompt.md` |
+| C8 | 対談スクリプト | `08_dialogue_script.md` |
+| C9 | ポッドキャストスクリプト | `09_podcast_script.md` |
+| C10 | README | `README.md` |
 
-## File Format
+## 最重要：ステップ実行制御ルール
 
-Each blog post must be a `.mdx` file with specific frontmatter:
+**1つのC番号が終わるたびに処理を停止**:
 
-```markdown
----
-title: "Your Engaging Title Here"
-tags: ["tag1", "tag2", "seo-keyword"]
-featuredImage: "/assets/images/your-image.png"
-createdDate: "YYYY-MM-DD"
-description: "A compelling meta description for SEO (150-160 chars recommended)"
----
+1. **完了報告**: 作成したファイルパスと完了した旨を報告
+2. **次ステップ確認**: 次のC番号の要件をユーザーに提示
+3. **承認待ち**: 「OK」「進めて」があるまで次の作業は禁止
 
-# Your Title H1
+## プロジェクト初期化
 
-Introduction paragraph...
+### フォルダ命名
 
-## Section H2
+形式: `YYMMDD_バージョン番号3桁`（例: `260110_001`）
 
-Content...
+### フォルダ構成
+
+```
+YYMMDD_XXX/
+├── archive/
+├── references/
+│   ├── tone_files/
+│   └── image_style/
+├── sources/
+│   └── c2/
+└── Image/
+    ├── thumbnail/
+    └── sections/
 ```
 
-## Best Practices
+### 初期ヒアリング
 
-1.  **Slug Generation**: The filename becomes the slug (e.g., `my-post.mdx` -> `/blog/my-post`). Use kebab-case.
-2.  **Images**: Place images in `public/assets/images` and reference them with absolute paths.
-3.  **Tags**: Used for "Related Articles" logic. Include 3-5 relevant tags.
-4.  **Components**: You can import and use React components inside MDX files (if configured in `mdx-components.tsx`).
-5.  **SEO**: - `title`: Used for `<title>` and `og:title`. - `description`: Used for `<meta name="description">` and `og:description`. - `featuredImage`: Used for `og:image`.
-    **DO NOT USE single quotes in the frontmatter. Use double quotes instead.**
+**必須**:
+- テーマ
+- ターゲット読者
+- 記事の狙い
+- ソースタイプ（A: Deep Research / B: ユーザー提供資料 / C: 混合）
 
-## Workflow
+**任意**:
+- SEOキーワード
+- トーン指定
+- 画像スタイル指定
+- シリーズ設定
 
-1.  Create a new file: `src/content/blog/your-slug.mdx`.
-2.  Add the frontmatter.
-3.  Write content using Markdown syntax.
-4.  (Optional) Add images to `public/assets/images/`.
+## 各ステップ概要
 
-## Example
+### C1: ソース準備計画
+ソースタイプに応じた調査計画を作成。
 
-File: `src/content/blog/getting-started.mdx`
+### C2: ソース格納と整合チェック
+ユーザーがソースを格納後、記事化に十分な情報があるかチェック。
 
-```markdown
----
-title: "Getting Started with Indie Kit"
-tags: ["guide", "tutorial", "indie-kit"]
-featuredImage: "/assets/images/og.png"
-createdDate: "2024-03-20"
-description: "A complete guide to setting up your new SaaS project with Indie Kit in under 10 minutes."
----
+### C3: 詳細アジェンダ
+導入 + 本文5〜7セクション + 結論の構成を作成。
 
-# Getting Started
+### C4: ブログ記事
+10,000〜15,000文字の本文を作成。C3に厳密に従う。
 
-Welcome to the future of SaaS development...
-```
+### C5〜C6: 画像プロンプト
+サムネイルとセクション画像のプロンプトをYAML形式で作成。
 
-Refer to [reference.md](reference.md) for more details.
+### C7: Xスレッド
+3〜5ポストのスレッドを作成。
+
+### C8〜C9: 音声コンテンツ
+対談スクリプト、ポッドキャストスクリプトを各3,000〜5,000文字で作成。
+
+## 参照ドキュメント
+
+詳細なワークフローとテンプレートは [references/](references/) を参照:
+- `workflow_details.md` - YAMLフォーマット、画像生成ルール
+- `tone_examples.md` - トーン設定の例
+- `defaults/` - デフォルトのトンマナファイル

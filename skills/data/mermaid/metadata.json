@@ -1,10 +1,7 @@
 {
   "name": "mermaid",
-  "description": "Guide for creating beautiful Mermaid diagrams with high-contrast styling for GitHub markdown (light/dark mode compatible, no icons).",
-  "repo": "BfdCampos/mermaid-contrast",
-  "category": "data",
-  "tags": [
-    "mermaid"
-  ],
-  "stars": 0
+  "repo": "flight505/nano-banana",
+  "path": "skills/mermaid/SKILL.md",
+  "source": "github.com/flight505/nano-banana",
+  "downloaded_at": "2026-01-14T03:44:37.806198Z"
 }

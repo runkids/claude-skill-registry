@@ -1,11 +1,7 @@
 {
   "name": "sentiment-analyzer",
-  "description": "Analyze emotional tone, sentiment polarity, and psychological impact of text. Execute Python script for detailed sentiment analysis. Use when analyzing mood, attitude, or emotional content.",
-  "repo": "yoshiwatanabe/agent-patterns",
-  "category": "data",
-  "tags": [
-    "sentiment",
-    "analyzer"
-  ],
-  "stars": 0
+  "repo": "dkyazzentwatwa/chatgpt-skills",
+  "path": "sentiment-analyzer/SKILL.md",
+  "source": "github.com/dkyazzentwatwa/chatgpt-skills",
+  "downloaded_at": "2026-01-14T01:42:53.360894Z"
 }

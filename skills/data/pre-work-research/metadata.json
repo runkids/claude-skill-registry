@@ -1,13 +1,7 @@
 {
   "name": "pre-work-research",
-  "description": "Use before starting implementation - research repository documentation, codebase patterns, and external resources to inform the approach",
-  "repo": "troykelly/claude-skills",
-  "category": "documents",
-  "tags": [
-    "pre",
-    "work",
-    "research"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "troykelly/codex-skills",
+  "path": "skills/pre-work-research/SKILL.md",
+  "source": "github.com/troykelly/codex-skills",
+  "downloaded_at": "2026-01-14T03:34:02.976673Z"
 }

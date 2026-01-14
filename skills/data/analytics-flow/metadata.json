@@ -1,12 +1,7 @@
 {
   "name": "analytics-flow",
-  "description": "Analytics and data analysis workflow skill",
   "repo": "vladm3105/aidoc-flow-framework",
-  "category": "data",
-  "tags": [
-    "analytics",
-    "flow"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/analytics-flow/SKILL.md",
+  "source": "github.com/vladm3105/aidoc-flow-framework",
+  "downloaded_at": "2026-01-14T03:58:04.625327Z"
 }

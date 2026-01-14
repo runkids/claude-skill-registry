@@ -1,13 +1,7 @@
 {
   "name": "refactor-simplify-branching",
-  "description": "[Code Quality] Simplifies complex conditionals: deep nesting, long if-else chains, switch sprawl. Use when control flow is hard to follow or has high cyclomatic complexity.",
   "repo": "CANTAGESTUDIO/CosmicAtlasPacker",
-  "category": "development",
-  "tags": [
-    "refactor",
-    "simplify",
-    "branching"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".factory/skills/refactor-simplify-branching/SKILL.md",
+  "source": "github.com/CANTAGESTUDIO/CosmicAtlasPacker",
+  "downloaded_at": "2026-01-14T02:43:53.257652Z"
 }

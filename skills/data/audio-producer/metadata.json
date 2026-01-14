@@ -1,12 +1,7 @@
 {
   "name": "audio-producer",
-  "description": "Expert in web audio, audio processing, and interactive sound design",
   "repo": "daffy0208/ai-dev-standards",
-  "category": "design",
-  "tags": [
-    "audio",
-    "producer"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/audio-producer/SKILL.md",
+  "source": "github.com/daffy0208/ai-dev-standards",
+  "downloaded_at": "2026-01-14T03:33:14.202089Z"
 }

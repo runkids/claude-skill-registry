@@ -1,9 +1,7 @@
 {
   "name": "cask",
-  "description": "Async via cask, end turn immediately; use only when user explicitly delegates to Codex (ask/@codex/let codex/review); NOT for questions about Codex itself.",
-  "repo": "bfly123/claude_code_bridge",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/cask/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-14T01:56:12.526550Z"
 }

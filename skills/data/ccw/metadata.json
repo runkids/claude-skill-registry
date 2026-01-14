@@ -1,9 +1,7 @@
 {
   "name": "ccw",
-  "description": "Stateless workflow orchestrator that automatically selects and executes the optimal workflow combination based on task intent. Supports rapid (lite-plan+execute), full (brainstorm+plan+execute), coupl",
-  "repo": "catlog22/Claude-Code-Workflow",
-  "category": "productivity",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/ccw/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-14T01:56:11.936844Z"
 }

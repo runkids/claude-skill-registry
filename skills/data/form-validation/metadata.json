@@ -1,12 +1,7 @@
 {
   "name": "form-validation",
-  "description": "Schema-first validation with Zod, timing patterns (reward early, punish late), async validation, and error message design. Use when implementing form validation for any framework. The foundation skill",
   "repo": "Bbeierle12/Skill-MCP-Claude",
-  "category": "design",
-  "tags": [
-    "form",
-    "validation"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/form-validation/SKILL.md",
+  "source": "github.com/Bbeierle12/Skill-MCP-Claude",
+  "downloaded_at": "2026-01-14T03:54:10.331065Z"
 }

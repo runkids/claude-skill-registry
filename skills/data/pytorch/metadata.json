@@ -1,9 +1,7 @@
 {
   "name": "pytorch",
-  "description": "Building and training neural networks with PyTorch. Use when implementing deep learning models, training loops, data pipelines, model optimization with torch.compile, distributed training, or deployin",
   "repo": "itsmostafa/llm-engineering-skills",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/pytorch/SKILL.md",
+  "source": "github.com/itsmostafa/llm-engineering-skills",
+  "downloaded_at": "2026-01-14T03:57:20.065636Z"
 }

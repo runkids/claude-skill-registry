@@ -1,93 +1,85 @@
 ---
-name: vibe-coder
+name: db-designer
 description: |
-  Describe your idea, get a deployed product. All Craft Coder skills + brainstorm, validation, marketing.
-  Use when: user wants to build something from an idea, prototype, or MVP.
-  Triggers: "build app", "create website", "make MVP", "I have an idea",
-  "хочу приложение", "создать сайт", "сделать MVP".
+  Generate database schema from feature descriptions. User doesn't see SQL.
+  Use when: features require data persistence.
+  Triggers: internal use only.
 ---
 
-# Vibe Coder
+# Database Designer
 
-Describe what you want. Get a deployed product.
+Infer schema from requirements. User never writes SQL.
 
-## The Vibe
+## Process
 
+1. **Analyze requirements**
+   - "Users can save expenses" → users, expenses tables
+   - "Track categories" → categories table
+   - "Monthly reports" → consider aggregation
+
+2. **Design schema**
+   - Tables and columns
+   - Relationships (1:1, 1:N, N:M)
+   - Indexes for performance
+
+3. **Generate migration**
+   - Create migration file
+   - Apply to database
+   - Update ORM models
+
+## Schema Patterns
+
+| Feature | Tables |
+|---------|--------|
+| Auth | users, sessions |
+| Blog | posts, comments, tags |
+| E-commerce | products, orders, order_items |
+| Tasks | tasks, projects, labels |
+| Social | users, posts, follows, likes |
+
+## Template-Specific
+
+### Supabase (nextjs-supabase)
+```sql
+-- Auto-generated, user doesn't see
+create table expenses (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references users(id),
+  amount decimal not null,
+  category text,
+  created_at timestamptz default now()
+);
 ```
-You: "I want an app for tracking expenses"
-     ↓
-Claude: Asks a few questions
-     ↓
-Claude: Builds everything (hidden complexity)
-     ↓
-You: ✅ Done! [Preview] [Deploy]
+
+### PostgreSQL (fastapi-postgres)
+```python
+# Alembic migration auto-generated
+class Expense(Base):
+    id = Column(UUID, primary_key=True)
+    user_id = Column(UUID, ForeignKey('users.id'))
+    amount = Column(Numeric, nullable=False)
 ```
 
-## What's Included
+### Drizzle (hono-drizzle)
+```typescript
+// Schema auto-generated
+export const expenses = pgTable('expenses', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  userId: uuid('user_id').references(() => users.id),
+  amount: numeric('amount').notNull(),
+});
+```
 
-### MVP Workflow (unique to Vibe Coder)
-| Skill | What it does |
-|-------|--------------|
-| `brainstorming` | Refine ideas with Socratic dialogue |
-| `idea-validation` | Validate problem/solution fit |
-| `stack-selector` | Choose tech stack automatically |
-| `ui-generator` | Create UI from descriptions |
-| `feature-builder` | Add features incrementally |
-| `db-designer` | Design database schema |
-| `api-generator` | Generate API endpoints |
-| `deploy-automation` | Deploy to production |
+## User Experience
 
-### All Craft Coder Skills (40+)
-- **Backend**: Python, Node.js, Rust
-- **Frontend**: React, design systems
-- **Mobile**: React Native, Expo
-- **Data**: Pipelines, dbt, Airflow
-- **Infrastructure**: Terraform, K8s, monitoring
-- **Quality**: Testing, code review, debugging
+User: "I want to track expenses by category"
 
-## Commands
+Internally:
+1. Create expenses table
+2. Create categories table
+3. Add foreign key
+4. Generate models
+5. Create migration
+6. Apply to database
 
-| Command | Purpose |
-|---------|---------|
-| `/vibe:brainstorm` | Refine idea with Socratic dialogue |
-| `/vibe:idea` | Start from scratch with simple questions |
-| `/vibe:build` | Create the app (full pipeline) |
-| `/vibe:add` | Add feature to existing app |
-| `/vibe:preview` | Show current state |
-| `/vibe:deploy` | Publish to production |
-
-## Agents
-
-- **vibe-coder** — Build apps from descriptions
-- **code-reviewer** — Review code automatically
-
-## Hidden Pipeline
-
-Every change runs through:
-1. TDD (test first, then implement)
-2. Automated tests
-3. Security checks (OWASP)
-4. Code review (auto-fix issues)
-
-User only sees ✅ or ❌ — never the process.
-
-## Templates
-
-| Template | When to use |
-|----------|-------------|
-| nextjs-supabase | Web apps, SaaS, dashboards |
-| fastapi-postgres | APIs, backends, AI/ML projects |
-| hono-drizzle | Edge, serverless, Cloudflare |
-| landing-page | Marketing sites, portfolios |
-
-Stack selector chooses automatically.
-
-## No Technical Jargon
-
-You never need to know:
-- What framework to use
-- How to structure code
-- What tests to write
-- How to deploy
-
-Just describe what you want. Vibe coding at its finest.
+User sees: "✅ Ready to save expenses"

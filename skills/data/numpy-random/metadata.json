@@ -1,12 +1,7 @@
 {
   "name": "numpy-random",
-  "description": "Modern random number generation using the Generator API, focusing on statistical properties, parallel streams, and reproducibility. Triggers: random, rng, default_rng, SeedSequence, probability distri",
   "repo": "cuba6112/skillfactory",
-  "category": "devops",
-  "tags": [
-    "numpy",
-    "random"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": "skills/numpy-random/SKILL.md",
+  "source": "github.com/cuba6112/skillfactory",
+  "downloaded_at": "2026-01-14T02:37:39.290877Z"
 }

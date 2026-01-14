@@ -1,12 +1,7 @@
 {
   "name": "apache-nifi",
-  "description": "Expert guidance for Apache NiFi data integration platform including flow design, processors, controller services, process groups, NiFi Registry integration, and cluster configuration. Use this when wo",
   "repo": "oriolrius/nifi-cluster",
-  "category": "design",
-  "tags": [
-    "apache",
-    "nifi"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/apache-nifi/SKILL.md",
+  "source": "github.com/oriolrius/nifi-cluster",
+  "downloaded_at": "2026-01-14T04:01:40.582260Z"
 }

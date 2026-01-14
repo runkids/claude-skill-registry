@@ -171,27 +171,6 @@ module.exports = {
 
 The separate `noUnusedImports` pass enforces import cleanup only at commit time, not during development.
 
-### Husky Setup
-
-```bash
-# .husky/pre-commit
-bun lint-staged
-```
-
-## Just Recipes
-
-Standard Biome recipes from devkit:
-
-| Recipe        | Alias | Command                                |
-| ------------- | ----- | -------------------------------------- |
-| `biome-check` | `bc`  | `biome check .`                        |
-| `biome-lint`  | `bl`  | `biome lint .`                         |
-| `biome-write` | `bw`  | `biome check --write` + unused imports |
-| `full-check`  | `fc`  | biome + prettier + tsc                 |
-| `full-write`  | `fw`  | biome + prettier fixes                 |
-
-Usage: `just bw` to fix all issues, `just bc` to check without fixing.
-
 ## UI-Specific Configuration
 
 For frontend projects with Tailwind CSS:
@@ -253,11 +232,11 @@ Biome handles JS/TS/JSON/CSS formatting. Use Prettier for:
 
 ### Examples
 
-Working examples in `examples/`:
+Working examples in `./examples/`:
 
-- **`base-config.jsonc`** - Minimal library configuration
-- **`ui-config.jsonc`** - Frontend project with Tailwind
-- **`lint-staged.js`** - Pre-commit hook configuration
+- **`./examples/base-config.jsonc`** - Minimal library configuration
+- **`./examples/ui-config.jsonc`** - Frontend project with Tailwind
+- **`./examples/lint-staged.js`** - Pre-commit hook configuration
 
 ### Full Documentation
 

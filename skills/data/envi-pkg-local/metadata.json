@@ -1,0 +1,13 @@
+{
+  "name": "envi-pkg-local",
+  "description": "ENVI 本地文档+教程+源码 - 100%覆盖13个文件（Sphinx build + 手动转换 notebooks/py）",
+  "repo": "Ketomihine/my_skills",
+  "category": "development",
+  "tags": [
+    "envi",
+    "pkg",
+    "local"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

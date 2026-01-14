@@ -1,91 +1,106 @@
 ---
 name: customer-support
-description: Handle customer inquiries with empathy and effective problem resolution
+description: 6つの教育要素を自然に組み込んだカスタマーサポート返信を作成。2000文字以上で顧客期待を120%超える対応を実現。
 ---
 
-# Customer Support
+# カスタマーサポートスキル
 
-Provide excellent customer service with clear communication and problem-solving.
+顧客の質問に対して、6つの教育要素を自然に組み込んだ2000文字以上の返信を作成。
 
-## Capabilities
+## When to Use This Skill
 
-- Respond to customer inquiries
-- Handle complaints professionally
-- De-escalate difficult situations
-- Create support documentation
-- Develop response templates
+以下の場合にこのスキルを使用：
+- 「カスタマーサポートの返信を作成」
+- 「お客様への回答を書いて」
+- 「クレーム対応の返信を作成」
+- 「問い合わせ対応」
 
-## Input Format
+## 6つの教育要素（自然に組み込む）
 
-- Customer issue/inquiry
-- Customer sentiment (frustrated, confused, neutral)
-- Context (product, previous interactions)
-- Available solutions
-- Company policies (if relevant)
+| 要素 | 目的 | 実装方法 |
+|-----|------|---------|
+| **信用** | 信頼構築 | 実績・事例・第三者評価を自然に織り込む |
+| **目的** | 理想未来 | ビジョン・期待感を会話の中で表現 |
+| **問題** | 現状認識 | 現状維持リスク・失敗パターンをさりげなく指摘 |
+| **手段** | 差別化 | 基本概念・独自性を説明風にならずに伝える |
+| **投資** | 価値認識 | 自己投資価値・長期視点を押し付けがましくなく提示 |
+| **行動** | 次ステップ | 今すぐできることを自然に提案 |
 
-## Output Format
+**重要**: 要素名や「○つ目の要素は」等の説明は一切使用禁止
+
+## 返信の基本構成（2000文字以上）
+
+1. **冒頭部（150-200文字）**: 感謝・共感・信頼構築
+2. **本文部（1600-2000文字）**: 問題整理・6要素展開・解決策提示
+3. **締めくくり部（250-300文字）**: 行動促進・激励・継続サポート
+
+## 実行フロー
+
+1. 対応スタイル選択（個人/企業）
+2. 質問分析（分類・心理段階・感情状態・核心部分特定）
+3. 対応方針決定
+4. 2000文字以上の返信作成
+
+## 改行ルール（絶対遵守）
+
+- 段落間は絶対に1行空ける
+- 1段落は3-4行で改行
+- 重要なポイントの前後は必ず改行
+
+## 文体パターン
+
+### 個人発信者スタイル
+- 「〜ですよね」など柔らかい表現
+- 「私も実は...」など親近感のある言葉
+
+### 企業スタイル
+- 「〜です」の適度な丁寧さ
+- データや事例を交えた説得力
+
+## 絶対禁止事項
+
+- 具体的金額の言及
+- 断定保証（必ず、確実に、100%）
+- 内部用語（【目的】【問題】等）
+- 装飾記号（*、**、_、#、-）
+- ダブルクオテーション（""）
+- 購入促進・限定性煽り・緊急性煽り
+
+## 引用ルール（必須）
+
+質問の核心部分を必ず引用（全文禁止、1-2行程度）
+
+## 出力形式
 
 ```
-Customer Response
+[担当者名]です。
 
-Sentiment Assessment: [Level]
-Issue Category: [Type]
+質問の核心部分を引用
 
-Response:
+最初の段落（共感・信頼構築）
 
-[Greeting - personalized],
+次の段落（問題整理・解決策提示）
+3-4行で改行して読みやすく
 
-[Acknowledgment of issue/feeling]
+（継続して段落を作成）
 
-[Explanation/Answer - clear and simple]
-
-[Solution/Next steps]
-
-[Offer of additional help]
-
-[Warm closing],
-[Name]
-
----
-
-Internal Notes:
-- Root cause: [If identified]
-- Follow-up needed: [Yes/No]
-- Escalation required: [Yes/No]
-- Documentation update: [If process issue found]
+[担当者名]
 ```
 
-## Response Framework
+## 特殊対応
 
-### Acknowledge
-- Show you understand the issue
-- Validate their frustration (if applicable)
+### クレーム対応
+- 24時間以内の返信
+- 誠実な謝罪と非を認める
+- 具体的解決策の提示
+- 再発防止策の説明
 
-### Apologize (when appropriate)
-- Take responsibility
-- Be genuine, not scripted
+### 価格質問
+- 具体的な価格は一切言及しない
+- 「現在調整中」で回避
+- 投資価値として位置づけ
 
-### Answer/Act
-- Provide clear solution
-- Explain the "why" if helpful
+## 参照ナレッジ
 
-### Ask
-- Confirm resolution
-- Offer additional help
-
-## Difficult Situations
-
-### Angry Customer
-- Stay calm, don't match energy
-- Focus on solution, not blame
-- Use "I" statements
-
-### Unreasonable Request
-- Acknowledge the desire
-- Explain limitations clearly
-- Offer alternatives
-
-### No Solution Available
-- Be honest
-- Show what you CAN do
-- Escalate when needed
+- `ローンチ動画/AI太陽くん（カスタマーサポート）/統合カスタマーサポートプロンプト（汎用版）.md`
+- その他CSガイドファイル

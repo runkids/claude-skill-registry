@@ -1,12 +1,7 @@
 {
   "name": "openapi-generator",
-  "description": "Generate comprehensive OpenAPI/Swagger specifications from existing code and APIs.",
   "repo": "CuriousLearner/devkit",
-  "category": "development",
-  "tags": [
-    "openapi",
-    "generator"
-  ],
-  "stars": 13,
-  "source": "local"
+  "path": "skills/openapi-generator/SKILL.md",
+  "source": "github.com/CuriousLearner/devkit",
+  "downloaded_at": "2026-01-14T02:22:37.157523Z"
 }

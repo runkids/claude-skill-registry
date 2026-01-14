@@ -1,11 +1,7 @@
 {
   "name": "aica",
-  "description": "Kelvin Garr's personal AICA brand identity and implementation framework. Use ONLY when building Kelvin's personal sites, portfolio, or AICA-branded projects. Features fixed visual identity (black glas",
   "repo": "AIBPM42/hodgesfooshee-site-spark",
-  "category": "design",
-  "tags": [
-    "aica"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/aica/SKILL.md",
+  "source": "github.com/AIBPM42/hodgesfooshee-site-spark",
+  "downloaded_at": "2026-01-14T01:40:30.872236Z"
 }

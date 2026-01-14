@@ -1,13 +1,7 @@
 {
   "name": "adhd-design-expert",
-  "description": "\"Designs digital experiences for ADHD brains using neuroscience research and UX principles. Expert in reducing cognitive load, time blindness solutions, dopamine-driven engagement, and compassionate d",
   "repo": "erichowens/some_claude_skills",
-  "category": "design",
-  "tags": [
-    "adhd",
-    "design",
-    "expert"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/adhd-design-expert/SKILL.md",
+  "source": "github.com/erichowens/some_claude_skills",
+  "downloaded_at": "2026-01-14T02:58:39.381199Z"
 }

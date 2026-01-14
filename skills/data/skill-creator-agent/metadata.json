@@ -1,13 +1,7 @@
 {
   "name": "skill-creator-agent",
-  "description": "Creates Claude Code skills where each skill is tied to a specialist agent optimized with evidence-based prompting techniques. Use this skill when users need to create reusable skills that leverage spe",
   "repo": "DNYoussef/ai-chrome-extension",
-  "category": "development",
-  "tags": [
-    "skill",
-    "creator",
-    "agent"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/skill-creator-agent/SKILL.md",
+  "source": "github.com/DNYoussef/ai-chrome-extension",
+  "downloaded_at": "2026-01-14T03:10:06.722369Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "react-native-navigation",
-  "description": "Master React Navigation - stacks, tabs, drawers, deep linking, and TypeScript integration",
-  "repo": "pluginagentmarketplace/custom-plugin-react-native",
-  "category": "testing",
-  "tags": [
-    "react",
-    "native",
-    "navigation"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "TheBushidoCollective/han",
+  "path": "jutsu/jutsu-react-native/skills/react-native-navigation/SKILL.md",
+  "source": "github.com/TheBushidoCollective/han",
+  "downloaded_at": "2026-01-14T03:34:10.935757Z"
 }

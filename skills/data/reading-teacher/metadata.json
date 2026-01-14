@@ -1,12 +1,7 @@
 {
   "name": "reading-teacher",
-  "description": "Interactive reading teacher that instantly generates playful, engaging learning experiences for children ages 1-10. Creates visual playgrounds, phonics games, and interactive stories to build reading ",
   "repo": "jamesrochabrun/skills",
-  "category": "development",
-  "tags": [
-    "reading",
-    "teacher"
-  ],
-  "stars": 8,
-  "source": "local"
+  "path": "skills/reading-teacher/SKILL.md",
+  "source": "github.com/jamesrochabrun/skills",
+  "downloaded_at": "2026-01-14T01:17:20.638166Z"
 }

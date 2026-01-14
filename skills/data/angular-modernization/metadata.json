@@ -1,9 +1,7 @@
 {
   "name": "angular-modernization",
-  "description": "Modernizes Angular code such as components and directives to follow best practices using both automatic CLI migrations and Bitwarden-specific patterns. YOU must use this skill when someone requests mo",
   "repo": "bitwarden/clients",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "GitHub Search API"
+  "path": ".claude/skills/angular-modernization/SKILL.md",
+  "source": "github.com/bitwarden/clients",
+  "downloaded_at": "2026-01-14T04:07:34.584609Z"
 }

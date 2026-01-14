@@ -5,8 +5,47 @@ description: JD 분석 및 맞춤형 지원서 작성이 필요할 때
 
 # JD 맞춤형 지원서 작성
 
-> **원본 데이터**: `docs/career/my_career_data.md`
-> **출력 위치**: `docs/career/formats/by-jd/{company}/`
+> **원본 데이터**: `docs/career/my_career_data.md` (SSOT)
+> **기본 경력기술서**: `docs/career/career_portfolio.md` (프로젝트 기간, AI Agent 등 참조)
+> **출력 위치**: `docs/career/formats/by-jd/{company}/` 또는 `private/applications/{company}/`
+
+---
+
+## 핵심 원칙 ⭐
+
+### 1. 시간순 정렬 (최신순)
+
+> **모든 프로젝트는 시작일 기준 최신순으로 정렬**
+
+```markdown
+# 정렬 기준
+1. 진행 중 프로젝트: 시작일 최신순
+2. 완료된 프로젝트: 시작일 최신순
+3. 동일 시작일: 중요도 순
+
+# 예시 (올바른 순서)
+- 인플루언서 데이터 플랫폼: 2024.01 - 현재
+- 품절률 감소: 2023.06 - 2023.09
+- 메인 페이지 큐레이션: 2022.08 - 2023.02
+- ChatOps: 2022.06 - 2023.03
+- Dynamic Pricing: 2022.03 - 2023.06
+```
+
+### 2. 기본 경력기술서 참조 (SSOT)
+
+> **기본 경력기술서의 내용을 누락하지 않도록 반드시 참조**
+
+```markdown
+**필수 참조 항목:**
+1. 프로젝트 기간 (정확한 시작/종료일)
+2. AI Agent 활용 (Claude Code, MCP) - 개발 문화 개선 프로젝트
+3. 정량적 성과 수치
+4. Tech Decision 내용
+```
+
+### 3. 인재상 키워드 활용
+
+> **회사의 인재상/비전을 지원서 전체에 자연스럽게 녹여내기**
 
 ---
 
@@ -25,7 +64,7 @@ docs/career/formats/by-jd/{company}/
 └── RESUME_JD.md        # JD 맞춤형 이력서
 ```
 
-> **applications/{company}/** 폴더에 직접 생성하는 경우도 허용 (spec.md, resume.md 등)
+> **private/applications/{company}/** 폴더에 직접 생성하는 경우도 허용 (spec.md, resume.md 등)
 
 ---
 
@@ -319,6 +358,114 @@ docs/career/formats/by-jd/{company}/
 | **SI/컨설팅** | 고객 성공 사례 | 다양한 도메인 | 전문성, 적응력 |
 | **핀테크** | 데이터 정합성 | 성능 최적화 | 정밀함, 책임감 |
 | **커머스** | 도메인 경험 | 매출 성과 | 비즈니스 중심 |
+
+---
+
+## 인재상/비전 키워드 활용 가이드 ⭐ NEW
+
+> **핵심**: 회사의 인재상과 비전 키워드를 지원서 전체에 자연스럽게 녹여내기
+
+### 1. 인재상 키워드 추출
+
+```markdown
+**예시:**
+- 인재상: 창의, 혁신, 열정, 도전
+- 미션/비전: 회사 공식 홈페이지에서 확인
+- 주요 업무: JD에서 추출 (기술 전파, 코드 개선, 성능 업그레이드 등)
+```
+
+### 2. 키워드-경험 매핑 테이블
+
+```markdown
+| 회사 키워드 | 내 경험 매핑 | 지원서 활용 위치 |
+|------------|-------------|-----------------|
+| **창의** | 비즈니스 관점 기술 해결책 (큐레이션, Dynamic Pricing) | 지원 동기, Summary |
+| **혁신** | TPS 1,500% 향상, Zero Ops, AI Agent 활용 | Summary highlights, JD 태그 |
+| **열정** | TDD/코드 리뷰 문화 정착, 팀 코드 품질 향상 | 지원 동기 |
+| **기술 전파** | 코드 리뷰 문화 주도, MCP 도입 | JD 매칭 역량 |
+```
+
+### 3. Summary Highlights에 인재상 태그 활용
+
+```html
+<!-- 인재상 키워드를 JD 태그로 강조 -->
+<div class="highlight-item">
+    <strong>개발 생산성 90% 향상:</strong> Claude Code + MCP 활용
+    <span class="jd-tag">혁신</span>  <!-- 인재상 키워드 -->
+</div>
+
+<div class="highlight-item">
+    <strong>Zero Ops 달성:</strong> ChatOps 운영 자동화 40%→0%
+    <span class="jd-tag">코드 개선</span>  <!-- JD 업무 키워드 -->
+</div>
+```
+
+### 4. 지원 동기 작성 스크립트
+
+> **각 문단에서 활용한 키워드를 명시적으로 설명**
+
+```markdown
+**지원 동기 작성 시 사용 키워드 안내:**
+
+### 1. 도메인 전문성
+- **활용 키워드**: JD 업무 키워드 + 회사 사업 영역
+- **연결 경험**: 유사 도메인 프로젝트 경험
+- **포인트**: 즉시 기여 가능한 도메인 역량 강조
+
+### 2. 미션/비전 연결 - 혁신과 창의
+- **활용 키워드**: 회사 미션 문구 + 인재상 키워드
+- **연결 경험**: 정량적 성과 (성능 향상, 자동화, 신기술 도입)
+- **포인트**: 기존 한계를 기술로 돌파한 경험
+
+### 3. 조직 기여 - 성장과 열정
+- **활용 키워드**: 인재상 키워드 + JD 업무 키워드
+- **연결 경험**: 문화 개선, 프로세스 정착 사례
+- **포인트**: 개인 성과를 넘어 조직 성장 기여
+```
+
+### 5. JD 매칭 테이블에 키워드 활용
+
+```markdown
+| JD 요구사항 | 기여 가능 경험 | 인재상 연결 |
+|-------------|--------------|-------------|
+| 7년+ 경력 (필수) | Java/Spring 8년, 이커머스 플랫폼 | - |
+| 코드 개선/성능 (필수) | TPS 1,500%↑, TDD 문화 정착 | **열정** |
+| 프로젝트 리딩 (우대) | Seeding 프로젝트 전 과정 리딩 | **창의** |
+| Elasticsearch (우대) | 200만 건 검색 시스템 구축 | **혁신** |
+```
+
+---
+
+## AI Agent 내용 포함 (Claude Code + MCP) ⭐ NEW
+
+> **기본 경력기술서의 AI Agent 활용 내용을 누락하지 않도록 주의**
+
+### 포함 위치
+
+```markdown
+1. **Summary highlights**: "개발 생산성 90% 향상: Claude Code + MCP 활용"
+2. **Technical Skills**: AI & Automation 카테고리 추가
+3. **개발 문화 개선 프로젝트**: AI Agent 활용 자동화 성과 포함
+```
+
+### Technical Skills 포맷
+
+```html
+<div class="skill-category">
+    <strong>AI & Automation</strong>
+    <span>Claude Code, MCP (Atlassian)</span>
+</div>
+```
+
+### 프로젝트 내 포함 예시
+
+```markdown
+**[주요 성과]**
+- AI Agent 활용 자동화: Claude Code + MCP로 운영 도구 개발 10시간→1시간, 문서화 자동화
+
+**[Tech Decision]**
+- Claude Code + MCP: AI 페어프로그래밍으로 CRUD/배치 개발 자동화, Atlassian 연동 문서화
+```
 
 ---
 

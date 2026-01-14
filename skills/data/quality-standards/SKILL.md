@@ -1,247 +1,480 @@
 ---
 name: quality-standards
-description: Overview of protected quality thresholds and quick reference for all quality tools. Use when you need to understand quality metrics, run comprehensive quality checks, or learn which specialized skill to use. For specific issues, use dedicated skills (deptrac-fixer for Deptrac, complexity-management for PHPInsights, testing-workflow for coverage).
+description: |
+  Quality assurance standards and AI collaboration principles for career_ios_backend.
+  Automatically invoked when discussing code quality, standards, refactoring, or optimization.
+  Trigger keywords: "quality", "refactor", "optimize", "best practices", "code review",
+  "品質", "重構", "優化", "最佳實踐"
+
+  Defines what's required vs. optional in prototype phase, and when to upgrade standards.
+allowed-tools: [Read, Grep, Bash]
 ---
 
 # Quality Standards Skill
 
-## Context (Input)
+## Purpose
+Define quality assurance standards appropriate for the prototype phase, clarify AI-human collaboration boundaries, and guide the transition to production standards.
 
-- Need to understand protected quality thresholds
-- Running comprehensive quality checks before commit
-- Determining which specialized skill to use for specific issues
-- Quick reference for quality tool commands
+## Automatic Activation
 
-## Task (Function)
+This skill is AUTOMATICALLY activated when user mentions:
+- ✅ "code quality" / "代碼品質"
+- ✅ "refactor" / "重構"
+- ✅ "optimize" / "優化"
+- ✅ "best practices" / "最佳實踐"
+- ✅ "code review" / "代碼審查"
 
-Understand quality metrics and route to appropriate specialized skill for fixes.
+---
 
-**Success Criteria**: Know which skill to use for your specific quality issue.
+## Quality Philosophy (Prototype Phase)
 
-## Protected Quality Thresholds
+### Core Principle
 
-**CRITICAL**: These thresholds are protected and must NEVER be lowered.
+> **"Prototype 求快不求完美。功能驗證完才追求品質。"**
 
-### PHPInsights (Source Code)
+**What we ARE doing**:
+- ✅ Prototype backend API (not yet in production)
+- ✅ Rapid feature validation
+- ✅ AI-assisted development, human verification
 
-| Metric       | Required | Fix With                                                   |
-| ------------ | -------- | ---------------------------------------------------------- |
-| Quality      | 100%     | [complexity-management](../complexity-management/SKILL.md) |
-| Complexity   | 93%      | [complexity-management](../complexity-management/SKILL.md) |
-| Architecture | 100%     | [deptrac-fixer](../deptrac-fixer/SKILL.md)                 |
-| Style        | 100%     | Run `make phpcsfixer`                                      |
+**What we are NOT doing**:
+- ❌ Production-grade system
+- ❌ 100% test coverage
+- ❌ Over-engineering
 
-### PHPInsights (Tests)
+---
 
-| Metric       | Required | Fix With                                                   |
-| ------------ | -------- | ---------------------------------------------------------- |
-| Quality      | 95%      | [complexity-management](../complexity-management/SKILL.md) |
-| Complexity   | 95%      | [complexity-management](../complexity-management/SKILL.md) |
-| Architecture | 90%      | [deptrac-fixer](../deptrac-fixer/SKILL.md)                 |
-| Style        | 95%      | Run `make phpcsfixer`                                      |
+## Quality Standards: Must Do vs. Nice-to-Have
 
-### Other Tools
+### ✅ Must Do (Minimum Requirements)
 
-| Tool      | Metric          | Required | Fix With                                         |
-| --------- | --------------- | -------- | ------------------------------------------------ |
-| Deptrac   | Violations      | 0        | [deptrac-fixer](../deptrac-fixer/SKILL.md)       |
-| Psalm     | Errors          | 0        | Fix reported issues                              |
-| Psalm     | Security Issues | 0        | Fix tainted flows                                |
-| Infection | MSI             | 100%     | [testing-workflow](../testing-workflow/SKILL.md) |
-| PHPUnit   | Coverage        | 100%     | [testing-workflow](../testing-workflow/SKILL.md) |
+**These are NON-NEGOTIABLE even in prototype phase**:
 
-## Quick Reference Commands
+1. **API Must Work**
+   - All integration tests pass
+   - Manual testing confirms functionality
+   - No broken endpoints in console.html
 
-### Comprehensive Checks
+2. **Code Formatting Consistency**
+   - Ruff formatting applied (`ruff check --fix`)
+   - Pre-commit hooks auto-fix style issues
+   - Consistent code style across project
+
+3. **No Obvious Bugs**
+   - Manual testing + integration tests
+   - Critical paths verified
+   - User-facing features functional
+
+4. **Security Basics**
+   - No hardcoded credentials (pre-commit checks)
+   - No API keys in code
+   - Authentication on protected endpoints
+
+5. **Integration Tests for Console APIs**
+   - All 35+ console.html endpoints tested
+   - At least 1 happy path test per endpoint
+   - Current: 106+ tests covering major features
+
+---
+
+### ⚠️ Nice-to-Have (Defer Until Production)
+
+**These can be deferred during prototype phase**:
+
+- Type hint completeness (partial is OK)
+- Test coverage percentage metrics
+- Code complexity metrics
+- Unit tests (only for complex business logic)
+- Edge case tests (add before production)
+- Performance optimization
+- Comprehensive error handling
+
+**Trade-off**: Speed now, quality later when we know the feature is valuable.
+
+---
+
+### ❌ Don't Do (Avoid Over-Engineering)
+
+**Explicitly avoid these in prototype phase**:
+
+- Aiming for 100% test coverage
+- Excessive mocking in tests
+- Over-engineered abstractions
+- Premature optimization
+- Comprehensive type checking (mypy can wait)
+- Complex caching strategies
+- Microservices architecture
+
+**Why**: These slow down iteration without adding value during validation phase.
+
+---
+
+## AI-Human Collaboration Principles
+
+### Human Responsibilities 👨‍💻
+
+**Humans are better at**:
+
+1. **Requirements Understanding**
+   - What problem are we solving?
+   - What's the business value?
+   - What are edge cases?
+
+2. **API Design**
+   - Endpoint structure
+   - Request/response formats
+   - Authentication requirements
+
+3. **Test-First (TDD)**
+   - **Human writes tests** → Defines expected behavior
+   - Tests are the contract/specification
+   - AI cannot modify tests
+
+4. **Code Review**
+   - Does implementation match requirements?
+   - Are there security issues?
+   - Is code maintainable?
+
+5. **Refactoring Decisions**
+   - When to extract services
+   - When to split files
+   - Architecture changes
+
+---
+
+### AI Responsibilities 🤖
+
+**AI is better at**:
+
+1. **Generate Implementation Code**
+   - Write code to pass human-written tests
+   - Follow existing patterns in codebase
+   - Generate boilerplate
+
+2. **Format & Fix Style**
+   - Run ruff check --fix
+   - Consistent formatting
+   - Import sorting
+
+3. **Documentation Generation**
+   - API documentation
+   - Code comments (when needed)
+   - Example usage
+
+4. **Suggest Refactoring**
+   - Identify code smells
+   - Propose improvements
+   - **But human decides** whether to apply
+
+---
+
+### TDD + AI Collaboration Flow
+
+**The ideal workflow**:
+
+```
+1. Human: Define requirements + API design
+   ↓
+2. Human: Write test FIRST (RED)
+   → Define expected behavior
+   → Test must fail initially
+   ↓
+3. AI: Generate implementation to pass test (GREEN)
+   → Minimal code to make test pass
+   → Follow existing patterns
+   ↓
+4. Human: Review + Refactor (keep tests GREEN)
+   → Verify implementation is correct
+   → Improve code quality if needed
+   → Tests remain passing
+```
+
+**CRITICAL RULE**:
+- ⚠️ **AI CANNOT modify tests**
+- ✅ Tests are human-written contracts
+- ❌ Don't change tests to make code pass
+
+---
+
+## Code Quality Checklist
+
+### Before Commit
+
+- [ ] Integration tests pass locally
+- [ ] Code follows existing patterns
+- [ ] No hardcoded credentials or secrets
+- [ ] Ruff formatting applied
+- [ ] Commit message follows format
+- [ ] On correct branch (not main/master)
+
+### Before Push
+
+- [ ] All integration tests pass (106+)
+- [ ] No test regressions introduced
+- [ ] Documentation updated (PRD, CHANGELOG)
+- [ ] Pre-push smoke tests pass
+- [ ] Ready for CI/CD pipeline
+
+### Before Production (Future)
+
+- [ ] Unit tests for complex logic
+- [ ] Edge case tests added
+- [ ] Security audit completed (OWASP)
+- [ ] Performance testing done
+- [ ] Type checking enabled (mypy)
+- [ ] Test coverage ≥ 80%
+
+---
+
+## When to Upgrade Quality Standards
+
+### Prototype → Production Transition
+
+**Upgrade standards when**:
+- ✅ Feature validation complete
+- ✅ Ready for real users
+- ✅ Need production reliability
+
+**Checklist for Production**:
+
+```yaml
+Testing:
+  - [ ] Add unit tests for critical business logic
+  - [ ] Edge case tests for all APIs
+  - [ ] Increase test coverage to 80%+
+  - [ ] Add performance tests
+  - [ ] Load testing
+
+Code Quality:
+  - [ ] Enable Mypy (type checking)
+  - [ ] Fix all type errors
+  - [ ] Comprehensive error handling
+  - [ ] Logging and monitoring
+
+Security:
+  - [ ] Security audit (OWASP Top 10)
+  - [ ] Penetration testing
+  - [ ] Dependency vulnerability scan
+  - [ ] Secrets management review
+
+DevOps:
+  - [ ] Set up pre-commit hooks for team
+  - [ ] CI/CD pipeline hardening
+  - [ ] Staging environment testing
+  - [ ] Rollback procedures
+
+Documentation:
+  - [ ] API documentation complete
+  - [ ] Deployment runbooks
+  - [ ] Troubleshooting guides
+  - [ ] Architecture diagrams
+```
+
+**Current Stage**: 🏗️ **Prototype** (above items NOT required yet)
+
+---
+
+## File Size Limits (Prevent Over-Growth)
+
+To maintain modularity and code quality, enforce these limits:
+
+| File Type | Max Lines | Action When Exceeded |
+|-----------|-----------|---------------------|
+| **API routes** | 300 | Refactor to service layer |
+| **Services** | 400 | Split into multiple services |
+| **Models** | 200 | Split into multiple model files |
+| **Schemas** | 250 | Modularize by feature |
+| **Tests** | 500 | Split by test category |
+
+**Why**:
+- Large files are hard to navigate
+- Harder to test
+- Higher merge conflict risk
+- Poor separation of concerns
+
+**How to refactor**:
+
+```python
+# ❌ Before: app/api/clients.py (450 lines)
+# Everything in one file
+
+# ✅ After: Split into layers
+app/api/clients.py           # Routes only (150 lines)
+app/services/client_service.py  # Business logic (200 lines)
+app/repositories/client_repo.py  # Data access (100 lines)
+```
+
+---
+
+## Ruff Configuration
+
+**Automatic formatting and linting**:
 
 ```bash
-# Run all CI checks (recommended before commit)
-make ci
+# Auto-fix formatting issues
+ruff check --fix app/
+
+# Check specific file
+ruff check app/api/clients.py
+
+# Format on save (in your IDE)
+# Pre-commit hook auto-runs ruff
 ```
 
-**Success**: Must output "✅ CI checks successfully passed!"
+**What Ruff catches**:
+- Import sorting
+- Unused imports/variables
+- Line length violations
+- Code style inconsistencies
+- Common anti-patterns
 
-### Individual Quality Checks
+---
 
-| Check               | Command                  | Purpose                      |
-| ------------------- | ------------------------ | ---------------------------- |
-| Code quality        | `make phpinsights`       | All PHPInsights metrics      |
-| Complexity analysis | `make phpmd`             | Find high-complexity methods |
-| Static analysis     | `make psalm`             | Type checking and errors     |
-| Security taint      | `make psalm-security`    | Security vulnerability scan  |
-| Architecture        | `make deptrac`           | Layer boundary validation    |
-| Code style          | `make phpcsfixer`        | Auto-fix PSR-12 style        |
-| Composer validation | `make composer-validate` | Validate composer.json       |
+## Code Review Standards
 
-### Testing Commands
+### What to Check
 
-| Check             | Command                    | Purpose                     |
-| ----------------- | -------------------------- | --------------------------- |
-| Unit tests        | `make unit-tests`          | Domain/Application logic    |
-| Integration tests | `make integration-tests`   | Component interactions      |
-| E2E tests         | `make e2e-tests`           | Full user scenarios (Behat) |
-| All tests         | `make all-tests`           | Unit + Integration + E2E    |
-| Test coverage     | `make tests-with-coverage` | Generate coverage report    |
-| Mutation tests    | `make infection`           | Test quality validation     |
+**Functionality**:
+- [ ] Does it meet requirements?
+- [ ] Are tests passing?
+- [ ] Does it work in console.html?
 
-## Routing to Specialized Skills
+**Quality**:
+- [ ] Follows existing patterns?
+- [ ] No obvious code smells?
+- [ ] Reasonable complexity?
 
-When quality checks fail, use the appropriate specialized skill:
+**Security**:
+- [ ] No hardcoded secrets?
+- [ ] Proper authentication checks?
+- [ ] Input validation present?
 
-### Architecture Issues
+**Maintainability**:
+- [ ] Clear variable names?
+- [ ] Comments where needed (not obvious code)?
+- [ ] File size within limits?
 
-- **Deptrac violations** → [deptrac-fixer](../deptrac-fixer/SKILL.md)
+### What NOT to Nitpick (Prototype Phase)
 
-  - Domain depends on Infrastructure
-  - Layer boundary violations
-  - "must not depend on" errors
+- Minor style preferences (ruff handles it)
+- Missing type hints (not critical yet)
+- Perfect error messages
+- Comprehensive logging
+- Performance micro-optimizations
 
-- **DDD architecture patterns** → [implementing-ddd-architecture](../implementing-ddd-architecture/SKILL.md)
-  - Creating new entities/value objects
-  - Implementing CQRS patterns
-  - Understanding layer responsibilities
+---
 
-### Code Quality Issues
+## Speed-Quality Trade-Off
 
-- **High cyclomatic complexity** → [complexity-management](../complexity-management/SKILL.md)
+### 70-20-10 Rule (Prototype)
 
-  - PHPInsights complexity < 94%
-  - PHPMD reports high CCN
-  - Methods too complex
+- **70% Development**: Writing features
+- **20% QA**: Writing tests, manual testing
+- **10% Refactoring**: Fixing issues, improving code
 
-- **Code style issues** → Run `make phpcsfixer`
-  - PSR-12 violations
-  - Line length > 100 chars
-  - Formatting issues
+### Speed Priorities
 
-### Testing Issues
+**Fast iteration over**:
+1. Feature validation
+2. User feedback
+3. API testing
 
-- **Test failures** → [testing-workflow](../testing-workflow/SKILL.md)
-  - Unit/Integration/E2E failures
-  - Mutation testing (Infection)
-  - Test coverage < 100%
+**Deferred (but tracked)**:
+1. Perfect architecture
+2. Comprehensive tests
+3. Performance tuning
 
-### Workflow Integration
+**Quote from 2025 AI Development**:
+> "Dream up an idea one day, functional prototype the next"
 
-- **Before committing** → [ci-workflow](../ci-workflow/SKILL.md)
+**Our approach**:
+- Prototypes live in "buggy region" - speed prioritized
+- Fix bugs as we find them
+- Refine quality when feature proves valuable
 
-  - Run all checks systematically
-  - Fix failures in priority order
-  - Ensure all checks pass
+---
 
-- **PR review feedback** → [code-review](../code-review/SKILL.md)
-  - Fetch and address PR comments
-  - Systematic comment resolution
+## Quality Metrics (Prototype)
 
-## Quality Improvement Workflow
+### Success Metrics ✅
 
-### Step 1: Run Comprehensive Checks
+- **100% of console.html APIs** have integration tests
+- **All commits** pass pre-commit hooks
+- **Zero commits** to main/master branch
+- **All pushes** have updated documentation
+- **All critical features** use TDD
 
-```bash
-make ci
-```
+### NOT Measuring (Yet) ⏸️
 
-### Step 2: Identify Failing Check
+- Test coverage percentage
+- Cyclomatic complexity
+- Type hint coverage
+- Code duplication metrics
+- Performance benchmarks
 
-Check output for specific failure:
+**Why not**: These metrics don't add value during rapid prototyping. Will add when transitioning to production.
 
-```
-❌ CI checks failed:
-  - phpinsights: Complexity score too low (93.5% < 94%)
-```
+---
 
-### Step 3: Use Specialized Skill
+## Anti-Patterns to Avoid
 
-Based on failure type, use appropriate skill:
+### Code Anti-Patterns
 
-| Failure Pattern            | Skill to Use             |
-| -------------------------- | ------------------------ |
-| "Complexity score too low" | complexity-management    |
-| "Deptrac violations"       | deptrac-fixer            |
-| "must not depend on"       | deptrac-fixer            |
-| "tests failed"             | testing-workflow         |
-| "Psalm found errors"       | Fix type errors directly |
-| "escaped mutants"          | testing-workflow         |
+❌ **Premature Abstraction**
+- Don't create generic frameworks for one use case
+- Wait until pattern repeats 3+ times
 
-### Step 4: Re-run CI
+❌ **Over-Engineering**
+- Don't add features "we might need later"
+- Build only what's needed now
 
-```bash
-make ci
-```
+❌ **Ignoring Existing Patterns**
+- Follow patterns already in codebase
+- Don't introduce new patterns without reason
 
-Repeat until: "✅ CI checks successfully passed!"
+❌ **Magic Numbers**
+- Use constants or config for hardcoded values
+- Make intent clear
 
-## Constraints (Parameters)
+### Testing Anti-Patterns
 
-### NEVER
+❌ **Changing Tests to Make Code Pass**
+- Tests define the contract
+- If test is wrong, discuss with human first
 
-- Lower quality thresholds in config files (`phpinsights.php`, `infection.json5`, etc.)
-- Skip failing checks to "save time"
-- Commit code without all CI checks passing
-- Modify `deptrac.yaml` to allow violations (fix code, not config)
-- Disable security checks
+❌ **Excessive Mocking**
+- Use integration tests for APIs
+- Mock only external services (not our own code)
 
-### ALWAYS
+❌ **Brittle Tests**
+- Don't test implementation details
+- Test behavior and outcomes
 
-- Fix code to meet standards (not config to meet code)
-- Run `make ci` before creating commits
-- Use specialized skills for specific quality issues
-- Maintain 100% test coverage
-- Keep cyclomatic complexity low (target: < 5 per method)
-- Respect hexagonal architecture boundaries
-
-## Format (Output)
-
-### Expected CI Output
-
-```
-✅ CI checks successfully passed!
-```
-
-### Expected PHPInsights Output
-
-```
-[CODE] 100.0 pts       ✅ Target: 100%
-[COMPLEXITY] 94.0 pts  ✅ Target: 94%
-[ARCHITECTURE] 100 pts ✅ Target: 100%
-[STYLE] 100.0 pts      ✅ Target: 100%
-```
-
-### Expected Deptrac Output
-
-```
-✅ No violations found
-```
-
-### Expected Infection Output
-
-```
-Mutation Score Indicator (MSI): 100%
-```
-
-## Verification Checklist
-
-After using this skill:
-
-- [ ] Identified which quality check is failing
-- [ ] Selected appropriate specialized skill for the issue
-- [ ] Ready to execute specialized skill workflow
-- [ ] Understand which threshold applies to the failure
-- [ ] Know the command to re-run the check after fixes
+---
 
 ## Related Skills
 
-- [ci-workflow](../ci-workflow/SKILL.md) - Run comprehensive CI validation
-- [complexity-management](../complexity-management/SKILL.md) - Reduce complexity, improve quality
-- [deptrac-fixer](../deptrac-fixer/SKILL.md) - Fix architectural violations
-- [implementing-ddd-architecture](../implementing-ddd-architecture/SKILL.md) - Understand DDD patterns
-- [testing-workflow](../testing-workflow/SKILL.md) - Fix test failures, improve coverage
+- **tdd-workflow** - Test-first development process
+- **api-development** - API development patterns
+- **git-workflow** - Git standards and hooks
 
-## Reference Documentation
+---
 
-For detailed examples and patterns, see:
+## References
 
-- **Refactoring patterns** → complexity-management skill
-- **Architecture rules** → implementing-ddd-architecture skill
-- **Layer boundaries** → deptrac-fixer skill
-- **Testing strategies** → testing-workflow skill
+**2025 AI Development Philosophy**:
+- "Functional prototype the next day"
+- Speed-quality trade-off favors speed in prototype
+- Quality investment when feature validates
+
+**Project Context**:
+- Prototype backend (not in production)
+- TDD for critical features only
+- Integration tests as safety net
+- Human verification required
+
+---
+
+**Skill Version**: v1.0
+**Last Updated**: 2025-12-25
+**Project**: career_ios_backend (Prototype Phase)

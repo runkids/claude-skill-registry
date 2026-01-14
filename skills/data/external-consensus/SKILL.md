@@ -120,7 +120,12 @@ This skill requires exactly 3 agent report file paths:
 - **Report 3**: Path to third agent report (e.g., `.tmp/issue-42-reducer.md`)
 
 The script automatically:
-- Extracts feature name from the first report (from `**Feature**:` or `**Title**:` lines)
+- Extracts feature name from any of the three reports (case-insensitive, supports multiple formats):
+  - Headers: `# Feature: Example` or `## Title: Example`
+  - Bold labels: `**Feature**: Example` or `**Title**: Example`
+  - Plain labels: `Feature: Example` or `Title: Example`
+  - Scans reports in priority order (report 1 → 2 → 3) until match found
+  - Falls back to "Unknown Feature" if no match in any report
 - Extracts issue number from first report filename (if it follows `issue-{N}-*` pattern)
 - Combines all 3 reports into a single debate report file
 
@@ -149,7 +154,10 @@ Direct invocation with 3 report paths - the script handles everything and output
 **Script automatically:**
 1. Validates all 3 report files exist
 2. Extracts issue number from first report filename (if it follows `issue-{N}-*` pattern)
-3. Extracts feature name from first report (from `**Feature**:` or `**Title**:` lines)
+3. Extracts feature name from any of the three reports (case-insensitive, multiple formats):
+   - Accepts headers (`# Feature:`), bold labels (`**Feature**:`), or plain labels (`Feature:`)
+   - Scans in priority order: report 1 → 2 → 3 until first match found
+   - Falls back to "Unknown Feature" if no label found in any report
 4. Combines all 3 reports into a single debate report file (`.tmp/issue-{N}-debate.md` or `.tmp/debate-report-{timestamp}.md`)
 5. Loads and processes prompt template with variable substitution
 6. Checks if Codex is available (prefers Codex with xhigh reasoning)
@@ -177,13 +185,13 @@ Direct invocation with 3 report paths - the script handles everything and output
 
 [Summary of balanced approach...]
 
-## Design Decisions
+## Codebase Analysis
 
-[Decisions from each perspective...]
+**File changes:**
 
-## Architecture
-
-[Component descriptions...]
+| File | Level | Purpose |
+|------|-------|---------|
+| `path/to/file` | major/medium/minor/remove | Description |
 
 ## Implementation Steps
 
@@ -202,6 +210,12 @@ Direct invocation with 3 report paths - the script handles everything and output
 
 [Risk table...]
 ```
+
+**Modification levels:**
+- **minor**: <10 LOC, cosmetic changes
+- **medium**: 10-50 LOC, no interface changes
+- **major**: >50 LOC, interface changes, or new files
+- **remove**: File deletion
 
 **Script output on stdout (last line):**
 ```

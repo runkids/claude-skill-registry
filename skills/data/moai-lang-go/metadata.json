@@ -1,12 +1,7 @@
 {
   "name": "moai-lang-go",
-  "description": "Enterprise Go for systems and network programming Go 1.25.4, Fiber v3, gRPC, context patterns, goroutine orchestration, standard library mastery; activates for REST APIs, microservices, concurrent sys",
-  "repo": "modu-ai/moai-adk",
-  "category": "development",
-  "tags": [
-    "moai",
-    "lang"
-  ],
-  "stars": 310,
-  "source": "SkillsMP Synced Skills"
+  "repo": "windysky/claude_notification_wsl2",
+  "path": ".claude/skills/moai-lang-go/SKILL.md",
+  "source": "github.com/windysky/claude_notification_wsl2",
+  "downloaded_at": "2026-01-14T04:03:31.242974Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "computer-scientist-analyst",
-  "description": "Analyzes events through computer science lens using computational complexity, algorithms, data structures,systems architecture, information theory, and software engineering principles to evaluate feas",
-  "repo": "rysweet/MicrosoftHackathon2025-AgenticCoding",
-  "category": "development",
-  "tags": [
-    "computer",
-    "scientist",
-    "analyst"
-  ],
-  "stars": 10,
-  "source": "SkillsMP Synced Skills"
+  "repo": "rysweet/azlin",
+  "path": ".claude/skills/computer-scientist-analyst/SKILL.md",
+  "source": "github.com/rysweet/azlin",
+  "downloaded_at": "2026-01-14T03:30:08.128779Z"
 }

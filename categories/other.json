@@ -1,33 +1,13 @@
 {
   "category": "other",
-  "count": 3,
-  "updated_at": "2026-01-13T00:42:41.342446Z",
+  "count": 1,
+  "updated_at": "2026-01-14T04:12:18.573774Z",
   "skills": [
     {
       "name": "book-report",
       "description": "Comprehensive research and analysis of books with actionable insights, hidden gems, and personalized recommendations. Use when the user requests book research, book reports, book analysis, or says \"Re",
       "repo": "",
       "path": "other/book-report",
-      "category": "other",
-      "tags": [],
-      "stars": 0,
-      "source": "local"
-    },
-    {
-      "name": "role-code-reviewer",
-      "description": "Role definition for code reviewer agents. Defines review criteria, feedback patterns, and approval workflows. Use to understand how to review PRs and provide constructive feedback.",
-      "repo": "",
-      "path": "other/role-code-reviewer",
-      "category": "other",
-      "tags": [],
-      "stars": 0,
-      "source": "local"
-    },
-    {
-      "name": "ui-components",
-      "description": "React UI component specialist with Tailwind CSS and shadcn/ui for building responsive, accessible interfaces",
-      "repo": "",
-      "path": "other/ui-components",
       "category": "other",
       "tags": [],
       "stars": 0,

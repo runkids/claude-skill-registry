@@ -1,8 +1,7 @@
 {
   "name": "project-brainstorming",
   "repo": "athola/claude-night-market",
-  "category": "data",
-  "description": "Socratic questioning and ideation methodology for project conception using structured brainstorming frameworks",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:50.888269Z"
+  "path": "plugins/attune/skills/project-brainstorming/SKILL.md",
+  "source": "github.com/athola/claude-night-market",
+  "downloaded_at": "2026-01-14T01:32:37.102981Z"
 }

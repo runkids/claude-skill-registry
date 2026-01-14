@@ -1,85 +1,90 @@
 ---
 name: testing-standards
-description: Testing conventions, test runner configurations, coverage requirements, and failure interpretation for the Klassenzeit monorepo.
+description: Ensures all new screens/components have unit tests with proper coverage. Validates test files exist for loading, error, success, and state-transition states. Checks that backend handlers have corresponding test files. Use when creating or modifying frontend screens, components, or backend handlers.
 ---
 
 # Testing Standards
 
-## Test Runner Commands
+This skill enforces Ishkul's mandatory unit testing requirements to prevent production issues like the React error #310 caused by missing state transition tests.
 
-### Backend (Spring Boot / JUnit)
-```bash
-make test-backend           # Run all backend tests
-./gradlew test              # Direct Gradle command
-./gradlew test --tests "ClassName"  # Run specific test class
+## Frontend Testing Requirements
+
+### Screens
+Every new screen MUST have a test file at:
+```
+frontend/src/screens/__tests__/ScreenName.test.tsx
 ```
 
-### Frontend (Vitest / React Testing Library)
-```bash
-make test-frontend          # Run all frontend tests
-npm run test                # Run tests once
-npm run test:watch          # Watch mode
-npm run test:coverage       # With coverage report
-npm run test:ui             # Vitest UI
+Required test coverage:
+- **Loading state** - Initial loading UI
+- **Error state** - Error handling and display
+- **Empty state** - No data scenarios
+- **Success state** - Data loaded correctly
+- **State transitions** - Critical for catching React Rules of Hooks violations
+
+### Test File Template for Screens
+```typescript
+describe('ScreenName', () => {
+  describe('Loading State', () => {
+    it('should display loading indicator', () => { /* test */ });
+  });
+
+  describe('Error State', () => {
+    it('should display error message', () => { /* test */ });
+    it('should allow retry', () => { /* test */ });
+  });
+
+  describe('Success State', () => {
+    it('should display data correctly', () => { /* test */ });
+  });
+
+  describe('State Transitions (Rules of Hooks)', () => {
+    it('should handle transition from loading to success', () => { /* test */ });
+    it('should handle transition from loading to error', () => { /* test */ });
+    it('should handle transition from error to loading (retry)', () => { /* test */ });
+  });
+});
 ```
 
-### E2E (Playwright)
-```bash
-make test-e2e               # Run all E2E tests
-npm run test:e2e            # Direct Playwright run
-npm run test:e2e:ui         # Playwright UI mode
-npm run test:api            # API integration tests only
+### Components
+Every new component MUST have a test file at:
+```
+frontend/src/components/__tests__/ComponentName.test.tsx
 ```
 
-## Coverage Reports
+Required coverage:
+- All props combinations
+- User interactions (clicks, input changes)
+- Edge cases (empty props, long text, etc.)
 
-| Type | Location | Minimum Threshold |
-|------|----------|-------------------|
-| Backend | `backend/build/reports/jacoco/test/html/index.html` | 80% line coverage |
-| Frontend | `frontend/coverage/index.html` | 80% line coverage |
-| E2E | `e2e/playwright-report/index.html` | Critical paths covered |
+## Backend Testing Requirements
 
-## Coverage Requirements
+Every new handler MUST have a test file at:
+```
+backend/internal/handlers/handler_name_test.go
+```
 
-- **New code**: Minimum 80% line coverage
-- **Public API functions**: Must have unit tests
-- **Critical user flows**: Must have E2E tests
-- **Edge cases**: Error scenarios must be tested
+Required coverage:
+- Success cases
+- Error cases (invalid input, auth failures)
+- Edge cases
 
-## Interpreting Failures
+## Running Tests
 
-### Priority Order
-1. Check if failure is flaky (re-run once with same seed)
-2. Look for recent changes to test file or tested module
-3. Check for environment issues (missing fixtures, DB state, port conflicts)
-4. Inspect assertion messages carefully for root cause
+### Frontend
+```bash
+# Run specific test file
+npm test -- --testPathPattern="YourNewFile.test"
 
-### Common Failure Patterns
+# Run all tests
+npm test
+```
 
-**Backend**
-- `NullPointerException`: Missing mock setup or fixture data
-- `ConstraintViolationException`: Invalid test data for entity constraints
-- `LazyInitializationException`: Missing `@Transactional` or eager fetch
+### Backend
+```bash
+go test ./...
+```
 
-**Frontend**
-- `Unable to find element`: Component not rendered, wrong query, async timing
-- `act() warning`: State update outside test act boundary
-- `Mock not called`: Wrong mock path or missing mock setup
+## Why This Matters
 
-**E2E**
-- `Timeout`: Slow page load, element not visible, wrong selector
-- `Element not attached`: DOM changed between find and action
-- `Navigation error`: Auth redirect, missing route, CORS issue
-
-## Test File Conventions
-
-- Backend: `src/test/java/**/*Test.java`
-- Frontend: `src/**/*.test.tsx` (co-located with source)
-- E2E: `e2e/tests/**/*.spec.ts`
-
-## Pre-Test Checklist
-
-1. Services running (`make services-up`)
-2. Database migrated (Flyway runs on backend startup)
-3. Environment variables set (`.env` files in place)
-4. Dependencies installed (`npm install` in frontend/e2e)
+Missing state transition tests caused a production crash (React error #310) in LessonScreen where hooks were called after conditional returns. Always include state transition tests to catch these issues before deployment.

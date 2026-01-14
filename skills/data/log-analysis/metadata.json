@@ -1,12 +1,7 @@
 {
   "name": "log-analysis",
-  "description": "Analyze application and system logs to identify errors, patterns, and root causes. Use log aggregation tools and structured logging for effective debugging.",
   "repo": "aj-geddes/useful-ai-prompts",
-  "category": "development",
-  "tags": [
-    "log",
-    "analysis"
-  ],
-  "stars": 25,
-  "source": "local"
+  "path": "skills/log-analysis/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:04.167400Z"
 }

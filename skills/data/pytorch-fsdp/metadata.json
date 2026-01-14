@@ -1,8 +1,7 @@
 {
   "name": "pytorch-fsdp",
   "repo": "zechenzhangAGI/AI-research-SKILLs",
-  "category": "data",
-  "description": "Expert guidance for Fully Sharded Data Parallel training with PyTorch FSDP - parameter sharding, mixed precision, CPU offloading, FSDP2",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:18.783266Z"
+  "path": "08-distributed-training/pytorch-fsdp/SKILL.md",
+  "source": "github.com/zechenzhangAGI/AI-research-SKILLs",
+  "downloaded_at": "2026-01-14T00:53:27.244970Z"
 }

@@ -1,202 +1,182 @@
 ---
 name: async-patterns
-description: Master asynchronous programming in Node.js with Promises, async/await, streams, and event-driven patterns for efficient non-blocking operations
-sasmp_version: "1.3.0"
-bonded_agent: 01-nodejs-fundamentals
-bond_type: PRIMARY_BOND
+description: Async/await patterns for the .NET 8 WPF widget host app. Use when implementing async commands, background operations, cancellation, progress reporting, or UI thread marshaling.
 ---
 
-# Async Programming Patterns Skill
+# Async Patterns
 
-Master asynchronous programming - the foundation of Node.js performance and scalability.
+## Overview
 
-## Quick Start
+Establish consistent async patterns that keep the UI responsive while handling long-running operations safely.
 
-Three pillars of async JavaScript:
-1. **Callbacks** - Traditional pattern (error-first)
-2. **Promises** - Modern chainable pattern
-3. **Async/Await** - Synchronous-looking async code
+## Core Principles
 
-## Core Patterns
+1. **Never block the UI thread** - Use async/await, not `.Result` or `.Wait()`
+2. **Always provide cancellation** - Long operations should be cancellable
+3. **Report progress** - Users should see feedback on long operations
+4. **Handle exceptions** - Async exceptions need explicit handling
 
-### Callbacks → Promises → Async/Await Evolution
-```javascript
-// 1. Callbacks (old way)
-fs.readFile('file.txt', (err, data) => {
-  if (err) throw err;
-  console.log(data);
-});
+---
 
-// 2. Promises (better)
-fs.promises.readFile('file.txt')
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
+## Patterns
 
-// 3. Async/Await (modern)
-async function readFile() {
-  try {
-    const data = await fs.promises.readFile('file.txt');
-    console.log(data);
-  } catch (err) {
-    console.error(err);
-  }
-}
-```
+### 1. Async Commands (RelayCommand)
 
-### Sequential vs Parallel
-```javascript
-// ❌ Slow: Sequential (300ms total)
-async function slow() {
-  const a = await fetch('/api/a'); // 100ms
-  const b = await fetch('/api/b'); // 100ms
-  const c = await fetch('/api/c'); // 100ms
-  return [a, b, c];
-}
-
-// ✅ Fast: Parallel (100ms total)
-async function fast() {
-  const [a, b, c] = await Promise.all([
-    fetch('/api/a'),
-    fetch('/api/b'),
-    fetch('/api/c')
-  ]);
-  return [a, b, c];
-}
-```
-
-### Promise Methods
-```javascript
-// Promise.all - Wait for all (fails if one fails)
-const [users, posts] = await Promise.all([getUsers(), getPosts()]);
-
-// Promise.allSettled - Wait for all (never fails)
-const results = await Promise.allSettled([fetch1(), fetch2(), fetch3()]);
-
-// Promise.race - First to complete
-const fastest = await Promise.race([server1(), server2()]);
-
-// Promise.any - First to succeed
-const result = await Promise.any([tryAPI1(), tryAPI2()]);
-```
-
-## Learning Path
-
-### Beginner (1-2 weeks)
-- ✅ Understand event loop
-- ✅ Master callbacks
-- ✅ Learn Promises basics
-- ✅ Practice async/await
-
-### Intermediate (3-4 weeks)
-- ✅ Error handling patterns
-- ✅ Sequential vs parallel execution
-- ✅ Promise composition
-- ✅ Event emitters
-
-### Advanced (5-6 weeks)
-- ✅ Streams and backpressure
-- ✅ Concurrency control
-- ✅ Circuit breakers
-- ✅ Performance optimization
-
-## Common Patterns
-
-### Error Handling
-```javascript
-// Try/catch for async/await
-async function safeOperation() {
-  try {
-    const result = await riskyOperation();
-    return { success: true, data: result };
-  } catch (error) {
-    console.error('Operation failed:', error);
-    return { success: false, error: error.message };
-  }
-}
-
-// Process-level handlers
-process.on('unhandledRejection', (reason, promise) => {
-  console.error('Unhandled Rejection:', reason);
-});
-```
-
-### Retry with Exponential Backoff
-```javascript
-async function retryWithBackoff(fn, maxRetries = 3) {
-  for (let i = 0; i < maxRetries; i++) {
-    try {
-      return await fn();
-    } catch (error) {
-      if (i === maxRetries - 1) throw error;
-      const delay = Math.pow(2, i) * 1000;
-      await new Promise(resolve => setTimeout(resolve, delay));
+```csharp
+[RelayCommand]
+private async Task LoadDataAsync(CancellationToken cancellationToken)
+{
+    IsLoading = true;
+    try
+    {
+        Data = await _service.GetDataAsync(cancellationToken);
     }
-  }
+    finally
+    {
+        IsLoading = false;
+    }
 }
 ```
 
-### Concurrency Limit
-```javascript
-async function batchProcess(items, concurrency = 5) {
-  const results = [];
-  for (let i = 0; i < items.length; i += concurrency) {
-    const batch = items.slice(i, i + concurrency);
-    const batchResults = await Promise.all(
-      batch.map(item => processItem(item))
-    );
-    results.push(...batchResults);
-  }
-  return results;
+### 2. Cancellation Support
+
+```csharp
+private CancellationTokenSource? _cts;
+
+[RelayCommand]
+private async Task StartOperationAsync()
+{
+    _cts?.Cancel();
+    _cts = new CancellationTokenSource();
+    
+    try
+    {
+        await LongRunningOperationAsync(_cts.Token);
+    }
+    catch (OperationCanceledException)
+    {
+        // User cancelled - this is expected
+    }
+}
+
+[RelayCommand]
+private void Cancel()
+{
+    _cts?.Cancel();
 }
 ```
 
-## Streams
-```javascript
-const { pipeline } = require('stream');
-const fs = require('fs');
+### 3. Progress Reporting
 
-// Efficient file processing
-pipeline(
-  fs.createReadStream('input.txt'),
-  transformStream,
-  fs.createWriteStream('output.txt'),
-  (err) => {
-    if (err) console.error('Pipeline failed:', err);
-    else console.log('Pipeline succeeded');
-  }
-);
+```csharp
+[ObservableProperty]
+private int _progress;
+
+[RelayCommand]
+private async Task ProcessItemsAsync(CancellationToken cancellationToken)
+{
+    var items = await GetItemsAsync(cancellationToken);
+    
+    for (int i = 0; i < items.Count; i++)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+        await ProcessItemAsync(items[i], cancellationToken);
+        Progress = (i + 1) * 100 / items.Count;
+    }
+}
 ```
 
-## Event Emitters
-```javascript
-const EventEmitter = require('events');
+### 4. UI Thread Marshaling
 
-class MyEmitter extends EventEmitter {}
-const emitter = new MyEmitter();
-
-emitter.on('event', (data) => {
-  console.log('Event fired:', data);
+```csharp
+// When updating UI from background thread
+Application.Current.Dispatcher.Invoke(() =>
+{
+    Items.Add(newItem);
 });
 
-emitter.emit('event', { id: 123 });
+// Prefer async version when possible
+await Application.Current.Dispatcher.InvokeAsync(() =>
+{
+    Items.Add(newItem);
+});
 ```
 
-## When to Use
+### 5. Fire-and-Forget (Use Sparingly)
 
-Use async patterns when:
-- Handling I/O operations (file, network, database)
-- Building scalable Node.js applications
-- Managing multiple concurrent operations
-- Processing streams of data
-- Creating event-driven architectures
+```csharp
+// Only for truly fire-and-forget scenarios
+_ = Task.Run(async () =>
+{
+    try
+    {
+        await BackgroundWorkAsync();
+    }
+    catch (Exception ex)
+    {
+        Log.Error(ex, "Background work failed");
+    }
+});
+```
 
-## Related Skills
-- Express REST API (async route handlers)
-- Database Integration (async queries)
-- Testing & Debugging (test async code)
-- Performance Optimization (async performance)
+---
 
-## Resources
-- [MDN Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
-- [Node.js Async Guide](https://nodejs.dev/en/learn/asynchronous-flow-control/)
-- [JavaScript.info Async](https://javascript.info/async)
+## Definition of Done (DoD)
+
+- [ ] Long-running operations use async/await
+- [ ] No `.Result` or `.Wait()` calls on UI thread
+- [ ] Operations > 100ms have loading indicators
+- [ ] User-initiated operations support cancellation
+- [ ] Progress shown for batch operations
+- [ ] Exceptions logged and user-notified appropriately
+- [ ] Dispatcher used for cross-thread UI updates
+
+---
+
+## Anti-Patterns
+
+| ❌ Don't | ✅ Do |
+|----------|-------|
+| `task.Result` | `await task` |
+| `task.Wait()` | `await task` |
+| `async void` methods | `async Task` methods |
+| Swallowing exceptions | Log and notify user |
+| Blocking UI for network | Show loading, use async |
+
+---
+
+## Key Components
+
+| Component | Purpose |
+|-----------|---------|
+| `[RelayCommand]` | CommunityToolkit async command generation |
+| `CancellationTokenSource` | Cancellation coordination |
+| `IProgress<T>` | Progress reporting interface |
+| `Dispatcher.InvokeAsync` | UI thread marshaling |
+
+---
+
+## Task Scheduling
+
+For background work that shouldn't block commands:
+
+```csharp
+// Schedule periodic background work
+private readonly PeriodicTimer _timer = new(TimeSpan.FromMinutes(5));
+
+private async Task StartBackgroundRefreshAsync(CancellationToken stoppingToken)
+{
+    while (await _timer.WaitForNextTickAsync(stoppingToken))
+    {
+        try
+        {
+            await RefreshDataAsync(stoppingToken);
+        }
+        catch (Exception ex) when (ex is not OperationCanceledException)
+        {
+            Log.Warning(ex, "Background refresh failed");
+        }
+    }
+}
+```
+

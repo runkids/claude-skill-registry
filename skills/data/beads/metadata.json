@@ -1,11 +1,7 @@
 {
   "name": "beads",
-  "description": "Use when working on projects that use 'beads' (bd) for issue tracking. Covers bd commands, workflow, priorities, and best practices for AI agents.",
-  "repo": "fdelache/dotfiles",
-  "category": "data",
-  "tags": [
-    "beads"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "dbmcco/tmux-beads-loops",
+  "path": "skills/beads/SKILL.md",
+  "source": "github.com/dbmcco/tmux-beads-loops",
+  "downloaded_at": "2026-01-14T03:33:16.528793Z"
 }

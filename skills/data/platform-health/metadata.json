@@ -1,12 +1,7 @@
 {
   "name": "platform-health",
-  "description": "Check comprehensive platform health including ArgoCD apps, pods, services, certificates, and resources across the Kagenti platform",
   "repo": "redhat-et/kagenti-demo-deployment",
-  "category": "devops",
-  "tags": [
-    "platform",
-    "health"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/platform-health/SKILL.md",
+  "source": "github.com/redhat-et/kagenti-demo-deployment",
+  "downloaded_at": "2026-01-14T03:28:45.079773Z"
 }

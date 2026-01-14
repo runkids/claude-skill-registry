@@ -1,11 +1,7 @@
 {
   "name": "typescript-zod",
-  "description": "Apply when validating external data (API inputs, form data, environment variables) with TypeScript type inference.",
   "repo": "CoderMariusz/MonoPilot",
-  "category": "data",
-  "tags": [
-    "typescript",
-    "zod"
-  ],
-  "stars": 1
+  "path": ".claude/skills/typescript-zod/SKILL.md",
+  "source": "github.com/CoderMariusz/MonoPilot",
+  "downloaded_at": "2026-01-14T03:46:42.146780Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "flutter-pub",
-  "description": "[Flutter] pub.dev package search skill. Quick package search, info lookup, version check, and dependency analysis. (project)",
   "repo": "CANTAGESTUDIO/CosmicAtlasPacker",
-  "category": "development",
-  "tags": [
-    "flutter",
-    "pub"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".factory/skills/flutter-pub/SKILL.md",
+  "source": "github.com/CANTAGESTUDIO/CosmicAtlasPacker",
+  "downloaded_at": "2026-01-14T02:43:50.309036Z"
 }

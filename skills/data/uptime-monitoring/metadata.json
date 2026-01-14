@@ -1,11 +1,7 @@
 {
   "name": "uptime-monitoring",
-  "description": "Implement uptime monitoring and status page systems for tracking service availability. Use when monitoring application uptime, creating status pages, or implementing health checks.",
   "repo": "aj-geddes/useful-ai-prompts",
-  "category": "data",
-  "tags": [
-    "uptime",
-    "monitoring"
-  ],
-  "stars": 25
+  "path": "skills/uptime-monitoring/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:08.818878Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "api-platform-crud",
-  "description": "Create complete REST API CRUD operations using API Platform 4 with DDD and CQRS patterns. Use when adding new API resources, implementing CRUD endpoints, creating DTOs, configuring operations, or sett",
-  "repo": "VilnaCRM-Org/core-service",
-  "category": "data",
-  "tags": [
-    "api",
-    "platform",
-    "crud"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "VilnaCRM-Org/user-service",
+  "path": ".claude/skills/api-platform-crud/SKILL.md",
+  "source": "github.com/VilnaCRM-Org/user-service",
+  "downloaded_at": "2026-01-14T02:10:10.264381Z"
 }

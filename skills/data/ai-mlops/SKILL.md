@@ -15,14 +15,14 @@ This skill covers:
 
 1. **Data ingestion** (dlt): Load data from APIs, databases to warehouses
 2. **Model deployment**: Batch jobs, real-time APIs, hybrid systems, event-driven automation
-3. **Operations**: Real-time monitoring, **18-second drift detection**, automated retraining, incident response
+3. **Operations**: Real-time monitoring, drift detection, automated retraining, incident response
 
-**Key Advances:**
+**Modern Best Practices (December 2025)**:
 
-- **Event-driven, modular, auditable pipelines** automating every key phase
-- **18-second drift detection** with F1 >0.99 post-attack recovery
-- **Automated retraining triggers** (drift, schema change, volume threshold, manual override)
-- **Scalable architecture:** >2,300 req/sec with sub-50ms latency
+- Treat the model as a **versioned production artifact** with provenance, rollbacks, and audit logs (NIST SSDF: https://csrc.nist.gov/pubs/sp/800/218/final).
+- Align governance and documentation to risk posture (EU AI Act: https://eur-lex.europa.eu/eli/reg/2024/1689/oj; NIST AI RMF: https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf).
+- Measure and manage drift with **clear triggers and playbooks**; “drift” is not one metric.
+- Make incident response and change management first-class (runbooks, on-call, postmortems).
 
 It is execution-focused:
 
@@ -30,7 +30,7 @@ It is execution-focused:
 - Deployment patterns (batch, online, hybrid, streaming, event-driven)
 - **Automated monitoring** with real-time drift detection
 - **Automated retraining** pipelines (monitor → detect → trigger → validate → deploy)
-- Incident handling with rapid recovery (F1 >0.99 restoration)
+- Incident handling with validated rollback and postmortems
 - Links to copy-paste templates in `templates/`
 
 ---
@@ -43,7 +43,7 @@ It is execution-focused:
 | Batch Deployment | Airflow, Dagster, Prefect | `airflow dags trigger`, `dagster job launch` | Scheduled predictions on large datasets |
 | API Deployment | FastAPI, Flask, TorchServe | `uvicorn app:app`, `torchserve --start` | Real-time inference (<500ms latency) |
 | Model Registry | MLflow, W&B | `mlflow.register_model()`, `wandb.log_model()` | Versioning and promoting models |
-| Drift Detection | Evidently, WhyLabs | `evidently.dashboard()`, monitor metrics | Automated drift monitoring (18s response) |
+| Drift Detection | Statistical tests + monitors | PSI/KS, feature drift, prediction drift | Detect data/process changes and trigger review |
 | Monitoring | Prometheus, Grafana | `prometheus.yml`, Grafana dashboards | Metrics, alerts, SLO tracking |
 | Incident Response | Runbooks, PagerDuty | Documented playbooks, alert routing | Handling failures and degradation |
 
@@ -101,6 +101,25 @@ User needs to deploy: [ML System]
 ```
 
 ---
+
+## Core Concepts (Vendor-Agnostic)
+
+- **Lifecycle loop**: train → validate → deploy → monitor → respond → retrain/retire.
+- **Risk controls**: access control, data minimization, logging, and change management (NIST AI RMF: https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf).
+- **Observability planes**: system metrics (latency/errors), data metrics (freshness/drift), quality metrics (model performance).
+- **Incident readiness**: detection, containment, rollback, and root-cause analysis.
+
+## Do / Avoid
+
+**Do**
+- Do gate deployments with repeatable checks: evaluation pass, load test, security review, rollback plan.
+- Do version everything: code, data, features, model artifact, prompt templates, configuration.
+- Do define SLOs and budgets (latency/cost/error rate) before optimizing.
+
+**Avoid**
+- Avoid manual “clickops” deployments without audit trail.
+- Avoid silent upgrades; require eval + canary for model/prompt changes.
+- Avoid drift dashboards without actions; every alert needs an owner and runbook.
 
 ## Core Patterns Overview
 
@@ -174,10 +193,8 @@ This skill provides 13 production-ready patterns organized into comprehensive gu
 **Pattern 8: Drift Detection & Automated Retraining**
 → See [Drift Detection Guide](resources/drift-detection-guide.md)
 
-- Real-time drift detection (18-second response)
 - Automated retraining triggers
 - Event-driven retraining pipelines
-- Performance targets (F1 >0.99 recovery)
 
 **Pattern 9: Incidents & Runbooks**
 → See [Incident Response Playbooks](resources/incident-response-playbooks.md)
@@ -251,11 +268,11 @@ Use these as copy-paste starting points for production artifacts:
 
 For loading data into warehouses and pipelines:
 
-- **[dlt basic pipeline setup](templates/ingestion/template-dlt-pipeline.md)** - Install, configure, run basic extraction and loading
-- **[dlt REST API sources](templates/ingestion/template-dlt-rest-api.md)** - Extract from REST APIs with pagination, authentication, rate limiting
-- **[dlt database sources](templates/ingestion/template-dlt-database-source.md)** - Replicate from PostgreSQL, MySQL, MongoDB, SQL Server
-- **[dlt incremental loading](templates/ingestion/template-dlt-incremental.md)** - Timestamp-based, ID-based, merge/upsert patterns, lookback windows
-- **[dlt warehouse loading](templates/ingestion/template-dlt-warehouse-loading.md)** - Load to Snowflake, BigQuery, Redshift, Postgres, DuckDB
+- **[dlt basic pipeline setup](../data-lake-platform/templates/ingestion/dlt/template-dlt-pipeline.md)** - Install, configure, run basic extraction and loading
+- **[dlt REST API sources](../data-lake-platform/templates/ingestion/dlt/template-dlt-rest-api.md)** - Extract from REST APIs with pagination, authentication, rate limiting
+- **[dlt database sources](../data-lake-platform/templates/ingestion/dlt/template-dlt-database-source.md)** - Replicate from PostgreSQL, MySQL, MongoDB, SQL Server
+- **[dlt incremental loading](../data-lake-platform/templates/ingestion/dlt/template-dlt-incremental.md)** - Timestamp-based, ID-based, merge/upsert patterns, lookback windows
+- **[dlt warehouse loading](../data-lake-platform/templates/ingestion/dlt/template-dlt-warehouse-loading.md)** - Load to Snowflake, BigQuery, Redshift, Postgres, DuckDB
 
 **Use dlt when:**
 
@@ -271,6 +288,7 @@ For loading data into warehouses and pipelines:
 ### Deployment & Packaging
 
 - **[Deployment & MLOps template](templates/deployment/template-deployment-mlops.md)** - Complete MLOps lifecycle, model registry, promotion workflows
+- **[Deployment readiness checklist](templates/deployment/deployment-readiness-checklist.md)** - Go/No-Go gate, monitoring, and rollback plan
 - **[API service template](templates/deployment/template-api-service.md)** - Real-time REST/gRPC API with FastAPI, input validation, rate limiting
 - **[Batch scoring pipeline template](templates/deployment/template-batch-pipeline.md)** - Orchestrated batch inference with Airflow/Dagster, validation, backfill
 
@@ -297,12 +315,13 @@ For loading data into warehouses and pipelines:
 - [resources/multi-region-patterns.md](resources/multi-region-patterns.md)
 
 **Templates**
-- [templates/ingestion/template-dlt-pipeline.md](templates/ingestion/template-dlt-pipeline.md)
-- [templates/ingestion/template-dlt-rest-api.md](templates/ingestion/template-dlt-rest-api.md)
-- [templates/ingestion/template-dlt-database-source.md](templates/ingestion/template-dlt-database-source.md)
-- [templates/ingestion/template-dlt-incremental.md](templates/ingestion/template-dlt-incremental.md)
-- [templates/ingestion/template-dlt-warehouse-loading.md](templates/ingestion/template-dlt-warehouse-loading.md)
+- [template-dlt-pipeline.md](../data-lake-platform/templates/ingestion/dlt/template-dlt-pipeline.md)
+- [template-dlt-rest-api.md](../data-lake-platform/templates/ingestion/dlt/template-dlt-rest-api.md)
+- [template-dlt-database-source.md](../data-lake-platform/templates/ingestion/dlt/template-dlt-database-source.md)
+- [template-dlt-incremental.md](../data-lake-platform/templates/ingestion/dlt/template-dlt-incremental.md)
+- [template-dlt-warehouse-loading.md](../data-lake-platform/templates/ingestion/dlt/template-dlt-warehouse-loading.md)
 - [templates/deployment/template-deployment-mlops.md](templates/deployment/template-deployment-mlops.md)
+- [templates/deployment/deployment-readiness-checklist.md](templates/deployment/deployment-readiness-checklist.md)
 - [templates/deployment/template-api-service.md](templates/deployment/template-api-service.md)
 - [templates/deployment/template-batch-pipeline.md](templates/deployment/template-batch-pipeline.md)
 - [templates/ops/template-incident-runbook.md](templates/ops/template-incident-runbook.md)

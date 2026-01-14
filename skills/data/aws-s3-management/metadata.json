@@ -1,12 +1,7 @@
 {
   "name": "aws-s3-management",
-  "description": "Manage S3 buckets with versioning, encryption, access control, lifecycle policies, and replication. Use for object storage, static sites, and data lakes.",
   "repo": "aj-geddes/useful-ai-prompts",
-  "category": "data",
-  "tags": [
-    "aws",
-    "management"
-  ],
-  "stars": 25,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/aws-s3-management/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:09.208106Z"
 }

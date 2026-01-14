@@ -1,11 +1,7 @@
 {
   "name": "nx-monorepo",
-  "description": "Nx monorepo management skill for AI-native development. This skill should be used when working with Nx workspaces, project graphs, affected detection, code generation, and caching. Use when: analyzing",
   "repo": "mjunaidca/mjs-agent-skills",
-  "category": "development",
-  "tags": [
-    "monorepo"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/nx-monorepo/SKILL.md",
+  "source": "github.com/mjunaidca/mjs-agent-skills",
+  "downloaded_at": "2026-01-14T01:43:12.221702Z"
 }

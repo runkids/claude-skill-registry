@@ -1,11 +1,7 @@
 {
   "name": "memory-checkpoint",
-  "description": "Externalize detailed memory to Memory Bank before conversation summarization to prevent context loss. Triggers: CP, checkpoint, save, 存檔, 記一下, 保存, sync memory, dump, 先記著, 等一下, 要離開, 暫停, pause, 儲存進度, 怕忘",
   "repo": "u9401066/med-paper-assistant",
-  "category": "data",
-  "tags": [
-    "memory",
-    "checkpoint"
-  ],
-  "stars": 3
+  "path": ".claude/skills/memory-checkpoint/SKILL.md",
+  "source": "github.com/u9401066/med-paper-assistant",
+  "downloaded_at": "2026-01-14T03:21:49.663614Z"
 }

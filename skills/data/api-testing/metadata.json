@@ -1,12 +1,7 @@
 {
   "name": "api-testing",
-  "description": "Write and run API tests with Vitest for endpoints, middleware, and integrations. Use when testing API functionality, request/response validation, error handling.",
-  "repo": "sgcarstrends/sgcarstrends",
-  "category": "testing",
-  "tags": [
-    "api",
-    "testing"
-  ],
-  "stars": 13,
-  "source": "SkillsMP Synced Skills"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/api-testing/skills/api-testing/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-14T03:29:55.819307Z"
 }

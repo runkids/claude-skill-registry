@@ -310,20 +310,21 @@ find api/ -name "*.yaml" -o -name "*.json"
 3. Identify indirect (cascading) dependencies
 4. Identify integration points
 
-### Phase 4: 段階的影響分析レポート生成
+### Phase 4: 단계적 영향 분석 보고서 생성
 
-**CRITICAL: コンテキスト長オーバーフロー防止**
+**CRITICAL: 컨텍스트 길이 초과(Overflow) 방지**
 
-**出力方式の原則:**
-- ✅ 1セクションずつ順番に生成・保存
-- ✅ 各セクション生成後に進捗を報告
-- ✅ 大きなレポートをセクションごとに分割
-- ✅ エラー発生時も部分的なレポートが残る
+**출력 방식 원칙:**
+
+- ✅ 섹션을 1개씩 순서대로 생성·저장
+- ✅ 각 섹션 생성 후 진행 상황 공유
+- ✅ 대규모 보고서를 섹션 단위로 분할 생성
+- ✅ 오류 발생 시에도 생성된 섹션은 유지
 
 ```
-🤖 確認ありがとうございます。影響分析レポートを順番に生成します。
+🤖 확인 완료. 영향 분석 보고서를 순서대로 생성합니다.
 
-【生成予定のセクション】
+【생성 예정 섹션】
 1. Executive Summary
 2. Affected Components
 3. Breaking Changes
@@ -331,71 +332,74 @@ find api/ -name "*.yaml" -o -name "*.json"
 5. Recommendations
 6. Approval Checklist
 
-合計: 6セクション
+총: 6개 섹션
 
-**重要: 段階的生成方式**
-各セクションを1つずつ生成・保存し、進捗を報告します。
-これにより、途中経過が見え、エラーが発生しても部分的なレポートが残ります。
+**중요: 단계적 생성 방식**
+각 섹션을 하나씩 생성하고 저장한 뒤 진행 상황을 공유합니다.
+이 방식으로 중간 결과를 확인할 수 있으며, 오류가 발생해도 생성된 섹션은 그대로 유지됩니다.
 
-生成を開始してよろしいですか?
-👤 ユーザー: [回答待ち]
+생성을 시작해도 될까요?
+👤 사용자: [응답 대기]
 ```
 
-ユーザーが承認後、**各セクションを順番に生成**:
+사용자가 승인한 후, **각 섹션을 순서대로 생성**합니다:
 
 **Step 1: Executive Summary**
 
 ```
-🤖 [1/6] Executive Summaryを生成しています...
+🤖 [1/6] Executive Summary를 생성하고 있습니다...
 
-📝 impact-analysis/add-two-factor-auth-report.md (Section 1)
-✅ 保存が完了しました
+📝 impact-analysis/add-two-factor-auth-report.md (섹션 1)
+✅ 저장이 완료되었습니다
 
-[1/6] 完了。次のセクションに進みます。
+[1/6] 완료. 다음 섹션으로 이동합니다.
 ```
 
 **Step 2: Affected Components**
 
 ```
-🤖 [2/6] Affected Componentsを生成しています...
+🤖 [2/6] Affected Components를 생성하고 있습니다...
 
-📝 impact-analysis/add-two-factor-auth-report.md (Section 2)
-✅ 保存が完了しました
+📝 impact-analysis/add-two-factor-auth-report.md (섹션 2)
+✅ 저장이 완료되었습니다
 
-[2/6] 完了。次のセクションに進みます。
+[2/6] 완료. 다음 섹션으로 이동합니다.
 ```
 
-**大きな影響分析レポート(>300行)の場合:**
+**대규모 영향 분석 보고서(300라인 초과)의 경우:**
 
 ```
-🤖 影響分析レポート全体が500行超えるため、セクションごとに保存します。
-⚠️ 各セクションを個別ファイルとして生成し、最後に統合します。
+🤖 영향 분석 보고서 전체가 500라인을 초과하므로, 섹션 단위로 저장합니다.
+⚠️ 각 섹션을 개별 파일로 생성한 뒤, 마지막에 통합합니다.
 
-📝 Part 1/3: impact-analysis/add-two-factor-auth-report-part1.md (Executive Summary & Affected Components)
-✅ 保存が完了しました (200行)
+📝 Part 1/3: impact-analysis/add-two-factor-auth-report-part1.md
+   (Executive Summary & Affected Components)
+✅ 저장이 완료되었습니다 (200라인)
 
-📝 Part 2/3: impact-analysis/add-two-factor-auth-report-part2.md (Risk Assessment & Dependencies)
-✅ 保存が完了しました (180行)
+📝 Part 2/3: impact-analysis/add-two-factor-auth-report-part2.md
+   (Risk Assessment & Dependencies)
+✅ 저장이 완료되었습니다 (180라인)
 
-📝 Part 3/3: impact-analysis/add-two-factor-auth-report-part3.md (Recommendations & Approval)
-✅ 保存が完了しました (150行)
+📝 Part 3/3: impact-analysis/add-two-factor-auth-report-part3.md
+   (Recommendations & Approval)
+✅ 저장이 완료되었습니다 (150라인)
 
-✅ レポート生成完了: 3ファイル (合計530行)
-💡 必要に応じて統合版も生成できます
+✅ 보고서 생성 완료: 3개 파일 (총 530라인)
+💡 필요 시 통합본도 생성할 수 있습니다
 ```
 
-**Final: レポート生成完了サマリー**
+**Final: 보고서 생성 완료 요약**
 
 ```
-🤖 ✨ 影響分析レポートの生成が完了しました！
+🤖 ✨ 영향 분석 보고서 생성이 완료되었습니다!
 
-## 📊 分析サマリー
-- **影響を受けるコンポーネント**: 12ファイル
-- **破壊的変更**: 1件
-- **リスクレベル**: HIGH
+## 📊 분석 요약
+- **영향을 받는 컴포넌트**: 12개 파일
+- **파괴적 변경(하위 호환성 깨짐)**: 1건
+- **위험 수준**: HIGH
 
-## 📂 生成されたレポート
-✅ impact-analysis/add-two-factor-auth-report.md (6セクション)
+## 📂 생성된 보고서
+✅ impact-analysis/add-two-factor-auth-report.md (6개 섹션)
 
 ```
 

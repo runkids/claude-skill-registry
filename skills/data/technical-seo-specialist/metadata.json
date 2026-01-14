@@ -1,12 +1,7 @@
 {
   "name": "technical-seo-specialist",
-  "description": "Expert technical SEO auditor that ensures websites are discoverable, indexable, and optimized for search engines. Audits semantic HTML, meta tags, structured data, sitemaps, robots.txt, Core Web Vital",
   "repo": "sitechfromgeorgia/georgian-distribution-system",
-  "category": "data",
-  "tags": [
-    "technical",
-    "seo",
-    "specialist"
-  ],
-  "stars": 0
+  "path": ".claude/skills/technical-seo-specialist/SKILL.md",
+  "source": "github.com/sitechfromgeorgia/georgian-distribution-system",
+  "downloaded_at": "2026-01-14T01:24:42.773557Z"
 }

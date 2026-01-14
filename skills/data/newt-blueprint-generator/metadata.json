@@ -1,12 +1,7 @@
 {
   "name": "newt-blueprint-generator",
-  "description": "\"Generate and validate Pangolin Newt blueprint configurations in YAML or Docker Labels format. Use when creating Pangolin resource configurations, proxy resources, client resources, authentication set",
   "repo": "rknall/claude-skills",
-  "category": "data",
-  "tags": [
-    "newt",
-    "blueprint",
-    "generator"
-  ],
-  "stars": 3
+  "path": "newt-blueprint-generator/SKILL.md",
+  "source": "github.com/rknall/claude-skills",
+  "downloaded_at": "2026-01-14T01:32:03.362469Z"
 }

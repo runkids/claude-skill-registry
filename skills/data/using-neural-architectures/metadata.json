@@ -1,8 +1,7 @@
 {
   "name": "using-neural-architectures",
   "repo": "tachyon-beep/skillpacks",
-  "category": "data",
-  "description": "Architecture selection router: CNNs, Transformers, RNNs, GANs, GNNs by data modality and constraints",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:41.718226Z"
+  "path": "plugins/yzmir-neural-architectures/skills/using-neural-architectures/SKILL.md",
+  "source": "github.com/tachyon-beep/skillpacks",
+  "downloaded_at": "2026-01-14T01:26:07.149446Z"
 }

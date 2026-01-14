@@ -1,12 +1,7 @@
 {
   "name": "test-manager",
-  "description": "Run visual tests, compare golden files, and report bugs for Stapledons Voyage. Use when user asks to run tests, check golden files, or report visual regressions.",
   "repo": "sunholo-data/stapledons_voyage",
-  "category": "testing",
-  "tags": [
-    "test",
-    "manager"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/test-manager/SKILL.md",
+  "source": "github.com/sunholo-data/stapledons_voyage",
+  "downloaded_at": "2026-01-14T02:06:07.837308Z"
 }

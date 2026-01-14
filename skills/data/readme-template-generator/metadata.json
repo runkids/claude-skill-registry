@@ -1,0 +1,13 @@
+{
+  "name": "readme-template-generator",
+  "description": "Generate comprehensive README.md templates for open source projects. Triggers on \"create readme\", \"generate readme template\", \"project readme\", \"documentation readme\".",
+  "repo": "ehtbanton/ClaudeSkillsRepo",
+  "category": "documents",
+  "tags": [
+    "readme",
+    "template",
+    "generator"
+  ],
+  "stars": 0,
+  "source": "local"
+}

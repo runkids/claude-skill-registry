@@ -1,11 +1,7 @@
 {
   "name": "streaming",
-  "description": "Use when building real-time chat interfaces, displaying incremental LLM responses, or streaming output from OpenAI, Anthropic, Google, or Ollama - async iteration with usage tracking works across all ",
-  "repo": "juanre/llmring",
-  "category": "development",
-  "tags": [
-    "streaming"
-  ],
-  "stars": 3,
-  "source": "local"
+  "repo": "Lobbi-Docs/claude",
+  "path": ".claude/skills/streaming/SKILL.md",
+  "source": "github.com/Lobbi-Docs/claude",
+  "downloaded_at": "2026-01-14T02:22:06.584391Z"
 }

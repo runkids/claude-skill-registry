@@ -1,11 +1,7 @@
 {
   "name": "qa-regression",
-  "description": "Automate QA regression testing with reusable test skills. Create login flows, dashboard checks, user creation, and other common test scenarios that run consistently.",
   "repo": "skillcreatorai/Ai-Agent-Skills",
-  "category": "testing",
-  "tags": [
-    "regression"
-  ],
-  "stars": 327,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/qa-regression/SKILL.md",
+  "source": "github.com/skillcreatorai/Ai-Agent-Skills",
+  "downloaded_at": "2026-01-14T02:51:13.609779Z"
 }

@@ -1,8 +1,7 @@
 {
   "name": "csharp-xml-docs",
   "repo": "creator-hian/claude-code-plugins",
-  "category": "data",
-  "description": "C# XML documentation with on-demand Haiku\u2192Expert Review\u2192Final workflow. Flexible Korean/English language support. Use when documenting C# APIs, properties, methods, classes, and interfaces.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:39.404778Z"
+  "path": "csharp-plugin/skills/csharp-xml-docs/SKILL.md",
+  "source": "github.com/creator-hian/claude-code-plugins",
+  "downloaded_at": "2026-01-14T01:00:36.258926Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "web-e2e",
-  "description": "Run, create, and debug Playwright e2e tests for the web app. ALWAYS invoke this skill using the SlashCommand tool (i.e., `/web-e2e`) BEFORE attempting to run any e2e tests, playwright tests, anvil tes",
-  "repo": "Uniswap/interface",
-  "category": "testing",
-  "tags": [
-    "web",
-    "e2e"
-  ],
-  "stars": 5409,
-  "source": "SkillsMP Synced Skills"
+  "repo": "luxfi/exchange",
+  "path": ".claude/skills/web-e2e/SKILL.md",
+  "source": "github.com/luxfi/exchange",
+  "downloaded_at": "2026-01-14T03:55:03.917357Z"
 }

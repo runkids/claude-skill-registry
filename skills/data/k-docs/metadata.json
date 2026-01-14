@@ -1,9 +1,7 @@
 {
   "name": "k-docs",
-  "description": "Index of Mechanic documentation with summaries and links. Load this to understand what documentation exists and where to find detailed information on specific topics. Triggers: docs, documentation, re",
   "repo": "Falkicon/Mechanic",
-  "category": "documents",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/k-docs/SKILL.md",
+  "source": "github.com/Falkicon/Mechanic",
+  "downloaded_at": "2026-01-14T01:39:53.769914Z"
 }

@@ -1,10 +1,7 @@
 {
   "name": "workflow",
-  "description": "Manage GitHub Actions workflows using gh CLI. Use to check CI status, view run logs, analyze failures, and rerun workflows.",
-  "repo": "johnlindquist/claude",
-  "category": "data",
-  "tags": [
-    "workflow"
-  ],
-  "stars": 0
+  "repo": "EpicenterHQ/epicenter",
+  "path": "skills/workflow/SKILL.md",
+  "source": "github.com/EpicenterHQ/epicenter",
+  "downloaded_at": "2026-01-14T02:31:58.109397Z"
 }

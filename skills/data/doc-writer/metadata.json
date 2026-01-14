@@ -1,8 +1,7 @@
 {
   "name": "doc-writer",
-  "repo": "mitchdenny/hex1b",
-  "category": "data",
-  "description": "Guidelines for producing accurate and maintainable documentation for the Hex1b TUI library. Use when writing XML API documentation comments, creating end-user guides, or updating existing documentatio",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:35.323051Z"
+  "repo": "fwdslsh/crosstrain",
+  "path": "src/tests/fixtures/skills/doc-writer/SKILL.md",
+  "source": "github.com/fwdslsh/crosstrain",
+  "downloaded_at": "2026-01-14T01:04:07.842019Z"
 }

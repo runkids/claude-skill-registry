@@ -1,13 +1,7 @@
 {
   "name": "backend-api-integration",
-  "description": "Generate production-ready Saloon-based API integrations for Laravel projects including connector classes, request classes, readonly DTOs, service layer methods with comprehensive error handling, and c",
   "repo": "FlorianRiquelme/statamic-assets",
-  "category": "testing",
-  "tags": [
-    "backend",
-    "api",
-    "integration"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/backend-api-integration/SKILL.md",
+  "source": "github.com/FlorianRiquelme/statamic-assets",
+  "downloaded_at": "2026-01-14T02:26:57.409292Z"
 }

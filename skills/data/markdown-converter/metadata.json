@@ -1,12 +1,7 @@
 {
   "name": "markdown-converter",
-  "description": "Convert documents and files to Markdown using markitdown. Use when converting PDF, Word (.docx), PowerPoint (.pptx), Excel (.xlsx, .xls), HTML, CSV, JSON, XML, images (with EXIF/OCR), audio (with tran",
-  "repo": "steipete/agent-scripts",
-  "category": "documents",
-  "tags": [
-    "markdown",
-    "converter"
-  ],
-  "stars": 546,
-  "source": "SkillsMP Synced Skills"
+  "repo": "doubleflannel/12-30-test-codex-ip",
+  "path": "skills/markdown-converter/SKILL.md",
+  "source": "github.com/doubleflannel/12-30-test-codex-ip",
+  "downloaded_at": "2026-01-14T04:02:41.441962Z"
 }

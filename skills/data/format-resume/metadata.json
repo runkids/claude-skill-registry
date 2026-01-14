@@ -1,12 +1,7 @@
 {
   "name": "format-resume",
-  "description": "Intelligently format CV/resume content using semantic understanding and visual verification",
   "repo": "AJBcoding/claude-skill-eval",
-  "category": "marketing",
-  "tags": [
-    "format",
-    "resume"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/format-resume/SKILL.md",
+  "source": "github.com/AJBcoding/claude-skill-eval",
+  "downloaded_at": "2026-01-14T03:07:56.680148Z"
 }

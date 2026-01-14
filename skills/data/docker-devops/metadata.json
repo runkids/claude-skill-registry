@@ -1,12 +1,7 @@
 {
   "name": "docker-devops",
-  "description": "Docker orchestration and CI/CD for IntelliFill. Use when configuring containers, writing workflows, or setting up environments.",
   "repo": "Intellifill/IntelliFill",
-  "category": "devops",
-  "tags": [
-    "docker",
-    "devops"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/docker-devops/SKILL.md",
+  "source": "github.com/Intellifill/IntelliFill",
+  "downloaded_at": "2026-01-14T04:00:06.257455Z"
 }

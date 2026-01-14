@@ -1,12 +1,7 @@
 {
   "name": "backend-engineer",
-  "description": "Supabase integration specialist. Handles database schema, authentication,  Row Level Security (RLS), real-time subscriptions, and storage. Connects  existing UI to real backend. Only called AFTER UI e",
-  "repo": "wasintoh/toh-framework",
-  "category": "data",
-  "tags": [
-    "backend",
-    "engineer"
-  ],
-  "stars": 49,
-  "source": "SkillsMP Synced Skills"
+  "repo": "ugudlado/react-expo-api-template",
+  "path": ".claude/skills/backend-engineer/SKILL.md",
+  "source": "github.com/ugudlado/react-expo-api-template",
+  "downloaded_at": "2026-01-14T01:58:53.374969Z"
 }

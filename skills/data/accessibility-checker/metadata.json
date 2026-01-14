@@ -1,12 +1,7 @@
 {
   "name": "accessibility-checker",
-  "description": "Validate WCAG 2.1 Level AA compliance and accessibility best practices.",
-  "repo": "matteocervelli/llms",
-  "category": "development",
-  "tags": [
-    "accessibility",
-    "checker"
-  ],
-  "stars": 10,
-  "source": "SkillsMP Synced Skills"
+  "repo": "xnopre/copro-tickets-tracker",
+  "path": ".claude/skills/accessibility-checker/SKILL.md",
+  "source": "github.com/xnopre/copro-tickets-tracker",
+  "downloaded_at": "2026-01-14T03:32:02.311246Z"
 }

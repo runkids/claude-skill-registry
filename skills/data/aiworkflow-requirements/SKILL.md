@@ -57,16 +57,16 @@ user-request → ┼                       ┼→ read-reference → apply-to-ta
 
 ### 仕様ファイル一覧
 
-**48ファイル・10トピック**: See [indexes/topic-map.md](indexes/topic-map.md)
+**49ファイル・10トピック**: See [indexes/topic-map.md](indexes/topic-map.md)
 
 | トピック         | ファイル数 |
 | ---------------- | ---------- |
 | 概要・品質       | 4          |
 | アーキテクチャ   | 6          |
-| インターフェース | 6          |
+| インターフェース | 7          |
 | API設計          | 3          |
 | データベース     | 3          |
-| UI/UX            | 5          |
+| UI/UX            | 6          |
 | セキュリティ     | 3          |
 | 技術スタック     | 3          |
 | Claude Code      | 6          |
@@ -138,6 +138,14 @@ user-request → ┼                       ┼→ read-reference → apply-to-ta
 
 | Version | Date       | Changes                                              |
 | ------- | ---------- | ---------------------------------------------------- |
+| 6.10.0  | 2026-01-14 | ui-ux-settings.md新規追加: スライド出力ディレクトリ設定機能のUI/UX仕様・IPC API仕様・セキュリティ要件（slideSettingsAPI） |
+| 6.9.0   | 2026-01-13 | Knowledge Graph Store実装完了: interfaces-rag-knowledge-graph-store.md v1.0.1更新、実装詳細追加（Entity/Relation CRUD、グラフ探索、バッチ操作）、カバレッジ86.98%達成 |
+| 6.8.0   | 2026-01-13 | AgentSDKPage Postrelease Testing仕様追加: interfaces-agent-sdk.mdに約150行追加（AGENT-005-POST） |
+| 6.7.0   | 2026-01-12 | 未タスク指示書3件作成（renderer-build-fix、history-gui-manual-test、error-i18n-support）、ui-ux-history-panel.md v1.6.0更新 |
+| 6.6.1   | 2026-01-12 | history-service-db-integration実装内容追加: architecture-file-conversion.md、api-internal-conversion.mdにElectron統合セクション追加 |
+| 6.6.0   | 2026-01-12 | VectorSearchStrategy仕様追加: interfaces-rag-search.mdにISearchStrategy実装一覧/Result型/フィルタ対応表/CachedVectorSearchStrategy追加、architecture-rag.mdにVectorSearchStrategyセクション追加 |
+| 6.5.0   | 2026-01-12 | Agent Execution UI仕様追加（AGENT-004）: interfaces-agent-sdk.md/ui-ux-components.mdに約550行追加、topic-map.md更新 |
+| 6.4.0   | 2026-01-12 | GraphRAGクエリサービス仕様追加: interfaces-rag-graphraph-query.md新規、architecture-rag.md更新、topic-map.md更新 |
 | 6.3.0   | 2026-01-11 | コミュニティ要約仕様追加: interfaces-rag-community-summarization.md新規、interfaces-rag-community-detection.md更新（v1.1.0）、topic-map.md更新 |
 | 6.2.0   | 2026-01-10 | コミュニティ検出（Leiden）仕様追加: interfaces-rag-community-detection.md新規、interfaces-rag.md/architecture-rag.md/topic-map.md更新 |
 | 6.1.0   | 2026-01-06 | 500行超過ファイル分割（9ファイル→インデックス化）、70ファイル構成に拡張 |

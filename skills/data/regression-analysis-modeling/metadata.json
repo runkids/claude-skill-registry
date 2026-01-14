@@ -1,12 +1,7 @@
 {
   "name": "regression-analysis-modeling",
-  "description": "Perform comprehensive regression analysis and predictive modeling using linear regression, decision trees, and random forests. Use when you need to predict continuous values like housing prices, sales",
   "repo": "liangdabiao/claude-data-analysis-ultra-main",
-  "category": "data",
-  "tags": [
-    "regression",
-    "analysis",
-    "modeling"
-  ],
-  "stars": 32
+  "path": ".claude/skills/regression-analysis-modeling/SKILL.md",
+  "source": "github.com/liangdabiao/claude-data-analysis-ultra-main",
+  "downloaded_at": "2026-01-14T02:54:08.223298Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "briefkit-documenter",
-  "description": "Create interface-first documentation using BRIEF system v3. Generate BRIEF.md files with inputs/outputs contracts, validate against spec, convert PRDs/specs to BRIEFs, and support multi-surface applic",
   "repo": "doctorduke/claude-config",
-  "category": "documents",
-  "tags": [
-    "briefkit",
-    "documenter"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/briefkit-documenter/SKILL.md",
+  "source": "github.com/doctorduke/claude-config",
+  "downloaded_at": "2026-01-14T03:47:48.783627Z"
 }

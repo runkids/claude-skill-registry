@@ -1,10 +1,7 @@
 {
   "name": "pptx",
-  "description": "Generates PowerPoint presentations from templates with consistent styling across tables, charts, and Mermaid diagrams. Use when creating PPTX files, working with template-based presentations, or apply",
-  "repo": "Aki2022/skills",
-  "category": "data",
-  "tags": [
-    "pptx"
-  ],
-  "stars": 0
+  "repo": "archubbuck/workspace-architect",
+  "path": "assets/skills/pptx/SKILL.md",
+  "source": "github.com/archubbuck/workspace-architect",
+  "downloaded_at": "2026-01-14T04:03:36.901425Z"
 }

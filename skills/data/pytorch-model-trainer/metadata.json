@@ -1,8 +1,7 @@
 {
   "name": "pytorch-model-trainer",
   "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "data",
-  "description": "Pytorch Model Trainer - Auto-activating skill for ML Training.Triggers on: pytorch model trainer, pytorch model trainerPart of the ML Training skill category.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:05.030814Z"
+  "path": "planned-skills/generated/07-ml-training/pytorch-model-trainer/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-01-14T02:49:14.006046Z"
 }

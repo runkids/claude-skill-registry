@@ -1,13 +1,7 @@
 {
   "name": "android-app-icon",
-  "description": "Generate app icon using IconKitchen and place in correct locations",
   "repo": "hitoshura25/claude-devtools",
-  "category": "development",
-  "tags": [
-    "android",
-    "app",
-    "icon"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/android-app-icon/SKILL.md",
+  "source": "github.com/hitoshura25/claude-devtools",
+  "downloaded_at": "2026-01-14T03:07:09.234046Z"
 }

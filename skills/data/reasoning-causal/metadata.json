@@ -1,11 +1,7 @@
 {
   "name": "reasoning-causal",
-  "description": "Execute evidence-based decision-making through 6-stage causal flow. Use for known processes, operational execution, and decisions with clear cause-effect chains.",
   "repo": "BellaBe/lean-os",
-  "category": "data",
-  "tags": [
-    "reasoning",
-    "causal"
-  ],
-  "stars": 12
+  "path": ".claude/skills/reasoning-causal/SKILL.md",
+  "source": "github.com/BellaBe/lean-os",
+  "downloaded_at": "2026-01-14T02:11:15.274889Z"
 }

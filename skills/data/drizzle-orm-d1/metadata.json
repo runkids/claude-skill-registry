@@ -1,12 +1,7 @@
 {
   "name": "drizzle-orm-d1",
-  "description": "Build type-safe D1 databases with Drizzle ORM for Cloudflare Workers. Includes schema definition, migrationswith Drizzle Kit, relations, and D1 batch API patterns. Prevents 12 errors including SQL BEG",
   "repo": "jezweb/claude-skills",
-  "category": "data",
-  "tags": [
-    "drizzle",
-    "orm"
-  ],
-  "stars": 109,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/drizzle-orm-d1/SKILL.md",
+  "source": "github.com/jezweb/claude-skills",
+  "downloaded_at": "2026-01-14T04:01:52.266691Z"
 }

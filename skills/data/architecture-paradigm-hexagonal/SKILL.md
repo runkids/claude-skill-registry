@@ -1,20 +1,14 @@
 ---
 name: architecture-paradigm-hexagonal
 description: |
-  Employ the Hexagonal (Ports & Adapters) pattern to decouple domain logic from
-  infrastructure, maximizing flexibility and testability.
 
-  Triggers: hexagonal architecture, ports and adapters, infrastructure independence,
-  dependency inversion, clean architecture, domain isolation, adapter pattern,
-  infrastructure abstraction, database independence, framework independence
+Triggers: hexagonal, architecture, ports-adapters, testability, infrastructure-independence
+  Decouple domain logic from infrastructure using Hexagonal (Ports & Adapters) pattern.
 
-  Use when: designing systems with strong business logic separation, anticipating
-  infrastructure changes, needing easy mocking for tests, building portable domain code
+  Triggers: hexagonal, ports-adapters, infrastructure-independence, domain-isolation
 
-  DO NOT use when: selecting from multiple paradigms - use architecture-paradigms first.
-  DO NOT use when: building simple CRUD apps without complex domain logic.
-
-  Consult this skill when implementing hexagonal patterns or migrating to port-based design.
+  Use when: business logic separation, infrastructure changes needed, testability critical
+  DO NOT use when: selecting paradigms (use architecture-paradigms first), simple CRUD
 version: 1.0.0
 category: architectural-pattern
 tags: [architecture, hexagonal, ports-adapters, infrastructure-independence, testability]
@@ -56,3 +50,15 @@ estimated_tokens: 1200
   - **Mitigation**: If a port's interface exposes details about the transport layer (e.g., HTTP headers), it is a "leaky abstraction." Refactor these interfaces to use domain-centric Data Transfer Objects (DTOs) instead.
 - **Adapter Drift**:
   - **Mitigation**: An adapter can become out-of-sync with the external technology it represents (e.g., database schema changes). Schedule regular, automated validation of adapters, such as verifying that SQL migrations still align with the expectations of the persistence port.
+## Troubleshooting
+
+### Common Issues
+
+**Command not found**
+Ensure all dependencies are installed and in PATH
+
+**Permission errors**
+Check file permissions and run with appropriate privileges
+
+**Unexpected behavior**
+Enable verbose logging with `--verbose` flag

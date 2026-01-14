@@ -1,9 +1,7 @@
 {
   "name": "visual-testing",
-  "description": "Design and implement visual regression testing for UI changes. Definesscreenshot coverage, rendering stabilization, baseline management, and CIintegration (e.g., Playwright screenshots, Percy/Chromati",
-  "repo": "terraphim/codex-skills",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "terraphim/opencode-skills",
+  "path": "skill/visual-testing/SKILL.md",
+  "source": "github.com/terraphim/opencode-skills",
+  "downloaded_at": "2026-01-14T02:27:07.903845Z"
 }

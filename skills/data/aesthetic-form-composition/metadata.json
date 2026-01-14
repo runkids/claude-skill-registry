@@ -1,13 +1,7 @@
 {
   "name": "aesthetic-form-composition",
-  "description": "[Aesthetics] Analyzes form, composition, and spatial relationships: eye paths, balance/asymmetry, rhythm, layering, fore/mid/background usage. Outputs compositional rules as Memo nodes in Brain canvas",
   "repo": "CANTAGESTUDIO/CosmicAtlasPacker",
-  "category": "data",
-  "tags": [
-    "aesthetic",
-    "form",
-    "composition"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".factory/skills/aesthetic-form-composition/SKILL.md",
+  "source": "github.com/CANTAGESTUDIO/CosmicAtlasPacker",
+  "downloaded_at": "2026-01-14T02:43:52.650865Z"
 }

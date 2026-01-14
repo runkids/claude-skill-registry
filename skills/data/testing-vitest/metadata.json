@@ -1,12 +1,7 @@
 {
   "name": "testing-vitest",
-  "description": "Your approach to handling testing vitest. Use this skill when working on files where testing vitest comes into play.",
   "repo": "leaderiop/hex-di",
-  "category": "testing",
-  "tags": [
-    "testing",
-    "vitest"
-  ],
-  "stars": 5,
-  "source": "local"
+  "path": ".claude/skills/testing-vitest/SKILL.md",
+  "source": "github.com/leaderiop/hex-di",
+  "downloaded_at": "2026-01-14T01:20:47.753086Z"
 }

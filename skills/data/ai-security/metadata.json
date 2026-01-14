@@ -1,11 +1,7 @@
 {
   "name": "ai-security",
-  "description": "Automatically applies when securing AI/LLM applications. Ensures prompt injection detection, PII redaction for AI contexts, output filtering, content moderation, and secure prompt handling.",
   "repo": "ricardoroche/ricardos-claude-code",
-  "category": "data",
-  "tags": [
-    "security"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/ai-security/SKILL.md",
+  "source": "github.com/ricardoroche/ricardos-claude-code",
+  "downloaded_at": "2026-01-14T01:28:21.091706Z"
 }

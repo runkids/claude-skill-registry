@@ -1,13 +1,7 @@
 {
   "name": "caas-emoji-decoder",
-  "description": "Decode consciousness-as-a-service emoji-based communication protocols.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "development",
-  "tags": [
-    "caas",
-    "emoji",
-    "decoder"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/caas-emoji-decoder/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-14T01:08:18.920586Z"
 }

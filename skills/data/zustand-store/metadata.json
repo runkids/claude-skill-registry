@@ -1,12 +1,7 @@
 {
   "name": "zustand-store",
-  "description": "Create Zustand stores for IntelliFill with immer, persist, and devtools middleware. Use when adding state management for new features.",
   "repo": "Intellifill/IntelliFill",
-  "category": "development",
-  "tags": [
-    "zustand",
-    "store"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/zustand-store/SKILL.md",
+  "source": "github.com/Intellifill/IntelliFill",
+  "downloaded_at": "2026-01-14T04:00:06.456112Z"
 }

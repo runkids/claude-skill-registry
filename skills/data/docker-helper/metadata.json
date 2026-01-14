@@ -1,12 +1,7 @@
 {
   "name": "docker-helper",
-  "description": "Expert helper for Docker containers, Docker Compose, and container optimization",
-  "repo": "jackspace/ClaudeSkillz",
-  "category": "data",
-  "tags": [
-    "docker",
-    "helper"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "enoch-robinson/agent-skill-collection",
+  "path": "skills/development/docker-helper/SKILL.md",
+  "source": "github.com/enoch-robinson/agent-skill-collection",
+  "downloaded_at": "2026-01-14T03:49:46.300472Z"
 }

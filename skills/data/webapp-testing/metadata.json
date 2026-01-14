@@ -1,12 +1,7 @@
 {
   "name": "webapp-testing",
-  "description": "Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser l",
-  "repo": "anthropics/skills",
-  "category": "testing",
-  "tags": [
-    "webapp",
-    "testing"
-  ],
-  "stars": 24530,
-  "source": "SkillsMP Synced Skills"
+  "repo": "archubbuck/workspace-architect",
+  "path": "assets/skills/webapp-testing/SKILL.md",
+  "source": "github.com/archubbuck/workspace-architect",
+  "downloaded_at": "2026-01-14T04:03:36.639891Z"
 }

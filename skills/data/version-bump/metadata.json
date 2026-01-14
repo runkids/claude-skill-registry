@@ -1,11 +1,7 @@
 {
   "name": "version-bump",
-  "description": "Manage semantic version updates for any project. Handles patch, minor, and major version increments following semantic versioning. Updates all version-tracked files (e.g., package.json, pyproject.toml",
-  "repo": "gahoccode/PRDs",
-  "category": "data",
-  "tags": [
-    "version",
-    "bump"
-  ],
-  "stars": 0
+  "repo": "rust-works/omni-dev",
+  "path": ".claude/skills/version-bump/SKILL.md",
+  "source": "github.com/rust-works/omni-dev",
+  "downloaded_at": "2026-01-14T02:52:02.651740Z"
 }

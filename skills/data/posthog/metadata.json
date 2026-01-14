@@ -1,10 +1,7 @@
 {
   "name": "posthog",
-  "description": "Implement PostHog analytics for PhotoVault with dual tracking (client + server). Use when working with event tracking, funnel analysis, user identification, TypeScript event schemas, ad-blocker-proof ",
   "repo": "nathanielcrowell12-spec/photo-vault",
-  "category": "data",
-  "tags": [
-    "posthog"
-  ],
-  "stars": 0
+  "path": ".claude/skills/posthog/SKILL.md",
+  "source": "github.com/nathanielcrowell12-spec/photo-vault",
+  "downloaded_at": "2026-01-14T03:12:10.370736Z"
 }

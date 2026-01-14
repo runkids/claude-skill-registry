@@ -1,12 +1,7 @@
 {
   "name": "language-design",
-  "description": "Use when designing language features - covers lexer, parser, AST, and interpreter patterns",
   "repo": "mcclowes/lea",
-  "category": "design",
-  "tags": [
-    "language",
-    "design"
-  ],
-  "stars": 3,
-  "source": "local"
+  "path": ".claude/skills/language-design/SKILL.md",
+  "source": "github.com/mcclowes/lea",
+  "downloaded_at": "2026-01-14T03:26:57.805541Z"
 }

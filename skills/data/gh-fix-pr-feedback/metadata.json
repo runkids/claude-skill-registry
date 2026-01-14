@@ -1,12 +1,7 @@
 {
   "name": "gh-fix-pr-feedback",
-  "description": "Address PR review feedback by making changes and replying to comments. Use when a PR has open review comments needing responses.",
   "repo": "mvillmow/ProjectOdyssey",
-  "category": "development",
-  "tags": [
-    "fix",
-    "feedback"
-  ],
-  "stars": 8,
-  "source": "local"
+  "path": ".claude/skills/gh-fix-pr-feedback/SKILL.md",
+  "source": "github.com/mvillmow/ProjectOdyssey",
+  "downloaded_at": "2026-01-14T01:08:57.235155Z"
 }

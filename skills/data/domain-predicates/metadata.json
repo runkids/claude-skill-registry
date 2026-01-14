@@ -1,12 +1,7 @@
 {
   "name": "domain-predicates",
-  "description": "Generate comprehensive predicates and orders for domain types using typeclass patterns",
   "repo": "front-depiction/cli-stock",
-  "category": "data",
-  "tags": [
-    "domain",
-    "predicates"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/domain-predicates/SKILL.md",
+  "source": "github.com/front-depiction/cli-stock",
+  "downloaded_at": "2026-01-14T03:39:13.427700Z"
 }

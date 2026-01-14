@@ -1,9 +1,7 @@
 {
   "name": "game-engines",
-  "description": "Master game engines - Unity, Unreal Engine, Godot. Engine-specificworkflows, systems architecture, and production best practices.",
   "repo": "pluginagentmarketplace/custom-plugin-game-developer",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/game-engines/SKILL.md",
+  "source": "github.com/pluginagentmarketplace/custom-plugin-game-developer",
+  "downloaded_at": "2026-01-14T03:41:51.834653Z"
 }

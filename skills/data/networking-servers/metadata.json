@@ -1,9 +1,7 @@
 {
   "name": "networking-servers",
-  "description": "Multiplayer systems, netcode, game servers, synchronization, and anti-cheat.Build scalable, responsive multiplayer experiences.",
   "repo": "pluginagentmarketplace/custom-plugin-game-developer",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/networking-servers/SKILL.md",
+  "source": "github.com/pluginagentmarketplace/custom-plugin-game-developer",
+  "downloaded_at": "2026-01-14T03:41:52.640784Z"
 }

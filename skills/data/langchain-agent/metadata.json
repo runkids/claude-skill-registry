@@ -1,11 +1,7 @@
 {
   "name": "langchain-agent",
-  "description": "AI agent with tools (search, calculator) using LangGraph and AI SDK.",
-  "repo": "Eng0AI/eng0-template-skills",
-  "category": "data",
-  "tags": [
-    "langchain",
-    "agent"
-  ],
-  "stars": 0
+  "repo": "rebyteai-template/rebyte-skills",
+  "path": "langchain-agent/SKILL.md",
+  "source": "github.com/rebyteai-template/rebyte-skills",
+  "downloaded_at": "2026-01-14T01:01:08.758185Z"
 }

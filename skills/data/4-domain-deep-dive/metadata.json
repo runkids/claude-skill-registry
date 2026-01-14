@@ -1,13 +1,7 @@
 {
   "name": "4-domain-deep-dive",
-  "description": "Fourth step in building instruction context for codebase",
   "repo": "bitovi/context-generation-mvp",
-  "category": "development",
-  "tags": [
-    "domain",
-    "deep",
-    "dive"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/4-domain-deep-dive/SKILL.md",
+  "source": "github.com/bitovi/context-generation-mvp",
+  "downloaded_at": "2026-01-14T03:29:41.206261Z"
 }

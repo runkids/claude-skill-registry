@@ -1,11 +1,7 @@
 {
   "name": "prometheus",
-  "description": "Prometheus monitoring and alerting for cloud-native observability. Use when implementing metrics collection, PromQL queries, alerting rules, or service discovery. Triggers: prometheus, promql, metrics",
-  "repo": "cosmix/claude-code-setup",
-  "category": "product",
-  "tags": [
-    "prometheus"
-  ],
-  "stars": 2,
-  "source": "local"
+  "repo": "cosmix/loom",
+  "path": "skills/prometheus/SKILL.md",
+  "source": "github.com/cosmix/loom",
+  "downloaded_at": "2026-01-14T02:38:33.424169Z"
 }

@@ -1,8 +1,7 @@
 {
   "name": "when-debugging-ml-training-use-ml-training-debugger",
   "repo": "DNYoussef/ai-chrome-extension",
-  "category": "data",
-  "description": "Debug ML training issues and optimize performance including loss divergence, overfitting, and slow convergence",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:05:09.138114Z"
+  "path": ".claude/skills/machine-learning/when-debugging-ml-training-use-ml-training-debugger/SKILL.md",
+  "source": "github.com/DNYoussef/ai-chrome-extension",
+  "downloaded_at": "2026-01-14T03:10:11.977324Z"
 }

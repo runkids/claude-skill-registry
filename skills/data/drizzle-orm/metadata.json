@@ -1,12 +1,7 @@
 {
   "name": "drizzle-orm",
-  "description": "Expert guidance for Drizzle ORM including schema definition, queries, relations, migrations, TypeScript integration with SQLite/PostgreSQL, and Drizzle Studio. Use this when working with type-safe dat",
-  "repo": "oriolrius/pki-manager-web",
-  "category": "data",
-  "tags": [
-    "drizzle",
-    "orm"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "repo": "SOFIA-ASIF/TaskFlow-ToDo-APP",
+  "path": ".claude/skills/drizzle-orm/SKILL.md",
+  "source": "github.com/SOFIA-ASIF/TaskFlow-ToDo-APP",
+  "downloaded_at": "2026-01-14T03:11:58.096375Z"
 }

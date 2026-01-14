@@ -9,7 +9,7 @@ description: This skill should be used after productive sessions to extract lear
 
 Transform session learnings into permanent organizational intelligence by implementing updates across RII components. After productive sessions involving corrections, discoveries, or pattern identification, systematically extract what was learned, route it to the correct component, and apply the changes.
 
-**Why this matters**: One-time fixes that aren't encoded into RII components will recur. The Chapter 14 skill format drift happened because no check existed to prevent it. After harvesting, that failure mode is encoded in 4 files—future sessions automatically benefit.
+**Why this matters**: One-time fixes that aren't encoded into RII components will recur. The Chapter N skill format drift happened because no check existed to prevent it. After harvesting, that failure mode is encoded in 4 files—future sessions automatically benefit.
 
 ## When to Use This Skill
 
@@ -71,13 +71,16 @@ Use this routing table. Route learnings to the component where they will be disc
 
 | Learning Type | Target Component | Location | What to Add | When It Triggers |
 |---------------|------------------|----------|-------------|------------------|
-| Context-gathering gaps | CLAUDE.md | Section I | New step in context protocol | Before ANY chapter work |
+| Context-gathering gaps | CLAUDE.md | Section I | New step in context protocol | Before ANY platform work |
 | Failure mode example | CLAUDE.md | Failure modes | Named example with correction | When similar situation detected |
 | Pedagogical framework | Constitution | Section IIa | Teaching method update | During lesson design |
 | Agent convergence pattern | Agent file | Convergence Patterns | Pattern + why + correction | During agent execution |
 | Agent self-monitoring | Agent file | Self-Monitoring Checklist | New checklist item | Before agent finalizes output |
 | Canonical source lookup | Multiple agents | Analysis Questions | Cross-reference check | During planning phase |
-| Reusable workflow | New skill | .claude/skills/ | New SKILL.md | When user invokes skill |
+| Authoring skill | New skill | `.claude/skills/authoring/` | New SKILL.md (content creation) | When user invokes skill |
+| Engineering skill | New skill | `.claude/skills/engineering/` | New SKILL.md (platform/tooling) | When user invokes skill |
+| Authoring agent | New agent | `.claude/agents/authoring/` | New agent.md (content) | During content work |
+| Engineering agent | New agent | `.claude/agents/engineering/` | New agent.md (platform) | During engineering work |
 | Orchestration check | Command file | Phase 0 or relevant phase | New validation step | During workflow execution |
 | Format specification | Canonical source chapter | Lesson content | Authoritative format | When teaching that pattern |
 
@@ -257,30 +260,32 @@ After completing harvest, provide summary:
 
 ### Example 1: Format Drift Correction (Multi-File)
 
-**Session**: Fixed Chapter 14 skill format to match Chapter 5 canonical source
+**Session**: Fixed skill format to use domain-based structure
 
 **Analysis**:
 ```
 CORRECTIONS MADE:
-- Wrong: .claude/skills/section-writer.md (flat file)
-- Correct: .claude/skills/section-writer/SKILL.md (directory structure)
-- Root cause: No check to read canonical source before teaching patterns
+- Wrong: .claude/skills/section-writer.md (flat file, no domain)
+- Correct: .claude/skills/authoring/section-writer/SKILL.md (domain + directory structure)
+- Root cause: No domain organization for skills/agents
 
 PATTERNS IDENTIFIED:
-- Canonical source for skills: Chapter 5 Lesson 7
-- Multiple agents could benefit from canonical source check
+- Skills must be in authoring/ or engineering/ domain folders
+- Agents must be in authoring/ or engineering/ domain folders
+- Multiple files referenced old flat structure
 
 CLASSIFICATION:
 - Failure mode → CLAUDE.md
 - Convergence pattern → chapter-planner.md, content-implementer.md
-- Missing check → sp.loopflow.v2.md Phase 0
+- Skill structure → skill-creator, session-intelligence-harvester
 ```
 
 **Updates Applied**:
-1. CLAUDE.md: Added "FAILURE MODE: Chapter 14 Format Drift Example"
-2. chapter-planner.md: Added Question 5 (Canonical Source Analysis), Principle 5, Convergence Pattern 6
-3. sp.loopflow.v2.md: Added Step 1.5 (Canonical Source Check), Pattern 5
-4. content-implementer.md: Added Post-Implementation Checklist
+1. CLAUDE.md: Updated agent architecture section
+2. skill-creator: Added domain organization requirement
+3. session-intelligence-harvester: Updated routing table with domain paths
+4. Moved all skills to authoring/ or engineering/
+5. Moved all agents to authoring/ or engineering/
 
 ### Example 2: Missing Validation (Single File)
 

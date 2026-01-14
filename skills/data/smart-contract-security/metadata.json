@@ -1,9 +1,7 @@
 {
   "name": "smart-contract-security",
-  "description": "Master smart contract security with auditing, vulnerability detection, and incident response",
   "repo": "pluginagentmarketplace/custom-plugin-blockchain",
-  "category": "security",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/smart-contract-security/SKILL.md",
+  "source": "github.com/pluginagentmarketplace/custom-plugin-blockchain",
+  "downloaded_at": "2026-01-14T02:23:37.584506Z"
 }

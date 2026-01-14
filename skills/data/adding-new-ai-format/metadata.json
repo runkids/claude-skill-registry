@@ -1,13 +1,7 @@
 {
   "name": "adding-new-ai-format",
-  "description": "Step-by-step guide for adding support for a new AI editor format to PRPM - covers types, converters, schemas, CLI, webapp, and testing",
   "repo": "pr-pm/prpm",
-  "category": "testing",
-  "tags": [
-    "adding",
-    "new",
-    "format"
-  ],
-  "stars": 70,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/adding-new-ai-format/SKILL.md",
+  "source": "github.com/pr-pm/prpm",
+  "downloaded_at": "2026-01-14T01:14:33.371645Z"
 }

@@ -1,11 +1,7 @@
 {
   "name": "ic-setup",
-  "description": "Generate hardware setup and wiring instructions for IC10 code. Use when user wants to know how to physically connect devices to use their IC10 scripts.",
   "repo": "smileynet/stationeers-companion",
-  "category": "development",
-  "tags": [
-    "setup"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/ic-setup/SKILL.md",
+  "source": "github.com/smileynet/stationeers-companion",
+  "downloaded_at": "2026-01-14T02:52:58.332337Z"
 }

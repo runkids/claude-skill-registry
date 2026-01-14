@@ -1,12 +1,7 @@
 {
   "name": "aws-agentic-ai",
-  "description": "AWS Bedrock AgentCore comprehensive expert for deploying and managing all AgentCore services. Use when working with Gateway, Runtime, Memory, Identity, or any AgentCore component. Covers MCP target de",
   "repo": "zxkane/aws-skills",
-  "category": "data",
-  "tags": [
-    "aws",
-    "agentic"
-  ],
-  "stars": 40,
-  "source": "SkillsMP Synced Skills"
+  "path": "plugins/aws-agentic-ai/skills/aws-agentic-ai/SKILL.md",
+  "source": "github.com/zxkane/aws-skills",
+  "downloaded_at": "2026-01-14T03:28:04.158845Z"
 }

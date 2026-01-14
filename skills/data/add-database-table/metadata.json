@@ -1,13 +1,7 @@
 {
   "name": "add-database-table",
-  "description": "Add a new database table with Drizzle ORM",
-  "repo": "gregsantos/nexturbo",
-  "category": "data",
-  "tags": [
-    "add",
-    "database",
-    "table"
-  ],
-  "stars": 4,
-  "source": "SkillsMP Synced Skills"
+  "repo": "abyssparanoia/rapid-go",
+  "path": ".claude/skills/add-database-table/SKILL.md",
+  "source": "github.com/abyssparanoia/rapid-go",
+  "downloaded_at": "2026-01-14T02:27:12.062878Z"
 }

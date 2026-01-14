@@ -1,13 +1,7 @@
 {
   "name": "language-detection-expert",
-  "description": "Hybrid language detection algorithm for Vigil Guard v2.0.0. Use for language-detector Flask API, entity-based hints, Polish PESEL/NIP detection, 3-branch pipeline integration, accuracy troubleshooting",
   "repo": "tbartel74/Vigil-Code",
-  "category": "testing",
-  "tags": [
-    "language",
-    "detection",
-    "expert"
-  ],
-  "stars": 5,
-  "source": "local"
+  "path": ".claude/skills/language-detection-expert/SKILL.md",
+  "source": "github.com/tbartel74/Vigil-Code",
+  "downloaded_at": "2026-01-14T02:46:40.296223Z"
 }

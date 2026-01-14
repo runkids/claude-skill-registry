@@ -1,1026 +1,696 @@
 ---
-name: prp-generator
-description: Auto-activates when generating Product Requirements Prompt (PRP) documents
-  from synthesized design outputs, providing structured templates and comprehensive
-  implementation guidance.
-allowed-tools: Write, Edit
+name: PRP Generator
+description: Guides creation of Product Requirements Prompts (PRPs) - comprehensive requirement documents that serve as the foundation for AI-assisted development
+version: 1.0.0
+category: requirements
+triggers:
+  - 'prp-generator'
+  - 'prp generator'
+  - 'product requirements prompt'
+  - 'create prp'
+  - 'generate requirements'
+dependencies:
+  required_mcps: []
+  required_tools: []
+  required_integrations: []
 ---
 
-## Purpose
+# PRP Generator (Product Requirements Prompt)
 
-The **prp-generator** skill provides structured templates and methods for creating comprehensive Product Requirements Prompt (PRP) documents. PRPs serve as the primary input for Phase 3 (Implementation), containing all design information, library documentation, dependencies, implementation plans, testing strategies, and success criteria needed to implement features.
+## Overview
 
-## When to Use
+The PRP Generator helps you create comprehensive Product Requirements Prompts - structured documents that capture everything needed to build a product feature or system. PRPs are optimized for AI-assisted development, providing clear requirements that both humans and AI can understand.
 
-This skill auto-activates when you:
-- Generate PRP documents from synthesized design
-- Create implementation guidance from architectural design
-- Structure design information for implementation phase
-- Define implementation plans with step-by-step guidance
-- Specify testing strategies and success criteria
-- Document architecture, libraries, and dependencies for implementers
+**Core Purpose:** Transform vague ideas into actionable, complete requirements.
 
-## Provided Capabilities
+## When to Use This Skill
 
-### 1. Structured PRP Generation
-- **Standard Template**: Consistent PRP structure across all features
-- **Section Templates**: Pre-defined templates for each PRP section
-- **Completeness Checking**: Ensure all required sections present
-- **Format Validation**: Validate markdown structure and linking
+Use PRP Generator when:
 
-### 2. Implementation Planning
-- **Phased Approach**: Break implementation into logical phases
-- **Step-by-Step Guidance**: Detailed steps within each phase
-- **Dependency Ordering**: Ensure dependencies installed before use
-- **Validation Checkpoints**: Define validation at each phase
+- Starting a new product or major feature
+- Requirements are unclear or scattered
+- Need to communicate requirements to development team
+- Using AI assistants for implementation
+- Transitioning from discovery to development
+- Onboarding new team members to a project
 
-### 3. Testing Strategy Documentation
-- **Test Types**: Unit, integration, end-to-end testing approaches
-- **Test Coverage**: Specify coverage targets per component
-- **Mock Strategies**: Document how to mock library dependencies
-- **Test Data**: Provide test data and fixture guidance
+## Key Capabilities
 
-### 4. Success Criteria Definition
-- **Acceptance Criteria**: Map from requirements analysis
-- **Implementation Criteria**: Code-level success criteria
-- **Testing Criteria**: Test coverage and passing requirements
-- **Documentation Criteria**: Required documentation artifacts
+- Structure requirements into 12 standardized sections
+- Identify project complexity pattern (A, B, C)
+- Extract user stories in Jobs-to-be-Done format
+- Define success criteria and metrics
+- Document functional and non-functional requirements
+- Capture constraints, risks, and assumptions
+- Clarify what's in and out of scope
 
-### 5. Architecture Documentation
-- **Component Diagrams**: Visual architecture representations
-- **Data Models**: Pydantic schemas with validations
-- **API Contracts**: Endpoint specifications with examples
-- **Data Flow**: How data moves through system
+## Workflow
 
-## Usage Guide
+### The 12-Section PRP Structure
 
-### Step 1: Load Inputs
+A complete PRP contains these 12 sections:
 
-Load all required inputs for PRP generation:
+1. **Project Overview**
+2. **Problem Statement**
+3. **Success Criteria**
+4. **User Stories (Jobs-to-be-Done)**
+5. **Functional Requirements**
+6. **Non-Functional Requirements**
+7. **Technical Constraints**
+8. **Data Requirements**
+9. **UI/UX Requirements**
+10. **Risks & Assumptions**
+11. **Out of Scope**
+12. **Open Questions**
 
-**Required Inputs**:
-1. **Analysis Document**: `/docs/implementation/analysis/feature-{issue-number}-analysis.md`
-   - Requirements (functional and non-functional)
-   - Security considerations
-   - Technical stack requirements
-   - Dependencies
-   - Scope definition
-   - Identified risks
-
-2. **Synthesized Design**: Output from design-synthesizer skill
-   - Component architecture with library mappings
-   - Data models with library validation patterns
-   - API contracts with library integration
-   - Library integration strategies
-   - Dependency resolution
-   - Implementation path
-   - Design decisions
-   - Identified issues/gaps
-
-**Loading Pattern**:
-```python
-# Read analysis document
-analysis = read_document("/docs/implementation/analysis/feature-{issue-number}-analysis.md")
-
-# Parse synthesized design (from synthesis step)
-design = parse_synthesized_design()
-
-# Extract key information
-requirements = extract_requirements(analysis)
-architecture = extract_architecture(design)
-libraries = extract_libraries(design)
-dependencies = extract_dependencies(design)
-implementation_plan = extract_implementation_plan(design)
-```
-
-### Step 2: Create PRP Header
-
-Use `prp-template.md` header section:
-
-```markdown
-# Product Requirements Prompt: [Feature Name] (Issue #{issue-number})
-
-**Date**: [YYYY-MM-DD]
-**Designer**: Design Orchestrator (Claude Code)
-**Issue**: #{issue-number} - [Issue Title]
-**Analysis Document**: /docs/implementation/analysis/feature-{issue-number}-analysis.md
+Let's dive into each:
 
 ---
 
-**Status**: Ready for Implementation (Phase 3)
-**Complexity**: [Low / Medium / High]
-**Estimated Effort**: [Hours/Days]
-**Priority**: [P0 / P1 / P2 / P3]
+### 1. Project Overview
+
+**Purpose:** High-level context and pattern classification
+
+**What to Include:**
+
+- Project name and one-sentence description
+- Pattern classification (A, B, or C)
+- Timeline estimate
+- Target users
+- Business context
+
+**Example:**
+
+```
+Project: Customer Support Chatbot
+Pattern: C (AI-Native System)
+Timeline: 10-12 weeks
+Users: Customer support agents + end customers
+Context: Reduce support ticket volume by 40% while maintaining customer satisfaction
+```
 
 ---
-```
 
-**Complexity Guidelines**:
-- **Low**: Single component, <3 files, well-documented libraries
-- **Medium**: Multiple components, 3-10 files, some custom logic
-- **High**: Complex architecture, >10 files, custom integrations
+### 2. Problem Statement
 
-### Step 3: Write Executive Summary
+**Purpose:** Clearly define the problem being solved
 
-Provide 2-3 paragraph overview of the design:
-
-**Executive Summary Template**:
-```markdown
-## Executive Summary
-
-This document provides comprehensive implementation guidance for [feature name],
-which [high-level description of what feature does and why it's valuable].
-
-**Architectural Approach**: [Brief description of architecture - e.g., "Service layer
-pattern with FastAPI endpoints, SQLAlchemy ORM, and Redis caching"]
-
-**Key Libraries**: [List 3-5 primary libraries - e.g., "FastAPI 0.95.0 for API
-framework, SQLAlchemy 2.0.0 for ORM, PassLib 1.7.4 for password hashing"]
-
-**Implementation Strategy**: [Brief description of implementation phases - e.g.,
-"4-phase approach: (1) Data models and repository, (2) Service layer business logic,
-(3) API endpoints, (4) Testing and validation"]
-
-**Key Considerations**: [1-2 important considerations - e.g., "Security-first
-approach with OWASP compliance, performance target of <200ms API response time"]
-```
-
-**Example**:
-```markdown
-## Executive Summary
-
-This document provides comprehensive implementation guidance for user authentication
-system, which enables secure user login, session management, and access control for
-the application.
-
-**Architectural Approach**: Service layer pattern with FastAPI RESTful API endpoints,
-SQLAlchemy ORM for user persistence, PassLib for secure password hashing, and JWT
-tokens for session management.
-
-**Key Libraries**: FastAPI 0.95.0 (API framework), SQLAlchemy 2.0.0 (ORM), PassLib
-1.7.4 (password hashing), python-jose 3.3.0 (JWT tokens), pydantic 1.10.7 (validation).
-
-**Implementation Strategy**: 4-phase approach: (1) User data model and repository
-with SQLAlchemy, (2) Authentication service with PassLib and JWT, (3) FastAPI
-endpoints with pydantic validation, (4) Comprehensive testing with pytest and mocks.
-
-**Key Considerations**: OWASP Top 10 compliance for authentication vulnerabilities,
-bcrypt with cost factor 12 for password hashing, rate limiting for brute force
-protection, secure session token management with expiration.
-```
-
-### Step 4: Document Requirements Reference
-
-Link to analysis document and summarize key requirements:
-
-**Requirements Reference Template**:
-```markdown
-## Requirements Reference
-
-**Source**: [Link to analysis document]
-
-### Functional Requirements (Summary)
-- **[FR-001]**: [Brief description]
-- **[FR-002]**: [Brief description]
-...
-
-### Non-Functional Requirements (Summary)
-- **Performance**: [Key performance requirements]
-- **Security**: [Key security requirements]
-- **Usability**: [Key usability requirements]
-- **Scalability**: [Key scalability requirements]
-
-### Acceptance Criteria (Key Points)
-- [ ] [Top acceptance criterion 1]
-- [ ] [Top acceptance criterion 2]
-- [ ] [Top acceptance criterion 3]
-
-**Full Requirements**: See analysis document for complete requirements, security
-assessment, and risk analysis.
-```
-
-### Step 5: Document Architecture Design
-
-Use synthesized architecture design:
-
-**Architecture Design Template**:
-```markdown
-## Architecture Design
-
-### Component Overview
-
-[ASCII diagram or description of component architecture]
-
-### Components
-
-#### Component: [ComponentName]
-**Purpose**: [What this component does]
-**Responsibilities**:
-- [Responsibility 1]
-- [Responsibility 2]
-
-**Library Integration**:
-- **Primary Library**: [LibraryName] v[Version]
-- **APIs Used**: [Specific library APIs/classes]
-- **Pattern**: [Integration pattern from design-patterns.md]
-- **Dependencies**: [Required dependencies]
-
-**Implementation Notes**:
-- [Important implementation detail 1]
-- [Important implementation detail 2]
-
-**Code Example**:
-```python
-# Example from library documentation (libraries-{issue-number}.md, Example X.Y)
-[Code snippet showing library usage pattern]
-```
-
-[Repeat for each component]
-
-### Data Models
-
-#### Model: [ModelName]
-**Purpose**: [What this model represents]
-**Fields**:
-```python
-from pydantic import BaseModel, Field
-from [library] import [ValidationMixin]
-
-class [ModelName](BaseModel):
-    field1: type = Field(..., description="...")  # Validation
-    field2: type = Field(default=..., ge=..., le=...)  # Range validation
-    # ... more fields
-```
-
-**Validation Rules**:
-- [Field1]: [Validation description]
-- [Field2]: [Validation description]
-
-**Relationships**:
-- [Related Model]: [Relationship type and description]
-
-**Library Integration**:
-- **Validation**: [Library providing validation - e.g., Pydantic validators]
-- **Serialization**: [How model is serialized - e.g., Pydantic .dict()]
-- **Storage**: [ORM pattern - e.g., SQLAlchemy declarative base]
-
-[Repeat for each model]
-
-### API Contracts
-
-#### Endpoint: [METHOD] [/path]
-**Purpose**: [What this endpoint does]
-
-**Request**:
-```python
-class [RequestModel](BaseModel):
-    field1: type
-    field2: type
-```
-
-**Response**:
-```python
-class [ResponseModel](BaseModel):
-    field1: type
-    field2: type
-```
-
-**Status Codes**:
-- `200`: Success - [Description]
-- `400`: Bad Request - [Description]
-- `401`: Unauthorized - [Description]
-- `404`: Not Found - [Description]
-- `500`: Internal Server Error - [Description]
-
-**Implementation**:
-```python
-# FastAPI endpoint pattern from library docs
-@app.[method]("/path", response_model=[ResponseModel])
-def endpoint([params: RequestModel]):
-    # Implementation using service layer
-    ...
-```
-
-[Repeat for each endpoint]
-
-### Data Flow
-
-[Describe how data flows through system]
-
-**Example Flow**: User Authentication
-```
-1. Client sends POST /auth/login with email/password
-2. FastAPI endpoint validates request (Pydantic)
-3. AuthenticationService.authenticate() called
-4. UserRepository.get_by_email() queries database (SQLAlchemy)
-5. PassLib.verify() checks password hash
-6. JWT token generated (python-jose)
-7. Token returned to client
-```
-
-### Error Handling Strategy
-
-**Library Exception Mapping**:
-| Library Exception | Architectural Exception | HTTP Status | User Message |
-|-------------------|------------------------|-------------|--------------|
-| [LibraryException] | [AppException] | [Code] | [Message] |
-
-**Error Handling Pattern**:
-```python
-try:
-    # Library operation
-except LibraryException as e:
-    # Map to architectural exception
-    raise AppException(...) from e
-```
-```
-
-### Step 6: Document Library Documentation
-
-Use library information from Documentation Researcher:
-
-**Library Documentation Template**:
-```markdown
-## Library Documentation
-
-### Library: [LibraryName] v[Version]
-
-**Purpose**: [What library does]
-**Documentation**: [Link to official docs]
-**Repository**: [Link to GitHub/source]
-
-**Installation**:
-```bash
-pip install [library-name]==[version]
-```
-
-**Key APIs Used**:
-- `[API1]`: [Description and purpose]
-- `[API2]`: [Description and purpose]
-
-**Integration Pattern**:
-```python
-# Example from library documentation
-[Code example showing how to use library in this project]
-```
-
-**Configuration**:
-```python
-# Configuration required for this library
-[Configuration code or settings]
-```
-
-**Best Practices** (from library docs):
-- [Best practice 1]
-- [Best practice 2]
-
-**Known Issues**:
-- [Issue 1 and workaround]
-- [Issue 2 and workaround]
-
-**Testing Notes**:
-- **Mocking**: [How to mock this library in tests]
-- **Test Containers**: [If integration tests need real library instance]
-
-[Repeat for each library]
-
-### Library Comparison (if alternatives considered)
-
-| Library | Version | Pros | Cons | Decision |
-|---------|---------|------|------|----------|
-| [Lib A] | [Ver] | [Pros] | [Cons] | ✅ Chosen |
-| [Lib B] | [Ver] | [Pros] | [Cons] | ❌ Not chosen |
-
-**Selection Rationale**: [Why chosen library was selected]
-```
-
-### Step 7: Document Dependencies
-
-Use dependency information from Dependency Manager:
-
-**Dependencies Template**:
-```markdown
-## Dependencies
-
-### Dependency Tree
+**Template:**
 
 ```
-[Full dependency tree with versions]
-[library-a]==[version]
-├── [dep-1]==[version]
-│   └── [sub-dep]==[version]
-├── [dep-2]==[version]
-└── [optional-dep] (optional)
+[User type] faces [problem] when [situation].
+This causes [negative outcome].
+We know this because [evidence].
 ```
 
-### Installation Commands
+**Example:**
 
-**Install all dependencies**:
-```bash
-# Install using pip
-pip install -r requirements.txt
+```
+Customer support agents face long response times when customers ask common questions about billing, account setup, and feature usage. This causes customer frustration and agent burnout handling repetitive inquiries.
 
-# Or using uv (faster)
-uv pip install -r requirements.txt
+We know this because:
+- 60% of tickets are "How do I..." questions
+- Average response time is 4 hours
+- Agent surveys show 70% of time spent on repetitive questions
+- NPS dropped from 45 to 38 in past 6 months
 ```
 
-**Install in order (if order matters)**:
-```bash
-# Step 1: Install base dependencies
-pip install [base-deps]
-
-# Step 2: Install main libraries
-pip install [main-libs]
-
-# Step 3: Install optional dependencies
-pip install [optional-deps]
-```
-
-### Dependency Details
-
-#### Dependency: [dep-name] v[version]
-**Purpose**: [What this dependency provides]
-**Required By**: [Libraries that need this dependency]
-**Version Constraint**: [Why this specific version]
-**Alternatives**: [Alternative versions/libraries considered]
-
-[Repeat for key dependencies]
-
-### Compatibility Notes
-
-**Python Version**: [Required Python version]
-**Operating System**: [OS compatibility notes]
-**Database**: [Database version requirements]
-**Other System Dependencies**: [System-level requirements]
-
-### Dependency Conflicts and Resolutions
-
-[If any conflicts were found and resolved]
-
-**Conflict**: [Description]
-- **Library A needs**: [Constraint A]
-- **Library B needs**: [Constraint B]
-- **Resolution**: [How conflict was resolved]
-- **Pinned Version**: [Final version chosen]
-```
-
-### Step 8: Create Implementation Plan
-
-Use `prp-template.md` implementation plan section:
-
-**Implementation Plan Template**:
-```markdown
-## Implementation Plan
-
-### Overview
-
-This implementation follows a [N]-phase approach, progressing from foundation
-(data models) to core functionality to integration to testing. Each phase builds
-on the previous phase and has validation checkpoints.
-
-### Phase 1: Foundation ([Estimated Time])
-
-**Goal**: Create data models, repositories, and core utilities
-
-**Tasks**:
-1. **Data Models** ([Time])
-   - [ ] Create [Model1] Pydantic schema with validations
-   - [ ] Create [Model2] Pydantic schema with validations
-   - [ ] Add [Library]-specific validators
-   - [ ] Write unit tests for model validation
-
-2. **Repository Layer** ([Time])
-   - [ ] Create [Repository1] with CRUD operations
-   - [ ] Implement [Library] ORM mappings
-   - [ ] Add query methods for common operations
-   - [ ] Write repository unit tests with mocks
-
-3. **Configuration** ([Time])
-   - [ ] Create configuration classes (Pydantic BaseSettings)
-   - [ ] Add environment variable loading
-   - [ ] Configure [Library1], [Library2]
-   - [ ] Write configuration validation tests
-
-**Validation Checkpoint**:
-- [ ] All data models validate correctly
-- [ ] All repository operations work with test database
-- [ ] Configuration loads from environment
-- [ ] Phase 1 tests pass (pytest)
-
-### Phase 2: Core Implementation ([Estimated Time])
-
-**Goal**: Implement business logic services using libraries
-
-**Tasks**:
-1. **Service Layer** ([Time])
-   - [ ] Create [Service1] with business logic
-   - [ ] Integrate [Library1] for [functionality]
-   - [ ] Implement error handling and exception mapping
-   - [ ] Add logging and monitoring
-   - [ ] Write service unit tests with mocked dependencies
-
-2. **Library Integration** ([Time])
-   - [ ] Set up [Library2] client/connection
-   - [ ] Implement [Library2] operations
-   - [ ] Add retry logic for transient failures
-   - [ ] Write integration tests with test containers
-
-**Validation Checkpoint**:
-- [ ] All service methods work correctly
-- [ ] Library integrations functioning
-- [ ] Error handling covers all cases
-- [ ] Phase 2 tests pass (pytest)
-
-### Phase 3: Integration ([Estimated Time])
-
-**Goal**: Connect components and create API endpoints
-
-**Tasks**:
-1. **API Endpoints** ([Time])
-   - [ ] Create [Endpoint1] with [Method] [/path]
-   - [ ] Add request/response validation (Pydantic)
-   - [ ] Integrate with service layer
-   - [ ] Add authentication/authorization
-   - [ ] Write endpoint integration tests
-
-2. **Component Integration** ([Time])
-   - [ ] Connect [Component A] to [Component B]
-   - [ ] Implement data flow [Flow description]
-   - [ ] Add transaction handling
-   - [ ] Write integration tests for full flows
-
-3. **Error Handling** ([Time])
-   - [ ] Add global exception handlers
-   - [ ] Map library exceptions to HTTP status codes
-   - [ ] Implement error response formatting
-   - [ ] Test error scenarios
-
-**Validation Checkpoint**:
-- [ ] All API endpoints respond correctly
-- [ ] End-to-end flows work
-- [ ] Error handling covers all endpoints
-- [ ] Phase 3 tests pass (pytest)
-
-### Phase 4: Testing & Validation ([Estimated Time])
-
-**Goal**: Comprehensive testing and final validation
-
-**Tasks**:
-1. **Unit Test Coverage** ([Time])
-   - [ ] Achieve [X]% unit test coverage
-   - [ ] All components have isolated unit tests
-   - [ ] All edge cases covered
-   - [ ] Mock all external dependencies
-
-2. **Integration Testing** ([Time])
-   - [ ] Test all API endpoints (end-to-end)
-   - [ ] Test library integrations with real instances
-   - [ ] Test error scenarios and recovery
-   - [ ] Performance testing ([targets])
-
-3. **Security Validation** ([Time])
-   - [ ] OWASP Top 10 verification
-   - [ ] Input validation testing
-   - [ ] Authentication/authorization testing
-   - [ ] Secrets management verification
-
-4. **Documentation** ([Time])
-   - [ ] Update API documentation
-   - [ ] Add code comments for complex logic
-   - [ ] Create user guide (if needed)
-   - [ ] Update README with new feature
-
-**Final Validation**:
-- [ ] All acceptance criteria met
-- [ ] All tests pass (pytest)
-- [ ] Coverage targets achieved
-- [ ] Security validation complete
-- [ ] Documentation complete
-- [ ] Code review passed
-
-### Phase 5: Deployment ([Estimated Time])
-
-**Goal**: Deploy to production environment
-
-**Tasks**:
-1. **Pre-Deployment** ([Time])
-   - [ ] Review deployment checklist
-   - [ ] Verify environment configuration
-   - [ ] Database migrations tested
-   - [ ] Rollback plan documented
-
-2. **Deployment** ([Time])
-   - [ ] Deploy to staging environment
-   - [ ] Run smoke tests in staging
-   - [ ] Deploy to production
-   - [ ] Monitor for errors
-
-3. **Post-Deployment** ([Time])
-   - [ ] Verify production functionality
-   - [ ] Monitor performance metrics
-   - [ ] Check logs for errors
-   - [ ] Update documentation
-
-**Deployment Validation**:
-- [ ] Feature working in production
-- [ ] No critical errors in logs
-- [ ] Performance meets targets
-- [ ] Monitoring dashboards updated
-```
-
-### Step 9: Define Testing Strategy
-
-Use `prp-template.md` testing section:
-
-**Testing Strategy Template**:
-```markdown
-## Testing Strategy
-
-### Overview
-
-Comprehensive testing approach with [X]% code coverage target, including unit tests
-(with mocks), integration tests (with test containers), and end-to-end tests (full
-API flow).
-
-### Unit Testing
-
-**Scope**: Individual functions, classes, methods in isolation
-
-**Framework**: pytest
-
-**Coverage Target**: [X]% for all modules
-
-**Mocking Strategy**:
-- Mock [Library1] using unittest.mock
-- Mock [Library2] using [library-specific test fixtures]
-- Mock database using SQLAlchemy in-memory database
-
-**Test Structure**:
-```
-tests/
-├── unit/
-│   ├── test_models.py          # Data model validation tests
-│   ├── test_repositories.py    # Repository logic tests (mocked DB)
-│   ├── test_services.py        # Service logic tests (mocked deps)
-│   └── test_validators.py      # Custom validator tests
-```
-
-**Example Unit Test**:
-```python
-# Test with mocked library
-from unittest.mock import Mock
-import pytest
-
-def test_service_method():
-    # Mock library dependency
-    mock_lib = Mock()
-    mock_lib.method.return_value = "expected"
-
-    # Test service with mock
-    service = MyService(mock_lib)
-    result = service.do_something()
-
-    assert result == "processed_expected"
-    mock_lib.method.assert_called_once()
-```
-
-**Key Test Cases**:
-- [ ] [Component1]: Test [key functionality]
-- [ ] [Component2]: Test [error handling]
-- [ ] [Model1]: Test [validation rules]
-
-### Integration Testing
-
-**Scope**: Components working together with real library instances
-
-**Framework**: pytest with testcontainers
-
-**Test Containers Used**:
-- PostgreSQL: `testcontainers.postgres.PostgresContainer`
-- Redis: `testcontainers.redis.RedisContainer`
-
-**Test Structure**:
-```
-tests/
-├── integration/
-│   ├── test_database_operations.py   # Real DB tests
-│   ├── test_cache_operations.py      # Real Redis tests
-│   └── test_library_integrations.py  # Real library usage
-```
-
-**Example Integration Test**:
-```python
-from testcontainers.postgres import PostgresContainer
-
-def test_repository_integration():
-    with PostgresContainer("postgres:15") as postgres:
-        # Create real database engine
-        engine = create_engine(postgres.get_connection_url())
-        # Test with real database
-        ...
-```
-
-**Key Test Cases**:
-- [ ] [Integration1]: Test [data flow]
-- [ ] [Integration2]: Test [library interaction]
-
-### End-to-End Testing
-
-**Scope**: Complete API flows from request to response
-
-**Framework**: pytest with TestClient (FastAPI) or requests
-
-**Test Structure**:
-```
-tests/
-├── e2e/
-│   ├── test_api_flows.py         # Complete API workflows
-│   ├── test_authentication.py    # Auth flows
-│   └── test_error_scenarios.py   # Error handling
-```
-
-**Example E2E Test**:
-```python
-from fastapi.testclient import TestClient
-
-def test_user_creation_flow():
-    client = TestClient(app)
-
-    # Full flow test
-    response = client.post("/users", json={"email": "test@example.com"})
-    assert response.status_code == 201
-
-    user_id = response.json()["id"]
-    get_response = client.get(f"/users/{user_id}")
-    assert get_response.status_code == 200
-```
-
-**Key Test Cases**:
-- [ ] [Flow1]: Test [complete user journey]
-- [ ] [Flow2]: Test [error recovery]
-
-### Performance Testing
-
-**Scope**: Verify performance meets non-functional requirements
-
-**Tools**: pytest-benchmark, locust
-
-**Target Metrics**:
-- API response time: [target] (95th percentile)
-- Database query time: [target]
-- Cache hit rate: [target]
-
-**Test Cases**:
-- [ ] Benchmark [operation] performance
-- [ ] Load test [endpoint] with [N] concurrent requests
-
-### Security Testing
-
-**Scope**: Verify security controls and OWASP compliance
-
-**Test Cases**:
-- [ ] SQL injection prevention (parameterized queries)
-- [ ] XSS prevention (output sanitization)
-- [ ] CSRF protection (tokens)
-- [ ] Authentication bypass attempts
-- [ ] Authorization boundary testing
-- [ ] Secrets not in logs or responses
-
-### Test Data Management
-
-**Test Fixtures**:
-```python
-# Shared test fixtures
-@pytest.fixture
-def sample_user():
-    return User(id=1, email="test@example.com", name="Test User")
-
-@pytest.fixture
-def mock_database():
-    # Create in-memory database for testing
-    ...
-```
-
-**Test Data Location**: `tests/fixtures/`
-
-### Running Tests
-
-**All Tests**:
-```bash
-pytest
-```
-
-**Unit Tests Only**:
-```bash
-pytest tests/unit/
-```
-
-**Integration Tests Only**:
-```bash
-pytest tests/integration/
-```
-
-**With Coverage**:
-```bash
-pytest --cov=src --cov-report=html
-```
-
-**Coverage Report**: `htmlcov/index.html`
-
-### Continuous Integration
-
-**CI Pipeline** (GitHub Actions / GitLab CI):
-1. Run linting (black, mypy)
-2. Run unit tests
-3. Run integration tests (with test containers)
-4. Generate coverage report
-5. Fail if coverage < [X]%
-```
-
-### Step 10: Document Success Criteria
-
-Use acceptance criteria from analysis and implementation-specific criteria:
-
-**Success Criteria Template**:
-```markdown
-## Success Criteria
-
-### Acceptance Criteria (from Requirements)
-
-From analysis document (feature-{issue-number}-analysis.md):
-
-- [ ] **AC-001**: [Acceptance criterion from analysis]
-- [ ] **AC-002**: [Acceptance criterion from analysis]
-- [ ] **AC-003**: [Acceptance criterion from analysis]
-
-### Implementation Criteria
-
-- [ ] **IC-001**: All data models defined with Pydantic validation
-- [ ] **IC-002**: All repository CRUD operations implemented with [ORM]
-- [ ] **IC-003**: All service methods implemented with error handling
-- [ ] **IC-004**: All API endpoints implemented with [Framework]
-- [ ] **IC-005**: All library integrations working ([Library1], [Library2])
-
-### Testing Criteria
-
-- [ ] **TC-001**: Unit test coverage ≥ [X]%
-- [ ] **TC-002**: All integration tests passing
-- [ ] **TC-003**: All end-to-end API tests passing
-- [ ] **TC-004**: Performance tests meet targets ([metric] < [target])
-- [ ] **TC-005**: Security tests passing (OWASP compliance)
-
-### Code Quality Criteria
-
-- [ ] **QC-001**: Linting passes (black, mypy)
-- [ ] **QC-002**: No critical security vulnerabilities (bandit/safety)
-- [ ] **QC-003**: Code review approved
-- [ ] **QC-004**: All functions have docstrings
-- [ ] **QC-005**: Complex logic has explanatory comments
-
-### Documentation Criteria
-
-- [ ] **DC-001**: API endpoints documented (OpenAPI/Swagger)
-- [ ] **DC-002**: README updated with new feature
-- [ ] **DC-003**: User guide created (if user-facing)
-- [ ] **DC-004**: Code comments for complex logic
-- [ ] **DC-005**: CHANGELOG updated
-
-### Deployment Criteria
-
-- [ ] **DEP-001**: Feature deployed to staging
-- [ ] **DEP-002**: Smoke tests passing in staging
-- [ ] **DEP-003**: Feature deployed to production
-- [ ] **DEP-004**: Production monitoring dashboards updated
-- [ ] **DEP-005**: No critical errors in first 24 hours
-
-### Definition of Done
-
-All of the following must be true:
-- ✅ All acceptance criteria met
-- ✅ All implementation criteria met
-- ✅ All testing criteria met
-- ✅ All code quality criteria met
-- ✅ All documentation criteria met
-- ✅ All deployment criteria met
-- ✅ Feature reviewed and approved
-- ✅ Feature in production and stable
-```
-
-### Step 11: Validate PRP Completeness
-
-Use prp-template.md validation checklist:
-
-**PRP Completeness Checklist**:
-- [ ] Header with metadata (date, designer, issue, analysis link)
-- [ ] Executive summary (2-3 paragraphs)
-- [ ] Requirements reference with key points
-- [ ] Architecture design (components, data models, APIs, data flow, error handling)
-- [ ] Library documentation (all libraries with examples and best practices)
-- [ ] Dependencies (tree, installation, compatibility)
-- [ ] Implementation plan (phased with tasks and validation checkpoints)
-- [ ] Testing strategy (unit, integration, e2e, performance, security)
-- [ ] Documentation requirements (what docs to create)
-- [ ] Success criteria (acceptance, implementation, testing, quality, docs, deployment)
-- [ ] Risks & mitigations (from synthesis)
-
-### Step 12: Write PRP to File
-
-Save PRP to designated location:
-
-**File Path**: `/docs/implementation/prp/feature-{issue-number}-prp.md`
-
-**Final PRP Structure**:
-```markdown
-# Product Requirements Prompt: [Feature Name] (Issue #{issue-number})
-[Header with metadata]
-## Executive Summary
-[2-3 paragraphs]
-## Requirements Reference
-[Key requirements from analysis]
-## Architecture Design
-[Components, models, APIs, data flow, error handling]
-## Library Documentation
-[All libraries with examples]
-## Dependencies
-[Tree, installation, compatibility]
-## Implementation Plan
-[Phases with tasks and validation]
-## Testing Strategy
-[Unit, integration, e2e, performance, security]
-## Documentation Requirements
-[What to document]
-## Success Criteria
-[Acceptance, implementation, testing, quality, docs, deployment]
-## Risks & Mitigations
-[From synthesis and analysis]
 ---
-**PRP Complete**: [Date/Time]
-**Ready for Phase 3**: Implementation
+
+### 3. Success Criteria
+
+**Purpose:** Define measurable outcomes
+
+**Structure:**
+
+- Primary metric (North Star)
+- Secondary metrics
+- Minimum success thresholds
+
+**Example:**
+
 ```
+Primary Metric:
+- Reduce support ticket volume by 40% within 3 months of launch
+
+Secondary Metrics:
+- 80% of common questions answered by AI without escalation
+- <2 second response time for AI answers
+- >4.0/5.0 user satisfaction rating with AI responses
+- 50% reduction in agent time spent on common questions
+
+Minimum Success:
+- 30% ticket reduction + 4.0/5.0 satisfaction
+```
+
+---
+
+### 4. User Stories (Jobs-to-be-Done)
+
+**Purpose:** Capture user needs in job-to-be-done format
+
+**Template:**
+
+```
+When [situation], I want to [action], so I can [outcome].
+```
+
+**Example:**
+
+```
+Customer Stories:
+1. When I have a billing question, I want instant answers, so I can resolve issues without waiting.
+2. When I'm setting up my account, I want step-by-step guidance, so I don't get stuck.
+3. When I need to reset my password, I want a simple self-service flow, so I don't need to contact support.
+
+Agent Stories:
+1. When a complex issue arrives, I want context from the AI conversation, so I can help efficiently.
+2. When training new agents, I want the AI to handle basics, so I can focus on teaching advanced topics.
+3. When customers escalate, I want conversation history, so I don't ask redundant questions.
+```
+
+---
+
+### 5. Functional Requirements
+
+**Purpose:** What the system must do
+
+**Categories:**
+
+- Core features (P0 - must have)
+- Important features (P1 - should have)
+- Nice-to-have (P2 - could have)
+
+**Example:**
+
+```
+P0 (Core - MVP):
+- FR-001: System answers common questions from knowledge base
+- FR-002: System escalates to human when confidence is low (<70%)
+- FR-003: Agents can see full conversation history
+- FR-004: System tracks conversation satisfaction ratings
+
+P1 (Important - Post-MVP):
+- FR-005: System learns from agent corrections
+- FR-006: System handles multi-turn conversations with context
+- FR-007: Agents can override AI suggestions
+
+P2 (Nice-to-have - Future):
+- FR-008: System proactively suggests help articles
+- FR-009: System detects frustrated customers
+- FR-010: Multi-language support
+```
+
+---
+
+### 6. Non-Functional Requirements
+
+**Purpose:** How the system should perform
+
+**Categories:**
+
+- Performance
+- Security
+- Scalability
+- Reliability
+- Usability
+
+**Example:**
+
+```
+Performance:
+- NFR-001: Response time <2 seconds for 95th percentile
+- NFR-002: Handle 100 concurrent conversations
+- NFR-003: Knowledge base search <500ms
+
+Security:
+- NFR-004: Customer data encrypted at rest and in transit
+- NFR-005: SOC2 Type II compliance
+- NFR-006: Role-based access control (RBAC)
+- NFR-007: Audit logs for all AI responses
+
+Scalability:
+- NFR-008: Support 10,000 conversations/day at launch
+- NFR-009: Scale to 100,000 conversations/day within 6 months
+
+Reliability:
+- NFR-010: 99.9% uptime SLA
+- NFR-011: Graceful degradation if AI service unavailable
+
+Usability:
+- NFR-012: Agents can use with <10 minutes training
+- NFR-013: WCAG 2.1 AA accessibility compliance
+```
+
+---
+
+### 7. Technical Constraints
+
+**Purpose:** Technology limitations and requirements
+
+**What to Include:**
+
+- Existing systems to integrate with
+- Technology stack requirements
+- Infrastructure constraints
+- Budget limitations
+- Timeline constraints
+
+**Example:**
+
+```
+Integrations:
+- Must integrate with existing Zendesk system
+- Must use company SSO (Okta)
+- Must log to existing Datadog monitoring
+
+Technology Stack:
+- Backend: Python (existing team expertise)
+- LLM: OpenAI GPT-4 (approved vendor)
+- Vector DB: Pinecone or Weaviate (to be decided)
+- Frontend: React (existing stack)
+
+Infrastructure:
+- Deploy on existing AWS infrastructure
+- Use existing CI/CD pipelines (GitHub Actions)
+
+Budget:
+- OpenAI API budget: $5,000/month maximum
+- Infrastructure: $2,000/month maximum
+
+Timeline:
+- MVP must launch within 10 weeks
+- Full feature set within 16 weeks
+```
+
+---
+
+### 8. Data Requirements
+
+**Purpose:** What data is needed and how it's managed
+
+**Structure:**
+
+- Data sources
+- Data models
+- Data privacy
+- Data retention
+
+**Example:**
+
+```
+Data Sources:
+- Knowledge base articles (500+ articles in Notion)
+- Historical support tickets (Zendesk, 2 years)
+- Product documentation (GitHub docs)
+- FAQ pages (company website)
+
+Data Models:
+- Conversations: id, customer_id, agent_id, messages[], status, satisfaction_rating
+- Messages: id, sender, text, timestamp, ai_confidence
+- Knowledge: id, title, content, embeddings, category, last_updated
+
+Data Privacy:
+- PII must be redacted before AI processing
+- Conversation data retained for 90 days
+- Analytics data aggregated and anonymized
+- GDPR right-to-delete compliance
+
+Data Security:
+- Encrypt customer data at rest (AES-256)
+- Encrypt in transit (TLS 1.3)
+- Role-based access to conversation data
+```
+
+---
+
+### 9. UI/UX Requirements
+
+**Purpose:** How users interact with the system
+
+**What to Include:**
+
+- User flows
+- Interface requirements
+- Design constraints
+- Accessibility needs
+
+**Example:**
+
+```
+Customer Interface:
+- Chat widget in bottom-right corner
+- Typing indicators and response time estimates
+- Clear "Talk to a human" button always visible
+- Conversation history accessible for 30 days
+
+Agent Interface:
+- Side panel showing AI suggestions
+- One-click "Accept AI answer" button
+- Edit AI answer before sending
+- Flag incorrect responses for retraining
+- Dashboard showing AI performance metrics
+
+User Flows:
+1. Customer asks question → AI retrieves answer → Displays with confidence
+2. Low confidence → Auto-escalate to agent → Agent sees full context
+3. Agent corrects AI → System logs for improvement
+
+Design Constraints:
+- Match existing brand colors
+- Mobile-responsive design
+- WCAG 2.1 AA compliant
+- Support keyboard navigation
+```
+
+---
+
+### 10. Risks & Assumptions
+
+**Purpose:** Identify potential blockers and dependencies
+
+**Structure:**
+
+- Risks with mitigation plans
+- Assumptions to validate
+- Dependencies on external factors
+
+**Example:**
+
+```
+Risks:
+1. AI hallucination risk
+   - Mitigation: Confidence thresholds, human review for low confidence
+
+2. Knowledge base quality risk
+   - Mitigation: Content audit before launch, SME review of top 100 articles
+
+3. User adoption risk (agents don't trust AI)
+   - Mitigation: Gradual rollout, agent training, show accuracy metrics
+
+4. API cost overruns
+   - Mitigation: Aggressive caching, token limits, usage monitoring
+
+Assumptions:
+1. Customers will accept AI responses (validate with beta test)
+2. Knowledge base is accurate and up-to-date (audit required)
+3. 80% of questions can be answered with existing knowledge
+4. OpenAI API latency is acceptable (<2s)
+
+Dependencies:
+1. Access to Zendesk API (need approval from IT)
+2. Knowledge base export from Notion
+3. OpenAI API quota increase (currently limited)
+4. Agent availability for training and feedback
+```
+
+---
+
+### 11. Out of Scope
+
+**Purpose:** Explicitly state what WON'T be built
+
+**Why Important:** Prevents scope creep and sets expectations
+
+**Example:**
+
+```
+Out of Scope for MVP:
+- Voice/phone support integration (post-MVP)
+- Multi-language support (Phase 2)
+- Integration with CRM system (future)
+- Custom AI model training (using OpenAI)
+- Mobile app (web only initially)
+- Proactive outreach (reactive support only)
+- Sentiment analysis dashboard (future analytics)
+- Agent performance scoring (v2 feature)
+
+Explicitly NOT Building:
+- Custom LLM training (too expensive)
+- Real-time translation (complexity vs. value)
+- Video call integration (different project)
+```
+
+---
+
+### 12. Open Questions
+
+**Purpose:** Document unknowns that need answers
+
+**Structure:**
+
+- Question
+- Who can answer
+- When answer needed by
+- Impact if not answered
+
+**Example:**
+
+```
+Open Questions:
+
+Q1: What's acceptable AI error rate for customers?
+- Who: Product Manager + Customer Success lead
+- Deadline: Week 2 (before architecture finalized)
+- Impact: Determines confidence thresholds and escalation flow
+
+Q2: Can we access historical conversation sentiment data?
+- Who: Data team
+- Deadline: Week 3 (before training data collection)
+- Impact: Improves AI tone matching
+
+Q3: What's our Zendesk API rate limit?
+- Who: IT/Infrastructure
+- Deadline: Week 1 (critical for architecture)
+- Impact: May need caching strategy
+
+Q4: Do we have budget for Pinecone or need open-source vector DB?
+- Who: Engineering Manager
+- Deadline: Week 2 (affects tech stack)
+- Impact: Pinecone is easier, open-source is cheaper but more work
+
+Q5: Are agents allowed to edit AI-generated responses?
+- Who: Legal/Compliance
+- Deadline: Week 4 (before feature development)
+- Impact: Affects agent interface design
+```
+
+---
+
+## Examples
+
+### Example 1: Simple Feature (Pattern A)
+
+**Project:** Add CSV export to user dashboard
+
+```markdown
+# PRP: CSV Export Feature
+
+## 1. Project Overview
+
+Pattern A (Simple Feature)
+Timeline: 2-3 days
+Add CSV export button to user dashboard
+
+## 2. Problem Statement
+
+Users need to export data for offline analysis. Currently they must manually copy-paste.
+
+## 3. Success Criteria
+
+- 80% of users who click export get successful download
+- <5s export time for typical dataset (1000 rows)
+
+## 4. User Stories
+
+When viewing my data, I want to click "Export CSV", so I can analyze it in Excel.
+
+## 5. Functional Requirements
+
+FR-001: Export button in dashboard toolbar
+FR-002: Exports all visible columns
+FR-003: Respects current filters
+FR-004: Filename includes timestamp
+
+## 6-12. [Abbreviated for Pattern A]
+```
+
+---
+
+### Example 2: New Product (Pattern B)
+
+_See customer support chatbot example throughout sections above_
+
+---
+
+### Example 3: AI-Native System (Pattern C)
+
+**Project:** Multi-Agent Research Assistant
+
+```markdown
+# PRP: Multi-Agent Research Assistant
+
+## 1. Project Overview
+
+Pattern C (AI-Native System)
+Timeline: 14-16 weeks
+Multi-agent system with specialized agents for research, synthesis, and fact-checking
+
+## 2. Problem Statement
+
+Researchers spend 60% of their time finding and synthesizing papers instead of analysis. Current tools return overwhelming results without quality filtering.
+
+## 3. Success Criteria
+
+Primary: Reduce research time from 8 hours to 2 hours per topic
+Secondary:
+
+- 90% accuracy in paper relevance
+- 85% user satisfaction
+- <30s for initial results
+- 5+ papers synthesized per query
+
+## 4. User Stories
+
+- When I enter a research topic, I want a synthesized summary with sources, so I can quickly understand the landscape
+- When results are vague, I want follow-up questions suggested, so I can refine my search
+- When I find a relevant paper, I want related papers suggested, so I can explore deeper
+
+## 5. Functional Requirements (AI-specific)
+
+FR-001: Search agent queries multiple academic databases
+FR-002: Filter agent scores paper relevance (0-100)
+FR-003: Synthesis agent creates 500-word summary
+FR-004: Fact-check agent validates key claims
+FR-005: Orchestrator coordinates agents and resolves conflicts
+
+## 6. Non-Functional Requirements (AI-specific)
+
+NFR-001: Agent coordination latency <5s
+NFR-002: RAG retrieval accuracy >90%
+NFR-003: Handle 50 concurrent research sessions
+NFR-004: LLM token budget: $10/research session maximum
+
+## 7. Technical Constraints (AI-specific)
+
+- LLM: GPT-4 for synthesis, GPT-3.5 for filtering
+- Vector DB: Pinecone (1M vectors)
+- Agent framework: LangChain or CrewAI
+- Academic APIs: Semantic Scholar, arXiv
+
+## 8. Data Requirements (AI-specific)
+
+- Paper embeddings: title + abstract + keywords
+- Citation network graph for related papers
+- User research history for personalization
+- Fact-check database with verified claims
+
+## 9-12. [Complete as per structure]
+```
+
+---
 
 ## Best Practices
 
-### 1. Be Comprehensive But Concise
-- Include all necessary information
-- Avoid redundancy
-- Link to other documents for details
-- Use examples liberally
+### 1. Start with Problem, Not Solution
 
-### 2. Make It Actionable
-- Every section should guide implementer
-- Provide code examples
-- Specify exact commands
-- Define clear validation checkpoints
+Write problem statement before functional requirements. Understand "why" before "what".
 
-### 3. Ensure Traceability
-- Link requirements to design elements
-- Link design to implementation tasks
-- Link tasks to test cases
-- Link tests to acceptance criteria
+### 2. Make Success Criteria Measurable
 
-### 4. Validate Completeness
-- Use prp-template.md checklist
-- Verify all required sections present
-- Check all links work
-- Ensure all code examples valid
+Bad: "Improve user experience"
+Good: "Increase task completion rate from 60% to 85%"
 
-### 5. Consider the Implementer
-- Write for someone unfamiliar with design discussions
-- Provide context and rationale
-- Explain trade-offs and decisions
-- Anticipate questions
+### 3. Use Jobs-to-be-Done Format
 
-## Resources
+Captures user intent, not just feature requests.
 
-### prp-template.md
-Complete PRP template with:
-- Standard structure
-- Section templates
-- Markdown formatting
-- Validation checklist
+### 4. Be Explicit About Out of Scope
 
-### prp-examples.md
-Example PRPs showing:
-- Simple feature PRP
-- Complex feature PRP
-- Multi-component PRP
-- API-focused PRP
-- Data-focused PRP
+Prevents future arguments about "I thought we were building X".
 
-## Example Usage
+### 5. Document All Open Questions
 
-See `prp-examples.md` for complete PRP examples.
+Don't hide unknowns. Make them visible and track resolution.
 
-## Integration
+### 6. Update PRP as You Learn
 
-This skill is used by:
-- **design-orchestrator** agent during Phase 2: Design & Planning
-- Activates automatically when generating PRP from synthesized design
-- Output feeds into Phase 3: Implementation (Implementation Specialist)
+PRPs evolve. Update when you discover new information.
+
+### 7. Review with Stakeholders
+
+Validate PRP with:
+
+- Product Manager (business requirements)
+- Engineering Lead (technical feasibility)
+- Designer (UX requirements)
+- Security (compliance requirements)
 
 ---
 
-**Version**: 2.0.0
-**Auto-Activation**: Yes (when generating PRP documents)
-**Phase**: 2 (Design & Planning)
-**Created**: 2025-10-29
+## Common Pitfalls
+
+### 1. Writing Solutions Instead of Requirements
+
+**Antipattern:** "Use React with Redux for state management"
+**Better:** "System must handle real-time updates across multiple views"
+
+### 2. Vague Success Criteria
+
+**Antipattern:** "Users should be happy"
+**Better:** "NPS score >50, task completion rate >80%"
+
+### 3. Missing Non-Functional Requirements
+
+**Antipattern:** Only listing features
+**Better:** Include performance, security, scalability
+
+### 4. Assuming Knowledge
+
+**Antipattern:** "Obviously we need authentication"
+**Better:** Explicitly state all requirements
+
+### 5. Mixing Pattern Complexity
+
+**Antipattern:** Pattern A with Pattern C orchestration
+**Better:** Match PRP depth to pattern complexity
+
+---
+
+## Related Skills
+
+- **framework-orchestrator** - Uses PRP to determine pattern and sequence
+- **product-strategist** - Validates problem before PRP creation
+- **user-researcher** - Provides user insights for PRP
+- **bmad-method** - Business model informs technical requirements
+- **security-architect** - Security requirements section
+- **api-designer** - Technical constraints section
+
+---
+
+## Deliverables
+
+A complete PRP document containing:
+
+1. All 12 sections filled out
+2. Pattern classification (A, B, or C)
+3. Reviewed by key stakeholders
+4. Open questions tracked with owners and deadlines
+5. Version controlled (update as you learn)
+
+---
+
+## Success Metrics
+
+You've created a good PRP when:
+
+- Developers can build from it without constant clarification
+- Stakeholders agree on scope and success criteria
+- Risks and assumptions are surfaced early
+- Out of scope is crystal clear
+- Open questions have owners and deadlines
+- Pattern complexity matches project reality
+
+---
+
+**Remember:** A good PRP is the difference between organized development and chaotic scope creep. Invest time upfront to save weeks later.

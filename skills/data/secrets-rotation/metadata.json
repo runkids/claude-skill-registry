@@ -1,12 +1,7 @@
 {
   "name": "secrets-rotation",
-  "description": "Implement automated secrets rotation for API keys, credentials, certificates, and encryption keys. Use when managing secrets lifecycle, compliance requirements, or security hardening.",
   "repo": "aj-geddes/useful-ai-prompts",
-  "category": "design",
-  "tags": [
-    "secrets",
-    "rotation"
-  ],
-  "stars": 25,
-  "source": "local"
+  "path": "skills/secrets-rotation/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:07.477713Z"
 }

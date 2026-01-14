@@ -1,14 +1,7 @@
 {
   "name": "react-native-navigation-builder",
-  "description": "Creates navigation structures following the app's nested navigator pattern. Handles type-safe navigation, stack and tab setup, and screen parameter management in Purrsuit Mobile App.",
-  "repo": "PlaneInABottle/purrsuit",
-  "category": "development",
-  "tags": [
-    "react",
-    "native",
-    "navigation",
-    "builder"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "PlaneInABottle/fitnessMobileApp",
+  "path": ".claude/skills/react-native-navigation-builder/SKILL.md",
+  "source": "github.com/PlaneInABottle/fitnessMobileApp",
+  "downloaded_at": "2026-01-14T03:27:53.653088Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "qa-bug-reporting",
-  "description": "When reporting bugs found during manual testing or QA validation.",
   "repo": "CoderMariusz/MonoPilot",
-  "category": "testing",
-  "tags": [
-    "bug",
-    "reporting"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/qa-bug-reporting/SKILL.md",
+  "source": "github.com/CoderMariusz/MonoPilot",
+  "downloaded_at": "2026-01-14T03:46:39.828206Z"
 }

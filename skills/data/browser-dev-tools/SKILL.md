@@ -1,148 +1,54 @@
 ---
 name: browser-dev-tools
-description: This skill should be used when working with browser-rendered artifacts (i.e. Bun, React/React Native) to proactively validate that development work on localhost is being built appropriately and to support debugging browser-rendered content. Use this skill after making frontend changes to verify the output visually.
+description: 使用 Chrome DevTools MCP 进行前端页面调试、布局优化、性能诊断及交互验证。
 ---
 
-# Browser Dev Tools
+# Browser DevTools - 浏览器级研发调试
 
-## Overview
+此 Skill 允许 AI 直接与实际运行的浏览器窗口交互，通过 DevTools 协议实现精准的 UI 修补和性能优化。
 
-This skill provides Chrome DevTools Protocol tools for validating and debugging browser-rendered artifacts during development. Use these tools to verify that localhost servers are rendering correctly and to debug visual issues proactively.
+## 何时使用此 Skill
 
-The tools connect to Chrome running on port `:9222` with remote debugging enabled.
+- **样式微调**：需要观察组件在不同屏幕尺寸下的布局表现。
+- **深度调试**：控制台报错、网络请求失败或复杂的各种竞态条件。
+- **性能评估**：测量 C# 或 Vue 变更后对浏览器渲染管道（LCP, CLS）的实际影响。
+- **UI 验收**：自动执行点击流并截图以确认交互逻辑。
 
-## When to Use This Skill
+## 核心工具流
 
-Use this skill proactively in these scenarios:
+### 1. 现状感知 (Initial Assessment)
 
-1. **After making frontend code changes** - Validate that React, Bun, HTML, or other frontend code renders correctly on localhost
-2. **After starting a dev server** - Verify the application loads and displays properly
-3. **When debugging browser rendering issues** - Inspect page state, DOM structure, or cookies
-4. **When validating UI changes** - Take screenshots to visually confirm changes appear as expected
+在开始任何修改前，先观察页面：
 
-**Important:** Always use this skill proactively after completing frontend development tasks to validate the work before considering it done.
+- `list_pages`: 找到目标页面索引。
+- `capture_screenshot`: 获取视觉反馈，确认当前样式。
+- `text_snapshot`: 获取无障碍树和 UID，确定要操作的元素。
 
-## Available Tools
+### 2. 交互验证 (Interaction)
 
-All browser tools are located in `~/.claude/skills/browser-dev-tools/tools/` and should be executed via the Bash tool.
+- `click`: 模拟点击。
+- `fill_form`: 批量填充测试数据。
+- `evaluate_script`: 执行 JS 检查当前组件状态（如 `__vue_app__` 数据）。
 
-### Start Chrome
+### 3. 样式与布局调优 (Design Inspection)
 
-```bash
-~/.claude/skills/browser-dev-tools/tools/browser-start.js                # Fresh profile
-~/.claude/skills/browser-dev-tools/tools/browser-start.js --profile      # Auto-detect profile
-~/.claude/skills/browser-dev-tools/tools/browser-start.js --profile "Profile 2"  # Specific profile
-```
+- 使用 `resize_page` 切换移动端/桌面端。
+- 使用 `capture_screenshot` 配合 `evaluate_script` 修改运行时 CSS，实时验证效果。
 
-Launch Chrome with remote debugging.
+### 4. 性能与错误诊断 (Diagnostics)
 
-**Profile Auto-Detection:**
+- `list_console_messages`: 定位 runtime errors。
+- `performance_start_trace`: 开始性能采样。
+- `performance_analyze_insight`: 分析特定性能瓶颈（如 DocumentLatency 或 LCPBreakdown）。
 
-- When using `--profile` without a profile name, the script automatically selects the appropriate Chrome profile based on the current working directory:
-  - `~/personal/**` → Uses Default profile (tnagengast@gmail.com)
-  - `~/work/**` → Uses Profile 1 (tom@cable.tech)
-- You can override this by specifying a profile name: `--profile "Profile 2"`
+## 最佳实践规范
 
-**Important:** Always use `--profile` (auto-detect) or specify a profile when you need to preserve authentication state for testing authenticated pages.
+- **调试优先**：在修改持久化代码前，先尝试用 `evaluate_script` 手动改动运行时 DOM/CSS 以验证猜想。
+- **对比一致性**：在优化样式后，必须取 `capture_screenshot` 并查看其快照，确保符合 [设计系统规范](src/frontend/docs/design-system.md)。
+- **清理工作**：如果打开了新页面或开始了追踪，操作结束后记得关闭或停止。
 
-### Navigate
+## 使用示例
 
-```bash
-~/.claude/skills/browser-dev-tools/tools/browser-nav.js http://localhost:3000
-~/.claude/skills/browser-dev-tools/tools/browser-nav.js http://localhost:3000 --new
-```
-
-Navigate to URLs. Use `--new` flag to open in a new tab instead of reusing the current tab.
-
-### Screenshot
-
-```bash
-~/.claude/skills/browser-dev-tools/tools/browser-screenshot.js
-```
-
-Capture the current viewport and return a temporary file path. **Always take screenshots after navigating to validate the rendered output visually.**
-
-### Evaluate JavaScript
-
-```bash
-~/.claude/skills/browser-dev-tools/tools/browser-eval.js 'document.title'
-~/.claude/skills/browser-dev-tools/tools/browser-eval.js 'document.querySelectorAll("a").length'
-```
-
-Execute JavaScript in the active tab to extract data, inspect page state, or perform DOM operations programmatically.
-
-### Pick Elements
-
-```bash
-~/.claude/skills/browser-dev-tools/tools/browser-pick.js "Click the submit button"
-```
-
-Launch an interactive picker that lets the user click elements to select them. The user can select multiple elements (Cmd/Ctrl+Click) and press Enter when done. Returns CSS selectors for the selected elements.
-
-Use this when the user wants to select specific DOM elements on the page.
-
-### Cookies
-
-```bash
-~/.claude/skills/browser-dev-tools/tools/browser-cookies.js
-```
-
-Display all cookies for the current tab including domain, path, httpOnly, and secure flags. Use this to debug authentication issues or inspect session state.
-
-## Common Workflows
-
-### Validating Frontend Changes (Primary Use Case)
-
-After making changes to frontend code (React components, HTML, CSS, etc.):
-
-1. **Start Chrome** if not already running:
-
-   ```bash
-   ~/.claude/skills/browser-dev-tools/tools/browser-start.js --profile  # Auto-detects profile
-   ```
-
-   Note: Use `--profile` to auto-detect the appropriate profile based on cwd (personal vs work).
-
-2. **Navigate to localhost**:
-
-   ```bash
-   ~/.claude/skills/browser-dev-tools/tools/browser-nav.js http://localhost:PORT
-   ```
-
-   Replace PORT with the appropriate port (e.g., 3000, 5173, 8080).
-
-3. **Take a screenshot**:
-
-   ```bash
-   ~/.claude/skills/browser-dev-tools/tools/browser-screenshot.js
-   ```
-
-4. **Read the screenshot** using the Read tool to visually validate the changes.
-
-5. **If issues are found**, use JavaScript evaluation to inspect the page state:
-   ```bash
-   ~/.claude/skills/browser-dev-tools/tools/browser-eval.js 'document.body.innerHTML'
-   ```
-
-### Debugging Rendering Issues
-
-When troubleshooting why something isn't rendering correctly:
-
-1. **Navigate to the problematic page**
-
-2. **Take a screenshot** to see the current state
-
-3. **Evaluate JavaScript** to inspect:
-   - DOM structure: `document.querySelector('#myElement')`
-   - Console errors: `console.log(...)`
-   - Element properties: `document.querySelector('#myElement').style`
-
-4. **Check cookies** if authentication or session issues are suspected
-
-## Best Practices
-
-- **Always validate proactively** - Take screenshots after frontend changes to catch visual issues early
-- **Use profile auto-detection** - Use `--profile` (without arguments) to automatically load the correct profile based on your working directory (personal vs work)
-- **Navigate before evaluating** - Ensure the page is loaded before running JavaScript
-- **Read screenshots** - Always use the Read tool on screenshot paths to view the captured image
-- **Check common ports** - Typical dev servers run on 3000 (React/Next.js), 5173 (Vite), 8080 (generic), or 4200 (Angular)
+- “请帮我检查 `/articles/new` 页面在 iPhone 12 尺寸下的布局，如果提交按钮被遮挡请修复 CSS。”
+- “这个组件渲染太慢了，请运行性能追踪，找出占用主线程最长的任务。”
+- “自动填充该注册表单，并告诉我在点击注册后，控制台是否输出了任何网络错误。”

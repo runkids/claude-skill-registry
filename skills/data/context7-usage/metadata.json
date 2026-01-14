@@ -1,12 +1,7 @@
 {
   "name": "context7-usage",
-  "description": "Tips and best practices for using Context7 MCP server to get library documentation",
-  "repo": "ramhaidar/Code-Executor-MCP",
-  "category": "documents",
-  "tags": [
-    "context7",
-    "usage"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "alfredolopez80/multi-agent-ralph-loop",
+  "path": ".claude/skills/context7-usage/skill.md",
+  "source": "github.com/alfredolopez80/multi-agent-ralph-loop",
+  "downloaded_at": "2026-01-14T03:47:34.477576Z"
 }

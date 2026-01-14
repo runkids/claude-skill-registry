@@ -1,13 +1,7 @@
 {
   "name": "aws-cloudfront-cdn",
-  "description": "Distribute content globally using CloudFront with caching, security headers, WAF integration, and origin configuration. Use for low-latency content delivery.",
   "repo": "aj-geddes/useful-ai-prompts",
-  "category": "testing",
-  "tags": [
-    "aws",
-    "cloudfront",
-    "cdn"
-  ],
-  "stars": 25,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/aws-cloudfront-cdn/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:10.838463Z"
 }

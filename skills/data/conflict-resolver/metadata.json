@@ -1,12 +1,7 @@
 {
   "name": "conflict-resolver",
-  "description": "Smart git merge conflict resolution with context analysis, pattern detection, and automated resol...",
   "repo": "CuriousLearner/devkit",
-  "category": "development",
-  "tags": [
-    "conflict",
-    "resolver"
-  ],
-  "stars": 13,
-  "source": "local"
+  "path": "skills/conflict-resolver/SKILL.md",
+  "source": "github.com/CuriousLearner/devkit",
+  "downloaded_at": "2026-01-14T02:22:37.232858Z"
 }

@@ -1,15 +1,17 @@
 ---
 name: qa-docs-coverage
-description: Systematically audit codebases for documentation gaps, generate coverage reports, and create missing documentation using docs-codebase templates. Scans APIs, services, events, database schemas, and configurations to ensure comprehensive documentation coverage.
+description: "Docs as QA: audit doc coverage and freshness, validate runbooks, and maintain documentation quality gates for APIs, services, events, and operational workflows."
 ---
 
-# Codebase Documentation Audit — Systematic Discovery & Gap Analysis
+# QA Docs Coverage (Dec 2025) — Discovery, Freshness, and Runbook Quality
 
 **Modern Best Practices**: Phase-based audits, priority-driven documentation, automated coverage tracking
 
 This skill provides operational workflows for auditing existing codebases, identifying documentation gaps, and systematically generating missing documentation. It complements [docs-codebase](../docs-codebase/SKILL.md) by providing the **discovery and analysis** layer.
 
 **Key Principle**: Templates exist in docs-codebase. This skill tells you **what** to document and **how to find** undocumented components.
+
+Core references: Diataxis documentation framework (https://diataxis.fr/) and OpenAPI (https://spec.openapis.org/oas/latest.html).
 
 ---
 
@@ -26,6 +28,47 @@ Invoke this skill when:
 - Setting up documentation maintenance processes
 
 ---
+
+## Core QA (Default)
+
+### What “Docs as QA” Means
+
+- Treat docs as production quality artifacts: they reduce MTTR, enable safe changes, and define expected behavior.
+- REQUIRED doc types for reliability and debugging ergonomics:
+  - “How to run locally/CI” and “how to test”.
+  - Operational runbooks (alerts, common failures, rollback).
+  - Service contracts (OpenAPI/AsyncAPI) and schema examples.
+  - Known issues and limitations (with workarounds).
+
+### Coverage Model (Risk-Based)
+
+- Prioritize docs by impact:
+  - P1: externally consumed contracts and failure behavior (OpenAPI/AsyncAPI, auth, error codes, SLOs).
+  - P2: internal integration and operational workflows (events, jobs, DB schema, runbooks).
+  - P3: developer reference (configs, utilities).
+
+### Freshness Checks (Prevent Stale Docs)
+
+- Define owners, review cadence, and a “last verified” field for critical docs.
+- CI economics [Inference]:
+  - Block PRs only for missing/invalid P1 docs.
+  - Warn for P2/P3 gaps; track via backlog.
+- Run link checks and linting as fast pre-merge steps.
+
+### Runbook Testability
+
+- A runbook is “testable” if a new engineer can follow it and reach a measurable end state.
+- Include: prerequisites, exact commands, expected outputs, rollback criteria, and escalation paths.
+
+### Do / Avoid
+
+Do:
+- Keep docs close to code (same repo) and version them with changes.
+- Use contracts and examples as the source of truth for integrations.
+
+Avoid:
+- Large “doc-only” projects with no owners and no CI gates.
+- Writing runbooks that cannot be executed in a sandbox/staging environment.
 
 ## Quick Reference
 
@@ -203,11 +246,22 @@ This skill works closely with:
 ## Anti-Patterns to Avoid
 
 - **Documenting everything at once** - Prioritize by impact, document incrementally
-- **Generating docs without review** - AI-generated docs need human validation
+- **Merging doc drafts without review** - Drafts must be validated by owners and runnable in practice
 - **Ignoring outdated docs** - Outdated docs are worse than no docs
 - **Documentation without ownership** - Assign owners for each doc area
 - **Skipping the audit** - Don't assume you know what's documented
 - **Blocking all PRs** - Only block for P1 gaps, warn for P2/P3
+
+---
+
+## Optional: AI / Automation
+
+Do:
+- Use AI to draft docs from code and tickets, then require human review and link/command verification.
+- Use AI to propose “freshness diffs” and missing doc sections; validate by running the runbook steps.
+
+Avoid:
+- Publishing unverified drafts that include incorrect commands, unsafe advice, or hallucinated endpoints.
 
 ---
 

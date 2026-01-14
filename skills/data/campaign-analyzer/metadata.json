@@ -1,12 +1,7 @@
 {
   "name": "campaign-analyzer",
-  "description": "Analyze processed D&D sessions to extract and summarize campaign knowledge including NPCs, locations, quests, items, and factions. Use when the user wants to review campaign content, find specific ent",
-  "repo": "Gambitnl/Video_chunking",
-  "category": "marketing",
-  "tags": [
-    "campaign",
-    "analyzer"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "eddiebe147/claude-settings",
+  "path": "skills/campaign-analyzer/SKILL.md",
+  "source": "github.com/eddiebe147/claude-settings",
+  "downloaded_at": "2026-01-14T03:53:07.918265Z"
 }

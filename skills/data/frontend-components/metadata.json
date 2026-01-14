@@ -1,12 +1,7 @@
 {
   "name": "frontend-components",
-  "description": "Design reusable, composable UI components with single responsibility, clear props interfaces, minimal state management, and proper encapsulation. Use this skill when creating or modifying React compon",
-  "repo": "Software-Design-Club/todo-app",
-  "category": "design",
-  "tags": [
-    "frontend",
-    "components"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "nanorepublica/django-prodserver",
+  "path": ".claude/skills/frontend-components/SKILL.md",
+  "source": "github.com/nanorepublica/django-prodserver",
+  "downloaded_at": "2026-01-14T03:44:35.119130Z"
 }

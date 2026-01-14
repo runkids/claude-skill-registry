@@ -1,198 +1,199 @@
 ---
 name: unit-test
-description: Guide for writing unit tests with Vitest. Use when writing tests for service functions, pure logic, or webhook handlers. Covers TDD Red-Green-Refactor cycle, Arrange-Act-Assert pattern, anti-patterns, pure function testing, and mocking at boundaries.
+description: 単体テストの作成。「テストを書きたい」「ユニットテストを追加」「関数をテスト」などのリクエスト時に使用。
 ---
 
-# Unit Testing
+# Unit Test
 
-Test pure business logic in isolation. Mock system boundaries (DB, webhooks, external APIs). Verify calculated values, not side effects.
+コンポーネント・関数の単体テストを作成するスキル。
 
-## TDD Cycle (Non-Negotiable)
+## 推奨テストフレームワーク
 
-**RED → GREEN → REFACTOR**. Every feature. Every bug fix.
+- **Vitest**: 高速なテストランナー（Vite ベース）
+- **React Testing Library**: コンポーネントテスト
+- **@testing-library/user-event**: ユーザー操作シミュレーション
 
-- **RED**: Write failing test first. If it passes, your test is wrong.
-- **GREEN**: Minimum code to pass. Hardcode if needed.
-- **REFACTOR**: Clean up while green. Run tests after every change.
+## セットアップ（未設定の場合）
 
-```typescript
-// RED
-test("calculates score", () => expect(calculateScore({ reps: 10, weight: 135 })).toBe(1350)) // FAILS
-// GREEN - hardcode
-function calculateScore(data) { return 1350 }
-// RED - force real logic
-test("different score", () => expect(calculateScore({ reps: 5, weight: 100 })).toBe(500)) // FAILS
-// GREEN - implement
-function calculateScore(data) { return data.reps * data.weight }
+```bash
+pnpm add -D vitest @vitejs/plugin-react jsdom
+pnpm add -D @testing-library/react @testing-library/jest-dom @testing-library/user-event
 ```
 
-## Arrange-Act-Assert Pattern
+### vitest.config.ts
 
 ```typescript
-test("applies discount", () => {
-  // ARRANGE
-  const price = 100, discount = 0.2
-  // ACT
-  const result = applyDiscount(price, discount)
-  // ASSERT
-  expect(result).toBe(80)
-})
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vitest/config";
+
+export default defineConfig({
+  plugins: [react()],
+  test: {
+    environment: "jsdom",
+    globals: true,
+    setupFiles: ["./vitest.setup.ts"],
+    include: ["src/**/*.{test,spec}.{ts,tsx}"],
+  },
+  resolve: {
+    alias: {
+      "@": "./src",
+    },
+  },
+});
 ```
 
-**One concept per test**: Multiple assertions OK if testing same concept.
+### vitest.setup.ts
 
 ```typescript
-// GOOD: One concept
-test("returns errors for invalid workout", () => {
-  const result = validateWorkout({})
-  expect(result.valid).toBe(false)
-  expect(result.errors).toContain("name required")
-})
-
-// BAD: Multiple concepts
-test("validates and saves", () => {
-  expect(validateWorkout({}).valid).toBe(false)
-  expect(saveWorkout({ name: "Fran" }).id).toBeDefined()
-})
+import "@testing-library/jest-dom/vitest";
 ```
 
-## Anti-Patterns
+## テストファイル配置
 
-**Overspecified Tests** (THE WORST) - Testing HOW instead of WHAT.
-
-```typescript
-// BAD: Implementation details
-test("processes", () => {
-  processor.initialize() // internal
-  expect(processor.state).toBe("ready") // internal
-})
-
-// GOOD: Behavior
-test("processes valid workout", () => {
-  expect(processWorkout({ name: "Fran" }).success).toBe(true)
-})
+```text
+src/
+├── components/
+│   ├── Button.tsx
+│   └── Button.test.tsx      # コンポーネントと同階層
+├── lib/
+│   ├── utils.ts
+│   └── utils.test.ts        # ユーティリティと同階層
+└── __tests__/               # 統合テスト用（オプション）
 ```
 
-**Testing State Not Behavior**
+## テストテンプレート
+
+### コンポーネントテスト
 
 ```typescript
-// BAD
-test("sets score", () => {
-  scorer.calculate(10, 135)
-  expect(scorer.score).toBe(1350) // internal field
-})
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { describe, expect, it, vi } from "vitest";
 
-// GOOD
-test("calculates score", () => {
-  expect(scorer.calculate(10, 135)).toBe(1350)
-})
+import { Button } from "./Button";
+
+describe("Button", () => {
+  it("renders with text", () => {
+    render(<Button>Click me</Button>);
+    expect(screen.getByRole("button", { name: /click me/i })).toBeInTheDocument();
+  });
+
+  it("calls onClick when clicked", async () => {
+    const user = userEvent.setup();
+    const handleClick = vi.fn();
+
+    render(<Button onClick={handleClick}>Click me</Button>);
+    await user.click(screen.getByRole("button"));
+
+    expect(handleClick).toHaveBeenCalledTimes(1);
+  });
+
+  it("is disabled when disabled prop is true", () => {
+    render(<Button disabled>Click me</Button>);
+    expect(screen.getByRole("button")).toBeDisabled();
+  });
+});
 ```
 
-**Multiple Unrelated Assertions**
+### 関数テスト
 
 ```typescript
-// BAD: Which failed?
-test("validation", () => {
-  expect(validateName("")).toBe(false)
-  expect(validateType("x")).toBe(false)
-})
+import { describe, expect, it } from "vitest";
 
-// GOOD: Split tests
-test("rejects empty name", () => expect(validateName("")).toBe(false))
-test("rejects invalid type", () => expect(validateType("x")).toBe(false))
+import { formatDate, slugify } from "./utils";
+
+describe("formatDate", () => {
+  it("formats date correctly", () => {
+    expect(formatDate("2025-01-01")).toBe("2025年1月1日");
+  });
+
+  it("handles invalid date", () => {
+    expect(formatDate("invalid")).toBe("Invalid Date");
+  });
+});
+
+describe("slugify", () => {
+  it("converts string to slug", () => {
+    expect(slugify("Hello World")).toBe("hello-world");
+  });
+});
 ```
 
-## Pure Function Testing
-
-Separate calculations (pure) from side effects (DB, webhooks).
+### 非同期テスト
 
 ```typescript
-// Bad: mixed
-async function processWebhook(event) {
-  const score = event.reps * event.weight
-  await db.insert(scores).values({ score })
+import { render, screen, waitFor } from "@testing-library/react";
+import { describe, expect, it, vi } from "vitest";
+
+import { AsyncComponent } from "./AsyncComponent";
+
+describe("AsyncComponent", () => {
+  it("shows loading state initially", () => {
+    render(<AsyncComponent />);
+    expect(screen.getByText(/loading/i)).toBeInTheDocument();
+  });
+
+  it("shows data after loading", async () => {
+    render(<AsyncComponent />);
+    await waitFor(() => {
+      expect(screen.getByText(/data loaded/i)).toBeInTheDocument();
+    });
+  });
+});
+```
+
+## テスト実行コマンド
+
+```bash
+# 全テスト実行
+pnpm test
+
+# ウォッチモード
+pnpm test:watch
+
+# カバレッジ付き
+pnpm test:coverage
+
+# 特定ファイル
+pnpm test src/lib/utils.test.ts
+```
+
+## package.json scripts
+
+```json
+{
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
+  }
 }
-
-// Good: separated
-function calculateScore(data) { return data.reps * data.weight } // pure
-
-async function processWebhook(event) {
-  const score = calculateScore(event.data) // pure
-  await db.insert(scores).values({ score }) // side effect
-}
-
-// Test pure function - no mocks
-test("calculates score", () => {
-  expect(calculateScore({ reps: 10, weight: 135 })).toBe(1350)
-})
 ```
 
-## Mocking at Boundaries
+## テスト作成の手順
 
-Mock DB, auth, APIs. Test logic between them.
+1. テスト対象のコード確認
+2. テストケースの洗い出し
+   - 正常系
+   - 異常系
+   - 境界値
+3. テストファイル作成（`*.test.ts(x)`）
+4. describe でグループ化
+5. it/test で個別ケース記述
+6. テスト実行・確認
 
-```typescript
-vi.mock("@/server/workouts", () => ({
-  getWorkoutById: vi.fn(),
-  updateWorkout: vi.fn(),
-}))
+## ベストプラクティス
 
-beforeEach(() => {
-  vi.clearAllMocks()
-  vi.mocked(getWorkoutById).mockResolvedValue({ id: "w-123" })
-})
+- **AAA パターン**: Arrange（準備）→ Act（実行）→ Assert（検証）
+- **1テスト1検証**: 各テストは1つの振る舞いを検証
+- **実装詳細をテストしない**: 内部実装ではなく振る舞いをテスト
+- **getByRole 優先**: アクセシビリティを意識したクエリ
+- **ユーザー視点**: ユーザーの操作をシミュレート
 
-test("updates workout", async () => {
-  const [data, err] = await updateWorkoutAction({
-    id: "w-123", workout: { name: "Updated" }
-  })
-  
-  expect(err).toBeNull()
-  expect(updateWorkout).toHaveBeenCalledWith({
-    id: "w-123", workout: { name: "Updated" }
-  })
-})
-```
+## クエリ優先順位
 
-## What to Test vs Mock
-
-**Test**: Calculations, transformations, validation, business rules
-**Mock**: Database, external APIs, auth, webhooks, file system
-
-## Breaking Dependencies
-
-Hard to test? Use dependency-breaking techniques.
-
-**See `testing-patterns` skill**: `skills_use(name="testing-patterns")`
-- 25 techniques, seam model, characterization tests
-
-Quick: **Parameterize Constructor**, **Extract Interface**, **Subclass & Override**
-
-```typescript
-// Before
-class Processor { process() { new ProductionDB().save() } }
-
-// After - inject dependency
-class Processor {
-  constructor(private db = new ProductionDB()) {}
-  process() { this.db.save() }
-}
-
-// Test
-new Processor(new FakeDB())
-```
-
-## Organization & Running
-
-**Structure**: `test/lib/` (pure functions), `test/server/` (services, mock DB), `test/actions/` (actions, mock services)
-
-**Run**: `pnpm test` (all), `pnpm test -- path/to/file.test.ts` (single)
-
-## Principles
-
-1. **RED → GREEN → REFACTOR** - no exceptions
-2. **Pure functions** - easier to test, no mocks
-3. **Mock boundaries** - DB, auth, APIs
-4. **Behavior not state** - what it does, not how
-5. **One concept per test** - clear failures
-6. **Arrange-Act-Assert** - consistent structure
+1. `getByRole` - アクセシビリティ
+2. `getByLabelText` - フォーム要素
+3. `getByPlaceholderText` - 入力フィールド
+4. `getByText` - テキストコンテンツ
+5. `getByTestId` - 最終手段

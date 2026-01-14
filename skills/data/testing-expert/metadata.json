@@ -1,12 +1,7 @@
 {
   "name": "testing-expert",
-  "description": "Integration Test E2E 테스트, TestRestTemplate 필수, Test Fixtures 재사용.MockMvc 금지, @Sql 어노테이션 테스트 데이터 설정.Gradle testFixtures 플러그인 활용, ArchUnit 의존성 검증.",
   "repo": "ryu-qqq/AuthHub",
-  "category": "testing",
-  "tags": [
-    "testing",
-    "expert"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/testing-expert/SKILL.md",
+  "source": "github.com/ryu-qqq/AuthHub",
+  "downloaded_at": "2026-01-14T03:00:34.357145Z"
 }

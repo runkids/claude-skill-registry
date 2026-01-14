@@ -1,14 +1,7 @@
 {
   "name": "test-driven-development-framework",
-  "description": "Practical TDD framework that teaches Red/Green/Refactor, outside-in and inside-out strategies, contract testing, characterization tests for legacy code, UI/API/data layers, concurrency/time/randomness",
   "repo": "doctorduke/claude-config",
-  "category": "development",
-  "tags": [
-    "test",
-    "driven",
-    "development",
-    "framework"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": "skills/test-driven-development-framework/SKILL.md",
+  "source": "github.com/doctorduke/claude-config",
+  "downloaded_at": "2026-01-14T03:47:48.868566Z"
 }

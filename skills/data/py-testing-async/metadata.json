@@ -1,8 +1,7 @@
 {
   "name": "py-testing-async",
   "repo": "CJHarmath/claude-agents-skills",
-  "category": "data",
-  "description": "Async testing patterns with pytest-asyncio. Use when writing tests, mocking async code, testing database operations, or debugging test failures.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:31.032400Z"
+  "path": "skills/py-testing-async/SKILL.md",
+  "source": "github.com/CJHarmath/claude-agents-skills",
+  "downloaded_at": "2026-01-14T02:34:04.325890Z"
 }

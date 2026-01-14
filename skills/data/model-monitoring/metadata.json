@@ -1,11 +1,7 @@
 {
   "name": "model-monitoring",
-  "description": "Monitor model performance, detect data drift, concept drift, and anomalies in production using Prometheus, Grafana, and MLflow",
   "repo": "aj-geddes/useful-ai-prompts",
-  "category": "data",
-  "tags": [
-    "model",
-    "monitoring"
-  ],
-  "stars": 25
+  "path": "skills/model-monitoring/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:07.368411Z"
 }

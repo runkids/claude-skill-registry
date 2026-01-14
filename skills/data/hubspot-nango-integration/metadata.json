@@ -1,13 +1,7 @@
 {
   "name": "hubspot-nango-integration",
-  "description": "Use when writing HubSpot integration code in Nango - HubSpot-specific guidance on Search API for incremental syncs, property name variations, rate limits, and OAuth introspection",
   "repo": "NangoHQ/ai-ide-prompts",
-  "category": "development",
-  "tags": [
-    "hubspot",
-    "nango",
-    "integration"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/hubspot-nango-integration/SKILL.md",
+  "source": "github.com/NangoHQ/ai-ide-prompts",
+  "downloaded_at": "2026-01-14T01:48:13.472461Z"
 }

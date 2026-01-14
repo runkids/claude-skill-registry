@@ -1,13 +1,7 @@
 {
   "name": "security-scanning-suite",
-  "description": "Comprehensive security analysis including SAST, DAST, dependency scanning, secret detection, and vulnerability assessment. Use for security audits, CVE tracking, compliance checks, and preventing vuln",
   "repo": "doctorduke/claude-config",
-  "category": "security",
-  "tags": [
-    "security",
-    "scanning",
-    "suite"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": "skills/security-scanning-suite/SKILL.md",
+  "source": "github.com/doctorduke/claude-config",
+  "downloaded_at": "2026-01-14T03:47:47.362415Z"
 }

@@ -1,11 +1,7 @@
 {
   "name": "tmux-manage",
-  "description": "General-purpose tmux session management for containers. Use this for listing sessions, creating/attaching/killing sessions, managing windows and panes, viewing session info, and general tmux operation",
   "repo": "hsudatalks/univers-container",
-  "category": "data",
-  "tags": [
-    "tmux",
-    "manage"
-  ],
-  "stars": 0
+  "path": ".claude/skills/tmux-manage/SKILL.md",
+  "source": "github.com/hsudatalks/univers-container",
+  "downloaded_at": "2026-01-14T02:50:52.028341Z"
 }

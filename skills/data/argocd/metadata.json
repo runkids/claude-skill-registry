@@ -1,11 +1,7 @@
 {
   "name": "argocd",
-  "description": "GitOps continuous delivery with Argo CD for Kubernetes deployments. Use when implementing GitOps workflows, application sync, multi-cluster deployments, or progressive delivery. Triggers: argocd, argo",
-  "repo": "cosmix/claude-code-setup",
-  "category": "devops",
-  "tags": [
-    "argocd"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "repo": "lapc506/flutter-agentic-boilerplate",
+  "path": "skills/cicd/argocd/SKILL.md",
+  "source": "github.com/lapc506/flutter-agentic-boilerplate",
+  "downloaded_at": "2026-01-14T03:08:41.158035Z"
 }

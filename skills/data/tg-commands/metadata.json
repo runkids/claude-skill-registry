@@ -1,10 +1,7 @@
 {
   "name": "tg-commands",
-  "description": "Django management command patterns for the World of Darkness application. Use when creating custom management commands for data validation, monitoring, batch processing, or maintenance tasks. Triggers",
   "repo": "charlesmsiegel/tg",
-  "category": "data",
-  "tags": [
-    "commands"
-  ],
-  "stars": 1
+  "path": ".claude/skills/tg-commands/SKILL.md",
+  "source": "github.com/charlesmsiegel/tg",
+  "downloaded_at": "2026-01-14T04:01:30.866387Z"
 }

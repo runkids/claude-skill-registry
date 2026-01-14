@@ -1,12 +1,7 @@
 {
   "name": "write-issue",
-  "description": "Create or update project issues following the Epic specification format with Behaviors (Rules + Examples), Technical Specifications (Action/Hook/Component/Service), and task lists. Use when user asks ",
-  "repo": "coeus-ventures/web-template",
-  "category": "design",
-  "tags": [
-    "write",
-    "issue"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "tldraw/tldraw",
+  "path": ".claude/skills/write-issue/SKILL.md",
+  "source": "github.com/tldraw/tldraw",
+  "downloaded_at": "2026-01-14T02:17:33.687368Z"
 }

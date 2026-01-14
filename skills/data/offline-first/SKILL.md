@@ -1,93 +1,104 @@
 ---
-name: vibe-coder
-description: |
-  Describe your idea, get a deployed product. All Craft Coder skills + brainstorm, validation, marketing.
-  Use when: user wants to build something from an idea, prototype, or MVP.
-  Triggers: "build app", "create website", "make MVP", "I have an idea",
-  "хочу приложение", "создать сайт", "сделать MVP".
+name: offline-first
+description: Local storage, data sync, and conflict resolution for offline-capable apps.
 ---
 
-# Vibe Coder
+# Offline-First
 
-Describe what you want. Get a deployed product.
+## Storage Options
 
-## The Vibe
+| Option | Use Case |
+|--------|----------|
+| AsyncStorage | Simple key-value |
+| MMKV | Fast key-value |
+| SQLite | Complex queries |
+| WatermelonDB | Large datasets, sync |
 
+## MMKV (Recommended)
+
+```typescript
+import { MMKV } from 'react-native-mmkv';
+
+const storage = new MMKV();
+
+// Store
+storage.set('user', JSON.stringify(user));
+storage.set('token', 'abc123');
+
+// Retrieve
+const user = JSON.parse(storage.getString('user') || '{}');
+const token = storage.getString('token');
+
+// Delete
+storage.delete('token');
 ```
-You: "I want an app for tracking expenses"
-     ↓
-Claude: Asks a few questions
-     ↓
-Claude: Builds everything (hidden complexity)
-     ↓
-You: ✅ Done! [Preview] [Deploy]
+
+## Sync Strategy
+
+### Optimistic Updates
+
+```typescript
+async function updateItem(id: string, data: Partial<Item>) {
+  // 1. Update local immediately
+  await localDb.update(id, { ...data, _synced: false });
+
+  // 2. Update UI
+  queryClient.setQueryData(['item', id], (old) => ({
+    ...old,
+    ...data,
+  }));
+
+  // 3. Sync to server
+  try {
+    await api.updateItem(id, data);
+    await localDb.update(id, { _synced: true });
+  } catch (error) {
+    // Queue for retry
+    await syncQueue.add({ type: 'update', id, data });
+  }
+}
 ```
 
-## What's Included
+### Background Sync
 
-### MVP Workflow (unique to Vibe Coder)
-| Skill | What it does |
-|-------|--------------|
-| `brainstorming` | Refine ideas with Socratic dialogue |
-| `idea-validation` | Validate problem/solution fit |
-| `stack-selector` | Choose tech stack automatically |
-| `ui-generator` | Create UI from descriptions |
-| `feature-builder` | Add features incrementally |
-| `db-designer` | Design database schema |
-| `api-generator` | Generate API endpoints |
-| `deploy-automation` | Deploy to production |
+```typescript
+import NetInfo from '@react-native-community/netinfo';
 
-### All Craft Coder Skills (40+)
-- **Backend**: Python, Node.js, Rust
-- **Frontend**: React, design systems
-- **Mobile**: React Native, Expo
-- **Data**: Pipelines, dbt, Airflow
-- **Infrastructure**: Terraform, K8s, monitoring
-- **Quality**: Testing, code review, debugging
+NetInfo.addEventListener((state) => {
+  if (state.isConnected) {
+    syncQueue.processAll();
+  }
+});
+```
 
-## Commands
+## Conflict Resolution
 
-| Command | Purpose |
-|---------|---------|
-| `/vibe:brainstorm` | Refine idea with Socratic dialogue |
-| `/vibe:idea` | Start from scratch with simple questions |
-| `/vibe:build` | Create the app (full pipeline) |
-| `/vibe:add` | Add feature to existing app |
-| `/vibe:preview` | Show current state |
-| `/vibe:deploy` | Publish to production |
+```typescript
+// Last-write-wins
+if (serverItem.updatedAt > localItem.updatedAt) {
+  await localDb.update(id, serverItem);
+} else {
+  await api.updateItem(id, localItem);
+}
 
-## Agents
+// Or: Manual resolution
+if (hasConflict) {
+  showConflictResolver(serverItem, localItem);
+}
+```
 
-- **vibe-coder** — Build apps from descriptions
-- **code-reviewer** — Review code automatically
+## Network Status
 
-## Hidden Pipeline
+```typescript
+function useNetworkStatus() {
+  const [isOnline, setIsOnline] = useState(true);
 
-Every change runs through:
-1. TDD (test first, then implement)
-2. Automated tests
-3. Security checks (OWASP)
-4. Code review (auto-fix issues)
+  useEffect(() => {
+    return NetInfo.addEventListener((state) => {
+      setIsOnline(state.isConnected ?? false);
+    });
+  }, []);
 
-User only sees ✅ or ❌ — never the process.
-
-## Templates
-
-| Template | When to use |
-|----------|-------------|
-| nextjs-supabase | Web apps, SaaS, dashboards |
-| fastapi-postgres | APIs, backends, AI/ML projects |
-| hono-drizzle | Edge, serverless, Cloudflare |
-| landing-page | Marketing sites, portfolios |
-
-Stack selector chooses automatically.
-
-## No Technical Jargon
-
-You never need to know:
-- What framework to use
-- How to structure code
-- What tests to write
-- How to deploy
-
-Just describe what you want. Vibe coding at its finest.
+  return isOnline;
+}
+```

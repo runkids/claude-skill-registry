@@ -1,12 +1,7 @@
 {
   "name": "thought-leadership",
-  "description": "Create thought leadership content including long-form articles, essays, and opinion pieces. Use when the user needs authoritative content, wants to establish expertise, or needs to articulate a unique",
   "repo": "az9713/ai-co-writing-claude-skills",
-  "category": "marketing",
-  "tags": [
-    "thought",
-    "leadership"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/thought-leadership/SKILL.md",
+  "source": "github.com/az9713/ai-co-writing-claude-skills",
+  "downloaded_at": "2026-01-14T03:14:00.210233Z"
 }

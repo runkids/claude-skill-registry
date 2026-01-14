@@ -1,11 +1,7 @@
 {
   "name": "nextjs",
-  "description": "Provides Next.js project architecture expertise and implementation patterns. Enforces BFF (Backend for Frontend) pattern, Server Components strategy, and data fetching policies. Specializes in App Rou",
-  "repo": "specvital/web",
-  "category": "design",
-  "tags": [
-    "nextjs"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "KubrickCode/Repo-Management",
+  "path": ".claude/skills/nextjs/SKILL.md",
+  "source": "github.com/KubrickCode/Repo-Management",
+  "downloaded_at": "2026-01-14T04:01:56.023320Z"
 }

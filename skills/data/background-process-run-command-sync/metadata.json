@@ -1,8 +1,7 @@
 {
   "name": "background-process-run-command-sync",
   "repo": "X-School-Academy/ai-dev-swarm",
-  "category": "data",
-  "description": "To run a short command and wait for the result, execute a synchronous shell command via the manager and return full output.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:12.416379Z"
+  "path": "dev-swarm/mcp-skills/background-process-run-command-sync/SKILL.md",
+  "source": "github.com/X-School-Academy/ai-dev-swarm",
+  "downloaded_at": "2026-01-14T02:33:42.766486Z"
 }

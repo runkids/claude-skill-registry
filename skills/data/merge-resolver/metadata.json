@@ -1,12 +1,7 @@
 {
   "name": "merge-resolver",
-  "description": "Resolve merge conflicts intelligently using git history. Fetches PR context, identifies conflicted files, uses git blame and commit history to infer developer intent. Applies resolution strategies bas",
   "repo": "rjmurillo/ai-agents",
-  "category": "development",
-  "tags": [
-    "merge",
-    "resolver"
-  ],
-  "stars": 3,
-  "source": "local"
+  "path": ".claude/skills/merge-resolver/SKILL.md",
+  "source": "github.com/rjmurillo/ai-agents",
+  "downloaded_at": "2026-01-14T02:20:51.112327Z"
 }

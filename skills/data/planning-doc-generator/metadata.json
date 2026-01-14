@@ -1,13 +1,7 @@
 {
   "name": "planning-doc-generator",
-  "description": "Generate project assessment markdown documents from JSON data with WHY/WHO/WHAT",
   "repo": "matteocervelli/llms",
-  "category": "documents",
-  "tags": [
-    "planning",
-    "doc",
-    "generator"
-  ],
-  "stars": 10,
-  "source": "local"
+  "path": ".claude/skills/planning-doc-generator/SKILL.md",
+  "source": "github.com/matteocervelli/llms",
+  "downloaded_at": "2026-01-14T03:06:50.564432Z"
 }

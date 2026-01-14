@@ -1,12 +1,7 @@
 {
   "name": "bug-hunter",
-  "description": "Copilot agent that assists with bug investigation, root cause analysis, and fix generation for efficient debugging and issue resolutionTrigger terms: bug fix, debug, troubleshoot, root cause analysis,",
-  "repo": "nahisaho/MUSUBI",
-  "category": "development",
-  "tags": [
-    "bug",
-    "hunter"
-  ],
-  "stars": 19,
-  "source": "SkillsMP Synced Skills"
+  "repo": "gaebalai/itda-sdd",
+  "path": "src/templates/agents/claude-code/skills/bug-hunter/SKILL.md",
+  "source": "github.com/gaebalai/itda-sdd",
+  "downloaded_at": "2026-01-14T03:55:14.143364Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "evaluation-reporting-framework",
-  "description": "Evaluation and reporting for code quality, performance, security, architecture, team processes, AI/LLM outputs, A/B tests, ROI analysis, and compliance. Scoring systems, benchmarking, dashboard creati",
   "repo": "doctorduke/claude-config",
-  "category": "data",
-  "tags": [
-    "evaluation",
-    "reporting",
-    "framework"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/evaluation-reporting-framework/SKILL.md",
+  "source": "github.com/doctorduke/claude-config",
+  "downloaded_at": "2026-01-14T03:47:48.441156Z"
 }

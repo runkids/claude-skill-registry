@@ -1,11 +1,7 @@
 {
   "name": "cli",
-  "description": "Prefect CLI commands for mutations. The MCP server is read-only - use this skill when you need to trigger deployments, cancel flow runs, create automations, or modify Prefect resources.",
-  "repo": "PrefectHQ/prefect-mcp-server",
-  "category": "productivity",
-  "tags": [
-    "cli"
-  ],
-  "stars": 23,
-  "source": "SkillsMP Synced Skills"
+  "repo": "zzstoatzz/plyr-python-client",
+  "path": "packages/plyrfm-mcp/skills/cli/SKILL.md",
+  "source": "github.com/zzstoatzz/plyr-python-client",
+  "downloaded_at": "2026-01-14T02:42:52.659892Z"
 }

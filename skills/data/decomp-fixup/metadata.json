@@ -1,12 +1,7 @@
 {
   "name": "decomp-fixup",
-  "description": "Fix build issues for matched functions in the Melee decompilation project. Use this skill when builds are failing due to header mismatches, signature issues, or caller updates needed after a function ",
   "repo": "itsgrimetime/melee-decomp",
-  "category": "development",
-  "tags": [
-    "decomp",
-    "fixup"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/decomp-fixup/SKILL.md",
+  "source": "github.com/itsgrimetime/melee-decomp",
+  "downloaded_at": "2026-01-14T01:51:04.916009Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "gh-check-ci-status",
-  "description": "Check CI/CD status of a pull request including workflow runs and test results. Use when verifying if PR checks are passing or investigating CI failures.",
   "repo": "mvillmow/ProjectOdyssey",
-  "category": "devops",
-  "tags": [
-    "check",
-    "status"
-  ],
-  "stars": 8,
-  "source": "local"
+  "path": ".claude/skills/gh-check-ci-status/SKILL.md",
+  "source": "github.com/mvillmow/ProjectOdyssey",
+  "downloaded_at": "2026-01-14T01:08:57.791918Z"
 }

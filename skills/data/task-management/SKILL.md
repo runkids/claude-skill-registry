@@ -1,401 +1,82 @@
 ---
 name: task-management
-description: Task decomposition, dependency analysis, and parallel execution orchestration. Use when breaking down features into tasks, analyzing task dependencies, planning parallel execution strategies, or coordinating multi-agent workflows. Covers dependency detection, execution grouping, resource conflict prevention, and performance optimization.
+description: A comprehensive framework for high-performance engineering management and task execution. It guides users through reducing ambiguity, defining "Done," choosing the optimal leadership positioning, and managing risks via implication-based communication.
 ---
 
-# Task Management Skill
+# Task Management
 
-## Purpose
+This skill operationalizes "Seniority" and "Engineering Management" into a repeatable process. It enforces standards for reducing ambiguity, defining completion based on business value, and positioning oneself effectively between technical details and strategic direction.
 
-Provide systematic approaches for decomposing complex features into executable tasks, analyzing dependencies, and orchestrating parallel execution for optimal performance.
+## 1. Phase: Ambiguity Reduction (The Seniority Test)
 
-**Key Capabilities**:
-- Feature decomposition strategies
-- Dependency graph analysis
-- Parallel execution planning
-- Resource conflict detection
-- Performance optimization
+True seniority is defined by the ability to take abstract/fuzzy requirements and turn them into concrete plans. Before execution, you must define the problem, not just the solution.
 
----
+**Diagnostic Questions:**
 
-## When to Use This Skill
+1. **What is the underlying problem?** (Separate the requested solution from the actual pain point).
+2. **Who is the specific user?** (Be specific; "the team" or "users" is insufficient).
+3. **The "Why" Test:** Can the engineer explain *why* this feature exists in the product vision? If the answer is "because PM asked," the context is broken.
+4. **Risk Assessment:** What happens if we are wrong?
 
-Auto-activates when:
-- Planning feature implementation (breaking down PRPs)
-- Analyzing task dependencies (what depends on what)
-- Orchestrating multi-agent execution (parallel vs sequential)
-- Optimizing workflow performance (speedup calculations)
-- Detecting resource conflicts (file access, shared state)
+**Output Required:**
 
----
+- A **Problem Statement** that replaces the original vague request.
+- **Clarification Action Items** (e.g., "Sync with stakeholders regarding naming conventions") [Conversation History].
 
-## Quick Start
+## 2. Phase: Strategic Positioning (Command & Control)
 
-### Feature Decomposition Checklist
+Do not blindly "work hard." Determine your optimal positioning based on **Situational Awareness** (knowing what/why is happening) and **Operational Clarity** (team knows what to do).
 
-- [ ] **Identify deliverables**: What files/features must exist?
-- [ ] **Extract tasks**: One task per cohesive unit (1 file or tightly related files)
-- [ ] **Detect dependencies**: Which tasks must complete before others?
-- [ ] **Group by parallelism**: Which tasks can run simultaneously?
-- [ ] **Assign domains**: Which expert handles each task?
-- [ ] **Validate completeness**: Do tasks cover entire feature?
+**Select Your Mode:**
 
-### Dependency Analysis Checklist
+- **Crisis Mode** (Low Awareness, Low Clarity): **Learn & Stabilise.** Prioritize coding/investigation to regain control immediately.
+- **Ambiguity** (High Awareness, Low Clarity): **Lead by Example.** Code alongside the team to set standards and build shared understanding.
+- **Flying Blind** (Low Awareness, High Clarity): **Passive Coding.** Trust the team's direction but do targeted contributions (e.g., bug fixes) to ramp up context.
+- **Clarity** (High Awareness, High Clarity): **Strategic Direction.** Step back from coding. Focus on long-term planning, risk mitigation, and "Wolf Time" (71/29 rule) allocation.
 
-- [ ] **File-level**: Which files create vs. consume?
-- [ ] **Data-level**: Which outputs feed into inputs?
-- [ ] **Tool-level**: Which commands must run sequentially?
-- [ ] **Domain-level**: Which expertise areas must coordinate?
+## 3. Phase: Definition of "Done" (Artifacts over Efforts)
 
-### Parallel Execution Checklist
+"Done" is not a feeling or an effort; it is a social construct defined by the satisfaction of the stakeholder/company. Work is only complete when it produces readable results.
 
-- [ ] **Independence check**: Tasks don't modify same files
-- [ ] **Grouping**: Max 2-6 tasks per parallel group
-- [ ] **Context preparation**: All contexts ready BEFORE invocation
-- [ ] **Single response**: All Task() calls in ONE message
-- [ ] **Performance validation**: Timing confirms parallelization
+**Standard for Engineering Completion:**
 
----
+Development is effectively "Done" only when the following artifacts exist:
 
-## Core Principles (5 Key Rules)
+1. **PR Merged**: Code review passed and merged.
+2. **CD Image**: A deployable image generated via CI/CD.
+3. **Versioned Helm Chart**: A chart capable of running the image.
+4. **End-to-End Validation**: Proof that it works in the target environment (e.g., specific GPU targeting confirmed).
 
-### 1. Single Responsibility Per Task
+**The "Done" Manifesto:**
 
-Each task should accomplish ONE cohesive goal:
+- Do not report "Investigation" as a result. Report the **Document** produced.
+- Do not report "Refactoring" as a result. Report the **Performance Metric** improved or **Tech Debt** removed.
+- **Declare Victory and Leave:** When the criteria are met, explicitly state "This task is complete" and move to the next challenge. Do not get trapped in infinite gardening.
 
-```yaml
-✅ GOOD - Focused tasks
-Task 1: Create user model (src/models/user.py)
-Task 2: Create user API endpoints (src/api/users.py)
-Task 3: Create user tests (tests/test_users.py)
+## 4. Phase: Execution & Communication
 
-❌ BAD - Monolithic task
-Task 1: Implement entire user system (10 files, mixed concerns)
-```
+Communication must bridge the gap between technical facts and business decisions.
 
-**Why**: Parallel execution, clear validation, easier debugging
+**Implication-Based Communication:**
 
-### 2. Explicit Dependency Tracking
+- **BAD (Fact-only):** "OOM occurred." / "Cache hit rate changed."
+- **GOOD (Implication):** "OOM occurred, which implies we cannot support the target batch size. Recommendation: Decrease batch size or increase GPU memory request."
 
-Dependencies must be explicit, not assumed:
+**Risk Management:**
 
-```yaml
-✅ GOOD - Clear dependencies
-Task 2: Create user API
-DEPENDS_ON: [Task 1]  # Needs user model
-FILES_CONSUMED: src/models/user.py
+If the "Expected Result" and the "Schedule" are misaligned:
 
-❌ BAD - Implicit dependencies
-Task 2: Create user API
-# Silently expects user model to exist
-```
+1. **Acknowledge** the gap immediately.
+2. **Identify** the cause.
+3. **Propose** a mitigation plan (e.g., "Draft by Jan 7, Final by Jan 14").
 
-**Why**: Enables dependency-aware grouping, prevents failures
+## Example Usage
 
-### 3. Parallel Groups Must Be Independent
+**Input Task:** "Action item: Please actually write the templates and validate that they work end-to-end."
 
-Tasks in same group cannot conflict:
+**Applied Framework:**
 
-```python
-✅ GOOD - Independent tasks
-Group 1 (parallel):
-  - Task 1: Create src/models/user.py
-  - Task 2: Create src/models/post.py
-  - Task 3: Create src/models/comment.py
-# Different files, no conflicts
-
-❌ BAD - Conflicting tasks
-Group 1 (parallel):
-  - Task 1: Create src/api/routes.py (lines 1-50)
-  - Task 2: Modify src/api/routes.py (lines 51-100)
-# Same file, race condition!
-```
-
-**Why**: File conflicts, race conditions, corrupted output
-
-### 4. Context Preparation Before Invocation
-
-Prepare ALL contexts BEFORE making any Task() calls:
-
-```python
-✅ GOOD - Parallel execution pattern
-# 1. Prepare contexts
-ctx1 = f"Task 1: Create {file1}..."
-ctx2 = f"Task 2: Create {file2}..."
-ctx3 = f"Task 3: Create {file3}..."
-
-# 2. Invoke all in SAME response
-Task(subagent_type="expert1", prompt=ctx1)
-Task(subagent_type="expert2", prompt=ctx2)
-Task(subagent_type="expert3", prompt=ctx3)
-# Time = max(T1, T2, T3)
-
-❌ BAD - Sequential invocation
-for task in tasks:  # Loop = sequential!
-    Task(subagent_type="expert", prompt=task)
-# Time = T1 + T2 + T3 (3x slower)
-```
-
-**Why**: Parallel execution (3x speedup), efficiency
-
-### 5. Validate Performance Gains
-
-Measure actual speedup from parallelization:
-
-```python
-✅ GOOD - Performance validation
-sequential_time = sum([5, 4, 5])  # 14 minutes
-parallel_time = max([5, 4, 5])    # 5 minutes
-speedup = (14 - 5) / 14 * 100     # 64% faster
-
-if speedup < 50:
-    print("WARNING: Expected 50%+ speedup, got {speedup}%")
-```
-
-**Why**: Confirms parallelization working, detects sequential execution bugs
-
----
-
-## Common Patterns
-
-### Pattern 1: Linear Dependency Chain
-
-**Use Case**: Each task builds on previous (A → B → C → D)
-
-**Strategy**: Sequential execution groups
-
-```yaml
-Group 1: Task A (foundation)
-Group 2: Task B (depends on A)
-Group 3: Task C (depends on B)
-Group 4: Task D (depends on C)
-
-# No parallelization possible
-# Total time = TA + TB + TC + TD
-```
-
-### Pattern 2: Independent Parallel Tasks
-
-**Use Case**: No dependencies between tasks (A, B, C independent)
-
-**Strategy**: Single parallel group
-
-```yaml
-Group 1 (parallel):
-  - Task A (src/models/user.py)
-  - Task B (src/models/post.py)
-  - Task C (src/models/comment.py)
-
-# Time = max(TA, TB, TC) ≈ 33% of sequential
-```
-
-### Pattern 3: Parallel with Shared Dependency
-
-**Use Case**: Multiple tasks depend on same foundation (A → B, A → C, A → D)
-
-**Strategy**: Sequential foundation, parallel dependents
-
-```yaml
-Group 1: Task A (foundation - e.g., database schema)
-Group 2 (parallel):  # All depend on A completing
-  - Task B (user API)
-  - Task C (post API)
-  - Task D (comment API)
-
-# Time = TA + max(TB, TC, TD)
-```
-
-### Pattern 4: Multi-Level Dependency Tree
-
-**Use Case**: Complex dependency graph
-
-**Strategy**: Topological sort + grouping
-
-```yaml
-Group 1: [A, B]          # No dependencies, run parallel
-Group 2: [C]             # Depends on A
-Group 3: [D, E]          # D depends on B, E depends on C
-Group 4: [F]             # Depends on D and E
-
-# Time = max(TA,TB) + TC + max(TD,TE) + TF
-```
-
----
-
-## Quick Reference
-
-### Dependency Types
-
-| Type | Example | Detection |
-|------|---------|-----------|
-| File Creation | Task 2 imports Task 1's file | Read file list |
-| Data Flow | Task 2 uses Task 1's output | Read task descriptions |
-| Tool Order | `terraform apply` after `terraform plan` | Domain knowledge |
-| Domain Order | Backend before frontend (API first) | Architecture convention |
-
-### Parallelization Limits
-
-| Scenario | Max Parallel Tasks | Reason |
-|----------|-------------------|--------|
-| Optimal | 2-6 tasks | Claude API limits |
-| File conflicts | 1 task per file | Race conditions |
-| Shared state | 1 task | Data corruption |
-| Complex coordination | 3 tasks | Diminishing returns |
-
-### Performance Calculation
-
-```python
-# Sequential time
-sequential = sum(task_durations)
-
-# Parallel time
-parallel = max(task_durations)
-
-# Speedup percentage
-speedup = (sequential - parallel) / sequential * 100
-
-# Efficiency (ideal = 100% per core)
-efficiency = speedup / num_parallel_tasks * 100
-```
-
----
-
-## Anti-Patterns to Avoid
-
-### ❌ Anti-Pattern 1: Over-Granular Tasks
-
-**Problem**: 50 micro-tasks for simple feature
-**Issue**: Coordination overhead > execution time
-**Fix**: Combine related changes into cohesive tasks
-
-### ❌ Anti-Pattern 2: Mega-Tasks
-
-**Problem**: One task creates 20 files
-**Issue**: No parallelization, unclear validation
-**Fix**: Decompose into single-responsibility tasks
-
-### ❌ Anti-Pattern 3: Hidden Dependencies
-
-**Problem**: Task silently expects file from previous task
-**Issue**: Race conditions, failures in parallel execution
-**Fix**: Explicit DEPENDS_ON declarations
-
-### ❌ Anti-Pattern 4: Parallelizing Dependent Tasks
-
-**Problem**: Running Task B before Task A completes (B depends on A)
-**Issue**: Task B fails, wasted execution time
-**Fix**: Dependency-aware grouping (sequential groups)
-
-### ❌ Anti-Pattern 5: Sequential Invocation in Loop
-
-**Problem**: `for task in tasks: Task(...)`
-**Issue**: 3x slower than parallel (defeats purpose)
-**Fix**: All Task() calls in single response
-
----
-
-## Workflow Example
-
-### Scenario: Implement User Authentication Feature
-
-**Step 1: Decompose Feature**
-
-```yaml
-Deliverables:
-  - User model with password hashing
-  - Authentication API endpoints
-  - JWT token management
-  - Login/logout/refresh routes
-  - Integration tests
-
-Tasks:
-  Task 1: Create User model (src/models/user.py)
-  Task 2: Create auth service (src/services/auth.py)
-  Task 3: Create JWT utilities (src/utils/jwt.py)
-  Task 4: Create auth endpoints (src/api/auth.py)
-  Task 5: Create tests (tests/test_auth.py)
-```
-
-**Step 2: Analyze Dependencies**
-
-```yaml
-Task 1 (User model):
-  DEPENDS_ON: []
-  CREATES: src/models/user.py
-
-Task 2 (Auth service):
-  DEPENDS_ON: [Task 1]  # Imports User model
-  CREATES: src/services/auth.py
-
-Task 3 (JWT utils):
-  DEPENDS_ON: []  # Independent utility
-  CREATES: src/utils/jwt.py
-
-Task 4 (Auth endpoints):
-  DEPENDS_ON: [Task 2, Task 3]  # Uses auth service + JWT
-  CREATES: src/api/auth.py
-
-Task 5 (Tests):
-  DEPENDS_ON: [Task 4]  # Tests complete system
-  CREATES: tests/test_auth.py
-```
-
-**Step 3: Group by Parallelism**
-
-```yaml
-Group 1 (parallel):
-  - Task 1 (User model)
-  - Task 3 (JWT utils)
-# Independent tasks, different files
-
-Group 2 (sequential):
-  - Task 2 (Auth service - depends on Group 1)
-
-Group 3 (sequential):
-  - Task 4 (Auth endpoints - depends on Group 2)
-
-Group 4 (sequential):
-  - Task 5 (Tests - depends on Group 3)
-
-# Time = max(T1,T3) + T2 + T4 + T5
-# vs Sequential: T1 + T2 + T3 + T4 + T5
-# Speedup: ~20% (limited by dependency chain)
-```
-
-**Step 4: Execute with Prepared Contexts**
-
-```python
-# Group 1 - Parallel execution
-ctx1 = f"Create User model at src/models/user.py..."
-ctx3 = f"Create JWT utilities at src/utils/jwt.py..."
-
-Task(subagent_type="python-backend-expert", prompt=ctx1)
-Task(subagent_type="python-backend-expert", prompt=ctx3)
-
-# Groups 2-4 run sequentially after Group 1 completes
-```
-
----
-
-## Navigation Guide
-
-| Need to... | Read this |
-|------------|-----------|
-| Analyze complex dependencies | [dependency-analysis.md](resources/dependency-analysis.md) |
-| Optimize parallel execution | [parallel-execution.md](resources/parallel-execution.md) |
-
----
-
-## Resource Files
-
-### [dependency-analysis.md](resources/dependency-analysis.md)
-Comprehensive dependency detection algorithms, graph analysis, conflict resolution strategies
-
-### [parallel-execution.md](resources/parallel-execution.md)
-Advanced parallelization patterns, performance benchmarking, optimization techniques
-
----
-
-**Skill Status**: COMPLETE ✅
-**Line Count**: 412 ✅
-**Progressive Disclosure**: 2 resource files ✅
+1. **Ambiguity:** Clarified "Write templates" -> "Create Odin presets for specific GPU models." Synced on naming conventions.
+2. **Positioning:** **Ambiguity Mode**. The manager/senior engineer will write the initial templates (Lead by Example) to set the standard for the Hanoi team.
+3. **Definition of Done:** Artifacts = Preset File + Doc + Validation Log + Versioned Chart.
+4. **Closing:** "Task Complete. Hanoi team can now target GPUs using label `x`. Documentation is at `link`."

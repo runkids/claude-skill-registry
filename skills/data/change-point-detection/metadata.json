@@ -1,13 +1,7 @@
 {
   "name": "change-point-detection",
-  "description": "Use when segmenting time-series into regimes, detecting structural breaks, or constructing context sets for few-shot learning. Covers GP-CPD algorithms, Matérn kernels, likelihood ratio tests, regime ",
   "repo": "Donaldshen27/xtrend-vanilla",
-  "category": "testing",
-  "tags": [
-    "change",
-    "point",
-    "detection"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/change-point-detection/SKILL.md",
+  "source": "github.com/Donaldshen27/xtrend-vanilla",
+  "downloaded_at": "2026-01-14T03:51:52.772786Z"
 }

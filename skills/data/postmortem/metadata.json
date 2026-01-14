@@ -1,10 +1,7 @@
 {
   "name": "postmortem",
-  "description": "Use when analyzing failures, outages, incidents, or negative outcomes, conducting blameless postmortems, documenting root causes with 5 Whys or fishbone diagrams, identifying corrective actions with o",
-  "repo": "lyndonkl/claude",
-  "category": "data",
-  "tags": [
-    "postmortem"
-  ],
-  "stars": 8
+  "repo": "edwardmonteiro/Aiskillinpractice",
+  "path": "skills/optimization/postmortem/SKILL.md",
+  "source": "github.com/edwardmonteiro/Aiskillinpractice",
+  "downloaded_at": "2026-01-14T01:51:11.325652Z"
 }

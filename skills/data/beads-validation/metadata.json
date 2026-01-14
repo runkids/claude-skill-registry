@@ -1,12 +1,7 @@
 {
   "name": "beads-validation",
-  "description": "Validates beads issues after creation. Checks dependencies, PRD mapping, order, and issue quality.Use when: after creating issues, before TDD loop, before handoff.Triggers: \"validate beads\", \"check is",
-  "repo": "timequity/vibe-coder",
-  "category": "testing",
-  "tags": [
-    "beads",
-    "validation"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "timequity/plugins",
+  "path": "vibe-coder/skills/beads-validation/SKILL.md",
+  "source": "github.com/timequity/plugins",
+  "downloaded_at": "2026-01-14T03:41:24.088855Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "vscode-extension-expert",
-  "description": "This skill provides expert-level guidance for VS Code extension development. Use when implementing new extension features, debugging extension code, designing WebView UIs, implementing Language Server",
   "repo": "s-hiraoku/vscode-sidebar-terminal",
-  "category": "development",
-  "tags": [
-    "vscode",
-    "extension",
-    "expert"
-  ],
-  "stars": 6,
-  "source": "local"
+  "path": ".claude/skills/vscode-extension-expert/SKILL.md",
+  "source": "github.com/s-hiraoku/vscode-sidebar-terminal",
+  "downloaded_at": "2026-01-14T03:50:55.137122Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "zhipu-search",
-  "description": "根据用户给出的搜索关键语句，调用zhipu的搜索引擎得到搜索结果。",
-  "repo": "flyingtimes/clark-skill-collection",
-  "category": "development",
-  "tags": [
-    "zhipu",
-    "search"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "flyingtimes/podcast-using-skill",
+  "path": ".claude/skills/zhipu-search/SKILL.md",
+  "source": "github.com/flyingtimes/podcast-using-skill",
+  "downloaded_at": "2026-01-14T03:49:58.330478Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "pattern-discovery",
-  "description": "Pattern library discovery for pattern-first development. Use BEFORE implementing any new feature, creating components, writing API routes, or adding database operations. Ensures existing patterns are ",
   "repo": "bybren-llc/wtfb-safe-agentic-workflow",
-  "category": "development",
-  "tags": [
-    "pattern",
-    "discovery"
-  ],
-  "stars": 11,
-  "source": "local"
+  "path": ".claude/skills/pattern-discovery/SKILL.md",
+  "source": "github.com/bybren-llc/wtfb-safe-agentic-workflow",
+  "downloaded_at": "2026-01-14T02:13:29.174363Z"
 }

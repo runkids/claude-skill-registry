@@ -1,9 +1,7 @@
 {
   "name": "product-design",
-  "description": "Automates design review, token extraction, component mapping, and implementation planning. Reduces design handoff from 6-10 hours to 5 minutes via direct Figma MCP integration. Auto-invoke when user m",
   "repo": "alekspetrov/navigator",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/product-design/SKILL.md",
+  "source": "github.com/alekspetrov/navigator",
+  "downloaded_at": "2026-01-14T01:02:05.301267Z"
 }

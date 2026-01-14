@@ -1,9 +1,7 @@
 {
   "name": "ask",
-  "description": "Present a multiple-choice question to the user using AskUserQuestion tool",
   "repo": "Tony363/SuperClaude",
-  "category": "product",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/ask/SKILL.md",
+  "source": "github.com/Tony363/SuperClaude",
+  "downloaded_at": "2026-01-14T03:29:06.168015Z"
 }

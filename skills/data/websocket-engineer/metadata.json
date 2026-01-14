@@ -1,12 +1,7 @@
 {
   "name": "websocket-engineer",
-  "description": "Use when building real-time communication systems with WebSockets or Socket.IO. Invoke for bidirectional messaging, horizontal scaling with Redis, presence tracking, room management. Keywords: WebSock",
-  "repo": "Jeffallan/claude-skills",
-  "category": "development",
-  "tags": [
-    "websocket",
-    "engineer"
-  ],
-  "stars": 12,
-  "source": "local"
+  "repo": "vx-daniel/tb-docs-project",
+  "path": ".claude/skills/websocket-engineer/SKILL.md",
+  "source": "github.com/vx-daniel/tb-docs-project",
+  "downloaded_at": "2026-01-14T03:42:24.183001Z"
 }

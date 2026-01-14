@@ -1,424 +1,282 @@
 ---
 name: resend
-description: Resend email API via curl. Use this skill to send transactional emails, manage contacts, domains, and API keys.
-vm0_secrets:
-  - RESEND_API_KEY
+description: >
+  Implement email notifications for PhotoVault using Resend and React Email.
+  Use when working with email templates, transactional emails, notification
+  triggers, deliverability issues, or styling email content. Includes
+  PhotoVault branding and template patterns.
 ---
 
-# Resend Email API
+# ⚠️ MANDATORY WORKFLOW - DO NOT SKIP
 
-Send transactional emails, manage contacts, and domains via Resend's REST API.
+**When this skill activates, you MUST follow the expert workflow before writing any code:**
 
-> Official docs: https://resend.com/docs/api-reference/introduction
+1. **Spawn Domain Expert** using the Task tool with this prompt:
+   ```
+   Read the expert prompt at: C:\Users\natha\Stone-Fence-Brain\VENTURES\PhotoVault\claude\experts\resend-expert.md
 
----
+   Then research the codebase and write an implementation plan to: docs/claude/plans/email-[task-name]-plan.md
 
-## When to Use
+   Task: [describe the user's request]
+   ```
 
-Use this skill when you need to:
+2. **Spawn QA Critic** after expert returns, using Task tool:
+   ```
+   Read the QA critic prompt at: C:\Users\natha\Stone-Fence-Brain\VENTURES\PhotoVault\claude\experts\qa-critic-expert.md
 
-- Send transactional emails (welcome, password reset, notifications)
-- Send batch emails to multiple recipients
-- Manage email contacts and audiences
-- Verify and manage sending domains
-- Track email delivery status
+   Review the plan at: docs/claude/plans/email-[task-name]-plan.md
+   Write critique to: docs/claude/plans/email-[task-name]-critique.md
+   ```
 
----
+3. **Present BOTH plan and critique to user** - wait for approval before implementing
 
-## Prerequisites
-
-1. Sign up at https://resend.com
-2. Go to API Keys: https://resend.com/api-keys
-3. Create a new API key
-
-Set environment variable:
-
-```bash
-export RESEND_API_KEY="re_xxxxxxxxx"
-```
-
-> **Important:** When using `$VAR` in a command that pipes to another command, wrap the command containing `$VAR` in `bash -c '...'`. Due to a Claude Code bug, environment variables are silently cleared when pipes are used directly.
-
-> **Placeholders:** Values in `{curly-braces}` like `{email-id}` are placeholders. Replace them with actual values when executing.
+**DO NOT read files and start coding. DO NOT rationalize that "this is simple." Follow the workflow.**
 
 ---
 
-## Emails
+# Resend Email Integration
 
-### Send Email
+## Core Principles
 
-Write to `/tmp/resend_request.json`:
+### Email HTML is NOT Web HTML
 
-```json
-{
-  "from": "Acme <onboarding@resend.dev>",
-  "to": ["<your-recipient-email>"],
-  "subject": "<your-subject>",
-  "html": "<p><your-html-content></p>"
+Email clients strip `<style>` tags, ignore CSS classes, and render tables differently. Everything must be inline.
+
+```tsx
+// ❌ BAD: CSS classes don't work
+<div className="button">Click me</div>
+
+// ✅ GOOD: Inline styles
+<a href={url} style={{
+  backgroundColor: '#f59e0b',
+  color: '#000000',
+  padding: '12px 24px',
+  borderRadius: '8px',
+  textDecoration: 'none',
+  display: 'inline-block',
+}}>
+  Click me
+</a>
+```
+
+### Mobile First (60%+ opens)
+
+Most emails are read on phones. Design for 320px width first.
+
+```tsx
+const container = {
+  maxWidth: '600px',
+  padding: '20px',
+  margin: '0 auto',
 }
 ```
 
-Then run:
+### Every Email Needs a Preview
 
-```bash
-bash -c 'curl -s -X POST "https://api.resend.com/emails" --header "Authorization: Bearer $RESEND_API_KEY" --header "Content-Type: application/json" -d @/tmp/resend_request.json'
+The preview text appears in the inbox next to the subject.
+
+```tsx
+import { Preview } from '@react-email/components'
+<Preview>Your gallery "Smith Wedding" is ready with 247 photos</Preview>
 ```
 
-### Send Email with Plain Text
+## Anti-Patterns
 
-Write to `/tmp/resend_request.json`:
+**Using CSS classes or external stylesheets**
+```tsx
+// WRONG: Won't render
+<style>{`.button { background: blue; }`}</style>
+<a className="button">Click</a>
 
-```json
-{
-  "from": "Acme <onboarding@resend.dev>",
-  "to": ["<your-recipient-email>"],
-  "subject": "<your-subject>",
-  "text": "<your-plain-text-content>"
+// RIGHT: Inline everything
+<a style={{ backgroundColor: 'blue', padding: '12px 24px' }}>Click</a>
+```
+
+**Using flexbox or grid**
+```tsx
+// WRONG: Not supported in most email clients
+<div style={{ display: 'flex' }}>
+
+// RIGHT: Use tables for layout
+import { Row, Column } from '@react-email/components'
+<Row>
+  <Column>Left content</Column>
+  <Column>Right content</Column>
+</Row>
+```
+
+**Forgetting alt text on images**
+```tsx
+// WRONG: Images often blocked
+<Img src={url} />
+
+// RIGHT: Always include meaningful alt
+<Img src={url} alt="Preview of your wedding photos" />
+```
+
+**Generic subject lines**
+```typescript
+// WRONG: Low open rate
+subject: 'Update from PhotoVault'
+
+// RIGHT: Specific and actionable
+subject: 'Your "Smith Wedding" gallery is ready - 247 photos inside'
+```
+
+**Not handling send failures**
+```typescript
+// WRONG: Silent failure
+await resend.emails.send({ ... })
+
+// RIGHT: Handle errors
+const { data, error } = await resend.emails.send({ ... })
+if (error) {
+  console.error('Email failed:', error)
 }
 ```
 
-Then run:
+## Email Template Pattern
 
-```bash
-bash -c 'curl -s -X POST "https://api.resend.com/emails" --header "Authorization: Bearer $RESEND_API_KEY" --header "Content-Type: application/json" -d @/tmp/resend_request.json'
-```
+```tsx
+// src/lib/email/templates/gallery-ready.tsx
+import {
+  Body, Container, Head, Heading, Html,
+  Img, Link, Preview, Section, Text,
+} from '@react-email/components'
 
-### Send Email with CC/BCC
+interface GalleryReadyEmailProps {
+  clientName: string
+  galleryName: string
+  photoCount: number
+  previewImageUrl: string
+  galleryUrl: string
+}
 
-Write to `/tmp/resend_request.json`:
+export function GalleryReadyEmail({
+  clientName, galleryName, photoCount, previewImageUrl, galleryUrl,
+}: GalleryReadyEmailProps) {
+  return (
+    <Html>
+      <Head />
+      <Preview>Your "{galleryName}" gallery is ready - {photoCount} photos inside</Preview>
+      <Body style={main}>
+        <Container style={container}>
+          <Img src="https://photovault.photo/logo.png" alt="PhotoVault" width={150} />
+          <Heading style={heading}>Hi {clientName}!</Heading>
+          <Text style={text}>
+            Your photos from <strong>{galleryName}</strong> are ready.
+            Your photographer has uploaded {photoCount} photos.
+          </Text>
+          {previewImageUrl && (
+            <Img src={previewImageUrl} alt={`Preview from ${galleryName}`} width={560} />
+          )}
+          <Section style={{ textAlign: 'center', marginTop: '30px' }}>
+            <Link href={galleryUrl} style={button}>View Your Photos</Link>
+          </Section>
+        </Container>
+      </Body>
+    </Html>
+  )
+}
 
-```json
-{
-  "from": "Acme <onboarding@resend.dev>",
-  "to": ["<your-recipient-email>"],
-  "cc": ["<your-cc-email>"],
-  "bcc": ["<your-bcc-email>"],
-  "subject": "<your-subject>",
-  "html": "<p><your-html-content></p>"
+const main = {
+  backgroundColor: '#0a0a0a',
+  fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+}
+
+const container = { maxWidth: '600px', margin: '0 auto', padding: '40px 20px' }
+const heading = { color: '#ffffff', fontSize: '28px', fontWeight: 'bold' }
+const text = { color: '#a3a3a3', fontSize: '16px', lineHeight: '26px' }
+const button = {
+  backgroundColor: '#f59e0b',
+  color: '#000000',
+  padding: '14px 28px',
+  borderRadius: '8px',
+  textDecoration: 'none',
+  fontWeight: 'bold',
+  display: 'inline-block',
 }
 ```
 
-Then run:
+## Email Service
 
-```bash
-bash -c 'curl -s -X POST "https://api.resend.com/emails" --header "Authorization: Bearer $RESEND_API_KEY" --header "Content-Type: application/json" -d @/tmp/resend_request.json'
-```
+```typescript
+// src/lib/email/email-service.ts
+import { Resend } from 'resend'
 
-### Send Email with Reply-To
+const resend = new Resend(process.env.RESEND_API_KEY)
 
-Write to `/tmp/resend_request.json`:
-
-```json
-{
-  "from": "Acme <onboarding@resend.dev>",
-  "to": ["<your-recipient-email>"],
-  "replyTo": "<your-reply-to-email>",
-  "subject": "<your-subject>",
-  "html": "<p><your-html-content></p>"
+interface SendEmailParams {
+  to: string | string[]
+  subject: string
+  react: React.ReactElement
+  replyTo?: string
 }
-```
 
-Then run:
+export async function sendEmail({ to, subject, react, replyTo }: SendEmailParams) {
+  try {
+    const { data, error } = await resend.emails.send({
+      from: 'PhotoVault <noreply@photovault.photo>',
+      to: Array.isArray(to) ? to : [to],
+      subject,
+      react,
+      replyTo: replyTo || 'support@photovault.photo',
+    })
 
-```bash
-bash -c 'curl -s -X POST "https://api.resend.com/emails" --header "Authorization: Bearer $RESEND_API_KEY" --header "Content-Type: application/json" -d @/tmp/resend_request.json'
-```
+    if (error) {
+      console.error('[Email] Send failed:', error)
+      return { success: false, error }
+    }
 
-### Send Scheduled Email
-
-Schedule email using natural language or ISO 8601 format:
-
-Write to `/tmp/resend_request.json`:
-
-```json
-{
-  "from": "Acme <onboarding@resend.dev>",
-  "to": ["<your-recipient-email>"],
-  "subject": "<your-subject>",
-  "html": "<p><your-html-content></p>",
-  "scheduledAt": "in 1 hour"
-}
-```
-
-Then run:
-
-```bash
-bash -c 'curl -s -X POST "https://api.resend.com/emails" --header "Authorization: Bearer $RESEND_API_KEY" --header "Content-Type: application/json" -d @/tmp/resend_request.json'
-```
-
-### Send Batch Emails
-
-Send up to 100 emails in a single request:
-
-Write to `/tmp/resend_request.json`:
-
-```json
-[
-  {
-    "from": "Acme <onboarding@resend.dev>",
-    "to": ["<your-recipient-1>"],
-    "subject": "Hello 1",
-    "html": "<p>Email 1</p>"
-  },
-  {
-    "from": "Acme <onboarding@resend.dev>",
-    "to": ["<your-recipient-2>"],
-    "subject": "Hello 2",
-    "html": "<p>Email 2</p>"
+    console.log('[Email] Sent successfully:', data?.id)
+    return { success: true, id: data?.id }
+  } catch (error) {
+    console.error('[Email] Unexpected error:', error)
+    return { success: false, error }
   }
-]
-```
-
-Then run:
-
-```bash
-bash -c 'curl -s -X POST "https://api.resend.com/emails/batch" --header "Authorization: Bearer $RESEND_API_KEY" --header "Content-Type: application/json" -d @/tmp/resend_request.json'
-```
-
-### Retrieve Email
-
-```bash
-bash -c 'curl -s "https://api.resend.com/emails/<your-email-id>" --header "Authorization: Bearer $RESEND_API_KEY"'
-```
-
-### List Sent Emails
-
-```bash
-bash -c 'curl -s "https://api.resend.com/emails" --header "Authorization: Bearer $RESEND_API_KEY"'
-```
-
-### Cancel Scheduled Email
-
-```bash
-bash -c 'curl -s -X POST "https://api.resend.com/emails/<your-email-id>/cancel" --header "Authorization: Bearer $RESEND_API_KEY"'
-```
-
----
-
-## Contacts
-
-### Create Contact
-
-Write to `/tmp/resend_request.json`:
-
-```json
-{
-  "email": "<your-contact-email>",
-  "firstName": "<your-first-name>",
-  "lastName": "<your-last-name>",
-  "unsubscribed": false
 }
 ```
 
-Then run:
+## PhotoVault Configuration
+
+### Templates Needed
+
+| Template | Trigger | Recipient |
+|----------|---------|-----------|
+| `gallery-ready` | Photographer marks ready | Client |
+| `payment-success` | Checkout completed | Client |
+| `payment-failed` | Invoice failed | Client |
+| `invitation` | Photographer invites client | Client |
+| `commission-earned` | Client pays | Photographer |
+
+### Branding
+
+| Element | Value |
+|---------|-------|
+| Primary color | `#f59e0b` (amber) |
+| Background | `#0a0a0a` (near black) |
+| Text | `#a3a3a3` (gray) |
+| Headings | `#ffffff` (white) |
+
+### Environment Variables
 
 ```bash
-bash -c 'curl -s -X POST "https://api.resend.com/contacts" --header "Authorization: Bearer $RESEND_API_KEY" --header "Content-Type: application/json" -d @/tmp/resend_request.json'
+RESEND_API_KEY=re_...
+FROM_EMAIL=PhotoVault <noreply@photovault.photo>
 ```
 
-### Create Contact with Custom Properties
-
-Write to `/tmp/resend_request.json`:
-
-```json
-{
-  "email": "<your-contact-email>",
-  "firstName": "<your-first-name>",
-  "lastName": "<your-last-name>",
-  "properties": {
-    "company": "<your-company-name>",
-    "role": "<your-role>"
-  }
-}
-```
-
-Then run:
+## Testing Emails
 
 ```bash
-bash -c 'curl -s -X POST "https://api.resend.com/contacts" --header "Authorization: Bearer $RESEND_API_KEY" --header "Content-Type: application/json" -d @/tmp/resend_request.json'
+# Preview locally
+npx react-email dev
 ```
 
-### Retrieve Contact
+## Deliverability Checklist
 
-```bash
-bash -c 'curl -s "https://api.resend.com/contacts/<your-contact-id>" --header "Authorization: Bearer $RESEND_API_KEY"'
-```
-
-### List Contacts
-
-```bash
-bash -c 'curl -s "https://api.resend.com/contacts" --header "Authorization: Bearer $RESEND_API_KEY"'
-```
-
-### List Contacts with Pagination
-
-```bash
-bash -c 'curl -s "https://api.resend.com/contacts?limit=50" --header "Authorization: Bearer $RESEND_API_KEY"'
-```
-
-### Update Contact
-
-Write to `/tmp/resend_request.json`:
-
-```json
-{
-  "firstName": "<your-new-first-name>",
-  "unsubscribed": true
-}
-```
-
-Then run:
-
-```bash
-bash -c 'curl -s -X PATCH "https://api.resend.com/contacts/<your-contact-id>" --header "Authorization: Bearer $RESEND_API_KEY" --header "Content-Type: application/json" -d @/tmp/resend_request.json'
-```
-
-### Delete Contact
-
-```bash
-bash -c 'curl -s -X DELETE "https://api.resend.com/contacts/<your-contact-id>" --header "Authorization: Bearer $RESEND_API_KEY"'
-```
-
----
-
-## Domains
-
-### List Domains
-
-```bash
-bash -c 'curl -s "https://api.resend.com/domains" --header "Authorization: Bearer $RESEND_API_KEY"'
-```
-
-### Retrieve Domain
-
-```bash
-bash -c 'curl -s "https://api.resend.com/domains/<your-domain-id>" --header "Authorization: Bearer $RESEND_API_KEY"'
-```
-
-### Create Domain
-
-Write to `/tmp/resend_request.json`:
-
-```json
-{
-  "name": "<your-domain-name>"
-}
-```
-
-Then run:
-
-```bash
-bash -c 'curl -s -X POST "https://api.resend.com/domains" --header "Authorization: Bearer $RESEND_API_KEY" --header "Content-Type: application/json" -d @/tmp/resend_request.json'
-```
-
-### Verify Domain
-
-```bash
-bash -c 'curl -s -X POST "https://api.resend.com/domains/<your-domain-id>/verify" --header "Authorization: Bearer $RESEND_API_KEY"'
-```
-
-### Delete Domain
-
-```bash
-bash -c 'curl -s -X DELETE "https://api.resend.com/domains/<your-domain-id>" --header "Authorization: Bearer $RESEND_API_KEY"'
-```
-
----
-
-## API Keys
-
-### List API Keys
-
-```bash
-bash -c 'curl -s "https://api.resend.com/api-keys" --header "Authorization: Bearer $RESEND_API_KEY"'
-```
-
-### Create API Key
-
-Write to `/tmp/resend_request.json`:
-
-```json
-{
-  "name": "<your-key-name>"
-}
-```
-
-Then run:
-
-```bash
-bash -c 'curl -s -X POST "https://api.resend.com/api-keys" --header "Authorization: Bearer $RESEND_API_KEY" --header "Content-Type: application/json" -d @/tmp/resend_request.json'
-```
-
-### Create API Key with Permissions
-
-Write to `/tmp/resend_request.json`:
-
-```json
-{
-  "name": "<your-key-name>",
-  "permission": "sending_access"
-}
-```
-
-Then run:
-
-```bash
-bash -c 'curl -s -X POST "https://api.resend.com/api-keys" --header "Authorization: Bearer $RESEND_API_KEY" --header "Content-Type: application/json" -d @/tmp/resend_request.json'
-```
-
-### Delete API Key
-
-```bash
-bash -c 'curl -s -X DELETE "https://api.resend.com/api-keys/<your-api-key-id>" --header "Authorization: Bearer $RESEND_API_KEY"'
-```
-
----
-
-## Email Parameters Reference
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `from` | string | Sender email (required). Format: `"Name <email@domain.com>"` |
-| `to` | string[] | Recipients (required). Max 50 addresses |
-| `subject` | string | Email subject (required) |
-| `html` | string | HTML content |
-| `text` | string | Plain text content |
-| `cc` | string[] | CC recipients |
-| `bcc` | string[] | BCC recipients |
-| `replyTo` | string | Reply-to address |
-| `scheduledAt` | string | Schedule time (ISO 8601 or natural language) |
-| `tags` | array | Custom tags for tracking |
-| `attachments` | array | File attachments (max 40MB total) |
-
----
-
-## Response Codes
-
-| Status | Description |
-|--------|-------------|
-| `200` | Success |
-| `400` | Invalid parameters |
-| `401` | Missing API key |
-| `403` | Invalid API key |
-| `404` | Resource not found |
-| `429` | Rate limit exceeded (2 req/sec) |
-| `5xx` | Server error |
-
----
-
-## Guidelines
-
-1. **Rate Limits**: Default is 2 requests per second; implement backoff for 429 errors
-2. **Sender Domain**: Use verified domains for production; `onboarding@resend.dev` for testing
-3. **Batch Emails**: Use `/emails/batch` for sending to multiple recipients efficiently
-4. **Idempotency**: Use `Idempotency-Key` header to prevent duplicate sends
-5. **Scheduling**: Use natural language (`in 1 hour`) or ISO 8601 format for `scheduledAt`
-
----
-
-## API Reference
-
-- Documentation: https://resend.com/docs/api-reference/introduction
-- Dashboard: https://resend.com/overview
-- API Keys: https://resend.com/api-keys
-- Domains: https://resend.com/domains
+1. ✅ Domain verified in Resend (DKIM, SPF)
+2. ✅ FROM address uses verified domain
+3. ✅ Subject line is specific, not spammy
+4. ✅ Alt text on all images
+5. ✅ No URL shorteners
+6. ✅ Reply-to address is valid

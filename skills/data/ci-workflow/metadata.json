@@ -1,11 +1,7 @@
 {
   "name": "ci-workflow",
-  "description": "Run comprehensive CI checks before committing changes. Use when the user asks to run CI, run quality checks, validate code quality, or before finishing any task that involves code changes.",
-  "repo": "VilnaCRM-Org/core-service",
-  "category": "productivity",
-  "tags": [
-    "workflow"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "VilnaCRM-Org/user-service",
+  "path": ".claude/skills/ci-workflow/SKILL.md",
+  "source": "github.com/VilnaCRM-Org/user-service",
+  "downloaded_at": "2026-01-14T02:10:09.784556Z"
 }

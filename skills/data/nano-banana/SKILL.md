@@ -1,203 +1,196 @@
 ---
 name: nano-banana
-description: Generate, edit, and compose images using Google's Gemini 3 Pro Image model (Nano Banana Pro). Use this skill when the user asks to create images, generate visuals, edit photos, compose multiple images, create logos, thumbnails, infographics, product shots, or any image generation task. Supports text-to-image, image editing, multi-image composition (up to 14 images), iterative refinement, aspect ratio control, and Google Search-grounded image generation for real-time data visualization.
+description: "AI image generation using Nano Banana PRO (Gemini 3 Pro Image) and Nano Banana (Gemini 2.5 Flash Image). Use this skill when: (1) Generating images from text prompts, (2) Editing existing images, (3) Creating professional visual assets like infographics, logos, product shots, stickers, (4) Working with character consistency across multiple images, (5) Creating images with accurate text rendering, (6) Any task requiring AI-generated visuals. Triggers on: 'generate image', 'create image', 'make a picture', 'design a logo', 'create infographic', 'AI image', 'nano banana', or any image generation request."
 ---
 
-# Nano Banana Pro
+# Nano Banana PRO Image Generation
 
-Image generation skill powered by Google's Gemini 3 Pro Image model. Enables text-to-image generation, image editing, multi-image composition, and real-time data visualization.
+Generate professional AI images using Google's Nano Banana models via the Gemini API.
 
-## Requirements
+## Prerequisites
 
-- `GEMINI_API_KEY` environment variable set
-- Python packages: `google-genai`, `Pillow`
+- API key must be set as `GEMINI_API_KEY` environment variable
+- Uses curl for all API calls (no SDK required)
 
-Install dependencies:
-```bash
-pip install -r requirements.txt
-```
+## Model Selection
 
-## Quick Start
+| Model | Identifier | Best For |
+|-------|------------|----------|
+| **Nano Banana PRO** | `gemini-3-pro-image-preview` | Professional assets, text rendering, infographics, 4K output, complex multi-turn editing |
+| **Nano Banana** | `gemini-2.5-flash-image` | Fast generation, simple edits, lower cost |
 
-### Generate an Image
+**Default to PRO** for quality work. Use Flash for rapid iterations or simple tasks.
 
-```bash
-python scripts/generate_image.py "A cat wearing a wizard hat" cat.png
-```
+## CRITICAL: Prompt Engineering First
 
-### Edit an Existing Image
+**BEFORE calling the API, always craft an effective prompt.** Read [`references/prompting-guide.md`](references/prompting-guide.md) for comprehensive prompting strategies. Key principles:
 
-```bash
-python scripts/edit_image.py photo.png "Add a sunset to the background" edited.png
-```
+### The Golden Rules
 
-### Compose Multiple Images
+1. **Describe scenes, don't list keywords** - Write narrative descriptions, not tag soup
+2. **Use natural language** - Full sentences with proper grammar
+3. **Be specific** - Define subject, setting, lighting, mood, materials
+4. **Provide context** - The "why" helps the model make better artistic decisions
+5. **Edit, don't re-roll** - If 80% correct, ask for specific changes
 
-```bash
-python scripts/compose_images.py "Create a group photo in an office" team.png person1.png person2.png
-```
+### The ICS Framework (Quick Reference)
 
-## Available Scripts
+For any image, specify:
+- **I**mage type: What kind of visual (photo, infographic, logo, sticker, etc.)
+- **C**ontent: Specific elements, data, or information to include
+- **S**tyle: Visual style, color palette, artistic approach
 
-| Script | Purpose |
-|--------|---------|
-| `generate_image.py` | Text-to-image generation |
-| `edit_image.py` | Edit/modify existing images |
-| `compose_images.py` | Combine up to 14 reference images |
-| `chat_image.py` | Interactive multi-turn refinement |
-| `search_grounded_image.py` | Generate images with real-time search data |
+## API Reference
 
-## Generation Options
-
-### Aspect Ratios
-`1:1`, `2:3`, `3:2`, `3:4`, `4:3`, `4:5`, `5:4`, `9:16`, `16:9`, `21:9`
-
-### Resolutions
-`1K` (1024px), `2K`, `4K`
-
-### Usage with Options
+### Text-to-Image Generation
 
 ```bash
-python scripts/generate_image.py "Futuristic motorcycle on Mars" mars.png --aspect 16:9 --size 4K
+curl -s -X POST \
+  "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-pro-image-preview:generateContent" \
+  -H "x-goog-api-key: $GEMINI_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "contents": [{
+      "parts": [{"text": "YOUR_PROMPT_HERE"}]
+    }],
+    "generationConfig": {
+      "responseModalities": ["TEXT", "IMAGE"],
+      "imageConfig": {
+        "aspectRatio": "16:9",
+        "imageSize": "2K"
+      }
+    }
+  }'
 ```
 
-## Task Workflows
-
-### Logo Generation
+### Image Editing (with input image)
 
 ```bash
-python scripts/generate_image.py "Clean black-and-white logo with text 'Daily Grind', sans-serif font, coffee bean icon, minimalist style" logo.png --aspect 1:1
+curl -s -X POST \
+  "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-pro-image-preview:generateContent" \
+  -H "x-goog-api-key: $GEMINI_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "contents": [{
+      "parts": [
+        {"text": "YOUR_EDIT_INSTRUCTION"},
+        {"inline_data": {"mime_type": "image/png", "data": "BASE64_IMAGE_DATA"}}
+      ]
+    }],
+    "generationConfig": {
+      "responseModalities": ["TEXT", "IMAGE"]
+    }
+  }'
 ```
 
-### Product Mockup
+### Configuration Options
+
+| Parameter | Values | Notes |
+|-----------|--------|-------|
+| `aspectRatio` | `1:1`, `2:3`, `3:2`, `3:4`, `4:3`, `4:5`, `5:4`, `9:16`, `16:9`, `21:9` | Match use case |
+| `imageSize` | `1K`, `2K`, `4K` | Use uppercase K; PRO model only for 4K |
+
+### Google Search Grounding (Real-time Data)
+
+Add `"tools": [{"google_search": {}}]` to generate images based on current information:
 
 ```bash
-python scripts/generate_image.py "Studio-lit product photo on polished concrete, 3-point softbox, 45-degree angle, professional e-commerce style" product.png --aspect 4:3 --size 4K
+curl -s -X POST \
+  "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-pro-image-preview:generateContent" \
+  -H "x-goog-api-key: $GEMINI_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "contents": [{"parts": [{"text": "Create an infographic of current tech stock prices"}]}],
+    "tools": [{"google_search": {}}],
+    "generationConfig": {
+      "responseModalities": ["TEXT", "IMAGE"],
+      "imageConfig": {"aspectRatio": "16:9"}
+    }
+  }'
 ```
 
-### Photorealistic Portrait
+## Workflow
+
+### Step 1: Craft the Prompt
+
+Use the ICS framework and prompting guide. Examples:
+
+**Photorealistic:**
+```
+A photorealistic close-up portrait of an elderly Japanese ceramicist with deep wrinkles and a warm smile, inspecting a tea bowl. Soft golden hour light from a window. 85mm lens, shallow depth of field. Serene mood.
+```
+
+**Infographic:**
+```
+Create a clean, modern infographic explaining photosynthesis as a recipe. Show "ingredients" (sunlight, water, CO2) and "finished dish" (energy). Style like a colorful kids' cookbook page.
+```
+
+**Product Shot:**
+```
+High-resolution studio photograph of a matte black ceramic coffee mug on polished concrete. Three-point softbox lighting, 45-degree angle, sharp focus on rising steam. Square format.
+```
+
+### Step 2: Generate Image
+
+Use `scripts/generate-image.sh` or call API directly:
 
 ```bash
-python scripts/generate_image.py "A photorealistic close-up portrait, shot on 85mm lens, golden hour lighting, shallow depth of field, cinematic" portrait.png --size 4K
+./scripts/generate-image.sh "Your prompt here" output.png --ratio 16:9 --size 2K
 ```
 
-### Stylized Art (Anime/Sticker)
+### Step 3: Process Response
+
+The API returns base64-encoded image data. Extract and decode:
 
 ```bash
-python scripts/generate_image.py "A kawaii red panda sticker, bold outlines, cel-shading, white background, cute expression" sticker.png
+# Response contains: {"candidates":[{"content":{"parts":[{"inlineData":{"mimeType":"image/png","data":"BASE64..."}}]}}]}
+# Extract with jq and decode:
+cat response.json | jq -r '.candidates[0].content.parts[] | select(.inlineData) | .inlineData.data' | base64 -d > image.png
 ```
 
-### Iterative Design Refinement
+## Common Use Cases
 
-Use the chat script for back-and-forth refinement:
+### Landing Pages & Ads
+- Use 16:9 or 21:9 for hero images
+- Specify brand colors, modern/minimal style
+- Include text requirements in prompt
 
-```bash
-python scripts/chat_image.py
-```
+### Logos & Icons
+- Use 1:1 aspect ratio
+- Request "minimalist", "clean lines", "vector-style"
+- Specify color scheme explicitly
 
-Then interact:
-```
-> Create a logo for 'Acme Corp'
-[Image generated]
-> Make the text bolder and add a blue gradient
-[Refined image]
-> save acme_logo.png
-```
+### Product Photography
+- Describe lighting setup (softbox, natural, studio)
+- Mention surface/background materials
+- Include camera angle and lens type
 
-### Real-Time Data Visualization
+### Infographics
+- Define data to visualize
+- Specify style (corporate, playful, technical)
+- Request clear text and labeled sections
 
-Generate infographics with current data:
+### Stickers & Illustrations
+- Request "bold outlines", "kawaii", "cel-shading"
+- Specify "white background" or "transparent background"
+- Define color palette
 
-```bash
-python scripts/search_grounded_image.py "Visualize today's weather in Tokyo as an infographic" tokyo_weather.png --aspect 9:16
-```
+### Character Consistency (Multiple Images)
+- PRO supports up to 14 reference images
+- Explicitly state: "Keep facial features exactly the same as Image 1"
+- Describe expression/pose changes while maintaining identity
 
-Use cases:
-- Live stock-market infographics
-- Breaking-news visuals
-- Weather dashboards
-- Current event visualizations
+## Scripts
 
-### Multi-Image Composition
+See [`scripts/generate-image.sh`](scripts/generate-image.sh) for a ready-to-use generation script.
 
-Combine reference images:
+## Detailed Prompting Guide
 
-```bash
-python scripts/compose_images.py "Create a product comparison shot with these items side by side, professional lighting" comparison.png item1.png item2.png item3.png --aspect 16:9
-```
+For advanced techniques including:
+- Photorealistic scene templates
+- Text rendering best practices  
+- Sequential art and storyboarding
+- Dimensional translation (2D↔3D)
+- Search grounding for real-time data
 
-Use cases:
-- Product comparison shots
-- Character sheets
-- Team photos
-- Style-consistent image series
-
-## Inline Python Usage
-
-For integration in larger scripts:
-
-```python
-import os
-from google import genai
-from google.genai import types
-
-client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
-
-response = client.models.generate_content(
-    model="gemini-3-pro-image-preview",
-    contents=["A serene mountain landscape at dawn"],
-    config=types.GenerateContentConfig(
-        response_modalities=['TEXT', 'IMAGE'],
-        image_config=types.ImageConfig(
-            aspect_ratio="16:9",
-            image_size="2K"
-        )
-    )
-)
-
-for part in response.parts:
-    if part.inline_data:
-        image = part.as_image()
-        image.save("landscape.png")
-```
-
-### Editing with Inline Code
-
-```python
-from PIL import Image
-from google import genai
-from google.genai import types
-
-client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
-img = Image.open("input.png")
-
-response = client.models.generate_content(
-    model="gemini-3-pro-image-preview",
-    contents=["Add dramatic clouds to the sky", img],
-    config=types.GenerateContentConfig(
-        response_modalities=['TEXT', 'IMAGE']
-    )
-)
-```
-
-## Prompting Tips
-
-**Photorealistic**: Include camera settings, lighting, lens details
-```
-"Shot on 85mm lens, golden hour lighting, shallow depth of field"
-```
-
-**Logos**: Specify style, colors, typography
-```
-"Clean minimalist logo, sans-serif font, monochrome, vector style"
-```
-
-**Product shots**: Describe studio setup
-```
-"Studio-lit, 3-point softbox, polished surface, 45-degree angle"
-```
-
-**Stylized art**: Name the style explicitly
-```
-"Anime style, cel-shading, bold outlines, vibrant colors"
-```
+Read [`references/prompting-guide.md`](references/prompting-guide.md).

@@ -1,38 +1,37 @@
 ---
 name: enhancing-progressively
 description: >
-  CSS-first approach - use CSS before JavaScript. Triggers: レイアウト, スタイル,
+  CSS優先アプローチ - JavaScriptの前にCSSを使用。トリガー: レイアウト, スタイル,
   位置, アニメーション, 表示/非表示, トグル, レスポンシブ, CSS Grid, Flexbox,
   transforms, transitions, CSSのみ, JavaScript不要, シンプル
 allowed-tools: Read, Write, Edit, Grep, Glob
-user-invocable: false
 ---
 
-# Progressive Enhancement
+# プログレッシブエンハンスメント
 
-## Purpose
+## 目的
 
-Prefer CSS solutions over JavaScript. "The best code is no code."
+JavaScriptよりCSSソリューションを優先。「最良のコードはコードがないこと。」
 
-## Quick Decision
+## クイック判断
 
-Before writing JS, ask:
+JSを書く前に確認:
 
-1. **"Can CSS solve this?"** → Grid, Flexbox, :has(), transforms
-2. **"Is this needed now?"** (YAGNI) → No evidence = don't implement
-3. **"Simplest solution?"** (Occam's Razor) → 3 lines CSS > 50 lines JS
+1. **「CSSで解決できる？」** → Grid, Flexbox, :has(), transforms
+2. **「今必要？」**（YAGNI） → 証拠なし = 実装しない
+3. **「最もシンプルな解決は？」**（オッカムの剃刀） → CSS3行 > JS50行
 
-## Reference
+## 参照
 
-For detailed guide, see:
-[@../../rules/development/PROGRESSIVE_ENHANCEMENT.md](../../rules/development/PROGRESSIVE_ENHANCEMENT.md)
+詳細ガイドは以下を参照:
+[@../../../rules/development/PROGRESSIVE_ENHANCEMENT.md](../../../rules/development/PROGRESSIVE_ENHANCEMENT.md)
 
-## Related
+## 関連
 
-- `applying-code-principles` - SOLID, DRY, Occam's Razor
-- `optimizing-performance` - Performance optimization
+- `applying-code-principles` - SOLID, DRY, オッカムの剃刀
+- `optimizing-performance` - パフォーマンス最適化
 
-## Used by
+## 使用コマンド
 
-- `/code --frontend` - Frontend implementation
-- `/audit` - CSS-first approach verification
+- `/code --frontend` - フロントエンド実装
+- `/audit` - CSS優先アプローチ検証

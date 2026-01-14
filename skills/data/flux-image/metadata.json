@@ -1,12 +1,7 @@
 {
   "name": "flux-image",
-  "description": "FLUX.2 Pro gorsel uretimi. Use when generating AI images for posts.",
   "repo": "olivenet-iot/olivenet-social-bot",
-  "category": "data",
-  "tags": [
-    "flux",
-    "image"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/flux-image/SKILL.md",
+  "source": "github.com/olivenet-iot/olivenet-social-bot",
+  "downloaded_at": "2026-01-14T01:36:16.631239Z"
 }

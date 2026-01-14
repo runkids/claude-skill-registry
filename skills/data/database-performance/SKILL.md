@@ -1,613 +1,366 @@
 ---
 name: database-performance
-description: Database optimization, query performance, indexing strategies, and caching patterns. Use when optimizing queries, designing database schemas, or improving application performance.
-allowed-tools: Read, Grep, Glob, Edit, Write, Bash
+description: Analyze and optimize database performance through index analysis and query profiling. Identify missing/unused indexes, interpret EXPLAIN plans, find performance bottlenecks, and recommend optimization strategies. Use when optimizing slow queries, analyzing database workloads, improving query execution speed, or managing database indexes.
 ---
 
-# Database & Performance Skill
+# Database Performance Optimization
 
-This skill provides guidance for optimizing database performance, queries, and overall application speed.
+Comprehensive database performance analysis covering index optimization and query profiling to enhance database speed and efficiency.
 
-## Database Schema Design
+## Overview
 
-### Primary Keys - Use UUIDs
-```php
-// Migration
-Schema::create('employees', function (Blueprint $table) {
-    $table->uuid('id')->primary();
-    $table->string('name');
-    $table->string('email')->unique();
-    $table->uuid('department_id');
-    $table->timestamps();
-    $table->softDeletes();
+This skill empowers you to:
+- **Analyze database indexes**: Identify missing indexes for better performance and unused indexes for removal
+- **Profile query performance**: Interpret EXPLAIN plans, find bottlenecks, and optimize query execution
+- **Recommend optimizations**: Provide actionable strategies for index creation, query rewriting, and configuration tuning
 
-    // Foreign key with UUID
-    $table->foreign('department_id')
-        ->references('id')
-        ->on('departments')
-        ->onDelete('cascade');
-});
+---
 
-// Model
-class Employee extends Model
-{
-    use HasUuids;
+## Part 1: Index Analysis
 
-    protected $keyType = 'string';
-    public $incrementing = false;
-}
-```
+### How It Works
 
-### Index Strategies
+1. **Workload Analysis**: Analyze database query patterns and existing index configurations
+2. **Missing Index Detection**: Identify queries that would benefit from additional indexes
+3. **Unused Index Detection**: Find indexes that are never used and can be safely removed
+4. **Recommendation Generation**: Provide specific index creation/removal suggestions
 
-```php
-// Single column index - for WHERE, ORDER BY
-$table->index('status');
-$table->index('created_at');
+### When to Use Index Analysis
 
-// Composite index - order matters!
-// Good for: WHERE department_id = ? AND status = ?
-$table->index(['department_id', 'status']);
+- Optimize slow-running queries
+- Identify performance bottlenecks related to missing indexes
+- Reclaim storage space by removing unused indexes
+- Plan index strategy for new tables
+- Audit existing index configurations
 
-// Covering index - includes all queried columns
-$table->index(['department_id', 'status', 'name']);
+### Index Analysis Examples
 
-// Unique constraint with index
-$table->unique('email');
-$table->unique(['employee_id', 'date']); // Compound unique
+#### Example 1: Optimizing a Slow Query
 
-// Full-text search (MySQL/PostgreSQL)
-$table->fullText(['name', 'description']);
-```
+**User request**: "My orders table query is running slowly. Can you help optimize it?"
 
-### When to Add Indexes
+**Analysis Process**:
+1. Examine the query: `SELECT * FROM orders WHERE customer_id = 123 AND status = 'pending'`
+2. Check existing indexes on orders table
+3. Identify missing composite index on `(customer_id, status)`
+4. **Recommendation**: 
+   ```sql
+   CREATE INDEX idx_orders_customer_status ON orders(customer_id, status);
+   ```
 
-| Add Index | Don't Add Index |
-|-----------|-----------------|
-| Columns in WHERE clauses | Low cardinality columns (boolean) |
-| Columns in JOIN conditions | Frequently updated columns |
-| Columns in ORDER BY | Small tables (<1000 rows) |
-| Foreign key columns | Columns rarely queried |
-| Columns with high cardinality | |
+#### Example 2: Identifying Unused Indexes
 
-### Index Analysis
+**User request**: "Can you help me identify and remove any unused indexes in my database?"
+
+**Analysis Process**:
+1. Query database statistics for index usage
+2. Identify indexes with zero reads
+3. Verify these indexes aren't required for constraints
+4. **Recommendation**:
+   ```sql
+   -- Indexes with 0 usage in last 30 days
+   DROP INDEX idx_old_column ON users;
+   DROP INDEX idx_rarely_used ON orders;
+   ```
+
+### Index Best Practices
+
+**✅ DO:**
+- Create indexes on columns frequently used in WHERE clauses
+- Use composite indexes for queries filtering on multiple columns
+- Index foreign keys for faster JOIN operations
+- Monitor index usage regularly
+- Remove unused indexes to improve write performance
+
+**❌ DON'T:**
+- Over-index tables (each index slows down writes)
+- Create duplicate indexes (e.g., `(a)` and `(a, b)`)
+- Index low-cardinality columns (e.g., boolean fields)
+- Forget to analyze impact before dropping indexes
+
+---
+
+## Part 2: Query Performance Analysis
+
+### How It Works
+
+1. **Receive Input**: User provides EXPLAIN plan, slow query, or performance problem description
+2. **Analyze Metrics**: Examine execution plan, identify full table scans, join inefficiencies, missing indexes
+3. **Bottleneck Detection**: Pinpoint specific performance issues (I/O, CPU, memory)
+4. **Provide Solutions**: Suggest query rewrites, new indexes, or configuration changes
+
+### When to Use Query Analysis
+
+- Analyze EXPLAIN plans of slow queries
+- Identify performance bottlenecks in complex queries
+- Optimize JOIN operations
+- Reduce query execution time
+- Understand database resource utilization
+
+### Query Analysis Examples
+
+#### Example 1: Analyzing a Slow Query with EXPLAIN
+
+**User request**: "Here's the EXPLAIN plan for my slow query. Can you help me optimize it?"
+
 ```sql
--- Check existing indexes
-SHOW INDEX FROM employees;
-
--- Explain query to see index usage
-EXPLAIN SELECT * FROM employees WHERE department_id = 'uuid-here';
-
--- Check slow queries
-SHOW FULL PROCESSLIST;
+EXPLAIN SELECT o.*, u.name 
+FROM orders o 
+JOIN users u ON o.user_id = u.id 
+WHERE o.status = 'pending' AND o.created_at > '2025-01-01';
 ```
 
-## Query Optimization
-
-### N+1 Query Problem
-
-```php
-// ❌ BAD - N+1 queries
-$employees = Employee::all();
-foreach ($employees as $employee) {
-    echo $employee->department->name; // Query per employee!
-}
-
-// ✅ GOOD - Eager loading
-$employees = Employee::with('department')->get();
-
-// ✅ GOOD - Nested eager loading
-$employees = Employee::with([
-    'department',
-    'schedules.period',
-    'attendances' => fn($q) => $q->whereMonth('date', now()->month)
-])->get();
-
-// ✅ GOOD - Conditional eager loading
-$employees = Employee::with([
-    'attendances' => fn($q) => $q->latest()->limit(5)
-])->get();
+**EXPLAIN Output**:
+```
++----+-------------+-------+------+---------------+------+---------+------+------+-------------+
+| id | select_type | table | type | possible_keys | key  | key_len | ref  | rows | Extra       |
++----+-------------+-------+------+---------------+------+---------+------+------+-------------+
+|  1 | SIMPLE      | o     | ALL  | NULL          | NULL | NULL    | NULL | 5000 | Using where |
+|  1 | SIMPLE      | u     | ref  | PRIMARY       | PRIMARY | 4   | o.user_id | 1    |             |
++----+-------------+-------+------+---------------+------+---------+------+------+-------------+
 ```
 
-### Select Only Needed Columns
+**Analysis**:
+- ⚠️ **Issue 1**: Full table scan on `orders` (type: ALL, rows: 5000)
+- ⚠️ **Issue 2**: No index on `status` or `created_at` columns
+- ✅ **Good**: Efficient JOIN on `users` using PRIMARY key
 
-```php
-// ❌ BAD - Select all columns
-$employees = Employee::all();
+**Recommendations**:
+```sql
+-- Create composite index for WHERE clause
+CREATE INDEX idx_orders_status_created ON orders(status, created_at);
 
-// ✅ GOOD - Select specific columns
-$employees = Employee::select(['id', 'name', 'email', 'department_id'])
-    ->with('department:id,name')
-    ->get();
-
-// ✅ GOOD - Exclude heavy columns
-$employees = Employee::without('metadata', 'face_data')->get();
+-- After creating index, EXPLAIN shows:
+-- type: range (instead of ALL)
+-- rows: 150 (instead of 5000)
+-- 97% reduction in rows scanned!
 ```
 
-### Aggregate Queries
+#### Example 2: Optimizing Complex JOIN
 
-```php
-// ❌ BAD - Load all records to count
-$count = Employee::all()->count();
+**User request**: "My query with multiple JOINs is very slow. What could be the problem?"
 
-// ✅ GOOD - Database count
-$count = Employee::count();
-
-// ✅ GOOD - Conditional counts
-$activeCount = Employee::where('status', 'active')->count();
-
-// ✅ GOOD - Multiple aggregates in one query
-$stats = Employee::selectRaw('
-    COUNT(*) as total,
-    SUM(CASE WHEN status = "active" THEN 1 ELSE 0 END) as active_count,
-    AVG(salary) as avg_salary
-')->first();
-
-// ✅ GOOD - Count with relation
-$employees = Employee::withCount(['attendances', 'leaves'])->get();
-// Access: $employee->attendances_count
+**Original Query**:
+```sql
+SELECT p.*, c.name as category, u.name as author
+FROM posts p
+LEFT JOIN categories c ON p.category_id = c.id
+LEFT JOIN users u ON p.user_id = u.id
+WHERE p.published = 1
+ORDER BY p.created_at DESC
+LIMIT 20;
 ```
 
-### Chunking Large Datasets
+**Analysis**:
+1. Check if foreign keys (`category_id`, `user_id`) are indexed
+2. Verify `published` column has index
+3. Check if `created_at` is indexed for ORDER BY
 
-```php
-// ❌ BAD - Load all into memory
-$employees = Employee::all();
-foreach ($employees as $employee) {
-    // Process
-}
+**Recommendations**:
+```sql
+-- Add indexes for JOIN and WHERE
+CREATE INDEX idx_posts_published ON posts(published);
+CREATE INDEX idx_posts_category ON posts(category_id);
+CREATE INDEX idx_posts_user ON posts(user_id);
 
-// ✅ GOOD - Process in chunks
-Employee::chunk(100, function ($employees) {
-    foreach ($employees as $employee) {
-        // Process each employee
-    }
-});
-
-// ✅ GOOD - Lazy collection for memory efficiency
-Employee::lazy()->each(function ($employee) {
-    // Process - memory efficient
-});
-
-// ✅ GOOD - Cursor for read-only iteration
-foreach (Employee::cursor() as $employee) {
-    // Minimal memory usage
-}
+-- Add compound index for WHERE + ORDER BY
+CREATE INDEX idx_posts_pub_created ON posts(published, created_at DESC);
 ```
 
-### Efficient Updates
+#### Example 3: Fixing N+1 Query Problem
 
-```php
-// ❌ BAD - Load then update
-$employees = Employee::where('department_id', $oldId)->get();
-foreach ($employees as $employee) {
-    $employee->department_id = $newId;
-    $employee->save();
-}
+**User request**: "My application is making too many queries. How do I fix this?"
 
-// ✅ GOOD - Mass update
-Employee::where('department_id', $oldId)
-    ->update(['department_id' => $newId]);
-
-// ✅ GOOD - Upsert (insert or update)
-Employee::upsert([
-    ['id' => $id1, 'name' => 'John', 'salary' => 5000],
-    ['id' => $id2, 'name' => 'Jane', 'salary' => 6000],
-], ['id'], ['name', 'salary']);
-
-// ✅ GOOD - Increment/Decrement
-Employee::where('id', $id)->increment('leave_balance', 5);
+**Problem**:
+```python
+# N+1 Problem: 1 query + N queries (if 100 posts = 101 queries!)
+posts = Post.all()  # 1 query
+for post in posts:
+    print(post.author.name)  # N queries (1 per post)
 ```
 
-### Raw Queries When Needed
-
-```php
-// Complex aggregation
-$report = DB::select("
-    SELECT
-        d.name as department,
-        COUNT(e.id) as employee_count,
-        AVG(TIMESTAMPDIFF(YEAR, e.hire_date, NOW())) as avg_tenure,
-        SUM(CASE WHEN a.status = 'present' THEN 1 ELSE 0 END) as present_days
-    FROM departments d
-    LEFT JOIN employees e ON e.department_id = d.id
-    LEFT JOIN attendances a ON a.employee_id = e.id
-        AND a.date BETWEEN ? AND ?
-    GROUP BY d.id, d.name
-    ORDER BY employee_count DESC
-", [$startDate, $endDate]);
-
-// With bindings for safety
-DB::statement("
-    UPDATE employees
-    SET status = ?
-    WHERE last_active_at < ?
-", ['inactive', now()->subMonths(6)]);
+**Solution**:
+```python
+# Use eager loading: Only 2 queries total
+posts = Post.select_related('author').all()  # 1 query with JOIN
+for post in posts:
+    print(post.author.name)  # No additional queries!
 ```
 
-## Caching Strategies
+### Query Optimization Techniques
 
-### Query Caching
+**1. Use Proper Indexes**
+```sql
+-- Before: Full table scan
+SELECT * FROM orders WHERE customer_id = 123;
 
-```php
-// Cache expensive queries
-$departments = Cache::remember('departments.all', 3600, function () {
-    return Department::with('manager')->get();
-});
-
-// Cache with tags (Redis required)
-$employees = Cache::tags(['employees', 'department-' . $deptId])
-    ->remember("employees.dept.{$deptId}", 3600, function () use ($deptId) {
-        return Employee::where('department_id', $deptId)->get();
-    });
-
-// Invalidate cache on update
-public function updated(Employee $employee)
-{
-    Cache::tags(['employees'])->flush();
-    Cache::forget("employee.{$employee->id}");
-}
+-- After: Index seek
+CREATE INDEX idx_customer ON orders(customer_id);
 ```
 
-### Cache Patterns
+**2. Avoid SELECT ***
+```sql
+-- ❌ Bad: Retrieves all columns (slower)
+SELECT * FROM users WHERE id = 1;
 
-```php
-// Cache-aside pattern
-public function getEmployee(string $id): Employee
-{
-    return Cache::remember("employee.{$id}", 3600, function () use ($id) {
-        return Employee::with('department')->findOrFail($id);
-    });
-}
-
-// Write-through pattern
-public function updateEmployee(string $id, array $data): Employee
-{
-    $employee = Employee::findOrFail($id);
-    $employee->update($data);
-
-    // Update cache immediately
-    Cache::put("employee.{$id}", $employee->fresh(), 3600);
-
-    return $employee;
-}
-
-// Cache invalidation
-public function deleteEmployee(string $id): void
-{
-    Employee::destroy($id);
-    Cache::forget("employee.{$id}");
-    Cache::tags(['employees'])->flush();
-}
+-- ✅ Good: Only needed columns
+SELECT id, name, email FROM users WHERE id = 1;
 ```
 
-### Dashboard Caching
+**3. Use LIMIT for Large Results**
+```sql
+-- ❌ Bad: Returns millions of rows
+SELECT * FROM logs WHERE created_at > '2025-01-01';
 
-```php
-// Cache dashboard stats
-public function getDashboardStats(): array
-{
-    return Cache::remember('dashboard.stats', 900, function () { // 15 minutes
-        return [
-            'total_employees' => Employee::count(),
-            'present_today' => Attendance::whereDate('date', today())
-                ->where('status', 'present')
-                ->count(),
-            'on_leave' => Leave::where('status', 'approved')
-                ->whereDate('start_date', '<=', today())
-                ->whereDate('end_date', '>=', today())
-                ->count(),
-            'pending_requests' => Leave::where('status', 'pending')->count(),
-        ];
-    });
-}
-
-// Refresh on events
-protected $listen = [
-    AttendanceRecorded::class => [RefreshDashboardCache::class],
-    LeaveApproved::class => [RefreshDashboardCache::class],
-];
+-- ✅ Good: Paginate results
+SELECT * FROM logs WHERE created_at > '2025-01-01' LIMIT 1000 OFFSET 0;
 ```
 
-## Database Connection Optimization
+**4. Optimize Subqueries**
+```sql
+-- ❌ Bad: Correlated subquery (runs N times)
+SELECT * FROM users WHERE id IN (
+    SELECT DISTINCT user_id FROM orders WHERE total > 1000
+);
 
-### Connection Pooling (config/database.php)
-
-```php
-'mysql' => [
-    'driver' => 'mysql',
-    'host' => env('DB_HOST', '127.0.0.1'),
-    'port' => env('DB_PORT', '3306'),
-    'database' => env('DB_DATABASE', 'forge'),
-    'username' => env('DB_USERNAME', 'forge'),
-    'password' => env('DB_PASSWORD', ''),
-
-    // Connection pool settings
-    'pool' => [
-        'min_connections' => 1,
-        'max_connections' => 10,
-        'connect_timeout' => 10.0,
-        'wait_timeout' => 3.0,
-        'heartbeat' => -1,
-        'max_idle_time' => 60,
-    ],
-
-    // Performance options
-    'options' => [
-        PDO::ATTR_PERSISTENT => true,
-        PDO::ATTR_EMULATE_PREPARES => true,
-        PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => true,
-    ],
-],
+-- ✅ Good: JOIN (runs once)
+SELECT DISTINCT u.* 
+FROM users u 
+JOIN orders o ON u.id = o.user_id 
+WHERE o.total > 1000;
 ```
 
-### Read/Write Splitting
+**5. Use EXPLAIN to Verify**
+```sql
+-- Always verify your optimization
+EXPLAIN SELECT ...;
 
-```php
-'mysql' => [
-    'read' => [
-        'host' => [
-            env('DB_READ_HOST_1', '192.168.1.1'),
-            env('DB_READ_HOST_2', '192.168.1.2'),
-        ],
-    ],
-    'write' => [
-        'host' => [env('DB_WRITE_HOST', '192.168.1.3')],
-    ],
-    'sticky' => true, // Use write connection after write operation
-    // ... other options
-],
+-- Look for:
+-- - type: Should be 'ref' or 'range', not 'ALL'
+-- - rows: Lower is better
+-- - Extra: Avoid 'Using filesort' or 'Using temporary'
 ```
 
-## Performance Monitoring
+---
 
-### Query Logging
+## Common Performance Bottlenecks
 
-```php
-// Enable query log (development only)
-DB::enableQueryLog();
+### 1. Missing Indexes
+**Symptom**: Full table scans (EXPLAIN shows type: ALL)  
+**Solution**: Create indexes on WHERE, JOIN, and ORDER BY columns
 
-// Your queries here
+### 2. Inefficient JOINs
+**Symptom**: Large number of rows examined  
+**Solution**: Ensure foreign keys are indexed, use proper JOIN types
 
-// Get logged queries
-$queries = DB::getQueryLog();
-foreach ($queries as $query) {
-    Log::debug('Query', [
-        'sql' => $query['query'],
-        'bindings' => $query['bindings'],
-        'time' => $query['time'] . 'ms'
-    ]);
-}
+### 3. N+1 Queries
+**Symptom**: Multiple queries in loops  
+**Solution**: Use eager loading (JOIN, select_related, includes)
 
-// Disable after use
-DB::disableQueryLog();
+### 4. Large Result Sets
+**Symptom**: Slow queries returning thousands of rows  
+**Solution**: Implement pagination with LIMIT/OFFSET or cursors
+
+### 5. Complex Subqueries
+**Symptom**: Nested queries causing multiple table scans  
+**Solution**: Rewrite as JOINs or CTEs (Common Table Expressions)
+
+### 6. Unused Indexes
+**Symptom**: Slow writes, wasted storage  
+**Solution**: Identify and remove indexes with zero usage
+
+### 7. Missing Query Cache
+**Symptom**: Repeated identical queries  
+**Solution**: Implement application-level caching (Redis, Memcached)
+
+---
+
+## Performance Analysis Tools
+
+### PostgreSQL
+```sql
+-- Enable query timing
+\timing on
+
+-- Analyze query plan
+EXPLAIN ANALYZE SELECT ...;
+
+-- Check index usage
+SELECT schemaname, tablename, indexname, idx_scan
+FROM pg_stat_user_indexes
+ORDER BY idx_scan ASC;
 ```
 
-### Slow Query Detection
+### MySQL
+```sql
+-- Enable profiling
+SET profiling = 1;
 
-```php
-// AppServiceProvider.php
-public function boot()
-{
-    // Log slow queries (> 100ms)
-    DB::listen(function ($query) {
-        if ($query->time > 100) {
-            Log::warning('Slow query detected', [
-                'sql' => $query->sql,
-                'bindings' => $query->bindings,
-                'time' => $query->time . 'ms',
-                'connection' => $query->connectionName,
-            ]);
-        }
-    });
-}
+-- Run query
+SELECT ...;
+
+-- Show profile
+SHOW PROFILES;
+SHOW PROFILE FOR QUERY 1;
+
+-- Check unused indexes
+SELECT * FROM sys.schema_unused_indexes;
 ```
 
-### Database Health Check
+### SQL Server
+```sql
+-- Show execution plan
+SET SHOWPLAN_ALL ON;
+GO
+SELECT ...;
+GO
 
-```php
-// HealthCheckController.php
-public function database(): JsonResponse
-{
-    try {
-        $start = microtime(true);
-        DB::select('SELECT 1');
-        $latency = (microtime(true) - $start) * 1000;
+-- Find missing indexes
+SELECT * FROM sys.dm_db_missing_index_details;
 
-        return response()->json([
-            'status' => 'healthy',
-            'latency_ms' => round($latency, 2),
-            'connections' => [
-                'active' => DB::connection()->getDatabaseName(),
-            ]
-        ]);
-    } catch (\Exception $e) {
-        return response()->json([
-            'status' => 'unhealthy',
-            'error' => $e->getMessage()
-        ], 503);
-    }
-}
+-- Find unused indexes
+SELECT * FROM sys.dm_db_index_usage_stats
+WHERE user_seeks = 0 AND user_scans = 0;
 ```
 
-## Application Performance
+---
 
-### Route Caching
+## Best Practices Summary
 
-```bash
-# Production only - cache routes
-php artisan route:cache
+### Index Management
+- ✅ Index WHERE, JOIN, ORDER BY columns
+- ✅ Use composite indexes for multi-column queries
+- ✅ Monitor index usage regularly
+- ✅ Remove unused indexes
+- ❌ Don't over-index (slows writes)
+- ❌ Don't index low-cardinality columns
 
-# Clear route cache
-php artisan route:clear
-```
+### Query Optimization
+- ✅ Use EXPLAIN to analyze queries
+- ✅ Avoid SELECT * (fetch only needed columns)
+- ✅ Use LIMIT for pagination
+- ✅ Optimize JOINs with proper indexes
+- ✅ Implement eager loading to avoid N+1
+- ❌ Don't use correlated subqueries
+- ❌ Don't forget to test optimizations
 
-### Config Caching
+### Performance Monitoring
+- ✅ Track slow query logs
+- ✅ Monitor database metrics (CPU, I/O, memory)
+- ✅ Set up alerts for slow queries
+- ✅ Review query performance regularly
+- ✅ Benchmark before and after changes
 
-```bash
-# Production only - cache config
-php artisan config:cache
+---
 
-# Clear config cache
-php artisan config:clear
-```
+## Integration with Other Tools
 
-### View Caching
+- **Database Monitoring**: Integrate with New Relic, Datadog, or AppDynamics
+- **Query Logging**: Use slow query logs to identify problematic queries
+- **Schema Design**: Combine with schema design tools for optimal table structure
+- **ORM Integration**: Work with ORMs to understand generated queries
+- **Load Testing**: Use with load testing tools to find performance limits
 
-```bash
-# Compile all Blade templates
-php artisan view:cache
+---
 
-# Clear view cache
-php artisan view:clear
-```
-
-### Optimized Autoloader
-
-```bash
-# Production deployment
-composer install --optimize-autoloader --no-dev
-
-# Dump optimized autoload
-composer dump-autoload --optimize
-```
-
-### Complete Optimization Command
-
-```bash
-# Run all optimizations
-php artisan optimize
-
-# Clear all caches
-php artisan optimize:clear
-```
-
-## Queue Optimization
-
-### Async Processing
-
-```php
-// Move heavy operations to queue
-class ProcessPayroll implements ShouldQueue
-{
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
-    public function __construct(
-        public Employee $employee,
-        public string $month
-    ) {}
-
-    public function handle(): void
-    {
-        // Heavy payroll calculation
-    }
-}
-
-// Dispatch
-ProcessPayroll::dispatch($employee, '2024-01')
-    ->onQueue('payroll')
-    ->delay(now()->addMinutes(5));
-```
-
-### Batch Processing
-
-```php
-// Process multiple jobs in batch
-$batch = Bus::batch([
-    new ProcessPayroll($employee1, $month),
-    new ProcessPayroll($employee2, $month),
-    new ProcessPayroll($employee3, $month),
-])
-->then(function (Batch $batch) {
-    // All jobs completed
-})
-->catch(function (Batch $batch, Throwable $e) {
-    // First job failure
-})
-->finally(function (Batch $batch) {
-    // Batch finished
-})
-->dispatch();
-```
-
-## API Response Optimization
-
-### Pagination
-
-```php
-// Always paginate large datasets
-public function index(): JsonResponse
-{
-    $employees = Employee::with('department')
-        ->paginate(15);
-
-    return EmployeeResource::collection($employees);
-}
-```
-
-### Response Compression
-
-```php
-// Middleware for gzip compression
-class CompressResponse
-{
-    public function handle($request, Closure $next)
-    {
-        $response = $next($request);
-
-        if ($this->shouldCompress($request, $response)) {
-            $content = gzencode($response->getContent(), 9);
-            $response->setContent($content);
-            $response->header('Content-Encoding', 'gzip');
-        }
-
-        return $response;
-    }
-}
-```
-
-### Conditional Responses (ETags)
-
-```php
-public function show(Employee $employee): JsonResponse
-{
-    $etag = md5($employee->updated_at->toISOString());
-
-    if (request()->header('If-None-Match') === $etag) {
-        return response()->json(null, 304);
-    }
-
-    return response()->json(new EmployeeResource($employee))
-        ->header('ETag', $etag)
-        ->header('Cache-Control', 'private, max-age=3600');
-}
-```
-
-## Performance Checklist
-
-### Database
-- [ ] Indexes on foreign keys
-- [ ] Indexes on WHERE/ORDER BY columns
-- [ ] Composite indexes for common queries
-- [ ] Eager loading for relationships
-- [ ] Select only needed columns
-- [ ] Use chunking for large datasets
-
-### Caching
-- [ ] Cache expensive queries
-- [ ] Cache dashboard/report data
-- [ ] Implement cache invalidation
-- [ ] Use Redis for session/cache
-
-### Application
-- [ ] Route caching in production
-- [ ] Config caching in production
-- [ ] View caching in production
-- [ ] Optimized autoloader
-- [ ] Queue heavy operations
-
-### API
-- [ ] Paginate list endpoints
-- [ ] Enable response compression
-- [ ] Implement ETags
-- [ ] Use API resources
+**Remember**: Database performance is iterative. Measure, optimize, and verify improvements with EXPLAIN and real-world metrics.

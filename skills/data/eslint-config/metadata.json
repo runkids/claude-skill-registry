@@ -1,12 +1,7 @@
 {
   "name": "eslint-config",
-  "description": "Use when configuring ESLint - covers flat config, TypeScript integration, and custom rules",
-  "repo": "mcclowes/lea",
-  "category": "testing",
-  "tags": [
-    "eslint",
-    "config"
-  ],
-  "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "repo": "sayali-ingle-pdl/adusa-ai-vuejs-app-template",
+  "path": ".github/agents/app-starter/agents-context/skills/eslint-config/SKILL.md",
+  "source": "github.com/sayali-ingle-pdl/adusa-ai-vuejs-app-template",
+  "downloaded_at": "2026-01-14T04:00:40.635583Z"
 }

@@ -1,156 +1,171 @@
 ---
 name: summary-generator
-description: Generates session summaries and resume prompts for multi-session work. Use when completing features, before context limits (~50% capacity), or when user says "summary", "wrap up", "save progress", "end session". Creates markdown in docs/summaries/ with completed work, files modified, and restart instructions.
-allowed-tools: Read, Glob, Grep, Bash(git diff:*), Bash(git log:*), Bash(git status:*), Write
+description: This skill should be used when generating lesson summaries for educational content. It extracts key concepts, mental models, patterns, and common mistakes from lesson markdown files using a Socratic extraction process. Use this skill when a lesson file needs a `.summary.md` companion file, or when reviewing/refreshing existing summaries.
 ---
 
-# Session Summary Generator
+# Summary Generator
 
 ## Overview
 
-This skill creates comprehensive session summaries for complex multi-session work, enabling seamless resumption of tasks. It generates a markdown file in `docs/summaries/` with a standardized format.
+This skill generates concise, scannable summaries for educational lessons by extracting the essential learning elements through Socratic questioning. Summaries serve two user needs: quick review (students returning to refresh understanding) and just-in-time reference (students checking back mid-practice).
 
-## When to Use
+## Extraction Process (Socratic Style)
 
-Trigger this skill when:
-- User explicitly requests a summary ("generate summary", "wrap up", "save progress")
-- Completing a significant feature or refactor
-- Conversation context is reaching limits (~50% before auto-compact)
-- Before starting a new chat session
-- When collaborating with team members on the same feature
+To generate a summary, work through these questions in order. Each question extracts content for one section of the summary.
 
-### Auto-Suggest Triggers
+### Question 1: Core Concept
+> "If a student remembers only ONE thing from this lesson tomorrow, what must it be?"
 
-Proactively suggest generating a summary when:
-- Multiple files have been modified in the session
-- A feature implementation is complete
-- The conversation has been long (many exchanges)
-- User mentions ending their work session
+Extract the single most important takeaway in 1-2 sentences. This should be the foundational insight that unlocks everything else.
 
-## Output Location
+**Test**: Could someone who only read this sentence explain the lesson's purpose to a peer?
 
-Session summaries are stored in: `docs/summaries/YYYY-MM-DD_feature-name.md`
+### Question 2: Key Mental Models
+> "What mental frameworks does this lesson install in the student's mind? What 'lenses' do they now see problems through?"
 
-## Instructions
+Extract 2-3 mental models—these are the reusable thinking patterns, not facts. Look for:
+- Cause → Effect relationships
+- Decision frameworks ("When X, do Y")
+- Conceptual metaphors or analogies
 
-### Step 1: Analyze Current Work
+**Test**: Are these transferable to new situations, or are they lesson-specific facts?
 
-Run these commands to understand what was done:
+### Question 3: Critical Patterns
+> "What practical techniques or patterns does this lesson teach? What can the student now DO that they couldn't before?"
 
-```bash
-git status
-git diff --stat
-git log --oneline -10
+Extract 2-4 actionable patterns from the lesson. These come from:
+- Code examples and their purpose
+- AI collaboration techniques
+- Tools or commands introduced
+- Workflows demonstrated
+
+**Test**: Could a student apply these patterns without re-reading the lesson?
+
+### Question 4: AI Collaboration Keys
+> "How does AI help with this topic? What prompts or collaboration patterns make the difference?"
+
+Extract 1-2 insights about working with AI on this topic. This should NOT expose the Three Roles framework—focus on practical collaboration patterns.
+
+**Note**: Skip this section if the lesson doesn't involve AI collaboration (Layer 1 content).
+
+### Question 5: Common Mistakes
+> "Where do students typically go wrong? What misconceptions does this lesson correct?"
+
+Extract 2-3 common mistakes from:
+- Explicit "Common Mistakes" sections
+- Error examples in the lesson
+- Counterintuitive points that contradict assumptions
+
+**Test**: Would knowing these prevent a real mistake?
+
+### Question 6: Connections
+> "What prerequisite knowledge does this build on? Where does this lead next?"
+
+Extract navigation links:
+- **Builds on**: What prior concepts are assumed
+- **Leads to**: What this enables in future lessons
+
+**Note**: This section is optional. Skip if connections aren't clear or useful.
+
+## Output Template
+
+Generate the summary following this exact structure:
+
+```markdown
+### Core Concept
+[1-2 sentences from Question 1]
+
+### Key Mental Models
+- **[Model Name]**: [Brief explanation]
+- **[Model Name]**: [Brief explanation]
+- **[Model Name if needed]**: [Brief explanation]
+
+### Critical Patterns
+- [Pattern/technique 1]
+- [Pattern/technique 2]
+- [Pattern/technique 3 if applicable]
+- [AI collaboration pattern if applicable]
+
+### Common Mistakes
+- [Mistake 1 and why it's wrong]
+- [Mistake 2 and why it's wrong]
+- [Mistake 3 if applicable]
+
+### Connections
+- **Builds on**: [Prior concept/chapter]
+- **Leads to**: [Next concept/chapter]
 ```
 
-Review the conversation history to identify:
-- What was accomplished
-- Key decisions made
-- Files created or modified
-- Any remaining tasks
+## Length Guidelines
 
-### Step 2: Generate Summary File
+Adjust summary length based on lesson complexity (from frontmatter `proficiency_level`):
 
-Create the summary using the template in [TEMPLATE.md](TEMPLATE.md).
+| Proficiency | Target Length | Reason |
+|-------------|---------------|--------|
+| A1-A2 (Beginner) | 150-250 words | Simpler concepts, fewer patterns |
+| B1-B2 (Intermediate) | 200-350 words | More nuanced, multiple techniques |
+| C1-C2 (Advanced) | 250-400 words | Complex topics, many interconnections |
 
-Key sections to include:
-1. **Overview**: Brief description of session focus
-2. **Completed Work**: Bullet points of accomplishments
-3. **Key Files Modified**: Table of files and changes
-4. **Design Patterns Used**: Important architectural decisions
-5. **Remaining Tasks**: What's left to do
-6. **Resume Prompt**: Copy-paste instructions for next session
+## Anti-Patterns (What NOT to Include)
 
-### Step 3: Create Resume Prompt
+Following **Principle 7: Minimal Sufficient Content**, summaries must NOT contain:
 
-The resume prompt should include:
-- Context reference to the summary file
-- Specific file paths to review first
-- Current status and immediate next steps
-- Any blockers or decisions that need user input
+- ❌ **Full explanations** — Summaries point to concepts, not re-teach them
+- ❌ **Code examples** — The full lesson contains these
+- ❌ **Practice exercises** — Students return to the lesson for practice
+- ❌ **"What's Next" navigation** — Course structure handles this
+- ❌ **Motivational content** — No "Congratulations!" or fluff
+- ❌ **Layer/Stage labels** — Students experience pedagogy, not study it
+- ❌ **Framework terminology** — No "Three Roles", "Layer 2", etc.
 
-### Step 4: Analyze Token Usage
+## File Naming Convention
 
-Review the conversation for token efficiency opportunities using [analyzers/token-analyzer.md](analyzers/token-analyzer.md) and [guidelines/token-optimization.md](guidelines/token-optimization.md).
+Summary files are named by appending `.summary.md` to the lesson filename (without extension):
 
-**Look for:**
-1. **File Reading Patterns**
-   - Files read multiple times → Suggest caching or using Grep
-   - Large files read fully when Grep would suffice
-   - Reading generated files (node_modules, build artifacts)
+```
+# Lesson file:
+robolearn-interface/docs/05-Python/17-intro/01-what-is-python.md
 
-2. **Search Inefficiencies**
-   - Redundant searches → Recommend consolidating queries
-   - Overly broad glob patterns
-   - Multiple searches that could be combined
+# Summary file:
+robolearn-interface/docs/05-Python/17-intro/01-what-is-python.summary.md
+```
 
-3. **Response Verbosity**
-   - Verbose explanations → Note opportunities for conciseness
-   - Repeated explanations of same concepts
-   - Unnecessary multi-paragraph responses for simple tasks
+## Workflow
 
-4. **Good Practices to Acknowledge**
-   - Effective use of Grep before Read
-   - Targeted searches with appropriate scope
-   - Concise, actionable responses
-   - Efficient agent usage
+1. **Read** the target lesson file completely
+2. **Extract** the lesson's proficiency level from frontmatter
+3. **Answer** each Socratic question, noting extracted content
+4. **Compose** the summary using the template
+5. **Validate** against anti-patterns checklist
+6. **Check** word count against length guidelines
+7. **Write** the `.summary.md` file
 
-**Generate token usage report with:**
-- Estimated total tokens (use chars/4 approximation)
-- Token breakdown by category (file ops, code gen, explanations, searches)
-- Efficiency score (0-100) using scoring system from token-analyzer.md
-- Top 5 optimization opportunities (prioritized by impact)
-- Notable good practices observed
+## Example: Data Types Lesson Summary
 
-See [analyzers/token-analyzer.md](analyzers/token-analyzer.md) for detailed analysis methodology.
+For a lesson teaching Python data types at A2 proficiency:
 
-### Step 5: Analyze Command Accuracy
+```markdown
+### Core Concept
+Data types are Python's classification system—they tell Python "what kind of data is this?" and "what operations are valid?"
 
-Review tool calls for accuracy and error patterns using [analyzers/command-analyzer.md](analyzers/command-analyzer.md) and [guidelines/command-accuracy.md](guidelines/command-accuracy.md).
+### Key Mental Models
+- **Types → Operations**: Numbers enable math; text enables joining; booleans enable decisions
+- **Type Mismatch → Error**: `5 + "hello"` fails because Python can't add numbers to text
+- **Type Decision Framework**: Ask "What kind of data?" to determine the right type
 
-**Look for:**
-1. **Failed Commands and Causes**
-   - Path errors (backslashes, wrong case, file not found)
-   - Import errors (wrong module path, wrong import style)
-   - Type errors (property doesn't exist, type mismatch)
-   - Edit errors (string not found, whitespace issues)
+### Critical Patterns
+- Use `type()` to verify what type Python assigned: `type(42)` returns `<class 'int'>`
+- Type hints express intent: `age: int = 25` tells both AI and humans what you expect
+- 7 categories cover all data: Numeric, Text, Boolean, Collections, Binary, Special (None)
 
-2. **Error Patterns**
-   - Categorize by type: path, syntax, permission, logic
-   - Identify recurring issues (same mistake multiple times)
-   - Note severity: critical, high, medium, low
-   - Calculate time wasted on failures and retries
+### Common Mistakes
+- Storing numbers as text (`"25"` instead of `25`) prevents math operations
+- Forgetting that `0.1 + 0.2` doesn't exactly equal `0.3` (floating point precision)
+- Mixing types in operations without explicit conversion
 
-3. **Recovery and Improvements**
-   - How quickly errors were fixed
-   - Whether verification prevented errors
-   - Improvements from previous sessions
-   - Good patterns that prevented errors
+### Connections
+- **Builds on**: Python installation and first programs (Chapter 17)
+- **Leads to**: Deep dive into numeric types and text handling (Chapters 18-20)
+```
 
-**Generate command accuracy report with:**
-- Total commands executed
-- Success rate percentage
-- Failure breakdown by category
-- Top 3 recurring issues with root cause analysis
-- Actionable recommendations for prevention
-- Improvements observed from past sessions
-
-See [analyzers/command-analyzer.md](analyzers/command-analyzer.md) for detailed analysis methodology.
-
-## Example Usage
-
-When user says: "Let's wrap up for today"
-
-Response:
-1. Analyze git changes and conversation history
-2. Create `docs/summaries/2025-12-30_enrollment-improvements.md`
-3. Provide the resume prompt for the next session
-4. Suggest: "When context gets long, consider starting a new chat with the resume prompt"
-
-## Tips
-
-- Keep summaries focused on a single feature or area
-- Include exact file paths for easy navigation
-- Note any environmental setup needed (database migrations, etc.)
-- Flag any blocking issues or decisions made
-- Reference the CLAUDE.md file patterns when applicable
+**Word count**: ~175 words (appropriate for A2)

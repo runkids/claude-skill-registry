@@ -1,11 +1,7 @@
 {
   "name": "skill-builder",
-  "description": "Guide for creating new skills following best practices. Creates properly formatted SKILL.md files with YAML frontmatter, clear structure, and effective discovery metadata.",
-  "repo": "brendanbecker/SREcodex",
-  "category": "data",
-  "tags": [
-    "skill",
-    "builder"
-  ],
-  "stars": 0
+  "repo": "daispacy/py-claude-marketplace",
+  "path": "py-plugin/skills/skill-builder/SKILL.md",
+  "source": "github.com/daispacy/py-claude-marketplace",
+  "downloaded_at": "2026-01-14T04:01:26.486350Z"
 }

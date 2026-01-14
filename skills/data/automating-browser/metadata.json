@@ -1,12 +1,7 @@
 {
   "name": "automating-browser",
-  "description": "Interactive browser automation using claude-in-chrome MCP tools. Best for: demos, documentation GIFs, manual testing, live browser control. For automated E2E testing in CI/CD, use webapp-testing skill",
   "repo": "thkt/claude-config",
-  "category": "testing",
-  "tags": [
-    "automating",
-    "browser"
-  ],
-  "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "path": ".ja/skills/automating-browser/SKILL.md",
+  "source": "github.com/thkt/claude-config",
+  "downloaded_at": "2026-01-14T03:15:08.259190Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "tech-stack-evaluator",
-  "description": "Auto-activates during requirements analysis to evaluate technical stack",
-  "repo": "matteocervelli/llms",
-  "category": "design",
-  "tags": [
-    "tech",
-    "stack",
-    "evaluator"
-  ],
-  "stars": 10,
-  "source": "local"
+  "repo": "alirezarezvani/claude-code-skill-factory",
+  "path": "generated-skills/tech-stack-evaluator/SKILL.md",
+  "source": "github.com/alirezarezvani/claude-code-skill-factory",
+  "downloaded_at": "2026-01-14T03:52:53.698259Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "sveltekit-data-flow",
-  "description": "SvelteKit data flow guidance. Use for load functions, form actions, and server/client data. Covers +page.server.ts vs +page.ts, serialization, fail(), redirect(), error().",
-  "repo": "spences10/svelte-claude-skills",
-  "category": "data",
-  "tags": [
-    "sveltekit",
-    "data",
-    "flow"
-  ],
-  "stars": 107,
-  "source": "SkillsMP Synced Skills"
+  "repo": "spences10/svelte-skills-kit",
+  "path": "plugins/svelte-skills/skills/sveltekit-data-flow/SKILL.md",
+  "source": "github.com/spences10/svelte-skills-kit",
+  "downloaded_at": "2026-01-14T02:57:51.281738Z"
 }

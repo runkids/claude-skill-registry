@@ -1,14 +1,7 @@
 {
   "name": "creating-cursor-rules-skill",
-  "description": "Expert guidance for creating effective Cursor IDE rules with best practices, patterns, and examples",
-  "repo": "pr-pm/prpm",
-  "category": "design",
-  "tags": [
-    "creating",
-    "cursor",
-    "rules",
-    "skill"
-  ],
-  "stars": 70,
-  "source": "SkillsMP Synced Skills"
+  "repo": "NangoHQ/ai-ide-prompts",
+  "path": ".claude/skills/creating-cursor-rules-skill/SKILL.md",
+  "source": "github.com/NangoHQ/ai-ide-prompts",
+  "downloaded_at": "2026-01-14T01:48:13.646418Z"
 }

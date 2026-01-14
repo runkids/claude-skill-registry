@@ -1,8 +1,7 @@
 {
   "name": "rag-implementation",
-  "repo": "wshobson/agents",
-  "category": "data",
-  "description": "Build Retrieval-Augmented Generation (RAG) systems for LLM applications with vector databases and semantic search. Use when implementing knowledge-grounded AI, building document Q&A systems, or integr",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:34.535718Z"
+  "repo": "Cursedpotential/TheBigOne",
+  "path": "archive/04_Utilities/rag-implementation/SKILL.md",
+  "source": "github.com/Cursedpotential/TheBigOne",
+  "downloaded_at": "2026-01-14T03:49:41.117043Z"
 }

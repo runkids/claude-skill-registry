@@ -1,13 +1,7 @@
 {
   "name": "nextjs-project-manager",
-  "description": "Expert guide for Next.js 14+ App Router projects. Use when building features, routing, server/client components, forms, layouts, or debugging Next.js-specific issues.",
   "repo": "eddiebe147/claude-settings",
-  "category": "development",
-  "tags": [
-    "nextjs",
-    "project",
-    "manager"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": "skills/nextjs-project-manager/SKILL.md",
+  "source": "github.com/eddiebe147/claude-settings",
+  "downloaded_at": "2026-01-14T03:53:05.815462Z"
 }

@@ -1,749 +1,752 @@
 ---
 name: skill-judge
-description: 根据官方规范和最佳实践评估 Agent Skill 设计质量。用于审查、审计或改进 SKILL.md 文件和 skill 包。提供多维度评分和可操作的改进建议。
+description: Evaluate Agent Skill design quality against official specifications and best practices. Use when reviewing, auditing, or improving SKILL.md files and skill packages. Provides multi-dimensional scoring and actionable improvement suggestions.
 ---
 
-# Skill 评审官
+# Skill Judge
 
-根据官方规范和从 17+ 个官方示例中提炼的模式来评估 Agent Skills。
+Evaluate Agent Skills against official specifications and patterns derived from 17+ official examples.
 
 ---
 
-## 核心理念
+## Core Philosophy
 
-### 什么是 Skill？
+### What is a Skill?
 
-Skill 不是教程。Skill 是一种**知识外化机制**。
+A Skill is NOT a tutorial. A Skill is a **knowledge externalization mechanism**.
 
-传统 AI 知识被锁在模型参数中。要教授新能力：
+Traditional AI knowledge is locked in model parameters. To teach new capabilities:
 ```
-传统方式：收集数据 → GPU 集群 → 训练 → 部署新版本
-成本：$10,000 - $1,000,000+
-周期：数周到数月
-```
-
-Skill 改变了这一切：
-```
-Skill：编辑 SKILL.md → 保存 → 下次调用即生效
-成本：$0
-周期：即时
+Traditional: Collect data → GPU cluster → Train → Deploy new version
+Cost: $10,000 - $1,000,000+
+Timeline: Weeks to months
 ```
 
-这是从"训练 AI"到"教育 AI"的范式转变——就像一个无需训练的热插拔 LoRA 适配器。你用自然语言编辑一个 Markdown 文件，模型的行为就会改变。
+Skills change this:
+```
+Skill: Edit SKILL.md → Save → Takes effect on next invocation
+Cost: $0
+Timeline: Instant
+```
 
-### 核心公式
+This is the paradigm shift from "training AI" to "educating AI" — like a hot-swappable LoRA adapter that requires no training. You edit a Markdown file in natural language, and the model's behavior changes.
 
-> **好的 Skill = 专家独有知识 − Claude 已知的知识**
+### The Core Formula
 
-Skill 的价值由其**知识增量**衡量——它提供的内容与模型已知内容之间的差距。
+> **Good Skill = Expert-only Knowledge − What Claude Already Knows**
 
-- **专家独有知识**：决策树、权衡取舍、边缘情况、反模式、领域特定思维框架——这些需要多年经验积累的东西
-- **Claude 已知的知识**：基本概念、标准库用法、常见编程模式、通用最佳实践
+A Skill's value is measured by its **knowledge delta** — the gap between what it provides and what the model already knows.
 
-当 Skill 解释"什么是 PDF"或"如何写 for 循环"时，它在压缩 Claude 已有的知识。这是**token 浪费**——上下文窗口是与系统提示、对话历史、其他 Skills 和用户请求共享的公共资源。
+- **Expert-only knowledge**: Decision trees, trade-offs, edge cases, anti-patterns, domain-specific thinking frameworks — things that take years of experience to accumulate
+- **What Claude already knows**: Basic concepts, standard library usage, common programming patterns, general best practices
+
+When a Skill explains "what is PDF" or "how to write a for-loop", it's compressing knowledge Claude already has. This is **token waste** — context window is a public resource shared with system prompts, conversation history, other Skills, and user requests.
 
 ### Tool vs Skill
 
-| 概念 | 本质 | 功能 | 示例 |
-|------|------|------|------|
-| **Tool** | 模型**能做**什么 | 执行动作 | bash、read_file、write_file、WebSearch |
-| **Skill** | 模型**知道如何做**什么 | 指导决策 | PDF 处理、MCP 构建、前端设计 |
+| Concept | Essence | Function | Example |
+|---------|---------|----------|---------|
+| **Tool** | What model CAN do | Execute actions | bash, read_file, write_file, WebSearch |
+| **Skill** | What model KNOWS how to do | Guide decisions | PDF processing, MCP building, frontend design |
 
-Tool 定义能力边界——没有 bash tool，模型无法执行命令。
-Skill 注入知识——没有 frontend-design Skill，模型产出的是通用 UI。
+Tools define capability boundaries — without bash tool, model can't execute commands.
+Skills inject knowledge — without frontend-design Skill, model produces generic UI.
 
-**等式**：
+**The equation**:
 ```
-通用 Agent + 优秀 Skill = 领域专家 Agent
+General Agent + Excellent Skill = Domain Expert Agent
 ```
 
-同一个 Claude 模型，加载不同的 Skills，就成为不同的专家。
+Same Claude model, different Skills loaded, becomes different experts.
 
-### Skill 中的三类知识
+### Three Types of Knowledge in Skills
 
-评估时，对每个部分进行分类：
+When evaluating, categorize each section:
 
-| 类型 | 定义 | 处理方式 |
-|------|------|----------|
-| **专家级** | Claude 确实不知道这个 | 必须保留——这是 Skill 的价值 |
-| **激活级** | Claude 知道但可能想不到 | 简短则保留——起提醒作用 |
-| **冗余级** | Claude 肯定知道这个 | 应该删除——浪费 token |
+| Type | Definition | Treatment |
+|------|------------|-----------|
+| **Expert** | Claude genuinely doesn't know this | Must keep — this is the Skill's value |
+| **Activation** | Claude knows but may not think of | Keep if brief — serves as reminder |
+| **Redundant** | Claude definitely knows this | Should delete — wastes tokens |
 
-Skill 设计的艺术在于：最大化专家级内容，谨慎使用激活级，无情删除冗余级。
+The art of Skill design is maximizing Expert content, using Activation sparingly, and eliminating Redundant ruthlessly.
 
 ---
 
-## 评估维度（总分 120 分）
+## Evaluation Dimensions (120 points total)
 
-### D1：知识增量（20 分）——核心维度
+### D1: Knowledge Delta (20 points) — THE CORE DIMENSION
 
-最重要的维度。Skill 是否添加了真正的专家知识？
+The most important dimension. Does the Skill add genuine expert knowledge?
 
-| 分数 | 标准 |
-|------|------|
-| 0-5 | 解释 Claude 已知的基础知识（什么是 X、如何写代码、标准库教程） |
-| 6-10 | 混合：一些专家知识被显而易见的内容稀释 |
-| 11-15 | 大部分是专家知识，冗余最少 |
-| 16-20 | 纯知识增量——每个段落都值得其 token |
+| Score | Criteria |
+|-------|----------|
+| 0-5 | Explains basics Claude knows (what is X, how to write code, standard library tutorials) |
+| 6-10 | Mixed: some expert knowledge diluted by obvious content |
+| 11-15 | Mostly expert knowledge with minimal redundancy |
+| 16-20 | Pure knowledge delta — every paragraph earns its tokens |
 
-**红旗**（直接得分 ≤5）：
-- "什么是[基本概念]"部分
-- 标准操作的分步教程
-- 解释如何使用常见库
-- 通用最佳实践（"写干净的代码"、"处理错误"）
-- 行业标准术语的定义
+**Red flags** (instant score ≤5):
+- "What is [basic concept]" sections
+- Step-by-step tutorials for standard operations
+- Explaining how to use common libraries
+- Generic best practices ("write clean code", "handle errors")
+- Definitions of industry-standard terms
 
-**绿旗**（高知识增量的指标）：
-- 非显而易见选择的决策树（"当 X 失败时，尝试 Y 因为 Z"）
-- 只有专家才知道的权衡（"A 更快但 B 能处理边缘情况 C"）
-- 来自实际经验的边缘情况
-- "绝对不要做 X 因为[非显而易见的原因]"
-- 领域特定的思维框架
+**Green flags** (indicators of high knowledge delta):
+- Decision trees for non-obvious choices ("when X fails, try Y because Z")
+- Trade-offs only an expert would know ("A is faster but B handles edge case C")
+- Edge cases from real-world experience
+- "NEVER do X because [non-obvious reason]"
+- Domain-specific thinking frameworks
 
-**评估问题**：
-1. 对于每个部分，问："Claude 已经知道这个吗？"
-2. 如果在解释什么，问："这是在向 Claude 解释还是为 Claude 解释？"
-3. 统计专家级 vs 激活级 vs 冗余级的段落数
-
----
-
-### D2：思维模式 + 适当的流程（15 分）
-
-Skill 是否传递了专家**思维模式**以及**必要的领域特定流程**？
-
-专家和新手的区别不是"知道如何操作"——而是"如何思考问题"。但当 Claude 缺乏领域特定的程序性知识时，仅有思维模式是不够的。
-
-**关键区分**：
-| 类型 | 示例 | 价值 |
-|------|------|------|
-| **思维模式** | "设计前先问：是什么让这个令人难忘？" | 高——塑造决策 |
-| **领域特定流程** | "OOXML 工作流：解包 → 编辑 XML → 验证 → 打包" | 高——Claude 可能不知道 |
-| **通用流程** | "步骤 1：打开文件，步骤 2：编辑，步骤 3：保存" | 低——Claude 已经知道 |
-
-| 分数 | 标准 |
-|------|------|
-| 0-3 | 只有 Claude 已知的通用流程 |
-| 4-7 | 有领域流程但缺乏思维框架 |
-| 8-11 | 良好平衡：思维模式 + 领域特定工作流 |
-| 12-15 | 专家级：塑造思维并提供 Claude 不知道的流程 |
-
-**有价值的流程包括**：
-- Claude 未被训练过的工作流（新工具、专有系统）
-- 非显而易见的正确顺序（如"打包前验证，不是打包后"）
-- 容易遗漏的关键步骤（如"编辑后必须重新计算公式"）
-- 领域特定序列（如 MCP 服务器的 4 阶段开发流程）
-
-**冗余的流程包括**：
-- 通用文件操作（打开、读取、写入、保存）
-- 标准编程模式（循环、条件、错误处理）
-- 文档完善的常见库用法
-
-**专家思维模式示例**：
-```markdown
-在[动作]之前，问自己：
-- **目的**：这解决什么问题？谁使用它？
-- **约束**：隐藏的需求是什么？
-- **差异化**：是什么让这个解决方案令人难忘？
-```
-
-**有价值的领域流程示例**：
-```markdown
-### 修订标记工作流（Claude 不会知道这个序列）
-1. 转换为 markdown：`pandoc --track-changes=all`
-2. 将文本映射到 XML：在 document.xml 中 grep 文本
-3. 分批实施更改，每批 3-10 个
-4. 打包并验证：检查所有更改是否已应用
-```
-
-**冗余的通用流程示例**：
-```markdown
-步骤 1：打开文件
-步骤 2：找到该部分
-步骤 3：进行更改
-步骤 4：保存并测试
-```
-
-**测试方法**：
-1. 它是否告诉 Claude 要思考什么？（思维模式）
-2. 它是否告诉 Claude 如何做它不知道的事情？（领域流程）
-
-好的 Skill 在需要时两者都提供。
+**Evaluation questions**:
+1. For each section, ask: "Does Claude already know this?"
+2. If explaining something, ask: "Is this explaining TO Claude or FOR Claude?"
+3. Count paragraphs that are Expert vs Activation vs Redundant
 
 ---
 
-### D3：反模式质量（15 分）
+### D2: Mindset + Appropriate Procedures (15 points)
 
-Skill 是否有有效的"绝对不要"清单？
+Does the Skill transfer expert **thinking patterns** along with **necessary domain-specific procedures**?
 
-**为什么重要**：专家知识的一半是知道什么不该做。资深设计师看到白色背景上的紫色渐变会本能地皱眉——"太 AI 生成了"。这种"绝对不能做什么"的直觉来自踩过无数地雷。
+The difference between experts and novices isn't "knowing how to operate" — it's "how to think about the problem." But thinking patterns alone aren't enough when Claude lacks domain-specific procedural knowledge.
 
-Claude 没有踩过这些地雷。它不知道 Inter 字体被过度使用，不知道紫色渐变是 AI 生成内容的标志。好的 Skills 必须明确说明这些"绝对不要"。
+**Key distinction**:
+| Type | Example | Value |
+|------|---------|-------|
+| **Thinking patterns** | "Before designing, ask: What makes this memorable?" | High — shapes decision-making |
+| **Domain-specific procedures** | "OOXML workflow: unpack → edit XML → validate → pack" | High — Claude may not know this |
+| **Generic procedures** | "Step 1: Open file, Step 2: Edit, Step 3: Save" | Low — Claude already knows |
 
-| 分数 | 标准 |
-|------|------|
-| 0-3 | 没有提到反模式 |
-| 4-7 | 通用警告（"避免错误"、"小心"、"考虑边缘情况"） |
-| 8-11 | 具体的"绝对不要"清单，有一些理由 |
-| 12-15 | 专家级反模式，带有原因——只有经验才能教会的东西 |
+| Score | Criteria |
+|-------|----------|
+| 0-3 | Only generic procedures Claude already knows |
+| 4-7 | Has domain procedures but lacks thinking frameworks |
+| 8-11 | Good balance: thinking patterns + domain-specific workflows |
+| 12-15 | Expert-level: shapes thinking AND provides procedures Claude wouldn't know |
 
-**专家级反模式**（具体 + 原因）：
+**What counts as valuable procedures**:
+- Workflows Claude hasn't been trained on (new tools, proprietary systems)
+- Correct ordering that's non-obvious (e.g., "validate BEFORE packing, not after")
+- Critical steps that are easy to miss (e.g., "MUST recalculate formulas after editing")
+- Domain-specific sequences (e.g., MCP server's 4-phase development process)
+
+**What counts as redundant procedures**:
+- Generic file operations (open, read, write, save)
+- Standard programming patterns (loops, conditionals, error handling)
+- Common library usage that's well-documented
+
+**Expert thinking patterns look like**:
 ```markdown
-绝对不要使用通用的 AI 生成美学，如：
-- 过度使用的字体系列（Inter、Roboto、Arial）
-- 陈词滥调的配色方案（特别是白色背景上的紫色渐变）
-- 可预测的布局和组件模式
-- 所有东西都用默认圆角
+Before [action], ask yourself:
+- **Purpose**: What problem does this solve? Who uses it?
+- **Constraints**: What are the hidden requirements?
+- **Differentiation**: What makes this solution memorable?
 ```
 
-**弱反模式**（模糊，无理由）：
+**Valuable domain procedures look like**:
 ```markdown
-避免犯错误。
-小心边缘情况。
-不要写糟糕的代码。
+### Redlining Workflow (Claude wouldn't know this sequence)
+1. Convert to markdown: `pandoc --track-changes=all`
+2. Map text to XML: grep for text in document.xml
+3. Implement changes in batches of 3-10
+4. Pack and verify: check ALL changes were applied
 ```
 
-**测试方法**：专家读到反模式清单时会说"是的，我是吃过亏才学到这个的"吗？还是会说"这对每个人都很明显"？
+**Redundant generic procedures look like**:
+```markdown
+Step 1: Open the file
+Step 2: Find the section
+Step 3: Make the change
+Step 4: Save and test
+```
+
+**The test**:
+1. Does it tell Claude WHAT to think about? (thinking patterns)
+2. Does it tell Claude HOW to do things it wouldn't know? (domain procedures)
+
+A good Skill provides both when needed.
 
 ---
 
-### D4：规范合规性——特别是 Description（15 分）
+### D3: Anti-Pattern Quality (15 points)
 
-Skill 是否遵循官方格式要求？**特别关注 description 质量。**
+Does the Skill have effective NEVER lists?
 
-| 分数 | 标准 |
-|------|------|
-| 0-5 | 缺少 frontmatter 或格式无效 |
-| 6-10 | 有 frontmatter 但 description 模糊或不完整 |
-| 11-13 | 有效的 frontmatter，description 有"做什么"但"何时使用"较弱 |
-| 14-15 | 完美：全面的 description，包含"做什么"、"何时使用"和触发关键词 |
+**Why this matters**: Half of expert knowledge is knowing what NOT to do. A senior designer sees purple gradient on white background and instinctively cringes — "too AI-generated." This intuition for "what absolutely not to do" comes from stepping on countless landmines.
 
-**Frontmatter 要求**：
-- `name`：小写，仅限字母数字 + 连字符，≤64 字符
-- `description`：**最关键的字段**——决定 skill 是否会被使用
+Claude hasn't stepped on these landmines. It doesn't know Inter font is overused, doesn't know purple gradients are the signature of AI-generated content. Good Skills must explicitly state these "absolute don'ts."
+
+| Score | Criteria |
+|-------|----------|
+| 0-3 | No anti-patterns mentioned |
+| 4-7 | Generic warnings ("avoid errors", "be careful", "consider edge cases") |
+| 8-11 | Specific NEVER list with some reasoning |
+| 12-15 | Expert-grade anti-patterns with WHY — things only experience teaches |
+
+**Expert anti-patterns** (specific + reason):
+```markdown
+NEVER use generic AI-generated aesthetics like:
+- Overused font families (Inter, Roboto, Arial)
+- Cliched color schemes (particularly purple gradients on white backgrounds)
+- Predictable layouts and component patterns
+- Default border-radius on everything
+```
+
+**Weak anti-patterns** (vague, no reasoning):
+```markdown
+Avoid making mistakes.
+Be careful with edge cases.
+Don't write bad code.
+```
+
+**The test**: Would an expert read the anti-pattern list and say "yes, I learned this the hard way"? Or would they say "this is obvious to everyone"?
 
 ---
 
-**为什么 description 是最重要的字段**：
+### D4: Specification Compliance — Especially Description (15 points)
+
+Does the Skill follow official format requirements? **Special focus on description quality.**
+
+| Score | Criteria |
+|-------|----------|
+| 0-5 | Missing frontmatter or invalid format |
+| 6-10 | Has frontmatter but description is vague or incomplete |
+| 11-13 | Valid frontmatter, description has WHAT but weak on WHEN |
+| 14-15 | Perfect: comprehensive description with WHAT, WHEN, and trigger keywords |
+
+**Frontmatter requirements**:
+- `name`: lowercase, alphanumeric + hyphens only, ≤64 characters
+- `description`: **THE MOST CRITICAL FIELD** — determines if skill gets used at all
+
+---
+
+**Why description is THE MOST IMPORTANT field**:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
-│  SKILL 激活流程                                                      │
+│  SKILL ACTIVATION FLOW                                              │
 │                                                                     │
-│  用户请求 → Agent 看到所有 skill 的 description → 决定激活哪个        │
-│            （只看 description，不看正文！）                           │
+│  User Request → Agent sees ALL skill descriptions → Decides which  │
+│                 (only descriptions, not bodies!)     to activate    │
 │                                                                     │
-│  如果 description 不匹配 → Skill 永远不会被加载                       │
-│  如果 description 模糊 → Skill 可能在应该触发时没有触发               │
-│  如果 description 缺少关键词 → Skill 对 Agent 不可见                  │
+│  If description doesn't match → Skill NEVER gets loaded            │
+│  If description is vague → Skill might not trigger when it should  │
+│  If description lacks keywords → Skill is invisible to the Agent   │
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
-**残酷的事实**：内容完美但 description 糟糕的 Skill 是**无用的**——它永远不会被激活。description 是告诉 Agent"在这些情况下使用我"的**唯一机会**。
+**The brutal truth**: A Skill with perfect content but poor description is **useless** — it will never be activated. The description is the **only chance** to tell the Agent "use me in these situations."
 
 ---
 
-**Description 必须回答三个问题**：
+**Description must answer THREE questions**:
 
-1. **做什么**：这个 Skill 做什么？（功能）
-2. **何时用**：在什么情况下应该使用它？（触发场景）
-3. **关键词**：什么术语应该触发这个 Skill？（可搜索的术语）
+1. **WHAT**: What does this Skill do? (functionality)
+2. **WHEN**: In what situations should it be used? (trigger scenarios)
+3. **KEYWORDS**: What terms should trigger this Skill? (searchable terms)
 
-**优秀的 description**（三要素齐全）：
+**Excellent description** (all three elements):
 ```yaml
-description: "全面的文档创建、编辑和分析，支持修订标记、评论、格式保留和文本提取。
-当 Claude 需要处理专业文档（.docx 文件）时使用，包括：
-(1) 创建新文档，(2) 修改或编辑内容，
-(3) 处理修订标记，(4) 添加评论，或任何其他文档任务"
+description: "Comprehensive document creation, editing, and analysis with support
+for tracked changes, comments, formatting preservation, and text extraction.
+When Claude needs to work with professional documents (.docx files) for:
+(1) Creating new documents, (2) Modifying or editing content,
+(3) Working with tracked changes, (4) Adding comments, or any other document tasks"
 ```
 
-分析：
-- 做什么：创建、编辑、分析、修订标记、评论
-- 何时用："当 Claude 需要处理... 时：(1)... (2)... (3)..."
-- 关键词：.docx 文件、修订标记、专业文档
+Analysis:
+- WHAT: creation, editing, analysis, tracked changes, comments
+- WHEN: "When Claude needs to work with... for: (1)... (2)... (3)..."
+- KEYWORDS: .docx files, tracked changes, professional documents
 
-**糟糕的 description**（缺少要素）：
+**Poor description** (missing elements):
 ```yaml
 description: "处理文档相关功能"
 ```
 
-问题：
-- 做什么：模糊（"文档相关功能"——具体是什么？）
-- 何时用：缺失（Agent 什么时候应该使用这个？）
-- 关键词：缺失（没有".docx"，没有具体场景）
+Problems:
+- WHAT: vague ("文档相关功能" — what specifically?)
+- WHEN: missing (when should Agent use this?)
+- KEYWORDS: missing (no ".docx", no specific scenarios)
 
-**另一个糟糕的例子**：
+**Another poor example**:
 ```yaml
-description: "一个用于各种任务的有用 skill"
+description: "A helpful skill for various tasks"
 ```
 
-这毫无用处——Agent 不知道什么时候激活它。
+This is useless — Agent has no idea when to activate it.
 
 ---
 
-**Description 质量检查清单**：
-- [ ] 列出具体能力（不只是"帮助处理 X"）
-- [ ] 包含明确的触发场景（"当...时使用"、"当用户要求..."）
-- [ ] 包含可搜索的关键词（文件扩展名、领域术语、动作动词）
-- [ ] 足够具体，让 Agent 确切知道何时使用
-- [ ] 包含必须使用此 skill 的场景（不只是"可以使用"）
+**Description quality checklist**:
+- [ ] Lists specific capabilities (not just "helps with X")
+- [ ] Includes explicit trigger scenarios ("Use when...", "When user asks for...")
+- [ ] Contains searchable keywords (file extensions, domain terms, action verbs)
+- [ ] Specific enough that Agent knows EXACTLY when to use it
+- [ ] Includes scenarios where this skill MUST be used (not just "can be used")
 
 ---
 
-### D5：渐进式披露（15 分）
+### D5: Progressive Disclosure (15 points)
 
-Skill 是否实现了适当的内容分层？
+Does the Skill implement proper content layering?
 
-Skill 加载有三层：
+Skill loading has three layers:
 ```
-第 1 层：元数据（始终在内存中）
-        只有 name + description
-        每个 skill 约 100 token
+Layer 1: Metadata (always in memory)
+         Only name + description
+         ~100 tokens per skill
 
-第 2 层：SKILL.md 正文（触发后加载）
-        详细指南、代码示例、决策树
-        理想：< 500 行
+Layer 2: SKILL.md Body (loaded after triggering)
+         Detailed guidelines, code examples, decision trees
+         Ideal: < 500 lines
 
-第 3 层：资源（按需加载）
-        scripts/、references/、assets/
-        无限制
-```
-
-| 分数 | 标准 |
-|------|------|
-| 0-5 | 所有内容都堆在 SKILL.md 中（>500 行，无结构） |
-| 6-10 | 有 references 但不清楚何时加载 |
-| 11-13 | 良好的分层，有必要的触发器 |
-| 14-15 | 完美：决策树 + 明确触发器 + "不要加载"指导 |
-
-**对于有 references 目录的 Skills**，检查加载触发器质量：
-
-| 触发器质量 | 特征 |
-|------------|------|
-| 差 | References 列在末尾，无加载指导 |
-| 一般 | 有一些触发器但未嵌入工作流 |
-| 好 | 工作流步骤中有必要的触发器 |
-| 优秀 | 场景检测 + 条件触发器 + "不要加载" |
-
-**加载问题**：
-```
-加载太少 ◄─────────────────────────────────► 加载太多
-- References 闲置不用                    - 浪费上下文空间
-- Agent 不知道何时加载                   - 无关信息稀释关键内容
-- 知识在那里但从未被访问                 - 不必要的 token 开销
+Layer 3: Resources (loaded on demand)
+         scripts/, references/, assets/
+         No limit
 ```
 
-**好的加载触发器**（嵌入工作流）：
+| Score | Criteria |
+|-------|----------|
+| 0-5 | Everything dumped in SKILL.md (>500 lines, no structure) |
+| 6-10 | Has references but unclear when to load them |
+| 11-13 | Good layering with MANDATORY triggers present |
+| 14-15 | Perfect: decision trees + explicit triggers + "Do NOT Load" guidance |
+
+**For Skills WITH references directory**, check Loading Trigger Quality:
+
+| Trigger Quality | Characteristics |
+|-----------------|-----------------|
+| Poor | References listed at end, no loading guidance |
+| Mediocre | Some triggers but not embedded in workflow |
+| Good | MANDATORY triggers in workflow steps |
+| Excellent | Scenario detection + conditional triggers + "Do NOT Load" |
+
+**The loading problem**:
+```
+Loading too little ◄─────────────────────────────────► Loading too much
+- References sit unused                    - Wastes context space
+- Agent doesn't know when to load          - Irrelevant info dilutes key content
+- Knowledge is there but never accessed    - Unnecessary token overhead
+```
+
+**Good loading trigger** (embedded in workflow):
 ```markdown
-### 创建新文档
+### Creating New Document
 
-**必须 - 完整阅读文件**：在继续之前，你必须从头到尾完整阅读
-[`docx-js.md`](docx-js.md)（约 500 行）。
-**阅读此文件时绝对不要设置任何范围限制。**
+**MANDATORY - READ ENTIRE FILE**: Before proceeding, you MUST read
+[`docx-js.md`](docx-js.md) (~500 lines) completely from start to finish.
+**NEVER set any range limits when reading this file.**
 
-**不要加载**此任务的 `ooxml.md` 或 `redlining.md`。
+**Do NOT load** `ooxml.md` or `redlining.md` for this task.
 ```
 
-**差的加载触发器**（只是列出）：
+**Bad loading trigger** (just listed):
 ```markdown
 ## References
-- docx-js.md - 用于创建文档
-- ooxml.md - 用于编辑
-- redlining.md - 用于修订标记
+- docx-js.md - for creating documents
+- ooxml.md - for editing
+- redlining.md - for tracking changes
 ```
 
-**对于简单的 Skills**（无 references，<100 行）：根据简洁性和自包含性评分。
+**For simple Skills** (no references, <100 lines): Score based on conciseness and self-containment.
 
 ---
 
-### D6：自由度校准（15 分）
+### D6: Freedom Calibration (15 points)
 
-具体程度是否与任务的脆弱性相匹配？
+Is the level of specificity appropriate for the task's fragility?
 
-不同任务需要不同程度的约束。这是关于将自由度与脆弱性匹配。
+Different tasks need different levels of constraint. This is about matching freedom to fragility.
 
-| 分数 | 标准 |
-|------|------|
-| 0-5 | 严重不匹配（创意任务用死板脚本，脆弱操作用模糊指导） |
-| 6-10 | 部分适当，有些不匹配 |
-| 11-13 | 大多数场景校准良好 |
-| 14-15 | 全程完美的自由度校准 |
+| Score | Criteria |
+|-------|----------|
+| 0-5 | Severely mismatched (rigid scripts for creative tasks, vague for fragile ops) |
+| 6-10 | Partially appropriate, some mismatches |
+| 11-13 | Good calibration for most scenarios |
+| 14-15 | Perfect freedom calibration throughout |
 
-**自由度光谱**：
+**The freedom spectrum**:
 
-| 任务类型 | 应该有 | 原因 | 示例 Skill |
-|----------|--------|------|------------|
-| 创意/设计 | 高自由度 | 多种有效方法，差异化是价值 | frontend-design |
-| 代码审查 | 中等自由度 | 有原则但需要判断 | code-review |
-| 文件格式操作 | 低自由度 | 一个字节错误就损坏文件，一致性至关重要 | docx、xlsx、pdf |
+| Task Type | Should Have | Why | Example Skill |
+|-----------|-------------|-----|---------------|
+| Creative/Design | High freedom | Multiple valid approaches, differentiation is value | frontend-design |
+| Code review | Medium freedom | Principles exist but judgment required | code-review |
+| File format operations | Low freedom | One wrong byte corrupts file, consistency critical | docx, xlsx, pdf |
 
-**高自由度**（基于文本的指导）：
+**High freedom** (text-based instructions):
 ```markdown
-承诺一个大胆的美学方向。选择一个极端：极简主义、
-极繁主义混乱、复古未来主义、有机自然...
+Commit to a BOLD aesthetic direction. Pick an extreme: brutally minimal,
+maximalist chaos, retro-futuristic, organic natural...
 ```
 
-**中等自由度**（伪代码或参数化）：
+**Medium freedom** (pseudocode or parameterized):
 ```markdown
-审查优先级：
-1. 安全漏洞（必须修复）
-2. 逻辑错误（必须修复）
-3. 性能问题（应该修复）
-4. 可维护性（可选）
+Review priority:
+1. Security vulnerabilities (must fix)
+2. Logic errors (must fix)
+3. Performance issues (should fix)
+4. Maintainability (optional)
 ```
 
-**低自由度**（具体脚本，精确步骤）：
+**Low freedom** (specific scripts, exact steps):
 ```markdown
-**必须**：使用 `scripts/create-doc.py` 中的精确脚本
-参数：--title "X" --author "Y"
-不要修改脚本。
+**MANDATORY**: Use exact script in `scripts/create-doc.py`
+Parameters: --title "X" --author "Y"
+Do NOT modify the script.
 ```
 
-**测试方法**：问"如果 Agent 犯错，后果是什么？"
-- 高后果 → 低自由度
-- 低后果 → 高自由度
+**The test**: Ask "if Agent makes a mistake, what's the consequence?"
+- High consequence → Low freedom
+- Low consequence → High freedom
 
 ---
 
-### D7：模式识别（10 分）
+### D7: Pattern Recognition (10 points)
 
-Skill 是否遵循已建立的官方模式？
+Does the Skill follow an established official pattern?
 
-通过分析 17 个官方 Skills，我们识别出 5 种主要设计模式：
+Through analyzing 17 official Skills, we identified 5 main design patterns:
 
-| 模式 | 约行数 | 关键特征 | 示例 | 何时使用 |
-|------|--------|----------|------|----------|
-| **思维型** | ~50 | 思维 > 技术，强"绝对不要"清单，高自由度 | frontend-design | 需要品味的创意任务 |
-| **导航型** | ~30 | 最小 SKILL.md，路由到子文件 | internal-comms | 多个不同场景 |
-| **哲学型** | ~150 | 两步：哲学 → 表达，强调工艺 | canvas-design | 需要原创性的艺术/创作 |
-| **流程型** | ~200 | 分阶段工作流，检查点，中等自由度 | mcp-builder | 复杂的多步骤项目 |
-| **工具型** | ~300 | 决策树，代码示例，低自由度 | docx、pdf、xlsx | 特定格式的精确操作 |
+| Pattern | ~Lines | Key Characteristics | Example | When to Use |
+|---------|--------|---------------------|---------|-------------|
+| **Mindset** | ~50 | Thinking > technique, strong NEVER list, high freedom | frontend-design | Creative tasks requiring taste |
+| **Navigation** | ~30 | Minimal SKILL.md, routes to sub-files | internal-comms | Multiple distinct scenarios |
+| **Philosophy** | ~150 | Two-step: Philosophy → Express, emphasizes craft | canvas-design | Art/creation requiring originality |
+| **Process** | ~200 | Phased workflow, checkpoints, medium freedom | mcp-builder | Complex multi-step projects |
+| **Tool** | ~300 | Decision trees, code examples, low freedom | docx, pdf, xlsx | Precise operations on specific formats |
 
-| 分数 | 标准 |
-|------|------|
-| 0-3 | 无可识别的模式，结构混乱 |
-| 4-6 | 部分遵循某个模式，有显著偏差 |
-| 7-8 | 清晰的模式，有轻微偏差 |
-| 9-10 | 精通地应用适当的模式 |
+| Score | Criteria |
+|-------|----------|
+| 0-3 | No recognizable pattern, chaotic structure |
+| 4-6 | Partially follows a pattern with significant deviations |
+| 7-8 | Clear pattern with minor deviations |
+| 9-10 | Masterful application of appropriate pattern |
 
-**模式选择指南**：
+**Pattern selection guide**:
 
-| 你的任务特征 | 推荐模式 |
-|--------------|----------|
-| 需要品味和创意 | 思维型（~50 行） |
-| 需要原创性和工艺质量 | 哲学型（~150 行） |
-| 有多个不同的子场景 | 导航型（~30 行） |
-| 复杂的多步骤项目 | 流程型（~200 行） |
-| 特定格式的精确操作 | 工具型（~300 行） |
+| Your Task Characteristics | Recommended Pattern |
+|---------------------------|---------------------|
+| Needs taste and creativity | Mindset (~50 lines) |
+| Needs originality and craft quality | Philosophy (~150 lines) |
+| Has multiple distinct sub-scenarios | Navigation (~30 lines) |
+| Complex multi-step project | Process (~200 lines) |
+| Precise operations on specific format | Tool (~300 lines) |
 
 ---
 
-### D8：实用可用性（15 分）
+### D8: Practical Usability (15 points)
 
-Agent 能否有效使用这个 Skill？
+Can an Agent actually use this Skill effectively?
 
-| 分数 | 标准 |
-|------|------|
-| 0-5 | 混乱、不完整、矛盾或未经测试的指导 |
-| 6-10 | 可用但有明显差距 |
-| 11-13 | 常见情况有清晰指导 |
-| 14-15 | 全面覆盖，包括边缘情况和错误处理 |
+| Score | Criteria |
+|-------|----------|
+| 0-5 | Confusing, incomplete, contradictory, or untested guidance |
+| 6-10 | Usable but with noticeable gaps |
+| 11-13 | Clear guidance for common cases |
+| 14-15 | Comprehensive coverage including edge cases and error handling |
 
-**检查项**：
-- **决策树**：对于多路径场景，是否有清晰的路径选择指导？
-- **代码示例**：它们真的能工作吗？还是会出错的伪代码？
-- **错误处理**：如果主要方法失败怎么办？是否提供了备选方案？
-- **边缘情况**：是否涵盖了不常见但现实的场景？
-- **可操作性**：Agent 能立即行动，还是需要自己弄清楚？
+**Check for**:
+- **Decision trees**: For multi-path scenarios, is there clear guidance on which path to take?
+- **Code examples**: Do they actually work? Or are they pseudocode that breaks?
+- **Error handling**: What if the main approach fails? Are fallbacks provided?
+- **Edge cases**: Are unusual but realistic scenarios covered?
+- **Actionability**: Can Agent immediately act, or needs to figure things out?
 
-**好的可用性**（决策树 + 备选方案）：
+**Good usability** (decision tree + fallback):
 ```markdown
-| 任务 | 主要工具 | 备选方案 | 何时使用备选方案 |
-|------|----------|----------|------------------|
-| 读取文本 | pdftotext | PyMuPDF | 需要布局信息 |
-| 提取表格 | camelot-py | tabula-py | camelot 失败 |
+| Task | Primary Tool | Fallback | When to Use Fallback |
+|------|-------------|----------|----------------------|
+| Read text | pdftotext | PyMuPDF | Need layout info |
+| Extract tables | camelot-py | tabula-py | camelot fails |
 
-**常见问题**：
-- 扫描的 PDF：pdftotext 返回空白 → 先使用 OCR
-- 加密的 PDF：权限错误 → 使用 PyMuPDF 带密码
+**Common issues**:
+- Scanned PDF: pdftotext returns blank → Use OCR first
+- Encrypted PDF: Permission error → Use PyMuPDF with password
 ```
 
-**差的可用性**（模糊）：
+**Poor usability** (vague):
 ```markdown
-使用适当的工具进行 PDF 处理。
-正确处理错误。
-考虑边缘情况。
+Use appropriate tools for PDF processing.
+Handle errors properly.
+Consider edge cases.
 ```
 
 ---
 
-## 评估时绝对不要做的事
+## NEVER Do When Evaluating
 
-- **绝对不要**仅仅因为"看起来专业"或格式良好就给高分
-- **绝对不要**忽视 token 浪费——每个冗余段落都应该扣分
-- **绝对不要**被长度打动——43 行的 Skill 可以胜过 500 行的 Skill
-- **绝对不要**跳过心理测试决策树——它们真的能导向正确的选择吗？
-- **绝对不要**用"但它提供了有用的背景"来原谅解释基础知识
-- **绝对不要**忽视缺失的反模式——如果没有"绝对不要"清单，这是一个重大差距
-- **绝对不要**假设所有流程都有价值——区分领域特定和通用流程
-- **绝对不要**低估 description 字段——糟糕的 description = skill 永远不会被使用
-- **绝对不要**把"何时使用"信息只放在正文中——Agent 在加载前只能看到 description
+- **NEVER** give high scores just because it "looks professional" or is well-formatted
+- **NEVER** ignore token waste — every redundant paragraph should result in deduction
+- **NEVER** let length impress you — a 43-line Skill can outperform a 500-line Skill
+- **NEVER** skip mentally testing the decision trees — do they actually lead to correct choices?
+- **NEVER** forgive explaining basics with "but it provides helpful context"
+- **NEVER** overlook missing anti-patterns — if there's no NEVER list, that's a significant gap
+- **NEVER** assume all procedures are valuable — distinguish domain-specific from generic
+- **NEVER** undervalue the description field — poor description = skill never gets used
+- **NEVER** put "when to use" info only in the body — Agent only sees description before loading
 
 ---
 
-## 评估协议
+## Evaluation Protocol
 
-### 步骤 1：第一遍——知识增量扫描
+### Step 1: First Pass — Knowledge Delta Scan
 
-完整阅读 SKILL.md，对每个部分问：
-> "Claude 已经知道这个吗？"
+Read SKILL.md completely and for each section ask:
+> "Does Claude already know this?"
 
-将每个部分标记为：
-- **[E] 专家级**：Claude 确实不知道这个——增值
-- **[A] 激活级**：Claude 知道但简短提醒有用——可接受
-- **[R] 冗余级**：Claude 肯定知道这个——应该删除
+Mark each section as:
+- **[E] Expert**: Claude genuinely doesn't know this — value-add
+- **[A] Activation**: Claude knows but brief reminder is useful — acceptable
+- **[R] Redundant**: Claude definitely knows this — should be deleted
 
-计算大致比例：E:A:R
-- 好的 Skill：>70% 专家级，<20% 激活级，<10% 冗余级
-- 一般的 Skill：40-70% 专家级，高激活级
-- 差的 Skill：<40% 专家级，高冗余级
+Calculate rough ratio: E:A:R
+- Good Skill: >70% Expert, <20% Activation, <10% Redundant
+- Mediocre Skill: 40-70% Expert, high Activation
+- Bad Skill: <40% Expert, high Redundant
 
-### 步骤 2：结构分析
-
-```
-[ ] 检查 frontmatter 有效性
-[ ] 统计 SKILL.md 总行数
-[ ] 列出所有 reference 文件及其大小
-[ ] 识别 Skill 遵循的模式
-[ ] 检查加载触发器（如果有 references）
-```
-
-### 步骤 3：对每个维度评分
-
-对 8 个维度中的每一个：
-1. 找到具体证据（引用相关行）
-2. 给出分数并附一行理由
-3. 如果分数 < 满分，注明具体改进点
-
-### 步骤 4：计算总分和等级
+### Step 2: Structure Analysis
 
 ```
-总分 = D1 + D2 + D3 + D4 + D5 + D6 + D7 + D8
-满分 = 120 分
+[ ] Check frontmatter validity
+[ ] Count total lines in SKILL.md
+[ ] List all reference files and their sizes
+[ ] Identify which pattern the Skill follows
+[ ] Check for loading triggers (if references exist)
 ```
 
-**等级量表**（基于百分比）：
-| 等级 | 百分比 | 含义 |
-|------|--------|------|
-| A | 90%+（108+） | 优秀——可投入生产的专家级 Skill |
-| B | 80-89%（96-107） | 良好——需要小改进 |
-| C | 70-79%（84-95） | 合格——有明确的改进路径 |
-| D | 60-69%（72-83） | 低于平均——有重大问题 |
-| F | <60%（<72） | 差——需要根本性重新设计 |
+### Step 3: Score Each Dimension
 
-### 步骤 5：生成报告
+For each of the 8 dimensions:
+1. Find specific evidence (quote relevant lines)
+2. Assign score with one-line justification
+3. Note specific improvements if score < max
+
+### Step 4: Calculate Total & Grade
+
+```
+Total = D1 + D2 + D3 + D4 + D5 + D6 + D7 + D8
+Max = 120 points
+```
+
+**Grade Scale** (percentage-based):
+| Grade | Percentage | Meaning |
+|-------|------------|---------|
+| A | 90%+ (108+) | Excellent — production-ready expert Skill |
+| B | 80-89% (96-107) | Good — minor improvements needed |
+| C | 70-79% (84-95) | Adequate — clear improvement path |
+| D | 60-69% (72-83) | Below Average — significant issues |
+| F | <60% (<72) | Poor — needs fundamental redesign |
+
+### Step 5: Generate Report
 
 ```markdown
-# Skill 评估报告：[Skill 名称]
+# Skill Evaluation Report: [Skill Name]
 
-## 摘要
-- **总分**：X/120（X%）
-- **等级**：[A/B/C/D/F]
-- **模式**：[思维型/导航型/哲学型/流程型/工具型]
-- **知识比例**：E:A:R = X:Y:Z
-- **结论**：[一句话评估]
+## Summary
+- **Total Score**: X/120 (X%)
+- **Grade**: [A/B/C/D/F]
+- **Pattern**: [Mindset/Navigation/Philosophy/Process/Tool]
+- **Knowledge Ratio**: E:A:R = X:Y:Z
+- **Verdict**: [One sentence assessment]
 
-## 维度得分
+## Dimension Scores
 
-| 维度 | 得分 | 满分 | 备注 |
-|------|------|------|------|
-| D1：知识增量 | X | 20 | |
-| D2：思维模式 vs 机械操作 | X | 15 | |
-| D3：反模式质量 | X | 15 | |
-| D4：规范合规性 | X | 15 | |
-| D5：渐进式披露 | X | 15 | |
-| D6：自由度校准 | X | 15 | |
-| D7：模式识别 | X | 10 | |
-| D8：实用可用性 | X | 15 | |
+| Dimension | Score | Max | Notes |
+|-----------|-------|-----|-------|
+| D1: Knowledge Delta | X | 20 | |
+| D2: Mindset vs Mechanics | X | 15 | |
+| D3: Anti-Pattern Quality | X | 15 | |
+| D4: Specification Compliance | X | 15 | |
+| D5: Progressive Disclosure | X | 15 | |
+| D6: Freedom Calibration | X | 15 | |
+| D7: Pattern Recognition | X | 10 | |
+| D8: Practical Usability | X | 15 | |
 
-## 关键问题
-[列出显著影响 Skill 有效性的必须修复问题]
+## Critical Issues
+[List must-fix problems that significantly impact the Skill's effectiveness]
 
-## 前 3 项改进
-1. [最高影响的改进，附具体指导]
-2. [第二优先改进]
-3. [第三优先改进]
+## Top 3 Improvements
+1. [Highest impact improvement with specific guidance]
+2. [Second priority improvement]
+3. [Third priority improvement]
 
-## 详细分析
-[对于每个低于 80% 的维度，提供：
-- 缺失或有问题的内容
-- Skill 中的具体示例
-- 具体的改进建议]
+## Detailed Analysis
+[For each dimension scoring below 80%, provide:
+- What's missing or problematic
+- Specific examples from the Skill
+- Concrete suggestions for improvement]
 ```
 
 ---
 
-## 常见失败模式
+## Common Failure Patterns
 
-### 模式 1：教程型
+### Pattern 1: The Tutorial
 ```
-症状：解释什么是 PDF、Python 如何工作、基本库用法
-根本原因：作者认为 Skill 应该"教"模型
-修复：Claude 已经知道这些。删除所有基础解释。
-     专注于专家决策、权衡和反模式。
-```
-
-### 模式 2：堆砌型
-```
-症状：SKILL.md 有 800+ 行，什么都包含
-根本原因：没有渐进式披露设计
-修复：核心路由和决策树放在 SKILL.md（理想 <300 行）
-     详细内容放在 references/，按需加载
+Symptom: Explains what PDF is, how Python works, basic library usage
+Root cause: Author assumes Skill should "teach" the model
+Fix: Claude already knows this. Delete all basic explanations.
+     Focus on expert decisions, trade-offs, and anti-patterns.
 ```
 
-### 模式 3：孤儿引用型
+### Pattern 2: The Dump
 ```
-症状：References 目录存在但文件从未被加载
-根本原因：没有明确的加载触发器
-修复：在工作流决策点添加"必须 - 完整阅读文件"
-     添加"不要加载"以防止过度加载
-```
-
-### 模式 4：清单流程型
-```
-症状：步骤 1、步骤 2、步骤 3... 机械流程
-根本原因：作者用流程思考，而不是思维框架
-修复：转换为"在做 X 之前，问自己..."
-     专注于决策原则，而不是操作序列
+Symptom: SKILL.md is 800+ lines with everything included
+Root cause: No progressive disclosure design
+Fix: Core routing and decision trees in SKILL.md (<300 lines ideal)
+     Detailed content in references/, loaded on-demand
 ```
 
-### 模式 5：模糊警告型
+### Pattern 3: The Orphan References
 ```
-症状："小心"、"避免错误"、"考虑边缘情况"
-根本原因：作者知道可能出错但没有明确说明具体内容
-修复：具体的"绝对不要"清单，带具体示例和非显而易见的原因
-     "绝对不要使用 X 因为[需要经验才能学到的具体问题]"
-```
-
-### 模式 6：隐形 Skill 型
-```
-症状：内容很好但 skill 很少被激活
-根本原因：Description 模糊，缺少关键词，或缺少触发场景
-修复：Description 必须回答"做什么"、"何时用"，并包含关键词
-     "当...时使用" + 具体场景 + 可搜索术语
-
-修复示例：
-差：  "帮助处理文档任务"
-好：  "创建、编辑和分析 .docx 文件。当处理 Word 文档、
-       修订标记或专业文档格式时使用。"
+Symptom: References directory exists but files are never loaded
+Root cause: No explicit loading triggers
+Fix: Add "MANDATORY - READ ENTIRE FILE" at workflow decision points
+     Add "Do NOT Load" to prevent over-loading
 ```
 
-### 模式 7：位置错误型
+### Pattern 4: The Checkbox Procedure
 ```
-症状："何时使用此 Skill"部分在正文中，不在 description 中
-根本原因：误解三层加载机制
-修复：将所有触发信息移到 description 字段
-     正文只在触发决策做出后才加载
-```
-
-### 模式 8：过度工程型
-```
-症状：README.md、CHANGELOG.md、INSTALLATION_GUIDE.md、CONTRIBUTING.md
-根本原因：把 Skill 当作软件项目
-修复：删除所有辅助文件。只包含 Agent 完成任务所需的内容。
-     不需要关于 Skill 本身的文档。
+Symptom: Step 1, Step 2, Step 3... mechanical procedures
+Root cause: Author thinks in procedures, not thinking frameworks
+Fix: Transform into "Before doing X, ask yourself..."
+     Focus on decision principles, not operation sequences
 ```
 
-### 模式 9：自由度错配型
+### Pattern 5: The Vague Warning
 ```
-症状：创意任务用死板脚本，脆弱操作用模糊指导
-根本原因：没有考虑任务脆弱性
-修复：创意任务高自由度（原则，不是步骤）
-     脆弱操作低自由度（精确脚本，无参数）
+Symptom: "Be careful", "avoid errors", "consider edge cases"
+Root cause: Author knows things can go wrong but hasn't articulated specifics
+Fix: Specific NEVER list with concrete examples and non-obvious reasons
+     "NEVER use X because [specific problem that takes experience to learn]"
+```
+
+### Pattern 6: The Invisible Skill
+```
+Symptom: Great content but skill rarely gets activated
+Root cause: Description is vague, missing keywords, or lacks trigger scenarios
+Fix: Description must answer WHAT, WHEN, and include KEYWORDS
+     "Use when..." + specific scenarios + searchable terms
+
+Example fix:
+BAD:  "Helps with document tasks"
+GOOD: "Create, edit, and analyze .docx files. Use when working with
+       Word documents, tracked changes, or professional document formatting."
+```
+
+### Pattern 7: The Wrong Location
+```
+Symptom: "When to use this Skill" section in body, not in description
+Root cause: Misunderstanding of three-layer loading
+Fix: Move all triggering information to description field
+     Body is only loaded AFTER triggering decision is made
+```
+
+### Pattern 8: The Over-Engineered
+```
+Symptom: README.md, CHANGELOG.md, INSTALLATION_GUIDE.md, CONTRIBUTING.md
+Root cause: Treating Skill like a software project
+Fix: Delete all auxiliary files. Only include what Agent needs for the task.
+     No documentation about the Skill itself.
+```
+
+### Pattern 9: The Freedom Mismatch
+```
+Symptom: Rigid scripts for creative tasks, vague guidance for fragile operations
+Root cause: Not considering task fragility
+Fix: High freedom for creative (principles, not steps)
+     Low freedom for fragile (exact scripts, no parameters)
 ```
 
 ---
 
-## 快速参考检查清单
+## Quick Reference Checklist
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│  SKILL 评估快速检查                                                      │
+│  SKILL EVALUATION QUICK CHECK                                           │
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                         │
-│  知识增量（最重要）：                                                    │
-│    [ ] 没有对基本概念的"什么是 X"解释                                    │
-│    [ ] 没有标准操作的分步教程                                            │
-│    [ ] 有非显而易见选择的决策树                                          │
-│    [ ] 有只有专家才知道的权衡                                            │
-│    [ ] 有来自实际经验的边缘情况                                          │
+│  KNOWLEDGE DELTA (most important):                                      │
+│    [ ] No "What is X" explanations for basic concepts                   │
+│    [ ] No step-by-step tutorials for standard operations                │
+│    [ ] Has decision trees for non-obvious choices                       │
+│    [ ] Has trade-offs only experts would know                           │
+│    [ ] Has edge cases from real-world experience                        │
 │                                                                         │
-│  思维模式 + 流程：                                                       │
-│    [ ] 传递思维模式（如何思考问题）                                      │
-│    [ ] 有"在做 X 之前，问自己..."框架                                    │
-│    [ ] 包含 Claude 不知道的领域特定流程                                  │
-│    [ ] 区分有价值的流程和通用流程                                        │
+│  MINDSET + PROCEDURES:                                                  │
+│    [ ] Transfers thinking patterns (how to think about problems)        │
+│    [ ] Has "Before doing X, ask yourself..." frameworks                 │
+│    [ ] Includes domain-specific procedures Claude wouldn't know         │
+│    [ ] Distinguishes valuable procedures from generic ones              │
 │                                                                         │
-│  反模式：                                                                │
-│    [ ] 有明确的"绝对不要"清单                                            │
-│    [ ] 反模式是具体的，不是模糊的                                        │
-│    [ ] 包含原因（非显而易见的理由）                                      │
+│  ANTI-PATTERNS:                                                         │
+│    [ ] Has explicit NEVER list                                          │
+│    [ ] Anti-patterns are specific, not vague                            │
+│    [ ] Includes WHY (non-obvious reasons)                               │
 │                                                                         │
-│  规范（description 至关重要！）：                                        │
-│    [ ] 有效的 YAML frontmatter                                          │
-│    [ ] name：小写，≤64 字符                                              │
-│    [ ] description 回答：做什么？                                        │
-│    [ ] description 回答：何时使用？                                      │
-│    [ ] description 包含触发关键词                                        │
-│    [ ] description 足够具体，让 Agent 知道何时使用                       │
+│  SPECIFICATION (description is critical!):                              │
+│    [ ] Valid YAML frontmatter                                           │
+│    [ ] name: lowercase, ≤64 chars                                       │
+│    [ ] description answers: WHAT does it do?                            │
+│    [ ] description answers: WHEN should it be used?                     │
+│    [ ] description contains trigger KEYWORDS                            │
+│    [ ] description is specific enough for Agent to know when to use     │
 │                                                                         │
-│  结构：                                                                  │
-│    [ ] SKILL.md < 500 行（理想 < 300）                                   │
-│    [ ] 重内容放在 references/                                            │
-│    [ ] 加载触发器嵌入工作流                                              │
-│    [ ] 有"不要加载"以防止过度加载                                        │
+│  STRUCTURE:                                                             │
+│    [ ] SKILL.md < 500 lines (ideal < 300)                               │
+│    [ ] Heavy content in references/                                     │
+│    [ ] Loading triggers embedded in workflow                            │
+│    [ ] Has "Do NOT Load" for preventing over-loading                    │
 │                                                                         │
-│  自由度：                                                                │
-│    [ ] 创意任务 → 高自由度（原则）                                       │
-│    [ ] 脆弱操作 → 低自由度（精确脚本）                                   │
+│  FREEDOM:                                                               │
+│    [ ] Creative tasks → High freedom (principles)                       │
+│    [ ] Fragile operations → Low freedom (exact scripts)                 │
 │                                                                         │
-│  可用性：                                                                │
-│    [ ] 多路径场景有决策树                                                │
-│    [ ] 代码示例能工作                                                    │
-│    [ ] 有错误处理和备选方案                                              │
-│    [ ] 覆盖边缘情况                                                      │
+│  USABILITY:                                                             │
+│    [ ] Decision trees for multi-path scenarios                          │
+│    [ ] Working code examples                                            │
+│    [ ] Error handling and fallbacks                                     │
+│    [ ] Edge cases covered                                               │
 │                                                                         │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 元问题
+## The Meta-Question
 
-评估任何 Skill 时，始终回到这个根本问题：
+When evaluating any Skill, always return to this fundamental question:
 
-> **"这个领域的专家看到这个 Skill 会说：**
-> **'是的，这捕捉了我花了多年才学到的知识'吗？"**
+> **"Would an expert in this domain, looking at this Skill, say:**
+> **'Yes, this captures knowledge that took me years to learn'?"**
 
-如果答案是肯定的 → Skill 有真正的价值。
-如果答案是否定的 → 它在压缩 Claude 已知的内容。
+If the answer is yes → the Skill has genuine value.
+If the answer is no → it's compressing what Claude already knows.
 
-最好的 Skills 是**压缩的专家大脑**——它们把设计师 10 年的美学积累压缩成 43 行，或把文档专家的操作经验压缩成 200 行的决策树。
+The best Skills are **compressed expert brains** — they take a designer's 10 years of aesthetic accumulation and compress it into 43 lines, or a document expert's operational experience into a 200-line decision tree.
 
-被压缩的必须是 Claude 没有的东西。否则，就是垃圾压缩。
+What gets compressed must be things Claude doesn't have. Otherwise, it's garbage compression.
 
 ---
 
-## 自我评估说明
+## Self-Evaluation Note
 
-这个 Skill（skill-judge）本身应该通过评估：
+This Skill (skill-judge) should itself pass evaluation:
 
-- **知识增量**：提供 Claude 不会自己生成的具体评估标准
-- **思维模式**：塑造如何思考 Skill 质量，不只是检查清单项
-- **反模式**："评估时绝对不要做的事"部分有具体的"不要"
-- **规范**：有效的 frontmatter，全面的 description
-- **渐进式披露**：自包含，不需要外部引用
-- **自由度**：适合评估任务的中等自由度
-- **模式**：遵循工具型模式，有决策框架
-- **可用性**：清晰的协议、报告模板、快速参考
+- **Knowledge Delta**: Provides specific evaluation criteria Claude wouldn't generate on its own
+- **Mindset**: Shapes how to think about Skill quality, not just checklist items
+- **Anti-Patterns**: "NEVER Do When Evaluating" section with specific don'ts
+- **Specification**: Valid frontmatter with comprehensive description
+- **Progressive Disclosure**: Self-contained, no external references needed
+- **Freedom**: Medium freedom appropriate for evaluation task
+- **Pattern**: Follows Tool pattern with decision frameworks
+- **Usability**: Clear protocol, report template, quick reference
 
-用这个 Skill 评估它自己作为校准练习。
+
+
+Evaluate this Skill against itself as a calibration exercise.

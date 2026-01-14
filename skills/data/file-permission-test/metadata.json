@@ -1,13 +1,7 @@
 {
   "name": "file-permission-test",
-  "description": "File permission test. Use for testing.",
   "repo": "matteocervelli/llms",
-  "category": "testing",
-  "tags": [
-    "file",
-    "permission",
-    "test"
-  ],
-  "stars": 10,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/file-permission-test/SKILL.md",
+  "source": "github.com/matteocervelli/llms",
+  "downloaded_at": "2026-01-14T03:06:52.446510Z"
 }

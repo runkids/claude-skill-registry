@@ -1,12 +1,7 @@
 {
   "name": "elevenlabs-agents",
-  "description": "Build conversational AI voice agents with ElevenLabs Platform using React, JavaScript, React Native, or Swift SDKs.Configure agents, tools (client/server/MCP), RAG knowledge bases, multi-voice, and Sc",
   "repo": "jezweb/claude-skills",
-  "category": "development",
-  "tags": [
-    "elevenlabs",
-    "agents"
-  ],
-  "stars": 109,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/elevenlabs-agents/SKILL.md",
+  "source": "github.com/jezweb/claude-skills",
+  "downloaded_at": "2026-01-14T04:01:46.518057Z"
 }

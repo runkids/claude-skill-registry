@@ -1,12 +1,7 @@
 {
   "name": "auth-analyzer",
-  "description": "Review and analyze authentication and authorization patterns for security vulnerabilities.",
   "repo": "CuriousLearner/devkit",
-  "category": "security",
-  "tags": [
-    "auth",
-    "analyzer"
-  ],
-  "stars": 13,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/auth-analyzer/SKILL.md",
+  "source": "github.com/CuriousLearner/devkit",
+  "downloaded_at": "2026-01-14T02:22:34.599751Z"
 }

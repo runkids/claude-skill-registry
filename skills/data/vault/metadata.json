@@ -1,11 +1,7 @@
 {
   "name": "vault",
-  "description": "Read and write notes in the Obsidian vault. Use for task logs, knowledge capture, and building context. Use memory skill for atomic facts.",
-  "repo": "channingwalton/dotfiles",
-  "category": "productivity",
-  "tags": [
-    "vault"
-  ],
-  "stars": 3,
-  "source": "local"
+  "repo": "kevinslin/seed-tldr",
+  "path": "vault/windows.tskill.md",
+  "source": "github.com/kevinslin/seed-tldr",
+  "downloaded_at": "2026-01-14T02:04:43.225960Z"
 }

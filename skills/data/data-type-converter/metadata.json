@@ -1,13 +1,7 @@
 {
   "name": "data-type-converter",
-  "description": "Convert between data formats (JSON, CSV, XML, YAML, TOML). Handles nested structures, arrays, and preserves data types where possible.",
   "repo": "dkyazzentwatwa/chatgpt-skills",
-  "category": "data",
-  "tags": [
-    "data",
-    "type",
-    "converter"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": "data-type-converter/SKILL.md",
+  "source": "github.com/dkyazzentwatwa/chatgpt-skills",
+  "downloaded_at": "2026-01-14T01:42:54.504555Z"
 }

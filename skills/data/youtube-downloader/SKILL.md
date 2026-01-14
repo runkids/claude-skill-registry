@@ -1,361 +1,514 @@
 ---
 name: youtube-downloader
-description: Download YouTube videos and HLS streams (m3u8) from platforms like Mux, Vimeo, etc. using yt-dlp and ffmpeg. Use this skill when users request downloading videos, extracting audio, handling protected streams with authentication headers, or troubleshooting download issues like nsig extraction failures, 403 errors, or cookie extraction problems.
+description: Download videos, audio, playlists, and channels from YouTube and 1000+ websites using yt-dlp. Supports quality selection, format conversion, subtitle download, playlist filtering, metadata extraction, thumbnail download, and batch operations. Use when downloading YouTube videos in any quality (4K, 8K, HDR), extracting audio as MP3/M4A/FLAC, downloading entire playlists/channels, getting subtitles in multiple languages, converting to specific formats, downloading live streams, archiving content, or batch processing multiple URLs. Optimized for reliability with automatic retries, rate limiting, and error handling.
+license: MIT
 ---
 
-# YouTube Downloader
+# YouTube & Video Downloader Skill
 
-## Overview
-
-Enable reliable video and audio downloads from YouTube and HLS streaming platforms (Mux, Vimeo, etc.) using yt-dlp and ffmpeg. This skill provides workflows for:
-- YouTube downloads (up to 4K) using PO token providers or browser cookies
-- HLS stream downloads with authentication headers
-- Handling protected content and troubleshooting common download failures
+Download videos and audio from YouTube and 1000+ other websites using yt-dlp, the most powerful and actively maintained YouTube downloader.
 
 ## When to Use This Skill
 
-This skill should be invoked when users:
-- Request downloading YouTube videos or playlists
-- Want to extract audio from YouTube videos
-- Experience yt-dlp download failures or limited format availability
-- Need help with format selection or quality options
-- Report only low-quality (360p) formats available
-- Ask about downloading YouTube content in specific quality (1080p, 4K, etc.)
-- Need to convert downloaded WebM videos to MP4 format for wider compatibility
-- Request downloading HLS streams (m3u8) from platforms like Mux, Vimeo, or other streaming services
-- Need to download protected streams that require authentication headers
+Use when you need to:
+- Download YouTube videos in any quality (144p to 8K, HDR, 60fps)
+- Extract audio from videos (MP3, M4A, FLAC, WAV, Opus)
+- Download entire playlists or channels
+- Get video subtitles/captions in multiple languages
+- Download live streams or premieres
+- Archive content before it's deleted
+- Download from 1000+ websites (not just YouTube)
+- Batch download multiple videos
+- Download with custom naming and organization
+- Extract video metadata and thumbnails
 
-## Prerequisites
+## Supported Websites (1000+)
 
-### 1. Verify yt-dlp Installation
+### Video Platforms
+- YouTube (videos, playlists, channels, shorts, live streams)
+- Vimeo, Dailymotion, Twitter/X, Facebook
+- TikTok, Instagram (videos, reels, stories)
+- Twitch (VODs, clips, live streams)
+- Reddit (v.redd.it videos)
+- Pornhub (videos)
+- Youporn (videos)
+
+### Educational
+- Coursera, Udemy, Khan Academy
+- edX, Pluralsight, LinkedIn Learning
+
+### News & Media
+- CNN, BBC, NBC, CBS
+- ESPN, Sky Sports
+
+### And 1000+ more...
+
+## Installation
+
+yt-dlp requires Python 3.7+ and ffmpeg for format conversion:
 
 ```bash
-which yt-dlp
+# Install yt-dlp (if not already installed)
+pip install -U yt-dlp
+
+# Install ffmpeg (required for format conversion)
+# Ubuntu/Debian:
+sudo apt install ffmpeg
+
+# macOS:
+brew install ffmpeg
+
+# Verify installation
 yt-dlp --version
+ffmpeg -version
 ```
 
-If not installed or outdated (< 2025.10.22):
+## Basic Usage
 
+### Download Best Quality Video
 ```bash
-brew upgrade yt-dlp  # macOS
-# or
-pip install --upgrade yt-dlp  # Cross-platform
+yt-dlp "https://www.youtube.com/watch?v=VIDEO_ID"
 ```
 
-**Critical**: Outdated yt-dlp versions cause nsig extraction failures and missing formats.
-
-### 2. Check Current Quality Access
-
-Before downloading, check available formats:
-
+### Download Best Quality Audio (as M4A)
 ```bash
-yt-dlp -F "https://youtu.be/VIDEO_ID"
+yt-dlp -f "bestaudio" "https://www.youtube.com/watch?v=VIDEO_ID"
 ```
 
-**If only format 18 (360p) appears**: PO token provider setup needed for high-quality access.
-
-## High-Quality Download Workflow
-
-### Step 1: Install PO Token Provider (One-time Setup)
-
-For 1080p/1440p/4K access, install a PO token provider plugin into yt-dlp's Python environment:
-
+### Download and Convert to MP3
 ```bash
-# Find yt-dlp's Python path
-head -1 $(which yt-dlp)
-
-# Install plugin (adjust path to match yt-dlp version)
-/opt/homebrew/Cellar/yt-dlp/$(yt-dlp --version)/libexec/bin/python -m pip install bgutil-ytdlp-pot-provider
+yt-dlp -x --audio-format mp3 --audio-quality 0 "https://www.youtube.com/watch?v=VIDEO_ID"
 ```
 
-**Verification**: Run `yt-dlp -F "VIDEO_URL"` again. Look for formats 137 (1080p), 271 (1440p), or 313 (4K).
-
-See `references/po-token-setup.md` for detailed setup instructions and troubleshooting.
-
-### Step 2: Download with Best Quality
-
-Once PO token provider is installed:
-
+### Download Specific Quality
 ```bash
-# Download best quality up to 1080p
-yt-dlp -f "bestvideo[height<=1080]+bestaudio/best" "VIDEO_URL"
+# 1080p video with best audio
+yt-dlp -f "bestvideo[height<=1080]+bestaudio/best[height<=1080]" "URL"
 
-# Download best available quality (4K if available)
-yt-dlp -f "bestvideo+bestaudio/best" "VIDEO_URL"
+# 4K video
+yt-dlp -f "bestvideo[height<=2160]+bestaudio/best" "URL"
+
+# 720p video
+yt-dlp -f "bestvideo[height<=720]+bestaudio/best[height<=720]" "URL"
 ```
 
-### Step 3: Verify Download Quality
+## Advanced Features
 
+### Download Entire Playlist
 ```bash
-# Check video resolution
-ffprobe -v error -select_streams v:0 -show_entries stream=width,height,codec_name -of default=noprint_wrappers=1 video.mp4
+yt-dlp "https://www.youtube.com/playlist?list=PLAYLIST_ID"
 ```
 
-Expected output for 1080p:
-```
-codec_name=vp9
-width=1920
-height=1080
-```
-
-## Alternative: Browser Cookies Method
-
-If PO token provider setup is problematic, use browser cookies:
-
+### Download Playlist Range
 ```bash
-# Firefox
-yt-dlp --cookies-from-browser firefox -f "bestvideo[height<=1080]+bestaudio/best" "VIDEO_URL"
+# Videos 1-10
+yt-dlp --playlist-start 1 --playlist-end 10 "PLAYLIST_URL"
 
-# Chrome
-yt-dlp --cookies-from-browser chrome -f "bestvideo[height<=1080]+bestaudio/best" "VIDEO_URL"
+# Videos from #5 onwards
+yt-dlp --playlist-start 5 "PLAYLIST_URL"
 ```
 
-**Benefits**: Access to age-restricted and members-only content.
-**Requirement**: Must be logged into YouTube in the specified browser.
-
-## Common Tasks
-
-### Audio-Only Download
-
-Extract audio as MP3:
-
+### Download All Videos from Channel
 ```bash
-yt-dlp -x --audio-format mp3 "VIDEO_URL"
-```
-
-### Custom Output Directory
-
-```bash
-yt-dlp -P ~/Downloads/YouTube "VIDEO_URL"
+yt-dlp "https://www.youtube.com/@ChannelName/videos"
 ```
 
 ### Download with Subtitles
+```bash
+# Download all available subtitles
+yt-dlp --write-subs --write-auto-subs --sub-langs "en,es,fr" "URL"
+
+# Download and embed subtitles
+yt-dlp --write-subs --embed-subs --sub-langs "en.*" "URL"
+
+# Download only subtitles (no video)
+yt-dlp --skip-download --write-subs --write-auto-subs "URL"
+```
+
+### Custom Naming and Organization
+```bash
+# Custom filename template
+yt-dlp -o "%(uploader)s/%(playlist)s/%(title)s.%(ext)s" "PLAYLIST_URL"
+
+# By date uploaded
+yt-dlp -o "%(upload_date)s - %(title)s.%(ext)s" "URL"
+
+# With video ID
+yt-dlp -o "%(title)s [%(id)s].%(ext)s" "URL"
+```
+
+### Download Thumbnails
+```bash
+# Download and embed thumbnail
+yt-dlp --write-thumbnail --embed-thumbnail "URL"
+
+# Download thumbnail only
+yt-dlp --write-thumbnail --skip-download "URL"
+```
+
+### Download Metadata
+```bash
+# Write metadata to JSON file
+yt-dlp --write-info-json "URL"
+
+# Write metadata to description file
+yt-dlp --write-description "URL"
+```
+
+## Quality Selection Guide
+
+### Video Quality Formats
+```bash
+# Best overall quality (may be WebM)
+yt-dlp -f "bestvideo+bestaudio/best" "URL"
+
+# Best MP4 format (most compatible)
+yt-dlp -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]" "URL"
+
+# 4K (2160p) maximum
+yt-dlp -f "bestvideo[height<=2160]+bestaudio" "URL"
+
+# 1080p maximum
+yt-dlp -f "bestvideo[height<=1080]+bestaudio" "URL"
+
+# 720p maximum
+yt-dlp -f "bestvideo[height<=720]+bestaudio" "URL"
+
+# 60fps preferred
+yt-dlp -f "bestvideo[fps>30]+bestaudio/best" "URL"
+```
+
+### Audio Quality Formats
+```bash
+# Best audio quality (extract as M4A)
+yt-dlp -f "bestaudio" "URL"
+
+# Extract as MP3 (best quality)
+yt-dlp -x --audio-format mp3 --audio-quality 0 "URL"
+
+# Extract as FLAC (lossless)
+yt-dlp -x --audio-format flac "URL"
+
+# Extract as Opus (efficient)
+yt-dlp -x --audio-format opus "URL"
+
+# Extract as WAV (uncompressed)
+yt-dlp -x --audio-format wav "URL"
+```
+
+## List Available Formats
+
+Before downloading, check what formats are available:
 
 ```bash
-yt-dlp --write-subs --sub-lang en "VIDEO_URL"
+yt-dlp -F "URL"
 ```
 
-### Playlist Download
+This shows all available video and audio streams with:
+- Format ID
+- Extension
+- Resolution
+- FPS
+- Codec
+- File size
+- Bitrate
+
+Then download specific format:
+```bash
+yt-dlp -f FORMAT_ID "URL"
+```
+
+## Batch Download
+
+### From File
+Create a text file with URLs (one per line):
+```
+https://www.youtube.com/watch?v=VIDEO1
+https://www.youtube.com/watch?v=VIDEO2
+https://www.youtube.com/watch?v=VIDEO3
+```
+
+Download all:
+```bash
+yt-dlp -a urls.txt
+```
+
+### With Archive
+Track downloaded videos to avoid re-downloading:
+```bash
+yt-dlp --download-archive archive.txt "PLAYLIST_URL"
+```
+
+This creates `archive.txt` with IDs of downloaded videos. On subsequent runs, yt-dlp skips already downloaded videos.
+
+## Filtering and Selection
+
+### Date Filters
+```bash
+# Videos from 2024
+yt-dlp --dateafter 20240101 "CHANNEL_URL"
+
+# Videos before 2023
+yt-dlp --datebefore 20230101 "CHANNEL_URL"
+
+# Videos between dates
+yt-dlp --dateafter 20230101 --datebefore 20231231 "CHANNEL_URL"
+```
+
+### View Count Filters
+```bash
+# Videos with 1M+ views
+yt-dlp --match-filter "view_count > 1000000" "CHANNEL_URL"
+
+# Videos with less than 10K views
+yt-dlp --match-filter "view_count < 10000" "CHANNEL_URL"
+```
+
+### Duration Filters
+```bash
+# Videos longer than 10 minutes
+yt-dlp --match-filter "duration > 600" "PLAYLIST_URL"
+
+# Videos shorter than 5 minutes
+yt-dlp --match-filter "duration < 300" "PLAYLIST_URL"
+```
+
+## Live Streams
+
+### Download Live Stream
+```bash
+# Wait for stream to start and download
+yt-dlp --wait-for-video 60 "LIVE_STREAM_URL"
+
+# Download stream as it's happening (may be incomplete if interrupted)
+yt-dlp "LIVE_STREAM_URL"
+```
+
+## Rate Limiting and Network Options
 
 ```bash
-yt-dlp -f "bestvideo[height<=1080]+bestaudio/best" "PLAYLIST_URL"
+# Limit download speed (e.g., 1MB/s)
+yt-dlp --limit-rate 1M "URL"
+
+# Set number of retries
+yt-dlp --retries 10 "URL"
+
+# Wait between downloads (in seconds)
+yt-dlp --sleep-interval 5 "PLAYLIST_URL"
+
+# Use specific proxy
+yt-dlp --proxy "http://proxy.server:port" "URL"
+
+# Use cookies from browser (bypass age restrictions)
+yt-dlp --cookies-from-browser chrome "URL"
 ```
 
-### Convert WebM to MP4
-
-YouTube high-quality downloads often use WebM format (VP9 codec). Convert to MP4 for wider compatibility:
+## Geo-Restriction Bypass
 
 ```bash
-# Check if ffmpeg is installed
-which ffmpeg || brew install ffmpeg  # macOS
+# Use proxy
+yt-dlp --proxy "socks5://proxy.server:1080" "URL"
 
-# Convert WebM to MP4 with good quality settings
-ffmpeg -i "video.webm" -c:v libx264 -preset medium -crf 23 -c:a aac -b:a 128k "video.mp4"
+# Use specific geo-bypass country
+yt-dlp --geo-bypass-country US "URL"
 ```
 
-**Parameters explained:**
-- `-c:v libx264`: Use H.264 video codec (widely compatible)
-- `-preset medium`: Balance between encoding speed and file size
-- `-crf 23`: Constant Rate Factor for quality (18-28 range, lower = better quality)
-- `-c:a aac`: Use AAC audio codec
-- `-b:a 128k`: Audio bitrate 128 kbps
+## Post-Processing
 
-**Tip**: Conversion maintains 1080p resolution and provides ~6x encoding speed on modern hardware.
-
-## Troubleshooting Quick Reference
-
-### Only 360p Available (Format 18)
-
-**Cause**: Missing PO token provider or outdated yt-dlp.
-
-**Solution**:
-1. Update yt-dlp: `brew upgrade yt-dlp`
-2. Install PO token provider (see Step 1 above)
-3. Or use browser cookies method
-
-### nsig Extraction Failed
-
-**Symptoms**:
-```
-WARNING: [youtube] nsig extraction failed: Some formats may be missing
-```
-
-**Solution**:
-1. Update yt-dlp to latest version
-2. Install PO token provider
-3. If still failing, use Android client: `yt-dlp --extractor-args "youtube:player_client=android" "VIDEO_URL"`
-
-### Slow Downloads or Network Errors
-
-For users in China or behind restrictive proxies:
-- Downloads may be slow due to network conditions
-- Allow sufficient time for completion
-- yt-dlp automatically retries on transient failures
-
-### PO Token Warning (Harmless)
-
-```
-WARNING: android client https formats require a GVS PO Token
-```
-
-**Action**: Ignore if download succeeds. This indicates Android client has limited format access without PO tokens.
-
-## Bundled Script Reference
-
-### scripts/download_video.py
-
-A convenience wrapper that applies Android client workaround by default:
-
-**Basic usage:**
+### Video Post-Processing
 ```bash
-scripts/download_video.py "VIDEO_URL"
+# Merge video and audio to MP4
+yt-dlp --merge-output-format mp4 "URL"
+
+# Re-encode to H.264
+yt-dlp --recode-video mp4 "URL"
+
+# Add metadata
+yt-dlp --add-metadata "URL"
+
+# Embed thumbnail
+yt-dlp --embed-thumbnail "URL"
 ```
 
-**Arguments:**
-- `url` - YouTube video URL (required)
-- `-o, --output-dir` - Output directory
-- `-f, --format` - Format specification
-- `-a, --audio-only` - Extract audio as MP3
-- `-F, --list-formats` - List available formats
-- `--no-android-client` - Disable Android client workaround
-
-**Note**: This script uses Android client (360p only without PO tokens). For high quality, use yt-dlp directly with PO token provider.
-
-## Quality Expectations
-
-| Setup | 360p | 720p | 1080p | 1440p | 4K |
-|-------|------|------|-------|-------|-----|
-| No setup (default) | ✗ | ✗ | ✗ | ✗ | ✗ |
-| Android client only | ✓ | ✗ | ✗ | ✗ | ✗ |
-| **PO token provider** | ✓ | ✓ | ✓ | ✓ | ✓ |
-| Browser cookies | ✓ | ✓ | ✓ | ✓ | ✓ |
-
-## HLS Stream Downloads (m3u8)
-
-For streaming platforms like Mux, Vimeo, and other HLS-based services, use ffmpeg as the primary tool. These streams often require authentication headers that yt-dlp may not handle correctly.
-
-### Identifying HLS Streams
-
-HLS streams use `.m3u8` playlist files:
-- Master playlist: Lists multiple quality options
-- Rendition playlist: Contains actual video/audio segment URLs
-
-### Download Workflow
-
-#### Step 1: Obtain the Stream URL
-
-Get the m3u8 URL from the video source. For protected streams:
-1. Open browser DevTools → Network tab
-2. Play the video
-3. Filter for "m3u8" to find the playlist URLs
-4. Copy the rendition URL (usually contains quality info like "rendition.m3u8")
-
-#### Step 2: Identify Required Headers
-
-Many CDNs require authentication headers:
-- **Referer**: Origin website (e.g., `https://maven.com/`)
-- **Origin**: Same as Referer for CORS
-- **User-Agent**: Browser identification
-
-Check the Network tab to see which headers the browser sends.
-
-#### Step 3: Download with ffmpeg
-
-Use ffmpeg with the `-headers` flag for protected streams:
-
+### Audio Post-Processing
 ```bash
-ffmpeg -headers "Referer: https://example.com/" \
-  -protocol_whitelist file,http,https,tcp,tls,crypto,httpproxy \
-  -i "https://cdn.example.com/path/rendition.m3u8?params" \
-  -c copy -bsf:a aac_adtstoasc \
-  output.mp4
+# Extract audio and convert to MP3
+yt-dlp -x --audio-format mp3 --audio-quality 0 "URL"
+
+# Add metadata to audio file
+yt-dlp -x --audio-format mp3 --add-metadata "URL"
 ```
 
-**Key parameters:**
-- `-headers`: Set HTTP headers (critical for authentication)
-- `-protocol_whitelist`: Enable required protocols for HLS
-- `-c copy`: Stream copy (no re-encoding, faster)
-- `-bsf:a aac_adtstoasc`: Fix AAC audio compatibility
+## Common Use Cases
 
-**Common header patterns:**
+### 1. Download Music from YouTube
 ```bash
-# Single header
--headers "Referer: https://example.com/"
-
-# Multiple headers
--headers "Referer: https://example.com/" \
--headers "User-Agent: Mozilla/5.0..."
-
-# Alternative syntax
--headers $'Referer: https://example.com/\r\nUser-Agent: Mozilla/5.0...'
+yt-dlp -x --audio-format mp3 --audio-quality 0 \
+  -o "%(artist)s - %(title)s.%(ext)s" \
+  --add-metadata \
+  --embed-thumbnail \
+  "MUSIC_VIDEO_URL"
 ```
 
-### Handling Separate Audio/Video Streams
-
-Some platforms (like Mux) deliver audio and video separately:
-
-1. **Download audio stream:**
+### 2. Download Educational Course
 ```bash
-ffmpeg -headers "Referer: https://example.com/" \
-  -protocol_whitelist file,http,https,tcp,tls,crypto,httpproxy \
-  -i "https://cdn.example.com/audio/rendition.m3u8" \
-  -c copy audio.m4a
+yt-dlp -o "%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s" \
+  --write-subs --embed-subs \
+  --write-info-json \
+  "COURSE_PLAYLIST_URL"
 ```
 
-2. **Download video stream:**
+### 3. Archive Channel (New Videos Only)
 ```bash
-ffmpeg -headers "Referer: https://example.com/" \
-  -protocol_whitelist file,http,https,tcp,tls,crypto,httpproxy \
-  -i "https://cdn.example.com/video/rendition.m3u8" \
-  -c copy video.mp4
+yt-dlp --download-archive downloaded.txt \
+  -o "%(uploader)s/%(upload_date)s - %(title)s.%(ext)s" \
+  -f "bestvideo[height<=1080]+bestaudio/best" \
+  "https://www.youtube.com/@ChannelName/videos"
 ```
 
-3. **Merge streams:**
+### 4. Download Podcast as Audio
 ```bash
-ffmpeg -i video.mp4 -i audio.m4a -c copy merged.mp4
+yt-dlp -x --audio-format mp3 --audio-quality 0 \
+  -o "%(playlist)s/%(playlist_index)s. %(title)s.%(ext)s" \
+  --add-metadata \
+  "PODCAST_PLAYLIST_URL"
 ```
 
-### Troubleshooting HLS Downloads
+### 5. Download Conference Talks
+```bash
+yt-dlp -f "bestvideo[height<=720]+bestaudio" \
+  -o "Conference/%(title)s.%(ext)s" \
+  --write-subs --embed-subs --sub-langs en \
+  "CONFERENCE_PLAYLIST_URL"
+```
 
-#### 403 Forbidden Errors
+### 6. Batch Download from Multiple Sites
+```bash
+# Create urls.txt with mixed URLs (YouTube, Vimeo, etc.)
+yt-dlp -a urls.txt \
+  -f "bestvideo+bestaudio/best" \
+  -o "%(extractor)s/%(uploader)s/%(title)s.%(ext)s"
+```
 
-**Cause**: Missing or incorrect authentication headers.
+## Configuration File
 
-**Solution**:
-1. Verify Referer header matches the video source website
-2. Check if additional headers (Origin, User-Agent) are needed
-3. Ensure the m3u8 URL includes all query parameters from browser
+Create `~/.config/yt-dlp/config` for default options:
 
-#### yt-dlp Stuck on Cookie Extraction
+```
+# Default format
+-f bestvideo[height<=1080]+bestaudio/best
 
-**Symptom**: `Extracting cookies from chrome` hangs indefinitely.
+# Output template
+-o ~/Downloads/%(uploader)s/%(title)s.%(ext)s
 
-**Solution**: Use ffmpeg directly instead of yt-dlp for HLS streams.
+# Embed metadata
+--add-metadata
+--embed-thumbnail
 
-#### Protocol Not Whitelisted
+# Write subtitles
+--write-subs
+--sub-langs en
 
-**Error**: `Protocol 'https' not on whitelist 'file,crypto,data'`
+# Continue on errors
+--ignore-errors
 
-**Solution**: Add `-protocol_whitelist file,http,https,tcp,tls,crypto,httpproxy`
+# Rate limit
+--limit-rate 5M
+```
 
-#### Empty Segments or No Streams
+## Troubleshooting
 
-**Cause**: Expired signatures in the m3u8 URLs.
+### Video Unavailable
+```bash
+# Try with cookies from browser
+yt-dlp --cookies-from-browser chrome "URL"
 
-**Solution**:
-1. Get fresh URLs from browser DevTools
-2. Download immediately after obtaining URLs
-3. Look for rendition URLs with updated signature parameters
+# Update yt-dlp
+pip install -U yt-dlp
+```
 
-### Performance Tips
+### Age-Restricted Content
+```bash
+# Use browser cookies
+yt-dlp --cookies-from-browser firefox "URL"
 
-- HLS downloads typically run at 10-15x realtime speed
-- No re-encoding with `-c copy` (fastest)
-- Monitor download with real-time progress display
-- Use absolute output paths to avoid directory confusion
+# Or login with credentials
+yt-dlp --username YOUR_USERNAME --password YOUR_PASSWORD "URL"
+```
 
-## Further Reading
+### Format Not Available
+```bash
+# List all formats first
+yt-dlp -F "URL"
 
-- **PO Token Setup**: See `references/po-token-setup.md` for detailed installation and troubleshooting
-- **yt-dlp Documentation**: https://github.com/yt-dlp/yt-dlp
-- **Format Selection Guide**: https://github.com/yt-dlp/yt-dlp#format-selection
+# Then select specific format
+yt-dlp -f FORMAT_ID "URL"
+```
+
+### Slow Downloads
+```bash
+# Use multiple connections
+yt-dlp --concurrent-fragments 4 "URL"
+
+# Or use external downloader
+yt-dlp --external-downloader aria2c "URL"
+```
+
+## Integration with Other Tools
+
+### FFmpeg Integration
+yt-dlp automatically uses ffmpeg when installed for:
+- Merging video and audio streams
+- Converting formats
+- Embedding thumbnails and metadata
+- Post-processing
+
+### Aria2c for Faster Downloads
+```bash
+yt-dlp --external-downloader aria2c \
+  --external-downloader-args "-x 16 -s 16 -k 1M" \
+  "URL"
+```
+
+## Legal and Ethical Considerations
+
+⚠️ **Important**:
+- Only download content you have rights to
+- Respect copyright and Terms of Service
+- Don't distribute copyrighted content
+- YouTube's ToS prohibits downloading most content
+- Use for personal archival and educational purposes
+- Many creators offer official download options
+- Consider supporting creators through official channels
+
+## Performance Tips
+
+1. **Use Archive Files**: Track downloads to avoid re-downloading
+2. **Limit Rate**: Prevent network congestion with `--limit-rate`
+3. **Concurrent Fragments**: Speed up with `--concurrent-fragments 4`
+4. **Choose Format Wisely**: Lower quality = faster download
+5. **Use External Downloader**: aria2c can be faster than built-in
+6. **Batch Smartly**: Process in chunks, not all at once
+
+## Updates
+
+Keep yt-dlp updated for best compatibility:
+```bash
+# Update via pip
+pip install -U yt-dlp
+
+# Check version
+yt-dlp --version
+```
+
+## Resources
+
+- **yt-dlp GitHub**: https://github.com/yt-dlp/yt-dlp
+- **Supported Sites**: https://github.com/yt-dlp/yt-dlp/blob/master/supportedsites.md
+- **Format Selection**: https://github.com/yt-dlp/yt-dlp#format-selection
+
+---
+
+**Version**: 1.0.0
+**Last Updated**: 2025-11-07
+**Maintained by**: Claude Code Skills Collection

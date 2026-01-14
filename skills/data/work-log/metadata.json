@@ -1,12 +1,7 @@
 {
   "name": "work-log",
-  "description": "Claude Codeで作業をする際に、docsディレクトリ内にmarkdown形式で作業ログを記録します。作業開始時、重要な変更時、作業完了時に自動的に使用されます。",
-  "repo": "ucchy108/whiskey",
-  "category": "documents",
-  "tags": [
-    "work",
-    "log"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "younwony/younwony.github.io",
+  "path": ".claude/skills/data/work-log/SKILL.md",
+  "source": "github.com/younwony/younwony.github.io",
+  "downloaded_at": "2026-01-14T02:46:58.676438Z"
 }

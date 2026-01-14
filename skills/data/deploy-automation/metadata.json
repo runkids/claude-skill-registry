@@ -1,12 +1,7 @@
 {
   "name": "deploy-automation",
-  "description": "One-click deploy to production. User just says \"deploy\".Use when: user wants to publish their app.Triggers: \"deploy\", \"publish\", \"go live\", \"опубликуй\".",
-  "repo": "timequity/vibe-coder",
-  "category": "productivity",
-  "tags": [
-    "deploy",
-    "automation"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "timequity/plugins",
+  "path": "vibe-coder/skills/deploy-automation/SKILL.md",
+  "source": "github.com/timequity/plugins",
+  "downloaded_at": "2026-01-14T03:41:25.983158Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "react-native-storage-manager",
-  "description": "Handles MMKV storage operations and data persistence patterns with encryption. Use when implementing data persistence, caching, or user preferences in Purrsuit Mobile App.",
-  "repo": "PlaneInABottle/purrsuit",
-  "category": "data",
-  "tags": [
-    "react",
-    "native",
-    "storage",
-    "manager"
-  ],
-  "stars": 0
+  "repo": "PlaneInABottle/fitnessMobileApp",
+  "path": ".claude/skills/react-native-storage-manager/SKILL.md",
+  "source": "github.com/PlaneInABottle/fitnessMobileApp",
+  "downloaded_at": "2026-01-14T03:27:53.378119Z"
 }

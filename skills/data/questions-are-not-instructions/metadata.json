@@ -1,14 +1,7 @@
 {
   "name": "questions-are-not-instructions",
-  "description": "Ensures questions are answered literally before taking action. Triggers on user input containing '?' or patterns like 'why did you...?', 'will that work?', 'have you considered...?'. Use when user ask",
-  "repo": "NTCoding/claude-skillz",
-  "category": "data",
-  "tags": [
-    "questions",
-    "are",
-    "not",
-    "instructions"
-  ],
-  "stars": 87,
-  "source": "SkillsMP Synced Skills"
+  "repo": "audunstrand/status-app",
+  "path": ".github/skills/questions-are-not-instructions/SKILL.md",
+  "source": "github.com/audunstrand/status-app",
+  "downloaded_at": "2026-01-14T01:52:04.263601Z"
 }

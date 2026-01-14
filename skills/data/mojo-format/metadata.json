@@ -1,12 +1,7 @@
 {
   "name": "mojo-format",
-  "description": "Format Mojo code using mojo format command. Use when preparing code for commit or when formatting checks fail.",
   "repo": "mvillmow/ProjectOdyssey",
-  "category": "development",
-  "tags": [
-    "mojo",
-    "format"
-  ],
-  "stars": 8,
-  "source": "local"
+  "path": ".claude/skills/mojo-format/SKILL.md",
+  "source": "github.com/mvillmow/ProjectOdyssey",
+  "downloaded_at": "2026-01-14T01:08:56.528780Z"
 }

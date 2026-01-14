@@ -1,13 +1,7 @@
 {
   "name": "hammer-memory-profiler",
-  "description": "Simplified memory profiling and leak detection for SDL3 HammerEngine using valgrind memcheck, AddressSanitizer, and massif. Identifies memory leaks, allocation hotspots, buffer reuse violations, and p",
   "repo": "Ronin15/SDL3_HammerEngine_Template",
-  "category": "productivity",
-  "tags": [
-    "hammer",
-    "memory",
-    "profiler"
-  ],
-  "stars": 4,
-  "source": "local"
+  "path": ".claude/skills/hammer-memory-profiler/SKILL.md",
+  "source": "github.com/Ronin15/SDL3_HammerEngine_Template",
+  "downloaded_at": "2026-01-14T03:29:03.260840Z"
 }

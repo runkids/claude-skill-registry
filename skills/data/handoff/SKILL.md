@@ -1,22 +1,71 @@
 ---
 name: handoff
-description: Codex handoff checklist for agents.
+description: >
+  Hand off to a fresh Claude session. Use when context is full, you've finished
+  a logical chunk of work, or need a fresh perspective. Work continues from hook.
+allowed-tools: "Bash(gt handoff:*),Bash(gt mail send:*)"
+version: "1.0.0"
+author: "Gas Town"
 ---
 
-# Handoff
+# Handoff - Session Cycling for Gas Town Agents
 
-Purpose: package the current state so the next agent (or future you) can resume quickly.
+Hand off your current session to a fresh Claude instance while preserving work context.
 
-Include (in order):
-1) Scope/status: what you were doing, what’s done, what’s pending, and any blockers.
-2) Working tree: `git status -sb` summary and whether there are local commits not pushed.
-3) Branch/PR: current branch, relevant PR number/URL, CI status if known.
-4) Running processes: list tmux sessions/panes and how to attach:
-   - Example: `tmux attach -t codex-shell` or `tmux capture-pane -p -J -t codex-shell:0.0 -S -200`
-   - Note dev servers, tests, debuggers, background scripts, and how to stop them.
-5) Tests/checks: which commands were run, results, and what still needs to run.
-6) Changelog + docs: mention if `CHANGELOG.md` or docs were updated and why (not the sole source of truth).
-7) Next steps: ordered bullets the next agent should do first.
-8) Risks/gotchas: any flaky tests, credentials, feature flags, or brittle areas.
+## When to Use
 
-Output format: concise bullet list; include copy/paste tmux commands for any live sessions.
+- Context getting full (approaching token limit)
+- Finished a logical chunk of work
+- Need a fresh perspective on a problem
+- Human requests session cycling
+
+## Usage
+
+```
+/handoff [optional message]
+```
+
+## How It Works
+
+1. If you provide a message, it's sent as handoff mail to yourself
+2. `gt handoff` respawns your session with a fresh Claude
+3. New session auto-primes via SessionStart hook
+4. Work continues from your hook (pinned molecule persists)
+
+## Examples
+
+```bash
+# Simple handoff (molecule persists, fresh context)
+/handoff
+
+# Handoff with context notes
+/handoff "Found the bug in token refresh - check line 145 in auth.go first"
+```
+
+## What Persists
+
+- **Hooked molecule**: Your work assignment stays on your hook
+- **Beads state**: All issues, dependencies, progress
+- **Git state**: Commits, branches, staged changes
+
+## What Resets
+
+- **Conversation context**: Fresh Claude instance
+- **TodoWrite items**: Ephemeral, session-scoped
+- **In-memory state**: Any uncommitted analysis
+
+## Implementation
+
+When invoked, execute:
+
+1. If user provided a message, send handoff mail:
+   ```bash
+   gt mail send <your-address> -s "HANDOFF: Session cycling" -m "<message>"
+   ```
+
+2. Run the handoff command:
+   ```bash
+   gt handoff
+   ```
+
+The new session will find your handoff mail and hooked work automatically.

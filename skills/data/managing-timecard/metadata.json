@@ -1,12 +1,7 @@
 {
   "name": "managing-timecard",
-  "description": "Handle timecard punch-in/out operations using /dakoku command. Use when user executes /dakoku, needs to record work hours, or mentions timecard/勤怠/打刻.",
   "repo": "camoneart/claude-code",
-  "category": "development",
-  "tags": [
-    "managing",
-    "timecard"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": "skills/managing-timecard/SKILL.md",
+  "source": "github.com/camoneart/claude-code",
+  "downloaded_at": "2026-01-14T03:37:00.586279Z"
 }

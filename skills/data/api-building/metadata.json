@@ -1,9 +1,7 @@
 {
   "name": "api-building",
-  "description": "EntityController<T>, custom routes, payload transformers, auth policies",
   "repo": "sylin-org/koan-framework",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "GitHub Search API"
+  "path": ".claude/skills/api-building/SKILL.md",
+  "source": "github.com/sylin-org/koan-framework",
+  "downloaded_at": "2026-01-14T03:05:51.193369Z"
 }

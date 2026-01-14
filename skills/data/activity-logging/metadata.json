@@ -1,12 +1,7 @@
 {
   "name": "activity-logging",
-  "description": "Follow these patterns when implementing activity emission and audit logging in OptAIC. Use for emitting ActivityEnvelopes on mutations (create, update, delete, execute), designing payloads, and ensuri",
   "repo": "colingwuyu/optaic-trading",
-  "category": "data",
-  "tags": [
-    "activity",
-    "logging"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/activity-logging/SKILL.md",
+  "source": "github.com/colingwuyu/optaic-trading",
+  "downloaded_at": "2026-01-14T03:31:49.940198Z"
 }

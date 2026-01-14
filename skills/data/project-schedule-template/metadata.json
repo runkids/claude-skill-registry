@@ -1,13 +1,7 @@
 {
   "name": "project-schedule-template",
-  "description": "Эксперт по расписаниям проектов. Используй для WBS, Gantt charts, dependency mapping и resource allocation.",
   "repo": "dengineproblem/agents-monorepo",
-  "category": "development",
-  "tags": [
-    "project",
-    "schedule",
-    "template"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/project-schedule-template/SKILL.md",
+  "source": "github.com/dengineproblem/agents-monorepo",
+  "downloaded_at": "2026-01-14T02:08:04.846122Z"
 }

@@ -1,11 +1,7 @@
 {
   "name": "testing",
-  "description": "Run and troubleshoot tests for DBHub, including unit tests, integration tests with Testcontainers, and database-specific tests. Use when asked to run tests, fix test failures, debug integration tests,",
-  "repo": "bytebase/dbhub",
-  "category": "testing",
-  "tags": [
-    "testing"
-  ],
-  "stars": 1820,
-  "source": "SkillsMP Synced Skills"
+  "repo": "sayali-ingle-pdl/adusa-ai-vuejs-app-template",
+  "path": ".github/agents/app-starter/agents-context/skills/testing/SKILL.md",
+  "source": "github.com/sayali-ingle-pdl/adusa-ai-vuejs-app-template",
+  "downloaded_at": "2026-01-14T04:00:39.295552Z"
 }

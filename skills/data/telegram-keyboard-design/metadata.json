@@ -1,13 +1,7 @@
 {
   "name": "telegram-keyboard-design",
-  "description": "Design Telegram bot keyboards, buttons, and conversational flows with proper UX patterns. Includes inline keyboards, reply keyboards, button callbacks, and progressive disclosure for better mobile UX.",
   "repo": "ils15/copilot-global-config",
-  "category": "design",
-  "tags": [
-    "telegram",
-    "keyboard",
-    "design"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": "skills/telegram-keyboard-design/SKILL.md",
+  "source": "github.com/ils15/copilot-global-config",
+  "downloaded_at": "2026-01-14T02:18:15.454955Z"
 }

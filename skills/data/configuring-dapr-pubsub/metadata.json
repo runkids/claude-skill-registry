@@ -1,13 +1,7 @@
 {
   "name": "configuring-dapr-pubsub",
-  "description": "Configures Dapr pub/sub components for event-driven microservices with Kafka or Redis.Use when wiring agent-to-agent communication, setting up event subscriptions, or integrating Dapr sidecars.Covers ",
   "repo": "mjunaidca/mjs-agent-skills",
-  "category": "devops",
-  "tags": [
-    "configuring",
-    "dapr",
-    "pubsub"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/configuring-dapr-pubsub/SKILL.md",
+  "source": "github.com/mjunaidca/mjs-agent-skills",
+  "downloaded_at": "2026-01-14T01:43:17.031351Z"
 }

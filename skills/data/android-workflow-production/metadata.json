@@ -1,13 +1,7 @@
 {
   "name": "android-workflow-production",
-  "description": "Generate GitHub Actions workflows for production deployment with staged rollout",
   "repo": "hitoshura25/claude-devtools",
-  "category": "productivity",
-  "tags": [
-    "android",
-    "workflow",
-    "production"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/android-workflow-production/SKILL.md",
+  "source": "github.com/hitoshura25/claude-devtools",
+  "downloaded_at": "2026-01-14T03:07:10.001353Z"
 }

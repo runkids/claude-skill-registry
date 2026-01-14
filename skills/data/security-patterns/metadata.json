@@ -1,12 +1,7 @@
 {
   "name": "security-patterns",
-  "description": "Security patterns for input validation, PII protection, and cryptographic operations",
-  "repo": "JasonDocton/rad-claude",
-  "category": "security",
-  "tags": [
-    "security",
-    "patterns"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "vanman2024/dev-lifecycle-marketplace",
+  "path": "plugins/security/skills/security-patterns/SKILL.md",
+  "source": "github.com/vanman2024/dev-lifecycle-marketplace",
+  "downloaded_at": "2026-01-14T03:07:40.375985Z"
 }

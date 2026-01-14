@@ -1,128 +1,87 @@
 ---
 name: linear
-description: Work with Linear issues via CLI - use this skill whenever the user asks about Linear issues, creating, updating, commenting on, or deleting issues, or checking issue status and details
-version: 0.1.0
+description: Manage issues, projects & team workflows in Linear. Use when the user wants to read, create or updates tickets in Linear.
+metadata:
+  short-description: Manage Linear issues in Codex
 ---
 
-# Linear Issue Management
+# Linear
 
-**Use this skill whenever the user mentions Linear or asks to work with issues.**
+## Overview
 
-Lightweight CLI to interact with Linear's issue tracking system. All commands run from the skill directory using `./linear`.
+This skill provides a structured workflow for managing issues, projects & team workflows in Linear. It ensures consistent integration with the Linear MCP server, which offers natural-language project management for issues, projects, documentation, and team collaboration.
 
-## Setup
+## Prerequisites
+- Linear MCP server must be connected and accessible via OAuth
+- Confirm access to the relevant Linear workspace, teams, and projects
 
-Dependencies install automatically on first run. API key errors are self-explanatory.
+## Required Workflow
 
-## Command Pattern
+**Follow these steps in order. Do not skip steps.**
 
-```bash
-./linear <resource> <action> [arguments] [options]
+### Step 0: Set up Linear MCP (if not already configured)
+
+If any MCP call fails because Linear MCP is not connected, pause and set it up:
+
+1. Add the Linear MCP:
+   - `codex mcp add linear --url https://mcp.linear.app/mcp`
+2. Enable remote MCP client:
+   - Set `[features] rmcp_client = true` in `config.toml` **or** run `codex --enable rmcp_client`
+3. Log in with OAuth:
+   - `codex mcp login linear`
+
+After successful login, the user will have to restart codex. You should finish your answer and tell them so when they try again they can continue with Step 1.
+
+**Windows/WSL note:** If you see connection errors on Windows, try configuring the Linear MCP to run via WSL:
+```json
+{"mcpServers": {"linear": {"command": "wsl", "args": ["npx", "-y", "mcp-remote", "https://mcp.linear.app/sse", "--transport", "sse-only"]}}}
 ```
 
-Resources: `issue`, `user`, `team`, `project`
+### Step 1
+Clarify the user's goal and scope (e.g., issue triage, sprint planning, documentation audit, workload balance). Confirm team/project, priority, labels, cycle, and due dates as needed.
 
-## Commands
+### Step 2
+Select the appropriate workflow (see Practical Workflows below) and identify the Linear MCP tools you will need. Confirm required identifiers (issue ID, project ID, team key) before calling tools.
 
-### List Users
-```bash
-./linear user list
-```
-Returns: `#<user-id>	<name>	<email>`
+### Step 3
+Execute Linear MCP tool calls in logical batches:
+- Read first (list/get/search) to build context.
+- Create or update next (issues, projects, labels, comments) with all required fields.
+- For bulk operations, explain the grouping logic before applying changes.
 
-### List Teams
-```bash
-./linear team list
-```
-Returns: `#<team-id>	<name>	<key>`
+### Step 4
+Summarize results, call out remaining gaps or blockers, and propose next actions (additional issues, label changes, assignments, or follow-up comments).
 
-### List Projects
-```bash
-./linear project list
-```
-Returns: `#<project-id>	<name>	<state>`
+## Available Tools
 
-### List Issues
-```bash
-./linear issue list [options]
-```
-**Options:**
-- `--team <id>` - Filter by team ID
-- `--assignee <id>` - Filter by user ID
-- `--status <name>` - Filter by status name (case-sensitive)
-- `--limit <n>` - Limit results (default: 50)
+Issue Management: `list_issues`, `get_issue`, `create_issue`, `update_issue`, `list_my_issues`, `list_issue_statuses`, `list_issue_labels`, `create_issue_label`
 
-Returns: `#<identifier>	<title>	<status>	<assignee>`
+Project & Team: `list_projects`, `get_project`, `create_project`, `update_project`, `list_teams`, `get_team`, `list_users`
 
-**Examples:**
-```bash
-./linear issue list --team abc123 --limit 10
-./linear issue list --assignee def456 --status "In Progress"
-```
+Documentation & Collaboration: `list_documents`, `get_document`, `search_documentation`, `list_comments`, `create_comment`, `list_cycles`
 
-### View Issue
-```bash
-./linear issue view <id-or-key>
-```
-**Arguments:**
-- `<id-or-key>` - Issue identifier (e.g., `ENG-123`) or UUID
+## Practical Workflows
 
-Returns full issue details including title, status, assignee, team, priority, labels, dates, description, and comments.
+- Sprint Planning: Review open issues for a target team, pick top items by priority, and create a new cycle (e.g., "Q1 Performance Sprint") with assignments.
+- Bug Triage: List critical/high-priority bugs, rank by user impact, and move the top items to "In Progress."
+- Documentation Audit: Search documentation (e.g., API auth), then open labeled "documentation" issues for gaps or outdated sections with detailed fixes.
+- Team Workload Balance: Group active issues by assignee, flag anyone with high load, and suggest or apply redistributions.
+- Release Planning: Create a project (e.g., "v2.0 Release") with milestones (feature freeze, beta, docs, launch) and generate issues with estimates.
+- Cross-Project Dependencies: Find all "blocked" issues, identify blockers, and create linked issues if missing.
+- Automated Status Updates: Find your issues with stale updates and add status comments based on current state/blockers.
+- Smart Labeling: Analyze unlabeled issues, suggest/apply labels, and create missing label categories.
+- Sprint Retrospectives: Generate a report for the last completed cycle, note completed vs. pushed work, and open discussion issues for patterns.
 
-### Create Issue
-```bash
-./linear issue create <title> [options]
-```
-**Arguments:**
-- `<title>` - Issue title (multi-word titles auto-combined)
+## Tips for Maximum Productivity
 
-**Options:**
-- `--team <id>` - Team ID (required)
-- `--description <text>` - Issue description
-- `--assignee <id>` - User ID
-- `--priority <n>` - Priority (0=None, 1=Urgent, 2=High, 3=Medium, 4=Low)
-- `--status <name>` - Initial status
+- Batch operations for related changes; consider smart templates for recurring issue structures.
+- Use natural queries when possible ("Show me what John is working on this week").
+- Leverage context: reference prior issues in new requests.
+- Break large updates into smaller batches to avoid rate limits; cache or reuse filters when listing frequently.
 
-**Example:**
-```bash
-./linear issue create "Fix login bug" --team abc123 --priority 2
-```
+## Troubleshooting
 
-### Add Comment
-```bash
-./linear issue comment <id-or-key> <text>
-```
-Multi-word text auto-combined. No quotes needed.
-
-### Update Issue
-```bash
-./linear issue update <id-or-key> [options]
-```
-**Options:**
-- `--status <name>` - Update status
-- `--assignee <id>` - Update assignee
-- `--priority <n>` - Update priority
-- `--title <text>` - Update title
-- `--description <text>` - Update description
-
-Can update multiple fields in one command.
-
-**Example:**
-```bash
-./linear issue update ENG-123 --status "In Progress" --assignee abc123
-```
-
-### Delete Issue
-```bash
-./linear issue delete <id-or-key>
-```
-Soft delete (moves to trash, recoverable).
-
-## Important Notes
-
-- Issue identifiers are case-insensitive (`ENG-123` = `eng-123`)
-- Status names are case-sensitive ("In Progress" ≠ "in progress")
-- User/team IDs are UUIDs (get from list commands)
-- Issue keys format: `<TEAM_KEY>-<NUMBER>` (e.g., ENG-123)
-- All commands support `--json` flag for machine-readable output
-- Use `--help` on any command for details
+- Authentication: Clear browser cookies, re-run OAuth, verify workspace permissions, ensure API access is enabled.
+- Tool Calling Errors: Confirm the model supports multiple tool calls, provide all required fields, and split complex requests.
+- Missing Data: Refresh token, verify workspace access, check for archived projects, and confirm correct team selection.
+- Performance: Remember Linear API rate limits; batch bulk operations, use specific filters, or cache frequent queries.

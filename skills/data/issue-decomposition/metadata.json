@@ -1,12 +1,7 @@
 {
   "name": "issue-decomposition",
-  "description": "Use when an issue is too large for a single task - breaks into linked sub-issues with full documentation, ensuring manageable work units",
-  "repo": "troykelly/claude-skills",
-  "category": "documents",
-  "tags": [
-    "issue",
-    "decomposition"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "troykelly/codex-skills",
+  "path": "skills/issue-decomposition/SKILL.md",
+  "source": "github.com/troykelly/codex-skills",
+  "downloaded_at": "2026-01-14T03:34:03.770953Z"
 }

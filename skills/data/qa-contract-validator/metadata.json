@@ -1,9 +1,7 @@
 {
   "name": "qa-contract-validator",
-  "description": "Validates API contracts by discovering consumers and ensuring responses match their expectations. Detects breaking changes.",
   "repo": "pcortes/swarm-attack",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/qa-contract-validator/SKILL.md",
+  "source": "github.com/pcortes/swarm-attack",
+  "downloaded_at": "2026-01-14T04:01:10.309451Z"
 }

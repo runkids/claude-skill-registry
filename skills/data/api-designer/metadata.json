@@ -1,12 +1,7 @@
 {
   "name": "api-designer",
-  "description": "Design REST APIs or function contracts with clear request/response specifications,",
-  "repo": "matteocervelli/llms",
-  "category": "design",
-  "tags": [
-    "api",
-    "designer"
-  ],
-  "stars": 10,
-  "source": "SkillsMP Synced Skills"
+  "repo": "gaebalai/itda-sdd",
+  "path": "src/templates/agents/claude-code/skills/api-designer/SKILL.md",
+  "source": "github.com/gaebalai/itda-sdd",
+  "downloaded_at": "2026-01-14T03:55:16.299767Z"
 }

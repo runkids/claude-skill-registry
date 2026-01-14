@@ -1,11 +1,7 @@
 {
   "name": "openssl",
-  "description": "Expert guidance for OpenSSL operations including certificate generation, key management, CSR creation, certificate verification, encryption, and PKI operations. Use this when working with SSL/TLS cert",
   "repo": "oriolrius/pki-manager-web",
-  "category": "design",
-  "tags": [
-    "openssl"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/openssl/SKILL.md",
+  "source": "github.com/oriolrius/pki-manager-web",
+  "downloaded_at": "2026-01-14T02:21:24.008646Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "sprint-planner",
-  "description": "Use this skill when planning a new sprint by selecting approved specs from the project board and creating atomic GitHub issues for the development team. Triggers include \"plan sprint\", \"create sprint\"",
-  "repo": "bodangren/bus-math-v2",
-  "category": "development",
-  "tags": [
-    "sprint",
-    "planner"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "eddiebe147/claude-settings",
+  "path": "skills/sprint-planner/SKILL.md",
+  "source": "github.com/eddiebe147/claude-settings",
+  "downloaded_at": "2026-01-14T03:53:04.482423Z"
 }

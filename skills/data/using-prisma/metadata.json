@@ -1,8 +1,7 @@
 {
   "name": "using-prisma",
   "repo": "FortiumPartners/ensemble",
-  "category": "data",
-  "description": "Prisma 5+ ORM with schema-first design, type-safe client, migrations, and database integrations (Supabase, PlanetScale, Neon). Use for TypeScript/JavaScript database access.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:48.612662Z"
+  "path": "packages/development/skills/using-prisma/SKILL.md",
+  "source": "github.com/FortiumPartners/ensemble",
+  "downloaded_at": "2026-01-14T02:40:40.536926Z"
 }

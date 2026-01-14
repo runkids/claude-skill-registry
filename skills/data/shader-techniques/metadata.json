@@ -1,9 +1,7 @@
 {
   "name": "shader-techniques",
-  "description": "Advanced shader programming, visual effects, custom materials,and rendering optimization for stunning game graphics.",
   "repo": "pluginagentmarketplace/custom-plugin-game-developer",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/shader-techniques/SKILL.md",
+  "source": "github.com/pluginagentmarketplace/custom-plugin-game-developer",
+  "downloaded_at": "2026-01-14T03:41:52.552110Z"
 }

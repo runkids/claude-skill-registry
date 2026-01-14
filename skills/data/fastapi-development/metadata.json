@@ -1,12 +1,7 @@
 {
   "name": "fastapi-development",
-  "description": "Build high-performance FastAPI applications with async routes, validation, dependency injection, security, and automatic API documentation. Use when developing modern Python APIs with async support, a",
   "repo": "aj-geddes/useful-ai-prompts",
-  "category": "development",
-  "tags": [
-    "fastapi",
-    "development"
-  ],
-  "stars": 25,
-  "source": "local"
+  "path": "skills/fastapi-development/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:12.978457Z"
 }

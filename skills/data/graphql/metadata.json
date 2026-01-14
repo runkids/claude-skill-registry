@@ -1,11 +1,7 @@
 {
   "name": "graphql",
-  "description": "GraphQL API development including schemas, resolvers, queries, mutations, and subscriptions. Activate for GraphQL servers, clients, and API design.",
-  "repo": "Lobbi-Docs/claude",
-  "category": "development",
-  "tags": [
-    "graphql"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "KubrickCode/Repo-Management",
+  "path": ".claude/skills/graphql/SKILL.md",
+  "source": "github.com/KubrickCode/Repo-Management",
+  "downloaded_at": "2026-01-14T04:01:56.285118Z"
 }

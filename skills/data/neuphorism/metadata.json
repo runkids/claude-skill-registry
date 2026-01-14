@@ -1,11 +1,7 @@
 {
   "name": "neuphorism",
-  "description": "Create web pages and UI components using the Neuphorism design system—a soft, tactile neumorphic aesthetic with extruded/pressed shadows, muted surface colors, and refined typography. Use when the use",
   "repo": "gahoccode/PRDs",
-  "category": "design",
-  "tags": [
-    "neuphorism"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": "skills/neuphorism/SKILL.md",
+  "source": "github.com/gahoccode/PRDs",
+  "downloaded_at": "2026-01-14T02:44:59.779336Z"
 }

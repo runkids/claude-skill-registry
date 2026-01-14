@@ -1,11 +1,7 @@
 {
   "name": "security-headers",
-  "description": "Analyzes HTTP security headers for a given URL and provides a comprehensive security score. Checks for critical headers like HSTS, CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, and Pe",
-  "repo": "madsstoumann/browser-style",
-  "category": "data",
-  "tags": [
-    "security",
-    "headers"
-  ],
-  "stars": 11
+  "repo": "CuriousLearner/devkit",
+  "path": "skills/security-headers/SKILL.md",
+  "source": "github.com/CuriousLearner/devkit",
+  "downloaded_at": "2026-01-14T02:22:36.631693Z"
 }

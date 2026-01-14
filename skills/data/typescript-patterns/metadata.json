@@ -1,11 +1,7 @@
 {
   "name": "typescript-patterns",
-  "description": "Modern TypeScript patterns for type safety and maintainability",
-  "repo": "JasonDocton/rad-claude",
-  "category": "data",
-  "tags": [
-    "typescript",
-    "patterns"
-  ],
-  "stars": 0
+  "repo": "CoderMariusz/MonoPilot",
+  "path": ".claude/skills/typescript-patterns/SKILL.md",
+  "source": "github.com/CoderMariusz/MonoPilot",
+  "downloaded_at": "2026-01-14T03:46:41.531735Z"
 }

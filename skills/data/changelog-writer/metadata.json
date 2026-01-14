@@ -1,12 +1,7 @@
 {
   "name": "changelog-writer",
-  "description": "Create user-focused, SEO-optimized changelog entries for software releases. Use when writing release notes, version updates, product changelogs, or \"what's new\" documentation for developer tools.",
-  "repo": "lightfastai/lightfast",
-  "category": "development",
-  "tags": [
-    "changelog",
-    "writer"
-  ],
-  "stars": 13,
-  "source": "SkillsMP Synced Skills"
+  "repo": "enoch-robinson/agent-skill-collection",
+  "path": "skills/documents/changelog-writer/SKILL.md",
+  "source": "github.com/enoch-robinson/agent-skill-collection",
+  "downloaded_at": "2026-01-14T03:49:46.743846Z"
 }

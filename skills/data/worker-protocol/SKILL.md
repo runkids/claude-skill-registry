@@ -1,17 +1,6 @@
 ---
 name: worker-protocol
 description: Defines behavior protocol for spawned worker agents. Injected into worker prompts. Covers startup, progress reporting, exit conditions, and handover preparation.
-allowed-tools:
-  - Bash
-  - Read
-  - Edit
-  - Write
-  - Grep
-  - Glob
-  - mcp__github__*
-  - mcp__git__*
-  - mcp__memory__*
-model: opus
 ---
 
 # Worker Protocol
@@ -246,7 +235,7 @@ If worker modifies files matching security-sensitive patterns:
 - `**/*password*`, `**/*token*`, `**/*secret*`
 
 Worker MUST:
-1. Invoke `security-reviewer` subagent OR perform `security-review` skill
+1. Invoke `security-review` skill OR run `codex-subagent security-reviewer`
 2. Include security review in artifact
 3. Mark "Security-Sensitive: YES" in artifact
 

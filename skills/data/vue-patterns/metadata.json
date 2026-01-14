@@ -1,12 +1,7 @@
 {
   "name": "vue-patterns",
-  "description": "Vue 3 patterns and best practices for this workout tracker: feature module architecture, createGlobalState() singleton state (not Pinia), defineModel two-way binding, and component gotchas. Use when c",
   "repo": "alexanderop/workoutTracker",
-  "category": "development",
-  "tags": [
-    "vue",
-    "patterns"
-  ],
-  "stars": 3,
-  "source": "local"
+  "path": ".claude/skills/vue-patterns/SKILL.md",
+  "source": "github.com/alexanderop/workoutTracker",
+  "downloaded_at": "2026-01-14T03:50:42.854444Z"
 }

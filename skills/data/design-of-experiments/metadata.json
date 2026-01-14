@@ -1,12 +1,7 @@
 {
   "name": "design-of-experiments",
-  "description": "Use when optimizing multi-factor systems with limited experimental budget, screening many variables to find the vital few, discovering interactions between parameters, mapping response surfaces for pe",
-  "repo": "lyndonkl/claude",
-  "category": "testing",
-  "tags": [
-    "design",
-    "experiments"
-  ],
-  "stars": 8,
-  "source": "SkillsMP Synced Skills"
+  "repo": "jkitchin/skillz",
+  "path": "skills/scientific/design-of-experiments/SKILL.md",
+  "source": "github.com/jkitchin/skillz",
+  "downloaded_at": "2026-01-14T03:44:49.579168Z"
 }

@@ -1,27 +1,30 @@
 ---
 name: vscode-extension
 # prettier-ignore
-description: Use when developing VS Code extensions including TextMate grammars, language configuration, and extension manifest
+description: Use when developing VSCode extensions - covers language support, LSP integration, and packaging
 ---
 
-# VS Code Extension Development
+# VSCode Extension Development
 
 ## Quick Start
 
 ```json
 // package.json
 {
-  "name": "my-language",
+  "name": "vscode-lea",
+  "displayName": "Lea Language",
+  "engines": { "vscode": "^1.85.0" },
+  "categories": ["Programming Languages"],
   "contributes": {
     "languages": [{
-      "id": "mylang",
-      "extensions": [".ml"],
+      "id": "lea",
+      "extensions": [".lea"],
       "configuration": "./language-configuration.json"
     }],
     "grammars": [{
-      "language": "mylang",
-      "scopeName": "source.mylang",
-      "path": "./syntaxes/mylang.tmLanguage.json"
+      "language": "lea",
+      "scopeName": "source.lea",
+      "path": "./syntaxes/lea.tmLanguage.json"
     }]
   }
 }
@@ -29,44 +32,90 @@ description: Use when developing VS Code extensions including TextMate grammars,
 
 ## Core Components
 
-- **package.json**: Extension manifest with `contributes` for languages, grammars, commands
-- **language-configuration.json**: Brackets, comments, auto-closing pairs, folding
-- **TextMate Grammar**: Syntax highlighting via regex patterns and scopes
-- **Language Server**: Advanced features (LSP) for completions, diagnostics
-
-## TextMate Grammar Structure
+### Language Configuration
 
 ```json
+// language-configuration.json
 {
-  "scopeName": "source.mylang",
-  "patterns": [{ "include": "#expression" }],
-  "repository": {
-    "expression": {
-      "patterns": [
-        { "include": "#keywords" },
-        { "include": "#strings" }
-      ]
-    },
-    "keywords": {
-      "match": "\\b(if|else|while)\\b",
-      "name": "keyword.control.mylang"
-    }
+  "comments": { "lineComment": "--" },
+  "brackets": [
+    ["{", "}"],
+    ["[", "]"],
+    ["(", ")"]
+  ],
+  "autoClosingPairs": [
+    { "open": "{", "close": "}" },
+    { "open": "[", "close": "]" },
+    { "open": "(", "close": ")" },
+    { "open": "\"", "close": "\"" }
+  ],
+  "surroundingPairs": [
+    ["{", "}"],
+    ["[", "]"],
+    ["(", ")"],
+    ["\"", "\""]
+  ]
+}
+```
+
+### LSP Client Integration
+
+```typescript
+import {
+  LanguageClient,
+  LanguageClientOptions,
+  ServerOptions,
+} from "vscode-languageclient/node";
+
+export function activate(context: vscode.ExtensionContext) {
+  const serverModule = context.asAbsolutePath("server/index.js");
+
+  const serverOptions: ServerOptions = {
+    run: { module: serverModule, transport: TransportKind.ipc },
+    debug: { module: serverModule, transport: TransportKind.ipc }
+  };
+
+  const clientOptions: LanguageClientOptions = {
+    documentSelector: [{ scheme: "file", language: "lea" }],
+  };
+
+  const client = new LanguageClient("lea", "Lea", serverOptions, clientOptions);
+  client.start();
+}
+```
+
+### Snippets
+
+```json
+// snippets/lea.json
+{
+  "Function": {
+    "prefix": "fn",
+    "body": ["let ${1:name} = (${2:params}) -> ${0:body}"],
+    "description": "Define a function"
+  },
+  "Pipeline": {
+    "prefix": "pipe",
+    "body": ["${1:value}", "  /> ${2:transform}", "  /> ${0:result}"],
+    "description": "Create a pipeline"
   }
 }
 ```
 
-## Key Scope Naming
+## Packaging & Publishing
 
-- `keyword.control` - Control flow (if, else, for)
-- `keyword.operator` - Operators (+, -, =)
-- `string.quoted` - String literals
-- `comment.line` / `comment.block` - Comments
-- `entity.name.function` - Function names
-- `variable` - Variables
-- `constant.numeric` - Numbers
+```bash
+# Install vsce
+npm install -g @vscode/vsce
+
+# Package extension
+vsce package
+
+# Publish to marketplace
+vsce publish
+```
 
 ## Reference Files
 
-- [references/textmate.md](references/textmate.md) - TextMate grammar patterns
-- [references/language-config.md](references/language-config.md) - Language configuration
-- [references/publishing.md](references/publishing.md) - Publishing to marketplace
+- [references/activation.md](references/activation.md) - Activation events
+- [references/commands.md](references/commands.md) - Command registration

@@ -1,12 +1,7 @@
 {
   "name": "refactor-assistant",
-  "description": "Automated code refactoring suggestions and implementation.",
   "repo": "CuriousLearner/devkit",
-  "category": "development",
-  "tags": [
-    "refactor",
-    "assistant"
-  ],
-  "stars": 13,
-  "source": "local"
+  "path": "skills/refactor-assistant/SKILL.md",
+  "source": "github.com/CuriousLearner/devkit",
+  "downloaded_at": "2026-01-14T02:22:37.613820Z"
 }

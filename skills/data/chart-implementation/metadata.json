@@ -1,12 +1,7 @@
 {
   "name": "chart-implementation",
-  "description": "Create or update interactive charts for car registration and COE data visualization. Use when adding new chart types, fixing chart bugs, or implementing data visualizations.",
   "repo": "sgcarstrends/sgcarstrends",
-  "category": "data",
-  "tags": [
-    "chart",
-    "implementation"
-  ],
-  "stars": 13,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/chart-implementation/SKILL.md",
+  "source": "github.com/sgcarstrends/sgcarstrends",
+  "downloaded_at": "2026-01-14T02:59:23.222908Z"
 }

@@ -1,8 +1,7 @@
 {
   "name": "docker-compose-basics",
   "repo": "TheBushidoCollective/han",
-  "category": "data",
-  "description": "Use when defining and running multi-container Docker applications with Docker Compose YAML configuration.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:02.702049Z"
+  "path": "jutsu/jutsu-docker-compose/skills/docker-compose-basics/SKILL.md",
+  "source": "github.com/TheBushidoCollective/han",
+  "downloaded_at": "2026-01-14T03:34:09.837806Z"
 }

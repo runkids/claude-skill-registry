@@ -1,12 +1,7 @@
 {
   "name": "discover-protocols",
-  "description": "Automatically discover protocol skills when working with HTTP, TCP, UDP, QUIC, and network protocols",
   "repo": "rand/cc-polymath",
-  "category": "design",
-  "tags": [
-    "discover",
-    "protocols"
-  ],
-  "stars": 33,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/discover-protocols/SKILL.md",
+  "source": "github.com/rand/cc-polymath",
+  "downloaded_at": "2026-01-14T03:55:21.940288Z"
 }

@@ -1,0 +1,9 @@
+{
+  "name": "rule-validation",
+  "description": "validate_skills.pyを実行してSkills/Agents/Commandsの構文を検証し、エラーを修正してログを記録する。「バリデーション」「構文検証」「Skillsチェック」を依頼されたときに使用する。",
+  "repo": "matsuni-kk/agent_template_public",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "GitHub Search API"
+}

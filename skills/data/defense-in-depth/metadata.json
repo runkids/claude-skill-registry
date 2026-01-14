@@ -1,12 +1,7 @@
 {
   "name": "defense-in-depth",
-  "description": "Multi-layer validation pattern - validates data at EVERY layer it passes throughto make bugs structurally impossible, not just caught.",
-  "repo": "LerianStudio/ring",
-  "category": "data",
-  "tags": [
-    "defense",
-    "depth"
-  ],
-  "stars": 25,
-  "source": "SkillsMP Synced Skills"
+  "repo": "mrgoonie/xxxnaper",
+  "path": ".claude/skills/debugging/defense-in-depth/SKILL.md",
+  "source": "github.com/mrgoonie/xxxnaper",
+  "downloaded_at": "2026-01-14T04:00:32.832120Z"
 }

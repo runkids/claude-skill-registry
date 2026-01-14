@@ -1,12 +1,7 @@
 {
   "name": "server-management",
-  "description": "Server management procedures including PM2, monitoring, and log management. CRITICAL for production operations.",
   "repo": "xenitV1/claude-code-maestro",
-  "category": "product",
-  "tags": [
-    "server",
-    "management"
-  ],
-  "stars": 47,
-  "source": "local"
+  "path": "skills/server-management/SKILL.md",
+  "source": "github.com/xenitV1/claude-code-maestro",
+  "downloaded_at": "2026-01-14T03:41:47.185905Z"
 }

@@ -1,8 +1,7 @@
 {
   "name": "csv-data-visualizer",
-  "repo": "agent-trust-protocol/atp-core",
-  "category": "data",
-  "description": "This skill should be used when working with CSV files to create interactive data visualizations, generate statistical plots, analyze data distributions, create dashboards, or perform automatic data pr",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:37.150089Z"
+  "repo": "mamba-mental/agent-skill-manager",
+  "path": ".claude/skills/csv-data-visualizer/SKILL.md",
+  "source": "github.com/mamba-mental/agent-skill-manager",
+  "downloaded_at": "2026-01-14T01:45:03.040850Z"
 }

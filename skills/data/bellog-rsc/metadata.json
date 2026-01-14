@@ -1,12 +1,7 @@
 {
   "name": "bellog-rsc",
-  "description": "Provides guidance on React Server Components vs Client Components decision-making in Bellog. Triggers when creating new components.",
   "repo": "whddltjdwhd/bellog",
-  "category": "design",
-  "tags": [
-    "bellog",
-    "rsc"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/bellog-rsc/SKILL.md",
+  "source": "github.com/whddltjdwhd/bellog",
+  "downloaded_at": "2026-01-14T01:13:19.867216Z"
 }

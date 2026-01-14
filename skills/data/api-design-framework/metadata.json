@@ -1,13 +1,7 @@
 {
   "name": "api-design-framework",
-  "description": "Use this skill when designing REST, GraphQL, or gRPC APIs. Provides comprehensive API design patterns, versioning strategies, error handling conventions, authentication approaches, and OpenAPI/AsyncAP",
   "repo": "ArieGoldkin/ai-agent-hub",
-  "category": "development",
-  "tags": [
-    "api",
-    "design",
-    "framework"
-  ],
-  "stars": 6,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/api-design-framework/SKILL.md",
+  "source": "github.com/ArieGoldkin/ai-agent-hub",
+  "downloaded_at": "2026-01-14T03:52:03.458816Z"
 }

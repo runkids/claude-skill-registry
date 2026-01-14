@@ -1,13 +1,7 @@
 {
   "name": "deploying-cloud-k8s",
-  "description": "Deploys applications to cloud Kubernetes (AKS/GKE/DOKS) with CI/CD pipelines.Use when deploying to production, setting up GitHub Actions, troubleshooting deployments.Covers build-time vs runtime vars,",
   "repo": "mjunaidca/mjs-agent-skills",
-  "category": "devops",
-  "tags": [
-    "deploying",
-    "cloud",
-    "k8s"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/deploying-cloud-k8s/SKILL.md",
+  "source": "github.com/mjunaidca/mjs-agent-skills",
+  "downloaded_at": "2026-01-14T01:43:12.395344Z"
 }

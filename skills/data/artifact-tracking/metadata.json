@@ -1,12 +1,7 @@
 {
   "name": "artifact-tracking",
-  "description": "\"Use this skill when creating, updating, or querying AI-optimized tracking artifacts (progress files, context notes, bug fixes, observation logs) in YAML+Markdown hybrid format for 95% token reduction",
   "repo": "miethe/deal-brain",
-  "category": "data",
-  "tags": [
-    "artifact",
-    "tracking"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/artifact-tracking/SKILL.md",
+  "source": "github.com/miethe/deal-brain",
+  "downloaded_at": "2026-01-14T03:40:20.187288Z"
 }

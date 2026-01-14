@@ -1,13 +1,7 @@
 {
   "name": "newsletter-events-update-event",
-  "description": "Manually refresh specific event pages to update event data",
   "repo": "aniketpanjwani/local_media_tools",
-  "category": "data",
-  "tags": [
-    "newsletter",
-    "events",
-    "update",
-    "event"
-  ],
-  "stars": 7
+  "path": "skills/newsletter-events-update-event/SKILL.md",
+  "source": "github.com/aniketpanjwani/local_media_tools",
+  "downloaded_at": "2026-01-14T03:42:32.705501Z"
 }

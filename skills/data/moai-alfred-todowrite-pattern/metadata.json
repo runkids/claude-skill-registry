@@ -1,13 +1,7 @@
 {
   "name": "moai-alfred-todowrite-pattern",
-  "description": "TodoWrite auto-initialization patterns from Plan agent, task tracking best practices, status management.",
-  "repo": "kivo360/quickhooks",
-  "category": "data",
-  "tags": [
-    "moai",
-    "alfred",
-    "todowrite",
-    "pattern"
-  ],
-  "stars": 0
+  "repo": "dolsoon/my-awesome-project",
+  "path": ".claude/skills/moai-alfred-todowrite-pattern/SKILL.md",
+  "source": "github.com/dolsoon/my-awesome-project",
+  "downloaded_at": "2026-01-14T03:37:25.004717Z"
 }

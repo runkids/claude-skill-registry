@@ -1,12 +1,7 @@
 {
   "name": "pricing-strategy",
-  "description": "Эксперт по ценообразованию. Используй для pricing models, value-based pricing и monetization strategies.",
   "repo": "dengineproblem/agents-monorepo",
-  "category": "devops",
-  "tags": [
-    "pricing",
-    "strategy"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/pricing-strategy/SKILL.md",
+  "source": "github.com/dengineproblem/agents-monorepo",
+  "downloaded_at": "2026-01-14T02:07:58.796035Z"
 }

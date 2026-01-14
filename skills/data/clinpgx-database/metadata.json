@@ -1,8 +1,7 @@
 {
   "name": "clinpgx-database",
-  "repo": "davila7/claude-code-templates",
-  "category": "data",
-  "description": "Access ClinPGx pharmacogenomics data (successor to PharmGKB). Query gene-drug interactions, CPIC guidelines, allele functions, for precision medicine and genotype-guided dosing decisions.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:36.762007Z"
+  "repo": "x-cmd/skill",
+  "path": "data/k-dense-ai/clinpgx-database/SKILL.md",
+  "source": "github.com/x-cmd/skill",
+  "downloaded_at": "2026-01-14T02:45:42.185456Z"
 }

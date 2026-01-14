@@ -1,9 +1,7 @@
 {
   "name": "build-session-context",
-  "description": "Build concise session context by extracting key information from project logs (CLAUDE.md, TASK_BOARD.md, MIGRATION_LOG.md, DEBUG_LOG.md, GIT_LOG.md, SKILLS_LOG.md) to provide token-efficient project s",
   "repo": "dudusoar/VRP-Toolkit",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/build-session-context/SKILL.md",
+  "source": "github.com/dudusoar/VRP-Toolkit",
+  "downloaded_at": "2026-01-14T02:24:48.626561Z"
 }

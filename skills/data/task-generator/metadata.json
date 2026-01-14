@@ -1,12 +1,7 @@
 {
   "name": "task-generator",
-  "description": "Generate structured task lists from specs or requirements. IMPORTANT: After completing ANY spec via ExitSpecMode, ALWAYS ask the user: \"Would you like me to generate a task list for this spec?\" Use wh",
-  "repo": "julianromli/ai-skills",
-  "category": "design",
-  "tags": [
-    "task",
-    "generator"
-  ],
-  "stars": 120,
-  "source": "SkillsMP Synced Skills"
+  "repo": "ssdeanx/AI-Skills",
+  "path": "skills/task-generator/SKILL.md",
+  "source": "github.com/ssdeanx/AI-Skills",
+  "downloaded_at": "2026-01-14T03:35:07.416658Z"
 }

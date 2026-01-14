@@ -1,13 +1,7 @@
 {
   "name": "database-schema-designer",
-  "description": "Copilot agent for database schema design, ER diagrams, normalization, DDL generation, and performance optimizationTrigger terms: database design, schema design, ER diagram, normalization, DDL, databas",
-  "repo": "nahisaho/MUSUBI",
-  "category": "data",
-  "tags": [
-    "database",
-    "schema",
-    "designer"
-  ],
-  "stars": 19,
-  "source": "SkillsMP Synced Skills"
+  "repo": "gaebalai/itda-sdd",
+  "path": "src/templates/agents/claude-code/skills/database-schema-designer/SKILL.md",
+  "source": "github.com/gaebalai/itda-sdd",
+  "downloaded_at": "2026-01-14T03:55:17.021336Z"
 }

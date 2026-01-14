@@ -1,13 +1,7 @@
 {
   "name": "moai-library-mermaid",
-  "description": "Enterprise Mermaid diagramming skill for Claude Code using MCP Playwright",
-  "repo": "globalmsq/msq-relayer-service",
-  "category": "development",
-  "tags": [
-    "moai",
-    "library",
-    "mermaid"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "windysky/claude_notification_wsl2",
+  "path": ".claude/skills/moai-library-mermaid/SKILL.md",
+  "source": "github.com/windysky/claude_notification_wsl2",
+  "downloaded_at": "2026-01-14T04:03:29.537813Z"
 }

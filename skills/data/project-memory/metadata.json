@@ -1,11 +1,7 @@
 {
   "name": "project-memory",
-  "description": "Set up and maintain a structured project memory system in docs/project_notes/ that tracks bugs with solutions, architectural decisions, key project facts, and work history. Use this skill when startin",
-  "repo": "SpillwaveSolutions/project-memory",
-  "category": "data",
-  "tags": [
-    "project",
-    "memory"
-  ],
-  "stars": 0
+  "repo": "nethercore-systems/nethercore-ai-plugins",
+  "path": "creative-direction/skills/project-memory/SKILL.md",
+  "source": "github.com/nethercore-systems/nethercore-ai-plugins",
+  "downloaded_at": "2026-01-14T02:26:43.718834Z"
 }

@@ -1,72 +1,72 @@
 ---
 name: documenting-domains
 description: >
-  Generate domain understanding documentation from codebase analysis.
-  Extracts entities, business logic, domain terms, and concept relationships.
-  Triggers: domain understanding, glossary, entities, business logic,
+  コードベース分析からドメイン理解ドキュメントを生成。
+  エンティティ、ビジネスロジック、ドメイン用語、概念関係を抽出。
+  トリガー: domain understanding, glossary, entities, business logic,
   domain model, ER diagram, use cases.
 allowed-tools: Read, Write, Grep, Glob, Bash, Task
 ---
 
-# docs:domain - Domain Understanding Generation
+# docs:domain - ドメイン理解生成
 
-Auto-generate domain documentation from codebase analysis.
+コードベース分析からドメインドキュメントを自動生成。
 
-## Detection Items
+## 検出項目
 
-| Category | Targets |
+| カテゴリ | 対象 |
 | --- | --- |
-| Entities/Models | class, interface, dataclass, Pydantic, Prisma, TypeORM, SQLAlchemy |
-| Domain Terms | Class/function names, comments, JSDoc, docstrings |
-| Relationships | Entity references, inheritance, import analysis |
-| Use Cases | Service/UseCase classes, Handler/Controller functions |
+| エンティティ/モデル | class, interface, dataclass, Pydantic, Prisma, TypeORM, SQLAlchemy |
+| ドメイン用語 | クラス/関数名、コメント、JSDoc、docstrings |
+| 関係 | エンティティ参照、継承、インポート分析 |
+| ユースケース | Service/UseCaseクラス、Handler/Controller関数 |
 
-## Analysis Scripts
+## 分析スクリプト
 
-| Script | Purpose |
+| スクリプト | 目的 |
 | --- | --- |
-| `scripts/extract-entities.sh` | Entity name, fields, relationships |
-| `scripts/extract-glossary.sh` | Terms, frequency, context |
-| `scripts/generate-er-diagram.sh` | Mermaid ER diagram |
+| `scripts/extract-entities.sh` | エンティティ名、フィールド、関係 |
+| `scripts/extract-glossary.sh` | 用語、頻度、コンテキスト |
+| `scripts/generate-er-diagram.sh` | Mermaid ER図 |
 
-## Generated Structure
+## 生成構造
 
 ```markdown
-# Domain Understanding Document
+# ドメイン理解ドキュメント
 
-## Entity List
+## エンティティ一覧
 ### User
 - id: string
 - name: string
-Related: Order, Profile
+関連: Order, Profile
 
-## Concept Relationship Diagram
-(Mermaid ER diagram)
+## 概念関係図
+（Mermaid ER図）
 
-## Domain Glossary
-| Term | Description | Related |
+## ドメイン用語集
+| 用語 | 説明 | 関連 |
 
-## Use Case List
-| Use Case | Description | Entities |
+## ユースケース一覧
+| ユースケース | 説明 | エンティティ |
 ```
 
-## Usage
+## 使用方法
 
 ```bash
-/docs:domain              # Generate domain docs
-"Generate domain glossary" # Natural language
+/docs:domain              # ドメインドキュメント生成
+"Generate domain glossary" # 自然言語
 ```
 
-## Markdown Validation
+## Markdownバリデーション
 
-After generation, validate output with:
+生成後、出力を検証:
 
 ```bash
 ~/.claude/skills/scripts/validate-markdown.sh {output-file}
 ```
 
-Non-blocking (warnings only) - style issues don't block document creation.
+ブロッキングなし（警告のみ） - スタイル問題はドキュメント作成をブロックしない。
 
-## References
+## 参照
 
-- Related: `documenting-architecture`, `documenting-apis`, `setting-up-docs`
+- 関連: `documenting-architecture`, `documenting-apis`, `setting-up-docs`

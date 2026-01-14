@@ -1,12 +1,7 @@
 {
   "name": "interaction-design",
-  "description": "Create rich, responsive interactive experiences that make applications a joy to use. Use this skill when building components with user interactions, forms, data-heavy interfaces, or any feature requir",
-  "repo": "kcc989/logoer",
-  "category": "design",
-  "tags": [
-    "interaction",
-    "design"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "aj-geddes/useful-ai-prompts",
+  "path": "skills/interaction-design/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:11.471005Z"
 }

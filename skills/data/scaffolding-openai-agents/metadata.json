@@ -1,13 +1,7 @@
 {
   "name": "scaffolding-openai-agents",
-  "description": "Builds AI agents using OpenAI Agents SDK with async/await patterns and multi-agent orchestration.Use when creating tutoring agents, building agent handoffs, implementing tool-calling agents, or orches",
-  "repo": "Asmayaseen/hackathon-2",
-  "category": "development",
-  "tags": [
-    "scaffolding",
-    "openai",
-    "agents"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "mjunaidca/mjs-agent-skills",
+  "path": ".claude/skills/scaffolding-openai-agents/SKILL.md",
+  "source": "github.com/mjunaidca/mjs-agent-skills",
+  "downloaded_at": "2026-01-14T01:43:15.258810Z"
 }

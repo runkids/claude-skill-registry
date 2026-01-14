@@ -1,8 +1,7 @@
 {
   "name": "reinforcement-loop",
   "repo": "gtmagents/gtm-agents",
-  "category": "data",
-  "description": "Use to plan post-training reinforcement cadences, certifications, and impact tracking.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:25.656919Z"
+  "path": "plugins/sales-enablement/skills/reinforcement-loop/SKILL.md",
+  "source": "github.com/gtmagents/gtm-agents",
+  "downloaded_at": "2026-01-14T01:13:15.973353Z"
 }

@@ -1,358 +1,627 @@
 ---
 name: architecture-review
-description: Flequit のクリーンアーキテクチャ、レイヤードアーキテクチャへの準拠をチェックします。レイヤー間の依存関係、crate 間のアクセス制御、Store と Service の分離、アンチパターンの検出などのアーキテクチャレビューに使用します。
-model: sonnet
+description: Peer review architecture for quality, risks, and optimization opportunities. Analyzes scalability bottlenecks, security vulnerabilities, performance optimization, technology fit, and provides prioritized recommendations. Use when reviewing proposed architecture documents for quality assurance, risk identification, or architectural decision validation.
+acceptance:
+  - review_complete: "All architectural dimensions reviewed"
+  - risks_identified: "Risks assessed and prioritized"
+  - recommendations_provided: "Actionable recommendations with priorities"
+  - alternatives_considered: "Alternative approaches evaluated"
+inputs:
+  architecture_file:
+    type: string
+    required: true
+    description: "Path to architecture document"
+  requirements_file:
+    type: string
+    required: false
+    description: "Path to requirements (for comparison)"
+  focus_area:
+    type: string
+    required: false
+    description: "security | scalability | performance | cost | maintainability | all"
+outputs:
+  review_summary:
+    type: string
+    description: "Overall review summary"
+  risks:
+    type: array
+    description: "Identified risks with severity levels"
+  recommendations:
+    type: array
+    description: "Prioritized improvement recommendations"
+  alternatives_evaluated:
+    type: number
+    description: "Number of alternative approaches considered"
+telemetry:
+  emit: "skill.architecture-review.completed"
+  track:
+    - focus_area
+    - risks_count
+    - critical_risks_count
+    - recommendations_count
+    - duration_ms
 ---
 
-# Architecture Review Skill
+# Architecture Review
 
-Flequit プロジェクトのアーキテクチャ準拠をチェックするスキルです。
+## Purpose
 
-## アーキテクチャ概要
+Conduct peer review of architecture documents to identify risks, bottlenecks, optimization opportunities, and provide expert recommendations. Goes beyond validation to critically analyze architecture quality and suggest improvements.
 
-### バックエンド: クリーンアーキテクチャ（Crate分離版）
+**Core Principles:**
+- **Critical analysis:** Question assumptions, identify weaknesses
+- **Risk-focused:** Prioritize risks by severity and likelihood
+- **Constructive feedback:** Balance criticism with actionable improvements
+- **Context-aware:** Consider business goals, team capabilities, constraints
 
-```
-Main Crate (flequit)
-├── Application Layer (commands, controllers, events)
-    ↓
-flequit-core Crate
-├── Domain Layer (facade → services)
-    ↓
-flequit-storage Crate
-├── Data Access Layer (repositories)
-```
+---
 
-### フロントエンド: レイヤードアーキテクチャ
+## Prerequisites
 
-```
-UI Layer (Components)
-    ↓
-UI Service Layer (Orchestration, Side Effects)
-    ↓
-Store Layer (Reactive State)
-    ↓
-Backend Communication (Tauri Commands)
-```
+- Architecture document exists and is reasonably complete
+- Optionally: Requirements document for alignment verification
 
-## バックエンド: Crate 間アクセス制御
+---
 
-### ルール
+## Workflow
 
-1. **Main Crate (flequit)**: `flequit-core` のみ参照可能
-2. **flequit-core**: `flequit-storage` のみ参照可能
-3. **flequit-storage**: 外部 crate 参照不可（完全独立）
+### 1. Load Architecture and Context
 
-### Crate 内アクセス制御
+**Action:** Read architecture document
 
-#### Main Crate (flequit)
-
-```rust
-// ✅ OK: Facade を参照
-use flequit_core::facades::task;
-
-#[tauri::command]
-pub async fn get_tasks(project_id: String) -> Result<Vec<Task>, String> {
-    task::get_tasks(&repositories, &project_id).await
-}
-
-// ❌ NG: Service を直接参照
-use flequit_core::services::task_service; // Facade 経由で呼ぶべき
-
-// ❌ NG: Repository を直接参照
-use flequit_storage::repositories::task_repository; // Facade 経由で呼ぶべき
+Execute:
+```bash
+python .claude/skills/bmad-commands/scripts/read_file.py \
+  --path {architecture_file} \
+  --output json
 ```
 
-#### flequit-core Crate
+**If requirements provided:** Also load for comparison
 
-```rust
-// ✅ OK: Facade から Service を参照
-// facades/task.rs
-use crate::services::task_service;
+**Parse architecture to understand:**
+- System scale (users, data, traffic)
+- Technology choices
+- Architectural patterns used
+- Deployment strategy
+- Team context (size, expertise)
 
-pub async fn create_task(...) -> Result<Task, String> {
-    task_service::create(&repositories, ...).await
-}
+---
 
-// ✅ OK: Service から Repository を参照
-// services/task_service.rs
-use flequit_storage::repositories::task_repository;
+### 2. Determine Review Focus
 
-pub async fn get_tasks(repositories: &R, project_id: &str) -> Result<Vec<Task>> {
-    repositories.task().get_all(project_id).await
-}
+**If focus_area specified:** Prioritize that dimension
+**If "all" or unspecified:** Review all dimensions
 
-// ❌ NG: Service から Facade を参照
-use crate::facades::task; // 循環参照
+**Review Dimensions:**
+1. **Scalability:** Can it scale with growth?
+2. **Security:** Are there vulnerabilities?
+3. **Performance:** Optimization opportunities?
+4. **Maintainability:** Technical debt risks?
+5. **Technology Fit:** Are choices appropriate?
+6. **Cost:** Infrastructure/operational costs?
+7. **Team Capability:** Can team execute this?
 
-// ❌ NG: Facade から他の Facade を参照
-use crate::facades::project; // Facade は他の Facade を参照しない
+---
+
+### 3. Scalability Review
+
+**Analyze scalability considerations:**
+
+**Check for:**
+- ✅ Identified bottlenecks
+- ✅ Horizontal scaling strategy
+- ✅ Database scaling plan (read replicas, sharding)
+- ✅ Stateless design (for scaling)
+- ✅ Load balancing approach
+- ✅ Cache strategy
+- ✅ CDN for static assets
+
+**Common Issues:**
+🟠 **Database as bottleneck**
+- Single database instance
+- No read replicas planned
+- No sharding strategy
+
+🟠 **Session state preventing scaling**
+- In-memory sessions
+- No sticky sessions/Redis
+
+🟠 **No caching strategy**
+- Direct database queries
+- No CDN for static assets
+
+🟠 **Monolithic architecture at high scale**
+- Single deployment unit
+- Coupling prevents independent scaling
+
+**Recommendations:**
+- Add database read replicas
+- Implement Redis for sessions/caching
+- Plan microservices extraction for bottlenecks
+- Add CDN for static content
+
+**See:** `references/scalability-review-guide.md`
+
+---
+
+### 4. Security Review
+
+**Analyze security posture:**
+
+**Check for:**
+- ✅ Authentication mechanism (OAuth, JWT, session)
+- ✅ Authorization strategy (RBAC, ABAC)
+- ✅ Data encryption (at rest, in transit)
+- ✅ Input validation and sanitization
+- ✅ SQL injection prevention
+- ✅ XSS prevention
+- ✅ CSRF protection
+- ✅ Rate limiting
+- ✅ Security headers
+- ✅ Secrets management
+
+**Common Vulnerabilities:**
+🔴 **Critical: Missing authentication**
+- No auth mechanism documented
+- Recommendation: Add JWT or session-based auth
+
+🔴 **Critical: No input validation**
+- User inputs not validated
+- Risk: SQL injection, XSS
+- Recommendation: Add validation layer (Zod, Joi)
+
+🟠 **Medium: Passwords not hashed**
+- Plain text storage
+- Recommendation: Use bcrypt (cost factor 12)
+
+🟡 **Low: No rate limiting**
+- Vulnerable to brute force
+- Recommendation: Add rate limiting (5 req/min)
+
+**Recommendations:**
+- Implement comprehensive input validation
+- Add rate limiting for auth endpoints
+- Use bcrypt for password hashing
+- Implement CSRF tokens
+- Add security headers (helmet.js)
+
+**See:** `references/security-review-guide.md`
+
+---
+
+### 5. Performance Review
+
+**Analyze performance optimization:**
+
+**Check for:**
+- ✅ Response time targets (p50, p95, p99)
+- ✅ Caching strategy
+- ✅ Database query optimization
+- ✅ N+1 query prevention
+- ✅ Lazy loading / code splitting
+- ✅ Asset optimization (images, bundles)
+- ✅ CDN usage
+
+**Common Issues:**
+🟠 **N+1 query problem**
+- ORM queries in loops
+- Recommendation: Use joins or batch loading
+
+🟠 **No caching**
+- Repeated database queries
+- Recommendation: Add Redis caching
+
+🟠 **Large bundle sizes**
+- >500KB initial bundle
+- Recommendation: Code splitting, lazy loading
+
+🟠 **Unoptimized images**
+- Large image files
+- Recommendation: Image optimization, WebP format
+
+**Recommendations:**
+- Implement Redis caching (5-min TTL)
+- Add database query optimization (indexes, joins)
+- Enable code splitting (route-based)
+- Optimize images (WebP, lazy loading)
+- Add CDN for static assets
+
+**See:** `references/performance-review-guide.md`
+
+---
+
+### 6. Maintainability Review
+
+**Analyze long-term maintenance:**
+
+**Check for:**
+- ✅ Code organization clear
+- ✅ Separation of concerns
+- ✅ Testing strategy defined
+- ✅ Documentation standards
+- ✅ Tech debt management plan
+- ✅ Dependency management
+
+**Common Issues:**
+🟡 **Poor separation of concerns**
+- Business logic in controllers
+- Recommendation: Service layer pattern
+
+🟡 **No testing strategy**
+- Tests not mentioned
+- Recommendation: Add unit + integration tests
+
+🟡 **Tight coupling**
+- Components tightly coupled
+- Recommendation: Dependency injection, interfaces
+
+🟡 **No deprecation strategy**
+- No plan for tech evolution
+- Recommendation: Version APIs, plan migrations
+
+**Recommendations:**
+- Adopt repository/service pattern
+- Define testing strategy (80% coverage)
+- Implement dependency injection
+- Plan for API versioning
+
+---
+
+### 7. Technology Fit Review
+
+**Evaluate technology choices:**
+
+**For each major technology:**
+- ✅ Appropriate for scale?
+- ✅ Team has expertise?
+- ✅ Community support strong?
+- ✅ Long-term viability?
+- ✅ Better alternatives exist?
+
+**Common Concerns:**
+🟠 **Over-engineering**
+- Kubernetes for small app
+- Recommendation: Start with simpler hosting (Vercel, Heroku)
+
+🟠 **Under-engineering**
+- SQLite for high-traffic app
+- Recommendation: Upgrade to PostgreSQL
+
+🟡 **Trend-chasing**
+- Latest tech without justification
+- Recommendation: Use proven technologies
+
+🟡 **Team mismatch**
+- Tech team doesn't know
+- Recommendation: Consider team expertise
+
+**Alternative Technologies to Consider:**
+
+**Example 1:** Redux → Zustand
+- Simpler API, less boilerplate
+- Trade-off: Smaller ecosystem
+
+**Example 2:** Microservices → Modular Monolith
+- Simpler deployment, lower ops
+- Trade-off: Less independent scaling
+
+**See:** `references/technology-alternatives.md`
+
+---
+
+### 8. Cost Review
+
+**Analyze infrastructure and operational costs:**
+
+**Check for:**
+- ✅ Infrastructure cost estimates
+- ✅ Scaling cost projections
+- ✅ Third-party service costs
+- ✅ Cost optimization opportunities
+
+**Common Cost Issues:**
+🟠 **Expensive database plan**
+- Over-provisioned resources
+- Recommendation: Right-size based on actual usage
+
+🟠 **Unused resources**
+- Always-on dev environments
+- Recommendation: Auto-shutdown non-prod environments
+
+🟠 **Data transfer costs**
+- Large data transfers
+- Recommendation: Use CDN, optimize payloads
+
+**Cost Optimization Recommendations:**
+- Use auto-scaling to match demand
+- Leverage reserved instances (if AWS)
+- Implement caching to reduce database load
+- Optimize data transfer with CDN
+
+---
+
+### 9. Risk Assessment
+
+**Identify and prioritize risks:**
+
+**Risk Categories:**
+- **Critical (🔴):** Immediate blockers, security vulnerabilities
+- **High (🟠):** Significant impact, likely to occur
+- **Medium (🟡):** Moderate impact or likelihood
+- **Low (🟢):** Minor impact, unlikely
+
+**Risk Assessment Template:**
+```markdown
+## Risk: [Risk Title]
+
+**Severity:** Critical | High | Medium | Low
+**Likelihood:** High | Medium | Low
+**Impact:** [Description of impact]
+**Mitigation:** [How to address]
+**Effort:** [Time/cost to mitigate]
 ```
 
-#### flequit-storage Crate
+**Example:**
+```markdown
+## Risk: Database Becomes Bottleneck at Scale
 
-```rust
-// ✅ OK: Repository 内での参照
-use crate::models::task::Task;
-use crate::errors::RepositoryError;
-
-// ❌ NG: 外部 crate の参照
-use flequit_core::services::...; // Storage は独立している
+**Severity:** High (🟠)
+**Likelihood:** High (projected 50K users in 6 months)
+**Impact:** Performance degradation, poor user experience, potential downtime
+**Mitigation:**
+1. Add database read replicas (3 hours)
+2. Implement Redis caching (4 hours)
+3. Plan sharding strategy (2 days research)
+**Effort:** ~2 person-days
 ```
 
-## フロントエンド: レイヤー分離チェック
+---
 
-### Store と UI Service の分離
+### 10. Generate Recommendations
 
-#### Store: 純粋な状態管理のみ
+**Categorize recommendations by priority:**
 
-```typescript
-// ✅ OK: Reactive state のみ
-export class TaskStore {
-  private tasks = $state<Task[]>([]);
+**Priority Levels:**
+1. **P0 (Critical):** Must address before production
+2. **P1 (High):** Address before launch or soon after
+3. **P2 (Medium):** Address in next quarter
+4. **P3 (Low):** Nice-to-have improvements
 
-  get allTasks() {
-    return this.tasks;
-  }
-
-  get completedTasks() {
-    return $derived(this.tasks.filter(t => t.status === 'completed'));
-  }
-
-  // ✅ OK: 状態の更新メソッド
-  setTasks(tasks: Task[]) {
-    this.tasks = tasks;
-  }
-
-  addTask(task: Task) {
-    this.tasks.push(task);
-  }
-}
-
-// ❌ NG: Store が直接 invoke を呼ぶ
-export class TaskStore {
-  async loadTasks() {
-    const tasks = await invoke('get_tasks'); // Service でやるべき
-    this.tasks = tasks;
-  }
-}
-
-// ❌ NG: Store が Service を import
-import { taskService } from '$lib/services/task-service'; // UI Service でやるべき
+**Recommendation Template:**
+```markdown
+**[P0] Add Input Validation**
+- **Issue:** No validation layer, vulnerable to SQL injection/XSS
+- **Recommendation:** Implement Zod schemas for all API inputs
+- **Impact:** Critical security vulnerability
+- **Effort:** 1-2 days
+- **Resources:** [Zod documentation link]
 ```
 
-#### UI Service: オーケストレーションと副作用
+**Prioritization Criteria:**
+- Security issues → P0/P1
+- Scalability blockers → P1/P2
+- Performance issues → P1/P2
+- Maintainability concerns → P2/P3
+- Cost optimizations → P2/P3
 
-```typescript
-// ✅ OK: Backend 通信と Store 更新の連携
-export class TaskUIService {
-  constructor(private store: TaskStore) {}
+---
 
-  async loadTasks(projectId: string): Promise<boolean> {
-    try {
-      const tasks = await invoke<Task[]>('get_tasks', { projectId });
-      this.store.setTasks(tasks);
-      return true;
-    } catch (error) {
-      console.error('Failed to load tasks:', error);
-      return false;
-    }
-  }
+### 11. Evaluate Alternatives
 
-  async createTask(request: CreateTaskRequest): Promise<boolean> {
-    try {
-      const task = await invoke<Task>('create_task', request);
-      this.store.addTask(task);
-      return true;
-    } catch (error) {
-      console.error('Failed to create task:', error);
-      return false;
-    }
-  }
-}
+**For each major architectural decision, consider alternatives:**
 
-// ❌ NG: UI Service が状態を直接持つ
-export class TaskUIService {
-  private tasks = $state<Task[]>([]); // Store でやるべき
-}
+**Alternative Evaluation Template:**
+```markdown
+### Alternative: [Option Name]
+
+**Current Choice:** [What's in architecture]
+**Alternative:** [Different approach]
+
+**Pros:**
+- Benefit 1
+- Benefit 2
+
+**Cons:**
+- Drawback 1
+- Drawback 2
+
+**Recommendation:** Keep current | Switch to alternative | Consider for future
+
+**Rationale:** [Why this recommendation]
 ```
 
-### コンポーネント: UI のみ
+**Example:**
+```markdown
+### Alternative: Microservices vs. Modular Monolith
 
-```typescript
-// ✅ OK: UI Service 経由で操作
-<script lang="ts">
-  import { taskUIService } from '$lib/services/ui/task-ui-service';
-  import { taskStore } from '$lib/stores/task.svelte';
+**Current Choice:** Microservices architecture
 
-  async function handleCreate() {
-    const success = await taskUIService.createTask(formData);
-    if (success) {
-      // UI 更新
-    }
-  }
-</script>
+**Alternative:** Modular Monolith
 
-{#each taskStore.allTasks as task}
-  <TaskItem {task} />
-{/each}
+**Pros:**
+- Simpler deployment
+- Lower operational overhead
+- Faster development initially
+- Easier debugging
 
-// ❌ NG: コンポーネントが直接 invoke を呼ぶ
-<script lang="ts">
-  import { invoke } from '@tauri-apps/api/tauri';
+**Cons:**
+- Less independent scaling
+- Potential coupling over time
+- Harder to extract services later
 
-  async function handleCreate() {
-    await invoke('create_task', formData); // UI Service でやるべき
-  }
-</script>
+**Recommendation:** Switch to Modular Monolith for now
+
+**Rationale:** Team is small (3 developers), complexity of microservices outweighs benefits at current scale. Plan to extract microservices when team grows to 10+ developers.
 ```
 
-## アンチパターン検出
+---
 
-### 1. 循環参照
+### 12. Generate Review Report
 
-```rust
-// ❌ NG: Service が Facade を参照
-// services/task_service.rs
-use crate::facades::task; // 循環参照!
+**Create comprehensive review report:**
 
-// ✅ OK: Facade が Service を参照
-// facades/task.rs
-use crate::services::task_service;
+```markdown
+# Architecture Review Report
+
+**Architecture:** [file path]
+**Reviewed by:** Winston (Architect)
+**Review Date:** [timestamp]
+**Focus:** [focus areas]
+
+---
+
+## Executive Summary
+
+[2-3 paragraphs summarizing overall assessment, major risks, key recommendations]
+
+---
+
+## Strengths
+
+✅ [Strength 1]
+✅ [Strength 2]
+✅ [Strength 3]
+
+---
+
+## Risks Identified
+
+### Critical Risks (🔴)
+1. [Risk title]
+   - Impact: [description]
+   - Mitigation: [action]
+
+### High Risks (🟠)
+2. [Risk title]
+   - Impact: [description]
+   - Mitigation: [action]
+
+### Medium Risks (🟡)
+[Continue...]
+
+---
+
+## Recommendations
+
+### P0 (Critical - Must Address)
+1. **Add Input Validation**
+   - Issue: Vulnerable to injection attacks
+   - Action: Implement Zod schemas
+   - Effort: 1-2 days
+
+### P1 (High - Address Soon)
+2. **Implement Database Scaling**
+   - Issue: Single DB instance won't scale
+   - Action: Add read replicas
+   - Effort: 3-4 hours
+
+[Continue with P2, P3...]
+
+---
+
+## Alternative Architectures Considered
+
+[List of alternatives evaluated with recommendations]
+
+---
+
+## Detailed Analysis
+
+### Scalability Analysis
+[Detailed findings]
+
+### Security Analysis
+[Detailed findings]
+
+### Performance Analysis
+[Detailed findings]
+
+### Cost Analysis
+[Detailed findings]
+
+---
+
+## Action Plan
+
+**Immediate (Next Sprint):**
+- [ ] Address P0 recommendations
+- [ ] Start P1 recommendations
+
+**Short-term (Next Quarter):**
+- [ ] Complete P1 recommendations
+- [ ] Start P2 recommendations
+
+**Long-term (6-12 months):**
+- [ ] Complete P2 recommendations
+- [ ] Consider P3 recommendations
+
+---
+
+## Follow-up
+
+**Re-review recommended after:**
+- All P0 and P1 items addressed
+- Major architectural changes
+- Significant scale increase
+
+---
+
+**Reviewed by:** Winston (BMAD Enhanced Architect)
+**Review Tool:** architecture-review skill
 ```
 
-### 2. レイヤー飛び越し
+---
 
-```rust
-// ❌ NG: Command が直接 Repository を参照
-use flequit_storage::repositories::task_repository;
+## Common Scenarios
 
-#[tauri::command]
-pub async fn get_tasks() -> Result<Vec<Task>, String> {
-    task_repository::get_all().await // Facade 経由で呼ぶべき
-}
+### Scenario 1: Security-Focused Review
+**Focus:** Security vulnerabilities and compliance
+**Output:** Detailed security findings, OWASP compliance check
 
-// ✅ OK: Command が Facade を参照
-use flequit_core::facades::task;
+### Scenario 2: Scalability-Focused Review
+**Focus:** Bottlenecks and scaling strategy
+**Output:** Load projections, scaling recommendations
 
-#[tauri::command]
-pub async fn get_tasks() -> Result<Vec<Task>, String> {
-    task::get_all(&repositories).await
-}
-```
+### Scenario 3: Cost-Focused Review
+**Focus:** Infrastructure costs and optimization
+**Output:** Cost breakdown, optimization recommendations
 
-### 3. Store に副作用
+### Scenario 4: Pre-Launch Review
+**Focus:** All dimensions, production readiness
+**Output:** Comprehensive review, go/no-go recommendation
 
-```typescript
-// ❌ NG: Store が副作用を持つ
-export class TaskStore {
-  async saveToBackend() {
-    await invoke('save_tasks', { tasks: this.tasks }); // UI Service でやるべき
-  }
+---
 
-  async syncWithServer() {
-    const serverTasks = await fetch('/api/tasks'); // UI Service でやるべき
-    this.tasks = await serverTasks.json();
-  }
-}
+## Best Practices
 
-// ✅ OK: Store は純粋な状態管理のみ
-export class TaskStore {
-  private tasks = $state<Task[]>([]);
+1. **Be constructive** - Balance criticism with actionable improvements
+2. **Consider context** - Team size, timeline, budget matter
+3. **Prioritize ruthlessly** - Not all recommendations are equal
+4. **Suggest alternatives** - Don't just criticize, offer options
+5. **Think long-term** - Consider maintenance, scaling, evolution
+6. **Be pragmatic** - Perfect is the enemy of good
+7. **Document thoroughly** - Provide rationale for all recommendations
 
-  setTasks(tasks: Task[]) {
-    this.tasks = tasks;
-  }
-}
-```
+---
 
-### 4. プロキシだけの Service
+## Reference Files
 
-```typescript
-// ❌ NG: 単なるプロキシ（価値なし）
-export class TaskService {
-  async getTasks(projectId: string) {
-    return await invoke('get_tasks', { projectId }); // これだけなら不要
-  }
-}
+- `references/scalability-review-guide.md` - Scalability analysis framework
+- `references/security-review-guide.md` - Security vulnerability checklist
+- `references/performance-review-guide.md` - Performance optimization guide
+- `references/technology-alternatives.md` - Alternative technology options
 
-// ✅ OK: オーケストレーション + 状態管理
-export class TaskUIService {
-  constructor(
-    private taskStore: TaskStore,
-    private projectStore: ProjectStore
-  ) {}
+---
 
-  async loadTasksForCurrentProject(): Promise<boolean> {
-    const project = this.projectStore.current;
-    if (!project) return false;
+## When to Escalate
 
-    try {
-      const tasks = await invoke<Task[]>('get_tasks', {
-        projectId: project.id
-      });
-      this.taskStore.setTasks(tasks);
-      return true;
-    } catch (error) {
-      console.error('Failed to load tasks:', error);
-      return false;
-    }
-  }
-}
-```
+Escalate to user when:
+- Critical security vulnerabilities found
+- Architecture fundamentally flawed (requires major rework)
+- Cost projections exceed budget significantly
+- Team lacks expertise for proposed technologies
+- Compliance requirements not met
 
-## ファイルサイズチェック
+---
 
-### ルール
-
-- **200行以上**: 必須分割対象（テストコード除外）
-- **100行以上**: 分割を検討
-- **例外**: 設定ファイル、データ定義
-
-### 分割方法
-
-```typescript
-// ❌ NG: 200行を超える巨大ファイル
-// task-service.ts (300行)
-
-// ✅ OK: 機能ごとに分割
-// task-ui-service.ts (150行)
-// task-filter-service.ts (80行)
-// task-sort-service.ts (70行)
-```
-
-## チェックリスト
-
-### バックエンド
-
-- [ ] Command は Facade のみ参照している
-- [ ] Facade は Service のみ参照している
-- [ ] Service は Repository を参照している
-- [ ] Repository は外部 crate を参照していない
-- [ ] 循環参照が存在しない
-- [ ] トランザクションは Facade レイヤーで管理している
-
-### フロントエンド
-
-- [ ] Store は純粋な状態管理のみを行っている
-- [ ] UI Service がオーケストレーションを担当している
-- [ ] コンポーネントは UI Service 経由で操作している
-- [ ] Store が直接 invoke を呼んでいない
-- [ ] Store が Service を import していない
-- [ ] 単なるプロキシ Service が存在しない
-
-### 共通
-
-- [ ] ファイルサイズが200行以下（テスト除く）
-- [ ] 単一責任原則に従っている
-- [ ] 命名規則に従っている（camelCase/snake_case）
-
-## 関連ドキュメント
-
-詳細は以下のドキュメントを参照：
-- `docs/en/develop/design/architecture.md` - アーキテクチャ全体
-- `docs/en/develop/design/backend-tauri/rust-guidelines.md` - Rust 設計ガイドライン
-- `docs/en/develop/design/frontend/layers.md` - フロントエンドレイヤー
-- `docs/en/develop/design/frontend/store-and-service-architecture.md` - Store と Service 分離
-- `docs/en/develop/design/frontend/anti-patterns.md` - アンチパターン
-- `docs/en/develop/rules/file-structure.md` - ファイル構造ルール
+*Part of BMAD Enhanced Quality Suite*

@@ -1,12 +1,7 @@
 {
   "name": "reasoningbank-intelligence",
-  "description": "\"Implement adaptive learning with ReasoningBank for pattern recognition, strategy optimization, and continuous improvement. Use when building self-learning agents, optimizing workflows, or implementin",
-  "repo": "ruvnet/claude-flow",
-  "category": "development",
-  "tags": [
-    "reasoningbank",
-    "intelligence"
-  ],
-  "stars": 9856,
-  "source": "SkillsMP Synced Skills"
+  "repo": "vx-daniel/tb-docs-project",
+  "path": ".claude/skills/reasoningbank-intelligence/SKILL.md",
+  "source": "github.com/vx-daniel/tb-docs-project",
+  "downloaded_at": "2026-01-14T03:42:25.428391Z"
 }

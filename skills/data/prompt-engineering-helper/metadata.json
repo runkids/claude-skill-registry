@@ -1,13 +1,7 @@
 {
   "name": "prompt-engineering-helper",
-  "description": "LLMプロンプトの最適化・テスト支援スキル。プロンプトのパフォーマンス評価、改善提案、A/Bテスト、ベストプラクティス適用、再現性検証を行います。",
   "repo": "ntaksh42/agents",
-  "category": "development",
-  "tags": [
-    "prompt",
-    "engineering",
-    "helper"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/prompt-engineering-helper/SKILL.md",
+  "source": "github.com/ntaksh42/agents",
+  "downloaded_at": "2026-01-14T03:51:05.222269Z"
 }

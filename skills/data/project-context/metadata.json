@@ -1,12 +1,7 @@
 {
   "name": "project-context",
-  "description": "Provides architecture knowledge for the dealflow-network project including tRPC router patterns, Drizzle ORM conventions, authentication flow, file organization, and collaborative contact system. Use ",
-  "repo": "betterbrand/dealflow-network",
-  "category": "development",
-  "tags": [
-    "project",
-    "context"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "spences10/svelte-skills-kit",
+  "path": "plugins/svelte-skills/skills/project-context/SKILL.md",
+  "source": "github.com/spences10/svelte-skills-kit",
+  "downloaded_at": "2026-01-14T02:57:50.823710Z"
 }

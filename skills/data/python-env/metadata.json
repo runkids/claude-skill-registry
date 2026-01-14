@@ -1,9 +1,7 @@
 {
   "name": "python-env",
-  "description": "Fast Python environment management with uv (10-100x faster than pip). Triggers on: uv, venv, pip, pyproject, python environment, install package, dependencies.",
   "repo": "0xDarkMatter/claude-mods",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/python-env/SKILL.md",
+  "source": "github.com/0xDarkMatter/claude-mods",
+  "downloaded_at": "2026-01-14T02:35:10.858126Z"
 }

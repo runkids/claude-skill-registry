@@ -1,8 +1,7 @@
 {
   "name": "retention-optimization-expert",
   "repo": "maigentic/stratarts",
-  "category": "data",
-  "description": "Reduce churn and improve retention through cohort analysis, at-risk user identification, win-back campaigns, and customer success strategies. Generate comprehensive HTML reports with retention curves,",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:02:30.470854Z"
+  "path": "skills/retention-metrics/retention-optimization-expert/SKILL.md",
+  "source": "github.com/maigentic/stratarts",
+  "downloaded_at": "2026-01-14T02:32:03.218801Z"
 }

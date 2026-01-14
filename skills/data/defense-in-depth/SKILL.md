@@ -1,93 +1,130 @@
 ---
-name: vibe-coder
-description: |
-  Describe your idea, get a deployed product. All Craft Coder skills + brainstorm, validation, marketing.
-  Use when: user wants to build something from an idea, prototype, or MVP.
-  Triggers: "build app", "create website", "make MVP", "I have an idea",
-  "хочу приложение", "создать сайт", "сделать MVP".
+name: Defense-in-Depth Validation
+description: Validate at every layer data passes through to make bugs impossible
+when_to_use: when invalid data causes failures deep in execution, requiring validation at multiple system layers
+version: 1.1.0
+languages: all
 ---
 
-# Vibe Coder
+# Defense-in-Depth Validation
 
-Describe what you want. Get a deployed product.
+## Overview
 
-## The Vibe
+When you fix a bug caused by invalid data, adding validation at one place feels sufficient. But that single check can be bypassed by different code paths, refactoring, or mocks.
 
+**Core principle:** Validate at EVERY layer data passes through. Make the bug structurally impossible.
+
+## Why Multiple Layers
+
+Single validation: "We fixed the bug"
+Multiple layers: "We made the bug impossible"
+
+Different layers catch different cases:
+- Entry validation catches most bugs
+- Business logic catches edge cases
+- Environment guards prevent context-specific dangers
+- Debug logging helps when other layers fail
+
+## The Four Layers
+
+### Layer 1: Entry Point Validation
+**Purpose:** Reject obviously invalid input at API boundary
+
+```typescript
+function createProject(name: string, workingDirectory: string) {
+  if (!workingDirectory || workingDirectory.trim() === '') {
+    throw new Error('workingDirectory cannot be empty');
+  }
+  if (!existsSync(workingDirectory)) {
+    throw new Error(`workingDirectory does not exist: ${workingDirectory}`);
+  }
+  if (!statSync(workingDirectory).isDirectory()) {
+    throw new Error(`workingDirectory is not a directory: ${workingDirectory}`);
+  }
+  // ... proceed
+}
 ```
-You: "I want an app for tracking expenses"
-     ↓
-Claude: Asks a few questions
-     ↓
-Claude: Builds everything (hidden complexity)
-     ↓
-You: ✅ Done! [Preview] [Deploy]
+
+### Layer 2: Business Logic Validation
+**Purpose:** Ensure data makes sense for this operation
+
+```typescript
+function initializeWorkspace(projectDir: string, sessionId: string) {
+  if (!projectDir) {
+    throw new Error('projectDir required for workspace initialization');
+  }
+  // ... proceed
+}
 ```
 
-## What's Included
+### Layer 3: Environment Guards
+**Purpose:** Prevent dangerous operations in specific contexts
 
-### MVP Workflow (unique to Vibe Coder)
-| Skill | What it does |
-|-------|--------------|
-| `brainstorming` | Refine ideas with Socratic dialogue |
-| `idea-validation` | Validate problem/solution fit |
-| `stack-selector` | Choose tech stack automatically |
-| `ui-generator` | Create UI from descriptions |
-| `feature-builder` | Add features incrementally |
-| `db-designer` | Design database schema |
-| `api-generator` | Generate API endpoints |
-| `deploy-automation` | Deploy to production |
+```typescript
+async function gitInit(directory: string) {
+  // In tests, refuse git init outside temp directories
+  if (process.env.NODE_ENV === 'test') {
+    const normalized = normalize(resolve(directory));
+    const tmpDir = normalize(resolve(tmpdir()));
 
-### All Craft Coder Skills (40+)
-- **Backend**: Python, Node.js, Rust
-- **Frontend**: React, design systems
-- **Mobile**: React Native, Expo
-- **Data**: Pipelines, dbt, Airflow
-- **Infrastructure**: Terraform, K8s, monitoring
-- **Quality**: Testing, code review, debugging
+    if (!normalized.startsWith(tmpDir)) {
+      throw new Error(
+        `Refusing git init outside temp dir during tests: ${directory}`
+      );
+    }
+  }
+  // ... proceed
+}
+```
 
-## Commands
+### Layer 4: Debug Instrumentation
+**Purpose:** Capture context for forensics
 
-| Command | Purpose |
-|---------|---------|
-| `/vibe:brainstorm` | Refine idea with Socratic dialogue |
-| `/vibe:idea` | Start from scratch with simple questions |
-| `/vibe:build` | Create the app (full pipeline) |
-| `/vibe:add` | Add feature to existing app |
-| `/vibe:preview` | Show current state |
-| `/vibe:deploy` | Publish to production |
+```typescript
+async function gitInit(directory: string) {
+  const stack = new Error().stack;
+  logger.debug('About to git init', {
+    directory,
+    cwd: process.cwd(),
+    stack,
+  });
+  // ... proceed
+}
+```
 
-## Agents
+## Applying the Pattern
 
-- **vibe-coder** — Build apps from descriptions
-- **code-reviewer** — Review code automatically
+When you find a bug:
 
-## Hidden Pipeline
+1. **Trace the data flow** - Where does bad value originate? Where used?
+2. **Map all checkpoints** - List every point data passes through
+3. **Add validation at each layer** - Entry, business, environment, debug
+4. **Test each layer** - Try to bypass layer 1, verify layer 2 catches it
 
-Every change runs through:
-1. TDD (test first, then implement)
-2. Automated tests
-3. Security checks (OWASP)
-4. Code review (auto-fix issues)
+## Example from Session
 
-User only sees ✅ or ❌ — never the process.
+Bug: Empty `projectDir` caused `git init` in source code
 
-## Templates
+**Data flow:**
+1. Test setup → empty string
+2. `Project.create(name, '')`
+3. `WorkspaceManager.createWorkspace('')`
+4. `git init` runs in `process.cwd()`
 
-| Template | When to use |
-|----------|-------------|
-| nextjs-supabase | Web apps, SaaS, dashboards |
-| fastapi-postgres | APIs, backends, AI/ML projects |
-| hono-drizzle | Edge, serverless, Cloudflare |
-| landing-page | Marketing sites, portfolios |
+**Four layers added:**
+- Layer 1: `Project.create()` validates not empty/exists/writable
+- Layer 2: `WorkspaceManager` validates projectDir not empty
+- Layer 3: `WorktreeManager` refuses git init outside tmpdir in tests
+- Layer 4: Stack trace logging before git init
 
-Stack selector chooses automatically.
+**Result:** All 1847 tests passed, bug impossible to reproduce
 
-## No Technical Jargon
+## Key Insight
 
-You never need to know:
-- What framework to use
-- How to structure code
-- What tests to write
-- How to deploy
+All four layers were necessary. During testing, each layer caught bugs the others missed:
+- Different code paths bypassed entry validation
+- Mocks bypassed business logic checks
+- Edge cases on different platforms needed environment guards
+- Debug logging identified structural misuse
 
-Just describe what you want. Vibe coding at its finest.
+**Don't stop at one validation point.** Add checks at every layer.

@@ -1,11 +1,7 @@
 {
   "name": "test-generator",
-  "description": "Generate Vitest test files for the dealflow-network project with proper setup, teardown, database patterns, and assertion styles. Use when creating tests for new features, database operations, or API ",
-  "repo": "betterbrand/dealflow-network",
-  "category": "data",
-  "tags": [
-    "test",
-    "generator"
-  ],
-  "stars": 0
+  "repo": "ntaksh42/agents",
+  "path": ".claude/skills/test-generator/SKILL.md",
+  "source": "github.com/ntaksh42/agents",
+  "downloaded_at": "2026-01-14T03:51:05.918010Z"
 }

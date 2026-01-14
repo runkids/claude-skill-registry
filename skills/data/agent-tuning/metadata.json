@@ -1,12 +1,7 @@
 {
   "name": "agent-tuning",
-  "description": "Optimize ElevenLabs conversational AI agents for real estate applications. Use when creating new agents, improving conversation quality, selecting voices, engineering system prompts, configuring agent",
   "repo": "onesmartguy/next-level-real-estate",
-  "category": "testing",
-  "tags": [
-    "agent",
-    "tuning"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/agent-tuning/SKILL.md",
+  "source": "github.com/onesmartguy/next-level-real-estate",
+  "downloaded_at": "2026-01-14T02:03:53.954430Z"
 }

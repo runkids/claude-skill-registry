@@ -1,13 +1,7 @@
 {
   "name": "agent-cross-review",
-  "description": "Structured cross-review protocol between specialized agents. Ensures scope alignment, priority calibration, and domain-aware feedback. Use when one agent reviews another's work, during handoffs, or wh",
   "repo": "1ambda/dataops-platform",
-  "category": "data",
-  "tags": [
-    "agent",
-    "cross",
-    "review"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".copilot/skills/agent-cross-review/SKILL.md",
+  "source": "github.com/1ambda/dataops-platform",
+  "downloaded_at": "2026-01-14T03:12:21.441570Z"
 }

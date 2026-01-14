@@ -1,12 +1,7 @@
 {
   "name": "add-feature",
-  "description": "Add a new feature to the Next.js app following best practices",
-  "repo": "gregsantos/nexturbo",
-  "category": "product",
-  "tags": [
-    "add",
-    "feature"
-  ],
-  "stars": 4,
-  "source": "SkillsMP Synced Skills"
+  "repo": "WhatIfWeDigDeeper/claude-code-coursera",
+  "path": ".claude/skills/add-feature/SKILL.md",
+  "source": "github.com/WhatIfWeDigDeeper/claude-code-coursera",
+  "downloaded_at": "2026-01-14T01:59:24.622349Z"
 }

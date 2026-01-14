@@ -1,13 +1,7 @@
 {
   "name": "test-diff-analyzer",
-  "description": "Analyze test differences between runs to identify flaky tests and consistency issues. Use to find tests that fail intermittently.",
   "repo": "mvillmow/ProjectOdyssey",
-  "category": "testing",
-  "tags": [
-    "test",
-    "diff",
-    "analyzer"
-  ],
-  "stars": 8,
-  "source": "local"
+  "path": ".claude/skills/test-diff-analyzer/SKILL.md",
+  "source": "github.com/mvillmow/ProjectOdyssey",
+  "downloaded_at": "2026-01-14T01:09:04.013362Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "code-smell-detector",
-  "description": "Identifies anti-patterns specific to amplihack philosophy.Use when reviewing code for quality issues or refactoring.Detects: over-abstraction, complex inheritance, large functions (>50 lines), tight c",
-  "repo": "rysweet/MicrosoftHackathon2025-AgenticCoding",
-  "category": "development",
-  "tags": [
-    "code",
-    "smell",
-    "detector"
-  ],
-  "stars": 10,
-  "source": "SkillsMP Synced Skills"
+  "repo": "ntaksh42/agents",
+  "path": ".claude/skills/code-smell-detector/SKILL.md",
+  "source": "github.com/ntaksh42/agents",
+  "downloaded_at": "2026-01-14T03:51:02.062820Z"
 }

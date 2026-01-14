@@ -1,8 +1,7 @@
 {
   "name": "prompting",
-  "repo": "multicam/qara",
-  "category": "data",
-  "description": "Prompt engineering standards and context engineering principles for AI agents based on Anthropic best practices. Covers clarity, structure, progressive discovery, and optimization for signal-to-noise ",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-08T03:09:29.083860Z"
+  "repo": "danielmiessler/PAIPlugin",
+  "path": "skills/prompting/SKILL.md",
+  "source": "github.com/danielmiessler/PAIPlugin",
+  "downloaded_at": "2026-01-14T03:39:26.222199Z"
 }

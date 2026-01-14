@@ -1,11 +1,7 @@
 {
   "name": "tdd",
-  "description": "Enforce Test-Driven Development when writing or modifying code. Use when implementing features, fixing bugs, or when the user asks to write code. Activates automatically for code changes unless user s",
-  "repo": "javatarz/credit-card-lending",
-  "category": "development",
-  "tags": [
-    "tdd"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "jkitchin/skillz",
+  "path": "skills/development/tdd/SKILL.md",
+  "source": "github.com/jkitchin/skillz",
+  "downloaded_at": "2026-01-14T03:44:48.994205Z"
 }

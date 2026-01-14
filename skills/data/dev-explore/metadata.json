@@ -1,12 +1,7 @@
 {
   "name": "dev-explore",
-  "description": "Explore and understand codebases with interconnected documentation. Use when onboarding to a new project, creating living documentation (MOC), or generating portfolio artifacts.",
-  "repo": "mpazaryna/claude-toolkit",
-  "category": "development",
-  "tags": [
-    "dev",
-    "explore"
-  ],
-  "stars": 2,
-  "source": "local"
+  "repo": "edwinhu/workflows",
+  "path": "skills/dev-explore/SKILL.md",
+  "source": "github.com/edwinhu/workflows",
+  "downloaded_at": "2026-01-14T01:24:11.124629Z"
 }

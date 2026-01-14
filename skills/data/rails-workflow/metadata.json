@@ -1,12 +1,7 @@
 {
   "name": "rails-workflow",
-  "description": "Ruby on Rails framework workflow guidelines. Activate when working with Rails projects, Gemfile with rails, rake tasks, or Rails-specific patterns.",
   "repo": "ilude/claude-code-config",
-  "category": "productivity",
-  "tags": [
-    "rails",
-    "workflow"
-  ],
-  "stars": 5,
-  "source": "local"
+  "path": "skills/rails-workflow/SKILL.md",
+  "source": "github.com/ilude/claude-code-config",
+  "downloaded_at": "2026-01-14T01:02:40.645209Z"
 }

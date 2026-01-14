@@ -1,13 +1,7 @@
 {
   "name": "openspec-change-implementation",
-  "description": "Implements L0-1 changes from proposals.",
   "repo": "bacoco/BMad-Skills",
-  "category": "development",
-  "tags": [
-    "openspec",
-    "change",
-    "implementation"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/openspec-change-implementation/SKILL.md",
+  "source": "github.com/bacoco/BMad-Skills",
+  "downloaded_at": "2026-01-14T02:53:14.012622Z"
 }

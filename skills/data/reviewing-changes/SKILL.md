@@ -1,109 +1,98 @@
 ---
 name: reviewing-changes
-description: Performs comprehensive code reviews for Bitwarden iOS projects, verifying architecture compliance, style guidelines, compilation safety, test coverage, and security requirements. Use when reviewing pull requests, checking commits, analyzing code changes, verifying Bitwarden coding standards, evaluating unidirectional data flow pattern, checking services container dependency injection usage, reviewing security implementations, or assessing test coverage. Automatically invoked by CI pipeline or manually for interactive code reviews.
+version: 3.0.0
+description: Android-specific code review workflow additions for Bitwarden Android. Provides change type refinements, checklist loading, and reference material organization. Complements bitwarden-code-reviewer agent's base review standards.
 ---
 
-# Reviewing Changes
+# Reviewing Changes - Android Additions
+
+This skill provides Android-specific workflow additions that complement the base `bitwarden-code-reviewer` agent standards.
 
 ## Instructions
 
-Follow this process to review code changes for Bitwarden iOS:
+**IMPORTANT**: Use structured thinking throughout your review process. Plan your analysis in `<thinking>` tags before providing final feedback.
 
-### Step 1: Understand Context
+### Step 1: Retrieve Additional Details
 
-Start with high-level assessment of the change's purpose and approach. Read PR/commit descriptions and understand what problem is being solved.
+<thinking>
+Determine if more context is available for the changes:
+1. Are there JIRA tickets or GitHub Issues mentioned in the PR title or body?
+2. Are there other GitHub pull requests mentioned in the PR title or body?
+</thinking>
 
-### Step 2: Verify Compliance
+Retrieve any additional information linked to the pull request using available tools (JIRA MCP, GitHub API).
 
-Systematically check each area against Bitwarden standards documented in `CLAUDE.md`:
+If pull request title and message do not provide enough context, request additional details from the reviewer:
+- Link a JIRA ticket
+- Associate a GitHub issue
+- Link to another pull request
+- Add more detail to the PR title or body
 
-1. **Architecture**: Follow patterns in `Docs/Architecture.md`
-   - Unidirectional data flow Coordinators + Processors (using SwiftUI)
-   - Dependency Injection using `ServiceContainer`
-   - Repository pattern and proper data flow
+### Step 2: Detect Change Type with Android Refinements
 
-2. **Style**: Adhere to [Code Style](https://contributing.bitwarden.com/contributing/code-style/swift)
-   - Naming conventions, code organization, formatting
-   - Swift/SwiftUI guidelines
+<thinking>
+Analyze the changeset systematically:
+1. What files were modified? (code vs config vs docs)
+2. What is the PR/commit title indicating?
+3. Is there new functionality or just modifications?
+4. What's the risk level of these changes?
+</thinking>
 
-3. **Compilation**: Analyze for potential build issues
-   - Import statements and dependencies
-   - Type safety and null safety
-   - API compatibility and deprecation warnings
-   - Resource/SDK references and requirements
+Use the base change type detection from the agent, with Android-specific refinements:
 
-4. **Testing**: Verify appropriate test coverage
-   - Unit tests for business logic and utility functions
-   - Snapshot/View inspector tests for user-facing features when applicable
-   - Test coverage for edge cases and error scenarios
+**Android-specific patterns:**
+- **Feature Addition**: New `ViewModel`, new `Repository`, new `@Composable` functions, new `*Screen.kt` files
+- **UI Refinement**: Changes only in `*Screen.kt`, `*Composable.kt`, `ui/` package files
+- **Infrastructure**: Changes to `.github/workflows/`, `gradle/`, `build.gradle.kts`, `libs.versions.toml`
+- **Dependency Update**: Changes only to `libs.versions.toml` or `build.gradle.kts` with version bumps
 
-5. **Security**: Given Bitwarden's security-focused nature
-   - Proper handling of sensitive data
-   - Secure storage practices (Keychain)
-   - Authentication and authorization patterns
-   - Data encryption and decryption flows
-   - Zero-knowledge architecture preservation
+### Step 3: Load Appropriate Checklist
 
-### Step 3: Document Findings
+Based on detected type, read the relevant checklist file:
 
-Identify specific violations with `file:line_number` references. Be precise about locations.
+- **Dependency Update** → `checklists/dependency-update.md` (expedited review)
+- **Bug Fix** → `checklists/bug-fix.md` (focused review)
+- **Feature Addition** → `checklists/feature-addition.md` (comprehensive review)
+- **UI Refinement** → `checklists/ui-refinement.md` (design-focused review)
+- **Refactoring** → `checklists/refactoring.md` (pattern-focused review)
+- **Infrastructure** → `checklists/infrastructure.md` (tooling-focused review)
 
-### Step 4: Provide Recommendations
+The checklist provides:
+- Multi-pass review strategy
+- Type-specific focus areas
+- What to check and what to skip
+- Structured thinking guidance
 
-Give actionable recommendations for improvements. Explain why changes are needed and suggest specific solutions.
+### Step 4: Execute Review Following Checklist
 
-### Step 5: Flag Critical Issues
+<thinking>
+Before diving into details:
+1. What are the highest-risk areas of this change?
+2. Which architectural patterns need verification?
+3. What security implications exist?
+4. How should I prioritize my findings?
+5. What tone is appropriate for this feedback?
+</thinking>
 
-Highlight issues that must be addressed before merge. Distinguish between blockers and suggestions.
+Follow the checklist's multi-pass strategy, thinking through each pass systematically.
 
-### Step 6: Acknowledge Quality
+### Step 5: Consult Android Reference Materials As Needed
 
-Note well-implemented patterns (briefly, without elaboration). Keep positive feedback concise.
+Load reference files only when needed for specific questions:
 
-## Review Anti-Patterns (DO NOT)
+- **Issue prioritization** → `reference/priority-framework.md` (Critical vs Suggested vs Optional)
+- **Phrasing feedback** → `reference/review-psychology.md` (questions vs commands, I-statements)
+- **Architecture questions** → `reference/architectural-patterns.md` (MVVM, Hilt DI, module org, error handling)
+- **Security questions (quick reference)** → `reference/security-patterns.md` (common patterns and anti-patterns)
+- **Security questions (comprehensive)** → `docs/ARCHITECTURE.md#security` (full zero-knowledge architecture)
+- **Testing questions** → `reference/testing-patterns.md` (unit tests, mocking, null safety)
+- **UI questions** → `reference/ui-patterns.md` (Compose patterns, theming)
+- **Style questions** → `docs/STYLE_AND_BEST_PRACTICES.md`
 
-- Be nitpicky about linter-catchable style issues
-- Review without understanding context - ask for clarification first
-- Focus only on new code - check surrounding context for issues
-- Request changes outside the scope of this changeset
+## Core Principles
 
-## Examples
-
-### Good Review Format
-
-```markdown
-## Summary
-This PR adds biometric authentication to the login flow, implementing unidirectional data flow pattern with proper state management.
-
-## Critical Issues
-- `BitwardenShared/UI/Auth/Login/LoginView.swift:25` - No `scrollView` added, user can't scroll through the view.
-- `BitwardenShared/Core/Auth/Services/AuthService.swift:120` - You must not use `try!`, change it to `try` in a `do...catch` block or throwing function.
-
-## Suggested Improvements
-- Consider extracting biometric prompt logic to separate struct
-- Add missing tests for biometric failure scenarios
-- `BitwardenShared/UI/Auth/Login/LoginView.swift:43` - Consider using existing `BitwardenTextField` component
-
-## Good Practices
-- Proper comments documentation
-- Comprehensive unit test coverage
-- Clear separation of concerns
-
-## Action Items
-1. Add scroll view in `LoginView`
-2. Change `try!` to `try` in `AuthService`
-3. Consider adding tests for error flows
-```
-
-### What to Focus On
-
-**DO focus on:**
-- Architecture violations (incorrect patterns)
-- Security issues (data handling, encryption)
-- Missing tests for critical paths
-- Compilation risks (type safety, null safety)
-
-**DON'T focus on:**
-- Minor formatting (handled by linters)
-- Personal preferences without architectural basis
-- Issues outside the changeset scope
+- **Appropriate depth**: Match review rigor to change complexity and risk
+- **Specific references**: Always use `file:line_number` format for precise location
+- **Actionable feedback**: Say what to do and why, not just what's wrong
+- **Efficient reviews**: Use multi-pass strategy, skip what's not relevant
+- **Android patterns**: Validate MVVM, Hilt DI, Compose conventions, Kotlin idioms

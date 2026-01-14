@@ -1,11 +1,7 @@
 {
   "name": "db-designer",
-  "description": "Generate database schema from feature descriptions. User doesn't see SQL.Use when: features require data persistence.Triggers: internal use only.",
-  "repo": "timequity/vibe-coder",
-  "category": "data",
-  "tags": [
-    "designer"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "timequity/plugins",
+  "path": "vibe-coder/skills/db-designer/SKILL.md",
+  "source": "github.com/timequity/plugins",
+  "downloaded_at": "2026-01-14T03:41:26.154507Z"
 }

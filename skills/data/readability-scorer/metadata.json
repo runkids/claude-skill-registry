@@ -1,11 +1,7 @@
 {
   "name": "readability-scorer",
-  "description": "Assess text readability using multiple metrics. Execute Python script for detailed readability analysis. Use when evaluating text complexity, comprehension level, or audience fit.",
-  "repo": "yoshiwatanabe/agent-patterns",
-  "category": "data",
-  "tags": [
-    "readability",
-    "scorer"
-  ],
-  "stars": 0
+  "repo": "dkyazzentwatwa/chatgpt-skills",
+  "path": "readability-scorer/SKILL.md",
+  "source": "github.com/dkyazzentwatwa/chatgpt-skills",
+  "downloaded_at": "2026-01-14T01:42:53.195337Z"
 }

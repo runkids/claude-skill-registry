@@ -1,8 +1,7 @@
 {
   "name": "opentargets-database",
   "repo": "davila7/claude-code-templates",
-  "category": "data",
-  "description": "Query Open Targets Platform for target-disease associations, drug target discovery, tractability/safety data, genetics/omics evidence, known drugs, for therapeutic target identification.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:38.131850Z"
+  "path": "cli-tool/components/skills/scientific/opentargets-database/SKILL.md",
+  "source": "github.com/davila7/claude-code-templates",
+  "downloaded_at": "2026-01-14T02:44:50.034638Z"
 }

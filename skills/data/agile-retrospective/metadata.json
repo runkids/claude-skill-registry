@@ -1,12 +1,7 @@
 {
   "name": "agile-retrospective",
-  "description": "When facilitating sprint retrospectives or team improvement sessions.",
   "repo": "CoderMariusz/MonoPilot",
-  "category": "devops",
-  "tags": [
-    "agile",
-    "retrospective"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/agile-retrospective/SKILL.md",
+  "source": "github.com/CoderMariusz/MonoPilot",
+  "downloaded_at": "2026-01-14T03:46:42.648510Z"
 }

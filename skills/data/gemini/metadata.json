@@ -1,10 +1,7 @@
 {
   "name": "gemini",
-  "description": "Shell out to Gemini CLI from Claude for any task. Use when asked to \"pipe content to Gemini\", \"get Gemini perspective\", \"use gemini CLI\", \"run headless AI task\", \"parallel analysis with Gemini\", or \"g",
-  "repo": "SpillwaveSolutions/gemini-skill",
-  "category": "data",
-  "tags": [
-    "gemini"
-  ],
-  "stars": 2
+  "repo": "clawdbot/clawdbot",
+  "path": "skills/gemini/SKILL.md",
+  "source": "github.com/clawdbot/clawdbot",
+  "downloaded_at": "2026-01-14T04:05:31.276806Z"
 }

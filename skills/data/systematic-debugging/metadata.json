@@ -1,9 +1,7 @@
 {
   "name": "systematic-debugging",
-  "description": "Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes",
-  "repo": "obra/superpowers",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "Superpowers"
+  "repo": "neardws/droid-skills",
+  "path": "skills/superpowers/systematic-debugging/SKILL.md",
+  "source": "github.com/neardws/droid-skills",
+  "downloaded_at": "2026-01-14T04:02:14.490222Z"
 }

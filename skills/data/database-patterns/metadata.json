@@ -1,12 +1,7 @@
 {
   "name": "database-patterns",
-  "description": "SQLite operations using better-sqlite3 with prepared statements. Use when implementing CRUD operations, timestamps, and user-scoped queries with row-level security.",
   "repo": "spences10/devhub-crm",
-  "category": "data",
-  "tags": [
-    "database",
-    "patterns"
-  ],
-  "stars": 6,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/database-patterns/SKILL.md",
+  "source": "github.com/spences10/devhub-crm",
+  "downloaded_at": "2026-01-14T03:17:21.366923Z"
 }

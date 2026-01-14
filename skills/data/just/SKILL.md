@@ -1,163 +1,258 @@
 ---
 name: just
-description: just is a handy command runner for saving and running project-specific commands. Features include recipe parameters, .env file loading, shell completion, cross-platform support, and recipes in arbitrary languages. This skill is triggered when the user says things like "create a justfile", "write a just recipe", "run just commands", "set up project automation with just", "understand justfile syntax", or "add a task to the justfile".
+description: Just command runner for saving and running project-specific commands
 ---
 
-# just - Command Runner
+# Just Command Runner Skill
 
-`just` is a command runner that lets you save and run project-specific commands (called recipes) in a `justfile`. It's similar to `make` but focused purely on running commands, not building software.
+Comprehensive assistance with Just, a handy command runner for saving and running project-specific commands. Just uses a `justfile` with `make`-inspired syntax but designed as a general-purpose task executor rather than a build system.
 
-## Documentation Files
+## When to Use This Skill
 
-This skill includes the complete official documentation from the just repository:
-
-- **README.md** - Comprehensive documentation including installation, syntax reference, features, and examples (this is the primary reference)
-- **GRAMMAR.md** - Formal grammar specification for justfile syntax
-- **CHANGELOG.md** - Version history and release notes
-- **CONTRIBUTING.md** - Contribution guidelines
-- **LICENSE** - CC0 1.0 Universal license
-- **examples/** - Example justfiles for various use cases
+This skill should be triggered when:
+- Creating or managing `justfile` recipes
+- Setting up project task automation
+- Replacing Make or shell scripts with Just
+- Working with cross-platform command execution
+- Organizing project-specific commands
+- Implementing task dependencies and workflows
 
 ## Quick Reference
 
-### Basic Justfile Structure
+### Common Patterns
 
+**Basic Recipe**:
 ```just
-# This is a comment
-variable := "value"
-
-# Recipe with no dependencies
 recipe-name:
-    echo "Running recipe"
+  echo 'This is a recipe!'
 
-# Recipe with dependencies
-build: clean compile
-    echo "Build complete"
-
-# Recipe with parameters
-greet name:
-    echo "Hello, {{name}}!"
-
-# Recipe with default parameter
-serve port="8080":
-    python -m http.server {{port}}
+# Silent recipe (@ suppresses echo)
+silent-recipe:
+  @echo 'This runs quietly'
 ```
 
-### Running Recipes
+**Recipe with Parameters**:
+```just
+build target='all':
+  @echo 'Building {{target}}…'
 
-```bash
-just                    # Run default recipe (first in file)
-just recipe-name        # Run specific recipe
-just recipe arg1 arg2   # Run recipe with arguments
-just --list             # List available recipes
-just --show recipe      # Show recipe source
-just --dry-run recipe   # Show what would run without executing
-just --choose           # Interactive recipe selection (requires fzf)
+# Variadic parameters
+test *files:
+  pytest {{files}}
 ```
 
-### Key Features
+**Recipe with Dependencies**:
+```just
+build:
+  cc main.c -o main
 
-- **Recipe Parameters** - Pass arguments to recipes
-- **Variables** - Define and use variables with `:=`
-- **String Interpolation** - Use `{{variable}}` in recipes
-- **Dotenv Support** - Automatically loads `.env` files
-- **Shebang Recipes** - Write recipes in Python, Node, Ruby, etc.
-- **Conditional Logic** - Use `if` expressions and functions
-- **Dependencies** - Recipes can depend on other recipes
-- **Private Recipes** - Prefix with `_` to hide from listing
-- **Documentation** - Add doc comments with `# comment` above recipes
-- **Cross-Platform** - Works on Linux, macOS, Windows, BSD
+test: build
+  ./test --all
+```
 
-### Common Settings
+**Shebang Recipes** (multi-language support):
+```just
+python:
+  #!/usr/bin/env python3
+  print('Hello from Python!')
 
+node:
+  #!/usr/bin/env node
+  console.log('Hello from Node!');
+```
+
+**Variables and Expressions**:
+```just
+compiler := 'gcc'
+flags := '-Wall -O2'
+
+build:
+  {{compiler}} {{flags}} main.c -o main
+```
+
+### Common Commands
+
+- `just` — Run default recipe
+- `just RECIPE` — Run specific recipe
+- `just --list` — List all recipes
+- `just --show RECIPE` — Display recipe definition
+- `just --choose` — Interactive recipe selector (requires fzf)
+- `just --fmt` — Format justfile
+- `just --dump` — Output formatted justfile
+
+### Example Code Patterns
+
+**Example 1** (basic justfile):
+```just
+# Default recipe runs when you type 'just'
+[default]
+build:
+  cargo build --release
+
+# Recipe with confirmation prompt
+[confirm]
+deploy:
+  kubectl apply -f deployment.yaml
+
+# Platform-specific recipes
+[linux]
+install:
+  apt-get install my-package
+
+[macos]
+install:
+  brew install my-package
+```
+
+**Example 2** (with variables and .env):
 ```just
 # Load .env file
 set dotenv-load
 
-# Use different shell
-set shell := ["bash", "-c"]
+# Variables
+app_name := env('APP_NAME', 'myapp')
+version := `git describe --tags`
 
-# Export all variables as environment variables
-set export
+# Recipe using variables
+build:
+  docker build -t {{app_name}}:{{version}} .
 
-# Allow recipes with same name as built-in functions
-set allow-duplicate-recipes
+# Conditional logic
+deploy environment='staging':
+  #!/usr/bin/env bash
+  if [ "{{environment}}" = "production" ]; then
+    echo "Deploying to production..."
+  else
+    echo "Deploying to staging..."
+  fi
+```
 
-# Fail immediately on error
+**Example 3** (modules and imports):
+```just
+# Import external justfile
+import 'tasks/docker.just'
+
+# Use module system
+mod database 'tasks/db.just'
+
+# Call module recipe
+migrate: database::migrate
+```
+
+## Reference Files
+
+This skill includes comprehensive documentation in `references/`:
+
+- **just-full-reference.md** - Complete Just documentation covering all features
+- **index.md** - Quick reference guide
+
+Use `view` to read specific reference files when detailed information is needed.
+
+## Working with This Skill
+
+### For Beginners
+Start with the basic recipe patterns above. A simple `justfile` with a few recipes is all you need to get started. Just provides helpful error messages that point to specific issues in your justfile.
+
+### For Specific Features
+- **Task Automation**: Create recipes for common project tasks
+- **Cross-Platform**: Use platform-specific attributes `[linux]`, `[macos]`, `[windows]`
+- **Dependencies**: Chain recipes with dependency syntax `recipe: dep1 dep2`
+- **Multi-Language**: Use shebang recipes for Python, Node, Ruby, etc.
+- **Environment**: Load `.env` files with `set dotenv-load`
+
+### For Code Examples
+The quick reference section contains common patterns. For complete syntax and advanced features, consult the reference files.
+
+## Key Features
+
+### Core Strengths
+- **Simpler than Make**: No `.PHONY` declarations needed
+- **Cross-platform**: Linux, macOS, Windows, BSD support
+- **Clear errors**: Specific error messages with source context
+- **Static validation**: Unknown recipes and circular dependencies caught early
+- **Auto .env loading**: Environment variables from `.env` files
+- **Subdirectory execution**: Run from any subdirectory containing justfile
+
+### Advanced Capabilities
+- **50+ built-in functions**: Path manipulation, string operations, hashing, system info
+- **Multi-language support**: Python, Node.js, Perl, Ruby, Nushell, and more
+- **Module system**: Organize complex projects with submodules
+- **Imports**: Include external justfiles
+- **Interactive chooser**: Select recipes with `--choose` (uses fzf)
+- **Recipe attributes**: `[default]`, `[private]`, `[confirm]`, platform-specific
+
+## Installation
+
+**Cargo** (Rust):
+```bash
+cargo install just
+```
+
+**Homebrew** (macOS/Linux):
+```bash
+brew install just
+```
+
+**Pre-built binaries**:
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to /usr/local/bin
+```
+
+**Package managers**: Available via apt, pacman, dnf, chocolatey, scoop, and 15+ others
+
+## Configuration
+
+**Shell Settings**:
+```just
+# Set default shell (Unix-like)
 set shell := ["bash", "-uc"]
+
+# Windows PowerShell
+set windows-shell := ["powershell.exe", "-Command"]
 ```
 
-### Built-in Functions
-
+**Common Settings**:
 ```just
-# Path functions
-home_dir := home_directory()
-current := justfile_directory()
-parent := parent_directory(current)
-
-# String functions
-upper := uppercase("hello")
-lower := lowercase("HELLO")
-replaced := replace("hello", "l", "x")
-trimmed := trim("  spaces  ")
-
-# Environment
-value := env_var("HOME")
-value_or_default := env_var_or_default("VAR", "default")
-
-# OS detection
-os := os()
-arch := arch()
-
-# Conditionals
-result := if os() == "linux" { "Linux" } else { "Other" }
+set dotenv-load          # Auto-load .env files
+set export               # Export all variables as environment vars
+set positional-arguments # Pass args as positional ($1, $2, etc.)
 ```
-
-### Shebang Recipes (Other Languages)
-
-```just
-# Python recipe
-python-example:
-    #!/usr/bin/env python3
-    import sys
-    print(f"Python version: {sys.version}")
-
-# Node.js recipe
-node-example:
-    #!/usr/bin/env node
-    console.log("Hello from Node!");
-
-# Bash with strict mode
-bash-example:
-    #!/usr/bin/env bash
-    set -euxo pipefail
-    echo "Strict bash mode"
-```
-
-## Common Use Cases
-
-When the user asks to:
-- **Create a justfile** - Reference README.md for syntax and examples
-- **Add a recipe** - Check README.md for recipe syntax patterns
-- **Use variables/interpolation** - See README.md variable section
-- **Set up for different OS** - Check cross-platform and shell settings
-- **Write recipes in Python/Node/etc** - See shebang recipes section
-- **Understand grammar** - Reference GRAMMAR.md for formal specification
-- **Check version changes** - Reference CHANGELOG.md
-
-## Tips
-
-- Start recipe names with `_` to make them private (hidden from `just --list`)
-- Use `@` at start of line to suppress command echoing
-- Use `-` at start of line to continue on error
-- Recipes are run from the justfile's directory by default
-- Use `just --fmt` to format your justfile
-- Shell completion scripts are available for bash, zsh, fish, powershell, and more
 
 ## Resources
 
-- Homepage: https://just.systems/
-- GitHub: https://github.com/casey/just
-- Book (latest release docs): https://just.systems/man/en/
-- Discord: https://discord.gg/ezYScXR
-- Crates.io: https://crates.io/crates/just
+### references/
+Organized documentation extracted from official Just documentation and README:
+- Complete syntax reference
+- All built-in functions
+- Recipe attributes and features
+- Examples and patterns
+
+### scripts/
+Add helper scripts here for common Just automation tasks.
+
+### assets/
+Add example justfiles or templates here.
+
+## Editor Support
+
+Syntax highlighting available for:
+- Vim/Neovim (built-in since version 9.1.1042/0.11)
+- VS Code (community extension)
+- Emacs (`just-mode`)
+- JetBrains IDEs
+- Helix (built-in since 23.05)
+- Zed, Sublime Text, Kakoune, Micro
+
+## Notes
+
+- Just version 1.0+ guarantees backwards compatibility
+- Unstable features require `--unstable` flag or `set unstable`
+- Official documentation: https://just.systems/man/en/
+- Examples: https://github.com/casey/just/tree/master/examples
+
+## Updating
+
+To refresh this skill with updated documentation:
+1. Visit https://github.com/casey/just
+2. Check for new features in the README and changelog
+3. Update reference files with new content

@@ -1,12 +1,7 @@
 {
   "name": "doc-req",
-  "description": "Create Atomic Requirements (REQ) - Layer 7 artifact using REQ v3.0 format with 12 sections and SPEC-readiness scoring",
   "repo": "vladm3105/aidoc-flow-framework",
-  "category": "design",
-  "tags": [
-    "doc",
-    "req"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/doc-req/SKILL.md",
+  "source": "github.com/vladm3105/aidoc-flow-framework",
+  "downloaded_at": "2026-01-14T03:58:01.237536Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "vue-development",
-  "description": "Use when planning or implementing Vue 3 projects - helps architect component structure, plan feature implementation, and enforce TypeScript-first patterns with Composition API, defineModel for binding",
-  "repo": "alexanderop/claude-skill-vue-development",
-  "category": "development",
-  "tags": [
-    "vue",
-    "development"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "travisjneuman/.claude",
+  "path": "skills/vue-development/SKILL.md",
+  "source": "github.com/travisjneuman/.claude",
+  "downloaded_at": "2026-01-14T02:02:48.633740Z"
 }

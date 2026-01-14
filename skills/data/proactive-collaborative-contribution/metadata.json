@@ -1,13 +1,7 @@
 {
   "name": "proactive-collaborative-contribution",
-  "description": "Contribute proactively to collaborative workflows.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "productivity",
-  "tags": [
-    "proactive",
-    "collaborative",
-    "contribution"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/proactive-collaborative-contribution/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-14T01:08:28.116296Z"
 }

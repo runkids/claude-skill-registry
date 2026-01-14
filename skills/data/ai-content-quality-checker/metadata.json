@@ -1,13 +1,7 @@
 {
   "name": "ai-content-quality-checker",
-  "description": "AI生成コンテンツの総合品質チェックスキル。読みやすさ、正確性、関連性、独自性、SEO、アクセシビリティ、エンゲージメント、文法・スタイルを多角的に評価。",
   "repo": "ntaksh42/agents",
-  "category": "marketing",
-  "tags": [
-    "content",
-    "quality",
-    "checker"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/ai-content-quality-checker/SKILL.md",
+  "source": "github.com/ntaksh42/agents",
+  "downloaded_at": "2026-01-14T03:51:05.477989Z"
 }

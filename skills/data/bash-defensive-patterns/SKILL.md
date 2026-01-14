@@ -1,106 +1,85 @@
 ---
 name: bash-defensive-patterns
-description: Use when writing or reviewing Bash scripts to apply defensive programming patterns including strict mode, proper error handling, safe variable handling, argument parsing, and idempotent design. Ensures scripts are robust, maintainable, and production-ready.
+description: Master defensive Bash programming techniques for production-grade scripts. Use when writing robust shell scripts, CI/CD pipelines, or system utilities requiring fault tolerance and safety.
 ---
 
 # Bash Defensive Patterns
 
-## Overview
+Comprehensive guidance for writing production-ready Bash scripts using defensive programming techniques, error handling, and safety best practices to prevent common pitfalls and ensure reliability.
 
-Apply defensive programming patterns to write robust, maintainable Bash scripts that handle errors gracefully and fail safely.
+## When to Use This Skill
 
-**Core principle:** Scripts should be safe by default, fail fast, and provide clear error messages.
+- Writing production automation scripts
+- Building CI/CD pipeline scripts
+- Creating system administration utilities
+- Developing error-resilient deployment automation
+- Writing scripts that must handle edge cases safely
+- Building maintainable shell script libraries
+- Implementing comprehensive logging and monitoring
+- Creating scripts that must work across different platforms
 
-## When to Use
+## Core Defensive Principles
 
-- Writing new Bash scripts
-- Reviewing existing shell scripts
-- Debugging script failures
-- Hardening automation scripts
-- Creating production-ready scripts
-
-## Defensive Foundations
-
-### 1. Strict Mode (Always Required)
-
-Use at the beginning of every script:
+### 1. Strict Mode
+Enable bash strict mode at the start of every script to catch errors early.
 
 ```bash
 #!/bin/bash
-set -Eeuo pipefail
+set -Eeuo pipefail  # Exit on error, unset variables, pipe failures
 ```
 
-**What each flag does:**
+**Key flags:**
+- `set -E`: Inherit ERR trap in functions
+- `set -e`: Exit on any error (command returns non-zero)
+- `set -u`: Exit on undefined variable reference
+- `set -o pipefail`: Pipe fails if any command fails (not just last)
 
-- `-e` - Exit immediately if any command fails
-- `-E` - Inherit ERR trap by functions and subshells
-- `-u` - Treat unset variables as errors
-- `-o pipefail` - Exit if any command in a pipeline fails
-
-### 2. Error Trapping
-
-Catch and handle errors gracefully:
+### 2. Error Trapping and Cleanup
+Implement proper cleanup on script exit or error.
 
 ```bash
 #!/bin/bash
 set -Eeuo pipefail
 
-cleanup() {
-    local exit_code=$?
-    echo "Cleanup triggered with exit code: $exit_code" >&2
-    # Cleanup operations here
-    rm -f "$TMPFILE" 2>/dev/null || true
-}
+trap 'echo "Error on line $LINENO"' ERR
+trap 'echo "Cleaning up..."; rm -rf "$TMPDIR"' EXIT
 
-trap cleanup EXIT
-trap 'echo "Error on line $LINENO" >&2' ERR
+TMPDIR=$(mktemp -d)
+# Script code here
 ```
 
-### 3. Variable Quoting
-
-Quote all variable expansions to prevent word splitting and globbing:
+### 3. Variable Safety
+Always quote variables to prevent word splitting and globbing issues.
 
 ```bash
-# Good - quoted
-file_path="/path/to/my file.txt"
-cp "$file_path" "$destination"
+# Wrong - unsafe
+cp $source $dest
 
-# Bad - unquoted (breaks with spaces)
-cp $file_path $destination
+# Correct - safe
+cp "$source" "$dest"
 
-# Use readonly for constants
-readonly CONFIG_FILE="/etc/myapp/config"
-readonly MAX_RETRIES=3
-
-# Local variables in functions
-function_name() {
-    local -r required_arg="$1"
-    local optional_arg="${2:-default}"
-}
+# Required variables - fail with message if unset
+: "${REQUIRED_VAR:?REQUIRED_VAR is not set}"
 ```
 
 ### 4. Array Handling
-
-Use arrays properly for lists:
+Use arrays safely for complex data handling.
 
 ```bash
-# Define arrays
-files=("file1.txt" "file2.txt" "file3.txt")
-items=("item 1" "item 2" "item 3")
+# Safe array iteration
+declare -a items=("item 1" "item 2" "item 3")
 
-# Iterate safely
 for item in "${items[@]}"; do
     echo "Processing: $item"
 done
 
-# Read output into array safely
+# Reading output into array safely
 mapfile -t lines < <(some_command)
 readarray -t numbers < <(seq 1 10)
 ```
 
 ### 5. Conditional Safety
-
-Use `[[ ]]` for Bash-specific features, `[ ]` for POSIX:
+Use `[[ ]]` for Bash-specific features, `[ ]` for POSIX.
 
 ```bash
 # Bash - safer
@@ -134,7 +113,7 @@ SCRIPT_NAME="$(basename -- "${BASH_SOURCE[0]}")"
 echo "Script location: $SCRIPT_DIR/$SCRIPT_NAME"
 ```
 
-### Pattern 2: Comprehensive Function Template
+### Pattern 2: Comprehensive Function Templat
 
 ```bash
 #!/bin/bash
@@ -264,7 +243,7 @@ done
 #!/bin/bash
 set -Eeuo pipefail
 
-# Define logging functions
+# Logging functions
 log_info() {
     echo "[$(date +'%Y-%m-%d %H:%M:%S')] INFO: $*" >&2
 }
@@ -283,7 +262,7 @@ log_debug() {
     fi
 }
 
-# Usage examples
+# Usage
 log_info "Starting script"
 log_debug "Debug information"
 log_warn "Warning message"
@@ -334,7 +313,7 @@ wait
 #!/bin/bash
 set -Eeuo pipefail
 
-# Move files safely without overwriting
+# Use -i flag to move safely without overwriting
 safe_move() {
     local -r source="$1"
     local -r dest="$2"
@@ -361,7 +340,7 @@ safe_rmdir() {
         return 1
     fi
 
-    # Prompt before deletion
+    # Use -I flag to prompt before rm (BSD/GNU compatible)
     rm -rI -- "$dir"
 }
 
@@ -460,7 +439,7 @@ run_cmd() {
     "$@"
 }
 
-# Usage examples
+# Usage
 run_cmd cp "$source" "$dest"
 run_cmd rm "$file"
 run_cmd chown "$owner" "$target"
@@ -530,206 +509,11 @@ check_dependencies() {
 check_dependencies
 ```
 
-## Real-World Examples
-
-### Example 1: Backup Script with Rotation
-
-```bash
-#!/bin/bash
-set -Eeuo pipefail
-
-# Configuration
-readonly BACKUP_SOURCE="/var/www/html"
-readonly BACKUP_DEST="/backup/website"
-readonly MAX_BACKUPS=7
-readonly TIMESTAMP=$(date +%Y%m%d_%H%M%S)
-
-# Setup logging
-log_info() {
-    echo "[$(date +'%Y-%m-%d %H:%M:%S')] INFO: $*" >&2
-}
-
-log_error() {
-    echo "[$(date +'%Y-%m-%d %H:%M:%S')] ERROR: $*" >&2
-}
-
-# Cleanup temporary files on exit
-cleanup() {
-    if [[ -n "${TEMP_ARCHIVE:-}" && -f "$TEMP_ARCHIVE" ]]; then
-        rm -f "$TEMP_ARCHIVE"
-    fi
-}
-
-trap cleanup EXIT
-
-# Validate source directory exists
-[[ -d "$BACKUP_SOURCE" ]] || {
-    log_error "Source directory not found: $BACKUP_SOURCE"
-    exit 1
-}
-
-# Create backup destination if needed
-mkdir -p "$BACKUP_DEST" || {
-    log_error "Cannot create backup directory: $BACKUP_DEST"
-    exit 1
-}
-
-# Create backup with atomic write
-TEMP_ARCHIVE=$(mktemp) || exit 1
-log_info "Creating backup archive..."
-
-tar -czf "$TEMP_ARCHIVE" -C "$(dirname "$BACKUP_SOURCE")" "$(basename "$BACKUP_SOURCE")" || {
-    log_error "Failed to create backup archive"
-    exit 1
-}
-
-# Move to final location atomically
-FINAL_BACKUP="$BACKUP_DEST/backup_$TIMESTAMP.tar.gz"
-mv "$TEMP_ARCHIVE" "$FINAL_BACKUP"
-log_info "Backup saved to: $FINAL_BACKUP"
-
-# Rotate old backups
-log_info "Rotating old backups..."
-while IFS= read -r -d '' backup; do
-    rm -f "$backup"
-    log_info "Removed old backup: $(basename "$backup")"
-done < <(find "$BACKUP_DEST" -name "backup_*.tar.gz" -type f -print0 | sort -z | head -z -n -"$MAX_BACKUPS")
-
-log_info "Backup completed successfully"
-```
-
-### Example 2: Deploy Script with Validation
-
-```bash
-#!/bin/bash
-set -Eeuo pipefail
-
-# Script configuration
-DEPLOY_ENV="${DEPLOY_ENV:-staging}"
-DRY_RUN="${DRY_RUN:-false}"
-
-# Validate environment
-case "$DEPLOY_ENV" in
-    staging|production)
-        readonly DEPLOY_PATH="/var/www/$DEPLOY_ENV"
-        readonly SERVICE_NAME="app-$DEPLOY_ENV"
-        ;;
-    *)
-        echo "ERROR: Invalid environment: $DEPLOY_ENV (must be staging or production)" >&2
-        exit 1
-        ;;
-esac
-
-# Check required commands
-check_dependencies() {
-    local -a required=("rsync" "systemctl" "git")
-    local -a missing=()
-
-    for cmd in "${required[@]}"; do
-        if ! command -v "$cmd" &>/dev/null; then
-            missing+=("$cmd")
-        fi
-    done
-
-    if [[ ${#missing[@]} -gt 0 ]]; then
-        echo "ERROR: Missing required commands: ${missing[*]}" >&2
-        return 1
-    fi
-}
-
-# Execute command with dry-run support
-run_cmd() {
-    if [[ "$DRY_RUN" == "true" ]]; then
-        echo "[DRY RUN] Would execute: $*"
-        return 0
-    fi
-    "$@"
-}
-
-# Main deployment
-check_dependencies
-
-echo "Deploying to: $DEPLOY_ENV"
-echo "Deploy path: $DEPLOY_PATH"
-
-# Create backup before deployment
-BACKUP_DIR="$DEPLOY_PATH.backup.$(date +%Y%m%d_%H%M%S)"
-run_cmd cp -a "$DEPLOY_PATH" "$BACKUP_DIR"
-
-# Deploy new code
-run_cmd rsync -av --delete ./build/ "$DEPLOY_PATH/"
-
-# Restart service
-run_cmd systemctl restart "$SERVICE_NAME"
-
-echo "Deployment completed successfully"
-echo "Backup available at: $BACKUP_DIR"
-```
-
-### Example 3: Log Processing Pipeline
-
-```bash
-#!/bin/bash
-set -Eeuo pipefail
-
-# Process and analyze log files from multiple sources
-readonly LOG_DIR="/var/log/apps"
-readonly OUTPUT_FILE="/tmp/log_analysis_$(date +%Y%m%d).txt"
-readonly ERROR_THRESHOLD=100
-
-# Process logs safely
-process_logs() {
-    local -r log_pattern="$1"
-    local error_count=0
-    
-    while IFS= read -r -d '' logfile; do
-        if [[ ! -r "$logfile" ]]; then
-            echo "WARNING: Cannot read file: $logfile" >&2
-            continue
-        fi
-        
-        # Count errors in this log file
-        local file_errors
-        file_errors=$(grep -c "ERROR" "$logfile" 2>/dev/null || echo "0")
-        error_count=$((error_count + file_errors))
-        
-        echo "$(basename "$logfile"): $file_errors errors"
-    done < <(find "$LOG_DIR" -name "$log_pattern" -type f -print0)
-    
-    echo "---"
-    echo "Total errors: $error_count"
-    
-    # Alert if threshold exceeded
-    if [[ $error_count -gt $ERROR_THRESHOLD ]]; then
-        echo "WARNING: Error count ($error_count) exceeds threshold ($ERROR_THRESHOLD)" >&2
-        return 1
-    fi
-    
-    return 0
-}
-
-# Validate log directory exists
-[[ -d "$LOG_DIR" ]] || {
-    echo "ERROR: Log directory not found: $LOG_DIR" >&2
-    exit 1
-}
-
-# Process logs and save results
-{
-    echo "Log Analysis Report - $(date)"
-    echo "================================"
-    echo ""
-    process_logs "*.log"
-} > "$OUTPUT_FILE"
-
-echo "Analysis complete. Results saved to: $OUTPUT_FILE"
-```
-
 ## Best Practices Summary
 
 1. **Always use strict mode** - `set -Eeuo pipefail`
 2. **Quote all variables** - `"$variable"` prevents word splitting
-3. **Use `[[ ]]` conditionals** - More robust than `[ ]`
+3. **Use [[ ]] conditionals** - More robust than [ ]
 4. **Implement error trapping** - Catch and handle errors gracefully
 5. **Validate all inputs** - Check file existence, permissions, formats
 6. **Use functions for reusability** - Prefix with meaningful names
@@ -744,6 +528,6 @@ echo "Analysis complete. Results saved to: $OUTPUT_FILE"
 
 ## Resources
 
-- [Bash Strict Mode](http://redsymbol.net/articles/unofficial-bash-strict-mode/)
-- [Google Shell Style Guide](https://google.github.io/styleguide/shellguide.html)
-- [Defensive BASH Programming](https://kfirlavi.herokuapp.com/blog/2012/11/14/defensive-bash-programming/)
+- **Bash Strict Mode**: http://redsymbol.net/articles/unofficial-bash-strict-mode/
+- **Google Shell Style Guide**: https://google.github.io/styleguide/shellguide.html
+- **Defensive BASH Programming**: https://www.lifepipe.net/

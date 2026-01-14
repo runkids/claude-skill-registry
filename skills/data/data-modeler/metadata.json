@@ -1,12 +1,7 @@
 {
   "name": "data-modeler",
-  "description": "Design data models with Pydantic schemas, comprehensive validation rules,",
   "repo": "matteocervelli/llms",
-  "category": "data",
-  "tags": [
-    "data",
-    "modeler"
-  ],
-  "stars": 10,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/data-modeler/SKILL.md",
+  "source": "github.com/matteocervelli/llms",
+  "downloaded_at": "2026-01-14T03:06:47.613334Z"
 }

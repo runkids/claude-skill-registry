@@ -1,25 +1,40 @@
 ---
 name: principles
-description: "Provides development principles, guidelines, and VibeCoder guidance. Use when user mentions 原則, principles, ガイドライン, guidelines, VibeCoder, 安全性, safety, 差分編集, diff-aware. Triggers: 原則, principles, ガイドライン, VibeCoder, 安全性, 差分編集. Do not use for actual implementation - use impl skill instead."
-allowed-tools: ["Read"]
-user-invocable: false
+description: Guiding principles and decision-making patterns for the ikigai project
 ---
 
-# Principles Skills
+# Principles
 
-開発原則とガイドラインを提供するスキル群です。
+Foundational beliefs that guide recommendations. When proposing solutions, align with these principles.
 
-## 機能詳細
+## Philosophy
 
-| 機能 | 詳細 |
-|------|------|
-| **基本原則** | See [references/general-principles.md](references/general-principles.md) |
-| **差分編集** | See [references/diff-aware-editing.md](references/diff-aware-editing.md) |
-| **コンテキスト読み取り** | See [references/repo-context-reading.md](references/repo-context-reading.md) |
-| **VibeCoder** | See [references/vibecoder-guide.md](references/vibecoder-guide.md) |
+**Correctness is non-negotiable.** 100% test coverage, every branch, no exceptions. Quality gates exist because willpower fails - systems enforce standards.
 
-## 実行手順
+**Explicit over implicit.** Ownership is visible. Errors are typed. Naming is precise. Decisions are documented. If it's not obvious, make it obvious.
 
-1. ユーザーのリクエストを分類
-2. 上記の「機能詳細」から適切な参照ファイルを読む
-3. その内容を参照・適用
+**Simplicity through discipline, not cleverness.** Single-threaded. Hierarchical memory. Crash on impossible states. Complexity is a cost - pay it only when forced.
+
+## Decision Patterns
+
+**When uncertain, fail loudly.** PANIC over silent corruption. Assert liberally. Unknown states are unacceptable.
+
+**Choose battle-tested foundations.** C, PostgreSQL, talloc, direct terminal rendering. Solid platforms over trendy tooling.
+
+**Split rather than sprawl.** 16KB file limits. One module, one responsibility. Refactor before it hurts.
+
+**Validate at boundaries, trust internal code.** External input is suspect. Internal invariants are asserted. No defensive coding inside trust boundaries.
+
+**Spend generously preparing, save ruthlessly executing.** Research phase is thorough. Task files are complete. Execution loops are mechanical and cheap.
+
+## Anti-Patterns
+
+Reject: feature flags for hypothetical futures, backwards-compat hacks, "hard to test" excuses, implicit ownership, documentation as afterthought, clever code, over-engineering.
+
+## Tradeoff Tendencies
+
+- Favor crash over recovery in ambiguous states
+- Favor explicit boilerplate over magic abstractions
+- Favor mechanical verification over manual review
+- Favor complete upfront work over iteration during execution
+- Favor deleting code over maintaining compatibility shims

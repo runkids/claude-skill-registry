@@ -1,13 +1,7 @@
 {
   "name": "writing-for-llms",
-  "description": "Writing SKILL.md, .claude/commands/*.md, Task tool prompts, systemPrompt variables, prompt templates, few-shot examples, agent instructions. Content where the reader is an LLM.",
   "repo": "carmentacollective/carmenta",
-  "category": "productivity",
-  "tags": [
-    "writing",
-    "for",
-    "llms"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": ".claude/skills/writing-for-llms/SKILL.md",
+  "source": "github.com/carmentacollective/carmenta",
+  "downloaded_at": "2026-01-14T01:20:52.154612Z"
 }

@@ -1,11 +1,7 @@
 {
   "name": "refactoring",
-  "description": "Martin Fowlerのリファクタリング方法論に基づいた体系的なコード改善スキル。コードスメルの検出から安全なリファクタリングの実施まで、テストを安全網として段階的に品質を向上させます。「2つの帽子」を意識し、機能追加と分離して実施。",
-  "repo": "keito-isurugi/various-app",
-  "category": "development",
-  "tags": [
-    "refactoring"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "duc01226/EasyPlatform",
+  "path": ".claude/skills/refactoring/SKILL.md",
+  "source": "github.com/duc01226/EasyPlatform",
+  "downloaded_at": "2026-01-14T03:30:51.857912Z"
 }

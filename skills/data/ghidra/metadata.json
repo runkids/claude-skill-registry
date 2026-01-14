@@ -1,11 +1,7 @@
 {
   "name": "ghidra",
-  "description": "Reverse engineer binaries using Ghidra's headless analyzer. Decompile executables, extract functions, strings, symbols, and analyze call graphs without GUI.",
   "repo": "mitsuhiko/agent-stuff",
-  "category": "development",
-  "tags": [
-    "ghidra"
-  ],
-  "stars": 512,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/ghidra/SKILL.md",
+  "source": "github.com/mitsuhiko/agent-stuff",
+  "downloaded_at": "2026-01-14T02:27:00.012357Z"
 }

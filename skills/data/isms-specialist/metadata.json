@@ -1,12 +1,7 @@
 {
   "name": "isms-specialist",
-  "description": "Expert for Information Security Management Systems (ISMS) according to ISO 27001:2022, with deep knowledge of BaFin requirements, EU-DORA, NIS2, and German regulatory landscape. Specializes in data re",
   "repo": "moag1000/Little-ISMS-Helper",
-  "category": "productivity",
-  "tags": [
-    "isms",
-    "specialist"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": ".claude/skills/isms-specialist/SKILL.md",
+  "source": "github.com/moag1000/Little-ISMS-Helper",
+  "downloaded_at": "2026-01-14T01:39:29.658151Z"
 }

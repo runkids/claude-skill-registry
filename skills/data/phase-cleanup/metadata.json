@@ -1,12 +1,7 @@
 {
   "name": "phase-cleanup",
-  "description": "Refactor and finalize code after parallel phases complete, addressing technical debt. Use in cleanup phase to polish code before merge.",
   "repo": "mvillmow/ProjectOdyssey",
-  "category": "development",
-  "tags": [
-    "phase",
-    "cleanup"
-  ],
-  "stars": 8,
-  "source": "local"
+  "path": ".claude/skills/phase-cleanup/SKILL.md",
+  "source": "github.com/mvillmow/ProjectOdyssey",
+  "downloaded_at": "2026-01-14T01:09:01.617437Z"
 }

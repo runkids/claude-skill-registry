@@ -1,12 +1,7 @@
 {
   "name": "api-contracts",
-  "description": "Sync API contracts between FastAPI backend and React frontend. Triggers on \"sync api\", \"update contracts\", \"generate types\", \"оновити контракти\", \"згенерувати типи\", or when backend schemas change.",
   "repo": "djimontyp/task-tracker",
-  "category": "design",
-  "tags": [
-    "api",
-    "contracts"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/api-contracts/SKILL.md",
+  "source": "github.com/djimontyp/task-tracker",
+  "downloaded_at": "2026-01-14T02:09:10.585566Z"
 }

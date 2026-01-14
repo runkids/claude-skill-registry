@@ -1,13 +1,7 @@
 {
   "name": "android-workflow-internal",
-  "description": "Generate GitHub Actions workflows for CI and internal testing track deployment (Option D - Split Workflows)",
   "repo": "hitoshura25/claude-devtools",
-  "category": "testing",
-  "tags": [
-    "android",
-    "workflow",
-    "internal"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/android-workflow-internal/SKILL.md",
+  "source": "github.com/hitoshura25/claude-devtools",
+  "downloaded_at": "2026-01-14T03:07:10.272657Z"
 }

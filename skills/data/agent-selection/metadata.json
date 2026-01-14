@@ -1,12 +1,7 @@
 {
   "name": "agent-selection",
-  "description": "Systematic framework for selecting the optimal specialized agent for any task. Use when delegating to subagents via the Task tool to ensure the most appropriate specialist is chosen based on framework",
-  "repo": "michael-h-patrianna/animations",
-  "category": "data",
-  "tags": [
-    "agent",
-    "selection"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "metasaver/metasaver-marketplace",
+  "path": "plugins/metasaver-core/skills/cross-cutting/agent-selection/SKILL.md",
+  "source": "github.com/metasaver/metasaver-marketplace",
+  "downloaded_at": "2026-01-14T01:43:51.560353Z"
 }

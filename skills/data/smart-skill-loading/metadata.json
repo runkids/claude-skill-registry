@@ -1,12 +1,7 @@
 {
   "name": "smart-skill-loading",
-  "description": "Auto-detect and load minimal context from Skills folders using progressive disclosure, trimming 1400 tokens from system prompt through metadata-first loading. Use when optimizing token usage, managing",
   "repo": "dredd-us/seashells",
-  "category": "data",
-  "tags": [
-    "smart",
-    "skill",
-    "loading"
-  ],
-  "stars": 0
+  "path": ".claude/skills/smart-skill-loading/SKILL.md",
+  "source": "github.com/dredd-us/seashells",
+  "downloaded_at": "2026-01-14T00:53:13.173391Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "unit-test",
-  "description": "Guide for writing unit tests with Vitest. Use when writing tests for service functions, pure logic, or webhook handlers. Covers TDD Red-Green-Refactor cycle, Arrange-Act-Assert pattern, anti-patterns,",
-  "repo": "wodsmith/thewodapp",
-  "category": "testing",
-  "tags": [
-    "unit",
-    "test"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "tqer39/blog",
+  "path": ".claude/skills/unit-test/SKILL.md",
+  "source": "github.com/tqer39/blog",
+  "downloaded_at": "2026-01-14T01:17:36.466816Z"
 }

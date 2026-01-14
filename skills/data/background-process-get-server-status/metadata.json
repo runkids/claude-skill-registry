@@ -1,8 +1,7 @@
 {
   "name": "background-process-get-server-status",
   "repo": "X-School-Academy/ai-dev-swarm",
-  "category": "data",
-  "description": "To check if the Background Process Manager is running, get the server status and confirm it is available.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:10.784645Z"
+  "path": "dev-swarm/mcp-skills/background-process-get-server-status/SKILL.md",
+  "source": "github.com/X-School-Academy/ai-dev-swarm",
+  "downloaded_at": "2026-01-14T02:33:47.633477Z"
 }

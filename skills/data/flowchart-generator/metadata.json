@@ -1,12 +1,7 @@
 {
   "name": "flowchart-generator",
-  "description": "Generate flowcharts from YAML/JSON definitions or Python DSL. Supports standard flowchart shapes, swimlanes, and PNG/SVG/PDF export.",
   "repo": "dkyazzentwatwa/chatgpt-skills",
-  "category": "data",
-  "tags": [
-    "flowchart",
-    "generator"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": "flowchart-generator/SKILL.md",
+  "source": "github.com/dkyazzentwatwa/chatgpt-skills",
+  "downloaded_at": "2026-01-14T01:42:54.606483Z"
 }

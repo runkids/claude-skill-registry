@@ -1,11 +1,7 @@
 {
   "name": "simplification-cascades",
-  "description": "Find one insight that eliminates multiple components - \"if this is true, we don't need X, Y, or Z\". Use when implementing the same concept multiple ways, accumulating special cases, or complexity is s",
-  "repo": "agentgptsmith/MonadFramework",
-  "category": "data",
-  "tags": [
-    "simplification",
-    "cascades"
-  ],
-  "stars": 0
+  "repo": "mrgoonie/xxxnaper",
+  "path": ".claude/skills/problem-solving/simplification-cascades/SKILL.md",
+  "source": "github.com/mrgoonie/xxxnaper",
+  "downloaded_at": "2026-01-14T04:00:33.010576Z"
 }

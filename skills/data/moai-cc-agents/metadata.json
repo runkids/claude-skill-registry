@@ -1,12 +1,7 @@
 {
   "name": "moai-cc-agents",
-  "description": "Creating and Managing Sub-agents in Claude Code. Design agent personas, define proactive triggers, set tool permissions, structure agent files. Use when building specialized agents for code review, de",
-  "repo": "kivo360/quickhooks",
-  "category": "development",
-  "tags": [
-    "moai",
-    "agents"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "dolsoon/my-awesome-project",
+  "path": ".claude/skills/moai-cc-agents/SKILL.md",
+  "source": "github.com/dolsoon/my-awesome-project",
+  "downloaded_at": "2026-01-14T03:37:27.931364Z"
 }

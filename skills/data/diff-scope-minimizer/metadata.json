@@ -1,13 +1,7 @@
 {
   "name": "diff-scope-minimizer",
-  "description": "Keep changes narrowly scoped with a tiny patch plan and stop criteria",
   "repo": "MacroMan5/claude-code-workflow-plugins",
-  "category": "development",
-  "tags": [
-    "diff",
-    "scope",
-    "minimizer"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/diff-scope-minimizer/SKILL.md",
+  "source": "github.com/MacroMan5/claude-code-workflow-plugins",
+  "downloaded_at": "2026-01-14T03:37:13.040503Z"
 }

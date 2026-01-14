@@ -1,10 +1,7 @@
 {
   "name": "tables",
-  "description": "Preview denmark statistics fact tables and inspect their metadata",
   "repo": "josca42/varro",
-  "category": "data",
-  "tags": [
-    "tables"
-  ],
-  "stars": 1
+  "path": ".claude/skills/tables/SKILL.md",
+  "source": "github.com/josca42/varro",
+  "downloaded_at": "2026-01-14T02:54:13.792212Z"
 }

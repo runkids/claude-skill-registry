@@ -1,11 +1,7 @@
 {
   "name": "md-tables",
-  "description": "Fix markdown table alignment and spacing issues. Use when formatting tables in markdown files, aligning columns, normalizing cell padding, or ensuring proper table structure. Triggers: markdown table,",
-  "repo": "cosmix/claude-code-setup",
-  "category": "documents",
-  "tags": [
-    "tables"
-  ],
-  "stars": 2,
-  "source": "local"
+  "repo": "cosmix/loom",
+  "path": "skills/md-tables/SKILL.md",
+  "source": "github.com/cosmix/loom",
+  "downloaded_at": "2026-01-14T02:38:31.604284Z"
 }

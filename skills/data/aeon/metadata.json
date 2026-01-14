@@ -1,8 +1,7 @@
 {
   "name": "aeon",
-  "repo": "davila7/claude-code-templates",
-  "category": "data",
-  "description": "This skill should be used for time series machine learning tasks including classification, regression, clustering, forecasting, anomaly detection, segmentation, and similarity search. Use when working",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:36.287523Z"
+  "repo": "drshailesh88/integrated_content_OS",
+  "path": "skills/scientific/aeon/SKILL.md",
+  "source": "github.com/drshailesh88/integrated_content_OS",
+  "downloaded_at": "2026-01-14T04:02:18.839284Z"
 }

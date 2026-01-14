@@ -1,8 +1,7 @@
 {
   "name": "creating-issues",
   "repo": "C0ntr0lledCha0s/claude-code-plugin-automations",
-  "category": "data",
-  "description": "Issue creation expertise and convention enforcement. Auto-invokes when creating issues, writing issue descriptions, asking about issue best practices, or needing help with issue titles. Validates nami",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:39.342917Z"
+  "path": "github-workflows/skills/creating-issues/SKILL.md",
+  "source": "github.com/C0ntr0lledCha0s/claude-code-plugin-automations",
+  "downloaded_at": "2026-01-14T02:47:46.532504Z"
 }

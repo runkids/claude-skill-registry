@@ -1,11 +1,7 @@
 {
   "name": "xlsx",
-  "description": "Comprehensive spreadsheet creation, editing, and analysis with support for formulas, formatting, data analysis, and visualization. When Claude needs to work with spreadsheets (.xlsx, .xlsm, .csv, .tsv",
-  "repo": "anthropics/skills",
-  "category": "data",
-  "tags": [
-    "xlsx"
-  ],
-  "stars": 24530,
-  "source": "SkillsMP Synced Skills"
+  "repo": "archubbuck/workspace-architect",
+  "path": "assets/skills/xlsx/SKILL.md",
+  "source": "github.com/archubbuck/workspace-architect",
+  "downloaded_at": "2026-01-14T04:03:37.529799Z"
 }

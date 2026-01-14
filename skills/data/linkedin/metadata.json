@@ -1,11 +1,7 @@
 {
   "name": "linkedin",
-  "description": "Create LinkedIn posts for lead generation and thought leadership. Use when projecting ideas to LinkedIn, creating post series, or reviewing LinkedIn content. Includes LinkedIn-specific voice (punchier",
-  "repo": "xavierfuentes/xavierfuentes.com",
-  "category": "design",
-  "tags": [
-    "linkedin"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "fotescodev/portfolio",
+  "path": ".claude/skills/linkedin/SKILL.md",
+  "source": "github.com/fotescodev/portfolio",
+  "downloaded_at": "2026-01-14T03:54:50.347603Z"
 }

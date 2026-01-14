@@ -1,118 +1,144 @@
 ---
-name: content-filter
-description: Filter and classify AI research content for relevance. Use when processing raw content from Twitter, Substacks, blogs, or podcasts to determine if it's worth extracting claims from. Assigns relevance scores, topics, and author categories.
+name: topic-synthesis
+description: Synthesize claims across multiple sources to identify consensus, disagreements, and emerging narratives on AI research topics. Use when you have claims from both lab researchers and critics on the same topic and need to understand where they agree, disagree, and what the overall hype level is.
 ---
 
-# Content Filter Skill
+# Topic Synthesis Skill
 
-Assess content for relevance to AI research intelligence gathering. Filter noise and classify what remains.
+Synthesize claims from multiple sources to produce a coherent picture of discourse on an AI topic.
 
-## Assessment Criteria
+## Input Structure
 
-### 1. Relevance Score (0.0-1.0)
+You'll receive claims grouped by source type:
+- **Lab researcher claims**: From people at Anthropic, OpenAI, DeepMind, Meta AI, etc.
+- **Critic claims**: From credentialed skeptics like Marcus, Chollet, Mitchell, Bender
+- **Independent claims**: From independent researchers and practitioners
 
-How relevant is this to understanding AI research progress, capabilities, limitations, or field direction?
+## Synthesis Components
 
-| Score Range | Meaning | Examples |
-|-------------|---------|----------|
-| 0.0-0.3 | Not relevant | Personal updates, off-topic, promotional |
-| 0.3-0.6 | Tangentially relevant | General tech news, adjacent topics |
-| 0.6-0.8 | Relevant | Discusses AI research, capabilities, field |
-| 0.8-1.0 | Highly relevant | Substantive claims, predictions, research insights |
+### 1. Lab Consensus
+What do lab researchers generally agree on? Write 2-3 sentences capturing the central themes.
 
-### 2. Topic Classification
+Look for:
+- Repeated claims across multiple lab researchers
+- Consistent stance on capabilities/limitations
+- Shared predictions or timelines
 
-Assign ONE primary topic:
+### 2. Critic Consensus
+What do critics generally agree on? Write 2-3 sentences capturing the central themes.
 
-- `scaling`: Scaling laws, compute, training efficiency
-- `reasoning`: LLM reasoning, chain-of-thought, planning capabilities
-- `agents`: AI agents, tool use, autonomy
-- `safety`: AI safety, alignment, control
-- `interpretability`: Mechanistic interpretability, understanding models
-- `multimodal`: Vision, audio, video models
-- `rlhf`: RLHF, preference learning, Constitutional AI
-- `robotics`: Embodied AI, robotics
-- `benchmarks`: Evals, benchmarks, capability measurement
-- `infrastructure`: Training infra, chips, hardware
-- `policy`: AI policy, regulation, governance
-- `general`: General AI commentary
-- `other`: Doesn't fit above categories
+Look for:
+- Common critiques raised by multiple critics
+- Shared concerns about hype or methodology
+- Consistent alternative explanations
 
-### 3. Content Type
+### 3. Agreements
+What do BOTH sides agree on? These are often the most reliable signal.
 
-What kind of content is this?
+Examples:
+- "Current models struggle with certain forms of reasoning"
+- "More compute does improve capabilities"
+- "Benchmarks have limitations"
 
-- `prediction`: Makes claims about future AI capabilities/timelines
-- `research-hint`: Hints at ongoing/unpublished research
-- `opinion`: Expresses opinion on AI progress/direction
-- `factual`: Reports factual information about released work
-- `critique`: Critiques AI capabilities or claims
-- `meta`: Meta-commentary on the field
-- `noise`: Not substantive
+### 4. Disagreements
+Where do they fundamentally disagree? Structure as:
 
-### 4. Substantiveness
+```json
+{
+  "point": "Whether scaling alone leads to AGI",
+  "labPosition": "Many believe continued scaling will yield AGI-like capabilities",
+  "criticPosition": "Fundamental architectural changes needed beyond scaling"
+}
+```
 
-Does this contain actual claims, arguments, or insights?
+### 5. Emerging Narratives
+What new framings or narratives are emerging in the discourse?
 
-**Substantive examples:**
-- "We found that CoT prompting shows diminishing returns beyond 8 steps"
-- "The next generation will likely solve ARC-AGI"
-- "Interpretability research is underrated"
+Examples:
+- "Post-training is the new scaling"
+- "Reasoning models are hitting walls"
+- "Safety concerns are becoming mainstream"
 
-**Non-substantive examples:**
-- "Cool paper!" (reaction only)
-- "Link: [url]" (link share without commentary)
-- "Having coffee ☕" (personal update)
+### 6. Notable Predictions
+Extract specific predictions with attribution:
 
-### 5. Author Category
+```json
+{
+  "text": "Prediction text",
+  "author": "Author name",
+  "confidence": 0.7,
+  "timeframe": "medium-term"
+}
+```
 
-Classify the author:
+### 7. Evidence Quality
+Rate overall quality of evidence cited (0.0-1.0):
+- 1.0: Multiple papers cited, detailed reasoning, reproducible claims
+- 0.7: Some evidence, logical arguments
+- 0.4: Mostly opinions with occasional support
+- 0.1: Pure speculation, no evidence
 
-- `lab-researcher`: Works at major AI lab (Anthropic, OpenAI, DeepMind, Meta AI, xAI, Mistral, Cohere)
-- `critic`: Known AI skeptic/critic with credentials (Marcus, Chollet, Mitchell, Bender, Brooks)
-- `academic`: University researcher
-- `independent`: Independent researcher/commentator
-- `journalist`: AI journalist
-- `unknown`: Cannot determine
+## Hype Delta Calculation
+
+Calculate the "hype delta" - the gap between lab enthusiasm and critic skepticism:
+
+```
+hypeDelta = avgLabBullishness - avgCriticBullishness
+```
+
+Interpretation:
+- **Positive delta (> 0.2)**: Labs more bullish → potentially overhyped
+- **Negative delta (< -0.2)**: Critics more bullish → potentially underhyped
+- **Near zero (-0.2 to 0.2)**: Relatively aligned assessment
 
 ## Output Format
 
 Return JSON:
 ```json
 {
-  "assessments": [
+  "topic": "reasoning",
+  "labConsensus": "Lab researchers believe...",
+  "criticConsensus": "Critics argue...",
+  "agreements": ["Point 1", "Point 2"],
+  "disagreements": [
     {
-      "itemIndex": 0,
-      "relevance": 0.85,
-      "topic": "reasoning",
-      "contentType": "research-hint",
-      "isSubstantive": true,
-      "authorCategory": "lab-researcher",
-      "brief": "One sentence summary"
+      "point": "Description",
+      "labPosition": "Lab view",
+      "criticPosition": "Critic view"
     }
-  ]
+  ],
+  "emergingNarratives": ["Narrative 1", "Narrative 2"],
+  "predictions": [
+    {
+      "text": "Prediction",
+      "author": "Name",
+      "confidence": 0.7,
+      "timeframe": "medium-term"
+    }
+  ],
+  "evidenceQuality": 0.6,
+  "hypeDelta": {
+    "delta": 0.25,
+    "labSentiment": 0.75,
+    "criticSentiment": 0.50,
+    "interpretation": "Moderately overhyped"
+  },
+  "synthesisNarrative": "Two paragraphs summarizing the current state..."
 }
 ```
 
-## Filtering Heuristics
+## Synthesis Narrative Guidelines
 
-### High Signal Indicators
-- Lab researchers discussing their own work area
-- Specific technical claims with numbers/benchmarks
-- Predictions with timeframes
-- Explicit disagreements between notable figures
-- Hints using hedged language ("we've been seeing...", "I can't say much but...")
+Write a balanced 2-paragraph narrative:
 
-### Low Signal Indicators
-- Pure link shares without commentary
-- Conference attendance announcements
-- Hiring posts
-- Generic congratulations
-- Retweets without quote
-- Personal life updates
-- Product launches (unless with technical claims)
+**Paragraph 1**: Current state of the topic
+- What's actually happening
+- Key developments
+- Where there's genuine progress
 
-### Gray Areas
-- Paper summaries (relevant if includes opinion/analysis)
-- Q&A responses (depends on question depth)
-- Thread continuations (may need full thread context)
+**Paragraph 2**: Contested areas and outlook
+- Where disagreement exists
+- What's uncertain
+- What to watch for
+
+Maintain balanced tone - acknowledge both genuine progress AND legitimate concerns.

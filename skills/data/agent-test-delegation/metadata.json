@@ -1,13 +1,7 @@
 {
   "name": "agent-test-delegation",
-  "description": "Test agent delegation patterns to verify hierarchy and escalation paths. Use after modifying agent structure.",
   "repo": "mvillmow/ProjectOdyssey",
-  "category": "testing",
-  "tags": [
-    "agent",
-    "test",
-    "delegation"
-  ],
-  "stars": 8,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/agent-test-delegation/SKILL.md",
+  "source": "github.com/mvillmow/ProjectOdyssey",
+  "downloaded_at": "2026-01-14T01:09:04.085905Z"
 }

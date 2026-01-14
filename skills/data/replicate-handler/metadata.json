@@ -1,8 +1,7 @@
 {
   "name": "replicate-handler",
   "repo": "AayushBaniya2006/blinkfund",
-  "category": "data",
-  "description": "Integrate with Replicate AI for running models (image generation, LLMs, etc.).",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:42.567112Z"
+  "path": ".claude/skills/replicate-handler/SKILL.md",
+  "source": "github.com/AayushBaniya2006/blinkfund",
+  "downloaded_at": "2026-01-14T00:52:46.816142Z"
 }

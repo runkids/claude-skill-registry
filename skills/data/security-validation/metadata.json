@@ -1,12 +1,7 @@
 {
   "name": "security-validation",
-  "description": "Pre-merge security validation detecting secrets, user-specific paths, insecure SSH configurations, and security-weakening flags",
-  "repo": "auldsyababua/instructor-workflow",
-  "category": "devops",
-  "tags": [
-    "security",
-    "validation"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "vanman2024/dev-lifecycle-marketplace",
+  "path": "plugins/security/skills/security-validation/SKILL.md",
+  "source": "github.com/vanman2024/dev-lifecycle-marketplace",
+  "downloaded_at": "2026-01-14T03:07:45.857359Z"
 }

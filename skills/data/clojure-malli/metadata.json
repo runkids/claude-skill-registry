@@ -1,8 +1,7 @@
 {
   "name": "clojure-malli",
   "repo": "Ramblurr/nix-devenv",
-  "category": "data",
-  "description": "Data validation with Malli schemas in Clojure. Use when working with: (0)malli, (1) data validation or coercion, (2) defining schemas for maps,collections, or domain models, (3) API request/response v",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:48.088028Z"
+  "path": "prompts/skills/clojure-malli/SKILL.md",
+  "source": "github.com/Ramblurr/nix-devenv",
+  "downloaded_at": "2026-01-14T01:53:19.691596Z"
 }

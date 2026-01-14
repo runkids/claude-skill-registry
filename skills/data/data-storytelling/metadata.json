@@ -1,12 +1,7 @@
 {
   "name": "data-storytelling",
-  "description": "Transform raw data into compelling narratives that drive decisions. Use when creating executive presentations, board decks, investor pitches, quarterly reviews, stakeholder reports, or any communicati",
-  "repo": "t3rm1nu55/claude-skills-deep-analysis",
-  "category": "data",
-  "tags": [
-    "data",
-    "storytelling"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "GaitanS/AI-Mancare",
+  "path": ".claude/skills/plugins/business-analytics/skills/data-storytelling/SKILL.md",
+  "source": "github.com/GaitanS/AI-Mancare",
+  "downloaded_at": "2026-01-14T03:16:28.042157Z"
 }

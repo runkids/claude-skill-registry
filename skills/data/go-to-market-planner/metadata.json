@@ -1,12 +1,7 @@
 {
   "name": "go-to-market-planner",
-  "description": "Plan product launches and go-to-market strategy. Use when launching products, entering new markets, or planning marketing campaigns. Covers positioning, channels, messaging, and launch execution.",
   "repo": "daffy0208/ai-dev-standards",
-  "category": "marketing",
-  "tags": [
-    "market",
-    "planner"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": "skills/go-to-market-planner/SKILL.md",
+  "source": "github.com/daffy0208/ai-dev-standards",
+  "downloaded_at": "2026-01-14T03:33:10.995585Z"
 }

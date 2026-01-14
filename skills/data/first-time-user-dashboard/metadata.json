@@ -1,14 +1,7 @@
 {
   "name": "first-time-user-dashboard",
-  "description": "Simulate a first-time CV Dashboard user experience. Tests if documentation enables new users to generate and access the password-protected variant dashboard. Generates UX audit reports.",
   "repo": "fotescodev/portfolio",
-  "category": "documents",
-  "tags": [
-    "first",
-    "time",
-    "user",
-    "dashboard"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/first-time-user-dashboard/SKILL.md",
+  "source": "github.com/fotescodev/portfolio",
+  "downloaded_at": "2026-01-14T03:54:52.007462Z"
 }

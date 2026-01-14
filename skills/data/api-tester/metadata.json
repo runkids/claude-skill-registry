@@ -1,12 +1,7 @@
 {
   "name": "api-tester",
-  "description": "Makes HTTP requests to any URL and returns the response (supports GET, POST, PUT, PATCH, DELETE)",
-  "repo": "onlyoneaman/agent-skills",
-  "category": "testing",
-  "tags": [
-    "api",
-    "tester"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "repo": "CuriousLearner/devkit",
+  "path": "skills/api-tester/SKILL.md",
+  "source": "github.com/CuriousLearner/devkit",
+  "downloaded_at": "2026-01-14T02:22:34.238781Z"
 }

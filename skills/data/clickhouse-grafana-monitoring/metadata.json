@@ -1,13 +1,7 @@
 {
   "name": "clickhouse-grafana-monitoring",
-  "description": "ClickHouse analytics and Grafana dashboard configuration for Vigil Guard v2.0.0 monitoring. Use when querying logs, analyzing 3-branch detection metrics, creating dashboards, investigating events, wor",
   "repo": "tbartel74/Vigil-Code",
-  "category": "data",
-  "tags": [
-    "clickhouse",
-    "grafana",
-    "monitoring"
-  ],
-  "stars": 5,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/clickhouse-grafana-monitoring/SKILL.md",
+  "source": "github.com/tbartel74/Vigil-Code",
+  "downloaded_at": "2026-01-14T02:46:40.473260Z"
 }

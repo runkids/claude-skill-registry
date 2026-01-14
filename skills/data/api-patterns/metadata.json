@@ -1,12 +1,7 @@
 {
   "name": "api-patterns",
-  "description": "REST API design patterns including resource naming, HTTP methods, status codes, versioning, pagination, and response formats. Use when designing or implementing APIs.",
   "repo": "xenitV1/claude-code-maestro",
-  "category": "development",
-  "tags": [
-    "api",
-    "patterns"
-  ],
-  "stars": 47,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/api-patterns/SKILL.md",
+  "source": "github.com/xenitV1/claude-code-maestro",
+  "downloaded_at": "2026-01-14T03:41:48.655766Z"
 }

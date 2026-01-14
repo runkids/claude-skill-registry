@@ -1,11 +1,7 @@
 {
   "name": "gerrit",
-  "description": ">",
   "repo": "storj/storj",
-  "category": "development",
-  "tags": [
-    "gerrit"
-  ],
-  "stars": 3204,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/gerrit/SKILL.md",
+  "source": "github.com/storj/storj",
+  "downloaded_at": "2026-01-14T03:22:32.686258Z"
 }

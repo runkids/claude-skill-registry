@@ -1,12 +1,7 @@
 {
   "name": "local-marketing",
-  "description": "Эксперт по локальному маркетингу. Используй для гео-таргетинга, local SEO, маркетинга для офлайн-бизнеса и региональных кампаний.",
   "repo": "dengineproblem/agents-monorepo",
-  "category": "marketing",
-  "tags": [
-    "local",
-    "marketing"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/local-marketing/SKILL.md",
+  "source": "github.com/dengineproblem/agents-monorepo",
+  "downloaded_at": "2026-01-14T02:07:58.028394Z"
 }

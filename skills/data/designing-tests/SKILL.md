@@ -1,236 +1,468 @@
 ---
 name: designing-tests
-description: Designs and implements testing strategies for any codebase. Use when adding tests, improving coverage, setting up testing infrastructure, debugging test failures, or when asked about unit tests, integration tests, or E2E testing.
+description: Guides test strategy, TDD/BDD approaches, test coverage planning, and testing best practices. Use when designing test suites, improving coverage, or choosing testing approaches.
+license: MIT
+compatibility: opencode
+metadata:
+  category: quality
+  audience: developers
 ---
 
 # Designing Tests
 
-## Test Implementation Workflow
+Strategies and patterns for designing effective, maintainable test suites.
 
-Copy this checklist and track progress:
+## When to Use This Skill
 
-```
-Test Implementation Progress:
-- [ ] Step 1: Identify what to test
-- [ ] Step 2: Select appropriate test type
-- [ ] Step 3: Write tests following templates
-- [ ] Step 4: Run tests and verify passing
-- [ ] Step 5: Check coverage meets targets
-- [ ] Step 6: Fix any failing tests
-```
+- Planning test coverage for new features
+- Choosing between testing approaches (TDD, BDD)
+- Designing integration or E2E tests
+- Improving existing test suites
+- Setting up testing infrastructure
+- Debugging flaky tests
 
-## Testing Pyramid
+---
 
-Apply the testing pyramid for balanced coverage:
+## The Testing Pyramid
 
 ```
-        /\
-       /  \     E2E Tests (10%)
-      /----\    - Critical user journeys
-     /      \   - Slow but comprehensive
-    /--------\  Integration Tests (20%)
-   /          \ - Component interactions
-  /------------\ - API contracts
- /              \ Unit Tests (70%)
-/________________\ - Fast, isolated
-                   - Business logic focus
+                 ┌─────────┐
+                 │   E2E   │  ← Few, slow, expensive
+                 │  Tests  │     (Selenium, Playwright)
+                 ├─────────┤
+                 │         │
+              ┌──┤ Integr- │  ← Some, medium speed
+              │  │  ation  │     (API tests, DB tests)
+              │  │  Tests  │
+              │  ├─────────┤
+              │  │         │
+              │  │  Unit   │  ← Many, fast, cheap
+              │  │  Tests  │     (Pure functions, isolated)
+              └──┴─────────┘
 ```
 
-## Framework Selection
+| Level | Speed | Scope | Quantity | Purpose |
+|-------|-------|-------|----------|---------|
+| Unit | ~ms | Single function/class | Many (70-80%) | Logic correctness |
+| Integration | ~s | Multiple components | Some (15-20%) | Component interaction |
+| E2E | ~10s+ | Full system | Few (5-10%) | User flows work |
 
-### JavaScript/TypeScript
-| Type | Recommended | Alternative |
-|------|-------------|-------------|
-| Unit | Vitest | Jest |
-| Integration | Vitest + MSW | Jest + SuperTest |
-| E2E | Playwright | Cypress |
-| Component | Testing Library | Enzyme |
+---
 
-### Python
-| Type | Recommended | Alternative |
-|------|-------------|-------------|
-| Unit | pytest | unittest |
-| Integration | pytest + httpx | pytest + requests |
-| E2E | Playwright | Selenium |
-| API | pytest + FastAPI TestClient | - |
+## Test-Driven Development (TDD)
 
-### Go
-| Type | Recommended |
-|------|-------------|
-| Unit | testing + testify |
-| Integration | testing + httptest |
-| E2E | testing + chromedp |
+### The Red-Green-Refactor Cycle
 
-## Test Structure Templates
-
-### Unit Test
-```javascript
-describe('[Unit] ComponentName', () => {
-  describe('methodName', () => {
-    it('should [expected behavior] when [condition]', () => {
-      // Arrange
-      const input = createTestInput();
-
-      // Act
-      const result = methodName(input);
-
-      // Assert
-      expect(result).toEqual(expectedOutput);
-    });
-
-    it('should throw error when [invalid condition]', () => {
-      expect(() => methodName(invalidInput)).toThrow(ExpectedError);
-    });
-  });
-});
+```
+     ┌─────────────────────────────────┐
+     │                                 │
+     ▼                                 │
+┌─────────┐    ┌─────────┐    ┌────────┴──┐
+│   RED   │───▶│  GREEN  │───▶│ REFACTOR  │
+│  Write  │    │  Make   │    │  Clean    │
+│ failing │    │   it    │    │   up      │
+│  test   │    │  pass   │    │  code     │
+└─────────┘    └─────────┘    └───────────┘
 ```
 
-### Integration Test
-```javascript
-describe('[Integration] API /users', () => {
-  beforeAll(async () => {
-    await setupTestDatabase();
-  });
+### TDD Best Practices
 
-  afterAll(async () => {
-    await teardownTestDatabase();
-  });
+1. **Write the test first** - Don't write production code without a failing test
+2. **Write the minimal test** - One behavior per test
+3. **Write the minimal code** - Just enough to pass
+4. **Refactor ruthlessly** - Clean up after green
+5. **Run tests frequently** - After every small change
 
-  it('should create user and return 201', async () => {
-    const response = await request(app)
-      .post('/users')
-      .send({ name: 'Test', email: 'test@example.com' });
+### TDD Example Flow
 
-    expect(response.status).toBe(201);
-    expect(response.body.id).toBeDefined();
-  });
-});
+```python
+# Step 1: RED - Write failing test
+def test_calculate_total_with_discount():
+    order = Order(items=[Item(price=100)])
+    order.apply_discount(10)  # 10%
+    assert order.total() == 90
+
+# Step 2: GREEN - Minimal implementation
+class Order:
+    def __init__(self, items):
+        self.items = items
+        self.discount = 0
+
+    def apply_discount(self, percent):
+        self.discount = percent
+
+    def total(self):
+        subtotal = sum(i.price for i in self.items)
+        return subtotal * (100 - self.discount) / 100
+
+# Step 3: REFACTOR - Clean up (if needed)
 ```
 
-### E2E Test
-```javascript
-describe('[E2E] User Registration Flow', () => {
-  it('should complete registration successfully', async ({ page }) => {
-    await page.goto('/register');
+---
 
-    await page.fill('[data-testid="email"]', 'new@example.com');
-    await page.fill('[data-testid="password"]', 'SecurePass123!');
-    await page.click('[data-testid="submit"]');
+## Behavior-Driven Development (BDD)
 
-    await expect(page.locator('.welcome-message')).toBeVisible();
-    await expect(page).toHaveURL('/dashboard');
-  });
-});
+### Gherkin Syntax
+
+```gherkin
+Feature: Shopping Cart
+  As a customer
+  I want to add items to my cart
+  So that I can purchase them later
+
+  Scenario: Add item to empty cart
+    Given I have an empty cart
+    When I add a product "Widget" priced at $10
+    Then my cart should contain 1 item
+    And my cart total should be $10
+
+  Scenario: Apply discount code
+    Given I have a cart with total $100
+    When I apply discount code "SAVE10"
+    Then my cart total should be $90
 ```
 
-## Coverage Strategy
+### BDD Benefits
 
-### What to Cover
-- ✅ Business logic (100%)
-- ✅ Edge cases and error handling (90%+)
-- ✅ API contracts (100%)
-- ✅ Critical user paths (E2E)
-- ⚠️ UI components (snapshot + interaction)
-- ❌ Third-party library internals
-- ❌ Simple getters/setters
+- Tests as documentation
+- Shared language with stakeholders
+- Focus on behavior, not implementation
+- Easy to understand test intent
 
-### Coverage Thresholds
-```json
-{
-  "coverageThreshold": {
-    "global": {
-      "branches": 80,
-      "functions": 80,
-      "lines": 80,
-      "statements": 80
-    },
-    "src/core/": {
-      "branches": 95,
-      "functions": 95
-    }
-  }
-}
+---
+
+## Test Design Patterns
+
+### Arrange-Act-Assert (AAA)
+
+```python
+def test_user_registration():
+    # Arrange - Set up preconditions
+    user_data = {"email": "test@example.com", "password": "secure123"}
+    user_service = UserService(mock_repository)
+
+    # Act - Perform the action
+    result = user_service.register(user_data)
+
+    # Assert - Verify the outcome
+    assert result.success is True
+    assert result.user.email == "test@example.com"
 ```
 
-## Test Data Management
+### Given-When-Then (BDD style)
 
-### Factories/Builders
-```javascript
-// factories/user.js
-export const userFactory = (overrides = {}) => ({
-  id: faker.string.uuid(),
-  name: faker.person.fullName(),
-  email: faker.internet.email(),
-  createdAt: new Date(),
-  ...overrides,
-});
+```python
+def test_order_cancellation():
+    # Given - a confirmed order
+    order = create_confirmed_order()
 
-// Usage
-const admin = userFactory({ role: 'admin' });
+    # When - the customer cancels it
+    order.cancel()
+
+    # Then - the order is cancelled and refund initiated
+    assert order.status == "cancelled"
+    assert order.refund_initiated is True
 ```
 
-### Fixtures
-```javascript
-// fixtures/users.json
-{
-  "validUser": { "name": "Test", "email": "test@example.com" },
-  "invalidUser": { "name": "", "email": "invalid" }
-}
+### Test Data Builders
+
+```python
+class UserBuilder:
+    def __init__(self):
+        self.email = "default@test.com"
+        self.name = "Test User"
+        self.role = "user"
+
+    def with_email(self, email):
+        self.email = email
+        return self
+
+    def with_role(self, role):
+        self.role = role
+        return self
+
+    def build(self):
+        return User(email=self.email, name=self.name, role=self.role)
+
+# Usage
+admin = UserBuilder().with_role("admin").build()
 ```
 
-## Mocking Strategy
+### Object Mother Pattern
+
+```python
+class TestUsers:
+    @staticmethod
+    def admin():
+        return User(email="admin@test.com", role="admin")
+
+    @staticmethod
+    def customer():
+        return User(email="customer@test.com", role="customer")
+
+    @staticmethod
+    def guest():
+        return User(email=None, role="guest")
+```
+
+---
+
+## Mocking Strategies
 
 ### When to Mock
-- ✅ External APIs and services
-- ✅ Database in unit tests
-- ✅ Time/Date for determinism
-- ✅ Random values
-- ❌ Internal modules (usually)
-- ❌ The code under test
 
-### Mock Examples
-```javascript
-// API mocking with MSW
-import { http, HttpResponse } from 'msw';
+| Mock | Don't Mock |
+|------|------------|
+| External APIs | Pure business logic |
+| Database (for unit tests) | Simple value objects |
+| File system | Deterministic functions |
+| Time/random | Core domain entities |
+| Third-party services | Internal collaborators (usually) |
 
-export const handlers = [
-  http.get('/api/users', () => {
-    return HttpResponse.json([
-      { id: 1, name: 'John' },
-    ]);
-  }),
-];
+### Mock Types
 
-// Time mocking
-vi.useFakeTimers();
-vi.setSystemTime(new Date('2024-01-01'));
+| Type | Purpose | Example |
+|------|---------|---------|
+| **Stub** | Return canned responses | `mock.return_value = 42` |
+| **Mock** | Verify interactions | `mock.assert_called_with(...)` |
+| **Spy** | Track real calls | Wraps real object, records calls |
+| **Fake** | Simplified implementation | In-memory database |
+
+### Mocking Example
+
+```python
+# Using unittest.mock
+from unittest.mock import Mock, patch
+
+def test_send_email_on_registration():
+    # Arrange
+    mock_email_service = Mock()
+    user_service = UserService(email_service=mock_email_service)
+
+    # Act
+    user_service.register({"email": "test@example.com"})
+
+    # Assert
+    mock_email_service.send_welcome_email.assert_called_once_with("test@example.com")
+
+# Using patch decorator
+@patch("app.services.EmailService")
+def test_with_patch(mock_email_class):
+    mock_email_class.return_value.send.return_value = True
+    # Test code...
 ```
 
-## Test Validation Loop
+---
 
-After writing tests, run this validation:
+## Integration Test Patterns
+
+### Database Tests
+
+```python
+import pytest
+from testcontainers.postgres import PostgresContainer
+
+@pytest.fixture(scope="session")
+def database():
+    with PostgresContainer("postgres:15") as postgres:
+        yield postgres.get_connection_url()
+
+def test_user_persistence(database):
+    repo = UserRepository(database)
+    user = User(email="test@example.com")
+
+    repo.save(user)
+    retrieved = repo.find_by_email("test@example.com")
+
+    assert retrieved.email == user.email
+```
+
+### API Tests
+
+```python
+def test_create_user_endpoint(client):
+    response = client.post("/api/users", json={
+        "email": "new@example.com",
+        "password": "secure123"
+    })
+
+    assert response.status_code == 201
+    assert response.json["email"] == "new@example.com"
+    assert "id" in response.json
+```
+
+---
+
+## E2E Test Patterns
+
+### Page Object Model
+
+```python
+class LoginPage:
+    def __init__(self, page):
+        self.page = page
+        self.email_input = page.locator("#email")
+        self.password_input = page.locator("#password")
+        self.submit_button = page.locator("button[type=submit]")
+
+    def login(self, email, password):
+        self.email_input.fill(email)
+        self.password_input.fill(password)
+        self.submit_button.click()
+        return DashboardPage(self.page)
+
+# Usage
+def test_successful_login(page):
+    login_page = LoginPage(page)
+    dashboard = login_page.login("user@example.com", "password")
+    assert dashboard.welcome_message.is_visible()
+```
+
+### E2E Best Practices
+
+1. **Use stable selectors** - data-testid, not CSS classes
+2. **Wait for conditions** - Not arbitrary sleeps
+3. **Isolate test data** - Each test gets fresh data
+4. **Test critical paths** - Happy paths, key user journeys
+5. **Keep them fast** - Parallelize, minimize scope
+
+---
+
+## Test Coverage Strategy
+
+### What to Cover
+
+| Priority | What | Why |
+|----------|------|-----|
+| High | Business logic | Core value |
+| High | Edge cases | Where bugs hide |
+| High | Error paths | Graceful failures |
+| Medium | Integration points | Contract validation |
+| Low | UI layout | Brittle, low value |
+| Low | Third-party code | Not your responsibility |
+
+### Coverage Metrics
+
+| Metric | Target | Notes |
+|--------|--------|-------|
+| Line coverage | 70-80% | Basic minimum |
+| Branch coverage | 60-70% | Catches conditionals |
+| Mutation score | 50-70% | Measures test quality |
+
+### Meaningful Coverage
 
 ```
-Test Validation:
-- [ ] All tests pass: `npm test`
-- [ ] Coverage meets thresholds: `npm test -- --coverage`
-- [ ] No flaky tests (run multiple times)
-- [ ] Tests are independent (order doesn't matter)
-- [ ] Test names clearly describe behavior
+HIGH VALUE:
+  ✓ Core business logic
+  ✓ Data transformations
+  ✓ Error handling
+  ✓ Security-sensitive code
+
+LOW VALUE:
+  ✗ Getters/setters
+  ✗ Constructor-only classes
+  ✗ Framework boilerplate
+  ✗ Configuration files
 ```
 
-If any tests fail, fix them before proceeding. If coverage is below target, add more tests for uncovered code paths.
+---
 
-```bash
-# Run tests
-npm test
+## Handling Flaky Tests
 
-# Run with coverage
-npm test -- --coverage
+### Common Causes
 
-# Run specific test file
-npm test -- path/to/test.spec.ts
+| Cause | Solution |
+|-------|----------|
+| Timing issues | Use explicit waits, not sleep |
+| Shared state | Isolate test data |
+| External dependencies | Mock or use containers |
+| Race conditions | Add synchronization |
+| Date/time | Mock time providers |
+| Random data | Seed random generators |
 
-# Run in watch mode during development
-npm test -- --watch
+### Flaky Test Checklist
+
+- [ ] Is the test relying on timing?
+- [ ] Is there shared state between tests?
+- [ ] Is there an external dependency?
+- [ ] Is the order of execution assumed?
+- [ ] Is there non-deterministic data?
+
+---
+
+## Test Organization
+
+### File Structure
+
+```
+tests/
+├── unit/                    # Unit tests
+│   ├── services/
+│   │   └── test_user_service.py
+│   └── models/
+│       └── test_order.py
+├── integration/             # Integration tests
+│   ├── api/
+│   │   └── test_user_endpoints.py
+│   └── repositories/
+│       └── test_user_repository.py
+├── e2e/                     # End-to-end tests
+│   └── test_checkout_flow.py
+├── fixtures/                # Shared fixtures
+│   └── factories.py
+└── conftest.py              # Pytest configuration
+```
+
+### Naming Conventions
+
+```python
+# Pattern: test_[what]_[condition]_[expected]
+
+def test_calculate_total_with_discount_returns_reduced_price():
+    pass
+
+def test_login_with_invalid_password_raises_auth_error():
+    pass
+
+def test_order_when_cancelled_sends_refund_notification():
+    pass
+```
+
+---
+
+## Anti-Patterns to Avoid
+
+1. **Testing implementation, not behavior** - Tests break on refactor
+2. **Large test methods** - Hard to debug, unclear intent
+3. **Excessive mocking** - Tests don't reflect reality
+4. **Shared mutable state** - Tests affect each other
+5. **Ignoring test failures** - Broken windows effect
+6. **Testing private methods** - Coupling to implementation
+7. **No assertion** - Tests that can't fail
+8. **Copy-paste tests** - Maintenance nightmare
+
+---
+
+## Quick Reference
+
+```
+PYRAMID:
+  Unit (70%) → Integration (20%) → E2E (10%)
+
+TDD CYCLE:
+  Red → Green → Refactor
+
+PATTERNS:
+  AAA: Arrange-Act-Assert
+  Builder: Fluent test data creation
+  Page Object: E2E abstraction
+
+MOCK WHEN:
+  External APIs, Database (unit), Time, Random
+
+COVERAGE:
+  70-80% line, focus on business logic
+
+NAMING:
+  test_[what]_[condition]_[expected]
 ```

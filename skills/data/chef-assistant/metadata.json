@@ -1,12 +1,7 @@
 {
   "name": "chef-assistant",
-  "description": "Use when cooking or planning meals, troubleshooting recipes, learning culinary techniques (knife skills, sauces, searing), understanding food science (Maillard reaction, emulsions, brining), building ",
-  "repo": "lyndonkl/claude",
-  "category": "development",
-  "tags": [
-    "chef",
-    "assistant"
-  ],
-  "stars": 8,
-  "source": "local"
+  "repo": "GaitanS/AI-Mancare",
+  "path": "chef-assistant/SKILL.md",
+  "source": "github.com/GaitanS/AI-Mancare",
+  "downloaded_at": "2026-01-14T03:16:26.238125Z"
 }

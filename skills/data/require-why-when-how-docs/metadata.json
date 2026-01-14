@@ -1,9 +1,7 @@
 {
   "name": "require-why-when-how-docs",
-  "description": "Require comprehensive WHY/WHEN/HOW documentation for all functions. Apply when writing functions, classes, or complex logic to explain purpose, usage context, and implementation approach.",
   "repo": "gabe-almeida/next-js-my-contractor-now",
-  "category": "documents",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/require-why-when-how-docs/SKILL.md",
+  "source": "github.com/gabe-almeida/next-js-my-contractor-now",
+  "downloaded_at": "2026-01-14T03:43:42.228563Z"
 }

@@ -1,191 +1,401 @@
 ---
 name: session-init
-description: "Initializes session with environment check and task status overview. Use when user mentions セッション開始, 作業開始, 状況確認, what should I work on, start session. Do NOT load for: 実装作業, レビュー, セッション途中の作業."
-allowed-tools: ["Read", "Write", "Bash"]
-user-invocable: false
+description: Create protocol-compliant JSON session logs with verification-based enforcement. Autonomous operation with auto-incremented session numbers and objective derivation from git state. Use when starting any new session.
+version: 1.0.0
+license: MIT
+model: claude-sonnet-4-5
+metadata:
+  domains:
+    - session-protocol
+    - compliance
+    - automation
+  type: initialization
 ---
 
-# Session Init Skill
+# Session Init
 
-セッション開始時の環境確認と現在のタスク状況把握を行うスキル。
-
----
-
-## トリガーフレーズ
-
-このスキルは以下のフレーズで起動します：
-
-- 「セッション開始」
-- 「作業開始」
-- 「今日の作業を始める」
-- 「状況を確認して」
-- 「何をすればいい？」
-- "start session"
-- "what should I work on?"
+Create protocol-compliant session logs with verification-based enforcement.
 
 ---
 
-## 概要
+## Quick Start
 
-Session Init スキルは、Claude Code セッション開始時に自動的に以下を確認します：
+### Automated (Recommended)
 
-1. **Git 状態**: 現在のブランチ、未コミットの変更
-2. **Plans.md**: 進行中タスク、依頼されたタスク
-3. **AGENTS.md**: 役割分担、禁止事項の確認
-4. **前回セッション**: 引き継ぎ事項の確認
+```powershell
+pwsh .claude/skills/session-init/scripts/New-SessionLog.ps1
+```
+
+The script will:
+
+1. Prompt for session number and objective
+2. Auto-detect git state (branch, commit, date)
+3. Read canonical template from SESSION-PROTOCOL.md
+4. Write session log with EXACT template format
+5. Validate immediately with Validate-SessionJson.ps1
+6. Exit nonzero on validation failure
+
+### Manual (If Needed)
+
+```text
+/session-init
+```
+
+Follow the manual workflow below if the automated script doesn't meet your needs.
 
 ---
 
-## 実行手順
+## Triggers
 
-### Step 0: ファイル状態チェック（自動整理）
+| Phrase | Action |
+|--------|--------|
+| `/session-init` | Create new session log |
+| `create session log` | Natural language activation |
+| `start new session` | Alternative trigger |
+| `initialize session` | Alternative trigger |
 
-セッション開始前にファイルサイズをチェック：
+| Input | Output | Quality Gate |
+|-------|--------|--------------|
+| Session number, objective | Validated session log file | Exit code 0 from validation |
+
+---
+
+## Why This Skill Exists
+
+**Problem**: Every PR starts with malformed session logs that fail CI validation.
+
+**Root Cause**: Agents generate session logs from LLM memory instead of copying the canonical template from SESSION-PROTOCOL.md. This causes variations like:
+
+- Missing `(COMPLETE ALL before closing)` text in Session End header
+- Wrong heading levels (`##` vs `###`)
+- Missing sections
+
+**Solution**: Verification-based enforcement following the proven Serena initialization pattern.
+
+---
+
+## Session Naming Protocol
+
+**Format**: `YYYY-MM-DD-session-NN.json`
+
+The script automatically generates human-readable filenames by extracting up to 5 keywords from the session objective using NLP heuristics:
+
+- **Remove stop words**: Common words like "the", "a", "to", "for" are filtered out
+- **Keep domain terms**: Technical verbs like "implement", "debug", "fix", "refactor" are preserved
+- **Convert to kebab-case**: Words are joined with hyphens for readability
+- **Limit to 5 keywords**: Most relevant terms from the start of the objective
+
+### Examples
+
+| Session Objective | Generated Filename |
+|-------------------|--------------------|
+| "Debug recurring session validation failures" | `2026-01-06-session-374-debug-recurring-session-validation-failures.md` |
+| "Implement OAuth 2.0 authentication flow" | `2026-01-06-session-375-implement-oauth-authentication-flow.md` |
+| "Fix test coverage gaps in UserService" | `2026-01-06-session-376-fix-test-coverage-gaps-userservice.md` |
+| "Refactor PaymentProcessor for better error handling" | `2026-01-06-session-377-refactor-paymentprocessor-better-error-handling.md` |
+
+### Benefits
+
+- **Human-readable discovery**: Browse session history with `ls .agents/sessions/` and instantly understand content
+- **Grep-friendly search**: Find sessions by topic with `grep -l "oauth" .agents/sessions/*.json`
+- **Self-documenting**: No need to open files to understand what each session covers
+- **Chronological order**: YYYY-MM-DD prefix preserves time-based sorting
+- **Pattern identification**: Keyword clustering reveals recurring themes across sessions
+
+---
+
+## Process Overview
+
+```text
+User Request: /session-init
+    |
+    v
++---------------------------------------------+
+| Phase 1: GATHER INPUTS                      |
+| - Prompt for session number                 |
+| - Prompt for objective                      |
+| - Auto-detect: date (YYYY-MM-DD)           |
+| - Auto-detect: branch (git branch)         |
+| - Auto-detect: commit (git log)            |
+| - Auto-detect: git status                  |
++---------------------------------------------+
+    |
+    v
++---------------------------------------------+
+| Phase 2: READ CANONICAL TEMPLATE            |
+| - Read .agents/SESSION-PROTOCOL.md         |
+| - Extract template (lines 494-612)         |
+| - Preserve EXACT formatting                |
+| - Critical: Keep "(COMPLETE ALL before     |
+|   closing)" text in Session End header     |
++---------------------------------------------+
+    |
+    v
++---------------------------------------------+
+| Phase 3: POPULATE TEMPLATE                  |
+| - Replace NN with session number           |
+| - Replace YYYY-MM-DD with date             |
+| - Replace [branch name] with actual branch |
+| - Replace [SHA] with commit hash           |
+| - Replace [objective] with user input      |
+| - Replace [clean/dirty] with git status    |
++---------------------------------------------+
+    |
+    v
++---------------------------------------------+
+| Phase 4: WRITE SESSION LOG                  |
+| - Generate descriptive filename with        |
+|   keywords from objective                   |
+| - Write to .agents/sessions/YYYY-MM-DD-    |
+|   session-NN-keyword1-keyword2-...md       |
+| - Preserve all template sections           |
++---------------------------------------------+
+    |
+    v
++---------------------------------------------+
+| Phase 5: IMMEDIATE VALIDATION               |
+| - Run Validate-SessionJson.ps1         |
+| - Report validation result                 |
+| - If FAIL: show errors, allow retry       |
+| - If PASS: confirm success                 |
++---------------------------------------------+
+    |
+    v
+Protocol-Compliant Session Log
+```
+
+---
+
+## Workflow
+
+### Step 1: Gather Session Information
+
+Prompt user for required inputs:
+
+```text
+What is the session number? (e.g., 375)
+What is the session objective? (e.g., "Implement session-init skill")
+```
+
+Auto-detect from environment:
 
 ```bash
-# Plans.md の行数チェック
-if [ -f "Plans.md" ]; then
-  lines=$(wc -l < Plans.md)
-  if [ "$lines" -gt 200 ]; then
-    echo "⚠️ Plans.md が ${lines} 行です。「整理して」で整理を推奨"
-  fi
-fi
+# Current date
+date +%Y-%m-%d
+# or PowerShell: Get-Date -Format "yyyy-MM-dd"
 
-# session-log.md の行数チェック
-if [ -f ".claude/memory/session-log.md" ]; then
-  lines=$(wc -l < .claude/memory/session-log.md)
-  if [ "$lines" -gt 500 ]; then
-    echo "⚠️ session-log.md が ${lines} 行です。「セッションログを整理して」で整理を推奨"
-  fi
-fi
+# Current branch
+git branch --show-current
+
+# Starting commit
+git log --oneline -1
+
+# Git status
+git status --short
 ```
 
-整理が必要な場合は提案を表示（作業には影響しない）。
+### Step 2: Read Canonical Template
 
-### Step 0.5: Claude-mem 文脈確認（オプション）
+**CRITICAL**: Use the New-SessionLog.ps1 script to read the template from SESSION-PROTOCOL.md.
 
-Claude-mem が有効な場合、過去の文脈を自動表示：
-
-```bash
-# Claude-mem の状態チェック
-if [ -f "$HOME/.claude-mem/settings.json" ]; then
-  mode=$(cat ~/.claude-mem/settings.json | grep -o '"CLAUDE_MEM_MODE"[^,}]*' | cut -d'"' -f4)
-  if [ "$mode" = "harness" ] || [ "$mode" = "harness--ja" ]; then
-    echo "📚 Claude-mem (harness モード) が有効です"
-  fi
-fi
+```powershell
+$template = & .claude/skills/session-init/scripts/New-SessionLog.ps1
 ```
 
-**Claude-mem 有効時に表示する内容**:
+**DO NOT** generate the template from memory or read specific line numbers. The script extracts the canonical template dynamically:
 
-1. **過去のガードレール発動**:
-   - `mem-search` で `guard` タイプの観測を検索
-   - 「このプロジェクトでは過去 N 回テスト改ざんを防止」
+- Header levels (`##` vs `###`)
+- Table structure with pipe separators
+- Checkbox format `[ ]`
+- Comment blocks `<!-- -->`
+- **CRITICAL**: `### Session End (COMPLETE ALL before closing)` header text
 
-2. **直近の作業サマリー**:
-   - 最新のセッションサマリーを表示
-   - 「前回: Feature X の設計完了」
+### Step 3: Populate Template Variables
 
-3. **継続タスクの提案**:
-   - Plans.md と組み合わせて次のアクションを提案
+Replace placeholders with actual values:
 
-```markdown
-## 📚 過去の文脈（Claude-mem）
+| Placeholder | Replace With |
+|-------------|--------------|
+| `NN` | Session number (e.g., 375) |
+| `YYYY-MM-DD` | Current date |
+| `[branch name]` | Git branch name |
+| `[SHA]` | Starting commit hash |
+| `[What this session aims to accomplish]` | User-provided objective |
+| `[clean/dirty]` | Git status result |
 
-**ガードレール履歴**:
-- テスト改ざん防止: 2回
+Leave these unchanged:
 
-**前回のセッション**:
-- Feature X 設計完了
-- RBAC 採用を決定
+- All checklist items `[ ]` (unchecked)
+- Evidence columns with placeholder text
+- Comment blocks
 
-**💡 継続推奨**: Plans.md の「Feature X 実装」から開始
+### Step 4: Write Session Log File
+
+Write the populated session log to a file with descriptive naming:
+
+**Filename Format**: `YYYY-MM-DD-session-NN.json`
+
+The script automatically:
+
+1. Extracts up to 5 keywords from the objective
+2. Filters out common stop words (the, a, to, for, etc.)
+3. Converts to kebab-case
+4. Generates human-readable filename
+
+**Example**:
+
+For objective "Debug recurring session validation failures", the filename becomes:
+`2026-01-06-session-374-debug-recurring-session-validation-failures.md`
+
+Construct filename: `.agents/sessions/YYYY-MM-DD-session-NN.json`
+
+Example: `.agents/sessions/.agents/sessions/2026-01-05-session-375.json`
+
+Write the populated template to this file.
+
+### Step 5: Validate Immediately
+
+Run validation script:
+
+```powershell
+pwsh scripts/Validate-SessionJson.ps1 -SessionPath ".agents/sessions/YYYY-MM-DD-session-NN.json" 
 ```
 
-> **注**: Claude-mem が未設定の場合、このステップはスキップされます。
+Check exit code:
 
-### Step 1: 環境確認
-
-以下を並列で実行：
-
-```bash
-# Git状態
-git status -sb
-git log --oneline -3
-```
-
-```bash
-# Plans.md
-cat Plans.md 2>/dev/null || echo "Plans.md not found"
-```
-
-```bash
-# AGENTS.md の要点
-head -50 AGENTS.md 2>/dev/null || echo "AGENTS.md not found"
-```
-
-### Step 2: タスク状況の把握
-
-Plans.md から以下を抽出：
-
-- `cc:WIP` - 前回から継続中のタスク
-- `pm:依頼中` - PM から新規依頼されたタスク（互換: cursor:依頼中）
-- `cc:TODO` - 未着手だが割り当て済みのタスク
-
-### Step 3: 状況レポートの出力
-
-```markdown
-## 🚀 セッション開始
-
-**日時**: {{YYYY-MM-DD HH:MM}}
-**ブランチ**: {{branch}}
+| Exit Code | Meaning | Action |
+|-----------|---------|--------|
+| 0 | PASS | Confirm success, agent proceeds |
+| 1 | FAIL | Show errors, offer to retry |
 
 ---
 
-### 📋 今日のタスク
+## Verification Checklist
 
-**優先タスク**:
-- {{pm:依頼中（互換: cursor:依頼中） または cc:WIP のタスク}}
+Before reporting success:
 
-**その他のタスク**:
-- {{cc:TODO のタスク一覧}}
+- [ ] Session number provided by user
+- [ ] Objective provided by user
+- [ ] Template read from SESSION-PROTOCOL.md (NOT generated from memory)
+- [ ] All template sections present
+- [ ] Session End header includes `(COMPLETE ALL before closing)`
+- [ ] File written to correct path `.agents/sessions/YYYY-MM-DD-session-NN.json`
+- [ ] Validation script executed
+- [ ] Validation result is PASS (exit code 0)
 
 ---
 
-### ⚠️ 注意事項
+## Anti-Patterns
 
-{{AGENTS.md からの重要な制約・禁止事項}}
+| Avoid | Why | Instead |
+|-------|-----|---------|
+| Generating template from memory | Will miss exact formatting | Read from SESSION-PROTOCOL.md |
+| Skipping validation | Won't catch errors until CI | Validate immediately |
+| Hardcoding template in skill | Template may change | Always read from canonical source |
+| Pre-checking boxes | Defeats verification purpose | Leave all unchecked |
+| Using `## Session End` | Missing required text | Use `### Session End (COMPLETE ALL before closing)` |
 
 ---
 
-**作業を開始しますか？**
+## Example Output
+
+**Success**:
+
+```text
+Session log created and validated
+
+  File: .agents/sessions/.agents/sessions/2026-01-05-session-375.json
+  Validation: PASS
+  Branch: feat/session-init
+  Commit: abc1234
+
+Next: Complete Session Start checklist in the session log
+```
+
+**Failure**:
+
+```text
+Session log created but validation FAILED
+
+  File: .agents/sessions/.agents/sessions/2026-01-05-session-375.json
+  Validation: FAIL
+  Errors:
+    - Missing Session End checklist header
+
+Run: pwsh scripts/Validate-SessionJson.ps1 -SessionPath ".agents/sessions/.agents/sessions/2026-01-05-session-375.json" 
+
+Fix the issues and re-validate.
 ```
 
 ---
 
-## 出力フォーマット
+## Related Skills
 
-セッション開始時は、以下の情報を簡潔に提示：
-
-| 項目 | 内容 |
-|------|------|
-| 現在のブランチ | `staging` など |
-| 優先タスク | 最も重要な 1-2 件 |
-| 注意事項 | 禁止事項の要約 |
-| 次のアクション | 具体的な提案 |
+| Skill | Relationship |
+|-------|--------------|
+| [log-fixer](../log-fixer/) | Reactive fix after failure (this skill prevents need) |
+| [qa-eligibility](../qa-eligibility/) | QA eligibility checking (different purpose) |
 
 ---
 
-## 関連コマンド
+## Scripts
 
-- `/work` - タスク実行（並列実行対応）
-- `/sync-status` - Plans.md の進捗サマリー
-- `/cleanup` - ファイルの自動整理
+| Script | Purpose | Exit Codes |
+|--------|---------|------------|
+| [New-SessionLog.ps1](scripts/New-SessionLog.ps1) | Automated session log creation with validation | 0=success, 1=git error, 2=template failed, 3=write failed, 4=validation failed |
+| [New-SessionLog.ps1](scripts/New-SessionLog.ps1) | Extract canonical template from SESSION-PROTOCOL.md | 0=success, 1=file not found, 2=template not found |
+
+### Example Usage
+
+**Automated (Recommended)**:
+
+```powershell
+# Create session log with interactive prompts
+pwsh .claude/skills/session-init/scripts/New-SessionLog.ps1
+
+# Create session log with parameters
+pwsh .claude/skills/session-init/scripts/New-SessionLog.ps1 -SessionNumber 375 -Objective "Implement feature X"
+```
+
+**Manual Template Extraction** (for custom workflows):
+
+```powershell
+# Extract template
+$template = & .claude/skills/session-init/scripts/New-SessionLog.ps1
+
+# Populate with session data
+$sessionLog = $template -replace 'NN', '375' -replace 'YYYY-MM-DD', '2026-01-06'
+
+# Write to file
+$sessionLog | Out-File -FilePath '.agents/sessions/.agents/sessions/2026-01-06-session-375.json'
+```
 
 ---
 
-## 注意事項
+## References
 
-- **AGENTS.md を必ず確認**: 役割分担を把握してから作業開始
-- **Plans.md が無い場合**: `/harness-init` を案内
-- **前回の作業が中断している場合**: 継続するか確認
+- [SESSION-PROTOCOL.md](.agents/SESSION-PROTOCOL.md) - Canonical template source
+- [Validate-SessionJson.ps1](scripts/Validate-SessionJson.ps1) - Validation script
+- [Template Extraction](references/template-extraction.md) - How to extract template
+- [Validation Patterns](references/validation-patterns.md) - Common validation issues
+
+---
+
+## Pattern: Verification-Based Enforcement
+
+This skill follows the same pattern as Serena initialization:
+
+| Aspect | Serena Init | Session Init |
+|--------|-------------|--------------|
+| **Verification** | Tool output in transcript | Validation script exit code |
+| **Feedback** | Immediate (tool response) | Immediate (validation output) |
+| **Enforcement** | Cannot proceed without output | Cannot claim success without pass |
+| **Compliance Rate** | 100% (never violated) | Target: 100% |
+
+**Why it works**:
+
+- Reads canonical template from file (single source of truth)
+- Auto-populates git state (reduces manual errors)
+- Validates immediately with same script as CI (instant feedback)
+- Cannot skip validation (built into skill workflow)
+- Provides actionable error messages if validation fails

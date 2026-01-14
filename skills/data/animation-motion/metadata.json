@@ -1,12 +1,7 @@
 {
   "name": "animation-motion",
-  "description": "CSS animations, transitions, and scroll-driven effects with accessibility (prefers-reduced-motion). Use when adding motion, hover effects, loading states, or scroll-based animations.",
-  "repo": "ProfPowell/project-template",
-  "category": "design",
-  "tags": [
-    "animation",
-    "motion"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "lapc506/flutter-agentic-boilerplate",
+  "path": "skills/flutter/animation-motion/SKILL.md",
+  "source": "github.com/lapc506/flutter-agentic-boilerplate",
+  "downloaded_at": "2026-01-14T03:08:43.754355Z"
 }

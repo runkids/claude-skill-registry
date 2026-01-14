@@ -1,90 +1,191 @@
 ---
 name: changelog
-description: Generate a Keep a Changelog entry from git commits
+description: Generate and maintain CHANGELOG.md following Keep a Changelog format. Use when creating a changelog, updating after releases, or when the user says "changelog", "/changelog", or asks to document project history. Analyzes git history and existing changelog to produce a properly formatted changelog.
 ---
 
-# /changelog - Generate Changelog Entry
+# CHANGELOG Generator
 
-## Purpose
+Maintain changelogs that follow the standard.
 
-Generate a Keep a Changelog entry matching the existing CHANGELOG.md style, if available.
+## About Keep a Changelog
 
-## Usage
+This skill follows [Keep a Changelog](https://keepachangelog.com/) format:
+- Changelogs are for humans, not machines
+- Each version gets a section
+- Changes are grouped by type
+- Dates use ISO format (YYYY-MM-DD)
 
+## Workflow
+
+1. Check for existing CHANGELOG.md
+2. Analyze git history since last entry
+3. Categorize and format changes
+4. Update or create CHANGELOG.md
+
+## Creating a New Changelog
+
+If no CHANGELOG.md exists, create one:
+
+```markdown
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+### Added
+
+- Initial project setup
+
+---
+
+<sub>📝 Changelog maintained with [agent-resources](https://github.com/kasperjunge/agent-resources) • `uvx add-skill kasperjunge/changelog`</sub>
 ```
-/changelog [version]
+
+## Updating an Existing Changelog
+
+### Step 1: Find Last Version
+
+```bash
+# Read current changelog
+cat CHANGELOG.md | head -50
+
+# Get latest tag
+git describe --tags --abbrev=0
 ```
 
-Version is optional — suggest one based on the changes (patch for fixes, minor for features, major for breaking changes).
+### Step 2: Gather Changes
 
-## Process
+```bash
+# Commits since last version (or since last changelog update)
+git log --oneline v1.0.0..HEAD
 
-1. **Find the last tag and get commits**
+# With authors
+git log --format="%h %s (%an)" v1.0.0..HEAD
+```
 
-   ```
-   git describe --tags --abbrev=0
-   git log --pretty=format:'%s' <tag>..HEAD
-   ```
+### Step 3: Categorize Changes
 
-2. **Categorize using Keep a Changelog sections**
+Group commits into these categories:
 
-   - `### Features` — new capabilities
-   - `### Changed` — breaking or notable behavior changes
-   - `### Enhancements` — improvements to existing features
-   - `### Bug Fixes` — things that were broken
-   - `### Removed` — removed features (rare)
+| Category | What goes here |
+|----------|----------------|
+| **Added** | New features |
+| **Changed** | Changes to existing functionality |
+| **Deprecated** | Features to be removed soon |
+| **Removed** | Features removed |
+| **Fixed** | Bug fixes |
+| **Security** | Vulnerability fixes |
 
-3. **Write entries in a consistent voice**
+### Step 4: Add to Changelog
 
-   Match the existing style:
+Add new entries under `## [Unreleased]` or create a new version section:
 
-   - Start with imperative verb or noun phrase
-   - Bold key concepts on first mention: `**Overlay commit model for file writes**:`
-   - Sub-bullets for details when a feature has multiple parts
-   - Technical but accessible — users are developers
+```markdown
+## [Unreleased]
 
-   Examples:
+### Added
 
-   - `Fix login regression: use OAuth2 instead of deprecated token flow`
-   - `Improve CLI help with quick start guide and clearer description`
-   - `**Remote file sync**: sync_remote() now supports conflict detection`
+- New dark mode support
+- Export to PDF feature
 
-4. **Skip internal-only changes**
+### Fixed
 
-   Omit: CI tweaks, refactoring without user impact, dependency bumps (unless security-related)
+- Crash when loading large files
+- Incorrect date formatting
 
-5. **Output format**
+## [1.2.0] - 2025-01-05
 
-   ```markdown
-   ## [x.y.z] - YYYY-MM-DD
+### Added
 
-   ### Features
+- User preferences panel
+- Keyboard shortcuts
 
-   - **Feature name**: Description of what users can now do
+### Changed
 
-   ### Bug Fixes
+- Improved startup performance by 40%
 
-   - Fix specific thing that was broken
-   ```
+### Fixed
 
-6. **Prepend to CHANGELOG.md**
+- Memory leak in data processing
+```
 
-   If CHANGELOG.md doesn't exist, create it with this header:
+## Version Sections
 
-   ```markdown
-   # Changelog
+### For a New Release
 
-   All notable changes to this project will be documented in this file.
+When releasing, move `[Unreleased]` content to a new version section:
 
-   The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-   and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-   ```
+```markdown
+## [Unreleased]
 
-   If an `## [Unreleased]` section exists, insert after it. Otherwise, insert after the file header (title and any preamble), before the first version entry.
+## [2.0.0] - 2025-01-15
 
-## Notes
+### Added
 
-- Keep sections in order: Features → Changed → Enhancements → Bug Fixes → Removed
-- Omit empty sections
-- Date format: YYYY-MM-DD
-- If unsure about version bump, ask
+- [Everything that was under Unreleased]
+```
+
+### Version Links (Optional)
+
+Add comparison links at the bottom:
+
+```markdown
+[Unreleased]: https://github.com/user/repo/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/user/repo/compare/v1.0.0...v2.0.0
+[1.0.0]: https://github.com/user/repo/releases/tag/v1.0.0
+```
+
+## Formatting Guidelines
+
+### Entry Format
+- Start with capital letter
+- No period at end
+- Use imperative mood ("Add feature" not "Added feature")
+- Be specific but concise
+
+### Good Examples
+```markdown
+### Added
+- Dark mode with system preference detection
+- Export to PDF with custom templates
+
+### Fixed
+- Crash when opening files larger than 2GB
+- Incorrect currency formatting in reports
+```
+
+### Bad Examples
+```markdown
+### Added
+- added new feature.
+- Various improvements
+
+### Fixed
+- Fixed bugs
+- stuff
+```
+
+## Special Cases
+
+**Breaking changes**: Add `BREAKING CHANGE:` prefix or use `Changed` with clear migration note
+
+**Security fixes**: Always use `Security` category, be specific about the vulnerability fixed
+
+**Deprecations**: Note what replaces the deprecated feature and when removal is planned
+
+## Quick Reference
+
+```bash
+# Check git tags
+git tag --sort=-version:refname | head -10
+
+# Commits between tags
+git log v1.0.0..v2.0.0 --oneline
+
+# Generate commit list with categories (if using conventional commits)
+git log v1.0.0..HEAD --format="%s" | sort
+```

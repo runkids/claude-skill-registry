@@ -1,12 +1,7 @@
 {
   "name": "fastapi-production",
-  "description": "Production-grade FastAPI patterns for async APIs, SQLAlchemy 2.0, Pydantic v2, and robust error handling. Use when building API endpoints, handling database operations, implementing middleware, or opt",
   "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
-  "category": "data",
-  "tags": [
-    "fastapi",
-    "production"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/fastapi-production/SKILL.md",
+  "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager",
+  "downloaded_at": "2026-01-14T02:32:35.659875Z"
 }

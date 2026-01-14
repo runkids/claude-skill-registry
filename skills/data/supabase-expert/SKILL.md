@@ -1,200 +1,187 @@
 ---
 name: supabase-expert
-description: Expert guide for Supabase integration - database schemas, RLS policies, auth, Edge Functions, and real-time subscriptions. Use when working with Supabase backend features.
+description: >-
+  This skill should be used when the user asks to "create a Supabase table",
+  "write RLS policies", "set up Supabase Auth", "create Edge Functions",
+  "configure Storage buckets", "use Supabase with Next.js", "migrate API keys",
+  "implement row-level security", "create database functions", "set up SSR auth",
+  or mentions 'Supabase', 'RLS', 'Edge Function', 'Storage bucket', 'anon key',
+  'service role', 'publishable key', 'secret key'. Automatically triggers when
+  user mentions 'database', 'table', 'SQL', 'migration', 'policy'.
 ---
 
-# Supabase Integration Expert Skill
+# Supabase Expert
 
 ## Overview
 
-This skill helps you build secure, scalable Supabase integrations. Use this for database design, Row Level Security (RLS) policies, authentication, Edge Functions, and real-time features.
+Comprehensive guidance for working with Supabase including database operations, authentication, storage, edge functions, and Next.js integration. Enforces security patterns, performance optimizations, and modern best practices.
 
-## Core Principles
+## Critical Rules
 
-### 1. Security First
-- Always enable RLS on tables with user data
-- Use service role key only in secure server contexts
-- Use anon key for client-side operations
-- Test policies thoroughly
+### API Keys (New System)
 
-### 2. Type Safety
-- Generate TypeScript types from schema
-- Use generated types in application
-- Keep types in sync with schema changes
+Supabase now offers two key types with improved security:
 
-### 3. Performance
-- Use indexes for frequently queried columns
-- Implement pagination for large datasets
-- Use select() to limit returned fields
-- Cache when appropriate
+| Key Type | Prefix | Safety | Use Case |
+|----------|--------|--------|----------|
+| Publishable | `sb_publishable_...` | Safe for client | Browser, mobile, CLI |
+| Secret | `sb_secret_...` | Backend only | Servers, Edge Functions |
+| Legacy anon | JWT-based | Safe for client | Being deprecated |
+| Legacy service_role | JWT-based | Backend only | Being deprecated |
 
-## Database Schema Design
+**Key Rules:**
+- Secret keys return HTTP 401 if used in browser
+- New keys support independent rotation without downtime
+- Migrate from legacy keys when possible
 
-### Basic Table Creation
+**See `references/api-keys.md` for migration guide and security practices.**
 
-```sql
--- Create a table with standard fields
-create table public.items (
-  id uuid default gen_random_uuid() primary key,
-  created_at timestamp with time zone default timezone('utc'::text, now()) not null,
-  updated_at timestamp with time zone default timezone('utc'::text, now()) not null,
-  user_id uuid references auth.users(id) on delete cascade not null,
-  title text not null,
-  description text,
-  status text default 'draft' check (status in ('draft', 'published', 'archived'))
-);
+### Authentication SSR Rules
 
--- Create updated_at trigger
-create or replace function public.handle_updated_at()
-returns trigger as $$
-begin
-  new.updated_at = now();
-  return new;
-end;
-$$ language plpgsql;
+**NEVER USE (DEPRECATED):**
+- Individual cookie methods: `get()`, `set()`, `remove()`
+- Package: `@supabase/auth-helpers-nextjs`
 
-create trigger set_updated_at
-  before update on public.items
-  for each row
-  execute function public.handle_updated_at();
+**ALWAYS USE:**
+- Package: `@supabase/ssr`
+- Cookie methods: `getAll()` and `setAll()` ONLY
+- Proxy (formerly Middleware) MUST call `getUser()` to refresh session
+- Proxy MUST return `supabaseResponse` object
 
--- Create index
-create index items_user_id_idx on public.items(user_id);
-create index items_status_idx on public.items(status);
+> **Important:** As of Next.js 16+, use `proxy.ts` instead of `middleware.ts`. See https://nextjs.org/docs/app/api-reference/file-conventions/proxy
+
+**See `references/auth-ssr-patterns.md` for complete patterns.**
+
+### RLS Policy Rules
+
+- Always wrap functions in SELECT: `(SELECT auth.uid())` not `auth.uid()`
+- **SELECT**: USING only (no WITH CHECK)
+- **INSERT**: WITH CHECK only (no USING)
+- **UPDATE**: Both USING and WITH CHECK
+- **DELETE**: USING only (no WITH CHECK)
+- Always specify `TO authenticated` or `TO anon`
+- Create indexes on ALL columns used in policies
+- NEVER use `FOR ALL` - create 4 separate policies
+
+**See `references/rls-policy-patterns.md` for performance-optimized templates.**
+
+### Database Function Rules
+
+- **DEFAULT**: Use `SECURITY INVOKER` (safer than DEFINER)
+- **ALWAYS**: Set `search_path = ''` for security
+- **USE**: Fully qualified names (`public.table_name`)
+- **SPECIFY**: Correct volatility (IMMUTABLE/STABLE/VOLATILE)
+- **AVOID**: `SECURITY DEFINER` unless absolutely required
+
+### Edge Function Rules
+
+- **USE**: `Deno.serve` (not old serve import)
+- **IMPORTS**: Always use `npm:/jsr:/node:` prefix with version numbers
+- **SHARED**: Place shared code in `_shared/` folder
+- **FILES**: Write only to `/tmp` directory
+- **NEVER**: Use bare specifiers or cross-function dependencies
+
+**See `references/edge-function-templates.md` for complete templates.**
+
+### Storage Rules
+
+- Enable RLS on storage buckets
+- Use signed URLs for private content
+- Apply image transformations via URL parameters
+- Leverage CDN for public assets
+
+**See `references/storage-patterns.md` for setup and patterns.**
+
+## Workflow Decision Tree
+
+```
+User mentions database/Supabase work?
+├─> Creating new tables?
+│   └─> Use: Table Creation Workflow
+├─> Creating RLS policies?
+│   └─> Use: RLS Policy Workflow (references/rls-policy-patterns.md)
+├─> Creating database function?
+│   └─> Use: Database Function Workflow (references/sql-templates.md)
+├─> Setting up Auth?
+│   └─> Use: Auth SSR Workflow (references/auth-ssr-patterns.md)
+├─> Creating Edge Function?
+│   └─> Use: Edge Function Workflow (references/edge-function-templates.md)
+├─> Setting up Storage?
+│   └─> Use: Storage Workflow (references/storage-patterns.md)
+├─> Next.js integration?
+│   └─> Use: Next.js Patterns (references/nextjs-caveats.md)
+└─> API key questions?
+    └─> Use: API Keys Guide (references/api-keys.md)
 ```
 
-### Foreign Keys & Relations
+## Table Creation Workflow
 
-```sql
--- One-to-many relationship
-create table public.comments (
-  id uuid default gen_random_uuid() primary key,
-  created_at timestamp with time zone default now() not null,
-  item_id uuid references public.items(id) on delete cascade not null,
-  user_id uuid references auth.users(id) on delete cascade not null,
-  content text not null
-);
+**When to use:** Creating new database tables.
 
--- Many-to-many relationship
-create table public.item_tags (
-  item_id uuid references public.items(id) on delete cascade,
-  tag_id uuid references public.tags(id) on delete cascade,
-  primary key (item_id, tag_id)
-);
-```
+1. **Design table structure:**
+   - `id` (UUID PRIMARY KEY)
+   - `created_at`, `updated_at` (TIMESTAMPTZ)
+   - `created_by` (UUID reference to auth.users or profiles)
+   - Use snake_case for all identifiers
+   - Add comments on all tables
 
-## Row Level Security (RLS)
+2. **Follow template:**
+   ```sql
+   CREATE TABLE IF NOT EXISTS public.table_name (
+       id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+       name TEXT NOT NULL,
+       status TEXT DEFAULT 'active',
+       created_by UUID REFERENCES auth.users(id),
+       created_at TIMESTAMPTZ DEFAULT NOW(),
+       updated_at TIMESTAMPTZ DEFAULT NOW()
+   );
 
-### Basic RLS Patterns
+   COMMENT ON TABLE public.table_name IS 'Description';
+   ALTER TABLE public.table_name ENABLE ROW LEVEL SECURITY;
 
-```sql
--- Enable RLS
-alter table public.items enable row level security;
+   CREATE INDEX idx_table_name_status ON public.table_name(status);
+   ```
 
--- Users can read their own items
-create policy "Users can read own items"
-  on public.items for select
-  using (auth.uid() = user_id);
+3. **Enable RLS and create policies**
 
--- Users can insert their own items
-create policy "Users can insert own items"
-  on public.items for insert
-  with check (auth.uid() = user_id);
+4. **Create TypeScript types** for type safety
 
--- Users can update their own items
-create policy "Users can update own items"
-  on public.items for update
-  using (auth.uid() = user_id)
-  with check (auth.uid() = user_id);
+**See `references/sql-templates.md` for complete templates.**
 
--- Users can delete their own items
-create policy "Users can delete own items"
-  on public.items for delete
-  using (auth.uid() = user_id);
-```
+## Auth SSR Quick Reference
 
-### Advanced RLS Patterns
-
-```sql
--- Public read, authenticated write
-create policy "Anyone can read published items"
-  on public.items for select
-  using (status = 'published');
-
-create policy "Authenticated users can insert"
-  on public.items for insert
-  to authenticated
-  with check (true);
-
--- Role-based access
-create policy "Admins can do everything"
-  on public.items for all
-  using (
-    exists (
-      select 1 from public.user_roles
-      where user_id = auth.uid()
-      and role = 'admin'
-    )
-  );
-
--- Shared access
-create policy "Users can read shared items"
-  on public.items for select
-  using (
-    auth.uid() = user_id
-    or exists (
-      select 1 from public.item_shares
-      where item_id = items.id
-      and shared_with = auth.uid()
-    )
-  );
-```
-
-### Anonymous/Guest Access
-
-```sql
--- Allow anonymous reads
-create policy "Anonymous can read public content"
-  on public.items for select
-  to anon
-  using (status = 'published');
-
--- Allow anonymous inserts (for guest mode)
-create policy "Anonymous can create items"
-  on public.items for insert
-  to anon
-  with check (true);
-```
-
-## Client Integration
-
-### Setup Client (Next.js)
-
+**Browser Client:**
 ```typescript
-// lib/supabase/client.ts
 import { createBrowserClient } from '@supabase/ssr'
 
 export function createClient() {
   return createBrowserClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!
   )
 }
+```
 
-// lib/supabase/server.ts
+**Server Client:**
+```typescript
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 
-export function createServerClient() {
-  const cookieStore = cookies()
+export async function createClient() {
+  const cookieStore = await cookies()
 
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
     {
       cookies: {
-        get(name: string) {
-          return cookieStore.get(name)?.value
+        getAll() { return cookieStore.getAll() },
+        setAll(cookiesToSet) {
+          try {
+            cookiesToSet.forEach(({ name, value, options }) =>
+              cookieStore.set(name, value, options)
+            )
+          } catch { /* Ignore in Server Components */ }
         },
       },
     }
@@ -202,344 +189,183 @@ export function createServerClient() {
 }
 ```
 
-### CRUD Operations
-
+**Proxy (Critical) - replaces middleware.ts:**
 ```typescript
-// Query data
-const { data, error } = await supabase
-  .from('items')
-  .select('*')
-  .eq('status', 'published')
-  .order('created_at', { ascending: false })
-  .limit(10)
-
-// Insert data
-const { data, error } = await supabase
-  .from('items')
-  .insert({ title: 'New Item', user_id: userId })
-  .select()
-  .single()
-
-// Update data
-const { data, error } = await supabase
-  .from('items')
-  .update({ title: 'Updated Title' })
-  .eq('id', itemId)
-  .select()
-  .single()
-
-// Delete data
-const { error } = await supabase
-  .from('items')
-  .delete()
-  .eq('id', itemId)
-
-// Complex joins
-const { data, error } = await supabase
-  .from('items')
-  .select(`
-    *,
-    comments (
-      id,
-      content,
-      user:user_id (
-        email
-      )
-    )
-  `)
-  .eq('user_id', userId)
-```
-
-### Real-time Subscriptions
-
-```typescript
-// Subscribe to changes
-const channel = supabase
-  .channel('items-changes')
-  .on(
-    'postgres_changes',
-    {
-      event: '*',
-      schema: 'public',
-      table: 'items',
-      filter: `user_id=eq.${userId}`,
-    },
-    (payload) => {
-      console.log('Change received!', payload)
-      // Update local state
-    }
-  )
-  .subscribe()
-
-// Cleanup
-channel.unsubscribe()
-```
-
-## Authentication
-
-### Email/Password Auth
-
-```typescript
-// Sign up
-const { data, error } = await supabase.auth.signUp({
-  email: 'user@example.com',
-  password: 'password123',
-  options: {
-    data: {
-      display_name: 'User Name',
-    },
-  },
-})
-
-// Sign in
-const { data, error } = await supabase.auth.signInWithPassword({
-  email: 'user@example.com',
-  password: 'password123',
-})
-
-// Sign out
-const { error } = await supabase.auth.signOut()
-
-// Get current user
-const { data: { user } } = await supabase.auth.getUser()
-```
-
-### OAuth Providers
-
-```typescript
-// Google OAuth
-const { data, error } = await supabase.auth.signInWithOAuth({
-  provider: 'google',
-  options: {
-    redirectTo: `${window.location.origin}/auth/callback`,
-  },
-})
-
-// Handle callback
-// app/auth/callback/route.ts
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url)
-  const code = searchParams.get('code')
-
-  if (code) {
-    const supabase = createServerClient()
-    await supabase.auth.exchangeCodeForSession(code)
-  }
-
-  return NextResponse.redirect(new URL('/dashboard', request.url))
-}
-```
-
-### Auth Middleware
-
-```typescript
-// middleware.ts
+// proxy.ts (at root or src/ directory)
 import { createServerClient } from '@supabase/ssr'
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+import { NextResponse, type NextRequest } from 'next/server'
 
-export async function middleware(request: NextRequest) {
-  const response = NextResponse.next()
+export async function proxy(request: NextRequest) {
+  let supabaseResponse = NextResponse.next({ request })
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
     {
       cookies: {
-        get(name: string) {
-          return request.cookies.get(name)?.value
-        },
-        set(name: string, value: string, options: any) {
-          response.cookies.set(name, value, options)
-        },
-        remove(name: string, options: any) {
-          response.cookies.set(name, '', { ...options, maxAge: 0 })
+        getAll() { return request.cookies.getAll() },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value }) =>
+            request.cookies.set(name, value)
+          )
+          supabaseResponse = NextResponse.next({ request })
+          cookiesToSet.forEach(({ name, value, options }) =>
+            supabaseResponse.cookies.set(name, value, options)
+          )
         },
       },
     }
   )
 
-  const { data: { user } } = await supabase.auth.getUser()
+  // CRITICAL: Must call getUser() to refresh session
+  await supabase.auth.getUser()
 
-  // Redirect to login if not authenticated
-  if (!user && request.nextUrl.pathname.startsWith('/dashboard')) {
-    return NextResponse.redirect(new URL('/login', request.url))
-  }
-
-  return response
-}
-
-export const config = {
-  matcher: ['/dashboard/:path*'],
+  return supabaseResponse  // MUST return supabaseResponse
 }
 ```
 
-## Edge Functions
+## RLS Policy Quick Reference
 
-### Basic Edge Function
+| Operation | USING | WITH CHECK |
+|-----------|-------|------------|
+| SELECT | Required | Ignored |
+| INSERT | Ignored | Required |
+| UPDATE | Required | Required |
+| DELETE | Required | Ignored |
+
+**Example Policy:**
+```sql
+CREATE POLICY "Users view own records"
+ON public.table_name
+FOR SELECT
+TO authenticated
+USING ((SELECT auth.uid()) = user_id);
+```
+
+## Storage Quick Reference
+
+**Create bucket:**
+```sql
+INSERT INTO storage.buckets (id, name, public)
+VALUES ('avatars', 'avatars', false);
+```
+
+**Storage policy:**
+```sql
+CREATE POLICY "Users upload own avatar"
+ON storage.objects
+FOR INSERT
+TO authenticated
+WITH CHECK (
+  bucket_id = 'avatars' AND
+  (SELECT auth.uid())::text = (storage.foldername(name))[1]
+);
+```
+
+**Image transformation URL:**
+```
+/storage/v1/object/public/bucket/image.jpg?width=200&height=200&resize=cover
+```
+
+## Edge Function Quick Reference
 
 ```typescript
-// supabase/functions/hello/index.ts
-import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+import { createClient } from 'npm:@supabase/supabase-js@2'
 
-serve(async (req) => {
-  try {
-    // Get Supabase client
-    const supabase = createClient(
-      Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_ANON_KEY') ?? '',
-      {
-        auth: {
-          autoRefreshToken: false,
-          persistSession: false,
-        },
+Deno.serve(async (req: Request) => {
+  if (req.method === 'OPTIONS') {
+    return new Response('ok', {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'authorization, content-type',
       }
-    )
-
-    // Get user from auth header
-    const authHeader = req.headers.get('Authorization')
-    const token = authHeader?.replace('Bearer ', '')
-    const { data: { user } } = await supabase.auth.getUser(token)
-
-    if (!user) {
-      return new Response(
-        JSON.stringify({ error: 'Unauthorized' }),
-        { status: 401, headers: { 'Content-Type': 'application/json' } }
-      )
-    }
-
-    // Your logic here
-    const { data, error } = await supabase
-      .from('items')
-      .select('*')
-      .eq('user_id', user.id)
-
-    return new Response(
-      JSON.stringify({ data }),
-      { headers: { 'Content-Type': 'application/json' } }
-    )
-  } catch (error) {
-    return new Response(
-      JSON.stringify({ error: error.message }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
-    )
+    })
   }
+
+  // User-scoped client (respects RLS)
+  const supabase = createClient(
+    Deno.env.get('SUPABASE_URL')!,
+    Deno.env.get('SUPABASE_PUBLISHABLE_KEY')!,
+    { global: { headers: { Authorization: req.headers.get('Authorization')! } } }
+  )
+
+  // Admin client (bypasses RLS) - use SUPABASE_SECRET_KEY for admin operations
+  // const adminClient = createClient(
+  //   Deno.env.get('SUPABASE_URL')!,
+  //   Deno.env.get('SUPABASE_SECRET_KEY')!
+  // )
+
+  // Your logic here
+
+  return new Response(JSON.stringify({ success: true }), {
+    headers: { 'Content-Type': 'application/json' }
+  })
 })
 ```
 
-## Type Generation
+## PostgreSQL Style Guide
 
-```bash
-# Generate TypeScript types
-npx supabase gen types typescript --project-id your-project-id > types/supabase.ts
+- **lowercase** for SQL keywords
+- **snake_case** for tables and columns
+- **Plural** table names (users, orders)
+- **Singular** column names (user_id, order_date)
+- **Schema prefix** in queries (public.users)
+- **Comments** on all tables
+- **ISO 8601** dates
 
-# Use in code
-import { Database } from '@/types/supabase'
+## Pre-Flight Checklist
 
-type Item = Database['public']['Tables']['items']['Row']
-type ItemInsert = Database['public']['Tables']['items']['Insert']
-type ItemUpdate = Database['public']['Tables']['items']['Update']
-```
+Before ANY Supabase work:
 
-## Common Patterns
+- [ ] Using publishable key (`sb_publishable_...`) for client code
+- [ ] Using secret key (`sb_secret_...`) only in secure backend
+- [ ] Following table naming conventions
+- [ ] Enabled RLS on tables
+- [ ] Created indexes for policy columns
+- [ ] Wrapped auth functions in SELECT
+- [ ] Using @supabase/ssr with getAll/setAll
+- [ ] Edge Functions using Deno.serve
+- [ ] Imports have version numbers
 
-### Soft Deletes
+## Resources
 
-```sql
-alter table public.items add column deleted_at timestamp with time zone;
+### Reference Files (Load as needed)
 
-create policy "Users cannot see deleted items"
-  on public.items for select
-  using (deleted_at is null);
+- **`references/api-keys.md`** - New API key system, migration guide
+- **`references/storage-patterns.md`** - Storage setup, RLS, transformations
+- **`references/nextjs-caveats.md`** - Next.js specific patterns and gotchas
+- **`references/sql-templates.md`** - Complete SQL templates
+- **`references/rls-policy-patterns.md`** - Performance-optimized RLS patterns
+- **`references/auth-ssr-patterns.md`** - Complete Auth SSR implementation
+- **`references/edge-function-templates.md`** - Edge function templates
 
--- Soft delete function
-create or replace function soft_delete_item(item_id uuid)
-returns void as $$
-begin
-  update public.items
-  set deleted_at = now()
-  where id = item_id;
-end;
-$$ language plpgsql security definer;
-```
+## Common Mistakes to Avoid
 
-### Audit Logs
+1. Using auth.uid() without wrapping in SELECT
+2. Forgetting to create indexes on policy columns
+3. Using SECURITY DEFINER by default
+4. Mixing individual cookie methods (get/set/remove)
+5. Using bare import specifiers in Edge Functions
+6. Using secret keys in browser code
+7. Not calling getUser() in proxy
+8. Not returning supabaseResponse from proxy
+9. Using middleware.ts instead of proxy.ts (deprecated in Next.js 16+)
 
-```sql
-create table public.audit_logs (
-  id uuid default gen_random_uuid() primary key,
-  created_at timestamp with time zone default now() not null,
-  user_id uuid references auth.users(id),
-  table_name text not null,
-  record_id uuid not null,
-  action text not null,
-  changes jsonb
-);
+## Auth Providers Supported
 
--- Trigger function
-create or replace function public.audit_trigger()
-returns trigger as $$
-begin
-  insert into public.audit_logs (user_id, table_name, record_id, action, changes)
-  values (
-    auth.uid(),
-    TG_TABLE_NAME,
-    NEW.id,
-    TG_OP,
-    to_jsonb(NEW) - to_jsonb(OLD)
-  );
-  return NEW;
-end;
-$$ language plpgsql security definer;
-```
+Supabase Auth supports 20+ OAuth providers:
+- Google, GitHub, GitLab, Bitbucket
+- Apple, Microsoft, Facebook, Twitter
+- Discord, Slack, Spotify, Twitch
+- LinkedIn, Notion, Figma, Zoom
+- Phone auth (Twilio, MessageBird, Vonage)
+- Anonymous sign-ins
+- Enterprise SSO (SAML)
 
-## Troubleshooting
+**See `references/auth-ssr-patterns.md` for provider setup.**
 
-### Common Issues
+---
 
-1. **401 Errors**: Check RLS policies, ensure user is authenticated
-2. **403 Errors**: RLS policy blocking operation
-3. **Row not found**: Policy may be filtering it out
-4. **Connection issues**: Check URL and API keys
-5. **Type mismatches**: Regenerate types after schema changes
-
-### Debugging RLS
-
-```sql
--- Test as specific user
-set request.jwt.claims = '{"sub": "user-uuid-here"}';
-
--- Check what policies apply
-select * from pg_policies where tablename = 'items';
-
--- Disable RLS temporarily (for testing only!)
-alter table public.items disable row level security;
-```
-
-## Best Practices Checklist
-
-- [ ] Enable RLS on all tables with user data
-- [ ] Create indexes for foreign keys and frequently queried columns
-- [ ] Use UUID for primary keys
-- [ ] Add created_at and updated_at timestamps
-- [ ] Implement soft deletes for important data
-- [ ] Use check constraints for enum-like fields
-- [ ] Generate and use TypeScript types
-- [ ] Test RLS policies thoroughly
-- [ ] Use service role key only server-side
-- [ ] Implement proper error handling
-- [ ] Add audit logs for sensitive operations
-- [ ] Use transactions for multi-step operations
-
-## When to Use This Skill
-
-Invoke this skill when:
-- Designing database schemas
-- Creating or debugging RLS policies
-- Setting up authentication
-- Building Edge Functions
-- Implementing real-time features
-- Troubleshooting Supabase issues
-- Optimizing database queries
-- Setting up type generation
+**Skill Version:** 2.0.0
+**Last Updated:** 2025-01-01
+**Documentation:** https://supabase.com/docs

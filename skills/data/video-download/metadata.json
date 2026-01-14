@@ -1,9 +1,7 @@
 {
   "name": "video-download",
-  "description": "YouTube等から動画をダウンロード。オフライン視聴、教育コンテンツ保存、クリエイティブ素材収集に使用。",
   "repo": "taiyousan15/taisun_agent",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/video-download/SKILL.md",
+  "source": "github.com/taiyousan15/taisun_agent",
+  "downloaded_at": "2026-01-14T03:51:10.758050Z"
 }

@@ -1,8 +1,7 @@
 {
   "name": "slack-usage",
   "repo": "fcakyon/claude-codex-settings",
-  "category": "data",
-  "description": "This skill should be used when user asks to \"search Slack for messages\", \"find Slack messages about X\", \"get channel history\", \"look up conversation in Slack\", or \"find what someone said in Slack\".",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:27.223511Z"
+  "path": "plugins/slack-tools/skills/slack-usage/SKILL.md",
+  "source": "github.com/fcakyon/claude-codex-settings",
+  "downloaded_at": "2026-01-14T02:19:29.419595Z"
 }

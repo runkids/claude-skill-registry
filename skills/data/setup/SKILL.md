@@ -1,47 +1,144 @@
 ---
-name: setup
-description: Sets up a Mac for ButterCut. Installs all required dependencies (Homebrew, Ruby, Python, FFmpeg, WhisperX). Use when user says "install buttercut", "set up my mac", "get started", "first time setup", "install dependencies" or "check my installation".
+name: pm-requirements:setup
+source_bundle: pm-requirements
+description: Standards for setting up requirements and specification documentation in new CUI projects with proper directory structure and initial documents
+version: 0.1-BETA
+allowed-tools: [Read]
 ---
 
-# Skill: Mac Setup
+# Project Setup Standards for Requirements Documentation
 
-Sets up a Mac for ButterCut. Two installation paths available based on user preference.
+Standards for establishing requirements and specification documentation structure in new CUI projects, including directory layout, initial document creation, and prefix selection.
 
-## Step 1: Check Current State
+## What This Skill Provides
 
-First, run the verification script to see what's already installed:
+This skill provides comprehensive standards for:
 
-```bash
-ruby .claude/skills/setup/verify_install.rb
+- **Directory Structure**: Standard layout for requirements documentation
+- **Prefix Selection**: Choosing appropriate requirement prefixes for projects
+- **Document Templates**: Ready-to-use templates for initial documentation
+- **Setup Workflow**: Step-by-step process for establishing documentation
+- **Quality Verification**: Checklist for validating setup completeness
+- **Lifecycle Integration**: Integrating documentation throughout project phases
+
+## When to Use This Skill
+
+Use this skill when:
+
+- Starting a new CUI project that needs requirements documentation
+- Setting up documentation structure before implementation
+- Standardizing documentation across multiple projects
+- Onboarding teams to CUI documentation practices
+- Establishing traceability from project inception
+
+## Workflow
+
+### Step 1: Understand Documentation Principles
+
+Load core principles and directory structure:
+
+```
+Read: standards/directory-structure.md
+Read: standards/lifecycle-integration.md
 ```
 
-If all dependencies pass, inform the user they're ready to go.
+These standards provide:
+- Required directory layout and file organization
+- Documentation-first approach principles
+- Minimal vs. complete setup guidance
+- Integration with project lifecycle phases
 
-## Step 2: Ask User Preference
+### Step 2: Select Requirement Prefix
 
-If dependencies are missing, use AskUserQuestion:
+Load prefix selection guidance:
 
 ```
-Question: "How would you like to install ButterCut?"
-Header: "Install type"
-Options:
-  1. "Simple (recommended)" - "Fully automatic setup. We'll install everything for you using sensible defaults."
-  2. "Advanced" - "For developers who want control. You manage Ruby/Python versions with your preferred tools."
+Read: standards/prefix-selection.md
 ```
 
-## Step 3: Run Appropriate Setup
+This standard provides:
+- Recommended prefixes by domain
+- Custom prefix guidelines
+- Hierarchical prefix patterns
+- Cross-domain project guidance
 
-Based on user choice:
+### Step 3: Create Initial Documents
 
-- **Simple**: Read and follow `.claude/skills/setup/simple-setup.md`
-- **Advanced**: Read and follow `.claude/skills/setup/advanced-setup.md`
+Load document templates:
 
-## Step 4: Verify Installation
-
-After setup completes, run verification again:
-
-```bash
-ruby .claude/skills/setup/verify_install.rb
+```
+Read: standards/document-templates.md
 ```
 
-Report results to user.
+This standard provides templates for:
+- Requirements.adoc
+- Specification.adoc
+- Individual specification files
+- LogMessages.adoc
+
+### Step 4: Follow Setup Workflow
+
+Load workflow guidance:
+
+```
+Read: standards/setup-workflow.md
+```
+
+This standard provides:
+- Step-by-step setup process
+- Common setup issues and solutions
+- Cross-reference verification steps
+
+### Step 5: Verify Quality
+
+Load quality checklist:
+
+```
+Read: standards/quality-checklist.md
+```
+
+This standard provides:
+- Documentation structure verification
+- Content quality checks
+- Traceability validation
+
+## Integration with Other Skills
+
+This skill works with other pm-requirements bundle skills:
+
+**After Setup** → `pm-requirements:requirements-authoring`
+- Use after initial setup to create comprehensive requirements
+- Provides detailed authoring standards for requirements content
+
+**After Setup** → `pm-requirements:planning`
+- Create planning documents for implementation tracking
+- Provides task organization and status tracking
+
+**During Implementation** → `pm-requirements:traceability`
+- Link requirements to implementation code
+- Maintain bi-directional traceability
+
+## Quick Reference
+
+**Typical Setup Sequence**:
+1. Create directory structure (`mkdir -p doc/specification`)
+2. Select requirement prefix (see prefix-selection.md)
+3. Create Requirements.adoc from template
+4. Create Specification.adoc from template
+5. Create individual specification documents
+6. Verify with quality checklist
+
+**Minimum Files Required**:
+- `doc/Requirements.adoc`
+- `doc/Specification.adoc`
+
+**Complete Setup Includes**:
+- Requirements.adoc, Specification.adoc
+- Individual specification documents in `doc/specification/`
+- LogMessages.adoc (if logging required)
+
+## Related Documentation
+
+- **CUI Documentation Standards**: General AsciiDoc formatting and structure
+- **Logging Standards**: LogMessages.adoc content requirements
+- **Git Standards**: Committing documentation files

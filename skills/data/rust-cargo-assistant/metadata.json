@@ -1,13 +1,7 @@
 {
   "name": "rust-cargo-assistant",
-  "description": "Cargo build system, crate management, and Rust project configuration assistance.",
   "repo": "CuriousLearner/devkit",
-  "category": "development",
-  "tags": [
-    "rust",
-    "cargo",
-    "assistant"
-  ],
-  "stars": 13,
-  "source": "local"
+  "path": "skills/rust-cargo-assistant/SKILL.md",
+  "source": "github.com/CuriousLearner/devkit",
+  "downloaded_at": "2026-01-14T02:22:38.494517Z"
 }

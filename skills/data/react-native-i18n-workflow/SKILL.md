@@ -1,11 +1,11 @@
 ---
 name: react-native-i18n-workflow
-description: Manages internationalization strings and translation workflows using i18next and react-i18next. Use when adding new text, supporting additional languages, or implementing pluralization and interpolation in Purrsuit Mobile App.
+description: Manages internationalization strings and translation workflows using i18next and react-i18next. Use when adding new text, supporting additional languages, or implementing pluralization and interpolation in Fitness Tracker App.
 ---
 
 # React Native i18n Workflow
 
-This skill handles the internationalization (i18n) workflow for the Purrsuit Mobile App, ensuring type-safe translations and consistent language support.
+This skill handles the internationalization (i18n) workflow for the Fitness Tracker App, ensuring type-safe translations and consistent language support.
 
 ## When to Use This Skill
 
@@ -31,7 +31,7 @@ const en = {
   },
   homeScreen: {
     title: "My Collection",
-    deleteAlertMessage: "Delete this {{petType}} encounter?",
+    deleteAlertMessage: "Delete this {{category}} workout?",
   }
 }
 export default en
@@ -46,7 +46,7 @@ Use the standalone `translate` function for non-component logic:
 import { translate } from "@/i18n"
 
 const title = translate("homeScreen:title")
-const message = translate("homeScreen:deleteAlertMessage", { petType: "cat" })
+const message = translate("homeScreen:deleteAlertMessage", { category: "cat" })
 ```
 
 ### 2. The `tx` Prop

@@ -1,11 +1,7 @@
 {
   "name": "google-workspace",
-  "description": "Manage Google Workspace with Docs, Sheets, Slides, Drive, Gmail, Calendar, and Contacts operations. Full document/spreadsheet/presentation editing, file management, email, and scheduling.",
-  "repo": "andmarios/google-workspace-skill",
-  "category": "data",
-  "tags": [
-    "google",
-    "workspace"
-  ],
-  "stars": 0
+  "repo": "jezweb/claude-skills",
+  "path": "skills/google-workspace/SKILL.md",
+  "source": "github.com/jezweb/claude-skills",
+  "downloaded_at": "2026-01-14T04:01:49.994643Z"
 }

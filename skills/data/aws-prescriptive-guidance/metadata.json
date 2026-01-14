@@ -1,13 +1,7 @@
 {
   "name": "aws-prescriptive-guidance",
-  "description": "AWS Prescriptive Guidance for best practices and architectural patterns. Use for AWS architecture recommendations, SageMaker AI endpoints guidance, deployment patterns, and AWS solution architectures.",
   "repo": "rish2jain/paperresearchagent",
-  "category": "data",
-  "tags": [
-    "aws",
-    "prescriptive",
-    "guidance"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/aws-prescriptive-guidance/SKILL.md",
+  "source": "github.com/rish2jain/paperresearchagent",
+  "downloaded_at": "2026-01-14T04:02:37.631539Z"
 }

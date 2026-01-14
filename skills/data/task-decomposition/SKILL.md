@@ -1,298 +1,381 @@
 ---
 name: task-decomposition
-description: Break down OAK plans into structured tasks using oak.plan-tasks conventions.
-  Use when generating tasks.md, structuring work for export to GitHub/ADO, or organizing
-  implementation phases.
+description: Break down complex tasks into atomic, actionable goals with clear dependencies and success criteria. Use this skill when you need to plan multi-step projects, coordinate agents, or decompose complex user requests into manageable sub-tasks.
 ---
 
-# OAK Task Decomposition
+# Task Decomposition
 
-This skill provides expertise in breaking down OAK implementation plans into actionable, well-structured tasks suitable for the `tasks.md` format and export to issue trackers.
+Enable effective planning and execution by decomposing high-level objectives into manageable, testable sub-tasks.
 
-## OAK Task System Overview
+## When to Use
 
-### Tasks in the OAK Workflow
+- Complex user requests with multiple components
+- Multi-phase projects requiring coordination
+- Tasks that could benefit from parallel execution
+- When planning agent coordination strategies
 
+## Decomposition Framework
+
+### 1. Requirements Analysis
+
+**Extract Information**:
+- Primary objective (what user wants to achieve)
+- Implicit requirements (quality, performance, documentation)
+- Constraints (time, resources, compatibility)
+- Success criteria (how to measure completion)
+
+**Questions to Ask**:
+- What is the core goal?
+- What are the sub-goals that contribute to the main goal?
+- What are the dependencies between sub-goals?
+- What could go wrong and how to prevent it?
+
+### 2. Goal Hierarchy
+
+**Top-Down Decomposition**:
 ```
-/oak.plan-create    /oak.plan-research    /oak.plan-tasks      /oak.plan-export
-      │                    │                    │                     │
-      ↓                    ↓                    ↓                     ↓
-  plan.md           research/*.md          tasks.md    ────►   GitHub Issues
-                                                               or ADO Work Items
-                                               │
-                                               ↓
-                                       /oak.plan-implement
-                                         (execute tasks)
+Main Goal: [High-level objective]
+├─ Sub-goal 1: [Component 1]
+│  ├─ Task 1.1: [Atomic action]
+│  └─ Task 1.2: [Atomic action]
+├─ Sub-goal 2: [Component 2]
+│  ├─ Task 2.1: [Atomic action]
+│  └─ Task 2.2: [Atomic action]
+└─ Sub-goal 3: [Component 3]
+   └─ Task 3.1: [Atomic action]
 ```
 
-### File Structure
+**Atomic Task Criteria**:
+- Single, clear action
+- Well-defined inputs and outputs
+- Can be completed by one agent
+- Testable/verifiable completion
+- Time-bounded (estimable duration)
 
+### 3. Dependency Mapping
+
+**Dependency Types**:
+
+**Sequential Dependencies**:
 ```
-oak/plan/<plan-name>/
-├── plan.md              # Goals, scope, research topics
-├── research/            # Research findings
-├── tasks.md             # Generated task breakdown (THIS FILE)
-└── .manifest.json       # Tracks task completion state
+Task A → Task B → Task C
+(B requires A's output, C requires B's output)
 ```
 
-## When to Use This Skill
+**Parallel Independent**:
+```
+Task A ─┐
+Task B ─┼─ [All can run simultaneously]
+Task C ─┘
+```
 
-Use when you need to:
-- Generate `tasks.md` from plan and research (`/oak.plan-tasks`)
-- Structure work for sprint planning
-- Define task dependencies and ordering
-- Create acceptance criteria aligned with plan goals
-- Prepare tasks for export to GitHub/ADO
+**Converging Dependencies**:
+```
+Task A ─┐
+Task B ─┼─> Task D (requires A, B, C)
+Task C ─┘
+```
 
-## OAK Task Hierarchy
+**Resource Dependencies**:
+```
+Task A (needs resource X)
+Task B (needs resource X)
+→ Sequential or resource pooling required
+```
 
-### Level 1: Epic
-- Theme-level grouping (maps to plan Goals)
-- Multiple sprints of work
-- Business objective alignment
+### 4. Success Criteria Definition
 
-### Level 2: Story
-- User-visible functionality
-- Single sprint deliverable
-- Clear acceptance criteria
+For each task, define:
 
-### Level 3: Task
-- Technical implementation unit
-- Hours to a few days of work
-- Independently testable
+**Input Requirements**:
+- What data/state is needed to start
+- What resources must be available
+- What preconditions must be met
 
-### Level 4: Subtask
-- Granular work item
-- Single session of work
-- Part of larger task
+**Output Expectations**:
+- What artifacts will be produced
+- What state changes will occur
+- What metrics define success
 
-## OAK tasks.md Format
+**Quality Standards**:
+- Performance requirements
+- Code quality standards (from AGENTS.md)
+- Testing requirements
+- Documentation requirements
 
-This is the expected format for `oak/plan/<name>/tasks.md`:
+## Decomposition Process
+
+### Step 1: Understand the Goal
 
 ```markdown
-# Tasks: [Plan Name]
+User Request: [Original request]
+
+Analysis:
+- Primary Goal: [Main objective]
+- Type: [Implementation/Debug/Refactor/Analysis]
+- Domain: [Specific area of codebase]
+- Complexity: [Simple/Medium/Complex]
+```
+
+### Step 2: Identify Major Components
+
+Break main goal into 3-7 major components:
+
+```markdown
+Main Goal: Implement batch pattern update feature
+
+Major Components:
+1. Database layer (Turso + redb)
+2. API layer (public interface)
+3. Business logic (batch processing)
+4. Testing (unit + integration)
+5. Documentation (API docs + examples)
+```
+
+### Step 3: Decompose Each Component
+
+For each component, identify atomic tasks:
+
+```markdown
+Component: Database layer
+
+Tasks:
+1. Design batch schema/structure
+   - Input: Pattern data structures
+   - Output: Schema definition
+   - Success: Supports efficient batch operations
+
+2. Implement Turso batch operations
+   - Input: Schema, patterns array
+   - Output: Batch insert/update functions
+   - Success: Atomic transaction, proper error handling
+
+3. Implement redb batch caching
+   - Input: Schema, patterns array
+   - Output: Batch cache update functions
+   - Success: Fast writes, consistency maintained
+```
+
+### Step 4: Map Dependencies
+
+```markdown
+Dependency Graph:
+
+[Design schema] ──┬──> [Implement Turso batch] ──┐
+                  │                               ├──> [Write tests]
+                  └──> [Implement redb batch] ───┘
+
+[Write tests] ──> [Write documentation]
+```
+
+### Step 5: Assign Priorities
+
+**Priority Levels**:
+- **P0 (Critical)**: Must complete for goal achievement
+- **P1 (Important)**: Significantly improves quality/functionality
+- **P2 (Nice-to-have)**: Enhances but not essential
+
+**Prioritization Factors**:
+- Blocks other tasks (critical path)
+- High user value
+- Risk reduction (address unknowns early)
+- Quick wins (early validation)
+
+### Step 6: Estimate Complexity
+
+For each task:
+```markdown
+Task: [Name]
+- Complexity: [Low/Medium/High]
+- Effort: [Small/Medium/Large]
+- Risk: [Low/Medium/High]
+- Dependencies: [List]
+```
+
+## Decomposition Patterns
+
+### Pattern 1: Layer-Based Decomposition
+
+For architectural changes:
+```
+1. Data/Storage layer
+2. Business logic layer
+3. API/Interface layer
+4. Testing layer
+5. Documentation layer
+```
+
+### Pattern 2: Feature-Based Decomposition
+
+For new features:
+```
+1. Core functionality (MVP)
+2. Error handling & edge cases
+3. Performance optimization
+4. Integration with existing system
+5. Testing & validation
+6. Documentation & examples
+```
+
+### Pattern 3: Phase-Based Decomposition
+
+For large projects:
+```
+Phase 1: Research & Design
+Phase 2: Foundation & Infrastructure
+Phase 3: Core Implementation
+Phase 4: Integration & Testing
+Phase 5: Optimization & Polish
+Phase 6: Documentation & Release
+```
+
+### Pattern 4: Problem-Solution Decomposition
+
+For debugging/fixing:
+```
+1. Reproduce issue
+2. Diagnose root cause
+3. Design solution
+4. Implement fix
+5. Verify fix
+6. Prevent regression (tests)
+```
+
+## Example Decompositions
+
+### Example 1: Simple Task
+
+```markdown
+Request: "Fix failing test in pattern extraction"
+
+Analysis: Simple, focused task
+
+Decomposition:
+1. Run test to observe failure
+2. Identify failure cause
+3. Apply fix
+4. Verify test passes
+5. Check for similar issues
+
+Dependencies: Sequential (1→2→3→4→5)
+Complexity: Low
+Strategy: Single agent, sequential execution
+```
+
+### Example 2: Medium Task
+
+```markdown
+Request: "Add caching to episode retrieval"
+
+Analysis: Medium complexity, multiple components
+
+Decomposition:
+1. Design cache strategy
+2. Implement cache layer
+3. Integrate with retrieval
+4. Add tests
+5. Measure performance
+
+Dependencies:
+- 1 → 2 → 3 (sequential)
+- 4 depends on 3
+- 5 depends on 3
+
+Strategy: Sequential with parallel testing
+```
+
+### Example 3: Complex Task
+
+```markdown
+Request: "Refactor storage layer to support multiple backends"
+
+Analysis: High complexity, architectural change
+
+Major Components:
+1. Storage abstraction layer
+2. Turso backend implementation
+3. redb backend implementation
+4. Backend factory & configuration
+5. Migration utilities
+6. Testing infrastructure
+7. Documentation
+
+Strategy: Multi-phase hybrid execution
+Coordination: GOAP agent + multiple specialized agents
+```
+
+## Quality Checklist
+
+### Good Decomposition Characteristics
+
+✓ Each task is atomic and actionable
+✓ Dependencies are clearly identified
+✓ Success criteria are measurable
+✓ Complexity is appropriately estimated
+✓ All requirements are covered
+✓ No task is too large (>4 hours work)
+✓ Parallelization opportunities identified
+
+### Common Pitfalls
+
+✗ Tasks too large or vague
+✗ Missing dependencies
+✗ Unclear success criteria
+✗ Over-decomposition (too granular)
+✗ Missing quality/testing tasks
+✗ No consideration for error handling
+✗ Forgetting documentation tasks
+
+## Integration with GOAP Agent
+
+The GOAP agent uses task decomposition as its first phase:
+
+1. **Receive user request**
+2. **Apply decomposition framework** (this skill)
+3. **Create execution plan** (agent-coordination skill)
+4. **Execute with monitoring** (parallel-execution skill)
+5. **Report results**
+
+## Tips for Effective Decomposition
+
+### 1. Start with Why
+- Understand the true goal behind the request
+- Identify implicit requirements
+- Consider broader context
+
+### 2. Think Top-Down
+- Start with high-level components
+- Decompose each component separately
+- Stop at appropriate granularity
+
+### 3. Consider the User
+- What value does each task provide?
+- Can tasks be reordered for faster feedback?
+- What's the minimum viable solution?
+
+### 4. Plan for Quality
+- Include testing tasks
+- Include documentation tasks
+- Include review/validation tasks
+
+### 5. Anticipate Issues
+- What could go wrong?
+- What are the unknowns?
+- Where are the risks?
+
+### 6. Enable Parallelization
+- Identify truly independent tasks
+- Break dependencies where possible
+- Consider resource constraints
 
 ## Summary
-[Brief overview of task breakdown approach]
 
-## Epic 1: [Epic Title - from plan Goal]
+Good task decomposition is the foundation of effective planning and coordination. By breaking complex goals into atomic, well-defined tasks with clear dependencies, you enable:
 
-### Story 1.1: [Story Title]
-**Priority**: High/Medium/Low
-**Estimate**: S/M/L or points
-**Depends on**: [Story IDs if any]
+- Optimal execution strategies (parallel/sequential)
+- Clear success criteria and validation
+- Effective agent coordination
+- Better progress tracking
+- Higher quality outcomes
 
-#### Acceptance Criteria
-- [ ] [Criterion 1 - verifiable]
-- [ ] [Criterion 2 - from plan success criteria]
-- [ ] Tests pass per constitution requirements
-
-#### Tasks
-- [ ] **Task 1.1.1**: [Action verb] [specific what] (S)
-  - File: `path/to/file.py`
-  - Details: [Implementation notes from research]
-
-- [ ] **Task 1.1.2**: [Action verb] [specific what] (M)
-  - Depends on: 1.1.1
-  - File: `path/to/file.py`
-  - Pattern: [Reference similar implementation]
-
-### Story 1.2: [Story Title]
-**Priority**: Medium
-**Estimate**: M
-
-#### Acceptance Criteria
-- [ ] [Criterion]
-
-#### Tasks
-- [ ] **Task 1.2.1**: [Task description] (S)
-
-## Epic 2: [Epic Title]
-...
-
-## Dependencies Graph
-
-```
-1.1.1 → 1.1.2 → 1.2.1
-         ↓
-       1.1.3 → 2.1.1
-```
-
-## Testing Tasks (Constitution-Driven)
-
-Per constitution testing requirements:
-- [ ] Unit tests for [component] - coverage target: [%]
-- [ ] Integration tests for [workflow]
-- [ ] [TDD note if constitution requires test-first]
-
-## Documentation Tasks
-
-Per constitution documentation requirements:
-- [ ] Update [specific docs]
-- [ ] Add inline comments for complex logic
-- [ ] Update API docs (if applicable)
-
-## Notes
-- [Important consideration from research]
-- [Risk mitigation approach]
-```
-
-## Task Generation from Plan + Research
-
-### Step 1: Map Goals to Epics
-
-```markdown
-# From plan.md:
-## Goals
-- Implement user authentication       → Epic 1: Authentication
-- Add API rate limiting               → Epic 2: Rate Limiting
-- Create admin dashboard              → Epic 3: Admin Dashboard
-```
-
-### Step 2: Derive Stories from Scope
-
-```markdown
-# From plan.md:
-## Scope
-### In Scope
-- OAuth2 integration                  → Story 1.1: OAuth2 Setup
-- Session management                  → Story 1.2: Session Handling
-- JWT token refresh                   → Story 1.3: Token Management
-```
-
-### Step 3: Inform Tasks from Research
-
-```markdown
-# From research/auth-patterns.md:
-## Recommendation
-Use existing AuthService pattern at src/services/auth.py
-
-# Becomes:
-- [ ] **Task 1.1.1**: Extend AuthService with OAuth2 provider (M)
-  - File: `src/services/auth.py`
-  - Pattern: Follow existing provider pattern (lines 45-80)
-```
-
-### Step 4: Apply Constitution Requirements
-
-```markdown
-# From oak/constitution.md:
-## Testing
-- MUST have 80% coverage for new code
-- SHOULD use TDD for complex logic
-
-# Add to tasks:
-## Testing Tasks (Constitution-Driven)
-- [ ] Write tests BEFORE implementation (TDD per constitution)
-- [ ] Achieve 80% coverage for auth module
-```
-
-## OAK Phased Task Structure
-
-Standard OAK phases (adjust based on constitution):
-
-**Phase 1: Setup & Investigation**
-```markdown
-- [ ] Setup: Review plan context and research findings
-- [ ] Setup: Identify affected modules from codebase exploration
-- [ ] Setup: Configure dependencies per constitution
-```
-
-**Phase 2: Core Implementation** (or Phase 3 if TDD)
-```markdown
-- [ ] Implement: [Requirement 1]
-  - File: [path]
-  - Function: [name]
-  - Pattern: [reference]
-```
-
-**Phase 3: Testing** (or Phase 2 if TDD)
-```markdown
-- [ ] Test: [Component] unit tests
-  - File: `tests/unit/test_[component].py`
-  - Coverage: [target %]
-```
-
-**Phase 4: Integration**
-```markdown
-- [ ] Integration: Connect with [related system]
-- [ ] Integration: End-to-end workflow verification
-```
-
-**Phase 5: Polish & Documentation**
-```markdown
-- [ ] Documentation: Update [files per constitution]
-- [ ] Quality: Run linters per constitution
-- [ ] Quality: Final constitution compliance check
-```
-
-## Task Quality Checklist
-
-Every task should have:
-- [ ] **Clear title** - Action verb + specific what
-- [ ] **File reference** - Where work happens
-- [ ] **Size estimate** - S/M/L or points
-- [ ] **Dependencies** - What must come first
-- [ ] **Acceptance criteria** at story level
-
-## Estimation Guidelines (OAK Convention)
-
-### T-Shirt Sizing
-| Size | Complexity | Example |
-|------|-----------|---------|
-| XS | Trivial | Config change |
-| S | Low | Simple function |
-| M | Medium | New feature |
-| L | High | Complex integration |
-| XL | Very High | Should decompose further |
-
-### Story Points (Alternative)
-| Points | Description |
-|--------|-------------|
-| 1 | Trivial, well-understood |
-| 3 | Moderate, some unknowns |
-| 5 | Complex, needs investigation |
-| 8+ | Too large, decompose |
-
-## Export Considerations
-
-Tasks in `tasks.md` can export to:
-
-**GitHub Issues** (`/oak.plan-export`)
-- Epics → Milestones or Labels
-- Stories → Issues with acceptance criteria
-- Tasks → Checklist items in issue body
-
-**Azure DevOps** (`/oak.plan-export`)
-- Epics → Epics
-- Stories → User Stories
-- Tasks → Tasks linked to stories
-
-## Best Practices
-
-1. **INVEST criteria** - Independent, Negotiable, Valuable, Estimatable, Small, Testable
-2. **Vertical slices** - Deliver user value, not horizontal layers
-3. **Right-size tasks** - S/M preferred, L should be rare
-4. **Front-load risk** - Put unknown work early
-5. **Include testing** - Tests are not optional add-ons
-6. **Reference files** - Always include specific paths
-
-## Integration with OAK Commands
-
-| Command | Task Role |
-|---------|-----------|
-| `/oak.plan-create` | Defines goals → epics |
-| `/oak.plan-research` | Informs implementation details |
-| `/oak.plan-tasks` | **Generates tasks.md** |
-| `/oak.plan-implement` | Executes tasks with tracking |
-| `/oak.plan-export` | Exports to issue tracker |
-| `/oak.plan-validate` | Validates task completeness |
-
-## Quick Reference
-
-- **Tasks location**: `oak/plan/<name>/tasks.md`
-- **State tracking**: `oak/plan/<name>/.manifest.json`
-- **Input**: `plan.md` goals + `research/*.md` findings
-- **Constitution**: Check `oak/constitution.md` for test/doc requirements
-- **Export targets**: GitHub Issues, Azure DevOps Work Items
+Use this skill as the first step in any complex task planning workflow.

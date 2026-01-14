@@ -1,13 +1,7 @@
 {
   "name": "moai-lang-typescript",
-  "description": "Enterprise TypeScript with strict typing and modern ecosystem TypeScript 5.9.3, Next.js 16, Turbopack, React 19, tRPC, Zod for type-safe schemas; activates for full-stack development, API contract def",
-  "repo": "modu-ai/moai-adk",
-  "category": "development",
-  "tags": [
-    "moai",
-    "lang",
-    "typescript"
-  ],
-  "stars": 310,
-  "source": "SkillsMP Synced Skills"
+  "repo": "windysky/claude_notification_wsl2",
+  "path": ".claude/skills/moai-lang-typescript/SKILL.md",
+  "source": "github.com/windysky/claude_notification_wsl2",
+  "downloaded_at": "2026-01-14T04:03:31.585357Z"
 }

@@ -1,10 +1,7 @@
 {
   "name": "qa-gate",
-  "description": "Create or update a quality gate decision for a story or code changes. Runs quality checks, specialist reviews, and produces a persistent YAML gate file with actionable findings. Supports PASS, CONCERN",
-  "repo": "michael-menard/monorepo",
-  "category": "data",
-  "tags": [
-    "gate"
-  ],
-  "stars": 0
+  "repo": "resolve-io/.prism",
+  "path": "plugins/prism-devtools/skills/qa-gate/SKILL.md",
+  "source": "github.com/resolve-io/.prism",
+  "downloaded_at": "2026-01-14T03:09:55.293875Z"
 }

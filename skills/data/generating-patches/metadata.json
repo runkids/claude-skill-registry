@@ -1,12 +1,7 @@
 {
   "name": "generating-patches",
-  "description": "Generates git patch files from codebase modifications for local application. Use when user mentions patch, diff, export changes, bring changes back, apply locally, or after editing uploaded codebases.",
-  "repo": "oaustegard/oaustegard.github.io",
-  "category": "development",
-  "tags": [
-    "generating",
-    "patches"
-  ],
-  "stars": 4,
-  "source": "local"
+  "repo": "oaustegard/claude-skills",
+  "path": "generating-patches/SKILL.md",
+  "source": "github.com/oaustegard/claude-skills",
+  "downloaded_at": "2026-01-14T03:03:24.242194Z"
 }

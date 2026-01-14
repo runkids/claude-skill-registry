@@ -1,11 +1,7 @@
 {
   "name": "helm",
-  "description": "Helm chart development, deployment, and management. Activate for helm install, upgrade, charts, values, templates, and Kubernetes package management.",
-  "repo": "Lobbi-Docs/claude",
-  "category": "devops",
-  "tags": [
-    "helm"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "markus41/lobbi-design-system",
+  "path": ".claude/skills/helm/SKILL.md",
+  "source": "github.com/markus41/lobbi-design-system",
+  "downloaded_at": "2026-01-14T03:18:07.188620Z"
 }

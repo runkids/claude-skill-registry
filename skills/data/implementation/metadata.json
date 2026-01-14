@@ -1,11 +1,7 @@
 {
   "name": "implementation",
-  "description": "Implement features with code, tests, and documentation. Use when building features from approved designs following TDD and project coding standards.",
-  "repo": "matteocervelli/llms",
-  "category": "development",
-  "tags": [
-    "implementation"
-  ],
-  "stars": 10,
-  "source": "local"
+  "repo": "forrestthewoods/anubis",
+  "path": ".claude/skills/implementation/SKILL.md",
+  "source": "github.com/forrestthewoods/anubis",
+  "downloaded_at": "2026-01-14T03:53:18.537875Z"
 }

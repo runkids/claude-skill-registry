@@ -1,9 +1,7 @@
 {
   "name": "md-docs",
-  "description": "This skill should be used when the user asks to \"update README\", \"update context files\", \"init context\", \"create CLAUDE.md\", \"update CLAUDE.md\", \"update AGENTS.md\", \"update DOCS.md\", \"generate documen",
   "repo": "PaulRBerg/dot-claude",
-  "category": "documents",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/md-docs/SKILL.md",
+  "source": "github.com/PaulRBerg/dot-claude",
+  "downloaded_at": "2026-01-14T02:00:27.644540Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "gask",
-  "description": "Async via gask, end turn immediately; use only when user explicitly delegates to Gemini (ask/@gemini/let gemini/review); NOT for questions about Gemini itself.",
-  "repo": "bfly123/claude_code_bridge",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/gask/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-14T01:56:12.707508Z"
 }

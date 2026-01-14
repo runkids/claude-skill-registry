@@ -1,11 +1,7 @@
 {
   "name": "unsloth-sft",
-  "description": "Supervised fine-tuning using SFTTrainer, instruction formatting, and multi-turn dataset preparation with triggers like sft, instruction tuning, chat templates, sharegpt, alpaca, conversation_extension",
   "repo": "cuba6112/skillfactory",
-  "category": "data",
-  "tags": [
-    "unsloth",
-    "sft"
-  ],
-  "stars": 0
+  "path": "skills/unsloth-sft/SKILL.md",
+  "source": "github.com/cuba6112/skillfactory",
+  "downloaded_at": "2026-01-14T02:37:40.503551Z"
 }

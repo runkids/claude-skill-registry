@@ -1,13 +1,7 @@
 {
   "name": "openai-whisper-api",
-  "description": "Transcribe audio via OpenAI Audio Transcriptions API (Whisper).",
-  "repo": "steipete/clawdis",
-  "category": "data",
-  "tags": [
-    "openai",
-    "whisper",
-    "api"
-  ],
-  "stars": 430,
-  "source": "SkillsMP Synced Skills"
+  "repo": "clawdbot/clawdbot",
+  "path": "skills/openai-whisper-api/SKILL.md",
+  "source": "github.com/clawdbot/clawdbot",
+  "downloaded_at": "2026-01-14T04:05:35.194754Z"
 }

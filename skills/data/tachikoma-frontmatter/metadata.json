@@ -1,11 +1,7 @@
 {
   "name": "tachikoma-frontmatter",
-  "description": "Analyze Context Lake entities and fix frontmatter issues. Use when asked to run frontmatter cleanup, fix missing fields, validate frontmatter against schema, or standardize entity metadata.",
   "repo": "joshuacook/motoko",
-  "category": "data",
-  "tags": [
-    "tachikoma",
-    "frontmatter"
-  ],
-  "stars": 0
+  "path": ".claude/skills/tachikoma-frontmatter/SKILL.md",
+  "source": "github.com/joshuacook/motoko",
+  "downloaded_at": "2026-01-14T03:14:06.384824Z"
 }

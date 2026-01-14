@@ -1,13 +1,7 @@
 {
   "name": "developing-openapi-specs",
-  "description": "Guide for contributing to the OpenAPI layer using processor pattern, complexity management, and functional programming. Use when adding endpoint factories, processors, parameter descriptions, reducing",
-  "repo": "VilnaCRM-Org/core-service",
-  "category": "development",
-  "tags": [
-    "developing",
-    "openapi",
-    "specs"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "VilnaCRM-Org/user-service",
+  "path": ".claude/skills/developing-openapi-specs/SKILL.md",
+  "source": "github.com/VilnaCRM-Org/user-service",
+  "downloaded_at": "2026-01-14T02:10:10.966619Z"
 }

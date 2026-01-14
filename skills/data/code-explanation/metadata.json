@@ -1,12 +1,7 @@
 {
   "name": "code-explanation",
-  "description": "Use when explaining code, concepts, or system behavior to a specific audience level - provides a structured explanation workflow with depth control and validation steps.",
   "repo": "NickCrew/claude-cortex",
-  "category": "development",
-  "tags": [
-    "code",
-    "explanation"
-  ],
-  "stars": 4,
-  "source": "SkillsMP Synced Skills"
+  "path": "claude_ctx_py/assets/skills/code-explanation/SKILL.md",
+  "source": "github.com/NickCrew/claude-cortex",
+  "downloaded_at": "2026-01-14T02:11:12.020344Z"
 }

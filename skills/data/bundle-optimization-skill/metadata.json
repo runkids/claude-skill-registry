@@ -1,9 +1,7 @@
 {
   "name": "bundle-optimization-skill",
-  "description": "Bundle size reduction strategies, icon optimization, tree-shaking, and performance analysis. Use when reducing bundle size or optimizing imports.",
   "repo": "omerakben/omer-akben",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "GitHub Search API"
+  "path": ".claude/skills/bundle-optimization-skill/SKILL.md",
+  "source": "github.com/omerakben/omer-akben",
+  "downloaded_at": "2026-01-14T01:18:57.420539Z"
 }

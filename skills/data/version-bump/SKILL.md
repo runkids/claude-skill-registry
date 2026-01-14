@@ -1,101 +1,98 @@
 ---
 name: version-bump
-description: Manage semantic version updates for any project. Handles patch, minor, and major version increments following semantic versioning. Updates all version-tracked files (e.g., package.json, pyproject.toml, etc.). Creates git tags and GitHub releases. Auto-generates CHANGELOG.md from releases.
+description: Determines appropriate semantic version bumps based on changes. Use when deciding version numbers, evaluating breaking changes, or planning releases. Triggers on terms like "version", "semver", "breaking change", "major/minor/patch".
 ---
 
-# Version Bump Skill
+# Semantic Versioning Skill
 
-Manage semantic versioning across any project with consistent updates to all version-tracked files.
+This skill helps determine appropriate version bumps following [Semantic Versioning](https://semver.org/).
+
+## Version Format
+
+```
+MAJOR.MINOR.PATCH
+```
+
+- **MAJOR**: Breaking changes
+- **MINOR**: New features, backwards compatible
+- **PATCH**: Bug fixes, backwards compatible
+
+## Version Bump Decision Tree
+
+### MAJOR (X.0.0) - Breaking Changes
+
+Bump MAJOR when you make incompatible API changes:
+
+- Removed public functions, methods, or types
+- Changed function signatures (parameters, return types)
+- Renamed public APIs
+- Changed default behavior that breaks existing usage
+- Removed CLI flags or changed their meaning
+- Changed configuration file format incompatibly
+
+### MINOR (0.X.0) - New Features
+
+Bump MINOR when you add functionality in a backwards compatible manner:
+
+- New commands or subcommands
+- New CLI flags
+- New configuration options
+- New output formats
+- New integrations or providers
+
+### PATCH (0.0.X) - Bug Fixes
+
+Bump PATCH when you make backwards compatible bug fixes:
+
+- Fix incorrect behavior
+- Fix crashes or errors
+- Performance improvements (no API changes)
+- Documentation fixes
+- Internal refactoring (no behavior changes)
 
 ## Quick Reference
 
-**Common files requiring updates:**
-1. `package.json` (line 3) - Node.js projects
-2. `pyproject.toml` - Python projects
-3. Additional project-specific version files
+| Change Type                      | Version Bump |
+|----------------------------------|--------------|
+| Breaking API change              | MAJOR        |
+| Removed feature                  | MAJOR        |
+| New command/feature              | MINOR        |
+| New CLI flag                     | MINOR        |
+| New provider/integration         | MINOR        |
+| Bug fix                          | PATCH        |
+| Performance fix                  | PATCH        |
+| Documentation only               | PATCH        |
+| Refactoring (no behavior change) | PATCH        |
 
-**Semantic versioning:**
-- **PATCH** (x.y.Z): Bugfixes only
-- **MINOR** (x.Y.0): New features, backward compatible
-- **MAJOR** (X.0.0): Breaking changes
+## Pre-1.0 Versioning
 
-## Quick Decision Guide
+For versions < 1.0.0 (like this project):
+- MINOR can include breaking changes
+- PATCH is for bug fixes and small features
+- More flexibility before reaching stability
 
-**What changed?**
-- "Fixed a bug" → PATCH (5.3.0 → 5.3.1)
-- "Added new feature" → MINOR (5.3.0 → 5.4.0)
-- "Breaking change" → MAJOR (5.3.0 → 6.0.0)
+## Instructions
 
-**If unclear, ASK THE USER explicitly.**
+1. Review all changes since last release:
+   ```bash
+   git log --oneline $(git describe --tags --abbrev=0)..HEAD
+   ```
 
-## Standard Workflow
+2. Check for breaking changes:
+   - Removed or renamed public APIs?
+   - Changed default behaviors?
+   - Incompatible configuration changes?
 
-See [operations/workflow.md](operations/workflow.md) for detailed step-by-step process.
+3. If breaking changes exist -> MAJOR bump
 
-**Quick version:**
-1. Determine version type (PATCH/MINOR/MAJOR)
-2. Calculate new version from current
-3. Preview changes to user
-4. Update ALL THREE files
-5. Verify consistency
-6. Build and test
-7. Commit and create git tag
-8. Push and create GitHub release
-9. Generate CHANGELOG.md from releases and commit
-10. Post Discord notification
+4. If new features exist -> MINOR bump
 
-## Common Scenarios
+5. If only fixes/refactoring -> PATCH bump
 
-See [operations/scenarios.md](operations/scenarios.md) for examples:
-- Bug fix releases
-- New feature releases
-- Breaking change releases
+## Version Update Locations
 
-## Critical Rules
+When bumping version, update:
 
-**ALWAYS:**
-- Update ALL files with matching version numbers
-- Create git tag with format `vX.Y.Z`
-- Create GitHub release from the tag
-- Generate CHANGELOG.md from releases after creating release
-- Post Discord notification after release
-- Ask user if version type is unclear
-
-**NEVER:**
-- Update only one files
-- Skip the verification step
-- Forget to create git tag or GitHub release
-
-## Verification Checklist
-
-Before considering the task complete:
-- [ ] All files have matching version numbers
-- [ ] `bun run build` succeeds
-- [ ] Git commit created with all version files
-- [ ] Git tag created (format: vX.Y.Z)
-- [ ] Commit and tags pushed to remote
-- [ ] GitHub release created from the tag
-- [ ] CHANGELOG.md generated and committed
-- [ ] Discord notification sent
-
-## Reference Commands
-
-```bash
-# View current version (Node.js)
-grep '"version"' package.json
-
-# View current version (Python)
-grep '^version' pyproject.toml
-
-# Verify consistency across all version files (adjust paths as needed)
-grep '"version"' package.json pyproject.toml
-
-# View git tags
-git tag -l -n1
-
-# Check what will be committed
-git status
-git diff package.json pyproject.toml
-```
-
-For more commands, see [operations/reference.md](operations/reference.md).
+1. **Cargo.toml** - `version = "X.Y.Z"`
+2. **CHANGELOG.md** - Add `## [X.Y.Z] - YYYY-MM-DD` section
+3. **Version links** - Update comparison URLs at bottom of CHANGELOG.md

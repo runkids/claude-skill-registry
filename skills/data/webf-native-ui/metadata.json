@@ -1,9 +1,7 @@
 {
   "name": "webf-native-ui",
-  "description": "Setup and use WebF",
   "repo": "openwebf/webf",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "GitHub Search API"
+  "path": "skills/webf-native-ui/SKILL.md",
+  "source": "github.com/openwebf/webf",
+  "downloaded_at": "2026-01-14T02:29:49.691395Z"
 }

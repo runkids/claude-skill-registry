@@ -1,266 +1,137 @@
 ---
 name: requirements-engineering
-description: Transform vague feature ideas into clear, testable requirements using EARS format. Capture user stories, define acceptance criteria, identify edge cases, and validate completeness before moving to design.
-license: MIT
-compatibility: Claude Code, Cursor, VS Code, Windsurf
-metadata:
-  category: methodology
-  complexity: beginner
-  author: Kiro Team
-  version: "1.0.0"
+description: |
+  カール・ウィーガーズの要求工学とIEEE 830に基づき、ステークホルダーニーズを抽出し、検証可能な要件に落とし込むための体系的なスキル。
+  スコープ定義、要件抽出、仕様化、品質検証、合意形成までの一貫プロセスを提供する。
+
+  Anchors:
+  • 『Software Requirements』（Karl Wiegers） / 適用: 要件工学 / 目的: 品質要件の明確化
+  • IEEE 830 / 適用: 要件仕様の構造 / 目的: 一貫したドキュメント化
+  • ISO/IEC 25010 / 適用: 非機能要件分類 / 目的: 品質特性の網羅
+
+  Trigger:
+  Use when defining system requirements, eliciting stakeholder needs, validating requirement quality, or drafting requirements documents.
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Bash
+  - Glob
+  - Grep
 ---
 
-# Requirements Engineering
+# 要件エンジニアリング
 
-Master the art of capturing what needs to be built before diving into how to build it. This skill teaches the EARS (Easy Approach to Requirements Syntax) format for creating clear, testable requirements.
+## 概要
 
-## When to Use This Skill
+要件エンジニアリングの全工程（スコープ整理→要件抽出→仕様化→品質検証→合意形成）を、短いサイクルで反復できるように設計したスキル。
+詳細な手順は `references/` に段階的に分割し、実務では `assets/requirements-document.md` を基準として成果物を統一する。
 
-Use requirements engineering when:
-- Starting any new feature or project
-- Clarifying ambiguous stakeholder requests
-- Creating acceptance criteria for user stories
-- Documenting system behavior for testing
-- Ensuring all team members share understanding
+## ワークフロー
 
-## The EARS Format
+### Phase 1: スコープと前提の整理
 
-EARS provides consistent patterns for writing requirements that are specific, testable, and unambiguous.
+**目的**: 目的・範囲・制約・ステークホルダーを確定し、作業の起点を作る
 
-### Basic Patterns
+**アクション**:
 
-**Event-Response (Most Common):**
-```
-WHEN [triggering event] THEN [system] SHALL [required response]
-```
+1. 依頼背景とビジネス目的を確認する
+2. ステークホルダーの一覧と役割を整理する
+3. スコープ内/外を明示し、前提条件と制約を整理する
+4. 既存資料の所在を `references/requirements-index.md` で確認する
+5. 合意可能な成功指標を定義する
 
-**Conditional Behavior:**
-```
-IF [precondition is met] THEN [system] SHALL [required response]
-```
+### Phase 2: 要件抽出（Elicitation）
 
-**Complex Conditions:**
-```
-WHEN [event] AND [additional condition] THEN [system] SHALL [response]
-```
+**目的**: ニーズと課題を収集し、要件候補を漏れなく集める
 
-**Optional Conditions:**
-```
-WHEN [event] OR [alternative event] THEN [system] SHALL [response]
-```
+**アクション**:
 
-### Advanced Patterns
+1. ヒアリング/ワークショップ/観察の計画を立てる
+2. ステークホルダーの意図・問題・期待を記録する
+3. 機能要件/非機能要件の候補を分類する
+4. 衝突や重複を仮整理し、未確定事項を洗い出す
 
-**State-Based:**
-```
-WHEN [system is in specific state] THEN [system] SHALL [behavior]
-```
+### Phase 3: 要件仕様化
 
-**Performance:**
-```
-WHEN [user action] THEN [system] SHALL [respond within X seconds/milliseconds]
-```
+**目的**: 要件を検証可能な形式に落とし込み、成果物を標準化する
 
-**Security:**
-```
-IF [authentication condition] THEN [system] SHALL [security response]
-```
+**アクション**:
 
-## Step-by-Step Process
+1. `assets/requirements-document.md` をベースに要件定義書を作成する
+2. 要件IDを付与し、FR/NFRを明確に区分する
+3. 受け入れ基準と依存関係を記述する
+4. 優先度やリスクを明記し、合意候補を整理する
 
-### Step 1: Capture User Stories
+### Phase 4: 品質検証と合意
 
-Format: **As a [role], I want [feature], so that [benefit]**
+**目的**: 要件の品質を検証し、レビューで合意を得る
 
-Focus on:
-- Who is the user? (role)
-- What do they want to accomplish? (feature)
-- Why does it matter? (benefit/value)
+**アクション**:
 
-**Example:**
-```markdown
-As a returning customer, I want to save my payment methods, so that I can checkout faster in the future.
-```
+1. `references/quality-criteria.md` と `references/completeness-checklist.md` で品質確認
+2. `references/ambiguity-detection.md` で曖昧性を除去する
+3. `scripts/validate-requirements.mjs` で自動検証を行う
+4. レビュー結果を反映し、承認を取得する
+5. `scripts/log_usage.mjs` で実行記録を残す
 
-### Step 2: Generate Acceptance Criteria
+## Task仕様ナビ
 
-For each user story, define specific acceptance criteria using EARS:
+| Phase   | Task                          | 入力                               | 出力                                     | リソース                                                  |
+| ------- | ----------------------------- | ---------------------------------- | ---------------------------------------- | --------------------------------------------------------- |
+| Phase 1 | scope-stakeholder-alignment   | 依頼背景、既存資料                 | スコープ定義、ステークホルダーマップ     | agents/scope-stakeholder-alignment.md                    |
+| Phase 2 | requirements-elicitation      | ステークホルダー一覧、前提条件     | 要件候補リスト、未確定事項               | agents/requirements-elicitation.md                       |
+| Phase 3 | requirements-specification    | 要件候補リスト、制約条件           | 要件定義書、要件ID一覧                   | agents/requirements-specification.md                     |
+| Phase 4 | requirements-quality-review   | 要件定義書、レビュー観点           | 品質レビュー結果、修正一覧               | agents/requirements-quality-review.md                    |
 
-**Example for payment methods:**
-```markdown
-**User Story:** As a returning customer, I want to save my payment methods, so that I can checkout faster.
+## ベストプラクティス
 
-**Acceptance Criteria:**
-1. WHEN user adds a valid credit card THEN system SHALL securely store card details
-2. WHEN user adds a card with invalid number THEN system SHALL display validation error
-3. WHEN user has saved cards THEN system SHALL display list during checkout
-4. WHEN user selects saved card THEN system SHALL pre-fill payment form
-5. WHEN user deletes saved card THEN system SHALL remove card from list
-6. IF user is not authenticated THEN system SHALL redirect to login before saving card
-7. WHEN user adds card THEN system SHALL mask all but last 4 digits in display
-```
+### すべきこと
 
-### Step 3: Identify Edge Cases
+1. **スコープの明確化**: スコープ内/外を初期に合意し、後続の混乱を防ぐ
+2. **多面的な要件抽出**: ヒアリング、観察、既存資料の3経路で要求を集める
+3. **IDと受け入れ基準の付与**: すべての要件にIDと検証条件を付ける
+4. **品質チェックの二重化**: 自動検証と手動チェックリストを併用する
+5. **合意と記録**: レビュー結果と修正履歴をログとして残す
 
-For each requirement, ask:
-- What if the input is empty/null?
-- What if the input is at boundary values?
-- What if the operation fails?
-- What if the user is not authorized?
-- What if there are concurrent operations?
-
-**Edge case patterns:**
-```markdown
-**Error Handling:**
-- WHEN [operation fails] THEN system SHALL [display error / retry / log]
-
-**Boundary Conditions:**
-- WHEN [value equals minimum/maximum] THEN system SHALL [specific behavior]
-
-**Concurrent Access:**
-- WHEN [multiple users access same resource] THEN system SHALL [conflict resolution]
-
-**Empty States:**
-- WHEN [collection is empty] THEN system SHALL [display empty state message]
-```
-
-### Step 4: Validate Requirements
-
-Use this checklist:
-
-**Completeness:**
-- [ ] All user roles identified and addressed
-- [ ] Normal flow scenarios covered
-- [ ] Edge cases documented
-- [ ] Error cases handled
-- [ ] Business rules captured
+### 避けるべきこと
 
-**Clarity:**
-- [ ] Each requirement uses precise language
-- [ ] No ambiguous terms (fast, easy, user-friendly)
-- [ ] Technical jargon avoided or defined
-- [ ] Expected behaviors are specific
-
-**Consistency:**
-- [ ] EARS format used throughout
-- [ ] Terminology consistent across requirements
-- [ ] No contradictory requirements
-- [ ] Similar scenarios handled similarly
+1. **目的・前提の曖昧化**: 目的が定義されないまま要件を書き始める
+2. **単一ステークホルダー依存**: 1人の意見だけで要件を固定する
+3. **曖昧表現の放置**: 量的/質的曖昧性を残したまま合意しない
+4. **品質検証のスキップ**: チェックリストと自動検証のどちらかを省略する
+5. **承認記録の欠落**: 合意の証跡が残らない状態で実装へ進む
 
-**Testability:**
-- [ ] Each requirement can be verified
-- [ ] Success criteria are observable
-- [ ] Inputs and expected outputs specified
-- [ ] Performance requirements are measurable
-
-## Common Mistakes to Avoid
+## リソース参照
 
-### Mistake 1: Vague Requirements
-**Bad:** "System should be fast"
-**Good:** "WHEN user submits search THEN system SHALL return results within 2 seconds"
+### レベル別ガイド
 
-### Mistake 2: Implementation Details
-**Bad:** "System shall use Redis for caching"
-**Good:** "WHEN user requests frequently accessed data THEN system SHALL return cached results"
+- **references/Level1_basics.md**: 基礎理論と最低限の運用指針
+- **references/Level2_intermediate.md**: リソース運用と実務プロセス
+- **references/Level3_advanced.md**: モデリング、トレーサビリティ、リスク分析
+- **references/Level4_expert.md**: フィードバックループと改善運用
 
-### Mistake 3: Missing Error Cases
-**Bad:** Only documenting happy path
-**Good:** Include WHEN/IF statements for all error conditions
-
-### Mistake 4: Untestable Requirements
-**Bad:** "System should be user-friendly"
-**Good:** "WHEN new user completes onboarding THEN system SHALL require no more than 3 clicks to reach main dashboard"
-
-### Mistake 5: Conflicting Requirements
-**Bad:** Requirements that contradict each other
-**Good:** Review all requirements together, resolve conflicts explicitly
-
-## Examples
-
-### Example 1: File Upload Feature
-
-```markdown
-**User Story:** As a user, I want to upload files, so that I can share documents with my team.
-
-**Acceptance Criteria:**
-1. WHEN user selects file under 10MB THEN system SHALL accept file for upload
-2. WHEN user selects file over 10MB THEN system SHALL display "file too large (max 10MB)" error
-3. WHEN user selects unsupported file type THEN system SHALL display "unsupported format" error with list of allowed types
-4. WHEN upload is in progress THEN system SHALL display progress indicator with percentage
-5. WHEN upload completes successfully THEN system SHALL display success message with file link
-6. WHEN upload fails due to network error THEN system SHALL display retry option
-7. IF user is not authenticated THEN system SHALL redirect to login before upload
-8. WHEN user uploads file with same name as existing file THEN system SHALL prompt for rename or replace
-
-**Supported File Types:** PDF, DOC, DOCX, XLS, XLSX, PNG, JPG, GIF
-**Maximum File Size:** 10MB
-**Maximum Files Per Upload:** 5
-```
-
-### Example 2: Search Feature
-
-```markdown
-**User Story:** As a customer, I want to search products, so that I can find items quickly.
-
-**Acceptance Criteria:**
-1. WHEN user enters search term THEN system SHALL display matching products
-2. WHEN search returns results THEN system SHALL show result count
-3. WHEN search returns no results THEN system SHALL display "no products found" with suggestions
-4. WHEN user searches with special characters THEN system SHALL sanitize input and search
-5. WHEN user submits empty search THEN system SHALL display validation message
-6. WHEN results exceed 20 items THEN system SHALL paginate with 20 items per page
-7. WHEN user searches THEN system SHALL return results within 2 seconds
-8. WHEN user types in search box THEN system SHALL show autocomplete suggestions after 3 characters
-
-**Search Fields:** Product name, description, category, SKU
-**Minimum Search Length:** 2 characters
-```
-
-## Requirements Document Template
-
-```markdown
-# Requirements Document: [Feature Name]
-
-## Overview
-[Brief description of the feature and its purpose]
-
-## User Roles
-- [Role 1]: [Description of this user type]
-- [Role 2]: [Description of this user type]
-
-## Requirements
-
-### Requirement 1: [Name]
-**User Story:** As a [role], I want [feature], so that [benefit]
-
-**Acceptance Criteria:**
-1. WHEN [event] THEN system SHALL [response]
-2. IF [condition] THEN system SHALL [response]
-3. WHEN [event] AND [condition] THEN system SHALL [response]
-
-**Edge Cases:**
-- [Edge case 1 and how it's handled]
-- [Edge case 2 and how it's handled]
-
-### Requirement 2: [Name]
-[Continue pattern...]
-
-## Non-Functional Requirements
-- **Performance:** [Specific metrics]
-- **Security:** [Security requirements]
-- **Accessibility:** [Accessibility standards]
-
-## Out of Scope
-- [Items explicitly not included in this feature]
-
-## Open Questions
-- [Questions that need stakeholder input]
-```
-
-## Next Steps
-
-After completing requirements:
-1. Review with stakeholders for accuracy
-2. Get explicit approval before proceeding
-3. Move to Design Phase to create technical architecture
-4. Use requirements as foundation for acceptance testing
+### 特化リソース
+
+- **references/ambiguity-detection.md**: 曖昧性パターンと除去技法
+- **references/completeness-checklist.md**: 要件の完全性チェックリスト
+- **references/quality-criteria.md**: 要件品質の評価基準
+- **references/triage-framework.md**: 要件の優先度付けフレームワーク
+- **references/requirements-index.md**: docs/00-requirements の索引
+
+### テンプレート
+
+- **assets/requirements-document.md**: 要件定義書の標準テンプレート
+
+### スクリプト
+
+- **scripts/validate-requirements.mjs**: 要件定義書の品質検証
+- **scripts/validate-skill.mjs**: スキル構造の整合性確認
+- **scripts/log_usage.mjs**: 使用記録と評価の更新
+
+## 変更履歴
+
+| Version | Date       | Changes                                                                                 |
+| ------- | ---------- | --------------------------------------------------------------------------------------- |
+| 1.1.0   | 2026-01-02 | ワークフロー再設計、Task仕様ナビ追加、agents作成、参照パス整備、検証スクリプト更新 |
+| 1.0.0   | 2025-12-31 | 18-skills.md仕様に基づいた完全改定、Task仕様ナビの追加、Anchors/Triggerの統合           |

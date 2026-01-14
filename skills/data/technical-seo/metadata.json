@@ -1,11 +1,7 @@
 {
   "name": "technical-seo",
-  "description": "Implements Schema.org structured data for AndesRC articles. Adds ExercisePlan, HowTo, and FAQPage markup. Optimizes meta titles and descriptions. Use before publication.",
-  "repo": "dasalazarr/andes",
-  "category": "data",
-  "tags": [
-    "technical",
-    "seo"
-  ],
-  "stars": 0
+  "repo": "deomiarn/website-template",
+  "path": ".claude/skills/technical-seo/SKILL.md",
+  "source": "github.com/deomiarn/website-template",
+  "downloaded_at": "2026-01-14T01:42:32.846569Z"
 }

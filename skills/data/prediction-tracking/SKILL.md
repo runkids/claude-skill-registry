@@ -1,118 +1,177 @@
 ---
-name: content-filter
-description: Filter and classify AI research content for relevance. Use when processing raw content from Twitter, Substacks, blogs, or podcasts to determine if it's worth extracting claims from. Assigns relevance scores, topics, and author categories.
+name: prediction-tracking
+description: Track and evaluate AI predictions over time to assess accuracy. Use when reviewing past predictions to determine if they came true, failed, or remain uncertain.
 ---
 
-# Content Filter Skill
+# Prediction Tracking Skill
 
-Assess content for relevance to AI research intelligence gathering. Filter noise and classify what remains.
+Track predictions made by AI researchers and critics, evaluate their accuracy over time.
 
-## Assessment Criteria
+## Prediction Recording
 
-### 1. Relevance Score (0.0-1.0)
+When recording a new prediction, capture:
 
-How relevant is this to understanding AI research progress, capabilities, limitations, or field direction?
+### Required Fields
+- **text**: The prediction as stated
+- **author**: Who made it
+- **madeAt**: When it was made
+- **timeframe**: When they expect it to happen
+- **topic**: What area of AI
+- **confidence**: How confident they seemed
 
-| Score Range | Meaning | Examples |
-|-------------|---------|----------|
-| 0.0-0.3 | Not relevant | Personal updates, off-topic, promotional |
-| 0.3-0.6 | Tangentially relevant | General tech news, adjacent topics |
-| 0.6-0.8 | Relevant | Discusses AI research, capabilities, field |
-| 0.8-1.0 | Highly relevant | Substantive claims, predictions, research insights |
+### Optional Fields
+- **sourceUrl**: Where the prediction was made
+- **targetDate**: Specific date if mentioned
+- **conditions**: Any caveats or conditions
+- **metrics**: How to measure success
 
-### 2. Topic Classification
+## Evaluation Status
 
-Assign ONE primary topic:
+When evaluating predictions, assign one of:
 
-- `scaling`: Scaling laws, compute, training efficiency
-- `reasoning`: LLM reasoning, chain-of-thought, planning capabilities
-- `agents`: AI agents, tool use, autonomy
-- `safety`: AI safety, alignment, control
-- `interpretability`: Mechanistic interpretability, understanding models
-- `multimodal`: Vision, audio, video models
-- `rlhf`: RLHF, preference learning, Constitutional AI
-- `robotics`: Embodied AI, robotics
-- `benchmarks`: Evals, benchmarks, capability measurement
-- `infrastructure`: Training infra, chips, hardware
-- `policy`: AI policy, regulation, governance
-- `general`: General AI commentary
-- `other`: Doesn't fit above categories
+### `verified`
+Clearly came true as stated.
+- The predicted capability/event occurred
+- Within the stated timeframe
+- Substantially as described
 
-### 3. Content Type
+### `falsified`
+Clearly did not come true.
+- Timeframe passed without occurrence
+- Contradictory evidence emerged
+- Author retracted or modified claim
 
-What kind of content is this?
+### `partially-verified`
+Partially accurate.
+- Some aspects came true, others didn't
+- Capability exists but weaker than claimed
+- Timeframe was off but direction correct
 
-- `prediction`: Makes claims about future AI capabilities/timelines
-- `research-hint`: Hints at ongoing/unpublished research
-- `opinion`: Expresses opinion on AI progress/direction
-- `factual`: Reports factual information about released work
-- `critique`: Critiques AI capabilities or claims
-- `meta`: Meta-commentary on the field
-- `noise`: Not substantive
+### `too-early`
+Not enough time has passed.
+- Still within stated timeframe
+- No definitive evidence either way
 
-### 4. Substantiveness
+### `unfalsifiable`
+Cannot be objectively assessed.
+- Too vague to measure
+- No clear success criteria
+- Moved goalposts
 
-Does this contain actual claims, arguments, or insights?
+### `ambiguous`
+Prediction was too vague to evaluate.
+- Multiple interpretations possible
+- Success criteria unclear
 
-**Substantive examples:**
-- "We found that CoT prompting shows diminishing returns beyond 8 steps"
-- "The next generation will likely solve ARC-AGI"
-- "Interpretability research is underrated"
+## Evaluation Process
 
-**Non-substantive examples:**
-- "Cool paper!" (reaction only)
-- "Link: [url]" (link share without commentary)
-- "Having coffee ☕" (personal update)
+For each prediction being evaluated:
 
-### 5. Author Category
+### 1. Restate the prediction
+What exactly was claimed?
 
-Classify the author:
+### 2. Identify timeframe
+Has enough time passed to evaluate?
 
-- `lab-researcher`: Works at major AI lab (Anthropic, OpenAI, DeepMind, Meta AI, xAI, Mistral, Cohere)
-- `critic`: Known AI skeptic/critic with credentials (Marcus, Chollet, Mitchell, Bender, Brooks)
-- `academic`: University researcher
-- `independent`: Independent researcher/commentator
-- `journalist`: AI journalist
-- `unknown`: Cannot determine
+### 3. Gather evidence
+What has happened since?
+- Relevant releases or announcements
+- Benchmark results
+- Real-world deployments
+- Counter-evidence
+
+### 4. Assess status
+Which evaluation status applies?
+
+### 5. Score accuracy
+If verifiable, rate 0.0-1.0:
+- 1.0: Exactly as predicted
+- 0.7-0.9: Substantially correct
+- 0.4-0.6: Partially correct
+- 0.1-0.3: Mostly wrong
+- 0.0: Completely wrong
+
+### 6. Note lessons
+What does this tell us about:
+- The author's forecasting ability
+- The topic's predictability
+- Common prediction pitfalls
 
 ## Output Format
 
-Return JSON:
+For evaluation:
 ```json
 {
-  "assessments": [
+  "evaluations": [
     {
-      "itemIndex": 0,
-      "relevance": 0.85,
-      "topic": "reasoning",
-      "contentType": "research-hint",
-      "isSubstantive": true,
-      "authorCategory": "lab-researcher",
-      "brief": "One sentence summary"
+      "predictionId": "id",
+      "status": "verified",
+      "accuracyScore": 0.85,
+      "evidence": "Description of evidence",
+      "notes": "Additional context",
+      "evaluatedAt": "timestamp"
     }
   ]
 }
 ```
 
-## Filtering Heuristics
+For accuracy statistics:
+```json
+{
+  "author": "Author name",
+  "totalPredictions": 15,
+  "verified": 5,
+  "falsified": 3,
+  "partiallyVerified": 2,
+  "pending": 4,
+  "unfalsifiable": 1,
+  "averageAccuracy": 0.62,
+  "topicBreakdown": {
+    "reasoning": { "predictions": 5, "accuracy": 0.7 },
+    "agents": { "predictions": 3, "accuracy": 0.4 }
+  },
+  "calibration": "Assessment of how well-calibrated they are"
+}
+```
 
-### High Signal Indicators
-- Lab researchers discussing their own work area
-- Specific technical claims with numbers/benchmarks
-- Predictions with timeframes
-- Explicit disagreements between notable figures
-- Hints using hedged language ("we've been seeing...", "I can't say much but...")
+## Calibration Assessment
 
-### Low Signal Indicators
-- Pure link shares without commentary
-- Conference attendance announcements
-- Hiring posts
-- Generic congratulations
-- Retweets without quote
-- Personal life updates
-- Product launches (unless with technical claims)
+Evaluate whether predictors are well-calibrated:
 
-### Gray Areas
-- Paper summaries (relevant if includes opinion/analysis)
-- Q&A responses (depends on question depth)
-- Thread continuations (may need full thread context)
+### Well-Calibrated
+- High-confidence predictions usually come true
+- Low-confidence predictions have mixed results
+- Acknowledges uncertainty appropriately
+
+### Overconfident
+- High-confidence predictions often fail
+- Rarely expresses uncertainty
+- Doesn't update on evidence
+
+### Underconfident
+- Low-confidence predictions often come true
+- Hedges even on likely outcomes
+- Too conservative
+
+### Inconsistent
+- Confidence doesn't correlate with accuracy
+- Random relationship between stated and actual accuracy
+
+## Tracking Notable Predictors
+
+Keep running assessments of key voices:
+
+| Predictor | Total | Accuracy | Calibration | Notes |
+|-----------|-------|----------|-------------|-------|
+| Sam Altman | 20 | 55% | Overconfident | Timeline optimism |
+| Gary Marcus | 15 | 70% | Well-calibrated | Conservative |
+| Dario Amodei | 12 | 65% | Slightly over | Safety-focused |
+
+## Red Flags
+
+Watch for prediction patterns that suggest bias:
+- Always bullish regardless of topic
+- Never acknowledges failed predictions
+- Moves goalposts when wrong
+- Predictions align suspiciously with financial interests
+- Vague enough to claim credit for anything

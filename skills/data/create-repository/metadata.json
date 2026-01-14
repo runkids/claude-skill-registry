@@ -1,12 +1,7 @@
 {
   "name": "create-repository",
-  "description": "Create Repository interface and Finder interface for domain entity persistence. Use when entity needs persistence layer with commands (save, delete) and queries (find, findAll). Generates both Reposit",
-  "repo": "Dev-Int/tests",
-  "category": "data",
-  "tags": [
-    "create",
-    "repository"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "madooei/backend-template",
+  "path": ".claude/skills/create-repository/SKILL.md",
+  "source": "github.com/madooei/backend-template",
+  "downloaded_at": "2026-01-14T03:53:24.104758Z"
 }

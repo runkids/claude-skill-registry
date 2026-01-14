@@ -1,12 +1,7 @@
 {
   "name": "logo-management",
-  "description": "Manage car logo fetching, scraping, and Vercel Blob storage in the logos package. Use when updating logo sources, debugging brand name normalization, or managing logo cache.",
   "repo": "sgcarstrends/sgcarstrends",
-  "category": "development",
-  "tags": [
-    "logo",
-    "management"
-  ],
-  "stars": 13,
-  "source": "local"
+  "path": ".claude/skills/logo-management/SKILL.md",
+  "source": "github.com/sgcarstrends/sgcarstrends",
+  "downloaded_at": "2026-01-14T02:59:20.231513Z"
 }

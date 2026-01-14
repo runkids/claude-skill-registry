@@ -1,13 +1,7 @@
 {
   "name": "cognitive-style-assessment",
-  "description": "Assess cognitive processing style and preference patterns.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "development",
-  "tags": [
-    "cognitive",
-    "style",
-    "assessment"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/cognitive-style-assessment/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-14T01:08:20.020414Z"
 }

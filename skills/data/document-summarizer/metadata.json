@@ -1,12 +1,7 @@
 {
   "name": "document-summarizer",
-  "description": "Summarize long documents with key points and abstracts. Use when creating executive summaries or condensing content.",
   "repo": "ntaksh42/agents",
-  "category": "documents",
-  "tags": [
-    "document",
-    "summarizer"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/document-summarizer/SKILL.md",
+  "source": "github.com/ntaksh42/agents",
+  "downloaded_at": "2026-01-14T03:51:01.903400Z"
 }

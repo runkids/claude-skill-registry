@@ -1,194 +1,148 @@
 ---
 name: feature-planning
-description: Focused task planning for ONE specific idea. Uses narrow→broad pattern - starts at user's focus point, expands context only as needed. Creates detailed task via task-board skill.
+description: Break down feature requests into detailed, implementable plans with clear tasks. Use when user requests a new feature, enhancement, or complex change.
 ---
 
 # Feature Planning
 
-Focused planning skill for ONE specific task the user has in mind. Starts narrow at user's focus point, expands outward only as needed.
+Systematically analyze feature requests and create detailed, actionable implementation plans.
 
-**Pattern**: Narrow→Broad (start focused, expand as needed)
+## When to Use
 
-**🚨 PLANNING ONLY - NO IMPLEMENTATION**
-This skill creates ONE task file. It does NOT write code or start implementation.
+- Requests new feature ("add user authentication", "build dashboard")
+- Asks for enhancements ("improve performance", "add export")
+- Describes complex multi-step changes
+- Explicitly asks for planning ("plan how to implement X")
+- Provides vague requirements needing clarification
 
-**Use `/discover-tasks` instead** for bulk backlog generation (broad→narrow pattern).
+## Planning Workflow
 
-## When to Use This Skill
+### 1. Understand Requirements
 
-**Use this skill when**:
-- User has a specific idea: "I want to fix X" or "Add feature Y"
-- Working on ONE focused task
-- Running `/new-task` slash command
+**Ask clarifying questions:**
+- What problem does this solve?
+- Who are the users?
+- Specific technical constraints?
+- What does success look like?
 
-**DO NOT use this skill for**:
-- Bulk backlog generation → use `backlog-scan` skill
-- Finding ALL gaps in codebase → use `backlog-scan` skill
-- Implementing tasks → this skill only plans
+**Explore the codebase:**
+Use Task tool with `subagent_type='Explore'` and `thoroughness='medium'` to understand:
+- Existing architecture and patterns
+- Similar features to reference
+- Where new code should live
+- What will be affected
 
-## Context Loading (Area-Specific)
+### 2. Analyze & Design
 
-Load ONLY context relevant to user's focus area:
+**Identify components:**
+- Database changes (models, migrations, schemas)
+- Backend logic (API endpoints, business logic, services)
+- Frontend changes (UI, state, routing)
+- Testing requirements
+- Documentation updates
 
-```
-┌─────────────────────────────────┐
-│        CONTEXT LOADING          │
-│  • AREA rules only              │
-│  • AREA done/ tasks only        │
-│  • RELEVANT skill detection     │
-└─────────────────────────────────┘
-```
+**Consider architecture:**
+- Follow existing patterns (check CLAUDE.md)
+- Identify reusable components
+- Plan error handling and edge cases
+- Consider performance implications
+- Think about security and validation
 
-### Step 1: Identify Area
+**Check dependencies:**
+- New packages/libraries needed
+- Compatibility with existing stack
+- Configuration changes required
 
-Based on user's input, determine area:
-- **frontend** - UI, pages, components, CSS
-- **backend** - API routes, services, database
-- **components** - shared component library
-- **e2e** - tests
+### 3. Create Implementation Plan
 
-### Step 2: Load Area Rules
+Break feature into **discrete, sequential tasks**:
 
-```
-.claude/rules/{area}/
-```
+```markdown
+## Feature: [Feature Name]
 
-Only load rules for identified area. Don't load everything.
+### Overview
+[Brief description of what will be built and why]
 
-### Step 3: Check Area Done Tasks
+### Architecture Decisions
+- [Key decision 1 and rationale]
+- [Key decision 2 and rationale]
 
-Scan `.task-board/done/` for tasks related to this area:
-- Recent patterns
-- How similar work was done
-- Quality standards
+### Implementation Tasks
 
-### Step 4: Detect Implementation Skill
+#### Task 1: [Component Name]
+- **File**: `path/to/file.py:123`
+- **Description**: [What needs to be done]
+- **Details**:
+  - [Specific requirement 1]
+  - [Specific requirement 2]
+- **Dependencies**: None (or list task numbers)
 
-Based on task type, note which skill to use:
+#### Task 2: [Component Name]
+...
 
-| Task Type | Skill |
-|-----------|-------|
-| UI/CSS work | `frontend-design` |
-| API routes | `node-backend` |
-| Components | `storybook-stories` |
-| E2E tests | Standard Playwright |
+### Testing Strategy
+- [What types of tests needed]
+- [Critical test cases to cover]
 
-## Research Pattern: Narrow→Broad
-
-Start at user's specific point, expand ONLY when necessary:
-
-```
-User's focus (component, file, screenshot)
-           ↓
-Direct dependencies (imports, props, CSS)
-           ↓
-Related components (siblings, parent)
-           ↓
-Broader patterns (design system, architecture)
-           ↓
-STOP when you have enough context
-```
-
-### Example: "Column width in last column"
-
-1. **Start**: SpreadsheetTable component
-2. **Check**: Component CSS, props, column logic
-3. **Maybe**: Related table components
-4. **Only if needed**: Design system tokens
-5. **STOP**: Don't scan entire frontend
-
-### Key Principle
-
-**Only expand when necessary.** Don't:
-- Read CLAUDE.md entirely (only relevant sections)
-- Scan all features
-- Load all rules
-- Check all done tasks
-
-## Workflow
-
-### Phase 1: Ask User
-
-```
-What do you want to work on?
+### Integration Points
+- [How this connects with existing code]
+- [Potential impacts on other features]
 ```
 
-**STOP and wait for response.**
+**Include specific references:**
+- File paths with line numbers (`src/utils/auth.py:45`)
+- Existing patterns to follow
+- Relevant documentation
 
-### Phase 2: Context Loading
+### 4. Review Plan with User
 
-1. Identify area from user's response
-2. Load area-specific rules
-3. Check related done/ tasks
-4. Detect implementation skill
+Confirm:
+- Does this match expectations?
+- Missing requirements?
+- Adjust priorities or approach?
+- Ready to proceed?
 
-### Phase 3: Focused Research
+### 5. Execute with plan-implementer
 
-Research outward from user's starting point:
-
-1. Read the specific file/component mentioned
-2. Check direct dependencies
-3. Expand only if needed for understanding
-4. Stop when context is sufficient
-
-### Phase 4: Propose Task
-
-Present focused proposal:
+Launch plan-implementer agent for each task:
 
 ```
-**Proposed Task:** [Clear title]
-**Type:** FEATURE / BUG / REFACTOR
-**Why:** [1-2 sentences]
-**Scope:**
-- Includes: [what's in]
-- Excludes: [what's out]
-**Skill:** [frontend-design / node-backend / none]
-
-Create this task?
+Task tool with:
+- subagent_type: 'plan-implementer'
+- description: 'Implement [task name]'
+- prompt: Detailed task description from plan
 ```
 
-**STOP and wait for approval.**
+**Execution strategy:**
+- Implement sequentially (respect dependencies)
+- Verify each task before next
+- Adjust plan if issues discovered
+- Let test-fixing skill handle failures
+- Let git-pushing skill handle commits
 
-### Phase 5: Delegate to task-board
+## Best Practices
 
-If approved, invoke `task-board` skill with:
-- Task title and type
-- Research findings (files, patterns)
-- Scope boundaries
-- Implementation skill to use
+**Planning:**
+- Start broad, then specific
+- Reference existing code patterns
+- Include file paths and line numbers
+- Think through edge cases upfront
+- Keep tasks focused and atomic
 
-### Phase 6: End
+**Communication:**
+- Explain architectural decisions
+- Highlight trade-offs and alternatives
+- Be explicit about assumptions
+- Provide context for future maintainers
 
-After task-board creates the file, output exactly:
+**Execution:**
+- Implement one task at a time
+- Verify before moving forward
+- Keep user informed
+- Adapt based on discoveries
 
-```
-✓ Task created: [filename]
+## Integration
 
-Ready in backlog. To implement, use `start-working` skill or ask directly.
-```
-
-Then **STOP**. Do not:
-- Offer to implement
-- Ask follow-up questions
-- Suggest next steps
-
-The user will initiate the next action.
-
-## Rules
-
-- **ONE task at a time**
-- **Ask before researching**
-- **Ask before creating**
-- **Start narrow, expand only as needed**
-- **Load area rules BEFORE researching**
-- **Note implementation skill for task file**
-
-## Delegates To
-
-- `task-board` skill - for detailed plan file creation
-
-## See Also
-
-- `backlog-scan` skill - for bulk discovery (broad→narrow)
-- `.claude/rules/` - domain rules by area
-- `.task-board/done/` - completed task patterns
+- **plan-implementer agent**: Receives task specs, implements
+- **test-fixing skill**: Auto-triggered on test failures
+- **git-pushing skill**: Triggered for commits

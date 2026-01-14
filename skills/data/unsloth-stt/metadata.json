@@ -1,12 +1,7 @@
 {
   "name": "unsloth-stt",
-  "description": "Fine-tuning Speech-to-Text models like Whisper using Unsloth's optimized LoRA pipeline. Triggers: stt, whisper, transcription, audio fine-tuning, speech-to-text, audio normalization.",
   "repo": "cuba6112/skillfactory",
-  "category": "development",
-  "tags": [
-    "unsloth",
-    "stt"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": "skills/unsloth-stt/SKILL.md",
+  "source": "github.com/cuba6112/skillfactory",
+  "downloaded_at": "2026-01-14T02:37:39.021679Z"
 }

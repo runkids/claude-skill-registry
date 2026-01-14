@@ -1,12 +1,7 @@
 {
   "name": "naming-conventions",
-  "description": "Consistent naming patterns for files, variables, types, and exports",
-  "repo": "JasonDocton/rad-claude",
-  "category": "development",
-  "tags": [
-    "naming",
-    "conventions"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "phrazzld/claude-config",
+  "path": "skills/naming-conventions/SKILL.md",
+  "source": "github.com/phrazzld/claude-config",
+  "downloaded_at": "2026-01-14T03:03:38.912222Z"
 }

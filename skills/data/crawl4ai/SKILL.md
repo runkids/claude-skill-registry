@@ -1,6 +1,9 @@
 ---
 name: crawl4ai
-description: This skill should be used when users need to scrape websites, extract structured data, handle JavaScript-heavy pages, crawl multiple URLs, or build automated web data pipelines. Includes optimized extraction patterns with schema generation for efficient, LLM-free extraction.
+description: Complete toolkit for web crawling and data extraction using Crawl4AI. This skill should be used when users need to scrape websites, extract structured data, handle JavaScript-heavy pages, crawl multiple URLs, or build automated web data pipelines. Includes optimized extraction patterns with schema generation for efficient, LLM-free extraction.
+version: 0.7.4
+crawl4ai_version: ">=0.7.4"
+last_updated: 2025-01-19
 ---
 
 # Crawl4AI
@@ -12,7 +15,6 @@ This skill provides comprehensive support for web crawling and data extraction u
 ## Quick Start
 
 ### Installation Check
-
 ```bash
 # Verify installation
 crawl4ai-doctor
@@ -22,7 +24,6 @@ crawl4ai-setup
 ```
 
 ### Basic First Crawl
-
 ```python
 import asyncio
 from crawl4ai import AsyncWebCrawler
@@ -36,7 +37,6 @@ asyncio.run(main())
 ```
 
 ### Using Provided Scripts
-
 ```bash
 # Simple markdown extraction
 python scripts/basic_crawler.py https://example.com
@@ -89,7 +89,6 @@ async with AsyncWebCrawler(config=browser_config) as crawler:
 ### 2. Configuration Deep Dive
 
 **BrowserConfig** - Controls the browser instance:
-
 - `headless`: Run with/without GUI
 - `viewport_width/height`: Browser dimensions
 - `user_agent`: Custom user agent string
@@ -97,7 +96,6 @@ async with AsyncWebCrawler(config=browser_config) as crawler:
 - `headers`: Custom HTTP headers
 
 **CrawlerRunConfig** - Controls each crawl:
-
 - `page_timeout`: Maximum page load/JS execution time (ms)
 - `wait_for`: CSS selector or JS condition to wait for (optional)
 - `cache_mode`: Control caching behavior
@@ -369,7 +367,6 @@ for url in urls:
 ## Common Use Cases
 
 ### Documentation to Markdown
-
 ```python
 # Convert entire documentation site to clean markdown
 async with AsyncWebCrawler() as crawler:
@@ -381,7 +378,6 @@ async with AsyncWebCrawler() as crawler:
 ```
 
 ### E-commerce Product Monitoring
-
 ```python
 # Generate schema once for product pages
 # Then monitor prices/availability without LLM costs
@@ -391,7 +387,6 @@ products = await crawler.arun_many(product_urls,
 ```
 
 ### News Aggregation
-
 ```python
 # Crawl multiple news sources concurrently
 news_urls = ["https://news1.com", "https://news2.com", "https://news3.com"]
@@ -405,7 +400,6 @@ for result in results:
 ```
 
 ### Research & Data Collection
-
 ```python
 # Academic paper collection with focused extraction
 config = CrawlerRunConfig(
@@ -420,13 +414,11 @@ config = CrawlerRunConfig(
 ## Resources
 
 ### scripts/
-
 - **extraction_pipeline.py** - Three extraction approaches with schema generation
 - **basic_crawler.py** - Simple markdown extraction with screenshots
 - **batch_crawler.py** - Multi-URL concurrent processing
 
 ### references/
-
 - **complete-sdk-reference.md** - Complete SDK documentation (23K words) with all parameters, methods, and advanced features
 
 ### Example Code Repository
@@ -434,7 +426,6 @@ config = CrawlerRunConfig(
 The Crawl4AI repository includes extensive examples in `docs/examples/`:
 
 #### Core Examples
-
 - **quickstart.py** - Comprehensive starter with all basic patterns:
   - Simple crawling, JavaScript execution, CSS selectors
   - Content filtering, link analysis, media handling
@@ -442,7 +433,6 @@ The Crawl4AI repository includes extensive examples in `docs/examples/`:
   - Browser comparison, SSL certificates
 
 #### Specialized Examples
-
 - **amazon_product_extraction_*.py** - Three approaches for e-commerce scraping
 - **extraction_strategies_examples.py** - All extraction strategies demonstrated
 - **deepcrawl_example.py** - Advanced deep crawling patterns
@@ -455,13 +445,11 @@ The Crawl4AI repository includes extensive examples in `docs/examples/`:
 - **router_example.py** - Request routing and URL patterns
 
 #### Advanced Patterns
-
 - **adaptive_crawling/** - Intelligent crawling strategies
 - **c4a_script/** - C4A script examples
 - **docker_*.py** - Docker deployment patterns
 
 To explore examples:
-
 ```python
 # The examples are located in your Crawl4AI installation:
 # Look in: docs/examples/ directory
@@ -493,7 +481,6 @@ To explore examples:
 ## Troubleshooting
 
 **JavaScript not loading:**
-
 ```python
 config = CrawlerRunConfig(
     wait_for="css:.dynamic-content",  # Wait for specific element
@@ -502,7 +489,6 @@ config = CrawlerRunConfig(
 ```
 
 **Bot detection issues:**
-
 ```python
 browser_config = BrowserConfig(
     headless=False,  # Sometimes visible browsing helps
@@ -515,7 +501,6 @@ await asyncio.sleep(random.uniform(2, 5))
 ```
 
 **Content extraction problems:**
-
 ```python
 # Debug what's being extracted
 result = await crawler.arun(url)
@@ -530,7 +515,6 @@ config = CrawlerRunConfig(
 ```
 
 **Session/auth issues:**
-
 ```python
 # Verify session is maintained
 config = CrawlerRunConfig(session_id="test_session")

@@ -1,12 +1,7 @@
 {
   "name": "verification-protocol",
-  "description": "Independent verification of task completion - eliminates self-attestation",
   "repo": "CleanExpo/Unite-Hub",
-  "category": "testing",
-  "tags": [
-    "verification",
-    "protocol"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/verification-protocol/SKILL.md",
+  "source": "github.com/CleanExpo/Unite-Hub",
+  "downloaded_at": "2026-01-14T03:08:07.929964Z"
 }

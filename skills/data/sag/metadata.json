@@ -1,11 +1,7 @@
 {
   "name": "sag",
-  "description": "ElevenLabs text-to-speech with mac-style say UX.",
-  "repo": "steipete/clawdis",
-  "category": "design",
-  "tags": [
-    "sag"
-  ],
-  "stars": 430,
-  "source": "SkillsMP Synced Skills"
+  "repo": "clawdbot/clawdbot",
+  "path": "skills/sag/SKILL.md",
+  "source": "github.com/clawdbot/clawdbot",
+  "downloaded_at": "2026-01-14T04:05:30.318297Z"
 }

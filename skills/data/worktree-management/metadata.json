@@ -1,9 +1,7 @@
 {
   "name": "worktree-management",
-  "description": "Automate Git worktree creation with isolated Docker services and browser automation for parallel Claude Code development sessions. This skill should be used when creating, managing, or removing Git wo",
-  "repo": "arlenagreer/claude_configuration_docs",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "JoernStoehler/msc-viterbo",
+  "path": ".claude/skills/worktree-management/SKILL.md",
+  "source": "github.com/JoernStoehler/msc-viterbo",
+  "downloaded_at": "2026-01-14T03:59:18.566675Z"
 }

@@ -1,11 +1,7 @@
 {
   "name": "onboarding",
-  "description": "Personalize COG for your workflow - creates profile, interests, and watchlist files with guided setup (run this first!)",
-  "repo": "huytieu/COG-second-brain",
-  "category": "design",
-  "tags": [
-    "onboarding"
-  ],
-  "stars": 62,
-  "source": "SkillsMP Synced Skills"
+  "repo": "Activer007/ordinary-claude-skills",
+  "path": "skills_all/onboarding/SKILL.md",
+  "source": "github.com/Activer007/ordinary-claude-skills",
+  "downloaded_at": "2026-01-14T03:21:35.927564Z"
 }

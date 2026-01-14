@@ -1,8 +1,7 @@
 {
   "name": "kegg-database",
-  "repo": "davila7/claude-code-templates",
-  "category": "data",
-  "description": "Direct REST API access to KEGG (academic use only). Pathway analysis, gene-pathway mapping, metabolic pathways, drug interactions, ID conversion. For Python workflows with multiple databases, prefer b",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:37.577420Z"
+  "repo": "drshailesh88/integrated_content_OS",
+  "path": "skills/scientific/kegg-database/SKILL.md",
+  "source": "github.com/drshailesh88/integrated_content_OS",
+  "downloaded_at": "2026-01-14T04:02:25.865199Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "site-reliability-engineer",
-  "description": "Production monitoring, observability, SLO/SLI management, and incident response.Trigger terms: monitoring, observability, SRE, site reliability, alerting, incident response,SLO, SLI, error budget, Pro",
-  "repo": "ref-docs/sdd-stl",
-  "category": "data",
-  "tags": [
-    "site",
-    "reliability",
-    "engineer"
-  ],
-  "stars": 0
+  "repo": "gaebalai/itda-sdd",
+  "path": "src/templates/agents/claude-code/skills/site-reliability-engineer/SKILL.md",
+  "source": "github.com/gaebalai/itda-sdd",
+  "downloaded_at": "2026-01-14T03:55:15.126357Z"
 }

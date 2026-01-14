@@ -1,11 +1,7 @@
 {
   "name": "research-agent",
-  "description": "Use when researching AI agents, LLMs, hosting solutions, OCR technologies, video generation models, or evaluating technology stacks. Apply when user asks to research, compare, evaluate, or investigate",
-  "repo": "MRenAIAgent/mini_agent",
-  "category": "data",
-  "tags": [
-    "research",
-    "agent"
-  ],
-  "stars": 0
+  "repo": "parcadei/Continuous-Claude-v3",
+  "path": ".claude/skills/research-agent/SKILL.md",
+  "source": "github.com/parcadei/Continuous-Claude-v3",
+  "downloaded_at": "2026-01-14T01:18:44.464865Z"
 }

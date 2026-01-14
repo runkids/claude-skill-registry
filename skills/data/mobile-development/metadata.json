@@ -1,9 +1,7 @@
 {
   "name": "mobile-development",
-  "description": "Build modern mobile applications with React Native, Flutter, Swift/SwiftUI, and Kotlin/Jetpack Compose. Covers mobile-first design principles, performance optimization (battery, memory, network), offl",
-  "repo": "binhmuc/autobot-review",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "captain-corgi/marketplace-website",
+  "path": ".claude/skills/mobile-development/SKILL.md",
+  "source": "github.com/captain-corgi/marketplace-website",
+  "downloaded_at": "2026-01-14T03:48:59.496965Z"
 }

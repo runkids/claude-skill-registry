@@ -1,8 +1,7 @@
 {
   "name": "ena-database",
-  "repo": "davila7/claude-code-templates",
-  "category": "data",
-  "description": "Access European Nucleotide Archive via API/FTP. Retrieve DNA/RNA sequences, raw reads (FASTQ), genome assemblies by accession, for genomics and bioinformatics pipelines. Supports multiple formats.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:37.013330Z"
+  "repo": "drshailesh88/integrated_content_OS",
+  "path": "skills/scientific/ena-database/SKILL.md",
+  "source": "github.com/drshailesh88/integrated_content_OS",
+  "downloaded_at": "2026-01-14T04:02:25.495871Z"
 }

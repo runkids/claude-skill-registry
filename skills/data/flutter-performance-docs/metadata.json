@@ -1,13 +1,7 @@
 {
   "name": "flutter-performance-docs",
-  "description": "[Flutter] Flutter performance best practices and optimization guide. Build cost, rendering, lists, animations, and anti-patterns. (project)",
   "repo": "CANTAGESTUDIO/CosmicAtlasPacker",
-  "category": "design",
-  "tags": [
-    "flutter",
-    "performance",
-    "docs"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".factory/skills/flutter-performance-docs/SKILL.md",
+  "source": "github.com/CANTAGESTUDIO/CosmicAtlasPacker",
+  "downloaded_at": "2026-01-14T02:43:52.300302Z"
 }

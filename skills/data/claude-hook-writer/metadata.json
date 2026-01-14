@@ -1,13 +1,7 @@
 {
   "name": "claude-hook-writer",
-  "description": "Expert guidance for writing secure, reliable, and performant Claude Code hooks - validates design decisions, enforces best practices, and prevents common pitfalls",
-  "repo": "pr-pm/prpm",
-  "category": "design",
-  "tags": [
-    "claude",
-    "hook",
-    "writer"
-  ],
-  "stars": 70,
-  "source": "SkillsMP Synced Skills"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/claude-hook-writer/skills/claude-hook-writer/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-14T03:29:55.150469Z"
 }

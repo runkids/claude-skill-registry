@@ -1,12 +1,7 @@
 {
   "name": "product-strategist",
-  "description": "Validate product-market fit and strategic direction. Use when defining new products, validating problem-solution fit, prioritizing features, or making build-vs-buy decisions. Focuses on discovery and ",
-  "repo": "daffy0208/ai-dev-standards",
-  "category": "development",
-  "tags": [
-    "product",
-    "strategist"
-  ],
-  "stars": 2,
-  "source": "local"
+  "repo": "drgaciw/academic-athletics-saas",
+  "path": ".claude/skills/product-strategist/SKILL.md",
+  "source": "github.com/drgaciw/academic-athletics-saas",
+  "downloaded_at": "2026-01-14T04:05:25.683838Z"
 }

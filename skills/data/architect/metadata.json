@@ -1,11 +1,7 @@
 {
   "name": "architect",
-  "description": "Specialized agent that crafts high level designs and plans",
-  "repo": "nibsbin/tonguetoquill-usaf-memo",
-  "category": "design",
-  "tags": [
-    "architect"
-  ],
-  "stars": 7,
-  "source": "SkillsMP Synced Skills"
+  "repo": "anton-abyzov/specweave",
+  "path": "plugins/specweave/skills/architect/SKILL.md",
+  "source": "github.com/anton-abyzov/specweave",
+  "downloaded_at": "2026-01-14T03:26:38.044708Z"
 }

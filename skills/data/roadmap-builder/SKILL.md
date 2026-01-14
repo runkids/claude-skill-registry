@@ -1,313 +1,270 @@
 ---
 name: roadmap-builder
-description: Decide what to build next with brutal prioritization using impact/effort analysis. Use when planning sprints, evaluating features, or auditing an overgrown roadmap.
+description: Product roadmap prioritization and feature decision framework. Use when the user needs help deciding what to build next, evaluating feature ideas, prioritizing their backlog, challenging feature requests, planning their product roadmap, or when they ask questions like "should I build this feature?", "what should I work on next?", "help me prioritize", "is this feature worth building?", or when discussing product strategy and feature decisions.
 ---
 
 # Roadmap Builder
 
-Decide what to build next with brutal prioritization. Cut the noise, focus on what moves the needle.
+Ruthlessly focused product roadmap prioritization that keeps you building what matters.
 
-## Usage
+## Core Philosophy
 
-```
-/roadmap-builder [command] [feature or context]
-```
+Build for real users, not imaginary ones. Ship fast, validate with usage, iterate based on data. Every feature must justify its existence.
 
-**Commands:**
-- `next` - Advise what to build next based on current stage
-- `evaluate [feature]` - Challenge a specific feature idea
-- `audit` - Review current roadmap and cut the fat
-- `prioritize [list of features]` - Rank features using the framework
-
----
-
-## Before Prioritizing
-
-First, understand the current context. If not provided, ask:
-
-1. **What stage is the product in?** (Pre-launch / Post-launch / Growth)
-2. **What's the core value proposition?** (One sentence)
-3. **What features already exist?** (Brief list)
-4. **What user feedback has been collected?** (Complaints, requests, praise)
-
-**Skip this step if context is already clear from the conversation.**
-
----
-
-## Core Prioritization Framework
+## Prioritization Framework
 
 ### Impact vs Effort Matrix
 
-Always evaluate features on two axes:
+Always evaluate features on two dimensions:
 
-```
-                    HIGH IMPACT
-                        │
-         ┌──────────────┼──────────────┐
-         │   SCHEDULE   │   DO FIRST   │
-         │   (Later)    │   (Priority) │
-         │              │              │
-HIGH ────┼──────────────┼──────────────┼──── LOW
-EFFORT   │              │              │   EFFORT
-         │   AVOID      │   FILL-INS   │
-         │   (Cut it)   │   (Maybe)    │
-         │              │              │
-         └──────────────┼──────────────┘
-                        │
-                    LOW IMPACT
-```
+**Impact**: Will this meaningfully move core metrics? (Retention, revenue, growth)
+**Effort**: Engineering time, complexity, maintenance burden
 
 **Priority order:**
-1. **High Impact + Low Effort** → Do immediately
-2. **High Impact + High Effort** → Schedule for later, break into smaller pieces
-3. **Low Impact + Low Effort** → Fill-ins when you have spare time
-4. **Low Impact + High Effort** → Cut. Don't even put it on the roadmap.
+1. High Impact, Low Effort → Build immediately
+2. High Impact, High Effort → Plan carefully, phase if possible
+3. Low Impact, Low Effort → Build only if quick wins needed
+4. Low Impact, High Effort → Never build
 
----
+### Category Hierarchy
 
-## Category Prioritization
+When multiple features compete, prioritize in this order:
 
-Features fall into four categories. Prioritize in this exact order:
-
-| Priority | Category | Why |
-|----------|----------|-----|
-| 1 | **Retention** | Keeping existing users is cheaper than acquiring new ones |
-| 2 | **Core Features** | The fundamental value prop that makes the product useful |
-| 3 | **Monetization** | Revenue enables everything else, but only after retention |
-| 4 | **Growth** | Meaningless without retention; last priority |
-
-**Rule:** Never work on a lower-priority category if higher-priority categories have gaps.
-
----
+1. **Retention** - Keep existing users engaged and coming back
+2. **Core Features** - Essential functionality for the primary use case
+3. **Monetization** - Features that directly generate revenue
+4. **Growth** - Features that attract new users
 
 ## Stage-Based Rules
+
+The stage of your product fundamentally changes what you should build.
 
 ### Pre-Launch Stage
 
 **ONLY build core loop features. Nothing else.**
 
-- What's the ONE thing users come to do?
-- Does this feature directly enable that action?
-- If no → Cut it. Revisit after launch.
+Core loop = The essential user journey that delivers your product's primary value.
 
-**Banned in pre-launch:**
+Do NOT build:
 - Analytics dashboards
-- User profiles (unless core)
+- Admin panels
 - Settings pages
-- Social features
-- Email notifications
-- Multiple user tiers
-- Admin tools
+- Edge case features
+- "Nice to have" features
+- Onboarding flows (beyond bare minimum)
+- Social sharing
+- Notifications
+
+Build ONLY:
+- Features required for a user to complete the core action
+- Absolute minimum authentication/signup
+- The simplest version that delivers value
+
+**Decision rule**: If removing this feature means users can't experience the core value proposition, build it. Otherwise, wait.
 
 ### Post-Launch Stage
 
 **ONLY build features users explicitly request.**
 
-- Did multiple users ask for this?
-- Are users churning because this is missing?
-- Is this a "nice to have" or a "can't use without"?
+Post-launch validation requirements:
+- At least 3 different users asked for it
+- Users describe a specific problem, not a solution
+- You can articulate the underlying need in one sentence
 
-**Rule:** If zero users requested it, don't build it. Your assumptions are wrong until proven otherwise.
+Do NOT build based on:
+- Your assumptions
+- Competitor features
+- "It would be cool if..."
+- Imagined future use cases
+
+**Decision rule**: Has a real user with a paid account (or active usage) explicitly requested this feature? If no, don't build it.
 
 ### Growth Phase
 
-**ONLY build features that:**
-- Reduce churn (why are users leaving?)
-- Increase sharing (why would users tell others?)
-- Remove friction from conversion (why aren't free users paying?)
+**Focus on features that reduce churn or increase sharing.**
 
-**Everything else is distraction.**
+Prioritize features that:
+- Reduce drop-off in critical flows
+- Make the product more viral/shareable
+- Increase activation of dormant users
+- Strengthen retention of power users
 
----
+Avoid:
+- New user acquisition features (unless sharing/referral)
+- Optimization of non-critical flows
+- Features for hypothetical new user segments
 
-## Feature Evaluation Questions
+**Decision rule**: Will this feature directly impact churn rate or drive organic growth? If no, reconsider.
 
-Ask these about EVERY feature idea:
+## Feature Validation Questions
+
+Before building ANY feature, answer these questions honestly:
 
 ### 1. Does this serve the core use case?
-- What's the core action users take?
-- Does this feature directly enable or improve that action?
-- Or is it tangential?
+
+If the feature is tangential to your product's main value proposition, it's a distraction.
+
+**Test**: Can you explain how this feature directly supports the primary reason users come to your product?
 
 ### 2. Will users actually use this or just say they want it?
-- Is there evidence of usage (behavior) not just interest (words)?
-- Are users hacking together solutions without this?
-- Would users pay for this specific feature?
+
+Users often request solutions without understanding their real problem. They're great at identifying pain points but terrible at prescribing solutions.
+
+**Test**: Can you identify the underlying problem the user is trying to solve? Is there a simpler solution?
+
+**Red flag**: User says "It would be cool if..." or "You should add..." without describing a specific problem they experienced.
 
 ### 3. Can we fake it first to validate demand?
-- Can we use a manual process instead of automation?
-- Can we use a third-party tool instead of building?
-- Can we test with a landing page before building?
 
-**If you can fake it, fake it first. Build only after validation.**
+Before building, test if users actually want it with minimal effort:
 
----
+- Manual processes (do it by hand first)
+- Wizard of Oz testing (fake the feature, deliver manually)
+- Simple prototypes or mockups
+- Feature announcement (see if users respond)
 
-## Red Flags (Automatic NO)
+**Test**: What's the absolute minimum viable way to test if users will actually use this?
 
-These patterns signal a feature should be cut:
+## Red Flags
 
-| Red Flag | What It Looks Like |
-|----------|-------------------|
-| **Feature creep** | "While we're at it, we could also add..." |
-| **Cool factor** | "It would be cool if we had..." |
-| **Premature optimization** | "We need this to scale to..." |
-| **Imaginary users** | "I think users would want..." (no evidence) |
-| **Competitor copying** | "X has this feature, so we need it too" |
-| **Sunk cost** | "We already started, might as well finish" |
-| **Resume-driven** | "I want to learn/use this technology" |
-| **Edge cases** | "But what if someone wants to..." |
+### Feature Creep
 
-**When you spot these: STOP. Challenge the assumption.**
+**Symptoms:**
+- Adding features because they're "cool" or "modern"
+- Building because competitors have it
+- Scope expanding during development
+- Feature list growing faster than user requests
 
----
+**Antidote**: Every feature must trace back to a specific user problem and measurable impact.
 
-## Output Format: Feature Evaluation
+### Premature Optimization
 
-When evaluating a feature, use this format:
+**Symptoms:**
+- Building scalability before you have scale problems
+- Optimizing features few users touch
+- Adding complexity for theoretical future needs
+- Building infrastructure "just in case"
 
----
+**Antidote**: Build for current reality, not imagined future. Optimize when metrics show it matters.
 
-## Feature: [Name]
+### Building for Imaginary Users
 
-**Verdict: [BUILD NOW | SCHEDULE | MAYBE LATER | CUT IT]**
+**Symptoms:**
+- "Users will probably want..."
+- "When we have enterprise clients..."
+- "Future users might need..."
+- Designing for a persona that doesn't exist yet
 
-### Quick Assessment
+**Antidote**: Only build for users you can name. If you can't point to 3+ real users who need this, don't build it.
 
-| Criteria | Rating | Notes |
-|----------|--------|-------|
-| Impact | [High/Medium/Low] | [why] |
-| Effort | [High/Medium/Low] | [why] |
-| Category | [Retention/Core/Monetization/Growth] | |
-| Stage-appropriate? | [Yes/No] | [current stage] |
-| User-requested? | [Yes/No/Unknown] | [evidence] |
+## Decision Workflow
 
-### Core Use Case Test
-- [ ] Directly enables core action
-- [ ] Users will measurably use this
-- [ ] Cannot be faked/validated first
+Use this workflow when evaluating any feature request:
 
-### Red Flags Found
-- [List any red flags spotted]
+### Step 1: Identify the Stage
 
-### Recommendation
-[2-3 sentences on what to do and why]
+What stage is your product in?
+- Pre-launch → Apply pre-launch rules
+- Post-launch → Apply post-launch rules  
+- Growth phase → Apply growth rules
 
-### If Building: Simplest Version
-[What's the MVP of this feature? Cut scope by 50%.]
+### Step 2: Source Validation
 
----
+Who requested this feature?
+- Real users with context → Continue evaluation
+- Internal team assumption → Challenge strongly
+- Competitor feature → Ask "Do OUR users need this?"
 
-## Output Format: Roadmap Audit
+### Step 3: Impact Assessment
 
-When auditing a roadmap, use this format:
+Map to category hierarchy:
+- Does it improve retention?
+- Is it core functionality?
+- Does it drive revenue?
+- Does it enable growth?
 
----
+Estimate realistic impact on key metrics.
 
-## Roadmap Audit
+### Step 4: Effort Calibration
 
-**Current Stage:** [Pre-launch / Post-launch / Growth]
+Be brutally honest about effort:
+- Engineering time (include testing, edge cases)
+- Maintenance burden (ongoing support)
+- Complexity added to the product
 
-### Features to CUT (Remove from roadmap)
-| Feature | Reason |
-|---------|--------|
-| [Name] | [Why it should be cut] |
+### Step 5: Validation Test
 
-### Features to DELAY (Move to later)
-| Feature | Reason | When to Revisit |
-|---------|--------|-----------------|
-| [Name] | [Why delay] | [Trigger condition] |
+Can you validate demand without building it first?
+- If yes → Do the validation test first
+- If no → Is the impact high enough to justify risk?
 
-### Features to BUILD NOW
-| Feature | Category | Impact | Effort |
-|---------|----------|--------|--------|
-| [Name] | [Category] | [H/M/L] | [H/M/L] |
+### Step 6: Make the Decision
 
-### Recommended Next 2 Weeks
-1. [Most important thing]
-2. [Second priority]
-3. [Third priority, if time]
+**Build if:**
+- Passes stage-based rules
+- High or medium impact
+- Reasonable effort
+- Can't easily validate demand without building
+- At least 3 real users requested it (post-launch)
 
-### Warning Signs
-- [Any red flags in current roadmap]
+**Don't build if:**
+- Fails stage-based rules
+- Low impact regardless of effort
+- Imaginary users or assumptions
+- Can validate with a fake/manual version first
 
----
+**Defer if:**
+- High impact but very high effort → Break into phases
+- Medium impact, medium effort → Wait for more demand
+- Unclear impact → Run validation experiment first
 
-## Output Format: What to Build Next
+## Output Format
 
-When advising on what to build next:
+When advising on features, always provide:
 
----
+1. **Recommendation**: Build now / Don't build / Defer / Validate first
+2. **Reasoning**: Which rules and questions led to this decision
+3. **Key Concerns**: Specific red flags or risks identified
+4. **Alternative**: If recommending against, suggest what to focus on instead
+5. **Validation Test**: If applicable, describe how to test demand without building
 
-## What to Build Next
+## Challenging Effectively
 
-**Current Stage:** [Stage]
-**Core Use Case:** [One sentence]
+When a feature doesn't pass the framework, challenge constructively:
 
-### Priority Stack (in order)
+- Acknowledge the user's intent or underlying problem
+- Explain which specific rule or red flag triggered concern
+- Ask clarifying questions about impact and validation
+- Suggest lighter-weight alternatives or validation approaches
+- Redirect to higher-priority opportunities
 
-1. **[Feature Name]** - [one sentence why this is #1]
-   - Category: [Category]
-   - Impact: [H/M/L] | Effort: [H/M/L]
-   - Evidence: [why this matters now]
+**Example:**
+"I understand wanting to add social sharing, but let's pause on that. We're in the pre-launch stage, and this doesn't serve the core loop. Real question: Can users complete your core action end-to-end right now? If not, that's what needs attention. Social sharing can be tested post-launch with a simple 'Share' button that copies a link - no engineering needed."
 
-2. **[Feature Name]** - [one sentence]
-   - Category: [Category]
-   - Impact: [H/M/L] | Effort: [H/M/L]
-   - Evidence: [why]
+## Keeping Roadmap Focused
 
-3. **[Feature Name]** - [one sentence]
-   - Category: [Category]
-   - Impact: [H/M/L] | Effort: [H/M/L]
-   - Evidence: [why]
+**Weekly check**: Review roadmap against these questions:
+- What stage are we in? Are we following stage rules?
+- Which category (Retention/Core/Monetization/Growth) are most items in?
+- How many items are user-requested vs. internally generated?
+- Are we building for real users or imaginary ones?
 
-### What NOT to Build (Tempting Traps)
-- [Feature] - [why it's a trap right now]
+**Monthly audit**: Identify and cut:
+- Items violating stage-based rules
+- Low-impact features lingering in backlog
+- Features with no clear validation path
+- Scope creep that accumulated during planning
 
-### Questions to Answer First
-- [Any unknowns that should be resolved before building]
+**Quarterly reset**: Revisit priorities from scratch:
+- Has the stage changed?
+- What did users actually request this quarter?
+- What does retention/revenue data say matters?
+- What can we cut that we thought was important?
 
----
+## Remember
 
-## Prioritization Mantras
-
-Repeat these when tempted to add features:
-
-- "If users haven't asked for it, they don't need it."
-- "Retention beats growth. Always."
-- "The best feature is the one you don't have to build."
-- "Can we fake it first?"
-- "Cool is not a business requirement."
-- "What's the simplest thing that could possibly work?"
-
----
-
-## When to Use This Skill
-
-✅ **Use this skill to:**
-- Decide what to build in the next sprint
-- Challenge a feature idea before committing
-- Audit and prune an overgrown roadmap
-- Settle debates about priority
-- Stay focused when shiny objects appear
-
-❌ **Don't use this skill for:**
-- Bug fixes (just fix them)
-- Technical debt (use engineering judgment)
-- User-reported critical issues (handle immediately)
-
----
-
-## Final Rule
-
-**When in doubt, don't build it.**
-
-The cost of building the wrong thing is always higher than the cost of waiting. Ship less. Learn faster. Build only what's proven to matter.
-
----
-
-## Related Skills
-
-- **New idea?** → Use `/idea-validator` first to validate it's worth building
-- **Ready to plan?** → Use `/launch-planner prd [idea]` to create a lean PRD
-- **Scope creep?** → Use `/launch-planner scope [feature]` to evaluate if it belongs in MVP
+- Ship fast, validate with real usage, iterate based on data
+- Real users beat imaginary users every time
+- Features are liabilities until proven otherwise
+- "No" is a complete sentence
+- The best roadmap is the shortest one that delivers measurable impact

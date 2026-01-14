@@ -1,8 +1,7 @@
 {
   "name": "competitive-ads-extractor",
-  "repo": "davila7/claude-code-templates",
-  "category": "data",
-  "description": "Extracts and analyzes competitors' ads from ad libraries (Facebook, LinkedIn, etc.) to understand what messaging, problems, and creative approaches are working. Helps inspire and improve your own ad c",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:36.141483Z"
+  "repo": "davepoon/buildwithclaude",
+  "path": "plugins/all-skills/skills/competitive-ads-extractor/SKILL.md",
+  "source": "github.com/davepoon/buildwithclaude",
+  "downloaded_at": "2026-01-14T03:55:27.551339Z"
 }

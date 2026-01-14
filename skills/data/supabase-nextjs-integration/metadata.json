@@ -1,8 +1,7 @@
 {
   "name": "supabase-nextjs-integration",
   "repo": "AgentiveCity/SkillFactory",
-  "category": "data",
-  "description": "Use this skill whenever the user wants to set up, refactor, or optimize Supabase usage in a Next.js (App Router) + TypeScript project, including auth, database, storage, RLS-safe patterns, edge functi",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:46.739678Z"
+  "path": ".claude/skills/supabase-nextjs-integration/SKILL.md",
+  "source": "github.com/AgentiveCity/SkillFactory",
+  "downloaded_at": "2026-01-14T04:03:15.994436Z"
 }

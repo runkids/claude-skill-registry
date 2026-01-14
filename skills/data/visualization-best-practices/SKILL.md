@@ -1,18 +1,18 @@
 ---
-name: visualization-best-practices
+name: "visualization-best-practices"
 description: |
-  Visualization Best Practices - Auto-activating skill for Data Analytics.
+  Manage visualization best practices operations. Auto-activating skill for Data Analytics.
   Triggers on: visualization best practices, visualization best practices
-  Part of the Data Analytics skill category.
-allowed-tools: Read, Write, Edit, Bash, Grep
+  Part of the Data Analytics skill category. Use when working with visualization best practices functionality. Trigger with phrases like "visualization best practices", "visualization practices", "visualization".
+allowed-tools: "Read, Write, Edit, Bash(cmd:*), Grep"
 version: 1.0.0
 license: MIT
-author: Jeremy Longshore <jeremy@intentsolutions.io>
+author: "Jeremy Longshore <jeremy@intentsolutions.io>"
 ---
 
 # Visualization Best Practices
 
-## Purpose
+## Overview
 
 This skill provides automated assistance for visualization best practices tasks within the Data Analytics domain.
 
@@ -23,18 +23,48 @@ This skill activates automatically when you:
 - Ask about visualization best practices patterns or best practices
 - Need help with data analytics skills covering sql queries, data visualization, statistical analysis, and business intelligence.
 
-## Capabilities
+## Instructions
 
-- Provides step-by-step guidance for visualization best practices
-- Follows industry best practices and patterns
-- Generates production-ready code and configurations
-- Validates outputs against common standards
+1. Provides step-by-step guidance for visualization best practices
+2. Follows industry best practices and patterns
+3. Generates production-ready code and configurations
+4. Validates outputs against common standards
 
-## Example Triggers
+## Examples
 
-- "Help me with visualization best practices"
-- "Set up visualization best practices"
-- "How do I implement visualization best practices?"
+**Example: Basic Usage**
+Request: "Help me with visualization best practices"
+Result: Provides step-by-step guidance and generates appropriate configurations
+
+
+## Prerequisites
+
+- Relevant development environment configured
+- Access to necessary tools and services
+- Basic understanding of data analytics concepts
+
+
+## Output
+
+- Generated configurations and code
+- Best practice recommendations
+- Validation results
+
+
+## Error Handling
+
+| Error | Cause | Solution |
+|-------|-------|----------|
+| Configuration invalid | Missing required fields | Check documentation for required parameters |
+| Tool not found | Dependency not installed | Install required tools per prerequisites |
+| Permission denied | Insufficient access | Verify credentials and permissions |
+
+
+## Resources
+
+- Official documentation for related tools
+- Best practices guides
+- Community examples and tutorials
 
 ## Related Skills
 

@@ -1,11 +1,7 @@
 {
   "name": "gh-review-pr",
-  "description": "Comprehensively review a pull request including code changes, CI status, and adherence to project standards. Use when asked to review a PR.",
   "repo": "mvillmow/ProjectOdyssey",
-  "category": "development",
-  "tags": [
-    "review"
-  ],
-  "stars": 8,
-  "source": "local"
+  "path": ".claude/skills/gh-review-pr/SKILL.md",
+  "source": "github.com/mvillmow/ProjectOdyssey",
+  "downloaded_at": "2026-01-14T01:08:56.626755Z"
 }

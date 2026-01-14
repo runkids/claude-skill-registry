@@ -1,9 +1,7 @@
 {
   "name": "mova-evidence-proof-v0",
-  "description": "Use for deterministic changes, evidence-first delivery, or assembling proof kits with clear safety justification.",
   "repo": "Leryk1981/mova_wf_cycle",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "GitHub Search API"
+  "path": ".claude/skills/mova-evidence-proof-v0/SKILL.md",
+  "source": "github.com/Leryk1981/mova_wf_cycle",
+  "downloaded_at": "2026-01-14T01:31:44.783736Z"
 }

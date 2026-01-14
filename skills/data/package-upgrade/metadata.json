@@ -1,12 +1,7 @@
 {
   "name": "package-upgrade",
-  "description": "Use when the user asks to analyze package upgrades, check for outdated dependencies, plan npm/NuGet updates, or assess breaking changes in package updates. Triggers on keywords like \"upgrade packages\"",
   "repo": "duc01226/EasyPlatform",
-  "category": "devops",
-  "tags": [
-    "package",
-    "upgrade"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": ".claude/skills/package-upgrade/SKILL.md",
+  "source": "github.com/duc01226/EasyPlatform",
+  "downloaded_at": "2026-01-14T03:30:53.576510Z"
 }

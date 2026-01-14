@@ -1,11 +1,7 @@
 {
   "name": "ui-generator",
-  "description": "Generate UI components from natural language descriptions.Use when: user asks for a page, component, or UI element.Triggers: \"create page\", \"add component\", \"show form\", \"make button\",\"страница\", \"ком",
-  "repo": "timequity/vibe-coder",
-  "category": "design",
-  "tags": [
-    "generator"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "timequity/plugins",
+  "path": "vibe-coder/skills/ui-generator/SKILL.md",
+  "source": "github.com/timequity/plugins",
+  "downloaded_at": "2026-01-14T03:41:22.504897Z"
 }

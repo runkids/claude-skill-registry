@@ -1,8 +1,7 @@
 {
   "name": "instantly-ai",
   "repo": "blicktz/knowledge_base_repo",
-  "category": "data",
-  "description": "Talk to Instantly Ai Founders about their expertise. Instantly Ai Founders provides authentic advice using their mental models, core beliefs, and real-world examples.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:14.114191Z"
+  "path": ".claude/skills/instantly-ai/SKILL.md",
+  "source": "github.com/blicktz/knowledge_base_repo",
+  "downloaded_at": "2026-01-14T01:24:05.821456Z"
 }

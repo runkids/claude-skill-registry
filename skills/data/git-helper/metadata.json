@@ -1,12 +1,7 @@
 {
   "name": "git-helper",
-  "description": "Assists with git workflows, commit messages, branch strategies, and resolving common git issues",
-  "repo": "onlyoneaman/agent-skills",
-  "category": "productivity",
-  "tags": [
-    "git",
-    "helper"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "maxvaega/skillkit",
+  "path": "examples/skills/git-helper/SKILL.md",
+  "source": "github.com/maxvaega/skillkit",
+  "downloaded_at": "2026-01-14T01:08:39.968842Z"
 }

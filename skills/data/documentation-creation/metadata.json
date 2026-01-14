@@ -1,12 +1,7 @@
 {
   "name": "documentation-creation",
-  "description": "Create comprehensive project documentation from scratch. Use when setting up INITIAL documentation for a new project or building a complete documentation suite. NOT for updating existing docs (use doc",
-  "repo": "VilnaCRM-Org/core-service",
-  "category": "documents",
-  "tags": [
-    "documentation",
-    "creation"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "VilnaCRM-Org/user-service",
+  "path": ".claude/skills/documentation-creation/SKILL.md",
+  "source": "github.com/VilnaCRM-Org/user-service",
+  "downloaded_at": "2026-01-14T02:10:10.876646Z"
 }

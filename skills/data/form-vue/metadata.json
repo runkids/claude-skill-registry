@@ -1,12 +1,7 @@
 {
   "name": "form-vue",
-  "description": "Production-ready Vue form patterns using VeeValidate (default) or Vuelidate with Zod integration. Use when building forms in Vue 3 applications with Composition API.",
   "repo": "Bbeierle12/Skill-MCP-Claude",
-  "category": "development",
-  "tags": [
-    "form",
-    "vue"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/form-vue/SKILL.md",
+  "source": "github.com/Bbeierle12/Skill-MCP-Claude",
+  "downloaded_at": "2026-01-14T03:54:13.795666Z"
 }

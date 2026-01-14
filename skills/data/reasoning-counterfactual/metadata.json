@@ -1,12 +1,7 @@
 {
   "name": "reasoning-counterfactual",
-  "description": "Evaluate alternative scenarios by simulating interventions on past decisions or hypothetical futures. Use when assessing decisions in hindsight, planning scenarios, or comparing paths not taken. Produ",
   "repo": "BellaBe/lean-os",
-  "category": "productivity",
-  "tags": [
-    "reasoning",
-    "counterfactual"
-  ],
-  "stars": 12,
-  "source": "local"
+  "path": ".claude/skills/reasoning-counterfactual/SKILL.md",
+  "source": "github.com/BellaBe/lean-os",
+  "downloaded_at": "2026-01-14T02:11:15.983693Z"
 }

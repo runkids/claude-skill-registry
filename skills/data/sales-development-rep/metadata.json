@@ -1,13 +1,7 @@
 {
   "name": "sales-development-rep",
-  "description": "Эксперт SDR. Используй для outbound продаж, prospecting, cold outreach и lead qualification.",
   "repo": "dengineproblem/agents-monorepo",
-  "category": "development",
-  "tags": [
-    "sales",
-    "development",
-    "rep"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/sales-development-rep/SKILL.md",
+  "source": "github.com/dengineproblem/agents-monorepo",
+  "downloaded_at": "2026-01-14T02:08:02.127196Z"
 }

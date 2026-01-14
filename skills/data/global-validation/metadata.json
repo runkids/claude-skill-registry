@@ -1,11 +1,7 @@
 {
   "name": "global-validation",
-  "description": "Apply input validation best practices including server-side validation, early failure, specific error messages, and input sanitization. Use this skill when validating user input in n8n nodes, implemen",
-  "repo": "dpietersz/n8n-nodes-pleo",
-  "category": "data",
-  "tags": [
-    "global",
-    "validation"
-  ],
-  "stars": 0
+  "repo": "nanorepublica/django-prodserver",
+  "path": ".claude/skills/global-validation/SKILL.md",
+  "source": "github.com/nanorepublica/django-prodserver",
+  "downloaded_at": "2026-01-14T03:44:34.498193Z"
 }

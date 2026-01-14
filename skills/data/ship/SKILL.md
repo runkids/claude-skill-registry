@@ -1,55 +1,42 @@
 ---
 name: ship
-description: Commit and push changes with an auto-generated commit message. Use when the user says "ship it", "commit and push", or wants to save and deploy their changes.
+description: Quickly add, commit, and push changes to the current branch
 ---
 
-# Ship
+# ship
 
-Commit and push all changes with a well-crafted commit message.
+Quickly add, commit, and push changes to the current branch.
+
+## Arguments
+
+- `message` (optional): Commit message. If not provided, will prompt the user for one.
 
 ## Instructions
 
-1. **Check current state**
-   - Run `git status` to see all changes
-   - Run `git diff` to understand what changed
-   - Run `git log --oneline -5` to see recent commit style
+1. Run `git status` to check the current state of the repository
+2. If there are no changes to commit, inform the user and exit
+3. Parse the commit message from args:
+   - If args starts with `-m ` or `--message `, extract the message after the flag (removing quotes if present)
+   - Otherwise, treat the entire args string as the message (removing surrounding quotes if present)
+   - If args is empty or just whitespace, ask the user for a commit message using AskUserQuestion
+4. Run `git add .` to stage all changes
+5. Create a commit with the message using the git commit protocol from the system instructions:
+   - Format the message properly with a Co-Authored-By line at the end
+   - Use a heredoc for proper formatting: `git commit -m "$(cat <<'EOF'\n[message]\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>\nEOF\n)"`
+6. Run `git push` to push the changes to the remote
+7. Confirm success to the user with a summary of what was pushed (include commit message and branch)
 
-2. **Stage changes**
-   - Add relevant files with `git add`
-   - NEVER commit sensitive files (.env, credentials.json, secrets/, etc.)
-   - Warn the user if sensitive files are detected
+## Example Usage
 
-3. **Generate commit message**
-   - Write in English
-   - Focus on the "why" rather than the "what"
-   - Keep the first line concise (50-72 chars)
-   - Use imperative mood ("Add feature" not "Added feature")
+```
+/ship "Add new printer case study"
+/ship -m "Fix typography issues"
+/ship
+```
 
-4. **Commit with signature**
-   Use HEREDOC format for proper formatting:
-   ```bash
-   git commit -m "$(cat <<'EOF'
-   Your commit message here
+## Notes
 
-   🤖 Generated with [Claude Code](https://claude.com/claude-code)
-
-   Co-Authored-By: Claude <noreply@anthropic.com>
-   EOF
-   )"
-   ```
-
-5. **Push to remote**
-   - Run `git push`
-   - If no upstream is set, use `git push -u origin <branch>`
-
-6. **Report result**
-   - Show the commit hash
-   - Confirm which branch was pushed
-   - Confirm push was successful
-
-## Safety
-
-- NEVER force push
-- NEVER push to main/master without explicit user approval
-- NEVER commit files that look like secrets or credentials
-- If there are no changes, inform the user instead of creating an empty commit
+- Always follow git safety protocols
+- Show git status before committing
+- Confirm successful push with the user
+- If push fails, report the error clearly

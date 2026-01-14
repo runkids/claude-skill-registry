@@ -1,12 +1,7 @@
 {
   "name": "creating-atomic-prs",
-  "description": "Create small, focused Pull Requests by splitting implementations into atomic steps. Prevents direct work on main/master branches and enforces safe Git workflows. Use when the user asks to commit chang",
   "repo": "camoneart/claude-code",
-  "category": "data",
-  "tags": [
-    "creating",
-    "atomic",
-    "prs"
-  ],
-  "stars": 2
+  "path": "skills/creating-atomic-prs/SKILL.md",
+  "source": "github.com/camoneart/claude-code",
+  "downloaded_at": "2026-01-14T03:37:01.809167Z"
 }

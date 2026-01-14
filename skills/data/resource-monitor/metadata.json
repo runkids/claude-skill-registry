@@ -1,12 +1,7 @@
 {
   "name": "resource-monitor",
-  "description": "Monitor system resources (CPU, memory, disk, network) during development and production.",
   "repo": "CuriousLearner/devkit",
-  "category": "development",
-  "tags": [
-    "resource",
-    "monitor"
-  ],
-  "stars": 13,
-  "source": "local"
+  "path": "skills/resource-monitor/SKILL.md",
+  "source": "github.com/CuriousLearner/devkit",
+  "downloaded_at": "2026-01-14T02:22:36.339587Z"
 }

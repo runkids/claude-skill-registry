@@ -1,303 +1,439 @@
 ---
 name: release-workflow
-description: OpenShift z-stream release workflow and orchestration expert. Use when discussing release tasks, build promotion, test analysis, advisory workflows, or any aspect of the Konflux/Errata release pipeline. Provides context on task sequencing, checkpoints, and MCP execution for releases 4.12-4.20.
-allowed-tools: Read
+description: バージョン提案からGitHub Release作成までの標準リリースフローを定義（マルチエコシステム対応）
 ---
 
-# OpenShift Z-Stream Release Workflow Expert
+# リリースワークフロー
 
-You are an expert in the OpenShift z-stream release orchestration workflow under the Konflux release platform.
+バージョン提案 → ユーザー承認 → リリース作成までの標準フローを定義する。
 
-## Core Knowledge
+---
 
-This skill provides authoritative knowledge of the complete release workflow from:
-- **Workflow Specification**: `docs/KONFLUX_RELEASE_FLOW.md` in the repository
-
-**Coverage:**
-- All z-stream releases from 4.12 to 4.2x
-- Konflux release flow (newer), it's compatible with Errata Tool operations
-- Task graph, dependencies, and checkpoints
-- Build promotion lifecycle (candidate → promoted)
-- Test result evaluation and gate checks
-- MCP server execution patterns
-
-## When to Use This Skill
-
-Invoke this skill when:
-
-1. **Understanding release phases** - Where are we in the release pipeline?
-2. **Task sequencing questions** - What comes after this task? What are the prerequisites?
-3. **Build lifecycle** - Difference between candidate and promoted builds
-4. **Test analysis context** - Is this a nightly build test or stable build test?
-5. **Checkpoint logic** - What conditions must be met before proceeding?
-6. **Workflow troubleshooting** - Why is a task blocked? What's the next action?
-7. **MCP execution** - How to execute tasks via MCP server
-8. **Release state** - How to retrieve and interpret release metadata
-
-## Key Workflow Concepts
-
-### Task Graph
-
-The release follows a sequential pipeline with parallel async tasks:
+## フロー概要
 
 ```
-create-test-report → take-ownership → check-cve-tracker-bug → check-rhcos-security-alerts
-    ↓
-    ├─→ push-to-cdn-staging (async)
-    └─→ [WAIT FOR BUILD PROMOTION]
-            ↓
-            ├─→ image-consistency-check (async)
-            ├─→ stage-testing (async)
-            └─→ analyze-promoted-build
-                    ↓
-                [GATE CHECK]
-                    ↓
-                image-signed-check → change-advisory-status
-
-[PARALLEL TRACK]
-analyze-candidate-build (independent)
+1. バージョン提案（Sisyphusが自動計算）
+   ↓
+2. ユーザーがバージョンを承認/変更
+   ↓
+3. リリース実行（自動）
+   - バージョンファイル更新
+   - CHANGELOG.md更新
+   - コミット & タグ作成
+   - push
+   - GitHub Release作成
+   - Release Workflow完了待機
 ```
 
-### Build States
+---
 
-**Candidate Build:**
-- Nightly build (e.g., `4.20.0-0.nightly-2025-01-28-123456`)
-- Selected by ART for potential promotion
-- Tests already completed when release flow starts
-- Analysis can run immediately
+## 実装環境
 
-**Promoted Build:**
-- Stable z-stream version (e.g., `X.Y.Z` such as `4.20.1`)
-- After ART promotion to release stream
-- Tests triggered after promotion
-- Must wait for test completion and aggregation
+### container-use不要
 
-### Critical Checkpoints
+リリースワークフローでは**container-useは不要**です。
 
-**1. Build Promotion Checkpoint:**
-- Detection: Release Controller API `phase == "Accepted"`
-- Triggers: image-consistency-check, stage-testing (immediate)
-- Tests: Begin running/aggregating in parallel
+| 理由 | 説明 |
+|------|------|
+| コード変更なし | バージョンファイル（Cargo.toml等）とCHANGELOG.mdのみ更新 |
+| ドキュメント操作のみ | 実行可能コードの変更を伴わない |
+| タグ・リリース操作 | Gitタグ作成とGitHub Release操作のみ |
 
-**2. Test Result Checkpoints:**
-- File exists: `_releases/ocp-test-result-{build}-amd64.json`
-- Aggregation complete: `aggregated == true`
-- Acceptance check: `accepted == true` OR AI recommendation == ACCEPT
+### ホスト環境で直接実行
 
-**3. Gate Check:**
-- Promoted build test analysis must pass
-- All 3 async tasks must complete successfully
-- Blocks final approval if failed
-
-### State Management
-
-**Google Sheets (M1):**
-- Source of truth for task status
-- Tasks: "Not Started" / "In Progress" / "Pass" / "Fail"
-- Overall status: "Green" / "Red"
-- Special: analyze tasks stay "In Progress" (M1 limitation)
-
-**Test Result Files (GitHub):**
-- Location: `_releases/ocp-test-result-{build}-amd64.json`
-- Key attributes:
-  - `aggregated: true/false` - All tests collected
-  - `accepted: true/false` - BO3 verification passed
-
-**MCP Server:**
-- Executes all OAR commands as structured tools
-- 27 available tools
-- Categories: read-only, write, critical operations
-
-### Workflow Decision Logic
-
-When answering workflow questions, apply this logic:
-
-**For task sequencing:**
-```
-IF previous_task.status == "Pass":
-    Execute next_task
-ELSE IF previous_task.status == "In Progress":
-    Report: "Task still running, check again later"
-ELSE IF previous_task.status == "Fail":
-    Report: "Pipeline blocked - manual intervention required"
+```bash
+# リリース作業はホスト環境で直接実行
+git add Cargo.toml CHANGELOG.md
+git commit -m "chore: release v<version>"
+git tag -a v<version> -m "Release v<version>"
+git push origin <default-branch> --tags
+gh release create v<version> ...
 ```
 
-**For build promotion:**
-```
-IF phase != "Accepted":
-    Report: "Build not yet promoted, current phase: {phase}"
-    Report: "Check again in 30 minutes"
-ELSE:
-    Trigger async tasks immediately:
-        - image-consistency-check
-        - stage-testing
-    Report: "Build promoted! Async tasks triggered"
-```
+---
 
-**For test analysis:**
-```
-# Check file exists
-IF file not exists:
-    Report: "Test result file not yet created"
-    RETURN
+## 対応エコシステム
 
-# Check aggregation
-IF 'aggregated' not in file:
-    Report: "Tests still running, aggregation not started"
-    RETURN
+| エコシステム | バージョンファイル | 検出条件 |
+|-------------|-------------------|----------|
+| **Rust** | `Cargo.toml` | `Cargo.toml` 存在 |
+| **Node.js** | `package.json` | `package.json` 存在 |
+| **Python (pyproject)** | `pyproject.toml` | `pyproject.toml` 存在 |
+| **Python (setup.py)** | `setup.py` | `setup.py` 存在 |
+| **Go** | タグのみ | `go.mod` 存在 |
+| **Generic** | `VERSION` | `VERSION` ファイル存在 |
+| **Tag-only** | なし | 上記いずれも該当しない |
 
-IF file.aggregated != true:
-    Report: "Tests still aggregating"
-    RETURN
+### 自動検出の優先順位
 
-# Check acceptance
-IF file.accepted == true:
-    Mark task "Pass"
-ELSE:
-    Trigger: /ci:analyze-build-test-results {build}
-    IF recommendation == ACCEPT:
-        Mark task "Pass"
-    ELSE:
-        Mark task "Fail", STOP pipeline
-```
+1. `Cargo.toml` → Rust
+2. `package.json` → Node.js
+3. `pyproject.toml` → Python (pyproject)
+4. `setup.py` → Python (setup.py)
+5. `go.mod` → Go
+6. `VERSION` → Generic
+7. いずれもなし → Tag-only
 
-**For async tasks:**
-```
-WHEN trigger phase:
-    Execute command
-    Report: "Task triggered, check status in X minutes"
+---
 
-WHEN check phase:
-    Execute command with build_number
-    IF status == "In Progress":
-        Report: "Task still running"
-    ELSE IF status == "Pass":
-        Proceed to next task
-    ELSE IF status == "Fail":
-        Mark overall "Red", STOP
-```
+## Phase 1: バージョン提案
 
-**For gate check:**
-```
-IF promoted_build_analysis == "Pass"
-   AND all 3 async tasks == "Pass":
-    Proceed to final approval
-ELSE:
-    Report current status, wait
+### 1.1 エコシステム検出とバージョン取得
+
+```bash
+# スクリプトを使用（推奨）
+.opencode/skill/release-workflow/scripts/release.sh --detect
+
+# または手動で検出
+# Rust
+grep '^version = ' Cargo.toml | head -1 | sed 's/version = "\(.*\)"/\1/'
+
+# Node.js
+jq -r '.version' package.json
+
+# Python (pyproject.toml)
+grep '^version = ' pyproject.toml | head -1 | sed 's/version = "\(.*\)"/\1/'
+
+# Python (setup.py)
+grep -o "version=['\"][^'\"]*['\"]" setup.py | sed "s/version=['\"]\\([^'\"]*\\)['\"/\\1/"
+
+# Go / Tag-only
+git tag --sort=-version:refname | head -1 | sed 's/^v//'
+
+# Generic
+cat VERSION
 ```
 
-## Integration with Other Skills
+### 1.2 変更内容の分析
 
-This skill works together with:
-
-**openshift-expert skill:**
-- Provides OpenShift platform expertise for failure analysis
-- Explains operator degradation, cluster issues
-- Use when workflow encounters technical problems
-
-**Example integration:**
-```
-User: "Why is stage-testing failing?"
-
-release-workflow skill: "Stage-testing is an async task in the Konflux
-                         flow that runs after build promotion..."
-
-openshift-expert skill: "Stage-testing failures are often caused by:
-                        1. CatalogSource issues (index image missing operators)
-                        2. Cluster provisioning problems
-                        3. Test automation bugs
-                        Let me analyze the specific failure..."
+```bash
+# 前回リリースからのコミットを取得
+git log <last-tag>..HEAD --oneline
 ```
 
-## Important Workflow Rules
+### 1.3 セマンティックバージョニング判定
 
-### 1. Task Dependencies
+| 変更種別 | バージョン変更 | 例 |
+|---------|---------------|-----|
+| **Breaking Change** | MAJOR (x.0.0) | API変更、後方互換性なし |
+| **新機能追加** | MINOR (0.x.0) | 機能追加、後方互換性あり |
+| **バグ修正** | PATCH (0.0.x) | バグ修正、リファクタリング |
 
-Always check prerequisites before executing:
-- `image-consistency-check` requires build promotion + stage-release pipeline (Konflux)
-- `stage-testing` requires build promotion + stage-release pipeline (Konflux)
-- `image-signed-check` requires all 3 async tasks complete
-- `change-advisory-status` requires all tasks "Pass"
+### 1.4 提案フォーマット
 
-### 2. Parallel Execution
+```markdown
+## リリース提案
 
-Track multiple async tasks simultaneously:
-- `push-to-cdn-staging` (starts early, runs while waiting for promotion)
-- `image-consistency-check` (triggered after promotion)
-- `stage-testing` (triggered after promotion)
-- `analyze-candidate-build` (independent, can run anytime)
+### エコシステム
+<detected-ecosystem>
 
-### 3. Wait States
+### 現在のバージョン
+v0.4.0
 
-Recognize when user needs to re-invoke:
-- Build promotion: "Check again in 30 minutes"
-- Test file creation: "Check again in 10 minutes"
-- Test aggregation: "Check again in 10 minutes"
-- Async task completion: "Check again in 10-15 minutes"
+### 前回リリースからの変更
+- feat: 新機能追加（#XX）
+- fix: バグ修正（#YY）
 
-### 4. Konflux-Specific Prerequisites
+### 提案バージョン
+**v0.5.0** (MINOR: 新機能追加)
 
-For Konflux releases (with `shipment_mr`):
-- `image-consistency-check` blocked until stage-release pipeline succeeds
-- `stage-testing` blocked until stage-release pipeline succeeds
-- `check-rhcos-security-alerts` runs before async tasks
-- If blocked: Report to user, ask to work with ART team
+### 変更種別
+- ✨ 新機能: N件
+- 🐛 バグ修正: N件
+- 📝 ドキュメント: N件
 
-### 5. Timing Considerations
+---
 
-**change-advisory-status timing:**
-- Optimal: 1 day before release date
-- Background process: 2-day timeout
-- Waits for: ART prod-release pipeline to run
-- Running too early: May timeout before ART triggers pipeline
-
-## Providing Context
-
-When answering release workflow questions:
-
-**Always include:**
-1. **Current phase** - Where in the pipeline is this task?
-2. **Prerequisites** - What must complete first?
-3. **Next steps** - What happens after this task?
-4. **Expected duration** - How long should user wait?
-5. **Wait conditions** - What to check before re-invoking
-
-**Example response:**
-```
-This task is in the "Post-Promotion Async Tasks" phase.
-
-Prerequisites:
-- Build must be promoted (phase == "Accepted") ✓
-- Stage-release pipeline must succeed (Konflux only)
-
-Current status:
-- image-consistency-check: In Progress
-- stage-testing: In Progress
-- push-to-cdn-staging: Pass
-
-Next steps:
-- Wait for both async tasks to complete
-- Then proceed to analyze-promoted-build
-- Then gate check before final approval
-
-Expected duration: 90-120 min for image-consistency-check, 2-4 hours for stage-testing
-Action: Re-invoke /release:drive in 10-15 minutes to check status
+**このバージョンでリリースしますか？**
+- `はい`: v0.5.0 でリリース開始
+- `0.4.1`: パッチバージョンに変更
+- `1.0.0`: メジャーバージョンに変更
+- `キャンセル`: リリース中止
 ```
 
-## Reference Documentation
+---
 
-For detailed specifications, refer to:
-- **Workflow Spec**: `docs/KONFLUX_RELEASE_FLOW.md`
-- **Task Definitions**: Each task with MCP tool, inputs, success criteria
-- **Execution Rules**: AI decision logic and error handling
-- **Troubleshooting**: Common issues and resolutions
+## Phase 2: ユーザー承認
 
-## Key Principles
+ユーザーがバージョンを承認または変更するまで待機。
 
-1. **Sequential with Parallel Tracks** - Main pipeline is sequential, but has async tasks
-2. **Checkpoint-Driven** - Critical checkpoints gate progression
-3. **User Re-Invocation** - Long-running tasks require periodic status checks
-4. **State-Based Decisions** - Always retrieve current state before acting
-5. **Graceful Waiting** - Inform user of wait states with clear next actions
+| ユーザー入力 | アクション |
+|-------------|----------|
+| `はい` / `yes` | 提案バージョンでリリース |
+| `0.x.x` 形式 | 指定バージョンでリリース |
+| `キャンセル` / `cancel` | リリース中止 |
 
-When in doubt about workflow specifics, reference `docs/KONFLUX_RELEASE_FLOW.md` for authoritative details.
+---
+
+## Phase 3: リリース実行
+
+### 3.1 バージョンファイル更新
+
+```bash
+# スクリプトを使用（推奨）
+.opencode/skill/release-workflow/scripts/release.sh --update-version <new-version>
+
+# または手動で更新（エコシステム別）
+```
+
+#### Rust (Cargo.toml)
+
+```bash
+sed -i '' 's/^version = ".*"/version = "<new-version>"/' Cargo.toml
+```
+
+#### Node.js (package.json)
+
+```bash
+npm version <new-version> --no-git-tag-version
+# または
+jq '.version = "<new-version>"' package.json > tmp.json && mv tmp.json package.json
+```
+
+#### Python (pyproject.toml)
+
+```bash
+sed -i '' 's/^version = ".*"/version = "<new-version>"/' pyproject.toml
+```
+
+#### Python (setup.py)
+
+```bash
+sed -i '' "s/version=['\"][^'\"]*['\"]/version='<new-version>'/" setup.py
+```
+
+#### Generic (VERSION)
+
+```bash
+echo "<new-version>" > VERSION
+```
+
+#### Go / Tag-only
+
+バージョンファイル更新なし（タグのみ）
+
+### 3.2 CHANGELOG.md更新
+
+変更内容を `## [Unreleased]` の下に追加：
+
+```markdown
+## [<new-version>] - <YYYY-MM-DD>
+
+### Added
+- 機能追加項目
+
+### Fixed
+- バグ修正項目
+
+### Changed
+- 変更項目
+```
+
+### 3.3 コミット & タグ作成
+
+```bash
+# スクリプトを使用（推奨）
+.opencode/skill/release-workflow/scripts/release.sh --commit <new-version>
+
+# または手動
+git add -A
+git commit -m "chore: release v<new-version>"
+git tag -a v<new-version> -m "Release v<new-version> - <summary>"
+git push origin <default-branch> --tags
+```
+
+### 3.4 GitHub Release作成
+
+```bash
+# スクリプトを使用（推奨）
+.opencode/skill/release-workflow/scripts/release.sh --create-release <new-version> "<release-notes>"
+
+# または手動
+gh release create v<new-version> \
+  --title "v<new-version> - <summary>" \
+  --notes "<release-notes>"
+```
+
+### 3.5 Release Workflow完了待機
+
+```bash
+# スクリプトを使用（推奨）
+.opencode/skill/release-workflow/scripts/release.sh --watch
+
+# または手動
+gh run list --workflow=Release --limit 1
+gh run watch <run-id>
+```
+
+### 3.6 リリースアセット確認
+
+```bash
+gh release view v<new-version> --json tagName,assets --jq '.tagName, (.assets[].name)'
+```
+
+---
+
+## スクリプト使用方法
+
+`.opencode/skill/release-workflow/scripts/release.sh` を使用することで、上記の処理を自動化できます。
+
+### 基本コマンド
+
+```bash
+# エコシステム検出とバージョン表示
+.opencode/skill/release-workflow/scripts/release.sh --detect
+
+# 完全自動リリース（対話モード）
+.opencode/skill/release-workflow/scripts/release.sh
+
+# バージョン指定リリース
+.opencode/skill/release-workflow/scripts/release.sh --version 1.2.3
+
+# ドライラン（実行せずに確認）
+.opencode/skill/release-workflow/scripts/release.sh --dry-run --version 1.2.3
+```
+
+### 個別操作
+
+```bash
+# バージョン更新のみ
+.opencode/skill/release-workflow/scripts/release.sh --update-version 1.2.3
+
+# コミット & タグのみ
+.opencode/skill/release-workflow/scripts/release.sh --commit 1.2.3
+
+# GitHub Release作成のみ
+.opencode/skill/release-workflow/scripts/release.sh --create-release 1.2.3 "Release notes here"
+
+# Workflow監視
+.opencode/skill/release-workflow/scripts/release.sh --watch
+```
+
+---
+
+## リリースノートテンプレート
+
+```markdown
+## <project-name> v<version>
+
+### ✨ 新機能
+
+#### <機能名>
+<説明>
+
+### 🐛 バグ修正
+
+- <修正内容> (#<issue-number>)
+
+### 📝 ドキュメント
+
+- <ドキュメント変更>
+
+---
+
+### インストール方法
+
+```bash
+# エコシステムに応じたインストールコマンド
+```
+
+### 動作確認
+```bash
+<command> --version
+```
+
+### システム要件
+- <要件>
+```
+
+---
+
+## CHANGELOG.md テンプレート
+
+```markdown
+## [<version>] - <YYYY-MM-DD>
+
+### Added
+- **<機能名>**: <説明> (#<issue>)
+  - <詳細1>
+  - <詳細2>
+
+### Fixed
+- **<修正名>**: <説明> (#<issue>, #<pr>)
+
+### Changed
+- **<変更名>**: <説明>
+
+### Deprecated
+- **<非推奨名>**: <説明>
+
+### Removed
+- **<削除名>**: <説明>
+
+### Security
+- **<セキュリティ修正>**: <説明>
+```
+
+---
+
+## エラーハンドリング
+
+### タグが既に存在する場合
+
+```bash
+# エラー: tag 'v0.5.0' already exists
+git tag -d v<version>  # ローカル削除
+git push origin :refs/tags/v<version>  # リモート削除
+# 再度タグ作成
+```
+
+### Release Workflow失敗時
+
+```bash
+# ワークフロー再実行
+gh run rerun <run-id>
+
+# または手動でリリースアセットをアップロード
+gh release upload v<version> <asset-file>
+```
+
+---
+
+## チェックリスト
+
+### リリース前
+- [ ] 全テスト通過
+- [ ] Lint通過
+- [ ] デフォルトブランチが最新
+- [ ] 未マージのPRなし
+
+### リリース中
+- [ ] バージョンファイル更新
+- [ ] CHANGELOG.md更新
+- [ ] コミット & タグ作成
+- [ ] push完了
+- [ ] GitHub Release作成
+
+### リリース後
+- [ ] Release Workflow完了
+- [ ] アセットが正しくアップロード
+- [ ] リリースノートの内容確認
+
+---
+
+## 関連ドキュメント
+
+| ドキュメント | 内容 |
+|-------------|------|
+| [Keep a Changelog](https://keepachangelog.com/) | CHANGELOG形式の標準 |
+| [Semantic Versioning](https://semver.org/) | バージョニング規約 |
+| [release.sh スクリプト](./scripts/release.sh) | リリース自動化スクリプト |
+
+---
+
+## 変更履歴
+
+| 日付 | バージョン | 変更内容 |
+|:---|:---|:---|
+| 2026-01-10 | 2.0.0 | マルチエコシステム対応（Rust, Node.js, Python, Go, Generic）。release.sh スクリプト追加 |
+| 2026-01-09 | 1.0.0 | 初版作成（Rust専用） |

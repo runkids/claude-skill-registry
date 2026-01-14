@@ -1,12 +1,7 @@
 {
   "name": "implementing-ddd-architecture",
-  "description": "Design and implement DDD patterns (entities, value objects, aggregates, CQRS). Use when creating new domain objects, implementing bounded contexts, designing repository interfaces, or learning proper ",
-  "repo": "VilnaCRM-Org/core-service",
-  "category": "data",
-  "tags": [
-    "implementing",
-    "ddd",
-    "architecture"
-  ],
-  "stars": 0
+  "repo": "VilnaCRM-Org/user-service",
+  "path": ".claude/skills/implementing-ddd-architecture/SKILL.md",
+  "source": "github.com/VilnaCRM-Org/user-service",
+  "downloaded_at": "2026-01-14T02:10:11.060097Z"
 }

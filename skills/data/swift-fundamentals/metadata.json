@@ -1,12 +1,7 @@
 {
   "name": "swift-fundamentals",
-  "description": "Master Swift programming fundamentals - syntax, types, optionals, protocols, error handling",
-  "repo": "pluginagentmarketplace/custom-plugin-swift",
-  "category": "development",
-  "tags": [
-    "swift",
-    "fundamentals"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "bluewaves-creations/bluewaves-skills",
+  "path": "plugins/swift-apple-dev/skills/swift-fundamentals/SKILL.md",
+  "source": "github.com/bluewaves-creations/bluewaves-skills",
+  "downloaded_at": "2026-01-14T02:03:04.387354Z"
 }

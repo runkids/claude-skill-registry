@@ -1,12 +1,7 @@
 {
   "name": "deployment-advisor",
-  "description": "Choose deployment strategy and infrastructure. Use when deciding where to deploy applications, setting up CI/CD, or configuring production environments. Covers Vercel, Railway, AWS, Cloudflare Workers",
   "repo": "daffy0208/ai-dev-standards",
-  "category": "devops",
-  "tags": [
-    "deployment",
-    "advisor"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/deployment-advisor/SKILL.md",
+  "source": "github.com/daffy0208/ai-dev-standards",
+  "downloaded_at": "2026-01-14T03:33:12.755319Z"
 }

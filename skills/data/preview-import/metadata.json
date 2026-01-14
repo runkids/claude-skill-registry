@@ -1,12 +1,7 @@
 {
   "name": "preview-import",
-  "description": "Preview and verify imported content in local AEM Edge Delivery Services dev server. Validates rendering, compares with original page, and troubleshoots common issues.",
   "repo": "ddttom/webcomponents-with-eds",
-  "category": "development",
-  "tags": [
-    "preview",
-    "import"
-  ],
-  "stars": 5,
-  "source": "local"
+  "path": ".claude/skills/preview-import/SKILL.md",
+  "source": "github.com/ddttom/webcomponents-with-eds",
+  "downloaded_at": "2026-01-14T03:01:39.132699Z"
 }

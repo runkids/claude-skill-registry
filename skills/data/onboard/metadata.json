@@ -1,11 +1,7 @@
 {
   "name": "onboard",
-  "description": "Analyze brownfield codebase and create initial continuity ledger",
-  "repo": "parcadei/Continuous-Claude-v2",
-  "category": "development",
-  "tags": [
-    "onboard"
-  ],
-  "stars": 1318,
-  "source": "SkillsMP Synced Skills"
+  "repo": "kasperjunge/agent-resources-legacy",
+  "path": ".claude/skills/onboard/SKILL.md",
+  "source": "github.com/kasperjunge/agent-resources-legacy",
+  "downloaded_at": "2026-01-14T03:25:47.689823Z"
 }

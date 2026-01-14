@@ -1,11 +1,7 @@
 {
   "name": "snd-core",
-  "description": "Use this skill when creating or editing SND Lua macros for FFXIV. Provides metadata structure, state machine patterns, character conditions, configuration system, Player API, Entity system, Excel data",
   "repo": "vaoan/SND",
-  "category": "data",
-  "tags": [
-    "snd",
-    "core"
-  ],
-  "stars": 0
+  "path": ".claude/skills/snd-core/SKILL.md",
+  "source": "github.com/vaoan/SND",
+  "downloaded_at": "2026-01-14T03:46:34.203472Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "nextjs-seo-optimization",
-  "description": "Implement SEO best practices in Next.js applications. Includes metadata, Open Graph tags, canonical URLs, sitemap generation, schema markup, and performance optimization for search ranking.",
   "repo": "ils15/copilot-global-config",
-  "category": "data",
-  "tags": [
-    "nextjs",
-    "seo",
-    "optimization"
-  ],
-  "stars": 0
+  "path": "skills/nextjs-seo-optimization/SKILL.md",
+  "source": "github.com/ils15/copilot-global-config",
+  "downloaded_at": "2026-01-14T02:18:15.378046Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "backend-models",
-  "description": "Define database models and schemas with proper data types, constraints, relationships, and validation rules for PostgreSQL (Supabase/Bun.sql) and Firestore (Firebase). Use this skill when creating or ",
-  "repo": "TheophilusChinomona/theochinomona.tech",
-  "category": "data",
-  "tags": [
-    "backend",
-    "models"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "nanorepublica/django-prodserver",
+  "path": ".claude/skills/backend-models/SKILL.md",
+  "source": "github.com/nanorepublica/django-prodserver",
+  "downloaded_at": "2026-01-14T03:44:33.912066Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "privacy-policy-generate",
-  "description": "Generate privacy policy for Android apps with GitHub Pages hosting",
   "repo": "hitoshura25/claude-devtools",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/privacy-policy-generate/SKILL.md",
+  "source": "github.com/hitoshura25/claude-devtools",
+  "downloaded_at": "2026-01-14T03:07:11.208134Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "release-manager",
-  "description": "Specialized release management for morphir-dotnet. Use when user asks to prepare releases, execute releases, monitor deployments, validate releases, resume failed releases, update changelog, create re",
-  "repo": "finos/morphir-dotnet",
-  "category": "devops",
-  "tags": [
-    "release",
-    "manager"
-  ],
-  "stars": 12,
-  "source": "local"
+  "repo": "daffy0208/ai-dev-standards",
+  "path": "skills/release-manager/SKILL.md",
+  "source": "github.com/daffy0208/ai-dev-standards",
+  "downloaded_at": "2026-01-14T03:33:08.765066Z"
 }

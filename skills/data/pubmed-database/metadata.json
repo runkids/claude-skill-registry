@@ -1,8 +1,7 @@
 {
   "name": "pubmed-database",
-  "repo": "davila7/claude-code-templates",
-  "category": "data",
-  "description": "Direct REST API access to PubMed. Advanced Boolean/MeSH queries, E-utilities API, batch processing, citation management. For Python workflows, prefer biopython (Bio.Entrez). Use this for direct HTTP/R",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:38.194155Z"
+  "repo": "drshailesh88/integrated_content_OS",
+  "path": "skills/scientific/pubmed-database/SKILL.md",
+  "source": "github.com/drshailesh88/integrated_content_OS",
+  "downloaded_at": "2026-01-14T04:02:27.464852Z"
 }

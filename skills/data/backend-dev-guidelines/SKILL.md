@@ -1,367 +1,459 @@
 ---
 name: backend-dev-guidelines
-description: Comprehensive backend development guide for Node.js/NestJS/TypeScript microservices. Use when creating controllers, services, database access, middleware, DTOs, or working with NestJS APIs, dependency injection, or async patterns. Covers layered architecture (controllers → services → dbservice), error handling, performance monitoring, testing strategies.
+description: Backend development guidelines for Node.js/Express/TypeScript applications. Layered architecture (Routes → Controllers → Services → Repositories), error handling, validation, middleware patterns, database access, and testing. Use when creating routes, endpoints, APIs, controllers, services, repositories, middleware, or working with backend code.
 ---
 
 # Backend Development Guidelines
 
-## Purpose
-
-Establish consistency and best practices across backend microservices (web-server) using modern Node.js/NestJS/TypeScript patterns.
-
-## When to Use
-
-Auto-activates when working on:
-
-- Creating or modifying routes, endpoints, APIs
-- Building controllers, services, repositories
-- Implementing middleware (auth, validation, error handling)
-- DTOs with class-validator
-- Database operations (via data-access-layer)
-- Swagger documentation
-- Authentication/authorization (login, logout, session management, RBAC)
-- Guards and decorators (@Authorize, @IgnoreAuthorization)
-- Logging and error handling
-- Backend testing and refactoring
-
----
-
-## CRITICAL: Implementation Workflow
-
-**Before writing ANY code, you MUST:**
-
-1. ✅ Read the relevant resource guides for your task (see Navigation Guide below)
-2. ✅ Use the "New Backend Feature Checklist" as your TODO list
-   **DO NOT:**
-
-- ❌ Start by reading existing implementations
-- ❌ Copy-paste from existing files without reading the guides
-- ❌ Create an abbreviated version of the checklist
-
----
-
-## Quick Start
-
-### New Backend Feature Checklist
-
-- [ ] **Dto**: Create [Entity]Dto in packages/types/src/dto/[entity].dto.ts (see [types-guide.md](resources/types-guide.md))
-- [ ] **Entity**: Create [Entity] entity in packages/data-access-layer/src/features/[entity]/entities/[entity].entity.ts
-- [ ] **DbService**: [Entity]DbService in packages/data-access-layer/src/features/[entity]/services/[entity]-db.service.ts (see [database-patterns-guide.md](resources/database-patterns-guide.md))
-- [ ] **Controller**: [Entity]Controller in apps/web-server/src/app/features/[entity]/[entity].controller.ts (see [controllers-guide.md](resources/controllers-guide.md))
-- [ ] **Service**: Create [Entity]Service in apps/web-server/src/app/features/[entity]/[entity].service.ts (see [services-guide.md](resources/services-guide.md))
-- [ ] **Mapper**: [Entity]Mapper in apps/web-server/src/app/features/[entity]/[entity].mapper.ts (see [services-guide.md](resources/services-guide.md))
-- [ ] **Register**: register new DbServices and Entities in `data-access.module` (see [database-patterns-guide.md](resources/database-patterns-guide.md))
-- [ ] **Unit Tests**: Write comprehensive unit tests for all components with business logic (see [testing-guide.md](resources/testing-guide.md))
-- [ ] **Verify Tests Pass**: Run: `npm run test`. 100% of tests should pass. If not fix until all pass
-- [ ] **Code Coverage**: Run: `npm run test:coverage`. Review coverage report and write tests for any untested files with business logic. Achieve 80% coverage (statements, lines, branches 60%, functions 60%) (see [code-coverage-guide.md](resources/code-coverage-guide.md))
-- [ ] **API Documentation**: Write API Endpoint documentation (see [api-documentation-guide.md](resources/api-documentation-guide.md))
-- [ ] **Client API Generate**: Run: `npm run gen-api-client`
-- [ ] **Verify Format**: Run: `npm run format:fix`
-- [ ] **Verify Lint**: Run: `npm run lint`
-- [ ] **Verify Build**: Run: `npm run build`
-
-### New Microservice Checklist
-
-- [ ] **Directory structure**: Create feature modules pattern (see [architecture-overview.md](resources/architecture-overview.md))
-- [ ] **App Module**: Configure root module with imports, controllers, providers
-- [ ] **Data Access Module**: Set up TypeORM connection and register entities
-- [ ] **Exception Filter**: Register global `AllExceptionsFilter` in main.ts
-- [ ] **Logging**: Configure `nestjs-pino` with proper log levels
-- [ ] **Swagger**: Set up OpenAPI documentation in main.ts
-- [ ] **Validation**: Enable global `ValidationPipe` with class-validator
-- [ ] **Auth Guard**: Configure `@Authorize()` decorator and JWT validation
-- [ ] **Testing**: Set up Jest with test-setup.ts configuration
-- [ ] **Health Check**: Add `/health` endpoint for monitoring
-
----
-
-## Architecture
-
-### Layered Flow
+## Layered Architecture
 
 ```
-HTTP Request → Controller → Service → DbService → TypeORM → Database
+Request Flow:
+Client → Routes → Controllers → Services → Repositories → Database
+
+src/
+├── routes/           # Route definitions
+├── controllers/      # Request handling
+├── services/         # Business logic
+├── repositories/     # Data access
+├── middleware/       # Express middleware
+├── validators/       # Input validation
+├── types/           # TypeScript types
+├── utils/           # Utilities
+└── config/          # Configuration
 ```
 
-**Key Principle:** Each layer has ONE responsibility.
+## Layer Responsibilities
 
-See [architecture-overview.md](resources/architecture-overview.md) for complete details.
-
----
-
-## Directory Structure
-
-```
-  apps/web-server/src/
-  ├── app/
-  │   ├── auth/                          # Authentication feature
-  │   │   ├── auth.controller.ts         # Auth endpoints (login, logout, etc.)
-  │   │   ├── auth.service.ts            # Auth business logic
-  │   │   ├── auth-mapper.service.ts     # DTO ↔ Entity mapping
-  │   │   └── auth.module.ts             # Auth module
-  │   │
-  │   ├── features/                      # Feature modules
-  │   │   ├── user/                      # User management feature
-  │   │   │   ├── user.controller.ts     # User CRUD endpoints
-  │   │   │   ├── user.service.ts        # User business logic
-  │   │   │   ├── user.mapper.ts         # User DTO ↔ Entity mapping
-  │   │   │   └── user.module.ts         # User module
-  │   │   │
-  │   │   ├── example/                   # Example feature (reference)
-  │   │   │   ├── example.controller.ts
-  │   │   │   ├── example.service.ts
-  │   │   │   └── example.module.ts
-  │   │   │
-  │   │   ├── sync-events/               # Server-Sent Events feature
-  │   │   │   ├── sync-events.controller.ts
-  │   │   │   └── sync-events.module.ts
-  │   │   │
-  │   │   └── exceptions/                # Exception testing endpoints
-  │   │       ├── exceptions.controller.ts
-  │   │       └── exceptions.module.ts
-  │   │
-  │   ├── health/                        # Health check
-  │   │   └── health.controller.ts       # Health endpoint
-  │   │
-  │   ├── app.module.ts                  # Root application module
-  │   ├── app-initializer-service.ts     # App initialization logic
-  │   └── data-access.module.ts          # Data access layer module setup
-  │
-  ├── common/                            # Shared utilities
-  │   ├── base.mapper.ts                 # Base mapper class
-  │   └── all-exceptions.filter.ts       # Global exception filter
-  │
-  ├── assets/                            # Static assets
-  │
-  ├── main.ts                            # Application entry point
-  └── test-setup.ts                      # Jest test configuration
-```
-
-**Naming Conventions:**
-
-- Files: `kebab-case` - `user.controller.ts`, `user.service.ts`, `user.mapper.ts`
-- Classes: `PascalCase` - `UserController`, `UserService`, `UserMapper`
-
----
-
-## Core Principles (8 Key Rules)
-
-### 1. Let Services Throw, Controllers Delegate
+### Routes Layer
+- Define endpoints
+- Apply middleware
+- Route to controllers
 
 ```typescript
-// ✅ Service throws business exceptions
-async findOne(id: string): Promise<ClientUserDto> {
-  const user = await this.userDbService.findById(id);
-  if (!user) {
-    throw new NotFoundException(`User ${id} not found`);
-  }
-  return this.userMapper.toDto(user);
-}
+// routes/users.routes.ts
+import { Router } from 'express';
+import { UserController } from '../controllers/user.controller';
+import { validateRequest } from '../middleware/validate';
+import { createUserSchema, updateUserSchema } from '../validators/user.validator';
 
-// ✅ Controller just delegates - no try/catch needed
-@Get(':id')
-async findOne(@Param('id') id: string): Promise<ClientUserDto> {
-  return this.userService.findOne(id);
+const router = Router();
+const controller = new UserController();
+
+router.get('/', controller.getAll);
+router.get('/:id', controller.getById);
+router.post('/', validateRequest(createUserSchema), controller.create);
+router.put('/:id', validateRequest(updateUserSchema), controller.update);
+router.delete('/:id', controller.delete);
+
+export default router;
+```
+
+### Controllers Layer
+- Handle HTTP request/response
+- Extract and validate input
+- Call services
+- Return responses
+
+```typescript
+// controllers/user.controller.ts
+import { Request, Response, NextFunction } from 'express';
+import { UserService } from '../services/user.service';
+
+export class UserController {
+  private userService = new UserService();
+
+  getAll = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const users = await this.userService.findAll();
+      res.json({ data: users });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  getById = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { id } = req.params;
+      const user = await this.userService.findById(id);
+      
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+      
+      res.json({ data: user });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  create = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const user = await this.userService.create(req.body);
+      res.status(201).json({ data: user });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 ```
 
-**Key points:**
-
-- ✅ Services throw `NotFoundException`, `ConflictException`, `BadRequestException`
-- ✅ Controllers delegate to services - no try/catch blocks
-- ✅ Global exception filter handles all errors automatically
-- ❌ No manual `handleError()` methods needed
-
-→ See [services-guide.md](resources/services-guide.md) and [controllers-guide.md](resources/controllers-guide.md)
-
-### 2. Authorize requests using guard middleware
+### Services Layer
+- Business logic
+- Orchestrate operations
+- Transaction management
 
 ```typescript
-  @Authorize(Role.Admin)
-  async create(@Body(ValidationPipe) createUserDto: CreateUserDto): Promise<ClientUserDto> {
-    return await this.userService.create(createUserDto);
-  }
-```
+// services/user.service.ts
+import { UserRepository } from '../repositories/user.repository';
+import { CreateUserDto, UpdateUserDto } from '../types/user.types';
+import { AppError } from '../utils/errors';
 
-→ See [auth-session-guide.md](resources/auth-session-guide.md)
-
-### 3. Validate input using class-validator
-
-```typescript
-  async create(@Body(ValidationPipe) createUserDto: CreateUserDto): Promise<ClientUserDto> {
-    return this.userService.create(createUserDto);
-  }
-```
-
-→ See [types-guide.md](resources/types-guide.md) and [controllers-guide.md](resources/controllers-guide.md)
-
-### 4. Use Swagger decorators for API documentation
-
-```typescript
-     @ApiOperation({ summary: 'Create user' })
-     @ApiResponse({ status: 201, type: ClientUserDto })
-     async create(@Body(ValidationPipe) createUserDto: CreateUserDto): Promise<ClientUserDto> {
-       return this.userService.create(createUserDto);
-     }
-```
-
-→ See [api-documentation-guide.md](resources/api-documentation-guide.md)
-
-### 5. Use Mapper to transform an entity to DTO
-
-In the service use toDto() to return a DTO object
-
-```typescript
-     async create(createUserDto: CreateUserDto): Promise<ClientUserDto> {
-       // Create via DbService
-       const user = await this.userDbService.create(createUserDto);
-
-       // Map Entity → DTO
-       return this.userMapper.toDto(user); 
-     }
-```
-
-→ See [services-guide.md](resources/services-guide.md)
-
-### 6. Use DbService for database access
-
-```typescript
-// ✅ ALWAYS
-const entity = await this.userDbService.create(createUserDto);
-```
-
-→ See [database-patterns-guide.md](resources/database-patterns-guide.md)
-
-### 7. Constructor Conventions and Logger Setup
-
-```typescript
-@Injectable()
 export class UserService {
-  constructor(
-    private readonly userDbService: UserDbService,
-    private readonly userMapper: UserMapper,
-    private readonly logger: PinoLogger,
-  ) {
-    this.logger.setContext(UserService.name); // REQUIRED
+  private userRepository = new UserRepository();
+
+  async findAll() {
+    return this.userRepository.findAll();
+  }
+
+  async findById(id: string) {
+    return this.userRepository.findById(id);
+  }
+
+  async create(data: CreateUserDto) {
+    // Business logic
+    const existingUser = await this.userRepository.findByEmail(data.email);
+    if (existingUser) {
+      throw new AppError('Email already exists', 409);
+    }
+
+    // Hash password, etc.
+    const hashedPassword = await hashPassword(data.password);
+    
+    return this.userRepository.create({
+      ...data,
+      password: hashedPassword,
+    });
+  }
+
+  async update(id: string, data: UpdateUserDto) {
+    const user = await this.userRepository.findById(id);
+    if (!user) {
+      throw new AppError('User not found', 404);
+    }
+
+    return this.userRepository.update(id, data);
   }
 }
 ```
 
-**Key points:**
-
-- ✅ Use `private readonly` for all injected dependencies
-- ✅ Set logger context in constructor: `this.logger.setContext(ClassName.name)`
-- ✅ Register providers in module's `providers` array
-
-→ See [services-guide.md](resources/services-guide.md) and [logging-guide.md](resources/logging-guide.md)
-
-### 8. Generate API Client After Controller Changes
-
-**After modifying controllers, ALWAYS run:**
-
-```bash
-npm run gen-api-client
-```
-
-**What it does:**
-
-- Reads NestJS controllers and decorators
-- Extracts HTTP methods, paths, parameters, return types
-- Generates type-safe Angular services in `@ai-nx-starter/api-client`
-- Ensures frontend always matches backend API contract
-
-**Example:**
+### Repositories Layer
+- Database operations
+- Query building
+- Data mapping
 
 ```typescript
-// Backend: UserController
-@Post()
-@ApiOperation({ summary: 'Create user' })
-@ApiResponse({ status: 201, type: ClientUserDto })
-async create(@Body() dto: CreateUserDto): Promise<ClientUserDto> { ... }
+// repositories/user.repository.ts
+import { prisma } from '../config/database';
+import { User, CreateUserInput, UpdateUserInput } from '../types/user.types';
 
-// ↓ Auto-generates ↓
+export class UserRepository {
+  async findAll(): Promise<User[]> {
+    return prisma.user.findMany({
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        createdAt: true,
+      },
+    });
+  }
 
-// Frontend: ApiUserService
-create(dto: CreateUserDto): Observable<ClientUserDto> {
-  return this.http.post<ClientUserDto>(`${this.BASE_URL}/users`, dto);
+  async findById(id: string): Promise<User | null> {
+    return prisma.user.findUnique({
+      where: { id },
+    });
+  }
+
+  async findByEmail(email: string): Promise<User | null> {
+    return prisma.user.findUnique({
+      where: { email },
+    });
+  }
+
+  async create(data: CreateUserInput): Promise<User> {
+    return prisma.user.create({
+      data,
+    });
+  }
+
+  async update(id: string, data: UpdateUserInput): Promise<User> {
+    return prisma.user.update({
+      where: { id },
+      data,
+    });
+  }
+
+  async delete(id: string): Promise<void> {
+    await prisma.user.delete({
+      where: { id },
+    });
+  }
 }
 ```
 
-**Why this matters:**
+## Middleware Patterns
 
-- ✅ Type-safe API calls in Angular
-- ✅ Breaking changes caught at compile time
-- ✅ No manual HTTP service writing
-- ❌ Never create manual HTTP services - always auto-generate
+### Error Handling Middleware
 
----
+```typescript
+// middleware/error.middleware.ts
+import { Request, Response, NextFunction } from 'express';
+import { AppError } from '../utils/errors';
 
-## Navigation Guide
+export function errorHandler(
+  error: Error,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  console.error('[Error]', {
+    message: error.message,
+    stack: error.stack,
+    path: req.path,
+    method: req.method,
+  });
 
-| Need to...                             | Read this                                                          |
-| -------------------------------------- | ------------------------------------------------------------------ |
-| Understand architecture                | [architecture-overview.md](resources/architecture-overview.md)     |
-| Types Package, DTOs, enums, constants  | [types-guide.md](resources/types-guide.md)                         |
-| Create controllers                     | [controllers-guide.md](resources/controllers-guide.md)             |
-| Organize business logic and exceptions | [services-guide.md](resources/services-guide.md)                   |
-| Database access                        | [database-patterns-guide.md](resources/database-patterns-guide.md) |
-| Authentication & authorization         | [auth-session-guide.md](resources/auth-session-guide.md)           |
-| Logging with Pino                      | [logging-guide.md](resources/logging-guide.md)                     |
-| Security best practices                | [security-guide.md](resources/security-guide.md)                   |
-| API Documentation                      | [api-documentation-guide.md](resources/api-documentation-guide.md) |
-| Write tests                            | [testing-guide.md](resources/testing-guide.md)                     |
-| Coverage exclusions                    | [code-coverage-guide.md](resources/code-coverage-guide.md)         |
+  if (error instanceof AppError) {
+    return res.status(error.statusCode).json({
+      error: error.message,
+      code: error.code,
+    });
+  }
 
----
+  // Don't expose internal errors
+  res.status(500).json({
+    error: 'Internal server error',
+  });
+}
+```
+
+### Validation Middleware
+
+```typescript
+// middleware/validate.middleware.ts
+import { Request, Response, NextFunction } from 'express';
+import { ZodSchema } from 'zod';
+
+export function validateRequest(schema: ZodSchema) {
+  return (req: Request, res: Response, next: NextFunction) => {
+    try {
+      schema.parse({
+        body: req.body,
+        query: req.query,
+        params: req.params,
+      });
+      next();
+    } catch (error) {
+      res.status(400).json({
+        error: 'Validation failed',
+        details: error.errors,
+      });
+    }
+  };
+}
+```
+
+### Authentication Middleware
+
+```typescript
+// middleware/auth.middleware.ts
+import { Request, Response, NextFunction } from 'express';
+import { verifyToken } from '../utils/jwt';
+
+export async function authenticate(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const token = req.headers.authorization?.replace('Bearer ', '');
+    
+    if (!token) {
+      return res.status(401).json({ error: 'No token provided' });
+    }
+
+    const payload = await verifyToken(token);
+    req.user = payload;
+    next();
+  } catch (error) {
+    res.status(401).json({ error: 'Invalid token' });
+  }
+}
+```
+
+## Input Validation
+
+```typescript
+// validators/user.validator.ts
+import { z } from 'zod';
+
+export const createUserSchema = z.object({
+  body: z.object({
+    email: z.string().email(),
+    password: z.string().min(8),
+    name: z.string().min(2).max(100),
+  }),
+});
+
+export const updateUserSchema = z.object({
+  params: z.object({
+    id: z.string().uuid(),
+  }),
+  body: z.object({
+    name: z.string().min(2).max(100).optional(),
+    email: z.string().email().optional(),
+  }),
+});
+
+export type CreateUserDto = z.infer<typeof createUserSchema>['body'];
+export type UpdateUserDto = z.infer<typeof updateUserSchema>['body'];
+```
+
+## Error Handling
+
+```typescript
+// utils/errors.ts
+export class AppError extends Error {
+  constructor(
+    message: string,
+    public statusCode: number = 500,
+    public code?: string
+  ) {
+    super(message);
+    this.name = 'AppError';
+  }
+}
+
+export class NotFoundError extends AppError {
+  constructor(resource: string) {
+    super(`${resource} not found`, 404, 'NOT_FOUND');
+  }
+}
+
+export class ValidationError extends AppError {
+  constructor(message: string) {
+    super(message, 400, 'VALIDATION_ERROR');
+  }
+}
+
+export class UnauthorizedError extends AppError {
+  constructor(message = 'Unauthorized') {
+    super(message, 401, 'UNAUTHORIZED');
+  }
+}
+```
+
+## Testing
+
+### Unit Tests (Services)
+
+```typescript
+// services/user.service.test.ts
+import { UserService } from './user.service';
+import { UserRepository } from '../repositories/user.repository';
+
+jest.mock('../repositories/user.repository');
+
+describe('UserService', () => {
+  let service: UserService;
+  let mockRepository: jest.Mocked<UserRepository>;
+
+  beforeEach(() => {
+    mockRepository = new UserRepository() as jest.Mocked<UserRepository>;
+    service = new UserService();
+    (service as any).userRepository = mockRepository;
+  });
+
+  describe('create', () => {
+    it('should throw if email exists', async () => {
+      mockRepository.findByEmail.mockResolvedValue({ id: '1', email: 'test@test.com' });
+
+      await expect(service.create({
+        email: 'test@test.com',
+        password: 'password',
+        name: 'Test',
+      })).rejects.toThrow('Email already exists');
+    });
+
+    it('should create user if email is unique', async () => {
+      mockRepository.findByEmail.mockResolvedValue(null);
+      mockRepository.create.mockResolvedValue({
+        id: '1',
+        email: 'new@test.com',
+        name: 'Test',
+      });
+
+      const result = await service.create({
+        email: 'new@test.com',
+        password: 'password',
+        name: 'Test',
+      });
+
+      expect(result.email).toBe('new@test.com');
+    });
+  });
+});
+```
+
+### Integration Tests (Routes)
+
+```typescript
+// routes/users.routes.test.ts
+import request from 'supertest';
+import { app } from '../app';
+
+describe('Users API', () => {
+  describe('GET /api/users', () => {
+    it('should return all users', async () => {
+      const response = await request(app)
+        .get('/api/users')
+        .expect(200);
+
+      expect(response.body.data).toBeInstanceOf(Array);
+    });
+  });
+
+  describe('POST /api/users', () => {
+    it('should create a user', async () => {
+      const response = await request(app)
+        .post('/api/users')
+        .send({
+          email: 'test@test.com',
+          password: 'password123',
+          name: 'Test User',
+        })
+        .expect(201);
+
+      expect(response.body.data.email).toBe('test@test.com');
+    });
+
+    it('should validate input', async () => {
+      await request(app)
+        .post('/api/users')
+        .send({
+          email: 'invalid-email',
+        })
+        .expect(400);
+    });
+  });
+});
+```
 
 ## Resource Files
 
-### [architecture-overview.md](resources/architecture-overview.md)
-
-Layered architecture, request lifecycle, separation of concerns
-
-### [types-guide.md](resources/types-guide.md)
-
-Types Package & DTOs - Complete guide for DTOs, enums, constants, validation, naming conventions, and organization
-
-### [controllers-guide.md](resources/controllers-guide.md)
-
-Controller definitions, error handling, examples
-
-### [services-guide.md](resources/services-guide.md)
-
-Service patterns, Mapper integration, error handling, async patterns
-
-### [database-patterns-guide.md](resources/database-patterns-guide.md)
-
-DbService, TypeORM entities, MongoDB queries, data access patterns
-
-### [auth-session-guide.md](resources/auth-session-guide.md)
-
-Authentication, authorization, session management, RBAC, Redis sessions
-
-### [logging-guide.md](resources/logging-guide.md)
-
-Structured logging with Pino, PinoLogger usage, log levels, best practices
-
-### [security-guide.md](resources/security-guide.md)
-
-Input validation, authorization, sensitive data protection, password security, CORS, rate limiting
-
-### [api-documentation-guide.md](resources/api-documentation-guide.md)
-
-Swagger documentation guidelines for API endpoints
-
-### [testing-guide.md](resources/testing-guide.md)
-
-AI testing guidelines, coverage decisions, proactive test generation policy
-
-### [code-coverage-guide.md](resources/code-coverage-guide.md)
-
-Coverage exclusion guidelines, decision framework, what to test vs exclude
-
----
-
-**Skill Status**: COMPLETE ✅
-**Line Count**: < 500 ✅
-**Progressive Disclosure**: 11 resource files ✅
+For detailed patterns, see:
+- [database-patterns.md](resources/database-patterns.md)
+- [authentication.md](resources/authentication.md)
+- [error-handling.md](resources/error-handling.md)
+- [testing.md](resources/testing.md)

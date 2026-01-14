@@ -1,9 +1,7 @@
 {
   "name": "disciplined-implementation",
-  "description": "Phase 3 of disciplined development. Executes approved implementation plansstep by step. Each step includes tests, follows the design exactly, andproduces reviewable commits.",
-  "repo": "terraphim/codex-skills",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "terraphim/opencode-skills",
+  "path": "skill/disciplined-implementation/SKILL.md",
+  "source": "github.com/terraphim/opencode-skills",
+  "downloaded_at": "2026-01-14T02:27:08.840150Z"
 }

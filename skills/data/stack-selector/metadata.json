@@ -1,12 +1,7 @@
 {
   "name": "stack-selector",
-  "description": "Automatically choose the best tech stack based on requirements. User never sees this.Use when: starting a new project after idea validation.Triggers: internal use only, called by build pipeline.",
-  "repo": "timequity/vibe-coder",
-  "category": "development",
-  "tags": [
-    "stack",
-    "selector"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "timequity/plugins",
+  "path": "vibe-coder/skills/stack-selector/SKILL.md",
+  "source": "github.com/timequity/plugins",
+  "downloaded_at": "2026-01-14T03:41:28.025885Z"
 }

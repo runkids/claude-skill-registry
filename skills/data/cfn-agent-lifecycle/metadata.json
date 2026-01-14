@@ -1,8 +1,7 @@
 {
   "name": "cfn-agent-lifecycle",
   "repo": "masharratt/claude-flow-novice",
-  "category": "data",
-  "description": "Unified agent management from selection through completion - spawning, execution, output processing. Use when selecting agents for tasks, spawning agents with dependency validation, processing agent o",
-  "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:20:10.331548Z"
+  "path": ".claude/skills/cfn-agent-lifecycle/SKILL.md",
+  "source": "github.com/masharratt/claude-flow-novice",
+  "downloaded_at": "2026-01-14T01:57:42.299311Z"
 }

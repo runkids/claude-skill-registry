@@ -1,12 +1,7 @@
 {
   "name": "failsafe-chassis-activation",
-  "description": "Activate emergency failsafe chassis when primary systems fail.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "data",
-  "tags": [
-    "failsafe",
-    "chassis",
-    "activation"
-  ],
-  "stars": 1
+  "path": "skills/failsafe-chassis-activation/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-14T01:08:21.163497Z"
 }

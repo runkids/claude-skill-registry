@@ -1,12 +1,7 @@
 {
   "name": "embedded-systems",
-  "description": "Use when developing firmware for microcontrollers, implementing RTOS applications, or optimizing power consumption. Invoke for STM32, ESP32, FreeRTOS, bare-metal, power optimization, real-time systems",
-  "repo": "Jeffallan/claude-skills",
-  "category": "development",
-  "tags": [
-    "embedded",
-    "systems"
-  ],
-  "stars": 12,
-  "source": "local"
+  "repo": "vx-daniel/tb-docs-project",
+  "path": ".claude/skills/embedded-systems/SKILL.md",
+  "source": "github.com/vx-daniel/tb-docs-project",
+  "downloaded_at": "2026-01-14T03:42:24.021547Z"
 }

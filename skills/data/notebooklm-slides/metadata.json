@@ -1,12 +1,7 @@
 {
   "name": "notebooklm-slides",
-  "description": "Generate pedagogically-aligned slide decks from educational content using NotebookLM.Use when creating chapter slide presentations with proficiency-calibrated prompts.NOT for static slides or non-educ",
-  "repo": "92Bilal26/TaskPilotAI",
-  "category": "devops",
-  "tags": [
-    "notebooklm",
-    "slides"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "mjunaidca/robolearn",
+  "path": ".claude/skills/notebooklm-slides/SKILL.md",
+  "source": "github.com/mjunaidca/robolearn",
+  "downloaded_at": "2026-01-14T02:06:11.016047Z"
 }

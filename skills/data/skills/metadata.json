@@ -1,8 +1,7 @@
 {
   "name": "skills",
-  "repo": "cerico/macfair",
-  "category": "data",
-  "description": "List available skills and what they do. Use when you forget what skills exist or need help choosing the right one.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:05.172443Z"
+  "repo": "squirrelsoft-dev/claude-builder",
+  "path": "templates/skills/test-runner-SKILL.md",
+  "source": "github.com/squirrelsoft-dev/claude-builder",
+  "downloaded_at": "2026-01-14T04:00:12.563617Z"
 }

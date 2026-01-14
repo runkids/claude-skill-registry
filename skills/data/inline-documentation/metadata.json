@@ -1,12 +1,7 @@
 {
   "name": "inline-documentation",
-  "description": "Use when writing code - ensure complete JSDoc, docstrings, and inline comments assuming documentation will be generated from code",
-  "repo": "troykelly/claude-skills",
-  "category": "documents",
-  "tags": [
-    "inline",
-    "documentation"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "troykelly/codex-skills",
+  "path": "skills/inline-documentation/SKILL.md",
+  "source": "github.com/troykelly/codex-skills",
+  "downloaded_at": "2026-01-14T03:34:04.433839Z"
 }

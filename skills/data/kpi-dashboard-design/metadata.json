@@ -1,13 +1,7 @@
 {
   "name": "kpi-dashboard-design",
-  "description": "Design and build dashboards that track key performance indicators. Select relevant metrics, visualize data effectively, and communicate insights to stakeholders.",
-  "repo": "aj-geddes/useful-ai-prompts",
-  "category": "design",
-  "tags": [
-    "kpi",
-    "dashboard",
-    "design"
-  ],
-  "stars": 25,
-  "source": "local"
+  "repo": "GaitanS/AI-Mancare",
+  "path": ".claude/skills/plugins/business-analytics/skills/kpi-dashboard-design/SKILL.md",
+  "source": "github.com/GaitanS/AI-Mancare",
+  "downloaded_at": "2026-01-14T03:16:30.591736Z"
 }

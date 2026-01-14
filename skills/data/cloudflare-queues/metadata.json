@@ -1,12 +1,7 @@
 {
   "name": "cloudflare-queues",
-  "description": "Complete knowledge domain for Cloudflare Queues - flexible message queue for asynchronous processingand background tasks on Cloudflare Workers.Use when: creating message queues, async processing, back",
-  "repo": "jackspace/ClaudeSkillz",
-  "category": "data",
-  "tags": [
-    "cloudflare",
-    "queues"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "jezweb/claude-skills",
+  "path": "skills/cloudflare-queues/SKILL.md",
+  "source": "github.com/jezweb/claude-skills",
+  "downloaded_at": "2026-01-14T04:01:52.352031Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "admin-panel-builder",
-  "description": "Expert assistant for creating and maintaining admin panel pages in the KR92 Bible Voice project. Use when creating admin pages, building admin components, integrating with admin navigation, or adding ",
   "repo": "Spectaculous-Code/raamattu-nyt",
-  "category": "development",
-  "tags": [
-    "admin",
-    "panel",
-    "builder"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": "Docs/claude-reports/admin-panel-builder/SKILL.md",
+  "source": "github.com/Spectaculous-Code/raamattu-nyt",
+  "downloaded_at": "2026-01-14T02:15:30.010879Z"
 }

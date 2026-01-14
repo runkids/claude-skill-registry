@@ -1,11 +1,7 @@
 {
   "name": "thoroughness",
-  "description": "Use when implementing complex multi-step tasks, fixing critical bugs, or when quality and completeness matter more than speed - ensures comprehensive implementation without shortcuts through systemati",
   "repo": "pr-pm/prpm",
-  "category": "productivity",
-  "tags": [
-    "thoroughness"
-  ],
-  "stars": 70,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/thoroughness/SKILL.md",
+  "source": "github.com/pr-pm/prpm",
+  "downloaded_at": "2026-01-14T01:14:31.629893Z"
 }

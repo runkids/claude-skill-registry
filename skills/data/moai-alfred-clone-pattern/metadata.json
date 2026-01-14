@@ -1,13 +1,7 @@
 {
   "name": "moai-alfred-clone-pattern",
-  "description": "Master-Clone pattern implementation guide for complex multi-step tasks with full project context",
-  "repo": "kivo360/quickhooks",
-  "category": "data",
-  "tags": [
-    "moai",
-    "alfred",
-    "clone",
-    "pattern"
-  ],
-  "stars": 0
+  "repo": "dolsoon/my-awesome-project",
+  "path": ".claude/skills/moai-alfred-clone-pattern/SKILL.md",
+  "source": "github.com/dolsoon/my-awesome-project",
+  "downloaded_at": "2026-01-14T03:37:28.759919Z"
 }

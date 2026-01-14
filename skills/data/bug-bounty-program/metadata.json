@@ -1,13 +1,7 @@
 {
   "name": "bug-bounty-program",
-  "description": "Эксперт по bug bounty. Используй для поиска уязвимостей, написания отчётов, responsible disclosure и penetration testing.",
   "repo": "dengineproblem/agents-monorepo",
-  "category": "testing",
-  "tags": [
-    "bug",
-    "bounty",
-    "program"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/bug-bounty-program/SKILL.md",
+  "source": "github.com/dengineproblem/agents-monorepo",
+  "downloaded_at": "2026-01-14T02:08:00.783675Z"
 }

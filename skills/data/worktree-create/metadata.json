@@ -1,12 +1,7 @@
 {
   "name": "worktree-create",
-  "description": "Create isolated git worktrees for parallel development. Use when working on multiple issues simultaneously.",
   "repo": "mvillmow/ProjectOdyssey",
-  "category": "development",
-  "tags": [
-    "worktree",
-    "create"
-  ],
-  "stars": 8,
-  "source": "local"
+  "path": ".claude/skills/worktree-create/SKILL.md",
+  "source": "github.com/mvillmow/ProjectOdyssey",
+  "downloaded_at": "2026-01-14T01:08:56.804219Z"
 }

@@ -1,80 +1,112 @@
 ---
 name: test
-description: Run the complete test suite for connectrpc-axum. Use when the user asks to run tests, verify changes, or check if the code works.
+description: Use this skill when writing or running tests. Enforces rstest for parametrized tests and DRY test patterns. Use when creating new tests, fixing test failures, or improving test coverage.
+allowed-tools: Read, Grep, Glob, Edit, Write, Bash(cargo test:*)
 ---
 
-# test
+# Testing with rstest
 
-Run the complete test suite for connectrpc-axum: unit tests, doc tests, and integration tests with Go clients.
+This project uses rstest for DRY, parametrized tests.
 
-## Instructions
-
-Run both test suites in order:
-
-### 1. Unit Tests
+## Running Tests
 
 ```bash
-cargo test
+cargo test                     # Run all tests
+cargo test <test_name>         # Run specific test
+cargo test -- --nocapture      # Show stdout
 ```
 
-### 2. Integration Tests
+## Coverage
 
-Run from the repo root (use `-C` to avoid changing working directory):
+Use cargo-llvm-cov to measure test coverage locally:
+
 ```bash
-go test -C connectrpc-axum-examples/go-client -v -timeout 300s
+cargo llvm-cov                           # Run tests with coverage (text summary)
+cargo llvm-cov --html                    # Generate HTML report in target/llvm-cov/html/
+cargo llvm-cov --lcov --output-path lcov.info  # Generate LCOV format (used in CI)
 ```
 
-The Go tests:
-1. Build all Rust example servers (once, cached)
-2. Start each server, wait for it to be ready
-3. Run Go client tests against each server
-4. Validate responses match expected behavior
+Coverage is automatically measured and uploaded to Codecov in CI.
 
-## Success Criteria
+## Writing Tests
 
-**Unit Tests**: All tests pass with exit code 0
+### Always prefer rstest over plain #[test]
 
-**Integration Tests**: All tests pass (PASS in output)
+Use `#[rstest]` with `#[case]` for multiple inputs:
 
-## Integration Test Matrix
+```rust
+use rstest::*;
 
-| Test | Server | Protocol | Test Type |
-|------|--------|----------|-----------|
-| TestConnectUnary | connect-unary | Connect | Unary |
-| TestConnectServerStream | connect-server-stream | Connect | Server streaming |
-| TestTonicUnaryConnect | tonic-unary | Connect | Unary |
-| TestTonicUnaryGRPC | tonic-unary | gRPC | Unary |
-| TestTonicServerStreamConnect | tonic-server-stream | Connect | Server streaming |
-| TestTonicServerStreamGRPC | tonic-server-stream | gRPC | Server streaming |
-| TestTonicBidiStreamConnectUnary | tonic-bidi-stream | Connect | Unary |
-| TestTonicBidiStreamGRPC | tonic-bidi-stream | gRPC | Bidi streaming |
-| TestGRPCWeb | grpc-web | gRPC-Web | Unary |
-| TestStreamingErrorHandling | streaming-error-repro | Connect | Stream error handling |
-| TestProtocolVersion | protocol-version | Connect | Protocol header validation |
-| TestTimeout | timeout | Connect | Connect-Timeout-Ms enforcement |
-| TestExtractorConnectError | extractor-connect-error | Connect | Extractor rejection with ConnectError |
-| TestExtractorHTTPResponse | extractor-http-response | Connect | Extractor rejection with plain HTTP |
-
-## Failure Handling
-
-**Unit test failures**: Check the specific test name and error message
-
-**Integration test failures**:
-1. Note which specific test failed from the output
-2. Check if the server started (look for "Server ready" message)
-3. Check the Go client error message for details
-4. Common issues:
-   - Port 3000 already in use
-   - Missing Go dependencies (run `go mod tidy` in go-client/)
-   - Build errors (run `cargo build --features tonic` first)
-
-## Report Format
-
+#[rstest]
+#[case::empty("", true)]
+#[case::whitespace("   ", true)]
+#[case::valid("hello", false)]
+fn test_is_blank(#[case] input: &str, #[case] expected: bool) {
+    assert_eq!(is_blank(input), expected);
+}
 ```
-Unit Tests: [PASS/FAIL]
-- Passed: X
-- Failed: Y
 
-Integration Tests: [PASS/FAIL]
-- X tests passed
+### Use fixtures for shared setup
+
+```rust
+#[fixture]
+fn repository() -> InMemoryRepository {
+    let mut r = InMemoryRepository::default();
+    // setup
+    r
+}
+
+#[rstest]
+fn test_find(repository: InMemoryRepository) {
+    // repository is automatically injected
+}
 ```
+
+### Combine cases with values
+
+```rust
+#[rstest]
+#[case::admin(User::Admin)]
+#[case::guest(User::Guest)]
+fn test_access(
+    #[case] user: User,
+    #[values("read", "write", "delete")] action: &str,
+) {
+    // Generates 6 tests: admin+read, admin+write, ...
+}
+```
+
+### Use indoc for multiline test input
+
+```rust
+use indoc::indoc;
+
+#[rstest]
+#[case::with_frontmatter(
+    indoc! {r#"
+        ---
+        title: "Test"
+        ---
+        Body content
+    "#},
+    "Test",
+    "Body content\n"
+)]
+fn test_parse(#[case] input: &str, #[case] title: &str, #[case] body: &str) {
+    let doc = parse(input);
+    assert_eq!(doc.title, title);
+    assert_eq!(doc.body, body);
+}
+```
+
+## Test Naming
+
+- Use `#[case::descriptive_name]` for named cases
+- Test function: `test_<function>_<scenario>` or `should_<behavior>`
+
+## DRY Principles
+
+1. Extract common assertions into helper functions
+2. Use fixtures for repeated setup
+3. Parametrize similar tests with `#[case]`
+4. Use `#[values]` for combinatorial testing

@@ -1,9 +1,7 @@
 {
   "name": "test-engineer",
-  "description": "test-engineer skillTrigger terms: testing, unit tests, integration tests, E2E tests, test cases, test coverage, test automation, test plan, test design, TDD, test-firstUse when: User requests involve ",
-  "repo": "nahisaho/MUSUBI",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "gaebalai/itda-sdd",
+  "path": "src/templates/agents/claude-code/skills/test-engineer/SKILL.md",
+  "source": "github.com/gaebalai/itda-sdd",
+  "downloaded_at": "2026-01-14T03:55:16.175498Z"
 }

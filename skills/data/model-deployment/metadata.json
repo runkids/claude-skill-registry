@@ -1,12 +1,7 @@
 {
   "name": "model-deployment",
-  "description": "Deploy machine learning models to production using Flask, FastAPI, Docker, cloud platforms (AWS, GCP, Azure), and model serving frameworks",
   "repo": "aj-geddes/useful-ai-prompts",
-  "category": "devops",
-  "tags": [
-    "model",
-    "deployment"
-  ],
-  "stars": 25,
-  "source": "local"
+  "path": "skills/model-deployment/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:07.191595Z"
 }

@@ -1,11 +1,7 @@
 {
   "name": "schema-visualizer",
-  "description": "Generate database schema diagrams, ERDs, and documentation from database schemas.",
   "repo": "CuriousLearner/devkit",
-  "category": "data",
-  "tags": [
-    "schema",
-    "visualizer"
-  ],
-  "stars": 13
+  "path": "skills/schema-visualizer/SKILL.md",
+  "source": "github.com/CuriousLearner/devkit",
+  "downloaded_at": "2026-01-14T02:22:36.917179Z"
 }

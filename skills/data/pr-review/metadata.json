@@ -1,11 +1,7 @@
 {
   "name": "pr-review",
-  "description": "PRをレビューする。変更されたコードに対してmacOS/Swift/SwiftUI固有の問題を検出し、日本語でフィードバックを提供する。",
-  "repo": "matsuokashuhei/Portal",
-  "category": "design",
-  "tags": [
-    "review"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "sensei-hacker/inav-claude",
+  "path": ".claude/skills/pr-review/SKILL.md",
+  "source": "github.com/sensei-hacker/inav-claude",
+  "downloaded_at": "2026-01-14T01:54:29.164806Z"
 }

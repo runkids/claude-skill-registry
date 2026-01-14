@@ -1,9 +1,7 @@
 {
   "name": "reframe",
-  "description": "This skill should be used when the user is stuck, obvious solutions aren't working, constraints feel impossible, or they keep circling back to bad options. Use when designs keep getting rejected or th",
   "repo": "rohunvora/my-claude-skills",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/reframe/SKILL.md",
+  "source": "github.com/rohunvora/my-claude-skills",
+  "downloaded_at": "2026-01-14T01:11:20.263688Z"
 }

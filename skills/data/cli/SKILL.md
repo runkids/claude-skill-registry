@@ -1,105 +1,84 @@
 ---
 name: cli
-description: Prefect CLI commands for mutations. The MCP server is read-only - use this skill when you need to trigger deployments, cancel flow runs, create automations, or modify Prefect resources.
+description: Use this when you need to perform mutations on plyr.fm - uploading, deleting, liking tracks. The MCP server is read-only - use this skill when you need to trigger uploads, delete tracks, or modify likes.
 ---
 
-# Prefect CLI
+# plyrfm CLI mutations
 
-The MCP server is read-only. For mutations, use the CLI.
+the MCP server (`plyr-fm`) is **read-only** - use it to browse tracks, search, view liked tracks.
 
-**Prefer MCP tools for reads** (e.g., `get_flow_runs`, `get_deployments`). They return structured JSON with full UUIDs. Use `prefect api` only if MCP doesn't expose what you need.
+for mutations (upload, delete, like, unlike), guide users to use the CLI:
 
-## Critical: Agent-Friendly Usage
-
-The CLI is designed for interactive terminal use. For non-interactive (agent) use:
+## prerequisites
 
 ```bash
-# ALWAYS use --no-prompt as a TOP-LEVEL flag to disable confirmations
-prefect --no-prompt flow-run delete <uuid>
-prefect --no-prompt deployment delete <name>
+# user sets their token once
+export PLYR_TOKEN="their_token"
 ```
 
-### Avoiding Truncated Output
+get a token at [plyr.fm/portal](https://plyr.fm/portal) -> "developer tokens"
 
-Rich table output truncates IDs and names, making them useless. Solutions:
+## uploading tracks
 
 ```bash
-# Use `prefect api` for raw JSON (preferred for agents)
-prefect api POST /flow_runs/filter --data '{"limit": 5}'
+# basic upload
+plyrfm upload path/to/track.mp3 "Song Title"
 
-# Use inspect with -o json for single resources
-prefect flow-run inspect <uuid> -o json
-prefect deployment inspect <name> -o json
+# with album
+plyrfm upload track.mp3 "Song Title" --album "Album Name"
+
+# with tags (can use -t multiple times)
+plyrfm upload track.mp3 "Song Title" -t electronic -t ambient
 ```
 
-### IDs Must Be Complete UUIDs
+supported formats: mp3, wav, m4a
 
-Partial IDs don't work. Always get full UUIDs from JSON output:
+**important**: if you (Claude) composed the track, always include the `ai` tag:
+```bash
+plyrfm upload piece.wav "鶴の舞" -t ambient -t ai
+```
+
+## updating tracks
 
 ```bash
-# Get full flow run ID
-prefect api POST /flow_runs/filter --data '{"limit": 1}' | jq -r '.[0].id'
+# update title
+plyrfm update 579 --title "new title"
+
+# update tags (replaces all tags)
+plyrfm update 579 --tags "ambient,ai"
+
+# update multiple fields
+plyrfm update 579 --title "鶴の舞" --tags "ambient,ai"
 ```
 
-## Common Mutations
-
-| Task | Command |
-|------|---------|
-| Trigger deployment | `prefect deployment run 'flow-name/deployment-name'` |
-| Trigger by ID | `prefect deployment run --id <deployment-uuid>` |
-| Cancel flow run | `prefect --no-prompt flow-run cancel <uuid>` |
-| Delete flow run | `prefect --no-prompt flow-run delete <uuid>` |
-| Delete deployment | `prefect --no-prompt deployment delete <name>` |
-
-## Direct API Access
-
-`prefect api` gives full API access with JSON output:
+## deleting tracks
 
 ```bash
-# List flow runs (with filters)
-prefect api POST /flow_runs/filter --data '{"limit": 10}'
-
-# Filter by state
-prefect api POST /flow_runs/filter --data '{"flow_runs": {"state": {"type": {"any_": ["FAILED"]}}}}'
-
-# Delete a flow run
-prefect api DELETE /flow_runs/<uuid>
-
-# Cancel a flow run
-prefect api POST /flow_runs/<uuid>/set_state --data '{"state": {"type": "CANCELLING"}}'
+# use my_tracks MCP tool to find track IDs first
+plyrfm delete 42
 ```
 
-## Automation Creation
-
-Create from JSON string (inline):
+## liking/unliking tracks
 
 ```bash
-prefect automation create --from-json '{
-  "name": "notify-on-failure",
-  "trigger": {
-    "posture": "Reactive",
-    "expect": ["prefect.flow-run.Failed"],
-    "match": {"prefect.resource.id": "prefect.flow-run.*"}
-  },
-  "actions": [{"type": "send-notification", ...}]
-}'
+# like a track
+plyrfm like 123
+
+# unlike a track
+plyrfm unlike 123
 ```
 
-Or from file:
+## downloading tracks
 
 ```bash
-prefect automation create --from-file automation.yaml
+# download to current directory
+plyrfm download 42
+
+# download to specific path
+plyrfm download 42 --output ~/Music/song.mp3
 ```
 
-Use `get_automations()` from the MCP server to inspect existing automation schemas.
+## common issues
 
-## Efficient Inspection
-
-The `get_flow_runs` tool returns summarized data to save tokens:
-- It omits full deployment and work pool schemas.
-- If you see a "Late" run or need concurrency details, follow up with:
-  - `get_work_pools(filter={"name": ...})`
-  - `get_deployments(filter={"id": ...})`
-  - `get_dashboard()`
-
-<!-- ref: https://github.com/pydantic/pydantic-ai/pull/3780 -->
+- "artist_profile_required" -> user needs to create artist profile at plyr.fm/portal
+- "scope_upgrade_required" -> user needs to regenerate their token

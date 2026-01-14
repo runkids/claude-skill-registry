@@ -1,12 +1,7 @@
 {
   "name": "add-dependency",
-  "description": "Add a new third-party dependency to the project following the version catalog and approval workflow.",
-  "repo": "AnySoftKeyboard/janus",
-  "category": "productivity",
-  "tags": [
-    "add",
-    "dependency"
-  ],
-  "stars": 15,
-  "source": "SkillsMP Synced Skills"
+  "repo": "nathanial/lean-workspace",
+  "path": ".claude/skills/add-dependency/SKILL.md",
+  "source": "github.com/nathanial/lean-workspace",
+  "downloaded_at": "2026-01-14T02:38:39.335148Z"
 }

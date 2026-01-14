@@ -1,13 +1,7 @@
 {
   "name": "moai-foundation-quality",
-  "description": "Enterprise code quality orchestrator with TRUST 5 validation, proactive analysis, and automated best practices enforcement",
-  "repo": "globalmsq/msq-relayer-service",
-  "category": "development",
-  "tags": [
-    "moai",
-    "foundation",
-    "quality"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "windysky/claude_notification_wsl2",
+  "path": ".claude/skills/moai-foundation-quality/SKILL.md",
+  "source": "github.com/windysky/claude_notification_wsl2",
+  "downloaded_at": "2026-01-14T04:03:30.444729Z"
 }

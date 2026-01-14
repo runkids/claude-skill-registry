@@ -1,9 +1,7 @@
 {
   "name": "ros2-launch-system",
-  "description": "Generate ROS 2 Python launch files and multi-node system configurations for educational content. This skill should be used when creating lessons that teach launch file syntax, writing exercises involv",
   "repo": "mjunaidca/robolearn",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "GitHub Search API"
+  "path": ".claude/skills/ros2-launch-system/SKILL.md",
+  "source": "github.com/mjunaidca/robolearn",
+  "downloaded_at": "2026-01-14T02:06:13.346005Z"
 }

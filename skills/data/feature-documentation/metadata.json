@@ -1,12 +1,7 @@
 {
   "name": "feature-documentation",
-  "description": "Эксперт feature documentation. Используй для документации функций, release notes, user guides и product documentation.",
   "repo": "dengineproblem/agents-monorepo",
-  "category": "documents",
-  "tags": [
-    "feature",
-    "documentation"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/feature-documentation/SKILL.md",
+  "source": "github.com/dengineproblem/agents-monorepo",
+  "downloaded_at": "2026-01-14T02:08:02.310882Z"
 }

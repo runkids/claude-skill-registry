@@ -1,10 +1,7 @@
 {
   "name": "github-pr",
-  "description": "This skill should be used when working with GitHub pull requests, reviewing PRs, creating PRs, checking PR status, viewing PR comments, analyzing CI failures, or using gh CLI commands. Emphasizes toke",
-  "repo": "tstapler/dotfiles",
-  "category": "data",
-  "tags": [
-    "github"
-  ],
-  "stars": 5
+  "repo": "clawdbot/skills",
+  "path": "skills/dbhurley/github-pr/SKILL.md",
+  "source": "github.com/clawdbot/skills",
+  "downloaded_at": "2026-01-14T03:02:29.659502Z"
 }

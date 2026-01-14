@@ -1,12 +1,7 @@
 {
   "name": "ultrathink-orchestrator",
-  "description": "Auto-invokes ultrathink workflow for any work request (default orchestrator)",
-  "repo": "rysweet/MicrosoftHackathon2025-AgenticCoding",
-  "category": "productivity",
-  "tags": [
-    "ultrathink",
-    "orchestrator"
-  ],
-  "stars": 10,
-  "source": "local"
+  "repo": "rysweet/azlin",
+  "path": ".claude/skills/ultrathink-orchestrator/SKILL.md",
+  "source": "github.com/rysweet/azlin",
+  "downloaded_at": "2026-01-14T03:30:04.638405Z"
 }

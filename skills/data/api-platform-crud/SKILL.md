@@ -25,6 +25,8 @@ Implement production-ready REST API CRUD operations following DDD, CQRS, and hex
 - Command bus pattern used for write operations
 - `make ci` outputs "✅ CI checks successfully passed!"
 
+> Template examples reference MongoDB/Doctrine ODM. In this service, use Doctrine ORM with MySQL (`.orm.xml` mappings, `EntityManagerInterface`) while keeping the same layering and DTO/processor patterns.
+
 ---
 
 ## Quick Start: Complete CRUD in 10 Steps
@@ -154,7 +156,7 @@ REST Request → API Platform
 
 ---
 
-## Constraints
+## Constraints (Parameters)
 
 ### NEVER
 
@@ -250,7 +252,7 @@ make generate-openapi-spec
 make deptrac
 
 # Run E2E tests
-make e2e-tests
+make behat
 
 # Full CI check
 make ci

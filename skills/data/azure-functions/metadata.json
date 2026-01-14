@@ -1,12 +1,7 @@
 {
   "name": "azure-functions",
-  "description": "Create serverless functions on Azure with triggers, bindings, authentication, and monitoring. Use for event-driven computing without managing infrastructure.",
   "repo": "aj-geddes/useful-ai-prompts",
-  "category": "devops",
-  "tags": [
-    "azure",
-    "functions"
-  ],
-  "stars": 25,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/azure-functions/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:05.428136Z"
 }

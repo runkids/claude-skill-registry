@@ -1,12 +1,7 @@
 {
   "name": "notification-trigger",
-  "description": "Triggers notifications exclusively for VERY IMPORTANT priority tasks that are incomplete and due within 6 hours. Repeats every 10 minutes with duplicate prevention tracking in memory. Clears tracking ",
-  "repo": "Syedaashnaghazanfar/full-stack-todo-app",
-  "category": "productivity",
-  "tags": [
-    "notification",
-    "trigger"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "SOFIA-ASIF/TaskFlow-ToDo-APP",
+  "path": ".claude/skills/notification-trigger/SKILL.md",
+  "source": "github.com/SOFIA-ASIF/TaskFlow-ToDo-APP",
+  "downloaded_at": "2026-01-14T03:11:59.173599Z"
 }

@@ -1,11 +1,7 @@
 {
   "name": "webhooks",
-  "description": "Webhook implementation and consumption patterns. Use when implementing webhook endpoints, sending webhooks, handling retries, or ensuring reliable delivery. Keywords: webhooks, callbacks, HMAC, signat",
-  "repo": "cosmix/claude-code-setup",
-  "category": "security",
-  "tags": [
-    "webhooks"
-  ],
-  "stars": 2,
-  "source": "local"
+  "repo": "cosmix/loom",
+  "path": "skills/webhooks/SKILL.md",
+  "source": "github.com/cosmix/loom",
+  "downloaded_at": "2026-01-14T02:38:34.481246Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "agent-data-researcher",
-  "description": "Expert data researcher specializing in discovering, collecting, and analyzing diverse data sources. Masters data mining, statistical analysis, and pattern recognition with focus on extracting meaningf",
   "repo": "Tony363/SuperClaude",
-  "category": "data",
-  "tags": [
-    "agent",
-    "data",
-    "researcher"
-  ],
-  "stars": 10,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/DEPRECATED/agent-data-researcher/SKILL.md",
+  "source": "github.com/Tony363/SuperClaude",
+  "downloaded_at": "2026-01-14T03:29:13.047768Z"
 }

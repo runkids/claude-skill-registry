@@ -1,12 +1,7 @@
 {
   "name": "doc-iplan",
-  "description": "Create Implementation Plans (IPLAN) - Layer 12 artifact converting TASKS into session-based bash command execution plans",
   "repo": "vladm3105/aidoc-flow-framework",
-  "category": "documents",
-  "tags": [
-    "doc",
-    "iplan"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/doc-iplan/SKILL.md",
+  "source": "github.com/vladm3105/aidoc-flow-framework",
+  "downloaded_at": "2026-01-14T03:58:04.542538Z"
 }

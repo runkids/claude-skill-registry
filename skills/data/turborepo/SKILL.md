@@ -16,7 +16,6 @@ https://turborepo.com/llms.txt
 ## When to Use This Skill
 
 Use this skill when:
-
 - Setting up a new monorepo with multiple packages
 - Optimizing build performance in existing monorepos
 - Implementing task pipelines across packages
@@ -31,36 +30,28 @@ Use this skill when:
 ## Core Concepts
 
 ### 1. Monorepo Architecture
-
 Turborepo organizes code into packages within a single repository:
-
 - **Root Package**: Contains workspace configuration
 - **Internal Packages**: Shared libraries, utilities, configs
 - **Applications**: Frontend apps, backend services, etc.
 - **Workspaces**: npm/yarn/pnpm workspace configuration
 
 ### 2. Task Pipeline
-
 Tasks are organized in a dependency graph:
-
 - **Task Dependencies**: Define execution order (build before test)
 - **Package Dependencies**: Respect internal package relationships
 - **Parallel Execution**: Run independent tasks simultaneously
 - **Topological Ordering**: Execute tasks in correct dependency order
 
 ### 3. Intelligent Caching
-
 Turborepo caches task outputs based on inputs:
-
 - **Local Cache**: Stores outputs on local machine
 - **Remote Cache**: Shares cache across team/CI (Vercel or custom)
 - **Content-Based Hashing**: Only re-run when inputs change
 - **Cache Restoration**: Instant task completion from cache
 
 ### 4. Task Outputs
-
 Define what gets cached:
-
 - Build artifacts (dist/, build/)
 - Test results
 - Generated files
@@ -69,14 +60,12 @@ Define what gets cached:
 ## Installation
 
 ### Prerequisites
-
 ```bash
 # Requires Node.js 18+ and a package manager
 node --version  # v18.0.0+
 ```
 
 ### Global Installation
-
 ```bash
 # npm
 npm install turbo --global
@@ -92,7 +81,6 @@ bun add turbo --global
 ```
 
 ### Per-Project Installation
-
 ```bash
 # npm
 npm install turbo --save-dev
@@ -112,13 +100,11 @@ bun add turbo --dev
 ### Create New Monorepo
 
 Using official examples:
-
 ```bash
 npx create-turbo@latest
 ```
 
 Interactive prompts will ask:
-
 - Project name
 - Package manager (npm/yarn/pnpm/bun)
 - Example template selection
@@ -146,7 +132,6 @@ Interactive prompts will ask:
 ```
 
 **2. Create directory structure:**
-
 ```
 my-turborepo/
 ├── apps/
@@ -161,7 +146,6 @@ my-turborepo/
 ```
 
 **3. Create turbo.json:**
-
 ```json
 {
   "$schema": "https://turbo.build/schema.json",
@@ -186,7 +170,6 @@ my-turborepo/
 ## Configuration (turbo.json)
 
 ### Basic Structure
-
 ```json
 {
   "$schema": "https://turbo.build/schema.json",
@@ -201,7 +184,6 @@ my-turborepo/
 ### Pipeline Configuration
 
 **Task with dependencies:**
-
 ```json
 {
   "pipeline": {
@@ -215,7 +197,6 @@ my-turborepo/
 ```
 
 **Key properties:**
-
 - `dependsOn`: Tasks to run first
   - `["^build"]`: Run dependencies' build first
   - `["build"]`: Run own build first
@@ -230,31 +211,28 @@ my-turborepo/
 ### Task Dependency Patterns
 
 **Topological (^):**
-
 ```json
 {
   "build": {
-    "dependsOn": ["^build"] // Run dependencies' build first
+    "dependsOn": ["^build"]  // Run dependencies' build first
   }
 }
 ```
 
 **Regular:**
-
 ```json
 {
   "deploy": {
-    "dependsOn": ["build", "test"] // Run own build and test first
+    "dependsOn": ["build", "test"]  // Run own build and test first
   }
 }
 ```
 
 **Combined:**
-
 ```json
 {
   "test": {
-    "dependsOn": ["^build", "lint"] // Deps' build, then own lint
+    "dependsOn": ["^build", "lint"]  // Deps' build, then own lint
   }
 }
 ```
@@ -265,13 +243,13 @@ my-turborepo/
 {
   "pipeline": {
     "build": {
-      "outputMode": "full" // Show all output
+      "outputMode": "full"        // Show all output
     },
     "dev": {
-      "outputMode": "hash-only" // Show cache hash only
+      "outputMode": "hash-only"   // Show cache hash only
     },
     "test": {
-      "outputMode": "new-only" // Show new output only
+      "outputMode": "new-only"    // Show new output only
     },
     "lint": {
       "outputMode": "errors-only" // Show errors only
@@ -283,7 +261,6 @@ my-turborepo/
 ### Environment Variables
 
 **Global environment variables:**
-
 ```json
 {
   "globalEnv": ["NODE_ENV", "CI"],
@@ -292,13 +269,12 @@ my-turborepo/
 ```
 
 **Per-task environment variables:**
-
 ```json
 {
   "pipeline": {
     "build": {
       "env": ["NEXT_PUBLIC_API_URL", "DATABASE_URL"],
-      "passThroughEnv": ["CUSTOM_VAR"] // Pass without hashing
+      "passThroughEnv": ["CUSTOM_VAR"]  // Pass without hashing
     }
   }
 }
@@ -366,7 +342,6 @@ turbo prune --scope=web --out-dir=./deploy
 ```
 
 **Use cases:**
-
 - Docker builds (only include necessary packages)
 - Deploy specific apps
 - Reduce CI/CD context size
@@ -486,23 +461,21 @@ turbo run test --filter='^ui...'
 Enabled by default, stores in `./node_modules/.cache/turbo`
 
 **Cache behavior:**
-
 ```json
 {
   "pipeline": {
     "build": {
-      "outputs": ["dist/**"], // Cache dist directory
-      "cache": true // Enable caching (default)
+      "outputs": ["dist/**"],  // Cache dist directory
+      "cache": true            // Enable caching (default)
     },
     "dev": {
-      "cache": false // Disable for dev servers
+      "cache": false           // Disable for dev servers
     }
   }
 }
 ```
 
 **Clear cache:**
-
 ```bash
 # Clear Turbo cache
 rm -rf ./node_modules/.cache/turbo
@@ -516,14 +489,12 @@ turbo run build --force  # Skip cache for this run
 Share cache across team and CI:
 
 **1. Link to Vercel (recommended):**
-
 ```bash
 turbo login
 turbo link
 ```
 
 **2. Custom remote cache:**
-
 ```json
 // .turbo/config.json
 {
@@ -534,7 +505,6 @@ turbo link
 ```
 
 **Benefits:**
-
 - Share builds across team
 - Speed up CI/CD
 - Consistent builds
@@ -543,7 +513,6 @@ turbo link
 ### Cache Signatures
 
 Cache is invalidated when:
-
 - Source files change
 - Dependencies change
 - Environment variables change (if specified)
@@ -551,7 +520,6 @@ Cache is invalidated when:
 - Task configuration changes
 
 **Control inputs:**
-
 ```json
 {
   "pipeline": {
@@ -567,12 +535,11 @@ Cache is invalidated when:
 
 ### Package Types
 
-**1. Internal packages (packages/\*):**
-
+**1. Internal packages (packages/*):**
 ```json
-// packages/types/package.json
+// packages/ui/package.json
 {
-  "name": "@myorg/types",
+  "name": "@myorg/ui",
   "version": "0.0.0",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -584,8 +551,7 @@ Cache is invalidated when:
 }
 ```
 
-**2. Applications (apps/\*):**
-
+**2. Applications (apps/*):**
 ```json
 // apps/web/package.json
 {
@@ -607,7 +573,6 @@ Cache is invalidated when:
 ### Dependency Management
 
 **Workspace protocol (pnpm/yarn):**
-
 ```json
 {
   "dependencies": {
@@ -617,7 +582,6 @@ Cache is invalidated when:
 ```
 
 **Version protocol (npm):**
-
 ```json
 {
   "dependencies": {
@@ -629,19 +593,17 @@ Cache is invalidated when:
 ### Shared Configuration
 
 **ESLint config package:**
-
 ```js
 // packages/eslint-config/index.js
 module.exports = {
-  extends: ['next', 'prettier'],
+  extends: ["next", "prettier"],
   rules: {
     // shared rules
-  },
-};
+  }
+}
 ```
 
 **TypeScript config package:**
-
 ```json
 // packages/tsconfig/base.json
 {
@@ -655,7 +617,6 @@ module.exports = {
 ```
 
 **Usage:**
-
 ```json
 // apps/web/tsconfig.json
 {
@@ -757,7 +718,6 @@ CMD node apps/web/server.js
 ### Optimization Tips
 
 1. **Use remote caching in CI:**
-
 ```yaml
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
@@ -765,7 +725,6 @@ env:
 ```
 
 2. **Cache node_modules:**
-
 ```yaml
 - uses: actions/cache@v3
   with:
@@ -774,7 +733,6 @@ env:
 ```
 
 3. **Run only affected tasks:**
-
 ```bash
 turbo run build test --filter='...[origin/main]'
 ```
@@ -800,7 +758,6 @@ turbo run build test --filter='...[origin/main]'
 ```
 
 **turbo.json:**
-
 ```json
 {
   "pipeline": {
@@ -961,7 +918,12 @@ my-monorepo/
 {
   "pipeline": {
     "build": {
-      "outputs": ["dist/**", ".next/**", "!.next/cache/**", "storybook-static/**"]
+      "outputs": [
+        "dist/**",
+        ".next/**",
+        "!.next/cache/**",
+        "storybook-static/**"
+      ]
     },
     "dev": {
       "cache": false,
@@ -979,7 +941,7 @@ my-monorepo/
   "pipeline": {
     "build": {
       "env": ["NEXT_PUBLIC_API_URL"],
-      "passThroughEnv": ["DEBUG"] // Don't affect cache
+      "passThroughEnv": ["DEBUG"]  // Don't affect cache
     }
   }
 }
@@ -1008,7 +970,6 @@ turbo run test --filter='...[HEAD^1]'
 ### 7. Organize Scripts Consistently
 
 Root package.json:
-
 ```json
 {
   "scripts": {
@@ -1028,7 +989,7 @@ Root package.json:
   "pipeline": {
     "dev": {
       "cache": false,
-      "persistent": true // Keeps running
+      "persistent": true  // Keeps running
     }
   }
 }
@@ -1086,7 +1047,6 @@ packages/
 ### Cache Issues
 
 **Problem**: Task not using cache when it should
-
 ```bash
 # Check what's causing cache miss
 turbo run build --dry-run=json
@@ -1099,7 +1059,6 @@ rm -rf ./node_modules/.cache/turbo
 ```
 
 **Problem**: Cache too large
-
 ```bash
 # Limit cache size in turbo.json
 {
@@ -1111,7 +1070,6 @@ rm -rf ./node_modules/.cache/turbo
 ### Dependency Issues
 
 **Problem**: Internal package not found
-
 ```bash
 # Ensure workspace is set up correctly
 npm install
@@ -1126,19 +1084,17 @@ turbo run build --filter='...web'
 ### Task Execution Issues
 
 **Problem**: Tasks running in wrong order
-
 - Check `dependsOn` configuration
 - Use `^task` for dependency tasks
 - Verify task names match package.json scripts
 
 **Problem**: Dev server not starting
-
 ```json
 {
   "pipeline": {
     "dev": {
       "cache": false,
-      "persistent": true // Add this
+      "persistent": true  // Add this
     }
   }
 }
@@ -1147,7 +1103,6 @@ turbo run build --filter='...web'
 ### Performance Issues
 
 **Problem**: Builds taking too long
-
 ```bash
 # Run with concurrency limit
 turbo run build --concurrency=2
@@ -1160,7 +1115,6 @@ turbo run build --dry-run
 ```
 
 **Problem**: Remote cache not working
-
 ```bash
 # Verify authentication
 turbo link
@@ -1178,14 +1132,12 @@ turbo run build --output-logs=hash-only
 ### From Lerna
 
 1. Replace Lerna with Turborepo:
-
 ```bash
 npm uninstall lerna
 npm install turbo --save-dev
 ```
 
 2. Convert lerna.json to turbo.json:
-
 ```json
 {
   "pipeline": {
@@ -1197,7 +1149,6 @@ npm install turbo --save-dev
 ```
 
 3. Update scripts:
-
 ```json
 {
   "scripts": {
@@ -1210,13 +1161,11 @@ npm install turbo --save-dev
 ### From Nx
 
 1. Install Turborepo:
-
 ```bash
 npm install turbo --save-dev
 ```
 
 2. Convert nx.json to turbo.json:
-
 - Map targetDefaults to pipeline
 - Convert dependsOn syntax
 - Configure caching

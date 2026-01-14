@@ -1,13 +1,7 @@
 {
   "name": "moai-alfred-feedback-templates",
-  "description": "GitHub 이슈 라벨별 구조화된 템플릿. 버그, 기능 요청, 개선 사항, 리팩토링, 문서, 질문 등각 이슈 타입에 맞는 한국어 템플릿 제공. /alfred:9-feedback에서 사용.",
   "repo": "dolsoon/my-awesome-project",
-  "category": "data",
-  "tags": [
-    "moai",
-    "alfred",
-    "feedback",
-    "templates"
-  ],
-  "stars": 0
+  "path": ".claude/skills/moai-alfred-feedback-templates/SKILL.md",
+  "source": "github.com/dolsoon/my-awesome-project",
+  "downloaded_at": "2026-01-14T03:37:40.265549Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "data-backup-manager",
-  "description": "Backup and manage game data including maps, NPCs, and configurations. Use when the user wants to backup data, create snapshots, export data, or restore from backups.",
   "repo": "gigi-f/babylon_fp",
-  "category": "data",
-  "tags": [
-    "data",
-    "backup",
-    "manager"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/data-backup-manager/SKILL.md",
+  "source": "github.com/gigi-f/babylon_fp",
+  "downloaded_at": "2026-01-14T02:35:03.589070Z"
 }

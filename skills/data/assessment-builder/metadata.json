@@ -1,12 +1,7 @@
 {
   "name": "assessment-builder",
-  "description": "Creates assessments with varied question types (MCQ, code-completion, debugging, projects) alignedto learning objectives with meaningful distractors based on common misconceptions. Activate wheneducat",
-  "repo": "panaversity/ai-native-software-development",
-  "category": "development",
-  "tags": [
-    "assessment",
-    "builder"
-  ],
-  "stars": 48,
-  "source": "SkillsMP Synced Skills"
+  "repo": "mjunaidca/robolearn",
+  "path": ".claude/skills/assessment-builder/SKILL.md",
+  "source": "github.com/mjunaidca/robolearn",
+  "downloaded_at": "2026-01-14T02:06:12.199026Z"
 }

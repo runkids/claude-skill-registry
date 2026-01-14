@@ -1,12 +1,7 @@
 {
   "name": "morph-apply",
-  "description": "Fast file editing via Morph Apply API (10,500 tokens/sec, 98% accuracy)",
-  "repo": "parcadei/Continuous-Claude-v2",
-  "category": "development",
-  "tags": [
-    "morph",
-    "apply"
-  ],
-  "stars": 1318,
-  "source": "SkillsMP Synced Skills"
+  "repo": "parcadei/Continuous-Claude-v3",
+  "path": ".claude/skills/morph-apply/SKILL.md",
+  "source": "github.com/parcadei/Continuous-Claude-v3",
+  "downloaded_at": "2026-01-14T01:18:47.832668Z"
 }

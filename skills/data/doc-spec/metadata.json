@@ -1,12 +1,7 @@
 {
   "name": "doc-spec",
-  "description": "Create Technical Specifications (SPEC) - Layer 10 artifact using YAML format for implementation-ready specifications",
   "repo": "vladm3105/aidoc-flow-framework",
-  "category": "data",
-  "tags": [
-    "doc",
-    "spec"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/doc-spec/SKILL.md",
+  "source": "github.com/vladm3105/aidoc-flow-framework",
+  "downloaded_at": "2026-01-14T03:58:01.927260Z"
 }

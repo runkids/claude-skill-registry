@@ -1,12 +1,7 @@
 {
   "name": "agentic-patterns",
-  "description": "Design and operate multi-agent orchestration patterns (ReAct loops, evaluator-optimizer, orchestrator-workers, tool routing) for LLM systems. Use when building or debugging agent workflows, tool-use l",
   "repo": "cuba6112/skillfactory",
-  "category": "development",
-  "tags": [
-    "agentic",
-    "patterns"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/agentic-patterns/SKILL.md",
+  "source": "github.com/cuba6112/skillfactory",
+  "downloaded_at": "2026-01-14T02:37:41.713676Z"
 }

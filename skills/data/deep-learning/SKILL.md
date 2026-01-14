@@ -1,194 +1,263 @@
 ---
 name: deep-learning
-description: Neural networks, CNNs, RNNs, Transformers with TensorFlow and PyTorch. Use for image classification, NLP, sequence modeling, or complex pattern recognition.
-sasmp_version: "1.3.0"
-bonded_agent: 04-machine-learning-ai
+description: Build and train neural networks with PyTorch - MLPs, CNNs, and training best practices
+version: "1.4.0"
+sasmp_version: "1.4.0"
+bonded_agent: 04-deep-learning
 bond_type: PRIMARY_BOND
+
+# Parameter Validation
+parameters:
+  required:
+    - name: model
+      type: nn.Module
+      validation: "Valid PyTorch model"
+    - name: train_loader
+      type: DataLoader
+      validation: "Non-empty DataLoader"
+  optional:
+    - name: epochs
+      type: integer
+      default: 10
+      validation: "1 <= epochs <= 1000"
+    - name: lr
+      type: float
+      default: 0.001
+      validation: "1e-6 <= lr <= 1"
+
+# Retry Logic
+retry_logic:
+  strategy: exponential_backoff
+  max_attempts: 3
+  base_delay_ms: 1000
+
+# Observability
+logging:
+  level: info
+  metrics: [train_loss, val_loss, val_accuracy, gpu_memory]
 ---
 
-# Deep Learning
+# Deep Learning Skill
 
-Build neural networks for computer vision, NLP, and complex data patterns.
+> Build and train neural networks using PyTorch.
 
-## Quick Start with PyTorch
+## Quick Start
 
 ```python
 import torch
 import torch.nn as nn
-import torch.optim as optim
+from torch.utils.data import DataLoader, TensorDataset
 
 # Define model
-class NeuralNet(nn.Module):
-    def __init__(self, input_size, hidden_size, num_classes):
-        super(NeuralNet, self).__init__()
-        self.fc1 = nn.Linear(input_size, hidden_size)
-        self.relu = nn.ReLU()
-        self.fc2 = nn.Linear(hidden_size, num_classes)
+class SimpleNN(nn.Module):
+    def __init__(self, input_dim, hidden_dim, output_dim):
+        super().__init__()
+        self.layers = nn.Sequential(
+            nn.Linear(input_dim, hidden_dim),
+            nn.ReLU(),
+            nn.Dropout(0.3),
+            nn.Linear(hidden_dim, output_dim)
+        )
 
     def forward(self, x):
-        out = self.fc1(x)
-        out = self.relu(out)
-        out = self.fc2(out)
-        return out
+        return self.layers(x)
 
-# Initialize
-model = NeuralNet(input_size=784, hidden_size=128, num_classes=10)
+# Train
+model = SimpleNN(10, 64, 2)
+optimizer = torch.optim.AdamW(model.parameters(), lr=1e-3)
 criterion = nn.CrossEntropyLoss()
-optimizer = optim.Adam(model.parameters(), lr=0.001)
 
-# Training loop
 for epoch in range(10):
-    for images, labels in train_loader:
-        # Forward pass
-        outputs = model(images)
-        loss = criterion(outputs, labels)
-
-        # Backward and optimize
+    model.train()
+    for batch_x, batch_y in train_loader:
         optimizer.zero_grad()
+        output = model(batch_x)
+        loss = criterion(output, batch_y)
         loss.backward()
         optimizer.step()
 ```
 
-## CNN for Image Classification
+## Key Topics
+
+### 1. Neural Network Architectures
+
+| Architecture | Use Case | Key Layers |
+|-------------|----------|------------|
+| **MLP** | Tabular data | Linear, ReLU, Dropout |
+| **CNN** | Images | Conv2d, MaxPool2d, BatchNorm |
+| **RNN/LSTM** | Sequences | LSTM, GRU |
+| **Transformer** | NLP, Vision | MultiheadAttention |
 
 ```python
-class CNN(nn.Module):
-    def __init__(self, num_classes=10):
-        super(CNN, self).__init__()
-        self.conv1 = nn.Conv2d(3, 32, kernel_size=3, padding=1)
-        self.conv2 = nn.Conv2d(32, 64, kernel_size=3, padding=1)
-        self.pool = nn.MaxPool2d(2, 2)
-        self.fc1 = nn.Linear(64 * 8 * 8, 512)
-        self.fc2 = nn.Linear(512, num_classes)
-        self.dropout = nn.Dropout(0.5)
+class MLP(nn.Module):
+    def __init__(self, dims, dropout=0.3):
+        super().__init__()
+        layers = []
+        for i in range(len(dims) - 1):
+            layers.extend([
+                nn.Linear(dims[i], dims[i+1]),
+                nn.BatchNorm1d(dims[i+1]) if i < len(dims) - 2 else nn.Identity(),
+                nn.ReLU() if i < len(dims) - 2 else nn.Identity(),
+                nn.Dropout(dropout) if i < len(dims) - 2 else nn.Identity()
+            ])
+        self.network = nn.Sequential(*layers)
 
     def forward(self, x):
-        x = self.pool(F.relu(self.conv1(x)))
-        x = self.pool(F.relu(self.conv2(x)))
-        x = x.view(-1, 64 * 8 * 8)
-        x = F.relu(self.fc1(x))
-        x = self.dropout(x)
-        x = self.fc2(x)
-        return x
+        return self.network(x)
 ```
 
-## Transfer Learning
+### 2. Training Loop Template
 
 ```python
-import torchvision.models as models
+import torch.cuda.amp as amp
 
-# Load pre-trained ResNet
-model = models.resnet50(pretrained=True)
+def train_epoch(model, loader, optimizer, criterion, device, scaler=None):
+    model.train()
+    total_loss = 0
 
-# Freeze layers
-for param in model.parameters():
-    param.requires_grad = False
+    for batch_x, batch_y in loader:
+        batch_x, batch_y = batch_x.to(device), batch_y.to(device)
 
-# Replace final layer
-num_features = model.fc.in_features
-model.fc = nn.Linear(num_features, num_classes)
+        optimizer.zero_grad()
 
-# Only train final layer
-optimizer = optim.Adam(model.fc.parameters(), lr=0.001)
+        if scaler:  # Mixed precision
+            with amp.autocast():
+                output = model(batch_x)
+                loss = criterion(output, batch_y)
+            scaler.scale(loss).backward()
+            scaler.step(optimizer)
+            scaler.update()
+        else:
+            output = model(batch_x)
+            loss = criterion(output, batch_y)
+            loss.backward()
+            optimizer.step()
+
+        total_loss += loss.item()
+
+    return total_loss / len(loader)
 ```
 
-## LSTM for Sequences
+### 3. Learning Rate Scheduling
 
 ```python
-class LSTMModel(nn.Module):
-    def __init__(self, input_size, hidden_size, num_layers, output_size):
-        super(LSTMModel, self).__init__()
-        self.hidden_size = hidden_size
-        self.num_layers = num_layers
-        self.lstm = nn.LSTM(input_size, hidden_size, num_layers,
-                           batch_first=True, dropout=0.2)
-        self.fc = nn.Linear(hidden_size, output_size)
+from torch.optim.lr_scheduler import OneCycleLR, CosineAnnealingLR
 
-    def forward(self, x):
-        h0 = torch.zeros(self.num_layers, x.size(0), self.hidden_size)
-        c0 = torch.zeros(self.num_layers, x.size(0), self.hidden_size)
-
-        out, _ = self.lstm(x, (h0, c0))
-        out = self.fc(out[:, -1, :])
-        return out
-```
-
-## Transformers with Hugging Face
-
-```python
-from transformers import AutoModelForSequenceClassification, Trainer, TrainingArguments
-
-model = AutoModelForSequenceClassification.from_pretrained(
-    'bert-base-uncased',
-    num_labels=2
+# OneCycle (recommended)
+scheduler = OneCycleLR(
+    optimizer,
+    max_lr=1e-3,
+    epochs=epochs,
+    steps_per_epoch=len(train_loader)
 )
 
-training_args = TrainingArguments(
-    output_dir='./results',
-    num_train_epochs=3,
-    per_device_train_batch_size=16,
-    warmup_steps=500,
-    weight_decay=0.01,
-)
-
-trainer = Trainer(
-    model=model,
-    args=training_args,
-    train_dataset=train_dataset,
-    eval_dataset=eval_dataset
-)
-
-trainer.train()
+# Cosine Annealing
+scheduler = CosineAnnealingLR(optimizer, T_max=epochs)
 ```
 
-## Tips & Tricks
+### 4. Regularization
 
-**Regularization:**
-- Dropout: `nn.Dropout(0.5)`
-- Batch Normalization: `nn.BatchNorm2d(channels)`
-- Weight Decay: `optimizer = optim.Adam(params, weight_decay=0.01)`
-- Early Stopping: Monitor validation loss
+| Technique | Implementation |
+|-----------|----------------|
+| **Dropout** | `nn.Dropout(p=0.3)` |
+| **Weight Decay** | `AdamW(weight_decay=0.01)` |
+| **Batch Norm** | `nn.BatchNorm1d(dim)` |
+| **Early Stopping** | Monitor val_loss |
 
-**Optimization:**
-- Learning Rate Scheduling:
-  ```python
-  scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=30, gamma=0.1)
-  ```
-- Gradient Clipping:
-  ```python
-  torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
-  ```
+### 5. Model Checkpointing
 
-**Data Augmentation:**
 ```python
-from torchvision import transforms
+def save_checkpoint(model, optimizer, epoch, val_loss, path):
+    torch.save({
+        'epoch': epoch,
+        'model_state_dict': model.state_dict(),
+        'optimizer_state_dict': optimizer.state_dict(),
+        'val_loss': val_loss
+    }, path)
 
-transform = transforms.Compose([
-    transforms.RandomHorizontalFlip(),
-    transforms.RandomRotation(10),
-    transforms.ColorJitter(brightness=0.2, contrast=0.2),
-    transforms.ToTensor(),
-    transforms.Normalize(mean=[0.485, 0.456, 0.406],
-                        std=[0.229, 0.224, 0.225])
-])
+def load_checkpoint(model, optimizer, path):
+    checkpoint = torch.load(path)
+    model.load_state_dict(checkpoint['model_state_dict'])
+    optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
+    return checkpoint['epoch'], checkpoint['val_loss']
 ```
 
-## Common Issues
+## Best Practices
 
-**Overfitting:**
-- Add dropout
-- Data augmentation
-- Early stopping
-- Reduce model complexity
+### DO
+- Use mixed precision training (AMP)
+- Apply gradient clipping
+- Save checkpoints regularly
+- Use AdamW over Adam
+- Monitor learning curves
+- Initialize weights properly
 
-**Underfitting:**
-- Increase model capacity
-- Train longer
-- Reduce regularization
-- Better features
+### DON'T
+- Don't use large batches without LR scaling
+- Don't train without validation
+- Don't skip weight initialization
+- Don't ignore NaN losses
 
-**Vanishing Gradients:**
-- Use ReLU activation
-- Batch normalization
-- Residual connections
-- Proper initialization
+## Exercises
+
+### Exercise 1: Basic MLP
+```python
+# TODO: Build an MLP for MNIST classification
+# Architecture: 784 -> 256 -> 128 -> 10
+```
+
+### Exercise 2: Training with AMP
+```python
+# TODO: Implement mixed precision training
+# and compare speed with FP32 training
+```
+
+## Unit Test Template
+
+```python
+import pytest
+import torch
+
+def test_model_forward():
+    """Test model forward pass."""
+    model = SimpleNN(10, 64, 2)
+    x = torch.randn(32, 10)
+
+    output = model(x)
+
+    assert output.shape == (32, 2)
+
+def test_model_backward():
+    """Test gradient flow."""
+    model = SimpleNN(10, 64, 2)
+    x = torch.randn(32, 10)
+    y = torch.randint(0, 2, (32,))
+
+    output = model(x)
+    loss = nn.CrossEntropyLoss()(output, y)
+    loss.backward()
+
+    # Check gradients exist
+    for param in model.parameters():
+        assert param.grad is not None
+```
+
+## Troubleshooting
+
+| Problem | Cause | Solution |
+|---------|-------|----------|
+| NaN loss | Exploding gradients | Add gradient clipping |
+| Loss plateau | LR too low | Increase LR or use scheduler |
+| Overfitting | Model too complex | Add dropout, reduce layers |
+| GPU OOM | Batch too large | Reduce batch size |
+
+## Related Resources
+
+- **Agent**: `04-deep-learning`
+- **Previous**: `clustering`
+- **Next**: `nlp-basics`
+- **Docs**: [PyTorch Tutorials](https://pytorch.org/tutorials/)
+
+---
+
+**Version**: 1.4.0 | **Status**: Production Ready

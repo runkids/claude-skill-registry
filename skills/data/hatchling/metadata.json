@@ -1,10 +1,7 @@
 {
   "name": "hatchling",
-  "description": "This skill provides comprehensive documentation for Hatchling, the modern Python build backend that implements PEP 517/518/621/660 standards. Use this skill when working with Hatchling configuration, ",
-  "repo": "Jamie-BitFlight/claude_skills",
-  "category": "data",
-  "tags": [
-    "hatchling"
-  ],
-  "stars": 4
+  "repo": "BbgnsurfTech/claude-skills-collection",
+  "path": "community/jamie-bitflight-claude-skills/hatchling/SKILL.md",
+  "source": "github.com/BbgnsurfTech/claude-skills-collection",
+  "downloaded_at": "2026-01-14T01:28:27.457721Z"
 }

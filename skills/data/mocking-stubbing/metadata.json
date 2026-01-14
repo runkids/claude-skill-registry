@@ -1,12 +1,7 @@
 {
   "name": "mocking-stubbing",
-  "description": "Create and manage mocks, stubs, spies, and test doubles for isolating unit tests from external dependencies. Use for mock, stub, spy, test double, Mockito, Jest mocks, and dependency isolation.",
   "repo": "aj-geddes/useful-ai-prompts",
-  "category": "testing",
-  "tags": [
-    "mocking",
-    "stubbing"
-  ],
-  "stars": 25,
-  "source": "local"
+  "path": "skills/mocking-stubbing/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:08.029025Z"
 }

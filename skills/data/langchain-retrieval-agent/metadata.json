@@ -1,12 +1,7 @@
 {
   "name": "langchain-retrieval-agent",
-  "description": "AI agent with retrieval tool for document Q&A using RAG and LangGraph.",
-  "repo": "Eng0AI/eng0-template-skills",
-  "category": "data",
-  "tags": [
-    "langchain",
-    "retrieval",
-    "agent"
-  ],
-  "stars": 0
+  "repo": "rebyteai-template/rebyte-skills",
+  "path": "langchain-retrieval-agent/SKILL.md",
+  "source": "github.com/rebyteai-template/rebyte-skills",
+  "downloaded_at": "2026-01-14T01:01:11.424503Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "aesthetic-pattern-miner",
-  "description": "[Aesthetics] Extracts recurring visual patterns from references: contrast habits, shapes, density/whitespace balance, rhythm, textures. Produces Aesthetic Pattern Library as Data-Sheet nodes in Brain ",
   "repo": "CANTAGESTUDIO/CosmicAtlasPacker",
-  "category": "data",
-  "tags": [
-    "aesthetic",
-    "pattern",
-    "miner"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".factory/skills/aesthetic-pattern-miner/SKILL.md",
+  "source": "github.com/CANTAGESTUDIO/CosmicAtlasPacker",
+  "downloaded_at": "2026-01-14T02:43:52.193448Z"
 }

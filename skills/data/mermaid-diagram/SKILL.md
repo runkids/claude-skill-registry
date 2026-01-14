@@ -1,494 +1,283 @@
 ---
 name: mermaid-diagram
-description: Creates syntactically correct mermaid diagrams (flowchart, sequenceDiagram, classDiagram, stateDiagram, erDiagram, gantt, mindmap) following official specifications. Prevents common errors like special characters in labels, subgraph syntax, note misuse, and reserved words. Use when creating or editing mermaid diagrams in documentation or design files.
-allowed-tools: Write, Edit, Read
+description: Generate Mermaid diagrams including flowcharts, sequence diagrams, and class diagrams. Use when creating visual diagrams in documentation.
 ---
 
 # Mermaid Diagram Skill
 
-Creates syntactically correct mermaid diagrams following official specifications and preventing common errors.
+Mermaid記法でダイアグラムを生成するスキルです。
 
----
+## 概要
 
-## Overview
+フローチャート、シーケンス図、ガントチャート等をテキストから生成します。
 
-This skill helps you create error-free mermaid diagrams by:
-- Following official mermaid syntax specifications
-- Avoiding common pitfalls (special characters, reserved words, wrong note syntax)
-- Providing correct structure for each diagram type
-- Based on real experience: 76 diagrams fixed, 20+ iterations avoided
+## 主な機能
 
-**When to use:**
-- Creating flowcharts, sequence diagrams, class diagrams, etc.
-- Editing existing mermaid diagrams
-- Converting design ideas into visual diagrams
+- **フローチャート**: プロセスフロー
+- **シーケンス図**: インタラクション
+- **クラス図**: UML クラス図
+- **ER図**: データベース設計
+- **ガントチャート**: プロジェクト管理
+- **パイチャート**: 割合表示
+- **状態遷移図**: ステートマシン
+- **ジャーニーマップ**: ユーザージャーニー
 
----
+## 使用方法
 
-## Quick Start
-
-### Flowchart Basic Syntax
-
-```mermaid
-flowchart TD
-    Start[Start Process]
-    Process[Process Data]
-    Decision{Is Valid?}
-    End[End]
-
-    Start --> Process
-    Process --> Decision
-    Decision -->|Yes| End
-    Decision -->|No| Process
+```
+以下のプロセスのフローチャートをMermaidで作成：
+1. ユーザー登録
+2. メール検証
+3. プロフィール設定
 ```
 
-### Sequence Diagram Basic Syntax
+## ダイアグラムタイプ
+
+### フローチャート
+
+```mermaid
+graph TD
+    A[開始] --> B{条件分岐}
+    B -->|Yes| C[処理A]
+    B -->|No| D[処理B]
+    C --> E[終了]
+    D --> E
+```
+
+```
+graph TD
+    A[開始] --> B{条件分岐}
+    B -->|Yes| C[処理A]
+    B -->|No| D[処理B]
+    C --> E[終了]
+    D --> E
+```
+
+### シーケンス図
 
 ```mermaid
 sequenceDiagram
-    participant A as Alice
-    participant B as Bob
+    participant User
+    participant Frontend
+    participant Backend
+    participant Database
 
-    A->>B: Hello Bob
-    B->>A: Hi Alice
-
-    Note right of B: Bob thinks
+    User->>Frontend: ログイン
+    Frontend->>Backend: POST /api/login
+    Backend->>Database: SELECT user
+    Database-->>Backend: User data
+    Backend-->>Frontend: JWT token
+    Frontend-->>User: ログイン成功
 ```
 
-### Class Diagram Basic Syntax
+```
+sequenceDiagram
+    participant User
+    participant Frontend
+    participant Backend
+    participant Database
+
+    User->>Frontend: ログイン
+    Frontend->>Backend: POST /api/login
+    Backend->>Database: SELECT user
+    Database-->>Backend: User data
+    Backend-->>Frontend: JWT token
+    Frontend-->>User: ログイン成功
+```
+
+### クラス図
 
 ```mermaid
 classDiagram
-    class Animal {
+    class User {
+        +String id
         +String name
-        +int age
-        +makeSound()
+        +String email
+        +login()
+        +logout()
     }
-
-    class Dog {
-        +bark()
+    class Order {
+        +String id
+        +Date date
+        +Float total
+        +addItem()
+        +removeItem()
     }
-
-    Animal <|-- Dog
+    User "1" --> "*" Order : places
 ```
 
----
-
-## Critical Rules (MUST FOLLOW)
-
-### Rule 1: Special Characters in Labels
-
-**Problem characters:** `:`, `()`, `[]`, `{}`, `@`, `;`, `,`
-
-**Solutions:**
-
-**Option A: Use double quotes**
-```mermaid
-flowchart LR
-    A["Function: process()"]
-    B["Array [1, 2, 3]"]
 ```
-
-**Option B: Use HTML entities**
-- `:` → `&#58;`
-- `(` → `&#40;`
-- `)` → `&#41;`
-- `[` → `&#91;`
-- `]` → `&#93;`
-- `;` → `&#59;`
-
-**WRONG:**
-```mermaid
-flowchart LR
-    A[Function: process()]  ❌ Colon breaks syntax
-```
-
----
-
-### Rule 2: Reserved Words
-
-**"end" (lowercase):**
-```mermaid
-flowchart TD
-    Start --> End   ✅ Capitalized OK
-    Start --> end   ❌ Breaks diagram
-    Start --> END   ✅ All caps OK
-```
-
-**"o" and "x" at edge start:**
-```mermaid
-flowchart LR
-    A --- oB  ❌ Creates circle edge
-    A --- xB  ❌ Creates cross edge
-    A --- oC  ✅ Add space: o B
-```
-
----
-
-### Rule 3: Subgraph Syntax
-
-**CORRECT:**
-```mermaid
-flowchart TD
-    subgraph ID["Subgraph Title"]
-        A[Node A]
-        B[Node B]
-    end
-```
-
-**WRONG:**
-```mermaid
-flowchart TD
-    subgraph "Subgraph Title"  ❌ Missing ID
-        A[Node A]
-    end
-```
-
----
-
-### Rule 4: Note Syntax (Diagram-Specific)
-
-**sequenceDiagram ONLY:**
-```mermaid
-sequenceDiagram
-    A->>B: Message
-    Note right of B: This is valid ✅
-```
-
-**flowchart/graph: NO note keyword**
-```mermaid
-flowchart TD
-    Note[Use regular node instead]  ✅
-```
-
----
-
-### Rule 5: classDiagram Rules
-
-**Define before linking:**
-```mermaid
 classDiagram
-    class Animal {
-        +name
+    class User {
+        +String id
+        +String name
+        +String email
+        +login()
+        +logout()
     }
-    class Dog
-
-    Animal <|-- Dog  ✅ Both defined
-```
-
-**Method syntax:**
-```mermaid
-classDiagram
-    class MyClass {
-        +method(param) ReturnType  ✅
-        +field: Type  ✅
+    class Order {
+        +String id
+        +Date date
+        +Float total
+        +addItem()
+        +removeItem()
     }
+    User "1" --> "*" Order : places
 ```
 
----
-
-## Diagram Types
-
-### Flowchart / Graph
-
-**Declaration:**
-- `flowchart TD` (Top-Down)
-- `flowchart LR` (Left-Right)
-- `graph TD` (alias)
-
-**Node shapes:**
-- `A[Rectangle]`
-- `B(Rounded)`
-- `C{Diamond}`
-- `D([Stadium)])
-- `E[[Subroutine]]`
-
-**Edges:**
-- `A --> B` (arrow)
-- `A --- B` (line)
-- `A -.-> B` (dotted arrow)
-- `A ==> B` (thick arrow)
-- `A -->|label| B` (labeled edge)
-
-**Subgraph:**
-```mermaid
-flowchart TD
-    subgraph SG1["Group 1"]
-        A[Node A]
-        B[Node B]
-    end
-
-    subgraph SG2["Group 2"]
-        C[Node C]
-    end
-
-    A --> C
-```
-
----
-
-### sequenceDiagram
-
-**Participants:**
-```mermaid
-sequenceDiagram
-    participant A as Alice
-    participant B as Bob
-```
-
-**Messages:**
-- `A->>B: Solid arrow`
-- `A-->>B: Dotted arrow`
-- `A-)B: Async`
-
-**Notes:**
-- `Note right of A: Text`
-- `Note left of B: Text`
-- `Note over A,B: Text`
-
-**Blocks:**
-- `alt`, `opt`, `par`, `loop`, `rect`
-
----
-
-### classDiagram
-
-**Class definition:**
-```mermaid
-classDiagram
-    class ClassName {
-        +publicField: Type
-        -privateField: Type
-        +method(param) ReturnType
-    }
-```
-
-**Relationships:**
-- `A <|-- B` (inheritance)
-- `A *-- B` (composition)
-- `A o-- B` (aggregation)
-- `A --> B` (association)
-- `A ..> B` (dependency)
-- `A ..|> B` (realization)
-
-**Edge labels:**
-```mermaid
-classDiagram
-    A --> B : label
-    A ..> C : another label
-```
-
----
-
-### stateDiagram-v2
-
-```mermaid
-stateDiagram-v2
-    [*] --> State1
-    State1 --> State2
-    State2 --> [*]
-
-    state State1 {
-        [*] --> Nested1
-        Nested1 --> [*]
-    }
-```
-
----
-
-### erDiagram
+### ER図
 
 ```mermaid
 erDiagram
-    CUSTOMER ||--o{ ORDER : places
-    ORDER ||--|{ LINE-ITEM : contains
+    USER ||--o{ ORDER : places
+    ORDER ||--|{ ORDER_ITEM : contains
+    PRODUCT ||--o{ ORDER_ITEM : "ordered in"
 
-    CUSTOMER {
+    USER {
+        int id PK
         string name
-        int id
+        string email
+    }
+    ORDER {
+        int id PK
+        int user_id FK
+        date created_at
+    }
+    ORDER_ITEM {
+        int order_id FK
+        int product_id FK
+        int quantity
+    }
+    PRODUCT {
+        int id PK
+        string name
+        decimal price
     }
 ```
 
----
+```
+erDiagram
+    USER ||--o{ ORDER : places
+    ORDER ||--|{ ORDER_ITEM : contains
+    PRODUCT ||--o{ ORDER_ITEM : "ordered in"
 
-### gantt
+    USER {
+        int id PK
+        string name
+        string email
+    }
+```
+
+### ガントチャート
 
 ```mermaid
 gantt
-    title Project Schedule
-    dateFormat YYYY-MM-DD
-    section Phase 1
-    Task 1 :a1, 2025-01-01, 30d
-    Task 2 :after a1, 20d
+    title プロジェクトスケジュール
+    dateFormat  YYYY-MM-DD
+    section フェーズ1
+    要件定義           :a1, 2024-01-01, 30d
+    設計               :a2, after a1, 20d
+    section フェーズ2
+    開発               :b1, after a2, 60d
+    テスト             :b2, after b1, 30d
+    section デプロイ
+    リリース準備       :c1, after b2, 10d
+    本番リリース       :milestone, c2, after c1, 1d
 ```
 
----
+```
+gantt
+    title プロジェクトスケジュール
+    dateFormat  YYYY-MM-DD
+    section フェーズ1
+    要件定義           :a1, 2024-01-01, 30d
+    設計               :a2, after a1, 20d
+```
 
-### mindmap
+### 状態遷移図
 
 ```mermaid
-mindmap
-  root((Central Idea))
-    Topic1
-      Subtopic1
-      Subtopic2
-    Topic2
+stateDiagram-v2
+    [*] --> Draft
+    Draft --> Review : Submit
+    Review --> Approved : Approve
+    Review --> Draft : Reject
+    Approved --> Published : Publish
+    Published --> [*]
 ```
 
----
-
-## Common Errors and Solutions
-
-### Error 1: "Parse error on line X"
-
-**Cause:** Special characters in labels
-
-**Solution:** Use double quotes or HTML entities
-```mermaid
-flowchart LR
-    A["Method: process()"]  ✅
+```
+stateDiagram-v2
+    [*] --> Draft
+    Draft --> Review : Submit
+    Review --> Approved : Approve
+    Review --> Draft : Reject
+    Approved --> Published : Publish
+    Published --> [*]
 ```
 
----
-
-### Error 2: "Subgraph X not found"
-
-**Cause:** Missing ID in subgraph declaration
-
-**Solution:**
-```mermaid
-flowchart TD
-    subgraph ID["Title"]  ✅
-        A[Node]
-    end
-```
-
----
-
-### Error 3: "Syntax error in graph"
-
-**Cause:** Reserved word "end" in lowercase
-
-**Solution:** Capitalize: `End`, `END`
-
----
-
-### Error 4: "Note is not defined"
-
-**Cause:** Using `Note` keyword in flowchart
-
-**Solution:** Use regular node or switch to sequenceDiagram
-
----
-
-### Error 5: Unexpected edge type
-
-**Cause:** "o" or "x" at edge start
-
-**Solution:**
-```mermaid
-flowchart LR
-    A --- B  ✅
-    A --- oC  ❌ (creates circle edge)
-    A --- " oC"  ✅ (add space)
-```
-
----
-
-## Advanced Topics
-
-For detailed specifications on specific diagram types, see:
-- [flowchart-reference.md](flowchart-reference.md) - Complete flowchart syntax
-- [sequence-reference.md](sequence-reference.md) - Complete sequence diagram syntax
-- [class-reference.md](class-reference.md) - Complete class diagram syntax
-- [common-errors.md](common-errors.md) - Error patterns from 76 diagram corrections
-
----
-
-## Validation Checklist
-
-Before finalizing a mermaid diagram:
-
-- [ ] No special characters without quotes/escaping
-- [ ] No lowercase "end" as node name
-- [ ] Subgraphs have ID: `subgraph ID["Title"]`
-- [ ] Note only in sequenceDiagram
-- [ ] All referenced nodes are defined (classDiagram)
-- [ ] No "o" or "x" at edge start in flowchart
-- [ ] Proper diagram type declaration
-
----
-
-## Best Practices
-
-1. **Keep it simple:** Start with basic syntax, add complexity only if needed
-2. **Use double quotes:** For any label with special characters
-3. **Test incrementally:** Add nodes/edges one at a time if diagram is complex
-4. **Consistent naming:** Use clear, descriptive IDs
-5. **Avoid nesting:** Deep nesting often causes issues
-
----
-
-## Examples from Swift-Selena Project
-
-### System Architecture (flowchart)
+### パイチャート
 
 ```mermaid
-graph TB
-    subgraph Server["MCP Server"]
-        Main[SwiftMCPServer]
-        LSP[LSPState]
-    end
-
-    subgraph Tools["Tools"]
-        T1[Tool 1]
-        T2[Tool 2]
-    end
-
-    Main --> LSP
-    Main --> Tools
-
-    style Server fill:#e3f2fd
+pie title 売上構成
+    "製品A" : 42
+    "製品B" : 30
+    "製品C" : 18
+    "その他" : 10
 ```
 
-### LSP Protocol Flow (sequenceDiagram)
+```
+pie title 売上構成
+    "製品A" : 42
+    "製品B" : 30
+    "製品C" : 18
+    "その他" : 10
+```
+
+### ユーザージャーニー
 
 ```mermaid
-sequenceDiagram
-    participant C as Client
-    participant L as LSP
-
-    C->>L: initialize
-    L->>C: response
-    C->>L: initialized
-
-    Note over L: Ready for requests
-
-    C->>L: textDocument/references
-    L->>C: result
+journey
+    title ユーザー登録のジャーニー
+    section 発見
+      ランディングページ訪問: 5: User
+      機能を確認: 4: User
+    section 登録
+      サインアップクリック: 3: User
+      情報入力: 2: User
+      メール認証: 3: User
+    section 利用開始
+      チュートリアル: 4: User
+      初回利用: 5: User
 ```
 
-### Data Model (erDiagram)
+## HTMLへの埋め込み
 
-```mermaid
-erDiagram
-    ProjectMemory ||--o{ FileInfo : contains
-    ProjectMemory ||--o{ Note : contains
-
-    FileInfo {
-        string path
-        date lastModified
-    }
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({ startOnLoad: true });</script>
+</head>
+<body>
+  <div class="mermaid">
+    graph TD
+        A[開始] --> B[処理]
+        B --> C[終了]
+  </div>
+</body>
+</html>
 ```
 
----
+## ベストプラクティス
 
-## Quick Reference
+1. **明確なラベル**: ノード名を分かりやすく
+2. **方向性**: TD（上下）、LR（左右）を適切に選択
+3. **色分け**: 重要な部分を強調
+4. **コメント**: 複雑な図には説明を追加
 
-**Escape special chars:** Use `"` or `&#XX;`
-**Subgraph:** `subgraph ID["Title"]`
-**Note:** sequenceDiagram only
-**Reserved:** Avoid lowercase "end"
-**classDiagram:** Define before link
+## バージョン情報
 
-For complete syntax details, refer to supporting reference files.
+- スキルバージョン: 1.0.0
+- 最終更新: 2025-01-22

@@ -1,13 +1,7 @@
 {
   "name": "reciprocity-mandate-sync",
-  "description": "Synchronize reciprocity mandates across agent boundaries.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "devops",
-  "tags": [
-    "reciprocity",
-    "mandate",
-    "sync"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/reciprocity-mandate-sync/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-14T01:08:30.455010Z"
 }

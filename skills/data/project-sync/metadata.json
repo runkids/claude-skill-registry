@@ -1,11 +1,7 @@
 {
   "name": "project-sync",
-  "description": "Sync GameGen SceneLayout from DynamoDB to Godot .tscn files. Exports current layout without AI parsing.",
-  "repo": "Zycroft/GameGen",
-  "category": "data",
-  "tags": [
-    "project",
-    "sync"
-  ],
-  "stars": 0
+  "repo": "jdeweedata/circletel",
+  "path": ".claude/skills/project-sync/SKILL.md",
+  "source": "github.com/jdeweedata/circletel",
+  "downloaded_at": "2026-01-14T01:29:04.556626Z"
 }

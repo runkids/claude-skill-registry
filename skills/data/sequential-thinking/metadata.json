@@ -1,11 +1,7 @@
 {
   "name": "sequential-thinking",
-  "description": "Structured problem-solving through iterative reasoning with revision and branching capabilities for complex problems. Use when tackling multi-step problems with uncertain scope, design planning, archi",
-  "repo": "duongdev/ccpm",
-  "category": "data",
-  "tags": [
-    "sequential",
-    "thinking"
-  ],
-  "stars": 5
+  "repo": "captain-corgi/marketplace-website",
+  "path": ".claude/skills/sequential-thinking/SKILL.md",
+  "source": "github.com/captain-corgi/marketplace-website",
+  "downloaded_at": "2026-01-14T03:49:00.625197Z"
 }

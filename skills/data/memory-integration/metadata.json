@@ -1,12 +1,7 @@
 {
   "name": "memory-integration",
-  "description": "Use to maintain context across sessions - integrates episodic-memory for conversation recall and mcp__memory knowledge graph for persistent facts",
-  "repo": "troykelly/claude-skills",
-  "category": "testing",
-  "tags": [
-    "memory",
-    "integration"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "troykelly/codex-skills",
+  "path": "skills/memory-integration/SKILL.md",
+  "source": "github.com/troykelly/codex-skills",
+  "downloaded_at": "2026-01-14T03:34:03.510007Z"
 }

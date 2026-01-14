@@ -1,11 +1,7 @@
 {
   "name": "analyze",
-  "description": "Invoke IMMEDIATELY via python script when user requests codebase analysis, architecture review, security assessment, or quality evaluation. Do NOT explore first - the script orchestrates exploration.",
-  "repo": "rjmurillo/ai-agents",
-  "category": "development",
-  "tags": [
-    "analyze"
-  ],
-  "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "repo": "ArvorCo/Relentless",
+  "path": ".claude/skills/analyze/SKILL.md",
+  "source": "github.com/ArvorCo/Relentless",
+  "downloaded_at": "2026-01-14T03:59:06.884252Z"
 }

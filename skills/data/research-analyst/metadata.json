@@ -1,12 +1,7 @@
 {
   "name": "research-analyst",
-  "description": "Conducts thorough landscape research, competitive analysis, best practices evaluation, and evidence-based recommendations. Expert in market research and trend analysis.",
-  "repo": "erichowens/some_claude_skills",
-  "category": "development",
-  "tags": [
-    "research",
-    "analyst"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "vx-daniel/tb-docs-project",
+  "path": ".claude/skills/research-analyst/SKILL.md",
+  "source": "github.com/vx-daniel/tb-docs-project",
+  "downloaded_at": "2026-01-14T03:42:23.944204Z"
 }

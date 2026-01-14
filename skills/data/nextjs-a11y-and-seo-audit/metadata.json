@@ -1,9 +1,7 @@
 {
   "name": "nextjs-a11y-and-seo-audit",
-  "description": "Use this skill to analyze, improve, and enforce accessibility (a11y) + SEO best practices for Next.js projects using App Router, TypeScript, Tailwind & shadcn/ui. Applies when auditing components, rou",
   "repo": "AgentiveCity/SkillFactory",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/nextjs-a11y-and-seo-audit/SKILL.md",
+  "source": "github.com/AgentiveCity/SkillFactory",
+  "downloaded_at": "2026-01-14T04:03:15.628648Z"
 }

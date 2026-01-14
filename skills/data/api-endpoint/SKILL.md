@@ -1,38 +1,79 @@
 ---
 name: api-endpoint
-description: Creates Next.js API routes with Firebase. Use when adding GET/POST/PATCH/DELETE endpoints, implementing pagination, adding auth checks, or handling file uploads. Includes route templates and error handling.
+description: Create or modify API endpoints in IdeaForge backend. Triggers: new route, controller, service, repository, CRUD operation, Zod validation, API debugging. Pattern: Routes → Controller → Service → Repository.
 ---
 
-# API Endpoint Skill
+# API Endpoints
 
-## Instructions
+## Architecture
 
-1. Create routes in `src/app/api/` following REST conventions
-2. Apply security layers: Rate Limiting → Auth → Validation → Business Logic
-3. Use `verifyAuth` for protected routes
-4. Use `validateString`, `validateUrl` from `security-utils.ts`
-5. Return Korean error messages with proper HTTP status codes
+```
+Route (backend/src/api/routes/)     → DI setup + routing
+Controller (backend/src/api/controllers/) → Zod validation + ApiResponse
+Service (backend/src/services/)     → Business logic
+Repository (backend/src/repositories/) → Database queries
+```
 
 ## Quick Start
 
+### 1. Route (`routes/{resource}.ts`)
 ```typescript
-import { NextRequest, NextResponse } from 'next/server'
-import { verifyAuth } from '@/lib/auth-utils'
-import { validateString, CONTENT_LIMITS } from '@/lib/security-utils'
-import { checkRateLimit, getClientIdentifier, RATE_LIMIT_CONFIGS } from '@/lib/rate-limiter'
+import { Router } from 'express';
+const router = Router();
 
-export async function POST(request: NextRequest) {
-  // 1. Rate limiting
-  const clientIp = getClientIdentifier(request)
-  const { allowed } = checkRateLimit(clientIp, RATE_LIMIT_CONFIGS.AUTHENTICATED_WRITE)
-  if (!allowed) return NextResponse.json({ error: '요청이 너무 많습니다.' }, { status: 429 })
+// Manual DI
+const repo = new MyRepository();
+const service = new MyService(repo);
+const controller = new MyController(service);
 
-  // 2. Auth
-  const authUser = await verifyAuth(request)
-  if (!authUser) return NextResponse.json({ error: '인증이 필요합니다.' }, { status: 401 })
+router.get('/', (req, res, next) => controller.getAll(req, res, next));
+router.post('/', (req, res, next) => controller.create(req, res, next));
 
-  // 3. Validate & process...
+export default router;
+```
+
+### 2. Controller (`controllers/{resource}Controller.ts`)
+```typescript
+const CreateSchema = z.object({
+  name: z.string().min(1).max(255),
+});
+
+export class MyController {
+  constructor(private service: MyService) {}
+
+  async create(req: Request, res: Response, next: NextFunction) {
+    try {
+      const data = CreateSchema.parse(req.body);
+      const result = await this.service.create(data);
+      res.json({ success: true, data: result } as ApiResponse<typeof result>);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 ```
 
-For complete templates (dynamic routes, pagination, file upload, toggle endpoints), see [reference.md](reference.md).
+### 3. Register (`index.ts`)
+```typescript
+import myRouter from './api/routes/my';
+app.use('/api/my-resource', myRouter);
+```
+
+## Response Format
+
+```typescript
+// Success
+{ success: true, data: { ... } }
+
+// Error (via errorHandler middleware)
+{ success: false, error: { message: "...", code: "ERROR_CODE" } }
+```
+
+## Rules
+
+1. Controllers: validation + response only
+2. Services: all business logic
+3. Always use `ApiResponse<T>` wrapper
+4. Always `next(error)` - never catch and format
+5. Zod for all input validation
+6. Manual DI in route files

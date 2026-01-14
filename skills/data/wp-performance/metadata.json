@@ -1,10 +1,7 @@
 {
   "name": "wp-performance",
-  "description": "Use when investigating or improving WordPress performance (backend-only agent): profiling and measurement (WP-CLI profile/doctor, Server-Timing, Query Monitor via REST headers), database/query optimiz",
-  "repo": "Automattic/agent-skills",
-  "category": "data",
-  "tags": [
-    "performance"
-  ],
-  "stars": 26
+  "repo": "pauljacobson/hebrew-dates-wp-admin",
+  "path": ".claude/skills/wp-performance/SKILL.md",
+  "source": "github.com/pauljacobson/hebrew-dates-wp-admin",
+  "downloaded_at": "2026-01-14T01:33:18.589880Z"
 }

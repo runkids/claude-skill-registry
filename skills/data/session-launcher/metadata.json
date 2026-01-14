@@ -1,11 +1,7 @@
 {
   "name": "session-launcher",
-  "description": "Restores full context when user says \"hi-ai\" or starts a new conversation. Searches project files, loads memory indexes, reads session state, and creates visual dashboard showing current project, rece",
-  "repo": "Toowiredd/claude-skills-automation",
-  "category": "data",
-  "tags": [
-    "session",
-    "launcher"
-  ],
-  "stars": 12
+  "repo": "jackspace/ClaudeSkillz",
+  "path": "skills/session-launcher/SKILL.md",
+  "source": "github.com/jackspace/ClaudeSkillz",
+  "downloaded_at": "2026-01-14T02:48:23.690361Z"
 }

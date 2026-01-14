@@ -1,12 +1,7 @@
 {
   "name": "api-validation",
-  "description": "Apply when validating API request inputs: body, query params, path params, and headers. This skill covers Zod v4 patterns.",
   "repo": "CoderMariusz/MonoPilot",
-  "category": "development",
-  "tags": [
-    "api",
-    "validation"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/api-validation/SKILL.md",
+  "source": "github.com/CoderMariusz/MonoPilot",
+  "downloaded_at": "2026-01-14T03:46:42.727291Z"
 }

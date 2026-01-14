@@ -1,12 +1,7 @@
 {
   "name": "database-performance",
-  "description": "Analyze and optimize database performance through index analysis and query profiling. Identify missing/unused indexes, interpret EXPLAIN plans, find performance bottlenecks, and recommend optimization",
   "repo": "Hieubkav/wincellarCloneBackend",
-  "category": "data",
-  "tags": [
-    "database",
-    "performance"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/database/database-performance/SKILL.md",
+  "source": "github.com/Hieubkav/wincellarCloneBackend",
+  "downloaded_at": "2026-01-14T01:35:19.398764Z"
 }

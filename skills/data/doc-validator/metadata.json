@@ -1,12 +1,7 @@
 {
   "name": "doc-validator",
-  "description": "Use this skill to validate that Markdown files are in standard locations. Scans for .md files outside of predefined allowed directories and outputs warnings to prevent documentation sprawl. Triggers i",
-  "repo": "bodangren/git-workflow",
-  "category": "documents",
-  "tags": [
-    "doc",
-    "validator"
-  ],
-  "stars": 7,
-  "source": "SkillsMP Synced Skills"
+  "repo": "vladm3105/aidoc-flow-framework",
+  "path": ".claude/skills/doc-validator/SKILL.md",
+  "source": "github.com/vladm3105/aidoc-flow-framework",
+  "downloaded_at": "2026-01-14T03:58:02.219242Z"
 }

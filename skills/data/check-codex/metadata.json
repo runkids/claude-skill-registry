@@ -1,12 +1,7 @@
 {
   "name": "check-codex",
-  "description": "Check for pending Codex (GitHub AI) feedback on current branch's PR. Use to review and address AI suggestions before merge. This is the rate-limiting step before merge.",
   "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
-  "category": "development",
-  "tags": [
-    "check",
-    "codex"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/check-codex/SKILL.md",
+  "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager",
+  "downloaded_at": "2026-01-14T02:32:41.176666Z"
 }

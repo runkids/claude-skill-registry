@@ -1,13 +1,7 @@
 {
   "name": "detailed-implementation-plan",
-  "description": "Generates detailed implementation plans from a SINGLE plan-based-page output file. Supports parallel execution - run multiple sessions simultaneously for different pages. Input is ONE file (either _sh",
   "repo": "Henry229/antigravity-blog",
-  "category": "data",
-  "tags": [
-    "detailed",
-    "implementation",
-    "plan"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/detailed-implementation-plan/SKILL.md",
+  "source": "github.com/Henry229/antigravity-blog",
+  "downloaded_at": "2026-01-14T01:44:09.430507Z"
 }

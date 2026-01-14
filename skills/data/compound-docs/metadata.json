@@ -1,12 +1,7 @@
 {
   "name": "compound-docs",
-  "description": "Document solved problems for knowledge persistence",
-  "repo": "salavender/antigravity-compound-engineering-plugin",
-  "category": "documents",
-  "tags": [
-    "compound",
-    "docs"
-  ],
-  "stars": 29,
-  "source": "local"
+  "repo": "jayteealao/gitt-gaff",
+  "path": ".claude/skills/compound-docs/SKILL.md",
+  "source": "github.com/jayteealao/gitt-gaff",
+  "downloaded_at": "2026-01-14T03:27:08.989994Z"
 }

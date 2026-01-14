@@ -1,13 +1,7 @@
 {
   "name": "design-doc-creator",
-  "description": "Create AILANG design documents in the correct format and location. Use when user asks to create a design doc, plan a feature, or document a design. Handles both planned/ and implemented/ docs with pro",
-  "repo": "sunholo-data/ailang",
-  "category": "data",
-  "tags": [
-    "design",
-    "doc",
-    "creator"
-  ],
-  "stars": 13,
-  "source": "SkillsMP Synced Skills"
+  "repo": "sunholo-data/stapledons_voyage",
+  "path": ".claude/skills/design-doc-creator/SKILL.md",
+  "source": "github.com/sunholo-data/stapledons_voyage",
+  "downloaded_at": "2026-01-14T02:06:07.653495Z"
 }

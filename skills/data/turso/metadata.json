@@ -1,8 +1,7 @@
 {
   "name": "turso",
   "repo": "mgd34msu/goodvibes-plugin",
-  "category": "data",
-  "description": "Implements Turso edge SQLite database with libSQL client, embedded replicas, and vector search. Use when building edge-first apps, implementing embedded databases, or needing SQLite with global replic",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:25.892466Z"
+  "path": "plugins/goodvibes/skills/webdev/databases-orms/turso/SKILL.md",
+  "source": "github.com/mgd34msu/goodvibes-plugin",
+  "downloaded_at": "2026-01-14T02:10:06.076877Z"
 }

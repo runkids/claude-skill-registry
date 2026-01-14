@@ -1,11 +1,7 @@
 {
   "name": "r-development",
-  "description": "Expert guidance for R package development following best practices for devtools, testthat, roxygen2, and R ecosystem tools",
   "repo": "seabbs/claude-code-config",
-  "category": "development",
-  "tags": [
-    "development"
-  ],
-  "stars": 5,
-  "source": "local"
+  "path": "skills/r-development/SKILL.md",
+  "source": "github.com/seabbs/claude-code-config",
+  "downloaded_at": "2026-01-14T03:01:35.805471Z"
 }

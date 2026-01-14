@@ -1,8 +1,7 @@
 {
   "name": "data-normalization-tool",
   "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "data",
-  "description": "Data Normalization Tool - Auto-activating skill for ML Training.Triggers on: data normalization tool, data normalization toolPart of the ML Training skill category.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:08.506077Z"
+  "path": "skills/07-ml-training/data-normalization-tool/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-01-14T02:49:07.520543Z"
 }

@@ -1,4 +1,3 @@
----
 name: create-cli
 description: >
   Design command-line interface parameters and UX: arguments, flags, subcommands,
@@ -15,12 +14,11 @@ Design CLI surface area (syntax + behavior), human-first, script-friendly.
 ## Do This First
 
 - Read `agent-scripts/skills/create-cli/references/cli-guidelines.md` and apply it as the default rubric.
-- Upstream/full guidelines: https://clig.dev/ (propose changes: https://github.com/cli-guidelines/cli-guidelines)
 - Ask only the minimum clarifying questions needed to lock the interface.
 
 ## Clarify (fast)
 
-Ask, then proceed with best-guess defaults if user is unsure:
+Ask, then proceed with best-guess defaults if the user is unsure:
 
 - Command name + one-sentence purpose.
 - Primary user: humans, scripts, or both.
@@ -41,8 +39,7 @@ When designing a CLI, produce a compact spec the user can implement:
 - Error + exit code map (top failure modes).
 - Safety rules: `--dry-run`, confirmations, `--force`, `--no-input`.
 - Config/env rules + precedence (flags > env > project config > user config > system).
-- Shell completion story (if relevant): install/discoverability; generation command or bundled scripts.
-- 5–10 example invocations (common flows; include piped/stdin examples).
+- 5-10 example invocations (common flows; include piped/stdin examples).
 
 ## Default Conventions (unless user says otherwise)
 
@@ -85,9 +82,9 @@ Fill these sections, drop anything irrelevant:
    - env vars:
    - config file path + precedence:
 9. **Examples**:
-   - …
+   - ...
 
 ## Notes
 
 - Prefer recommending a parsing library (language-specific) only when asked; otherwise keep this skill language-agnostic.
-- If the request is “design parameters”, do not drift into implementation.
+- If the request is "design parameters", do not drift into implementation.

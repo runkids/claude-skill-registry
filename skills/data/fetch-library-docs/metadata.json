@@ -1,13 +1,7 @@
 {
   "name": "fetch-library-docs",
-  "description": "Fetches library and framework documentation with code examples, API references, and best practices. Supports JavaScript, Python, Go, Rust, and other libraries. Use when users ask about library documen",
-  "repo": "panaversity/claude-code-skills-lab",
-  "category": "documents",
-  "tags": [
-    "fetch",
-    "library",
-    "docs"
-  ],
-  "stars": 12,
-  "source": "local"
+  "repo": "Salmanferozkhan/Cloud-and-fast-api",
+  "path": ".claude/skills/fetch-library-docs/SKILL.md",
+  "source": "github.com/Salmanferozkhan/Cloud-and-fast-api",
+  "downloaded_at": "2026-01-14T02:30:07.048395Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "ollama-rag",
-  "description": "Build RAG systems with Ollama local + cloud models. Latest cloud models include DeepSeek-V3.2 (GPT-5 level), Qwen3-Coder-480B (1M context), MiniMax-M2. Use for document Q&A, knowledge bases, and agent",
   "repo": "cuba6112/skillfactory",
-  "category": "development",
-  "tags": [
-    "ollama",
-    "rag"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/ollama-rag/SKILL.md",
+  "source": "github.com/cuba6112/skillfactory",
+  "downloaded_at": "2026-01-14T02:37:37.852750Z"
 }

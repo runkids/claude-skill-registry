@@ -1,13 +1,7 @@
 {
   "name": "esp-idf-setup",
-  "description": "Set up ESP-IDF development environment, create new projects, and configure build systems",
   "repo": "laurigates/mcu-tinkering-lab",
-  "category": "development",
-  "tags": [
-    "esp",
-    "idf",
-    "setup"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/esp-idf-setup/SKILL.md",
+  "source": "github.com/laurigates/mcu-tinkering-lab",
+  "downloaded_at": "2026-01-14T02:06:55.563658Z"
 }

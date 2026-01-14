@@ -1,12 +1,7 @@
 {
   "name": "vue-nuxt",
-  "description": "Master Nuxt.js - SSR, SSG, Nitro Server, Modules, Auto-imports, Deployment",
-  "repo": "pluginagentmarketplace/custom-plugin-vue",
-  "category": "design",
-  "tags": [
-    "vue",
-    "nuxt"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "martinholovsky/claude-skills-generator",
+  "path": "skills/vue-nuxt/SKILL.md",
+  "source": "github.com/martinholovsky/claude-skills-generator",
+  "downloaded_at": "2026-01-14T02:36:17.777278Z"
 }

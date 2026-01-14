@@ -266,5 +266,6 @@ trigger-child:
 
 ## Related Skills
 
+- `github-actions-templates` - For GitHub Actions
 - `deployment-pipeline-design` - For architecture
 - `secrets-management` - For secrets handling

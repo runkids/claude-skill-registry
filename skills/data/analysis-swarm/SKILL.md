@@ -1,8 +1,9 @@
 ---
 name: analysis-swarm
-description: Multi-perspective code analysis using three AI personas (RYAN methodical analyst, FLASH rapid innovator, SOCRATES questioning facilitator) to balance thoroughness with pragmatism. Use when complex code decisions need comprehensive analysis from multiple viewpoints, or when avoiding single-perspective blind spots is critical.
+description: Multi-persona analytical framework for comprehensive code review and decision-making
+audience: developers
+workflow: code-review
 ---
-
 # Analysis Swarm - Collective Code Intelligence
 
 A three-persona analytical framework for comprehensive code review and decision-making that balances thoroughness with pragmatism through structured discourse.

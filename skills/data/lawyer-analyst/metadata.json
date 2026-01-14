@@ -1,12 +1,7 @@
 {
   "name": "lawyer-analyst",
-  "description": "Analyzes events through legal lens using statutory interpretation, case law analysis, legal reasoning,constitutional principles, and multiple legal frameworks (common law, civil law, international law",
-  "repo": "rysweet/MicrosoftHackathon2025-AgenticCoding",
-  "category": "design",
-  "tags": [
-    "lawyer",
-    "analyst"
-  ],
-  "stars": 10,
-  "source": "local"
+  "repo": "rysweet/azlin",
+  "path": ".claude/skills/lawyer-analyst/SKILL.md",
+  "source": "github.com/rysweet/azlin",
+  "downloaded_at": "2026-01-14T03:30:09.236283Z"
 }

@@ -1,0 +1,12 @@
+{
+  "name": "shared-name",
+  "description": "A skill with a name that might conflict. Use for testing conflict detection.",
+  "repo": "cortesi/skills",
+  "category": "testing",
+  "tags": [
+    "shared",
+    "name"
+  ],
+  "stars": 0,
+  "source": "local"
+}

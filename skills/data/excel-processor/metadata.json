@@ -1,12 +1,7 @@
 {
   "name": "excel-processor",
-  "description": "Process Excel files with data manipulation, formula generation, and chart creation. Use when working with spreadsheets or Excel data.",
   "repo": "ntaksh42/agents",
-  "category": "data",
-  "tags": [
-    "excel",
-    "processor"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/excel-processor/SKILL.md",
+  "source": "github.com/ntaksh42/agents",
+  "downloaded_at": "2026-01-14T03:51:00.055089Z"
 }

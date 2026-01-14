@@ -1,12 +1,7 @@
 {
   "name": "memory-optimization",
-  "description": "Profile and optimize application memory usage. Identify memory leaks, reduce memory footprint, and improve efficiency for better performance and reliability.",
   "repo": "aj-geddes/useful-ai-prompts",
-  "category": "productivity",
-  "tags": [
-    "memory",
-    "optimization"
-  ],
-  "stars": 25,
-  "source": "local"
+  "path": "skills/memory-optimization/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:13.907383Z"
 }

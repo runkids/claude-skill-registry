@@ -1,12 +1,7 @@
 {
   "name": "api-design",
-  "description": "Design clean, scalable, and maintainable REST and GraphQL APIs following industry best practices. Use when designing public or internal APIs, planning endpoint structures, defining request/response co",
-  "repo": "korallis/Droidz",
-  "category": "data",
-  "tags": [
-    "api",
-    "design"
-  ],
-  "stars": 49,
-  "source": "SkillsMP Synced Skills"
+  "repo": "nategarelik/claude-code-config",
+  "path": "skills/expertise/api-design/SKILL.md",
+  "source": "github.com/nategarelik/claude-code-config",
+  "downloaded_at": "2026-01-14T03:59:15.097399Z"
 }

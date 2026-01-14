@@ -1,12 +1,7 @@
 {
   "name": "devsecops-expert",
-  "description": "\"Expert DevSecOps engineer specializing in secure CI/CD pipelines, shift-left security, security automation, and compliance as code. Use when implementing security gates, container security, infrastru",
   "repo": "martinholovsky/claude-skills-generator",
-  "category": "development",
-  "tags": [
-    "devsecops",
-    "expert"
-  ],
-  "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/devsecops-expert/SKILL.md",
+  "source": "github.com/martinholovsky/claude-skills-generator",
+  "downloaded_at": "2026-01-14T02:36:19.251376Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "koerner-office",
-  "description": "Talk to Koerner Office King Of Hustle about their expertise. Koerner Office King Of Hustle provides authentic advice using their mental models, core beliefs, and real-world examples.",
   "repo": "blicktz/knowledge_base_repo",
-  "category": "documents",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/koerner-office/SKILL.md",
+  "source": "github.com/blicktz/knowledge_base_repo",
+  "downloaded_at": "2026-01-14T01:24:06.345858Z"
 }

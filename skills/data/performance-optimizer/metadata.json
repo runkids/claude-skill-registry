@@ -1,11 +1,7 @@
 {
   "name": "performance-optimizer",
-  "description": "Optimize application performance and scalability. Use when investigating slow applications, scaling bottlenecks, or improving response times. Covers profiling, caching, database optimization, and fron",
-  "repo": "daffy0208/ai-dev-standards",
-  "category": "data",
-  "tags": [
-    "performance",
-    "optimizer"
-  ],
-  "stars": 2
+  "repo": "gaebalai/itda-sdd",
+  "path": "src/templates/agents/claude-code/skills/performance-optimizer/SKILL.md",
+  "source": "github.com/gaebalai/itda-sdd",
+  "downloaded_at": "2026-01-14T03:55:14.938386Z"
 }

@@ -1,229 +1,303 @@
 ---
 name: mutation-testing
-description: "Test quality validation through mutation testing, assessing test suite effectiveness by introducing code mutations and measuring kill rate. Use when evaluating test quality, identifying weak tests, or proving tests actually catch bugs."
-category: specialized-testing
-priority: high
-tokenEstimate: 900
-agents: [qe-test-generator, qe-coverage-analyzer, qe-quality-analyzer]
-implementation_status: optimized
-optimization_version: 1.0
-last_optimized: 2025-12-02
-dependencies: []
-quick_reference_card: true
-tags: [mutation, stryker, test-quality, kill-rate, assertions, effectiveness]
+description: |
+  Mutation testing patterns for verifying test effectiveness. Use when analyzing branch code
+  to find weak or missing tests. Triggers: "mutation testing", "test effectiveness",
+  "would tests catch this bug", "weak tests", "are my tests good enough", "surviving mutants".
 ---
 
 # Mutation Testing
 
-<default_to_action>
-When validating test quality or improving test effectiveness:
-1. MUTATE code (change + to -, >= to >, remove statements)
-2. RUN tests against each mutant
-3. VERIFY tests catch mutations (kill mutants)
-4. IDENTIFY surviving mutants (tests need improvement)
-5. STRENGTHEN tests to kill surviving mutants
-
-**Quick Mutation Metrics:**
-- Mutation Score = Killed / (Killed + Survived)
-- Target: > 80% mutation score
-- Surviving mutants = weak tests
-
-**Critical Success Factors:**
-- High coverage ≠ good tests (100% coverage, 0% assertions)
-- Mutation testing proves tests actually catch bugs
-- Focus on critical code paths first
-</default_to_action>
-
-## Quick Reference Card
-
-### When to Use
-- Evaluating test suite quality
-- Finding gaps in test assertions
-- Proving tests catch bugs
-- Before critical releases
-
-### Mutation Score Interpretation
-| Score | Interpretation |
-|-------|----------------|
-| **90%+** | Excellent test quality |
-| **80-90%** | Good, minor improvements |
-| **60-80%** | Needs attention |
-| **< 60%** | Significant gaps |
-
-### Common Mutation Operators
-| Category | Original | Mutant |
-|----------|----------|--------|
-| **Arithmetic** | `a + b` | `a - b` |
-| **Relational** | `x >= 18` | `x > 18` |
-| **Logical** | `a && b` | `a \|\| b` |
-| **Conditional** | `if (x)` | `if (true)` |
-| **Statement** | `return x` | *(removed)* |
+Mutation testing answers: **"Would my tests catch this bug?"** by actually introducing bugs and running tests.
 
 ---
 
-## How Mutation Testing Works
+## Execution Workflow
 
-```javascript
-// Original code
-function isAdult(age) {
-  return age >= 18; // ← Mutant: change >= to >
-}
+**CRITICAL**: This skill actually mutates code and runs tests. Follow this exact process:
 
-// Strong test (catches mutation)
-test('18 is adult', () => {
-  expect(isAdult(18)).toBe(true); // Kills mutant!
-});
+### Step 1: Identify Target Code
 
-// Weak test (mutation survives)
-test('19 is adult', () => {
-  expect(isAdult(19)).toBe(true); // Doesn't catch >= vs >
-});
-// Surviving mutant → Test needs boundary value
+```bash
+# Get changed files on the branch
+git diff main...HEAD --name-only | grep -E '\.(ts|js|tsx|jsx|vue)$' | grep -v '\.test\.' | grep -v '\.spec\.'
+```
+
+### Step 2: For Each Function to Test
+
+Execute this loop for each mutation:
+
+```
+1. READ the original file and note exact content
+2. APPLY one mutation (edit the code)
+3. RUN tests: pnpm test --run (or specific test file)
+4. RECORD result: KILLED (test failed) or SURVIVED (test passed)
+5. RESTORE original code immediately
+6. Repeat for next mutation
+```
+
+### Step 3: Report Results
+
+After all mutations, provide a summary table:
+
+```
+| Mutation | Location | Result | Action Needed |
+|----------|----------|--------|---------------|
+| `>` → `>=` | file.ts:42 | SURVIVED | Add boundary test |
+| `&&` → `||` | file.ts:58 | KILLED | None |
 ```
 
 ---
 
-## Using Stryker
+## Mutation Operators to Apply
 
-```bash
-# Install
-npm install --save-dev @stryker-mutator/core @stryker-mutator/jest-runner
+### Priority 1: Boundary Mutations (Most Likely to Survive)
 
-# Initialize
-npx stryker init
-```
+| Original | Mutate To | Why It Matters |
+|----------|-----------|----------------|
+| `<` | `<=` | Boundary not tested |
+| `>` | `>=` | Boundary not tested |
+| `<=` | `<` | Equality case missed |
+| `>=` | `>` | Equality case missed |
 
-**Configuration:**
-```json
-{
-  "packageManager": "npm",
-  "reporters": ["html", "clear-text", "progress"],
-  "testRunner": "jest",
-  "coverageAnalysis": "perTest",
-  "mutate": [
-    "src/**/*.ts",
-    "!src/**/*.spec.ts"
-  ],
-  "thresholds": {
-    "high": 90,
-    "low": 70,
-    "break": 60
-  }
+### Priority 2: Boolean Logic Mutations
+
+| Original | Mutate To | Why It Matters |
+|----------|-----------|----------------|
+| `&&` | `\|\|` | Only tested when both true |
+| `\|\|` | `&&` | Only tested when both false |
+| `!condition` | `condition` | Negation not verified |
+
+### Priority 3: Arithmetic Mutations
+
+| Original | Mutate To | Why It Matters |
+|----------|-----------|----------------|
+| `+` | `-` | Tested with 0 only |
+| `-` | `+` | Tested with 0 only |
+| `*` | `/` | Tested with 1 only |
+
+### Priority 4: Return/Early Exit Mutations
+
+| Original | Mutate To | Why It Matters |
+|----------|-----------|----------------|
+| `return x` | `return null` | Return value not asserted |
+| `return true` | `return false` | Boolean return not checked |
+| `if (cond) return` | `// removed` | Early exit not tested |
+
+### Priority 5: Statement Removal
+
+| Original | Mutate To | Why It Matters |
+|----------|-----------|----------------|
+| `array.push(x)` | `// removed` | Side effect not verified |
+| `await save(x)` | `// removed` | Async operation not verified |
+| `emit('event')` | `// removed` | Event emission not tested |
+
+---
+
+## Practical Execution Example
+
+### Example: Testing a Validation Function
+
+**Original code** (`src/utils/validation.ts:15`):
+```typescript
+export function isValidAge(age: number): boolean {
+  return age >= 18 && age <= 120;
 }
 ```
 
-**Run:**
-```bash
-npx stryker run
+**Mutation 1**: Change `>=` to `>`
+```typescript
+export function isValidAge(age: number): boolean {
+  return age > 18 && age <= 120;  // MUTATED
+}
 ```
 
-**Output:**
+**Run tests**:
+```bash
+pnpm test --run src/__tests__/validation.test.ts
 ```
-Mutation Score: 87.3%
-Killed: 124
-Survived: 18
-No Coverage: 3
-Timeout: 1
+
+**Result**: Tests PASS → **SURVIVED** (Bad! Need test for `isValidAge(18)`)
+
+**Restore original code immediately**
+
+**Mutation 2**: Change `&&` to `||`
+```typescript
+export function isValidAge(age: number): boolean {
+  return age >= 18 || age <= 120;  // MUTATED
+}
 ```
+
+**Run tests**:
+```bash
+pnpm test --run src/__tests__/validation.test.ts
+```
+
+**Result**: Tests FAIL → **KILLED** (Good! Tests catch this bug)
+
+**Restore original code immediately**
+
+---
+
+## Results Interpretation
+
+### Mutant States
+
+| State | Meaning | Action |
+|-------|---------|--------|
+| **KILLED** | Test failed with mutant | Tests are effective |
+| **SURVIVED** | Tests passed with mutant | **Add or strengthen test** |
+| **TIMEOUT** | Tests hung (infinite loop) | Counts as detected |
+
+### Mutation Score
+
+```
+Score = (Killed + Timeout) / Total Mutations * 100
+```
+
+| Score | Quality |
+|-------|---------|
+| < 60% | Weak - significant test gaps |
+| 60-80% | Moderate - improvements needed |
+| 80-90% | Good - minor gaps |
+| > 90% | Strong test suite |
 
 ---
 
 ## Fixing Surviving Mutants
 
-```javascript
-// Surviving mutant: >= changed to >
-function calculateDiscount(quantity) {
-  if (quantity >= 10) { // Mutant survives!
-    return 0.1;
-  }
-  return 0;
-}
+When a mutant survives, add a test that would catch it:
 
-// Original weak test
-test('large order gets discount', () => {
-  expect(calculateDiscount(15)).toBe(0.1); // Doesn't test boundary
+### Surviving: Boundary mutation (`>=` → `>`)
+
+```typescript
+// Add boundary test
+it('accepts exactly 18 years old', () => {
+  expect(isValidAge(18)).toBe(true);  // Would fail if >= became >
 });
+```
 
-// Fixed: Add boundary test
-test('exactly 10 gets discount', () => {
-  expect(calculateDiscount(10)).toBe(0.1); // Kills mutant!
+### Surviving: Logic mutation (`&&` → `||`)
+
+```typescript
+// Add test with mixed conditions
+it('rejects when only one condition met', () => {
+  expect(isValidAge(15)).toBe(false);  // Would pass if && became ||
 });
+```
 
-test('9 does not get discount', () => {
-  expect(calculateDiscount(9)).toBe(0); // Tests below boundary
+### Surviving: Statement removal
+
+```typescript
+// Add side effect verification
+it('saves to database', async () => {
+  await processOrder(order);
+  expect(db.save).toHaveBeenCalledWith(order);  // Would fail if save removed
 });
 ```
 
 ---
 
-## Agent-Driven Mutation Testing
+## Quick Checklist During Mutation
+
+For each mutation, ask:
+
+1. **Before mutating**: Does a test exist for this code path?
+2. **After running tests**: Did any test actually fail?
+3. **If survived**: What specific test would catch this?
+4. **After fixing**: Re-run mutation to confirm killed
+
+---
+
+## Common Surviving Mutation Patterns
+
+### Tests Only Check Happy Path
 
 ```typescript
-// Analyze mutation score and generate fixes
-await Task("Mutation Analysis", {
-  targetFile: 'src/payment.ts',
-  generateMissingTests: true,
-  minScore: 80
-}, "qe-test-generator");
+// WEAK: Only tests success case
+it('validates', () => {
+  expect(validate(goodInput)).toBe(true);
+});
 
-// Returns:
-// {
-//   mutationScore: 0.65,
-//   survivedMutations: [
-//     { line: 45, operator: '>=', mutant: '>', killedBy: null }
-//   ],
-//   generatedTests: [
-//     'test for boundary at line 45'
-//   ]
-// }
+// STRONG: Tests both cases
+it('validates good input', () => {
+  expect(validate(goodInput)).toBe(true);
+});
+it('rejects bad input', () => {
+  expect(validate(badInput)).toBe(false);
+});
+```
 
-// Coverage + mutation correlation
-await Task("Coverage Quality Analysis", {
-  coverageData: coverageReport,
-  mutationData: mutationReport,
-  identifyWeakCoverage: true
-}, "qe-coverage-analyzer");
+### Tests Use Identity Values
+
+```typescript
+// WEAK: Mutation survives
+expect(multiply(5, 1)).toBe(5);  // 5*1 = 5/1 = 5
+
+// STRONG: Mutation detected
+expect(multiply(5, 3)).toBe(15);  // 5*3 ≠ 5/3
+```
+
+### Tests Don't Assert Return Values
+
+```typescript
+// WEAK: No return value check
+it('processes', () => {
+  process(data);  // No assertion!
+});
+
+// STRONG: Asserts outcome
+it('processes', () => {
+  const result = process(data);
+  expect(result).toEqual(expected);
+});
 ```
 
 ---
 
-## Agent Coordination Hints
+## Important Rules
 
-### Memory Namespace
-```
-aqe/mutation-testing/
-├── mutation-results/*   - Stryker reports
-├── surviving/*          - Surviving mutants
-├── generated-tests/*    - Tests to kill mutants
-└── trends/*             - Mutation score over time
-```
+1. **ALWAYS restore original code** after each mutation
+2. **Run tests immediately** after applying mutation
+3. **One mutation at a time** - don't combine mutations
+4. **Focus on changed code** - prioritize branch diff
+5. **Track all results** - report full mutation summary
 
-### Fleet Coordination
-```typescript
-const mutationFleet = await FleetManager.coordinate({
-  strategy: 'mutation-testing',
-  agents: [
-    'qe-test-generator',     // Generate tests for survivors
-    'qe-coverage-analyzer',  // Coverage correlation
-    'qe-quality-analyzer'    // Quality assessment
-  ],
-  topology: 'sequential'
-});
+---
+
+## Summary Report Template
+
+After completing mutation testing, provide:
+
+```markdown
+## Mutation Testing Results
+
+**Target**: `src/features/workout/utils.ts` (functions: X, Y, Z)
+**Total Mutations**: 12
+**Killed**: 9
+**Survived**: 3
+**Score**: 75%
+
+### Surviving Mutants (Action Required)
+
+| # | Location | Original | Mutated | Suggested Test |
+|---|----------|----------|---------|----------------|
+| 1 | line 42 | `>=` | `>` | Test boundary value |
+| 2 | line 58 | `&&` | `\|\|` | Test mixed conditions |
+| 3 | line 71 | `emit()` | removed | Verify event emission |
+
+### Killed Mutants (Tests Effective)
+
+- Line 35: `+` → `-` killed by `calculation.test.ts`
+- Line 48: `true` → `false` killed by `validate.test.ts`
+- ...
 ```
 
 ---
 
 ## Related Skills
-- [tdd-london-chicago](../tdd-london-chicago/) - Write effective tests first
-- [test-design-techniques](../test-design-techniques/) - Boundary value analysis
-- [quality-metrics](../quality-metrics/) - Measure test effectiveness
 
----
-
-## Remember
-
-**High code coverage ≠ good tests.** 100% coverage but weak assertions = useless. Mutation testing proves tests actually catch bugs.
-
-**Focus on critical paths first.** Don't mutation test everything - prioritize payment, authentication, data integrity code.
-
-**With Agents:** Agents run mutation analysis, identify surviving mutants, and generate missing test cases to kill them. Automated improvement of test quality.
+- `systematic-debugging` - Root cause analysis
+- `testing-conventions` - Query priority, expect.poll()
+- `vue-integration-testing` - Page objects, browser mode
+- `vitest-mocking` - Test doubles and mocking patterns

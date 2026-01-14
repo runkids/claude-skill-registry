@@ -1,13 +1,7 @@
 {
   "name": "eptr2-imbalance-costs",
-  "description": "Calculate and analyze Turkish electricity imbalance costs including KUPST (Kesinleşmiş Üretim Planından Sapma Tutarı/Production Plan Deviation Cost), positive/negative imbalance penalties, and DSG (De",
   "repo": "Tideseed/eptr2",
-  "category": "development",
-  "tags": [
-    "eptr2",
-    "imbalance",
-    "costs"
-  ],
-  "stars": 15,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/eptr2-imbalance-costs/SKILL.md",
+  "source": "github.com/Tideseed/eptr2",
+  "downloaded_at": "2026-01-14T03:41:17.629010Z"
 }

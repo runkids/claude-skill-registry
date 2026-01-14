@@ -1,13 +1,7 @@
 {
   "name": "feature-impact-analyzer",
-  "description": "Product strategist for scoring and ranking feature ideas using RICE/ICE prioritization frameworks, connecting features to business KPIs (retention, growth, revenue), and identifying quick wins vs stra",
   "repo": "sitechfromgeorgia/georgian-distribution-system",
-  "category": "product",
-  "tags": [
-    "feature",
-    "impact",
-    "analyzer"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/feature-impact-analyzer/SKILL.md",
+  "source": "github.com/sitechfromgeorgia/georgian-distribution-system",
+  "downloaded_at": "2026-01-14T01:24:43.246427Z"
 }

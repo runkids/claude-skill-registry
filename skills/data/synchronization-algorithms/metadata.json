@@ -1,9 +1,7 @@
 {
   "name": "synchronization-algorithms",
-  "description": "Network synchronization, lag compensation, client prediction, and stateconsistency for responsive multiplayer games.",
   "repo": "pluginagentmarketplace/custom-plugin-game-developer",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/synchronization-algorithms/SKILL.md",
+  "source": "github.com/pluginagentmarketplace/custom-plugin-game-developer",
+  "downloaded_at": "2026-01-14T03:41:53.630917Z"
 }

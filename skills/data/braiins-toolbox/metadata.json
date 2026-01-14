@@ -1,12 +1,7 @@
 {
   "name": "braiins-toolbox",
-  "description": "Comprehensive Braiins Toolbox skill - batch management tool for Bitcoin mining operations with GUI and CLI for firmware, system, miner, tuner, and cooling management",
   "repo": "enuno/claude-command-and-control",
-  "category": "data",
-  "tags": [
-    "braiins",
-    "toolbox"
-  ],
-  "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/braiins-toolbox/SKILL.md",
+  "source": "github.com/enuno/claude-command-and-control",
+  "downloaded_at": "2026-01-14T00:52:39.383591Z"
 }

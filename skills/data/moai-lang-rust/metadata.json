@@ -1,13 +1,7 @@
 {
   "name": "moai-lang-rust",
-  "description": "\"Enterprise Rust with ownership model and safety guarantees: Rust 1.91.1, Tokio 1.48, async/await, macro system, error handling, memory safety patterns; activates for systems programming, performance-",
-  "repo": "modu-ai/moai-adk",
-  "category": "development",
-  "tags": [
-    "moai",
-    "lang",
-    "rust"
-  ],
-  "stars": 310,
-  "source": "SkillsMP Synced Skills"
+  "repo": "windysky/claude_notification_wsl2",
+  "path": ".claude/skills/moai-lang-rust/SKILL.md",
+  "source": "github.com/windysky/claude_notification_wsl2",
+  "downloaded_at": "2026-01-14T04:03:28.107285Z"
 }

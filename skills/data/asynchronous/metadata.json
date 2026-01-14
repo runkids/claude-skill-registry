@@ -1,11 +1,7 @@
 {
   "name": "asynchronous",
-  "description": "Master asynchronous JavaScript patterns including callbacks, promises, async/await, event loop mechanics, and real-world async patterns.",
   "repo": "pluginagentmarketplace/custom-plugin-javascript",
-  "category": "data",
-  "tags": [
-    "asynchronous"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/asynchronous/SKILL.md",
+  "source": "github.com/pluginagentmarketplace/custom-plugin-javascript",
+  "downloaded_at": "2026-01-14T02:21:44.082586Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "axiom-rejection-protocol",
-  "description": "Reject axioms that violate established ground truth.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "development",
-  "tags": [
-    "axiom",
-    "rejection",
-    "protocol"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/axiom-rejection-protocol/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-14T01:08:23.157387Z"
 }

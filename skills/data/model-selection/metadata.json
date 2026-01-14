@@ -1,11 +1,7 @@
 {
   "name": "model-selection",
-  "description": "Select appropriate Claude model (Opus 4.5, Sonnet, Haiku) for agents, commands, or Task tool invocations based on task complexity, reasoning depth, and cost/speed requirements.",
-  "repo": "tstapler/dotfiles",
-  "category": "data",
-  "tags": [
-    "model",
-    "selection"
-  ],
-  "stars": 5
+  "repo": "melodic-software/claude-code-plugins",
+  "path": "plugins/tac/skills/model-selection/SKILL.md",
+  "source": "github.com/melodic-software/claude-code-plugins",
+  "downloaded_at": "2026-01-14T03:00:19.758160Z"
 }

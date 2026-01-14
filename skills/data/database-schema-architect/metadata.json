@@ -1,13 +1,7 @@
 {
   "name": "database-schema-architect",
-  "description": "Expert guidance for designing, optimizing, and maintaining database schemas for SQL and NoSQL systems. Use when creating new databases, optimizing existing schemas, planning migrations, implementing s",
   "repo": "sitechfromgeorgia/georgian-distribution-system",
-  "category": "data",
-  "tags": [
-    "database",
-    "schema",
-    "architect"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/database-schema-architect/SKILL.md",
+  "source": "github.com/sitechfromgeorgia/georgian-distribution-system",
+  "downloaded_at": "2026-01-14T01:24:43.085787Z"
 }

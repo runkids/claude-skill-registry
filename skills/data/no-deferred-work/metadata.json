@@ -1,12 +1,7 @@
 {
   "name": "no-deferred-work",
-  "description": "Use during all development - no TODOs, no FIXMEs, no \"we'll add this later\"; do it now or get explicit deferral permission",
-  "repo": "troykelly/claude-skills",
-  "category": "development",
-  "tags": [
-    "deferred",
-    "work"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "troykelly/codex-skills",
+  "path": "skills/no-deferred-work/SKILL.md",
+  "source": "github.com/troykelly/codex-skills",
+  "downloaded_at": "2026-01-14T03:34:02.467089Z"
 }

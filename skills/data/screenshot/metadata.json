@@ -1,11 +1,7 @@
 {
   "name": "screenshot",
-  "description": "Capture PNG screenshots of dex TUI commands for debugging UI layout issues. Use when iterating on CLI interface code or debugging rendering problems.",
-  "repo": "tvergho/agentdex",
-  "category": "development",
-  "tags": [
-    "screenshot"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "iPlug2/iPlug2",
+  "path": ".claude/skills/screenshot/skill.md",
+  "source": "github.com/iPlug2/iPlug2",
+  "downloaded_at": "2026-01-14T01:35:51.496695Z"
 }

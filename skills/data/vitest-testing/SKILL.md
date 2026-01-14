@@ -1,110 +1,151 @@
 ---
 name: vitest-testing
-description: Vitest testing framework patterns and best practices. Use when writing unit tests, integration tests, configuring vitest.config, mocking with vi.mock/vi.fn, using snapshots, or setting up test coverage. Triggers on describe, it, expect, vi.mock, vi.fn, beforeEach, afterEach, vitest.
+description: Vitest unit testing for TypeScript/JavaScript in Oh My Brand! theme. Test setup, Web Component testing, mocking patterns, and coverage. Use when writing unit tests for frontend code.
+metadata:
+  author: Wesley Smits
+  version: "1.0.0"
 ---
 
-# Vitest Best Practices
+# Vitest Testing
 
-## Quick Reference
+Unit testing TypeScript/JavaScript code with Vitest for the Oh My Brand! WordPress FSE theme.
 
-```ts
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+---
 
-describe('feature name', () => {
-  beforeEach(() => {
-    vi.clearAllMocks()
-  })
+## When to Use
 
-  it('should do something specific', () => {
-    expect(actual).toBe(expected)
-  })
+- Writing unit tests for Web Components
+- Testing utility functions (debounce, throttle, etc.)
+- Mocking browser APIs (IntersectionObserver, matchMedia)
+- Achieving code coverage requirements
 
-  it.todo('planned test')
-  it.skip('temporarily disabled')
-  it.only('run only this during dev')
-})
+---
+
+## Configuration
+
+| File | Template | Purpose |
+|------|----------|---------|
+| [vitest.config.ts](references/vitest.config.ts) | Vitest configuration | Test settings and coverage |
+| [setup.ts](references/setup.ts) | Test setup | Browser API mocks |
+
+---
+
+## Test Templates
+
+| Template | Purpose |
+|----------|---------|
+| [web-component.test.ts](references/web-component.test.ts) | Web Component tests |
+| [debounce.test.ts](references/debounce.test.ts) | Utility function tests |
+| [mocking-patterns.ts](references/mocking-patterns.ts) | Mocking examples |
+
+---
+
+## Test Structure
+
+```typescript
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+
+describe('ComponentName', () => {
+    let element: HTMLElement;
+
+    beforeEach(() => {
+        document.body.innerHTML = `<my-component></my-component>`;
+        element = document.querySelector('my-component')!;
+    });
+
+    afterEach(() => {
+        document.body.innerHTML = '';
+    });
+
+    it('should initialize correctly', () => {
+        expect(element).toBeDefined();
+    });
+});
 ```
 
-## Common Assertions
+---
 
-```ts
-// Equality
-expect(value).toBe(42)                    // Strict (===)
-expect(obj).toEqual({ a: 1 })             // Deep equality
-expect(obj).toStrictEqual({ a: 1 })       // Strict deep (checks types)
+## Mock Patterns Quick Reference
 
-// Truthiness
-expect(value).toBeTruthy()
-expect(value).toBeFalsy()
-expect(value).toBeNull()
-expect(value).toBeUndefined()
+### Mock Functions
 
-// Numbers
-expect(0.1 + 0.2).toBeCloseTo(0.3)
-expect(value).toBeGreaterThan(5)
-
-// Strings/Arrays
-expect(str).toMatch(/pattern/)
-expect(str).toContain('substring')
-expect(array).toContain(item)
-expect(array).toHaveLength(3)
-
-// Objects
-expect(obj).toHaveProperty('key')
-expect(obj).toHaveProperty('nested.key', 'value')
-expect(obj).toMatchObject({ subset: 'of properties' })
-
-// Exceptions
-expect(() => fn()).toThrow()
-expect(() => fn()).toThrow('error message')
-expect(() => fn()).toThrow(/pattern/)
+```typescript
+const mockFn = vi.fn();
+mockFn.mockReturnValue('value');
+mockFn.mockResolvedValue({ data: [] });
+expect(mockFn).toHaveBeenCalledWith('arg');
 ```
 
-## Async Testing
+### Mock Timers
 
-```ts
-// Async/await (preferred)
-it('fetches data', async () => {
-  const data = await fetchData()
-  expect(data).toEqual({ id: 1 })
-})
-
-// Promise matchers - ALWAYS await these
-await expect(fetchData()).resolves.toEqual({ id: 1 })
-await expect(fetchData()).rejects.toThrow('Error')
-
-// Wrong - creates false positive
-expect(promise).resolves.toBe(value)  // Missing await!
+```typescript
+vi.useFakeTimers();
+vi.advanceTimersByTime(100);
+vi.useRealTimers();
 ```
 
-## Quick Mock Reference
+### Spy on Methods
 
-```ts
-const mockFn = vi.fn()
-mockFn.mockReturnValue(42)
-mockFn.mockResolvedValue({ data: 'value' })
-
-expect(mockFn).toHaveBeenCalled()
-expect(mockFn).toHaveBeenCalledWith('arg1', 'arg2')
-expect(mockFn).toHaveBeenCalledTimes(2)
+```typescript
+const spy = vi.spyOn(object, 'method');
+spy.mockReturnValue('mocked');
+expect(spy).toHaveBeenCalled();
 ```
 
-## Additional Documentation
+See [mocking-patterns.ts](references/mocking-patterns.ts) for complete examples.
 
-- **Mocking**: See [references/mocking.md](references/mocking.md) for module mocking, spying, cleanup
-- **Configuration**: See [references/config.md](references/config.md) for vitest.config, setup files, coverage
-- **Patterns**: See [references/patterns.md](references/patterns.md) for timers, snapshots, anti-patterns
+---
 
-## Test Methods Quick Reference
+## Coverage
 
-| Method | Purpose |
-|--------|---------|
-| `it()` / `test()` | Define test |
-| `describe()` | Group tests |
-| `beforeEach()` / `afterEach()` | Per-test hooks |
-| `beforeAll()` / `afterAll()` | Per-suite hooks |
-| `.skip` | Skip test/suite |
-| `.only` | Run only this |
-| `.todo` | Placeholder |
-| `.concurrent` | Parallel execution |
-| `.each([...])` | Parameterized tests |
+### Thresholds
+
+| Metric | Threshold |
+|--------|-----------|
+| Statements | 80% |
+| Branches | 80% |
+| Functions | 80% |
+| Lines | 80% |
+
+### What to Test
+
+**Always test:**
+- Public methods and functions
+- Edge cases (empty arrays, null values)
+- Error handling paths
+- User interactions
+- Attribute change callbacks
+
+**Don't test:**
+- Third-party library internals
+- Private implementation details
+- Simple getters/setters
+
+---
+
+## Running Tests
+
+| Command | Purpose |
+|---------|---------|
+| `pnpm test` | Run all tests |
+| `pnpm run test:watch` | Watch mode |
+| `pnpm run test:coverage` | With coverage |
+| `pnpm test -- --testNamePattern="nav"` | Filter by name |
+| `pnpm test src/blocks/gallery/` | Specific directory |
+
+---
+
+## Related Skills
+
+- [typescript-standards](../typescript-standards/SKILL.md) - TypeScript conventions
+- [web-components](../web-components/SKILL.md) - Web Component patterns
+- [phpunit-testing](../phpunit-testing/SKILL.md) - PHP unit testing
+- [playwright-testing](../playwright-testing/SKILL.md) - E2E testing
+
+---
+
+## References
+
+- [Vitest Documentation](https://vitest.dev/)
+- [Testing Library](https://testing-library.com/)
+- [Web Components Testing](https://open-wc.org/docs/testing/testing-package/)

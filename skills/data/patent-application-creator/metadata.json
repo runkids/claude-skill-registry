@@ -1,12 +1,7 @@
 {
   "name": "patent-application-creator",
-  "description": "Complete end-to-end patent application creation from invention disclosure to USPTO-ready filing - prior art search, claims drafting, specification writing, diagrams, compliance checking",
   "repo": "RobThePCGuy/Claude-Patent-Creator",
-  "category": "data",
-  "tags": [
-    "patent",
-    "application",
-    "creator"
-  ],
-  "stars": 0
+  "path": "skills/patent-application-creator/SKILL.md",
+  "source": "github.com/RobThePCGuy/Claude-Patent-Creator",
+  "downloaded_at": "2026-01-14T01:09:17.125628Z"
 }

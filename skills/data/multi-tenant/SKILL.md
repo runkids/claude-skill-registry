@@ -1,804 +1,1026 @@
 ---
 name: multi-tenant
-description: Use when building SaaS applications needing data isolation between customers - implements owner-based filtering for secure multi-tenant document storage and search with workspace, organization, or tenant-level separation
-version: 1.0.0
+description: Multi-tenant architecture patterns including org_id claim management, JWT token structure with organization context, database isolation strategies for MongoDB and PostgreSQL, theme switching per organization, tenant provisioning workflows, data isolation patterns, and cross-tenant security. Activate for multi-tenancy implementation, tenant isolation, and organization-scoped data access.
+allowed-tools:
+  - Bash
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - Task
+  - WebFetch
+  - WebSearch
+dependencies:
+  - authentication
+  - database
+  - keycloak-admin
+triggers:
+  - multi-tenant
+  - tenant
+  - org_id
+  - organization
+  - isolation
+  - tenant provisioning
+  - data isolation
 ---
 
-# LLMemory Multi-Tenant Patterns
+# Multi-Tenant Architecture Skill
 
-## Installation
+Comprehensive multi-tenant architecture patterns for the keycloak-alpha platform with organization-based isolation.
+
+## When to Use This Skill
+
+Activate this skill when:
+- Implementing multi-tenant architecture with org_id claims
+- Setting up database isolation strategies
+- Configuring per-organization themes
+- Building tenant provisioning workflows
+- Ensuring data isolation and security
+- Implementing cross-tenant access controls
+- Managing organization-scoped resources
+
+## Multi-Tenant Architecture Overview
+
+The keycloak-alpha platform uses **shared database, isolated schema** approach with org_id-based isolation:
+
+```
+┌─────────────────────────────────────────────┐
+│          Keycloak (Identity Provider)        │
+│  - Manages users across all organizations   │
+│  - Issues JWT tokens with org_id claim      │
+│  - Handles authentication & SSO             │
+└─────────────────────────────────────────────┘
+                    ↓ JWT with org_id
+┌─────────────────────────────────────────────┐
+│            API Gateway                       │
+│  - Validates tokens                         │
+│  - Extracts org_id claim                    │
+│  - Routes to microservices                  │
+└─────────────────────────────────────────────┘
+                    ↓ org_id in headers
+┌─────────────────────────────────────────────┐
+│         Microservices (8 services)          │
+│  - Enforce org_id filtering                 │
+│  - Isolate data by organization             │
+│  - Apply org-specific business logic        │
+└─────────────────────────────────────────────┘
+                    ↓
+┌─────────────────────────────────────────────┐
+│    MongoDB / PostgreSQL                     │
+│  - Shared database                          │
+│  - org_id indexed on all collections/tables │
+│  - Row-level security (PostgreSQL)          │
+└─────────────────────────────────────────────┘
+```
+
+## JWT Token Structure with Organization Context
+
+### Token Claims
+
+```json
+{
+  "sub": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "email": "john.doe@acme.com",
+  "name": "John Doe",
+  "given_name": "John",
+  "family_name": "Doe",
+  "org_id": "org_acme",
+  "org_name": "ACME Corporation",
+  "realm_access": {
+    "roles": ["org_admin", "user"]
+  },
+  "resource_access": {
+    "lobbi-web-app": {
+      "roles": ["user"]
+    }
+  },
+  "email_verified": true,
+  "preferred_username": "john.doe@acme.com",
+  "iss": "http://localhost:8080/realms/lobbi",
+  "aud": "account",
+  "exp": 1702000000,
+  "iat": 1701999700,
+  "jti": "unique-token-id"
+}
+```
+
+### Configure org_id Claim Mapper
 
 ```bash
-uv add llmemory
-# or
-pip install llmemory
+# Add protocol mapper to include org_id in tokens
+TOKEN=$(curl -X POST "http://localhost:8080/realms/master/protocol/openid-connect/token" \
+  -d "username=admin&password=admin&grant_type=password&client_id=admin-cli" \
+  | jq -r '.access_token')
+
+CLIENT_UUID=$(curl -H "Authorization: Bearer $TOKEN" \
+  "http://localhost:8080/admin/realms/lobbi/clients?clientId=lobbi-web-app" \
+  | jq -r '.[0].id')
+
+curl -X POST "http://localhost:8080/admin/realms/lobbi/clients/$CLIENT_UUID/protocol-mappers/models" \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "org_id_mapper",
+    "protocol": "openid-connect",
+    "protocolMapper": "oidc-usermodel-attribute-mapper",
+    "config": {
+      "user.attribute": "org_id",
+      "claim.name": "org_id",
+      "jsonType.label": "String",
+      "id.token.claim": "true",
+      "access.token.claim": "true",
+      "userinfo.token.claim": "true"
+    }
+  }'
+
+curl -X POST "http://localhost:8080/admin/realms/lobbi/clients/$CLIENT_UUID/protocol-mappers/models" \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "org_name_mapper",
+    "protocol": "openid-connect",
+    "protocolMapper": "oidc-usermodel-attribute-mapper",
+    "config": {
+      "user.attribute": "org_name",
+      "claim.name": "org_name",
+      "jsonType.label": "String",
+      "id.token.claim": "true",
+      "access.token.claim": "true",
+      "userinfo.token.claim": "false"
+    }
+  }'
 ```
 
-## Overview
-
-llmemory provides built-in multi-tenancy through the `owner_id` parameter. Every document operation is scoped to an owner, ensuring complete data isolation between tenants.
-
-**Key concepts:**
-- `owner_id`: Top-level tenant identifier (workspace, organization, customer)
-- `id_at_origin`: Secondary identifier within owner (user, thread, project)
-- Automatic filtering: All queries filtered by owner_id
-- Schema isolation: Optional PostgreSQL schema per tenant
-
-**When to use this pattern:**
-- Building SaaS applications
-- B2B platforms with customer accounts
-- Workspace-based applications (Slack, Notion style)
-- Any application requiring data isolation
-
-## Quick Start
-
-```python
-from llmemory import LLMemory
-
-async with LLMemory(connection_string="postgresql://localhost/mydb") as memory:
-    # Add document for workspace-1
-    await memory.add_document(
-        owner_id="workspace-1",  # Tenant identifier
-        id_at_origin="user-123", # User within workspace
-        document_name="Q4 Report.pdf",
-        document_type=DocumentType.PDF,
-        content="..."
-    )
-
-    # Search is automatically filtered to workspace-1
-    results = await memory.search(
-        owner_id="workspace-1",  # Only returns workspace-1 documents
-        query_text="quarterly revenue"
-    )
-
-    # workspace-2 cannot see workspace-1 data
-    results = await memory.search(
-        owner_id="workspace-2",  # No results from workspace-1
-        query_text="quarterly revenue"
-    )
-```
-
-## Security Implementation Details
-
-### Database-Level Filtering Enforcement
-
-llmemory enforces multi-tenant isolation at the PostgreSQL database level, not just in application logic. Every operation that reads or modifies data includes SQL `WHERE` clauses that filter by `owner_id`, ensuring complete data isolation.
-
-**Key security guarantees:**
-- All filtering happens in PostgreSQL using SQL WHERE clauses
-- No possibility of cross-tenant data leakage via API manipulation
-- Client cannot bypass owner_id filtering through any API call
-- Row-level filtering is automatic and enforced by the database
-
-### Vector Search Filtering
-
-Vector similarity search joins documents table and applies owner_id filtering:
-
-```python
-# From src/llmemory/db.py:407
-# Vector search SQL pattern:
-SELECT
-    c.chunk_id,
-    c.document_id,
-    c.content,
-    c.metadata,
-    1 - (e.embedding <=> $1::vector) as similarity
-FROM document_chunks c
-JOIN documents d ON c.document_id = d.document_id
-JOIN embeddings_table e ON c.chunk_id = e.chunk_id
-WHERE d.owner_id = $2  -- PostgreSQL enforces this filter
-ORDER BY e.embedding <=> $1::vector
-LIMIT $3
-```
-
-The `owner_id` parameter is bound to `$2` in the SQL query, making it impossible to retrieve documents belonging to other tenants even if the client attempts to manipulate the API.
-
-### Full-Text Search Filtering
-
-Text search also enforces owner_id at the database level:
-
-```python
-# From src/llmemory/manager.py:752-755
-# Text search SQL pattern:
-SELECT
-    c.chunk_id,
-    c.document_id,
-    c.content,
-    c.metadata,
-    ts_rank_cd(c.search_vector, websearch_to_tsquery('english', $1)) as rank
-FROM document_chunks c
-JOIN documents d ON c.document_id = d.document_id
-WHERE c.search_vector @@ websearch_to_tsquery('english', $1)
-AND d.owner_id = $2  -- Database-level tenant filtering
-ORDER BY rank DESC
-LIMIT $3
-```
-
-### Hybrid Search Filtering
-
-Hybrid search combines vector and text search, with both branches enforcing owner_id filtering:
-
-```python
-# From src/llmemory/db.py (hybrid_search method)
-# Both vector and text searches apply the same owner_id filter
-# Results are then fused using Reciprocal Rank Fusion
-
-# Vector branch filters:
-WHERE d.owner_id = $2
-
-# Text branch filters:
-WHERE d.owner_id = $2
-AND c.search_vector @@ websearch_to_tsquery('english', $1)
-```
-
-### List and Statistics Operations
-
-Document listing and statistics queries also filter by owner_id:
-
-```python
-# List documents
-SELECT * FROM documents
-WHERE owner_id = $1
-ORDER BY created_at DESC
-LIMIT $2 OFFSET $3
-
-# Count documents
-SELECT COUNT(*) FROM documents
-WHERE owner_id = $1
-
-# Delete documents
-DELETE FROM documents
-WHERE document_id = ANY($1)
-AND owner_id = $2  -- Prevents deleting other tenants' documents
-```
-
-### Security Model Summary
-
-**PostgreSQL-enforced isolation:**
-1. All queries join `documents` table and filter on `d.owner_id`
-2. Owner_id is a bound parameter (`$2`), not string-interpolated
-3. PostgreSQL's query planner uses owner_id indexes for performance
-4. No application-level bypass possible - filtering happens in database
-
-**Additional safeguards:**
-- Document deletion requires both `document_id` AND `owner_id` match
-- All statistics queries scope to owner_id
-- Search history logging includes owner_id for audit trails
-- Embedding tables don't contain owner_id directly but access is mediated through document joins
-
-**What this means:**
-- Even if a client sends `owner_id="*"` or SQL injection attempts, PostgreSQL parameterized queries prevent abuse
-- A compromised API key for one tenant cannot access another tenant's data
-- Database administrators can verify isolation by examining query logs
-- No trust boundary exists at the application layer - PostgreSQL enforces all isolation
-
-## Complete API Documentation
-
-### owner_id Parameter
-
-**Required in all operations:**
-
-Every llmemory operation requires `owner_id` for multi-tenant isolation:
-
-```python
-# Document operations
-await memory.add_document(owner_id="...", ...)
-await memory.list_documents(owner_id="...")
-await memory.delete_documents(owner_id="...")
-await memory.get_statistics(owner_id="...")
-
-# Search operations
-await memory.search(owner_id="...", ...)
-await memory.search_with_documents(owner_id="...")
-```
-
-**Validation:**
-- Must be alphanumeric with hyphens, underscores, or dots
-- Maximum length: 255 characters
-- Pattern: `^[a-zA-Z0-9_\-\.]+$`
-
-**Examples of valid owner_ids:**
-```python
-owner_id="workspace-123"
-owner_id="org_abc_def"
-owner_id="customer.456"
-owner_id="tenant-uuid-here"
-```
-
-### id_at_origin Parameter
-
-Secondary identifier within an owner (optional but recommended):
-
-```python
-await memory.add_document(
-    owner_id="workspace-1",      # Who owns this
-    id_at_origin="user-123",     # Who created it within owner
-    document_name="report.pdf",
-    content="..."
-)
-
-# Search by origin
-results = await memory.search(
-    owner_id="workspace-1",
-    query_text="report",
-    id_at_origin="user-123"  # Filter to this user's documents
-)
-
-# Search across multiple origins
-results = await memory.search(
-    owner_id="workspace-1",
-    query_text="report",
-    id_at_origins=["user-123", "user-456"]  # Documents from either user
-)
-```
-
-**Common id_at_origin patterns:**
-- User IDs: `"user-123"`, `"auth0|abc"`
-- Thread/conversation IDs: `"thread-789"`, `"conversation-xyz"`
-- Project IDs: `"project-456"`
-- Channel IDs: `"channel-general"`
-- Any hierarchical identifier within the owner
-
-## Multi-Tenant Architecture Patterns
-
-### Pattern 1: Single Database, owner_id Filtering (Recommended)
-
-All tenants in one database, filtered by `owner_id`:
-
-```python
-# Single LLMemory instance serves all tenants
-memory = LLMemory(connection_string="postgresql://localhost/shared_db")
-await memory.initialize()
-
-# Each request provides its owner_id
-async def handle_search_request(tenant_id: str, query: str):
-    results = await memory.search(
-        owner_id=tenant_id,  # Automatic filtering
-        query_text=query
-    )
-    return results
-
-# tenant-1 request
-results_1 = await handle_search_request("tenant-1", "query")
-
-# tenant-2 request
-results_2 = await handle_search_request("tenant-2", "query")
-
-# Results are completely isolated by owner_id
-```
-
-**Advantages:**
-- Simple deployment and maintenance
-- Efficient resource usage
-- Easy to add new tenants
-- Built-in isolation via database queries
-
-**Disadvantages:**
-- All tenants share database resources
-- Cannot easily migrate single tenant to dedicated instance
-
-### Pattern 2: Schema Isolation
-
-Each tenant gets their own PostgreSQL schema:
-
-```python
-from pgdbm import AsyncDatabaseManager, DatabaseConfig
-
-# Create shared pool
-config = DatabaseConfig(connection_string="postgresql://localhost/mydb")
-shared_pool = await AsyncDatabaseManager.create_shared_pool(config)
-
-# Create LLMemory instance per tenant with schema isolation
-async def get_memory_for_tenant(tenant_id: str) -> LLMemory:
-    db_manager = AsyncDatabaseManager(
-        pool=shared_pool,
-        schema=f"tenant_{tenant_id}"  # Dedicated schema per tenant
-    )
-
-    memory = LLMemory.from_db_manager(db_manager)
-    await memory.initialize()  # Creates tables in tenant schema
-    return memory
-
-# Tenant 1 uses schema "tenant_workspace1"
-memory_1 = await get_memory_for_tenant("workspace1")
-
-# Tenant 2 uses schema "tenant_workspace2"
-memory_2 = await get_memory_for_tenant("workspace2")
-
-# Complete data isolation via schemas
-```
-
-**Advantages:**
-- Stronger isolation (schema-level)
-- Easier to backup/restore single tenant
-- Can set per-tenant resource limits
-- Easier data export per tenant
-
-**Disadvantages:**
-- More complex setup
-- Higher overhead per tenant
-- Schema management complexity
-
-### Pattern 3: Database Per Tenant
-
-Each tenant gets their own database:
-
-```python
-# Separate database per tenant
-async def get_memory_for_tenant(tenant_id: str) -> LLMemory:
-    connection_string = f"postgresql://localhost/{tenant_id}_db"
-
-    memory = LLMemory(connection_string=connection_string)
-    await memory.initialize()
-    return memory
-
-# Tenant 1: database "workspace1_db"
-memory_1 = await get_memory_for_tenant("workspace1")
-
-# Tenant 2: database "workspace2_db"
-memory_2 = await get_memory_for_tenant("workspace2")
-```
-
-**Advantages:**
-- Complete isolation
-- Easy to scale individual tenants
-- Can use different database servers
-- Simplest backup/restore per tenant
-
-**Disadvantages:**
-- High resource overhead
-- Complex connection management
-- More databases to maintain
-
-## Recommended Pattern: owner_id + Shared Pool
-
-For most SaaS applications:
-
-```python
-from pgdbm import AsyncDatabaseManager, DatabaseConfig
-from llmemory import LLMemory
-
-# Global shared pool (create once at startup)
-config = DatabaseConfig(
-    connection_string="postgresql://localhost/app_db",
-    min_connections=10,
-    max_connections=50
-)
-shared_pool = await AsyncDatabaseManager.create_shared_pool(config)
-
-# Global LLMemory instance (create once)
-db_manager = AsyncDatabaseManager(pool=shared_pool, schema="llmemory")
-memory = LLMemory.from_db_manager(db_manager)
-await memory.initialize()
-
-# Use in request handlers
-async def add_document_handler(tenant_id: str, user_id: str, doc_data: dict):
-    # Validate tenant_id matches authenticated user's tenant
-    if not verify_tenant_access(tenant_id):
-        raise PermissionError("Access denied")
-
-    result = await memory.add_document(
-        owner_id=tenant_id,        # Tenant isolation
-        id_at_origin=user_id,      # User within tenant
-        document_name=doc_data["name"],
-        document_type=doc_data["type"],
-        content=doc_data["content"]
-    )
-    return result
-
-async def search_handler(tenant_id: str, query: str, filters: dict):
-    # Validate tenant_id
-    if not verify_tenant_access(tenant_id):
-        raise PermissionError("Access denied")
-
-    results = await memory.search(
-        owner_id=tenant_id,  # Automatic filtering to tenant
-        query_text=query,
-        **filters
-    )
-    return results
-```
-
-## Security Best Practices
-
-### Always Validate owner_id
-
-```python
-from fastapi import HTTPException, Depends
-
-async def get_current_tenant(user: User = Depends(get_current_user)) -> str:
-    """Get tenant ID from authenticated user."""
-    return user.tenant_id
-
-async def verify_tenant_access(
-    tenant_id: str,
-    current_tenant: str = Depends(get_current_tenant)
-) -> str:
-    """Verify user has access to requested tenant."""
-    if tenant_id != current_tenant:
-        raise HTTPException(status_code=403, detail="Access denied")
-    return tenant_id
-
-# Use in endpoints
-@app.post("/documents")
-async def add_document(
-    doc: DocumentCreate,
-    tenant_id: str = Depends(verify_tenant_access)
-):
-    result = await memory.add_document(
-        owner_id=tenant_id,  # Validated tenant
-        id_at_origin=doc.user_id,
-        document_name=doc.name,
-        document_type=doc.type,
-        content=doc.content
-    )
-    return result
-```
-
-### Never Trust Client-Provided owner_id
-
-❌ **Wrong: Using owner_id from client**
-```python
-@app.post("/documents")
-async def add_document(owner_id: str, doc: DocumentCreate):
-    # SECURITY RISK: Client can specify any owner_id!
-    result = await memory.add_document(
-        owner_id=owner_id,  # From client - DO NOT DO THIS
-        id_at_origin=doc.user_id,
-        document_name=doc.name,
-        document_type=doc.type,
-        content=doc.content
-    )
-    return result
-```
-
-✅ **Right: Derive owner_id from authentication**
-```python
-@app.post("/documents")
-async def add_document(
-    doc: DocumentCreate,
-    user: User = Depends(get_current_user)
-):
-    # Get owner_id from authenticated user's session
-    tenant_id = user.tenant_id  # From auth, not client
-result = await memory.add_document(
-        owner_id=tenant_id,  # Validated from auth
-        id_at_origin=user.user_id,
-        document_name=doc.name,
-        document_type=doc.type,
-        content=doc.content
-    )
-    return result
-```
-
-## FastAPI Integration Example
-
-Complete multi-tenant setup:
-
-```python
-from fastapi import FastAPI, Depends, HTTPException
-from pgdbm import AsyncDatabaseManager, DatabaseConfig
-from llmemory import LLMemory, DocumentType, SearchType
-from typing import Optional
-
-# Global state
-app = FastAPI()
-memory: Optional[LLMemory] = None
-
-@app.on_event("startup")
-async def startup():
-    global memory
-
-    # Create shared pool
-    config = DatabaseConfig(
-        connection_string="postgresql://localhost/app_db",
-        min_connections=10,
-        max_connections=50
-    )
-    shared_pool = await AsyncDatabaseManager.create_shared_pool(config)
-
-    # Create LLMemory
-    db_manager = AsyncDatabaseManager(pool=shared_pool, schema="llmemory")
-    memory = LLMemory.from_db_manager(db_manager)
-    await memory.initialize()
-
-@app.on_event("shutdown")
-async def shutdown():
-    if memory:
-        await memory.close()
-
-# Auth dependency
-async def get_current_user():
-    # Your auth logic here
-    # Return user object with tenant_id
-    pass
-
-async def get_tenant_id(user = Depends(get_current_user)) -> str:
-    return user.tenant_id
-
-# Endpoints
-@app.post("/api/documents")
-async def add_document(
-    name: str,
-    content: str,
-    doc_type: str,
-    tenant_id: str = Depends(get_tenant_id),
-    user = Depends(get_current_user)
-):
-    result = await memory.add_document(
-        owner_id=tenant_id,
-        id_at_origin=user.user_id,
-        document_name=name,
-        document_type=DocumentType(doc_type),
-        content=content
-    )
-    return {
-        "document_id": str(result.document.document_id),
-        "chunks_created": result.chunks_created
+### Token Verification Middleware
+
+```javascript
+// services/api-gateway/src/middleware/auth.js
+import jwt from 'jsonwebtoken';
+import jwksClient from 'jwks-rsa';
+import { UnauthorizedError, ForbiddenError } from '../utils/AppError.js';
+
+const client = jwksClient({
+  jwksUri: `${process.env.KEYCLOAK_URL}/realms/${process.env.KEYCLOAK_REALM}/protocol/openid-connect/certs`,
+  cache: true,
+  rateLimit: true,
+  jwksRequestsPerMinute: 10
+});
+
+function getKey(header, callback) {
+  client.getSigningKey(header.kid, (err, key) => {
+    const signingKey = key.publicKey || key.rsaPublicKey;
+    callback(null, signingKey);
+  });
+}
+
+export async function authMiddleware(req, res, next) {
+  const token = req.headers.authorization?.replace('Bearer ', '');
+
+  if (!token) {
+    return next(new UnauthorizedError('No token provided'));
+  }
+
+  jwt.verify(token, getKey, {
+    audience: 'account',
+    issuer: `${process.env.KEYCLOAK_URL}/realms/${process.env.KEYCLOAK_REALM}`,
+    algorithms: ['RS256']
+  }, (err, decoded) => {
+    if (err) {
+      return next(new UnauthorizedError('Invalid token'));
     }
 
-@app.get("/api/search")
-async def search(
-    q: str,
-    limit: int = 10,
-    tenant_id: str = Depends(get_tenant_id)
-):
-    results = await memory.search(
-        owner_id=tenant_id,
-        query_text=q,
-        search_type=SearchType.HYBRID,
-        limit=limit
-    )
-    return {"results": [r.to_dict() for r in results]}
-
-@app.get("/api/documents")
-async def list_documents(
-    limit: int = 20,
-    offset: int = 0,
-    tenant_id: str = Depends(get_tenant_id)
-):
-    result = await memory.list_documents(
-        owner_id=tenant_id,
-        limit=limit,
-        offset=offset
-    )
-    return {
-        "documents": [d.to_dict() for d in result.documents],
-        "total": result.total
+    // CRITICAL: Verify org_id claim exists
+    if (!decoded.org_id) {
+      return next(new ForbiddenError('Missing org_id claim in token'));
     }
 
-@app.get("/api/statistics")
-async def get_stats(tenant_id: str = Depends(get_tenant_id)):
-    stats = await memory.get_statistics(owner_id=tenant_id)
-    return {
-        "document_count": stats.document_count,
-        "chunk_count": stats.chunk_count,
-        "total_size_mb": stats.total_size_bytes / 1024 / 1024
+    // Attach user context to request
+    req.user = {
+      sub: decoded.sub,
+      email: decoded.email,
+      name: decoded.name,
+      orgId: decoded.org_id,
+      orgName: decoded.org_name,
+      roles: decoded.realm_access?.roles || []
+    };
+
+    next();
+  });
+}
+
+// Optional: Verify org_id matches resource being accessed
+export function requireOrgAccess(req, res, next) {
+  const resourceOrgId = req.params.orgId || req.query.org_id || req.body.org_id;
+
+  if (resourceOrgId && resourceOrgId !== req.user.orgId) {
+    // Allow super_admin to access any org
+    if (!req.user.roles.includes('super_admin')) {
+      return next(new ForbiddenError('Cannot access resources from different organization'));
     }
+  }
+
+  next();
+}
 ```
 
-## Hierarchical Multi-Tenancy
+## Database Isolation Strategies
 
-Support for organization → workspace → user hierarchy:
+### MongoDB Isolation with org_id
 
-```python
-# Structure: org-123/workspace-456/user-789
+```javascript
+// services/user-service/src/models/User.js
+import mongoose from 'mongoose';
 
-# Add document with full hierarchy
-await memory.add_document(
-    owner_id="org-123/workspace-456",  # Combined owner ID
-    id_at_origin="user-789",           # User within workspace
-    document_name="doc.pdf",
-    document_type=DocumentType.PDF,
-    content="..."
-)
+const userSchema = new mongoose.Schema({
+  keycloakId: {
+    type: String,
+    required: true,
+    unique: true,
+    index: true
+  },
+  email: {
+    type: String,
+    required: true,
+    lowercase: true,
+    trim: true
+  },
+  org_id: {
+    type: String,
+    required: true,
+    index: true  // CRITICAL: Always index org_id
+  },
+  firstName: String,
+  lastName: String,
+  metadata: {
+    type: Map,
+    of: String
+  }
+}, {
+  timestamps: true
+});
 
-# Search within workspace
-results = await memory.search(
-    owner_id="org-123/workspace-456",
-    query_text="query",
-    id_at_origin="user-789"  # User's documents
-)
+// CRITICAL: Compound index for org-scoped queries
+userSchema.index({ org_id: 1, email: 1 }, { unique: true });
+userSchema.index({ org_id: 1, createdAt: -1 });
 
-# Search across user's documents in workspace
-results = await memory.search(
-    owner_id="org-123/workspace-456",
-    query_text="query",
-    id_at_origins=["user-789", "user-123"]  # Multiple users
-)
+// Pre-query hook to enforce org_id filtering
+userSchema.pre(/^find/, function(next) {
+  // Only enforce if org_id is not already in query
+  if (!this.getQuery().org_id && this.options.orgId) {
+    this.where({ org_id: this.options.orgId });
+  }
+  next();
+});
 
-# Organization-wide search (if permitted)
-# Use separate owner_id per workspace and aggregate client-side
-workspaces = ["org-123/workspace-456", "org-123/workspace-789"]
-all_results = []
-for workspace in workspaces:
-    results = await memory.search(
-        owner_id=workspace,
-        query_text="query",
-        limit=10
-    )
-    all_results.extend(results)
+export const UserModel = mongoose.model('User', userSchema);
 ```
 
-## Monitoring Per Tenant
+### Repository Pattern with org_id Isolation
 
-```python
-# Get statistics per tenant
-async def get_tenant_metrics(tenant_id: str):
-    stats = await memory.get_statistics(
-        owner_id=tenant_id,
-        include_breakdown=True
-    )
+```javascript
+// services/user-service/src/repositories/user.repository.js
+import { UserModel } from '../models/User.js';
+import { ForbiddenError, NotFoundError } from '../utils/AppError.js';
+
+export class UserRepository {
+
+  constructor(orgId) {
+    this.orgId = orgId;
+  }
+
+  async findAll(filter = {}, options = {}) {
+    // ALWAYS enforce org_id filtering
+    const query = {
+      ...filter,
+      org_id: this.orgId
+    };
+
+    const { page = 1, limit = 20, sort = { createdAt: -1 } } = options;
+
+    const users = await UserModel.find(query)
+      .select('-password')
+      .limit(limit)
+      .skip((page - 1) * limit)
+      .sort(sort);
+
+    const total = await UserModel.countDocuments(query);
 
     return {
-        "tenant_id": tenant_id,
-        "documents": stats.document_count,
-        "chunks": stats.chunk_count,
-        "size_mb": stats.total_size_bytes / 1024 / 1024,
-        "document_types": {
-            str(k): v for k, v in (stats.document_type_breakdown or {}).items()
+      data: users,
+      pagination: {
+        page,
+        limit,
+        total,
+        pages: Math.ceil(total / limit)
+      }
+    };
+  }
+
+  async findById(id) {
+    const user = await UserModel.findOne({
+      _id: id,
+      org_id: this.orgId  // CRITICAL: Always filter by org_id
+    }).select('-password');
+
+    if (!user) {
+      throw new NotFoundError('User');
+    }
+
+    return user;
+  }
+
+  async create(userData) {
+    const user = new UserModel({
+      ...userData,
+      org_id: this.orgId  // CRITICAL: Always set org_id
+    });
+
+    await user.save();
+    return user;
+  }
+
+  async update(id, updates) {
+    // Prevent changing org_id
+    delete updates.org_id;
+
+    const user = await UserModel.findOneAndUpdate(
+      { _id: id, org_id: this.orgId },  // CRITICAL: Filter by org_id
+      updates,
+      { new: true, runValidators: true }
+    ).select('-password');
+
+    if (!user) {
+      throw new NotFoundError('User');
+    }
+
+    return user;
+  }
+
+  async delete(id) {
+    const result = await UserModel.deleteOne({
+      _id: id,
+      org_id: this.orgId  // CRITICAL: Filter by org_id
+    });
+
+    if (result.deletedCount === 0) {
+      throw new NotFoundError('User');
+    }
+
+    return true;
+  }
+}
+
+// Usage in controller
+export async function listUsers(req, res, next) {
+  try {
+    const repository = new UserRepository(req.user.orgId);
+    const result = await repository.findAll(
+      { status: 'active' },
+      { page: req.query.page, limit: req.query.limit }
+    );
+
+    res.json(result);
+  } catch (error) {
+    next(error);
+  }
+}
+```
+
+### PostgreSQL Row-Level Security
+
+```sql
+-- services/billing-service/migrations/001_create_subscriptions.sql
+
+-- Enable row-level security
+ALTER TABLE subscriptions ENABLE ROW LEVEL SECURITY;
+
+-- Create policy for org isolation
+CREATE POLICY org_isolation ON subscriptions
+  USING (org_id = current_setting('app.current_org_id')::text);
+
+-- Grant access to application role
+GRANT SELECT, INSERT, UPDATE, DELETE ON subscriptions TO app_user;
+
+-- Function to set org context
+CREATE OR REPLACE FUNCTION set_org_context(p_org_id text)
+RETURNS void AS $$
+BEGIN
+  PERFORM set_config('app.current_org_id', p_org_id, false);
+END;
+$$ LANGUAGE plpgsql;
+```
+
+```javascript
+// services/billing-service/src/config/postgres.js
+import { Pool } from 'pg';
+
+export class PostgresClient {
+
+  constructor() {
+    this.pool = new Pool({
+      host: process.env.POSTGRES_HOST,
+      port: process.env.POSTGRES_PORT,
+      database: process.env.POSTGRES_DB,
+      user: process.env.POSTGRES_USER,
+      password: process.env.POSTGRES_PASSWORD,
+      max: 20,
+      idleTimeoutMillis: 30000
+    });
+  }
+
+  async query(orgId, text, params) {
+    const client = await this.pool.connect();
+
+    try {
+      // Set org context for row-level security
+      await client.query('SELECT set_org_context($1)', [orgId]);
+
+      // Execute query (RLS automatically filters by org_id)
+      const result = await client.query(text, params);
+
+      return result;
+    } finally {
+      client.release();
+    }
+  }
+}
+
+// Usage
+const db = new PostgresClient();
+
+export async function getSubscription(req, res, next) {
+  try {
+    const result = await db.query(
+      req.user.orgId,
+      'SELECT * FROM subscriptions WHERE id = $1',
+      [req.params.id]
+    );
+
+    if (result.rows.length === 0) {
+      throw new NotFoundError('Subscription');
+    }
+
+    res.json(result.rows[0]);
+  } catch (error) {
+    next(error);
+  }
+}
+```
+
+## Theme Switching Per Organization
+
+### Theme Mapping Configuration
+
+```javascript
+// services/keycloak-service/src/config/theme-mapping.js
+export const themeMapping = {
+  // Organization ID -> Theme name mapping
+  org_acme: 'acme-custom',
+  org_beta: 'beta-theme',
+  org_gamma: 'gamma-dark',
+
+  // Default theme for organizations without custom theme
+  default: 'lobbi-base'
+};
+
+export function getThemeForOrg(orgId) {
+  return themeMapping[orgId] || themeMapping.default;
+}
+
+export function getAllThemes() {
+  const themes = new Set(Object.values(themeMapping));
+  return Array.from(themes);
+}
+```
+
+### Dynamic Theme Application
+
+```javascript
+// services/api-gateway/src/middleware/theme-redirect.js
+import { getThemeForOrg } from '../config/theme-mapping.js';
+
+export function themeRedirectMiddleware(req, res, next) {
+  // Extract org_id from token or session
+  const orgId = req.user?.orgId;
+
+  if (!orgId) {
+    return next();
+  }
+
+  // Get theme for organization
+  const theme = getThemeForOrg(orgId);
+
+  // If redirecting to Keycloak login, add theme parameter
+  if (req.path.includes('/auth') || req.path.includes('/login')) {
+    const keycloakUrl = new URL(process.env.KEYCLOAK_URL);
+    keycloakUrl.pathname = `/realms/${process.env.KEYCLOAK_REALM}/protocol/openid-connect/auth`;
+
+    keycloakUrl.searchParams.set('client_id', 'lobbi-web-app');
+    keycloakUrl.searchParams.set('redirect_uri', req.query.redirect_uri);
+    keycloakUrl.searchParams.set('response_type', 'code');
+    keycloakUrl.searchParams.set('scope', 'openid profile email');
+    keycloakUrl.searchParams.set('kc_theme', theme);  // Apply theme
+
+    return res.redirect(keycloakUrl.toString());
+  }
+
+  // Store theme in session for frontend
+  req.session.theme = theme;
+  next();
+}
+```
+
+### Frontend Theme Consumption
+
+```javascript
+// apps/web-app/src/contexts/ThemeContext.jsx
+import { createContext, useContext, useState, useEffect } from 'react';
+import { useAuth } from '@hooks/useAuth';
+import { getThemeForOrg } from '@/api/theme';
+
+const ThemeContext = createContext(null);
+
+export function ThemeProvider({ children }) {
+  const { user } = useAuth();
+  const [theme, setTheme] = useState('lobbi-base');
+  const [themeConfig, setThemeConfig] = useState(null);
+
+  useEffect(() => {
+    if (user?.orgId) {
+      loadTheme(user.orgId);
+    }
+  }, [user?.orgId]);
+
+  async function loadTheme(orgId) {
+    try {
+      const config = await getThemeForOrg(orgId);
+      setTheme(config.name);
+      setThemeConfig(config);
+
+      // Apply CSS variables
+      if (config.branding) {
+        document.documentElement.style.setProperty('--primary-color', config.branding.primaryColor);
+        document.documentElement.style.setProperty('--secondary-color', config.branding.secondaryColor);
+      }
+    } catch (error) {
+      console.error('Failed to load theme:', error);
+    }
+  }
+
+  return (
+    <ThemeContext.Provider value={{ theme, themeConfig }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+}
+
+export const useTheme = () => useContext(ThemeContext);
+```
+
+## Tenant Provisioning Workflow
+
+### Organization Creation Service
+
+```javascript
+// services/org-service/src/services/provisioning.service.js
+import { OrganizationModel } from '../models/Organization.js';
+import { KeycloakService } from './keycloak.service.js';
+import { DatabaseService } from './database.service.js';
+import { ThemeService } from './theme.service.js';
+import { BillingService } from './billing.service.js';
+
+export class ProvisioningService {
+
+  async provisionOrganization(data) {
+    const {
+      name,
+      domain,
+      adminEmail,
+      adminFirstName,
+      adminLastName,
+      plan = 'free'
+    } = data;
+
+    // Generate org_id
+    const orgId = `org_${domain.replace(/[^a-z0-9]/gi, '_').toLowerCase()}`;
+
+    try {
+      // 1. Create organization in database
+      const org = await this.createOrganization({
+        orgId,
+        name,
+        domain,
+        plan
+      });
+
+      // 2. Create Keycloak group for organization
+      const keycloakService = new KeycloakService();
+      const groupId = await keycloakService.createOrganizationGroup(orgId, name);
+
+      // 3. Create admin user in Keycloak
+      const adminUserId = await keycloakService.createUser({
+        email: adminEmail,
+        firstName: adminFirstName,
+        lastName: adminLastName,
+        orgId,
+        roles: ['org_admin']
+      });
+
+      // 4. Add user to organization group
+      await keycloakService.addUserToGroup(adminUserId, groupId);
+
+      // 5. Initialize database schemas/collections
+      const databaseService = new DatabaseService();
+      await databaseService.initializeOrgCollections(orgId);
+
+      // 6. Set up default theme
+      const themeService = new ThemeService();
+      await themeService.createOrgTheme(orgId, {
+        parent: 'lobbi-base',
+        branding: {
+          logoUrl: null,
+          primaryColor: '#3182ce',
+          secondaryColor: '#805ad5'
         }
+      });
+
+      // 7. Create billing customer (if not free plan)
+      if (plan !== 'free') {
+        const billingService = new BillingService();
+        await billingService.createCustomer({
+          orgId,
+          email: adminEmail,
+          name,
+          plan
+        });
+      }
+
+      // 8. Send welcome email
+      await this.sendWelcomeEmail(adminEmail, {
+        orgName: name,
+        loginUrl: process.env.APP_URL
+      });
+
+      return {
+        orgId,
+        organizationId: org._id,
+        adminUserId,
+        message: 'Organization provisioned successfully'
+      };
+
+    } catch (error) {
+      // Rollback on failure
+      await this.rollbackProvisioning(orgId);
+      throw error;
+    }
+  }
+
+  async createOrganization(data) {
+    const org = new OrganizationModel({
+      org_id: data.orgId,
+      name: data.name,
+      domain: data.domain,
+      settings: {
+        theme: 'lobbi-base',
+        features: new Map([
+          ['sso', data.plan !== 'free'],
+          ['advanced_analytics', data.plan === 'enterprise'],
+          ['custom_branding', data.plan !== 'free']
+        ])
+      },
+      subscription: {
+        plan: data.plan,
+        status: 'active',
+        billingCycle: 'monthly'
+      },
+      status: 'active'
+    });
+
+    await org.save();
+    return org;
+  }
+
+  async rollbackProvisioning(orgId) {
+    console.error(`Rolling back provisioning for ${orgId}`);
+
+    try {
+      // Delete organization from database
+      await OrganizationModel.deleteOne({ org_id: orgId });
+
+      // Delete Keycloak group and users
+      const keycloakService = new KeycloakService();
+      await keycloakService.deleteOrganizationGroup(orgId);
+
+      // Clean up database collections
+      const databaseService = new DatabaseService();
+      await databaseService.cleanupOrgCollections(orgId);
+
+    } catch (rollbackError) {
+      console.error('Rollback failed:', rollbackError);
+    }
+  }
+}
+```
+
+### Tenant Provisioning API Endpoint
+
+```javascript
+// services/org-service/src/controllers/provisioning.controller.js
+import { ProvisioningService } from '../services/provisioning.service.js';
+import { asyncHandler } from '../middleware/errorHandler.js';
+
+export const provisionOrganization = asyncHandler(async (req, res) => {
+  const {
+    name,
+    domain,
+    adminEmail,
+    adminFirstName,
+    adminLastName,
+    plan
+  } = req.body;
+
+  const provisioningService = new ProvisioningService();
+
+  const result = await provisioningService.provisionOrganization({
+    name,
+    domain,
+    adminEmail,
+    adminFirstName,
+    adminLastName,
+    plan
+  });
+
+  res.status(201).json(result);
+});
+
+export const deprovisionOrganization = asyncHandler(async (req, res) => {
+  const { orgId } = req.params;
+
+  // Only super_admin can deprovision
+  if (!req.user.roles.includes('super_admin')) {
+    throw new ForbiddenError('Insufficient permissions');
+  }
+
+  const provisioningService = new ProvisioningService();
+  await provisioningService.deprovisionOrganization(orgId);
+
+  res.json({ message: 'Organization deprovisioned successfully' });
+});
+```
+
+## Data Isolation Patterns
+
+### Query Middleware for Automatic org_id Filtering
+
+```javascript
+// shared/middleware/org-scope.middleware.js
+export function orgScopeMiddleware(Model) {
+  // Pre-find hooks
+  Model.schema.pre(/^find/, function(next) {
+    if (this.options.skipOrgFilter) {
+      return next();
     }
 
-# Monitor all tenants
-active_tenants = ["tenant-1", "tenant-2", "tenant-3"]
-metrics = [await get_tenant_metrics(t) for t in active_tenants]
-
-# Alert on unusual usage
-for metric in metrics:
-    if metric["size_mb"] > 1000:  # 1 GB limit
-        send_alert(f"Tenant {metric['tenant_id']} exceeds storage limit")
-```
-
-## Data Export Per Tenant
-
-```python
-async def export_tenant_data(tenant_id: str, output_path: str):
-    """Export all documents for a tenant."""
-    offset = 0
-    limit = 100
-
-    with open(output_path, "w") as f:
-        while True:
-            result = await memory.list_documents(
-                owner_id=tenant_id,
-                limit=limit,
-                offset=offset
-            )
-
-            if not result.documents:
-                break
-
-            for doc in result.documents:
-                # Get document with chunks
-                doc_data = await memory.get_document(
-                    document_id=doc.document_id,
-                    include_chunks=True
-                )
-
-                # Write to export file
-                f.write(json.dumps({
-                    "document_id": str(doc_data.document.document_id),
-                    "document_name": doc_data.document.document_name,
-                    "metadata": doc_data.document.metadata,
-                    "chunks": [chunk.content for chunk in (doc_data.chunks or [])]
-                }) + "\n")
-
-            offset += limit
-            if offset >= result.total:
-                break
-
-# Export tenant data
-await export_tenant_data("tenant-123", "tenant-123-export.jsonl")
-```
-
-## Tenant Deletion
-
-```python
-async def delete_tenant_data(tenant_id: str):
-    """Delete all data for a tenant (GDPR compliance)."""
-    # Get all documents for tenant
-    offset = 0
-    deleted_total = 0
-
-    while True:
-        result = await memory.list_documents(
-            owner_id=tenant_id,
-            limit=100,
-            offset=0  # Always 0 since we're deleting
-        )
-
-        if not result.documents:
-            break
-
-        # Delete batch
-        doc_ids = [str(doc.document_id) for doc in result.documents]
-        delete_result = await memory.delete_documents(
-            owner_id=tenant_id,
-            document_ids=doc_ids
-        )
-
-        deleted_total += delete_result.deleted_count
-
-    return {
-        "tenant_id": tenant_id,
-        "documents_deleted": deleted_total
+    // Automatically add org_id filter if not present
+    if (!this.getQuery().org_id && this.options.orgId) {
+      this.where({ org_id: this.options.orgId });
     }
 
-# Delete tenant
-result = await delete_tenant_data("tenant-to-delete")
-print(f"Deleted {result['documents_deleted']} documents")
+    next();
+  });
+
+  // Pre-update hooks
+  Model.schema.pre('updateOne', function(next) {
+    if (this.options.skipOrgFilter) {
+      return next();
+    }
+
+    if (!this.getQuery().org_id && this.options.orgId) {
+      this.where({ org_id: this.options.orgId });
+    }
+
+    next();
+  });
+
+  // Pre-delete hooks
+  Model.schema.pre('deleteOne', function(next) {
+    if (this.options.skipOrgFilter) {
+      return next();
+    }
+
+    if (!this.getQuery().org_id && this.options.orgId) {
+      this.where({ org_id: this.options.orgId });
+    }
+
+    next();
+  });
+}
 ```
 
-## Common Mistakes
+### Service-Level Isolation
 
-❌ **Wrong: Forgetting owner_id validation**
-```python
-@app.get("/search")
-async def search(owner_id: str, q: str):
-    # User can pass any owner_id!
-    results = await memory.search(owner_id=owner_id, query_text=q)
-    return results
+```javascript
+// services/user-service/src/services/user.service.js
+export class UserService {
+
+  constructor(orgId) {
+    if (!orgId) {
+      throw new Error('orgId is required for UserService');
+    }
+    this.orgId = orgId;
+  }
+
+  async findAll(filter = {}, options = {}) {
+    // ALWAYS enforce org_id
+    return await UserModel.find({
+      ...filter,
+      org_id: this.orgId
+    }, null, {
+      orgId: this.orgId,
+      ...options
+    });
+  }
+
+  async findById(id) {
+    const user = await UserModel.findOne({
+      _id: id,
+      org_id: this.orgId
+    });
+
+    if (!user) {
+      throw new NotFoundError('User');
+    }
+
+    return user;
+  }
+
+  // Prevent cross-org data leaks
+  async bulkUpdate(userIds, updates) {
+    // First verify all users belong to this org
+    const count = await UserModel.countDocuments({
+      _id: { $in: userIds },
+      org_id: this.orgId
+    });
+
+    if (count !== userIds.length) {
+      throw new ForbiddenError('Some users do not belong to this organization');
+    }
+
+    // Proceed with update
+    return await UserModel.updateMany(
+      {
+        _id: { $in: userIds },
+        org_id: this.orgId
+      },
+      updates
+    );
+  }
+}
 ```
 
-✅ **Right: Always validate from auth**
-```python
-@app.get("/search")
-async def search(q: str, user = Depends(get_current_user)):
-    # owner_id from authenticated session
-    results = await memory.search(
-        owner_id=user.tenant_id,
-        query_text=q
-    )
-    return results
+## Cross-Tenant Security Considerations
+
+### Preventing Cross-Org Data Access
+
+```javascript
+// services/api-gateway/src/middleware/org-validation.middleware.js
+export function validateOrgAccess(extractOrgId) {
+  return (req, res, next) => {
+    // Extract org_id from request (params, query, or body)
+    const resourceOrgId = extractOrgId(req);
+
+    if (!resourceOrgId) {
+      return next();
+    }
+
+    // Verify user has access to this org
+    if (resourceOrgId !== req.user.orgId) {
+      // Super admins can access any org
+      if (req.user.roles.includes('super_admin')) {
+        return next();
+      }
+
+      // Log potential security violation
+      console.warn('Cross-org access attempt:', {
+        userId: req.user.sub,
+        userOrgId: req.user.orgId,
+        attemptedOrgId: resourceOrgId,
+        path: req.path,
+        method: req.method,
+        ip: req.ip
+      });
+
+      return next(new ForbiddenError('Access denied to organization resources'));
+    }
+
+    next();
+  };
+}
+
+// Usage in routes
+router.get('/organizations/:orgId/users',
+  validateOrgAccess(req => req.params.orgId),
+  listUsers
+);
 ```
 
-❌ **Wrong: Mixing tenants in id_at_origin**
-```python
-# Don't use id_at_origin for tenant separation
-await memory.add_document(
-    owner_id="shared",  # Same owner
-    id_at_origin="tenant-1",  # Trying to use this for tenant
-    document_name="doc",
-    content="..."
-)
-# This doesn't provide proper isolation!
+### Audit Logging for Cross-Org Access
+
+```javascript
+// services/analytics-service/src/services/audit.service.js
+export class AuditService {
+
+  async logAccess(event) {
+    const log = {
+      timestamp: new Date(),
+      userId: event.userId,
+      userOrgId: event.userOrgId,
+      resourceOrgId: event.resourceOrgId,
+      action: event.action,
+      resource: event.resource,
+      resourceId: event.resourceId,
+      success: event.success,
+      ipAddress: event.ipAddress,
+      userAgent: event.userAgent
+    };
+
+    // Flag suspicious cross-org access
+    if (event.userOrgId !== event.resourceOrgId && !event.isSuperAdmin) {
+      log.suspicious = true;
+      log.severity = 'high';
+
+      // Alert security team
+      await this.sendSecurityAlert(log);
+    }
+
+    await AuditLogModel.create(log);
+  }
+}
 ```
 
-✅ **Right: Use owner_id for tenant isolation**
-```python
-await memory.add_document(
-    owner_id="tenant-1",  # Proper tenant separation
-    id_at_origin="user-123",  # User within tenant
-    document_name="doc",
-    content="..."
-)
+## Best Practices
+
+1. **ALWAYS include org_id in JWT tokens** via Keycloak protocol mapper
+2. **NEVER trust client-provided org_id** - always use token claim
+3. **INDEX org_id on ALL collections/tables** for query performance
+4. **Use repository pattern** to enforce org_id filtering
+5. **Implement row-level security** in PostgreSQL for additional safety
+6. **Validate org_id in middleware** before reaching controllers
+7. **Audit cross-org access attempts** for security monitoring
+8. **Test isolation thoroughly** with automated tests
+9. **Use compound indexes** for org_id + frequently queried fields
+10. **Prevent org_id modification** in update operations
+11. **Implement graceful tenant deprovisioning** with cleanup
+12. **Version control theme mappings** for traceability
+13. **Monitor query performance** by org_id to detect issues
+14. **Implement rate limiting per org** to prevent abuse
+15. **Use separate database connections per org** for critical isolation (optional)
+
+## File Locations in keycloak-alpha
+
+| Path | Purpose |
+|------|---------|
+| `services/org-service/` | Organization provisioning and management |
+| `services/api-gateway/src/middleware/auth.js` | Token validation and org_id extraction |
+| `services/keycloak-service/src/config/theme-mapping.js` | Theme per organization mapping |
+| `shared/middleware/org-scope.middleware.js` | Automatic org_id filtering |
+| `services/analytics-service/src/services/audit.service.js` | Cross-org access auditing |
+
+## Testing Multi-Tenancy
+
+### Test Organization Isolation
+
+```javascript
+// services/user-service/tests/isolation.test.js
+describe('Multi-tenant isolation', () => {
+  it('should prevent cross-org data access', async () => {
+    // Create users in two different orgs
+    const org1User = await createUser({ org_id: 'org_1', email: 'user1@org1.com' });
+    const org2User = await createUser({ org_id: 'org_2', email: 'user2@org2.com' });
+
+    // Try to access org_2 user with org_1 token
+    const org1Token = generateToken({ org_id: 'org_1' });
+
+    const response = await request(app)
+      .get(`/api/users/${org2User._id}`)
+      .set('Authorization', `Bearer ${org1Token}`)
+      .expect(403);
+
+    expect(response.body.error.message).toContain('Access denied');
+  });
+
+  it('should allow super_admin cross-org access', async () => {
+    const org2User = await createUser({ org_id: 'org_2' });
+    const superAdminToken = generateToken({
+      org_id: 'org_1',
+      roles: ['super_admin']
+    });
+
+    await request(app)
+      .get(`/api/users/${org2User._id}`)
+      .set('Authorization', `Bearer ${superAdminToken}`)
+      .expect(200);
+  });
+});
 ```
-
-## Related Skills
-
-- `basic-usage` - Core operations with owner_id
-- `hybrid-search` - Search within tenant boundaries
-- `rag` - Building multi-tenant RAG systems
-
-## Important Notes
-
-**Data Isolation Guarantees:**
-- All llmemory operations filter by `owner_id` at the database level
-- No cross-tenant data leakage possible through API
-- PostgreSQL row-level security can add additional safeguards
-
-**Performance at Scale:**
-- owner_id is indexed for fast filtering
-- Tested with millions of documents across thousands of tenants
-- Consider partitioning by owner_id for very large deployments
-
-**Schema vs owner_id:**
-- Use owner_id filtering for most cases (simpler, sufficient)
-- Use schema isolation for regulatory compliance or very large tenants
-- Can combine both: schema for major tenants, owner_id within schema
-
-**Embedding Providers:**
-- Embedding tables include owner_id for proper isolation
-- Vector indexes are global but filtered by owner_id during search
-- No cross-tenant information leakage through embeddings

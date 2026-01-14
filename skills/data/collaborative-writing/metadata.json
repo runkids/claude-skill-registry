@@ -1,12 +1,7 @@
 {
   "name": "collaborative-writing",
-  "description": "Co-create any professional writing through Socratic dialogue using established voice patterns",
   "repo": "AJBcoding/claude-skill-eval",
-  "category": "development",
-  "tags": [
-    "collaborative",
-    "writing"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/collaborative-writing/SKILL.md",
+  "source": "github.com/AJBcoding/claude-skill-eval",
+  "downloaded_at": "2026-01-14T03:07:54.853391Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "rust-testing-verification",
-  "description": "Comprehensive testing strategies for Rust including property-based testing with proptest, fuzz testing with cargo-fuzz, benchmark testing with Criterion, contract testing for traits, and Miri for unde",
   "repo": "matthewharwood/engmanager.xyz",
-  "category": "testing",
-  "tags": [
-    "rust",
-    "testing",
-    "verification"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/rust-testing-verification/SKILL.md",
+  "source": "github.com/matthewharwood/engmanager.xyz",
+  "downloaded_at": "2026-01-14T03:04:55.031850Z"
 }

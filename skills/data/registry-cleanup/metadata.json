@@ -1,12 +1,7 @@
 {
   "name": "registry-cleanup",
-  "description": "Automates cleanup of old container images from DigitalOcean registries based on retention policies. Keeps last 10 tags for staging, 30 for production, always preserves :latest.",
   "repo": "DarkMonkDev/WitchCityRope",
-  "category": "testing",
-  "tags": [
-    "registry",
-    "cleanup"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/registry-cleanup/SKILL.md",
+  "source": "github.com/DarkMonkDev/WitchCityRope",
+  "downloaded_at": "2026-01-14T01:18:29.426604Z"
 }

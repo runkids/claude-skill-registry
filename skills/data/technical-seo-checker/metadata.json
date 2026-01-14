@@ -1,8 +1,7 @@
 {
   "name": "technical-seo-checker",
   "repo": "aaron-he-zhu/seo-geo-claude-skills",
-  "category": "data",
-  "description": "Performs technical SEO audits covering site speed, crawlability, indexability, mobile-friendliness, security, and structured data. Identifies technical issues preventing optimal search performance.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:10.777974Z"
+  "path": "optimize/technical-seo-checker/SKILL.md",
+  "source": "github.com/aaron-he-zhu/seo-geo-claude-skills",
+  "downloaded_at": "2026-01-14T01:02:50.043032Z"
 }

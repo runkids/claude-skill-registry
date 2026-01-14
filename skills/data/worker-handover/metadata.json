@@ -1,11 +1,7 @@
 {
   "name": "worker-handover",
-  "description": "Defines context handover format when workers hit turn limit. Posts structured handover to GitHub issue comments enabling replacement workers to continue seamlessly.",
-  "repo": "troykelly/claude-skills",
-  "category": "data",
-  "tags": [
-    "worker",
-    "handover"
-  ],
-  "stars": 1
+  "repo": "troykelly/codex-skills",
+  "path": "skills/worker-handover/SKILL.md",
+  "source": "github.com/troykelly/codex-skills",
+  "downloaded_at": "2026-01-14T03:34:01.944322Z"
 }

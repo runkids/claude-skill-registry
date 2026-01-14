@@ -102,14 +102,11 @@ Discovery-Type: bug"
 
 If risk = "prompt", ask user before creating issue.
 
-### 5. Every Commit Check (make ci-lite)
+### 5. Quick Lint (Optional)
 ```bash
-if make ci-lite exists:
-  make ci-lite
-  if fails: 
-    echo "❌ make ci-lite failed (Linting or Backend Tests)"
-    ask user: "Fix errors or force commit? (fix/force)"
-    if fix: exit 1
+if make lint-fast exists:
+  make lint-fast
+  if fails: show errors, ask user to fix
 ```
 
 ### 5.5. Doc Auto-Link and Impact Analysis
@@ -156,18 +153,13 @@ Show informational message if doc updates recommended:
 
 If NO discovery (normal commit):
 ```bash
-# Get agent identity (uses DX_AGENT_ID if set, fallback to auto-detect)
-AGENT_ID="$(~/.agent/skills/scripts/get_agent_identity.sh)"
-
 git add -A
 git commit -m "feat: Progress on {FEATURE_KEY}
 
 Feature-Key: {currentIssue.id}
-Agent: $AGENT_ID
+Agent: claude-code
 Role: {current-role}"
 ```
-
-**Note**: `Agent:` trailer uses DX_AGENT_ID standard (bd-n1rv). See `DX_AGENT_ID.md` for details.
 
 If discovery handled, commit was already done in step 4.
 

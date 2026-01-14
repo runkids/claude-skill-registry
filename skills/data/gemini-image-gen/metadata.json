@@ -1,12 +1,7 @@
 {
   "name": "gemini-image-gen",
-  "description": "Generate and edit images using Google's Gemini API (gemini-3-pro-image-preview model). Use when users request (1) Generating images from text prompts, (2) Editing existing images with AI instructions,",
-  "repo": "St3v3a/gemini-image-skill",
-  "category": "data",
-  "tags": [
-    "gemini",
-    "image",
-    "gen"
-  ],
-  "stars": 1
+  "repo": "mrgoonie/xxxnaper",
+  "path": ".claude/skills/gemini-image-gen/SKILL.md",
+  "source": "github.com/mrgoonie/xxxnaper",
+  "downloaded_at": "2026-01-14T04:00:33.196749Z"
 }

@@ -1,249 +1,180 @@
 ---
 name: summarize-session
-description: Compact the conversation context by summarizing what was accomplished and updating CLAUDE.md with any learnings. Use when context is getting long or when transitioning between work sessions.
+description: Use at the end of a Claude Code session to create a comprehensive summary note in Obsidian and add a brief reference to the daily note
+disable-model-invocation: true
 ---
 
-# Compact Context Skill
+# Summarize Session
 
-This skill performs **context compaction** - summarizing the current session and persisting valuable learnings to CLAUDE.md.
-
-**Purpose**: Reduce context length while preserving important information for future sessions.
-
----
+Create a comprehensive summary of the Claude Code session and store it in Obsidian, using the Obsidian skill.
 
 ## When to Use
 
-Use this skill when:
-- Context is getting long (lots of back-and-forth)
-- Transitioning between work sessions
-- User explicitly asks to compact or summarize
-- Before starting a major new task
-- After completing significant work
-
----
+- At the end of a productive coding session
+- Before context gets too long and needs summarization
+- When wrapping up significant work that should be documented
 
 ## Workflow
 
-### Phase 1: Session Analysis
+```dot
+digraph summarize_session {
+    rankdir=TB;
+    node [shape=box];
 
-Review the current conversation and identify:
+    review [label="1. Review session\nconversation & changes"];
+    full [label="2. Create full summary\nin 08 AI Docs"];
+    daily [label="3. Add brief summary\nto daily note"];
 
-1. **Work Completed**
-   - Files created/modified
-   - Features implemented
-   - Bugs fixed
-   - Refactoring done
-
-2. **Decisions Made**
-   - Architectural choices
-   - Pattern preferences
-   - Naming conventions established
-   - Trade-offs chosen
-
-3. **Problems Encountered**
-   - Errors and how they were resolved
-   - Gotchas discovered
-   - Workarounds applied
-
-4. **User Preferences Revealed**
-   - Communication style
-   - Code style preferences
-   - Workflow preferences
-
-5. **Learnings About the Codebase**
-   - Patterns not documented in CLAUDE.md
-   - Important file locations
-   - Integration details
-   - Quirks or edge cases
-
----
-
-### Phase 2: Rule Files Update Evaluation
-
-Rule files in `.claude/rules/` are domain-specific and have a **lower threshold** than CLAUDE.md. They should capture patterns, gotchas, and decisions for specific domains.
-
-**Rule File Locations:**
-- `rules/frontend/` - auth, styling, api, routing, state, onboarding, errors
-- `rules/backend/` - auth, data, api, validation, services, calculations, llm, errors, middleware, utils, seed
-- `rules/components/` - components, styling, charts, forms, storybook, errors
-- `rules/e2e/` - testing, auth
-
-**Threshold for Rules: Add if it meets TWO criteria:**
-
-1. **Reusable** - Will apply to future work in that domain
-2. **Domain-specific** - Belongs to a specific subsystem (not global)
-
-**Examples that SHOULD go in rule files:**
-- "AreaChart requires data sorted by date ascending" → `rules/components/charts.md`
-- "Zod schemas strip unknown fields by default" → `rules/backend/validation.md`
-- "Modal close button uses absolute positioning top-right" → `rules/components/components.md`
-- "Demo login seeds data on every call" → `rules/backend/auth.md`
-- "Use formatCurrency from @finans/components for NOK" → `rules/frontend/styling.md`
-
-**Examples that should NOT go in rule files:**
-- "Fixed a typo" - not reusable
-- "React uses JSX" - too generic
-
-**Rule File Sections:**
-Each rule file follows this structure:
-- **Stack** - Technologies/libraries used
-- **Structure** - File/folder organization
-- **Patterns** - Code patterns with examples
-- **Decisions** - Architectural choices made
-- **Gotchas** - Common pitfalls, edge cases
-
-Add learnings to the appropriate section. If a section doesn't exist, create it.
-
----
-
-### Phase 3: CLAUDE.md Update Evaluation
-
-CLAUDE.md has a **higher threshold** - only global, project-wide learnings.
-
-**Threshold: Only add if it meets ALL THREE criteria:**
-
-1. **Reusable** - Will apply to future work (not a one-time fix)
-2. **Non-obvious** - Not something a senior dev would assume
-3. **Project-wide** - Applies globally, not to a specific domain
-
-**Examples that PASS the threshold:**
-- "All pages must use usePageTitle hook" - project-wide convention
-- "Never use max-width media queries" - affects all styling
-- "API base path is /api/v1" - affects all endpoints
-
-**Examples that FAIL (should go in rules instead):**
-- "AreaChart needs sorted data" - domain-specific (charts.md)
-- "Zod strips unknown fields" - domain-specific (validation.md)
-- "Modal uses absolute close button" - domain-specific (components.md)
-
-**When in doubt, put it in a rule file.** CLAUDE.md is for global conventions only.
-
----
-
-### Phase 4: Update Files
-
-**Step 1: Update Rule Files**
-
-For each domain-specific learning:
-1. Identify the correct rule file based on the domain
-2. Read the rule file to find the appropriate section
-3. Add the learning in the matching section (Stack, Patterns, Decisions, or Gotchas)
-4. Keep additions concise and match existing style
-
-**Step 2: Update CLAUDE.md (if warranted)**
-
-For global learnings that pass the higher threshold:
-1. Read CLAUDE.md to find the appropriate section
-2. Add the learning in the correct location
-
-**CLAUDE.md Placement Guidelines**:
-
-| Learning Type | Where to Add |
-|---------------|--------------|
-| New tech/dependency | Tech Stack section |
-| New pattern/convention | Coding Standards section |
-| New page or feature | Pages section |
-| New API endpoint | API Design section |
-| Security concern | Security section |
-| User preference | NOTES FROM THE USER section |
-| Development tip | Development Setup section |
-
----
-
-### Phase 5: Context Summary
-
-Produce a compact summary with this structure:
-
-```markdown
-## Session Summary
-
-### Completed
-- [Bullet list of work done]
-
-### Files Changed
-- [List of significant files modified]
-
-### Decisions
-- [Key decisions made during session]
-
-### Open Items
-- [Anything left incomplete or for next session]
-
-### Rule Updates
-- [Rule file → what was added]
-
-### CLAUDE.md Updates
-- [What was added, if anything, or "None"]
+    review -> full -> daily;
+}
 ```
 
----
+## Step 1: Review the Session
 
-## Output
+Analyze the conversation to identify:
+- **Main objective** - What was the user trying to accomplish?
+- **Key decisions** - Important choices made during the session
+- **Files changed** - What code was modified or created?
+- **Problems solved** - Bugs fixed, features implemented
+- **Open items** - Anything left incomplete or for follow-up
 
-The skill produces:
-1. **Updates to rule files** (lower threshold, domain-specific)
-2. **Updates to CLAUDE.md** (higher threshold, global only)
-3. **Session summary** (displayed to user)
+## Step 2: Create Full Summary Note
 
-The summary becomes the new context for continuing work, replacing the long conversation history.
+Create a detailed summary note in `08 AI Docs`:
 
----
+```bash
+# Generate a descriptive filename based on the session topic
+# Format: YYYY-MM-DD-topic-slug.md
+NOTE_NAME="08 AI Docs/$(date +%Y-%m-%d)-session-topic"
 
-## Example Session Summary
-
-```markdown
-## Session Summary
-
-### Completed
-- Fixed TypeScript strict mode errors in backend/
-- Implemented rate limiting middleware
-- Added Norwegian number formatting utility
-- Created user profile API endpoint
-
-### Files Changed
-- backend/src/middleware/rateLimiter.ts (new)
-- backend/src/controllers/userController.ts (modified)
-- frontend/src/shared/utils/numberFormat.ts (new)
-- backend/tsconfig.json (modified - enabled strict)
-
-### Decisions
-- Rate limit: 100 req/min general, 10 req/min calculators
-- Number format: numeral.js with custom nb locale
-- Profile updates require email verification
-
-### Open Items
-- E2E test for rate limiting
-
-### Rule Updates
-- rules/backend/middleware.md → Added rate limiter configuration pattern
-- rules/backend/validation.md → Added profile update validation schema
-- rules/frontend/styling.md → Added numeral.js locale setup
-
-### CLAUDE.md Updates
-- None (domain-specific learnings went to rule files)
+obsidian-cli create "$NOTE_NAME" --content "..."
 ```
 
----
+### Full Summary Template
 
-## Critical Rules
+```markdown
+# Session Summary: [Brief Title]
 
-1. **Be concise** - Summaries should be short, not verbose
-2. **Preserve essential info** - Don't lose important context
-3. **Prefer rule files over CLAUDE.md** - Domain-specific goes to rules
-4. **Update CLAUDE.md sparingly** - Only global, project-wide learnings
-5. **Match existing style** - Follow the file's formatting conventions
-6. **Focus on actionable** - Learnings should help future work
-7. **Don't duplicate** - Don't add what's already documented
-8. **Add to correct section** - Stack, Patterns, Decisions, or Gotchas
+**Date:** YYYY-MM-DD
+**Duration:** Approximate session length
+**Repository:** [repo name if applicable]
 
----
+## Objective
 
-## Triggering This Skill
+[What the user was trying to accomplish]
 
-The user can invoke with:
-- "compact context"
-- "summarize session"
-- "what did we accomplish"
-- "update claude.md with learnings"
-- "compress the context"
-- "session summary"
+## Key Accomplishments
+
+- [ ] Accomplishment 1
+- [ ] Accomplishment 2
+
+## Technical Decisions
+
+| Decision | Rationale |
+|----------|-----------|
+| Choice made | Why it was made |
+
+## Journey & Iterations
+
+Document the path taken to reach the solution, including dead ends:
+
+### Approaches Tried
+
+| Approach | Outcome | Learning |
+|----------|---------|----------|
+| First attempt | Why it didn't work | What we learned |
+| Second attempt | Partial success | What improved |
+| Final approach | Success | Why this worked |
+
+### Key Pivots
+
+- **Pivot 1:** Started with X, switched to Y because [reason]
+- **Pivot 2:** Abandoned approach Z when [discovery]
+
+### Dead Ends Worth Remembering
+
+- Attempted [approach] but failed because [reason] - avoid in future
+- [Tool/library] looked promising but [limitation discovered]
+
+## Files Changed
+
+- `path/to/file.ts` - Description of changes
+- `path/to/another.ts` - Description of changes
+
+## Code Snippets
+
+[Include any particularly important code that was written]
+
+## Problems Encountered
+
+- Problem 1 and how it was resolved
+- Problem 2 and current status
+
+## Open Items / Follow-up
+
+- [ ] Item for future work
+- [ ] Question to investigate
+
+## Related Resources
+
+- Links to relevant docs, PRs, issues
+```
+
+## Step 3: Add to Daily Note
+
+Add a brief summary to the daily note with a link to the full summary:
+
+```bash
+# Open/create today's daily note and append
+obsidian-cli daily
+```
+
+### Daily Note Entry Template
+
+```markdown
+## Claude Code Session
+
+**[[08 AI Docs/YYYY-MM-DD-session-topic|Session: Brief Title]]**
+
+[1-2 sentence summary of what was accomplished]
+
+Key outcomes:
+- Outcome 1
+- Outcome 2
+```
+
+## Quick Reference
+
+| Element | Location | Purpose |
+|---------|----------|---------|
+| Full summary | `08 AI Docs/` | Complete documentation |
+| Daily reference | Daily note | Quick access & timeline |
+| Wikilink | Daily note | Navigation to full summary |
+
+## Summary Quality Checklist
+
+- [ ] Title is descriptive and searchable
+- [ ] Objective is clearly stated
+- [ ] All significant changes are documented
+- [ ] Technical decisions include rationale
+- [ ] Journey captures iterations and dead ends
+- [ ] Learnings are extractable for future sessions
+- [ ] Open items are actionable
+- [ ] Daily note entry is concise (2-3 lines max)
+
+## Common Mistakes
+
+| Mistake | Fix |
+|---------|-----|
+| Too verbose | Focus on decisions and outcomes, not play-by-play |
+| Missing context | Include repo name, branch, relevant links |
+| No follow-up items | Always capture next steps |
+| Broken wikilinks | Verify note path matches exactly |
+| Only documenting success | Capture failed attempts and why they failed |
+| Vague learnings | Be specific: "X doesn't work because Y" not "tried X" |
+
+## Integration
+
+Works well with:
+- **obsidian** - Uses obsidian-cli for note creation
+- **verification-before-completion** - Summarize after verifying work is complete

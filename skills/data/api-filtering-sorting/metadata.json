@@ -1,13 +1,7 @@
 {
   "name": "api-filtering-sorting",
-  "description": "Implement advanced filtering and sorting capabilities for APIs with query parsing, field validation, and optimization. Use when building search features, complex queries, or flexible data retrieval en",
-  "repo": "aj-geddes/useful-ai-prompts",
-  "category": "development",
-  "tags": [
-    "api",
-    "filtering",
-    "sorting"
-  ],
-  "stars": 25,
-  "source": "SkillsMP Synced Skills"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/api-filtering-sorting/skills/api-filtering-sorting/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-14T03:29:58.957410Z"
 }

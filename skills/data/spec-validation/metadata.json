@@ -1,12 +1,7 @@
 {
   "name": "spec-validation",
-  "description": "Self-evaluation and quality validation for specifications and documents. Identifies gaps, contradictions, and missing details using structured checklists. Use after drafting specs, PRDs, or feature do",
   "repo": "1ambda/dataops-platform",
-  "category": "product",
-  "tags": [
-    "spec",
-    "validation"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".copilot/skills/spec-validation/SKILL.md",
+  "source": "github.com/1ambda/dataops-platform",
+  "downloaded_at": "2026-01-14T03:12:22.266377Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "curriculum-analyze-outcomes",
-  "description": "Calculate objective mastery rates, analyze performance distributions, identify achievement gaps, and generate learning analytics dashboards. Use when analyzing assessment data, measuring outcomes, or ",
   "repo": "pauljbernard/content",
-  "category": "data",
-  "tags": [
-    "curriculum",
-    "analyze",
-    "outcomes"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/curriculum-analyze-outcomes/SKILL.md",
+  "source": "github.com/pauljbernard/content",
+  "downloaded_at": "2026-01-14T02:04:56.822237Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "autonomous-orchestration",
-  "description": "Use when user requests autonomous operation across multiple issues. Orchestrates parallel workers, monitors progress, handles SLEEP/WAKE cycles, and works until scope is complete without user interven",
-  "repo": "troykelly/claude-skills",
-  "category": "development",
-  "tags": [
-    "autonomous",
-    "orchestration"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "repo": "troykelly/codex-skills",
+  "path": "skills/autonomous-orchestration/SKILL.md",
+  "source": "github.com/troykelly/codex-skills",
+  "downloaded_at": "2026-01-14T03:34:05.762559Z"
 }

@@ -1,8 +1,7 @@
 {
   "name": "spawn",
-  "repo": "Consiliency/treesitter-chunker",
-  "category": "data",
-  "description": "Skills for spawning external processes - AI coding agents and generic CLI commands in new terminal windows. Parent skill category for agent and terminal spawning.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:32.712879Z"
+  "repo": "aiskillstore/marketplace",
+  "path": "skills/consiliency/spawn/SKILL.md",
+  "source": "github.com/aiskillstore/marketplace",
+  "downloaded_at": "2026-01-14T01:23:48.740738Z"
 }

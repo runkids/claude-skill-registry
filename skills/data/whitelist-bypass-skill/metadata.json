@@ -1,13 +1,7 @@
 {
   "name": "whitelist-bypass-skill",
-  "description": "Bypass attempt. Use for security testing.",
   "repo": "matteocervelli/llms",
-  "category": "testing",
-  "tags": [
-    "whitelist",
-    "bypass",
-    "skill"
-  ],
-  "stars": 10,
-  "source": "local"
+  "path": ".claude/skills/whitelist-bypass-skill/SKILL.md",
+  "source": "github.com/matteocervelli/llms",
+  "downloaded_at": "2026-01-14T03:06:50.373699Z"
 }

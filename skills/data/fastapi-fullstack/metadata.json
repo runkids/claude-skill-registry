@@ -1,12 +1,7 @@
 {
   "name": "fastapi-fullstack",
-  "description": "Python full-stack with FastAPI, React, PostgreSQL, and Docker.",
-  "repo": "Eng0AI/eng0-template-skills",
-  "category": "data",
-  "tags": [
-    "fastapi",
-    "fullstack"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "rebyteai-template/rebyte-skills",
+  "path": "fastapi-fullstack/SKILL.md",
+  "source": "github.com/rebyteai-template/rebyte-skills",
+  "downloaded_at": "2026-01-14T01:01:09.100301Z"
 }

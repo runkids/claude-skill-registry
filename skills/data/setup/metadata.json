@@ -1,11 +1,7 @@
 {
   "name": "setup",
-  "description": "Sets up a Mac for ButterCut. Installs all required dependencies (Homebrew, Ruby, Python, FFmpeg, WhisperX). Use when user says \"install buttercut\", \"set up my mac\", \"get started\", \"first time setup\", ",
-  "repo": "barefootford/buttercut",
-  "category": "design",
-  "tags": [
-    "setup"
-  ],
-  "stars": 79,
-  "source": "SkillsMP Synced Skills"
+  "repo": "cuioss/plan-marshall",
+  "path": "marketplace/bundles/pm-requirements/skills/setup/SKILL.md",
+  "source": "github.com/cuioss/plan-marshall",
+  "downloaded_at": "2026-01-14T03:33:22.052462Z"
 }

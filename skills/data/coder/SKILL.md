@@ -3,7 +3,7 @@ name: coder
 description: >
   Implementation Agent: Full TDD workflow in a single context window.
   Writes tests, implements code, and iterates until all tests pass.
-allowed-tools: Read,Glob,Grep
+allowed-tools: Read,Glob,Bash,Write,Edit
 ---
 
 # Implementation Agent (Unified TDD)
@@ -29,50 +29,6 @@ You see EVERYTHING. Use that advantage.
 ---
 
 ## TDD Workflow (MANDATORY)
-
-### Phase 0: Dependency Exploration (DO THIS FIRST)
-
-**Before writing ANY code, use your tools to explore the codebase:**
-
-You have access to `Read`, `Glob`, and `Grep` tools. USE THEM to understand existing code before implementing.
-
-**1. Find Pattern References**
-```
-# Find similar implementations to follow
-Glob "swarm_attack/**/config.py"
-Glob "swarm_attack/**/*_store.py"
-```
-
-**2. Read Existing Code**
-```
-# Read files from completed issues (listed in Completed Issues Context)
-Read swarm_attack/chief_of_staff/feedback.py
-Read swarm_attack/config.py
-```
-
-**3. Verify APIs Before Using Them**
-```
-# Before importing a class, verify it exists and check its signature
-Grep "class HumanFeedback" swarm_attack/
-Read swarm_attack/chief_of_staff/feedback.py
-```
-
-**4. Find Usage Examples**
-```
-# See how existing code uses a class/function
-Grep "from_dict" swarm_attack/config.py
-Grep "FeedbackStore" swarm_attack/
-```
-
-**Why This Matters:**
-- Prevents API hallucination (guessing wrong method signatures)
-- Ensures imports reference real code that exists
-- Follows established patterns in the codebase
-- Reduces failures from mismatched interfaces
-
-**Spend 2-4 tool calls exploring, then implement with confidence.**
-
----
 
 ### Phase 1: Read Context First
 
@@ -197,13 +153,7 @@ If regressions occur:
 
 ## CRITICAL: Output Format
 
-**Tools for EXPLORATION (use freely):**
-- `Read` - Read existing files to understand patterns and APIs
-- `Glob` - Find files by pattern
-- `Grep` - Search for code patterns
-
-**Output via TEXT MARKERS (not tools):**
-You MUST output implementation files using text markers. Do NOT use Write or Edit tools for output.
+You MUST output implementation files using text markers. DO NOT use Write or Edit tools.
 
 Each file MUST be preceded by exactly:
 
@@ -395,63 +345,8 @@ Before finalizing output:
 
 ---
 
-## MANDATORY: Manual Testing Before Completion
-
-**Your implementation is NOT complete until you run manual tests.**
-
-See full protocol: `.claude/prompts/expert-tester.md`
-
-### Minimum Required Tests
-
-```bash
-# 1. Verify your module imports correctly
-python3 -c "from swarm_attack.<your_module> import <YourClass>; print('Import: OK')"
-
-# 2. Run your unit tests
-PYTHONPATH=. pytest tests/unit/test_<your_module>.py -v --tb=short
-
-# 3. Run integration tests if applicable
-PYTHONPATH=. pytest tests/integration/ -v --tb=short
-
-# 4. Test the actual functionality manually
-python3 << 'EOF'
-# Quick smoke test of your implementation
-from swarm_attack.<your_module> import <YourClass>
-
-# Instantiate and test basic functionality
-obj = <YourClass>(...)
-result = obj.some_method()
-assert result is not None, "Basic functionality works"
-print("Manual test: OK")
-EOF
-```
-
-### Document Your Findings
-
-Create a test report at: `.swarm/qa/test-reports/<feature>-YYYYMMDD-HHMMSS.md`
-
-```markdown
-# Test Report: <Feature Name>
-
-**Date:** YYYY-MM-DD
-**Commit:** <hash>
-
-## Tests Run
-- [ ] Imports work
-- [ ] Unit tests pass (X/Y)
-- [ ] Integration tests pass
-- [ ] Manual smoke test pass
-
-## Issues Found
-(document any bugs or unexpected behavior)
-```
-
----
-
 ## Remember
 
 > "You have the full context. You see the tests, the implementation, and the integration points. Use that advantage to build code that works the first time."
 
 The tests are your specification. The integration points are your constraints. The patterns are your guide. Honor all three.
-
-**And ALWAYS verify with manual tests before declaring victory.**

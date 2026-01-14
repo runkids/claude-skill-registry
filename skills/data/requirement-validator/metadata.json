@@ -1,11 +1,7 @@
 {
   "name": "requirement-validator",
-  "description": "Analyze task descriptions and requirements for completeness, clarity, and implementability. Use when evaluating if a task has sufficient detail to begin implementation or if clarification is needed.",
   "repo": "EdanStarfire/claudecode_webui",
-  "category": "data",
-  "tags": [
-    "requirement",
-    "validator"
-  ],
-  "stars": 2
+  "path": ".claude/skills/requirement-validator/SKILL.md",
+  "source": "github.com/EdanStarfire/claudecode_webui",
+  "downloaded_at": "2026-01-14T01:51:08.352445Z"
 }

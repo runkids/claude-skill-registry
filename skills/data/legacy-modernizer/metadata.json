@@ -1,12 +1,7 @@
 {
   "name": "legacy-modernizer",
-  "description": "Use when modernizing legacy systems, implementing incremental migration strategies, or reducing technical debt. Invoke for strangler fig pattern, monolith decomposition, framework upgrades. Keywords: ",
   "repo": "Jeffallan/claude-skills",
-  "category": "devops",
-  "tags": [
-    "legacy",
-    "modernizer"
-  ],
-  "stars": 12,
-  "source": "local"
+  "path": "skills/legacy-modernizer/SKILL.md",
+  "source": "github.com/Jeffallan/claude-skills",
+  "downloaded_at": "2026-01-14T02:36:38.779602Z"
 }

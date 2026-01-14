@@ -1,12 +1,7 @@
 {
   "name": "api-version",
-  "description": "Manage API versioning strategy for Hono routes in apps/api/src/v1. Use when creating new API versions or migrating endpoints between versions.",
   "repo": "sgcarstrends/sgcarstrends",
-  "category": "development",
-  "tags": [
-    "api",
-    "version"
-  ],
-  "stars": 13,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/api-version/SKILL.md",
+  "source": "github.com/sgcarstrends/sgcarstrends",
+  "downloaded_at": "2026-01-14T02:59:19.509927Z"
 }

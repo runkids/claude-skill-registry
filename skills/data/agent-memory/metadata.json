@@ -1,12 +1,7 @@
 {
   "name": "agent-memory",
-  "description": "Use this skill when the user asks to save, remember, recall, or organize memories. Triggers on: 'remember this', 'save this', 'note this', 'what did we discuss about...', 'check your notes', 'clean up",
-  "repo": "yamadashy/repomix",
-  "category": "productivity",
-  "tags": [
-    "agent",
-    "memory"
-  ],
-  "stars": 20912,
-  "source": "SkillsMP Synced Skills"
+  "repo": "vx-daniel/tb-docs-project",
+  "path": ".claude/skills/agent-memory/SKILL.md",
+  "source": "github.com/vx-daniel/tb-docs-project",
+  "downloaded_at": "2026-01-14T03:42:23.084867Z"
 }

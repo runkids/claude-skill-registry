@@ -1,13 +1,7 @@
 {
   "name": "adhd-task-management",
-  "description": "ADHD-optimized task tracking and intervention system. Use when tracking tasks, detecting context switches, providing accountability interventions, or managing ADHD-specific productivity patterns for A",
   "repo": "breverdbidder/life-os",
-  "category": "productivity",
-  "tags": [
-    "adhd",
-    "task",
-    "management"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/adhd-task-management/SKILL.md",
+  "source": "github.com/breverdbidder/life-os",
+  "downloaded_at": "2026-01-14T03:23:39.596287Z"
 }

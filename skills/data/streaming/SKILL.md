@@ -1,481 +1,322 @@
 ---
 name: streaming
-description: Use when building real-time chat interfaces, displaying incremental LLM responses, or streaming output from OpenAI, Anthropic, Google, or Ollama - async iteration with usage tracking works across all providers
+description: Server-Sent Events (SSE) streaming for Claude API with support for text, tool use, and extended thinking. Activate for real-time responses, stream handling, and progressive output.
+allowed-tools:
+  - Bash
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - Task
+triggers:
+  - streaming
+  - stream
+  - sse
+  - server-sent events
+  - real-time
+  - progressive
+  - delta
+  - event
+dependencies:
+  - llm-integration
+related-skills:
+  - tool-use
+  - extended-thinking
 ---
 
-# Streaming Responses
+# Streaming Skill
 
-## Installation
+Implement real-time streaming responses from Claude API using Server-Sent Events (SSE).
 
-```bash
-# With uv (recommended)
-uv add llmring
+## When to Use This Skill
 
-# With pip
-pip install llmring
+- Real-time user interfaces
+- Long-running generations
+- Progressive output display
+- Tool use with streaming
+- Extended thinking visualization
+
+## SSE Event Flow
+
+```
+message_start
+    → content_block_start
+        → content_block_delta (repeated)
+    → content_block_stop
+    → (more blocks...)
+→ message_delta
+→ message_stop
 ```
 
-**Provider SDKs (install what you need):**
-```bash
-uv add openai>=1.0      # OpenAI
-uv add anthropic>=0.67   # Anthropic
-uv add google-genai      # Google Gemini
-uv add ollama>=0.4       # Ollama
-```
+## Core Implementation
 
-## API Overview
-
-This skill covers:
-- `LLMRing.chat_stream()` - Stream response chunks
-- `StreamChunk` - Individual chunk structure
-- Usage tracking in streaming responses
-- Async iteration patterns
-
-## Quick Start
-
-**First, create your lockfile** (see llmring:lockfile skill):
-```bash
-llmring lock init
-llmring bind chatbot anthropic:claude-3-5-haiku-20241022
-```
-
-**Then use streaming:**
-```python
-from llmring import LLMRing, LLMRequest, Message
-from llmring.schemas import StreamChunk  # Optional: for type hints
-
-async with LLMRing() as service:
-    request = LLMRequest(
-        model="chatbot",  # YOUR alias from llmring.lock
-        messages=[Message(role="user", content="Count to 10")]
-    )
-
-    # Stream response
-    async for chunk in service.chat_stream(request):
-        print(chunk.delta, end="", flush=True)
-    print()  # Newline after streaming
-```
-
-## Complete API Documentation
-
-### LLMRing.chat_stream()
-
-Stream a chat completion response as chunks.
-
-**Signature:**
-```python
-async def chat_stream(
-    request: LLMRequest,
-    profile: Optional[str] = None
-) -> AsyncIterator[StreamChunk]
-```
-
-**Parameters:**
-- `request` (LLMRequest): Request configuration with messages and parameters
-- `profile` (str, optional): Profile name for environment-specific configuration
-
-**Returns:**
-- `AsyncIterator[StreamChunk]`: Async iterator yielding response chunks
-
-**Raises:**
-- `ProviderNotFoundError`: If provider is not configured
-- `ModelNotFoundError`: If model is not available
-- `ProviderAuthenticationError`: If API key is invalid
-- `ProviderRateLimitError`: If rate limit exceeded
-
-**Example:**
-```python
-from llmring import LLMRing, LLMRequest, Message
-
-async with LLMRing() as service:
-    request = LLMRequest(
-        model="chatbot",  # Your streaming alias
-        messages=[Message(role="user", content="Write a haiku")]
-    )
-
-    async for chunk in service.chat_stream(request):
-        print(chunk.delta, end="", flush=True)
-```
-
-### StreamChunk
-
-A chunk of a streaming response.
-
-**Attributes:**
-- `delta` (str): Text content in this chunk
-- `model` (str): Model identifier (present in all chunks)
-- `finish_reason` (str, optional): Why generation stopped (only in final chunk)
-- `usage` (dict, optional): Token usage statistics (only in final chunk)
-- `tool_calls` (list, optional): Tool calls being constructed (incremental)
-
-**Example:**
-```python
-async for chunk in service.chat_stream(request):
-    print(f"Delta: '{chunk.delta}'")
-    if chunk.model:
-        print(f"Model: {chunk.model}")
-    if chunk.finish_reason:
-        print(f"Finished: {chunk.finish_reason}")
-    if chunk.usage:
-        print(f"Tokens: {chunk.usage}")
-```
-
-## Common Patterns
-
-### Basic Streaming with Flush
+### Basic Text Streaming (Python)
 
 ```python
-from llmring import LLMRing, LLMRequest, Message
+import anthropic
 
-async with LLMRing() as service:
-    request = LLMRequest(
-        model="chatbot",  # Your streaming alias
-        messages=[Message(role="user", content="Tell me a joke")]
-    )
+client = anthropic.Anthropic()
 
-    # Print each chunk immediately
-    async for chunk in service.chat_stream(request):
-        print(chunk.delta, end="", flush=True)
-    print()  # Newline when done
+with client.messages.stream(
+    model="claude-sonnet-4-20250514",
+    max_tokens=1024,
+    messages=[{"role": "user", "content": "Write a short story."}]
+) as stream:
+    for text in stream.text_stream:
+        print(text, end="", flush=True)
 ```
 
-### Capturing Usage Statistics
-
-The final chunk contains usage statistics. Capture them:
+### Event-Based Streaming
 
 ```python
-from llmring import LLMRing, LLMRequest, Message
-
-async with LLMRing() as service:
-    request = LLMRequest(
-        model="chatbot",  # Your streaming alias
-        messages=[Message(role="user", content="Explain quantum computing")]
-    )
-
-    accumulated_usage = None
-    full_response = ""
-
-    async for chunk in service.chat_stream(request):
-        print(chunk.delta, end="", flush=True)
-        full_response += chunk.delta
-
-        # Capture usage from final chunk
-        if chunk.usage:
-            accumulated_usage = chunk.usage
-
-    print()  # Newline
-
-    if accumulated_usage:
-        print(f"\nTokens used: {accumulated_usage.get('total_tokens', 0)}")
-        print(f"Prompt tokens: {accumulated_usage.get('prompt_tokens', 0)}")
-        print(f"Completion tokens: {accumulated_usage.get('completion_tokens', 0)}")
+with client.messages.stream(
+    model="claude-sonnet-4-20250514",
+    max_tokens=1024,
+    messages=[{"role": "user", "content": "Hello"}]
+) as stream:
+    for event in stream:
+        if event.type == "content_block_delta":
+            if event.delta.type == "text_delta":
+                print(event.delta.text, end="")
+            elif event.delta.type == "input_json_delta":
+                # Tool input (accumulate, don't parse yet!)
+                tool_input_buffer += event.delta.partial_json
+        elif event.type == "content_block_stop":
+            # Now safe to parse tool input
+            if tool_input_buffer:
+                tool_input = json.loads(tool_input_buffer)
 ```
 
-### Building Full Response
+### TypeScript Streaming
 
-```python
-from llmring import LLMRing, LLMRequest, Message
+```typescript
+import Anthropic from '@anthropic-ai/sdk';
 
-async with LLMRing() as service:
-    request = LLMRequest(
-        model="chatbot",  # Your streaming alias
-        messages=[Message(role="user", content="Write a story")]
-    )
+const client = new Anthropic();
 
-    chunks = []
-    async for chunk in service.chat_stream(request):
-        print(chunk.delta, end="", flush=True)
-        chunks.append(chunk.delta)
+const stream = client.messages.stream({
+    model: 'claude-sonnet-4-20250514',
+    max_tokens: 1024,
+    messages: [{ role: 'user', content: 'Write a story.' }]
+});
 
-    # Reconstruct complete response
-    full_response = "".join(chunks)
-    print(f"\n\nFull response length: {len(full_response)} characters")
+for await (const event of stream) {
+    if (event.type === 'content_block_delta' &&
+        event.delta.type === 'text_delta') {
+        process.stdout.write(event.delta.text);
+    }
+}
+
+const finalMessage = await stream.finalMessage();
 ```
 
-### Streaming with Custom Display
+## Event Types Reference
+
+| Event | When | Data |
+|-------|------|------|
+| `message_start` | Beginning | Message metadata |
+| `content_block_start` | Block begins | Block type, index |
+| `content_block_delta` | Content chunk | Delta content |
+| `content_block_stop` | Block ends | - |
+| `message_delta` | Message update | Stop reason, usage |
+| `message_stop` | Complete | - |
+
+## Delta Types
+
+| Delta Type | Content | When |
+|-----------|---------|------|
+| `text_delta` | `.text` | Text content |
+| `input_json_delta` | `.partial_json` | Tool input |
+| `thinking_delta` | `.thinking` | Extended thinking |
+| `signature_delta` | `.signature` | Thinking signature |
+
+## Tool Use Streaming
+
+### Critical Rule: Never Parse JSON Mid-Stream!
 
 ```python
-from llmring import LLMRing, LLMRequest, Message
-import sys
+# WRONG - Will fail on partial JSON!
+for event in stream:
+    if event.delta.type == "input_json_delta":
+        tool_input = json.loads(event.delta.partial_json)  # FAILS!
 
-async with LLMRing() as service:
-    request = LLMRequest(
-        model="chatbot",  # Your streaming alias
-        messages=[Message(role="user", content="Describe the ocean")]
-    )
-
-    word_count = 0
-    async for chunk in service.chat_stream(request):
-        # Custom processing per chunk
-        sys.stdout.write(chunk.delta)
-        sys.stdout.flush()
-
-        # Count words in real-time
-        word_count += len(chunk.delta.split())
-
-    print(f"\n\nTotal words: {word_count}")
+# CORRECT - Accumulate then parse
+tool_json_buffer = ""
+for event in stream:
+    if event.delta.type == "input_json_delta":
+        tool_json_buffer += event.delta.partial_json
+    elif event.type == "content_block_stop":
+        if tool_json_buffer:
+            tool_input = json.loads(tool_json_buffer)  # Safe now!
+            tool_json_buffer = ""
 ```
 
-### Streaming with Temperature
+### Complete Tool Streaming Pattern
 
 ```python
-from llmring import LLMRing, LLMRequest, Message
+def stream_with_tools(client, messages, tools):
+    current_block = None
+    tool_input_buffer = ""
 
-async with LLMRing() as service:
-    # Higher temperature for creative streaming
-    request = LLMRequest(
-        model="chatbot",  # Your streaming alias
-        messages=[Message(role="user", content="Write a creative story")],
-        temperature=1.2
-    )
+    with client.messages.stream(
+        model="claude-sonnet-4-20250514",
+        max_tokens=4096,
+        messages=messages,
+        tools=tools
+    ) as stream:
+        for event in stream:
+            if event.type == "content_block_start":
+                current_block = event.content_block
+                tool_input_buffer = ""
 
-    async for chunk in service.chat_stream(request):
-        print(chunk.delta, end="", flush=True)
+            elif event.type == "content_block_delta":
+                if event.delta.type == "text_delta":
+                    yield {"type": "text", "content": event.delta.text}
+                elif event.delta.type == "input_json_delta":
+                    tool_input_buffer += event.delta.partial_json
+
+            elif event.type == "content_block_stop":
+                if current_block.type == "tool_use":
+                    yield {
+                        "type": "tool_call",
+                        "id": current_block.id,
+                        "name": current_block.name,
+                        "input": json.loads(tool_input_buffer)
+                    }
 ```
 
-### Multi-Turn Streaming Conversation
+## Extended Thinking Streaming
 
 ```python
-from llmring import LLMRing, LLMRequest, Message
+thinking_content = ""
+signature = ""
 
-async with LLMRing() as service:
-    messages = [
-        Message(role="system", content="You are a helpful assistant."),
-        Message(role="user", content="What is Python?")
-    ]
-
-    # First streaming response
-    request = LLMRequest(model="chatbot",  # Your streaming alias messages=messages)
-    response_text = ""
-
-    print("Assistant: ", end="")
-    async for chunk in service.chat_stream(request):
-        print(chunk.delta, end="", flush=True)
-        response_text += chunk.delta
-    print()
-
-    # Add to history
-    messages.append(Message(role="assistant", content=response_text))
-
-    # Second turn
-    messages.append(Message(role="user", content="Give me an example"))
-    request = LLMRequest(model="chatbot",  # Your streaming alias messages=messages)
-    response_text = ""
-
-    print("Assistant: ", end="")
-    async for chunk in service.chat_stream(request):
-        print(chunk.delta, end="", flush=True)
-        response_text += chunk.delta
-    print()
-```
-
-### Streaming with Max Tokens
-
-```python
-from llmring import LLMRing, LLMRequest, Message
-
-async with LLMRing() as service:
-    # Limit streaming response length
-    request = LLMRequest(
-        model="chatbot",  # Your streaming alias
-        messages=[Message(role="user", content="Write a long essay")],
-        max_tokens=50  # Stop after 50 tokens
-    )
-
-    async for chunk in service.chat_stream(request):
-        print(chunk.delta, end="", flush=True)
-
-    # Check finish_reason in final chunk
-    if chunk.finish_reason == "length":
-        print("\n[Response truncated due to max_tokens]")
-```
-
-## Detecting Stream Completion
-
-```python
-from llmring import LLMRing, LLMRequest, Message
-
-async with LLMRing() as service:
-    request = LLMRequest(
-        model="chatbot",  # Your streaming alias
-        messages=[Message(role="user", content="Hello")]
-    )
-
-    async for chunk in service.chat_stream(request):
-        print(chunk.delta, end="", flush=True)
-
-        # Final chunk has finish_reason
-        if chunk.finish_reason:
-            print(f"\nStream ended: {chunk.finish_reason}")
-            # finish_reason values:
-            # - "stop": Natural completion
-            # - "length": Hit max_tokens limit
-            # - "tool_calls": Model wants to call tools
+with client.messages.stream(
+    model="claude-sonnet-4-20250514",
+    max_tokens=16000,
+    thinking={"type": "enabled", "budget_tokens": 10000},
+    messages=[{"role": "user", "content": "Solve this complex problem..."}]
+) as stream:
+    for event in stream:
+        if event.type == "content_block_delta":
+            if event.delta.type == "thinking_delta":
+                thinking_content += event.delta.thinking
+                # Optionally display thinking in UI
+            elif event.delta.type == "signature_delta":
+                signature = event.delta.signature
+            elif event.delta.type == "text_delta":
+                print(event.delta.text, end="")
 ```
 
 ## Error Handling
 
+### Retriable Errors
+
 ```python
-from llmring import LLMRing, LLMRequest, Message
-from llmring.exceptions import (
-    ProviderAuthenticationError,
-    ModelNotFoundError,
-    ProviderRateLimitError,
-    ProviderTimeoutError
+import time
+
+RETRIABLE_ERRORS = [529, 429, 500, 502, 503]
+
+def stream_with_retry(client, **kwargs):
+    max_retries = 3
+    base_delay = 1
+
+    for attempt in range(max_retries):
+        try:
+            with client.messages.stream(**kwargs) as stream:
+                for event in stream:
+                    yield event
+            return
+        except anthropic.APIStatusError as e:
+            if e.status_code in RETRIABLE_ERRORS and attempt < max_retries - 1:
+                delay = base_delay * (2 ** attempt)
+                time.sleep(delay)
+            else:
+                raise
+```
+
+### Silent Overloaded Errors
+
+```python
+# CRITICAL: Check for error events even at HTTP 200!
+for event in stream:
+    if event.type == "error":
+        if event.error.type == "overloaded_error":
+            # Retry with backoff
+            pass
+```
+
+## Connection Management
+
+### Keep-Alive Configuration
+
+```python
+import httpx
+
+# Proper timeout configuration
+http_client = httpx.Client(
+    timeout=httpx.Timeout(
+        connect=10.0,    # Connection timeout
+        read=120.0,      # Read timeout (long for streaming!)
+        write=30.0,      # Write timeout
+        pool=30.0        # Pool timeout
+    )
 )
 
-async with LLMRing() as service:
-    try:
-        request = LLMRequest(
-            model="chatbot",  # Your streaming alias
-            messages=[Message(role="user", content="Hello")]
-        )
-
-        async for chunk in service.chat_stream(request):
-            print(chunk.delta, end="", flush=True)
-
-    except ProviderAuthenticationError:
-        print("\nInvalid API key")
-
-    except ModelNotFoundError as e:
-        print(f"\nModel not available: {e}")
-
-    except ProviderRateLimitError as e:
-        print(f"\nRate limited - retry after {e.retry_after}s")
-
-    except ProviderTimeoutError:
-        print("\nRequest timed out")
-
-    except Exception as e:
-        print(f"\nStream error: {e}")
+client = anthropic.Anthropic(http_client=http_client)
 ```
 
-## Performance Considerations
-
-### Buffer for UI Updates
-
-If updating UI, buffer chunks to avoid excessive redraws:
+### Connection Pooling
 
 ```python
-from llmring import LLMRing, LLMRequest, Message
-import asyncio
-
-async with LLMRing() as service:
-    request = LLMRequest(
-        model="chatbot",  # Your streaming alias
-        messages=[Message(role="user", content="Write a paragraph")]
+http_client = httpx.Client(
+    limits=httpx.Limits(
+        max_keepalive_connections=20,
+        max_connections=100,
+        keepalive_expiry=30.0
     )
-
-    buffer = ""
-    last_update = asyncio.get_event_loop().time()
-    UPDATE_INTERVAL = 0.05  # Update UI every 50ms
-
-    async for chunk in service.chat_stream(request):
-        buffer += chunk.delta
-
-        # Update UI at intervals, not every chunk
-        now = asyncio.get_event_loop().time()
-        if now - last_update >= UPDATE_INTERVAL or chunk.finish_reason:
-            print(buffer, end="", flush=True)
-            buffer = ""
-            last_update = now
+)
 ```
 
-## Common Mistakes
+## Best Practices
 
-### Wrong: Not Flushing Output
+### DO:
+- Set read timeout >= 60 seconds
+- Accumulate tool JSON, parse after block_stop
+- Handle error events even at HTTP 200
+- Use exponential backoff for retries
+
+### DON'T:
+- Parse partial JSON during streaming
+- Use short timeouts
+- Ignore overloaded_error events
+- Leave connections idle >5 minutes
+
+## UI Integration Pattern
 
 ```python
-# DON'T DO THIS - output buffered, appears all at once
-async for chunk in service.chat_stream(request):
-    print(chunk.delta, end="")  # No flush!
+async def stream_to_ui(websocket, prompt):
+    """Stream Claude response to WebSocket client"""
+    async with client.messages.stream(
+        model="claude-sonnet-4-20250514",
+        max_tokens=4096,
+        messages=[{"role": "user", "content": prompt}]
+    ) as stream:
+        async for text in stream.text_stream:
+            await websocket.send_json({
+                "type": "chunk",
+                "content": text
+            })
+
+        await websocket.send_json({
+            "type": "complete",
+            "usage": stream.get_final_message().usage
+        })
 ```
 
-**Right: Always Flush**
+## See Also
 
-```python
-# DO THIS - see output in real-time
-async for chunk in service.chat_stream(request):
-    print(chunk.delta, end="", flush=True)
-```
-
-### Wrong: Checking Usage on Every Chunk
-
-```python
-# DON'T DO THIS - usage only in final chunk
-async for chunk in service.chat_stream(request):
-    if chunk.usage:  # Only true once!
-        tokens = chunk.usage["total_tokens"]
-```
-
-**Right: Accumulate Then Check**
-
-```python
-# DO THIS - capture usage from final chunk
-accumulated_usage = None
-async for chunk in service.chat_stream(request):
-    print(chunk.delta, end="", flush=True)
-    if chunk.usage:
-        accumulated_usage = chunk.usage
-
-# Use usage after streaming completes
-if accumulated_usage:
-    print(f"\nTokens: {accumulated_usage['total_tokens']}")
-```
-
-### Wrong: Forgetting to Build Full Response
-
-```python
-# DON'T DO THIS - loses full response for history
-async for chunk in service.chat_stream(request):
-    print(chunk.delta, end="", flush=True)
-# Can't add to conversation history!
-```
-
-**Right: Accumulate for History**
-
-```python
-# DO THIS - keep full response for multi-turn
-response_text = ""
-async for chunk in service.chat_stream(request):
-    print(chunk.delta, end="", flush=True)
-    response_text += chunk.delta
-
-# Now can add to history
-messages.append(Message(role="assistant", content=response_text))
-```
-
-## Provider Differences
-
-All providers support streaming with the same API:
-
-| Provider | Streaming | Usage Stats | Notes |
-|----------|-----------|-------------|-------|
-| **OpenAI** | Yes | Final chunk | Fast, reliable |
-| **Anthropic** | Yes | Final chunk | Large context support |
-| **Google** | Yes | Final chunk | 2M+ token context |
-| **Ollama** | Yes | Final chunk | Local models |
-
-**No code changes needed** to switch between providers - same streaming API works for all.
-
-## Related Skills
-
-- `llmring-chat` - Basic non-streaming chat
-- `llmring-tools` - Streaming with tool calls
-- `llmring-structured` - Streaming structured output
-- `llmring-lockfile` - Configure model aliases
-- `llmring-providers` - Provider-specific optimizations
-
-## When to Use Streaming
-
-**Use streaming when:**
-- Building chat interfaces (show text as it generates)
-- Long responses (user sees progress)
-- Real-time interaction is important
-- Processing chunks before completion
-
-**Use regular chat when:**
-- Need complete response before processing
-- Integrating with batch systems
-- Simple CLI scripts
-- Testing and debugging
+- [[llm-integration]] - API basics
+- [[tool-use]] - Tool calling
+- [[extended-thinking]] - Deep reasoning

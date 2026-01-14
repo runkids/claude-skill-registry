@@ -1,13 +1,7 @@
 {
   "name": "google-chat-api",
-  "description": "Build Google Chat bots and webhooks with Cards v2, interactive forms, and Cloudflare Workers integration. Includes webhook handlers, card builders, form validation, bearer token verification, and dial",
   "repo": "jezweb/claude-skills",
-  "category": "productivity",
-  "tags": [
-    "google",
-    "chat",
-    "api"
-  ],
-  "stars": 109,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/google-chat-api/SKILL.md",
+  "source": "github.com/jezweb/claude-skills",
+  "downloaded_at": "2026-01-14T04:01:46.935991Z"
 }

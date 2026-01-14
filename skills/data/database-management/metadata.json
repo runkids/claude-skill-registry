@@ -1,12 +1,7 @@
 {
   "name": "database-management",
-  "description": "Управление БД, миграциями, SCD Type 2 и Closure Table",
-  "repo": "ikeniborn/familyBudget",
-  "category": "data",
-  "tags": [
-    "database",
-    "management"
-  ],
-  "stars": 4,
-  "source": "SkillsMP Synced Skills"
+  "repo": "AutumnsGrove/GroveEngine",
+  "path": ".claude/skills/database-management/SKILL.md",
+  "source": "github.com/AutumnsGrove/GroveEngine",
+  "downloaded_at": "2026-01-14T02:31:55.167209Z"
 }

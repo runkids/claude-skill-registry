@@ -1,13 +1,7 @@
 {
   "name": "utopia-container-queries",
-  "description": "CSS Container Queries with container units (cqi, cqw, cqh, cqb) combined with Utopia.fyi fluid scales for component-level responsiveness. Use when creating truly modular components that adapt to conta",
   "repo": "matthewharwood/engmanager.xyz",
-  "category": "design",
-  "tags": [
-    "utopia",
-    "container",
-    "queries"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/utopia-container-queries/SKILL.md",
+  "source": "github.com/matthewharwood/engmanager.xyz",
+  "downloaded_at": "2026-01-14T03:04:55.734481Z"
 }

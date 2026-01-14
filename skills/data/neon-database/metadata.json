@@ -1,11 +1,7 @@
 {
   "name": "neon-database",
-  "description": "Use when working with Neon serverless PostgreSQL database. Covers database setup, CLI commands, Drizzle ORM integration, schema migrations, connection pooling, and user data storage patterns for authe",
-  "repo": "muhammad-anas35/RAGai",
-  "category": "data",
-  "tags": [
-    "neon",
-    "database"
-  ],
-  "stars": 0
+  "repo": "CavellTopDev/pitchey-app",
+  "path": ".claude/skills/neon-database/SKILL.md",
+  "source": "github.com/CavellTopDev/pitchey-app",
+  "downloaded_at": "2026-01-14T03:27:04.146505Z"
 }

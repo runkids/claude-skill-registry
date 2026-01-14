@@ -1,13 +1,7 @@
 {
   "name": "create-review-checklist",
-  "description": "Generate review checklists for different change types. Use to customize review focus based on what was changed.",
   "repo": "mvillmow/ProjectOdyssey",
-  "category": "development",
-  "tags": [
-    "create",
-    "review",
-    "checklist"
-  ],
-  "stars": 8,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/create-review-checklist/SKILL.md",
+  "source": "github.com/mvillmow/ProjectOdyssey",
+  "downloaded_at": "2026-01-14T01:09:02.357496Z"
 }

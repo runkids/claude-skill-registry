@@ -1,12 +1,7 @@
 {
   "name": "database-manager",
-  "description": "数据库管理统一接口，支持 Supabase (PostgreSQL)、PlanetScale (MySQL)、Turso (SQLite) 等主流数据库服务。提供连接管理、CRUD 操作、迁移、RLS 策略配置等功能。用于快速集成数据库到 Agent 系统。",
-  "repo": "liushuang393/serverlessAIAgents",
-  "category": "data",
-  "tags": [
-    "database",
-    "manager"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "repo": "ajianaz/skills-collection",
+  "path": "skills/database-manager/SKILL.md",
+  "source": "github.com/ajianaz/skills-collection",
+  "downloaded_at": "2026-01-14T01:20:44.351261Z"
 }

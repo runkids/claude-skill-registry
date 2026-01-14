@@ -1,12 +1,7 @@
 {
   "name": "conventional-commits",
-  "description": "Guidelines for writing conventional commit messages that follow project standards and trigger automated releases",
-  "repo": "vm0-ai/vm0",
-  "category": "design",
-  "tags": [
-    "conventional",
-    "commits"
-  ],
-  "stars": 38,
-  "source": "SkillsMP Synced Skills"
+  "repo": "sgcarstrends/sgcarstrends",
+  "path": ".claude/skills/conventional-commits/SKILL.md",
+  "source": "github.com/sgcarstrends/sgcarstrends",
+  "downloaded_at": "2026-01-14T02:59:21.367175Z"
 }

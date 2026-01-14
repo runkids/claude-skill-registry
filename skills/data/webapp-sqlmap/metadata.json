@@ -1,8 +1,7 @@
 {
   "name": "webapp-sqlmap",
   "repo": "AgentSecOps/SecOpsAgentKit",
-  "category": "data",
-  "description": "Automated SQL injection detection and exploitation tool for web application security testing. Use when: (1) Testing web applications for SQL injection vulnerabilities in authorized assessments, (2) Ex",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:26.453062Z"
+  "path": "skills/offsec/webapp-sqlmap/SKILL.md",
+  "source": "github.com/AgentSecOps/SecOpsAgentKit",
+  "downloaded_at": "2026-01-14T01:14:21.033239Z"
 }

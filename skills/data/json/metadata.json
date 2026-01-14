@@ -1,10 +1,7 @@
 {
   "name": "json",
-  "description": "JSON processing and handling best practices using jq. Use when working with JSON data, parsing JSON files, generating JSON output, or processing JSON from APIs.",
-  "repo": "bendrucker/claude",
-  "category": "data",
-  "tags": [
-    "json"
-  ],
-  "stars": 2
+  "repo": "masharratt/claude-flow-novice",
+  "path": ".claude/skills/cfn-validation-framework/lib/json/SKILL.md",
+  "source": "github.com/masharratt/claude-flow-novice",
+  "downloaded_at": "2026-01-14T01:57:53.072581Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "doc-update-blog",
-  "description": "Update development blog with implementation milestones, learnings, and progress. Use after completing major milestones or phases.",
   "repo": "mvillmow/ProjectOdyssey",
-  "category": "development",
-  "tags": [
-    "doc",
-    "update",
-    "blog"
-  ],
-  "stars": 8,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/doc-update-blog/SKILL.md",
+  "source": "github.com/mvillmow/ProjectOdyssey",
+  "downloaded_at": "2026-01-14T01:09:03.146595Z"
 }

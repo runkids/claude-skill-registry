@@ -1,175 +1,17 @@
 ---
 name: css-animations
-description: Create performant CSS animations, transitions, and motion design
-sasmp_version: "1.3.0"
-version: "2.0.0"
-updated: "2025-12-30"
-bonded_agent: 03-css-animations
-bond_type: PRIMARY_BOND
+description: Creates native CSS animations using keyframes, transitions, and modern animation properties. Use when building animations without JavaScript libraries, optimizing performance, or implementing micro-interactions.
 ---
 
-# CSS Animations Skill
+# CSS Animations
 
-Create performant, accessible CSS animations and transitions with proper timing and motion design.
+Native browser animations - GPU-accelerated, no dependencies, excellent performance.
 
-## Overview
-
-This skill provides atomic, focused guidance on CSS animations with performance optimization and accessibility considerations built-in.
-
-## Skill Metadata
-
-| Property | Value |
-|----------|-------|
-| **Category** | Motion |
-| **Complexity** | Intermediate to Expert |
-| **Dependencies** | css-fundamentals |
-| **Bonded Agent** | 03-css-animations |
-
-## Usage
-
-```
-Skill("css-animations")
-```
-
-## Parameter Schema
-
-```yaml
-parameters:
-  animation_type:
-    type: string
-    required: true
-    enum: [transition, keyframe, transform, timing]
-    description: Type of animation to create
-
-  effect:
-    type: string
-    required: false
-    enum: [fade, slide, scale, rotate, bounce, shake, pulse]
-    description: Predefined animation effect
-
-  performance_mode:
-    type: boolean
-    required: false
-    default: true
-    description: Optimize for 60fps performance
-
-  accessible:
-    type: boolean
-    required: false
-    default: true
-    description: Include reduced-motion alternatives
-
-validation:
-  - rule: animation_type_required
-    message: "animation_type parameter is required"
-  - rule: valid_effect
-    message: "effect must be a recognized animation effect"
-```
-
-## Topics Covered
-
-### Transitions
-- Property, duration, timing-function, delay
-- Transitionable vs non-transitionable properties
-- Multi-property transitions
-
-### Keyframe Animations
-- @keyframes syntax
-- Animation properties (name, duration, iteration, direction)
-- Fill modes and play states
-
-### Transforms
-- 2D: translate, rotate, scale, skew
-- 3D: perspective, rotateX/Y/Z, translateZ
-- Transform origin and composition
-
-### Timing Functions
-- Built-in: ease, linear, ease-in, ease-out, ease-in-out
-- cubic-bezier() custom curves
-- steps() for frame-by-frame
-
-## Retry Logic
-
-```yaml
-retry_config:
-  max_attempts: 3
-  backoff_type: exponential
-  initial_delay_ms: 1000
-  max_delay_ms: 10000
-```
-
-## Logging & Observability
-
-```yaml
-logging:
-  entry_point: skill_invoked
-  exit_point: skill_completed
-  metrics:
-    - invocation_count
-    - effect_usage
-    - performance_mode_ratio
-```
-
-## Quick Reference
-
-### Transition Template
+## Quick Start
 
 ```css
-.element {
-  transition: property duration timing-function delay;
-  transition: transform 0.3s ease-out;
-  transition: opacity 0.2s, transform 0.3s ease-out;
-}
-```
-
-### Keyframe Template
-
-```css
-@keyframes animation-name {
-  0% { /* start state */ }
-  50% { /* midpoint state */ }
-  100% { /* end state */ }
-}
-
-.element {
-  animation: name duration timing-function delay iteration-count direction fill-mode;
-  animation: slide-in 0.5s ease-out forwards;
-}
-```
-
-### Performance Rules
-
-```
-SAFE (Compositor-only):
-├─ transform
-└─ opacity
-
-AVOID (Trigger repaint/reflow):
-├─ width, height
-├─ top, left, right, bottom
-├─ margin, padding
-└─ background-color
-```
-
-## Common Effects
-
-### Fade In
-
-```css
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-.fade-in {
-  animation: fade-in 0.3s ease-out forwards;
-}
-```
-
-### Slide Up
-
-```css
-@keyframes slide-up {
+/* Define keyframes */
+@keyframes fadeIn {
   from {
     opacity: 0;
     transform: translateY(20px);
@@ -180,17 +22,275 @@ AVOID (Trigger repaint/reflow):
   }
 }
 
+/* Apply animation */
+.element {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+```
+
+## Transitions vs Animations
+
+| Transitions | Animations |
+|-------------|------------|
+| Two states only | Multiple keyframes |
+| Triggered by state change | Can auto-play |
+| Simpler syntax | More control |
+| `:hover`, `:focus`, class change | Loops, delays, direction |
+
+## CSS Transitions
+
+For simple two-state animations.
+
+```css
+.button {
+  background: blue;
+  transform: scale(1);
+  transition: all 0.3s ease-out;
+
+  /* Or be specific (better performance) */
+  transition:
+    background 0.3s ease-out,
+    transform 0.2s ease-out;
+}
+
+.button:hover {
+  background: darkblue;
+  transform: scale(1.05);
+}
+```
+
+### Transition Properties
+
+```css
+.element {
+  transition-property: transform, opacity;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-out;
+  transition-delay: 0.1s;
+
+  /* Shorthand: property duration timing-function delay */
+  transition: transform 0.3s ease-out 0.1s;
+}
+```
+
+## @keyframes Syntax
+
+```css
+/* Using from/to */
+@keyframes slide {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Using percentages */
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-30px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Multiple properties at same point */
+@keyframes complex {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+}
+```
+
+## Animation Properties
+
+```css
+.element {
+  /* Required */
+  animation-name: fadeIn;
+  animation-duration: 0.5s;
+
+  /* Optional */
+  animation-timing-function: ease-out;
+  animation-delay: 0.2s;
+  animation-iteration-count: 1;       /* or infinite */
+  animation-direction: normal;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+
+  /* Shorthand */
+  animation: fadeIn 0.5s ease-out 0.2s 1 normal forwards running;
+
+  /* Multiple animations */
+  animation:
+    fadeIn 0.5s ease-out,
+    slideUp 0.5s ease-out 0.1s;
+}
+```
+
+### Animation Property Values
+
+| Property | Values |
+|----------|--------|
+| `animation-timing-function` | `linear`, `ease`, `ease-in`, `ease-out`, `ease-in-out`, `cubic-bezier()`, `steps()` |
+| `animation-iteration-count` | `1`, `2`, `3`, `infinite` |
+| `animation-direction` | `normal`, `reverse`, `alternate`, `alternate-reverse` |
+| `animation-fill-mode` | `none`, `forwards`, `backwards`, `both` |
+| `animation-play-state` | `running`, `paused` |
+
+### Fill Mode Explained
+
+```css
+/* none - Returns to original state after animation */
+animation-fill-mode: none;
+
+/* forwards - Keeps final keyframe state */
+animation-fill-mode: forwards;
+
+/* backwards - Applies first keyframe during delay */
+animation-fill-mode: backwards;
+
+/* both - forwards + backwards */
+animation-fill-mode: both;
+```
+
+## Timing Functions
+
+```css
+/* Built-in */
+animation-timing-function: linear;
+animation-timing-function: ease;        /* default */
+animation-timing-function: ease-in;
+animation-timing-function: ease-out;
+animation-timing-function: ease-in-out;
+
+/* Custom cubic bezier */
+animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+/* Steps (for sprite animations) */
+animation-timing-function: steps(6);
+animation-timing-function: steps(6, start);
+animation-timing-function: steps(6, end);
+```
+
+### Common Cubic Bezier Values
+
+```css
+/* Smooth deceleration */
+cubic-bezier(0, 0, 0.2, 1)
+
+/* Smooth acceleration */
+cubic-bezier(0.4, 0, 1, 1)
+
+/* Standard ease */
+cubic-bezier(0.4, 0, 0.2, 1)
+
+/* Overshoot (bouncy) */
+cubic-bezier(0.68, -0.55, 0.265, 1.55)
+
+/* Elastic */
+cubic-bezier(0.68, -0.6, 0.32, 1.6)
+```
+
+## Performance Best Practices
+
+### GPU-Accelerated Properties (Composite Only)
+
+```css
+/* GOOD - GPU accelerated, no layout/paint */
+transform: translateX(100px);
+transform: scale(1.5);
+transform: rotate(45deg);
+opacity: 0.5;
+
+/* Hint for GPU acceleration */
+will-change: transform, opacity;
+```
+
+### Avoid Animating (Cause Reflow/Repaint)
+
+```css
+/* BAD - triggers layout recalculation */
+width, height, top, left, right, bottom,
+margin, padding, border-width,
+font-size, line-height
+```
+
+### Use Transform Instead
+
+```css
+/* Instead of: left: 100px */
+transform: translateX(100px);
+
+/* Instead of: width: 200px */
+transform: scaleX(2);
+```
+
+## Common Animation Patterns
+
+### Fade In
+```css
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+```
+
+### Slide In From Bottom
+```css
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .slide-up {
-  animation: slide-up 0.4s ease-out forwards;
+  animation: slideUp 0.5s ease-out forwards;
+}
+```
+
+### Scale In
+```css
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 ```
 
 ### Pulse
-
 ```css
 @keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
 }
 
 .pulse {
@@ -198,10 +298,90 @@ AVOID (Trigger repaint/reflow):
 }
 ```
 
-### Accessibility Template
+### Shake
+```css
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.shake {
+  animation: shake 0.5s ease-in-out;
+}
+```
+
+### Spin
+```css
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+```
+
+### Bounce
+```css
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+  50% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+}
+
+.bounce {
+  animation: bounce 1s infinite;
+}
+```
+
+### Skeleton Loading
+```css
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 25%,
+    #e0e0e0 50%,
+    #f0f0f0 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+```
+
+## Accessibility
+
+### Respect Reduced Motion
 
 ```css
+/* Define full animation */
+.element {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Reduce or remove for users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
+  .element {
+    animation: none;
+    opacity: 1;
+  }
+
+  /* Or use simpler animation */
   *,
   *::before,
   *::after {
@@ -212,61 +392,103 @@ AVOID (Trigger repaint/reflow):
 }
 ```
 
-## Timing Function Reference
+### Pause on Hover (for continuous animations)
 
-```
-cubic-bezier(x1, y1, x2, y2)
+```css
+.element {
+  animation: spin 2s linear infinite;
+}
 
-ease:        (0.25, 0.1, 0.25, 1.0)
-ease-in:     (0.42, 0, 1.0, 1.0)
-ease-out:    (0, 0, 0.58, 1.0)
-ease-in-out: (0.42, 0, 0.58, 1.0)
-
-Custom:
-Bounce:      (0.68, -0.55, 0.265, 1.55)
-Snap:        (0.5, 0, 0.75, 0)
-Smooth:      (0.4, 0, 0.2, 1)
+.element:hover {
+  animation-play-state: paused;
+}
 ```
 
-## Test Template
+## JavaScript Control
 
 ```javascript
-describe('CSS Animations Skill', () => {
-  test('validates animation_type parameter', () => {
-    expect(() => skill({ animation_type: 'invalid' }))
-      .toThrow('animation_type must be one of: transition, keyframe...');
-  });
+// Add animation class
+element.classList.add('animate-in');
 
-  test('returns accessible version when flag is true', () => {
-    const result = skill({
-      animation_type: 'keyframe',
-      effect: 'fade',
-      accessible: true
-    });
-    expect(result).toContain('prefers-reduced-motion');
-  });
+// Remove after animation ends
+element.addEventListener('animationend', () => {
+  element.classList.remove('animate-in');
+});
 
-  test('uses compositor-only properties in performance mode', () => {
-    const result = skill({
-      animation_type: 'transform',
-      performance_mode: true
-    });
-    expect(result).not.toContain('left:');
-    expect(result).not.toContain('top:');
-  });
+// Restart animation
+function restartAnimation(element) {
+  element.style.animation = 'none';
+  element.offsetHeight; // Trigger reflow
+  element.style.animation = null;
+}
+
+// Pause/resume
+element.style.animationPlayState = 'paused';
+element.style.animationPlayState = 'running';
+```
+
+### Animation Events
+
+```javascript
+element.addEventListener('animationstart', (e) => {
+  console.log('Started:', e.animationName);
+});
+
+element.addEventListener('animationiteration', (e) => {
+  console.log('Iteration:', e.elapsedTime);
+});
+
+element.addEventListener('animationend', (e) => {
+  console.log('Ended:', e.animationName);
+});
+
+element.addEventListener('animationcancel', (e) => {
+  console.log('Cancelled');
 });
 ```
 
-## Error Handling
+## Staggered Animations
 
-| Error Code | Cause | Recovery |
-|------------|-------|----------|
-| INVALID_ANIMATION_TYPE | Unknown animation type | Show valid options |
-| PERFORMANCE_WARNING | Using layout-triggering properties | Suggest transform alternative |
-| ACCESSIBILITY_MISSING | No reduced-motion fallback | Add default accessible version |
+```css
+.item { animation: fadeIn 0.5s ease-out forwards; opacity: 0; }
+.item:nth-child(1) { animation-delay: 0.1s; }
+.item:nth-child(2) { animation-delay: 0.2s; }
+.item:nth-child(3) { animation-delay: 0.3s; }
+.item:nth-child(4) { animation-delay: 0.4s; }
+.item:nth-child(5) { animation-delay: 0.5s; }
 
-## Related Skills
+/* With CSS custom properties */
+.item {
+  animation: fadeIn 0.5s ease-out forwards;
+  animation-delay: calc(var(--index) * 0.1s);
+  opacity: 0;
+}
+```
 
-- css-fundamentals (prerequisite)
-- css-performance (animation optimization)
-- css-modern (scroll-driven animations)
+```html
+<div class="item" style="--index: 0">Item 1</div>
+<div class="item" style="--index: 1">Item 2</div>
+<div class="item" style="--index: 2">Item 3</div>
+```
+
+## CSS Custom Properties for Dynamic Animations
+
+```css
+:root {
+  --animation-duration: 0.3s;
+  --animation-easing: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.element {
+  transition: transform var(--animation-duration) var(--animation-easing);
+}
+
+/* Override per component */
+.modal {
+  --animation-duration: 0.5s;
+}
+```
+
+## Reference Files
+
+- [references/keyframe-patterns.md](references/keyframe-patterns.md) - Common animation patterns library

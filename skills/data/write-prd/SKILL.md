@@ -1,126 +1,295 @@
 ---
-name: write-prd
-description: 사용자의 기능 아이디어를 시니어 전문가 관점에서 검토하고 PRD를 작성합니다. 기획/API/비즈니스/개발 관점에서 일반 방법론과 비교하여 문제점과 트레이드오프를 분석합니다.
+description: Write a comprehensive Product Requirements Document for a feature or initiative
+disable-model-invocation: false
 ---
 
-# PRD 작성 스킬
+# Write PRD
 
-## 역할 정의
+Create a structured Product Requirements Document that aligns stakeholders and guides implementation.
 
-이 스킬은 **각 분야의 시니어 전문가**로서 동작합니다:
+## When to Use
 
-- 사용자: 초보 기획자, 아이디어 제안자
-- Claude: 기획/API 설계/비즈니스/개발 분야 시니어 검토자
+- Starting a new feature or project
+- Documenting requirements before development
+- Creating alignment between product, design, and engineering
+- Formalizing user feedback into actionable requirements
 
-## 핵심 원칙
+## Used By
 
-### 비판적 검토 자세
+- Product Manager (primary owner)
+- Full-Stack Engineer (technical input)
+- UI/UX Designer (design requirements)
 
-1. **일반 방법론과 비교**
-   - 사용자의 제안이 업계 표준과 어떻게 다른지 분석
-   - "일반적으로는 A 방식을 사용하지만, 제안하신 것은 B 방식입니다"
+---
 
-2. **문제점 지적**
-   - 논리적 결함, 기술적 한계, 보안 이슈 등 명확히 지적
-   - "이 접근법은 ~한 문제가 있을 수 있습니다"
+## PRD Template
 
-3. **트레이드오프 분석**
-   - 장점과 단점을 명확히 제시
-   - "이 방식의 장점은 ~이지만, ~를 희생해야 합니다"
+```markdown
+# PRD: [Feature/Project Name]
 
-4. **근거 확인**
-   - 일반론과 다른 주장에는 반드시 이유를 확인
-   - "왜 이런 방식을 선택하셨나요?"
-   - 합리적 근거가 있다면 수용, 없다면 대안 제시
+**Author**: [Name]
+**Status**: Draft | In Review | Approved
+**Last Updated**: [Date]
+**Version**: 1.0
 
-5. **꼼꼼한 검토**
-   - 모호한 부분, 정의되지 않은 케이스, 누락된 요구사항 발견
-   - 엣지 케이스, 예외 상황에 대한 질문
+---
 
-## 사용 시점
+## Executive Summary
 
-- 새로운 기능 개발을 시작할 때
-- 사용자가 기능 아이디어를 설명할 때
-- 요구사항을 문서화해야 할 때
+[2-3 sentence summary of what we're building and why it matters]
 
-## 워크플로우 위치
+---
 
+## Problem Statement
+
+### The Problem
+[Clear description of the user/business problem]
+
+### Who Has This Problem
+- **Primary Users**: [User segment]
+- **Secondary Users**: [Other affected users]
+- **Frequency**: [How often does this problem occur]
+
+### Impact
+- **User Impact**: [How it affects users]
+- **Business Impact**: [How it affects the business]
+
+### Evidence
+- [User research finding]
+- [Support ticket data]
+- [Analytics insight]
+
+---
+
+## Goals & Success Metrics
+
+### Objective
+[One clear objective this feature achieves]
+
+### Key Results
+1. **KR1**: [Measurable outcome] - Target: [X]
+2. **KR2**: [Measurable outcome] - Target: [X]
+3. **KR3**: [Measurable outcome] - Target: [X]
+
+### Non-Goals
+- [What we are explicitly NOT trying to do]
+- [Scope boundaries]
+
+---
+
+## User Stories
+
+### Primary Flow
+
+**As a** [user type]
+**I want to** [action/goal]
+**So that** [benefit/outcome]
+
+**Acceptance Criteria:**
+- [ ] Given [context], when [action], then [result]
+- [ ] Given [context], when [action], then [result]
+- [ ] Given [context], when [action], then [result]
+
+### Secondary Flows
+
+[Additional user stories for edge cases, admin flows, etc.]
+
+---
+
+## Scope
+
+### In Scope (MVP)
+- [ ] [Feature/capability 1]
+- [ ] [Feature/capability 2]
+- [ ] [Feature/capability 3]
+
+### Out of Scope (Future)
+- [ ] [Explicitly excluded 1]
+- [ ] [Explicitly excluded 2]
+
+### Dependencies
+- [External system/team dependency]
+- [Technical prerequisite]
+
+---
+
+## Design & UX
+
+### User Flow
+[Description or link to user flow diagram]
+
+1. [Step 1]
+2. [Step 2]
+3. [Step 3]
+
+### Wireframes/Mockups
+[Links to design files or embedded images]
+
+### Key Design Decisions
+- **Decision 1**: [Choice made] - Rationale: [Why]
+- **Decision 2**: [Choice made] - Rationale: [Why]
+
+### Accessibility Requirements
+- [ ] [WCAG requirement]
+- [ ] [Keyboard navigation]
+- [ ] [Screen reader support]
+
+---
+
+## Technical Requirements
+
+### Architecture Overview
+[High-level technical approach]
+
+### Data Model Changes
+[New entities, fields, relationships]
+
+### API Design
+[New endpoints or changes needed]
+
+### Performance Requirements
+- Load time: [Target]
+- Throughput: [Target]
+- Scalability: [Considerations]
+
+### Security Considerations
+- [Authentication requirements]
+- [Data protection needs]
+- [Compliance requirements]
+
+---
+
+## Analytics & Tracking
+
+### Events to Track
+| Event Name | Trigger | Properties |
+|------------|---------|------------|
+| [event] | [when] | [what data] |
+
+### Success Dashboard
+[Metrics to display and how to measure]
+
+### Experiment Plan
+[A/B tests or phased rollout approach]
+
+---
+
+## Risks & Mitigations
+
+| Risk | Likelihood | Impact | Mitigation |
+|------|------------|--------|------------|
+| [Risk 1] | H/M/L | H/M/L | [Strategy] |
+| [Risk 2] | H/M/L | H/M/L | [Strategy] |
+
+---
+
+## Timeline & Milestones
+
+### Phase 1: [Name]
+- [Deliverable 1]
+- [Deliverable 2]
+
+### Phase 2: [Name]
+- [Deliverable 1]
+- [Deliverable 2]
+
+### Key Dates
+- Design Complete: [Date]
+- Development Start: [Date]
+- Beta Release: [Date]
+- GA Release: [Date]
+
+---
+
+## Open Questions
+
+- [ ] [Question 1] - Owner: [Name]
+- [ ] [Question 2] - Owner: [Name]
+
+---
+
+## Appendix
+
+### Related Documents
+- [Link to design specs]
+- [Link to technical specs]
+- [Link to research]
+
+### Revision History
+| Version | Date | Author | Changes |
+|---------|------|--------|---------|
+| 1.0 | [Date] | [Name] | Initial draft |
 ```
-[write-prd] → prd-to-test → core-tdd → infra-tdd → presentation-tdd → commit
-     │              │
-     ▼              ▼
-  PRD 작성     테스트 케이스 도출
- (전문가 검토)
+
+---
+
+## PRD Best Practices
+
+### Writing Guidelines
+
+1. **Lead with the problem, not the solution**
+   - Start by deeply understanding and articulating the problem
+   - Resist jumping to solutions until the problem is clear
+
+2. **Be specific and measurable**
+   - Avoid vague language like "improve" or "better"
+   - Define concrete metrics and targets
+
+3. **Keep it concise**
+   - PRDs that are too long don't get read
+   - Focus on what's essential for decision-making
+
+4. **Show your work**
+   - Include evidence for assertions
+   - Link to research, data, or feedback
+
+5. **Define what's NOT included**
+   - Out of scope is as important as in scope
+   - Prevents scope creep
+
+### Common Mistakes to Avoid
+
+- **Solutioning too early**: Define the problem first
+- **Vague acceptance criteria**: Make them testable
+- **Missing success metrics**: How will you know it worked?
+- **Skipping edge cases**: Think about error states and failures
+- **Ignoring accessibility**: Include from the start, not as afterthought
+
+### Review Checklist
+
+Before sharing the PRD:
+
+- [ ] Problem statement is clear and evidence-backed
+- [ ] User stories have testable acceptance criteria
+- [ ] Scope is explicitly defined (in and out)
+- [ ] Success metrics are measurable
+- [ ] Technical approach has been validated with engineering
+- [ ] Design requirements are specified
+- [ ] Open questions are documented with owners
+- [ ] Risks are identified with mitigations
+
+---
+
+## Quick Reference
+
+### User Story Format
+```
+As a [user type]
+I want to [action/goal]
+So that [benefit/outcome]
 ```
 
-## 검토 프로세스
-
-### 1단계: 기능 이해 및 검토 관점 설정
-
-사용자의 기능 설명을 듣고 다음 관점에서 검토 준비:
-
-| 관점 | 검토 내용 | 참조 자료 |
-|------|----------|----------|
-| 기획 | 사용자 스토리, UX 흐름, 기능 범위 | [guidelines.md](guidelines.md) |
-| API 설계 | 엔드포인트, RESTful 원칙, 인터페이스 | [presentation-tdd](../presentation-tdd/architecture.md) |
-| 비즈니스 | 도메인 규칙, 제약사항, 일관성 | [core-tdd](../core-tdd/architecture.md) |
-| 개발 | 기술적 실현 가능성, 아키텍처 적합성 | [infra-tdd](../infra-tdd/architecture.md) |
-| 명명 규칙 | 동작별 접두사, 메서드명 통일 | [naming](../core-tdd/naming.md) |
-
-### 2단계: 질문과 검토
-
-각 관점에서 다음을 수행:
-
+### Acceptance Criteria Format
 ```
-1. 일반 방법론 제시
-   "일반적으로 [기능]은 [방법론]으로 구현합니다"
-
-2. 사용자 제안 분석
-   "제안하신 방식은 [분석 내용]입니다"
-
-3. 차이점/문제점 지적
-   "다만, [문제점/트레이드오프]가 있습니다"
-
-4. 대안 또는 수용
-   - 문제가 있는 경우: "[대안]을 고려해보시겠어요?"
-   - 합리적 근거가 있는 경우: "이해했습니다. [근거]를 반영하겠습니다"
+Given [context/precondition]
+When [action/trigger]
+Then [expected outcome]
 ```
 
-### 3단계: PRD 작성
-
-검토가 완료되면 합의된 내용으로 PRD 작성
-
-**[필수] 아래 참조 문서를 모두 읽은 후 작업을 시작하세요:**
-
-## 검토 시 반드시 확인할 항목
-
-### 기획 관점
-- [ ] 사용자가 실제로 이 기능이 필요한가?
-- [ ] 기능 범위가 명확한가? (오버엔지니어링 아닌가?)
-- [ ] 사용 흐름이 자연스러운가?
-
-### API 설계 관점 (참조: [presentation-tdd/architecture.md](../presentation-tdd/architecture.md))
-- [ ] RESTful 원칙을 따르는가?
-- [ ] 리소스 명명이 적절한가?
-- [ ] 상태 코드 사용이 올바른가?
-- [ ] 멱등성, 캐싱 등을 고려했는가?
-
-### 비즈니스 관점 (참조: [core-tdd/architecture.md](../core-tdd/architecture.md))
-- [ ] 도메인 규칙이 명확한가?
-- [ ] 예외 케이스가 정의되었는가?
-- [ ] 데이터 일관성이 보장되는가?
-- [ ] 권한/보안이 고려되었는가?
-
-### 개발 관점 (참조: [infra-tdd/architecture.md](../infra-tdd/architecture.md))
-- [ ] 기존 아키텍처(헥사고날)와 일관성이 있는가?
-- [ ] 기술적으로 구현 가능한가?
-- [ ] 성능 이슈가 예상되는가?
-- [ ] 테스트 가능한 구조인가?
-
-### 명명 규칙 관점 (참조: [core-tdd/naming.md](../core-tdd/naming.md))
-- [ ] 동작 접두사가 올바른가? (Find/Save/Modify/Delete)
-- [ ] 정적 팩토리 메서드명이 적절한가? (newXxx/withId)
-
-## 상세 지침
-
-- **PRD 템플릿 및 예시**: [guidelines.md](guidelines.md)
+### INVEST Criteria for Stories
+- **I**ndependent: Can be developed separately
+- **N**egotiable: Details can be discussed
+- **V**aluable: Provides value to users
+- **E**stimable: Can estimate effort
+- **S**mall: Can complete in a sprint
+- **T**estable: Can verify completion

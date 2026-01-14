@@ -1,11 +1,7 @@
 {
   "name": "interview",
-  "description": "Interview me about anything in depth",
-  "repo": "iamladi/cautious-computing-machine--sdlc-plugin",
-  "category": "development",
-  "tags": [
-    "interview"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "Salmanferozkhan/Cloud-and-fast-api",
+  "path": ".claude/skills/interview/SKILL.md",
+  "source": "github.com/Salmanferozkhan/Cloud-and-fast-api",
+  "downloaded_at": "2026-01-14T02:30:03.974840Z"
 }

@@ -1,8 +1,7 @@
 {
   "name": "nginx-default-conf",
   "repo": "sayali-ingle-pdl/adusa-ai-vuejs-app-template",
-  "category": "data",
-  "description": "Generates nginx.default.conf for nginx conf.d directory configuration. Serves static files from /usr/share/nginx/html.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:08.447311Z"
+  "path": ".github/agents/app-starter/agents-context/skills/nginx-default-conf/SKILL.md",
+  "source": "github.com/sayali-ingle-pdl/adusa-ai-vuejs-app-template",
+  "downloaded_at": "2026-01-14T04:00:41.929993Z"
 }

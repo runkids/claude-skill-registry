@@ -1,12 +1,7 @@
 {
   "name": "testing-infrastructure",
-  "description": "Complete testing infrastructure and patterns for the monorepo. Use this skill when writing tests, setting up test configuration, troubleshooting test failures, or working with the CI pipeline. Covers ",
-  "repo": "lsst-sqre/squareone",
-  "category": "testing",
-  "tags": [
-    "testing",
-    "infrastructure"
-  ],
-  "stars": 2,
-  "source": "local"
+  "repo": "tidemann/st44-home",
+  "path": ".claude/skills/testing-infrastructure/SKILL.md",
+  "source": "github.com/tidemann/st44-home",
+  "downloaded_at": "2026-01-14T03:15:16.703748Z"
 }

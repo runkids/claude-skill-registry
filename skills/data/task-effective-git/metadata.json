@@ -1,13 +1,7 @@
 {
   "name": "task-effective-git",
-  "description": "Git workflow patterns for agents. Invoke at session start when working in a git repository, before any git operations (status, add, commit, push, rebase), when making code changes, or when the user as",
   "repo": "Anveio/conveaux",
-  "category": "productivity",
-  "tags": [
-    "task",
-    "effective",
-    "git"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/task-effective-git/SKILL.md",
+  "source": "github.com/Anveio/conveaux",
+  "downloaded_at": "2026-01-14T02:16:09.537829Z"
 }

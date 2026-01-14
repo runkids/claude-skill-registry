@@ -1,13 +1,7 @@
 {
   "name": "portfolio-strategy-advisor",
-  "description": "Expert in portfolio-level lease analysis and renewal prioritization. Use when analyzing lease rollover schedules, prioritizing renewals, assessing expiry cliff risk, or forecasting vacancy. Key terms ",
   "repo": "reggiechan74/vp-real-estate",
-  "category": "development",
-  "tags": [
-    "portfolio",
-    "strategy",
-    "advisor"
-  ],
-  "stars": 4,
-  "source": "local"
+  "path": ".claude/skills/portfolio-strategy-advisor/SKILL.md",
+  "source": "github.com/reggiechan74/vp-real-estate",
+  "downloaded_at": "2026-01-14T01:33:21.980120Z"
 }

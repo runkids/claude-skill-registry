@@ -1,12 +1,7 @@
 {
   "name": "phase-3-validator",
-  "description": "Validates Implementation Phase completion before advancing to Testing Phase. Checks code compilation, test coverage, implementation completeness, and code quality standards.",
   "repo": "DarkMonkDev/WitchCityRope",
-  "category": "testing",
-  "tags": [
-    "phase",
-    "validator"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/phase-3-validator/SKILL.md",
+  "source": "github.com/DarkMonkDev/WitchCityRope",
+  "downloaded_at": "2026-01-14T01:18:30.462568Z"
 }

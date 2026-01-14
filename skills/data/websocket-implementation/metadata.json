@@ -1,12 +1,7 @@
 {
   "name": "websocket-implementation",
-  "description": "Implement real-time bidirectional communication with WebSockets including connection management, message routing, and scaling. Use when building real-time features, chat systems, live notifications, o",
-  "repo": "aj-geddes/useful-ai-prompts",
-  "category": "development",
-  "tags": [
-    "websocket",
-    "implementation"
-  ],
-  "stars": 25,
-  "source": "local"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/websocket-implementation/skills/websocket-implementation/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-14T03:29:52.627298Z"
 }

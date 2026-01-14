@@ -1,13 +1,7 @@
 {
   "name": "github-code-review",
-  "description": "Comprehensive GitHub code review with AI-powered swarm coordination",
-  "repo": "ruvnet/claude-flow",
-  "category": "development",
-  "tags": [
-    "github",
-    "code",
-    "review"
-  ],
-  "stars": 9856,
-  "source": "SkillsMP Synced Skills"
+  "repo": "Cornjebus/amair",
+  "path": ".claude/skills/github-code-review/SKILL.md",
+  "source": "github.com/Cornjebus/amair",
+  "downloaded_at": "2026-01-14T03:20:32.571368Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "summarize-session",
-  "description": "Compact the conversation context by summarizing what was accomplished and updating CLAUDE.md with any learnings. Use when context is getting long or when transitioning between work sessions.",
-  "repo": "andersnygaard/ettsted2",
-  "category": "development",
-  "tags": [
-    "summarize",
-    "session"
-  ],
-  "stars": 4,
-  "source": "local"
+  "repo": "ebinnion/dotfiles",
+  "path": "skills/summarize-session/SKILL.md",
+  "source": "github.com/ebinnion/dotfiles",
+  "downloaded_at": "2026-01-14T03:41:14.858237Z"
 }

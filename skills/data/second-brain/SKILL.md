@@ -1,398 +1,428 @@
 ---
 name: second-brain
-description: |
-  Personal knowledge management for Obsidian combining GTD, Zettelkasten, and PARA. Six workflows: (1) Capture - "capture this", "remember this", "save this thought", "note this down" - saves thoughts/tasks to daily inbox without categorization; (2) Process inbox - "process my inbox", "organize captures", "GTD processing" - clarifies items and routes to projects or permanent notes; (3) Daily plan - "plan my day", "what should I work on", "morning planning" - creates prioritized task list based on energy and context; (4) Daily closeout - "daily closeout", "review my day", "evening reflection" - marks progress and drafts tomorrow's plan; (5) Setup - "set up my second brain", "configure vault" - configures vault path and user goals; (6) Excalidraw - "create a diagram", "visualize this", "draw flowchart", "sketch this" - creates .excalidraw.md files with rectangles, ellipses, diamonds, arrows, lines, and text. Proactively offers to capture valuable insights during research conversations.
+description: Personal intelligence system for capturing thoughts, managing knowledge, and surfacing insights. Use when user wants to capture an idea, task, or note during conversation; query their knowledge base; check their inbox; review digests; or update task status. Triggers include "remember this," "add a task," "what did I say about," "show my inbox," or "mark complete."
+license: MIT
 ---
 
-# Second Brain
+# Second Brain Skill
 
-A personal knowledge management and productivity system for Obsidian, combining:
-- **GTD (Getting Things Done)** - Task and project management
-- **Zettelkasten** - Atomic note-taking for knowledge building
-- **PARA Method** - Folder organization (Projects, Areas, Resources, Archives)
+Conversational interface to the Second Brain personal knowledge management system. Capture thoughts naturally during Claude Code sessions, query your knowledge graph, and manage your inbox.
 
-## Configuration (MEMORY-BASED)
+## Core Philosophy
 
-**CRITICAL FIRST STEP:** Before any operation, check for configuration in Claude's Memory.
+**Capture at the point of thinking, not after.**
 
-### How Configuration Works
+This skill enables seamless capture during work sessions without breaking flow:
+- Capture thoughts as they emerge
+- Query past decisions and notes
+- Surface today's priorities
+- Track what needs review
 
-Configuration is stored in **Claude's Memory feature** and persists across all sessions automatically.
-
-**Why Memory?** Skills in Claude Desktop run in a sandboxed environment with no file system access. Memory is the only way to persist configuration across sessions.
-
-Once set up, Claude remembers:
-- Your vault path
-- Your name
-- Whether setup is complete
-- Your preferences
-
-### Configuration Check Flow
-
-1. **Check Claude Memory** for "Second Brain vault path"
-2. **If found in Memory**: Use the remembered vault path for all operations
-3. **If NOT found in Memory**: This is first-time setup - ask user for vault path
-
-### Checking Memory
-
-At the start of ANY Second Brain operation, check if you remember the vault path:
-
-```
-Do I have the user's Second Brain vault path in my memory?
-- If YES: Use that path for all operations
-- If NO: Ask the user and save to memory
-```
-
-### If No Configuration Found (First Time)
-
-Ask the user for their vault path:
-
-```
-Welcome to Second Brain!
-
-I need to know where your Obsidian vault is located so I can save and organize your notes.
-
-Please provide the full path to your Obsidian vault folder.
-
-Examples:
-- macOS: /Users/yourname/Documents/MyVault
-- Windows: C:\Users\yourname\Documents\MyVault
-- Linux: /home/yourname/Documents/MyVault
-
-What's the path to your vault?
-```
-
-Once you have the path:
-1. **Save to Claude Memory**: Remember the vault path for future sessions
-2. Run the full [setup workflow](workflows/setup.md) to complete onboarding
-3. Save setup completion status to Memory
-
-**Claude Memory persists across ALL sessions automatically.**
-
-### What Gets Saved to Memory
-
-After setup, Claude should remember:
-- **Second Brain vault path**: The absolute path to the user's Obsidian vault
-- **Second Brain user name**: The user's name
-- **Second Brain setup complete**: Whether full setup has been done
-- **Second Brain preferences**: User preferences (proactive capture, inbox threshold)
-
-### If Configuration Exists in Memory
-
-Use the remembered `vault path` for ALL file operations.
-
-### Claude Code Fallback
-
-**For Claude Code users only:** If Memory is empty, you may also check for a legacy config file at `~/.second-brain/config.json`. If found, migrate that configuration to Memory for future use.
-
-### Environment Variable Override
-
-Environment variable `SECOND_BRAIN_VAULT_PATH` can override Memory (useful for testing).
+**The system remembers so you don't have to.**
 
 ---
 
 ## Core Capabilities
 
-### 1. Quick Capture
+### 1. Capture
 
-**Trigger phrases:** "capture this", "save this thought", "remember this", "note this down", "add to my inbox"
+Capture thoughts, tasks, ideas, and references directly from conversation.
 
-**What it does:** Instantly captures thoughts, tasks, or ideas to today's inbox without categorization.
+**Usage patterns:**
+- "Remember that the API rate limit is 1000 req/min"
+- "Add a task to review the PR from Sarah"
+- "Note: decided to use Supabase for sync"
+- "Capture this idea: what if we..."
 
-**GTD Principle:** "Capture first, clarify later."
+**Classification:**
+The system uses AI to classify captures into types:
+- **task**: Actionable item with completion state
+- **idea**: Non-actionable insight worth remembering
+- **reference**: Information for later retrieval
+- **meeting**: Time-bound event with notes
+- **goal**: Outcome you're working toward
+- **project**: Collection of related work
+- **value**: Core principle that guides decisions
+- **person**: Relationship context
 
-See: [Capture Workflow](workflows/capture.md)
-
----
-
-### 2. Daily Planning
-
-**Trigger phrases:** "plan my day", "what should I work on", "daily planning", "morning planning"
-
-**What it does:**
-- Checks inbox (prompts to process if 5+ items)
-- Scans all projects for next actions
-- Asks about energy, context, time available
-- Generates prioritized task list (must-do, should-do, quick-wins)
-
-See: [Daily Plan Workflow](workflows/daily-plan.md)
-
----
-
-### 3. Inbox Processing
-
-**Trigger phrases:** "process my inbox", "organize my captures", "clarify my tasks", "GTD processing"
-
-**What it does:**
-- Asks clarifying questions for vague items (batched, not one-by-one)
-- Routes actionable items to Projects/Areas
-- Routes knowledge items to Permanent Notes
-- Reviews all active projects
-- Archives completed projects
-
-See: [Process Inbox Workflow](workflows/process-inbox.md)
+**Confidence threshold:**
+- High confidence (≥0.6): Auto-classified
+- Low confidence (<0.6): Sent to needs_review
 
 ---
 
-### 4. Daily Closeout
+### 2. Query
 
-**Trigger phrases:** "daily closeout", "review my day", "end of day review", "evening reflection"
+Search and explore your knowledge graph.
 
-**What it does:**
-- Reads today's plan
-- Asks what was accomplished
-- Marks completed/partial/deferred items
-- Asks about tomorrow's priorities
-- Creates tomorrow's DRAFT plan
+**Usage patterns:**
+- "What did I say about authentication?"
+- "What projects support the 'shipping velocity' goal?"
+- "Show me tasks related to the SecondBrain project"
+- "Who did I meet with about the budget?"
 
-See: [Daily Closeout Workflow](workflows/daily-closeout.md)
-
----
-
-### 5. Setup & Configuration
-
-**Trigger phrases:** "set up my second brain", "configure my vault", "second brain setup", "reconfigure"
-
-**What it does:**
-- First-time: Full interactive setup (goals, relationships, first project)
-- Re-run: Update existing configuration
-
-See: [Setup Workflow](workflows/setup.md)
+**Query types:**
+- **Semantic search**: Find by meaning, not just keywords
+- **Graph traversal**: Follow relationships (supports, blocks, contains)
+- **Filter by type**: "Show me all ideas from this week"
+- **Filter by domain**: "What work tasks are due?"
 
 ---
 
-### 6. Excalidraw Diagrams
+### 3. Inbox
 
-**Trigger phrases:** "create a diagram", "draw a flowchart", "make an excalidraw", "visualize this", "sketch this out", "diagram showing"
+Review and triage pending captures.
 
-**What it does:**
-- Creates `.excalidraw.md` files compatible with Obsidian Excalidraw plugin
-- Generates flowcharts, concept maps, system diagrams, mind maps
-- Supports shapes (rectangles, ellipses, diamonds), arrows, lines, and text
-- Full JSON structure with proper element properties
+**Usage patterns:**
+- "Show my inbox"
+- "What's waiting for review?"
+- "How many pending captures?"
 
-**Output location:** `{{vaultPath}}/` (user specifies location or defaults to appropriate folder)
-
-See: [Excalidraw Reference](references/excalidraw-diagrams.md)
+**Inbox states:**
+- **pending**: Awaiting AI classification
+- **needs_review**: Low confidence, needs human decision
+- **processing**: Currently being classified
 
 ---
 
-## Proactive Capture
+### 4. Digest
 
-**IMPORTANT:** When you notice the user:
-- Discovering valuable information during research
-- Having insights or realizations
-- Discussing ideas worth preserving
-- Solving problems in interesting ways
+Get actionable summaries of what matters.
 
-**Offer to capture:**
+**Usage patterns:**
+- "What should I focus on today?"
+- "Show me today's digest"
+- "What's overdue?"
+
+**Digest includes:**
+- Due tasks (today and overdue)
+- High priority items
+- Today's meetings
+- Items needing review
+- Recent insights
+
+**Constraints:**
+- Daily digest: <150 words
+- Weekly review: <250 words
+
+---
+
+### 5. Actions
+
+Update status and manage nodes.
+
+**Usage patterns:**
+- "Mark the PR review task done"
+- "Complete task abc123"
+- "Archive the old project"
+- "Set priority to high for..."
+
+**Supported actions:**
+- Complete/reopen tasks
+- Update priority (0-4)
+- Change status (active, completed, archived)
+- Add domain tag (work, personal, both)
+
+---
+
+## Workflow Integration
+
+### During Work Sessions
+
+When user mentions something capture-worthy during natural conversation:
+
+1. **Recognize capture intent:**
+   - Direct: "Remember this...", "Add a task..."
+   - Implicit: "I should...", "Don't forget...", "Note to self..."
+
+2. **Capture with context:**
+   - Include relevant context from current conversation
+   - Tag with source: "cli" (Claude Code session)
+   - Add any mentioned relationships
+
+3. **Confirm capture:**
+   - Brief confirmation with ID
+   - Mention if needs_review due to low confidence
+
+### Quick Actions
+
+For common actions, provide shortcuts:
+
 ```
-That's an interesting insight about [topic]. Would you like me to capture this to your Second Brain?
-```
-
-If they agree:
-- Use the capture workflow
-- Add context about where the insight came from
-- Suggest relevant tags or connections
-
----
-
-## Vault Structure
-
-The system uses PARA + Zettelkasten organization:
-
-```
-{{vaultPath}}/
-├── 00-Inbox/
-│   ├── Daily/              # Captures go here (YYYY-MM-DD.md)
-│   └── Fleeting-Notes/     # Knowledge items during processing
-├── 01-Projects/            # Multi-step outcomes with deadlines
-├── 02-Areas/               # Ongoing responsibilities
-│   ├── Career-Development.md
-│   ├── Health-Fitness.md
-│   ├── Personal-Development.md
-│   ├── Errands.md
-│   ├── Personal-Todos.md
-│   └── Relationships/      # Individual notes per person
-├── 03-Resources/
-│   └── Reference-Notes/    # Summaries of external sources
-├── 04-Archives/            # Completed/inactive projects
-├── Daily Plans/            # Generated daily plans
-├── Meeting Notes/          # Meeting documentation
-├── Permanent Notes/        # Zettelkasten - synthesized insights
-│   └── Assisting-User-Context.md  # User's goals & context
-└── Templates/              # Reusable templates
-```
-
-See: [PARA + Zettelkasten Guide](references/para-zettelkasten.md)
-
----
-
-## Unified Task Structure
-
-**ALL Projects, Areas, and Relationship notes use identical priority sections:**
-
-```markdown
-## High Priority / Critical
-- Urgent/important items (scanned FIRST by daily planning)
-
-## Next Actions / Current Tasks
-- Regular priority items (scanned SECOND)
-
-## Someday/Maybe
-- Lower priority/exploratory (SKIPPED by daily planning)
-
-## Waiting On
-- Blocked by external dependencies
-
-## Completed
-- Finished tasks with dates
+/sb capture "thought or idea"     # Capture immediately
+/sb inbox                         # Show pending items
+/sb digest                        # Today's actionable summary
+/sb query "search term"           # Search knowledge base
+/sb done <id>                     # Mark task complete
 ```
 
 ---
 
-## Templates
+## Meeting Transcript Processing
 
-Use these templates when creating new notes:
+**Use case:** Paste meeting transcripts to automatically extract and capture structured content.
 
-| Template | Use When |
-|----------|----------|
-| [project.md](templates/project.md) | Creating a new project (multi-step outcome) |
-| [area.md](templates/area.md) | Creating a new area of responsibility |
-| [permanent-note.md](templates/permanent-note.md) | Creating a Zettelkasten permanent note |
-| [fleeting-note.md](templates/fleeting-note.md) | Quick knowledge capture for later processing |
-| [relationship.md](templates/relationship.md) | Tracking an important person |
-| [meeting-note.md](templates/meeting-note.md) | Meeting documentation |
-| [daily-plan.md](templates/daily-plan.md) | Daily execution plan |
-| [daily-inbox.md](templates/daily-inbox.md) | Daily capture file |
-| [user-context.md](templates/user-context.md) | User goals and preferences |
-| [excalidraw-diagram.md](templates/excalidraw-diagram.md) | Visual diagrams and flowcharts |
+### Workflow
 
----
+1. **User pastes transcript:**
+   ```
+   "Here's the transcript from today's standup:
+   [transcript content]"
+   ```
 
-## Key References
+2. **System processes and extracts:**
+   - Meeting summary → MEETING node
+   - Action items → TASK nodes
+   - Decisions made → REFERENCE nodes
+   - People mentioned → PERSON links
+   - Follow-up meetings → MEETING nodes
+   - Key insights → IDEA nodes
 
-- [GTD Methodology](references/gtd-methodology.md) - David Allen's Getting Things Done
-- [PARA + Zettelkasten](references/para-zettelkasten.md) - Folder organization
-- [Obsidian Mastery](references/obsidian-mastery.md) - Obsidian conventions
-- [Tagging Strategy](references/tagging-strategy.md) - Tag taxonomy
-- [Excalidraw Diagrams](references/excalidraw-diagrams.md) - Visual diagrams and flowcharts
+3. **Confirmation and review:**
+   ```
+   Processed standup transcript:
 
----
+   📅 Created: "Daily Standup - Jan 15" (meeting)
 
-## ADHD-Friendly Principles
+   ✅ Extracted 4 tasks:
+   - "Review PR #1234" → assigned to you (high)
+   - "Update API docs" → assigned to Sarah
+   - "Schedule design review" → due Friday
+   - "Fix login bug" → blocked by infrastructure
 
-The system is designed for users who may have ADHD:
+   📝 Captured 2 decisions:
+   - "Using Postgres instead of MongoDB"
+   - "Sprint ends Friday, demo at 2pm"
 
-1. **Read entire documents first** - Understand existing structure
-2. **Make targeted edits** - Update specific sections, don't append
-3. **Never just add to bottom** - Unless explicitly asked
-4. **Keep it concise** - Remove redundancy
-5. **One plan, not many** - Replace old plans, don't add "revised" sections
+   👥 Linked 3 people:
+   - Sarah (mentioned 5x)
+   - Mike (mentioned 2x)
+   - John (new person, created)
 
-**Bad:** Adding "REVISED PLAN" below "TODAY'S PLAN"
-**Good:** Replacing "TODAY'S PLAN" content with updated tasks
+   💡 1 insight flagged:
+   - "Team velocity improves when standups are <15 min"
+   ```
 
----
+### Extraction Patterns
 
-## Daily Workflow Summary
+**Action items (→ TASK):**
+- "TODO: ...", "Action: ...", "Need to..."
+- "Sarah will...", "I'll...", "We should..."
+- "@mentions with action verbs"
 
-**The Complete Loop:**
+**Decisions (→ REFERENCE):**
+- "Decided: ...", "Agreed: ..."
+- "We're going with...", "The plan is..."
+- "Final decision: ..."
 
-1. **Throughout day:** Capture thoughts (30 sec each)
-2. **3x per week:** Process inbox - Clarify + Organize (15 min)
-3. **Every morning:** Daily plan - Choose what to work on (5 min)
-4. **Every evening:** Daily closeout - Reflect + Prep tomorrow (5 min)
+**Follow-ups (→ MEETING):**
+- "Let's meet again...", "Schedule a follow-up..."
+- "Next week we'll discuss..."
+- Explicit dates/times mentioned
 
-**Total time:** ~20-25 min/day + 45 min/week processing = Sustainable!
+**People (→ PERSON links):**
+- Names mentioned in context
+- @mentions
+- "talked to...", "asked..."
 
----
+**Insights (→ IDEA):**
+- Observations about patterns
+- Hypotheses mentioned
+- "I noticed...", "Interesting that..."
 
-## Examples
+### Post-Processing
 
-### Example 1: Quick Capture
+After extraction:
+1. **Create meeting node** with summary
+2. **Create task nodes** with assignments and due dates
+3. **Link people** (create if new)
+4. **Store decisions** as references
+5. **Write to Obsidian** with wikilinks
 
-**User:** "Capture: Need to call the dentist and also research new project management tools"
+### Configuration
 
-**You:**
-1. Read config to get vault path
-2. Find/create today's inbox file at `{{vaultPath}}/00-Inbox/Daily/YYYY-MM-DD.md`
-3. Append the capture with timestamp
-4. Confirm: "Captured at 14:32. You have 3 captures today."
-
-### Example 2: Daily Planning
-
-**User:** "What should I work on today?"
-
-**You:**
-1. Check inbox count (process if 5+ items)
-2. Scan all projects in `01-Projects/` for next actions
-3. Ask: "How's your energy today? Any context constraints?"
-4. Generate prioritized list based on goals from user context
-5. Create/update `Daily Plans/YYYY-MM-DD.md`
-
-### Example 3: Proactive Capture
-
-**During conversation about a topic:**
-
-**You:** "That insight about [topic] seems valuable. Would you like me to capture it to your Second Brain? I can add it to your inbox for later processing, or create a permanent note if it's already well-formed."
-
----
-
-## Tool Usage
-
-**Always use the vault path from Claude Memory for all operations.**
-
-### Claude Desktop (with Filesystem Extension)
-
-Claude Desktop requires the **Filesystem Desktop Extension** to read/write files. Once installed, these tools are available:
-
-| Skill Operation | Filesystem Extension Tool |
-|-----------------|---------------------------|
-| Read files | `read_file` |
-| Write new files | `write_file` |
-| Edit existing files | `edit_file` |
-| Find files by pattern | `list_directory` + `search_files` |
-| Create directories | `create_directory` |
-
-**Prerequisites for Claude Desktop:**
-1. Install the **Filesystem** extension from the built-in extension store
-2. Grant access to your Obsidian vault folder when prompted
-3. Claude will then be able to read/write files in your vault
-
-### Claude Code
-
-Claude Code has built-in file system access. These tools are available:
-- **Read** - Check files, load context
-- **Write** - Create new files
-- **Edit** - Update existing files
-- **Glob** - Find files by pattern
-- **Bash** - Create directories, run commands
-
-### Capability Comparison
-
-| Capability | Claude Desktop | Claude Code |
-|------------|----------------|-------------|
-| File operations in vault | ✅ Yes (with extension) | ✅ Yes (built-in) |
-| Claude Memory | ✅ Yes | ✅ Yes |
-| Config file fallback | ❌ No | ✅ Yes |
-| Bash commands | ❌ No | ✅ Yes |
-
-**Important:** The skill is designed to work in BOTH environments:
-- **Configuration** is stored in Claude Memory (works everywhere)
-- **File operations** use the filesystem extension (Desktop) or built-in tools (Code)
+```yaml
+# ~/.config/secondbrain/daemons.yml
+transcript_processing:
+  auto_assign_unassigned: true  # Assign to self
+  default_task_priority: 2
+  flag_low_confidence: true     # Mark uncertain extractions
+  link_to_meeting: true         # Connect all items to meeting node
+```
 
 ---
 
-## Version History
+## Graph Model
 
-**Version 4.1** (2025-12-11)
-- Switched to Claude Memory for configuration persistence
-- Added Claude Desktop compatibility (sandboxed skills)
-- Legacy config file fallback for Claude Code
+### Node Types
 
-**Version 4.0** (2025-10-15)
-- Unified skill architecture (single skill replaces multiple commands)
-- Natural language triggers instead of slash commands
-- Intelligent handling of existing Obsidian vaults
-- Works in both Claude Code and Claude Desktop
+| Type | Description | Example |
+|------|-------------|---------|
+| value | Core principle | "Family comes first" |
+| goal | Outcome to achieve | "Run a marathon by December" |
+| project | Related work collection | "Kitchen renovation" |
+| task | Actionable item | "Call dentist to schedule" |
+| person | Relationship context | "Sarah - VP Engineering" |
+| meeting | Time-bound event | "1:1 with Sarah - Jan 15" |
+| idea | Non-actionable insight | "What if AI for onboarding?" |
+| reference | Info for retrieval | "API rate limit: 1000/min" |
+
+### Edge Types
+
+| Relation | Meaning | Example |
+|----------|---------|---------|
+| supports | Provides evidence for | project → goal |
+| blocks | Prevents progress on | task → task |
+| contains | Hierarchical parent | project → task |
+| derived_from | Extracted from | goal → value |
+| assigned_to | Assigned to person | task → person |
+| mentioned_in | Referenced in context | person → meeting |
+| related_to | General relationship | idea → reference |
+| child_of | Subtask/child | task → task |
+
+---
+
+## Implementation
+
+### CLI Integration
+
+This skill wraps the `sb` CLI commands:
+
+```bash
+sb capture "content"      # Capture a thought
+sb inbox                  # List pending captures
+sb process                # Classify pending captures
+sb digest                 # Generate daily digest
+sb list [type]            # List nodes
+sb show <id>              # Show node details
+sb status                 # System health check
+```
+
+### Database
+
+- Local SQLite at `~/.local/share/secondbrain/secondbrain.db`
+- Obsidian vault for markdown output
+- Graph model: nodes + typed edges
+
+### Configuration
+
+```yaml
+# ~/.config/secondbrain/config.yml
+node_id: "home"
+vault_path: "/path/to/vault"
+classification:
+  model: "claude-sonnet-4-20250514"
+  confidence_threshold: 0.6
+```
+
+---
+
+## Context Awareness
+
+### Use Session Context
+
+When capturing, leverage current conversation context:
+
+- **File being discussed**: Link to related codebase notes
+- **Error being debugged**: Capture as reference with solution
+- **Decision being made**: Note with rationale
+- **Meeting notes mentioned**: Parse for action items
+
+### Domain Detection
+
+Infer domain from context:
+- In work project directory → domain: work
+- Personal topics mentioned → domain: personal
+- Both contexts mixed → domain: both
+
+---
+
+## Example Interactions
+
+### Capture During Work
+
+```
+User: "The deadline for the API migration is March 15th"
+Assistant: [Captures as task with due date]
+Captured: API migration deadline - Due March 15th (ID: abc123)
+```
+
+### Query Knowledge
+
+```
+User: "What did we decide about authentication?"
+Assistant: [Searches knowledge graph]
+Found 3 related items:
+- [reference] "Use JWT with refresh tokens" (Jan 5)
+- [task] "Implement OAuth flow" (in_progress)
+- [meeting] "Auth design review with Sarah" (Jan 3)
+```
+
+### Morning Digest
+
+```
+User: "What should I focus on today?"
+Assistant: [Generates digest]
+
+📋 Today's Focus (Wed, Jan 15):
+- [OVERDUE] Review PR from Sarah (due Jan 14)
+- [HIGH] Prepare API migration plan
+- [DUE TODAY] Call dentist to reschedule
+
+📅 Meetings:
+- 10:00 1:1 with Mike
+
+⚠️ Needs Review: 2 items in inbox
+```
+
+---
+
+## Anti-Patterns
+
+**Don't:**
+- Capture every single thing mentioned (be selective)
+- Force classification when context is unclear
+- Interrupt flow for minor captures
+- Create duplicate entries for same concept
+- Over-classify simple notes
+
+**Do:**
+- Capture when user expresses intent or importance
+- Ask for clarification if capture intent is ambiguous
+- Batch confirmations when capturing multiple items
+- Link to existing nodes when relationships are clear
+- Respect user's domain boundaries
+
+---
+
+## Integration Points
+
+**With beads issue tracker:**
+- Cross-reference tasks with beads issues
+- Import epic/task relationships
+
+**With Obsidian vault:**
+- Generated markdown syncs via Obsidian Sync
+- Wikilinks enable navigation
+- Daily notes include digest
+
+**With SiliconDoppelgangerActual:**
+- Deep queries via agent conversation
+- Complex graph traversals
+- Multi-step reasoning about priorities
+
+---
+
+## Success Metrics
+
+**Skill succeeds when:**
+- Captures happen naturally without flow interruption
+- User finds past information quickly
+- Daily digests surface actionable items
+- Inbox stays manageable (<10 items needing review)
+- Classification accuracy >85%
+
+**User feels:**
+- Confident nothing important is lost
+- Informed about what matters today
+- In control of their knowledge system

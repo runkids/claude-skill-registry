@@ -1,11 +1,7 @@
 {
   "name": "electron",
-  "description": "Implement Electron desktop app patterns for PhotoVault bulk uploader. Use when working with main/renderer process communication, chunked uploads, preload scripts, protocol handlers, or auto-updater. I",
   "repo": "nathanielcrowell12-spec/photo-vault",
-  "category": "data",
-  "tags": [
-    "electron"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/electron/SKILL.md",
+  "source": "github.com/nathanielcrowell12-spec/photo-vault",
+  "downloaded_at": "2026-01-14T03:12:10.461698Z"
 }

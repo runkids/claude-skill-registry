@@ -1,12 +1,7 @@
 {
   "name": "book-illustrator",
-  "description": "Expert children's book illustrator guide with 2024-2025 best practices, focusing on age-appropriate styles, color theory, character design, and visual storytelling for kids books that captivate young ",
   "repo": "jamesrochabrun/skills",
-  "category": "design",
-  "tags": [
-    "book",
-    "illustrator"
-  ],
-  "stars": 8,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/book-illustrator/SKILL.md",
+  "source": "github.com/jamesrochabrun/skills",
+  "downloaded_at": "2026-01-14T01:17:20.717548Z"
 }

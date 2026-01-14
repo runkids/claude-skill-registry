@@ -1,8 +1,7 @@
 {
   "name": "langgraph-patterns",
-  "repo": "rozwer/cross2B-Pro",
-  "category": "data",
-  "description": "Advanced LangGraph patterns for production applications. Use when implementing streaming (tokens, updates, custom data), parallel node execution, subgraphs for modular workflows, error handling and re",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:58.314537Z"
+  "repo": "frankxai/ai-architect",
+  "path": "skills/langgraph-patterns/SKILL.md",
+  "source": "github.com/frankxai/ai-architect",
+  "downloaded_at": "2026-01-14T01:14:43.532707Z"
 }

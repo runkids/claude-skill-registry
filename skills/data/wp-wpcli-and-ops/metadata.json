@@ -1,12 +1,7 @@
 {
   "name": "wp-wpcli-and-ops",
-  "description": "Use when working with WP-CLI (wp) for WordPress operations: safe search-replace, db export/import, plugin/theme/user/content management, cron, cache flushing, multisite, and scripting/automation with ",
-  "repo": "Automattic/agent-skills",
-  "category": "data",
-  "tags": [
-    "wpcli",
-    "and",
-    "ops"
-  ],
-  "stars": 26
+  "repo": "vapvarun/claude-backup",
+  "path": "skills/wp-wpcli-and-ops/SKILL.md",
+  "source": "github.com/vapvarun/claude-backup",
+  "downloaded_at": "2026-01-14T01:49:59.623453Z"
 }

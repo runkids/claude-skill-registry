@@ -1,13 +1,7 @@
 {
   "name": "form-security-analyzer",
-  "description": "Static security analysis of HTML forms without sending any requests. Checks for CSRF tokens, insecure actions, missing validation, hidden field issues, and common security misconfigurations. Safe to r",
   "repo": "naporin0624/claude-web-audit-plugins",
-  "category": "data",
-  "tags": [
-    "form",
-    "security",
-    "analyzer"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/form-security-analyzer/SKILL.md",
+  "source": "github.com/naporin0624/claude-web-audit-plugins",
+  "downloaded_at": "2026-01-14T02:31:15.166269Z"
 }

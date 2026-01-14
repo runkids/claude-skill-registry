@@ -1,13 +1,7 @@
 {
   "name": "pubmed-multi-source-search",
-  "description": "Cross-database search using multiple academic sources. Triggers: 跨資料庫, multi-source, Semantic Scholar, OpenAlex, CORE, Europe PMC, 綜合搜尋",
   "repo": "u9401066/pubmed-search-mcp",
-  "category": "data",
-  "tags": [
-    "pubmed",
-    "multi",
-    "source",
-    "search"
-  ],
-  "stars": 0
+  "path": ".claude/skills/pubmed-multi-source-search/SKILL.md",
+  "source": "github.com/u9401066/pubmed-search-mcp",
+  "downloaded_at": "2026-01-14T03:06:43.963883Z"
 }

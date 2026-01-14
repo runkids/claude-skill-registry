@@ -1,12 +1,7 @@
 {
   "name": "subagent-creator",
-  "description": "Guide for creating effective subagents (custom agents). Use when users want to create a new subagent that can be dispatched via Task tool for autonomous work. Covers frontmatter fields (name, descript",
-  "repo": "timequity/vibe-coder",
-  "category": "design",
-  "tags": [
-    "subagent",
-    "creator"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "timequity/plugins",
+  "path": "craft-coder/subagent-creator/SKILL.md",
+  "source": "github.com/timequity/plugins",
+  "downloaded_at": "2026-01-14T03:41:22.947477Z"
 }

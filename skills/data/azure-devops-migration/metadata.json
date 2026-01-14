@@ -1,13 +1,7 @@
 {
   "name": "azure-devops-migration",
-  "description": "Plan and execute Azure DevOps migrations between organizations or projects. Use when migrating Azure DevOps resources or consolidating projects.",
   "repo": "ntaksh42/agents",
-  "category": "development",
-  "tags": [
-    "azure",
-    "devops",
-    "migration"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/azure-devops-migration/SKILL.md",
+  "source": "github.com/ntaksh42/agents",
+  "downloaded_at": "2026-01-14T03:51:04.021718Z"
 }

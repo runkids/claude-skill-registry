@@ -1,12 +1,7 @@
 {
   "name": "using-loaded-knowledge",
-  "description": "MANDATORY protocol enforcing knowledge check before EVERY response - prevents explaining systems without reading docs, claiming without verification, and ignoring auto-loaded context",
   "repo": "adilkalam/orca",
-  "category": "data",
-  "tags": [
-    "using",
-    "loaded",
-    "knowledge"
-  ],
-  "stars": 0
+  "path": "skills/using-loaded-knowledge/SKILL.md",
+  "source": "github.com/adilkalam/orca",
+  "downloaded_at": "2026-01-14T03:33:02.720291Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "cloudflare-agents",
-  "description": "Build AI agents with Cloudflare Agents SDK on Workers + Durable Objects. Includes critical guidance on choosing between Agents SDK (infrastructure/state) vs AI SDK (simpler flows).Use when: deciding S",
   "repo": "jezweb/claude-skills",
-  "category": "data",
-  "tags": [
-    "cloudflare",
-    "agents"
-  ],
-  "stars": 109,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/cloudflare-agents/SKILL.md",
+  "source": "github.com/jezweb/claude-skills",
+  "downloaded_at": "2026-01-14T04:01:45.113300Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "video-processor",
-  "description": "Process video files with audio extraction, format conversion (mp4, webm), and Whisper transcription. Use when user mentions video conversion, audio extraction, transcription, mp4, webm, ffmpeg, or whi",
-  "repo": "disler/claude-code-hooks-multi-agent-observability",
-  "category": "development",
-  "tags": [
-    "video",
-    "processor"
-  ],
-  "stars": 758,
-  "source": "SkillsMP Synced Skills"
+  "repo": "GolferGeek/orchestrator-ai",
+  "path": ".claude/skills/video-processor/SKILL.md",
+  "source": "github.com/GolferGeek/orchestrator-ai",
+  "downloaded_at": "2026-01-14T02:40:51.326464Z"
 }

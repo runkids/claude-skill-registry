@@ -1,94 +1,74 @@
 ---
 name: commit-messages
-description: Conventional Commits formatting guide for creating standardized commit messages. Use when Claude needs to create git commits, ensuring consistent message format with type prefixes (feat, fix, docs, chore). Automatically applied during git commit operations to maintain repository history standards.
+description: |
+
+Triggers: messages, conventional-commits, git, changelog, commit
+  Generate conventional commit messages from staged changes with correct type/scope.
+
+  Triggers: commit message, conventional commit, git commit
+  Use when: generating commit messages in conventional commits format
+  DO NOT use when: full PR preparation - use pr-prep instead.
+category: artifact-generation
+tags: [git, commit, conventional-commits, changelog]
+tools: [Bash, Write, TodoWrite]
+complexity: low
+estimated_tokens: 600
+dependencies:
+  - sanctum:shared
+  - sanctum:git-workspace-review
 ---
 
-# コミットメッセージ
+# Conventional Commit Workflow
 
-明確で標準化されたgitコミットメッセージを作成するためのConventional Commitsフォーマットガイド。
+## When to Use
+Use this skill to write a commit message for staged changes.
+As a prerequisite, run `Skill(sanctum:git-workspace-review)` so the repository path, status, and diffs are already captured. If that skill reveals no staged changes, stage the desired files before continuing.
 
-## クイックリファレンス
+## Required Steps
+1. **Validate code quality (REQUIRED BEFORE DRAFTING)**
+   - Run linting and formatting checks: `make format && make lint`
+   - If errors are found, FIX THEM before proceeding
+   - **NEVER use `git commit --no-verify` or `-n`** - pre-commit hooks exist to maintain quality
+   - If hooks fail, the code is not ready to commit
+2. **Classify the change**
+   - Choose the correct type: `feat`, `fix`, `docs`, `refactor`, `test`, `chore`, `style`, `perf`, or `ci`.
+   - Select a concise scope (directory/module or `core`, `cli`, etc.). The scope is optional but preferred.
+   - Decide if the change is breaking. If so, plan a `BREAKING CHANGE:` footer.
+3. **Draft the message**
+   - Subject: `<type>(<scope>): <imperative summary>` (scope optional, ≤50 characters).
+   - Body: Wrap at 72 characters per line, explain the "what" and "why", and list key bullets if useful.
+   - Footer: Add `BREAKING CHANGE: …` or issue references if needed.
+4. **Write the output**
+   - The prompt passes a destination path (e.g., `{0|./commit_msg.txt}`) - always use a relative path in cwd, never an absolute path.
+   - Overwrite the file with only the final commit message—no commentary.
+5. **Preview**
+   - Display the file path and contents (`cat <file>` or `sed -n '1,120p' <file>`) for confirmation.
 
-以下のコミットタイプをプレフィックスとして使用:
+## Guardrails
+- **NEVER bypass quality gates**: Using `git commit --no-verify` or `-n` is FORBIDDEN. Pre-commit hooks enforce code quality - fix issues instead of bypassing them.
+- **No AI attribution**: Never add Co-Authored-By lines mentioning Claude, Opus, Sonnet, Haiku, or any AI assistant.
+- **No AI slop**: Avoid filler words and phrases common in AI-generated text (e.g., "leverage", "streamline", "robust", "seamless").
+- **No emojis**: Keep commit messages professional and plain text only.
+- **Human voice**: Write as if a human developer authored the message directly.
+- Use the present-tense, imperative style for the subject line.
+- Include a multi-line body for any non-trivial change (more than one file or complex logic).
+- If multiple types apply, pick the highest-impact type (e.g., `feat` over `chore`).
 
-- **feat**: 新機能や新しい機能の追加
-- **fix**: バグ修正やエラーの修正
-- **docs**: ドキュメントのみの変更
-- **chore**: メンテナンス、依存関係、設定変更
+## Integration Notes
+- Combine with `Skill(imbue:catchup)` or `/git-catchup` when you need additional context before drafting.
+- If unsure about the type or scope, rerun the diff commands or consult the specification or plan before finalizing.
+## Troubleshooting
 
-## メッセージフォーマット
+### Common Issues
 
-```
-type(scope): subject
+**Pre-commit hooks failing**
+Fix the reported issues - DO NOT bypass with `--no-verify` or `SKIP=...`. The hooks exist to catch quality issues before they enter the repository.
 
-[optional body]
+**Linting errors**
+Run `make format` to auto-fix formatting, then `make lint` to check for remaining issues. Fix all issues before committing.
 
-[optional footer]
-```
+**Merge conflicts**
+Use `git merge --abort` to reset, then resolve conflicts carefully
 
-**基本例:**
-```
-feat: ユーザー認証機能を追加
-```
-
-**スコープ付き:**
-```
-feat(auth): OAuth2サポートを追加
-fix(ui): ボタンの配置を修正
-```
-
-**破壊的変更:**
-```
-feat!: 非推奨のAPIエンドポイントを削除
-```
-
-## サブジェクト行のガイドライン
-
-- タイプのプレフィックスで始める（必須）
-- スコープを括弧内に追加（任意）
-- サブジェクトは50文字以下に保つ
-- サブジェクトは小文字で書く
-- 末尾にピリオドを付けない
-- サブジェクトは日本語または英語で記述可能
-
-**例:**
-```
-feat(api): ページネーション機能を実装
-fix: メモリリークを解決
-docs: READMEを更新
-chore: 依存関係をアップグレード
-feat(grpc): 双方向ストリーミングを追加
-```
-
-## タイプ選択ガイド
-
-**feat** → 新しい機能の追加
-- 新機能、エンドポイント、ページ
-- ユーザー向けの新機能
-- 開発者向けの新しいツールや機能
-
-**fix** → 問題の修正
-- バグ修正、エラーの修正
-- 壊れた機能の修正
-- 問題や不具合の解決
-
-**docs** → ドキュメントのみ
-- READMEの更新、コメント
-- APIドキュメント、ガイド
-- コードや設定の変更を含まない
-
-**chore** → その他すべて
-- 依存関係の更新、リファクタリング
-- 設定変更、ツール設定
-- ビルドシステム、CI/CDの更新
-- 動作を変更しないコードのクリーンアップ
-
-## 詳細リファレンス
-
-以下を含む包括的なガイドライン:
-- 各タイプの詳細な例
-- 破壊的変更の表記方法
-- 複数行メッセージのフォーマット
-- 良い例と悪い例
-
-詳細は [commit-types.md](references/commit-types.md) を参照
+**Commit rejected**
+Check hook output and fix reported issues before committing again. Never use `--no-verify`.

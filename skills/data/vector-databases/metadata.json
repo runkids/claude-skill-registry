@@ -1,11 +1,7 @@
 {
   "name": "vector-databases",
-  "description": "Vector database selection, indexing strategies, and semantic search optimization.",
-  "repo": "pluginagentmarketplace/custom-plugin-ai-engineer",
-  "category": "data",
-  "tags": [
-    "vector",
-    "databases"
-  ],
-  "stars": 1
+  "repo": "cuba6112/skillfactory",
+  "path": "skills/vector-databases/SKILL.md",
+  "source": "github.com/cuba6112/skillfactory",
+  "downloaded_at": "2026-01-14T02:37:40.093847Z"
 }

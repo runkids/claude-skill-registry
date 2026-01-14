@@ -1,9 +1,7 @@
 {
   "name": "nfr-assess",
-  "description": "Assess non-functional requirements across 6 quality categories (Security, Performance, Reliability, Maintainability, Scalability, Usability) with measurable criteria, evidence-based evaluation, and au",
-  "repo": "adolfoaranaes12/BMAD-ENHANCED",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "resolve-io/.prism",
+  "path": "plugins/prism-devtools/skills/nfr-assess/SKILL.md",
+  "source": "github.com/resolve-io/.prism",
+  "downloaded_at": "2026-01-14T03:09:56.935017Z"
 }

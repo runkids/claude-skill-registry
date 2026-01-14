@@ -1,415 +1,322 @@
 ---
 name: frontend-testing
-description: Implement comprehensive frontend testing using Jest, Vitest, React Testing Library, and Cypress. Use when building robust test suites for UI and integration tests.
+description: Generate Vitest + React Testing Library tests for Dify frontend components, hooks, and utilities. Triggers on testing, spec files, coverage, Vitest, RTL, unit tests, integration tests, or write/review test requests.
 ---
 
-# Frontend Testing
+# Dify Frontend Testing Skill
 
-## Overview
+This skill enables Claude to generate high-quality, comprehensive frontend tests for the Dify project following established conventions and best practices.
 
-Build comprehensive test suites for frontend applications including unit tests, integration tests, and end-to-end tests with proper coverage and assertions.
+> **⚠️ Authoritative Source**: This skill is derived from `web/testing/testing.md`. Use Vitest mock/timer APIs (`vi.*`).
 
-## When to Use
+## When to Apply This Skill
 
-- Component testing
-- Integration testing
-- End-to-end testing
-- Regression prevention
-- Quality assurance
-- Test-driven development
+Apply this skill when the user:
 
-## Implementation Examples
+- Asks to **write tests** for a component, hook, or utility
+- Asks to **review existing tests** for completeness
+- Mentions **Vitest**, **React Testing Library**, **RTL**, or **spec files**
+- Requests **test coverage** improvement
+- Uses `pnpm analyze-component` output as context
+- Mentions **testing**, **unit tests**, or **integration tests** for frontend code
+- Wants to understand **testing patterns** in the Dify codebase
 
-### 1. **Jest Unit Testing (React)**
+**Do NOT apply** when:
+
+- User is asking about backend/API tests (Python/pytest)
+- User is asking about E2E tests (Playwright/Cypress)
+- User is only asking conceptual questions without code context
+
+## Quick Reference
+
+### Tech Stack
+
+| Tool | Version | Purpose |
+|------|---------|---------|
+| Vitest | 4.0.16 | Test runner |
+| React Testing Library | 16.0 | Component testing |
+| jsdom | - | Test environment |
+| nock | 14.0 | HTTP mocking |
+| TypeScript | 5.x | Type safety |
+
+### Key Commands
+
+```bash
+# Run all tests
+pnpm test
+
+# Watch mode
+pnpm test:watch
+
+# Run specific file
+pnpm test path/to/file.spec.tsx
+
+# Generate coverage report
+pnpm test:coverage
+
+# Analyze component complexity
+pnpm analyze-component <path>
+
+# Review existing test
+pnpm analyze-component <path> --review
+```
+
+### File Naming
+
+- Test files: `ComponentName.spec.tsx` (same directory as component)
+- Integration tests: `web/__tests__/` directory
+
+## Test Structure Template
 
 ```typescript
-// Button.test.tsx
-import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import { Button } from './Button';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import Component from './index'
 
-describe('Button Component', () => {
-  it('renders button with text', () => {
-    render(<Button>Click me</Button>);
-    expect(screen.getByRole('button')).toHaveTextContent('Click me');
-  });
+// ✅ Import real project components (DO NOT mock these)
+// import Loading from '@/app/components/base/loading'
+// import { ChildComponent } from './child-component'
 
-  it('calls onClick handler when clicked', () => {
-    const handleClick = jest.fn();
-    render(<Button onClick={handleClick}>Click</Button>);
+// ✅ Mock external dependencies only
+vi.mock('@/service/api')
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({ push: vi.fn() }),
+  usePathname: () => '/test',
+}))
 
-    fireEvent.click(screen.getByRole('button'));
-    expect(handleClick).toHaveBeenCalledTimes(1);
-  });
+// Shared state for mocks (if needed)
+let mockSharedState = false
 
-  it('disables button when disabled prop is true', () => {
-    render(<Button disabled>Click me</Button>);
-    expect(screen.getByRole('button')).toBeDisabled();
-  });
+describe('ComponentName', () => {
+  beforeEach(() => {
+    vi.clearAllMocks()  // ✅ Reset mocks BEFORE each test
+    mockSharedState = false  // ✅ Reset shared state
+  })
 
-  it('applies variant styles correctly', () => {
-    const { container } = render(<Button variant="primary">Click</Button>);
-    const button = container.querySelector('button');
-    expect(button).toHaveClass('bg-blue-500');
-  });
+  // Rendering tests (REQUIRED)
+  describe('Rendering', () => {
+    it('should render without crashing', () => {
+      // Arrange
+      const props = { title: 'Test' }
+      
+      // Act
+      render(<Component {...props} />)
+      
+      // Assert
+      expect(screen.getByText('Test')).toBeInTheDocument()
+    })
+  })
 
-  it('applies size classes correctly', () => {
-    const { container } = render(<Button size="lg">Click</Button>);
-    const button = container.querySelector('button');
-    expect(button).toHaveClass('px-6 py-3 text-lg');
-  });
-});
+  // Props tests (REQUIRED)
+  describe('Props', () => {
+    it('should apply custom className', () => {
+      render(<Component className="custom" />)
+      expect(screen.getByRole('button')).toHaveClass('custom')
+    })
+  })
 
-// hooks.test.ts
-import { renderHook, act } from '@testing-library/react';
-import { useCounter } from './useCounter';
+  // User Interactions
+  describe('User Interactions', () => {
+    it('should handle click events', () => {
+      const handleClick = vi.fn()
+      render(<Component onClick={handleClick} />)
+      
+      fireEvent.click(screen.getByRole('button'))
+      
+      expect(handleClick).toHaveBeenCalledTimes(1)
+    })
+  })
 
-describe('useCounter', () => {
-  it('initializes with default value', () => {
-    const { result } = renderHook(() => useCounter());
-    expect(result.current.count).toBe(0);
-  });
+  // Edge Cases (REQUIRED)
+  describe('Edge Cases', () => {
+    it('should handle null data', () => {
+      render(<Component data={null} />)
+      expect(screen.getByText(/no data/i)).toBeInTheDocument()
+    })
 
-  it('increments count', () => {
-    const { result } = renderHook(() => useCounter());
-
-    act(() => {
-      result.current.increment();
-    });
-
-    expect(result.current.count).toBe(1);
-  });
-
-  it('decrements count', () => {
-    const { result } = renderHook(() => useCounter(5));
-
-    act(() => {
-      result.current.decrement();
-    });
-
-    expect(result.current.count).toBe(4);
-  });
-
-  it('resets count', () => {
-    const { result } = renderHook(() => useCounter(5));
-
-    act(() => {
-      result.current.increment();
-      result.current.reset();
-    });
-
-    expect(result.current.count).toBe(5);
-  });
-});
+    it('should handle empty array', () => {
+      render(<Component items={[]} />)
+      expect(screen.getByText(/empty/i)).toBeInTheDocument()
+    })
+  })
+})
 ```
 
-### 2. **React Testing Library Integration Tests**
+## Testing Workflow (CRITICAL)
+
+### ⚠️ Incremental Approach Required
+
+**NEVER generate all test files at once.** For complex components or multi-file directories:
+
+1. **Analyze & Plan**: List all files, order by complexity (simple → complex)
+1. **Process ONE at a time**: Write test → Run test → Fix if needed → Next
+1. **Verify before proceeding**: Do NOT continue to next file until current passes
+
+```
+For each file:
+  ┌────────────────────────────────────────┐
+  │ 1. Write test                          │
+  │ 2. Run: pnpm test <file>.spec.tsx      │
+  │ 3. PASS? → Mark complete, next file    │
+  │    FAIL? → Fix first, then continue    │
+  └────────────────────────────────────────┘
+```
+
+### Complexity-Based Order
+
+Process in this order for multi-file testing:
+
+1. 🟢 Utility functions (simplest)
+1. 🟢 Custom hooks
+1. 🟡 Simple components (presentational)
+1. 🟡 Medium components (state, effects)
+1. 🔴 Complex components (API, routing)
+1. 🔴 Integration tests (index files - last)
+
+### When to Refactor First
+
+- **Complexity > 50**: Break into smaller pieces before testing
+- **500+ lines**: Consider splitting before testing
+- **Many dependencies**: Extract logic into hooks first
+
+> 📖 See `references/workflow.md` for complete workflow details and todo list format.
+
+## Testing Strategy
+
+### Path-Level Testing (Directory Testing)
+
+When assigned to test a directory/path, test **ALL content** within that path:
+
+- Test all components, hooks, utilities in the directory (not just `index` file)
+- Use incremental approach: one file at a time, verify each before proceeding
+- Goal: 100% coverage of ALL files in the directory
+
+### Integration Testing First
+
+**Prefer integration testing** when writing tests for a directory:
+
+- ✅ **Import real project components** directly (including base components and siblings)
+- ✅ **Only mock**: API services (`@/service/*`), `next/navigation`, complex context providers
+- ❌ **DO NOT mock** base components (`@/app/components/base/*`)
+- ❌ **DO NOT mock** sibling/child components in the same directory
+
+> See [Test Structure Template](#test-structure-template) for correct import/mock patterns.
+
+## Core Principles
+
+### 1. AAA Pattern (Arrange-Act-Assert)
+
+Every test should clearly separate:
+
+- **Arrange**: Setup test data and render component
+- **Act**: Perform user actions
+- **Assert**: Verify expected outcomes
+
+### 2. Black-Box Testing
+
+- Test observable behavior, not implementation details
+- Use semantic queries (getByRole, getByLabelText)
+- Avoid testing internal state directly
+- **Prefer pattern matching over hardcoded strings** in assertions:
 
 ```typescript
-// UserForm.test.tsx
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { UserForm } from './UserForm';
+// ❌ Avoid: hardcoded text assertions
+expect(screen.getByText('Loading...')).toBeInTheDocument()
 
-describe('UserForm Integration', () => {
-  beforeEach(() => {
-    // Clear mocks before each test
-    jest.clearAllMocks();
-  });
+// ✅ Better: role-based queries
+expect(screen.getByRole('status')).toBeInTheDocument()
 
-  it('submits form with valid data', async () => {
-    const handleSubmit = jest.fn();
-    render(<UserForm onSubmit={handleSubmit} />);
-
-    await userEvent.type(screen.getByLabelText(/name/i), 'John Doe');
-    await userEvent.type(screen.getByLabelText(/email/i), 'john@example.com');
-    await userEvent.type(screen.getByLabelText(/password/i), 'password123');
-
-    fireEvent.click(screen.getByRole('button', { name: /submit/i }));
-
-    await waitFor(() => {
-      expect(handleSubmit).toHaveBeenCalledWith({
-        name: 'John Doe',
-        email: 'john@example.com',
-        password: 'password123'
-      });
-    });
-  });
-
-  it('displays validation errors for empty fields', async () => {
-    render(<UserForm onSubmit={jest.fn()} />);
-
-    fireEvent.click(screen.getByRole('button', { name: /submit/i }));
-
-    await waitFor(() => {
-      expect(screen.getByText(/name is required/i)).toBeInTheDocument();
-      expect(screen.getByText(/email is required/i)).toBeInTheDocument();
-    });
-  });
-
-  it('displays validation error for invalid email', async () => {
-    render(<UserForm onSubmit={jest.fn()} />);
-
-    await userEvent.type(screen.getByLabelText(/email/i), 'invalid-email');
-    fireEvent.click(screen.getByRole('button', { name: /submit/i }));
-
-    await waitFor(() => {
-      expect(screen.getByText(/invalid email/i)).toBeInTheDocument();
-    });
-  });
-});
-
-// UserList.test.tsx with data fetching
-import { render, screen, waitFor } from '@testing-library/react';
-import { UserList } from './UserList';
-
-describe('UserList with API', () => {
-  beforeEach(() => {
-    jest.spyOn(global, 'fetch').mockClear();
-  });
-
-  it('displays loading state initially', () => {
-    (global.fetch as jest.Mock).mockImplementation(
-      () => new Promise(() => {}) // Never resolves
-    );
-
-    render(<UserList />);
-    expect(screen.getByText(/loading/i)).toBeInTheDocument();
-  });
-
-  it('fetches and displays users', async () => {
-    const mockUsers = [
-      { id: 1, name: 'User 1', email: 'user1@example.com' },
-      { id: 2, name: 'User 2', email: 'user2@example.com' }
-    ];
-
-    (global.fetch as jest.Mock).mockResolvedValueOnce({
-      ok: true,
-      json: async () => mockUsers
-    });
-
-    render(<UserList />);
-
-    await waitFor(() => {
-      expect(screen.getByText('User 1')).toBeInTheDocument();
-      expect(screen.getByText('User 2')).toBeInTheDocument();
-    });
-  });
-
-  it('displays error message on fetch failure', async () => {
-    (global.fetch as jest.Mock).mockRejectedValueOnce(new Error('Network error'));
-
-    render(<UserList />);
-
-    await waitFor(() => {
-      expect(screen.getByText(/error/i)).toBeInTheDocument();
-    });
-  });
-});
+// ✅ Better: pattern matching
+expect(screen.getByText(/loading/i)).toBeInTheDocument()
 ```
 
-### 3. **Vitest for Vue Testing**
+### 3. Single Behavior Per Test
+
+Each test verifies ONE user-observable behavior:
 
 ```typescript
-// Button.spec.ts
-import { describe, it, expect } from 'vitest';
-import { mount } from '@vue/test-utils';
-import Button from './Button.vue';
+// ✅ Good: One behavior
+it('should disable button when loading', () => {
+  render(<Button loading />)
+  expect(screen.getByRole('button')).toBeDisabled()
+})
 
-describe('Button.vue', () => {
-  it('renders slot content', () => {
-    const wrapper = mount(Button, {
-      slots: {
-        default: 'Click me'
-      }
-    });
-    expect(wrapper.text()).toContain('Click me');
-  });
-
-  it('emits click event', async () => {
-    const wrapper = mount(Button);
-    await wrapper.trigger('click');
-    expect(wrapper.emitted('click')).toHaveLength(1);
-  });
-
-  it('disables button when disabled prop is true', () => {
-    const wrapper = mount(Button, {
-      props: { disabled: true }
-    });
-    expect(wrapper.attributes('disabled')).toBeDefined();
-  });
-
-  it('applies variant class', () => {
-    const wrapper = mount(Button, {
-      props: { variant: 'primary' }
-    });
-    expect(wrapper.classes()).toContain('bg-blue-500');
-  });
-});
-
-// composable.spec.ts
-import { describe, it, expect } from 'vitest';
-import { useCounter } from './useCounter';
-
-describe('useCounter', () => {
-  it('initializes with default value', () => {
-    const { count } = useCounter();
-    expect(count.value).toBe(0);
-  });
-
-  it('increments count', () => {
-    const { count, increment } = useCounter();
-    increment();
-    expect(count.value).toBe(1);
-  });
-});
+// ❌ Bad: Multiple behaviors
+it('should handle loading state', () => {
+  render(<Button loading />)
+  expect(screen.getByRole('button')).toBeDisabled()
+  expect(screen.getByText('Loading...')).toBeInTheDocument()
+  expect(screen.getByRole('button')).toHaveClass('loading')
+})
 ```
 
-### 4. **Cypress E2E Testing**
+### 4. Semantic Naming
+
+Use `should <behavior> when <condition>`:
 
 ```typescript
-// cypress/e2e/login.cy.ts
-describe('Login Flow', () => {
-  beforeEach(() => {
-    cy.visit('http://localhost:3000/login');
-  });
-
-  it('logs in with valid credentials', () => {
-    cy.get('input[name="email"]').type('user@example.com');
-    cy.get('input[name="password"]').type('password123');
-    cy.get('button[type="submit"]').click();
-
-    cy.url().should('include', '/dashboard');
-    cy.get('h1').should('contain', 'Welcome');
-  });
-
-  it('displays error for invalid credentials', () => {
-    cy.get('input[name="email"]').type('user@example.com');
-    cy.get('input[name="password"]').type('wrongpassword');
-    cy.get('button[type="submit"]').click();
-
-    cy.get('.error-message').should('contain', 'Invalid credentials');
-  });
-
-  it('validates email field', () => {
-    cy.get('input[name="email"]').type('invalid-email');
-    cy.get('input[name="password"]').type('password123');
-    cy.get('button[type="submit"]').click();
-
-    cy.get('.error-message').should('contain', 'Invalid email');
-  });
-});
-
-// cypress/e2e/user-management.cy.ts
-describe('User Management', () => {
-  beforeEach(() => {
-    cy.login('admin@example.com', 'password123');
-    cy.visit('http://localhost:3000/users');
-  });
-
-  it('creates a new user', () => {
-    cy.get('button:contains("Add User")').click();
-
-    cy.get('input[name="name"]').type('New User');
-    cy.get('input[name="email"]').type('newuser@example.com');
-    cy.get('button[type="submit"]').click();
-
-    cy.get('.success-message').should('contain', 'User created');
-    cy.get('table tbody').should('contain', 'New User');
-  });
-
-  it('edits an existing user', () => {
-    cy.get('table tbody tr').first().contains('button', 'Edit').click();
-
-    cy.get('input[name="name"]').clear().type('Updated Name');
-    cy.get('button[type="submit"]').click();
-
-    cy.get('.success-message').should('contain', 'User updated');
-  });
-
-  it('deletes a user with confirmation', () => {
-    cy.get('table tbody tr').first().contains('button', 'Delete').click();
-    cy.get('.modal button:contains("Confirm")').click();
-
-    cy.get('.success-message').should('contain', 'User deleted');
-  });
-});
-
-// cypress/support/commands.ts
-Cypress.Commands.add('login', (email: string, password: string) => {
-  cy.visit('http://localhost:3000/login');
-  cy.get('input[name="email"]').type(email);
-  cy.get('input[name="password"]').type(password);
-  cy.get('button[type="submit"]').click();
-  cy.url().should('include', '/dashboard');
-});
+it('should show error message when validation fails')
+it('should call onSubmit when form is valid')
+it('should disable input when isReadOnly is true')
 ```
 
-### 5. **Test Coverage Configuration**
+## Required Test Scenarios
 
-```javascript
-// jest.config.js
-module.exports = {
-  preset: 'ts-jest',
-  testEnvironment: 'jsdom',
-  roots: ['<rootDir>/src'],
-  testMatch: ['**/__tests__/**/*.ts?(x)', '**/?(*.)+(spec|test).ts?(x)'],
-  collectCoverageFrom: [
-    'src/**/*.{ts,tsx}',
-    '!src/**/*.d.ts',
-    '!src/index.tsx',
-    '!src/reportWebVitals.ts'
-  ],
-  coverageThreshold: {
-    global: {
-      branches: 70,
-      functions: 70,
-      lines: 70,
-      statements: 70
-    }
-  },
-  moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1'
-  },
-  setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
-  transform: {
-    '^.+\\.tsx?$': ['ts-jest', {
-      tsconfig: {
-        jsx: 'react-jsx'
-      }
-    }]
-  }
-};
+### Always Required (All Components)
 
-// package.json scripts
-{
-  "scripts": {
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
-    "cypress": "cypress open",
-    "cypress:headless": "cypress run"
-  }
-}
-```
+1. **Rendering**: Component renders without crashing
+1. **Props**: Required props, optional props, default values
+1. **Edge Cases**: null, undefined, empty values, boundary conditions
 
-## Best Practices
+### Conditional (When Present)
 
-- Write tests alongside code (TDD)
-- Test behavior, not implementation
-- Use descriptive test names
-- Keep tests focused and independent
-- Mock external dependencies
-- Aim for high coverage (>80%)
-- Use semantic queries in React Testing Library
-- Implement E2E tests for critical paths
-- Test error scenarios
-- Use CI/CD for automated testing
+| Feature | Test Focus |
+|---------|-----------|
+| `useState` | Initial state, transitions, cleanup |
+| `useEffect` | Execution, dependencies, cleanup |
+| Event handlers | All onClick, onChange, onSubmit, keyboard |
+| API calls | Loading, success, error states |
+| Routing | Navigation, params, query strings |
+| `useCallback`/`useMemo` | Referential equality |
+| Context | Provider values, consumer behavior |
+| Forms | Validation, submission, error display |
 
-## Resources
+## Coverage Goals (Per File)
 
-- [Jest Documentation](https://jestjs.io/)
-- [Vitest](https://vitest.dev/)
-- [React Testing Library](https://testing-library.com/react)
-- [Cypress Documentation](https://docs.cypress.io/)
-- [Testing Library Best Practices](https://testing-library.com/docs/queries/about)
+For each test file generated, aim for:
+
+- ✅ **100%** function coverage
+- ✅ **100%** statement coverage
+- ✅ **>95%** branch coverage
+- ✅ **>95%** line coverage
+
+> **Note**: For multi-file directories, process one file at a time with full coverage each. See `references/workflow.md`.
+
+## Detailed Guides
+
+For more detailed information, refer to:
+
+- `references/workflow.md` - **Incremental testing workflow** (MUST READ for multi-file testing)
+- `references/mocking.md` - Mock patterns and best practices
+- `references/async-testing.md` - Async operations and API calls
+- `references/domain-components.md` - Workflow, Dataset, Configuration testing
+- `references/common-patterns.md` - Frequently used testing patterns
+- `references/checklist.md` - Test generation checklist and validation steps
+
+## Authoritative References
+
+### Primary Specification (MUST follow)
+
+- **`web/testing/testing.md`** - The canonical testing specification. This skill is derived from this document.
+
+### Reference Examples in Codebase
+
+- `web/utils/classnames.spec.ts` - Utility function tests
+- `web/app/components/base/button/index.spec.tsx` - Component tests
+- `web/__mocks__/provider-context.ts` - Mock factory example
+
+### Project Configuration
+
+- `web/vitest.config.ts` - Vitest configuration
+- `web/vitest.setup.ts` - Test environment setup
+- `web/scripts/analyze-component.js` - Component analysis tool
+- Modules are not mocked automatically. Global mocks live in `web/vitest.setup.ts` (for example `react-i18next`, `next/image`); mock other modules like `ky` or `mime` locally in test files.

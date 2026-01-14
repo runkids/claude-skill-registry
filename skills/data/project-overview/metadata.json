@@ -1,12 +1,7 @@
 {
   "name": "project-overview",
-  "description": "Get overview of the Babylon.js first-person game project structure, statistics, and health metrics. Use when the user asks about project structure, codebase stats, file counts, or wants a project summ",
   "repo": "gigi-f/babylon_fp",
-  "category": "development",
-  "tags": [
-    "project",
-    "overview"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/project-overview/SKILL.md",
+  "source": "github.com/gigi-f/babylon_fp",
+  "downloaded_at": "2026-01-14T02:35:02.678361Z"
 }

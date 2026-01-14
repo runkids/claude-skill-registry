@@ -1,7 +1,8 @@
 ---
 name: router-engineering
-description: Master orchestration for routing technical problems through 30+ engineering skills - AI/ML, software development, data, APIs, and Claude Code framework
-version: "1.0"
+description: Master orchestration for routing technical problems through 32 engineering skills - AI/ML, software development, data, APIs, and Claude Code framework
+metadata:
+  version: "1.3"
 ---
 
 # Router: Engineering
@@ -51,11 +52,17 @@ TECHNICAL QUESTION
     ├─► "Design system architecture" ───► software-architecture-design
     │                                      └─► Microservices, CQRS, scaling
     │
+    ├─► "Clean code standard" ──────────► software-clean-code-standard
+    │                                      └─► CC-* rule IDs, governance, language overlays
+    │
     ├─► "Web3 / blockchain" ────────────► software-crypto-web3
     │                                      └─► Solidity, Rust, smart contracts
     │
     ├─► "Security / OWASP" ─────────────► software-security-appsec
     │                                      └─► Auth, input validation, crypto
+    │
+    ├─► "Add i18n / localization" ─────► software-localisation
+    │                                      └─► i18next, ICU, RTL, TMS
     │
     ├─► "Design REST/GraphQL API" ──────► dev-api-design
     │                                      └─► OpenAPI, versioning, errors
@@ -68,6 +75,9 @@ TECHNICAL QUESTION
     │
     ├─► "Build data pipeline" ──────────► data-lake-platform
     │                                      └─► dlt, SQLMesh, Iceberg, DuckDB
+    │
+    ├─► "Analytics engineering" ─────────► data-analytics-engineering
+    │                                      └─► dbt, metrics, semantic layer
     │
     ├─► "Optimize SQL queries" ─────────► data-sql-optimization
     │                                      └─► EXPLAIN, indexing, tuning
@@ -138,6 +148,7 @@ Requirements → ai-agents (architecture) → ai-rag (if retrieval needed)
 | `software-code-review` | Review patterns, checklists |
 | `software-ui-ux-design` | UI patterns, accessibility |
 | `software-ux-research` | User research, gap analysis |
+| `software-localisation` | i18n, l10n, translation workflows |
 
 **Skill Chain - Full-Stack App**:
 ```
@@ -147,18 +158,20 @@ Requirements → software-architecture-design → software-backend (API)
 
 ### Domain 3: DATA ENGINEERING
 
-**Triggers**: "data pipeline", "ETL", "lakehouse", "SQL", "query optimization", "data warehouse"
+**Triggers**: "data pipeline", "ETL", "lakehouse", "SQL", "query optimization", "data warehouse", "metrics", "semantic layer", "dbt", "analytics engineering"
 
 **Primary Skills**:
 
 | Skill | When to Use |
 |-------|-------------|
 | `data-lake-platform` | Pipelines, Iceberg, DuckDB, dlt |
+| `data-analytics-engineering` | Metrics, semantic layer, dimensional models |
 | `data-sql-optimization` | Query tuning, indexes, EXPLAIN |
 
 **Skill Chain - Data Platform**:
 ```
 Requirements → data-lake-platform (ingestion + storage)
+    → data-analytics-engineering (models + metrics)
     → data-sql-optimization (query layer) → ai-ml-data-science (analytics)
 ```
 
@@ -206,7 +219,7 @@ claude-code-project-memory (CLAUDE.md) → claude-code-skills (knowledge)
 
 ## Skill Registry
 
-### AI/ML Skills (9)
+### AI/ML Skills (8)
 
 | Skill | Purpose | Key Outputs |
 |-------|---------|-------------|
@@ -218,9 +231,8 @@ claude-code-project-memory (CLAUDE.md) → claude-code-skills (knowledge)
 | `ai-ml-timeseries` | Time series | Forecasting models, validation |
 | `ai-mlops` | ML operations | Deployment, monitoring |
 | `ai-prompt-engineering` | Prompt design | Templates, validation |
-| `agent-fleet-operations` | Agent services | Fleet management, economics |
 
-### Software Skills (9)
+### Software Skills (10)
 
 | Skill | Purpose | Key Outputs |
 |-------|---------|-------------|
@@ -233,12 +245,14 @@ claude-code-project-memory (CLAUDE.md) → claude-code-skills (knowledge)
 | `software-code-review` | Code review | Review checklists |
 | `software-ui-ux-design` | UI/UX design | Design systems, accessibility |
 | `software-ux-research` | UX research | User research, benchmarks |
+| `software-localisation` | i18n/l10n | i18next, ICU, RTL, TMS workflows |
 
-### Data Skills (2)
+### Data Skills (3)
 
 | Skill | Purpose | Key Outputs |
 |-------|---------|-------------|
 | `data-lake-platform` | Data pipelines | Ingestion, transformation, storage |
+| `data-analytics-engineering` | Analytics engineering | dbt, metrics, semantic layer |
 | `data-sql-optimization` | SQL tuning | Query optimization, indexes |
 
 ### Development Workflow (3)
@@ -287,6 +301,7 @@ KEYWORDS -> SKILL MAPPING
 "code review", "review checklist" -> software-code-review
 "UI", "design system", "accessibility" -> software-ui-ux-design
 "UX research", "user research", "JTBD" -> software-ux-research
+"i18n", "l10n", "localization", "translation", "RTL", "ICU" -> software-localisation
 
 "data pipeline", "ETL", "lakehouse", "dlt" -> data-lake-platform
 "SQL optimization", "query tuning", "EXPLAIN" -> data-sql-optimization
@@ -499,21 +514,21 @@ When router-startup detects technical needs:
 
 | Resource | Purpose |
 |----------|---------|
-| [routing-logic.md](resources/routing-logic.md) | Detailed routing rules |
-| [skill-chain-patterns.md](resources/skill-chain-patterns.md) | Implementation patterns |
-| [technology-selection.md](resources/technology-selection.md) | Stack recommendations |
+| `resources/routing-logic.md` | Detailed routing rules |
+| `resources/skill-chain-patterns.md` | Implementation patterns |
+| `resources/technology-selection.md` | Stack recommendations |
 
 ## Templates
 
 | Template | Purpose |
 |----------|---------|
-| [technical-analysis-report.md](templates/technical-analysis-report.md) | Full analysis |
-| [architecture-decision.md](templates/architecture-decision.md) | ADR template |
-| [implementation-plan.md](templates/implementation-plan.md) | Implementation planning |
+| `templates/technical-analysis-report.md` | Full analysis |
+| `templates/architecture-decision.md` | ADR template |
+| `templates/implementation-plan.md` | Implementation planning |
 
 ## Data
 
 | File | Purpose |
 |------|---------|
-| [skill-registry.json](data/skill-registry.json) | Engineering skills index |
-| [sources.json](data/sources.json) | Reference sources |
+| `data/skill-registry.json` | Engineering skills index |
+| `data/sources.json` | Reference sources |

@@ -1,13 +1,7 @@
 {
   "name": "api-tutorial-writer",
-  "description": "Эксперт по написанию API-туториалов и документации. Используй для создания гайдов по интеграции API, документации endpoints, примеров кода на разных языках, обработки ошибок и best practices.",
   "repo": "dengineproblem/agents-monorepo",
-  "category": "development",
-  "tags": [
-    "api",
-    "tutorial",
-    "writer"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/api-tutorial-writer/SKILL.md",
+  "source": "github.com/dengineproblem/agents-monorepo",
+  "downloaded_at": "2026-01-14T02:08:01.451509Z"
 }

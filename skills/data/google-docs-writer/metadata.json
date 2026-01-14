@@ -1,9 +1,7 @@
 {
   "name": "google-docs-writer",
-  "description": "Google Docs document creation and formatting from Markdown. Use when converting Markdown to Google Docs, formatting documents for sharing, or creating professional PM deliverables. Triggers on \"Google",
   "repo": "foolpoet44/ai-pm-agent",
-  "category": "documents",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/google-docs-writer/SKILL.md",
+  "source": "github.com/foolpoet44/ai-pm-agent",
+  "downloaded_at": "2026-01-14T01:16:24.851895Z"
 }

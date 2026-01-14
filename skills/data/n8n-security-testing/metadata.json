@@ -1,13 +1,7 @@
 {
   "name": "n8n-security-testing",
-  "description": "Credential exposure detection, OAuth flow validation, API key management testing, and data sanitization verification for n8n workflows. Use when validating n8n workflow security.",
-  "repo": "proffesor-for-testing/agentic-qe",
-  "category": "testing",
-  "tags": [
-    "n8n",
-    "security",
-    "testing"
-  ],
-  "stars": 103,
-  "source": "SkillsMP Synced Skills"
+  "repo": "natea/ai-news-influencer",
+  "path": ".claude/skills/n8n-security-testing/SKILL.md",
+  "source": "github.com/natea/ai-news-influencer",
+  "downloaded_at": "2026-01-14T01:54:46.430518Z"
 }

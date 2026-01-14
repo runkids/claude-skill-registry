@@ -1,12 +1,7 @@
 {
   "name": "review-spec",
-  "description": "Review specifications for soundness, completeness, and implementability - validates structure, identifies ambiguities, checks for gaps before implementation",
   "repo": "rhuss/cc-superpowers-sdd",
-  "category": "design",
-  "tags": [
-    "review",
-    "spec"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/review-spec/SKILL.md",
+  "source": "github.com/rhuss/cc-superpowers-sdd",
+  "downloaded_at": "2026-01-14T02:15:41.294984Z"
 }

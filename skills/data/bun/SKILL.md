@@ -1,252 +1,459 @@
 ---
 name: bun
-description: Bun runtime and toolkit for JavaScript/TypeScript. Use for package management, running scripts, testing, and bundling. Replaces npm, yarn, pnpm, and node.
+description: Configures Bun as an all-in-one JavaScript runtime, bundler, package manager, and test runner with native TypeScript support. Use when building fast applications, bundling for production, or replacing Node.js tooling.
 ---
 
-# Bun - JavaScript/TypeScript Runtime & Toolkit
+# Bun
 
-Bun is the ONLY approved JavaScript/TypeScript toolkit. Never use npm, yarn, pnpm, or node directly.
+All-in-one JavaScript runtime, bundler, package manager, and test runner written in Zig.
 
-## Core Principle
+## Quick Start
 
-**ALWAYS use Bun. NEVER use npm, yarn, pnpm, or node.**
+```bash
+# Install Bun
+curl -fsSL https://bun.sh/install | bash
 
-## Command Reference
+# Or with npm
+npm install -g bun
 
-### Package Management
+# Run TypeScript directly
+bun run src/index.ts
+
+# Install packages
+bun install
+
+# Bundle for production
+bun build src/index.ts --outdir=dist
+```
+
+## Runtime
+
+### Running Files
+
+```bash
+# Run TypeScript/JavaScript
+bun run index.ts
+bun run index.js
+bun run index.jsx
+bun run index.tsx
+
+# Run package.json scripts
+bun run dev
+bun run build
+
+# Shorthand for run
+bun dev
+bun build
+```
+
+### Watch Mode
+
+```bash
+# Auto-restart on changes
+bun --watch run index.ts
+
+# Hot reload (preserves state)
+bun --hot run index.ts
+```
+
+### Environment Variables
+
+```bash
+# Load .env automatically
+bun run index.ts
+
+# Specify env file
+bun --env-file=.env.local run index.ts
+
+# No env file
+bun --no-env-file run index.ts
+```
+
+## Package Manager
+
+### Install Packages
 
 ```bash
 # Install all dependencies
 bun install
 
-# Add dependencies
-bun add <package>              # Production dependency
-bun add -d <package>           # Dev dependency
-bun add -g <package>           # Global package
+# Add package
+bun add express
+bun add -D typescript
 
-# Remove dependencies
-bun remove <package>
+# Add exact version
+bun add react@18.2.0
 
-# Update dependencies
-bun update                     # Update all
-bun update <package>           # Update specific package
+# Global install
+bun add -g typescript
 ```
 
-### Running Code
+### Remove/Update
 
 ```bash
-# Run TypeScript/JavaScript directly (no build step!)
-bun run script.ts
-bun run script.tsx
-bun run script.js
+# Remove package
+bun remove lodash
 
-# Run package.json scripts
-bun run dev
-bun run build
-bun run start
-
-# Hot reloading
-bun --hot run server.ts        # Hot module replacement
-bun --watch run server.ts      # Restart on changes
+# Update packages
+bun update
+bun update react
 ```
 
-### Execute Packages (bunx instead of npx)
+### Lock File
 
 ```bash
-bunx <package>                 # Execute without installing
-bunx playwright test
-bunx tsc --noEmit
-bunx create-react-app my-app
+# Generate/update bun.lockb
+bun install
+
+# Frozen install (CI)
+bun install --frozen-lockfile
+
+# Convert to yarn.lock
+bun pm pack
 ```
 
-### Testing
+## Bundler
+
+### Basic Bundling
 
 ```bash
-# Run tests (Jest-compatible)
+# Bundle for browser
+bun build src/index.ts --outdir=dist
+
+# Single file output
+bun build src/index.ts --outfile=dist/bundle.js
+
+# Minify
+bun build src/index.ts --outdir=dist --minify
+
+# Source maps
+bun build src/index.ts --outdir=dist --sourcemap=external
+```
+
+### Build API
+
+```typescript
+// build.ts
+const result = await Bun.build({
+  entrypoints: ['./src/index.tsx'],
+  outdir: './dist',
+  minify: true,
+  sourcemap: 'external',
+  target: 'browser',
+  splitting: true,
+  format: 'esm',
+});
+
+if (!result.success) {
+  console.error('Build failed:', result.logs);
+  process.exit(1);
+}
+
+console.log('Build complete!', result.outputs);
+```
+
+### Bundle Options
+
+```typescript
+await Bun.build({
+  entrypoints: ['./src/index.ts', './src/worker.ts'],
+  outdir: './dist',
+
+  // Target
+  target: 'browser', // 'browser' | 'bun' | 'node'
+
+  // Format
+  format: 'esm', // 'esm' | 'cjs' | 'iife'
+
+  // Optimization
+  minify: {
+    whitespace: true,
+    identifiers: true,
+    syntax: true,
+  },
+  sourcemap: 'external', // 'none' | 'inline' | 'external' | 'linked'
+
+  // Code splitting
+  splitting: true,
+
+  // Naming
+  naming: {
+    entry: '[dir]/[name].[ext]',
+    chunk: 'chunks/[name]-[hash].[ext]',
+    asset: 'assets/[name]-[hash].[ext]',
+  },
+
+  // Externals
+  external: ['react', 'react-dom'],
+
+  // Define
+  define: {
+    'process.env.NODE_ENV': JSON.stringify('production'),
+  },
+
+  // Loaders
+  loader: {
+    '.png': 'file',
+    '.svg': 'dataurl',
+  },
+
+  // Public path
+  publicPath: '/assets/',
+
+  // Plugins
+  plugins: [],
+});
+```
+
+### Plugins
+
+```typescript
+const myPlugin = {
+  name: 'my-plugin',
+  setup(build) {
+    // Resolve hook
+    build.onResolve({ filter: /^env$/ }, (args) => {
+      return { path: args.path, namespace: 'env-ns' };
+    });
+
+    // Load hook
+    build.onLoad({ filter: /.*/, namespace: 'env-ns' }, () => {
+      return {
+        contents: `export const API = "${process.env.API_URL}"`,
+        loader: 'js',
+      };
+    });
+  },
+};
+
+await Bun.build({
+  entrypoints: ['./src/index.ts'],
+  plugins: [myPlugin],
+});
+```
+
+## Test Runner
+
+### Running Tests
+
+```bash
+# Run all tests
 bun test
+
+# Specific file
+bun test src/utils.test.ts
+
+# Pattern matching
+bun test --test-name-pattern "should handle"
+
+# Watch mode
 bun test --watch
-bun test <file>
+
+# Coverage
 bun test --coverage
 ```
 
-### Bundling
-
-```bash
-# Bundle for browsers
-bun build ./src/index.ts --outdir ./dist --target browser
-
-# Bundle for Node.js
-bun build ./src/index.ts --outdir ./dist --target node
-
-# Minify
-bun build ./src/index.ts --outdir ./dist --minify
-
-# Generate single executable
-bun build ./src/cli.ts --compile --outfile myapp
-```
-
-## Lock Files
-
-- **Approved**: `bun.lockb` (binary) or `bun.lock` (text)
-- **Delete on sight**: `package-lock.json`, `yarn.lock`, `pnpm-lock.yaml`
-
-## Configuration (bunfig.toml)
-
-```toml
-[install]
-frozen = true                  # CI: fail if lockfile outdated
-
-[test]
-coverage = true
-coverageReporter = ["text", "lcov"]
-
-[run]
-bun = true                     # Prefer bun APIs
-```
-
-## Environment Variables
-
-```bash
-# Load specific env file
-bun --env-file=.env.local run dev
-
-# Built-in .env support (automatic)
-# .env, .env.local, .env.development, .env.production
-```
-
-## Workspaces (Monorepos)
-
-```json
-// package.json
-{
-  "workspaces": ["apps/*", "packages/*"]
-}
-```
-
-```bash
-bun install                    # Install all workspace deps
-bun --filter <name> <cmd>      # Run in specific workspace
-bun --filter ./apps/web dev    # Run by path
-```
-
-## Docker
-
-```dockerfile
-# Production Dockerfile
-FROM oven/bun:1-alpine AS base
-WORKDIR /app
-
-# Install dependencies
-FROM base AS deps
-COPY package.json bun.lockb ./
-RUN bun install --frozen-lockfile --production
-
-# Build
-FROM base AS build
-COPY package.json bun.lockb ./
-RUN bun install --frozen-lockfile
-COPY . .
-RUN bun run build
-
-# Production
-FROM base AS runner
-COPY --from=deps /app/node_modules ./node_modules
-COPY --from=build /app/dist ./dist
-CMD ["bun", "run", "start"]
-```
-
-## CI/CD (GitHub Actions)
-
-```yaml
-name: CI
-on: [push, pull_request]
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v1
-        with:
-          bun-version: latest
-      - run: bun install
-      - run: bun test
-      - run: bun run build
-```
-
-## Migration from npm/yarn/pnpm
-
-1. Delete old lock files:
-   ```bash
-   rm -f package-lock.json yarn.lock pnpm-lock.yaml
-   ```
-
-2. Install with Bun:
-   ```bash
-   bun install
-   ```
-
-3. Update scripts (already compatible, just use `bun run`)
-
-4. Replace commands:
-   - `npm run` → `bun run`
-   - `npx` → `bunx`
-   - `node` → `bun`
-
-## Bun-Specific APIs
+### Writing Tests
 
 ```typescript
-// Fast file operations
-const file = Bun.file("./data.json");
-const content = await file.text();
-await Bun.write("./output.json", JSON.stringify(data));
+// math.test.ts
+import { describe, test, expect, beforeEach, mock } from 'bun:test';
 
-// HTTP server
-Bun.serve({
+describe('math', () => {
+  test('adds numbers', () => {
+    expect(1 + 2).toBe(3);
+  });
+
+  test('async operations', async () => {
+    const result = await fetchData();
+    expect(result).toBeDefined();
+  });
+});
+
+// Mocking
+const mockFn = mock(() => 42);
+mockFn();
+expect(mockFn).toHaveBeenCalled();
+
+// Spying
+import * as module from './module';
+const spy = spyOn(module, 'someFunction');
+```
+
+### Test Configuration
+
+```typescript
+// bunfig.toml
+[test]
+root = "./tests"
+timeout = 5000
+preload = ["./setup.ts"]
+coverage = true
+coverageReporter = ["text", "lcov"]
+```
+
+## HTTP Server
+
+### Bun.serve
+
+```typescript
+const server = Bun.serve({
   port: 3000,
+  hostname: '0.0.0.0',
+
   fetch(req) {
-    return new Response("Hello!");
+    const url = new URL(req.url);
+
+    if (url.pathname === '/') {
+      return new Response('Hello World!');
+    }
+
+    if (url.pathname === '/api/data') {
+      return Response.json({ message: 'Hello' });
+    }
+
+    return new Response('Not Found', { status: 404 });
+  },
+
+  // WebSocket support
+  websocket: {
+    message(ws, message) {
+      ws.send(`Echo: ${message}`);
+    },
+    open(ws) {
+      console.log('Client connected');
+    },
+    close(ws) {
+      console.log('Client disconnected');
+    },
   },
 });
 
-// SQLite (built-in)
-import { Database } from "bun:sqlite";
-const db = new Database("mydb.sqlite");
+console.log(`Server running at http://localhost:${server.port}`);
+```
 
-// Password hashing (built-in)
-const hash = await Bun.password.hash("password");
-const valid = await Bun.password.verify("password", hash);
+### Static Files
 
-// Shell commands
-import { $ } from "bun";
-await $`echo Hello World`;
+```typescript
+Bun.serve({
+  port: 3000,
+
+  async fetch(req) {
+    const url = new URL(req.url);
+    const filePath = `./public${url.pathname}`;
+
+    const file = Bun.file(filePath);
+    if (await file.exists()) {
+      return new Response(file);
+    }
+
+    return new Response('Not Found', { status: 404 });
+  },
+});
+```
+
+## File System
+
+### Reading Files
+
+```typescript
+// Read text
+const text = await Bun.file('file.txt').text();
+
+// Read JSON
+const json = await Bun.file('data.json').json();
+
+// Read ArrayBuffer
+const buffer = await Bun.file('image.png').arrayBuffer();
+
+// Check existence
+const exists = await Bun.file('file.txt').exists();
+
+// Get file info
+const file = Bun.file('file.txt');
+console.log(file.size, file.type);
+```
+
+### Writing Files
+
+```typescript
+// Write text
+await Bun.write('output.txt', 'Hello World');
+
+// Write JSON
+await Bun.write('data.json', JSON.stringify(data, null, 2));
+
+// Write Buffer
+await Bun.write('output.bin', buffer);
+
+// Append
+const file = Bun.file('log.txt');
+await Bun.write(file, await file.text() + '\nNew line');
+```
+
+## Shell Commands
+
+```typescript
+import { $ } from 'bun';
+
+// Simple command
+await $`echo "Hello World"`;
+
+// With variables
+const name = 'World';
+await $`echo "Hello ${name}"`;
+
+// Capture output
 const result = await $`ls -la`.text();
+
+// Check exit code
+const { exitCode } = await $`npm test`.nothrow();
+
+// Pipe commands
+await $`cat file.txt | grep "pattern"`;
+
+// Environment variables
+await $`API_KEY=${key} node script.js`;
 ```
 
-## Common Issues
+## Standalone Executables
 
-### "command not found: bun"
 ```bash
-curl -fsSL https://bun.sh/install | bash
-source ~/.bashrc  # or ~/.zshrc
+# Compile to single executable
+bun build --compile src/cli.ts --outfile my-cli
+
+# Cross-compile
+bun build --compile --target=bun-linux-x64 src/cli.ts
+bun build --compile --target=bun-darwin-arm64 src/cli.ts
+bun build --compile --target=bun-windows-x64 src/cli.ts
 ```
 
-### Incompatible native modules
-Some Node.js native modules may need rebuilding:
-```bash
-bun install --force
+## Configuration
+
+### bunfig.toml
+
+```toml
+# Package manager
+[install]
+registry = "https://registry.npmjs.org"
+scope = { "@company" = "https://private.registry.com" }
+
+# Bundler
+[bundle]
+entrypoints = ["./src/index.ts"]
+outdir = "./dist"
+minify = true
+sourcemap = "external"
+
+# Test runner
+[test]
+root = "./tests"
+preload = ["./setup.ts"]
+timeout = 5000
+
+# Development server
+[serve]
+port = 3000
 ```
 
-### TypeScript errors
-Bun includes TypeScript types. If IDE issues:
-```bash
-bun add -d bun-types
-```
-
-Then in tsconfig.json:
-```json
-{
-  "compilerOptions": {
-    "types": ["bun-types"]
-  }
-}
-```
+See [references/api.md](references/api.md) for complete API reference and [references/migration.md](references/migration.md) for Node.js migration guide.

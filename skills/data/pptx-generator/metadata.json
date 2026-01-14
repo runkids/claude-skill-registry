@@ -1,12 +1,7 @@
 {
   "name": "pptx-generator",
-  "description": "Generate PowerPoint presentations with slides, charts, and formatting. Use when creating presentations programmatically.",
   "repo": "ntaksh42/agents",
-  "category": "documents",
-  "tags": [
-    "pptx",
-    "generator"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/pptx-generator/SKILL.md",
+  "source": "github.com/ntaksh42/agents",
+  "downloaded_at": "2026-01-14T03:50:59.722689Z"
 }

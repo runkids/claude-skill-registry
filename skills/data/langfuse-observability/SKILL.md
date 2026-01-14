@@ -1,546 +1,316 @@
 ---
 name: langfuse-observability
-description: LLM observability with self-hosted Langfuse 3.x - tracing, evaluation, monitoring, prompt management, and cost tracking
-version: 2.0.0
-author: YG Starter Template
-tags: [langfuse, llm, observability, tracing, evaluation, prompts, 2025]
+description: |
+  Query Langfuse traces, prompts, and LLM metrics. Use when:
+  - Analyzing LLM generation traces (errors, latency, tokens)
+  - Reviewing prompt performance and versions
+  - Debugging failed generations
+  - Comparing model outputs across runs
+  Keywords: langfuse, traces, observability, LLM metrics, prompt management, generations
 ---
 
 # Langfuse Observability
 
-## Overview
+Query traces, prompts, and metrics from Langfuse. Requires env vars:
+- `LANGFUSE_SECRET_KEY`
+- `LANGFUSE_PUBLIC_KEY`
+- `LANGFUSE_HOST` (e.g., `https://us.cloud.langfuse.com`)
 
-**Langfuse 3.x** is the open-source LLM observability platform for tracing, monitoring, evaluation, and prompt management. Unlike LangSmith (proprietary), Langfuse is self-hosted, free, and designed for production LLM applications.
+## Quick Start
 
-**When to use this skill:**
-- Setting up LLM observability from scratch
-- Debugging slow or incorrect LLM responses
-- Tracking token usage and costs per agent/user/session
-- Managing prompts in production with versioning
-- Evaluating LLM output quality with automated scoring
-- Migrating from LangSmith to Langfuse
-
-**Real-World Use Cases:**
-- **Multi-Agent Cost Attribution**: Track costs by agent type (security, coding, general)
-- **Prompt A/B Testing**: Compare prompt versions with quality scores
-- **Quality Monitoring**: Automated scoring for relevance, coherence, factuality
-- **Dataset Evaluation**: Regression testing with golden datasets
-- **Session Analytics**: Group traces by user session for journey analysis
-
----
-
-## Core Features
-
-### 1. Distributed Tracing
-
-Track LLM calls across your application with automatic parent-child span relationships.
-
-```python
-from langfuse.decorators import observe, langfuse_context
-
-@observe()  # Automatic tracing
-async def analyze_content(content: str, agent_type: str):
-    """Analyze content with automatic Langfuse tracing."""
-
-    # Nested span for retrieval
-    @observe(name="retrieval")
-    async def retrieve_context():
-        chunks = await vector_db.search(content)
-        langfuse_context.update_current_observation(
-            metadata={"chunks_retrieved": len(chunks)}
-        )
-        return chunks
-
-    # Nested span for generation
-    @observe(name="generation")
-    async def generate_analysis(context):
-        response = await llm.generate(
-            prompt=f"Context: {context}\n\nAnalyze: {content}"
-        )
-        langfuse_context.update_current_observation(
-            input=content[:500],
-            output=response[:500],
-            model="claude-sonnet-4-20250514",
-            usage={
-                "input_tokens": response.usage.input_tokens,
-                "output_tokens": response.usage.output_tokens
-            }
-        )
-        return response
-
-    context = await retrieve_context()
-    return await generate_analysis(context)
+All commands run from the skill directory:
+```bash
+cd ~/.claude/skills/langfuse-observability
 ```
 
-**Result in Langfuse UI:**
-```
-analyze_content (2.3s, $0.045)
-├── retrieval (0.1s)
-│   └── metadata: {chunks_retrieved: 5}
-└── generation (2.2s, $0.045)
-    └── model: claude-sonnet-4-20250514
-    └── tokens: 1500 input, 1000 output
-```
+### List Recent Traces
+```bash
+# Last 10 traces
+npx tsx scripts/fetch-traces.ts --limit 10
 
-### 2. Token & Cost Tracking
+# Filter by name pattern
+npx tsx scripts/fetch-traces.ts --name "quiz-generation" --limit 5
 
-Automatic cost calculation based on model pricing:
-
-```python
-from langfuse import Langfuse
-
-langfuse = Langfuse()
-
-# Create trace with cost tracking
-trace = langfuse.trace(
-    name="content_analysis",
-    user_id="user_123",
-    session_id="session_abc"
-)
-
-# Log generation with automatic cost calculation
-generation = trace.generation(
-    name="security_audit",
-    model="claude-sonnet-4-20250514",
-    model_parameters={"temperature": 1.0, "max_tokens": 4096},
-    input=[{"role": "user", "content": "Analyze for XSS..."}],
-    output="Analysis: Found 3 vulnerabilities...",
-    usage={
-        "input": 1500,
-        "output": 1000,
-        "unit": "TOKENS"
-    }
-)
-
-# Langfuse automatically calculates: $0.0045 + $0.015 = $0.0195
+# Filter by user
+npx tsx scripts/fetch-traces.ts --user-id "user_abc123" --limit 10
 ```
 
-**Pricing Database (Auto-Updated):**
-Langfuse maintains a pricing database for all major models. You can also define custom pricing:
-
-```python
-# Custom model pricing
-langfuse.create_model(
-    model_name="claude-sonnet-4-20250514",
-    match_pattern="claude-sonnet-4.*",
-    unit="TOKENS",
-    input_price=0.000003,  # $3/MTok
-    output_price=0.000015,  # $15/MTok
-    total_price=None  # Calculated from input+output
-)
+### Get Single Trace Details
+```bash
+# Full trace with spans and generations
+npx tsx scripts/fetch-trace.ts <trace-id>
 ```
 
-### 3. Prompt Management
+### Get Prompt
+```bash
+# Fetch specific prompt
+npx tsx scripts/list-prompts.ts --name scry-intent-extraction
 
-Version control for prompts in production:
-
-```python
-# Fetch prompt from Langfuse
-from langfuse import Langfuse, get_client
-
-langfuse = Langfuse()
-
-# Get latest version of security auditor prompt
-prompt = langfuse.get_prompt("security_auditor", label="production")
-
-# Use in LLM call
-response = await llm.generate(
-    messages=[
-        {"role": "system", "content": prompt.compile()},
-        {"role": "user", "content": user_input}
-    ]
-)
+# With label
+npx tsx scripts/list-prompts.ts --name scry-intent-extraction --label production
 ```
 
-#### Linking Prompts to Generations (Issue #564 Pattern)
+### Get Metrics Summary
+```bash
+# Summary for recent traces
+npx tsx scripts/get-metrics.ts --limit 50
 
-**CRITICAL:** To make the "Number of Observations" counter work in Langfuse Prompts UI, you MUST link the `TextPromptClient` object to the generation span:
-
-```python
-from langfuse import get_client
-
-# Method 1: update_current_generation (preferred in this project)
-langfuse = get_client()
-prompt = langfuse.get_prompt("security_auditor", label="production")
-
-# Link prompt to current generation span
-langfuse.update_current_generation(prompt=prompt)
-
-# Method 2: Pass prompt when starting generation
-with langfuse.start_as_current_generation(
-    name="security-analysis",
-    model="claude-sonnet-4-20250514",
-    prompt=prompt  # Links automatically!
-) as generation:
-    response = await llm.generate(...)
-    generation.update(output=response)
+# Filter by trace name
+npx tsx scripts/get-metrics.ts --name "quiz-generation" --limit 100
 ```
 
-**this project Pattern (with caching):**
-```python
-# PromptManager returns both content AND TextPromptClient
-prompt_content, prompt_client = await prompt_manager.get_prompt_with_langfuse_client(
-    name="analysis-agent-security-auditor",
-    variables={"skill_instructions": "..."},
-    label="production",
-)
+## Output Formats
 
-# Pass prompt_client through agent metadata
-if prompt_client:
-    agent = agent.with_config(metadata={"langfuse_prompt_client": prompt_client})
+All scripts output JSON to stdout for easy parsing.
 
-# In invoke_agent(), link prompt to generation
-if prompt_client:
-    langfuse.update_current_generation(prompt=prompt_client)
+### Trace List Output
+```json
+[
+  {
+    "id": "trace-abc123",
+    "name": "quiz-generation",
+    "userId": "user_xyz",
+    "input": {"prompt": "..."},
+    "output": {"concepts": [...]},
+    "latencyMs": 3200,
+    "createdAt": "2025-12-09T..."
+  }
+]
 ```
 
-**Note:** Cache hits (L1/L2) return `None` for `prompt_client` - linkage only happens on L3 Langfuse fetches (~5% of calls). This is acceptable for analytics.
+### Single Trace Output
+Includes full nested structure: trace → observations (spans + generations) with token usage.
 
-**Prompt Versioning in UI:**
-```
-security_auditor
-├── v1 (Jan 15, 2025) - production
-│   └── "You are a security auditor. Analyze code for..."
-├── v2 (Jan 20, 2025) - staging
-│   └── "You are an expert security auditor. Focus on..."
-└── v3 (Jan 25, 2025) - draft
-    └── "As a cybersecurity expert, thoroughly analyze..."
-```
-
-### 4. LLM Evaluation (Scores)
-
-Track quality metrics with custom scores:
-
-```python
-from langfuse import Langfuse
-
-langfuse = Langfuse()
-
-# Create trace
-trace = langfuse.trace(name="content_analysis", id="trace_123")
-
-# After LLM response, score it
-trace.score(
-    name="relevance",
-    value=0.85,  # 0-1 scale
-    comment="Response addresses query but lacks depth"
-)
-
-trace.score(
-    name="factuality",
-    value=0.92,
-    data_type="NUMERIC"
-)
-
-# Use G-Eval for automated scoring
-from app.shared.services.g_eval import GEvalScorer
-
-scorer = GEvalScorer()
-scores = await scorer.score(
-    query=user_query,
-    response=llm_response,
-    criteria=["relevance", "coherence", "depth"]
-)
-
-for criterion, score in scores.items():
-    trace.score(name=criterion, value=score)
+### Metrics Output
+```json
+{
+  "totalTraces": 50,
+  "successCount": 48,
+  "errorCount": 2,
+  "avgLatencyMs": 2850,
+  "totalTokens": 125000,
+  "byName": {"quiz-generation": 30, "phrasing-generation": 20}
+}
 ```
 
-**Scores Dashboard:**
-- View score distributions
-- Track quality trends over time
-- Filter traces by score thresholds
-- Compare prompt versions by scores
+## Common Workflows
 
-### 5. Session Tracking
+### Debug Failed Generation
+```bash
+cd ~/.claude/skills/langfuse-observability
 
-Group related traces into user sessions:
+# 1. Find recent traces
+npx tsx scripts/fetch-traces.ts --limit 10
 
-```python
-# Start session
-session_id = f"analysis_{analysis_id}"
-
-# All traces with same session_id are grouped
-trace1 = langfuse.trace(
-    name="url_fetch",
-    session_id=session_id
-)
-
-trace2 = langfuse.trace(
-    name="content_analysis",
-    session_id=session_id
-)
-
-trace3 = langfuse.trace(
-    name="quality_gate",
-    session_id=session_id
-)
-
-# View in UI: All 3 traces grouped under session
+# 2. Get details of specific trace
+npx tsx scripts/fetch-trace.ts <trace-id>
 ```
 
-### 6. User & Metadata Tracking
-
-Track performance per user or content type:
-
-```python
-langfuse.trace(
-    name="analysis",
-    user_id="user_123",
-    metadata={
-        "content_type": "article",
-        "url": "https://example.com/post",
-        "analysis_id": "abc123",
-        "agent_count": 8,
-        "total_cost_usd": 0.15
-    },
-    tags=["production", "project", "security"]
-)
+### Monitor Token Usage
+```bash
+# Get metrics for cost analysis
+npx tsx scripts/get-metrics.ts --limit 100
 ```
 
-**Analytics:**
-- Filter by user, tag, metadata
-- Group costs by content_type
-- Track performance by agent type
-- Identify slow or expensive users
-
----
-
-## this project Integration
-
-### Setup (Already Complete)
-
-```python
-# backend/app/shared/services/langfuse/client.py
-from langfuse import Langfuse
-from app.core.config import settings
-
-langfuse_client = Langfuse(
-    public_key=settings.LANGFUSE_PUBLIC_KEY,
-    secret_key=settings.LANGFUSE_SECRET_KEY,
-    host=settings.LANGFUSE_HOST  # Self-hosted or cloud
-)
+### Check Prompt Configuration
+```bash
+npx tsx scripts/list-prompts.ts --name scry-concept-synthesis --label production
 ```
 
-### Workflow Integration
+## Cost Tracking
 
-```python
-# backend/app/workflows/content_analysis.py
-from langfuse.decorators import observe
+### Calculate Costs
 
-@observe(name="content_analysis_workflow")
-async def run_content_analysis(analysis_id: str, content: str):
-    """Full workflow with automatic Langfuse tracing."""
+```typescript
+// Get metrics with cost calculation
+const metrics = await langfuse.getMetrics({ limit: 100 });
 
-    # Set global metadata
-    langfuse_context.update_current_trace(
-        user_id=f"analysis_{analysis_id}",
-        metadata={
-            "analysis_id": analysis_id,
-            "content_length": len(content)
-        }
-    )
+// Pricing per 1M tokens (update as needed)
+const pricing = {
+  "claude-3-5-sonnet": { input: 3.0, output: 15.0 },
+  "gpt-4o": { input: 2.5, output: 10.0 },
+  "gpt-4o-mini": { input: 0.15, output: 0.6 },
+};
 
-    # Each agent execution automatically creates nested spans
-    results = []
-    for agent in agents:
-        result = await execute_agent(agent, content)  # @observe decorated
-        results.append(result)
-
-    return results
+function calculateCost(model: string, inputTokens: number, outputTokens: number) {
+  const p = pricing[model] || { input: 1, output: 1 };
+  return (inputTokens * p.input + outputTokens * p.output) / 1_000_000;
+}
 ```
 
-### Cost Tracking Per Analysis
+### Daily/Monthly Spend
 
-```python
-# After analysis completes
-trace = langfuse.get_trace(trace_id)
-total_cost = sum(
-    gen.calculated_total_cost or 0
-    for gen in trace.observations
-    if gen.type == "GENERATION"
-)
+```bash
+# Get traces for date range
+npx tsx scripts/fetch-traces.ts --from "2025-12-01" --to "2025-12-07" --limit 1000
 
-# Store in database
-await analysis_repo.update(
-    analysis_id,
-    langfuse_trace_id=trace.id,
-    total_cost_usd=total_cost
-)
+# Calculate spend (parse output and sum costs)
 ```
 
----
+### Cost Alerts
 
-## Advanced Features
+**Set up alerts in Langfuse dashboard:**
+1. Go to Dashboard → Alerts
+2. Create alert for: `daily_cost > X` or `cost_per_trace > Y`
+3. Configure notification (email, Slack webhook)
 
-### 1. CallbackHandler (LangChain Integration)
+**Or implement in code:**
+```typescript
+async function checkCostBudget() {
+  const dailyMetrics = await langfuse.getMetrics({ since: "24h" });
+  const dailyCost = calculateTotalCost(dailyMetrics);
 
-For LangChain/LangGraph applications:
-
-```python
-from langfuse.callback import CallbackHandler
-
-langfuse_handler = CallbackHandler(
-    public_key=settings.LANGFUSE_PUBLIC_KEY,
-    secret_key=settings.LANGFUSE_SECRET_KEY
-)
-
-# Use with LangChain
-from langchain_anthropic import ChatAnthropic
-
-llm = ChatAnthropic(
-    model="claude-sonnet-4-20250514",
-    callbacks=[langfuse_handler]
-)
-
-response = llm.invoke("Analyze this code...")  # Auto-traced!
+  if (dailyCost > DAILY_BUDGET) {
+    await notifySlack(`⚠️ LLM daily spend ($${dailyCost}) exceeded budget ($${DAILY_BUDGET})`);
+  }
+}
 ```
 
-### 2. Datasets for Evaluation
+## Production Best Practices
 
-Create test datasets in Langfuse UI and run automated evaluations:
+### 1. Trace Everything
 
-```python
-# Fetch dataset
-dataset = langfuse.get_dataset("security_audit_test_set")
+```typescript
+import { Langfuse } from "langfuse";
 
-# Run evaluation
-for item in dataset.items:
-    # Run LLM
-    response = await llm.generate(item.input)
+const langfuse = new Langfuse({
+  publicKey: process.env.LANGFUSE_PUBLIC_KEY,
+  secretKey: process.env.LANGFUSE_SECRET_KEY,
+});
 
-    # Create observation linked to dataset item
-    langfuse.trace(
-        name="evaluation_run",
-        metadata={"dataset_item_id": item.id}
-    ).generation(
-        input=item.input,
-        output=response,
-        usage=response.usage
-    )
-
-    # Score
-    score = await evaluate_response(item.expected_output, response)
-    langfuse.score(
-        trace_id=trace.id,
-        name="accuracy",
-        value=score
-    )
-```
-
-### 3. Experimentation (A/B Testing Prompts)
-
-```python
-# Test two prompt versions
-prompt_v1 = langfuse.get_prompt("security_auditor", version=1)
-prompt_v2 = langfuse.get_prompt("security_auditor", version=2)
-
-# Run A/B test
-import random
-
-for test_input in test_dataset:
-    prompt = random.choice([prompt_v1, prompt_v2])
-
-    response = await llm.generate(
-        messages=[
-            {"role": "system", "content": prompt.compile()},
-            {"role": "user", "content": test_input}
-        ]
-    )
-
-    # Track which version was used
-    langfuse.trace(
-        name="ab_test",
-        metadata={"prompt_version": prompt.version}
-    )
-
-# Compare in Langfuse UI:
-# - Filter by prompt_version
-# - Compare average scores
-# - Analyze cost differences
-```
-
----
-
-## Monitoring Dashboard Queries
-
-### Top 10 Most Expensive Traces (Last 7 Days)
-
-```sql
-SELECT
+// Wrap every LLM call
+async function tracedLLMCall(name: string, messages: Message[]) {
+  const trace = langfuse.trace({
     name,
-    user_id,
-    calculated_total_cost,
-    input_tokens,
-    output_tokens
-FROM traces
-WHERE timestamp > NOW() - INTERVAL '7 days'
-ORDER BY calculated_total_cost DESC
-LIMIT 10;
+    userId: currentUser.id,
+    metadata: { environment: process.env.NODE_ENV },
+  });
+
+  const generation = trace.generation({
+    name: "chat",
+    model: selectedModel,
+    input: messages,
+  });
+
+  try {
+    const response = await llm.chat({ model: selectedModel, messages });
+
+    generation.end({
+      output: response.choices[0].message,
+      usage: {
+        promptTokens: response.usage.prompt_tokens,
+        completionTokens: response.usage.completion_tokens,
+      },
+    });
+
+    return response;
+  } catch (error) {
+    generation.end({ level: "ERROR", statusMessage: error.message });
+    throw error;
+  }
+}
 ```
 
-### Average Cost by Agent Type
+### 2. Add Context
 
-```sql
-SELECT
-    metadata->>'agent_type' as agent,
-    COUNT(*) as traces,
-    AVG(calculated_total_cost) as avg_cost,
-    SUM(calculated_total_cost) as total_cost
-FROM traces
-WHERE metadata->>'agent_type' IS NOT NULL
-GROUP BY agent
-ORDER BY total_cost DESC;
+```typescript
+// Include useful metadata for debugging
+const trace = langfuse.trace({
+  name: "user-query",
+  userId: user.id,
+  sessionId: session.id,  // Group related traces
+  metadata: {
+    userPlan: user.plan,
+    feature: "chat",
+    version: "v2.1",
+  },
+  tags: ["production", "chat-feature"],
+});
 ```
 
-### Quality Scores Trend
+### 3. Score Outputs
 
-```sql
-SELECT
-    DATE(timestamp) as date,
-    AVG(value) FILTER (WHERE name = 'relevance') as avg_relevance,
-    AVG(value) FILTER (WHERE name = 'depth') as avg_depth,
-    AVG(value) FILTER (WHERE name = 'factuality') as avg_factuality
-FROM scores
-WHERE timestamp > NOW() - INTERVAL '30 days'
-GROUP BY DATE(timestamp)
-ORDER BY date;
+```typescript
+// Track quality metrics
+generation.score({
+  name: "user-feedback",
+  value: userRating, // 1-5
+});
+
+// Or automated scoring
+generation.score({
+  name: "response-length",
+  value: response.content.length < 500 ? 1 : 0,
+});
 ```
 
----
+### 4. Flush Before Exit
 
-## Best Practices
+```typescript
+// Important for serverless environments
+await langfuse.flushAsync();
+```
 
-1. **Always use @observe decorator** for automatic tracing
-2. **Set user_id and session_id** for better analytics
-3. **Add meaningful metadata** (content_type, analysis_id, etc.)
-4. **Score all productions traces** for quality monitoring
-5. **Use prompt management** instead of hardcoded prompts
-6. **Monitor costs daily** to catch spikes early
-7. **Create datasets** for regression testing
-8. **Tag production vs staging** traces
+## Promptfoo Integration
 
----
+### Trace → Eval Case Workflow
 
-## References
+1. **Find interesting traces in Langfuse** (failures, edge cases)
+2. **Export as test cases** for Promptfoo
+3. **Add to regression suite** to prevent future issues
 
-- [Langfuse Docs](https://langfuse.com/docs)
-- [Python SDK](https://langfuse.com/docs/sdk/python)
-- [Decorators Guide](https://langfuse.com/docs/sdk/python/decorators)
-- [Prompt Management](https://langfuse.com/docs/prompts)
-- [Self-Hosting](https://langfuse.com/docs/deployment/self-host)
-- [this project Integration](https://github.com/yonatan-gross/this project#langfuse-observability)
+```typescript
+// Export failed traces as test cases
+const failedTraces = await langfuse.getTraces({ level: "ERROR", limit: 50 });
 
----
+const testCases = failedTraces.map(trace => ({
+  vars: trace.input,
+  assert: [
+    { type: "not-contains", value: "error" },
+    { type: "llm-rubric", value: "Response should address the user's question" },
+  ],
+}));
 
-## Migration from LangSmith
+// Add to promptfooconfig.yaml
+```
 
-See Langfuse documentation at https://langfuse.com/docs for integration details.
+### Langfuse Callback in Promptfoo
 
-**Key Differences:**
-- Langfuse: Self-hosted, open-source, free
-- LangSmith: Cloud-only, proprietary, paid
-- Langfuse: Prompt management built-in
-- LangSmith: External prompt storage needed
-- Langfuse: @observe decorator
-- LangSmith: @traceable decorator
+```yaml
+# promptfooconfig.yaml
+defaultTest:
+  options:
+    callback: langfuse
+    callbackConfig:
+      publicKey: ${LANGFUSE_PUBLIC_KEY}
+      secretKey: ${LANGFUSE_SECRET_KEY}
+```
+
+## Alternatives Comparison
+
+| Feature | Langfuse | Helicone | LangSmith |
+|---------|----------|----------|-----------|
+| Open Source | ✅ | ✅ | ❌ |
+| Self-Host | ✅ | ✅ | ❌ |
+| Free Tier | ✅ Generous | ✅ 10K/mo | ⚠️ Limited |
+| Prompt Mgmt | ✅ | ❌ | ✅ |
+| Tracing | ✅ | ✅ | ✅ |
+| Cost Track | ✅ | ✅ | ✅ |
+| A/B Testing | ⚠️ | ❌ | ✅ |
+
+**Choose Langfuse when**: Self-hosting needed, cost-conscious, want prompt management.
+
+**Choose Helicone when**: Proxy-based setup preferred, simple integration.
+
+**Choose LangSmith when**: LangChain ecosystem, enterprise support needed.
+
+## Related Skills
+
+- `llm-evaluation` - Promptfoo for testing, pairs well with Langfuse for observability
+- `llm-gateway-routing` - OpenRouter/LiteLLM for model routing
+- `ai-llm-development` - Overall LLM development patterns
+
+## Related Commands
+
+- `/llm-gates` - Audit LLM infrastructure including observability gaps
+- `/observe` - General observability audit

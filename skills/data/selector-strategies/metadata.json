@@ -1,9 +1,7 @@
 {
   "name": "selector-strategies",
-  "description": "CSS/XPath selector best practices for web automation (dropdowns, dynamic tables, nested components). Use when: writing selectors, handling dynamic content, React apps, robust attributes, dynamic eleme",
   "repo": "omerlefaruk/CasareRPA",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/selector-strategies/SKILL.md",
+  "source": "github.com/omerlefaruk/CasareRPA",
+  "downloaded_at": "2026-01-14T02:58:19.017535Z"
 }

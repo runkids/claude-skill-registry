@@ -1,11 +1,7 @@
 {
   "name": "axiom",
-  "description": "Axiom observability platform for logs, events, and analytics via REST API",
-  "repo": "vm0-ai/vm0-skills",
-  "category": "data",
-  "tags": [
-    "axiom"
-  ],
-  "stars": 8,
-  "source": "SkillsMP Synced Skills"
+  "repo": "mgd34msu/goodvibes-plugin",
+  "path": "plugins/goodvibes/skills/webdev/skills/axiom/SKILL.md",
+  "source": "github.com/mgd34msu/goodvibes-plugin",
+  "downloaded_at": "2026-01-14T02:09:58.669509Z"
 }

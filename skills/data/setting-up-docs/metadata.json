@@ -1,9 +1,7 @@
 {
   "name": "setting-up-docs",
-  "description": "コードベース分析から環境セットアップガイドドキュメントを生成。 パッケージマネージャ、必要なツール、環境変数、起動コマンドを検出。 トリガー: setup guide, environment setup, development environment, installation guide, getting started, prerequisites.",
   "repo": "thkt/claude-config",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".ja/skills/setting-up-docs/SKILL.md",
+  "source": "github.com/thkt/claude-config",
+  "downloaded_at": "2026-01-14T03:15:07.435811Z"
 }

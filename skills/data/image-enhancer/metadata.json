@@ -1,12 +1,7 @@
 {
   "name": "image-enhancer",
-  "description": "Improves the quality of images, especially screenshots, by enhancing resolution, sharpness, and clarity. Perfect for preparing images for presentations, documentation, or social media posts.",
-  "repo": "TheBBz/HFTPM",
-  "category": "documents",
-  "tags": [
-    "image",
-    "enhancer"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "davepoon/buildwithclaude",
+  "path": "plugins/all-skills/skills/image-enhancer/SKILL.md",
+  "source": "github.com/davepoon/buildwithclaude",
+  "downloaded_at": "2026-01-14T03:55:26.192736Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "api-developer",
-  "description": "API 개발 전문가. REST API, FastAPI, Flask, 인증, 문서화.",
   "repo": "mdpman2/Unified-Agent-Framework",
-  "category": "development",
-  "tags": [
-    "api",
-    "developer"
-  ],
-  "stars": 7,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/api-developer/SKILL.md",
+  "source": "github.com/mdpman2/Unified-Agent-Framework",
+  "downloaded_at": "2026-01-14T01:38:42.157617Z"
 }

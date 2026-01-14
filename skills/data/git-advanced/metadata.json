@@ -1,12 +1,7 @@
 {
   "name": "git-advanced",
-  "description": "Advanced git operations including rebase, bisect, cherry-pick, and conflict resolution. Use when rebasing branches, debugging with bisect, cherry-picking commits, or resolving complex merge conflicts.",
-  "repo": "bybren-llc/wtfb-safe-agentic-workflow",
-  "category": "development",
-  "tags": [
-    "git",
-    "advanced"
-  ],
-  "stars": 11,
-  "source": "local"
+  "repo": "AutumnsGrove/ClaudeSkills",
+  "path": "git-advanced/SKILL.md",
+  "source": "github.com/AutumnsGrove/ClaudeSkills",
+  "downloaded_at": "2026-01-14T02:23:55.611337Z"
 }

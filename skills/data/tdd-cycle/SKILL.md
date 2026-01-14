@@ -1,222 +1,50 @@
 ---
 name: tdd-cycle
-description: Execute a complete TDD cycle (RED → GREEN → REFACTOR) for one test. Orchestrates the full workflow from writing a failing test through implementation and refactoring to commit.
+description: 执行测试驱动开发的红-绿-重构循环，包含原子提交规范。用于 Python/FastAPI 项目开发。
 ---
 
-# Complete TDD Cycle
+# TDD 循环技能
 
-## Overview
+## 概述
+本技能为小芽家教后端开发强制执行严格的 TDD 纪律。所有功能开发必须遵循红-绿-重构循环。
 
-This skill orchestrates a complete Test-Driven Development cycle, guiding through all phases: RED (write failing test), GREEN (make it pass), REFACTOR (improve structure), and proper commits. Use this when you want to complete one full TDD iteration.
+## 核心原则
+> **"无测试，不编码"** - 每次功能变更必须从失败的测试开始。
 
-## When to Use
+## 第一阶段：红灯（编写失败测试）
 
-Use this skill when:
-- Ready to implement next test from PLAN.md
-- Want to follow complete TDD workflow
-- Need guidance through all TDD phases
-- Want structured approach to one iteration
-- Following disciplined TDD practice
+### 必要步骤
+1. 编写测试文件
+2. 运行 `pytest tests/test_<功能>.py` → **必须失败**
+3. 提交：`[任务ID] test: <描述> (Red)`
 
-## Complete Workflow
-
-### Phase 1: RED - Write Failing Test
-
-**Execute tdd-red skill:**
-1. Find next unmarked test in PLAN.md
-2. Write a failing test with Korean description
-3. Run tests to confirm failure
-4. Mark test as [ ] in PLAN.md
-
-**Success Criteria:**
-- Test fails for the right reason (missing functionality)
-- Test name clearly describes behavior
-- All other tests still pass
-- No compilation errors
-
-**Use:** `/red` command or `tdd-red` skill
-
----
-
-### Phase 2: GREEN - Make It Pass
-
-**Execute tdd-green skill:**
-1. Verify we have a failing test
-2. Implement MINIMUM code to make test pass
-3. Run ALL tests to confirm they pass
-4. Mark test as [x] in PLAN.md
-
-**Success Criteria:**
-- New test now passes
-- All existing tests still pass
-- No compiler warnings
-- Used simplest possible implementation
-
-**Use:** `/green` command or `tdd-green` skill
-
----
-
-### Phase 3: REFACTOR - Improve Structure
-
-**Execute tdd-refactor skill (if needed):**
-1. Verify all tests are passing
-2. Identify code smells or duplication
-3. Make structural improvements one at a time
-4. Run tests after each change
-5. Keep tests green throughout
-
-**Success Criteria:**
-- All tests still passing
-- Code quality improved
-- Duplication reduced
-- Structure is clearer
-
-**When to Skip:**
-- Code is already clean
-- No obvious improvements needed
-- Would be premature optimization
-
-**Use:** `/refactor` command or `tdd-refactor` skill
-
----
-
-### Phase 4: COMMIT - Save Progress
-
-**Commit Strategy:**
-
-**If Structural Changes Were Made:**
-1. First, commit structural changes separately:
-   ```
-   /commit-tidy
-   ```
-   - Use "refactor:" or "tidy:" prefix
-   - Clearly indicate structural changes only
-
-2. Then, commit behavioral changes:
-   ```
-   /commit-behavior
-   ```
-   - Use "feat:", "fix:", or appropriate prefix
-   - Describe what functionality was added
-
-**If No Structural Changes:**
-- Just commit behavioral changes:
-  ```
-  /commit-behavior
-  ```
-
-**Commit Prerequisites:**
-- ALL tests passing
-- NO compiler warnings
-- NO linter errors
-- Clear commit message
-
----
-
-### Phase 5: REPEAT - Next Test
-
-**Prepare for Next Cycle:**
-1. Verify clean state (all tests pass)
-2. Review PLAN.md for next test
-3. Start new RED phase when ready
-
----
-
-## Execution Flow
-
-```
-START
-  ↓
-RED: Write failing test
-  ↓
-Confirm test fails? ──No──> Fix test
-  ↓ Yes
-GREEN: Implement minimum code
-  ↓
-All tests pass? ──No──> Debug & fix
-  ↓ Yes
-Need refactoring? ──Yes──> REFACTOR: Improve structure
-  ↓ No                        ↓
-  ←───────────────────────────┘
-COMMIT: Save changes
-  ↓
-Next test? ──Yes──> START
-  ↓ No
-DONE
+### 示例
+```bash
+pytest tests/test_engine.py::test_create_session  # 预期：失败
+git add tests/test_engine.py
+git commit -m "[LWP-3] test: 添加会话创建测试 (Red)"
 ```
 
-## Key Principles
+## 第二阶段：绿灯（最小实现）
 
-**RED Phase:**
-- Write smallest failing test
-- Test one thing only
-- Fail for right reason
+### 必要步骤
+1. 在 `backend/app/services/` 实现功能
+2. 运行 `pytest tests/test_<功能>.py` → **必须通过**
+3. 提交：`[任务ID] feat: <描述> (Green)`
 
-**GREEN Phase:**
-- Simplest implementation
-- No premature optimization
-- Make it work, not perfect
+## 第三阶段：重构（可选）
 
-**REFACTOR Phase:**
-- Only when green
-- One change at a time
-- Keep tests green
+### 必要步骤
+1. 重构代码
+2. 运行 `pytest tests/test_<功能>.py` → **仍须通过**
+3. 提交：`[任务ID] refactor: <描述> (Refactor)`
 
-**COMMIT Phase:**
-- Separate structural from behavioral
-- All tests passing
-- Clear messages
+## 验证清单
+- [ ] 所有测试通过 (`pytest`)
+- [ ] 测试覆盖率 ≥ 80%
+- [ ] 无 lint 错误
+- [ ] 任务状态已更新
 
-## Important Reminders
-
-- **NEVER** skip RED - always write test first
-- **NEVER** write more code than needed in GREEN
-- **NEVER** refactor on red tests
-- **ALWAYS** run tests after each phase
-- **ALWAYS** keep commits small and focused
-- **ONE** test at a time
-- **ONE** refactoring at a time
-
-## Useful Commands
-
-Within this cycle, you can use:
-- `/red` - Execute RED phase
-- `/green` - Execute GREEN phase
-- `/refactor` - Execute REFACTOR phase
-- `/tidy` - Make structural changes (Tidy First)
-- `/commit-tidy` - Commit structural changes
-- `/commit-behavior` - Commit behavioral changes
-- `/run-tests` - Run all tests
-- `/next-test` - View next test in PLAN.md
-
-## Example Complete Cycle
-
-1. **RED:** Write test "should calculate total price with discount"
-   - Test fails: `calculateTotalWithDiscount is not defined`
-
-2. **GREEN:** Implement basic calculation
-   ```typescript
-   function calculateTotalWithDiscount(price, discount) {
-     return price - discount;
-   }
-   ```
-   - All tests pass
-
-3. **REFACTOR:** Extract validation logic
-   - Add input validation
-   - Extract discount calculation
-   - All tests still pass
-
-4. **COMMIT:**
-   - Commit refactoring: "refactor: extract discount calculation logic"
-   - Commit feature: "feat: add total price calculation with discount"
-
-5. **REPEAT:** Move to next test
-
-## Next Steps
-
-After completing one full cycle:
-1. Verify clean state
-2. Check PLAN.md for next test
-3. Start new cycle with RED phase
-4. Continue until feature complete
+## 相关技能
+- `git-commit` - 提交信息规范
+- `github-sync` - GitHub 和 Taskmaster 同步

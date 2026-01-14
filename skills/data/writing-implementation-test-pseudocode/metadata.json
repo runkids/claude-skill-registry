@@ -1,14 +1,7 @@
 {
   "name": "writing-implementation-test-pseudocode",
-  "description": "Use when adding test pseudocode to user stories or implementation guides - creates MEDIUM-IMPLEMENTATION abstraction showing test structure with Vitest terminology, placeholder comments for logic, and",
   "repo": "WesleyMFrederick/cc-workflows",
-  "category": "testing",
-  "tags": [
-    "writing",
-    "implementation",
-    "test",
-    "pseudocode"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/writing-implementation-test-pseudocode/SKILL.md",
+  "source": "github.com/WesleyMFrederick/cc-workflows",
+  "downloaded_at": "2026-01-14T02:32:23.950867Z"
 }

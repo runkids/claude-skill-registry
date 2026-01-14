@@ -1,12 +1,7 @@
 {
   "name": "catskill-research",
-  "description": "Research events and conditions data for Catskill Crew newsletter. Use when gathering Instagram events, fetching sun/moon/weather data, or preparing data for newsletter writing.",
   "repo": "aniketpanjwani/automated_catskill_crew",
-  "category": "data",
-  "tags": [
-    "catskill",
-    "research"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/catskill-research/SKILL.md",
+  "source": "github.com/aniketpanjwani/automated_catskill_crew",
+  "downloaded_at": "2026-01-14T03:29:20.501557Z"
 }

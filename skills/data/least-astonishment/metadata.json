@@ -1,12 +1,7 @@
 {
   "name": "least-astonishment",
-  "description": "Principle of Least Astonishment (POLA) - ensure code changes behave as users and developers expect. Activate when making code changes, refactoring, modifying APIs, renaming functions/variables, changi",
-  "repo": "ilude/claude-code-config",
-  "category": "development",
-  "tags": [
-    "least",
-    "astonishment"
-  ],
-  "stars": 5,
-  "source": "local"
+  "repo": "vjrivmon/Setup-Software-IA",
+  "path": ".claude/skills/ux-ui/design-principles/least-astonishment/SKILL.md",
+  "source": "github.com/vjrivmon/Setup-Software-IA",
+  "downloaded_at": "2026-01-14T03:01:21.329245Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "bundle-analysis",
-  "description": "Analyze and optimize JavaScript bundle size, identify large dependencies, and improve load times. Use when bundles are large, investigating performance issues, or optimizing frontend assets.",
   "repo": "sgcarstrends/sgcarstrends",
-  "category": "design",
-  "tags": [
-    "bundle",
-    "analysis"
-  ],
-  "stars": 13,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/bundle-analysis/SKILL.md",
+  "source": "github.com/sgcarstrends/sgcarstrends",
+  "downloaded_at": "2026-01-14T02:59:21.123585Z"
 }

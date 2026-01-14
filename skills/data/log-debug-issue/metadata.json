@@ -1,9 +1,7 @@
 {
   "name": "log-debug-issue",
-  "description": "Log problems, bugs, and debugging processes with solutions. Use when encountering issues during development, debugging problems, or documenting solutions for future reference. Maintains DEBUG_LOG.md w",
-  "repo": "dudusoar/VRP-Toolkit",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "dudusoar/sdr-sentiment-analysis",
+  "path": ".claude/skills/log-debug-issue/SKILL.md",
+  "source": "github.com/dudusoar/sdr-sentiment-analysis",
+  "downloaded_at": "2026-01-14T02:56:04.664673Z"
 }

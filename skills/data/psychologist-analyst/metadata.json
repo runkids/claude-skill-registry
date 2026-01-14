@@ -1,12 +1,7 @@
 {
   "name": "psychologist-analyst",
-  "description": "Analyzes events through psychological lens using cognitive psychology, social psychology, developmental psychology,clinical psychology, and neuroscience. Provides insights on behavior, cognition, emot",
-  "repo": "rysweet/MicrosoftHackathon2025-AgenticCoding",
-  "category": "development",
-  "tags": [
-    "psychologist",
-    "analyst"
-  ],
-  "stars": 10,
-  "source": "local"
+  "repo": "rysweet/azlin",
+  "path": ".claude/skills/psychologist-analyst/SKILL.md",
+  "source": "github.com/rysweet/azlin",
+  "downloaded_at": "2026-01-14T03:30:10.318244Z"
 }

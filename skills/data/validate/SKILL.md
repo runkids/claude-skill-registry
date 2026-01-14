@@ -1,137 +1,113 @@
 ---
 name: validate
-description: Check decisions against beliefs, wisdom, and intentions. Use before significant actions to ensure coherence with accumulated knowledge.
+description: Pre-commit validation ensuring lint and tests pass
 ---
 
-# Validate
+# /validate - Pre-Commit Validation
 
-Before I act, I check: does this align with what I believe?
+## Purpose
 
-## Beyond Linting
+Enforces the "Definition of Done" mandate by running all quality checks before work is marked complete. This skill ensures that no code is considered "done" until it compiles, lints, and tests successfully.
 
-Validation isn't syntax checking. It's *coherence checking* - ensuring that decisions, code, and actions align with accumulated wisdom and held beliefs.
+**Critical Rule:** NO IMPLEMENTATION IS COMPLETE UNTIL THIS SKILL REPORTS PASS.
 
-## What I Validate Against
-
-### 1. Beliefs (Core Principles)
-The soul holds beliefs - guiding axioms I've learned to trust:
-- "Simplicity over cleverness"
-- "Record learnings in the moment"
-- "Question every assumption before accepting it"
-
-Every significant decision should be checkable against these.
-
-### 2. Wisdom (Learned Patterns)
-Wisdom is pattern recognition crystallized:
-- Past failures that taught hard lessons
-- Successful approaches worth repeating
-- Anti-patterns to avoid
-
-New code should be checked against known anti-patterns. New decisions should be checked against past failures.
-
-### 3. Intentions (Active Wants)
-Current intentions shape what "valid" means:
-- If intention is "ship fast" → different trade-offs are valid
-- If intention is "bulletproof" → different standards apply
-
-Validation is context-aware, not absolute.
-
-## The Validation Process
-
-### 1. Identify What to Validate
-Not everything needs validation. Focus on:
-- Architectural decisions
-- Security-sensitive changes
-- Deviations from established patterns
-- Anything that "feels" uncertain
-
-### 2. Gather Relevant Context
-```
-Recall: beliefs related to this domain
-Recall: wisdom about similar decisions
-Check: active intentions and their priorities
-```
-
-### 3. Check Alignment
-For each relevant belief/wisdom:
-- Does this decision align?
-- If not, why not?
-- Is the deviation justified?
-
-### 4. Surface Conflicts
-Conflicts aren't failures - they're information:
-```
-⚠️ This approach conflicts with:
-   - Belief: "Simplicity over cleverness"
-   - Wisdom: "Premature optimization cost us 2 days on project X"
-
-Proceeding anyway because: [explicit justification]
-```
-
-### 5. Record the Decision
-Every validation, whether passed or overridden, becomes data:
-- Passed validations strengthen the pattern
-- Justified overrides might update the wisdom
-- Unjustified failures are learning opportunities
-
-## Validation Patterns
-
-**Pre-commit Validation:**
-```
-Before committing, check:
-- [ ] No new code contradicts known anti-patterns
-- [ ] Security-sensitive changes follow established patterns
-- [ ] Complexity additions are justified
-```
-
-**Design Decision Validation:**
-```
-Before choosing approach:
-- [ ] Have I recalled relevant past decisions?
-- [ ] Does this align with project's stated intentions?
-- [ ] Would I make this choice if I had to defend it tomorrow?
-```
-
-**Refactor Validation:**
-```
-Before refactoring:
-- [ ] Does the new structure align with architectural beliefs?
-- [ ] Am I solving a real problem or just rearranging?
-- [ ] Will future-me thank present-me?
-```
-
-## Integration with Soul
-
-Validation is a dialogue with the soul:
+## Usage
 
 ```
-# Get context
-mcp__soul__soul_context(format="json")  # Get beliefs, coherence
-
-# Search for relevant wisdom
-mcp__soul__recall(query="architecture decisions similar")
-
-# Check alignment, surface conflicts, record decision
-mcp__soul__observe(category="decision", title="Chose X", content="Justification...")
+/validate           # Run lint + quick tests (default)
+/validate --full    # Run lint + full test suite with coverage
 ```
 
-## What Validation Feels Like
+## Workflow
 
-Validation is the pause before action. The quiet voice asking "are you sure?" Not from doubt, but from care.
+### 1. Lint Check
+```bash
+./scripts/lint.sh
+```
+- SwiftLint strict mode must pass
+- Zero violations required
+- If violations found, report them with file:line and stop
 
-It's checking the map before continuing the journey. Not because I don't trust myself, but because I respect the wisdom I've accumulated.
+### 2. Test Execution
 
-## When to Skip Validation
+**Default (quick):**
+```bash
+./scripts/test-quick.sh
+```
+- Unit tests only
+- Faster validation for routine checks
 
-Validation adds friction. Skip it for:
-- Trivial changes with no decision content
-- Well-trodden paths with established patterns
-- Time-critical situations where speed trumps certainty
+**Full suite (--full):**
+```bash
+./scripts/test-all.sh
+```
+- Complete test suite (unit + integration)
+- Includes code coverage with **80% threshold enforcement**
+- Matches CI behavior exactly
+- Use for significant changes and before PR
 
-But *know* when you're skipping, and why.
+### 3. Report Results
+- Summary of lint status (pass/fail, violation count)
+- Test results (pass/fail count)
+- Clear PASS or FAIL verdict
+- Specific failure details if any
 
-## The Validation Mindset
+## Success Criteria
 
-I validate not to slow down, but to move with confidence. Each validation either confirms I'm on track or reveals a conflict worth examining.
+- **PASS:** Lint clean + all tests green + (for --full) coverage >= 80%
+- **FAIL:** Any lint violation OR any test failure OR (for --full) coverage below 80%
 
-A decision that survives validation is stronger for having been questioned.
+Exit codes:
+- `0` = All checks passed
+- `1` = One or more checks failed
+
+## When to Run
+
+- Before marking any task "complete"
+- Before staging changes for commit
+- After making code modifications
+- When the pre-commit hook runs (automatic)
+
+## Examples
+
+**Successful validation:**
+```
+User: /validate
+Claude: Running pre-commit validation...
+
+Lint Check: PASSED (0 violations)
+Tests: PASSED (47/47 tests)
+
+VALIDATION PASSED - Ready for commit
+```
+
+**Failed validation (lint):**
+```
+User: /validate
+Claude: Running pre-commit validation...
+
+Lint Check: FAILED (2 violations)
+- UnaMentis/Services/AudioEngine.swift:42: Line length exceeds 120 characters
+- UnaMentis/Views/SessionView.swift:18: Unused import 'Foundation'
+
+VALIDATION FAILED - Fix lint violations before proceeding
+```
+
+**Failed validation (tests):**
+```
+User: /validate
+Claude: Running pre-commit validation...
+
+Lint Check: PASSED (0 violations)
+Tests: FAILED (45/47 tests passed, 2 failed)
+
+Failed tests:
+- SessionManagerTests.testSessionTimeout
+- AudioEngineTests.testBufferOverflow
+
+VALIDATION FAILED - Fix failing tests before proceeding
+```
+
+## Integration
+
+This skill replaces `.claude/commands/pre-commit.md` and complements the pre-commit hook in `.claude/hooks/pre-commit-check.sh`.

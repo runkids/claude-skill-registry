@@ -1,12 +1,7 @@
 {
   "name": "cli-tools",
-  "description": "Agent Skill: CLI tool management. Use when commands fail with 'command not found', installing tools, or checking project environments. By Netresearch.",
-  "repo": "netresearch/claude-code-marketplace",
-  "category": "data",
-  "tags": [
-    "cli",
-    "tools"
-  ],
-  "stars": 8,
-  "source": "SkillsMP Synced Skills"
+  "repo": "dirnbauer/claude-cursor-typo3-skills",
+  "path": "skills/cli-tools/SKILL.md",
+  "source": "github.com/dirnbauer/claude-cursor-typo3-skills",
+  "downloaded_at": "2026-01-14T03:08:57.316013Z"
 }

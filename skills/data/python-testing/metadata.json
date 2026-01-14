@@ -1,12 +1,7 @@
 {
   "name": "python-testing",
-  "description": "Generate pytest tests for Python modules with parametrization, shared fixtures in conftest.py, and minimal mocking. Use when creating unit tests, test suites, or improving test coverage. Follows 1-1 f",
-  "repo": "ikatechis/claude-agentic-mastery",
-  "category": "testing",
-  "tags": [
-    "python",
-    "testing"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "robertpelloni/aios",
+  "path": "agents/rse-agents/plugins/skills/python-testing/SKILL.md",
+  "source": "github.com/robertpelloni/aios",
+  "downloaded_at": "2026-01-14T03:45:49.120675Z"
 }

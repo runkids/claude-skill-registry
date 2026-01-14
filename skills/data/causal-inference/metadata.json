@@ -1,12 +1,7 @@
 {
   "name": "causal-inference",
-  "description": "Determine cause-and-effect relationships using propensity scoring, instrumental variables, and causal graphs for policy evaluation and treatment effects",
   "repo": "aj-geddes/useful-ai-prompts",
-  "category": "development",
-  "tags": [
-    "causal",
-    "inference"
-  ],
-  "stars": 25,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/causal-inference/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:07.674777Z"
 }

@@ -1,0 +1,9 @@
+{
+  "name": "kratos-proto-api",
+  "description": "Generates protobuf API definitions for go-kratos microservices with HTTP annotations, validation rules, and OpenAPI documentation. Use when defining service contracts and APIs.",
+  "repo": "alecszaharia/brizy-microservices-go",
+  "category": "documents",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

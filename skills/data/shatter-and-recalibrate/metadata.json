@@ -1,13 +1,7 @@
 {
   "name": "shatter-and-recalibrate",
-  "description": "Shatter compromised calibration and rebuild from ground truth.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "development",
-  "tags": [
-    "shatter",
-    "and",
-    "recalibrate"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/shatter-and-recalibrate/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-14T01:08:30.202242Z"
 }

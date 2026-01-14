@@ -1,13 +1,7 @@
 {
   "name": "web-components-architecture",
-  "description": "Build web components using Custom Elements v1 API with Declarative Shadow DOM, attribute-driven state, handleEvent pattern, and zero DOM selection. Use when creating custom elements, extending built-i",
   "repo": "matthewharwood/engmanager.xyz",
-  "category": "development",
-  "tags": [
-    "web",
-    "components",
-    "architecture"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/web-components-architecture/SKILL.md",
+  "source": "github.com/matthewharwood/engmanager.xyz",
+  "downloaded_at": "2026-01-14T03:04:55.423330Z"
 }

@@ -1,10 +1,7 @@
 {
   "name": "tg-domain",
-  "description": "World of Darkness domain terminology and game concepts for the Tellurium Games application. Use when encountering WoD-specific terms, understanding gameline abbreviations, interpreting character stats",
   "repo": "charlesmsiegel/tg",
-  "category": "data",
-  "tags": [
-    "domain"
-  ],
-  "stars": 1
+  "path": ".claude/skills/tg-domain/SKILL.md",
+  "source": "github.com/charlesmsiegel/tg",
+  "downloaded_at": "2026-01-14T04:01:30.623828Z"
 }

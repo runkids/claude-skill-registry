@@ -1,12 +1,7 @@
 {
   "name": "release-management",
-  "description": "Manage GitHub releases - create releases, upload assets, manage tags, and generate release notes using gh CLI",
-  "repo": "Nice-Wolf-Studio/agent-github-skills",
-  "category": "development",
-  "tags": [
-    "release",
-    "management"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "TheBushidoCollective/han",
+  "path": "jutsu/jutsu-sentry/skills/release-management/SKILL.md",
+  "source": "github.com/TheBushidoCollective/han",
+  "downloaded_at": "2026-01-14T03:34:13.661041Z"
 }

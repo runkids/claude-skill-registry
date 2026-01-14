@@ -1,12 +1,7 @@
 {
   "name": "nuxt-ui-tdd",
-  "description": "Guide for building Vue 3 components with NuxtUI using strict Test-Driven Development (TDD) methodology enforced by a TDD guard hook. Use this skill when implementing new UI components (atoms, molecule",
   "repo": "akornmeier/claude-config",
-  "category": "development",
-  "tags": [
-    "nuxt",
-    "tdd"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": "skills/nuxt-ui-tdd/SKILL.md",
+  "source": "github.com/akornmeier/claude-config",
+  "downloaded_at": "2026-01-14T02:33:35.414591Z"
 }

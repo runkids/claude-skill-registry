@@ -1,12 +1,7 @@
 {
   "name": "discover-caching",
-  "description": "Automatically discover caching and performance skills when working with caching. Activates for caching development tasks.",
   "repo": "rand/cc-polymath",
-  "category": "development",
-  "tags": [
-    "discover",
-    "caching"
-  ],
-  "stars": 33,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/discover-caching/SKILL.md",
+  "source": "github.com/rand/cc-polymath",
+  "downloaded_at": "2026-01-14T03:55:21.192005Z"
 }

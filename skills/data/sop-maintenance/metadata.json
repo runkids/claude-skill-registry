@@ -1,8 +1,7 @@
 {
   "name": "sop-maintenance",
   "repo": "TheBushidoCollective/han",
-  "category": "data",
-  "description": "Use when updating, versioning, deprecating, or maintaining existing Standard Operating Procedures. Covers keeping SOPs accurate, relevant, and synchronized with implementation changes.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:00.162777Z"
+  "path": "hashi/hashi-agent-sop/skills/sop-maintenance/SKILL.md",
+  "source": "github.com/TheBushidoCollective/han",
+  "downloaded_at": "2026-01-14T03:34:14.172409Z"
 }

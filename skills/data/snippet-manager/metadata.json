@@ -1,12 +1,7 @@
 {
   "name": "snippet-manager",
-  "description": "Save, organize, search, and retrieve code snippets with tags, categories, and smart search capabi...",
   "repo": "CuriousLearner/devkit",
-  "category": "development",
-  "tags": [
-    "snippet",
-    "manager"
-  ],
-  "stars": 13,
-  "source": "local"
+  "path": "skills/snippet-manager/SKILL.md",
+  "source": "github.com/CuriousLearner/devkit",
+  "downloaded_at": "2026-01-14T02:22:35.814593Z"
 }

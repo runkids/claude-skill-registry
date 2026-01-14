@@ -1,9 +1,7 @@
 {
   "name": "manage-python-env",
-  "description": "Quick reference for uv (fast Python package manager) operations to save tokens. Use when creating virtual environments, installing packages, managing dependencies, or when user asks about uv commands.",
-  "repo": "dudusoar/VRP-Toolkit",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "dudusoar/sdr-sentiment-analysis",
+  "path": ".claude/skills/manage-python-env/SKILL.md",
+  "source": "github.com/dudusoar/sdr-sentiment-analysis",
+  "downloaded_at": "2026-01-14T02:56:04.953654Z"
 }

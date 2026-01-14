@@ -1,9 +1,7 @@
 {
   "name": "monaco-payslip-calculator",
-  "description": "Calculate Monaco payslips (bulletin de salaire) with social security contributions, taxes, and net salary. Use when user requests Monaco payslip calculations, salary breakdowns for Monaco employees, o",
-  "repo": "silvainfm/paie_reflex",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "silvainfm/monaco_paie",
+  "path": ".claude/skills/monaco-payslip-calculator/SKILL.md",
+  "source": "github.com/silvainfm/monaco_paie",
+  "downloaded_at": "2026-01-14T03:24:28.813606Z"
 }

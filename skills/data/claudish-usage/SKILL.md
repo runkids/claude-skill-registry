@@ -16,19 +16,16 @@ description: CRITICAL - Guide for using Claudish CLI ONLY through sub-agents to 
 **Claudish MUST ONLY be run through sub-agents** unless the user **explicitly** requests direct execution.
 
 **Why:**
-
 - Running Claudish directly pollutes main context with 10K+ tokens (full conversation + reasoning)
 - Destroys context window efficiency
 - Makes main conversation unmanageable
 
 **When you can run Claudish directly:**
-
 - ✅ User explicitly says "run claudish directly" or "don't use a sub-agent"
 - ✅ User is debugging and wants to see full output
 - ✅ User specifically requests main context execution
 
 **When you MUST use sub-agent:**
-
 - ✅ User says "use Grok to implement X" (delegate to sub-agent)
 - ✅ User says "ask GPT-5 to review X" (delegate to sub-agent)
 - ✅ User mentions any model name without "directly" (delegate to sub-agent)
@@ -64,21 +61,20 @@ Find appropriate agent or create one → Delegate to sub-agent (default)
 
 ### Step 2: Agent Type Selection Matrix
 
-| Task Type                 | Recommended Agent                      | Fallback          | Notes                                            |
-| ------------------------- | -------------------------------------- | ----------------- | ------------------------------------------------ |
-| **Code implementation**   | Create coding agent with proxy mode    | `general-purpose` | Best: custom agent for project-specific patterns |
-| **Code review**           | Use existing code review agent + proxy | `general-purpose` | Check if plugin has review agent first           |
-| **Architecture planning** | Use existing architect agent + proxy   | `general-purpose` | Look for `architect` or `planner` agents         |
-| **Testing**               | Use existing test agent + proxy        | `general-purpose` | Look for `test-architect` or `tester` agents     |
-| **Refactoring**           | Create refactoring agent with proxy    | `general-purpose` | Complex refactors benefit from specialized agent |
-| **Documentation**         | `general-purpose`                      | -                 | Simple task, generic agent OK                    |
-| **Analysis**              | Use existing analysis agent + proxy    | `general-purpose` | Check for `analyzer` or `detective` agents       |
-| **Other**                 | `general-purpose`                      | -                 | Default for unknown task types                   |
+| Task Type | Recommended Agent | Fallback | Notes |
+|-----------|------------------|----------|-------|
+| **Code implementation** | Create coding agent with proxy mode | `general-purpose` | Best: custom agent for project-specific patterns |
+| **Code review** | Use existing code review agent + proxy | `general-purpose` | Check if plugin has review agent first |
+| **Architecture planning** | Use existing architect agent + proxy | `general-purpose` | Look for `architect` or `planner` agents |
+| **Testing** | Use existing test agent + proxy | `general-purpose` | Look for `test-architect` or `tester` agents |
+| **Refactoring** | Create refactoring agent with proxy | `general-purpose` | Complex refactors benefit from specialized agent |
+| **Documentation** | `general-purpose` | - | Simple task, generic agent OK |
+| **Analysis** | Use existing analysis agent + proxy | `general-purpose` | Check for `analyzer` or `detective` agents |
+| **Other** | `general-purpose` | - | Default for unknown task types |
 
 ### Step 3: Agent Creation Offer (When No Agent Exists)
 
 **Template response:**
-
 ```
 I notice you want to use [Model Name] for [task type].
 
@@ -100,29 +96,24 @@ Which would you prefer?
 ### Step 4: Common Agents by Plugin
 
 **Frontend Plugin:**
-
 - `typescript-frontend-dev` - Use for UI implementation with external models
 - `frontend-architect` - Use for architecture planning with external models
 - `senior-code-reviewer` - Use for code review (can delegate to external models)
 - `test-architect` - Use for test planning/implementation
 
 **Bun Backend Plugin:**
-
 - `backend-developer` - Use for API implementation with external models
 - `api-architect` - Use for API design with external models
 
 **Code Analysis Plugin:**
-
 - `codebase-detective` - Use for investigation tasks with external models
 
 **No Plugin:**
-
 - `general-purpose` - Default fallback for any task
 
 ### Step 5: Example Agent Selection
 
 **Example 1: User says "use Grok to implement authentication"**
-
 ```
 Task: Code implementation (authentication)
 Plugin: Bun Backend (if backend) or Frontend (if UI)
@@ -135,7 +126,6 @@ Decision:
 ```
 
 **Example 2: User says "ask GPT-5 to review my API design"**
-
 ```
 Task: Code review (API design)
 Plugin: Bun Backend
@@ -148,7 +138,6 @@ Decision:
 ```
 
 **Example 3: User says "use Gemini to refactor this component"**
-
 ```
 Task: Refactoring (component)
 Plugin: Frontend
@@ -169,7 +158,6 @@ Decision:
 ## What is Claudish?
 
 Claudish (Claude-ish) is a proxy tool that:
-
 - ✅ Runs Claude Code with **any OpenRouter model** (not just Anthropic models)
 - ✅ Uses local API-compatible proxy server
 - ✅ Supports 100% of Claude Code features
@@ -177,7 +165,6 @@ Claudish (Claude-ish) is a proxy tool that:
 - ✅ Enables multi-model workflows
 
 **Use Cases:**
-
 - Run tasks with different AI models (Grok for speed, GPT-5 for reasoning, Gemini for vision)
 - Compare model performance on same task
 - Reduce costs with cheaper models for simple tasks
@@ -186,7 +173,6 @@ Claudish (Claude-ish) is a proxy tool that:
 ## Requirements
 
 ### System Requirements
-
 - **OpenRouter API Key** - Required (set as `OPENROUTER_API_KEY` environment variable)
 - **Claudish CLI** - Install with: `npm install -g claudish` or `bun install -g claudish`
 - **Claude Code** - Must be installed
@@ -205,7 +191,6 @@ export CLAUDISH_MODEL='x-ai/grok-code-fast-1'  # or ANTHROPIC_MODEL
 ```
 
 **Get OpenRouter API Key:**
-
 1. Visit https://openrouter.ai/keys
 2. Sign up (free tier available)
 3. Create API key
@@ -250,21 +235,18 @@ claudish --models --force-update
 ### Step 3: Run Claudish
 
 **Interactive Mode (default):**
-
 ```bash
 # Shows model selector, persistent session
 claudish
 ```
 
 **Single-shot Mode:**
-
 ```bash
 # One task and exit (requires --model)
 claudish --model x-ai/grok-code-fast-1 "implement user authentication"
 ```
 
 **With stdin for large prompts:**
-
 ```bash
 # Read prompt from stdin (useful for git diffs, code review)
 git diff | claudish --stdin --model openai/gpt-5-codex "Review these changes"
@@ -300,7 +282,6 @@ git diff | claudish --stdin --model openai/gpt-5-codex "Review these changes"
    - Best for: UI/visual tasks, design implementation
 
 **Get Latest Models:**
-
 ```bash
 # List all models (auto-updates every 2 days)
 claudish --models
@@ -333,14 +314,12 @@ claudish --list-agents
 **When to use `--agent` vs file-based pattern:**
 
 **Use `--agent` when:**
-
 - Single, simple task that needs agent specialization
 - Direct conversation with one agent
 - Testing agent behavior
 - CLI convenience
 
 **Use file-based pattern when:**
-
 - Complex multi-step workflows
 - Multiple agents needed
 - Large codebases
@@ -350,13 +329,11 @@ claudish --list-agents
 **Example comparisons:**
 
 **Simple task (use `--agent`):**
-
 ```bash
 claudish --model x-ai/grok-code-fast-1 --agent frontend:developer "create button component"
 ```
 
 **Complex task (use file-based):**
-
 ```typescript
 // multi-phase-workflow.md
 Phase 1: Use api-architect to design API
@@ -373,7 +350,6 @@ claudish --model x-ai/grok-code-fast-1 --stdin < multi-phase-workflow.md
 ### ⚠️ CRITICAL: Don't Run Claudish Directly from Main Conversation
 
 **Why:** Running Claudish directly in main conversation pollutes context window with:
-
 - Entire conversation transcript
 - All tool outputs
 - Model reasoning (can be 10K+ tokens)
@@ -383,66 +359,55 @@ claudish --model x-ai/grok-code-fast-1 --stdin < multi-phase-workflow.md
 ### File-Based Pattern (Recommended)
 
 **Step 1: Create instruction file**
-
-````markdown
+```markdown
 # /tmp/claudish-task-{timestamp}.md
 
 ## Task
-
 Implement user authentication with JWT tokens
 
 ## Requirements
-
 - Use bcrypt for password hashing
 - Generate JWT with 24h expiration
 - Add middleware for protected routes
 
 ## Deliverables
-
 Write implementation to: /tmp/claudish-result-{timestamp}.md
 
 ## Output Format
-
 ```markdown
 ## Implementation
 
 [code here]
 
 ## Files Created/Modified
-
 - path/to/file1.ts
 - path/to/file2.ts
 
 ## Tests
-
 [test code if applicable]
 
 ## Notes
-
 [any important notes]
 ```
-````
-
-````
+```
 
 **Step 2: Run Claudish with file instruction**
 ```bash
 # Read instruction from file, write result to file
 claudish --model x-ai/grok-code-fast-1 --stdin < /tmp/claudish-task-{timestamp}.md > /tmp/claudish-result-{timestamp}.md
-````
+```
 
 **Step 3: Read result file and provide summary**
-
 ```typescript
 // In your agent/command:
-const result = await Read({ file_path: '/tmp/claudish-result-{timestamp}.md' })
+const result = await Read({ file_path: "/tmp/claudish-result-{timestamp}.md" });
 
 // Parse result
-const filesModified = extractFilesModified(result)
-const summary = extractSummary(result)
+const filesModified = extractFilesModified(result);
+const summary = extractSummary(result);
 
 // Provide short feedback to main agent
-return `✅ Task completed. Modified ${filesModified.length} files. ${summary}`
+return `✅ Task completed. Modified ${filesModified.length} files. ${summary}`;
 ```
 
 ### Complete Example: Using Claudish in Sub-Agent
@@ -452,15 +417,15 @@ return `✅ Task completed. Modified ${filesModified.length} files. ${summary}`
  * Example: Run code review with Grok via Claudish sub-agent
  */
 async function runCodeReviewWithGrok(files: string[]) {
-  const timestamp = Date.now()
-  const instructionFile = `/tmp/claudish-review-instruction-${timestamp}.md`
-  const resultFile = `/tmp/claudish-review-result-${timestamp}.md`
+  const timestamp = Date.now();
+  const instructionFile = `/tmp/claudish-review-instruction-${timestamp}.md`;
+  const resultFile = `/tmp/claudish-review-result-${timestamp}.md`;
 
   // Step 1: Create instruction file
   const instruction = `# Code Review Task
 
 ## Files to Review
-${files.map((f) => `- ${f}`).join('\n')}
+${files.map(f => `- ${f}`).join('\n')}
 
 ## Review Criteria
 - Code quality and maintainability
@@ -492,44 +457,43 @@ Use this format:
 ## Files Reviewed
 - [file 1]: [status]
 \`\`\`
-`
+`;
 
-  await Write({ file_path: instructionFile, content: instruction })
+  await Write({ file_path: instructionFile, content: instruction });
 
   // Step 2: Run Claudish with stdin
-  await Bash(`claudish --model x-ai/grok-code-fast-1 --stdin < ${instructionFile}`)
+  await Bash(`claudish --model x-ai/grok-code-fast-1 --stdin < ${instructionFile}`);
 
   // Step 3: Read result
-  const result = await Read({ file_path: resultFile })
+  const result = await Read({ file_path: resultFile });
 
   // Step 4: Parse and return summary
-  const summary = extractSummary(result)
-  const issueCount = extractIssueCount(result)
+  const summary = extractSummary(result);
+  const issueCount = extractIssueCount(result);
 
   // Step 5: Clean up temp files
-  await Bash(`rm ${instructionFile} ${resultFile}`)
+  await Bash(`rm ${instructionFile} ${resultFile}`);
 
   // Step 6: Return concise feedback
   return {
     success: true,
     summary,
     issueCount,
-    fullReview: result, // Available if needed, but not in main context
-  }
+    fullReview: result  // Available if needed, but not in main context
+  };
 }
 
 function extractSummary(review: string): string {
-  const match = review.match(/## Summary\s*\n(.*?)(?=\n##|$)/s)
-  return match ? match[1].trim() : 'Review completed'
+  const match = review.match(/## Summary\s*\n(.*?)(?=\n##|$)/s);
+  return match ? match[1].trim() : "Review completed";
 }
 
 function extractIssueCount(review: string): { critical: number; medium: number; low: number } {
-  const critical = (review.match(/### Critical\s*\n(.*?)(?=\n###|$)/s)?.[1].match(/^-/gm) || [])
-    .length
-  const medium = (review.match(/### Medium\s*\n(.*?)(?=\n###|$)/s)?.[1].match(/^-/gm) || []).length
-  const low = (review.match(/### Low\s*\n(.*?)(?=\n###|$)/s)?.[1].match(/^-/gm) || []).length
+  const critical = (review.match(/### Critical\s*\n(.*?)(?=\n###|$)/s)?.[1].match(/^-/gm) || []).length;
+  const medium = (review.match(/### Medium\s*\n(.*?)(?=\n###|$)/s)?.[1].match(/^-/gm) || []).length;
+  const low = (review.match(/### Low\s*\n(.*?)(?=\n###|$)/s)?.[1].match(/^-/gm) || []).length;
 
-  return { critical, medium, low }
+  return { critical, medium, low };
 }
 ```
 
@@ -546,8 +510,8 @@ When running Claudish from an agent, use the Task tool to create a sub-agent:
 async function implementFeatureWithGrok(featureDescription: string) {
   // Use Task tool to create sub-agent
   const result = await Task({
-    subagent_type: 'general-purpose',
-    description: 'Implement feature with Grok',
+    subagent_type: "general-purpose",
+    description: "Implement feature with Grok",
     prompt: `
 Use Claudish CLI to implement this feature with Grok model:
 
@@ -567,10 +531,10 @@ INSTRUCTIONS:
 
 DO NOT return the full conversation transcript or implementation details.
 Keep your response under 500 tokens.
-    `,
-  })
+    `
+  });
 
-  return result
+  return result;
 }
 ```
 
@@ -581,9 +545,9 @@ Keep your response under 500 tokens.
  * Example: Use file-based instruction pattern in sub-agent
  */
 async function analyzeCodeWithGemini(codebasePath: string) {
-  const timestamp = Date.now()
-  const instructionFile = `/tmp/claudish-analyze-${timestamp}.md`
-  const resultFile = `/tmp/claudish-analyze-result-${timestamp}.md`
+  const timestamp = Date.now();
+  const instructionFile = `/tmp/claudish-analyze-${timestamp}.md`;
+  const resultFile = `/tmp/claudish-analyze-result-${timestamp}.md`;
 
   // Create instruction file
   const instruction = `# Codebase Analysis Task
@@ -601,14 +565,14 @@ ${codebasePath}
 Write analysis to: ${resultFile}
 
 Keep analysis concise (under 1000 words).
-`
+`;
 
-  await Write({ file_path: instructionFile, content: instruction })
+  await Write({ file_path: instructionFile, content: instruction });
 
   // Delegate to sub-agent
   const result = await Task({
-    subagent_type: 'general-purpose',
-    description: 'Analyze codebase with Gemini',
+    subagent_type: "general-purpose",
+    description: "Analyze codebase with Gemini",
     prompt: `
 Use Claudish to analyze codebase with Gemini model.
 
@@ -624,19 +588,19 @@ STEPS:
 
 DO NOT include the full analysis in your response.
 The full analysis is in ${resultFile} if needed.
-    `,
-  })
+    `
+  });
 
   // Read full result if needed
-  const fullAnalysis = await Read({ file_path: resultFile })
+  const fullAnalysis = await Read({ file_path: resultFile });
 
   // Clean up
-  await Bash(`rm ${instructionFile} ${resultFile}`)
+  await Bash(`rm ${instructionFile} ${resultFile}`);
 
   return {
     summary: result,
-    fullAnalysis,
-  }
+    fullAnalysis
+  };
 }
 ```
 
@@ -647,15 +611,15 @@ The full analysis is in ${resultFile} if needed.
  * Example: Run same task with multiple models and compare
  */
 async function compareModels(task: string, models: string[]) {
-  const results = []
+  const results = [];
 
   for (const model of models) {
-    const timestamp = Date.now()
-    const resultFile = `/tmp/claudish-${model.replace('/', '-')}-${timestamp}.md`
+    const timestamp = Date.now();
+    const resultFile = `/tmp/claudish-${model.replace('/', '-')}-${timestamp}.md`;
 
     // Run task with each model
     await Task({
-      subagent_type: 'general-purpose',
+      subagent_type: "general-purpose",
       description: `Run task with ${model}`,
       prompt: `
 Use Claudish to run this task with ${model}:
@@ -672,16 +636,16 @@ STEPS:
    - Brief quality assessment (1-2 sentences)
 
 DO NOT return full output.
-      `,
-    })
+      `
+    });
 
     results.push({
       model,
-      resultFile,
-    })
+      resultFile
+    });
   }
 
-  return results
+  return results;
 }
 ```
 
@@ -729,40 +693,38 @@ done
 
 ### Essential Flags
 
-| Flag              | Description                   | Example                                           |
-| ----------------- | ----------------------------- | ------------------------------------------------- |
-| `--model <model>` | OpenRouter model to use       | `--model x-ai/grok-code-fast-1`                   |
-| `--stdin`         | Read prompt from stdin        | `git diff \| claudish --stdin --model grok`       |
-| `--models`        | List all models or search     | `claudish --models` or `claudish --models gemini` |
-| `--top-models`    | Show top recommended models   | `claudish --top-models`                           |
-| `--json`          | JSON output (implies --quiet) | `claudish --json "task"`                          |
-| `--help-ai`       | Print AI agent usage guide    | `claudish --help-ai`                              |
+| Flag | Description | Example |
+|------|-------------|---------|
+| `--model <model>` | OpenRouter model to use | `--model x-ai/grok-code-fast-1` |
+| `--stdin` | Read prompt from stdin | `git diff \| claudish --stdin --model grok` |
+| `--models` | List all models or search | `claudish --models` or `claudish --models gemini` |
+| `--top-models` | Show top recommended models | `claudish --top-models` |
+| `--json` | JSON output (implies --quiet) | `claudish --json "task"` |
+| `--help-ai` | Print AI agent usage guide | `claudish --help-ai` |
 
 ### Advanced Flags
 
-| Flag                   | Description                         | Default                        |
-| ---------------------- | ----------------------------------- | ------------------------------ |
-| `--interactive` / `-i` | Interactive mode                    | Auto (no prompt = interactive) |
-| `--quiet` / `-q`       | Suppress log messages               | Quiet in single-shot           |
-| `--verbose` / `-v`     | Show log messages                   | Verbose in interactive         |
-| `--debug` / `-d`       | Enable debug logging to file        | Disabled                       |
-| `--port <port>`        | Proxy server port                   | Random (3000-9000)             |
-| `--no-auto-approve`    | Require permission prompts          | Auto-approve enabled           |
-| `--dangerous`          | Disable sandbox                     | Disabled                       |
-| `--monitor`            | Proxy to real Anthropic API (debug) | Disabled                       |
-| `--force-update`       | Force refresh model cache           | Auto (>2 days)                 |
+| Flag | Description | Default |
+|------|-------------|---------|
+| `--interactive` / `-i` | Interactive mode | Auto (no prompt = interactive) |
+| `--quiet` / `-q` | Suppress log messages | Quiet in single-shot |
+| `--verbose` / `-v` | Show log messages | Verbose in interactive |
+| `--debug` / `-d` | Enable debug logging to file | Disabled |
+| `--port <port>` | Proxy server port | Random (3000-9000) |
+| `--no-auto-approve` | Require permission prompts | Auto-approve enabled |
+| `--dangerous` | Disable sandbox | Disabled |
+| `--monitor` | Proxy to real Anthropic API (debug) | Disabled |
+| `--force-update` | Force refresh model cache | Auto (>2 days) |
 
 ### Output Modes
 
 1. **Quiet Mode (default in single-shot)**
-
    ```bash
    claudish --model grok "task"
    # Clean output, no [claudish] logs
    ```
 
 2. **Verbose Mode**
-
    ```bash
    claudish --verbose "task"
    # Shows all [claudish] logs for debugging
@@ -783,18 +745,15 @@ directory • model-id • $cost • ctx%
 ```
 
 **Example:**
-
 ```
 my-project • x-ai/grok-code-fast-1 • $0.12 • 67%
 ```
 
 Shows:
-
 - 💰 **Cost**: $0.12 USD spent in current session
 - 📊 **Context**: 67% of context window remaining
 
 **JSON Output Cost:**
-
 ```bash
 claudish --json "task" | jq '.total_cost_usd'
 # Output: 0.068
@@ -805,13 +764,11 @@ claudish --json "task" | jq '.total_cost_usd'
 ### Error 1: OPENROUTER_API_KEY Not Set
 
 **Error:**
-
 ```
 Error: OPENROUTER_API_KEY environment variable is required
 ```
 
 **Fix:**
-
 ```bash
 export OPENROUTER_API_KEY='sk-or-v1-...'
 # Or add to ~/.zshrc or ~/.bashrc
@@ -820,13 +777,11 @@ export OPENROUTER_API_KEY='sk-or-v1-...'
 ### Error 2: Claudish Not Installed
 
 **Error:**
-
 ```
 command not found: claudish
 ```
 
 **Fix:**
-
 ```bash
 npm install -g claudish
 # Or: bun install -g claudish
@@ -835,13 +790,11 @@ npm install -g claudish
 ### Error 3: Model Not Found
 
 **Error:**
-
 ```
 Model 'invalid/model' not found
 ```
 
 **Fix:**
-
 ```bash
 # List available models
 claudish --models
@@ -853,13 +806,11 @@ claudish --model x-ai/grok-code-fast-1 "task"
 ### Error 4: OpenRouter API Error
 
 **Error:**
-
 ```
 OpenRouter API error: 401 Unauthorized
 ```
 
 **Fix:**
-
 1. Check API key is correct
 2. Verify API key at https://openrouter.ai/keys
 3. Check API key has credits (free tier or paid)
@@ -867,13 +818,11 @@ OpenRouter API error: 401 Unauthorized
 ### Error 5: Port Already in Use
 
 **Error:**
-
 ```
 Error: Port 3000 already in use
 ```
 
 **Fix:**
-
 ```bash
 # Let Claudish pick random port (default)
 claudish --model grok "task"
@@ -889,7 +838,6 @@ claudish --port 8080 --model grok "task"
 **Why:** Avoids context window pollution
 
 **How:**
-
 ```bash
 # Write instruction to file
 echo "Implement feature X" > /tmp/task.md
@@ -912,7 +860,6 @@ cat /tmp/result.md
 **Why:** Structured output, easier parsing
 
 **How:**
-
 ```bash
 RESULT=$(claudish --json "task" | jq -r '.result')
 COST=$(claudish --json "task" | jq -r '.total_cost_usd')
@@ -923,13 +870,12 @@ COST=$(claudish --json "task" | jq -r '.total_cost_usd')
 **Why:** Keeps main conversation context clean
 
 **How:**
-
 ```typescript
 await Task({
-  subagent_type: 'general-purpose',
-  description: 'Task with Claudish',
-  prompt: "Use claudish --model grok '...' and return summary only",
-})
+  subagent_type: "general-purpose",
+  description: "Task with Claudish",
+  prompt: "Use claudish --model grok '...' and return summary only"
+});
 ```
 
 ### 5. ✅ Update Models Regularly
@@ -937,7 +883,6 @@ await Task({
 **Why:** Get latest model recommendations
 
 **How:**
-
 ```bash
 # Auto-updates every 2 days
 claudish --models
@@ -954,7 +899,6 @@ claudish --models --force-update
 **Why:** Avoid command line length limits
 
 **How:**
-
 ```bash
 git diff | claudish --stdin --model grok "Review changes"
 ```
@@ -966,25 +910,23 @@ git diff | claudish --stdin --model grok "Review changes"
 **This is the #1 mistake. Never do this unless user explicitly requests it.**
 
 **WRONG - Destroys context window:**
-
 ```typescript
 // ❌ NEVER DO THIS - Pollutes main context with 10K+ tokens
-await Bash("claudish --model grok 'implement feature'")
+await Bash("claudish --model grok 'implement feature'");
 
 // ❌ NEVER DO THIS - Full conversation in main context
-await Bash("claudish --model gemini 'review code'")
+await Bash("claudish --model gemini 'review code'");
 
 // ❌ NEVER DO THIS - Even with --json, output is huge
-const result = await Bash("claudish --json --model gpt-5 'refactor'")
+const result = await Bash("claudish --json --model gpt-5 'refactor'");
 ```
 
 **RIGHT - Always use sub-agents:**
-
 ```typescript
 // ✅ ALWAYS DO THIS - Delegate to sub-agent
 const result = await Task({
-  subagent_type: 'general-purpose', // or specific agent
-  description: 'Implement feature with Grok',
+  subagent_type: "general-purpose", // or specific agent
+  description: "Implement feature with Grok",
   prompt: `
 Use Claudish to implement the feature with Grok model.
 
@@ -996,42 +938,39 @@ CRITICAL INSTRUCTIONS:
 
 DO NOT return full implementation or conversation.
 Keep response under 300 tokens.
-  `,
-})
+  `
+});
 
 // ✅ Even better - Use specialized agent if available
 const result = await Task({
-  subagent_type: 'backend-developer', // or frontend-dev, etc.
-  description: 'Implement with external model',
+  subagent_type: "backend-developer", // or frontend-dev, etc.
+  description: "Implement with external model",
   prompt: `
 Use Claudish with x-ai/grok-code-fast-1 model to implement authentication.
 Follow file-based instruction pattern.
 Return summary only.
-  `,
-})
+  `
+});
 ```
 
 **When you CAN run directly (rare exceptions):**
-
 ```typescript
 // ✅ Only when user explicitly requests
 // User: "Run claudish directly in main context for debugging"
 if (userExplicitlyRequestedDirect) {
-  await Bash("claudish --model grok 'task'")
+  await Bash("claudish --model grok 'task'");
 }
 ```
 
 ### ❌ Don't Ignore Model Selection
 
 **Wrong:**
-
 ```bash
 # Always using default model
 claudish "any task"
 ```
 
 **Right:**
-
 ```bash
 # Choose appropriate model
 claudish --model x-ai/grok-code-fast-1 "quick fix"
@@ -1041,14 +980,12 @@ claudish --model google/gemini-2.5-flash "complex analysis"
 ### ❌ Don't Parse Text Output
 
 **Wrong:**
-
 ```bash
 OUTPUT=$(claudish --model grok "task")
 COST=$(echo "$OUTPUT" | grep cost | awk '{print $2}')
 ```
 
 **Right:**
-
 ```bash
 # Use JSON output
 COST=$(claudish --json --model grok "task" | jq -r '.total_cost_usd')
@@ -1057,17 +994,15 @@ COST=$(claudish --json --model grok "task" | jq -r '.total_cost_usd')
 ### ❌ Don't Hardcode Model Lists
 
 **Wrong:**
-
 ```typescript
-const MODELS = ['x-ai/grok-code-fast-1', 'openai/gpt-5']
+const MODELS = ["x-ai/grok-code-fast-1", "openai/gpt-5"];
 ```
 
 **Right:**
-
 ```typescript
 // Query dynamically
-const { stdout } = await Bash('claudish --models --json')
-const models = JSON.parse(stdout).models.map((m) => m.id)
+const { stdout } = await Bash("claudish --models --json");
+const models = JSON.parse(stdout).models.map(m => m.id);
 ```
 
 ### ✅ Do Accept Custom Models From Users
@@ -1075,33 +1010,30 @@ const models = JSON.parse(stdout).models.map((m) => m.id)
 **Problem:** User provides a custom model ID that's not in --top-models
 
 **Wrong (rejecting custom models):**
-
 ```typescript
-const availableModels = ['x-ai/grok-code-fast-1', 'openai/gpt-5']
-const userModel = 'custom/provider/model-123'
+const availableModels = ["x-ai/grok-code-fast-1", "openai/gpt-5"];
+const userModel = "custom/provider/model-123";
 
 if (!availableModels.includes(userModel)) {
-  throw new Error('Model not in my shortlist') // ❌ DON'T DO THIS
+  throw new Error("Model not in my shortlist"); // ❌ DON'T DO THIS
 }
 ```
 
 **Right (accept any valid model ID):**
-
 ```typescript
 // Claudish accepts ANY valid OpenRouter model ID, even if not in --top-models
-const userModel = 'custom/provider/model-123'
+const userModel = "custom/provider/model-123";
 
 // Validate it's a non-empty string with provider format
-if (!userModel.includes('/')) {
-  console.warn('Model should be in format: provider/model-name')
+if (!userModel.includes("/")) {
+  console.warn("Model should be in format: provider/model-name");
 }
 
 // Use it directly - Claudish will validate with OpenRouter
-await Bash(`claudish --model ${userModel} "task"`)
+await Bash(`claudish --model ${userModel} "task"`);
 ```
 
 **Why:** Users may have access to:
-
 - Beta/experimental models
 - Private/custom fine-tuned models
 - Newly released models not yet in rankings
@@ -1115,65 +1047,61 @@ await Bash(`claudish --model ${userModel} "task"`)
 **Scenario:** User says "use my custom model X" and expects it to be remembered
 
 **Solution 1: Environment Variable (Recommended)**
-
 ```typescript
 // Set for the session
-process.env.CLAUDISH_MODEL = userPreferredModel
+process.env.CLAUDISH_MODEL = userPreferredModel;
 
 // Or set permanently in user's shell profile
-await Bash(`echo 'export CLAUDISH_MODEL="${userPreferredModel}"' >> ~/.zshrc`)
+await Bash(`echo 'export CLAUDISH_MODEL="${userPreferredModel}"' >> ~/.zshrc`);
 ```
 
 **Solution 2: Session Cache**
-
 ```typescript
 // Store in a temporary session file
-const sessionFile = '/tmp/claudish-user-preferences.json'
+const sessionFile = "/tmp/claudish-user-preferences.json";
 const prefs = {
   preferredModel: userPreferredModel,
-  lastUsed: new Date().toISOString(),
-}
-await Write({ file_path: sessionFile, content: JSON.stringify(prefs, null, 2) })
+  lastUsed: new Date().toISOString()
+};
+await Write({ file_path: sessionFile, content: JSON.stringify(prefs, null, 2) });
 
 // Load in subsequent commands
-const { stdout } = await Read({ file_path: sessionFile })
-const prefs = JSON.parse(stdout)
-const model = prefs.preferredModel || defaultModel
+const { stdout } = await Read({ file_path: sessionFile });
+const prefs = JSON.parse(stdout);
+const model = prefs.preferredModel || defaultModel;
 ```
 
 **Solution 3: Prompt Once, Remember for Session**
-
 ```typescript
 // In a multi-step workflow, ask once
 if (!process.env.CLAUDISH_MODEL) {
-  const { stdout } = await Bash('claudish --models --json')
-  const models = JSON.parse(stdout).models
+  const { stdout } = await Bash("claudish --models --json");
+  const models = JSON.parse(stdout).models;
 
   const response = await AskUserQuestion({
-    question: 'Select model (or enter custom model ID):',
-    options: models
-      .map((m, i) => ({ label: m.name, value: m.id }))
-      .concat([{ label: 'Enter custom model...', value: 'custom' }]),
-  })
+    question: "Select model (or enter custom model ID):",
+    options: models.map((m, i) => ({ label: m.name, value: m.id })).concat([
+      { label: "Enter custom model...", value: "custom" }
+    ])
+  });
 
-  if (response === 'custom') {
+  if (response === "custom") {
     const customModel = await AskUserQuestion({
-      question: 'Enter OpenRouter model ID (format: provider/model):',
-    })
-    process.env.CLAUDISH_MODEL = customModel
+      question: "Enter OpenRouter model ID (format: provider/model):"
+    });
+    process.env.CLAUDISH_MODEL = customModel;
   } else {
-    process.env.CLAUDISH_MODEL = response
+    process.env.CLAUDISH_MODEL = response;
   }
 }
 
 // Use the selected model for all subsequent calls
-const model = process.env.CLAUDISH_MODEL
-await Bash(`claudish --model ${model} "task 1"`)
-await Bash(`claudish --model ${model} "task 2"`)
+const model = process.env.CLAUDISH_MODEL;
+await Bash(`claudish --model ${model} "task 1"`);
+await Bash(`claudish --model ${model} "task 2"`);
 ```
 
 **Guidance for Agents:**
-
 1. ✅ **Accept any model ID** user provides (unless obviously malformed)
 2. ✅ **Don't filter** based on your "shortlist" - let Claudish handle validation
 3. ✅ **Offer to set CLAUDISH_MODEL** environment variable for session persistence
@@ -1184,18 +1112,16 @@ await Bash(`claudish --model ${model} "task 2"`)
 ### ❌ Don't Skip Error Handling
 
 **Wrong:**
-
 ```typescript
-const result = await Bash("claudish --model grok 'task'")
+const result = await Bash("claudish --model grok 'task'");
 ```
 
 **Right:**
-
 ```typescript
 try {
-  const result = await Bash("claudish --model grok 'task'")
+  const result = await Bash("claudish --model grok 'task'");
 } catch (error) {
-  console.error('Claudish failed:', error.message)
+  console.error("Claudish failed:", error.message);
   // Fallback to embedded Claude or handle error
 }
 ```
@@ -1210,40 +1136,40 @@ try {
  */
 async function reviewCodeWithMultipleModels(files: string[]) {
   const models = [
-    'x-ai/grok-code-fast-1', // Fast initial scan
-    'google/gemini-2.5-flash', // Deep analysis
-    'openai/gpt-5', // Final validation
-  ]
+    "x-ai/grok-code-fast-1",      // Fast initial scan
+    "google/gemini-2.5-flash",    // Deep analysis
+    "openai/gpt-5"                // Final validation
+  ];
 
-  const reviews = []
+  const reviews = [];
 
   for (const model of models) {
-    const timestamp = Date.now()
-    const instructionFile = `/tmp/review-${model.replace('/', '-')}-${timestamp}.md`
-    const resultFile = `/tmp/review-result-${model.replace('/', '-')}-${timestamp}.md`
+    const timestamp = Date.now();
+    const instructionFile = `/tmp/review-${model.replace('/', '-')}-${timestamp}.md`;
+    const resultFile = `/tmp/review-result-${model.replace('/', '-')}-${timestamp}.md`;
 
     // Create instruction
-    const instruction = createReviewInstruction(files, resultFile)
-    await Write({ file_path: instructionFile, content: instruction })
+    const instruction = createReviewInstruction(files, resultFile);
+    await Write({ file_path: instructionFile, content: instruction });
 
     // Run review with model
-    await Bash(`claudish --model ${model} --stdin < ${instructionFile}`)
+    await Bash(`claudish --model ${model} --stdin < ${instructionFile}`);
 
     // Read result
-    const result = await Read({ file_path: resultFile })
+    const result = await Read({ file_path: resultFile });
 
     // Extract summary
     reviews.push({
       model,
       summary: extractSummary(result),
-      issueCount: extractIssueCount(result),
-    })
+      issueCount: extractIssueCount(result)
+    });
 
     // Clean up
-    await Bash(`rm ${instructionFile} ${resultFile}`)
+    await Bash(`rm ${instructionFile} ${resultFile}`);
   }
 
-  return reviews
+  return reviews;
 }
 ```
 
@@ -1256,16 +1182,16 @@ async function reviewCodeWithMultipleModels(files: string[]) {
  */
 async function implementWithModel(featureDescription: string) {
   // Step 1: Get available models
-  const { stdout } = await Bash('claudish --models --json')
-  const models = JSON.parse(stdout).models
+  const { stdout } = await Bash("claudish --models --json");
+  const models = JSON.parse(stdout).models;
 
   // Step 2: Let user select model
-  const selectedModel = await promptUserForModel(models)
+  const selectedModel = await promptUserForModel(models);
 
   // Step 3: Create instruction file
-  const timestamp = Date.now()
-  const instructionFile = `/tmp/implement-${timestamp}.md`
-  const resultFile = `/tmp/implement-result-${timestamp}.md`
+  const timestamp = Date.now();
+  const instructionFile = `/tmp/implement-${timestamp}.md`;
+  const resultFile = `/tmp/implement-result-${timestamp}.md`;
 
   const instruction = `# Feature Implementation
 
@@ -1286,20 +1212,20 @@ Include:
 - Code snippets
 - Test coverage
 - Documentation updates
-`
+`;
 
-  await Write({ file_path: instructionFile, content: instruction })
+  await Write({ file_path: instructionFile, content: instruction });
 
   // Step 4: Run implementation
-  await Bash(`claudish --model ${selectedModel} --stdin < ${instructionFile}`)
+  await Bash(`claudish --model ${selectedModel} --stdin < ${instructionFile}`);
 
   // Step 5: Read and present results
-  const result = await Read({ file_path: resultFile })
+  const result = await Read({ file_path: resultFile });
 
   // Step 6: Clean up
-  await Bash(`rm ${instructionFile} ${resultFile}`)
+  await Bash(`rm ${instructionFile} ${resultFile}`);
 
-  return result
+  return result;
 }
 ```
 
@@ -1310,7 +1236,6 @@ Include:
 **Symptoms:** Claudish takes long time to respond
 
 **Solutions:**
-
 1. Use faster model: `x-ai/grok-code-fast-1` or `minimax/minimax-m2`
 2. Reduce prompt size (use --stdin with concise instructions)
 3. Check internet connection to OpenRouter
@@ -1320,7 +1245,6 @@ Include:
 **Symptoms:** Unexpected API costs
 
 **Solutions:**
-
 1. Use budget-friendly models (check pricing with `--models` or `--top-models`)
 2. Enable cost tracking: `--cost-tracker`
 3. Use --json to monitor costs: `claudish --json "task" | jq '.total_cost_usd'`
@@ -1330,7 +1254,6 @@ Include:
 **Symptoms:** Error about token limits
 
 **Solutions:**
-
 1. Use model with larger context (Gemini: 1000K, Grok: 256K)
 2. Break task into smaller subtasks
 3. Use file-based pattern to avoid conversation history
@@ -1340,7 +1263,6 @@ Include:
 **Symptoms:** "Model not found" error
 
 **Solutions:**
-
 1. Update model cache: `claudish --models --force-update`
 2. Check OpenRouter website for model availability
 3. Use alternative model from same category
@@ -1348,26 +1270,22 @@ Include:
 ## Additional Resources
 
 **Documentation:**
-
-- Full README: `mcp/claudish/README.md` (in repository root)
 - AI Agent Guide: Print with `claudish --help-ai`
-- Model Integration: `skills/claudish-integration/SKILL.md` (in repository root)
+- Full documentation at GitHub repository
 
 **External Links:**
-
-- Claudish GitHub: https://github.com/MadAppGang/claude-code
+- Claudish GitHub: https://github.com/MadAppGang/claudish
+- Install: `npm install -g claudish`
 - OpenRouter: https://openrouter.ai
 - OpenRouter Models: https://openrouter.ai/models
 - OpenRouter API Docs: https://openrouter.ai/docs
 
 **Version Information:**
-
 ```bash
 claudish --version
 ```
 
 **Get Help:**
-
 ```bash
 claudish --help        # CLI usage
 claudish --help-ai     # AI agent usage guide

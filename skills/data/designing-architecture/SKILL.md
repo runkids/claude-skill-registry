@@ -1,207 +1,336 @@
 ---
 name: designing-architecture
-description: Designs software architecture and selects appropriate patterns for projects. Use when designing systems, choosing architecture patterns, structuring projects, making technical decisions, or when asked about microservices, monoliths, or architectural approaches.
+description: Guides software architecture decisions, design patterns, and system design principles. Use when designing systems, choosing patterns, or making architectural decisions.
+license: MIT
+compatibility: opencode
+metadata:
+  category: design
+  audience: developers
 ---
 
 # Designing Architecture
 
-## Architecture Decision Workflow
+Principles and patterns for designing maintainable, scalable, and robust software systems.
 
-Copy this checklist and track progress:
+## When to Use This Skill
+
+- Designing new systems or features
+- Choosing between architectural patterns
+- Making technology decisions
+- Reviewing system design
+- Planning for scalability
+- Refactoring legacy systems
+
+---
+
+## Core Architecture Principles
+
+### SOLID Principles
+
+| Principle | Summary | Violation Sign |
+|-----------|---------|----------------|
+| **S**ingle Responsibility | One reason to change | Class does too many things |
+| **O**pen/Closed | Open for extension, closed for modification | Modifying existing code for new features |
+| **L**iskov Substitution | Subtypes replaceable for base types | Overrides break parent behavior |
+| **I**nterface Segregation | Small, focused interfaces | Classes implement unused methods |
+| **D**ependency Inversion | Depend on abstractions | High-level modules depend on low-level |
+
+### The Dependency Rule
 
 ```
-Architecture Design Progress:
-- [ ] Step 1: Understand requirements and constraints
-- [ ] Step 2: Assess project size and team capabilities
-- [ ] Step 3: Select architecture pattern
-- [ ] Step 4: Define directory structure
-- [ ] Step 5: Document trade-offs and decision
-- [ ] Step 6: Validate against decision framework
+Outer layers depend on inner layers, NEVER the reverse.
+
+┌─────────────────────────────────────┐
+│     Frameworks & Drivers           │  ← Database, Web, UI
+├─────────────────────────────────────┤
+│     Interface Adapters             │  ← Controllers, Presenters, Gateways
+├─────────────────────────────────────┤
+│     Application Business Rules     │  ← Use Cases
+├─────────────────────────────────────┤
+│     Enterprise Business Rules      │  ← Entities
+└─────────────────────────────────────┘
+
+Dependencies point INWARD only.
 ```
 
-## Pattern Selection Guide
+---
 
-### By Project Size
+## Architectural Patterns
 
-| Size | Recommended Pattern |
-|------|---------------------|
-| Small (<10K LOC) | Simple MVC/Layered |
-| Medium (10K-100K) | Clean Architecture |
-| Large (>100K) | Modular Monolith or Microservices |
+### Layered Architecture
 
-### By Team Size
-
-| Team | Recommended |
-|------|-------------|
-| 1-3 devs | Monolith with clear modules |
-| 4-10 devs | Modular Monolith |
-| 10+ devs | Microservices (if justified) |
-
-## Common Patterns
-
-### 1. Layered Architecture
-```
-┌─────────────────────────────┐
-│       Presentation          │  ← UI, API Controllers
-├─────────────────────────────┤
-│       Application           │  ← Use Cases, Services
-├─────────────────────────────┤
-│         Domain              │  ← Business Logic, Entities
-├─────────────────────────────┤
-│      Infrastructure         │  ← Database, External APIs
-└─────────────────────────────┘
-```
-**Use when**: Simple CRUD apps, small teams, quick prototypes
-
-### 2. Clean Architecture
 ```
 ┌─────────────────────────────────────┐
-│            Frameworks & Drivers      │
-│  ┌─────────────────────────────┐    │
-│  │     Interface Adapters       │    │
-│  │  ┌─────────────────────┐    │    │
-│  │  │   Application       │    │    │
-│  │  │  ┌─────────────┐    │    │    │
-│  │  │  │   Domain    │    │    │    │
-│  │  │  └─────────────┘    │    │    │
-│  │  └─────────────────────┘    │    │
-│  └─────────────────────────────┘    │
+│     Presentation Layer             │  ← UI, API Controllers
+├─────────────────────────────────────┤
+│     Application Layer              │  ← Use Cases, Services
+├─────────────────────────────────────┤
+│     Domain Layer                   │  ← Business Logic, Entities
+├─────────────────────────────────────┤
+│     Infrastructure Layer           │  ← Database, External APIs
 └─────────────────────────────────────┘
 ```
-**Use when**: Complex business logic, long-lived projects, testability is key
 
-### 3. Hexagonal (Ports & Adapters)
-```
-        ┌──────────┐
-        │ HTTP API │
-        └────┬─────┘
-             │ Port
-    ┌────────▼────────┐
-    │                 │
-    │   Application   │
-    │     Core        │
-    │                 │
-    └────────┬────────┘
-             │ Port
-        ┌────▼─────┐
-        │ Database │
-        └──────────┘
-```
-**Use when**: Need to swap external dependencies, multiple entry points
+**Use when**: Traditional applications, clear separation needed
+**Avoid when**: High-performance needs, event-driven systems
 
-### 4. Event-Driven Architecture
-```
-Producer → Event Bus → Consumer
-              │
-              ├─→ Consumer
-              │
-              └─→ Consumer
-```
-**Use when**: Loose coupling needed, async processing, scalability
+### Hexagonal Architecture (Ports & Adapters)
 
-### 5. CQRS (Command Query Responsibility Segregation)
 ```
-┌─────────────┐      ┌─────────────┐
-│  Commands   │      │   Queries   │
-│  (Write)    │      │   (Read)    │
-└──────┬──────┘      └──────┬──────┘
-       │                    │
-       ▼                    ▼
-  Write Model          Read Model
-       │                    │
-       └────────┬───────────┘
-                ▼
-           Event Store
-```
-**Use when**: Different read/write scaling, complex domains, event sourcing
-
-## Directory Structure Patterns
-
-### Feature-Based (Recommended for medium+)
-```
-src/
-├── features/
-│   ├── users/
-│   │   ├── api/
-│   │   ├── components/
-│   │   ├── hooks/
-│   │   ├── services/
-│   │   └── types/
-│   └── orders/
-│       ├── api/
-│       ├── components/
-│       └── ...
-├── shared/
-│   ├── components/
-│   ├── hooks/
-│   └── utils/
-└── app/
-    └── ...
+           ┌───────────────┐
+           │   Primary     │
+           │   Adapters    │  ← REST API, CLI, GraphQL
+           └───────┬───────┘
+                   │
+        ┌──────────▼──────────┐
+        │                     │
+        │   ┌───────────┐     │
+        │   │   Core    │     │
+Primary │   │  Domain   │     │ Secondary
+Ports   │   │  Logic    │     │ Ports
+        │   └───────────┘     │
+        │                     │
+        └──────────┬──────────┘
+                   │
+           ┌───────▼───────┐
+           │   Secondary   │
+           │   Adapters    │  ← Database, Message Queue, External API
+           └───────────────┘
 ```
 
-### Layer-Based (Simple apps)
+**Use when**: Testability is critical, multiple interfaces needed
+**Avoid when**: Simple CRUD applications
+
+### Microservices Architecture
+
 ```
-src/
-├── controllers/
-├── services/
-├── models/
-├── repositories/
-└── utils/
+┌─────────┐  ┌─────────┐  ┌─────────┐
+│ Service │  │ Service │  │ Service │
+│    A    │  │    B    │  │    C    │
+└────┬────┘  └────┬────┘  └────┬────┘
+     │            │            │
+     └────────────┴────────────┘
+                  │
+           ┌──────▼──────┐
+           │   Message   │
+           │    Bus      │
+           └─────────────┘
 ```
 
-## Decision Framework
+**Use when**: Independent scaling, team autonomy, polyglot needs
+**Avoid when**: Small teams, simple domains, tight coupling required
 
-When making architectural decisions, evaluate against these criteria:
+### Event-Driven Architecture
 
-1. **Simplicity** - Start simple, evolve when needed
-2. **Team Skills** - Match architecture to team capabilities
-3. **Requirements** - Let business needs drive decisions
-4. **Scalability** - Consider growth trajectory
-5. **Maintainability** - Optimize for change
+```
+Event Source → Event Bus → Event Handlers
+     │              │              │
+     ▼              ▼              ▼
+  Produces    Routes Events    Consumes
+  Events      (Kafka, RabbitMQ)  Events
+```
 
-## Trade-off Analysis Template
+**Use when**: Async processing, decoupling, audit trails
+**Avoid when**: Immediate consistency required, simple workflows
 
-Use this template to document architectural decisions:
+---
+
+## Design Patterns
+
+### Creational Patterns
+
+| Pattern | Purpose | When to Use |
+|---------|---------|-------------|
+| **Factory** | Create objects without specifying class | Object creation logic is complex |
+| **Builder** | Construct complex objects step-by-step | Many optional parameters |
+| **Singleton** | Single instance globally | Shared resource (use sparingly) |
+| **Dependency Injection** | Inject dependencies externally | Testability, loose coupling |
+
+### Structural Patterns
+
+| Pattern | Purpose | When to Use |
+|---------|---------|-------------|
+| **Adapter** | Convert interface to another | Integrating incompatible systems |
+| **Decorator** | Add behavior dynamically | Extending functionality without inheritance |
+| **Facade** | Simplified interface to complex system | Hiding complexity |
+| **Repository** | Abstract data access | Separating domain from persistence |
+
+### Behavioral Patterns
+
+| Pattern | Purpose | When to Use |
+|---------|---------|-------------|
+| **Strategy** | Interchangeable algorithms | Multiple ways to do something |
+| **Observer** | Notify dependents of changes | Event systems, reactive updates |
+| **Command** | Encapsulate actions as objects | Undo/redo, queuing, logging |
+| **Chain of Responsibility** | Pass request along handlers | Middleware, validation chains |
+
+---
+
+## Domain-Driven Design Concepts
+
+### Strategic Design
+
+| Concept | Definition | Example |
+|---------|------------|---------|
+| **Bounded Context** | Explicit boundary for a domain model | Order context, Shipping context |
+| **Ubiquitous Language** | Shared vocabulary between devs and domain experts | "Order", "Line Item", "Fulfillment" |
+| **Context Map** | How bounded contexts relate | Customer shared between Sales and Support |
+
+### Tactical Patterns
+
+| Pattern | Purpose | Example |
+|---------|---------|---------|
+| **Entity** | Object with identity | User, Order |
+| **Value Object** | Object without identity | Money, Address |
+| **Aggregate** | Cluster of entities with root | Order + LineItems |
+| **Domain Event** | Something that happened | OrderPlaced, PaymentReceived |
+| **Repository** | Collection-like access to aggregates | OrderRepository |
+| **Domain Service** | Logic that doesn't fit entities | PricingService |
+
+---
+
+## System Design Considerations
+
+### Scalability Patterns
+
+| Pattern | Description | Trade-off |
+|---------|-------------|-----------|
+| **Horizontal Scaling** | Add more instances | Statelessness required |
+| **Vertical Scaling** | Bigger machines | Hardware limits |
+| **Caching** | Store computed results | Cache invalidation |
+| **Database Sharding** | Split data across DBs | Query complexity |
+| **Read Replicas** | Separate read/write | Eventual consistency |
+| **CDN** | Edge content delivery | Static content only |
+
+### Resilience Patterns
+
+| Pattern | Purpose | Implementation |
+|---------|---------|----------------|
+| **Circuit Breaker** | Prevent cascade failures | Fail fast when downstream is down |
+| **Retry with Backoff** | Handle transient failures | Exponential delay between retries |
+| **Bulkhead** | Isolate failures | Separate thread pools per dependency |
+| **Timeout** | Bound waiting time | Max wait for responses |
+| **Fallback** | Graceful degradation | Default behavior when service unavailable |
+
+### Data Consistency Patterns
+
+| Pattern | Consistency | Use When |
+|---------|-------------|----------|
+| **ACID Transactions** | Strong | Financial data, critical operations |
+| **Saga** | Eventual | Distributed transactions |
+| **Event Sourcing** | Eventual | Audit trails, complex state |
+| **CQRS** | Eventual | Different read/write models |
+
+---
+
+## Technology Decision Framework
+
+### When to Use a Database
+
+| Need | Recommended | Avoid |
+|------|-------------|-------|
+| Relational data, ACID | PostgreSQL, MySQL | MongoDB |
+| Document storage, flexible schema | MongoDB, DynamoDB | Relational |
+| Key-value, high speed | Redis, Memcached | Relational |
+| Time series | InfluxDB, TimescaleDB | Generic SQL |
+| Graph relationships | Neo4j, Neptune | Relational (for complex) |
+| Search | Elasticsearch, Meilisearch | Full table scans |
+
+### When to Use Message Queues
+
+| Need | Pattern |
+|------|---------|
+| Async processing | Queue (SQS, RabbitMQ) |
+| Event broadcasting | Pub/Sub (SNS, Kafka) |
+| Task scheduling | Delayed queues |
+| Load leveling | Queue with workers |
+| Event sourcing | Log-based (Kafka) |
+
+---
+
+## Architecture Decision Records (ADR)
+
+### Template
 
 ```markdown
-## Decision: [What we're deciding]
+# ADR-001: [Title]
 
-### Context
-[Why this decision is needed now]
+## Status
+[Proposed | Accepted | Deprecated | Superseded by ADR-XXX]
 
-### Options Considered
-1. Option A: [Description]
-2. Option B: [Description]
+## Context
+[Why is this decision needed?]
 
-### Trade-offs
-| Criteria | Option A | Option B |
-|----------|----------|----------|
-| Complexity | Low | High |
-| Scalability | Medium | High |
-| Team familiarity | High | Low |
+## Decision
+[What is the decision?]
 
-### Decision
-We chose [Option] because [reasoning].
+## Consequences
+### Positive
+- [Benefit 1]
+- [Benefit 2]
 
-### Consequences
-- [What this enables]
-- [What this constrains]
+### Negative
+- [Trade-off 1]
+- [Trade-off 2]
+
+## Alternatives Considered
+1. [Alternative 1] - [Why rejected]
+2. [Alternative 2] - [Why rejected]
 ```
 
-## Validation Checklist
+---
 
-After selecting an architecture, validate against:
+## Anti-Patterns to Avoid
+
+1. **Big Ball of Mud** - No clear structure, everything depends on everything
+2. **Golden Hammer** - Using one pattern for all problems
+3. **Premature Optimization** - Designing for scale before proving need
+4. **Analysis Paralysis** - Over-designing, never shipping
+5. **Distributed Monolith** - Microservices with tight coupling
+6. **Anemic Domain Model** - Entities with only getters/setters
+7. **God Object** - One class that does everything
+8. **Leaky Abstraction** - Implementation details leak through interfaces
+
+---
+
+## Decision Checklist
+
+Before finalizing an architecture decision, verify:
+
+- [ ] Does it solve the actual problem?
+- [ ] Is it the simplest solution that works?
+- [ ] Can the team maintain it?
+- [ ] Does it align with existing patterns?
+- [ ] Is it testable?
+- [ ] Can it evolve as requirements change?
+- [ ] Are the trade-offs acceptable?
+- [ ] Is the decision documented?
+
+---
+
+## Quick Reference
 
 ```
-Architecture Validation:
-- [ ] Matches project size and complexity
-- [ ] Aligns with team skills and experience
-- [ ] Supports current requirements
-- [ ] Allows for anticipated growth
-- [ ] Dependencies flow inward (core has no external deps)
-- [ ] Clear boundaries between modules/layers
-- [ ] Testing strategy is feasible
-- [ ] Trade-offs are documented
-```
+SOLID:
+  S - Single Responsibility
+  O - Open/Closed
+  L - Liskov Substitution
+  I - Interface Segregation
+  D - Dependency Inversion
 
-If validation fails, reconsider the pattern selection or adjust the implementation approach.
+PATTERNS:
+  Layered     → Simple, clear separation
+  Hexagonal   → Testable, adaptable
+  Microservices → Scalable, independent
+  Event-Driven  → Decoupled, async
+
+DDD BUILDING BLOCKS:
+  Entity, Value Object, Aggregate
+  Repository, Domain Event, Domain Service
+
+SCALABILITY:
+  Horizontal scaling, Caching, Sharding, CDN
+
+RESILIENCE:
+  Circuit Breaker, Retry, Bulkhead, Timeout
+```

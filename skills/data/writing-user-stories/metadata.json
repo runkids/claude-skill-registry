@@ -1,13 +1,7 @@
 {
   "name": "writing-user-stories",
-  "description": "Creates INVEST-compliant user stories with acceptance criteria. Use when capturing requirements, defining backlog items, or breaking down features.",
   "repo": "jkappers/claude-code-software-delivery-plugin",
-  "category": "design",
-  "tags": [
-    "writing",
-    "user",
-    "stories"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/writing-user-stories/SKILL.md",
+  "source": "github.com/jkappers/claude-code-software-delivery-plugin",
+  "downloaded_at": "2026-01-14T02:51:59.752211Z"
 }

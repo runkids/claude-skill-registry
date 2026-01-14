@@ -1,13 +1,7 @@
 {
   "name": "access-control-rbac",
-  "description": "Implement Role-Based Access Control (RBAC), permissions management, and authorization policies. Use when building secure access control systems with fine-grained permissions.",
   "repo": "aj-geddes/useful-ai-prompts",
-  "category": "development",
-  "tags": [
-    "access",
-    "control",
-    "rbac"
-  ],
-  "stars": 25,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/access-control-rbac/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:13.990116Z"
 }

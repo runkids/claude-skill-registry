@@ -1,12 +1,7 @@
 {
   "name": "continuous-testing",
-  "description": "Integrate automated testing into CI/CD pipelines for continuous quality feedback. Use for continuous testing, CI testing, automated testing pipelines, test orchestration, and DevOps quality practices.",
   "repo": "aj-geddes/useful-ai-prompts",
-  "category": "devops",
-  "tags": [
-    "continuous",
-    "testing"
-  ],
-  "stars": 25,
-  "source": "local"
+  "path": "skills/continuous-testing/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:10.651264Z"
 }

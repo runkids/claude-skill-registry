@@ -1,12 +1,7 @@
 {
   "name": "linux-bash",
-  "description": "Expert assistance with Linux bash commands, shell scripting, system administration, file operations, and command-line utilities. Use this when working with bash scripts, Linux system operations, or co",
-  "repo": "oriolrius/pki-manager-web",
-  "category": "design",
-  "tags": [
-    "linux",
-    "bash"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "oriolrius/nifi-cluster",
+  "path": ".claude/skills/linux-bash/SKILL.md",
+  "source": "github.com/oriolrius/nifi-cluster",
+  "downloaded_at": "2026-01-14T04:01:40.037111Z"
 }

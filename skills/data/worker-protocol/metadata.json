@@ -1,12 +1,7 @@
 {
   "name": "worker-protocol",
-  "description": "Defines behavior protocol for spawned worker agents. Injected into worker prompts. Covers startup, progress reporting, exit conditions, and handover preparation.",
-  "repo": "troykelly/claude-skills",
-  "category": "development",
-  "tags": [
-    "worker",
-    "protocol"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "troykelly/codex-skills",
+  "path": "skills/worker-protocol/SKILL.md",
+  "source": "github.com/troykelly/codex-skills",
+  "downloaded_at": "2026-01-14T03:34:02.213732Z"
 }

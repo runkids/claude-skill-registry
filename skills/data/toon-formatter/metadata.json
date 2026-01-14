@@ -1,11 +1,7 @@
 {
   "name": "toon-formatter",
-  "description": "AGGRESSIVELY use TOON v2.0 format for biggish regular data (≥5 items, ≥60% uniform). Auto-applies to tables, logs, events, transactions, analytics, API responses, database results. Supports 3 array ty",
-  "repo": "synqing/Lightwave-Ledstrip",
-  "category": "data",
-  "tags": [
-    "toon",
-    "formatter"
-  ],
-  "stars": 0
+  "repo": "raintree-technology/claude-starter",
+  "path": "templates/.claude/skills/toon-formatter/skill.md",
+  "source": "github.com/raintree-technology/claude-starter",
+  "downloaded_at": "2026-01-14T01:12:18.373624Z"
 }

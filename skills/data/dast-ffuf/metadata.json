@@ -1,8 +1,7 @@
 {
   "name": "dast-ffuf",
   "repo": "AgentSecOps/SecOpsAgentKit",
-  "category": "data",
-  "description": "Fast web fuzzer for DAST testing with directory enumeration, parameter fuzzing, and virtual host discovery. Written in Go for high-performance HTTP fuzzing with extensive filtering capabilities. Suppo",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:25.905684Z"
+  "path": "skills/appsec/dast-ffuf/SKILL.md",
+  "source": "github.com/AgentSecOps/SecOpsAgentKit",
+  "downloaded_at": "2026-01-14T01:14:21.732167Z"
 }

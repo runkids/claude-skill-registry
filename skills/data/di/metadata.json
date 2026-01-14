@@ -1,8 +1,7 @@
 {
   "name": "di",
   "repo": "mgreenly/ikigai",
-  "category": "data",
-  "description": "Dependency Injection (DI) skill for the ikigai project",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:25.253494Z"
+  "path": ".claude/library/di/SKILL.md",
+  "source": "github.com/mgreenly/ikigai",
+  "downloaded_at": "2026-01-14T03:06:55.636662Z"
 }

@@ -1,0 +1,7 @@
+{
+  "name": "qemu-alpine-ssh",
+  "repo": "letta-ai/skills",
+  "path": "letta/benchmarks/trajectory-feedback/qemu-alpine-ssh/SKILL.md",
+  "source": "github.com/letta-ai/skills",
+  "downloaded_at": "2026-01-14T00:54:35.958508Z"
+}

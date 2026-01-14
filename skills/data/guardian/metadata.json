@@ -1,11 +1,7 @@
 {
   "name": "guardian",
-  "description": "Automatic quality gate and session health monitor. Spawns focused Haiku agents for code review and task planning when degradation detected. Validates suggestions against Oracle knowledge. Learns from ",
-  "repo": "Overlord-Z/ClaudeShack",
-  "category": "productivity",
-  "tags": [
-    "guardian"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "littlebearapps/cloudflare-engineer",
+  "path": "skills/guardian/SKILL.md",
+  "source": "github.com/littlebearapps/cloudflare-engineer",
+  "downloaded_at": "2026-01-14T02:41:36.753703Z"
 }

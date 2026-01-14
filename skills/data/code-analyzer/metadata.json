@@ -1,12 +1,7 @@
 {
   "name": "code-analyzer",
-  "description": "Comprehensive codebase analysis for building mental model of project structure, dependencies, and implementation context. Use when needing to: (1) Understand project architecture before review or docu",
-  "repo": "petbrains/mvp-builder",
-  "category": "development",
-  "tags": [
-    "code",
-    "analyzer"
-  ],
-  "stars": 4,
-  "source": "SkillsMP Synced Skills"
+  "repo": "oimiragieo/agent-studio",
+  "path": ".claude/skills/code-analyzer/SKILL.md",
+  "source": "github.com/oimiragieo/agent-studio",
+  "downloaded_at": "2026-01-14T03:17:04.726711Z"
 }

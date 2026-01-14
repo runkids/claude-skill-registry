@@ -1,13 +1,7 @@
 {
   "name": "ios-unit-test",
-  "description": "Эксперт iOS тестирования. Используй для XCTest, UI testing и iOS test patterns.",
   "repo": "dengineproblem/agents-monorepo",
-  "category": "testing",
-  "tags": [
-    "ios",
-    "unit",
-    "test"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/ios-unit-test/SKILL.md",
+  "source": "github.com/dengineproblem/agents-monorepo",
+  "downloaded_at": "2026-01-14T02:08:05.884966Z"
 }

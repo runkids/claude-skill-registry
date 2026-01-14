@@ -1,12 +1,7 @@
 {
   "name": "architecture-validator",
-  "description": "Validates project architecture against Fractary standards and best practices for Manager-as-Agent patterns",
-  "repo": "fractary/claude-plugins",
-  "category": "data",
-  "tags": [
-    "architecture",
-    "validator"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "repo": "xnopre/copro-tickets-tracker",
+  "path": ".claude/skills/architecture-validator/SKILL.md",
+  "source": "github.com/xnopre/copro-tickets-tracker",
+  "downloaded_at": "2026-01-14T03:32:02.399840Z"
 }

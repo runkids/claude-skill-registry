@@ -1,9 +1,7 @@
 {
   "name": "llm-app-architecture",
-  "description": "Automatically applies when building LLM applications. Ensures proper async patterns for LLM calls, streaming responses, token management, retry logic, and error handling.",
   "repo": "ricardoroche/ricardos-claude-code",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/llm-app-architecture/SKILL.md",
+  "source": "github.com/ricardoroche/ricardos-claude-code",
+  "downloaded_at": "2026-01-14T01:28:23.104642Z"
 }

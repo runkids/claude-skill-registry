@@ -1,13 +1,7 @@
 {
   "name": "git-commit-assistant",
-  "description": "Assists with careful Git commits in any repository. Activates when committing changes, checking .gitignore, or generating commit messages. Ensures proper file exclusion (credentials, MCP configs, pers",
-  "repo": "fubira/claude-code-settings",
-  "category": "development",
-  "tags": [
-    "git",
-    "commit",
-    "assistant"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "pianzhu/my-claude-skills",
+  "path": "skills/git-commit-assistant/SKILL.md",
+  "source": "github.com/pianzhu/my-claude-skills",
+  "downloaded_at": "2026-01-14T03:20:14.867627Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "recipe-finding",
-  "description": "Use when user wants to find recipes or resize recipe portions - provides systematic workflow for searching recipes, scaling ingredients by serving size, handling fractional amounts, and formatting out",
   "repo": "natea/ExoMind",
-  "category": "productivity",
-  "tags": [
-    "recipe",
-    "finding"
-  ],
-  "stars": 8,
-  "source": "local"
+  "path": "skills/recipe-finding/SKILL.md",
+  "source": "github.com/natea/ExoMind",
+  "downloaded_at": "2026-01-14T01:45:41.545735Z"
 }

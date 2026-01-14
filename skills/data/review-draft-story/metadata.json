@@ -1,13 +1,7 @@
 {
   "name": "review-draft-story",
-  "description": "Comprehensive draft story review with parallel specialist sub-agents. Spawns PM, UX, and SM agents to review stories from product, design, and implementation readiness perspectives before development ",
   "repo": "michael-menard/monorepo",
-  "category": "design",
-  "tags": [
-    "review",
-    "draft",
-    "story"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/review-draft-story/SKILL.md",
+  "source": "github.com/michael-menard/monorepo",
+  "downloaded_at": "2026-01-14T02:05:19.759300Z"
 }

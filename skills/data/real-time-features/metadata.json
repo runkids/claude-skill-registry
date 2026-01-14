@@ -1,13 +1,7 @@
 {
   "name": "real-time-features",
-  "description": "Implement real-time functionality using WebSockets, Server-Sent Events (SSE), or long polling. Use when building chat applications, live dashboards, collaborative editing, notifications, or any featur",
-  "repo": "aj-geddes/useful-ai-prompts",
-  "category": "development",
-  "tags": [
-    "real",
-    "time",
-    "features"
-  ],
-  "stars": 25,
-  "source": "local"
+  "repo": "eddiebe147/claude-settings",
+  "path": "skills/real-time-features/skill.md",
+  "source": "github.com/eddiebe147/claude-settings",
+  "downloaded_at": "2026-01-14T03:53:01.042552Z"
 }

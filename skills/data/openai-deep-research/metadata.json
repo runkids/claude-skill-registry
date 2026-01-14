@@ -1,12 +1,7 @@
 {
   "name": "openai-deep-research",
-  "description": "Use OpenAI's Deep Research API (o3 / o4 models) to automate multi-step, citation-backed research workflows.",
   "repo": "closedloop-technologies/awesome-deep-researchers",
-  "category": "data",
-  "tags": [
-    "openai",
-    "deep",
-    "research"
-  ],
-  "stars": 2
+  "path": ".claude/skills/openai-deep-research/SKILL.md",
+  "source": "github.com/closedloop-technologies/awesome-deep-researchers",
+  "downloaded_at": "2026-01-14T03:09:52.752976Z"
 }

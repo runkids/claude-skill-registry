@@ -1,0 +1,9 @@
+{
+  "name": "agent-skills-expert",
+  "description": "Expert for creating and managing Claude Code Agent Skills. Create skills with git submodule + sparse-checkout for source references, write SKILL.md with proper frontmatter, and follow best practices. ",
+  "repo": "StrayDragon/my-claude-skills",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

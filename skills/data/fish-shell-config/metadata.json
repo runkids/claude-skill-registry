@@ -1,13 +1,7 @@
 {
   "name": "fish-shell-config",
-  "description": "Expert Fish shell configuration including config files, functions, abbreviations, prompts, environment variables, and scripting. Use when setting up Fish, creating aliases/functions, writing Fish scri",
   "repo": "wcygan/dotfiles",
-  "category": "development",
-  "tags": [
-    "fish",
-    "shell",
-    "config"
-  ],
-  "stars": 182,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/fish-shell-config/SKILL.md",
+  "source": "github.com/wcygan/dotfiles",
+  "downloaded_at": "2026-01-14T02:53:07.207591Z"
 }

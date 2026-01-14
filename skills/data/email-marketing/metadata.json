@@ -1,12 +1,7 @@
 {
   "name": "email-marketing",
-  "description": "Эксперт по email-маркетингу. Используй для email кампаний, автоматизации, сегментации, deliverability и A/B тестов.",
   "repo": "dengineproblem/agents-monorepo",
-  "category": "data",
-  "tags": [
-    "email",
-    "marketing"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/email-marketing/SKILL.md",
+  "source": "github.com/dengineproblem/agents-monorepo",
+  "downloaded_at": "2026-01-14T02:07:57.805694Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "cc-eco-techt",
-  "description": "Claude Code Ecosystem Architect - Master skill for creating Claude Code ecosystem components (skills, commands, hooks, subagents, plugins)",
   "repo": "aegntic/claudeism",
-  "category": "development",
-  "tags": [
-    "eco",
-    "techt"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/cc-eco-techt/SKILL.md",
+  "source": "github.com/aegntic/claudeism",
+  "downloaded_at": "2026-01-14T03:20:22.939232Z"
 }

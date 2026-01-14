@@ -1,11 +1,7 @@
 {
   "name": "react-hooks",
-  "description": "Apply when managing state, side effects, context, or refs in React functional components. **React 19+ Note**: React 19.x introduced new hooks for forms/actions (useActionState, useOptimistic, useFormS",
-  "repo": "CoderMariusz/MonoPilot",
-  "category": "data",
-  "tags": [
-    "react",
-    "hooks"
-  ],
-  "stars": 1
+  "repo": "retex73/music-app",
+  "path": ".claude/skills/react-hooks/SKILL.md",
+  "source": "github.com/retex73/music-app",
+  "downloaded_at": "2026-01-14T03:53:11.825864Z"
 }

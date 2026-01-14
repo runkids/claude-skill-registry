@@ -1,582 +1,412 @@
----
+﻿---
 name: trace-requirements
-description: Create comprehensive bidirectional requirements traceability matrix mapping acceptance criteria → implementation → tests with gap analysis, severity ratings, and coverage assessment. Maps each AC to implementation evidence (files, functions, code snippets) and test coverage (test files, scenarios, priorities). Use during quality review or for compliance audits to verify complete requirements coverage.
-version: 2.0
-category: Quality
-acceptance:
-  forward_traceability: "All acceptance criteria mapped to implementation evidence with file paths, line ranges, function names, and code snippets demonstrating implementation"
-  backward_traceability: "All tests mapped to acceptance criteria they validate with test files, scenarios, types (unit/integration/E2E), and priorities (P0/P1/P2)"
-  gaps_identified: "Coverage gaps identified and classified by type (implementation/test), severity (CRITICAL/HIGH/MEDIUM/LOW), and priority (P0/P1/P2) with required actions"
-  traceability_report_generated: "Complete traceability report generated with matrix, detailed entries, gap analysis, recommendations, and quality gate impact assessment"
-inputs:
-  task_id:
-    type: string
-    required: true
-    description: "Task identifier for traceability analysis (e.g., 'task-007')"
-  task_file:
-    type: string
-    required: true
-    description: "Path to task specification file"
-  implementation_path:
-    type: string
-    required: false
-    description: "Path to implementation code (defaults to project root)"
-  test_path:
-    type: string
-    required: false
-    description: "Path to test files (defaults to test directory)"
-  risk_profile_file:
-    type: string
-    required: false
-    description: "Path to risk profile file (for risk-informed gap severity)"
-  test_design_file:
-    type: string
-    required: false
-    description: "Path to test design file (for expected test scenarios)"
-outputs:
-  total_acceptance_criteria:
-    type: number
-    description: "Total number of acceptance criteria analyzed"
-  implementation_coverage_percentage:
-    type: number
-    description: "Percentage of ACs with implementation evidence (0-100)"
-  test_coverage_percentage:
-    type: number
-    description: "Percentage of ACs with test coverage (0-100)"
-  traceability_score:
-    type: number
-    description: "Overall traceability score (0-100)"
-  total_gaps:
-    type: number
-    description: "Total number of coverage gaps identified"
-  critical_gaps_count:
-    type: number
-    description: "Number of critical severity gaps"
-  high_gaps_count:
-    type: number
-    description: "Number of high severity gaps"
-  traceability_report_path:
-    type: string
-    description: "Path to generated traceability report"
-  quality_gate_impact:
-    type: string
-    description: "Predicted quality gate status (PASS/CONCERNS/FAIL)"
-telemetry:
-  emit: "skill.trace-requirements.completed"
-  track:
-    - task_id
-    - total_acceptance_criteria
-    - implemented_count
-    - partial_implementation_count
-    - not_implemented_count
-    - implementation_coverage_percentage
-    - tested_count
-    - partial_test_count
-    - not_tested_count
-    - test_coverage_percentage
-    - total_gaps
-    - critical_gaps_count
-    - high_gaps_count
-    - medium_gaps_count
-    - low_gaps_count
-    - traceability_score
-    - risk_profile_available
-    - test_design_available
+description: Use to trace requirements through implementation. Maps acceptance criteria to code and tests.
 ---
+<!-- Powered by PRISMâ„¢ Core -->
 
-# Requirements Traceability Analysis
+# trace-requirements
 
-Perform **bidirectional requirements traceability analysis** ensuring every acceptance criterion is implemented and tested. Creates audit-ready traceability matrix showing complete chain: Requirements → Implementation → Tests.
+Map story requirements to E2E integration test cases for comprehensive end-to-end traceability and workflow validation.
 
 ## Purpose
 
-Create comprehensive traceability documentation that demonstrates:
-- **Forward traceability:** AC → Implementation (with file/line evidence)
-- **Backward traceability:** Tests → AC (with test scenario mapping)
-- **Gap identification:** Missing implementation or test coverage
-- **Severity assessment:** CRITICAL/HIGH/MEDIUM/LOW based on risk and impact
-- **Coverage metrics:** Implementation coverage, test coverage, traceability score
-- **Quality gate impact:** Prediction of gate status (PASS/CONCERNS/FAIL)
+Create a requirements traceability matrix that ensures every acceptance criterion has corresponding E2E integration test coverage. This task prioritizes integration tests as the source of truth for requirement validation, ensuring complete workflow traceability from user input to system response.
 
-**Key Capabilities:**
-- Evidence-based verification with file paths, line ranges, code snippets
-- Integration with risk-profile (risk-informed gap severity)
-- Integration with test-design (test-to-requirement mapping)
-- Audit-ready documentation for compliance
-- Actionable recommendations with effort estimates
+**FOCUS**: E2E integration tests are the PRIMARY mechanism for requirements traceability. Unit tests supplement but integration tests validate complete requirement fulfillment.
 
-## When to Use This Skill
+**IMPORTANT**: Given-When-Then is used here for documenting the mapping between requirements and tests, NOT for writing the actual test code. Tests should follow your project's testing standards (no BDD syntax in test code).
 
-**Best Used:**
-- During implementation review to verify all requirements addressed
-- Before quality gate to ensure completeness
-- During audit preparation to demonstrate traceability
-- After test-design to map tests to requirements
-- When coverage gaps need identification and prioritization
+## Prerequisites
 
-**Integration Points:**
-- Reads task specification for acceptance criteria
-- Reads risk profile for risk-informed gap severity (optional)
-- Reads test design for test-to-requirement mapping (optional)
-- Reads actual implementation files for evidence
-- Reads test files for test coverage verification
+- Story file with clear acceptance criteria
+- Access to E2E integration test suite
+- Understanding of complete system workflows
+- Endpoint-to-test mapping documentation
+- Multi-tenant and authentication requirements
 
-**Triggers:**
-- User asks to "trace requirements", "check coverage", "verify AC implementation"
-- Before quality gate (proactively suggest)
-- During code review (verify completeness)
+## Traceability Process
 
-## Traceability Concepts
+### 1. Extract Requirements
 
-**Forward Traceability (AC → Implementation):** Maps each AC to implementation evidence (file, function, code snippet) | Status: ✅ Implemented, ⚠️ Partial, ❌ Not Implemented, ❓ Unclear
+Identify all testable requirements from:
 
-**Backward Traceability (Tests → AC):** Maps each test to ACs it validates | Status: ✅ Tested, ⚠️ Partial, ❌ Not Tested, 🔄 Indirect
+- Acceptance Criteria (primary source for E2E validation)
+- Complete user workflows and journeys
+- API endpoint behaviors and responses
+- Authentication/authorization requirements
+- Multi-tenant isolation requirements
+- Non-functional requirements (performance, security)
+- Edge cases and error scenarios
+- Integration touchpoints between components
 
-**Gap Severity:** CRITICAL (9): Security/data integrity/core functionality | HIGH (6-8): Important requirements/P0 tests | MEDIUM (3-5): Minor requirements/P1 tests | LOW (1-2): Nice-to-have/P2 tests
+### 2. Map to E2E Integration Tests
 
-**See:** `references/templates.md` for complete examples and classification details
-
-## SEQUENTIAL Skill Execution
-
-**CRITICAL:** Do not proceed to next step until current step is complete
-
-### Step 0: Load Configuration and Context
-
-**Purpose:** Load project configuration, task specification, and related assessments
-
-**Actions:**
-
-1. **Load configuration from `.claude/config.yaml`:**
-   - Extract quality settings (assessmentLocation)
-   - Extract risk score threshold (for gap severity assessment)
-
-2. **Get task file path from user:**
-   - Example: `.claude/tasks/task-006-user-signup.md`
-   - Verify file exists and is readable
-
-3. **Read task specification:**
-   - Extract task ID, title, type
-   - Load objective and context
-   - **Load Acceptance Criteria** (primary traceability source)
-   - Load Implementation Record section (files created/modified)
-   - Load Quality Review section (if exists)
-
-4. **Load related assessments (optional but enhances analysis):**
-   - Risk profile: `.claude/quality/assessments/{task-id}-risk-*.md` (for gap severity)
-   - Test design: `.claude/quality/assessments/{task-id}-test-design-*.md` (for test mapping)
-
-5. **Identify implementation files:**
-   - From task spec "Implementation Record" section
-   - Files created/modified during implementation
-   - Line ranges for each change
-
-6. **Prepare output:**
-   - Output directory: `.claude/quality/assessments/`
-   - Output file: `{task-id}-trace-{YYYYMMDD}.md`
-   - Template: `.claude/templates/trace-requirements.md` (if exists)
-
-**Output:** Configuration loaded, task spec loaded with AC count, related assessments checked (risk profile/test design), implementation files identified, output path set
-
-**Halt If:** Config missing, task file not found, no ACs, cannot create output
-
-**See:** `references/templates.md#step-0-configuration-loading-output` for complete format
-
----
-
-### Step 1: Build Forward Traceability Matrix (AC → Implementation)
-
-**Purpose:** Map each acceptance criterion to its implementation evidence
-
-**Actions:**
-
-1. **For each acceptance criterion:**
-   - Extract AC from task specification
-   - Example: "AC-1: User can sign up with email and password"
-
-2. **Search implementation files for evidence:**
-   - Read each file from Implementation Record
-   - Search for relevant code implementing the AC
-   - Record file paths, line ranges, function/class names
-   - Extract code snippets as evidence (5-10 lines context)
-
-3. **Classify implementation status:**
-   - ✅ **Implemented:** Clear evidence found in code
-   - ⚠️ **Partial:** Some evidence but incomplete (e.g., validation missing)
-   - ❌ **Not Implemented:** No evidence found
-   - ❓ **Unclear:** Code exists but unclear if it satisfies AC
-
-4. **Record evidence:** File paths, line ranges, function names, code snippets (5-10 lines) for each AC
-
-5. **Calculate implementation coverage:**
-   ```
-   Implementation Coverage = (Implemented + 0.5 × Partial) / Total AC × 100%
-   ```
-
-**Output:** Forward traceability complete, AC counts by status, implementation coverage %
-
-**Halt If:** Cannot read implementation files, >50% ACs unclear
-
-**See:** `references/templates.md#step-1-forward-traceability-output` for complete format and examples
-
----
-
-### Step 2: Build Backward Traceability Matrix (Tests → AC)
-
-**Purpose:** Map each test to the acceptance criteria it validates
-
-**Actions:**
-
-1. **Identify test files:**
-   - From test-design assessment (if available)
-   - From Implementation Record (test files created)
-   - From convention: `**/*.test.ts`, `**/*.spec.ts`, `**/__tests__/*`
-
-2. **For each test file, extract test cases:**
-   - Read test file
-   - Extract test names from `it()`, `test()`, `describe()` blocks
-   - Extract test scenarios (Given-When-Then if present)
-
-   Extract test names from `it()`, `test()`, `describe()` blocks
-
-3. **Map tests to acceptance criteria:**
-   - Analyze test name and assertions
-   - Determine which AC(s) the test validates
-   - A single test can validate multiple ACs
-   - An AC typically has multiple tests (happy path, edge cases, errors)
-
-   Map tests to ACs (analyze test name + assertions, single test can validate multiple ACs)
-
-4. **Classify test coverage:**
-   - ✅ **Tested:** AC has at least one test validating it
-   - ⚠️ **Partial:** AC has tests but not all scenarios covered (e.g., only happy path)
-   - ❌ **Not Tested:** AC has no tests
-   - 🔄 **Indirect:** AC tested indirectly through E2E or other tests
-
-5. **Calculate test coverage:**
-   ```
-   Test Coverage = (Tested + 0.5 × Partial) / Total AC × 100%
-   ```
-
-**Output:** Backward traceability complete, tested AC counts, total tests, test coverage %
-
-**Halt If:** None (proceed even if no tests, will generate gaps)
-
-**See:** `references/templates.md#step-2-backward-traceability-output` for complete format
-
----
-
-### Step 3: Identify Coverage Gaps
-
-**Purpose:** Identify and classify gaps in implementation and test coverage with severity ratings
-
-**Actions:**
-
-1. **Identify implementation gaps:**
-   - ACs with status: Not Implemented, Partial, or Unclear
-   - Document missing functionality
-   - Estimate impact and effort
-
-   Document missing functionality, estimate impact and effort
-
-2. **Identify test gaps:**
-   - ACs with test coverage: Not Tested or Partial
-   - Document missing test scenarios
-   - Identify missing edge cases, error cases, security tests
-
-   Document missing test scenarios, identify edge cases/error cases
-
-3. **Classify gap severity:**
-   Use risk profile (if available) to inform severity:
-
-   - **CRITICAL (Score 9):**
-     - Security requirement not implemented or tested
-     - Data integrity requirement missing
-     - Core functionality not implemented
-     - High-risk area (from risk profile) not tested
-
-   - **HIGH (Score 6-8):**
-     - Important requirement not implemented
-     - Security test missing (but implementation exists)
-     - Performance requirement not validated
-     - P0 test missing
-
-   - **MEDIUM (Score 3-5):**
-     - Minor requirement not implemented
-     - Edge case test missing
-     - P1 test missing
-     - Partial implementation without full test coverage
-
-   - **LOW (Score 1-2):**
-     - Nice-to-have requirement missing
-     - P2 test missing
-     - Documentation-only gap
-
-4. **Cross-reference with risk profile (if available):**
-   - Gaps in high-risk areas → Increase severity
-   - Gaps with existing mitigation → Decrease severity
-   - Gaps without test coverage for high-risk area → CRITICAL
-
-5. **Calculate gap metrics:**
-   ```
-   Total Gaps = Implementation Gaps + Test Gaps
-   Critical Gaps = Gaps with severity CRITICAL
-   High Gaps = Gaps with severity HIGH
-   Medium Gaps = Gaps with severity MEDIUM
-   Low Gaps = Gaps with severity LOW
-
-   Gap Coverage = (Total AC - Total Gaps) / Total AC × 100%
-   ```
-
-**Output:**
-```
-⚠ Coverage gaps identified
-⚠ Total Gaps: {count}
-⚠ Critical: {count} (Security/core functionality issues)
-⚠ High: {count} (Important requirements missing)
-⚠ Medium: {count} (Minor gaps, edge cases)
-⚠ Low: {count} (Nice-to-have items)
-⚠ Gap Coverage: {percentage}%
-```
-
-**Halt Conditions:**
-- More than 50% implementation gaps (incomplete implementation, not ready for traceability)
-
-**Reference:** See [gap-analysis.md](references/gap-analysis.md) for gap classification and severity assessment
-
----
-
-### Step 4: Create Traceability Matrix
-
-**Purpose:** Build comprehensive bidirectional traceability matrix combining all data
-
-**Actions:**
-
-1. **Build full traceability matrix (table format):**
-   ```markdown
-   | AC | Requirement | Implementation | Tests | Gaps | Status |
-   |----|-------------|----------------|-------|------|--------|
-   | AC-1 | User can sign up with email and password | ✅ signup.ts:15-42 | ✅ 3 tests (P0) | None | ✅ Complete |
-   | AC-2 | Password must be at least 8 characters | ✅ validators/auth.ts:23 | ⚠️ 1 test (missing edge cases) | GAP-2 (MEDIUM) | ⚠️ Partial |
-   | AC-3 | Email must be validated | ✅ signup.ts:40, email.ts:12 | ✅ 2 tests (P1) | None | ✅ Complete |
-   | AC-4 | Rate-limit login attempts | ❌ Not implemented | ❌ No tests | GAP-1 (HIGH) | ❌ Incomplete |
-   ```
-
-2. **Generate detailed entries for each AC:**
-   ```markdown
-   ## AC-1: User can sign up with email and password
-
-   **Implementation Status:** ✅ Implemented
-
-   **Implementation Evidence:**
-   - **File:** src/routes/auth/signup.ts:15-42
-   - **Function:** handleSignup()
-   - **Description:** Implements signup endpoint accepting email/password,
-                      hashing password, creating user, sending verification email
-   - **Code Snippet:** [5-10 lines showing implementation]
-
-   **Test Coverage:** ✅ Tested
-
-   **Test Evidence:**
-   1. **Test:** "should create user with valid email and password"
-      - **File:** src/routes/auth/__tests__/signup.test.ts:12-24
-      - **Type:** Integration, Priority: P0
-      - **Scenario:** Given valid inputs, When signup, Then user created
-
-   2. **Test:** "should return 400 for invalid email format"
-      - **File:** src/routes/auth/__tests__/signup.test.ts:26-35
-      - **Type:** Integration, Priority: P0
-      - **Scenario:** Given invalid email, When signup, Then 400 error
-
-   **Coverage Status:** ✅ Complete
-   - Implementation: ✅ Complete
-   - Tests: ✅ Complete (3 tests covering happy path, validation, errors)
-   - Gaps: None
-   ```
-
-3. **Generate gap details:** Document each gap with severity, impact, required action, effort, priority
-
-4. **Calculate overall traceability score:**
-   ```
-   Traceability Score = (
-     (Implementation Coverage × 0.5) +
-     (Test Coverage × 0.4) +
-     (Gap Coverage × 0.1)
-   )
-
-   Example:
-   - Implementation Coverage: 85%
-   - Test Coverage: 80%
-   - Gap Coverage: 90% (10% gaps)
-
-   Traceability Score = (85 × 0.5) + (80 × 0.4) + (90 × 0.1)
-                      = 42.5 + 32 + 9
-                      = 83.5%
-   ```
-
-**Output:** Matrix complete with entry counts, traceability score
-
-**Halt If:** None
-
-**See:** `references/templates.md#complete-traceability-matrix-example` for matrix format
-
----
-
-### Step 5: Generate Recommendations
-
-**Purpose:** Provide actionable recommendations for closing gaps and improving traceability
-
-**Actions:**
-
-1. **Prioritize gaps:**
-   Sort by:
-   1. Severity (CRITICAL → HIGH → MEDIUM → LOW)
-   2. Priority (P0 → P1 → P2)
-   3. Effort (Small → Medium → Large)
-
-2. **Generate action plan:** Prioritized actions (P0/P1/P2) with impact, effort, required actions, tests
-
-3. **Quality gate impact assessment:** Determine status (PASS/CONCERNS/FAIL), provide reasoning, list actions to achieve PASS with effort estimates
-
-4. **Best practices:** Future task guidance (TDD, reference AC IDs, update traceability), current task guidance (close P0 gaps, document waivers, re-run after fixes)
-
-**Output:** Recommendations with P0/P1/P2 counts, effort estimates, quality gate prediction
-
-**Halt If:** None
-
-**See:** `references/templates.md` for recommendation formats and action plans
-
----
-
-### Step 6: Generate Traceability Report and Present Summary
-
-**Purpose:** Create comprehensive traceability report and present concise summary to user
-
-**Actions:**
-
-1. **Load template (if exists):**
-   - Read `.claude/templates/trace-requirements.md`
-   - Use default structure if template missing
-
-2. **Populate template variables:**
-   - Metadata: task ID, title, date, assessor
-   - Metrics: implementation coverage, test coverage, traceability score
-   - Counts: total AC, total gaps, critical/high/medium/low gaps
-   - Data: traceability matrix, detailed entries, gap details, recommendations
-
-3. **Generate file path:**
-   - Format: `.claude/quality/assessments/{taskId}-trace-{YYYYMMDD}.md`
-   - Example: `.claude/quality/assessments/task-006-trace-20251029.md`
-   - Create directory if needed
-
-4. **Write traceability report:**
-   - Complete report with all sections
-   - Validate all template variables replaced
-   - No placeholder text remaining
-
-5. **Present concise summary:** Task metadata, coverage metrics (implementation/test/gap/traceability score), gap breakdown by severity, quality gate impact + reasoning, actions to achieve PASS with estimates, report path, next steps
-
-**Output:** Report generated at output path, summary presented
-
-**Halt If:** File write fails
-
-**See:** `references/templates.md#step-4-complete-summary-format` for full summary output
-
----
-
-## Integration with Other Skills
-
-### Integration with risk-profile
-
-**Input:** Risk scores for high-risk areas | **Usage:** Gaps in high-risk areas → increase severity (e.g., HIGH → CRITICAL), missing tests for high-risk → CRITICAL
-
-### Integration with test-design
-
-**Input:** Test scenarios with priorities (P0/P1/P2), AC-to-test mappings | **Usage:** Validate test-to-AC mappings, identify missing test scenarios, use test priorities for gap severity
-
-### Integration with quality-gate
-
-**Output to quality-gate:**
-- Traceability score (contributes to gate decision)
-- Coverage gaps (may block gate if critical)
-- Action items for closing gaps
-- Evidence for requirements traceability dimension
-
-**How quality-gate uses it:**
-```markdown
-Quality Gate Decision:
-1. Check traceability score:
-   - Score ≥95% → PASS
-   - Score 80-94% → CONCERNS
-   - Score <80% → FAIL
-
-2. Check critical gaps:
-   - 0 critical gaps → continue evaluation
-   - 1+ critical gaps → CONCERNS (or FAIL if security)
-
-3. Check overall coverage:
-   - Implementation ≥90% AND Test ≥85% → PASS
-   - Implementation ≥80% OR Test ≥70% → CONCERNS
-   - Implementation <80% OR Test <70% → FAIL
-```
-
-## Best Practices
-
-1. **Reference AC IDs in Code:**
-   ```typescript
-   // Implements AC-1: User signup with email and password
-   export async function handleSignup(req: Request, res: Response) {
-     // ...
-   }
-   ```
-
-2. **Reference AC IDs in Commits:**
-   ```bash
-   git commit -m "feat: implement user signup (AC-1, AC-2, AC-3)"
-   ```
-
-3. **Reference AC IDs in Test Names:**
-   ```typescript
-   it('should satisfy AC-1: user can sign up with email and password', async () => {
-     // ...
-   });
-   ```
-
-4. **Run Before Code Review:**
-   - Check traceability before marking task as "Review"
-   - Close gaps before requesting review
-   - Re-run trace-requirements after closing gaps
-
-5. **Use for Audit Trail:**
-   - Demonstrate requirements → implementation → test chain
-   - Show evidence for compliance
-   - Cross-reference with risk profile for risk coverage
-
-## Configuration
-
-### In `.claude/config.yaml`
+For each requirement, document E2E integration tests that validate complete workflows. Use Given-When-Then to describe what the test validates (not how it's written):
 
 ```yaml
-quality:
-  # Quality assessment location
-  assessmentLocation: ".claude/quality/assessments"
+requirement: 'AC1: User can authenticate and access tenant-specific resources'
+test_mappings:
+  # PRIMARY: E2E Integration Test (Source of Truth)
+  - test_file: 'Integration.Tests/Endpoints/AuthEndpointTests.cs'
+    test_case: 'RegisterComponent_ShouldReturn_Ok'
+    endpoint: 'POST /api/Auth/registerComponent/{tenantId}'
+    given: 'Valid tenant with master authentication token'
+    when: 'Component registration request submitted'
+    then: 'Returns OK with encrypted RemoteAccessToken for tenant isolation'
+    coverage: e2e_integration
+    auth_pattern: 'Bearer token with tenant context'
+    multi_tenant: true
 
-  # Risk score threshold for gap severity amplification
-  riskScoreThreshold: 6  # Gaps in areas with risk ≥6 get higher severity
+  # SUPPLEMENTAL: Validation scenarios
+  - test_file: 'Integration.Tests/Endpoints/AuthEndpointTests.cs'  
+    test_case: 'RegisterComponent_ShouldValidateRequest'
+    test_attribute: '[Theory] with [InlineData] scenarios'
+    given: 'Invalid tenant ID or missing parameters'
+    when: 'Component registration attempted'
+    then: 'Returns appropriate error messages and status codes'
+    coverage: e2e_validation
+    scenarios_tested: ['invalid_tenant', 'validation_errors']
 
-  # Traceability thresholds
-  traceability:
-    implementationCoverage: 90    # Minimum implementation coverage
-    testCoverage: 85               # Minimum test coverage
-    traceabilityScore: 80          # Minimum overall traceability score
+requirement: 'AC2: Multi-tenant data isolation enforced'
+test_mappings:
+  # PRIMARY: Complete tenant lifecycle validation  
+  - test_file: 'Integration.Tests/Endpoints/TenantEndpointTests.cs'
+    test_case: 'CreateAndDeleteNewTenant_ShouldReturn_Ok'
+    endpoint: 'POST /api/Tenant/createNewTenant, DELETE /api/Tenant/deleteTenant'
+    given: 'Master authentication and tenant creation request'
+    when: 'Complete tenant lifecycle executed (create, validate, delete)'
+    then: 'Tenant created with isolated database, license validated, clean deletion'
+    coverage: e2e_integration
+    workflow_validation: 'Complete tenant management workflow'
+    database_validation: 'Tenant-specific database connection verified'
+    license_validation: 'Tenant license status compliance checked'
 ```
 
-### Template File
+### 3. E2E Integration Coverage Analysis
 
-`.claude/templates/trace-requirements.md` - Template for traceability report output (optional)
+Evaluate coverage for each requirement with emphasis on complete workflow validation:
 
----
+**Coverage Levels (Priority Order):**
 
-**Version:** 2.0 (Refactored for skill-creator compliance and Minimal V2 architecture)
-**Category:** Quality
-**Depends On:** risk-profile (optional, enhances gap severity), test-design (optional, enhances test mapping)
-**Used By:** quality-gate (uses traceability score and gaps for gate decision)
+- `e2e_integration`: Complete end-to-end workflow tested with full system integration (HIGHEST PRIORITY)
+- `e2e_validation`: Edge cases and validation scenarios covered in integration tests
+- `integration_with_unit`: Integration tests backed by supporting unit tests
+- `integration_only`: Covered in integration tests but lacks unit test support
+- `unit_only`: Only unit tests exist - INSUFFICIENT for requirement validation
+- `none`: No test coverage found - CRITICAL GAP
+
+**E2E Integration Test Patterns:**
+
+- **Endpoint Testing**: Direct API endpoint validation with realistic payloads
+- **Authentication Flow**: Complete auth workflows with tenant context
+- **Multi-Tenant Validation**: Tenant isolation and data segregation testing
+- **Database Integration**: Real database operations and transaction validation
+- **Service Integration**: Cross-service communication and dependency validation
+- **Error Scenario Testing**: Complete error handling workflows
+
+### 4. E2E Integration Gap Identification
+
+Document gaps with focus on missing end-to-end workflow validation:
+
+```yaml
+e2e_coverage_gaps:
+  - requirement: 'AC3: Secret key lifecycle management'
+    gap: 'No complete workflow test from creation through update to deletion'
+    severity: high
+    current_coverage: 'unit_only'
+    missing_e2e_test:
+      type: e2e_integration
+      suggested_file: 'Integration.Tests/Endpoints/SecretKeysEndpointTests.cs'
+      workflow: 'CreateSecretKey -> UpdateSecretKey -> GetSecretKeyById -> DeleteSecretKey'
+      authentication: 'JWT Bearer token validation throughout lifecycle'
+      database_validation: 'Verify persistence and state transitions'
+
+  - requirement: 'AC4: Multi-tenant data isolation under concurrent access'
+    gap: 'No concurrent multi-tenant access validation'
+    severity: critical
+    current_coverage: 'integration_only'
+    missing_e2e_test:
+      type: e2e_integration
+      suggested_file: 'Integration.Tests/Infrastructure/Services/MultiTenantConcurrencyTests.cs'
+      workflow: 'Simultaneous tenant operations with isolation verification'
+      auth_pattern: 'Multiple tenant tokens in parallel requests'
+      database_validation: 'Verify no cross-tenant data leakage'
+
+  - requirement: 'AC5: Host registration with remote access validation'
+    gap: 'Missing end-to-end host lifecycle with actual remote connectivity'
+    severity: medium
+    current_coverage: 'e2e_validation'
+    missing_e2e_test:
+      type: e2e_integration
+      enhancement: 'Extend HostEndpointTests to include connectivity validation'
+      workflow: 'RegisterRemoteHost -> ValidateConnection -> DeregisterHost'
+```
+
+## Outputs
+
+### Output 1: E2E Integration Gate YAML Block
+
+**Generate for pasting into gate file under `trace`:**
+
+```yaml
+trace:
+  totals:
+    requirements: X
+    e2e_integration: Y    # PRIMARY: Complete workflow validation
+    e2e_validation: Z     # Validation scenarios covered
+    integration_with_unit: A # Integration + unit test coverage
+    integration_only: B   # Integration tests without unit support
+    unit_only: C          # INSUFFICIENT: Unit tests only
+    none: W               # CRITICAL: No coverage
+  e2e_priority: 'Integration tests are source of truth for requirement validation'
+  planning_ref: 'qa.qaLocation/assessments/{epic}.{story}-test-design-{YYYYMMDD}.md'
+  critical_gaps:
+    - ac: 'AC4'
+      gap: 'Missing concurrent multi-tenant validation'
+      severity: 'critical'
+      test_type: 'e2e_integration'
+  workflow_coverage:
+    - endpoint_to_test_mapping: 'verified'
+    - authentication_flows: 'validated'
+    - multi_tenant_isolation: 'tested'
+    - database_integration: 'verified'
+  notes: 'See qa.qaLocation/assessments/{epic}.{story}-trace-{YYYYMMDD}.md'
+```
+
+### Output 2: E2E Integration Traceability Report
+
+**Save to:** `qa.qaLocation/assessments/{epic}.{story}-trace-{YYYYMMDD}.md`
+
+Create an E2E integration-focused traceability report with:
+
+```markdown
+# E2E Integration Requirements Traceability Matrix
+
+## Story: {epic}.{story} - {title}
+
+### E2E Integration Coverage Summary
+
+- Total Requirements: X
+- **E2E Integration Validated**: Y (Z%) - PRIMARY COVERAGE
+- **E2E Validation Scenarios**: A (B%) - Edge case coverage  
+- **Integration with Unit Support**: C (D%) - Comprehensive coverage
+- **Integration Only**: E (F%) - Adequate but missing unit support
+- **Unit Only**: G (H%) - INSUFFICIENT for requirement validation
+- **Not Covered**: I (J%) - CRITICAL GAPS
+
+### E2E Integration Test Mappings
+
+#### AC1: {Acceptance Criterion 1}
+
+**Coverage: E2E_INTEGRATION** âœ…
+
+E2E Integration Tests (Source of Truth):
+
+- **Endpoint Test**: `Integration.Tests/Endpoints/AuthEndpointTests.cs::RegisterComponent_ShouldReturn_Ok`
+  - **Endpoint**: `POST /api/Auth/registerComponent/{tenantId}`
+  - **Given**: Valid tenant with master authentication token
+  - **When**: Component registration API called with tenant context
+  - **Then**: Returns HTTP 200 with encrypted RemoteAccessToken, validates tenant isolation
+  - **Authentication**: Bearer token with master privileges
+  - **Multi-tenant**: Validates tenant-specific token generation
+  - **Database**: Verifies tenant context in database operations
+
+- **Validation Test**: `Integration.Tests/Endpoints/AuthEndpointTests.cs::RegisterComponent_ShouldValidateRequest`
+  - **Test Pattern**: [Theory] with [InlineData] for multiple scenarios
+  - **Given**: Invalid tenant IDs and malformed requests
+  - **When**: Registration attempted with invalid data
+  - **Then**: Returns appropriate HTTP error codes and descriptive error messages
+  - **Scenarios**: Invalid tenant, missing parameters, validation failures
+
+#### AC2: {Acceptance Criterion 2}
+
+**Coverage: E2E_INTEGRATION** âœ…
+
+E2E Integration Tests:
+
+- **Complete Workflow**: `Integration.Tests/Endpoints/TenantEndpointTests.cs::CreateAndDeleteNewTenant_ShouldReturn_Ok`
+  - **Endpoints**: `POST /api/Tenant/createNewTenant`, `DELETE /api/Tenant/deleteTenant`
+  - **Given**: Master authentication and tenant creation parameters
+  - **When**: Complete tenant lifecycle executed (create â†’ validate â†’ delete)
+  - **Then**: Tenant created with isolated database, license verified, clean deletion confirmed
+  - **Database Integration**: Validates tenant-specific database connection
+  - **License Validation**: Confirms tenant license compliance
+  - **Multi-tenant**: Ensures proper tenant isolation throughout lifecycle
+
+[Continue for all ACs...]
+
+### Critical E2E Integration Gaps
+
+1. **Multi-Tenant Concurrency Requirements**
+   - **Gap**: No concurrent multi-tenant access validation in integration tests
+   - **Risk**: Critical - Data isolation could fail under concurrent load
+   - **Current Coverage**: Integration tests exist but lack concurrency validation
+   - **Required E2E Test**: `Integration.Tests/Infrastructure/Services/MultiTenantConcurrencyTests.cs`
+   - **Workflow**: Simultaneous tenant operations with cross-tenant isolation verification
+   - **Authentication**: Multiple tenant tokens in parallel requests
+
+2. **Complete Workflow Validation**
+   - **Gap**: Secret key lifecycle not fully tested end-to-end
+   - **Risk**: High - Partial workflow failures not caught
+   - **Current Coverage**: Individual endpoint tests exist but not linked workflows
+   - **Required E2E Test**: Extend `Integration.Tests/Endpoints/SecretKeysEndpointTests.cs`
+   - **Workflow**: Create â†’ Update â†’ Retrieve â†’ Delete with authentication throughout
+
+3. **Cross-Service Integration**
+   - **Gap**: Service-to-service communication not validated in integration tests
+   - **Risk**: Medium - Integration points could fail silently
+   - **Required E2E Test**: Service interaction workflows with database and external services
+
+### E2E Integration Test Design Recommendations
+
+Based on E2E gaps identified, prioritize:
+
+1. **Complete Workflow Coverage**: Test entire user journeys, not just individual endpoints
+2. **Multi-Tenant Validation**: Every test should validate tenant isolation where applicable
+3. **Authentication Flow Integration**: Include authentication context in all relevant tests
+4. **Database Transaction Validation**: Verify data persistence and consistency
+5. **Error Scenario Integration**: Test complete error handling workflows
+6. **Performance Integration**: Basic performance validation within integration tests
+
+### Risk Assessment (E2E Integration Focus)
+
+- **Critical Risk**: Requirements with no E2E integration coverage (unit_only or none)
+- **High Risk**: Requirements with integration tests but missing complete workflow validation
+- **Medium Risk**: Requirements with E2E integration but missing edge case validation  
+- **Low Risk**: Requirements with comprehensive E2E integration plus supporting unit tests
+```
+
+## E2E Integration Traceability Best Practices
+
+### E2E Integration Test Patterns
+
+**Endpoint-to-Test Mapping:**
+- Each API endpoint should have corresponding integration test
+- Test file organization: `Integration.Tests/Endpoints/{FeatureArea}EndpointTests.cs`
+- Test method naming: `{Operation}_{ExpectedResult}` (e.g., `CreateTenant_ShouldReturn_Ok`)
+
+**Authentication Flow Integration:**
+- Every test validates authentication context where applicable
+- Bearer token patterns: Master tokens vs tenant-specific tokens
+- Multi-tenant authentication validation in every relevant test
+
+**Complete Workflow Testing:**
+- Test entire business workflows, not just individual operations
+- Link related operations: Create â†’ Read â†’ Update â†’ Delete sequences
+- Validate state transitions and data consistency throughout workflow
+
+**Database Integration Validation:**
+- Real database operations with transaction verification
+- Tenant-specific database connection validation
+- Data persistence and retrieval verification
+
+### Given-When-Then for E2E Integration Mapping
+
+Use Given-When-Then to document complete E2E workflow validation:
+
+**Given**: The complete system context and authentication setup
+
+- Authentication tokens and tenant context
+- Database state and test data preparation
+- Multi-tenant isolation preconditions
+- External service mock/stub configurations
+
+**When**: The complete workflow or API interaction
+
+- Full API request with realistic payloads
+- Multi-step workflow execution
+- Cross-service integration calls
+- Error scenario triggering
+
+**Then**: Complete system response and state validation
+
+- HTTP response codes and payload validation
+- Database state changes verified
+- Multi-tenant isolation maintained
+- Authentication context preserved
+- Service integration confirmed
+
+**Note**: This documents E2E integration validation, not test code implementation.
+
+### E2E Coverage Priority (Source of Truth)
+
+Prioritize E2E integration coverage based on:
+
+1. **Critical Multi-Tenant Workflows** (HIGHEST)
+2. **Authentication/Authorization Flows**
+3. **Complete Business Process Workflows**
+4. **Database Integration Operations**
+5. **Cross-Service Communication**
+6. **Error Handling Workflows**
+7. **Performance-Critical Paths**
+
+### Test Granularity (E2E Focus)
+
+Map requirements with E2E integration as primary validation:
+
+- **E2E Integration tests**: PRIMARY - Complete workflow validation (source of truth)
+- **Unit tests**: SUPPLEMENTAL - Support E2E coverage with isolated logic testing
+- **Performance tests**: SPECIALIZED - For non-functional requirements
+- **Manual tests**: LAST RESORT - Only for scenarios impossible to automate
+
+## E2E Integration Quality Indicators
+
+Good E2E integration traceability shows:
+
+- Every AC has E2E integration test coverage (PRIMARY requirement)
+- Critical workflows tested end-to-end with complete system integration
+- Authentication flows validated throughout complete user journeys
+- Multi-tenant isolation verified in all applicable scenarios
+- Database integration validated with real persistence operations
+- Error scenarios tested with complete error handling workflows
+- Clear endpoint-to-test mapping with realistic test data
+
+## E2E Integration Red Flags
+
+Critical issues to watch for:
+
+- **ACs with only unit test coverage** - INSUFFICIENT for requirement validation
+- **Missing complete workflow validation** - Tests individual operations but not linked workflows
+- **Authentication not validated in integration context** - Tests functionality but ignores auth requirements
+- **Multi-tenant isolation not verified** - Tests work but don't validate tenant data segregation
+- **Database integration mocked or stubbed** - Tests logic but not actual data operations
+- **Missing error scenario E2E validation** - Tests happy path but not complete error workflows
+- **Vague integration test descriptions** - Tests exist but purpose unclear
+- **Tests that don't map to actual API endpoints** - Test coverage doesn't reflect real system behavior
+
+## Integration with E2E Quality Gates
+
+E2E integration traceability feeds into quality gates with strict standards:
+
+- **Requirements with no E2E integration coverage** â†’ FAIL
+- **Critical workflows missing complete E2E validation** â†’ FAIL  
+- **Multi-tenant requirements without isolation validation** â†’ FAIL
+- **Authentication flows not validated in integration context** â†’ CONCERNS
+- **Missing complete workflow E2E coverage** â†’ CONCERNS
+- **Unit-only coverage for integration-dependent requirements** â†’ CONCERNS
+
+### Gate Priorities (E2E Focus)
+
+1. **FAIL Conditions**: E2E integration gaps for critical requirements
+2. **CONCERNS**: Missing workflow completion or validation scenarios
+3. **PASS Contribution**: Comprehensive E2E integration coverage with supporting unit tests
+
+### Output 3: E2E Integration Story Hook Line
+
+**Print this line for review task to quote:**
+
+```text
+E2E Integration Trace Matrix: qa.qaLocation/assessments/{epic}.{story}-trace-{YYYYMMDD}.md
+```
+
+## Key E2E Integration Principles
+
+- **E2E integration tests are the source of truth** for requirement validation
+- **Complete workflows take precedence** over individual operation testing
+- **Multi-tenant validation is mandatory** for all applicable requirements
+- **Authentication context must be preserved** throughout integration testing
+- **Database integration must be real**, not mocked, for true validation
+- **Error scenarios require complete workflow validation**, not just unit-level testing
+- **Use Given-When-Then to document complete system behavior**, not just isolated logic
+- **Prioritize based on system integration risk**, not just functional complexity
+

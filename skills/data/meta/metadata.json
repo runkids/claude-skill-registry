@@ -1,11 +1,7 @@
 {
   "name": "meta",
-  "description": "Guide for writing and improving Claude Code skills. Use when creating new skills, debugging why skills aren't activating, or improving skill descriptions and structure.",
-  "repo": "whilp/dotfiles",
-  "category": "development",
-  "tags": [
-    "meta"
-  ],
-  "stars": 9,
-  "source": "local"
+  "repo": "marcusgoll/Spec-Flow",
+  "path": ".codex/commands/meta/audit-skill.md",
+  "source": "github.com/marcusgoll/Spec-Flow",
+  "downloaded_at": "2026-01-14T04:06:28.477823Z"
 }

@@ -1,15 +1,7 @@
 {
   "name": "sequence-memory-storage-and-recall",
-  "description": "Store and recall sequential memory patterns and state transitions.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "productivity",
-  "tags": [
-    "sequence",
-    "memory",
-    "storage",
-    "and",
-    "recall"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/sequence-memory-storage-and-recall/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-14T01:08:26.814249Z"
 }

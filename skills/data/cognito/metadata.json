@@ -1,9 +1,7 @@
 {
   "name": "cognito",
-  "description": "AWS Cognito user authentication and authorization service. Use when setting up user pools, configuring identity pools, implementing OAuth flows, managing user attributes, or integrating with social id",
   "repo": "itsmostafa/aws-agent-skills",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "GitHub Search API"
+  "path": "skills/cognito/SKILL.md",
+  "source": "github.com/itsmostafa/aws-agent-skills",
+  "downloaded_at": "2026-01-14T02:42:56.066833Z"
 }

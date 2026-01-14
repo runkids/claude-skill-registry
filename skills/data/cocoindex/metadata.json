@@ -1,8 +1,7 @@
 {
   "name": "cocoindex",
-  "repo": "davila7/claude-code-templates",
-  "category": "data",
-  "description": "Comprehensive toolkit for developing with the CocoIndex library. Use when users need to create data transformation pipelines (flows), write custom functions, or operate flows via CLI or API. Covers bu",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:35.203370Z"
+  "repo": "cocoindex-io/cocoindex-claude",
+  "path": "cocoindex/SKILL.md",
+  "source": "github.com/cocoindex-io/cocoindex-claude",
+  "downloaded_at": "2026-01-14T04:07:36.861459Z"
 }

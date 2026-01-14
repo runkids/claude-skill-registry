@@ -18,6 +18,7 @@ python init_project_kb.py "车险周报自动化" "/home/claude/my-projects"
 ```
 
 生成结果:
+
 - 标准目录结构（docs/decisions/patterns/reports）
 - 2个文档模板（项目启动文档、技术方案文档）
 - README索引文件
@@ -29,6 +30,7 @@ python extract_patterns.py /path/to/source /home/claude/my-projects/knowledge-ba
 ```
 
 自动提取:
+
 - 技术决策（@decision标记）
 - 代码模式（函数签名+docstring）
 - 配置模板（JSON/YAML结构）
@@ -90,6 +92,68 @@ python generate_index.py /home/claude/my-projects/knowledge-base
 ↓ Step 4: 更新索引（generate_index.py）
 ```
 
+## 工作流程
+
+### 完整知识库构建流程
+
+```
+1. 场景识别
+   ↓
+   ├─ 新项目 → 工作流A
+   ├─ 现有项目 → 工作流B
+   └─ 零散文档 → 工作流C
+
+2. 初始化
+   ↓
+   运行 init_project_kb.py
+   ├─ 创建标准目录结构
+   │   ├─ docs/ (项目文档)
+   │   ├─ decisions/ (技术决策记录)
+   │   ├─ patterns/ (可复用模式)
+   │   └─ reports/ (分析报告)
+   ├─ 生成模板文件
+   │   ├─ 项目启动文档
+   │   └─ 技术方案文档
+   └─ 创建 README 索引
+
+3. 知识提取（如适用）
+   ↓
+   运行 extract_patterns.py
+   ├─ 扫描源代码
+   │   ├─ 提取 @decision 标记
+   │   ├─ 识别设计模式
+   │   └─ 收集配置模板
+   ├─ 分析技术选型
+   └─ 保存到对应目录
+
+4. 内容填充
+   ↓
+   ├─ 手动填写模板（新项目）
+   └─ 整理提取内容（现有项目）
+
+5. 索引更新
+   ↓
+   运行 generate_index.py
+   ├─ 扫描所有文档
+   ├─ 生成分类索引
+   └─ 更新 README
+
+6. 输出交付
+   ↓
+   结构化知识库
+   ├─ 可复用模板
+   ├─ 技术决策文档
+   ├─ 代码模式库
+   └─ 完整索引
+```
+
+### 决策逻辑
+
+- **场景识别**：根据用户需求自动选择工作流
+- **内容提取**：智能识别代码中的知识模式
+- **标准化**：统一文档格式，便于跨项目复用
+- **索引生成**：自动维护知识库导航
+
 ## 脚本使用指南
 
 ### 脚本1: init_project_kb.py
@@ -105,6 +169,7 @@ python init_project_kb.py "数据分析平台" "/home/claude/projects/kb"
 ```
 
 **输出**:
+
 - 目录结构: docs/, decisions/, patterns/, reports/
 - 文档模板: 项目启动文档.md, 技术方案文档.md
 - README.md
@@ -121,6 +186,7 @@ python extract_patterns.py /mnt/skills/user/insurance-weekly-report /home/claude
 ```
 
 **提取规则**:
+
 - `# @decision: xxx` → 技术决策记录
 - `def func(): """docstring"""` → 代码模式
 - `.json` 文件 → 配置模板
@@ -148,6 +214,7 @@ python generate_index.py <知识库目录>
 **适用场景**: 新项目启动、明确范围和目标、干系人对齐
 
 **核心章节**:
+
 1. 项目背景与目标（业务痛点、KPI）
 2. 项目范围（功能、数据、分析维度）
 3. 干系人与角色
@@ -160,6 +227,7 @@ python generate_index.py <知识库目录>
 **适用场景**: 技术选型与架构设计、关键决策记录
 
 **核心章节**:
+
 1. 技术选型（语言、框架、依赖库）
 2. 系统架构设计（整体架构、模块设计、数据流）
 3. 关键技术决策（使用@decision标记便于后续提取）
@@ -200,11 +268,11 @@ knowledge-base/
 
 ## 故障排查
 
-| 问题 | 可能原因 | 解决方案 |
-|------|---------|---------|
-| 脚本运行失败 | Python版本/依赖 | 确保Python>=3.8，安装pandas |
-| 提取不到@decision | 格式不对 | 使用 `# @decision: 内容` 格式 |
-| README缺少内容 | 无YAML frontmatter | 文档开头添加 `---` 包围的元数据 |
+| 问题              | 可能原因           | 解决方案                        |
+| ----------------- | ------------------ | ------------------------------- |
+| 脚本运行失败      | Python版本/依赖    | 确保Python>=3.8，安装pandas     |
+| 提取不到@decision | 格式不对           | 使用 `# @decision: 内容` 格式   |
+| README缺少内容    | 无YAML frontmatter | 文档开头添加 `---` 包围的元数据 |
 
 ---
 

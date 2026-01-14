@@ -1,14 +1,7 @@
 {
   "name": "testing-react-testing-lib",
-  "description": "Apply when testing React components: rendering, user interactions, and accessibility-focused testing.",
   "repo": "CoderMariusz/MonoPilot",
-  "category": "testing",
-  "tags": [
-    "testing",
-    "react",
-    "testing",
-    "lib"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/testing-react-testing-lib/SKILL.md",
+  "source": "github.com/CoderMariusz/MonoPilot",
+  "downloaded_at": "2026-01-14T03:46:41.708810Z"
 }

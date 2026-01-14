@@ -1,12 +1,7 @@
 {
   "name": "sherlock-review",
-  "description": "Evidence-based investigative code review using deductive reasoning to determine what actually happened versus what was claimed. Use when verifying implementation claims, investigating bugs, validating",
-  "repo": "proffesor-for-testing/agentic-qe",
-  "category": "development",
-  "tags": [
-    "sherlock",
-    "review"
-  ],
-  "stars": 103,
-  "source": "SkillsMP Synced Skills"
+  "repo": "proffesor-for-testing/sentinel-api-testing",
+  "path": ".claude/skills/sherlock-review/SKILL.md",
+  "source": "github.com/proffesor-for-testing/sentinel-api-testing",
+  "downloaded_at": "2026-01-14T01:57:30.029670Z"
 }

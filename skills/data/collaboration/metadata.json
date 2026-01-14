@@ -1,11 +1,7 @@
 {
   "name": "collaboration",
-  "description": "Team collaboration - remote, fetch, pull, push, clone, and team workflows",
-  "repo": "pluginagentmarketplace/custom-plugin-git-github",
-  "category": "productivity",
-  "tags": [
-    "collaboration"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "jwwelbor/shark-task-manager",
+  "path": ".claude/skills/collaboration/SKILL.md",
+  "source": "github.com/jwwelbor/shark-task-manager",
+  "downloaded_at": "2026-01-14T00:52:50.415266Z"
 }

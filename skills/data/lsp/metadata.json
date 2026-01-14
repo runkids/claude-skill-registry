@@ -1,11 +1,7 @@
 {
   "name": "lsp",
-  "description": "Use when implementing Language Server Protocol features - diagnostics, completions, hover, go-to-definition, and editor integration",
   "repo": "mcclowes/omg",
-  "category": "testing",
-  "tags": [
-    "lsp"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/lsp/SKILL.md",
+  "source": "github.com/mcclowes/omg",
+  "downloaded_at": "2026-01-14T04:01:33.868770Z"
 }

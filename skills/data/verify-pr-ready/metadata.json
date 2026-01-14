@@ -1,12 +1,7 @@
 {
   "name": "verify-pr-ready",
-  "description": "Verify a PR is ready for merge (CI passing, approvals, no conflicts). Use before merging to ensure all requirements met.",
   "repo": "mvillmow/ProjectOdyssey",
-  "category": "design",
-  "tags": [
-    "verify",
-    "ready"
-  ],
-  "stars": 8,
-  "source": "local"
+  "path": ".claude/skills/verify-pr-ready/SKILL.md",
+  "source": "github.com/mvillmow/ProjectOdyssey",
+  "downloaded_at": "2026-01-14T01:08:56.719715Z"
 }

@@ -1,11 +1,7 @@
 {
   "name": "performance-auditor",
-  "description": "Audit, optimize, and maintain 60fps performance for emotive-mascot",
-  "repo": "joshtol/emotive-engine",
-  "category": "data",
-  "tags": [
-    "performance",
-    "auditor"
-  ],
-  "stars": 10
+  "repo": "Spectaculous-Code/raamattu-nyt",
+  "path": "Docs/claude-reports/performance-auditor/SKILL.md",
+  "source": "github.com/Spectaculous-Code/raamattu-nyt",
+  "downloaded_at": "2026-01-14T02:15:29.123715Z"
 }

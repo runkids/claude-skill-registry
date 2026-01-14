@@ -1,13 +1,7 @@
 {
   "name": "build-run-local",
-  "description": "Run local builds with proper environment setup. Use when building code locally to verify changes before pushing.",
   "repo": "mvillmow/ProjectOdyssey",
-  "category": "development",
-  "tags": [
-    "build",
-    "run",
-    "local"
-  ],
-  "stars": 8,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/build-run-local/SKILL.md",
+  "source": "github.com/mvillmow/ProjectOdyssey",
+  "downloaded_at": "2026-01-14T01:09:00.176468Z"
 }

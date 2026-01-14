@@ -1,12 +1,7 @@
 {
   "name": "fixing-bugs",
-  "description": "Use when encountering a bug - complete workflow from discovery through debugging, bd issue, test-driven fix, verification, and closure",
   "repo": "withzombies/hyperpowers",
-  "category": "development",
-  "tags": [
-    "fixing",
-    "bugs"
-  ],
-  "stars": 13,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/fixing-bugs/SKILL.md",
+  "source": "github.com/withzombies/hyperpowers",
+  "downloaded_at": "2026-01-14T02:05:59.295079Z"
 }

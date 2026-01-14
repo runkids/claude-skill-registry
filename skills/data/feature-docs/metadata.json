@@ -1,12 +1,7 @@
 {
   "name": "feature-docs",
-  "description": "Use when the user asks to generate comprehensive feature documentation with verified test cases, create feature README with code evidence, or document a complete feature with test verification. Trigge",
   "repo": "duc01226/EasyPlatform",
-  "category": "documents",
-  "tags": [
-    "feature",
-    "docs"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/feature-docs/SKILL.md",
+  "source": "github.com/duc01226/EasyPlatform",
+  "downloaded_at": "2026-01-14T03:30:51.954742Z"
 }

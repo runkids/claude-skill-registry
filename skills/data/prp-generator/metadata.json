@@ -1,12 +1,7 @@
 {
   "name": "prp-generator",
-  "description": "Auto-activates when generating Product Requirements Prompt (PRP) documents",
-  "repo": "matteocervelli/llms",
-  "category": "design",
-  "tags": [
-    "prp",
-    "generator"
-  ],
-  "stars": 10,
-  "source": "local"
+  "repo": "daffy0208/ai-dev-standards",
+  "path": "skills/prp-generator/SKILL.md",
+  "source": "github.com/daffy0208/ai-dev-standards",
+  "downloaded_at": "2026-01-14T03:33:10.563730Z"
 }

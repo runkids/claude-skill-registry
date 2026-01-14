@@ -1,6 +1,7 @@
 ---
 name: veo-image-to-video
 description: Animate a single image into a video using fal.ai Veo 3.1. Use when the user wants to create a video from a still image, animate a photo, or bring an image to life. Supports up to 8 seconds of video with optional audio.
+allowed-tools: Bash, Read, Write
 ---
 
 # Veo 3.1 Image-to-Video
@@ -119,3 +120,13 @@ console.log("Generated video:", result.video.url);
 - Higher resolution (1080p) provides better quality but takes longer
 - Disable audio generation to save credits when not needed
 - Ensure input image is at least 720p for best results
+
+## Error Handling
+
+| Error | Cause | Solution |
+|-------|-------|----------|
+| `401 Unauthorized` | Invalid FAL_KEY | Verify key at fal.ai dashboard |
+| `429 Too Many Requests` | Rate limit exceeded | Wait 60 seconds, retry |
+| `400 Bad Request` | Invalid image URL or low resolution | Use 720p+ image |
+| `500 Server Error` | API temporary issue | Retry after 30 seconds |
+| `Timeout` | Video generation taking too long | Use 720p or shorter duration |

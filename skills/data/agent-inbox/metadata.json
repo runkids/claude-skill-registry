@@ -1,12 +1,7 @@
 {
   "name": "agent-inbox",
-  "description": "Check and process messages from autonomous AILANG agents. Use when starting a session, after agent handoffs, or when checking for completion notifications.",
   "repo": "sunholo-data/ailang",
-  "category": "data",
-  "tags": [
-    "agent",
-    "inbox"
-  ],
-  "stars": 13,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/agent-inbox/SKILL.md",
+  "source": "github.com/sunholo-data/ailang",
+  "downloaded_at": "2026-01-14T01:03:59.819041Z"
 }

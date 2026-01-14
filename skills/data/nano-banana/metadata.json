@@ -1,11 +1,7 @@
 {
   "name": "nano-banana",
-  "description": "Generate, edit, and compose images using Google's Gemini 3 Pro Image model (Nano Banana Pro). Use this skill when the user asks to create images, generate visuals, edit photos, compose multiple images",
-  "repo": "devonjones/skill-nano-banana",
-  "category": "data",
-  "tags": [
-    "nano",
-    "banana"
-  ],
-  "stars": 0
+  "repo": "horuz-ai/claude-plugins",
+  "path": "plugins/google/skills/nano-banana/SKILL.md",
+  "source": "github.com/horuz-ai/claude-plugins",
+  "downloaded_at": "2026-01-14T02:39:31.595646Z"
 }

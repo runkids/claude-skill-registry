@@ -1,10 +1,7 @@
 {
   "name": "ml-pipeline",
-  "description": "Use when building ML pipelines, orchestrating training workflows, automating model lifecycle, implementing feature stores, or managing experiment tracking systems.",
   "repo": "Jeffallan/claude-skills",
-  "category": "data",
-  "tags": [
-    "pipeline"
-  ],
-  "stars": 12
+  "path": "skills/ml-pipeline/SKILL.md",
+  "source": "github.com/Jeffallan/claude-skills",
+  "downloaded_at": "2026-01-14T02:36:35.632304Z"
 }

@@ -1,7 +1,8 @@
 ---
 name: router-main
-description: Universal entry point that routes any query to the appropriate domain router (startup, engineering, operations)
-version: "1.0"
+description: Universal entry point that routes any query to the appropriate domain router (startup, engineering, operations) - orchestrates 72+ skills
+metadata:
+  version: "1.3"
 ---
 
 # Router: Main
@@ -26,7 +27,7 @@ YOUR QUERY
             ▼                     ▼                     ▼
 ┌───────────────────┐  ┌───────────────────┐  ┌───────────────────┐
 │  router-startup   │  │ router-engineering│  │ router-operations │
-│  17 skills        │  │  29 skills        │  │   15 skills       │
+│  22 skills        │  │  32 skills        │  │   15 skills       │
 │                   │  │                   │  │                   │
 │  Business         │  │  Technical        │  │  QA & DevOps      │
 │  Marketing        │  │  AI/ML            │  │  Testing          │
@@ -84,29 +85,35 @@ QUERY ANALYSIS
 
 ## Domain Routers
 
-### router-startup (17 skills)
+### router-startup (22 skills)
 
 **Focus**: Business validation, marketing, documents, product management
 
 | Category | Skills |
 |----------|--------|
 | Startup Validation | idea-validation, review-mining, trend-prediction, competitive-analysis, business-models, go-to-market, fundraising |
-| Marketing | social-media, leads-generation, seo-technical, ai-search-optimization |
+| Marketing (8) | social-media, leads-generation, seo-technical, ai-search-optimization, content-strategy, **paid-advertising**, **email-automation**, **cro** |
 | Documents | pptx, docx, xlsx, pdf |
 | Product | product-management |
 | UX | ux-research, ui-ux-design |
 
-**Use when**: You have a business idea, need market validation, want to create business documents, or plan your GTM strategy.
+**NEW Marketing Skills (January 2026):**
 
-### router-engineering (29 skills)
+- `marketing-paid-advertising` - Google, Meta, TikTok, LinkedIn campaign strategy
+- `marketing-email-automation` - Workflow design, HubSpot/Klaviyo setup, nurture sequences
+- `marketing-cro` - A/B testing, landing page optimization, conversion funnels
+
+**Use when**: You have a business idea, need market validation, want to create business documents, plan your GTM strategy, or need traffic/leads.
+
+### router-engineering (32 skills)
 
 **Focus**: Technical implementation, AI/ML, software development, Claude Code
 
 | Category | Skills |
 |----------|--------|
 | AI/ML | agents, llm, llm-inference, ml-data-science, ml-timeseries, mlops, prompt-engineering, rag |
-| Software | frontend, backend, mobile, architecture-design, code-review, security-appsec, crypto-web3 |
-| Data | sql-optimization, lake-platform |
+| Software | frontend, backend, mobile, architecture-design, clean-code-standard, code-review, security-appsec, crypto-web3, ui-ux-design, ux-research, localisation |
+| Data | sql-optimization, lake-platform, analytics-engineering |
 | Dev Workflow | api-design, dependency-management, workflow-planning |
 | Claude Code | agents, commands, hooks, mcp, project-memory, skills |
 
@@ -118,7 +125,7 @@ QUERY ANALYSIS
 
 | Category | Skills |
 |----------|--------|
-| Testing | testing-strategy, testing-playwright, testing-ios, agent-testing |
+| Testing | testing-strategy, testing-playwright, testing-ios, testing-mobile, api-testing-contracts, agent-testing |
 | Quality | debugging, observability, resilience, refactoring, docs-coverage |
 | DevOps | devops-platform |
 | Git | commit-message, workflow |
@@ -198,4 +205,4 @@ Just describe what you need. This router will figure out where to send you.
 - "Create a financial model"
 - "Implement an AI agent"
 
-The framework has **62 specialized skills** ready to help across all domains.
+The framework has **72+ specialized skills** ready to help across all domains.

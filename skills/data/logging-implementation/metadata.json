@@ -1,12 +1,7 @@
 {
   "name": "logging-implementation",
-  "description": "Manage implementation logs in _docs/templates/ with consistent format. Use when starting project work, completing implementations, or when user mentions 実装ログ/implementation log.",
   "repo": "camoneart/claude-code",
-  "category": "documents",
-  "tags": [
-    "logging",
-    "implementation"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": "skills/logging-implementation/SKILL.md",
+  "source": "github.com/camoneart/claude-code",
+  "downloaded_at": "2026-01-14T03:37:02.307054Z"
 }

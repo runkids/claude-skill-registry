@@ -1,8 +1,7 @@
 {
   "name": "sql-reader",
   "repo": "cncorp/arsenal",
-  "category": "data",
-  "description": "Query production PostgreSQL database with read-only credentials. Use for investigating data, debugging issues, or analyzing application state.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:47.711072Z"
+  "path": "dot-claude/skills/sql-reader/SKILL.md",
+  "source": "github.com/cncorp/arsenal",
+  "downloaded_at": "2026-01-14T04:01:20.343357Z"
 }

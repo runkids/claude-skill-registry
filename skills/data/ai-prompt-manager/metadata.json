@@ -1,12 +1,7 @@
 {
   "name": "ai-prompt-manager",
-  "description": "Expert assistant for managing AI prompts, features, and configuration in the KR92 Bible Voice AI system. Use when creating AI prompts, configuring AI features, managing prompt versions, setting up AI ",
   "repo": "Spectaculous-Code/raamattu-nyt",
-  "category": "data",
-  "tags": [
-    "prompt",
-    "manager"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/ai-prompt-manager/SKILL.md",
+  "source": "github.com/Spectaculous-Code/raamattu-nyt",
+  "downloaded_at": "2026-01-14T02:15:29.580738Z"
 }

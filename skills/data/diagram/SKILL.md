@@ -1,254 +1,221 @@
 ---
 name: diagram
-description: Maintain and synchronize Unified Impact Diagrams following Diagram Driven Development (DDD) methodology. Create, update, and manage diagrams that connect user value to technical implementation.
-allowed-tools: Bash, Glob, Read, Write, Edit
+description: "Generate publication-quality technical diagrams using Nano Banana Pro (Gemini 3 Pro Image) with AI-powered quality review. Smart iteration only regenerates when quality is below threshold."
+allowed-tools: [Read, Write, Edit, Bash]
 ---
 
-# Diagram Driven Development (DDD) Skill
+# Nano Banana - Diagram Generation
 
-Maintain the `ai/diagrams` directory as the single source of truth for system understanding. All diagrams follow DDD principles, connecting Front-Stage (user experience) to Back-Stage (technical implementation) with clear impact annotations.
+## Overview
 
-## Capabilities
+Generate any technical diagram by describing it in natural language. Nano Banana Pro automatically creates publication-quality diagrams with intelligent quality review.
 
-1. **Create Diagrams** - Generate new diagrams for features, architectures, journeys, tests, and refactorings
-2. **Update Diagrams** - Synchronize existing diagrams with code changes
-3. **Audit Diagrams** - Identify outdated, missing, or low-quality diagrams
-4. **Organize Diagrams** - Maintain consistent structure and naming conventions
-5. **Index Management** - Keep README.md index up-to-date with all diagrams
-6. **Quality Validation** - Ensure all diagrams follow DDD principles
+**Key Features:**
+- 🍌 **Smart Iteration**: Only regenerates if quality is below threshold (saves API calls)
+- 🎯 **Document-Type Aware**: Different quality standards for different document types
+- 🔍 **AI Quality Review**: Gemini 3 Pro reviews each generation for professional standards
+- 📊 **Publication-Ready**: High contrast, readable fonts, colorblind-friendly
 
-## Quick Reference
+## When to Use This Skill
 
-For detailed instructions on each operation, see:
-- [CREATE.md](references/CREATE.md) - Creating new diagrams
-- [UPDATE.md](references/UPDATE.md) - Updating existing diagrams
-- [AUDIT.md](references/AUDIT.md) - Auditing diagram quality and coverage
-- [ORGANIZE.md](references/ORGANIZE.md) - Directory structure and naming
-- [DDD_PRINCIPLES.md](references/DDD_PRINCIPLES.md) - Diagram Driven Development methodology
-- [MERMAID_GUIDE.md](references/MERMAID_GUIDE.md) - Mermaid syntax patterns
+Use this skill when you need:
 
-## Directory Structure
+- **Architecture Diagrams**: System designs, microservices, C4 models
+- **Flowcharts**: Process flows, decision trees, user journeys
+- **Data Models**: ERD diagrams, schema visualizations
+- **Sequence Diagrams**: API interactions, message flows
+- **Infrastructure Diagrams**: Cloud architecture, deployment topologies
+- **Pipeline Diagrams**: CI/CD, data pipelines, ML workflows
+- **Any Technical Visualization**: Describe it, Nano Banana creates it
 
-```
-ai/diagrams/
-├── README.md                    # Index of all diagrams
-├── features/                    # Feature-specific diagrams
-├── architecture/                # System architecture diagrams
-├── journeys/                    # User journey diagrams
-├── tests/                       # Test coverage diagrams
-└── refactoring/                 # Before/After improvement diagrams
-```
+## Quick Start
 
-## Common Workflows
+```bash
+# Generate an architecture diagram
+python skills/diagram/scripts/generate_diagram.py "Microservices architecture with API gateway, auth service, and database" -o architecture.png --doc-type architecture
 
-### Initial Setup Workflow
-1. User starts new project or adds DDD to existing project
-2. Create `ai/diagrams/` directory structure
-3. Generate initial system architecture diagram
-4. Create README.md index
-5. Document key user journeys
+# Generate a flowchart for a presentation
+python skills/diagram/scripts/generate_diagram.py "User authentication flow with OAuth2" -o auth_flow.png --doc-type presentation
 
-### New Feature Workflow
-1. User requests new feature
-2. Create feature diagram showing user value
-3. Connect Front-Stage (UX) to Back-Stage (implementation)
-4. Document related files and components
-5. Update README.md index
-
-### Code Change Workflow
-1. Code is modified (new features, refactoring, etc.)
-2. Identify affected diagrams
-3. Update diagrams to reflect changes
-4. Update "Last Updated" dates
-5. Add change history entries
-
-### Audit Workflow
-1. User requests diagram audit
-2. Scan all diagrams in `ai/diagrams/`
-3. Check for outdated diagrams (compare dates with git)
-4. Identify missing diagrams (features without diagrams)
-5. Validate DDD quality (Front-Stage/Back-Stage, impact annotations)
-6. Report findings and recommendations
-
-### Refactoring Documentation Workflow
-1. User plans code refactoring
-2. Create "Before" diagram showing current state
-3. Create "After" diagram showing improved state (highlight changes in #90EE90)
-4. Add impact annotations explaining user benefits
-5. Store in `refactoring/` directory
-
-## Critical Instructions
-
-**REQUIRED**: Before performing ANY diagram operations, you MUST load the relevant reference file(s) using the Read tool. These references contain essential DDD principles, quality standards, and operational procedures that are NOT included in this overview.
-
-When the user asks to work with diagrams:
-
-1. **Identify the operation** they want to perform (create, update, audit, organize)
-2. **MANDATORY: Load the relevant reference file(s)** using the Read tool BEFORE executing any operations:
-   - Creating diagrams → Read `references/CREATE.md` AND `references/DDD_PRINCIPLES.md` FIRST
-   - Updating diagrams → Read `references/UPDATE.md` AND `references/DDD_PRINCIPLES.md` FIRST
-   - Auditing diagrams → Read `references/AUDIT.md` FIRST
-   - Organizing/restructuring → Read `references/ORGANIZE.md` FIRST
-   - Understanding DDD → Read `references/DDD_PRINCIPLES.md` FIRST
-   - Mermaid syntax help → Read `references/MERMAID_GUIDE.md` FIRST
-3. **Execute diagram operations** following the exact patterns and quality standards from the loaded references
-4. **Validate quality** using DDD principles checklist
-5. **Update index** in README.md to reflect changes
-6. **Confirm actions** and show diagram preview when possible
-
-**DO NOT attempt to create or modify diagrams without first loading and reading the relevant reference documentation, especially DDD_PRINCIPLES.md.**
-
-## DDD Core Principles (Brief)
-
-Every diagram MUST include:
-- ✅ **Front-Stage** (user experience) AND **Back-Stage** (implementation)
-- ✅ **Impact Annotations** explaining user value of technical components
-- ✅ **User Actions** as entry/exit points
-- ✅ **Error Paths** and recovery options
-- ✅ **Related Files** documentation
-- ❌ NO custom fill colors (except `#90EE90` for Before/After changes)
-- ❌ NO purely technical diagrams without user context
-
-## Naming Conventions
-
-### File Names
-- Descriptive lowercase with hyphens
-- Include diagram type prefix
-- Format: `{type}-{descriptive-name}.md`
-
-**Examples:**
-- `feature-user-checkout-flow.md`
-- `sequence-authentication-journey.md`
-- `arch-system-overview.md`
-- `flow-payment-processing.md`
-
-### Type Prefixes
-- `feature-` - Feature-specific diagrams
-- `sequence-` - Sequence/journey diagrams
-- `arch-` - Architecture diagrams
-- `flow-` - Flow/process diagrams
-- `test-` - Test coverage diagrams
-
-## Diagram File Structure
-
-```markdown
-# [Diagram Title]
-
-**Type:** [Feature Diagram | Sequence Diagram | Architecture Diagram | etc.]
-**Last Updated:** [YYYY-MM-DD]
-**Related Files:**
-- `path/to/implementation.ts`
-- `path/to/component.tsx`
-
-## Purpose
-
-[1-2 sentence description of what user value this diagram illustrates]
-
-## Diagram
-
-\`\`\`mermaid
-[Mermaid diagram code following DDD principles]
-\`\`\`
-
-## Key Insights
-
-- [User impact point 1]
-- [User impact point 2]
-- [Technical enabler point 1]
-
-## Change History
-
-- **YYYY-MM-DD:** [Description of change]
+# Generate with verbose output
+python skills/diagram/scripts/generate_diagram.py "Database schema for e-commerce" -o schema.png -v
 ```
 
-## Quality Checklist
+## Document Types & Quality Thresholds
 
-Before storing any diagram, verify:
-- [ ] Shows both Front-Stage (user experience) AND Back-Stage (implementation)
-- [ ] Impact annotations explain user value
-- [ ] User actions are clearly visible
-- [ ] Error paths shown
-- [ ] NO custom fill colors (except #90EE90 for changes)
-- [ ] Related code files documented
-- [ ] Last updated date is current
-- [ ] Key insights explain user impact
-- [ ] Mermaid syntax is valid
+Different documents have different quality requirements. Nano Banana automatically adjusts:
 
-## Best Practices
+| Document Type | Threshold | Best For |
+|--------------|-----------|----------|
+| `specification` | 8.5/10 | Technical specs, PRDs |
+| `architecture` | 8.0/10 | Architecture documents |
+| `proposal` | 8.0/10 | Business proposals |
+| `journal` | 8.5/10 | Academic publications |
+| `conference` | 8.0/10 | Conference papers |
+| `thesis` | 8.0/10 | Dissertations |
+| `grant` | 8.0/10 | Grant proposals |
+| `sprint` | 7.5/10 | Sprint planning |
+| `report` | 7.5/10 | Technical reports |
+| `preprint` | 7.5/10 | arXiv, bioRxiv |
+| `readme` | 7.0/10 | README files |
+| `poster` | 7.0/10 | Academic posters |
+| `presentation` | 6.5/10 | Slides, talks |
+| `default` | 7.5/10 | General purpose |
 
-1. **Keep diagrams synchronized** - Outdated diagrams are worse than no diagrams
-2. **Follow DDD principles** - Every diagram connects user value to implementation
-3. **Use subdirectories** - Organize by type to prevent chaos
-4. **Maintain the index** - README.md is the entry point
-5. **Document changes** - Update change history when modifying
-6. **Validate quality** - Run through DDD checklist before saving
-7. **Reference code files** - Link diagrams to actual implementation
-8. **Show error paths** - Don't just show happy paths
-9. **Use consistent naming** - Predictable names enable navigation
-10. **Update after code changes** - Diagrams must reflect current state
+**Smart Iteration**: If the first generation scores above the threshold, no second iteration is performed. This saves time and API costs.
+
+## Diagram Examples
+
+### System Architecture
+```bash
+python generate_diagram.py "Three-tier web application architecture with:
+- React frontend
+- Node.js API layer with load balancer
+- PostgreSQL database with read replicas
+- Redis cache layer
+- CDN for static assets" -o three_tier.png --doc-type architecture
+```
+
+### Sequence Diagram
+```bash
+python generate_diagram.py "Sequence diagram showing OAuth2 authorization code flow:
+1. User clicks login
+2. App redirects to auth server
+3. User authenticates
+4. Auth server returns code
+5. App exchanges code for token
+6. App accesses protected resource" -o oauth_flow.png --doc-type specification
+```
+
+### Data Flow
+```bash
+python generate_diagram.py "Data pipeline showing:
+- Data ingestion from multiple sources (API, files, streaming)
+- ETL processing with Apache Spark
+- Data warehouse (Snowflake)
+- BI dashboards and ML model training" -o pipeline.png --doc-type report
+```
+
+### C4 Model - Container Diagram
+```bash
+python generate_diagram.py "C4 Container diagram for e-commerce platform:
+- Web App (React SPA)
+- Mobile App (React Native)
+- API Gateway (Kong)
+- Order Service (Python)
+- Payment Service (Go)
+- Inventory Service (Java)
+- PostgreSQL Database
+- Redis Cache
+- RabbitMQ Message Queue" -o c4_container.png --doc-type architecture
+```
+
+## How It Works
+
+1. **Initial Generation**: Nano Banana Pro (Gemini 3 Pro Image) generates the diagram
+2. **Quality Review**: Gemini 3 Pro evaluates on 5 criteria:
+   - Technical Accuracy (0-2 pts)
+   - Clarity and Readability (0-2 pts)
+   - Label Quality (0-2 pts)
+   - Layout and Composition (0-2 pts)
+   - Professional Appearance (0-2 pts)
+3. **Decision**: If score ≥ threshold → Done! If score < threshold → Iterate
+4. **Improvement**: Feedback is incorporated into an improved prompt
+5. **Regeneration**: New diagram generated with improvements (max 2 iterations)
+
+## Output Files
+
+For an output path of `diagram.png`, you'll get:
+- `diagram_v1.png` - First iteration
+- `diagram_v2.png` - Second iteration (if needed)
+- `diagram.png` - Final version (copy of best iteration)
+- `diagram_review_log.json` - Quality scores and review details
+
+## Configuration
+
+### Environment Variable (Recommended)
+```bash
+export OPENROUTER_API_KEY='your_api_key_here'
+```
+
+### .env File
+Create a `.env` file in your project:
+```
+OPENROUTER_API_KEY=your_api_key_here
+```
+
+### Get Your API Key
+1. Go to https://openrouter.ai/keys
+2. Create a new API key
+3. Add credits to your account
+
+## Tips for Better Diagrams
+
+### Be Specific
+```bash
+# ❌ Too vague
+"System diagram"
+
+# ✅ Specific and detailed
+"Microservices architecture diagram showing user service, order service, and payment service communicating via REST APIs, with a shared PostgreSQL database and Redis cache"
+```
+
+### Include Relationships
+```bash
+# ✅ Good - describes connections
+"Data flow diagram showing:
+- User uploads file to S3
+- Lambda triggered on upload
+- Lambda processes and stores metadata in DynamoDB
+- SNS notifies downstream services"
+```
+
+### Specify Style When Needed
+```bash
+# ✅ Style hints
+"Flowchart with decision diamonds for the loan approval process, using green for approved paths and red for rejected paths"
+```
+
+## Python API
+
+```python
+from skills.diagram.scripts.generate_diagram_ai import NanoBananaGenerator
+
+generator = NanoBananaGenerator(verbose=True)
+results = generator.generate_iterative(
+    user_prompt="Kubernetes cluster architecture with ingress, services, and pods",
+    output_path="k8s_arch.png",
+    iterations=2,
+    doc_type="architecture"
+)
+
+print(f"Final Score: {results['final_score']}/10")
+print(f"Early Stop: {results['early_stop']}")
+```
 
 ## Integration with Other Skills
 
-- **review** - Reference diagrams during code reviews to explain impact
-- **github** - Link diagrams in issue descriptions for context
-- **chrome-devtools** - Use diagrams to plan testing flows
+- Use with **sprint planning** to visualize user story workflows
+- Use with **architecture research** to diagram ADR decisions
+- Use with **building blocks** to visualize component relationships
+- Use with **competitive analysis** to create comparison diagrams
 
-## Examples
+## Troubleshooting
 
-### Create feature diagram
-```
-User: "Create a diagram for the new notification system"
-Agent:
-1. Reads references/CREATE.md and references/DDD_PRINCIPLES.md
-2. Analyzes notification feature code
-3. Creates feature-notification-system.md in features/
-4. Includes user journey and technical implementation
-5. Adds impact annotations
-6. Updates README.md index
-```
+### "OPENROUTER_API_KEY not found"
+Set the environment variable or create a `.env` file. See Configuration section.
 
-### Update after refactoring
-```
-User: "We just refactored the auth flow, update the diagram"
-Agent:
-1. Reads references/UPDATE.md
-2. Finds sequence-authentication-journey.md
-3. Compares with new code
-4. Updates diagram with changes
-5. Updates "Last Updated" date
-6. Adds change history entry
-```
+### Low Quality Scores
+- Add more detail to your prompt
+- Specify relationships between components
+- Use a higher threshold document type to force more iterations
 
-### Audit all diagrams
-```
-User: "Audit our diagrams"
-Agent:
-1. Reads references/AUDIT.md and references/DDD_PRINCIPLES.md
-2. Scans ai/diagrams/ directory
-3. Checks each diagram against DDD checklist
-4. Compares diagram dates with git history
-5. Identifies missing diagrams
-6. Reports findings with recommendations
-```
+### Generation Timeout
+Complex diagrams may take up to 2 minutes. The timeout is set to 120 seconds per API call.
 
-## Critical Rules
+## Cost Considerations
 
-1. **Diagrams MUST stay synchronized with code** - Check git history vs diagram dates
-2. **Every diagram MUST follow DDD principles** - No purely technical diagrams
-3. **Organization is critical** - Use subdirectories consistently
-4. **Index MUST be maintained** - README.md reflects all diagrams
-5. **File naming MUST be consistent** - Follow type-name pattern
-6. **Quality over quantity** - Better to have 5 great diagrams than 20 poor ones
-7. **User value is paramount** - Every technical detail must connect to user impact
-8. **Always load references first** - DDD principles are not negotiable
-
-## Workflow Integration
-
-This skill integrates with development workflow:
-
-1. **Before Code Changes** - Review existing diagrams to understand system
-2. **During Planning** - Create proposal diagrams showing planned changes
-3. **During Implementation** - Reference diagrams to maintain alignment
-4. **After Implementation** - Update diagrams to reflect changes
-5. **During Review** - Use diagrams to explain impact and context
-6. **During Onboarding** - Diagrams serve as documentation for new team members
+- Gemini 3 Pro Image: ~$2/M input, ~$12/M output tokens
+- Simple diagram (1 iteration): ~$0.05-0.15
+- Complex diagram (2 iterations): ~$0.10-0.30
+- Smart iteration saves costs by stopping early when quality is sufficient

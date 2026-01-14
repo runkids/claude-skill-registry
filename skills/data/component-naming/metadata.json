@@ -1,12 +1,7 @@
 {
   "name": "component-naming",
-  "description": "Enforce consistent React component naming conventions using domain + role patterns. Use when creating, reviewing, or refactoring components.",
   "repo": "sgcarstrends/sgcarstrends",
-  "category": "development",
-  "tags": [
-    "component",
-    "naming"
-  ],
-  "stars": 13,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/component-naming/SKILL.md",
+  "source": "github.com/sgcarstrends/sgcarstrends",
+  "downloaded_at": "2026-01-14T02:59:22.006986Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "api-pagination",
-  "description": "Implement efficient pagination strategies for large datasets using offset/limit, cursor-based, and keyset pagination. Use when returning collections, managing large result sets, or optimizing query pe",
   "repo": "aj-geddes/useful-ai-prompts",
-  "category": "data",
-  "tags": [
-    "api",
-    "pagination"
-  ],
-  "stars": 25,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/api-pagination/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:04.622166Z"
 }

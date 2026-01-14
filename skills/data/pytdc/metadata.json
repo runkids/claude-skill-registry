@@ -1,8 +1,7 @@
 {
   "name": "pytdc",
-  "repo": "davila7/claude-code-templates",
-  "category": "data",
-  "description": "Therapeutics Data Commons. AI-ready drug discovery datasets (ADME, toxicity, DTI), benchmarks, scaffold splits, molecular oracles, for therapeutic ML and pharmacological prediction.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:38.737928Z"
+  "repo": "drshailesh88/integrated_content_OS",
+  "path": "skills/scientific/pytdc/SKILL.md",
+  "source": "github.com/drshailesh88/integrated_content_OS",
+  "downloaded_at": "2026-01-14T04:02:19.116080Z"
 }

@@ -1,8 +1,7 @@
 {
   "name": "multi-region-deployment",
   "repo": "melodic-software/claude-code-plugins",
-  "category": "data",
-  "description": "Use when designing globally distributed systems, multi-region architectures, or disaster recovery strategies. Covers region selection, active-active vs active-passive, data replication, and failover p",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:12.366019Z"
+  "path": "plugins/systems-design/skills/multi-region-deployment/SKILL.md",
+  "source": "github.com/melodic-software/claude-code-plugins",
+  "downloaded_at": "2026-01-14T03:00:23.205009Z"
 }

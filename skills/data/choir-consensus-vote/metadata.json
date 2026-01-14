@@ -1,13 +1,7 @@
 {
   "name": "choir-consensus-vote",
-  "description": "Execute structured voting protocol for multi-perspective consensus.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "development",
-  "tags": [
-    "choir",
-    "consensus",
-    "vote"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/choir-consensus-vote/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-14T01:08:29.093646Z"
 }

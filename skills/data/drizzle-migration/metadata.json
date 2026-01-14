@@ -1,12 +1,7 @@
 {
   "name": "drizzle-migration",
-  "description": "Execute the proper Drizzle Kit workflow for database schema migrations in asset-forge. Use this when the user asks to create a database migration, update the database schema, or when schema changes ne",
   "repo": "Dexploarer/hyper-forge",
-  "category": "data",
-  "tags": [
-    "drizzle",
-    "migration"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/drizzle-migration/SKILL.md",
+  "source": "github.com/Dexploarer/hyper-forge",
+  "downloaded_at": "2026-01-14T03:02:50.484115Z"
 }

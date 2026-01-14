@@ -1,13 +1,7 @@
 {
   "name": "doc-convert-pandoc",
-  "description": "Pandocでドキュメント変換（md→docx/pptx等）を自動化する。納品形式の変換が必要な時に使う。",
   "repo": "taiyousan15/taisun_agent",
-  "category": "documents",
-  "tags": [
-    "doc",
-    "convert",
-    "pandoc"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/doc-convert-pandoc/SKILL.md",
+  "source": "github.com/taiyousan15/taisun_agent",
+  "downloaded_at": "2026-01-14T03:51:13.086456Z"
 }

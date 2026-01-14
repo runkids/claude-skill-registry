@@ -1,12 +1,7 @@
 {
   "name": "context-assembler",
-  "description": "Assembles relevant context for agent spawns with prioritized ranking. Ranks packages by relevance, enforces token budgets with graduated zones, captures error patterns for learning, and supports confi",
   "repo": "mehdic/bazinga",
-  "category": "development",
-  "tags": [
-    "context",
-    "assembler"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/context-assembler/SKILL.md",
+  "source": "github.com/mehdic/bazinga",
+  "downloaded_at": "2026-01-14T01:51:26.222180Z"
 }

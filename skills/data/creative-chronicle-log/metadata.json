@@ -1,13 +1,7 @@
 {
   "name": "creative-chronicle-log",
-  "description": "Document creative decisions and protocol evolution in structured chronicle format.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "documents",
-  "tags": [
-    "creative",
-    "chronicle",
-    "log"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/creative-chronicle-log/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-14T01:08:19.927035Z"
 }

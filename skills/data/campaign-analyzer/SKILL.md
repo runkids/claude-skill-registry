@@ -1,231 +1,99 @@
 ---
-name: campaign-analyzer
-description: Analyze processed D&D sessions to extract and summarize campaign knowledge including NPCs, locations, quests, items, and factions. Use when the user wants to review campaign content, find specific entities, or understand the campaign narrative.
+name: Campaign Analyzer
+slug: campaign-analyzer
+description: Analyze marketing campaign performance and extract actionable insights
+category: marketing
+complexity: intermediate
+version: "1.0.0"
+author: "ID8Labs"
+triggers:
+  - "campaign analysis"
+  - "campaign performance"
+  - "marketing metrics"
+  - "campaign report"
+  - "marketing ROI"
+tags:
+  - analytics
+  - campaign-management
+  - performance-marketing
+  - reporting
+  - metrics
 ---
 
-# Campaign Analyzer Skill
+# Campaign Analyzer
 
-Extract and analyze campaign knowledge from processed D&D session data.
+Turn marketing data into actionable insights that improve campaign performance. This skill helps you systematically analyze campaigns across channels, identify what's working, diagnose what's not, and make data-driven optimization decisions.
 
-## What This Skill Does
+Raw metrics don't tell stories - this skill helps you find the narrative in your data. From awareness campaigns to lead generation to e-commerce, learn to measure what matters, benchmark against industry standards, and present findings that drive better marketing decisions.
 
-This skill helps you understand and navigate your D&D campaign by:
+Built for marketing managers, performance marketers, analysts, and anyone responsible for demonstrating marketing impact and improving results.
 
-1. **Extracting Campaign Knowledge**: Identifies NPCs, locations, quests, items, factions from session data
-2. **Summarizing Campaign State**: Provides overview of active quests, key NPCs, and important locations
-3. **Finding Entities**: Searches for specific NPCs, locations, or items across sessions
-4. **Tracking Relationships**: Maps connections between NPCs, factions, and locations
-5. **Analyzing Trends**: Identifies frequently mentioned entities and story arcs
+## Core Workflows
 
-## How It Works
+### Workflow 1: Campaign Performance Review
+1. **Goal Alignment** - Compare results to objectives
+2. **KPI Dashboard** - Track primary and secondary metrics
+3. **Funnel Analysis** - Identify conversion bottlenecks
+4. **Channel Attribution** - Understand contribution by source
+5. **Spend Efficiency** - Calculate cost metrics (CPM, CPC, CPA, ROAS)
+6. **Audience Performance** - Segment by demographic/behavior
+7. **Creative Analysis** - Identify top-performing assets
+8. **Recommendation Synthesis** - Actionable next steps
 
-The skill leverages:
-- Session data files in `output/` directories
-- Campaign knowledge base at `data/campaign_knowledge.json`
-- MCP tool: `mcp__videochunking-dev__get_campaign_knowledge_summary`
-- Knowledge extraction system from processed sessions
+### Workflow 2: Multi-Channel Analysis
+1. **Channel Mapping** - All touchpoints in customer journey
+2. **Attribution Modeling** - First touch, last touch, multi-touch
+3. **Cross-Channel Synergies** - How channels work together
+4. **Budget Allocation Review** - Spend vs performance by channel
+5. **Audience Overlap** - Reach and frequency across channels
+6. **Journey Mapping** - Path to conversion analysis
+7. **Optimization Recommendations** - Reallocation suggestions
 
-## Usage Scenarios
+### Workflow 3: Creative Performance Analysis
+1. **Asset Inventory** - All creative variations tested
+2. **Performance Ranking** - Best to worst performers
+3. **Element Analysis** - What elements drive performance
+4. **Format Comparison** - Static vs video vs carousel
+5. **Message Testing** - Which value props resonate
+6. **Creative Fatigue** - Performance over time
+7. **Learning Documentation** - Insights for future creative
 
-### Get Campaign Overview
-User: "What NPCs have we encountered in our campaign?"
-User: "Show me all the locations we've visited"
-User: "What quests are currently active?"
+### Workflow 4: ROI & Attribution Analysis
+1. **Revenue Attribution** - Connect marketing to revenue
+2. **Customer Acquisition Cost** - Fully-loaded CAC calculation
+3. **Lifetime Value Analysis** - LTV by acquisition channel
+4. **ROAS Calculation** - Return on ad spend by campaign
+5. **Payback Period** - Time to recoup acquisition cost
+6. **Incrementality Testing** - True marketing impact
+7. **Budget Optimization Model** - Optimal allocation recommendations
 
-### Search for Specific Entities
-User: "Tell me about Lord Blackthorn"
-User: "Where is the Temple of Shadows?"
-User: "What do we know about the Dragon's Hoard quest?"
+## Quick Reference
 
-### Analyze Campaign Progression
-User: "What happened in the last 5 sessions?"
-User: "Which NPCs appear most frequently?"
-User: "Show me the faction relationships"
-
-### Cross-Reference Information
-User: "Which quests involve the Dark Forest?"
-User: "Who are the members of the Thieves Guild?"
-User: "What items have we found in Waterdeep?"
-
-## Data Sources
-
-### Campaign Knowledge Base
-Location: `data/campaign_knowledge.json`
-
-Structure:
-```json
-{
-  "npcs": [
-    {
-      "name": "Lord Blackthorn",
-      "first_mentioned": "session_001",
-      "appearances": ["session_001", "session_003"],
-      "description": "Evil wizard seeking ancient artifacts",
-      "relationships": ["enemy_of:party", "allied_with:Shadow_Cult"],
-      "status": "active"
-    }
-  ],
-  "locations": [...],
-  "quests": [...],
-  "items": [...],
-  "factions": [...]
-}
-```
-
-### Session Data Files
-Location: `output/YYYYMMDD_HHMMSS_sessionid/sessionid_data.json`
-
-Contains:
-- Timestamped dialogue segments
-- Speaker attributions
-- IC/OOC classifications
-- Extracted entities per segment
-
-## Command Reference
-
-```bash
-# View campaign knowledge summary
-python cli.py knowledge summary
-
-# Search for specific NPC
-python cli.py knowledge search --type npc --name "Lord Blackthorn"
-
-# List all entities of a type
-python cli.py knowledge list --type locations
-
-# Export campaign knowledge
-python cli.py knowledge export --format json
-```
-
-## MCP Tool Integration
-
-Use `mcp__videochunking-dev__get_campaign_knowledge_summary` to quickly retrieve:
-- Total count of NPCs, locations, quests, items, factions
-- Recently mentioned entities
-- Active quests list
-- Campaign knowledge file status
-
-## Analysis Capabilities
-
-### Entity Frequency Analysis
-Identifies most-mentioned NPCs, locations, and items to determine importance.
-
-### Relationship Mapping
-Tracks connections:
-- NPC-to-NPC relationships (allies, enemies, family)
-- NPC-to-Faction memberships
-- Location-to-Quest associations
-- Item-to-NPC ownership
-
-### Timeline Reconstruction
-Orders events chronologically based on session timestamps and quest progression.
-
-### Quest Tracking
-Monitors quest states:
-- `proposed`: Quest mentioned but not accepted
-- `active`: Party is working on this quest
-- `completed`: Quest resolved
-- `failed`: Quest failed or abandoned
-- `on_hold`: Quest paused
-
-## Output Formats
-
-### Summary View
-```
-Campaign Knowledge Summary
-==========================
-NPCs: 47 (12 major, 35 minor)
-Locations: 23 (8 cities, 15 dungeons/landmarks)
-Quests: 15 (6 active, 7 completed, 2 failed)
-Items: 34 (8 magical, 26 mundane)
-Factions: 9 (4 allied, 3 hostile, 2 neutral)
-
-Recent Activity:
-- Lord Blackthorn mentioned in Session 12
-- New location discovered: Crystal Caverns
-- Quest "Dragon's Hoard" marked completed
-```
-
-### Detailed Entity View
-```
-NPC: Lord Blackthorn
-====================
-First Mentioned: Session 1 (2024-10-15)
-Recent Appearances: Sessions 1, 3, 7, 12
-Role: Primary Antagonist
-Description: Powerful necromancer seeking to resurrect ancient evil
-Relationships:
-  - Enemy of the party
-  - Leader of the Shadow Cult
-  - Former apprentice of Merlin
-Status: Active (last mentioned Session 12)
-Related Quests:
-  - "Stop the Ritual" (active)
-  - "Find Blackthorn's Phylactery" (active)
-```
-
-### JSON Export
-Structured data for integration with other tools or visualization.
+| Action | Command/Trigger |
+|--------|-----------------|
+| Campaign review | "Analyze performance of [campaign name]" |
+| Channel comparison | "Compare performance across [channels]" |
+| ROI calculation | "Calculate ROI for [marketing initiative]" |
+| Creative analysis | "Identify top performing creative" |
+| Funnel analysis | "Find conversion bottlenecks" |
+| Spend optimization | "Recommend budget reallocation" |
+| Attribution review | "Analyze attribution for [campaign]" |
+| Executive summary | "Create executive summary of [campaign results]" |
 
 ## Best Practices
 
-1. **Regular Updates**: Process sessions frequently to keep knowledge base current
-2. **Review Extractions**: Manually verify extracted entities for accuracy
-3. **Enrich Data**: Add manual notes and details to extracted entities
-4. **Cross-Reference**: Link related entities to build comprehensive campaign view
-5. **Export Regularly**: Back up campaign knowledge for safety
-
-## Integration with Other Skills
-
-- **video-chunk**: Processes sessions to generate knowledge data
-- **session-processor**: Automates end-to-end processing including knowledge extraction
-- **diagnostics-runner**: Verifies campaign knowledge file integrity
-
-## Troubleshooting
-
-### No Knowledge Data
-**Issue**: Campaign knowledge file doesn't exist
-**Solution**: Process at least one session with knowledge extraction enabled
-
-### Missing Entities
-**Issue**: Expected NPCs or locations not in knowledge base
-**Solution**:
-- Verify knowledge extraction is enabled in configuration
-- Check if mentioned in IC dialogue (OOC mentions aren't extracted)
-- Manually add entities to knowledge base
-
-### Duplicate Entities
-**Issue**: Same entity listed multiple times with different names
-**Solution**:
-- Use entity merging/deduplication features
-- Standardize naming conventions
-- Update session data with consistent names
-
-### Outdated Information
-**Issue**: Knowledge base shows old data
-**Solution**:
-- Re-process recent sessions
-- Check session processing succeeded
-- Verify knowledge extraction ran without errors
-
-## Example Queries
-
-```
-"Show me all NPCs from the Thieves Guild faction"
-"What locations are associated with the Dragon's Hoard quest?"
-"Which sessions mention the Crystal Caverns?"
-"List all magical items we've acquired"
-"What active quests involve Lord Blackthorn?"
-"Summarize what happened with the Shadow Cult"
-```
-
-## Future Enhancements
-
-Potential additions:
-- Visual relationship graphs
-- Campaign timeline visualization
-- Entity search with fuzzy matching
-- Automatic quest progression tracking
-- Integration with D&D Beyond or Roll20
-- Character sheet tracking
-- Party inventory management
+- **Start with goals** - Analysis serves objectives, not vanity
+- **Define success upfront** - Benchmarks before launch
+- **Segment everything** - Aggregate data hides insights
+- **Compare apples to apples** - Normalize for meaningful comparison
+- **Look for patterns** - Single data points mislead
+- **Context matters** - Seasonality, competition, market conditions
+- **Attribution is imperfect** - Acknowledge model limitations
+- **Focus on actionable** - Insights must lead to actions
+- **Trend over point-in-time** - Direction matters more than absolute
+- **Test before scaling** - Validate before major spend shifts
+- **Document learnings** - Build institutional knowledge
+- **Automate reporting** - Spend time on analysis, not data pulling
+- **Visualize effectively** - Charts that tell stories
+- **Executive vs detailed** - Right depth for right audience
+- **Lead with recommendations** - What should we do differently?

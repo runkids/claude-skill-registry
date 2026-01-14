@@ -1,12 +1,7 @@
 {
   "name": "anomaly-detection",
-  "description": "Identify unusual patterns, outliers, and anomalies in data using statistical methods, isolation forests, and autoencoders for fraud detection and quality monitoring",
   "repo": "aj-geddes/useful-ai-prompts",
-  "category": "development",
-  "tags": [
-    "anomaly",
-    "detection"
-  ],
-  "stars": 25,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/anomaly-detection/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:08.380091Z"
 }

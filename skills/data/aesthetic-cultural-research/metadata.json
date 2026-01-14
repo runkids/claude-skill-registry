@@ -1,13 +1,7 @@
 {
   "name": "aesthetic-cultural-research",
-  "description": "[Aesthetics] Maps aesthetic briefs to cultural references: art movements, photography, film, architecture, music, fashion. Outputs reference lists with visual language analysis. Organizes findings as ",
   "repo": "CANTAGESTUDIO/CosmicAtlasPacker",
-  "category": "data",
-  "tags": [
-    "aesthetic",
-    "cultural",
-    "research"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".factory/skills/aesthetic-cultural-research/SKILL.md",
+  "source": "github.com/CANTAGESTUDIO/CosmicAtlasPacker",
+  "downloaded_at": "2026-01-14T02:43:53.092002Z"
 }

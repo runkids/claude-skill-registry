@@ -1,12 +1,7 @@
 {
   "name": "search-enhancer",
-  "description": "Enhanced code search with semantic understanding, pattern matching, and intelligent query interpr...",
   "repo": "CuriousLearner/devkit",
-  "category": "development",
-  "tags": [
-    "search",
-    "enhancer"
-  ],
-  "stars": 13,
-  "source": "local"
+  "path": "skills/search-enhancer/SKILL.md",
+  "source": "github.com/CuriousLearner/devkit",
+  "downloaded_at": "2026-01-14T02:22:35.902315Z"
 }

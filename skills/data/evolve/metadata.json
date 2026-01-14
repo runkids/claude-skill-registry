@@ -1,11 +1,7 @@
 {
   "name": "evolve",
-  "description": "Use when spec and code diverge - AI analyzes mismatches, recommends update spec vs fix code with reasoning, handles evolution with user control or auto-updates",
   "repo": "rhuss/cc-superpowers-sdd",
-  "category": "development",
-  "tags": [
-    "evolve"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/evolve/SKILL.md",
+  "source": "github.com/rhuss/cc-superpowers-sdd",
+  "downloaded_at": "2026-01-14T02:15:40.936574Z"
 }

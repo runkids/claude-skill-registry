@@ -1,12 +1,7 @@
 {
   "name": "context-analyzer",
-  "description": "Project context analysis engine that scans project structure and surfaces relevant information for documentation creation",
   "repo": "vladm3105/aidoc-flow-framework",
-  "category": "documents",
-  "tags": [
-    "context",
-    "analyzer"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/context-analyzer/SKILL.md",
+  "source": "github.com/vladm3105/aidoc-flow-framework",
+  "downloaded_at": "2026-01-14T03:58:00.495258Z"
 }

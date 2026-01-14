@@ -1,12 +1,7 @@
 {
   "name": "google-adk",
-  "description": "Agent Development Kit from Google",
-  "repo": "kazunori279/gcp-blogs",
-  "category": "development",
-  "tags": [
-    "google",
-    "adk"
-  ],
-  "stars": 3,
-  "source": "local"
+  "repo": "vladm3105/aidoc-flow-framework",
+  "path": ".claude/skills/google-adk/SKILL.md",
+  "source": "github.com/vladm3105/aidoc-flow-framework",
+  "downloaded_at": "2026-01-14T03:58:00.303651Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "tdd-implementer",
-  "description": "|",
-  "repo": "turbobeest/cursor-dev-system",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "GitHub Search API"
+  "repo": "turbobeest/squawk",
+  "path": ".claude/skills/tdd-implementer/SKILL.md",
+  "source": "github.com/turbobeest/squawk",
+  "downloaded_at": "2026-01-14T01:57:15.466208Z"
 }

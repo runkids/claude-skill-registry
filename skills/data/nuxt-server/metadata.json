@@ -1,8 +1,7 @@
 {
   "name": "nuxt-server",
   "repo": "secondsky/claude-skills",
-  "category": "data",
-  "description": "Nuxt 4 server-side development with Nitro: API routes, server middleware,database integration, and backend patterns.Use when: creating server API routes, implementing server middleware,integrating dat",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:43.962118Z"
+  "path": "plugins/nuxt-v4/skills/nuxt-server/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-14T03:29:55.524642Z"
 }

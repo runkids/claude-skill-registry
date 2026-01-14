@@ -1,13 +1,7 @@
 {
   "name": "datadog-entity-generator",
-  "description": ">-",
   "repo": "zircote/.claude",
-  "category": "data",
-  "tags": [
-    "datadog",
-    "entity",
-    "generator"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/datadog-entity-generator/SKILL.md",
+  "source": "github.com/zircote/.claude",
+  "downloaded_at": "2026-01-14T01:04:16.072087Z"
 }

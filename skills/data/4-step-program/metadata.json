@@ -1,12 +1,7 @@
 {
   "name": "4-step-program",
-  "description": "Coordinator workflow for orchestrating dockeragents through fix-review-iterate-present loop. Use when delegating any task that produces code changes. Ensures agents achieve 10/10 quality before presen",
   "repo": "Cygnusfear/claude-stuff",
-  "category": "productivity",
-  "tags": [
-    "step",
-    "program"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/4-step-program/SKILL.md",
+  "source": "github.com/Cygnusfear/claude-stuff",
+  "downloaded_at": "2026-01-14T02:49:22.558118Z"
 }

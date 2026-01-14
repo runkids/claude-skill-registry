@@ -1,13 +1,7 @@
 {
   "name": "obsidian-internal-links",
-  "description": "Follow and resolve Obsidian internal links ([[link]] syntax) to navigate interconnected notes within an Obsidian vault. Use when exploring note relationships, following references between documents, b",
   "repo": "tolgaio/neo",
-  "category": "development",
-  "tags": [
-    "obsidian",
-    "internal",
-    "links"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": "skills/obsidian-internal-links/SKILL.md",
+  "source": "github.com/tolgaio/neo",
+  "downloaded_at": "2026-01-14T02:46:01.819864Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "task-search",
-  "description": "Provides fast, case-insensitive text search across task titles, descriptions, and tags with debounced input, relevance ranking, and highlighted matching text. Uses AND logic for multi-token queries an",
-  "repo": "Syedaashnaghazanfar/full-stack-todo-app",
-  "category": "productivity",
-  "tags": [
-    "task",
-    "search"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "SOFIA-ASIF/TaskFlow-ToDo-APP",
+  "path": ".claude/skills/task-search/SKILL.md",
+  "source": "github.com/SOFIA-ASIF/TaskFlow-ToDo-APP",
+  "downloaded_at": "2026-01-14T03:11:58.290775Z"
 }

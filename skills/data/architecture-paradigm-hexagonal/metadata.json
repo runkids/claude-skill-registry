@@ -1,8 +1,7 @@
 {
   "name": "architecture-paradigm-hexagonal",
   "repo": "athola/claude-night-market",
-  "category": "data",
-  "description": "Employ the Hexagonal (Ports & Adapters) pattern to decouple domain logic frominfrastructure, maximizing flexibility and testability.Triggers: hexagonal architecture, ports and adapters, infrastructure",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:46.848891Z"
+  "path": "plugins/archetypes/skills/architecture-paradigm-hexagonal/SKILL.md",
+  "source": "github.com/athola/claude-night-market",
+  "downloaded_at": "2026-01-14T01:32:49.375564Z"
 }

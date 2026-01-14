@@ -1,8 +1,7 @@
 {
   "name": "h3-pg",
-  "repo": "postgis/h3-pg",
-  "category": "data",
-  "description": "PostgreSQL bindings for H3 hexagonal grid system. Use when working with H3 cells in Postgres, including spatial indexing, geometry/geography integration, and raster analysis.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:20.994708Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/h3-pg/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-14T01:56:13.608914Z"
 }

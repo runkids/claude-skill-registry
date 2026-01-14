@@ -1,416 +1,322 @@
 ---
 name: ux-accessibility
-description: WCAG 2.2 accessibility patterns for web components. Use when implementing focus management, keyboard navigation, screen reader support, reduced motion, high contrast mode, or touch targets. Integrates with project's accessibility.css tokens. (project)
-allowed-tools:
-  - Read
-  - Write
-  - Edit
-  - Glob
-  - Grep
+description: |
+  Accessibility principles for inclusive design - keyboard navigation, screen readers,
+  ARIA, color contrast, and focus management. WCAG compliance for interfaces usable by all.
+
+  Use when implementing interactive UI components requiring accessibility:
+  - Forms, buttons, links, interactive elements needing keyboard access
+  - Keyboard navigation, focus management, tab order
+  - Screen reader support with semantic HTML and ARIA attributes
+  - Color contrast validation for text/buttons (WCAG AA/AAA standards)
+  - Modals, dialogs, dropdowns needing focus trapping
+  - User mentions "accessible", "WCAG", "disabilities", "keyboard", "screen reader"
+
+  Keywords: accessible, accessibility, WCAG, keyboard, screen reader, ARIA, contrast, a11y
+
+  Focus on making UI usable via keyboard, screen readers, assistive technologies.
 ---
 
-# UX Accessibility Skill
+# UX Accessibility
 
-Accessibility-first design patterns for WCAG 2.2 AA compliance. This skill provides implementation guidance for making interactive components accessible to all users.
+## Purpose
+Ensure UI is usable and accessible for everyone, including people with disabilities. Accessible design benefits all users.
 
-## Related Skills
+---
 
-- **`material-symbols-v3`**: Icon accessibility patterns (`aria-hidden`, `aria-label`)
-- **`ux-iconography`**: Icon button patterns and screen reader text
-- **`ux-component-states`**: ARIA state attributes for interactive elements
+## Core Principle
 
-## Project Accessibility Tokens
+**Accessible design is good design for everyone.**
 
-This project defines accessibility tokens in `css/styles/accessibility.css`:
+Benefits:
+- Improves UX for all users
+- Better SEO (semantic HTML)
+- Legal compliance (ADA, WCAG)
+- Broader audience reach
 
-```css
-:root {
-  --focus-ring-width: 2px;
-  --focus-ring-offset: 2px;
-  --focus-ring-color: var(--color-primary);
-  --min-touch-target: 44px;
-  --transition-fast: 150ms ease;
-}
-```
-
-## Focus Management
-
-### Focus Ring Implementation
-
-Always use the project's focus tokens for consistent visible focus:
-
-```css
-.interactive:focus-visible {
-  outline: var(--focus-ring-width) solid var(--focus-ring-color);
-  outline-offset: var(--focus-ring-offset);
-}
-```
-
-### Focus Trap for Modals
-
-When implementing modals or dialogs, trap focus using direct element references (NO querySelector):
-
-```javascript
-class ModalDialog extends HTMLElement {
-  // Store focusable elements as direct references during construction
-  #closeBtn;
-  #confirmBtn;
-
-  constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
-
-    // Build DOM imperatively, storing references
-    this.#closeBtn = document.createElement('button');
-    this.#closeBtn.className = 'close-btn';
-    this.#closeBtn.textContent = '×';
-    this.#closeBtn.setAttribute('part', 'close');
-
-    this.#confirmBtn = document.createElement('button');
-    this.#confirmBtn.className = 'confirm-btn';
-    this.#confirmBtn.textContent = 'Confirm';
-    this.#confirmBtn.setAttribute('part', 'confirm');
-
-    const container = document.createElement('div');
-    container.className = 'modal';
-    container.setAttribute('part', 'container');
-    container.appendChild(this.#closeBtn);
-    container.appendChild(document.createElement('slot'));
-    container.appendChild(this.#confirmBtn);
-
-    this.shadowRoot.appendChild(container);
-  }
-
-  connectedCallback() {
-    this.addEventListener('keydown', this);
-  }
-
-  disconnectedCallback() {
-    this.removeEventListener('keydown', this);
-  }
-
-  handleEvent(e) {
-    if (e.type === 'keydown' && e.key === 'Tab') {
-      const active = this.shadowRoot.activeElement;
-
-      if (e.shiftKey && active === this.#closeBtn) {
-        e.preventDefault();
-        this.#confirmBtn.focus();
-      } else if (!e.shiftKey && active === this.#confirmBtn) {
-        e.preventDefault();
-        this.#closeBtn.focus();
-      }
-    }
-  }
-}
-```
-
-### Return Focus After Close
-
-Store and restore focus when closing overlays:
-
-```javascript
-#previouslyFocused = null;
-
-open() {
-  this.#previouslyFocused = document.activeElement;
-  this.showModal();
-}
-
-close() {
-  this.close();
-  this.#previouslyFocused?.focus();
-}
-```
+---
 
 ## Keyboard Navigation
 
-### Standard Patterns
+### All Interactive Elements Must Be Keyboard-Accessible
 
-| Component | Key | Action |
-|-----------|-----|--------|
-| Button | Enter, Space | Activate |
-| Menu | Arrow keys | Navigate items |
-| Dialog | Escape | Close |
-| Tabs | Arrow keys | Switch tabs |
-| Listbox | Arrow keys, Home, End | Navigate options |
+**Required keyboard controls:**
+- **Tab**: Move forward through interactive elements
+- **Shift + Tab**: Move backward
+- **Enter/Space**: Activate buttons and links
+- **Escape**: Close modals, dismiss dropdowns
+- **Arrow keys**: Navigate lists, menus, tabs
 
-### Implementation Example (Web Component)
+### Semantic HTML First
 
-```javascript
-class KeyboardNav extends HTMLElement {
-  // Direct element references - NO querySelector
-  #items = [];
-  #currentIndex = 0;
+**Use native HTML elements—they have built-in keyboard support:**
+- Use `<button>` for actions (not `<div>` with click handler)
+- Use `<a>` for navigation
+- Use `<input>`, `<select>`, `<textarea>` for form controls
+- Native elements work automatically with keyboards and screen readers
 
-  constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
-    // Build items during construction, store direct references
-  }
+### Tab Order
 
-  connectedCallback() {
-    this.setAttribute('role', 'menu');
-    this.setAttribute('tabindex', '0');
-    this.addEventListener('keydown', this);
-  }
+**Principle:** Logical tab order matches visual order.
 
-  disconnectedCallback() {
-    this.removeEventListener('keydown', this);
-  }
+**Guidelines:**
+- Default DOM order usually correct
+- Avoid positive `tabindex` values (breaks natural order)
+- Use `tabindex="0"` to make non-interactive elements focusable
+- Use `tabindex="-1"` to remove from tab order but keep programmatically focusable
 
-  handleEvent(e) {
-    if (e.type === 'keydown') {
-      switch (e.key) {
-        case 'Enter':
-        case ' ':
-          e.preventDefault();
-          this.#activate();
-          break;
-        case 'Escape':
-          this.#close();
-          break;
-        case 'ArrowDown':
-          e.preventDefault();
-          this.#focusNext();
-          break;
-        case 'ArrowUp':
-          e.preventDefault();
-          this.#focusPrevious();
-          break;
-      }
-    }
-  }
+### Skip Links
 
-  #focusNext() {
-    this.#currentIndex = Math.min(this.#currentIndex + 1, this.#items.length - 1);
-    this.#items[this.#currentIndex]?.focus();
-  }
+**Let keyboard users skip repetitive navigation:**
+- Link at top of page: "Skip to main content"
+- Visually hidden by default
+- Visible on keyboard focus
+- Jumps to main content area
 
-  #focusPrevious() {
-    this.#currentIndex = Math.max(this.#currentIndex - 1, 0);
-    this.#items[this.#currentIndex]?.focus();
-  }
+---
 
-  #activate() {
-    this.dispatchEvent(new CustomEvent('item-activated', {
-      bubbles: true,
-      composed: true,
-      detail: { index: this.#currentIndex }
-    }));
-  }
+## Focus Management
 
-  #close() {
-    this.dispatchEvent(new CustomEvent('menu-close', {
-      bubbles: true,
-      composed: true
-    }));
-  }
-}
-```
+### Visible Focus Indicators
+
+**Users must always see which element has focus.**
+
+**Guidelines:**
+- Never remove focus outline completely
+- If hiding default outline, provide clear alternative
+- Minimum 2px outline with sufficient contrast
+- Use offset to separate from element border
+- `:focus-visible` to show focus only for keyboard (not mouse clicks)
+
+**Contrast requirement:** Focus indicator: 3:1 contrast ratio minimum
+
+### Focus Trapping (Modals)
+
+**Focus stays within modal until dismissed.**
+
+**Requirements:**
+1. Move focus to modal when opened
+2. Trap focus inside modal (can't tab out)
+3. Return focus to trigger element when closed
+4. Escape key closes modal
+
+### Focus on Route Changes
+
+**Announce page changes to screen readers:**
+- Move focus to page heading on route change
+- Or announce change via ARIA live region
+- Prevents keyboard users from losing context
+
+---
 
 ## Screen Reader Support
 
+### Semantic HTML
+
+**Use correct HTML elements for their purpose:**
+- Buttons: `<button>` for actions
+- Links: `<a>` for navigation
+- Headings: `<h1>`-`<h6>` in proper hierarchy (don't skip levels)
+- Lists: `<ul>`, `<ol>`, `<li>` for related items
+- Landmarks: `<nav>`, `<main>`, `<header>`, `<footer>`, `<aside>`
+- Forms: `<label>`, `<input>`, `<fieldset>`, `<legend>`
+
+### Heading Hierarchy
+
+**Rules:**
+- One `<h1>` per page (page title)
+- Don't skip heading levels (h1 → h2 → h3, not h1 → h3)
+- Headings describe content that follows
+- Visual size doesn't matter (use CSS), semantic level does
+
 ### ARIA Attributes
 
-Required ARIA for interactive components:
+**ARIA fills gaps where HTML semantics insufficient.**
 
-```html
-<!-- Button with state -->
-<button
-  role="button"
-  aria-pressed="false"
-  aria-label="Toggle menu">
+**ARIA rules:**
+1. First rule: Don't use ARIA (use semantic HTML instead)
+2. Don't override native semantics
+3. All interactive ARIA controls must be keyboard accessible
+4. Don't use `role="presentation"` or `aria-hidden="true"` on focusable elements
 
-<!-- Live region for announcements -->
-<div role="status" aria-live="polite" aria-atomic="true">
-  Score updated: 42 points
-</div>
-
-<!-- Dialog -->
-<dialog
-  role="dialog"
-  aria-modal="true"
-  aria-labelledby="dialog-title">
-```
+**Common ARIA attributes:**
+- `aria-label`: Accessible name for element
+- `aria-labelledby`: Points to element(s) that label this element
+- `aria-describedby`: Points to element(s) that describe this element
+- `aria-hidden`: Hides element from screen readers
+- `aria-live`: Announces dynamic content changes
+- `aria-expanded`: Indicates if element is expanded/collapsed
+- `aria-required`: Marks form field as required
+- `aria-invalid`: Marks form field as invalid
 
 ### Live Regions
 
-Use for dynamic content updates. Store the announcer as a direct reference (NO querySelector):
+**Announce dynamic content changes to screen readers.**
 
-```javascript
-class AnnouncingComponent extends HTMLElement {
-  #announcer;
+**Politeness levels:**
+- `aria-live="polite"`: Announce when user idle (status updates)
+- `aria-live="assertive"`: Announce immediately (errors, urgent alerts)
+- `aria-live="off"`: Don't announce (default)
 
-  constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
+**Use cases:** Form validation errors, success messages, loading states, item counts
 
-    // Create and store direct reference during construction
-    this.#announcer = document.createElement('div');
-    this.#announcer.setAttribute('role', 'status');
-    this.#announcer.setAttribute('aria-live', 'polite');
-    this.#announcer.setAttribute('aria-atomic', 'true');
-    this.#announcer.className = 'sr-only';
+### Alternative Text
 
-    this.shadowRoot.appendChild(this.#announcer);
-  }
+**Images:**
+- Informative images: Descriptive alt text
+- Decorative images: Empty alt (`alt=""`) or `aria-hidden="true"`
 
-  announce(message) {
-    // Use direct reference - never querySelector
-    this.#announcer.textContent = '';
-    requestAnimationFrame(() => {
-      this.#announcer.textContent = message;
-    });
-  }
-}
-```
+**Icons:**
+- Icon with visible text: Hide icon from screen readers
+- Icon-only button: Provide accessible label
 
-### Screen Reader Only Content
+---
 
-Use the `.sr-only` utility for visually hidden but accessible content:
+## Color and Contrast
 
-```css
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-```
+### Contrast Ratios (WCAG AA)
 
-## Reduced Motion
+**Minimum ratios:**
+- Normal text (<18px): **4.5:1**
+- Large text (18px+ or 14px+ bold): **3:1**
+- UI components (buttons, borders): **3:1**
+- Focus indicators: **3:1**
 
-### Respecting User Preferences
+**Testing:** Use browser DevTools, WebAIM Contrast Checker, or Lighthouse
 
-Always check for reduced motion preference:
+### Don't Rely on Color Alone
 
-```css
-/* In component styles */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-```
+**Information must be conveyed through multiple means:**
+- Error fields: Red color + error icon + error text
+- Required fields: Asterisk + label text + `required` attribute
+- Links in text: Color + underline
+- Status indicators: Color + icon + text label
 
-### JavaScript Animation Check
+---
 
-```javascript
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+## Forms Accessibility
 
-if (!prefersReducedMotion) {
-  animate(element, { scale: [1, 1.1, 1], duration: 200 });
-} else {
-  // Apply instant state change
-  element.classList.add('active');
-}
-```
+### Labels Required
 
-## High Contrast Mode
+**Every input needs an accessible label:**
+- Visible `<label>` element (preferred)
+- `aria-label` for compact UIs
+- `aria-labelledby` pointing to existing text
 
-### Forced Colors Support
+**Don't use placeholder as label** (disappears when typing, insufficient contrast)
 
-```css
-@media (forced-colors: active) {
-  .button {
-    border: 2px solid ButtonText;
-    background: ButtonFace;
-    color: ButtonText;
-  }
+### Required Fields
 
-  .button:focus {
-    outline: 3px solid Highlight;
-  }
+**Indicate required fields:**
+- Visual indicator (asterisk)
+- Text in label ("Email (required)")
+- `required` attribute
+- `aria-required="true"`
 
-  .icon {
-    forced-color-adjust: auto;
-  }
-}
-```
+### Error Messages
 
-## Touch Targets
+**Errors must be associated with fields:**
+- Show error inline (near field)
+- Use `aria-describedby` to associate error with field
+- Use `aria-invalid="true"` to mark field as invalid
+- Include error icon for visibility
+- Use `role="alert"` for dynamic errors
 
-### Minimum Size Requirements
+**Error message content:** Specific, explain what's wrong, suggest how to fix
 
-WCAG requires 44x44px minimum touch targets:
+### Fieldsets and Legends
 
-```css
-.touch-target {
-  min-width: var(--min-touch-target);
-  min-height: var(--min-touch-target);
-  padding: var(--space-xs);
-}
+**Group related form fields:**
+- Use for radio button groups, checkbox groups, address forms
+- `<fieldset>` wraps group
+- `<legend>` provides group label
 
-/* For smaller visual elements, expand hit area */
-.small-button {
-  position: relative;
-}
+---
 
-.small-button::after {
-  content: '';
-  position: absolute;
-  inset: -8px; /* Expand clickable area */
-}
-```
+## Interactive Elements
 
-## Color Contrast
+### Buttons vs Links
 
-### Minimum Ratios
+**Use correct element for the action:**
 
-- Normal text: 4.5:1 contrast ratio
-- Large text (18pt+): 3:1 contrast ratio
-- UI components: 3:1 contrast ratio
+**Buttons:**
+- Trigger actions (submit, open modal, toggle)
+- Stay on same page
+- Use `<button>` element
 
-### Testing Contrast
+**Links:**
+- Navigate to another page/location
+- Have meaningful `href`
+- Use `<a>` element
 
-Use project semantic colors which are pre-validated:
-- `--color-text` on `--theme-surface`: Meets AA
-- `--color-muted` for secondary text: Meets AA for large text
-- `--color-primary` for interactive: Meets 3:1 for UI
+### Touch Targets
 
-## Skip Links
+**Minimum size for tappable elements:**
+- Minimum: 44x44px (Apple/Google guidelines)
+- Spacing between targets: 8px minimum
+- Applies to mobile and desktop (helps motor impairments)
 
-For keyboard users to bypass navigation:
+### Disabled States
 
-```html
-<a href="#main-content" class="skip-link">Skip to main content</a>
+**Explain why elements are disabled:**
+- Provide tooltip or visible text explaining why disabled
+- Don't disable if user needs to read content
+- Consider "enabled but validation error" instead
+- Disabled elements not focusable (may hide from keyboard users)
 
-<style>
-.skip-link {
-  position: absolute;
-  top: -100%;
-  left: 0;
-  z-index: 1000;
-  padding: var(--space-s) var(--space-m);
-  background: var(--theme-surface);
-  color: var(--color-text);
-}
+---
 
-.skip-link:focus {
-  top: 0;
-}
-</style>
-```
+## Modals and Dialogs
 
-## Checklist
+### Modal Requirements
 
-Before shipping any interactive component:
+**Accessibility checklist:**
+- Focus moves to modal when opened
+- Focus trapped inside modal
+- Escape key closes modal
+- Focus returns to trigger on close
+- Background content inert (not accessible)
+- `role="dialog"` and `aria-modal="true"`
+- Modal labeled with `aria-labelledby` or `aria-label`
 
-- [ ] Focus visible on all interactive elements
-- [ ] Keyboard operable (Enter, Space, Escape, Arrows)
-- [ ] ARIA roles and labels present
-- [ ] Color contrast meets 4.5:1 (text) or 3:1 (UI)
-- [ ] Touch targets are 44x44px minimum
-- [ ] Reduced motion respected
-- [ ] High contrast mode tested
-- [ ] Screen reader announcement for state changes
+---
+
+## Navigation and Landmarks
+
+### Landmark Regions
+
+**Semantic sections help navigation:**
+- `<header>`: Site/page header
+- `<nav>`: Navigation menus
+- `<main>`: Primary content (one per page)
+- `<aside>`: Complementary content
+- `<footer>`: Site/page footer
+- `<section>`: Thematic content grouping
+- `<article>`: Self-contained content
+
+**Multiple landmarks of same type:** Provide unique labels with `aria-label`
+
+---
+
+## Common Mistakes
+
+1. **No keyboard access** - Interactive elements only work with mouse
+2. **Missing focus indicators** - Users can't see where they are
+3. **Missing alt text** - Images/icons without alternatives
+4. **Poor contrast** - Text hard to read
+5. **No labels** - Form inputs without associated labels
+6. **Color-only information** - Relying solely on color
+7. **Keyboard traps** - Can tab in but not out
+8. **Inaccessible modals** - Focus not managed properly
+9. **Skipped heading levels** - h1 → h3 (skipping h2)
+10. **ARIA overuse** - Using ARIA when semantic HTML would work
+
+---
+
+## Key Takeaway
+
+**Accessibility is not optional—it's fundamental.**
+
+Build with accessibility from the start, not as an afterthought. It's easier, cheaper, and results in better UX for everyone.
+
+Test early and often. Automated tools catch ~30-40% of issues—manual testing is essential.

@@ -1,12 +1,7 @@
 {
   "name": "architecture-patterns",
-  "description": "Architectural pattern guidance and layering principles. Use when architecture patterns guidance is required.",
-  "repo": "CsHeng/dot-claude",
-  "category": "design",
-  "tags": [
-    "architecture",
-    "patterns"
-  ],
-  "stars": 5,
-  "source": "SkillsMP Synced Skills"
+  "repo": "drgaciw/academic-athletics-saas",
+  "path": ".claude/skills/backend-development/architecture-patterns/skill.md",
+  "source": "github.com/drgaciw/academic-athletics-saas",
+  "downloaded_at": "2026-01-14T04:05:27.612357Z"
 }

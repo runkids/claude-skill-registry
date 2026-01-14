@@ -1,9 +1,7 @@
 {
   "name": "loop-agent",
-  "description": "Execute workflow agents iteratively for refinement and progressive improvement. Use when tasks require repetitive refinement, multi-iteration improvements, progressive optimization, or feedback loops ",
   "repo": "d-o-hub/rust-self-learning-memory",
-  "category": "productivity",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".opencode/skill/loop-agent/SKILL.md",
+  "source": "github.com/d-o-hub/rust-self-learning-memory",
+  "downloaded_at": "2026-01-14T03:40:12.023019Z"
 }

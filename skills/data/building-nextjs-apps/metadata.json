@@ -1,13 +1,7 @@
 {
   "name": "building-nextjs-apps",
-  "description": "Build Next.js 16 applications with correct patterns and distinctive design. Use when creatingpages, layouts, dynamic routes, upgrading from Next.js 15, or implementing proxy.ts. Coversbreaking changes",
   "repo": "mjunaidca/mjs-agent-skills",
-  "category": "design",
-  "tags": [
-    "building",
-    "nextjs",
-    "apps"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/building-nextjs-apps/SKILL.md",
+  "source": "github.com/mjunaidca/mjs-agent-skills",
+  "downloaded_at": "2026-01-14T01:43:15.909414Z"
 }

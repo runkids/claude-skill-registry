@@ -1,12 +1,7 @@
 {
   "name": "tagged-error",
-  "description": "Generate Effect TaggedError types for error handling. Use when adding new error types or improving error handling.",
   "repo": "legacy3/wowlab",
-  "category": "development",
-  "tags": [
-    "tagged",
-    "error"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/tagged-error/SKILL.md",
+  "source": "github.com/legacy3/wowlab",
+  "downloaded_at": "2026-01-14T03:34:23.074081Z"
 }

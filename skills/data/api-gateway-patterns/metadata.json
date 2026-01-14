@@ -1,13 +1,7 @@
 {
   "name": "api-gateway-patterns",
-  "description": "API Gateway patterns for routing, authentication, rate limiting, and service composition in microservices architectures. Use when implementing API gateways, building BFF layers, or managing service-to",
   "repo": "NickCrew/claude-cortex",
-  "category": "development",
-  "tags": [
-    "api",
-    "gateway",
-    "patterns"
-  ],
-  "stars": 4,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/api-gateway-patterns/SKILL.md",
+  "source": "github.com/NickCrew/claude-cortex",
+  "downloaded_at": "2026-01-14T02:11:05.993893Z"
 }

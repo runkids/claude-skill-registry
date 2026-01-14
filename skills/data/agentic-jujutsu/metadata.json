@@ -1,12 +1,7 @@
 {
   "name": "agentic-jujutsu",
-  "description": "Quantum-resistant, self-learning version control for AI agents with ReasoningBank intelligence and multi-agent coordination",
-  "repo": "ruvnet/agentic-flow",
-  "category": "data",
-  "tags": [
-    "agentic",
-    "jujutsu"
-  ],
-  "stars": 259,
-  "source": "SkillsMP Synced Skills"
+  "repo": "Cornjebus/amair",
+  "path": ".claude/skills/agentic-jujutsu/SKILL.md",
+  "source": "github.com/Cornjebus/amair",
+  "downloaded_at": "2026-01-14T03:20:30.508798Z"
 }

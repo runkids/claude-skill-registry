@@ -1,12 +1,7 @@
 {
   "name": "ethereum-development",
-  "description": "Master Ethereum development including EVM, gas optimization, and client interactions",
   "repo": "pluginagentmarketplace/custom-plugin-blockchain",
-  "category": "development",
-  "tags": [
-    "ethereum",
-    "development"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/ethereum-development/SKILL.md",
+  "source": "github.com/pluginagentmarketplace/custom-plugin-blockchain",
+  "downloaded_at": "2026-01-14T02:23:37.496157Z"
 }

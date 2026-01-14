@@ -1,12 +1,7 @@
 {
   "name": "skills-guide",
-  "description": "Package expertise into discoverable, reusable capabilities that extend Claude's functionality. Use when creating new Skills, understanding how Skills work, or organizing existing capabilities.",
-  "repo": "CaptainCrouton89/.claude",
-  "category": "design",
-  "tags": [
-    "skills",
-    "guide"
-  ],
-  "stars": 490,
-  "source": "SkillsMP Synced Skills"
+  "repo": "yuch4/dx-selecta",
+  "path": ".github/skills/skills-guide/SKILL.md",
+  "source": "github.com/yuch4/dx-selecta",
+  "downloaded_at": "2026-01-14T02:14:11.822070Z"
 }

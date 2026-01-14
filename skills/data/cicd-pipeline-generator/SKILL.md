@@ -1,407 +1,520 @@
 ---
 name: cicd-pipeline-generator
-description: This skill should be used when creating or configuring CI/CD pipeline files for automated testing, building, and deployment. Use this for generating GitHub Actions workflows, GitLab CI configs, CircleCI configs, or other CI/CD platform configurations. Ideal for setting up automated pipelines for Node.js/Next.js applications, including linting, testing, building, and deploying to platforms like Vercel, Netlify, or AWS.
+version: 1.0.0
+description: |
+  Configurable GitHub Actions workflow generator that produces complete CI/CD pipelines
+  for any technology stack, including linting, testing, security scanning, and deployment.
+author: QuantQuiver AI R&D
+license: MIT
+
+category: tooling
+tags:
+  - ci-cd
+  - github-actions
+  - devops
+  - automation
+  - testing
+  - deployment
+  - security-scanning
+
+dependencies:
+  skills: []
+  python: ">=3.9"
+  packages:
+    - pyyaml
+  tools:
+    - bash
+    - code_execution
+
+triggers:
+  - "generate CI/CD pipeline"
+  - "create GitHub Actions"
+  - "set up automated testing"
+  - "CI/CD workflow"
+  - "deployment pipeline"
+  - "continuous integration"
+  - "GitHub workflow"
 ---
 
 # CI/CD Pipeline Generator
 
-## Overview
+## Purpose
 
-Generate production-ready CI/CD pipeline configuration files for various platforms (GitHub Actions, GitLab CI, CircleCI, Jenkins). This skill provides templates and guidance for setting up automated workflows that handle linting, testing, building, and deployment for modern web applications, particularly Node.js/Next.js projects.
+A configurable GitHub Actions workflow generator that produces complete CI/CD pipelines for any technology stack, including linting, testing, security scanning, and deployment stages.
 
-## Core Capabilities
+**Problem Space:**
+- Manual CI/CD setup is error-prone
+- Security scanning often forgotten
+- Inconsistent quality gates across projects
+- Deployment strategies vary without standardization
 
-### 1. Platform Selection
+**Solution Approach:**
+- Stack detection and appropriate tool selection
+- Configurable quality gates
+- Built-in security scanning (SAST, dependency audit)
+- Multi-environment deployment with approval gates
 
-Choose the appropriate CI/CD platform based on project requirements:
+## When to Use
 
-- **GitHub Actions**: Best for GitHub-hosted projects with native integration
-- **GitLab CI/CD**: Ideal for GitLab repositories with complex pipeline needs
-- **CircleCI**: Optimized for Docker workflows and fast build times
-- **Jenkins**: Suitable for self-hosted, highly customizable environments
+- New project setup
+- Adding CI/CD to legacy projects
+- Standardizing pipelines across organization
+- Security compliance requirements
+- When asked to "set up automated testing"
+- When deploying to staging/production
 
-Refer to `references/platform-comparison.md` for detailed platform comparisons, pros/cons, and use case recommendations.
+## When NOT to Use
 
-### 2. Pipeline Configuration Generation
+- Single-file scripts that don't need CI
+- Projects with highly custom build processes (customize manually)
+- When existing pipeline just needs minor tweaks
 
-Generate pipeline configs following these principles:
+---
 
-#### Pipeline Stages
+## Core Instructions
 
-Structure pipelines with these standard stages:
+### Pipeline Architecture
 
-1. **Install Dependencies**
-   - Checkout code from repository
-   - Setup runtime environment (Node.js version)
-   - Restore cached dependencies
-   - Install dependencies with `npm ci`
-   - Cache dependencies for future runs
-
-2. **Lint**
-   - Run ESLint for code quality
-   - Run TypeScript type checking
-   - Fail fast on linting errors
-
-3. **Test**
-   - Execute unit tests
-   - Execute integration tests
-   - Generate code coverage reports
-   - Upload coverage to reporting services (Codecov, Coveralls)
-
-4. **Build**
-   - Create production build
-   - Verify build succeeds
-   - Store build artifacts
-
-5. **Deploy**
-   - Deploy to staging (develop branch)
-   - Deploy to production (main branch)
-   - Run post-deployment smoke tests
-
-#### Caching Strategy
-
-Implement effective caching to speed up builds:
-
-```yaml
-# Cache node_modules based on package-lock.json
-cache:
-  key: ${{ hashFiles('package-lock.json') }}
-  paths:
-    - node_modules/
-    - .npm/
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    CI/CD PIPELINE STRUCTURE                     │
+├─────────────────────────────────────────────────────────────────┤
+│  STAGE 1: CODE QUALITY                                          │
+│  ├── Linting (language-specific)                                │
+│  ├── Formatting check                                           │
+│  └── Type checking                                              │
+├─────────────────────────────────────────────────────────────────┤
+│  STAGE 2: SECURITY SCANNING                                     │
+│  ├── Dependency audit                                           │
+│  ├── SAST (static analysis)                                     │
+│  ├── Secret scanning                                            │
+│  └── Container scanning                                         │
+├─────────────────────────────────────────────────────────────────┤
+│  STAGE 3: TESTING                                               │
+│  ├── Unit tests                                                 │
+│  ├── Integration tests                                          │
+│  └── Coverage reporting                                         │
+├─────────────────────────────────────────────────────────────────┤
+│  STAGE 4: BUILD                                                 │
+│  ├── Application build                                          │
+│  ├── Docker image build                                         │
+│  └── Artifact upload                                            │
+├─────────────────────────────────────────────────────────────────┤
+│  STAGE 5: DEPLOY                                                │
+│  ├── Staging (automatic)                                        │
+│  ├── Production (manual approval)                               │
+│  └── Notifications                                              │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
-#### Environment Variables
+### Stack Detection Rules
 
-Configure necessary environment variables:
-- `NODE_ENV`: Set to `production` for builds
-- Platform-specific tokens: Store as secrets
-- Build-time variables: Pass to build process
-
-### 3. Template Usage
-
-Use provided templates from `assets/` directory:
-
-**GitHub Actions Template** (`assets/github-actions-nodejs.yml`):
-- Multi-job workflow with lint, test, build, deploy
-- Matrix builds for multiple Node.js versions (optional)
-- Vercel deployment integration
-- Artifact uploading
-- Code coverage reporting
-
-**GitLab CI Template** (`assets/gitlab-ci-nodejs.yml`):
-- Multi-stage pipeline
-- Dependency caching
-- Manual production deployment
-- Automatic staging deployment
-- Coverage reporting
-
-To use a template:
-1. Copy the appropriate template file
-2. Place in the correct location:
-   - GitHub Actions: `.github/workflows/ci.yml`
-   - GitLab CI: `.gitlab-ci.yml`
-3. Customize deployment targets, environment variables, and branch names
-4. Add required secrets to platform settings
-
-### 4. Deployment Configuration
-
-#### Vercel Deployment
-
-For GitHub Actions:
 ```yaml
-- uses: amondnet/vercel-action@v25
-  with:
-    vercel-token: ${{ secrets.VERCEL_TOKEN }}
-    vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-    vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-    vercel-args: '--prod'
+stack_detection:
+  python:
+    indicators:
+      - "requirements.txt"
+      - "pyproject.toml"
+      - "setup.py"
+      - "Pipfile"
+    tools:
+      lint: ["ruff", "flake8"]
+      format: ["black", "autopep8"]
+      type_check: ["mypy", "pyright"]
+      test: ["pytest", "unittest"]
+      security: ["bandit", "pip-audit", "safety"]
+
+  nodejs:
+    indicators:
+      - "package.json"
+    tools:
+      lint: ["eslint"]
+      format: ["prettier"]
+      type_check: ["tsc"]  # if typescript
+      test: ["jest", "mocha", "vitest"]
+      security: ["npm audit", "snyk"]
+
+  go:
+    indicators:
+      - "go.mod"
+    tools:
+      lint: ["golangci-lint"]
+      format: ["gofmt"]
+      type_check: null  # built-in
+      test: ["go test"]
+      security: ["gosec", "govulncheck"]
+
+  rust:
+    indicators:
+      - "Cargo.toml"
+    tools:
+      lint: ["clippy"]
+      format: ["rustfmt"]
+      type_check: null  # built-in
+      test: ["cargo test"]
+      security: ["cargo-audit"]
 ```
 
-**Required Secrets**:
-- `VERCEL_TOKEN`: Get from Vercel account settings
-- `VERCEL_ORG_ID`: From Vercel project settings
-- `VERCEL_PROJECT_ID`: From Vercel project settings
+### Standard Procedures
 
-#### Netlify Deployment
+#### 1. Detect Technology Stack
 
-```yaml
-- run: |
-    npm install -g netlify-cli
-    netlify deploy --prod --dir=.next
-  env:
-    NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-    NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+Scan repository root for indicator files and determine primary language(s).
+
+#### 2. Configure Pipeline Options
+
+```python
+class CICDConfig:
+    # Stack configuration
+    stacks: List[str] = ["python"]
+    python_version: str = "3.11"
+    node_version: str = "20"
+
+    # Quality gates
+    lint_enabled: bool = True
+    format_check: bool = True
+    type_check: bool = True
+
+    # Testing
+    test_enabled: bool = True
+    coverage_threshold: int = 60
+
+    # Security
+    security_scan: bool = True
+    dependency_audit: bool = True
+    secret_scanning: bool = True
+    container_scanning: bool = True
+
+    # Build
+    docker_build: bool = True
+    docker_registry: str = "ghcr.io"
+
+    # Deploy
+    deploy_enabled: bool = True
+    staging_auto_deploy: bool = True
+    production_approval: bool = True
 ```
 
-#### AWS S3 + CloudFront
+#### 3. Generate Workflow File
+
+Output to `.github/workflows/ci.yml`
+
+### Decision Framework
+
+**Quality Gate Selection:**
+- Always include: linting, unit tests
+- Production apps: add security scanning, type checking
+- Open source: add coverage badges, multiple Python/Node versions
+- Enterprise: add approval gates, audit logging
+
+**When to Use Matrix Builds:**
+- Testing library compatibility across versions
+- Cross-platform applications
+- Multiple Python/Node version support
+
+**Deployment Strategy:**
+- Staging first, then production
+- Production requires manual approval
+- Use environment protection rules
+
+---
+
+## Templates
+
+### Complete Python Pipeline
 
 ```yaml
-- uses: aws-actions/configure-aws-credentials@v4
-  with:
-    aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-    aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-    aws-region: us-east-1
+name: CI/CD Pipeline
 
-- run: |
-    aws s3 sync .next/static s3://${{ secrets.S3_BUCKET }}/static
-    aws cloudfront create-invalidation --distribution-id ${{ secrets.CF_DIST_ID }} --paths "/*"
-```
-
-### 5. Testing Integration
-
-Configure test execution with proper reporting:
-
-**Jest Configuration**:
-```yaml
-- name: Run tests with coverage
-  run: npm test -- --coverage --coverageReporters=text --coverageReporters=lcov
-
-- name: Upload coverage
-  uses: codecov/codecov-action@v4
-  with:
-    files: ./coverage/lcov.info
-    flags: unittests
-```
-
-**Fail Fast Strategy**:
-```yaml
-# Run quick tests first
-jobs:
-  lint:  # Fails in ~30 seconds
-  test:  # Fails in ~2 minutes
-  build: # Fails in ~5 minutes
-    needs: [lint, test]
-  deploy:
-    needs: [build]
-```
-
-### 6. Branch-Based Workflows
-
-Implement different behaviors per branch:
-
-**Feature Branches / PRs**:
-- Run lint + test only
-- No deployment
-- Add PR comments with test results
-
-**Develop Branch**:
-- Run lint + test + build
-- Deploy to staging environment
-- Automatic deployment
-
-**Main Branch**:
-- Run lint + test + build
-- Deploy to production
-- Manual approval (optional)
-- Create release tags
-
-**Example**:
-```yaml
-deploy_staging:
-  if: github.ref == 'refs/heads/develop'
-  # Deploy to staging
-
-deploy_production:
-  if: github.ref == 'refs/heads/main'
-  environment: production  # Requires manual approval
-  # Deploy to production
-```
-
-## Workflow Decision Tree
-
-Follow this decision tree to generate the appropriate pipeline:
-
-1. **Which platform?**
-   - GitHub → Use `assets/github-actions-nodejs.yml`
-   - GitLab → Use `assets/gitlab-ci-nodejs.yml`
-   - CircleCI/Jenkins → Adapt GitHub Actions template
-   - Unsure → Consult `references/platform-comparison.md`
-
-2. **What stages are needed?**
-   - Always include: Lint, Test, Build
-   - Optional: Security scanning, E2E tests, performance tests
-   - Add deployment stage if deploying from CI
-
-3. **Which deployment platform?**
-   - Vercel → Use Vercel deployment examples
-   - Netlify → Use Netlify CLI approach
-   - AWS → Use AWS Actions/CLI
-   - Custom → Implement custom deployment script
-
-4. **What triggers?**
-   - On push to main/develop
-   - On pull request
-   - On tag creation
-   - Manual workflow dispatch
-
-5. **What environment variables needed?**
-   - Platform tokens (Vercel, Netlify, AWS)
-   - API keys for external services
-   - Build-time environment variables
-   - Feature flags
-
-## Best Practices
-
-### Security
-- Store all secrets in platform secret management (never in code)
-- Use least-privilege tokens (read-only when possible)
-- Rotate secrets regularly
-- Audit secret access permissions
-- Never log secrets (use `***` masking)
-
-### Performance
-- Cache dependencies aggressively
-- Parallelize independent jobs
-- Use matrix builds for multi-version testing
-- Fail fast: Run quick checks before slow ones
-- Optimize Docker layer caching
-
-### Reliability
-- Pin exact Node.js versions (`18.x` not just `18`)
-- Commit lockfiles (`package-lock.json`)
-- Add retry logic for flaky external services
-- Set reasonable timeouts (10-15 minutes max)
-- Use `continue-on-error` for non-critical steps
-
-### Maintainability
-- Add comments explaining complex logic
-- Use reusable workflows/templates
-- Keep configs DRY (Don't Repeat Yourself)
-- Version control all pipeline changes
-- Document required secrets in README
-
-## Common Patterns
-
-### Multi-Environment Deployment
-```yaml
-deploy_staging:
-  environment: staging
-  if: github.ref == 'refs/heads/develop'
-
-deploy_production:
-  environment: production
-  if: github.ref == 'refs/heads/main'
-  needs: [deploy_staging]
-```
-
-### Matrix Testing
-```yaml
-strategy:
-  matrix:
-    node-version: [16.x, 18.x, 20.x]
-    os: [ubuntu-latest, windows-latest]
-```
-
-### Conditional Steps
-```yaml
-- name: Deploy
-  if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-  run: npm run deploy
-```
-
-### Artifact Management
-```yaml
-- name: Upload build
-  uses: actions/upload-artifact@v4
-  with:
-    name: build-output
-    path: .next/
-    retention-days: 7
-
-- name: Download build
-  uses: actions/download-artifact@v4
-  with:
-    name: build-output
-```
-
-## Troubleshooting
-
-### Pipeline Failures
-1. Check action/job logs for error messages
-2. Verify environment variables and secrets are set
-3. Test commands locally before adding to pipeline
-4. Check for platform-specific issues in documentation
-
-### Slow Builds
-1. Verify cache is working (check cache hit/miss logs)
-2. Parallelize independent jobs
-3. Use faster runners if available
-4. Optimize dependency installation
-
-### Deployment Failures
-1. Verify deployment tokens are valid
-2. Check platform status pages
-3. Review deployment logs
-4. Test deployment commands locally
-
-## Resources
-
-### Templates (`assets/`)
-- `github-actions-nodejs.yml`: Complete GitHub Actions workflow
-- `gitlab-ci-nodejs.yml`: Complete GitLab CI pipeline
-
-### Reference Documentation (`references/`)
-- `platform-comparison.md`: Detailed comparison of CI/CD platforms, deployment targets, best practices, and common patterns
-
-## Example Usage
-
-**User Request**: "Create a GitHub Actions workflow that runs tests and deploys to Vercel"
-
-**Steps**:
-1. Copy `assets/github-actions-nodejs.yml` template
-2. Create `.github/workflows/` directory if it doesn't exist
-3. Save as `.github/workflows/ci.yml`
-4. Update deployment section with Vercel credentials
-5. Add secrets to GitHub repository settings:
-   - `VERCEL_TOKEN`
-   - `VERCEL_ORG_ID`
-   - `VERCEL_PROJECT_ID`
-6. Commit and push to trigger workflow
-
-**User Request**: "Set up GitLab CI with staging and production environments"
-
-**Steps**:
-1. Copy `assets/gitlab-ci-nodejs.yml` template
-2. Save as `.gitlab-ci.yml` in repository root
-3. Configure GitLab CI/CD variables:
-   - `VERCEL_TOKEN`
-   - Other deployment credentials
-4. Review manual approval settings for production
-5. Commit to trigger pipeline
-
-## Advanced Configuration
-
-### Monorepo Support
-```yaml
-paths:
-  - 'apps/frontend/**'
-  - 'packages/**'
-```
-
-### Scheduled Runs
-```yaml
 on:
-  schedule:
-    - cron: '0 2 * * *'  # Daily at 2 AM
+  push:
+    branches: [main, develop, 'feature/**']
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:
+    inputs:
+      deploy_environment:
+        description: 'Environment to deploy to'
+        required: false
+        default: 'staging'
+        type: choice
+        options: [staging, production]
+
+env:
+  PYTHON_VERSION: '3.11'
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Lint & Format
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+
+      - name: Install linting tools
+        run: pip install ruff black mypy
+
+      - name: Run Ruff
+        run: ruff check . --output-format=github
+
+      - name: Run Black
+        run: black --check --diff .
+
+      - name: Run mypy
+        run: mypy . --ignore-missing-imports
+        continue-on-error: true
+
+  security:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install security tools
+        run: pip install pip-audit bandit
+
+      - name: Dependency audit
+        run: pip-audit -r requirements.txt --strict
+        continue-on-error: true
+
+      - name: Run Bandit
+        run: bandit -r . -f json -o bandit-report.json || true
+
+      - name: Upload security report
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-report
+          path: bandit-report.json
+
+      - name: Run Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install pytest pytest-cov
+
+      - name: Run tests
+        run: pytest --cov=. --cov-report=xml --cov-fail-under=60
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v4
+        with:
+          files: coverage.xml
+
+  build:
+    name: Build Docker Image
+    runs-on: ubuntu-latest
+    needs: [lint, security, test]
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=sha,prefix=
+            type=ref,event=branch
+            type=semver,pattern={{version}}
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  deploy-staging:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    needs: [build]
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+    environment:
+      name: staging
+      url: https://staging.example.com
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy to staging
+        run: echo "Deploy commands here"
+
+      - name: Health check
+        run: |
+          sleep 10
+          curl -f https://staging.example.com/health || exit 1
+
+  deploy-production:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: [build, deploy-staging]
+    if: github.ref == 'refs/heads/main'
+    environment:
+      name: production
+      url: https://example.com
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy to production
+        run: echo "Production deploy commands here"
+
+      - name: Notify success
+        if: success()
+        run: echo "Deployment successful!"
+
+      - name: Notify failure
+        if: failure()
+        run: echo "Deployment failed!"
 ```
 
-### External Service Integration
+### Node.js/TypeScript Pipeline
+
 ```yaml
-- name: Notify Slack
-  uses: 8398a7/action-slack@v3
-  with:
-    status: ${{ job.status }}
-    webhook_url: ${{ secrets.SLACK_WEBHOOK }}
+name: Node.js CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  NODE_VERSION: '20'
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run lint
+      - run: npx tsc --noEmit
+
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+      - run: npm ci
+      - run: npm audit --audit-level=high
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+      - run: npm ci
+      - run: npm test -- --coverage --coverageThreshold='{"global":{"lines":60}}'
 ```
 
-### Security Scanning
-```yaml
-- name: Run security audit
-  run: npm audit --audit-level=moderate
+---
 
-- name: Check for vulnerabilities
-  uses: snyk/actions/node@master
-  env:
-    SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-```
+## Examples
+
+### Example 1: Python Web Application
+
+**Input**: "Generate CI/CD for my Flask API with Docker deployment"
+
+**Configuration Detected**:
+- Stack: Python (Flask)
+- Build: Docker
+- Deploy: Staging + Production
+
+**Output**: Complete workflow with lint, security, test, build, and deploy jobs.
+
+### Example 2: Multi-Stack Monorepo
+
+**Input**: "Set up CI for a repo with Python backend and React frontend"
+
+**Output**: Separate job groups for Python and Node.js, parallel execution, unified deployment.
+
+---
+
+## Validation Checklist
+
+Before generating pipeline:
+
+- [ ] Technology stack correctly detected
+- [ ] All indicator files checked
+- [ ] Security scanning included for production apps
+- [ ] Coverage threshold appropriate for project maturity
+- [ ] Docker registry permissions documented
+- [ ] Environment protection rules noted
+- [ ] Secrets requirements listed
+
+---
+
+## Related Resources
+
+- Skill: `repository-auditor` - Pre-audit code before CI setup
+- Skill: `docker-stack-composer` - Multi-service Docker configs
+- GitHub Actions Documentation: https://docs.github.com/en/actions
+- Security scanning: Gitleaks, Trivy, Bandit
+
+---
+
+## Changelog
+
+### 1.0.0 (January 2026)
+- Initial release
+- Python, Node.js, Go, Rust support
+- Security scanning integration
+- Multi-environment deployment
+- Coverage reporting

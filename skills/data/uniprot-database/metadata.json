@@ -1,8 +1,7 @@
 {
   "name": "uniprot-database",
-  "repo": "davila7/claude-code-templates",
-  "category": "data",
-  "description": "Direct REST API access to UniProt. Protein searches, FASTA retrieval, ID mapping, Swiss-Prot/TrEMBL. For Python workflows with multiple databases, prefer bioservices (unified interface to 40+ services",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:39.514027Z"
+  "repo": "x-cmd/skill",
+  "path": "data/k-dense-ai/uniprot-database/SKILL.md",
+  "source": "github.com/x-cmd/skill",
+  "downloaded_at": "2026-01-14T02:45:42.278557Z"
 }

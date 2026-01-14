@@ -1,12 +1,7 @@
 {
   "name": "test-master",
-  "description": "Use when writing tests, creating test strategies, or building automation frameworks. Invoke for unit tests, integration tests, E2E, coverage analysis, performance testing, security testing. Keywords: ",
   "repo": "Jeffallan/claude-skills",
-  "category": "testing",
-  "tags": [
-    "test",
-    "master"
-  ],
-  "stars": 12,
-  "source": "local"
+  "path": "skills/test-master/SKILL.md",
+  "source": "github.com/Jeffallan/claude-skills",
+  "downloaded_at": "2026-01-14T02:36:40.765025Z"
 }

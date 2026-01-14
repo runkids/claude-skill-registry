@@ -1,13 +1,7 @@
 {
   "name": "enumeration-protocol-execution",
-  "description": "Enforce a Divergent-Convergent Scan loop to overcome 'Prevalent Noun Bias' and statistical probability reflexes (System 1).",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "development",
-  "tags": [
-    "enumeration",
-    "protocol",
-    "execution"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/enumeration-protocol-execution/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-14T01:08:27.474890Z"
 }

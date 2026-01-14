@@ -1,12 +1,7 @@
 {
   "name": "apply-qa-fixes",
-  "description": "Systematically consume QA quality gate outputs and apply prioritized fixes for high-severity issues, NFR failures, and test coverage gaps. Use when quality review identifies issues requiring remediati",
-  "repo": "adolfoaranaes12/BMAD-ENHANCED",
-  "category": "testing",
-  "tags": [
-    "apply",
-    "fixes"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "repo": "resolve-io/.prism",
+  "path": "plugins/prism-devtools/skills/apply-qa-fixes/SKILL.md",
+  "source": "github.com/resolve-io/.prism",
+  "downloaded_at": "2026-01-14T03:09:57.669813Z"
 }

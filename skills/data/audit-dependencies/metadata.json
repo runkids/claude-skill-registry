@@ -1,9 +1,7 @@
 {
   "name": "audit-dependencies",
-  "description": "Run npm audit and check for outdated/vulnerable dependencies. Returns structured output with vulnerability counts by severity, outdated packages, and recommended updates. Used for security validation ",
   "repo": "BerryKuipers/claude-code-toolkit",
-  "category": "security",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/security/audit-dependencies/SKILL.md",
+  "source": "github.com/BerryKuipers/claude-code-toolkit",
+  "downloaded_at": "2026-01-14T02:13:04.542725Z"
 }

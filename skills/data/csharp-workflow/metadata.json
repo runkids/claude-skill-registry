@@ -1,12 +1,7 @@
 {
   "name": "csharp-workflow",
-  "description": "C# and .NET project workflow guidelines. Activate when working with C# files (.cs), .csproj, .NET projects, or C#-specific tooling.",
   "repo": "ilude/claude-code-config",
-  "category": "design",
-  "tags": [
-    "csharp",
-    "workflow"
-  ],
-  "stars": 5,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/csharp-workflow/SKILL.md",
+  "source": "github.com/ilude/claude-code-config",
+  "downloaded_at": "2026-01-14T01:02:40.387089Z"
 }

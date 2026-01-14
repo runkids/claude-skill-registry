@@ -1,464 +1,476 @@
 ---
 name: integration-testing
-description: Use when designing E2E tests for milestones or features, executing integration smoke tests after implementation, validating acceptance criteria requiring system-level testing, or debugging integration failures.
+description: Design and implement integration tests that verify component interactions, API endpoints, database operations, and external service communication. Use for integration test, API test, end-to-end component testing, and service layer validation.
 ---
 
-# Integration Testing Skill
+# Integration Testing
 
-Load this skill when:
-- Designing E2E tests for a milestone or feature
-- Executing integration smoke tests after implementation
-- Validating acceptance criteria that require system-level testing
-- Debugging integration failures
+## Overview
 
----
+Integration testing validates that different components, modules, or services work correctly together. Unlike unit tests that isolate single functions, integration tests verify the interactions between multiple parts of your system including databases, APIs, external services, and infrastructure.
 
-## Philosophy
+## When to Use
 
-**Unit tests verify components. Integration tests verify the system works.**
+- Testing API endpoints with real database connections
+- Verifying service-to-service communication
+- Validating data flow across multiple layers
+- Testing repository/DAO layer with actual databases
+- Checking authentication and authorization flows
+- Verifying message queue consumers and producers
+- Testing third-party service integrations
 
-A feature isn't done when unit tests pass — it's done when you can trigger it end-to-end and observe the expected behavior. This skill helps you design and execute those tests.
+## Instructions
 
----
+### 1. **API Integration Testing**
 
-## When to Run Integration Tests
+#### Express/Node.js with Jest and Supertest
+```javascript
+// test/api/users.integration.test.js
+const request = require('supertest');
+const app = require('../../src/app');
+const { setupTestDB, teardownTestDB } = require('../helpers/db');
 
-| Situation | Action |
-|-----------|--------|
-| After implementing a milestone | Run the milestone's E2E test scenario |
-| After TDD GREEN phase (ktask) | Run integration smoke test |
-| Acceptance criteria mentions "integration" | Design and execute appropriate test |
-| Something "should work" but doesn't | Use integration test to isolate the issue |
+describe('User API Integration Tests', () => {
+  beforeAll(async () => {
+    await setupTestDB();
+  });
 
----
+  afterAll(async () => {
+    await teardownTestDB();
+  });
 
-## Test Design Process
+  beforeEach(async () => {
+    await clearUsers();
+  });
 
-### Step 1: Identify What to Test
+  describe('POST /api/users', () => {
+    it('should create a new user with valid data', async () => {
+      const userData = {
+        email: 'test@example.com',
+        name: 'Test User',
+        password: 'SecurePass123!'
+      };
 
-From the feature or milestone, extract:
-- **Trigger**: How does a user initiate this? (CLI command, API call, UI action)
-- **Flow**: What components are involved? (API → Service → Worker → Database)
-- **Observable outcome**: What proves it worked? (Response, logs, state change, file created)
+      const response = await request(app)
+        .post('/api/users')
+        .send(userData)
+        .expect(201);
 
-### Step 2: Choose Test Category
+      expect(response.body).toMatchObject({
+        id: expect.any(String),
+        email: userData.email,
+        name: userData.name
+      });
+      expect(response.body.password).toBeUndefined();
 
-| Category | When | Example |
-|----------|------|---------|
-| **Smoke Test** | Quick validation something works | Start operation, check it completes |
-| **Progress Test** | Verify long-running operations | Monitor progress updates over time |
-| **Cancellation Test** | Verify cleanup works | Start, wait, cancel, verify stopped |
-| **Error Test** | Verify graceful failure | Invalid input, missing dependencies |
-| **Integration Test** | Verify cross-service communication | Backend → Worker → Host Service |
+      // Verify in database
+      const user = await User.findById(response.body.id);
+      expect(user).toBeTruthy();
+      expect(user.email).toBe(userData.email);
+    });
 
-### Step 3: Define Test Data
+    it('should reject duplicate email addresses', async () => {
+      const userData = { email: 'test@example.com', name: 'Test', password: 'pass' };
 
-Choose parameters that match the test purpose:
+      await request(app).post('/api/users').send(userData).expect(201);
 
-**For smoke tests (fast feedback):**
-- Small datasets, short durations
-- Example: 1 year daily data (~250 bars), 10 epochs
+      const response = await request(app)
+        .post('/api/users')
+        .send(userData)
+        .expect(409);
 
-**For progress monitoring (observe updates):**
-- Larger datasets, longer durations (30-90 seconds)
-- Example: 2 years 5-minute data, observable progress
+      expect(response.body.error).toMatch(/email.*exists/i);
+    });
+  });
 
-**For stress/edge cases:**
-- Boundary conditions, large volumes
-- Example: Maximum date range, concurrent operations
+  describe('GET /api/users/:id', () => {
+    it('should retrieve user with associated orders', async () => {
+      const user = await createTestUser();
+      await createTestOrder({ userId: user.id, total: 99.99 });
 
-### Step 4: Write the Test Scenario
+      const response = await request(app)
+        .get(`/api/users/${user.id}`)
+        .set('Authorization', `Bearer ${user.token}`)
+        .expect(200);
 
-Use this template:
-
-```markdown
-## Scenario: [Name]
-
-**Category**: [Smoke/Progress/Cancellation/Error/Integration]
-**Duration**: ~[X] seconds
-**Purpose**: [One sentence]
-
-### Prerequisites
-- [Service 1] running
-- [Configuration] set
-- [Data] available
-
-### Commands
-
-**1. [Action Name]**
-```bash
-[Command]
-```
-**Expected**: [What should happen]
-
-**2. [Verification]**
-```bash
-[Command to check result]
-```
-**Expected**: [What output proves success]
-
-### Success Criteria
-- [ ] [Criterion 1]
-- [ ] [Criterion 2]
-- [ ] [Criterion 3]
-```
-
----
-
-## Quick Reference: KTRDR Services
-
-### Service URLs
-
-| Service | URL | Purpose |
-|---------|-----|---------|
-| Backend API | http://localhost:8000/api/v1 | Main entry point |
-| Training Host | http://localhost:5002 | GPU training |
-| IB Host | http://localhost:5001 | IB Gateway access |
-| Backtest Worker | http://localhost:5003 | Backtesting |
-
-### Health Checks
-
-```bash
-# Backend
-curl -s http://localhost:8000/health | jq
-
-# Training host
-curl -s http://localhost:5002/health | jq
-
-# IB host (check IB Gateway connection)
-curl -s http://localhost:5001/health | jq '{status, ib_connected}'
-
-# All services quick check
-for port in 8000 5001 5002 5003; do
-  echo -n "Port $port: "
-  curl -s --max-time 2 http://localhost:$port/health | jq -r '.status // "not responding"'
-done
+      expect(response.body).toMatchObject({
+        id: user.id,
+        orders: expect.arrayContaining([
+          expect.objectContaining({ total: 99.99 })
+        ])
+      });
+    });
+  });
+});
 ```
 
----
+#### FastAPI/Python with pytest
+```python
+# tests/integration/test_user_api.py
+import pytest
+from httpx import AsyncClient
+from sqlalchemy.ext.asyncio import AsyncSession
 
-## Common Test Patterns
+from app.main import app
+from app.models import User
+from tests.conftest import test_db
 
-### Pattern 1: Start and Verify Completion
+@pytest.mark.asyncio
+class TestUserAPI:
+    async def test_create_user_integration(
+        self,
+        client: AsyncClient,
+        db: AsyncSession
+    ):
+        """Test user creation with database persistence."""
+        user_data = {
+            "email": "test@example.com",
+            "name": "Test User",
+            "password": "SecurePass123!"
+        }
 
-```bash
-# 1. Start operation
-RESPONSE=$(curl -s -X POST http://localhost:8000/api/v1/[endpoint] \
-  -H "Content-Type: application/json" \
-  -d '[JSON payload]')
+        response = await client.post("/api/users", json=user_data)
 
-OP_ID=$(echo "$RESPONSE" | jq -r '.operation_id // .task_id // .data.operation_id')
-echo "Operation ID: $OP_ID"
+        assert response.status_code == 201
+        data = response.json()
+        assert data["email"] == user_data["email"]
+        assert "password" not in data
 
-# 2. Wait for completion
-sleep [estimated_duration]
+        # Verify in database
+        result = await db.execute(
+            select(User).where(User.email == user_data["email"])
+        )
+        user = result.scalar_one()
+        assert user is not None
+        assert user.name == user_data["name"]
 
-# 3. Check status
-curl -s "http://localhost:8000/api/v1/operations/$OP_ID" | \
-  jq '{status: .data.status, result: .data.result_summary}'
+    async def test_user_with_relationships(
+        self,
+        client: AsyncClient,
+        db: AsyncSession
+    ):
+        """Test retrieving user with related data."""
+        # Setup: Create user with orders
+        user = await create_test_user(db)
+        await create_test_order(db, user_id=user.id, total=99.99)
+
+        # Test: Fetch user with orders
+        response = await client.get(
+            f"/api/users/{user.id}",
+            headers={"Authorization": f"Bearer {user.token}"}
+        )
+
+        assert response.status_code == 200
+        data = response.json()
+        assert data["id"] == user.id
+        assert len(data["orders"]) == 1
+        assert data["orders"][0]["total"] == 99.99
 ```
 
-### Pattern 2: Poll Progress
+### 2. **Database Integration Testing**
 
-```bash
-# Poll every N seconds, M times
-for i in {1..M}; do
-  sleep N
-  curl -s "http://localhost:8000/api/v1/operations/$OP_ID" | \
-    jq '{poll:'"$i"', status:.data.status, pct:.data.progress.percentage}'
-done
+#### Spring Boot with JUnit
+```java
+// src/test/java/com/example/integration/UserRepositoryIntegrationTest.java
+@SpringBootTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@TestPropertySource(locations = "classpath:application-test.properties")
+class UserRepositoryIntegrationTest {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
+
+    @Autowired
+    private TestEntityManager entityManager;
+
+    @BeforeEach
+    void setUp() {
+        orderRepository.deleteAll();
+        userRepository.deleteAll();
+    }
+
+    @Test
+    @Transactional
+    void testSaveUserWithOrders() {
+        // Given
+        User user = new User();
+        user.setEmail("test@example.com");
+        user.setName("Test User");
+
+        Order order1 = new Order();
+        order1.setTotal(new BigDecimal("99.99"));
+        order1.setUser(user);
+
+        Order order2 = new Order();
+        order2.setTotal(new BigDecimal("49.99"));
+        order2.setUser(user);
+
+        user.setOrders(Arrays.asList(order1, order2));
+
+        // When
+        User savedUser = userRepository.save(user);
+        entityManager.flush();
+        entityManager.clear();
+
+        // Then
+        User foundUser = userRepository.findById(savedUser.getId())
+            .orElseThrow();
+
+        assertThat(foundUser.getEmail()).isEqualTo("test@example.com");
+        assertThat(foundUser.getOrders()).hasSize(2);
+        assertThat(foundUser.getOrders())
+            .extracting(Order::getTotal)
+            .containsExactlyInAnyOrder(
+                new BigDecimal("99.99"),
+                new BigDecimal("49.99")
+            );
+    }
+
+    @Test
+    void testCustomQueryWithJoins() {
+        // Given
+        User user = createTestUser("test@example.com");
+        createTestOrder(user, new BigDecimal("150.00"));
+
+        // When
+        List<User> highValueUsers = userRepository
+            .findUsersWithOrdersAbove(new BigDecimal("100.00"));
+
+        // Then
+        assertThat(highValueUsers).hasSize(1);
+        assertThat(highValueUsers.get(0).getEmail())
+            .isEqualTo("test@example.com");
+    }
+}
 ```
 
-### Pattern 3: Cancellation
+### 3. **External Service Integration**
 
-```bash
-# 1. Start operation
-# 2. Wait until running
-sleep 10
-curl -s "http://localhost:8000/api/v1/operations/$OP_ID" | jq '.data.status'
-# Should be: "running"
+#### Testing with Test Containers
+```javascript
+// test/integration/payment-service.test.js
+const { GenericContainer } = require('testcontainers');
+const PaymentService = require('../../src/services/payment');
 
-# 3. Cancel
-curl -s -X DELETE "http://localhost:8000/api/v1/operations/$OP_ID" | jq
+describe('Payment Service Integration', () => {
+  let container;
+  let paymentService;
 
-# 4. Verify cancelled
-sleep 2
-curl -s "http://localhost:8000/api/v1/operations/$OP_ID" | jq '.data.status'
+  beforeAll(async () => {
+    // Start PostgreSQL container
+    container = await new GenericContainer('postgres:14')
+      .withEnvironment({
+        POSTGRES_DB: 'test',
+        POSTGRES_USER: 'test',
+        POSTGRES_PASSWORD: 'test'
+      })
+      .withExposedPorts(5432)
+      .start();
+
+    const connectionString = `postgresql://test:test@${container.getHost()}:${container.getMappedPort(5432)}/test`;
+    paymentService = new PaymentService(connectionString);
+    await paymentService.initialize();
+  }, 60000);
+
+  afterAll(async () => {
+    await paymentService.close();
+    await container.stop();
+  });
+
+  test('should process payment and update database', async () => {
+    const payment = {
+      orderId: 'order-123',
+      amount: 99.99,
+      currency: 'USD',
+      paymentMethod: 'credit_card'
+    };
+
+    const result = await paymentService.processPayment(payment);
+
+    expect(result.status).toBe('completed');
+    expect(result.transactionId).toBeDefined();
+
+    // Verify in database
+    const stored = await paymentService.getPayment(result.id);
+    expect(stored.orderId).toBe('order-123');
+    expect(stored.status).toBe('completed');
+  });
+});
 ```
 
-### Pattern 4: Error Handling
+### 4. **Message Queue Integration**
 
-```bash
-# Send invalid request
-curl -i -s -X POST http://localhost:8000/api/v1/[endpoint] \
-  -H "Content-Type: application/json" \
-  -d '{"invalid": "payload"}'
+```python
+# tests/integration/test_message_queue.py
+import pytest
+from unittest.mock import patch
+import json
 
-# Check:
-# - HTTP status code (400, 404, etc.)
-# - Error message is clear
-# - No stack traces
-# - System remains stable
+from app.queue import MessageQueue
+from app.workers import OrderProcessor
+
+@pytest.mark.integration
+class TestMessageQueueIntegration:
+    @pytest.fixture
+    async def queue(self):
+        """Create test message queue."""
+        queue = MessageQueue(url=TEST_RABBITMQ_URL)
+        await queue.connect()
+        yield queue
+        await queue.close()
+
+    async def test_publish_and_consume_message(self, queue):
+        """Test full message lifecycle."""
+        received_messages = []
+
+        async def message_handler(message):
+            received_messages.append(message)
+
+        # Subscribe to queue
+        await queue.subscribe('orders', message_handler)
+
+        # Publish message
+        order_data = {
+            'order_id': '123',
+            'customer': 'test@example.com',
+            'total': 99.99
+        }
+        await queue.publish('orders', order_data)
+
+        # Wait for message processing
+        await asyncio.sleep(0.5)
+
+        assert len(received_messages) == 1
+        assert received_messages[0]['order_id'] == '123'
+
+    async def test_order_processing_workflow(self, queue, db):
+        """Test complete order processing through queue."""
+        processor = OrderProcessor(queue, db)
+        await processor.start()
+
+        # Publish order
+        order = await create_test_order(db, status='pending')
+        await queue.publish('orders.new', {'order_id': order.id})
+
+        # Wait for processing
+        await asyncio.sleep(1)
+
+        # Verify order was processed
+        await db.refresh(order)
+        assert order.status == 'processing'
+        assert order.processed_at is not None
 ```
 
-### Pattern 5: Log Verification
+## Testing Patterns
 
-```bash
-# Check for expected log entry
-docker compose logs backend --since 60s | grep "[expected pattern]"
+### Test Data Management
 
-# Check for absence of error
-docker compose logs backend --since 60s | grep -i "error\|exception"
-# Should be empty or only expected errors
+```python
+# conftest.py - Shared fixtures
+import pytest
+from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
+
+@pytest.fixture(scope="session")
+async def engine():
+    """Create test database engine."""
+    engine = create_async_engine(TEST_DATABASE_URL)
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+    yield engine
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.drop_all)
+    await engine.dispose()
+
+@pytest.fixture
+async def db(engine):
+    """Create database session for each test."""
+    async with AsyncSession(engine) as session:
+        yield session
+        await session.rollback()
+
+@pytest.fixture
+async def client(db):
+    """Create test HTTP client."""
+    async with AsyncClient(app=app, base_url="http://test") as client:
+        yield client
 ```
 
----
+## Best Practices
 
-## Key API Endpoints
+### ✅ DO
+- Use real databases in integration tests (in-memory or containers)
+- Test actual HTTP requests, not mocked responses
+- Verify database state after operations
+- Test transaction boundaries and rollbacks
+- Include authentication/authorization in tests
+- Test error scenarios and edge cases
+- Use test containers for isolated environments
+- Clean up data between tests
 
-### Operations (All Types)
+### ❌ DON'T
+- Mock database connections in integration tests
+- Skip testing error paths
+- Leave test data in databases
+- Use production databases for testing
+- Ignore transaction management
+- Test only happy paths
+- Share state between tests
+- Hardcode URLs or credentials
 
-```bash
-# Get status
-curl -s "http://localhost:8000/api/v1/operations/$OP_ID" | jq
+## Tools
 
-# List operations
-curl -s "http://localhost:8000/api/v1/operations?status=running&limit=10" | jq
+- **Node.js**: Supertest, Jest, Testcontainers
+- **Python**: pytest, httpx, pytest-asyncio, Testcontainers
+- **Java**: Spring Test, TestContainers, RestAssured
+- **Database**: Testcontainers, in-memory DBs (H2, SQLite)
+- **Mocking Services**: WireMock, MockServer, Localstack
 
-# Cancel
-curl -s -X DELETE "http://localhost:8000/api/v1/operations/$OP_ID"
+## Common Patterns
+
+```javascript
+// Test helper for database setup
+class TestDatabase {
+  static async setup() {
+    await db.migrate.latest();
+  }
+
+  static async teardown() {
+    await db.destroy();
+  }
+
+  static async clear() {
+    const tables = ['orders', 'users', 'products'];
+    for (const table of tables) {
+      await db(table).truncate();
+    }
+  }
+}
+
+// Factory pattern for test data
+class TestDataFactory {
+  static async createUser(overrides = {}) {
+    const defaults = {
+      email: `user-${Date.now()}@test.com`,
+      name: 'Test User',
+      role: 'customer'
+    };
+    return await User.create({ ...defaults, ...overrides });
+  }
+
+  static async createOrder(userId, overrides = {}) {
+    const defaults = {
+      userId,
+      status: 'pending',
+      total: 99.99
+    };
+    return await Order.create({ ...defaults, ...overrides });
+  }
+}
 ```
 
-### Training
+## Examples
 
-```bash
-# Start training
-curl -s -X POST http://localhost:8000/api/v1/trainings/start \
-  -H "Content-Type: application/json" \
-  -d '{
-    "symbols": ["EURUSD"],
-    "timeframes": ["1d"],
-    "strategy_name": "test_e2e_local_pull",
-    "start_date": "2024-01-01",
-    "end_date": "2024-12-31"
-  }'
-```
-
-### Data
-
-```bash
-# Get cached data info
-curl -s "http://localhost:8000/api/v1/data/EURUSD/1h" | jq '.data.dates | length'
-
-# Download from IB (requires IB host running)
-curl -s -X POST http://localhost:8000/api/v1/data/acquire/download \
-  -H "Content-Type: application/json" \
-  -d '{
-    "symbol": "EURUSD",
-    "timeframe": "1h",
-    "mode": "tail",
-    "start_date": "2024-01-01",
-    "end_date": "2024-12-31"
-  }'
-```
-
-### Backtesting
-
-```bash
-# Start backtest
-curl -s -X POST http://localhost:8000/api/v1/backtests/start \
-  -H "Content-Type: application/json" \
-  -d '{
-    "model_path": "models/neuro_mean_reversion/1d_v21/model.pt",
-    "strategy_name": "neuro_mean_reversion",
-    "symbol": "EURUSD",
-    "timeframe": "1d",
-    "start_date": "2024-01-01",
-    "end_date": "2024-01-31"
-  }'
-```
-
----
-
-## Test Data Calibration
-
-### Training Tests
-
-| Purpose | Timeframe | Date Range | Samples | Duration |
-|---------|-----------|------------|---------|----------|
-| Smoke test | 1d | 1 year | ~250 | ~2s |
-| Progress monitoring | 5m | 2 years | ~150K | ~60s |
-| Cancellation | 5m | 2 years | ~150K | ~30s (cancel at 50%) |
-
-### Data Tests
-
-| Purpose | Timeframe | Date Range | Bars | Duration |
-|---------|-----------|------------|------|----------|
-| Cache read | 1h | any | ~115K | <1s |
-| Small download | 1d | 1 year | ~250 | 10-30s |
-| Progress monitoring | 1h | 1 year | ~8760 | 30-90s |
-
----
-
-## Log Patterns to Watch
-
-### Success Indicators
-
-```bash
-# Local bridge registered (training in backend)
-grep "Registered local training bridge" 
-
-# Remote proxy registered (training on host)
-grep "Registered remote proxy"
-
-# Data saved to cache
-grep "Saved.*rows to cache"
-```
-
-### Error Indicators
-
-```bash
-# Event loop error (architecture bug)
-grep -i "no running event loop"
-# Should be EMPTY
-
-# Connection errors
-grep -i "connection refused\|timeout"
-
-# General errors
-grep -i "error\|exception\|failed"
-```
-
----
-
-## Troubleshooting
-
-### Operation completes instantly (no progress)
-
-**Cause**: Dataset too small
-**Fix**: Use larger date range or finer timeframe
-
-### Download uses cache instead of IB
-
-**Cause**: Missing `"mode":"tail"` parameter
-**Fix**: Add `"mode":"tail"` to request body
-
-### Cannot connect to service
-
-**Cause**: Service not running
-**Fix**: 
-```bash
-# Check what's running
-docker ps
-curl http://localhost:8000/health
-
-# Start services
-docker compose up -d
-```
-
-### IB download fails
-
-**Cause**: IB Gateway not connected
-**Fix**:
-1. Check IB host: `curl http://localhost:5001/health`
-2. Start IB Gateway TWS application
-3. Log in to paper trading account
-
----
-
-## Integration with Workflow
-
-### From `/kdesign-impl-plan`
-
-Each milestone has an E2E test scenario. After implementing all tasks in a milestone:
-
-1. Read the milestone's E2E test from the plan
-2. Design the test using this skill's patterns
-3. Execute and verify all success criteria
-
-### From `/ktask`
-
-After TDD passes (unit tests green), run integration smoke test:
-
-1. Start the system: `docker compose up -d`
-2. Execute the modified flow (API call, CLI command)
-3. Verify end-to-end behavior
-4. Check logs for errors
-5. Report: "✅ Integration test passed" or "❌ Issue: [description]"
-
----
-
-## Example: Designing a New Test
-
-**Feature**: User can cancel a running training operation
-
-**Step 1: Identify**
-- Trigger: DELETE /api/v1/operations/{id}
-- Flow: API → OperationsService → Worker
-- Outcome: Status changes to "cancelled", training stops
-
-**Step 2: Category**
-Cancellation test (~30 seconds)
-
-**Step 3: Test Data**
-- 2 years 5m data (long enough to cancel mid-operation)
-- Strategy: test_e2e_local_pull
-
-**Step 4: Scenario**
-
-```markdown
-## Scenario: Training Cancellation
-
-**Category**: Cancellation
-**Duration**: ~30 seconds
-**Purpose**: Verify training can be cancelled mid-operation
-
-### Prerequisites
-- Backend running
-- Local training mode
-
-### Commands
-
-**1. Start long-running training**
-```bash
-RESPONSE=$(curl -s -X POST http://localhost:8000/api/v1/trainings/start \
-  -H "Content-Type: application/json" \
-  -d '{"symbols":["EURUSD"],"timeframes":["5m"],"strategy_name":"test_e2e_local_pull","start_date":"2023-01-01","end_date":"2025-01-01"}')
-TASK_ID=$(echo "$RESPONSE" | jq -r '.task_id')
-```
-
-**2. Wait and verify running**
-```bash
-sleep 15
-curl -s "http://localhost:8000/api/v1/operations/$TASK_ID" | \
-  jq '{status:.data.status, pct:.data.progress.percentage}'
-```
-**Expected**: status: "running", progress > 0%
-
-**3. Cancel**
-```bash
-curl -s -X DELETE "http://localhost:8000/api/v1/operations/$TASK_ID" | jq
-```
-**Expected**: Cancellation acknowledged
-
-**4. Verify cancelled**
-```bash
-sleep 3
-curl -s "http://localhost:8000/api/v1/operations/$TASK_ID" | jq '.data.status'
-```
-**Expected**: "cancelled" or "failed" (known quirk)
-
-### Success Criteria
-- [ ] Operation starts and shows progress
-- [ ] Cancel request succeeds
-- [ ] Status reflects cancellation
-- [ ] System remains stable (can start new operations)
-```
-
----
-
-## Full Documentation
-
-For comprehensive scenario library:
-- `docs/testing/SCENARIOS.md` — All test scenarios with results
-- `docs/testing/TESTING_GUIDE.md` — Complete API reference and troubleshooting
+See also: test-data-generation, mocking-stubbing, continuous-testing skills for related testing patterns.

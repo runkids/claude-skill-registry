@@ -1,8 +1,7 @@
 {
   "name": "using-training-optimization",
   "repo": "tachyon-beep/skillpacks",
-  "category": "data",
-  "description": "Router to training optimization skills based on symptoms and training problems",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:41.747220Z"
+  "path": "plugins/yzmir-training-optimization/skills/using-training-optimization/SKILL.md",
+  "source": "github.com/tachyon-beep/skillpacks",
+  "downloaded_at": "2026-01-14T01:26:07.440042Z"
 }

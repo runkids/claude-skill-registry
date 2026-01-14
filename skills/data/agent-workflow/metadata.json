@@ -1,12 +1,7 @@
 {
   "name": "agent-workflow",
-  "description": "Expert system for designing and architecting AI agent workflows based on proven Meta methodologies. Use when users need to build AI agents, create agent workflows, solve problems using agentic systems",
   "repo": "breethomas/pm-thought-partner",
-  "category": "design",
-  "tags": [
-    "agent",
-    "workflow"
-  ],
-  "stars": 8,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/agent-workflow/SKILL.md",
+  "source": "github.com/breethomas/pm-thought-partner",
+  "downloaded_at": "2026-01-14T03:54:54.837424Z"
 }

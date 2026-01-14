@@ -1,8 +1,7 @@
 {
   "name": "loading-datasets",
   "repo": "pymc-labs/CausalPy",
-  "category": "data",
-  "description": "Loads internal CausalPy example datasets. Use when the user needs example data or asks about available demos.",
-  "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:20:44.243157Z"
+  "path": ".claude/skills/loading-datasets/SKILL.md",
+  "source": "github.com/pymc-labs/CausalPy",
+  "downloaded_at": "2026-01-14T01:35:31.195678Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "packages-runtime",
-  "description": "Your approach to handling packages runtime. Use this skill when working on files where packages runtime comes into play.",
   "repo": "leaderiop/hex-di",
-  "category": "development",
-  "tags": [
-    "packages",
-    "runtime"
-  ],
-  "stars": 5,
-  "source": "local"
+  "path": ".claude/skills/packages-runtime/SKILL.md",
+  "source": "github.com/leaderiop/hex-di",
+  "downloaded_at": "2026-01-14T01:20:47.925626Z"
 }

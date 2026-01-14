@@ -1,96 +1,124 @@
 ---
-name: confidence-check
-description: Use before implementing when uncertainty exists. Weighted scoring across 5 checks (requires ≥80%). Triggers: "before implementing", "verify readiness", "should I proceed", "am I ready". If thinking "this is overkill" - use it.
+name: Confidence Check
+description: Pre-implementation confidence assessment (≥90% required). Use before starting any implementation to verify readiness with duplicate check, architecture compliance, official docs verification, OSS references, and root cause identification.
 ---
 
-# Confidence Check
+# Confidence Check Skill
 
-Pre-implementation gate. Spend 100-200 tokens here to save 5,000-50,000 tokens on wrong-direction work.
+## Purpose
+
+Prevents wrong-direction execution by assessing confidence **BEFORE** starting implementation.
+
+**Requirement**: ≥90% confidence to proceed with implementation.
+
+**Test Results** (2025-10-21):
+- Precision: 1.000 (no false positives)
+- Recall: 1.000 (no false negatives)
+- 8/8 test cases passed
 
 ## When to Use
 
-**USE PROACTIVELY - before EVERY implementation, not just when uncertain:**
-- Starting any feature, fix, or refactor
-- About to write production code
-- Architecture/stack decisions to make
-- Integrating with unfamiliar code
+Use this skill BEFORE implementing any task to ensure:
+- No duplicate implementations exist
+- Architecture compliance verified
+- Official documentation reviewed
+- Working OSS implementations found
+- Root cause properly identified
 
-**Especially critical when:**
-- Stack is new or unfamiliar
-- Requirements feel vague
-- Codebase is large or complex
-- User seems confident (overconfidence = highest risk)
+## Confidence Assessment Criteria
 
-**DO NOT use for:**
-- Pure research/exploration tasks
-- Reading/explaining existing code
-- Documentation-only changes
+Calculate confidence score (0.0 - 1.0) based on 5 checks:
 
-## MANDATORY FIRST STEP
+### 1. No Duplicate Implementations? (25%)
 
-**TodoWrite:** Create 5 items (1 per check)
-1. Search for duplicate implementations (Grep/Glob)
-2. Verify architecture compliance (CLAUDE.md, patterns)
-3. Check official documentation (Context7/WebFetch)
-4. Find working OSS reference (Tavily/WebSearch)
-5. Identify root cause (errors, logs, traces)
+**Check**: Search codebase for existing functionality
 
----
+```bash
+# Use Grep to search for similar functions
+# Use Glob to find related modules
+```
 
-## 5 Checks (Weighted)
+✅ Pass if no duplicates found
+❌ Fail if similar implementation exists
 
-| Check | Weight | Pass Criteria |
-|-------|--------|---------------|
-| **No Duplicates** | 25% | No similar implementation exists |
-| **Architecture Compliant** | 25% | Uses existing stack/patterns |
-| **Official Docs Verified** | 20% | Official docs reviewed |
-| **Working OSS Reference** | 15% | Proven implementation found |
-| **Root Cause Identified** | 15% | Root cause clear |
+### 2. Architecture Compliance? (25%)
 
-**Task-specific variants:**
-- **Bug Fix:** Root cause (40%) + Docs (30%) + OSS (30%)
-- **New Feature:** Duplicates (40%) + Architecture (30%) + Docs (30%)
-- **Refactor:** Architecture (50%) + Duplicates (30%) + OSS (20%)
+**Check**: Verify tech stack alignment
 
----
+- Read `CLAUDE.md`, `PLANNING.md`
+- Confirm existing patterns used
+- Avoid reinventing existing solutions
 
-## Decision Thresholds
+✅ Pass if uses existing tech stack (e.g., Supabase, UV, pytest)
+❌ Fail if introduces new dependencies unnecessarily
 
-| Score | Action |
-|-------|--------|
-| ≥80% | ✅ Proceed to implementation |
-| 70-79% | ⚠️ Present alternatives, ask clarifying questions |
-| <70% | ❌ STOP - Request more context from user |
+### 3. Official Documentation Verified? (20%)
 
----
+**Check**: Review official docs before implementation
+
+- Use Context7 MCP for official docs
+- Use WebFetch for documentation URLs
+- Verify API compatibility
+
+✅ Pass if official docs reviewed
+❌ Fail if relying on assumptions
+
+### 4. Working OSS Implementations Referenced? (15%)
+
+**Check**: Find proven implementations
+
+- Use Tavily MCP or WebSearch
+- Search GitHub for examples
+- Verify working code samples
+
+✅ Pass if OSS reference found
+❌ Fail if no working examples
+
+### 5. Root Cause Identified? (15%)
+
+**Check**: Understand the actual problem
+
+- Analyze error messages
+- Check logs and stack traces
+- Identify underlying issue
+
+✅ Pass if root cause clear
+❌ Fail if symptoms unclear
+
+## Confidence Score Calculation
+
+```
+Total = Check1 (25%) + Check2 (25%) + Check3 (20%) + Check4 (15%) + Check5 (15%)
+
+If Total >= 0.90:  ✅ Proceed with implementation
+If Total >= 0.70:  ⚠️  Present alternatives, ask questions
+If Total < 0.70:   ❌ STOP - Request more context
+```
 
 ## Output Format
 
 ```
-Confidence Checks:
-   [✅/❌] No duplicate implementations found
-   [✅/❌] Uses existing tech stack
-   [✅/❌] Official documentation verified
-   [✅/❌] Working OSS implementation found
-   [✅/❌] Root cause identified
+📋 Confidence Checks:
+   ✅ No duplicate implementations found
+   ✅ Uses existing tech stack
+   ✅ Official documentation verified
+   ✅ Working OSS implementation found
+   ✅ Root cause identified
 
-Confidence: X.XX (XX%)
-Decision: [Proceed/Ask Questions/Stop]
+📊 Confidence: 1.00 (100%)
+✅ High confidence - Proceeding to implementation
 ```
 
----
+## Implementation Details
 
-## Response Templates
+The TypeScript implementation is available in `confidence.ts` for reference, containing:
 
-**"Skip the check, this is straightforward"**
-> Straightforward tasks fail 40% of the time from duplicate implementations or architecture mismatches. Confidence check takes 2 minutes. Which checks did you already complete?
+- `confidenceCheck(context)` - Main assessment function
+- Detailed check implementations
+- Context interface definitions
 
----
+## ROI
 
-## Red Flags
+**Token Savings**: Spend 100-200 tokens on confidence check to save 5,000-50,000 tokens on wrong-direction work.
 
-| Thought | Reality |
-|---------|---------|
-| "This is too simple to check" | 40% of "simple" tasks duplicate existing code |
-| "I already know the architecture" | Assumptions cause 30% of rework |
-| "Official docs take too long" | 5 min reading saves 3 hours debugging |
+**Success Rate**: 100% precision and recall in production testing.

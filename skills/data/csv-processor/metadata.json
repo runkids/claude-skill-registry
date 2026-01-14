@@ -1,12 +1,7 @@
 {
   "name": "csv-processor",
-  "description": "Parse, transform, and analyze CSV files with advanced data manipulation capabilities.",
   "repo": "CuriousLearner/devkit",
-  "category": "data",
-  "tags": [
-    "csv",
-    "processor"
-  ],
-  "stars": 13,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/csv-processor/SKILL.md",
+  "source": "github.com/CuriousLearner/devkit",
+  "downloaded_at": "2026-01-14T02:22:35.025520Z"
 }

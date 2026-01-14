@@ -1,11 +1,7 @@
 {
   "name": "pr-merge",
-  "description": "Safely merge GitHub pull requests using comprehensive pre-merge validation. Use this skill when the user asks to merge a PR, complete a PR workflow, or check if a PR is ready to merge. Validates CI/CD",
   "repo": "matteocervelli/llms",
-  "category": "devops",
-  "tags": [
-    "merge"
-  ],
-  "stars": 10,
-  "source": "local"
+  "path": ".claude/skills/pr-merge/SKILL.md",
+  "source": "github.com/matteocervelli/llms",
+  "downloaded_at": "2026-01-14T03:06:46.986636Z"
 }

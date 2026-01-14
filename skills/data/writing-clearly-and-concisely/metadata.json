@@ -1,14 +1,7 @@
 {
   "name": "writing-clearly-and-concisely",
-  "description": "Apply Strunk's timeless writing rules to ANY prose humans will read—documentation, commit messages, error messages, explanations, reports, or UI text. Makes your writing clearer, stronger, and more pr",
-  "repo": "obra/the-elements-of-style",
-  "category": "documents",
-  "tags": [
-    "writing",
-    "clearly",
-    "and",
-    "concisely"
-  ],
-  "stars": 126,
-  "source": "SkillsMP Synced Skills"
+  "repo": "mikeastock/agents",
+  "path": "skills/writing-clearly-and-concisely/SKILL.md",
+  "source": "github.com/mikeastock/agents",
+  "downloaded_at": "2026-01-14T03:42:42.258198Z"
 }

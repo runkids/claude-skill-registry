@@ -1,14 +1,7 @@
 {
   "name": "advanced-react-clean-integration",
-  "description": "Integrate React with clean architecture without framework leakage using hooks as adapters and presenters. Use when connecting React to domain logic, designing hook-based DI, or isolating UI from busin",
   "repo": "leaderiop/hex-di",
-  "category": "design",
-  "tags": [
-    "advanced",
-    "react",
-    "clean",
-    "integration"
-  ],
-  "stars": 5,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/advanced-react-clean-integration/SKILL.md",
+  "source": "github.com/leaderiop/hex-di",
+  "downloaded_at": "2026-01-14T01:20:49.324625Z"
 }

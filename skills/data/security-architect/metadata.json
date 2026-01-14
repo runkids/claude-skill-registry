@@ -1,12 +1,7 @@
 {
   "name": "security-architect",
-  "description": "Comprehensive security architecture combining threat modeling, security-first design, secure coding review, and compliance validation. Consolidated from threat-modeling, security-first-design, secure-",
   "repo": "daffy0208/ai-dev-standards",
-  "category": "design",
-  "tags": [
-    "security",
-    "architect"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": "skills/security-architect/SKILL.md",
+  "source": "github.com/daffy0208/ai-dev-standards",
+  "downloaded_at": "2026-01-14T03:33:12.848319Z"
 }

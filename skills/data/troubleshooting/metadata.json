@@ -1,11 +1,7 @@
 {
   "name": "troubleshooting",
-  "description": "Diagnose and resolve common issues during spec-driven development and implementation. Learn strategies for handling spec-reality divergence, dependency blocks, unclear requirements, and other executio",
-  "repo": "jasonkneen/kiro",
-  "category": "development",
-  "tags": [
-    "troubleshooting"
-  ],
-  "stars": 417,
-  "source": "SkillsMP Synced Skills"
+  "repo": "reggiechan74/claude-plugins",
+  "path": "plugins/claude-code-metaskill/skills/troubleshooting/SKILL.md",
+  "source": "github.com/reggiechan74/claude-plugins",
+  "downloaded_at": "2026-01-14T03:58:22.197205Z"
 }

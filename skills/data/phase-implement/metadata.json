@@ -1,12 +1,7 @@
 {
   "name": "phase-implement",
-  "description": "Coordinate implementation phase by delegating tasks and ensuring code quality. Use during implementation phase to manage engineer tasks.",
   "repo": "mvillmow/ProjectOdyssey",
-  "category": "development",
-  "tags": [
-    "phase",
-    "implement"
-  ],
-  "stars": 8,
-  "source": "local"
+  "path": ".claude/skills/phase-implement/SKILL.md",
+  "source": "github.com/mvillmow/ProjectOdyssey",
+  "downloaded_at": "2026-01-14T01:08:59.308273Z"
 }

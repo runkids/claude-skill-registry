@@ -1,13 +1,35 @@
 ---
 name: changelog-updater
-description: Maintain and update CHANGELOG.md following Keep a Changelog format. Use when: updating changelog, version documentation, release notes, semver versioning, categorizing changes (Added/Changed/Fixed/Security).
+description: 更新 CHANGELOG.md。觸發：changelog、變更、版本、發布、改了什麼。
 ---
 
-# Changelog Updater
+# CHANGELOG 更新技能
 
-Update CHANGELOG.md following [Keep a Changelog](https://keepachangelog.com/) format.
+## 觸發條件
 
-## Structure
+| 用戶說法 | 觸發 |
+|----------|------|
+| 更新 changelog、紀錄變更 | ✅ |
+| 發布、新版本 | ✅ |
+| 被 git-precommit 調用 | ✅ 自動觸發 |
+
+---
+
+## 可用工具
+
+此技能使用標準檔案操作：
+
+| 操作 | 工具 |
+|------|------|
+| 讀取 | `read_file("CHANGELOG.md")` |
+| 更新 | `replace_string_in_file()` |
+| Git diff | `get_changed_files()` |
+
+---
+
+## 格式規範
+
+遵循 [Keep a Changelog](https://keepachangelog.com/) 格式：
 
 ```markdown
 # Changelog
@@ -15,57 +37,86 @@ Update CHANGELOG.md following [Keep a Changelog](https://keepachangelog.com/) fo
 ## [Unreleased]
 
 ### Added
-- New features
+- 新增功能
 
 ### Changed
-- Changes to existing functionality
-
-### Deprecated
-- Features to be removed
-
-### Removed
-- Removed features
+- 變更功能
 
 ### Fixed
-- Bug fixes
+- 修復問題
 
-### Security
-- Security fixes
+## [1.0.0] - 2025-12-22
 
-## [X.Y.Z] - YYYY-MM-DD
-...
-```
-
-## Update Process
-
-1. Run `git log v2.1.0..HEAD --oneline` to see changes
-2. Categorize each significant commit
-3. Write user-facing descriptions
-4. Update version number per semver
-5. Move entries from [Unreleased] to version section
-
-## Version Guidelines
-
-**MAJOR** (X.0.0): Breaking changes
-**MINOR** (X.Y.0): New features, backwards compatible
-**PATCH** (X.Y.Z): Bug fixes, backwards compatible
-
-## Entry Format
-
-```markdown
 ### Added
-- Brief description in user-facing language
-- Reference issue: #123
+- 初始版本
 ```
 
-## Good Examples
+---
 
-```markdown
-### Added
-- Browser node connection pooling for 60% faster execution
-- PostgreSQL async support with connection pooling
+## 分類規則
 
-### Fixed
-- Variable resolution in nested workflows (#234)
-- Memory leak in browser resource manager
+| 類型 | 關鍵字 | 說明 |
+|------|--------|------|
+| Added | feat, 新增, add | 新功能 |
+| Changed | change, update, 變更 | 修改現有功能 |
+| Deprecated | deprecate, 棄用 | 即將移除的功能 |
+| Removed | remove, delete, 移除 | 已移除的功能 |
+| Fixed | fix, bug, 修復 | Bug 修復 |
+| Security | security, 安全 | 安全性更新 |
+
+---
+
+## 版本號規則 (SemVer)
+
 ```
+MAJOR.MINOR.PATCH
+
+MAJOR: Breaking Changes（不向下相容）
+MINOR: 新功能（向下相容）
+PATCH: Bug 修復
+```
+
+---
+
+## 標準工作流程
+
+```python
+# 1. 讀取現有 CHANGELOG
+read_file("CHANGELOG.md")
+
+# 2. 分析 Git diff
+get_changed_files()
+
+# 3. 分類變更
+# - 新檔案 → Added
+# - 修改檔案 → Changed/Fixed
+# - 刪除檔案 → Removed
+
+# 4. 更新 [Unreleased] 區塊
+replace_string_in_file(
+    filePath="CHANGELOG.md",
+    oldString="## [Unreleased]\n",
+    newString="## [Unreleased]\n\n### Added\n- 新增用戶認證模組\n"
+)
+```
+
+---
+
+## 輸出範例
+
+```
+📋 CHANGELOG 更新
+
+偵測到的變更：
+  - [Added] 新增用戶認證模組
+  - [Fixed] 修復登入問題
+
+建議版本：0.2.0 (MINOR - 新功能)
+```
+
+---
+
+## 相關技能
+
+- `git-precommit` - 提交前自動調用
+- `roadmap-updater` - 同步里程碑狀態

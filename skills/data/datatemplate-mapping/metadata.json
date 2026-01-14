@@ -1,12 +1,7 @@
 {
   "name": "datatemplate-mapping",
-  "description": "\"DataTemplate을 사용한 ViewModel-View 자동 매핑 및 네비게이션 패턴\"",
   "repo": "christian289/wpf-tutorials",
-  "category": "data",
-  "tags": [
-    "datatemplate",
-    "mapping"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/datatemplate-mapping/SKILL.md",
+  "source": "github.com/christian289/wpf-tutorials",
+  "downloaded_at": "2026-01-14T02:43:57.275609Z"
 }

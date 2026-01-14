@@ -1,12 +1,7 @@
 {
   "name": "brain-organizer",
-  "description": "[Utility] ⛔ MANDATORY skill for ANY Brain canvas operations. AI MUST invoke this skill BEFORE creating/modifying ANY files in Docs/Brain/. Failure to follow = broken canvas.",
   "repo": "CANTAGESTUDIO/CosmicAtlasPacker",
-  "category": "data",
-  "tags": [
-    "brain",
-    "organizer"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".factory/skills/brain-organizer/SKILL.md",
+  "source": "github.com/CANTAGESTUDIO/CosmicAtlasPacker",
+  "downloaded_at": "2026-01-14T02:43:50.629247Z"
 }

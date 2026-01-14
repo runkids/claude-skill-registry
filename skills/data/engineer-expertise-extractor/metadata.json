@@ -1,13 +1,7 @@
 {
   "name": "engineer-expertise-extractor",
-  "description": "Research and extract an engineer's coding style, patterns, and best practices from their GitHub contributions. Creates structured knowledge base for replicating their expertise.",
   "repo": "jamesrochabrun/skills",
-  "category": "development",
-  "tags": [
-    "engineer",
-    "expertise",
-    "extractor"
-  ],
-  "stars": 8,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/engineer-expertise-extractor/SKILL.md",
+  "source": "github.com/jamesrochabrun/skills",
+  "downloaded_at": "2026-01-14T01:17:21.996960Z"
 }

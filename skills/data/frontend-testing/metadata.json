@@ -1,12 +1,7 @@
 {
   "name": "frontend-testing",
-  "description": "Implement comprehensive frontend testing using Jest, Vitest, React Testing Library, and Cypress. Use when building robust test suites for UI and integration tests.",
-  "repo": "aj-geddes/useful-ai-prompts",
-  "category": "testing",
-  "tags": [
-    "frontend",
-    "testing"
-  ],
-  "stars": 25,
-  "source": "local"
+  "repo": "yangmiok/newdify",
+  "path": ".claude/skills/frontend-testing/SKILL.md",
+  "source": "github.com/yangmiok/newdify",
+  "downloaded_at": "2026-01-14T03:57:04.369638Z"
 }

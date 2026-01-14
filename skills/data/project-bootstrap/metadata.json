@@ -1,12 +1,7 @@
 {
   "name": "project-bootstrap",
-  "description": "Bootstrap open-source projects with documentation, CI/CD, and polish. Use when user asks to \"set up docs\", \"add MkDocs\", \"create GitHub Actions\", \"add funding\", \"polish README\", \"add Giscus comments\",",
-  "repo": "ninyawee/armed-claude",
-  "category": "devops",
-  "tags": [
-    "project",
-    "bootstrap"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "ChuDiRen/AI-agent-testing-platform",
+  "path": ".codebuddy/skills/workflows/project-bootstrap/SKILL.md",
+  "source": "github.com/ChuDiRen/AI-agent-testing-platform",
+  "downloaded_at": "2026-01-14T03:28:41.482614Z"
 }

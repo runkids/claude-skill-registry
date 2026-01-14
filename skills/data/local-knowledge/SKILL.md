@@ -40,7 +40,7 @@ Search local knowledge when the user:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    Codex CLI Agent                         │
+│                    Claude Code Agent                         │
 │  Uses /search and /role commands via terraphim-agent REPL   │
 └───────────────────────────┬─────────────────────────────────┘
                             │

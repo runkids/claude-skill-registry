@@ -1,13 +1,7 @@
 {
   "name": "test-parser-jdk",
-  "description": "Test the Java parser by parsing JDK source files and fixing parse errors. Use when asked to find/fix parse errors, test the parser, or improve JDK compatibility.",
   "repo": "dhamidi/sai",
-  "category": "testing",
-  "tags": [
-    "test",
-    "parser",
-    "jdk"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/test-parser-jdk/SKILL.md",
+  "source": "github.com/dhamidi/sai",
+  "downloaded_at": "2026-01-14T03:35:12.152362Z"
 }

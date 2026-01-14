@@ -1,12 +1,7 @@
 {
   "name": "start-feature",
-  "description": "Commit or stash current work, then start a new feature using worktree workflow. Use when beginning work on a new story or feature, ensures clean state before starting new work.",
   "repo": "michael-menard/monorepo",
-  "category": "productivity",
-  "tags": [
-    "start",
-    "feature"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/start-feature/SKILL.md",
+  "source": "github.com/michael-menard/monorepo",
+  "downloaded_at": "2026-01-14T02:05:19.592664Z"
 }

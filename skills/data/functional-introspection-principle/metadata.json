@@ -1,13 +1,7 @@
 {
   "name": "functional-introspection-principle",
-  "description": "Apply functional introspection principles to self-analysis.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "devops",
-  "tags": [
-    "functional",
-    "introspection",
-    "principle"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/functional-introspection-principle/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-14T01:08:20.816653Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "dst-list-tables",
-  "description": "List all Danmarks Statistik tables currently stored in DuckDB with metadata. Use when user wants to know what data is available locally or explore stored tables.",
   "repo": "mikkelkrogsholm/dst-skills",
-  "category": "data",
-  "tags": [
-    "dst",
-    "list",
-    "tables"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/dst-list-tables/SKILL.md",
+  "source": "github.com/mikkelkrogsholm/dst-skills",
+  "downloaded_at": "2026-01-14T02:56:15.189963Z"
 }

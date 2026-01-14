@@ -1,13 +1,7 @@
 {
   "name": "acceptance-criteria-verification",
-  "description": "Use after implementing features - verifies each acceptance criterion with structured testing and posts verification reports to the GitHub issue",
-  "repo": "troykelly/claude-skills",
-  "category": "testing",
-  "tags": [
-    "acceptance",
-    "criteria",
-    "verification"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "repo": "troykelly/codex-skills",
+  "path": "skills/acceptance-criteria-verification/SKILL.md",
+  "source": "github.com/troykelly/codex-skills",
+  "downloaded_at": "2026-01-14T03:34:06.129678Z"
 }

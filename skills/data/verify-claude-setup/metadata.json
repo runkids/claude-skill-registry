@@ -1,13 +1,7 @@
 {
   "name": "verify-claude-setup",
-  "description": "Verify .claude directory configuration is complete and correct. Use when checking if agents, hooks, rules, and memory are properly set up, or after making changes to .claude configuration.",
   "repo": "Dexploarer/hyper-forge",
-  "category": "productivity",
-  "tags": [
-    "verify",
-    "claude",
-    "setup"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": ".claude/skills/verify-claude-setup/SKILL.md",
+  "source": "github.com/Dexploarer/hyper-forge",
+  "downloaded_at": "2026-01-14T03:02:55.993835Z"
 }

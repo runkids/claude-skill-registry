@@ -1,13 +1,7 @@
 {
   "name": "choir-perspective-analysis",
-  "description": "Analyze multiple cognitive perspectives to identify consensus and divergence patterns.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "development",
-  "tags": [
-    "choir",
-    "perspective",
-    "analysis"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/choir-perspective-analysis/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-14T01:08:20.372393Z"
 }

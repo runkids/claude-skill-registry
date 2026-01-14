@@ -1,12 +1,7 @@
 {
   "name": "database-migrations",
-  "description": "SQLite database migration patterns for SpecFlux. Use when creating new tables, modifying schema, adding indexes, or running migrations. Ensures reversible migrations with UP and DOWN sections.",
-  "repo": "cliangdev/specflux",
-  "category": "data",
-  "tags": [
-    "database",
-    "migrations"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "repo": "VilnaCRM-Org/user-service",
+  "path": ".claude/skills/database-migrations/SKILL.md",
+  "source": "github.com/VilnaCRM-Org/user-service",
+  "downloaded_at": "2026-01-14T02:10:10.691221Z"
 }

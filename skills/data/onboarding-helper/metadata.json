@@ -1,12 +1,7 @@
 {
   "name": "onboarding-helper",
-  "description": "Generate comprehensive onboarding documentation and guides for new developers joining your team o...",
   "repo": "CuriousLearner/devkit",
-  "category": "documents",
-  "tags": [
-    "onboarding",
-    "helper"
-  ],
-  "stars": 13,
-  "source": "local"
+  "path": "skills/onboarding-helper/SKILL.md",
+  "source": "github.com/CuriousLearner/devkit",
+  "downloaded_at": "2026-01-14T02:22:36.724206Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "parsing-hecras-geometry",
-  "description": "|",
   "repo": "gpt-cmdr/ras-commander",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "GitHub Search API"
+  "path": ".claude/skills/parsing-hecras-geometry/SKILL.md",
+  "source": "github.com/gpt-cmdr/ras-commander",
+  "downloaded_at": "2026-01-14T01:34:16.303257Z"
 }

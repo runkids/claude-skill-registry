@@ -1,11 +1,7 @@
 {
   "name": "git-workflow",
-  "description": "Quick reference for common Git commands and workflows. Use when working with version control, committing changes, managing branches, or resolving Git issues. Covers daily Git operations, branching str",
-  "repo": "dudusoar/skillOS",
-  "category": "data",
-  "tags": [
-    "git",
-    "workflow"
-  ],
-  "stars": 0
+  "repo": "nategarelik/claude-code-config",
+  "path": "skills/core/git-workflow/SKILL.md",
+  "source": "github.com/nategarelik/claude-code-config",
+  "downloaded_at": "2026-01-14T03:59:14.950054Z"
 }

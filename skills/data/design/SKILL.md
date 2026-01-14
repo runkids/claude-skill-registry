@@ -1,183 +1,261 @@
 ---
 name: design
-description: Design Session - collaborative brainstorming to turn ideas into designs using Double Diamond methodology OR 6-phase planning pipeline. Use when user types "ds", "pl", "/plan", or wants to explore/design a feature before implementation. MUST load maestro-core skill first for routing.
+description: 方案设计阶段详细规则；进入方案设计时读取；包含方案构思、任务拆解、风险评估、方案包创建
 ---
 
-# Design & Planning
+# 方案设计 - 详细规则
 
-Turn ideas into fully-formed designs through collaborative dialogue or structured planning.
+**目标:** 构思可行方案并制定详细执行计划，生成 plan/ 目录下的方案包
 
-## Entry Points
+**前置条件:** 需求分析已完成（评分≥7分）
 
-| Trigger | Action |
-|---------|--------|
-| `ds` | Start design session (Double Diamond) |
-| `/conductor-design` | Start design session (alias) |
-| `pl`, `/plan` | Start planning pipeline (6-phase) |
-| "design a feature" | Start design session |
-| "let's think through X" | Start design session |
-| "plan feature X" | Start planning pipeline |
+**重要:** 方案设计必须创建新方案包，适用于所有模式（交互确认/全授权/规划命令）
 
-## Quick Reference
-
-### Double Diamond (ds)
-
-| Phase | Purpose | Exit Criteria |
-|-------|---------|---------------|
-| DISCOVER | Explore problem | Problem articulated |
-| DEFINE | Frame problem | Approach selected |
-| DEVELOP | Explore solutions | Interfaces defined |
-| DELIVER | Finalize design | Design verified |
-
-### Planning Pipeline (pl)
-
-| Phase | Tool | Output |
-|-------|------|--------|
-| 1. Discovery | Parallel Task() agents | design.md Section 2 |
-| 2. Synthesis | Oracle | design.md Section 3 (Gap + Risk Map) |
-| 3. Verification | Spikes via Task() | design.md Section 5 |
-| 4. Decomposition | fb (file-beads) | .beads/*.md |
-| 5. Validation | bv + Oracle | Validated dependency graph |
-| 6. Track Planning | bv --robot-plan | plan.md Track Assignments |
-
-See [planning/pipeline.md](references/planning/pipeline.md) for full details.
-
-## Core Principles
-
-- **One question at a time** - Don't overwhelm
-- **Multiple choice preferred** - Easier to answer
-- **YAGNI ruthlessly** - Remove unnecessary features
-- **Explore alternatives** - Always propose 2-3 approaches
-- **Research everything** - Verify with parallel agents before finalizing
-
-## Session Flow
-
-0. **Load Core** - Load [maestro-core](../maestro-core/SKILL.md) for routing table and fallback policies
-1. **Initialize** - Load handoffs, CODEMAPS, verify conductor setup → [session-init.md](references/session-init.md)
-2. **Research** - Spawn research agents BEFORE DISCOVER (mandatory) → [research-verification.md](references/research-verification.md)
-3. **Route** - Score complexity (< 4 = SPEED, > 6 = FULL) → [design-routing-heuristics.md](references/design-routing-heuristics.md)
-4. **Execute** - Double Diamond phases with A/P/C checkpoints → [double-diamond.md](references/double-diamond.md)
-5. **Validate** - Progressive validation at each checkpoint (CP1-4); **Oracle audit at CP4** → [validation/lifecycle.md](../conductor/references/validation/lifecycle.md)
-6. **Handoff** - Suggest next steps: `cn` (newtrack), `ci` (implement), `fb` (file beads)
-
-### Research & Validation Triggers
-
-| Trigger Point | Research | Validation |
-|---------------|----------|------------|
-| Session start | discover-hook (Locator + Pattern + CODEMAPS) | - |
-| CP1 (DISCOVER) | - | WARN (product alignment) |
-| CP2 (DEFINE) | - | WARN (problem clarity) |
-| CP3 (DEVELOP) | grounding-hook (Locator + Analyzer + Pattern) | WARN (tech-stack) |
-| CP4 (DELIVER) | Full + impact scan + **Oracle audit** | SPEED=WARN, FULL=HALT |
-
-## Adaptive A/P/C System
-
-A/P/C checkpoints now work **adaptively** across the entire workflow, not just in FULL DS mode.
-
-### State Ladder
-
+**执行流程:**
 ```
-INLINE → MICRO_APC → NUDGE → DS_FULL → DS_BRANCH → BRANCH_MERGE
+方案构思 → [用户确认/推进模式下连续] → 详细规划（创建新方案包）
 ```
 
-| State | Description | Trigger |
-|-------|-------------|---------|
-| **INLINE** | Normal flow (conductor/beads) | Default |
-| **MICRO_APC** | Lightweight checkpoint at boundaries | End of spec/plan section |
-| **NUDGE** | Suggest upgrade to DS | 3+ design iterations |
-| **DS_FULL** | Full Double Diamond with A/P/C | `ds` command or upgrade |
-| **DS_BRANCH** | DS attached to design branch | Design rethink in track |
-| **BRANCH_MERGE** | Apply branch changes | Branch complete |
+---
 
-### Micro A/P/C (Outside DS)
+## 方案构思
 
-At natural checkpoint boundaries (end of spec section, plan step, etc.):
+### 动作步骤
 
-```
-Design checkpoint:
-[A] Advanced – deeper exploration (upgrades to DS)
-[P] Party – multi-perspective feedback (upgrades to DS)
-[C] Continue inline
-```
+**1. 检查知识库状态并处理**
+- 按 G10 快速决策树判定
+- 如需创建/重建知识库 → 读取 `../kb/SKILL.md` 执行完整流程
 
-### Design Mode Nudge
+**2. 读取知识库**
+- 按 G10 快速流程执行（先检查知识库 → 不足则扫描代码库）
+- 如需详细规则 → 读取 `../kb/SKILL.md`
 
-After 3+ iterations on the same design topic without resolution:
+**3. 判定项目规模**
+- 按 G4 规则执行
 
-```
-We've iterated on this flow several times.
-Want to switch into a structured Design Session with A/P/C checkpoints?
+**4. 判定需求类型并选择模板**
+- 按G8判定是否触发产品设计原则
+- 技术变更（未触发G8）: 使用基础模板
+- 产品功能（触发G8）: 使用完整模板（包含产品分析章节）
 
-[Start Design Session] (recommended)
-[Not now]
-```
+**5. 产品视角分析（步骤4判定为"产品功能"时执行）**
+- 用户画像、场景分析、痛点分析
+- 价值主张、成功指标
+- 人文关怀考量
 
-### Branch-aware DS
+**6. 任务复杂度判定**
 
-When in implementation (`ci`) and design needs major rethink:
-
-```
-This change diverges from the original design.
-[A] Explore alternatives in a design branch
-[P] Get opinions first
-[C] Keep current plan
+满足任一条件为复杂任务:
+```yaml
+- 需求属于"新项目初始化"或"重大功能重构"
+- 涉及架构决策
+- 涉及技术选型
+- 存在多种实现路径
+- 涉及多个模块(>1)或影响文件数>3
+- 用户明确要求多方案
 ```
 
-Branch merge options at completion:
-- **[M1]** Replace current design/plan
-- **[M2]** Create new implementation track
-- **[M3]** Keep as documented alternative
+**7. 方案构思**
 
-### A/P/C in DS (FULL mode)
+<solution_design>
+**方案评估标准:**
+- 优点
+- 缺点
+- 性能影响
+- 可维护性
+- 实现复杂度
+- 风险评估（含EHRB）
+- 成本估算
+- 是否符合最佳实践
 
-At end of each phase:
+**方案构思推理过程（在 <thinking> 标签中完成，不输出给用户）：**
 
-- **[A] Advanced** - Phase-specific deep dive
-- **[P] Party** - Multi-agent feedback (BMAD v6) → [bmad/](references/bmad/)
-- **[C] Continue** - Proceed to next phase
-- **[↩ Back]** - Return to previous phase
+```
+<thinking>
+1. 列举所有可能的技术路径
+2. 逐一评估每个路径的优缺点、风险、成本
+3. 筛选出 2-3 个最可行的方案
+4. 确定推荐方案及理由
+</thinking>
+```
 
-### Priority Rules
+**基于推理结果执行：**
 
-1. **Explicit commands** (`ds`) always win
-2. **Active DS/Branch** blocks passive triggers
-3. **Branch safety** preferred when in implementation
-4. **Micro A/P/C** at checkpoint boundaries
-5. **Nudge** after 3+ iterations
+**复杂任务（强制方案对比）:**
+- 生成 2-3 个可行方案
+- 详细评估每个方案
+- 确定推荐方案和理由
+- 输出格式: 推荐方案标题后加"推荐"标识
+  - 例: "方案1（最小变更修复-推荐）" vs "方案2（完整重构）"
+- 交互确认模式: 输出方案对比，询问用户选择
+- 推进模式: 选择推荐方案（不输出对比）
 
-See [apc-checkpoints.md](references/apc-checkpoints.md) and [adaptive-apc-system.ts](references/adaptive-apc-system.ts) for implementation details.
+**简单任务:**
+- 直接确定唯一可行方案
+- 简要说明方案
+</solution_design>
 
-## Mode Comparison
+### 方案构思 输出格式（等待用户选择方案时）
 
-| Aspect | SPEED (< 4) | FULL (> 6) |
-|--------|-------------|------------|
-| Phases | 1 (quick) | 4 (all) |
-| A/P/C | No | Yes |
-| Verification | Advisory | Mandatory |
-| Use `[E]` to escalate | Yes | N/A |
+行首: `❓【HelloAGENTS】- 方案构思`
 
-## Anti-Patterns
+**输出内容(≤5条要点):**
+```
+❓【HelloAGENTS】- 方案构思
 
-- ❌ Jumping to solutions before understanding the problem
-- ❌ Skipping verification at DELIVER phase
-- ❌ Asking multiple questions at once
-- ❌ Over-engineering simple features (use SPEED mode)
+- 📚 上下文: [项目规模] | [知识库状态]
+- 📋 需求类型: [技术变更/产品功能]
+- 🔍 复杂度: [复杂任务] - [判定依据]
+- 💡 方案对比:
+  - 方案1: [名称-推荐] - [一句话说明]
+  - 方案2: [名称] - [一句话说明]
+- ⚠️ 风险提示: [如有EHRB或重大风险]
 
-## Next Steps (after design.md created)
+────
+🔄 下一步: 请输入方案序号(1/2/3)选择方案
+```
 
-| Command | Description |
-|---------|-------------|
-| `cn` | `/conductor-newtrack` - Create spec + plan from design |
-| `ci` | `/conductor-implement` - Execute track |
-| `fb` | File beads from plan |
+**详细方案说明:** 如用户需要详细对比，可追问后展开
 
-See [maestro-core](../maestro-core/SKILL.md) for full routing table.
+### 方案构思 子阶段转换
 
-## Dependencies
+```yaml
+复杂任务:
+  交互确认模式:
+    - 用户选择有效序号(1-N) → 进入详细规划
+    - 用户拒绝所有方案 → 输出重新构思询问格式
+      - 确认重新构思: 返回方案构思，重新构思
+      - 拒绝: 提示"已取消方案设计"，流程终止
+      - 其他输入: 再次询问
+  推进模式:
+    - 选择推荐方案 → 立即静默进入详细规划
 
-**Auto-loads:** [maestro-core](../maestro-core/SKILL.md) for routing and fallback policies.
+简单任务: 直接进入详细规划
+```
 
-## Related
+**重新构思方案询问格式:**
+```
+❓【HelloAGENTS】- 方案确认
 
-- [conductor](../conductor/SKILL.md) - Track creation and implementation
-- [beads](../beads/SKILL.md) - Issue tracking after design
+所有方案均被拒绝。
+
+[1] 重新构思 - 基于反馈重新设计方案
+[2] 取消 - 终止方案设计
+
+────
+🔄 下一步: 请输入序号选择
+```
+
+---
+
+## 详细规划
+
+**前提:** 用户已选择/确认方案（来自方案构思）
+
+**重要:** 必须创建新方案包，使用当前时间戳，不得复用 plan/ 中的遗留方案
+
+### 动作步骤
+
+**所有文件操作遵循G5静默执行规范**
+
+**1. 创建新方案包目录**
+
+```yaml
+路径: plan/YYYYMMDDHHMM_<feature>/
+冲突处理:
+  1. 检查 plan/YYYYMMDDHHMM_<feature>/ 是否存在
+  2. 如不存在 → 直接创建
+  3. 如存在 → 使用版本后缀: plan/YYYYMMDDHHMM_<feature>_v2/
+     (如 _v2 也存在，则递增为 _v3, _v4...)
+示例:
+  - 首次创建: plan/202511181430_login/
+  - 同名冲突: plan/202511181430_login_v2/
+```
+
+**2. 新库/框架文档查询（如需要）**
+```yaml
+触发条件: 方案涉及项目中从未使用过的第三方库/框架，或涉及重大版本升级
+执行方式: 使用联网搜索或MCP工具(Context7)查询最新文档
+记录位置: how.md 的 技术方案 章节
+```
+
+**3. 生成方案文件**
+
+读取 `../templates/SKILL.md` 获取模板，生成:
+- `why.md` (变更提案/产品提案)
+- `how.md` (技术设计+ADR)
+- `task.md` (任务清单)
+
+**任务清单编写规则:**
+```yaml
+单任务代码改动量控制:
+  - 常规项目: ≤3文件/任务
+  - 大型项目: ≤2文件/任务
+验证任务: 定期插入
+安全检查: 必须包含安全检查任务
+```
+
+**4. 风险规避措施制定**
+- 基于方案构思风险评估，按G9制定详细规避措施
+- 交互确认模式: 询问用户
+- MODE_FULL_AUTH=true 或 MODE_PLANNING=true: 规避风险
+- 写入 `how.md` 的 安全与性能 章节
+
+**5. 设置方案包跟踪变量**
+```yaml
+设置: CREATED_PACKAGE = 步骤1创建的方案包路径
+用途: 在全授权命令中传递给开发实施，确保执行正确的方案包
+```
+
+---
+
+## 方案设计 输出格式
+
+⚠️ **CRITICAL - 强制要求:**
+- ALWAYS使用G6.1统一输出格式
+- NEVER使用自由文本替代规范格式
+- 输出前MUST验证格式完整性
+
+严格调用 G6.1 统一输出格式，填充以下数据：
+
+1. **阶段名称:** `方案设计`
+2. **阶段具体内容(≤5条要点):**
+   - 📚 知识库状态
+   - 📝 方案概要（复杂度、方案说明）
+   - 📋 变更清单
+   - 📊 任务清单概要
+   - ⚠️ 风险评估（如检测到EHRB）
+3. **文件变更清单:**
+   - `helloagents/plan/YYYYMMDDHHMM_<feature>/why.md`
+   - `helloagents/plan/YYYYMMDDHHMM_<feature>/how.md`
+   - `helloagents/plan/YYYYMMDDHHMM_<feature>/task.md`
+4. **下一步建议:**
+   - 交互确认模式: 是否进入开发实施?（是/否）
+   - 规划命令: 方案包已生成，如需执行请输入`~exec`
+5. **遗留方案提醒:**
+   - 按G11扫描plan/目录
+   - 如检测到遗留方案包（排除本次创建的方案包），按G11规则显示
+
+---
+
+## 阶段转换规则
+
+```yaml
+交互确认模式:
+  - 输出总结（包含"🔄 下一步: 是否进入开发实施?(是/否)"）
+  - 停止并等待用户明确确认
+  - 用户响应处理：
+    - 明确确认("是"/"继续"/"确认"等) → 进入开发实施
+    - 明确拒绝("否"/"取消"等) → 流程终止
+    - Feedback-Delta(提出修改意见) → 按Feedback-Delta规则处理
+    - 其他输入 → 视为新的用户需求，按路由机制重新判定
+
+推进模式:
+  - 全授权命令: 完成方案设计 → 立即静默进入开发实施
+  - 规划命令: 输出整体总结 → 停止 → 清除MODE_PLANNING
+
+关键约束（只有以下3种情况可以进入开发实施）：
+  1. 方案设计完成后用户明确确认
+  2. 全授权命令(~auto等)触发且已完成方案设计
+  3. 执行命令(~exec等)触发且plan/中存在方案包
+```

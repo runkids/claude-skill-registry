@@ -1,9 +1,7 @@
 {
   "name": "k8s-troubleshooting",
-  "description": "Comprehensive Kubernetes and OpenShift cluster health analysis and troubleshooting based on Popeye's issue detection patterns. Use this skill when:(1) Proactive cluster health assessment and security ",
   "repo": "kcns008/cluster-code",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/k8s-troubleshooting/SKILL.md",
+  "source": "github.com/kcns008/cluster-code",
+  "downloaded_at": "2026-01-14T02:19:20.533218Z"
 }

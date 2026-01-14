@@ -1,12 +1,7 @@
 {
   "name": "context-compression",
-  "description": "This skill should be used when the user asks to \"compress context\", \"summarize conversation history\", \"implement compaction\", \"reduce token usage\", or mentions context compression, structured summariz",
   "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
-  "category": "productivity",
-  "tags": [
-    "context",
-    "compression"
-  ],
-  "stars": 5035,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/context-compression/SKILL.md",
+  "source": "github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
+  "downloaded_at": "2026-01-14T01:40:45.272684Z"
 }

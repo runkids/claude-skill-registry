@@ -1,6 +1,6 @@
 ---
 name: feature-docs
-description: Use when the user asks to generate comprehensive feature documentation with verified test cases, create feature README with code evidence, or document a complete feature with test verification. Triggers on keywords like "feature documentation", "document feature", "comprehensive docs", "feature README", "test verification", "verified documentation".
+description: Generate single-file feature documentation with verified test cases. Use for quick feature docs, feature README, any project (not enterprise modules). Outputs single markdown file with code evidence. Triggers on "quick feature docs", "feature readme", "single file docs", "verified documentation". For enterprise module hierarchy, use business-feature-docs instead.
 allowed-tools: Read, Write, Edit, Bash, Grep, Glob, Task, TodoWrite
 ---
 
@@ -53,7 +53,7 @@ All feature documentation MUST follow this section order:
 
 ## Phase 1: Feature Analysis
 
-Build knowledge model in `ai_task_analysis_notes/[feature-name].ai_task_analysis_notes_temp.md`.
+Build knowledge model in `.ai/workspace/analysis/[feature-name].md`.
 
 ### Discovery Areas
 

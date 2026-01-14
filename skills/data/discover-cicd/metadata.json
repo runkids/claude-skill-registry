@@ -1,12 +1,7 @@
 {
   "name": "discover-cicd",
-  "description": "Automatically discover CI/CD and automation skills when working with CI/CD. Activates for cicd development tasks.",
   "repo": "rand/cc-polymath",
-  "category": "productivity",
-  "tags": [
-    "discover",
-    "cicd"
-  ],
-  "stars": 33,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/discover-cicd/SKILL.md",
+  "source": "github.com/rand/cc-polymath",
+  "downloaded_at": "2026-01-14T03:55:20.388441Z"
 }

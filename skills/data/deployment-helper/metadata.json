@@ -1,12 +1,7 @@
 {
   "name": "deployment-helper",
-  "description": "Deploy elizaOS agents to production with best practices, monitoring, and scaling. Triggers on \"deploy agent\", \"production setup\", or \"deploy elizaOS\"",
   "repo": "Dexploarer/hyper-forge",
-  "category": "devops",
-  "tags": [
-    "deployment",
-    "helper"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/deployment-helper/SKILL.md",
+  "source": "github.com/Dexploarer/hyper-forge",
+  "downloaded_at": "2026-01-14T03:02:50.385754Z"
 }

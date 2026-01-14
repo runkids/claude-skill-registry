@@ -1,12 +1,7 @@
 {
   "name": "code-discovery",
-  "description": "\"Helpers to discover, rank, and invoke repository symbols from natural language with minimal context.\"",
   "repo": "idealley/code-as-skills",
-  "category": "development",
-  "tags": [
-    "code",
-    "discovery"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/code-discovery/SKILL.md",
+  "source": "github.com/idealley/code-as-skills",
+  "downloaded_at": "2026-01-14T03:00:49.309087Z"
 }

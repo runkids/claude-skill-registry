@@ -1,13 +1,7 @@
 {
   "name": "n8n-expression-testing",
-  "description": "n8n expression syntax validation, context-aware testing, common pitfalls detection, and performance optimization. Use when validating n8n expressions and data transformations.",
-  "repo": "proffesor-for-testing/agentic-qe",
-  "category": "testing",
-  "tags": [
-    "n8n",
-    "expression",
-    "testing"
-  ],
-  "stars": 103,
-  "source": "SkillsMP Synced Skills"
+  "repo": "natea/ai-news-influencer",
+  "path": ".claude/skills/n8n-expression-testing/SKILL.md",
+  "source": "github.com/natea/ai-news-influencer",
+  "downloaded_at": "2026-01-14T01:54:48.450713Z"
 }

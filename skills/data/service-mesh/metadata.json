@@ -1,12 +1,7 @@
 {
   "name": "service-mesh",
-  "description": "Service mesh technologies including Istio, Linkerd, Consul, and Envoy for microservices communication",
-  "repo": "pluginagentmarketplace/custom-plugin-devops",
-  "category": "development",
-  "tags": [
-    "service",
-    "mesh"
-  ],
-  "stars": 2,
-  "source": "local"
+  "repo": "lapc506/flutter-agentic-boilerplate",
+  "path": "skills/system-reliability-engineering/service-mesh/SKILL.md",
+  "source": "github.com/lapc506/flutter-agentic-boilerplate",
+  "downloaded_at": "2026-01-14T03:08:44.856730Z"
 }

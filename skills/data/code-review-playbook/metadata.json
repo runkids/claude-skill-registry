@@ -1,13 +1,7 @@
 {
   "name": "code-review-playbook",
-  "description": "Use this skill when conducting or improving code reviews. Provides structured review processes, conventional comments patterns, language-specific checklists, and feedback templates. Ensures consistent",
   "repo": "ArieGoldkin/ai-agent-hub",
-  "category": "development",
-  "tags": [
-    "code",
-    "review",
-    "playbook"
-  ],
-  "stars": 6,
-  "source": "local"
+  "path": "skills/code-review-playbook/SKILL.md",
+  "source": "github.com/ArieGoldkin/ai-agent-hub",
+  "downloaded_at": "2026-01-14T03:52:04.115096Z"
 }

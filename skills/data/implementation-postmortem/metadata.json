@@ -1,9 +1,7 @@
 {
   "name": "implementation-postmortem",
-  "description": "Conduct structured implementation postmortems to gather feedback on architecture conformance, library friction, and tooling effectiveness. Use when reviewing completed implementations, PRs, or develop",
   "repo": "leynos/agent-helper-scripts",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/implementation-postmortem/SKILL.md",
+  "source": "github.com/leynos/agent-helper-scripts",
+  "downloaded_at": "2026-01-14T01:07:45.677101Z"
 }

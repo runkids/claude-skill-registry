@@ -1,12 +1,7 @@
 {
   "name": "architectural-forensics",
-  "description": "Master protocol for deconstructing agent frameworks to inform derivative system architecture. Use when (1) analyzing an agent framework's codebase comprehensively, (2) comparing multiple frameworks to",
   "repo": "Dowwie/agent_framework_study",
-  "category": "data",
-  "tags": [
-    "architectural",
-    "forensics"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/architectural-forensics/SKILL.md",
+  "source": "github.com/Dowwie/agent_framework_study",
+  "downloaded_at": "2026-01-14T01:47:08.517979Z"
 }

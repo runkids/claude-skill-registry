@@ -1,123 +1,171 @@
 ---
 name: frontend-aesthetics
-description: Prevents generic AI-generated designs by guiding typography, color, motion, and background choices. Use when creating frontend designs, landing pages, dashboards, or any UI/UX work. Helps avoid the "AI slop" aesthetic.
+description: >
+  Global frontend aesthetics skill that helps Claude avoid generic "AI slop"
+  UI and make bold, intentional visual decisions while still honoring each
+  project's design-dna, tokens, and architecture.
+license: internal
+allowed-tools:
+  - Read
+  - WebFetch
+metadata:
+  category: "frontend-design"
+  source: "anthropic-frontend-design-plugin + OS 4.1 design-dna"
 ---
 
-# Frontend Aesthetics Skill
+# Frontend Aesthetics – Global Design Skill
 
-Based on Anthropic's formula for improving frontend design through steerability.
+You are loading the **Frontend Aesthetics** skill. This skill is meant to:
 
-## The Problem
+- Push you away from generic, template-like AI UI.
+- Encourage distinctive, cohesive aesthetics per project.
+- Keep you inside each project's **design-dna and tokens**.
 
-LLMs converge toward generic, "on distribution" outputs. In frontend design, this creates what users call the "AI slop" aesthetic - Inter fonts, purple gradients on white backgrounds, and minimal animations.
+This skill does **not** define a visual language by itself. It layers on top of:
+- Project design docs (`design-system-vX.X.md`, `DESIGN_RULES_vX.X.md`,
+  `CSS-ARCHITECTURE.md` or equivalents).
+- Any project-specific design-dna JSON (e.g. `design-dna.json` or `.claude/design-dna/`).
 
-## Instructions
+---
 
-Make creative, distinctive frontends that surprise and delight. Focus on these four dimensions:
+## 1. When to Use This Skill
 
-### Typography
+You can use this skill in **any** frontend context (web/expo/ios) when:
+- The user asks for UI that feels **distinctive, premium, or designed**, not
+  "just another dashboard".
+- The project has at least some design/dna docs or tokens you can honor.
+- You want to avoid generic AI patterns and make more intentional choices.
 
-Choose fonts that are beautiful, unique, and interesting.
+You must still:
+- Respect project design systems and constraints.
+- Treat local design-dna as **law**; this skill is advisory, not overriding.
 
-**Never use**: Inter, Roboto, Open Sans, Lato, Arial, default system fonts
+---
 
-**Good choices**:
-- Code aesthetic: JetBrains Mono, Fira Code, Space Grotesk
-- Editorial: Playfair Display, Crimson Pro, Newsreader
-- Technical: IBM Plex family, Source Sans 3
-- Distinctive: Bricolage Grotesque, Syne, Outfit, Plus Jakarta Sans
-- Premium: Cabinet Grotesk, Satoshi, General Sans, Clash Display
+## 2. Core Aesthetic Principles
 
-**Pairing principle**: High contrast = interesting. Display + monospace, serif + geometric sans, variable font across weights.
+These principles help create intentional, distinctive UI while respecting project constraints.
 
-**Use extremes**: 100/200 weight vs 800/900, not 400 vs 600. Size jumps of 3x+, not 1.5x.
+### 2.1 Typography
 
-Pick one distinctive font, use it decisively. Load from Google Fonts.
+- Choose **intentional type roles**, not arbitrary sizes:
+  - Headings, section titles, labels, body, meta.
+  - Use project tokens or semantic CSS classes where available.
+- Avoid:
+  - Overused generic fonts in projects that ship their own type.
+  - Random size ladders that don't map to design tokens.
+- Use typography to create a clear hierarchy:
+  - H1/H2 vs section subheads.
+  - Body vs meta/labels.
 
-### Color & Theme
+### 2.2 Color & Theme
 
-Commit to a cohesive aesthetic. Use CSS variables for consistency.
+- Commit to a **cohesive aesthetic**:
+  - One primary accent.
+  - A small supporting palette.
+  - Reasonable neutrals for surfaces/backgrounds.
+- Avoid:
+  - The classic "AI slop" purple gradient on white, unless explicitly part of
+    design-dna.
+  - Competing accents everywhere; let color mean something.
+- Prefer:
+  - Token-based colors (CSS variables, theme tokens).
+  - Semantic roles (surface, accent, border, text) rather than one-off hex.
 
-**Dominant colors with sharp accents** outperform timid, evenly-distributed palettes.
+### 2.3 Spacing, Layout & Rhythm
 
-Draw inspiration from:
-- IDE themes (Dracula, Nord, One Dark, Catppuccin, Tokyo Night)
-- Cultural aesthetics (Japanese minimalism, Scandinavian design, Brutalism)
-- Industry-specific palettes (Finance: navy/gold, Health: teal/white, Gaming: neon/dark)
+- Snap spacing to the project's **grid and spacing tokens**.
+- Use consistent vertical rhythm:
+  - Section breaks.
+  - Component padding.
+  - Distance between related elements.
+- Avoid:
+  - Uneven, ad-hoc spacing just to make something "fit".
+  - Over-nesting containers when simple layout primitives would suffice.
 
-**Avoid**: Purple gradients on white backgrounds (the ultimate AI slop indicator)
+### 2.4 Motion & Micro-interactions
 
-### Motion
+- Use motion to:
+  - Clarify state changes.
+  - Add subtle delight to key interactions.
+- Favor:
+  - Simple, performant patterns (opacity/translate) with short durations.
+- Avoid:
+  - Bouncy, chaotic motion unless it is explicitly part of the brand.
+  - Spreading micro-animations everywhere without a clear purpose.
 
-Use animations for effects and micro-interactions.
+### 2.5 Backgrounds & Depth
 
-- Prioritize CSS-only solutions for HTML
-- Use Motion library for React when available
-- Focus on high-impact moments: one well-orchestrated page load with staggered reveals (animation-delay) creates more delight than scattered micro-interactions
+- Use surfaces, elevation, and subtle contrast to create **depth and focus**:
+  - Cards/panels for grouped content.
+  - Differentiated backgrounds for page sections.
+- Avoid:
+  - Flat, lifeless layouts where everything is the same value.
+  - Heavy borders; prefer hairlines and surface contrast.
 
-### Backgrounds
+---
 
-Create atmosphere and depth rather than defaulting to solid colors.
+## 3. Anti-Pattern Library – "AI Slop" to Avoid
 
-- Layer CSS gradients (radial + linear combinations)
-- Use geometric patterns or grids
-- Add contextual effects that match the overall aesthetic
-- Consider noise textures, grain, or subtle animations
+When designing or implementing UI, watch out for:
 
-## Tailwind CSS v4 Compatibility
+1. **Generic dashboards**
+   - Centered hero + 2–3 gradient cards + basic charts with no identity.
+   - Uniform-grey cards with indistinguishable content blocks.
 
-**CRITICAL**: Tailwind v4 has breaking changes. Follow these rules:
+2. **Copy-paste template feel**
+   - Obvious clone of a popular UI library's default look without customization.
 
-### Spacing
-- **Never use**: `space-x-*`, `space-y-*` (removed in v4)
-- **Always use**: `gap-*` with flex/grid containers instead
+3. **Color soup**
+   - Too many accents, uncoordinated hues, no clear semantic meaning.
 
-```tsx
-// WRONG (Tailwind v3 only)
-<div className="flex space-x-4">
+4. **Flattened hierarchy**
+   - Everything the same weight and size.
+   - Sections only separated by random white space.
 
-// CORRECT (Tailwind v4 compatible)
-<div className="flex gap-4">
-```
+5. **Over-animated UI**
+   - Every hover zooms/bounces.
+   - Long transitions that slow the interface down.
 
-### Config Loading
-- Tailwind v4 doesn't auto-load `tailwind.config.ts`
-- Add `@config "../tailwind.config.ts"` to your CSS file if using a config
+If you see these emerging, pause and re-center on project design-dna and the
+principles above.
 
-```css
-/* app/globals.css */
-@import "tailwindcss";
-@config "../tailwind.config.ts";
-```
+---
 
-### CSS Reset Conflicts
-- Don't add custom `* { margin: 0 }` resets - they break `mx-auto`, `my-*` utilities
-- Let Tailwind's preflight handle resets
+## 4. Interaction with Project Design-DNA
 
-### Package.json
-- Add `"type": "module"` to avoid Node.js ESM warnings
+When a project has a machine-readable design-dna (e.g. `design-dna.json` or
+`.claude/design-dna/`):
 
-## What to Avoid
+- **Always load design-dna first.**
+  - Get tokens, components, and cardinal laws.
+- Then apply this skill:
+  - Use it to make **better choices within those constraints**, not to invent
+    a new visual language.
 
-- Overused font families (Inter, Roboto, Arial, system fonts)
-- Clichéd color schemes (purple gradients on white)
-- Predictable layouts and component patterns
-- Cookie-cutter design that lacks context-specific character
-- Space Grotesk (even this is becoming overused)
-- `space-x-*` and `space-y-*` utilities (use `gap-*` instead)
+If no design-dna exists:
+- Use this skill to:
+  - Push toward an aesthetic that feels cohesive and intentional.
+  - Still keep implementation maintainable and token-friendly so design-dna
+    can be added later.
 
-## Key Principle
+---
 
-Interpret creatively and make unexpected choices that feel genuinely designed for the context. Vary between light and dark themes, different fonts, different aesthetics.
+## 5. Output Expectations for Agents Using This Skill
 
-You still tend to converge on common choices across generations. Avoid this: it is critical that you think outside the box!
+When a frontend/expo/ios agent has loaded this skill and is asked to build or
+refine UI:
 
-## Example: Theme Ideas
+- Make aesthetic decisions **explicit**:
+  - "I'm using [X] as the primary accent and [Y/Z] as supporting tones."
+  - "Title/body/meta are mapped to [these] typography roles."
+- Call out where you've **avoided generic patterns**:
+  - "Instead of a generic 3-card feature row, I used [project-specific pattern]."
+- Remain grounded in **project design-dna** when present:
+  - Reference specific tokens, components, or rules from design-dna when
+    explaining choices.
 
-Instead of the default "tech purple":
-
-1. **Obsidian Terminal**: Deep black (#0a0a0a), electric green (#00ff9f), JetBrains Mono
-2. **Editorial Luxury**: Cream (#faf9f6), deep navy (#1a1a2e), Playfair Display + Source Sans
-3. **Neon Brutalist**: Pure white, bold black, hot pink accent (#ff006e), IBM Plex Mono
-4. **Nordic Minimal**: Cool gray (#e5e5e5), slate blue (#475569), Outfit
-5. **Retro Computing**: Amber on dark (#ffb000 on #1a1a1a), VT323 or IBM Plex Mono
+The goal is for UI to feel:
+- Designed, not templated.
+- Distinctive, but still aligned with the project's system.
+- Maintainable and understandable to other humans and agents.

@@ -1,12 +1,7 @@
 {
   "name": "brave-search",
-  "description": "Use when searching the web via Brave Search API, finding images, news, or getting AI-grounded answers with citations. Triggers on \"search brave\", \"brave search\", needing current web info, image search",
-  "repo": "ratacat/claude-skills",
-  "category": "data",
-  "tags": [
-    "brave",
-    "search"
-  ],
-  "stars": 8,
-  "source": "SkillsMP Synced Skills"
+  "repo": "clawdbot/clawdbot",
+  "path": "skills/brave-search/SKILL.md",
+  "source": "github.com/clawdbot/clawdbot",
+  "downloaded_at": "2026-01-14T04:05:34.547510Z"
 }

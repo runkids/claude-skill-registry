@@ -1,12 +1,7 @@
 {
   "name": "example-skill",
-  "description": "\"Example skill demonstrating YAML best practices. Use when learning skill structure, reviewing formatting standards, or creating new skills as a reference.\"",
-  "repo": "okgoogle13/careercopilot",
-  "category": "data",
-  "tags": [
-    "example",
-    "skill"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "repo": "Stacked-Labs/poker-game",
+  "path": ".codex/skills/example-skill/SKILL.md",
+  "source": "github.com/Stacked-Labs/poker-game",
+  "downloaded_at": "2026-01-14T03:53:49.725297Z"
 }

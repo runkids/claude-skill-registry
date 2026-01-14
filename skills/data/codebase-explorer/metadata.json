@@ -1,12 +1,7 @@
 {
   "name": "codebase-explorer",
-  "description": "Identify relevant files, understand architecture patterns, and find code by functionality. Use when you need to understand where specific functionality lives or find files related to a feature area.",
-  "repo": "EdanStarfire/claudecode_webui",
-  "category": "development",
-  "tags": [
-    "codebase",
-    "explorer"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "repo": "chriskrycho/nova-rust-2",
+  "path": ".claude/skills/codebase-explorer/SKILL.md",
+  "source": "github.com/chriskrycho/nova-rust-2",
+  "downloaded_at": "2026-01-14T02:40:17.812628Z"
 }

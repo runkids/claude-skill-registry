@@ -1,11 +1,7 @@
 {
   "name": "ui-styling",
-  "description": "Create beautiful, accessible user interfaces with shadcn/ui components (built on Radix UI + Tailwind), Tailwind CSS utility-first styling, and canvas-based visual designs. Use when building user inter",
-  "repo": "mrgoonie/claudekit-skills",
-  "category": "design",
-  "tags": [
-    "styling"
-  ],
-  "stars": 1108,
-  "source": "SkillsMP Synced Skills"
+  "repo": "captain-corgi/marketplace-website",
+  "path": ".claude/skills/ui-styling/SKILL.md",
+  "source": "github.com/captain-corgi/marketplace-website",
+  "downloaded_at": "2026-01-14T03:49:00.429573Z"
 }

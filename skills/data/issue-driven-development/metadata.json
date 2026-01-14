@@ -1,13 +1,7 @@
 {
   "name": "issue-driven-development",
-  "description": "Use for any development work - the master 13-step coding process that orchestrates all other skills, ensuring GitHub issue tracking, proper branching, TDD, code review, and CI verification",
-  "repo": "troykelly/claude-skills",
-  "category": "development",
-  "tags": [
-    "issue",
-    "driven",
-    "development"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "troykelly/codex-skills",
+  "path": "skills/issue-driven-development/SKILL.md",
+  "source": "github.com/troykelly/codex-skills",
+  "downloaded_at": "2026-01-14T03:34:05.859355Z"
 }

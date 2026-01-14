@@ -1,12 +1,7 @@
 {
   "name": "docker-containerization",
-  "description": "Provides guidance and templates for containerizing applications using Docker. Use when a user wants to create Dockerfiles, optimize images, set up multi-container applications with docker-compose, or ",
   "repo": "MUmerRazzaq/fast-next-todo",
-  "category": "data",
-  "tags": [
-    "docker",
-    "containerization"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/docker-containerization/SKILL.md",
+  "source": "github.com/MUmerRazzaq/fast-next-todo",
+  "downloaded_at": "2026-01-14T03:58:16.592495Z"
 }

@@ -1,0 +1,9 @@
+{
+  "name": "kratos-mapper",
+  "description": "Generates bidirectional mapper functions between protobuf DTOs and business models for go-kratos services. Creates type-safe conversions with proper field mapping. Use when implementing service layer ",
+  "repo": "alecszaharia/brizy-microservices-go",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

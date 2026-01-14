@@ -1,12 +1,7 @@
 {
   "name": "docs-sync",
-  "description": "Sync AILANG documentation website with codebase reality. Use after releases, when features are implemented, or when website accuracy is questioned. Checks design docs vs website, validates examples, u",
   "repo": "sunholo-data/ailang",
-  "category": "documents",
-  "tags": [
-    "docs",
-    "sync"
-  ],
-  "stars": 13,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/docs-sync/SKILL.md",
+  "source": "github.com/sunholo-data/ailang",
+  "downloaded_at": "2026-01-14T01:03:59.264863Z"
 }

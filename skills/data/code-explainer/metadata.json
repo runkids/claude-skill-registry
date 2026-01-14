@@ -1,12 +1,7 @@
 {
   "name": "code-explainer",
-  "description": "Explain complex code to team members in clear, understandable terms for effective knowledge shari...",
-  "repo": "CuriousLearner/devkit",
-  "category": "development",
-  "tags": [
-    "code",
-    "explainer"
-  ],
-  "stars": 13,
-  "source": "SkillsMP Synced Skills"
+  "repo": "ioku24/autorankr",
+  "path": ".claude/skills/code-explainer/SKILL.md",
+  "source": "github.com/ioku24/autorankr",
+  "downloaded_at": "2026-01-14T04:07:26.788103Z"
 }

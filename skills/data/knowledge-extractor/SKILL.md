@@ -1,585 +1,427 @@
 ---
 name: knowledge-extractor
-version: 1.0.0
-description: |
-  Extracts key learnings from conversations, debugging sessions, and failed attempts.
-  Use at session end or after solving complex problems to capture insights.
-  Automatically suggests updates to: DISCOVERIES.md (learnings), PATTERNS.md (reusable solutions), new agent creation (repeated workflows).
-  Ensures knowledge persists across sessions.
+description: Analyzes completed projects to identify generalizable patterns, common workflows, and reusable knowledge worth extracting into skills. Use after completing a project to review LOG.md, skill updates, and project artifacts. Generates extraction recommendations but does not modify skills directly (user decides whether to apply via skill-updater).
 ---
 
-# Knowledge Extractor Skill
+# Knowledge Extractor
 
-## Purpose
+## Overview
 
-This skill automatically extracts, synthesizes, and preserves knowledge from conversations, debugging sessions, failed attempts, and solved problems. It converts ephemeral interactions into persistent organizational knowledge that improves future performance.
+This skill analyzes completed projects to identify what should be extracted from project-specific context (CLAUDE.md, LOG.md) into general skills. It produces **recommendations** for extraction, which the user reviews and optionally applies using skill-updater.
+
+**Critical principle**: This skill does NOT modify skills or invoke other skills. It only analyzes and recommends.
 
 ## When to Use This Skill
 
-- **Session End Analysis**: Extract learnings before session context is lost
-- **After Complex Debugging**: Capture root causes and solutions while fresh
-- **Following Failed Attempts**: Document what didn't work and why
-- **Successful Problem Solving**: Preserve solutions for future reuse
-- **New Pattern Discovery**: Identify patterns that should be documented
-- **Repeated Workflows**: Recognize when to create new specialized agents
-- **Cross-Session Learning**: Build organizational memory from individual sessions
+Use this skill when:
+- Completing a project and want to extract learnings
+- Multiple projects have used similar patterns
+- LOG.md shows repeated skill updates worth generalizing
+- Project developed domain knowledge worth preserving
+- Want to identify what project-specific knowledge is actually general
 
-## Core Philosophy: Knowledge Preservation
+**Typical trigger**: "Extract knowledge from this project" or "What should I add to my skills?"
 
-**Session Context**: Ephemeral conversation context that will be lost without active preservation
-**Persistent Knowledge**: Structured learnings that improve future performance
-**Pattern Recognition**: Identifying when solutions are repeated and should be automated
-**Organizational Growth**: Converting individual learning into system-wide improvement
+## Workflow
 
-## Knowledge Extraction Framework
+### Step 1: Identify Project Scope
 
-### Three Types of Knowledge Extraction
+Determine what to analyze:
 
-#### 1. Discoveries - Novel Insights and Root Causes
+**Ask the user:**
+- "Which project should I analyze for knowledge extraction?"
+- "Where is the project's LOG.md file?"
+- "Are there specific areas you think need extraction?"
 
-**What it captures**: Problems encountered, root causes identified, solutions implemented
+**Default assumptions:**
+- LOG.md location: `./.claude/LOG.md`
+- CLAUDE.md location: `./.claude/CLAUDE.md`
+- ERROR_LOG.md location: `./.claude/ERROR_LOG.md`
+- Skills directory: `./.claude/skills/`
 
-**When to extract**:
+### Step 2: Read Project History
 
-- After solving a complex bug
-- When debugging reveals unexpected behavior
-- When discovering wrong assumptions
-- After identifying missing functionality
-- When learning why something failed
+Gather extraction context:
 
-**Format for DISCOVERIES.md**:
+**Read these files:**
+1. **LOG.md**: All project history, decisions, and skill updates
+2. **CLAUDE.md**: Project-specific conventions and context
+3. **Skill update history**: Which skills were updated and why
 
+**Look for:**
+- Patterns that appeared multiple times
+- Solutions to common problems
+- Project-specific workflows that might be generalizable
+- New techniques or approaches discovered
+- Edge cases and their resolutions
+
+### Step 3: Identify Extraction Candidates
+
+Analyze for generalizable knowledge:
+
+**Pattern recognition:**
+- **Repeated patterns**: Same approach used 3+ times
+- **Cross-project value**: "Would this help other projects?"
+- **Domain knowledge**: Technical patterns, not project specifics
+- **Skill gaps**: Functionality that should exist but doesn't
+
+**Classification:**
+```
+For each candidate, determine:
+1. Target: Which skill should receive this?
+2. Type: Reference file, SKILL.md improvement, new skill?
+3. Generality: How broadly applicable is this?
+4. Value: How much does this improve the skill?
+```
+
+**Examples:**
+- Discovered git workflow for monorepos → Add to git-workflow/references/
+- Learned how to structure API docs → Add to project-context-generator template
+- Found common log entry pattern → Add to project-logger examples
+- Developed deployment checklist → Create new deployment-workflow skill
+
+### Step 4: Check Skill Contracts
+
+Verify each extraction is allowed:
+
+**For each candidate:**
+1. Identify target skill
+2. Read skill's contract (SKILL.md or references/contract.md)
+3. Classify update type (reference, SKILL.md, script, new skill)
+4. Check against contract rules
+
+**Contract compliance:**
+- **Allowed without review**: Can recommend directly
+- **Requires review**: Flag for user approval
+- **Prohibited**: Suggest alternative (new skill, different target)
+
+**If no contract exists:**
+- Note: "Skill has no contract - suggest using skill-contract-generator first"
+
+### Step 5: Generate Extraction Recommendations
+
+Create structured recommendations file:
+
+**Output file**: `EXTRACTIONS.md` in project root
+
+**Format:**
 ```markdown
-## [Brief Title] (YYYY-MM-DD)
+# Knowledge Extraction Recommendations
+> Generated: YYYY-MM-DD HH:MM
+> Project: [project name]
+> Analyzed: LOG.md, CLAUDE.md, [other files]
 
-### Issue
+## Summary
 
-What problem or challenge was encountered?
+Total candidates identified: [N]
+- High priority: [N]
+- Medium priority: [N]
+- Low priority: [N]
+- Requires new skill: [N]
 
-### Root Cause
+## High Priority Extractions
 
-Why did this happen? What was the underlying issue?
+### [1] Add monorepo workflow to git-workflow
 
-### Solution
+**What to extract:**
+[Description of the pattern/knowledge]
 
-How was it resolved? Include code examples if relevant.
+**Where to add:**
+- Target skill: `git-workflow`
+- File: `references/monorepo-workflow.md`
+- Update type: Add reference file
 
-### Key Learnings
+**Why generalizable:**
+- Used across 3 different monorepo projects
+- Not project-specific
+- Common pain point
 
-What insights were gained? What should be remembered?
+**Contract compliance:**
+- Status: ✅ Allowed without review
+- Rule: "Can add reference files documenting project patterns"
 
-### Prevention
-
-How can this be avoided in the future?
+**Suggested content:**
+```
+[Actual content to add, formatted and ready]
 ```
 
-**Quality Criteria**:
+**Next step:**
+Invoke skill-updater to add this reference file.
 
-- ✅ Specific problem, not generic advice
-- ✅ Root cause clearly identified
-- ✅ Working solution included
-- ✅ Learning generalized for reuse
-- ✅ Prevention strategy documented
+---
 
-#### 2. Patterns - Reusable Solutions
+### [2] Enhance project-logger with decision template
 
-**What it captures**: Proven solutions to recurring problems, architectural approaches, design patterns
+[Same structure as above]
 
-**When to extract**:
+## Medium Priority Extractions
 
-- After solving a problem similar to known patterns
-- When recognizing a repeated problem type
-- When implementing a proven solution
-- When discovering a best practice that works
-- When solution applies across multiple contexts
+[Same structure, lower priority items]
 
-**Format for PATTERNS.md**:
+## Low Priority Extractions
 
+[Same structure, nice-to-haves]
+
+## New Skill Recommendations
+
+### Create deployment-workflow skill
+
+**Rationale:**
+[Why this needs a new skill vs. updating existing]
+
+**Scope:**
+[What the new skill should cover]
+
+**Next step:**
+Use skill-creator to create this skill.
+
+## Items NOT Recommended for Extraction
+
+### Project-specific API client
+
+**Why not extracted:**
+- Specific to this project's API
+- No cross-project value
+- Should remain in project CLAUDE.md
+
+[List other items considered but rejected]
+```
+
+### Step 6: Present Recommendations
+
+Show recommendations to user:
+
+**Summary message:**
+```
+I've analyzed the project and identified [N] extraction candidates:
+- [N] high priority updates to existing skills
+- [N] medium priority improvements
+- [N] new skills to create
+- [N] items NOT recommended for extraction
+
+See EXTRACTIONS.md for full details.
+
+Would you like me to:
+1. Apply high priority extractions using skill-updater
+2. Review specific recommendations
+3. Create new skills identified
+```
+
+**User decision points:**
+- Review and approve recommendations
+- Decide which to apply
+- Invoke skill-updater for approved items (user does this, not knowledge-extractor)
+
+### Step 7: Document Extraction Session
+
+Record the extraction process:
+
+**Update LOG.md:**
 ```markdown
-## Pattern: [Name]
+## YYYY-MM-DD HH:MM
 
-### Challenge
+### [MILESTONE] Knowledge extraction completed
 
-What problem does this pattern solve?
+**Context:** Completed [project name] and extracted learnings.
 
-### Solution
+**What Changed:**
+- Analyzed LOG.md and identified [N] extraction candidates
+- Generated EXTRACTIONS.md with recommendations
+- [List any extractions that were applied]
 
-How does the pattern work? Include code/examples.
+**Extraction summary:**
+- High priority: [N] items
+- Medium priority: [N] items
+- New skills needed: [N]
+- Items not extracted: [N] (project-specific)
 
-### Key Points
+**Next steps:**
+- Review EXTRACTIONS.md
+- Use skill-updater to apply approved extractions
+- Use skill-creator for new skills identified
 
-- Main insight 1
-- Main insight 2
-- When to use / when not to use
-
-### When to Use
-
-Specific scenarios where this pattern applies.
-
-### Real Impact
-
-Where has this pattern been used successfully?
-
-### Related Patterns
-
-Links to similar or complementary patterns.
+**Related:**
+- Extraction file: `EXTRACTIONS.md`
+- Project: [project name]
 ```
 
-**Quality Criteria**:
+## Extraction Patterns
 
-- ✅ General enough to apply to multiple situations
-- ✅ Problem clearly defined
-- ✅ Solution has proven track record
-- ✅ Working code examples
-- ✅ Clear when/when-not-to-use guidance
+### Pattern 1: Workflow Addition
 
-#### 3. Agent Creation - Automation of Repeated Workflows
+**Scenario:** Discovered project-specific workflow that's actually general
 
-**What it captures**: Workflows that are repeated frequently, specialized expertise areas, complex multi-step processes
+**Example:** Learned how to manage git in monorepo during project
 
-**When to extract**:
-
-- After performing the same workflow 2-3 times
-- When recognizing a specialized skill area
-- When workflow has clear inputs/outputs
-- When automating would save significant time
-- When problem domain is narrow and well-defined
-
-**Agent Creation Trigger Checklist**:
-
-- [ ] Same workflow repeated 2+ times
-- [ ] Workflow takes 30+ minutes to execute
-- [ ] Workflow has clear specialized focus
-- [ ] Workflow can be automated with current tools
-- [ ] Problem domain is narrow and well-defined
-- [ ] Would be high-value to automate
-
-**Example Agent Creation**:
-
-```markdown
-## Recommended New Agent: [domain]-[specialty]
-
-### Problem
-
-What repeated workflow would this agent handle?
-
-### Scope
-
-What's in scope | What's explicitly out of scope
-
-### Inputs
-
-What information does the agent need?
-
-### Process
-
-Step-by-step workflow the agent follows
-
-### Outputs
-
-What does the agent produce?
-
-### Value
-
-How much time/effort does this save?
-
-### Integration
-
-Where in the workflow does this fit?
+**Action:**
+```
+1. Identify target skill (git-workflow)
+2. Check contract: Can add reference files
+3. Recommend: Add references/monorepo-workflow.md
+4. User reviews → invokes skill-updater if approved
 ```
 
-## Step-by-Step Extraction Process
+### Pattern 2: Edge Case Documentation
 
-### Step 1: Session Analysis (5 minutes)
+**Scenario:** Encountered and solved edge case not documented
 
-Review entire conversation/session:
+**Example:** Found solution for git merge conflict in binary files
 
+**Action:**
 ```
-1. What was the original problem/request?
-2. What approaches were tried?
-3. Which attempts failed and why?
-4. What succeeded and why?
-5. What was learned in the process?
-6. What surprised you?
-7. What took longer than expected?
-8. What would have helped?
+1. Identify target skill (git-workflow)
+2. Check contract: Can add edge cases
+3. Recommend: Add to references/edge-cases.md or update SKILL.md
+4. User reviews → invokes skill-updater if approved
 ```
 
-### Step 2: Pattern Recognition (5 minutes)
+### Pattern 3: New Skill Creation
 
-Identify patterns in the work:
+**Scenario:** Developed domain knowledge that needs own skill
 
+**Example:** Built extensive deployment checklist during project
+
+**Action:**
 ```
-1. Have I seen this problem before? (→ DISCOVERIES)
-2. Is this a generalizable solution? (→ PATTERNS)
-3. Would this be worth automating? (→ AGENT)
-4. What was the root cause? (Why, not just what)
-5. What should others know about this?
-6. What should be remembered to avoid repetition?
-```
-
-### Step 3: Knowledge Extraction (10 minutes)
-
-Extract and structure knowledge:
-
-**For DISCOVERIES.md**:
-
-- Specific issue encountered
-- Root cause analysis
-- Solution implemented
-- Key learnings generalized
-- Prevention strategy
-
-**For PATTERNS.md**:
-
-- Problem the pattern solves
-- How the pattern works
-- When to use / when not to use
-- Working code examples
-- Related patterns
-
-**For New Agent**:
-
-- Repeated workflow identified
-- Clear scope and boundaries
-- Input/output requirements
-- Step-by-step process
-- Expected value/time savings
-
-### Step 4: Integration (3 minutes)
-
-Place knowledge in correct locations:
-
-```
-DISCOVERIES.md → New discovery at end of file
-PATTERNS.md → New pattern in appropriate section
-Agent → Create in .claude/agents/amplihack/specialized/
+1. Determine: Too complex for existing skills
+2. Recommend: Create new deployment-workflow skill
+3. Draft skill structure and content
+4. User reviews → invokes skill-creator if approved
 ```
 
-### Step 5: Validation (2 minutes)
+### Pattern 4: Template Enhancement
 
-Ensure quality:
+**Scenario:** Improved a template during project usage
 
+**Example:** Added security section to CLAUDE.md template
+
+**Action:**
 ```
-[ ] Entry is specific, not generic
-[ ] Entry follows template format
-[ ] Examples/code provided
-[ ] Quality sufficient for reuse
-[ ] Grammar and clarity checked
-[ ] Related items cross-referenced
-```
-
-## Usage Examples
-
-### Example 1: Extract Discovery After Bug Fix
-
-**Scenario**: Just spent 45 minutes debugging why pre-commit hooks weren't working
-
-```
-User: Extract what we learned from debugging the pre-commit issue.
-
-Claude:
-1. Analyzes conversation showing:
-   - Initial problem: hooks appeared to run but didn't modify files
-   - False leads: blamed merge conflicts, tool versions
-   - Root cause found: Hooks couldn't write to files due to cloud sync lock
-   - Solution: Added exponential backoff retry logic
-   - Time to discover: 45 minutes
-
-2. Creates DISCOVERIES.md entry:
-   - Issue: Pre-commit hooks silently failing
-   - Root Cause: Cloud sync (OneDrive) file locks
-   - Solution: Exponential backoff retry (0.1s, 0.2s, 0.4s...)
-   - Key Learning: Cloud sync issues silent - need defensive coding
-   - Prevention: Add retry logic for file I/O, test with cloud storage
-
-3. Offers to also:
-   - Add pattern for "Resilient File I/O" to PATTERNS.md
-   - Suggest new agent for cloud-sync issue detection
+1. Identify target skill (project-context-generator)
+2. Check contract: Template changes may require review
+3. Recommend: Add optional security section to template
+4. Flag: Requires review per contract
+5. User reviews → invokes skill-updater if approved
 ```
 
-### Example 2: Extract Pattern from Successful Implementation
-
-**Scenario**: Just finished implementing module regeneration strategy
-
-```
-User: Extract the pattern we discovered for building regeneratable modules.
-
-Claude:
-1. Analyzes implementation showing:
-   - Clear __all__ exports defining public interface
-   - Self-contained module structure
-   - Type-hinted functions with docstrings
-   - Comprehensive test coverage
-   - Working examples
-
-2. Creates PATTERNS.md entry:
-   - Pattern: Module Regeneration Structure
-   - Challenge: Modules become tightly coupled, hard to regenerate
-   - Solution: Brick & studs design with __all__ public API
-   - Key Points: Clear contracts, single responsibility, testable behavior
-   - When to Use: Any utility module, anything that might be regenerated
-   - Real Impact: Enables AI to rebuild modules without breaking system
-
-3. Cross-references:
-   - Relates to "Bricks & Studs Module Design"
-   - Enables "Builder Agent Workflow"
-```
-
-### Example 3: Identify New Agent Creation Opportunity
-
-**Scenario**: Just debugged CI failure using 5-step diagnostic process for 3rd time
-
-```
-User: We keep using the same CI debugging process. Should we automate it?
-
-Claude:
-1. Analyzes past sessions:
-   - Session 1: 45 minutes CI debugging (version mismatch issue)
-   - Session 2: 30 minutes CI debugging (pre-commit hook issue)
-   - Session 3: 25 minutes CI debugging (merge conflict issue)
-   - Pattern: Same 5-step process each time
-
-2. Recommends new agent:
-   - Name: ci-diagnostic-workflow
-   - Problem: Each CI failure requires manual diagnosis, takes 30-45 min
-   - Scope: Diagnoses CI failures, suggests fixes (doesn't auto-fix)
-   - Process:
-     1. Check environment (Python version, tool versions)
-     2. Analyze CI logs for error patterns
-     3. Detect common issues (conflicts, missing deps)
-     4. Suggest solutions
-     5. Coordinate parallel diagnostic agents
-   - Value: Reduce diagnosis time from 45 min → 15 min
-
-3. Proposes creating:
-   - .claude/agents/amplihack/ci-diagnostic-workflow.md
-   - Can delegate to: fix-agent for implementation
-```
-
-### Example 4: Multi-Level Extraction
-
-**Scenario**: Complex architectural decision with multiple learnings
-
-```
-User: Extract everything we learned from deciding on the memory architecture.
-
-Claude:
-1. Session involved:
-   - 2 failed approaches (too complex, wrong threat model)
-   - 1 successful approach (simple, fits threat model)
-   - Discovery of meta-pattern for architecture decisions
+## Decision Heuristics
+
+### General vs. Project-Specific
+
+**Extract to skill if:**
+- Useful across 3+ projects (rule of three)
+- No project-specific details embedded
+- Generalizable pattern or technique
+- Domain knowledge, not instance knowledge
+
+**Keep in project if:**
+- Specific to this codebase
+- Includes project-specific APIs, schemas, or business logic
+- One-off solution unlikely to recur
+- Tied to project's unique context
+
+**Examples:**
+- ✅ Extract: "How to structure API documentation"
+- ❌ Don't extract: "Our specific API endpoints"
+- ✅ Extract: "Monorepo git workflow"
+- ❌ Don't extract: "Our monorepo's specific structure"
+
+### Update vs. New Skill
+
+**Update existing skill when:**
+- Natural extension of current scope
+- Fills gap in existing coverage
+- Same domain and use cases
+- Skill would still be cohesive
+
+**Create new skill when:**
+- Different domain or purpose
+- Would make existing skill too complex (>500 lines)
+- Distinct user base or use cases
+- Stands alone as independent capability
+
+### Extraction Priority
+
+**High priority:**
+- Used frequently during project
+- Solves common pain point
+- Broadly applicable
+- Allowed by contract without review
+
+**Medium priority:**
+- Used occasionally
+- Moderately useful
+- Somewhat general
+- May require contract review
+
+**Low priority:**
+- Nice-to-have
+- Niche use case
+- Marginal value
+- Uncertain generality
+
+## Important Notes
+
+### This Skill Does NOT Execute Updates
+
+**Critical**: knowledge-extractor only analyzes and recommends.
+
+**To apply recommendations:**
+1. User reviews EXTRACTIONS.md
+2. User decides which to apply
+3. User invokes skill-updater (or Claude auto-triggers)
+4. skill-updater executes the actual update
+
+**Why this separation:**
+- Follows "no skill-calling-skill" principle
+- User maintains control over what gets extracted
+- Clear separation: analysis vs. execution
+- Respects that extraction is a manual, thoughtful process
+
+### Relationship to Other Skills
+
+**knowledge-extractor + skill-updater:**
+- knowledge-extractor: Identifies WHAT to extract (brain)
+- skill-updater: Executes HOW to extract (hands)
+- User: Decides WHETHER to extract (judgment)
+- No direct invocation between skills
+
+**Analogous to:**
+- skill-analyzer + skill-creator
+- project-logger + git commit
+- skill-contract-generator + skill-updater
+
+### When NOT to Extract
+
+**Don't extract if:**
+- Only used once in one project
+- Highly project-specific
+- Would require significant abstraction
+- Unclear if generalizable
+- Would violate skill contract
+
+**Document why NOT extracted:**
+- Helps future decision-making
+- Prevents re-analyzing same items
+- Clarifies extraction criteria
+
+## Resources
 
-2. Creates THREE extractions:
+### references/extraction-checklist.md
 
-   DISCOVERIES.md:
-   - Issue: Pattern Applicability Analysis
-   - Root Cause: Importing patterns without validating threat match
-   - Solution: Five-phase applicability analysis framework
-   - Learning: Threat model match is critical first check
+Checklist for evaluating extraction candidates:
+- Is it used 3+ times?
+- Is it generalizable?
+- Does it add value?
+- Is it allowed by contract?
+- Would it help other projects?
 
-   PATTERNS.md:
-   - New Pattern: Threat Model Precision Principle
-   - Challenge: Fault tolerance mechanisms mismatch problem space
-   - Solution: Validate threat model before adopting patterns
-   - When: Before adopting any "best practice" from different domain
+(To be created based on accumulated extraction experience)
 
-   Recommended Agent:
-   - Name: pattern-applicability-analyzer
-   - Automate: Quick assessment of pattern applicability
-   - Value: Prevent adopting wrong patterns early
-```
+## Skill Contract
 
-## Knowledge Quality Checklist
+**Stable:** 7-step workflow, decision heuristics (general vs. project-specific, update vs. new skill), recommendation format
+**Mutable:** Extraction patterns, evaluation criteria, recommendation templates, checklist items
+**Update rules:** See `references/contract.md` for detailed rules
 
-Before finalizing an extraction, verify:
-
-### For DISCOVERIES.md
-
-- [ ] Issue is specific, not generic ("Pre-commit hooks failing" not "Tools broken")
-- [ ] Root cause is identified (Why, not just what)
-- [ ] Solution is working/proven
-- [ ] Learning is generalized (applies beyond this specific case)
-- [ ] Prevention strategy is actionable
-- [ ] No speculation or future-proofing
-- [ ] Code examples provided where relevant
-
-### For PATTERNS.md
-
-- [ ] Problem is clear and recognizable
-- [ ] Solution has proven track record (used 2+ times successfully)
-- [ ] When/when-not-to-use guidance is clear
-- [ ] Pattern is general enough for reuse
-- [ ] Code examples are working and clear
-- [ ] Related patterns are cross-referenced
-- [ ] Real impact or usage is documented
-
-### For New Agent
-
-- [ ] Workflow has been repeated 2+ times
-- [ ] Would save 30+ minutes per execution
-- [ ] Problem domain is narrow and well-defined
-- [ ] Inputs and outputs are clear
-- [ ] Step-by-step process documented
-- [ ] High-value worth the automation effort
-- [ ] Clear where it fits in workflow
-
-## Integration with System
-
-### DISCOVERIES.md Lifecycle
-
-1. **Extraction**: Added to DISCOVERIES.md during session
-2. **Visibility**: Immediately available to all agents
-3. **Action**: Agents can reference when solving similar problems
-4. **Prevention**: Prevents repeating same mistakes
-5. **Evolution**: Updated when better solution found
-
-### PATTERNS.md Lifecycle
-
-1. **Extraction**: Added to PATTERNS.md when pattern proven
-2. **Catalog**: Becomes part of available patterns library
-3. **Usage**: Referenced in relevant agent instructions
-4. **Teaching**: Used in documentation and onboarding
-5. **Refinement**: Improved as more usage data collected
-
-### Agent Creation Lifecycle
-
-1. **Recommendation**: Identified as valuable automation candidate
-2. **Proposal**: Presented to system with expected value
-3. **Creation**: New agent created with clear scope/boundaries
-4. **Integration**: Added to delegation triggers in CLAUDE.md
-5. **Usage**: Available for orchestration across workflows
-
-## Real-World Impact Examples
-
-### Impact 1: Prevent Wasted Debugging Time
-
-**Without knowledge extraction**: Repeat same 45-minute debugging process
-**With extraction**: Reference DISCOVERIES.md, fix in 10 minutes
-
-### Impact 2: Faster Solution Discovery
-
-**Without extraction**: Rediscover solutions from scratch
-**With extraction**: Reference PATTERNS.md, apply known solution
-
-### Impact 3: Automated Workflows
-
-**Without extraction**: Manual CI debugging every time (30-45 min)
-**With new agent**: Automated diagnosis in 5-10 minutes
-
-## Common Extraction Mistakes to Avoid
-
-### Mistake 1: Too Generic
-
-```
-BAD: "Learned that good error handling is important"
-GOOD: "Discovered cloud sync issues cause silent file I/O failures - need exponential backoff retry"
-```
-
-### Mistake 2: Missing Root Cause
-
-```
-BAD: "CI failed, fixed it"
-GOOD: "CI failed because version mismatch (local 3.12 vs CI 3.11) - fixed by updating pyproject.toml version constraint"
-```
-
-### Mistake 3: No Actionable Learning
-
-```
-BAD: "This was complicated"
-GOOD: "Multi-layer sanitization at every data transformation prevents credential leakage"
-```
-
-### Mistake 4: Over-Generalizing Pattern
-
-```
-BAD: "Always use caching everywhere"
-GOOD: "Use smart caching with lifecycle management for expensive operations where results may become stale"
-```
-
-### Mistake 5: Agent Creation Without ROI
-
-```
-BAD: "Create agent for task that happens once per quarter"
-GOOD: "Create agent for CI debugging workflow that happens 2-3x per week and takes 30-45 minutes"
-```
-
-## Extraction Prompts
-
-Use these prompts to trigger knowledge extraction:
-
-### Extract Discoveries
-
-```
-Extract what we discovered/learned from this session.
-Focus on: root causes, unexpected behaviors, solutions that worked.
-Update DISCOVERIES.md appropriately.
-```
-
-### Extract Patterns
-
-```
-What patterns should we capture for future reuse?
-These should be proven solutions that apply to multiple situations.
-Update PATTERNS.md appropriately.
-```
-
-### Identify Agent Opportunities
-
-```
-Should we create a new agent to automate any repeated workflows?
-Check if any workflow has been done 2+ times and takes 30+ minutes.
-Recommend creation with scope and value calculation.
-```
-
-### Full Extraction
-
-```
-Perform complete knowledge extraction on this session.
-Extract: discoveries, patterns, and agent creation recommendations.
-Verify quality and update all three knowledge bases.
-```
-
-## Integration Points
-
-### With Document-Driven Development
-
-- Use knowledge extraction to update specs and documentation
-- Extract patterns to guide next implementation
-
-### With Agent Delegation
-
-- Extract when delegating reveals new specializations needed
-- Create agents based on repeated delegation patterns
-
-### With Pre-Commit Analysis
-
-- Extract discoveries about CI/CD and testing patterns
-- Update PATTERNS.md with new approaches discovered
-
-### With Session Reflection
-
-- Automatic knowledge extraction at session end
-- Preserve learnings before context compaction
-
-## Success Metrics
-
-Track effectiveness of knowledge extraction:
-
-- **Discoveries Reused**: How often DISCOVERIES.md prevents mistakes (target: 80%+)
-- **Patterns Applied**: How often PATTERNS.md enables faster solutions (target: 70%+)
-- **Agent Usage**: How often extracted agents used vs manual approaches (target: 60%+)
-- **Time Saved**: Cumulative time saved by reusing knowledge (target: hours/week)
-- **Repeated Mistakes**: Reduction in making same mistake twice (target: 95%+)
-
-## Future Evolution
-
-This skill should grow based on:
-
-- What types of knowledge are most valuable to extract?
-- What prevents good extraction?
-- How can we make extractions more actionable?
-- What knowledge sources are underutilized?
-- How can we better surface relevant knowledge?
-
-Document learnings in `.claude/context/DISCOVERIES.md`.
+> Full contract specification in `references/contract.md`

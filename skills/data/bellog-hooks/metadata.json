@@ -1,12 +1,7 @@
 {
   "name": "bellog-hooks",
-  "description": "Provides custom React hooks patterns and best practices specific to Bellog. Triggers when creating custom hooks or implementing interactive features.",
   "repo": "whddltjdwhd/bellog",
-  "category": "devops",
-  "tags": [
-    "bellog",
-    "hooks"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/bellog-hooks/SKILL.md",
+  "source": "github.com/whddltjdwhd/bellog",
+  "downloaded_at": "2026-01-14T01:13:20.066974Z"
 }

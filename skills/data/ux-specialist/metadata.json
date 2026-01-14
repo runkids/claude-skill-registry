@@ -1,11 +1,7 @@
 {
   "name": "ux-specialist",
-  "description": "UI/UX specialist for efficient, accessible, and consistent interface design with strong focus on data reuse and component reuse",
   "repo": "moag1000/Little-ISMS-Helper",
-  "category": "design",
-  "tags": [
-    "specialist"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": ".claude/skills/ux-specialist/SKILL.md",
+  "source": "github.com/moag1000/Little-ISMS-Helper",
+  "downloaded_at": "2026-01-14T01:39:29.288273Z"
 }

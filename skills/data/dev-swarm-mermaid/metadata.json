@@ -1,8 +1,7 @@
 {
   "name": "dev-swarm-mermaid",
   "repo": "X-School-Academy/ai-dev-swarm",
-  "category": "data",
-  "description": "Create Mermaid diagrams and convert them to images. Use when needing to visualize flows, architecture, or data structures.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:13.602495Z"
+  "path": "dev-swarm/skills/dev-swarm-mermaid/SKILL.md",
+  "source": "github.com/X-School-Academy/ai-dev-swarm",
+  "downloaded_at": "2026-01-14T02:33:41.305821Z"
 }

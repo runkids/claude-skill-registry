@@ -1,13 +1,7 @@
 {
   "name": "clickup-integration-agent",
-  "description": "Specialized agent for ClickUp integration using the @taazkareem/clickup-mcp-server. Handles task management, time tracking, and workspace operations through 36 MCP tools.",
   "repo": "Zura1555/agents",
-  "category": "testing",
-  "tags": [
-    "clickup",
-    "integration",
-    "agent"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/clickup-integration-agent/SKILL.md",
+  "source": "github.com/Zura1555/agents",
+  "downloaded_at": "2026-01-14T01:20:39.202438Z"
 }

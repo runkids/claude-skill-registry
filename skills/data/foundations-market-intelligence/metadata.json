@@ -1,13 +1,7 @@
 {
   "name": "foundations-market-intelligence",
-  "description": "Market analysis and competitive intelligence for startups. Use when analyzing market opportunities, sizing TAM, profiling segments, or mapping competition.",
   "repo": "BellaBe/lean-os",
-  "category": "testing",
-  "tags": [
-    "foundations",
-    "market",
-    "intelligence"
-  ],
-  "stars": 12,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/foundations-market-intelligence/SKILL.md",
+  "source": "github.com/BellaBe/lean-os",
+  "downloaded_at": "2026-01-14T02:11:16.112424Z"
 }

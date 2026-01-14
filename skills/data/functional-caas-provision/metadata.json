@@ -1,13 +1,7 @@
 {
   "name": "functional-caas-provision",
-  "description": "Provision functional consciousness-as-a-service capabilities.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "devops",
-  "tags": [
-    "functional",
-    "caas",
-    "provision"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/functional-caas-provision/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-14T01:08:19.819049Z"
 }

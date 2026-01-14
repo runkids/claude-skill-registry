@@ -1,13 +1,7 @@
 {
   "name": "app-store-deployment",
-  "description": "Deploy iOS and Android apps to App Store and Google Play. Covers signing, versioning, build configuration, submission process, and release management.",
-  "repo": "aj-geddes/useful-ai-prompts",
-  "category": "development",
-  "tags": [
-    "app",
-    "store",
-    "deployment"
-  ],
-  "stars": 25,
-  "source": "SkillsMP Synced Skills"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/app-store-deployment/skills/app-store-deployment/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-14T03:29:58.100308Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "executing-plans",
-  "description": "Execute implementation plans step-by-step with quality guardrails (ask when unclear, minimal-change bias, readability checklist, verification). Use when the user asks to execute or follow a plan, run ",
-  "repo": "JoaquinCampo/codex-skills",
-  "category": "data",
-  "tags": [
-    "executing",
-    "plans"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "neardws/droid-skills",
+  "path": "skills/superpowers/executing-plans/SKILL.md",
+  "source": "github.com/neardws/droid-skills",
+  "downloaded_at": "2026-01-14T04:02:14.234294Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "linkedin-profile-optimizer",
-  "description": "Optimize LinkedIn profile sections for maximum impact and conversions. Use when the user wants to improve their LinkedIn headline, about section, experience descriptions, or overall profile strategy.",
   "repo": "az9713/ai-co-writing-claude-skills",
-  "category": "development",
-  "tags": [
-    "linkedin",
-    "profile",
-    "optimizer"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/linkedin-profile-optimizer/SKILL.md",
+  "source": "github.com/az9713/ai-co-writing-claude-skills",
+  "downloaded_at": "2026-01-14T03:14:00.467220Z"
 }

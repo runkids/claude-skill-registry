@@ -1,12 +1,7 @@
 {
   "name": "auth-patterns",
-  "description": "Better-auth integration for authentication. Use when implementing login, registration, protected routes, or email verification.",
-  "repo": "spences10/devhub-crm",
-  "category": "testing",
-  "tags": [
-    "auth",
-    "patterns"
-  ],
-  "stars": 6,
-  "source": "SkillsMP Synced Skills"
+  "repo": "davepoon/buildwithclaude",
+  "path": "plugins/nextjs-expert/skills/auth-patterns/SKILL.md",
+  "source": "github.com/davepoon/buildwithclaude",
+  "downloaded_at": "2026-01-14T03:55:28.462399Z"
 }

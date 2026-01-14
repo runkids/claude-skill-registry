@@ -1,12 +1,7 @@
 {
   "name": "tdd-solver",
-  "description": "Implement Advent of Code solutions using Test-Driven Development. Generates test cases from puzzle examples, writes failing tests first, implements solutions incrementally, and iterates until all test",
   "repo": "magnusrodseth/aoc-2025",
-  "category": "development",
-  "tags": [
-    "tdd",
-    "solver"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/tdd-solver/SKILL.md",
+  "source": "github.com/magnusrodseth/aoc-2025",
+  "downloaded_at": "2026-01-14T02:40:34.437677Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "gh-create-pr-linked",
-  "description": "Create a pull request properly linked to a GitHub issue using gh pr create --issue. Use when creating a PR that implements or addresses a specific issue.",
   "repo": "mvillmow/ProjectOdyssey",
-  "category": "devops",
-  "tags": [
-    "create",
-    "linked"
-  ],
-  "stars": 8,
-  "source": "local"
+  "path": ".claude/skills/gh-create-pr-linked/SKILL.md",
+  "source": "github.com/mvillmow/ProjectOdyssey",
+  "downloaded_at": "2026-01-14T01:08:56.887558Z"
 }

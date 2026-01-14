@@ -1,12 +1,7 @@
 {
   "name": "pytorch-geometric",
-  "description": "Library for Graph Neural Networks (GNNs). Covers MessagePassing layers, modular aggregation schemes, and handling large graphs via mini-batching with disjoint graph representation. (pyg, messagepassin",
   "repo": "cuba6112/skillfactory",
-  "category": "development",
-  "tags": [
-    "pytorch",
-    "geometric"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": "skills/pytorch-geometric/SKILL.md",
+  "source": "github.com/cuba6112/skillfactory",
+  "downloaded_at": "2026-01-14T02:37:42.953691Z"
 }

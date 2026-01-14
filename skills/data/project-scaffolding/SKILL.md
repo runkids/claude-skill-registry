@@ -1,257 +1,233 @@
 ---
 name: project-scaffolding
-description: >
-  IDE-grade project scaffolding wizard for creating new projects with comprehensive configuration.
-  Supports 70+ project types: HTML/CSS websites, React, Next.js, Vue, Astro, Remix, React Native,
-  Flutter, Expo, FastAPI, Django, Express, NestJS, Go/Gin, Rust/Axum, Spring Boot, Hono, Elysia,
-  Chrome Extensions, VS Code Extensions, Tauri desktop apps, serverless functions, and more.
-  Provides WebStorm/PyCharm-level project creation with interactive SDK selection, framework
-  configuration, database setup, and DevOps tooling. Use when: creating a new project, setting up
-  a framework application, initializing a codebase, scaffolding boilerplate, building extensions,
-  creating mobile/desktop/web apps, setting up monorepos, or making static websites/landing pages.
+description: Initialize new projects with proper structure, configuration, and setup from BaseProject template. Use when creating new projects, setting up directory structures, or initializing repositories.
 ---
 
-# Project Scaffolding Wizard
+# Project Scaffolding Skill
 
-Professional-grade project scaffolding comparable to WebStorm/PyCharm project wizards. Creates fully configured projects with SDK setup, framework options, database configuration, linting, and CI/CD.
+## When to Activate
 
-## Wizard Workflow
+Activate this skill when:
+- Creating new projects from scratch
+- Setting up project directory structure
+- Initializing configuration files
+- Starting from BaseProject template
+- Setting up technology-specific projects
 
-When a user requests a new project, follow this interactive workflow:
+## Quick Setup Methods
 
-### Step 1: Project Type Selection
+| Method | Best For | Time |
+|--------|----------|------|
+| Automated Script | Standard projects | 2-3 min |
+| Manual Setup | Custom configurations | 10-15 min |
 
-Present the project type menu. Ask the user to select a category and type:
+## Directory Naming Conventions
 
-| Category | Types |
-|----------|-------|
-| **Static Websites** | HTML/CSS, HTML+Sass, HTML+Tailwind, Landing Page, Multi-page Site |
-| **Frontend Web** | React, Next.js, Vue, Nuxt, Svelte, Angular, Astro, Remix, Solid, Qwik, Preact |
-| **Mobile/Desktop** | React Native, Expo, Flutter, Tauri, Electron, Ionic |
-| **Backend (JS/TS)** | Express, NestJS, Fastify, Hono, Elysia, tRPC, Koa |
-| **Backend (Python)** | FastAPI, Django, Django REST, Flask, Litestar |
-| **Backend (Go)** | Gin, Fiber, Echo, Chi |
-| **Backend (Rust)** | Axum, Actix, Rocket |
-| **Backend (Java)** | Spring Boot, Quarkus, Ktor, Micronaut |
-| **Backend (Other)** | Laravel, Rails, .NET Web API |
-| **Libraries** | TypeScript NPM, Python PyPI, Go Module, Rust Crate |
-| **CLI Tools** | Node CLI, Python CLI (Typer/Click), Go CLI (Cobra), Rust CLI (Clap) |
-| **Extensions** | Chrome Extension, Firefox Extension, VS Code Extension, Figma Plugin, Obsidian Plugin |
-| **Serverless** | AWS Lambda, Cloudflare Workers, Vercel Functions, Supabase Functions |
-| **Full-Stack** | T3 Stack, MERN, PERN, MEAN |
-| **Monorepos** | Turborepo, Nx Workspace, pnpm Workspace |
+```
+Directories:     CamelCase (VideoProcessor, AudioTools)
+Date-based:      kebab-case with YYYY-MM-DD (logs-2025-01-15)
+NO spaces or underscores in directory names
+```
 
-### Step 2: Basic Configuration
+## Manual Setup Workflow
 
-Gather for ALL projects:
-- **Project name** (required)
-- **Location/directory**
-- **Description**
-- **Author name**
-- **License** (MIT, Apache-2.0, GPL-3.0, ISC, Unlicense)
-
-### Step 3: Framework-Specific Options
-
-Load `references/wizard-options.md` for detailed configuration options based on the selected project type. Key decisions include:
-
-- **Language/SDK version** - Node.js, Python, Go, Rust, Java versions
-- **Package manager** - npm, pnpm, yarn, bun, poetry, uv
-- **CSS framework** - Tailwind, CSS Modules, Styled Components
-- **State management** - Zustand, Redux, Jotai, TanStack Query
-- **Database/ORM** - PostgreSQL, SQLite, Prisma, SQLAlchemy, sqlc
-- **Authentication** - NextAuth, JWT, OAuth2
-- **Testing** - Vitest, Jest, pytest, Playwright
-
-### Step 4: Code Quality & DevOps
-
-- **Linting** - ESLint, Ruff, golangci-lint, clippy
-- **Formatting** - Prettier, Ruff, gofmt, rustfmt
-- **Pre-commit hooks** - husky + lint-staged, pre-commit framework
-- **CI/CD** - GitHub Actions, GitLab CI
-- **Docker** - Dockerfile (multi-stage), docker-compose
-- **Deployment** - Vercel, Railway, Fly.io, AWS, self-hosted
-
-### Step 5: Generate Project
-
-Use `scripts/scaffold.py` or native CLI tools to create the project structure.
-
-## CLI Integration
-
-Prefer native CLI tools when available:
-
-| Framework | CLI Command |
-|-----------|-------------|
-| Next.js | `npx create-next-app@latest` |
-| React (Vite) | `npm create vite@latest -- --template react-ts` |
-| Vue | `npm create vue@latest` |
-| Nuxt | `npx nuxi@latest init` |
-| Astro | `npm create astro@latest` |
-| Remix | `npx create-remix@latest` |
-| SvelteKit | `npm create svelte@latest` |
-| Solid | `npm create solid@latest` |
-| Expo | `npx create-expo-app@latest` |
-| React Native | `npx @react-native-community/cli init` |
-| Flutter | `flutter create` |
-| Tauri | `npm create tauri-app@latest` |
-| NestJS | `npx @nestjs/cli new` |
-| Spring Boot | `spring init` or start.spring.io |
-| Go | `go mod init` |
-| Rust | `cargo new` |
-| Chrome Ext | `npm create plasmo@latest` |
-| T3 Stack | `npx create-t3-app@latest` |
-
-## Quick Start Examples
-
-### HTML/CSS Website
+### Step 1: Copy Template
 ```bash
-mkdir my-website && cd my-website
-touch index.html style.css
-# Or use boilerplate:
-npx degit h5bp/html5-boilerplate my-website
+cp -r /path/to/BaseProject ~/Projects/YourProjectName/
+cd ~/Projects/YourProjectName/
 ```
 
-### HTML + Tailwind (CDN)
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Website</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100">
-  <h1 class="text-3xl font-bold">Hello World</h1>
-</body>
-</html>
-```
-
-### T3 Stack (Next.js + tRPC + Prisma)
+### Step 2: Clean Git History
 ```bash
-npx create-t3-app@latest my-app
+rm -rf .git
 ```
 
-### Expo (React Native)
+### Step 3: Customize AGENT.md
+Fill in project-specific sections:
+```markdown
+## Project Purpose
+A REST API for managing inventory with real-time updates.
+
+## Tech Stack
+- Language: Python 3.11+
+- Framework: FastAPI
+- Key Libraries: SQLAlchemy, Pydantic
+- Package Manager: UV
+
+## Architecture Notes
+- Microservices with event-driven updates
+- Redis for caching
+- PostgreSQL for persistence
+```
+
+### Step 4: Initialize Git
 ```bash
-npx create-expo-app@latest my-app --template tabs
+git init
+git add .
+git commit -m "chore: initialize repository from BaseProject"
 ```
 
-### Tauri Desktop App
+## Technology-Specific Setup
+
+### Python with UV
 ```bash
-npm create tauri-app@latest my-app -- --template react-ts
+uv init
+cp AgentUsage/templates/pyproject.toml.example pyproject.toml
+uv add fastapi uvicorn sqlalchemy
+uv add --dev pytest black ruff mypy
+
+mkdir -p src/YourProject/{core,utils,config}
+mkdir -p tests/{unit,integration}
+touch src/YourProject/__init__.py
 ```
 
-### Chrome Extension
+### JavaScript/TypeScript
 ```bash
-npm create plasmo@latest my-extension
+pnpm init
+pnpm add express dotenv
+pnpm add -D typescript @types/node jest eslint prettier
+
+mkdir -p src/{routes,controllers,middleware,utils}
+touch src/index.ts
 ```
 
-## Example Conversations
-
-### Simple HTML/CSS Website
-```
-User: Create a simple website with HTML and CSS
-
-Claude: I'll create a static HTML/CSS website:
-
-- Multi-page (Home, About, Contact)
-- Mobile-first responsive CSS
-- BEM naming convention
-- Live Server for development
-
-Structure:
-my-website/
-├── index.html
-├── about.html
-├── contact.html
-├── css/style.css
-├── js/main.js
-└── images/
-
-Shall I create this?
+### Go
+```bash
+go mod init github.com/user/project
+mkdir -p cmd/api internal/{handlers,models,database} pkg
+touch cmd/api/main.go
 ```
 
-### Mobile App
-```
-User: Create a mobile app for iOS and Android
-
-Claude: I recommend Expo for the easiest setup:
-
-- TypeScript
-- Expo Router (file-based navigation)
-- NativeWind (Tailwind for RN)
-- Tab navigation template
-
-Ready to scaffold?
+### Rust
+```bash
+cargo init
+mkdir -p src/{routes,models,db}
+cargo build
 ```
 
-### Full-Stack with Type Safety
+## Standard Project Structure
+
+### Python
 ```
-User: Create a full-stack app with type-safe API
-
-Claude: I recommend the T3 Stack:
-
-- Next.js 14 (App Router)
-- tRPC (type-safe API)
-- Prisma (type-safe ORM)
-- Tailwind CSS
-- NextAuth.js
-- PostgreSQL with docker-compose
-
-This gives you full type safety from database to frontend!
-```
-
-### Chrome Extension
-```
-User: Build a Chrome extension
-
-Claude: What features do you need?
-
-- Popup UI
-- Content script (modifies pages)
-- Background service worker
-- Side panel
-
-Tech stack: React + Vite + TypeScript + Manifest V3
-
-I recommend using Plasmo framework for easier development.
+project/
+├── src/
+│   └── projectname/
+│       ├── __init__.py
+│       ├── main.py
+│       ├── core/
+│       ├── utils/
+│       └── config/
+├── tests/
+│   ├── conftest.py
+│   ├── unit/
+│   └── integration/
+├── pyproject.toml
+├── uv.lock
+├── AGENT.md
+└── .gitignore
 ```
 
-## Available Resources
+### JavaScript
+```
+project/
+├── src/
+│   ├── index.ts
+│   ├── routes/
+│   ├── controllers/
+│   └── utils/
+├── tests/
+├── package.json
+├── tsconfig.json
+├── AGENT.md
+└── .gitignore
+```
 
-Load reference files based on what you need:
+## Secrets Setup
 
-| Resource | When to Load | Purpose |
-|----------|--------------|---------|
-| `references/wizard-options.md` | During Step 3 (gathering user preferences) | Configuration choices and defaults for each framework |
-| `references/frameworks.md` | When generating code | Project structures, code examples, configuration files |
-| `references/best-practices.md` | For architecture decisions | Directory organization, naming conventions, patterns |
-| `scripts/scaffold.py` | For custom scaffolding | Python engine when CLI tools aren't suitable |
+```bash
+# Create template
+cp AgentUsage/templates/secrets_template.json secrets_template.json
 
-**Workflow:**
-1. Present options from `wizard-options.md` to gather user preferences
-2. Use `frameworks.md` for code patterns and project structure when generating
-3. Consult `best-practices.md` for architecture decisions
+# Create actual secrets (gitignored)
+cp secrets_template.json secrets.json
 
-## Default Recommendations
+# Verify in .gitignore
+grep "secrets.json" .gitignore
+```
 
-| Category | Recommendation |
-|----------|----------------|
-| JS Runtime | Node.js 22 LTS |
-| Package Manager | pnpm |
-| Python Version | 3.12 |
-| Go Version | 1.23 |
-| Rust Edition | 2021 |
-| Java Version | 21 LTS |
-| CSS Framework | Tailwind CSS |
-| State (React) | Zustand + TanStack Query |
-| ORM (Node) | Prisma |
-| ORM (Python) | SQLAlchemy 2.0 |
-| ORM (Go) | sqlc |
-| Testing (JS) | Vitest |
-| Testing (Python) | pytest |
-| E2E Testing | Playwright |
-| Linting (JS) | ESLint + Prettier |
-| Linting (Python) | Ruff |
-| CI/CD | GitHub Actions |
-| Containerization | Multi-stage Dockerfile |
+## TODOS.md Template
+
+```markdown
+# Project TODOs
+
+## High Priority
+- [ ] Set up project dependencies
+- [ ] Configure secrets management
+- [ ] Create initial project structure
+
+## Medium Priority
+- [ ] Implement core business logic
+- [ ] Add unit tests
+- [ ] Set up CI/CD pipeline
+
+## Low Priority
+- [ ] Performance optimizations
+- [ ] Documentation improvements
+```
+
+## Verification Checklist
+
+```bash
+# Git initialized and clean
+git status
+
+# AGENT.md customized (no [Fill in:] markers)
+grep "\[Fill in:" AGENT.md
+
+# secrets.json in .gitignore
+grep "secrets.json" .gitignore
+
+# Dependencies installed
+uv sync  # or pnpm install
+
+# Project runs
+uv run python src/projectname/main.py
+```
+
+## Post-Setup Tasks
+
+1. **Update TODOS.md** with project-specific tasks
+2. **Create initial code** entry points
+3. **Configure IDE** settings and extensions
+4. **Review relevant guides** in AgentUsage/
+
+## Common Issues
+
+### Permission denied on scripts
+```bash
+chmod +x setup_new_project.sh
+```
+
+### Git commit fails
+```bash
+git config user.name "Your Name"
+git config user.email "your.email@example.com"
+```
+
+### Dependencies not installing
+```bash
+# Python: Clear cache
+uv cache clean
+
+# JavaScript: Fresh install
+rm -rf node_modules pnpm-lock.yaml
+pnpm install
+```
+
+## Related Resources
+
+See `AgentUsage/project_setup.md` and `AgentUsage/project_structure.md` for:
+- Detailed directory patterns
+- CI/CD setup
+- Pre-commit hook installation
+- Technology-specific guides

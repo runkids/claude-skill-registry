@@ -1,13 +1,7 @@
 {
   "name": "doc-generate-adr",
-  "description": "Generate Architecture Decision Records (ADRs) to document significant architectural decisions. Use when making important technical decisions that need documentation.",
   "repo": "mvillmow/ProjectOdyssey",
-  "category": "documents",
-  "tags": [
-    "doc",
-    "generate",
-    "adr"
-  ],
-  "stars": 8,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/doc-generate-adr/SKILL.md",
+  "source": "github.com/mvillmow/ProjectOdyssey",
+  "downloaded_at": "2026-01-14T01:08:58.766334Z"
 }

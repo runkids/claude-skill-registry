@@ -1,12 +1,7 @@
 {
   "name": "developing-svelte",
-  "description": "Use when working with .svelte files, SvelteKit projects, or Svelte reactivity. Covers component structure, stores, routing, Svelte 5 runes, and testing patterns.",
   "repo": "jkappers/claude-code-software-delivery-plugin",
-  "category": "testing",
-  "tags": [
-    "developing",
-    "svelte"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/developing-svelte/SKILL.md",
+  "source": "github.com/jkappers/claude-code-software-delivery-plugin",
+  "downloaded_at": "2026-01-14T02:51:59.400408Z"
 }

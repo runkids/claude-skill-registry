@@ -1,11 +1,7 @@
 {
   "name": "deployment",
-  "description": "Deployment architecture, multi-tenancy design, and environment-specific deployment commands. Use when the user asks about how the application is deployed, multi-tenant architecture with Navigator, Fly",
-  "repo": "rubys/showcase",
-  "category": "design",
-  "tags": [
-    "deployment"
-  ],
-  "stars": 34,
-  "source": "SkillsMP Synced Skills"
+  "repo": "reggiechan74/claude-plugins",
+  "path": "plugins/claude-code-metaskill/skills/deployment/SKILL.md",
+  "source": "github.com/reggiechan74/claude-plugins",
+  "downloaded_at": "2026-01-14T03:58:21.413617Z"
 }

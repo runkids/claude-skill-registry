@@ -1,12 +1,7 @@
 {
   "name": "programming-advisor",
-  "description": "Build vs Buy advisor. Use when users say: 'I want to build...', 'Help me create...', 'Can you code...', 'I need a tool/app/script'. Searches for existing libraries, SaaS, and open source solutions bef",
-  "repo": "gaupoit/programming-advisor",
-  "category": "development",
-  "tags": [
-    "programming",
-    "advisor"
-  ],
-  "stars": 10,
-  "source": "local"
+  "repo": "rjmurillo/ai-agents",
+  "path": ".claude/skills/programming-advisor/SKILL.md",
+  "source": "github.com/rjmurillo/ai-agents",
+  "downloaded_at": "2026-01-14T02:20:50.227809Z"
 }

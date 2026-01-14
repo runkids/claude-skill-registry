@@ -1,12 +1,7 @@
 {
   "name": "requirements-discovery",
-  "description": "Stakeholder interview and requirements elicitation. Discovers hidden needs, surfaces contradictions, and produces structured specifications. Use when gathering requirements, conducting discovery inter",
   "repo": "1ambda/dataops-platform",
-  "category": "product",
-  "tags": [
-    "requirements",
-    "discovery"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".copilot/skills/requirements-discovery/SKILL.md",
+  "source": "github.com/1ambda/dataops-platform",
+  "downloaded_at": "2026-01-14T03:12:23.120241Z"
 }

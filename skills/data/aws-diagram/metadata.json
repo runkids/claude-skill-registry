@@ -1,12 +1,7 @@
 {
   "name": "aws-diagram",
-  "description": "Generate AWS architecture diagrams from infrastructure JSON. Use when user asks to \"generate diagram\", \"create AWS diagram\", \"visualize infrastructure\", or \"draw architecture\".",
   "repo": "mpuig/claude-cloud-diagrams",
-  "category": "devops",
-  "tags": [
-    "aws",
-    "diagram"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/aws-diagram/SKILL.md",
+  "source": "github.com/mpuig/claude-cloud-diagrams",
+  "downloaded_at": "2026-01-14T00:53:40.007180Z"
 }

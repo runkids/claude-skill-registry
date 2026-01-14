@@ -1,11 +1,7 @@
 {
   "name": "beneissue",
-  "description": "AI-powered GitHub issue automation",
-  "repo": "opendataloader-project/opendataloader-pdf",
-  "category": "data",
-  "tags": [
-    "beneissue"
-  ],
-  "stars": 814,
-  "source": "SkillsMP Synced Skills"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/beneissue/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-14T01:56:20.415720Z"
 }

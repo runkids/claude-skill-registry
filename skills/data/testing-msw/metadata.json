@@ -1,12 +1,7 @@
 {
   "name": "testing-msw",
-  "description": "Apply when mocking API calls in tests or development: intercepting requests, simulating error states, and testing loading states.",
   "repo": "CoderMariusz/MonoPilot",
-  "category": "testing",
-  "tags": [
-    "testing",
-    "msw"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/testing-msw/SKILL.md",
+  "source": "github.com/CoderMariusz/MonoPilot",
+  "downloaded_at": "2026-01-14T03:46:40.665051Z"
 }

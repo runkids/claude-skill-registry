@@ -1,11 +1,7 @@
 {
   "name": "copywriter",
-  "description": "Expert in writing compelling copy for web, marketing, and product",
   "repo": "daffy0208/ai-dev-standards",
-  "category": "marketing",
-  "tags": [
-    "copywriter"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/copywriter/SKILL.md",
+  "source": "github.com/daffy0208/ai-dev-standards",
+  "downloaded_at": "2026-01-14T03:33:14.285289Z"
 }

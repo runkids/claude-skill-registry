@@ -1,10 +1,7 @@
 {
   "name": "release",
-  "description": "Use this skill when the user asks to create a release, cut a release, publish a new version, or perform release-related tasks for the envsense project.This skill provides comprehensive guidance for th",
-  "repo": "technicalpickles/envsense",
-  "category": "data",
-  "tags": [
-    "release"
-  ],
-  "stars": 5
+  "repo": "kasperjunge/agent-resources-legacy",
+  "path": ".claude/skills/release/SKILL.md",
+  "source": "github.com/kasperjunge/agent-resources-legacy",
+  "downloaded_at": "2026-01-14T03:25:47.788383Z"
 }

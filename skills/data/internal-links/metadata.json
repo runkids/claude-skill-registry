@@ -1,12 +1,7 @@
 {
   "name": "internal-links",
-  "description": "Connect all buttons and links to pages or same-page sections. Ensures every CTA has a valid href, uses Next.js Link component, and adds section IDs for anchor links.",
-  "repo": "Manuelvillarvieites/energy-company",
-  "category": "development",
-  "tags": [
-    "internal",
-    "links"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "deomiarn/website-template",
+  "path": ".claude/skills/internal-links/SKILL.md",
+  "source": "github.com/deomiarn/website-template",
+  "downloaded_at": "2026-01-14T01:42:33.024353Z"
 }

@@ -1,8 +1,7 @@
 {
   "name": "client-arch-explain",
   "repo": "tikazyq/agentic-spec-forge",
-  "category": "data",
-  "description": "\u751f\u6210\u5ba2\u6237\u53cb\u597d\u7684\u67b6\u6784\u8bf4\u660e\uff08\u901a\u4fd7\u8bed\u8a00\u89e3\u91ca\u67b6\u6784\u5c42\u6b21\u3001\u6570\u636e\u6d41\u3001\u6280\u672f\u9009\u578b\uff09\uff0c\u9002\u5408\u6f14\u793a\u548c\u8bc4\u5ba1\u4f1a\u8bae\u3002\u5f53\u51c6\u5907\u5ba2\u6237\u6f14\u793a\u6216\u7528\u6237\u9a8c\u6536\u524d\u4f7f\u7528\u3002",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:26.823708Z"
+  "path": "AGENTIC_SPEC_FORGE/spec_stage_skill/design/client-arch-explain/SKILL.md",
+  "source": "github.com/tikazyq/agentic-spec-forge",
+  "downloaded_at": "2026-01-14T03:14:13.203881Z"
 }

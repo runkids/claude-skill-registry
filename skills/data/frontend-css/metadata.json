@@ -1,12 +1,7 @@
 {
   "name": "frontend-css",
-  "description": "Write and maintain CSS using consistent methodology, design systems, framework utilities, and minimal custom styles for better performance and maintainability. Use this skill when writing or modifying",
-  "repo": "Software-Design-Club/todo-app",
-  "category": "design",
-  "tags": [
-    "frontend",
-    "css"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "nanorepublica/django-prodserver",
+  "path": ".claude/skills/frontend-css/SKILL.md",
+  "source": "github.com/nanorepublica/django-prodserver",
+  "downloaded_at": "2026-01-14T03:44:33.824613Z"
 }

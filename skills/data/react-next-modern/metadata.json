@@ -1,13 +1,7 @@
 {
   "name": "react-next-modern",
-  "description": "Enforce modern React 19 and Next.js App Router patterns - server-first data fetching, minimal useEffect, Server Components, Server Actions, and form hooks. Use when reviewing React/Next.js code, migra",
   "repo": "Tylerbryy/codewarden",
-  "category": "development",
-  "tags": [
-    "react",
-    "next",
-    "modern"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/react-next-modern/SKILL.md",
+  "source": "github.com/Tylerbryy/codewarden",
+  "downloaded_at": "2026-01-14T03:58:33.870913Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "google-gemini-api",
-  "description": "Integrate Gemini API with correct current SDK (@google/genai v1.27+, NOT deprecated @google/generative-ai).Supports text generation, multimodal (images/video/audio/PDFs), function calling, and thinkin",
   "repo": "jezweb/claude-skills",
-  "category": "development",
-  "tags": [
-    "google",
-    "gemini",
-    "api"
-  ],
-  "stars": 109,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/google-gemini-api/SKILL.md",
+  "source": "github.com/jezweb/claude-skills",
+  "downloaded_at": "2026-01-14T04:01:46.426201Z"
 }

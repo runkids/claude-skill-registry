@@ -1,0 +1,9 @@
+{
+  "name": "business-context",
+  "description": "Access shared business context including company identity, mission, org chart, staff directory, and policies. Use this when an agent needs to understand the business they work for, organizational stru",
+  "repo": "alexAlchemy/aphebis-world-builder-claude",
+  "category": "devops",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

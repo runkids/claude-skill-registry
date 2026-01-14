@@ -1,12 +1,7 @@
 {
   "name": "hanami-workflow",
-  "description": "Hanami framework workflow guidelines. Activate when working with Hanami projects, Hanami CLI, or Hanami-specific patterns.",
   "repo": "ilude/claude-code-config",
-  "category": "design",
-  "tags": [
-    "hanami",
-    "workflow"
-  ],
-  "stars": 5,
-  "source": "local"
+  "path": "skills/hanami-workflow/SKILL.md",
+  "source": "github.com/ilude/claude-code-config",
+  "downloaded_at": "2026-01-14T01:02:42.296542Z"
 }

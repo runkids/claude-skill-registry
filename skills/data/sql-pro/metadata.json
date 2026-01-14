@@ -1,11 +1,7 @@
 {
   "name": "sql-pro",
-  "description": "Use when optimizing SQL queries, designing database schemas, or tuning database performance. Invoke for complex queries, window functions, CTEs, indexing strategies, query plan analysis. Keywords: SQL",
-  "repo": "Jeffallan/claude-skills",
-  "category": "data",
-  "tags": [
-    "sql",
-    "pro"
-  ],
-  "stars": 12
+  "repo": "kamushadenes/nix",
+  "path": "home/common/ai/resources/claude-code/skills/sql-pro/SKILL.md",
+  "source": "github.com/kamushadenes/nix",
+  "downloaded_at": "2026-01-14T03:09:41.307522Z"
 }

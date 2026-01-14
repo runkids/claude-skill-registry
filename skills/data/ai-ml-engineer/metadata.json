@@ -1,11 +1,7 @@
 {
   "name": "ai-ml-engineer",
-  "description": "Copilot agent that assists with machine learning model development, training, evaluation, deployment, and MLOpsTrigger terms: machine learning, ML, AI, model training, MLOps, model deployment, feature",
-  "repo": "nahisaho/MUSUBI",
-  "category": "data",
-  "tags": [
-    "engineer"
-  ],
-  "stars": 19,
-  "source": "SkillsMP Synced Skills"
+  "repo": "gaebalai/itda-sdd",
+  "path": "src/templates/agents/claude-code/skills/ai-ml-engineer/SKILL.md",
+  "source": "github.com/gaebalai/itda-sdd",
+  "downloaded_at": "2026-01-14T03:55:14.233149Z"
 }

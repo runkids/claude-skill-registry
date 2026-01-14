@@ -1,12 +1,7 @@
 {
   "name": "breakdown-epic",
-  "description": "Break down epics into implementable user stories with acceptance criteria, estimates, dependencies, and sprint groupings. This skill should be used for epic planning and backlog grooming.",
   "repo": "adolfoaranaes12/BMAD-ENHANCED",
-  "category": "productivity",
-  "tags": [
-    "breakdown",
-    "epic"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/breakdown-epic/SKILL.md",
+  "source": "github.com/adolfoaranaes12/BMAD-ENHANCED",
+  "downloaded_at": "2026-01-14T03:09:00.321554Z"
 }

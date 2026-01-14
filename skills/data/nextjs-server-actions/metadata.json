@@ -1,12 +1,7 @@
 {
   "name": "nextjs-server-actions",
-  "description": "When handling form submissions, data mutations, or any action that modifies server-side data. **Version Context**: Next.js 16.0+ uses `useActionState` (replaces deprecated `useFormState`).",
   "repo": "CoderMariusz/MonoPilot",
-  "category": "data",
-  "tags": [
-    "nextjs",
-    "server",
-    "actions"
-  ],
-  "stars": 1
+  "path": ".claude/skills/nextjs-server-actions/SKILL.md",
+  "source": "github.com/CoderMariusz/MonoPilot",
+  "downloaded_at": "2026-01-14T03:46:40.474746Z"
 }

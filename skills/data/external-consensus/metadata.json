@@ -1,8 +1,7 @@
 {
   "name": "external-consensus",
-  "repo": "Synthesys-Lab/agentize",
-  "category": "data",
-  "description": "Synthesize consensus implementation plan from multi-agent debate reports using external AI review",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:26.865900Z"
+  "repo": "were/VoicePaste",
+  "path": ".claude/skills/external-consensus/SKILL.md",
+  "source": "github.com/were/VoicePaste",
+  "downloaded_at": "2026-01-14T02:04:40.835454Z"
 }

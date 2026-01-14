@@ -1,421 +1,132 @@
 ---
-name: Skills Guide
-description: Package expertise into discoverable, reusable capabilities that extend Claude's functionality. Use when creating new Skills, understanding how Skills work, or organizing existing capabilities.
+name: skills-guide
+description: プロジェクト内の利用可能なスキル一覧と使い方を案内するスキル。「どんなスキルがある？」「スキル一覧を見せて」「〇〇スキルって何？」「何ができる？」「使えるコマンドは？」などの質問に使用。各スキルの目的・使い方・トリガーワードを説明する。
 ---
 
 # Skills Guide
 
-Package reusable expertise into discoverable capabilities. Skills are modular instructions Claude autonomously activates when relevant—extending your workflow without requiring slash commands.
+プロジェクト内で利用可能なスキルを案内する。
 
-## Contents
+## 利用可能なスキル一覧
 
-- [Quick Start](#quick-start)
-- [What are Skills](#what-are-skills)
-- [Create a Skill](#create-a-skill)
-- [Structure & Organization](#structure--organization)
-- [Best Practices](#best-practices)
-- [Debugging](#debugging)
+### コンテンツ作成系
 
-## Quick Start
+| スキル名 | 説明 | トリガーワード |
+|---------|------|--------------|
+| **blog-creator** | テーマから高品質なブログ記事・画像・SNSコンテンツを体系的に作成。10段階のワークフローでリサーチから記事・画像・音声台本まで。 | ブログを書きたい、記事を作成、コンテンツ作成 |
+| **x-buzz-post-generator** | X向けバズる投稿文を5パターン生成。23種類のテンプレートから最適なパターンを選択。 | Xでバズる投稿、ツイート作成、バズりたい |
+| **x-showcase-series** | 任意のテーマをX向けシリーズ投稿として紹介。全体像→個別紹介の構成で発信。 | シリーズ投稿、Xで紹介したい、発信したい |
 
-### Personal Skill (available everywhere)
+### キャリア・応募系
 
-```bash
-mkdir -p ~/.claude/skills/my-skill-name
-```
+| スキル名 | 説明 | トリガーワード |
+|---------|------|--------------|
+| **career-document-creator** | 職務経歴書・履歴書の作成・改善。スキルマトリクス整理や推奨資格のレコメンド機能。 | 職務経歴書を作りたい、履歴書、経歴書をブラッシュアップ |
+| **job-application-writer** | 案件応募時の意気込み・PR文を自動生成。募集要項と職務経歴書を照合してマッチ度分析。 | 案件に応募したい、応募文を書いて、PRを作成 |
 
-### Project Skill (shared with team)
+### デザイン・開発系
 
-```bash
-mkdir -p .claude/skills/my-skill-name
-```
+| スキル名 | 説明 | トリガーワード |
+|---------|------|--------------|
+| **frontend-design** | 高品質なフロントエンドUIを作成。AI特有のジェネリックなデザインを避け、独自性のあるUI。 | フロントエンドを作りたい、UI作成、Webページ |
+| **design-principles** | Linear、Notion、Stripe風の精密なデザインシステム。ダッシュボードや管理画面向け。 | ダッシュボード、管理画面、UIデザイン原則 |
 
-### Create SKILL.md
+### レビュー・品質管理系
 
-```yaml
+| スキル名 | 説明 | トリガーワード |
+|---------|------|--------------|
+| **prompt-review** | .github/prompts/*.prompt.mdをレビューして改善提案。frontmatter、変数設計、重複排除など。 | プロンプトをレビュー、prompt改善 |
+| **skill-review** | .github/skills配下のスキルをレビューして改善提案。name/description妥当性、簡潔さなど。 | スキルをレビュー、skill改善 |
+
+### セキュリティ系
+
+| スキル名 | 説明 | トリガーワード |
+|---------|------|--------------|
+| **asm-report** | Securify EASMスキャン結果からASMレポートを作成。CVE分析、脆弱性レポート生成。 | ASMレポート、脆弱性レポート、CVE分析 |
+
+### スキル開発系
+
+| スキル名 | 説明 | トリガーワード |
+|---------|------|--------------|
+| **skill-creator** | 新しいスキルを作成するためのガイド。スキルの設計原則、構造、作成プロセスを提供。 | スキルを作りたい、新しいスキル、skill作成 |
+
 ---
-name: Skill Name
-description: What it does + when to use it (be specific!)
+
+## スキルの使い方
+
+### 基本的な呼び出し方
+
+スキルは以下のような質問・指示で自動的に発火します:
+
+```
+# コンテンツ作成
+「AIセキュリティについてブログを書きたい」→ blog-creator
+「Xでバズる投稿を作って」→ x-buzz-post-generator
+「Copilot資産をシリーズで紹介したい」→ x-showcase-series
+
+# キャリア
+「職務経歴書を作成したい」→ career-document-creator
+「この案件に応募したい」→ job-application-writer
+
+# 開発
+「ダッシュボードを作って」→ frontend-design / design-principles
+「管理画面のUIを設計して」→ design-principles
+
+# レビュー
+「プロンプトファイルをレビューして」→ prompt-review
+「スキルを改善したい」→ skill-review
+
+# セキュリティ
+「EASMスキャン結果からレポートを作成して」→ asm-report
+
+# スキル開発
+「新しいスキルを作りたい」→ skill-creator
+```
+
+### スキル詳細の確認方法
+
+特定のスキルの詳細を知りたい場合:
+
+```
+「blog-creatorについて詳しく教えて」
+「x-buzz-post-generatorの使い方は？」
+```
+
+→ 該当スキルのSKILL.mdを読み込んで説明します。
+
 ---
 
-# Skill Name
+## ワークフロー
 
-## Instructions
-Step-by-step guidance for Claude
+1. ユーザーの質問を分析
+2. 一覧表示か、特定スキルの詳細説明かを判断
+3. 一覧の場合: 上記テーブルを提示
+4. 詳細の場合: 該当スキルのSKILL.mdを読み込んで説明
 
-## Examples
-Concrete usage examples
-```
-
-## What are Skills
-
-**Agent Skills** package expertise into discoverable, composable capabilities:
-
-- **SKILL.md** — Instructions Claude reads when relevant
-- **Supporting files** — Optional scripts, templates, reference docs
-- **Model-invoked** — Claude autonomously decides when to use based on description
-- **Discoverable** — No slash commands; integrated with your workflow
-
-### Benefits
-- Solve recurring problems once, reuse everywhere
-- Share expertise across teams via git
-- Compose multiple Skills for complex tasks
-- Reduce token overhead from repetitive prompting
-
-## Create a Skill
-
-### Personal Skills: `~/.claude/skills/`
-
-Available across all projects. Use for:
-- Individual workflows and experimental Skills
-- Personal productivity tools
-- Utilities you use across multiple projects
-
-### Project Skills: `.claude/skills/`
-
-Shared with your team via git. Use for:
-- Team workflows and shared expertise
-- Project-specific capabilities
-- Utilities team members need together
-
-Team members automatically get Project Skills when they pull your repo.
-
-### Plugin Skills
-
-Bundled with Claude Code plugins; automatically available when plugin installed.
-
-## Write SKILL.md
-
-Every Skill requires YAML frontmatter + Markdown content.
-
-### Required Fields
-
-| Field | Limit | Purpose |
-|-------|-------|---------|
-| `name` | 64 chars | Human-readable name |
-| `description` | 1024 chars | **What it does + when to use** |
-
-### Optional Fields
-
-| Field | Purpose |
-|-------|---------|
-| `allowed-tools` | Restrict which tools Claude can use (e.g., `Read, Grep, Glob`) |
-
-### The description field is critical
-
-Claude uses this to decide whether to activate your Skill. **Always include**:
-
-1. **What it does** — Concrete capabilities
-2. **When to use** — Specific triggers and contexts
-
-**Good** (triggers Claude):
-```
-Extract text and tables from PDF files, fill forms, merge documents.
-Use when working with PDF files or when the user mentions PDFs, forms, or extraction.
-```
-
-**Bad** (too vague):
-```
-Helps with documents
-```
-
-### Naming conventions
-
-Use **gerund form** (verb + -ing):
-- "Processing PDFs"
-- "Analyzing spreadsheets"
-- "Testing code"
-- "Writing documentation"
-
-## Structure & Organization
-
-### Simple Skill (single file)
-
-For focused, single-purpose capabilities:
-
-```
-commit-helper/
-└── SKILL.md
-```
-
-### Skill with supporting files
-
-Reference files load on-demand; keep SKILL.md under 500 lines for optimal performance:
-
-```
-pdf-processing/
-├── SKILL.md              # Main instructions (quick start)
-├── FORMS.md              # Form-filling guide
-├── REFERENCE.md          # API reference
-├── EXAMPLES.md           # Usage examples
-└── scripts/
-    ├── analyze_form.py
-    ├── fill_form.py
-    └── validate.py
-```
-
-### Progressive disclosure pattern
-
-**High-level overview in SKILL.md**:
-- Quick start and common use cases
-- Links to detailed reference files
-
-```markdown
-## Quick start
-
-Extract text with pdfplumber:
-```python
-import pdfplumber
-with pdfplumber.open("file.pdf") as pdf:
-    text = pdf.pages[0].extract_text()
-```
-
-## Advanced features
-
-**Form filling**: See [FORMS.md](FORMS.md)
-**API reference**: See [REFERENCE.md](REFERENCE.md)
-**Examples**: See [EXAMPLES.md](EXAMPLES.md)
-```
-
-### Organization for multi-domain Skills
-
-For Skills covering multiple domains, organize by domain:
-
-```
-bigquery-skill/
-├── SKILL.md
-└── reference/
-    ├── finance.md
-    ├── sales.md
-    ├── product.md
-    └── marketing.md
-```
-
-SKILL.md acts as router linking to domain-specific docs.
-
-## Best Practices
-
-### 1. Assume Claude is smart
-
-Don't explain basic concepts. Be concise and direct.
-
-**Verbose** (~150 tokens):
-```
-PDF files are a common format containing text, images, and other content.
-To extract text, you need a library. Many libraries exist...
-```
-
-**Concise** (~50 tokens):
-```
-Use pdfplumber for text extraction:
-```python
-import pdfplumber
-with pdfplumber.open("file.pdf") as pdf:
-    text = pdf.pages[0].extract_text()
-```
-```
-
-### 2. Use examples over explanations
-
-Provide input/output pairs, especially for transformations:
-
-```markdown
-## Commit message format
-
-**Example 1:**
-Input: Added user authentication with JWT tokens
-Output:
-```
-feat(auth): implement JWT-based authentication
-
-Add login endpoint and token validation middleware
-```
-
-**Example 2:**
-Input: Fixed bug where dates displayed incorrectly
-Output:
-```
-fix(reports): correct date formatting in timezone conversion
-```
-```
-
-### 3. Provide utility scripts
-
-Pre-made scripts are more reliable than generated code:
-
-```markdown
-## Utility scripts
-
-**analyze_form.py**: Extract form fields from PDF
-```bash
-python scripts/analyze_form.py input.pdf > fields.json
-```
-
-**validate_boxes.py**: Check for overlapping fields
-```bash
-python scripts/validate_boxes.py fields.json
-```
-```
-
-### 4. List required packages
-
-Specify dependencies upfront:
-
-```markdown
-## Requirements
-
-```bash
-pip install pypdf pdfplumber
-```
-```
-
-### 5. Implement validation loops
-
-For quality-critical tasks, enforce validation checks:
-
-```markdown
-## Workflow
-
-1. Make your edits
-2. **Validate immediately**: `python scripts/validate.py`
-3. If validation fails:
-   - Review error message
-   - Fix issues
-   - Run validation again
-4. **Only proceed when validation passes**
-```
-
-### 6. Use workflows with checklists
-
-For complex multi-step operations:
-
-```markdown
-## Task Progress
-
-- [ ] Step 1: Analyze form
-- [ ] Step 2: Create mapping
-- [ ] Step 3: Validate mapping
-- [ ] Step 4: Fill form
-- [ ] Step 5: Verify output
-```
-
-### 7. Restrict tool access (optional)
-
-Limit which tools Claude can use:
-
-```yaml
 ---
-name: Safe File Reader
-description: Read files without making changes
-allowed-tools: Read, Grep, Glob
----
-```
 
-### 8. Match specificity to task fragility
+## 出力形式
 
-**High freedom** (multiple approaches valid):
+### 一覧表示時
+
 ```markdown
-## Code review process
+## 利用可能なスキル
 
-1. Analyze code structure
-2. Check for potential bugs
-3. Suggest readability improvements
-4. Verify project conventions
+[カテゴリ別テーブル]
+
+詳しく知りたいスキルがあれば教えてください。
 ```
 
-**Low freedom** (exact sequence required):
+### 詳細説明時
+
 ```markdown
-## Database migration
+## [スキル名]
 
-Run exactly this command (do not modify):
-```bash
-python scripts/migrate.py --verify --backup
+**目的**: [何ができるか]
+
+**使い方**: [トリガーワードと基本的な使用例]
+
+**ワークフロー**: [主要ステップ]
+
+**出力例**: [生成されるもの]
 ```
-```
-
-## Debugging
-
-### Skill won't activate?
-
-**Check description specificity**:
-- Too vague: `Helps with documents`
-- Specific: `Extract text and tables from PDFs. Use when working with PDF files or when the user mentions PDFs, forms, or extraction.`
-
-**Include when-to-use triggers** in description so Claude recognizes your task.
-
-### Multiple Skills conflict?
-
-Use distinct trigger terms:
-
-Instead of:
-```yaml
-# Skill 1
-description: For data analysis
-
-# Skill 2
-description: For analyzing data
-```
-
-Use:
-```yaml
-# Skill 1
-description: Analyze sales data in Excel and CRM exports.
-Use for sales reports, pipeline analysis, and revenue tracking.
-
-# Skill 2
-description: Analyze log files and system metrics.
-Use for performance monitoring, debugging, and system diagnostics.
-```
-
-### Check file paths
-
-Verify Skill location:
-
-```bash
-# Personal
-ls ~/.claude/skills/my-skill/SKILL.md
-
-# Project
-ls .claude/skills/my-skill/SKILL.md
-```
-
-### Verify YAML syntax
-
-Invalid YAML prevents loading:
-
-```bash
-cat SKILL.md | head -n 10
-```
-
-Ensure:
-- Opening `---` on line 1
-- Closing `---` before content
-- Valid YAML (no tabs, correct indentation)
-
-### Use forward slashes only
-
-- ✓ Good: `scripts/helper.py`
-- ✗ Wrong: `scripts\helper.py`
-
-## Share Skills
-
-### With your team via git
-
-1. Create Skill in `.claude/skills/`
-2. Commit to git:
-   ```bash
-   git add .claude/skills/
-   git commit -m "Add team Skill for PDF processing"
-   git push
-   ```
-3. Team pulls and Skills are immediately available
-
-### Test your Skill
-
-Ask Claude questions matching your description:
-
-```
-Can you help me extract text from this PDF?
-```
-
-Claude autonomously activates your Skill if description matches the request.

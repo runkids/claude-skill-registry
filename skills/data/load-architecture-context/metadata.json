@@ -1,12 +1,7 @@
 {
   "name": "load-architecture-context",
-  "description": "Load architecture principles and core conventions for grounding work against project standards - simple context loading for all workflow stages",
   "repo": "WesleyMFrederick/cc-workflows",
-  "category": "data",
-  "tags": [
-    "load",
-    "architecture",
-    "context"
-  ],
-  "stars": 1
+  "path": ".claude/skills/load-architecture-context/SKILL.md",
+  "source": "github.com/WesleyMFrederick/cc-workflows",
+  "downloaded_at": "2026-01-14T02:32:22.702636Z"
 }

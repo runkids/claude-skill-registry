@@ -1,13 +1,7 @@
 {
   "name": "android-playstore-publishing",
-  "description": "Complete workflow generation - orchestrates internal, beta, and production deployment workflows",
   "repo": "hitoshura25/claude-devtools",
-  "category": "productivity",
-  "tags": [
-    "android",
-    "playstore",
-    "publishing"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/android-playstore-publishing/SKILL.md",
+  "source": "github.com/hitoshura25/claude-devtools",
+  "downloaded_at": "2026-01-14T03:07:10.750972Z"
 }

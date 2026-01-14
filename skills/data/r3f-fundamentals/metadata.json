@@ -1,12 +1,7 @@
 {
   "name": "r3f-fundamentals",
-  "description": "React Three Fiber core setup, Canvas configuration, scene hierarchy, camera systems, lighting, render loop, and React integration patterns. Use when setting up a new R3F project, configuring the Canva",
   "repo": "Bbeierle12/Skill-MCP-Claude",
-  "category": "testing",
-  "tags": [
-    "r3f",
-    "fundamentals"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": "skills/r3f-fundamentals/SKILL.md",
+  "source": "github.com/Bbeierle12/Skill-MCP-Claude",
+  "downloaded_at": "2026-01-14T03:54:10.423679Z"
 }

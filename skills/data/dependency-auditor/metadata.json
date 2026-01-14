@@ -1,12 +1,7 @@
 {
   "name": "dependency-auditor",
-  "description": "Automated security auditing of project dependencies to identify known vulnerabilities.",
   "repo": "CuriousLearner/devkit",
-  "category": "security",
-  "tags": [
-    "dependency",
-    "auditor"
-  ],
-  "stars": 13,
-  "source": "local"
+  "path": "skills/dependency-auditor/SKILL.md",
+  "source": "github.com/CuriousLearner/devkit",
+  "downloaded_at": "2026-01-14T02:22:37.703512Z"
 }

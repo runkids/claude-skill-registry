@@ -1,12 +1,7 @@
 {
   "name": "qlty-check",
-  "description": "Code quality checks, formatting, and metrics via qlty CLI",
-  "repo": "parcadei/Continuous-Claude-v2",
-  "category": "development",
-  "tags": [
-    "qlty",
-    "check"
-  ],
-  "stars": 1318,
-  "source": "SkillsMP Synced Skills"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/qlty-check/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-14T01:56:21.251878Z"
 }

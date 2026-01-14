@@ -1,13 +1,7 @@
 {
   "name": "rust-core-patterns",
-  "description": "Production-ready Rust patterns for type-safe domain modeling including newtypes, type states, builders, smart constructors, and const generics. Use when creating domain primitives (IDs, emails), state",
   "repo": "matthewharwood/engmanager.xyz",
-  "category": "development",
-  "tags": [
-    "rust",
-    "core",
-    "patterns"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/rust-core-patterns/SKILL.md",
+  "source": "github.com/matthewharwood/engmanager.xyz",
+  "downloaded_at": "2026-01-14T03:04:54.479403Z"
 }

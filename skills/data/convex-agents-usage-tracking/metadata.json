@@ -1,0 +1,14 @@
+{
+  "name": "convex-agents-usage-tracking",
+  "description": "\"Tracks LLM token consumption and usage metrics for billing, monitoring, and optimization. Use this to log token usage, calculate costs, generate invoices, and understand which agents or users consume",
+  "repo": "Sstobo/convex-skills",
+  "category": "product",
+  "tags": [
+    "convex",
+    "agents",
+    "usage",
+    "tracking"
+  ],
+  "stars": 5,
+  "source": "local"
+}

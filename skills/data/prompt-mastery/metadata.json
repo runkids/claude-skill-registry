@@ -1,12 +1,7 @@
 {
   "name": "prompt-mastery",
-  "description": "Advanced LLM prompt engineering expertise for crafting highly effective prompts, system messages, and tool descriptions with Claude-specific techniques",
   "repo": "taylorsatula/mira-OSS",
-  "category": "devops",
-  "tags": [
-    "prompt",
-    "mastery"
-  ],
-  "stars": 334,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/prompt-mastery/SKILL.md",
+  "source": "github.com/taylorsatula/mira-OSS",
+  "downloaded_at": "2026-01-14T03:43:17.761062Z"
 }

@@ -1,11 +1,7 @@
 {
   "name": "completions",
-  "description": "ZSH completion system patterns and conventions. Use when implementing custom completion handling, writing completion files, or working with zsh autocomplete. Do not use when installing packages from h",
   "repo": "bendrucker/dotfiles",
-  "category": "development",
-  "tags": [
-    "completions"
-  ],
-  "stars": 6,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/completions/SKILL.md",
+  "source": "github.com/bendrucker/dotfiles",
+  "downloaded_at": "2026-01-14T03:46:28.577421Z"
 }

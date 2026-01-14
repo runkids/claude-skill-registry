@@ -1,12 +1,7 @@
 {
   "name": "testing-conventions",
-  "description": "Vitest 4 + Playwright testing conventions: query priority (getByRole > getByText > getByTestId), seed-resilient patterns, realistic user flows (happy path & early finish), virtualized lists, fake-inde",
   "repo": "alexanderop/workoutTracker",
-  "category": "testing",
-  "tags": [
-    "testing",
-    "conventions"
-  ],
-  "stars": 3,
-  "source": "local"
+  "path": ".claude/skills/testing-conventions/SKILL.md",
+  "source": "github.com/alexanderop/workoutTracker",
+  "downloaded_at": "2026-01-14T03:50:43.824916Z"
 }

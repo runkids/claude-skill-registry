@@ -1,257 +1,380 @@
 ---
 name: css-architecture
-description: Implement scalable CSS architecture patterns - BEM, SMACSS, ITCSS, design tokens
-sasmp_version: "1.3.0"
-version: "2.0.0"
-updated: "2025-12-30"
-bonded_agent: 04-css-architecture
-bond_type: PRIMARY_BOND
+description: Organize CSS using BEM, SMACSS, and CSS-in-JS patterns. Use when building scalable, maintainable styling systems with proper naming conventions.
 ---
 
-# CSS Architecture Skill
-
-Implement scalable CSS architecture patterns for maintainable, organized codebases.
+# CSS Architecture
 
 ## Overview
 
-This skill provides atomic, focused guidance on CSS architecture methodologies with practical implementation patterns and migration strategies.
+Build maintainable CSS systems using methodologies like BEM (Block Element Modifier), SMACSS, and CSS-in-JS patterns with proper organization and conventions.
 
-## Skill Metadata
+## When to Use
 
-| Property | Value |
-|----------|-------|
-| **Category** | Organization |
-| **Complexity** | Intermediate to Expert |
-| **Dependencies** | css-fundamentals |
-| **Bonded Agent** | 04-css-architecture |
+- Large-scale stylesheets
+- Component-based styling
+- Design system development
+- Multiple team collaboration
+- CSS scalability and reusability
 
-## Usage
+## Implementation Examples
 
-```
-Skill("css-architecture")
-```
-
-## Parameter Schema
-
-```yaml
-parameters:
-  methodology:
-    type: string
-    required: true
-    enum: [bem, smacss, oocss, itcss, atomic, css-modules]
-    description: CSS architecture methodology
-
-  project_size:
-    type: string
-    required: false
-    default: medium
-    enum: [small, medium, large, enterprise]
-    description: Project scale for appropriate recommendations
-
-  include_tokens:
-    type: boolean
-    required: false
-    default: true
-    description: Include design token patterns
-
-validation:
-  - rule: methodology_required
-    message: "methodology parameter is required"
-  - rule: valid_methodology
-    message: "methodology must be one of: bem, smacss, oocss, itcss, atomic, css-modules"
-```
-
-## Topics Covered
-
-### BEM (Block Element Modifier)
-- Block: Standalone component
-- Element: Part of block (__)
-- Modifier: Variant/state (--)
-
-### SMACSS
-- Base, Layout, Module, State, Theme
-
-### ITCSS (Inverted Triangle CSS)
-- Settings, Tools, Generic, Elements, Objects, Components, Utilities
-
-### Design Tokens
-- Primitive, semantic, component tokens
-- CSS custom properties organization
-
-## Retry Logic
-
-```yaml
-retry_config:
-  max_attempts: 3
-  backoff_type: exponential
-  initial_delay_ms: 1000
-  max_delay_ms: 10000
-```
-
-## Logging & Observability
-
-```yaml
-logging:
-  entry_point: skill_invoked
-  exit_point: skill_completed
-  metrics:
-    - invocation_count
-    - methodology_distribution
-    - project_size_distribution
-```
-
-## Quick Reference
-
-### BEM Naming
+### 1. **BEM (Block Element Modifier) Pattern**
 
 ```css
-/* Block */
-.card { }
-
-/* Element */
-.card__header { }
-.card__body { }
-.card__footer { }
-
-/* Modifier */
-.card--featured { }
-.card--compact { }
-.card__header--large { }
-```
-
-### ITCSS Layers
-
-```
-/styles
-├── 1-settings/     → $variables, tokens
-├── 2-tools/        → @mixins, functions
-├── 3-generic/      → reset, normalize
-├── 4-elements/     → h1, p, a (bare HTML)
-├── 5-objects/      → .o-grid, .o-container
-├── 6-components/   → .c-card, .c-button
-└── 7-utilities/    → .u-hidden, .u-text-center
-```
-
-### Design Token Hierarchy
-
-```css
-/* 1. Primitive Tokens */
-:root {
-  --color-blue-500: #3b82f6;
-  --color-gray-900: #111827;
-  --space-4: 1rem;
-  --font-size-lg: 1.125rem;
-}
-
-/* 2. Semantic Tokens */
-:root {
-  --color-primary: var(--color-blue-500);
-  --color-text: var(--color-gray-900);
-  --spacing-md: var(--space-4);
-}
-
-/* 3. Component Tokens */
+/* Block - standalone component */
 .button {
-  --button-bg: var(--color-primary);
-  --button-padding: var(--spacing-md);
+  display: inline-block;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+/* Element - component part */
+.button__icon {
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+/* Modifier - variant */
+.button--primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.button--primary:hover {
+  background-color: #0056b3;
+}
+
+.button--secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+.button--disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.button--large {
+  padding: 15px 30px;
+  font-size: 18px;
+}
+
+.button--small {
+  padding: 5px 10px;
+  font-size: 12px;
+}
+
+/* Card Block with Elements */
+.card {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.card__header {
+  padding: 16px;
+  border-bottom: 1px solid #e0e0e0;
+  background-color: #f8f9fa;
+}
+
+.card__body {
+  padding: 16px;
+}
+
+.card__footer {
+  padding: 16px;
+  border-top: 1px solid #e0e0e0;
+  background-color: #f8f9fa;
+}
+
+.card--elevated {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 ```
 
-## File Structure Templates
+### 2. **SMACSS (Scalable and Modular Architecture for CSS)**
 
-### Small Project
+```css
+/* 1. Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
+html {
+  font-size: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #333;
+  line-height: 1.6;
+}
+
+body {
+  background-color: #fff;
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+/* 2. Layout Styles */
+.layout-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  padding: 20px;
+}
+
+.layout-header {
+  padding: 16px;
+  background-color: #333;
+  color: white;
+}
+
+.layout-sidebar {
+  width: 250px;
+  background-color: #f5f5f5;
+  padding: 16px;
+}
+
+/* 3. Module Styles */
+.module-card {
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.module-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.module-form__input {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* 4. State Styles */
+.is-hidden {
+  display: none;
+}
+
+.is-active {
+  background-color: #007bff;
+  color: white;
+}
+
+.is-disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.is-error {
+  border-color: #dc3545;
+  color: #dc3545;
+}
+
+/* 5. Theme Styles */
+.theme-dark {
+  background-color: #222;
+  color: #fff;
+}
+
+.theme-dark .module-card {
+  border-color: #444;
+}
 ```
-styles/
-├── base.css
-├── components.css
-├── utilities.css
-└── main.css
+
+### 3. **CSS-in-JS with Styled Components**
+
+```typescript
+// styled-components example
+import styled from 'styled-components';
+
+interface ButtonProps {
+  variant?: 'primary' | 'secondary';
+  size?: 'sm' | 'md' | 'lg';
+  disabled?: boolean;
+}
+
+const StyledButton = styled.button<ButtonProps>`
+  display: inline-block;
+  border: none;
+  border-radius: 4px;
+  cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};
+  font-size: ${props => {
+    switch (props.size) {
+      case 'sm': return '12px';
+      case 'lg': return '18px';
+      default: return '16px';
+    }
+  }};
+  padding: ${props => {
+    switch (props.size) {
+      case 'sm': return '5px 10px';
+      case 'lg': return '15px 30px';
+      default: return '10px 20px';
+    }
+  }};
+  background-color: ${props => {
+    if (props.disabled) return '#ccc';
+    return props.variant === 'secondary' ? '#6c757d' : '#007bff';
+  }};
+  color: white;
+  opacity: ${props => props.disabled ? 0.6 : 1};
+  transition: all 0.3s ease;
+
+  &:hover:not(:disabled) {
+    background-color: ${props =>
+      props.variant === 'secondary' ? '#5a6268' : '#0056b3'
+    };
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+`;
+
+export const Button = (props: ButtonProps) => <StyledButton {...props} />;
 ```
 
-### Medium Project
+### 4. **CSS Variables (Custom Properties)**
 
-```
-styles/
-├── base/
-│   ├── reset.css
-│   └── typography.css
-├── components/
-│   ├── button.css
-│   └── card.css
-├── layouts/
-│   └── grid.css
-├── utilities/
-│   └── helpers.css
-└── main.css
-```
+```css
+/* Root variables */
+:root {
+  /* Colors */
+  --color-primary: #007bff;
+  --color-secondary: #6c757d;
+  --color-danger: #dc3545;
+  --color-success: #28a745;
+  --color-warning: #ffc107;
+  --color-text: #333;
+  --color-background: #fff;
+  --color-border: #e0e0e0;
 
-### Large/Enterprise Project
+  /* Typography */
+  --font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-size-base: 16px;
+  --font-size-lg: 18px;
+  --font-size-sm: 14px;
+  --line-height-base: 1.6;
 
-```
-styles/
-├── settings/
-│   ├── _tokens.scss
-│   └── _breakpoints.scss
-├── tools/
-│   ├── _mixins.scss
-│   └── _functions.scss
-├── generic/
-│   └── _reset.scss
-├── elements/
-│   └── _typography.scss
-├── objects/
-│   └── _grid.scss
-├── components/
-│   ├── _button.scss
-│   └── _card.scss
-├── utilities/
-│   └── _helpers.scss
-└── main.scss
-```
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
 
-## Naming Convention Comparison
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md: 0 2px 4px rgba(0,0,0,0.1);
+  --shadow-lg: 0 4px 8px rgba(0,0,0,0.15);
 
-| Methodology | Example | Best For |
-|-------------|---------|----------|
-| BEM | `.block__element--modifier` | Component systems |
-| SMACSS | `.l-grid`, `.is-active` | Multi-page sites |
-| OOCSS | `.media`, `.media-body` | Reusable patterns |
-| Atomic | `.flex`, `.p-4`, `.text-center` | Utility-first |
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+}
 
-## Test Template
+/* Dark theme override */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-text: #e0e0e0;
+    --color-background: #1e1e1e;
+    --color-border: #333;
+  }
+}
 
-```javascript
-describe('CSS Architecture Skill', () => {
-  test('validates methodology parameter', () => {
-    expect(() => skill({ methodology: 'invalid' }))
-      .toThrow('methodology must be one of: bem, smacss...');
-  });
+/* Usage */
+.button {
+  background-color: var(--color-primary);
+  color: white;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+}
 
-  test('returns BEM examples for bem methodology', () => {
-    const result = skill({ methodology: 'bem' });
-    expect(result).toContain('__');
-    expect(result).toContain('--');
-  });
-
-  test('scales recommendations based on project_size', () => {
-    const smallResult = skill({ methodology: 'itcss', project_size: 'small' });
-    const largeResult = skill({ methodology: 'itcss', project_size: 'large' });
-    expect(largeResult.layers).toBeGreaterThan(smallResult.layers);
-  });
-});
+.card {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+}
 ```
 
-## Error Handling
+### 5. **Utility-First CSS (Tailwind Pattern)**
 
-| Error Code | Cause | Recovery |
-|------------|-------|----------|
-| INVALID_METHODOLOGY | Unknown methodology | Show valid options |
-| SIZE_MISMATCH | Methodology too complex for project size | Suggest simpler alternative |
-| TOKEN_CONFLICT | Conflicting token names | Show naming resolution |
+```html
+<!-- Utility classes provide granular control -->
+<div class="flex flex-col gap-4 p-6 bg-white rounded-lg shadow-md">
+  <h2 class="text-2xl font-bold text-gray-900">Title</h2>
+  <p class="text-gray-600 leading-relaxed">Description</p>
 
-## Related Skills
+  <div class="flex gap-2">
+    <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
+      Primary
+    </button>
+    <button class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition">
+      Secondary
+    </button>
+  </div>
+</div>
 
-- css-fundamentals (prerequisite)
-- css-sass (preprocessor integration)
-- css-tailwind (utility-first approach)
+<style>
+  /* Utility classes */
+  .flex { display: flex; }
+  .flex-col { flex-direction: column; }
+  .gap-4 { gap: 1rem; }
+  .gap-2 { gap: 0.5rem; }
+  .p-6 { padding: 1.5rem; }
+  .px-4 { padding-left: 1rem; padding-right: 1rem; }
+  .py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+  .bg-white { background-color: white; }
+  .bg-blue-500 { background-color: #3b82f6; }
+  .text-white { color: white; }
+  .text-gray-900 { color: #111827; }
+  .text-2xl { font-size: 1.5rem; }
+  .font-bold { font-weight: bold; }
+  .rounded { border-radius: 0.375rem; }
+  .rounded-lg { border-radius: 0.5rem; }
+  .shadow-md { box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+</style>
+```
+
+## Best Practices
+
+- Choose one methodology and stick to it
+- Use CSS variables for theming
+- Keep specificity low
+- Organize files by feature
+- Use preprocessors (Sass/Less) for DRY code
+- Document naming conventions
+- Implement proper file structure
+- Use linting tools (stylelint)
+
+## Resources
+
+- [BEM Methodology](http://getbem.com/)
+- [SMACSS](http://smacss.com/)
+- [CSS Variables MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/--*)
+- [Styled Components](https://styled-components.com/)
+- [Tailwind CSS](https://tailwindcss.com/)

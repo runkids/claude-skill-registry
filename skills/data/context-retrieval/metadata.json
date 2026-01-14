@@ -1,12 +1,7 @@
 {
   "name": "context-retrieval",
-  "description": "Retrieve relevant episodic context from memory for informed decision-making. Use when you need past episodes, patterns, or solutions to similar tasks.",
   "repo": "d-o-hub/rust-self-learning-memory",
-  "category": "productivity",
-  "tags": [
-    "context",
-    "retrieval"
-  ],
-  "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/context-retrieval/SKILL.md",
+  "source": "github.com/d-o-hub/rust-self-learning-memory",
+  "downloaded_at": "2026-01-14T03:40:11.682033Z"
 }

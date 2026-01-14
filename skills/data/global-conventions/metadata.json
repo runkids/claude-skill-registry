@@ -1,11 +1,7 @@
 {
   "name": "global-conventions",
-  "description": "Follow project-wide development conventions for project structure, documentation, version control, code review, environment configuration, dependency management, and security practices. Use this skill",
-  "repo": "TheophilusChinomona/theochinomona.tech",
-  "category": "data",
-  "tags": [
-    "global",
-    "conventions"
-  ],
-  "stars": 0
+  "repo": "nanorepublica/django-prodserver",
+  "path": ".claude/skills/global-conventions/SKILL.md",
+  "source": "github.com/nanorepublica/django-prodserver",
+  "downloaded_at": "2026-01-14T03:44:34.870570Z"
 }

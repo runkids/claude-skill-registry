@@ -1,11 +1,7 @@
 {
   "name": "prompt-improver",
-  "description": "Improve prompts for AI agents and Telegram bots using OpenAI's prompt engineering best practices. Analyzes clarity, specificity, context, and output format. Returns structured improvements.",
-  "repo": "ils15/copilot-global-config",
-  "category": "data",
-  "tags": [
-    "prompt",
-    "improver"
-  ],
-  "stars": 0
+  "repo": "laurenj3250-debug/vethub2.0",
+  "path": ".claude/skills/prompt-improver/SKILL.md",
+  "source": "github.com/laurenj3250-debug/vethub2.0",
+  "downloaded_at": "2026-01-14T02:38:13.026565Z"
 }

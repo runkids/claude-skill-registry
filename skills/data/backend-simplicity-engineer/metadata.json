@@ -1,13 +1,7 @@
 {
   "name": "backend-simplicity-engineer",
-  "description": "Backend engineer focused on simplicity, bug elimination, and clean code. Use when user mentions \"simplify backend\", \"fix backend bugs\", \"clean up code\", or \"make backend perfect\".",
   "repo": "HR-AR/Project-Conductor",
-  "category": "development",
-  "tags": [
-    "backend",
-    "simplicity",
-    "engineer"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/backend-simplicity-engineer/SKILL.md",
+  "source": "github.com/HR-AR/Project-Conductor",
+  "downloaded_at": "2026-01-14T01:02:58.733710Z"
 }

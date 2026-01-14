@@ -1,12 +1,7 @@
 {
   "name": "distributed-tracing",
-  "description": "Implement distributed tracing with Jaeger and Zipkin for tracking requests across microservices. Use when debugging distributed systems, tracking request flows, or analyzing service performance.",
-  "repo": "aj-geddes/useful-ai-prompts",
-  "category": "development",
-  "tags": [
-    "distributed",
-    "tracing"
-  ],
-  "stars": 25,
-  "source": "SkillsMP Synced Skills"
+  "repo": "paunchygent/skriptoteket",
+  "path": ".claude/skills/distributed-tracing/SKILL.md",
+  "source": "github.com/paunchygent/skriptoteket",
+  "downloaded_at": "2026-01-14T03:38:07.851220Z"
 }

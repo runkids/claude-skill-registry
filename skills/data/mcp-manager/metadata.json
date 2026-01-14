@@ -1,12 +1,7 @@
 {
   "name": "mcp-manager",
-  "description": "Conversational interface for managing MCP (Model Context Protocol) server configurations in Claude Code",
-  "repo": "rysweet/MicrosoftHackathon2025-AgenticCoding",
-  "category": "development",
-  "tags": [
-    "mcp",
-    "manager"
-  ],
-  "stars": 10,
-  "source": "local"
+  "repo": "rysweet/azlin",
+  "path": ".claude/skills/mcp-manager/SKILL.md",
+  "source": "github.com/rysweet/azlin",
+  "downloaded_at": "2026-01-14T03:30:03.467357Z"
 }

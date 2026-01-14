@@ -1,12 +1,7 @@
 {
   "name": "discover-proxies",
-  "description": "Automatically discover proxy skills when working with forward/reverse proxies, nginx, traefik, envoy, caching, or NATS messaging",
   "repo": "rand/cc-polymath",
-  "category": "development",
-  "tags": [
-    "discover",
-    "proxies"
-  ],
-  "stars": 33,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/discover-proxies/SKILL.md",
+  "source": "github.com/rand/cc-polymath",
+  "downloaded_at": "2026-01-14T03:55:21.266478Z"
 }

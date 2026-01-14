@@ -1,10 +1,7 @@
 {
   "name": "tg-validation",
-  "description": "Data validation patterns for the World of Darkness Django application including database constraints, model validators, and atomic transactions. Use when implementing XP/freebie spending transactions,",
   "repo": "charlesmsiegel/tg",
-  "category": "data",
-  "tags": [
-    "validation"
-  ],
-  "stars": 1
+  "path": ".claude/skills/tg-validation/SKILL.md",
+  "source": "github.com/charlesmsiegel/tg",
+  "downloaded_at": "2026-01-14T04:01:31.048705Z"
 }

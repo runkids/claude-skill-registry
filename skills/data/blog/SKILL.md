@@ -30,7 +30,7 @@ Create authoritative, SEO-optimised blog posts for Ghost CMS at xavierfuentes.co
 
 ## Brand Reference
 
-See `docs/brand-guide.md` for:
+See `docs/guides/brand-guide.md` for:
 - Colour palette (jungle-inspired: Deep Jungle, Golden Amber)
 - Typography (Sora + Source Sans 3)
 - Visual component styles

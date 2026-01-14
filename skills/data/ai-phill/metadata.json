@@ -1,11 +1,7 @@
 {
   "name": "ai-phill",
-  "description": "Strategic advisor for founders. Facilitates deep thinking through Socratic dialogue, identifies blind spots, assesses risks and opportunities, and provides guidance on strategic decisions using Extend",
   "repo": "CleanExpo/Unite-Hub",
-  "category": "testing",
-  "tags": [
-    "phill"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/ai-phill/SKILL.md",
+  "source": "github.com/CleanExpo/Unite-Hub",
+  "downloaded_at": "2026-01-14T03:08:05.367182Z"
 }

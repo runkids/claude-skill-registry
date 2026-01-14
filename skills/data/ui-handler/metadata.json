@@ -1,9 +1,7 @@
 {
   "name": "ui-handler",
-  "description": "Implement UI using Shadcn MCP (atoms/theme) and 21st.dev MCP (complex sections). Use when adding buttons, layouts, or generating landing pages.",
   "repo": "AayushBaniya2006/blinkfund",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/ui-handler/SKILL.md",
+  "source": "github.com/AayushBaniya2006/blinkfund",
+  "downloaded_at": "2026-01-14T00:52:46.896284Z"
 }

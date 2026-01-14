@@ -1,11 +1,11 @@
 ---
 name: data-sql-optimization
-description: Production-grade SQL optimization with AI-assisted query analysis, EXPLAIN ANALYZE automation, balanced indexing strategies, performance tuning, schema design, and operations across PostgreSQL, MySQL, SQL Server, Oracle, SQLite.
+description: "Production-grade SQL optimization for OLTP systems: EXPLAIN/plan analysis, balanced indexing, schema and query design, migrations, backup/recovery, HA, security, and safe performance tuning across PostgreSQL, MySQL, SQL Server, Oracle, SQLite."
 ---
 
 # SQL Optimization — Comprehensive Reference
 
-This skill equips Claude with actionable checklists, patterns, and templates for **transactional (OLTP) SQL optimization**: AI-powered query analysis, automated EXPLAIN interpretation, intelligent indexing (avoiding over-indexing), performance monitoring with pg_stat_statements, schema evolution, migrations, backup/recovery, high availability, and security.
+This skill provides actionable checklists, patterns, and templates for **transactional (OLTP) SQL optimization**: measurement-first triage, EXPLAIN/plan interpretation, balanced indexing (avoiding over-indexing), performance monitoring, schema evolution, migrations, backup/recovery, high availability, and security.
 
 **Supported Platforms:** PostgreSQL, MySQL, SQL Server, Oracle, SQLite
 
@@ -23,7 +23,7 @@ This skill equips Claude with actionable checklists, patterns, and templates for
 | Schema Migration | Flyway / Liquibase | `flyway migrate` / `liquibase update` | Version-controlled database changes |
 | Backup & Recovery | pg_dump / mysqldump | `pg_dump -Fc dbname > backup.dump` | Point-in-time recovery, disaster recovery |
 | Replication Setup | Streaming / GTID | Configure postgresql.conf / my.cnf | High availability, read scaling |
-| Query Optimization | AI-assisted tools | pgai (PostgreSQL) / Performance Schema (MySQL) | ML-based query plan analysis, predictive caching |
+| Safe Tuning Loop | Measure → Explain → Change → Verify | Use tuning worksheet template | Reduce latency/cost without regressions |
 
 ---
 
@@ -68,8 +68,8 @@ Query performance issue?
 Claude should invoke this skill when users ask for:
 
 ### Query Optimization (Modern Approaches)
-- AI-assisted SQL query performance review and tuning
-- Automated EXPLAIN ANALYZE plan interpretation with optimization suggestions
+- SQL query performance review and tuning
+- EXPLAIN/plan interpretation with optimization suggestions
 - Index creation strategies with balanced approach (avoiding over-indexing)
 - Troubleshooting slow queries using pg_stat_statements or Performance Schema
 - Identifying and remediating SQL anti-patterns with operational fixes
@@ -122,6 +122,7 @@ Templates are organized by database technology for precision and clarity:
 ### Cross-Platform Templates (All Databases)
 - [templates/cross-platform/template-query-tuning.md](templates/cross-platform/template-query-tuning.md) - Universal query optimization
 - [templates/cross-platform/template-explain-analysis.md](templates/cross-platform/template-explain-analysis.md) - Execution plan analysis
+- [templates/cross-platform/template-performance-tuning-worksheet.md](templates/cross-platform/template-performance-tuning-worksheet.md) - **NEW** 4-step tuning workflow (Measure → Explain → Change → Verify)
 - [templates/cross-platform/template-index.md](templates/cross-platform/template-index.md) - Index design patterns
 - [templates/cross-platform/template-slow-query.md](templates/cross-platform/template-slow-query.md) - Slow query triage
 - [templates/cross-platform/template-schema-design.md](templates/cross-platform/template-schema-design.md) - Schema modeling
@@ -170,7 +171,7 @@ Templates are organized by database technology for precision and clarity:
 - [../software-security-appsec/SKILL.md](../software-security-appsec/SKILL.md) — Database security, auth, SQL injection prevention
 - [../qa-testing-strategy/SKILL.md](../qa-testing-strategy/SKILL.md) — Database testing strategies
 
-**Data Engineering & AI:**
+**Data Engineering:**
 - [../ai-ml-data-science/SKILL.md](../ai-ml-data-science/SKILL.md) — SQLMesh, dbt, data transformations
 - [../ai-mlops/SKILL.md](../ai-mlops/SKILL.md) — Data pipelines, ETL, and warehouse loading (dlt)
 - [../ai-ml-timeseries/SKILL.md](../ai-ml-timeseries/SKILL.md) — Time-series databases and forecasting
@@ -192,6 +193,7 @@ Templates are organized by database technology for precision and clarity:
 - [templates/cross-platform/template-backup-restore.md](templates/cross-platform/template-backup-restore.md)
 - [templates/cross-platform/template-schema-design.md](templates/cross-platform/template-schema-design.md)
 - [templates/cross-platform/template-explain-analysis.md](templates/cross-platform/template-explain-analysis.md)
+- [templates/cross-platform/template-performance-tuning-worksheet.md](templates/cross-platform/template-performance-tuning-worksheet.md)
 - [templates/cross-platform/template-security-audit.md](templates/cross-platform/template-security-audit.md)
 - [templates/cross-platform/template-diagnostics.md](templates/cross-platform/template-diagnostics.md)
 - [templates/cross-platform/template-index.md](templates/cross-platform/template-index.md)
@@ -221,6 +223,94 @@ See [resources/operational-patterns.md](resources/operational-patterns.md) for:
 - Database-specific quick references (PostgreSQL, MySQL, SQL Server, Oracle, SQLite)
 - Slow query troubleshooting workflow and reliability drills
 - Template selection decision tree and platform migration notes
+
+---
+
+## Do / Avoid
+
+### GOOD: Do
+
+- Measure baseline before any optimization
+- Change one variable at a time
+- Verify results match after query changes
+- Update statistics before concluding "needs index"
+- Test with production-like data volumes
+- Document all optimization decisions
+- Include performance tests in CI/CD
+
+### BAD: Avoid
+
+- Adding indexes without checking if they'll be used
+- Using SELECT * in production queries
+- Optimizing for test data (use representative volumes)
+- Ignoring write performance impact of indexes
+- Skipping EXPLAIN analysis before changes
+- Multiple simultaneous changes (can't attribute improvement)
+- N+1 query patterns in application code
+
+---
+
+## Anti-Patterns Quick Reference
+
+| Anti-Pattern | Problem | Fix |
+|--------------|---------|-----|
+| **SELECT *** | Reads unnecessary columns | Explicit column list |
+| **N+1 queries** | Multiplied round trips | JOIN or batch fetch |
+| **Missing WHERE** | Full table scan | Add predicates |
+| **Function on indexed column** | Can't use index | Move function to RHS |
+| **Implicit type conversion** | Index bypass | Match types explicitly |
+| **LIKE '%prefix'** | Leading wildcard = scan | Full-text search |
+| **Unbounded result set** | Memory explosion | Add LIMIT/pagination |
+| **OR conditions** | Index may not be used | UNION or rewrite |
+
+See [resources/sql-antipatterns.md](resources/sql-antipatterns.md) for detailed fixes.
+
+---
+
+## OLTP vs OLAP Decision Tree
+
+```text
+Is your query for...?
+├─ Point lookups (by ID/key)?
+│   └─ OLTP database (this skill)
+│       - Ensure proper indexes
+│       - Use connection pooling
+│       - Optimize for low latency
+│
+├─ Aggregations over recent data (dashboard)?
+│   └─ OLTP database (this skill)
+│       - Consider materialized views
+│       - Index common filter columns
+│       - Watch for lock contention
+│
+├─ Full table scans or historical analysis?
+│   └─ OLAP database (data-lake-platform)
+│       - ClickHouse, DuckDB, Doris
+│       - Columnar storage
+│       - Partitioning by date
+│
+└─ Mixed workload (both)?
+    └─ Separate OLTP and OLAP
+        - OLTP for transactions
+        - Replicate to OLAP for analytics
+        - Avoid running analytics on primary
+```
+
+---
+
+## Optional: AI/Automation
+
+> **Note**: AI tools assist but require human validation of correctness.
+
+- **EXPLAIN summarization** — Identify bottlenecks from complex plans
+- **Query rewrite suggestions** — Must verify result equivalence
+- **Index recommendations** — Check selectivity and write impact first
+
+### Bounded Claims
+
+- AI cannot determine correct query results
+- Automated index suggestions may miss workload context
+- Human review required for production changes
 
 ---
 
@@ -282,9 +372,9 @@ See [data/sources.json](data/sources.json) for 62+ curated resources including:
 - **Schema Design**: Database Refactoring (Fowler), normalization guides, data type selection
 
 **Modern Optimization (December 2025):**
-- **PostgreSQL 18**: 3x I/O performance improvements, uuidv7(), virtual generated columns, protocol 3.2, faster major upgrades
-- **MySQL 8.4/9.0**: Thread pool management, parallel processing, AI integration, workload analysis
-- **DuckDB**: Columnar optimization, zone maps, vectorized execution, query optimizer insights (100x improvements)
+- **PostgreSQL**: official release notes and "current" docs for planner/optimizer changes
+- **MySQL**: official reference manual sections for EXPLAIN, optimizer, and Performance Schema
+- **SQL Server / Oracle**: official docs for execution plans, indexing, and concurrency controls
 
 **Operations & Infrastructure:**
 - **HA & Replication**: Streaming replication, GTID-based replication, failover automation

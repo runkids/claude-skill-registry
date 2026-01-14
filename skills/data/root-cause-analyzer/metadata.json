@@ -1,12 +1,7 @@
 {
   "name": "root-cause-analyzer",
-  "description": "Analyze reproduction evidence to identify the root cause of bugs. Use after reproduction to trace execution and find the exact location and reason for the failure.",
   "repo": "pcortes/swarm-attack",
-  "category": "data",
-  "tags": [
-    "root",
-    "cause",
-    "analyzer"
-  ],
-  "stars": 0
+  "path": "swarm_attack/default_skills/root-cause-analyzer/SKILL.md",
+  "source": "github.com/pcortes/swarm-attack",
+  "downloaded_at": "2026-01-14T04:01:17.142310Z"
 }

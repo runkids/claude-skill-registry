@@ -1,13 +1,7 @@
 {
   "name": "graceful-reintegration-protocol",
-  "description": "Execute graceful reintegration after failsafe activation.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "testing",
-  "tags": [
-    "graceful",
-    "reintegration",
-    "protocol"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/graceful-reintegration-protocol/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-14T01:08:24.362879Z"
 }

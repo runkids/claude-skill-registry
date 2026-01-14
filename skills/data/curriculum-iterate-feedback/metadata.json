@@ -1,13 +1,7 @@
 {
   "name": "curriculum-iterate-feedback",
-  "description": "Synthesize feedback from students, outcomes data, and peer reviews to generate prioritized curriculum revision recommendations and track effectiveness over versions. Use when revising curriculum, anal",
   "repo": "pauljbernard/content",
-  "category": "data",
-  "tags": [
-    "curriculum",
-    "iterate",
-    "feedback"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/curriculum-iterate-feedback/SKILL.md",
+  "source": "github.com/pauljbernard/content",
+  "downloaded_at": "2026-01-14T02:04:56.984892Z"
 }

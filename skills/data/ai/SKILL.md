@@ -1,121 +1,74 @@
 ---
-name: ai
-description: |
-  Add AI features to Glide apps using AI columns like Generate Text, Image to Text, Audio to Text.
-  Use when adding AI-powered functionality, text generation, OCR, transcription, or auto-categorization.
+name: ai-ml-technologies
+description: Master AI, machine learning, LLMs, prompt engineering, and blockchain development. Use when building AI applications, working with LLMs, or developing smart contracts.
+sasmp_version: "1.3.0"
+bonded_agent: 05-ai-emerging-technologies
+bond_type: PRIMARY_BOND
 ---
 
-# Glide AI
+# AI & Emerging Technologies Skill
 
-Glide has powerful AI columns that run inference on your data. These can add significant value to apps with minimal effort.
+## Quick Start - OpenAI API
 
-## AI Column Types
+```python
+from openai import OpenAI
 
-| Column | Input | Output | Use Case |
-|--------|-------|--------|----------|
-| **Generate Text** | Text/template | AI-generated text | Summaries, descriptions, recommendations |
-| **Image to Text** | Image URL | Extracted text | Receipt scanning, document OCR, product analysis |
-| **Document to Text** | Document URL | Extracted/summarized text | PDF parsing, document processing |
-| **Audio to Text** | Audio URL | Transcription | Voice notes, meeting recordings |
-| **Text to Boolean** | Text | true/false | Sentiment analysis, spam detection |
-| **Text to Choice** | Text + options | Selected option | Auto-categorization, priority assignment |
-| **Text to JSON** | Text | Structured JSON | Entity extraction, form parsing |
+client = OpenAI(api_key="sk-...")
 
-## AI Techniques
+# Simple completion
+response = client.chat.completions.create(
+  model="gpt-4",
+  messages=[
+    {"role": "system", "content": "You are helpful assistant"},
+    {"role": "user", "content": "Explain machine learning"}
+  ],
+  temperature=0.7,
+  max_tokens=500
+)
 
-### Detail Screen Summary with Hint Component
+print(response.choices[0].message.content)
+```
 
-A powerful pattern: show an AI-generated summary at the top of detail screens.
+## Core Technologies
 
-How it works:
-1. **Aggregate data** - Create a Template column or JSON Object column that combines relevant fields
-   - Template: `Name: {Name}, Status: {Status}, Due: {Due Date}, Notes: {Notes}`
-   - Or use JSON Object to structure the data
-2. **Generate summary** - Create a Generate Text column that takes the aggregated data
-   - Prompt: "Summarize this task in 1-2 sentences, highlighting priority and next steps"
-3. **Display with Hint** - Add a Hint component at the top of the detail screen
-   - Bind it to the Generate Text column
-   - Users see an instant AI summary of the item
+### AI & LLMs
+- OpenAI API (GPT-4)
+- Claude API (Anthropic)
+- Open-source LLMs (Llama, Mistral)
+- LangChain for applications
+- Vector databases (Pinecone, Weaviate)
 
-Example prompts:
-- Task: "Summarize this task, noting urgency and blockers"
-- Customer: "Provide a brief profile of this customer based on their activity"
-- Order: "Summarize this order status and any issues"
-- Project: "Give a quick health check of this project"
+### Machine Learning
+- TensorFlow / PyTorch
+- scikit-learn
+- XGBoost
+- Hugging Face Transformers
 
-This gives users instant context without reading through all fields.
+### Blockchain & Web3
+- Solidity for smart contracts
+- Web3.js / Ethers.js
+- Hardhat development
+- Foundry
 
-### Auto-Categorization with Text to Choice
-
-Automatically categorize items as they're added:
-
-1. Create a Text to Choice column
-2. Define the categories (e.g., "Bug", "Feature", "Question", "Other")
-3. Point it at the text field to analyze (e.g., ticket description)
-4. New items get auto-categorized
-
-Great for:
-- Support tickets → category
-- Feedback → sentiment (Positive, Negative, Neutral)
-- Expenses → expense type
-- Leads → qualification level
-
-### Smart Descriptions from Basic Info
-
-Generate rich descriptions from minimal input:
-
-1. User enters basic info (name, a few keywords)
-2. Template column combines the inputs
-3. Generate Text creates a full description
-
-Example for products:
-- Input: "Blue widget, small, outdoor use"
-- Generate Text prompt: "Write a compelling 2-sentence product description"
-- Output: "Introducing our compact Blue Widget, perfectly sized for any outdoor adventure. Built to withstand the elements while delivering reliable performance wherever you go."
-
-### Receipt/Document Scanning
-
-Extract structured data from images:
-
-1. User uploads a receipt photo
-2. Image to Text extracts the content
-3. Text to JSON parses into structured fields (vendor, amount, date)
-4. Display parsed data in the UI
-
-Works for:
-- Receipts → expense tracking
-- Business cards → contact creation
-- Documents → data entry
-- Product photos → inventory details
-
-### Sentiment Analysis
-
-Detect sentiment in text:
-
-1. Create a Text to Boolean column
-2. Prompt: "Is this feedback positive?"
-3. Use result to show 😊 or 😞 emoji via If-Then-Else
-4. Or use Text to Choice for Positive/Neutral/Negative
-
-Apply to:
-- Customer feedback
-- Support ticket tone
-- Review analysis
-- Survey responses
+### Game Engines
+- Unity (C#)
+- Unreal Engine (C++)
+- Godot (GDScript)
 
 ## Best Practices
 
-- **Aggregate before generating** - Combine relevant data into one input for better AI results
-- **Be specific in prompts** - Tell the AI exactly what format and length you want
-- **Use for summaries** - AI excels at condensing information
-- **Cache results** - AI columns compute once and store the result
-- **Consider cost** - AI columns use Glide AI credits; use strategically
+1. **AI Ethics** - Consider societal impact
+2. **Testing** - Rigorous evaluation
+3. **Monitoring** - Track model performance
+4. **Documentation** - Clear decision records
+5. **Security** - Smart contract auditing
+6. **Cost Optimization** - Minimize API usage
+7. **Version Control** - Track models and prompts
+8. **Responsible AI** - Bias and fairness
 
-## When to Add AI
+## Resources
 
-Look for opportunities where:
-- Users need to quickly understand complex data
-- Manual categorization is tedious
-- Text input could be richer/more helpful
-- Images contain data that should be structured
-- Summaries would save users time
+- [OpenAI Documentation](https://platform.openai.com/docs)
+- [LangChain Documentation](https://langchain.readthedocs.io/)
+- [Solidity Documentation](https://docs.soliditylang.org/)
+- [Pytorch Documentation](https://pytorch.org/)

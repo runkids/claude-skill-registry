@@ -1,11 +1,7 @@
 {
   "name": "performance-optimization",
-  "description": "Optimize training performance for Kaggle competitions. Use PROACTIVELY when training is slow, GPU memory issues occur, or user asks about performance tuning. Keywords: 遅い, 最適化, OOM, CUDA, batch_size, ",
-  "repo": "kigasudayooo/kaggle-template",
-  "category": "data",
-  "tags": [
-    "performance",
-    "optimization"
-  ],
-  "stars": 0
+  "repo": "eddiebe147/claude-settings",
+  "path": "skills/performance-optimization/skill.md",
+  "source": "github.com/eddiebe147/claude-settings",
+  "downloaded_at": "2026-01-14T03:53:01.154484Z"
 }

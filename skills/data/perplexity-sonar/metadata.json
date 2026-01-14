@@ -1,12 +1,7 @@
 {
   "name": "perplexity-sonar",
-  "description": "Use Perplexity Sonar API for real-time, citation-backed answers. Ideal for up-to-date information and quick synthesis. Requires PERPLEXITY_API_KEY",
   "repo": "closedloop-technologies/awesome-deep-researchers",
-  "category": "design",
-  "tags": [
-    "perplexity",
-    "sonar"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": ".claude/skills/perplexity-sonar/SKILL.md",
+  "source": "github.com/closedloop-technologies/awesome-deep-researchers",
+  "downloaded_at": "2026-01-14T03:09:52.653618Z"
 }

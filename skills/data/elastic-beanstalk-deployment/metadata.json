@@ -1,13 +1,7 @@
 {
   "name": "elastic-beanstalk-deployment",
-  "description": "Use when deploying Node.js applications to AWS Elastic Beanstalk or troubleshooting deployment issues - provides dependency installation strategies, monorepo handling, and deployment best practices",
   "repo": "pr-pm/prpm",
-  "category": "devops",
-  "tags": [
-    "elastic",
-    "beanstalk",
-    "deployment"
-  ],
-  "stars": 70,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/elastic-beanstalk-deployment/SKILL.md",
+  "source": "github.com/pr-pm/prpm",
+  "downloaded_at": "2026-01-14T01:14:35.663795Z"
 }

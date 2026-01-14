@@ -1,13 +1,7 @@
 {
   "name": "plan-regenerate-issues",
-  "description": "DEPRECATED: The notes/plan/ directory has been removed. Planning is now done directly through GitHub issues. See gh-read-issue-context and gh-post-issue-update skills instead.",
   "repo": "mvillmow/ProjectOdyssey",
-  "category": "productivity",
-  "tags": [
-    "plan",
-    "regenerate",
-    "issues"
-  ],
-  "stars": 8,
-  "source": "local"
+  "path": ".claude/skills/plan-regenerate-issues/SKILL.md",
+  "source": "github.com/mvillmow/ProjectOdyssey",
+  "downloaded_at": "2026-01-14T01:09:00.448626Z"
 }

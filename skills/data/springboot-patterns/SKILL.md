@@ -1,516 +1,242 @@
 ---
 name: springboot-patterns
-description: Spring Boot and Java best practices for SpecFlux backend. Use when developing REST APIs, services, repositories, or any Java code. Applies DDD architecture, OpenAPI-first workflow, transaction management, and test-driven development.
+description: Spring Boot and Java best practices. Use when developing REST APIs, services, repositories, or any Java code. Applies DDD architecture, transaction management, and code style conventions.
 ---
 
-# Spring Boot Development Patterns
+# Spring Boot Best Practices
 
-Spring Boot and Java best practices for SpecFlux backend. Use when developing REST APIs, services, repositories, or any Java code.
-
-## Development Workflow
-
-**ALWAYS follow this order when implementing API features:**
-
-### 1. OpenAPI First
-- Update `src/main/resources/openapi/api.yaml` with endpoint definition
-- Define request/response DTOs in the spec
-- Run `./mvnw compile` to generate interfaces and DTOs
-
-### 2. Write Controller Test First
-- Create test in `src/test/java/.../interfaces/rest/{Domain}ControllerTest.java`
-- Extend `AbstractControllerIntegrationTest`
-- Test happy path + error cases + auth scenarios
-- Run test to see it fail (red)
-
-### 3. Implement Controller
-- Create controller implementing generated `{Domain}Api` interface
-- Use `@Override` on all interface methods
-- Delegate all logic to application service
-
-### 4. Implement Application Service
-- Create service in `{domain}/application/{Domain}ApplicationService.java`
-- Use `TransactionTemplate` for explicit transactions
-- Handle validation, business logic, and DTO conversion
-
-### 5. Run Tests
-- `./mvnw test` - all tests must pass
-- `./mvnw spotless:check` - code formatting
-
-### 6. Commit
-- One commit per logical change
-- Use conventional commit format
-
-## Project Structure (DDD)
+## Project Structure (Domain-Driven Design)
 
 ```
-src/main/java/com/specflux/
+src/main/java/com/example/
 ├── {domain}/                    # One package per domain
-│   ├── application/             # Application services
-│   │   └── {Domain}ApplicationService.java
-│   ├── domain/                  # Domain models & repository interfaces
-│   │   ├── {Entity}.java
-│   │   └── {Entity}Repository.java
-│   ├── infrastructure/          # JPA repository implementations
-│   │   └── Jpa{Entity}Repository.java
-│   └── interfaces/rest/         # Controllers & mappers
-│       ├── {Domain}Controller.java
-│       └── {Domain}Mapper.java
-└── shared/                      # Cross-cutting concerns
-    ├── domain/                  # Base classes (Entity, AggregateRoot)
-    ├── application/             # Shared services (CurrentUserService, RefResolver)
-    └── infrastructure/          # Security, config, web setup
+│   ├── domain/                  # Domain layer - entities and repository interfaces
+│   │   ├── {Entity}.java        # JPA entity
+│   │   └── {Entity}Repository.java  # Spring Data JPA repository interface
+│   ├── application/             # Application layer - business logic
+│   │   └── {Entity}ApplicationService.java
+│   └── interfaces/              # Interface layer - REST controllers
+│       └── rest/
+│           ├── {Entity}Controller.java
+│           └── {Entity}Mapper.java
+├── shared/                      # Cross-cutting concerns
+│   ├── application/
+│   ├── domain/
+│   └── interfaces/rest/
+└── api/generated/               # OpenAPI generated code (do not edit)
 ```
 
-## OpenAPI Patterns
+## Transaction Management
 
-### File Structure
-```
-src/main/resources/openapi/
-├── api.yaml                     # Main spec (imports others)
-├── projects.yaml                # Project endpoints
-├── epics.yaml                   # Epic endpoints
-├── tasks.yaml                   # Task endpoints
-└── components/
-    ├── schemas.yaml             # Shared DTOs
-    └── responses.yaml           # Common error responses
-```
+### Minimize Transaction Scope
+Only wrap the actual database operation in a transaction, not the entire method:
 
-### Endpoint Definition
-```yaml
-/projects/{projectRef}/tasks:
-  get:
-    operationId: listTasks
-    tags: [tasks]
-    parameters:
-      - name: projectRef
-        in: path
-        required: true
-        schema:
-          type: string
-      - name: cursor
-        in: query
-        schema:
-          type: string
-      - name: limit
-        in: query
-        schema:
-          type: integer
-          default: 20
-    responses:
-      '200':
-        description: Task list
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TaskListResponse'
-```
-
-### DTO Naming
-- Request: `Create{Entity}Request`, `Update{Entity}Request`
-- Response: `{Entity}` (singular), `{Entity}ListResponse` (list)
-- Generated with `Dto` suffix: `CreateTaskRequestDto`, `TaskDto`
-
-## Controller Patterns
-
-### Standard Controller
 ```java
-@RestController
-@RequiredArgsConstructor
-public class TaskController implements TasksApi {
+// Good - minimal transaction scope
+public EntityDto updateEntity(String ref, UpdateEntityRequestDto request) {
+    Entity entity = refResolver.resolve(ref);
 
-    private final TaskApplicationService taskApplicationService;
-
-    @Override
-    public ResponseEntity<TaskDto> createTask(
-            String projectRef,
-            CreateTaskRequestDto request) {
-        TaskDto created = taskApplicationService.createTask(projectRef, request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(created);
+    if (request.getTitle() != null) {
+        entity.setTitle(request.getTitle());
     }
+    // ... other field updates
 
-    @Override
-    public ResponseEntity<TaskDto> getTask(String projectRef, String taskRef) {
-        TaskDto task = taskApplicationService.getTask(projectRef, taskRef);
-        return ResponseEntity.ok(task);
-    }
+    Entity saved = transactionTemplate.execute(status -> entityRepository.save(entity));
+    return entityMapper.toDto(saved);
+}
 
-    @Override
-    public ResponseEntity<Void> deleteTask(String projectRef, String taskRef) {
-        taskApplicationService.deleteTask(projectRef, taskRef);
-        return ResponseEntity.noContent().build();
-    }
+// Bad - entire method in transaction
+public EntityDto updateEntity(String ref, UpdateEntityRequestDto request) {
+    return transactionTemplate.execute(status -> {
+        Entity entity = refResolver.resolve(ref);  // Read doesn't need transaction
+        // ... field updates don't need transaction
+        Entity saved = entityRepository.save(entity);  // Only this needs transaction
+        return entityMapper.toDto(saved);
+    });
 }
 ```
 
-### Key Points
-- Always `implements {Domain}Api` (generated interface)
-- Use `@Override` on all methods
-- Use `@RequiredArgsConstructor` for injection
-- Return appropriate HTTP status codes
-- No business logic in controller
+### Use TransactionTemplate, Not @Transactional
+Prefer `TransactionTemplate` over `@Transactional` annotation for explicit control:
 
-## Application Service Patterns
-
-### Standard Service
 ```java
 @Service
 @RequiredArgsConstructor
-public class TaskApplicationService {
-
-    private final TaskRepository taskRepository;
-    private final RefResolver refResolver;
-    private final CurrentUserService currentUserService;
+public class EntityApplicationService {
     private final TransactionTemplate transactionTemplate;
+    private final EntityRepository entityRepository;
 
-    public TaskDto createTask(String projectRef, CreateTaskRequestDto request) {
-        return transactionTemplate.execute(status -> {
-            // 1. Resolve references
-            Project project = refResolver.resolveProject(projectRef);
-            User currentUser = currentUserService.getCurrentUser();
-
-            // 2. Validate
-            if (taskRepository.existsByProjectIdAndTitle(project.getId(), request.getTitle())) {
-                throw new ResourceConflictException("Task with title already exists");
-            }
-
-            // 3. Create domain object
-            String publicId = PublicId.generate(EntityType.TASK).getValue();
-            String displayKey = project.getProjectKey() + "-" + project.nextTaskSequence();
-
-            Task task = new Task(publicId, displayKey, project, request.getTitle());
-            task.setDescription(request.getDescription());
-            task.setPriority(TaskPriority.fromValue(request.getPriority().getValue()));
-
-            // 4. Persist
-            Task saved = taskRepository.save(task);
-
-            // 5. Return DTO
-            return TaskMapper.toDto(saved);
-        });
-    }
-
-    public void deleteTask(String projectRef, String taskRef) {
-        transactionTemplate.executeWithoutResult(status -> {
-            Project project = refResolver.resolveProject(projectRef);
-            Task task = refResolver.resolveTask(project, taskRef);
-            taskRepository.delete(task);
-        });
+    public void deleteEntity(String ref) {
+        Entity entity = refResolver.resolve(ref);
+        transactionTemplate.executeWithoutResult(status -> entityRepository.delete(entity));
     }
 }
 ```
 
-### Transaction Patterns
+### When Full Transaction Is Needed
+Keep full transaction scope when operations must be atomic:
+
 ```java
-// Return value
-return transactionTemplate.execute(status -> {
-    // ... operations
-    return result;
-});
-
-// No return value
-transactionTemplate.executeWithoutResult(status -> {
-    // ... operations
-});
-
-// Manual rollback
-transactionTemplate.execute(status -> {
-    try {
-        // ... operations
-    } catch (Exception e) {
-        status.setRollbackOnly();
-        throw e;
-    }
-    return result;
-});
-```
-
-## Repository Patterns
-
-### Interface (Domain Layer)
-```java
-public interface TaskRepository extends JpaRepository<Task, Long> {
-
-    Optional<Task> findByPublicId(String publicId);
-
-    Optional<Task> findByProjectIdAndDisplayKey(Long projectId, String displayKey);
-
-    List<Task> findByProjectId(Long projectId);
-
-    List<Task> findByEpicId(Long epicId);
-
-    boolean existsByProjectIdAndTitle(Long projectId, String title);
-
-    @Query("SELECT t FROM Task t WHERE t.project.id = :projectId AND t.status = :status")
-    List<Task> findByProjectIdAndStatus(
-        @Param("projectId") Long projectId,
-        @Param("status") TaskStatus status);
+// Create needs full transaction for sequence number atomicity
+public EntityDto createEntity(CreateEntityRequestDto request) {
+    return transactionTemplate.execute(status -> {
+        int sequenceNumber = getNextSequenceNumber();  // Read
+        Entity entity = new Entity(..., sequenceNumber, ...);  // Must be atomic
+        return entityMapper.toDto(entityRepository.save(entity));  // Write
+    });
 }
 ```
 
-### Naming Conventions
-- `findBy{Field}` - Returns `Optional<T>` for single result
-- `findBy{Field}` - Returns `List<T>` for multiple results
-- `existsBy{Field}` - Returns `boolean`
-- `countBy{Field}` - Returns `long`
-- Use `@Query` for complex queries
+## Lombok Usage
 
-## Mapper Patterns
+### Use @RequiredArgsConstructor for Dependency Injection
+Never write constructors manually for Spring beans:
 
-### Utility Class Mapper
 ```java
-@UtilityClass
-public class TaskMapper {
+// Good
+@Service
+@RequiredArgsConstructor
+public class EntityApplicationService {
+    private final EntityRepository entityRepository;
+    private final RefResolver refResolver;
+    private final EntityMapper entityMapper;
+}
 
-    public TaskDto toDto(Task domain) {
-        TaskDto dto = new TaskDto();
-        dto.setId(domain.getPublicId());
-        dto.setDisplayKey(domain.getDisplayKey());
-        dto.setProjectId(domain.getProject().getPublicId());
-        dto.setTitle(domain.getTitle());
-        dto.setDescription(domain.getDescription());
-        dto.setStatus(TaskStatusDto.fromValue(domain.getStatus().getValue()));
-        dto.setPriority(TaskPriorityDto.fromValue(domain.getPriority().getValue()));
-        dto.setCreatedAt(toOffsetDateTime(domain.getCreatedAt()));
-        dto.setUpdatedAt(toOffsetDateTime(domain.getUpdatedAt()));
+// Bad
+@Service
+public class EntityApplicationService {
+    private final EntityRepository entityRepository;
 
-        // Nested object (only if loaded)
-        if (domain.getEpic() != null) {
-            dto.setEpicId(domain.getEpic().getPublicId());
-        }
-
-        return dto;
-    }
-
-    public TaskDto toDtoSimple(Task domain) {
-        // Simplified version without nested objects
-        TaskDto dto = new TaskDto();
-        dto.setId(domain.getPublicId());
-        dto.setDisplayKey(domain.getDisplayKey());
-        dto.setTitle(domain.getTitle());
-        dto.setStatus(TaskStatusDto.fromValue(domain.getStatus().getValue()));
-        return dto;
-    }
-
-    private OffsetDateTime toOffsetDateTime(Instant instant) {
-        return instant != null ? instant.atOffset(ZoneOffset.UTC) : null;
+    public EntityApplicationService(EntityRepository entityRepository) {
+        this.entityRepository = entityRepository;
     }
 }
 ```
 
-### Key Points
-- Use `@UtilityClass` (Lombok) for static methods
-- Always use `publicId` for external IDs, never internal `id`
-- Handle null values gracefully
-- Convert `Instant` to `OffsetDateTime` for API responses
-- Create simplified versions for list responses
+### Standard Lombok Annotations for Entities
 
-## Entity Patterns
-
-### Standard Entity
 ```java
 @Entity
-@Table(name = "tasks")
+@Table(name = "entities")
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Task extends AggregateRoot<Long> {
+@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)  // JPA requires no-arg constructor
+public class Entity {
+    // fields...
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "public_id", nullable = false, unique = true, length = 24)
-    private String publicId;
-
-    @Column(name = "display_key", nullable = false, length = 20)
-    private String displayKey;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "project_id", nullable = false)
-    private Project project;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "epic_id")
-    private Epic epic;
-
-    @Setter
-    @Column(nullable = false)
-    private String title;
-
-    @Setter
-    @Column(columnDefinition = "TEXT")
-    private String description;
-
-    @Setter
-    @Column(nullable = false)
-    private TaskStatus status = TaskStatus.BACKLOG;
-
-    @Setter
-    @Column(nullable = false)
-    private TaskPriority priority = TaskPriority.MEDIUM;
-
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private Instant createdAt;
-
-    @Column(name = "updated_at", nullable = false)
-    private Instant updatedAt;
-
-    // Constructor for required fields
-    public Task(String publicId, String displayKey, Project project, String title) {
-        this.publicId = publicId;
-        this.displayKey = displayKey;
-        this.project = project;
-        this.title = title;
-        this.createdAt = Instant.now();
-        this.updatedAt = Instant.now();
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        this.updatedAt = Instant.now();
-    }
-
-    // Domain methods
-    public void assignToEpic(Epic epic) {
-        this.epic = epic;
-    }
-
-    public void markCompleted() {
-        this.status = TaskStatus.COMPLETED;
+    // Required-args constructor for creating new instances
+    public Entity(String publicId, int sequenceNumber, ...) {
+        // initialization
     }
 }
 ```
 
-### Key Points
-- `@NoArgsConstructor(access = AccessLevel.PROTECTED)` for JPA
-- Use `FetchType.LAZY` for all relationships
-- `@Setter` only on mutable fields
-- `@PreUpdate` for automatic timestamp updates
-- Domain methods encapsulate state changes
+## OpenAPI Generated Code
 
-## Test Patterns
+### DTO Suffix Convention
+All generated model classes have `Dto` suffix to distinguish from domain entities:
 
-### Controller Test
+- Domain: `Entity`, `Project`, `Task`
+- DTOs: `EntityDto`, `ProjectDto`, `TaskDto`, `CreateEntityRequestDto`
+
+### Never Import with Wildcards
+Always use explicit imports:
+
 ```java
-class TaskControllerTest extends AbstractControllerIntegrationTest {
+// Good
+import com.example.api.generated.model.EntityDto;
+import com.example.api.generated.model.CreateEntityRequestDto;
 
-    @DynamicPropertySource
-    static void configureSchema(DynamicPropertyRegistry registry) {
-        configureSchemaForClass(registry, TaskControllerTest.class);
-    }
+// Bad
+import com.example.api.generated.model.*;
+```
 
-    private Project testProject;
+### Controller Implementation
+Controllers implement generated API interfaces:
 
-    @BeforeEach
-    void setUp() {
-        testProject = projectRepository.save(createTestProject());
-    }
+```java
+@RestController
+@RequiredArgsConstructor
+public class EntityController implements EntitiesApi {
+    private final EntityApplicationService entityApplicationService;
 
-    @Test
-    void createTask_shouldReturnCreatedTask() throws Exception {
-        CreateTaskRequestDto request = new CreateTaskRequestDto();
-        request.setTitle("Implement feature");
-        request.setPriority(TaskPriorityDto.HIGH);
-
-        mockMvc.perform(
-            post("/api/projects/{ref}/tasks", testProject.getPublicId())
-                .with(user("testuser"))
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request)))
-            .andExpect(status().isCreated())
-            .andExpect(jsonPath("$.id").exists())
-            .andExpect(jsonPath("$.displayKey").exists())
-            .andExpect(jsonPath("$.title").value("Implement feature"))
-            .andExpect(jsonPath("$.priority").value("HIGH"))
-            .andExpect(jsonPath("$.status").value("BACKLOG"));
-    }
-
-    @Test
-    void createTask_withoutAuth_shouldReturn403() throws Exception {
-        CreateTaskRequestDto request = new CreateTaskRequestDto();
-        request.setTitle("Test task");
-
-        mockMvc.perform(
-            post("/api/projects/{ref}/tasks", testProject.getPublicId())
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request)))
-            .andExpect(status().isForbidden());
-    }
-
-    @Test
-    void createTask_withInvalidProject_shouldReturn404() throws Exception {
-        CreateTaskRequestDto request = new CreateTaskRequestDto();
-        request.setTitle("Test task");
-
-        mockMvc.perform(
-            post("/api/projects/{ref}/tasks", "invalid_ref")
-                .with(user("testuser"))
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request)))
-            .andExpect(status().isNotFound())
-            .andExpect(jsonPath("$.code").value("NOT_FOUND"));
-    }
-
-    @Test
-    void getTask_shouldReturnTask() throws Exception {
-        Task task = taskRepository.save(createTestTask(testProject));
-
-        mockMvc.perform(
-            get("/api/projects/{projectRef}/tasks/{taskRef}",
-                testProject.getPublicId(), task.getPublicId())
-                .with(user("testuser")))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.id").value(task.getPublicId()))
-            .andExpect(jsonPath("$.title").value(task.getTitle()));
-    }
-
-    @Test
-    void deleteTask_shouldReturn204() throws Exception {
-        Task task = taskRepository.save(createTestTask(testProject));
-
-        mockMvc.perform(
-            delete("/api/projects/{projectRef}/tasks/{taskRef}",
-                testProject.getPublicId(), task.getPublicId())
-                .with(user("testuser")))
-            .andExpect(status().isNoContent());
-
-        assertThat(taskRepository.findByPublicId(task.getPublicId())).isEmpty();
-    }
-
-    // Helper methods
-    private Project createTestProject() {
-        return new Project(
-            PublicId.generate(EntityType.PROJECT).getValue(),
-            "TEST",
-            "Test Project",
-            testUser);
-    }
-
-    private Task createTestTask(Project project) {
-        return new Task(
-            PublicId.generate(EntityType.TASK).getValue(),
-            project.getProjectKey() + "-1",
-            project,
-            "Test Task");
+    @Override
+    public ResponseEntity<EntityDto> createEntity(CreateEntityRequestDto request) {
+        EntityDto created = entityApplicationService.createEntity(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 }
 ```
 
-### Test Checklist
-- [ ] Happy path (success case)
-- [ ] Authentication required (403 without auth)
-- [ ] Resource not found (404)
-- [ ] Validation errors (400)
-- [ ] Conflict errors (409)
-- [ ] Authorization (403 for wrong user)
+## Mapper Pattern
 
-## Error Handling
+Mappers convert between domain entities and DTOs:
+
+```java
+@Component
+public class EntityMapper {
+
+    public EntityDto toDto(Entity domain) {
+        EntityDto dto = new EntityDto();
+        dto.setPublicId(domain.getPublicId());
+        dto.setTitle(domain.getTitle());
+        dto.setStatus(toApiStatus(domain.getStatus()));
+        // ... map all fields
+        return dto;
+    }
+
+    public EntityStatus toDomainStatus(EntityStatusDto apiStatus) {
+        return switch (apiStatus) {
+            case ACTIVE -> EntityStatus.ACTIVE;
+            case INACTIVE -> EntityStatus.INACTIVE;
+            case ARCHIVED -> EntityStatus.ARCHIVED;
+        };
+    }
+
+    private EntityStatusDto toApiStatus(EntityStatus domainStatus) {
+        return switch (domainStatus) {
+            case ACTIVE -> EntityStatusDto.ACTIVE;
+            case INACTIVE -> EntityStatusDto.INACTIVE;
+            case ARCHIVED -> EntityStatusDto.ARCHIVED;
+        };
+    }
+}
+```
+
+## Reference Resolution Pattern
+
+Use `RefResolver` for looking up entities by publicId or displayKey:
+
+```java
+@Component
+@RequiredArgsConstructor
+public class RefResolver {
+    private final EntityRepository entityRepository;
+
+    public Entity resolve(String ref) {
+        return entityRepository.findByPublicId(ref)
+            .or(() -> entityRepository.findByKey(ref))
+            .orElseThrow(() -> new EntityNotFoundException("Entity", ref));
+    }
+
+    // For optional references (can be null or empty string to clear)
+    public Entity resolveOptional(String ref) {
+        if (ref == null || ref.isBlank()) {
+            return null;
+        }
+        return resolve(ref);
+    }
+}
+```
+
+## Exception Handling
 
 ### Custom Exceptions
+
 ```java
-// In GlobalExceptionHandler or dedicated exceptions package
-public class ResourceNotFoundException extends RuntimeException {
-    public ResourceNotFoundException(String message) {
-        super(message);
+public class EntityNotFoundException extends RuntimeException {
+    public EntityNotFoundException(String entityType, String reference) {
+        super(entityType + " not found: " + reference);
     }
 }
 
@@ -519,86 +245,129 @@ public class ResourceConflictException extends RuntimeException {
         super(message);
     }
 }
-
-public class AccessDeniedException extends RuntimeException {
-    public AccessDeniedException(String message) {
-        super(message);
-    }
-}
 ```
 
-### Global Handler
+### Global Exception Handler
+
 ```java
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ErrorResponseDto> handleNotFound(ResourceNotFoundException ex) {
-        return buildErrorResponse(ex.getMessage(), "NOT_FOUND", HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler(ResourceConflictException.class)
-    public ResponseEntity<ErrorResponseDto> handleConflict(ResourceConflictException ex) {
-        return buildErrorResponse(ex.getMessage(), "CONFLICT", HttpStatus.CONFLICT);
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<ErrorResponseDto> handleNotFound(EntityNotFoundException ex) {
+        ErrorResponseDto error = new ErrorResponseDto();
+        error.setCode("NOT_FOUND");
+        error.setMessage(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorResponseDto> handleValidation(
-            MethodArgumentNotValidException ex) {
-        List<String> errors = ex.getBindingResult().getFieldErrors().stream()
-            .map(fe -> fe.getField() + ": " + fe.getDefaultMessage())
-            .toList();
-
+    public ResponseEntity<ErrorResponseDto> handleValidation(MethodArgumentNotValidException ex) {
         ErrorResponseDto error = new ErrorResponseDto();
-        error.setMessage("Validation failed");
         error.setCode("VALIDATION_ERROR");
-        error.setDetails(errors);
+        error.setMessage("Validation failed");
+        error.setDetails(ex.getBindingResult().getFieldErrors().stream()
+            .map(fe -> {
+                FieldErrorDto fieldError = new FieldErrorDto();
+                fieldError.setField(fe.getField());
+                fieldError.setMessage(fe.getDefaultMessage());
+                return fieldError;
+            })
+            .toList());
         return ResponseEntity.badRequest().body(error);
-    }
-
-    private ResponseEntity<ErrorResponseDto> buildErrorResponse(
-            String message, String code, HttpStatus status) {
-        ErrorResponseDto error = new ErrorResponseDto();
-        error.setMessage(message);
-        error.setCode(code);
-        return ResponseEntity.status(status).body(error);
     }
 }
 ```
 
-## Database Migration
+## Testing Patterns
 
-### Creating a Migration
-```sql
--- V17__add_task_estimated_hours.sql
-ALTER TABLE tasks ADD COLUMN estimated_hours INTEGER;
+### Integration Tests with Schema Isolation
 
--- Add index if needed for queries
-CREATE INDEX idx_tasks_estimated_hours ON tasks(estimated_hours)
-    WHERE estimated_hours IS NOT NULL;
+```java
+@AutoConfigureMockMvc
+@Transactional
+class EntityControllerTest extends AbstractIntegrationTest {
+
+    private static final String SCHEMA_NAME = "entity_controller_test";
+
+    @DynamicPropertySource
+    static void configureSchema(DynamicPropertyRegistry registry) {
+        AbstractIntegrationTest.configureSchema(registry, SCHEMA_NAME);
+    }
+
+    @Autowired private MockMvc mockMvc;
+    @MockitoBean private CurrentUserService currentUserService;
+
+    @BeforeEach
+    void setUp() {
+        testUser = userRepository.save(new User(...));
+        when(currentUserService.getCurrentUser()).thenReturn(testUser);
+    }
+
+    @Test
+    @WithMockUser(username = "user")
+    void createEntity_shouldReturnCreatedEntity() throws Exception {
+        CreateEntityRequestDto request = new CreateEntityRequestDto();
+        request.setTitle("Test Entity");
+
+        mockMvc.perform(post("/entities")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(request)))
+            .andExpect(status().isCreated())
+            .andExpect(jsonPath("$.title").value("Test Entity"));
+    }
+}
 ```
 
-### Migration Checklist
-- [ ] Use next version number (check existing migrations)
-- [ ] Double underscore after version: `V{n}__{description}.sql`
-- [ ] Test migration locally: `./mvnw flyway:migrate`
-- [ ] Ensure migration is reversible (document rollback)
-- [ ] Add indexes for frequently queried columns
+## Code Style
 
-## Common Commands
+### Checkstyle Rules
+- No star imports (`import x.y.*`)
+- No unused imports
+- No redundant imports
+
+### Spotless Formatting
+Run `mvn spotless:apply` before committing.
+
+### Switch Expressions
+Use modern switch expressions:
+
+```java
+// Good
+private EntityStatusDto toApiStatus(EntityStatus status) {
+    return switch (status) {
+        case ACTIVE -> EntityStatusDto.ACTIVE;
+        case INACTIVE -> EntityStatusDto.INACTIVE;
+        case ARCHIVED -> EntityStatusDto.ARCHIVED;
+    };
+}
+
+// Bad
+private EntityStatusDto toApiStatus(EntityStatus status) {
+    switch (status) {
+        case ACTIVE: return EntityStatusDto.ACTIVE;
+        case INACTIVE: return EntityStatusDto.INACTIVE;
+        case ARCHIVED: return EntityStatusDto.ARCHIVED;
+        default: throw new IllegalArgumentException();
+    }
+}
+```
+
+## Build Commands
 
 ```bash
-# Build and run
-./mvnw clean compile                    # Compile (generates OpenAPI code)
-./mvnw spring-boot:run                  # Run application
-./mvnw test                             # Run all tests
-./mvnw test -Dtest=TaskControllerTest   # Run specific test
+# Generate OpenAPI code
+mvn generate-sources
 
-# Code quality
-./mvnw spotless:check                   # Check formatting
-./mvnw spotless:apply                   # Fix formatting
+# Format code
+mvn spotless:apply
 
-# Database
-./mvnw flyway:migrate                   # Run migrations
-./mvnw flyway:info                      # Show migration status
+# Check style
+mvn checkstyle:check
+
+# Run tests
+mvn test
+
+# Full build
+mvn clean verify
 ```

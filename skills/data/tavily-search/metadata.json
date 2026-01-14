@@ -1,12 +1,7 @@
 {
   "name": "tavily-search",
-  "description": "Use Tavily Search API for optimized, real-time web search results for RAG. Requires TAVILY_API_KEY.",
   "repo": "closedloop-technologies/awesome-deep-researchers",
-  "category": "design",
-  "tags": [
-    "tavily",
-    "search"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": ".claude/skills/tavily-search/SKILL.md",
+  "source": "github.com/closedloop-technologies/awesome-deep-researchers",
+  "downloaded_at": "2026-01-14T03:09:52.379347Z"
 }

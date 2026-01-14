@@ -1,13 +1,7 @@
 {
   "name": "urban-planner-analyst",
-  "description": "Analyzes urban development through planning lens using zoning, land use, comprehensive planning,and transit-oriented development frameworks.Provides insights on spatial organization, infrastructure, s",
-  "repo": "rysweet/MicrosoftHackathon2025-AgenticCoding",
-  "category": "devops",
-  "tags": [
-    "urban",
-    "planner",
-    "analyst"
-  ],
-  "stars": 10,
-  "source": "local"
+  "repo": "rysweet/azlin",
+  "path": ".claude/skills/urban-planner-analyst/SKILL.md",
+  "source": "github.com/rysweet/azlin",
+  "downloaded_at": "2026-01-14T03:30:10.679405Z"
 }

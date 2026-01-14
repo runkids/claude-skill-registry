@@ -1,12 +1,7 @@
 {
   "name": "flask-workflow",
-  "description": "Flask framework workflow guidelines. Activate when working with Flask projects, flask run, or Flask-specific patterns.",
   "repo": "ilude/claude-code-config",
-  "category": "design",
-  "tags": [
-    "flask",
-    "workflow"
-  ],
-  "stars": 5,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/flask-workflow/SKILL.md",
+  "source": "github.com/ilude/claude-code-config",
+  "downloaded_at": "2026-01-14T01:02:41.339606Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "tech-stack-advisor",
-  "description": "Advise on technology choices for new full-stack projects using the user's preferred stack (FastAPI + React + PostgreSQL). Use when starting a new project, discussing architecture decisions, choosing f",
-  "repo": "guthdx/claude_code",
-  "category": "data",
-  "tags": [
-    "tech",
-    "stack",
-    "advisor"
-  ],
-  "stars": 0
+  "repo": "monicajeon28/GMcruise",
+  "path": ".claude/skills/tech-stack-advisor/SKILL.md",
+  "source": "github.com/monicajeon28/GMcruise",
+  "downloaded_at": "2026-01-14T03:06:37.189677Z"
 }

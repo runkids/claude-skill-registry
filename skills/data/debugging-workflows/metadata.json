@@ -1,12 +1,7 @@
 {
   "name": "debugging-workflows",
-  "description": "Debug workflow execution issues including syntax errors, agent failures, variable problems, and execution errors. Use when workflows fail, produce unexpected results, or user asks for debugging help.",
-  "repo": "mbruhler/claude-orchestration",
-  "category": "development",
-  "tags": [
-    "debugging",
-    "workflows"
-  ],
-  "stars": 191,
-  "source": "SkillsMP Synced Skills"
+  "repo": "githubnext/gh-aw",
+  "path": ".github/skills/debugging-workflows/SKILL.md",
+  "source": "github.com/githubnext/gh-aw",
+  "downloaded_at": "2026-01-14T02:08:49.647887Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "clean-branches",
-  "description": "Clean up git branches by analyzing merged/unmerged status, archiving completed work,and organizing active branches. This skill should be used when the user wants to cleanup branches, organize their gi",
   "repo": "boaznahum/cubesolve",
-  "category": "development",
-  "tags": [
-    "clean",
-    "branches"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/clean-branches/SKILL.md",
+  "source": "github.com/boaznahum/cubesolve",
+  "downloaded_at": "2026-01-14T02:58:22.398915Z"
 }

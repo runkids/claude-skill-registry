@@ -1,13 +1,7 @@
 {
   "name": "quality-audit-workflow",
-  "description": "Comprehensive codebase quality audit with parallel agent orchestration, GitHub issue creation, automated PR generation per issue, and PM-prioritized recommendations. Use for code review, refactoring a",
-  "repo": "rysweet/MicrosoftHackathon2025-AgenticCoding",
-  "category": "development",
-  "tags": [
-    "quality",
-    "audit",
-    "workflow"
-  ],
-  "stars": 10,
-  "source": "local"
+  "repo": "rysweet/azlin",
+  "path": ".claude/skills/quality-audit-workflow/SKILL.md",
+  "source": "github.com/rysweet/azlin",
+  "downloaded_at": "2026-01-14T03:30:05.094406Z"
 }

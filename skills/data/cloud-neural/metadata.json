@@ -1,8 +1,7 @@
 {
   "name": "cloud-neural",
   "repo": "vamseeachanta/workspace-hub",
-  "category": "data",
-  "description": "Neural network training and deployment in Flow Nexus cloud. Use for distributed ML training, model inference, and neural network lifecycle management.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:12.354812Z"
+  "path": ".claude/skills/tools/cloud/cloud-neural/SKILL.md",
+  "source": "github.com/vamseeachanta/workspace-hub",
+  "downloaded_at": "2026-01-14T01:21:37.483255Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "python-developer",
-  "description": "Эксперт Python разработки. Используй для Python best practices, async, typing и ecosystem.",
   "repo": "dengineproblem/agents-monorepo",
-  "category": "development",
-  "tags": [
-    "python",
-    "developer"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/python-developer/SKILL.md",
+  "source": "github.com/dengineproblem/agents-monorepo",
+  "downloaded_at": "2026-01-14T02:07:58.898364Z"
 }

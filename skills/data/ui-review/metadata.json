@@ -1,11 +1,7 @@
 {
   "name": "ui-review",
-  "description": "Review SwiftUI code for iOS/watchOS Human Interface Guidelines compliance, font usage, Dynamic Type support, and accessibility. Use when user mentions UI review, HIG, accessibility audit, font checks,",
-  "repo": "rshankras/claude-code-ios-skills",
-  "category": "design",
-  "tags": [
-    "review"
-  ],
-  "stars": 5,
-  "source": "local"
+  "repo": "rshankras/claude-code-apple-skills",
+  "path": "skills/ios/ui-review/SKILL.md",
+  "source": "github.com/rshankras/claude-code-apple-skills",
+  "downloaded_at": "2026-01-14T02:22:10.589082Z"
 }

@@ -1,8 +1,7 @@
 {
   "name": "cellxgene-census",
-  "repo": "davila7/claude-code-templates",
-  "category": "data",
-  "description": "Query CZ CELLxGENE Census (61M+ cells). Filter by cell type/tissue/disease, retrieve expression data, integrate with scanpy/PyTorch, for population-scale single-cell analysis.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:36.457152Z"
+  "repo": "x-cmd/skill",
+  "path": "data/k-dense-ai/cellxgene-census/SKILL.md",
+  "source": "github.com/x-cmd/skill",
+  "downloaded_at": "2026-01-14T02:45:42.481419Z"
 }

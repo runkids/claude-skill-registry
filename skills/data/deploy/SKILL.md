@@ -1,34 +1,74 @@
 ---
 name: deploy
-description: "Sets up deployment, analytics, and health monitoring for projects. Use when user mentions デプロイ, deploy, Vercel, Netlify, 公開, アナリティクス, analytics, GA, Google Analytics, 環境診断, health check. Do NOT load for: 実装作業, ローカル開発, レビュー, セットアップ."
-allowed-tools: ["Read", "Write", "Edit", "Bash"]
-metadata:
-  skillport:
-    category: deploy
-    tags: [deploy, vercel, netlify, analytics, health-check]
-    alwaysApply: false
+description: Deploy or release the project. Use when releasing a new version.
+allowed-tools: Read, Edit, Bash
 ---
 
-# Deploy Skills
+# Deploy Skill
 
-デプロイとモニタリングの設定を担当するスキル群です。
+Steps to deploy/release a new version.
 
-## 含まれる小スキル
+## Pre-Deploy Checklist
 
-| スキル | 用途 |
-|--------|------|
-| deploy-setup | Vercel/Netlify デプロイ設定 |
-| analytics | GA/Vercel Analytics 設定 |
-| health-check | 環境診断 |
+- [ ] All tests pass
+- [ ] Linting/type checks pass (if applicable)
+- [ ] CHANGELOG.md updated with version changes
+- [ ] README.md updated if needed
+- [ ] All changes committed
 
-## ルーティング
+## Version Update
 
-- デプロイ設定: deploy-setup/doc.md
-- アナリティクス: analytics/doc.md
-- 環境診断: health-check/doc.md
+Update version in ALL relevant locations:
 
-## 実行手順
+Common locations:
+- `pyproject.toml` / `package.json` / `Cargo.toml`
+- Source code version constant (e.g., `__version__`)
+- Documentation
 
-1. ユーザーのリクエストを分類
-2. 適切な小スキルの doc.md を読む
-3. その内容に従って設定
+## General Deploy Steps
+
+```bash
+# 1. Verify tests pass
+# Run your project's test command
+
+# 2. Update version numbers (see above)
+
+# 3. Update CHANGELOG.md
+# Add new section for this version
+
+# 4. Build/package (project-specific)
+# e.g., python -m build, npm run build, cargo build --release
+
+# 5. Publish (project-specific)
+# e.g., twine upload, npm publish, cargo publish
+
+# 6. Git tag and push
+git add -A
+git commit -m "Release vX.Y.Z: Description"
+git tag vX.Y.Z
+git push origin main --tags
+```
+
+## Post-Deploy
+
+1. Verify deployment:
+   - Check package registry (PyPI, npm, crates.io)
+   - Test installation from registry
+
+2. Update CONTINUITY.md:
+   - Mark deploy task as DONE
+   - Add session log entry with release URL
+   - Update CURRENT STATE version
+
+## Version Numbering (SemVer)
+
+- **X.Y.Z**
+- **X** (Major): Breaking changes
+- **Y** (Minor): New features (backward compatible)
+- **Z** (Patch): Bug fixes
+
+## Troubleshooting
+
+**Build fails**: Check dependencies, run clean build
+**Upload fails**: Check credentials/API keys
+**Tests fail**: Fix tests before deploying

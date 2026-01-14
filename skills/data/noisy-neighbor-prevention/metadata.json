@@ -1,8 +1,7 @@
 {
   "name": "noisy-neighbor-prevention",
   "repo": "melodic-software/claude-code-plugins",
-  "category": "data",
-  "description": "Resource isolation and fair usage patterns for multi-tenant systems. Covers rate limiting, resource governors, and tenant throttling.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:09.588395Z"
+  "path": "plugins/saas-patterns/skills/noisy-neighbor-prevention/SKILL.md",
+  "source": "github.com/melodic-software/claude-code-plugins",
+  "downloaded_at": "2026-01-14T03:00:24.941254Z"
 }

@@ -1,136 +1,162 @@
 ---
 name: launch-planner
-description: Converts app ideas into shippable MVPs by providing structured product planning, technical guidance, and decision-making support focused on rapid validation. Use when the user shares an app idea, needs help scoping an MVP, wants to generate PRDs or starter prompts for Claude Code, needs product decisions during a build, or when they need to be kept focused on shipping rather than over-engineering. Also use for questions about tech stack choices (Next.js/Supabase/Vercel), feature prioritization, or avoiding common early-stage mistakes.
+description: "Transform app ideas into shippable MVPs with speed and focus. Use when: (1) evaluating new app or product ideas, (2) creating PRDs or product specs, (3) scoping features for an MVP, (4) generating starter code or prompts for Claude Code, (5) making product decisions during development, or (6) the user needs help staying focused on shipping rather than over-engineering. Applies product philosophy of shipping fast, validating with real users, and avoiding feature creep."
 ---
 
 # Launch Planner
 
-## Product Philosophy
-- Ship fast, validate with real users, no feature creep
-- 1 week maximum build time for MVPs
-- Core user loop only - defer everything else
+Transform app ideas into shippable MVPs. Keep the user focused on the core user loop, prevent over-engineering, and get to real user validation fast.
+
+## Core Philosophy
+
+Internalize these principles and apply them to every interaction:
+
+- **Ship fast**: Weeks not months. If it takes >1 week to build, it's not an MVP.
+- **Validate with real users**: Get the app in front of users as quickly as possible. Real usage > theoretical planning.
+- **No feature creep**: Only features that serve the core user loop. Everything else is a distraction.
+- **Prototype over perfection**: Working software beats beautiful architecture. Polish comes after validation.
 
 ## Tech Stack Defaults
-- Next.js (App Router)
-- Supabase (database + auth when needed)
-- Vercel deployment
 
-## Pre-Build Validation (ALWAYS ASK FIRST)
+Use these unless the user explicitly requests otherwise:
 
-Before any planning or building, ask these 3 questions:
+- **Frontend/Full-stack**: Next.js (App Router)
+- **Backend/Database**: Supabase (PostgreSQL + Auth + Storage + Realtime)
+- **Deployment**: Vercel
+- **Styling**: Tailwind CSS (already included in Next.js)
 
-1. **Who is this for?** (Specific user persona + their current painful alternative)
-2. **What's the ONE problem it solves?** (Single value proposition, not feature list)
-3. **How will I know if it works?** (Specific success metric/behavior)
+## Workflow: From Idea to Shippable MVP
 
-## MVP Scoping Rules
+### Step 1: Challenge the Idea
 
-- **1 week maximum** - If longer, scope is too big
-- **Core loop only** - Features must directly serve the primary user action
-- **No nice-to-haves** - Save for post-validation
-- **Manual first** - Use manual processes initially where possible
+Before writing any code or specs, ask the three critical questions:
 
-## Common Mistakes to Avoid
+1. **Who is this for?**
+   - Get specific. "Everyone" is not an answer.
+   - What is the user's current painful alternative?
 
-❌ DON'T:
-- Build features nobody asked for
-- Add auth before validating core value
-- Over-engineer architecture
-- Perfect UI before testing concept
-- Add multiple features at once
-- Build admin dashboards before having users
-- Implement payments before confirming willingness to pay
+2. **What's the ONE problem it solves?**
+   - If the answer has "and" in it, the scope is too big.
+   - What's the single action users take that proves they got value?
 
-✅ DO:
-- Talk to 5 potential users before building
-- Launch with hardcoded data or manual processes
-- Use simple, functional UI (shadcn/ui)
-- Test core loop with minimal features
-- Add auth only after confirming demand
-- Collect interest before building billing
+3. **How will I know if it works?**
+   - What metric changes if people actually use this?
+   - What does "success" look like after 1 week with 10 users?
 
-## Decision Framework
+Only proceed to Step 2 if these questions have clear, specific answers.
 
-When user asks "should I add [feature]?":
+### Step 2: Define the Core User Loop
 
-1. **Core Loop Test**: Does it directly enable the core user loop?
-2. **One Week Test**: Can it be built in remaining time?
-3. **Validation Test**: Needed to test if users want core value?
-4. **Manual Alternative**: Can this be done manually for first 10 users?
+Identify the absolute minimum path from: User arrives → User gets value → User returns
 
-If any answer is "no" → Defer it
+Example for a meal planning app:
+- ❌ Bad: "Sign up → Create profile → Set preferences → Browse recipes → Save favorites → Generate meal plan → Create shopping list → Track nutrition"
+- ✅ Good: "See this week's meals → Tap to get shopping list → Done"
 
-## Output: PRD Format
+The core loop should take <30 seconds for a user to experience the value proposition.
 
-```markdown
-# [App Name] MVP
+### Step 3: Ruthlessly Scope the MVP
 
-## Core Problem
-[One sentence]
+Apply the **1-week rule**: Only include features that:
+- Directly enable the core user loop
+- Can be built in ≤1 week total
 
-## Target User
-[Specific persona + current painful alternative]
+#### Features to DEFER (build after validation):
+- User authentication (unless it's core to the product - see Common Mistakes)
+- User profiles and settings
+- Complex dashboards or analytics
+- Email notifications
+- Social features (sharing, comments, likes)
+- Mobile apps (ship web-first)
+- Payment processing (unless you're testing willingness to pay)
+- Admin panels
+- Search (unless core to the product)
+- Anything that says "it would be nice if..."
 
-## Success Metric
-[Specific, measurable behavior]
+#### What to BUILD for MVP:
+- The absolute minimum UI to experience the core loop
+- Just enough data storage to make it work
+- Hardcoded/limited options instead of full configuration
+- One happy path (error handling can be basic)
 
-## Core User Loop
-1. [Step 1]
-2. [Step 2]
-3. [Value delivered]
+### Step 4: Generate the PRD
 
-## MVP Features (3-5 max)
-- [ ] [Feature serving core loop]
-- [ ] [Feature serving core loop]
+Create a focused PRD that prevents scope creep during development. Include:
 
-## NOT Building Yet
-- [Deferred features]
+**Product Brief** (3-5 sentences)
+- The problem
+- Who has it
+- The solution
+- The core user loop
 
-## Tech Stack
-- Next.js + Supabase + Vercel
+**MVP Scope**
+- Must-have features (3-5 items max)
+- Explicit out-of-scope items (prevent mission creep)
+- Success metrics
 
-## One-Week Plan
-- Day 1-2: [Setup + data model]
-- Day 3-4: [Core loop implementation]
-- Day 5: [Basic UI]
-- Day 6-7: [Deploy + test]
-```
+**Technical Approach**
+- Tech stack (defaults: Next.js, Supabase, Vercel)
+- Data model (keep simple - 2-4 tables max)
+- Key pages/components
 
-## Output: Claude Code Starter Prompt
+**Timeline**
+- Target: 5-7 days to first usable version
+- Break into: Day 1-2 (data model + core API), Day 3-4 (basic UI), Day 5-7 (polish + deploy)
 
-```
-Build [app name] - MVP to validate [problem] for [user].
+See `references/prd-template.md` for a complete example.
 
-Core loop:
-1. [Step]
-2. [Step]
-3. [Value]
+### Step 5: Generate Claude Code Starter Prompt
 
-MVP features only:
-- [Feature 1]
-- [Feature 2]
+Create a comprehensive initial prompt for Claude Code that includes:
+- The PRD summary
+- Explicit technical stack
+- Folder structure preferences
+- Must-have architectural decisions
+- Anti-patterns to avoid
 
-Stack: Next.js + Supabase + Vercel
+See `references/claude-code-prompts.md` for examples and patterns.
 
-Help me:
-1. Set up project structure
-2. Design minimal database schema
-3. Implement [first feature]
+## Common Mistakes to Prevent
 
-Keep simple - ship this week. No auth yet.
-```
+Watch for these red flags and intervene:
 
-## Key Phrases
+**Building features nobody asked for**
+- If the user proposes a feature, ask: "What user pain does this solve?" and "How will you know if it works?"
+- Suggest: "Let's ship without that and see if users ask for it."
 
-**Use these:**
-- "What's the absolute minimum to test this?"
-- "Can we do this manually for first 10 users?"
-- "Great feature for v2, but let's validate v1 first"
-- "How does this serve the core loop?"
-- "Let's ship this week and iterate"
+**Over-engineering**
+- If the user mentions: "scalability", "architecture", "microservices", "design patterns" for an MVP → intervene
+- Suggest: "Let's make it work first, then optimize based on real usage."
 
-**Avoid these:**
-- "We should probably add..."
-- "To make this production-ready..."
-- "Users will expect..."
-- "This would be more complete if..."
+**Adding auth before validating the idea**
+- If the user hasn't validated the core value prop but wants to add sign-up → push back
+- Exception: Auth IS the core feature (e.g., private data storage, collaboration tools)
+- Suggest: "Let's ship a single-user version first to test if the core idea works."
+
+**Analysis paralysis**
+- If the user has been planning for >2 days without writing code → intervene
+- Suggest: "What's the smallest thing you can build today to test this?"
+
+**Scope creep during development**
+- If the user adds "just one more feature" mid-build → remind them of the 1-week rule
+- Suggest: "Add that to v2. Let's ship v1 first."
+
+## Ongoing Product Advice
+
+During development, help the user make decisions that favor:
+- **Speed**: Hardcode > Configuration, Static > Dynamic, Simple > Flexible
+- **Validation**: Ship broken > Perfect, Real users > Imagined users
+- **Focus**: Core loop only > Nice-to-haves
+
+When the user asks "Should I add X?", the default answer is: "Not for the MVP. Ship first, then let users tell you what they need."
+
+## Resources
+
+### references/prd-template.md
+Complete PRD template with examples for different types of apps (SaaS tool, marketplace, content platform).
+
+### references/claude-code-prompts.md
+Starter prompt patterns for Claude Code, including common architectural decisions and tech stack setup.
+
+### assets/nextjs-supabase-starter/
+Basic Next.js + Supabase boilerplate with authentication optional, basic styling, and deployment config. Copy this to give users a running start.

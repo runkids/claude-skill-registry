@@ -1,188 +1,84 @@
 ---
 name: file-operations
-description: Production-grade file operations - permissions, find, archives, rsync
-sasmp_version: "1.3.0"
-bonded_agent: 03-file-operations
-bond_type: PRIMARY_BOND
-version: "2.0.0"
-difficulty: intermediate
-estimated_time: "5-7 hours"
+description: Analyze files and get detailed metadata including size, line counts, modification times, and content statistics. Use when users request file information, statistics, or analysis without modifying files.
 ---
 
-# File Operations Skill
+# File Operations
 
-> Master file system operations with production-ready patterns
+Analyze files and retrieve metadata using Claude's native tools without modifying files.
 
-## Learning Objectives
+## When to Use
 
-After completing this skill, you will be able to:
-- [ ] Manage file permissions (chmod, chown)
-- [ ] Search files efficiently with find and fd
-- [ ] Create and extract archives (tar, zip)
-- [ ] Synchronize files with rsync
-- [ ] Work with symbolic and hard links
+- "analyze [file]"
+- "get file info for [file]"
+- "how many lines in [file]"
+- "compare [file1] and [file2]"
+- "file statistics"
 
-## Prerequisites
+## Core Operations
 
-- Bash basics
-- Understanding of file systems
-- Command line navigation
-
-## Core Concepts
-
-### 1. Permission Management
+### File Size & Metadata
 ```bash
-# Numeric notation
-chmod 755 script.sh       # rwxr-xr-x
-chmod 644 file.txt        # rw-r--r--
-chmod 600 secret.key      # rw-------
-
-# Symbolic notation
-chmod u+x script.sh       # Add execute for owner
-chmod g-w file.txt        # Remove write for group
-chmod a+r public.txt      # Add read for all
-
-# Ownership
-chown user:group file
-chown -R user:group dir/
-
-# Common patterns
-chmod 600 ~/.ssh/id_rsa   # SSH private key
-chmod 755 /var/www/html/  # Web directory
+stat -f "%z bytes, modified %Sm" [file_path]  # Single file
+ls -lh [directory]                             # Multiple files
+du -h [file_path]                              # Human-readable size
 ```
 
-### 2. Find Command
+### Line Counts
 ```bash
-# By name
-find . -name "*.txt"
-find . -iname "*.TXT"     # Case insensitive
-
-# By type
-find . -type f            # Files
-find . -type d            # Directories
-find . -type l            # Symlinks
-
-# By size/time
-find . -size +100M        # Larger than 100MB
-find . -mtime -7          # Modified in 7 days
-
-# Actions
-find . -name "*.tmp" -delete
-find . -type f -exec chmod 644 {} +
+wc -l [file_path]                              # Single file
+wc -l [file1] [file2]                          # Multiple files
+find [dir] -name "*.py" | xargs wc -l          # Directory total
 ```
 
-### 3. Archive Operations
-```bash
-# Create archives
-tar -cvf archive.tar dir/
-tar -czvf archive.tar.gz dir/   # gzip
-tar -cjvf archive.tar.bz2 dir/  # bzip2
+### Content Analysis
+Use **Read** to analyze structure, then count functions/classes/imports.
 
-# Extract archives
-tar -xvf archive.tar
-tar -xzvf archive.tar.gz -C /dest/
-
-# ZIP
-zip -r archive.zip dir/
-unzip archive.zip
+### Pattern Search
+```
+Grep(pattern="^def ", output_mode="count", path="src/")        # Count functions
+Grep(pattern="TODO|FIXME", output_mode="content", -n=true)    # Find TODOs
+Grep(pattern="^import ", output_mode="count")                 # Count imports
 ```
 
-### 4. Rsync
-```bash
-# Local sync
-rsync -avz source/ dest/
-
-# Remote sync
-rsync -avz local/ user@host:/remote/
-
-# With delete (mirror)
-rsync -avz --delete source/ dest/
-
-# Dry run
-rsync -avzn source/ dest/
+### Find Files
+```
+Glob(pattern="**/*.py")
 ```
 
-## Common Patterns
+## Workflow Examples
 
-### Safe Delete Pattern
+### Comprehensive File Analysis
+1. Get size/mod time: `stat -f "%z bytes, modified %Sm" file.py`
+2. Count lines: `wc -l file.py`
+3. Read file: `Read(file_path="file.py")`
+4. Count functions: `Grep(pattern="^def ", output_mode="count")`
+5. Count classes: `Grep(pattern="^class ", output_mode="count")`
+
+### Compare File Sizes
+1. Find files: `Glob(pattern="src/**/*.py")`
+2. Get sizes: `ls -lh src/**/*.py`
+3. Total size: `du -sh src/*.py`
+
+### Code Quality Metrics
+1. Total lines: `find . -name "*.py" | xargs wc -l`
+2. Test files: `find . -name "test_*.py" | wc -l`
+3. TODOs: `Grep(pattern="TODO|FIXME|HACK", output_mode="count")`
+
+### Find Largest Files
 ```bash
-# With confirmation
-rm -i file.txt
-
-# With variable check
-rm -rf "${DIR:?}/"   # Fails if DIR empty
+find . -type f -not -path "./node_modules/*" -exec du -h {} + | sort -rh | head -20
 ```
 
-### Backup Pattern
-```bash
-# Timestamped backup
-backup() {
-    local src="$1"
-    local timestamp=$(date +%Y%m%d_%H%M%S)
-    cp -a "$src" "${src}.${timestamp}.bak"
-}
-```
+## Best Practices
 
-### Find and Process
-```bash
-# Fix permissions
-find /var/www -type d -exec chmod 755 {} +
-find /var/www -type f -exec chmod 644 {} +
+- **Non-destructive**: Use Read/stat/wc, never modify
+- **Efficient**: Read small files fully, use Grep for large files
+- **Context-aware**: Compare to project averages, suggest optimizations
 
-# Delete old files
-find /tmp -type f -mtime +7 -delete
-```
+## Integration
 
-## Anti-Patterns
-
-| Don't | Do | Why |
-|-------|-----|-----|
-| `rm -rf $VAR/` | `rm -rf "${VAR:?}/"` | Empty VAR = delete / |
-| `find \| xargs rm` | `find -delete` | Handles spaces |
-| `cp -r` for sync | `rsync -a` | rsync is smarter |
-
-## Practice Exercises
-
-1. **Permission Fixer**: Script to fix web dir permissions
-2. **Old File Cleaner**: Remove files older than N days
-3. **Backup Script**: Timestamped backup with rotation
-4. **Sync Tool**: Two-way directory sync
-
-## Troubleshooting
-
-### Common Errors
-
-| Error | Cause | Fix |
-|-------|-------|-----|
-| `Permission denied` | Wrong permissions | Check with `ls -la` |
-| `No such file` | Path typo | Verify path exists |
-| `Directory not empty` | rm without -r | Add `-r` flag |
-| `Cross-device link` | Hard link across fs | Use symlink |
-
-### Debug Techniques
-```bash
-# Check permissions
-stat file.txt
-ls -la file.txt
-
-# Trace find
-find . -name "*.txt" -print
-
-# Dry-run rsync
-rsync -avzn source/ dest/
-```
-
-## Safety Guidelines
-
-1. **Always dry-run** rsync with `--delete` first
-2. **Quote paths** with spaces: `"$path"`
-3. **Verify paths** before `rm -rf`
-4. **Use trash** instead of rm when possible
-5. **Backup** before bulk operations
-
-## Resources
-
-- [GNU Coreutils](https://www.gnu.org/software/coreutils/manual/)
-- [find Manual](https://www.gnu.org/software/findutils/manual/)
-- [rsync Manual](https://rsync.samba.org/documentation.html)
-- [fd - modern find](https://github.com/sharkdp/fd)
+Works with:
+- **code-auditor**: Comprehensive analysis
+- **code-transfer**: After identifying large files
+- **codebase-documenter**: Understanding file purposes

@@ -1,13 +1,7 @@
 {
   "name": "typescript-advanced-patterns",
-  "description": "Advanced TypeScript patterns for type-safe, maintainable code using sophisticated type system features. Use when building type-safe APIs, implementing complex domain models, or leveraging TypeScript's",
-  "repo": "NickCrew/claude-ctx-plugin",
-  "category": "development",
-  "tags": [
-    "typescript",
-    "advanced",
-    "patterns"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "NickCrew/claude-cortex",
+  "path": "skills/typescript-advanced-patterns/SKILL.md",
+  "source": "github.com/NickCrew/claude-cortex",
+  "downloaded_at": "2026-01-14T02:11:09.041724Z"
 }

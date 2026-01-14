@@ -1,13 +1,7 @@
 {
   "name": "voice-audio-engineer",
-  "description": "\"Expert in voice synthesis, TTS, voice cloning, podcast production, speech processing, and voice UI design via ElevenLabs integration. Specializes in vocal clarity, loudness standards (LUFS), de-essin",
   "repo": "erichowens/some_claude_skills",
-  "category": "design",
-  "tags": [
-    "voice",
-    "audio",
-    "engineer"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/voice-audio-engineer/SKILL.md",
+  "source": "github.com/erichowens/some_claude_skills",
+  "downloaded_at": "2026-01-14T02:58:38.437241Z"
 }

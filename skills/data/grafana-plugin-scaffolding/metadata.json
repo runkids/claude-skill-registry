@@ -1,13 +1,7 @@
 {
   "name": "grafana-plugin-scaffolding",
-  "description": "Scaffold and automate Grafana plugin projects using @grafana/create-plugin. Use when creating panel plugins, data source plugins, app plugins, or backend plugins. Handles project scaffolding, Docker d",
   "repo": "nodnarbnitram/claude-code-extensions",
-  "category": "development",
-  "tags": [
-    "grafana",
-    "plugin",
-    "scaffolding"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/grafana-plugin-scaffolding/SKILL.md",
+  "source": "github.com/nodnarbnitram/claude-code-extensions",
+  "downloaded_at": "2026-01-14T01:55:09.163857Z"
 }

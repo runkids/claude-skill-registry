@@ -1,12 +1,7 @@
 {
   "name": "task-slicer",
-  "description": "Split features into atomic 2–4h tasks with independent tests and minimal dependencies",
   "repo": "MacroMan5/claude-code-workflow-plugins",
-  "category": "testing",
-  "tags": [
-    "task",
-    "slicer"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/task-slicer/SKILL.md",
+  "source": "github.com/MacroMan5/claude-code-workflow-plugins",
+  "downloaded_at": "2026-01-14T03:37:13.507838Z"
 }

@@ -1,269 +1,826 @@
 ---
 name: redis-expert
+version: 3.0.0
 description: |
-  Redis database expert for caching, data structures, Pub/Sub, Streams, Lua scripting,
-  and performance optimization using Bun.redis native client.
-  Use when working with Redis, caching strategies, key-value stores, real-time data,
-  vector search, or document databases. Works alongside bun-expert skill.
-allowed-tools: Read, Write, Edit, Bash, Grep, Glob
+  Redis 전문가. Lettuce(캐싱) + Redisson(분산락) 듀얼 전략.
+  CacheAdapter(Cache-Aside, TTL 필수, KEYS 금지→SCAN 사용), LockAdapter(Pub/Sub, Watchdog, try-finally).
+  Key Naming: {namespace}:{entity}:{id}. @Component 사용. @Transactional 금지.
+author: claude-spring-standards
+created: 2024-11-01
+updated: 2025-12-05
+tags: [project, persistence, redis, cache, distributed-lock, lettuce, redisson]
 ---
 
-# Redis Expert Skill
+# Redis Expert (Redis 전문가)
 
-You are an expert Redis developer with deep knowledge of Redis data structures, caching strategies, Pub/Sub messaging, Streams, Lua scripting, and the Redis Stack modules (RedisJSON, RediSearch, Vector Search). You help users build high-performance applications using Bun's native Redis client (`Bun.redis`).
+## 목적 (Purpose)
 
-## Cross-Skill Integration
+Persistence Layer에서 **Redis를 활용한 캐싱 및 분산락**을 규칙에 맞게 구현합니다.
+Lettuce(캐싱)와 Redisson(분산락) 듀얼 전략으로 각 라이브러리의 강점을 최대한 활용합니다.
 
-This skill works alongside the **bun-expert** skill. When using Redis with Bun:
-- Use `Bun.redis` for all Redis operations (not external packages)
-- Leverage Bun's native performance optimizations
-- Use `Bun.file()` for Redis persistence file operations
-- Use Bun's test runner for Redis integration tests
+## 활성화 조건
+
+- `/impl persistence {feature}` 명령 실행 시 (캐시/락 필요한 경우)
+- `/plan` 실행 후 캐싱 또는 분산락 설계 시
+- cache, redis, lettuce, redisson, distributed lock, 캐싱 키워드 언급 시
+
+## 산출물 (Output)
+
+| 컴포넌트 | 파일명 패턴 | 위치 |
+|----------|-------------|------|
+| CacheAdapter | `{Bc}CacheAdapter.java` | `adapter-out/persistence-redis/{bc}/adapter/` |
+| LockAdapter | `DistributedLockAdapter.java` | `adapter-out/persistence-redis/common/adapter/` |
+| LettuceConfig | `LettuceConfig.java` | `adapter-out/persistence-redis/config/` |
+| RedissonConfig | `RedissonConfig.java` | `adapter-out/persistence-redis/config/` |
+| CachePort | `{Bc}CachePort.java` | `application/common/port/out/` |
+| LockPort | `DistributedLockPort.java` | `application/common/port/out/` |
+
+## 완료 기준 (Acceptance Criteria)
+
+- [ ] Lettuce + Redisson 듀얼 전략 (캐싱 vs 분산락 분리)
+- [ ] Cache-Aside 패턴 준수
+- [ ] TTL 필수 (모든 캐시 키에 TTL 설정)
+- [ ] Key Naming Convention 준수 (`{namespace}:{entity}:{id}`)
+- [ ] KEYS 명령어 금지 (SCAN 사용)
+- [ ] `@Component` 어노테이션 사용
+- [ ] `@Transactional` 금지 (Adapter에서)
+- [ ] try-finally 패턴 (분산락)
+- [ ] Lombok 금지
+- [ ] ArchUnit 테스트 통과
 
 ---
 
-## Bun.redis Client Fundamentals
+## 듀얼 전략 아키텍처
 
-### Connection Setup
-
-```typescript
-// Default client (uses VALKEY_URL, REDIS_URL, or localhost:6379)
-import { redis } from "bun";
-await redis.set("key", "value");
-
-// Custom client with options
-import { RedisClient } from "bun";
-const client = new RedisClient("redis://username:password@localhost:6379", {
-  connectionTimeout: 10000,     // Connection timeout (ms)
-  idleTimeout: 0,               // Idle timeout (0 = no timeout)
-  autoReconnect: true,          // Auto-reconnect on disconnect
-  maxRetries: 10,               // Max reconnection attempts
-  enableOfflineQueue: true,     // Queue commands when disconnected
-  enableAutoPipelining: true,   // Automatic command batching
-  tls: true,                    // Enable TLS (or provide TLSOptions)
-});
+```
+┌─────────────────────────────────────────────────────────────┐
+│                   Redis 듀얼 전략                            │
+├──────────────────────────┬──────────────────────────────────┤
+│       LETTUCE            │          REDISSON                │
+│   (Spring Boot 기본)     │       (분산락 전문)               │
+├──────────────────────────┼──────────────────────────────────┤
+│  • 캐싱 (Caching)        │  • 분산락 (Distributed Lock)     │
+│  • 세션 (Session)        │  • Fair Lock (선착순)            │
+│  • 단순 K-V 저장         │  • Read/Write Lock              │
+│  • 발행/구독 기본        │  • Multi Lock                   │
+├──────────────────────────┼──────────────────────────────────┤
+│  RedisTemplate 사용      │  RedissonClient 사용            │
+│  Cache-Aside 패턴        │  Pub/Sub 기반 (스핀락 아님)      │
+│  TTL 필수                │  Watchdog 자동 연장              │
+└──────────────────────────┴──────────────────────────────────┘
 ```
 
-### URL Formats
+### 라이브러리 선택 기준
 
-| Format | Description |
-|--------|-------------|
-| `redis://localhost:6379` | Standard connection |
-| `redis://user:pass@host:6379/0` | With auth and database |
-| `rediss://host:6379` | TLS connection |
-| `redis+tls://host:6379` | TLS connection (alternative) |
-| `redis+unix:///path/to/socket` | Unix socket |
+| 기능 | 라이브러리 | 이유 |
+|------|-----------|------|
+| 캐싱 | Lettuce | Spring Boot 기본, 높은 처리량 |
+| 세션 | Lettuce | Spring Session 통합 |
+| 분산락 | Redisson | Pub/Sub 기반, Watchdog 지원 |
+| 분산 자료구조 | Redisson | RMap, RSet, RQueue 등 |
 
-### Connection Lifecycle
+---
 
-```typescript
-const client = new RedisClient();
-await client.connect();           // Explicit connect (optional - lazy by default)
-await client.duplicate();         // Create duplicate connection for Pub/Sub
-client.close();                   // Close connection
+## 코드 템플릿
 
-// Event handlers
-client.onconnect = () => console.log("Connected");
-client.onclose = (error) => console.log("Disconnected:", error);
+### 1. CachePort 인터페이스 (Application Layer)
 
-// Status
-console.log(client.connected);      // boolean
-console.log(client.bufferedAmount); // bytes buffered
+```java
+package com.ryuqq.application.common.port.out;
+
+import java.util.Optional;
+
+/**
+ * 주문 캐시 포트 (출력 포트)
+ *
+ * <p><strong>메서드명 규칙:</strong></p>
+ * <ul>
+ *   <li>cache() - 캐시 저장</li>
+ *   <li>get() - 캐시 조회</li>
+ *   <li>evict() - 단일 캐시 삭제</li>
+ *   <li>evictAll() - 패턴 매칭 삭제</li>
+ * </ul>
+ *
+ * @author Development Team
+ * @since 1.0.0
+ */
+public interface OrderCachePort {
+
+    /**
+     * 주문 캐시 저장
+     *
+     * @param orderId 주문 ID
+     * @param order   주문 데이터
+     */
+    void cache(Long orderId, OrderCacheData order);
+
+    /**
+     * 주문 캐시 조회
+     *
+     * @param orderId 주문 ID
+     * @return 캐시된 주문 데이터 (없으면 empty)
+     */
+    Optional<OrderCacheData> get(Long orderId);
+
+    /**
+     * 단일 주문 캐시 삭제
+     *
+     * @param orderId 주문 ID
+     */
+    void evict(Long orderId);
+
+    /**
+     * 사용자별 주문 캐시 전체 삭제
+     *
+     * @param userId 사용자 ID
+     */
+    void evictAllByUser(Long userId);
+}
 ```
 
-### Automatic Pipelining
+### 2. CacheAdapter 구현 (Cache-Aside 패턴)
 
-Commands are automatically pipelined for performance. Use `Promise.all()` for concurrent operations:
+```java
+package com.ryuqq.adapter.out.persistence.redis.order.adapter;
 
-```typescript
-const [a, b, c] = await Promise.all([
-  redis.get("key1"),
-  redis.get("key2"),
-  redis.get("key3")
-]);
+import java.time.Duration;
+import java.util.Optional;
+import java.util.Set;
+
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ScanOptions;
+import org.springframework.stereotype.Component;
+
+import com.ryuqq.application.common.port.out.OrderCachePort;
+import com.ryuqq.adapter.out.persistence.redis.order.dto.OrderCacheData;
+
+/**
+ * 주문 캐시 Adapter
+ *
+ * <p><strong>책임:</strong></p>
+ * <ul>
+ *   <li>Cache-Aside 패턴 구현</li>
+ *   <li>TTL 기반 캐시 관리</li>
+ *   <li>SCAN 기반 안전한 키 삭제</li>
+ * </ul>
+ *
+ * <p><strong>금지 사항:</strong></p>
+ * <ul>
+ *   <li>❌ 비즈니스 로직 포함</li>
+ *   <li>❌ @Transactional 사용</li>
+ *   <li>❌ KEYS 명령어 사용</li>
+ *   <li>❌ TTL 없는 캐시 저장</li>
+ * </ul>
+ *
+ * @author Development Team
+ * @since 1.0.0
+ */
+@Component
+public class OrderCacheAdapter implements OrderCachePort {
+
+    private static final String KEY_PREFIX = "order:cache:";
+    private static final String USER_KEY_PREFIX = "order:user:";
+    private static final Duration DEFAULT_TTL = Duration.ofMinutes(30);
+
+    private final RedisTemplate<String, Object> redisTemplate;
+
+    public OrderCacheAdapter(RedisTemplate<String, Object> redisTemplate) {
+        this.redisTemplate = redisTemplate;
+    }
+
+    @Override
+    public void cache(Long orderId, OrderCacheData order) {
+        String key = generateKey(orderId);
+        redisTemplate.opsForValue().set(key, order, DEFAULT_TTL);
+    }
+
+    @Override
+    public Optional<OrderCacheData> get(Long orderId) {
+        String key = generateKey(orderId);
+        Object cached = redisTemplate.opsForValue().get(key);
+
+        if (cached instanceof OrderCacheData data) {
+            return Optional.of(data);
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public void evict(Long orderId) {
+        String key = generateKey(orderId);
+        redisTemplate.delete(key);
+    }
+
+    /**
+     * 사용자별 캐시 삭제 (SCAN 사용 - KEYS 금지)
+     *
+     * <p>KEYS 명령어는 Redis를 블로킹하므로 SCAN 사용 필수</p>
+     */
+    @Override
+    public void evictAllByUser(Long userId) {
+        String pattern = USER_KEY_PREFIX + userId + ":*";
+
+        ScanOptions options = ScanOptions.scanOptions()
+            .match(pattern)
+            .count(100)
+            .build();
+
+        Set<String> keysToDelete = redisTemplate.execute((connection) -> {
+            Set<String> keys = new java.util.HashSet<>();
+            var cursor = connection.scan(options);
+            cursor.forEachRemaining(key -> keys.add(new String(key)));
+            return keys;
+        });
+
+        if (keysToDelete != null && !keysToDelete.isEmpty()) {
+            redisTemplate.delete(keysToDelete);
+        }
+    }
+
+    private String generateKey(Long orderId) {
+        return KEY_PREFIX + orderId;
+    }
+}
 ```
 
-### Raw Command Execution
+### 3. DistributedLockPort 인터페이스 (Application Layer)
 
-For commands not yet wrapped (66 commands native, 400+ via send):
+```java
+package com.ryuqq.application.common.port.out;
 
-```typescript
-await redis.send("PFADD", ["hll", "value1", "value2"]);
-await redis.send("LRANGE", ["mylist", "0", "-1"]);
-await redis.send("SCAN", ["0", "MATCH", "user:*", "COUNT", "100"]);
+import java.util.concurrent.TimeUnit;
+
+/**
+ * 분산락 포트 (출력 포트)
+ *
+ * <p><strong>Redisson 기반 분산락 추상화</strong></p>
+ *
+ * <p><strong>메서드명 규칙:</strong></p>
+ * <ul>
+ *   <li>tryLock() - Lock 획득 시도</li>
+ *   <li>unlock() - Lock 해제</li>
+ *   <li>isHeldByCurrentThread() - 현재 스레드 Lock 보유 확인</li>
+ *   <li>isLocked() - Lock 상태 확인</li>
+ * </ul>
+ *
+ * @author Development Team
+ * @since 1.0.0
+ */
+public interface DistributedLockPort {
+
+    /**
+     * 분산락 획득 시도
+     *
+     * @param key       Lock 키 (예: "lock:order:123")
+     * @param waitTime  최대 대기 시간
+     * @param leaseTime Lock 유지 시간
+     * @param unit      시간 단위
+     * @return Lock 획득 성공 여부
+     */
+    boolean tryLock(String key, long waitTime, long leaseTime, TimeUnit unit);
+
+    /**
+     * 분산락 해제
+     *
+     * <p>현재 스레드가 Lock을 보유한 경우에만 해제</p>
+     *
+     * @param key Lock 키
+     */
+    void unlock(String key);
+
+    /**
+     * 현재 스레드 Lock 보유 여부
+     *
+     * @param key Lock 키
+     * @return 현재 스레드가 Lock을 보유 중인지 여부
+     */
+    boolean isHeldByCurrentThread(String key);
+
+    /**
+     * Lock 상태 확인
+     *
+     * @param key Lock 키
+     * @return Lock이 걸려있는지 여부
+     */
+    boolean isLocked(String key);
+}
 ```
 
-### Error Handling
+### 4. DistributedLockAdapter 구현 (Redisson)
 
-```typescript
-try {
-  await redis.get("key");
-} catch (error) {
-  if (error.code === "ERR_REDIS_CONNECTION_CLOSED") {
-    // Handle connection closed
-  } else if (error.code === "ERR_REDIS_AUTHENTICATION_FAILED") {
-    // Handle auth failure
-  } else if (error.message.includes("WRONGTYPE")) {
-    // Handle type mismatch
-  }
+```java
+package com.ryuqq.adapter.out.persistence.redis.common.adapter;
+
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
+
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
+import org.springframework.stereotype.Component;
+
+import com.ryuqq.application.common.port.out.DistributedLockPort;
+import com.ryuqq.adapter.out.persistence.redis.common.exception.LockAcquisitionException;
+
+/**
+ * Redisson 분산락 Adapter
+ *
+ * <p><strong>Redisson 장점 (vs Lettuce 스핀락):</strong></p>
+ * <ul>
+ *   <li>Pub/Sub 기반 이벤트 리스너 (스핀락 X)</li>
+ *   <li>Watchdog 자동 TTL 연장</li>
+ *   <li>Fair Lock, Read/Write Lock 지원</li>
+ * </ul>
+ *
+ * <p><strong>금지 사항:</strong></p>
+ * <ul>
+ *   <li>❌ 비즈니스 로직 포함</li>
+ *   <li>❌ Lock 내에서 DB 접근</li>
+ *   <li>❌ @Transactional 사용</li>
+ * </ul>
+ *
+ * @author Development Team
+ * @since 1.0.0
+ */
+@Component
+public class DistributedLockAdapter implements DistributedLockPort {
+
+    private final RedissonClient redissonClient;
+
+    /**
+     * Thread-safe Lock 인스턴스 캐시
+     */
+    private final ConcurrentHashMap<String, RLock> lockCache = new ConcurrentHashMap<>();
+
+    public DistributedLockAdapter(RedissonClient redissonClient) {
+        this.redissonClient = redissonClient;
+    }
+
+    @Override
+    public boolean tryLock(String key, long waitTime, long leaseTime, TimeUnit unit) {
+        RLock lock = getLock(key);
+
+        try {
+            return lock.tryLock(waitTime, leaseTime, unit);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new LockAcquisitionException(
+                String.format("Lock 획득 중 인터럽트: key=%s", key), e
+            );
+        }
+    }
+
+    /**
+     * Lock 해제 (현재 스레드 보유 확인 필수)
+     *
+     * <p>무조건 unlock 호출 시 IllegalMonitorStateException 발생 가능</p>
+     */
+    @Override
+    public void unlock(String key) {
+        RLock lock = getLock(key);
+
+        if (lock.isHeldByCurrentThread()) {
+            lock.unlock();
+        }
+    }
+
+    @Override
+    public boolean isHeldByCurrentThread(String key) {
+        return getLock(key).isHeldByCurrentThread();
+    }
+
+    @Override
+    public boolean isLocked(String key) {
+        return getLock(key).isLocked();
+    }
+
+    private RLock getLock(String key) {
+        return lockCache.computeIfAbsent(key, redissonClient::getLock);
+    }
+}
+```
+
+### 5. Lettuce 설정 (LettuceConfig)
+
+```java
+package com.ryuqq.adapter.out.persistence.redis.config;
+
+import java.time.Duration;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
+import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
+import org.springframework.data.redis.connection.lettuce.LettucePoolingClientConfiguration;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
+
+import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
+
+/**
+ * Lettuce 설정 (캐싱 전용)
+ *
+ * @author Development Team
+ * @since 1.0.0
+ */
+@Configuration
+public class LettuceConfig {
+
+    @Value("${spring.data.redis.host}")
+    private String host;
+
+    @Value("${spring.data.redis.port}")
+    private int port;
+
+    @Value("${spring.data.redis.password:}")
+    private String password;
+
+    @Bean
+    public RedisConnectionFactory redisConnectionFactory() {
+        RedisStandaloneConfiguration serverConfig = new RedisStandaloneConfiguration();
+        serverConfig.setHostName(host);
+        serverConfig.setPort(port);
+        if (!password.isEmpty()) {
+            serverConfig.setPassword(password);
+        }
+
+        GenericObjectPoolConfig<?> poolConfig = new GenericObjectPoolConfig<>();
+        poolConfig.setMaxTotal(16);
+        poolConfig.setMaxIdle(8);
+        poolConfig.setMinIdle(4);
+        poolConfig.setMaxWait(Duration.ofMillis(3000));
+
+        LettucePoolingClientConfiguration clientConfig = LettucePoolingClientConfiguration.builder()
+            .commandTimeout(Duration.ofMillis(3000))
+            .poolConfig(poolConfig)
+            .build();
+
+        return new LettuceConnectionFactory(serverConfig, clientConfig);
+    }
+
+    @Bean
+    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
+        RedisTemplate<String, Object> template = new RedisTemplate<>();
+        template.setConnectionFactory(connectionFactory);
+
+        template.setKeySerializer(new StringRedisSerializer());
+        template.setValueSerializer(new GenericJackson2JsonRedisSerializer());
+        template.setHashKeySerializer(new StringRedisSerializer());
+        template.setHashValueSerializer(new GenericJackson2JsonRedisSerializer());
+
+        template.afterPropertiesSet();
+        return template;
+    }
+}
+```
+
+### 6. Redisson 설정 (RedissonConfig)
+
+```java
+package com.ryuqq.adapter.out.persistence.redis.config;
+
+import org.redisson.Redisson;
+import org.redisson.api.RedissonClient;
+import org.redisson.config.Config;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+/**
+ * Redisson 설정 (분산락 전용)
+ *
+ * @author Development Team
+ * @since 1.0.0
+ */
+@Configuration
+public class RedissonConfig {
+
+    @Value("${spring.data.redis.host}")
+    private String host;
+
+    @Value("${spring.data.redis.port}")
+    private int port;
+
+    @Value("${spring.data.redis.password:}")
+    private String password;
+
+    @Bean(destroyMethod = "shutdown")
+    public RedissonClient redissonClient() {
+        Config config = new Config();
+
+        String address = String.format("redis://%s:%d", host, port);
+
+        config.useSingleServer()
+            .setAddress(address)
+            .setPassword(password.isEmpty() ? null : password)
+            .setConnectionPoolSize(16)
+            .setConnectionMinimumIdleSize(4)
+            .setIdleConnectionTimeout(10000)
+            .setConnectTimeout(3000)
+            .setTimeout(3000)
+            .setRetryAttempts(3)
+            .setRetryInterval(1500);
+
+        return Redisson.create(config);
+    }
+}
+```
+
+### 7. YAML 설정 예시
+
+```yaml
+# persistence-redis.yml
+
+# ===== Local 환경 =====
+spring:
+  data:
+    redis:
+      host: localhost
+      port: 16379  # Docker Compose 포트
+      password: ""
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 4
+          min-idle: 2
+          max-wait: 3000ms
+      timeout: 3000ms
+
+---
+# ===== Production 환경 =====
+spring:
+  config:
+    activate:
+      on-profile: prod
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: 6379
+      password: ${REDIS_PASSWORD}
+      lettuce:
+        pool:
+          max-active: 16
+          max-idle: 8
+          min-idle: 4
+          max-wait: 3000ms
+      timeout: 3000ms
+```
+
+### 8. UseCase에서 분산락 사용 예시
+
+```java
+package com.ryuqq.application.stock.service;
+
+import java.util.concurrent.TimeUnit;
+
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.ryuqq.application.common.port.out.DistributedLockPort;
+import com.ryuqq.application.stock.port.in.DecreaseStockUseCase;
+
+/**
+ * 재고 차감 Service (분산락 적용)
+ */
+@Component
+public class DecreaseStockService implements DecreaseStockUseCase {
+
+    private static final String LOCK_KEY_PREFIX = "lock:stock:item:";
+    private static final long LOCK_WAIT_TIME = 10;
+    private static final long LOCK_LEASE_TIME = 30;
+
+    private final DistributedLockPort lockPort;
+    private final StockReadManager stockReadManager;
+    private final StockTransactionManager stockTransactionManager;
+
+    public DecreaseStockService(
+            DistributedLockPort lockPort,
+            StockReadManager stockReadManager,
+            StockTransactionManager stockTransactionManager) {
+        this.lockPort = lockPort;
+        this.stockReadManager = stockReadManager;
+        this.stockTransactionManager = stockTransactionManager;
+    }
+
+    @Override
+    @Transactional
+    public void execute(DecreaseStockCommand command) {
+        String lockKey = LOCK_KEY_PREFIX + command.itemId();
+
+        boolean acquired = lockPort.tryLock(
+            lockKey, LOCK_WAIT_TIME, LOCK_LEASE_TIME, TimeUnit.SECONDS
+        );
+
+        if (!acquired) {
+            throw new StockLockException("재고 Lock 획득 실패: itemId=" + command.itemId());
+        }
+
+        try {
+            Stock stock = stockReadManager.getByItemId(command.itemId());
+            stock.decrease(command.quantity());
+            stockTransactionManager.persist(stock);
+
+        } finally {
+            lockPort.unlock(lockKey);  // try-finally 필수!
+        }
+    }
 }
 ```
 
 ---
 
-## Quick Reference - Native Commands
+## TTL 전략 테이블
 
-| Category | Commands |
-|----------|----------|
-| **Strings** | `set`, `get`, `getBuffer`, `del`, `exists`, `expire`, `ttl`, `incr`, `decr` |
-| **Hashes** | `hget`, `hmget`, `hmset`, `hincrby`, `hincrbyfloat` |
-| **Sets** | `sadd`, `srem`, `sismember`, `smembers`, `srandmember`, `spop` |
-| **Pub/Sub** | `publish`, `subscribe`, `unsubscribe` |
-
-For complete data structure reference, see [DATA-STRUCTURES.md](DATA-STRUCTURES.md).
-
----
-
-## Key Naming Conventions
-
-Use consistent naming throughout your application:
-
-| Pattern | Example | Use Case |
-|---------|---------|----------|
-| `{entity}:{id}` | `user:123` | Simple keys |
-| `{entity}:{id}:{field}` | `user:123:settings` | Sub-fields |
-| `{namespace}:{entity}:{id}` | `app1:user:123` | Multi-tenant |
-| `{operation}:{entity}:{id}` | `cache:user:123` | Operation-specific |
-| `{entity}:{id}:{timestamp}` | `session:abc:1703001234` | Time-based |
+| 캐시 유형 | TTL | 예시 |
+|----------|-----|------|
+| **Static Data** | 24시간 | 카테고리, 코드 |
+| **Reference Data** | 1시간 | 상품 정보 |
+| **User Data** | 10-30분 | 장바구니, 세션 |
+| **Real-time Data** | 1-5분 | 재고 수량 |
+| **Lock** | 작업시간 + 버퍼 | waitTime=10s, leaseTime=30s |
 
 ---
 
-## Quick Patterns Reference
+## Key Naming Convention
 
-### Cache-Aside Pattern
+### 패턴
 
-```typescript
-async function cached<T>(key: string, ttl: number, fetch: () => Promise<T>): Promise<T> {
-  const cached = await redis.get(key);
-  if (cached) return JSON.parse(cached);
-
-  const data = await fetch();
-  await redis.set(key, JSON.stringify(data));
-  await redis.expire(key, ttl);
-  return data;
-}
-
-// Usage
-const user = await cached(`user:${id}`, 3600, () => db.findUser(id));
+```
+{namespace}:{entity}:{id}
 ```
 
-### Rate Limiting
+### 예시
 
-```typescript
-async function rateLimit(id: string, limit: number, window: number): Promise<boolean> {
-  const key = `ratelimit:${id}`;
-  const count = await redis.incr(key);
-  if (count === 1) await redis.expire(key, window);
-  return count <= limit;
-}
+```java
+// 캐시 키
+"order:cache:123"           // 주문 캐시
+"product:cache:456"         // 상품 캐시
+"user:session:789"          // 사용자 세션
 
-// Usage
-if (!await rateLimit(userId, 100, 60)) {
-  throw new Error("Rate limit exceeded");
-}
-```
-
-### Distributed Lock
-
-```typescript
-async function acquireLock(resource: string, ttlMs: number): Promise<string | null> {
-  const token = crypto.randomUUID();
-  const result = await redis.send("SET", [resource, token, "NX", "PX", ttlMs.toString()]);
-  return result === "OK" ? token : null;
-}
-
-async function releaseLock(resource: string, token: string): Promise<boolean> {
-  const script = `
-    if redis.call("GET", KEYS[1]) == ARGV[1] then
-      return redis.call("DEL", KEYS[1])
-    end
-    return 0
-  `;
-  const result = await redis.send("EVAL", [script, "1", resource, token]);
-  return result === 1;
-}
-```
-
-For complete patterns, see [PATTERNS.md](PATTERNS.md).
-
----
-
-## Performance Guidelines
-
-### Do's
-
-1. **Use pipelining** for multiple commands: `Promise.all([...])`
-2. **Prefer atomic operations**: `INCR` over `GET` + `SET`
-3. **Use Lua scripts** for complex atomic operations
-4. **Set appropriate TTLs** to prevent memory bloat
-5. **Keep values small** (<100KB ideal, <1MB max)
-6. **Use connection pooling** via RedisClient reuse
-
-### Don'ts
-
-1. **Avoid KEYS in production** - use `SCAN` instead
-2. **Don't store large objects** - break into smaller pieces
-3. **Avoid blocking commands** on main connection - use `duplicate()`
-4. **Don't ignore TTLs** - set expiration on all cached data
-
-### Monitoring
-
-```typescript
-// Server info
-const info = await redis.send("INFO", ["memory"]);
-
-// Memory usage
-const memoryUsage = await redis.send("MEMORY", ["USAGE", "mykey"]);
-
-// Slow log
-const slowLog = await redis.send("SLOWLOG", ["GET", "10"]);
-
-// Client list
-const clients = await redis.send("CLIENT", ["LIST"]);
+// Lock 키
+"lock:order:123"            // 주문 Lock
+"lock:stock:item:456"       // 재고 Lock
+"lock:scheduler:daily"      // 스케줄러 Lock
 ```
 
 ---
 
-## Related Documentation
+## Watchdog 메커니즘 (Redisson)
 
-| Document | Description |
-|----------|-------------|
-| [DATA-STRUCTURES.md](DATA-STRUCTURES.md) | Complete data structure reference (Strings, Hashes, Lists, Sets, Sorted Sets, Streams, etc.) |
-| [STACK-FEATURES.md](STACK-FEATURES.md) | Redis Stack modules (RedisJSON, RediSearch, Vector Search, TimeSeries) |
-| [PATTERNS.md](PATTERNS.md) | Caching strategies, session storage, rate limiting, distributed locks |
-| [PUBSUB-STREAMS.md](PUBSUB-STREAMS.md) | Pub/Sub messaging and Streams for event sourcing |
-| [SCRIPTING.md](SCRIPTING.md) | Lua scripting patterns and script management |
-| [TESTING.md](TESTING.md) | Testing patterns for Redis operations with bun:test |
+```
+Lock 획득 (leaseTime 미지정 시)
+    ↓
+Watchdog 활성화 (기본 30초 주기)
+    ↓
+┌─────────────────────────────────────┐
+│ while (Lock 보유 중) {              │
+│   10초마다 TTL 갱신 (30초로 연장)   │
+│ }                                   │
+└─────────────────────────────────────┘
+    ↓
+unlock() 호출 → Watchdog 종료
+```
 
----
-
-## Sub-Agents
-
-| Agent | Use When |
-|-------|----------|
-| **redis-cache** | Implementing caching strategies, cache invalidation, TTL management |
-| **redis-search** | Full-text search, vector similarity search, RAG applications |
-| **redis-streams** | Event sourcing, message queues, real-time data pipelines |
+**장점**: 작업이 예상보다 오래 걸려도 Lock이 만료되지 않음
 
 ---
 
-## When This Skill Activates
+## Lock 타입별 사용 시나리오
 
-This skill automatically activates when:
-- Working with `Bun.redis` or `RedisClient`
-- Implementing caching layers
-- Building real-time features with Pub/Sub
-- Designing event-driven architectures with Streams
-- Adding full-text or vector search
-- Writing Lua scripts for Redis
-- Optimizing Redis performance
+| Lock 타입 | 클래스 | 사용 시나리오 |
+|----------|--------|--------------|
+| **기본 Lock** | `RLock` | 재고 차감, 포인트 사용 |
+| **Fair Lock** | `RFairLock` | 좌석 예약, 선착순 이벤트 |
+| **Read/Write Lock** | `RReadWriteLock` | 캐시 갱신, 설정 변경 |
+| **Multi Lock** | `getMultiLock()` | 계좌 이체, 여러 리소스 동시 수정 |
+| **RedLock** | `getRedLock()` | 결제 처리 (고가용성) |
+
+---
+
+## Zero-Tolerance 규칙
+
+### ✅ MANDATORY (필수)
+
+| 규칙 | 설명 |
+|------|------|
+| `@Component` | Adapter 어노테이션 |
+| **TTL 필수** | 모든 캐시에 TTL 설정 |
+| **SCAN 사용** | 패턴 삭제 시 SCAN (KEYS 금지) |
+| **try-finally** | 분산락 unlock 보장 |
+| **isHeldByCurrentThread()** | unlock 전 현재 스레드 확인 |
+| **Key Naming** | `{namespace}:{entity}:{id}` 패턴 |
+| **생성자 주입** | Lombok 없이 Plain Java |
+
+### ❌ PROHIBITED (금지)
+
+| 항목 | 이유 |
+|------|------|
+| `KEYS` 명령어 | Redis 블로킹 (O(N)) |
+| `@Transactional` in Adapter | 캐시와 DB 트랜잭션 분리 |
+| TTL 없는 캐시 | 메모리 누수 위험 |
+| 비즈니스 로직 in Adapter | Application Layer 책임 |
+| null 캐싱 | Cache Penetration 위험 |
+| Lettuce 스핀락 | Redisson Pub/Sub 사용 |
+| 무조건 unlock() | isHeldByCurrentThread() 확인 필수 |
+| Lombok | Plain Java 사용 |
+
+---
+
+## 패키지 구조
+
+```
+adapter-out/persistence-redis/
+├── src/main/java/com/ryuqq/adapter/out/persistence/redis/
+│   ├── config/
+│   │   ├── LettuceConfig.java          # 캐싱용 Lettuce 설정
+│   │   └── RedissonConfig.java         # 분산락용 Redisson 설정
+│   ├── common/
+│   │   ├── adapter/
+│   │   │   └── DistributedLockAdapter.java
+│   │   └── exception/
+│   │       └── LockAcquisitionException.java
+│   └── {bc}/                           # Bounded Context별
+│       ├── adapter/
+│       │   └── {Bc}CacheAdapter.java
+│       └── dto/
+│           └── {Bc}CacheData.java
+└── src/main/resources/
+    └── persistence-redis.yml
+```
+
+---
+
+## 체크리스트 (Output Checklist)
+
+### CacheAdapter
+
+- [ ] `@Component` 어노테이션
+- [ ] Port 인터페이스 구현 (`*CachePort`)
+- [ ] `RedisTemplate` 의존성 주입
+- [ ] 생성자 주입 (Lombok 없음)
+- [ ] **TTL 설정** (모든 캐시 저장 시)
+- [ ] Key Naming Convention 준수
+- [ ] **SCAN 사용** (패턴 삭제 시, KEYS 금지)
+- [ ] `@Transactional` 없음
+- [ ] 비즈니스 로직 없음
+
+### LockAdapter
+
+- [ ] `@Component` 어노테이션
+- [ ] Port 인터페이스 구현 (`DistributedLockPort`)
+- [ ] `RedissonClient` 의존성 주입
+- [ ] 생성자 주입 (Lombok 없음)
+- [ ] **tryLock() 구현** (waitTime, leaseTime 필수)
+- [ ] **unlock() 구현** (isHeldByCurrentThread 확인)
+- [ ] **InterruptedException 처리** (Thread.currentThread().interrupt())
+- [ ] Lock 인스턴스 캐싱 (ConcurrentHashMap)
+- [ ] 커스텀 예외 정의 (LockAcquisitionException)
+- [ ] `@Transactional` 없음
+- [ ] 비즈니스 로직 없음
+
+### Config
+
+- [ ] LettuceConfig (Connection Pool, Serializer)
+- [ ] RedissonConfig (destroyMethod="shutdown")
+- [ ] YAML 환경별 분리 (local/prod)
+- [ ] Timeout 설정 (2000-3000ms 권장)
+
+### UseCase에서 Lock 사용
+
+- [ ] **try-finally 패턴** (unlock 보장)
+- [ ] Lock Key Prefix 상수 정의
+- [ ] waitTime, leaseTime 상수 정의
+- [ ] Lock 획득 실패 시 예외 던지기
+- [ ] Lock 범위 최소화 (필요한 부분만)
+
+---
+
+## 테스트 체크리스트
+
+### CacheAdapter 테스트
+
+- [ ] cache() 후 get() 성공
+- [ ] TTL 만료 후 get() empty
+- [ ] evict() 후 get() empty
+- [ ] evictAllByUser() SCAN 동작 확인
+- [ ] 존재하지 않는 키 get() empty
+
+### LockAdapter 테스트
+
+- [ ] tryLock() 성공/실패
+- [ ] 동시 Lock 획득 시도 (하나만 성공)
+- [ ] unlock() 후 재획득 가능
+- [ ] isHeldByCurrentThread() 정확성
+- [ ] InterruptedException 처리
+
+---
+
+## 참조 문서
+
+- **Redis 가이드**: `docs/coding_convention/04-persistence-layer/redis/persistence-redis-guide.md`
+- **Cache Adapter 가이드**: `docs/coding_convention/04-persistence-layer/redis/adapter/cache-adapter-guide.md`
+- **Distributed Lock 가이드**: `docs/coding_convention/04-persistence-layer/redis/lock/distributed-lock-guide.md`
+- **Lock Adapter 가이드**: `docs/coding_convention/04-persistence-layer/redis/lock/lock-adapter-guide.md`
+- **Lettuce 설정**: `docs/coding_convention/04-persistence-layer/redis/config/lettuce-configuration.md`

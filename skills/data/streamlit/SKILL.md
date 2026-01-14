@@ -1,113 +1,199 @@
 ---
 name: streamlit
-description: When working with Streamlit web apps, data dashboards, ML/AI app UIs, interactive Python visualizations, or building data science applications with Python
+description: Fast Python framework for building interactive web apps, dashboards, and data visualizations without HTML/CSS/JavaScript. Use when user wants to create data apps, ML demos, dashboards, data exploration tools, or interactive visualizations. Transforms Python scripts into web apps in minutes with automatic UI updates.
 ---
 
-# Streamlit Skill
+# Streamlit
 
-Comprehensive assistance with Streamlit development, generated from official documentation covering 317 pages of content including API reference, tutorials, deployment guides, and best practices.
+## Overview
+
+Streamlit is a Python framework for rapidly building and deploying interactive web applications for data science and machine learning. Create beautiful web apps with just Python - no frontend development experience required. Apps automatically update in real-time as code changes.
 
 ## When to Use This Skill
 
-This skill should be triggered when:
-- **Building web apps** with Python for data science, ML/AI, or analytics
-- **Creating dashboards** with interactive visualizations and real-time data
-- **Developing data apps** that need rapid prototyping and deployment
-- **Implementing widgets** like buttons, sliders, file uploaders, or chat interfaces
-- **Working with charts** using built-in charting or custom visualizations
-- **Deploying apps** to Streamlit Community Cloud or other platforms
-- **Testing Streamlit apps** with the app testing framework
-- **Configuring Streamlit** apps with themes, secrets, or custom settings
-- **Building multi-page apps** with navigation and routing
-- **Integrating authentication** with OpenID Connect providers
+Activate when the user:
+- Wants to build a web app, dashboard, or data visualization tool
+- Mentions Streamlit explicitly
+- Needs to create an ML/AI demo or prototype
+- Wants to visualize data interactively
+- Asks for a data exploration tool
+- Needs interactive widgets (sliders, buttons, file uploads)
+- Wants to share analysis results with stakeholders
 
-## Key Concepts
+## Installation and Setup
 
-### Core Architecture
-**Script-based execution**: Streamlit apps run as Python scripts that rerun from top to bottom on every user interaction. This makes development simple but requires understanding state management.
+Check if Streamlit is installed:
 
-**Session State**: Persistent data storage across reruns using `st.session_state`. Essential for maintaining user data, form inputs, and application state.
+```bash
+python3 -c "import streamlit; print(streamlit.__version__)"
+```
 
-**Caching**: Use `@st.cache_data` for data operations and `@st.cache_resource` for expensive resources like ML models or database connections.
+If not installed:
 
-### App Structure
-**Magic commands**: Write variables or strings standalone to display them automatically (when `magicEnabled` is True).
+```bash
+pip3 install streamlit
+```
 
-**Widget callbacks**: Functions that run when widget values change, useful for complex interactions and state updates.
+Create and run your first app:
 
-**Fragments**: Isolated portions of your app that can rerun independently with `@st.fragment`, improving performance for partial updates.
+```bash
+# Create app.py with Streamlit code
+streamlit run app.py
+```
 
-## Quick Reference
+The app opens automatically in your browser at `http://localhost:8501`
 
-### Example 1: Hello World & Basic Display
+## Basic App Structure
+
+Every Streamlit app follows this simple pattern:
 
 ```python
 import streamlit as st
 
-# Simple text display
-st.title("My First Streamlit App")
-st.header("Welcome to Data Science")
-st.write("Hello, World!")
+# Set page configuration (must be first Streamlit command)
+st.set_page_config(
+    page_title="My App",
+    page_icon="📊",
+    layout="wide"
+)
 
-# Magic command (displays automatically)
-"This is magic!"
+# Title and description
+st.title("My Data App")
+st.write("Welcome to my interactive dashboard!")
+
+# Your app code here
+# Streamlit automatically reruns from top to bottom when widgets change
+```
+
+## Core Capabilities
+
+### 1. Displaying Text and Data
+
+```python
+import streamlit as st
+import pandas as pd
+
+# Text elements
+st.title("Main Title")
+st.header("Section Header")
+st.subheader("Subsection Header")
+st.text("Fixed-width text")
+st.markdown("**Bold** and *italic* text")
+st.caption("Small caption text")
+
+# Code blocks
+st.code("""
+def hello():
+    print("Hello, World!")
+""", language="python")
 
 # Display data
-import pandas as pd
-df = pd.DataFrame({'A': [1, 2, 3], 'B': [4, 5, 6]})
-st.dataframe(df)
+df = pd.DataFrame({
+    'Column A': [1, 2, 3],
+    'Column B': [4, 5, 6]
+})
+
+st.dataframe(df)  # Interactive table
+st.table(df)      # Static table
+st.json({'key': 'value'})  # JSON data
+
+# Metrics
+st.metric(
+    label="Revenue",
+    value="$1,234",
+    delta="12%"
+)
 ```
 
-### Example 2: Interactive Widgets & Session State
+### 2. Interactive Widgets
 
 ```python
 import streamlit as st
 
-# Initialize session state
-if 'count' not in st.session_state:
-    st.session_state.count = 0
-
-# Button with callback
-def increment():
-    st.session_state.count += 1
-
-st.button('Increment', on_click=increment)
-st.write(f'Count: {st.session_state.count}')
-
-# Various input widgets
+# Text input
 name = st.text_input("Enter your name")
-age = st.slider("Select age", 0, 100, 25)
-option = st.selectbox("Choose option", ['A', 'B', 'C'])
-uploaded_file = st.file_uploader("Upload CSV")
+email = st.text_input("Email", type="default")
+password = st.text_input("Password", type="password")
+text = st.text_area("Long text", height=100)
+
+# Numbers
+age = st.number_input("Age", min_value=0, max_value=120, value=25)
+slider_val = st.slider("Select a value", 0, 100, 50)
+range_val = st.slider("Select range", 0, 100, (25, 75))
+
+# Selections
+option = st.selectbox("Choose one", ["Option 1", "Option 2", "Option 3"])
+options = st.multiselect("Choose multiple", ["A", "B", "C", "D"])
+radio = st.radio("Pick one", ["Yes", "No", "Maybe"])
+
+# Checkboxes
+agree = st.checkbox("I agree to terms")
+show_data = st.checkbox("Show raw data")
+
+# Buttons
+if st.button("Click me"):
+    st.write("Button clicked!")
+
+# Date and time
+date = st.date_input("Select date")
+time = st.time_input("Select time")
+
+# File upload
+uploaded_file = st.file_uploader("Choose a file", type=['csv', 'xlsx', 'txt'])
+if uploaded_file is not None:
+    df = pd.read_csv(uploaded_file)
+    st.dataframe(df)
+
+# Download button
+st.download_button(
+    label="Download data",
+    data=df.to_csv(index=False),
+    file_name="data.csv",
+    mime="text/csv"
+)
 ```
 
-### Example 3: Charts & Visualizations
+### 3. Charts and Visualizations
 
 ```python
 import streamlit as st
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+import plotly.express as px
 
 # Sample data
-data = pd.DataFrame({
-    'date': pd.date_range('2024-01-01', periods=30),
-    'values': np.random.randn(30).cumsum()
+df = pd.DataFrame({
+    'x': range(10),
+    'y': np.random.randn(10)
 })
 
-# Built-in charts
-st.line_chart(data.set_index('date'))
-st.area_chart(data.set_index('date'))
-st.bar_chart(data.set_index('date'))
+# Streamlit native charts
+st.line_chart(df)
+st.area_chart(df)
+st.bar_chart(df)
 
-# Map visualization
-map_data = pd.DataFrame({
-    'lat': [37.76, 37.77, 37.78],
-    'lon': [-122.4, -122.41, -122.42]
-})
+# Scatter plot with map data
+map_data = pd.DataFrame(
+    np.random.randn(100, 2) / [50, 50] + [37.76, -122.4],
+    columns=['lat', 'lon']
+)
 st.map(map_data)
+
+# Matplotlib
+fig, ax = plt.subplots()
+ax.plot(df['x'], df['y'])
+ax.set_title("Matplotlib Chart")
+st.pyplot(fig)
+
+# Plotly (interactive)
+fig = px.scatter(df, x='x', y='y', title="Interactive Plotly Chart")
+st.plotly_chart(fig, use_container_width=True)
+
+# Altair, Bokeh, and other libraries also supported
 ```
 
-### Example 4: Layouts & Containers
+### 4. Layout and Containers
 
 ```python
 import streamlit as st
@@ -119,355 +205,381 @@ with col1:
     st.write("Content here")
 with col2:
     st.header("Column 2")
-    st.button("Click me")
+    st.write("More content")
 with col3:
     st.header("Column 3")
-    st.checkbox("Check me")
-
-# Sidebar
-with st.sidebar:
-    st.header("Sidebar")
-    filter_val = st.slider("Filter", 0, 100)
+    st.write("Even more")
 
 # Tabs
-tab1, tab2 = st.tabs(["Data", "Charts"])
+tab1, tab2, tab3 = st.tabs(["Overview", "Data", "Settings"])
 with tab1:
-    st.write("Your data here")
+    st.write("Overview content")
 with tab2:
-    st.line_chart([1, 2, 3, 4, 5])
+    st.write("Data content")
+with tab3:
+    st.write("Settings content")
 
-# Expander
+# Expander (collapsible section)
 with st.expander("Click to expand"):
-    st.write("Hidden content revealed!")
+    st.write("Hidden content that can be expanded")
+
+# Container
+with st.container():
+    st.write("This is inside a container")
+    st.write("Another line")
+
+# Sidebar
+st.sidebar.title("Sidebar")
+st.sidebar.selectbox("Choose option", ["A", "B", "C"])
+st.sidebar.slider("Sidebar slider", 0, 100)
 ```
 
-### Example 5: Forms & User Input
+### 5. Status and Progress
 
 ```python
 import streamlit as st
+import time
 
-# Form prevents rerun on every input change
-with st.form("my_form"):
-    st.write("User Registration")
-    name = st.text_input("Name")
-    email = st.text_input("Email")
-    age = st.number_input("Age", min_value=0, max_value=120)
+# Success, info, warning, error messages
+st.success("Success! Everything worked.")
+st.info("This is an informational message.")
+st.warning("This is a warning.")
+st.error("This is an error message.")
 
-    # Form submit button
-    submitted = st.form_submit_button("Submit")
-    if submitted:
-        st.success(f"Welcome {name}!")
-        st.session_state.user_data = {
-            'name': name,
-            'email': email,
-            'age': age
-        }
+# Progress bar
+progress_bar = st.progress(0)
+for i in range(100):
+    time.sleep(0.01)
+    progress_bar.progress(i + 1)
+
+# Spinner (loading indicator)
+with st.spinner("Processing..."):
+    time.sleep(3)
+st.success("Done!")
+
+# Balloons (celebration)
+st.balloons()
+
+# Snow (celebration)
+# st.snow()
 ```
 
-### Example 6: Caching for Performance
+### 6. Caching for Performance
 
 ```python
 import streamlit as st
 import pandas as pd
 import time
 
-# Cache data loading (recomputes when inputs change)
+# Cache data loading (persists across reruns)
 @st.cache_data
-def load_data(file_path):
-    time.sleep(2)  # Simulate expensive operation
-    return pd.read_csv(file_path)
+def load_data():
+    time.sleep(2)  # Simulate slow data load
+    return pd.read_csv('large_file.csv')
 
-# Cache ML models/resources (persists across reruns)
+# Cache resource (connections, models)
 @st.cache_resource
 def load_model():
-    from sklearn.ensemble import RandomForestClassifier
-    model = RandomForestClassifier()
-    # Load trained model...
-    return model
+    # Load ML model (expensive operation)
+    return load_my_model()
 
-# Use cached functions
-data = load_data("data.csv")
-model = load_model()
-st.write(data)
+# Use cached data
+df = load_data()  # Only loads once, then cached
+model = load_model()  # Cached globally
+
+st.write(f"Loaded {len(df)} rows")
 ```
 
-### Example 7: Chat Interface (LLM Apps)
+### 7. Session State (Persistent Data)
 
 ```python
 import streamlit as st
 
-# Initialize chat history
-if "messages" not in st.session_state:
-    st.session_state.messages = []
+# Initialize session state
+if 'count' not in st.session_state:
+    st.session_state.count = 0
 
-# Display chat messages
-for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.write(message["content"])
+# Increment counter
+if st.button("Increment"):
+    st.session_state.count += 1
 
-# Chat input
-if prompt := st.chat_input("What would you like to know?"):
-    # Add user message
-    st.session_state.messages.append({"role": "user", "content": prompt})
-    with st.chat_message("user"):
-        st.write(prompt)
+st.write(f"Count: {st.session_state.count}")
 
-    # Generate and display assistant response
-    response = f"Echo: {prompt}"  # Replace with actual LLM call
-    st.session_state.messages.append({"role": "assistant", "content": response})
-    with st.chat_message("assistant"):
-        st.write(response)
+# Store user data across reruns
+if 'user_data' not in st.session_state:
+    st.session_state.user_data = {}
+
+name = st.text_input("Name")
+if name:
+    st.session_state.user_data['name'] = name
+    st.write(f"Hello, {st.session_state.user_data['name']}!")
 ```
-
-### Example 8: App Testing with pytest
-
-```python
-# app.py
-import streamlit as st
-
-st.session_state.beans = st.session_state.get("beans", 0)
-st.title("Bean counter")
-addend = st.number_input("Beans to add", 0, 10)
-if st.button("Add"):
-    st.session_state.beans += addend
-st.markdown(f"Beans counted: {st.session_state.beans}")
-
-# tests/test_app.py
-from streamlit.testing.v1 import AppTest
-
-def test_increment_and_add():
-    """Test that incrementing and adding works"""
-    at = AppTest.from_file("app.py").run()
-    at.number_input[0].increment().run()
-    at.button[0].click().run()
-    assert at.markdown[0].value == "Beans counted: 1"
-```
-
-### Example 9: User Authentication (OpenID Connect)
-
-```python
-import streamlit as st
-
-# Check authentication status
-if not st.user.is_logged_in:
-    if st.button("Log in"):
-        st.login()
-else:
-    st.write(f"Hello, {st.user.name}!")
-    st.write(f"Email: {st.user.email}")
-
-    if st.button("Log out"):
-        st.logout()
-
-# Configuration in .streamlit/secrets.toml:
-# [auth]
-# redirect_uri = "http://localhost:8501/oauth2callback"
-# cookie_secret = "your-secret-key"
-# client_id = "your-client-id"
-# client_secret = "your-client-secret"
-# server_metadata_url = "https://accounts.google.com/.well-known/openid-configuration"
-```
-
-### Example 10: Configuration & Theming
-
-```toml
-# .streamlit/config.toml
-
-[theme]
-primaryColor = "#F63366"
-backgroundColor = "#FFFFFF"
-secondaryBackgroundColor = "#F0F2F6"
-textColor = "#262730"
-font = "sans-serif"
-
-[server]
-port = 8501
-enableCORS = false
-maxUploadSize = 200
-
-[client]
-showErrorDetails = true
-toolbarMode = "auto"
-```
-
-## Reference Files
-
-This skill includes comprehensive documentation organized into focused categories:
-
-### **api.md** (439KB, 187 pages)
-Complete API reference covering all Streamlit commands:
-- **Display elements**: `st.write`, `st.markdown`, `st.title`, `st.header`, `st.text`, `st.code`, `st.latex`
-- **Data display**: `st.dataframe`, `st.table`, `st.metric`, `st.json`, `st.data_editor`
-- **Charts**: `st.line_chart`, `st.area_chart`, `st.bar_chart`, `st.map`, `st.plotly_chart`, `st.altair_chart`
-- **Input widgets**: `st.button`, `st.checkbox`, `st.radio`, `st.selectbox`, `st.slider`, `st.text_input`, `st.file_uploader`
-- **Media**: `st.image`, `st.audio`, `st.video`, `st.camera_input`
-- **Layouts**: `st.columns`, `st.tabs`, `st.expander`, `st.container`, `st.sidebar`
-- **Chat elements**: `st.chat_message`, `st.chat_input`
-- **Status elements**: `st.progress`, `st.spinner`, `st.success`, `st.error`, `st.warning`
-- **Control flow**: `st.stop`, `st.rerun`, `st.form`, `st.dialog`, `@st.fragment`
-- **State**: `st.session_state`, `st.query_params`
-- **Caching**: `@st.cache_data`, `@st.cache_resource`
-- **Connections**: `st.connection`, database integrations
-- **User auth**: `st.login`, `st.logout`, `st.user`
-- **Configuration**: `st.set_page_config`, `config.toml` options
-
-### **tutorials.md** (111KB, 57 pages)
-Step-by-step guides and practical examples:
-- **Getting started tutorials**: Creating your first app, multi-page apps
-- **LLM/Chat apps**: Building conversational interfaces, chat response feedback
-- **Database connections**: AWS S3, BigQuery, MongoDB, PostgreSQL, Snowflake, TigerGraph
-- **Data handling**: Dataframe row selections, working with large datasets
-- **Execution flow**: Fragments, forms, multipage navigation
-- **Authentication**: Google, Microsoft OAuth integration
-- **Configuration**: Theming, fonts, static file serving
-
-### **concepts.md** (103KB, 42 pages)
-Deep dives into Streamlit architecture and advanced concepts:
-- **Architecture**: How Streamlit runs, script execution model, app lifecycle
-- **Caching**: `@st.cache_data` vs `@st.cache_resource`, cache invalidation
-- **Session State**: Managing state across reruns, widget semantics
-- **Multi-page apps**: Pages directory structure, navigation, dynamic routing
-- **Fragments**: Partial reruns for performance optimization
-- **Forms**: Batching user input to prevent excessive reruns
-- **App testing**: AppTest framework, simulating user interactions
-- **Custom components**: Creating reusable UI components
-- **Configuration**: Environment variables, config.toml structure
-- **Design patterns**: Threading, custom classes, timezone handling
-
-### **deployment.md** (77KB, 22 pages)
-Comprehensive deployment and hosting guidance:
-- **Streamlit Community Cloud**: GitHub integration, workspace management, app settings
-- **Deployment from templates**: Quick start guides
-- **App dependencies**: requirements.txt, packages.txt, managing secrets
-- **Secrets management**: secrets.toml, environment variables
-- **Docker deployment**: Containerization best practices
-- **Kubernetes**: Scaling and orchestration
-- **Snowflake**: Deploying Streamlit in Snowflake
-- **App analytics**: Monitoring usage and performance
-- **SEO & indexability**: Optimizing for search engines
-- **Status & troubleshooting**: Common deployment issues
-
-### **getting_started.md** (65KB, 26 pages)
-Beginner-friendly introduction to Streamlit:
-- **Installation**: Command line, Anaconda, Streamlit Playground
-- **Main concepts**: Script execution, data flow, widgets
-- **Advanced concepts**: Session state, caching, performance
-- **Summary & next steps**: Roadmap for learning
-
-### **knowledge_base.md** (21KB, 48 pages)
-Common questions, troubleshooting, and solutions:
-- **Using Streamlit**: Widget behavior, file uploads, downloading data, serialization
-- **Dependencies**: Module installation, package management, common errors
-- **Deployment issues**: Authentication, resource limits, remote start, WSGI protocol
-- **Best practices**: Sanity checks, supported browsers, camera access
-
-### **other.md** (2.2KB)
-Miscellaneous topics and utilities not fitting other categories
-
-## Working with This Skill
-
-### For Beginners
-1. **Start here**: Read `getting_started.md` for foundational concepts
-2. **First app**: Follow the "Hello World" example in Quick Reference #1
-3. **Learn widgets**: Review Quick Reference #2 for interactive elements
-4. **Understand state**: Study Session State in Quick Reference #2 and concepts.md
-
-### For Intermediate Users
-1. **Performance**: Master caching (Quick Reference #6, concepts.md)
-2. **Layouts**: Build complex UIs with columns, tabs, sidebars (Quick Reference #4)
-3. **Charts**: Create visualizations (Quick Reference #3, api.md)
-4. **Multi-page apps**: Structure larger applications (concepts.md, tutorials.md)
-5. **Testing**: Write tests for your apps (Quick Reference #8, concepts.md)
-
-### For Advanced Users
-1. **Fragments**: Optimize with partial reruns (concepts.md)
-2. **Custom components**: Extend Streamlit's capabilities (concepts.md)
-3. **Authentication**: Implement user login (Quick Reference #9, tutorials.md)
-4. **Deployment**: Scale to production (deployment.md)
-5. **Database integration**: Connect to data sources (tutorials.md, api.md)
-
-### Navigation Tips
-- **Need a specific widget?** Search api.md for `st.<widget_name>`
-- **Error troubleshooting?** Check knowledge_base.md first
-- **Deployment issues?** Consult deployment.md
-- **Understanding how Streamlit works?** Read concepts.md architecture section
-- **Building something specific?** Check tutorials.md for similar examples
-
-## Best Practices
-
-### Performance
-- Use `@st.cache_data` for data loading and transformations
-- Use `@st.cache_resource` for ML models and database connections
-- Implement `@st.fragment` for partial updates in large apps
-- Minimize work in the main script body; push to cached functions
-
-### State Management
-- Initialize session state at the top of your script
-- Use widget `key` parameter to sync with session state
-- Avoid putting non-serializable objects in session state
-
-### UI/UX
-- Use `st.form` to batch related inputs and reduce reruns
-- Provide clear labels and help text for widgets
-- Use status indicators (`st.progress`, `st.spinner`) for long operations
-- Structure layouts with columns and containers for responsive design
-
-### Development
-- Test your apps with the AppTest framework
-- Use `.streamlit/config.toml` for local configuration
-- Keep secrets in `.streamlit/secrets.toml` (never commit to git)
-- Enable `runOnSave` in config for auto-reload during development
 
 ## Common Patterns
 
-### Data App Template
+### Pattern 1: Data Dashboard
+
 ```python
 import streamlit as st
 import pandas as pd
+import plotly.express as px
 
-# Page config
-st.set_page_config(page_title="My Data App", layout="wide")
-
-# Load data (cached)
-@st.cache_data
-def load_data():
-    return pd.read_csv("data.csv")
+st.set_page_config(page_title="Sales Dashboard", layout="wide")
 
 # Sidebar filters
-with st.sidebar:
-    st.header("Filters")
-    category = st.selectbox("Category", options=['All', 'A', 'B', 'C'])
+st.sidebar.header("Filters")
+date_range = st.sidebar.date_input("Date Range", [])
+category = st.sidebar.multiselect("Category", ["A", "B", "C"])
 
-# Main content
-st.title("My Data App")
-data = load_data()
+# Load data
+@st.cache_data
+def load_sales_data():
+    return pd.read_csv('sales_data.csv')
+
+df = load_sales_data()
 
 # Apply filters
-if category != 'All':
-    data = data[data['category'] == category]
+if date_range:
+    df = df[df['date'].between(date_range[0], date_range[1])]
+if category:
+    df = df[df['category'].isin(category)]
 
-# Display
+# Metrics row
+col1, col2, col3, col4 = st.columns(4)
+col1.metric("Total Revenue", f"${df['revenue'].sum():,.0f}")
+col2.metric("Orders", f"{len(df):,}")
+col3.metric("Avg Order", f"${df['revenue'].mean():.2f}")
+col4.metric("Top Product", df['product'].mode()[0])
+
+# Charts
 col1, col2 = st.columns(2)
 with col1:
-    st.dataframe(data)
+    st.subheader("Revenue by Category")
+    fig = px.bar(df.groupby('category')['revenue'].sum().reset_index(),
+                 x='category', y='revenue')
+    st.plotly_chart(fig, use_container_width=True)
+
 with col2:
-    st.line_chart(data.set_index('date'))
+    st.subheader("Revenue Trend")
+    fig = px.line(df.groupby('date')['revenue'].sum().reset_index(),
+                  x='date', y='revenue')
+    st.plotly_chart(fig, use_container_width=True)
+
+# Data table
+with st.expander("View Raw Data"):
+    st.dataframe(df)
 ```
 
-### LLM Chat App Template
-See Quick Reference #7 for complete chat interface implementation.
+### Pattern 2: ML Model Demo
+
+```python
+import streamlit as st
+import pandas as pd
+from sklearn.ensemble import RandomForestClassifier
+
+st.title("🤖 ML Model Demo")
+
+# Sidebar for input
+st.sidebar.header("Input Features")
+feature1 = st.sidebar.slider("Feature 1", 0.0, 10.0, 5.0)
+feature2 = st.sidebar.slider("Feature 2", 0.0, 10.0, 5.0)
+feature3 = st.sidebar.selectbox("Feature 3", ["A", "B", "C"])
+
+# Load and cache model
+@st.cache_resource
+def load_model():
+    # Train or load your model
+    model = RandomForestClassifier()
+    # model.fit(X_train, y_train)
+    return model
+
+model = load_model()
+
+# Make prediction
+if st.sidebar.button("Predict"):
+    # Prepare input
+    input_data = pd.DataFrame({
+        'feature1': [feature1],
+        'feature2': [feature2],
+        'feature3': [feature3]
+    })
+
+    # Predict
+    prediction = model.predict(input_data)[0]
+    probability = model.predict_proba(input_data)[0]
+
+    # Display results
+    st.success(f"Prediction: {prediction}")
+    st.write("Probabilities:")
+    st.bar_chart(pd.DataFrame({
+        'Class': ['A', 'B', 'C'],
+        'Probability': probability
+    }).set_index('Class'))
+```
+
+### Pattern 3: Data Explorer
+
+```python
+import streamlit as st
+import pandas as pd
+import plotly.express as px
+
+st.title("📊 Data Explorer")
+
+# File upload
+uploaded_file = st.file_uploader("Upload CSV", type=['csv'])
+
+if uploaded_file:
+    df = pd.read_csv(uploaded_file)
+
+    # Show basic info
+    st.subheader("Dataset Overview")
+    col1, col2, col3 = st.columns(3)
+    col1.metric("Rows", len(df))
+    col2.metric("Columns", len(df.columns))
+    col3.metric("Memory", f"{df.memory_usage(deep=True).sum() / 1024**2:.2f} MB")
+
+    # Column selection
+    st.subheader("Explore Data")
+    columns = st.multiselect("Select columns", df.columns.tolist(), default=df.columns.tolist()[:5])
+
+    if columns:
+        st.dataframe(df[columns])
+
+        # Statistics
+        st.subheader("Statistics")
+        st.write(df[columns].describe())
+
+        # Visualization
+        st.subheader("Visualize")
+        col1, col2 = st.columns(2)
+
+        with col1:
+            x_col = st.selectbox("X-axis", columns)
+        with col2:
+            y_col = st.selectbox("Y-axis", columns)
+
+        chart_type = st.radio("Chart Type", ["Scatter", "Line", "Bar"])
+
+        if chart_type == "Scatter":
+            fig = px.scatter(df, x=x_col, y=y_col)
+        elif chart_type == "Line":
+            fig = px.line(df, x=x_col, y=y_col)
+        else:
+            fig = px.bar(df, x=x_col, y=y_col)
+
+        st.plotly_chart(fig, use_container_width=True)
+```
+
+### Pattern 4: Multi-Page App
+
+Create a multi-page app with file structure:
+
+```
+app/
+├── main.py
+└── pages/
+    ├── 1_📊_Dashboard.py
+    ├── 2_📈_Analytics.py
+    └── 3_⚙️_Settings.py
+```
+
+Main page (`main.py`):
+
+```python
+import streamlit as st
+
+st.set_page_config(page_title="Multi-Page App", page_icon="🏠")
+
+st.title("Welcome to My App")
+st.sidebar.success("Select a page above.")
+
+st.markdown("""
+This is the home page. Navigate using the sidebar.
+""")
+```
+
+Pages automatically appear in the sidebar. Each page is a separate Python file.
+
+## Form Handling
+
+```python
+import streamlit as st
+
+# Forms prevent rerun on every widget change
+with st.form("my_form"):
+    st.write("Fill out the form")
+
+    name = st.text_input("Name")
+    age = st.number_input("Age", min_value=0, max_value=120)
+    favorite_color = st.selectbox("Favorite Color", ["Red", "Green", "Blue"])
+
+    # Form submit button
+    submitted = st.form_submit_button("Submit")
+
+    if submitted:
+        st.write(f"Name: {name}")
+        st.write(f"Age: {age}")
+        st.write(f"Color: {favorite_color}")
+```
+
+## Deployment
+
+Deploy Streamlit apps to the cloud:
+
+```bash
+# Streamlit Community Cloud (free)
+# 1. Push code to GitHub
+# 2. Go to share.streamlit.io
+# 3. Connect repository and deploy
+
+# Other options:
+# - Heroku
+# - AWS
+# - Google Cloud
+# - Docker container
+```
+
+## Best Practices
+
+1. **Use caching** - Cache expensive operations with `@st.cache_data` and `@st.cache_resource`
+2. **Session state for persistence** - Use `st.session_state` to persist data across reruns
+3. **Organize with containers** - Use columns, tabs, and expanders for clean layouts
+4. **Forms for multiple inputs** - Prevent reruns with forms when collecting multiple inputs
+5. **Wide layout for dashboards** - Use `st.set_page_config(layout="wide")` for dashboards
+6. **Sidebar for controls** - Put filters and settings in the sidebar
+7. **Progress indicators** - Show spinners for long operations
+
+## Common Issues
+
+### Issue: App reruns on every interaction
+
+Use `st.form()` to batch inputs or `st.session_state` to control behavior.
+
+### Issue: Slow performance
+
+Cache expensive operations:
+
+```python
+@st.cache_data
+def expensive_computation(param):
+    # Your code here
+    return result
+```
+
+### Issue: State not persisting
+
+Use session state:
+
+```python
+if 'my_var' not in st.session_state:
+    st.session_state.my_var = initial_value
+```
 
 ## Resources
 
-- **Official Docs**: https://docs.streamlit.io
-- **Community Forum**: https://discuss.streamlit.io
-- **GitHub**: https://github.com/streamlit/streamlit
-- **Gallery**: https://streamlit.io/gallery
-- **Cheat Sheet**: https://docs.streamlit.io/develop/quick-reference/cheat-sheet
-
-## Notes
-
-- This skill was automatically generated from 317 pages of official Streamlit documentation
-- All code examples are extracted from official docs and tested patterns
-- Reference files preserve structure and links to source documentation
-- Last updated: Based on Streamlit documentation as of October 2025
+- **references/api_reference.md**: Quick reference for common Streamlit components
+- Official docs: https://docs.streamlit.io/
+- API reference: https://docs.streamlit.io/develop/api-reference
+- Gallery: https://streamlit.io/gallery
+- Community: https://discuss.streamlit.io/

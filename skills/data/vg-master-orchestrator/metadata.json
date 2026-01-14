@@ -1,12 +1,7 @@
 {
   "name": "vg-master-orchestrator",
-  "description": "Master Orchestrator for autonomous multi-agent coordination. Use when tasks require multiple technology experts, complex workflows (TDD pattern addition, security audits), intelligent routing, or expl",
   "repo": "tbartel74/Vigil-Code",
-  "category": "productivity",
-  "tags": [
-    "master",
-    "orchestrator"
-  ],
-  "stars": 5,
-  "source": "local"
+  "path": ".claude/skills/vg-master-orchestrator/SKILL.md",
+  "source": "github.com/tbartel74/Vigil-Code",
+  "downloaded_at": "2026-01-14T02:46:39.054687Z"
 }

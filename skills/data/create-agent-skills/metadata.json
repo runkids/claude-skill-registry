@@ -1,13 +1,7 @@
 {
   "name": "create-agent-skills",
-  "description": "Expert guidance for creating, writing, building, and refining Claude Code Skills. Use when working with SKILL.md files, authoring new skills, improving existing skills, or understanding skill structur",
   "repo": "marcusgoll/Spec-Flow",
-  "category": "development",
-  "tags": [
-    "create",
-    "agent",
-    "skills"
-  ],
-  "stars": 16,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/create-agent-skills/SKILL.md",
+  "source": "github.com/marcusgoll/Spec-Flow",
+  "downloaded_at": "2026-01-14T04:06:35.252136Z"
 }

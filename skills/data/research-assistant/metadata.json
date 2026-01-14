@@ -1,9 +1,7 @@
 {
   "name": "research-assistant",
-  "description": "Conduct research, synthesize information, and create structured summaries",
-  "repo": "tatat/agents-playground",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "ZhiruiFeng/LocalAgentCrew",
+  "path": ".claude/skills/research-assistant/SKILL.md",
+  "source": "github.com/ZhiruiFeng/LocalAgentCrew",
+  "downloaded_at": "2026-01-14T01:28:42.002623Z"
 }

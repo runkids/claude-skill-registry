@@ -1,13 +1,7 @@
 {
   "name": "staging-deployment-phase",
-  "description": "\"Standard Operating Procedure for /ship-staging phase. Deploy feature to staging with auto-merge.\"",
-  "repo": "marcusgoll/robinhood-algo-trading-bot",
-  "category": "devops",
-  "tags": [
-    "staging",
-    "deployment",
-    "phase"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "marcusgoll/Spec-Flow",
+  "path": ".claude/skills/staging-deployment-phase/SKILL.md",
+  "source": "github.com/marcusgoll/Spec-Flow",
+  "downloaded_at": "2026-01-14T04:06:35.695926Z"
 }

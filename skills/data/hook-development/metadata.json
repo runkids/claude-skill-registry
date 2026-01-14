@@ -1,12 +1,7 @@
 {
   "name": "hook-development",
-  "description": "[Utility] Guide for developing Claude Code hooks - shell commands that execute automatically in response to tool calls and notifications. Use this when users want to create, debug, or optimize hooks f",
-  "repo": "CANTAGESTUDIO/CosmicAtlasPacker",
-  "category": "development",
-  "tags": [
-    "hook",
-    "development"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "troykelly/codex-skills",
+  "path": "external/skills/hook-development/SKILL.md",
+  "source": "github.com/troykelly/codex-skills",
+  "downloaded_at": "2026-01-14T03:34:06.461797Z"
 }

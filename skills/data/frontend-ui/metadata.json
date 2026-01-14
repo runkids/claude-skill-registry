@@ -1,11 +1,7 @@
 {
   "name": "frontend-ui",
-  "description": "Create aesthetically pleasing, visually distinctive frontend UIs using research-backed prompting strategies from Anthropic's frontend aesthetics cookbook",
   "repo": "WomenDefiningAI/claude-code-skills",
-  "category": "design",
-  "tags": [
-    "frontend"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/frontend-ui/SKILL.md",
+  "source": "github.com/WomenDefiningAI/claude-code-skills",
+  "downloaded_at": "2026-01-14T01:52:14.218708Z"
 }

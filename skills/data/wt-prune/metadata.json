@@ -1,10 +1,7 @@
 {
   "name": "wt-prune",
-  "description": "Clean up stale git worktree references and metadata. Use when git shows worktrees that no longer exist, or after manually deleting worktree directories. Fixes inconsistencies.",
   "repo": "michael-menard/monorepo",
-  "category": "data",
-  "tags": [
-    "prune"
-  ],
-  "stars": 0
+  "path": ".claude/skills/wt-prune/SKILL.md",
+  "source": "github.com/michael-menard/monorepo",
+  "downloaded_at": "2026-01-14T02:05:19.001271Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "conflict-resolution",
-  "description": "Use when encountering merge conflicts - handle conflicts cleanly, verify resolution, and maintain code integrity",
-  "repo": "troykelly/claude-skills",
-  "category": "development",
-  "tags": [
-    "conflict",
-    "resolution"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "troykelly/codex-skills",
+  "path": "skills/conflict-resolution/SKILL.md",
+  "source": "github.com/troykelly/codex-skills",
+  "downloaded_at": "2026-01-14T03:34:03.925198Z"
 }

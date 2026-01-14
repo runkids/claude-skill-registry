@@ -1,155 +1,95 @@
 ---
 name: backend-development
-description: Backend API design, database architecture, microservices patterns, and test-driven development. Use for designing APIs, database schemas, or backend system architecture.
-source: wshobson/agents
+description: Build robust backend systems with modern technologies (Node.js, Python, Go, Rust), frameworks (NestJS, FastAPI, Django), databases (PostgreSQL, MongoDB, Redis), APIs (REST, GraphQL, gRPC), authentication (OAuth 2.1, JWT), testing strategies, security best practices (OWASP Top 10), performance optimization, scalability patterns (microservices, caching, sharding), DevOps practices (Docker, Kubernetes, CI/CD), and monitoring. Use when designing APIs, implementing authentication, optimizing database queries, setting up CI/CD pipelines, handling security vulnerabilities, building microservices, or developing production-ready backend systems.
 license: MIT
+version: 1.0.0
 ---
 
-# Backend Development
+# Backend Development Skill
 
-## API Design
+Production-ready backend development with modern technologies, best practices, and proven patterns.
 
-### RESTful Conventions
-```
-GET    /users          # List users
-POST   /users          # Create user
-GET    /users/:id      # Get user
-PUT    /users/:id      # Update user (full)
-PATCH  /users/:id      # Update user (partial)
-DELETE /users/:id      # Delete user
+## When to Use
 
-GET    /users/:id/posts  # List user's posts
-POST   /users/:id/posts  # Create post for user
-```
+- Designing RESTful, GraphQL, or gRPC APIs
+- Building authentication/authorization systems
+- Optimizing database queries and schemas
+- Implementing caching and performance optimization
+- OWASP Top 10 security mitigation
+- Designing scalable microservices
+- Testing strategies (unit, integration, E2E)
+- CI/CD pipelines and deployment
+- Monitoring and debugging production systems
 
-### Response Format
-```json
-{
-  "data": { ... },
-  "meta": {
-    "page": 1,
-    "per_page": 20,
-    "total": 100
-  }
-}
-```
+## Technology Selection Guide
 
-### Error Format
-```json
-{
-  "error": {
-    "code": "VALIDATION_ERROR",
-    "message": "Invalid input",
-    "details": [
-      { "field": "email", "message": "Invalid format" }
-    ]
-  }
-}
-```
+**Languages:** Node.js/TypeScript (full-stack), Python (data/ML), Go (concurrency), Rust (performance)
+**Frameworks:** NestJS, FastAPI, Django, Express, Gin
+**Databases:** PostgreSQL (ACID), MongoDB (flexible schema), Redis (caching)
+**APIs:** REST (simple), GraphQL (flexible), gRPC (performance)
 
-## Database Patterns
+See: `references/backend-technologies.md` for detailed comparisons
 
-### Schema Design
-```sql
--- Use UUIDs for public IDs
-CREATE TABLE users (
-  id SERIAL PRIMARY KEY,
-  public_id UUID DEFAULT gen_random_uuid() UNIQUE,
-  email VARCHAR(255) UNIQUE NOT NULL,
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-  updated_at TIMESTAMPTZ DEFAULT NOW()
-);
+## Reference Navigation
 
--- Soft deletes
-ALTER TABLE users ADD COLUMN deleted_at TIMESTAMPTZ;
+**Core Technologies:**
+- `backend-technologies.md` - Languages, frameworks, databases, message queues, ORMs
+- `backend-api-design.md` - REST, GraphQL, gRPC patterns and best practices
 
--- Indexes
-CREATE INDEX idx_users_email ON users(email);
-CREATE INDEX idx_users_created ON users(created_at DESC);
-```
+**Security & Authentication:**
+- `backend-security.md` - OWASP Top 10 2025, security best practices, input validation
+- `backend-authentication.md` - OAuth 2.1, JWT, RBAC, MFA, session management
 
-### Query Patterns
-```sql
--- Pagination with cursor
-SELECT * FROM posts
-WHERE created_at < $cursor
-ORDER BY created_at DESC
-LIMIT 20;
+**Performance & Architecture:**
+- `backend-performance.md` - Caching, query optimization, load balancing, scaling
+- `backend-architecture.md` - Microservices, event-driven, CQRS, saga patterns
 
--- Efficient counting
-SELECT reltuples::bigint AS estimate
-FROM pg_class WHERE relname = 'users';
-```
+**Quality & Operations:**
+- `backend-testing.md` - Testing strategies, frameworks, tools, CI/CD testing
+- `backend-code-quality.md` - SOLID principles, design patterns, clean code
+- `backend-devops.md` - Docker, Kubernetes, deployment strategies, monitoring
+- `backend-debugging.md` - Debugging strategies, profiling, logging, production debugging
+- `backend-mindset.md` - Problem-solving, architectural thinking, collaboration
 
-## Authentication
+## Key Best Practices (2025)
 
-### JWT Pattern
-```typescript
-interface TokenPayload {
-  sub: string;      // User ID
-  iat: number;      // Issued at
-  exp: number;      // Expiration
-  scope: string[];  // Permissions
-}
+**Security:** Argon2id passwords, parameterized queries (98% SQL injection reduction), OAuth 2.1 + PKCE, rate limiting, security headers
 
-function verifyToken(token: string): TokenPayload {
-  return jwt.verify(token, SECRET) as TokenPayload;
-}
-```
+**Performance:** Redis caching (90% DB load reduction), database indexing (30% I/O reduction), CDN (50%+ latency cut), connection pooling
 
-### Middleware
-```typescript
-async function authenticate(req: Request, res: Response, next: Next) {
-  const token = req.headers.authorization?.replace('Bearer ', '');
-  if (!token) {
-    return res.status(401).json({ error: 'Unauthorized' });
-  }
+**Testing:** 70-20-10 pyramid (unit-integration-E2E), Vitest 50% faster than Jest, contract testing for microservices, 83% migrations fail without tests
 
-  try {
-    req.user = verifyToken(token);
-    next();
-  } catch {
-    res.status(401).json({ error: 'Invalid token' });
-  }
-}
-```
+**DevOps:** Blue-green/canary deployments, feature flags (90% fewer failures), Kubernetes 84% adoption, Prometheus/Grafana monitoring, OpenTelemetry tracing
 
-## Caching Strategy
+## Quick Decision Matrix
 
-```typescript
-// Cache-aside pattern
-async function getUser(id: string): Promise<User> {
-  const cached = await redis.get(`user:${id}`);
-  if (cached) return JSON.parse(cached);
+| Need | Choose |
+|------|--------|
+| Fast development | Node.js + NestJS |
+| Data/ML integration | Python + FastAPI |
+| High concurrency | Go + Gin |
+| Max performance | Rust + Axum |
+| ACID transactions | PostgreSQL |
+| Flexible schema | MongoDB |
+| Caching | Redis |
+| Internal services | gRPC |
+| Public APIs | GraphQL/REST |
+| Real-time events | Kafka |
 
-  const user = await db.users.findById(id);
-  await redis.setex(`user:${id}`, 3600, JSON.stringify(user));
-  return user;
-}
+## Implementation Checklist
 
-// Cache invalidation
-async function updateUser(id: string, data: Partial<User>) {
-  await db.users.update(id, data);
-  await redis.del(`user:${id}`);
-}
-```
+**API:** Choose style → Design schema → Validate input → Add auth → Rate limiting → Documentation → Error handling
 
-## Rate Limiting
+**Database:** Choose DB → Design schema → Create indexes → Connection pooling → Migration strategy → Backup/restore → Test performance
 
-```typescript
-const limiter = rateLimit({
-  windowMs: 60 * 1000,  // 1 minute
-  max: 100,             // 100 requests per window
-  keyGenerator: (req) => req.ip,
-  handler: (req, res) => {
-    res.status(429).json({ error: 'Too many requests' });
-  }
-});
-```
+**Security:** OWASP Top 10 → Parameterized queries → OAuth 2.1 + JWT → Security headers → Rate limiting → Input validation → Argon2id passwords
 
-## Observability
+**Testing:** Unit 70% → Integration 20% → E2E 10% → Load tests → Migration tests → Contract tests (microservices)
 
-- **Logging**: Structured JSON logs with request IDs
-- **Metrics**: Request latency, error rates, queue depths
-- **Tracing**: Distributed tracing with correlation IDs
-- **Health checks**: `/health` and `/ready` endpoints
+**Deployment:** Docker → CI/CD → Blue-green/canary → Feature flags → Monitoring → Logging → Health checks
+
+## Resources
+
+- OWASP Top 10: https://owasp.org/www-project-top-ten/
+- OAuth 2.1: https://oauth.net/2.1/
+- OpenTelemetry: https://opentelemetry.io/

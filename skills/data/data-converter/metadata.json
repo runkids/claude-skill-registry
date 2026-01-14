@@ -1,12 +1,7 @@
 {
   "name": "data-converter",
-  "description": "Convert data between formats (JSON, XML, CSV, YAML, TOML). Use when transforming data structures or migrating between data formats.",
   "repo": "ntaksh42/agents",
-  "category": "data",
-  "tags": [
-    "data",
-    "converter"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/data-converter/SKILL.md",
+  "source": "github.com/ntaksh42/agents",
+  "downloaded_at": "2026-01-14T03:50:59.304361Z"
 }

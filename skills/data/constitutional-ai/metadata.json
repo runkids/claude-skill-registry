@@ -1,8 +1,7 @@
 {
   "name": "constitutional-ai",
   "repo": "zechenzhangAGI/AI-research-SKILLs",
-  "category": "data",
-  "description": "Anthropic's method for training harmless AI through self-improvement. Two-phase approach - supervised learning with self-critique/revision, then RLAIF (RL from AI Feedback). Use for safety alignment, ",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:18.690832Z"
+  "path": "07-safety-alignment/constitutional-ai/SKILL.md",
+  "source": "github.com/zechenzhangAGI/AI-research-SKILLs",
+  "downloaded_at": "2026-01-14T00:53:31.694365Z"
 }

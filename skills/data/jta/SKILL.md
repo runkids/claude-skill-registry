@@ -2,6 +2,7 @@
 name: jta
 description: Translate JSON i18n files to multiple languages with AI-powered quality optimization. Use when user mentions translating JSON, i18n files, internationalization, locale files, or needs to convert language files to other languages.
 version: 1.0.0
+license: Complete terms in LICENSE.txt
 allowed-tools: Read, Write, Bash, Glob
 ---
 

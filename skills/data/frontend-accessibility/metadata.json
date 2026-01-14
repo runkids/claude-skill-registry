@@ -1,12 +1,7 @@
 {
   "name": "frontend-accessibility",
-  "description": "Implement WCAG compliance using semantic HTML, ARIA, keyboard navigation, and screen reader support. Use when building inclusive applications for all users.",
-  "repo": "aj-geddes/useful-ai-prompts",
-  "category": "design",
-  "tags": [
-    "frontend",
-    "accessibility"
-  ],
-  "stars": 25,
-  "source": "local"
+  "repo": "nanorepublica/django-prodserver",
+  "path": ".claude/skills/frontend-accessibility/SKILL.md",
+  "source": "github.com/nanorepublica/django-prodserver",
+  "downloaded_at": "2026-01-14T03:44:35.299150Z"
 }

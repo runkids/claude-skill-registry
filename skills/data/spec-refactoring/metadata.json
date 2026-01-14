@@ -1,12 +1,7 @@
 {
   "name": "spec-refactoring",
-  "description": "Consolidate and improve evolved specs - identifies inconsistencies, removes redundancy, improves structure while maintaining feature coverage",
   "repo": "rhuss/cc-superpowers-sdd",
-  "category": "development",
-  "tags": [
-    "spec",
-    "refactoring"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/spec-refactoring/SKILL.md",
+  "source": "github.com/rhuss/cc-superpowers-sdd",
+  "downloaded_at": "2026-01-14T02:15:41.677874Z"
 }

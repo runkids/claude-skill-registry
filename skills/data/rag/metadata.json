@@ -1,11 +1,7 @@
 {
   "name": "rag",
-  "description": "Use when building Retrieval-Augmented Generation systems - covers document ingestion, hybrid search retrieval, reranking results, and prompt augmentation for accurate LLM responses grounded in your kn",
-  "repo": "juanre/llmemory",
-  "category": "development",
-  "tags": [
-    "rag"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "AbdulSamad94/Hackhaton-SpecsKitPlus",
+  "path": ".claude/skills/rag/SKILL.md",
+  "source": "github.com/AbdulSamad94/Hackhaton-SpecsKitPlus",
+  "downloaded_at": "2026-01-14T02:39:22.144799Z"
 }

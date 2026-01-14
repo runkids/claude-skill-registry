@@ -1,11 +1,7 @@
 {
   "name": "page-import",
-  "description": "Import a single webpage from any URL to structured HTML content for authoring in AEM Edge Delivery Services. Scrapes the page, analyzes structure, maps to existing blocks, and generates HTML for immed",
   "repo": "ddttom/webcomponents-with-eds",
-  "category": "data",
-  "tags": [
-    "page",
-    "import"
-  ],
-  "stars": 5
+  "path": ".claude/skills/page-import/SKILL.md",
+  "source": "github.com/ddttom/webcomponents-with-eds",
+  "downloaded_at": "2026-01-14T03:01:39.042082Z"
 }

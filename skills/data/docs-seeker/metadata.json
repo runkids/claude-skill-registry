@@ -1,12 +1,7 @@
 {
   "name": "docs-seeker",
-  "description": "Discovers and researches authoritative documentation with version-specific, context-aware search. Auto-activates when user asks \"find documentation\", \"API docs\", \"how to use\", \"integration guide\", \"be",
-  "repo": "duongdev/ccpm",
-  "category": "testing",
-  "tags": [
-    "docs",
-    "seeker"
-  ],
-  "stars": 5,
-  "source": "local"
+  "repo": "mrgoonie/xxxnaper",
+  "path": ".claude/skills/docs-seeker/SKILL.md",
+  "source": "github.com/mrgoonie/xxxnaper",
+  "downloaded_at": "2026-01-14T04:00:30.528498Z"
 }

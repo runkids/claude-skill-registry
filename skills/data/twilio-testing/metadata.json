@@ -1,12 +1,7 @@
 {
   "name": "twilio-testing",
-  "description": "Test and validate Twilio Voice API integration with ElevenLabs ConversationRelay for outbound calling. Use when setting up Twilio integration, testing outbound calls, validating audio quality, configu",
   "repo": "onesmartguy/next-level-real-estate",
-  "category": "testing",
-  "tags": [
-    "twilio",
-    "testing"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/twilio-testing/SKILL.md",
+  "source": "github.com/onesmartguy/next-level-real-estate",
+  "downloaded_at": "2026-01-14T02:03:54.042378Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "blog-master-orchestrator",
-  "description": "Central coordinator for blog writing workflow with multi-agent execution. USE WHEN user says 'write a blog post', 'create blog content', 'start blog workflow', OR user wants to orchestrate the full bl",
   "repo": "Zura1555/agents",
-  "category": "productivity",
-  "tags": [
-    "blog",
-    "master",
-    "orchestrator"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/blog-master-orchestrator/SKILL.md",
+  "source": "github.com/Zura1555/agents",
+  "downloaded_at": "2026-01-14T01:20:39.814604Z"
 }

@@ -1,8 +1,7 @@
 {
   "name": "vercel-deployment",
-  "repo": "korallis/Droidz",
-  "category": "data",
-  "description": "Deploy and optimize applications on Vercel with preview deployments, edge functions, environment variables, and performance monitoring. Use when deploying Next.js applications, setting up preview depl",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:59.176658Z"
+  "repo": "MUmerRazzaq/fast-next-todo",
+  "path": ".claude/skills/vercel-deployment/SKILL.md",
+  "source": "github.com/MUmerRazzaq/fast-next-todo",
+  "downloaded_at": "2026-01-14T03:58:14.320000Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "angular-architect",
-  "description": "Use when building Angular 17+ applications with standalone components or signals. Invoke for enterprise apps, RxJS patterns, NgRx state management, performance optimization, advanced routing. Keywords",
-  "repo": "Jeffallan/claude-skills",
-  "category": "development",
-  "tags": [
-    "angular",
-    "architect"
-  ],
-  "stars": 12,
-  "source": "SkillsMP Synced Skills"
+  "repo": "vx-daniel/tb-docs-project",
+  "path": ".claude/skills/angular-architect/SKILL.md",
+  "source": "github.com/vx-daniel/tb-docs-project",
+  "downloaded_at": "2026-01-14T03:42:24.101133Z"
 }

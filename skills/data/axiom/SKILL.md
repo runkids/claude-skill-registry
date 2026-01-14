@@ -1,232 +1,435 @@
 ---
 name: axiom
-description: Axiom observability platform for logs, events, and analytics via REST API
-vm0_secrets:
-  - AXIOM_API_TOKEN
-  - AXIOM_PERSONAL_ACCESS_TOKEN (optional, for /v2/user endpoint)
-vm0_vars:
-  - AXIOM_ORG_ID (optional, required with PAT)
+description: Implements structured logging and observability with Axiom for serverless applications. Use when adding logging, tracing, and Web Vitals monitoring to Next.js and Vercel applications.
 ---
 
 # Axiom
 
-Axiom is a cloud-native observability platform for storing, querying, and analyzing log and event data at scale. Use the REST API to ingest data, run queries using APL (Axiom Processing Language), and manage datasets programmatically.
+Observability platform for logs, metrics, and traces. Native Vercel integration with structured logging for Next.js applications.
 
-> Official docs: `https://axiom.co/docs/restapi/introduction`
-
----
-
-## When to Use
-
-Use this skill when you need to:
-
-- Send logs, metrics, or event data to Axiom
-- Query and analyze data using APL (Axiom Processing Language)
-- Manage datasets, monitors, and annotations
-- Build observability pipelines and dashboards
-
----
-
-## Prerequisites
-
-1. Create an Axiom account at https://app.axiom.co/register
-2. Create an API token with appropriate permissions (Settings > API Tokens)
-3. Create a dataset to store your data
-
-### Token Types
-
-Axiom supports two token types:
-
-| Type | Prefix | Use Case |
-|------|--------|----------|
-| **API Token** | `xaat-` | Most operations (datasets, ingest, queries, monitors) |
-| **Personal Access Token (PAT)** | `xapt-` | Full account access (required for `/v2/user` endpoint) |
-
-Set environment variables:
+## Quick Start
 
 ```bash
-# Required: API Token for most operations
-export AXIOM_API_TOKEN="xaat-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-
-# Optional: For endpoints that require PAT (e.g., Get Current User)
-export AXIOM_PERSONAL_ACCESS_TOKEN="xapt-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-export AXIOM_ORG_ID="your-org-id"
+npm install @axiomhq/js @axiomhq/logging @axiomhq/nextjs @axiomhq/react
 ```
 
----
+## Next.js Setup (2025 API)
 
+### Create Axiom Client
 
-> **Important:** When using `$VAR` in a command that pipes to another command, wrap the command containing `$VAR` in `bash -c '...'`. Due to a Claude Code bug, environment variables are silently cleared when pipes are used directly.
-> ```bash
-> bash -c 'curl -s "https://api.example.com" -H "Authorization: Bearer $API_KEY"'
-> ```
+```typescript
+// lib/axiom/client.ts
+import { Axiom } from '@axiomhq/js';
 
-## How to Use
-
-### Base URLs
-
-- **Ingest (US East)**: `https://us-east-1.aws.edge.axiom.co`
-- **Ingest (EU Central)**: `https://eu-central-1.aws.edge.axiom.co`
-- **API**: `https://api.axiom.co`
-
-### 1. List Datasets
-
-```bash
-bash -c 'curl -s "https://api.axiom.co/v2/datasets" -H "Authorization: Bearer ${AXIOM_API_TOKEN}"'
+export const axiom = new Axiom({
+  token: process.env.AXIOM_TOKEN!,
+  orgId: process.env.AXIOM_ORG_ID,
+});
 ```
 
-### 2. Get Dataset Info
+### Create Logger
 
-```bash
-bash -c 'curl -s "https://api.axiom.co/v2/datasets/my-logs" -H "Authorization: Bearer ${AXIOM_API_TOKEN}"'
+```typescript
+// lib/axiom/logger.ts
+import { Logger, ConsoleTransport, AxiomJSTransport } from '@axiomhq/logging';
+import { nextJsFormatters } from '@axiomhq/nextjs';
+import { axiom } from './client';
+
+export const logger = new Logger({
+  transports: [
+    new AxiomJSTransport({
+      axiom,
+      dataset: process.env.AXIOM_DATASET!,
+    }),
+    new ConsoleTransport(),
+  ],
+  formatters: nextJsFormatters,
+});
 ```
 
-### 3. Create Dataset
+### Create Route Handler
 
-Write to `/tmp/axiom_request.json`:
+```typescript
+// lib/axiom/route.ts
+import { createAxiomRouteHandler } from '@axiomhq/nextjs';
+import { axiom } from './client';
+import { logger } from './logger';
 
-```json
-{
-  "name": "my-logs",
-  "description": "Application logs"
+export const axiomRouteHandler = createAxiomRouteHandler({
+  axiom,
+  logger,
+  dataset: process.env.AXIOM_DATASET!,
+});
+```
+
+### API Route Handler
+
+```typescript
+// app/api/axiom/route.ts
+import { axiomRouteHandler } from '@/lib/axiom/route';
+
+export const POST = axiomRouteHandler;
+```
+
+## Logging
+
+### Server Components
+
+```typescript
+// app/page.tsx
+import { logger } from '@/lib/axiom/logger';
+
+export default async function Page() {
+  logger.info('Page rendered', { page: 'home' });
+
+  try {
+    const data = await fetchData();
+    logger.debug('Data fetched', { count: data.length });
+    return <div>{/* render */}</div>;
+  } catch (error) {
+    logger.error('Failed to fetch data', { error });
+    throw error;
+  } finally {
+    await logger.flush();
+  }
 }
 ```
 
-Then run:
+### API Routes
 
-```bash
-bash -c 'curl -s -X POST "https://api.axiom.co/v2/datasets" -H "Authorization: Bearer ${AXIOM_API_TOKEN}" -H "Content-Type: application/json" -d @/tmp/axiom_request.json'
-```
+```typescript
+// app/api/users/route.ts
+import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/axiom/logger';
 
-### 4. Ingest Data (JSON)
+export async function POST(request: NextRequest) {
+  const body = await request.json();
 
-Write to `/tmp/axiom_request.json`:
+  logger.info('Creating user', {
+    email: body.email,
+    source: request.headers.get('referer'),
+  });
 
-```json
-[
-  {"message": "User logged in", "user_id": "123", "level": "info"}
-]
-```
-
-Then run:
-
-```bash
-bash -c 'curl -s -X POST "https://us-east-1.aws.edge.axiom.co/v1/ingest/my-logs" -H "Authorization: Bearer ${AXIOM_API_TOKEN}" -H "Content-Type: application/json" -d @/tmp/axiom_request.json'
-```
-
-### 5. Ingest Data (NDJSON)
-
-Write to `/tmp/axiom_ndjson.ndjson`:
-
-```
-{"message": "Event 1", "level": "info"}
-{"message": "Event 2", "level": "warn"}
-```
-
-Then run:
-
-```bash
-bash -c 'curl -s -X POST "https://us-east-1.aws.edge.axiom.co/v1/ingest/my-logs" -H "Authorization: Bearer ${AXIOM_API_TOKEN}" -H "Content-Type: application/x-ndjson" -d @/tmp/axiom_ndjson.ndjson'
-```
-
-### 6. Query Data with APL
-
-Write to `/tmp/axiom_request.json`:
-
-```json
-{
-  "apl": "[\"my-logs\"] | where level == \"error\" | limit 10",
-  "startTime": "2024-01-01T00:00:00Z",
-  "endTime": "2025-12-31T23:59:59Z"
+  try {
+    const user = await createUser(body);
+    logger.info('User created', { userId: user.id });
+    return NextResponse.json(user);
+  } catch (error) {
+    logger.error('User creation failed', {
+      error: error instanceof Error ? error.message : 'Unknown error',
+      email: body.email,
+    });
+    return NextResponse.json({ error: 'Failed' }, { status: 500 });
+  } finally {
+    await logger.flush();
+  }
 }
 ```
 
-Then run:
+### Middleware
 
-```bash
-bash -c 'curl -s -X POST "https://api.axiom.co/v1/datasets/_apl?format=tabular" -H "Authorization: Bearer ${AXIOM_API_TOKEN}" -H "Content-Type: application/json" -d @/tmp/axiom_request.json'
-```
+```typescript
+// middleware.ts
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+import { logger } from '@/lib/axiom/logger';
 
-### 7. Query with Aggregation
+export async function middleware(request: NextRequest) {
+  const start = Date.now();
 
-Write to `/tmp/axiom_request.json`:
+  logger.info('Request started', {
+    path: request.nextUrl.pathname,
+    method: request.method,
+  });
 
-```json
-{
-  "apl": "[\"my-logs\"] | summarize count() by level",
-  "startTime": "2024-01-01T00:00:00Z",
-  "endTime": "2025-12-31T23:59:59Z"
+  const response = NextResponse.next();
+
+  logger.info('Request completed', {
+    path: request.nextUrl.pathname,
+    duration: Date.now() - start,
+  });
+
+  await logger.flush();
+  return response;
 }
 ```
 
-Then run:
+## Client-Side Logging
 
-```bash
-bash -c 'curl -s -X POST "https://api.axiom.co/v1/datasets/_apl?format=tabular" -H "Authorization: Bearer ${AXIOM_API_TOKEN}" -H "Content-Type: application/json" -d @/tmp/axiom_request.json'
-```
+```tsx
+// app/providers.tsx
+'use client';
 
-### 8. Create Annotation
+import { AxiomWebVitals } from '@axiomhq/react';
 
-Write to `/tmp/axiom_request.json`:
-
-```json
-{
-  "datasets": ["my-logs"],
-  "type": "deployment",
-  "title": "v1.2.0 deployed",
-  "time": "2024-12-24T10:00:00Z"
+export function Providers({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      <AxiomWebVitals />
+      {children}
+    </>
+  );
 }
 ```
 
-Then run:
+### Client Logger (Proxy Method)
 
-```bash
-bash -c 'curl -s -X POST "https://api.axiom.co/v2/annotations" -H "Authorization: Bearer ${AXIOM_API_TOKEN}" -H "Content-Type: application/json" -d @/tmp/axiom_request.json'
+Send logs through your API to avoid exposing tokens:
+
+```typescript
+// lib/axiom/client-logger.ts
+class ClientLogger {
+  private queue: Array<{ level: string; message: string; data?: object }> = [];
+
+  log(level: string, message: string, data?: object) {
+    this.queue.push({ level, message, data });
+  }
+
+  info(message: string, data?: object) {
+    this.log('info', message, data);
+  }
+
+  error(message: string, data?: object) {
+    this.log('error', message, data);
+  }
+
+  async flush() {
+    if (this.queue.length === 0) return;
+
+    const logs = [...this.queue];
+    this.queue = [];
+
+    await fetch('/api/axiom', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ logs }),
+    });
+  }
+}
+
+export const clientLogger = new ClientLogger();
 ```
 
-### 9. List Monitors
+### Client Component Usage
 
-```bash
-bash -c 'curl -s "https://api.axiom.co/v2/monitors" -H "Authorization: Bearer ${AXIOM_API_TOKEN}"'
+```tsx
+'use client';
+
+import { useEffect } from 'react';
+import { clientLogger } from '@/lib/axiom/client-logger';
+
+export function TrackableButton() {
+  const handleClick = () => {
+    clientLogger.info('Button clicked', { buttonId: 'cta' });
+    clientLogger.flush();
+  };
+
+  useEffect(() => {
+    clientLogger.info('Component mounted');
+    return () => {
+      clientLogger.info('Component unmounted');
+      clientLogger.flush();
+    };
+  }, []);
+
+  return <button onClick={handleClick}>Click me</button>;
+}
 ```
 
-### 10. Get Current User (Requires PAT)
+## Web Vitals
 
-> **Note:** This endpoint requires a Personal Access Token (PAT), not an API Token.
+Automatic Core Web Vitals tracking:
 
-```bash
-bash -c 'curl -s "https://api.axiom.co/v2/user" -H "Authorization: Bearer ${AXIOM_PERSONAL_ACCESS_TOKEN}" -H "x-axiom-org-id: ${AXIOM_ORG_ID}"'
+```tsx
+// app/layout.tsx
+import { AxiomWebVitals } from '@axiomhq/react';
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body>
+        <AxiomWebVitals />
+        {children}
+      </body>
+    </html>
+  );
+}
 ```
 
-### 11. Delete Dataset
+## Legacy API (next-axiom)
+
+The older `next-axiom` package is still supported:
 
 ```bash
-bash -c 'curl -s -X DELETE "https://api.axiom.co/v2/datasets/my-logs" -H "Authorization: Bearer ${AXIOM_API_TOKEN}"'
+npm install next-axiom
 ```
 
----
+### Setup
 
-## APL Query Examples
+```typescript
+// next.config.js
+const { withAxiom } = require('next-axiom');
 
-APL (Axiom Processing Language) is similar to Kusto Query Language (KQL). Use `["dataset-name"]` syntax for dataset names with special characters.
+module.exports = withAxiom({
+  // your next config
+});
+```
 
-| Query | Description |
-|-------|-------------|
-| `["dataset"] \| limit 10` | Get first 10 events |
-| `["dataset"] \| where level == "error"` | Filter by field value |
-| `["dataset"] \| where message contains "timeout"` | Search in text |
-| `["dataset"] \| summarize count() by level` | Count by group |
-| `["dataset"] \| summarize avg(duration_ms) by bin(_time, 1h)` | Hourly average |
-| `["dataset"] \| sort by _time desc \| limit 100` | Latest 100 events |
-| `["dataset"] \| where _time > ago(1h)` | Events in last hour |
+### Server Component Logging
 
----
+```typescript
+import { Logger } from 'next-axiom';
 
-## Guidelines
+export default async function Page() {
+  const log = new Logger();
+  log.info('Page rendered');
+  await log.flush();
 
-1. **Use Edge URLs for Ingest**: Always use the edge endpoint (`us-east-1.aws.edge.axiom.co` or `eu-central-1.aws.edge.axiom.co`) for data ingestion, not `api.axiom.co`
-2. **Batch Events**: Send multiple events in a single request for better performance
-3. **Include Timestamps**: Events without timestamps will use server receive time
-4. **Rate Limits**: Check `X-RateLimit-Remaining` header to avoid hitting limits
-5. **APL Time Range**: Always specify `startTime` and `endTime` for queries to improve performance
-6. **Data Formats**: JSON array is recommended; NDJSON and CSV are also supported
+  return <div>Content</div>;
+}
+```
+
+### Client Component Logging
+
+```tsx
+'use client';
+
+import { useLogger } from 'next-axiom';
+
+export function ClientComponent() {
+  const log = useLogger();
+
+  const handleClick = () => {
+    log.info('Button clicked');
+  };
+
+  return <button onClick={handleClick}>Click</button>;
+}
+```
+
+## Structured Logging Patterns
+
+### Request Context
+
+```typescript
+function createRequestLogger(request: NextRequest) {
+  return {
+    info: (message: string, data?: object) => {
+      logger.info(message, {
+        ...data,
+        requestId: request.headers.get('x-request-id'),
+        path: request.nextUrl.pathname,
+        method: request.method,
+        userAgent: request.headers.get('user-agent'),
+      });
+    },
+    error: (message: string, data?: object) => {
+      logger.error(message, {
+        ...data,
+        requestId: request.headers.get('x-request-id'),
+        path: request.nextUrl.pathname,
+      });
+    },
+  };
+}
+```
+
+### Timing
+
+```typescript
+async function withTiming<T>(
+  name: string,
+  fn: () => Promise<T>
+): Promise<T> {
+  const start = Date.now();
+  try {
+    const result = await fn();
+    logger.info(`${name} completed`, {
+      duration: Date.now() - start,
+      success: true,
+    });
+    return result;
+  } catch (error) {
+    logger.error(`${name} failed`, {
+      duration: Date.now() - start,
+      error: error instanceof Error ? error.message : 'Unknown',
+    });
+    throw error;
+  }
+}
+
+// Usage
+const users = await withTiming('fetchUsers', () => db.user.findMany());
+```
+
+### Error Logging
+
+```typescript
+function logError(error: unknown, context?: object) {
+  if (error instanceof Error) {
+    logger.error(error.message, {
+      ...context,
+      name: error.name,
+      stack: error.stack,
+      cause: error.cause,
+    });
+  } else {
+    logger.error('Unknown error', {
+      ...context,
+      error: String(error),
+    });
+  }
+}
+```
+
+## Vercel Integration
+
+Enable the Axiom integration in Vercel for automatic log drains:
+
+1. Go to Vercel Dashboard > Integrations
+2. Install Axiom integration
+3. Connect your Axiom organization
+4. Logs from `console.log`, `console.error`, etc. are automatically sent
+
+## Environment Variables
+
+```bash
+AXIOM_TOKEN=xaat-xxxxxxxx
+AXIOM_ORG_ID=your-org-id
+AXIOM_DATASET=your-dataset
+
+# For next-axiom
+NEXT_PUBLIC_AXIOM_INGEST_ENDPOINT=https://api.axiom.co/v1/datasets/your-dataset/ingest
+```
+
+## Query Examples (APL)
+
+```
+// Recent errors
+dataset
+| where level == "error"
+| order by _time desc
+| limit 100
+
+// Request latency by path
+dataset
+| where message == "Request completed"
+| summarize avg(duration), p95(duration), count() by path
+| order by count_ desc
+
+// Errors by type
+dataset
+| where level == "error"
+| summarize count() by ['error.name']
+| order by count_ desc
+```
+
+## Best Practices
+
+1. **Flush before returning** - Always call flush() in server components
+2. **Use structured data** - Pass objects, not strings
+3. **Add request context** - Include requestId, path, method
+4. **Log at appropriate levels** - debug, info, warn, error
+5. **Proxy client logs** - Don't expose tokens to browser
+6. **Use Vercel integration** - For automatic console.log capture
+7. **Add timing** - Track duration for performance monitoring

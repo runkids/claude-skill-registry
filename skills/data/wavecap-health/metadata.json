@@ -1,12 +1,7 @@
 {
   "name": "wavecap-health",
-  "description": "Check WaveCap server health and system status. Use when the user asks about server status, wants to diagnose issues, check if the backend is running, or get a system overview.",
   "repo": "TobiasWooldridge/WaveCap",
-  "category": "development",
-  "tags": [
-    "wavecap",
-    "health"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/wavecap-health/SKILL.md",
+  "source": "github.com/TobiasWooldridge/WaveCap",
+  "downloaded_at": "2026-01-14T03:42:28.863428Z"
 }

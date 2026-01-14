@@ -1,8 +1,7 @@
 {
   "name": "managing-supabase",
   "repo": "FortiumPartners/ensemble",
-  "category": "data",
-  "description": "Supabase CLI for database management, Edge Functions, migrations, and local development. Use for managing Postgres databases, deploying serverless functions, and debugging Supabase projects.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:56.533784Z"
+  "path": "packages/infrastructure/skills/managing-supabase/SKILL.md",
+  "source": "github.com/FortiumPartners/ensemble",
+  "downloaded_at": "2026-01-14T02:40:38.493557Z"
 }

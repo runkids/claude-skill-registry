@@ -1,12 +1,7 @@
 {
   "name": "jest-testing",
-  "description": "Use when writing Jest tests - covers testing patterns for interpreters, parsers, and async code",
   "repo": "mcclowes/lea",
-  "category": "testing",
-  "tags": [
-    "jest",
-    "testing"
-  ],
-  "stars": 3,
-  "source": "local"
+  "path": ".claude/skills/jest-testing/SKILL.md",
+  "source": "github.com/mcclowes/lea",
+  "downloaded_at": "2026-01-14T03:26:57.444470Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "performance-monitoring",
-  "description": "Set up application monitoring, logging, error tracking, and performance metrics tracking. Use when implementing monitoring or debugging production issues.",
   "repo": "PrasadTelasula/EvokeQOne",
-  "category": "product",
-  "tags": [
-    "performance",
-    "monitoring"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/performance-monitoring/SKILL.md",
+  "source": "github.com/PrasadTelasula/EvokeQOne",
+  "downloaded_at": "2026-01-14T02:01:38.123059Z"
 }

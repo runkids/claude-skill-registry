@@ -1,12 +1,7 @@
 {
   "name": "accessible-notifications",
-  "description": "Guidance for accessible user notifications and feedback. AUTO-TRIGGER when implementing: toasts, snackbars, notifications, alerts, flash messages, status messages, success/error feedback, or any trans",
   "repo": "alexanderop/workoutTracker",
-  "category": "design",
-  "tags": [
-    "accessible",
-    "notifications"
-  ],
-  "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/accessible-notifications/SKILL.md",
+  "source": "github.com/alexanderop/workoutTracker",
+  "downloaded_at": "2026-01-14T03:50:43.999066Z"
 }

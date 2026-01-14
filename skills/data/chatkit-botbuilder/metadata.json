@@ -1,12 +1,7 @@
 {
   "name": "chatkit-botbuilder",
-  "description": "Guide for creating production-grade ChatKit chatbots that integrate OpenAI Agents SDK with MCP tools and custom backends. Use when building AI-powered chatbots with specialized capabilities, real-time",
   "repo": "92Bilal26/TaskPilotAI",
-  "category": "development",
-  "tags": [
-    "chatkit",
-    "botbuilder"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/chatkit-botbuilder/SKILL.md",
+  "source": "github.com/92Bilal26/TaskPilotAI",
+  "downloaded_at": "2026-01-14T00:56:33.862714Z"
 }

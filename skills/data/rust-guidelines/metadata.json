@@ -1,12 +1,7 @@
 {
   "name": "rust-guidelines",
-  "description": "Pragmatic Rust conventions to keep code readable, testable, and performant for this project.",
-  "repo": "lambdamechanic/tooltest",
-  "category": "development",
-  "tags": [
-    "rust",
-    "guidelines"
-  ],
-  "stars": 3,
-  "source": "local"
+  "repo": "lambdamechanic/sk",
+  "path": "skills/rust-guidelines/SKILL.md",
+  "source": "github.com/lambdamechanic/sk",
+  "downloaded_at": "2026-01-14T03:44:23.352652Z"
 }

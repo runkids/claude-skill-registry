@@ -1,12 +1,7 @@
 {
   "name": "django-workflow",
-  "description": "Django framework workflow guidelines. Activate when working with Django projects, manage.py, django-admin, or Django-specific patterns.",
   "repo": "ilude/claude-code-config",
-  "category": "design",
-  "tags": [
-    "django",
-    "workflow"
-  ],
-  "stars": 5,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/django-workflow/SKILL.md",
+  "source": "github.com/ilude/claude-code-config",
+  "downloaded_at": "2026-01-14T01:02:40.983730Z"
 }

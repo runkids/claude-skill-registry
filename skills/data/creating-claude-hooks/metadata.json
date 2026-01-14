@@ -1,13 +1,7 @@
 {
   "name": "creating-claude-hooks",
-  "description": "Use when creating or publishing Claude Code hooks - covers executable format, event types, JSON I/O, exit codes, security requirements, and PRPM package structure",
   "repo": "pr-pm/prpm",
-  "category": "development",
-  "tags": [
-    "creating",
-    "claude",
-    "hooks"
-  ],
-  "stars": 70,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/creating-claude-hooks/SKILL.md",
+  "source": "github.com/pr-pm/prpm",
+  "downloaded_at": "2026-01-14T01:14:33.634711Z"
 }

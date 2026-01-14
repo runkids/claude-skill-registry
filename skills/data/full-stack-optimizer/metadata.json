@@ -1,9 +1,7 @@
 {
   "name": "full-stack-optimizer",
-  "description": "Multi-agent orchestration for comprehensive frontend + backend improvements. Use when user requests \"improve the app\", \"optimize functionality\", \"make it perfect\", or \"enhance the system\". Deploys spe",
   "repo": "HR-AR/Project-Conductor",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/full-stack-optimizer/SKILL.md",
+  "source": "github.com/HR-AR/Project-Conductor",
+  "downloaded_at": "2026-01-14T01:02:58.151622Z"
 }

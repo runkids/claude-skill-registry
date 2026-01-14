@@ -1,9 +1,7 @@
 {
   "name": "disciplined-design",
-  "description": "Phase 2 of disciplined development. Creates implementation plans based onapproved research. Specifies file changes, function signatures, test strategy,and step sequence. Requires human approval before",
-  "repo": "terraphim/codex-skills",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "terraphim/opencode-skills",
+  "path": "skill/disciplined-design/SKILL.md",
+  "source": "github.com/terraphim/opencode-skills",
+  "downloaded_at": "2026-01-14T02:27:07.239113Z"
 }

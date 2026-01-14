@@ -1,12 +1,7 @@
 {
   "name": "project-setup",
-  "description": "Set up new Claude Code projects with CLAUDE.md, slash commands, and proper structure",
   "repo": "fltman/project-scaffolder",
-  "category": "development",
-  "tags": [
-    "project",
-    "setup"
-  ],
-  "stars": 34,
-  "source": "local"
+  "path": "skills/project-setup/SKILL.md",
+  "source": "github.com/fltman/project-scaffolder",
+  "downloaded_at": "2026-01-14T04:03:40.060306Z"
 }

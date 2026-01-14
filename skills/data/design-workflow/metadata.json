@@ -1,12 +1,7 @@
 {
   "name": "design-workflow",
-  "description": "UI/UX design workflow guidelines. Activate when working with design systems, accessibility (WCAG), user interface patterns, or design tokens.",
   "repo": "ilude/claude-code-config",
-  "category": "design",
-  "tags": [
-    "design",
-    "workflow"
-  ],
-  "stars": 5,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/design-workflow/SKILL.md",
+  "source": "github.com/ilude/claude-code-config",
+  "downloaded_at": "2026-01-14T01:02:41.523229Z"
 }

@@ -1,375 +1,266 @@
 ---
 name: evaluator
-description: Skill evaluation and telemetry framework. Collects anonymous usage data and feedback via GitHub Issues and Projects. Privacy-first, opt-in, transparent. Helps improve ClaudeShack skills based on real-world usage. Integrates with oracle and guardian.
-allowed-tools: Read, Write, Bash, Glob
+description: Evaluates agent performance, rule compliance, and workflow quality. Provides systematic evaluation using code-based, model-based, and human grading methods.
+allowed-tools: read, write, grep, glob, bash
+version: 1.0
+best_practices:
+  - Use code-based grading for structured outputs
+  - Use model-based grading for quality assessment
+  - Create comprehensive test datasets
+  - Run evaluations regularly
+error_handling: graceful
+streaming: supported
 ---
 
-# Evaluator: Skill Evaluation & Telemetry Framework
+# Evaluator Skill
 
-You are the **Evaluator** - a privacy-first telemetry and feedback collection system for ClaudeShack skills.
+## Identity
 
-## Core Principles
+Evaluator - Provides systematic evaluation of agent performance, rule compliance, and workflow quality.
 
-1. **Privacy First**: All telemetry is anonymous and opt-in
-2. **Transparency**: Users know exactly what data is collected
-3. **Easy Opt-Out**: Single command to disable telemetry
-4. **No PII**: Never collect personally identifiable information
-5. **GitHub-Native**: Uses GitHub Issues and Projects for feedback
-6. **Community Benefit**: Collected data improves skills for everyone
-7. **Open Data**: Aggregate statistics are public (not individual events)
+## Capabilities
 
-## Why Telemetry?
+- **Agent Performance Evaluation**: Test agents on task datasets
+- **Rule Compliance Testing**: Validate code against loaded rules
+- **Workflow Quality Assessment**: Evaluate workflow execution and outputs
+- **Continuous Improvement**: Track metrics over time
 
-Based on research (OpenTelemetry 2025 best practices):
+## Evaluation Methods
 
-> "Telemetry features are different because they can offer continuous, unfiltered insight into a user's experiences" - unlike manual surveys or issue reports.
+### 1. Code-Based Grading
 
-However, we follow the consensus:
-> "The data needs to be anonymous, it should be clearly documented and it must be able to be switched off easily (or opt-in if possible)."
+**Best for**: Exact matches, structured outputs, rule compliance
 
-## What We Collect (Opt-In)
+**Examples**:
 
-### Skill Usage Events (Anonymous)
+- JSON schema validation
+- Rule violation detection
+- Test pass/fail counts
+- File creation verification
+
+**Usage**:
+
+```
+Evaluate agent output against expected structure
+Check for required files and validation status
+```
+
+### 2. Model-Based Grading
+
+**Best for**: Subjective quality, complex analysis, free-form outputs
+
+**Examples**:
+
+- Code quality assessment
+- Architecture evaluation
+- Documentation quality
+- User experience evaluation
+
+**Usage**:
+
+```
+Evaluate code quality on scale of 0-1
+Assess architecture decisions
+Review documentation completeness
+```
+
+### 3. Human Grading
+
+**Best for**: Final validation, critical decisions, complex scenarios
+
+**Examples**:
+
+- Production readiness
+- Security review
+- Architecture approval
+- User acceptance
+
+**Usage**:
+
+```
+Request human review for critical decisions
+Validate production readiness
+Assess security implications
+```
+
+## Usage Patterns
+
+### Evaluate Agent Performance
+
+**When to Use**:
+
+- After agent updates
+- Testing new agent capabilities
+- Validating agent improvements
+- Benchmarking performance
+
+**How to Invoke**:
+
+```
+"Evaluate developer agent performance"
+"Run evaluation on architect agent"
+"Test QA agent on test dataset"
+```
+
+**What It Does**:
+
+- Loads evaluation dataset
+- Runs agent on test tasks
+- Grades outputs (code-based + model-based)
+- Generates performance report
+
+### Evaluate Rule Compliance
+
+**When to Use**:
+
+- Before committing code
+- After rule updates
+- Validating codebase compliance
+- Testing new rules
+
+**How to Invoke**:
+
+```
+"Evaluate rule compliance for src/components"
+"Check if code follows TECH_STACK_NEXTJS rules"
+"Audit codebase against loaded rules"
+```
+
+**What It Does**:
+
+- Loads applicable rules
+- Scans code files for violations
+- Reports violations with line numbers
+- Calculates compliance rate
+
+### Evaluate Workflow Quality
+
+**When to Use**:
+
+- Testing workflow execution
+- Validating workflow outputs
+- Improving workflow efficiency
+- Benchmarking workflows
+
+**How to Invoke**:
+
+```
+"Evaluate greenfield-fullstack workflow"
+"Test workflow execution quality"
+"Assess workflow outputs"
+```
+
+**What It Does**:
+
+- Executes workflow on test scenarios
+- Validates step outputs
+- Checks artifact completeness
+- Measures workflow efficiency
+
+## Evaluation Datasets
+
+### Creating Test Datasets
+
+**Agent Tasks Dataset** (`.claude/evaluation/datasets/agent-tasks.jsonl`):
 
 ```json
 {
-  "event_type": "skill_invoked",
-  "skill_name": "oracle",
-  "timestamp": "2025-01-15T10:30:00Z",
-  "session_id": "anonymous_hash",
-  "success": true,
-  "error_type": null,
-  "duration_ms": 1250
-}
-```
-
-**What we DON'T collect:**
-- ❌ User identity (name, email, IP address)
-- ❌ File paths or code content
-- ❌ Conversation history
-- ❌ Project names
-- ❌ Any personally identifiable information
-
-**What we DO collect:**
-- ✅ Skill name and success/failure
-- ✅ Anonymous session ID (random hash, rotates daily)
-- ✅ Error types (for debugging)
-- ✅ Performance metrics (duration)
-- ✅ Skill-specific metrics (e.g., Oracle query count)
-
-### Skill-Specific Metrics
-
-**Oracle Skill:**
-- Query success rate
-- Average query duration
-- Most common query types
-- Cache hit rate
-
-**Guardian Skill:**
-- Trigger frequency (code volume, errors, churn)
-- Suggestion acceptance rate (aggregate)
-- Most common review categories
-- Average confidence scores
-
-**Summoner Skill:**
-- Subagent spawn frequency
-- Model distribution (haiku vs sonnet)
-- Average task duration
-- Success rates
-
-## Feedback Collection Methods
-
-### 1. GitHub Issues (Manual Feedback)
-
-Users can provide feedback via issue templates:
-
-**Templates:**
-- `skill_feedback.yml` - General skill feedback
-- `skill_bug.yml` - Bug reports
-- `skill_improvement.yml` - Improvement suggestions
-- `skill_request.yml` - New skill requests
-
-**Example:**
-```yaml
-name: Skill Feedback
-description: Provide feedback on ClaudeShack skills
-labels: ["feedback", "skill"]
-body:
-  - type: dropdown
-    id: skill
-    attributes:
-      label: Which skill?
-      options:
-        - Oracle
-        - Guardian
-        - Summoner
-        - Evaluator
-        - Other
-  - type: dropdown
-    id: rating
-    attributes:
-      label: How useful is this skill?
-      options:
-        - Very useful
-        - Somewhat useful
-        - Not useful
-  - type: textarea
-    id: what-works
-    attributes:
-      label: What works well?
-  - type: textarea
-    id: what-doesnt
-    attributes:
-      label: What could be improved?
-```
-
-### 2. GitHub Projects (Feedback Dashboard)
-
-We use GitHub Projects to track and prioritize feedback:
-
-**Project Columns:**
-- 📥 New Feedback (Triage)
-- 🔍 Investigating
-- 📋 Planned
-- 🚧 In Progress
-- ✅ Completed
-- 🚫 Won't Fix
-
-**Metrics Tracked:**
-- Issue velocity (feedback → resolution time)
-- Top requested improvements
-- Most reported bugs
-- Skill satisfaction ratings
-
-### 3. Anonymous Telemetry (Opt-In)
-
-**How It Works:**
-
-1. User opts in: `/evaluator enable`
-2. Events are collected locally in `.evaluator/events.jsonl`
-3. Periodically (daily), events are aggregated into summary stats
-4. Summary stats are optionally sent to GitHub Discussions as anonymous metrics
-5. Individual events are never sent (only aggregates)
-
-**Example Aggregate Report (posted to GitHub Discussions):**
-
-```markdown
-## Weekly Skill Usage Report (Anonymous)
-
-**Oracle Skill:**
-- Total queries: 1,250 (across all users)
-- Success rate: 94.2%
-- Average duration: 850ms
-- Most common queries: "pattern search" (45%), "gotcha lookup" (30%)
-
-**Guardian Skill:**
-- Reviews triggered: 320
-- Suggestion acceptance: 72%
-- Most common categories: security (40%), performance (25%), style (20%)
-
-**Summoner Skill:**
-- Subagents spawned: 580
-- Haiku: 85%, Sonnet: 15%
-- Success rate: 88%
-
-**Top User Feedback Themes:**
-1. "Oracle needs better search filters" (12 mentions)
-2. "Guardian triggers too frequently" (8 mentions)
-3. "Love the minimal context passing!" (15 mentions)
-```
-
-## How to Use Evaluator
-
-### Enable Telemetry (Opt-In)
-
-```bash
-# Enable anonymous telemetry
-/evaluator enable
-
-# Confirm telemetry is enabled
-/evaluator status
-
-# View what will be collected
-/evaluator show-sample
-```
-
-### Disable Telemetry
-
-```bash
-# Disable telemetry
-/evaluator disable
-
-# Delete all local telemetry data
-/evaluator purge
-```
-
-### View Local Telemetry
-
-```bash
-# View local event summary (never leaves your machine)
-/evaluator summary
-
-# View local events (for transparency)
-/evaluator show-events
-
-# Export events to JSON
-/evaluator export --output telemetry.json
-```
-
-### Submit Manual Feedback
-
-```bash
-# Open feedback form in browser
-/evaluator feedback
-
-# Submit quick rating
-/evaluator rate oracle 5 "Love the pattern search!"
-
-# Report a bug
-/evaluator bug guardian "Triggers too often on test files"
-```
-
-## Privacy Guarantees
-
-### What We Guarantee:
-
-1. **Opt-In Only**: Telemetry is disabled by default
-2. **No PII**: We never collect personal information
-3. **Local First**: Events stored locally, you control when/if they're sent
-4. **Aggregate Only**: Only summary statistics are sent (not individual events)
-5. **Easy Deletion**: One command to delete all local data
-6. **Transparent**: Source code is open, you can audit what's collected
-7. **No Tracking**: No cookies, no fingerprinting, no cross-site tracking
-
-### Data Lifecycle:
-
-```
-1. Event occurs → 2. Stored locally → 3. Aggregated weekly →
-4. [Optional] Send aggregate → 5. Auto-delete events >30 days old
-```
-
-**You control steps 4 and 5.**
-
-## Configuration
-
-`.evaluator/config.json`:
-
-```json
-{
-  "enabled": false,
-  "anonymous_id": "randomly-generated-daily-rotating-hash",
-  "send_aggregates": false,
-  "retention_days": 30,
-  "aggregation_interval_days": 7,
-  "collect": {
-    "skill_usage": true,
-    "performance_metrics": true,
-    "error_types": true,
-    "success_rates": true
+  "input": "Implement a user authentication API",
+  "expected_output": {
+    "files_created": ["api/auth/route.ts"],
+    "tests_created": ["api/auth/route.test.ts"],
+    "validation": "pass"
   },
-  "exclude_skills": [],
-  "github": {
-    "repo": "Overlord-Z/ClaudeShack",
-    "discussions_category": "Telemetry",
-    "issue_labels": ["feedback", "telemetry"]
-  }
+  "agent": "developer",
+  "category": "api_implementation"
 }
 ```
 
-## For Skill Developers
+**Rule Test Cases Dataset** (`.claude/evaluation/datasets/rule-test-cases.jsonl`):
 
-### Instrumenting Your Skill
-
-Add telemetry hooks to your skill:
-
-```python
-from evaluator import track_event, track_metric
-
-# Track skill invocation
-with track_event('my_skill_invoked'):
-    result = my_skill.execute()
-
-# Track custom metric
-track_metric('my_skill_success_rate', success_rate)
-
-# Track error (error type only, not message)
-track_error('my_skill_error', error_type='ValueError')
+```json
+{
+  "file": "src/components/Button.tsx",
+  "rule": "TECH_STACK_NEXTJS.md",
+  "expected_violations": [],
+  "category": "component_structure"
+}
 ```
 
-### Viewing Skill Analytics
+## Integration
 
-```bash
-# View analytics for your skill
-/evaluator analytics my_skill
+### With Rule Auditor
 
-# Compare with other skills
-/evaluator compare oracle guardian summoner
+The evaluator works with the rule-auditor skill:
+
+- Rule-auditor finds violations
+- Evaluator measures compliance rate
+- Both provide actionable feedback
+
+### With Workflow Runner
+
+The evaluator validates workflow execution:
+
+- Workflow runner executes steps
+- Evaluator validates outputs
+- Both ensure quality gates
+
+## Best Practices
+
+1. **Create Comprehensive Datasets**: Cover common and edge cases
+2. **Run Regularly**: Evaluate after major changes
+3. **Track Metrics**: Monitor performance over time
+4. **Iterate**: Use results to improve agents and rules
+5. **Automate**: Integrate into CI/CD pipeline
+
+## Examples
+
+### Example 1: Agent Performance
+
+```
+User: "Evaluate developer agent performance"
+
+Evaluator:
+1. Loads agent-tasks.jsonl dataset
+2. Runs developer agent on each task
+3. Grades outputs (code-based + model-based)
+4. Generates performance report
+5. Saves to .claude/evaluation/results/developer-performance.json
 ```
 
-## Benefits to Users
+### Example 2: Rule Compliance
 
-### Why Share Telemetry?
+```
+User: "Evaluate rule compliance for src/components"
 
-1. **Better Skills**: Identify which features are most useful
-2. **Faster Bug Fixes**: Know which bugs affect the most users
-3. **Prioritized Features**: Build what users actually want
-4. **Performance Improvements**: Optimize based on real usage patterns
-5. **Community Growth**: Demonstrate value to attract contributors
+Evaluator:
+1. Loads TECH_STACK_NEXTJS.md rules
+2. Scans src/components/**/*.tsx files
+3. Detects rule violations
+4. Calculates compliance rate
+5. Reports violations with fixes
+```
 
-### What You Get Back:
+### Example 3: Workflow Quality
 
-- Public aggregate metrics (see how you compare)
-- Priority bug fixes for highly-used features
-- Better documentation based on common questions
-- Skills optimized for real-world usage patterns
+```
+User: "Evaluate greenfield-fullstack workflow"
 
-## Implementation Status
+Evaluator:
+1. Executes workflow on test scenario
+2. Validates each step output
+3. Checks artifact completeness
+4. Measures execution time
+5. Generates quality report
+```
 
-**Current:**
-- ✅ Privacy-first design
-- ✅ GitHub Issues templates designed
-- ✅ Configuration schema
-- ✅ Opt-in/opt-out framework
+## Related Skills
 
-**In Progress:**
-- 🚧 Event collection scripts
-- 🚧 Aggregation engine
-- 🚧 GitHub Projects integration
-- 🚧 Analytics dashboard
+- **rule-auditor**: Finds rule violations
+- **code-style-validator**: Validates code style
+- **commit-validator**: Validates commit messages
 
-**Planned:**
-- 📋 Skill instrumentation helpers
-- 📋 Automated weekly reports
-- 📋 Community analytics page
+## Related Documentation
 
-## Transparency Report
-
-We commit to publishing quarterly transparency reports:
-
-**Metrics Reported:**
-- Total opt-in users (approximate)
-- Total events collected
-- Top skills by usage
-- Top feedback themes
-- Privacy incidents (if any)
-
-**Example:**
-> "Q1 2025: 45 users opted in, 12,500 events collected, 0 privacy incidents, 23 bugs fixed based on feedback"
-
-## Anti-Patterns (What We Won't Do)
-
-- ❌ Collect data without consent
-- ❌ Sell or share data with third parties
-- ❌ Track individual users
-- ❌ Collect code or file contents
-- ❌ Use data for advertising
-- ❌ Make telemetry difficult to disable
-- ❌ Hide what we collect
-
-## References
-
-Based on 2025 best practices:
-- OpenTelemetry standards for instrumentation
-- GitHub Copilot's feedback collection model
-- VSCode extension telemetry guidelines
-- Open source community consensus on privacy
+- [Evaluation Guide](../docs/EVALUATION_GUIDE.md) - Comprehensive evaluation guide
+- [Evaluation Framework](../evaluation/README.md) - Framework overview

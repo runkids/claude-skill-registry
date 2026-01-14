@@ -1,12 +1,7 @@
 {
   "name": "project-discovery",
-  "description": "Activate when analyzing codebases to understand project structure, technology stack, dependencies, and development workflows",
   "repo": "vinnie357/claudio",
-  "category": "development",
-  "tags": [
-    "project",
-    "discovery"
-  ],
-  "stars": 10,
-  "source": "local"
+  "path": "skills/project-discovery/SKILL.md",
+  "source": "github.com/vinnie357/claudio",
+  "downloaded_at": "2026-01-14T01:19:33.352444Z"
 }

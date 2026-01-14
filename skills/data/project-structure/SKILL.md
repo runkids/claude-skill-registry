@@ -28,6 +28,41 @@ project-root/
 └── README.md
 ```
 
+## NestJS
+
+```
+project-root/
+├── src/
+│   ├── domains/
+│   ├── common/
+│   ├── config/
+│   ├── database/
+│   ├── app.module.ts
+│   └── main.ts
+├── tests/
+├── package.json
+└── tsconfig.json
+```
+
+## React
+
+```
+project-root/
+├── src/
+│   ├── pages/              # Page modules
+│   ├── domains/            # Domain-shared code
+│   ├── components/         # Common UI components
+│   ├── layouts/            # Layout-related
+│   ├── libs/               # Feature libraries (auth, api, theme)
+│   ├── shared/             # Pure utilities
+│   ├── app.tsx
+│   └── main.tsx
+├── public/
+├── package.json
+├── vite.config.ts
+└── tsconfig.json
+```
+
 ## Next.js
 
 ```
@@ -58,4 +93,57 @@ project-root/
 ├── docs/                   # Documentation
 ├── go.mod
 └── go.sum
+```
+
+## NPM
+
+```
+project-root/
+├── cli/                        # CLI execution entry point
+├── internal/                   # Private packages
+├── pkg/                        # Public packages
+├── configs/                    # Configuration files
+├── scripts/                    # Utility scripts
+├── tests/                      # Integration tests
+├── docs/                       # Documentation
+├── dist/                       # Build artifacts
+├── package.json
+├── tsconfig.json
+└── README.md
+```
+
+## IDE Extension
+
+```
+project-root/
+├── extension/                   # Extension entry point (activate/deactivate)
+├── internal/                    # Private packages
+├── pkg/                         # Public packages
+├── view/                        # WebView (if applicable)
+├── configs/                     # Configuration files
+├── scripts/                     # Utility scripts
+├── tests/                       # Integration tests
+├── public/                      # Static resources (icons, etc.)
+├── dist/                        # Build artifacts
+├── package.json
+├── tsconfig.json
+└── .vscodeignore
+```
+
+## Chrome Extension
+
+```
+project-root/
+├── background/                  # Service Worker (Background Script)
+├── content/                     # Content Scripts
+├── popup/                       # Popup (Extension UI)
+├── internal/                    # Private packages
+├── pkg/                         # Public packages
+├── configs/                     # Configuration files
+├── scripts/                     # Utility scripts
+├── tests/                       # Integration tests
+├── public/                      # Static resources
+├── dist/                        # Build artifacts
+├── package.json
+└── tsconfig.json
 ```

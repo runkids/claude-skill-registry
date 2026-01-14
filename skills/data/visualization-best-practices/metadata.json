@@ -1,8 +1,7 @@
 {
   "name": "visualization-best-practices",
   "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "data",
-  "description": "Visualization Best Practices - Auto-activating skill for Data Analytics.Triggers on: visualization best practices, visualization best practicesPart of the Data Analytics skill category.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:13.683804Z"
+  "path": "skills/12-data-analytics/visualization-best-practices/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-01-14T02:49:07.215435Z"
 }

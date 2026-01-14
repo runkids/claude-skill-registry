@@ -1,12 +1,7 @@
 {
   "name": "shader-fundamentals",
-  "description": "GLSL shader fundamentals—vertex and fragment shaders, uniforms, varyings, attributes, coordinate systems, built-in variables, and data types. Use when writing custom shaders, understanding the graphic",
   "repo": "Bbeierle12/Skill-MCP-Claude",
-  "category": "development",
-  "tags": [
-    "shader",
-    "fundamentals"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": "skills/shader-fundamentals/SKILL.md",
+  "source": "github.com/Bbeierle12/Skill-MCP-Claude",
+  "downloaded_at": "2026-01-14T03:54:11.608349Z"
 }

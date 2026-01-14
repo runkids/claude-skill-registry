@@ -1,8 +1,7 @@
 {
   "name": "update-migration-log",
   "repo": "dudusoar/VRP-Toolkit",
-  "category": "data",
-  "description": "Log migration details to MIGRATION_LOG.md only. Use after completing a file migration to record details, issues, and solutions. Does NOT modify CLAUDE.md or TASK_BOARD.md - those are managed by other ",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:11:00.387690Z"
+  "path": ".claude/skills/update-migration-log/SKILL.md",
+  "source": "github.com/dudusoar/VRP-Toolkit",
+  "downloaded_at": "2026-01-14T02:24:48.415413Z"
 }

@@ -1,8 +1,7 @@
 {
   "name": "sql-ecosystem",
-  "repo": "takeokunn/nixos-configuration",
-  "category": "data",
-  "description": "This skill should be used when working with SQL databases, \"SELECT\", \"INSERT\", \"UPDATE\", \"DELETE\", \"CREATE TABLE\", \"JOIN\", \"INDEX\", \"EXPLAIN\", transactions, or database migrations. Provides comprehens",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:57.188136Z"
+  "repo": "motoki317/dotfiles",
+  "path": ".claude/skills/sql-ecosystem/SKILL.md",
+  "source": "github.com/motoki317/dotfiles",
+  "downloaded_at": "2026-01-14T02:27:59.369031Z"
 }

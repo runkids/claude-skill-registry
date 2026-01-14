@@ -1,12 +1,7 @@
 {
   "name": "taskfile-automation",
-  "description": "Expert guidance for using Task (taskfile.dev) automation tool to discover and execute project development commands",
   "repo": "seabbs/claude-code-config",
-  "category": "productivity",
-  "tags": [
-    "taskfile",
-    "automation"
-  ],
-  "stars": 5,
-  "source": "local"
+  "path": "skills/taskfile-automation/SKILL.md",
+  "source": "github.com/seabbs/claude-code-config",
+  "downloaded_at": "2026-01-14T03:01:36.031750Z"
 }

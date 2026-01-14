@@ -1,11 +1,7 @@
 {
   "name": "realgeeks-sync",
-  "description": "Bi-directional synchronization between RealGeeks CRM and conversational AI systems. Use when implementing webhook handlers, creating sync pipelines, handling lead deduplication, mapping activity data,",
   "repo": "onesmartguy/next-level-real-estate",
-  "category": "data",
-  "tags": [
-    "realgeeks",
-    "sync"
-  ],
-  "stars": 1
+  "path": ".claude/skills/realgeeks-sync/SKILL.md",
+  "source": "github.com/onesmartguy/next-level-real-estate",
+  "downloaded_at": "2026-01-14T02:03:54.119747Z"
 }

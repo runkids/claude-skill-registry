@@ -1,9 +1,7 @@
 {
   "name": "group-collaboration",
-  "description": "Best practices for inter-group communication, knowledge sharing, and collaborative workflows in four-tier architecture",
   "repo": "bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
-  "category": "productivity",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/group-collaboration/SKILL.md",
+  "source": "github.com/bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
+  "downloaded_at": "2026-01-14T01:09:10.297363Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "backend-tester",
-  "description": "Run isolated test environments for backend changes, manage test data, and verify API endpoints. Use when testing Python backend changes without interfering with production instances.",
   "repo": "EdanStarfire/claudecode_webui",
-  "category": "testing",
-  "tags": [
-    "backend",
-    "tester"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/backend-tester/SKILL.md",
+  "source": "github.com/EdanStarfire/claudecode_webui",
+  "downloaded_at": "2026-01-14T01:51:07.386322Z"
 }

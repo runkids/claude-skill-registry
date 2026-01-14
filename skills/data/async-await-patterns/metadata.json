@@ -1,13 +1,7 @@
 {
   "name": "async-await-patterns",
-  "description": "Use when writing JavaScript or TypeScript code with asynchronous operations",
   "repo": "axiomantic/spellbook",
-  "category": "development",
-  "tags": [
-    "async",
-    "await",
-    "patterns"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/async-await-patterns/SKILL.md",
+  "source": "github.com/axiomantic/spellbook",
+  "downloaded_at": "2026-01-14T03:44:29.602892Z"
 }

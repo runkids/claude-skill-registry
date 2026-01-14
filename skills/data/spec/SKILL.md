@@ -1,233 +1,553 @@
 ---
 name: spec
-description: Create specifications directly from clear requirements - uses spec-kit tools to create formal, executable specs following WHAT/WHY principle (not HOW)
+description: Write specifications at the right depth for any project. Progressive disclosure from quick Linear issues to full AI feature specs. Embeds Linear Method philosophy (brevity, clarity, momentum) with context engineering for AI features. Use for any spec work - quick tasks, features, or AI products.
 ---
 
-# Direct Specification Creation
+# Spec - Progressive Disclosure Specification
 
-## Overview
+## Core Philosophy
 
-Create formal specifications directly when requirements are clear and well-defined.
+**Write what's needed. Skip what's not.**
 
-**Use this instead of brainstorm when:**
-- Requirements are already clear
-- User provides detailed description
-- Feature scope is well-defined
-- No exploratory dialogue needed
+Most specs fail because they're either:
+- Too thin (unclear, leads to rework)
+- Too thick (nobody reads them, decisions buried in prose)
 
-**This skill creates specs using spec-kit tools and ensures WHAT/WHY focus (not HOW).**
+This skill routes you to the right depth:
+- **Quick task?** → Write a clear issue
+- **Feature?** → Write a lite PRD
+- **AI feature?** → Add context requirements and behavior examples
 
-## When to Use
+The templates are already excellent. This skill helps you use them.
 
-**Use this skill when:**
-- User provides clear, detailed requirements
-- Feature scope is well-defined
-- User wants to skip exploratory dialogue
-- Requirements come from external source (PRD, ticket, etc.)
+---
 
-**Don't use this skill when:**
-- Requirements are vague or exploratory → Use `sdd:brainstorm`
-- Spec already exists → Use `sdd:implement` or `sdd:evolve`
-- Making changes to existing spec → Use `sdd:spec-refactoring`
+## Linear Method Principles
 
-## Prerequisites
+These principles guide every level:
 
-Ensure spec-kit is initialized:
+1. **Issues, not user stories** - Plain language wins. "Add export button to dashboard" beats "As a user, I want to export data so that I can..."
 
-{Skill: spec-kit}
+2. **Scope down** - If it can't be done in 1-3 weeks by 1-3 people, break it down further.
 
-If spec-kit prompts for restart, pause this workflow and resume after restart.
+3. **Short specs get read** - Long specs get skipped. Write for clarity, not completeness.
 
-## Critical: Specifications are WHAT and WHY, NOT HOW
+4. **Prototype > documentation** - A working demo + 3 paragraphs beats a 10-page spec.
 
-**Specs define contracts and requirements, not implementation.**
+5. **Make decisions, not descriptions** - Every section should decide something.
 
-### ✅ Specs SHOULD include:
-- **Requirements**: What the feature must do
-- **Behaviors**: How the feature should behave (user-observable)
-- **Contracts**: API structures, file formats, data schemas
-- **Error handling rules**: What errors must be handled and how they should appear to users
-- **Success criteria**: Measurable outcomes
-- **Constraints**: Limitations and restrictions
-- **User-visible paths**: File locations, environment variables users interact with
+**See:** `skills/spec/references/philosophy.md` for the full philosophy.
 
-### ❌ Specs should NOT include:
-- **Implementation algorithms**: Specific sorting algorithms, data structure choices
-- **Code**: Function signatures, class hierarchies, pseudocode
-- **Technology choices**: "Use Redis", "Use React hooks", "Use Python asyncio"
-- **Internal architecture**: How components communicate internally
-- **Optimization strategies**: Caching mechanisms, performance tuning
+---
 
-### 📋 Example: What belongs where
+## Entry Point
 
-**SPEC (WHAT/WHY):**
-```markdown
-## Requirements
-- FR-001: System MUST validate email addresses before storing
-- FR-002: System MUST return validation errors within 200ms
-- FR-003: Invalid emails MUST return 422 status with error details
+When this skill is invoked, start with:
 
-## Error Handling
-- Invalid format: Return `{"error": "Invalid email format", "field": "email"}`
-- Duplicate email: Return `{"error": "Email already exists"}`
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ SPEC
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+What are you speccing?
+
+  1. Quick task (hours to days)
+     → Clear title + optional description
+     → If it fits in one sentence, just write an issue
+
+  2. Feature (1-3 weeks)
+     → Problem, solution, success metric, scope
+     → Use what's helpful, skip the rest
+
+  3. AI feature (any size)
+     → Core AI questions + context requirements + behavior examples
+     → Evals are non-negotiable. Model costs early.
+
+  4. Not sure
+     → Tell me what you're building, I'll help you decide
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
-**PLAN (HOW):**
-```markdown
-## Validation Implementation
-- Use regex pattern: `^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`
-- Cache validation results in Redis (TTL: 5 min)
-- Database query: `SELECT COUNT(*) FROM users WHERE email = ?`
+**Parse intent from context:**
+- If user says "issue" or mentions a quick task → Level 1
+- If user mentions a feature, project, or gives detail → Level 2
+- If user mentions AI, ML, LLM, context, prompts → Level 3
+- If user provides a Linear issue ID → fetch it, then determine level
+
+**Command-line shortcuts:**
+- `/spec --quick` → Skip to Level 1
+- `/spec --feature` → Skip to Level 2
+- `/spec --ai` → Skip to Level 3
+- `/spec LIN-123` → Fetch Linear issue, determine level
+
+---
+
+## Level 1: Quick Task (Linear Issue)
+
+### When to Use
+- Task is clear and focused
+- Can be done in hours to a few days
+- Title alone is almost enough
+- No ambiguity about what "done" means
+
+### Template
+Use `templates/linear-issue.md` as reference.
+
+### Flow
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ LEVEL 1: Quick Task
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+The goal: A title that makes it obvious what you're doing.
+Everything else is optional.
 ```
 
-### Why this matters:
-- **Specs remain stable** - Implementation details change, requirements don't
-- **Implementation flexibility** - Can change HOW without changing WHAT
-- **Clearer reviews** - Easy to see if requirements are met vs implementation quality
-- **Better evolution** - When code diverges from spec, know which to update
+**Questions to ask:**
 
-## The Process
+1. **What's the action?** (Add, Fix, Design, Refactor, Remove...)
 
-### 1. Gather Requirements
+2. **What's being changed?** (The specific thing)
 
-**Extract from user input:**
-- What needs to be built
-- Why it's needed (purpose/problem)
-- Success criteria
-- Constraints and dependencies
-- Error cases and edge conditions
+3. **Where?** (Optional: location in product)
 
-**Ask clarifying questions** (brief, targeted):
-- Only if critical information is missing
-- Keep questions focused and specific
-- Don't turn this into full brainstorming session
+**Good titles:**
+- `Add CSV export to dashboard`
+- `Fix: Login fails on Safari`
+- `Design mobile navigation`
+- `Refactor auth middleware`
 
-**If requirements are vague:**
-Stop and use `sdd:brainstorm` instead.
+**Bad titles:**
+- `Export feature` (vague)
+- `Bug` (what bug?)
+- `Updates` (what updates?)
 
-### 2. Check Project Context
+**When to add a description:**
+- Context isn't obvious
+- Specific requirements exist
+- Edge cases need clarification
+- Need to link to designs/specs
 
-**Review existing specs:**
-```bash
-ls -la specs/features/
-# Or: ls -la specs/[NNNN]-*/
+**When to skip description:**
+- Title says it all
+- Task is straightforward
+- Team already understands context
+
+### Output
+
+Generate a clear issue ready for Linear:
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ ISSUE READY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Title: [Generated title]
+
+Description:
+[Optional description if needed]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+What next?
+
+  1. Create in Linear
+  2. Edit title/description
+  3. Add more context (→ Level 2)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
-**Check for constitution:**
-```bash
-cat .specify/memory/constitution.md
+**If Linear MCP available:** Offer to create the issue directly.
+
+---
+
+## Level 2: Feature (Lite PRD)
+
+### When to Use
+- Feature needs alignment across team
+- Scope is 1-3 weeks
+- Need to document problem, solution, success criteria
+- More than just "implement X"
+
+### Template
+Use `templates/lite-prd.md` as reference.
+
+### Flow
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ LEVEL 2: Feature Spec
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+The goal: Shared understanding. Not completeness.
+
+We'll answer 5 essential questions. Everything else is optional.
 ```
 
-**Look for related features:**
-- Similar functionality already specced
-- Integration points
-- Shared components
+### The Essentials (Always answer)
 
-### 3. Create Specification
+**1. What problem are we solving?**
+- 2-3 sentences
+- Customer pain or opportunity
+- Push for specificity
 
-**Use spec-kit tools:**
+**2. For whom?**
+- Specific user segment
+- Not "users" - which users?
 
-```bash
-# Interactive spec creation using spec-kit template
-speckit specify "[feature description]"
+**3. How do we know this matters?**
+- Evidence: research, data, feedback
+- Not assumptions - what do you actually know?
 
-# Or use spec-kit scripts directly
-.specify/scripts/bash/create-new-feature.sh --json "[feature description]"
+**4. What are we building?**
+- High-level solution
+- Link to prototype if you have one (you should!)
+
+**5. How will we know it worked?**
+- 1-2 key metrics with targets
+- Not "improve X" - what number?
+
+### Optional Sections
+
+After the essentials, offer relevant optional sections:
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ ESSENTIALS COMPLETE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+That might be all you need. Want to add any of these?
+
+  □ Scope & Decisions (in/out of scope, open questions)
+  □ Risks (assumptions, four risks check)
+  □ Discovery Insights (research, data)
+  □ Technical Notes (estimate, challenges, dependencies)
+  □ Launch Notes (rollout strategy, communication)
+  □ Timeline (Now/Next/Later)
+
+Skip what doesn't help create shared understanding.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
-**This will:**
-- Create feature directory (e.g., `specs/0001-feature-name/`)
-- Initialize spec.md from template
-- Set up directory structure (docs/, checklists/, contracts/)
+### Output
 
-**Fill in the spec following template structure:**
-- Purpose - WHY this feature exists
-- Functional Requirements - WHAT it must do
-- Non-Functional Requirements - Performance, security, etc.
-- Success Criteria - Measurable outcomes
-- Error Handling - What can go wrong
-- Edge Cases - Boundary conditions
-- Constraints - Limitations
-- Dependencies - What this relies on
-- Out of Scope - What this doesn't do
+Generate the spec in markdown:
 
-**Follow WHAT/WHY principle:**
-- Focus on observable behavior
-- Avoid implementation details
-- Use user/system perspective
-- Keep technology-agnostic where possible
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ SPEC READY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-### 4. Validate Against Constitution
+# [Feature Name]
 
-**If constitution exists:**
+## The Essentials
 
-```bash
-cat .specify/memory/constitution.md
+**What problem:** [2-3 sentences]
+
+**For whom:** [Specific segment]
+
+**Evidence:** [What you know]
+
+**Solution:** [What you're building + prototype link]
+
+**Success:** [Metric with target]
+
+[Optional sections if added]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+What next?
+
+  1. Create Linear project (parent + child issues)
+  2. Export markdown
+  3. Go deeper (→ Level 4 options)
+  4. Start over
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
-**Check alignment:**
-- Does spec follow project principles?
-- Are patterns consistent with constitution?
-- Does error handling match standards?
-- Are architectural decisions aligned?
+---
 
-**Note any deviations** and justify them in spec.
+## Level 3: AI Feature
 
-### 5. Review Spec Soundness
+### When to Use
+- Building anything with AI/ML/LLM
+- Need to define context requirements
+- Need behavior examples for evals
+- Cost modeling matters
 
-**Before finishing, validate:**
+### Templates
+Use `templates/ai-product-spec.md` + context requirements table.
 
-Use `sdd:review-spec` skill to check:
-- Completeness (all sections filled)
-- Clarity (no ambiguous language)
-- Implementability (can generate plan from this)
-- Testability (success criteria measurable)
+### Flow
 
-**If review finds issues:**
-- Fix critical issues before proceeding
-- Document any known gaps
-- Mark unclear areas for clarification
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ LEVEL 3: AI Feature Spec
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-### 6. Commit Spec
+AI products need more upfront thinking - but not overly complex docs.
 
-**Create git commit:**
+We'll cover:
+  • Core AI questions (what, quality, testing, cost, failures)
+  • Context requirements (what data the AI needs)
+  • Behavior examples (what good/bad looks like)
 
-```bash
-git add specs/[feature-dir]/
-git commit -m "Add spec for [feature-name]"
+Evals are non-negotiable. Model costs early.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
-**Spec is now source of truth** for this feature.
+### Phase 1: Core AI Questions
 
-## Next Steps
+Walk through these 5 questions (from `templates/ai-product-spec.md`):
 
-After spec creation:
+**1. What's the AI doing?**
+- What problem? What task?
+- Push for precision: Not "recommendations" → "3 ranked options with rationale"
 
-1. **Review spec soundness** (if not already done):
-   ```
-   Use sdd:review-spec
-   ```
+**2. How will you know if it's good?**
+- What does "good" output look like?
+- What's "bad"? What should never happen?
 
-2. **Implement the feature**:
-   ```
-   Use sdd:implement
-   ```
+**3. How will you test it?**
+- Eval strategy (even simple evals > no evals)
+- Test dataset categories: happy path, edge cases, adversarial, boundary
 
-3. **Or refine spec further** if issues found
+**4. What will it cost?**
+- Cost per query/user
+- Projected at scale
+
+**5. What happens when it's wrong?**
+- User controls
+- Fallbacks
+- Safety guardrails
+
+### Phase 2: Context Requirements
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ CONTEXT REQUIREMENTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+90% of AI quality comes from context quality.
+
+What context does the AI need to do its job?
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+Build a context requirements table:
+
+| Data Needed | Source | Availability | Notes |
+|-------------|--------|--------------|-------|
+| [Entity/signal] | [DB/API/user] | [Always/Sometimes/Never] | [Sensitivity, freshness] |
+
+**See:** `skills/spec/references/context-table.md` for the full format.
+
+**Key questions:**
+- For each piece of context: Where does it come from? Is it always available?
+- What happens when context is missing? (Fallback behavior)
+- Any privacy/sensitivity concerns?
+
+**Flag problems immediately:**
+- "Sometimes" availability needs a decision
+- "Never" availability is a blocker
+
+### Phase 3: Behavior Examples
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ BEHAVIOR EXAMPLES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+AI behaves according to examples, not descriptions.
+
+We need 5-10 examples minimum covering:
+  • Good responses (what should happen)
+  • Bad responses (common failure modes)
+  • Reject cases (when AI should refuse/defer)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+**Example format:**
+```
+Scenario: [Brief description]
+Input: [What the user provides]
+Good: [Desired response]
+Bad: [What to avoid]
+Reject: [When to refuse - if applicable]
+```
+
+**See:** `skills/spec/references/behavior-examples.md` for guidance.
+
+**Coverage to aim for:**
+- 2-3 happy path examples
+- 2-3 edge cases
+- 1-2 adversarial inputs
+- 1-2 boundary cases (out of scope)
+
+### Output
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ AI SPEC READY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# [Feature Name]
+
+## What's the AI Doing?
+[Precise task description]
+
+## Quality Definition
+**Good:** [Criteria]
+**Bad:** [What to avoid]
+
+## Eval Strategy
+[Test approach + dataset categories]
+
+## Cost Model
+[Cost per query + projection]
+
+## Failure Handling
+[User controls + fallbacks]
+
+## Context Requirements
+
+| Data | Source | Availability | Notes |
+|------|--------|--------------|-------|
+[Table]
+
+**When context is missing:** [Fallback behavior]
+
+## Behavior Examples
+
+[5-10 examples]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+What next?
+
+  1. Create Linear project
+  2. Export markdown
+  3. Go deeper (→ Level 4 options)
+  4. Run /ai-health-check
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+---
+
+## Level 4: Deep Dive (On-Demand)
+
+When user needs more depth, offer these expansions:
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ GO DEEPER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Your spec is solid. Need more depth anywhere?
+
+  1. --deep context
+     Full 4D Canvas walkthrough (Demand, Data, Discovery, Defense)
+
+  2. --deep examples
+     Expand to 15-25 behavior examples
+
+  3. --deep rollout
+     Detailed phased rollout with gates
+
+  4. --deep full-prd
+     Complete PRD framework (5 stages)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+### --deep context
+Invoke the full 4D Context Canvas walkthrough:
+- **D1 Demand:** Precise job definition
+- **D2 Data:** Full context requirements mapping
+- **D3 Discovery:** How to fetch context at runtime
+- **D4 Defense:** Pre-checks, post-checks, fallbacks, feedback loops
+
+Reference the archived context-engineering skill for the full framework.
+
+### --deep examples
+Expand behavior examples to 15-25:
+- 5-7 happy path
+- 4-5 edge cases
+- 3-4 adversarial
+- 3-4 boundary/reject cases
+
+### --deep rollout
+Detailed rollout planning:
+- Phase 1: Internal/beta (%, duration, criteria)
+- Phase 2: Limited rollout (%, gates)
+- Phase 3: Full launch (criteria)
+- Kill switch: When and how to turn off
+- Monitoring: What to track, alert thresholds
+
+### --deep full-prd
+Invoke the prd-writer skill for the complete 5-stage PRD framework:
+- Planning (Speclet)
+- Kickoff
+- Solution Review
+- Launch Readiness
+- Impact Review
+
+---
+
+## Linear Integration
+
+When Linear MCP is available:
+
+### Pulling Context
+- `/spec LIN-123` → Fetch issue details, pre-populate what's available
+- For parent issues, offer to pull child issues for context
+
+### Creating Output
+
+**Level 1:** Create issue directly via Linear MCP
+
+**Level 2:** Offer to create:
+- Parent issue with spec in description
+- Child issues for implementation tasks
+
+**Level 3:** Offer to create:
+- Parent issue with full spec
+- Child issues broken down by phase
+- Context requirements in parent description
+
+---
+
+## Integration with Other Commands
+
+**Before /spec:**
+- `/four-risks` - Should we build this at all?
+
+**After /spec:**
+- `/ai-cost-check` - Model the unit economics
+- `/ai-health-check` - Pre-launch validation
+- `/ai-debug` - If feature is underperforming
+- `/context-check` - Quick quality validation
+
+---
+
+## Attribution
+
+**Linear Method:** Linear team (issues not stories, scope down, momentum)
+**Lite PRD:** Aakash Gupta (Product Growth)
+**AI Product Spec:** Aakash Gupta (Product Growth)
+**Context Engineering:** Aakash Gupta & Miqdad Jaffer (OpenAI) - 4D Context Canvas
+
+---
 
 ## Remember
 
-**Spec is contract, not design doc:**
-- Defines WHAT and WHY
-- Defers HOW to implementation
-- Remains stable as code evolves
-- Is source of truth for compliance
-
-**Keep specs:****
-- Technology-agnostic
-- User-focused
-- Measurable
-- Implementable
-
-**The goal:**
-A clear, unambiguous specification that serves as the single source of truth for implementation and validation.
+- **Right-size your spec** - Don't write more than needed
+- **Prototype first** - A demo + 3 paragraphs > 10-page spec
+- **Make decisions** - Every section should decide something
+- **Short specs get read** - Long specs get skipped
+- **Evals are non-negotiable** - For AI features, define quality upfront

@@ -1,12 +1,7 @@
 {
   "name": "pypi-readme-creator",
-  "description": "When creating a README for a Python package. When preparing a package for PyPI publication. When README renders incorrectly on PyPI. When choosing between README.md and README.rst. When running twine ",
-  "repo": "Jamie-BitFlight/claude_skills",
-  "category": "data",
-  "tags": [
-    "pypi",
-    "readme",
-    "creator"
-  ],
-  "stars": 4
+  "repo": "BbgnsurfTech/claude-skills-collection",
+  "path": "community/jamie-bitflight-claude-skills/pypi-readme-creator/SKILL.md",
+  "source": "github.com/BbgnsurfTech/claude-skills-collection",
+  "downloaded_at": "2026-01-14T01:28:31.259180Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "backlog-champion",
-  "description": "Champion prioritization of discovered opportunities. Advocates for the most impactful, actionable items based on team velocity, business value, and technical feasibility.",
   "repo": "pcortes/swarm-attack",
-  "category": "testing",
-  "tags": [
-    "backlog",
-    "champion"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/backlog-champion/SKILL.md",
+  "source": "github.com/pcortes/swarm-attack",
+  "downloaded_at": "2026-01-14T04:01:13.859364Z"
 }

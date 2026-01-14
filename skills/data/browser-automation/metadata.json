@@ -1,12 +1,7 @@
 {
   "name": "browser-automation",
-  "description": "Automate web browser interactions using natural language via CLI commands. Use when the user asks to browse websites, navigate web pages, extract data from websites, take screenshots, fill forms, clic",
-  "repo": "browserbase/agent-browse",
-  "category": "data",
-  "tags": [
-    "browser",
-    "automation"
-  ],
-  "stars": 337,
-  "source": "SkillsMP Synced Skills"
+  "repo": "anton-abyzov/specweave",
+  "path": "plugins/specweave-ui/skills/browser-automation/SKILL.md",
+  "source": "github.com/anton-abyzov/specweave",
+  "downloaded_at": "2026-01-14T03:26:45.437404Z"
 }

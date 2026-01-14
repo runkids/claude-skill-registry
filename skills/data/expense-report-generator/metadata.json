@@ -1,13 +1,7 @@
 {
   "name": "expense-report-generator",
-  "description": "Generate formatted expense reports from receipt data or CSV. Create professional PDF reports with categorization, totals, and approval workflows.",
   "repo": "dkyazzentwatwa/chatgpt-skills",
-  "category": "data",
-  "tags": [
-    "expense",
-    "report",
-    "generator"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": "expense-report-generator/SKILL.md",
+  "source": "github.com/dkyazzentwatwa/chatgpt-skills",
+  "downloaded_at": "2026-01-14T01:42:57.419582Z"
 }

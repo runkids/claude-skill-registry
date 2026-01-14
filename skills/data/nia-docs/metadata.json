@@ -1,12 +1,7 @@
 {
   "name": "nia-docs",
-  "description": "Search library documentation and code examples via Nia",
-  "repo": "parcadei/Continuous-Claude-v2",
-  "category": "documents",
-  "tags": [
-    "nia",
-    "docs"
-  ],
-  "stars": 1318,
-  "source": "SkillsMP Synced Skills"
+  "repo": "parcadei/Continuous-Claude-v3",
+  "path": ".claude/skills/nia-docs/SKILL.md",
+  "source": "github.com/parcadei/Continuous-Claude-v3",
+  "downloaded_at": "2026-01-14T01:18:43.186083Z"
 }

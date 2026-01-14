@@ -1,11 +1,7 @@
 {
   "name": "numpy-statistics",
-  "description": "Standard and NaN-robust statistical functions for data analysis, histograms, and correlation matrices. Triggers: statistics, mean, nanmean, histogram, corrcoef, percentile, std.",
   "repo": "cuba6112/skillfactory",
-  "category": "data",
-  "tags": [
-    "numpy",
-    "statistics"
-  ],
-  "stars": 0
+  "path": "skills/numpy-statistics/SKILL.md",
+  "source": "github.com/cuba6112/skillfactory",
+  "downloaded_at": "2026-01-14T02:37:40.188470Z"
 }

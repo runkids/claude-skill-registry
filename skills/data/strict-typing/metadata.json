@@ -1,12 +1,7 @@
 {
   "name": "strict-typing",
-  "description": "Use when writing code in typed languages - enforces full typing with no any/unknown/untyped escapes, even if it requires extra time",
-  "repo": "troykelly/claude-skills",
-  "category": "development",
-  "tags": [
-    "strict",
-    "typing"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "troykelly/codex-skills",
+  "path": "skills/strict-typing/SKILL.md",
+  "source": "github.com/troykelly/codex-skills",
+  "downloaded_at": "2026-01-14T03:34:01.012998Z"
 }

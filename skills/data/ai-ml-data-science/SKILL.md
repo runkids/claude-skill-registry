@@ -1,10 +1,6 @@
 ---
 name: ai-ml-data-science
-description: >
-  End-to-end data science patterns (modern best practices): problem framing → data → EDA →
-  feature engineering (with feature stores) → modelling → evaluation → reporting,
-  plus SQL transformation (SQLMesh). Emphasizes MLOps integration, drift monitoring,
-  and production-ready workflows.
+description: "End-to-end data science patterns (modern best practices): problem framing -> data -> EDA -> feature engineering (with feature stores) -> modelling -> evaluation -> reporting, plus SQL transformation (SQLMesh). Emphasizes MLOps integration, drift monitoring, and production-ready workflows."
 ---
 
 # Data Science Engineering Suite – Quick Reference
@@ -12,9 +8,9 @@ description: >
 This skill turns **raw data and questions** into **validated, documented models** ready for production:
 
 - **EDA workflows**: Structured exploration with drift detection
-- **Feature engineering**: Feature store patterns (50%+ of DS time)
-- **Model selection**: LightGBM-first approach (proven best performance)
-- **Evaluation & reporting**: Slice analysis, model cards, production metrics
+- **Feature engineering**: Reproducible feature pipelines with leakage prevention and train/serve parity
+- **Model selection**: Baselines first; strong tabular defaults; escalate complexity only when justified
+- **Evaluation & reporting**: Slice analysis, uncertainty, model cards, production metrics
 - **SQL transformation**: SQLMesh for staging/intermediate/marts layers
 - **MLOps**: CI/CD, CT (continuous training), CM (continuous monitoring)
 - **Production patterns**: Data contracts, lineage, feedback loops, streaming features
@@ -29,7 +25,7 @@ This skill turns **raw data and questions** into **validated, documented models*
 |------|----------------|---------|-------------|
 | EDA & Profiling | Pandas, Great Expectations | `df.describe()`, `ge.validate()` | Initial data exploration and quality checks |
 | Feature Engineering | Pandas, Polars, Feature Stores | `df.transform()`, Feast materialization | Creating lag, rolling, categorical features |
-| Model Training | **LightGBM 4.6**, XGBoost, scikit-learn 1.7 | `lgb.train()`, `xgb.train()`, `model.fit()` | Tabular ML with structured data |
+| Model Training | Gradient boosting, linear models, scikit-learn | `lgb.train()`, `model.fit()` | Strong baselines for tabular ML |
 | Hyperparameter Tuning | Optuna, Ray Tune | `optuna.create_study()`, `tune.run()` | Optimizing model parameters |
 | SQL Transformation | SQLMesh | `sqlmesh plan`, `sqlmesh run` | Building staging/intermediate/marts layers |
 | Experiment Tracking | MLflow, W&B | `mlflow.log_metric()`, `wandb.log()` | Versioning experiments and models |
@@ -101,9 +97,36 @@ User needs ML for: [Problem Type]
         └─ SQLMesh (staging/intermediate/marts layers)
 ```
 
-**Key Finding:** Tree-based methods (LightGBM) deliver best performance with significant computational efficiency advantage.
+**Rule of thumb:** For tabular data, tree-based gradient boosting is a strong baseline, but must be validated against alternatives and constraints.
 
 ---
+
+## Core Concepts (Vendor-Agnostic)
+
+- **Problem framing**: define success metrics, baselines, and decision thresholds before modeling.
+- **Leakage prevention**: ensure all features are available at prediction time; split by time/group when appropriate.
+- **Uncertainty**: report confidence intervals and stability (fold variance, bootstrap) rather than single-point metrics.
+- **Reproducibility**: version code/data/features, fix seeds, and record the environment.
+- **Operational handoff**: define monitoring, retraining triggers, and rollback criteria with MLOps.
+
+## Implementation Practices (Tooling Examples)
+
+- Track experiments and artifacts (run id, commit hash, data version).
+- Add data validation gates in pipelines (schema + distribution + freshness).
+- Prefer reproducible, testable feature code (shared transforms, point-in-time correctness).
+- Use datasheets/model cards and eval reports as deployment prerequisites (Datasheets for Datasets: https://arxiv.org/abs/1803.09010; Model Cards: https://arxiv.org/abs/1810.03993).
+
+## Do / Avoid
+
+**Do**
+- Do start with baselines and a simple model to expose leakage and data issues early.
+- Do run slice analysis and document failure modes before recommending deployment.
+- Do keep an immutable eval set; refresh training data without contaminating evaluation.
+
+**Avoid**
+- Avoid random splits for temporal or user-correlated data.
+- Avoid “metric gaming” (optimizing the number without validating business impact).
+- Avoid training on labels created after the prediction timestamp (silent future leakage).
 
 # Core Patterns (Overview)
 
@@ -165,7 +188,7 @@ User needs ML for: [Problem Type]
 
 **Decision guide (modern benchmarks):**
 
-- **Tabular:** Start with **LightGBM** (best performance + efficiency)
+- **Tabular:** Start with a **strong baseline** (linear/logistic, then gradient boosting) and iterate based on error analysis
 - **Baselines:** Always implement simple baselines first (majority class, mean, naive forecast)
 - **Train/val/test splits:** Time-based (forecasting), group-based (user/item leakage), or random (IID)
 - **Hyperparameter tuning:** Start manual, then Bayesian optimization (Optuna, Ray Tune)
@@ -185,6 +208,7 @@ User needs ML for: [Problem Type]
 - **Threshold selection:** ROC/PR curves, cost-sensitive, F1 maximization
 - **Slice analysis:** Performance by geography, user segments, product categories
 - **Error analysis:** Collect high-error examples, cluster by error type, identify systematic failures
+- **Uncertainty:** Confidence intervals (bootstrap where appropriate), variance across folds, and stability checks
 - **Evaluation report:** 8-section report (objective, data, features, models, metrics, slices, risks, recommendation)
 - **Model card:** Documentation for stakeholders (intended use, data, performance, ethics, operations)
 
@@ -274,6 +298,7 @@ Use these as copy-paste starting points:
 
 - **Model evaluation report:** `templates/evaluation/template-evaluation-report.md`
 - **Model card:** `templates/evaluation/template-model-card.md`
+- **ML experiment review:** `templates/review/experiment-review-template.md`
 
 ### SQL Transformation (SQLMesh)
 
@@ -313,11 +338,12 @@ For SQL-based data transformation and feature engineering:
 - [templates/eda/template-eda.md](templates/eda/template-eda.md)
 - [templates/evaluation/template-evaluation-report.md](templates/evaluation/template-evaluation-report.md)
 - [templates/evaluation/template-model-card.md](templates/evaluation/template-model-card.md)
-- [templates/transformation/template-sqlmesh-project.md](templates/transformation/template-sqlmesh-project.md)
-- [templates/transformation/template-sqlmesh-model.md](templates/transformation/template-sqlmesh-model.md)
-- [templates/transformation/template-sqlmesh-incremental.md](templates/transformation/template-sqlmesh-incremental.md)
-- [templates/transformation/template-sqlmesh-dag.md](templates/transformation/template-sqlmesh-dag.md)
-- [templates/transformation/template-sqlmesh-testing.md](templates/transformation/template-sqlmesh-testing.md)
+- [templates/review/experiment-review-template.md](templates/review/experiment-review-template.md)
+- [template-sqlmesh-project.md](../data-lake-platform/templates/transformation/sqlmesh/template-sqlmesh-project.md)
+- [template-sqlmesh-model.md](../data-lake-platform/templates/transformation/sqlmesh/template-sqlmesh-model.md)
+- [template-sqlmesh-incremental.md](../data-lake-platform/templates/transformation/sqlmesh/template-sqlmesh-incremental.md)
+- [template-sqlmesh-dag.md](../data-lake-platform/templates/transformation/sqlmesh/template-sqlmesh-dag.md)
+- [template-sqlmesh-testing.md](../data-lake-platform/templates/transformation/sqlmesh/template-sqlmesh-testing.md)
 
 **Data**
 - [data/sources.json](data/sources.json) — Curated external references
@@ -326,7 +352,7 @@ For SQL-based data transformation and feature engineering:
 
 ## External Resources
 
-See [data/sources.json](data/sources.json) for 82 curated resources:
+See [data/sources.json](data/sources.json) for curated foundational and implementation references:
 
 - **Core ML/DL**: scikit-learn, XGBoost, LightGBM, PyTorch, TensorFlow, JAX
 - **Data processing**: pandas, NumPy, Polars, DuckDB, Spark, Dask

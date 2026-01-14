@@ -1,12 +1,7 @@
 {
   "name": "catskill-preview",
-  "description": "Convert markdown newsletters to styled HTML matching the Catskill Crew brand and preview in browser",
   "repo": "aniketpanjwani/automated_catskill_crew",
-  "category": "data",
-  "tags": [
-    "catskill",
-    "preview"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/catskill-preview/SKILL.md",
+  "source": "github.com/aniketpanjwani/automated_catskill_crew",
+  "downloaded_at": "2026-01-14T03:29:20.342766Z"
 }

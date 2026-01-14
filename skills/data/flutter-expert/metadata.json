@@ -1,12 +1,7 @@
 {
   "name": "flutter-expert",
-  "description": "Use when building cross-platform applications with Flutter 3+ and Dart. Invoke for widget development, Riverpod/Bloc state management, GoRouter navigation, platform-specific implementations, performan",
   "repo": "Jeffallan/claude-skills",
-  "category": "development",
-  "tags": [
-    "flutter",
-    "expert"
-  ],
-  "stars": 12,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/flutter-expert/SKILL.md",
+  "source": "github.com/Jeffallan/claude-skills",
+  "downloaded_at": "2026-01-14T02:36:37.262542Z"
 }

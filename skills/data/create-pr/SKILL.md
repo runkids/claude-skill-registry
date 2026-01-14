@@ -1,167 +1,317 @@
 ---
 name: create-pr
-description: Create a well-structured pull request with proper description, design decisions, and file changes. Use when asked to create a PR, open a PR, or submit changes for review.
+description: Create a concise yet comprehensive pull request that helps reviewers understand changes. Use when the user asks to create a PR or is ready to merge their work.
+allowed-tools: Bash(gh pr create:*), Bash(gh pr view:*), Bash(git log:*), Bash(git diff:*), Bash(git rev-parse:*), Bash(git branch:*), Bash(git status:*), Bash(git push:*), Read, AskUserQuestion
 ---
 
-# Create Pull Request
+# Create PR Skill
 
-Create a pull request with a comprehensive description that explains the problem, solution, design decisions, and changes.
+This skill helps you create well-written pull requests that are concise yet provide all the context reviewers need.
 
 ## Instructions
 
-### 1. Gather context
+When the user asks to create a PR, follow these steps:
 
-Run these commands in parallel to understand the current state:
+### 1. Verify Readiness
 
+Check the current state:
 ```bash
-# Current branch
-git branch --show-current
-
-# Check if tracking remote
-git status -sb
-
-# All commits on this branch (not on main)
-git log main..HEAD --oneline
-
-# Full diff from main
-git diff main...HEAD --stat
+git status
 ```
 
-### 2. Extract Linear ticket ID
+Verify:
+- No uncommitted changes (or ask if they want to commit first)
+- Current branch is not a protected branch (main, master, etc.)
+- Branch has been pushed to remote (if not, push it first)
 
-Check the branch name for a Linear ticket ID (format: `thr-XX` or `THR-XX`):
+### 2. Determine Base Branch
 
+If not specified by user, detect the default branch:
 ```bash
-# Extract ticket ID from branch name
-git branch --show-current | grep -oiE 'thr-[0-9]+' | tr '[:lower:]' '[:upper:]'
+git rev-parse --abbrev-ref origin/HEAD | sed 's/origin\///'
 ```
 
-If found, this ticket ID **must** be included in:
+Or ask the user which branch to target (main, develop, etc.)
 
-- The PR title (e.g., `feat(THR-19): implement agent loop`)
-- The PR description (link to Linear issue)
+### 3. Gather Commit History
 
-### 3. Analyze the changes
+Get all commits since diverging from base:
+```bash
+git log origin/<base-branch>..HEAD --oneline --reverse
+```
 
-For each commit, understand:
+This shows ALL commits that will be in the PR.
 
-- What problem does it solve?
-- What design decisions were made?
-- What alternatives were considered?
+### 4. Analyze Full Diff
 
-Read relevant files if needed:
+Get the complete diff from base branch:
+```bash
+git diff origin/<base-branch>...HEAD
+```
 
-- Task docs in `tasks/` or `docs/plans/`
-- Work notes if they exist
-- The actual code changes
+**IMPORTANT**: Read the ENTIRE diff to understand:
+- What files changed
+- What functionality was added/modified/removed
+- Any configuration changes
+- Dependencies added/updated
+- Tests added
 
-### 4. Structure the PR description
+### 5. Read PR Template
 
-The PR must include these sections:
+Read the template for structure guidance:
+```bash
+Read: .github/pull_request_template.md
+```
+
+### 6. Ask for Related Issues
+
+**REQUIRED**: Every PR must have at least one related issue.
+
+Use AskUserQuestion to ask:
+```
+Question: "What issue(s) is this PR addressing? (GitHub, Linear, Jira, or any other issue tracker)"
+```
+
+The user should provide issue reference(s) from any platform:
+- `#123` (GitHub issue)
+- `ORG-456` (Linear issue)
+- `PROJ-789` (Jira issue)
+- Full URLs to issues from any tracker
+- Any properly linked issue reference
+
+**Important**: Accept issues from ANY issue tracking platform (GitHub, Linear, Jira, Asana, ClickUp, etc.) as long as they are properly linked/referenced.
+
+If no issue exists, strongly encourage creating one first for better tracking.
+
+### 7. Generate PR Description
+
+Create a description following this structure (based on `.github/pull_request_template.md`):
+
+**Summary** (1-3 sentences):
+- What does this PR do?
+- Why was this change needed?
+
+**Issues** (REQUIRED):
+- List at least one related GitHub or Linear issue
+- Use proper issue references (#123, ORG-456, or URLs)
+
+**Key Changes & Why**:
+- What changed and why it was needed
+- Focus on the "why" behind decisions
+- Be specific but concise
+
+**More Information:**
+
+- **Changes**: List key changes made
+- **Testing**: What was verified (lint, build, tests, manual testing)
+- **Context**: Additional context for reviewers
+- **Screenshots**: If UI/visual changes
+- **Checklist**: Conventions, docs, breaking changes, ready status
+
+### 8. Create PR
+
+Use GitHub CLI to create the PR:
+```bash
+gh pr create --title "<title>" --body "$(cat <<'EOF'
+<pr-description>
+EOF
+)"
+```
+
+**Title Format**: Use conventional commit format WITH emoji and scoped issue identifiers
+
+**REQUIRED**: Issue identifiers MUST be mentioned in the title, scoped into the type prefix.
+
+Format: `<emoji> <type>(<issue1>, <issue2>): <description>`
+
+Examples:
+- `✨ feat(#42): add user authentication system`
+- `🐛 fix(#123, #124): resolve memory leak in parser`
+- `🔧 chore(PROJ-456): update dependencies`
+- `✨ feat(ORG-789, #92): implement checkout-branch command`
+
+Multiple issues: Separate with `, ` (comma + space)
+
+Use the same emoji conventions as the commit skill:
+- ✨ feat, 🐛 fix, 📝 docs, 🔧 chore, ♻️ refactor, ✅ test, etc.
+
+### 9. Confirm and Share
+
+After creating the PR:
+1. Confirm success
+2. Show the PR URL
+3. Display the title and summary
+
+## PR Writing Guidelines
+
+### Summary Section
+
+**Good**:
+```
+## Summary
+Adds branch protection safeguards to prevent accidental pushes to main, production, and testing branches. Introduces a safe-push skill that checks branch status before pushing.
+
+### Issues
+- #42
+
+### Key Changes & Why
+- Added protected branches config to centralize branch protection rules
+- Created safe-push skill to intercept push attempts and validate branch safety
+- Prevents common mistakes while allowing emergency overrides with confirmation
+```
+
+**Bad**:
+```
+## Summary
+Added some stuff for branches.
+
+### Issues
+- None
+
+### Key Changes & Why
+- Changed files
+```
+
+### More Information Sections
+
+Keep concise but informative:
+
+**Changes** - Be specific:
+```
+### Changes
+- Added `.claude/protected-branches.json` with 18 protected branch names
+- Created `safe-push` skill with branch validation logic
+- Updated `commit` skill to reference safe-push for post-commit workflow
+```
+
+**Testing** - Be honest:
+```
+### Testing
+- [x] Linted
+- [x] Built successfully
+- [ ] Tests pass (no tests for this feature yet)
+- [x] Manual testing: Verified protection on main branch
+```
+
+**Context** - Add important details:
+```
+### Context
+Breaking change: Direct pushes to main now blocked by default. Users must explicitly confirm for emergency pushes.
+
+Protected branches include deployment (main, production), testing (integration, e2e), and QA (qa, uat) environments.
+```
+
+## Example PR Descriptions
+
+### Example 1: Feature PR
+
+**Title**: `✨ feat(#15, ORG-892): add checkout-branch command and skill`
 
 ```markdown
-**Linear:** [THR-XX](https://linear.app/threa/issue/THR-XX) _(if applicable)_
+## Summary
+Implements checkout-branch command and skill for creating git branches with conventional naming. Automatically determines branch type (feat, fix, chore) from task description.
 
-## Problem
+### Issues
+- #15 - Need standardized branch naming
+- ORG-892
 
-[What issue or limitation exists? Why does this change need to happen?]
+### Key Changes & Why
+- Needed consistent branch naming across team to improve workflow visibility
+- Automation reduces typos and ensures conventions are followed
+- Supports 10 branch types covering all common development scenarios
 
-## Solution
+## More Information
 
-[High-level description of the approach taken]
+### Changes
+- Added `/checkout-branch <description>` command
+- Created `checkout-branch` skill with branch name generation logic
+- Handles uncommitted changes, existing branches, invalid characters
+- Supports: feat, fix, chore, docs, refactor, test, style, perf, ci, security
 
-### How it works
+### Testing
+- [x] Linted
+- [x] Built successfully
+- [x] Manual testing: Created branches with various descriptions
+- [x] Manual testing: Verified kebab-case conversion and special char handling
 
-[Architecture diagram or flow explanation if applicable]
+### Context
+Users can still manually create branches, but this provides guided approach. Branch names follow pattern: `type/description-in-kebab-case`.
 
-### Key design decisions
-
-[For each significant decision:]
-**1. [Decision title]**
-
-[What was chosen and why. Include alternatives considered if relevant.]
-
-## New files
-
-| File              | Purpose           |
-| ----------------- | ----------------- |
-| `path/to/file.ts` | Brief description |
-
-## Modified files
-
-| File              | Change       |
-| ----------------- | ------------ |
-| `path/to/file.ts` | What changed |
-
-## Deleted files (if any)
-
-| File              | Reason      |
-| ----------------- | ----------- |
-| `path/to/file.ts` | Why removed |
-
-## Test plan
-
-- [x] Completed tests
-- [ ] Manual verification steps
-
----
-
-🤖 _PR by [Claude Code](https://claude.com/claude-code)_
+### Checklist
+- [x] Code follows project conventions
+- [x] Documentation updated (command and skill docs)
+- [x] No breaking changes
+- [x] Ready for review
 ```
 
-### 5. Create the PR
+### Example 2: Bug Fix PR
 
-```bash
-# Push branch if needed
-git push -u origin $(git branch --show-current)
+**Title**: `🐛 fix(#892): resolve memory leak in websocket handler`
 
-# Create PR (write body to temp file first to avoid heredoc issues)
-# If ticket ID exists, include it: "[type](THR-XX): [short description]"
-gh pr create --base main --title "[type](THR-XX): [short description]" --body-file /tmp/claude/pr-body.md
+```markdown
+## Summary
+Fixes memory leak in WebSocket handler causing server crashes after sustained load.
+
+### Issues
+- #892 - Production incident: server crash at 1000+ connections
+
+### Key Changes & Why
+- Root cause: Event listeners weren't removed on disconnect
+- Added explicit cleanup in disconnect handler
+- Connection pool prevents unbounded growth as additional safety
+
+## More Information
+
+### Changes
+- Added cleanup logic in `WebSocketHandler.disconnect()`
+- Moved event listener removal to cleanup phase
+- Added connection pool with configurable max size
+
+### Testing
+- [x] Linted
+- [x] Built successfully
+- [x] Tests pass (added leak detection test)
+- [x] Load testing: Sustained 2000 concurrent connections for 1 hour
+
+### Context
+This was causing production outages. Connection pool config defaults to 5000 max connections (adjustable via env var).
+
+### Checklist
+- [x] Code follows project conventions
+- [x] Documentation updated (added connection pool config docs)
+- [x] No breaking changes
+- [x] Ready for review
 ```
 
-If `gh pr create` fails with GraphQL errors, use the API directly:
+## Error Handling
 
-```bash
-gh api repos/{owner}/{repo}/pulls --method POST \
-  -f title="[type]: [short description]" \
-  -f head="$(git branch --show-current)" \
-  -f base="main" \
-  -f body="$(cat /tmp/claude/pr-body.md)"
-```
+- **No commits ahead**: Inform user there's nothing to create a PR for
+- **Not pushed**: Push the branch first (with safe-push skill)
+- **Already has PR**: Show existing PR URL
+- **No base branch**: Ask user which branch to target
+- **No issues provided**: Strongly encourage creating an issue first
+- **gh not installed**: Inform user to install GitHub CLI
+- **Not authenticated**: Prompt to run `gh auth login`
 
-### 6. Return the PR URL
+## Best Practices
 
-Always provide the PR URL to the user when done.
+1. **Always ask for issues**: Every PR needs at least one related issue
+2. **Read all commits**: Don't just read latest, read ALL commits in the PR
+3. **Read full diff**: Understand complete scope of changes
+4. **Be specific**: Name files, functions, components changed
+5. **Focus on "why"**: Explain reasoning behind decisions
+6. **Honest testing**: Mark what was actually verified
+7. **Highlight risks**: Call out breaking changes or risky areas
 
-## PR Title Conventions
+## Integration
 
-Use conventional commit format with Linear ticket ID when available:
+Works with other skills:
+- **commit skill**: Natural next step after committing
+- **checkout-branch skill**: Completes workflow (branch → code → commit → PR)
+- **safe-push skill**: Ensures branch is pushed before creating PR
 
-- `feat(THR-XX):` - New feature
-- `fix(THR-XX):` - Bug fix
-- `refactor(THR-XX):` - Code restructuring without behavior change
-- `docs(THR-XX):` - Documentation only
-- `test(THR-XX):` - Test additions/changes
-- `chore(THR-XX):` - Maintenance tasks
+## After Creating PR
 
-If no Linear ticket exists, omit the parenthetical: `feat: description`
-
-## Examples
-
-**User says:** "Create a PR"
-**Action:** Analyze current branch, gather context from task docs, create comprehensive PR
-
-**User says:** "Open a PR for this feature"
-**Action:** Same as above, ensuring all design decisions are documented
-
-**User says:** "Submit this for review"
-**Action:** Create PR, return URL for user to review
-
-## Important Notes
-
-- **Always include Linear ticket ID** in title and description when working from a ticket
-- Never create a PR with an empty or minimal description
-- Always explain the "why" not just the "what"
-- Include divergences from original plans if applicable
-- Reference task docs or issues when relevant
+Ask the user:
+- "Would you like me to help with anything else?"
+- Don't auto-merge or make additional changes without asking

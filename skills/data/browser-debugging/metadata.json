@@ -1,12 +1,7 @@
 {
   "name": "browser-debugging",
-  "description": "Debug client-side issues using browser developer tools. Identify JavaScript errors, styling issues, and performance problems in the browser.",
   "repo": "aj-geddes/useful-ai-prompts",
-  "category": "development",
-  "tags": [
-    "browser",
-    "debugging"
-  ],
-  "stars": 25,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/browser-debugging/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:09.989814Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "aws-beanstalk-expert",
-  "description": "Expert knowledge for deploying, managing, and troubleshooting AWS Elastic Beanstalk applications with production best practices",
   "repo": "pr-pm/prpm",
-  "category": "devops",
-  "tags": [
-    "aws",
-    "beanstalk",
-    "expert"
-  ],
-  "stars": 70,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/aws-beanstalk-expert/SKILL.md",
+  "source": "github.com/pr-pm/prpm",
+  "downloaded_at": "2026-01-14T01:14:33.263576Z"
 }

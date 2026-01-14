@@ -1,149 +1,189 @@
 ---
 name: technical-seo
-description: Implements Schema.org structured data for AndesRC articles. Adds ExercisePlan, HowTo, and FAQPage markup. Optimizes meta titles and descriptions. Use before publication.
-metadata:
-  author: AndesRC
-  version: "1.0"
+description: Final SEO audit and technical implementation. Use at the END of a project to verify all pages, implement technical SEO (sitemap.xml, robots.txt, schema), and check for ranking readiness. Triggers on "SEO audit", "final SEO check", "verify SEO", "implement technical SEO".
 ---
 
-# Technical SEO
+# SEO Implementation & Audit
 
-## Purpose
-Implement structured data, optimize meta tags, and ensure technical SEO compliance for maximum search visibility and AI Overview eligibility.
+Final technical SEO implementation and comprehensive audit.
 
-## Meta Tag Optimization
+## Prerequisites
 
-### Title Tag
-- **Length**: 50-60 characters
-- **Format**: `[Primary Keyword] | [Benefit/Modifier] - Andes`
-- **Example**: `Plan 10K Principiantes | 8 Semanas para tu Primera Carrera`
+- All pages built and content optimized
+- docs/sitemap.md and docs/seo-strategy.md exist
 
-### Meta Description
-- **Length**: 150-160 characters
-- **Format**: `[Primary keyword]. [Key benefit]. [Call to action].`
-- **Example**: `Plan de entrenamiento 10K para principiantes. Programa de 8 semanas con progresión gradual. ¡Descarga gratis y empieza hoy!`
+## Workflow
 
-### Frontmatter Checklist
+1. **Audit All Pages** - Check every page for SEO requirements
+2. **Generate Technical Files** - sitemap.xml, robots.txt
+3. **Add Schema.org** - JSON-LD structured data
+4. **Configure Social** - Open Graph, Twitter cards
+5. **Final Verification** - Comprehensive checklist
 
-```yaml
----
-title: "Plan 10K Principiantes: Guía Completa 2025"  # 50-60 chars
-description: "Plan de entrenamiento 10K para principiantes. 8 semanas de progresión gradual con consejos de nutrición. ¡Empieza hoy!"  # 150-160 chars
-canonical: /es/blog/plan-10k-principiantes  # Full path
-hreflang:
-  es: /es/blog/plan-10k-principiantes
-  en: /blog/10k-training-plan-beginners
----
-```
+## Full Site Audit Checklist
 
-## Schema.org Structured Data
+### Per-Page Verification
 
-### ExercisePlan (Training Plans)
+For EACH page in docs/sitemap.md, verify:
 
-```json
-{
-  "@context": "https://schema.org",
-  "@type": "ExercisePlan",
-  "name": "Plan de Entrenamiento 10K para Principiantes - AndesRC",
-  "description": "Programa de 12 semanas diseñado para corredores novatos en CDMX, con énfasis en prevención de lesiones y adaptación a la altura.",
-  "exerciseType": "Running",
-  "activityDuration": "P12W",
-  "activityFrequency": "3 days per week",
-  "intensity": "Beginner",
-  "audience": {
-    "@type": "PeopleAudience",
-    "audienceType": "Corredores principiantes",
-    "geographicArea": {
-      "@type": "Place",
-      "name": "Mexico"
-    }
-  },
-  "isAccessibleForFree": "True",
-  "provider": {
-    "@type": "Organization",
-    "name": "AndesRC",
-    "url": "https://andesrunners.com"
-  }
-}
-```
+**Content:**
+- [ ] H1 contains primary keyword
+- [ ] Only ONE H1 per page
+- [ ] H2/H3 include secondary keywords
+- [ ] Keyword density 1-2%
+- [ ] Minimum 300 words content
 
-### HowTo (Tutorials)
+**Meta Tags:**
+- [ ] Title tag 50-60 characters
+- [ ] Title contains primary keyword
+- [ ] Meta description 150-160 characters
+- [ ] Meta description has CTA
 
-```json
-{
-  "@context": "https://schema.org",
-  "@type": "HowTo",
-  "name": "Cómo realizar un calentamiento dinámico para correr",
-  "description": "Guía paso a paso para calentar correctamente antes de correr.",
-  "step": [
-    {
-      "@type": "HowToStep",
-      "name": "Caminata activa",
-      "text": "Camina 2-3 minutos a paso ligero para elevar la temperatura corporal."
-    },
-    {
-      "@type": "HowToStep",
-      "name": "Rodillas altas",
-      "text": "Realiza 20 repeticiones de rodillas altas alternando piernas."
-    }
+**Images:**
+- [ ] All images have alt text
+- [ ] Alt text is keyword-relevant
+- [ ] Images are optimized (WebP)
+
+**Links:**
+- [ ] Internal links to key pages
+- [ ] No broken links
+- [ ] Anchor text is descriptive
+
+### Technical SEO Files
+
+#### sitemap.xml (app/sitemap.ts)
+
+```typescript
+import { MetadataRoute } from 'next'
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const baseUrl = 'https://domain.com'
+
+  return [
+    { url: baseUrl, lastModified: new Date(), changeFrequency: 'weekly', priority: 1 },
+    { url: `${baseUrl}/leistungen`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
+    // All pages from docs/sitemap.md
   ]
 }
 ```
 
-### FAQPage (BOFU/Sales Pages)
+#### robots.txt (public/robots.txt)
 
+```
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+
+Sitemap: https://domain.com/sitemap.xml
+```
+
+### Schema.org Structured Data
+
+Add to layout or pages:
+
+**LocalBusiness (Homepage):**
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Company Name",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Street",
+    "addressLocality": "Zürich",
+    "postalCode": "8000",
+    "addressCountry": "CH"
+  },
+  "telephone": "+41 XX XXX XX XX",
+  "url": "https://domain.com",
+  "priceRange": "$$"
+}
+```
+
+**Service (Service Pages):**
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Webdesign",
+  "provider": { "@type": "LocalBusiness", "name": "Company" },
+  "areaServed": "Zürich",
+  "description": "Service description"
+}
+```
+
+**FAQPage (FAQ Sections):**
 ```json
 {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "¿Es un bot o una persona real?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Tu coach de AndesRC es una persona real apoyada por IA. Recibes respuestas rápidas gracias a la tecnología, pero siempre hay un humano supervisando tu progreso y ajustando tu plan."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "¿Puedo cancelar cuando quiera?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Sí, puedes cancelar en cualquier momento directamente desde WhatsApp. Sin compromisos, sin penalizaciones."
-      }
-    }
-  ]
+  "mainEntity": [{
+    "@type": "Question",
+    "name": "Question?",
+    "acceptedAnswer": { "@type": "Answer", "text": "Answer" }
+  }]
 }
 ```
 
-## Internal Linking
+### Open Graph & Twitter
 
-### Requirements
-- Minimum 2-3 internal links per article
-- Link from satellite → pillar page
-- Cross-link between related clusters
+Add to page metadata:
 
-### Link Placement Strategy
-1. **In introduction**: Link to pillar page
-2. **In body**: Link to related satellite articles
-3. **In conclusion**: Link to CTA (pricing, WhatsApp)
+```typescript
+export const metadata: Metadata = {
+  title: 'Page Title | Brand',
+  description: 'Description with keyword',
+  openGraph: {
+    title: 'Page Title | Brand',
+    description: 'Description',
+    url: 'https://domain.com/page',
+    siteName: 'Brand',
+    images: [{ url: '/og-image.png', width: 1200, height: 630 }],
+    locale: 'de_CH',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Page Title',
+    description: 'Description',
+    images: ['/og-image.png'],
+  },
+}
+```
 
-## Technical Checklist
+## Final Ranking Checklist
 
-- [ ] Meta title: 50-60 characters with primary keyword
-- [ ] Meta description: 150-160 characters with CTA
-- [ ] H1 matches title, contains primary keyword
-- [ ] Schema.org JSON-LD added (ExercisePlan/HowTo/FAQPage as appropriate)
-- [ ] Canonical URL set correctly
-- [ ] Hreflang tags for bilingual content
-- [ ] 2-3 internal links included
-- [ ] Images have descriptive alt text with keywords
-- [ ] URL slug is clean and keyword-rich
+**Technical:**
+- [ ] sitemap.xml generated and accessible
+- [ ] robots.txt allows crawling
+- [ ] SSL certificate active (HTTPS)
+- [ ] Mobile responsive
+- [ ] Page speed < 3 seconds
+- [ ] No console errors
+
+**Content:**
+- [ ] All pages have unique title tags
+- [ ] All pages have unique meta descriptions
+- [ ] All H1s are unique and keyword-optimized
+- [ ] No duplicate content
+- [ ] No thin content (< 300 words)
+
+**Structured Data:**
+- [ ] LocalBusiness schema on homepage
+- [ ] Service schema on service pages
+- [ ] FAQPage schema on FAQ sections
+- [ ] BreadcrumbList schema (optional)
+
+**Social:**
+- [ ] Open Graph images created (1200x630)
+- [ ] OG tags on all pages
+- [ ] Twitter card tags on all pages
 
 ## Output
 
-The article markdown with:
-1. Optimized frontmatter
-2. Schema.org JSON-LD script block
-3. Internal links verified
+- app/sitemap.ts created
+- public/robots.txt created
+- Schema.org components added
+- OG images configured
+- All pages verified for SEO compliance

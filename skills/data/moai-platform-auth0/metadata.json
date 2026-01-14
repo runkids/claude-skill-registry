@@ -1,12 +1,7 @@
 {
   "name": "moai-platform-auth0",
-  "description": "Auth0 enterprise authentication specialist covering SSO, SAML, OIDC, organizations, and B2B multi-tenancy. Use when implementing enterprise identity federation or complex auth workflows.",
-  "repo": "junseokandylee/RallyApp",
-  "category": "data",
-  "tags": [
-    "moai",
-    "platform",
-    "auth0"
-  ],
-  "stars": 1
+  "repo": "windysky/claude_notification_wsl2",
+  "path": ".claude/skills/moai-platform-auth0/SKILL.md",
+  "source": "github.com/windysky/claude_notification_wsl2",
+  "downloaded_at": "2026-01-14T04:03:27.943742Z"
 }

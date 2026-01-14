@@ -1,130 +1,181 @@
 ---
 name: typescript
-description: This skill should be used when the user asks to "configure TypeScript", "fix type errors", "use dayjs", "add type definitions", "set up React with TypeScript", mentions ".ts" or ".tsx" files, or asks about TypeScript best practices or TypeScript-specific tooling.
+description: |
+  Provides comprehensive TypeScript development expertise and coding standards. Ensures type safety through strict type checking, implements clean code patterns, and maintains consistent architectural decisions. Specializes in advanced type system features including generics, conditional types, mapped types, and template literal types.
+  Use when: working with TypeScript files (.ts/.tsx), defining type definitions and interfaces, implementing generic programming patterns, designing type-safe APIs, handling complex type transformations, integrating TypeScript with React/Vue/Angular frameworks, configuring strict mode settings, resolving type errors, or optimizing type performance in large codebases.
 ---
 
-# TypeScript Skill
+# TypeScript Coding Standards
 
-## Rules
+## Basic Principles
 
-Note that these are not hard-and-fast rules. If there's a good reason not to apply a rule, don't apply it.
+### One Function, One Responsibility
 
-### Alphabetical Order
+- If function name connects with "and" or "or", it's a signal to split
+- If test cases are needed for each if branch, it's a signal to split
 
-Maintain alphabetical order for better readability and consistency:
+### Conditional and Loop Depth Limited to 2 Levels
 
-- **Function parameters** - Order by parameter name
-- **Object literal fields** - Sort by key name
-- **Type definitions** - Arrange fields alphabetically
-- **Class properties** - Order by property name
+- Minimize depth using early return whenever possible
+- If still heavy, extract into separate functions
 
-**Example (type definitions):**
+### Make Function Side Effects Explicit
 
-```typescript
-// bad
-type User = {
-  name: string;
-  age: number;
-  email: string;
-};
+- Example: If `getUser` also runs `updateLastAccess()`, specify it in the function name
 
-// good
-type User = {
-  age: number;
-  email: string;
-  name: string;
-};
-```
+### Convert Magic Numbers/Strings to Constants When Possible
 
-### Biome
+- Declare at the top of the file or class where used
+- Consider separating into a constants file if there are many
 
-Use BiomeJS for linting and formatting JavaScript and TypeScript code. Look for a `biome.jsonc` file.
+### Function Order by Call Order
 
-Exception: project already uses ESLint and Prettier.
+- Follow class access modifier declaration order rules if clear
+- Otherwise, order top-to-bottom for easy reading by call order
 
-### dayjs for date and time calculations
+### Review External Libraries for Complex Implementations
 
-Use the `dayjs` library for date calculations. Avoid using the native JavaScript Date object.
+- When logic is complex and tests become bloated
+- If industry-standard libraries exist, use them
+- When security, accuracy, or performance optimization is critical
+- When browser/platform compatibility or edge cases are numerous
 
-**Example:**
+### Modularization (Prevent Code Duplication and Pattern Repetition)
 
-```typescript
-import dayjs from "dayjs";
+- Absolutely forbid code repetition
+- Modularize similar patterns into reusable forms
+- Allow pre-modularization if reuse is confirmed
+- Avoid excessive abstraction
+- Modularization levels:
+  - Same file: Extract into separate function
+  - Multiple files: Separate into different file
+  - Multiple projects/domains: Separate into package
 
-const now = dayjs();
-const tomorrow = now.add(1, "day");
-```
+### Variable and Function Names
 
-### No `any` type
+- Clear purpose while being concise
+- Forbid abbreviations outside industry standards (id, api, db, err, etc.)
+- Don't repeat context from the parent scope
+- Boolean variables use `is`, `has`, `should` prefixes
+- Function names are verbs or verb+noun forms
+- Plural rules:
+  - Pure arrays: "s" suffix (`users`)
+  - Wrapped object: "list" suffix (`userList`)
+  - Specific data structure: Explicit (`userSet`, `userMap`)
+  - Already plural words: Use as-is
 
-Never use the `any` type.
+### Field Order
 
-### Never return a value in `forEach` callbacks
+- Alphabetically ascending by default
+- Maintain consistency in usage
+- Also alphabetically ordered in destructuring assignment
 
-**Example:**
+### Error Handling
 
-```typescript
-[].forEach(() => {
-  return 1; // bad
-});
+- Error handling level: Handle where meaningful response is possible
+- Error messages: Technical details for logs, actionable guidance for users
+- Error classification: Distinguish between expected and unexpected errors
+- Error propagation: Add context when propagating up the call stack
+- Recovery vs. fast fail: Recover from expected errors with fallback
+- Error types: For domain-specific failures, create custom error classes extending `Error`. Never throw non-Error objects
+- Async errors: Always handle Promise rejection. Use try-catch for async/await, .catch() for promise chains
 
-[].forEach(() => {
-  // good
-});
-```
+## Package Management
 
-**Another example:**
+### Package Manager
 
-```typescript
-[].forEach((item) => console.log(item)); // bad
+- Use pnpm as default package manager
+- Forbid npm, yarn (prevent lock file conflicts)
 
-[].forEach((item) => {
-  console.log(item); // good
-});
-```
+## File Structure
 
-### Prefer `type` instead of `interface`
+### Common for All Files
 
-Use `type` instead of `interface` for declaring types.
+1. Import statements (grouped)
+2. Constant definitions (alphabetically ordered if multiple)
+3. Type/Interface definitions (alphabetically ordered if multiple)
+4. Main content (see below)
 
-### Comment Dividers
+### Inside Classes
 
-Use centered comment dividers for major section breaks:
+- Decorators
+- private readonly members
+- readonly members
+- constructor
+- public methods (alphabetically ordered)
+- protected methods (alphabetically ordered)
+- private methods (alphabetically ordered)
 
-**Format (80 chars total):**
+### Function Placement in Function-Based Files
 
-```typescript
-// -------------------------------------------------------------------------- //
-//                                   TITLE                                    //
-// -------------------------------------------------------------------------- //
-```
+- Main exported function
+- Additional exported functions (alphabetically ordered, avoid many)
+- Helper functions
 
-**Rules:**
+## Function Writing
 
-- Total width: 80 characters
-- Title: UPPERCASE, centered with spaces
-- Border line: dashes `-` filling the space between `// ` and ` //`
+### Use Arrow Functions
 
-**When to use:**
+- Always use arrow functions except for class methods
+- Forbid function keyword entirely (exceptions: generator function\*, function hoisting etc. technically impossible cases only)
 
-- Major logical sections (imports, types, constants, main logic, exports)
-- Separating distinct feature areas
-- NOT for every function or small grouping
+### Function Arguments: Flat vs Object
 
-**Example:**
+- Use flat if single argument or uncertain of future additions
+- Use object form for 2+ arguments in most cases. Allow flat form when:
+  - All required arguments without boolean arguments
+  - All required arguments with clear order (e.g., (width,height), (start,end), (min,max), (from,to))
 
-```typescript
-// -------------------------------------------------------------------------- //
-//                                   IMPORTS                                  //
-// -------------------------------------------------------------------------- //
+## Type System
 
-import { Effect } from "effect";
+### Type Safety
 
-// -------------------------------------------------------------------------- //
-//                                    TYPES                                   //
-// -------------------------------------------------------------------------- //
+- Forbid unsafe type bypasses like any, as, !, @ts-ignore, @ts-expect-error
+- Exceptions: Missing or incorrect external library types, rapid development needed (clarify reason in comments)
+- Allow some unknown type when type guard is clear
+- Allow as assertion when literal type (as const) needed
+- Allow as assertion when widening literal/HTML types to broader types
+- Allow "!" assertion when type narrowing impossible after type guard due to TypeScript limitation
+- Allow @ts-ignore, @ts-expect-error in test code (absolutely forbid in production)
 
-type Config = {
-  name: string;
-};
-```
+### Interface vs Type
+
+- Prioritize Type in all cases by default
+- Use Interface only for these exceptions:
+  - Public API provided to external users like library public API
+  - Need to extend existing interface like external libraries
+  - Designing OOP-style classes where implementation contract must be clearly defined
+
+### null/undefined Handling
+
+- Actively use Optional Chaining (`?.`)
+- Provide defaults with Nullish Coalescing (`??`)
+- Distinguish between `null` and `undefined` by semantic meaning:
+  - `undefined`: Uninitialized state, optional parameters, value not assigned yet
+  - `null`: Intentional absence of value (similar to Go's nil)
+- Examples:
+  - Optional field: `{ name?: string }` → can be `undefined`
+  - Intentionally cleared value: `user.profileImage = null`
+  - External API responses may use either convention
+
+## Code Style
+
+### Maintain Immutability
+
+- Use `const` whenever possible, minimize `let`
+- Create new values instead of directly modifying arrays/objects
+- Use `spread`, `filter`, `map` instead of `push`, `splice`
+- Exceptions: Extremely performance-critical cases
+
+## Recommended Libraries
+
+- Testing: Jest, Playwright
+- Utilities: es-toolkit, dayjs
+- HTTP: ky, @tanstack/query, @apollo/client
+- Form: React Hook Form
+- Type validation: zod
+- UI: Tailwind + shadcn/ui
+- ORM: Prisma (Drizzle if edge support important)
+- State management: zustand
+- Code formatting: prettier, eslint
+- Build: tsup

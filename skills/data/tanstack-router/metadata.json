@@ -1,12 +1,7 @@
 {
   "name": "tanstack-router",
-  "description": "Build type-safe, file-based React routing with TanStack Router. Supports client-side navigation, route loaders, and TanStack Query integration.Use when implementing file-based routing patterns, buildi",
   "repo": "jezweb/claude-skills",
-  "category": "development",
-  "tags": [
-    "tanstack",
-    "router"
-  ],
-  "stars": 109,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/tanstack-router/SKILL.md",
+  "source": "github.com/jezweb/claude-skills",
+  "downloaded_at": "2026-01-14T04:01:45.847836Z"
 }

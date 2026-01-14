@@ -1,13 +1,7 @@
 {
   "name": "data-science-tools",
-  "description": "Documentation of available data science libraries (scipy, numpy, pandas, sklearn) and best practices for statistical analysis, regression modeling, and organizing analysis scripts. **CRITICAL:** All a",
   "repo": "mikkelkrogsholm/dst-skills",
-  "category": "data",
-  "tags": [
-    "data",
-    "science",
-    "tools"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/data-science-tools/SKILL.md",
+  "source": "github.com/mikkelkrogsholm/dst-skills",
+  "downloaded_at": "2026-01-14T02:56:15.487646Z"
 }

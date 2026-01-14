@@ -1,12 +1,7 @@
 {
   "name": "confluence-docs",
-  "description": "Documentation templates for ADRs, runbooks, and architecture docs. Use when creating architectural decision records, operational runbooks, or technical documentation.",
   "repo": "bybren-llc/wtfb-safe-agentic-workflow",
-  "category": "documents",
-  "tags": [
-    "confluence",
-    "docs"
-  ],
-  "stars": 11,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/confluence-docs/SKILL.md",
+  "source": "github.com/bybren-llc/wtfb-safe-agentic-workflow",
+  "downloaded_at": "2026-01-14T02:13:28.850624Z"
 }

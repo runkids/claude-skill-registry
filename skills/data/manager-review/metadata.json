@@ -1,8 +1,7 @@
 {
   "name": "manager-review",
   "repo": "cncorp/arsenal",
-  "category": "data",
-  "description": "Quality gate before responding to user. Reviews proposed response against original query, checks skill usage, iterates 50% of the time for accuracy.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:47.385773Z"
+  "path": "dot-claude/skills/manager-review/SKILL.md",
+  "source": "github.com/cncorp/arsenal",
+  "downloaded_at": "2026-01-14T04:01:20.761319Z"
 }

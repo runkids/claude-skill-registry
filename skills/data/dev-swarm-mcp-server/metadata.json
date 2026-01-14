@@ -1,8 +1,7 @@
 {
   "name": "dev-swarm-mcp-server",
   "repo": "X-School-Academy/ai-dev-swarm",
-  "category": "data",
-  "description": "Add and manage Model Context Protocol (MCP) servers for AI agents, including transports, scopes, and config files. Use when extending agent capabilities with new tools or data sources.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:12.849324Z"
+  "path": "dev-swarm/skills/dev-swarm-mcp-server/SKILL.md",
+  "source": "github.com/X-School-Academy/ai-dev-swarm",
+  "downloaded_at": "2026-01-14T02:33:44.673690Z"
 }

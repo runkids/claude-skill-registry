@@ -1,9 +1,7 @@
 {
   "name": "linux-shell-scripting",
-  "description": "This skill should be used when the user asks to",
   "repo": "zebbern/claude-code-guide",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "GitHub Search API"
+  "path": "skills/linux-shell-scripting/SKILL.md",
+  "source": "github.com/zebbern/claude-code-guide",
+  "downloaded_at": "2026-01-14T03:20:26.699562Z"
 }

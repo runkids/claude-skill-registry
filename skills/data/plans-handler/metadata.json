@@ -1,9 +1,7 @@
 {
   "name": "plans-handler",
-  "description": "Manage subscription plans, pricing, and quotas. Use when adding plan features, updating limits, or building pricing pages.",
   "repo": "AayushBaniya2006/blinkfund",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/plans-handler/SKILL.md",
+  "source": "github.com/AayushBaniya2006/blinkfund",
+  "downloaded_at": "2026-01-14T00:52:46.325394Z"
 }

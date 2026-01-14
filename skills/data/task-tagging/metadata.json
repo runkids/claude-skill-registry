@@ -1,12 +1,7 @@
 {
   "name": "task-tagging",
-  "description": "Provides categorical organization for tasks using a predefined set of seven standard tags (Work, Personal, Shopping, Health, Finance, Learning, Urgent). Enforces tag validation rules including duplica",
-  "repo": "Syedaashnaghazanfar/full-stack-todo-app",
-  "category": "productivity",
-  "tags": [
-    "task",
-    "tagging"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "SOFIA-ASIF/TaskFlow-ToDo-APP",
+  "path": ".claude/skills/task-tagging/SKILL.md",
+  "source": "github.com/SOFIA-ASIF/TaskFlow-ToDo-APP",
+  "downloaded_at": "2026-01-14T03:11:58.377735Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "js-micro-utilities",
-  "description": "Zero-dependency JavaScript utilities using native APIs and just-* micro-packages. Use when manipulating objects, arrays, strings, numbers, or functions. Scan tables for native solution first (backtick",
   "repo": "matthewharwood/fantasy-phonics",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/js-micro-utilities/SKILL.md",
+  "source": "github.com/matthewharwood/fantasy-phonics",
+  "downloaded_at": "2026-01-14T01:29:29.650838Z"
 }

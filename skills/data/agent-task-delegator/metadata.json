@@ -1,13 +1,7 @@
 {
   "name": "agent-task-delegator",
-  "description": "Delegate tasks across multi-agent architectures with proper context preservation.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "productivity",
-  "tags": [
-    "agent",
-    "task",
-    "delegator"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/agent-task-delegator/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-14T01:08:19.475869Z"
 }

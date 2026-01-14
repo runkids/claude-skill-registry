@@ -1,8 +1,7 @@
 {
   "name": "biomni",
-  "repo": "davila7/claude-code-templates",
-  "category": "data",
-  "description": "Autonomous biomedical AI agent framework for executing complex research tasks across genomics, drug discovery, molecular biology, and clinical analysis. Use this skill when conducting multi-step biome",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:36.380575Z"
+  "repo": "drshailesh88/integrated_content_OS",
+  "path": "skills/scientific/biomni/SKILL.md",
+  "source": "github.com/drshailesh88/integrated_content_OS",
+  "downloaded_at": "2026-01-14T04:02:20.627160Z"
 }

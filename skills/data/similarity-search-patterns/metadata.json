@@ -1,8 +1,7 @@
 {
   "name": "similarity-search-patterns",
-  "repo": "wshobson/agents",
-  "category": "data",
-  "description": "Implement efficient similarity search with vector databases. Use when building semantic search, implementing nearest neighbor queries, or optimizing retrieval performance.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:34.542020Z"
+  "repo": "GaitanS/AI-Mancare",
+  "path": ".claude/skills/plugins/llm-application-dev/skills/similarity-search-patterns/SKILL.md",
+  "source": "github.com/GaitanS/AI-Mancare",
+  "downloaded_at": "2026-01-14T03:16:35.187608Z"
 }

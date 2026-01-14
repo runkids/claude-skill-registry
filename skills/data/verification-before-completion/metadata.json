@@ -1,12 +1,7 @@
 {
   "name": "verification-before-completion",
-  "description": "Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims; evidence",
-  "repo": "nhld/sc-prompt",
-  "category": "data",
-  "tags": [
-    "verification",
-    "before",
-    "completion"
-  ],
-  "stars": 0
+  "repo": "neardws/droid-skills",
+  "path": "skills/superpowers/verification-before-completion/SKILL.md",
+  "source": "github.com/neardws/droid-skills",
+  "downloaded_at": "2026-01-14T04:02:15.035533Z"
 }

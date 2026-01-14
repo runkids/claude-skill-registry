@@ -1,719 +1,458 @@
 ---
 name: implementation
-description: Implement features with code, tests, and documentation. Use when building
-  features from approved designs following TDD and project coding standards.
-allowed-tools: Read, Write, Edit, Bash, Grep, Glob
+description: Implements GitHub issues that have approved implementation plans. Use when you need to implement an issue, create a branch, write code, and submit a PR. Requires a clear implementation plan in the issue comments.
 ---
 
-# Feature Implementation Skill
+# Issue Implementation
+
+## Project Board
+
+All issues are tracked on the **Anubis Issue Tracker** project board:
+- **Project URL:** https://github.com/users/forrestthewoods/projects/8
+- **Project Number:** 8
+- **Owner:** forrestthewoods
+
+## Board Status Workflow
+
+| Status | Description |
+|--------|-------------|
+| **Backlog** | Future ideas or deferred work; not ready for action yet |
+| **Triage** | New issues not yet added to the project board |
+| **Needs Agent Review** | Issues ready for agent to review and categorize |
+| **Needs Human Review** | Agent has questions; waiting for human clarification |
+| **Ready to Implement** | Agent reviewed, wrote plan, no questions remaining |
+| **Needs Code Review** | Implementation in progress (has active branch) |
+| **Done** | Closed and completed (automatic via GitHub) |
+
+**Important:** Issues in **Backlog** should be **completely ignored** by this skill. These are deferred tasks that are not ready for implementation.
 
 ## Purpose
 
-This skill provides systematic guidance for implementing features with high-quality code, comprehensive tests, and proper documentation, following project standards and best practices.
+This skill guides the implementation of GitHub issues that have been reviewed and have an approved implementation plan. It ensures:
 
-## When to Use
+1. The issue has a clear, actionable implementation plan
+2. All questions have been answered before implementation begins
+3. Branch naming conventions are followed
+4. Code is properly committed and pushed
+5. The project board status is updated appropriately
 
-- After design phase is complete and approved
-- Need to implement code for a feature
-- Writing unit and integration tests
-- Creating technical documentation
-- Following TDD (Test-Driven Development) workflow
+## Prerequisites
 
-## Implementation Workflow
+Before implementing an issue, verify:
+- Issue is in **Ready to Implement** status on the project board
+- Issue has a clear implementation plan in the comments
+- No unanswered questions remain on the issue
+- The issue has a difficulty label (`difficulty: easy`, `medium`, or `hard`)
 
-### 1. Setup and Preparation
+## Instructions
 
-**Review Design Document:**
-- Read architecture design from previous phase
-- Understand component structure
-- Review API contracts and data models
-- Note security and performance requirements
+### Step 1: Fetch Issue Details and Comments
 
-**Setup Development Environment:**
 ```bash
-# Activate virtual environment
-source venv/bin/activate  # or: uv venv && source .venv/bin/activate
+# Get the issue with all comments
+gh issue view <number> --json number,title,body,labels,comments,state
 
-# Install dependencies
-pip install -r requirements.txt
-# or: uv pip install -r requirements.txt
-
-# Install dev dependencies
-pip install -e ".[dev]"
+# Get just the comments for easier reading
+gh issue view <number> --comments
 ```
 
-**Create Feature Branch:**
+### Step 2: Analyze the Implementation Plan
+
+Look for the most recent comment containing an **Implementation Plan**. The plan should have:
+
+1. **Overview** - Brief description of the approach
+2. **Steps** - Numbered implementation steps
+3. **Files to Modify** - List of files that need changes
+4. **Testing** - Test cases to verify the implementation
+5. **Considerations** - Edge cases or concerns
+
+**CRITICAL: Before proceeding, verify:**
+
+| Check | Action if Failed |
+|-------|------------------|
+| Has implementation plan? | Stop. Use issue-review skill to create one |
+| Plan is clear and complete? | Stop. Ask clarifying questions |
+| All questions answered? | Stop. Wait for human response |
+| You understand the plan? | Stop. Ask clarifying questions |
+| Plan is technically feasible? | Stop. Raise concerns as questions |
+
+**If ANY of these checks fail, do NOT proceed with implementation.** Post your questions as a comment and move the issue to "Needs Human Review".
+
+### Step 3: Ask Questions if Needed
+
+If you have ANY questions or uncertainties about the implementation:
+
 ```bash
-git checkout -b feature/feature-name
+# Write questions to temp file
+mkdir -p ./.anubis-temp/github
 ```
 
-**Deliverable:** Development environment ready
-
----
-
-### 2. Test-Driven Development (TDD)
-
-**TDD Cycle:** Red → Green → Refactor
-
-**Step 1: Write Failing Test (Red)**
-```python
-# tests/test_feature.py
-import pytest
-from feature import process_data
-
-def test_process_data_success():
-    """Test successful data processing."""
-    # Arrange
-    input_data = {"name": "test", "value": 123}
-
-    # Act
-    result = process_data(input_data)
-
-    # Assert
-    assert result.name == "test"
-    assert result.value == 123
-```
-
-**Step 2: Write Minimal Code (Green)**
-```python
-# src/tools/feature/core.py
-def process_data(input_data: dict):
-    """Process input data."""
-    # Minimal implementation to pass test
-    return type('Result', (), input_data)()
-```
-
-**Step 3: Refactor (Refactor)**
-```python
-# src/tools/feature/core.py
-from .models import InputModel, ResultModel
-
-def process_data(input_data: dict) -> ResultModel:
-    """
-    Process input data and return result.
-
-    Args:
-        input_data: Input data dictionary
-
-    Returns:
-        ResultModel with processed data
-
-    Raises:
-        ValidationError: If input is invalid
-    """
-    # Proper implementation with validation
-    validated = InputModel(**input_data)
-    return ResultModel(
-        name=validated.name,
-        value=validated.value
-    )
-```
-
-**Repeat:** Write next test, implement, refactor
-
-**Deliverable:** Tested, working code
-
----
-
-### 3. Code Implementation
-
-**Follow Project Structure:**
-```
-src/tools/feature_name/
-├── __init__.py           # Public exports
-├── models.py             # Pydantic models (data)
-├── interfaces.py         # Abstract interfaces
-├── core.py               # Core business logic
-├── repository.py         # Data access layer
-├── validators.py         # Input validation
-├── utils.py              # Helper functions
-├── config.py             # Configuration
-├── exceptions.py         # Custom exceptions
-└── main.py               # CLI entry point (if applicable)
-```
-
-**Coding Standards:**
-Refer to `code-style-guide.md` for:
-- PEP 8 style guide
-- Type hints for all functions
-- Google-style docstrings
-- 500-line file limit
-- Single responsibility principle
-
-**Example Implementation:**
-```python
-# src/tools/feature/models.py
-from pydantic import BaseModel, Field
-from typing import Optional
-from datetime import datetime
-
-class FeatureInput(BaseModel):
-    """Input model for feature."""
-
-    name: str = Field(..., min_length=1, max_length=100)
-    value: int = Field(..., ge=0)
-
-    class Config:
-        validate_assignment = True
-
-
-class FeatureOutput(BaseModel):
-    """Output model for feature."""
-
-    id: Optional[int] = None
-    name: str
-    value: int
-    created_at: datetime = Field(default_factory=datetime.utcnow)
-
-
-# src/tools/feature/core.py
-from .models import FeatureInput, FeatureOutput
-from .repository import FeatureRepository
-from .validators import FeatureValidator
-
-class FeatureService:
-    """Feature service with business logic."""
-
-    def __init__(
-        self,
-        repository: FeatureRepository,
-        validator: FeatureValidator
-    ):
-        """
-        Initialize service with dependencies.
-
-        Args:
-            repository: Repository for data access
-            validator: Validator for input validation
-        """
-        self.repository = repository
-        self.validator = validator
-
-    def create(self, input_data: FeatureInput) -> FeatureOutput:
-        """
-        Create new feature resource.
-
-        Args:
-            input_data: Validated input data
-
-        Returns:
-            FeatureOutput with created resource
-
-        Raises:
-            ValidationError: If validation fails
-            RepositoryError: If save fails
-        """
-        # Validate
-        self.validator.validate_create(input_data)
-
-        # Create
-        output = FeatureOutput(
-            name=input_data.name,
-            value=input_data.value
-        )
-
-        # Persist
-        saved = self.repository.save(output)
-
-        return saved
-```
-
-**Deliverable:** Implemented core functionality
-
----
-
-### 4. Testing Implementation
-
-**Testing Checklist:**
-Refer to `testing-checklist.md` for comprehensive coverage
-
-**Unit Tests (80%+ Coverage):**
-```python
-# tests/test_core.py
-import pytest
-from unittest.mock import Mock, MagicMock
-from feature.core import FeatureService
-from feature.models import FeatureInput, FeatureOutput
-
-@pytest.fixture
-def mock_repository():
-    """Mock repository for testing."""
-    repo = Mock()
-    repo.save.return_value = FeatureOutput(
-        id=1,
-        name="test",
-        value=123
-    )
-    return repo
-
-@pytest.fixture
-def mock_validator():
-    """Mock validator for testing."""
-    validator = Mock()
-    validator.validate_create.return_value = None
-    return validator
-
-@pytest.fixture
-def service(mock_repository, mock_validator):
-    """Service fixture with mocked dependencies."""
-    return FeatureService(
-        repository=mock_repository,
-        validator=mock_validator
-    )
-
-def test_create_success(service, mock_repository):
-    """Test successful creation."""
-    # Arrange
-    input_data = FeatureInput(name="test", value=123)
-
-    # Act
-    result = service.create(input_data)
-
-    # Assert
-    assert result.name == "test"
-    assert result.value == 123
-    mock_repository.save.assert_called_once()
-
-def test_create_validation_error(service, mock_validator):
-    """Test validation error handling."""
-    # Arrange
-    input_data = FeatureInput(name="test", value=123)
-    mock_validator.validate_create.side_effect = ValidationError("Invalid")
-
-    # Act & Assert
-    with pytest.raises(ValidationError):
-        service.create(input_data)
-```
-
-**Integration Tests:**
-```python
-# tests/integration/test_feature_integration.py
-import pytest
-from pathlib import Path
-from feature import FeatureService, FileSystemRepository
-
-@pytest.fixture
-def temp_data_dir(tmp_path):
-    """Temporary directory for test data."""
-    return tmp_path / "data"
-
-def test_create_and_retrieve(temp_data_dir):
-    """Test end-to-end create and retrieve."""
-    # Arrange
-    repo = FileSystemRepository(temp_data_dir)
-    service = FeatureService(repo)
-
-    # Act: Create
-    created = service.create(FeatureInput(name="test", value=123))
-
-    # Act: Retrieve
-    retrieved = service.get(created.id)
-
-    # Assert
-    assert retrieved.name == "test"
-    assert retrieved.value == 123
-```
-
-**Run Tests:**
-```bash
-# Run all tests with coverage
-pytest --cov=src --cov-report=html --cov-report=term
-
-# Run specific test file
-pytest tests/test_core.py -v
-
-# Run with markers
-pytest -m "not slow" -v
-```
-
-**Deliverable:** Comprehensive test suite (80%+ coverage)
-
----
-
-### 5. Code Quality Checks
-
-**Run Formatters and Linters:**
-```bash
-# Format code with Black
-black src/ tests/
-
-# Type check with mypy
-mypy src/
-
-# Lint with flake8 (if configured)
-flake8 src/ tests/
-
-# Run all checks
-make lint  # If Makefile configured
-```
-
-**Pre-commit Hooks (If Configured):**
-```bash
-# Run pre-commit checks
-pre-commit run --all-files
-```
-
-**Code Review Checklist:**
-- [ ] All functions have type hints
-- [ ] All functions have docstrings
-- [ ] No files exceed 500 lines
-- [ ] Tests achieve 80%+ coverage
-- [ ] No lint errors or warnings
-- [ ] Error handling implemented
-- [ ] Logging added where appropriate
-- [ ] Security best practices followed
-
-**Deliverable:** Quality-checked code
-
----
-
-### 6. Documentation
-
-**Code Documentation:**
-- Docstrings for all public functions/classes
-- Inline comments for complex logic
-- Type hints for clarity
-
-**Technical Documentation:**
+Write to `./.anubis-temp/github/issue-<number>-questions.md`:
 ```markdown
-# Feature Implementation
+## Implementation Questions
 
-## Overview
-[What was implemented]
+Before proceeding with implementation, I need clarification on the following:
 
-## Architecture
-[Actual structure (may differ from design)]
+1. [Specific question about the plan]
+2. [Question about expected behavior]
+3. [Question about edge cases]
 
-## Usage Examples
-```python
-from feature import FeatureService
-
-service = FeatureService()
-result = service.create(name="example")
+Once these are answered, I'll proceed with the implementation.
 ```
 
-## Configuration
-Required environment variables:
-- `FEATURE_API_KEY`: API key for service
-- `FEATURE_TIMEOUT`: Timeout in seconds (default: 30)
-
-## Testing
 ```bash
-pytest tests/test_feature.py
+# Post the questions
+gh issue comment <number> --body-file ./.anubis-temp/github/issue-<number>-questions.md
 ```
 
-## Known Issues
-- [Issue 1]: [Workaround]
+**After posting questions, STOP. Do not proceed with implementation until questions are answered.**
 
-## Future Enhancements
-- [Enhancement 1]
+### Step 4: Create Implementation Branch
+
+Use the branch naming convention defined in the branch-naming skill:
+
+**For Claude sessions:**
+```
+claude/<issue-number>-<short-description>-<session-id>
 ```
 
-**User Documentation (If Applicable):**
-- Usage guide in `docs/guides/`
-- CLI help text
-- Example configurations
+**Standard pattern:**
+```
+<issue-number>-<short-description>
+```
 
-**Deliverable:** Complete documentation
-
----
-
-### 7. Integration and Verification
-
-**Verify Against Requirements:**
-- [ ] All acceptance criteria met
-- [ ] Security checklist items addressed
-- [ ] Performance requirements met
-- [ ] Edge cases handled
-- [ ] Error scenarios tested
-
-**Manual Testing:**
 ```bash
-# Test CLI (if applicable)
-python -m src.tools.feature.main create --name test
+# Create and checkout the branch
+git checkout -b claude/<issue-number>-<short-description>-<session-id>
 
-# Test with real data
-python -m src.tools.feature.main --input sample.json
-
-# Test error cases
-python -m src.tools.feature.main --invalid-input
+# Example:
+git checkout -b claude/42-build-caching-Abc12
 ```
 
-**Integration with Existing Code:**
-- [ ] Imports work correctly
-- [ ] No circular dependencies
-- [ ] Backward compatibility maintained (if applicable)
-- [ ] No breaking changes to public APIs
+**Branch naming rules:**
+- Start with the issue number
+- Use lowercase letters and hyphens only
+- Keep descriptions short (2-4 words)
+- Include session ID for Claude branches (ensures uniqueness)
 
-**Deliverable:** Verified, working feature
+### Step 5: Implement the Changes
 
----
+Follow the implementation plan step by step:
 
-## Code Style Guidelines
+1. **Read existing code first** - Understand the codebase before making changes
+2. **Make incremental changes** - Don't try to do everything at once
+3. **Follow existing patterns** - Match the code style of the surrounding code
+4. **Write tests** - Add tests as specified in the implementation plan
+5. **Verify as you go** - Run tests after significant changes
 
-### Python Style (PEP 8)
+**Implementation guidelines:**
+- Prefer editing existing files over creating new ones
+- Keep changes minimal and focused on the issue
+- Don't refactor unrelated code
+- Don't add features not specified in the plan
+- Add comments only where the logic isn't self-evident
 
-**Imports:**
-```python
-# Standard library
-import os
-import sys
-from pathlib import Path
+### Step 6: Run Tests and Build
 
-# Third-party
-import click
-from pydantic import BaseModel
+```bash
+# Run the test suite
+cargo test
 
-# Local
-from .models import FeatureModel
-from .exceptions import FeatureError
+# Build the project
+cargo build --release
 ```
 
-**Naming:**
-```python
-# Classes: PascalCase
-class FeatureService:
-    pass
+**If tests fail:**
+1. Fix the failing tests
+2. If the failure reveals a flaw in the plan, stop and ask questions
+3. Do not proceed with a PR if tests are failing
 
-# Functions/methods: snake_case
-def process_data():
-    pass
+### Step 7: Commit Changes
 
-# Constants: UPPER_SNAKE_CASE
-MAX_RETRIES = 3
+Create meaningful commits with issue references:
 
-# Private: leading underscore
-def _internal_helper():
-    pass
+```bash
+# Stage changes
+git add <files>
+
+# Commit with issue reference
+git commit -m "$(cat <<'EOF'
+Brief description of change
+
+Detailed explanation if needed.
+
+Refs #<issue-number>
+EOF
+)"
 ```
 
-**Type Hints:**
-```python
-from typing import Optional, List, Dict, Union
+**Commit message guidelines:**
+- Use present tense ("Add feature" not "Added feature")
+- First line is a brief summary (50 chars max)
+- Include detailed explanation if the change is complex
+- Reference the issue with `Refs #N` or `Fixes #N`
+- Use `Fixes #N` only if this commit fully resolves the issue
 
-def function(
-    required: str,
-    optional: Optional[int] = None,
-    items: List[str] = None
-) -> Dict[str, Any]:
-    pass
+### Step 8: Push the Branch
+
+```bash
+# Push with upstream tracking
+git push -u origin <branch-name>
+
+# Example:
+git push -u origin claude/42-build-caching-Abc12
 ```
 
-**Docstrings (Google Style):**
-```python
-def function(param1: str, param2: int) -> bool:
-    """
-    Short description.
+**If push fails due to network errors, retry up to 4 times with exponential backoff (2s, 4s, 8s, 16s).**
 
-    Longer description if needed.
+### Step 9: Create Pull Request
 
-    Args:
-        param1: Description of param1
-        param2: Description of param2
-
-    Returns:
-        Description of return value
-
-    Raises:
-        ValueError: When this happens
-    """
-    pass
+```bash
+# Create temp file for PR body
+mkdir -p ./.anubis-temp/github
 ```
 
----
+Write PR description to `./.anubis-temp/github/pr-<issue-number>.md`:
+```markdown
+## Summary
 
-## Testing Best Practices
+[Brief description of what this PR implements]
 
-### Pytest Conventions
+- [Key change 1]
+- [Key change 2]
+- [Key change 3]
 
-**Test File Naming:**
-- `test_*.py` or `*_test.py`
-- Mirror source structure: `src/core.py` → `tests/test_core.py`
+Fixes #<issue-number>
 
-**Test Function Naming:**
-```python
-def test_function_name_condition_expected_result():
-    """Test description."""
-    pass
+## Implementation Notes
 
-# Examples:
-def test_create_feature_valid_input_returns_feature():
-    pass
+[Any important details about the implementation approach]
 
-def test_validate_input_missing_name_raises_error():
-    pass
+## Test Plan
+
+- [ ] Run `cargo test` - all tests pass
+- [ ] Run `cargo build --release` - builds successfully
+- [ ] [Specific test from implementation plan]
+- [ ] [Another specific test]
+
+## Checklist
+
+- [ ] Code follows existing patterns
+- [ ] Tests added/updated as needed
+- [ ] No unrelated changes included
 ```
 
-**Test Structure (Arrange-Act-Assert):**
-```python
-def test_example():
-    """Test example."""
-    # Arrange: Setup test data and mocks
-    input_data = {"name": "test"}
-    mock_service = Mock()
-
-    # Act: Execute the code being tested
-    result = function_under_test(input_data, mock_service)
-
-    # Assert: Verify expected outcomes
-    assert result == expected
-    mock_service.method.assert_called_once()
+```bash
+# Create the PR
+gh pr create --title "<Brief description> (#<issue-number>)" \
+  --body-file ./.anubis-temp/github/pr-<issue-number>.md
 ```
 
-**Fixtures:**
-```python
-# tests/conftest.py (shared fixtures)
-import pytest
+### Step 10: Update Project Board
 
-@pytest.fixture
-def sample_data():
-    """Sample data for tests."""
-    return {"name": "test", "value": 123}
+After creating the PR, the issue should move to "Needs Code Review":
 
-@pytest.fixture
-def temp_directory(tmp_path):
-    """Temporary directory for test files."""
-    test_dir = tmp_path / "test_data"
-    test_dir.mkdir()
-    yield test_dir
-    # Cleanup happens automatically
+```bash
+# Get project and field IDs
+gh project view 8 --owner forrestthewoods --format json
+
+# Get item ID for the issue
+gh project item-list 8 --owner forrestthewoods --format json | jq '.items[] | select(.content.number == <issue-number>)'
+
+# Update status to "Needs Code Review"
+gh project item-edit --project-id <project-id> --id <item-id> --field-id <status-field-id> --single-select-option-id <needs-code-review-option-id>
 ```
 
-**Parametrize for Multiple Cases:**
-```python
-@pytest.mark.parametrize("input_value,expected", [
-    ("valid", True),
-    ("invalid", False),
-    ("", False),
-])
-def test_validation(input_value, expected):
-    """Test validation with multiple inputs."""
-    result = validate(input_value)
-    assert result == expected
+## Workflow Summary
+
+```
+1. Fetch issue and comments
+2. Find implementation plan
+3. Verify plan is complete and understood
+   ├── Questions? → Post questions, STOP
+   └── No questions? → Continue
+4. Create branch (following naming convention)
+5. Implement changes per plan
+6. Run tests and build
+   ├── Failures? → Fix or ask questions
+   └── Success? → Continue
+7. Commit with issue references
+8. Push branch
+9. Create PR
+10. Update project board status
 ```
 
----
+## When to STOP and Ask Questions
 
-## Common Patterns
+Do NOT proceed with implementation if:
 
-### Error Handling Pattern
+- The implementation plan is missing or incomplete
+- You don't understand part of the plan
+- The plan seems technically infeasible
+- You discover issues not addressed in the plan
+- Edge cases aren't covered
+- The plan conflicts with existing code patterns
+- Dependencies are missing or unclear
+- Test requirements are unclear
 
-```python
-from typing import Optional
-import logging
+**When in doubt, ask.** It's better to clarify than to implement incorrectly.
 
-logger = logging.getLogger(__name__)
+## Example: Full Implementation Flow
 
-def process_data(data: dict) -> Result:
-    """Process data with proper error handling."""
-    try:
-        # Validate
-        validated = validate_data(data)
+**Issue #42: Add build result caching**
 
-        # Process
-        result = perform_processing(validated)
+```bash
+# Step 1: Fetch issue
+gh issue view 42 --json number,title,body,labels,comments,state
 
-        return result
+# Step 2: Review - Found implementation plan in comments:
+# - Overview: Cache compilation results to disk
+# - Steps: 1) Create cache module, 2) Add hash computation, 3) Integrate with job system
+# - Files: src/cache.rs (new), src/job_system.rs, src/anubis.rs
+# - Testing: Unit tests for cache, integration test for build caching
 
-    except ValidationError as e:
-        logger.warning(f"Validation failed: {e}")
-        raise
+# Step 3: No questions - plan is clear and complete
 
-    except ProcessingError as e:
-        logger.error(f"Processing failed: {e}", exc_info=True)
-        raise
+# Step 4: Create branch
+git checkout -b claude/42-build-caching-Xyz99
 
-    except Exception as e:
-        logger.exception(f"Unexpected error: {e}")
-        raise ProcessingError("Unexpected error occurred") from e
+# Step 5: Implement changes per plan
+# ... make code changes ...
+
+# Step 6: Run tests
+cargo test
+cargo build --release
+
+# Step 7: Commit
+git add src/cache.rs src/job_system.rs src/anubis.rs
+git commit -m "$(cat <<'EOF'
+Add build result caching
+
+Implement file-based caching for compilation results to avoid
+redundant recompilation of unchanged source files.
+
+Fixes #42
+EOF
+)"
+
+# Step 8: Push
+git push -u origin claude/42-build-caching-Xyz99
+
+# Step 9: Create PR
+gh pr create --title "Add build result caching (#42)" \
+  --body-file ./.anubis-temp/github/pr-42.md
+
+# Step 10: Update board status
+# ... update to "Needs Code Review" ...
 ```
 
-### Dependency Injection Pattern
+## Example: Stopping for Questions
 
-```python
-from abc import ABC, abstractmethod
+**Issue #15: Add ARM64 support**
 
-# Interface
-class Repository(ABC):
-    @abstractmethod
-    def save(self, data) -> None:
-        pass
+```bash
+# Step 1: Fetch issue
+gh issue view 15 --comments
 
-# Implementation
-class FileRepository(Repository):
-    def save(self, data) -> None:
-        # File-based implementation
-        pass
+# Step 2: Found implementation plan but unclear on:
+# - Which ARM64 targets (Linux? macOS? Windows?)
+# - Cross-compilation requirements
+# - CI testing approach
 
-# Service with dependency injection
-class Service:
-    def __init__(self, repository: Repository):
-        self.repository = repository  # Injected dependency
+# Step 3: Post questions
+mkdir -p ./.anubis-temp/github
+cat > ./.anubis-temp/github/issue-15-questions.md << 'EOF'
+## Implementation Questions
 
-    def create(self, data):
-        # Use injected repository
-        self.repository.save(data)
+Before proceeding with ARM64 support implementation, I need clarification:
 
-# Usage
-repo = FileRepository()
-service = Service(repository=repo)  # Inject dependency
+1. **Target platforms:** Which ARM64 platforms should be supported initially?
+   - Linux ARM64 (aarch64-unknown-linux-gnu)
+   - macOS ARM64 (aarch64-apple-darwin)
+   - Windows ARM64 (aarch64-pc-windows-msvc)
+
+2. **Cross-compilation:** Should this support cross-compiling TO ARM64 from x64 hosts, or only native ARM64 compilation?
+
+3. **CI testing:** Do we have access to ARM64 CI runners, or should tests be skipped/emulated?
+
+Once these are clarified, I'll proceed with the implementation.
+EOF
+
+gh issue comment 15 --body-file ./.anubis-temp/github/issue-15-questions.md
+
+# STOP - Do not proceed until questions are answered
 ```
 
-### Configuration Pattern
+## Guidelines
 
-```python
-from pydantic_settings import BaseSettings
+- **Never implement without a clear plan** - If the plan is missing or unclear, stop and ask
+- **Follow the plan exactly** - Don't add unrequested features or refactoring
+- **Ask questions early** - It's cheaper to clarify before implementing
+- **Keep changes focused** - One issue = one focused PR
+- **Test before pushing** - Ensure all tests pass before creating a PR
+- **Use temp files for GitHub content** - Avoid inline `--body` with special characters
+- **Reference issues in commits** - Use `Refs #N` or `Fixes #N`
+- **Update the project board** - Keep status accurate
 
-class Config(BaseSettings):
-    """Application configuration."""
+## Branch Naming Quick Reference
 
-    api_key: str
-    timeout: int = 30
-    debug: bool = False
+```
+# Claude sessions (include session ID for uniqueness)
+claude/<issue>-<description>-<session>
+Examples:
+  claude/42-build-caching-Abc12
+  claude/15-arm64-support-Xyz99
 
-    class Config:
-        env_prefix = "FEATURE_"
-        env_file = ".env"
-
-# Usage
-config = Config()  # Loads from environment/file
-service = Service(api_key=config.api_key, timeout=config.timeout)
+# Standard (human developers)
+<issue>-<description>
+Examples:
+  42-build-caching
+  15-arm64-support
 ```
 
----
+## Commit Message Quick Reference
 
-## Supporting Resources
+```
+# Simple commit
+Add cache module
 
-- **code-style-guide.md**: Detailed Python style guidelines
-- **testing-checklist.md**: Comprehensive testing requirements
-- **scripts/generate_tests.py**: Test scaffolding automation
+Refs #42
 
----
+# Commit that closes issue
+Implement build caching
 
-## Integration with Feature Implementation Flow
+Add file-based caching for compilation results.
 
-**Input:** Approved architecture design
-**Process:** TDD implementation with quality checks
-**Output:** Tested, documented code
-**Next Step:** Validation skill for quality assurance
+Fixes #42
 
----
+# Partial work
+Extract cache utilities
 
-## Implementation Checklist
+Move caching logic to dedicated module.
 
-Before marking feature complete:
-- [ ] All code implemented per design
-- [ ] Unit tests written (80%+ coverage)
-- [ ] Integration tests written
-- [ ] All tests passing
-- [ ] Code formatted (Black)
-- [ ] Type checking passing (mypy)
-- [ ] No lint errors
-- [ ] Docstrings complete
-- [ ] Technical documentation written
-- [ ] User documentation written (if applicable)
-- [ ] Manual testing completed
-- [ ] Security considerations addressed
-- [ ] Performance requirements met
-- [ ] Code reviewed (if applicable)
-- [ ] Ready for validation phase
+Refs #42
+```
+
+## Detecting if Implementation is Needed
+
+Before starting, verify the issue needs implementation:
+
+```bash
+# Check issue status on board
+gh project item-list 8 --owner forrestthewoods --format json | jq '.items[] | select(.content.number == <issue-number>) | .status'
+
+# Check for existing branches
+git ls-remote --heads origin | grep -i "<issue-number>"
+
+# Check for existing PRs
+gh pr list --search "#<issue-number>" --state all
+```
+
+| Situation | Action |
+|-----------|--------|
+| Status is "Ready to Implement" | Proceed with implementation |
+| Status is "Needs Agent Review" | Use issue-review skill first |
+| Status is "Needs Human Review" | Wait for human response |
+| Status is "Needs Code Review" | Implementation already in progress |
+| Already has open PR | Review existing PR instead |
+| Already has branch | Check branch status, continue or start fresh |

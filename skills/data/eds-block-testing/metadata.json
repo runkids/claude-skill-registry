@@ -1,13 +1,7 @@
 {
   "name": "eds-block-testing",
-  "description": "Guide for testing EDS blocks using test.html files and the development server. Covers test file structure, EDS core integration, testing patterns, and debugging workflows for Adobe Edge Delivery Servi",
-  "repo": "ddttom/webcomponents-with-eds",
-  "category": "testing",
-  "tags": [
-    "eds",
-    "block",
-    "testing"
-  ],
-  "stars": 5,
-  "source": "SkillsMP Synced Skills"
+  "repo": "ddttom/allaboutv2",
+  "path": ".claude/skills/eds-block-testing/SKILL.md",
+  "source": "github.com/ddttom/allaboutv2",
+  "downloaded_at": "2026-01-14T03:56:59.515305Z"
 }

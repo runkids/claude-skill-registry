@@ -1,12 +1,7 @@
 {
   "name": "write-component",
-  "description": "Write React components following the Epic architecture patterns. Use when creating page components, UI components, or refactoring components to follow the three-layer architecture. Triggers on \"create",
   "repo": "coeus-ventures/web-template",
-  "category": "development",
-  "tags": [
-    "write",
-    "component"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/write-component/SKILL.md",
+  "source": "github.com/coeus-ventures/web-template",
+  "downloaded_at": "2026-01-14T02:14:40.438854Z"
 }

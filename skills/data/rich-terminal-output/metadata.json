@@ -1,13 +1,7 @@
 {
   "name": "rich-terminal-output",
-  "description": "Create beautiful terminal output with Rich library including tables, progress bars, panels, and syntax highlighting. Use when building CLI applications or enhancing terminal output in Python.",
   "repo": "AutumnsGrove/GroveEngine",
-  "category": "development",
-  "tags": [
-    "rich",
-    "terminal",
-    "output"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/rich-terminal-output/SKILL.md",
+  "source": "github.com/AutumnsGrove/GroveEngine",
+  "downloaded_at": "2026-01-14T02:31:55.261158Z"
 }

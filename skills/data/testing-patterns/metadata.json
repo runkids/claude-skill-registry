@@ -1,12 +1,7 @@
 {
   "name": "testing-patterns",
-  "description": "Testing patterns and standards for this codebase, including async effects, fakes vs mocks, and property-based testing.",
-  "repo": "lambdamechanic/tooltest",
-  "category": "testing",
-  "tags": [
-    "testing",
-    "patterns"
-  ],
-  "stars": 3,
-  "source": "local"
+  "repo": "nategarelik/claude-code-config",
+  "path": "skills/core/testing-patterns/SKILL.md",
+  "source": "github.com/nategarelik/claude-code-config",
+  "downloaded_at": "2026-01-14T03:59:15.267572Z"
 }

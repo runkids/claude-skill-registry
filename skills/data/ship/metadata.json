@@ -1,11 +1,7 @@
 {
   "name": "ship",
-  "description": "Commit and push changes with an auto-generated commit message. Use when the user says \"ship it\", \"commit and push\", or wants to save and deploy their changes.",
-  "repo": "gunderwonder/bleikoya-2023",
-  "category": "devops",
-  "tags": [
-    "ship"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "Ben8t/Ben8t.github.io",
+  "path": ".claude/skills/ship/SKILL.md",
+  "source": "github.com/Ben8t/Ben8t.github.io",
+  "downloaded_at": "2026-01-14T03:52:00.543260Z"
 }

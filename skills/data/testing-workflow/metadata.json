@@ -1,12 +1,7 @@
 {
   "name": "testing-workflow",
-  "description": "Testing workflow patterns and quality standards. Activate when working with tests, test files, test directories, code quality tools, coverage reports, or testing tasks. Includes zero-warnings policy, ",
-  "repo": "ilude/claude-code-config",
-  "category": "development",
-  "tags": [
-    "testing",
-    "workflow"
-  ],
-  "stars": 5,
-  "source": "local"
+  "repo": "VilnaCRM-Org/user-service",
+  "path": ".claude/skills/testing-workflow/SKILL.md",
+  "source": "github.com/VilnaCRM-Org/user-service",
+  "downloaded_at": "2026-01-14T02:10:10.166749Z"
 }

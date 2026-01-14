@@ -1,13 +1,7 @@
 {
   "name": "react-state-management",
-  "description": "Apply when deciding state management approach: local state, context, Zustand for client state, or TanStack Query for server state.",
   "repo": "CoderMariusz/MonoPilot",
-  "category": "devops",
-  "tags": [
-    "react",
-    "state",
-    "management"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/react-state-management/SKILL.md",
+  "source": "github.com/CoderMariusz/MonoPilot",
+  "downloaded_at": "2026-01-14T03:46:40.835061Z"
 }

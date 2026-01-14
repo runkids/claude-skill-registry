@@ -1,8 +1,7 @@
 {
   "name": "model-manager",
   "repo": "sunholo-data/ailang",
-  "category": "data",
-  "description": "Test, validate, and add new AI models to the eval suite. Use when user asks to add new models, test model access, check pricing, or update models.yml.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:29.685570Z"
+  "path": ".claude/skills/model-manager/SKILL.md",
+  "source": "github.com/sunholo-data/ailang",
+  "downloaded_at": "2026-01-14T01:04:00.334323Z"
 }

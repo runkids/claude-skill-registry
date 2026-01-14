@@ -1,11 +1,7 @@
 {
   "name": "neon-postgres",
-  "description": "Neon PostgreSQL serverless database - connection pooling, branching, serverless driver, and optimization. Use when deploying to Neon or building serverless applications.",
-  "repo": "NaimalArain13/Hackathon-II_The-Evolution-of-Todo",
-  "category": "data",
-  "tags": [
-    "neon",
-    "postgres"
-  ],
-  "stars": 0
+  "repo": "SOFIA-ASIF/TaskFlow-ToDo-APP",
+  "path": ".claude/skills/neon-postgres/SKILL.md",
+  "source": "github.com/SOFIA-ASIF/TaskFlow-ToDo-APP",
+  "downloaded_at": "2026-01-14T03:11:58.714384Z"
 }

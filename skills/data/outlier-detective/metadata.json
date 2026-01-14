@@ -1,11 +1,7 @@
 {
   "name": "outlier-detective",
-  "description": "Detect anomalies and outliers in datasets using statistical and ML methods. Use for data cleaning, fraud detection, or quality control analysis.",
   "repo": "dkyazzentwatwa/chatgpt-skills",
-  "category": "data",
-  "tags": [
-    "outlier",
-    "detective"
-  ],
-  "stars": 1
+  "path": "outlier-detective/SKILL.md",
+  "source": "github.com/dkyazzentwatwa/chatgpt-skills",
+  "downloaded_at": "2026-01-14T01:42:52.416648Z"
 }

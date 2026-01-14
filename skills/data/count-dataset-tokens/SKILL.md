@@ -1,178 +1,160 @@
 ---
 name: count-dataset-tokens
-description: Guidance for counting tokens in datasets, particularly from HuggingFace or similar sources. This skill should be used when tasks involve counting tokens in datasets, understanding dataset schemas, filtering by categories/domains, or working with tokenizers. It helps avoid common pitfalls like incomplete field identification and ambiguous terminology interpretation.
+description: This skill provides guidance for counting tokens in datasets using specific tokenizers. It should be used when tasks involve tokenizing dataset content, filtering data by domain or category, and aggregating token counts. Common triggers include requests to count tokens in HuggingFace datasets, filter datasets by specific fields, or use particular tokenizers (e.g., Qwen, DeepSeek, GPT).
 ---
 
 # Count Dataset Tokens
 
 ## Overview
 
-This skill provides a systematic approach for accurately counting tokens in datasets. It emphasizes thorough data exploration, proper interpretation of task requirements, and verification of results to avoid common mistakes like incomplete field coverage or misinterpreting terminology.
+This skill guides the process of counting tokens in datasets, typically from HuggingFace Hub or similar sources. These tasks involve loading datasets, filtering by specific criteria (domains, categories, splits), tokenizing text fields, and computing aggregate statistics.
 
-## When to Use This Skill
+## Workflow
 
-- Counting tokens in HuggingFace datasets or similar data sources
-- Tasks involving tokenization of text fields
-- Filtering datasets by domain, category, or other metadata
-- Working with datasets that have multiple text fields that may contribute to token counts
-- Any task requiring accurate quantification of textual content in structured datasets
+### Phase 1: Understand the Dataset Structure
 
-## Critical Pre-Implementation Steps
+Before writing any code, thoroughly examine the dataset documentation and structure:
 
-### 1. Clarify Terminology Before Proceeding
+1. **Read the README/dataset card completely** - Look for:
+   - Available splits (train, test, validation, etc.)
+   - Column/field definitions and their exact names
+   - Domain or category definitions (exact values used)
+   - Data types for each field
+   - Any metadata subsets available
 
-When a task uses specific terms (e.g., "deepseek tokens", "science domain"), verify exactly what content this refers to:
+2. **Explore the actual data** - Write exploratory code to:
+   - List all available columns
+   - Check unique values for categorical fields (especially filter fields like "domain")
+   - Verify field names match documentation
+   - Examine sample records to understand data format
 
-- **Examine the README/documentation thoroughly** - Documentation often contains critical definitions
-- **List all available fields** in the dataset schema before making assumptions
-- **Identify all fields that could potentially be relevant** to the token count
-- **Do not assume field names tell the complete story** - A field like `deepseek_reasoning` may not be the only field relevant for counting "deepseek tokens"
+3. **Document findings before proceeding** - Note:
+   - Exact field names to use
+   - Exact categorical values for filtering
+   - Any discrepancies between documentation and actual data
 
-### 2. Explore Dataset Structure Thoroughly
+### Phase 2: Clarify Task Requirements
 
-Before writing any counting logic:
+When task wording is ambiguous, especially regarding filter criteria:
 
+1. **Use exact terminology from the dataset** - If the task asks for "science" tokens but the dataset has "biology", "chemistry", "physics" domains:
+   - First check if a "science" domain actually exists
+   - Do NOT assume "science" means combining related domains unless explicitly documented
+   - Report when exact matches are not found
+
+2. **Handle missing categories correctly**:
+   - If a requested filter value returns zero results, report this finding
+   - Do not reinterpret or expand the filter criteria without explicit justification
+   - Check if the requested value might be a typo or variant spelling
+
+3. **Distinguish between**:
+   - Exact domain/category matches (e.g., domain == "science")
+   - Aggregated categories (e.g., domain in ["biology", "chemistry", "physics"])
+   - The task wording should guide which approach to use
+
+### Phase 3: Implement Token Counting
+
+1. **Load the correct tokenizer**:
+   - Use the exact tokenizer specified in the task
+   - Verify the tokenizer loads correctly before processing data
+   - Handle any authentication requirements for gated models
+
+2. **Write robust counting code**:
+   ```python
+   # Example structure
+   from transformers import AutoTokenizer
+   from datasets import load_dataset
+
+   # Load tokenizer
+   tokenizer = AutoTokenizer.from_pretrained("tokenizer-name")
+
+   # Load dataset (use streaming for large datasets)
+   dataset = load_dataset("dataset-name", split="train")
+
+   # Filter by exact criteria
+   filtered = dataset.filter(lambda x: x["domain"] == "exact_value")
+
+   # Count tokens with null/empty handling
+   total_tokens = 0
+   for item in filtered:
+       text = item.get("text_field")
+       if text:  # Handle None and empty strings
+           tokens = tokenizer.encode(text)
+           total_tokens += len(tokens)
+   ```
+
+3. **Handle edge cases**:
+   - None/null values in text fields
+   - Empty strings
+   - Special characters or encoding issues
+   - Very long texts that may need truncation handling
+
+### Phase 4: Verify Results
+
+1. **Validate filter results**:
+   - Check the count of filtered records
+   - Verify sample records match expected criteria
+   - Confirm no unexpected filtering occurred
+
+2. **Sanity check token counts**:
+   - Compare against expected magnitudes
+   - Verify counts are non-zero when data exists
+   - Check for reasonable tokens-per-record ratios
+
+3. **Document assumptions**:
+   - Note any interpretation decisions made
+   - Flag uncertainty in the results if criteria were ambiguous
+
+## Common Pitfalls
+
+### 1. Misinterpreting Filter Criteria
+**Problem**: Assuming "science" means biology + chemistry + physics without documentation support.
+**Solution**: Always use exact filter values from the dataset. When exact matches fail, report the discrepancy rather than reinterpreting.
+
+### 2. Insufficient Dataset Exploration
+**Problem**: Writing filtering code before understanding available field values.
+**Solution**: Always run exploratory analysis first:
+```python
+# Check unique values before filtering
+print(dataset.unique("domain"))  # or equivalent
 ```
-1. Load a sample of the dataset
-2. Print ALL column names and their types
-3. Examine multiple sample entries in full detail
-4. Identify relationships between fields
-5. Check for nested structures or JSON fields
-6. Look for metadata columns that might indicate which fields to include
+
+### 3. Incomplete Documentation Review
+**Problem**: Missing domain definitions or field specifications in the README.
+**Solution**: Read the entire dataset card, including any linked documentation. Look for schema definitions, data dictionaries, or field value enumerations.
+
+### 4. Silent Filter Failures
+**Problem**: Filter returns zero results but code continues without warning.
+**Solution**: Always check and report filter result counts:
+```python
+filtered = dataset.filter(condition)
+print(f"Filtered count: {len(filtered)}")
+if len(filtered) == 0:
+    print("WARNING: No records match filter criteria")
 ```
 
-### 3. Understand Domain/Category Mappings
-
-When filtering by categories like "science":
-
-- List all unique values in the domain/category column
-- Determine if the target category is an explicit value OR a grouping of related values
-- Example: "science" might mean `biology + chemistry + physics` rather than a literal "science" value
-- Document your interpretation and verify it aligns with the task intent
-
-## Implementation Workflow
-
-### Step 1: Data Discovery
-
-```
-1. Load the dataset (or a representative sample)
-2. Enumerate all columns/fields
-3. For each text field, examine:
-   - Field name and description
-   - Sample content from multiple entries
-   - Whether it should be included in token counts
-4. Check for a metadata or schema subset that documents field purposes
+### 5. Ignoring Null/Empty Values
+**Problem**: Tokenizing None or empty strings causes errors or incorrect counts.
+**Solution**: Always validate text content before tokenizing:
+```python
+if text and isinstance(text, str) and len(text.strip()) > 0:
+    tokens = tokenizer.encode(text)
 ```
 
-### Step 2: Define Scope Explicitly
-
-Before counting, explicitly document:
-
-- Which fields will be tokenized
-- Which filter criteria will be applied (e.g., domain == "biology")
-- The tokenizer to be used and why
-- Any fields being excluded and the reasoning
-
-### Step 3: Implement with Verification Points
-
-```
-1. Load the appropriate tokenizer
-2. Apply filters to select relevant entries
-3. For each entry, tokenize ALL relevant fields
-4. Sum token counts with running totals
-5. Print progress checkpoints (e.g., every 1000 entries)
-6. Track statistics: entry count, empty fields, errors
-```
-
-### Step 4: Validate Results
-
-Before reporting final numbers:
-
-- **Spot-check individual entries** - Manually verify token counts for 3-5 random samples
-- **Sanity check totals** - Does the average tokens per entry seem reasonable?
-- **Cross-reference with metadata** - If the dataset provides expected statistics, compare
-- **Verify filter results** - Confirm the filtered count matches expected entries
-
-## Common Pitfalls to Avoid
-
-### Pitfall 1: Incomplete Field Identification
-
-**Mistake**: Assuming a single field (e.g., `deepseek_reasoning`) contains all relevant content
-
-**Solution**:
-- Examine the full schema before deciding which fields to include
-- Consider whether multiple fields contribute to the "complete" content
-- Check if there are fields like `prompt`, `response`, `full_text`, or `conversation` that should be included
-
-### Pitfall 2: Ambiguous Terminology
-
-**Mistake**: Interpreting "deepseek tokens" as "tokens in the deepseek_reasoning field only"
-
-**Solution**:
-- Research what the terminology means in the dataset's context
-- Read any available documentation or README files completely
-- When uncertain, consider multiple interpretations and document your choice
-
-### Pitfall 3: Assuming Category Names Are Literal
-
-**Mistake**: Looking for `domain == "science"` when science is actually a group of domains
-
-**Solution**:
-- Always enumerate unique values in category/domain fields first
-- Understand the taxonomy before applying filters
-- Common groupings: science (biology, chemistry, physics), stem (science + math), humanities
-
-### Pitfall 4: Not Validating Intermediate Results
-
-**Mistake**: Running a complete count without checking partial results
-
-**Solution**:
-- Process in batches with intermediate output
-- Verify token counts for sample entries manually
-- Compare against any available reference statistics
+### 6. Overconfident Assumptions
+**Problem**: Proceeding with reinterpreted criteria without expressing uncertainty.
+**Solution**: When making interpretation decisions, document them clearly and flag the uncertainty in results.
 
 ## Verification Checklist
 
-Before finalizing results, confirm:
+Before finalizing results, verify:
 
-- [ ] All relevant text fields have been identified and included
-- [ ] The correct tokenizer is being used
-- [ ] Filter criteria correctly identify the target subset
-- [ ] Sample entries have been manually verified
-- [ ] Empty or null values are handled appropriately
-- [ ] The final count passes a reasonableness check (average tokens/entry, total entries)
-- [ ] Documentation has been consulted for any ambiguous terminology
-
-## Example Exploration Code
-
-When starting a dataset token counting task, use exploratory code like:
-
-```python
-# Initial exploration
-from datasets import load_dataset
-
-# Load a small sample first
-ds = load_dataset("dataset_name", split="train[:100]")
-
-# Print all column names
-print("Columns:", ds.column_names)
-
-# Examine a single entry in full
-print("\nSample entry:")
-for key, value in ds[0].items():
-    print(f"  {key}: {type(value).__name__} = {str(value)[:200]}...")
-
-# Check for domain/category distributions if filtering
-if 'domain' in ds.column_names:
-    from collections import Counter
-    domains = Counter(ds['domain'])
-    print("\nDomain distribution:", domains)
-```
-
-## Key Principles
-
-1. **Explore before implementing** - Understand the full data structure first
-2. **Clarify ambiguity explicitly** - Don't assume; document interpretations
-3. **Verify incrementally** - Check results at multiple stages
-4. **Consider all relevant fields** - Token counts often span multiple columns
-5. **Read documentation thoroughly** - READMEs contain critical context
+- [ ] Dataset README/card was fully reviewed
+- [ ] Field names match exactly what's in the data
+- [ ] Filter values are exact matches from the dataset
+- [ ] Exploratory analysis confirmed available categories
+- [ ] Filter produced expected number of records
+- [ ] Null/empty handling is implemented
+- [ ] Token counts pass sanity checks
+- [ ] Any assumptions or interpretations are documented
+- [ ] Results file is correctly formatted and written

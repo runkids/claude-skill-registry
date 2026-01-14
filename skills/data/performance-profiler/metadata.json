@@ -1,11 +1,7 @@
 {
   "name": "performance-profiler",
-  "description": "CPU/memory profiling, database query optimization, and performance analysis",
-  "repo": "benreceveur/claude-workflow-engine",
-  "category": "data",
-  "tags": [
-    "performance",
-    "profiler"
-  ],
-  "stars": 3
+  "repo": "CuriousLearner/devkit",
+  "path": "skills/performance-profiler/SKILL.md",
+  "source": "github.com/CuriousLearner/devkit",
+  "downloaded_at": "2026-01-14T02:22:38.577057Z"
 }

@@ -1,8 +1,7 @@
 {
   "name": "script-writer",
-  "repo": "agent-trust-protocol/atp-core",
-  "category": "data",
-  "description": "This skill should be used whenever users need YouTube video scripts written. On first use, collects comprehensive preferences including script type, tone, target audience, style, video length, hook st",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:33.988950Z"
+  "repo": "mamba-mental/agent-skill-manager",
+  "path": ".claude/skills/script-writer/SKILL.md",
+  "source": "github.com/mamba-mental/agent-skill-manager",
+  "downloaded_at": "2026-01-14T01:45:02.329142Z"
 }

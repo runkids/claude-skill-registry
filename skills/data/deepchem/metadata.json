@@ -1,8 +1,7 @@
 {
   "name": "deepchem",
-  "repo": "davila7/claude-code-templates",
-  "category": "data",
-  "description": "Molecular machine learning toolkit. Property prediction (ADMET, toxicity), GNNs (GCN, MPNN), MoleculeNet benchmarks, pretrained models, featurization, for drug discovery ML.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:36.935314Z"
+  "repo": "drshailesh88/integrated_content_OS",
+  "path": "skills/scientific/deepchem/SKILL.md",
+  "source": "github.com/drshailesh88/integrated_content_OS",
+  "downloaded_at": "2026-01-14T04:02:22.567322Z"
 }

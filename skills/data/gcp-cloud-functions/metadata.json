@@ -1,13 +1,7 @@
 {
   "name": "gcp-cloud-functions",
-  "description": "Deploy serverless functions on Google Cloud Platform with triggers, IAM roles, environment variables, and monitoring. Use for event-driven computing on GCP.",
   "repo": "aj-geddes/useful-ai-prompts",
-  "category": "devops",
-  "tags": [
-    "gcp",
-    "cloud",
-    "functions"
-  ],
-  "stars": 25,
-  "source": "local"
+  "path": "skills/gcp-cloud-functions/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:12.165377Z"
 }

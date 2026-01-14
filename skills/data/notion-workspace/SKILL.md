@@ -1,219 +1,388 @@
 ---
 name: notion-workspace
-description: Interactive Notion workspace management using MCP tools. Use for searching pages/databases, querying database entries, creating pages with custom properties, managing workspace structure, and exploratory operations requiring user interaction.
-allowed-tools: mcp__notion__API-post-search, mcp__notion__API-retrieve-a-page, mcp__notion__API-retrieve-a-database, mcp__notion__API-get-block-children, mcp__notion__API-post-page, mcp__notion__API-patch-page, mcp__notion__API-patch-block-children, mcp__notion__API-update-a-block, mcp__notion__API-delete-a-block, mcp__notion__API-post-database-query, mcp__notion__API-create-a-database, mcp__notion__API-update-a-database, mcp__notion__API-retrieve-a-comment, mcp__notion__API-create-a-comment, mcp__notion__API-get-users, mcp__notion__API-get-user, mcp__notion__API-get-self
+description: Notion workspace operations - pages, databases, blocks, and search. Use for managing Notion pages, databases, and content.
+allowed-tools: bash, read, webfetch
 ---
 
-# Notion Workspace Management
+# Notion Workspace Skill
 
-You are a Notion workspace expert with comprehensive knowledge of the Notion API and workspace organization. Your primary responsibility is to help users search, discover, organize, and manage their Notion content efficiently using the Notion MCP tools.
+## Overview
 
-## Core Capabilities
+This skill provides access to Notion API operations using progressive disclosure for optimal context usage.
 
-You have access to these Notion MCP tools:
+**Context Savings**: ~90% reduction
 
-### Search & Discovery
-- `mcp__notion__API-post-search`: Search across workspace by title, filter by type (page/database)
-- `mcp__notion__API-retrieve-a-page`: Get detailed page information including properties
-- `mcp__notion__API-retrieve-a-database`: Get database schema and metadata
-- `mcp__notion__API-get-block-children`: Read page/block content (be mindful of token limits)
+- **Direct API Mode**: Loading all API documentation and examples
+- **Skill Mode**: ~300 tokens metadata + on-demand tool loading
 
-### Content Creation & Management
-- `mcp__notion__API-post-page`: Create new pages with properties and content
-- `mcp__notion__API-patch-page`: Update page properties, title, icon, cover
-- `mcp__notion__API-patch-block-children`: Add content blocks to pages
-- `mcp__notion__API-update-a-block`: Update existing blocks
-- `mcp__notion__API-delete-a-block`: Remove blocks from pages
+## Requirements
 
-### Database Operations
-- `mcp__notion__API-post-database-query`: Query databases with filters and sorting
-- `mcp__notion__API-create-a-database`: Create new databases with schema
-- `mcp__notion__API-update-a-database`: Modify database properties and schema
+- `NOTION_API_KEY` environment variable set (Notion integration token)
+- `NOTION_VERSION` optional (default: 2022-06-28)
 
-### Comments & Collaboration
-- `mcp__notion__API-retrieve-a-comment`: Get comments on pages/blocks
-- `mcp__notion__API-create-a-comment`: Add comments to pages
+## Toolsets
 
-### User Management
-- `mcp__notion__API-get-users`: List workspace users
-- `mcp__notion__API-get-user`: Get specific user information
-- `mcp__notion__API-get-self`: Get bot user information
+The skill provides tools across 5 categories:
 
-## Operational Guidelines
+| Toolset     | Description                                 |
+| ----------- | ------------------------------------------- |
+| `pages`     | Page creation, updates, retrieval           |
+| `databases` | Database queries, creation, row management  |
+| `blocks`    | Block content and hierarchy management      |
+| `search`    | Workspace search across pages and databases |
+| `users`     | User management and information             |
 
-### 1. Search & Discovery Strategy
+## Quick Reference
 
-**Always start with search to understand the workspace:**
+```bash
+# Get page content
+python executor.py --tool get-page --args '{"page_id": "abc123"}'
 
-1. **Broad Search First**: Use `API-post-search` with relevant keywords to find related content
-2. **Analyze Results**: Examine titles, IDs, and types (page vs database) to understand workspace structure
-3. **Drill Down**: Use `API-retrieve-a-page` or `API-retrieve-a-database` to get detailed information
-4. **Navigate Hierarchies**: Use parent/child relationships to understand content organization
+# Create page
+python executor.py --tool create-page --args '{"parent": {"page_id": "parent123"}, "properties": {"title": [{"text": {"content": "New Page"}}]}}'
 
-**Search Best Practices:**
-- Use multiple search terms if first search yields no results
-- Try variations: abbreviations, full names, related terms
-- Filter by type (page/database) to narrow results
-- Sort by last_edited_time to find most recent content
-- Remember that search only works on titles - explain this limitation to users
+# Query database
+python executor.py --tool query-database --args '{"database_id": "db123", "filter": {}}'
 
-**Example Search Workflow:**
-```
-1. Search for "vllm" → Found 3 pages
-2. Search for "serving" → Found 5 pages, 1 database
-3. Retrieve page details to understand content
-4. Identify best parent for new content
+# Search workspace
+python executor.py --tool search --args '{"query": "meeting notes", "filter": {"property": "object", "value": "page"}}'
+
+# List users
+python executor.py --tool list-users --args '{}'
 ```
 
-### 2. Content Creation Strategy
+## Common Tools (Default Toolsets)
 
-**Smart Content Placement:**
+### Pages
 
-1. **Find Context**: Always search for relevant existing pages/databases before creating new content
-2. **Ask for Guidance**: If multiple suitable parents exist, present options to user
-3. **Create with Context**: Use appropriate parent_id to maintain workspace organization
-4. **Structured Blocks**: Plan block structure before uploading (headings, paragraphs, lists, code, tables)
+| Tool           | Description                          | Confirmation Required |
+| -------------- | ------------------------------------ | --------------------- |
+| `get-page`     | Retrieve page content and properties | No                    |
+| `create-page`  | Create a new page                    | Yes                   |
+| `update-page`  | Update page properties and content   | Yes                   |
+| `archive-page` | Archive or delete a page             | Yes                   |
 
-**Block Type Reference:**
-- `heading_2`, `heading_3`: Document structure (heading_1 not supported via MCP)
-- `paragraph`: Regular text with rich_text formatting
-- `bulleted_list_item`, `numbered_list_item`: Lists
-- `code`: Code blocks with language specification
-- `table`: Structured data with table_row children
-- `quote`: Blockquotes
-- `callout`: Highlighted notes with icons
-- `toggle`: Collapsible sections
-- `divider`: Visual separators
+**get-page**:
 
-**Rich Text Formatting:**
-```json
-{
-  "type": "text",
-  "text": {
-    "content": "Your text here",
-    "link": {"url": "https://..."} // optional
-  },
-  "annotations": {
-    "bold": true,
-    "italic": false,
-    "strikethrough": false,
-    "underline": false,
-    "code": false,
-    "color": "default"
+```bash
+python executor.py --tool get-page --args '{"page_id": "abc123def456"}'
+```
+
+**create-page**:
+
+```bash
+python executor.py --tool create-page --args '{
+  "parent": {"page_id": "parent_page_id"},
+  "properties": {
+    "title": [{"text": {"content": "Project Plan"}}]
   }
-}
+}'
 ```
 
-### 3. Database Operations
+**update-page**:
 
-**Querying Databases:**
+```bash
+python executor.py --tool update-page --args '{
+  "page_id": "abc123",
+  "properties": {
+    "Status": {"select": {"name": "In Progress"}}
+  }
+}'
+```
 
-1. **Understand Schema**: Use `API-retrieve-a-database` to see available properties
-2. **Build Filters**: Construct filter objects based on property types
-3. **Apply Sorting**: Order results by relevant properties
-4. **Handle Pagination**: Use start_cursor for large result sets
+**archive-page**:
 
-**Common Filter Patterns:**
-```json
-{
+```bash
+python executor.py --tool archive-page --args '{"page_id": "abc123", "archived": true}'
+```
+
+### Databases
+
+| Tool              | Description                           | Confirmation Required |
+| ----------------- | ------------------------------------- | --------------------- |
+| `list-databases`  | List accessible databases             | No                    |
+| `query-database`  | Query database with filters and sorts | No                    |
+| `create-database` | Create a new database                 | Yes                   |
+| `add-row`         | Add a row to a database               | Yes                   |
+| `update-database` | Update database properties            | Yes                   |
+
+**query-database**:
+
+```bash
+python executor.py --tool query-database --args '{
+  "database_id": "db123",
   "filter": {
     "property": "Status",
-    "select": {"equals": "In Progress"}
-  }
-}
-
-{
-  "filter": {
-    "and": [
-      {"property": "Due Date", "date": {"before": "2025-11-17"}},
-      {"property": "Completed", "checkbox": {"equals": false}}
-    ]
-  }
-}
+    "select": {"equals": "Done"}
+  },
+  "sorts": [{"property": "Created", "direction": "descending"}]
+}'
 ```
 
-**Creating Databases:**
-- Define clear property schema (title, select, multi_select, date, checkbox, etc.)
-- Set appropriate parent page for organization
-- Consider views and default sorting
+**add-row**:
 
-### 4. Error Handling & Recovery
+```bash
+python executor.py --tool add-row --args '{
+  "database_id": "db123",
+  "properties": {
+    "Name": {"title": [{"text": {"content": "New Task"}}]},
+    "Status": {"select": {"name": "To Do"}},
+    "Priority": {"select": {"name": "High"}}
+  }
+}'
+```
 
-**Common Issues:**
+**create-database**:
 
-- **Permission Errors**: Explain integration needs page access, guide user to share pages with integration
-- **Parent Page Errors**: Search for alternatives, ask user for valid parent ID
-- **Token Limits**: When reading large pages, warn and suggest alternatives (targeted reading, skip content reading)
-- **Search No Results**: Try alternative terms, broaden search, ask user for specific page IDs
-- **API Rate Limits**: Slow down operations, batch intelligently
+```bash
+python executor.py --tool create-database --args '{
+  "parent": {"page_id": "parent123"},
+  "title": [{"text": {"content": "Project Tracker"}}],
+  "properties": {
+    "Name": {"title": {}},
+    "Status": {"select": {"options": [{"name": "To Do"}, {"name": "Done"}]}},
+    "Due": {"date": {}}
+  }
+}'
+```
 
-**Recovery Strategies:**
-1. **Fallback Searches**: Try multiple search terms and filters
-2. **Manual Input**: Ask user for page IDs if search fails
-3. **Incremental Progress**: Complete partial operations, report progress
-4. **Clear Communication**: Explain what failed and why, suggest solutions
+### Blocks
 
-### 5. Quality Assurance
+| Tool            | Description                         | Confirmation Required |
+| --------------- | ----------------------------------- | --------------------- |
+| `get-block`     | Get block content                   | No                    |
+| `get-children`  | Get child blocks of a page or block | No                    |
+| `append-blocks` | Append blocks to a page             | Yes                   |
+| `update-block`  | Update block content                | Yes                   |
+| `delete-block`  | Delete a block                      | Yes                   |
 
-**Before completing any operation:**
+**get-children**:
 
-- ✅ Verify pages/databases were created/updated successfully
-- ✅ Check that all requested content was added
-- ✅ Confirm proper parent-child relationships
-- ✅ Validate property values in databases
-- ✅ Test that links and references work
-- ✅ Provide clear success confirmation with page URLs/IDs
+```bash
+python executor.py --tool get-children --args '{"block_id": "page_or_block_id"}'
+```
 
-### 6. Token Management
+**append-blocks**:
 
-**Be mindful of context limits:**
+```bash
+python executor.py --tool append-blocks --args '{
+  "block_id": "page123",
+  "children": [
+    {"object": "block", "type": "paragraph", "paragraph": {"rich_text": [{"text": {"content": "New paragraph"}}]}},
+    {"object": "block", "type": "heading_2", "heading_2": {"rich_text": [{"text": {"content": "Section Title"}}]}}
+  ]
+}'
+```
 
-- **Large Pages**: Don't read entire content of large pages unless necessary
-- **Database Queries**: Use pagination and limit page_size appropriately
-- **Block Children**: Request specific block ranges instead of full content
-- **Search Results**: Limit results when possible
-- **Progress Updates**: Keep user informed without excessive output
+### Search
 
-## Best Practices
+| Tool     | Description                         | Confirmation Required |
+| -------- | ----------------------------------- | --------------------- |
+| `search` | Search pages and databases by title | No                    |
 
-1. **Search First, Always**: Never create content without first searching for context
-2. **Understand Before Acting**: Retrieve details to understand page/database structure
-3. **Respect Hierarchy**: Maintain workspace organization by using appropriate parents
-4. **Ask When Uncertain**: Present options rather than guessing
-5. **Batch Intelligently**: Group related operations but avoid overwhelming the API
-6. **Preserve Structure**: Maintain content formatting and relationships
-7. **Verify Completeness**: Always confirm operations succeeded
-8. **Handle Failures Gracefully**: Provide alternatives when primary approach fails
-9. **Educate Users**: Help users understand Notion structure and capabilities
-10. **Token Conscious**: Read content selectively, especially for large pages
+**search**:
 
-## Critical Workflow Checklist
+```bash
+python executor.py --tool search --args '{
+  "query": "project plan",
+  "filter": {"property": "object", "value": "page"},
+  "sort": {"direction": "descending", "timestamp": "last_edited_time"}
+}'
+```
 
-**Before ANY page creation:**
-- ✅ Search for relevant existing pages
-- ✅ Analyze search results for best parent
-- ✅ If unclear, present options or ask user
-- ✅ Create with proper parent_id
+### Users
 
-**Before ANY database query:**
-- ✅ Retrieve database schema
-- ✅ Understand property types and names
-- ✅ Construct valid filters
-- ✅ Handle pagination appropriately
+| Tool         | Description                      | Confirmation Required |
+| ------------ | -------------------------------- | --------------------- |
+| `list-users` | List all users in the workspace  | No                    |
+| `get-user`   | Get user details by ID           | No                    |
+| `get-me`     | Get current bot user information | No                    |
 
-**Before ANY bulk operation:**
-- ✅ Plan the full scope
-- ✅ Get user confirmation if needed
-- ✅ Process incrementally with updates
-- ✅ Verify and report results
+**list-users**:
 
-## Communication Style
+```bash
+python executor.py --tool list-users --args '{}'
+```
 
-- **Proactive**: Explain your search strategy and what you're looking for
-- **Transparent**: Show what you found and why you chose specific pages/locations
-- **Options-Oriented**: Present choices when multiple valid paths exist
-- **Progress Updates**: For multi-step operations, keep user informed
-- **Clear Results**: Summarize what was accomplished with specific page IDs/URLs
-- **Educational**: Help users understand their Notion workspace organization
+**get-user**:
 
-Your goal is to make Notion a powerful, organized workspace by providing intelligent search, discovery, and content management capabilities that help users work efficiently with their knowledge base.
+```bash
+python executor.py --tool get-user --args '{"user_id": "user123"}'
+```
+
+## Configuration
+
+### Environment Variables
+
+| Variable         | Required | Description                                      |
+| ---------------- | -------- | ------------------------------------------------ |
+| `NOTION_API_KEY` | Yes      | Notion integration token (starts with `secret_`) |
+| `NOTION_VERSION` | No       | API version (default: 2022-06-28)                |
+
+### Getting a Notion API Key
+
+1. Go to https://www.notion.so/my-integrations
+2. Click "New integration"
+3. Configure integration name and workspace
+4. Copy the "Internal Integration Token"
+5. Share pages/databases with your integration
+
+### Limiting Toolsets
+
+To reduce context and improve tool selection, enable only needed toolsets:
+
+```bash
+# Only pages and search
+NOTION_TOOLSETS=pages,search python executor.py --list
+
+# Only databases
+NOTION_TOOLSETS=databases python executor.py --list
+```
+
+## Agent Integration
+
+**Primary Agents**:
+
+- `pm` - Project management, task tracking
+- `technical-writer` - Documentation management
+
+**Secondary Agents**:
+
+- `analyst` - Research, note-taking
+- `developer` - Technical documentation
+- `orchestrator` - Workflow coordination
+
+## Security
+
+**API Key Protection**:
+
+- Never expose `NOTION_API_KEY` in logs or output
+- Store API key securely using environment variables
+- Use integration-level permissions to limit access
+
+**Confirmation Required**:
+
+- All page mutations (create, update, archive)
+- All database mutations (create, add rows, update)
+- All block mutations (append, update, delete)
+
+**Read-Only Mode**:
+Set `NOTION_READ_ONLY=1` to disable all mutation operations:
+
+```bash
+NOTION_READ_ONLY=1 python executor.py --tool create-page --args '{...}'
+# Error: Operation not allowed in read-only mode
+```
+
+## Common Patterns
+
+### Project Management
+
+```bash
+# Create project database
+python executor.py --tool create-database --args '{
+  "parent": {"page_id": "workspace_page"},
+  "title": [{"text": {"content": "Projects"}}],
+  "properties": {
+    "Name": {"title": {}},
+    "Status": {"select": {"options": [{"name": "Planning"}, {"name": "Active"}, {"name": "Done"}]}},
+    "Owner": {"people": {}},
+    "Due Date": {"date": {}}
+  }
+}'
+
+# Add project
+python executor.py --tool add-row --args '{
+  "database_id": "projects_db",
+  "properties": {
+    "Name": {"title": [{"text": {"content": "Q1 Launch"}}]},
+    "Status": {"select": {"name": "Planning"}},
+    "Due Date": {"date": {"start": "2025-03-31"}}
+  }
+}'
+
+# Query active projects
+python executor.py --tool query-database --args '{
+  "database_id": "projects_db",
+  "filter": {"property": "Status", "select": {"equals": "Active"}}
+}'
+```
+
+### Documentation
+
+```bash
+# Create documentation page
+python executor.py --tool create-page --args '{
+  "parent": {"page_id": "docs_parent"},
+  "properties": {"title": [{"text": {"content": "API Reference"}}]}
+}'
+
+# Add content blocks
+python executor.py --tool append-blocks --args '{
+  "block_id": "api_ref_page",
+  "children": [
+    {"object": "block", "type": "heading_1", "heading_1": {"rich_text": [{"text": {"content": "API Reference"}}]}},
+    {"object": "block", "type": "paragraph", "paragraph": {"rich_text": [{"text": {"content": "This document describes the API endpoints."}}]}},
+    {"object": "block", "type": "code", "code": {"language": "javascript", "rich_text": [{"text": {"content": "fetch('/api/users')"}}]}}
+  ]
+}'
+```
+
+### Meeting Notes
+
+```bash
+# Create meeting notes page
+python executor.py --tool create-page --args '{
+  "parent": {"database_id": "meetings_db"},
+  "properties": {
+    "Name": {"title": [{"text": {"content": "Team Sync - 2025-01-05"}}]},
+    "Date": {"date": {"start": "2025-01-05"}},
+    "Attendees": {"people": [{"id": "user1"}, {"id": "user2"}]}
+  }
+}'
+
+# Search for meeting notes
+python executor.py --tool search --args '{
+  "query": "Team Sync",
+  "filter": {"property": "object", "value": "page"}
+}'
+```
+
+## Error Handling
+
+If tool execution fails:
+
+1. Verify `NOTION_API_KEY` is set and valid
+2. Ensure integration has access to the page/database
+3. Check API version compatibility (`NOTION_VERSION`)
+4. Review executor.py output for specific error details
+5. Verify page/database IDs are correct (32-character hex strings without hyphens)
+
+**Common Errors**:
+
+- `object_not_found`: Page/database not shared with integration
+- `validation_error`: Invalid request parameters
+- `unauthorized`: Invalid API key or insufficient permissions
+- `rate_limited`: Too many requests, retry with exponential backoff
+
+## Rate Limits
+
+Notion API has rate limits:
+
+- **Rate limit**: ~3 requests per second
+- **Burst limit**: Up to 10 requests in a short burst
+- **Best practice**: Add delays between batch operations
+
+```bash
+# Batch operation with delay
+for page_id in page_ids; do
+  python executor.py --tool get-page --args "{\"page_id\": \"$page_id\"}"
+  sleep 0.5  # 500ms delay
+done
+```
+
+## Related
+
+- Official Notion API Documentation: https://developers.notion.com
+- Notion API Reference: https://developers.notion.com/reference
+- Integration Setup Guide: https://www.notion.so/help/create-integrations-with-the-notion-api

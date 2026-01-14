@@ -1,11 +1,7 @@
 {
   "name": "openscad",
-  "description": "Create parametric 3D models using OpenSCAD, a script-based solid CAD modeler. Use when the user asks to create 3D printable objects, parametric designs, mechanical parts, CAD models, or requests .scad",
-  "repo": "festion/mcp-servers",
-  "category": "development",
-  "tags": [
-    "openscad"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "mitsuhiko/agent-stuff",
+  "path": "skills/openscad/SKILL.md",
+  "source": "github.com/mitsuhiko/agent-stuff",
+  "downloaded_at": "2026-01-14T02:27:00.297874Z"
 }

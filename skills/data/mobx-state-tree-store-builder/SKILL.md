@@ -1,17 +1,17 @@
 ---
 name: mobx-state-tree-store-builder
-description: Automates creation of MobX State Tree stores following Purrsuit Mobile App patterns for domain models, collections, and root store integration. Use when creating new MST stores, models, or extending existing store functionality with proper TypeScript typing, actions, views, and integration patterns.
+description: Automates creation of MobX State Tree stores following Fitness Tracker App patterns for domain models, collections, and root store integration. Use when creating new MST stores, models, or extending existing store functionality with proper TypeScript typing, actions, views, and integration patterns.
 ---
 
 # MobX State Tree Store Builder
 
-This skill helps create MobX State Tree stores following the established patterns in the Purrsuit Mobile App. It handles the complex setup required for proper TypeScript integration, RootStore injection, and consistent architectural patterns.
+This skill helps create MobX State Tree stores following the established patterns in the Fitness Tracker App. It handles the complex setup required for proper TypeScript integration, RootStore injection, and consistent architectural patterns.
 
 ## When to Use This Skill
 
 Use this skill when you need to:
-- Create a new domain model (like EncounterModel)
-- Build a collection store (like EncounterStoreModel)
+- Create a new domain model (like ExerciseModel)
+- Build a collection store (like ExerciseStoreModel)
 - Add a new store to the RootStore
 - Extend existing stores with new functionality
 - Create proper TypeScript interfaces and snapshots
@@ -19,12 +19,12 @@ Use this skill when you need to:
 ## Store Types
 
 ### Domain Models
-Atomic data models that represent business entities. Examples: `EncounterModel`, `UserModel`.
+Atomic data models that represent business entities. Examples: `ExerciseModel`, `UserModel`.
 
 **Pattern**: `types.model("Name", { ... }).views(...).actions(...)`
 
 ### Collection Stores
-Stores that manage collections of domain models. Examples: `EncounterStore`, `StatsStore`.
+Stores that manage collections of domain models. Examples: `ExerciseStore`, `StatsStore`.
 
 **Pattern**: `types.model("StoreName", { collection: types.map(Model) }).views(...).actions(...)`
 

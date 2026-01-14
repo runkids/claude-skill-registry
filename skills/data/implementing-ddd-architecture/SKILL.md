@@ -53,7 +53,9 @@ Infrastructure ───────> Domain + Application
 | ------------------ | ---------------------------------------------------------- |
 | **Domain**         | ❌ Nothing (pure PHP, SPL, domain-specific libraries only) |
 | **Application**    | ✅ Domain, Infrastructure, Symfony, API Platform           |
-| **Infrastructure** | ✅ Domain, Application, Symfony, Doctrine, MongoDB         |
+| **Infrastructure** | ✅ Domain, Application, Symfony, Doctrine ORM              |
+
+> Template examples may show Doctrine ODM/MongoDB constructs. In this service, use Doctrine ORM with MySQL (`EntityManagerInterface`, `.orm.xml` mappings).
 
 **See**: [DIRECTORY-STRUCTURE.md](DIRECTORY-STRUCTURE.md) for complete file placement guide.
 
@@ -282,7 +284,7 @@ final readonly class CustomerNameChangedSubscriber implements DomainEventSubscri
 
 ---
 
-## Constraints
+## Constraints (Parameters)
 
 ### NEVER
 

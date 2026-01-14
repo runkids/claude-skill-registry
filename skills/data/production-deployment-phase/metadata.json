@@ -1,13 +1,7 @@
 {
   "name": "production-deployment-phase",
-  "description": "\"Standard Operating Procedure for /ship-prod phase. Automated staging→production promotion.\"",
-  "repo": "marcusgoll/robinhood-algo-trading-bot",
-  "category": "devops",
-  "tags": [
-    "production",
-    "deployment",
-    "phase"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "marcusgoll/Spec-Flow",
+  "path": ".claude/skills/production-deployment-phase/SKILL.md",
+  "source": "github.com/marcusgoll/Spec-Flow",
+  "downloaded_at": "2026-01-14T04:06:34.416997Z"
 }

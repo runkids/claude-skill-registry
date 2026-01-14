@@ -1,11 +1,7 @@
 {
   "name": "supabase-rls",
-  "description": "Supabase Row Level Security policies. Use when creating RLS policies, securing tables, or implementing multi-tenant data isolation.",
-  "repo": "dvorkinguy/claude-skills-agents",
-  "category": "data",
-  "tags": [
-    "supabase",
-    "rls"
-  ],
-  "stars": 0
+  "repo": "CoderMariusz/MonoPilot",
+  "path": ".claude/skills/supabase-rls/SKILL.md",
+  "source": "github.com/CoderMariusz/MonoPilot",
+  "downloaded_at": "2026-01-14T03:46:41.886462Z"
 }

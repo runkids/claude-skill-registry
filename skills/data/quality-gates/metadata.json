@@ -1,12 +1,7 @@
 {
   "name": "quality-gates",
-  "description": "Run ruff + pytest and fix issues minimally.",
-  "repo": "moumit-b/Agentic-Comodity-Trading-System",
-  "category": "testing",
-  "tags": [
-    "quality",
-    "gates"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "ederheisler/agent-skills",
+  "path": "skills/quality-gates/SKILL.md",
+  "source": "github.com/ederheisler/agent-skills",
+  "downloaded_at": "2026-01-14T03:11:08.509920Z"
 }

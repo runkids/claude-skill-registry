@@ -1,8 +1,7 @@
 {
   "name": "vercel-ai-sdk-v5",
   "repo": "horuz-ai/claude-plugins",
-  "category": "data",
-  "description": "Expert-level Vercel AI SDK v5 patterns for production chatbots. Use for: (1) Chat persistence with Drizzle/PostgreSQL, (2) Generative UI with typed tool parts, (3) Human-in-the-loop tool confirmations",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:08.422059Z"
+  "path": "plugins/nextjs/skills/vercel-ai-sdk-v5/SKILL.md",
+  "source": "github.com/horuz-ai/claude-plugins",
+  "downloaded_at": "2026-01-14T02:39:31.718242Z"
 }

@@ -1,10 +1,7 @@
 {
   "name": "torchaudio",
-  "description": "Audio signal processing library for PyTorch. Covers feature extraction (spectrograms, mel-scale), waveform manipulation, and GPU-accelerated data augmentation techniques. (torchaudio, melscale, spectr",
   "repo": "cuba6112/skillfactory",
-  "category": "data",
-  "tags": [
-    "torchaudio"
-  ],
-  "stars": 0
+  "path": "skills/torchaudio/SKILL.md",
+  "source": "github.com/cuba6112/skillfactory",
+  "downloaded_at": "2026-01-14T02:37:40.425115Z"
 }

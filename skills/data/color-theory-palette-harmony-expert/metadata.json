@@ -1,15 +1,7 @@
 {
   "name": "color-theory-palette-harmony-expert",
-  "description": "Expert in color theory, palette harmony, and perceptual color science for computational photo composition. Specializes in earth-mover distance optimization, warm/cool alternation, diversity-aware pale",
   "repo": "erichowens/some_claude_skills",
-  "category": "design",
-  "tags": [
-    "color",
-    "theory",
-    "palette",
-    "harmony",
-    "expert"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/color-theory-palette-harmony-expert/SKILL.md",
+  "source": "github.com/erichowens/some_claude_skills",
+  "downloaded_at": "2026-01-14T02:58:40.434696Z"
 }

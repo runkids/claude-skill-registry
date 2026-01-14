@@ -1,12 +1,7 @@
 {
   "name": "docusaurus-deployer",
-  "description": "This skill should be used when deploying a Docusaurus site to GitHub Pages. It automates the configuration, building, and deployment process, handling GitHub Pages setup, environment configuration, an",
-  "repo": "panaversity/ai-native-software-development",
-  "category": "devops",
-  "tags": [
-    "docusaurus",
-    "deployer"
-  ],
-  "stars": 48,
-  "source": "SkillsMP Synced Skills"
+  "repo": "mjunaidca/robolearn",
+  "path": ".claude/skills/docusaurus-deployer/SKILL.md",
+  "source": "github.com/mjunaidca/robolearn",
+  "downloaded_at": "2026-01-14T02:06:13.163672Z"
 }

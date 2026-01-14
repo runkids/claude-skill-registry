@@ -1,9 +1,7 @@
 {
   "name": "ux-accessibility",
-  "description": "WCAG 2.2 accessibility patterns for web components. Use when implementing focus management, keyboard navigation, screen reader support, reduced motion, high contrast mode, or touch targets. Integrates",
-  "repo": "matthewharwood/fantasy-phonics",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "phananhtuan09/ai-agent-workflow",
+  "path": ".opencode/skill/ux-accessibility/SKILL.md",
+  "source": "github.com/phananhtuan09/ai-agent-workflow",
+  "downloaded_at": "2026-01-14T02:20:31.096740Z"
 }

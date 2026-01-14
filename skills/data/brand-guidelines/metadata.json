@@ -1,14 +1,7 @@
 {
   "name": "brand-guidelines",
-  "description": "Create and maintain brand guidelines documentation",
-  "repo": "anthropics/skills",
-  "category": "design",
-  "tags": [
-    "brand",
-    "guidelines",
-    "design",
-    "documentation"
-  ],
-  "stars": 0,
-  "source": "Anthropic Official"
+  "repo": "archubbuck/workspace-architect",
+  "path": "assets/skills/brand-guidelines/SKILL.md",
+  "source": "github.com/archubbuck/workspace-architect",
+  "downloaded_at": "2026-01-14T04:03:37.333003Z"
 }

@@ -1,11 +1,7 @@
 {
   "name": "gemini-image",
-  "description": "Generate images using AI when user wants to create pictures, draw, paint, or generate artwork. Supports text-to-image and image-to-image generation.",
-  "repo": "acking-you/myclaude-skills",
-  "category": "data",
-  "tags": [
-    "gemini",
-    "image"
-  ],
-  "stars": 2
+  "repo": "bluewaves-creations/bluewaves-skills",
+  "path": "plugins/fal-media/skills/gemini-image/SKILL.md",
+  "source": "github.com/bluewaves-creations/bluewaves-skills",
+  "downloaded_at": "2026-01-14T02:03:02.993399Z"
 }

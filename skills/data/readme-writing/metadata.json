@@ -1,9 +1,7 @@
 {
   "name": "readme-writing",
-  "description": "Guidelines for writing folder READMEs. Use when creating README.md files for directories.",
   "repo": "EpicenterHQ/epicenter",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/readme-writing/SKILL.md",
+  "source": "github.com/EpicenterHQ/epicenter",
+  "downloaded_at": "2026-01-14T02:31:58.784867Z"
 }

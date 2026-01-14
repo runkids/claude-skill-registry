@@ -1,12 +1,7 @@
 {
   "name": "cookies-analytics",
-  "description": "Set up Google Analytics 4 with DSGVO-compliant cookie consent banner. Use when analytics tracking is needed. Triggers on \"analytics\", \"GA4\", \"Google Analytics\", \"cookie consent\", \"tracking\".",
-  "repo": "Manuelvillarvieites/energy-company",
-  "category": "data",
-  "tags": [
-    "cookies",
-    "analytics"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "deomiarn/website-template",
+  "path": ".claude/skills/cookies-analytics/SKILL.md",
+  "source": "github.com/deomiarn/website-template",
+  "downloaded_at": "2026-01-14T01:42:33.823098Z"
 }

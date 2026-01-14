@@ -1,11 +1,7 @@
 {
   "name": "trpc",
-  "description": "Expert guidance for tRPC (TypeScript Remote Procedure Call) including router setup, procedures, middleware, context, client configuration, and Next.js integration. Use this when building type-safe API",
   "repo": "oriolrius/pki-manager-web",
-  "category": "development",
-  "tags": [
-    "trpc"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/trpc/SKILL.md",
+  "source": "github.com/oriolrius/pki-manager-web",
+  "downloaded_at": "2026-01-14T02:21:23.472153Z"
 }

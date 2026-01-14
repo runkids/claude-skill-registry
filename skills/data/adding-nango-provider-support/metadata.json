@@ -1,14 +1,7 @@
 {
   "name": "adding-nango-provider-support",
-  "description": "Use when adding support for a new Nango provider - configures provider in providers.yaml, creates documentation (main page, setup guide, connect guide), and updates docs.json following established pat",
   "repo": "NangoHQ/ai-ide-prompts",
-  "category": "data",
-  "tags": [
-    "adding",
-    "nango",
-    "provider",
-    "support"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/adding-nango-provider-support/SKILL.md",
+  "source": "github.com/NangoHQ/ai-ide-prompts",
+  "downloaded_at": "2026-01-14T01:48:13.841270Z"
 }

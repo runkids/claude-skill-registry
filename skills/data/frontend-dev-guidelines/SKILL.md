@@ -1,449 +1,400 @@
 ---
 name: frontend-dev-guidelines
-description: Frontend development guidelines for Quantum Skincare's Next.js 16 App Router application with React 19.2, Tailwind CSS v4, Clerk authentication, and TypeScript. Covers Server/Client Components, React 19.2 features (useEffectEvent, Activity component, cache signals, React Compiler auto-optimization), data fetching patterns, Tailwind styling, route groups, form validation, and performance optimization. Use when creating pages, components, API routes, styling, or working with frontend code.
+description: Frontend development guidelines for React/TypeScript applications. Modern patterns including Suspense, lazy loading, useSuspenseQuery, file organization with features directory, MUI v7 styling, TanStack Router, performance optimization, and TypeScript best practices. Use when creating components, pages, features, fetching data, styling, routing, or working with frontend code.
 ---
 
-# Frontend Development Guidelines - Quantum Skincare
+# Frontend Development Guidelines
 
 ## Purpose
 
-Quick reference for Quantum Skincare's Next.js 16 App Router frontend with React 19.2, emphasizing Server Components, Tailwind CSS v4, Clerk authentication, and React Compiler auto-optimization.
+Comprehensive guide for modern React development, emphasizing Suspense-based data fetching, lazy loading, proper file organization, and performance optimization.
 
 ## When to Use This Skill
 
-- Creating new pages or components
-- Implementing Server or Client Components
-- Using React 19.2 features (React Compiler, useEffectEvent, Activity, cache signals)
-- Data fetching with Server Components or client-side
-- Styling with Tailwind CSS v4
-- Setting up authentication with Clerk
-- Form validation with Zod
-- URL state management with nuqs
+- Creating new components or pages
+- Building new features
+- Fetching data with TanStack Query
+- Setting up routing with TanStack Router
+- Styling components with MUI v7
 - Performance optimization
+- Organizing frontend code
 - TypeScript best practices
+- Applying inline HTML/CSS styling (e.g., for Jupyter presentation notebooks)
 
 ---
 
 ## Quick Start
 
-### New Page Checklist
-
-- [ ] Create in `app/(private)/` or `app/(public)/` route group
-- [ ] Default to Server Component (async function)
-- [ ] Use `currentUser()` from Clerk for auth
-- [ ] Fetch data with `fetch` + `{ cache: 'no-store' }` or `backendJson()`
-- [ ] Use Tailwind CSS v4 for styling
-- [ ] Wrap async content in `<Suspense>` with fallback
-- [ ] Add `loading.tsx` for route-level loading state
-- [ ] Use `'use client'` only for interactivity
-- [ ] Keep components < 150 lines (refactor at 300+)
-
 ### New Component Checklist
 
-- [ ] Server Component by default (no 'use client')
-- [ ] Add `'use client'` only if using hooks/events/browser APIs
-- [ ] Use Tailwind classes for styling
-- [ ] TypeScript props interface with JSDoc
-- [ ] Named exports for components, default for pages
-- [ ] Co-locate in feature directory (e.g., `components/history/`)
-- [ ] Use `cn()` helper from tailwind-merge for conditional classes
-- [ ] Consider React 19.2 features: useEffectEvent for stable callbacks, Activity for async loading
+Creating a component? Follow this checklist:
+
+- [ ] Use `React.FC<Props>` pattern with TypeScript
+- [ ] Lazy load if heavy component: `React.lazy(() => import())`
+- [ ] Wrap in `<SuspenseLoader>` for loading states
+- [ ] Use `useSuspenseQuery` for data fetching
+- [ ] Import aliases: `@/`, `~types`, `~components`, `~features`
+- [ ] Styles: Inline if <100 lines, separate file if >100 lines
+- [ ] Use `useCallback` for event handlers passed to children
+- [ ] Default export at bottom
+- [ ] No early returns with loading spinners
+- [ ] Use `useMuiSnackbar` for user notifications
+
+### New Feature Checklist
+
+Creating a feature? Set up this structure:
+
+- [ ] Create `features/{feature-name}/` directory
+- [ ] Create subdirectories: `api/`, `components/`, `hooks/`, `helpers/`, `types/`
+- [ ] Create API service file: `api/{feature}Api.ts`
+- [ ] Set up TypeScript types in `types/`
+- [ ] Create route in `routes/{feature-name}/index.tsx`
+- [ ] Lazy load feature components
+- [ ] Use Suspense boundaries
+- [ ] Export public API from feature `index.ts`
 
 ---
 
-## React 19.2 Key Features
+## Import Aliases Quick Reference
 
-### React Compiler (Auto-Optimization) ⭐
+| Alias | Resolves To | Example |
+|-------|-------------|---------|
+| `@/` | `src/` | `import { apiClient } from '@/lib/apiClient'` |
+| `~types` | `src/types` | `import type { User } from '~types/user'` |
+| `~components` | `src/components` | `import { SuspenseLoader } from '~components/SuspenseLoader'` |
+| `~features` | `src/features` | `import { authApi } from '~features/auth'` |
 
-**IMPORTANT: Next.js 16 includes the stable React Compiler, which automatically memoizes components and optimizes rendering.**
-
-**This means you DON'T need `useMemo`, `useCallback`, or `React.memo` in most cases!**
-
-**Default approach (2025):**
-```typescript
-'use client';
-
-// ✅ GOOD: Write simple code first, let React Compiler optimize
-const expensiveValue = complexCalculation(data);
-const handleClick = () => { /* ... */ };
-
-// ❌ AVOID: Premature optimization
-const expensiveValue = useMemo(() => complexCalculation(data), [data]);
-const handleClick = useCallback(() => { /* ... */ }, []);
-```
-
-**When you STILL need manual memoization:**
-
-1. **Extremely expensive calculations** (millions of records, image processing)
-2. **Third-party libraries requiring stable references**
-3. **React Native apps** (more sensitive to re-renders)
-4. **Effect dependencies where function identity matters**
-
-**Golden Rule:** Write clean code first, add memoization only when profiling reveals actual performance bottlenecks.
-
-### useEffectEvent (Stable Event Callbacks)
-
-Use for callbacks that should NOT trigger effect re-runs:
-
-```typescript
-'use client';
-import { useEffectEvent } from 'react';
-
-export function AnalyticsTracker({ userId, pageUrl }: Props) {
-    const logPageView = useEffectEvent(() => {
-        analytics.track('page_view', { userId, pageUrl });
-    });
-
-    useEffect(() => {
-        logPageView();
-    }, [pageUrl]); // Only re-run when pageUrl changes, not userId
-}
-```
-
-**When to use:** Event handlers inside effects, callbacks that need fresh data but shouldn't trigger re-runs. **Prefer this over `useCallback` for effect callbacks.**
-
-### Activity Component
-
-Built-in loading UI without Suspense wrapper:
-
-```typescript
-import { Activity } from 'react';
-
-export default async function DashboardPage() {
-    return (
-        <div>
-            <h1>Dashboard</h1>
-            <Activity>
-                <DashboardContent />
-            </Activity>
-        </div>
-    );
-}
-```
-
-### cache() (Server-Side Caching)
-
-Memoize expensive server-side operations:
-
-```typescript
-import { cache } from 'react';
-import 'server-only';
-
-export const getUserData = cache(async (userId: string) => {
-    const user = await db.users.findUnique({ where: { id: userId } });
-    return user;
-});
-
-// Called multiple times, only runs once per request
-const data1 = await getUserData('123');
-const data2 = await getUserData('123'); // Cached!
-```
-
----
-
-## Architecture Overview
-
-### Next.js 16 App Router Structure
-
-```
-apps/frontend/src/
-├── app/
-│   ├── (private)/          # Protected routes (auth required)
-│   │   ├── layout.tsx      # Auth check + layout
-│   │   ├── admin/          # Admin-only pages
-│   │   ├── cart/           # Shopping cart
-│   │   ├── history/        # Scan history
-│   │   ├── profile/        # User profile
-│   │   ├── shop/           # E-commerce products
-│   │   └── skin-analysis/  # Camera + results
-│   ├── (public)/           # Public routes
-│   │   ├── login/
-│   │   ├── register/
-│   │   └── sso-callback/
-│   ├── internal/           # API routes (proxy to backend)
-│   ├── consent/            # Consent gate
-│   └── layout.tsx          # Root layout (Clerk provider)
-│
-├── components/             # Feature-specific components
-│   ├── auth/              # Auth forms + flows
-│   ├── navigation/        # Navbar, footer
-│   ├── skin-analysis/     # Camera + results
-│   └── ui/                # Reusable UI primitives
-│
-├── lib/
-│   ├── api/               # Client-side API functions
-│   ├── server/            # Server-only utilities (backendJson)
-│   ├── auth/              # Clerk adapter
-│   ├── utils/             # Utility functions (cn, etc.)
-│   └── validation/        # Client-side Zod validation
-│
-└── middleware.ts           # Clerk auth + consent checks
-```
-
----
-
-## Core Principles
-
-### 1. Server Components by Default
-
-```typescript
-// ✅ Server Component (default) - better performance
-export default async function HistoryPage() {
-    const user = await currentUser(); // Clerk server-side auth
-    const scans = await fetch(`${API_URL}/v1/history`, {
-        cache: 'no-store',
-        headers: { Authorization: `Bearer ${token}` }
-    });
-    return <HistoryList scans={scans} />;
-}
-```
-
-**Benefits:** Zero JS to client, direct backend access, better SEO, automatic code splitting
-
-### 2. Use 'use client' Only When Needed
-
-**Require Client Component for:**
-- React hooks (useState, useEffect, useEffectEvent, use, useOptimistic, useFormStatus)
-- Event handlers (onClick, onChange, onSubmit)
-- Browser APIs (window, document, localStorage)
-- Client-only libraries
-
-**Note:** You generally DON'T need `useMemo`, `useCallback`, or `React.memo` anymore - React Compiler handles optimization automatically.
-
-### 3. Component Size Guidelines
-
-- **< 150 lines**: Ideal size
-- **150-300 lines**: Acceptable
-- **> 300 lines**: Refactor required
-
-**Refactoring:** Extract hooks, split into subcomponents, move utils to `lib/utils/`, extract constants/types
-
-### 4. Tailwind CSS v4 Styling
-
-```typescript
-import { cn } from '@/lib/utils/cn';
-
-export function Button({ variant, className, ...props }: ButtonProps) {
-    return (
-        <button
-            className={cn(
-                'px-4 py-2 rounded-lg font-medium transition-colors',
-                variant === 'primary' && 'bg-blue-600 text-white hover:bg-blue-700',
-                variant === 'secondary' && 'bg-gray-200 text-gray-900',
-                className
-            )}
-            {...props}
-        />
-    );
-}
-```
-
-For complex components, use `tailwind-variants` (`tv()`).
-
-### 5. Authentication with Clerk
-
-**Server Component:**
-```typescript
-import { currentUser } from '@clerk/nextjs/server';
-
-export default async function DashboardPage() {
-    const user = await currentUser();
-    if (!user) redirect('/login');
-    return <Dashboard user={user} />;
-}
-```
-
-**Client Component:**
-```typescript
-'use client';
-import { useUser } from '@clerk/nextjs';
-
-export function UserMenu() {
-    const { user, isLoaded, isSignedIn } = useUser();
-    if (!isLoaded) return <Skeleton />;
-    if (!isSignedIn) return <SignInButton />;
-    return <div>{user.fullName}</div>;
-}
-```
-
-### 6. Data Fetching
-
-**Server Components (Preferred):**
-```typescript
-export default async function ProductPage({ params }: Props) {
-    const product = await fetch(`${API_URL}/v1/products/${params.id}`, {
-        cache: 'force-cache', // Static product data
-    }).then(res => res.json());
-    return <ProductDetails product={product} />;
-}
-```
-
-**Client Components (Via API Routes):**
-```typescript
-'use client';
-import { apiClient } from '@/lib/api/fetch';
-
-export function CameraCapture() {
-    const handleCapture = async (blob: Blob) => {
-        // Calls /internal/v1/analysis which proxies to backend
-        const result = await apiClient('/internal/v1/analysis/stream/frame/validate', {
-            method: 'POST',
-            body: formData
-        });
-    };
-}
-```
-
-### 7. Form Validation with Zod
-
-```typescript
-'use client';
-import { z } from 'zod';
-import { personalInfoSchema } from '@quantum/shared-validation';
-
-export function ProfileForm() {
-    const [errors, setErrors] = useState<Record<string, string[]>>({});
-
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        const formData = new FormData(e.currentTarget);
-        const data = { name: formData.get('name'), /* ... */ };
-
-        const result = personalInfoSchema.safeParse(data);
-        if (!result.success) {
-            setErrors(result.error.flatten().fieldErrors);
-            return;
-        }
-        await submitProfile(result.data);
-    };
-
-    return (
-        <form onSubmit={handleSubmit}>
-            <input name="name" />
-            {errors.name && <span className="text-red-500">{errors.name[0]}</span>}
-        </form>
-    );
-}
-```
-
-### 8. URL State with nuqs
-
-```typescript
-'use client';
-import { useQueryState, parseAsInteger } from 'nuqs';
-
-export function Pagination() {
-    const [page, setPage] = useQueryState('page', parseAsInteger.withDefault(1));
-    return (
-        <div>
-            <button onClick={() => setPage(page - 1)} disabled={page === 1}>Previous</button>
-            <span>Page {page}</span>
-            <button onClick={() => setPage(page + 1)}>Next</button>
-        </div>
-    );
-}
-```
+Defined in: [vite.config.ts](../../vite.config.ts) lines 180-185
 
 ---
 
 ## Common Imports Cheatsheet
 
 ```typescript
-// React 19.2
-import { Suspense, use, useOptimistic, useFormStatus } from 'react';
-import { Activity } from 'react'; // Loading component
-import { useEffectEvent } from 'react'; // Stable callbacks (prefer over useCallback)
-import { cache, cacheSignal } from 'react'; // Server-side caching
+// React & Lazy Loading
+import React, { useState, useCallback, useMemo } from 'react';
+const Heavy = React.lazy(() => import('./Heavy'));
 
-// Memoization (only when needed - React Compiler handles most cases)
-import { useMemo, useCallback } from 'react'; // Use sparingly
+// MUI Components
+import { Box, Paper, Typography, Button, Grid } from '@mui/material';
+import type { SxProps, Theme } from '@mui/material';
 
-// Next.js 16
-import type { Metadata } from 'next';
-import { redirect, notFound } from 'next/navigation';
-import { headers, cookies } from 'next/headers';
+// TanStack Query (Suspense)
+import { useSuspenseQuery, useQueryClient } from '@tanstack/react-query';
 
-// Clerk Auth
-import { currentUser } from '@clerk/nextjs/server';  // Server
-import { useUser, useAuth } from '@clerk/nextjs';    // Client
+// TanStack Router
+import { createFileRoute } from '@tanstack/react-router';
 
-// Server-only
-import 'server-only';
-import { backendJson } from '@/lib/server/backend';
+// Project Components
+import { SuspenseLoader } from '~components/SuspenseLoader';
 
-// Client-side API
-import { apiClient } from '@/lib/api/fetch';
+// Hooks
+import { useAuth } from '@/hooks/useAuth';
+import { useMuiSnackbar } from '@/hooks/useMuiSnackbar';
 
-// Styling
-import { cn } from '@/lib/utils/cn';
-import { tv } from 'tailwind-variants';
-
-// URL State
-import { useQueryState, parseAsInteger } from 'nuqs';
-
-// Validation
-import { z } from 'zod';
-import { personalInfoSchema } from '@quantum/shared-validation';
-
-// Shared Types
-import type { UserApp, ScanResult } from '@quantum/shared-types';
-
-// Icons
-import { Camera, History, User } from 'lucide-react';
+// Types
+import type { Post } from '~types/post';
 ```
 
 ---
 
-## Key Anti-Patterns
+## Topic Guides
 
-❌ **Don't fetch client-side when server-side works**
-❌ **Don't add 'use client' without reason**
-❌ **Don't call backend directly from browser** (use `/internal/*`)
-❌ **Don't create routes under `/api/*`** (use `/internal/*` with `proxyToBackend()`)
-❌ **Don't prematurely use `useMemo`/`useCallback`** (React Compiler handles it)
-❌ **Don't forget `cache()` for repeated server queries**
+### 🎨 Component Patterns
 
-See [ANTI_PATTERNS.md](ANTI_PATTERNS.md) for detailed examples.
+**Modern React components use:**
+- `React.FC<Props>` for type safety
+- `React.lazy()` for code splitting
+- `SuspenseLoader` for loading states
+- Named const + default export pattern
+
+**Key Concepts:**
+- Lazy load heavy components (DataGrid, charts, editors)
+- Always wrap lazy components in Suspense
+- Use SuspenseLoader component (with fade animation)
+- Component structure: Props → Hooks → Handlers → Render → Export
+
+**[📖 Complete Guide: resources/component-patterns.md](resources/component-patterns.md)**
+
+---
+
+### 📊 Data Fetching
+
+**PRIMARY PATTERN: useSuspenseQuery**
+- Use with Suspense boundaries
+- Cache-first strategy (check grid cache before API)
+- Replaces `isLoading` checks
+- Type-safe with generics
+
+**API Service Layer:**
+- Create `features/{feature}/api/{feature}Api.ts`
+- Use `apiClient` axios instance
+- Centralized methods per feature
+- Route format: `/form/route` (NOT `/api/form/route`)
+
+**[📖 Complete Guide: resources/data-fetching.md](resources/data-fetching.md)**
+
+---
+
+### 📁 File Organization
+
+**features/ vs components/:**
+- `features/`: Domain-specific (posts, comments, auth)
+- `components/`: Truly reusable (SuspenseLoader, CustomAppBar)
+
+**Feature Subdirectories:**
+```
+features/
+  my-feature/
+    api/          # API service layer
+    components/   # Feature components
+    hooks/        # Custom hooks
+    helpers/      # Utility functions
+    types/        # TypeScript types
+```
+
+**[📖 Complete Guide: resources/file-organization.md](resources/file-organization.md)**
+
+---
+
+### 🎨 Styling
+
+**Inline vs Separate:**
+- <100 lines: Inline `const styles: Record<string, SxProps<Theme>>`
+- >100 lines: Separate `.styles.ts` file
+
+**Primary Method:**
+- Use `sx` prop for MUI components
+- Type-safe with `SxProps<Theme>`
+- Theme access: `(theme) => theme.palette.primary.main`
+
+**MUI v7 Grid:**
+```typescript
+<Grid size={{ xs: 12, md: 6 }}>  // ✅ v7 syntax
+<Grid xs={12} md={6}>             // ❌ Old syntax
+```
+
+**[📖 Complete Guide: resources/styling-guide.md](resources/styling-guide.md)**
+
+---
+
+### 🛣️ Routing
+
+**TanStack Router - Folder-Based:**
+- Directory: `routes/my-route/index.tsx`
+- Lazy load components
+- Use `createFileRoute`
+- Breadcrumb data in loader
+
+**Example:**
+```typescript
+import { createFileRoute } from '@tanstack/react-router';
+import { lazy } from 'react';
+
+const MyPage = lazy(() => import('@/features/my-feature/components/MyPage'));
+
+export const Route = createFileRoute('/my-route/')({
+    component: MyPage,
+    loader: () => ({ crumb: 'My Route' }),
+});
+```
+
+**[📖 Complete Guide: resources/routing-guide.md](resources/routing-guide.md)**
+
+---
+
+### ⏳ Loading & Error States
+
+**CRITICAL RULE: No Early Returns**
+
+```typescript
+// ❌ NEVER - Causes layout shift
+if (isLoading) {
+    return <LoadingSpinner />;
+}
+
+// ✅ ALWAYS - Consistent layout
+<SuspenseLoader>
+    <Content />
+</SuspenseLoader>
+```
+
+**Why:** Prevents Cumulative Layout Shift (CLS), better UX
+
+**Error Handling:**
+- Use `useMuiSnackbar` for user feedback
+- NEVER `react-toastify`
+- TanStack Query `onError` callbacks
+
+**[📖 Complete Guide: resources/loading-and-error-states.md](resources/loading-and-error-states.md)**
+
+---
+
+### ⚡ Performance
+
+**Optimization Patterns:**
+- `useMemo`: Expensive computations (filter, sort, map)
+- `useCallback`: Event handlers passed to children
+- `React.memo`: Expensive components
+- Debounced search (300-500ms)
+- Memory leak prevention (cleanup in useEffect)
+
+**[📖 Complete Guide: resources/performance.md](resources/performance.md)**
+
+---
+
+### 📘 TypeScript
+
+**Standards:**
+- Strict mode, no `any` type
+- Explicit return types on functions
+- Type imports: `import type { User } from '~types/user'`
+- Component prop interfaces with JSDoc
+
+**[📖 Complete Guide: resources/typescript-standards.md](resources/typescript-standards.md)**
+
+---
+
+### 🔧 Common Patterns
+
+**Covered Topics:**
+- React Hook Form with Zod validation
+- DataGrid wrapper contracts
+- Dialog component standards
+- `useAuth` hook for current user
+- Mutation patterns with cache invalidation
+
+**[📖 Complete Guide: resources/common-patterns.md](resources/common-patterns.md)**
+
+---
+
+### 📚 Complete Examples
+
+**Full working examples:**
+- Modern component with all patterns
+- Complete feature structure
+- API service layer
+- Route with lazy loading
+- Suspense + useSuspenseQuery
+- Form with validation
+
+**[📖 Complete Guide: resources/complete-examples.md](resources/complete-examples.md)**
 
 ---
 
 ## Navigation Guide
 
-| Need to... | Pattern |
-|------------|---------|
-| Create a page | Add `page.tsx` in `app/(private)/` or `app/(public)/` |
-| Fetch data server-side | Use `fetch` with `cache` option or `backendJson()` |
-| Fetch data client-side | Use `apiClient()` from `lib/api/fetch.ts` |
-| Add authentication | Use `currentUser()` (server) or `useUser()` (client) |
-| Style component | Use Tailwind with `cn()` or `tv()` |
-| Validate form | Use Zod from `@quantum/shared-validation` |
-| Manage URL state | Use `useQueryState` from nuqs |
-| Create API route | Add `route.ts` in `app/internal/*` (NEVER `/api/*`) |
-| Add caching to API route | Use `proxyToBackend({ cache: { revalidate, tags } })` |
-| Loading state | Use `<Suspense>`, `<Activity>`, or `loading.tsx` |
-| Stable callback | Use `useEffectEvent` (React 19.2) |
-| Cache expensive query | Use `cache()` wrapper |
+| Need to... | Read this resource |
+|------------|-------------------|
+| Create a component | [component-patterns.md](resources/component-patterns.md) |
+| Fetch data | [data-fetching.md](resources/data-fetching.md) |
+| Organize files/folders | [file-organization.md](resources/file-organization.md) |
+| Style components | [styling-guide.md](resources/styling-guide.md) |
+| Set up routing | [routing-guide.md](resources/routing-guide.md) |
+| Handle loading/errors | [loading-and-error-states.md](resources/loading-and-error-states.md) |
+| Optimize performance | [performance.md](resources/performance.md) |
+| TypeScript types | [typescript-standards.md](resources/typescript-standards.md) |
+| Forms/Auth/DataGrid | [common-patterns.md](resources/common-patterns.md) |
+| See full examples | [complete-examples.md](resources/complete-examples.md) |
 
 ---
 
-## Reference Files
+## Core Principles
 
-For detailed patterns and examples:
+1. **Lazy Load Everything Heavy**: Routes, DataGrid, charts, editors
+2. **Suspense for Loading**: Use SuspenseLoader, not early returns
+3. **useSuspenseQuery**: Primary data fetching pattern for new code
+4. **Features are Organized**: api/, components/, hooks/, helpers/ subdirs
+5. **Styles Based on Size**: <100 inline, >100 separate
+6. **Import Aliases**: Use @/, ~types, ~components, ~features
+7. **No Early Returns**: Prevents layout shift
+8. **useMuiSnackbar**: For all user notifications
 
-- **[PATTERNS.md](PATTERNS.md)** - Detailed code patterns for data fetching, styling, auth, forms, URL state
-- **[ANTI_PATTERNS.md](ANTI_PATTERNS.md)** - Common mistakes and how to avoid them
+---
+
+## Quick Reference: File Structure
+
+```
+src/
+  features/
+    my-feature/
+      api/
+        myFeatureApi.ts       # API service
+      components/
+        MyFeature.tsx         # Main component
+        SubComponent.tsx      # Related components
+      hooks/
+        useMyFeature.ts       # Custom hooks
+        useSuspenseMyFeature.ts  # Suspense hooks
+      helpers/
+        myFeatureHelpers.ts   # Utilities
+      types/
+        index.ts              # TypeScript types
+      index.ts                # Public exports
+
+  components/
+    SuspenseLoader/
+      SuspenseLoader.tsx      # Reusable loader
+    CustomAppBar/
+      CustomAppBar.tsx        # Reusable app bar
+
+  routes/
+    my-route/
+      index.tsx               # Route component
+      create/
+        index.tsx             # Nested route
+```
+
+---
+
+## Modern Component Template (Quick Copy)
+
+```typescript
+import React, { useState, useCallback } from 'react';
+import { Box, Paper } from '@mui/material';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { featureApi } from '../api/featureApi';
+import type { FeatureData } from '~types/feature';
+
+interface MyComponentProps {
+    id: number;
+    onAction?: () => void;
+}
+
+export const MyComponent: React.FC<MyComponentProps> = ({ id, onAction }) => {
+    const [state, setState] = useState<string>('');
+
+    const { data } = useSuspenseQuery({
+        queryKey: ['feature', id],
+        queryFn: () => featureApi.getFeature(id),
+    });
+
+    const handleAction = useCallback(() => {
+        setState('updated');
+        onAction?.();
+    }, [onAction]);
+
+    return (
+        <Box sx={{ p: 2 }}>
+            <Paper sx={{ p: 3 }}>
+                {/* Content */}
+            </Paper>
+        </Box>
+    );
+};
+
+export default MyComponent;
+```
+
+For complete examples, see [resources/complete-examples.md](resources/complete-examples.md)
 
 ---
 
 ## Related Skills
 
-- **backend-dev-guidelines** - Backend API patterns
-- **route-tester** - Testing authenticated routes
+- **error-tracking**: Error tracking with Sentry (applies to frontend too)
+- **backend-dev-guidelines**: Backend API patterns that frontend consumes
 
 ---
 
-**Skill Status**: Updated for Quantum Skincare ✅
-**Stack**: Next.js 16, React 19.2, Tailwind v4, Clerk, TypeScript
-**React 19.2 Features**: React Compiler, useEffectEvent, Activity, cache, cacheSignal
-**Next.js 16 Features**: Devtools MCP, enhanced App Router
-**Line Count**: Under 500 lines (following Anthropic best practices) ✅
+**Skill Status**: Modular structure with progressive loading for optimal context management

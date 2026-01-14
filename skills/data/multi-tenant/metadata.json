@@ -1,12 +1,7 @@
 {
   "name": "multi-tenant",
-  "description": "Use when building SaaS applications needing data isolation between customers - implements owner-based filtering for secure multi-tenant document storage and search with workspace, organization, or ten",
-  "repo": "juanre/llmemory",
-  "category": "development",
-  "tags": [
-    "multi",
-    "tenant"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "Lobbi-Docs/claude",
+  "path": "plugins/lobbi-platform-manager/skills/multi-tenant/SKILL.md",
+  "source": "github.com/Lobbi-Docs/claude",
+  "downloaded_at": "2026-01-14T02:22:00.047345Z"
 }

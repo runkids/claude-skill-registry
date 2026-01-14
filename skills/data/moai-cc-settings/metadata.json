@@ -1,12 +1,7 @@
 {
   "name": "moai-cc-settings",
-  "description": "Configuring Claude Code settings.json & Security. Set up permissions (allow/deny), permission modes, environment variables, tool restrictions. Use when securing Claude Code, restricting tool access, o",
   "repo": "kivo360/quickhooks",
-  "category": "development",
-  "tags": [
-    "moai",
-    "settings"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/moai-cc-settings/SKILL.md",
+  "source": "github.com/kivo360/quickhooks",
+  "downloaded_at": "2026-01-14T03:32:56.531420Z"
 }

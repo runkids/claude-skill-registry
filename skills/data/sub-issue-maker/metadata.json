@@ -1,13 +1,7 @@
 {
   "name": "sub-issue-maker",
-  "description": "Provide the task granularity for cutting subissues.",
   "repo": "uuta/dotfiles",
-  "category": "productivity",
-  "tags": [
-    "sub",
-    "issue",
-    "maker"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/sub-issue-maker/SKILL.md",
+  "source": "github.com/uuta/dotfiles",
+  "downloaded_at": "2026-01-14T02:18:17.903890Z"
 }

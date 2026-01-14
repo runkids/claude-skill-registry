@@ -1,111 +1,69 @@
 ---
 name: push-pr
-description: Push current branch to origin and create a PR to upstream. Checks for uncommitted changes first.
+description: Push branch and create GitHub PR
+user-invocable: true
 ---
 
-# Push and Create PR
+# Push Branch and Create Pull Request
 
-This skill pushes the current branch to origin (fork) and creates a PR to upstream (main repo).
+## Steps
 
-## Workflow
+1. **Get current feature from branch**:
 
-1. **Check for uncommitted changes**
    ```bash
-   git status --porcelain
-   ```
-   If there are changes, ask the user if they want to commit them first.
-
-2. **If committing**, follow the commit style (see below), then continue.
-
-3. **Push to origin**
-   ```bash
-   git push -u origin HEAD
+   BRANCH=$(git rev-parse --abbrev-ref HEAD)
+   NUM=$(echo "$BRANCH" | grep -oE 'alg-([0-9]+)' | grep -oE '[0-9]+')
    ```
 
-4. **Create PR to upstream**
-   ```bash
-   gh pr create --repo Positronic-Robotics/positronic --base main --head vertix:BRANCH_NAME \
-     --title "Title" --body "$(cat <<'EOF'
-   ## Summary
-   <bullet points describing the change>
+2. **Run verification**:
 
-   ## Test plan
-   <how to test, or "Tested locally" if applicable>
-   EOF
-   )"
+   ```bash
+   npm run type-check --workspaces --if-present
+   npm test --workspaces --if-present
    ```
 
-## Commit Message Style
+3. **If verification fails**, stop and report errors.
+   Do NOT proceed to create a PR with failing checks.
 
-Follow the project's commit message conventions:
-- Short, imperative sentences (e.g., "Fix wrong type", "Add feature X")
-- Use backticks for code references (e.g., "Unify `GrootActionDecoder` and `GrootObservationEncoder`")
-- No trailing period for short messages
-- Examples from this repo:
-  - `Avoid loading object dtype in SimpleSignal`
-  - `Fix groot metadata so that lerobot dataset can work with multiple keys`
-  - `6D rotation representation`
-  - `Unify GR00T action decoding and observation encoding`
+4. **Push branch to remote**:
 
-## Analyzing Changes for PR
-
-**Important**: Before writing the PR title and description:
-
-1. **Look at ALL commits on the branch** (not just the latest):
    ```bash
-   git log main..HEAD --oneline
+   git push -u origin $BRANCH
    ```
 
-2. **Review the full diff from main**:
+5. **Generate PR title** using [Conventional Commits](https://www.conventionalcommits.org/):
+   - Read `specs/alg-${NUM}-*/spec.md` to understand the feature
+   - Generate a title like: `feat(scope): short description`
+   - **Types**: `feat` (new feature), `fix` (bug fix), `refactor`, `perf`, `docs`, `chore`
+   - **Scope**: optional component name, e.g. `feat(search):`, `fix(auth):`
+
+6. **Create PR with gh CLI** (following `.github/PULL_REQUEST_TEMPLATE.md`):
+
    ```bash
-   git diff main...HEAD --stat
+   gh pr create \
+     --title "${TITLE}" \
+     --body "## Summary
+
+   Resolves [ALG-${NUM}](https://linear.app/algojuke/issue/ALG-${NUM})
+
+   See [spec.md](specs/alg-${NUM}-*/spec.md) for full specification.
+
+   ## Changes
+
+   $(git log main..HEAD --oneline)
+
+   ## Verification
+
+   - [x] Type check passes
+   - [x] Tests pass
+   "
    ```
 
-3. **Identify the MAJOR change** - what is the primary purpose of this branch?
-   - Multiple small fixes supporting one feature = describe the feature
-   - Refactoring + new capability = focus on the new capability
-   - Don't list every small change; summarize the intent
+7. **Output the PR URL** for the user.
 
-4. **Title should capture the major change**, not enumerate commits
+## Notes
 
-## Remotes
-
-| Remote | Repository | Purpose |
-|--------|------------|---------|
-| `origin` | vertix/positronic-open | Push branches here |
-| `upstream` | Positronic-Robotics/positronic | Create PRs here |
-
-## After PR Creation
-
-Show the PR URL so user can review it.
-
-## Handling PR Review Comments
-
-**IMPORTANT: Analysis first, no code changes until approved.**
-
-When PR comments arrive (from bots or humans):
-
-1. **Fetch and display the comments**:
-   ```bash
-   gh api repos/OWNER/REPO/pulls/NUMBER/comments
-   ```
-
-2. **Analyze each comment** - provide opinion on:
-   - Is the concern valid?
-   - Does it apply to our use case?
-   - What's the priority (critical / nice-to-have / not applicable)?
-   - Is there context (previous commits, design decisions) that explains the current code?
-
-3. **Check conversation history** - the code may be intentional:
-   - Look at relevant commits: `git show COMMIT_HASH`
-   - Check if there's reasoning in commit messages or code comments
-   - Consider the broader architecture and data flow
-
-4. **Present findings to user** - do NOT make code changes until user approves
-
-5. **If changes are needed**, discuss the approach first, then implement
-
-This prevents:
-- Blindly "fixing" intentional design decisions
-- Breaking working code based on misunderstood context
-- Wasting time on changes that aren't needed
+- The PR body uses "Resolves [ALG-XX](url)" to link the Linear issue
+- Linear automation will automatically update the issue status to "In Review" when the PR is created
+- If the branch already has a PR, `gh pr create` will fail - use `gh pr view` instead
+- Always run verification before pushing to catch issues early

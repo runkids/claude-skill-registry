@@ -1,432 +1,809 @@
 ---
 name: swift-testing
-description: Test Swift applications - XCTest, Swift Testing, UI tests, mocking, TDD, CI/CD
-version: "2.0.0"
-sasmp_version: "1.3.0"
-bonded_agent: 06-swift-testing
-bond_type: PRIMARY_BOND
+description: Swift Testing framework with @Test macro, #expect, #require, test organization, and Xcode Playgrounds. Use when user asks about testing, unit tests, @Test, #expect, #require, test suites, or Xcode Playgrounds.
+allowed-tools: Bash, Read, Write, Edit
 ---
 
-# Swift Testing Skill
+# Swift Testing Framework
 
-Comprehensive testing strategies for Swift applications using XCTest and Swift Testing framework.
+Comprehensive guide to the modern Swift Testing framework, test organization, assertions, and Xcode Playgrounds for iOS 26 development.
 
 ## Prerequisites
 
-- Xcode 15+ installed
-- Understanding of dependency injection
-- Familiarity with async/await
+- Swift 6.0+ (included in Xcode 16+)
+- Xcode 26+ recommended
 
-## Parameters
+---
 
-```yaml
-parameters:
-  framework:
-    type: string
-    enum: [xctest, swift_testing]
-    default: swift_testing
-  test_type:
-    type: string
-    enum: [unit, integration, ui, snapshot]
-    default: unit
-  coverage_target:
-    type: number
-    default: 80
-    description: Target code coverage percentage
-  ci_platform:
-    type: string
-    enum: [xcode_cloud, github_actions, gitlab_ci, none]
-    default: github_actions
-```
+## Framework Overview
 
-## Topics Covered
+### Swift Testing vs XCTest
 
-### Test Frameworks
-| Framework | Min Version | Key Features |
-|-----------|-------------|--------------|
-| XCTest | iOS 2.0+ | XCTestCase, expectations |
-| Swift Testing | iOS 17+ / Swift 5.9+ | @Test, #expect, traits |
+| Feature | Swift Testing | XCTest |
+|---------|--------------|--------|
+| Test marking | `@Test` macro | Method naming `test*` |
+| Assertions | `#expect`, `#require` | `XCTAssert*` |
+| Test organization | Structs, actors, classes | XCTestCase subclass |
+| Parallelism | Parallel by default | Process-based |
+| Setup/Teardown | `init`/`deinit` | `setUp`/`tearDown` |
 
-### Test Types
-| Type | Scope | Speed |
-|------|-------|-------|
-| Unit | Single function/class | Fastest |
-| Integration | Multiple components | Medium |
-| UI | Full user flows | Slowest |
-| Snapshot | Visual regression | Medium |
+### Import
 
-### Testing Patterns
-| Pattern | Purpose |
-|---------|---------|
-| AAA | Arrange, Act, Assert |
-| Given-When-Then | BDD style |
-| Test Doubles | Mock, Stub, Spy, Fake |
-
-## Code Examples
-
-### Swift Testing (iOS 17+ / Swift 5.9+)
 ```swift
 import Testing
-@testable import MyApp
+```
 
-@Suite("ShoppingCart Tests")
-struct ShoppingCartTests {
-    var cart: ShoppingCart
-    var mockRepository: MockProductRepository
+---
 
-    init() {
-        mockRepository = MockProductRepository()
-        cart = ShoppingCart(repository: mockRepository)
-    }
+## @Test Macro
 
-    @Test("adding product increases count")
-    func addProduct() async throws {
-        let product = Product(id: "1", name: "Widget", price: 9.99)
+### Basic Test
 
-        cart.add(product)
+```swift
+import Testing
 
-        #expect(cart.items.count == 1)
-        #expect(cart.items.first?.product == product)
-    }
+@Test
+func additionWorks() {
+    let result = 2 + 2
+    #expect(result == 4)
+}
+```
 
-    @Test("adding same product increases quantity")
-    func addSameProductTwice() {
-        let product = Product(id: "1", name: "Widget", price: 9.99)
+### Test with Display Name
 
-        cart.add(product)
-        cart.add(product)
+```swift
+@Test("User can create account with valid email")
+func createAccountWithValidEmail() async throws {
+    let account = try await AccountService.create(email: "test@example.com")
+    #expect(account.email == "test@example.com")
+}
+```
 
-        #expect(cart.items.count == 1)
-        #expect(cart.items.first?.quantity == 2)
-    }
+### Async Tests
 
-    @Test("total calculates correctly")
-    func calculateTotal() {
-        cart.add(Product(id: "1", name: "A", price: 10.00))
-        cart.add(Product(id: "2", name: "B", price: 20.00))
+```swift
+@Test
+func fetchUserReturnsData() async throws {
+    let user = try await userService.fetch(id: "123")
+    #expect(user.name == "John Doe")
+}
+```
 
-        #expect(cart.total == 30.00)
-    }
+### Throwing Tests
 
-    @Test("checkout requires non-empty cart", .tags(.checkout))
-    func checkoutEmptyCart() async {
-        await #expect(throws: CartError.empty) {
-            try await cart.checkout()
-        }
-    }
-
-    @Test("checkout with valid cart", .tags(.checkout))
-    func checkoutSuccess() async throws {
-        cart.add(Product(id: "1", name: "Widget", price: 9.99))
-        mockRepository.checkoutResult = .success(Order(id: "order-1"))
-
-        let order = try await cart.checkout()
-
-        #expect(order.id == "order-1")
-        #expect(cart.items.isEmpty)
-    }
-
-    @Test(arguments: [0, 1, 5, 10])
-    func discountTiers(quantity: Int) {
-        let discount = cart.calculateDiscount(forQuantity: quantity)
-
-        switch quantity {
-        case 0..<5: #expect(discount == 0)
-        case 5..<10: #expect(discount == 0.05)
-        default: #expect(discount == 0.10)
-        }
+```swift
+@Test
+func invalidEmailThrows() throws {
+    #expect(throws: ValidationError.invalidEmail) {
+        try validate(email: "not-an-email")
     }
 }
 ```
 
-### XCTest with Async
+---
+
+## Assertions
+
+### #expect
+
+Basic expectations:
+
 ```swift
+@Test
+func basicExpectations() {
+    let value = 42
+
+    // Equality
+    #expect(value == 42)
+
+    // Inequality
+    #expect(value != 0)
+
+    // Boolean
+    #expect(value > 0)
+
+    // With message
+    #expect(value == 42, "Value should be 42")
+}
+```
+
+### #expect with Expressions
+
+```swift
+@Test
+func expressionExpectations() {
+    let array = [1, 2, 3]
+
+    #expect(array.count == 3)
+    #expect(array.contains(2))
+    #expect(!array.isEmpty)
+
+    let optional: String? = "hello"
+    #expect(optional != nil)
+}
+```
+
+### #require
+
+Unwrap optionals and fail fast:
+
+```swift
+@Test
+func requireUnwrapping() throws {
+    let optional: String? = "hello"
+
+    // Unwrap or fail test
+    let value = try #require(optional)
+
+    #expect(value == "hello")
+}
+
+@Test
+func requireCondition() throws {
+    let array = [1, 2, 3]
+
+    // Fail if condition is false
+    try #require(array.count > 0)
+
+    let first = try #require(array.first)
+    #expect(first == 1)
+}
+```
+
+### Testing Throws
+
+```swift
+@Test
+func throwingBehavior() {
+    // Expect any error
+    #expect(throws: (any Error).self) {
+        try riskyOperation()
+    }
+
+    // Expect specific error type
+    #expect(throws: NetworkError.self) {
+        try fetchData()
+    }
+
+    // Expect specific error value
+    #expect(throws: NetworkError.timeout) {
+        try fetchWithTimeout()
+    }
+}
+
+@Test
+func noThrow() {
+    // Expect no error
+    #expect(throws: Never.self) {
+        safeOperation()
+    }
+}
+```
+
+### Custom Failure Messages
+
+```swift
+@Test
+func customMessages() {
+    let user = User(name: "Alice", age: 25)
+
+    #expect(user.age >= 18, "User must be an adult, but age was \(user.age)")
+}
+```
+
+---
+
+## Test Organization
+
+### Test Suites with Structs
+
+```swift
+@Suite("User Authentication Tests")
+struct AuthenticationTests {
+    @Test("Valid credentials succeed")
+    func validLogin() async throws {
+        let result = try await auth.login(user: "test", pass: "password")
+        #expect(result.success)
+    }
+
+    @Test("Invalid credentials fail")
+    func invalidLogin() async throws {
+        let result = try await auth.login(user: "test", pass: "wrong")
+        #expect(!result.success)
+    }
+}
+```
+
+### Nested Suites
+
+```swift
+@Suite("API Tests")
+struct APITests {
+    @Suite("User Endpoints")
+    struct UserEndpoints {
+        @Test func getUser() async { }
+        @Test func createUser() async { }
+    }
+
+    @Suite("Post Endpoints")
+    struct PostEndpoints {
+        @Test func getPosts() async { }
+        @Test func createPost() async { }
+    }
+}
+```
+
+### Using Actors for Isolation
+
+```swift
+@Suite
+actor DatabaseTests {
+    var database: TestDatabase
+
+    init() async throws {
+        database = try await TestDatabase.create()
+    }
+
+    @Test
+    func insertWorks() async throws {
+        try await database.insert(User(name: "Test"))
+        let count = try await database.count(User.self)
+        #expect(count == 1)
+    }
+}
+```
+
+### Setup and Teardown
+
+```swift
+@Suite
+struct DatabaseTests {
+    let database: Database
+
+    init() async throws {
+        // Setup - called before each test
+        database = try await Database.createInMemory()
+        try await database.migrate()
+    }
+
+    deinit {
+        // Teardown - called after each test
+        // Note: async cleanup should be done differently
+    }
+
+    @Test
+    func testInsert() async throws {
+        try await database.insert(item)
+        #expect(try await database.count() == 1)
+    }
+}
+```
+
+---
+
+## Parameterized Tests
+
+### Basic Parameters
+
+```swift
+@Test("Validation", arguments: [
+    "test@example.com",
+    "user@domain.org",
+    "name@company.co.uk"
+])
+func validEmails(email: String) {
+    #expect(isValidEmail(email))
+}
+```
+
+### Multiple Arguments
+
+```swift
+@Test("Addition", arguments: [
+    (2, 3, 5),
+    (0, 0, 0),
+    (-1, 1, 0),
+    (100, 200, 300)
+])
+func addition(a: Int, b: Int, expected: Int) {
+    #expect(a + b == expected)
+}
+```
+
+### Zip Arguments
+
+```swift
+@Test(arguments: zip(
+    ["hello", "world", "test"],
+    [5, 5, 4]
+))
+func stringLength(string: String, expectedLength: Int) {
+    #expect(string.count == expectedLength)
+}
+```
+
+### Custom Types as Arguments
+
+```swift
+struct TestCase: CustomTestStringConvertible {
+    let input: String
+    let expected: Int
+
+    var testDescription: String {
+        "'\(input)' should have length \(expected)"
+    }
+}
+
+@Test("String lengths", arguments: [
+    TestCase(input: "hello", expected: 5),
+    TestCase(input: "", expected: 0),
+    TestCase(input: "Swift", expected: 5)
+])
+func stringLength(testCase: TestCase) {
+    #expect(testCase.input.count == testCase.expected)
+}
+```
+
+---
+
+## Test Traits
+
+### .serialized
+
+Run tests sequentially:
+
+```swift
+@Suite(.serialized)
+struct OrderDependentTests {
+    @Test func step1() { }
+    @Test func step2() { }
+    @Test func step3() { }
+}
+```
+
+### .disabled
+
+Skip tests:
+
+```swift
+@Test(.disabled("Known bug, see issue #123"))
+func brokenFeature() {
+    // Won't run
+}
+
+@Test(.disabled(if: isCI, "Flaky on CI"))
+func flakyTest() {
+    // Conditionally disabled
+}
+```
+
+### .enabled
+
+Conditionally enable:
+
+```swift
+@Test(.enabled(if: ProcessInfo.processInfo.environment["RUN_SLOW_TESTS"] != nil))
+func slowIntegrationTest() async throws {
+    // Only runs when environment variable is set
+}
+```
+
+### .tags
+
+Organize with tags:
+
+```swift
+extension Tag {
+    @Tag static var critical: Self
+    @Tag static var slow: Self
+    @Tag static var integration: Self
+}
+
+@Test(.tags(.critical))
+func criticalFeature() { }
+
+@Test(.tags(.slow, .integration))
+func slowIntegrationTest() async { }
+```
+
+### .timeLimit
+
+Set execution limit:
+
+```swift
+@Test(.timeLimit(.seconds(5)))
+func mustCompleteQuickly() async throws {
+    // Fails if takes more than 5 seconds
+}
+```
+
+### .bug
+
+Reference known issues:
+
+```swift
+@Test(.bug("https://github.com/org/repo/issues/123", "Expected failure"))
+func knownIssue() {
+    // Test expected to fail
+}
+```
+
+---
+
+## Parallel Execution
+
+### Default Parallel
+
+Tests run in parallel by default:
+
+```swift
+@Suite
+struct ParallelTests {
+    // These run concurrently
+    @Test func test1() async { }
+    @Test func test2() async { }
+    @Test func test3() async { }
+}
+```
+
+### Serial When Needed
+
+```swift
+@Suite(.serialized)
+struct SerialTests {
+    static var sharedState = 0
+
+    @Test func first() {
+        Self.sharedState = 1
+        #expect(Self.sharedState == 1)
+    }
+
+    @Test func second() {
+        Self.sharedState = 2
+        #expect(Self.sharedState == 2)
+    }
+}
+```
+
+---
+
+## Mocking and Test Doubles
+
+### Protocol-Based Mocking
+
+```swift
+protocol UserService {
+    func fetch(id: String) async throws -> User
+}
+
+struct MockUserService: UserService {
+    var userToReturn: User?
+    var errorToThrow: Error?
+
+    func fetch(id: String) async throws -> User {
+        if let error = errorToThrow {
+            throw error
+        }
+        guard let user = userToReturn else {
+            throw TestError.notConfigured
+        }
+        return user
+    }
+}
+
+@Suite
+struct UserViewModelTests {
+    @Test
+    func fetchUserSuccess() async throws {
+        var mockService = MockUserService()
+        mockService.userToReturn = User(id: "1", name: "Test")
+
+        let viewModel = UserViewModel(service: mockService)
+        try await viewModel.loadUser(id: "1")
+
+        #expect(viewModel.user?.name == "Test")
+    }
+}
+```
+
+### Spy for Verification
+
+```swift
+final class SpyUserService: UserService {
+    var fetchCallCount = 0
+    var lastFetchedId: String?
+
+    func fetch(id: String) async throws -> User {
+        fetchCallCount += 1
+        lastFetchedId = id
+        return User(id: id, name: "Test")
+    }
+}
+
+@Test
+func loadsUserOnAppear() async throws {
+    let spy = SpyUserService()
+    let viewModel = UserViewModel(service: spy)
+
+    await viewModel.loadUser(id: "123")
+
+    #expect(spy.fetchCallCount == 1)
+    #expect(spy.lastFetchedId == "123")
+}
+```
+
+---
+
+## Testing SwiftUI
+
+### Testing Observable ViewModels
+
+```swift
+@Observable
+class CounterViewModel {
+    var count = 0
+
+    func increment() {
+        count += 1
+    }
+}
+
+@Suite
+struct CounterViewModelTests {
+    @Test
+    func incrementIncreasesCount() {
+        let viewModel = CounterViewModel()
+
+        viewModel.increment()
+
+        #expect(viewModel.count == 1)
+    }
+
+    @Test
+    func multipleIncrements() {
+        let viewModel = CounterViewModel()
+
+        viewModel.increment()
+        viewModel.increment()
+        viewModel.increment()
+
+        #expect(viewModel.count == 3)
+    }
+}
+```
+
+### Testing Async ViewModels
+
+```swift
+@Observable
+@MainActor
+class UserListViewModel {
+    var users: [User] = []
+    var isLoading = false
+    private let service: UserService
+
+    init(service: UserService) {
+        self.service = service
+    }
+
+    func loadUsers() async {
+        isLoading = true
+        defer { isLoading = false }
+        users = (try? await service.fetchAll()) ?? []
+    }
+}
+
+@Suite
+struct UserListViewModelTests {
+    @Test
+    @MainActor
+    func loadUsersPopulatesArray() async {
+        var mock = MockUserService()
+        mock.usersToReturn = [User(id: "1", name: "Alice")]
+
+        let viewModel = UserListViewModel(service: mock)
+        await viewModel.loadUsers()
+
+        #expect(viewModel.users.count == 1)
+        #expect(viewModel.isLoading == false)
+    }
+}
+```
+
+---
+
+## Migration from XCTest
+
+### Side-by-Side
+
+Both frameworks can coexist:
+
+```swift
+// XCTest
 import XCTest
-@testable import MyApp
 
-final class ProductServiceTests: XCTestCase {
-    var sut: ProductService!
-    var mockAPI: MockAPIClient!
-
-    override func setUp() {
-        super.setUp()
-        mockAPI = MockAPIClient()
-        sut = ProductService(api: mockAPI)
+class LegacyTests: XCTestCase {
+    func testOldStyle() {
+        XCTAssertEqual(2 + 2, 4)
     }
+}
 
-    override func tearDown() {
-        sut = nil
-        mockAPI = nil
-        super.tearDown()
-    }
+// Swift Testing
+import Testing
 
-    func test_fetchProducts_success() async throws {
-        // Arrange
-        let expectedProducts = [Product(id: "1", name: "Test", price: 9.99)]
-        mockAPI.productsResult = .success(expectedProducts)
+@Test
+func newStyle() {
+    #expect(2 + 2 == 4)
+}
+```
 
-        // Act
-        let products = try await sut.fetchProducts()
+### Mapping Assertions
 
-        // Assert
-        XCTAssertEqual(products, expectedProducts)
-        XCTAssertTrue(mockAPI.fetchProductsCalled)
-    }
+| XCTest | Swift Testing |
+|--------|---------------|
+| `XCTAssertTrue(x)` | `#expect(x)` |
+| `XCTAssertFalse(x)` | `#expect(!x)` |
+| `XCTAssertEqual(a, b)` | `#expect(a == b)` |
+| `XCTAssertNil(x)` | `#expect(x == nil)` |
+| `XCTAssertNotNil(x)` | `try #require(x)` |
+| `XCTAssertThrowsError` | `#expect(throws:)` |
+| `XCTUnwrap(x)` | `try #require(x)` |
 
-    func test_fetchProducts_networkError_throws() async {
-        // Arrange
-        mockAPI.productsResult = .failure(NetworkError.noConnection)
+### What to Keep in XCTest
 
-        // Act & Assert
-        do {
-            _ = try await sut.fetchProducts()
-            XCTFail("Expected error to be thrown")
-        } catch {
-            XCTAssertTrue(error is NetworkError)
+- Performance tests (`measure {}`)
+- UI tests (XCUITest)
+- Existing stable test suites
+
+---
+
+## Xcode Playgrounds
+
+### #Playground Macro (iOS 26)
+
+```swift
+import SwiftUI
+
+#Playground {
+    let greeting = "Hello, Playgrounds!"
+    print(greeting)
+}
+
+#Playground("SwiftUI Preview") {
+    struct ContentView: View {
+        var body: some View {
+            Text("Hello, World!")
         }
     }
 
-    func test_fetchProducts_retries_onTransientError() async throws {
-        // Arrange
-        var attempts = 0
-        mockAPI.onFetchProducts = {
-            attempts += 1
-            if attempts < 3 {
-                throw NetworkError.timeout
+    ContentView()
+}
+```
+
+### Named Playground Blocks
+
+```swift
+#Playground("Data Processing") {
+    let numbers = [1, 2, 3, 4, 5]
+    let doubled = numbers.map { $0 * 2 }
+    print(doubled)
+}
+
+#Playground("API Simulation") {
+    struct User: Codable {
+        let name: String
+    }
+
+    let json = #"{"name": "Alice"}"#
+    let user = try? JSONDecoder().decode(User.self, from: json.data(using: .utf8)!)
+    print(user?.name ?? "Unknown")
+}
+```
+
+### SwiftUI in Playgrounds
+
+```swift
+#Playground("Interactive UI") {
+    struct Counter: View {
+        @State private var count = 0
+
+        var body: some View {
+            VStack {
+                Text("Count: \(count)")
+                Button("Increment") {
+                    count += 1
+                }
             }
-            return [Product(id: "1", name: "Test", price: 9.99)]
         }
-
-        // Act
-        _ = try await sut.fetchProductsWithRetry(maxAttempts: 3)
-
-        // Assert
-        XCTAssertEqual(attempts, 3)
     }
+
+    Counter()
 }
 ```
 
-### Mock Implementation
+---
+
+## Best Practices
+
+### 1. Descriptive Test Names
+
 ```swift
-// Protocol for abstraction
-protocol APIClientProtocol {
-    func fetchProducts() async throws -> [Product]
-    func createOrder(_ order: CreateOrderRequest) async throws -> Order
-}
+// GOOD
+@Test("User cannot login with expired token")
+func expiredTokenLogin() { }
 
-// Production implementation
-final class APIClient: APIClientProtocol {
-    func fetchProducts() async throws -> [Product] {
-        // Real implementation
-    }
-
-    func createOrder(_ order: CreateOrderRequest) async throws -> Order {
-        // Real implementation
-    }
-}
-
-// Test mock
-final class MockAPIClient: APIClientProtocol {
-    var productsResult: Result<[Product], Error> = .success([])
-    var orderResult: Result<Order, Error> = .success(Order(id: "mock"))
-
-    var fetchProductsCalled = false
-    var fetchProductsCallCount = 0
-    var createOrderCalled = false
-    var lastOrderRequest: CreateOrderRequest?
-
-    var onFetchProducts: (() async throws -> [Product])?
-
-    func fetchProducts() async throws -> [Product] {
-        fetchProductsCalled = true
-        fetchProductsCallCount += 1
-
-        if let handler = onFetchProducts {
-            return try await handler()
-        }
-
-        return try productsResult.get()
-    }
-
-    func createOrder(_ order: CreateOrderRequest) async throws -> Order {
-        createOrderCalled = true
-        lastOrderRequest = order
-        return try orderResult.get()
-    }
-
-    func reset() {
-        productsResult = .success([])
-        orderResult = .success(Order(id: "mock"))
-        fetchProductsCalled = false
-        fetchProductsCallCount = 0
-        createOrderCalled = false
-        lastOrderRequest = nil
-        onFetchProducts = nil
-    }
-}
+// AVOID
+@Test
+func test1() { }
 ```
 
-### UI Testing with Page Object Pattern
+### 2. One Assertion Focus
+
 ```swift
-import XCTest
-
-// Page Object
-struct LoginPage {
-    let app: XCUIApplication
-
-    var usernameField: XCUIElement {
-        app.textFields["username"]
-    }
-
-    var passwordField: XCUIElement {
-        app.secureTextFields["password"]
-    }
-
-    var loginButton: XCUIElement {
-        app.buttons["login"]
-    }
-
-    var errorMessage: XCUIElement {
-        app.staticTexts["errorMessage"]
-    }
-
-    func login(username: String, password: String) {
-        usernameField.tap()
-        usernameField.typeText(username)
-
-        passwordField.tap()
-        passwordField.typeText(password)
-
-        loginButton.tap()
-    }
-
-    func waitForLogin(timeout: TimeInterval = 5) -> Bool {
-        !usernameField.waitForExistence(timeout: timeout)
-    }
+// GOOD: Focused test
+@Test
+func userNameIsCapitalized() {
+    let user = User(name: "alice")
+    #expect(user.displayName == "Alice")
 }
 
-// UI Test
-final class LoginUITests: XCTestCase {
-    var app: XCUIApplication!
-    var loginPage: LoginPage!
-
-    override func setUp() {
-        super.setUp()
-        continueAfterFailure = false
-
-        app = XCUIApplication()
-        app.launchArguments = ["--uitesting", "--reset-state"]
-        app.launch()
-
-        loginPage = LoginPage(app: app)
-    }
-
-    func test_login_withValidCredentials_navigatesToHome() {
-        loginPage.login(username: "testuser", password: "password123")
-
-        XCTAssertTrue(loginPage.waitForLogin())
-        XCTAssertTrue(app.tabBars["mainTabBar"].exists)
-    }
-
-    func test_login_withInvalidCredentials_showsError() {
-        loginPage.login(username: "wrong", password: "wrong")
-
-        XCTAssertTrue(loginPage.errorMessage.waitForExistence(timeout: 5))
-        XCTAssertEqual(loginPage.errorMessage.label, "Invalid credentials")
-    }
+// AVOID: Multiple unrelated assertions
+@Test
+func userTests() {
+    let user = User(name: "alice")
+    #expect(user.displayName == "Alice")
+    #expect(user.email != nil)
+    #expect(user.createdAt <= Date())
 }
 ```
 
-### GitHub Actions CI
-```yaml
-name: Tests
+### 3. Use Structs for Test Suites
 
-on:
-  push:
-    branches: [main, develop]
-  pull_request:
-    branches: [main]
-
-jobs:
-  test:
-    runs-on: macos-14
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Select Xcode
-        run: sudo xcode-select -s /Applications/Xcode_15.2.app
-
-      - name: Build and Test
-        run: |
-          xcodebuild test \
-            -scheme MyApp \
-            -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.2' \
-            -resultBundlePath TestResults.xcresult \
-            -enableCodeCoverage YES \
-            CODE_SIGNING_ALLOWED=NO
-
-      - name: Upload Results
-        uses: actions/upload-artifact@v3
-        if: failure()
-        with:
-          name: test-results
-          path: TestResults.xcresult
-
-      - name: Coverage Report
-        run: |
-          xcrun xccov view --report TestResults.xcresult
-```
-
-## Troubleshooting
-
-### Common Issues
-
-| Issue | Cause | Solution |
-|-------|-------|----------|
-| Flaky tests | Shared state | Add setUp/tearDown cleanup |
-| Async timeout | Missing fulfillment | Call fulfill() or increase timeout |
-| UI element not found | Wrong identifier | Check accessibilityIdentifier |
-| Mock not working | Wrong initialization | Verify dependency injection |
-| Coverage low | Untested paths | Add edge case tests |
-
-### Debug Tips
 ```swift
-// Print XCUIElement hierarchy
-print(app.debugDescription)
+// GOOD: Struct-based, each test gets fresh instance
+@Suite
+struct UserTests {
+    let service = UserService()
 
-// Wait for condition
-let exists = element.waitForExistence(timeout: 5)
-
-// Take screenshot on failure
-let screenshot = XCUIScreen.main.screenshot()
-let attachment = XCTAttachment(screenshot: screenshot)
-attachment.lifetime = .keepAlways
-add(attachment)
+    @Test func fetch() { }
+    @Test func create() { }
+}
 ```
 
-## Validation Rules
+### 4. Parameterize Repetitive Tests
 
-```yaml
-validation:
-  - rule: test_naming
-    severity: info
-    check: Use descriptive test names (test_method_condition_result)
-  - rule: one_assertion
-    severity: info
-    check: Prefer one logical assertion per test
-  - rule: no_test_interdependence
-    severity: error
-    check: Tests must not depend on each other
+```swift
+// GOOD: Parameterized
+@Test(arguments: ["", " ", "   "])
+func emptyStringsAreInvalid(input: String) {
+    #expect(!isValid(input))
+}
+
+// AVOID: Duplicated tests
+@Test func emptyIsInvalid() { #expect(!isValid("")) }
+@Test func spaceIsInvalid() { #expect(!isValid(" ")) }
+@Test func spacesAreInvalid() { #expect(!isValid("   ")) }
 ```
 
-## Usage
+### 5. Use Tags for Organization
 
+```swift
+extension Tag {
+    @Tag static var unit: Self
+    @Tag static var integration: Self
+    @Tag static var slow: Self
+}
+
+// Filter in Xcode or command line
+// swift test --filter "unit"
 ```
-Skill("swift-testing")
-```
 
-## Related Skills
+---
 
-- `swift-fundamentals` - Code to test
-- `swift-concurrency` - Testing async code
-- `swift-architecture` - Testable architecture
+## Official Resources
+
+- [Swift Testing Documentation](https://developer.apple.com/documentation/testing)
+- [Testing with Xcode](https://developer.apple.com/documentation/xcode/testing-with-xcode)
+- [WWDC24: Meet Swift Testing](https://developer.apple.com/videos/play/wwdc2024/10179/)
+- [WWDC23: Prototype with Xcode Playgrounds](https://developer.apple.com/videos/play/wwdc2023/10250/)
+- [Migrating a test from XCTest](https://developer.apple.com/documentation/testing/migratingfromxctest)

@@ -1,13 +1,7 @@
 {
   "name": "dark-matter-analyzer",
-  "description": "Analyze repositories to reveal unseen patterns, strategic drift, and organizational health. Use when assessing repository coherence, diagnosing project issues, identifying documentation inflation, or ",
   "repo": "daffy0208/ai-dev-standards",
-  "category": "documents",
-  "tags": [
-    "dark",
-    "matter",
-    "analyzer"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/dark-matter-analyzer/SKILL.md",
+  "source": "github.com/daffy0208/ai-dev-standards",
+  "downloaded_at": "2026-01-14T03:33:12.936800Z"
 }

@@ -1,11 +1,7 @@
 {
   "name": "land-branch",
-  "description": "Land a feature branch: pull from main, rebase the branch, create a PR, and merge it via rebase with automatic branch deletion. Use when ready to land a completed feature branch.",
   "repo": "jkomoros/community-patterns",
-  "category": "data",
-  "tags": [
-    "land",
-    "branch"
-  ],
-  "stars": 6
+  "path": ".claude/skills/land-branch/SKILL.md",
+  "source": "github.com/jkomoros/community-patterns",
+  "downloaded_at": "2026-01-14T03:36:19.841630Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "skill-writer",
-  "description": "Guide users through creating Agent Skills for Claude Code. Use when the user wants to create, write, author, or design a new Skill, or needs help with SKILL.md files, frontmatter, or skill structure.",
-  "repo": "pytorch/pytorch",
-  "category": "design",
-  "tags": [
-    "skill",
-    "writer"
-  ],
-  "stars": 95362,
-  "source": "SkillsMP Synced Skills"
+  "repo": "cncorp/arsenal",
+  "path": "dot-claude/skills/skill-writer/SKILL.md",
+  "source": "github.com/cncorp/arsenal",
+  "downloaded_at": "2026-01-14T04:01:20.580975Z"
 }

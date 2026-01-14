@@ -1,13 +1,7 @@
 {
   "name": "refactor-scope-session",
-  "description": "[Code Quality] Defines clear boundaries and goals for a refactoring session. Use to establish what WILL and WILL NOT change, set success criteria, and create a focused refactoring scope.",
   "repo": "CANTAGESTUDIO/CosmicAtlasPacker",
-  "category": "development",
-  "tags": [
-    "refactor",
-    "scope",
-    "session"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".factory/skills/refactor-scope-session/SKILL.md",
+  "source": "github.com/CANTAGESTUDIO/CosmicAtlasPacker",
+  "downloaded_at": "2026-01-14T02:43:51.851978Z"
 }

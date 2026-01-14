@@ -1,12 +1,7 @@
 {
   "name": "create-architecture",
-  "description": "Generate comprehensive system architecture documents from requirements, supporting Frontend, Backend, and Fullstack projects with scale-adaptive depth and Architecture Decision Records. Use when trans",
   "repo": "adolfoaranaes12/BMAD-ENHANCED",
-  "category": "design",
-  "tags": [
-    "create",
-    "architecture"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/create-architecture/SKILL.md",
+  "source": "github.com/adolfoaranaes12/BMAD-ENHANCED",
+  "downloaded_at": "2026-01-14T03:09:02.365333Z"
 }

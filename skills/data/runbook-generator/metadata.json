@@ -1,11 +1,7 @@
 {
   "name": "runbook-generator",
-  "description": "Эксперт по runbooks. Используй для создания операционных процедур, incident response и maintenance документации.",
   "repo": "dengineproblem/agents-monorepo",
-  "category": "data",
-  "tags": [
-    "runbook",
-    "generator"
-  ],
-  "stars": 0
+  "path": ".claude/skills/runbook-generator/SKILL.md",
+  "source": "github.com/dengineproblem/agents-monorepo",
+  "downloaded_at": "2026-01-14T02:07:59.771613Z"
 }

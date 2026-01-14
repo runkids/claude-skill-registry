@@ -1,13 +1,7 @@
 {
   "name": "financial-time-series",
-  "description": "Use when working with price data, trading signals, or implementing momentum strategies. Covers returns calculation, volatility targeting, momentum factors, MACD indicators, time-series momentum (TSMOM",
   "repo": "Donaldshen27/xtrend-vanilla",
-  "category": "devops",
-  "tags": [
-    "financial",
-    "time",
-    "series"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/financial-time-series/SKILL.md",
+  "source": "github.com/Donaldshen27/xtrend-vanilla",
+  "downloaded_at": "2026-01-14T03:51:52.532270Z"
 }

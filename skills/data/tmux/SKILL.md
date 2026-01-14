@@ -1,203 +1,121 @@
 ---
 name: tmux
-description: Use tmux to programmatically control interactive CLI tools like VisiData, PDB, database shells, and REPLs. Send keystrokes and capture output without requiring user interaction.
-allowed-tools: Bash, Read
+description: Remote-control tmux sessions for interactive CLIs by sending keystrokes and scraping pane output.
+metadata: {"clawdbot":{"emoji":"🧵","os":["darwin","linux"],"requires":{"bins":["tmux"]}}}
 ---
 
-# tmux - Control Interactive CLI Tools
+# tmux Skill (Clawdbot)
 
-Use tmux to run and control interactive programs (VisiData, PDB, mysql, psql, etc.) programmatically.
+Use tmux only when you need an interactive TTY. Prefer exec background mode for long-running, non-interactive tasks.
 
-## The Pattern
-
-**Every interactive tool uses the same 3-step pattern:**
-
-### Step 1: Create Session
+## Quickstart (isolated socket, exec tool)
 
 ```bash
-SOCKET="/tmp/claude-tmux-sockets/claude.sock"
-SESSION="my-session"
+SOCKET_DIR="${CLAWDBOT_TMUX_SOCKET_DIR:-${TMPDIR:-/tmp}/clawdbot-tmux-sockets}"
+mkdir -p "$SOCKET_DIR"
+SOCKET="$SOCKET_DIR/clawdbot.sock"
+SESSION=clawdbot-python
 
-mkdir -p /tmp/claude-tmux-sockets
-tmux -S "$SOCKET" new -d -s "$SESSION" "your_command_here"
-sleep 1
+tmux -S "$SOCKET" new -d -s "$SESSION" -n shell
+tmux -S "$SOCKET" send-keys -t "$SESSION":0.0 -- 'PYTHON_BASIC_REPL=1 python3 -q' Enter
+tmux -S "$SOCKET" capture-pane -p -J -t "$SESSION":0.0 -S -200
 ```
 
-### Step 2: Discover Pane (Always :1.1)
+After starting a session, always print monitor commands:
+
+```
+To monitor:
+  tmux -S "$SOCKET" attach -t "$SESSION"
+  tmux -S "$SOCKET" capture-pane -p -J -t "$SESSION":0.0 -S -200
+```
+
+## Socket convention
+
+- Use `CLAWDBOT_TMUX_SOCKET_DIR` (default `${TMPDIR:-/tmp}/clawdbot-tmux-sockets`).
+- Default socket path: `"$CLAWDBOT_TMUX_SOCKET_DIR/clawdbot.sock"`.
+
+## Targeting panes and naming
+
+- Target format: `session:window.pane` (defaults to `:0.0`).
+- Keep names short; avoid spaces.
+- Inspect: `tmux -S "$SOCKET" list-sessions`, `tmux -S "$SOCKET" list-panes -a`.
+
+## Finding sessions
+
+- List sessions on your socket: `{baseDir}/scripts/find-sessions.sh -S "$SOCKET"`.
+- Scan all sockets: `{baseDir}/scripts/find-sessions.sh --all` (uses `CLAWDBOT_TMUX_SOCKET_DIR`).
+
+## Sending input safely
+
+- Prefer literal sends: `tmux -S "$SOCKET" send-keys -t target -l -- "$cmd"`.
+- Control keys: `tmux -S "$SOCKET" send-keys -t target C-c`.
+
+## Watching output
+
+- Capture recent history: `tmux -S "$SOCKET" capture-pane -p -J -t target -S -200`.
+- Wait for prompts: `{baseDir}/scripts/wait-for-text.sh -t session:0.0 -p 'pattern'`.
+- Attaching is OK; detach with `Ctrl+b d`.
+
+## Spawning processes
+
+- For python REPLs, set `PYTHON_BASIC_REPL=1` (non-basic REPL breaks send-keys flows).
+
+## Windows / WSL
+
+- tmux is supported on macOS/Linux. On Windows, use WSL and install tmux inside WSL.
+- This skill is gated to `darwin`/`linux` and requires `tmux` on PATH.
+
+## Orchestrating Coding Agents (Codex, Claude Code)
+
+tmux excels at running multiple coding agents in parallel:
 
 ```bash
-# Check what the pane target is (always :1.1 in our setup)
-tmux -S "$SOCKET" list-panes -a -F '#{session_name}:#{window_index}.#{pane_index}'
-# Output: my-session:1.1
+SOCKET="${TMPDIR:-/tmp}/codex-army.sock"
 
-# Use this pane target for all commands
-PANE="my-session:1.1"
+# Create multiple sessions
+for i in 1 2 3 4 5; do
+  tmux -S "$SOCKET" new-session -d -s "agent-$i"
+done
+
+# Launch agents in different workdirs
+tmux -S "$SOCKET" send-keys -t agent-1 "cd /tmp/project1 && codex --yolo 'Fix bug X'" Enter
+tmux -S "$SOCKET" send-keys -t agent-2 "cd /tmp/project2 && codex --yolo 'Fix bug Y'" Enter
+
+# Poll for completion (check if prompt returned)
+for sess in agent-1 agent-2; do
+  if tmux -S "$SOCKET" capture-pane -p -t "$sess" -S -3 | grep -q "❯"; then
+    echo "$sess: DONE"
+  else
+    echo "$sess: Running..."
+  fi
+done
+
+# Get full output from completed session
+tmux -S "$SOCKET" capture-pane -p -t agent-1 -S -500
 ```
 
-### Step 3: Send Commands & Capture
-
-```bash
-# Send keystrokes
-tmux -S "$SOCKET" send-keys -t "$PANE" "your_command" Enter
-sleep 1
-
-# Capture output
-tmux -S "$SOCKET" capture-pane -p -J -t "$PANE" -S -20
-
-# Cleanup when done
-tmux -S "$SOCKET" kill-session -t "$SESSION"
-```
-
-## Complete Examples
-
-### VisiData
-
-```bash
-SOCKET="/tmp/claude-tmux-sockets/claude.sock"
-SESSION="vd-session"
-PANE="vd-session:1.1"
-
-mkdir -p /tmp/claude-tmux-sockets
-tmux -S "$SOCKET" new -d -s "$SESSION" "vd data.csv"
-sleep 2
-
-# Navigate to bottom
-tmux -S "$SOCKET" send-keys -t "$PANE" "G"
-sleep 1
-
-# Capture view
-tmux -S "$SOCKET" capture-pane -p -J -t "$PANE" -S -20
-
-# Quit
-tmux -S "$SOCKET" send-keys -t "$PANE" "gq"
-tmux -S "$SOCKET" kill-session -t "$SESSION"
-```
-
-### PDB (Python Debugger)
-
-```bash
-SOCKET="/tmp/claude-tmux-sockets/claude.sock"
-SESSION="pdb-session"
-PANE="pdb-session:1.1"
-
-mkdir -p /tmp/claude-tmux-sockets
-tmux -S "$SOCKET" new -d -s "$SESSION"
-sleep 1
-
-# Start PDB
-tmux -S "$SOCKET" send-keys -t "$PANE" "python -m pdb script.py" Enter
-sleep 1
-
-# Set breakpoint
-tmux -S "$SOCKET" send-keys -t "$PANE" "break 10" Enter
-tmux -S "$SOCKET" send-keys -t "$PANE" "continue" Enter
-sleep 1
-
-# Inspect variables
-tmux -S "$SOCKET" send-keys -t "$PANE" "p my_variable" Enter
-sleep 0.5
-
-# Capture
-tmux -S "$SOCKET" capture-pane -p -J -t "$PANE" -S -20
-
-# Quit
-tmux -S "$SOCKET" send-keys -t "$PANE" "quit" Enter
-tmux -S "$SOCKET" kill-session -t "$SESSION"
-```
-
-### Database Shell (psql, mysql, sqlite3)
-
-```bash
-SOCKET="/tmp/claude-tmux-sockets/claude.sock"
-SESSION="db-session"
-PANE="db-session:1.1"
-
-mkdir -p /tmp/claude-tmux-sockets
-tmux -S "$SOCKET" new -d -s "$SESSION"
-sleep 1
-
-# Start database
-tmux -S "$SOCKET" send-keys -t "$PANE" "sqlite3 mydb.db" Enter
-sleep 1
-
-# Run query
-tmux -S "$SOCKET" send-keys -t "$PANE" "SELECT * FROM users LIMIT 5;" Enter
-sleep 0.5
-
-# Capture results
-tmux -S "$SOCKET" capture-pane -p -J -t "$PANE" -S -20
-
-# Exit
-tmux -S "$SOCKET" send-keys -t "$PANE" ".quit" Enter
-tmux -S "$SOCKET" kill-session -t "$SESSION"
-```
-
-## Critical Rules
-
-### 1. Pane is Always :1.1
-
-In our setup, the pane target is **always** `session-name:1.1`, not `:0.0`.
-
-**Don't guess - verify once:**
-```bash
-tmux -S "$SOCKET" list-panes -a
-# Shows: session-name:1.1: [80x24] ...
-```
-
-### 2. Never Use Command Substitution
-
-**❌ WRONG - Causes parse error:**
-```bash
-PANE=$(tmux list-panes ...)  # parse error near '('
-```
-
-**✅ CORRECT - Hardcode the pane:**
-```bash
-PANE="my-session:1.1"  # Always :1.1 in our setup
-```
-
-### 3. Tell User How to Monitor
-
-Always print this after creating a session:
-```bash
-echo "Monitor with: tmux -S \"$SOCKET\" attach -t $SESSION"
-echo "Detach with: Ctrl+b d"
-```
-
-### 4. Wait After Commands
-
-Interactive programs need time to process:
-```bash
-tmux send-keys -t "$PANE" "command" Enter
-sleep 1  # Give it time to execute
-tmux capture-pane -p -J -t "$PANE" -S -20
-```
-
-## User Monitoring
-
-Users can attach to watch:
-```bash
-# In their terminal
-tmux -S "/tmp/claude-tmux-sockets/claude.sock" attach -t session-name
-
-# Detach without quitting: Ctrl+b d
-```
+**Tips:**
+- Use separate git worktrees for parallel fixes (no branch conflicts)
+- `pnpm install` first before running codex in fresh clones
+- Check for shell prompt (`❯` or `$`) to detect completion
+- Codex needs `--yolo` or `--full-auto` for non-interactive fixes
 
 ## Cleanup
 
-```bash
-# Kill specific session
-tmux -S "$SOCKET" kill-session -t "$SESSION"
+- Kill a session: `tmux -S "$SOCKET" kill-session -t "$SESSION"`.
+- Kill all sessions on a socket: `tmux -S "$SOCKET" list-sessions -F '#{session_name}' | xargs -r -n1 tmux -S "$SOCKET" kill-session -t`.
+- Remove everything on the private socket: `tmux -S "$SOCKET" kill-server`.
 
-# Kill all sessions
-tmux -S "$SOCKET" kill-server
+## Helper: wait-for-text.sh
+
+`{baseDir}/scripts/wait-for-text.sh` polls a pane for a regex (or fixed string) with a timeout.
+
+```bash
+{baseDir}/scripts/wait-for-text.sh -t session:0.0 -p 'pattern' [-F] [-T 20] [-i 0.5] [-l 2000]
 ```
 
-## That's It
-
-Three steps for any interactive tool:
-1. Create session with tool running
-2. Use pane `:1.1`
-3. Send keys, capture output
-
-Works the same for VisiData, PDB, psql, mysql, Python REPL, node, etc.
+- `-t`/`--target` pane target (required)
+- `-p`/`--pattern` regex to match (required); add `-F` for fixed string
+- `-T` timeout seconds (integer, default 15)
+- `-i` poll interval seconds (default 0.5)
+- `-l` history lines to search (integer, default 1000)

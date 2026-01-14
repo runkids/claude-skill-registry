@@ -1,11 +1,7 @@
 {
   "name": "xai-grok",
-  "description": "Use xAI Grok API with Agent Tools for real-time web and X (Twitter) search and synthesis. Requires XAI_API_KEY.",
   "repo": "closedloop-technologies/awesome-deep-researchers",
-  "category": "data",
-  "tags": [
-    "xai",
-    "grok"
-  ],
-  "stars": 2
+  "path": ".claude/skills/xai-grok/SKILL.md",
+  "source": "github.com/closedloop-technologies/awesome-deep-researchers",
+  "downloaded_at": "2026-01-14T03:09:52.119981Z"
 }

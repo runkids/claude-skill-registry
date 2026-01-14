@@ -1,12 +1,7 @@
 {
   "name": "laravel-specialist",
-  "description": "Use when building Laravel 10+ applications requiring Eloquent ORM, API resources, or queue systems. Invoke for Laravel models, Livewire components, Sanctum authentication, Horizon queues. Keywords: La",
   "repo": "Jeffallan/claude-skills",
-  "category": "development",
-  "tags": [
-    "laravel",
-    "specialist"
-  ],
-  "stars": 12,
-  "source": "local"
+  "path": "skills/laravel-specialist/SKILL.md",
+  "source": "github.com/Jeffallan/claude-skills",
+  "downloaded_at": "2026-01-14T02:36:39.673206Z"
 }

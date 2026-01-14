@@ -1,8 +1,7 @@
 {
   "name": "chroma",
-  "repo": "zechenzhangAGI/AI-research-SKILLs",
-  "category": "data",
-  "description": "Open-source embedding database for AI applications. Store embeddings and metadata, perform vector and full-text search, filter by metadata. Simple 4-function API. Scales from notebooks to production c",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:19.377158Z"
+  "repo": "Activer007/ordinary-claude-skills",
+  "path": "skills_all/chroma/SKILL.md",
+  "source": "github.com/Activer007/ordinary-claude-skills",
+  "downloaded_at": "2026-01-14T03:21:33.246488Z"
 }

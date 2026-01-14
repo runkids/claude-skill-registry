@@ -1,11 +1,7 @@
 {
   "name": "moai-cc-skills",
-  "description": "Creating and Optimizing Claude Code Skills. Design reusable knowledge capsules with progressive disclosure (metadata → content → resources). Apply freedom levels (high/medium/low), create examples, va",
-  "repo": "kivo360/quickhooks",
-  "category": "data",
-  "tags": [
-    "moai",
-    "skills"
-  ],
-  "stars": 0
+  "repo": "dolsoon/my-awesome-project",
+  "path": ".claude/skills/moai-cc-skills/SKILL.md",
+  "source": "github.com/dolsoon/my-awesome-project",
+  "downloaded_at": "2026-01-14T03:37:32.756085Z"
 }

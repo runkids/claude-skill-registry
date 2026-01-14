@@ -1,12 +1,7 @@
 {
   "name": "turborepo-workflow",
-  "description": "Expert guidance on Turborepo build orchestration and remote caching workflow. Use this skill when running build commands, troubleshooting caching issues, working with monorepo task execution, or inves",
   "repo": "lsst-sqre/squareone",
-  "category": "productivity",
-  "tags": [
-    "turborepo",
-    "workflow"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": ".claude/skills/turborepo-workflow/SKILL.md",
+  "source": "github.com/lsst-sqre/squareone",
+  "downloaded_at": "2026-01-14T02:59:40.974345Z"
 }

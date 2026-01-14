@@ -1,12 +1,7 @@
 {
   "name": "playwright-testing",
-  "description": "Browser automation with Playwright for Python. Recommended for visual testing. (project)",
-  "repo": "paunchygent/skriptoteket",
-  "category": "testing",
-  "tags": [
-    "playwright",
-    "testing"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "artofrawr/claude-control",
+  "path": "skills/playwright-testing/SKILL.md",
+  "source": "github.com/artofrawr/claude-control",
+  "downloaded_at": "2026-01-14T03:44:43.763655Z"
 }

@@ -1,198 +1,159 @@
 ---
 name: codebase-context
-description: |
-  Generates and maintains codebase context documentation (.context.md files).
-  Implements the Codebase Context Specification for AI-friendly project
-  documentation. Activates when documenting architecture or onboarding.
-allowed-tools:
-  - Read
-  - Write
-  - Edit
-  - Glob
-  - Grep
+description: This skill should be used when the user asks to "analyze the codebase", "understand the tech stack", "extract project patterns", "get codebase context", "what technologies are used", or when preparing context for planning documents, PRDs, or design documentation.
+version: 0.1.0
+allowed-tools: Read, Glob, Grep, Bash(find:*), Bash(head:*), Bash(cat:*), Bash(ls:*), Bash(wc:*)
 ---
 
-# Codebase Context Documentation Skill
+# Codebase Context Extraction
 
-This skill implements the Codebase Context Specification for creating AI-friendly project documentation.
+Extract and summarize codebase context for planning purposes. This skill provides quick analysis approaches for different project types and standardized output formats.
 
-## When This Skill Activates
+## Quick Analysis Approach
 
-- Starting new projects or modules
-- Documenting architecture decisions
-- Creating developer onboarding guides
-- Updating project context files
-- Generating .context.md hierarchies
+### 1. Detect Tech Stack
 
-## Context File Formats
-
-### Markdown (.context.md)
-Primary format with YAML frontmatter and markdown body.
-
-### YAML (.context.yaml)
-Pure YAML for machine parsing.
-
-### JSON (.context.json)
-JSON format for programmatic access.
-
-## Context Hierarchy
-
-```
-project-root/
-├── .context.md           # Project-level context
-├── .contextignore        # Patterns to ignore
-├── .contextdocs.md       # External doc references
-├── src/
-│   ├── .context.md       # Source directory context
-│   ├── api/
-│   │   └── .context.md   # API module context
-│   └── components/
-│       └── .context.md   # Components context
-└── tests/
-    └── .context.md       # Testing context
+**JavaScript/TypeScript Projects:**
+```bash
+cat package.json 2>/dev/null | head -60
 ```
 
-## Context File Template
+Identify from output:
+- `dependencies` / `devDependencies` for frameworks
+- `scripts` for build/test commands
+- `type: "module"` for ESM
 
-```yaml
----
-module-name: [Module Name]
-version: [X.Y.Z]
-description: |
-  [Comprehensive description of the module's
-  purpose, functionality, and scope]
-
-related-modules:
-  - name: [Related Module]
-    path: [./relative/path.md]
-
-technologies:
-  - [Technology 1]
-  - [Technology 2]
-
-conventions:
-  - [Convention 1]
-  - [Convention 2]
-
-architecture:
-  style: [Architecture pattern]
-  components:
-    - [Component 1]
-    - [Component 2]
-  data-flow: |
-    [Description of data flow]
-
-development:
-  setup-steps:
-    - [Step 1]
-    - [Step 2]
-  build-command: [command]
-  test-command: [command]
-
-business-requirements:
-  key-features:
-    - [Feature 1]
-    - [Feature 2]
-  target-audience: [Audience description]
-  success-metrics:
-    - [Metric 1]
-
-quality-assurance:
-  testing-frameworks:
-    - [Framework 1]
-  coverage-threshold: [percentage]
-  performance-benchmarks:
-    - [Benchmark 1]
-
-deployment:
-  platform: [Platform name]
-  cicd-pipeline: [Pipeline description]
-  staging-environment: [Staging URL/location]
-  production-environment: [Prod URL/location]
----
-
-# [Module Name]
-
-[Extended description and documentation in markdown format]
-
-## Architecture Overview
-
-[Detailed architecture explanation]
-
-## Key Components
-
-[Component documentation]
-
-## Usage Examples
-
-[Code examples and usage patterns]
+**Python Projects:**
+```bash
+cat pyproject.toml 2>/dev/null || cat requirements.txt 2>/dev/null | head -30
 ```
 
-## .contextignore Format
-
-```gitignore
-# Dependencies
-node_modules/
-vendor/
-.venv/
-
-# Build outputs
-dist/
-build/
-*.pyc
-
-# IDE files
-.idea/
-.vscode/
-
-# Sensitive files
-.env
-*.key
-secrets/
+**Go Projects:**
+```bash
+cat go.mod 2>/dev/null | head -15
 ```
 
-## .contextdocs.md Format
-
-```yaml
----
-contextdocs:
-  - name: API Documentation
-    type: url
-    link: https://docs.example.com/api
-    relationship: primary
-    description: Official API reference
-
-  - name: Design System
-    type: local
-    path: ./docs/design-system.md
-    relationship: supporting
-
-  - name: Architecture Decision Records
-    type: directory
-    path: ./docs/adr/
-    relationship: reference
----
+**Rust Projects:**
+```bash
+cat Cargo.toml 2>/dev/null | head -30
 ```
 
-## Context Accumulation Rules
+### 2. Map Project Structure
 
-1. **Proximity Precedence**: Closer context files override distant ones
-2. **Inheritance**: Child contexts inherit from parent contexts
-3. **Explicit Override**: Explicit declarations override inherited values
-4. **Merge Strategy**: Arrays merge, objects deep-merge
+```bash
+# Get directory tree (excluding noise)
+find . -type d -not -path '*/node_modules/*' -not -path '*/.git/*' -not -path '*/dist/*' -not -path '*/__pycache__/*' -not -path '*/target/*' | sort | head -40
+```
 
-## Generation Guidelines
+```bash
+# Count files by type
+find . -type f -name "*.ts" -o -name "*.tsx" | wc -l
+find . -type f -name "*.py" | wc -l
+find . -type f -name "*.go" | wc -l
+```
 
-1. **Start at Root**: Create project-level .context.md first
-2. **Descend Hierarchically**: Add module-level contexts as needed
-3. **Keep Current**: Update contexts when architecture changes
-4. **Link Related**: Cross-reference related modules
-5. **Document Decisions**: Include architecture decision rationale
+### 3. Find Key Documentation
 
-## Best Practices
+```bash
+# Project docs
+ls -la README* CLAUDE* AGENTS* CONTRIBUTING* 2>/dev/null
+```
 
-1. **Completeness**: Fill all relevant sections
-2. **Accuracy**: Keep information current
-3. **Clarity**: Write for both humans and AI
-4. **Hierarchy**: Organize by module structure
-5. **Maintenance**: Update with code changes
+```bash
+# Config files
+ls -la *.json *.yaml *.toml .env* 2>/dev/null
+```
+
+### 4. Identify Patterns
+
+**API Structure:**
+```bash
+# REST endpoints
+grep -r "app\.\(get\|post\|put\|delete\)" --include="*.ts" --include="*.js" | head -10
+```
+
+**Component Patterns:**
+```bash
+# React components
+find . -path '*/components/*' -name "*.tsx" | head -10
+```
+
+**Database Models:**
+```bash
+# Schema definitions
+find . -name "schema*" -o -name "*model*" | grep -v node_modules | head -10
+```
+
+## Output Format
+
+Structure codebase context summaries as:
+
+```markdown
+## Technology Stack
+
+**Language:** [e.g., TypeScript 5.x]
+**Runtime:** [e.g., Node.js 20, Bun 1.x]
+**Framework:** [e.g., Next.js 14 (App Router), FastAPI]
+**Database:** [e.g., PostgreSQL with Drizzle ORM]
+**Styling:** [e.g., Tailwind CSS]
+**Testing:** [e.g., Vitest, Playwright]
+
+## Project Structure
+
+- `src/` - Main source code
+  - `components/` - React components
+  - `lib/` - Utility functions
+  - `app/` - Next.js app router pages
+- `tests/` - Test files
+
+## Key Patterns
+
+- [Pattern 1: e.g., "Server components by default, client components marked explicitly"]
+- [Pattern 2: e.g., "API routes use zod for validation"]
+- [Pattern 3: e.g., "Error handling uses Result types"]
+
+## Conventions
+
+- Package manager: [pnpm/npm/yarn/bun]
+- Code style: [ESLint + Prettier config]
+- Commit style: [Conventional commits]
+- Branch strategy: [main + feature branches]
+
+## Existing Documentation
+
+- README.md: [brief summary]
+- CLAUDE.md: [if exists, key points]
+- AGENTS.md: [if exists, key points]
+```
+
+## Integration Notes
+
+This context should be:
+1. Saved to `.shipspec/planning/<feature>/context.md` temporarily during planning
+2. Used by PRD and design document generation
+3. Referenced when creating implementation tasks
+
+**Note:** The context file is automatically cleaned up after task generation completes. The relevant context is incorporated into the PRD, SDD, and TASKS.md files.
+
+## Common Tech Stack Indicators
+
+| Indicator | Technology |
+|-----------|------------|
+| `next.config.js` | Next.js |
+| `vite.config.ts` | Vite |
+| `tailwind.config.js` | Tailwind CSS |
+| `drizzle.config.ts` | Drizzle ORM |
+| `prisma/schema.prisma` | Prisma ORM |
+| `pyproject.toml` | Modern Python |
+| `go.mod` | Go modules |
+| `Cargo.toml` | Rust |
+
+## Quality Checklist
+
+Before finalizing context extraction:
+
+- [ ] Tech stack versions identified
+- [ ] Project structure mapped
+- [ ] Key patterns documented
+- [ ] Existing documentation referenced
+- [ ] Conventions noted

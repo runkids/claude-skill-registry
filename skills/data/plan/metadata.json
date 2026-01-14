@@ -1,10 +1,7 @@
 {
   "name": "plan",
-  "description": "Creates detailed implementation plan from validated research. Produces task breakdown with dependencies.",
-  "repo": "ferdiangunawan/skills",
-  "category": "data",
-  "tags": [
-    "plan"
-  ],
-  "stars": 2
+  "repo": "ArvorCo/Relentless",
+  "path": ".claude/skills/plan/SKILL.md",
+  "source": "github.com/ArvorCo/Relentless",
+  "downloaded_at": "2026-01-14T03:59:06.699783Z"
 }

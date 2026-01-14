@@ -1,9 +1,7 @@
 {
   "name": "wheels-plugin-generator",
-  "description": "Generate Wheels plugins with proper structure, configuration, and ForgeBox packaging. Use when creating plugins, extending Wheels functionality, or packaging reusable components. Ensures plugins follo",
   "repo": "wheels-dev/wheels",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/wheels-plugin-generator/SKILL.md",
+  "source": "github.com/wheels-dev/wheels",
+  "downloaded_at": "2026-01-14T02:47:39.552532Z"
 }

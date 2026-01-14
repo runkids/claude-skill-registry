@@ -1,9 +1,7 @@
 {
   "name": "steve-blank-adviser",
-  "description": "Provides startup advice using Steve Blank",
-  "repo": "rwHiveAqua/advisor",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "GitHub Search API"
+  "repo": "rwHiveAqua/_idea_spinner",
+  "path": ".claude/skills/steve-blank-adviser/SKILL.md",
+  "source": "github.com/rwHiveAqua/_idea_spinner",
+  "downloaded_at": "2026-01-14T03:39:19.261306Z"
 }

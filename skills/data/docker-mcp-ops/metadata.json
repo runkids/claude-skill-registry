@@ -1,13 +1,7 @@
 {
   "name": "docker-mcp-ops",
-  "description": "Docker MCPでコンテナ操作（起動/停止/ログ）を会話で実行する設計。実行系タスクの安定化で使う。",
   "repo": "taiyousan15/taisun_agent",
-  "category": "documents",
-  "tags": [
-    "docker",
-    "mcp",
-    "ops"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/docker-mcp-ops/SKILL.md",
+  "source": "github.com/taiyousan15/taisun_agent",
+  "downloaded_at": "2026-01-14T03:51:16.159330Z"
 }

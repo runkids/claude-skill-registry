@@ -1,9 +1,7 @@
 {
   "name": "extract-transcripts",
-  "description": "Extract readable transcripts from Claude Code and Codex CLI session JSONL files",
   "repo": "0xBigBoss/claude-code",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/extract-transcripts/SKILL.md",
+  "source": "github.com/0xBigBoss/claude-code",
+  "downloaded_at": "2026-01-14T03:25:44.518287Z"
 }

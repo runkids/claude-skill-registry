@@ -1,12 +1,7 @@
 {
   "name": "initiative-architecture",
-  "description": "Use for MASSIVE work requests requiring multi-epic planning. Creates research spikes, documents all unknowns and decisions, builds resumable architecture documents, and structures work into epics and ",
-  "repo": "troykelly/claude-skills",
-  "category": "development",
-  "tags": [
-    "initiative",
-    "architecture"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "troykelly/codex-skills",
+  "path": "skills/initiative-architecture/SKILL.md",
+  "source": "github.com/troykelly/codex-skills",
+  "downloaded_at": "2026-01-14T03:34:05.674464Z"
 }

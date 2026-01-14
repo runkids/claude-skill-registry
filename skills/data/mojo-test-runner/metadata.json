@@ -1,13 +1,7 @@
 {
   "name": "mojo-test-runner",
-  "description": "Run Mojo tests using mojo test command. Use when executing tests or verifying test coverage.",
   "repo": "mvillmow/ProjectOdyssey",
-  "category": "testing",
-  "tags": [
-    "mojo",
-    "test",
-    "runner"
-  ],
-  "stars": 8,
-  "source": "local"
+  "path": ".claude/skills/mojo-test-runner/SKILL.md",
+  "source": "github.com/mvillmow/ProjectOdyssey",
+  "downloaded_at": "2026-01-14T01:09:04.156431Z"
 }

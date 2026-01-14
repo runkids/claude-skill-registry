@@ -1,11 +1,7 @@
 {
   "name": "openapi",
-  "description": "Use when working with OpenAPI Specification files to validate, create/modify paths and schemas, check references, and enforce best practices",
-  "repo": "mcclowes/vague",
-  "category": "devops",
-  "tags": [
-    "openapi"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "mcclowes/omg",
+  "path": ".claude/skills/openapi/SKILL.md",
+  "source": "github.com/mcclowes/omg",
+  "downloaded_at": "2026-01-14T04:01:35.425047Z"
 }

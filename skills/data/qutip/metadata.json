@@ -1,8 +1,7 @@
 {
   "name": "qutip",
-  "repo": "davila7/claude-code-templates",
-  "category": "data",
-  "description": "Quantum mechanics simulations and analysis using QuTiP (Quantum Toolbox in Python). Use when working with quantum systems including: (1) quantum states (kets, bras, density matrices), (2) quantum oper",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:38.827824Z"
+  "repo": "drshailesh88/integrated_content_OS",
+  "path": "skills/scientific/qutip/SKILL.md",
+  "source": "github.com/drshailesh88/integrated_content_OS",
+  "downloaded_at": "2026-01-14T04:02:19.684978Z"
 }

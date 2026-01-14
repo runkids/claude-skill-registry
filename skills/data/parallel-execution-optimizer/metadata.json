@@ -1,9 +1,7 @@
 {
   "name": "parallel-execution-optimizer",
-  "description": "Identify and execute independent operations in parallel for 3-5x speedup. Auto-analyzes task dependencies, groups into batches, launches parallel Task() calls. Applies to /optimize (5 checks), /ship p",
   "repo": "marcusgoll/Spec-Flow",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/parallel-execution-optimizer/SKILL.md",
+  "source": "github.com/marcusgoll/Spec-Flow",
+  "downloaded_at": "2026-01-14T04:06:31.432793Z"
 }

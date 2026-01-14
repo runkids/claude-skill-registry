@@ -1,12 +1,7 @@
 {
   "name": "testing-standards",
-  "description": "Testing conventions, test runner configurations, coverage requirements, and failure interpretation for the Klassenzeit monorepo.",
-  "repo": "Spycner/Klassenzeit",
-  "category": "testing",
-  "tags": [
-    "testing",
-    "standards"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "mesbahtanvir/ishkul",
+  "path": ".claude/skills/testing-standards/SKILL.md",
+  "source": "github.com/mesbahtanvir/ishkul",
+  "downloaded_at": "2026-01-14T02:41:42.396271Z"
 }

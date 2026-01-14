@@ -1,12 +1,7 @@
 {
   "name": "issue-validator",
-  "description": "Validate generated GitHub issues for completeness and implementability. Reviews each issue for clear scope, actionable acceptance criteria, and sufficient context for implementation.",
   "repo": "pcortes/swarm-attack",
-  "category": "devops",
-  "tags": [
-    "issue",
-    "validator"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": "swarm_attack/default_skills/issue-validator/SKILL.md",
+  "source": "github.com/pcortes/swarm-attack",
+  "downloaded_at": "2026-01-14T04:01:17.418989Z"
 }

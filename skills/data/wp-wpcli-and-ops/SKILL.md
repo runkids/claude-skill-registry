@@ -1,123 +1,197 @@
 ---
 name: wp-wpcli-and-ops
-description: "Use when working with WP-CLI (wp) for WordPress operations: safe search-replace, db export/import, plugin/theme/user/content management, cron, cache flushing, multisite, and scripting/automation with wp-cli.yml."
-compatibility: "Targets WordPress 6.9+ (PHP 7.2.24+). Requires WP-CLI in the execution environment."
+description: "Use when working with WP-CLI for WordPress operations: safe search-replace, db export/import, plugin/theme management, cron, cache flushing, multisite, and automation with wp-cli.yml."
+compatibility: "Targets WordPress 6.9+ (PHP 8.0+). Requires WP-CLI in the execution environment."
 ---
 
 # WP-CLI and Ops
 
 ## When to use
 
-Use this skill when the task involves WordPress operational work via WP-CLI, including:
+Use this skill for WordPress operational work:
 
-- `wp search-replace` (URL changes, domain migrations, protocol switch)
-- DB export/import, resets, and inspections (`wp db *`)
-- plugin/theme install/activate/update, language packs
-- cron event listing/running
-- cache/rewrite flushing
-- multisite operations (`wp site *`, `--url`, `--network`)
-- building repeatable scripts (`wp-cli.yml`, shell scripts, CI jobs)
+- `wp search-replace` (URL changes, domain migrations)
+- DB export/import, resets, inspections (`wp db *`)
+- Plugin/theme install/activate/update
+- Cron event listing/running
+- Cache/rewrite flushing
+- Multisite operations (`wp site *`, `--url`, `--network`)
+- Building repeatable scripts (`wp-cli.yml`, shell scripts)
 
 ## Inputs required
 
-- Where WP-CLI will run (local dev, staging, production) and whether it’s safe to run.
-- How to target the correct site root:
-  - `--path=<wordpress-root>` and (multisite) `--url=<site-url>`
-- Whether this is multisite and whether commands should run network-wide.
-- Any constraints (no downtime, no DB writes, maintenance window).
+- Environment (dev/staging/prod) and safety constraints
+- Site root path: `--path=<wordpress-root>`
+- Multisite: `--url=<site-url>` if applicable
+- Any restrictions (no writes, no plugin installs, maintenance window)
 
 ## Procedure
 
-### 0) Guardrails: confirm environment and blast radius
+### 0) Safety guardrails
 
-WP-CLI commands can be destructive. Before running anything that writes:
+WP-CLI commands can be destructive. Before any write operation:
 
-1. Confirm environment (dev/staging/prod).
-2. Confirm targeting (path/url) so you don’t hit the wrong site.
-3. Make a backup when performing risky operations.
+1. Confirm environment (dev/staging/prod)
+2. Confirm targeting (path/url)
+3. Make a backup for risky operations
 
-Read:
-- `references/safety.md`
+### 1) Safe URL/domain migration
 
-### 1) Inspect WP-CLI and site targeting (deterministic)
+**Step-by-step:**
 
-Run the inspector:
+```bash
+# 1. Backup database first
+wp db export backup-$(date +%Y%m%d).sql --path=/path/to/wp
 
-- `node skills/wp-wpcli-and-ops/scripts/wpcli_inspect.mjs --path=<path> [--url=<url>]`
+# 2. Dry run to review impact
+wp search-replace 'old-domain.com' 'new-domain.com' --dry-run --path=/path/to/wp
 
-If WP-CLI isn’t available, fall back to installing it via the project’s documented tooling (Composer, container, or system package), or ask for the expected execution environment.
+# 3. Execute the replacement
+wp search-replace 'old-domain.com' 'new-domain.com' --path=/path/to/wp
 
-### 2) Choose the right workflow
+# 4. Flush caches and rewrites
+wp cache flush --path=/path/to/wp
+wp rewrite flush --path=/path/to/wp
+```
 
-#### A) Safe URL/domain migration (`search-replace`)
+**Common flags:**
 
-Follow a safe sequence:
+| Flag | Purpose |
+|------|---------|
+| `--dry-run` | Preview changes without applying |
+| `--precise` | Exact match only |
+| `--recurse-objects` | Handle serialized data in objects |
+| `--all-tables` | Include non-WP tables |
+| `--skip-columns=guid` | Skip GUID column (recommended) |
 
-1. `wp db export` (backup)
-2. `wp search-replace --dry-run` (review impact)
-3. Run the real replace with appropriate flags
-4. Flush caches/rewrite if needed
+### 2) Database operations
 
-Read:
-- `references/search-replace.md`
+```bash
+# Export
+wp db export backup.sql
 
-#### B) Plugin/theme operations
+# Import
+wp db import backup.sql
 
-Use `wp plugin *` / `wp theme *` and confirm you’re acting on the intended site (and network) first.
+# Query
+wp db query "SELECT ID, post_title FROM wp_posts LIMIT 5"
 
-Read:
-- `references/packages-and-updates.md`
+# Optimize
+wp db optimize
 
-#### C) Cron and queues
+# Reset (DESTRUCTIVE)
+wp db reset --yes
+```
 
-Inspect cron state and run individual events for debugging rather than “run everything blindly”.
+### 3) Plugin/theme management
 
-Read:
-- `references/cron-and-cache.md`
+```bash
+# List plugins
+wp plugin list
 
-#### D) Multisite operations
+# Install and activate
+wp plugin install query-monitor --activate
 
-Multisite changes can affect many sites. Always decide whether you’re operating:
+# Deactivate
+wp plugin deactivate plugin-name
 
-- on a single site (`--url=`), or
-- network-wide (`--network` / iterating sites)
+# Update all
+wp plugin update --all
 
-Read:
-- `references/multisite.md`
+# Same for themes
+wp theme list
+wp theme install theme-name --activate
+```
 
-### 3) Automation patterns (scripts + wp-cli.yml)
+### 4) Cron management
 
-For repeatable ops, prefer:
+```bash
+# List scheduled events
+wp cron event list
 
-- `wp-cli.yml` for defaults (path/url, PHP memory limits)
-- shell scripts that log commands and stop on error
-- CI jobs that run read-only checks by default
+# Run a specific event
+wp cron event run my_event_hook
 
-Read:
-- `references/automation.md`
+# Test cron is working
+wp cron test
+```
+
+### 5) Cache operations
+
+```bash
+# Flush object cache
+wp cache flush
+
+# Flush transients
+wp transient delete --all
+
+# Flush rewrite rules
+wp rewrite flush
+```
+
+### 6) Multisite operations
+
+```bash
+# List all sites
+wp site list
+
+# Run command on specific site
+wp option get blogname --url=https://subsite.example.com
+
+# Run command on all sites
+wp site list --field=url | xargs -I {} wp option get blogname --url={}
+
+# Network-wide plugin activation
+wp plugin activate plugin-name --network
+```
+
+### 7) Automation with wp-cli.yml
+
+Create `wp-cli.yml` in site root:
+
+```yaml
+path: /path/to/wordpress
+url: https://example.com
+user: admin
+
+# Environment-specific
+@staging:
+  url: https://staging.example.com
+
+@production:
+  url: https://example.com
+  ssh: user@server/path/to/wordpress
+```
+
+Usage:
+
+```bash
+wp @staging plugin list
+wp @production cache flush
+```
 
 ## Verification
 
-- Re-run `wpcli_inspect` after changes that could affect targeting or config.
-- Confirm intended side effects:
-  - correct URLs updated
-  - plugins/themes in expected state
-  - cron/caches flushed where needed
-- If there’s a health check endpoint or smoke test suite, run it after ops changes.
+- Confirm intended side effects occurred
+- Check URLs are correct after search-replace
+- Verify plugins/themes in expected state
+- Run health check if available: `wp doctor check`
 
 ## Failure modes / debugging
 
-- “Error: This does not seem to be a WordPress installation.”
-  - wrong `--path`, wrong container, or missing `wp-config.php`
-- Multisite commands affecting the wrong site
-  - missing `--url` or wrong URL
-- Search-replace causes unexpected serialization issues
-  - wrong flags or changing serialized data unsafely
+**"Error: This does not seem to be a WordPress installation"**
+- Wrong `--path`
+- Missing `wp-config.php`
 
-See:
-- `references/debugging.md`
+**Multisite commands affecting wrong site**
+- Missing or wrong `--url`
+
+**Search-replace causing serialization issues**
+- Use `--precise` flag
+- Don't replace with different length strings in serialized data without `--recurse-objects`
 
 ## Escalation
 
-- If you cannot confirm environment safety, do not run write operations.
-- If the repo uses containerized tooling (Docker/wp-env) but you can’t access it, ask for the intended command runner or CI job.
+- If you cannot confirm environment safety, do not run write operations
+- For production changes, always backup first
+- Document all commands run for audit trail

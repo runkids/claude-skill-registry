@@ -1,13 +1,7 @@
 {
   "name": "remote-run-ssh",
-  "description": "Run CVlization examples on the `ssh l1` GPU host by copying only the needed example directory plus the shared `cvlization/` package into `/tmp`, then launching the example’s Docker scripts.",
   "repo": "kungfuai/CVlization",
-  "category": "documents",
-  "tags": [
-    "remote",
-    "run",
-    "ssh"
-  ],
-  "stars": 7,
-  "source": "local"
+  "path": ".claude/skills/remote-run-ssh/SKILL.md",
+  "source": "github.com/kungfuai/CVlization",
+  "downloaded_at": "2026-01-14T02:15:17.257082Z"
 }

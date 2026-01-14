@@ -1,12 +1,7 @@
 {
   "name": "trace-check",
-  "description": "Validate and update bidirectional traceability across SDD artifacts",
   "repo": "vladm3105/aidoc-flow-framework",
-  "category": "development",
-  "tags": [
-    "trace",
-    "check"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/trace-check/SKILL.md",
+  "source": "github.com/vladm3105/aidoc-flow-framework",
+  "downloaded_at": "2026-01-14T03:58:01.549982Z"
 }

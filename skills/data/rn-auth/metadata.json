@@ -1,9 +1,7 @@
 {
   "name": "rn-auth",
-  "description": "React Native authentication patterns for Expo apps. Use when implementing login flows, Google/Apple sign-in, token management, session handling, or debugging auth issues in Expo/React Native.",
   "repo": "CJHarmath/claude-agents-skills",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/rn-auth/SKILL.md",
+  "source": "github.com/CJHarmath/claude-agents-skills",
+  "downloaded_at": "2026-01-14T02:34:03.044207Z"
 }

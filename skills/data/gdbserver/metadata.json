@@ -1,8 +1,7 @@
 {
   "name": "gdbserver",
   "repo": "mgreenly/ikigai",
-  "category": "data",
-  "description": "GDB Server skill for the ikigai project",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:26.996527Z"
+  "path": ".claude/library/gdbserver/SKILL.md",
+  "source": "github.com/mgreenly/ikigai",
+  "downloaded_at": "2026-01-14T03:06:58.258159Z"
 }

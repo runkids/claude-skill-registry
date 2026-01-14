@@ -1,93 +1,94 @@
 ---
-name: vibe-coder
-description: |
-  Describe your idea, get a deployed product. All Craft Coder skills + brainstorm, validation, marketing.
-  Use when: user wants to build something from an idea, prototype, or MVP.
-  Triggers: "build app", "create website", "make MVP", "I have an idea",
-  "хочу приложение", "создать сайт", "сделать MVP".
+name: airflow-workflows
+description: Apache Airflow DAG design, operators, and scheduling best practices.
 ---
 
-# Vibe Coder
+# Airflow Workflows
 
-Describe what you want. Get a deployed product.
+## DAG Structure
 
-## The Vibe
+```python
+from airflow import DAG
+from airflow.operators.python import PythonOperator
+from airflow.providers.common.sql.operators.sql import SQLExecuteQueryOperator
+from datetime import datetime, timedelta
 
+default_args = {
+    'owner': 'data-team',
+    'depends_on_past': False,
+    'email_on_failure': True,
+    'retries': 3,
+    'retry_delay': timedelta(minutes=5),
+}
+
+with DAG(
+    'daily_etl',
+    default_args=default_args,
+    description='Daily ETL pipeline',
+    schedule_interval='0 6 * * *',  # 6 AM daily
+    start_date=datetime(2024, 1, 1),
+    catchup=False,
+    tags=['etl', 'daily'],
+) as dag:
+
+    extract = PythonOperator(
+        task_id='extract_data',
+        python_callable=extract_function,
+    )
+
+    transform = SQLExecuteQueryOperator(
+        task_id='transform_data',
+        conn_id='warehouse',
+        sql='sql/transform.sql',
+    )
+
+    load = PythonOperator(
+        task_id='load_data',
+        python_callable=load_function,
+    )
+
+    extract >> transform >> load
 ```
-You: "I want an app for tracking expenses"
-     ↓
-Claude: Asks a few questions
-     ↓
-Claude: Builds everything (hidden complexity)
-     ↓
-You: ✅ Done! [Preview] [Deploy]
+
+## Common Operators
+
+| Operator | Use Case |
+|----------|----------|
+| `PythonOperator` | Custom Python code |
+| `BashOperator` | Shell commands |
+| `SQLExecuteQueryOperator` | Database queries |
+| `S3ToSnowflakeOperator` | Cloud data transfers |
+| `DbtCloudRunJobOperator` | dbt Cloud jobs |
+
+## Best Practices
+
+1. **Idempotent tasks** - Safe to re-run
+2. **Small tasks** - Easy to debug, retry
+3. **XCom sparingly** - Only small data
+4. **Templating** - Use `{{ ds }}` for dates
+5. **Sensors wisely** - Avoid blocking workers
+
+## Task Dependencies
+
+```python
+# Linear
+task1 >> task2 >> task3
+
+# Parallel
+[task1, task2] >> task3
+
+# Complex
+task1 >> [task2, task3]
+[task2, task3] >> task4
 ```
 
-## What's Included
+## Dynamic DAGs
 
-### MVP Workflow (unique to Vibe Coder)
-| Skill | What it does |
-|-------|--------------|
-| `brainstorming` | Refine ideas with Socratic dialogue |
-| `idea-validation` | Validate problem/solution fit |
-| `stack-selector` | Choose tech stack automatically |
-| `ui-generator` | Create UI from descriptions |
-| `feature-builder` | Add features incrementally |
-| `db-designer` | Design database schema |
-| `api-generator` | Generate API endpoints |
-| `deploy-automation` | Deploy to production |
-
-### All Craft Coder Skills (40+)
-- **Backend**: Python, Node.js, Rust
-- **Frontend**: React, design systems
-- **Mobile**: React Native, Expo
-- **Data**: Pipelines, dbt, Airflow
-- **Infrastructure**: Terraform, K8s, monitoring
-- **Quality**: Testing, code review, debugging
-
-## Commands
-
-| Command | Purpose |
-|---------|---------|
-| `/vibe:brainstorm` | Refine idea with Socratic dialogue |
-| `/vibe:idea` | Start from scratch with simple questions |
-| `/vibe:build` | Create the app (full pipeline) |
-| `/vibe:add` | Add feature to existing app |
-| `/vibe:preview` | Show current state |
-| `/vibe:deploy` | Publish to production |
-
-## Agents
-
-- **vibe-coder** — Build apps from descriptions
-- **code-reviewer** — Review code automatically
-
-## Hidden Pipeline
-
-Every change runs through:
-1. TDD (test first, then implement)
-2. Automated tests
-3. Security checks (OWASP)
-4. Code review (auto-fix issues)
-
-User only sees ✅ or ❌ — never the process.
-
-## Templates
-
-| Template | When to use |
-|----------|-------------|
-| nextjs-supabase | Web apps, SaaS, dashboards |
-| fastapi-postgres | APIs, backends, AI/ML projects |
-| hono-drizzle | Edge, serverless, Cloudflare |
-| landing-page | Marketing sites, portfolios |
-
-Stack selector chooses automatically.
-
-## No Technical Jargon
-
-You never need to know:
-- What framework to use
-- How to structure code
-- What tests to write
-- How to deploy
-
-Just describe what you want. Vibe coding at its finest.
+```python
+for table in ['users', 'orders', 'products']:
+    task = PythonOperator(
+        task_id=f'process_{table}',
+        python_callable=process_table,
+        op_kwargs={'table': table},
+    )
+```

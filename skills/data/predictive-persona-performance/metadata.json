@@ -1,13 +1,7 @@
 {
   "name": "predictive-persona-performance",
-  "description": "Predict persona performance in specific task contexts.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "productivity",
-  "tags": [
-    "predictive",
-    "persona",
-    "performance"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/predictive-persona-performance/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-14T01:08:20.718630Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "cfn-agent-tooling",
-  "description": "Agent development tools - generation and validation. Use when creating new agent templates from scaffolding, or validating and linting existing agent profiles for correctness and completeness.",
   "repo": "masharratt/claude-flow-novice",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "GitHub Search API"
+  "path": ".claude/skills/cfn-agent-tooling/SKILL.md",
+  "source": "github.com/masharratt/claude-flow-novice",
+  "downloaded_at": "2026-01-14T01:57:50.910615Z"
 }

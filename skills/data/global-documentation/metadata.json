@@ -1,12 +1,7 @@
 {
   "name": "global-documentation",
-  "description": "Your approach to handling global documentation. Use this skill when working on files where global documentation comes into play.",
   "repo": "jaypaulb/CanvusAPI-LLMDemo",
-  "category": "documents",
-  "tags": [
-    "global",
-    "documentation"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": ".claude/skills/global-documentation/SKILL.md",
+  "source": "github.com/jaypaulb/CanvusAPI-LLMDemo",
+  "downloaded_at": "2026-01-14T01:04:57.941161Z"
 }

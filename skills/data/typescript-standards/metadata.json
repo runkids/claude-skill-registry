@@ -1,12 +1,7 @@
 {
   "name": "typescript-standards",
-  "description": "Guide for creating TypeScript libraries using the typescript-library-template pattern and applying its standards to existing projects. Use when setting up new npm packages, standardizing build scripts",
-  "repo": "jordanburke/typescript-library-template",
-  "category": "development",
-  "tags": [
-    "typescript",
-    "standards"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "WesleySmits/oh-my-brand-wp-fse",
+  "path": ".github/skills/typescript-standards/SKILL.md",
+  "source": "github.com/WesleySmits/oh-my-brand-wp-fse",
+  "downloaded_at": "2026-01-14T03:11:51.409072Z"
 }

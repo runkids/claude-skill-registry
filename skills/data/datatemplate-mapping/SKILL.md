@@ -7,6 +7,33 @@ description: "DataTemplate을 사용한 ViewModel-View 자동 매핑 및 네비�
 
 WPF에서 DataTemplate을 사용하면 ViewModel 타입과 View를 자동으로 매핑할 수 있습니다. 이 패턴은 네비게이션 시나리오나 동적 콘텐츠 표시에 매우 유용합니다.
 
+## 프로젝트 구조
+
+templates 폴더에 .NET 9 WPF 프로젝트 예제가 포함되어 있습니다.
+
+```
+templates/
+├── WpfDataTemplateSample.App/           ← WPF Application Project
+│   ├── Views/
+│   │   ├── HomeView.xaml
+│   │   ├── HomeView.xaml.cs
+│   │   ├── SettingsView.xaml
+│   │   └── SettingsView.xaml.cs
+│   ├── App.xaml
+│   ├── App.xaml.cs
+│   ├── MainWindow.xaml
+│   ├── MainWindow.xaml.cs
+│   ├── Mappings.xaml                    ← DataTemplate 매핑 정의
+│   ├── GlobalUsings.cs
+│   └── WpfDataTemplateSample.App.csproj
+└── WpfDataTemplateSample.ViewModels/    ← ViewModel Class Library
+    ├── MainWindowViewModel.cs
+    ├── HomeViewModel.cs
+    ├── SettingsViewModel.cs
+    ├── GlobalUsings.cs
+    └── WpfDataTemplateSample.ViewModels.csproj
+```
+
 #### 5.8.1 핵심 개념
 
 **ContentControl의 Content에 ViewModel 인스턴스를 바인딩하면, WPF가 자동으로 해당 ViewModel 타입에 맞는 DataTemplate을 찾아서 View를 렌더링합니다.**

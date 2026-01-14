@@ -1,12 +1,7 @@
 {
   "name": "architecture-reviewer",
-  "description": "Review software architecture for SOLID principles, design patterns, scalability, and maintainability. Use when evaluating system design or planning refactoring.",
   "repo": "ntaksh42/agents",
-  "category": "development",
-  "tags": [
-    "architecture",
-    "reviewer"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/architecture-reviewer/SKILL.md",
+  "source": "github.com/ntaksh42/agents",
+  "downloaded_at": "2026-01-14T03:51:03.689170Z"
 }

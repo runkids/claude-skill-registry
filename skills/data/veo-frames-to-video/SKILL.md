@@ -1,6 +1,7 @@
 ---
 name: veo-frames-to-video
 description: Generate video from first and last frame images using fal.ai Veo 3.1. Use when the user wants to create a video transition between two images, morph between scenes, or generate smooth video connecting a starting and ending frame.
+allowed-tools: Bash, Read, Write
 ---
 
 # Veo 3.1 First-Last-Frame-to-Video
@@ -131,3 +132,13 @@ console.log("Generated video:", result.video.url);
 - Works best when both frames share similar subjects or scenes
 - Use longer duration (8s) for complex transitions
 - The AI will interpolate the motion between the two frames
+
+## Error Handling
+
+| Error | Cause | Solution |
+|-------|-------|----------|
+| `401 Unauthorized` | Invalid FAL_KEY | Verify key at fal.ai dashboard |
+| `429 Too Many Requests` | Rate limit exceeded | Wait 60 seconds, retry |
+| `400 Bad Request` | Invalid frame URLs or mismatch | Use similar composition frames |
+| `500 Server Error` | API temporary issue | Retry after 30 seconds |
+| `Timeout` | Video generation taking too long | Use 720p or 4s duration |

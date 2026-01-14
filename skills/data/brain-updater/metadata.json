@@ -1,12 +1,7 @@
 {
   "name": "brain-updater",
-  "description": "Update .brain/ context files after completing tasks. Templates for activeContext.md and systemPatterns.md updates.",
   "repo": "omerlefaruk/CasareRPA",
-  "category": "data",
-  "tags": [
-    "brain",
-    "updater"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".opencode/skill/brain-updater/SKILL.md",
+  "source": "github.com/omerlefaruk/CasareRPA",
+  "downloaded_at": "2026-01-14T02:58:17.880781Z"
 }

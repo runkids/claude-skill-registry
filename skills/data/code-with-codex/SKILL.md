@@ -9,20 +9,343 @@ Use memex-cli to leverage Codex for code generation with memory and resume suppo
 
 ---
 
+## Mandatory Execution Protocol
+
+**⚠️ CRITICAL**: Claude MUST complete ALL applicable steps below BEFORE invoking memex-cli. Skipping any step is a protocol violation.
+
+### Step 1: Complexity Assessment (ALL Levels)
+
+**Required for**: L1-L5
+
+Use decision tree to determine complexity level:
+```
+Start
+  ├─ Single file, <100 lines? → L1
+  ├─ Reusable functions, no external deps? → L2
+  ├─ Production module with tests?
+  │   ├─ Standard CRUD/API? → L3
+  │   └─ Complex algorithm? → L4
+  └─ Multi-module/microservice? → L5
+```
+
+**Output**: Determined level (L1-L5) with reasoning.
+
+### Step 2: Task Decomposition (L3+ MANDATORY)
+
+**Required for**: L3, L4, L5
+
+Claude MUST decompose the task into subtasks:
+1. Identify all components/modules/files to be created
+2. Split into independent subtasks (each <300 lines output)
+3. Assign unique task IDs
+4. Establish dependency relationships
+
+**Skip condition**: Only if task is truly atomic (single file, single responsibility)
+
+### Step 3: Dependency Analysis (L2+ MANDATORY)
+
+**Required for**: L2, L3, L4, L5
+
+Claude MUST analyze dependencies:
+1. **File dependencies**: Which files import/require others?
+2. **Task dependencies**: Which tasks must complete before others?
+3. **Build DAG**: Create directed acyclic graph of execution order
+
+**Output**: Dependency graph showing parallel groups.
+
+### Step 4: Execution Plan Report (ALL Levels)
+
+**Required for**: L1-L5
+
+Claude MUST report to user before execution:
+
+```markdown
+## 📋 Execution Plan Report
+
+### Complexity Assessment
+- **Level**: L[X] ([level name])
+- **Model**: [selected model]
+- **Reasoning**: [why this level]
+
+### Task Decomposition (L3+)
+| ID | Description | Est. Lines | Dependencies |
+|----|-------------|------------|--------------|
+| task-1 | [desc] | ~100 | - |
+| task-2 | [desc] | ~150 | task-1 |
+
+### Dependency Graph (L2+)
+```
+Phase 1 (Parallel):  [task-1] [task-2]
+                         ↓       ↓
+Phase 2 (Sequential): [task-3 depends on 1,2]
+```
+
+### Execution Summary
+- **Total subtasks**: N
+- **Parallel groups**: M
+- **Estimated phases**: P
+```
+
+### Step 5: Workdir Resolution (AUTO)
+
+**Required for**: ALL tasks
+
+Claude MUST resolve workdir to project root:
+
+```bash
+git rev-parse --show-toplevel
+```
+
+**Rule**: `workdir` = Git 项目根目录（绝对路径）
+
+**Output**: Report resolved workdir in Execution Plan.
+
+### Pre-Execution Checklist
+
+Before invoking memex-cli, Claude MUST confirm:
+
+- [ ] ✅ Complexity level determined (L1-L5)
+- [ ] ✅ Model selected based on level
+- [ ] ✅ (L2+) Dependencies analyzed
+- [ ] ✅ (L3+) Task decomposed into subtasks
+- [ ] ✅ Workdir resolved (via git root)
+- [ ] ✅ Execution plan reported to user
+
+**⛔ VIOLATION**: Directly passing L3/L4/L5 task to Codex without decomposition is a protocol violation. Always decompose first.
+
+---
+
+## Execution Strategy
+
+| Level | Model | files-mode | Dependency Analysis | Task Decomposition | Execution |
+|:-----:|-------|:----------:|:-------------------:|:------------------:|:---------:|
+| **L1** | `gpt-5.1-codex-mini` | ref | ❌ | ❌ | **Serial** |
+| **L2** | `gpt-5.1-codex-max` | ref | ✅ | ❌ | **Parallel** |
+| **L3** | `gpt-5.2-codex` | ref | ✅ | ✅ | **Parallel** |
+| **L4** | `gpt-5.2` | ref | ✅ | ✅ | **Parallel** |
+| **L5** | `gpt-5.2` | ref | ✅ | ✅ | **Parallel** |
+
+---
+
+## Automated Capabilities
+
+| Capability | Description | Active Level |
+|------------|-------------|:------------:|
+| **Auto Model Selection** | Automatically select optimal model based on complexity | L1-L5 |
+| **Auto Grading** | Evaluate task complexity via Decision Tree | L1-L5 |
+| **Dependency Analysis** | Analyze task/file dependencies, build DAG | L2+ |
+| **Task Decomposition** | Auto-split large tasks into subtasks | L3+ |
+| **Parallel Execution** | Execute independent subtasks in parallel | L2+ |
+
+---
+
+## Dependency Analysis Guide (L2+)
+
+System automatically analyzes dependencies between tasks/files and builds execution DAG.
+
+### How It Works
+
+```
+Input: Multiple related tasks
+         ↓
+┌─────────────────────────────┐
+│ 1. Parse task descriptions  │
+│ 2. Identify file references │
+│ 3. Detect implicit deps     │
+│ 4. Build dependency graph   │
+└─────────────────────────────┘
+         ↓
+Output: Execution DAG with parallel groups
+```
+
+### Dependency Detection Rules
+
+| Type | Detection Method | Example |
+|------|------------------|---------|
+| **Explicit** | `dependencies` field | `dependencies: task-1, task-2` |
+| **File-based** | Output→Input file match | Task A outputs `config.py` → Task B imports it |
+| **Import-based** | Module import analysis | `from utils import helper` → depends on utils |
+| **Sequential** | Keyword detection | "based on", "after", "using result of" |
+
+### L2 Example: Parallel Validators with Dependencies
+
+```bash
+memex-cli run --backend codex --stdin <<'EOF'
+---TASK---
+id: email-validator
+backend: codex
+model: gpt-5.1-codex-max
+workdir: ./utils
+---CONTENT---
+编写邮箱验证函数 (validators/email.py)
+---END---
+---TASK---
+id: phone-validator
+backend: codex
+model: gpt-5.1-codex-max
+workdir: ./utils
+---CONTENT---
+编写手机号验证函数 (validators/phone.py)
+---END---
+---TASK---
+id: validator-index
+backend: codex
+model: gpt-5.1-codex-max
+workdir: ./utils
+dependencies: email-validator, phone-validator
+---CONTENT---
+创建 validators/__init__.py，导出所有验证函数
+---END---
+EOF
+```
+
+**Execution Flow:**
+```
+┌─────────────────┐  ┌─────────────────┐
+│ email-validator │  │ phone-validator │  ← Parallel (no deps)
+└────────┬────────┘  └────────┬────────┘
+         │                    │
+         └──────────┬─────────┘
+                    ↓
+         ┌─────────────────┐
+         │ validator-index │  ← Sequential (depends on both)
+         └─────────────────┘
+```
+
+---
+
+## Task Decomposition Guide (L3+)
+
+System automatically decomposes large tasks into manageable subtasks.
+
+### How It Works
+
+```
+Input: Complex task description
+         ↓
+┌─────────────────────────────┐
+│ 1. Analyze task scope       │
+│ 2. Identify components      │
+│ 3. Generate subtask list    │
+│ 4. Establish dependencies   │
+│ 5. Assign to parallel groups│
+└─────────────────────────────┘
+         ↓
+Output: DAG of subtasks
+```
+
+### Decomposition Triggers
+
+| Trigger | Detection | Action |
+|---------|-----------|--------|
+| **Multi-file** | "create X files", file list | Split by file |
+| **Multi-component** | "module with A, B, C" | Split by component |
+| **Layered** | "model, service, controller" | Split by layer |
+| **Test + Impl** | "implement and test" | Split impl → test |
+
+### L3 Example: HTTP Client with Auto-Decomposition
+
+**Input Task:**
+```bash
+memex-cli run --backend codex --stdin <<'EOF'
+---TASK---
+id: http-client-module
+backend: codex
+model: gpt-5.2-codex
+workdir: ./lib
+timeout: 180
+---CONTENT---
+创建完整的 HTTP 客户端模块：
+1. 核心客户端类 (http_client.py)
+2. 重试策略 (retry.py)
+3. 拦截器系统 (interceptors.py)
+4. 单元测试 (test_http_client.py)
+---END---
+EOF
+```
+
+**Auto-Decomposed Execution:**
+```
+Phase 1 (Parallel - No deps):
+┌──────────────┐  ┌──────────────┐  ┌──────────────────┐
+│ http_client  │  │    retry     │  │   interceptors   │
+│    .py       │  │    .py       │  │       .py        │
+└──────┬───────┘  └──────┬───────┘  └────────┬─────────┘
+       │                 │                   │
+       └─────────────────┼───────────────────┘
+                         ↓
+Phase 2 (Sequential - Depends on all above):
+              ┌─────────────────────┐
+              │ test_http_client.py │
+              └─────────────────────┘
+```
+
+### L4/L5 Example: Microservice with Full Decomposition
+
+**Input Task:**
+```bash
+memex-cli run --backend codex --stdin <<'EOF'
+---TASK---
+id: auth-service
+backend: codex
+model: gpt-5.2
+workdir: ./services/auth
+timeout: 300
+---CONTENT---
+设计用户认证微服务：
+- 数据模型 (models/)
+- 业务逻辑 (services/)
+- API 端点 (api/)
+- 数据库迁移 (migrations/)
+- 完整测试套件 (tests/)
+---END---
+EOF
+```
+
+**Auto-Decomposed Execution:**
+```
+Phase 1: Foundation (Parallel)
+┌──────────┐  ┌──────────┐
+│ models/  │  │ schemas/ │
+│ user.py  │  │ auth.py  │
+└────┬─────┘  └────┬─────┘
+     │             │
+     └──────┬──────┘
+            ↓
+Phase 2: Business Logic (Parallel, depends on Phase 1)
+┌─────────────┐  ┌─────────────┐  ┌─────────────┐
+│ services/   │  │ services/   │  │ services/   │
+│ auth.py     │  │ token.py    │  │ password.py │
+└──────┬──────┘  └──────┬──────┘  └──────┬──────┘
+       │                │                │
+       └────────────────┼────────────────┘
+                        ↓
+Phase 3: API Layer (Sequential, depends on Phase 2)
+┌─────────────────────────────────┐
+│ api/routes.py, api/middleware.py│
+└────────────────┬────────────────┘
+                 ↓
+Phase 4: Database & Tests (Parallel, depends on Phase 3)
+┌─────────────┐  ┌─────────────┐
+│ migrations/ │  │   tests/    │
+└─────────────┘  └─────────────┘
+```
+
+---
+
 ## Model Selection Guide
 
 | Model | Best For | Complexity |
 |-------|----------|------------|
 | gpt-5.1-codex-mini | Simple scripts, quick fixes | ⭐ |
-| gpt-5.2-codex | General coding, utilities | ⭐⭐ |
-| gpt-5.1-codex-max | Balanced quality/speed | ⭐⭐⭐ |
-| gpt-5.2 | Complex logic, algorithms | ⭐⭐⭐⭐ |
-| gpt-5.2 | Architecture, system design | ⭐⭐⭐⭐⭐ |
+| gpt-5.1-codex-max | Utilities, production modules | ⭐⭐-⭐⭐⭐ |
+| gpt-5.2-codex | Code review, refactoring, testing | ⭐⭐⭐ |
+| gpt-5.2 | Complex algorithms, architecture | ⭐⭐⭐⭐-⭐⭐⭐⭐⭐ |
 
-**Quick selection guide:**
-- Start with lower-tier models for simple tasks
-- Upgrade to `codex-max` or `gpt-5.2` when quality issues arise
-- Use `gpt-5.2` for production-grade code and complex systems
+**Auto selection rules:**
+- Model is automatically selected based on task complexity level
+- Manual override available via `model` field when needed
+- System optimizes for cost-efficiency while maintaining quality
 
 ---
 
@@ -36,7 +359,7 @@ Quick utilities, single-file scripts (20-100 lines). Use `gpt-5.1-codex-mini`.
 
 **Quick example:**
 ```bash
-memex-cli run --stdin <<'EOF'
+memex-cli run --backend codex --stdin <<'EOF'
 ---TASK---
 id: batch-rename
 backend: codex
@@ -54,17 +377,17 @@ EOF
 
 ### Level 2: Utility Functions (⭐⭐)
 
-Reusable functions, data transformations (100-300 lines). Use `gpt-5.2-codex`.
+Reusable functions, data transformations (100-300 lines). Use `gpt-5.1-codex-max`.
 
 **Examples:** Data validators, format converters, simple unit tests
 
 **Quick example:**
 ```bash
-memex-cli run --stdin <<'EOF'
+memex-cli run --backend codex --stdin <<'EOF'
 ---TASK---
 id: validators
 backend: codex
-model: gpt-5.2-codex
+model: gpt-5.1-codex-max
 workdir: /path/to/utils
 ---CONTENT---
 编写邮箱、手机号、身份证号验证函数
@@ -78,7 +401,7 @@ EOF
 
 ### Level 3: Complete Modules (⭐⭐⭐)
 
-Production-ready modules with error handling, logging, tests (300-800 lines). Use `gpt-5.1-codex-max` or `gpt-5.2`.
+Production-ready modules with error handling, logging, tests (300-800 lines). Use `gpt-5.2-codex`.
 
 **Examples:** HTTP clients, database helpers, API wrappers
 
@@ -89,11 +412,11 @@ Production-ready modules with error handling, logging, tests (300-800 lines). Us
 
 **Quick example:**
 ```bash
-memex-cli run --stdin <<'EOF'
+memex-cli run --backend codex --stdin <<'EOF'
 ---TASK---
 id: http-client
 backend: codex
-model: gpt-5.1-codex-max
+model: gpt-5.2-codex
 workdir: /path/to/lib
 timeout: 120
 ---CONTENT---
@@ -104,13 +427,13 @@ EOF
 
 **Code review example:**
 ```bash
-memex-cli run --stdin <<'EOF'
+memex-cli run --backend codex --stdin <<'EOF'
 ---TASK---
 id: review
 backend: codex
 model: gpt-5.2-codex
 files: ./src/auth.py
-files-mode: embed
+files-mode: ref
 workdir: /path/to/project
 ---CONTENT---
 审查代码：安全隐患、性能瓶颈、改进建议
@@ -130,7 +453,7 @@ Advanced data structures, optimized algorithms (500-1500 lines). Use `gpt-5.2` w
 
 **Quick example:**
 ```bash
-memex-cli run --stdin <<'EOF'
+memex-cli run --backend codex --stdin <<'EOF'
 ---TASK---
 id: skiplist
 backend: codex
@@ -155,7 +478,7 @@ Multi-module projects, microservices, complete applications (2000+ lines). Use `
 
 **Quick example:**
 ```bash
-memex-cli run --stdin <<'EOF'
+memex-cli run --backend codex --stdin <<'EOF'
 ---TASK---
 id: auth-service
 backend: codex
@@ -177,7 +500,7 @@ EOF
 ### Single Task
 
 ```bash
-memex-cli run --stdin <<'EOF'
+memex-cli run --backend codex --stdin <<'EOF'
 ---TASK---
 id: task-id
 backend: codex
@@ -205,7 +528,7 @@ EOF
 | `timeout` | 300 | Max execution time (seconds) |
 | `dependencies` | - | Comma-separated task IDs |
 | `files` | - | Source files to reference |
-| `files-mode` | auto | `embed` (include content) / `ref` (path only) |
+| `files-mode` | ref | `ref` (path only) - unified across all levels |
 | `retry` | 0 | Retry count on failure |
 
 ---
@@ -229,11 +552,11 @@ Start
 | Task Type | Level | Model | Example Link |
 |-----------|-------|-------|--------------|
 | Batch rename script | 1 | codex-mini | [Level 1](examples/level1-simple-scripts.md) |
-| Email validator | 2 | codex | [Level 2](examples/level2-utilities.md) |
-| HTTP client with retry | 3 | codex-max | [Level 3](examples/level3-modules.md) |
-| Code review | 3 | codex-max | [Level 3](examples/level3-modules.md#code-quality-tasks) |
-| Refactoring | 3-4 | codex-max / gpt-5.2 | [Level 3](examples/level3-modules.md#example-4-refactoring) |
-| Unit testing | 2-3 | codex / codex-max | [Level 3](examples/level3-modules.md#example-5-comprehensive-unit-testing) |
+| Email validator | 2 | codex-max | [Level 2](examples/level2-utilities.md) |
+| HTTP client with retry | 3 | gpt-5.2-codex | [Level 3](examples/level3-modules.md) |
+| Code review | 3 | gpt-5.2-codex | [Level 3](examples/level3-modules.md#code-quality-tasks) |
+| Refactoring | 3-4 | gpt-5.2-codex / gpt-5.2 | [Level 3](examples/level3-modules.md#example-4-refactoring) |
+| Unit testing | 2-3 | codex-max / gpt-5.2-codex | [Level 3](examples/level3-modules.md#example-5-comprehensive-unit-testing) |
 | Skip list algorithm | 4 | gpt-5.2 | [Level 4](examples/level4-algorithms.md) |
 | Auth microservice | 5 | gpt-5.2 | [Level 5](examples/level5-architecture.md) |
 
@@ -280,8 +603,8 @@ For multi-task workflows, parallel execution, and resume functionality, refer to
    - Save costs by not over-provisioning
 
 2. **Use files for context**
-   - Code review: `files: ./src/auth.py` + `files-mode: embed`
-   - Refactoring: Include source code for analysis
+   - Code review: `files: ./src/auth.py` (files-mode defaults to `ref`)
+   - Refactoring: Reference source files for analysis
    - Unit testing: Reference module to test
 
 3. **Break down large tasks**

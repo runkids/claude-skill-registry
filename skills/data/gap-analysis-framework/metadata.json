@@ -1,13 +1,7 @@
 {
   "name": "gap-analysis-framework",
-  "description": "Comprehensive gap analysis framework for identifying missing capabilities, coverage, and requirements. Use for requirements vs implementation gaps, test coverage analysis, documentation gaps, security",
   "repo": "doctorduke/claude-config",
-  "category": "documents",
-  "tags": [
-    "gap",
-    "analysis",
-    "framework"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": "skills/gap-analysis-framework/SKILL.md",
+  "source": "github.com/doctorduke/claude-config",
+  "downloaded_at": "2026-01-14T03:47:47.714436Z"
 }

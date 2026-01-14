@@ -1,12 +1,7 @@
 {
   "name": "asset-manager",
-  "description": "Organize design assets, optimize images and fonts, maintain brand asset libraries, implement version control for assets, and enforce naming conventions. Keep design assets organized and production-rea",
   "repo": "daffy0208/ai-dev-standards",
-  "category": "data",
-  "tags": [
-    "asset",
-    "manager"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/asset-manager/SKILL.md",
+  "source": "github.com/daffy0208/ai-dev-standards",
+  "downloaded_at": "2026-01-14T03:33:10.817327Z"
 }

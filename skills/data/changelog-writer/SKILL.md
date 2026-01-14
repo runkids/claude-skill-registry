@@ -1,98 +1,79 @@
 ---
 name: changelog-writer
-description: Create user-focused, SEO-optimized changelog entries for software releases. Use when writing release notes, version updates, product changelogs, or "what's new" documentation for developer tools.
-allowed-tools: Read, Grep, Glob, Write, Edit
+description: 变更日志编写技能。当用户需要编写 CHANGELOG、版本发布说明、更新记录，或需要整理 Git 提交历史生成变更日志时使用此技能。
 ---
 
 # Changelog Writer
 
-Create clear, accurate changelog entries that help developers understand what's new in Lightfast releases.
+生成规范、清晰的变更日志，帮助用户了解版本更新内容。
 
-## Critical: Fact-Check First
+## 格式规范 (Keep a Changelog)
 
-Before writing anything, verify against `docs/architecture/implementation-status/README.md`:
+```markdown
+# Changelog
 
-1. **Check implementation status** to verify:
-   - What's actually completed vs planned
-   - Current limitations and known gaps
-   - Technical accuracy of claims
+## [Unreleased]
 
-2. **Never oversell:**
-   - Use specific names: "GitHub File Sync (File Contents)" not "GitHub Integration"
-   - Disclose limitations: "Currently supports X; Y coming in vZ"
-   - Be honest about conditionals: "when 3+ customers request"
+## [1.2.0] - 2024-01-15
 
-3. **Verify every claim:**
-   - If you cite a number, confirm it's in implementation docs
-   - If you mention a feature, confirm it exists in production
-   - When uncertain, ask for clarification
+### Added
+- 新增用户导出功能
+- 支持 OAuth2.0 登录
 
-## Writing Guidelines
+### Changed
+- 优化首页加载速度
+- 更新依赖版本
 
-1. **Concise & scannable**: 1-3 sentences per feature (Cursor-style brevity)
-2. **Lead with benefit**: Start with what users can do, then how
-3. **Be transparent**: Mention beta status, rollout timelines, limitations
-4. **User-focused but technical**: Balance benefits with specifics developers need
-5. **Active voice**: "You can now..." not "Users are able to..."
-6. **No emoji**: Professional tone
-7. **Specific examples**: Include config snippets, API calls
-8. **SEO-conscious**: Use target keywords naturally
-9. **AEO-conscious**: Write `tldr` for AI citation engines, `excerpt` for listings
-10. **FAQ quality**: Questions must match real search queries, answers must be complete
+### Deprecated
+- 废弃旧版API v1
 
-## Workflow
+### Removed
+- 移除过时的配置项
 
-1. **Gather input**: PR numbers, URLs, or manual change list
-2. **Read implementation status** for fact-checking
-3. **Draft following** [templates](resources/templates.md)
-4. **Cross-check claims** against implementation reality
-5. **Add SEO elements** per [seo-requirements](resources/seo-requirements.md)
-6. **Review with** [checklist](resources/checklist.md)
+### Fixed
+- 修复登录超时问题
+- 修复数据导出乱码
 
-## Quick Reference
+### Security
+- 修复 XSS 漏洞
+```
 
-### Do
-- "GitHub File Sync (File Contents)" with limitations disclosed
-- "When 3+ customers request: Linear integration"
-- Include code examples for every major feature
-- Link to 3-5 related docs
+## 变更类型说明
 
-### Don't
-- "GitHub Integration" (vague - what does it cover?)
-- "Coming soon: Linear, Notion, Slack!" (when at 0%)
-- Long paragraphs (keep to 1-3 sentences per feature)
-- Claims without verification
+| 类型 | 说明 |
+|------|------|
+| Added | 新增功能 |
+| Changed | 功能变更 |
+| Deprecated | 即将废弃 |
+| Removed | 已移除功能 |
+| Fixed | Bug 修复 |
+| Security | 安全修复 |
 
-## Output
+## 版本号规范 (SemVer)
 
-Save drafts to: `thoughts/changelog/{title-slug}-{YYYYMMDD-HHMMSS}.md`
+```
+MAJOR.MINOR.PATCH
 
-### Required Frontmatter Fields
+1.0.0 → 1.0.1# PATCH: 向后兼容的Bug 修复
+1.0.1 → 1.1.0  # MINOR: 向后兼容的新功能
+1.1.0 → 2.0.0  # MAJOR: 不兼容的 API 变更
+```
 
-Every draft MUST include:
-- `title`, `slug`, `publishedAt` (core)
-- `excerpt`, `tldr` (AEO)
-- `seo.metaDescription`, `seo.focusKeyword` (SEO)
-- `_internal.status`, `_internal.source_prs` (traceability)
+## 编写原则
 
-### Slug Format
+1. **面向用户**：描述对用户的影响，而非技术细节
+2. **简洁明了**：每条记录一行，清晰描述变更
+3. **按时间倒序**：最新版本在最上方
+4. **关联Issue**：重要变更关联 Issue 编号
 
-Always use: `0-<version>-lightfast-<feature-slug>`
+## 示例条目
 
-Examples:
-- `0-1-lightfast-github-file-sync-semantic-search`
-- `0-2-lightfast-pr-metadata-linear-integration`
+```markdown
+### Added
+- 新增批量导入用户功能 (#123)
+- 支持深色模式切换
 
-Recommended:
-- `seo.secondaryKeyword`, `seo.faq[]` (enhanced SEO)
-
-The frontmatter structure maps directly to `ChangelogEntryInput` type. Use `/publish_changelog` to publish drafts to BaseHub.
-
-See `resources/templates.md` for complete frontmatter template.
-
-## Resources
-
-- [Document Templates](resources/templates.md)
-- [SEO Requirements](resources/seo-requirements.md)
-- [Examples](resources/examples.md)
-- [Pre-Publish Checklist](resources/checklist.md)
+### Fixed
+- 修复大文件上传失败的问题 (#456)
+- 修复移动端布局错位
+```

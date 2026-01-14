@@ -1,13 +1,7 @@
 {
   "name": "falcon-deep-research",
-  "description": "Execute deep research protocols using the Falcon specialized research framework.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "devops",
-  "tags": [
-    "falcon",
-    "deep",
-    "research"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/falcon-deep-research/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-14T01:08:19.027773Z"
 }

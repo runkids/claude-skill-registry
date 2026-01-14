@@ -1,609 +1,764 @@
 ---
 name: building-hooks
-description: Use when creating Claude Code hooks - covers hook patterns, composition, testing, progressive enhancement from simple to advanced
+description: Expert at creating and modifying Claude Code event hooks for automation and policy enforcement. Auto-invokes when the user wants to create, update, modify, enhance, validate, or standardize hooks, or when modifying hooks.json configuration, needs help with event-driven automation, or wants to understand hook patterns. Also auto-invokes proactively when Claude is about to write hooks.json files, or implement tasks that involve creating event hook configurations.
+version: 2.0.0
+allowed-tools: Read, Write, Edit, Grep, Glob, Bash
 ---
 
-<skill_overview>
-Hooks encode business rules at application level; start with observation, add automation, enforce only when patterns clear.
-</skill_overview>
+# Building Hooks Skill
 
-<rigidity_level>
-MEDIUM FREEDOM - Follow progressive enhancement (observe → automate → enforce) strictly. Hook patterns are adaptable, but always start non-blocking and test thoroughly.
-</rigidity_level>
+You are an expert at creating Claude Code event hooks. Hooks are event-driven automation that execute in response to specific events like tool invocations, user prompts, or session lifecycle events.
 
-<quick_reference>
-| Phase | Approach | Example |
-|-------|----------|---------|
-| 1. Observe | Non-blocking, report only | Log edits, display reminders |
-| 2. Automate | Background tasks, non-blocking | Auto-format, run builds |
-| 3. Enforce | Blocking only when necessary | Block dangerous ops, require fixes |
+## When to Create Hooks
 
-**Most used events:** UserPromptSubmit (before processing), Stop (after completion)
+**Use HOOKS when:**
+- You need event-driven automation
+- You want to validate or block tool usage
+- You need to enforce policies automatically
+- You want to log or audit Claude's actions
+- You need pre/post-processing for tool invocations
 
-**Critical:** Start Phase 1, observe for a week, then Phase 2. Only add Phase 3 if absolutely necessary.
-</quick_reference>
+**Use COMMANDS instead when:**
+- The user explicitly triggers an action
+- You need manual invocation
 
-<when_to_use>
-Use hooks for:
-- Automatic quality checks (build, lint, format)
-- Workflow automation (skill activation, context injection)
-- Error prevention (catching issues early)
-- Consistent behavior (formatting, conventions)
+**Use AGENTS/SKILLS instead when:**
+- You need Claude's reasoning and generation
+- The task requires LLM capabilities
 
-**Never use hooks for:**
-- Complex business logic (use tools/scripts)
-- Slow operations that block workflow (use background jobs)
-- Anything requiring LLM reasoning (hooks are deterministic)
-</when_to_use>
+## Hook Schema & Structure
 
-<hook_lifecycle_events>
-| Event | When Fires | Use Cases |
-|-------|------------|-----------|
-| UserPromptSubmit | Before Claude processes prompt | Validation, context injection, skill activation |
-| Stop | After Claude finishes | Build checks, formatting, quality reminders |
-| PostToolUse | After each tool execution | Logging, tracking, validation |
-| PreToolUse | Before tool execution | Permission checks, validation |
-| ToolError | When tool fails | Error handling, fallbacks |
-| SessionStart | New session begins | Environment setup, context loading |
-| SessionEnd | Session closes | Cleanup, logging |
-| Error | Unhandled error | Error recovery, notifications |
-</hook_lifecycle_events>
+### File Location
+- **Project-level**: `.claude/hooks.json`
+- **Project settings**: `.claude/settings.json` (hooks section)
+- **Directory-specific**: `.claude-hooks.json` (in any directory)
+- **Plugin-level**: `plugin-dir/hooks/hooks.json`
 
-<progressive_enhancement>
-## Phase 1: Observation (Non-Blocking)
+### File Format
+JSON configuration file.
 
-**Goal:** Understand patterns before acting
+### Schema Structure
 
-**Examples:**
-- Log file edits (PostToolUse)
-- Display reminders (Stop, non-blocking)
-- Track metrics
-
-**Duration:** Observe for 1 week minimum
-
----
-
-## Phase 2: Automation (Background)
-
-**Goal:** Automate tedious tasks
-
-**Examples:**
-- Auto-format edited files (Stop)
-- Run builds after changes (Stop)
-- Inject helpful context (UserPromptSubmit)
-
-**Requirement:** Fast (<2 seconds), non-blocking
-
----
-
-## Phase 3: Enforcement (Blocking)
-
-**Goal:** Prevent errors, enforce standards
-
-**Examples:**
-- Block dangerous operations (PreToolUse)
-- Require fixes before continuing (Stop, blocking)
-- Validate inputs (UserPromptSubmit, blocking)
-
-**Requirement:** Only add when patterns clear from Phase 1-2
-</progressive_enhancement>
-
-<common_hook_patterns>
-## Pattern 1: Build Checker (Stop Hook)
-
-**Problem:** TypeScript errors left behind
-
-**Solution:**
-```bash
-#!/bin/bash
-# Stop hook - runs after Claude finishes
-
-# Check modified repos
-modified_repos=$(grep -h "edited" ~/.claude/edit-log.txt | cut -d: -f1 | sort -u)
-
-for repo in $modified_repos; do
-  echo "Building $repo..."
-  cd "$repo" && npm run build 2>&1 | tee /tmp/build-output.txt
-
-  error_count=$(grep -c "error TS" /tmp/build-output.txt || echo "0")
-
-  if [ "$error_count" -gt 0 ]; then
-    if [ "$error_count" -ge 5 ]; then
-      echo "⚠️  Found $error_count errors - consider error-resolver agent"
-    else
-      echo "🔴 Found $error_count TypeScript errors:"
-      grep "error TS" /tmp/build-output.txt
-    fi
-  else
-    echo "✅ Build passed"
-  fi
-done
-```
-
-**Configuration:**
 ```json
 {
-  "event": "Stop",
-  "command": "~/.claude/hooks/build-checker.sh",
-  "description": "Run builds on modified repos",
-  "blocking": false
+  "hooks": {
+    "EventName": [
+      {
+        "matcher": "ToolPattern",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash command to execute"
+          }
+        ]
+      }
+    ]
+  }
 }
 ```
 
-**Result:** Zero errors left behind
+## Event Types
 
----
+### Events WITH Matchers (Tool-Specific)
 
-## Pattern 2: Auto-Formatter (Stop Hook)
-
-**Problem:** Inconsistent formatting
-
-**Solution:**
-```bash
-#!/bin/bash
-# Stop hook - format all edited files
-
-edited_files=$(tail -20 ~/.claude/edit-log.txt | grep "^/" | sort -u)
-
-for file in $edited_files; do
-  repo_dir=$(dirname "$file")
-  while [ "$repo_dir" != "/" ]; do
-    if [ -f "$repo_dir/.prettierrc" ]; then
-      echo "Formatting $file..."
-      cd "$repo_dir" && npx prettier --write "$file"
-      break
-    fi
-    repo_dir=$(dirname "$repo_dir")
-  done
-done
-
-echo "✅ Formatting complete"
+**PreToolUse**: Before a tool runs
+```json
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [{"type": "command", "command": "bash validate.sh"}]
+      }
+    ]
+  }
+}
 ```
 
-**Result:** All code consistently formatted
+**PostToolUse**: After a tool completes successfully
+```json
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [{"type": "command", "command": "bash format.sh"}]
+      }
+    ]
+  }
+}
+```
 
----
+### Events WITHOUT Matchers (Lifecycle Events)
 
-## Pattern 3: Error Handling Reminder (Stop Hook)
+**UserPromptSubmit**: When user submits a prompt
+```json
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [{"type": "command", "command": "bash log-prompt.sh"}]
+      }
+    ]
+  }
+}
+```
 
-**Problem:** Claude forgets error handling
+**Stop**: When Claude finishes responding
+```json
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [{"type": "command", "command": "bash cleanup.sh"}]
+      }
+    ]
+  }
+}
+```
 
-**Solution:**
+**SessionStart**: When session starts
+```json
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [{"type": "command", "command": "bash setup.sh"}]
+      }
+    ]
+  }
+}
+```
+
+**Other Events**:
+- **Notification**: When Claude sends an alert
+- **SubagentStop**: When a subagent completes
+- **PreCompact**: Before transcript compaction
+
+## Matcher Patterns
+
+For `PreToolUse` and `PostToolUse` events:
+
+| Pattern | Matches | Example |
+|---------|---------|---------|
+| `"Write"` | Exact tool name | Matches only Write tool |
+| `"Edit\|Write"` | Regex OR | Matches Edit or Write |
+| `"Bash"` | Single tool | Matches Bash tool |
+| `"*"` | Wildcard | Matches ALL tools |
+| `"Notebook.*"` | Regex pattern | Matches NotebookEdit, etc. |
+| `""` | Empty (for non-tool events) | For lifecycle events |
+
+## Hook Types
+
+### Type 1: Command Hook
+
+Execute a bash command:
+
+```json
+{
+  "type": "command",
+  "command": "bash /path/to/script.sh"
+}
+```
+
+**Use for:**
+- Validation scripts
+- Formatting tools
+- Logging and auditing
+- File system operations
+
+### Type 2: Prompt Hook (LLM-based)
+
+Use LLM for evaluation:
+
+```json
+{
+  "type": "prompt",
+  "prompt": "Analyze the tool usage and determine if it's safe"
+}
+```
+
+**Use for:**
+- Complex policy evaluation
+- Context-aware decisions
+- Natural language analysis
+
+## Hook Return Values
+
+Hooks can return structured JSON to control behavior:
+
+```json
+{
+  "continue": true,
+  "decision": "approve",
+  "reason": "Explanation for the decision",
+  "suppressOutput": false,
+  "systemMessage": "Optional message shown to user",
+  "hookSpecificOutput": {
+    "permissionDecision": "approve",
+    "permissionDecisionReason": "Safe operation",
+    "additionalContext": "Extra context for Claude"
+  }
+}
+```
+
+### Key Fields
+
+- **`continue`**: `true` to proceed, `false` to stop
+- **`decision`**: `"approve"`, `"block"`, or `"warn"`
+- **`reason`**: Explanation for the decision
+- **`suppressOutput`**: Hide hook output from transcript
+- **`systemMessage`**: Message displayed to user
+- **`permissionDecision`**: For tool permission hooks
+- **`additionalContext`**: Context added to Claude's knowledge
+
+### Exit Codes
+
+- **`0`**: Success (stdout shown in transcript mode)
+- **`2`**: Blocking error (stderr fed to Claude)
+- **Other**: Non-blocking error
+
+## Common Hook Patterns
+
+### Pattern 1: Validation Hook (PreToolUse)
+
+Validate tool usage before execution:
+
+```json
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /path/to/validate-write.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Example validate-write.sh**:
 ```bash
 #!/bin/bash
-# Stop hook - gentle reminder
+# Check if writing to protected directory
 
-edited_files=$(tail -20 ~/.claude/edit-log.txt | grep "^/")
+FILE_PATH="$1"
 
-risky_patterns=0
-for file in $edited_files; do
-  if grep -q "try\|catch\|async\|await\|prisma\|router\." "$file"; then
-    ((risky_patterns++))
-  fi
-done
-
-if [ "$risky_patterns" -gt 0 ]; then
-  cat <<EOF
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-📋 ERROR HANDLING SELF-CHECK
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-⚠️  Risky Patterns Detected
-   $risky_patterns file(s) with async/try-catch/database operations
-
-   ❓ Did you add proper error handling?
-   ❓ Are errors logged appropriately?
-
-   💡 Consider: Sentry.captureException(), proper logging
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-EOF
+if [[ "$FILE_PATH" == /protected/* ]]; then
+  echo '{"decision": "block", "reason": "Cannot write to protected directory"}'
+  exit 2
 fi
+
+echo '{"decision": "approve", "reason": "Path is valid"}'
+exit 0
 ```
 
-**Result:** Claude self-checks without blocking
+### Pattern 2: Formatting Hook (PostToolUse)
 
----
+Auto-format files after writing:
 
-## Pattern 4: Skills Auto-Activation
-
-**See:** hyperpowers:skills-auto-activation for complete implementation
-
-**Summary:** Analyzes prompt keywords, injects skill activation reminder before Claude processes.
-</common_hook_patterns>
-
-<hook_composition>
-## Naming for Order Control
-
-Multiple hooks for same event run in **alphabetical order** by filename.
-
-**Use numeric prefixes:**
-
-```
-hooks/
-├── 00-log-prompt.sh       # First (logging)
-├── 10-inject-context.sh   # Second (context)
-├── 20-activate-skills.sh  # Third (skills)
-└── 99-notify.sh           # Last (notifications)
+```json
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /path/to/format-file.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
 ```
 
-## Hook Dependencies
+**Example format-file.sh**:
+```bash
+#!/bin/bash
+FILE_PATH="$1"
 
-If Hook B depends on Hook A's output:
+if [[ "$FILE_PATH" == *.py ]]; then
+  black "$FILE_PATH"
+elif [[ "$FILE_PATH" == *.js ]]; then
+  prettier --write "$FILE_PATH"
+fi
 
-1. **Option 1:** Numeric prefixes (A before B)
-2. **Option 2:** Combine into single hook
-3. **Option 3:** File-based communication
+exit 0
+```
+
+### Pattern 3: Logging Hook (All Tools)
+
+Log all tool usage:
+
+```json
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /path/to/log-tool.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+### Pattern 4: Security Hook (Bash Commands)
+
+Validate bash commands for security:
+
+```json
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /path/to/validate-bash.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Example validate-bash.sh**:
+```bash
+#!/bin/bash
+COMMAND="$1"
+
+# Block dangerous commands
+if echo "$COMMAND" | grep -qE "rm -rf /|dd if="; then
+  echo '{"decision": "block", "reason": "Dangerous command detected"}'
+  exit 2
+fi
+
+echo '{"decision": "approve"}'
+exit 0
+```
+
+### Pattern 5: Session Setup Hook
+
+Initialize environment on session start:
+
+```json
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /path/to/setup-session.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Example setup-session.sh**:
+```bash
+#!/bin/bash
+# Load environment, start services, etc.
+export PROJECT_ROOT=$(pwd)
+echo "Session initialized for project: $PROJECT_ROOT"
+exit 0
+```
+
+## Creating Hooks
+
+### Step 1: Identify the Need
+Ask the user:
+1. What event should trigger the hook?
+2. What validation or action is needed?
+3. Should it block, warn, or just log?
+4. What tools or operations need monitoring?
+
+### Step 2: Choose Event and Matcher
+- **PreToolUse**: Validate before execution
+- **PostToolUse**: Process after execution
+- **UserPromptSubmit**: Analyze prompts
+- **SessionStart**: Initialize environment
+- **Stop**: Cleanup or summary
+
+### Step 3: Design the Hook Logic
+- Write bash script for the hook
+- Define input parameters
+- Plan return JSON structure
+- Handle error cases
+- Test security
+
+### Step 4: Create hooks.json
+```json
+{
+  "hooks": {
+    "EventName": [
+      {
+        "matcher": "ToolPattern",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /path/to/script.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+### Step 5: Implement Hook Script
+- Accept appropriate input parameters
+- Validate inputs
+- Perform check or action
+- Return JSON with decision
+- Use appropriate exit code
+
+### Step 6: Test the Hook
+- Place hooks.json in `.claude/`
+- Trigger the event
+- Verify hook executes correctly
+- Check blocking/approving works
+- Test error handling
+
+## Validation Script
+
+This skill includes a validation script:
+
+### validate-hooks.py - Schema Validator
+
+Python script for validating hooks.json files.
+
+**Usage:**
+```bash
+python3 {baseDir}/scripts/validate-hooks.py <hooks.json>
+```
+
+**What It Checks:**
+- JSON syntax validity
+- Event name validity (PreToolUse, PostToolUse, etc.)
+- Matcher requirements (tool events need matchers)
+- Hook type validity (command, prompt)
+- Script existence (referenced scripts exist)
+- Security patterns (dangerous commands, injection risks)
+
+**Returns:**
+- Exit code 0 if valid
+- Exit code 1 with error messages if invalid
 
 **Example:**
 ```bash
-# 10-track-edits.sh writes to edit-log.txt
-# 20-check-builds.sh reads from edit-log.txt
-```
-</hook_composition>
+python3 validate-hooks.py .claude/hooks.json
 
-<testing_hooks>
-## Test in Isolation
+✅ Hooks validation passed
+   Events configured: PreToolUse, PostToolUse
+   Total hooks: 3
+   Scripts verified: 2
+```
+
+## Hook Script Best Practices
+
+### Input Parameters
+
+Hooks receive context as arguments:
+
+**PreToolUse / PostToolUse**:
+- `$1`: Tool name
+- `$2`: Tool parameters (JSON)
+- Environment variables with tool details
+
+**UserPromptSubmit**:
+- `$1`: User prompt text
+
+**Other events**:
+- Event-specific parameters
+
+### Return JSON Format
+
+Always return well-formed JSON:
 
 ```bash
-# Manually trigger
-bash ~/.claude/hooks/build-checker.sh
-
-# Check exit code
-echo $?  # 0 = success
-```
-
-## Test with Mock Data
-
-```bash
-# Create mock log
-echo "/path/to/test/file.ts" > /tmp/test-edit-log.txt
-
-# Run with test data
-EDIT_LOG=/tmp/test-edit-log.txt bash ~/.claude/hooks/build-checker.sh
-```
-
-## Test Non-Blocking Behavior
-
-- Hook exits quickly (<2 seconds)
-- Doesn't block Claude
-- Provides clear output
-
-## Test Blocking Behavior
-
-- Blocking decision correct
-- Reason message helpful
-- Escape hatch exists
-
-## Debugging
-
-**Enable logging:**
-```bash
-set -x  # Debug output
-exec 2>~/.claude/hooks/debug.log
-```
-
-**Check execution:**
-```bash
-tail -f ~/.claude/logs/hooks.log
-```
-
-**Common issues:**
-- Timeout (>10 second default)
-- Wrong working directory
-- Missing environment variables
-- File permissions
-</testing_hooks>
-
-<examples>
-<example>
-<scenario>Developer adds blocking hook immediately without observation</scenario>
-
-<code>
-# Developer frustrated by TypeScript errors
-# Creates blocking Stop hook immediately:
-
 #!/bin/bash
-npm run build
 
-if [ $? -ne 0 ]; then
-  echo "BUILD FAILED - BLOCKING"
-  exit 1  # Blocks Claude
+# Success
+echo '{"decision": "approve", "reason": "Validation passed"}'
+exit 0
+
+# Block
+echo '{"decision": "block", "reason": "Security violation detected"}'
+exit 2
+
+# Warn
+echo '{"decision": "warn", "reason": "Unusual pattern detected"}'
+exit 0
+```
+
+### Error Handling
+
+```bash
+#!/bin/bash
+
+if [ $# -lt 1 ]; then
+  echo '{"decision": "block", "reason": "Missing required arguments"}' >&2
+  exit 2
 fi
-</code>
-
-<why_it_fails>
-- No observation period to understand patterns
-- Blocks even for minor errors
-- No escape hatch if hook misbehaves
-- Might block during experimentation
-- Frustrates workflow when building is slow
-- Haven't identified when blocking is actually needed
-</why_it_fails>
-
-<correction>
-**Phase 1: Observe (1 week)**
-
-```bash
-#!/bin/bash
-# Non-blocking observation
-npm run build 2>&1 | tee /tmp/build.log
-
-if grep -q "error TS" /tmp/build.log; then
-  echo "🔴 Build errors found (not blocking)"
-fi
-```
-
-**After 1 week, review:**
-- How often do errors appear?
-- Are they usually fixed quickly?
-- Do they cause real problems or just noise?
-
-**Phase 2: If errors are frequent, automate**
-
-```bash
-#!/bin/bash
-# Still non-blocking, but more helpful
-npm run build 2>&1 | tee /tmp/build.log
-
-error_count=$(grep -c "error TS" /tmp/build.log || echo "0")
-
-if [ "$error_count" -ge 5 ]; then
-  echo "⚠️  $error_count errors - consider using error-resolver agent"
-elif [ "$error_count" -gt 0 ]; then
-  echo "🔴 $error_count errors (not blocking):"
-  grep "error TS" /tmp/build.log | head -5
-fi
-```
-
-**Phase 3: Only if observation shows blocking is necessary**
-
-Never reached - non-blocking works fine!
-
-**What you gain:**
-- Understood patterns before acting
-- Non-blocking keeps workflow smooth
-- Helpful messages without friction
-- Can experiment without frustration
-</correction>
-</example>
-
-<example>
-<scenario>Hook is slow, blocks workflow</scenario>
-
-<code>
-#!/bin/bash
-# Stop hook that's too slow
-
-# Run full test suite (takes 45 seconds!)
-npm test
-
-# Run linter (takes 10 seconds)
-npm run lint
-
-# Run build (takes 30 seconds)
-npm run build
-
-# Total: 85 seconds of blocking!
-</code>
-
-<why_it_fails>
-- Hook takes 85 seconds to complete
-- Blocks Claude for entire duration
-- User can't continue working
-- Frustrating, likely to be disabled
-- Defeats purpose of automation
-</why_it_fails>
-
-<correction>
-**Make hook fast (<2 seconds):**
-
-```bash
-#!/bin/bash
-# Stop hook - fast checks only
-
-# Quick syntax check (< 1 second)
-npm run check-syntax
-
-if [ $? -ne 0 ]; then
-  echo "🔴 Syntax errors found"
-  echo "💡 Run 'npm test' manually for full test suite"
-fi
-
-echo "✅ Quick checks passed (run 'npm test' for full suite)"
-```
-
-**Or run slow checks in background:**
-
-```bash
-#!/bin/bash
-# Stop hook - trigger background job
-
-# Start tests in background
-(
-  npm test > /tmp/test-results.txt 2>&1
-  if [ $? -ne 0 ]; then
-    echo "🔴 Tests failed (see /tmp/test-results.txt)"
-  fi
-) &
-
-echo "⏳ Tests running in background (check /tmp/test-results.txt)"
-```
-
-**What you gain:**
-- Hook completes instantly
-- Workflow not blocked
-- Still get quality checks
-- User can continue working
-</correction>
-</example>
-
-<example>
-<scenario>Hook has no error handling, fails silently</scenario>
-
-<code>
-#!/bin/bash
-# Hook with no error handling
-
-file=$(tail -1 ~/.claude/edit-log.txt)
-prettier --write "$file"
-</code>
-
-<why_it_fails>
-- If edit-log.txt missing → hook fails silently
-- If file path invalid → prettier errors not caught
-- If prettier not installed → silent failure
-- No logging, can't debug
-- User has no idea hook ran or failed
-</why_it_fails>
-
-<correction>
-**Add error handling:**
-
-```bash
-#!/bin/bash
-set -euo pipefail  # Exit on error, undefined vars
-
-# Log execution
-echo "[$(date)] Hook started" >> ~/.claude/hooks/formatter.log
 
 # Validate input
-if [ ! -f ~/.claude/edit-log.txt ]; then
-  echo "[$(date)] ERROR: edit-log.txt not found" >> ~/.claude/hooks/formatter.log
-  exit 1
+if ! validate_input "$1"; then
+  echo '{"decision": "block", "reason": "Invalid input"}' >&2
+  exit 2
 fi
 
-file=$(tail -1 ~/.claude/edit-log.txt | grep "^/.*\.ts$")
-
-if [ -z "$file" ]; then
-  echo "[$(date)] No TypeScript file to format" >> ~/.claude/hooks/formatter.log
-  exit 0
-fi
-
-if [ ! -f "$file" ]; then
-  echo "[$(date)] ERROR: File not found: $file" >> ~/.claude/hooks/formatter.log
-  exit 1
-fi
-
-# Check prettier exists
-if ! command -v prettier &> /dev/null; then
-  echo "[$(date)] ERROR: prettier not installed" >> ~/.claude/hooks/formatter.log
-  exit 1
-fi
-
-# Format
-echo "[$(date)] Formatting: $file" >> ~/.claude/hooks/formatter.log
-if prettier --write "$file" 2>&1 | tee -a ~/.claude/hooks/formatter.log; then
-  echo "✅ Formatted $file"
-else
-  echo "🔴 Formatting failed (see ~/.claude/hooks/formatter.log)"
-fi
+# Normal processing
+echo '{"decision": "approve"}'
+exit 0
 ```
 
-**What you gain:**
-- Errors logged and visible
-- Graceful handling of missing files
-- Can debug when issues occur
-- Clear feedback to user
-- Hook doesn't fail silently
-</correction>
-</example>
-</examples>
+## Security Considerations
 
-<security>
-**Hooks run with your credentials and have full system access.**
+When creating hooks:
 
-## Best Practices
+1. **Validate All Inputs**: Never trust data from tool parameters
+2. **Avoid Command Injection**: Sanitize strings used in shell commands
+3. **Check Exit Codes**: Use appropriate codes (0, 2)
+4. **Limit Permissions**: Run with minimal necessary privileges
+5. **Log Security Events**: Audit sensitive operations
+6. **Test Thoroughly**: Try to bypass your own hooks
 
-1. **Review code carefully** - Hooks execute any command
-2. **Use absolute paths** - Don't rely on PATH
-3. **Validate inputs** - Don't trust file paths blindly
-4. **Limit scope** - Only access what's needed
-5. **Log actions** - Track what hooks do
-6. **Test thoroughly** - Especially blocking hooks
+### Security Anti-Patterns
 
-## Dangerous Patterns
-
-❌ **Don't:**
+**Bad** (Command Injection):
 ```bash
-# DANGEROUS - executes arbitrary code
-cmd=$(tail -1 ~/.claude/edit-log.txt)
-eval "$cmd"
+eval "$1"  # NEVER DO THIS
 ```
 
-✅ **Do:**
+**Good** (Safe Validation):
 ```bash
-# SAFE - validates and sanitizes
-file=$(tail -1 ~/.claude/edit-log.txt | grep "^/.*\.ts$")
-if [ -f "$file" ]; then
-  prettier --write "$file"
+if [[ "$1" =~ ^[a-zA-Z0-9_/-]+$ ]]; then
+  # Process sanitized input
 fi
 ```
-</security>
 
-<critical_rules>
-## Rules That Have No Exceptions
+## Validation Checklist
 
-1. **Start with Phase 1 (observe)** → Understand patterns before acting
-2. **Keep hooks fast (<2 seconds)** → Don't block workflow
-3. **Test thoroughly** → Hooks have full system access
-4. **Add error handling and logging** → Silent failures are debugging nightmares
-5. **Use progressive enhancement** → Observe → Automate → Enforce (only if needed)
+Before deploying hooks, verify:
 
-## Common Excuses
+- [ ] hooks.json has valid JSON syntax
+- [ ] Event names are correct
+- [ ] Matchers are properly escaped (use \| for regex OR)
+- [ ] Hook scripts exist and are executable
+- [ ] Scripts accept correct input parameters
+- [ ] Scripts return valid JSON
+- [ ] Exit codes are appropriate (0 or 2)
+- [ ] Security validation is thorough
+- [ ] Error cases are handled
+- [ ] Hooks don't create infinite loops
 
-All of these mean: **STOP. Follow progressive enhancement.**
+## Reference Templates
 
-- "Hook is simple, don't need testing" (Untested hooks fail in production)
-- "Blocking is fine, need to enforce" (Start non-blocking, observe first)
-- "I'll add error handling later" (Hook errors silent, add now)
-- "Hook is slow but thorough" (Slow hooks block workflow, optimize)
-- "Need access to everything" (Minimal permissions only)
-</critical_rules>
+Full templates and examples are available at:
+- `{baseDir}/templates/hooks-template.json` - Basic hooks configuration
+- `{baseDir}/templates/validation-script.sh` - Validation hook script
+- `{baseDir}/templates/formatting-script.sh` - Formatting hook script
+- `{baseDir}/references/hook-examples.md` - Real-world examples
 
-<verification_checklist>
-Before deploying hook:
+## Complete Example: Protected Directories
 
-- [ ] Tested in isolation (manual execution)
-- [ ] Tested with mock data
-- [ ] Completes quickly (<2 seconds for non-blocking)
-- [ ] Has error handling (set -euo pipefail)
-- [ ] Has logging (can debug failures)
-- [ ] Validates inputs (doesn't trust blindly)
-- [ ] Uses absolute paths
-- [ ] Started with Phase 1 (observation)
-- [ ] If blocking: has escape hatch
+**hooks.json**:
+```json
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.claude/hooks/protect-dirs.sh"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.claude/hooks/auto-format.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
 
-**Can't check all boxes?** Return to development and fix.
-</verification_checklist>
+**protect-dirs.sh**:
+```bash
+#!/bin/bash
+TOOL_NAME="$1"
+FILE_PATH="$2"
 
-<integration>
-**This skill covers:** Hook creation and patterns
+PROTECTED_DIRS=("/etc" "/usr" "/sys" "/protected")
 
-**Related skills:**
-- hyperpowers:skills-auto-activation (complete skill activation hook)
-- hyperpowers:verification-before-completion (quality hooks automate this)
-- hyperpowers:testing-anti-patterns (avoid in hooks)
+for dir in "${PROTECTED_DIRS[@]}"; do
+  if [[ "$FILE_PATH" == $dir/* ]]; then
+    echo "{\"decision\": \"block\", \"reason\": \"Cannot modify protected directory: $dir\"}"
+    exit 2
+  fi
+done
 
-**Hook patterns support:**
-- Automatic skill activation
-- Build verification
-- Code formatting
-- Error prevention
-- Workflow automation
-</integration>
+echo '{"decision": "approve"}'
+exit 0
+```
 
-<resources>
-**Detailed guides:**
-- [Complete hook examples](resources/hook-examples.md)
-- [Hook pattern library](resources/hook-patterns.md)
-- [Testing strategies](resources/testing-hooks.md)
+**auto-format.sh**:
+```bash
+#!/bin/bash
+FILE_PATH="$2"
 
-**Official documentation:**
-- [Anthropic Hooks Guide](https://docs.claude.com/en/docs/claude-code/hooks-guide)
+if [[ "$FILE_PATH" == *.py ]]; then
+  black --quiet "$FILE_PATH" 2>/dev/null
+elif [[ "$FILE_PATH" == *.js ]] || [[ "$FILE_PATH" == *.ts ]]; then
+  prettier --write "$FILE_PATH" > /dev/null 2>&1
+fi
 
-**When stuck:**
-- Hook failing silently → Add logging, check ~/.claude/hooks/debug.log
-- Hook too slow → Profile execution, move slow parts to background
-- Hook blocking incorrectly → Return to Phase 1, observe patterns
-- Testing unclear → Start with manual execution, then mock data
-</resources>
+echo '{"decision": "approve", "reason": "File formatted"}'
+exit 0
+```
+
+## Your Role
+
+When the user asks to create hooks:
+
+1. Understand what behavior needs automation or validation
+2. Recommend appropriate event and matcher
+3. Design hook logic with security in mind
+4. Generate hooks.json configuration
+5. Create hook scripts with proper structure
+6. Validate JSON syntax and script logic
+7. Make scripts executable
+8. Provide testing instructions
+
+Be proactive in:
+- Identifying security risks
+- Recommending appropriate events
+- Creating robust validation logic
+- Writing defensive hook scripts
+- Testing edge cases and error conditions
+
+Your goal is to help users create secure, reliable event hooks that automate workflows and enforce policies effectively.
+
+## Maintaining and Updating Hooks
+
+Hooks are security-critical infrastructure and need ongoing maintenance.
+
+### Security-First Principles
+
+1. **Never Trust Input**: All parameters are potentially malicious
+   ```bash
+   # WRONG
+   eval "$1"
+
+   # RIGHT
+   if [[ "$1" =~ ^[a-zA-Z0-9_/-]+$ ]]; then
+       # Safe to use
+   fi
+   ```
+
+2. **Validate Everything**: Check parameters, paths, commands
+   ```bash
+   set -euo pipefail  # Strict error handling
+   [[ ! "$PATH" =~ \.\. ]]  # No directory traversal
+   ```
+
+3. **Use Safe Defaults**: Block by default, approve explicitly
+   ```bash
+   echo '{"decision": "block", "reason": "Validation failed"}' >&2
+   exit 2
+   ```
+
+4. **Block Dangerous Patterns**:
+   - `eval`, command substitution without validation
+   - `rm -rf /`, `dd if=`, `mkfs`
+   - Piping wget/curl to bash
+   - Overly permissive permissions (chmod 777)
+
+### Maintenance Checklist
+
+When reviewing hooks for updates:
+
+- [ ] **JSON syntax valid**: Valid JSON structure
+- [ ] **Event names correct**: PreToolUse, PostToolUse, etc.
+- [ ] **Matchers appropriate**: Specific tools, not wildcards
+- [ ] **Scripts exist**: Referenced scripts are present
+- [ ] **Scripts executable**: chmod +x on script files
+- [ ] **Input validation**: Scripts validate parameters
+- [ ] **No dangerous patterns**: No eval, rm -rf, etc.
+
+### Common Maintenance Scenarios
+
+#### Scenario 1: Hook Script Not Executing
+
+**Problem**: Hook script not running when expected
+**Solutions**:
+- Verify script exists at the path specified
+- Make script executable: `chmod +x script.sh`
+- Check hook event name matches expected trigger
+- Verify matcher pattern matches the tool
+
+#### Scenario 2: Security Hardening
+
+**Problem**: Hook lacks input validation
+**Solution**: Add parameter validation at start of script:
+```bash
+#!/bin/bash
+set -euo pipefail
+
+# Validate input
+if [[ ! "$1" =~ ^[a-zA-Z0-9_/-]+$ ]]; then
+    echo '{"decision": "block", "reason": "Invalid input"}'
+    exit 2
+fi
+```
+
+#### Scenario 3: Change Hook Event
+
+**Problem**: Need to move from PostToolUse to PreToolUse
+**Solution**: Edit hooks.json to change the event key:
+```json
+{
+  "hooks": {
+    "PreToolUse": [...]  // Changed from PostToolUse
+  }
+}
+```
+
+### Best Practices
+
+1. **Use specific matchers**: `"Write|Edit"` instead of `"*"`
+2. **Validate all inputs**: Never trust parameters
+3. **Use absolute paths**: For script references
+4. **Log security events**: Audit sensitive operations
+5. **Test thoroughly**: Try to bypass your own hooks
+6. **Backup before changes**: Keep original hooks.json
+7. **Version control**: Commit hooks.json changes

@@ -14,7 +14,7 @@ allowed-tools: [Read, Write, Edit, Bash, Glob, Grep]
 ## 1. Role Definition
 
 You are an **Agent Assistant AI**.
-You help diagnose and resolve AI agent issues including stuck detection, memory management, and session learning extraction. You utilize the MUSUBI OpenHands-inspired modules to provide advanced agent assistance capabilities.
+You help diagnose and resolve AI agent issues including stuck detection, memory management, and session learning extraction. You utilize the ITDA OpenHands-inspired modules to provide advanced agent assistance capabilities.
 
 ---
 
@@ -33,7 +33,7 @@ Detects when an AI agent is stuck in various patterns:
 **Usage Example**:
 
 ```javascript
-const { StuckDetector } = require('musubi/src/analyzers/stuck-detector');
+const { StuckDetector } = require('itda/src/analyzers/stuck-detector');
 
 const detector = new StuckDetector({
   repeatThreshold: 3, // Detect after 3 repeats
@@ -50,7 +50,7 @@ detector.addEvent({ type: 'action', content: 'Read file.js' });
 const analysis = detector.detect();
 if (analysis) {
   console.log(analysis.getMessage());
-  // "エージェントが同じアクションを繰り返しています"
+  // "에이전트가 동일한 작업을 반복하고 있습니다."
 }
 ```
 
@@ -66,7 +66,7 @@ Compresses long session history to fit context window:
 **Usage Example**:
 
 ```javascript
-const { MemoryCondenser } = require('musubi/src/managers/memory-condenser');
+const { MemoryCondenser } = require('itda/src/managers/memory-condenser');
 
 // Create from config or type
 const condenser = MemoryCondenser.create('recent', {
@@ -94,28 +94,28 @@ Extracts and persists learnings from agent sessions:
 
 ```bash
 # Extract learnings from current session
-musubi-remember extract
+itda-remember extract
 
 # Export memory to file
-musubi-remember export ./session-memory.json
+itda-remember export ./session-memory.json
 
 # Import memory from file
-musubi-remember import ./session-memory.json
+itda-remember import ./session-memory.json
 
 # Condense memory to fit context window
-musubi-remember condense
+itda-remember condense
 
 # List stored memories
-musubi-remember list
+itda-remember list
 
 # Clear session memory
-musubi-remember clear
+itda-remember clear
 ```
 
 **Usage Example**:
 
 ```javascript
-const { AgentMemoryManager } = require('musubi/src/managers/agent-memory');
+const { AgentMemoryManager } = require('itda/src/managers/agent-memory');
 
 const manager = new AgentMemoryManager({
   projectRoot: process.cwd(),
@@ -194,13 +194,13 @@ Before beginning work, **ALWAYS** read the following files if they exist in the 
 
 ```bash
 # Initialize stuck detector for current session
-musubi-analyze stuck --session ./session.log
+itda-analyze stuck --session ./session.log
 
 # Condense session memory
-musubi-analyze condense --strategy recent --max-events 50
+itda-analyze condense --strategy recent --max-events 50
 
 # Extract learnings from session
-musubi-analyze learnings --session ./session.log --export markdown
+itda-analyze learnings --session ./session.log --export markdown
 ```
 
 ---
@@ -214,7 +214,7 @@ musubi-analyze learnings --session ./session.log --export markdown
 
 **Pattern Detected**: repeating_action
 **Confidence**: 0.95
-**Message**: エージェントが同じアクションを繰り返しています
+**Message**: 에이전트가 동일한 작업을 반복하고 있습니다.
 
 ### Event History
 
@@ -236,16 +236,16 @@ musubi-analyze learnings --session ./session.log --export markdown
 
 ### Commands (2 items)
 
-- `npm run test` - 単体テストを実行
-- `npm install` - 依存関係をインストール
+- `npm run test` - 단위 테스트 실행
+- `npm install` - 종속성 설치
 
 ### Error Solutions (1 item)
 
 - **Error**: Module not found
-- **Solution**: npm install で解決
+- **Solution**: npm install 에서 해결
 - **Confidence**: 0.85
 
 ### Project Structure (1 item)
 
-- テストファイルは `tests/` ディレクトリに配置
+- 테스트 파일은 `tests/` 디렉토리에 위치한다.
 ```

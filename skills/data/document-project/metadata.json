@@ -1,12 +1,7 @@
 {
   "name": "document-project",
-  "description": "Generate comprehensive architecture documentation automatically from existing codebase analysis. This skill should be used when working with brownfield projects or updating outdated documentation.",
-  "repo": "adolfoaranaes12/BMAD-ENHANCED",
-  "category": "documents",
-  "tags": [
-    "document",
-    "project"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "repo": "resolve-io/.prism",
+  "path": "plugins/prism-devtools/skills/document-project/SKILL.md",
+  "source": "github.com/resolve-io/.prism",
+  "downloaded_at": "2026-01-14T03:09:57.979115Z"
 }

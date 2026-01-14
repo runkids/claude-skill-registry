@@ -1,11 +1,7 @@
 {
   "name": "tg-permissions",
-  "description": "Permission and access control patterns for the World of Darkness Django application. Use when implementing view permissions, checking user access levels, creating limited forms for owners, using Permi",
   "repo": "charlesmsiegel/tg",
-  "category": "product",
-  "tags": [
-    "permissions"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/tg-permissions/SKILL.md",
+  "source": "github.com/charlesmsiegel/tg",
+  "downloaded_at": "2026-01-14T04:01:31.310610Z"
 }

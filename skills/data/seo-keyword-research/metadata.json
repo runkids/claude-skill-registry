@@ -1,9 +1,7 @@
 {
   "name": "seo-keyword-research",
-  "description": "Deep competitive keyword research and SEO strategy. Takes a primary keyword and researches supporting keywords, competitor analysis, search intent, and per-page keyword mapping. Outputs docs/seo-analy",
-  "repo": "Manuelvillarvieites/energy-company",
-  "category": "documents",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "deomiarn/website-template",
+  "path": ".claude/skills/seo-keyword-research/SKILL.md",
+  "source": "github.com/deomiarn/website-template",
+  "downloaded_at": "2026-01-14T01:42:34.287020Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "auto-testing",
-  "description": "Automatically generate and run tests after each code change.Use when: any code is generated or modified in the pipeline.Triggers: internal use only.",
-  "repo": "timequity/vibe-coder",
-  "category": "testing",
-  "tags": [
-    "auto",
-    "testing"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "timequity/plugins",
+  "path": "vibe-coder/skills/auto-testing/SKILL.md",
+  "source": "github.com/timequity/plugins",
+  "downloaded_at": "2026-01-14T03:41:20.878724Z"
 }

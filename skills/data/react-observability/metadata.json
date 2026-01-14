@@ -1,9 +1,7 @@
 {
   "name": "react-observability",
-  "description": "Logging, error messages, and debugging patterns for React. Use when adding logging, designing error messages, debugging production issues, or improving code observability. Works for both React web and",
   "repo": "CJHarmath/claude-agents-skills",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/react-observability/SKILL.md",
+  "source": "github.com/CJHarmath/claude-agents-skills",
+  "downloaded_at": "2026-01-14T02:34:05.436547Z"
 }

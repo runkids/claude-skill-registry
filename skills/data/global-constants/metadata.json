@@ -1,8 +1,7 @@
 {
   "name": "global-constants",
   "repo": "sayali-ingle-pdl/adusa-ai-vuejs-app-template",
-  "category": "data",
-  "description": "Generates src/shared/constants/global.ts file containing application-wide constants used throughout the application.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:08:08.185551Z"
+  "path": ".github/agents/app-starter/agents-context/skills/global-constants/SKILL.md",
+  "source": "github.com/sayali-ingle-pdl/adusa-ai-vuejs-app-template",
+  "downloaded_at": "2026-01-14T04:00:41.759024Z"
 }

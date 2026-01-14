@@ -1,11 +1,7 @@
 {
   "name": "mcp-firecrawl",
-  "description": "This skill provides guidance for using Firecrawl MCP for web scraping and content extraction. Use when scraping web pages, crawling websites, searching the web with content extraction, mapping site UR",
   "repo": "s-hiraoku/vscode-sidebar-terminal",
-  "category": "data",
-  "tags": [
-    "mcp",
-    "firecrawl"
-  ],
-  "stars": 6
+  "path": ".claude/skills/mcp-firecrawl/SKILL.md",
+  "source": "github.com/s-hiraoku/vscode-sidebar-terminal",
+  "downloaded_at": "2026-01-14T03:50:54.104957Z"
 }

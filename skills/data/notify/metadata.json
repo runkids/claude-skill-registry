@@ -1,8 +1,7 @@
 {
   "name": "notify",
-  "repo": "wayne930242/weihung-pai",
-  "category": "data",
-  "description": "PAI Bot notification system. Use when long-running tasks, background jobs, reminders, task completion, progress updates needed.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:24.971989Z"
+  "repo": "mgreenly/ikigai",
+  "path": ".claude/library/notify/SKILL.md",
+  "source": "github.com/mgreenly/ikigai",
+  "downloaded_at": "2026-01-14T03:06:57.061231Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "rust-production-reliability",
-  "description": "Production reliability patterns including circuit breakers with exponential backoff, graceful shutdown management with signal handling, retry logic with jitter, rate limiting with token bucket, and se",
   "repo": "matthewharwood/engmanager.xyz",
-  "category": "design",
-  "tags": [
-    "rust",
-    "production",
-    "reliability"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/rust-production-reliability/SKILL.md",
+  "source": "github.com/matthewharwood/engmanager.xyz",
+  "downloaded_at": "2026-01-14T03:04:55.246405Z"
 }

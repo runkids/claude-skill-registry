@@ -1,13 +1,7 @@
 {
   "name": "claude-hooks-manager",
-  "description": "Guide for creating valid hooks. This skill should be ALWAYS used when users want to create a new hook or update an existing hook that extends Claude's capabilities with specialized knowledge, workflow",
   "repo": "shredbx/demo-3d-model",
-  "category": "testing",
-  "tags": [
-    "claude",
-    "hooks",
-    "manager"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/claude-hooks-manager/SKILL.md",
+  "source": "github.com/shredbx/demo-3d-model",
+  "downloaded_at": "2026-01-14T03:59:03.439486Z"
 }

@@ -1,11 +1,7 @@
 {
   "name": "refactor",
-  "description": "Detailed guidance for the REFACTOR phase of TDD - emphasizes searching for existing patterns, extracting shared functionality, and avoiding code duplication before writing new implementations",
-  "repo": "craigtkhill/stdd-agents",
-  "category": "development",
-  "tags": [
-    "refactor"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "omerlefaruk/CasareRPA",
+  "path": ".opencode/skill/refactor/SKILL.md",
+  "source": "github.com/omerlefaruk/CasareRPA",
+  "downloaded_at": "2026-01-14T02:58:18.676720Z"
 }

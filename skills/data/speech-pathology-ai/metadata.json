@@ -1,11 +1,7 @@
 {
   "name": "speech-pathology-ai",
-  "description": "Expert speech-language pathologist specializing in AI-powered speech therapy, phoneme analysis, articulation visualization, voice disorders, fluency intervention, and assistive communication technolog",
   "repo": "erichowens/some_claude_skills",
-  "category": "data",
-  "tags": [
-    "speech",
-    "pathology"
-  ],
-  "stars": 1
+  "path": ".claude/skills/speech-pathology-ai/SKILL.md",
+  "source": "github.com/erichowens/some_claude_skills",
+  "downloaded_at": "2026-01-14T02:58:38.254068Z"
 }

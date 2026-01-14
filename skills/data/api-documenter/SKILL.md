@@ -1,281 +1,209 @@
 ---
 name: api-documenter
-description: |
-  WHEN: API documentation, JSDoc/TSDoc comments, Props documentation, Storybook story writing
-  WHAT: Function/class/type JSDoc + React Props table + Markdown API docs + Storybook stories
-  WHEN NOT: README writing → readme-generator, Code explanation → code-reviewer
+description: API documentation specialist for OpenAPI/Swagger specifications. Use when documenting REST or GraphQL APIs.
+allowed-tools: Read, Write, Edit, Bash, Grep, Glob
 ---
 
-# API Documenter Skill
+# API Documenter
 
-## Purpose
-Automatically generates API documentation for code including functions, components, and types with JSDoc/TSDoc comments.
+Specialist in creating comprehensive API documentation using OpenAPI/Swagger specifications.
 
-## When to Use
-- "API docs", "jsdoc", "documentation" requests
-- Component Props documentation needed
-- Adding comments to functions/classes
-- Storybook story generation
+## When This Skill Activates
 
-## Workflow
+Activates when you:
+- Ask to document an API
+- Create OpenAPI/Swagger specs
+- Need API reference documentation
+- Mention "API docs"
 
-### Step 1: Select Documentation Target
-**AskUserQuestion:**
-```
-"What code to document?"
-Options:
-- Specific file/function
-- Undocumented export functions
-- React component Props
-- All public APIs
-```
+## OpenAPI Specification Structure
 
-### Step 2: Select Documentation Type
-**AskUserQuestion:**
-```
-"What format to generate?"
-Options:
-- JSDoc/TSDoc comments
-- Markdown API docs
-- Storybook stories
-- All of the above
-multiSelect: true
-```
-
-## Documentation Templates
-
-### JSDoc/TSDoc Comments
-
-**Function:**
-```typescript
-/**
- * Formats user data for display.
- *
- * @param user - User object to format
- * @param options - Formatting options
- * @param options.locale - Locale setting (default: 'en-US')
- * @param options.includeAge - Include age (default: false)
- *
- * @returns Formatted user string
- *
- * @example
- * ```typescript
- * const formatted = formatUser({ name: 'John', age: 30 })
- * // Returns: 'John'
- *
- * const withAge = formatUser({ name: 'John', age: 30 }, { includeAge: true })
- * // Returns: 'John (30)'
- * ```
- *
- * @throws {ValidationError} When user object is invalid
- * @see {@link User} User type definition
- * @since 1.0.0
- */
-export function formatUser(user: User, options?: FormatOptions): string
+```yaml
+openapi: 3.0.3
+info:
+  title: API Title
+  version: 1.0.0
+  description: API description
+servers:
+  - url: https://example.com/api/v1
+paths:
+  /users:
+    get:
+      summary: List users
+      operationId: listUsers
+      tags:
+        - users
+      parameters: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
 ```
 
-**Interface:**
-```typescript
-/**
- * User information interface
- *
- * @interface User
- * @property {string} id - Unique identifier (UUID)
- * @property {string} name - User name
- * @property {string} email - Email address
- * @property {number} [age] - Age (optional)
- * @property {UserRole} role - User role
- */
-interface User {
-  id: string
-  name: string
-  email: string
-  age?: number
-  role: UserRole
-}
-```
+## Endpoint Documentation
 
-**Class:**
-```typescript
-/**
- * API client for REST communication
- *
- * @class ApiClient
- * @example
- * ```typescript
- * const client = new ApiClient({ baseUrl: 'https://api.example.com' })
- * const users = await client.get<User[]>('/users')
- * ```
- */
-class ApiClient {
-  /**
-   * Creates ApiClient instance
-   * @param config - Client configuration
-   */
-  constructor(config: ApiClientConfig) {}
+For each endpoint, document:
 
-  /**
-   * Performs GET request
-   * @template T - Response type
-   * @param endpoint - API endpoint
-   * @returns Response data
-   */
-  async get<T>(endpoint: string): Promise<T> {}
-}
-```
+### Required Fields
+- **summary**: Brief description
+- **operationId**: Unique identifier
+- **description**: Detailed explanation
+- **tags**: For grouping
+- **responses**: All possible responses
 
-### React Component Documentation
-
-**Props Interface:**
-```typescript
-/**
- * Button component Props
- */
-interface ButtonProps {
-  /** Button content */
-  children: React.ReactNode
-
-  /** Style variant @default 'primary' */
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost'
-
-  /** Button size @default 'medium' */
-  size?: 'small' | 'medium' | 'large'
-
-  /** Disabled state @default false */
-  disabled?: boolean
-
-  /** Loading state @default false */
-  loading?: boolean
-
-  /** Click event handler */
-  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void
-}
-
-/**
- * Button component with various styles and sizes
- *
- * @component
- * @example
- * ```tsx
- * <Button onClick={handleClick}>Click me</Button>
- * <Button variant="secondary" size="large">Large Button</Button>
- * <Button loading disabled>Processing...</Button>
- * ```
- */
-export function Button({ children, variant = 'primary', ...props }: ButtonProps)
-```
-
-### Markdown API Docs
-```markdown
-## formatUser
-
-Formats user data for display.
-
-### Signature
-\`\`\`typescript
-function formatUser(user: User, options?: FormatOptions): string
-\`\`\`
-
-### Parameters
-| Parameter | Type | Required | Default | Description |
-|-----------|------|----------|---------|-------------|
-| `user` | `User` | Yes | - | User object to format |
-| `options.locale` | `string` | No | `'en-US'` | Locale setting |
-
-### Returns
-`string` - Formatted user string
+### Recommended Fields
+- **parameters**: All parameters with details
+- **requestBody**: For POST/PUT/PATCH
+- **security**: Authentication requirements
+- **deprecated**: If applicable
 
 ### Example
-\`\`\`typescript
-const formatted = formatUser({ name: 'John', age: 30 })
-\`\`\`
+
+```yaml
+/users/{id}:
+  get:
+    summary: Get a user by ID
+    operationId: getUserById
+    description: Retrieves a single user by their unique identifier
+    tags:
+      - users
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The user ID
+    responses:
+      '200':
+        description: User found
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      '404':
+        description: User not found
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Error'
 ```
 
-### Storybook Stories
-```typescript
-import type { Meta, StoryObj } from '@storybook/react'
-import { Button } from './Button'
+## Schema Documentation
 
-const meta: Meta<typeof Button> = {
-  title: 'Components/Button',
-  component: Button,
-  tags: ['autodocs'],
-  argTypes: {
-    variant: {
-      control: 'select',
-      options: ['primary', 'secondary', 'outline', 'ghost'],
-    },
-    size: {
-      control: 'select',
-      options: ['small', 'medium', 'large'],
-    },
-  },
-}
+### Best Practices
 
-export default meta
-type Story = StoryObj<typeof Button>
+1. **Use references** for shared schemas
+2. **Add descriptions** to all properties
+3. **Specify format** for strings (email, uuid, date-time)
+4. **Add examples** for complex schemas
+5. **Mark required fields**
 
-/** Default button style */
-export const Default: Story = {
-  args: { children: 'Button', variant: 'primary' },
-}
+### Example
 
-/** Primary variant for main actions */
-export const Primary: Story = {
-  args: { children: 'Primary', variant: 'primary' },
-}
-
-/** Various sizes */
-export const Sizes: Story = {
-  render: () => (
-    <div style={{ display: 'flex', gap: '1rem' }}>
-      <Button size="small">Small</Button>
-      <Button size="medium">Medium</Button>
-      <Button size="large">Large</Button>
-    </div>
-  ),
-}
+```yaml
+components:
+  schemas:
+    User:
+      type: object
+      required:
+        - id
+        - email
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique user identifier
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        email:
+          type: string
+          format: email
+          description: User's email address
+          example: "user@example.com"
+        createdAt:
+          type: string
+          format: date-time
+          description: Account creation timestamp
 ```
 
-## Response Template
-```
-## API Documentation Generated
+## Authentication Documentation
 
-**Target**: src/components/Button.tsx
+Document auth requirements:
 
-### JSDoc Comments
-- ButtonProps interface: 7 properties documented
-- Button component: Fully documented
+```yaml
+security:
+  - bearerAuth: []
 
-### Markdown Docs
-- File: docs/components/Button.md
-- Sections: Props, Usage, Accessibility
-
-### Storybook
-- File: src/components/Button.stories.tsx
-- Stories: 6 (Default, Primary, Secondary, Sizes, Loading, Disabled)
-
-### Statistics
-| Item | Count |
-|------|-------|
-| Documented Props | 7 |
-| Code Examples | 5 |
-| Stories | 6 |
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Use your JWT token from /auth/login
 ```
 
-## Best Practices
-1. **Consistent Style**: Same documentation style across project
-2. **Include Examples**: Usage examples for all public APIs
-3. **Type Accuracy**: Match TypeScript types with documentation
-4. **Keep Updated**: Update docs when code changes
-5. **Accessibility Info**: Include a11y information for components
+## Error Responses
 
-## Integration
-- `readme-generator` skill: README API section
-- `/explain-code` command: Code understanding
-- `code-reviewer` skill: Documentation quality check
+Standard error format:
 
-## Notes
-- Merges or overwrites if existing docs present
-- Auto-infers from TypeScript types
-- Excludes @internal tagged code
+```yaml
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+        code:
+          type: string
+          description: Application-specific error code
+        details:
+          type: object
+          description: Additional error details
+```
+
+Common HTTP status codes:
+- **200**: Success
+- **201**: Created
+- **204**: No Content
+- **400**: Bad Request
+- **401**: Unauthorized
+- **403**: Forbidden
+- **404**: Not Found
+- **409**: Conflict
+- **422**: Unprocessable Entity
+- **500**: Internal Server Error
+
+## Scripts
+
+Generate OpenAPI spec from code:
+```bash
+python scripts/generate_openapi.py
+```
+
+Validate OpenAPI spec:
+```bash
+python scripts/validate_openapi.py openapi.yaml
+```
+
+## References
+
+- `references/openapi-template.yaml` - OpenAPI template
+- `references/examples/` - API documentation examples
+- [OpenAPI Specification](https://swagger.io/specification/)

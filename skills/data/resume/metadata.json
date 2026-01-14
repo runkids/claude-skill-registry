@@ -1,11 +1,7 @@
 {
   "name": "resume",
-  "description": "Restore context and momentum from previous sessions. Use when returning to work after interruption or session boundary.",
-  "repo": "genomewalker/cc-soul",
-  "category": "development",
-  "tags": [
-    "resume"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "younwony/younwony.github.io",
+  "path": ".claude/skills/write/resume/SKILL.md",
+  "source": "github.com/younwony/younwony.github.io",
+  "downloaded_at": "2026-01-14T02:46:58.516359Z"
 }

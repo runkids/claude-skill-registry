@@ -1,10 +1,7 @@
 {
   "name": "numpy-io",
-  "description": "File I/O operations including binary formats (npy/npz), text processing (csv), and memory-mapping for huge datasets. Triggers: io, load, save, npz, genfromtxt, memmap, loadtxt.",
   "repo": "cuba6112/skillfactory",
-  "category": "data",
-  "tags": [
-    "numpy"
-  ],
-  "stars": 0
+  "path": "skills/numpy-io/SKILL.md",
+  "source": "github.com/cuba6112/skillfactory",
+  "downloaded_at": "2026-01-14T02:37:36.980547Z"
 }

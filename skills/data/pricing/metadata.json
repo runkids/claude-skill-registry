@@ -1,11 +1,7 @@
 {
   "name": "pricing",
-  "description": "Guide for updating model pricing in Splitrail. Use when adding new AI model costs or updating existing pricing data.",
-  "repo": "Piebald-AI/splitrail",
-  "category": "data",
-  "tags": [
-    "pricing"
-  ],
-  "stars": 75,
-  "source": "SkillsMP Synced Skills"
+  "repo": "SylphxAI/flow",
+  "path": "packages/flow/assets/skills/pricing/SKILL.md",
+  "source": "github.com/SylphxAI/flow",
+  "downloaded_at": "2026-01-14T03:51:25.716440Z"
 }

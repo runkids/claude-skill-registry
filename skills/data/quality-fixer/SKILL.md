@@ -95,7 +95,7 @@ apply quality fixes to the entire project
 
 ```bash
 # Fix a single file
-fix quality issues in src/python_modern_template/validators.py
+fix quality issues in src/{{ package_name }}/validators.py
 ```
 
 **Actions:**
@@ -236,10 +236,10 @@ Run both tools and compare:
 
 ```bash
 # Apply Black
-black src/python_modern_template/module.py
+black src/{{ package_name }}/module.py
 
 # Check Ruff
-ruff check src/python_modern_template/module.py
+ruff check src/{{ package_name }}/module.py
 
 # If Ruff still complains about formatting, there's a conflict
 ```
@@ -345,8 +345,8 @@ make check
 [Show output]
 
 ### Files Changed
-1. src/python_modern_template/module1.py (+12, -8)
-2. src/python_modern_template/module2.py (+5, -3)
+1. src/{{ package_name }}/module1.py (+12, -8)
+2. src/{{ package_name }}/module2.py (+5, -3)
 3. tests/test_module.py (+3, -2)
 
 ### Next Steps

@@ -1,12 +1,7 @@
 {
   "name": "specialization-loader",
-  "description": "Compose technology-specific agent identity and patterns. Invoke before spawning agents (Developer, SSE, QA, Tech Lead, RE, Investigator) to enhance expertise based on project stack. Returns composed s",
   "repo": "mehdic/bazinga",
-  "category": "development",
-  "tags": [
-    "specialization",
-    "loader"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": ".claude/skills/specialization-loader/SKILL.md",
+  "source": "github.com/mehdic/bazinga",
+  "downloaded_at": "2026-01-14T01:51:27.122242Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "pptx-posters",
-  "description": "Create research posters using HTML/CSS that can be exported to PDF or PPTX. Use this skill ONLY when the user explicitly requests PowerPoint/PPTX poster format. For standard research posters, use late",
-  "repo": "K-Dense-AI/claude-scientific-writer",
-  "category": "design",
-  "tags": [
-    "pptx",
-    "posters"
-  ],
-  "stars": 215,
-  "source": "SkillsMP Synced Skills"
+  "repo": "drshailesh88/integrated_content_OS",
+  "path": "skills/scientific/pptx-posters/SKILL.md",
+  "source": "github.com/drshailesh88/integrated_content_OS",
+  "downloaded_at": "2026-01-14T04:02:25.593318Z"
 }

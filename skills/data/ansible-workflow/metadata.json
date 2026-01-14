@@ -1,12 +1,7 @@
 {
   "name": "ansible-workflow",
-  "description": "Ansible automation workflow guidelines. Activate when working with Ansible playbooks, ansible-playbook, inventory files (.yml, .ini), or Ansible-specific patterns.",
   "repo": "ilude/claude-code-config",
-  "category": "productivity",
-  "tags": [
-    "ansible",
-    "workflow"
-  ],
-  "stars": 5,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/ansible-workflow/SKILL.md",
+  "source": "github.com/ilude/claude-code-config",
+  "downloaded_at": "2026-01-14T01:02:42.406563Z"
 }

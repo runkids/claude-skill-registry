@@ -1,13 +1,7 @@
 {
   "name": "advanced-testability-ai-ergonomic",
-  "description": "Design code for testability and AI/LLM ergonomics with explicit contracts and observable patterns. Use when optimizing code for AI tools, improving testability, or making codebases LLM-friendly.",
   "repo": "leaderiop/hex-di",
-  "category": "development",
-  "tags": [
-    "advanced",
-    "testability",
-    "ergonomic"
-  ],
-  "stars": 5,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/advanced-testability-ai-ergonomic/SKILL.md",
+  "source": "github.com/leaderiop/hex-di",
+  "downloaded_at": "2026-01-14T01:20:49.419014Z"
 }

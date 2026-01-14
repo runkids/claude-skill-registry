@@ -1,13 +1,7 @@
 {
   "name": "docker-version-validation",
-  "description": "Validates that version strings in Dockerfiles match package.json dependencies and constraints.Use when updating Docker base images, Node.js versions, pnpm versions, turbo versions, or othertool versio",
   "repo": "lsst-sqre/squareone",
-  "category": "devops",
-  "tags": [
-    "docker",
-    "version",
-    "validation"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/docker-version-validation/SKILL.md",
+  "source": "github.com/lsst-sqre/squareone",
+  "downloaded_at": "2026-01-14T02:59:41.617093Z"
 }

@@ -1,11 +1,7 @@
 {
   "name": "tilt",
-  "description": "Manages Tilt development environments via CLI and Tiltfile authoring. Must use when working with Tilt or Tiltfiles.",
   "repo": "0xBigBoss/claude-code",
-  "category": "development",
-  "tags": [
-    "tilt"
-  ],
-  "stars": 23,
-  "source": "local"
+  "path": ".claude/skills/tilt/SKILL.md",
+  "source": "github.com/0xBigBoss/claude-code",
+  "downloaded_at": "2026-01-14T03:25:43.706607Z"
 }

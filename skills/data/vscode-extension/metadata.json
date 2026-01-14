@@ -1,12 +1,7 @@
 {
   "name": "vscode-extension",
-  "description": "Use when developing VS Code extensions including TextMate grammars, language configuration, and extension manifest",
-  "repo": "mcclowes/vague",
-  "category": "development",
-  "tags": [
-    "vscode",
-    "extension"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "mcclowes/lea",
+  "path": ".claude/skills/vscode-extension/SKILL.md",
+  "source": "github.com/mcclowes/lea",
+  "downloaded_at": "2026-01-14T03:26:58.066337Z"
 }

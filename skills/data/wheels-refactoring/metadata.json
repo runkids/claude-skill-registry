@@ -1,9 +1,7 @@
 {
   "name": "wheels-refactoring",
-  "description": "Refactor Wheels code for better performance, security, and maintainability. Use when optimizing code, fixing anti-patterns, improving performance, or enhancing security. Provides refactoring patterns ",
   "repo": "wheels-dev/wheels",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "examples/tweet/.claude/skills/wheels-refactoring/SKILL.md",
+  "source": "github.com/wheels-dev/wheels",
+  "downloaded_at": "2026-01-14T02:47:41.021806Z"
 }

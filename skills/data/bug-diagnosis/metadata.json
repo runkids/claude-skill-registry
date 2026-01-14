@@ -1,12 +1,7 @@
 {
   "name": "bug-diagnosis",
-  "description": "Use when the user asks to debug, diagnose, fix a bug, troubleshoot errors, investigate issues, or pastes error messages/stack traces. Triggers on keywords like \"bug\", \"error\", \"fix\", \"not working\", \"b",
   "repo": "duc01226/EasyPlatform",
-  "category": "development",
-  "tags": [
-    "bug",
-    "diagnosis"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/_archived/bug-diagnosis/SKILL.md",
+  "source": "github.com/duc01226/EasyPlatform",
+  "downloaded_at": "2026-01-14T03:30:50.770505Z"
 }

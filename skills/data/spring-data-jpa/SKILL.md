@@ -1,177 +1,184 @@
 ---
 name: spring-data-jpa
-description: Master Spring Data JPA - repositories, queries, relationships, transactions, and performance
-sasmp_version: "1.3.0"
-bonded_agent: 03-spring-data
-bond_type: PRIMARY_BOND
-version: "2.0.0"
-updated: "2024-12-30"
+description: Implement persistence layers with Spring Data JPA. Use when creating repositories, configuring entity relationships, writing queries (derived and @Query), setting up pagination, database auditing, transactions, UUID primary keys, multiple databases, and database indexing. Covers repository interfaces, JPA entities, custom queries, relationships, and performance optimization patterns.
+allowed-tools: Read, Write, Bash, Grep
+category: backend
+tags: [spring-data, jpa, database, hibernate, orm, persistence]
+version: 1.2.0
 ---
 
-# Spring Data JPA Skill
-
-Comprehensive guide to data access with Spring Data JPA including repository patterns, custom queries, and performance optimization.
+# Spring Data JPA
 
 ## Overview
 
-This skill covers everything needed for production-ready database access with Spring Data JPA.
+To implement persistence layers with Spring Data JPA, create repository interfaces that provide automatic CRUD operations, entity relationships, query methods, and advanced features like pagination, auditing, and performance optimization.
 
-## Parameters
+## When to Use
 
-| Name | Type | Required | Default | Validation |
-|------|------|----------|---------|------------|
-| `database` | enum | ✗ | postgresql | postgresql \| mysql \| h2 |
-| `migration_tool` | enum | ✗ | flyway | flyway \| liquibase \| none |
-| `fetch_strategy` | enum | ✗ | lazy | lazy \| eager |
+Use this Skill when:
+- Implementing repository interfaces with automatic CRUD operations
+- Creating entities with relationships (one-to-one, one-to-many, many-to-many)
+- Writing queries using derived method names or custom @Query annotations
+- Setting up pagination and sorting for large datasets
+- Implementing database auditing with timestamps and user tracking
+- Configuring transactions and exception handling
+- Using UUID as primary keys for distributed systems
+- Optimizing performance with database indexes
+- Setting up multiple database configurations
 
-## Topics Covered
+## Instructions
 
-### Core (Must Know)
-- **Entities**: `@Entity`, `@Table`, `@Id`, relationships
-- **Repositories**: `JpaRepository`, derived queries
-- **Transactions**: `@Transactional`, propagation
+### Create Repository Interfaces
 
-### Intermediate
-- **Custom Queries**: `@Query` with JPQL and native SQL
-- **Projections**: Interface-based, class-based
-- **Auditing**: `@CreatedDate`, `@LastModifiedDate`
+To implement a repository interface:
 
-### Advanced
-- **Specifications**: Dynamic query building
-- **Entity Graphs**: Fetch optimization
-- **N+1 Prevention**: JOIN FETCH strategies
+1. **Extend the appropriate repository interface:**
+   ```java
+   @Repository
+   public interface UserRepository extends JpaRepository<User, Long> {
+       // Custom methods defined here
+   }
+   ```
 
-## Code Examples
+2. **Use derived queries for simple conditions:**
+   ```java
+   Optional<User> findByEmail(String email);
+   List<User> findByStatusOrderByCreatedDateDesc(String status);
+   ```
 
-### Entity with Relationships
+3. **Implement custom queries with @Query:**
+   ```java
+   @Query("SELECT u FROM User u WHERE u.status = :status")
+   List<User> findActiveUsers(@Param("status") String status);
+   ```
+
+### Configure Entities
+
+1. **Define entities with proper annotations:**
+   ```java
+   @Entity
+   @Table(name = "users")
+   public class User {
+       @Id
+       @GeneratedValue(strategy = GenerationType.IDENTITY)
+       private Long id;
+
+       @Column(nullable = false, length = 100)
+       private String email;
+   }
+   ```
+
+2. **Configure relationships using appropriate cascade types:**
+   ```java
+   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+   private List<Order> orders = new ArrayList<>();
+   ```
+
+3. **Set up database auditing:**
+   ```java
+   @CreatedDate
+   @Column(nullable = false, updatable = false)
+   private LocalDateTime createdDate;
+   ```
+
+### Apply Query Patterns
+
+1. **Use derived queries for simple conditions**
+2. **Use @Query for complex queries**
+3. **Return Optional<T> for single results**
+4. **Use Pageable for pagination**
+5. **Apply @Modifying for update/delete operations**
+
+### Manage Transactions
+
+1. **Mark read-only operations with @Transactional(readOnly = true)**
+2. **Use explicit transaction boundaries for modifying operations**
+3. **Specify rollback conditions when needed**
+
+## Examples
+
+### Basic CRUD Repository
+
+```java
+@Repository
+public interface ProductRepository extends JpaRepository<Product, Long> {
+    // Derived query
+    List<Product> findByCategory(String category);
+
+    // Custom query
+    @Query("SELECT p FROM Product p WHERE p.price > :minPrice")
+    List<Product> findExpensiveProducts(@Param("minPrice") BigDecimal minPrice);
+}
+```
+
+### Pagination Implementation
+
+```java
+@Service
+public class ProductService {
+    private final ProductRepository repository;
+
+    public Page<Product> getProducts(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("name").ascending());
+        return repository.findAll(pageable);
+    }
+}
+```
+
+### Entity with Auditing
+
 ```java
 @Entity
-@Table(name = "orders")
 @EntityListeners(AuditingEntityListener.class)
 public class Order {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
-    private String orderNumber;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id", nullable = false)
-    private Customer customer;
-
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderItem> items = new ArrayList<>();
-
     @CreatedDate
-    private LocalDateTime createdAt;
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdDate;
 
-    @Version
-    private Long version;
+    @LastModifiedDate
+    private LocalDateTime lastModifiedDate;
 
-    public void addItem(OrderItem item) {
-        items.add(item);
-        item.setOrder(this);
-    }
+    @CreatedBy
+    @Column(nullable = false, updatable = false)
+    private String createdBy;
 }
 ```
 
-### Repository with Custom Queries
-```java
-public interface OrderRepository extends JpaRepository<Order, Long>,
-                                         JpaSpecificationExecutor<Order> {
+## Best Practices
 
-    Optional<Order> findByOrderNumber(String orderNumber);
+### Entity Design
+- Use constructor injection exclusively (never field injection)
+- Prefer immutable fields with `final` modifiers
+- Use Java records (16+) or `@Value` for DTOs
+- Always provide proper `@Id` and `@GeneratedValue` annotations
+- Use explicit `@Table` and `@Column` annotations
 
-    @Query("SELECT o FROM Order o JOIN FETCH o.items WHERE o.customer.id = :customerId")
-    List<Order> findByCustomerWithItems(@Param("customerId") Long customerId);
+### Repository Queries
+- Use derived queries for simple conditions
+- Use `@Query` for complex queries to avoid long method names
+- Always use `@Param` for query parameters
+- Return `Optional<T>` for single results
+- Apply `@Transactional` on modifying operations
 
-    @EntityGraph(attributePaths = {"items", "customer"})
-    Optional<Order> findWithDetailsById(Long id);
+### Performance Optimization
+- Use appropriate fetch strategies (LAZY vs EAGER)
+- Implement pagination for large datasets
+- Use database indexes for frequently queried fields
+- Consider using `@EntityGraph` to avoid N+1 query problems
 
-    @Modifying
-    @Query("UPDATE Order o SET o.status = :status WHERE o.id = :id")
-    int updateStatus(@Param("id") Long id, @Param("status") OrderStatus status);
-}
-```
+### Transaction Management
+- Mark read-only operations with `@Transactional(readOnly = true)`
+- Use explicit transaction boundaries
+- Avoid long-running transactions
+- Specify rollback conditions when needed
 
-### Specification Pattern
-```java
-public class OrderSpecifications {
+## Reference Documentation
 
-    public static Specification<Order> hasStatus(OrderStatus status) {
-        return (root, query, cb) ->
-            status == null ? null : cb.equal(root.get("status"), status);
-    }
+For comprehensive examples, detailed patterns, and advanced configurations, see:
 
-    public static Specification<Order> createdAfter(LocalDateTime date) {
-        return (root, query, cb) ->
-            date == null ? null : cb.greaterThan(root.get("createdAt"), date);
-    }
-}
-
-// Usage
-Specification<Order> spec = Specification
-    .where(OrderSpecifications.hasStatus(status))
-    .and(OrderSpecifications.createdAfter(since));
-Page<Order> orders = orderRepository.findAll(spec, pageable);
-```
-
-## Troubleshooting
-
-### Failure Modes
-
-| Issue | Diagnosis | Fix |
-|-------|-----------|-----|
-| N+1 queries | Multiple SELECTs | Use `@EntityGraph` or `JOIN FETCH` |
-| LazyInitializationException | Access outside session | Use `@Transactional` or DTO |
-| Data not saved | Missing `@Transactional` | Add to service method |
-
-### Debug Checklist
-
-```
-□ Enable SQL logging: spring.jpa.show-sql=true
-□ Check for N+1 with hibernate.generate_statistics
-□ Verify @Transactional on write operations
-□ Review fetch types (LAZY vs EAGER)
-```
-
-## Unit Test Template
-
-```java
-@DataJpaTest
-@Testcontainers
-class OrderRepositoryTest {
-
-    @Container
-    @ServiceConnection
-    static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:15");
-
-    @Autowired
-    private OrderRepository orderRepository;
-
-    @Test
-    void shouldFindByOrderNumber() {
-        Order order = new Order();
-        order.setOrderNumber("ORD-001");
-        orderRepository.save(order);
-
-        Optional<Order> found = orderRepository.findByOrderNumber("ORD-001");
-        assertThat(found).isPresent();
-    }
-}
-```
-
-## Usage
-
-```
-Skill("spring-data-jpa")
-```
-
-## Version History
-
-| Version | Date | Changes |
-|---------|------|---------|
-| 2.0.0 | 2024-12-30 | Specifications, auditing, performance patterns |
-| 1.0.0 | 2024-01-01 | Initial release |
+- [Examples](references/examples.md) - Complete code examples for common scenarios
+- [Reference](references/reference.md) - Detailed patterns and advanced configurations

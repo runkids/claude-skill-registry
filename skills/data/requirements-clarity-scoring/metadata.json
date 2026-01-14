@@ -1,13 +1,7 @@
 {
   "name": "requirements-clarity-scoring",
-  "description": "When gathering requirements during discovery phase to measure answer quality and decide when to proceed.",
   "repo": "CoderMariusz/MonoPilot",
-  "category": "design",
-  "tags": [
-    "requirements",
-    "clarity",
-    "scoring"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/requirements-clarity-scoring/SKILL.md",
+  "source": "github.com/CoderMariusz/MonoPilot",
+  "downloaded_at": "2026-01-14T03:46:39.291481Z"
 }

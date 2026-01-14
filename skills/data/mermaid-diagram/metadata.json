@@ -1,12 +1,7 @@
 {
   "name": "mermaid-diagram",
-  "description": "Creates syntactically correct mermaid diagrams (flowchart, sequenceDiagram, classDiagram, stateDiagram, erDiagram, gantt, mindmap) following official specifications. Prevents common errors like specia",
-  "repo": "cat-xierluo/SuitAgent",
-  "category": "documents",
-  "tags": [
-    "mermaid",
-    "diagram"
-  ],
-  "stars": 79,
-  "source": "SkillsMP Synced Skills"
+  "repo": "ntaksh42/agents",
+  "path": ".claude/skills/mermaid-diagram/SKILL.md",
+  "source": "github.com/ntaksh42/agents",
+  "downloaded_at": "2026-01-14T03:50:59.873433Z"
 }

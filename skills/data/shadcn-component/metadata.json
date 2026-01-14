@@ -1,12 +1,7 @@
 {
   "name": "shadcn-component",
-  "description": "Add shadcn/ui components to this project. Use when user mentions \"add component\", \"install shadcn\", \"need a dialog/button/card\", or references ui.shadcn.com.",
   "repo": "AppleLamps/xpic2",
-  "category": "design",
-  "tags": [
-    "shadcn",
-    "component"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/shadcn-component/SKILL.md",
+  "source": "github.com/AppleLamps/xpic2",
+  "downloaded_at": "2026-01-14T02:22:43.843738Z"
 }

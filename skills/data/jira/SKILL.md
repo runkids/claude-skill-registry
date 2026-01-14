@@ -1,275 +1,242 @@
 ---
 name: jira
-description: Use jira CLI for Jira operations including issue management, project queries, transitions, and JQL search
+description: Jira project management including issues, sprints, boards, and workflows. Activate for Jira tickets, sprint planning, backlog management, and Atlassian integration.
+allowed-tools:
+  - Bash
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
 ---
-# Jira CLI Skill
 
-You are a Jira specialist using the `jira` CLI tool. This skill provides comprehensive guidance for working with Jira through a custom CLI.
+# Jira Skill
 
-## Core Commands
+Provides comprehensive Jira project management capabilities for the Golden Armada AI Agent Fleet Platform.
+
+## When to Use This Skill
+
+Activate this skill when working with:
+- Issue creation and management
+- Sprint planning and execution
+- Backlog grooming
+- Jira API integration
+- Workflow automation
+
+## Jira API Quick Reference
 
 ### Authentication
+\`\`\`python
+from jira import JIRA
 
-```bash
-# Check authentication status
-jira auth check
+# Basic auth
+jira = JIRA(
+    server='https://your-domain.atlassian.net',
+    basic_auth=('email@example.com', 'API_TOKEN')
+)
 
-# Login to Jira
-jira auth login
-```
+# OAuth
+jira = JIRA(
+    server='https://your-domain.atlassian.net',
+    oauth={
+        'access_token': 'ACCESS_TOKEN',
+        'access_token_secret': 'ACCESS_TOKEN_SECRET',
+        'consumer_key': 'CONSUMER_KEY',
+        'key_cert': 'KEY_CERT'
+    }
+)
+\`\`\`
 
-### Issue Management
+### Issue Operations
 
-```bash
-# View issue details
-jira issue get ISSUE-123
+\`\`\`python
+# Create issue
+new_issue = jira.create_issue(
+    project='GA',
+    summary='Implement agent health monitoring',
+    description='Add health check endpoints and monitoring dashboards',
+    issuetype={'name': 'Story'},
+    priority={'name': 'High'},
+    labels=['backend', 'monitoring'],
+    components=[{'name': 'Agent Platform'}]
+)
+print(f"Created: {new_issue.key}")
 
-# Create new issue
-jira issue create --project PROJ --type Bug --summary "Issue summary" --description "Description"
+# Get issue
+issue = jira.issue('GA-123')
+print(f"Summary: {issue.fields.summary}")
+print(f"Status: {issue.fields.status.name}")
 
 # Update issue
-jira issue update ISSUE-123 --summary "New summary"
+issue.update(
+    summary='Updated summary',
+    description='Updated description',
+    priority={'name': 'Critical'}
+)
 
-# Add comment to issue
-jira comment add ISSUE-123 "Comment text"
+# Add comment
+jira.add_comment(issue, 'This is a comment')
 
-# List comments on issue
-jira comment list ISSUE-123
-```
-
-### Issue Transitions
-
-```bash
-# List available transitions for an issue
-jira transition list ISSUE-123
-
-# Transition issue to new status
-jira transition ISSUE-123 "In Progress"
-```
-
-### Searching with JQL
-
-```bash
-# Search issues with JQL
-jira search "project = PROJ AND status = Open"
-
-# Search with output format
-jira search "assignee = currentUser()" --format json
-
-# Search with field selection
-jira search "project = PROJ" --fields summary,status,assignee
-```
-
-### Project Operations
-
-```bash
-# List all projects
-jira project list
-
-# Get project details
-jira project get PROJ
-```
-
-### Watching and Assigning
-
-```bash
-# Watch an issue
-jira watch add ISSUE-123
-
-# Stop watching an issue
-jira watch remove ISSUE-123
+# Transition issue
+jira.transition_issue(issue, 'In Progress')
 
 # Assign issue
-jira assign ISSUE-123 username
-
-# Assign to self
-jira assign ISSUE-123 me
-```
-
-## Common Workflows
-
-### Viewing Your Work
-
-```bash
-# View issues assigned to you
-jira search "assignee = currentUser() AND status != Done"
-
-# View issues you're watching
-jira search "watcher = currentUser()"
-
-# View recent activity
-jira search "updatedDate >= -7d AND assignee = currentUser()"
-```
-
-### Creating and Updating Issues
-
-```bash
-# Create a bug
-jira issue create --project PROJ --type Bug \
-  --summary "Login button not working" \
-  --description "Steps to reproduce..."
-
-# Update priority
-jira issue update ISSUE-123 --priority High
-
-# Add labels
-jira issue update ISSUE-123 --labels bug,frontend
+jira.assign_issue(issue, 'username')
 
 # Link issues
-jira link add ISSUE-123 ISSUE-456 "blocks"
-```
+jira.create_issue_link('Blocks', 'GA-123', 'GA-124')
+\`\`\`
 
-### Moving Issues Through Workflow
+### Search (JQL)
 
-```bash
-# Start work on issue
-jira transition ISSUE-123 "In Progress"
+\`\`\`python
+# Basic search
+issues = jira.search_issues('project = GA AND status = "In Progress"')
 
-# Mark as done
-jira transition ISSUE-123 "Done"
+# With fields
+issues = jira.search_issues(
+    'project = GA',
+    fields='summary,status,assignee',
+    maxResults=50
+)
 
-# Reopen issue
-jira transition ISSUE-123 "Reopen"
-```
+# Common JQL queries
+queries = {
+    'my_open': 'assignee = currentUser() AND status != Done',
+    'sprint_backlog': 'project = GA AND sprint in openSprints()',
+    'high_priority': 'project = GA AND priority = High AND status != Done',
+    'recently_updated': 'project = GA AND updated >= -7d ORDER BY updated DESC',
+    'unassigned': 'project = GA AND assignee is EMPTY AND status != Done',
+    'bugs': 'project = GA AND issuetype = Bug AND status != Done'
+}
 
-## JQL Reference
+for name, jql in queries.items():
+    results = jira.search_issues(jql)
+    print(f"{name}: {len(results)} issues")
+\`\`\`
 
-### Common JQL Patterns
+### Sprint Management
 
-```bash
-# Issues in specific project
-jira search "project = MYPROJ"
+\`\`\`python
+# Get board
+board = jira.boards(name='GA Board')[0]
 
-# Open issues assigned to you
-jira search "assignee = currentUser() AND status in (Open, 'In Progress')"
+# Get sprints
+sprints = jira.sprints(board.id)
+active_sprint = next(s for s in sprints if s.state == 'active')
 
-# High priority bugs
-jira search "type = Bug AND priority = High"
+# Get sprint issues
+sprint_issues = jira.search_issues(f'sprint = {active_sprint.id}')
 
-# Recently updated issues
-jira search "updated >= -1w"
+# Create sprint
+new_sprint = jira.create_sprint(
+    name='Sprint 15',
+    board_id=board.id,
+    startDate='2024-01-15',
+    endDate='2024-01-29'
+)
 
-# Issues created this sprint
-jira search "sprint in openSprints() AND created >= startOfWeek()"
+# Add issues to sprint
+jira.add_issues_to_sprint(active_sprint.id, ['GA-123', 'GA-124'])
 
-# Issues with specific label
-jira search "labels = urgent"
+# Start/Complete sprint
+jira.update_sprint(sprint.id, state='active')
+jira.update_sprint(sprint.id, state='closed')
+\`\`\`
 
-# Issues in epic
-jira search "'Epic Link' = EPIC-123"
-```
+### Bulk Operations
 
-### JQL Field Reference
+\`\`\`python
+# Bulk create
+issues_to_create = [
+    {
+        'project': {'key': 'GA'},
+        'summary': f'Task {i}',
+        'issuetype': {'name': 'Task'}
+    }
+    for i in range(1, 6)
+]
+created = jira.create_issues(issues_to_create)
 
-- `project` - Project key or name
-- `status` - Issue status (Open, In Progress, Done, etc.)
-- `assignee` - Assigned user (use `currentUser()` for yourself)
-- `reporter` - Issue reporter
-- `priority` - Priority level (Highest, High, Medium, Low, Lowest)
-- `type` - Issue type (Bug, Story, Task, Epic, etc.)
-- `labels` - Issue labels
-- `created` - Creation date
-- `updated` - Last update date
-- `resolution` - Resolution status
+# Bulk transition
+issues = jira.search_issues('project = GA AND status = "To Do"')
+for issue in issues:
+    jira.transition_issue(issue, 'In Progress')
+\`\`\`
 
-### JQL Functions
+## Issue Templates
 
-- `currentUser()` - Current logged-in user
-- `startOfDay()`, `startOfWeek()`, `startOfMonth()` - Date functions
-- `now()` - Current timestamp
-- `openSprints()` - Currently active sprints
-- `closedSprints()` - Completed sprints
+### Story Template
+\`\`\`markdown
+## User Story
+As a [type of user],
+I want [goal]
+So that [benefit]
 
-## Output Formats
+## Acceptance Criteria
+- [ ] Criterion 1
+- [ ] Criterion 2
+- [ ] Criterion 3
 
-```bash
-# JSON output (for scripting)
-jira search "project = PROJ" --format json
+## Technical Notes
+- Implementation details
+- Dependencies
 
-# Table output (human-readable, default)
-jira search "project = PROJ" --format table
+## Definition of Done
+- [ ] Code complete
+- [ ] Tests written
+- [ ] Documentation updated
+- [ ] Code reviewed
+\`\`\`
 
-# CSV output
-jira search "project = PROJ" --format csv
-```
+### Bug Template
+\`\`\`markdown
+## Description
+Brief description of the bug
 
-## Best Practices
+## Steps to Reproduce
+1. Step 1
+2. Step 2
+3. Step 3
 
-1. **Always authenticate first**: Run `jira auth check` before operations
-2. **Use JQL for complex queries**: More powerful than simple filters
-3. **Specify output format**: Use `--format json` for scripting
-4. **Include field selection**: Use `--fields` to limit returned data
-5. **Test transitions**: Use `jira transition list` before transitioning
-6. **Be specific with JQL**: Use quotes for multi-word values
+## Expected Behavior
+What should happen
 
-## Common Use Cases
+## Actual Behavior
+What actually happens
 
-### Daily Standup Prep
+## Environment
+- OS:
+- Browser:
+- Version:
 
-```bash
-# What you worked on yesterday
-jira search "assignee = currentUser() AND updated >= -1d"
+## Screenshots/Logs
+Attach relevant screenshots or logs
+\`\`\`
 
-# What you're working on today
-jira search "assignee = currentUser() AND status = 'In Progress'"
-```
+## Workflow States
 
-### Bug Triage
+\`\`\`
+┌──────────┐    ┌─────────────┐    ┌────────────┐    ┌────────┐
+│  To Do   │ -> │ In Progress │ -> │ In Review  │ -> │  Done  │
+└──────────┘    └─────────────┘    └────────────┘    └────────┘
+     ^                                    │
+     └────────────────────────────────────┘
+                   (Rejected)
+\`\`\`
 
-```bash
-# Unassigned bugs
-jira search "type = Bug AND assignee is EMPTY AND status = Open"
+## Golden Armada Jira Commands
 
-# Critical bugs in project
-jira search "project = PROJ AND type = Bug AND priority in (Highest, High)"
-```
+\`\`\`bash
+# Create issue from CLI
+/jira-create --type story --summary "Implement feature X" --priority high
 
-### Sprint Planning
+# Get sprint status
+/jira-status --sprint current
 
-```bash
-# Issues in backlog
-jira search "project = PROJ AND status = 'To Do' AND sprint is EMPTY"
+# Transition issue
+/jira-transition GA-123 --status "In Progress"
 
-# Issues in current sprint
-jira search "project = PROJ AND sprint in openSprints()"
-
-# Completed this sprint
-jira search "project = PROJ AND sprint in openSprints() AND status = Done"
-```
-
-## Error Handling
-
-If you encounter authentication errors:
-```bash
-jira auth login
-```
-
-If JQL syntax errors occur:
-- Check for proper quoting of multi-word values
-- Verify field names are correct
-- Use `AND`, `OR`, `NOT` operators (uppercase)
-
-## Quick Reference
-
-```bash
-# View issue
-jira issue get ISSUE-123
-
-# Search
-jira search "JQL query here"
-
-# Create
-jira issue create --project PROJ --type TYPE --summary "text"
-
-# Update
-jira issue update ISSUE-123 --field value
-
-# Transition
-jira transition ISSUE-123 "Status Name"
-
-# Comment
-jira comment add ISSUE-123 "Comment text"
-
-# Assign
-jira assign ISSUE-123 username
-```
+# Sync with development
+/atlassian-sync --commits --branch main
+\`\`\`

@@ -1,13 +1,7 @@
 {
   "name": "graphql-schema-generator",
-  "description": "Generate GraphQL schemas, resolvers, and type definitions. Use when designing GraphQL APIs or documenting GraphQL schemas.",
   "repo": "ntaksh42/agents",
-  "category": "design",
-  "tags": [
-    "graphql",
-    "schema",
-    "generator"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/graphql-schema-generator/SKILL.md",
+  "source": "github.com/ntaksh42/agents",
+  "downloaded_at": "2026-01-14T03:51:05.017438Z"
 }

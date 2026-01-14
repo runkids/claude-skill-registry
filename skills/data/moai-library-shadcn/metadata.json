@@ -1,12 +1,7 @@
 {
   "name": "moai-library-shadcn",
-  "description": "Moai Lib Shadcn Ui - Professional implementation guide",
-  "repo": "globalmsq/msq-relayer-service",
-  "category": "data",
-  "tags": [
-    "moai",
-    "library",
-    "shadcn"
-  ],
-  "stars": 0
+  "repo": "windysky/claude_notification_wsl2",
+  "path": ".claude/skills/moai-library-shadcn/SKILL.md",
+  "source": "github.com/windysky/claude_notification_wsl2",
+  "downloaded_at": "2026-01-14T04:03:29.449456Z"
 }

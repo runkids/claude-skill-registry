@@ -1,13 +1,7 @@
 {
   "name": "uloop-get-logs",
-  "description": "Retrieve Unity Console logs via uloop CLI. Use when you need to: (1) Check for errors or warnings after operations, (2) Debug runtime issues in Unity Editor, (3) Investigate unexpected behavior or exc",
   "repo": "hatayama/uLoopMCP",
-  "category": "development",
-  "tags": [
-    "uloop",
-    "get",
-    "logs"
-  ],
-  "stars": 104,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/uloop-get-logs/SKILL.md",
+  "source": "github.com/hatayama/uLoopMCP",
+  "downloaded_at": "2026-01-14T03:18:19.196567Z"
 }

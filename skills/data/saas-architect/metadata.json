@@ -1,12 +1,7 @@
 {
   "name": "saas-architect",
-  "description": "Comprehensive SaaS architecture planner for Next.js + Supabase applications. Converts ideas into production-ready technical plans with database schemas, file structures, feature breakdowns, and week-b",
   "repo": "sitechfromgeorgia/georgian-distribution-system",
-  "category": "product",
-  "tags": [
-    "saas",
-    "architect"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/saas-architect/SKILL.md",
+  "source": "github.com/sitechfromgeorgia/georgian-distribution-system",
+  "downloaded_at": "2026-01-14T01:24:41.462717Z"
 }

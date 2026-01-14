@@ -1,12 +1,7 @@
 {
   "name": "cloudflare-images",
-  "description": "Store and transform images with Cloudflare Images API and transformations. Use when: uploading images, implementing direct creator uploads, creating variants, generating signed URLs, optimizing format",
   "repo": "jezweb/claude-skills",
-  "category": "development",
-  "tags": [
-    "cloudflare",
-    "images"
-  ],
-  "stars": 109,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/cloudflare-images/SKILL.md",
+  "source": "github.com/jezweb/claude-skills",
+  "downloaded_at": "2026-01-14T04:01:51.637849Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "memory-orchestration",
-  "description": "Analyze context management, memory systems, and state continuity in agent frameworks. Use when (1) understanding how prompts are assembled, (2) evaluating eviction policies for context overflow, (3) m",
   "repo": "Dowwie/agent_framework_study",
-  "category": "design",
-  "tags": [
-    "memory",
-    "orchestration"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/memory-orchestration/SKILL.md",
+  "source": "github.com/Dowwie/agent_framework_study",
+  "downloaded_at": "2026-01-14T01:47:07.960745Z"
 }

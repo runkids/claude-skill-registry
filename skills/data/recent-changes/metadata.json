@@ -1,12 +1,7 @@
 {
   "name": "recent-changes",
-  "description": "Son degisiklikler logu. Check when debugging or understanding recent fixes.",
   "repo": "olivenet-iot/olivenet-social-bot",
-  "category": "development",
-  "tags": [
-    "recent",
-    "changes"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/recent-changes/SKILL.md",
+  "source": "github.com/olivenet-iot/olivenet-social-bot",
+  "downloaded_at": "2026-01-14T01:36:17.181004Z"
 }

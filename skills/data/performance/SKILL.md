@@ -1,23 +1,33 @@
 ---
 name: performance
-description: Performance optimization guidelines for Splitrail. Use when optimizing parsing, reducing memory usage, or improving throughput.
+description: Performance - Core Web Vitals, bundle size. Use when optimizing speed.
 ---
 
-# Performance Considerations
+# Performance Guideline
 
-## Techniques Used
+## Tech Stack
 
-- **Parallel analyzer loading** - `futures::join_all()` for concurrent stats loading
-- **Parallel file parsing** - `rayon` for parallel iteration over files
-- **Fast JSON parsing** - `simd_json` exclusively for all JSON operations (note: `rmcp` crate re-exports `serde_json` for MCP server types)
-- **Fast directory walking** - `jwalk` for parallel directory traversal
-- **Lazy message loading** - TUI loads messages on-demand for session view
+* **Framework**: Next.js (with Turbopack)
+* **Platform**: Vercel
+* **Tooling**: Bun
 
-See existing analyzers in `src/analyzers/` for usage patterns.
+## Non-Negotiables
 
-## Guidelines
+* Core Web Vitals must meet thresholds (LCP < 2.5s, CLS < 0.1, INP < 200ms)
+* Performance regressions must be detectable
+* JavaScript bundle size must be monitored and optimized
 
-1. Prefer parallel processing for I/O-bound operations
-2. Use `parking_lot` locks over `std::sync` for better performance
-3. Avoid loading all messages into memory when not needed
-4. Use `BTreeMap` for date-ordered data (sorted iteration)
+## Context
+
+Performance is a feature. Slow products feel broken, even when they're correct. Users don't read loading spinners — they leave. Every 100ms of latency costs engagement.
+
+Don't just measure — understand. Where does time go? What's blocking the critical path? What would make the product feel instant? Sometimes small architectural changes have bigger impact than optimization.
+
+## Driving Questions
+
+* What makes the product feel slow to users?
+* Where are the biggest bottlenecks in the critical user journeys?
+* What's in the critical rendering path that shouldn't be?
+* How large is the JavaScript bundle, and what's bloating it?
+* What database queries are slow, and why?
+* If we could make one thing 10x faster, what would have the most impact?

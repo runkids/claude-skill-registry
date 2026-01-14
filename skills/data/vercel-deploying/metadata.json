@@ -1,12 +1,7 @@
 {
   "name": "vercel-deploying",
-  "description": "Automatically deploys to Vercel production, uses Vercel MCP to fetch build logs, analyzes errors, fixes them, and retries until successful deployment. Use when deploying to production or fixing deploy",
-  "repo": "seanchiuai/claude-web-template",
-  "category": "development",
-  "tags": [
-    "vercel",
-    "deploying"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "seanchiuai/PRD-generator",
+  "path": ".claude/skills/vercel-deploying/SKILL.md",
+  "source": "github.com/seanchiuai/PRD-generator",
+  "downloaded_at": "2026-01-14T02:30:53.110270Z"
 }

@@ -1,8 +1,7 @@
 {
   "name": "bun-runtime",
   "repo": "secondsky/claude-skills",
-  "category": "data",
-  "description": "Use for Bun runtime, bunfig.toml, watch/hot modes, env vars, CLI flags, and module resolution.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:43.050622Z"
+  "path": "plugins/bun/skills/bun-runtime/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-14T03:29:53.055055Z"
 }

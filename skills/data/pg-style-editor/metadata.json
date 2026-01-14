@@ -1,12 +1,7 @@
 {
   "name": "pg-style-editor",
-  "description": "Edit writing to adopt Paul Graham's exceptionally clear style for research and long-form content - concrete language, varied sentence rhythm, accessible formality, specific evidence. Use when user wan",
   "repo": "adilkalam/orca",
-  "category": "devops",
-  "tags": [
-    "style",
-    "editor"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": "skills/pg-style-editor/SKILL.md",
+  "source": "github.com/adilkalam/orca",
+  "downloaded_at": "2026-01-14T03:33:03.071681Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "pr",
-  "description": "Commit changes, bump version, update changelog, and open a PR",
-  "repo": "corv89/shannot",
-  "category": "development",
-  "tags": [],
-  "stars": 6,
-  "source": "local"
+  "repo": "deanmoses/tacocat-gallery-hosting-aws",
+  "path": ".claude/skills/pr/SKILL.md",
+  "source": "github.com/deanmoses/tacocat-gallery-hosting-aws",
+  "downloaded_at": "2026-01-14T04:07:32.100222Z"
 }

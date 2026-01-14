@@ -1,12 +1,7 @@
 {
   "name": "antipattern-catalog",
-  "description": "Document technical debt, anti-patterns, and patterns to avoid from analyzed frameworks. Use when (1) creating a \"Do Not Repeat\" list from framework analysis, (2) categorizing observed code smells and ",
   "repo": "Dowwie/agent_framework_study",
-  "category": "development",
-  "tags": [
-    "antipattern",
-    "catalog"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/antipattern-catalog/SKILL.md",
+  "source": "github.com/Dowwie/agent_framework_study",
+  "downloaded_at": "2026-01-14T01:47:07.690251Z"
 }

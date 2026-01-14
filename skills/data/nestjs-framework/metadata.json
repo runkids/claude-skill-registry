@@ -1,12 +1,7 @@
 {
   "name": "nestjs-framework",
-  "description": "Node.js/TypeScript backend framework with dependency injection and modular architecture",
   "repo": "FortiumPartners/ai-mesh",
-  "category": "development",
-  "tags": [
-    "nestjs",
-    "framework"
-  ],
-  "stars": 5,
-  "source": "local"
+  "path": "skills/nestjs-framework/SKILL.md",
+  "source": "github.com/FortiumPartners/ai-mesh",
+  "downloaded_at": "2026-01-14T01:50:10.513747Z"
 }

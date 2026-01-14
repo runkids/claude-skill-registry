@@ -1,11 +1,7 @@
 {
   "name": "sikhaid-components",
-  "description": "Use when creating, modifying, or understanding Svelte components in SikhAid project. Covers component naming conventions, file organization, component hierarchy, import patterns, and reusable UI patte",
   "repo": "the-non-expert/SikhAidSPA",
-  "category": "data",
-  "tags": [
-    "sikhaid",
-    "components"
-  ],
-  "stars": 0
+  "path": ".claude/skills/sikhaid-components/SKILL.md",
+  "source": "github.com/the-non-expert/SikhAidSPA",
+  "downloaded_at": "2026-01-14T01:21:32.822292Z"
 }

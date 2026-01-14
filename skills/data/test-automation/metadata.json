@@ -1,12 +1,7 @@
 {
   "name": "test-automation",
-  "description": "Create test plans, write tests, validate code quality through testing",
   "repo": "vladm3105/aidoc-flow-framework",
-  "category": "testing",
-  "tags": [
-    "test",
-    "automation"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/test-automation/SKILL.md",
+  "source": "github.com/vladm3105/aidoc-flow-framework",
+  "downloaded_at": "2026-01-14T03:58:05.071576Z"
 }

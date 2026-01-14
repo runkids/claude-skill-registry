@@ -1,12 +1,7 @@
 {
   "name": "code-quality",
-  "description": "Provides WordPress coding standards, PHP/CSS/JS style guide, code linting and static analysis (phpcs, phpstan, rector, phpcbf). Use before writing or editing PHP, CSS, or JavaScript code, when fixing ",
-  "repo": "bonny/WordPress-Simple-History",
-  "category": "design",
-  "tags": [
-    "code",
-    "quality"
-  ],
-  "stars": 313,
-  "source": "SkillsMP Synced Skills"
+  "repo": "YosrBennagra/3SC",
+  "path": ".github/skills/code-quality/SKILL.md",
+  "source": "github.com/YosrBennagra/3SC",
+  "downloaded_at": "2026-01-14T03:54:58.681647Z"
 }

@@ -1,11 +1,7 @@
 {
   "name": "tiptap",
-  "description": "Build rich text editors with Tiptap - headless editor framework with React, shadcn/ui, and Tailwind v4 integration. Includes SSR-safe setup, image uploads to R2, prose styling, collaborative editing, ",
   "repo": "jezweb/claude-skills",
-  "category": "documents",
-  "tags": [
-    "tiptap"
-  ],
-  "stars": 109,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/tiptap/SKILL.md",
+  "source": "github.com/jezweb/claude-skills",
+  "downloaded_at": "2026-01-14T04:01:52.451871Z"
 }

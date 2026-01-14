@@ -1,13 +1,7 @@
 {
   "name": "wcag-contrast-checker",
-  "description": "Check WCAG color contrast ratios between two colors. Accepts any CSS color format(hex, rgb, rgba, hsl, hsla, named colors) and returns the contrast ratio along withWCAG compliance levels (AA/AAA for n",
   "repo": "lsst-sqre/squareone",
-  "category": "design",
-  "tags": [
-    "wcag",
-    "contrast",
-    "checker"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": ".claude/skills/wcag-contrast-checker/SKILL.md",
+  "source": "github.com/lsst-sqre/squareone",
+  "downloaded_at": "2026-01-14T02:59:41.525286Z"
 }

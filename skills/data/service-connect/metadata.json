@@ -1,8 +1,7 @@
 {
   "name": "service-connect",
   "repo": "anton-abyzov/specweave",
-  "category": "data",
-  "description": "Smart external service connection orchestrator. Automatically detects and uses optimal connection method (MCP > REST API > CLI > Direct). Handles Supabase, Cloudflare, PostgreSQL, MongoDB, Redis, AWS,",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:10.560905Z"
+  "path": "plugins/specweave/skills/service-connect/SKILL.md",
+  "source": "github.com/anton-abyzov/specweave",
+  "downloaded_at": "2026-01-14T03:26:40.470616Z"
 }

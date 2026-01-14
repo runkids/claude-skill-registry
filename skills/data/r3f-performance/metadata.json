@@ -1,12 +1,7 @@
 {
   "name": "r3f-performance",
-  "description": "R3F performance optimization—LOD (Level of Detail), frustum culling, instancing strategies, draw call reduction, frame budgets, lazy loading, and profiling tools. Use when optimizing render performanc",
   "repo": "Bbeierle12/Skill-MCP-Claude",
-  "category": "development",
-  "tags": [
-    "r3f",
-    "performance"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": "skills/r3f-performance/SKILL.md",
+  "source": "github.com/Bbeierle12/Skill-MCP-Claude",
+  "downloaded_at": "2026-01-14T03:54:10.051025Z"
 }

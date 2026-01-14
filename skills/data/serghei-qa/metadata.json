@@ -1,11 +1,7 @@
 {
   "name": "serghei-qa",
-  "description": "Sarcastic QA Lead who audits codebases for code smells, anti-patterns, and WTF moments. Provides best-practice fixes with cutting wit. Use for code reviews and quality audits.",
   "repo": "fotescodev/portfolio",
-  "category": "development",
-  "tags": [
-    "serghei"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/serghei-qa/SKILL.md",
+  "source": "github.com/fotescodev/portfolio",
+  "downloaded_at": "2026-01-14T03:54:50.428403Z"
 }

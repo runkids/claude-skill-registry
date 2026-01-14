@@ -1,11 +1,7 @@
 {
   "name": "classification-helper",
-  "description": "Quick classifier training with automatic model selection, hyperparameter tuning, and comprehensive evaluation metrics.",
   "repo": "dkyazzentwatwa/chatgpt-skills",
-  "category": "data",
-  "tags": [
-    "classification",
-    "helper"
-  ],
-  "stars": 1
+  "path": "classification-helper/SKILL.md",
+  "source": "github.com/dkyazzentwatwa/chatgpt-skills",
+  "downloaded_at": "2026-01-14T01:42:55.640369Z"
 }

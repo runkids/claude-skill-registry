@@ -1,9 +1,7 @@
 {
   "name": "validate-test-reality",
-  "description": "Meta-validation skill that generates edge cases, production scenarios, and reality gaps not covered by original specifications. Identifies specification-reality mismatches by analyzing what tests clai",
   "repo": "adolfoaranaes12/BMAD-ENHANCED",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/validate-test-reality/SKILL.md",
+  "source": "github.com/adolfoaranaes12/BMAD-ENHANCED",
+  "downloaded_at": "2026-01-14T03:09:03.665829Z"
 }

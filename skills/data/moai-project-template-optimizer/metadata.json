@@ -1,13 +1,7 @@
 {
   "name": "moai-project-template-optimizer",
-  "description": "Handle template comparison and optimization workflows including backup",
-  "repo": "jg-chalk-io/Nora-LiveKit",
-  "category": "data",
-  "tags": [
-    "moai",
-    "project",
-    "template",
-    "optimizer"
-  ],
-  "stars": 0
+  "repo": "dolsoon/my-awesome-project",
+  "path": ".claude/skills/moai-project-template-optimizer/SKILL.md",
+  "source": "github.com/dolsoon/my-awesome-project",
+  "downloaded_at": "2026-01-14T03:37:26.574489Z"
 }

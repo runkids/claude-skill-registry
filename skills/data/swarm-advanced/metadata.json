@@ -1,12 +1,7 @@
 {
   "name": "swarm-advanced",
-  "description": "Advanced swarm orchestration patterns for research, development, testing, and complex distributed workflows",
-  "repo": "ruvnet/claude-flow",
-  "category": "testing",
-  "tags": [
-    "swarm",
-    "advanced"
-  ],
-  "stars": 9856,
-  "source": "SkillsMP Synced Skills"
+  "repo": "Cornjebus/amair",
+  "path": ".claude/skills/swarm-advanced/SKILL.md",
+  "source": "github.com/Cornjebus/amair",
+  "downloaded_at": "2026-01-14T03:20:30.433453Z"
 }

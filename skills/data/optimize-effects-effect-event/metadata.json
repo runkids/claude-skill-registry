@@ -1,14 +1,7 @@
 {
   "name": "optimize-effects-effect-event",
-  "description": "useEffectEventを使用して非リアクティブなロジックを抽出し、Effectを最適化します。特定の値が変更されたときにEffectを再実行すべきでない場合（ログ、分析、タイマー）に使用します。",
   "repo": "nayukata/notify-patch-notes",
-  "category": "development",
-  "tags": [
-    "optimize",
-    "effects",
-    "effect",
-    "event"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/optimize-effects-effect-event/SKILL.md",
+  "source": "github.com/nayukata/notify-patch-notes",
+  "downloaded_at": "2026-01-14T03:51:43.995801Z"
 }

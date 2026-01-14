@@ -1,104 +1,55 @@
 ---
 name: quality
-description: Code quality validation, formatting, linting, and pre-commit checks. Auto-activates on keywords quality, lint, format, precommit, naming, black, ruff, mypy, validation. Routes to specialized quality workflows.
-allowed-tools: Read, Bash(poetry:*, black:*, ruff:*, mypy:*, markdownlint:*, yamllint:*), Grep, Task
+description: Quality skill for the ikigai project
 ---
 
-# Quality Skill
+# Quality
 
-Comprehensive code quality domain for formatting, linting, type checking, and pre-commit validation. Provides automated quality workflows with intelligent routing.
+## Description
+Testing and quality requirements for development phase. Focus on high coverage.
 
-## Auto-Activation Keywords
+## Pre-Commit Requirements
 
-This skill activates automatically when you mention:
-- **General**: quality, code quality, validation, standards
-- **Formatting**: format, formatting, black, prettier
-- **Linting**: lint, linting, ruff, eslint
-- **Type checking**: type check, mypy, types
-- **Pre-commit**: precommit, pre-commit, validate
-- **Naming**: naming conventions, naming, PEP 8
+Before creating commits:
 
-## Routing Logic
+1. `make fmt` - Format code
+2. `make check` - All tests pass
+3. `make lint` - Complexity/file size checks pass
 
-Based on user intent, routes to appropriate workflows:
+## Test Execution
 
-### Code Formatting
-**Keywords**: "format code", "black", "apply formatting"
-→ Use `/quality/format` workflow
+**By Default**: Tests run in parallel, with 24 parallel tests on this machine.
+- `MAKE_JOBS=24` - up to 24 concurrent tests
 
-### Linting
-**Keywords**: "lint code", "ruff", "check linting"
-→ Use `/quality/lint` workflow
-
-### Pre-commit Validation
-**Keywords**: "validate before commit", "precommit check", "ready to commit"
-→ Use `/quality/precommit` workflow
-
-### Naming Conventions
-**Keywords**: "check naming", "naming conventions", "PEP 8"
-→ Use `/quality/naming` workflow
-
-## Workflow Quick Reference
-
+**When you need clear debug output** (serialize execution):
 ```bash
-# Format code
-/quality/format [path]
-
-# Lint code
-/quality/lint [path]
-
-# Pre-commit validation
-/quality/precommit [--fix]
-
-# Check naming conventions
-/quality/naming [path]
+PARALLEL=0 MAKE_JOBS=1 make check
 ```
 
-## Complex Task Delegation
+**Best practice**: Test individual files during development, run full suite before commits.
 
-For comprehensive code review, invoke the `code-reviewer` agent via Task tool.
-
-## Supporting Context
-
-- Linting standards: `/standards/linting.md`
-- Python standards: `/standards/python.md`
-
-## Integration Points
-
-### Agents
-- **code-reviewer**: Comprehensive code quality analysis
-
-### Hooks
-- TDD enforcement on Write/Edit operations
-
-### Standards
-- Python standards: `/standards/python.md` (Black 88 chars, Ruff, MyPy)
-- Linting standards: `/standards/linting.md` (configuration)
-
-## Quality Requirements Summary
-
-**Required for all Python projects:**
-- Black formatting (88-character line length)
-- Ruff linting (passes with --fix applied)
-- MyPy type checking (passes for src/)
-- 80%+ test coverage
-- Pre-commit hooks pass
-
-**Standard tools:**
+Example:
 ```bash
-# Format
-poetry run black src tests
-
-# Lint  
-poetry run ruff check --fix src tests
-
-# Type check
-poetry run mypy src
-
-# Full validation
-poetry run pre-commit run --all-files
+make build/tests/unit/array/basic_test && ./build/tests/unit/array/basic_test
 ```
 
----
+## Build Modes
 
-*This skill consolidates 6 quality commands and 2 validation skills into a unified quality domain.*
+```bash
+make BUILD={debug|release|sanitize|tsan|coverage}
+```
+
+- `debug` - Development builds with symbols
+- `release` - Optimized production builds
+- `sanitize` - Address and undefined behavior sanitizers
+- `tsan` - Thread sanitizer
+- `coverage` - Code coverage analysis
+
+## Development Phase Focus
+
+- Aim for high test coverage of new code
+- Test the happy path and obvious error cases
+- Coverage gaps will be closed in a dedicated coverage phase
+- Don't let coverage metrics slow down feature development
+
+**CRITICAL**: Never run multiple `make` commands simultaneously. Different targets use incompatible compiler flags and will corrupt the build.

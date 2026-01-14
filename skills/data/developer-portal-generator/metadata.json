@@ -1,13 +1,7 @@
 {
   "name": "developer-portal-generator",
-  "description": "Create developer portals using Backstage or custom solutions",
   "repo": "Dexploarer/hyper-forge",
-  "category": "development",
-  "tags": [
-    "developer",
-    "portal",
-    "generator"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/developer-portal-generator/SKILL.md",
+  "source": "github.com/Dexploarer/hyper-forge",
+  "downloaded_at": "2026-01-14T03:02:56.988297Z"
 }

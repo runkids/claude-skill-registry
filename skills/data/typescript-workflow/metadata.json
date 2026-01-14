@@ -1,12 +1,7 @@
 {
   "name": "typescript-workflow",
-  "description": "TypeScript/JavaScript project workflow guidelines using Bun package manager. Triggers on `.ts`, `.tsx`, `bun`, `package.json`, TypeScript. Covers bun run, bun install, bun add, tsconfig.json patterns,",
   "repo": "ilude/claude-code-config",
-  "category": "development",
-  "tags": [
-    "typescript",
-    "workflow"
-  ],
-  "stars": 5,
-  "source": "local"
+  "path": "skills/typescript-workflow/SKILL.md",
+  "source": "github.com/ilude/claude-code-config",
+  "downloaded_at": "2026-01-14T01:02:41.697322Z"
 }

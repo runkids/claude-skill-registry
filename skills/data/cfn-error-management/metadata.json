@@ -1,8 +1,7 @@
 {
   "name": "cfn-error-management",
   "repo": "masharratt/claude-flow-novice",
-  "category": "data",
-  "description": "Unified error handling, batching, and logging for CFN Loop. Use when you need to capture agent errors, batch multiple errors for processing, log structured error data, or categorize and recover from a",
-  "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:20:10.980312Z"
+  "path": ".claude/skills/cfn-error-management/SKILL.md",
+  "source": "github.com/masharratt/claude-flow-novice",
+  "downloaded_at": "2026-01-14T01:57:51.260119Z"
 }

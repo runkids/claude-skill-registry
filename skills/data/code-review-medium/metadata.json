@@ -1,13 +1,7 @@
 {
   "name": "code-review-medium",
-  "description": "Standard code review for medium PRs (100-500 lines). Includes code quality, security basics, and test coverage analysis.",
   "repo": "breaking-brake/cc-wf-studio",
-  "category": "development",
-  "tags": [
-    "code",
-    "review",
-    "medium"
-  ],
-  "stars": 1523,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/code-review-medium/SKILL.md",
+  "source": "github.com/breaking-brake/cc-wf-studio",
+  "downloaded_at": "2026-01-14T00:54:51.924832Z"
 }

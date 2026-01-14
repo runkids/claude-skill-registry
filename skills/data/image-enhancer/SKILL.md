@@ -1,5 +1,6 @@
 ---
 name: image-enhancer
+category: document-processing
 description: Improves the quality of images, especially screenshots, by enhancing resolution, sharpness, and clarity. Perfect for preparing images for presentations, documentation, or social media posts.
 ---
 
@@ -96,3 +97,4 @@ Original preserved as: screenshot-2024-original.png
 - **Social Media**: Optimize images for Twitter, LinkedIn, Instagram
 - **Presentations**: Upscale images for large screens
 - **Print Materials**: Increase resolution for physical media
+

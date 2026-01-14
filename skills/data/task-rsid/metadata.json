@@ -1,12 +1,7 @@
 {
   "name": "task-rsid",
-  "description": "Recursive Self-Improvement Development. Continually improve the codebase.",
   "repo": "Anveio/conveaux",
-  "category": "development",
-  "tags": [
-    "task",
-    "rsid"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/task-rsid/SKILL.md",
+  "source": "github.com/Anveio/conveaux",
+  "downloaded_at": "2026-01-14T02:16:08.288767Z"
 }

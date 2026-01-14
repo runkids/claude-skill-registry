@@ -1,14 +1,7 @@
 {
   "name": "goal-seeking-agent-pattern",
-  "description": "Guides architects on when and how to use goal-seeking agents as a design pattern.This skill helps evaluate whether autonomous agents are appropriate for a givenproblem, how to structure their objectiv",
-  "repo": "rysweet/MicrosoftHackathon2025-AgenticCoding",
-  "category": "design",
-  "tags": [
-    "goal",
-    "seeking",
-    "agent",
-    "pattern"
-  ],
-  "stars": 10,
-  "source": "local"
+  "repo": "rysweet/azlin",
+  "path": ".claude/skills/goal-seeking-agent-pattern/SKILL.md",
+  "source": "github.com/rysweet/azlin",
+  "downloaded_at": "2026-01-14T03:30:06.315759Z"
 }

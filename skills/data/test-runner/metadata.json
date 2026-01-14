@@ -1,12 +1,7 @@
 {
   "name": "test-runner",
-  "description": "Run the relevant tests for the current change and summarize results. Use in Flow 3 (Build) and optionally in Flow 4 (Gate).",
-  "repo": "EffortlessMetrics/flow-studio",
-  "category": "development",
-  "tags": [
-    "test",
-    "runner"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "cncorp/arsenal",
+  "path": "dot-claude/skills/test-runner/SKILL.md",
+  "source": "github.com/cncorp/arsenal",
+  "downloaded_at": "2026-01-14T04:01:24.173760Z"
 }

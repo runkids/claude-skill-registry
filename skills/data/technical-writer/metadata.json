@@ -1,11 +1,7 @@
 {
   "name": "technical-writer",
-  "description": "Expert communication craftsperson for morphir-dotnet. Master of Hugo/Docsy, Mermaid/PlantUML diagrams, and technical writing. Use when user asks to create documentation, update docs, write tutorials, ",
-  "repo": "finos/morphir-dotnet",
-  "category": "data",
-  "tags": [
-    "technical",
-    "writer"
-  ],
-  "stars": 12
+  "repo": "gaebalai/itda-sdd",
+  "path": "src/templates/agents/claude-code/skills/technical-writer/SKILL.md",
+  "source": "github.com/gaebalai/itda-sdd",
+  "downloaded_at": "2026-01-14T03:55:16.555226Z"
 }

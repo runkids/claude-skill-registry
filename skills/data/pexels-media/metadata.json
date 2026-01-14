@@ -1,11 +1,7 @@
 {
   "name": "pexels-media",
-  "description": "Source royalty-free images and videos from Pexels API for design, placeholders, or content. Supports search, curated/popular content, collections, multiple resolutions, and ALWAYS creates detailed sid",
-  "repo": "troykelly/claude-skills",
-  "category": "data",
-  "tags": [
-    "pexels",
-    "media"
-  ],
-  "stars": 1
+  "repo": "troykelly/codex-skills",
+  "path": "skills/pexels-media/SKILL.md",
+  "source": "github.com/troykelly/codex-skills",
+  "downloaded_at": "2026-01-14T03:34:00.909797Z"
 }

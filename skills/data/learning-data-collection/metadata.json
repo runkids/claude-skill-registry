@@ -1,12 +1,7 @@
 {
   "name": "learning-data-collection",
-  "description": "data-collection for evidence-based learning research and evaluation.",
   "repo": "pauljbernard/content",
-  "category": "data",
-  "tags": [
-    "learning",
-    "data",
-    "collection"
-  ],
-  "stars": 0
+  "path": ".claude/skills/learning-data-collection/SKILL.md",
+  "source": "github.com/pauljbernard/content",
+  "downloaded_at": "2026-01-14T02:04:50.918222Z"
 }

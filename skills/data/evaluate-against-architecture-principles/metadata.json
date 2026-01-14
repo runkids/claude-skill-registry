@@ -1,14 +1,7 @@
 {
   "name": "evaluate-against-architecture-principles",
-  "description": "Use when user references architecture principles, at start of fresh conversation with design work, before creating any requirements/design/implementation documents, or when reviewing for compliance - ",
   "repo": "WesleyMFrederick/cc-workflows",
-  "category": "design",
-  "tags": [
-    "evaluate",
-    "against",
-    "architecture",
-    "principles"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/evaluate-against-architecture-principles/SKILL.md",
+  "source": "github.com/WesleyMFrederick/cc-workflows",
+  "downloaded_at": "2026-01-14T02:32:23.786062Z"
 }

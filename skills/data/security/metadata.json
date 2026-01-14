@@ -1,11 +1,7 @@
 {
   "name": "security",
-  "description": "Security validation, vulnerability scanning, and compliance checking for development environments. Auto-activates on keywords security, vulnerability, audit, OWASP, encryption, GPG, SSH, signing, secr",
-  "repo": "williaby/.claude",
-  "category": "security",
-  "tags": [
-    "security"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "YosrBennagra/3SC",
+  "path": ".github/skills/security/SKILL.md",
+  "source": "github.com/YosrBennagra/3SC",
+  "downloaded_at": "2026-01-14T03:54:58.040977Z"
 }

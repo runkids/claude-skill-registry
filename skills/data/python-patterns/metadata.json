@@ -1,12 +1,7 @@
 {
   "name": "python-patterns",
-  "description": "Python best practices including type hints, async patterns, decorators, and project structure.",
   "repo": "xenitV1/claude-code-maestro",
-  "category": "development",
-  "tags": [
-    "python",
-    "patterns"
-  ],
-  "stars": 47,
-  "source": "local"
+  "path": "skills/python-patterns/SKILL.md",
+  "source": "github.com/xenitV1/claude-code-maestro",
+  "downloaded_at": "2026-01-14T03:41:48.823113Z"
 }

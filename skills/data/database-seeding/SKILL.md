@@ -1,359 +1,150 @@
 ---
 name: database-seeding
-description: Generate comprehensive test data for local development using Snaplet and Supabase. Use when adding database schema changes, implementing new features, or creating edge case scenarios. Ensures reproducible test environments with realistic data covering happy paths, error cases, and RLS policies.
+description: |
+  データベースの初期データ投入を安全に設計・実装・検証するスキル。
+  開発/テスト/本番のデータ分離、シード戦略、再現性の確保を整理する。
+
+  Anchors:
+  • Designing Data-Intensive Applications / 適用: データ整合性 / 目的: 参照整合性の担保
+  • Database Reliability Engineering / 適用: 運用設計 / 目的: 本番投入の安全性
+  • Data Quality Principles / 適用: データ品質 / 目的: 再現性と検証性の確保
+
+  Trigger:
+  Use when planning database seeding, generating test fixtures, separating datasets by environment, or validating seed data quality.
+  database seeding, test data, fixtures, seed strategy, environment separation, data validation
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Bash
+  - Glob
+  - Grep
 ---
+# database-seeding
 
-# Database Seeding
+## 概要
 
-Generate realistic, reproducible test data for local development that covers happy paths, edge cases, and security scenarios before they hit production.
+シーディング要件の整理から設計・実装・検証までを一貫して支援し、環境ごとのデータ投入を安全に運用する。
 
-## Overview
+## ワークフロー
 
-Database seeding populates your local database with test data using Snaplet. This creates consistent test environments across developers and helps catch edge cases early. Seed data is automatically applied when running `supabase db reset`.
+### Phase 1: 要件整理
 
-## When to Update Seed Scripts
+**目的**: 目的と制約を整理し、シード対象と優先度を明確化する。
 
-Update seed scripts in these scenarios:
+**アクション**:
 
-1. **After Schema Changes** - New tables, columns, or enums need test data
-2. **New Features** - Create data covering all feature scenarios
-3. **Edge Cases Discovered** - Add specific test cases for bugs found
-4. **Complex Business Rules** - Test validation logic, constraints, and workflows
-5. **RLS Policy Changes** - Verify Row Level Security works correctly
+1. 目的別に対象データと投入範囲を整理する。
+2. `assets/seeding-requirements-template.md` で要件を記録する。
+3. `references/seed-strategies.md` で戦略の候補を整理する。
 
-## Seeding Workflow
+**Task**: `agents/seed-strategy-selection.md` を参照
 
-### Complete Workflow After Schema Changes
+### Phase 2: 設計
 
-```bash
-# 1. Generate migration (if not done)
-bun db:diff add_feature
+**目的**: 環境分離とデータ生成ルールを設計する。
 
-# 2. Apply migration
-bun migrate:up
+**アクション**:
 
-# 3. Generate TypeScript types (CRITICAL - do this first!)
-bun gen:types
+1. `references/environment-separation.md` で分離方針を確認する。
+2. `references/data-generation.md` で生成ルールを整理する。
+3. `assets/seed-file-template.ts` に沿って構成を決める。
 
-# 4. Sync Snaplet with new schema
-bun seed:sync
+**Task**: `agents/environment-separation.md` を参照
 
-# 5. Update seed/seed.ts with new data scenarios
+### Phase 3: 実装
 
-# 6. Generate seed SQL
-bun seed
+**目的**: シードスクリプトを実装し、投入を実行する。
 
-# 7. Reset database and apply seed
-bun db:reset
-```
+**アクション**:
 
-**Critical**: Always run `bun gen:types` before `bun seed:sync` to ensure Snaplet's data model aligns with your current schema.
+1. `assets/seed-file-template.ts` を基にシードを実装する。
+2. `scripts/seed-runner.mjs` で投入フローを確認する。
+3. 重要な変更点を記録する。
 
-### Quick Workflow for Seed Script Updates
+**Task**: `agents/test-data-setup.md` を参照
 
-When only updating seed logic (no schema changes):
+### Phase 4: 検証と運用
 
-```bash
-# 1. Update seed/seed.ts
+**目的**: データ品質と再現性を検証し、改善記録を残す。
 
-# 2. Generate new seed.sql
-bun seed
+**アクション**:
 
-# 3. Reset database
-bun db:reset
-```
+1. `assets/seeding-validation-checklist.md` で検証する。
+2. `agents/data-validation.md` の観点で品質を確認する。
+3. `scripts/log_usage.mjs` で記録を更新する。
 
-## Seed Directory Structure
+**Task**: `agents/data-validation.md` を参照
 
-```txt
-seed/
-├── seed.ts              # Main orchestration script
-└── utils/
-    ├── index.ts         # Exported utility functions
-    ├── shared.ts        # Shared types and helpers
-    ├── profiles.ts      # User creation utilities
-    ├── todos.ts         # Todo-specific seeding
-    └── media.ts         # Media attachment utilities
-.snaplet/
-└── (Snaplet generated files after sync. Never update manually.)
-```
+## Task仕様ナビ
 
-## Creating Edge Case Scenarios
+| Task | 起動タイミング | 入力 | 出力 |
+| --- | --- | --- | --- |
+| seed-strategy-selection | Phase 1開始時 | 要件メモ | シード戦略案、優先度 |
+| environment-separation | Phase 2開始時 | 戦略案 | 環境分離方針、投入条件 |
+| test-data-setup | Phase 3開始時 | 設計方針 | テストデータ、投入結果 |
+| fixture-management | Phase 3開始時 | テスト要件 | フィクスチャ一覧、更新方針 |
+| production-initial-data | Phase 3開始時 | 本番要件 | 本番初期データ計画 |
+| data-validation | Phase 4開始時 | 投入結果 | 検証レポート、改善提案 |
 
-### The Problem Without Seed Scripts
+**詳細仕様**: 各Taskの詳細は `agents/` ディレクトリを参照
 
-Manual testing for a discount code feature:
+## ベストプラクティス
 
-- Create 5 test users
-- Create 5 discount codes (valid, expired, maxed out, inactive, user-specific)
-- Create 5 orders with different amounts
-- Test each combination
-- **Repeat every time you reset your database**
+### すべきこと
 
-### The Solution with Seed Scripts
+| 推奨事項 | 理由 |
+| --- | --- |
+| 環境別にシードを分離する | 本番誤投入を防ぐ |
+| 参照整合性を先に設計する | 投入順序の破綻を防ぐ |
+| テストデータを再現可能にする | テストの信頼性が上がる |
+| 検証結果を必ず記録する | 再現と改善が容易になる |
 
-```typescript
-// seed/utils/discounts.ts
-export async function createDiscountCodes(
-  seed: SeedClient,
-  users: usersScalars[]
-) {
-  const now = new Date();
+### 避けるべきこと
 
-  await seed.discount_codes([
-    // 1. Valid discount - Happy path
-    {
-      code: "WELCOME10",
-      discount_percentage: 10,
-      expires_at: addDays(now, 30).toISOString(),
-      max_uses: 100,
-      current_uses: 0,
-      is_active: true,
-    },
-
-    // 2. Expired discount - Should reject
-    {
-      code: "EXPIRED20",
-      expires_at: subDays(now, 1).toISOString(),
-      is_active: true,
-    },
-
-    // 3. Max usage reached - Should reject
-    {
-      code: "MAXEDOUT",
-      max_uses: 50,
-      current_uses: 50,
-      is_active: true,
-    },
-
-    // 4. User-specific (single-use)
-    {
-      code: "FIRSTPURCHASE",
-      user_id: users[0].id,
-      max_uses: 1,
-      is_active: true,
-    },
-  ]);
-
-  console.log("--   Edge cases covered:");
-  console.log("--   ✓ Valid discount");
-  console.log("--   ✓ Expired discount");
-  console.log("--   ✓ Max usage reached");
-  console.log("--   ✓ User-specific discount");
-}
-```
-
-Now run `bun db:reset` and instantly have all test scenarios ready!
-
-## Seed Script Structure
-
-### Main Orchestration (seed/seed.ts)
-
-```typescript
-import { createSeedClient } from "@snaplet/seed";
-import { createTestUsersWithAuth, createFeatureData } from "./utils";
-
-async function main() {
-  console.log("-- Starting database seeding...");
-
-  const seed = await createSeedClient({
-    dryRun: true, // Generates SQL without executing
-  });
-
-  // Clear existing data
-  await seed.$resetDatabase();
-
-  // Phase 1: Create users (no dependencies)
-  const users = await createTestUsersWithAuth(seed);
-
-  // Phase 2: Create feature data (depends on users)
-  const items = await createFeatureData(seed, users);
-
-  console.log("\n-- Seeding completed!");
-  console.log(`--   Users: ${users.length}`);
-  console.log(`--   Items: ${items.length}`);
-
-  process.exit(0);
-}
-
-main().catch((e) => {
-  console.error("-- Seed failed:", e);
-  process.exit(1);
-});
-```
-
-### Utility Functions (seed/utils/)
-
-Organize seed logic by feature:
-
-```typescript
-// seed/utils/todos.ts
-import type { SeedClient, usersScalars } from "@snaplet/seed";
-import { DatabaseTables } from "./shared";
-
-export async function createTodoItems(seed: SeedClient, users: usersScalars[]) {
-  const todos: DatabaseTables["todos"]["Insert"][] = [];
-
-  for (const user of users) {
-    // Create varied scenarios
-    todos.push(
-      // Completed todo
-      {
-        user_id: user.id,
-        title: "Completed task",
-        completed: true,
-      },
-      // Overdue todo
-      {
-        user_id: user.id,
-        title: "Overdue task",
-        due_date: subDays(new Date(), 3).toISOString(),
-        completed: false,
-      },
-      // High priority todo
-      {
-        user_id: user.id,
-        title: "Urgent task",
-        priority: "high",
-        completed: false,
-      }
-    );
-  }
-
-  const result = await seed.todos(todos);
-  console.log(`-- Created ${result.todos.length} todos`);
-  return result.todos;
-}
-```
-
-## Testing Row Level Security (RLS)
-
-Create data for different users to verify RLS policies:
-
-```typescript
-export async function createRLSTestData(
-  seed: SeedClient,
-  users: usersScalars[]
-) {
-  const [alice, bob] = users;
-
-  // Alice's private todos (she should see these)
-  await seed.todos([{ user_id: alice.id, title: "Alice's private todo" }]);
-
-  // Bob's private todos (Alice should NOT see these)
-  await seed.todos([{ user_id: bob.id, title: "Bob's private todo" }]);
-
-  console.log("--   RLS scenarios:");
-  console.log("--   ✓ User-specific data (Alice)");
-  console.log("--   ✓ User-specific data (Bob)");
-}
-```
-
-## Best Practices
-
-### 1. Cover Edge Cases Explicitly
-
-Don't rely on random data alone:
-
-```typescript
-// ✅ GOOD - Explicit edge cases
-const discounts = [
-  { code: "VALID", expires_at: future },
-  { code: "EXPIRED", expires_at: past },
-  { code: "MAXED", current_uses: max_uses },
-];
-
-// ❌ AVOID - Only random data
-const discounts = Array.from({ length: 10 }, () => ({
-  code: randomCode(),
-  expires_at: randomDate(),
-}));
-```
-
-### 2. Use Realistic Data
-
-```typescript
-// ✅ GOOD
-const todoTemplates = [
-  { title: "Complete project documentation", priority: "high" },
-  { title: "Review pull requests", priority: "medium" },
-  { title: "Update dependencies", priority: "low" },
-];
-
-// ❌ AVOID
-{ title: "Test 1", priority: "high" }
-```
-
-### 3. Create Dependent Data in Phases
-
-```typescript
-// Phase 1: Users (no dependencies)
-const users = await createUsers(seed);
-
-// Phase 2: Todos (depend on users)
-const todos = await createTodos(seed, users);
-
-// Phase 3: Attachments (depend on todos)
-await createAttachments(seed, todos);
-```
-
-### 4. Log What You're Creating
-
-```typescript
-console.log("--   Edge cases covered:");
-console.log("--   ✓ Valid discount");
-console.log("--   ✓ Expired discount");
-console.log("--   ✓ Max usage reached");
-```
-
-### 5. Use Date Utilities
-
-```typescript
-import { addDays, subDays, addMonths } from "date-fns";
-
-// Expired discount
-expires_at: subDays(new Date(), 1).toISOString();
-
-// Future expiry
-expires_at: addDays(new Date(), 30).toISOString();
-```
-
-## Troubleshooting
-
-### Snaplet Out of Sync
-
-**Problem**: Schema changed but Snaplet doesn't recognize new columns
-
-**Solution**:
-
-```bash
-bun gen:types    # MUST run this first
-bun seed:sync    # Then sync Snaplet
-```
-
-### Type Errors in Seed Script
-
-**Problem**: TypeScript errors for database types
-
-**Solution**:
-
-```bash
-bun gen:types    # Regenerate types
-# Then fix seed script imports
-```
-
-### Seed SQL Not Updating
-
-**Problem**: Changes to seed.ts not reflected in seed.sql
-
-**Solution**:
-
-```bash
-bun seed         # Regenerate seed.sql
-bun db:reset     # Apply new seed
-```
-
-## Related Documentation
-
-- [Snaplet Documentation](https://docs.snaplet.dev/) - Official Snaplet docs
-- Project seed examples: `seed/utils/*.ts` - Existing patterns to follow
+| 禁止事項 | 問題点 |
+| --- | --- |
+| 本番データを開発に流用する | 機密漏えいリスクが高い |
+| シード手順を手作業に依存 | 再現性が失われる |
+| 変更履歴を残さない | 原因調査が困難になる |
+| 検証を省略する | 破綻したデータが残る |
+
+## リソース参照
+
+### scripts/（決定論的処理）
+
+| スクリプト | 機能 |
+| --- | --- |
+| `scripts/seed-runner.mjs` | シード実行フロー支援 |
+| `scripts/validate-skill.mjs` | スキル構造の検証 |
+| `scripts/log_usage.mjs` | 使用記録と評価メトリクス更新 |
+
+### references/（詳細知識）
+
+| リソース | パス | 読込条件 |
+| --- | --- | --- |
+| レベル1 基礎 | [references/Level1_basics.md](references/Level1_basics.md) | 要件整理時 |
+| レベル2 実務 | [references/Level2_intermediate.md](references/Level2_intermediate.md) | 設計時 |
+| レベル3 応用 | [references/Level3_advanced.md](references/Level3_advanced.md) | 実装時 |
+| レベル4 専門 | [references/Level4_expert.md](references/Level4_expert.md) | 検証時 |
+| シード戦略 | [references/seed-strategies.md](references/seed-strategies.md) | 戦略選定時 |
+| データ生成 | [references/data-generation.md](references/data-generation.md) | データ生成時 |
+| 環境分離 | [references/environment-separation.md](references/environment-separation.md) | 分離設計時 |
+| 要求仕様索引 | [references/requirements-index.md](references/requirements-index.md) | 仕様確認時 |
+| 旧スキル | [references/legacy-skill.md](references/legacy-skill.md) | 互換確認時 |
+
+### assets/（テンプレート・素材）
+
+| アセット | 用途 |
+| --- | --- |
+| `assets/seed-file-template.ts` | シードファイルの雛形 |
+| `assets/seeding-requirements-template.md` | 要件整理テンプレート |
+| `assets/seeding-validation-checklist.md` | 検証チェックリスト |
+
+### 運用ファイル
+
+| ファイル | 目的 |
+| --- | --- |
+| `EVALS.json` | レベル評価・メトリクス管理 |
+| `LOGS.md` | 実行ログの蓄積 |
+| `CHANGELOG.md` | 改善履歴の記録 |

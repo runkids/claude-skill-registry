@@ -1,8 +1,7 @@
 {
   "name": "geo-database",
-  "repo": "davila7/claude-code-templates",
-  "category": "data",
-  "description": "Access NCBI GEO for gene expression/genomics data. Search/download microarray and RNA-seq datasets (GSE, GSM, GPL), retrieve SOFT/Matrix files, for transcriptomics and expression analysis.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:37.420179Z"
+  "repo": "drshailesh88/integrated_content_OS",
+  "path": "skills/scientific/geo-database/SKILL.md",
+  "source": "github.com/drshailesh88/integrated_content_OS",
+  "downloaded_at": "2026-01-14T04:02:25.688501Z"
 }

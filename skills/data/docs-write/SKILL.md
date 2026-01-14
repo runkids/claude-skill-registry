@@ -1,90 +1,96 @@
 ---
 name: docs-write
-description: "Write or update documentation (tutorial, how-to, reference, explanation) with clear style, structure, visuals, API/ADR/runbook patterns. Use when: (1) Creating or updating docs after code changes, (2) During PR preparation or addressing review feedback, (3) Adding new features that need documentation, (4) Updating API endpoints, database schemas, or configuration, (5) Creating ADRs or runbooks, (6) Adding or updating diagrams and visual documentation, (7) When documentation needs to be written or revised, (8) For tutorial creation, how-to guides, or technical writing, or (9) For documentation standards compliance and structure. Triggers: write docs, update documentation, create documentation, write tutorial, document API, write ADR, create runbook, add documentation, document this, write how-to."
+description: Write documentation following Metabase's conversational, clear, and user-focused style. Use when creating or editing documentation files (markdown, MDX, etc.).
+allowed-tools: Read, Write, Grep, Bash, Glob
 ---
 
-# Docs Write
+# Documentation Writing Skill
 
-## Quick Checklist
+@./../_shared/metabase-style-guide.md
 
-- Audience and doc type (tutorial/how-to/reference/explanation)
-- Clear style, active voice, consistent terms
-- Structure: headings, skimmable, examples first
-- Include visuals when helpful (mermaid inline; puml when reused)
-- API: auth, requests/responses, errors, breaking changes
-- ADR/runbook: context, decision/steps, rollback, contacts
-- Cross-links and filenames; run docs-check after edits
+## When writing documentation
 
-## Workflow
+### Start here
 
-### Writing Documentation
+1. **Who is this for?** Match complexity to audience. Don't oversimplify hard things or overcomplicate simple ones.
+2. **What do they need?** Get them to the answer fast. Nobody wants to be in docs longer than necessary.
+3. **What did you struggle with?** Those common questions you had when learning? Answer them (without literally including the question).
 
-**IMPORTANT**: Before writing documentation, read `references/documentation-guide.md` to understand all standards, patterns, and requirements. Do not make assumptions about documentation style, structure, or content - always reference the guide for specific details.
+### Writing process
 
-1. **Read the full guide first**: Load `references/documentation-guide.md` to understand complete documentation standards
-   - This ensures you have all context about style, structure, doc types, and examples
-   - Do not proceed with writing until the guide is loaded in context
+**Draft:**
 
-2. **Determine doc type**: Read `references/documentation-guide.md` section "Doc Types (Divio)" to choose tutorial, how-to, reference, or explanation
-   - Tutorial: Learning-oriented, step-by-step for beginners
-   - How-to: Goal-oriented, task-focused
-   - Reference: Fact-oriented, API/technical details
-   - Explanation: Understanding-oriented, concepts and context
+- Write out the steps/explanation as you'd tell a colleague
+- Lead with what to do, then explain why
+- Use headings that state your point: "Set SAML before adding users" not "SAML configuration timing"
 
-3. **Review style guidelines**: Read `references/documentation-guide.md` sections:
-   - "Style and Voice" - Active voice, clear language, consistent terminology
-   - "Structure and Skimmability" - Headings, examples first, clear organization
-   - Reference the guide for exact formatting, terminology, and style requirements
+**Edit:**
 
-4. **Draft content**: Use the checklist above, include code examples, and follow the structure guidelines from the guide
+- Read aloud. Does it sound like you talking? If it's too formal, simplify.
+- Cut anything that doesn't directly help the reader
+- Check each paragraph has one clear purpose
+- Verify examples actually work (don't give examples that error)
 
-5. **Add visuals if needed**: Read `references/documentation-guide.md` section "Visuals and Diagrams"
-   - Use Mermaid for inline diagrams (ER diagrams, sequence diagrams)
-   - Use PlantUML (.puml files) for diagrams referenced from multiple docs
-   - See examples in the guide for exact syntax - do not guess
+**Polish:**
 
-6. **For API documentation**: Read `references/documentation-guide.md` section "API Documentation"
-   - Document authentication, request/response formats, error codes
-   - Include examples for all endpoints (see guide for format)
-   - Document breaking changes prominently
+- Make links descriptive (never "here")
+- Backticks only for code/variables, **bold** for UI elements
+- American spelling, serial commas
+- Keep images minimal and scoped tight
 
-7. **For ADRs/Runbooks**: Read `references/documentation-guide.md` section "ADRs and Runbooks"
-   - ADRs: Context, decision, consequences
-   - Runbooks: Steps, rollback procedures, contacts
-   - Follow exact templates from the guide
+**Format:**
 
-8. **Review and finalize**: Read `references/documentation-guide.md` section "Templates and Checklists"
-   - Verify all checklist items are addressed
-   - Add cross-references to related documentation
-   - Ensure consistent terminology (check guide for exact terms)
+- Run prettier on the file after making edits: `yarn prettier --write <file-path>`
+- This ensures consistent formatting across all documentation
 
-9. **Verify**: Run `bash skills/docs-check/scripts/check-docs.sh` to ensure documentation is complete
+### Common patterns
 
-## Reference Files
+**Instructions:**
 
-**REQUIRED**: Always read `references/documentation-guide.md` before writing documentation. The guide contains all standards, examples, and requirements. Do not make assumptions - load the guide and reference specific sections.
+```markdown
+Run:
+\`\`\`
+command-to-run
+\`\`\`
 
-Read these sections from `references/documentation-guide.md` as needed:
+Then:
+\`\`\`
+next-command
+\`\`\`
 
-- **Style and Voice** (`#style-and-voice`) - Writing style, active voice, terminology
-- **Structure and Skimmability** (`#structure-and-skimmability`) - Organization, headings, examples
-- **Doc Types (Divio)** (`#doc-types-divio`) - Tutorial, how-to, reference, explanation types
-- **API Documentation** (`#api-documentation`) - API docs patterns, examples, error handling
-- **ADRs and Runbooks** (`#adrs-and-runbooks`) - Decision records and operational procedures
-- **Visuals and Diagrams** (`#visuals-and-diagrams`) - Mermaid and PlantUML usage
-- **Templates and Checklists** (`#templates-and-checklists`) - Documentation checklists
-- **When to Document** (`#when-to-document`) - What changes require documentation
+This ensures you're getting the latest changes.
+```
 
-**Full guide**: `references/documentation-guide.md` - Complete documentation standards and best practices
+Not: "(remember to run X before Y...)" buried in a paragraph.
 
-## Integration with Other Skills
+**Headings:**
 
-- Use after `ada::docs:check` flags required updates.
-- Combine with `ada::code-review` outcomes to address documentation feedback.
-- Run `ada::code-quality` after docs updates if code touched.
+- "Use environment variables for configuration" ✅
+- "Environment variables" ❌ (too vague)
+- "How to use environment variables for configuration" ❌ (too wordy)
 
-## Examples
+**Links:**
 
-- New feature: choose how-to; add overview, steps, examples, and links; add diagram if complex.
-- API change: document auth, requests/responses, errors, breaking changes; link to workflows.
-- Schema change: update schema doc and ER diagram; link from API/feature docs if impacted.
+- "Check out the [SAML documentation](link)" ✅
+- "Read the docs [here](link)" ❌
+
+### Watch out for
+
+- Describing tasks as "easy" (you don't know the reader's context)
+- Using "we" when talking about Metabase features (use "Metabase" or "it")
+- Formal language: "utilize", "reference", "offerings"
+- Too peppy: multiple exclamation points
+- Burying the action in explanation
+- Code examples that don't work
+- Numbers that will become outdated
+
+### Quick reference
+
+| Write This                 | Not This           |
+| -------------------------- | ------------------ |
+| people, companies          | users              |
+| summarize                  | aggregate          |
+| take a look at             | reference          |
+| can't, don't               | cannot, do not     |
+| **Filter** button          | \`Filter\` button  |
+| Check out [the docs](link) | Click [here](link) |

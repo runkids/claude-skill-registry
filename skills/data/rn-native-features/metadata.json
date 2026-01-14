@@ -1,9 +1,7 @@
 {
   "name": "rn-native-features",
-  "description": "Native iOS features in Expo React Native apps. Use when implementing camera, push notifications, haptics, permissions, device sensors, or other native APIs in Expo.",
   "repo": "CJHarmath/claude-agents-skills",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/rn-native-features/SKILL.md",
+  "source": "github.com/CJHarmath/claude-agents-skills",
+  "downloaded_at": "2026-01-14T02:34:05.028078Z"
 }

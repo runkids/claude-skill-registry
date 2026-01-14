@@ -1,51 +1,84 @@
 ---
 name: database-changes
-description: Make database schema changes in IdeaForge. Triggers: create migration, add table/column, modify column type, add index, use JSONB, use pgvector. File-based migrations with raw SQL, no ORM.
+description: Making database schema changes to the CMS database. Use when adding columns, tables, running migrations, or updating the backend API and TypeScript types for new database fields.
 ---
 
-# Database Migrations
+# Database Schema Changes
 
-Location: `backend/db/migrations/`
+## Overview
+End-to-end process for adding new columns or tables to the CMS database.
 
-## Create Migration
+## Adding a New Column
 
-1. Create `NNN_description.sql` (next sequential number)
-2. Write idempotent SQL
-3. Run `npm run db:migrate`
-
-## Patterns
-
+### 1. Create Migration
 ```sql
--- New table
-CREATE TABLE IF NOT EXISTS user_preferences (
-  id SERIAL PRIMARY KEY,
-  user_id INTEGER NOT NULL,
-  theme VARCHAR(50) DEFAULT 'light',
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+-- migrations/cms/0004_add_my_column.sql
+SET search_path TO toygres_cms, public;
 
--- Add column
-ALTER TABLE ideas ADD COLUMN IF NOT EXISTS new_field TEXT;
-
--- JSONB column
-ALTER TABLE ideas ADD COLUMN IF NOT EXISTS quick_notes JSONB;
-
--- Index
-CREATE INDEX IF NOT EXISTS idx_ideas_domain ON ideas(domain);
-
--- pgvector
-CREATE EXTENSION IF NOT EXISTS vector;
-ALTER TABLE ideas ADD COLUMN IF NOT EXISTS embedding vector(1536);
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM information_schema.columns
+        WHERE table_schema = 'toygres_cms'
+          AND table_name = 'instances'
+          AND column_name = 'my_column'
+    ) THEN
+        ALTER TABLE instances ADD COLUMN my_column VARCHAR(255);
+    END IF;
+END;
+$$;
 ```
 
-## After Migration
+### 2. Run Migration
+```bash
+./scripts/db-migrate.sh
+```
 
-1. Update `backend/src/types/index.ts` - add interface properties
-2. Update `backend/src/repositories/*Repository.ts` - update mapFromDb
+### 3. Update Backend API
+In `toygres-server/src/api.rs`, add to SELECT query:
+```rust
+let row = sqlx::query(
+    "SELECT ..., my_column FROM toygres_cms.instances WHERE ..."
+)
+```
 
-## Gotchas
+Add to JSON response:
+```rust
+Ok(Json(serde_json::json!({
+    // existing fields...
+    "my_column": row.get::<Option<String>, _>("my_column")
+})))
+```
 
-- **Always IF NOT EXISTS** - idempotent migrations
-- **No rollback** - fix failures manually
-- **Check state first** - `\d tablename` in psql
-- **JSONB for flexible data** - evolving structures
+### 4. Update TypeScript Types
+In `toygres-ui/src/lib/types.ts`:
+```typescript
+export interface InstanceDetail extends Instance {
+  // existing fields...
+  my_column: string | null;
+}
+```
+
+### 5. Update Activities (if needed)
+If an activity should set this column:
+```rust
+sqlx::query("UPDATE toygres_cms.instances SET my_column = $2 WHERE k8s_name = $1")
+    .bind(&input.k8s_name)
+    .bind(&input.my_column)
+    .execute(&pool)
+    .await?;
+```
+
+## Idempotency Patterns
+
+All CMS activities must be idempotent for Duroxide replay safety:
+
+```sql
+-- Upsert pattern
+INSERT INTO table (id, value) VALUES ($1, $2)
+ON CONFLICT (id) DO UPDATE SET value = $2;
+
+-- Conditional update
+UPDATE table SET state = 'new_state'
+WHERE id = $1 AND state = 'expected_state';
+```

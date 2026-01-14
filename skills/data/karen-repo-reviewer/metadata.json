@@ -1,13 +1,7 @@
 {
   "name": "karen-repo-reviewer",
-  "description": "Use when the user requests a repository review, code assessment, or honest evaluation of their codebase. Provides brutally honest AI-powered reviews with market-aware Karen Scores (0-100) analyzing ov",
   "repo": "pr-pm/prpm",
-  "category": "development",
-  "tags": [
-    "karen",
-    "repo",
-    "reviewer"
-  ],
-  "stars": 70,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/karen-repo-reviewer/SKILL.md",
+  "source": "github.com/pr-pm/prpm",
+  "downloaded_at": "2026-01-14T01:14:33.078871Z"
 }

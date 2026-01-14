@@ -1,12 +1,7 @@
 {
   "name": "analyze-architecture",
-  "description": "Comprehensive brownfield architecture analysis for existing codebases. Discovers structure, identifies patterns, assesses quality, calculates production readiness, and provides actionable recommendati",
   "repo": "adolfoaranaes12/BMAD-ENHANCED",
-  "category": "development",
-  "tags": [
-    "analyze",
-    "architecture"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/analyze-architecture/SKILL.md",
+  "source": "github.com/adolfoaranaes12/BMAD-ENHANCED",
+  "downloaded_at": "2026-01-14T03:09:02.487183Z"
 }

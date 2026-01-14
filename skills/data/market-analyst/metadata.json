@@ -1,12 +1,7 @@
 {
   "name": "market-analyst",
-  "description": "Synthesize multiple sentiment analyses to identify market trends, gaps, opportunities, and predict likely hits. Cross-analyzes patterns to find underserved markets and highlight unique innovations.",
   "repo": "natea/fitfinder",
-  "category": "testing",
-  "tags": [
-    "market",
-    "analyst"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/market-analyst/SKILL.md",
+  "source": "github.com/natea/fitfinder",
+  "downloaded_at": "2026-01-14T02:32:06.892012Z"
 }

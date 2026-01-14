@@ -1,13 +1,7 @@
 {
   "name": "ast-grep-find",
-  "description": "AST-based code search and refactoring via ast-grep MCP",
-  "repo": "parcadei/Continuous-Claude-v2",
-  "category": "development",
-  "tags": [
-    "ast",
-    "grep",
-    "find"
-  ],
-  "stars": 1318,
-  "source": "SkillsMP Synced Skills"
+  "repo": "parcadei/Continuous-Claude-v3",
+  "path": ".claude/skills/ast-grep-find/SKILL.md",
+  "source": "github.com/parcadei/Continuous-Claude-v3",
+  "downloaded_at": "2026-01-14T01:18:48.867344Z"
 }

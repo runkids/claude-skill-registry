@@ -1,11 +1,7 @@
 {
   "name": "patent-reviewer",
-  "description": "Expert system for reviewing utility patent applications against USPTO MPEP guidelines.",
-  "repo": "RobThePCGuy/utility-patent-reviewer",
-  "category": "data",
-  "tags": [
-    "patent",
-    "reviewer"
-  ],
-  "stars": 1
+  "repo": "RobThePCGuy/Claude-Patent-Creator",
+  "path": "skills/patent-reviewer/skill.md",
+  "source": "github.com/RobThePCGuy/Claude-Patent-Creator",
+  "downloaded_at": "2026-01-14T01:09:16.766543Z"
 }

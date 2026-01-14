@@ -1,13 +1,7 @@
 {
   "name": "bmad-product-planning",
-  "description": "Creates PRDs and plans features.",
   "repo": "bacoco/BMad-Skills",
-  "category": "product",
-  "tags": [
-    "bmad",
-    "product",
-    "planning"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/bmad-product-planning/SKILL.md",
+  "source": "github.com/bacoco/BMad-Skills",
+  "downloaded_at": "2026-01-14T02:53:13.106435Z"
 }

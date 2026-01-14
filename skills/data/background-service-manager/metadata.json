@@ -1,8 +1,7 @@
 {
   "name": "background-service-manager",
   "repo": "vamseeachanta/workspace-hub",
-  "category": "data",
-  "description": "Create and manage long-running background processes with start/stop/status controls, logging, and monitoring. Use for batch processing jobs, data pipelines, continuous services, or any long-running ta",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:21.942849Z"
+  "path": ".claude/skills/tools/background-service-manager/SKILL.md",
+  "source": "github.com/vamseeachanta/workspace-hub",
+  "downloaded_at": "2026-01-14T01:21:40.828334Z"
 }

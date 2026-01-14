@@ -1,12 +1,7 @@
 {
   "name": "korean-writer",
-  "description": "한국어 작문 전문가. 문서 작성, 번역, 교정, 비즈니스 커뮤니케이션.",
   "repo": "mdpman2/Unified-Agent-Framework",
-  "category": "development",
-  "tags": [
-    "korean",
-    "writer"
-  ],
-  "stars": 7,
-  "source": "local"
+  "path": "skills/korean-writer/SKILL.md",
+  "source": "github.com/mdpman2/Unified-Agent-Framework",
+  "downloaded_at": "2026-01-14T01:38:42.063080Z"
 }

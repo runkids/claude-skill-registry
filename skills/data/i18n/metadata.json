@@ -1,10 +1,7 @@
 {
   "name": "i18n",
-  "description": "Write internationalization-friendly HTML pages. Use when creating multilingual content, setting lang attributes, handling RTL languages, or preparing content for translation.",
-  "repo": "ProfPowell/project-template",
-  "category": "data",
-  "tags": [
-    "i18n"
-  ],
-  "stars": 0
+  "repo": "SylphxAI/flow",
+  "path": "packages/flow/assets/skills/i18n/SKILL.md",
+  "source": "github.com/SylphxAI/flow",
+  "downloaded_at": "2026-01-14T03:51:23.959779Z"
 }

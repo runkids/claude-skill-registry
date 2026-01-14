@@ -1,0 +1,9 @@
+{
+  "name": "lorcana-card-migration",
+  "description": "Interactive Lorcana card migration from legacy @lorcanito/lorcana-engine format to new @tcg/lorcana format. Use when implementing cards from packages/lorcana-cards. Parses abilities, asks for clarific",
+  "repo": "TheCardGoat/tcg-engines",
+  "category": "development",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

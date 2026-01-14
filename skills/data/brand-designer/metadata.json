@@ -1,12 +1,7 @@
 {
   "name": "brand-designer",
-  "description": "Expert in brand identity, logo design, and visual brand systems",
   "repo": "daffy0208/ai-dev-standards",
-  "category": "design",
-  "tags": [
-    "brand",
-    "designer"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/brand-designer/SKILL.md",
+  "source": "github.com/daffy0208/ai-dev-standards",
+  "downloaded_at": "2026-01-14T03:33:12.311624Z"
 }

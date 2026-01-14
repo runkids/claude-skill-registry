@@ -1,12 +1,7 @@
 {
   "name": "jest-generator",
-  "description": "Generate Jest-based unit tests for JavaScript/TypeScript code. Creates",
   "repo": "matteocervelli/llms",
-  "category": "testing",
-  "tags": [
-    "jest",
-    "generator"
-  ],
-  "stars": 10,
-  "source": "local"
+  "path": ".claude/skills/jest-generator/SKILL.md",
+  "source": "github.com/matteocervelli/llms",
+  "downloaded_at": "2026-01-14T03:06:47.999298Z"
 }

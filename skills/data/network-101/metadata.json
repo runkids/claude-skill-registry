@@ -1,9 +1,7 @@
 {
   "name": "network-101",
-  "description": "This skill should be used when the user asks to \"set up a web server\", \"configure HTTP or HTTPS\", \"perform SNMP enumeration\", \"configure SMB shares\", \"test network services\", or needs guidance on conf",
   "repo": "zebbern/claude-code-guide",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/network-101/SKILL.md",
+  "source": "github.com/zebbern/claude-code-guide",
+  "downloaded_at": "2026-01-14T03:20:25.548426Z"
 }

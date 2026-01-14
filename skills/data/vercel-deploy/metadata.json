@@ -1,11 +1,7 @@
 {
   "name": "vercel-deploy",
-  "description": "Deploy applications and websites to Vercel. Use this skill when the user requests deployment actions such as \"Deploy my app\", \"Deploy this to production\", \"Create a preview deployment\", \"Deploy and gi",
-  "repo": "vercel-labs/claude-skills",
-  "category": "data",
-  "tags": [
-    "vercel",
-    "deploy"
-  ],
-  "stars": 2
+  "repo": "yuch4/dx-selecta",
+  "path": ".github/skills/vercel-deploy/SKILL.md",
+  "source": "github.com/yuch4/dx-selecta",
+  "downloaded_at": "2026-01-14T02:14:10.679692Z"
 }

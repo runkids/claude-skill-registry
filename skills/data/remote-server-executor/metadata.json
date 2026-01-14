@@ -1,0 +1,13 @@
+{
+  "name": "remote-server-executor",
+  "description": "Remote SSH server management and code execution with paramiko-based performance optimization",
+  "repo": "Ketomihine/my_skills",
+  "category": "development",
+  "tags": [
+    "remote",
+    "server",
+    "executor"
+  ],
+  "stars": 0,
+  "source": "local"
+}

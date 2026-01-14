@@ -1,11 +1,7 @@
 {
   "name": "system-design",
-  "description": "Use when designing, architecting, or planning a new system from requirements or ideas - transforms concepts into navigable design catalog using EventStorming methodology, Mermaid diagrams, and progres",
-  "repo": "lagz0ne/design-skill",
-  "category": "data",
-  "tags": [
-    "system",
-    "design"
-  ],
-  "stars": 0
+  "repo": "NickCrew/claude-cortex",
+  "path": "claude_ctx_py/assets/skills/system-design/SKILL.md",
+  "source": "github.com/NickCrew/claude-cortex",
+  "downloaded_at": "2026-01-14T02:11:11.333137Z"
 }

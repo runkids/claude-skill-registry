@@ -1,377 +1,482 @@
 ---
-name: documentation-updater
-description: Keep CLAUDE.md and README.md documentation in sync with the actual dotfiles configuration. Use when the user wants to update documentation, sync README with changes, maintain CLAUDE.md, document new features, or ensure docs reflect current setup. Triggers include "update docs", "update README", "update CLAUDE.md", "document changes", or "sync documentation".
+name: Documentation Updater
+description: Automatically updates CLAUDE.md and related documentation when new features, configurations, or best practices are discovered during development sessions
+version: 1.0.0
+allowed-tools: [Read, Edit, Write, Grep, Bash]
 ---
 
-# Documentation Updater
+# Documentation Updater Skill
 
-You are a documentation maintainer for this dotfiles repository. Keep CLAUDE.md and README.md accurate, consistent, and up to date with the actual configuration.
+## Overview
 
-## Responsibilities
+This skill implements a **self-improving documentation system** for the MutuaPIX project. It automatically:
+- Detects when new information is discovered during sessions
+- Updates CLAUDE.md with new commands, patterns, and configurations
+- Maintains skills documentation (SKILL.md files)
+- Tracks version history of documentation changes
 
-### 1. Documentation Synchronisation
+## Core Principle: Progressive Disclosure
 
-Keep both documentation files in sync:
+Documentation follows the **progressive disclosure pattern**:
+1. **Quick Reference** - Essential commands and patterns in CLAUDE.md
+2. **Detailed Guides** - In-depth explanation in SKILL.md files
+3. **Context Files** - Supporting documentation (README, audit reports, etc.)
 
-**CLAUDE.md** (Project instructions for Claude Code):
-- Technical implementation details
-- Architecture and structure
-- Development environment setup
-- Key components and commands
-- Configuration explanations
+## Auto-Update Triggers
 
-**README.md** (User-facing documentation):
-- Installation instructions
-- Quick start guide
-- Usage examples
-- Feature highlights
-- Contribution guidelines
+The system should update documentation when:
 
-### 2. Content Updates
+### 1. New Commands Discovered
 
-When configurations change, update docs to reflect:
+**Trigger:** Running a bash command that solves a problem and should be remembered
 
-1. **New packages**: Document new Brewfile additions
-2. **New aliases**: List new shortcuts in appropriate sections
-3. **New scripts**: Explain what they do and how to use them
-4. **Configuration changes**: Update relevant command examples
-5. **New features**: Add sections describing new functionality
-6. **Removed features**: Delete or archive outdated information
+**Example:**
+```bash
+# During session, you run:
+ssh root@138.199.162.115 'cd /var/www/mutuapix-frontend-production && rm -rf .next && npm run build'
 
-### 3. Accuracy Verification
+# Auto-update CLAUDE.md:
+## Quick Commands > Frontend > Build
+# Clear cache and rebuild
+ssh root@138.199.162.115 'cd /var/www/mutuapix-frontend-production && rm -rf .next && npm run build'
+```
 
-Ensure documentation matches reality:
+### 2. New Configuration Patterns
 
-1. **Command examples**: Test that documented commands actually work
-2. **File paths**: Verify paths are correct and files exist
-3. **Package lists**: Check Brewfile matches documented packages
-4. **Aliases**: Confirm aliases exist in .aliases file
-5. **Setup steps**: Validate installation instructions are current
+**Trigger:** Discovering environment variable requirements or configuration settings
 
-### 4. Consistency Maintenance
+**Example:**
+```bash
+# Discovered: NEXT_PUBLIC_NODE_ENV required for production
+# Auto-update: CLAUDE.md > Environment Variables section
+```
 
-Keep documentation consistent:
+### 3. Security Vulnerabilities Found
 
-1. **Formatting**: Use consistent markdown style
-2. **Terminology**: Use same terms for same concepts
-3. **Code blocks**: Proper syntax highlighting
-4. **Section structure**: Logical organisation
-5. **British English**: Consistent spelling throughout
+**Trigger:** Identifying security issues during code review or testing
+
+**Example:**
+```bash
+# Found: authStore initializes with mock user
+# Auto-create: SECURITY_AUDIT_[DATE].md
+# Auto-update: CLAUDE.md > Security > Known Issues
+```
+
+### 4. New Skills Created
+
+**Trigger:** Creating a new SKILL.md file
+
+**Example:**
+```bash
+# Created: .claude/skills/pix-validation/SKILL.md
+# Auto-update: CLAUDE.md > Available Skills section
+```
+
+### 5. Workflow Improvements
+
+**Trigger:** Discovering better way to perform existing task
+
+**Example:**
+```bash
+# Old way: Manual file transfer
+# New way: rsync with specific flags
+# Auto-update: CLAUDE.md > Deployment section
+```
+
+## Update Workflow
+
+### Step 1: Detect Update Trigger
+
+```typescript
+interface UpdateTrigger {
+  type: 'command' | 'config' | 'security' | 'skill' | 'workflow';
+  source: string;              // Where was this discovered?
+  content: string;             // What should be documented?
+  priority: 'low' | 'medium' | 'high' | 'critical';
+  relatedFiles: string[];      // Which files are affected?
+}
+```
+
+### Step 2: Determine Update Location
+
+**Decision Tree:**
+```
+Is it a quick command/reference?
+  YES → Update CLAUDE.md > Quick Commands
+  NO → Continue
+
+Is it detailed technical knowledge?
+  YES → Update or create SKILL.md
+  NO → Continue
+
+Is it a security issue?
+  YES → Create SECURITY_AUDIT_[DATE].md + update CLAUDE.md
+  NO → Continue
+
+Is it project-specific documentation?
+  YES → Update README.md or docs/
+  NO → Log for future review
+```
+
+### Step 3: Format Update
+
+**CLAUDE.md Updates:**
+```markdown
+## Section Title
+
+### Subsection (if needed)
+
+**Description:** Brief explanation of what/why
+
+**Command/Pattern:**
+```bash
+# Comment explaining what this does
+command here
+```
+
+**Related Files:** `path/to/file.ext`
+
+**Added:** 2025-10-16 (Track when added)
+```
+
+**SKILL.md Updates:**
+```markdown
+## Version History
+
+- **1.1.0** (2025-10-16): [Description of update]
+  - Added: Feature X
+  - Fixed: Issue Y
+  - Updated: Section Z
+```
+
+### Step 4: Verify Update
+
+**Checklist:**
+- [ ] Is the information accurate?
+- [ ] Is it concise (CLAUDE.md sections should be <200 words)?
+- [ ] Is it actionable (commands can be copy-pasted)?
+- [ ] Is it versioned (date added, version number)?
+- [ ] Are related files cross-referenced?
+
+### Step 5: Commit Changes
+
+```bash
+# Auto-commit documentation updates
+git add CLAUDE.md .claude/skills/
+git commit -m "docs: auto-update from session [SESSION_ID]
+
+- Added: [brief description]
+- Updated: [sections modified]
+- Source: [what triggered update]
+
+Co-Authored-By: Claude <noreply@anthropic.com>"
+```
 
 ## CLAUDE.md Structure
 
-CLAUDE.md should contain:
+### Required Sections
 
 ```markdown
 # CLAUDE.md
 
-Language and Style Guidelines
-Repository Overview
-Architecture
-Common Commands
-Key Components
-Development Environment
+**Last Updated:** YYYY-MM-DD
+**Location:** `/Users/lucascardoso/Desktop/MUTUA/`
+**Auto-Update Enabled:** ✅
+
+---
+
+## 🎯 Project Overview
+[Brief description, tech stack]
+
+## 🚀 Quick Start Commands
+[Most common commands for dev/deploy]
+
+## 🏗️ Architecture
+[High-level system design]
+
+## 🔐 Security
+[Critical security considerations]
+
+## 📋 Available Skills
+[List of SKILL.md files with descriptions]
+
+## ⚙️ Configuration
+[Environment variables, important settings]
+
+## 🐛 Troubleshooting
+[Common issues and solutions]
+
+## 📚 Documentation References
+[Links to detailed docs]
+
+## 🔄 Version History
+[Track major CLAUDE.md changes]
 ```
 
-**What to include**:
-- Technical details for AI assistants
-- Code organisation and structure
-- Environment variables and paths
-- Automated tasks and maintenance
-- Tool configurations
-- Important implementation notes
+### Keep It Concise
 
-### 5. README.md Structure
-
-README.md should contain:
-
+**❌ BAD (Too verbose):**
 ```markdown
-# Dotfiles
-
-Introduction
-Features
-Installation
-Usage
-Configuration
-Maintenance
-Contributing
-License
+The MutuaPIX platform uses a comprehensive authentication system
+that leverages Laravel Sanctum on the backend for secure token-based
+authentication while the frontend utilizes Next.js with Zustand for
+state management and localStorage for token persistence...
 ```
 
-**What to include**:
-- User-friendly explanations
-- Getting started guide
-- Quick reference
-- Troubleshooting
-- Links to detailed docs
-- Visual examples where helpful
-
-## Update Workflows
-
-### Workflow 1: New Packages Added
-
-When packages are added to Brewfile:
-
-1. **Check what was added**: Review git diff or Brewfile
-2. **Update CLAUDE.md**: Add to "Key Tools Included" section
-3. **Update README.md**: Add to "Features" if notable
-4. **Group by category**: Development, Cloud, Databases, Utilities, etc.
-5. **Keep alphabetical**: Within each category
-
-**Example**:
+**✅ GOOD (Concise):**
 ```markdown
-### Development Tools
-- git, gh - Version control
-- ripgrep, fd - Fast search tools (NEW)
-- jq - JSON processor
+## Authentication
+
+**Stack:** Laravel Sanctum (backend) + Zustand (frontend)
+**Token Lifetime:** 24 hours
+**Login Flow:** CSRF token → POST /api/v1/login → Store JWT
+
+**Quick Test:**
+```bash
+curl https://api.mutuapix.com/api/v1/health
 ```
 
-### Workflow 2: New Aliases Created
+**Details:** See `.claude/skills/authentication-management/SKILL.md`
+```
 
-When aliases are added to .aliases:
+## Skills Discovery
 
-1. **Identify new aliases**: Check .aliases file
-2. **Update CLAUDE.md**: Add to "Git Aliases" or create new section
-3. **Update README.md**: Add to usage examples if commonly used
-4. **Include examples**: Show what the alias does
+When Claude needs to find a skill:
 
-**Example**:
+```bash
+# List all available skills
+ls -la .claude/skills/
+
+# Search skills by keyword
+grep -r "PIX validation" .claude/skills/*/SKILL.md
+
+# Read specific skill
+cat .claude/skills/pix-validation/SKILL.md
+```
+
+**Auto-discovery:** Skills are automatically discovered from:
+1. `.claude/skills/` (project-level)
+2. `~/.claude/skills/` (personal)
+3. Plugin-provided skills
+
+## Update Examples
+
+### Example 1: New Environment Variable Discovered
+
+**Trigger:**
+```bash
+# During debugging, discovered NEXT_PUBLIC_NODE_ENV is required
+```
+
+**Auto-Update CLAUDE.md:**
 ```markdown
-### Git Aliases
-- `g` → `git`
-- `gs` → `git status`
-- `gp` → `git push` (NEW)
+## Environment Variables
+
+### Frontend Production (.env.production on VPS)
+
+```bash
+NEXT_PUBLIC_NODE_ENV=production          # ⚠️ CRITICAL: Required for security
+NEXT_PUBLIC_API_URL=https://api.mutuapix.com
+NEXT_PUBLIC_USE_AUTH_MOCK=false
 ```
 
-### Workflow 3: Configuration Changes
+**Why NEXT_PUBLIC_NODE_ENV is Critical:**
+- `process.env.NODE_ENV` is undefined in Next.js client-side code
+- Mock authentication relies on this for environment detection
+- Missing this variable = security bypass in production!
 
-When .zshrc, .aliases, or other configs change:
-
-1. **Review changes**: Understand what was modified
-2. **Assess impact**: Does this affect documented behaviour?
-3. **Update relevant sections**: Modify docs to match new behaviour
-4. **Update examples**: Ensure command examples still work
-5. **Note breaking changes**: Highlight if setup process changes
-
-### Workflow 4: New Scripts or Features
-
-When new scripts or automation is added:
-
-1. **Document purpose**: What does it do?
-2. **Document usage**: How to use it
-3. **Document requirements**: Any dependencies or prerequisites
-4. **Add to CLAUDE.md**: Technical details and implementation
-5. **Add to README.md**: User-friendly usage guide
-
-## Verification Checklist
-
-Before finalising documentation updates:
-
+**Added:** 2025-10-16
+**Related Files:** `frontend/src/lib/env.ts`, `frontend/src/stores/authStore.ts`
 ```
-Content Accuracy:
-□ All file paths exist and are correct
-□ All command examples tested and work
-□ Package lists match Brewfile
-□ Alias examples match .aliases
-□ Script descriptions match actual behaviour
 
-Consistency:
-□ British English throughout
-□ Consistent formatting and style
-□ Same terminology for same concepts
-□ Code blocks have proper syntax highlighting
-□ Section headers follow same pattern
+### Example 2: New Deployment Command
 
-Completeness:
-□ All major features documented
-□ No outdated information
-□ Installation steps are current
-□ Common tasks covered
-□ Troubleshooting section relevant
-
-Synchronisation:
-□ CLAUDE.md and README.md align
-□ No contradictions between docs
-□ Both reflect current configuration
-□ Cross-references are valid
+**Trigger:**
+```bash
+# Discovered that clearing .next cache is required for env var changes
+ssh root@138.199.162.115 'cd /var/www/mutuapix-frontend-production && rm -rf .next && npm run build && pm2 restart mutuapix-frontend'
 ```
+
+**Auto-Update CLAUDE.md:**
+```markdown
+## Deployment
+
+### Frontend Deployment (Environment Variable Changes)
+
+**⚠️ IMPORTANT:** When updating `.env.production`, must clear cache before rebuild!
+
+```bash
+# 1. Update .env.production on VPS
+ssh root@138.199.162.115 'echo "NEXT_PUBLIC_NODE_ENV=production" >> /var/www/mutuapix-frontend-production/.env.production'
+
+# 2. Clear cache + rebuild + restart
+ssh root@138.199.162.115 'cd /var/www/mutuapix-frontend-production && rm -rf .next && npm run build && pm2 restart mutuapix-frontend'
+
+# 3. Verify
+curl -I https://matrix.mutuapix.com/login
+```
+
+**Why Clear Cache:**
+Next.js caches compiled bundles. Without clearing `.next/`, old environment variables persist.
+
+**Added:** 2025-10-16
+```
+
+### Example 3: Security Issue Found
+
+**Trigger:**
+```typescript
+// Discovered: authStore has default mock user
+// File: frontend/src/stores/authStore.ts:91-96
+user: devLocalUser,           // ❌ VULNERABILITY
+```
+
+**Auto-Create:** `SECURITY_AUDIT_2025_10_16.md` (full report)
+
+**Auto-Update CLAUDE.md:**
+```markdown
+## Security
+
+### Known Issues
+
+**🔴 CRITICAL: Default Mock User in authStore** (Found: 2025-10-16)
+
+**Issue:** `authStore` initializes with authenticated mock admin user by default.
+
+**Risk:** If localStorage is empty, user appears logged in without credentials.
+
+**Fix:** See `AUTHENTICATION_AUDIT_REPORT.md` Section "Remediation Plan > Phase 1"
+
+**Status:** 🟡 Pending fix
+
+**Related Files:**
+- `frontend/src/stores/authStore.ts:91-96`
+- `.claude/skills/authentication-management/SKILL.md`
+```
+
+## Self-Improvement Loop
+
+### Phase 1: Discovery
+- Claude encounters new information during session
+- Flags it as potential documentation update
+
+### Phase 2: Validation
+- Is this information accurate?
+- Is it useful for future sessions?
+- Where should it be documented?
+
+### Phase 3: Update
+- Edit CLAUDE.md or create/update SKILL.md
+- Follow formatting guidelines
+- Add version history entry
+
+### Phase 4: Verification
+- Read updated documentation
+- Verify it's clear and actionable
+- Check for consistency with existing docs
+
+### Phase 5: Commit
+- Create git commit with descriptive message
+- Tag with "docs:" prefix for auto-tracking
+
+## Metrics & Tracking
+
+### Documentation Health Metrics
+
+```typescript
+interface DocHealthMetrics {
+  claudeMdSize: number;              // Bytes (target: <50KB)
+  skillsCount: number;               // Number of SKILL.md files
+  lastUpdated: Date;                 // Most recent update
+  staleSections: string[];           // Sections >90 days old
+  brokenLinks: string[];             // Dead file references
+  todoItems: number;                 // Unresolved TODOs in docs
+}
+```
+
+### Update Frequency
+
+**Target:**
+- CLAUDE.md: Updated after every significant session (new feature, bug fix, deployment)
+- SKILL.md: Updated when skill scope changes (version bump)
+- Security docs: Updated immediately when vulnerability found
+
+### Quality Checks
+
+Before updating CLAUDE.md, verify:
+- [ ] Total file size <50KB (concise documentation)
+- [ ] No duplicate information across sections
+- [ ] All commands tested and work
+- [ ] All file paths are valid
+- [ ] No sensitive data (passwords, API keys)
+- [ ] Version history entry added
+
+## Integration with Claude Sessions
+
+### At Session Start
+
+1. Read CLAUDE.md to understand project context
+2. Load relevant SKILL.md files based on user's task
+3. Check for stale documentation (>30 days old)
+
+### During Session
+
+1. Note when new information is discovered
+2. Flag for documentation update
+3. Continue with task (don't interrupt flow)
+
+### At Session End
+
+1. Review flagged documentation updates
+2. Apply updates to CLAUDE.md and/or SKILL.md
+3. Commit changes with descriptive message
+4. Summary of documentation changes for user
+
+### User Prompt for Updates
+
+When user says:
+- "Update CLAUDE.md with this" → Apply update immediately
+- "Remember this for next time" → Add to appropriate doc
+- "This is important" → Flag as high priority for CLAUDE.md
+- "Document this workflow" → Create or update SKILL.md
 
 ## Best Practices
 
-### Writing Style
+### DO:
+✅ Keep CLAUDE.md concise (<50KB total)
+✅ Use bullet points over paragraphs
+✅ Include copy-pasteable commands
+✅ Cross-reference detailed docs in SKILL.md
+✅ Add dates to new entries
+✅ Version bump SKILL.md when updating
 
-- **British English**: "optimise" not "optimize", "colour" not "color"
-- **Clear and concise**: Avoid unnecessary verbosity
-- **Active voice**: "Run the command" not "The command should be run"
-- **Present tense**: "The script installs" not "The script will install"
-- **Code examples**: Include for all commands and usage
+### DON'T:
+❌ Duplicate information across files
+❌ Include verbose explanations in CLAUDE.md
+❌ Commit broken/untested commands
+❌ Leave TODOs unresolved for >7 days
+❌ Remove historical information (archive instead)
 
-### Markdown Formatting
+## Related Files
 
-```markdown
-# H1 for title
-## H2 for main sections
-### H3 for subsections
+**Core Documentation:**
+- `CLAUDE.md` - Main project guide (you are here)
+- `.claude/skills/*/SKILL.md` - Detailed skill documentation
+- `README.md` - Public-facing project readme
 
-**Bold** for emphasis
-`code` for commands, files, code
-- Bullet lists for items
-1. Numbered lists for steps
+**Audit Reports:**
+- `AUTHENTICATION_AUDIT_REPORT.md` - Security audit (2025-10-16)
+- `VPS_AUDIT_REPORT.md` - Infrastructure audit
+- `CLEANUP_EXECUTION_REPORT.md` - VPS cleanup log
 
-```bash
-# Code blocks with syntax highlighting
-command --option value
-```
-```
+**Legacy:**
+- `WORKFLOW_RULES_FOR_CLAUDE.md` - Git workflow rules
+- `docs/` - Additional project documentation
 
-### Command Documentation
+## Version History
 
-Always include:
-1. **What it does**: Brief description
-2. **When to use**: Context for usage
-3. **Example**: Actual command with output
-4. **Options**: Important flags or parameters
-
-**Example**:
-```markdown
-### Update Brewfile
-
-Updates the Brewfile with currently installed packages.
-
-**When to use**: After installing new packages with `brew install`
-
-```bash
-brew bundle dump --force
-```
-
-This overwrites the existing Brewfile with all currently installed packages.
-```
-
-## Common Documentation Tasks
-
-### Task 1: Document New Brewfile Packages
-
-**Steps**:
-1. Read Brewfile to see what was added
-2. Group packages by type (Development, Cloud, Databases, etc.)
-3. Update CLAUDE.md "Key Tools Included" section
-4. Add brief description for each: `ripgrep - Fast grep alternative`
-5. Keep alphabetical within categories
-
-### Task 2: Update Command Examples
-
-**Steps**:
-1. Identify which commands changed
-2. Test new commands to verify they work
-3. Update both CLAUDE.md and README.md
-4. Ensure syntax highlighting is correct
-5. Add comments explaining the command
-
-### Task 3: Add New Section
-
-**Steps**:
-1. Determine appropriate location (CLAUDE.md vs README.md vs both)
-2. Use consistent heading level
-3. Write clear, concise content
-4. Include examples
-5. Update table of contents if present
-
-### Task 4: Sync Between Docs
-
-**Steps**:
-1. Read both CLAUDE.md and README.md
-2. Identify inconsistencies or contradictions
-3. Determine correct information (check actual files)
-4. Update both docs to align
-5. Ensure cross-references are valid
-
-## Example Workflows
-
-### Example 1: Updating for New Packages
-
-**User**: "I added ripgrep and fd to Brewfile, update the docs"
-
-**Steps**:
-1. **Verify addition**: Check Brewfile shows `brew "ripgrep"` and `brew "fd"`
-2. **Update CLAUDE.md**:
-   ```markdown
-   ### Key Tools Included
-   - Development: git, gh, nvm, pnpm, yarn, bun
-   - Utilities: jq, ripgrep, fd, httpie, direnv (UPDATED)
-   ```
-3. **Update README.md**:
-   ```markdown
-   ### Features
-   - Fast file and content searching with ripgrep and fd
-   ```
-4. **Confirm**: "Updated both CLAUDE.md and README.md to document ripgrep and fd"
-
-### Example 2: New Alias Documentation
-
-**User**: "Document the new gp alias"
-
-**Steps**:
-1. **Check alias**: Read .aliases to find `alias gp='git push'`
-2. **Update CLAUDE.md**:
-   ```markdown
-   ### Git Aliases
-   - `g` → `git`
-   - `gs` → `git status`
-   - `gp` → `git push`
-   ```
-3. **Update README.md** (usage example):
-   ```markdown
-   # Push changes
-   gp
-   ```
-4. **Confirm**: "Added gp alias to documentation in both files"
-
-### Example 3: Verifying Accuracy
-
-**User**: "Check if the documentation is accurate"
-
-**Steps**:
-1. **Read CLAUDE.md and README.md**
-2. **Compare with actual files**:
-   - Check Brewfile matches documented packages
-   - Verify aliases exist in .aliases
-   - Test command examples work
-3. **Identify discrepancies**:
-   - Found: README mentions "nvm" but Brewfile uses "fnm"
-   - Found: Outdated path in CLAUDE.md
-4. **Update**:
-   - Fix README: Change "nvm" to "fnm"
-   - Fix CLAUDE.md: Update path
-5. **Report**: "Fixed 2 inaccuracies in documentation"
-
-## Important Notes
-
-- **Accuracy is paramount**: Documentation must match reality
-- **Test examples**: All command examples should work
-- **Keep current**: Update docs whenever configurations change
-- **British English**: Consistent spelling throughout
-- **Be thorough**: Check both files for updates
-- **Version control**: Document changes in git commits
-- **User perspective**: README should be approachable for newcomers
-
-## Maintenance Schedule
-
-Recommend updating documentation:
-
-- **After major changes**: New features, significant refactoring
-- **Before commits**: Ensure docs reflect committed changes
-- **Monthly review**: Check for drift from actual configuration
-- **On request**: When user asks to update or verify docs
-
-## Documentation Quality Criteria
-
-Good documentation should be:
-
-1. **Accurate**: Matches actual implementation
-2. **Current**: Reflects latest changes
-3. **Complete**: Covers all major features
-4. **Consistent**: Same style and terminology
-5. **Clear**: Easy to understand
-6. **Tested**: All examples work
-7. **Well-organised**: Logical structure
-8. **Properly formatted**: Valid markdown, syntax highlighting
+- **1.0.0** (2025-10-16): Initial documentation updater skill
+  - Defined auto-update triggers
+  - Established update workflow
+  - Created documentation structure guidelines
+  - Implemented self-improvement loop

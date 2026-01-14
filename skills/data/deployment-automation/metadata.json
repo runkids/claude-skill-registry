@@ -1,12 +1,7 @@
 {
   "name": "deployment-automation",
-  "description": "Automate deployments across environments using Helm, Terraform, and ArgoCD. Implement blue-green deployments, canary releases, and rollback strategies.",
-  "repo": "aj-geddes/useful-ai-prompts",
-  "category": "devops",
-  "tags": [
-    "deployment",
-    "automation"
-  ],
-  "stars": 25,
-  "source": "SkillsMP Synced Skills"
+  "repo": "eddiebe147/claude-settings",
+  "path": "skills/deployment-automation/skill.md",
+  "source": "github.com/eddiebe147/claude-settings",
+  "downloaded_at": "2026-01-14T03:53:02.300267Z"
 }

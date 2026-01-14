@@ -1,12 +1,7 @@
 {
   "name": "alert-management",
-  "description": "Implement comprehensive alert management with PagerDuty, escalation policies, and incident coordination. Use when setting up alerting systems, managing on-call schedules, or coordinating incident resp",
   "repo": "aj-geddes/useful-ai-prompts",
-  "category": "devops",
-  "tags": [
-    "alert",
-    "management"
-  ],
-  "stars": 25,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/alert-management/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:07.944080Z"
 }

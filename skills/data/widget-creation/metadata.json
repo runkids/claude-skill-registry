@@ -1,8 +1,7 @@
 {
   "name": "widget-creation",
   "repo": "YosrBennagra/3SC",
-  "category": "data",
-  "description": "Create new desktop widgets for the 3SC WPF widget host. Use when adding a new widget type or instance, including its domain model, persistence, viewmodel, view, and registration in the shell/launcher ",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:40.256967Z"
+  "path": ".github/skills/widget-creation/SKILL.md",
+  "source": "github.com/YosrBennagra/3SC",
+  "downloaded_at": "2026-01-14T03:55:00.140010Z"
 }

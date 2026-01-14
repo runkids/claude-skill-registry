@@ -1,12 +1,7 @@
 {
   "name": "coverage-analysis",
-  "description": "Analyze test coverage, generate reports, and identify untested code. Use when improving test coverage, ensuring code quality, or preparing for production.",
   "repo": "sgcarstrends/sgcarstrends",
-  "category": "development",
-  "tags": [
-    "coverage",
-    "analysis"
-  ],
-  "stars": 13,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/coverage-analysis/SKILL.md",
+  "source": "github.com/sgcarstrends/sgcarstrends",
+  "downloaded_at": "2026-01-14T02:59:20.439187Z"
 }

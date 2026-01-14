@@ -1,13 +1,7 @@
 {
   "name": "sop-product-launch",
-  "description": "Complete product launch workflow coordinating 15+ specialist agents across research, development, marketing, sales, and operations. Uses sequential and parallel orchestration for 10-week launch timeli",
   "repo": "DNYoussef/ai-chrome-extension",
-  "category": "development",
-  "tags": [
-    "sop",
-    "product",
-    "launch"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/sop-product-launch/SKILL.md",
+  "source": "github.com/DNYoussef/ai-chrome-extension",
+  "downloaded_at": "2026-01-14T03:10:07.296441Z"
 }

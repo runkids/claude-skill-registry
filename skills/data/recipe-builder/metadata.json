@@ -1,12 +1,7 @@
 {
   "name": "recipe-builder",
-  "description": "Create and manage WaveCap-SDR recipe templates for common capture scenarios. Use when setting up new band plans, creating presets for trunking systems, or building reusable multi-channel configuration",
   "repo": "TobiasWooldridge/WaveCap-SDR",
-  "category": "development",
-  "tags": [
-    "recipe",
-    "builder"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/recipe-builder/SKILL.md",
+  "source": "github.com/TobiasWooldridge/WaveCap-SDR",
+  "downloaded_at": "2026-01-14T01:59:42.033603Z"
 }

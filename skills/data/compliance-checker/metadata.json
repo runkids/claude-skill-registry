@@ -1,12 +1,7 @@
 {
   "name": "compliance-checker",
-  "description": "Check code against security compliance standards and best practices.",
   "repo": "CuriousLearner/devkit",
-  "category": "development",
-  "tags": [
-    "compliance",
-    "checker"
-  ],
-  "stars": 13,
-  "source": "local"
+  "path": "skills/compliance-checker/SKILL.md",
+  "source": "github.com/CuriousLearner/devkit",
+  "downloaded_at": "2026-01-14T02:22:37.815785Z"
 }

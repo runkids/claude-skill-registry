@@ -1,12 +1,7 @@
 {
   "name": "pdf-reader",
-  "description": "Extract text, tables, and images from PDF files using pdfplumber and PyMuPDF. Use when analyzing PDF documents, brand materials, reports, or any content that requires structured extraction from PDF fo",
-  "repo": "ledagame/persona-theater",
-  "category": "documents",
-  "tags": [
-    "pdf",
-    "reader"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "u9401066/copilot-capability-manager",
+  "path": ".claude/skills/pdf-reader/SKILL.md",
+  "source": "github.com/u9401066/copilot-capability-manager",
+  "downloaded_at": "2026-01-14T02:33:27.657344Z"
 }

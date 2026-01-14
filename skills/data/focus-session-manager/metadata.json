@@ -1,13 +1,7 @@
 {
   "name": "focus-session-manager",
-  "description": "Automatically manage focus sessions, breaks, and hyperfocus protection. Uses ADHD-optimized Pomodoro technique with flexible timers, health reminders, and gentle interruptions. Protects against hyperf",
   "repo": "daffy0208/ai-dev-standards",
-  "category": "data",
-  "tags": [
-    "focus",
-    "session",
-    "manager"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/focus-session-manager/SKILL.md",
+  "source": "github.com/daffy0208/ai-dev-standards",
+  "downloaded_at": "2026-01-14T03:33:13.180607Z"
 }

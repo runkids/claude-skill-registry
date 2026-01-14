@@ -1,9 +1,7 @@
 {
   "name": "init-skills",
-  "description": "Initialize Claude skills in the current project and verify setup. Use when user says '/init-skills', 'setup skills', 'install skills', or 'add Claude skills to this project'. Can also review and verif",
   "repo": "ioku24/autorankr",
-  "category": "product",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/init-skills/SKILL.md",
+  "source": "github.com/ioku24/autorankr",
+  "downloaded_at": "2026-01-14T04:07:26.462846Z"
 }

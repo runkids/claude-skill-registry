@@ -1,12 +1,7 @@
 {
   "name": "work-intake",
-  "description": "Entry point for ALL work requests - triages scope from trivial to massive, asks clarifying questions, and routes to appropriate planning skills. Use this when receiving any new work request.",
-  "repo": "troykelly/claude-skills",
-  "category": "productivity",
-  "tags": [
-    "work",
-    "intake"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "troykelly/codex-skills",
+  "path": "skills/work-intake/SKILL.md",
+  "source": "github.com/troykelly/codex-skills",
+  "downloaded_at": "2026-01-14T03:34:00.282881Z"
 }

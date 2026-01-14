@@ -1,9 +1,7 @@
 {
   "name": "greg-isenberg",
-  "description": "Talk to Greg Isenberg about their expertise. Greg Isenberg provides authentic advice using their mental models, core beliefs, and real-world examples.",
   "repo": "blicktz/knowledge_base_repo",
-  "category": "security",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/greg-isenberg/SKILL.md",
+  "source": "github.com/blicktz/knowledge_base_repo",
+  "downloaded_at": "2026-01-14T01:24:06.263686Z"
 }

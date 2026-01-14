@@ -1,13 +1,7 @@
 {
   "name": "yaml-driven-architecture",
-  "description": "Apply YAML-driven architecture-as-code patterns for system definition, configuration management, and automated generation. Use when designing configuration schemas, building code generators, or implem",
   "repo": "EvanLavender13/archctl",
-  "category": "development",
-  "tags": [
-    "yaml",
-    "driven",
-    "architecture"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/yaml-driven-architecture/SKILL.md",
+  "source": "github.com/EvanLavender13/archctl",
+  "downloaded_at": "2026-01-14T03:25:53.371325Z"
 }

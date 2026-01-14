@@ -1,13 +1,7 @@
 {
   "name": "bmad-observability-readiness",
-  "description": "Establishes instrumentation, monitoring, and alerting foundations.",
   "repo": "bacoco/BMad-Skills",
-  "category": "development",
-  "tags": [
-    "bmad",
-    "observability",
-    "readiness"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/bmad-observability-readiness/SKILL.md",
+  "source": "github.com/bacoco/BMad-Skills",
+  "downloaded_at": "2026-01-14T02:53:13.368976Z"
 }

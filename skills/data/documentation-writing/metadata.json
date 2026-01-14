@@ -1,12 +1,7 @@
 {
   "name": "documentation-writing",
-  "description": "Writing clear, discoverable software documentation following the Eight Rules and Diataxis framework. Use when creating README files, API docs, tutorials, how-to guides, or any project documentation. A",
-  "repo": "rysweet/MicrosoftHackathon2025-AgenticCoding",
-  "category": "documents",
-  "tags": [
-    "documentation",
-    "writing"
-  ],
-  "stars": 10,
-  "source": "SkillsMP Synced Skills"
+  "repo": "rysweet/azlin",
+  "path": ".claude/skills/documentation-writing/SKILL.md",
+  "source": "github.com/rysweet/azlin",
+  "downloaded_at": "2026-01-14T03:30:10.499243Z"
 }

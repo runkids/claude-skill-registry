@@ -1,11 +1,7 @@
 {
   "name": "gemini-cli",
-  "description": "\"Use Gemini CLI when processing images, PDFs, large files, needing 1M+ token context, or requiring Gemini's strong reasoning and fine-grained domain knowledge.",
-  "repo": "metrovoc/cc-skill-gemini-cli",
-  "category": "data",
-  "tags": [
-    "gemini",
-    "cli"
-  ],
-  "stars": 1
+  "repo": "samhvw8/dotfiles",
+  "path": "dot_claude/skills/gemini-cli/SKILL.md",
+  "source": "github.com/samhvw8/dotfiles",
+  "downloaded_at": "2026-01-14T03:46:54.081200Z"
 }

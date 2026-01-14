@@ -1,11 +1,7 @@
 {
   "name": "n8n",
-  "description": "Develop workflows, custom nodes, and integrations for n8n automation platform",
   "repo": "vladm3105/aidoc-flow-framework",
-  "category": "productivity",
-  "tags": [
-    "n8n"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/n8n/SKILL.md",
+  "source": "github.com/vladm3105/aidoc-flow-framework",
+  "downloaded_at": "2026-01-14T03:57:59.604556Z"
 }

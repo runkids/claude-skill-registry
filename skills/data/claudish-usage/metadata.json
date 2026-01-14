@@ -1,12 +1,7 @@
 {
   "name": "claudish-usage",
-  "description": "CRITICAL - Guide for using Claudish CLI ONLY through sub-agents to run Claude Code with OpenRouter models (Grok, GPT-5, Gemini, MiniMax). NEVER run Claudish directly in main context unless user explic",
-  "repo": "gabrielbryk/jq-ts",
-  "category": "development",
-  "tags": [
-    "claudish",
-    "usage"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "involvex/involvex-claude-marketplace",
+  "path": "plugins/code-analysis/skills/claudish-usage/SKILL.md",
+  "source": "github.com/involvex/involvex-claude-marketplace",
+  "downloaded_at": "2026-01-14T02:54:03.382878Z"
 }

@@ -1,114 +1,83 @@
 ---
 name: supabase-rls
-description: Supabase Row Level Security policies. Use when creating RLS policies, securing tables, or implementing multi-tenant data isolation.
+description: Apply when implementing multi-tenant data isolation, user-specific data access, or any scenario requiring row-level authorization in Supabase.
+version: 1.0.0
+tokens: ~650
+confidence: high
+sources:
+  - https://supabase.com/docs/guides/auth/row-level-security
+  - https://supabase.com/docs/guides/database/postgres/row-level-security
+last_validated: 2025-01-10
+next_review: 2025-01-24
+tags: [supabase, security, database, rls]
 ---
 
-# Supabase Row Level Security (RLS)
+## When to Use
 
-## Enable RLS on Table
+Apply when implementing multi-tenant data isolation, user-specific data access, or any scenario requiring row-level authorization in Supabase.
 
+## Patterns
+
+### Pattern 1: User Owns Row
 ```sql
--- Always enable RLS
-ALTER TABLE projects ENABLE ROW LEVEL SECURITY;
-```
-
-## Common Policy Patterns
-
-### User Can Only See Own Data
-```sql
-CREATE POLICY "Users view own data"
-ON projects FOR SELECT
-TO authenticated
+-- Source: https://supabase.com/docs/guides/auth/row-level-security
+CREATE POLICY "Users can view own data"
+ON todos FOR SELECT
 USING (auth.uid() = user_id);
-```
 
-### User Can Insert Own Data
-```sql
-CREATE POLICY "Users insert own data"
-ON projects FOR INSERT
-TO authenticated
+CREATE POLICY "Users can insert own data"
+ON todos FOR INSERT
 WITH CHECK (auth.uid() = user_id);
 ```
 
-### User Can Update Own Data
+### Pattern 2: Role-Based Access
 ```sql
-CREATE POLICY "Users update own data"
-ON projects FOR UPDATE
-TO authenticated
-USING (auth.uid() = user_id)
-WITH CHECK (auth.uid() = user_id);
-```
-
-### User Can Delete Own Data
-```sql
-CREATE POLICY "Users delete own data"
-ON projects FOR DELETE
-TO authenticated
-USING (auth.uid() = user_id);
-```
-
-## Multi-Tenant Patterns
-
-### Team-Based Access
-```sql
--- Users can see projects in their teams
-CREATE POLICY "Team members view projects"
-ON projects FOR SELECT
-TO authenticated
-USING (
-  team_id IN (
-    SELECT team_id FROM team_members
-    WHERE user_id = auth.uid()
-  )
-);
-```
-
-### Role-Based Access
-```sql
--- Check user role for admin access
-CREATE POLICY "Admins can do everything"
-ON projects FOR ALL
-TO authenticated
+-- Source: https://supabase.com/docs/guides/auth/row-level-security#policies-with-joins
+CREATE POLICY "Admins full access"
+ON todos FOR ALL
 USING (
   EXISTS (
-    SELECT 1 FROM user_roles
-    WHERE user_id = auth.uid()
-    AND role = 'admin'
+    SELECT 1 FROM profiles
+    WHERE profiles.id = auth.uid()
+    AND profiles.role = 'admin'
   )
 );
 ```
 
-## Service Role Bypass
-
-For server-side operations that need to bypass RLS:
-
-```typescript
-import { createClient } from '@supabase/supabase-js';
-
-// This bypasses RLS - use carefully!
-const supabaseAdmin = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!, // Not ANON key!
-  { auth: { persistSession: false } }
+### Pattern 3: Organization/Tenant Isolation
+```sql
+-- Source: https://supabase.com/docs/guides/auth/row-level-security
+CREATE POLICY "Org members access"
+ON projects FOR SELECT
+USING (
+  org_id IN (
+    SELECT org_id FROM org_members
+    WHERE user_id = auth.uid()
+  )
 );
 ```
 
-## Testing Policies
-
+### Pattern 4: Public Read, Auth Write
 ```sql
--- Test as specific user
-SET request.jwt.claim.sub = 'user-uuid-here';
+-- Source: https://supabase.com/docs/guides/auth/row-level-security
+CREATE POLICY "Public read" ON posts
+FOR SELECT USING (true);
 
--- Run query and check results
-SELECT * FROM projects;
-
--- Reset
-RESET request.jwt.claim.sub;
+CREATE POLICY "Auth users write" ON posts
+FOR INSERT WITH CHECK (auth.uid() IS NOT NULL);
 ```
 
-## Security Checklist
-- [ ] RLS enabled on all tables with user data
-- [ ] Service role key only on server, never client
-- [ ] Policies cover all operations (SELECT, INSERT, UPDATE, DELETE)
-- [ ] No policies use functions that could be exploited
-- [ ] Test policies with different user roles
+## Anti-Patterns
+
+- **No RLS on sensitive tables** - Always enable: `ALTER TABLE x ENABLE ROW LEVEL SECURITY`
+- **Using service_role in client** - Bypasses RLS; use only server-side
+- **Complex JOINs in policies** - Causes performance issues; denormalize if needed
+- **Forgetting FOR clause** - Specify SELECT/INSERT/UPDATE/DELETE explicitly
+
+## Verification Checklist
+
+- [ ] RLS enabled on table: `ALTER TABLE x ENABLE ROW LEVEL SECURITY`
+- [ ] Policies exist for all needed operations (SELECT, INSERT, UPDATE, DELETE)
+- [ ] Tested with `auth.uid()` returning expected user
+- [ ] Service role operations stay server-side only
+- [ ] No N+1 queries in policy JOINs

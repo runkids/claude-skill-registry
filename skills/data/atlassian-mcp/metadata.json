@@ -1,12 +1,7 @@
 {
   "name": "atlassian-mcp",
-  "description": "Use when querying Jira issues, searching Confluence pages, creating tickets, updating documentation, or integrating Atlassian tools via MCP protocol.",
   "repo": "Jeffallan/claude-skills",
-  "category": "documents",
-  "tags": [
-    "atlassian",
-    "mcp"
-  ],
-  "stars": 12,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/atlassian-mcp/SKILL.md",
+  "source": "github.com/Jeffallan/claude-skills",
+  "downloaded_at": "2026-01-14T02:36:36.289641Z"
 }

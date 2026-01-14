@@ -1,13 +1,7 @@
 {
   "name": "web-resource-checker",
-  "description": "Validates essential web resource files (sitemap.xml, robots.txt, llms.txt, security.txt) for compliance with their specifications. Use when user asks about \"sitemap validation\", \"robots.txt check\", \"l",
   "repo": "naporin0624/claude-web-audit-plugins",
-  "category": "security",
-  "tags": [
-    "web",
-    "resource",
-    "checker"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": "skills/web-resource-checker/SKILL.md",
+  "source": "github.com/naporin0624/claude-web-audit-plugins",
+  "downloaded_at": "2026-01-14T02:31:14.969613Z"
 }

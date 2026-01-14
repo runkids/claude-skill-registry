@@ -1,12 +1,7 @@
 {
   "name": "doc-ears",
-  "description": "Create EARS (Easy Approach to Requirements Syntax) formal requirements - Layer 3 artifact using WHEN-THE-SHALL-WITHIN format",
   "repo": "vladm3105/aidoc-flow-framework",
-  "category": "design",
-  "tags": [
-    "doc",
-    "ears"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/doc-ears/SKILL.md",
+  "source": "github.com/vladm3105/aidoc-flow-framework",
+  "downloaded_at": "2026-01-14T03:58:01.335054Z"
 }

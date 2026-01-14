@@ -1,13 +1,7 @@
 {
   "name": "service-mesh-integrator",
-  "description": "Configure service mesh solutions including Istio, Linkerd, and Consul for traffic management, security, and observability in microservices. Activates for service mesh setup, mTLS, traffic routing, and",
   "repo": "Dexploarer/hyper-forge",
-  "category": "security",
-  "tags": [
-    "service",
-    "mesh",
-    "integrator"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": ".claude/skills/service-mesh-integrator/SKILL.md",
+  "source": "github.com/Dexploarer/hyper-forge",
+  "downloaded_at": "2026-01-14T03:02:59.965751Z"
 }

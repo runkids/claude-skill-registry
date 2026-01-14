@@ -1,0 +1,12 @@
+{
+  "name": "cellcharter-local",
+  "description": "CellCharter 本地离线文档 (Sphinx 构建), 从下载目录启动 HTTP 服务后抓取",
+  "repo": "Ketomihine/my_skills",
+  "category": "development",
+  "tags": [
+    "cellcharter",
+    "local"
+  ],
+  "stars": 0,
+  "source": "SkillsMP Synced Skills"
+}

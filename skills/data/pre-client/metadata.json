@@ -1,12 +1,7 @@
 {
   "name": "pre-client",
-  "description": "Pre-sales intelligence system. Ingests incoming emails, analyzes sender context, clusters related conversations, detects business opportunities, builds relationship timelines, and surfaces high-potent",
   "repo": "CleanExpo/Unite-Hub",
-  "category": "development",
-  "tags": [
-    "pre",
-    "client"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/pre-client/SKILL.md",
+  "source": "github.com/CleanExpo/Unite-Hub",
+  "downloaded_at": "2026-01-14T03:08:05.590612Z"
 }

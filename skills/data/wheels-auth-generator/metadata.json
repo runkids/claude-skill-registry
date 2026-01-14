@@ -1,9 +1,7 @@
 {
   "name": "wheels-auth-generator",
-  "description": "Generate authentication system with user model, sessions controller, and password hashing. Use when implementing user authentication, login/logout, or session management. Provides secure authenticatio",
   "repo": "wheels-dev/wheels",
-  "category": "documents",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "examples/tweet/.claude/skills/wheels-auth-generator/SKILL.md",
+  "source": "github.com/wheels-dev/wheels",
+  "downloaded_at": "2026-01-14T02:47:40.157212Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "css-architecture",
-  "description": "Implement scalable CSS architecture patterns - BEM, SMACSS, ITCSS, design tokens",
-  "repo": "pluginagentmarketplace/custom-plugin-css",
-  "category": "design",
-  "tags": [
-    "css",
-    "architecture"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "repo": "aj-geddes/useful-ai-prompts",
+  "path": "skills/css-architecture/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:08.211998Z"
 }

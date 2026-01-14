@@ -1,12 +1,7 @@
 {
   "name": "generate-fix-suggestions",
-  "description": "Generate fix suggestions based on error patterns and best practices. Use when analyzing failures to get actionable remediation steps.",
   "repo": "mvillmow/ProjectOdyssey",
-  "category": "data",
-  "tags": [
-    "generate",
-    "fix",
-    "suggestions"
-  ],
-  "stars": 8
+  "path": ".claude/skills/generate-fix-suggestions/SKILL.md",
+  "source": "github.com/mvillmow/ProjectOdyssey",
+  "downloaded_at": "2026-01-14T01:09:01.881340Z"
 }

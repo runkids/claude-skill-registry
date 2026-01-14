@@ -1,12 +1,7 @@
 {
   "name": "router-template",
-  "description": "Template for creating router skills. Use as a starting point when building a new router that dispatches to multiple specialized skills. Copy and customize for your domain.",
   "repo": "Bbeierle12/Skill-MCP-Claude",
-  "category": "development",
-  "tags": [
-    "router",
-    "template"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": "skills/router-template/SKILL.md",
+  "source": "github.com/Bbeierle12/Skill-MCP-Claude",
+  "downloaded_at": "2026-01-14T03:54:09.874040Z"
 }

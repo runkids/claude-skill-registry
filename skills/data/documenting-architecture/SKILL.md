@@ -1,82 +1,74 @@
 ---
 name: documenting-architecture
 description: >
-  Generate architecture overview documentation from codebase analysis.
-  Uses tree-sitter-analyzer for precise code structure extraction.
-  Generates Mermaid diagrams for visual representation.
-  Triggers: architecture overview, project structure, module diagram,
+  コードベース分析からアーキテクチャ概要ドキュメントを生成。
+  精密なコード構造抽出にtree-sitter-analyzerを使用。
+  ビジュアル表現にMermaidダイアグラムを生成。
+  トリガー: architecture overview, project structure, module diagram,
   dependency graph, code structure, directory structure.
-allowed-tools:
-  - Read
-  - Write
-  - Grep
-  - Glob
-  - Bash
-  - Task
-context: fork
-agent: architecture-analyzer
+allowed-tools: Read, Write, Grep, Glob, Bash, Task
 ---
 
-# docs:architecture - Architecture Overview Generation
+# docs:architecture - アーキテクチャ概要生成
 
-Auto-generate architecture documentation from codebase analysis.
+コードベース分析からアーキテクチャドキュメントを自動生成。
 
-## Generated Content
+## 生成コンテンツ
 
-| Section             | Description                        |
-| ------------------- | ---------------------------------- |
-| Project Overview    | Tech stack, framework detection    |
-| Directory Structure | tree command output                |
-| Module Composition  | Mermaid relationship diagrams      |
-| Key Components      | Classes, functions with statistics |
-| Dependencies        | External/internal visualization    |
-| Statistics          | File count, line count, etc.       |
+| セクション | 説明 |
+| --- | --- |
+| プロジェクト概要 | 技術スタック、フレームワーク検出 |
+| ディレクトリ構造 | treeコマンド出力 |
+| モジュール構成 | Mermaid関係図 |
+| 主要コンポーネント | クラス、関数と統計 |
+| 依存関係 | 外部/内部の可視化 |
+| 統計 | ファイル数、行数等 |
 
-## Processing Flow
+## 処理フロー
 
-| Phase           | Actions                                           |
-| --------------- | ------------------------------------------------- |
-| 1. Init         | Identify root, detect language/framework          |
-| 2. Structure    | tree command, classify directories                |
-| 3. Code         | tree-sitter-analyzer: classes, functions, imports |
-| 4. Dependencies | Parse imports, map relationships                  |
-| 5. Generate     | Mermaid diagrams, populate templates              |
+| フェーズ | アクション |
+| --- | --- |
+| 1. 初期化 | ルート特定、言語/フレームワーク検出 |
+| 2. 構造 | treeコマンド、ディレクトリ分類 |
+| 3. コード | tree-sitter-analyzer: クラス、関数、インポート |
+| 4. 依存関係 | インポート解析、関係マッピング |
+| 5. 生成 | Mermaidダイアグラム、テンプレート埋め込み |
 
-## Analysis Commands
+## 分析コマンド
 
 ```bash
-# Directory structure
+# ディレクトリ構造
 tree -L 3 -I 'node_modules|.git|dist|build|__pycache__|.venv' --dirsfirst
 
-# Code structure (per file)
+# コード構造（ファイルごと）
 tree-sitter-analyzer {file} --structure --output-format json
 
-# Dependencies - TypeScript/JavaScript
+# 依存関係 - TypeScript/JavaScript
 grep -r "^import\|^export" --include="*.ts" --include="*.tsx"
 
-# Dependencies - Python
+# 依存関係 - Python
 grep -r "^import\|^from.*import" --include="*.py"
 ```
 
-## Error Handling
+## エラーハンドリング
 
-| Error                   | Resolution            |
-| ----------------------- | --------------------- |
-| Root not found          | Use current directory |
-| tree-sitter unavailable | Fallback to Grep/Read |
-| Large project           | Sample top 100 files  |
+| エラー | 解決策 |
+| --- | --- |
+| ルート未検出 | カレントディレクトリを使用 |
+| tree-sitter利用不可 | Grep/Readにフォールバック |
+| 大規模プロジェクト | 上位100ファイルをサンプリング |
 
-## Markdown Validation
+## Markdownバリデーション
 
-After generation, validate output with:
+生成後、出力を検証:
 
 ```bash
 ~/.claude/skills/scripts/validate-markdown.sh {output-file}
 ```
 
-Non-blocking (warnings only) - style issues don't block document creation.
+ブロッキングなし（警告のみ） - スタイル問題はドキュメント作成をブロックしない。
 
-## References
+## 参照
 
-- [@../../agents/analyzers/architecture-analyzer.md] - architecture-analyzer agent
-- Command: `/docs:architecture`
+- [@../../../agents/analyzers/architecture-analyzer.md] - architecture-analyzerエージェント
+- コマンド: `/docs:architecture`

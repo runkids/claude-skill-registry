@@ -1,11 +1,7 @@
 {
   "name": "geo-fundamentals",
-  "description": "Generative Engine Optimization for AI search engines (ChatGPT, Claude, Perplexity)",
   "repo": "xenitV1/claude-code-maestro",
-  "category": "data",
-  "tags": [
-    "geo",
-    "fundamentals"
-  ],
-  "stars": 47
+  "path": "skills/geo-fundamentals/SKILL.md",
+  "source": "github.com/xenitV1/claude-code-maestro",
+  "downloaded_at": "2026-01-14T03:41:47.634565Z"
 }

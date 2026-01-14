@@ -1,13 +1,7 @@
 {
   "name": "api-gateway-configuration",
-  "description": "Configure API gateways for routing, authentication, rate limiting, and request/response transformation. Use when deploying microservices, setting up reverse proxies, or managing API traffic.",
-  "repo": "aj-geddes/useful-ai-prompts",
-  "category": "devops",
-  "tags": [
-    "api",
-    "gateway",
-    "configuration"
-  ],
-  "stars": 25,
-  "source": "SkillsMP Synced Skills"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/api-gateway-configuration/skills/api-gateway-configuration/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-14T03:29:54.112022Z"
 }

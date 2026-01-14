@@ -1,515 +1,412 @@
 ---
 name: responsive-images
-description: Modern responsive image techniques using picture element, srcset, sizes, and modern formats. Use when adding images that need to adapt to different screen sizes, resolutions, or support modern image formats.
-allowed-tools: Read, Write, Edit
+description: |
+  Implement performant responsive images with srcset, sizes, lazy loading, and modern formats (WebP, AVIF). Covers aspect-ratio for CLS prevention, picture element for art direction, and fetchpriority for LCP optimization.
+
+  Use when: adding images to pages, optimizing Core Web Vitals, preventing layout shift, implementing art direction, or converting to modern formats.
+license: MIT
+metadata:
+  keywords:
+    - responsive images
+    - srcset
+    - sizes
+    - lazy loading
+    - webp
+    - avif
+    - aspect-ratio
+    - CLS
+    - LCP
+    - fetchpriority
+  version: 1.0.0
+  last_updated: 2026-01-14
 ---
 
-# Responsive Images Skill
+# Responsive Images
 
-This skill covers modern responsive image techniques: resolution switching with `srcset` and `sizes`, art direction with `<picture>`, and modern format support with graceful fallbacks.
-
-## Philosophy
-
-Images should:
-1. **Serve optimal files** - Right size for the display context
-2. **Use modern formats** - AVIF, WebP with JPEG/PNG fallback
-3. **Prioritize correctly** - LCP images load first, others lazy load
-4. **Work everywhere** - Fallbacks for older browsers
-
----
-
-## The Image Loading Attributes
-
-Every image should have appropriate loading attributes:
-
-```html
-<img src="photo.jpg"
-     alt="Descriptive text"
-     loading="lazy"
-     decoding="async"
-     fetchpriority="auto"/>
-```
-
-### Attribute Reference
-
-| Attribute | Values | Purpose |
-|-----------|--------|---------|
-| `loading` | `eager`, `lazy` | When to load the image |
-| `decoding` | `sync`, `async`, `auto` | How to decode the image |
-| `fetchpriority` | `high`, `low`, `auto` | Network priority hint |
-
-### Loading Strategy by Context
-
-| Image Type | `loading` | `fetchpriority` | `decoding` |
-|------------|-----------|-----------------|------------|
-| Hero/LCP image | `eager` | `high` | `async` |
-| Above fold | `eager` | `auto` | `async` |
-| Below fold | `lazy` | `auto` | `async` |
-| Thumbnails | `lazy` | `low` | `async` |
-| Background decorative | `lazy` | `low` | `async` |
+**Status**: Production Ready ✅
+**Last Updated**: 2026-01-14
+**Standards**: Web Performance Best Practices, Core Web Vitals
 
 ---
 
-## Resolution Switching with `srcset` and `sizes`
+## Quick Start
 
-### The Problem
-
-A single image file can't serve all contexts:
-- A 2000px image wastes bandwidth on mobile
-- A 400px image looks blurry on retina displays
-- Screen size and pixel density vary widely
-
-### The Solution: `srcset` and `sizes`
+### Basic Responsive Image
 
 ```html
-<img src="photo-800.jpg"
-     srcset="photo-400.jpg 400w,
-             photo-800.jpg 800w,
-             photo-1200.jpg 1200w,
-             photo-1600.jpg 1600w"
-     sizes="(max-width: 600px) 100vw,
-            (max-width: 1200px) 50vw,
-            800px"
-     alt="Product photograph"
-     loading="lazy"
-     decoding="async"/>
+<img
+  src="/images/hero-800.jpg"
+  srcset="
+    /images/hero-400.jpg 400w,
+    /images/hero-800.jpg 800w,
+    /images/hero-1200.jpg 1200w,
+    /images/hero-1600.jpg 1600w
+  "
+  sizes="(max-width: 640px) 100vw,
+         (max-width: 1024px) 90vw,
+         1200px"
+  alt="Hero image description"
+  width="1200"
+  height="675"
+  loading="lazy"
+/>
 ```
-
-### How It Works
-
-1. **`srcset`** lists available image files with their widths (`w` descriptor)
-2. **`sizes`** tells the browser how wide the image will display
-3. Browser calculates optimal file based on viewport + pixel density
-4. **`src`** provides fallback for browsers without `srcset` support
-
-### The `sizes` Attribute
-
-`sizes` uses media conditions to describe rendered width:
-
-```html
-sizes="(max-width: 600px) 100vw,
-       (max-width: 1200px) 50vw,
-       800px"
-```
-
-This means:
-- At 600px viewport or less: image displays at 100% viewport width
-- At 601-1200px viewport: image displays at 50% viewport width
-- Above 1200px: image displays at 800px fixed width
-
-### Common `sizes` Patterns
-
-| Context | `sizes` Value |
-|---------|---------------|
-| Full-width hero | `100vw` |
-| Content image (max 800px) | `(max-width: 800px) 100vw, 800px` |
-| Two-column grid | `(max-width: 600px) 100vw, 50vw` |
-| Three-column grid | `(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw` |
-| Card thumbnail | `(max-width: 600px) 100vw, 300px` |
-| Gallery thumbnail | `(max-width: 600px) 50vw, 220px` |
-
----
-
-## Art Direction with `<picture>`
-
-### When to Use `<picture>`
-
-Use `<picture>` when you need **different images** for different contexts:
-- Different crops (portrait mobile, landscape desktop)
-- Different aspect ratios
-- Showing/hiding details at different sizes
-- Different content entirely
-
-### Basic Art Direction
-
-```html
-<picture>
-  <source media="(max-width: 600px)"
-          srcset="photo-mobile.jpg"/>
-  <source media="(max-width: 1200px)"
-          srcset="photo-tablet.jpg"/>
-  <img src="photo-desktop.jpg"
-       alt="Product photograph"
-       loading="lazy"
-       decoding="async"/>
-</picture>
-```
-
-### Art Direction with `srcset`
-
-Combine art direction with resolution switching:
-
-```html
-<picture>
-  <!-- Mobile: portrait crop -->
-  <source media="(max-width: 600px)"
-          srcset="photo-mobile-400.jpg 400w,
-                  photo-mobile-600.jpg 600w"
-          sizes="100vw"/>
-
-  <!-- Tablet: square crop -->
-  <source media="(max-width: 1200px)"
-          srcset="photo-tablet-600.jpg 600w,
-                  photo-tablet-900.jpg 900w"
-          sizes="50vw"/>
-
-  <!-- Desktop: landscape crop -->
-  <img src="photo-desktop-800.jpg"
-       srcset="photo-desktop-800.jpg 800w,
-               photo-desktop-1200.jpg 1200w,
-               photo-desktop-1600.jpg 1600w"
-       sizes="800px"
-       alt="Product photograph"
-       loading="lazy"
-       decoding="async"/>
-</picture>
-```
-
----
-
-## Modern Image Formats
-
-### Format Comparison
-
-| Format | Compression | Browser Support | Use Case |
-|--------|-------------|-----------------|----------|
-| AVIF | Best (50% smaller than JPEG) | Chrome, Firefox, Safari 16+ | Primary modern format |
-| WebP | Very good (25-35% smaller) | All modern browsers | Fallback for AVIF |
-| JPEG | Good | Universal | Final fallback |
-| PNG | Lossless | Universal | Transparency, screenshots |
-
-### Format Fallback Pattern
-
-```html
-<picture>
-  <source srcset="photo.avif" type="image/avif"/>
-  <source srcset="photo.webp" type="image/webp"/>
-  <img src="photo.jpg"
-       alt="Descriptive text"
-       loading="lazy"
-       decoding="async"/>
-</picture>
-```
-
-### Complete Pattern: Formats + Resolution + Art Direction
-
-```html
-<picture>
-  <!-- Mobile: AVIF -->
-  <source media="(max-width: 600px)"
-          type="image/avif"
-          srcset="photo-mobile-400.avif 400w,
-                  photo-mobile-600.avif 600w"
-          sizes="100vw"/>
-
-  <!-- Mobile: WebP -->
-  <source media="(max-width: 600px)"
-          type="image/webp"
-          srcset="photo-mobile-400.webp 400w,
-                  photo-mobile-600.webp 600w"
-          sizes="100vw"/>
-
-  <!-- Mobile: JPEG -->
-  <source media="(max-width: 600px)"
-          srcset="photo-mobile-400.jpg 400w,
-                  photo-mobile-600.jpg 600w"
-          sizes="100vw"/>
-
-  <!-- Desktop: AVIF -->
-  <source type="image/avif"
-          srcset="photo-800.avif 800w,
-                  photo-1200.avif 1200w"
-          sizes="(max-width: 1200px) 50vw, 800px"/>
-
-  <!-- Desktop: WebP -->
-  <source type="image/webp"
-          srcset="photo-800.webp 800w,
-                  photo-1200.webp 1200w"
-          sizes="(max-width: 1200px) 50vw, 800px"/>
-
-  <!-- Desktop: JPEG fallback -->
-  <img src="photo-800.jpg"
-       srcset="photo-800.jpg 800w,
-               photo-1200.jpg 1200w"
-       sizes="(max-width: 1200px) 50vw, 800px"
-       alt="Descriptive text"
-       loading="lazy"
-       decoding="async"/>
-</picture>
-```
-
----
-
-## Common Image Patterns
 
 ### Hero Image (LCP)
 
 ```html
-<picture>
-  <source type="image/avif"
-          srcset="hero-800.avif 800w,
-                  hero-1200.avif 1200w,
-                  hero-1920.avif 1920w"
-          sizes="100vw"/>
-  <source type="image/webp"
-          srcset="hero-800.webp 800w,
-                  hero-1200.webp 1200w,
-                  hero-1920.webp 1920w"
-          sizes="100vw"/>
-  <img src="hero-1200.jpg"
-       srcset="hero-800.jpg 800w,
-               hero-1200.jpg 1200w,
-               hero-1920.jpg 1920w"
-       sizes="100vw"
-       alt="Hero image description"
-       loading="eager"
-       fetchpriority="high"
-       decoding="async"/>
-</picture>
+<img
+  src="/images/hero-1200.jpg"
+  srcset="
+    /images/hero-800.jpg 800w,
+    /images/hero-1200.jpg 1200w,
+    /images/hero-1600.jpg 1600w
+  "
+  sizes="100vw"
+  alt="Hero image"
+  width="1600"
+  height="900"
+  loading="eager"
+  fetchpriority="high"
+/>
 ```
 
-### Content Image
+---
+
+## Configuration
+
+### Recommended Image Sizes
+
+| Use Case | Widths to Generate | Sizes Attribute |
+|----------|-------------------|-----------------|
+| Full-width hero | 800w, 1200w, 1600w, 2400w | `100vw` |
+| Content width | 400w, 800w, 1200w | `(max-width: 768px) 100vw, 800px` |
+| Grid cards (3-col) | 300w, 600w, 900w | `(max-width: 768px) 100vw, 33vw` |
+| Sidebar thumbnail | 150w, 300w | `150px` |
+
+### Lazy Loading Rules
+
+| Image Position | loading | fetchpriority | Why |
+|----------------|---------|---------------|-----|
+| Hero/LCP | `eager` | `high` | Optimize LCP, prioritize download |
+| Above fold (not LCP) | `eager` | omit | Load normally |
+| Below fold | `lazy` | omit | Defer until near viewport |
+| Off-screen carousel | `lazy` | omit | Defer until interaction |
+
+---
+
+## Common Patterns
+
+### Full-Width Responsive Image
+
+```html
+<img
+  src="/images/banner-1200.jpg"
+  srcset="
+    /images/banner-600.jpg 600w,
+    /images/banner-1200.jpg 1200w,
+    /images/banner-1800.jpg 1800w,
+    /images/banner-2400.jpg 2400w
+  "
+  sizes="100vw"
+  alt="Full width banner"
+  width="2400"
+  height="800"
+  loading="lazy"
+  class="w-full h-auto"
+/>
+```
+
+### Grid Card Image (3 columns)
+
+```html
+<img
+  src="/images/card-600.jpg"
+  srcset="
+    /images/card-300.jpg 300w,
+    /images/card-600.jpg 600w,
+    /images/card-900.jpg 900w
+  "
+  sizes="(max-width: 768px) 100vw,
+         (max-width: 1024px) 50vw,
+         33vw"
+  alt="Card image"
+  width="900"
+  height="600"
+  loading="lazy"
+  class="w-full h-auto"
+/>
+```
+
+### Fixed Aspect Ratio Container
+
+```html
+<div class="aspect-[16/9] overflow-hidden">
+  <img
+    src="/images/video-thumbnail-800.jpg"
+    srcset="
+      /images/video-thumbnail-400.jpg 400w,
+      /images/video-thumbnail-800.jpg 800w,
+      /images/video-thumbnail-1200.jpg 1200w
+    "
+    sizes="(max-width: 768px) 100vw, 800px"
+    alt="Video thumbnail"
+    width="800"
+    height="450"
+    loading="lazy"
+    class="w-full h-full object-cover"
+  />
+</div>
+```
+
+### Modern Formats (WebP + AVIF)
 
 ```html
 <picture>
-  <source type="image/avif"
-          srcset="content-400.avif 400w,
-                  content-800.avif 800w,
-                  content-1200.avif 1200w"
-          sizes="(max-width: 800px) 100vw, 800px"/>
-  <source type="image/webp"
-          srcset="content-400.webp 400w,
-                  content-800.webp 800w,
-                  content-1200.webp 1200w"
-          sizes="(max-width: 800px) 100vw, 800px"/>
-  <img src="content-800.jpg"
-       srcset="content-400.jpg 400w,
-               content-800.jpg 800w,
-               content-1200.jpg 1200w"
-       sizes="(max-width: 800px) 100vw, 800px"
-       alt="Content image description"
-       loading="lazy"
-       decoding="async"/>
+  <source
+    srcset="
+      /images/hero-800.avif 800w,
+      /images/hero-1200.avif 1200w,
+      /images/hero-1600.avif 1600w
+    "
+    sizes="100vw"
+    type="image/avif"
+  />
+  <source
+    srcset="
+      /images/hero-800.webp 800w,
+      /images/hero-1200.webp 1200w,
+      /images/hero-1600.webp 1600w
+    "
+    sizes="100vw"
+    type="image/webp"
+  />
+  <img
+    src="/images/hero-1200.jpg"
+    srcset="
+      /images/hero-800.jpg 800w,
+      /images/hero-1200.jpg 1200w,
+      /images/hero-1600.jpg 1600w
+    "
+    sizes="100vw"
+    alt="Hero image"
+    width="1600"
+    height="900"
+    loading="eager"
+    fetchpriority="high"
+  />
 </picture>
 ```
 
-### Card Thumbnail
+### Art Direction (Different Crops)
 
 ```html
 <picture>
-  <source type="image/avif"
-          srcset="thumb-300.avif 300w,
-                  thumb-450.avif 450w"
-          sizes="(max-width: 600px) 100vw, 300px"/>
-  <source type="image/webp"
-          srcset="thumb-300.webp 300w,
-                  thumb-450.webp 450w"
-          sizes="(max-width: 600px) 100vw, 300px"/>
-  <img src="thumb-300.jpg"
-       srcset="thumb-300.jpg 300w,
-               thumb-450.jpg 450w"
-       sizes="(max-width: 600px) 100vw, 300px"
-       alt="Card thumbnail description"
-       loading="lazy"
-       decoding="async"/>
-</picture>
-```
-
-### Gallery Image
-
-```html
-<picture>
-  <source type="image/avif"
-          srcset="gallery-220.avif 220w,
-                  gallery-330.avif 330w,
-                  gallery-440.avif 440w"
-          sizes="(max-width: 600px) 50vw, 220px"/>
-  <source type="image/webp"
-          srcset="gallery-220.webp 220w,
-                  gallery-330.webp 330w,
-                  gallery-440.webp 440w"
-          sizes="(max-width: 600px) 50vw, 220px"/>
-  <img src="gallery-220.jpg"
-       srcset="gallery-220.jpg 220w,
-               gallery-330.jpg 330w,
-               gallery-440.jpg 440w"
-       sizes="(max-width: 600px) 50vw, 220px"
-       alt="Gallery image description"
-       loading="lazy"
-       decoding="async"/>
+  <source
+    media="(max-width: 640px)"
+    srcset="
+      /images/product-portrait-400.jpg 400w,
+      /images/product-portrait-800.jpg 800w
+    "
+    sizes="100vw"
+  />
+  <source
+    media="(min-width: 641px)"
+    srcset="
+      /images/product-landscape-800.jpg 800w,
+      /images/product-landscape-1200.jpg 1200w,
+      /images/product-landscape-1600.jpg 1600w
+    "
+    sizes="(max-width: 1024px) 90vw, 1200px"
+  />
+  <img
+    src="/images/product-landscape-1200.jpg"
+    alt="Product image"
+    width="1200"
+    height="675"
+    loading="lazy"
+  />
 </picture>
 ```
 
 ---
 
-## Simplified Patterns
+## Error Prevention
 
-### When Full `<picture>` Is Overkill
+### Always Include Width and Height
 
-For simpler cases, `srcset` alone may suffice:
-
-```html
-<!-- Resolution switching only, no format variants -->
-<img src="photo-800.jpg"
-     srcset="photo-400.jpg 400w,
-             photo-800.jpg 800w,
-             photo-1200.jpg 1200w"
-     sizes="(max-width: 600px) 100vw, 50vw"
-     alt="Description"
-     loading="lazy"
-     decoding="async"/>
-```
-
-### Minimum Viable Responsive Image
-
-At minimum, always include:
+**Problem**: Layout shift when images load (poor CLS score)
 
 ```html
-<img src="photo.jpg"
-     alt="Descriptive text"
-     loading="lazy"
-     decoding="async"
-     width="800"
-     height="600"/>
+<!-- ❌ WRONG - causes layout shift -->
+<img src="/image.jpg" alt="Image" loading="lazy" />
+
+<!-- ✅ CORRECT - browser reserves space -->
+<img
+  src="/image.jpg"
+  alt="Image"
+  width="800"
+  height="600"
+  loading="lazy"
+/>
 ```
 
-The `width` and `height` attributes prevent layout shift.
+**Source**: [Web.dev - Optimize CLS](https://web.dev/articles/optimize-cls)
 
----
+### Don't Lazy Load LCP Images
 
-## Image Sizing Strategy
-
-### Images in Container-Queried Components
-
-The HTML `sizes` attribute uses **viewport** media queries, not container queries. For images inside container-queried components, the `sizes` may not accurately describe rendered width.
-
-**Strategies:**
-
-1. **Generous `sizes` estimation** - Provide srcset that covers the full range:
+**Problem**: Delayed LCP, poor Core Web Vitals score
 
 ```html
-<!-- Inside a container-queried card that could be 300-800px wide -->
-<img srcset="photo-300.jpg 300w,
-             photo-450.jpg 450w,
-             photo-600.jpg 600w,
-             photo-800.jpg 800w"
-     sizes="(max-width: 600px) 100vw, 800px"
-     alt="Product photo"/>
+<!-- ❌ WRONG - delays LCP -->
+<img
+  src="/hero.jpg"
+  alt="Hero"
+  loading="lazy"
+/>
+
+<!-- ✅ CORRECT - prioritizes LCP -->
+<img
+  src="/hero.jpg"
+  alt="Hero"
+  loading="eager"
+  fetchpriority="high"
+/>
 ```
 
-2. **CSS-controlled sizing** - Let CSS and container queries control the rendered size:
+**Source**: [Web.dev - Optimize LCP](https://web.dev/articles/optimize-lcp)
 
-```css
-@layer components {
-  product-card {
-    container-type: inline-size;
-  }
+### Use Width Descriptors (w), Not Density (x)
 
-  product-card img {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 4/3;
-    object-fit: cover;
-  }
-
-  @container (min-width: 500px) {
-    product-card img {
-      width: 40%;
-    }
-  }
-}
-```
-
-The browser still selects from `srcset` based on rendered size after CSS is applied.
-
-3. **Use `object-fit` with container units** for fluid sizing:
-
-```css
-product-card img {
-  width: min(100%, 20cqi);
-  aspect-ratio: 1;
-  object-fit: cover;
-}
-```
-
-**Note:** Future CSS may support container-based image selection, but for now, provide a robust `srcset` range.
-
-### Standard Breakpoints for `srcset`
-
-Generate images at these widths to cover common scenarios:
-
-| Width | Use Case |
-|-------|----------|
-| 400w | Mobile thumbnails |
-| 600w | Mobile full-width |
-| 800w | Tablet/small desktop |
-| 1200w | Desktop content |
-| 1600w | Large desktop/retina |
-| 1920w | Full-width heroes |
-
-### Calculating `sizes`
-
-1. **Measure rendered width** at key breakpoints
-2. **Use viewport units** (`vw`) for fluid images
-3. **Use fixed pixels** for constrained images
-4. **Order conditions** from narrowest to widest
-
----
-
-## Accessibility
-
-### Alt Text Requirements
-
-Every image needs meaningful `alt` text:
+**Problem**: Browser can't choose optimal image for viewport
 
 ```html
-<!-- Informative: describe the content -->
-<img alt="Team members collaborating around a whiteboard"/>
+<!-- ❌ WRONG - only considers DPR -->
+<img
+  src="/image.jpg"
+  srcset="/image.jpg 1x, /image@2x.jpg 2x"
+  alt="Image"
+/>
 
-<!-- Decorative: empty alt -->
-<img alt="" role="presentation"/>
-
-<!-- Functional: describe the action -->
-<img alt="Search"/>
+<!-- ✅ CORRECT - considers viewport + DPR -->
+<img
+  src="/image-800.jpg"
+  srcset="
+    /image-400.jpg 400w,
+    /image-800.jpg 800w,
+    /image-1200.jpg 1200w
+  "
+  sizes="(max-width: 768px) 100vw, 800px"
+  alt="Image"
+  width="800"
+  height="600"
+/>
 ```
 
-### Avoid Redundant Alt Text
+**Exception**: Density descriptors are appropriate for fixed-size images like logos.
+
+### Always Include Alt Text
+
+**Problem**: Fails accessibility, SEO, and screen readers
 
 ```html
-<!-- Bad: redundant with adjacent text -->
-<figure>
-  <img alt="Photo of our office building"/>
-  <figcaption>Our office building in Seattle</figcaption>
-</figure>
+<!-- ❌ WRONG -->
+<img src="/product.jpg" />
 
-<!-- Good: complementary description -->
-<figure>
-  <img alt="Modern glass-walled building with green roof"/>
-  <figcaption>Our office building in Seattle</figcaption>
-</figure>
+<!-- ✅ CORRECT - descriptive alt text -->
+<img src="/product.jpg" alt="Red leather messenger bag with brass buckles" />
+
+<!-- ✅ CORRECT - decorative images use empty alt -->
+<img src="/decorative-line.svg" alt="" role="presentation" />
+```
+
+### Aspect Ratio with object-fit
+
+**Problem**: Image stretches or squashes when container size differs from image dimensions
+
+```html
+<!-- ❌ WRONG - image distorts -->
+<div class="w-full h-64">
+  <img src="/image.jpg" alt="Image" class="w-full h-full" />
+</div>
+
+<!-- ✅ CORRECT - maintains aspect ratio -->
+<div class="w-full h-64">
+  <img
+    src="/image.jpg"
+    alt="Image"
+    class="w-full h-full object-cover"
+  />
+</div>
 ```
 
 ---
 
-## Checklist
+## Quick Reference
 
-When adding images:
+### Sizes Attribute Patterns
 
-- [ ] Include `alt` attribute (descriptive or empty for decorative)
-- [ ] Add `loading` attribute (`eager` for LCP, `lazy` for others)
-- [ ] Add `decoding="async"` for all images
-- [ ] Add `fetchpriority="high"` for LCP/hero images
-- [ ] Include `width` and `height` to prevent layout shift
-- [ ] Use `srcset` for resolution switching when image > 400px
-- [ ] Calculate appropriate `sizes` based on rendered width
-- [ ] Use `<picture>` for format fallbacks (AVIF > WebP > JPEG)
-- [ ] Use `<picture>` for art direction (different crops)
-- [ ] Test with network throttling to verify lazy loading
+```html
+<!-- Full width -->
+sizes="100vw"
 
-## Related Skills
+<!-- Content width (max 800px) -->
+sizes="(max-width: 768px) 100vw, 800px"
 
-- **images** - Umbrella coordinator for image handling with automation
-- **css-author** - Container queries for component-scoped image sizing
-- **performance** - Write performance-friendly HTML pages
-- **xhtml-author** - Write valid XHTML-strict HTML5 markup
-- **placeholder-images** - Generate SVG placeholder images for prototypes
+<!-- Sidebar (fixed 300px) -->
+sizes="300px"
+
+<!-- 2-column grid -->
+sizes="(max-width: 768px) 100vw, 50vw"
+
+<!-- 3-column grid -->
+sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+
+<!-- Responsive with max-width -->
+sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1200px"
+```
+
+### Common Aspect Ratios
+
+| Ratio | CSS | Use Case |
+|-------|-----|----------|
+| 16:9 | `aspect-[16/9]` | Video thumbnails, hero images |
+| 4:3 | `aspect-[4/3]` | Standard photos |
+| 3:2 | `aspect-[3/2]` | DSLR photos |
+| 1:1 | `aspect-square` | Profile pictures, Instagram-style |
+| 21:9 | `aspect-[21/9]` | Ultrawide banners |
+
+### object-fit Values
+
+| Value | Behavior | Use Case |
+|-------|----------|----------|
+| `cover` | Fill container, crop edges | Card images, backgrounds |
+| `contain` | Fit inside, preserve all content | Logos, product photos |
+| `fill` | Stretch to fill | Avoid unless necessary |
+| `scale-down` | Smaller of `contain` or original size | Mixed content sizes |
+
+### Format Comparison
+
+| Format | Quality | File Size | Browser Support | Use Case |
+|--------|---------|-----------|-----------------|----------|
+| JPEG | Good | Medium | 100% | Photos, complex images |
+| PNG | Lossless | Large | 100% | Logos, transparency |
+| WebP | Excellent | Small | 97%+ | Modern browsers, photos |
+| AVIF | Excellent | Smallest | 90%+ | Cutting-edge, fallback required |
+
+**Recommended Strategy**: AVIF → WebP → JPEG fallback using `<picture>`
+
+---
+
+## Resources
+
+- [Web.dev: Responsive Images](https://web.dev/articles/responsive-images)
+- [MDN: Responsive Images](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images)
+- [Web.dev: Serve Images in Modern Formats](https://web.dev/articles/serve-images-webp)
+- [Web.dev: Optimize Cumulative Layout Shift](https://web.dev/articles/optimize-cls)
+- [Cloudflare Images Documentation](https://developers.cloudflare.com/images/)
+
+---
+
+**Token Efficiency**: ~70% savings by preventing trial-and-error with srcset/sizes syntax
+**Errors Prevented**: 6 common responsive image issues documented above

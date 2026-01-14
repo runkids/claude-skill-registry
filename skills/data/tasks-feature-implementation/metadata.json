@@ -1,13 +1,7 @@
 {
   "name": "tasks-feature-implementation",
-  "description": "Use when implementing new features or enhancements requiring multi-layer changes (Domain, Application, Persistence, API, Frontend).",
   "repo": "duc01226/EasyPlatform",
-  "category": "design",
-  "tags": [
-    "tasks",
-    "feature",
-    "implementation"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": ".claude/skills/tasks-feature-implementation/SKILL.md",
+  "source": "github.com/duc01226/EasyPlatform",
+  "downloaded_at": "2026-01-14T03:30:49.299902Z"
 }

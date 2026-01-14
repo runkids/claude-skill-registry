@@ -1,8 +1,7 @@
 {
   "name": "rds",
   "repo": "itsmostafa/aws-agent-skills",
-  "category": "data",
-  "description": "AWS RDS relational database service for managed databases. Use when provisioning databases, configuring backups, managing replicas, troubleshooting connectivity, or optimizing performance.",
-  "source": "GitHub Search API",
-  "downloaded_at": "2026-01-08T03:28:05.359461Z"
+  "path": "skills/rds/SKILL.md",
+  "source": "github.com/itsmostafa/aws-agent-skills",
+  "downloaded_at": "2026-01-14T02:42:55.466018Z"
 }

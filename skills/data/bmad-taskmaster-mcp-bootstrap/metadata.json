@@ -1,14 +1,7 @@
 {
   "name": "bmad-taskmaster-mcp-bootstrap",
-  "description": "Bootstraps the TaskMaster MCP server and aligns it with BMAD hooks.",
   "repo": "bacoco/BMad-Skills",
-  "category": "productivity",
-  "tags": [
-    "bmad",
-    "taskmaster",
-    "mcp",
-    "bootstrap"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/bmad-taskmaster-mcp-bootstrap/SKILL.md",
+  "source": "github.com/bacoco/BMad-Skills",
+  "downloaded_at": "2026-01-14T02:53:12.586627Z"
 }

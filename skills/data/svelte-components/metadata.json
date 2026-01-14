@@ -1,12 +1,7 @@
 {
   "name": "svelte-components",
-  "description": "Svelte component patterns. Use for web components, component libraries (Bits UI, Ark UI, Melt UI), form patterns, or third-party integration.",
-  "repo": "spences10/svelte-claude-skills",
-  "category": "testing",
-  "tags": [
-    "svelte",
-    "components"
-  ],
-  "stars": 107,
-  "source": "SkillsMP Synced Skills"
+  "repo": "spences10/svelte-skills-kit",
+  "path": "plugins/svelte-skills/skills/svelte-components/SKILL.md",
+  "source": "github.com/spences10/svelte-skills-kit",
+  "downloaded_at": "2026-01-14T02:57:51.472355Z"
 }

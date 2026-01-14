@@ -1,12 +1,7 @@
 {
   "name": "yaml-config-helper",
-  "description": "Validate, format, and troubleshoot YAML configuration files",
   "repo": "jackspace/ClaudeSkillz",
-  "category": "data",
-  "tags": [
-    "yaml",
-    "config",
-    "helper"
-  ],
-  "stars": 0
+  "path": "skills/yaml-config-helper/SKILL.md",
+  "source": "github.com/jackspace/ClaudeSkillz",
+  "downloaded_at": "2026-01-14T02:48:16.306110Z"
 }

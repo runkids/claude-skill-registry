@@ -1,12 +1,7 @@
 {
   "name": "firecrawl-scrape",
-  "description": "Scrape web pages and extract content via Firecrawl MCP",
-  "repo": "parcadei/Continuous-Claude-v2",
-  "category": "marketing",
-  "tags": [
-    "firecrawl",
-    "scrape"
-  ],
-  "stars": 1318,
-  "source": "SkillsMP Synced Skills"
+  "repo": "parcadei/Continuous-Claude-v3",
+  "path": ".claude/skills/firecrawl-scrape/SKILL.md",
+  "source": "github.com/parcadei/Continuous-Claude-v3",
+  "downloaded_at": "2026-01-14T01:18:50.812621Z"
 }

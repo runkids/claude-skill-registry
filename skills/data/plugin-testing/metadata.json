@@ -1,12 +1,7 @@
 {
   "name": "plugin-testing",
-  "description": "Validates audio plugins through automated tests, pluginval, or manual DAW testing. Use for MANUAL testing via /test command. Note - Automatic validation now built into workflow (validation-agent runs ",
-  "repo": "glittercowboy/plugin-freedom-system",
-  "category": "testing",
-  "tags": [
-    "plugin",
-    "testing"
-  ],
-  "stars": 47,
-  "source": "local"
+  "repo": "pluginagentmarketplace/custom-plugin-design-system",
+  "path": "skills/plugin-testing/SKILL.md",
+  "source": "github.com/pluginagentmarketplace/custom-plugin-design-system",
+  "downloaded_at": "2026-01-14T03:12:02.069461Z"
 }

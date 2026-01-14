@@ -1,12 +1,7 @@
 {
   "name": "frontend-routing",
-  "description": "Implement client-side routing using React Router, Vue Router, and Angular Router. Use when building multi-page applications with navigation and route protection.",
   "repo": "aj-geddes/useful-ai-prompts",
-  "category": "design",
-  "tags": [
-    "frontend",
-    "routing"
-  ],
-  "stars": 25,
-  "source": "local"
+  "path": "skills/frontend-routing/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:07.858589Z"
 }

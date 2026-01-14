@@ -1,12 +1,7 @@
 {
   "name": "quality-gate",
-  "description": "Synthesize all quality assessments (risk, test-design, traceability, NFR) into evidence-based gate decision (PASS/CONCERNS/FAIL/WAIVED) with comprehensive rationale. Generates both YAML (CI/CD) and Ma",
   "repo": "adolfoaranaes12/BMAD-ENHANCED",
-  "category": "devops",
-  "tags": [
-    "quality",
-    "gate"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/quality-gate/SKILL.md",
+  "source": "github.com/adolfoaranaes12/BMAD-ENHANCED",
+  "downloaded_at": "2026-01-14T03:09:01.179901Z"
 }

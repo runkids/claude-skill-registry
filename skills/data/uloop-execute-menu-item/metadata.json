@@ -1,14 +1,7 @@
 {
   "name": "uloop-execute-menu-item",
-  "description": "Execute Unity MenuItem via uloop CLI. Use when you need to: (1) Trigger menu commands programmatically, (2) Automate editor actions (save, build, refresh), (3) Run custom menu items defined in scripts",
   "repo": "hatayama/uLoopMCP",
-  "category": "development",
-  "tags": [
-    "uloop",
-    "execute",
-    "menu",
-    "item"
-  ],
-  "stars": 104,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/uloop-execute-menu-item/SKILL.md",
+  "source": "github.com/hatayama/uLoopMCP",
+  "downloaded_at": "2026-01-14T03:18:20.649192Z"
 }

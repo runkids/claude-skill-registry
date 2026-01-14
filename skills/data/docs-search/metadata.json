@@ -1,12 +1,7 @@
 {
   "name": "docs-search",
-  "description": "Lightweight search utility for Toss / Apps-in-Toss llms-full.txt docs, caching sources and ranking snippets with keyword + similarity (Korean-aware) scoring.",
-  "repo": "toss/apps-in-toss-skills",
-  "category": "documents",
-  "tags": [
-    "docs",
-    "search"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "ddttom/allaboutv2",
+  "path": ".claude/skills/docs-search/SKILL.md",
+  "source": "github.com/ddttom/allaboutv2",
+  "downloaded_at": "2026-01-14T03:56:58.631913Z"
 }

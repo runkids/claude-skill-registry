@@ -1,13 +1,7 @@
 {
   "name": "github-issue-creator",
-  "description": "\"Creates well-structured GitHub issues for the MCPSpy project using the gh CLI tool. Use when asked to create issues, report bugs, or document features. Follows conventional naming with feat/chore/fix",
-  "repo": "alex-ilgayev/MCPSpy",
-  "category": "data",
-  "tags": [
-    "github",
-    "issue",
-    "creator"
-  ],
-  "stars": 478,
-  "source": "SkillsMP Synced Skills"
+  "repo": "EdanStarfire/claudecode_webui",
+  "path": ".claude/skills/github-issue-creator/SKILL.md",
+  "source": "github.com/EdanStarfire/claudecode_webui",
+  "downloaded_at": "2026-01-14T01:51:08.178956Z"
 }

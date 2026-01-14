@@ -1,12 +1,7 @@
 {
   "name": "feature-forge",
-  "description": "Use when defining new features, gathering requirements, or writing specifications. Invoke for feature definition, requirements gathering, user stories, EARS format specs. Keywords: requirements, speci",
   "repo": "Jeffallan/claude-skills",
-  "category": "design",
-  "tags": [
-    "feature",
-    "forge"
-  ],
-  "stars": 12,
-  "source": "local"
+  "path": "skills/feature-forge/SKILL.md",
+  "source": "github.com/Jeffallan/claude-skills",
+  "downloaded_at": "2026-01-14T02:36:36.758779Z"
 }

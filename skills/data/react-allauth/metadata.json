@@ -1,12 +1,7 @@
 {
   "name": "react-allauth",
-  "description": "Configure React frontend with django-allauth headless API integration, including authentication UI, auth state management, protected routes, and social authentication flows",
   "repo": "otoshek/Claude-Code-Toolkit",
-  "category": "design",
-  "tags": [
-    "react",
-    "allauth"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": "skills/react-allauth/SKILL.md",
+  "source": "github.com/otoshek/Claude-Code-Toolkit",
+  "downloaded_at": "2026-01-14T03:18:13.756109Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "release-prep",
-  "description": "Use when preparing a production release or release candidate - provides a checklist-driven workflow for validation, versioning, build optimization, documentation updates, and deployment readiness.",
   "repo": "NickCrew/claude-cortex",
-  "category": "documents",
-  "tags": [
-    "release",
-    "prep"
-  ],
-  "stars": 4,
-  "source": "local"
+  "path": "claude_ctx_py/assets/skills/release-prep/SKILL.md",
+  "source": "github.com/NickCrew/claude-cortex",
+  "downloaded_at": "2026-01-14T02:11:10.573170Z"
 }

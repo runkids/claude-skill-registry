@@ -1,12 +1,7 @@
 {
   "name": "postgres-migrations",
-  "description": "Comprehensive guide to PostgreSQL migrations - common errors, generated columns, full-text search, indexes, idempotent migrations, and best practices for database schema changes",
   "repo": "pr-pm/prpm",
-  "category": "data",
-  "tags": [
-    "postgres",
-    "migrations"
-  ],
-  "stars": 70,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/postgres-migrations/SKILL.md",
+  "source": "github.com/pr-pm/prpm",
+  "downloaded_at": "2026-01-14T01:14:32.907663Z"
 }

@@ -1,8 +1,7 @@
 {
   "name": "using-weaviate",
   "repo": "FortiumPartners/ensemble",
-  "category": "data",
-  "description": "Weaviate vector database for semantic search, hybrid queries, and AI-native applications. Use for embeddings storage, similarity search, RAG pipelines, and multi-modal retrieval.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:09:51.208980Z"
+  "path": "packages/ai/skills/using-weaviate/SKILL.md",
+  "source": "github.com/FortiumPartners/ensemble",
+  "downloaded_at": "2026-01-14T02:40:39.962477Z"
 }

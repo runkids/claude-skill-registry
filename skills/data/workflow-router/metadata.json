@@ -1,12 +1,7 @@
 {
   "name": "workflow-router",
-  "description": "Determine next agent based on state machine rules. Use AFTER receiving any BAZINGA agent response to decide what to do next.",
   "repo": "mehdic/bazinga",
-  "category": "productivity",
-  "tags": [
-    "workflow",
-    "router"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": ".claude/skills/workflow-router/SKILL.md",
+  "source": "github.com/mehdic/bazinga",
+  "downloaded_at": "2026-01-14T01:51:26.646282Z"
 }

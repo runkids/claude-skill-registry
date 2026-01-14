@@ -1,12 +1,7 @@
 {
   "name": "ethicist-analyst",
-  "description": "Analyzes moral dimensions and value conflicts through ethical frameworks using deontology, consequentialism,virtue ethics, and applied ethics methodologies.Provides insights on moral obligations, righ",
-  "repo": "rysweet/MicrosoftHackathon2025-AgenticCoding",
-  "category": "devops",
-  "tags": [
-    "ethicist",
-    "analyst"
-  ],
-  "stars": 10,
-  "source": "SkillsMP Synced Skills"
+  "repo": "rysweet/azlin",
+  "path": ".claude/skills/ethicist-analyst/SKILL.md",
+  "source": "github.com/rysweet/azlin",
+  "downloaded_at": "2026-01-14T03:30:07.455731Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "mcp-developer",
-  "description": "Use when building MCP servers or clients that connect AI systems with external tools and data sources. Invoke for MCP protocol compliance, TypeScript/Python SDKs, resource providers, tool functions. K",
   "repo": "Jeffallan/claude-skills",
-  "category": "development",
-  "tags": [
-    "mcp",
-    "developer"
-  ],
-  "stars": 12,
-  "source": "local"
+  "path": "skills/mcp-developer/SKILL.md",
+  "source": "github.com/Jeffallan/claude-skills",
+  "downloaded_at": "2026-01-14T02:36:36.858738Z"
 }

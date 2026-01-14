@@ -1,12 +1,7 @@
 {
   "name": "project-workflow",
-  "description": "Seven integrated slash commands for complete project lifecycle: /explore-idea (validation), /plan-project (planning docs), /plan-feature (add features), /wrap-session (checkpoint), /continue-session (",
   "repo": "jezweb/claude-skills",
-  "category": "productivity",
-  "tags": [
-    "project",
-    "workflow"
-  ],
-  "stars": 109,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/project-workflow/SKILL.md",
+  "source": "github.com/jezweb/claude-skills",
+  "downloaded_at": "2026-01-14T04:01:52.807226Z"
 }

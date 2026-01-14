@@ -1,12 +1,7 @@
 {
   "name": "angular-component",
-  "description": "Use when creating new Angular components, directives, or pipes. Triggers on requests to \"create component\", \"add component\", \"new component\", \"build a component\", or modify existing component patterns",
-  "repo": "danielsogl/copilot-workflow-demo",
-  "category": "development",
-  "tags": [
-    "angular",
-    "component"
-  ],
-  "stars": 21,
-  "source": "SkillsMP Synced Skills"
+  "repo": "duc01226/EasyPlatform",
+  "path": ".github/skills/angular-component/SKILL.md",
+  "source": "github.com/duc01226/EasyPlatform",
+  "downloaded_at": "2026-01-14T03:30:55.708438Z"
 }

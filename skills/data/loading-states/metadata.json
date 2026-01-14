@@ -1,12 +1,7 @@
 {
   "name": "loading-states",
-  "description": "Handle loading states in the portal app using Flask loaders. Use when adding loading indicators to buttons, cards, pages, or any async operations.",
   "repo": "legacy3/wowlab",
-  "category": "development",
-  "tags": [
-    "loading",
-    "states"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/loading-states/SKILL.md",
+  "source": "github.com/legacy3/wowlab",
+  "downloaded_at": "2026-01-14T03:34:23.333301Z"
 }

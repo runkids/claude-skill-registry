@@ -1,13 +1,7 @@
 {
   "name": "breaking-change-detector",
-  "description": "Detect and warn about breaking API/schema changes before implementation. Auto-trigger when modifying API routes, database schemas, or public interfaces. Validates changes against api-strategy.md versi",
   "repo": "marcusgoll/Spec-Flow",
-  "category": "data",
-  "tags": [
-    "breaking",
-    "change",
-    "detector"
-  ],
-  "stars": 16,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/breaking-change-detector/SKILL.md",
+  "source": "github.com/marcusgoll/Spec-Flow",
+  "downloaded_at": "2026-01-14T04:06:35.879723Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "create-git-commit",
-  "description": "Use when creating git commits - mandates commits format with required scopes for all new commits, provides scope discovery from codebase structure, and prevents rationalization under pressure (emergen",
   "repo": "WesleyMFrederick/cc-workflows",
-  "category": "development",
-  "tags": [
-    "create",
-    "git",
-    "commit"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/create-git-commit/SKILL.md",
+  "source": "github.com/WesleyMFrederick/cc-workflows",
+  "downloaded_at": "2026-01-14T02:32:22.190983Z"
 }

@@ -1,0 +1,12 @@
+{
+  "name": "healthsim-trialsim",
+  "description": "Generate realistic clinical trial synthetic data including study definitions, sites, subjects, visits, adverse events, efficacy assessments, and disposition. Use when user requests: clinical trial dat",
+  "repo": "mark64oswald/healthsim-workspace",
+  "category": "devops",
+  "tags": [
+    "healthsim",
+    "trialsim"
+  ],
+  "stars": 3,
+  "source": "local"
+}

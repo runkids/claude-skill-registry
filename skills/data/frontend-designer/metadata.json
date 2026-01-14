@@ -1,12 +1,7 @@
 {
   "name": "frontend-designer",
-  "description": "Build accessible, responsive, and performant frontend components with design system best practices, modern CSS, and framework-agnostic patterns.",
   "repo": "jamesrochabrun/skills",
-  "category": "design",
-  "tags": [
-    "frontend",
-    "designer"
-  ],
-  "stars": 8,
-  "source": "local"
+  "path": "skills/frontend-designer/SKILL.md",
+  "source": "github.com/jamesrochabrun/skills",
+  "downloaded_at": "2026-01-14T01:17:21.173460Z"
 }

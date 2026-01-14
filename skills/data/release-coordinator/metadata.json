@@ -1,9 +1,7 @@
 {
   "name": "release-coordinator",
-  "description": "Coordinates multi-component releases, feature flags, versioning, and rollback strategies.Trigger terms: release management, release planning, release coordination, feature flags,canary deployment, pro",
-  "repo": "nahisaho/MUSUBI",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "gaebalai/itda-sdd",
+  "path": "src/templates/agents/claude-code/skills/release-coordinator/SKILL.md",
+  "source": "github.com/gaebalai/itda-sdd",
+  "downloaded_at": "2026-01-14T03:55:16.741342Z"
 }

@@ -1,8 +1,7 @@
 {
   "name": "tensorboard",
   "repo": "zechenzhangAGI/AI-research-SKILLs",
-  "category": "data",
-  "description": "Visualize training metrics, debug models with histograms, compare experiments, visualize model graphs, and profile performance with TensorBoard - Google's ML visualization toolkit",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:19.333019Z"
+  "path": "13-mlops/tensorboard/SKILL.md",
+  "source": "github.com/zechenzhangAGI/AI-research-SKILLs",
+  "downloaded_at": "2026-01-14T00:53:25.491115Z"
 }

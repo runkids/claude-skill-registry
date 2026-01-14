@@ -1,9 +1,7 @@
 {
   "name": "dev-clarify",
-  "description": "This skill should be used when the user needs to \"clarify requirements\", \"resolve ambiguities\", or as Phase 3 of the /dev workflow. Asks targeted questions based on codebase exploration findings.",
   "repo": "edwinhu/workflows",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/dev-clarify/SKILL.md",
+  "source": "github.com/edwinhu/workflows",
+  "downloaded_at": "2026-01-14T01:24:09.997532Z"
 }

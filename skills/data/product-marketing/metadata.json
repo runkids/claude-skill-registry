@@ -1,12 +1,7 @@
 {
   "name": "product-marketing",
-  "description": "Эксперт по продуктовому маркетингу. Используй для go-to-market стратегий, позиционирования продукта, messaging и launch планов.",
   "repo": "dengineproblem/agents-monorepo",
-  "category": "marketing",
-  "tags": [
-    "product",
-    "marketing"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/product-marketing/SKILL.md",
+  "source": "github.com/dengineproblem/agents-monorepo",
+  "downloaded_at": "2026-01-14T02:07:59.361479Z"
 }

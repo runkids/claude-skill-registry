@@ -1,12 +1,7 @@
 {
   "name": "specification-phase",
-  "description": "\"Standard Operating Procedure for /specify phase. Covers classification, research depth, clarification strategy, and roadmap integration.\"",
-  "repo": "marcusgoll/robinhood-algo-trading-bot",
-  "category": "testing",
-  "tags": [
-    "specification",
-    "phase"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "marcusgoll/Spec-Flow",
+  "path": ".claude/skills/specification-phase/SKILL.md",
+  "source": "github.com/marcusgoll/Spec-Flow",
+  "downloaded_at": "2026-01-14T04:06:33.957470Z"
 }

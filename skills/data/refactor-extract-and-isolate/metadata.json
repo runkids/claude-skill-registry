@@ -1,14 +1,7 @@
 {
   "name": "refactor-extract-and-isolate",
-  "description": "[Code Quality] Extracts methods, classes, or modules to reduce complexity and improve isolation. Use when functions are too long, classes have too many responsibilities, or concerns are mixed.",
   "repo": "CANTAGESTUDIO/CosmicAtlasPacker",
-  "category": "development",
-  "tags": [
-    "refactor",
-    "extract",
-    "and",
-    "isolate"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".factory/skills/refactor-extract-and-isolate/SKILL.md",
+  "source": "github.com/CANTAGESTUDIO/CosmicAtlasPacker",
+  "downloaded_at": "2026-01-14T02:43:53.333478Z"
 }

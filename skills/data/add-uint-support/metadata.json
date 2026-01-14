@@ -1,13 +1,7 @@
 {
   "name": "add-uint-support",
-  "description": "Add unsigned integer (uint) type support to PyTorch operators by updating AT_DISPATCH macros. Use when adding support for uint16, uint32, uint64 types to operators, kernels, or when user mentions enab",
-  "repo": "pytorch/pytorch",
-  "category": "design",
-  "tags": [
-    "add",
-    "uint",
-    "support"
-  ],
-  "stars": 95362,
-  "source": "SkillsMP Synced Skills"
+  "repo": "danielzayas/pytorch__pytorch.c8a37a2d",
+  "path": ".claude/skills/add-uint-support/SKILL.md",
+  "source": "github.com/danielzayas/pytorch__pytorch.c8a37a2d",
+  "downloaded_at": "2026-01-14T02:42:23.639435Z"
 }

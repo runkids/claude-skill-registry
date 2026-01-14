@@ -1,9 +1,7 @@
 {
   "name": "case-analyzer",
-  "description": "Analyzes legal case facts and identifies viable legal theories, causes of action, and evidentiary requirements. Use when conducting case intake, strategy development, or initial legal analysis.",
   "repo": "enuno/claude-command-and-control",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/case-analyzer/SKILL.md",
+  "source": "github.com/enuno/claude-command-and-control",
+  "downloaded_at": "2026-01-14T00:52:40.078842Z"
 }

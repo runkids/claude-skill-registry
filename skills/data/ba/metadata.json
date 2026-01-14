@@ -1,9 +1,7 @@
 {
   "name": "ba",
-  "description": "Business analysis methodologies, requirements engineering, RACI matrices, user stories for Pulse Radar.",
   "repo": "djimontyp/task-tracker",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/ba/SKILL.md",
+  "source": "github.com/djimontyp/task-tracker",
+  "downloaded_at": "2026-01-14T02:09:09.606373Z"
 }

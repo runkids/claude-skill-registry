@@ -1,13 +1,7 @@
 {
   "name": "slash-command-encoder",
-  "description": "Creates ergonomic slash commands (/command) that provide fast, unambiguous access to micro-skills, cascades, and agents. Enhanced with auto-discovery, intelligent routing, parameter validation, and co",
   "repo": "DNYoussef/ai-chrome-extension",
-  "category": "development",
-  "tags": [
-    "slash",
-    "command",
-    "encoder"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/slash-command-encoder/SKILL.md",
+  "source": "github.com/DNYoussef/ai-chrome-extension",
+  "downloaded_at": "2026-01-14T03:10:07.672123Z"
 }

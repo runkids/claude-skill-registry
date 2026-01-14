@@ -1,14 +1,7 @@
 {
   "name": "claude-d3js-skill",
-  "description": "D3.js visualization skill for creating interactive data visualizations",
-  "repo": "chrisvoncsefalvay/claude-d3js-skill",
-  "category": "data",
-  "tags": [
-    "d3",
-    "visualization",
-    "charts",
-    "javascript"
-  ],
-  "stars": 0,
-  "source": "Community Skills"
+  "repo": "BbgnsurfTech/claude-skills-collection",
+  "path": "community/individual-skills/claude-d3js-skill/SKILL.md",
+  "source": "github.com/BbgnsurfTech/claude-skills-collection",
+  "downloaded_at": "2026-01-14T01:28:27.097568Z"
 }

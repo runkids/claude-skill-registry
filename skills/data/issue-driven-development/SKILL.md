@@ -1,18 +1,6 @@
 ---
 name: issue-driven-development
 description: Use for any development work - the master 13-step coding process that orchestrates all other skills, ensuring GitHub issue tracking, proper branching, TDD, code review, and CI verification
-allowed-tools:
-  - Bash
-  - Read
-  - Edit
-  - Write
-  - Grep
-  - Glob
-  - Task
-  - mcp__github__*
-  - mcp__git__*
-  - mcp__memory__*
-model: opus
 ---
 
 # Issue-Driven Development
@@ -40,23 +28,23 @@ Create TodoWrite items for each step you'll execute. This is not optional.
 - If issue is vague → Ask questions, UPDATE the issue, then proceed
 - **VERIFY** issue is in GitHub Project with correct fields (not assumed - verified)
 
-**Verification (MANDATORY) - uses cached data:**
+**Verification (MANDATORY):**
 
 ```bash
-# Verify issue is in project board (0 API calls - uses cache)
-ITEM_ID=$(echo "$GH_CACHE_ITEMS" | jq -r ".items[] | select(.content.number == [ISSUE_NUMBER]) | .id")
+# Verify issue is in project board
+ITEM_ID=$(gh project item-list "$GITHUB_PROJECT_NUM" --owner "$GH_PROJECT_OWNER" \
+  --format json | jq -r ".items[] | select(.content.number == [ISSUE_NUMBER]) | .id")
 
 if [ -z "$ITEM_ID" ] || [ "$ITEM_ID" = "null" ]; then
   echo "BLOCKED: Issue not in project board. Add it before proceeding."
-  # Add to project (1 API call) and refresh cache (1 API call)
+  # Add to project
   gh project item-add "$GITHUB_PROJECT_NUM" --owner "$GH_PROJECT_OWNER" \
     --url "$(gh issue view [ISSUE_NUMBER] --json url -q .url)"
-  export GH_CACHE_ITEMS=$(gh project item-list "$GITHUB_PROJECT_NUM" --owner "$GH_PROJECT_OWNER" --format json)
-  ITEM_ID=$(echo "$GH_CACHE_ITEMS" | jq -r ".items[] | select(.content.number == [ISSUE_NUMBER]) | .id")
 fi
 
-# Verify Status field is set (0 API calls - uses cache)
-STATUS=$(echo "$GH_CACHE_ITEMS" | jq -r ".items[] | select(.id == \"$ITEM_ID\") | .status.name")
+# Verify Status field is set
+STATUS=$(gh project item-list "$GITHUB_PROJECT_NUM" --owner "$GH_PROJECT_OWNER" \
+  --format json | jq -r ".items[] | select(.id == \"$ITEM_ID\") | .status.name")
 
 if [ -z "$STATUS" ] || [ "$STATUS" = "null" ]; then
   echo "BLOCKED: Issue has no Status in project. Set Status before proceeding."
@@ -147,21 +135,28 @@ fi
 
 **Naming:** `feature/issue-123-short-description` or `fix/issue-456-bug-name`
 
-**Project Status Update (MANDATORY) - uses cached IDs:**
+**Project Status Update (MANDATORY):**
 
 When starting work, update project board Status to "In Progress":
 
 ```bash
-# Use cached IDs (0 API calls for lookups)
-# GH_PROJECT_ID, GH_STATUS_FIELD_ID, GH_STATUS_IN_PROGRESS_ID set by session-start
+# Get project and field IDs
+PROJECT_ID=$(gh project list --owner "$GH_PROJECT_OWNER" --format json | \
+  jq -r ".projects[] | select(.number == $GITHUB_PROJECT_NUM) | .id")
 
-# Update status to In Progress (1 API call)
-gh project item-edit --project-id "$GH_PROJECT_ID" --id "$ITEM_ID" \
-  --field-id "$GH_STATUS_FIELD_ID" --single-select-option-id "$GH_STATUS_IN_PROGRESS_ID"
+STATUS_FIELD_ID=$(gh project field-list "$GITHUB_PROJECT_NUM" --owner "$GH_PROJECT_OWNER" \
+  --format json | jq -r '.fields[] | select(.name == "Status") | .id')
 
-# Refresh cache and verify (1 API call)
-export GH_CACHE_ITEMS=$(gh project item-list "$GITHUB_PROJECT_NUM" --owner "$GH_PROJECT_OWNER" --format json)
-NEW_STATUS=$(echo "$GH_CACHE_ITEMS" | jq -r ".items[] | select(.id == \"$ITEM_ID\") | .status.name")
+IN_PROGRESS_ID=$(gh project field-list "$GITHUB_PROJECT_NUM" --owner "$GH_PROJECT_OWNER" \
+  --format json | jq -r '.fields[] | select(.name == "Status") | .options[] | select(.name == "In Progress") | .id')
+
+# Update status to In Progress
+gh project item-edit --project-id "$PROJECT_ID" --id "$ITEM_ID" \
+  --field-id "$STATUS_FIELD_ID" --single-select-option-id "$IN_PROGRESS_ID"
+
+# Verify update succeeded
+NEW_STATUS=$(gh project item-list "$GITHUB_PROJECT_NUM" --owner "$GH_PROJECT_OWNER" \
+  --format json | jq -r ".items[] | select(.id == \"$ITEM_ID\") | .status.name")
 
 if [ "$NEW_STATUS" != "In Progress" ]; then
   echo "ERROR: Failed to update project status. Cannot proceed."
@@ -242,7 +237,7 @@ git diff --name-only HEAD~1 | grep -E '(auth|security|middleware|api|password|to
 ```
 
 If matches found:
-1. Invoke `security-reviewer` subagent OR perform `security-review` skill
+1. Invoke `security-review` skill OR run `codex-subagent security-reviewer`
 2. Mark "Security-Sensitive: YES" in review artifact
 3. Include security findings in artifact
 
@@ -397,21 +392,18 @@ At minimum, update the issue:
 
 ### Project Board Query (NOT Labels)
 
-**CRITICAL:** Use cached project data for state queries, NOT labels and NOT repeated API calls.
+**CRITICAL:** Use project board for state queries, NOT labels.
 
 ```bash
 # WRONG - do not use labels for state
 gh issue list --label "status:in-progress"
 
-# WRONG - do not make repeated API calls
+# RIGHT - query project board
 gh project item-list "$GITHUB_PROJECT_NUM" --owner "$GH_PROJECT_OWNER" \
   --format json | jq -r '.items[] | select(.status.name == "In Progress")'
-
-# RIGHT - use cached data (0 API calls)
-echo "$GH_CACHE_ITEMS" | jq -r '.items[] | select(.status.name == "In Progress")'
 ```
 
-**Skill:** `github-api-cache`, `issue-lifecycle`, `project-status-sync`, `project-board-enforcement`
+**Skill:** `issue-lifecycle`, `project-status-sync`, `project-board-enforcement`
 
 ## Error Handling
 

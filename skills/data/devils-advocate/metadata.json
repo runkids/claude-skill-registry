@@ -1,12 +1,7 @@
 {
   "name": "devils-advocate",
-  "description": "Challenge and stress-test ideas through adversarial thinking. Use when user wants to \"poke holes\", \"challenge this\", \"what could go wrong\", \"devil's advocate\", \"stress test\", \"red team\", \"pre-mortem\",",
-  "repo": "fernandobandeira/djinn",
-  "category": "development",
-  "tags": [
-    "devils",
-    "advocate"
-  ],
-  "stars": 6,
-  "source": "SkillsMP Synced Skills"
+  "repo": "axiomantic/spellbook",
+  "path": "skills/devils-advocate/SKILL.md",
+  "source": "github.com/axiomantic/spellbook",
+  "downloaded_at": "2026-01-14T03:44:29.150481Z"
 }

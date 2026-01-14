@@ -1,12 +1,7 @@
 {
   "name": "reviewing-skills",
-  "description": "Claude Codeスキルを公式ベストプラクティスに基づいてレビューします。SKILL.mdファイルのレビュー、スキル品質のチェック、スキル構造の検証、改善提案が必要な場合に使用します。「このスキルをレビューして」「スキル品質をチェック」「SKILL.mdを検証」「このスキルを改善」などのリクエストで起動します。",
-  "repo": "Suntory-N-Water/sui-blog",
-  "category": "development",
-  "tags": [
-    "reviewing",
-    "skills"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "jasonkuhrt/dotfiles",
+  "path": "claude/skills/reviewing-skills/SKILL.md",
+  "source": "github.com/jasonkuhrt/dotfiles",
+  "downloaded_at": "2026-01-14T02:10:24.367400Z"
 }

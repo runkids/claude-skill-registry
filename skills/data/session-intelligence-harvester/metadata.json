@@ -1,13 +1,7 @@
 {
   "name": "session-intelligence-harvester",
-  "description": "This skill should be used after productive sessions to extract learnings and route them to appropriate Reusable Intelligence Infrastructure (RII) components. Use when corrections were made, format dri",
-  "repo": "92Bilal26/physical-ai-textbook",
-  "category": "devops",
-  "tags": [
-    "session",
-    "intelligence",
-    "harvester"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "mjunaidca/robolearn",
+  "path": ".claude/skills/session-intelligence-harvester/SKILL.md",
+  "source": "github.com/mjunaidca/robolearn",
+  "downloaded_at": "2026-01-14T02:06:11.911052Z"
 }

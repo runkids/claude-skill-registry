@@ -1,12 +1,7 @@
 {
   "name": "dst-subjects",
-  "description": "Browse Danmarks Statistik subject hierarchy to explore available data topics and categories. Use when user wants to discover what data is available or explore DST's organizational structure.",
   "repo": "mikkelkrogsholm/dst-skills",
-  "category": "data",
-  "tags": [
-    "dst",
-    "subjects"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/dst-subjects/SKILL.md",
+  "source": "github.com/mikkelkrogsholm/dst-skills",
+  "downloaded_at": "2026-01-14T02:56:14.811357Z"
 }

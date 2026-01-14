@@ -1,9 +1,7 @@
 {
   "name": "ostar",
-  "description": "Analyze, refactor, and migrate TIBCO Objectstar (Object Service Broker) legacy mainframe applications. Use when working with Objectstar/OSB source code files, rules, screen definitions, or table defin",
   "repo": "JohnnyVicious/objectstar-skill",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "GitHub Search API"
+  "path": ".claude/skills/ostar/SKILL.md",
+  "source": "github.com/JohnnyVicious/objectstar-skill",
+  "downloaded_at": "2026-01-14T02:12:16.469204Z"
 }

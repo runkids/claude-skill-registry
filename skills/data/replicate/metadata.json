@@ -1,8 +1,7 @@
 {
   "name": "replicate",
   "repo": "mgd34msu/goodvibes-plugin",
-  "category": "data",
-  "description": "Runs open-source ML models via Replicate API for image generation, LLMs, and audio. Use when calling Stable Diffusion, Llama, Whisper, or other models without infrastructure management.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:07.961163Z"
+  "path": "plugins/goodvibes/skills/webdev/skills/replicate/SKILL.md",
+  "source": "github.com/mgd34msu/goodvibes-plugin",
+  "downloaded_at": "2026-01-14T02:10:01.033383Z"
 }

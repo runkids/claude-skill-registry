@@ -1,14 +1,7 @@
 {
   "name": "newsletter-events-list-sources",
-  "description": "List all configured event sources (Instagram, web aggregators)",
   "repo": "aniketpanjwani/local_media_tools",
-  "category": "development",
-  "tags": [
-    "newsletter",
-    "events",
-    "list",
-    "sources"
-  ],
-  "stars": 7,
-  "source": "local"
+  "path": "skills/newsletter-events-list-sources/SKILL.md",
+  "source": "github.com/aniketpanjwani/local_media_tools",
+  "downloaded_at": "2026-01-14T03:42:32.617709Z"
 }

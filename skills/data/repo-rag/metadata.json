@@ -1,12 +1,7 @@
 {
   "name": "repo-rag",
-  "description": "Perform high-recall codebase retrieval using semantic search and symbol indexing. Use when you need to find specific code, understand project structure, or verify architectural patterns before editing",
-  "repo": "oimiragieo/LLM-RULES",
-  "category": "development",
-  "tags": [
-    "repo",
-    "rag"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "oimiragieo/agent-studio",
+  "path": ".claude/skills/repo-rag/SKILL.md",
+  "source": "github.com/oimiragieo/agent-studio",
+  "downloaded_at": "2026-01-14T03:17:11.732089Z"
 }

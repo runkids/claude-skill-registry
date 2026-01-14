@@ -1,12 +1,7 @@
 {
   "name": "axiom-audit",
-  "description": "Audit Axiom logs to identify and prioritize errors and warnings, research probable causes, and flag log smells. Use when user asks to check Axiom logs, analyze production errors, investigate log issue",
   "repo": "Cygnusfear/claude-stuff",
-  "category": "security",
-  "tags": [
-    "axiom",
-    "audit"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/axiom-audit/SKILL.md",
+  "source": "github.com/Cygnusfear/claude-stuff",
+  "downloaded_at": "2026-01-14T02:49:21.954459Z"
 }

@@ -1,11 +1,7 @@
 {
   "name": "cv-creator",
-  "description": "Professional CV and resume builder that transforms career narratives into ATS-optimized, multi-format resumes. Integrates with career-biographer for structured career data and competitive-cartographer",
   "repo": "erichowens/some_claude_skills",
-  "category": "documents",
-  "tags": [
-    "creator"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/cv-creator/SKILL.md",
+  "source": "github.com/erichowens/some_claude_skills",
+  "downloaded_at": "2026-01-14T02:58:37.224659Z"
 }

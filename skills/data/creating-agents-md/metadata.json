@@ -1,12 +1,7 @@
 {
   "name": "creating-agents-md",
-  "description": "Use when creating agents.md files - provides plain markdown format with NO frontmatter, free-form structure, and project context guidelines for AI coding assistants",
   "repo": "pr-pm/prpm",
-  "category": "data",
-  "tags": [
-    "creating",
-    "agents"
-  ],
-  "stars": 70,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/creating-agents-md/SKILL.md",
+  "source": "github.com/pr-pm/prpm",
+  "downloaded_at": "2026-01-14T01:14:32.641559Z"
 }

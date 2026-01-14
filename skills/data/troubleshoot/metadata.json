@@ -1,10 +1,7 @@
 {
   "name": "troubleshoot",
-  "description": "Diagnose and fix cluster issues. Use when pods fail, deployments don't work, or services are unreachable.",
-  "repo": "X-McKay/kubani",
-  "category": "data",
-  "tags": [
-    "troubleshoot"
-  ],
-  "stars": 1
+  "repo": "mmbianco78/signalroom",
+  "path": ".claude/skills/troubleshoot/SKILL.md",
+  "source": "github.com/mmbianco78/signalroom",
+  "downloaded_at": "2026-01-14T02:23:40.572160Z"
 }

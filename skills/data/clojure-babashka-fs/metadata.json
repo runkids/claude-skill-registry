@@ -1,8 +1,7 @@
 {
   "name": "clojure-babashka-fs",
   "repo": "Ramblurr/nix-devenv",
-  "category": "data",
-  "description": "File system operations with babashka.fs. Use when working with file I/O, directory traversal, path manipulation, file copying/moving, temp files, archives (zip/gzip), or file metadata.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:47.576960Z"
+  "path": "prompts/skills/clojure-babashka-fs/SKILL.md",
+  "source": "github.com/Ramblurr/nix-devenv",
+  "downloaded_at": "2026-01-14T01:53:20.973651Z"
 }

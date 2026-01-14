@@ -1,13 +1,7 @@
 {
   "name": "react-best-practices",
-  "description": "Provides React patterns for hooks, effects, refs, and component design. Covers escape hatches, anti-patterns, and correct effect usage. Must use when reading or writing React components (.tsx, .jsx fi",
   "repo": "0xBigBoss/claude-code",
-  "category": "design",
-  "tags": [
-    "react",
-    "best",
-    "practices"
-  ],
-  "stars": 23,
-  "source": "local"
+  "path": ".claude/skills/react-best-practices/SKILL.md",
+  "source": "github.com/0xBigBoss/claude-code",
+  "downloaded_at": "2026-01-14T03:25:44.812606Z"
 }

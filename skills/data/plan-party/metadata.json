@@ -1,12 +1,7 @@
 {
   "name": "plan-party",
-  "description": "Parallel strategy generation using G-5 Planning. Deploy 10 planning probes for multi-perspective implementation planning. Use for complex task planning after reconnaissance.",
   "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
-  "category": "productivity",
-  "tags": [
-    "plan",
-    "party"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": ".claude/skills/plan-party/SKILL.md",
+  "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager",
+  "downloaded_at": "2026-01-14T02:32:39.769638Z"
 }

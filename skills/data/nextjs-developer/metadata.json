@@ -1,12 +1,7 @@
 {
   "name": "nextjs-developer",
-  "description": "Use when building Next.js 14+ applications with App Router, server components, or server actions. Invoke for full-stack features, performance optimization, SEO implementation, production deployment. K",
   "repo": "Jeffallan/claude-skills",
-  "category": "development",
-  "tags": [
-    "nextjs",
-    "developer"
-  ],
-  "stars": 12,
-  "source": "local"
+  "path": "skills/nextjs-developer/SKILL.md",
+  "source": "github.com/Jeffallan/claude-skills",
+  "downloaded_at": "2026-01-14T02:36:38.586703Z"
 }

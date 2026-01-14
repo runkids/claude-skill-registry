@@ -1,12 +1,7 @@
 {
   "name": "quiz-generator",
-  "description": "Generate 50-question interactive quizzes using the Quiz component with randomized batching.Use when creating end-of-chapter assessments. Displays 15-20 questions per session withimmediate feedback. NO",
-  "repo": "92Bilal26/TaskPilotAI",
-  "category": "design",
-  "tags": [
-    "quiz",
-    "generator"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "mjunaidca/robolearn",
+  "path": ".claude/skills/quiz-generator/SKILL.md",
+  "source": "github.com/mjunaidca/robolearn",
+  "downloaded_at": "2026-01-14T02:06:10.407427Z"
 }

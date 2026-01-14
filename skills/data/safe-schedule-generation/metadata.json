@@ -1,12 +1,7 @@
 {
   "name": "safe-schedule-generation",
-  "description": "Safe schedule generation with mandatory backup. REQUIRES database backup before any write operations to schedule tables. Use when generating schedules, bulk assigning, or executing swaps.",
   "repo": "Euda1mon1a/Autonomous-Assignment-Program-Manager",
-  "category": "data",
-  "tags": [
-    "safe",
-    "schedule",
-    "generation"
-  ],
-  "stars": 2
+  "path": ".claude/skills/safe-schedule-generation/SKILL.md",
+  "source": "github.com/Euda1mon1a/Autonomous-Assignment-Program-Manager",
+  "downloaded_at": "2026-01-14T02:32:40.039437Z"
 }

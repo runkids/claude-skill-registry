@@ -1,12 +1,7 @@
 {
   "name": "anthropologist-analyst",
-  "description": "Analyzes events through anthropological lens using cultural analysis, ethnographic methods, kinship and social organization,symbolic systems, ritual and practice, and comparative ethnology. Provides i",
-  "repo": "rysweet/MicrosoftHackathon2025-AgenticCoding",
-  "category": "devops",
-  "tags": [
-    "anthropologist",
-    "analyst"
-  ],
-  "stars": 10,
-  "source": "SkillsMP Synced Skills"
+  "repo": "rysweet/azlin",
+  "path": ".claude/skills/anthropologist-analyst/SKILL.md",
+  "source": "github.com/rysweet/azlin",
+  "downloaded_at": "2026-01-14T03:30:05.590774Z"
 }

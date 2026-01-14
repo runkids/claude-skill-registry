@@ -1,12 +1,7 @@
 {
   "name": "finishing-work",
-  "description": "Use when completing work on a task or feature. Prompts for code review before finishing. ALWAYS invoke this skill before saying work is done.",
-  "repo": "caiokf/homepage",
-  "category": "development",
-  "tags": [
-    "finishing",
-    "work"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "bostonaholic/rpikit",
+  "path": "skills/finishing-work/SKILL.md",
+  "source": "github.com/bostonaholic/rpikit",
+  "downloaded_at": "2026-01-14T01:36:22.841868Z"
 }

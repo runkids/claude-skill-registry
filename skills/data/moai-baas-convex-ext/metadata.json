@@ -1,13 +1,7 @@
 {
   "name": "moai-baas-convex-ext",
-  "description": "Enterprise Convex Real-Time Backend with AI-powered reactive database architecture, Context7 integration, and intelligent synchronization orchestration for collaborative applications",
-  "repo": "dolsoon/my-awesome-project",
-  "category": "data",
-  "tags": [
-    "moai",
-    "baas",
-    "convex",
-    "ext"
-  ],
-  "stars": 0
+  "repo": "AJBcoding/claude-skill-eval",
+  "path": "skills/moai-baas-convex-ext/SKILL.md",
+  "source": "github.com/AJBcoding/claude-skill-eval",
+  "downloaded_at": "2026-01-14T03:08:00.911448Z"
 }

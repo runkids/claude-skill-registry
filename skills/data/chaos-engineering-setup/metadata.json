@@ -1,13 +1,7 @@
 {
   "name": "chaos-engineering-setup",
-  "description": "Implement chaos engineering practices and tools for resilience testing",
   "repo": "Dexploarer/hyper-forge",
-  "category": "testing",
-  "tags": [
-    "chaos",
-    "engineering",
-    "setup"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/chaos-engineering-setup/SKILL.md",
+  "source": "github.com/Dexploarer/hyper-forge",
+  "downloaded_at": "2026-01-14T03:02:59.609127Z"
 }

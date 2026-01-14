@@ -1,9 +1,7 @@
 {
   "name": "bazinga-db-agents",
-  "description": "Agent logs, reasoning, and token tracking. Use when logging interactions, saving reasoning, tracking tokens, or managing events.",
   "repo": "mehdic/bazinga",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/bazinga-db-agents/SKILL.md",
+  "source": "github.com/mehdic/bazinga",
+  "downloaded_at": "2026-01-14T01:51:27.013286Z"
 }

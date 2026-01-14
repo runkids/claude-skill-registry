@@ -1,9 +1,7 @@
 {
   "name": "expo-modules",
-  "description": "Building great Expo native modules for iOS and Android. Views, APIs, Marshalling, Shared Objects, Expo Documentation, Verifying Expo modules.",
   "repo": "EvanBacon/apple-health",
-  "category": "documents",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/expo-modules/SKILL.md",
+  "source": "github.com/EvanBacon/apple-health",
+  "downloaded_at": "2026-01-14T02:26:01.395770Z"
 }

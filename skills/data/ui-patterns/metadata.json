@@ -1,11 +1,7 @@
 {
   "name": "ui-patterns",
-  "description": "Apply consistent UI component patterns for the project Next.js template. Use when building forms, dialogs, notifications, loading states, or any UI components. Ensures proper dark mode support, respon",
-  "repo": "Reodor-Studios/create-reodor-app",
-  "category": "design",
-  "tags": [
-    "patterns"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "nethercore-systems/nethercore-ai-plugins",
+  "path": "zx-game-design/skills/ui-patterns/SKILL.md",
+  "source": "github.com/nethercore-systems/nethercore-ai-plugins",
+  "downloaded_at": "2026-01-14T02:26:45.784313Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "database-changes",
-  "description": "Make database schema changes in IdeaForge. Triggers: create migration, add table/column, modify column type, add index, use JSONB, use pgvector. File-based migrations with raw SQL, no ORM.",
-  "repo": "Holo00/IdeaForge",
-  "category": "data",
-  "tags": [
-    "database",
-    "changes"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "affandar/toygres",
+  "path": ".claude/skills/database-changes/SKILL.md",
+  "source": "github.com/affandar/toygres",
+  "downloaded_at": "2026-01-14T02:36:48.580129Z"
 }

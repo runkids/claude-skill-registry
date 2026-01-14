@@ -1,11 +1,7 @@
 {
   "name": "unsloth-orpo",
-  "description": "One-step preference alignment using Odds Ratio Preference Optimization (ORPO) (triggers: ORPO, preference optimization, alignment, ORPOTrainer, log_odds_ratio, binary preference).",
   "repo": "cuba6112/skillfactory",
-  "category": "data",
-  "tags": [
-    "unsloth",
-    "orpo"
-  ],
-  "stars": 0
+  "path": "skills/unsloth-orpo/SKILL.md",
+  "source": "github.com/cuba6112/skillfactory",
+  "downloaded_at": "2026-01-14T02:37:37.602762Z"
 }

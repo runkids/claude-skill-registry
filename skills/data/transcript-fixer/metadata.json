@@ -1,12 +1,7 @@
 {
   "name": "transcript-fixer",
-  "description": "Corrects speech-to-text transcription errors in meeting notes, lectures, and interviews using dictionary rules and AI. Learns patterns to build personalized correction databases. Use when working with",
-  "repo": "daymade/claude-code-skills",
-  "category": "data",
-  "tags": [
-    "transcript",
-    "fixer"
-  ],
-  "stars": 110,
-  "source": "SkillsMP Synced Skills"
+  "repo": "nguyendinhquocx/code-ai",
+  "path": "skills/transcript-fixer/SKILL.md",
+  "source": "github.com/nguyendinhquocx/code-ai",
+  "downloaded_at": "2026-01-14T01:13:41.261903Z"
 }

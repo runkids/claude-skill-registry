@@ -1,13 +1,7 @@
 {
   "name": "code-flow-viz",
-  "description": "用于梳理和可视化代码流程，生成清晰的 ASCII 流程图、数据流图和表格分析。适用于已有代码的梳理、新功能设计的说明、以及技术文档的编写。",
   "repo": "MMorit00/fund-portfolio-bot",
-  "category": "development",
-  "tags": [
-    "code",
-    "flow",
-    "viz"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/code-flow-viz/SKILL.md",
+  "source": "github.com/MMorit00/fund-portfolio-bot",
+  "downloaded_at": "2026-01-14T02:59:26.695091Z"
 }

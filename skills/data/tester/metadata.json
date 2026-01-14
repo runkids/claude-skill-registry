@@ -1,11 +1,7 @@
 {
   "name": "tester",
-  "description": "Comprehensive testing skill for GabeDA application - designs test strategies (UAT, integration, smoke, unit), creates tests for frontend (React/Playwright) and backend (Django/pytest), executes tests,",
   "repo": "Brownbull/khujta_ai_business",
-  "category": "testing",
-  "tags": [
-    "tester"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/tester/SKILL.md",
+  "source": "github.com/Brownbull/khujta_ai_business",
+  "downloaded_at": "2026-01-14T01:24:14.675152Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "golang-pro",
-  "description": "Use when building Go applications requiring concurrent programming, microservices architecture, or high-performance systems. Invoke for goroutines, channels, Go generics, gRPC integration. Keywords: G",
-  "repo": "Jeffallan/claude-skills",
-  "category": "development",
-  "tags": [
-    "golang",
-    "pro"
-  ],
-  "stars": 12,
-  "source": "local"
+  "repo": "kamushadenes/nix",
+  "path": "home/common/ai/resources/claude-code/skills/golang-pro/SKILL.md",
+  "source": "github.com/kamushadenes/nix",
+  "downloaded_at": "2026-01-14T03:09:41.512232Z"
 }

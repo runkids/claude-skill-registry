@@ -1,8 +1,7 @@
 {
   "name": "dask",
-  "repo": "davila7/claude-code-templates",
-  "category": "data",
-  "description": "Parallel/distributed computing. Scale pandas/NumPy beyond memory, parallel DataFrames/Arrays, multi-file processing, task graphs, for larger-than-RAM datasets and parallel workflows.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:36.927528Z"
+  "repo": "drshailesh88/integrated_content_OS",
+  "path": "skills/scientific/dask/SKILL.md",
+  "source": "github.com/drshailesh88/integrated_content_OS",
+  "downloaded_at": "2026-01-14T04:02:18.937570Z"
 }

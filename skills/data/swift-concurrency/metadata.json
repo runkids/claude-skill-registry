@@ -1,11 +1,7 @@
 {
   "name": "swift-concurrency",
-  "description": "Master Swift concurrency - async/await, actors, structured concurrency, Sendable, TaskGroups",
-  "repo": "pluginagentmarketplace/custom-plugin-swift",
-  "category": "data",
-  "tags": [
-    "swift",
-    "concurrency"
-  ],
-  "stars": 1
+  "repo": "bluewaves-creations/bluewaves-skills",
+  "path": "plugins/swift-apple-dev/skills/swift-concurrency/SKILL.md",
+  "source": "github.com/bluewaves-creations/bluewaves-skills",
+  "downloaded_at": "2026-01-14T02:03:05.520557Z"
 }

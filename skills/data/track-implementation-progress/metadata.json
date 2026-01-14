@@ -1,12 +1,7 @@
 {
   "name": "track-implementation-progress",
-  "description": "Track implementation progress against plan. Use to monitor component delivery and identify blockers.",
   "repo": "mvillmow/ProjectOdyssey",
-  "category": "data",
-  "tags": [
-    "track",
-    "implementation",
-    "progress"
-  ],
-  "stars": 8
+  "path": ".claude/skills/track-implementation-progress/SKILL.md",
+  "source": "github.com/mvillmow/ProjectOdyssey",
+  "downloaded_at": "2026-01-14T01:09:03.589833Z"
 }

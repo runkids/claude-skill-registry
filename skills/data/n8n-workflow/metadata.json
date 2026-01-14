@@ -1,12 +1,7 @@
 {
   "name": "n8n-workflow",
-  "description": "Use when creating, deploying, or managing N8N workflows. Automatically uses N8N_HOST and N8N_API_KEY from environment.",
-  "repo": "FunnelEnvy/agents_webinar_demos",
-  "category": "productivity",
-  "tags": [
-    "n8n",
-    "workflow"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "oimiragieo/agent-studio",
+  "path": ".claude/skills/n8n-workflow/SKILL.md",
+  "source": "github.com/oimiragieo/agent-studio",
+  "downloaded_at": "2026-01-14T03:17:08.954076Z"
 }

@@ -1,8 +1,7 @@
 {
   "name": "codex-zdr",
   "repo": "DNYoussef/context-cascade",
-  "category": "data",
-  "description": "Zero Data Retention mode for sensitive/proprietary code - no code stored on OpenAI servers",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:54.422777Z"
+  "path": "skills/platforms/codex-zdr/SKILL.md",
+  "source": "github.com/DNYoussef/context-cascade",
+  "downloaded_at": "2026-01-14T01:07:57.664971Z"
 }

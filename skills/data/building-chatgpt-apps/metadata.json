@@ -1,13 +1,7 @@
 {
   "name": "building-chatgpt-apps",
-  "description": "Guides creation of ChatGPT Apps with interactive widgets using OpenAI Apps SDK and MCP servers.Use when building ChatGPT custom apps with visual UI components, embedded widgets, or richinteractive exp",
   "repo": "mjunaidca/mjs-agent-skills",
-  "category": "development",
-  "tags": [
-    "building",
-    "chatgpt",
-    "apps"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/building-chatgpt-apps/SKILL.md",
+  "source": "github.com/mjunaidca/mjs-agent-skills",
+  "downloaded_at": "2026-01-14T01:43:16.763326Z"
 }

@@ -1,0 +1,9 @@
+{
+  "name": "fix-blog-images",
+  "description": "Fix and optimize images in uncommitted blog posts. Use when preparing blog posts for publication, fixing broken image paths, renaming generic image names (image.png), moving images to proper /images/b",
+  "repo": "ChrisTowles/blog",
+  "category": "documents",
+  "tags": [],
+  "stars": 0,
+  "source": "SkillsMP + GitHub Raw"
+}

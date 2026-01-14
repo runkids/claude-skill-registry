@@ -1,12 +1,7 @@
 {
   "name": "authoring-commits",
-  "description": "Conventional Commits standards for git messages. Use when creating commits, writing commit messages, or reviewing commit history.",
   "repo": "jkappers/claude-code-software-delivery-plugin",
-  "category": "development",
-  "tags": [
-    "authoring",
-    "commits"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/authoring-commits/SKILL.md",
+  "source": "github.com/jkappers/claude-code-software-delivery-plugin",
+  "downloaded_at": "2026-01-14T02:51:59.492690Z"
 }

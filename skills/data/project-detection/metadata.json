@@ -1,12 +1,7 @@
 {
   "name": "project-detection",
-  "description": "Automatic project context detection with priority-based resolution (Manual setting → Git remote → Subdirectory pattern → Local path → Custom patterns). Auto-activates at start of every CCPM command to",
-  "repo": "duongdev/ccpm",
-  "category": "design",
-  "tags": [
-    "project",
-    "detection"
-  ],
-  "stars": 5,
-  "source": "local"
+  "repo": "vanman2024/dev-lifecycle-marketplace",
+  "path": ".archive/old-numbered-plugins/01-core/skills/project-detection/SKILL.md",
+  "source": "github.com/vanman2024/dev-lifecycle-marketplace",
+  "downloaded_at": "2026-01-14T03:07:41.905172Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "log-aggregation",
-  "description": "Implement centralized logging with ELK Stack, Loki, or Splunk for log collection, parsing, storage, and analysis across infrastructure.",
   "repo": "aj-geddes/useful-ai-prompts",
-  "category": "devops",
-  "tags": [
-    "log",
-    "aggregation"
-  ],
-  "stars": 25,
-  "source": "local"
+  "path": "skills/log-aggregation/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:06.101815Z"
 }

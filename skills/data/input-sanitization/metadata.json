@@ -1,12 +1,7 @@
 {
   "name": "input-sanitization",
-  "description": "Эксперт по санитизации ввода. Используй для XSS prevention, encoding, validation и security headers.",
   "repo": "dengineproblem/agents-monorepo",
-  "category": "security",
-  "tags": [
-    "input",
-    "sanitization"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/input-sanitization/SKILL.md",
+  "source": "github.com/dengineproblem/agents-monorepo",
+  "downloaded_at": "2026-01-14T02:08:00.693552Z"
 }

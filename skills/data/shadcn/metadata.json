@@ -1,11 +1,7 @@
 {
   "name": "shadcn",
-  "description": "Implement shadcn/ui components for PhotoVault with accessibility and theming. Use when working with UI components, forms, dialogs, buttons, cards, tables, Tailwind styling, or fixing accessibility iss",
-  "repo": "nathanielcrowell12-spec/photo-vault",
-  "category": "design",
-  "tags": [
-    "shadcn"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "azlekov/my-claude-code",
+  "path": "skills/shadcn/SKILL.md",
+  "source": "github.com/azlekov/my-claude-code",
+  "downloaded_at": "2026-01-14T03:57:11.555965Z"
 }

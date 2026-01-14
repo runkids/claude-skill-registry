@@ -1,9 +1,7 @@
 {
   "name": "session-template",
-  "description": "Apply task-specific templates to AI session plans using ai-update-plan. Use when starting a new task to load appropriate plan structure (feature, bugfix, refactor, documentation, security).",
   "repo": "Atyantik/python-modern-template",
-  "category": "documents",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "template/.claude/skills/session-template/SKILL.md.jinja",
+  "source": "github.com/Atyantik/python-modern-template",
+  "downloaded_at": "2026-01-14T01:08:46.132375Z"
 }

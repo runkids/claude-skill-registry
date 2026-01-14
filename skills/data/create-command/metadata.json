@@ -1,12 +1,7 @@
 {
   "name": "create-command",
-  "description": "Guide for creating custom Claude Code slash commands with proper structure, argument handling, frontmatter configuration, and best practices. Use when the user wants to create slash commands, custom c",
   "repo": "ronnycoding/.claude",
-  "category": "development",
-  "tags": [
-    "create",
-    "command"
-  ],
-  "stars": 3,
-  "source": "local"
+  "path": "skills/create-command/SKILL.md",
+  "source": "github.com/ronnycoding/.claude",
+  "downloaded_at": "2026-01-14T02:57:26.361380Z"
 }

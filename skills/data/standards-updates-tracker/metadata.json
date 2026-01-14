@@ -1,12 +1,7 @@
 {
   "name": "standards-updates-tracker",
-  "description": "Track changes to standards frameworks over time, identify when standards are revised, analyze impact on existing curriculum, recommend updates, and flag deprecated standards. Use for maintaining curre",
   "repo": "pauljbernard/content",
-  "category": "data",
-  "tags": [
-    "standards",
-    "updates",
-    "tracker"
-  ],
-  "stars": 0
+  "path": ".claude/skills/standards-updates-tracker/SKILL.md",
+  "source": "github.com/pauljbernard/content",
+  "downloaded_at": "2026-01-14T02:04:52.984199Z"
 }

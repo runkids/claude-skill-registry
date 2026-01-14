@@ -1,11 +1,7 @@
 {
   "name": "unsloth-cpt",
-  "description": "Strategies for continued pretraining and domain adaptation in Unsloth (triggers: continued pretraining, CPT, domain adaptation, lm_head, embed_tokens, rsLoRA, embedding_learning_rate).",
   "repo": "cuba6112/skillfactory",
-  "category": "data",
-  "tags": [
-    "unsloth",
-    "cpt"
-  ],
-  "stars": 0
+  "path": "skills/unsloth-cpt/SKILL.md",
+  "source": "github.com/cuba6112/skillfactory",
+  "downloaded_at": "2026-01-14T02:37:41.255921Z"
 }

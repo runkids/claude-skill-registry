@@ -1,8 +1,7 @@
 {
   "name": "train-model",
   "repo": "mvillmow/ProjectOdyssey",
-  "category": "data",
-  "description": "Execute model training with optimization algorithms. Use when running training loops on datasets.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:51.284508Z"
+  "path": ".claude/skills/tier-2/train-model/SKILL.md",
+  "source": "github.com/mvillmow/ProjectOdyssey",
+  "downloaded_at": "2026-01-14T01:09:02.640624Z"
 }

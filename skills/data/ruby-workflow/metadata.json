@@ -1,12 +1,7 @@
 {
   "name": "ruby-workflow",
-  "description": "Ruby project workflow guidelines. Activate when working with Ruby files (.rb), Gemfile, bundler, or Ruby-specific tooling.",
   "repo": "ilude/claude-code-config",
-  "category": "design",
-  "tags": [
-    "ruby",
-    "workflow"
-  ],
-  "stars": 5,
-  "source": "local"
+  "path": "skills/ruby-workflow/SKILL.md",
+  "source": "github.com/ilude/claude-code-config",
+  "downloaded_at": "2026-01-14T01:02:39.100737Z"
 }

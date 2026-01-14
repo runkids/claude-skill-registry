@@ -1,12 +1,7 @@
 {
   "name": "meta-prompt",
-  "description": "Generate prompt variations from templates. Use when creating new commands, skills, or workflows.",
   "repo": "seanchiuai/claude-web-template",
-  "category": "productivity",
-  "tags": [
-    "meta",
-    "prompt"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/meta-prompt/SKILL.md",
+  "source": "github.com/seanchiuai/claude-web-template",
+  "downloaded_at": "2026-01-14T01:51:22.930163Z"
 }

@@ -1,174 +1,268 @@
 ---
 name: angular-component
-description: Use when creating new Angular components, directives, or pipes. Triggers on requests to "create component", "add component", "new component", "build a component", or modify existing component patterns.
+description: Use when creating or modifying Angular components in WebV2 (Angular 19) with proper base class inheritance, state management, and platform patterns.
 ---
 
-# Angular Component Creation Guide
+# Angular Component Development
 
-Create Angular v20+ standalone components following project patterns.
+## Required Reading
 
-## Component Structure
+**For comprehensive TypeScript/Angular patterns, you MUST read:**
 
-Every component must:
+- **`docs/claude/frontend-typescript-complete-guide.md`** - Complete patterns for components, stores, forms, API services
+- **`docs/claude/scss-styling-guide.md`** - SCSS patterns, mixins, BEM conventions
 
-1. Be standalone (default in Angular v20+, do NOT set `standalone: true`)
-2. Use `ChangeDetectionStrategy.OnPush`
-3. Use `inject()` function for DI (not constructor injection)
-4. Use signal-based inputs with `input()` and outputs with `output()`
-5. Use modern control flow: `@if`, `@for`, `@switch` (NOT `*ngIf`, `*ngFor`)
-6. Be placed in its own subfolder within the appropriate type folder
+---
 
-## File Location (DDD Structure)
+## 🎨 Design System Documentation (MANDATORY)
+
+**Before creating any component, read the design system documentation for your target application:**
+
+| Application                       | Design System Location                           |
+| --------------------------------- | ------------------------------------------------ |
+| **WebV2 Apps**                    | `docs/design-system/`                            |
+| **TextSnippetClient**             | `src/PlatformExampleAppWeb/apps/playground-text-snippet/docs/design-system/` |
+
+**Key docs to read:**
+
+- `README.md` - Component overview, base classes, library summary
+- `02-component-catalog.md` - Available components and usage examples
+- `01-design-tokens.md` - Colors, typography, spacing tokens
+- `07-technical-guide.md` - Implementation checklist
+
+## Component Hierarchy
 
 ```
-src/app/
-  <domain>/           # e.g., tasks, user
-    feature/          # Feature/container components
-      <component-name>/
-        <component-name>.ts
-        <component-name>.html
-        <component-name>.scss
-        <component-name>.spec.ts
-    ui/               # Presentational components
-      <component-name>/
-        ...
+PlatformComponent                    # Base: lifecycle, subscriptions, signals
+├── PlatformVmComponent             # + ViewModel injection
+├── PlatformFormComponent           # + Reactive forms integration
+└── PlatformVmStoreComponent        # + ComponentStore state management
+
+AppBaseComponent                     # + Auth, roles, company context
+├── AppBaseVmComponent              # + ViewModel + auth context
+├── AppBaseFormComponent            # + Forms + auth + validation
+└── AppBaseVmStoreComponent         # + Store + auth + loading/error
 ```
 
-## Component Template
+## Component Type Decision
 
-```typescript
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  inject,
-  input,
-  output,
-  signal,
-} from "@angular/core";
+| Scenario             | Base Class                | Use When                      |
+| -------------------- | ------------------------- | ----------------------------- |
+| Simple display       | `AppBaseComponent`        | Static content, no state      |
+| With ViewModel       | `AppBaseVmComponent`      | Needs mutable view model      |
+| Form with validation | `AppBaseFormComponent`    | User input forms              |
+| Complex state/CRUD   | `AppBaseVmStoreComponent` | Lists, dashboards, multi-step |
 
-@Component({
-  selector: "app-example",
-  templateUrl: "./example.html",
-  styleUrl: "./example.scss",
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    // Import only required standalone components, directives, pipes
-    // Do NOT import CommonModule or RouterModule
-  ],
-})
-export class Example {
-  // Dependency Injection using inject()
-  private readonly someService = inject(SomeService);
+## File Location
 
-  // Signal-based inputs
-  readonly data = input.required<DataType>();
-  readonly disabled = input(false);
-
-  // Two-way binding with model()
-  readonly value = model(0);
-
-  // Signal-based outputs
-  readonly valueChange = output<number>();
-  readonly submitted = output<void>();
-
-  // Local signal state
-  private readonly loading = signal(false);
-
-  // Computed/derived state
-  readonly displayText = computed(() =>
-    this.loading() ? "Loading..." : `Value: ${this.value()}`,
-  );
-
-  // Methods
-  submit(): void {
-    this.submitted.emit();
-  }
-}
+```
+src/PlatformExampleAppWeb/apps/{app-name}/src/app/
+└── features/{feature}/
+    ├── {feature}.component.ts
+    ├── {feature}.component.html
+    ├── {feature}.component.scss
+    └── {feature}.store.ts (if using store)
 ```
 
-## Template Patterns
+## Component HTML Template Standard (BEM Classes)
+
+**All UI elements in component templates MUST have BEM classes, even without styling needs.** This makes HTML self-documenting like OOP class hierarchy.
 
 ```html
-<!-- Modern control flow (REQUIRED) -->
-@if (loading()) {
-<app-spinner />
-} @else {
-<div class="content">
-  @for (item of items(); track item.id) {
-  <app-item [data]="item" (click)="selectItem(item)" />
-  } @empty {
-  <p>No items found</p>
-  }
+<!-- ✅ CORRECT: All elements have BEM classes for structure clarity -->
+<div class="feature-card">
+    <div class="feature-card__header">
+        <h3 class="feature-card__title">{{ feature.name }}</h3>
+        <span class="feature-card__badge">{{ feature.status }}</span>
+    </div>
+    <div class="feature-card__body">
+        <p class="feature-card__description">{{ feature.description }}</p>
+    </div>
+    <div class="feature-card__footer">
+        <button class="feature-card__btn --edit" (click)="onEdit.emit(feature)">Edit</button>
+        <button class="feature-card__btn --delete" (click)="onDelete.emit(feature)">Delete</button>
+    </div>
 </div>
-} @switch (status()) { @case ('pending') {
-<span>Pending</span>
-} @case ('complete') {
-<span>Complete</span>
-} @default {
-<span>Unknown</span>
-} }
 
-<!-- Use class bindings, not ngClass -->
-<div [class.active]="isActive()" [class.disabled]="disabled()">
-  <!-- Use style bindings, not ngStyle -->
-  <div [style.color]="textColor()"></div>
+<!-- ❌ WRONG: Elements without classes - structure unclear -->
+<div class="feature-card">
+    <div>
+        <h3>{{ feature.name }}</h3>
+        <span>{{ feature.status }}</span>
+    </div>
+    <div>
+        <p>{{ feature.description }}</p>
+    </div>
+    <div>
+        <button (click)="onEdit.emit(feature)">Edit</button>
+        <button (click)="onDelete.emit(feature)">Delete</button>
+    </div>
 </div>
 ```
 
-## Input Transformations
+**BEM Naming Convention:**
 
-```typescript
-import { booleanAttribute, numberAttribute } from '@angular/core';
+- **Block**: Component name (e.g., `feature-card`)
+- **Element**: Child using `block__element` (e.g., `feature-card__header`)
+- **Modifier**: Separate class with `--` prefix (e.g., `feature-card__btn --edit --small`)
 
-// Boolean transformation
-readonly disabled = input(false, { transform: booleanAttribute });
+## Component SCSS Standard
 
-// Number transformation
-readonly count = input(0, { transform: numberAttribute });
-```
+Always style both the **host element** (Angular selector) and the **main wrapper class**:
 
-## Host Configuration
+```scss
+@import '~assets/scss/variables';
 
-```typescript
-@Component({
-  selector: 'app-example',
-  host: {
-    // Host bindings
-    '[class.is-active]': 'isActive()',
-    '[attr.aria-label]': 'ariaLabel()',
+// Host element styling - ensures Angular element is a proper block container
+my-component {
+    display: flex;
+    flex-direction: column;
+}
 
-    // Host listeners
-    '(click)': 'onClick($event)',
-    '(keydown.enter)': 'onEnter()',
+// Main wrapper class with full styling
+.my-component {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex-grow: 1;
 
-    // Static properties
-    'role': 'button',
-  },
-})
-```
+    &__header {
+        // BEM child elements...
+    }
 
-## Deferred Loading
-
-```html
-@defer (on viewport) {
-<app-heavy-component />
-} @placeholder {
-<div>Loading placeholder...</div>
-} @loading (minimum 200ms) {
-<app-spinner />
-} @error {
-<p>Failed to load</p>
+    &__content {
+        flex: 1;
+        overflow-y: auto;
+    }
 }
 ```
 
-## Checklist
+**Why both?**
 
-- [ ] Component in own subfolder within feature/ or ui/
-- [ ] Using `ChangeDetectionStrategy.OnPush`
-- [ ] Using `inject()` for dependencies
-- [ ] Using signal-based `input()` and `output()`
-- [ ] Using modern control flow (`@if`, `@for`, `@switch`)
-- [ ] No CommonModule or RouterModule imports
-- [ ] Template and styles in separate files
-- [ ] Selector uses `app-` prefix with kebab-case
+- **Host element**: Makes the Angular element a real layout element (not an unknown element without display)
+- **Main class**: Contains the full styling, matches the wrapper div in HTML
+
+## Pattern 1: List Component with Store
+
+### Store
+
+```typescript
+@Injectable()
+export class FeatureListStore extends PlatformVmStore<FeatureListState> {
+    protected override vmConstructor = (data?: Partial<FeatureListState>) => ({ items: [], filters: {}, ...data }) as FeatureListState;
+
+    public readonly items$ = this.select(state => state.items);
+
+    public loadItems = this.effectSimple(
+        () => this.featureApi.getList(this.currentVm().filters).pipe(this.tapResponse(items => this.updateState({ items }))),
+        'loadItems'
+    );
+
+    constructor(private featureApi: FeatureApiService) {
+        super();
+    }
+}
+```
+
+### Component
+
+```typescript
+@Component({
+    selector: 'app-feature-list',
+    providers: [FeatureListStore]
+})
+export class FeatureListComponent extends AppBaseVmStoreComponent<FeatureListState, FeatureListStore> {
+    trackByItem = this.ngForTrackByItemProp<FeatureDto>('id');
+
+    constructor(store: FeatureListStore) {
+        super(store);
+    }
+
+    ngOnInit(): void {
+        this.store.loadItems();
+    }
+}
+```
+
+### Template
+
+```html
+<app-loading-and-error-indicator [target]="this">
+    @if (vm(); as vm) { @for (item of vm.items; track trackByItem) {
+    <div>{{ item.name }}</div>
+    } @empty {
+    <div>No items found</div>
+    } }
+</app-loading-and-error-indicator>
+```
+
+## Pattern 2: Form Component
+
+```typescript
+@Component({
+    selector: 'app-feature-form'
+})
+export class FeatureFormComponent extends AppBaseFormComponent<FeatureFormVm> {
+    protected initialFormConfig = () => ({
+        controls: {
+            name: new FormControl(this.currentVm().name, [Validators.required, noWhitespaceValidator]),
+            code: new FormControl(this.currentVm().code, [], [ifAsyncValidator(() => !this.isViewMode(), this.checkCodeUnique())])
+        },
+        dependentValidations: { code: ['status'] }
+    });
+
+    protected initOrReloadVm = (isReload: boolean) => {
+        return this.mode === 'create' ? of<FeatureFormVm>({ name: '', code: '' }) : this.featureApi.getById(this.featureId);
+    };
+
+    onSubmit(): void {
+        if (!this.validateForm()) return;
+        this.featureApi.save(this.currentVm()).pipe(this.observerLoadingErrorState('save'), this.untilDestroyed()).subscribe();
+    }
+}
+```
+
+## Key Platform APIs
+
+```typescript
+// Auto-cleanup subscription
+this.data$.pipe(this.untilDestroyed()).subscribe();
+
+// Track request state
+observable.pipe(this.observerLoadingErrorState('requestKey'));
+
+// Check states
+isLoading$('requestKey')();
+getErrorMsg$('requestKey')();
+
+// Track-by for @for loops
+trackByItem = this.ngForTrackByItemProp<Item>('id');
+```
+
+## Code Responsibility Hierarchy (CRITICAL)
+
+**Components should only handle UI events - delegate all logic to lower layers:**
+
+| Layer            | Responsibility                                                      |
+| ---------------- | ------------------------------------------------------------------- |
+| **Entity/Model** | Display helpers, dropdown options, defaults, static factory methods |
+| **Service**      | API calls, command factories                                        |
+| **Component**    | UI event handling ONLY                                              |
+
+```typescript
+// ❌ WRONG: Logic in component (causes duplication)
+readonly statusOptions = [{ value: 1, label: 'Active' }, ...];
+getStatusClass(item) { return item.isActive ? 'active' : 'inactive'; }
+
+// ✅ CORRECT: Delegate to entity
+readonly statusOptions = Entity.getStatusOptions();
+getStatusClass(item) { return item.getStatusCssClass(); }
+```
+
+## Anti-Patterns to AVOID
+
+- Using wrong base class (PlatformComponent when auth needed)
+- Manual subscription management without untilDestroyed()
+- Direct HttpClient usage (use API services)
+- Missing loading states (use app-loading-and-error-indicator)
+- Putting reusable logic in component instead of entity/model

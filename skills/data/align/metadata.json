@@ -1,8 +1,7 @@
 {
   "name": "align",
   "repo": "mgreenly/ikigai",
-  "category": "data",
-  "description": "Align skill for the ikigai project",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:23.892849Z"
+  "path": ".claude/library/align/SKILL.md",
+  "source": "github.com/mgreenly/ikigai",
+  "downloaded_at": "2026-01-14T03:06:56.754524Z"
 }

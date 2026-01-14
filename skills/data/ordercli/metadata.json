@@ -1,11 +1,7 @@
 {
   "name": "ordercli",
-  "description": "Foodora-only CLI for checking past orders and active order status (Deliveroo WIP).",
-  "repo": "steipete/clawdis",
-  "category": "development",
-  "tags": [
-    "ordercli"
-  ],
-  "stars": 430,
-  "source": "SkillsMP Synced Skills"
+  "repo": "clawdbot/clawdbot",
+  "path": "skills/ordercli/SKILL.md",
+  "source": "github.com/clawdbot/clawdbot",
+  "downloaded_at": "2026-01-14T04:05:32.430224Z"
 }

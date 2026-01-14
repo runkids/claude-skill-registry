@@ -1,13 +1,7 @@
 {
   "name": "build-and-deploy",
-  "description": "Build and deploy this Next.js application with PostgreSQL database. Use when building, deploying, setting up database, or preparing the project for production.",
-  "repo": "Eng0AI/natural-language-postgres",
-  "category": "data",
-  "tags": [
-    "build",
-    "and",
-    "deploy"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "rebyteai-template/langchain-retrieval-agent",
+  "path": ".claude/skills/build-and-deploy/SKILL.md",
+  "source": "github.com/rebyteai-template/langchain-retrieval-agent",
+  "downloaded_at": "2026-01-14T02:55:02.044752Z"
 }

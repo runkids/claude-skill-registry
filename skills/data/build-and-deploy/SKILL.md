@@ -1,9 +1,12 @@
 ---
 name: build-and-deploy
-description: Build and deploy this Next.js application with PostgreSQL database. Use when building, deploying, setting up database, or preparing the project for production.
+description: Build and deploy this Next.js LangChain retrieval agent application with Supabase vector store. Use when building, deploying, setting up vector store, or preparing the project for production.
 ---
 
-# Build and Deploy Natural Language Postgres
+# Build and Deploy LangChain Retrieval Agent
+
+> **CRITICAL: For Vercel, you MUST use `vercel build --prod` then `vercel deploy --prebuilt --prod`.**
+> Do NOT use `vercel --prod` or `vercel deploy --prod` directly - these will fail due to Git author permission issues in VM environments.
 
 ## Workflow
 
@@ -38,25 +41,25 @@ Or manually inspect `.env.example` and create `.env` with the required values fr
 ### 2. Install Dependencies
 
 ```bash
-pnpm install
+yarn install
 ```
 
-### 3. Seed Database
+### 3. Setup Supabase Vector Store
+
+Get the database connection URL from Supabase Dashboard:
+- Go to Settings → Database → Connection string → URI
+- Copy the URI and add it to `.env` as `SUPABASE_DB_URL`
 
 ```bash
-pnpm run seed
+yarn setup-db
 ```
 
-**Critical:** Must run after database provisioning. Seeds database with unicorn companies data from `unicorns.csv` (~1000+ records).
-
-**Database Schema:**
-- Single table: `unicorns`
-- Contains: company, valuation, date_joined, country, city, industry, investors
+This creates the pgvector extension, documents table, and match_documents function in your Supabase project.
 
 ### 4. Build
 
 ```bash
-pnpm run build
+yarn build
 ```
 
 ### 5. Deploy
@@ -87,7 +90,7 @@ vercel deploy --prebuilt --prod --yes -t $VERCEL_TOKEN
 
 **Netlify:**
 ```bash
-# Set platform env vars (first time only)
+# Import all env vars from .env (first time only)
 netlify env:import .env
 
 # Deploy
@@ -96,7 +99,9 @@ netlify deploy --prod
 
 ## Critical Notes
 
-- **Seed Required:** Must run `pnpm run seed` after database setup
-- **Database:** PostgreSQL required
+- **VERCEL PREBUILT MODE IS MANDATORY:** Always use `vercel build --prod` followed by `vercel deploy --prebuilt --prod`. Never use `vercel --prod` or `vercel deploy --prod` without `--prebuilt` flag.
+- **Supabase Required:** Need a Supabase project (free tier works)
+- **Vector Store Setup:** Run `yarn setup-db` to create tables automatically
 - **Environment Variables:** All values come from current environment - inspect `.env.example` for required variables
-- **No Dev Server:** Never run `pnpm dev` in VM environment
+- **OpenAI for Embeddings:** OPENAI_API_KEY is always required for vector embeddings
+- **No Dev Server:** Never run `yarn dev` in VM environment

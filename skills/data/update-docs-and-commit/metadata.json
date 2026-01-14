@@ -1,9 +1,7 @@
 {
   "name": "update-docs-and-commit",
-  "description": "Updates documentation files (changelog, architecture, project_status) based on git changes, then stages and commits all changes. Use after completing features or fixes.",
   "repo": "mhlauf1/body-biz",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "GitHub Search API"
+  "path": ".claude/skills/update-docs-and-commit/SKILL.md",
+  "source": "github.com/mhlauf1/body-biz",
+  "downloaded_at": "2026-01-14T02:16:19.224162Z"
 }

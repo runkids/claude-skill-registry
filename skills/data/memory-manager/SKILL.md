@@ -1,130 +1,316 @@
 ---
 name: memory-manager
-description: Manage elizaOS agent memory, context windows, and conversation history. Triggers on "manage memory", "optimize context", or "handle agent memory"
-allowed-tools: [Read, Edit, Bash]
+description: Manages memory tool integration with CLAUDE.md files for dual persistence and redundancy. Handles cross-conversation learning, memory sync, and context persistence.
+allowed-tools: read, write, memory, grep, glob
+version: 1.0
+best_practices:
+  - Use memory tool for learned patterns and insights
+  - Keep CLAUDE.md for static rules and standards
+  - Sync important patterns from memory to CLAUDE.md
+  - Validate memory file paths for security
+error_handling: graceful
+streaming: supported
 ---
 
 # Memory Manager Skill
 
-Optimize agent memory usage, implement pruning strategies, and manage conversation context effectively.
+## Identity
+
+Memory Manager - Provides dual persistence (CLAUDE.md + Memory Tool) for redundancy and cross-conversation learning.
 
 ## Capabilities
 
-1. 🧠 Memory pruning and optimization
-2. 📊 Context window management
-3. 🗂️ Conversation history archiving
-4. 🎯 Important memory consolidation
-5. 🔄 Memory decay implementation
-6. 📈 Memory usage monitoring
+- **Memory Tool Integration**: Store and retrieve learned patterns via memory tool
+- **CLAUDE.md Sync**: Sync important patterns from memory to CLAUDE.md
+- **Cross-Conversation Learning**: Enable agents to learn from previous sessions
+- **Dual Persistence**: Maintain knowledge in both memory tool and CLAUDE.md
+- **Security Validation**: Validate memory file paths to prevent memory poisoning
 
-## Memory Types
+## Dual Persistence Strategy
 
-### Short-term Memory
-- Current conversation context
-- Working memory (max 50 items default)
-- Cleared per session
+### CLAUDE.md Files (Primary - Version-Controlled)
 
-### Long-term Memory
-- Important facts and information
-- Persistent across sessions
-- Decay modeling over time
+- Hierarchical context loading (root → subdirectories)
+- Version-controlled in git
+- Project-specific, structured knowledge
+- Loaded automatically by Claude Code
+- Best for: Static rules, project structure, coding standards
 
-### Knowledge
-- Static facts from configuration
-- Document-based knowledge
-- Dynamically learned information
+### Memory Tool (Secondary - Dynamic Learning)
 
-## Memory Operations
+- Cross-conversation pattern persistence
+- Dynamic knowledge accumulation
+- Session-specific learnings
+- File-based storage under `/memories/` directory
+- Best for: Learned patterns, user preferences, task-specific insights
 
-```typescript
-// Create memory
-await runtime.createMemory({
-  entityId: userId,
-  roomId: conversationId,
-  content: {
-    text: 'Important information',
-    metadata: { importance: 'high' }
-  },
-  embedding: await generateEmbedding(text)
-});
+### How They Work Together
 
-// Retrieve memories
-const memories = await runtime.getMemories({
-  roomId: conversationId,
-  limit: 10,
-  unique: true
-});
+1. **CLAUDE.md**: Provides foundational context (rules, structure, standards)
+2. **Memory Tool**: Captures learned patterns and insights from interactions
+3. **Redundancy**: If one fails, the other provides backup context
+4. **Synergy**: Memory tool can reference CLAUDE.md patterns, CLAUDE.md can reference memory insights
 
-// Search semantically
-const results = await runtime.searchMemories(
-  'query text',
-  {
-    roomId: conversationId,
-    limit: 5,
-    minScore: 0.7
-  }
-);
+## Usage Patterns
 
-// Update memory
-await runtime.updateMemory({
-  id: memoryId,
-  content: { ...updated content },
-  metadata: { lastAccessed: Date.now() }
-});
+### Storing Learned Patterns
+
+**When to Store in Memory**:
+
+- User preferences discovered during interaction
+- Task-specific insights and solutions
+- Patterns learned from codebase analysis
+- Workflow optimizations discovered
+- Common mistakes to avoid
+
+**How to Store**:
+
+```
+Use memory tool to store: "User prefers TypeScript over JavaScript for new features"
 ```
 
-## Pruning Strategies
+### Reading from Memory
 
-### Time-based Pruning
-```typescript
-async function pruneOldMemories(
-  runtime: IAgentRuntime,
-  daysToKeep: number = 30
-): Promise<number> {
-  const cutoffDate = Date.now() - (daysToKeep * 24 * 60 * 60 * 1000);
+**When to Read from Memory**:
 
-  const oldMemories = await runtime.getMemories({
-    createdBefore: cutoffDate,
-    importance: 'low'
-  });
+- Starting a new task (check for relevant patterns)
+- Encountering similar problems (look for previous solutions)
+- User preferences (check for known preferences)
+- Workflow patterns (check for optimized approaches)
 
-  for (const memory of oldMemories) {
-    await runtime.deleteMemory(memory.id);
-  }
+**How to Read**:
 
-  return oldMemories.length;
-}
+```
+Use memory tool to read: "What patterns do we have for authentication implementation?"
 ```
 
-### Size-based Pruning
-```typescript
-async function pruneLargeMemories(
-  runtime: IAgentRuntime,
-  maxSize: number = 1000
-): Promise<void> {
-  const memories = await runtime.getMemories({ limit: 10000 });
+### Syncing to CLAUDE.md
 
-  if (memories.length > maxSize) {
-    // Keep most important and recent
-    const toKeep = rankMemoriesByImportance(memories).slice(0, maxSize);
-    const toDelete = memories.filter(m => !toKeep.includes(m));
+**When to Sync**:
 
-    for (const memory of toDelete) {
-      await runtime.deleteMemory(memory.id);
-    }
-  }
-}
+- Pattern is project-wide and should be version-controlled
+- Rule discovered that applies to all future work
+- Standard that should be part of project documentation
+- Important decision that affects project structure
+
+**How to Sync**:
+
+1. Read pattern from memory tool
+2. Determine if it should be in CLAUDE.md
+3. Add to appropriate CLAUDE.md file (root or phase-specific)
+4. Keep in memory tool for redundancy
+
+## Memory File Organization
+
+### Directory Structure
+
+Memory files are stored in the run directory structure:
+
+```
+.claude/context/runs/{run-id}/
+├── memory/
+│   ├── patterns/
+│   │   ├── authentication-patterns.md
+│   │   ├── api-design-patterns.md
+│   │   └── testing-patterns.md
+│   ├── preferences/
+│   │   ├── user-preferences.md
+│   │   └── coding-style.md
+│   └── insights/
+│       ├── performance-insights.md
+│       └── security-insights.md
+```
+
+**Note**: Use `path-resolver.mjs` to resolve memory paths within a run directory.
+
+### Naming Conventions
+
+- **Patterns**: `{category}-patterns.md` (e.g., `authentication-patterns.md`)
+- **Preferences**: `{type}-preferences.md` (e.g., `user-preferences.md`)
+- **Insights**: `{domain}-insights.md` (e.g., `performance-insights.md`)
+
+## Security Best Practices
+
+### Path Validation (Production-Ready)
+
+Based on Claude Cookbooks patterns, always validate memory file paths:
+
+**Required Validation:**
+
+- Path must start with `/memories` prefix
+- Reject paths with `..` (directory traversal attacks)
+- Verify resolved path is within memory_root directory
+- Validate file extensions (`.txt`, `.md`, `.json`, `.py`, `.yaml`, `.yml`)
+
+**Implementation:**
+See `.claude/skills/memory-manager/memory_tool_handler.py` for production-ready handler with:
+
+- Path validation and sanitization
+- Directory traversal protection
+- Comprehensive error handling
+- Security checks for all operations
+- File operation security (view, create, str_replace, insert, delete, rename)
+
+**Example Validation:**
+
+```python
+def _validate_path(self, path: str) -> Path:
+    """Validate and resolve memory paths to prevent directory traversal attacks."""
+    if not path.startswith("/memories"):
+        raise ValueError("Path must start with /memories")
+
+    # Remove /memories prefix and resolve
+    relative_path = path[len("/memories"):].lstrip("/")
+    full_path = (self.memory_root / relative_path).resolve()
+
+    # Verify path is still within memory_root
+    try:
+        full_path.relative_to(self.memory_root.resolve())
+    except ValueError:
+        raise ValueError("Path would escape /memories directory")
+
+    return full_path
+```
+
+**Using the Handler:**
+
+```python
+from .claude.skills.memory_manager.memory_tool_handler import MemoryToolHandler
+
+handler = MemoryToolHandler(base_path="./memory_storage")
+result = handler.execute(command="view", path="/memories/patterns/auth.md")
+```
+
+### Memory Poisoning Prevention
+
+**Prevent malicious memory content**:
+
+- Validate memory content before storing
+- Sanitize user input in memory files
+- Review memory files periodically
+- Use structured formats (JSON, YAML) when possible
+- Restrict file types to text-based formats only
+- Validate string uniqueness for replacements (prevent ambiguous edits)
+
+### Security Features
+
+**Production-Ready Handler Includes:**
+
+- ✅ Path validation with directory traversal protection
+- ✅ File extension validation
+- ✅ Root directory protection (cannot delete `/memories`)
+- ✅ String uniqueness validation for replacements
+- ✅ Comprehensive error handling
+- ✅ UTF-8 encoding validation
+
+## Integration with Agents
+
+### All Agents Use Both
+
+Every agent should:
+
+1. **Load CLAUDE.md files** automatically (via Claude Code)
+2. **Use memory tool** for learned patterns
+3. **Store insights** in memory tool
+4. **Sync important patterns** to CLAUDE.md when appropriate
+
+### Agent-Specific Memory
+
+- **Orchestrator**: Workflow patterns, routing decisions, coordination strategies
+- **Developer**: Implementation patterns, code solutions, debugging insights
+- **Architect**: Design patterns, technology choices, architecture decisions
+- **QA**: Testing patterns, quality insights, bug patterns
+
+## Memory Sync Utility
+
+### Automatic Sync
+
+The memory sync utility (`memory-sync.mjs`) can:
+
+- Sync important patterns from memory to CLAUDE.md
+- Merge memory insights into project documentation
+- Archive old memory files
+- Validate memory file integrity
+
+### Manual Sync
+
+Agents can manually sync:
+
+1. Identify pattern in memory that should be in CLAUDE.md
+2. Read pattern from memory tool
+3. Add to appropriate CLAUDE.md file
+4. Keep in memory for redundancy
+
+## Examples
+
+### Example 1: Storing User Preference
+
+```
+User: "I prefer using async/await over promises"
+
+Agent stores in memory:
+- File: `.claude/context/runs/{run-id}/memory/preferences/coding-style.md`
+- Content: "User prefers async/await syntax over Promise chains for asynchronous code"
+```
+
+### Example 2: Storing Learned Pattern
+
+```
+Agent discovers: "Using Zod for validation reduces bugs by 40%"
+
+Agent stores in memory:
+- File: `.claude/context/runs/{run-id}/memory/patterns/validation-patterns.md`
+- Content: "Zod validation pattern: Use Zod schemas for all API input validation. Reduces bugs by 40%."
+```
+
+### Example 3: Reading from Memory
+
+```
+Agent needs to implement authentication
+
+Agent reads from memory:
+- Query: "authentication implementation patterns"
+- Returns: Relevant patterns from memory files
+- Uses patterns to guide implementation
+```
+
+### Example 4: Syncing to CLAUDE.md
+
+```
+Agent discovers important pattern: "Always use TypeScript strict mode"
+
+Agent syncs:
+1. Reads from memory: "typescript-strict-mode-pattern.md"
+2. Adds to .claude/CLAUDE.md: "TypeScript Configuration: Always use strict mode"
+3. Keeps in memory for redundancy
 ```
 
 ## Best Practices
 
-1. Set appropriate `conversationLength` limits
-2. Implement importance scoring
-3. Use memory decay for temporal relevance
-4. Archive important conversations
-5. Monitor memory growth
-6. Prune regularly
-7. Use embeddings for semantic search
-8. Cache frequently accessed memories
-9. Batch memory operations
-10. Index memories properly
+1. **Store Frequently**: Store patterns as you discover them
+2. **Read Before Starting**: Check memory for relevant patterns before new tasks
+3. **Sync Important Patterns**: Move project-wide patterns to CLAUDE.md
+4. **Organize by Category**: Use directory structure for organization
+5. **Validate Paths**: Always validate memory file paths
+6. **Review Periodically**: Clean up old or outdated memory files
+7. **Maintain Redundancy**: Keep important patterns in both systems
+
+## Troubleshooting
+
+### Memory Tool Not Available
+
+- Check that memory tool is enabled in `.claude/config.yaml`
+- Verify memory tool is available in agent's tool list
+- Ensure memory directory exists and is writable
+
+### Memory Files Not Persisting
+
+- Check file permissions on memory directory
+- Verify memory tool is writing to correct location
+- Check for errors in memory tool execution
+
+### CLAUDE.md Sync Fails
+
+- Verify CLAUDE.md file is writable
+- Check that pattern is appropriate for CLAUDE.md
+- Ensure proper formatting when adding to CLAUDE.md

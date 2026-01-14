@@ -1,12 +1,7 @@
 {
   "name": "handoff-document-generator",
-  "description": "Generates standardized agent handoff documents for phase transitions. Ensures critical information is preserved and passed between agents during workflow orchestration. Automates handoff creation to p",
   "repo": "DarkMonkDev/WitchCityRope",
-  "category": "data",
-  "tags": [
-    "handoff",
-    "document",
-    "generator"
-  ],
-  "stars": 0
+  "path": ".claude/skills/handoff-document-generator/SKILL.md",
+  "source": "github.com/DarkMonkDev/WitchCityRope",
+  "downloaded_at": "2026-01-14T01:18:31.358969Z"
 }

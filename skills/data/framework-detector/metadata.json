@@ -1,12 +1,7 @@
 {
   "name": "framework-detector",
-  "description": "Multi-signal framework detection with confidence scoring for 6 major frameworks",
-  "repo": "FortiumPartners/ai-mesh",
-  "category": "development",
-  "tags": [
-    "framework",
-    "detector"
-  ],
-  "stars": 5,
-  "source": "local"
+  "repo": "FortiumPartners/ensemble",
+  "path": "packages/core/skills/framework-detector/SKILL.md",
+  "source": "github.com/FortiumPartners/ensemble",
+  "downloaded_at": "2026-01-14T02:40:40.448787Z"
 }

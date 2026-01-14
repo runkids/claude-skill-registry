@@ -1,12 +1,7 @@
 {
   "name": "qa-test-planner",
-  "description": "Generate comprehensive test plans, manual test cases, regression test suites, and bug reports for QA engineers. Includes Figma MCP integration for design validation.",
   "repo": "jamesrochabrun/skills",
-  "category": "design",
-  "tags": [
-    "test",
-    "planner"
-  ],
-  "stars": 8,
-  "source": "local"
+  "path": "skills/qa-test-planner/SKILL.md",
+  "source": "github.com/jamesrochabrun/skills",
+  "downloaded_at": "2026-01-14T01:17:22.084003Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "python-quality-checker",
-  "description": "Validate Python code quality with formatting, type checking, linting,",
   "repo": "matteocervelli/llms",
-  "category": "development",
-  "tags": [
-    "python",
-    "quality",
-    "checker"
-  ],
-  "stars": 10,
-  "source": "local"
+  "path": ".claude/skills/python-quality-checker/SKILL.md",
+  "source": "github.com/matteocervelli/llms",
+  "downloaded_at": "2026-01-14T03:06:50.467497Z"
 }

@@ -1,14 +1,7 @@
 {
   "name": "algorithmic-art",
-  "description": "Generate algorithmic and generative art",
-  "repo": "anthropics/skills",
-  "category": "design",
-  "tags": [
-    "art",
-    "generative",
-    "algorithmic",
-    "creative"
-  ],
-  "stars": 0,
-  "source": "Anthropic Official"
+  "repo": "archubbuck/workspace-architect",
+  "path": "assets/skills/algorithmic-art/SKILL.md",
+  "source": "github.com/archubbuck/workspace-architect",
+  "downloaded_at": "2026-01-14T04:03:37.153768Z"
 }

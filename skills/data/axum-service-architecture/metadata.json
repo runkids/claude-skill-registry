@@ -1,13 +1,7 @@
 {
   "name": "axum-service-architecture",
-  "description": "Service architecture patterns for Axum applications including layered design (Router → Handler → Service → Repository), AppState with FromRef for dependency injection, Tower ServiceBuilder for middlew",
   "repo": "matthewharwood/engmanager.xyz",
-  "category": "design",
-  "tags": [
-    "axum",
-    "service",
-    "architecture"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/axum-service-architecture/SKILL.md",
+  "source": "github.com/matthewharwood/engmanager.xyz",
+  "downloaded_at": "2026-01-14T03:04:55.919209Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "code-reviewer",
-  "description": "\"Use this when user requests code review, pull request analysis, or quality assessment. Provides systematic 6-category checklist: functionality, security (OWASP), code quality (SOLID), performance, te",
-  "repo": "PearlThoughts/CodeCompass",
-  "category": "security",
-  "tags": [
-    "code",
-    "reviewer"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "drgaciw/academic-athletics-saas",
+  "path": ".claude/skills/code-reviewer/SKILL.md",
+  "source": "github.com/drgaciw/academic-athletics-saas",
+  "downloaded_at": "2026-01-14T04:05:25.422121Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "model-evaluation",
-  "description": "Evaluates machine learning models for performance, fairness, and reliability using appropriate metrics and validation techniques. Trigger keywords: model evaluation, metrics, accuracy, precision, reca",
-  "repo": "cosmix/claude-code-setup",
-  "category": "testing",
-  "tags": [
-    "model",
-    "evaluation"
-  ],
-  "stars": 2,
-  "source": "local"
+  "repo": "cosmix/loom",
+  "path": "skills/model-evaluation/SKILL.md",
+  "source": "github.com/cosmix/loom",
+  "downloaded_at": "2026-01-14T02:38:35.198504Z"
 }

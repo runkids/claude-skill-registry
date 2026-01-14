@@ -1,13 +1,7 @@
 {
   "name": "rust-quality-checker",
-  "description": "Validate Rust code quality with rustfmt, clippy, cargo check, and security",
   "repo": "matteocervelli/llms",
-  "category": "development",
-  "tags": [
-    "rust",
-    "quality",
-    "checker"
-  ],
-  "stars": 10,
-  "source": "local"
+  "path": ".claude/skills/rust-quality-checker/SKILL.md",
+  "source": "github.com/matteocervelli/llms",
+  "downloaded_at": "2026-01-14T03:06:49.995265Z"
 }

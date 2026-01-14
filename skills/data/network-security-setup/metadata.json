@@ -1,13 +1,7 @@
 {
   "name": "network-security-setup",
-  "description": "Configure Claude Code sandbox network isolation with trusted domains, custom access policies, and environment variables",
   "repo": "DNYoussef/ai-chrome-extension",
-  "category": "development",
-  "tags": [
-    "network",
-    "security",
-    "setup"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/network-security-setup/SKILL.md",
+  "source": "github.com/DNYoussef/ai-chrome-extension",
+  "downloaded_at": "2026-01-14T03:10:14.346710Z"
 }

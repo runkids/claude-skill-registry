@@ -1,11 +1,7 @@
 {
   "name": "auth",
-  "description": "Authentication and access control skill for Next.js 15 + Supabase applications. Use when implementing user authentication, protecting routes, managing user sessions, enforcing role-based access contro",
-  "repo": "BOM-98/FinTracker",
-  "category": "data",
-  "tags": [
-    "auth"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "SylphxAI/flow",
+  "path": "packages/flow/assets/skills/auth/SKILL.md",
+  "source": "github.com/SylphxAI/flow",
+  "downloaded_at": "2026-01-14T03:51:24.993444Z"
 }

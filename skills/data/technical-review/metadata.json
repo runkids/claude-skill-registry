@@ -1,9 +1,7 @@
 {
   "name": "technical-review",
-  "description": "Validate completed implementation against plan tasks and acceptance criteria. Sixth phase of research-discussion-specification-plan-implement-review workflow. Use when: (1) Implementation phase is com",
   "repo": "leeovery/claude-technical-workflows",
-  "category": "product",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/technical-review/SKILL.md",
+  "source": "github.com/leeovery/claude-technical-workflows",
+  "downloaded_at": "2026-01-14T01:21:48.906247Z"
 }

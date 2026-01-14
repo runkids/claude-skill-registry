@@ -1,12 +1,7 @@
 {
   "name": "owasp-checker",
-  "description": "Verify compliance with OWASP Top 10 2021 security standards. Use when",
   "repo": "matteocervelli/llms",
-  "category": "security",
-  "tags": [
-    "owasp",
-    "checker"
-  ],
-  "stars": 10,
-  "source": "local"
+  "path": ".claude/skills/owasp-checker/SKILL.md",
+  "source": "github.com/matteocervelli/llms",
+  "downloaded_at": "2026-01-14T03:06:47.719915Z"
 }

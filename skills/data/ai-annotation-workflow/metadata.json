@@ -1,12 +1,7 @@
 {
   "name": "ai-annotation-workflow",
-  "description": "Эксперт по data annotation. Используй для ML labeling, annotation workflows и quality control.",
   "repo": "dengineproblem/agents-monorepo",
-  "category": "data",
-  "tags": [
-    "annotation",
-    "workflow"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/ai-annotation-workflow/SKILL.md",
+  "source": "github.com/dengineproblem/agents-monorepo",
+  "downloaded_at": "2026-01-14T02:08:02.997286Z"
 }

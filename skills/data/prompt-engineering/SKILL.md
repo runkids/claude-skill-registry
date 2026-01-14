@@ -1,251 +1,343 @@
 ---
 name: prompt-engineering
-description: Prompt design, optimization, few-shot learning, and chain of thought techniques for LLM applications.
-sasmp_version: "1.3.0"
-bonded_agent: 02-prompt-engineering
-bond_type: PRIMARY_BOND
+description: Crafting effective prompts for LLMs. Use when designing prompts, improving output quality, structuring complex instructions, or debugging poor model responses.
 ---
 
 # Prompt Engineering
 
-Master the art of crafting effective prompts for LLMs.
+Prompt engineering is the practice of designing inputs that guide LLMs to produce desired outputs. Effective prompts reduce errors, improve consistency, and unlock model capabilities.
 
-## Quick Start
+## Table of Contents
 
-### Basic Prompt Structure
-```python
-# Simple completion prompt
-prompt = """
-You are a helpful assistant specialized in {domain}.
+- [Core Principles](#core-principles)
+- [Be Clear and Direct](#be-clear-and-direct)
+- [Use Examples (Multishot)](#use-examples-multishot)
+- [Chain of Thought](#chain-of-thought)
+- [XML Tags](#xml-tags)
+- [Role Prompting](#role-prompting)
+- [Long Context](#long-context)
+- [Output Control](#output-control)
+- [Self-Verification](#self-verification)
+- [Best Practices](#best-practices)
+- [References](#references)
 
-Task: {task_description}
+## Core Principles
 
-Context: {relevant_context}
+**Golden rule**: Show your prompt to a colleague with minimal context. If they're confused, the model will be too.
+
+1. **Be explicit** - State exactly what you want; never assume the model knows your preferences
+2. **Provide context** - Include what the output is for, who the audience is, and what success looks like
+3. **Use structure** - Sequential steps, XML tags, and clear formatting reduce ambiguity
+4. **Show examples** - Demonstrations outperform descriptions for complex formats
+
+## Be Clear and Direct
+
+Treat the model as a capable but context-free collaborator. Specify:
+- What the task results will be used for
+- What audience the output is meant for
+- What a successful completion looks like
+
+### Vague vs Specific
+
+```
+# Vague
+Analyze this data and give insights.
+
+# Specific
+Analyze this Q2 sales data for our board presentation.
+1. Identify the top 3 revenue trends
+2. Flag any anomalies exceeding 15% variance
+3. Recommend 2-3 actionable next steps
+Format as bullet points, max 200 words.
+```
+
+### Sequential Steps
+
+Use numbered lists for multi-step tasks:
+
+```
+Your task is to anonymize customer feedback.
 
 Instructions:
-1. {instruction_1}
-2. {instruction_2}
-
-Output format: {desired_format}
-"""
-
-# Using OpenAI
-from openai import OpenAI
-client = OpenAI()
-
-response = client.chat.completions.create(
-    model="gpt-4",
-    messages=[
-        {"role": "system", "content": system_prompt},
-        {"role": "user", "content": user_prompt}
-    ]
-)
+1. Replace customer names with "CUSTOMER_[ID]"
+2. Replace emails with "EMAIL_[ID]@example.com"
+3. Redact phone numbers as "PHONE_[ID]"
+4. Leave product names intact
+5. Output only processed messages, separated by "---"
 ```
 
-### Few-Shot Learning
-```python
-few_shot_prompt = """
-Classify the sentiment of the following reviews.
+## Use Examples (Multishot)
 
-Examples:
-Review: "This product exceeded my expectations!"
-Sentiment: Positive
+Provide 3-5 diverse examples to demonstrate expected behavior. Examples reduce misinterpretation and enforce consistent formatting.
 
-Review: "Terrible quality, broke after one day."
+### Structure
+
+```
+Categorize customer feedback by issue type and sentiment.
+
+<examples>
+<example>
+Input: The dashboard loads slowly and the export button is hidden.
+Category: UI/UX, Performance
 Sentiment: Negative
+Priority: High
+</example>
 
-Review: "It's okay, nothing special."
-Sentiment: Neutral
+<example>
+Input: Love the Salesforce integration! Would be great to add Hubspot.
+Category: Integration, Feature Request
+Sentiment: Positive
+Priority: Medium
+</example>
+</examples>
 
-Now classify:
-Review: "{user_review}"
-Sentiment:
-"""
+Now categorize: {{FEEDBACK}}
 ```
 
-## Core Techniques
+### Tips
 
-### Chain of Thought (CoT)
+- Make examples **relevant** to actual use cases
+- Include **edge cases** and potential challenges
+- Vary examples to prevent unintended pattern matching
+- Wrap in `<example>` tags for clarity
+
+## Chain of Thought
+
+Encourage step-by-step reasoning for complex tasks. This improves accuracy in math, logic, analysis, and multi-factor decisions.
+
+### Basic
+
+```
+Determine the best investment option for this client. Think step-by-step.
+```
+
+### Guided
+
+Specify what steps to consider:
+
+```
+Think before answering:
+1. Consider the client's risk tolerance given their 5-year timeline
+2. Calculate potential returns for each option
+3. Factor in market volatility history
+4. Then provide your recommendation
+```
+
+### Structured (Recommended)
+
+Separate reasoning from output with tags:
+
+```
+Analyze this contract for legal risks.
+
+In <thinking> tags, work through:
+- Indemnification implications
+- Liability exposure
+- IP ownership concerns
+
+Then provide your recommendation in <answer> tags.
+```
+
+This makes reasoning visible for debugging and the answer extractable for post-processing.
+
+## XML Tags
+
+Use XML tags to separate prompt components. This prevents instruction/content confusion and improves parseability.
+
+### Common Tags
+
+```
+<instructions>Task steps and requirements</instructions>
+<context>Background information</context>
+<document>Source material to process</document>
+<example>Demonstration of expected behavior</example>
+<constraints>Boundaries and limitations</constraints>
+<output_format>Expected response structure</output_format>
+```
+
+### Nested Structure
+
+```
+<documents>
+  <document index="1">
+    <source>annual_report_2023.pdf</source>
+    <content>{{REPORT_CONTENT}}</content>
+  </document>
+  <document index="2">
+    <source>competitor_analysis.xlsx</source>
+    <content>{{ANALYSIS_CONTENT}}</content>
+  </document>
+</documents>
+
+<instructions>
+Compare revenue trends across both documents.
+Identify strategic advantages mentioned in the annual report.
+</instructions>
+```
+
+### Reference Tags in Instructions
+
+Be explicit when referring to tagged content:
+
+```
+Using the contract in <contract> tags, identify all clauses
+related to termination.
+```
+
+## Role Prompting
+
+Set expertise context via system prompts to improve domain-specific performance.
+
+### System Prompt Pattern
+
 ```python
-cot_prompt = """
-Solve this step by step:
-
-Problem: {problem}
-
-Let's think through this carefully:
-1. First, identify what we know...
-2. Then, determine what we need to find...
-3. Apply the relevant formula/logic...
-4. Calculate the result...
-
-Final Answer:
-"""
+system = "You are a senior securities lawyer at a Fortune 500 company."
+user = "Review this acquisition agreement for regulatory risks."
 ```
 
-### Self-Consistency
-```python
-# Generate multiple reasoning paths
-responses = []
-for _ in range(5):
-    response = generate_with_cot(prompt, temperature=0.7)
-    responses.append(response)
+### Effective Roles
 
-# Take majority vote
-final_answer = majority_vote(responses)
+```
+# General
+You are a [role] at [organization type].
+
+# Specific (better)
+You are the General Counsel of a Fortune 500 tech company
+specializing in M&A transactions.
+
+# With behavioral guidance (best)
+You are a senior data scientist. You prioritize statistical
+rigor over speed. When uncertain, you state assumptions
+explicitly and suggest validation approaches.
 ```
 
-### ReAct Pattern
-```python
-react_prompt = """
-Answer the following question using the ReAct framework.
+### When to Use
 
-Question: {question}
+- Complex analysis requiring domain expertise
+- Tasks where tone/style matters (legal, medical, executive)
+- When a specific perspective would improve output quality
 
-Use this format:
-Thought: [Your reasoning about what to do next]
-Action: [The action to take: Search, Calculate, or Lookup]
-Observation: [The result of the action]
-... (repeat Thought/Action/Observation as needed)
-Thought: I now have enough information to answer.
-Final Answer: [Your answer]
-"""
+## Long Context
+
+For prompts with large documents (20K+ tokens):
+
+### Document Placement
+
+Place long documents **at the top**, before instructions:
+
+```
+<documents>
+{{LARGE_DOCUMENT_CONTENT}}
+</documents>
+
+<instructions>
+Summarize the key findings from the document above.
+Focus on financial implications.
+</instructions>
 ```
 
-## Prompt Templates
+### Quote Grounding
 
-### System Prompts by Role
-```yaml
-Expert Advisor:
-  "You are an expert {role} with 20+ years of experience.
-   Provide detailed, accurate, and actionable advice.
-   Always cite sources when making claims.
-   Ask clarifying questions if the request is ambiguous."
+Ask the model to cite sources before analyzing:
 
-Code Assistant:
-  "You are a senior software engineer specializing in {language}.
-   Write clean, efficient, and well-documented code.
-   Follow {style_guide} conventions.
-   Include error handling and edge cases."
+```
+<documents>
+{{PATIENT_RECORDS}}
+</documents>
 
-Data Analyst:
-  "You are a data analyst helping interpret {data_type}.
-   Explain insights in simple terms for non-technical audiences.
-   Highlight key findings and recommendations.
-   Note any limitations or caveats in the analysis."
+First, find and quote the relevant sections in <quotes> tags.
+Then provide your diagnosis in <analysis> tags, referencing
+the quoted evidence.
 ```
 
-### Output Formatting
-```python
-json_format_prompt = """
-Extract the following information and return as JSON:
+### Multi-Document Metadata
 
-Text: {text}
+Include source information for attribution:
 
-Required fields:
-- name (string)
-- date (ISO 8601 format)
-- amount (number)
-- category (one of: income, expense, transfer)
-
-Return ONLY valid JSON, no explanation.
-"""
-
-structured_output = """
-Analyze the text and respond in this exact format:
-
-## Summary
-[2-3 sentence summary]
-
-## Key Points
-- Point 1
-- Point 2
-- Point 3
-
-## Recommendations
-1. [First recommendation]
-2. [Second recommendation]
-"""
+```
+<documents>
+  <document index="1">
+    <source>quarterly_report_q2.pdf</source>
+    <date>2024-07-15</date>
+    <content>{{CONTENT}}</content>
+  </document>
+</documents>
 ```
 
-## Advanced Techniques
+## Output Control
 
-### Prompt Chaining
-```python
-def analyze_document(document):
-    # Step 1: Extract key information
-    extraction_prompt = f"Extract key entities from: {document}"
-    entities = llm(extraction_prompt)
+### Verbosity Specification
 
-    # Step 2: Analyze relationships
-    analysis_prompt = f"Analyze relationships between: {entities}"
-    relationships = llm(analysis_prompt)
-
-    # Step 3: Generate summary
-    summary_prompt = f"Summarize findings: {relationships}"
-    summary = llm(summary_prompt)
-
-    return summary
+```
+<output_format>
+- Default responses: 3-6 sentences or ≤5 bullets
+- Simple factual questions: ≤2 sentences
+- Complex analysis: 1 overview paragraph + ≤5 tagged bullets
+</output_format>
 ```
 
-### Dynamic Prompt Generation
-```python
-def build_prompt(task_type, context, examples=None):
-    base_prompt = PROMPT_TEMPLATES[task_type]
+### Format Constraints
 
-    if examples:
-        example_str = format_examples(examples)
-        base_prompt = f"{example_str}\n\n{base_prompt}"
+```
+Output requirements:
+- Use markdown tables for comparisons
+- Code blocks for any technical content
+- No introductory phrases ("Here's...", "Sure...")
+- End with exactly 3 action items
+```
 
-    if context:
-        base_prompt = base_prompt.replace("{context}", context)
+### Scope Boundaries
 
-    return base_prompt
+Prevent drift from original intent:
+
+```
+Implement EXACTLY and ONLY what is requested.
+- Do not add features beyond the specification
+- Do not refactor surrounding code
+- Choose the simplest valid interpretation
+- Ask for clarification rather than assuming
+```
+
+## Self-Verification
+
+For high-stakes outputs, include verification steps:
+
+```
+<verification>
+Before finalizing your response:
+1. Re-read the original request
+2. Check that all requirements are addressed
+3. Verify any specific claims against provided documents
+4. Soften language where certainty is low
+5. Flag any assumptions you made
+</verification>
+```
+
+### Uncertainty Acknowledgment
+
+```
+When uncertain:
+- Explicitly state "Based on the provided context..."
+- Offer 2-3 plausible interpretations if ambiguous
+- Never fabricate specific details (dates, numbers, quotes)
+- Say "I don't have enough information to..." when applicable
 ```
 
 ## Best Practices
 
-1. **Be Specific**: Clear instructions yield better results
-2. **Provide Examples**: Few-shot learning improves consistency
-3. **Set Constraints**: Define output format, length, style
-4. **Use Delimiters**: Separate sections with clear markers
-5. **Iterate**: Test and refine prompts systematically
-6. **Version Control**: Track prompt changes like code
+1. **Start specific, then generalize** - Begin with detailed prompts; relax constraints only after validating output quality
+2. **Test with edge cases** - Include unusual inputs in your evaluation to catch failure modes
+3. **Iterate on examples** - When outputs miss the mark, add an example demonstrating the correct behavior
+4. **Separate instructions from content** - Use XML tags to prevent the model from confusing your instructions with input data
+5. **Put documents before queries** - For long context, place source material at the top of the prompt
+6. **Make reasoning visible** - Use `<thinking>` tags to debug why the model produces certain outputs
+7. **Constrain output format explicitly** - Specify structure, length, and style to reduce post-processing
+8. **Version your prompts** - Track changes to understand what modifications improved or degraded performance
+9. **Use system prompts for role, user prompts for task** - Keep role context stable; vary task instructions
+10. **Validate with fresh eyes** - Have someone unfamiliar with the task review your prompt for clarity
 
-## Common Pitfalls
+## References
 
-| Issue | Cause | Solution |
-|-------|-------|----------|
-| Inconsistent output | Vague instructions | Add explicit format requirements |
-| Hallucinations | No grounding | Provide reference context |
-| Verbose responses | No length constraint | Specify max length/format |
-| Wrong tone | Missing persona | Add role/style instructions |
-| Off-topic answers | Unclear scope | Define boundaries explicitly |
-
-## Retry Logic for Format Failures
-
-```python
-def prompt_with_validation(prompt, validator, max_retries=3):
-    for _ in range(max_retries):
-        response = llm.generate(prompt)
-        if validator(response):
-            return response
-        prompt = f"Previous response invalid. {prompt}"
-    raise ValueError("Max retries exceeded")
-```
-
-## Troubleshooting
-
-| Symptom | Cause | Solution |
-|---------|-------|----------|
-| Wrong format | Weak instructions | Add explicit examples |
-| Too verbose | No length limit | Add word/sentence limits |
-| Refuses task | Safety trigger | Rephrase request |
-
-## Unit Test Template
-
-```python
-def test_prompt_generates_json():
-    response = llm.generate(json_prompt)
-    data = json.loads(response)
-    assert "field" in data
-```
+- [Claude Prompt Engineering Guide](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview)
+- [GPT-5 Prompting Guide](https://cookbook.openai.com/examples/gpt-5/gpt-5-2_prompting_guide)
+- [Anthropic Prompt Library](https://docs.anthropic.com/en/prompt-library)

@@ -1,9 +1,7 @@
 {
   "name": "nextjs-performance-optimizer",
-  "description": "Use this skill whenever the user wants to analyze, improve, or enforce performance best practices in a Next.js (App Router) + TypeScript + Tailwind + shadcn/ui project, including bundle size, data fet",
   "repo": "AgentiveCity/SkillFactory",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/nextjs-performance-optimizer/SKILL.md",
+  "source": "github.com/AgentiveCity/SkillFactory",
+  "downloaded_at": "2026-01-14T04:03:16.345729Z"
 }

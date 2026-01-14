@@ -1,13 +1,7 @@
 {
   "name": "phase-test-tdd",
-  "description": "Generate test files and coordinate test-driven development (TDD). Use when creating tests before implementation or during test phase.",
   "repo": "mvillmow/ProjectOdyssey",
-  "category": "testing",
-  "tags": [
-    "phase",
-    "test",
-    "tdd"
-  ],
-  "stars": 8,
-  "source": "local"
+  "path": ".claude/skills/phase-test-tdd/SKILL.md",
+  "source": "github.com/mvillmow/ProjectOdyssey",
+  "downloaded_at": "2026-01-14T01:09:03.931621Z"
 }

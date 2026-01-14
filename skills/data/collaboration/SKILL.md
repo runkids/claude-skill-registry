@@ -1,180 +1,124 @@
 ---
 name: collaboration
-description: Team collaboration - remote, fetch, pull, push, clone, and team workflows
-sasmp_version: "1.3.0"
-bonded_agent: git-expert
-bond_type: PRIMARY_BOND
-category: development
-version: "2.0.0"
-triggers:
-  - git remote
-  - git push
-  - git pull
-  - team git
+description: Behavioral workflows and collaboration patterns for code review, agent coordination, and branch management. Use this skill when coordinating multi-agent work, managing code review processes, completing feature branches, or resolving productive disagreements between valid approaches.
+version: 1.0.0
 ---
 
-# Collaboration Skill
+# Collaboration Skill Domain
 
-> **Production-Grade Development Skill** | Version 2.0.0
+This skill domain provides behavioral workflows and collaboration patterns that enhance how agents work together, review code, and manage development processes. Unlike domain-specific technical skills (like frontend-design or test-driven-development), these workflows focus on coordination, communication, and process management.
 
-**Working with remote repositories and teams.**
+## Why Collaboration Skills Are Separate
 
-## Skill Contract
+Collaboration skills are distinguished from domain-specific skills because they:
 
-### Input Schema
-```yaml
-input:
-  type: object
-  properties:
-    operation:
-      type: string
-      enum: [clone, fetch, pull, push, remote, sync-fork]
-      default: remote
-    remote_url:
-      type: string
-      format: uri
-    options:
-      type: object
-      properties:
-        force:
-          type: boolean
-          default: false
-        force_with_lease:
-          type: boolean
-          default: false
+- **Focus on process over implementation** - Guide how to work, not what to build
+- **Apply across all domains** - Code review works for frontend, backend, or any code
+- **Coordinate multi-agent workflows** - Manage parallel work and agent dispatch
+- **Handle behavioral patterns** - Address productive tensions and decision-making
+- **Enhance existing workflows** - Layer on top of domain skills for better outcomes
+
+## Available Workflows
+
+### Code Review Workflows
+
+**Request Review** (`workflows/request-review.md`)
+- Dispatch code-reviewer subagent to validate implementation against requirements
+- Use after completing tasks, implementing features, or before merging
+- Catches issues before they cascade into larger problems
+
+**Receive Review** (`workflows/receive-review.md`)
+- Process code review feedback with technical rigor
+- Use when receiving code review feedback, especially if unclear or questionable
+- Ensures thoughtful implementation, not blind acceptance
+
+### Agent Coordination Workflows
+
+**Dispatch Parallel Agents** (`workflows/dispatch-agents.md`)
+- Use multiple Claude agents to investigate and fix independent problems concurrently
+- Use when facing 3+ independent failures without shared state or dependencies
+- Accelerates resolution of unrelated issues
+
+**Subagent-Driven Development** (`workflows/subagent-dev.md`)
+- Execute implementation plans by dispatching fresh subagents for each task
+- Use when executing plans with independent tasks, using review gates between tasks
+- Maintains focus and enables parallel progress
+
+### Development Process Workflows
+
+**Finish Development Branch** (`workflows/finish-branch.md`)
+- Complete feature development with structured options for merge, PR, or cleanup
+- Use when implementation is complete, tests pass, and ready to integrate
+- Provides clear decision framework for branch completion
+
+**Preserve Productive Tensions** (`workflows/preserve-tensions.md`)
+- Recognize when disagreements reveal valuable context
+- Use when oscillating between equally valid approaches with different priorities
+- Preserves multiple valid approaches instead of forcing premature resolution
+
+## Workflow Selection Guide
+
+### When You've Completed Implementation
+
+1. **All tests passing, ready to integrate?** → Use `finish-branch.md`
+2. **Want validation before proceeding?** → Use `request-review.md`
+3. **Received feedback to process?** → Use `receive-review.md`
+
+### When Managing Multiple Tasks
+
+1. **Executing a multi-task plan?** → Use `subagent-dev.md`
+2. **Multiple independent failures?** → Use `dispatch-agents.md`
+
+### When Facing Disagreement or Uncertainty
+
+1. **Oscillating between valid approaches?** → Use `preserve-tensions.md`
+2. **Review feedback seems questionable?** → Use `receive-review.md`
+
+## Integration with Domain Skills
+
+Collaboration workflows complement domain-specific skills:
+
+- **With frontend-design**: Request review after implementing UI components
+- **With test-driven-development**: Use subagent-dev to implement test-first workflows
+- **With any technical work**: Finish branch when feature is complete
+
+The collaboration domain provides the "how" of working effectively, while domain skills provide the "what" of technical implementation.
+
+## Common Patterns
+
+### Feature Development Lifecycle
+
+```
+1. Plan feature implementation
+2. Use subagent-dev to execute tasks in parallel
+3. Request review after each task completion
+4. Receive and process review feedback
+5. Finish branch when all work is validated
 ```
 
-### Output Schema
-```yaml
-output:
-  type: object
-  required: [result, success]
-  properties:
-    result:
-      type: string
-    success:
-      type: boolean
-    remote_status:
-      type: object
-      properties:
-        ahead: integer
-        behind: integer
+### Parallel Investigation
+
+```
+1. Identify 3+ independent failures
+2. Dispatch parallel agents to investigate each
+3. Collect findings from all agents
+4. Request review of proposed fixes
+5. Implement validated solutions
 ```
 
-## Error Handling
+### Handling Productive Disagreement
 
-### Retry Logic
-```yaml
-retry_config:
-  max_attempts: 4
-  backoff_type: exponential
-  initial_delay_ms: 2000
-  max_delay_ms: 16000
-  retryable:
-    - network_timeout
-    - connection_refused
-  non_retryable:
-    - authentication_failed
-    - non_fast_forward
+```
+1. Notice oscillation between valid approaches
+2. Preserve tensions to capture both perspectives
+3. Document trade-offs and priorities
+4. Choose approach based on current context
+5. Request review to validate decision
 ```
 
-### Fallback Strategy
-```yaml
-fallback:
-  - trigger: push_rejected_non_ff
-    action: suggest_pull_rebase
-  - trigger: authentication_failed
-    action: guide_credential_setup
-```
+## Notes
 
----
-
-## Remote Repository Basics
-
-```bash
-# List remotes
-git remote -v
-
-# Add remote
-git remote add origin https://github.com/user/repo.git
-git remote add upstream https://github.com/original/repo.git
-
-# Change remote URL
-git remote set-url origin https://github.com/user/new-repo.git
-```
-
-## Getting & Sharing Changes
-
-### Fetch vs Pull
-```
-┌─────────────────────────────────────────────────────────────┐
-│  FETCH: Remote ──► origin/main (safe, no merge)            │
-│  PULL:  Remote ──► origin/main ──► main (fetch + merge)    │
-└─────────────────────────────────────────────────────────────┘
-```
-
-### Push Safety Matrix
-
-| Method | Risk | Use Case |
-|--------|------|----------|
-| `git push` | LOW | Normal push |
-| `git push --force-with-lease` | MEDIUM | After rebase |
-| `git push --force` | CRITICAL | Never on shared |
-
-## Team Workflows
-
-### Fork + Pull Request
-```bash
-git clone https://github.com/YOU/repo.git
-git remote add upstream https://github.com/ORIGINAL/repo.git
-git checkout -b feature-x
-# ... work and commit ...
-git push -u origin feature-x
-# Create PR on GitHub
-```
-
-### Sync Fork
-```bash
-git fetch upstream
-git checkout main
-git merge upstream/main
-git push origin main
-```
-
----
-
-## Troubleshooting Guide
-
-### Debug Checklist
-```
-□ 1. Remote configured? → git remote -v
-□ 2. Authenticated? → git fetch (test)
-□ 3. Branch tracking? → git branch -vv
-```
-
-### Common Issues
-
-| Error | Cause | Solution |
-|-------|-------|----------|
-| "rejected non-fast-forward" | Remote ahead | Pull first |
-| "authentication failed" | Bad credentials | Re-authenticate |
-
----
-
-## Observability
-
-```yaml
-logging:
-  events:
-    - push_completed
-    - push_rejected
-    - authentication_error
-
-metrics:
-  - push_success_rate
-  - conflict_rate
-```
-
----
-
-*"Great software is built by teams, and Git makes collaboration possible."*
+- These workflows can be combined - request review during subagent-dev
+- Not all workflows apply to every situation - use judgment
+- Collaboration skills enhance but don't replace technical judgment
+- When in doubt, requesting review is rarely wrong

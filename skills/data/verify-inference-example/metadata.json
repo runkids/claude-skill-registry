@@ -1,13 +1,7 @@
 {
   "name": "verify-inference-example",
-  "description": "Verify a CVlization inference example is properly structured, builds successfully, and runs inference correctly. Use when validating inference example implementations or debugging inference issues.",
   "repo": "kungfuai/CVlization",
-  "category": "development",
-  "tags": [
-    "verify",
-    "inference",
-    "example"
-  ],
-  "stars": 7,
-  "source": "local"
+  "path": ".claude/skills/verify-inference-example/SKILL.md",
+  "source": "github.com/kungfuai/CVlization",
+  "downloaded_at": "2026-01-14T02:15:17.372770Z"
 }

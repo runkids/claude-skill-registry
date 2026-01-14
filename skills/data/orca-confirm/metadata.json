@@ -1,12 +1,7 @@
 {
   "name": "orca-confirm",
-  "description": "Handle team confirmation with automatic bypass mode detection for /orca",
   "repo": "adilkalam/orca",
-  "category": "development",
-  "tags": [
-    "orca",
-    "confirm"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": "skills/orca-confirm/SKILL.md",
+  "source": "github.com/adilkalam/orca",
+  "downloaded_at": "2026-01-14T03:33:01.761644Z"
 }

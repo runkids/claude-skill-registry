@@ -1,13 +1,7 @@
 {
   "name": "frontend-app-design",
-  "description": "Create distinctive, production-grade React Native Expo interfaces following iOS Human Interface Guidelines and liquid glass design principles. Use when building mobile screens, components, or styling ",
-  "repo": "stevewinfieldtx/CompatibilityTalk",
-  "category": "design",
-  "tags": [
-    "frontend",
-    "app",
-    "design"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "tfunk1030/vibe",
+  "path": ".claude/skills/frontend-app-design/SKILL.md",
+  "source": "github.com/tfunk1030/vibe",
+  "downloaded_at": "2026-01-14T00:59:56.218615Z"
 }

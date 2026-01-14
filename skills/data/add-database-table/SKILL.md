@@ -1,210 +1,164 @@
 ---
 name: add-database-table
-description: Create new Drizzle ORM database tables with proper conventions, type exports, and migrations for the dealflow-network project. Use when adding new entities, creating junction tables, or modifying the database schema.
+description: Create database migrations, define table schemas, and manage constant tables (enums). Use when: (1) creating a new database table, (2) running 'make migrate.create', (3) adding enum/status values, (4) modifying table structure. REQUIRED first step before add-domain-entity.
 ---
 
 # Add Database Table
 
-Create Drizzle ORM tables following project conventions.
+Create database migrations and constant tables for new entities.
 
 ## Quick Start
 
-When adding a new table, I will:
-1. Define table in `drizzle/schema.ts`
-2. Export inferred types
-3. Run migration with `npm run db:push`
-4. Add helper functions in `server/db.ts`
+```bash
+# 1. Create migration file
+make migrate.create
 
-## Template: Basic Table
+# 2. Edit the generated SQL file in db/{database}/migrations/
 
-```typescript
-// In drizzle/schema.ts
-
-import { mysqlTable, int, varchar, text, timestamp, boolean } from "drizzle-orm/mysql-core";
-
-export const items = mysqlTable("items", {
-  id: int("id").autoincrement().primaryKey(),
-  name: varchar("name", { length: 255 }).notNull(),
-  description: text("description"),
-  isActive: boolean("isActive").default(true),
-  createdAt: timestamp("createdAt").defaultNow(),
-  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow(),
-});
-
-// Type exports - ALWAYS include these
-export type Item = typeof items.$inferSelect;
-export type InsertItem = typeof items.$inferInsert;
+# 3. Run migration and generate SQLBoiler models
+make migrate.up
 ```
 
-## Template: Table with Foreign Key
+## Overview
 
-```typescript
-export const itemComments = mysqlTable("itemComments", {
-  id: int("id").autoincrement().primaryKey(),
-  itemId: int("itemId").notNull().references(() => items.id),
-  userId: int("userId").notNull().references(() => users.id),
-  content: text("content").notNull(),
-  createdAt: timestamp("createdAt").defaultNow(),
-});
-
-export type ItemComment = typeof itemComments.$inferSelect;
-export type InsertItemComment = typeof itemComments.$inferInsert;
+```
+add-database-table ──> add-domain-entity ──> add-api-endpoint
+       ^
+   YOU ARE HERE
 ```
 
-## Template: Junction Table (Many-to-Many)
+This skill is **Step 1** of the CRUD implementation workflow.
 
-```typescript
-// Pattern from userContacts in this project
-export const itemTags = mysqlTable("itemTags", {
-  id: int("id").autoincrement().primaryKey(),
-  itemId: int("itemId").notNull().references(() => items.id),
-  tagId: int("tagId").notNull().references(() => tags.id),
-  addedAt: timestamp("addedAt").defaultNow(),
-  addedBy: int("addedBy").references(() => users.id),
-});
+## Workflow
 
-export type ItemTag = typeof itemTags.$inferSelect;
-export type InsertItemTag = typeof itemTags.$inferInsert;
-```
+### Step 1: Create Migration File
 
-## Template: Table with JSON Column
-
-```typescript
-export const profiles = mysqlTable("profiles", {
-  id: int("id").autoincrement().primaryKey(),
-  userId: int("userId").notNull().references(() => users.id),
-  // JSON columns for flexible data
-  experience: json("experience").$type<WorkExperience[]>(),
-  education: json("education").$type<Education[]>(),
-  skills: text("skills"), // Comma-separated, simpler than JSON
-  metadata: json("metadata").$type<Record<string, unknown>>(),
-});
-
-// Define JSON types
-interface WorkExperience {
-  company: string;
-  title: string;
-  startDate: string;
-  endDate?: string;
-}
-
-interface Education {
-  school: string;
-  degree: string;
-  year: number;
-}
-```
-
-## Common Field Patterns
-
-```typescript
-// Primary key
-id: int("id").autoincrement().primaryKey(),
-
-// Required string
-name: varchar("name", { length: 255 }).notNull(),
-
-// Optional string
-description: text("description"),
-
-// Email (use varchar with appropriate length)
-email: varchar("email", { length: 320 }),
-
-// URL
-linkedinUrl: varchar("linkedinUrl", { length: 500 }),
-
-// Boolean with default
-isActive: boolean("isActive").default(true),
-
-// Timestamps
-createdAt: timestamp("createdAt").defaultNow(),
-updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow(),
-
-// Foreign key
-userId: int("userId").notNull().references(() => users.id),
-
-// Optional foreign key
-companyId: int("companyId").references(() => companies.id),
-
-// Enum-like (use varchar, validate in app)
-status: varchar("status", { length: 50 }).default("pending"),
-role: varchar("role", { length: 50 }).default("user"),
-
-// Integer with default
-priority: int("priority").default(0),
-
-// Decimal for money
-amount: decimal("amount", { precision: 10, scale: 2 }),
-```
-
-## Migration Workflow
+Run the migration creation command:
 
 ```bash
-# After modifying drizzle/schema.ts:
-npm run db:push
-
-# This will:
-# 1. Generate migration SQL in drizzle/migrations/
-# 2. Apply migration to database
+make migrate.create
 ```
 
-## Database Helper Functions
+Enter a descriptive name when prompted (e.g., `create_examples_table`).
 
-Add to `server/db.ts`:
+A new file is created at: `db/postgresql/migrations/{timestamp}_{name}.sql`
 
-```typescript
-// Get all items
-export async function getAllItems() {
-  const db = await getDb();
-  if (!db) return [];
-  return db.select().from(items);
-}
+### Step 2: Define Constant Tables (if needed)
 
-// Get item by ID
-export async function getItemById(id: number) {
-  const db = await getDb();
-  if (!db) return null;
-  const [item] = await db.select().from(items).where(eq(items.id, id));
-  return item ?? null;
-}
+If the entity has status/enum fields, create the constant table **first**.
 
-// Create item
-export async function createItem(data: InsertItem) {
-  const db = await getDb();
-  if (!db) throw new Error("Database unavailable");
-  const [result] = await db.insert(items).values(data);
-  return { id: result.insertId, ...data };
-}
+**Migration SQL:**
 
-// Update item
-export async function updateItem(id: number, data: Partial<InsertItem>) {
-  const db = await getDb();
-  if (!db) throw new Error("Database unavailable");
-  await db.update(items).set(data).where(eq(items.id, id));
-}
+```sql
+-- +goose Up
+CREATE TABLE "example_statuses" (
+    "id" VARCHAR(64) PRIMARY KEY
+);
 
-// Delete item
-export async function deleteItem(id: number) {
-  const db = await getDb();
-  if (!db) throw new Error("Database unavailable");
-  await db.delete(items).where(eq(items.id, id));
-}
+-- +goose Down
+DROP TABLE IF EXISTS "example_statuses";
 ```
 
-## Type Re-export
+**YAML Definition** in `db/postgresql/constants/constants.yaml`:
 
-Add to `shared/_core/types.ts`:
-
-```typescript
-export type { Item, InsertItem } from "../../drizzle/schema";
+```yaml
+- table: example_statuses
+  values:
+    - draft
+    - published
+    - archived
 ```
+
+### Step 3: Write Main Table Migration
+
+Use the template below, adapting field names and types:
+
+```sql
+-- +goose Up
+CREATE TABLE "examples" (
+    "id"            VARCHAR(64)     PRIMARY KEY,
+    "tenant_id"     VARCHAR(64)     NOT NULL,
+    "name"          VARCHAR(256)    NOT NULL,
+    "description"   TEXT            NOT NULL,
+    "status"        VARCHAR(64)     NOT NULL,
+    "created_at"    TIMESTAMPTZ     NOT NULL,
+    "updated_at"    TIMESTAMPTZ     NOT NULL,
+
+    CONSTRAINT "examples_fkey_tenant_id"
+        FOREIGN KEY ("tenant_id") REFERENCES "tenants" ("id"),
+    CONSTRAINT "examples_fkey_status"
+        FOREIGN KEY ("status") REFERENCES "example_statuses" ("id")
+);
+
+CREATE INDEX "examples_idx_tenant_id" ON "examples" ("tenant_id");
+CREATE INDEX "examples_idx_status" ON "examples" ("status");
+CREATE INDEX "examples_idx_created_at" ON "examples" ("created_at" DESC);
+
+-- +goose Down
+DROP TABLE IF EXISTS "examples";
+```
+
+See [references/sql-patterns.md](references/sql-patterns.md) for advanced patterns.
+
+### Step 4: Run Migration
+
+```bash
+make migrate.up
+```
+
+This command:
+- Executes pending migrations
+- Syncs constant table values from YAML
+- Generates SQLBoiler models in `internal/infrastructure/{database}/internal/dbmodel/`
+
+### Step 5: Verify
+
+Confirm the SQLBoiler model was generated:
+
+```
+internal/infrastructure/postgresql/internal/dbmodel/examples.go
+```
+
+## Quick Reference
+
+### Column Types
+
+| Go Type | PostgreSQL | Notes |
+|---------|------------|-------|
+| `string` (ID) | `VARCHAR(64)` | Primary/foreign keys |
+| `string` (short) | `VARCHAR(256)` | Names, titles |
+| `string` (long) | `TEXT` | Descriptions |
+| `int` | `INTEGER` | Counts, order |
+| `bool` | `BOOLEAN` | Flags |
+| `time.Time` | `TIMESTAMPTZ` | Always with timezone |
+| `null.Time` | `TIMESTAMPTZ` | Nullable timestamps |
+| `map/struct` | `JSONB` | Flexible data |
+
+See [references/type-mappings.md](references/type-mappings.md) for complete mappings.
+
+### Naming Conventions
+
+| Type | Pattern | Example |
+|------|---------|---------|
+| Foreign Key | `{table}_fkey_{column}` | `examples_fkey_tenant_id` |
+| Index | `{table}_idx_{column}` | `examples_idx_tenant_id` |
+| Unique | `{table}_uq_{columns}` | `examples_uq_tenant_id_name` |
+| Unique Index | `{table}_uidx_{column}` | `examples_uidx_email` |
 
 ## Checklist
 
-- [ ] Table defined in `drizzle/schema.ts`
-- [ ] Type exports added ($inferSelect, $inferInsert)
-- [ ] Foreign keys reference correct tables
-- [ ] Timestamps included (createdAt, updatedAt)
-- [ ] Run `npm run db:push` for migration
-- [ ] Helper functions added to `server/db.ts`
-- [ ] Types re-exported in `shared/_core/types.ts`
+- [ ] Migration file created with Up and Down sections
+- [ ] Constant table created (if entity has status/enum)
+- [ ] YAML constants defined in `db/postgresql/constants/constants.yaml`
+- [ ] Foreign key constraints added
+- [ ] Indexes created for foreign keys and common queries
+- [ ] `make migrate.up` executed successfully
+- [ ] SQLBoiler model generated in `dbmodel/`
+
+## Next Step
+
+Proceed to **add-domain-entity** skill to create:
+- Domain model (`internal/domain/model/`)
+- Repository interface (`internal/domain/repository/`)
+- Repository implementation
+- Marshaller

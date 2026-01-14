@@ -1,12 +1,7 @@
 {
   "name": "version-control",
-  "description": "Git version control, branching strategies, GitHub/GitLab workflows, and collaborative development",
-  "repo": "pluginagentmarketplace/custom-plugin-devops",
-  "category": "development",
-  "tags": [
-    "version",
-    "control"
-  ],
-  "stars": 2,
-  "source": "local"
+  "repo": "jkitchin/skillz",
+  "path": "skills/development/version-control/SKILL.md",
+  "source": "github.com/jkitchin/skillz",
+  "downloaded_at": "2026-01-14T03:44:51.778721Z"
 }

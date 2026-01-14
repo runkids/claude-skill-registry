@@ -1,13 +1,7 @@
 {
   "name": "physics-rendering-expert",
-  "description": "\"Real-time rope/cable physics using Position-Based Dynamics (PBD), Verlet integration, and constraint solvers. Expert in quaternion math, Gauss-Seidel/Jacobi solvers, and tangling detection. Activate ",
   "repo": "erichowens/some_claude_skills",
-  "category": "testing",
-  "tags": [
-    "physics",
-    "rendering",
-    "expert"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/physics-rendering-expert/SKILL.md",
+  "source": "github.com/erichowens/some_claude_skills",
+  "downloaded_at": "2026-01-14T02:58:38.896980Z"
 }

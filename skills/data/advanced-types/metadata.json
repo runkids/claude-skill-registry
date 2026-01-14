@@ -1,12 +1,7 @@
 {
   "name": "advanced-types",
-  "description": "Advanced TypeScript types including generics, conditionals, and mapped types",
   "repo": "pluginagentmarketplace/custom-plugin-typescript",
-  "category": "development",
-  "tags": [
-    "advanced",
-    "types"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/advanced-types/SKILL.md",
+  "source": "github.com/pluginagentmarketplace/custom-plugin-typescript",
+  "downloaded_at": "2026-01-14T01:25:22.056133Z"
 }

@@ -1,11 +1,7 @@
 {
   "name": "lessons",
-  "description": "Capture and review lessons learned from coding sessions. Use to record insights, read past lessons, and improve over time.",
-  "repo": "johnlindquist/claude",
-  "category": "development",
-  "tags": [
-    "lessons"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "timequity/plugins",
+  "path": "ccc/skills/lessons/SKILL.md",
+  "source": "github.com/timequity/plugins",
+  "downloaded_at": "2026-01-14T03:41:25.367224Z"
 }

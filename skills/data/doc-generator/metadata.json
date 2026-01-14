@@ -1,12 +1,7 @@
 {
   "name": "doc-generator",
-  "description": "Generate documentation for code including JSDoc, docstrings, README, and API docs. Use when documenting code, creating README files, or generating API documentation.",
-  "repo": "ShunsukeHayashi/Miyabi",
-  "category": "documents",
-  "tags": [
-    "doc",
-    "generator"
-  ],
-  "stars": 11,
-  "source": "SkillsMP Synced Skills"
+  "repo": "luongnv89/claude-howto",
+  "path": "03-skills/doc-generator/SKILL.md",
+  "source": "github.com/luongnv89/claude-howto",
+  "downloaded_at": "2026-01-14T04:01:59.183982Z"
 }

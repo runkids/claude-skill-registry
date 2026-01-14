@@ -1,13 +1,7 @@
 {
   "name": "refactor-risk-assess",
-  "description": "[Code Quality] Evaluates risk level of proposed refactoring changes. Use to assess dependencies, blast radius, rollback difficulty, and determine if changes are safe to proceed.",
   "repo": "CANTAGESTUDIO/CosmicAtlasPacker",
-  "category": "development",
-  "tags": [
-    "refactor",
-    "risk",
-    "assess"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".factory/skills/refactor-risk-assess/SKILL.md",
+  "source": "github.com/CANTAGESTUDIO/CosmicAtlasPacker",
+  "downloaded_at": "2026-01-14T02:43:51.608695Z"
 }

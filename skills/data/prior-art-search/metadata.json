@@ -1,13 +1,7 @@
 {
   "name": "prior-art-search",
-  "description": "Systematic 7-step methodology for comprehensive patent prior art searches and patentability assessments using BigQuery and CPC classification",
   "repo": "RobThePCGuy/Claude-Patent-Creator",
-  "category": "development",
-  "tags": [
-    "prior",
-    "art",
-    "search"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": "skills/prior-art-search/SKILL.md",
+  "source": "github.com/RobThePCGuy/Claude-Patent-Creator",
+  "downloaded_at": "2026-01-14T01:09:15.962333Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "platform-building",
-  "description": "Platform-specific building systems for mobile, VR, and accessibility. Use when implementing touch controls for building games, VR spatial input, colorblind-friendly feedback, or cross-platform buildin",
   "repo": "Bbeierle12/Skill-MCP-Claude",
-  "category": "design",
-  "tags": [
-    "platform",
-    "building"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": "skills/platform-building/SKILL.md",
+  "source": "github.com/Bbeierle12/Skill-MCP-Claude",
+  "downloaded_at": "2026-01-14T03:54:10.993861Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "testing-type-testing",
-  "description": "Your approach to handling testing type testing. Use this skill when working on files where testing type testing comes into play.",
   "repo": "leaderiop/hex-di",
-  "category": "testing",
-  "tags": [
-    "testing",
-    "type",
-    "testing"
-  ],
-  "stars": 5,
-  "source": "local"
+  "path": ".claude/skills/testing-type-testing/SKILL.md",
+  "source": "github.com/leaderiop/hex-di",
+  "downloaded_at": "2026-01-14T01:20:48.710728Z"
 }

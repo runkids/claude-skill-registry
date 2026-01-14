@@ -1,12 +1,7 @@
 {
   "name": "matlab-live-script",
-  "description": "Create MATLAB plain text Live Scripts (.m files) following specific formatting rules. Use when generating MATLAB scripts, educational MATLAB content, Live Scripts, or when the user requests .m files w",
   "repo": "matlab/skills",
-  "category": "data",
-  "tags": [
-    "matlab",
-    "live",
-    "script"
-  ],
-  "stars": 5
+  "path": "skills/matlab-live-script/SKILL.md",
+  "source": "github.com/matlab/skills",
+  "downloaded_at": "2026-01-14T03:24:31.078204Z"
 }

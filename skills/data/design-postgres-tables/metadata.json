@@ -1,13 +1,7 @@
 {
   "name": "design-postgres-tables",
-  "description": "Comprehensive PostgreSQL-specific table design reference covering data types, indexing, constraints, performance patterns, and advanced features",
   "repo": "timescale/pg-aiguide",
-  "category": "data",
-  "tags": [
-    "design",
-    "postgres",
-    "tables"
-  ],
-  "stars": 158,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/design-postgres-tables/SKILL.md",
+  "source": "github.com/timescale/pg-aiguide",
+  "downloaded_at": "2026-01-14T01:53:07.418277Z"
 }

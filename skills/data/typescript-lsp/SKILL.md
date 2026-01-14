@@ -1,117 +1,247 @@
 ---
 name: typescript-lsp
-description: TypeScript Language Server Protocol capabilities for navigating TypeScript/JavaScript code. Resolves imported symbols to their definitions (including node_modules), finds all references to functions/classes/variables, gets type information and signatures, previews rename impacts, and checks TypeScript diagnostics. Use when you need to find where ToolLoopAgent or other imports are defined, locate all usages of a function, see TypeScript types, or get compiler errors.
-allowed-tools: Bash, Read
+description: TypeScript Language Server for exploring and understanding TypeScript/JavaScript codebases. PREFER OVER Grep/Glob for *.ts/*.tsx files - provides type-aware symbol search, reference finding, and code navigation. Use for exploring code structure, finding implementations, understanding type relationships, and verifying signatures before editing. (project)
+license: ISC
+compatibility: Requires bun
+allowed-tools: Bash
 ---
 
 # TypeScript LSP Skill
 
-This skill provides full TypeScript Language Server Protocol capabilities for navigating and analyzing TypeScript/JavaScript code.
+## Purpose
 
-## When to Use This Skill
+This skill provides TypeScript Language Server Protocol integration for **exploring and understanding** TypeScript/JavaScript codebases. 
 
-Use this skill when you need to:
-- **Resolve imported symbols** - Find where `ToolLoopAgent`, `React.Component`, or other imported types are defined (including in node_modules)
-- **Find all references** - Locate every place a function, class, or variable is used across the codebase
-- **Get type information** - See TypeScript type signatures and documentation
-- **Preview renames** - Check what would change when renaming a symbol
-- **Check diagnostics** - Get TypeScript errors and warnings for a file
+**IMPORTANT**: Prefer LSP tools over Grep/Glob when working with `*.ts`, `*.tsx`, `*.js`, `*.jsx` files. LSP provides type-aware results that understand imports, exports, and symbol relationships.
 
-## Commands Available
+Use these tools to:
+- **Explore codebases** - Find symbols, understand module structure, discover implementations
+- **Find references** - Type-aware search across the entire codebase (better than grep for symbols)
+- **Understand types** - Get full type signatures, generics, and documentation
+- **Verify before editing** - Check all usages before modifying or deleting exports
+- **Navigate code** - Jump to definitions, find implementations
 
-### `typeDefinition` - Jump to Type Definition
-Resolves imported symbols to their actual definitions (works with node_modules).
+## When to Use LSP vs Grep/Glob
+
+| Task | Use LSP | Use Grep/Glob |
+|------|---------|---------------|
+| Find all usages of a function/type | ✅ `lsp-references` | ❌ Misses re-exports, aliases |
+| Search for a symbol by name | ✅ `lsp-find` | ❌ Matches strings, comments |
+| Understand file exports | ✅ `lsp-analyze --exports` | ❌ Doesn't resolve re-exports |
+| Get type signature | ✅ `lsp-hover` | ❌ Not possible |
+| Find files by pattern | ❌ | ✅ `Glob` |
+| Search non-TS files (md, json) | ❌ | ✅ `Grep` |
+| Search for text in comments/strings | ❌ | ✅ `Grep` |
+
+## When to Use
+
+**Exploring code (prefer LSP):**
+- Run `lsp-find` to search for symbols across the workspace
+- Run `lsp-symbols` to get an overview of file structure
+- Run `lsp-analyze --exports` to see what a module provides
+
+**Before editing code:**
+- Run `lsp-references` to find all usages of a symbol you plan to modify
+- Run `lsp-hover` to verify current type signatures
+
+**Before writing code:**
+- Run `lsp-find` to search for similar patterns or related symbols
+- Run `lsp-hover` on APIs you plan to use
+
+## Path Resolution
+
+All scripts accept three types of file paths:
+- **Absolute paths**: `/Users/name/project/src/file.ts`
+- **Relative paths**: `./src/file.ts` or `../other/file.ts`
+- **Package export paths**: `plaited/main/b-element.ts` (resolved via `Bun.resolve()`)
+
+Package export paths are recommended for portability and consistency with the package's exports field.
+
+## Scripts
+
+### Individual Scripts
+
+#### lsp-hover
+Get type information at a specific position.
+
+```bash
+bun scripts/lsp-hover.ts <file> <line> <char>
+```
+
+**Arguments:**
+- `file`: Path to TypeScript/JavaScript file
+- `line`: Line number (0-indexed)
+- `char`: Character position (0-indexed)
 
 **Example:**
 ```bash
-node .claude/skills/typescript-lsp/typescript-lsp.js typeDefinition src/lib/ai/agents/transaction-debugger.ts 4 30
+bun scripts/lsp-hover.ts plaited/main/b-element.ts 139 13
 ```
 
-**When to use:** Finding where `ToolLoopAgent` is defined, navigating to React types, or any imported symbol.
+#### lsp-symbols
+List all symbols in a file.
 
-### `definition` - Jump to Definition
-Standard go-to-definition (works for local symbols).
+```bash
+bun scripts/lsp-symbols.ts <file>
+```
 
 **Example:**
 ```bash
-node .claude/skills/typescript-lsp/typescript-lsp.js definition src/lib/transaction.ts 10 15
+bun scripts/lsp-symbols.ts plaited/main/b-element.ts
 ```
 
-### `references` - Find All References
-Locates every usage of a symbol across the entire workspace.
+#### lsp-references
+Find all references to a symbol.
+
+```bash
+bun scripts/lsp-references.ts <file> <line> <char>
+```
 
 **Example:**
 ```bash
-node .claude/skills/typescript-lsp/typescript-lsp.js references src/lib/ai/agents/transaction-debugger.ts 9 37
+bun scripts/lsp-references.ts plaited/main/b-element.ts 139 13
 ```
 
-**When to use:** Finding all places that call a function or use a variable.
+#### lsp-find
+Search for symbols across the workspace.
 
-### `hover` - Get Type Info
-Shows TypeScript type information and JSDoc documentation.
+```bash
+bun scripts/lsp-find.ts <query> [context-file]
+```
+
+**Arguments:**
+- `query`: Symbol name or partial name
+- `context-file`: Optional file to open for project context
 
 **Example:**
 ```bash
-node .claude/skills/typescript-lsp/typescript-lsp.js hover src/lib/transaction.ts 20 10
+bun scripts/lsp-find.ts bElement
+bun scripts/lsp-find.ts useTemplate plaited/main/use-template.ts
 ```
 
-**When to use:** Understanding what type a variable has or seeing function signatures.
+### Batch Script
 
-### `rename` - Preview Rename (Dry-Run)
-Shows what would change when renaming a symbol.
+#### lsp-analyze
+Perform multiple analyses in a single session for efficiency.
 
-**Example:**
 ```bash
-node .claude/skills/typescript-lsp/typescript-lsp.js rename src/lib/transaction.ts 15 10 newFunctionName
+bun scripts/lsp-analyze.ts <file> [options]
 ```
 
-**When to use:** Checking the impact of a rename before doing it.
+**Options:**
+- `--symbols, -s`: List all symbols
+- `--exports, -e`: List only exported symbols
+- `--hover <line:char>`: Get type info (repeatable)
+- `--refs <line:char>`: Find references (repeatable)
+- `--all`: Run symbols + exports analysis
 
-### `diagnostics` - Get Errors/Warnings
-Retrieves TypeScript compiler diagnostics for a file.
-
-**Example:**
+**Examples:**
 ```bash
-node .claude/skills/typescript-lsp/typescript-lsp.js diagnostics src/app/page.tsx
+# Get file overview
+bun scripts/lsp-analyze.ts plaited/main/b-element.ts --all
+
+# Check multiple positions
+bun scripts/lsp-analyze.ts plaited/main/b-element.ts --hover 50:10 --hover 139:13
+
+# Before refactoring: find all references
+bun scripts/lsp-analyze.ts plaited/main/b-element.ts --refs 139:13
 ```
 
-**When to use:** Checking for TypeScript errors before compiling.
+## Common Workflows
 
-## Position Parameters
+### Understanding a File
 
-All commands (except `diagnostics`) require line and character positions:
-- **Line**: 0-indexed line number (first line is 0)
-- **Character**: 0-indexed character offset in the line
+```bash
+# 1. Get exports overview
+bun scripts/lsp-analyze.ts path/to/file.ts --exports
 
-**Tip:** When you see `import { ToolLoopAgent } from "ai"` on line 5, use line 4 (0-indexed) and count characters to find where "ToolLoopAgent" starts.
+# 2. For specific type info, hover on interesting symbols
+bun scripts/lsp-hover.ts path/to/file.ts <line> <char>
+```
+
+### Before Modifying an Export
+
+```bash
+# 1. Find all references first
+bun scripts/lsp-references.ts path/to/file.ts <line> <char>
+
+# 2. Check what depends on it
+# Review the output to understand impact
+```
+
+### Finding Patterns
+
+```bash
+# Search for similar implementations
+bun scripts/lsp-find.ts createStyles
+bun scripts/lsp-find.ts bElement
+```
+
+### Pre-Implementation Verification
+
+```bash
+# Before writing code that uses an API, verify its signature
+bun scripts/lsp-hover.ts path/to/api.ts <line> <char>
+```
 
 ## Output Format
 
-The skill outputs Claude Code-friendly format:
-- File paths with line:column (e.g., `src/file.ts:10:5`)
-- Code snippets in markdown fences
-- Clear headings and formatting
+All scripts output JSON to stdout. Errors go to stderr.
 
-## Limitations
-
-- Requires `typescript-language-server` to be installed
-- Works best when run from the project root
-- Takes 1-3 seconds per query (single-query mode)
-- Requires the file to exist on disk
-
-## Examples for Common Tasks
-
-**Find where ToolLoopAgent is defined:**
-```bash
-node .claude/skills/typescript-lsp/typescript-lsp.js typeDefinition src/lib/ai/agents/transaction-debugger.ts 4 30
+**Hover output:**
+```json
+{
+  "contents": {
+    "kind": "markdown",
+    "value": "```typescript\nconst bElement: ...\n```"
+  },
+  "range": { "start": {...}, "end": {...} }
+}
 ```
 
-**Find all uses of transactionDebugger:**
-```bash
-node .claude/skills/typescript-lsp/typescript-lsp.js references src/lib/ai/agents/transaction-debugger.ts 9 37
+**Symbols output:**
+```json
+[
+  {
+    "name": "symbolName",
+    "kind": 13,
+    "range": { "start": {...}, "end": {...} }
+  }
+]
 ```
 
-**Check if a file has TypeScript errors:**
-```bash
-node .claude/skills/typescript-lsp/typescript-lsp.js diagnostics src/app/page.tsx
+**Analyze output:**
+```json
+{
+  "file": "path/to/file.ts",
+  "exports": [
+    { "name": "exportName", "kind": "Constant", "line": 139 }
+  ]
+}
 ```
+
+## Performance
+
+Each script invocation:
+1. Starts TypeScript Language Server (~300-500ms)
+2. Initializes LSP connection
+3. Opens document
+4. Performs query
+5. Closes and stops
+
+For multiple queries on the same file, use `lsp-analyze` to batch operations in a single session.
+
+## Plaited-Specific Verification
+
+See [lsp-verification.md](references/lsp-verification.md) for Plaited framework type verification patterns:
+- When to use LSP for Plaited APIs (bElement, createStyles, bProgram)
+- Example workflow for verifying BProgramArgs, callbacks, and helper methods
+- Critical files to verify (b-element.types.ts, css.types.ts, behavioral.types.ts)
+- Integration with code generation workflow
+
+## Related Skills
+
+- **plaited-standards**: Code conventions and development standards
+- **plaited-behavioral-core**: Behavioral programming patterns
+- **plaited-ui-patterns**: Templates, bElements, and styling
+- **code-documentation**: TSDoc standards for documentation

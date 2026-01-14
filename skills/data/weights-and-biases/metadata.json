@@ -1,8 +1,7 @@
 {
   "name": "weights-and-biases",
-  "repo": "zechenzhangAGI/AI-research-SKILLs",
-  "category": "data",
-  "description": "Track ML experiments with automatic logging, visualize training in real-time, optimize hyperparameters with sweeps, and manage model registry with W&B - collaborative MLOps platform",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:19.336380Z"
+  "repo": "ovachiever/droid-tings",
+  "path": "skills/weights-and-biases/SKILL.md",
+  "source": "github.com/ovachiever/droid-tings",
+  "downloaded_at": "2026-01-14T01:31:36.653457Z"
 }

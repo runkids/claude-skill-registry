@@ -1,12 +1,7 @@
 {
   "name": "cohort-analysis",
-  "description": "Track and analyze user cohorts over time, calculate retention rates, and identify behavioral patterns for customer lifecycle and retention analysis",
   "repo": "aj-geddes/useful-ai-prompts",
-  "category": "development",
-  "tags": [
-    "cohort",
-    "analysis"
-  ],
-  "stars": 25,
-  "source": "local"
+  "path": "skills/cohort-analysis/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:06.008177Z"
 }

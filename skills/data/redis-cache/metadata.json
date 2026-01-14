@@ -1,12 +1,7 @@
 {
   "name": "redis-cache",
-  "description": "Implement or debug Redis caching strategies using the centralized Upstash Redis client. Use when adding cache layers, debugging cache issues, or optimizing cache invalidation.",
-  "repo": "sgcarstrends/sgcarstrends",
-  "category": "development",
-  "tags": [
-    "redis",
-    "cache"
-  ],
-  "stars": 13,
-  "source": "local"
+  "repo": "oimiragieo/agent-studio",
+  "path": ".claude/skills/redis-cache/SKILL.md",
+  "source": "github.com/oimiragieo/agent-studio",
+  "downloaded_at": "2026-01-14T03:17:03.044669Z"
 }

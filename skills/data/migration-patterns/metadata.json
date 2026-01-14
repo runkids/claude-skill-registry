@@ -1,11 +1,7 @@
 {
   "name": "migration-patterns",
-  "description": "Database migration creation with mandatory RLS policies and ARCHitect approval workflow. Use when creating migrations, adding tables with RLS, or updating Prisma schema.",
-  "repo": "bybren-llc/wtfb-safe-agentic-workflow",
-  "category": "data",
-  "tags": [
-    "migration",
-    "patterns"
-  ],
-  "stars": 11
+  "repo": "spences10/devhub-crm",
+  "path": ".claude/skills/migration-patterns/SKILL.md",
+  "source": "github.com/spences10/devhub-crm",
+  "downloaded_at": "2026-01-14T03:17:21.540673Z"
 }

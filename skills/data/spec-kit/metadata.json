@@ -1,12 +1,7 @@
 {
   "name": "spec-kit",
-  "description": "Technical integration layer for spec-kit CLI - handles automatic initialization, installation validation, project setup, and ensures proper file/directory layout. Called by all SDD workflow skills.",
   "repo": "rhuss/cc-superpowers-sdd",
-  "category": "testing",
-  "tags": [
-    "spec",
-    "kit"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/spec-kit/SKILL.md",
+  "source": "github.com/rhuss/cc-superpowers-sdd",
+  "downloaded_at": "2026-01-14T02:15:41.012501Z"
 }

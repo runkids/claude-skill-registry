@@ -1,72 +1,116 @@
 ---
 name: multi-tool-pipeline
-description: Template for chaining multiple MCP tools in a single script
-allowed-tools: [Bash, Read]
+description: Advanced MCP skill demonstrating multi-tool orchestration with git repository analysis
 ---
 
-# Multi-Tool Pipeline Template
+# Multi-Tool Pipeline Skill
 
-Reference implementation showing how to chain multiple MCP tools in a script.
+## When to Use This Skill
 
-## When to Use
+Use this Skill to:
+- Learn multi-tool orchestration patterns
+- Analyze git repositories
+- Chain multiple MCP tools together
+- Use as a template for complex workflows
 
-- As a **template** when creating new MCP pipeline scripts
-- To understand the pattern for tool chaining
-- When skill-developer needs to create a new pipeline
+This is a **demonstration skill** showing how to chain multiple MCP tools.
 
-## The Pattern
+## What This Skill Does
 
-```python
-async def main():
-    from runtime.mcp_client import call_mcp_tool
+Demonstrates advanced skill patterns:
+1. Accept multiple CLI arguments
+2. Chain multiple MCP tool calls sequentially
+3. Process and combine results
+4. Return structured output
 
-    # Step 1: First tool
-    result1 = await call_mcp_tool("server1__tool1", {"param": "value"})
+**Pipeline:**
+1. Get repository status (git__git_status)
+2. Fetch recent commits (git__git_log)
+3. Get branch information (git__git_branch)
+4. Combine into summary
 
-    # Step 2: Use result in next tool
-    result2 = await call_mcp_tool("server2__tool2", {"input": result1})
+## Instructions
 
-    # Step 3: Combine/process
-    return {"combined": result1, "processed": result2}
-```
-
-## Example Implementation
-
-See the reference script:
-
-```bash
-cat $CLAUDE_PROJECT_DIR/scripts/multi_tool_pipeline.py
-```
-
-Run it:
+When you need to analyze a git repository, execute:
 
 ```bash
+cd /home/khitomer/Projects/mcp-code-execution-enhanced
+
 uv run python -m runtime.harness scripts/multi_tool_pipeline.py \
     --repo-path "." \
     --max-commits 5
 ```
 
-## Key Elements
+### Parameters
 
-1. **CLI Arguments** - Use argparse for parameters
-2. **Sequential Calls** - await each tool before the next
-3. **Error Handling** - try/except around the pipeline
-4. **Progress Output** - print status for visibility
-5. **Structured Return** - return combined results
+- `--repo-path`: Path to git repository (default: ".")
+- `--max-commits`: Maximum number of commits to analyze (default: 10)
 
-## Creating Your Own Pipeline
+### Example Usage
 
-1. Copy `scripts/multi_tool_pipeline.py` as a starting point
-2. Replace the tool calls with your MCP servers/tools
-3. Adjust CLI arguments for your use case
-4. Use `/skill-developer` to wrap it in a skill
+```bash
+# Analyze current repository
+uv run python -m runtime.harness scripts/multi_tool_pipeline.py \
+    --repo-path "." \
+    --max-commits 20
 
-## MCP Tool Naming
-
-Tools are named `serverName__toolName` (double underscore):
-
-```python
-await call_mcp_tool("git__git_status", {...})
-await call_mcp_tool("firecrawl__firecrawl_scrape", {...})
-await call_mcp_tool("perplexity__perplexity_ask", {...})
+# Analyze different repository
+uv run python -m runtime.harness scripts/multi_tool_pipeline.py \
+    --repo-path "/path/to/repo" \
+    --max-commits 5
 ```
+
+## Expected Output
+
+The skill returns structured data containing:
+- Repository status
+- Recent commits (up to max-commits)
+- Branch information
+- Summary metadata
+
+Progress is printed during execution:
+```
+[1/3] Getting repository status...
+[2/3] Fetching last N commits...
+[3/3] Getting branch information...
+✓ Pipeline complete
+```
+
+## MCP Servers Required
+
+Configure a git-capable MCP server in `mcp_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "git": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": ["mcp-server-git", "--repository", "."]
+    }
+  }
+}
+```
+
+## Technical Notes
+
+- **Pattern**: Sequential tool chaining with error handling
+- **Token cost**: ~110 tokens (discovery + execution)
+- **Time**: ~30 seconds for 3 tool calls
+- **Demonstrates**:
+  - Multiple CLI arguments
+  - Tool orchestration
+  - Result processing
+  - Error handling
+
+Use this as a template for creating custom multi-tool workflows.
+
+## Creating Custom Workflows
+
+Based on this pattern, you can create workflows that:
+1. Accept CLI arguments (any parameters you need)
+2. Call multiple MCP tools in sequence or parallel
+3. Process intermediate results
+4. Return final structured output
+
+The CLI argument pattern keeps skills immutable while allowing flexible execution.

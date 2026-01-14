@@ -1,13 +1,7 @@
 {
   "name": "code-review-assistant",
-  "description": "Systematic code review checklist and pre-commit quality gates for PRs.Use when: reviewing pull requests, checking code quality, before committing code.Keywords: review, PR, pull request, checklist, qu",
-  "repo": "AsiaOstrich/universal-dev-skills",
-  "category": "development",
-  "tags": [
-    "code",
-    "review",
-    "assistant"
-  ],
-  "stars": 43,
-  "source": "SkillsMP Synced Skills"
+  "repo": "DNYoussef/ai-chrome-extension",
+  "path": ".claude/skills/code-review-assistant/SKILL.md",
+  "source": "github.com/DNYoussef/ai-chrome-extension",
+  "downloaded_at": "2026-01-14T03:10:14.774713Z"
 }

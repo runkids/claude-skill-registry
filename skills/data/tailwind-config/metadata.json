@@ -1,12 +1,7 @@
 {
   "name": "tailwind-config",
-  "description": "Update Tailwind CSS configuration, custom themes, and design tokens across packages. Use when adding new colors, spacing scales, or customizing the design system.",
   "repo": "sgcarstrends/sgcarstrends",
-  "category": "design",
-  "tags": [
-    "tailwind",
-    "config"
-  ],
-  "stars": 13,
-  "source": "local"
+  "path": ".claude/skills/tailwind-config/SKILL.md",
+  "source": "github.com/sgcarstrends/sgcarstrends",
+  "downloaded_at": "2026-01-14T02:59:22.655098Z"
 }

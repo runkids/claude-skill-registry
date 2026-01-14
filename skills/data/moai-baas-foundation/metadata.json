@@ -1,12 +1,7 @@
 {
   "name": "moai-baas-foundation",
-  "description": "Enterprise Backend-as-a-Service Foundation with AI-powered BaaS architecture patterns, strategic provider selection, and intelligent multi-service orchestration for scalable production applications",
   "repo": "dolsoon/my-awesome-project",
-  "category": "data",
-  "tags": [
-    "moai",
-    "baas",
-    "foundation"
-  ],
-  "stars": 0
+  "path": ".claude/skills/moai-baas-foundation/SKILL.md",
+  "source": "github.com/dolsoon/my-awesome-project",
+  "downloaded_at": "2026-01-14T03:37:41.357456Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "design-brief-generator",
-  "description": "Generate comprehensive design briefs for design projects. Use this skill when designers ask to \"create a design brief\", \"structure a design project\", \"define design requirements\", or need help plannin",
   "repo": "jamesrochabrun/skills",
-  "category": "design",
-  "tags": [
-    "design",
-    "brief",
-    "generator"
-  ],
-  "stars": 8,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/design-brief-generator/SKILL.md",
+  "source": "github.com/jamesrochabrun/skills",
+  "downloaded_at": "2026-01-14T01:17:21.674832Z"
 }

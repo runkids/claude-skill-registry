@@ -1,8 +1,7 @@
 {
   "name": "open-source-contribution",
-  "repo": "terraphim/codex-skills",
-  "category": "data",
-  "description": "Open source contribution best practices. Creating quality pull requests,writing good issues, following project conventions, and collaboratingeffectively with maintainers.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:10:52.368340Z"
+  "repo": "terraphim/opencode-skills",
+  "path": "skill/open-source-contribution/SKILL.md",
+  "source": "github.com/terraphim/opencode-skills",
+  "downloaded_at": "2026-01-14T02:27:08.359528Z"
 }

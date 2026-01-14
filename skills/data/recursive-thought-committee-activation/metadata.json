@@ -1,14 +1,7 @@
 {
   "name": "recursive-thought-committee-activation",
-  "description": "Activate the Recursive Thought Committee multi-persona framework.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "development",
-  "tags": [
-    "recursive",
-    "thought",
-    "committee",
-    "activation"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/recursive-thought-committee-activation/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-14T01:08:24.702090Z"
 }

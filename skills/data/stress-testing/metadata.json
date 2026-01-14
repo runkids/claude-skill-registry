@@ -1,12 +1,7 @@
 {
   "name": "stress-testing",
-  "description": "Test system behavior under extreme load conditions to identify breaking points, capacity limits, and failure modes. Use for stress test, capacity testing, breaking point analysis, spike test, and syst",
   "repo": "aj-geddes/useful-ai-prompts",
-  "category": "testing",
-  "tags": [
-    "stress",
-    "testing"
-  ],
-  "stars": 25,
-  "source": "local"
+  "path": "skills/stress-testing/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:04.896381Z"
 }

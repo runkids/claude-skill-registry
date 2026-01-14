@@ -1,13 +1,7 @@
 {
   "name": "structurizr-architecture-sync",
-  "description": "Maintain Structurizr C4 architecture diagrams in sync with code changes. Use when adding components, modifying relationships, changing architectural boundaries, or implementing new patterns. Ensures w",
-  "repo": "VilnaCRM-Org/core-service",
-  "category": "development",
-  "tags": [
-    "structurizr",
-    "architecture",
-    "sync"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "VilnaCRM-Org/user-service",
+  "path": ".claude/skills/structurizr-architecture-sync/SKILL.md",
+  "source": "github.com/VilnaCRM-Org/user-service",
+  "downloaded_at": "2026-01-14T02:10:11.156551Z"
 }

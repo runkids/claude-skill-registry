@@ -1,12 +1,7 @@
 {
   "name": "api-investigator",
-  "description": "note.com APIの調査を支援します。mitmproxyとPlaywrightを使用してHTTPトラフィックをキャプチャ・分析し、API動作を解明します。",
   "repo": "drillan/note-mcp",
-  "category": "testing",
-  "tags": [
-    "api",
-    "investigator"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/api-investigator/SKILL.md",
+  "source": "github.com/drillan/note-mcp",
+  "downloaded_at": "2026-01-14T03:11:47.988505Z"
 }

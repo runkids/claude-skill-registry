@@ -1,12 +1,7 @@
 {
   "name": "ai-native-development",
-  "description": "Build AI-first applications with RAG pipelines, embeddings, vector databases, agentic workflows, and LLM integration. Master prompt engineering, function calling, streaming responses, and cost optimiz",
   "repo": "ArieGoldkin/ai-agent-hub",
-  "category": "data",
-  "tags": [
-    "native",
-    "development"
-  ],
-  "stars": 6,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/ai-native-development/SKILL.md",
+  "source": "github.com/ArieGoldkin/ai-agent-hub",
+  "downloaded_at": "2026-01-14T03:52:03.712104Z"
 }

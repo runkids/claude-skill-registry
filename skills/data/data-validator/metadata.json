@@ -1,12 +1,7 @@
 {
   "name": "data-validator",
-  "description": "Validate data against schemas, business rules, and data quality standards.",
-  "repo": "CuriousLearner/devkit",
-  "category": "data",
-  "tags": [
-    "data",
-    "validator"
-  ],
-  "stars": 13,
-  "source": "SkillsMP Synced Skills"
+  "repo": "alongor666/chexianduoweifenxi",
+  "path": ".claude/skills/data-validator/SKILL.md",
+  "source": "github.com/alongor666/chexianduoweifenxi",
+  "downloaded_at": "2026-01-14T02:29:04.022848Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "backend-queries",
-  "description": "Write optimized and secure database queries using parameterized queries, eager loading, and proper indexing strategies. Use this skill when writing database queries, constructing SQL statements, using",
-  "repo": "pdovhomilja/dovhomilja-cz",
-  "category": "data",
-  "tags": [
-    "backend",
-    "queries"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "nanorepublica/django-prodserver",
+  "path": ".claude/skills/backend-queries/SKILL.md",
+  "source": "github.com/nanorepublica/django-prodserver",
+  "downloaded_at": "2026-01-14T03:44:34.072450Z"
 }

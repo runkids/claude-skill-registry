@@ -1,12 +1,7 @@
 {
   "name": "council-advice",
-  "description": "Multi-model AI council for actionable project advice. Leverages Gemini 3 Flash and GPT-5.2 skills in parallel, then synthesizes through an Opus Judge for stage-appropriate, non-overkill recommendation",
   "repo": "costiash/CognivAgent",
-  "category": "development",
-  "tags": [
-    "council",
-    "advice"
-  ],
-  "stars": 4,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/council-advice/SKILL.md",
+  "source": "github.com/costiash/CognivAgent",
+  "downloaded_at": "2026-01-14T01:12:46.051980Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "username-retrieval-service",
-  "description": "Retrieve username data through secure verification protocols.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "data",
-  "tags": [
-    "username",
-    "retrieval",
-    "service"
-  ],
-  "stars": 1
+  "path": "skills/username-retrieval-service/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-14T01:08:31.579795Z"
 }

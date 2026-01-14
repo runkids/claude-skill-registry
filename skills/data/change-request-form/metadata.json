@@ -1,13 +1,7 @@
 {
   "name": "change-request-form",
-  "description": "Эксперт по заявкам на изменения. Используй для форм CR, impact analysis, approval workflows и change control.",
   "repo": "dengineproblem/agents-monorepo",
-  "category": "productivity",
-  "tags": [
-    "change",
-    "request",
-    "form"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/change-request-form/SKILL.md",
+  "source": "github.com/dengineproblem/agents-monorepo",
+  "downloaded_at": "2026-01-14T02:08:01.059331Z"
 }

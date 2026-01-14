@@ -1,9 +1,7 @@
 {
   "name": "game-design-theory",
-  "description": "Comprehensive game design theory covering MDA framework, player psychology,balance principles, and progression systems. Master why games are fun.",
   "repo": "pluginagentmarketplace/custom-plugin-game-developer",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/game-design-theory/SKILL.md",
+  "source": "github.com/pluginagentmarketplace/custom-plugin-game-developer",
+  "downloaded_at": "2026-01-14T03:41:52.945653Z"
 }

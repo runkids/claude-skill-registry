@@ -1,12 +1,7 @@
 {
   "name": "state-management",
-  "description": "Cache management, configuration best practices, and progressive disclosure patterns for efficient context window usage. Use when working with large responses, optimizing token costs, or managing plugi",
-  "repo": "conorluddy/xclaude-plugin",
-  "category": "devops",
-  "tags": [
-    "state",
-    "management"
-  ],
-  "stars": 28,
-  "source": "local"
+  "repo": "TheBeardedBearSAS/claude-craft",
+  "path": "Dev/i18n/pt/ReactNative/skills/state-management/SKILL.md",
+  "source": "github.com/TheBeardedBearSAS/claude-craft",
+  "downloaded_at": "2026-01-14T03:43:25.491321Z"
 }

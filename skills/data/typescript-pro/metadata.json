@@ -1,12 +1,7 @@
 {
   "name": "typescript-pro",
-  "description": "Use when building TypeScript applications requiring advanced type systems, generics, or full-stack type safety. Invoke for type guards, utility types, tRPC integration, monorepo setup. Keywords: TypeS",
-  "repo": "Jeffallan/claude-skills",
-  "category": "development",
-  "tags": [
-    "typescript",
-    "pro"
-  ],
-  "stars": 12,
-  "source": "local"
+  "repo": "kamushadenes/nix",
+  "path": "home/common/ai/resources/claude-code/skills/typescript-pro/SKILL.md",
+  "source": "github.com/kamushadenes/nix",
+  "downloaded_at": "2026-01-14T03:09:42.197566Z"
 }

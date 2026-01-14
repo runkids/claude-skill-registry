@@ -1,8 +1,7 @@
 {
   "name": "risk-management",
-  "repo": "LerianStudio/ring",
-  "category": "data",
-  "description": "Portfolio-level risk management skill for identifying, assessing, and mitigatingrisks across multiple projects. Maintains RAID logs and tracks risk responses.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:57:33.940837Z"
+  "repo": "travisjneuman/.claude",
+  "path": "skills/risk-management/SKILL.md",
+  "source": "github.com/travisjneuman/.claude",
+  "downloaded_at": "2026-01-14T02:02:49.641486Z"
 }

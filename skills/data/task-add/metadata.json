@@ -1,12 +1,7 @@
 {
   "name": "task-add",
-  "description": "[Task Mgmt] A Skill that adds new tasks with priority tags to Docs/Task/{StepName}_Task.md documents for multi-agent parallel development. AI agent MUST invoke this skill AUTOMATICALLY when (1) discov",
   "repo": "CANTAGESTUDIO/CosmicAtlasPacker",
-  "category": "development",
-  "tags": [
-    "task",
-    "add"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".factory/skills/task-add/SKILL.md",
+  "source": "github.com/CANTAGESTUDIO/CosmicAtlasPacker",
+  "downloaded_at": "2026-01-14T02:43:50.067061Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "moai-security-api",
-  "description": "\"Comprehensive API security for REST, GraphQL, and gRPC services with OAuth 2.1 authentication, JWT validation, rate limiting, and enterprise protection patterns.\"",
   "repo": "dolsoon/my-awesome-project",
-  "category": "data",
-  "tags": [
-    "moai",
-    "security",
-    "api"
-  ],
-  "stars": 0
+  "path": ".claude/skills/moai-security-api/SKILL.md",
+  "source": "github.com/dolsoon/my-awesome-project",
+  "downloaded_at": "2026-01-14T03:37:26.740919Z"
 }

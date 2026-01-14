@@ -1,13 +1,7 @@
 {
   "name": "create-slash-commands",
-  "description": "Expert guidance for creating Claude Code slash commands. Use when working with slash commands, creating custom commands, understanding command structure, or learning YAML configuration.",
-  "repo": "glittercowboy/taches-cc-resources",
-  "category": "development",
-  "tags": [
-    "create",
-    "slash",
-    "commands"
-  ],
-  "stars": 817,
-  "source": "SkillsMP Synced Skills"
+  "repo": "marcusgoll/Spec-Flow",
+  "path": ".claude/skills/create-slash-commands/SKILL.md",
+  "source": "github.com/marcusgoll/Spec-Flow",
+  "downloaded_at": "2026-01-14T04:06:35.446795Z"
 }

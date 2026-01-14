@@ -1,10 +1,7 @@
 {
   "name": "pdf",
-  "description": "\"Comprehensive PDF manipulation, extraction, and generation with support for text extraction, form filling, merging, splitting, annotations, and creation. Use when working with .pdf files for: (1) Ext",
-  "repo": "AutumnsGrove/ClaudeSkills",
-  "category": "data",
-  "tags": [
-    "pdf"
-  ],
-  "stars": 1
+  "repo": "archubbuck/workspace-architect",
+  "path": "assets/skills/pdf/SKILL.md",
+  "source": "github.com/archubbuck/workspace-architect",
+  "downloaded_at": "2026-01-14T04:03:36.366296Z"
 }

@@ -1,81 +1,148 @@
 ---
 name: memory
-description: Long-term memory across sessions. Always use memory_search at the start of any user request (unless the user explicitly says not to), especially for questions about the user (profile/personal info/preferences), prior constraints or decisions, and resuming ongoing work; use memory_write only when the user explicitly asks to store memory.
+description: How to use CLAUDE.md memory files for persistent instructions across sessions. Use when user asks about CLAUDE.md, memory files, project instructions, or persistent context.
 ---
 
-# Memory Skill
+# Claude Code Memory (CLAUDE.md)
 
 ## Overview
+Claude Code maintains persistent memories across sessions using CLAUDE.md files organized in a hierarchical structure with four memory locations.
 
-- Provide two functions: `memory_write` and `memory_search`.
-- Store memory in a single append-only JSONL file (one JSON object per line).
-- Search a recent tail window first; only expand the window if needed.
+## Memory Hierarchy
 
-## Workflow decision tree
+**Enterprise Policy** (highest priority)
+- macOS: `/Library/Application Support/ClaudeCode/CLAUDE.md`
+- Linux: `/etc/claude-code/CLAUDE.md`
+- Windows: `C:\ProgramData\ClaudeCode\CLAUDE.md`
+- Organization-wide instructions for all users
 
-### Recall context
-Run `memory_search` at the start of every task unless the user explicitly says not to.
+**Project Memory**
+- Location: `./CLAUDE.md` or `./.claude/CLAUDE.md`
+- Purpose: Team-shared instructions for the project
+- Shared via source control
 
-### Persist knowledge
-Run `memory_write` only when the user explicitly asks to store memory, and only for stable, reusable information.
+**User Memory**
+- Location: `~/.claude/CLAUDE.md`
+- Personal preferences applying across all projects
 
-### Avoid writing
-Do not write secrets, tokens, one-off details, or transient reasoning.
+**Project Memory (Local)** — Deprecated
+- `./CLAUDE.local.md` is now superseded by imports
 
-## Setup
+## CLAUDE.md Imports Feature
 
-Source the script before using the functions:
+Files support `@path/to/import` syntax for including additional content. Examples:
 
-```bash
-source scripts/memory.sh
+```markdown
+See @README for project overview and @package.json for available npm commands
 ```
 
-Optionally override the storage file:
+Import paths can be relative or absolute. Practical use case for individual preferences:
 
-```bash
-export MEMORY_FILE="$HOME/.codex/memory.jsonl"
+```markdown
+Individual Preferences - @~/.claude/my-project-instructions.md
 ```
 
-## Storage format
+Imports ignore markdown code spans and support recursive inclusion up to 5 levels deep.
 
-- Store entries in `${MEMORY_FILE:-~/.codex/memory.jsonl}`; create it if missing.
-- Write one JSON object per line with at least:
-  - `ts`: ISO8601 timestamp
-  - `type`: string (e.g., `note`, `fact`, `task`, `todo`)
-  - `content`: string (raw text)
-  - `tags`: optional array of strings
-  - `meta`: optional object
-- Never rewrite existing lines; append only.
+## Core Usage Methods
 
-## Write workflow (`memory_write`)
+### Quick Addition with `#` Shortcut
+Start input with `#` followed by your memory. The system prompts you to select the target memory file.
 
-- Pass input as JSON: `{type, content, tags?, meta?}`.
-- Generate valid JSON via `jq`; do not hand-build JSON strings.
-- Append exactly one JSON object per line.
+### Direct Editing
+Use `/memory` slash command to open memory files in your system editor for extensive modifications.
 
-Example:
-```bash
-memory_write '{"type":"note","content":"Prefers terse status updates.","tags":["preference"]}'
+### Initialization
+Run `/init` to bootstrap a CLAUDE.md file with project-specific information.
+
+## Best Practices
+
+**Be Specific**: "Use 2-space indentation" outperforms "Format code properly."
+
+**Structure**: Format memories as bullet points under descriptive markdown headings.
+
+**Review Periodically**: Update memories as projects evolve.
+
+**Ideal Memory Content**:
+- Frequently-used build commands
+- Code style preferences
+- Naming conventions
+- Architectural patterns specific to your project
+- Testing requirements
+- Deployment procedures
+- Code review criteria
+
+## Example CLAUDE.md
+
+```markdown
+# Project Instructions
+
+## Code Style
+- Use 2-space indentation
+- Prefer functional components in React
+- Use TypeScript strict mode
+- Follow ESLint rules without exceptions
+
+## Build Commands
+- `npm run dev` - Start development server
+- `npm run test` - Run test suite
+- `npm run build` - Production build
+
+## Architecture
+- API routes in `src/api/`
+- Components in `src/components/`
+- Utilities in `src/utils/`
+- Follow feature-based folder structure
+
+## Testing
+- Write unit tests for all utilities
+- Integration tests for API routes
+- Use React Testing Library for components
+
+## External Resources
+See @README.md for project overview
+See @CONTRIBUTING.md for contribution guidelines
 ```
 
-## Search workflow (`memory_search`)
+## Working with Team Memories
 
-memory_search(query)
-- Pass input as JSON: `{q, limit?, window_lines?}`.
-- Treat `q` as a literal substring.
-- Search a tail window first; expand exponentially if results are insufficient.
-- Return output: `{results, truncated, used_window_lines}`.
+**Project-level CLAUDE.md**:
+- Commit to source control
+- Share coding standards across team
+- Define common workflows
+- Document project-specific conventions
 
-Example:
-```bash
-memory_search '{"q":"prefers","limit":5,"window_lines":20000}'
-```
+**Local overrides**:
+- Use imports to extend project memory
+- Add personal preferences without affecting team
+- Reference local configuration files
 
-## Requirements
+## Memory Hierarchy in Practice
 
-- Depend on standard unix tools: bash, touch, tail, rg (ripgrep), jq.
-- Provide fallbacks: if rg missing, use grep; if jq missing, fail with a clear error.
-- Make sure commands are safe with arbitrary user text (proper quoting).
-- Ensure the skill returns structured JSON to the agent, not raw text logs.
-- Require bash and jq; use rg or grep, tail, date, printf, and touch.
-- Allow tools: Bash(date:*) Bash(jq:*) Bash(printf:*) Bash(touch:*) Bash(tail:*) Bash(rg:*) Bash(grep:*)
+When Claude processes a request, it reads all applicable memory files in order of precedence:
+1. Enterprise policy (if configured)
+2. Project memory (team-shared)
+3. User memory (personal preferences)
+
+Settings in higher-priority files take precedence over lower-priority ones.
+
+## Common Use Cases
+
+**Onboarding**: New team members get instant context from project CLAUDE.md
+
+**Consistency**: Team maintains consistent code style through shared memory
+
+**Personalization**: Individual developers add personal preferences via user memory
+
+**Security**: Enterprise policies enforce security requirements globally
+
+**Documentation**: Import existing project docs to provide context
+
+## Tips
+
+- Keep memories focused and actionable
+- Use headings to organize different types of instructions
+- Update memories when conventions change
+- Leverage imports to avoid duplication
+- Review memories periodically for relevance
+- Use specific examples rather than vague guidelines

@@ -1,93 +1,61 @@
 ---
 name: code-quality
-description: Provides WordPress coding standards, PHP/CSS/JS style guide, code linting and static analysis (phpcs, phpstan, rector, phpcbf). Use before writing or editing PHP, CSS, or JavaScript code, when fixing lint errors, running code quality tools, or reviewing code style compliance.
+description: Establish enterprise-grade code quality baselines for the .NET solution: analyzers, nullability, formatting, complexity limits, and review-ready diffs. Use when changing production code, refactoring, or introducing new project patterns.
 ---
 
-# Code Quality Standards for Simple History
+# Code Quality
 
-This skill provides code quality guidelines for the Simple History WordPress plugin, including PHP, CSS, and JavaScript standards, tooling commands, and best practices.
+## Overview
 
-## When to Use This Skill
+Turn “good engineering habits” into repeatable quality gates.
 
-Invoke this skill proactively before writing code to ensure compliance with project standards.
+This skill is intentionally cross-cutting: it applies to UI, application, domain, and infrastructure code.
 
-**Trigger scenarios:**
-- Before writing or editing PHP code
-- Before writing or editing CSS code
-- Before writing or editing JavaScript code
-- When running code quality tools (phpcs, phpstan, rector)
-- When fixing lint errors or reviewing code style
+## When to use
 
-## Quick Reference
+- Any non-trivial code change (new feature, bug fix, refactor)
+- Adding a new project, package, or architectural pattern
+- Touching error-prone areas (async, threading, I/O, serialization)
 
-### PHP Standards
-- **PHP Version**: 7.4+ compatibility required
-- **WordPress Coding Standards**: Official WordPress standards (see phpcs.xml.dist)
-- **No mb_* functions**: Use standard string functions
-- **Array syntax**: Short syntax `[]` not `array()`
-- **Control structures**: Always use curly braces `{}`, never colon syntax
-- **Hook prefixes**: Always use `sh`, `simplehistory`, or `simple_history`
+## Definition of done (DoD)
 
-### CSS Standards
-- **Naming Convention**: SuitCSS
-- **Prefix**: `sh`
-- **Components**: `sh-ComponentName` (e.g., `sh-HelpSection`, `sh-LogEntry`)
-- **Subparts**: `sh-ComponentName-subpart` (e.g., `sh-LogEntry-author`)
+- Builds cleanly locally (`dotnet build`) with no new warnings introduced
+- Tests pass for the nearest scope (`dotnet test` for the affected test project(s))
+- Nullability decisions are explicit (no “spray-and-pray” `!` suppression)
+- Public APIs are intentional (avoid accidental `public` surface)
+- Changes are small and reviewable (prefer focused commits/diffs)
 
-### JavaScript
-- Follow @wordpress/scripts conventions
-- Text domain: `simple-history`
-- Always use braces for if/else/for/while (no single-line statements)
+## Practical checklist
 
-## Detailed Guidelines
+### Readability and maintainability
 
-### PHP Code Style
+- Prefer descriptive names over abbreviations
+- Avoid deep nesting; extract methods when cognitive load increases
+- Keep side effects localized (especially in constructors)
 
-See [php-standards.md](php-standards.md) for detailed PHP style guide including:
-- Happy path last pattern
-- Early returns over else
-- Ternary operator formatting
-- Control structure syntax
+### Error handling
 
-### Tooling Commands
+- Throw exceptions for programming errors; return results for expected failures
+- Do not swallow exceptions; either handle and continue safely, or log/report and fail fast
 
-See [tooling.md](tooling.md) for:
-- phpcs (PHP_CodeSniffer) usage
-- phpstan (static analysis) usage
-- rector (code modernization) usage
-- npm scripts for code quality
+### Async and threading
 
-### CSS Guidelines
+- Avoid blocking (`.Result`, `.Wait()`) on async paths
+- Prefer `CancellationToken` for long-running/interactive operations
+- Keep UI thread work minimal; offload I/O and CPU-bound work
 
-See [css-standards.md](css-standards.md) for SuitCSS naming conventions and examples.
+### Analyzers/formatting (repo-level standards)
 
-### JavaScript Guidelines
+- If `.editorconfig` is missing and you’re doing broad work, consider adding one alongside the change
+- Prefer enabling analyzers over suppressing them
+- If a suppression is necessary, scope it narrowly and document the reason
 
-See [js-standards.md](js-standards.md) for JavaScript code style.
+## Common anti-patterns
 
-## Essential Principles
+- Catch-all `catch (Exception)` without a clear recovery strategy
+- Logging secrets/PII or large payloads
+- “Fix” via disabling warnings globally instead of addressing root cause
 
-1. **Always escape output** - Use WordPress escaping functions
-2. **Prefix everything** - Use `sh`, `simplehistory`, or `simple_history`
-3. **Follow WordPress conventions** - The "WordPress Way"
-4. **Run quality tools** - Use phpcs, phpstan after significant changes
+## Notes
 
-## Design Principles
-
-### DRY - Don't Repeat Yourself
-Extract shared logic when you have **actual** duplication (3+ occurrences). But don't preemptively create abstractions.
-
-### YAGNI - You Aren't Gonna Need It
-Don't implement functionality until it's actually needed. Avoid:
-- Creating abstractions for hypothetical future use cases
-- Building helper functions for one-time operations
-- Adding configurability "just in case"
-- Designing for requirements that don't exist yet
-
-**Together**: DRY says extract when you have real duplication. YAGNI says wait until you actually need it. Three similar lines of code is often better than a premature abstraction.
-
-## Related Files
-
-- `phpcs.xml.dist` - PHP_CodeSniffer configuration
-- `phpstan.neon` - PHPStan configuration
-- `package.json` - npm scripts for code quality
+This skill describes quality gates; the exact enforcement mechanism (CI pipeline, analyzers, formatting tooling) should evolve over time.

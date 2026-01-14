@@ -1,12 +1,7 @@
 {
   "name": "sap-odata-explorer",
-  "description": "Query and explore SAP OData endpoints with secure logging and configurable output. Use this skill when the user needs to fetch data from SAP systems, explore SAP entity structures, or query SAP busine",
   "repo": "one-kash/sap-odata-explorer",
-  "category": "data",
-  "tags": [
-    "sap",
-    "odata",
-    "explorer"
-  ],
-  "stars": 8
+  "path": "SKILL.md",
+  "source": "github.com/one-kash/sap-odata-explorer",
+  "downloaded_at": "2026-01-14T01:11:26.789485Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "ux-flow-diagram",
-  "description": "[UI/UX] Visualizes user flows and screen transitions as ASCII diagrams. Represents navigation flows, user journeys, and screen-to-screen paths. Use when requesting 'flow diagram', 'user journey visual",
   "repo": "CANTAGESTUDIO/CosmicAtlasPacker",
-  "category": "design",
-  "tags": [
-    "flow",
-    "diagram"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".factory/skills/ux-flow-diagram/SKILL.md",
+  "source": "github.com/CANTAGESTUDIO/CosmicAtlasPacker",
+  "downloaded_at": "2026-01-14T02:43:50.710466Z"
 }

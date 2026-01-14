@@ -1,296 +1,445 @@
 ---
-name: Recommendation System
-description: Build collaborative and content-based recommendation engines for product recommendations, personalization, and improving user engagement
+name: recommendation-system
+description: Deploy production recommendation systems with feature stores, caching, A/B testing. Use for personalization APIs, low latency serving, or encountering cache invalidation, experiment tracking, quality monitoring issues.
+keywords: recommendation system, personalization, feature store, model serving, caching strategy, Redis, A/B testing, Thompson sampling, recommendation metrics, CTR, conversion rate, catalog coverage, diversity, Prometheus monitoring, recommendation API, real-time recommendations, collaborative filtering integration, production recommendations, experiment tracking
+license: MIT
 ---
 
 # Recommendation System
 
-## Overview
+Production-ready architecture for scalable recommendation systems with feature stores, multi-tier caching, A/B testing, and comprehensive monitoring.
 
-This skill implements collaborative and content-based recommendation systems with matrix factorization techniques to predict user preferences, increase engagement, and drive conversions through personalized item suggestions.
+## When to Use This Skill
 
-## When to Use
+Load this skill when:
+- **Building Recommendation APIs**: Serving personalized recommendations at scale
+- **Implementing Caching**: Multi-tier caching for sub-millisecond latency
+- **Running A/B Tests**: Experimenting with recommendation algorithms
+- **Monitoring Quality**: Tracking CTR, conversion, diversity, coverage
+- **Optimizing Performance**: Reducing latency, increasing throughput
+- **Feature Engineering**: Managing user/item features with feature stores
 
-- Developing recommendation features to improve user engagement and retention
-- Implementing personalized product suggestions to increase sales and conversion rates
-- Building hybrid recommendation systems that combine collaborative and content-based approaches
-- Analyzing and optimizing recommendation coverage, diversity, and accuracy
-- Handling sparse user-item interaction matrices and cold start scenarios
-- Running A/B tests to measure the impact of recommendation algorithms on business metrics
+## Quick Start: Recommendation API in 5 Steps
 
-## Approaches
+```bash
+# 1. Install dependencies
+pip install fastapi==0.109.0 redis==5.0.0 prometheus-client==0.19.0
 
-- **Collaborative Filtering**: Users similar to you liked X
-- **Content-based**: Items similar to what you liked
-- **Hybrid**: Combining multiple approaches
-- **Matrix Factorization**: Latent factor models
-- **Deep Learning**: Neural networks for embeddings
+# 2. Start Redis (for caching and feature store)
+docker run -d -p 6379:6379 redis:alpine
+
+# 3. Create recommendation service: app.py
+cat > app.py << 'EOF'
+from fastapi import FastAPI
+from pydantic import BaseModel
+from typing import List
+import redis
+import json
+
+app = FastAPI()
+cache = redis.Redis(host='localhost', port=6379, decode_responses=True)
+
+class RecommendationResponse(BaseModel):
+    user_id: str
+    items: List[str]
+    cached: bool
+
+@app.post("/recommendations", response_model=RecommendationResponse)
+async def get_recommendations(user_id: str, n: int = 10):
+    # Check cache
+    cache_key = f"recs:{user_id}:{n}"
+    cached = cache.get(cache_key)
+
+    if cached:
+        return RecommendationResponse(
+            user_id=user_id,
+            items=json.loads(cached),
+            cached=True
+        )
+
+    # Generate recommendations (simplified)
+    items = [f"item_{i}" for i in range(n)]
+
+    # Cache for 5 minutes
+    cache.setex(cache_key, 300, json.dumps(items))
+
+    return RecommendationResponse(
+        user_id=user_id,
+        items=items,
+        cached=False
+    )
+
+@app.get("/health")
+async def health():
+    return {"status": "healthy"}
+EOF
+
+# 4. Run API
+uvicorn app:app --host 0.0.0.0 --port 8000
+
+# 5. Test
+curl -X POST "http://localhost:8000/recommendations?user_id=user_123&n=10"
+```
+
+**Result**: Working recommendation API with caching in under 5 minutes.
+
+## System Architecture
+
+```
+┌─────────────┐     ┌─────────────┐     ┌─────────────┐
+│ User Events │────▶│ Feature     │────▶│ Model       │
+│ (clicks,    │     │ Store       │     │ Serving     │
+│  purchases) │     │ (Redis)     │     │             │
+└─────────────┘     └─────────────┘     └─────────────┘
+                           │                    │
+                           ▼                    ▼
+                    ┌─────────────┐     ┌─────────────┐
+                    │ Training    │     │ API         │
+                    │ Pipeline    │     │ (FastAPI)   │
+                    └─────────────┘     └─────────────┘
+                                               │
+                                               ▼
+                                        ┌─────────────┐
+                                        │ Monitoring  │
+                                        │ (Prometheus)│
+                                        └─────────────┘
+```
+
+## Core Components
+
+### 1. Feature Store
+
+Centralized storage for user and item features:
+
+```python
+import redis
+import json
+
+class FeatureStore:
+    """Fast feature access with Redis caching."""
+
+    def __init__(self, redis_client):
+        self.redis = redis_client
+        self.ttl = 3600  # 1 hour
+
+    def get_user_features(self, user_id: str) -> dict:
+        cache_key = f"user_features:{user_id}"
+        cached = self.redis.get(cache_key)
+
+        if cached:
+            return json.loads(cached)
+
+        # Fetch from database
+        features = fetch_from_db(user_id)
+
+        # Cache
+        self.redis.setex(cache_key, self.ttl, json.dumps(features))
+        return features
+```
+
+### 2. Model Serving
+
+Serve multiple models for A/B testing:
+
+```python
+class ModelServing:
+    """Serve multiple recommendation models."""
+
+    def __init__(self):
+        self.models = {}
+
+    def register_model(self, name: str, model, is_default: bool = False):
+        self.models[name] = model
+        if is_default:
+            self.default_model = name
+
+    def predict(self, user_features: dict, item_features: list, model_name: str = None):
+        model = self.models.get(model_name or self.default_model)
+        return model.predict(user_features, item_features)
+```
+
+### 3. Caching Layer
+
+Multi-tier caching for low latency:
+
+```python
+class TieredCache:
+    """L1 (memory) -> L2 (Redis) -> L3 (database)."""
+
+    def __init__(self, redis_client):
+        self.l1_cache = {}  # In-memory
+        self.redis = redis_client  # L2
+
+    def get(self, key: str):
+        # L1: In-memory (fastest)
+        if key in self.l1_cache:
+            return self.l1_cache[key]
+
+        # L2: Redis
+        cached = self.redis.get(key)
+        if cached:
+            value = json.loads(cached)
+            self.l1_cache[key] = value  # Promote to L1
+            return value
+
+        # L3: Miss (fetch from database)
+        return None
+```
 
 ## Key Metrics
 
-- **Precision@K**: % recommendations relevant
-- **Recall@K**: % relevant items found
-- **NDCG**: Ranking quality metric
-- **Coverage**: % items recommended
-- **Diversity**: Variety in recommendations
+| Metric | Description | Target |
+|--------|-------------|--------|
+| **CTR** | Click-through rate | >5% |
+| **Conversion Rate** | Purchases from recs | >2% |
+| **P95 Latency** | 95th percentile response time | <200ms |
+| **Cache Hit Rate** | % served from cache | >80% |
+| **Coverage** | % of catalog recommended | >50% |
+| **Diversity** | Variety in recommendations | >0.7 |
 
-## Implementation with Python
+## Known Issues Prevention
 
+### 1. Cold Start for New Users
+**Problem**: No recommendations for users without history, poor initial experience.
+
+**Solution**: Use popularity-based fallback:
 ```python
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.metrics.pairwise import cosine_similarity
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.decomposition import NMF
-import seaborn as sns
+def get_recommendations(user_id: str, n: int = 10):
+    user_features = feature_store.get_user_features(user_id)
 
-# Create sample user-item interaction data
-np.random.seed(42)
-users = [f'user_{i}' for i in range(100)]
-items = [f'item_{i}' for i in range(50)]
+    # Check if new user (no purchase history)
+    if user_features.get('total_purchases', 0) == 0:
+        # Fallback to popular items
+        return get_popular_items(n)
 
-# Generate ratings (sparse matrix)
-ratings_list = []
-for user in users:
-    n_items_rated = np.random.randint(5, 20)
-    rated_items = np.random.choice(items, n_items_rated, replace=False)
-    for item in rated_items:
-        rating = np.random.randint(1, 6)
-        ratings_list.append({'user': user, 'item': item, 'rating': rating})
-
-ratings_df = pd.DataFrame(ratings_list)
-print("Sample Ratings:")
-print(ratings_df.head(10))
-
-# Create user-item matrix
-user_item_matrix = ratings_df.pivot_table(
-    index='user', columns='item', values='rating', fill_value=0
-)
-
-print(f"\nUser-Item Matrix Shape: {user_item_matrix.shape}")
-print(f"Sparsity: {1 - (user_item_matrix != 0).sum().sum() / (user_item_matrix.shape[0] * user_item_matrix.shape[1]):.2%}")
-
-# 1. User-based Collaborative Filtering
-user_similarity = cosine_similarity(user_item_matrix)
-user_similarity_df = pd.DataFrame(
-    user_similarity, index=user_item_matrix.index, columns=user_item_matrix.index
-)
-
-print("\n1. User Similarity Matrix (Sample):")
-print(user_similarity_df.iloc[:5, :5])
-
-# Get recommendations for a user
-def get_user_based_recommendations(user_id, user_sim_matrix, user_item_mat, n=5):
-    similar_users = user_sim_matrix[user_id].sort_values(ascending=False)[1:11]
-
-    recommendations = {}
-    for item in user_item_mat.columns:
-        if user_item_mat.loc[user_id, item] == 0:  # Not yet rated
-            score = (similar_users * user_item_mat.loc[similar_users.index, item]).sum()
-            recommendations[item] = score
-
-    top_recs = sorted(recommendations.items(), key=lambda x: x[1], reverse=True)[:n]
-    return [rec[0] for rec in top_recs]
-
-# Example: Get recommendations for user_0
-user_recommendations = get_user_based_recommendations('user_0', user_similarity_df, user_item_matrix)
-print(f"\nRecommendations for user_0: {user_recommendations}")
-
-# 2. Item-based Collaborative Filtering
-item_similarity = cosine_similarity(user_item_matrix.T)
-item_similarity_df = pd.DataFrame(
-    item_similarity, index=user_item_matrix.columns, columns=user_item_matrix.columns
-)
-
-print("\n2. Item Similarity Matrix (Sample):")
-print(item_similarity_df.iloc[:5, :5])
-
-# 3. Content-based Filtering
-item_features = np.random.rand(len(items), 10)  # Simulate item features
-item_feature_similarity = cosine_similarity(item_features)
-
-fig, axes = plt.subplots(2, 2, figsize=(14, 10))
-
-# User similarity heatmap
-sns.heatmap(user_similarity_df.iloc[:10, :10], annot=True, fmt='.2f', cmap='coolwarm',
-            ax=axes[0, 0], cbar_kws={'label': 'Similarity'})
-axes[0, 0].set_title('User Similarity Matrix (Sample)')
-
-# Item similarity heatmap
-sns.heatmap(item_similarity_df.iloc[:10, :10], annot=True, fmt='.2f', cmap='coolwarm',
-            ax=axes[0, 1], cbar_kws={'label': 'Similarity'})
-axes[0, 1].set_title('Item Similarity Matrix (Sample)')
-
-# Rating distribution
-axes[1, 0].hist(ratings_df['rating'], bins=5, color='steelblue', edgecolor='black', alpha=0.7)
-axes[1, 0].set_xlabel('Rating')
-axes[1, 0].set_ylabel('Count')
-axes[1, 0].set_title('Rating Distribution')
-axes[1, 0].grid(True, alpha=0.3, axis='y')
-
-# Sparsity by user
-user_rating_counts = user_item_matrix.astype(bool).sum(axis=1)
-axes[1, 1].hist(user_rating_counts, bins=20, color='lightcoral', edgecolor='black', alpha=0.7)
-axes[1, 1].set_xlabel('Number of Rated Items')
-axes[1, 1].set_ylabel('Number of Users')
-axes[1, 1].set_title('User Activity Distribution')
-axes[1, 1].grid(True, alpha=0.3, axis='y')
-
-plt.tight_layout()
-plt.show()
-
-# 4. Matrix Factorization (NMF)
-nmf = NMF(n_components=10, init='random', random_state=42, max_iter=200)
-user_latent = nmf.fit_transform(user_item_matrix)
-item_latent = nmf.components_.T
-
-print(f"\n4. Matrix Factorization:")
-print(f"User latent factors shape: {user_latent.shape}")
-print(f"Item latent factors shape: {item_latent.shape}")
-
-# Reconstruct ratings
-reconstructed_ratings = user_latent @ item_latent.T
-reconstructed_df = pd.DataFrame(
-    reconstructed_ratings, index=user_item_matrix.index, columns=user_item_matrix.columns
-)
-
-# Calculate RMSE
-original_ratings = user_item_matrix[user_item_matrix > 0]
-predicted_ratings = reconstructed_df[user_item_matrix > 0]
-rmse = np.sqrt(np.mean((original_ratings - predicted_ratings) ** 2))
-print(f"Reconstruction RMSE: {rmse:.4f}")
-
-# 5. Evaluation Metrics
-def precision_at_k(actual, predicted, k=5):
-    if len(actual) == 0:
-        return 0
-    return len(set(actual[:k]) & set(predicted)) / k
-
-def recall_at_k(actual, predicted, k=5):
-    if len(actual) == 0:
-        return 0
-    return len(set(actual[:k]) & set(predicted)) / len(actual)
-
-# Simulate test set
-test_user = 'user_0'
-actual_items = ratings_df[ratings_df['user'] == test_user]['item'].values
-predicted_items = get_user_based_recommendations(test_user, user_similarity_df, user_item_matrix, n=10)
-
-p_at_5 = precision_at_k(predicted_items, actual_items, k=5)
-r_at_5 = recall_at_k(predicted_items, actual_items, k=5)
-
-print(f"\n5. Evaluation Metrics:")
-print(f"Precision@5: {p_at_5:.2%}")
-print(f"Recall@5: {r_at_5:.2%}")
-print(f"F1@5: {2 * (p_at_5 * r_at_5) / (p_at_5 + r_at_5):.2%}")
-
-# 6. Coverage and Diversity
-recommended_items = set()
-for user in user_item_matrix.index[:20]:
-    recs = get_user_based_recommendations(user, user_similarity_df, user_item_matrix, n=5)
-    recommended_items.update(recs)
-
-coverage = len(recommended_items) / len(items)
-print(f"\nCoverage: {coverage:.2%}")
-
-# 7. Popularity Analysis
-item_popularity = ratings_df['item'].value_counts()
-
-fig, axes = plt.subplots(1, 2, figsize=(14, 5))
-
-# Top items
-axes[0].barh(item_popularity.head(10).index, item_popularity.head(10).values,
-             color='steelblue', edgecolor='black', alpha=0.7)
-axes[0].set_xlabel('Number of Ratings')
-axes[0].set_title('Top 10 Most Popular Items')
-axes[0].grid(True, alpha=0.3, axis='x')
-
-# Popularity distribution
-axes[1].hist(item_popularity, bins=20, color='lightcoral', edgecolor='black', alpha=0.7)
-axes[1].set_xlabel('Number of Ratings')
-axes[1].set_ylabel('Number of Items')
-axes[1].set_title('Item Popularity Distribution')
-axes[1].grid(True, alpha=0.3, axis='y')
-
-plt.tight_layout()
-plt.show()
-
-# 8. Cold Start Problem Analysis
-new_user = 'new_user'
-new_user_ratings = pd.DataFrame({
-    'user': [new_user] * 2,
-    'item': ['item_0', 'item_1'],
-    'rating': [5, 4]
-})
-
-print(f"\n8. Cold Start Problem:")
-print(f"New user has rated: {len(new_user_ratings)} items")
-print(f"Recommendation challenge: Limited user history")
-
-# 9. Recommendation accuracy over time
-k_values = [1, 3, 5, 10]
-metrics_over_k = []
-
-for k in k_values:
-    precision_scores = []
-    for user in user_item_matrix.index[:10]:
-        recs = get_user_based_recommendations(user, user_similarity_df, user_item_matrix, n=k)
-        actual = ratings_df[ratings_df['user'] == user]['item'].values
-        precision_scores.append(precision_at_k(recs, actual, k=k))
-
-    metrics_over_k.append({
-        'K': k,
-        'Precision': np.mean(precision_scores),
-        'Recall': np.mean([recall_at_k(get_user_based_recommendations(user, user_similarity_df, user_item_matrix, n=k),
-                          ratings_df[ratings_df['user'] == user]['item'].values, k=k)
-                          for user in user_item_matrix.index[:10]])
-    })
-
-metrics_df = pd.DataFrame(metrics_over_k)
-
-fig, ax = plt.subplots(figsize=(10, 5))
-ax.plot(metrics_df['K'], metrics_df['Precision'], marker='o', linewidth=2, label='Precision', markersize=8)
-ax.plot(metrics_df['K'], metrics_df['Recall'], marker='s', linewidth=2, label='Recall', markersize=8)
-ax.set_xlabel('K (Number of Recommendations)')
-ax.set_ylabel('Score')
-ax.set_title('Precision and Recall vs K')
-ax.legend()
-ax.grid(True, alpha=0.3)
-plt.tight_layout()
-plt.show()
-
-# 10. A/B Test Results (Simulated)
-print("\n10. A/B Test Results (Simulated):")
-print("Control (No recommendations): 5.2% Conversion Rate")
-print("Treatment (Recommendations): 7.8% Conversion Rate")
-print("Lift: 50% (Statistically Significant, p < 0.05)")
-
-print("\nRecommendation system complete!")
+    # Personalized recommendations
+    return generate_personalized_recs(user_id, n)
 ```
 
-## Algorithm Comparison
+### 2. Cache Invalidation on User Actions
+**Problem**: User makes purchase, cache still shows purchased item in recommendations.
 
-- **Collaborative Filtering**: Simple, no content needed
-- **Content-based**: Works with cold starts
-- **Matrix Factorization**: Scalable, finds latent patterns
-- **Deep Learning**: Complex patterns, requires data
-- **Hybrid**: Combines strengths of multiple approaches
+**Solution**: Invalidate cache on relevant actions:
+```python
+INVALIDATING_ACTIONS = {'purchase', 'rating', 'add_to_cart'}
 
-## Implementation Considerations
+def on_user_action(user_id: str, action: str):
+    if action in INVALIDATING_ACTIONS:
+        cache_key = f"recs:{user_id}:*"
+        redis_client.delete(cache_key)
+        logger.info(f"Invalidated cache for {user_id} due to {action}")
+```
 
-- Handling cold start (new users/items)
-- Computational efficiency at scale
-- Addressing sparsity (most items not rated)
-- Diversity vs relevance trade-off
-- Real-time vs batch recommendations
+### 3. Thundering Herd on Cache Expiry
+**Problem**: Many users' caches expire simultaneously, overload database/model.
 
-## Deliverables
+**Solution**: Add random jitter to TTL:
+```python
+import random
 
-- User-item interaction matrix
-- Similarity matrices
-- Recommendations for sample users
-- Evaluation metrics (precision, recall, NDCG)
-- Coverage and diversity analysis
-- Visualization of results
-- Production implementation code
+def set_cache(key: str, value: dict, base_ttl: int = 300):
+    # Add ±10% jitter
+    jitter = random.uniform(-0.1, 0.1) * base_ttl
+    ttl = int(base_ttl + jitter)
+    redis_client.setex(key, ttl, json.dumps(value))
+```
+
+### 4. Poor Diversity = Filter Bubble
+**Problem**: Recommendations too similar, users only see same category.
+
+**Solution**: Implement diversity constraint:
+```python
+def rank_with_diversity(items: list, scores: list, n: int = 10):
+    selected = []
+    category_counts = {}
+
+    for item, score in sorted(zip(items, scores), key=lambda x: -x[1]):
+        category = item['category']
+
+        # Limit 3 items per category
+        if category_counts.get(category, 0) >= 3:
+            continue
+
+        selected.append(item)
+        category_counts[category] = category_counts.get(category, 0) + 1
+
+        if len(selected) >= n:
+            break
+
+    return selected
+```
+
+### 5. No Monitoring = Silent Degradation
+**Problem**: Recommendation quality drops, nobody notices until users complain.
+
+**Solution**: Continuous monitoring with alerts:
+```python
+from prometheus_client import Counter, Histogram
+
+recommendation_clicks = Counter('recommendation_clicks_total')
+recommendation_latency = Histogram('recommendation_latency_seconds')
+
+@app.post("/recommendations")
+async def get_recommendations(user_id: str):
+    start = time.time()
+
+    recs = generate_recs(user_id)
+
+    latency = time.time() - start
+    recommendation_latency.observe(latency)
+
+    return recs
+
+@app.post("/track/click")
+async def track_click(user_id: str, item_id: str):
+    recommendation_clicks.inc()
+    # Alert if CTR drops below 3%
+```
+
+### 6. Stale Features = Outdated Recommendations
+**Problem**: User preferences change but features don't update, recommendations irrelevant.
+
+**Solution**: Set appropriate TTLs and update triggers:
+```python
+class FeatureStore:
+    def __init__(self, redis_client):
+        self.redis = redis_client
+        # Shorter TTL for frequently changing features
+        self.user_ttl = 300  # 5 minutes
+        self.item_ttl = 3600  # 1 hour
+
+    def update_on_event(self, user_id: str, event: str):
+        # Invalidate on important events
+        if event in ['purchase', 'rating']:
+            self.redis.delete(f"user_features:{user_id}")
+            logger.info(f"Refreshed features for {user_id}")
+```
+
+### 7. A/B Test Sample Size Too Small
+**Problem**: Declare winner too early, results not statistically significant.
+
+**Solution**: Calculate required sample size first:
+```python
+def calculate_sample_size(
+    baseline_rate: float,
+    min_detectable_effect: float,
+    alpha: float = 0.05,
+    power: float = 0.8
+) -> int:
+    """Calculate required sample size per variant."""
+    from scipy import stats
+
+    z_alpha = stats.norm.ppf(1 - alpha/2)
+    z_beta = stats.norm.ppf(power)
+
+    p1 = baseline_rate
+    p2 = baseline_rate * (1 + min_detectable_effect)
+    p_avg = (p1 + p2) / 2
+
+    n = (
+        (z_alpha + z_beta)**2 * 2 * p_avg * (1 - p_avg) /
+        (p2 - p1)**2
+    )
+
+    return int(n)
+
+# Example: detect 10% lift with baseline CTR=5%
+n_required = calculate_sample_size(
+    baseline_rate=0.05,
+    min_detectable_effect=0.10
+)
+print(f"Required sample size: {n_required} per variant")
+# Wait until both variants reach this size before concluding
+```
+
+## When to Load References
+
+Load reference files for detailed production implementations:
+
+- **Production Architecture**: Load `references/production-architecture.md` for complete FeatureStore, ModelServing, and RecommendationService implementations with batch fetching, caching integration, and FastAPI deployment patterns.
+
+- **Caching Strategies**: Load `references/caching-strategies.md` when implementing multi-tier caching (L1/L2/L3), cache warming, invalidation strategies, probabilistic refresh, or thundering herd prevention.
+
+- **A/B Testing Framework**: Load `references/ab-testing-framework.md` for deterministic variant assignment, Thompson sampling (multi-armed bandits), Bayesian and frequentist significance testing, and experiment tracking.
+
+- **Monitoring & Alerting**: Load `references/monitoring-alerting.md` for Prometheus metrics integration, dashboard endpoints, alert rules, and quality monitoring (diversity, coverage).
+
+## Best Practices
+
+1. **Feature Precomputation**: Compute features offline, serve from cache
+2. **Batch Fetching**: Use Redis MGET for multiple users/items
+3. **Cache Aggressively**: 5-15 minute TTL for user recommendations
+4. **Fail Gracefully**: Return popular items if personalization fails
+5. **Monitor Everything**: Track CTR, latency, diversity, coverage
+6. **A/B Test Continuously**: Always be experimenting with new algorithms
+7. **Diversity Constraint**: Ensure varied recommendations
+8. **Explain Recommendations**: Provide reasons ("Highly rated", "Popular")
+
+## Common Patterns
+
+### Recommendation Service
+```python
+class RecommendationService:
+    def __init__(self, feature_store, model_serving, cache):
+        self.feature_store = feature_store
+        self.model_serving = model_serving
+        self.cache = cache
+
+    def get_recommendations(self, user_id: str, n: int = 10):
+        # 1. Check cache
+        cached = self.cache.get(f"recs:{user_id}:{n}")
+        if cached:
+            return cached
+
+        # 2. Get features
+        user_features = self.feature_store.get_user_features(user_id)
+        candidates = self.get_candidates(user_id)
+
+        # 3. Score candidates
+        scores = self.model_serving.predict(user_features, candidates)
+
+        # 4. Rank with diversity
+        recommendations = self.rank_with_diversity(candidates, scores, n)
+
+        # 5. Cache
+        self.cache.set(f"recs:{user_id}:{n}", recommendations, ttl=300)
+
+        return recommendations
+```
+
+### A/B Testing
+```python
+def assign_variant(user_id: str, experiment_id: str) -> str:
+    """Deterministic assignment - same user always gets same variant."""
+    import hashlib
+
+    hash_input = f"{user_id}:{experiment_id}"
+    hash_value = int(hashlib.md5(hash_input.encode()).hexdigest(), 16)
+
+    # 50/50 split
+    return 'control' if hash_value % 2 == 0 else 'treatment'
+
+# Usage
+variant = assign_variant('user_123', 'rec_algo_v2')
+model_name = 'main' if variant == 'control' else 'experimental'
+recs = get_recommendations(user_id, model_name=model_name)
+```
+
+### Monitoring
+```python
+from prometheus_client import Counter, Histogram
+
+requests_total = Counter('recommendation_requests_total', ['status'])
+latency_seconds = Histogram('recommendation_latency_seconds')
+
+@app.post("/recommendations")
+async def get_recommendations(user_id: str):
+    with latency_seconds.time():
+        try:
+            recs = generate_recs(user_id)
+            requests_total.labels(status='success').inc()
+            return recs
+        except Exception as e:
+            requests_total.labels(status='error').inc()
+            raise
+```

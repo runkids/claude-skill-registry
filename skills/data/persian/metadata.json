@@ -1,11 +1,7 @@
 {
   "name": "persian",
-  "description": "Translate English language text into high quality, accurate Persian (Farsi) text",
   "repo": "jwiegley/claude-prompts",
-  "category": "development",
-  "tags": [
-    "persian"
-  ],
-  "stars": 4,
-  "source": "local"
+  "path": "skills/persian/SKILL.md",
+  "source": "github.com/jwiegley/claude-prompts",
+  "downloaded_at": "2026-01-14T03:43:32.058910Z"
 }

@@ -1,8 +1,7 @@
 {
   "name": "python-database-patterns",
   "repo": "0xDarkMatter/claude-mods",
-  "category": "data",
-  "description": "SQLAlchemy and database patterns for Python. Triggers on: sqlalchemy, database, orm, migration, alembic, async database, connection pool, repository pattern, unit of work.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:59:45.631341Z"
+  "path": "skills/python-database-patterns/SKILL.md",
+  "source": "github.com/0xDarkMatter/claude-mods",
+  "downloaded_at": "2026-01-14T02:35:09.521515Z"
 }

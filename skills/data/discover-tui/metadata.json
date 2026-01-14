@@ -1,12 +1,7 @@
 {
   "name": "discover-tui",
-  "description": "Automatically discover terminal UI skills when working with terminal user interfaces. Activates for tui development tasks.",
   "repo": "rand/cc-polymath",
-  "category": "development",
-  "tags": [
-    "discover",
-    "tui"
-  ],
-  "stars": 33,
-  "source": "local"
+  "path": "skills/discover-tui/SKILL.md",
+  "source": "github.com/rand/cc-polymath",
+  "downloaded_at": "2026-01-14T03:55:19.938461Z"
 }

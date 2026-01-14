@@ -1,11 +1,7 @@
 {
   "name": "work-on-ticket",
-  "description": "Pulls ticket details from Jira, creates feature branches with proper naming conventions, and handles planning steps. Use when starting work on a Jira ticket, creating branches for tickets, or when use",
-  "repo": "IHKREDDY/agent-skills",
-  "category": "data",
-  "tags": [
-    "work",
-    "ticket"
-  ],
-  "stars": 0
+  "repo": "jjmartres/opencode",
+  "path": "opencode/skill/work-on-ticket/SKILL.md",
+  "source": "github.com/jjmartres/opencode",
+  "downloaded_at": "2026-01-14T02:51:02.756435Z"
 }

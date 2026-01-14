@@ -1,11 +1,7 @@
 {
   "name": "performance",
-  "description": "Performance optimization guidelines for Splitrail. Use when optimizing parsing, reducing memory usage, or improving throughput.",
-  "repo": "Piebald-AI/splitrail",
-  "category": "data",
-  "tags": [
-    "performance"
-  ],
-  "stars": 75,
-  "source": "SkillsMP Synced Skills"
+  "repo": "SylphxAI/flow",
+  "path": "packages/flow/assets/skills/performance/SKILL.md",
+  "source": "github.com/SylphxAI/flow",
+  "downloaded_at": "2026-01-14T03:51:24.629224Z"
 }

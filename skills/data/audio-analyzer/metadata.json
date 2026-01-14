@@ -1,12 +1,7 @@
 {
   "name": "audio-analyzer",
-  "description": "Comprehensive audio analysis with waveform visualization, spectrogram, BPM detection, key detection, frequency analysis, and loudness metrics.",
   "repo": "dkyazzentwatwa/chatgpt-skills",
-  "category": "data",
-  "tags": [
-    "audio",
-    "analyzer"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": "audio-analyzer/SKILL.md",
+  "source": "github.com/dkyazzentwatwa/chatgpt-skills",
+  "downloaded_at": "2026-01-14T01:42:50.808851Z"
 }

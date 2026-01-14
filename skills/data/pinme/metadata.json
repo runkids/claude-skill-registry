@@ -1,9 +1,7 @@
 {
   "name": "pinme",
-  "description": "This skill should be used when the user asks to \"deploy\", \"upload\", \"publish\" a frontend project, static website, or build output. Also activates when user mentions \"pinme\", \"IPFS deployment\", or want",
-  "repo": "glitternetwork/pinme",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/design/pinme/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-14T01:56:17.363011Z"
 }

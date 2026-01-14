@@ -1,13 +1,7 @@
 {
   "name": "moai-domain-uiux",
-  "description": "Domain UI/UX Expert - Enterprise design systems, component architecture, accessibility, icons, and theming integration",
-  "repo": "tjdwls101010/seongjin_extension_youtube-summarize",
-  "category": "design",
-  "tags": [
-    "moai",
-    "domain",
-    "uiux"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "windysky/claude_notification_wsl2",
+  "path": ".claude/skills/moai-domain-uiux/SKILL.md",
+  "source": "github.com/windysky/claude_notification_wsl2",
+  "downloaded_at": "2026-01-14T04:03:30.798446Z"
 }

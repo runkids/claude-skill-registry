@@ -1,8 +1,7 @@
 {
   "name": "sql-optimization-patterns",
-  "repo": "wshobson/agents",
-  "category": "data",
-  "description": "Master SQL query optimization, indexing strategies, and EXPLAIN analysis to dramatically improve database performance and eliminate slow queries. Use when debugging slow queries, designing database sc",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:33.384748Z"
+  "repo": "GaitanS/AI-Mancare",
+  "path": ".claude/skills/plugins/developer-essentials/skills/sql-optimization-patterns/SKILL.md",
+  "source": "github.com/GaitanS/AI-Mancare",
+  "downloaded_at": "2026-01-14T03:16:35.286137Z"
 }

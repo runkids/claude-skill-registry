@@ -1,12 +1,7 @@
 {
   "name": "context-optimization",
-  "description": "Apply optimization techniques to extend effective context capacity. Use when context limits constrain agent performance, when optimizing for cost or latency, or when implementing long-running agent sy",
-  "repo": "rohunvora/my-claude-skills",
-  "category": "data",
-  "tags": [
-    "context",
-    "optimization"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "repo": "hgeldenhuys/claude-code-sdk",
+  "path": "skills/context-optimization/SKILL.md",
+  "source": "github.com/hgeldenhuys/claude-code-sdk",
+  "downloaded_at": "2026-01-14T03:56:02.303016Z"
 }

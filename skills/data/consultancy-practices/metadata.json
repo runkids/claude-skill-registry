@@ -1,12 +1,7 @@
 {
   "name": "consultancy-practices",
-  "description": "Apply effective software quality consultancy practices. Use when consulting, advising clients, or establishing consultancy workflows.",
-  "repo": "proffesor-for-testing/agentic-qe",
-  "category": "development",
-  "tags": [
-    "consultancy",
-    "practices"
-  ],
-  "stars": 103,
-  "source": "SkillsMP Synced Skills"
+  "repo": "proffesor-for-testing/sentinel-api-testing",
+  "path": ".claude/skills/consultancy-practices/SKILL.md",
+  "source": "github.com/proffesor-for-testing/sentinel-api-testing",
+  "downloaded_at": "2026-01-14T01:57:31.501358Z"
 }

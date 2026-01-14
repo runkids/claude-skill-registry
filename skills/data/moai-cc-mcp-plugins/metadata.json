@@ -1,12 +1,7 @@
 {
   "name": "moai-cc-mcp-plugins",
-  "description": "Configuring MCP Servers & Plugins for Claude Code. Set up Model Context Protocol servers (GitHub, Filesystem, Brave Search, SQLite). Configure OAuth, manage permissions, validate MCP structure. Use wh",
-  "repo": "kivo360/quickhooks",
-  "category": "data",
-  "tags": [
-    "moai",
-    "mcp",
-    "plugins"
-  ],
-  "stars": 0
+  "repo": "dolsoon/my-awesome-project",
+  "path": ".claude/skills/moai-cc-mcp-plugins/SKILL.md",
+  "source": "github.com/dolsoon/my-awesome-project",
+  "downloaded_at": "2026-01-14T03:37:34.575973Z"
 }

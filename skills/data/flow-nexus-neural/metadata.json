@@ -1,13 +1,7 @@
 {
   "name": "flow-nexus-neural",
-  "description": "Train and deploy neural networks in distributed E2B sandboxes with Flow Nexus",
-  "repo": "ruvnet/claude-flow",
-  "category": "data",
-  "tags": [
-    "flow",
-    "nexus",
-    "neural"
-  ],
-  "stars": 9856,
-  "source": "SkillsMP Synced Skills"
+  "repo": "Cornjebus/amair",
+  "path": ".claude/skills/flow-nexus-neural/SKILL.md",
+  "source": "github.com/Cornjebus/amair",
+  "downloaded_at": "2026-01-14T03:20:32.019473Z"
 }

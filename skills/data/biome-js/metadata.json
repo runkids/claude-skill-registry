@@ -1,11 +1,7 @@
 {
   "name": "biome-js",
-  "description": "This skill should be used when the user asks to \"configure Biome\", \"extend biome config\", \"set up BiomeJS\", \"add biome overrides\", \"biome lint-staged\", \"fix biome errors\", or mentions biome.jsonc, Bio",
   "repo": "PaulRBerg/dot-claude",
-  "category": "development",
-  "tags": [
-    "biome"
-  ],
-  "stars": 58,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/biome-js/SKILL.md",
+  "source": "github.com/PaulRBerg/dot-claude",
+  "downloaded_at": "2026-01-14T02:00:26.957293Z"
 }

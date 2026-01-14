@@ -1,8 +1,7 @@
 {
   "name": "bun-sqlite",
   "repo": "secondsky/claude-skills",
-  "category": "data",
-  "description": "Use for bun:sqlite, SQLite operations, prepared statements, transactions, and queries.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:58:43.148872Z"
+  "path": "plugins/bun/skills/bun-sqlite/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-14T03:29:57.127552Z"
 }

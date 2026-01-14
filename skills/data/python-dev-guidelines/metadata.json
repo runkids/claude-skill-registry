@@ -1,9 +1,7 @@
 {
   "name": "python-dev-guidelines",
-  "description": "Python development guidelines for modern Python projects. Use when creating Python modules, classes, functions, scripts, or working with type hints, pytest, packaging (pip/poetry), virtual environment",
   "repo": "NmBoyd/claude_setup",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/python-dev-guidelines/SKILL.md",
+  "source": "github.com/NmBoyd/claude_setup",
+  "downloaded_at": "2026-01-14T01:53:13.824632Z"
 }

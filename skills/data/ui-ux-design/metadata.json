@@ -1,11 +1,7 @@
 {
   "name": "ui-ux-design",
-  "description": "\"Standard Operating Procedure for design workflow. Phase 1: Variations (diverge), Phase 2: Functional (converge), Phase 3: Polish (systemize).\"",
-  "repo": "marcusgoll/robinhood-algo-trading-bot",
-  "category": "design",
-  "tags": [
-    "design"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "martinholovsky/claude-skills-generator",
+  "path": "skills/ui-ux-design/SKILL.md",
+  "source": "github.com/martinholovsky/claude-skills-generator",
+  "downloaded_at": "2026-01-14T02:36:17.668896Z"
 }

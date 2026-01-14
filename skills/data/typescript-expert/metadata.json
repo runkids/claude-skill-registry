@@ -1,12 +1,7 @@
 {
   "name": "typescript-expert",
-  "description": "Эксперт по TypeScript. Используй для типизации, дженериков, декораторов, паттернов проектирования и best practices в TypeScript.",
-  "repo": "dengineproblem/agents-monorepo",
-  "category": "development",
-  "tags": [
-    "typescript",
-    "expert"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "martinholovsky/claude-skills-generator",
+  "path": "skills/typescript-expert/SKILL.md",
+  "source": "github.com/martinholovsky/claude-skills-generator",
+  "downloaded_at": "2026-01-14T02:36:19.958678Z"
 }

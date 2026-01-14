@@ -1,12 +1,7 @@
 {
   "name": "hook-creator",
-  "description": "Create and configure Claude Code hooks for customizing agent behavior. Use when the user wants to (1) create a new hook, (2) configure automatic formatting, logging, or notifications, (3) add file pro",
-  "repo": "greatSumini/cc-system",
-  "category": "development",
-  "tags": [
-    "hook",
-    "creator"
-  ],
-  "stars": 44,
-  "source": "local"
+  "repo": "shiiman/claude-code-plugins",
+  "path": "plugins/shiiman-claude/skills/hook-creator/SKILL.md",
+  "source": "github.com/shiiman/claude-code-plugins",
+  "downloaded_at": "2026-01-14T01:33:36.459964Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "implementing-features",
-  "description": "Implements new modules, agents, or features using TDD methodology. Used when adding any new functionality to the table2image multi-agent system. Follows six-phase workflow: context loading, test writi",
-  "repo": "pheonix2006/dify-obd",
-  "category": "testing",
-  "tags": [
-    "implementing",
-    "features"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "axiomantic/spellbook",
+  "path": "skills/implementing-features/SKILL.md",
+  "source": "github.com/axiomantic/spellbook",
+  "downloaded_at": "2026-01-14T03:44:29.811567Z"
 }

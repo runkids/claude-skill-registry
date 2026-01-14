@@ -1,12 +1,7 @@
 {
   "name": "frontend-aesthetics",
-  "description": "Prevents generic AI-generated designs by guiding typography, color, motion, and background choices. Use when creating frontend designs, landing pages, dashboards, or any UI/UX work. Helps avoid the \"A",
-  "repo": "IncomeStreamSurfer/claude-code-agents-wizard-v2",
-  "category": "design",
-  "tags": [
-    "frontend",
-    "aesthetics"
-  ],
-  "stars": 290,
-  "source": "SkillsMP Synced Skills"
+  "repo": "adilkalam/orca",
+  "path": "skills/frontend-aesthetics/SKILL.md",
+  "source": "github.com/adilkalam/orca",
+  "downloaded_at": "2026-01-14T03:33:04.016656Z"
 }

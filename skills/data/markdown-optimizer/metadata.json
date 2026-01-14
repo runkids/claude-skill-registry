@@ -1,11 +1,7 @@
 {
   "name": "markdown-optimizer",
-  "description": "Optimize markdown files for LLM consumption by adding YAML front-matter with metadata and TOC, normalizing heading hierarchy, removing noise and redundancy, converting verbose prose to structured form",
   "repo": "mvdmakesthings/skills",
-  "category": "data",
-  "tags": [
-    "markdown",
-    "optimizer"
-  ],
-  "stars": 0
+  "path": "markdown-optimizer/SKILL.md",
+  "source": "github.com/mvdmakesthings/skills",
+  "downloaded_at": "2026-01-14T03:38:22.726523Z"
 }

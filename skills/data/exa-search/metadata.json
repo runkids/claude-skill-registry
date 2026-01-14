@@ -1,12 +1,7 @@
 {
   "name": "exa-search",
-  "description": "Find similar companies using Exa.ai's neural search API",
-  "repo": "vm0-ai/vm0-cookbooks",
-  "category": "data",
-  "tags": [
-    "exa",
-    "search"
-  ],
-  "stars": 4,
-  "source": "SkillsMP Synced Skills"
+  "repo": "plurigrid/asi",
+  "path": "skills/exa-search/SKILL.md",
+  "source": "github.com/plurigrid/asi",
+  "downloaded_at": "2026-01-14T02:29:14.609612Z"
 }

@@ -1,12 +1,7 @@
 {
   "name": "clean-commits",
-  "description": "Use when committing code - ensures atomic, descriptive commits that leave the codebase in a merge-ready state at every point",
-  "repo": "troykelly/claude-skills",
-  "category": "development",
-  "tags": [
-    "clean",
-    "commits"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "repo": "troykelly/codex-skills",
+  "path": "skills/clean-commits/SKILL.md",
+  "source": "github.com/troykelly/codex-skills",
+  "downloaded_at": "2026-01-14T03:34:01.197376Z"
 }

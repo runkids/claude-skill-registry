@@ -1,8 +1,7 @@
 {
   "name": "typo3-datahandler",
-  "repo": "dirnbauer/typo3-datahandler-skill",
-  "category": "data",
-  "description": "Agent Skill for TYPO3 DataHandler patterns. Use when working with TYPO3 database operations, record manipulation (create, update, copy, move, delete, localize), workspaces, versioning, staging, publis",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:07:30.393815Z"
+  "repo": "dirnbauer/claude-cursor-typo3-skills",
+  "path": "skills/typo3-datahandler/SKILL.md",
+  "source": "github.com/dirnbauer/claude-cursor-typo3-skills",
+  "downloaded_at": "2026-01-14T03:08:57.132129Z"
 }

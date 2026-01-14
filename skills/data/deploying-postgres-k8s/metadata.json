@@ -1,13 +1,7 @@
 {
   "name": "deploying-postgres-k8s",
-  "description": "Deploys PostgreSQL on Kubernetes using the CloudNativePG operator with automated failover.Use when setting up PostgreSQL for production workloads, high availability, or local K8s development.Covers op",
   "repo": "mjunaidca/mjs-agent-skills",
-  "category": "devops",
-  "tags": [
-    "deploying",
-    "postgres",
-    "k8s"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/deploying-postgres-k8s/SKILL.md",
+  "source": "github.com/mjunaidca/mjs-agent-skills",
+  "downloaded_at": "2026-01-14T01:43:16.388751Z"
 }

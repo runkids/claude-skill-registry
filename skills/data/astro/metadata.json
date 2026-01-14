@@ -1,11 +1,7 @@
 {
   "name": "astro",
-  "description": "Astroプロジェクトの設計・実装・レビューを、HTML中心/Islands/JS最小化の思想で整理する。doc/rdd.md に「技術スタック Astro」があるリポジトリ、またはAstro/Islands/SSG/SSR/パフォーマンス最適化の相談で使う。",
-  "repo": "mae616/ai-template",
-  "category": "data",
-  "tags": [
-    "astro"
-  ],
-  "stars": 8,
-  "source": "SkillsMP Synced Skills"
+  "repo": "mgd34msu/goodvibes-plugin",
+  "path": "plugins/goodvibes/skills/webdev/meta-frameworks/astro/SKILL.md",
+  "source": "github.com/mgd34msu/goodvibes-plugin",
+  "downloaded_at": "2026-01-14T02:10:06.653908Z"
 }

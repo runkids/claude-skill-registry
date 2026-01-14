@@ -1,13 +1,7 @@
 {
   "name": "moai-domain-security",
-  "description": "OWASP Top 10, SAST/DAST, dependency security, and secrets management.",
-  "repo": "kivo360/quickhooks",
-  "category": "security",
-  "tags": [
-    "moai",
-    "domain",
-    "security"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "dolsoon/my-awesome-project",
+  "path": ".claude/skills/moai-domain-security/SKILL.md",
+  "source": "github.com/dolsoon/my-awesome-project",
+  "downloaded_at": "2026-01-14T03:37:23.634770Z"
 }

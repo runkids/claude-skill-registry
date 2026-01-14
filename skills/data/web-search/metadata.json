@@ -1,12 +1,7 @@
 {
   "name": "web-search",
-  "description": "Search the web for up-to-date information using GPT-5.2 with web search and high reasoning. Prefer this over webfetch when you need to research complex queries, find current info across multiple sourc",
-  "repo": "j-carin/dotfiles",
-  "category": "documents",
-  "tags": [
-    "web",
-    "search"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "jwynia/agent-skills",
+  "path": "skills/research/search/web-search/SKILL.md",
+  "source": "github.com/jwynia/agent-skills",
+  "downloaded_at": "2026-01-14T03:19:18.314681Z"
 }

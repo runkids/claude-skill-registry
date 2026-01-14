@@ -1,12 +1,7 @@
 {
   "name": "data-storyteller",
-  "description": "Transform CSV/Excel data into narrative reports with auto-generated insights, visualizations, and PDF export. Auto-detects patterns and creates plain-English summaries.",
   "repo": "dkyazzentwatwa/chatgpt-skills",
-  "category": "data",
-  "tags": [
-    "data",
-    "storyteller"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": "data-storyteller/SKILL.md",
+  "source": "github.com/dkyazzentwatwa/chatgpt-skills",
+  "downloaded_at": "2026-01-14T01:42:51.718410Z"
 }

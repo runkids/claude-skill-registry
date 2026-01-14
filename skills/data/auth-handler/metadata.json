@@ -1,12 +1,7 @@
 {
   "name": "auth-handler",
-  "description": "Manage authentication, authorization, and user sessions. Use when dealing with login, sign-up, API protection, middleware, or user data fetching.",
   "repo": "AayushBaniya2006/blinkfund",
-  "category": "data",
-  "tags": [
-    "auth",
-    "handler"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/auth-handler/SKILL.md",
+  "source": "github.com/AayushBaniya2006/blinkfund",
+  "downloaded_at": "2026-01-14T00:52:46.996232Z"
 }

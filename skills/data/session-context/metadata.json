@@ -1,12 +1,7 @@
 {
   "name": "session-context",
-  "description": "Gathers session context for project-analysis agent including git history, recent plans, and pending work detection.",
-  "repo": "brianclaridge/.claude",
-  "category": "development",
-  "tags": [
-    "session",
-    "context"
-  ],
-  "stars": 2,
-  "source": "local"
+  "repo": "sethyanow/session-context",
+  "path": "SKILL.md",
+  "source": "github.com/sethyanow/session-context",
+  "downloaded_at": "2026-01-14T03:03:41.361392Z"
 }

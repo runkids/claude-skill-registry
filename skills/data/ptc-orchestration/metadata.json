@@ -1,12 +1,7 @@
 {
   "name": "ptc-orchestration",
-  "description": "Activate when user needs multi-URL scraping, browser automation pipelines, or efficient tool orchestration to reduce API round-trips and context usage.",
   "repo": "ilude/claude-code-config",
-  "category": "productivity",
-  "tags": [
-    "ptc",
-    "orchestration"
-  ],
-  "stars": 5,
-  "source": "local"
+  "path": "skills/ptc-orchestration/SKILL.md",
+  "source": "github.com/ilude/claude-code-config",
+  "downloaded_at": "2026-01-14T01:02:41.609430Z"
 }

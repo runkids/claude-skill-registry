@@ -1,11 +1,7 @@
 {
   "name": "pinia",
-  "description": "Pinia state management for JARVIS system state",
   "repo": "martinholovsky/claude-skills-generator",
-  "category": "development",
-  "tags": [
-    "pinia"
-  ],
-  "stars": 3,
-  "source": "local"
+  "path": "skills/pinia/SKILL.md",
+  "source": "github.com/martinholovsky/claude-skills-generator",
+  "downloaded_at": "2026-01-14T02:36:18.671228Z"
 }

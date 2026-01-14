@@ -1,12 +1,7 @@
 {
   "name": "cost-optimization",
-  "description": "Expert cloud cost optimization strategies for AWS, Azure, GCP, and serverless platforms. Covers FinOps principles, right-sizing, reserved instances, savings plans, spot instances, storage optimization",
-  "repo": "anton-abyzov/specweave",
-  "category": "data",
-  "tags": [
-    "cost",
-    "optimization"
-  ],
-  "stars": 16,
-  "source": "SkillsMP Synced Skills"
+  "repo": "hgeldenhuys/claude-code-sdk",
+  "path": "skills/cost-optimization/SKILL.md",
+  "source": "github.com/hgeldenhuys/claude-code-sdk",
+  "downloaded_at": "2026-01-14T03:56:01.513574Z"
 }

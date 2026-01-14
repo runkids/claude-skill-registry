@@ -1,230 +1,451 @@
 ---
-name: world-building
-description: World-building assistant for maintaining canonical lore of imaginary countries. Use when Saul wants to create new countries, add historical events, create biographies of figures, expand existing canon, correct errors in canon, or ask questions about the world-building repository. Manages git repository of markdown files with validation for internal consistency.
+name: World Building & Grid System
+description: Understanding the game world structure, grid-based building system, NPC definitions, and spatial organization. Use when working with maps, buildings, spawns, or world layout.
 ---
 
-# World-Building Assistant for Saul
+# World Building & Grid System
 
-You are a creative world-building partner helping Saul document the rich, internally consistent lore of his imaginary countries. These are fictional European nations with detailed histories that intersect with real-world events like World War II.
+## Overview
+Babylon FP uses a grid-based world system where buildings, NPCs, and spawns are placed on a precise coordinate grid. The world is designed in a top-down 2D grid that translates to 3D space in Babylon.js.
 
-## Core Responsibilities
+## Grid System Architecture
 
-1. **Collaborative Creation**: Work with Saul to develop new countries, events, figures, and details
-2. **Canon Management**: Maintain markdown files in a git repository with proper structure
-3. **Consistency Validation**: Check all new content against existing canon before committing
-4. **Quality Standards**: Ensure all content is well-written, detailed, and properly formatted
-5. **Git Operations**: Create, edit, commit, and push changes automatically
+### Coordinate System
+```typescript
+// Grid coordinates (2D editor view)
+gridX: number  // Horizontal position (0-99 default)
+gridY: number  // Vertical position (0-99 default)
 
-## Repository Structure
+// World coordinates (3D game space)
+worldX: number  // X position in 3D (gridX - gridSize/2)
+worldZ: number  // Z position in 3D (gridY - gridSize/2)
+worldY: number  // Height (usually 0 for ground level)
 
-The canon lives in a git repository with this structure:
-
+// Conversion formulas
+worldX = (gridX - gridSize / 2) * CELL_SIZE
+worldZ = (gridY - gridSize / 2) * CELL_SIZE
 ```
-repo/
-├── countries/        # Individual country files
-├── figures/          # Biographies of significant people and characters
-├── events/          # Major historical events (wars, treaties, etc.)
-└── relations/       # International relations and treaties
+
+### Grid Properties
+```typescript
+GRID_CELL_SIZE = 1.0    // Each cell = 1 unit in world space
+DEFAULT_GRID_SIZE = 100  // 100x100 grid
+WORLD_SIZE = 100        // 100x100 units in 3D space
 ```
 
-## Workflow
+### Center Point
+```
+Grid (50, 50) = World (0, 0, 0)
+Grid origin (0, 0) = World (-50, 0, -50)
+Grid max (99, 99) = World (49, 0, 49)
+```
 
-### First Time Setup
+## Building Types
 
-If no repository exists yet:
+### 1. Walls (`type: "wall"`)
+**Properties**:
+- Size: 1x1 grid cell
+- Rotation: 0°, 90°, 180°, 270°
+- Color: #666 (gray)
+- Collision: Solid, blocks movement
+- Height: Full height (blocks line of sight)
 
-1. Ask Saul where he wants the repository located
-2. Run `scripts/init_repo.py <path>` to initialize it
-3. Confirm the repository is ready
+**Placement**:
+```json
+{
+  "type": "wall",
+  "position": {"x": 10, "y": 0, "z": 5},
+  "gridPosition": {"x": 60, "y": 55},
+  "rotation": 0
+}
+```
 
-### Creating New Canon
+### 2. Floors (`type: "floor"`)
+**Properties**:
+- Size: 1x1 grid cell
+- No rotation (flat surface)
+- Color: #ddd (light gray)
+- Collision: Walkable
+- Visual: Ground plane
 
-When Saul wants to add something new:
+**Purpose**: Define walkable areas, rooms, paths
 
-1. **Understand the Request**: 
-   - What exactly does Saul want to add or change?
-   - Get enough detail to create quality content
-   - If the request lacks proper spelling, punctuation, or is very low-effort, playfully decline and ask for a better attempt
+### 3. Doors (`type: "door"`)
+**Properties**:
+- Size: 2x1 grid cells (wide enough for player)
+- Rotation: Determines which direction it spans
+- Color: #8B4513 (brown)
+- Interactive: Can open/close
+- Width: 2.0 units
 
-2. **Check Existing Canon**:
-   - Use `view` tool to read relevant existing files
-   - Search the repository for related entities, dates, or events
-   - Identify any potential conflicts or connections
+**Door System** (`src/systems/doorSystem.ts`):
+```typescript
+- Proximity detection (1.5 unit range)
+- Automatic open when player approaches
+- Smooth animation (pivot rotation)
+- Collision updates (passable when open)
+```
 
-3. **Collaborate on Content**:
-   - Propose ideas and details enthusiastically
-   - Ask creative questions to enrich the content
-   - Work with Saul to decide what should be canonical
-   - Be playful and inventive while maintaining quality
+### 4. Windows (`type: "window"`)
+**Properties**:
+- Size: 1x1 grid cell
+- Rotation: 0°, 90°, 180°, 270°
+- Color: #87CEEB (sky blue)
+- Collision: Solid
+- Visual: Semi-transparent
 
-4. **Validate Consistency**:
-   - Check dates align with existing timelines
-   - Verify mentioned entities exist in canon
-   - Ensure no contradictions with established lore
-   - Run `scripts/validate_canon.py <repo-path>` to check for issues
+**Purpose**: Visual detail, natural light, line of sight
 
-5. **Create/Edit Files**:
-   - Follow the templates in `references/` for structure
-   - Use proper YAML frontmatter
-   - Include cross-references to related files
-   - Write in detailed, engaging prose
-   - Save to appropriate directory in the repository
+### 5. Player Spawn (`type: "player-spawn"`)
+**Properties**:
+- Size: 1x1 grid cell
+- Rotation: Initial facing direction
+  - 0° = South (down)
+  - 90° = West (left)
+  - 180° = North (up)
+  - 270° = East (right)
+- Color: #FF4444 (red)
+- Unique: Only one per map
 
-6. **Commit Changes**:
-   - Run `scripts/commit_push.py <repo-path> "<descriptive message>"`
-   - Use clear commit messages like "Add new country: Aerobea" or "Expand Fog Wars with hero details"
-   - Confirm the commit was successful
+**Default Spawn**: Center of map (gridX: 50, gridY: 50)
 
-### Editing Existing Canon
+### 6. NPC Spawn (`type: "npc-spawn"`)
+**Properties**:
+- Size: 1x1 grid cell
+- Rotation: Initial facing direction
+- Color: Dynamic based on NPC type
+- Has `npcId` property
+- Has optional `schedule` property
 
-When correcting or expanding existing canon:
+**NPC Colors**:
+```typescript
+baker: #D2691E  (tan/brown)
+guard: #4169E1  (royal blue)
+thief: #8B8B8B  (gray)
+// Custom colors from NPC editor
+```
 
-1. Read the current file(s) with `view`
-2. Identify what needs to change
-3. Discuss changes with Saul if significant
-4. Validate the changes won't create inconsistencies
-5. Edit the file(s) using `str_replace`
-6. Commit with a message describing what changed
+## Map Structure
 
-### Answering Questions
+### Map JSON Format
+```json
+{
+  "metadata": {
+    "gridSize": 100,
+    "cellSize": 1,
+    "worldSize": 100,
+    "version": "1.0.0"
+  },
+  "buildings": [
+    {
+      "type": "wall",
+      "position": {"x": 10, "y": 0, "z": 5},
+      "gridPosition": {"x": 60, "y": 55},
+      "rotation": 0
+    }
+  ],
+  "spawns": {
+    "player": [
+      {"x": 0, "y": 0, "z": 0, "rotation": 0}
+    ],
+    "npcs": [
+      {
+        "x": 10, "y": 0, "z": 10,
+        "npcId": "baker",
+        "rotation": 0,
+        "schedule": {
+          "21600": {"x": 10, "y": 0, "z": 10},
+          "28800": {"x": 15, "y": 0, "z": 15}
+        }
+      }
+    ]
+  }
+}
+```
 
-When Saul asks about canon:
+### Map Files
+```
+public/data/maps/
+  └── world.json          - Main game world
+```
 
-1. Search the repository for relevant files
-2. Read the files to find accurate information
-3. Answer based on what's actually in canon
-4. If something isn't defined yet, say so and offer to create it
+## NPC System
 
-## File Structure Guidelines
+### NPC Definition Format
+NPCs are defined in individual JSON files:
 
-### Countries (`countries/{name}.md`)
+```json
+{
+  "id": "baker",
+  "name": "Bread Baker",
+  "color": [0.82, 0.41, 0.12],      // Skin color RGB (0-1)
+  "shirtColor": [1.0, 1.0, 1.0],    // Shirt color RGB
+  "height": 1.8,
+  "hasHat": true,
+  "hatColor": [1.0, 1.0, 1.0],
+  "dialogue": {
+    "greeting": "Fresh bread today!",
+    "investigation": "I saw someone near the bakery last night..."
+  }
+}
+```
 
-See `references/country_template.md` for the complete structure. Key sections:
-- YAML frontmatter with name, capital, founding date, location
-- Overview and geography (location on real-world map)
-- Detailed history with timeline of events
-- Government structure and timeline of leaders
-- Political parties and their histories
-- Notable figures (with links to detailed biographies)
-- Economy and trade relationships
-- International relations (allies, rivals)
-- Correlation with real-world events
+### NPC Files
+```
+public/data/npcs/
+  ├── baker.json
+  ├── guard.json
+  ├── beggar.json
+  └── [custom NPCs]
+```
 
-### Figures (`figures/{name}.md`)
+### NPC Visual Properties
+```typescript
+// Body
+- Height: 1.5 - 2.0 units
+- Width: 0.5 units
+- Color: Skin tone from color array
 
-See `references/figure_template.md` for structure. Key sections:
-- YAML frontmatter including species (human/animal) and gender
-- Overview of significance
-- Early life and background
-- Career and major accomplishments (chronological)
-- Personal life and relationships
-- Death and legacy
-- Timeline summary
-- Cross-references to related countries and events
+// Clothing
+- Shirt: Covers torso
+- Color: shirtColor array
 
-**Special Note on Non-Human Characters**: Some figures may be animals (like Feathery Quol, a male owl). Always specify:
-- Species in frontmatter
-- Gender in frontmatter
-- How they came to their position
-- Any unique characteristics
+// Accessories
+- Hat: Optional (hasHat: true/false)
+- Hat Color: Custom or white default
+- Hat Style: Cylinder on top of head
+```
 
-### Events (`events/{name}.md`)
+### NPC Behavior
+- Follow schedules (see Time System skill)
+- Interpolate between waypoints
+- Face direction of movement
+- Can have dialogue trees
+- Can be photographed for evidence
 
-See `references/event_template.md` for structure. Key sections:
-- YAML frontmatter with dates, type, countries involved
-- Overview and background
-- Detailed timeline of phases
-- Key figures involved (heroes, leaders)
-- Countries involved and their roles
-- Outcome and immediate consequences
-- Long-term impact
-- Heroes and legendary moments
-- Correlation with real-world events
+## Map Editor (`tools/map-editor.html`)
 
-## Quality Standards
+### Features
+**Grid Canvas**:
+- Visual 100x100 grid
+- Zoom: 1x to 5x
+- Pan: Middle mouse button
+- Cell size: 10px per grid cell (base)
 
-### Required Standards
+**Tools**:
+1. **Select** (👆) - Click NPCs to edit schedules
+2. **Wall** (🧱) - Place walls
+3. **Floor** (⬜) - Place floor tiles
+4. **Door** (🚪) - Place 2-cell doors
+5. **Window** (🪟) - Place windows
+6. **NPC Spawn** (👤) - Place NPCs with schedules
+7. **Player Spawn** (🎮) - Place player start
+8. **Erase** (❌) - Remove tiles
 
-**Content Quality:**
-- Detailed and substantial (not just bare facts)
-- Internally consistent with existing canon
-- Properly dated and cross-referenced
-- Well-organized following templates
+**Drag Painting**: Wall, Floor, Window, Erase support click-and-drag
 
-**Writing Quality:**
-- Proper spelling and grammar
-- Clear, engaging prose
-- Appropriate level of detail for an 8-year-old's sophisticated project
+**Rotation**: R key or dropdown (0°, 90°, 180°, 270°)
 
-**Technical Quality:**
-- Valid YAML frontmatter
-- Correct markdown formatting
-- Proper file naming (lowercase, hyphens for spaces)
-- Cross-references use correct paths
+**Schedule Editor**:
+- Opens automatically when NPC selected
+- Click on grid to add waypoints
+- Each waypoint has time (HH:MM format)
+- Visual path between waypoints
+- Editable times in list
+- Save & Close button
 
-### Rejecting Low-Effort Requests
+**Import/Export**:
+- Export: Generates JSON with all tiles and schedules
+- Import: Load existing maps with full state restoration
+- Copy to clipboard or download file
 
-If Saul's request has spelling errors, poor punctuation, or is very brief/lazy:
+### Grid Rendering
+```typescript
+// Colors
+Background: #1a1a1a (dark)
+Grid lines: #333 (subtle)
+Labels: Every 10 cells
 
-**❌ Decline playfully:** "Hold on! I need you to put a bit more effort into that request. Can you write it with proper spelling and punctuation? Show me you're serious about this awesome world you're building!"
+// Tile display
+- Colored squares for buildings
+- Green arrow for rotation indicator
+- Red tiles for schedule waypoints
+- Dashed lines connecting waypoints
+```
 
-**✓ Accept after improvement:** Once Saul provides a proper request, proceed enthusiastically.
+## World Building Workflow
 
-## Tone and Style
+### 1. Design Phase
+```
+1. Plan layout on paper/grid
+2. Define rooms and spaces
+3. Decide NPC locations and schedules
+4. Plan crime/investigation locations
+```
 
-- **Enthusiastic and Creative**: Celebrate great ideas, suggest interesting additions
-- **Collaborative**: This is Saul's world; you're helping shape it, not controlling it
-- **Playful**: Have fun with the creative process
-- **Respectful**: Don't dumb down language for age; Saul is sophisticated
-- **Quality-Focused**: Maintain high standards while being encouraging
-- **Historically Informed**: Draw on real history for plausible parallels
+### 2. Map Creation
+```
+1. Open map-editor.html
+2. Place walls to define rooms
+3. Add floors inside rooms
+4. Place doors for entrances
+5. Add windows for detail
+6. Place player spawn (center or custom)
+```
 
-## Validation Process
+### 3. NPC Placement
+```
+1. Click NPC Spawn tool
+2. Select NPC type from modal
+3. Click on grid to place
+4. Schedule editor opens automatically
+5. Add waypoints by clicking grid cells
+6. Assign times to each waypoint
+7. Save & Close
+```
 
-Before committing any changes, always:
+### 4. Testing
+```
+1. Export map JSON
+2. Save to public/data/maps/world.json
+3. Launch game (npm run dev)
+4. Test player spawn location
+5. Verify NPCs follow schedules
+6. Test door interactions
+7. Check collision/navigation
+```
 
-1. **Check Dates**: Do all dates make chronological sense?
-2. **Check References**: Do mentioned entities exist in canon?
-3. **Check Relationships**: Are connections properly reciprocal?
-4. **Run Validator**: Use `scripts/validate_canon.py` to catch issues
-5. **Get Confirmation**: For major additions/changes, confirm with Saul before committing
+### 5. Iteration
+```
+1. Import existing map
+2. Make adjustments
+3. Re-export and test
+4. Repeat until satisfied
+```
 
-## Example Interactions
+## Spatial Organization
 
-**Good Request:**
-> "I want to add a new country called Aerobea. It's an island nation known for its airship technology and it was neutral during WWII."
+### Building Patterns
 
-**Response:**
-> "Ooh, Aerobea sounds fascinating! An island nation with airship mastery—I love it! Let's flesh this out. Where exactly is this island? North Sea? Mediterranean? And what made them neutral during WWII—strategic choice, geographical isolation, or internal politics? Also, when was Aerobea founded? Let's make this amazing!"
+**Simple Room**:
+```
+WWWWW
+W...W  (W=Wall, .=Floor, D=Door)
+W...W
+W.D.W
+WWWWW
+```
 
-**Poor Request:**
-> "add arobia its cool"
+**House with Window**:
+```
+WWWWWW
+W....W
+W....W
+W..#.W  (#=Window)
+WW.DWW
+```
 
-**Response:**
-> "Hold on! I need you to put a bit more effort into that request. Can you write it with proper spelling, punctuation, and tell me more details? What makes Arobia cool? Where is it? When was it founded? Show me you're serious about this awesome world you're building!"
+**Street/Path**:
+```
+.......  (Floor tiles for walkable path)
+.......
+```
 
-**Correction Request:**
-> "Feathery Quol was a male owl, not a female human."
+### NPC Spawn Placement
+```
+- Home locations: Inside buildings
+- Work locations: Shops, workplaces
+- Patrol routes: Streets, alleys
+- Social spots: Town square, market
+```
 
-**Response:**
-> "Ah, thank you for catching that! Let me fix Feathery Quol's biography right now. A male owl in a leadership position—that must have been quite remarkable! Let me update the file and make sure the species and gender are correctly recorded."
+## Collision & Physics
 
-[Then read the file, correct it, validate, and commit with message: "Correct Feathery Quol: male owl, not female human"]
+### Collision Types
+```typescript
+Solid (blocks all):
+- Walls
+- Windows
+- NPCs (soft collision)
 
-## Scripts Reference
+Walkable:
+- Floors
+- Open doors
+- Empty grid cells
 
-- `scripts/init_repo.py <path>`: Initialize a new repository
-- `scripts/validate_canon.py <repo-path>`: Check for consistency issues
-- `scripts/commit_push.py <repo-path> "<message>" [files...]`: Commit and push changes
+Interactive:
+- Doors (open/close)
+- NPCs (dialogue)
+```
 
-Always run these scripts when appropriate—they're essential to maintaining the canon properly.
+### Player Movement
+```typescript
+- WASD/Arrow keys
+- Mouse look
+- Collision with walls
+- Walk through open doors
+- Cannot overlap NPCs
+```
 
-## Templates and References
+## Development Commands
 
-- `references/country_template.md`: Full structure for country files
-- `references/figure_template.md`: Full structure for biography files  
-- `references/event_template.md`: Full structure for event files
-- `assets/country_template.md`: Quick-start template for new countries
-- `assets/figure_template.md`: Quick-start template for new figures
+### List all maps
+```bash
+cd /home/gianfiorenzo/Documents/Vs\ Code/babylon_fp
+ls -lh public/data/maps/*.json
+```
 
-Read these when creating new content to ensure proper formatting and completeness.
+### List all NPCs
+```bash
+cd /home/gianfiorenzo/Documents/Vs\ Code/babylon_fp
+ls -1 public/data/npcs/*.json | xargs -I {} basename {} .json
+```
+
+### Count buildings in map
+```bash
+cd /home/gianfiorenzo/Documents/Vs\ Code/babylon_fp
+node -e "const map = require('./public/data/maps/world.json'); console.log('Buildings:', map.buildings?.length || 0, '\nNPCs:', map.spawns?.npcs?.length || 0)"
+```
+
+### Validate map JSON
+```bash
+cd /home/gianfiorenzo/Documents/Vs\ Code/babylon_fp
+node -e "JSON.parse(require('fs').readFileSync('public/data/maps/world.json'))" && echo "✓ Valid JSON"
+```
+
+## Related Files
+```
+tools/map-editor.html           - Visual map editor (2000+ lines)
+tools/npc-editor.html           - NPC creator/editor
+public/data/maps/world.json     - Main game map
+public/data/npcs/*.json         - NPC definitions
+src/systems/doorSystem.ts       - Door interaction
+src/systems/npcSystem.ts        - NPC movement/rendering
+src/config/gameConfig.ts        - World constants
+```
+
+## Best Practices
+
+### Map Design
+- ✅ Leave open spaces for movement
+- ✅ Create clear pathways with floors
+- ✅ Use doors wide enough (2 cells)
+- ✅ Place player spawn in accessible area
+- ✅ Test NPC pathfinding routes
+- ❌ Don't create isolated areas
+- ❌ Don't place spawns inside walls
+
+### NPC Schedules
+- ✅ Start at 6:00 AM (morning)
+- ✅ Use realistic time gaps (15+ min)
+- ✅ Create logical routes (home→work→home)
+- ✅ Avoid overlapping NPCs at same spot
+- ✅ End near starting position
+- ❌ Don't use times outside 6 AM - 10 PM
+- ❌ Don't create impossible jumps (teleportation)
+
+### Performance
+- Limit total tiles to reasonable count (<1000)
+- Reuse floor patterns rather than individual tiles
+- Keep NPC count manageable (<20)
+- Simple building shapes render faster

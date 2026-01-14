@@ -1,11 +1,7 @@
 {
   "name": "context-preservation",
-  "description": "PROTOCOL skill for checkpoint-based context preservation using Serena MCP.Automatically creates checkpoints at wave boundaries and before PreCompact.Enables zero-context-loss multi-session work with s",
-  "repo": "krzemienski/shannon-framework",
-  "category": "data",
-  "tags": [
-    "context",
-    "preservation"
-  ],
-  "stars": 1
+  "repo": "vneseyoungster/ChocoVine",
+  "path": ".claude/skills/shared/context-preservation/SKILL.md",
+  "source": "github.com/vneseyoungster/ChocoVine",
+  "downloaded_at": "2026-01-14T02:56:21.828564Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "create-meta-prompts",
-  "description": "Create optimized prompts for Claude-to-Claude pipelines with research, planning, and execution stages. Use when building prompts that produce outputs for other prompts to consume, or when running mult",
   "repo": "marcusgoll/Spec-Flow",
-  "category": "productivity",
-  "tags": [
-    "create",
-    "meta",
-    "prompts"
-  ],
-  "stars": 16,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/create-meta-prompts/SKILL.md",
+  "source": "github.com/marcusgoll/Spec-Flow",
+  "downloaded_at": "2026-01-14T04:06:36.050101Z"
 }

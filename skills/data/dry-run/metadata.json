@@ -1,12 +1,7 @@
 {
   "name": "dry-run",
-  "description": "Preview command effects without making changes. Simulates file writes, git operations, agent spawns, and state changes. All reads execute normally for accurate preview. Use --dry-run flag on any comma",
   "repo": "marcusgoll/Spec-Flow",
-  "category": "development",
-  "tags": [
-    "dry",
-    "run"
-  ],
-  "stars": 16,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/dry-run/SKILL.md",
+  "source": "github.com/marcusgoll/Spec-Flow",
+  "downloaded_at": "2026-01-14T04:06:27.656500Z"
 }

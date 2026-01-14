@@ -1,12 +1,7 @@
 {
   "name": "langfuse-observability",
-  "description": "LLM observability with self-hosted Langfuse 3.x - tracing, evaluation, monitoring, prompt management, and cost tracking",
-  "repo": "yonatangross/create-yg-app",
-  "category": "devops",
-  "tags": [
-    "langfuse",
-    "observability"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "phrazzld/claude-config",
+  "path": "skills/langfuse-observability/SKILL.md",
+  "source": "github.com/phrazzld/claude-config",
+  "downloaded_at": "2026-01-14T03:03:38.576289Z"
 }

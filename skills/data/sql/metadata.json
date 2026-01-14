@@ -1,11 +1,7 @@
 {
   "name": "sql",
-  "description": "Run SQL queries against the WordPress development database. Use when querying database tables, inspecting Simple History events, checking WordPress data, debugging database issues, or when the user sa",
-  "repo": "bonny/WordPress-Simple-History",
-  "category": "data",
-  "tags": [
-    "sql"
-  ],
-  "stars": 313,
-  "source": "SkillsMP Synced Skills"
+  "repo": "Activer007/ordinary-claude-skills",
+  "path": "skills_all/sql/SKILL.md",
+  "source": "github.com/Activer007/ordinary-claude-skills",
+  "downloaded_at": "2026-01-14T03:21:32.466872Z"
 }

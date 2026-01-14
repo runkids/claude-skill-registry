@@ -1,8 +1,7 @@
 {
   "name": "zero-debt",
   "repo": "mgreenly/ikigai",
-  "category": "data",
-  "description": "Zero Technical Debt skill for the ikigai project",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:28.783039Z"
+  "path": ".claude/library/zero-debt/SKILL.md",
+  "source": "github.com/mgreenly/ikigai",
+  "downloaded_at": "2026-01-14T03:06:58.352886Z"
 }

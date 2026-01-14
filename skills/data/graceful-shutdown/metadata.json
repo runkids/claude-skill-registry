@@ -1,11 +1,7 @@
 {
   "name": "graceful-shutdown",
-  "description": "Implement graceful shutdown procedures to handle SIGTERM signals, drain connections, complete in-flight requests, and clean up resources properly. Use when deploying containerized applications, handli",
   "repo": "aj-geddes/useful-ai-prompts",
-  "category": "data",
-  "tags": [
-    "graceful",
-    "shutdown"
-  ],
-  "stars": 25
+  "path": "skills/graceful-shutdown/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:09.032950Z"
 }

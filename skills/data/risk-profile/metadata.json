@@ -1,9 +1,7 @@
 {
   "name": "risk-profile",
-  "description": "Assess implementation risks using Probability × Impact (P×I) scoring methodology across 6 categories (Technical, Security, Performance, Data, Business, Operational). Scores risks (P×I: 1-9), develops ",
-  "repo": "adolfoaranaes12/BMAD-ENHANCED",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "resolve-io/.prism",
+  "path": "plugins/prism-devtools/skills/risk-profile/SKILL.md",
+  "source": "github.com/resolve-io/.prism",
+  "downloaded_at": "2026-01-14T03:09:55.659572Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "requirements-traceability",
-  "description": "Create or audit requirements-to-design-to-code-to-test traceability. Builds atraceability matrix (REQ → design/ADR → implementation files → tests →evidence) and flags gaps (unimplemented requirements,",
-  "repo": "terraphim/codex-skills",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "terraphim/opencode-skills",
+  "path": "skill/requirements-traceability/SKILL.md",
+  "source": "github.com/terraphim/opencode-skills",
+  "downloaded_at": "2026-01-14T02:27:07.141970Z"
 }

@@ -1,8 +1,7 @@
 {
   "name": "data-quality-planning",
   "repo": "melodic-software/claude-code-plugins",
-  "category": "data",
-  "description": "Define data quality rules, profiling strategies, validation frameworks, and quality metrics.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:01.365869Z"
+  "path": "plugins/data-architecture/skills/data-quality-planning/SKILL.md",
+  "source": "github.com/melodic-software/claude-code-plugins",
+  "downloaded_at": "2026-01-14T03:00:24.563418Z"
 }

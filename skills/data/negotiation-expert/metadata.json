@@ -1,11 +1,7 @@
 {
   "name": "negotiation-expert",
-  "description": "Expert in commercial lease negotiation strategy using evidence-based persuasion techniques. Use when crafting responses to tenant objections, defending rent and lease terms, structuring counter-offers",
   "repo": "reggiechan74/vp-real-estate",
-  "category": "data",
-  "tags": [
-    "negotiation",
-    "expert"
-  ],
-  "stars": 4
+  "path": ".claude/skills/negotiation-expert/SKILL.md",
+  "source": "github.com/reggiechan74/vp-real-estate",
+  "downloaded_at": "2026-01-14T01:33:21.764376Z"
 }

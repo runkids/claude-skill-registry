@@ -1,13 +1,7 @@
 {
   "name": "wordpress-plugin-core",
-  "description": "Build secure WordPress plugins with core patterns for hooks, database interactions, Settings API, custom post types, REST API, and AJAX. Covers three architecture patterns (Simple, OOP, PSR-4) and the",
   "repo": "jezweb/claude-skills",
-  "category": "data",
-  "tags": [
-    "wordpress",
-    "plugin",
-    "core"
-  ],
-  "stars": 109,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/wordpress-plugin-core/SKILL.md",
+  "source": "github.com/jezweb/claude-skills",
+  "downloaded_at": "2026-01-14T04:01:46.814532Z"
 }

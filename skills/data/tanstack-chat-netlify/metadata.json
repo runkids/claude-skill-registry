@@ -1,12 +1,7 @@
 {
   "name": "tanstack-chat-netlify",
-  "description": "Modern chat app with TanStack Router and Claude AI for Netlify.",
-  "repo": "Eng0AI/eng0-template-skills",
-  "category": "data",
-  "tags": [
-    "tanstack",
-    "chat",
-    "netlify"
-  ],
-  "stars": 0
+  "repo": "rebyteai-template/rebyte-skills",
+  "path": "tanstack-chat-netlify/SKILL.md",
+  "source": "github.com/rebyteai-template/rebyte-skills",
+  "downloaded_at": "2026-01-14T01:01:10.693096Z"
 }

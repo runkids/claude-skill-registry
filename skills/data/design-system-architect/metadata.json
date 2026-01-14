@@ -1,13 +1,7 @@
 {
   "name": "design-system-architect",
-  "description": "Build scalable, maintainable design systems that unify product experiences. Use when creating component libraries, design tokens, or establishing design standards. Covers atomic design, Storybook, the",
   "repo": "daffy0208/ai-dev-standards",
-  "category": "design",
-  "tags": [
-    "design",
-    "system",
-    "architect"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/design-system-architect/SKILL.md",
+  "source": "github.com/daffy0208/ai-dev-standards",
+  "downloaded_at": "2026-01-14T03:33:11.079489Z"
 }

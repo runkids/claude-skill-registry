@@ -1,66 +1,175 @@
 ---
 name: code-style
-description: Oak AI project TypeScript coding conventions including naming patterns (kebab-case files, PascalCase components, camelCase functions), component structure, error handling with cause, state management patterns, and tRPC implementation. Use when writing, reviewing, or refactoring code.
+description: Enforce code style and formatting preferences. Use when writing or reviewing code to ensure consistent style.
 ---
 
-# Code Style Guide
+# Code Style
 
-## General Principles
+Project code style and formatting rules.
 
-- **TypeScript**: Strict types with noUncheckedIndexedAccess. Prefer explicit return types.
-- **Imports**: Sorted: React → Third-party → Project → Relative
-- **Formatting**: 2-space indents, 80 char width, double quotes, trailing commas
-- **Function style**: Functional, declarative programming. Avoid classes.
-- **Organization**: Modular architecture with clear separation of concerns
+## Control Flow
 
-## Naming Conventions
+**Always use brackets** for control flow statements. Never single-line without braces.
 
-- **Files/Directories**: kebab-case (lowercase with dashes)
-- **Components**: PascalCase
-- **Variables/Functions**: camelCase
-- **Types/Interfaces**: PascalCase
-- **Constants**: UPPER_CASE for true constants, camelCase for config objects
-- **Hooks**: Always prefix with "use" (e.g., useAnalytics)
+### Wrong
 
-## Component Structure
+```ts
+if (condition) return early;
 
-- **Component Pattern**: Functional components with hooks
-- **Client Components**: Add "use client" directive at the top of file
-- **File Organization**:
-  - Exported component first
-  - Sub-components next
-  - Helper functions
-  - Type definitions at the end
+if (x) doSomething();
+else doOther();
 
-## State Management
+for (const item of items) process(item);
+```
 
-- **Global State**: Zustand stores organized by domain
-- **Local State**: React hooks (useState, useReducer)
-- **Remote State**: tRPC queries and mutations with TanStack Query
+### Right
 
-## Error Handling
+```ts
+if (condition) {
+  return early;
+}
 
-- **Promise Handling**: Always await promises or use .catch() (enforced by no-floating-promises)
-- **Error Patterns**:
-  - Early returns with guard clauses
-  - Structured error types
-  - User-friendly error messages
-  - Proper logging
-- **Error Cause**: When rethrowing errors, use the `cause` option for better error context:
-  ```typescript
-  throw new Error("High-level error message", { cause: originalError });
-  ```
+if (x) {
+  doSomething();
+} else {
+  doOther();
+}
 
-## tRPC Implementation
+for (const item of items) {
+  process(item);
+}
+```
 
-- **Router Organization**: By domain/feature
-- **Procedure Types**: Query for read, Mutation for write operations
-- **Error Handling**: Consistent error responses
-- **Middleware**: Authentication, rate limiting, etc.
+## DRY - Don't Repeat Yourself
 
-## Testing Patterns
+**Always check for existing utilities before creating new ones.**
 
-- **Unit Tests**: Jest for utilities and hooks
-- **Component Tests**: React Testing Library
-- **E2E Tests**: Playwright
-- **Mocking**: Mock external dependencies appropriately
+### Before Writing New Code
+
+1. Search `hooks/` for existing React hooks
+2. Search `utils/` for utility functions
+3. Search `atoms/utils/` for Jotai helpers
+4. Check if a service already provides the functionality
+5. Look for similar patterns in the codebase
+
+### If Similar Code Exists
+
+- Extend the existing utility
+- Extract common logic into shared function
+- Don't duplicate - refactor
+
+## No Backwards Compatibility
+
+**Prefer breaking and remaking over maintaining legacy support.**
+
+### Do
+
+- Delete obsolete code entirely
+- Rename things to be correct, update all usages
+- Remove deprecated APIs immediately
+- Refactor aggressively when improving
+
+### Don't
+
+- Keep old function signatures "for compatibility"
+- Add `// @deprecated` and leave code around
+- Maintain multiple ways to do the same thing
+- Add shims or adapters for old patterns
+- Comment out code "in case we need it"
+
+## No Legacy Code
+
+**Remove, don't preserve.**
+
+### Signs of Legacy Code to Remove
+
+- Commented-out code blocks
+- Functions with `_old`, `_legacy`, `_deprecated` suffixes
+- `// TODO: remove after migration`
+- Unused exports
+- Dead code paths
+- Backwards-compat shims
+
+### When Refactoring
+
+1. Delete the old implementation
+2. Write the new implementation
+3. Update all call sites
+4. Don't provide migration period
+
+## Code Cleanup Rules
+
+- Delete unused imports immediately
+- Remove empty files
+- Delete unused variables (not just prefix with `_`)
+- Remove console.log statements
+- Clean up TODO comments by doing them or removing them
+
+## Formatting - Use Utilities
+
+**Always use `@/lib/format` instead of manual formatting.**
+
+### Wrong
+
+```tsx
+{
+  value.toLocaleString();
+}
+{
+  new Date(date).toLocaleDateString();
+}
+{
+  `${duration}ms`;
+}
+{
+  (percent * 100).toFixed(1) + "%";
+}
+```
+
+### Right
+
+```tsx
+import {
+  formatInt,
+  formatRelativeToNow,
+  formatDurationMs,
+  formatPercent,
+} from "@/lib/format";
+
+{
+  formatInt(value);
+}
+{
+  formatRelativeToNow(date);
+}
+{
+  formatDurationMs(duration);
+}
+{
+  formatPercent(percent);
+}
+```
+
+### Available Formatters
+
+| Function                | Use For                    |
+| ----------------------- | -------------------------- |
+| `formatInt`             | Large integers with commas |
+| `formatCompact`         | Abbreviated numbers (1.2M) |
+| `formatPercent`         | Percentages                |
+| `formatNumber`          | Spell description numbers  |
+| `formatRelativeToNow`   | Relative time ("2h ago")   |
+| `formatDate`            | Formatted dates            |
+| `formatDurationMs`      | Millisecond durations      |
+| `formatDurationSeconds` | Second durations           |
+
+## Instructions
+
+When writing or reviewing code:
+
+1. Check control flow has brackets
+2. Search for existing utilities before creating new ones
+3. Delete obsolete code, don't deprecate
+4. Remove legacy patterns, don't maintain them
+5. Keep codebase lean - when in doubt, delete
+6. Use `@/lib/format` for all number/date/duration formatting

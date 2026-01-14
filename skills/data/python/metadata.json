@@ -1,10 +1,7 @@
 {
   "name": "python",
-  "description": "Create Python projects with modern best practices. Use when asked to create a Python project, FastAPI app, CLI tool, or Python package. Includes uv for package management, Docker, pre-commit, ruff, Fa",
-  "repo": "FarisHijazi/dotclaude",
-  "category": "data",
-  "tags": [
-    "python"
-  ],
-  "stars": 0
+  "repo": "artofrawr/claude-control",
+  "path": "skills/python/SKILL.md",
+  "source": "github.com/artofrawr/claude-control",
+  "downloaded_at": "2026-01-14T03:44:40.573582Z"
 }

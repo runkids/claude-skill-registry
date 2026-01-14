@@ -1,8 +1,7 @@
 {
   "name": "uv",
-  "description": "Build self-contained Python executables using uv script metadata.",
-  "repo": "lostmygithubaccount/dotfiles",
-  "category": "data",
-  "tags": [],
-  "stars": 1
+  "repo": "BbgnsurfTech/claude-skills-collection",
+  "path": "community/jamie-bitflight-claude-skills/uv/SKILL.md",
+  "source": "github.com/BbgnsurfTech/claude-skills-collection",
+  "downloaded_at": "2026-01-14T01:28:26.145089Z"
 }

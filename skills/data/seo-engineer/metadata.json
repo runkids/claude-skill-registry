@@ -1,12 +1,7 @@
 {
   "name": "seo-engineer",
-  "description": "Principal SEO Engineer for search-optimized web experiences. Use when implementing technical SEO, optimizing Core Web Vitals, creating structured data, building SEO-friendly architectures, or improvin",
   "repo": "matthewharwood/engmanager.xyz",
-  "category": "development",
-  "tags": [
-    "seo",
-    "engineer"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/seo-engineer/SKILL.md",
+  "source": "github.com/matthewharwood/engmanager.xyz",
+  "downloaded_at": "2026-01-14T03:04:53.779770Z"
 }

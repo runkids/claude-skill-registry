@@ -1,11 +1,7 @@
 {
   "name": "nodejs-backend",
-  "description": "Build Node.js backend services with Express/Fastify, PostgreSQL, and services pattern. Use when creating backend APIs, setting up servers, or connecting to databases.",
-  "repo": "ProfPowell/project-template",
-  "category": "data",
-  "tags": [
-    "nodejs",
-    "backend"
-  ],
-  "stars": 0
+  "repo": "artofrawr/claude-control",
+  "path": "skills/nodejs-backend/SKILL.md",
+  "source": "github.com/artofrawr/claude-control",
+  "downloaded_at": "2026-01-14T03:44:42.794313Z"
 }

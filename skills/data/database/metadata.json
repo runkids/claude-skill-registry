@@ -1,11 +1,7 @@
 {
   "name": "database",
-  "description": "Database management commands and the bin/run utility for executing Ruby scripts against specific event databases. Use when the user needs to query, manipulate, or run scripts against existing database",
-  "repo": "rubys/showcase",
-  "category": "data",
-  "tags": [
-    "database"
-  ],
-  "stars": 34,
-  "source": "SkillsMP Synced Skills"
+  "repo": "SylphxAI/flow",
+  "path": "packages/flow/assets/skills/database/SKILL.md",
+  "source": "github.com/SylphxAI/flow",
+  "downloaded_at": "2026-01-14T03:51:24.540026Z"
 }

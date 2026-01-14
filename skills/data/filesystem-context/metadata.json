@@ -1,9 +1,7 @@
 {
   "name": "filesystem-context",
-  "description": "This skill should be used when the user asks to",
   "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
-  "category": "product",
-  "tags": [],
-  "stars": 0,
-  "source": "GitHub Search API"
+  "path": "skills/filesystem-context/SKILL.md",
+  "source": "github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
+  "downloaded_at": "2026-01-14T01:40:44.896420Z"
 }

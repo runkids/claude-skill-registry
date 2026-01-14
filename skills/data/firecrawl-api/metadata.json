@@ -1,12 +1,7 @@
 {
   "name": "firecrawl-api",
-  "description": "This skill enables web scraping and content extraction using Firecrawl API directly via curl. Use when scraping web pages, crawling websites, or extracting structured data. MCP server not required.",
   "repo": "s-hiraoku/vscode-sidebar-terminal",
-  "category": "data",
-  "tags": [
-    "firecrawl",
-    "api"
-  ],
-  "stars": 6,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/firecrawl-api/SKILL.md",
+  "source": "github.com/s-hiraoku/vscode-sidebar-terminal",
+  "downloaded_at": "2026-01-14T03:50:54.035694Z"
 }

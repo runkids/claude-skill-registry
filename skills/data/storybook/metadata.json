@@ -1,11 +1,7 @@
 {
   "name": "storybook",
-  "description": "Storybook CSF3 story authoring methodology for UI component catalogs.Prioritizes visual showcase patterns over exhaustive argTypes enumeration.Reference for creating scannable, maintainable component ",
-  "repo": "Higashi-Kota/drawing-explorer",
-  "category": "documents",
-  "tags": [
-    "storybook"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "tidemann/st44-home",
+  "path": ".claude/skills/storybook/SKILL.md",
+  "source": "github.com/tidemann/st44-home",
+  "downloaded_at": "2026-01-14T03:15:16.220909Z"
 }

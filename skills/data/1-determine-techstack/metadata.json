@@ -1,12 +1,7 @@
 {
   "name": "1-determine-techstack",
-  "description": "Determine the type of project and summarize the tech stack. Your summary should include:",
   "repo": "bitovi/context-generation-mvp",
-  "category": "development",
-  "tags": [
-    "determine",
-    "techstack"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/1-determine-techstack/SKILL.md",
+  "source": "github.com/bitovi/context-generation-mvp",
+  "downloaded_at": "2026-01-14T03:29:41.401354Z"
 }

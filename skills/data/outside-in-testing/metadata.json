@@ -1,12 +1,7 @@
 {
   "name": "outside-in-testing",
-  "description": "Generates agentic outside-in tests using gadugi-agentic-test framework for CLI, TUI, Web, and Electron apps.Use when you need behavior-driven tests that verify external interfaces without internal imp",
-  "repo": "rysweet/MicrosoftHackathon2025-AgenticCoding",
-  "category": "testing",
-  "tags": [
-    "outside",
-    "testing"
-  ],
-  "stars": 10,
-  "source": "local"
+  "repo": "rysweet/azlin",
+  "path": ".claude/skills/outside-in-testing/SKILL.md",
+  "source": "github.com/rysweet/azlin",
+  "downloaded_at": "2026-01-14T03:30:07.578529Z"
 }

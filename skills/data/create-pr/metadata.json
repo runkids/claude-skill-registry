@@ -1,11 +1,7 @@
 {
   "name": "create-pr",
-  "description": "Create a well-structured pull request with proper description, design decisions, and file changes. Use when asked to create a PR, open a PR, or submit changes for review.",
-  "repo": "kristofferremback/threa",
-  "category": "design",
-  "tags": [
-    "create"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "abyanmajid/template",
+  "path": ".claude/skills/create-pr/SKILL.md",
+  "source": "github.com/abyanmajid/template",
+  "downloaded_at": "2026-01-14T03:46:59.322190Z"
 }

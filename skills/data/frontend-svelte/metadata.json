@@ -1,12 +1,7 @@
 {
   "name": "frontend-svelte",
-  "description": "Technical knowledge for SvelteKit 5 development. Build reactive applications with Svelte's compile-time magic. Expert in SvelteKit, stores, and reactive patterns. Activate for Svelte development, perf",
   "repo": "shredbx/demo-3d-model",
-  "category": "development",
-  "tags": [
-    "frontend",
-    "svelte"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/frontend-svelte/SKILL.md",
+  "source": "github.com/shredbx/demo-3d-model",
+  "downloaded_at": "2026-01-14T03:59:02.887195Z"
 }

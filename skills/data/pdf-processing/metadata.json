@@ -1,12 +1,7 @@
 {
   "name": "pdf-processing",
-  "description": "Extract text and tables from PDFs; use when PDFs, forms, or document extraction are mentioned.",
-  "repo": "BA-CalderonMorales/codex-cheat-sheet",
-  "category": "documents",
-  "tags": [
-    "pdf",
-    "processing"
-  ],
-  "stars": 2,
-  "source": "local"
+  "repo": "dy9759/Text2KnowledgeCards",
+  "path": "skills/aitemplates-skills/pdf-processing/SKILL.md",
+  "source": "github.com/dy9759/Text2KnowledgeCards",
+  "downloaded_at": "2026-01-14T02:08:16.402651Z"
 }

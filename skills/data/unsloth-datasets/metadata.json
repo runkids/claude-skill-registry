@@ -1,11 +1,7 @@
 {
   "name": "unsloth-datasets",
-  "description": "Standardizing and formatting datasets for Unsloth, including chat template conversion and synthetic data generation (triggers: chat templates, ShareGPT, Alpaca, conversation_extension, add_new_tokens,",
   "repo": "cuba6112/skillfactory",
-  "category": "data",
-  "tags": [
-    "unsloth",
-    "datasets"
-  ],
-  "stars": 0
+  "path": "skills/unsloth-datasets/SKILL.md",
+  "source": "github.com/cuba6112/skillfactory",
+  "downloaded_at": "2026-01-14T02:37:42.801622Z"
 }

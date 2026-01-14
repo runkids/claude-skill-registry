@@ -1,0 +1,12 @@
+{
+  "name": "web-design",
+  "description": "Principles and code snippets for designing responsive, accessible websites. Use this skill when building or refining web interfaces.",
+  "repo": "DegrassiAaron/influencerai-monorepo",
+  "category": "development",
+  "tags": [
+    "web",
+    "design"
+  ],
+  "stars": 0,
+  "source": "local"
+}

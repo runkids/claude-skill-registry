@@ -1,13 +1,7 @@
 {
   "name": "bmad-security-review",
-  "description": "Hardens designs and implementations with structured security reviews.",
   "repo": "bacoco/BMad-Skills",
-  "category": "design",
-  "tags": [
-    "bmad",
-    "security",
-    "review"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/bmad-security-review/SKILL.md",
+  "source": "github.com/bacoco/BMad-Skills",
+  "downloaded_at": "2026-01-14T02:53:13.664322Z"
 }

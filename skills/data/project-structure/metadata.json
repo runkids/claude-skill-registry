@@ -1,12 +1,7 @@
 {
   "name": "project-structure",
-  "description": "Provides comprehensive project folder structure design guidelines and best practices. Defines standard directory organizations for diverse project types including monorepos, web frameworks, backend se",
-  "repo": "specvital/web",
-  "category": "design",
-  "tags": [
-    "project",
-    "structure"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "KubrickCode/Repo-Management",
+  "path": ".claude/skills/project-structure/SKILL.md",
+  "source": "github.com/KubrickCode/Repo-Management",
+  "downloaded_at": "2026-01-14T04:01:56.555264Z"
 }

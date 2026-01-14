@@ -1,9 +1,7 @@
 {
   "name": "writing-prds",
-  "description": "Create Product Requirements Documents. Use when defining new features, projects, or initiatives. Covers user stories, acceptance criteria, and scope definition.",
   "repo": "dralgorhythm/claude-agentic-framework",
-  "category": "product",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/product/writing-prds/SKILL.md",
+  "source": "github.com/dralgorhythm/claude-agentic-framework",
+  "downloaded_at": "2026-01-14T00:56:41.248157Z"
 }

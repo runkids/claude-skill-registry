@@ -1,10 +1,7 @@
 {
   "name": "validate",
-  "description": "Check decisions against beliefs, wisdom, and intentions. Use before significant actions to ensure coherence with accumulated knowledge.",
-  "repo": "genomewalker/cc-soul",
-  "category": "data",
-  "tags": [
-    "validate"
-  ],
-  "stars": 0
+  "repo": "UnaMentis/unamentis",
+  "path": ".claude/skills/validate/SKILL.md",
+  "source": "github.com/UnaMentis/unamentis",
+  "downloaded_at": "2026-01-14T03:56:15.485396Z"
 }

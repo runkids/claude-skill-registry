@@ -1,12 +1,7 @@
 {
   "name": "database-monitoring",
-  "description": "Monitor database performance and health. Use when setting up monitoring, analyzing metrics, or troubleshooting database issues.",
   "repo": "aj-geddes/useful-ai-prompts",
-  "category": "data",
-  "tags": [
-    "database",
-    "monitoring"
-  ],
-  "stars": 25,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/database-monitoring/SKILL.md",
+  "source": "github.com/aj-geddes/useful-ai-prompts",
+  "downloaded_at": "2026-01-14T03:31:12.075100Z"
 }

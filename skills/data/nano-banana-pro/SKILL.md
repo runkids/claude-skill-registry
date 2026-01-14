@@ -1,66 +1,30 @@
 ---
 name: nano-banana-pro
-description: Generate images using Google's Nano Banana Pro (gemini-3-pro-image-preview). Use when user asks to create, generate, or draw images, infographics, visualizations, diagrams, charts, illustrations, or any visual content. Excellent for data-accurate infographics and text rendering.
-allowed-tools: Bash, Write, Read
+description: Generate or edit images via Gemini 3 Pro Image (Nano Banana Pro).
+homepage: https://ai.google.dev/
+metadata: {"clawdbot":{"emoji":"🍌","requires":{"bins":["uv"],"env":["GEMINI_API_KEY"]},"primaryEnv":"GEMINI_API_KEY","install":[{"id":"uv-brew","kind":"brew","formula":"uv","bins":["uv"],"label":"Install uv (brew)"}]}}
 ---
 
-# Nano Banana Pro Image Generator
+# Nano Banana Pro (Gemini 3 Pro Image)
 
-Generate images using Google's advanced Nano Banana Pro model (`gemini-3-pro-image-preview`).
+Use the bundled script to generate or edit images.
 
-## Prerequisites
-
-The user must have `GEMINI_API_KEY` environment variable set with a valid Google AI API key.
-
-## Usage
-
-The script is located in the same directory as this SKILL.md file. Run it with `uv run`:
-
+Generate
 ```bash
-uv run /path/to/skills/nano-banana-pro/generate_image.py "your prompt" -o output.png
+uv run {baseDir}/scripts/generate_image.py --prompt "your image description" --filename "output.png" --resolution 1K
 ```
 
-When this skill is invoked, locate `generate_image.py` in the skill directory and run it.
-
-### Parameters
-
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `prompt` | Yes | Text description of the image to generate |
-| `-o`, `--output` | Yes | Output filename (you decide the path based on context) |
-| `--aspect-ratio` | No | One of: `1:1`, `2:3`, `3:2`, `3:4`, `4:3`, `4:5`, `5:4`, `9:16`, `16:9`, `21:9` (default: `1:1`) |
-| `--size` | No | Image size: `1K`, `2K`, `4K` (default: `1K`) |
-
-### Examples
-
-Basic image generation:
+Edit
 ```bash
-uv run generate_image.py "A sunset over mountains" -o sunset.png
+uv run {baseDir}/scripts/generate_image.py --prompt "edit instructions" --filename "output.png" --input-image "/path/in.png" --resolution 2K
 ```
 
-Infographic with specific aspect ratio:
-```bash
-uv run generate_image.py "Infographic showing the water cycle with labeled stages" -o water_cycle.png --aspect-ratio 9:16
-```
+API key
+- `GEMINI_API_KEY` env var
+- Or set `skills."nano-banana-pro".apiKey` / `skills."nano-banana-pro".env.GEMINI_API_KEY` in `~/.clawdbot/clawdbot.json`
 
-High-resolution ultrawide:
-```bash
-uv run generate_image.py "Professional photo of a modern office space" -o office.png --aspect-ratio 21:9 --size 4K
-```
-
-## Model Capabilities
-
-Nano Banana Pro excels at:
-- **Accurate infographics** with real data (uses Google Search grounding)
-- **Text rendering** in images
-- **Cartographic visualizations** and maps
-- **Detailed instruction following**
-- **Chain-of-thought reasoning** for complex visual tasks
-
-## Output
-
-The script prints:
-- Progress message while generating
-- Path to saved image on success
-- Any text response from the model
-- Error message if no image was generated
+Notes
+- Resolutions: `1K` (default), `2K`, `4K`.
+- Use timestamps in filenames: `yyyy-mm-dd-hh-mm-ss-name.png`.
+- The script prints a `MEDIA:` line for Clawdbot to auto-attach on supported chat providers.
+- Do not read the image back; report the saved path only.

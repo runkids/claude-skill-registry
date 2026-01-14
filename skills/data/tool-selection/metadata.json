@@ -1,12 +1,7 @@
 {
   "name": "tool-selection",
-  "description": "Use when selecting between MCP tools based on task complexity and requirements - provides a structured selection workflow and decision rationale.",
   "repo": "NickCrew/claude-cortex",
-  "category": "productivity",
-  "tags": [
-    "tool",
-    "selection"
-  ],
-  "stars": 4,
-  "source": "local"
+  "path": "skills/tool-selection/SKILL.md",
+  "source": "github.com/NickCrew/claude-cortex",
+  "downloaded_at": "2026-01-14T02:11:10.042550Z"
 }

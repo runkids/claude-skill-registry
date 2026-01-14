@@ -1,11 +1,7 @@
 {
   "name": "rag-architect",
-  "description": "Use when building RAG systems, vector databases, or knowledge-grounded AI applications requiring semantic search, document retrieval, or context augmentation.",
   "repo": "Jeffallan/claude-skills",
-  "category": "data",
-  "tags": [
-    "rag",
-    "architect"
-  ],
-  "stars": 12
+  "path": "skills/rag-architect/SKILL.md",
+  "source": "github.com/Jeffallan/claude-skills",
+  "downloaded_at": "2026-01-14T02:36:37.169301Z"
 }

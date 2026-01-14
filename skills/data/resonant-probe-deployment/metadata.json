@@ -1,13 +1,7 @@
 {
   "name": "resonant-probe-deployment",
-  "description": "Deploy resonant probes to test system response patterns.",
   "repo": "starwreckntx/IRP__METHODOLOGIES-",
-  "category": "testing",
-  "tags": [
-    "resonant",
-    "probe",
-    "deployment"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": "skills/resonant-probe-deployment/SKILL.md",
+  "source": "github.com/starwreckntx/IRP__METHODOLOGIES-",
+  "downloaded_at": "2026-01-14T01:08:30.967548Z"
 }

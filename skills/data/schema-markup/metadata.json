@@ -1,8 +1,7 @@
 {
   "name": "schema-markup",
-  "repo": "MadAppGang/claude-code",
-  "category": "data",
-  "description": "Schema.org markup implementation patterns for rich results. Use when adding structured data to content for enhanced SERP appearances.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:29.702257Z"
+  "repo": "involvex/involvex-claude-marketplace",
+  "path": "plugins/seo/skills/schema-markup/SKILL.md",
+  "source": "github.com/involvex/involvex-claude-marketplace",
+  "downloaded_at": "2026-01-14T02:53:58.866915Z"
 }

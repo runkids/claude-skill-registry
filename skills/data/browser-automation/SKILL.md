@@ -1,246 +1,314 @@
 ---
-name: Browser Automation
-description: Automate web browser interactions using natural language via CLI commands. Use when the user asks to browse websites, navigate web pages, extract data from websites, take screenshots, fill forms, click buttons, or interact with web applications. Triggers include "browse", "navigate to", "go to website", "extract data from webpage", "screenshot", "web scraping", "fill out form", "click on", "search for on the web". When taking actions be as specific as possible.
-allowed-tools: Bash
+name: browser-automation
+description: Non-testing browser automation - web scraping, form filling, screenshot capture, PDF generation, workflow automation. For TESTING with Playwright, use e2e-playwright skill instead. Activates for web scraping, form automation, screenshot, PDF, headless browser, Puppeteer, Selenium, automation scripts, data extraction.
 ---
 
-# Browser Automation
+# Browser Automation Skill
 
-Automate browser interactions using Stagehand CLI with Claude. This skill provides natural language control over a Chrome browser through command-line tools for navigation, interaction, data extraction, and screenshots.
+Expert in browser automation using Playwright, Puppeteer, and Selenium. Specializes in UI testing, web scraping, form automation, and automated workflows.
 
-## Overview
+## Expertise Areas
 
-This skill uses a CLI-based approach where Claude Code calls browser automation commands via bash. The browser stays open between commands for faster sequential operations and preserves browser state (cookies, sessions, etc.).
+### 1. Playwright Automation
+- **Browser Control**: Launch, navigate, interact with pages
+- **Element Selection**: CSS selectors, XPath, text-based, data-testid
+- **Actions**: Click, fill, select, hover, drag-and-drop
+- **Waiting Strategies**: waitForSelector, waitForNavigation, waitForTimeout
+- **Network Interception**: Mock APIs, block resources, modify requests
+- **Screenshots & Videos**: Full page, element-specific, video recording
 
-## Setup Verification
+### 2. Testing Frameworks
+- **End-to-End Testing**: Playwright Test, Cypress-like workflows
+- **Visual Regression**: Screenshot comparison, pixel diff analysis
+- **Accessibility Testing**: ARIA validation, keyboard navigation
+- **Performance Testing**: Page load times, Core Web Vitals
+- **Mobile Testing**: Emulate devices, touch gestures
 
-**IMPORTANT: Before using any browser commands, you MUST check setup.json in this directory.**
+### 3. Web Scraping
+- **Data Extraction**: Parse HTML, extract structured data
+- **Pagination**: Navigate through multi-page results
+- **Dynamic Content**: Handle lazy loading, infinite scroll
+- **Authentication**: Login flows, session management
+- **Rate Limiting**: Throttle requests, respect robots.txt
 
-### First-Time Setup Check
+### 4. Form Automation
+- **Input Fields**: Text, email, password, number inputs
+- **Selections**: Dropdowns, radio buttons, checkboxes
+- **File Uploads**: Single and multiple file uploads
+- **Date Pickers**: Custom date widgets
+- **Multi-Step Forms**: Wizard-style form flows
 
-1. **Read `setup.json`** (located in `.claude/skills/browser-automation/setup.json`)
-2. **Check `setupComplete` field**:
-   - If `true`: All prerequisites are met, proceed with browser commands
-   - If `false`: Setup required - follow the steps below
+## Code Examples
 
-### If Setup is Required (`setupComplete: false`)
+### Basic Page Navigation
+```typescript
+import { chromium } from 'playwright';
 
-Run these commands in the plugin directory:
-
-```bash
-# 1. Install dependencies and build (REQUIRED)
-# This automatically builds TypeScript
-npm install
-# or: pnpm install
-# or: bun install
-
-# 2. Link the browser command globally (REQUIRED)
-npm link
-
-# 3. Configure API key (REQUIRED)
-# Option 1 (RECOMMENDED): Export in your terminal
-export ANTHROPIC_API_KEY="your-api-key-here"
-
-# Option 2: Or use .env file
-cp .env.example .env
-# Then edit .env and add: ANTHROPIC_API_KEY="your-api-key-here"
-
-# 4. Verify Chrome is installed
-# Chrome should be at standard location for your OS
-
-# 5. Test the installation
-browser navigate https://example.com
-
-# 6. If test succeeds, update setup.json
-# Set all "installed"/"configured" fields to true
-# Set "setupComplete" to true
+const browser = await chromium.launch({ headless: true });
+const page = await browser.newPage();
+await page.goto('https://example.com', { waitUntil: 'networkidle' });
+await page.screenshot({ path: 'screenshot.png', fullPage: true });
+await browser.close();
 ```
 
-### Prerequisites Summary
+### Form Automation with Validation
+```typescript
+// Fill and submit form
+await page.fill('input[name="email"]', 'test@example.com');
+await page.fill('input[name="password"]', 'SecurePass123!');
+await page.click('button[type="submit"]');
 
-- ✅ Google Chrome installed on your system
-- ✅ Node.js dependencies installed and TypeScript built (`npm install` runs build automatically)
-- ✅ Browser command globally available (`npm link` creates the global symlink)
-- ✅ Anthropic API key configured (exported as `ANTHROPIC_API_KEY` environment variable or in `.env` file)
-
-**DO NOT attempt to use browser commands if `setupComplete: false` in setup.json. Guide the user through setup first.**
-
-## Available Commands
-
-### Navigate to URLs
-```bash
-browser navigate <url>
+// Wait for success message
+const success = await page.waitForSelector('.success-message', { timeout: 5000 });
+const message = await success.textContent();
+console.log('Success:', message);
 ```
 
-**When to use**: Opening any website, loading a specific URL, going to a web page.
+### Data Extraction from Multiple Pages
+```typescript
+const products = [];
+let page = 1;
 
-**Example usage**:
-- `browser navigate https://example.com`
-- `browser navigate https://news.ycombinator.com`
+while (page <= 10) {
+  await browser.goto(`https://example.com/products?page=${page}`);
 
-**Output**: JSON with success status, message, and screenshot path
+  const items = await browser.$$eval('.product-item', (elements) =>
+    elements.map((el) => ({
+      title: el.querySelector('.title')?.textContent,
+      price: el.querySelector('.price')?.textContent,
+      image: el.querySelector('img')?.src,
+    }))
+  );
 
-### Interact with Pages
-```bash
-browser act "<action>"
+  products.push(...items);
+  page++;
+}
 ```
 
-**When to use**: Clicking buttons, filling forms, scrolling, selecting options, typing text.
-
-**Example usage**:
-- `browser act "click the Sign In button"`
-- `browser act "fill in the email field with test@example.com"`
-- `browser act "scroll down to the footer"`
-- `browser act "type 'laptop' in the search box and press enter"`
-
-**Important**: Be as specific as possible - details make a world of difference. When filling fields, you don't need to combine 'click and type'; the tool will perform a fill similar to Playwright's fill function.
-
-**Output**: JSON with success status, message, and screenshot path
-
-### Extract Data
-```bash
-browser extract "<instruction>" ['{"field": "type"}']
+### Network Interception
+```typescript
+await page.route('**/api/analytics', (route) => route.abort());
+await page.route('**/api/user', (route) =>
+  route.fulfill({
+    status: 200,
+    body: JSON.stringify({ id: 1, name: 'Test User' }),
+  })
+);
 ```
 
-**When to use**: Scraping data, getting specific information, collecting structured content.
+### Visual Regression Testing
+```typescript
+import { expect } from '@playwright/test';
 
-**Schema format** (optional): JSON object where keys are field names and values are types:
-- `"string"` for text
-- `"number"` for numeric values
-- `"boolean"` for true/false values
+// Capture baseline
+await page.screenshot({ path: 'baseline.png' });
 
-**Note**: The schema parameter is optional. If omitted or if schema validation fails, extraction will proceed without type validation.
-
-**Example usage**:
-- `browser extract "get the product title and price" '{"title": "string", "price": "number"}'`
-- `browser extract "get all article headlines" '{"headlines": "string"}'`
-- `browser extract "get the page title"` (no schema)
-
-**Output**: JSON with success status, extracted data, and screenshot path
-
-### Discover Elements
-```bash
-browser observe "<query>"
+// After changes, compare
+const screenshot = await page.screenshot();
+expect(screenshot).toMatchSnapshot('homepage.png');
 ```
 
-**When to use**: Understanding page structure, finding what's clickable, discovering form fields.
+## Selector Strategies
 
-**Example usage**:
-- `browser observe "find all clickable buttons"`
-- `browser observe "find all form fields"`
-- `browser observe "find all navigation links"`
+### 1. CSS Selectors (Preferred)
+```typescript
+// ID selector (most reliable)
+await page.click('#submit-button');
 
-**Output**: JSON with success status, discovered elements, and screenshot path
+// Data attribute (best practice)
+await page.click('[data-testid="login-button"]');
 
-### Take Screenshots
-```bash
-browser screenshot
+// Class selector
+await page.click('.btn-primary');
+
+// Combined selector
+await page.click('button.submit[type="submit"]');
 ```
 
-**When to use**: Visual verification, documenting page state, debugging, creating records.
+### 2. XPath (When CSS isn't enough)
+```typescript
+// Text-based selection
+await page.click('//button[contains(text(), "Submit")]');
 
-**Notes**:
-- Screenshots are saved to the plugin directory's `agent/browser_screenshots/` folder
-- Images larger than 2000x2000 pixels are automatically resized
-- Filename includes timestamp for uniqueness
-
-**Output**: JSON with success status and screenshot path
-
-### Clean Up
-```bash
-browser close
+// Complex hierarchy
+await page.click('//div[@class="form"]//input[@name="email"]');
 ```
 
-**When to use**: After completing all browser interactions, to free up resources.
+### 3. Playwright-Specific
+```typescript
+// Text-based
+await page.getByText('Submit').click();
 
-**Output**: JSON with success status and message
+// Role-based (accessibility)
+await page.getByRole('button', { name: 'Submit' }).click();
 
-## Browser Behavior
+// Label-based
+await page.getByLabel('Email address').fill('test@example.com');
 
-**Persistent Browser**: The browser stays open between commands for faster sequential operations and to preserve browser state (cookies, sessions, etc.).
-
-**Reuse Existing**: If Chrome is already running on port 9222, it will reuse that instance.
-
-**Minimized Launch**: Chrome opens off-screen (position -9999,-9999) to avoid disrupting workflow.
-
-**Safe Cleanup**: The browser only closes when you explicitly call the `close` command.
+// Placeholder-based
+await page.getByPlaceholder('Enter your email').fill('test@example.com');
+```
 
 ## Best Practices
 
-1. **Always navigate first**: Before interacting with a page, navigate to the URL
-2. **📸 Always view screenshots**: After each command (navigate, act, extract, observe), use the Read tool to view the screenshot and verify the command worked correctly
-3. **Use natural language**: Describe actions as you would instruct a human
-4. **Extract with clear schemas**: Define field names and types explicitly in JSON
-5. **Handle errors gracefully**: Check the `success` field in JSON output; if an action fails, view the screenshot and try using `observe` to understand the page better
-6. **Close when done**: Always clean up browser resources after completing tasks
-7. **Be specific**: Use precise selectors in natural language ("the blue Submit button" vs "the button")
-8. **Chain commands**: Run multiple commands sequentially without reopening the browser
+### 1. Use Stable Selectors
+❌ **Bad**: `.css-4j6h2k-button` (auto-generated class)
+✅ **Good**: `[data-testid="submit-button"]`
 
-## Common Patterns
+### 2. Add Explicit Waits
+❌ **Bad**: `await page.waitForTimeout(3000);`
+✅ **Good**: `await page.waitForSelector('.results', { state: 'visible' });`
 
-### Simple browsing task
-```bash
-browser navigate https://example.com
-browser act "click the login button"
-browser screenshot
-browser close
+### 3. Handle Errors Gracefully
+```typescript
+try {
+  await page.click('button', { timeout: 5000 });
+} catch (error) {
+  await page.screenshot({ path: 'error.png' });
+  console.error('Click failed:', error.message);
+  throw error;
+}
 ```
 
-### Data extraction task
-```bash
-browser navigate https://example.com/products
-browser act "wait for page to load"
-browser extract "get all products" '{"name": "string", "price": "number"}'
-# Or without schema:
-# browser extract "get the page content"
-browser close
+### 4. Clean Up Resources
+```typescript
+try {
+  // automation code
+} finally {
+  await browser.close();
+}
 ```
 
-### Multi-step interaction
-```bash
-browser navigate https://example.com/login
-browser act "fill in email with user@example.com"
-browser act "fill in password with mypassword"
-browser act "click the submit button"
-browser screenshot
-browser close
+### 5. Use Page Object Model (POM)
+```typescript
+class LoginPage {
+  constructor(private page: Page) {}
+
+  async login(email: string, password: string) {
+    await this.page.fill('[data-testid="email"]', email);
+    await this.page.fill('[data-testid="password"]', password);
+    await this.page.click('[data-testid="submit"]');
+  }
+
+  async isLoggedIn() {
+    return this.page.locator('[data-testid="dashboard"]').isVisible();
+  }
+}
 ```
 
-### Debugging workflow
-```bash
-browser navigate https://example.com
-browser screenshot
-browser observe "find all buttons"
-browser act "click the specific button"
-browser screenshot
-browser close
+## Common Pitfalls
+
+### 1. Race Conditions
+```typescript
+// ❌ Race condition
+await page.click('button');
+const text = await page.textContent('.result'); // May fail!
+
+// ✅ Wait for element
+await page.click('button');
+await page.waitForSelector('.result');
+const text = await page.textContent('.result');
 ```
 
-## Troubleshooting
+### 2. Stale Element References
+```typescript
+// ❌ Element may become stale
+const element = await page.$('button');
+await page.reload();
+await element.click(); // Error: element detached from DOM
 
-**Page not loading**: Wait a few seconds after navigation before acting. You can explicitly: `browser act "wait for the page to fully load"`
-
-**Element not found**: Use `observe` to discover what elements are actually available on the page
-
-**Action fails**: Be more specific in natural language description. Instead of "click the button", try "click the blue Submit button in the form"
-
-**Screenshots missing**: Check the plugin directory's `agent/browser_screenshots/` folder for saved files
-
-**Chrome not found**: Install Google Chrome or the CLI will show an error with installation instructions
-
-**Port 9222 in use**: Another Chrome debugging session is running. Close it or wait for timeout
-
-For detailed examples, see [EXAMPLES.md](EXAMPLES.md).
-For API reference and technical details, see [REFERENCE.md](REFERENCE.md).
-
-## Dependencies
-
-To use this skill, install these dependencies only if they aren't already present:
-
-```bash
-npm install
-# or
-pnpm install
-# or
-bun install
+// ✅ Re-query after page changes
+await page.reload();
+await page.click('button');
 ```
+
+### 3. Timing Issues with Dynamic Content
+```typescript
+// ❌ Assumes immediate load
+await page.goto('https://example.com');
+await page.click('.dynamic-content'); // May fail!
+
+// ✅ Wait for dynamic content
+await page.goto('https://example.com');
+await page.waitForLoadState('networkidle');
+await page.click('.dynamic-content');
+```
+
+## Debugging Tools
+
+### 1. Headful Mode
+```typescript
+const browser = await chromium.launch({ headless: false, slowMo: 100 });
+```
+
+### 2. Screenshot on Failure
+```typescript
+test.afterEach(async ({ page }, testInfo) => {
+  if (testInfo.status !== 'passed') {
+    await page.screenshot({ path: `failure-${testInfo.title}.png` });
+  }
+});
+```
+
+### 3. Trace Recording
+```typescript
+await context.tracing.start({ screenshots: true, snapshots: true });
+await page.goto('https://example.com');
+// ... automation steps
+await context.tracing.stop({ path: 'trace.zip' });
+```
+
+### 4. Console Logs
+```typescript
+page.on('console', (msg) => console.log('Browser log:', msg.text()));
+```
+
+## Performance Optimization
+
+### 1. Block Unnecessary Resources
+```typescript
+await page.route('**/*.{png,jpg,jpeg,gif,svg,css}', (route) => route.abort());
+```
+
+### 2. Reuse Browser Contexts
+```typescript
+const context = await browser.newContext();
+const page1 = await context.newPage();
+const page2 = await context.newPage();
+// Share cookies, storage, etc.
+```
+
+### 3. Parallel Execution
+```typescript
+await Promise.all([
+  page1.goto('https://example.com/page1'),
+  page2.goto('https://example.com/page2'),
+  page3.goto('https://example.com/page3'),
+]);
+```
+
+## Activation Keywords
+
+Ask me about:
+- "How do I automate browser testing with Playwright?"
+- "Web scraping with Playwright/Puppeteer"
+- "Screenshot automation and visual regression"
+- "Form filling automation"
+- "Element selection strategies"
+- "Handling dynamic content in web automation"
+- "Best practices for UI testing"
+- "Debugging Playwright tests"
+
+## Related Skills
+
+- **E2E Testing**: `e2e-playwright` skill
+- **Frontend Development**: `frontend` skill for understanding DOM structure
+- **API Testing**: `api-testing` skill for mocking network requests
+
+## Tools & Frameworks
+
+- **Playwright**: Modern browser automation (recommended)
+- **Puppeteer**: Chrome/Chromium-specific automation
+- **Selenium**: Legacy cross-browser automation
+- **Playwright Test**: Full testing framework
+- **Cypress**: Alternative E2E testing framework

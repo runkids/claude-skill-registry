@@ -1,12 +1,7 @@
 {
   "name": "device-prober",
-  "description": "Probe and test SDR hardware capabilities (RTL-SDR, SDRplay, HackRF, etc.). Use when verifying device detection, discovering supported sample rates and gains, testing antenna ports, or troubleshooting ",
   "repo": "TobiasWooldridge/WaveCap-SDR",
-  "category": "testing",
-  "tags": [
-    "device",
-    "prober"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/device-prober/SKILL.md",
+  "source": "github.com/TobiasWooldridge/WaveCap-SDR",
+  "downloaded_at": "2026-01-14T01:59:41.863763Z"
 }

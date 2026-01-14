@@ -1,12 +1,7 @@
 {
   "name": "branch-comparison",
-  "description": "Use when the user asks to compare branches, analyze git diffs, review changes between branches, update specifications based on code changes, or analyze what changed. Triggers on keywords like \"compare",
   "repo": "duc01226/EasyPlatform",
-  "category": "development",
-  "tags": [
-    "branch",
-    "comparison"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/branch-comparison/SKILL.md",
+  "source": "github.com/duc01226/EasyPlatform",
+  "downloaded_at": "2026-01-14T03:30:53.098347Z"
 }

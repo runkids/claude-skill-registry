@@ -1,9 +1,7 @@
 {
   "name": "install-sections",
-  "description": "Build pages by installing shadcnblocks sections and implementing i18n. Use for each page after branding is defined. Takes page route and list of sections to install. Installs sections in order, create",
-  "repo": "Manuelvillarvieites/energy-company",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "deomiarn/website-template",
+  "path": ".claude/skills/install-sections/SKILL.md",
+  "source": "github.com/deomiarn/website-template",
+  "downloaded_at": "2026-01-14T01:42:33.381781Z"
 }

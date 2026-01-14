@@ -1,12 +1,7 @@
 {
   "name": "julia-development",
-  "description": "Expert guidance for Julia package development following SciML standards, Distributions.jl patterns, and Julia ecosystem best practices",
   "repo": "seabbs/claude-code-config",
-  "category": "development",
-  "tags": [
-    "julia",
-    "development"
-  ],
-  "stars": 5,
-  "source": "local"
+  "path": "skills/julia-development/SKILL.md",
+  "source": "github.com/seabbs/claude-code-config",
+  "downloaded_at": "2026-01-14T03:01:35.960084Z"
 }

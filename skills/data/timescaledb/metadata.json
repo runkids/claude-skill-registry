@@ -1,8 +1,7 @@
 {
   "name": "timescaledb",
-  "repo": "2025Emma/vibe-coding-cn",
-  "category": "data",
-  "description": "TimescaleDB - PostgreSQL extension for high-performance time-series and event data analytics, hypertables, continuous aggregates, compression, and real-time analytics",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:31.428616Z"
+  "repo": "troykelly/codex-skills",
+  "path": "skills/timescaledb/SKILL.md",
+  "source": "github.com/troykelly/codex-skills",
+  "downloaded_at": "2026-01-14T03:34:00.645229Z"
 }

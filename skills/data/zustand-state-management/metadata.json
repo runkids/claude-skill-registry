@@ -1,13 +1,7 @@
 {
   "name": "zustand-state-management",
-  "description": "Build type-safe global state in React applications with Zustand. Supports TypeScript, persist middleware, devtools, slices pattern, and Next.js SSR.Use when setting up React state, migrating from Redu",
   "repo": "jezweb/claude-skills",
-  "category": "development",
-  "tags": [
-    "zustand",
-    "state",
-    "management"
-  ],
-  "stars": 109,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/zustand-state-management/SKILL.md",
+  "source": "github.com/jezweb/claude-skills",
+  "downloaded_at": "2026-01-14T04:01:47.315029Z"
 }

@@ -1,93 +1,134 @@
 ---
-name: vibe-coder
+name: secrets-guardian
 description: |
-  Describe your idea, get a deployed product. All Craft Coder skills + brainstorm, validation, marketing.
-  Use when: user wants to build something from an idea, prototype, or MVP.
-  Triggers: "build app", "create website", "make MVP", "I have an idea",
-  "хочу приложение", "создать сайт", "сделать MVP".
+  Protect repositories from accidental secret commits. Essential when working with AI agents.
+  Use when: setting up new project, adding pre-commit hooks, scanning for secrets, fixing leaked credentials.
+  Triggers: "настрой защиту секретов", "setup secrets", "check secrets", "scan secrets", "проверь секреты", "pre-commit", "gitleaks".
+  PROACTIVELY suggest when creating new projects or when .pre-commit-config.yaml is missing.
 ---
 
-# Vibe Coder
+# Secrets Guardian
 
-Describe what you want. Get a deployed product.
+Multi-layered protection against accidental secret commits. Critical for AI-assisted development where agents may not recognize sensitive data.
 
-## The Vibe
+## Quick Setup
 
+For new projects, run this setup:
+
+```bash
+# 1. Check if pre-commit is installed
+which pre-commit || pip install pre-commit
+
+# 2. Copy pre-commit config from assets
+# See assets/pre-commit-config.yaml
+
+# 3. Create secrets baseline
+echo '{"version": "1.5.0", "results": {}}' > .secrets.baseline
+
+# 4. Install hooks
+pre-commit install
+pre-commit install --hook-type pre-push
+
+# 5. Verify .gitignore has secret patterns
+# See assets/gitignore-secrets
 ```
-You: "I want an app for tracking expenses"
-     ↓
-Claude: Asks a few questions
-     ↓
-Claude: Builds everything (hidden complexity)
-     ↓
-You: ✅ Done! [Preview] [Deploy]
-```
-
-## What's Included
-
-### MVP Workflow (unique to Vibe Coder)
-| Skill | What it does |
-|-------|--------------|
-| `brainstorming` | Refine ideas with Socratic dialogue |
-| `idea-validation` | Validate problem/solution fit |
-| `stack-selector` | Choose tech stack automatically |
-| `ui-generator` | Create UI from descriptions |
-| `feature-builder` | Add features incrementally |
-| `db-designer` | Design database schema |
-| `api-generator` | Generate API endpoints |
-| `deploy-automation` | Deploy to production |
-
-### All Craft Coder Skills (40+)
-- **Backend**: Python, Node.js, Rust
-- **Frontend**: React, design systems
-- **Mobile**: React Native, Expo
-- **Data**: Pipelines, dbt, Airflow
-- **Infrastructure**: Terraform, K8s, monitoring
-- **Quality**: Testing, code review, debugging
 
 ## Commands
 
-| Command | Purpose |
-|---------|---------|
-| `/vibe:brainstorm` | Refine idea with Socratic dialogue |
-| `/vibe:idea` | Start from scratch with simple questions |
-| `/vibe:build` | Create the app (full pipeline) |
-| `/vibe:add` | Add feature to existing app |
-| `/vibe:preview` | Show current state |
-| `/vibe:deploy` | Publish to production |
+### Setup Protection
 
-## Agents
+When user says "настрой защиту секретов" or "setup secrets protection":
 
-- **vibe-coder** — Build apps from descriptions
-- **code-reviewer** — Review code automatically
+1. **Check existing setup:**
+```bash
+ls -la .pre-commit-config.yaml .secrets.baseline .gitignore 2>/dev/null
+```
 
-## Hidden Pipeline
+2. **If .pre-commit-config.yaml missing:**
+   - Copy from `assets/pre-commit-config.yaml`
+   - Or add secret scanning hooks to existing config
 
-Every change runs through:
-1. TDD (test first, then implement)
-2. Automated tests
-3. Security checks (OWASP)
-4. Code review (auto-fix issues)
+3. **Check .gitignore for secret patterns:**
+```bash
+grep -E "\.env|\.key|API_KEY|secret" .gitignore
+```
+   - If missing, append patterns from `assets/gitignore-secrets`
 
-User only sees ✅ or ❌ — never the process.
+4. **Create .secrets.baseline:**
+```bash
+echo '{"version": "1.5.0", "results": {}}' > .secrets.baseline
+```
 
-## Templates
+5. **Install hooks:**
+```bash
+pre-commit install
+pre-commit install --hook-type pre-push
+```
 
-| Template | When to use |
-|----------|-------------|
-| nextjs-supabase | Web apps, SaaS, dashboards |
-| fastapi-postgres | APIs, backends, AI/ML projects |
-| hono-drizzle | Edge, serverless, Cloudflare |
-| landing-page | Marketing sites, portfolios |
+6. **Ask about CI/CD:**
+   - "Добавить GitHub Actions workflow для проверки секретов в CI?"
+   - If yes, copy `assets/security-workflow.yaml` to `.github/workflows/`
 
-Stack selector chooses automatically.
+### Scan for Secrets
 
-## No Technical Jargon
+When user says "проверь секреты" or "check secrets":
 
-You never need to know:
-- What framework to use
-- How to structure code
-- What tests to write
-- How to deploy
+```bash
+# Quick scan with gitleaks
+gitleaks detect --no-git -v
 
-Just describe what you want. Vibe coding at its finest.
+# Detailed scan with detect-secrets
+detect-secrets scan --all-files
+```
+
+Report findings and suggest fixes.
+
+### Fix Leaked Secret
+
+When secret is detected:
+
+1. **Identify the secret type** (API key, password, private key, etc.)
+
+2. **Suggest remediation:**
+   - Move to `.env` file (ensure it's in .gitignore)
+   - Use environment variable: `os.environ.get("API_KEY")`
+   - For false positives: update `.secrets.baseline`
+
+3. **If already committed:**
+   - Rotate the credential immediately
+   - Consider git history cleanup (if not pushed)
+   - Warn about exposed secrets in git history
+
+### Update Baseline
+
+For false positives, update the baseline:
+
+```bash
+detect-secrets scan --baseline .secrets.baseline
+```
+
+## Proactive Checks
+
+**IMPORTANT:** When working in any project, check for secret protection:
+
+```bash
+# Quick check
+if [ ! -f .pre-commit-config.yaml ]; then
+  echo "WARNING: No pre-commit config found"
+fi
+```
+
+If missing, ask user: "В проекте нет защиты от утечки секретов. Настроить?"
+
+## Reference Files
+
+- [Setup Guide](references/setup-guide.md) - Detailed installation steps
+- [Tools Reference](references/tools-reference.md) - gitleaks, detect-secrets, etc.
+
+## Asset Files
+
+Copy these to project as needed:
+
+- `assets/pre-commit-config.yaml` - Pre-commit hooks configuration
+- `assets/gitignore-secrets` - Patterns to add to .gitignore
+- `assets/security-workflow.yaml` - GitHub Actions CI workflow

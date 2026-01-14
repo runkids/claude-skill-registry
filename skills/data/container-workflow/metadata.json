@@ -1,12 +1,7 @@
 {
   "name": "container-workflow",
-  "description": "Guidelines for containerized projects using Docker, Dockerfile, docker-compose, container, and containerization. Covers multi-stage builds, security, signal handling, entrypoint scripts, and deploymen",
   "repo": "ilude/claude-code-config",
-  "category": "devops",
-  "tags": [
-    "container",
-    "workflow"
-  ],
-  "stars": 5,
-  "source": "local"
+  "path": "skills/container-workflow/SKILL.md",
+  "source": "github.com/ilude/claude-code-config",
+  "downloaded_at": "2026-01-14T01:02:38.732475Z"
 }

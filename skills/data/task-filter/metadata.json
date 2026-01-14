@@ -1,12 +1,7 @@
 {
   "name": "task-filter",
-  "description": "Provides comprehensive task filtering across three dimensions (Status, Priority, Due Date) with cumulative AND logic, localStorage persistence, and removable filter chips UI. Supports nine total filte",
-  "repo": "Syedaashnaghazanfar/full-stack-todo-app",
-  "category": "design",
-  "tags": [
-    "task",
-    "filter"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "SOFIA-ASIF/TaskFlow-ToDo-APP",
+  "path": ".claude/skills/task-filter/SKILL.md",
+  "source": "github.com/SOFIA-ASIF/TaskFlow-ToDo-APP",
+  "downloaded_at": "2026-01-14T03:11:58.184364Z"
 }

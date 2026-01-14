@@ -1,13 +1,7 @@
 {
   "name": "episode-log-steps",
-  "description": "Log execution steps during episode execution for detailed tracking and learning. Use when recording tool usage, decision points, errors, or milestones during task execution.",
   "repo": "d-o-hub/rust-self-learning-memory",
-  "category": "data",
-  "tags": [
-    "episode",
-    "log",
-    "steps"
-  ],
-  "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/episode-log-steps/SKILL.md",
+  "source": "github.com/d-o-hub/rust-self-learning-memory",
+  "downloaded_at": "2026-01-14T03:40:09.809780Z"
 }

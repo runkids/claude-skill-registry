@@ -1,12 +1,7 @@
 {
   "name": "documenting-apis",
-  "description": "Generate API specification documentation from codebase analysis. Detects REST endpoints, function signatures, type definitions, and schemas. Triggers: API specification, endpoints, REST API, type defi",
   "repo": "thkt/claude-config",
-  "category": "documents",
-  "tags": [
-    "documenting",
-    "apis"
-  ],
-  "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "path": ".ja/skills/documenting-apis/SKILL.md",
+  "source": "github.com/thkt/claude-config",
+  "downloaded_at": "2026-01-14T03:15:07.522032Z"
 }

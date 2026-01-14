@@ -1,13 +1,7 @@
 {
   "name": "github-issue-triage",
-  "description": "Analyze GitHub issues for the Nx repository and provide assignment recommendations based on technology stack, team expertise, and priority classification rules.",
-  "repo": "FrozenPandaz/config-claude",
-  "category": "development",
-  "tags": [
-    "github",
-    "issue",
-    "triage"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "sunholo-data/ailang",
+  "path": ".claude/skills/github-issue-triage/SKILL.md",
+  "source": "github.com/sunholo-data/ailang",
+  "downloaded_at": "2026-01-14T01:04:02.823160Z"
 }

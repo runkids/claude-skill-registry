@@ -1,12 +1,7 @@
 {
   "name": "cache-components",
-  "description": "Implement Next.js 16 Cache Components with use cache directives, Suspense boundaries, and cacheLife profiles. Use when optimizing page performance or migrating components to cache mode.",
-  "repo": "sgcarstrends/sgcarstrends",
-  "category": "development",
-  "tags": [
-    "cache",
-    "components"
-  ],
-  "stars": 13,
-  "source": "SkillsMP Synced Skills"
+  "repo": "laguagu/claude-code-nextjs-skills",
+  "path": "skills/cache-components/SKILL.md",
+  "source": "github.com/laguagu/claude-code-nextjs-skills",
+  "downloaded_at": "2026-01-14T03:29:17.688532Z"
 }

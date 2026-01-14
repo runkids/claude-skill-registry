@@ -1,12 +1,7 @@
 {
   "name": "javascript-typescript",
-  "description": "JavaScript and TypeScript development with ES6+, Node.js, React, and modern web frameworks. Use for frontend, backend, or full-stack JavaScript/TypeScript projects.",
   "repo": "skillcreatorai/Ai-Agent-Skills",
-  "category": "development",
-  "tags": [
-    "javascript",
-    "typescript"
-  ],
-  "stars": 327,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/javascript-typescript/SKILL.md",
+  "source": "github.com/skillcreatorai/Ai-Agent-Skills",
+  "downloaded_at": "2026-01-14T02:51:11.488454Z"
 }

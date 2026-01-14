@@ -1,12 +1,7 @@
 {
   "name": "postmortem-writing",
-  "description": "Document root cause analysis for team learning. Blameless, actionable, preventive.",
-  "repo": "timequity/vibe-coder",
-  "category": "documents",
-  "tags": [
-    "postmortem",
-    "writing"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "timequity/plugins",
+  "path": "craft-coder/postmortem-writing/SKILL.md",
+  "source": "github.com/timequity/plugins",
+  "downloaded_at": "2026-01-14T03:41:25.277242Z"
 }

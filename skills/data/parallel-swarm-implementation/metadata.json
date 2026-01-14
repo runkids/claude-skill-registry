@@ -1,13 +1,7 @@
 {
   "name": "parallel-swarm-implementation",
-  "description": "Loop 2 of the Three-Loop Integrated Development System. META-SKILL that dynamically compiles Loop 1 plans into agent+skill execution graphs. Queen Coordinator selects optimal agents from 86-agent regi",
   "repo": "DNYoussef/ai-chrome-extension",
-  "category": "development",
-  "tags": [
-    "parallel",
-    "swarm",
-    "implementation"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/parallel-swarm-implementation/SKILL.md",
+  "source": "github.com/DNYoussef/ai-chrome-extension",
+  "downloaded_at": "2026-01-14T03:10:11.523622Z"
 }

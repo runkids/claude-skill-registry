@@ -1,13 +1,7 @@
 {
   "name": "numpy-string-ops",
-  "description": "Vectorized string manipulation using the char module and modern string alternatives, including cleaning and search operations. Triggers: string operations, numpy.char, text cleaning, substring search.",
   "repo": "cuba6112/skillfactory",
-  "category": "development",
-  "tags": [
-    "numpy",
-    "string",
-    "ops"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": "skills/numpy-string-ops/SKILL.md",
+  "source": "github.com/cuba6112/skillfactory",
+  "downloaded_at": "2026-01-14T02:37:43.458050Z"
 }

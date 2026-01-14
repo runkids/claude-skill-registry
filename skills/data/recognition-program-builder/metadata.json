@@ -1,13 +1,7 @@
 {
   "name": "recognition-program-builder",
-  "description": "Эксперт employee recognition. Используй для программ признания, награждения и employee engagement.",
   "repo": "dengineproblem/agents-monorepo",
-  "category": "development",
-  "tags": [
-    "recognition",
-    "program",
-    "builder"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/recognition-program-builder/SKILL.md",
+  "source": "github.com/dengineproblem/agents-monorepo",
+  "downloaded_at": "2026-01-14T02:08:05.046615Z"
 }

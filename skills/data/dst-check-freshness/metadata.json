@@ -1,13 +1,7 @@
 {
   "name": "dst-check-freshness",
-  "description": "Check data freshness and age for DST tables in DuckDB. Use when determining if data needs refreshing or validating data currency before analysis.",
   "repo": "mikkelkrogsholm/dst-skills",
-  "category": "data",
-  "tags": [
-    "dst",
-    "check",
-    "freshness"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/dst-check-freshness/SKILL.md",
+  "source": "github.com/mikkelkrogsholm/dst-skills",
+  "downloaded_at": "2026-01-14T02:56:15.595059Z"
 }

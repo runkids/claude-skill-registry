@@ -1,8 +1,7 @@
 {
   "name": "docker-compose-config",
   "repo": "metasaver/metasaver-marketplace",
-  "category": "data",
-  "description": "Docker Compose configuration template and validation logic for MetaSaver monorepos. Includes 4 required standards (PostgreSQL service with project-prefixed env vars like RUGBYCRM_POSTGRES_USER or META",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:07:06.673005Z"
+  "path": "plugins/metasaver-core/skills/config/build-tools/docker-compose-config/SKILL.md",
+  "source": "github.com/metasaver/metasaver-marketplace",
+  "downloaded_at": "2026-01-14T01:43:55.175234Z"
 }

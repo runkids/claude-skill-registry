@@ -1,12 +1,7 @@
 {
   "name": "fastapi-workflow",
-  "description": "FastAPI framework workflow guidelines. Activate when working with FastAPI projects, uvicorn, or FastAPI-specific patterns.",
   "repo": "ilude/claude-code-config",
-  "category": "design",
-  "tags": [
-    "fastapi",
-    "workflow"
-  ],
-  "stars": 5,
-  "source": "local"
+  "path": "skills/fastapi-workflow/SKILL.md",
+  "source": "github.com/ilude/claude-code-config",
+  "downloaded_at": "2026-01-14T01:02:41.873523Z"
 }

@@ -1,8 +1,7 @@
 {
   "name": "pdb-database",
-  "repo": "davila7/claude-code-templates",
-  "category": "data",
-  "description": "Access RCSB PDB for 3D protein/nucleic acid structures. Search by text/sequence/structure, download coordinates (PDB/mmCIF), retrieve metadata, for structural biology and drug discovery.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:55:38.151724Z"
+  "repo": "drshailesh88/integrated_content_OS",
+  "path": "skills/scientific/pdb-database/SKILL.md",
+  "source": "github.com/drshailesh88/integrated_content_OS",
+  "downloaded_at": "2026-01-14T04:02:25.231535Z"
 }

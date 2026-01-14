@@ -1,12 +1,7 @@
 {
   "name": "execute-task",
-  "description": "Execute approved task specifications sequentially with TDD, comprehensive testing, and validation. This skill should be used for implementing tasks from approved specs with full audit trail.",
   "repo": "adolfoaranaes12/BMAD-ENHANCED",
-  "category": "testing",
-  "tags": [
-    "execute",
-    "task"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/execute-task/SKILL.md",
+  "source": "github.com/adolfoaranaes12/BMAD-ENHANCED",
+  "downloaded_at": "2026-01-14T03:09:01.267873Z"
 }

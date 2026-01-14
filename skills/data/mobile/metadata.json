@@ -1,11 +1,7 @@
 {
   "name": "mobile",
-  "description": "Expertise in mobile responsiveness, specifically table patterns and standard UI component styling.",
-  "repo": "salavender/antigravity-compound-engineering-plugin",
-  "category": "design",
-  "tags": [
-    "mobile"
-  ],
-  "stars": 29,
-  "source": "local"
+  "repo": "pluginagentmarketplace/custom-plugin-design-system",
+  "path": "developer-roadmap-plugin/skills/mobile/SKILL.md",
+  "source": "github.com/pluginagentmarketplace/custom-plugin-design-system",
+  "downloaded_at": "2026-01-14T03:12:02.476601Z"
 }

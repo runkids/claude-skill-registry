@@ -1,225 +1,150 @@
 ---
 name: cortex
-description: CLI for managing the Cortex email automation pipeline. Use this skill when the user wants to query emails, check queue status, trigger backfills, view classifications, or manage the email triage system. Triggers on keywords like "cortex", "email pipeline", "queue status", "classification", "backfill", "triage".
-license: MIT (see LICENSE.txt)
-metadata:
-  version: 0.1.0
-  author: Devon Jones
-  repository: https://github.com/devonjones/cortex-utils
+description: Automatic session tracking and memory system for Claude Code. Activates when working in git repositories to track file changes, commits, and session context. Creates .cortex_log.md (session history), .cortex_status.json (current state), and .cortex_handoff.md (next steps) for session continuity across conversations. Use when needing persistent memory, session handoffs, or work history tracking.
+allowed-tools: Read, Write, Bash, Grep, Glob
 ---
 
-# Cortex Gateway CLI
+# Cortex - Session Orchestration & Universal Logging
 
-Command-line interface for managing the Cortex email automation pipeline.
+Cortex is an automatic memory system that traces all work across sessions and enables skills to communicate with each other.
 
-## Prerequisites
+## What Cortex Provides
 
-**Note**: This skill documentation lives in the `cortex-utils` repository but describes the `cortex` CLI tool provided by the separate `cortex-gateway` project. The gateway provides a unified REST API for Cortex services, and the CLI is the command-line interface to that API.
+1. **Automatic session tracing** - Tracks all file changes, git operations, and major events
+2. **Agent handoffs** - Seamless context transfer between sessions
+3. **Inter-skill communication** - Python API for skills to share data and patterns
+4. **Pattern detection** - Analyzes work patterns to recommend new skills (via Synapse)
 
-The `cortex` CLI is installed from the cortex-gateway package:
+## Core Files Generated
 
-```bash
-# Install from cortex-gateway repo
-uv pip install git+https://github.com/devonjones/cortex-gateway.git
+Cortex automatically maintains three files in your project root:
 
-# Or if working locally
-cd ~/Projects/cortex/gateway && uv pip install -e .
+- **`.cortex_log.md`** - Human-readable session history with detailed narrative
+- **`.cortex_status.json`** - Machine-readable current state and metrics
+- **`.cortex_handoff.md`** - Quick start guide for next session
+
+These files are automatically updated throughout your work session.
+
+## How It Works
+
+### Automatic Tracing
+
+Cortex runs automatically via git hooks. Every time you:
+- Make file changes
+- Commit code
+- Complete a task
+
+Cortex updates the memory files with context about what happened and why.
+
+### Agent Handoffs
+
+When starting a new session, Claude reads `.cortex_handoff.md` to understand:
+- What was done in the last session
+- Current repository state
+- Priority next steps
+- Recent work context
+
+### Inter-Skill Communication
+
+Skills can use Cortex's Python API to communicate:
+
+```python
+from cortex_api import add_cortex_event, get_cortex_memory, get_pattern_analysis
+
+# Record an event
+add_cortex_event("api_call", "Called GitHub API", {
+    "endpoint": "/repos/user/repo",
+    "status": 200
+})
+
+# Query memory
+recent_events = get_cortex_memory(filter_type="api_call", limit=10)
+
+# Analyze patterns (used by Synapse)
+patterns = get_pattern_analysis(days=7, threshold=5)
 ```
 
-## Configuration
+See [API_REFERENCE.md](references/API_REFERENCE.md) for complete documentation.
 
-Set the gateway URL via environment variable or CLI flag:
+## Installation
 
-```bash
-export CORTEX_GATEWAY_URL=http://localhost:8097  # Example
-cortex --url http://custom-host:8097 <command>
-```
-
-## Command Reference
-
-### Global Options
-
-| Option | Description |
-|--------|-------------|
-| `--url` | Gateway URL (env: `CORTEX_GATEWAY_URL`) |
-| `-j, --json-output` | Output raw JSON instead of formatted tables |
-
-### Health Check
+Run the installation script to set up git hooks:
 
 ```bash
-cortex health
+cd .claude/skills/cortex/scripts
+./install.sh
 ```
 
-### Email Commands
+This configures Cortex to automatically track your work.
+
+## Usage
+
+### Manual Session Tracing
+
+To manually update Cortex files:
 
 ```bash
-# List emails (paginated)
-cortex emails list [-n LIMIT] [--offset N] [-l LABEL_ID]
-
-# Get email details
-cortex emails get <gmail_id>
-
-# Get email body (from DuckDB)
-cortex emails body <gmail_id>
-
-# Get plain text content
-cortex emails text <gmail_id>
-
-# Email statistics
-cortex emails stats
-
-# Emails by Gmail label ID (useful for backfill planning)
-cortex emails by-label <label_id> [-n LIMIT]
-
-# Classification breakdown for a sender (debug rules)
-cortex emails sender <from_addr>
-
-# Top labels by email count (rule coverage)
-cortex emails distribution [-n LIMIT]
-
-# Senders only in Uncategorized (missing rules)
-cortex emails uncategorized [-n LIMIT]
+python3 .claude/skills/cortex/scripts/trace_session.py
 ```
 
-### Queue Commands
+### Manual Handoff Generation
+
+To generate a handoff document:
 
 ```bash
-# Queue depths by status
-cortex queue stats
-
-# List failed jobs
-cortex queue failed [-q QUEUE_NAME] [-n LIMIT]
-
-# Retry a failed job
-cortex queue retry <job_id>
-
-# Delete a failed job
-cortex queue delete <job_id>
-
-# Retry all failed jobs for a queue
-cortex queue retry-all <queue_name>
+python3 .claude/skills/cortex/scripts/handoff_generator.py
 ```
 
-### Backfill Commands (Re-enqueue existing emails)
+### Using Cortex API in Your Skills
 
-```bash
-# Trigger backfill to worker queue
-cortex backfill trigger [-q QUEUE] [-d DAYS] [-l LABEL] [-p PRIORITY]
-# Example: cortex backfill trigger -q triage -d 7 -p -100
+1. Import the API:
+   ```python
+   from cortex_api import add_cortex_event, get_cortex_memory
+   ```
 
-# Check backfill status
-cortex backfill status
+2. Record events during your skill's operation
+3. Query patterns to inform decisions
+4. Cortex handles all file locking and persistence
 
-# Cancel pending backfill jobs
-cortex backfill cancel <queue_name>
-```
+## Integration with Synapse
 
-### Triage Commands
+Cortex's pattern analysis powers Synapse automatic skill generation:
 
-```bash
-# Classification statistics
-cortex triage stats
+1. Cortex tracks recurring patterns (API calls, data processing, etc.)
+2. Synapse queries Cortex for patterns above a threshold
+3. Synapse automatically generates skills when patterns reach critical frequency
+4. New skills use Cortex API to record their own events
 
-# Re-run triage on emails
-cortex triage rerun [-i GMAIL_ID]... [-l LABEL] [-s SENDER]... [-d DAYS] [-f] [-p PRIORITY]
-# -f: force rerun even if pending
-# -s, --sender: filter by sender email (supports glob with *). Can be specified multiple times.
-# Examples:
-#   cortex triage rerun -l Cortex/Uncategorized -d 30
-#   cortex triage rerun -s "service@paypal.com" -d 7
-#   cortex triage rerun -s "*@substack.com" -d 14
-#   cortex triage rerun -s "service@paypal.com" -s "alerts@github.com" -d 7
+This creates a self-improving system where skills emerge from actual usage patterns.
 
-# List recent classifications
-cortex triage list [-n LIMIT] [-l LABEL]
-```
+## Files and Scripts
 
-### Sync Commands (Gmail API backfill)
+### Scripts
 
-```bash
-# Trigger Gmail API historical sync
-cortex sync backfill [-d DAYS] [-a YYYY-MM-DD]
-# Example: cortex sync backfill -d 30
+- **`trace_session.py`** - Updates `.cortex_log.md` and `.cortex_status.json`
+- **`handoff_generator.py`** - Creates `.cortex_handoff.md`
+- **`cortex_api.py`** - Python API for inter-skill communication
+- **`install.sh`** - Sets up git hooks
 
-# List sync jobs
-cortex sync jobs [-n LIMIT] [-s STATUS]
+### References
 
-# Get specific job status
-cortex sync job <job_id>
+- **[API_REFERENCE.md](references/API_REFERENCE.md)** - Complete Cortex API documentation
+- **[WORKFLOWS.md](references/WORKFLOWS.md)** - Common Cortex usage patterns
+- **[MULTI_LLM.md](references/MULTI_LLM.md)** - Using Cortex with GPT, Gemini, etc.
 
-# Cancel a sync job
-cortex sync cancel <job_id>
-```
+## Best Practices
 
-## Common Workflows
+1. **Let it run automatically** - Don't manually trace unless needed
+2. **Check `.cortex_handoff.md` at session start** - Quick context refresh
+3. **Use Cortex API in custom skills** - Enables automatic pattern detection
+4. **Commit Cortex files with your work** - Preserves memory across machines
 
-### Find missing rules
+## Multi-LLM Support
 
-```bash
-# Top senders without proper classification
-cortex emails uncategorized -n 20
+Cortex works with Claude Code, GPT, Gemini, and other CLI-based LLMs. The memory files use universal markdown and JSON formats.
 
-# Check how a sender's emails are classified
-cortex emails sender notifications@example.com
-```
+See [MULTI_LLM.md](references/MULTI_LLM.md) for LLM-specific integration guides.
 
-### Debug classification issues
+---
 
-```bash
-# See all labels and their counts
-cortex emails distribution -n 100
-
-# Find emails with a specific Gmail label
-cortex emails by-label Label_117 -n 50
-```
-
-### Re-process emails
-
-```bash
-# Re-run triage on Uncategorized emails from last 7 days
-cortex triage rerun -l Cortex/Uncategorized -d 7
-
-# Re-run triage for specific sender
-cortex triage rerun -s "service@paypal.com" -d 7
-
-# Re-run triage for all senders from a domain (glob pattern)
-cortex triage rerun -s "*@substack.com" -d 14
-
-# Backfill specific emails to triage queue
-cortex backfill trigger -q triage -l Label_123 -d 30
-```
-
-### Monitor queue health
-
-```bash
-# Check all queue depths
-cortex queue stats
-
-# View failed jobs
-cortex queue failed -n 20
-
-# Retry all failed labeling jobs
-cortex queue retry-all labeling
-```
-
-### Historical sync from Gmail
-
-```bash
-# Sync last 30 days from Gmail API
-cortex sync backfill -d 30
-
-# Check sync progress
-cortex sync jobs
-```
-
-## Output Formats
-
-By default, commands output formatted tables. Use `-j` for JSON:
-
-```bash
-# Table format (default)
-cortex emails uncategorized -n 5
-
-# JSON format
-cortex -j emails uncategorized -n 5
-```
+*Cortex is the foundation of DeepSynth's self-improving skills system.*

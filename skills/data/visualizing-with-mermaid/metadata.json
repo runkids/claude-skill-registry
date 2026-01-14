@@ -1,8 +1,7 @@
 {
   "name": "visualizing-with-mermaid",
   "repo": "third774/dotfiles",
-  "category": "data",
-  "description": "Create professional Mermaid diagrams with proper styling and visual hierarchy. Use when creating flowcharts, sequence diagrams, state machines, class diagrams, or architecture visualizations.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:01:19.190928Z"
+  "path": "opencode/skill/visualizing-with-mermaid/SKILL.md",
+  "source": "github.com/third774/dotfiles",
+  "downloaded_at": "2026-01-14T02:05:23.724680Z"
 }

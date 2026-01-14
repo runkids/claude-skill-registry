@@ -1,12 +1,7 @@
 {
   "name": "prompt-caching",
-  "description": "Prompt caching for Claude API to reduce latency by up to 85% and costs by up to 90%. Activate for cache_control, ephemeral caching, cache breakpoints, and performance optimization.",
   "repo": "Lobbi-Docs/claude",
-  "category": "development",
-  "tags": [
-    "prompt",
-    "caching"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/prompt-caching/SKILL.md",
+  "source": "github.com/Lobbi-Docs/claude",
+  "downloaded_at": "2026-01-14T02:22:04.241332Z"
 }

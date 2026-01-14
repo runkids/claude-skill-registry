@@ -1,12 +1,7 @@
 {
   "name": "skill-creation",
-  "description": "Use this skill when the user asks to create a new skill, custom command, or wants to know how skills work in Claude Code.",
-  "repo": "jeremydiviney/vibe",
-  "category": "development",
-  "tags": [
-    "skill",
-    "creation"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "anhvth/speedy_utils",
+  "path": ".github/skills/skill-creation/SKILL.md",
+  "source": "github.com/anhvth/speedy_utils",
+  "downloaded_at": "2026-01-14T01:59:45.513386Z"
 }

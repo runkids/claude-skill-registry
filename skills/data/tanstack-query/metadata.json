@@ -1,12 +1,7 @@
 {
   "name": "tanstack-query",
-  "description": "Manage server state in React with TanStack Query v5. Set up queries with useQuery, mutations with useMutation, configure QueryClient caching strategies, implement optimistic updates, and handle infini",
   "repo": "jezweb/claude-skills",
-  "category": "data",
-  "tags": [
-    "tanstack",
-    "query"
-  ],
-  "stars": 109,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/tanstack-query/SKILL.md",
+  "source": "github.com/jezweb/claude-skills",
+  "downloaded_at": "2026-01-14T04:01:47.793762Z"
 }

@@ -1,13 +1,7 @@
 {
   "name": "git-branch-manager",
-  "description": "Create, switch, and manage git branches with proper handling of uncommitted changes. Use when creating feature branches, switching contexts, or cleaning up after merges.",
   "repo": "EdanStarfire/claudecode_webui",
-  "category": "product",
-  "tags": [
-    "git",
-    "branch",
-    "manager"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": ".claude/skills/git-branch-manager/SKILL.md",
+  "source": "github.com/EdanStarfire/claudecode_webui",
+  "downloaded_at": "2026-01-14T01:51:07.753284Z"
 }

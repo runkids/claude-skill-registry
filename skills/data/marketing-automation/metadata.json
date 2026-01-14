@@ -1,12 +1,7 @@
 {
   "name": "marketing-automation",
-  "description": "Эксперт по автоматизации маркетинга. Используй для настройки HubSpot, Marketo, email sequences, lead scoring и workflows.",
   "repo": "dengineproblem/agents-monorepo",
-  "category": "productivity",
-  "tags": [
-    "marketing",
-    "automation"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/marketing-automation/SKILL.md",
+  "source": "github.com/dengineproblem/agents-monorepo",
+  "downloaded_at": "2026-01-14T02:08:01.747847Z"
 }

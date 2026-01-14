@@ -1,12 +1,7 @@
 {
   "name": "ruleset-optimization",
-  "description": "Guidelines for optimizing Claude rulesets and instruction files (CLAUDE.md, settings.json) using context efficiency principles. Includes strategies for skill extraction, progressive disclosure, token ",
   "repo": "ilude/claude-code-config",
-  "category": "design",
-  "tags": [
-    "ruleset",
-    "optimization"
-  ],
-  "stars": 5,
-  "source": "local"
+  "path": "skills/ruleset-optimization/SKILL.md",
+  "source": "github.com/ilude/claude-code-config",
+  "downloaded_at": "2026-01-14T01:02:39.010073Z"
 }

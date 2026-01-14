@@ -1,9 +1,7 @@
 {
   "name": "time-system",
-  "description": "Understanding the game",
   "repo": "gigi-f/babylon_fp",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "GitHub Search API"
+  "path": ".claude/skills/time-system/SKILL.md",
+  "source": "github.com/gigi-f/babylon_fp",
+  "downloaded_at": "2026-01-14T02:35:02.497783Z"
 }

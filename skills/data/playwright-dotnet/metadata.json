@@ -1,12 +1,7 @@
 {
   "name": "playwright-dotnet",
-  "description": "Guide for E2E testing with Playwright for .NET using Microsoft.Playwright.MSTest.v4 integration",
   "repo": "NotMyself/claude-stack-dotnet",
-  "category": "testing",
-  "tags": [
-    "playwright",
-    "dotnet"
-  ],
-  "stars": 5,
-  "source": "local"
+  "path": ".claude/skills/playwright-dotnet/SKILL.md",
+  "source": "github.com/NotMyself/claude-stack-dotnet",
+  "downloaded_at": "2026-01-14T03:13:03.306506Z"
 }

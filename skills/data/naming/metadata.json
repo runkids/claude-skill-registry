@@ -1,11 +1,7 @@
 {
   "name": "naming",
-  "description": "命名规范 / Naming conventions。在创建类、函数、变量，或重命名、检查命名时使用。核心原则：简洁优先，上下文消歧义，类型提示已提供足够信息。Use when naming classes/functions/variables, renaming code, or reviewing names. Prioritizes brevity over self-documentati",
-  "repo": "MMorit00/fund-portfolio-bot",
-  "category": "documents",
-  "tags": [
-    "naming"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "mgreenly/ikigai",
+  "path": ".claude/library/naming/SKILL.md",
+  "source": "github.com/mgreenly/ikigai",
+  "downloaded_at": "2026-01-14T03:06:57.150700Z"
 }

@@ -1,11 +1,7 @@
 {
   "name": "mongodb-atlas",
-  "description": "MongoDB Atlas cloud database management including clusters, schemas, aggregation pipelines, and Prisma ORM integration. Activate for MongoDB queries, schema design, indexing, and Atlas administration.",
-  "repo": "Lobbi-Docs/claude",
-  "category": "data",
-  "tags": [
-    "mongodb",
-    "atlas"
-  ],
-  "stars": 0
+  "repo": "oimiragieo/agent-studio",
+  "path": ".claude/skills/mongodb-atlas/SKILL.md",
+  "source": "github.com/oimiragieo/agent-studio",
+  "downloaded_at": "2026-01-14T03:17:03.215164Z"
 }

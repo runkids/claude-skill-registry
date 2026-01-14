@@ -1,13 +1,7 @@
 {
   "name": "window-function-builder",
-  "description": "Эксперт SQL window functions. Используй для аналитических запросов, OVER clauses и ranking functions.",
   "repo": "dengineproblem/agents-monorepo",
-  "category": "development",
-  "tags": [
-    "window",
-    "function",
-    "builder"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/window-function-builder/SKILL.md",
+  "source": "github.com/dengineproblem/agents-monorepo",
+  "downloaded_at": "2026-01-14T02:08:03.283823Z"
 }

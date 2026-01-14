@@ -1,0 +1,13 @@
+{
+  "name": "convex-agents-files",
+  "description": "\"Handles file uploads, image attachments, and media processing in agent conversations. Use this when agents analyze images, process documents, or generate files.\"",
+  "repo": "Sstobo/convex-skills",
+  "category": "documents",
+  "tags": [
+    "convex",
+    "agents",
+    "files"
+  ],
+  "stars": 5,
+  "source": "local"
+}

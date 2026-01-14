@@ -1,12 +1,7 @@
 {
   "name": "install-workflow",
-  "description": "Create GitHub Actions workflows for automated package building and distribution. Use in package phase to automate .mojopkg building and release creation.",
   "repo": "mvillmow/ProjectOdyssey",
-  "category": "development",
-  "tags": [
-    "install",
-    "workflow"
-  ],
-  "stars": 8,
-  "source": "local"
+  "path": ".claude/skills/install-workflow/SKILL.md",
+  "source": "github.com/mvillmow/ProjectOdyssey",
+  "downloaded_at": "2026-01-14T01:09:02.557535Z"
 }

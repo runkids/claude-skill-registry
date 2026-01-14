@@ -1,12 +1,7 @@
 {
   "name": "css-animations",
-  "description": "Create performant CSS animations, transitions, and motion design",
-  "repo": "pluginagentmarketplace/custom-plugin-css",
-  "category": "design",
-  "tags": [
-    "css",
-    "animations"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "repo": "mgd34msu/goodvibes-plugin",
+  "path": "plugins/goodvibes/skills/webdev/skills/css-animations/SKILL.md",
+  "source": "github.com/mgd34msu/goodvibes-plugin",
+  "downloaded_at": "2026-01-14T02:10:07.496268Z"
 }

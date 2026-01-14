@@ -1,35 +1,24 @@
 ---
 name: example-skill
-description: "Example skill demonstrating YAML best practices. Use when learning skill structure, reviewing formatting standards, or creating new skills as a reference."
-version: 1.0.0
-tags:
-  - example
-  - reference
-  - yaml
+description: Example skill demonstrating the full skill directory structure with scripts, references, assets, and examples. Use when learning how to structure Codex skills.
 ---
 
 # Example Skill
 
-This is a reference implementation showing YAML best practices.
+This is a demonstration skill showing all possible subdirectories.
 
-## Features
+## Quick Start
 
-- Clean, consistent formatting
-- Proper indentation (2 spaces)
-- Clear section organization
-- Helpful comments
+1. Check `references/patterns.md` for detailed patterns
+2. Use `assets/component-template.tsx` as a starter
+3. Run `scripts/validate.sh` to check your code
+4. See `examples/good-example.tsx` for reference
 
-## Usage
+## Structure
 
-```yaml
-# Example configuration
-config:
-  enabled: true
-  timeout: 30s
-  retries: 3
-```
+- `scripts/` - Executable automation scripts
+- `references/` - Detailed documentation
+- `assets/` - Templates and resources
+- `examples/` - Real code examples
 
-## Reference Files
 
-- `references/yaml-style-guide.md` - YAML formatting standards
-- `references/example-config.md` - Configuration options

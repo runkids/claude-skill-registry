@@ -1,0 +1,7 @@
+{
+  "name": "deploy-aws-ecs",
+  "repo": "dralgorhythm/claude-agentic-framework",
+  "path": ".claude/skills/operations/deploy-aws-ecs/SKILL.md",
+  "source": "github.com/dralgorhythm/claude-agentic-framework",
+  "downloaded_at": "2026-01-14T00:56:40.823220Z"
+}

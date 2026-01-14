@@ -1,13 +1,7 @@
 {
   "name": "api-changelog-versioning",
-  "description": "Document API changes, breaking changes, migration guides, and version history for APIs. Use when documenting API versioning, breaking changes, or creating API migration guides.",
-  "repo": "aj-geddes/useful-ai-prompts",
-  "category": "design",
-  "tags": [
-    "api",
-    "changelog",
-    "versioning"
-  ],
-  "stars": 25,
-  "source": "SkillsMP Synced Skills"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/api-changelog-versioning/skills/api-changelog-versioning/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-14T03:30:00.073497Z"
 }

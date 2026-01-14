@@ -1,13 +1,7 @@
 {
   "name": "backend-python-testing",
-  "description": "Implement comprehensive testing strategies with pytest, fixtures, mocking, and test-driven development for FastAPI applications. Use when writing Python tests, setting up test suites, or implementing ",
   "repo": "shredbx/demo-3d-model",
-  "category": "testing",
-  "tags": [
-    "backend",
-    "python",
-    "testing"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/backend-python-testing/SKILL.md",
+  "source": "github.com/shredbx/demo-3d-model",
+  "downloaded_at": "2026-01-14T03:59:03.896876Z"
 }

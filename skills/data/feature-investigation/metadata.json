@@ -1,12 +1,7 @@
 {
   "name": "feature-investigation",
-  "description": "Use when the user asks to investigate, understand, explore, or explain how a feature works, asks about existing logic, or wants to understand code flow. Triggers on keywords like \"how does\", \"explain\"",
   "repo": "duc01226/EasyPlatform",
-  "category": "development",
-  "tags": [
-    "feature",
-    "investigation"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "path": ".github/skills/feature-investigation/SKILL.md",
+  "source": "github.com/duc01226/EasyPlatform",
+  "downloaded_at": "2026-01-14T03:30:56.379161Z"
 }

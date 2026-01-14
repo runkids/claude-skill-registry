@@ -1,12 +1,7 @@
 {
   "name": "mobile-developer",
-  "description": "Expert in React Native, Expo, and cross-platform mobile development",
   "repo": "daffy0208/ai-dev-standards",
-  "category": "development",
-  "tags": [
-    "mobile",
-    "developer"
-  ],
-  "stars": 2,
-  "source": "local"
+  "path": "skills/mobile-developer/SKILL.md",
+  "source": "github.com/daffy0208/ai-dev-standards",
+  "downloaded_at": "2026-01-14T03:33:14.113284Z"
 }

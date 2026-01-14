@@ -1,9 +1,7 @@
 {
   "name": "parallel-execution",
-  "description": "Execute multiple independent tasks simultaneously using parallel agent coordination to maximize throughput and minimize execution time. Use when tasks have no dependencies, results can be aggregated, ",
-  "repo": "d-o-hub/rust-self-learning-memory",
-  "category": "devops",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "CloudAI-X/opencode-workflow",
+  "path": "skills/parallel-execution/SKILL.md",
+  "source": "github.com/CloudAI-X/opencode-workflow",
+  "downloaded_at": "2026-01-14T03:45:33.781309Z"
 }

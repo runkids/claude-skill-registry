@@ -1,12 +1,7 @@
 {
   "name": "multi-agent-ai-projects",
-  "description": "Guidelines for multi-agent AI and learning projects with lesson-based structures. Activate when working with AI learning projects, experimental directories like .spec/, lessons/ directories, STATUS.md",
   "repo": "ilude/claude-code-config",
-  "category": "data",
-  "tags": [
-    "multi",
-    "agent",
-    "projects"
-  ],
-  "stars": 5
+  "path": "skills/multi-agent-ai-projects/SKILL.md",
+  "source": "github.com/ilude/claude-code-config",
+  "downloaded_at": "2026-01-14T01:02:41.162816Z"
 }

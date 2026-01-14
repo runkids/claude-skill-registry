@@ -1,13 +1,7 @@
 {
   "name": "windows-3-1-web-designer",
-  "description": "Expert in authentic Windows 3.1 aesthetic for modern web applications. Creates pixel-perfect retro UI with beveled borders, system gray palettes, and program manager styling. Use for retro-themed web ",
   "repo": "erichowens/some_claude_skills",
-  "category": "design",
-  "tags": [
-    "windows",
-    "web",
-    "designer"
-  ],
-  "stars": 1,
-  "source": "local"
+  "path": ".claude/skills/windows-3-1-web-designer/SKILL.md",
+  "source": "github.com/erichowens/some_claude_skills",
+  "downloaded_at": "2026-01-14T02:58:41.918102Z"
 }

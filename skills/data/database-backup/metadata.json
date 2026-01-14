@@ -1,8 +1,7 @@
 {
   "name": "database-backup",
-  "repo": "Hieubkav/wincellarCloneBackend",
-  "category": "data",
-  "description": "Safe database migration workflow with Spatie backup integration. Always backup before migration, update mermaid.rb schema, keep max 10 recent backups. USE WHEN creating migrations, running migrations,",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:06:02.014744Z"
+  "repo": "liauw-media/household-expense-tracker",
+  "path": ".claude/skills/safety/database-backup/SKILL.md",
+  "source": "github.com/liauw-media/household-expense-tracker",
+  "downloaded_at": "2026-01-14T03:58:25.475465Z"
 }

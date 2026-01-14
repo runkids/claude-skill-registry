@@ -1,13 +1,7 @@
 {
   "name": "build-design-system",
-  "description": "Build a design system from scratch using the Design Graph methodology. Use when starting a component library, creating design tokens, establishing typography scales, or structuring a theme. Based on B",
   "repo": "rohunvora/my-claude-skills",
-  "category": "design",
-  "tags": [
-    "build",
-    "design",
-    "system"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "path": ".claude/skills/build-design-system/SKILL.md",
+  "source": "github.com/rohunvora/my-claude-skills",
+  "downloaded_at": "2026-01-14T01:11:21.782676Z"
 }
