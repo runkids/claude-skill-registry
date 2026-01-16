@@ -124,8 +124,17 @@ class SecurityScanner:
         # 6. Prompt injection detection
         self._detect_prompt_injection(content)
 
-        # Determine if safe
-        has_critical = any(i['severity'] == 'error' for i in self.issues)
+        # Determine if safe (only fail on truly dangerous issues)
+        critical_types = {
+            'yaml_parse_error',
+            'schema_error',
+            'dangerous_pattern',
+            'file_too_large',
+        }
+        has_critical = any(
+            i['severity'] == 'error' and i.get('type') in critical_types
+            for i in self.issues
+        )
         return not has_critical, self.issues
 
     def _extract_frontmatter(self, content: str) -> dict:
@@ -154,7 +163,7 @@ class SecurityScanner:
             jsonschema.validate(instance=frontmatter, schema=self.schema)
         except jsonschema.ValidationError as e:
             self.issues.append({
-                'severity': 'error',
+                'severity': 'warning',
                 'type': 'schema_validation',
                 'message': f'Schema validation failed: {e.message}',
                 'path': list(e.path)

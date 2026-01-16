@@ -27,6 +27,23 @@ def build_registry(sources):
     """Build the unified registry from all sources."""
     all_skills = []
 
+    def derive_name(skill):
+        """Best-effort name derivation when sources omit it."""
+        name = skill.get("name")
+        if name:
+            return name
+        path = skill.get("path", "")
+        if path:
+            base = os.path.basename(path.rstrip("/"))
+            if base.lower().endswith(".md"):
+                base = base[:-3]
+            if base:
+                return base
+        repo = skill.get("repo", "")
+        if repo:
+            return repo.split("/")[-1]
+        return "unknown-skill"
+
     for source in sources:
         source_repo = source.get("repo", "")
         source_name = source.get("name", "Unknown")
@@ -50,7 +67,7 @@ def build_registry(sources):
                     install_cmd = repo
 
             all_skills.append({
-                "name": skill["name"],
+                "name": derive_name(skill),
                 "description": skill.get("description", ""),
                 "install": install_cmd,
                 "repo": skill.get("repo", source_repo),
