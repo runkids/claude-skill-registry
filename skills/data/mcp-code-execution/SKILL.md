@@ -1,118 +1,208 @@
 ---
 name: mcp-code-execution
-description: Context-efficient MCP integration using code execution patterns. Use when building agents that interact with MCP servers, need to manage large tool sets (50+ tools), process large datasets through tools, or require multi-step workflows with intermediate results. Enables progressive tool loading, data filtering before context, and reusable skill persistence.
+description: |
+
+Triggers: execution, code
+  Transform tool-heavy workflows into MCP code execution patterns for token savings and optimized processing.
+
+  Triggers: MCP, code execution, tool chain, data pipeline, tool transformation, batch processing, workflow optimization
+
+  Use when: >3 tools chained sequentially, large datasets (>10k rows), large files (>50KB), context usage >25%
+
+  DO NOT use when: simple tool calls that don't chain.
+  DO NOT use when: context pressure is low and tools are fast.
+
+  Use this skill BEFORE building complex tool chains. Optimize proactively.
+location: plugin
+token_budget: 200
+progressive_loading: true
+dependencies:
+  hub: [context-optimization, token-conservation]
+  modules: [mcp-subagents, mcp-patterns, mcp-validation]
 ---
+## Table of Contents
 
-# MCP Code Execution
+- [Quick Start](#quick-start)
+- [When to Use](#when-to-use)
+- [Core Hub Responsibilities](#core-hub-responsibilities)
+- [Required TodoWrite Items](#required-todowrite-items)
+- [Step 1 – Assess Workflow (`mcp-code-execution:assess-workflow`)](#step-1-–-assess-workflow-(mcp-code-execution:assess-workflow))
+- [Workflow Classification](#workflow-classification)
+- [MECW Risk Assessment](#mecw-risk-assessment)
+- [Step 2 – Route to Modules (`mcp-code-execution:route-to-modules`)](#step-2-–-route-to-modules-(mcp-code-execution:route-to-modules))
+- [Module Orchestration](#module-orchestration)
+- [Step 3 – Coordinate MECW (`mcp-code-execution:coordinate-mecw`)](#step-3-–-coordinate-mecw-(mcp-code-execution:coordinate-mecw))
+- [Cross-Module MECW Management](#cross-module-mecw-management)
+- [Step 4 – Synthesize Results (`mcp-code-execution:synthesize-results`)](#step-4-–-synthesize-results-(mcp-code-execution:synthesize-results))
+- [Result Integration](#result-integration)
+- [Module Integration](#module-integration)
+- [With Context Optimization Hub](#with-context-optimization-hub)
+- [Performance Skills Integration](#performance-skills-integration)
+- [Emergency Protocols](#emergency-protocols)
+- [Hub-Level Emergency Response](#hub-level-emergency-response)
+- [Success Metrics](#success-metrics)
 
-Implement context-efficient MCP integrations using code execution patterns instead of direct tool calls.
 
-## Core Concept
-
-Present MCP servers as code APIs on a filesystem. Load tool definitions on-demand, process data in execution environment, only return filtered results to context.
+# MCP Code Execution Hub
 
 ## Quick Start
 
-### 1. Generate Tool API from MCP Server
+### Basic Usage
+\`\`\`bash
+# Run the main command
+python -m module_name
 
-```bash
-python scripts/mcp_generator.py --server-config servers.json --output ./mcp_tools
-```
+# Show help
+python -m module_name --help
+\`\`\`
 
-Creates:
-```
-mcp_tools/
-├── google_drive/
-│   ├── get_document.py
-│   └── list_files.py
-├── salesforce/
-│   ├── update_record.py
-│   └── query.py
-└── client.py  # MCP client wrapper
-```
+**Verification**: Run with `--help` flag to confirm installation.
+## When to Use
+- **Automatic**: Keywords: `code execution`, `MCP`, `tool chain`, `data pipeline`, `MECW`
+- **Tool Chains**: >3 tools chained sequentially
+- **Data Processing**: Large datasets (>10k rows) or files (>50KB)
+- **Context Pressure**: Current usage >25% of total window (proactive context management)
 
-### 2. Discover Tools Progressively
+## Core Hub Responsibilities
+- Orchestrates MCP code execution workflow
+- Routes to appropriate specialized modules
+- Coordinates MECW compliance across submodules
+- Manages token budget allocation for submodules
 
+## Required TodoWrite Items
+1. `mcp-code-execution:assess-workflow`
+2. `mcp-code-execution:route-to-modules`
+3. `mcp-code-execution:coordinate-mecw`
+4. `mcp-code-execution:synthesize-results`
+
+## Step 1 – Assess Workflow (`mcp-code-execution:assess-workflow`)
+
+### Workflow Classification
 ```python
-from scripts.tool_discovery import discover_tools, load_tool_definition
+def classify_workflow_for_mecw(workflow):
+    """Determine appropriate MCP modules and MECW strategy"""
 
-# List available servers
-servers = discover_tools("./mcp_tools")
-# ['google_drive', 'salesforce']
-
-# Load only needed tool definitions
-tool = load_tool_definition("./mcp_tools/google_drive/get_document.py")
+    if has_tool_chains(workflow) and workflow.complexity == 'high':
+        return {
+            'modules': ['mcp-subagents', 'mcp-patterns'],
+            'mecw_strategy': 'aggressive',
+            'token_budget': 600
+        }
+    elif workflow.data_size > '10k_rows':
+        return {
+            'modules': ['mcp-patterns', 'mcp-validation'],
+            'mecw_strategy': 'moderate',
+            'token_budget': 400
+        }
+    else:
+        return {
+            'modules': ['mcp-patterns'],
+            'mecw_strategy': 'conservative',
+            'token_budget': 200
+        }
 ```
+**Verification:** Run the command with `--help` flag to verify availability.
 
-### 3. Use Context-Efficient Patterns
-
+### MECW Risk Assessment
+Delegate to mcp-validation module for detailed risk analysis:
 ```python
-import mcp_tools.google_drive as gdrive
-import mcp_tools.salesforce as sf
-
-# Filter data before returning to context
-sheet = await gdrive.get_sheet("abc123")
-pending = [r for r in sheet if r["Status"] == "pending"]
-print(f"Found {len(pending)} pending orders")  # Only summary in context
-
-# Chain operations without intermediate context pollution
-doc = await gdrive.get_document("xyz789")
-await sf.update_record("Lead", "00Q123", {"Notes": doc["content"]})
-print("Document attached to lead")  # Only confirmation in context
+def delegate_mecw_assessment(workflow):
+    return mcp_validation_assess_mecw_risk(
+        workflow,
+        hub_allocated_tokens=self.token_budget * 0.5
+    )
 ```
+**Verification:** Run the command with `--help` flag to verify availability.
 
-## Multi-Agent Workflow
+## Step 2 – Route to Modules (`mcp-code-execution:route-to-modules`)
 
-For complex tasks, delegate to specialized sub-agents:
-
-1. **Discovery Agent**: Explores available tools, returns relevant paths
-2. **Execution Agent**: Writes and runs context-efficient code
-3. **Filtering Agent**: Processes results, returns minimal context
-
-See `references/patterns.md` for implementation details.
-
-## Tool Discovery Strategies
-
-### Filesystem Exploration
-List `./mcp_tools/` directory, read specific tool files as needed.
-
-### Search-Based Discovery
+### Module Orchestration
 ```python
-from scripts.tool_discovery import search_tools
+class MCPExecutionHub:
+    def __init__(self):
+        self.modules = {
+            'mcp-subagents': MCPSubagentsModule(),
+            'mcp-patterns': MCPatternsModule(),
+            'mcp-validation': MCPValidationModule()
+        }
 
-tools = search_tools("./mcp_tools", query="salesforce lead", detail="name_only")
-# Returns: ['salesforce/query.py', 'salesforce/update_record.py']
+    def execute_workflow(self, workflow, classification):
+        results = []
+
+        # Execute modules in optimal order
+        for module_name in classification['modules']:
+            module = self.modules[module_name]
+            result = module.execute(
+                workflow,
+                mecw_budget=classification['token_budget'] //
+                len(classification['modules'])
+            )
+            results.append(result)
+
+        return self.synthesize_results(results)
 ```
+**Verification:** Run the command with `--help` flag to verify availability.
 
-### Lazy Loading
-Only read full tool definitions when about to use them.
+## Step 3 – Coordinate MECW (`mcp-code-execution:coordinate-mecw`)
 
-## Context Optimization
+### Cross-Module MECW Management
+- Monitor total context usage across all modules
+- Enforce 50% context rule globally
+- Coordinate external state management
+- Implement MECW emergency protocols
 
-- **Before**: 150K tokens (all tool definitions + intermediate results)
-- **After**: 2K tokens (only used tools + filtered results)
-- **Savings**: 98.7%
+## Step 4 – Synthesize Results (`mcp-code-execution:synthesize-results`)
 
-## Persisting Skills
-
-Save working code as reusable functions:
-
+### Result Integration
 ```python
-# ./skills/extract_pending_orders.py
-async def extract_pending_orders(sheet_id: str):
-    sheet = await gdrive.get_sheet(sheet_id)
-    return [r for r in sheet if r["Status"] == "pending"]
+def synthesize_module_results(module_results):
+    """Combine results from MCP modules into structured output"""
+
+    return {
+        'status': 'completed',
+        'token_savings': calculate_savings(module_results),
+        'mecw_compliance': verify_mecw_rules(module_results),
+        'hallucination_risk': assess_hallucination_prevention(module_results),
+        'results': consolidate_results(module_results)
+    }
 ```
+**Verification:** Run the command with `--help` flag to verify availability.
 
-## Privacy & Security
+## Module Integration
 
-Data processed in execution environment stays there by default. Only explicitly logged/returned values enter context.
+### With Context Optimization Hub
+- Receives high-level MECW strategy from context-optimization
+- Returns detailed execution metrics and compliance data
+- Coordinates token budget allocation
 
-## Advanced Patterns
+### Performance Skills Integration
+- uses python-performance-optimization through mcp-patterns
+- Aligns with cpu-gpu-performance for resource-aware execution
+- validates optimizations maintain MECW compliance
 
-See `references/patterns.md` for:
-- Aggregation without context bloat
-- Cross-source joins
-- Polling loops
-- Batch operations
-- Error handling
+## Emergency Protocols
+
+### Hub-Level Emergency Response
+When MECW limits exceeded:
+1. Delegates immediately to mcp-validation for risk assessment
+2. Route to mcp-subagents for further decomposition
+3. Apply compression through mcp-patterns
+4. Return minimal summary to preserve context
+
+## Success Metrics
+- **Workflow Success Rate**: >95% successful module coordination
+- **MECW Compliance**: 100% adherence to 50% context rule
+- **Token Efficiency**: Maintain >80% savings vs traditional methods
+- **Module Coordination**: <5% overhead for hub orchestration
+## Troubleshooting
+
+### Common Issues
+
+**Command not found**
+Ensure all dependencies are installed and in PATH
+
+**Permission errors**
+Check file permissions and run with appropriate privileges
+
+**Unexpected behavior**
+Enable verbose logging with `--verbose` flag

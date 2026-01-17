@@ -32,7 +32,7 @@ Provides automated issue analysis and resolution planning:
 **Usage Example**:
 
 ```javascript
-const { IssueResolver, IssueInfo, IssueType } = require('itda/src/resolvers/issue-resolver');
+const { IssueResolver, IssueInfo, IssueType } = require('musubi/src/resolvers/issue-resolver');
 
 // Create resolver
 const resolver = new IssueResolver({
@@ -148,44 +148,44 @@ const preview = resolver.generatePreview(result);
 
 1. **Parse Issue**: Extract structured data
 2. **Generate EARS**: Convert to EARS format requirements
-3. **Create REQ Document**: Use `itda-requirements` CLI
+3. **Create REQ Document**: Use `musubi-requirements` CLI
 4. **Link Traceability**: Connect issue → requirement → design → task
 
 ### Issue to SDD Workflow
 
-**Quick Start with `itda-resolve` CLI (v3.5.0 NEW)**:
+**Quick Start with `musubi-resolve` CLI (v3.5.0 NEW)**:
 
 ```bash
 # One-command issue resolution
-itda-resolve 42
+musubi-resolve 42
 
 # Analyze without resolution
-itda-resolve analyze 42
+musubi-resolve analyze 42
 
 # Generate resolution plan
-itda-resolve plan 42
+musubi-resolve plan 42
 
 # Create PR from resolution
-itda-resolve create-pr 42
+musubi-resolve create-pr 42
 
 # Auto-resolve mode
-itda-resolve 42 --auto
+musubi-resolve 42 --auto
 ```
 
 **Manual SDD Workflow**:
 
 ```bash
 # 1. Analyze issue and create requirement document
-itda-requirements init "issue-42-login-fix"
+musubi-requirements init "issue-42-login-fix"
 
 # 2. Add extracted requirements as EARS statements
-itda-requirements add event-driven "When user taps login button on mobile, system SHALL respond within 300ms"
+musubi-requirements add event-driven "When user taps login button on mobile, system SHALL respond within 300ms"
 
 # 3. Create design for the fix
-itda-design init "issue-42-login-fix"
+musubi-design init "issue-42-login-fix"
 
 # 4. Break down into tasks
-itda-tasks init "issue-42-login-fix"
+musubi-tasks init "issue-42-login-fix"
 ```
 
 ---

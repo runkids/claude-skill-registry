@@ -1,12 +1,7 @@
 {
   "name": "python-dev",
-  "description": "Python development. Use when writing Python code, CLI tools, scripts, or services. Emphasizes stdlib, type hints, pytest toolchain, and minimal dependencies.",
-  "repo": "AMecea/ai-workshop",
-  "category": "development",
-  "tags": [
-    "python",
-    "dev"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "doccker/cc-use-exp",
+  "path": ".claude/skills/python-dev/SKILL.md",
+  "source": "github.com/doccker/cc-use-exp",
+  "downloaded_at": "2026-01-17T03:55:08.371974Z"
 }

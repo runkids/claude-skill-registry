@@ -1,11 +1,15 @@
 ---
 name: sveltia-cms
-description: |
-  Set up Sveltia CMS - lightweight Git-backed CMS successor to Decap/Netlify CMS (300KB bundle, 270+ fixes). Framework-agnostic for Hugo, Jekyll, 11ty, Astro.
-
-  Use when adding CMS to static sites, migrating from Decap CMS, or fixing OAuth, YAML parse, CORS/COOP errors.
-user-invocable: true
+description: Sveltia CMS Git-backed content management (Decap/Netlify CMS successor). 5x smaller bundle (300 KB), GraphQL performance, solves 260+ issues. Use for static sites (Hugo, Jekyll, 11ty, Gatsby, Astro, Next.js), blogs, docs, i18n, or encountering OAuth errors, TOML/YAML issues, CORS problems, content listing errors.
+license: MIT
 allowed-tools: ['Read', 'Write', 'Edit', 'Bash', 'Glob', 'Grep']
+metadata:
+  token_savings: "60-65%"
+  errors_prevented: 8
+  package_version: "0.113.5"
+  last_verified: "2025-10-29"
+  frameworks: ["Hugo", "Jekyll", "11ty", "Gatsby", "Astro", "Next.js", "SvelteKit", "Framework-agnostic"]
+  deployment: ["Cloudflare Workers", "Vercel", "Netlify", "GitHub Pages", "Cloudflare Pages"]
 ---
 
 # Sveltia CMS Skill
@@ -14,11 +18,54 @@ Complete skill for integrating Sveltia CMS into static site projects.
 
 ---
 
-## Current Versions
+## What is Sveltia CMS?
 
-- **@sveltia/cms**: 0.127.0 (verified January 2026)
+**Sveltia CMS** is a Git-based lightweight headless content management system built from scratch as the modern successor to Decap CMS (formerly Netlify CMS). It provides a fast, intuitive editing interface for content stored in Git repositories.
+
+### Key Features
+
+1. **Lightweight & Fast**
+   - Bundle size: <500 KB (minified/brotlied) vs 1.5-2.6 MB for competitors
+   - Built with Svelte compiler (no virtual DOM overhead)
+   - Uses GraphQL APIs for instant content fetching
+   - Relevance-based search across all content
+
+2. **Modern User Experience**
+   - Intuitive admin interface with full viewport utilization
+   - Dark mode support (follows system preferences)
+   - Mobile and tablet optimized
+   - Drag-and-drop file uploads with multiple file support
+   - Real-time preview with instant updates
+
+3. **Git-Native Architecture**
+   - Content stored as Markdown, MDX, YAML, TOML, or JSON
+   - Full version control and change history
+   - No vendor lock-in - content lives with code
+   - Supports GitHub, GitLab, Gitea, Forgejo backends
+
+4. **Framework-Agnostic**
+   - Served as vanilla JavaScript bundle
+   - Works with Hugo, Jekyll, 11ty, Gatsby, Astro, Next.js, SvelteKit
+   - No React, Vue, or framework runtime dependencies
+   - Compatible with any static site generator
+
+5. **First-Class Internationalization**
+   - Multiple language support built-in
+   - One-click DeepL translation integration
+   - Locale switching while editing
+   - Flexible i18n structures (files, folders, single file)
+
+6. **Built-In Image Optimization**
+   - Automatic WebP conversion
+   - Client-side resizing and optimization
+   - SVG optimization support
+   - Configurable quality and dimensions
+
+### Current Versions
+
+- **@sveltia/cms**: 0.113.5 (October 2025)
 - **Status**: Public Beta (v1.0 expected early 2026)
-- **Maturity**: Production-ready (270+ issues solved from predecessor)
+- **Maturity**: Production-ready (265+ issues solved from predecessor)
 
 ---
 
@@ -26,648 +73,264 @@ Complete skill for integrating Sveltia CMS into static site projects.
 
 ### ✅ Use Sveltia CMS When:
 
-- Git-based workflow desired (content as Markdown/YAML/TOML/JSON in repository)
-- Lightweight solution required (<500 KB vs 1.5-2.6 MB for competitors)
-- Migrating from Decap/Netlify CMS (drop-in replacement, change 1 line)
-- Non-technical editors need access without Git knowledge
+1. **Building Static Sites**
+   - Hugo blogs and documentation
+   - Jekyll sites and GitHub Pages
+   - 11ty (Eleventy) projects
+   - Gatsby marketing sites
+   - Astro content-heavy sites
+
+2. **Non-Technical Editors Need Access**
+   - Marketing teams managing pages
+   - Authors writing blog posts
+   - Content teams without Git knowledge
+   - Clients needing easy content updates
+
+3. **Git-Based Workflow Desired**
+   - Content versioning through Git
+   - Content review through pull requests
+   - Content lives with code in repository
+   - CI/CD integration for deployments
+
+4. **Lightweight Solution Required**
+   - Performance-sensitive projects
+   - Mobile-first editing needed
+   - Quick load times critical
+   - Minimal bundle size important
+
+5. **Migrating from Decap/Netlify CMS**
+   - Existing config.yml can be reused
+   - Drop-in replacement (change 1 line)
+   - Better performance and UX
+   - Active maintenance and bug fixes
 
 ### ❌ Don't Use Sveltia CMS When:
 
-- Real-time collaboration needed (multiple users editing simultaneously) - Use Sanity, Contentful, or TinaCMS instead
-- Visual page building required (drag-and-drop) - Use Webflow, Builder.io instead
-- React-specific visual editing needed - Use TinaCMS instead
+1. **Real-Time Collaboration Needed**
+   - Multiple users editing simultaneously (Google Docs-style)
+   - Use Sanity, Contentful, or TinaCMS instead
+
+2. **Visual Page Building Required**
+   - Drag-and-drop page builders needed
+   - Use Webflow, Builder.io, or TinaCMS (React) instead
+
+3. **Highly Dynamic Data**
+   - E-commerce with real-time inventory
+   - Real-time dashboards or analytics
+   - Use traditional databases (D1, PostgreSQL) instead
+
+4. **React-Specific Visual Editing Needed**
+   - In-context component editing
+   - Use TinaCMS instead (React-focused)
+
+### Sveltia CMS vs TinaCMS
+
+**Use Sveltia** for:
+- Hugo, Jekyll, 11ty, Gatsby (non-React SSGs)
+- Traditional CMS admin panel UX
+- Lightweight bundle requirements
+- Framework-agnostic projects
+
+**Use TinaCMS** for:
+- React, Next.js, Astro (React components)
+- Visual in-context editing
+- Schema-driven type-safe content
+- Modern developer experience with TypeScript
+
+**Both are valid** - Sveltia complements TinaCMS for different use cases.
 
 ---
 
-## Breaking Changes & Updates (v0.105.0+)
+## Quick Start
 
-### v0.120.0 (November 24, 2025) - Author Template Tags
+**Load `references/framework-setup.md` for complete framework-specific setup** (Hugo, Jekyll, 11ty, Astro, Next.js, Gatsby, SvelteKit).
 
-**New Feature**: Hidden widget now supports author template tags:
-- `{{author-email}}` - Signed-in user's email
-- `{{author-login}}` - Signed-in user's login name
-- `{{author-name}}` - Signed-in user's display name
+### Basic Setup Steps (Framework-Agnostic)
 
-**Usage**:
-```yaml
-fields:
-  - label: Author Email
-    name: author_email
-    widget: hidden
-    default: '{{author-email}}'
-```
+1. **Create admin directory** in your public folder (e.g., `static/admin`, `public/admin`)
+2. **Create `admin/index.html`** with Sveltia CMS script tag
+3. **Create `admin/config.yml`** with backend and collections
+4. **Set up authentication** → See `references/authentication-guide.md`
+5. **Test locally** by visiting `/admin/`
 
-**Commit message templates** also support `{{author-email}}` tag.
+**Templates available** in `templates/` directory for each framework.
 
 ---
 
-### v0.119.0 (November 16, 2025) - TOML Config Support
+## Authentication Setup
 
-**New Feature**: Configuration files can now be written in TOML format (previously YAML-only).
+**Load `references/authentication-guide.md` for complete OAuth setup instructions**.
 
-**Migration**:
-```toml
-# admin/config.toml (NEW)
-[backend]
-name = "github"
-repo = "owner/repo"
-branch = "main"
+### Quick Overview
 
-media_folder = "static/images/uploads"
-public_folder = "/images/uploads"
-```
+| Method | Best For | Complexity |
+|--------|----------|-----------|
+| Cloudflare Workers | All deployments | Easy ⭐ |
+| Vercel Serverless | Vercel projects | Medium |
+| Local Development | Dev only | Easy |
 
-**Recommendation**: YAML is still preferred for better tooling support.
+**Recommended**: Cloudflare Workers OAuth (official, fast, free)
+
+**Templates**: See `templates/cloudflare-workers/` and `templates/vercel-serverless/`
 
 ---
 
-### v0.118.0 (November 15, 2025) - TypeScript Breaking Change
+## Configuration
 
-**BREAKING**: Renamed `SiteConfig` export to `CmsConfig` for compatibility with Netlify/Decap CMS.
+**Load `references/configuration-guide.md` for complete config.yml documentation, collection patterns, and i18n setup**.
 
-**Migration**:
-```typescript
-// ❌ Old (v0.117.x)
-import type { SiteConfig } from '@sveltia/cms';
+### Essential Config Structure
 
-// ✅ New (v0.118.0+)
-import type { CmsConfig } from '@sveltia/cms';
-
-const config: CmsConfig = {
-  backend: { name: 'github', repo: 'owner/repo' },
-  collections: [/* ... */],
-};
-```
-
-**Impact**: TypeScript users only. Breaking change for type imports.
-
----
-
-### v0.117.0 (November 14, 2025) - Enhanced Validation
-
-**New Features**:
-- Exported `CmsConfig` type for direct TypeScript import
-- Enhanced config validation for collection names, field types, and relation references
-- Better error messages for invalid configurations
-
----
-
-### v0.115.0 (November 5, 2025) - Field-Specific Media Folders
-
-**New Feature**: Override `media_folder` at the field level (not just collection level).
-
-**Usage**:
-```yaml
-collections:
-  - name: posts
-    label: Blog Posts
-    folder: content/posts
-    media_folder: static/images/posts  # Collection-level default
-    fields:
-      - label: Featured Image
-        name: image
-        widget: image
-        media_folder: static/images/featured  # ← Field-level override
-        public_folder: /images/featured
-
-      - label: Author Avatar
-        name: avatar
-        widget: image
-        media_folder: static/images/avatars  # ← Another override
-        public_folder: /images/avatars
-```
-
-**Use case**: Different media folders for different image types in same collection.
-
----
-
-### v0.113.5 (October 27, 2025) - Logo Deprecation
-
-**DEPRECATION**: `logo_url` option is now deprecated. Migrate to `logo.src`.
-
-**Migration**:
-```yaml
-# ❌ Deprecated
-logo_url: https://yourdomain.com/logo.svg
-
-# ✅ New (v0.113.5+)
-logo:
-  src: https://yourdomain.com/logo.svg
-```
-
----
-
-### v0.105.0 (September 15, 2024) - Security Breaking Change
-
-**BREAKING**: `sanitize_preview` default changed to `true` for Markdown widget (XSS prevention).
-
-**Impact**:
-- **Before v0.105.0**: `sanitize_preview: false` (compatibility with Netlify/Decap CMS, but vulnerable to XSS)
-- **After v0.105.0**: `sanitize_preview: true` (secure by default)
-
-**Migration**:
-```yaml
-collections:
-  - name: posts
-    fields:
-      - label: Body
-        name: body
-        widget: markdown
-        sanitize_preview: false  # ← Add ONLY if you trust all CMS users
-```
-
-**Recommendation**: Keep default (`true`) unless disabling fixes broken preview AND you fully trust all CMS users.
-
----
-
-## Setup Pattern (Framework-Agnostic)
-
-**All frameworks follow the same pattern:**
-
-1. **Create admin directory in public/static folder:**
-   - Hugo: `static/admin/`
-   - Jekyll: `admin/`
-   - 11ty: `admin/` (with passthrough copy)
-   - Astro: `public/admin/`
-   - Next.js: `public/admin/`
-
-2. **Create admin/index.html:**
-   ```html
-   <!doctype html>
-   <html lang="en">
-     <head>
-       <meta charset="utf-8" />
-       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-       <title>Content Manager</title>
-     </head>
-     <body>
-       <script src="https://unpkg.com/@sveltia/cms@0.127.0/dist/sveltia-cms.js" type="module"></script>
-     </body>
-   </html>
-   ```
-
-3. **Create admin/config.yml:**
-   ```yaml
-   backend:
-     name: github
-     repo: owner/repo
-     branch: main
-     base_url: https://your-worker.workers.dev  # OAuth proxy (required)
-
-   media_folder: static/images/uploads  # Framework-specific path
-   public_folder: /images/uploads
-
-   collections:
-     - name: posts
-       label: Blog Posts
-       folder: content/posts
-       create: true
-       fields:
-         - { label: 'Title', name: 'title', widget: 'string' }
-         - { label: 'Date', name: 'date', widget: 'datetime' }
-         - { label: 'Body', name: 'body', widget: 'markdown' }
-   ```
-
-4. **Access admin:** `http://localhost:<port>/admin/`
-
-**Framework-specific details**: See `templates/` directory for complete examples.
-
----
-
-## Authentication: Cloudflare Workers OAuth (Recommended)
-
-**Why Cloudflare Workers**: Fastest, free tier available, works with any deployment platform.
-
-**Steps:**
-
-1. **Deploy Worker:**
-   ```bash
-   git clone https://github.com/sveltia/sveltia-cms-auth
-   cd sveltia-cms-auth
-   npm install
-   npx wrangler deploy
-   ```
-
-2. **Register OAuth App on GitHub:**
-   - Go to https://github.com/settings/developers
-   - Click "New OAuth App"
-   - **Authorization callback URL**: `https://your-worker.workers.dev/callback`
-   - Save Client ID and Client Secret
-
-3. **Configure Worker Environment Variables:**
-   ```bash
-   npx wrangler secret put GITHUB_CLIENT_ID
-   # Paste your Client ID
-
-   npx wrangler secret put GITHUB_CLIENT_SECRET
-   # Paste your Client Secret
-   ```
-
-4. **Update CMS config:**
-   ```yaml
-   backend:
-     name: github
-     repo: owner/repo
-     branch: main
-     base_url: https://your-worker.workers.dev  # ← Add this line
-   ```
-
-5. **Test authentication:**
-   - Open `/admin/`
-   - Click "Login with GitHub"
-   - Should redirect to GitHub → Authorize → Back to CMS
-
-**Alternative**: Vercel serverless functions - See `templates/vercel-serverless/`
-
----
-
-## Common Errors & Solutions
-
-This skill prevents **8 common errors** encountered when setting up Sveltia CMS.
-
-### 1. ❌ OAuth Authentication Failures
-
-**Error Message:**
-- "Error: Failed to authenticate"
-- Redirect to `https://api.netlify.com/auth` instead of GitHub login
-
-**Symptoms:**
-- Login button does nothing
-- Authentication popup closes immediately
-
-**Causes:**
-- Missing `base_url` in backend config
-- Incorrect OAuth proxy URL
-- Wrong GitHub OAuth callback URL
-
-**Solution:**
-
-**Step 1: Verify config.yml has `base_url`:**
 ```yaml
 backend:
   name: github
   repo: owner/repo
   branch: main
-  base_url: https://your-worker.workers.dev  # ← Must be present
-```
+  base_url: https://your-worker.workers.dev
 
-**Step 2: Check GitHub OAuth App callback:**
-- Should be: `https://your-worker.workers.dev/callback`
-- NOT: `https://yourdomain.com/callback`
+media_folder: static/images
+public_folder: /images
 
-**Step 3: Test Worker directly:**
-```bash
-curl https://your-worker.workers.dev/health
-# Should return: {"status": "ok"}
-```
-
----
-
-### 2. ❌ TOML Front Matter Errors
-
-**Error Message:**
-- "Parse error: Invalid TOML"
-- Files missing `+++` delimiters
-
-**Symptoms:**
-- New files created by CMS don't parse in Hugo
-- Content appears above body separator
-
-**Causes:**
-- Sveltia's TOML generation is buggy in beta
-- Mixed TOML/YAML in same collection
-
-**Solution:**
-
-**Use YAML instead of TOML** (recommended):
-```yaml
 collections:
   - name: posts
+    label: Blog Posts
     folder: content/posts
-    format: yaml  # or md (Markdown with YAML frontmatter)
-    # NOT: format: toml
+    create: true
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Body, name: body, widget: markdown }
 ```
 
-**If you must use TOML:**
-1. Manually fix delimiters after CMS saves
-2. Use pre-commit hook to validate TOML
-3. Wait for beta fixes (track GitHub issues)
+**Collection templates** available in `templates/collections/` for blogs, docs, and landing pages.
+
+**i18n support**: Multiple files, folders, or single file structures - see reference guide.
 
 ---
 
-### 3. ❌ YAML Parse Errors
+## Common Errors & Solutions
 
-**Error Message:**
-- "YAML parse error: Invalid YAML"
-- "Error: Duplicate key 'field_name'"
+This skill prevents **8 common errors**. Top 3 shown below - **load `references/error-catalog.md` for all 8 with complete solutions**.
 
-**Symptoms:**
-- Existing posts won't load in CMS
-- CMS shows empty fields
+### 1. ❌ OAuth Authentication Failures
 
-**Causes:**
-- Sveltia is stricter than Hugo/Jekyll about YAML formatting
-- Incorrect indentation or smart quotes
+**Error**: "Error: Failed to authenticate" / redirects to wrong domain
 
-**Solution:**
+**Quick Fix:**
+- Verify `base_url` in `config.yml` points to your OAuth proxy
+- Check GitHub OAuth callback URL matches Worker URL
+- Test Worker: `curl https://your-worker.workers.dev/health`
 
-**Step 1: Validate YAML:**
-```bash
-pip install yamllint
-find content -name "*.md" -exec yamllint {} \;
-```
-
-**Step 2: Common fixes:**
-
-**Problem**: Smart quotes
-```yaml
-# ❌ Bad - smart quotes from copy-paste
-title: "Hello World"  # Curly quotes
-
-# ✅ Good - straight quotes
-title: "Hello World"  # Straight quotes
-```
-
-**Step 3: Auto-fix with yamlfmt:**
-```bash
-go install github.com/google/yamlfmt/cmd/yamlfmt@latest
-find content -name "*.md" -exec yamlfmt {} \;
-```
+**→ Load `references/error-catalog.md` Error #1 for complete solution**
 
 ---
 
-### 4. ❌ Content Not Listing in CMS
+### 2. ❌ Content Not Listing in CMS
 
-**Error Message:**
-- "No entries found"
-- "Failed to load entries"
+**Error**: "No entries found" / empty content list
 
-**Symptoms:**
-- Admin loads but shows no content
-- Files exist in repository but CMS doesn't see them
+**Quick Fix:**
+- Verify `folder` path matches actual file location
+- Match `format` to actual file format (yaml vs toml)
+- Check file extensions match config
 
-**Causes:**
-- Format mismatch (config expects TOML, files are YAML)
-- Incorrect folder path
-
-**Solution:**
-
-**Step 1: Verify folder path:**
-```yaml
-# Config says:
-collections:
-  - name: posts
-    folder: content/posts  # Expects files here
-
-# Check actual location:
-ls -la content/posts  # Files must exist here
-```
-
-**Step 2: Match format to actual files:**
-```yaml
-# If files are: content/posts/hello.md with YAML frontmatter
-collections:
-  - name: posts
-    folder: content/posts
-    format: yaml  # or md (same as yaml for .md files)
-```
+**→ Load `references/error-catalog.md` Error #4 for complete solution**
 
 ---
 
-### 5. ❌ "SVELTIA is not defined" Error
+### 3. ❌ CORS / COOP Policy Errors
 
-**Error Message:**
-- Console error: `Uncaught ReferenceError: SVELTIA is not defined`
+**Error**: "Authentication Aborted" / OAuth popup closes
 
-**Symptoms:**
-- Admin page shows white screen
+**Quick Fix:**
+- Set `Cross-Origin-Opener-Policy: same-origin-allow-popups` in headers
+- Add OAuth proxy to CSP `connect-src`
 
-**Causes:**
-- Missing `type="module"` attribute
-
-**Solution:**
-
-**Use correct script tag:**
-```html
-<!-- ✅ Correct -->
-<script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js" type="module"></script>
-
-<!-- ❌ Wrong - missing type="module" -->
-<script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
-```
-
-**Use version pinning (recommended):**
-```html
-<script src="https://unpkg.com/@sveltia/cms@0.127.0/dist/sveltia-cms.js" type="module"></script>
-```
+**→ Load `references/error-catalog.md` Error #8 for complete solution**
 
 ---
 
-### 6. ❌ 404 on /admin
-
-**Error Message:**
-- "404 Not Found" when visiting `/admin/`
-
-**Symptoms:**
-- Works locally but not in production
-
-**Causes:**
-- Admin directory not in correct location for framework
-
-**Solution:**
-
-**Framework-specific fixes:**
-
-**Hugo**: Files in `static/` are automatically copied
-
-**Jekyll**: Add to `_config.yml`:
-```yaml
-include:
-  - admin
-```
-
-**11ty**: Add to `.eleventy.js`:
-```javascript
-module.exports = function(eleventyConfig) {
-  eleventyConfig.addPassthroughCopy('admin');
-};
-```
-
-**Astro**: Files in `public/` are automatically copied
-
----
-
-### 7. ❌ Images Not Uploading (HEIC Format)
-
-**Error Message:**
-- "Unsupported file format"
-
-**Symptoms:**
-- iPhone photos won't upload
-
-**Causes:**
-- HEIC format not supported by browsers
-
-**Solution:**
-
-**On iPhone:**
-- Settings > Camera > Formats > Most Compatible
-- This saves photos as JPEG instead of HEIC
-
-**Or enable image optimization:**
-```yaml
-media_libraries:
-  default:
-    config:
-      max_file_size: 10485760  # 10 MB
-      transformations:
-        raster_image:
-          format: webp  # Auto-converts to WebP
-          quality: 85
-```
-
----
-
-### 8. ❌ CORS / COOP Policy Errors
-
-**Error Message:**
-- "Authentication Aborted"
-- "Cross-Origin-Opener-Policy blocked"
-
-**Symptoms:**
-- OAuth popup opens then closes
-
-**Causes:**
-- Strict `Cross-Origin-Opener-Policy` header blocking OAuth
-
-**Solution:**
-
-**Cloudflare Pages** (_headers file):
-```
-/*
-  Cross-Origin-Opener-Policy: same-origin-allow-popups
-  # NOT: same-origin (this breaks OAuth)
-```
-
-**Netlify** (_headers file):
-```
-/*
-  Cross-Origin-Opener-Policy: same-origin-allow-popups
-```
-
-**Vercel** (vercel.json):
-```json
-{
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "Cross-Origin-Opener-Policy",
-          "value": "same-origin-allow-popups"
-        }
-      ]
-    }
-  ]
-}
-```
+**All 8 errors with detailed solutions:** See `references/error-catalog.md`
 
 ---
 
 ## Migration from Decap CMS
 
-Sveltia CMS is a **drop-in replacement** for Decap CMS.
-
-**Step 1: Update script tag (1 line change):**
+Sveltia is a **drop-in replacement** - just change the script tag!
 
 ```html
 <!-- OLD: Decap CMS -->
 <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 
 <!-- NEW: Sveltia CMS -->
-<script src="https://unpkg.com/@sveltia/cms@0.127.0/dist/sveltia-cms.js" type="module"></script>
+<script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js" type="module"></script>
 ```
 
-**Step 2: Keep existing config.yml** (no changes needed)
-
-**Step 3: Test locally** (verify login, content listing, editing, saving)
-
-**That's it!** Your content, collections, and workflows remain unchanged.
-
-**Not Supported**:
-- Git Gateway backend (for performance reasons)
-- Azure backend (may be added later)
-
-**Workaround**: Use Cloudflare Workers or Vercel OAuth proxy instead.
+Your existing `config.yml` works as-is. **Load `references/migration-from-decap.md` for complete migration guide and testing checklist**.
 
 ---
 
-## Bundled Resources
+## Deployment
 
-### Templates
+**Load `references/deployment-guide.md` for platform-specific deployment instructions** (Cloudflare Pages, Vercel, Netlify, GitHub Pages).
 
-- **hugo/** - Complete Hugo blog setup
-- **jekyll/** - Jekyll site configuration
-- **11ty/** - Eleventy blog setup
-- **astro/** - Astro content collections
-- **cloudflare-workers/** - OAuth proxy implementation
-- **vercel-serverless/** - Vercel auth functions
-- **collections/** - Pre-built collection patterns
+### Quick Deployment Checklist
 
-### References
-
-- **common-errors.md** - Extended error troubleshooting
-- **migration-from-decap.md** - Complete migration guide
-- **cloudflare-auth-setup.md** - Step-by-step OAuth setup
-- **config-reference.md** - Full config.yml documentation
-
-### Scripts
-
-- **init-sveltia.sh** - Automated setup for new projects
-- **deploy-cf-auth.sh** - Deploy Cloudflare Workers OAuth
-
-### Official Documentation
-
-- **GitHub**: https://github.com/sveltia/sveltia-cms
-- **OAuth Worker**: https://github.com/sveltia/sveltia-cms-auth
-- **npm Package**: https://www.npmjs.com/package/@sveltia/cms
-- **Discussions**: https://github.com/sveltia/sveltia-cms/discussions
+- [ ] Admin directory in correct public folder
+- [ ] OAuth proxy deployed and configured
+- [ ] `base_url` set in config.yml
+- [ ] Build command configured
+- [ ] Test `/admin/` route after deployment
 
 ---
 
-## Token Efficiency
+## When to Load References
 
-**Estimated Savings**: 65-70% (~6,300 tokens saved)
+**Load `references/framework-setup.md` when:**
+- User needs framework-specific setup (Hugo, Jekyll, 11ty, Astro, etc.)
+- Setting up new Sveltia CMS installation
+- Troubleshooting framework-specific admin directory issues
 
-**Without Skill** (~9,500 tokens):
-- Framework setup trial & error: 2,500 tokens
-- OAuth configuration attempts: 2,500 tokens
-- Error troubleshooting: 2,500 tokens
-- Deployment configuration: 2,000 tokens
+**Load `references/authentication-guide.md` when:**
+- Setting up GitHub OAuth authentication
+- Deploying Cloudflare Workers OAuth proxy
+- Troubleshooting authentication errors
+- User asks about `base_url` configuration
 
-**With Skill** (~3,200 tokens):
-- Skill loading (SKILL.md): 2,000 tokens
-- Template selection: 400 tokens
-- Project-specific adjustments: 800 tokens
+**Load `references/configuration-guide.md` when:**
+- User needs complete `config.yml` examples
+- Setting up collections, fields, or widgets
+- Configuring media uploads, i18n, or workflows
+- User asks about specific configuration options
+
+**Load `references/error-catalog.md` when:**
+- User encounters any errors during setup
+- Troubleshooting authentication, parsing, or deployment issues
+- User reports errors beyond the top 3 shown above
+
+**Load `references/deployment-guide.md` when:**
+- Deploying to Cloudflare Pages, Netlify, or Vercel
+- Setting up OAuth proxy deployment
+- Troubleshooting production deployment issues
+
+**Load `references/migration-from-decap.md` when:**
+- Migrating from Decap CMS / Netlify CMS
+- User asks about compatibility or migration steps
 
 ---
 
-## Errors Prevented
+## Resources
 
-This skill prevents **8 common errors** (100% prevention rate):
-
-1. ✅ OAuth authentication failures
-2. ✅ TOML front matter generation bugs
-3. ✅ YAML parse errors (strict validation)
-4. ✅ Content not listing in CMS
-5. ✅ "SVELTIA is not defined" errors
-6. ✅ 404 on /admin page
-7. ✅ Image upload failures (HEIC format)
-8. ✅ CORS / COOP policy errors
+**Templates**: `templates/hugo/`, `templates/jekyll/`, `templates/cloudflare-workers/`
+**Official Docs**: https://github.com/sveltia/sveltia-cms
+**OAuth Worker**: https://github.com/sveltia/sveltia-cms-auth
 
 ---
 
-**Last Updated**: 2026-01-09
-**Skill Version**: 2.0.1
-**Sveltia CMS Version**: 0.127.0 (Beta)
-**Status**: Production-ready, v1.0 GA expected early 2026
+## Package Information
+
+**Current Version**: @sveltia/cms@0.113.5 (October 2025)
+**Status**: Production-ready, v1.0 expected early 2026
+
+---
+
+**Last Updated**: 2025-10-24

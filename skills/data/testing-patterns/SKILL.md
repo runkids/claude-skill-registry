@@ -1,118 +1,178 @@
 ---
 name: testing-patterns
-description: "Auto-load when writing tests. Provides TDD workflow, test structure patterns, and common testing idioms."
+description: Testing patterns and principles. Unit, integration, mocking strategies.
+allowed-tools: Read, Write, Edit, Glob, Grep, Bash
 ---
 
 # Testing Patterns
 
-## TDD Workflow (RED-GREEN-REFACTOR)
+> Principles for reliable test suites.
 
-### 1. RED: Write Failing Test First
-```typescript
-describe('Calculator', () => {
-  it('should add two numbers', () => {
-    const calc = new Calculator();
-    expect(calc.add(2, 3)).toBe(5);
-  });
-});
+---
+
+## 1. Testing Pyramid
+
 ```
-Run test - verify it FAILS for the right reason.
-
-### 2. GREEN: Minimal Implementation
-```typescript
-class Calculator {
-  add(a: number, b: number): number {
-    return a + b;
-  }
-}
-```
-Run test - verify it PASSES.
-
-### 3. REFACTOR: Clean Up
-Improve code while keeping tests green.
-
-## Test Structure (AAA Pattern)
-
-```typescript
-it('should transfer money between accounts', () => {
-  // Arrange - Set up test data
-  const source = new Account(100);
-  const target = new Account(0);
-
-  // Act - Perform the action
-  source.transfer(50, target);
-
-  // Assert - Verify results
-  expect(source.balance).toBe(50);
-  expect(target.balance).toBe(50);
-});
+        /\          E2E (Few)
+       /  \         Critical flows
+      /----\
+     /      \       Integration (Some)
+    /--------\      API, DB queries
+   /          \
+  /------------\    Unit (Many)
+                    Functions, classes
 ```
 
-## What to Test
+---
 
-### DO Test
-- Business logic and calculations
-- Edge cases and boundaries
-- Error handling paths
-- State transitions
-- Integration points
+## 2. AAA Pattern
 
-### DON'T Test
-- Framework code (React, Express)
-- Third-party libraries
-- Simple getters/setters
-- Implementation details
+| Step | Purpose |
+|------|---------|
+| **Arrange** | Set up test data |
+| **Act** | Execute code under test |
+| **Assert** | Verify outcome |
 
-## Mocking Guidelines
+---
 
-```typescript
-// Mock external dependencies
-jest.mock('./api', () => ({
-  fetchUser: jest.fn().mockResolvedValue({ id: 1, name: 'Test' }),
-}));
+## 3. Test Type Selection
 
-// Prefer dependency injection over mocking
-class UserService {
-  constructor(private api: ApiClient) {}
+### When to Use Each
 
-  async getUser(id: number) {
-    return this.api.fetchUser(id);
-  }
-}
+| Type | Best For | Speed |
+|------|----------|-------|
+| **Unit** | Pure functions, logic | Fast (<50ms) |
+| **Integration** | API, DB, services | Medium |
+| **E2E** | Critical user flows | Slow |
 
-// In tests - inject mock
-const mockApi = { fetchUser: jest.fn() };
-const service = new UserService(mockApi);
-```
+---
 
-## Test Naming Convention
+## 4. Unit Test Principles
 
-```typescript
-describe('[Unit Under Test]', () => {
-  describe('[Method/Scenario]', () => {
-    it('should [expected behavior] when [condition]', () => {
-      // test
-    });
-  });
-});
-```
+### Good Unit Tests
 
-## Async Testing
+| Principle | Meaning |
+|-----------|---------|
+| Fast | < 100ms each |
+| Isolated | No external deps |
+| Repeatable | Same result always |
+| Self-checking | No manual verification |
+| Timely | Written with code |
 
-```typescript
-// Async/await (preferred)
-it('should fetch user', async () => {
-  const user = await fetchUser(1);
-  expect(user.name).toBe('Test');
-});
+### What to Unit Test
 
-// Testing rejections
-it('should throw on invalid id', async () => {
-  await expect(fetchUser(-1)).rejects.toThrow('Invalid ID');
-});
-```
+| Test | Don't Test |
+|------|------------|
+| Business logic | Framework code |
+| Edge cases | Third-party libs |
+| Error handling | Simple getters |
 
-## Coverage Targets
-- Aim for 80% coverage on business logic
-- 100% coverage on critical paths (auth, payments)
-- Don't chase 100% everywhere - diminishing returns
+---
+
+## 5. Integration Test Principles
+
+### What to Test
+
+| Area | Focus |
+|------|-------|
+| API endpoints | Request/response |
+| Database | Queries, transactions |
+| External services | Contracts |
+
+### Setup/Teardown
+
+| Phase | Action |
+|-------|--------|
+| Before All | Connect resources |
+| Before Each | Reset state |
+| After Each | Clean up |
+| After All | Disconnect |
+
+---
+
+## 6. Mocking Principles
+
+### When to Mock
+
+| Mock | Don't Mock |
+|------|------------|
+| External APIs | The code under test |
+| Database (unit) | Simple dependencies |
+| Time/random | Pure functions |
+| Network | In-memory stores |
+
+### Mock Types
+
+| Type | Use |
+|------|-----|
+| Stub | Return fixed values |
+| Spy | Track calls |
+| Mock | Set expectations |
+| Fake | Simplified implementation |
+
+---
+
+## 7. Test Organization
+
+### Naming
+
+| Pattern | Example |
+|---------|---------|
+| Should behavior | "should return error when..." |
+| When condition | "when user not found..." |
+| Given-when-then | "given X, when Y, then Z" |
+
+### Grouping
+
+| Level | Use |
+|-------|-----|
+| describe | Group related tests |
+| it/test | Individual case |
+| beforeEach | Common setup |
+
+---
+
+## 8. Test Data
+
+### Strategies
+
+| Approach | Use |
+|----------|-----|
+| Factories | Generate test data |
+| Fixtures | Predefined datasets |
+| Builders | Fluent object creation |
+
+### Principles
+
+- Use realistic data
+- Randomize non-essential values (faker)
+- Share common fixtures
+- Keep data minimal
+
+---
+
+## 9. Best Practices
+
+| Practice | Why |
+|----------|-----|
+| One assert per test | Clear failure reason |
+| Independent tests | No order dependency |
+| Fast tests | Run frequently |
+| Descriptive names | Self-documenting |
+| Clean up | Avoid side effects |
+
+---
+
+## 10. Anti-Patterns
+
+| ❌ Don't | ✅ Do |
+|----------|-------|
+| Test implementation | Test behavior |
+| Duplicate test code | Use factories |
+| Complex test setup | Simplify or split |
+| Ignore flaky tests | Fix root cause |
+| Skip cleanup | Reset state |
+
+---
+
+> **Remember:** Tests are documentation. If someone can't understand what the code does from the tests, rewrite them.

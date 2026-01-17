@@ -1,7 +1,7 @@
 {
   "name": "github-workflow",
-  "repo": "shwilliamson/automatasaurus",
-  "path": "template/skills/github-workflow/SKILL.md",
-  "source": "github.com/shwilliamson/automatasaurus",
-  "downloaded_at": "2026-01-14T03:19:14.772816Z"
+  "repo": "akaszubski/anyclaude-local",
+  "path": "plugins/autonomous-dev/skills/github-workflow/SKILL.md",
+  "source": "github.com/akaszubski/anyclaude-local",
+  "downloaded_at": "2026-01-17T03:13:49.451682Z"
 }

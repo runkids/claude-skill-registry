@@ -1,12 +1,7 @@
 {
   "name": "golden-dataset-management",
-  "description": "Backup, restore, and validate golden datasets for AI/ML systems - ensuring test data integrity and preventing catastrophic data loss",
-  "repo": "yonatangross/create-yg-app",
-  "category": "data",
-  "tags": [
-    "golden",
-    "dataset",
-    "management"
-  ],
-  "stars": 0
+  "repo": "yonatangross/skillforge-claude-plugin",
+  "path": "skills/golden-dataset-management/SKILL.md",
+  "source": "github.com/yonatangross/skillforge-claude-plugin",
+  "downloaded_at": "2026-01-17T01:47:49.439477Z"
 }

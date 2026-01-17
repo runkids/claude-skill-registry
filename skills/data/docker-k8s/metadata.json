@@ -1,12 +1,7 @@
 {
   "name": "docker-k8s",
-  "description": "Docker and Kubernetes containerization best practices. Use when writing Dockerfiles, docker-compose files, or Kubernetes manifests. Triggers on mentions of Docker, container, Dockerfile, docker-compos",
-  "repo": "eous/dotclaude",
-  "category": "devops",
-  "tags": [
-    "docker",
-    "k8s"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "enact-on/super-ai-github",
+  "path": ".opencode/skill/docker-k8s/SKILL.md",
+  "source": "github.com/enact-on/super-ai-github",
+  "downloaded_at": "2026-01-17T03:28:34.309916Z"
 }

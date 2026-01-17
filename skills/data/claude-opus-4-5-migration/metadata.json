@@ -1,7 +1,7 @@
 {
   "name": "claude-opus-4-5-migration",
-  "repo": "jwynia/agent-skills",
-  "path": "collections/official-claude-code/claude-opus-4-5-migration/skills/claude-opus-4-5-migration/SKILL.md",
-  "source": "github.com/jwynia/agent-skills",
-  "downloaded_at": "2026-01-14T03:19:18.402430Z"
+  "repo": "DennisLiuCk/claude-plugin-marketplace",
+  "path": "plugins/claude-opus-4-5-migration/skills/claude-opus-4-5-migration/SKILL.md",
+  "source": "github.com/DennisLiuCk/claude-plugin-marketplace",
+  "downloaded_at": "2026-01-17T01:44:28.685295Z"
 }

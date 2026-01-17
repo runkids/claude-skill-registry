@@ -1,96 +1,204 @@
 ---
 name: refactor
-description: Safe code refactoring with DDD patterns and test preservation
-license: MIT
-compatibility: opencode
-metadata:
-  audience: developers
-  workflow: refactoring
+description: Code refactoring workflow - analyze → plan → implement → review → validate
 ---
 
-## What I do
+# /refactor - Refactoring Workflow
 
-- Safely refactor code without changing behavior
-- Extract methods, classes, and interfaces
-- Apply DDD patterns and clean code principles
-- Preserve existing tests and functionality
+Safe refactoring with review gates.
 
-## When to use me
+## When to Use
 
-Use this when you need to:
-- Refactor legacy code
-- Extract duplicated logic
-- Apply design patterns
-- Improve code organization
+- "Refactor X"
+- "Clean up this code"
+- "Extract this into a module"
+- "Improve the architecture of Y"
+- Large-scale code restructuring
+- Technical debt reduction
 
-## MCP-First Workflow
+## Workflow Overview
 
-Always use MCP servers in this order:
-
-1. **codebase** - Search for refactoring patterns
-   ```python
-   search_codebase("refactoring patterns Python DDD clean code", top_k=10)
-   ```
-
-2. **filesystem** - view_file the code to refactor
-   ```python
-   read_file("src/module.py")
-   ```
-
-3. **git** - Check usages and history
-   ```python
-   git_diff("HEAD~10..HEAD", path="src/")
-   ```
-
-4. **exa** - Research best practices
-   ```python
-   web_search("Python refactoring patterns 2025", num_results=5)
-   ```
-
-## Safe Refactoring Principles
-
-### Extract Method
-```python
-# BEFORE
-def process_order(order):
-    # 50 lines of code
-    return order
-
-# AFTER
-def process_order(order):
-    self._validate(order)
-    self._calculate(order)
-    return order
+```
+┌──────────┐    ┌────────────┐    ┌──────────┐    ┌──────────┐    ┌───────────┐
+│ phoenix  │───▶│   plan-    │───▶│  kraken  │───▶│plan-reviewer│───▶│ arbiter  │
+│          │    │   agent    │    │          │    │          │    │           │
+└──────────┘    └────────────┘    └──────────┘    └──────────┘    └───────────┘
+  Analyze         Plan             Implement       Review          Verify
+  current         changes          refactor        changes         tests pass
 ```
 
-### Replace Conditional with Polymorphism
-```python
-# BEFORE
-def calculate_shipping(weight, type):
-    if type == "standard":
-        return weight * 0.5
-    elif type == "express":
-        return weight * 1.5
+## Agent Sequence
 
-# AFTER
-class ShippingStrategy:
-    def calculate(self, weight): ...
+| # | Agent | Role | Output |
+|---|-------|------|--------|
+| 1 | **phoenix** | Analyze current code, identify improvement areas | Analysis report |
+| 2 | **plan-agent** | Create safe refactoring plan | Step-by-step plan |
+| 3 | **kraken** | Implement the refactoring | Code changes |
+| 4 | **plan-reviewer** | Review changes for correctness | Review report |
+| 5 | **arbiter** | Verify all tests still pass | Test report |
 
-class StandardShipping(ShippingStrategy):
-    def calculate(self, weight):
-        return weight * 0.5
+## Refactoring Principles
+
+1. **Tests first**: Ensure adequate test coverage before refactoring
+2. **Small steps**: Each change should be independently verifiable
+3. **Behavior preserved**: No functional changes during refactor
+4. **Reviewable**: Changes should be easy to review
+
+## Execution
+
+### Phase 1: Analyze
+
+```
+Task(
+  subagent_type="phoenix",
+  prompt="""
+  Analyze for refactoring: [TARGET_CODE]
+
+  Identify:
+  - Current pain points
+  - Code smells
+  - Improvement opportunities
+  - Risk areas
+  - Test coverage gaps
+  """
+)
 ```
 
-## Pre-Refactoring Checklist
+### Phase 2: Plan
 
-- [ ] Tests exist and pass
-- [ ] All usages identified
-- [ ] Breaking changes evaluated
-- [ ] Rollback plan ready
+```
+Task(
+  subagent_type="plan-agent",
+  prompt="""
+  Plan refactoring: [TARGET_CODE]
 
-## Post-Refactoring Checklist
+  Analysis: [from phoenix]
 
-- [ ] All tests pass
-- [ ] Type hints intact
-- [ ] Docstrings updated
-- [ ] No new lint errors
+  Create:
+  - Step-by-step refactoring plan
+  - Each step should be:
+    - Small and focused
+    - Independently testable
+    - Reversible
+  - Identify files affected
+  - Risk mitigation strategy
+  """
+)
+```
+
+### Phase 3: Implement
+
+```
+Task(
+  subagent_type="kraken",
+  prompt="""
+  Implement refactoring: [TARGET_CODE]
+
+  Plan: [from plan-agent]
+
+  Requirements:
+  - Follow plan exactly
+  - Run tests after each step
+  - Stop if tests fail
+  - NO behavior changes
+  """
+)
+```
+
+### Phase 4: Review
+
+```
+Task(
+  subagent_type="plan-reviewer",
+  prompt="""
+  Review refactoring: [TARGET_CODE]
+
+  Changes: [git diff from kraken]
+
+  Check:
+  - Behavior preserved
+  - No unintended changes
+  - Code quality improved
+  - Patterns consistent
+  """
+)
+```
+
+### Phase 5: Validate
+
+```
+Task(
+  subagent_type="arbiter",
+  prompt="""
+  Validate refactoring: [TARGET_CODE]
+
+  - Run full test suite
+  - Verify no regressions
+  - Check type errors
+  - Run linting
+  """
+)
+```
+
+## Refactoring Types
+
+### Extract Module
+```
+phoenix → plan-agent → kraken → plan-reviewer → arbiter
+```
+
+### Rename/Restructure
+```
+phoenix → kraken → arbiter  (simpler, skip detailed planning)
+```
+
+### Architecture Change
+```
+phoenix → plan-agent → [kraken → plan-reviewer] × N phases → arbiter
+```
+
+## Example
+
+```
+User: /refactor Extract the validation logic into a separate module
+
+Claude: Starting /refactor workflow...
+
+Phase 1: Analyzing current structure...
+[Spawns phoenix]
+Found: Validation logic spread across 4 files
+- form.ts (lines 45-120)
+- api.ts (lines 200-280)
+- user.ts (lines 15-45)
+- order.ts (lines 88-130)
+
+Phase 2: Planning extraction...
+[Spawns plan-agent]
+Plan:
+1. Create src/validation/index.ts
+2. Extract common validators
+3. Update imports one file at a time
+4. Run tests after each change
+
+Phase 3: Implementing...
+[Spawns kraken]
+Completed all 4 steps, tests green after each
+
+Phase 4: Reviewing changes...
+[Spawns plan-reviewer]
+✅ All behavior preserved
+✅ DRY improved (removed 45 duplicate lines)
+✅ New structure consistent
+
+Phase 5: Final validation...
+[Spawns arbiter]
+✅ 312 tests passing, 0 regressions
+
+Refactoring complete!
+```
+
+## Safety Flags
+
+- `--dry-run`: Plan but don't implement
+- `--step-by-step`: Pause after each change for approval
+- `--coverage-check`: Require >80% coverage before proceeding

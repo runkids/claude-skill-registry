@@ -1,7 +1,7 @@
 {
   "name": "incident-runbook-templates",
-  "repo": "GaitanS/AI-Mancare",
-  "path": ".claude/skills/plugins/incident-response/skills/incident-runbook-templates/SKILL.md",
-  "source": "github.com/GaitanS/AI-Mancare",
-  "downloaded_at": "2026-01-14T03:16:33.760258Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/incident-response/skills/incident-runbook-templates/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-01-17T03:59:21.674455Z"
 }

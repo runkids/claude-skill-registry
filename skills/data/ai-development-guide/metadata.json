@@ -1,12 +1,7 @@
 {
   "name": "ai-development-guide",
-  "description": "Technical decision criteria, anti-pattern detection, debugging techniques, and quality check workflow. Use when making technical decisions, detecting code smells, or performing quality assurance.",
-  "repo": "shinpr/claude-code-workflows",
-  "category": "development",
-  "tags": [
-    "development",
-    "guide"
-  ],
-  "stars": 44,
-  "source": "SkillsMP Synced Skills"
+  "repo": "shinpr/agentic-code",
+  "path": ".agents/skills/ai-development-guide/SKILL.md",
+  "source": "github.com/shinpr/agentic-code",
+  "downloaded_at": "2026-01-17T02:43:07.944611Z"
 }

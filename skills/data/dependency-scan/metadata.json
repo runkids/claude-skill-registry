@@ -1,7 +1,7 @@
 {
   "name": "dependency-scan",
-  "repo": "jwynia/agent-skills",
-  "path": "skills/security/dependency-scan/SKILL.md",
-  "source": "github.com/jwynia/agent-skills",
-  "downloaded_at": "2026-01-14T03:19:17.936667Z"
+  "repo": "cosmix/loom",
+  "path": "skills/dependency-scan/SKILL.md",
+  "source": "github.com/cosmix/loom",
+  "downloaded_at": "2026-01-17T03:56:35.179685Z"
 }

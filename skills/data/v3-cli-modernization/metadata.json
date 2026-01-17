@@ -1,7 +1,7 @@
 {
   "name": "v3-cli-modernization",
-  "repo": "ricable/ruvector-edge",
-  "path": "claude-flow-v3/v3/@claude-flow/cli/.claude/skills/v3-cli-modernization/SKILL.md",
-  "source": "github.com/ricable/ruvector-edge",
-  "downloaded_at": "2026-01-14T03:16:20.531989Z"
+  "repo": "ruvnet/claude-flow",
+  "path": "v3/@claude-flow/mcp/.claude/skills/v3-cli-modernization/SKILL.md",
+  "source": "github.com/ruvnet/claude-flow",
+  "downloaded_at": "2026-01-17T03:34:28.728933Z"
 }

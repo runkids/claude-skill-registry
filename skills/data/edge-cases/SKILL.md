@@ -1,192 +1,67 @@
+<!-- PM-Skills | https://github.com/product-on-purpose/pm-skills | Apache 2.0 -->
 ---
 name: edge-cases
-description: Analyze checkpoint tests and suggest missing edge cases. Use after writing tests or when reviewing test coverage. Invoke with /edge-cases <problem> <checkpoint>.
+description: Documents edge cases, error states, boundary conditions, and recovery paths for a feature. Use during specification to ensure comprehensive coverage, or during QA planning to identify test scenarios.
+license: Apache-2.0
+metadata:
+  category: specification
+  frameworks: [triple-diamond, lean-startup, design-thinking]
+  author: product-on-purpose
+  version: "1.0.0"
 ---
 
-# Edge Case Analyzer
+# Edge Cases
 
-Analyze a checkpoint's spec and existing tests to identify and add missing edge cases.
+An edge cases document systematically catalogs the unusual, boundary, and error scenarios for a feature. While happy-path flows are typically well-specified, edge cases often get discovered in production — causing bugs, poor user experience, and support burden. Documenting edge cases upfront ensures engineering handles them intentionally and QA knows what to test.
 
-**Usage**: `/edge-cases execution_server checkpoint_2`
+## When to Use
 
-## Workflow
+- During feature specification before engineering begins
+- When preparing QA test plans
+- After discovering production bugs to prevent similar issues
+- When reviewing PRDs or user stories for completeness
+- Before launch to ensure error states have been designed
 
-1. **Read the spec** - Understand all requirements, constraints, error conditions
-2. **Read existing tests** - See what's already covered
-3. **Identify gaps** - Find missing edge cases
-4. **Add skeleton tests** - Append to test file with TODOs
+## Instructions
 
----
+When asked to document edge cases, follow these steps:
 
-## Step 1: Gather Context
+1. **Define the Feature Scope**
+   Clearly describe what feature or flow you're analyzing. Edge cases are specific to context — the same input might be valid in one feature and invalid in another.
 
-Read these files for the specified problem/checkpoint:
+2. **Walk Through Input Validation**
+   Consider every user input: What if it's empty? Too long? Wrong format? Contains special characters? What are the minimum and maximum valid values?
 
-```
-problems/{problem}/checkpoint_N.md
-problems/{problem}/tests/conftest.py
-problems/{problem}/tests/test_checkpoint_N.py
-```
+3. **Explore Boundary Conditions**
+   Find the edges of acceptable ranges. If a field accepts 1-100, test 0, 1, 100, and 101. Consider pagination boundaries, timeout thresholds, and rate limits.
 
----
+4. **Map Error States**
+   Identify what can go wrong: network failures, permission denied, resource not found, concurrent modifications, expired sessions. Document both the scenario and expected behavior.
 
-## Step 2: Analyze for Gaps
+5. **Consider Concurrency Issues**
+   What if two users act simultaneously? What if the user double-clicks? What if data changes between load and save? Race conditions often cause subtle bugs.
 
-**For each requirement in the spec, ask:**
+6. **Define Recovery Paths**
+   For each error, specify how users recover. What message do they see? Can they retry? Is data preserved? Good error handling turns frustration into confidence.
 
-1. What happens with empty/null input?
-2. What happens at boundary values (0, -1, max, min)?
-3. What happens with malformed input?
-4. What happens with missing required fields?
-5. What happens with unexpected types?
-6. Are there race conditions or state edge cases?
-7. Are there format edge cases (unicode, special chars)?
+7. **Prioritize by Likelihood and Impact**
+   Not all edge cases need the same attention. High-likelihood + high-impact cases need robust handling; rare + low-impact cases might just need graceful failure.
 
-**Cross-reference with existing tests:**
+## Output Format
 
-- Which spec requirements have tests?
-- Which error conditions are tested?
-- Which boundary conditions are tested?
-- What did the spec mention that tests don't cover?
+Use the template in `references/TEMPLATE.md` to structure the output.
 
----
+## Quality Checklist
 
-## Important: Avoid Ambiguous Cases
+Before finalizing, verify:
 
-**Only add edge cases where the spec is clear about expected behavior.**
+- [ ] All user inputs have validation edge cases documented
+- [ ] Boundary conditions are explicitly listed
+- [ ] Network/system failure scenarios are covered
+- [ ] Each error state has a defined user-facing message
+- [ ] Recovery paths are specified (not just error detection)
+- [ ] Edge cases are prioritized by likelihood and impact
 
-If the spec is ambiguous or there are multiple valid interpretations:
-- **Don't add a test** - it's not a valid edge case
-- The spec should define the expected behavior, not the tests
-- Tests should verify spec compliance, not invent requirements
+## Examples
 
-**Good edge case**: Spec says "return error for negative values" → test with -1
-**Bad edge case**: Spec doesn't mention negatives → we don't know what should happen
-
-Ask yourself: "Can I point to the spec line that defines this behavior?"
-- **Yes** → Valid edge case
-- **No** → Skip it or note the spec ambiguity
-
----
-
-## Step 3: Generate Skeleton Tests
-
-Append to `test_checkpoint_N.py`:
-
-```python
-# === EDGE CASES (review and implement) ===
-
-@pytest.mark.functionality
-def test_empty_input(entrypoint_argv):
-    """Edge case: Empty input should return appropriate error.
-
-    Spec says: [quote relevant spec section]
-    """
-    # TODO: Implement - call with empty input, verify error handling
-    pytest.fail("Not implemented")
-
-
-@pytest.mark.functionality
-def test_negative_value(entrypoint_argv):
-    """Edge case: Negative values should be rejected.
-
-    Spec says: [quote relevant spec section]
-    """
-    # TODO: Implement - test with negative input
-    pytest.fail("Not implemented")
-
-
-@pytest.mark.functionality
-def test_unicode_input(entrypoint_argv):
-    """Edge case: Unicode characters in input.
-
-    Spec says: [quote relevant spec section]
-    """
-    # TODO: Implement - test with unicode characters
-    pytest.fail("Not implemented")
-```
-
----
-
-## Markers to Use
-
-**All edge cases use `@pytest.mark.functionality`.**
-
-Edge cases are additional coverage beyond the core tests - they should not block a passing submission. Core tests cover the main spec requirements; edge cases catch less common scenarios.
-
----
-
-## Common Edge Case Categories
-
-See [patterns.md](patterns.md) for detailed patterns by problem type:
-
-**Always check:**
-- Empty/null inputs
-- Boundary values (0, -1, MAX_INT, empty string)
-- Malformed data (invalid JSON, wrong types)
-- Missing required fields
-- Duplicate handling
-- Unicode and special characters
-- Very large inputs
-- Concurrent operations (if applicable)
-
----
-
-## After Adding Skeletons
-
-1. Review each TODO and implement the test
-2. Run eval-snapshot to verify:
-   ```bash
-   slop-code -v eval-snapshot problems/{problem}/solutions/checkpoint_N \
-       -p {problem} -o /tmp/eval -c N \
-       -e configs/environments/docker-python3.12-uv.yaml --json
-   ```
-3. Remove `pytest.fail("Not implemented")` as you implement each test
-
----
-
-## Example Output
-
-For `execution_server checkpoint_1`, might generate:
-
-```python
-# === EDGE CASES (review and implement) ===
-
-@pytest.mark.functionality
-def test_execute_empty_command(client):
-    """Edge case: Empty command string.
-
-    Spec says: [quote relevant section about command validation]
-    """
-    response = client.post("/v1/execute", json={"command": ""})
-    # TODO: Verify appropriate error response
-    pytest.fail("Not implemented")
-
-
-@pytest.mark.functionality
-def test_execute_missing_command(client):
-    """Edge case: Request body missing 'command' field.
-
-    Spec says: [quote relevant section about required fields]
-    """
-    response = client.post("/v1/execute", json={})
-    # TODO: Verify 400/422 response
-    pytest.fail("Not implemented")
-
-
-@pytest.mark.functionality
-def test_execute_unicode_output(client):
-    """Edge case: Command that outputs unicode characters.
-
-    Spec says: [quote relevant section about output handling]
-    """
-    response = client.post("/v1/execute", json={"command": "echo '日本語'"})
-    # TODO: Verify unicode is preserved in response
-    pytest.fail("Not implemented")
-```
-
----
-
-## Reference
-
-- [patterns.md](patterns.md) - Edge case patterns by problem type
+See `references/EXAMPLE.md` for a completed example.

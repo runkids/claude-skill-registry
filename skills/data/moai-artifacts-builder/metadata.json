@@ -1,7 +1,7 @@
 {
   "name": "moai-artifacts-builder",
-  "repo": "dolsoon/my-awesome-project",
-  "path": ".claude/skills/moai-artifacts-builder/SKILL.md",
-  "source": "github.com/dolsoon/my-awesome-project",
-  "downloaded_at": "2026-01-14T03:37:23.813000Z"
+  "repo": "AJBcoding/claude-skill-eval",
+  "path": "skills/moai-artifacts-builder/SKILL.md",
+  "source": "github.com/AJBcoding/claude-skill-eval",
+  "downloaded_at": "2026-01-17T03:11:47.657546Z"
 }

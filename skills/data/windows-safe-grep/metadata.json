@@ -1,7 +1,7 @@
 {
   "name": "windows-safe-grep",
-  "repo": "robertpelloni/aios",
-  "path": "config/opencode-template/superpowers/skills/windows-safe-grep/SKILL.md",
-  "source": "github.com/robertpelloni/aios",
-  "downloaded_at": "2026-01-14T03:45:51.108966Z"
+  "repo": "julianromli/opencode-template",
+  "path": "superpowers/skills/windows-safe-grep/SKILL.md",
+  "source": "github.com/julianromli/opencode-template",
+  "downloaded_at": "2026-01-17T01:13:02.352432Z"
 }

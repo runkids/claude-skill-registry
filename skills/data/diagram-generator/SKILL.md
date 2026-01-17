@@ -1,201 +1,183 @@
+# 📊 Diagram Generator Skill
+
 ---
 name: diagram-generator
-description: Generates architecture, database, and system diagrams using Mermaid syntax. Creates visual representations of system architecture, database schemas, component relationships, and data flows.
-allowed-tools: read, write, glob, search, codebase_search
-version: 1.0
-best_practices:
-  - Use Mermaid syntax for diagrams
-  - Extract structure from code and documentation
-  - Create clear, readable diagrams
-  - Include relationships and dependencies
-  - Generate both high-level and detailed views
-error_handling: graceful
-streaming: supported
-templates: [architecture-diagram, database-diagram, component-diagram, sequence-diagram]
+description: Generate visual diagrams from code, text descriptions, or data structures using Mermaid
 ---
 
-<identity>
-Diagram Generator Skill - Generates architecture, database, and system diagrams using Mermaid syntax to visualize system structure, relationships, and flows.
-</identity>
+## 🎯 Purpose
 
-<capabilities>
-- Creating architecture diagrams
-- Documenting database schemas
-- Visualizing component relationships
-- Documenting data flows
-- Creating sequence diagrams
-- Generating system overviews
-</capabilities>
+สร้าง diagrams จาก code, text descriptions, หรือ data structures โดยใช้ Mermaid syntax
 
-<instructions>
-<execution_process>
+## 📋 When to Use
 
-### Step 1: Identify Diagram Type
+- Document architecture
+- Explain flows
+- Visualize relationships
+- Create documentation
+- Present to stakeholders
 
-Determine what type of diagram is needed:
+## 🔧 Diagram Types
 
-- **Architecture Diagram**: System structure and components
-- **Database Diagram**: Schema and relationships
-- **Component Diagram**: Component interactions
-- **Sequence Diagram**: Process flows
-- **Flowchart**: Decision flows
-
-### Step 2: Extract Structure
-
-Analyze code and documentation:
-
-- Read architecture documents
-- Analyze component structure
-- Extract database schema
-- Identify relationships
-- Understand data flows
-
-### Step 3: Generate Mermaid Diagram
-
-Create diagram using Mermaid syntax:
-
-- Use appropriate diagram type
-- Define nodes and relationships
-- Add labels and descriptions
-- Include styling if needed
-
-### Step 4: Embed in Documentation
-
-Embed diagram in markdown:
-
-- Use mermaid code blocks
-- Add diagram description
-- Reference in documentation
-  </execution_process>
-
-<integration>
-**Integration with Architect Agent**:
-- Generates architecture diagrams
-- Documents system structure
-- Visualizes component relationships
-
-**Integration with Database Architect Agent**:
-
-- Generates database schema diagrams
-- Documents table relationships
-- Visualizes data models
-
-**Integration with Technical Writer Agent**:
-
-- Embeds diagrams in documentation
-- Creates visual documentation
-- Enhances documentation clarity
-  </integration>
-
-<best_practices>
-
-1. **Use Mermaid**: Standard syntax for compatibility
-2. **Keep Clear**: Simple, readable diagrams
-3. **Show Relationships**: Include all important connections
-4. **Add Labels**: Clear node and edge labels
-5. **Update Regularly**: Keep diagrams current with code
-   </best_practices>
-   </instructions>
-
-<examples>
-<code_example>
-**Architecture Diagram**
-
+### 1. Flowchart
 ```mermaid
-graph TB
-    Client[Client Application]
-    API[API Gateway]
-    Auth[Auth Service]
-    User[User Service]
-    DB[(Database)]
-
-    Client --> API
-    API --> Auth
-    API --> User
-    User --> DB
-    Auth --> DB
+flowchart TD
+    A[Start] --> B{Condition?}
+    B -->|Yes| C[Action 1]
+    B -->|No| D[Action 2]
+    C --> E[End]
+    D --> E
 ```
 
-</code_example>
-
-<code_example>
-**Database Schema Diagram**
-
-```mermaid
-erDiagram
-    USERS ||--o{ ORDERS : places
-    USERS {
-        uuid id PK
-        string email
-        string name
-    }
-    ORDERS ||--|{ ORDER_ITEMS : contains
-    ORDERS {
-        uuid id PK
-        uuid user_id FK
-        date created_at
-    }
-    ORDER_ITEMS {
-        uuid id PK
-        uuid order_id FK
-        uuid product_id FK
-        int quantity
-    }
-```
-
-</code_example>
-
-<code_example>
-**Component Diagram**
-
-```mermaid
-graph LR
-    A[Component A] --> B[Component B]
-    A --> C[Component C]
-    B --> D[Component D]
-    C --> D
-```
-
-</code_example>
-
-<code_example>
-**Sequence Diagram**
-
+### 2. Sequence Diagram
 ```mermaid
 sequenceDiagram
-    participant User
-    participant API
-    participant Auth
-    participant DB
-
-    User->>API: Login Request
-    API->>Auth: Validate Credentials
-    Auth->>DB: Query User
-    DB-->>Auth: User Data
-    Auth-->>API: JWT Token
-    API-->>User: Auth Response
+    participant U as User
+    participant F as Frontend
+    participant A as API
+    participant D as Database
+    
+    U->>F: Click Login
+    F->>A: POST /auth/login
+    A->>D: Query User
+    D-->>A: User Data
+    A-->>F: JWT Token
+    F-->>U: Redirect to Dashboard
 ```
 
-</code_example>
-</examples>
-
-<examples>
-<usage_example>
-**Example Commands**:
-
+### 3. Class Diagram
+```mermaid
+classDiagram
+    class User {
+        +String id
+        +String name
+        +String email
+        +login()
+        +logout()
+    }
+    
+    class Order {
+        +String id
+        +User user
+        +Item[] items
+        +calculate()
+    }
+    
+    User "1" --> "*" Order
 ```
-# Generate architecture diagram
-Generate architecture diagram for the authentication system
 
-# Generate database schema diagram
-Generate database schema diagram for the user management module
-
-# Generate component diagram
-Generate component diagram showing API service relationships
-
-# Generate sequence diagram
-Generate sequence diagram for user login flow
+### 4. Entity Relationship
+```mermaid
+erDiagram
+    USER ||--o{ ORDER : places
+    ORDER ||--|{ ITEM : contains
+    USER {
+        int id PK
+        string name
+        string email
+    }
+    ORDER {
+        int id PK
+        int user_id FK
+        date created_at
+    }
 ```
 
-</usage_example>
-</examples>
+### 5. State Diagram
+```mermaid
+stateDiagram-v2
+    [*] --> Draft
+    Draft --> Pending: Submit
+    Pending --> Approved: Approve
+    Pending --> Rejected: Reject
+    Rejected --> Draft: Edit
+    Approved --> [*]
+```
+
+### 6. Pie Chart
+```mermaid
+pie title Distribution
+    "Category A" : 40
+    "Category B" : 30
+    "Category C" : 20
+    "Category D" : 10
+```
+
+## 📝 Generation From Code
+
+### From Function Flow
+```javascript
+// Input: Code
+async function processOrder(order) {
+  validate(order);
+  const payment = await processPayment(order);
+  if (payment.success) {
+    await fulfillOrder(order);
+    sendConfirmation(order);
+  } else {
+    handleFailure(order);
+  }
+}
+```
+
+```mermaid
+flowchart TD
+    A[processOrder] --> B[validate]
+    B --> C[processPayment]
+    C --> D{payment.success?}
+    D -->|Yes| E[fulfillOrder]
+    E --> F[sendConfirmation]
+    D -->|No| G[handleFailure]
+```
+
+### From Component Tree
+```jsx
+// Input: React Components
+<App>
+  <Header />
+  <Main>
+    <Sidebar />
+    <Content>
+      <ArticleList />
+    </Content>
+  </Main>
+  <Footer />
+</App>
+```
+
+```mermaid
+graph TD
+    App --> Header
+    App --> Main
+    App --> Footer
+    Main --> Sidebar
+    Main --> Content
+    Content --> ArticleList
+```
+
+## 🎨 Styling
+
+```mermaid
+flowchart TD
+    A[Start]:::green --> B{Check}
+    B -->|Pass| C[Success]:::green
+    B -->|Fail| D[Error]:::red
+    
+    classDef green fill:#10b981,color:white
+    classDef red fill:#ef4444,color:white
+```
+
+## ✅ Best Practices
+
+- [ ] Keep diagrams simple
+- [ ] Use meaningful labels
+- [ ] Group related items
+- [ ] Choose right diagram type
+- [ ] Add colors for clarity
+- [ ] Include legend if needed
+
+## 🔗 Related Skills
+
+- `documentation` - Create docs
+- `codebase-understanding` - Understand structure
+- `code-explanation` - Explain with visuals

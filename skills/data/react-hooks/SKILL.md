@@ -1,263 +1,165 @@
-# React Hooks Skill
+---
+name: react-hooks
+description: Apply when managing state, side effects, context, or refs in React functional components. **React 19+ Note**: React 19.x introduced new hooks for forms/actions (useActionState, useOptimistic, useFormStatus) and effect events (useEffectEvent in 19.2). Core hooks (useState, useEffect, useCallback, etc.) remain unchanged.
+version: 1.1.0
+tokens: ~1100
+confidence: high
+sources:
+  - https://react.dev/reference/react/hooks
+  - https://react.dev/reference/rules/rules-of-hooks
+  - https://react.dev/blog/2024/12/05/react-19
+  - https://react.dev/blog/2025/10/01/react-19-2
+react_version: "18.2+, 19.x"
+last_validated: 2025-12-10
+next_review: 2025-01-24
+tags: [react, hooks, frontend, state]
+---
 
-## Purpose
-Master React hooks patterns including useState, useEffect, useContext, useMemo, useCallback, and custom hooks for the music-app project.
+## When to Use
 
-## Core Hooks
+Apply when managing state, side effects, context, or refs in React functional components.
 
-### useState
-```javascript
-function Counter() {
-  const [count, setCount] = useState(0);
+**React 19+ Note**: React 19.x introduced new hooks for forms/actions (useActionState, useOptimistic, useFormStatus) and effect events (useEffectEvent in 19.2). Core hooks (useState, useEffect, useCallback, etc.) remain unchanged.
 
-  // Functional update
-  setCount(prev => prev + 1);
+## Patterns
 
-  // Object state
-  const [user, setUser] = useState({ name: '', email: '' });
-  setUser(prev => ({ ...prev, email: 'new@email.com' }));
-
-  return <button onClick={() => setCount(count + 1)}>{count}</button>;
+### Pattern 1: useState with Objects
+```typescript
+// Source: https://react.dev/reference/react/useState
+interface FormState {
+  name: string;
+  email: string;
 }
+
+const [form, setForm] = useState<FormState>({ name: '', email: '' });
+
+// Update single field (immutable)
+setForm(prev => ({ ...prev, name: 'John' }));
 ```
 
-### useEffect
-```javascript
-// Run once on mount
+### Pattern 2: useEffect Cleanup
+```typescript
+// Source: https://react.dev/reference/react/useEffect
 useEffect(() => {
+  const controller = new AbortController();
+
+  async function fetchData() {
+    const res = await fetch(url, { signal: controller.signal });
+    setData(await res.json());
+  }
   fetchData();
-}, []);
 
-// Run when dependency changes
-useEffect(() => {
-  console.log('Count changed:', count);
-}, [count]);
-
-// Cleanup
-useEffect(() => {
-  const subscription = subscribe();
-  return () => subscription.unsubscribe();
-}, []);
-
-// Async in useEffect
-useEffect(() => {
-  let isMounted = true;
-
-  async function loadData() {
-    const data = await fetchData();
-    if (isMounted) setState(data);
-  }
-
-  loadData();
-  return () => { isMounted = false; };
-}, []);
+  return () => controller.abort(); // Cleanup
+}, [url]);
 ```
 
-### useContext Pattern
-```javascript
-// Define context and hook together
-import { createContext, useContext } from 'react';
+### Pattern 3: useCallback for Stable References
+```typescript
+// Source: https://react.dev/reference/react/useCallback
+const handleSubmit = useCallback((data: FormData) => {
+  onSubmit(data);
+}, [onSubmit]); // Only recreate if onSubmit changes
 
-const AuthContext = createContext();
-
-export function useAuth() {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth must be used within AuthProvider');
-  }
-  return context;
-}
-
-// Usage in components
-function Component() {
-  const { user, login, logout } = useAuth();
-  // ...
-}
+// Use in child: <Form onSubmit={handleSubmit} />
 ```
 
-### useMemo
-```javascript
-// Expensive computation
-const filteredTunes = useMemo(() => {
-  return tunes.filter(tune =>
-    tune.genre === selectedGenre &&
-    tune.rhythm === selectedRhythm
+### Pattern 4: useMemo for Expensive Computations
+```typescript
+// Source: https://react.dev/reference/react/useMemo
+const sortedItems = useMemo(() => {
+  return items
+    .filter(item => item.active)
+    .sort((a, b) => a.name.localeCompare(b.name));
+}, [items]); // Recompute only when items change
+```
+
+### Pattern 5: Custom Hook Pattern
+```typescript
+// Source: https://react.dev/learn/reusing-logic-with-custom-hooks
+function useDebounce<T>(value: T, delay: number): T {
+  const [debounced, setDebounced] = useState(value);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setDebounced(value), delay);
+    return () => clearTimeout(timer);
+  }, [value, delay]);
+
+  return debounced;
+}
+
+// Usage
+const debouncedSearch = useDebounce(searchTerm, 300);
+```
+
+### Pattern 6: useRef for DOM Access
+```typescript
+// Source: https://react.dev/reference/react/useRef
+const inputRef = useRef<HTMLInputElement>(null);
+
+const focusInput = () => {
+  inputRef.current?.focus();
+};
+
+return <input ref={inputRef} />;
+```
+
+### Pattern 7: useActionState for Forms (React 19+)
+```typescript
+// Source: https://react.dev/blog/2024/12/05/react-19
+import { useActionState } from 'react';
+
+async function submitForm(prevState: any, formData: FormData) {
+  const name = formData.get('name');
+  // Perform async operation
+  return { success: true, name };
+}
+
+function MyForm() {
+  const [state, action, isPending] = useActionState(submitForm, null);
+
+  return (
+    <form action={action}>
+      <input name="name" disabled={isPending} />
+      <button disabled={isPending}>Submit</button>
+      {state?.success && <p>Success: {state.name}</p>}
+    </form>
   );
-}, [tunes, selectedGenre, selectedRhythm]);
-
-// Derived state
-const tuneCount = useMemo(() => filteredTunes.length, [filteredTunes]);
+}
 ```
 
-### useCallback
-```javascript
-// Stable function reference
-const handleAddFavorite = useCallback((tuneId) => {
-  setFavorites(prev => [...prev, tuneId]);
-}, []);
+### Pattern 8: useEffectEvent for Non-Reactive Logic (React 19.2+)
+```typescript
+// Source: https://react.dev/reference/react/useEffectEvent
+import { useEffect, useEffectEvent } from 'react';
 
-// Pass to child components
-<TuneCard
-  tune={tune}
-  onFavorite={handleAddFavorite} // Stable reference
-/>
-
-// With dependencies
-const handleSearch = useCallback((query) => {
-  performSearch(query, filters);
-}, [filters]);
-```
-
-## Custom Hooks
-
-### useLocalStorage
-```javascript
-function useLocalStorage(key, initialValue) {
-  const [value, setValue] = useState(() => {
-    try {
-      const item = window.localStorage.getItem(key);
-      return item ? JSON.parse(item) : initialValue;
-    } catch {
-      return initialValue;
-    }
+function Chat({ roomId, theme }) {
+  // Event function always sees latest theme, but doesn't trigger effect
+  const onConnected = useEffectEvent(() => {
+    showNotification('Connected!', theme);
   });
 
   useEffect(() => {
-    try {
-      window.localStorage.setItem(key, JSON.stringify(value));
-    } catch (error) {
-      console.error('Error saving to localStorage:', error);
-    }
-  }, [key, value]);
-
-  return [value, setValue];
-}
-
-// Usage
-const [favorites, setFavorites] = useLocalStorage('favorites', []);
-```
-
-### useDebounce
-```javascript
-function useDebounce(value, delay) {
-  const [debouncedValue, setDebouncedValue] = useState(value);
-
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedValue(value);
-    }, delay);
-
-    return () => clearTimeout(handler);
-  }, [value, delay]);
-
-  return debouncedValue;
-}
-
-// Usage
-const [query, setQuery] = useState('');
-const debouncedQuery = useDebounce(query, 300);
-
-useEffect(() => {
-  if (debouncedQuery) {
-    performSearch(debouncedQuery);
-  }
-}, [debouncedQuery]);
-```
-
-## Best Practices
-
-✅ **Do:**
-- Always include dependencies in dependency arrays
-- Clean up side effects in return function
-- Use functional updates when new state depends on old state
-- Extract reusable logic into custom hooks
-- Memoize expensive computations and callbacks
-
-❌ **Don't:**
-- Mutate state directly
-- Call hooks conditionally
-- Skip dependency arrays (eslint-disable is a code smell)
-- Forget to clean up listeners/timers
-- Overuse useMemo/useCallback (only when needed)
-
-## Common Patterns
-
-### Data Fetching
-```javascript
-function useTunes() {
-  const [tunes, setTunes] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    async function fetchTunes() {
-      try {
-        const data = await getTunes();
-        setTunes(data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchTunes();
-  }, []);
-
-  return { tunes, loading, error };
+    const connection = createConnection(roomId);
+    connection.on('connected', onConnected);
+    connection.connect();
+    return () => connection.disconnect();
+  }, [roomId]); // Only re-run when roomId changes
 }
 ```
 
-### Form Handling
-```javascript
-function useForm(initialValues) {
-  const [values, setValues] = useState(initialValues);
+## Anti-Patterns
 
-  const handleChange = useCallback((e) => {
-    const { name, value } = e.target;
-    setValues(prev => ({ ...prev, [name]: value }));
-  }, []);
+- **Hooks in conditions/loops** - Call hooks at top level only
+- **Missing dependencies** - Include all values used in effect/callback
+- **Over-using useMemo/useCallback** - Use only when performance matters (profile first)
+- **Mutating state directly** - Always use setter, spread for objects/arrays
+- **Async function as useEffect callback** - Define async function inside, then call it
 
-  const reset = useCallback(() => {
-    setValues(initialValues);
-  }, [initialValues]);
+## Verification Checklist
 
-  return { values, handleChange, reset };
-}
-```
-
-## Project Patterns
-
-### Context Usage
-```javascript
-// Always use provided hooks, never direct context access
-const { user } = useAuth();           // ✓
-const { favorites } = useFavorites(); // ✓
-
-// Not this
-const context = useContext(AuthContext); // ✗
-```
-
-### Effect Dependencies
-```javascript
-// Include all dependencies
-useEffect(() => {
-  if (user) {
-    loadFavorites(user.uid);
-  }
-}, [user]); // Include user
-
-// Use exhaustive-deps lint rule
-// eslint-plugin-react-hooks
-```
-
-## Common Issues
-
-**Issue:** Infinite loop in useEffect
-**Solution:** Check dependencies, ensure not setting state that's in dependency array
-
-**Issue:** Stale closure
-**Solution:** Include all dependencies or use functional state updates
-
-**Issue:** "Can't perform state update on unmounted component"
-**Solution:** Track mounted state and check before setState
+- [ ] Hooks at component top level (not in conditions)
+- [ ] All dependencies listed in dependency arrays
+- [ ] useEffect has cleanup for subscriptions/timers
+- [ ] Custom hooks start with `use` prefix
+- [ ] No direct state mutation
+- [ ] useEffectEvent excluded from dependency arrays (React 19.2+)

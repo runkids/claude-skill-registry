@@ -1,13 +1,7 @@
 {
   "name": "linkedin-post-optimizer",
-  "description": "Professional narrative style with line breaks, hashtag strategy, and hooks in first 2 lines to avoid truncation",
-  "repo": "OneWave-AI/claude-skills",
-  "category": "development",
-  "tags": [
-    "linkedin",
-    "post",
-    "optimizer"
-  ],
-  "stars": 10,
-  "source": "local"
+  "repo": "nicepkg/ai-workflow",
+  "path": "marketing-pro-workflow/.claude/skills/linkedin-post-optimizer/SKILL.md",
+  "source": "github.com/nicepkg/ai-workflow",
+  "downloaded_at": "2026-01-17T02:05:49.154729Z"
 }

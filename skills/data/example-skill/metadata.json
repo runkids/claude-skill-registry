@@ -1,7 +1,7 @@
 {
   "name": "example-skill",
-  "repo": "Stacked-Labs/poker-game",
-  "path": ".codex/skills/example-skill/SKILL.md",
-  "source": "github.com/Stacked-Labs/poker-game",
-  "downloaded_at": "2026-01-14T03:53:49.725297Z"
+  "repo": "C0ntr0lledCha0s/claude-code-plugin-automations",
+  "path": "agent-builder/skills/building-plugins/templates/full-plugin-template/skills/example-skill/SKILL.md",
+  "source": "github.com/C0ntr0lledCha0s/claude-code-plugin-automations",
+  "downloaded_at": "2026-01-17T04:03:40.442336Z"
 }

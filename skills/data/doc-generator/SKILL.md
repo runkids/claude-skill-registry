@@ -1,76 +1,74 @@
 ---
-name: api-documentation-generator
-description: Generate comprehensive, accurate API documentation from source code. Use when creating or updating API documentation, generating OpenAPI specs, or when users mention API docs, endpoints, or documentation.
+name: doc-generator
+description: 技术文档生成技能。当用户需要编写 README、API 文档、项目文档、技术规范、使用指南或任何技术文档时使用此技能。
 ---
 
-# API Documentation Generator Skill
+# Doc Generator
 
-## Generates
+生成专业、清晰、结构化的技术文档。
 
-- OpenAPI/Swagger specifications
-- API endpoint documentation
-- SDK usage examples
-- Integration guides
-- Error code references
-- Authentication guides
+## 文档类型
 
-## Documentation Structure
+### README.md 结构
+```markdown
+# 项目名称
+简短描述（一句话）
 
-### For Each Endpoint
+## 功能特性
+- 特性1
+- 特性 2
+
+## 快速开始
+### 安装
+### 使用
+
+## 配置说明
+
+## API 文档（如适用）
+
+## 贡献指南
+
+## License
+```
+
+### API 文档结构
+```markdown
+## 接口名称
+简要描述
+
+### 请求
+- Method: GET/POST/...
+- URL: /api/v1/resource
+- Headers: ...
+- Body: ...
+
+### 响应
+- 成功响应示例
+- 错误响应示例
+
+### 示例代码
+```
+
+## 文档原则
+
+1. **用户优先**：从读者角度出发
+2. **示例驱动**：代码示例胜过长篇描述
+3. **保持更新**：文档与代码同步
+4. **结构清晰**：使用标题层级组织内容
+
+## 写作规范
+
+- 使用主动语态
+- 句子简短明确
+- 专业术语首次出现时解释
+- 代码块标注语言类型
+- 重要信息使用提示框
+
+## 提示框格式
 
 ```markdown
-## GET /api/v1/users/:id
+>⚠️ **警告**：重要警告信息
 
-### Description
-Brief explanation of what this endpoint does
+> 💡 **提示**：有用的建议
 
-### Parameters
-
-| Name | Type | Required | Description |
-|------|------|----------|-------------|
-| id | string | Yes | User ID |
-
-### Response
-
-**200 Success**
-```json
-{
-  "id": "usr_123",
-  "name": "John Doe",
-  "email": "john@example.com",
-  "created_at": "2025-01-15T10:30:00Z"
-}
-```
-
-**404 Not Found**
-```json
-{
-  "error": "USER_NOT_FOUND",
-  "message": "User does not exist"
-}
-```
-
-### Examples
-
-**cURL**
-```bash
-curl -X GET "https://api.example.com/api/v1/users/usr_123" \
-  -H "Authorization: Bearer YOUR_TOKEN"
-```
-
-**JavaScript**
-```javascript
-const user = await fetch('/api/v1/users/usr_123', {
-  headers: { 'Authorization': 'Bearer token' }
-}).then(r => r.json());
-```
-
-**Python**
-```python
-response = requests.get(
-    'https://api.example.com/api/v1/users/usr_123',
-    headers={'Authorization': 'Bearer token'}
-)
-user = response.json()
-```
-```
+> 📝 **注意**：需要注意的事项

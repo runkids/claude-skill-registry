@@ -1,200 +1,136 @@
+# 🔍 SEO Optimization Skill
+
 ---
 name: seo-optimization
-description: Optimize websites for search engines including on-page SEO, technical SEO, meta tags, schema markup, Core Web Vitals, and keyword optimization. Use when improving search rankings, auditing SEO, or optimizing content for Google.
+description: Optimize web applications for search engines with meta tags, structured data, and performance
 ---
 
-# SEO Optimization Skill
+## 🎯 Purpose
 
-## Instructions
+Optimize เว็บไซต์สำหรับ search engines ด้วย meta tags, structured data, และ performance
 
-When optimizing for SEO:
+## 📋 When to Use
 
-### 1. On-Page SEO
+- Launch new website
+- Improve search rankings
+- Audit existing site
+- Content updates
+- Performance optimization
 
-**Title Tags:**
-- 50-60 characters max
-- Primary keyword near the beginning
-- Include brand name at end
-- Make it compelling and clickable
+## 🔧 Core SEO Elements
 
+### Meta Tags
 ```html
-<title>Primary Keyword - Secondary Keyword | Brand Name</title>
+<head>
+  <title>Page Title - Site Name</title>
+  <meta name="description" content="Description under 160 chars" />
+  <meta name="keywords" content="keyword1, keyword2" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://example.com/page" />
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="Title" />
+  <meta property="og:description" content="Description" />
+  <meta property="og:image" content="https://example.com/image.jpg" />
+  <meta property="og:url" content="https://example.com/page" />
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Title" />
+</head>
 ```
 
-**Meta Descriptions:**
-- 150-160 characters
-- Include primary keyword
-- Call-to-action
-- Unique for each page
-
-```html
-<meta name="description" content="Compelling description with keyword that encourages clicks. Learn more about X today!">
-```
-
-**Heading Structure:**
-```html
-<h1>One H1 per page with primary keyword</h1>
-<h2>Section headings with secondary keywords</h2>
-<h3>Subsections for organization</h3>
-```
-
-### 2. Technical SEO
-
-**Essential Meta Tags:**
-```html
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://example.com/page/">
-```
-
-**Open Graph (Social Sharing):**
-```html
-<meta property="og:title" content="Page Title">
-<meta property="og:description" content="Description">
-<meta property="og:image" content="https://example.com/image.jpg">
-<meta property="og:url" content="https://example.com/page/">
-<meta property="og:type" content="website">
-```
-
-**Twitter Cards:**
-```html
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Page Title">
-<meta name="twitter:description" content="Description">
-<meta name="twitter:image" content="https://example.com/image.jpg">
-```
-
-### 3. Schema Markup (JSON-LD)
-
-**Organization:**
-```json
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "Company Name",
-  "url": "https://example.com",
-  "logo": "https://example.com/logo.png",
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "telephone": "+1-xxx-xxx-xxxx",
-    "contactType": "customer service"
+### Next.js Implementation
+```typescript
+// app/layout.tsx
+export const metadata = {
+  title: {
+    template: '%s | My Site',
+    default: 'My Site',
   },
-  "sameAs": [
-    "https://facebook.com/company",
-    "https://twitter.com/company"
-  ]
-}
-```
-
-**Product:**
-```json
-{
-  "@context": "https://schema.org",
-  "@type": "Product",
-  "name": "Product Name",
-  "image": "https://example.com/product.jpg",
-  "description": "Product description",
-  "brand": {"@type": "Brand", "name": "Brand"},
-  "offers": {
-    "@type": "Offer",
-    "price": "49.99",
-    "priceCurrency": "USD",
-    "availability": "https://schema.org/InStock"
+  description: 'Site description',
+  openGraph: {
+    title: 'My Site',
+    description: 'Description',
+    url: 'https://example.com',
+    siteName: 'My Site',
+    images: [{ url: '/og-image.jpg' }],
   },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.8",
-    "reviewCount": "124"
-  }
-}
+};
 ```
 
-**Article/Blog Post:**
-```json
+### Structured Data
+```html
+<script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "Article Title",
-  "author": {"@type": "Person", "name": "Author Name"},
-  "datePublished": "2025-01-15",
-  "dateModified": "2025-01-20",
-  "image": "https://example.com/article-image.jpg"
+  "author": {
+    "@type": "Person",
+    "name": "Author Name"
+  },
+  "datePublished": "2024-01-15"
 }
+</script>
 ```
 
-**FAQ:**
-```json
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [{
-    "@type": "Question",
-    "name": "Question text?",
-    "acceptedAnswer": {
-      "@type": "Answer",
-      "text": "Answer text."
-    }
-  }]
-}
-```
+## 📊 SEO Checklist
 
-### 4. Core Web Vitals
-
-**LCP (Largest Contentful Paint) < 2.5s:**
-- Optimize images (WebP, lazy loading)
-- Preload critical assets
-- Use CDN
-
-**FID (First Input Delay) < 100ms:**
-- Minimize JavaScript
-- Break up long tasks
-- Use web workers
-
-**CLS (Cumulative Layout Shift) < 0.1:**
-- Set image dimensions
-- Reserve space for ads/embeds
-- Avoid inserting content above existing content
-
-### 5. Image SEO
-
-```html
-<img
-  src="image.webp"
-  alt="Descriptive alt text with keyword"
-  width="800"
-  height="600"
-  loading="lazy"
-  decoding="async"
->
-```
-
-### 6. URL Structure
-
-**Good:**
-- `example.com/category/product-name`
-- `example.com/blog/how-to-do-something`
-
-**Avoid:**
-- `example.com/p?id=123`
-- `example.com/category/sub/sub/page`
-
-### 7. Internal Linking
-
-- Use descriptive anchor text
-- Link to related content
-- Create topic clusters
-- Maintain reasonable link depth (3 clicks max)
-
-### 8. SEO Checklist
-
-- [ ] Unique title tag with keyword
-- [ ] Meta description with CTA
-- [ ] One H1 with primary keyword
-- [ ] Schema markup implemented
-- [ ] Images optimized with alt text
-- [ ] Internal links added
+### Technical
+- [ ] Fast loading (<3s)
 - [ ] Mobile-friendly
-- [ ] Page speed optimized
-- [ ] Canonical URL set
-- [ ] XML sitemap updated
+- [ ] HTTPS enabled
+- [ ] XML sitemap
+- [ ] robots.txt
+- [ ] No broken links
+
+### Content
+- [ ] Unique titles per page
+- [ ] Meta descriptions
+- [ ] Header hierarchy (H1-H6)
+- [ ] Alt text on images
+- [ ] Internal linking
+- [ ] Quality content
+
+### Performance
+- [ ] Image optimization
+- [ ] Lazy loading
+- [ ] Minified CSS/JS
+- [ ] CDN usage
+- [ ] Core Web Vitals pass
+
+## 📝 Sitemap Template
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://example.com/</loc>
+    <lastmod>2024-01-15</lastmod>
+    <priority>1.0</priority>
+  </url>
+</urlset>
+```
+
+## 🛠️ Tools
+
+- Google Search Console
+- Lighthouse
+- PageSpeed Insights
+- Schema Markup Validator
+
+## ✅ Audit Checklist
+
+- [ ] Title tags optimized
+- [ ] Meta descriptions unique
+- [ ] Images have alt text
+- [ ] URLs are clean
+- [ ] Page speed acceptable
+- [ ] Mobile responsive
+- [ ] Structured data valid
+
+## 🔗 Related Skills
+
+- `performance-optimization` - Speed improvements
+- `accessibility-audit` - A11y helps SEO
+- `documentation` - Content creation

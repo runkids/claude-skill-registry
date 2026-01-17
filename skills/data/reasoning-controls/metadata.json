@@ -1,7 +1,7 @@
 {
   "name": "reasoning-controls",
   "repo": "NickCrew/claude-cortex",
-  "path": "claude_ctx_py/assets/skills/reasoning-controls/SKILL.md",
+  "path": "skills/reasoning-controls/SKILL.md",
   "source": "github.com/NickCrew/claude-cortex",
-  "downloaded_at": "2026-01-14T02:11:12.722391Z"
+  "downloaded_at": "2026-01-17T02:06:25.078970Z"
 }

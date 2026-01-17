@@ -1,291 +1,105 @@
 ---
-name: e2e-test
-description: Lightweight E2E testing focused on critical business flows. Playwright + Next.js/React setup. Covers only what matters - auth, CRUD, payments, and key user journeys.
+skill: e2e-test
+description: Create Playwright e2e tests for features in isolated worktree
+location: project
 ---
 
-# E2E Testing: Core Flows
+# E2E Tests: $ARGUMENTS
 
-E2E tests are expensive. Focus on critical business flows only - the paths where bugs cost real money or users.
+Creates comprehensive Playwright end-to-end tests in an isolated git worktree.
 
-## When to Use
+## Arguments
 
-- Validating critical user journeys (login, checkout, signup)
-- Regression testing before deploy
-- Verifying integrations actually work end-to-end
+- **Specific feature**: `login-form`, `dashboard`, `settings`
+- **Glob pattern**: `user-*`, `*-modal`
+- **All features**: `.` or `all`
 
-## When NOT to Use
+## Process
 
-- Testing edge cases (use unit tests)
-- Testing UI details (use component tests)
-- Testing every feature (diminishing returns)
-
-## Quick Start (Next.js)
-
-### 1. Install
+### 1. Create Isolated Worktree
 
 ```bash
-npm init playwright@latest
+TIMESTAMP=$(date +%Y%m%d-%H%M%S)
+WORKTREE_PATH="../e2e-test-worktree-$TIMESTAMP"
+git worktree add "$WORKTREE_PATH" -b "e2e-test-$TIMESTAMP"
 ```
 
-Prompts:
-- TypeScript? → Yes
-- Test folder? → `e2e`
-- GitHub Actions? → No (add later)
-- Install browsers? → Yes
+### 2. Setup Playwright
 
-### 2. Config
-
-```typescript
-// playwright.config.ts
-import { defineConfig, devices } from '@playwright/test';
-
-export default defineConfig({
-  testDir: './e2e',
-  fullyParallel: true,
-  forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
-  use: {
-    baseURL: 'http://localhost:3000',
-    trace: 'on-first-retry',
-  },
-  projects: [
-    { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
-  ],
-  webServer: {
-    command: 'npm run dev',
-    url: 'http://localhost:3000',
-    reuseExistingServer: !process.env.CI,
-  },
-});
-```
-
-### 3. First Test
-
-```typescript
-// e2e/smoke.spec.ts
-import { test, expect } from '@playwright/test';
-
-test('app loads', async ({ page }) => {
-  await page.goto('/');
-  await expect(page).toHaveTitle(/.+/);
-});
-```
-
-### 4. Run
-
+If not installed:
 ```bash
-npx playwright test              # Headless
-npx playwright test --headed     # With browser
-npx playwright test --ui         # UI mode (debugging)
+npm install -D @playwright/test
+npx playwright install --with-deps
 ```
 
-## Core Flow Templates
+Create `playwright.config.ts` if missing with standard configuration.
 
-### Auth Flow
-
-```typescript
-// e2e/auth.spec.ts
-import { test, expect } from '@playwright/test';
-
-test('login → dashboard', async ({ page }) => {
-  await page.goto('/login');
-  
-  await page.getByLabel('Email').fill('test@example.com');
-  await page.getByLabel('Password').fill('password123');
-  await page.getByRole('button', { name: 'Login' }).click();
-  
-  await expect(page).toHaveURL(/.*dashboard/);
-});
-
-test('unauthenticated redirect', async ({ page }) => {
-  await page.goto('/dashboard');
-  await expect(page).toHaveURL(/.*login/);
-});
-```
-
-### CRUD Flow
-
-```typescript
-// e2e/crud.spec.ts
-import { test, expect } from '@playwright/test';
-
-test('create → verify → delete', async ({ page }) => {
-  await page.goto('/items');
-  
-  // Create
-  await page.getByRole('button', { name: 'Add' }).click();
-  await page.getByLabel('Title').fill('Test Item');
-  await page.getByRole('button', { name: 'Save' }).click();
-  
-  // Verify
-  await expect(page.getByText('Test Item')).toBeVisible();
-  
-  // Delete
-  await page.getByRole('button', { name: 'Delete' }).first().click();
-  await expect(page.getByText('Test Item')).not.toBeVisible();
-});
-```
-
-### Form Submission
-
-```typescript
-// e2e/form.spec.ts
-import { test, expect } from '@playwright/test';
-
-test('submit form → success', async ({ page }) => {
-  await page.goto('/contact');
-  
-  await page.getByLabel('Name').fill('John Doe');
-  await page.getByLabel('Email').fill('john@example.com');
-  await page.getByLabel('Message').fill('Test message');
-  await page.getByRole('button', { name: 'Send' }).click();
-  
-  await expect(page.getByText(/sent|success|complete/i)).toBeVisible();
-});
-```
-
-### Payment Flow
-
-```typescript
-// e2e/payment.spec.ts
-import { test, expect } from '@playwright/test';
-
-test('checkout → payment → confirmation', async ({ page }) => {
-  await page.goto('/products');
-  
-  // Add to cart
-  await page.getByRole('button', { name: 'Add to Cart' }).first().click();
-  await page.getByRole('link', { name: 'Cart' }).click();
-  
-  // Checkout
-  await page.getByRole('button', { name: 'Checkout' }).click();
-  
-  // Payment (mock in test environment)
-  await page.getByLabel('Card Number').fill('4242424242424242');
-  await page.getByLabel('Expiry').fill('12/30');
-  await page.getByLabel('CVC').fill('123');
-  await page.getByRole('button', { name: 'Pay' }).click();
-  
-  // Confirmation
-  await expect(page.getByText(/thank you|order confirmed/i)).toBeVisible();
-});
-```
-
-## Selector Priority
-
-Use in this order (higher = more stable):
-
-```typescript
-// 1st: Role
-page.getByRole('button', { name: 'Save' })
-page.getByRole('heading', { name: 'Dashboard' })
-
-// 2nd: Label
-page.getByLabel('Email')
-
-// 3rd: Placeholder
-page.getByPlaceholder('Search...')
-
-// 4th: Text
-page.getByText('Welcome')
-
-// 5th: Test ID (last resort)
-page.getByTestId('submit-button')
-```
-
-**Avoid:**
-```typescript
-// ❌ Fragile selectors
-page.locator('.btn-primary')
-page.locator('div > form > button')
-page.locator('li:nth-child(2)')
-```
-
-## API Mocking
-
-```typescript
-test('handle API failure gracefully', async ({ page }) => {
-  await page.route('**/api/users', route => {
-    route.fulfill({
-      status: 500,
-      body: JSON.stringify({ error: 'Server error' }),
-    });
-  });
-
-  await page.goto('/users');
-  await expect(page.getByText(/error|failed/i)).toBeVisible();
-});
-```
-
-## Waiting Strategy
-
-```typescript
-// ❌ Never
-await page.waitForTimeout(3000);
-
-// ✅ Always condition-based
-await expect(page.getByText('Done')).toBeVisible();
-await expect(page).toHaveURL('/success');
-
-// ✅ Wait for API
-const responsePromise = page.waitForResponse('**/api/save');
-await page.getByRole('button', { name: 'Save' }).click();
-await responsePromise;
-```
-
-## Debugging
-
-```bash
-npx playwright test --ui          # Visual debugging
-npx playwright test --headed      # Watch it run
-npx playwright test -g "login"    # Run specific test
-```
-
-```typescript
-await page.pause(); // Stops execution, opens inspector
-```
-
-## Folder Structure
-
-```
-e2e/
-├── smoke.spec.ts       # App loads
-├── auth.spec.ts        # Auth flows
-├── checkout.spec.ts    # Payment flows
-└── [critical].spec.ts  # Other critical paths
-```
-
-## Scripts
-
+Add npm scripts if missing:
 ```json
 {
-  "scripts": {
-    "test:e2e": "playwright test",
-    "test:e2e:ui": "playwright test --ui",
-    "test:e2e:headed": "playwright test --headed"
-  }
+  "test:e2e": "playwright test",
+  "test:e2e:ui": "playwright test --ui",
+  "test:e2e:debug": "playwright test --debug"
 }
 ```
 
-## What to Cover
+### 3. Identify Features
 
-Ask: "If this breaks in production, how bad is it?"
+- For specific feature: Create single test file
+- For glob: Search components/app directories, create tests for matches
+- For `all`: List all components/routes, use Task tool with parallel subagents if >3 features
 
-| Priority | Flow | Example |
-|----------|------|---------|
-| Critical | Revenue paths | Checkout, subscription |
-| Critical | Auth | Login, signup, password reset |
-| High | Core features | Main CRUD operations |
-| Medium | Secondary features | Settings, profile |
-| Low | Nice-to-haves | Skip for E2E |
+### 4. Generate Tests
 
-Keep it minimal. 5-10 core flow tests beat 100 flaky ones.
+Create `tests/e2e/[feature-name].spec.ts` with:
+- Happy path scenarios
+- Edge cases and error states
+- Input validation
+- Accessibility checks
 
+**Selector strategy**: Use `data-testid` attributes. Add them to components if missing.
 
-## References
+### 5. Run and Fix
 
-Playwright Docs: https://playwright.dev/docs/intro
-Playwright Next.js: https://nextjs.org/docs/app/guides/testing/playwright
-Playwright Best Practices: https://playwright.dev/docs/best-practices
-Playwright API Testing: https://playwright.dev/docs/api-testing
-Playwright Locators: https://playwright.dev/docs/locators
+```bash
+npm run test:e2e
+```
+
+**Application fixes** (MUST be general, not test-specific):
+- Add missing `data-testid` attributes
+- Fix broken functionality
+- Add proper loading states
+
+**Test fixes**:
+- Update selectors
+- Fix assertions
+- Add proper waits
+
+### 6. Validate Full Suite
+
+```bash
+npm run build
+npm run lint
+npm test
+npm run test:e2e
+```
+
+### 7. Report and Prompt
+
+**On success**: Prompt to merge or keep for review
+**On failure**: Categorize errors, offer debug or cleanup options
+
+## Test Standards
+
+- Use Page Object Model for complex features
+- Test coverage: happy path, edge cases, errors, accessibility
+- Prefer `data-testid` over CSS selectors
+- Use `toBeVisible()` not arbitrary timeouts
+- Tests must be deterministic and independent
+
+## Parallel Execution
+
+When >3 features to test:
+- Split into groups of 1-2 features per agent
+- Launch Task tool with general-purpose subagents
+- Collect results and continue with validation

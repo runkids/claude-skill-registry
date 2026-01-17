@@ -1,7 +1,7 @@
 {
   "name": "script-writer",
-  "repo": "mamba-mental/agent-skill-manager",
-  "path": ".claude/skills/script-writer/SKILL.md",
-  "source": "github.com/mamba-mental/agent-skill-manager",
-  "downloaded_at": "2026-01-14T01:45:02.329142Z"
+  "repo": "eddiebe147/claude-settings",
+  "path": "skills/script-writer/SKILL.md",
+  "source": "github.com/eddiebe147/claude-settings",
+  "downloaded_at": "2026-01-17T03:34:02.828530Z"
 }

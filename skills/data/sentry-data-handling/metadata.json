@@ -1,8 +1,7 @@
 {
   "name": "sentry-data-handling",
   "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-  "category": "data",
-  "description": "Handle sensitive data properly in Sentry.Use when configuring PII scrubbing, data retention,GDPR compliance, or data security settings.Trigger with phrases like \"sentry pii\", \"sentry gdpr\",\"sentry dat",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:06.134617Z"
+  "path": "plugins/saas-packs/sentry-pack/skills/sentry-data-handling/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-01-17T04:00:10.853636Z"
 }

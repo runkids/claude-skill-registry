@@ -1,7 +1,7 @@
 {
   "name": "treatment-plans",
-  "repo": "davila7/claude-code-templates",
-  "path": "cli-tool/components/skills/scientific/treatment-plans/SKILL.md",
-  "source": "github.com/davila7/claude-code-templates",
-  "downloaded_at": "2026-01-14T02:44:47.757821Z"
+  "repo": "K-Dense-AI/claude-scientific-skills",
+  "path": "scientific-skills/treatment-plans/SKILL.md",
+  "source": "github.com/K-Dense-AI/claude-scientific-skills",
+  "downloaded_at": "2026-01-17T03:59:41.271822Z"
 }

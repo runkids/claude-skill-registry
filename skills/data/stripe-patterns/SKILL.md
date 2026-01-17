@@ -11,8 +11,6 @@ Guide safe and consistent Stripe integration. Routes to existing payment pattern
 
 ## When This Skill Applies
 
-Invoke this skill when:
-
 - Creating or modifying checkout flows
 - Implementing Stripe webhooks
 - Working with subscriptions or invoices
@@ -154,7 +152,7 @@ When completing payment work, attach this evidence block:
 - Subscription status: [active/cancelled]
 ```
 
-## Authoritative References
+## Reference
 
 - **Stripe Config**: `lib/stripe-config.ts`
 - **Webhook Route**: `app/api/payments/webhook/route.ts`

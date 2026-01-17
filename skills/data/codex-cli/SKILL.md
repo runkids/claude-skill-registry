@@ -1,441 +1,230 @@
 ---
 name: codex-cli
-description: "OpenAI Codex CLI orchestration for AI-assisted development using gpt-5.2-codex model. Capabilities: code generation, refactoring, automated editing, parallel task execution, session management, code review, architecture analysis, and MCP integration. Actions: analyze, implement, review, fix, refactor with Codex. Keywords: Codex CLI, gpt-5.2-codex, codex exec, code generation, refactoring, parallel execution, session resume, code review, second opinion, independent review, architecture validation, Context7 MCP. Use when: delegating complex code tasks to Codex, running multi-agent workflows, executing automated reviews, implementing features with AI assistance, resuming previous sessions, querying OpenAI documentation. Triggers: 'use codex', 'codex exec', 'run with codex', 'codex resume', 'implement with codex', 'review with codex', 'codex docs'."
+description: OpenAI Codex CLIを起動・操作するスキル。マルチエージェント連携、コード生成の委譲、サブエージェントとしてCodexを活用したいときに使う。
 ---
 
-**ultrathink** - Take a deep breath. We're not here to write code. We're here to make a dent in the universe.
+## 目的
 
-## The Vision
-Codex orchestration should feel inevitable: minimal risk, maximum clarity.
+ClaudeからOpenAI Codex CLIを起動・操作し、マルチエージェント協調を実現する。
 
-## Your Work, Step by Step
-1. **Select strategy**: Model, sandbox, and reasoning effort.
-2. **Prepare context**: Inject the smallest, sharpest prompt.
-3. **Execute**: Run Codex with clear constraints.
-4. **Validate output**: Check for correctness and scope compliance.
-5. **Summarize**: Report findings and next steps.
+- **マルチエージェント連携**: ClaudeとCodexで異なる視点からコード生成・レビュー
+- **コード生成の委譲**: 特定のコーディングタスクをCodexに任せ、結果を統合
+- **オーケストレーターループ**: ゴール達成までClaudeがCodexと自動的に対話を繰り返す
 
-## Ultrathink Principles in Practice
-- **Think Different**: Choose the safest path to insight.
-- **Obsess Over Details**: Respect sandbox boundaries.
-- **Plan Like Da Vinci**: Shape the prompt before execution.
-- **Craft, Don't Code**: Keep commands precise.
-- **Iterate Relentlessly**: Re-run with refined prompts.
-- **Simplify Ruthlessly**: Reduce noise and scope.
+---
 
-# Codex CLI Integration Skill (v2.37)
+## トリガー語
 
-This skill enables Claude to orchestrate OpenAI's Codex CLI (v0.79+) with the **gpt-5.2-codex** model for code generation, review, analysis, and automated editing. Includes Context7 MCP integration for documentation access.
+- 「Codex CLIを起動」
+- 「Codexでコード生成」
+- 「Codexに委譲」
+- 「Codexに任せて」
+- 「マルチエージェントで作業」
+- 「ClaudeとCodexで連携」
+- 「Codexセッションを再開」
+- 「Codexをtmuxで起動」
+- 「ゴール達成までCodexでループ」
 
-## When to Use This Skill
+---
 
-**Ideal Use Cases:**
-- Complex code analysis requiring deep understanding
-- Large-scale refactoring across multiple files
-- Automated code generation with safety controls
-- Second opinion / cross-validation on code implementations
-- Parallel processing of independent code tasks
-- Session-based iterative development workflows
+## 入力で最初に聞くこと
 
-## Quick Start
+| # | 質問 | 目的 |
+|---|------|------|
+| 1 | **実行モード**: インタラクティブTUI / スクリプト実行 / オーケストレーターループ | 適切な実行方式を選択 |
+| 2 | **タスク内容**: Codexに何をやらせたいか（自然言語で） | プロンプト準備、ゴール定義 |
+| 3 | **承認モード**: suggest / auto-edit / full-auto | セキュリティレベル決定 |
+| 4 | **永続モード（オプション）**: tmuxで永続化するか | セッション管理方式決定 |
+| 5 | **制限設定（オプション）**: 最大ループ回数、タイムアウト | 無限ループ防止 |
 
-### Prerequisites
+---
 
-Verify Codex CLI installation:
-```bash
-codex --version  # Should show v0.50.0+
-```
+## 手順
 
-Authentication (first time):
-```bash
-codex  # Interactive login via ChatGPT account
-# Or: export CODEX_API_KEY=sk-...
-```
-
-### Model Selection
-
-**Default model**: `gpt-5.2-codex` - Optimized for software engineering tasks
-
-| Model | Use Case |
-|-------|----------|
-| `gpt-5.2-codex` | Default, optimized for code (recommended) |
-| `gpt-5.2` | General purpose, complex reasoning |
-| `gpt-5.2-codex-max` | Maximum context, large codebases |
-| `o3` | Highest reasoning capability |
-| `o4-mini` | Fast, simple tasks |
-
-### Sandbox Modes
-
-| Mode | Permission | Use Case |
-|------|------------|----------|
-| `read-only` | Read files only (default) | Analysis, review |
-| `workspace-write` | Read/write workspace | Code editing, refactoring |
-| `danger-full-access` | Full system access | Install deps, network |
-
-## Core Commands
-
-### Basic Execution
+### Step 1: Pre-flight Check
 
 ```bash
-# Read-only analysis (default)
-codex exec -m gpt-5.2-codex "analyze src/auth for security issues"
+# Codex CLIインストール確認
+which codex || echo "NOT_INSTALLED"
 
-# Code editing (workspace-write)
-codex exec -m gpt-5.2-codex --full-auto "fix bug in login.py"
-
-# With reasoning effort
-codex exec -m gpt-5.2-codex --config model_reasoning_effort=high "complex analysis"
-
-# Skip git check (non-git directories)
-codex exec --skip-git-repo-check "analyze code"
+# バージョン確認（認証状態も確認）
+codex --version
 ```
 
-### Suppress Thinking Tokens
-
-Add `2>/dev/null` to suppress stderr (thinking tokens):
+**未インストールの場合**:
 ```bash
-codex exec -m gpt-5.2-codex "review code" 2>/dev/null
+# Homebrew（macOS推奨）
+brew install --cask codex
+
+# npm（クロスプラットフォーム）
+npm install -g @openai/codex
 ```
 
-### Session Resume
-
+**未認証の場合**:
 ```bash
-# Resume last session (stdin for prompt - required due to CLI bug)
-echo "continue with fixes" | codex exec resume --last 2>/dev/null
+# OAuth認証（推奨）
+codex login
 
-# Resume with full-auto
-echo "apply fixes" | codex exec resume --last --full-auto 2>/dev/null
-
-# Resume specific session
-echo "follow-up" | codex exec resume SESSION_ID
+# APIキー認証
+codex login --with-api-key
 ```
 
-**Important**: Resume inherits model, reasoning, and sandbox from original session.
+### Step 2: モード選択
 
-### JSON Output
+| モード | 用途 | コマンド | 推奨度 |
+|--------|------|---------|:------:|
+| **完全自動（推奨）** | Claude委譲、CI/CD | `codex exec "タスク"` | ⭐⭐⭐ |
+| 対話観察 | デバッグ、学習 | `tmux` + `send-keys` | ⭐⭐ |
+| インタラクティブTUI | 手動探索 | `codex` | ⭐ |
+| MCPサーバー | ツール統合 | `codex mcp` | - |
 
+### Step 3: 承認モード設定
+
+| モード | リスク | 用途 | コマンド |
+|--------|--------|------|---------|
+| `--suggest` | 低 | 全操作を確認（推奨デフォルト） | `codex --suggest` |
+| `--auto-edit` | 中 | ファイル編集は自動、実行は確認 | `codex --auto-edit` |
+| `--full-auto` | 高 | ネットワーク含め自動 | `codex --full-auto` |
+| `--yolo` | 危険 | 全て自動（要注意） | `codex --yolo` |
+
+### Step 4: 実行
+
+**A. インタラクティブTUI（手動操作）**
 ```bash
-# JSON Lines output
-codex exec --json -m gpt-5.2-codex "analyze code" > output.jsonl
-
-# Extract session ID
-SID=$(grep -o '"thread_id":"[^"]*"' output.jsonl | head -1 | cut -d'"' -f4)
-
-# Extract agent message
-grep '"type":"agent_message"' output.jsonl | jq -r '.item.text'
+codex --approval-mode auto-edit
 ```
+ユーザーが直接対話する場合に使用。
 
-## Orchestration Patterns
+---
 
-### Pattern 1: Context Pre-injection
-
-Claude collects information first, injects into prompt for faster execution:
-
+**B. 完全自動モード（推奨）**
 ```bash
-# Collect errors
-ERRORS=$(npm run lint 2>&1 | grep error)
-
-# Inject context
-codex exec -m gpt-5.2-codex --full-auto "Fix these errors:
-$ERRORS
-
-Files: src/auth/login.ts, src/utils/token.ts
-Constraint: Only modify listed files."
+codex exec "タスク内容" --approval-mode auto-edit
 ```
-
-### Pattern 2: Session Reuse
-
-Related tasks reuse sessions for context preservation:
+**Claudeからの委譲に最適。** シンプルで安定。結果のみ取得。
 
 ```bash
-# First: analyze
-codex exec -m gpt-5.2-codex "analyze src/auth for issues"
+# 例: レビュー依頼
+codex exec "SKILL.mdとREFERENCE.mdをレビューして改善点を指摘してください"
 
-# Continue: fix (reuses context)
-echo "fix the issues you found" | codex exec resume --last --full-auto
+# 例: コード生成
+codex exec "Pythonでファイル名一括変更スクリプトを作成"
 ```
 
-**When to reuse:**
-- Analyze → Fix (knows findings)
-- Implement → Test (knows implementation)
-- Test → Fix (knows failures)
+---
 
-### Pattern 3: Parallel Execution
+**C. 対話観察モード（tmux使用）**
 
-Independent tasks run simultaneously:
+対話の過程をターミナルで観察したい場合に使用。
 
+> **セットアップ（ユーザーが実行）**
 ```bash
-# Parallel analysis
-codex exec --json -m gpt-5.2-codex "analyze auth" > auth.jsonl 2>&1 &
-codex exec --json -m gpt-5.2-codex "analyze api" > api.jsonl 2>&1 &
-wait
+# 1. tmuxセッション作成
+tmux new -s codex
 
-# Parallel fixes with resume
-AUTH_SID=$(grep -o '"thread_id":"[^"]*"' auth.jsonl | head -1 | cut -d'"' -f4)
-echo "fix issues" | codex exec resume $AUTH_SID --full-auto &
-# ...
-wait
+# 2. tmux内でcodex起動
+codex --approval-mode auto-edit
+
+# 3. セッションから離脱（Codexは動作継続）
+# Ctrl+B → D
 ```
 
-**Parallelizable:**
-- Different directories/modules
-- Different analysis dimensions (security/performance/quality)
-- Read-only operations
-
-**Must serialize:**
-- Writing same files
-- Dependent on prior results
-
-## Interactive Workflow
-
-Before running Codex tasks, confirm with user:
-
-1. **Model selection**: `gpt-5.2-codex` or `gpt-5.2`?
-2. **Reasoning effort**: `low`, `medium`, or `high`?
-3. **Sandbox mode**: Based on task requirements
-
-### Decision Matrix
-
-| Task Type | Sandbox | Flags |
-|-----------|---------|-------|
-| Review/analysis | `read-only` | `--sandbox read-only 2>/dev/null` |
-| Apply local edits | `workspace-write` | `--full-auto 2>/dev/null` |
-| Network/deps | `danger-full-access` | `--sandbox danger-full-access --full-auto` |
-| Resume session | Inherited | `echo "prompt" \| codex exec resume --last` |
-
-## Code Review Workflow
-
-### Independent Review
-
-Use Codex as second opinion on Claude's work:
-
+> **Claudeからの操作**
 ```bash
-codex exec -m gpt-5.2-codex --sandbox read-only "Review src/payment/processor.py for:
-1. Race conditions in transaction processing
-2. Proper error handling and rollback
-3. Security issues with payment data
-4. Edge cases that could cause data loss
-Provide specific line numbers and severity ratings."
+# メッセージ送信（C-m推奨）
+tmux send-keys -t codex "タスク内容" && sleep 0.5 && tmux send-keys -t codex C-m
+
+# 応答キャプチャ
+sleep 10 && tmux capture-pane -t codex -p -S -50
 ```
 
-### Comprehensive Review
-
+> **セッション管理**
 ```bash
-# Security audit
-codex exec -m gpt-5.2-codex --sandbox read-only --config model_reasoning_effort=high \
-  "Perform security audit of src/auth. Check for:
-  - Authentication/authorization issues
-  - Input validation vulnerabilities
-  - Cryptographic weaknesses
-  - Sensitive data exposure"
-
-# Performance review
-codex exec -m gpt-5.2-codex --sandbox read-only \
-  "Analyze src/database for performance:
-  - N+1 query problems
-  - Missing indexes
-  - Blocking operations"
+tmux ls                      # セッション確認
+tmux attach -t codex         # 接続（対話を観察）
+# Ctrl+B → D                 # 離脱
+tmux kill-session -t codex   # 終了
 ```
 
-### Pull Request Review
+**実証済みの注意点**:
+- `tmux new -s codex 'codex'` は `[exited]` になるため、2段階で起動
+- `Enter` より `C-m` (Ctrl-M) を推奨（実証で安定動作を確認）
+- テキスト送信と `C-m` の間に `sleep 0.5` を挟む
 
-```bash
-codex exec -m gpt-5.2-codex --sandbox read-only \
-  "Run 'git diff main...HEAD' to see changes.
-  Review for:
-  1. Breaking changes
-  2. Performance implications
-  3. Test coverage
-  4. Security concerns
-  Provide feedback by file with severity levels."
+**完了検出の制限**:
+- `❯` プロンプト検出はCodex CLIのバージョン/テーマに依存する可能性あり
+- 安定運用には **完全自動モード（B）** を推奨
+
+### Step 5: オーケストレーターループ詳細
+
+**ループフロー**:
+```
+while (ゴール未達成 && ループ < MAX && 時間 < TIMEOUT):
+    1. Claudeが次の指示を決定（前回出力を分析）
+    2. tmux send-keysでCodexに送信
+    3. capture-paneで完了待ち
+    4. Claudeが出力を評価
+       - ゴール達成 → ループ終了
+       - 進捗あり → 次の指示生成
+       - エラー → 修正指示生成
+       - スタック（3回同一エラー） → 介入要求
+    5. ループカウンタ++
 ```
 
-## Prompt Design
+**ゴール判定ロジック（Claude判断）**:
 
-### Structure Formula
+| 判定 | 条件例 | アクション |
+|------|--------|-----------|
+| ゴール達成 | テスト全パス、ファイル生成完了、エラー0 | ループ終了、成功報告 |
+| 進捗あり | 一部完了、次ステップ明確 | 次の指示を生成して継続 |
+| エラー発生 | コンパイルエラー、テスト失敗 | 修正指示を生成して継続 |
+| スタック | 同じエラー3回連続、進捗なし | 介入要求 or 戦略変更 |
 
-```
-[Verb] + [Scope] + [Requirements] + [Output Format] + [Constraints]
-```
-
-### Verb Selection
-
-| Read-only | Write |
-|-----------|-------|
-| analyze, review, find, explain | fix, refactor, implement, add |
-
-### Examples
-
-**Bad vs Good:**
-```bash
-# Bad: vague
-codex exec "review code"
-
-# Good: specific
-codex exec -m gpt-5.2-codex --sandbox read-only \
-  "Review src/auth for SQL injection, XSS.
-  Output: markdown with severity levels.
-  Format: file:line, description, fix suggestion."
-```
-
-### Parallel Prompt Consistency
-
-```bash
-# Consistent structure for aggregation
-FORMAT="Output JSON: {category, items: [{file, line, description}]}"
-
-codex exec -m gpt-5.2-codex "review security. $FORMAT" &
-codex exec -m gpt-5.2-codex "review performance. $FORMAT" &
-codex exec -m gpt-5.2-codex "review quality. $FORMAT" &
-wait
-```
-
-## Claude-Codex Engineering Loop
-
-### Dual-AI Workflow
-
-1. **Claude plans** → Architecture, requirements
-2. **Codex validates plan** → Check logic, edge cases
-3. **Claude implements** → Write code with tools
-4. **Codex reviews** → Bug detection, security
-5. **Claude fixes** → Apply corrections
-6. **Codex re-validates** → Confirm quality
-7. **Repeat** until standards met
-
-### Implementation
-
-```bash
-# Phase 2: Codex validates Claude's plan
-echo "Review this implementation plan for issues:
-[Claude's plan here]
-
-Check for:
-- Logic errors
-- Missing edge cases
-- Architecture flaws
-- Security concerns" | codex exec -m gpt-5.2-codex --sandbox read-only
-
-# Phase 4: Codex reviews Claude's code
-codex exec -m gpt-5.2-codex --sandbox read-only \
-  "Review implementation in src/feature for:
-  - Bugs
-  - Performance issues
-  - Best practices
-  - Security vulnerabilities"
-```
-
-## Error Handling
-
-1. **Non-zero exit**: Stop and report, ask for direction
-2. **Warnings**: Summarize and ask how to proceed
-3. **High-impact flags**: Ask permission before `--full-auto`, `--sandbox danger-full-access`
-
-## Post-Task Follow-up
-
-After every Codex command:
-1. Summarize outcome
-2. Confirm next steps with user
-3. Offer: "Resume session with 'codex resume' for continued analysis"
-
-## Configuration
-
-### Profile Setup (~/.codex/config.toml)
-
-```toml
-model = "gpt-5.2-codex"
-model_reasoning_effort = "medium"
-
-[profiles.review]
-model = "gpt-5.2-codex"
-model_reasoning_effort = "high"
-sandbox_mode = "read-only"
-
-[profiles.implement]
-model = "gpt-5.2-codex"
-model_reasoning_effort = "high"
-sandbox_mode = "workspace-write"
-```
-
-Usage:
-```bash
-codex exec --profile review "analyze code"
-```
-
-## Quick Reference
-
-| Use Case | Command |
-|----------|---------|
-| Analysis | `codex exec -m gpt-5.2-codex "prompt" 2>/dev/null` |
-| Edit files | `codex exec -m gpt-5.2-codex --full-auto "prompt" 2>/dev/null` |
-| High reasoning | `--config model_reasoning_effort=high` |
-| Resume last | `echo "prompt" \| codex exec resume --last` |
-| JSON output | `codex exec --json "prompt" > out.jsonl` |
-| Specific dir | `codex exec -C /path "prompt"` |
-| Non-git dir | `--skip-git-repo-check` |
-
-## Documentation Access via Context7 MCP
-
-Both Claude and Codex have Context7 MCP configured. Use it to access OpenAI documentation:
-
-### Available Documentation Libraries
-
-| Library ID | Content | Snippets |
-|------------|---------|----------|
-| `/websites/developers_openai_codex` | Codex CLI docs | 614 |
-| `/websites/platform_openai` | OpenAI API docs | 9,418 |
-| `/openai/openai-python` | Python SDK | 429 |
-| `/openai/openai-node` | Node.js SDK | 437 |
-
-### Query Documentation Before Execution
-
+**制限パラメータ**:
 ```yaml
-# Before running complex Codex commands, verify syntax
-mcp__context7__query-docs:
-  libraryId: "/websites/developers_openai_codex"
-  query: "exec sandbox modes full-auto workspace-write"
-
-# On errors, look up solutions
-mcp__context7__query-docs:
-  libraryId: "/websites/developers_openai_codex"
-  query: "error troubleshooting session resume"
+limits:
+  max_loops: 10          # 最大ループ回数
+  timeout_minutes: 30    # タイムアウト（分）
+  poll_interval_sec: 2   # ポーリング間隔（秒）
+  max_output_lines: 500  # capture-pane取得行数
+  stuck_threshold: 3     # 同一エラー許容回数
 ```
 
-### MCP Server Configuration Reference
+### Step 6: 結果統合
 
-```toml
-# ~/.codex/config.toml - Codex MCP configuration
+1. Codex出力をキャプチャ
+2. 変更されたファイル一覧を取得
+3. セッション情報を記録（再開用）
+4. Claudeワークフローに結果を統合
 
-# STDIO server (local command)
-[mcp_servers.context7]
-command = "npx"
-args = ["-y", "@upstash/context7-mcp@latest"]
+---
 
-# Remote HTTP server
-[mcp_servers.remote]
-url = "https://example.com/mcp"
-bearer_token_env_var = "API_TOKEN"
+## 成果物
 
-# With environment variables
-[mcp_servers.server.env]
-API_KEY = "value"
-```
+| 成果物 | 必須 | 説明 |
+|--------|:----:|------|
+| 実行ログ | Yes | Codexのターミナル出力 |
+| 変更ファイル一覧 | Yes | Codexが作成/編集したファイル |
+| セッションID | Optional | `codex resume`用のID |
+| tmuxセッション情報 | Optional | ソケットパス、セッション名 |
+| ループ履歴 | Optional | 各イテレーションの指示と結果 |
+| ゴール達成証拠 | Yes | テスト結果、生成物の確認 |
 
-### Verify MCP Servers
+---
 
-```bash
-# List configured MCP servers
-codex mcp list
+## 検証（完了条件）
 
-# Add new MCP server
-codex mcp add context7 -- npx -y @upstash/context7-mcp
+- [ ] Codex CLIがインストールされている
+- [ ] 認証が成功している
+- [ ] 指定したタスクが実行された
+- [ ] 出力/変更が文書化されている
+- [ ] Claudeへのハンドオフが完了している
+- [ ] （オーケストレーターループの場合）ゴールが達成されている
 
-# Test MCP server
-npx @modelcontextprotocol/inspector codex mcp-server
-```
+---
 
-## See Also
+## 参照
 
-- `/openai-docs` - OpenAI documentation access skill
-- `references/cli_reference.md` - Complete CLI arguments
-- `references/prompt_patterns.md` - Advanced prompt design
-- `references/parallel_execution.md` - Parallel orchestration details
+- Reference: [REFERENCE.md](./REFERENCE.md) - 詳細なコマンドリファレンス、トラブルシューティング
+- OpenAI Codex CLI: https://developers.openai.com/codex/cli/
+- tmux: https://github.com/tmux/tmux

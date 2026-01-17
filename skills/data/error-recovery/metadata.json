@@ -1,7 +1,7 @@
 {
   "name": "error-recovery",
-  "repo": "marcusgoll/Spec-Flow",
-  "path": ".claude/skills/error-recovery/SKILL.md",
-  "source": "github.com/marcusgoll/Spec-Flow",
-  "downloaded_at": "2026-01-14T04:06:31.794213Z"
+  "repo": "involvex/involvex-claude-marketplace",
+  "path": "plugins/orchestration/skills/error-recovery/SKILL.md",
+  "source": "github.com/involvex/involvex-claude-marketplace",
+  "downloaded_at": "2026-01-17T03:58:51.732276Z"
 }

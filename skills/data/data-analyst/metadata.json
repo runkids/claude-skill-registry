@@ -1,7 +1,7 @@
 {
   "name": "data-analyst",
-  "repo": "mamba-mental/agent-skill-manager",
-  "path": ".claude/skills/data-analyst/SKILL.md",
-  "source": "github.com/mamba-mental/agent-skill-manager",
-  "downloaded_at": "2026-01-14T01:45:02.060352Z"
+  "repo": "mdpman2/Unified-Agent-Framework",
+  "path": "skills/data-analyst/SKILL.md",
+  "source": "github.com/mdpman2/Unified-Agent-Framework",
+  "downloaded_at": "2026-01-17T01:38:17.812261Z"
 }

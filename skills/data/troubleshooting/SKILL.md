@@ -1,213 +1,80 @@
 ---
 name: troubleshooting
-description: Common issues and solutions for Claude Code installation, authentication, performance, and IDE integration. Use when user encounters errors, problems, or asks about debugging.
+description: A robust troubleshooting framework. Use this skill anytime the user reports something isn't working, is buggy, or is throwing errors.
 ---
 
-# Claude Code Troubleshooting
+# Troubleshooting
 
-## Installation Issues
+This skill helps identify when you're applying a bandaid fix versus addressing root causes, and when to escalate to deeper investigation.
 
-### Windows WSL Problems
+## Core Principles
 
-**OS/platform detection issues:**
-May require running `npm config set os linux` before installation.
+### 1. Bandaid Detection
 
-**Node.js path conflicts:**
-WSL may use Windows npm instead of Linux versions.
-- Check with `which npm` and `which node`
-- Identify whether Linux or Windows paths are active
-- nvm version conflicts can be resolved by ensuring nvm loads in shell configuration files
+Before implementing any fix, check if it's treating symptoms vs. root cause:
 
-**Recommended Solution:**
-Use the native Claude Code installer as an alternative to npm:
-```bash
-curl -fsSL https://claude.ai/install.sh | bash
+**Red flags indicating bandaid fixes:**
+- Adding try/catch blocks that hide errors without understanding why they occur
+- Implementing timeouts or retries without investigating why failures happen
+- Duplicating logic to work around a broken component
+- Increasing resource limits without understanding why resources are exhausted
+- Caching to hide performance issues without addressing underlying inefficiency
+- Adding null checks without understanding why nulls appear
+- Hard-coding values that should be dynamic (IDs, paths, credentials, configuration values)
+
+**When you detect a bandaid:**
+"I could [quick fix], but that just masks the real issue: [root cause]. To fix properly, I need to [proper solution / missing information]. Should I implement the workaround for now or investigate the root cause?"
+
+### 2. Systemic Issue Detection
+
+Watch for signs that a bug indicates larger problems:
+
+**Indicators of systemic issues:**
+- Same type of error occurring in multiple places
+- Issue requires workarounds in multiple locations
+- Root cause points to architectural decisions
+- Fix would require changing fundamental assumptions
+- Similar issues have been "fixed" before with workarounds
+
+**When you detect systemic issues:**
+"This appears to be a symptom of a larger issue: [systemic problem]. The immediate fix is [X], but this suggests we should also consider [architectural change]."
+
+### 3. Escalation to Deep Investigation
+
+For most issues, attempt a straightforward fix. If any of these occur, **you MUST read `references/collaborative-workflow.md` and follow that process:**
+
+**Escalation triggers:**
+- Simple fix attempt fails or reveals complexity
+- Multiple possible root causes exist
+- Issue is more complex than it initially appeared
+- You're uncertain whether a solution is proper or a bandaid
+- Investigation requires information you don't have access to
+
+**When triggered, immediately use the view tool:**
 ```
-
-### Linux/Mac Permission Errors
-
-**Native installer (recommended):**
-```bash
-curl -fsSL https://claude.ai/install.sh | bash
+view references/collaborative-workflow.md
 ```
+Then follow the detailed investigation process described in that file.
 
-**Migration from npm:**
-Migrate to local installation to avoid future permission issues:
-```bash
-claude migrate-installer
-```
+## Quick Troubleshooting
 
-## Authentication & Permissions
+For straightforward issues, proceed autonomously:
 
-### Reset Authentication
+1. **Identify the issue** - Read error messages, examine code, check logs
+2. **Verify it's not a bandaid** - Check against red flags above
+3. **Implement the fix** - Address the root cause
+4. **Verify** - Confirm the specific symptom is resolved
 
-Run `/logout` and restart Claude Code to reset authentication.
+If at any point this becomes unclear or the fix would be a bandaid, escalate to the collaborative workflow.
 
-For persistent issues, remove stored auth data:
-```bash
-rm -rf ~/.config/claude-code/auth.json
-```
+## Anti-Patterns
 
-### Manage Permissions
+**Assumption-driven debugging:**
+- Don't assume you understand the architecture
+- Don't guess at configuration or environment details
+- Don't implement solutions based on incomplete information
 
-Use `/permissions` to allow specific tools without repeated approval prompts.
-
-## Performance Issues
-
-### Reduce Context Size
-
-Use `/compact` regularly to reduce context size for large codebases.
-
-### Cancel Unresponsive Operations
-
-Press `Ctrl+C` to cancel unresponsive operations.
-
-### Fix Search Functionality
-
-Install system `ripgrep` to fix search functionality:
-```bash
-# macOS
-brew install ripgrep
-
-# Ubuntu/Debian
-sudo apt install ripgrep
-
-# Fedora
-sudo dnf install ripgrep
-```
-
-## IDE Integration Issues
-
-### JetBrains on WSL2
-
-**Firewall Issues:**
-Configure Windows Firewall or enable mirrored networking mode.
-
-Add to `.wslconfig`:
-```ini
-[wsl2]
-networkingMode=mirrored
-```
-
-### ESC Key Not Working (JetBrains)
-
-Go to Settings → Tools → Terminal and disable "Move focus to the editor with Escape."
-
-Or delete the "Switch focus to Editor" shortcut.
-
-## Markdown Issues
-
-### Missing Language Tags
-
-Request language tags explicitly:
-```
-"Add appropriate language tags to all code blocks."
-```
-
-### Automatic Formatting
-
-Use formatting hooks for automatic post-processing validation.
-
-## Common Error Messages
-
-### "Command not found: claude"
-
-**Solution:**
-1. Verify installation: `npm list -g @anthropic-ai/claude-code`
-2. Check PATH includes npm global bin directory
-3. Restart terminal
-4. Reinstall if necessary
-
-### "Authentication failed"
-
-**Solution:**
-1. Run `/logout` then `/login`
-2. Verify API key is valid
-3. Check network connectivity
-4. Remove auth file: `rm -rf ~/.config/claude-code/auth.json`
-
-### "Permission denied"
-
-**Solution:**
-1. Check file permissions in project directory
-2. Verify user has write access
-3. Use `/permissions` to configure allowed operations
-4. Check settings.json for overly restrictive deny rules
-
-### "Context too large"
-
-**Solution:**
-1. Run `/compact` to reduce context
-2. Be more specific in queries
-3. Use subagents for isolated tasks
-4. Clear conversation with `/clear`
-
-### "Rate limit exceeded"
-
-**Solution:**
-1. Wait before retrying
-2. Check API usage limits
-3. Use `--max-turns` to limit operations
-4. Implement delays in automation scripts
-
-## Getting Help
-
-### Built-in Diagnostics
-
-**Report bugs:**
-```
-/bug
-```
-
-**Check installation health:**
-```
-/doctor
-```
-
-### External Resources
-
-- **GitHub Issues**: https://github.com/anthropics/claude-code/issues
-- **Documentation**: https://docs.claude.com/en/docs/claude-code
-- **Community Support**: Check GitHub Discussions
-
-## Debug Mode
-
-Enable verbose logging:
-```bash
-claude --debug
-claude --verbose
-```
-
-View detailed output:
-```bash
-claude --output-format json
-```
-
-## Reinstallation
-
-If all else fails, completely reinstall:
-
-```bash
-# Uninstall
-npm uninstall -g @anthropic-ai/claude-code
-
-# Clear cache
-rm -rf ~/.config/claude-code
-rm -rf ~/.claude
-
-# Reinstall
-npm install -g @anthropic-ai/claude-code
-
-# Or use native installer
-curl -fsSL https://claude.ai/install.sh | bash
-```
-
-## Prevention Tips
-
-1. Keep Claude Code updated: `claude update`
-2. Regularly run `/compact` for large projects
-3. Use specific queries rather than vague requests
-4. Configure permissions appropriately
-5. Monitor API usage and costs
-6. Use version control for important changes
-7. Enable checkpointing for easy recovery
+**Premature solutions:**
+- Don't propose fixes before understanding the root cause
+- Don't implement the first solution that comes to mind without evaluation
+- Don't skip verification that the fix actually addresses the root cause

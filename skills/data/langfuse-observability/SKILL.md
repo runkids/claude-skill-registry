@@ -1,316 +1,289 @@
 ---
 name: langfuse-observability
-description: |
-  Query Langfuse traces, prompts, and LLM metrics. Use when:
-  - Analyzing LLM generation traces (errors, latency, tokens)
-  - Reviewing prompt performance and versions
-  - Debugging failed generations
-  - Comparing model outputs across runs
-  Keywords: langfuse, traces, observability, LLM metrics, prompt management, generations
+description: LLM observability platform for tracing, evaluation, prompt management, and cost tracking. Use when setting up Langfuse, monitoring LLM costs, tracking token usage, or implementing prompt versioning.
+context: fork
+agent: metrics-architect
+version: 1.0.0
+author: SkillForge AI Agent Hub
+tags: [langfuse, llm, observability, tracing, evaluation, prompts, 2025]
+user-invocable: false
 ---
 
 # Langfuse Observability
 
-Query traces, prompts, and metrics from Langfuse. Requires env vars:
-- `LANGFUSE_SECRET_KEY`
-- `LANGFUSE_PUBLIC_KEY`
-- `LANGFUSE_HOST` (e.g., `https://us.cloud.langfuse.com`)
+## Overview
+
+**Langfuse** is the open-source LLM observability platform that SkillForge uses for tracing, monitoring, evaluation, and prompt management. Unlike LangSmith (deprecated), Langfuse is self-hosted, free, and designed for production LLM applications.
+
+**When to use this skill:**
+- Setting up LLM observability from scratch
+- Debugging slow or incorrect LLM responses
+- Tracking token usage and costs
+- Managing prompts in production
+- Evaluating LLM output quality
+- Migrating from LangSmith to Langfuse
+
+**SkillForge Integration:**
+- **Status**: Migrated from LangSmith (Dec 2025)
+- **Location**: `backend/app/shared/services/langfuse/`
+- **MCP Server**: `skillforge-langfuse` (optional)
+
+---
 
 ## Quick Start
 
-All commands run from the skill directory:
-```bash
-cd ~/.claude/skills/langfuse-observability
+### Setup
+
+```python
+# backend/app/shared/services/langfuse/client.py
+from langfuse import Langfuse
+from app.core.config import settings
+
+langfuse_client = Langfuse(
+    public_key=settings.LANGFUSE_PUBLIC_KEY,
+    secret_key=settings.LANGFUSE_SECRET_KEY,
+    host=settings.LANGFUSE_HOST  # Self-hosted or cloud
+)
 ```
 
-### List Recent Traces
-```bash
-# Last 10 traces
-npx tsx scripts/fetch-traces.ts --limit 10
+### Basic Tracing with @observe
 
-# Filter by name pattern
-npx tsx scripts/fetch-traces.ts --name "quiz-generation" --limit 5
+```python
+from langfuse.decorators import observe, langfuse_context
 
-# Filter by user
-npx tsx scripts/fetch-traces.ts --user-id "user_abc123" --limit 10
+@observe()  # Automatic tracing
+async def analyze_content(content: str):
+    langfuse_context.update_current_observation(
+        metadata={"content_length": len(content)}
+    )
+    return await llm.generate(content)
 ```
 
-### Get Single Trace Details
-```bash
-# Full trace with spans and generations
-npx tsx scripts/fetch-trace.ts <trace-id>
+### Session & User Tracking
+
+```python
+langfuse.trace(
+    name="analysis",
+    user_id="user_123",
+    session_id="session_abc",
+    metadata={"content_type": "article", "agent_count": 8},
+    tags=["production", "skillforge"]
+)
 ```
 
-### Get Prompt
-```bash
-# Fetch specific prompt
-npx tsx scripts/list-prompts.ts --name scry-intent-extraction
+---
 
-# With label
-npx tsx scripts/list-prompts.ts --name scry-intent-extraction --label production
-```
+## Core Features Summary
 
-### Get Metrics Summary
-```bash
-# Summary for recent traces
-npx tsx scripts/get-metrics.ts --limit 50
+| Feature | Description | Reference |
+|---------|-------------|-----------|
+| Distributed Tracing | Track LLM calls with parent-child spans | `references/tracing-setup.md` |
+| Cost Tracking | Automatic token & cost calculation | `references/cost-tracking.md` |
+| Prompt Management | Version control for prompts | `references/prompt-management.md` |
+| LLM Evaluation | Custom scoring with G-Eval | `references/evaluation-scores.md` |
+| Session Tracking | Group related traces | `references/session-tracking.md` |
+| Experiments API | A/B testing & benchmarks | `references/experiments-api.md` |
+| Multi-Judge Eval | Ensemble LLM evaluation | `references/multi-judge-evaluation.md` |
 
-# Filter by trace name
-npx tsx scripts/get-metrics.ts --name "quiz-generation" --limit 100
-```
+---
 
-## Output Formats
+## References
 
-All scripts output JSON to stdout for easy parsing.
+### Tracing Setup
+**See: `references/tracing-setup.md`**
 
-### Trace List Output
-```json
-[
-  {
-    "id": "trace-abc123",
-    "name": "quiz-generation",
-    "userId": "user_xyz",
-    "input": {"prompt": "..."},
-    "output": {"concepts": [...]},
-    "latencyMs": 3200,
-    "createdAt": "2025-12-09T..."
-  }
-]
-```
+Key topics covered:
+- Initializing Langfuse client with @observe decorator
+- Creating nested traces and spans
+- Tracking LLM generations with metadata
+- LangChain/LangGraph CallbackHandler integration
+- Workflow integration patterns
 
-### Single Trace Output
-Includes full nested structure: trace → observations (spans + generations) with token usage.
+### Cost Tracking
+**See: `references/cost-tracking.md`**
 
-### Metrics Output
-```json
-{
-  "totalTraces": 50,
-  "successCount": 48,
-  "errorCount": 2,
-  "avgLatencyMs": 2850,
-  "totalTokens": 125000,
-  "byName": {"quiz-generation": 30, "phrasing-generation": 20}
-}
-```
+Key topics covered:
+- Automatic cost calculation from token usage
+- Custom model pricing configuration
+- Monitoring dashboard SQL queries
+- Cost tracking per analysis/user
+- Daily cost trend analysis
 
-## Common Workflows
+### Prompt Management
+**See: `references/prompt-management.md`**
 
-### Debug Failed Generation
-```bash
-cd ~/.claude/skills/langfuse-observability
+Key topics covered:
+- Prompt versioning and labels (production/staging/draft)
+- Template variables with Jinja2 syntax
+- A/B testing prompt versions
+- SkillForge 4-level caching architecture (L1-L4)
+- Linking prompts to generation spans
 
-# 1. Find recent traces
-npx tsx scripts/fetch-traces.ts --limit 10
+### LLM Evaluation
+**See: `references/evaluation-scores.md`**
 
-# 2. Get details of specific trace
-npx tsx scripts/fetch-trace.ts <trace-id>
-```
+Key topics covered:
+- Custom scoring with numeric/categorical values
+- G-Eval automated quality assessment
+- Score trends and comparisons
+- Filtering traces by score thresholds
 
-### Monitor Token Usage
-```bash
-# Get metrics for cost analysis
-npx tsx scripts/get-metrics.ts --limit 100
-```
+### Session Tracking
+**See: `references/session-tracking.md`**
 
-### Check Prompt Configuration
-```bash
-npx tsx scripts/list-prompts.ts --name scry-concept-synthesis --label production
-```
+Key topics covered:
+- Grouping traces by session_id
+- Multi-turn conversation tracking
+- User and metadata analytics
 
-## Cost Tracking
+### Experiments API
+**See: `references/experiments-api.md`**
 
-### Calculate Costs
+Key topics covered:
+- Creating test datasets in Langfuse
+- Running automated evaluations
+- Regression testing for LLMs
+- Benchmarking prompt versions
 
-```typescript
-// Get metrics with cost calculation
-const metrics = await langfuse.getMetrics({ limit: 100 });
+### Multi-Judge Evaluation
+**See: `references/multi-judge-evaluation.md`**
 
-// Pricing per 1M tokens (update as needed)
-const pricing = {
-  "claude-3-5-sonnet": { input: 3.0, output: 15.0 },
-  "gpt-4o": { input: 2.5, output: 10.0 },
-  "gpt-4o-mini": { input: 0.15, output: 0.6 },
-};
+Key topics covered:
+- Multiple LLM judges for quality assessment
+- Weighted scoring across judges
+- SkillForge langfuse_evaluators.py integration
 
-function calculateCost(model: string, inputTokens: number, outputTokens: number) {
-  const p = pricing[model] || { input: 1, output: 1 };
-  return (inputTokens * p.input + outputTokens * p.output) / 1_000_000;
-}
-```
+---
 
-### Daily/Monthly Spend
+## Best Practices
 
-```bash
-# Get traces for date range
-npx tsx scripts/fetch-traces.ts --from "2025-12-01" --to "2025-12-07" --limit 1000
+1. **Always use @observe decorator** for automatic tracing
+2. **Set user_id and session_id** for better analytics
+3. **Add meaningful metadata** (content_type, analysis_id, etc.)
+4. **Score all production traces** for quality monitoring
+5. **Use prompt management** instead of hardcoded prompts
+6. **Monitor costs daily** to catch spikes early
+7. **Create datasets** for regression testing
+8. **Tag production vs staging** traces
 
-# Calculate spend (parse output and sum costs)
-```
+---
 
-### Cost Alerts
+## LangSmith Migration Notes
 
-**Set up alerts in Langfuse dashboard:**
-1. Go to Dashboard → Alerts
-2. Create alert for: `daily_cost > X` or `cost_per_trace > Y`
-3. Configure notification (email, Slack webhook)
+**Key Differences:**
+| Aspect | Langfuse | LangSmith |
+|--------|----------|-----------|
+| Hosting | Self-hosted, open-source | Cloud-only, proprietary |
+| Cost | Free | Paid |
+| Prompts | Built-in management | External storage needed |
+| Decorator | `@observe` | `@traceable` |
 
-**Or implement in code:**
-```typescript
-async function checkCostBudget() {
-  const dailyMetrics = await langfuse.getMetrics({ since: "24h" });
-  const dailyCost = calculateTotalCost(dailyMetrics);
+---
 
-  if (dailyCost > DAILY_BUDGET) {
-    await notifySlack(`⚠️ LLM daily spend ($${dailyCost}) exceeded budget ($${DAILY_BUDGET})`);
-  }
-}
-```
+## External References
 
-## Production Best Practices
+- [Langfuse Docs](https://langfuse.com/docs)
+- [Python SDK](https://langfuse.com/docs/sdk/python)
+- [Decorators Guide](https://langfuse.com/docs/sdk/python/decorators)
+- [Prompt Management](https://langfuse.com/docs/prompts)
+- [Self-Hosting](https://langfuse.com/docs/deployment/self-host)
 
-### 1. Trace Everything
+---
 
-```typescript
-import { Langfuse } from "langfuse";
+## Capability Details
 
-const langfuse = new Langfuse({
-  publicKey: process.env.LANGFUSE_PUBLIC_KEY,
-  secretKey: process.env.LANGFUSE_SECRET_KEY,
-});
+### distributed-tracing
+**Keywords:** trace, tracing, observability, span, nested, parent-child, observe
+**Solves:**
+- How do I trace LLM calls across my application?
+- How to debug slow LLM responses?
+- Track execution flow in multi-agent workflows
+- Create nested trace spans
 
-// Wrap every LLM call
-async function tracedLLMCall(name: string, messages: Message[]) {
-  const trace = langfuse.trace({
-    name,
-    userId: currentUser.id,
-    metadata: { environment: process.env.NODE_ENV },
-  });
+### cost-tracking
+**Keywords:** cost, token usage, pricing, budget, spend, expense
+**Solves:**
+- How do I track LLM costs?
+- Calculate token usage and pricing
+- Monitor AI budget and spending
+- Track cost per user or session
 
-  const generation = trace.generation({
-    name: "chat",
-    model: selectedModel,
-    input: messages,
-  });
+### prompt-management
+**Keywords:** prompt version, prompt template, prompt control, prompt registry
+**Solves:**
+- How do I version control prompts?
+- Manage prompts in production
+- A/B test different prompt versions
+- Link prompts to traces
 
-  try {
-    const response = await llm.chat({ model: selectedModel, messages });
+### llm-evaluation
+**Keywords:** score, quality, evaluation, rating, assessment, g-eval
+**Solves:**
+- How do I evaluate LLM output quality?
+- Score responses with custom metrics
+- Track quality trends over time
+- Compare prompt versions by quality
 
-    generation.end({
-      output: response.choices[0].message,
-      usage: {
-        promptTokens: response.usage.prompt_tokens,
-        completionTokens: response.usage.completion_tokens,
-      },
-    });
+### session-tracking
+**Keywords:** session, user tracking, conversation, group traces
+**Solves:**
+- How do I group related traces?
+- Track multi-turn conversations
+- Monitor per-user performance
+- Organize traces by session
 
-    return response;
-  } catch (error) {
-    generation.end({ level: "ERROR", statusMessage: error.message });
-    throw error;
-  }
-}
-```
+### langchain-integration
+**Keywords:** langchain, callback, handler, langgraph integration
+**Solves:**
+- How do I integrate Langfuse with LangChain?
+- Use CallbackHandler for tracing
+- Automatic LangGraph workflow tracing
+- LangChain observability setup
 
-### 2. Add Context
+### datasets-evaluation
+**Keywords:** dataset, test set, evaluation dataset, benchmark
+**Solves:**
+- How do I create test datasets in Langfuse?
+- Run automated evaluations
+- Regression testing for LLMs
+- Benchmark prompt versions
 
-```typescript
-// Include useful metadata for debugging
-const trace = langfuse.trace({
-  name: "user-query",
-  userId: user.id,
-  sessionId: session.id,  // Group related traces
-  metadata: {
-    userPlan: user.plan,
-    feature: "chat",
-    version: "v2.1",
-  },
-  tags: ["production", "chat-feature"],
-});
-```
+### ab-testing
+**Keywords:** a/b test, experiment, compare prompts, variant testing
+**Solves:**
+- How do I A/B test prompts?
+- Compare two prompt versions
+- Experimental prompt evaluation
+- Statistical prompt testing
 
-### 3. Score Outputs
+### monitoring-dashboard
+**Keywords:** dashboard, analytics, metrics, monitoring, queries
+**Solves:**
+- What are the most expensive traces?
+- Average cost by agent type
+- Quality score trends
+- Custom monitoring queries
 
-```typescript
-// Track quality metrics
-generation.score({
-  name: "user-feedback",
-  value: userRating, // 1-5
-});
+### skillforge-integration
+**Keywords:** skillforge, migration, setup, workflow integration
+**Solves:**
+- How does SkillForge use Langfuse?
+- Migrate from LangSmith to Langfuse
+- SkillForge workflow tracing patterns
+- Cost tracking per analysis
 
-// Or automated scoring
-generation.score({
-  name: "response-length",
-  value: response.content.length < 500 ? 1 : 0,
-});
-```
+### multi-judge-evaluation
+**Keywords:** multi judge, g-eval, multiple evaluators, ensemble evaluation, weighted scoring
+**Solves:**
+- How do I use multiple LLM judges to evaluate quality?
+- Set up G-Eval criteria evaluation
+- Configure weighted scoring across judges
+- Wire SkillForge's existing langfuse_evaluators.py
 
-### 4. Flush Before Exit
-
-```typescript
-// Important for serverless environments
-await langfuse.flushAsync();
-```
-
-## Promptfoo Integration
-
-### Trace → Eval Case Workflow
-
-1. **Find interesting traces in Langfuse** (failures, edge cases)
-2. **Export as test cases** for Promptfoo
-3. **Add to regression suite** to prevent future issues
-
-```typescript
-// Export failed traces as test cases
-const failedTraces = await langfuse.getTraces({ level: "ERROR", limit: 50 });
-
-const testCases = failedTraces.map(trace => ({
-  vars: trace.input,
-  assert: [
-    { type: "not-contains", value: "error" },
-    { type: "llm-rubric", value: "Response should address the user's question" },
-  ],
-}));
-
-// Add to promptfooconfig.yaml
-```
-
-### Langfuse Callback in Promptfoo
-
-```yaml
-# promptfooconfig.yaml
-defaultTest:
-  options:
-    callback: langfuse
-    callbackConfig:
-      publicKey: ${LANGFUSE_PUBLIC_KEY}
-      secretKey: ${LANGFUSE_SECRET_KEY}
-```
-
-## Alternatives Comparison
-
-| Feature | Langfuse | Helicone | LangSmith |
-|---------|----------|----------|-----------|
-| Open Source | ✅ | ✅ | ❌ |
-| Self-Host | ✅ | ✅ | ❌ |
-| Free Tier | ✅ Generous | ✅ 10K/mo | ⚠️ Limited |
-| Prompt Mgmt | ✅ | ❌ | ✅ |
-| Tracing | ✅ | ✅ | ✅ |
-| Cost Track | ✅ | ✅ | ✅ |
-| A/B Testing | ⚠️ | ❌ | ✅ |
-
-**Choose Langfuse when**: Self-hosting needed, cost-conscious, want prompt management.
-
-**Choose Helicone when**: Proxy-based setup preferred, simple integration.
-
-**Choose LangSmith when**: LangChain ecosystem, enterprise support needed.
-
-## Related Skills
-
-- `llm-evaluation` - Promptfoo for testing, pairs well with Langfuse for observability
-- `llm-gateway-routing` - OpenRouter/LiteLLM for model routing
-- `ai-llm-development` - Overall LLM development patterns
-
-## Related Commands
-
-- `/llm-gates` - Audit LLM infrastructure including observability gaps
-- `/observe` - General observability audit
+### experiments-api
+**Keywords:** experiment, dataset, benchmark, regression test, prompt testing
+**Solves:**
+- How do I run experiments across datasets?
+- A/B test models and prompts systematically
+- Track quality regression over time
+- Compare experiment results

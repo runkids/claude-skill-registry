@@ -1,7 +1,7 @@
 {
   "name": "condition-based-waiting",
-  "repo": "liauw-media/household-expense-tracker",
-  "path": ".claude/skills/testing/condition-based-waiting/SKILL.md",
-  "source": "github.com/liauw-media/household-expense-tracker",
-  "downloaded_at": "2026-01-14T03:58:26.958013Z"
+  "repo": "vinceh/recipe",
+  "path": ".claude/skills/condition-based-waiting/SKILL.md",
+  "source": "github.com/vinceh/recipe",
+  "downloaded_at": "2026-01-17T04:01:48.544139Z"
 }

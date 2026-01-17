@@ -1,7 +1,7 @@
 {
   "name": "context-manager",
-  "repo": "eddiebe147/claude-settings",
-  "path": "skills/context-manager/SKILL.md",
-  "source": "github.com/eddiebe147/claude-settings",
-  "downloaded_at": "2026-01-14T03:53:07.401416Z"
+  "repo": "shiiman/claude-code-plugins",
+  "path": "plugins/shiiman-claude/skills/context-manager/SKILL.md",
+  "source": "github.com/shiiman/claude-code-plugins",
+  "downloaded_at": "2026-01-17T03:40:07.745330Z"
 }

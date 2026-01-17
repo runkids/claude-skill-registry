@@ -1,9 +1,7 @@
 {
   "name": "dotfiles-rollback",
-  "description": "バックアップ確認とロールバック。dotfiles設定を以前の状態に復元。トリガー: rollback, backup, restore, 復元, 元に戻す",
   "repo": "snkrheadz/laptop",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "GitHub Search API"
+  "path": ".claude/skills/dotfiles-rollback/SKILL.md",
+  "source": "github.com/snkrheadz/laptop",
+  "downloaded_at": "2026-01-17T02:29:13.016013Z"
 }

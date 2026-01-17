@@ -1,12 +1,7 @@
 {
   "name": "document-feature",
-  "description": "Generate standardized feature documentation using Good Docs templates. Use when documenting a feature, creating feature docs, or writing technical documentation for a specific capability.",
-  "repo": "amak07/acr-automotive",
-  "category": "documents",
-  "tags": [
-    "document",
-    "feature"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "repo": "WhatIfWeDigDeeper/claude-template",
+  "path": ".claude/skills/document-feature/SKILL.md",
+  "source": "github.com/WhatIfWeDigDeeper/claude-template",
+  "downloaded_at": "2026-01-17T03:05:08.786563Z"
 }

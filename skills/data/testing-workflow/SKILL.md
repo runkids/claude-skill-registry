@@ -1,162 +1,190 @@
 ---
 name: testing-workflow
-description: Run and manage functional tests (unit, integration, E2E, mutation). Use when running tests, debugging test failures, ensuring test coverage, or fixing mutation testing issues. Covers PHPUnit, Behat, and Infection. For K6 load/performance tests, use the load-testing skill instead.
+description: Write comprehensive tests following project conventions (tiers, patterns, anti-patterns). Use when writing tests, improving test coverage, fixing failing tests, or reviewing test quality.
 ---
 
 # Testing Workflow Skill
 
-## Context (Input)
+## Quick Decision: Which Test Tier?
 
-- Code changes require test validation
-- Test failures need debugging
-- Coverage/mutation targets must be met
+Ask yourself:
+- **Fast local iteration?** → Tier 0 (`pytest --tier=0`)
+- **Before commit?** → Tier 1 (`pytest`, default)
+- **Integration validation?** → Tier 2 (`pytest --tier=2`)
+- **Pre-deployment?** → Tier 3 (`pytest --tier=3`)
+- **Release validation?** → Tier 4 (`pytest --tier=4`)
 
-## Task (Function)
+## Quick Decision: Which Test Strategy?
 
-Execute appropriate test suite and ensure 100% pass rate with required coverage.
+For Lambda/infrastructure testing (layers beyond pytest):
+- **Quick dev iteration?** → Unit tests only (`just test-scheduler-unit`, 15s)
+- **Before commit?** → Quick validation layers 1-5 (`just test-scheduler`, 2 min)
+- **Lambda changes?** → Docker tests (`just test-scheduler-docker`, 90s)
+- **Step Functions changes?** → Contract tests (`just test-scheduler-contracts`, 10s)
+- **Pre-deployment?** → Full validation (`just test-scheduler-all`, 5 min)
+- **AWS integration?** → Integration tests (`just test-scheduler-integration`, 60s)
 
-**Note**: For K6 load/performance testing, see [load-testing skill](../load-testing/SKILL.md).
+See [Progressive Testing Strategy](PROGRESSIVE-TESTING.md) for the 7-layer approach.
 
-## Test Commands Quick Reference
+---
 
-| Test Type   | Command                  | Runtime  | Coverage | Location           |
-| ----------- | ------------------------ | -------- | -------- | ------------------ |
-| Unit        | `make unit-tests`        | 2-3 min  | 100%     | tests/Unit/        |
-| Integration | `make integration-tests` | 3-5 min  | Full     | tests/Integration/ |
-| E2E (Behat) | `make behat`             | 5-10 min | BDD      | features/          |
-| All Tests   | `make all-tests`         | 8-15 min | 100%     | All                |
-| Mutation    | `make infection`         | Variable | 100% MSI | Unit tests         |
+## Docker-Based Testing for Lambda Functions
 
-**Load Testing**: Use [load-testing skill](../load-testing/SKILL.md) for K6 performance tests.
+**NEW: Docker-based testing prevents "filesystem unaware" deployment failures**
 
-## Execution Workflow
-
-### Step 1: Run Tests
-
-```bash
-make unit-tests           # For quick validation
-make all-tests            # For comprehensive check
-```
-
-### Step 2: Check Results
-
-- ✅ **All Pass + 100% coverage** → Complete
-- ❌ **Failures detected** → Go to Step 3
-
-### Step 3: Debug Failures
-
-Identify failure type and apply fix:
-
-| Failure Type      | Debug Command           | Common Fixes                              |
-| ----------------- | ----------------------- | ----------------------------------------- |
-| Assertion failure | PHPUnit output          | Fix logic, update test expectations       |
-| Coverage < 100%   | Coverage report         | Add missing test cases                    |
-| Escaped mutants   | `make infection` output | Test edge cases, strengthen assertions    |
-| Behat scenario    | Feature output          | Fix application logic or step definitions |
-| Type error        | Stack trace             | Fix type hints, mock returns              |
-
-### Step 4: Fix and Re-test
+For Lambda functions (LINE bot, Telegram API), run tests in Docker to match production runtime:
 
 ```bash
-# Fix the code/tests
-make unit-tests           # Re-run to verify fix
+# LINE bot Docker import validation
+./scripts/test_line_bot_docker.sh
+
+# Pre-commit validation (syntax + unit tests + Docker imports)
+./scripts/test_line_bot_pre_commit.sh
 ```
 
-Repeat Steps 2-4 until all tests pass with 100% coverage.
+**Why Docker tests matter**:
+- ✅ **Runtime fidelity**: Tests run in exact Lambda Python 3.11 environment
+- ✅ **Filesystem aware**: Validates deployment package structure (`/var/task`)
+- ✅ **Catches import errors**: "cannot import handle_webhook" caught before production
+- ✅ **2 birds 1 stone**: Tests logic AND validates deployment environment
 
-## Mutation Testing (Infection)
+**CI/CD integration**:
+- GitHub Actions runs Docker import tests automatically (`.github/workflows/deploy-line-dev.yml`)
+- Tests block deployment if imports fail
+- Prevents false positive deployments (tests pass but Lambda fails)
 
-**Goal**: 100% Mutation Score Indicator (MSI) - Zero escaped mutants
+**Anti-pattern prevented**:
+❌ Running tests in dev environment (setup-python) but deploying to Lambda (Docker container)
+✅ Run tests in Docker container that matches deployed environment
 
-### Run Mutation Tests
+See: `.claude/specifications/workflow/2025-12-29-implement-test-workflow-to-reduce-false-positive-deployment.md`
+
+---
+
+## Loop Pattern: Synchronize Loop (Test-Code Alignment)
+
+**Escalation Trigger**:
+- Tests pass but code still buggy (drift between test intent and reality)
+- `/validate` shows tests don't actually test the claim
+- Knowledge drift: Test assumptions outdated
+
+**Tools Used**:
+- `/validate` - Verify tests actually test what they claim (sabotage code, test should fail)
+- `/consolidate` - Align test intent with code reality (update tests or fix code)
+- `/trace` - Understand test failure causality (why did this test fail?)
+- `/reflect` - Assess test quality (are we testing outcomes or just execution?)
+
+**Why This Works**: Testing naturally involves synchronize loop—ensuring tests align with code behavior, not just pass.
+
+See [Thinking Process Architecture - Feedback Loops](../../.claude/diagrams/thinking-process-architecture.md#11-feedback-loop-types-self-healing-properties) for structural overview.
+
+---
+
+## Test Structure
+
+```
+tests/
+├── conftest.py         # Shared fixtures ONLY
+├── shared/             # Agent, workflow, data tests
+├── telegram/           # Telegram API tests
+├── line_bot/           # LINE Bot tests (mark: legacy)
+├── e2e/                # Playwright browser tests
+├── integration/        # External API tests
+└── infrastructure/     # S3, DynamoDB tests
+```
+
+## When to Use Each Tier
+
+| Tier | Command | Includes | Use Case |
+|------|---------|----------|----------|
+| 0 | `pytest --tier=0` | Unit only | Fast local |
+| 1 | `pytest` (default) | Unit + mocked | Deploy gate |
+| 2 | `pytest --tier=2` | + integration | Nightly |
+| 3 | `pytest --tier=3` | + smoke | Pre-deploy |
+| 4 | `pytest --tier=4` | + e2e | Release |
+
+## Writing a Test: Checklist
+
+1. **Choose test location** based on component under test
+2. **Use class-based structure**: `class TestComponent:`
+3. **Follow canonical pattern**: See [PATTERNS.md](PATTERNS.md)
+4. **Avoid anti-patterns**: Check [ANTI-PATTERNS.md](ANTI-PATTERNS.md)
+5. **Apply defensive validation**: See [DEFENSIVE.md](DEFENSIVE.md)
+6. **Verify test can fail**: Sabotage code, test should fail
+
+## Common Workflows
+
+### Writing a Unit Test
+1. Create `class TestComponent` in appropriate test file
+2. Add `setup_method()` if component needs initialization
+3. Write test method: `def test_behavior_description(self):`
+4. Use fixtures from conftest.py for shared data
+5. Assert outcomes, not just execution
+6. Sabotage code to verify test catches failures
+
+### Adding Integration Tests
+1. Mark with `@pytest.mark.integration`
+2. Use real external APIs (LLM, yfinance, Aurora)
+3. Validate multi-layer outcomes (status code → logs → data state)
+4. Consider rate limits (`@pytest.mark.ratelimited`)
+
+### Improving Test Coverage
+1. Run `pytest --cov` to see coverage report
+2. Identify untested branches and edge cases
+3. Write tests for failure modes (not just success)
+4. Add boundary condition tests
+
+### Fixing Failing Tests
+1. Read test failure message carefully
+2. Check if code behavior changed (update test)
+3. Check if test has anti-pattern (fix test)
+4. Verify test isolation (no shared state between tests)
+
+## Test Markers
+
+```python
+@pytest.mark.integration   # External APIs (LLM, yfinance)
+@pytest.mark.smoke         # Requires live server
+@pytest.mark.e2e           # Requires browser
+@pytest.mark.legacy        # LINE bot (skip in Telegram CI)
+@pytest.mark.ratelimited   # API rate limited (--run-ratelimited to include)
+pytestmark = pytest.mark.legacy  # Mark entire file
+```
+
+## Quick Reference Commands
 
 ```bash
-make infection
+# Deploy gate (Tier 1)
+just test-deploy
+
+# Integration + Telegram only (Tier 2)
+pytest --tier=2 tests/telegram
+
+# Skip LINE bot and browser tests
+pytest -m "not legacy and not e2e"
+
+# Include rate-limited tests
+pytest --run-ratelimited
+
+# Coverage report
+pytest --cov
 ```
 
-### Fix Escaped Mutants
+## Rules (DO / DON'T)
 
-1. Review mutation diff in output
-2. Add test case for uncaught mutation
-3. Strengthen assertion specificity
-4. Consider refactoring for testability
+| DO | DON'T |
+|----|-------|
+| `class TestComponent:` | `def test_foo()` at module level |
+| `assert x == expected` | `return True/False` (pytest ignores!) |
+| `assert isinstance(r, dict)` | `assert r is not None` (weak) |
+| Define mocks in `conftest.py` | Duplicate mocks per file |
+| Patch where USED: `@patch('src.api.module.lib')` | Patch where defined: `@patch('lib')` |
+| `AsyncMock` for async methods | `Mock` for async (breaks await) |
 
-**Example**: If mutant changes `>` to `>=`, add boundary test case.
+## Next Steps
 
-## Faker Usage in Tests
-
-**Setup**: Tests extend `UnitTestCase` which provides `$this->faker`
-
-```php
-// Good - Dynamic test data
-$this->faker->email();
-$this->faker->lexify('??');  // 2 random letters
-$this->faker->unique()->ulid();
-
-// Bad - Hardcoded values
-'test@example.com'
-'AB'
-```
-
-**Available**:
-
-- `$this->faker->ulid()` - Domain ULID via custom provider
-- All standard Faker methods (email, name, word, etc.)
-
-## Load Testing
-
-**Commands**:
-
-```bash
-make smoke-load-tests      # Minimal load, 5-10 min
-make average-load-tests    # Normal traffic, 15-25 min
-make stress-load-tests     # High load, 20-30 min
-make spike-load-tests      # Extreme spikes, 25-35 min
-```
-
-**Prerequisites**:
-
-- Test database seeded (`make setup-test-db`)
-- Docker containers running (`make start`)
-- K6 Docker image built
-
-## Constraints (Parameters)
-
-**NEVER**:
-
-- Cancel long-running tests mid-execution
-- Commit with failing tests
-- Accept coverage < 100%
-- Allow escaped mutants
-- Run tests outside Docker (use `make` commands)
-
-**ALWAYS**:
-
-- Use Faker for dynamic test data
-- Mock external dependencies in unit tests
-- Use real DB in integration tests
-- Ensure deterministic test results
-
-## Format (Output)
-
-**Unit Tests Success**:
-
-```
-OK (X tests, Y assertions)
-✅ COVERAGE SUCCESS: Line coverage is 100%
-```
-
-**Mutation Testing Success**:
-
-```
-100% MSI
-0 escaped mutants
-```
-
-## Verification Checklist
-
-- [ ] All tests pass
-- [ ] Coverage is 100%
-- [ ] Zero escaped mutants (if running mutation tests)
-- [ ] No hardcoded test values (use Faker)
-- [ ] Tests run in Docker container via `make`
+- **For test patterns**: See [PATTERNS.md](PATTERNS.md)
+- **For anti-patterns to avoid**: See [ANTI-PATTERNS.md](ANTI-PATTERNS.md)
+- **For defensive programming**: See [DEFENSIVE.md](DEFENSIVE.md)
+- **For progressive testing (7-layer strategy)**: See [PROGRESSIVE-TESTING.md](PROGRESSIVE-TESTING.md)
+- **For Lambda/Docker/contract testing**: See [LAMBDA-TESTING.md](LAMBDA-TESTING.md)

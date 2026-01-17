@@ -1,46 +1,47 @@
 ---
 name: sync
-description: Real-time sync with Supabase, Loro CRDT, and IndexedDB. Use when working on files in src/lib/sync/.
+description: Use when user says "sync" or wants to commit, push, pull, and run the dotfiles sync script
 ---
 
-# Sync Guidelines
+# Sync
 
-## Core Principles
+Full dotfiles sync: commit, git sync, resolve conflicts, run sync script.
 
-1. **Server is source of truth** - IndexedDB is a cache
-2. **All ops kept forever** - no pruning, enables full audit trail
-3. **Shallow snapshots for fast start** - performance only, not compaction
-4. **Encryption at rest** - server sees encrypted blobs + plaintext version metadata
+## Steps
 
-## Persistence Flow
+1. **Check for changes**
+   ```bash
+   git status
+   git diff
+   ```
 
-| Event            | IndexedDB              | Server                    |
-| ---------------- | ---------------------- | ------------------------- |
-| Local change     | **Immediate**          | **Throttled** (~2s)       |
-| Tab hidden/close | Immediate              | Flush pending             |
-| Cold start       | Load snapshot → usable | Background sync           |
+2. **Commit if changes exist**
+   - Analyze diff for distinct semantic changes
+   - Make multiple commits if changes span different scopes/concerns
+   - Use conventional commit format with scope from CLAUDE.md
+   - Example: fish config change + claude settings change = 2 commits
 
-## Critical Rules
+3. **Git sync**
+   ```bash
+   git sync  # alias for: git pull --rebase && git push
+   ```
 
-1. **IndexedDB writes immediate** - crash safety
-2. **Server pushes throttled** - use `lodash-es` throttle, ~2s
-3. **Encrypt before storage** - never plaintext in IndexedDB or server
-4. **Version vector plaintext** - enables server filtering without decryption
-5. **`has_unpushed` flag critical** - server must send ops (not snapshot) if client has local changes
-6. **Flush on visibility change** - don't lose data on tab switch
+4. **Resolve conflicts if any**
+   - Autostash conflicts are common with `claude/settings.json`
+   - Read conflicted file, resolve intelligently, then:
+     ```bash
+     git add <file>
+     git stash drop  # if autostash conflict
+     ```
+   - Commit and push resolution
 
-## Key Details
+5. **Run sync script**
+   ```bash
+   ./sync
+   ```
 
-- loro-mirror auto-commits on `setState()` - no manual debouncing
-- `subscribeLocalUpdates` fires after each commit with binary update
-- Snapshot refresh: ops > 1000 OR bytes > 1MB (not time-based)
+## Notes
 
-## Conflict Resolution
-
-Loro handles automatically: last-write-wins per field, set union for arrays.
-
-## UI States
-
-- **Saved** - all pushed
-- **Saving...** - pending in buffer
-- **Offline** - can't reach server
+- Sync script without sudo skips password-protected operations (casks, Touch ID, shell change)
+- This is expected in Claude Code sessions - no sudo access
+- User can run `sudo ./sync` manually later for full sync

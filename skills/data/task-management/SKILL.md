@@ -1,82 +1,199 @@
 ---
 name: task-management
-description: A comprehensive framework for high-performance engineering management and task execution. It guides users through reducing ambiguity, defining "Done," choosing the optimal leadership positioning, and managing risks via implication-based communication.
+description: 태스크 파일 CRUD, 상태 업데이트, 아카이빙 가이드
+allowed-tools: Read, Edit, Glob, Bash
 ---
 
-# Task Management
+# Task Management 가이드
 
-This skill operationalizes "Seniority" and "Engineering Management" into a repeatable process. It enforces standards for reducing ambiguity, defining completion based on business value, and positioning oneself effectively between technical details and strategic direction.
+태스크 파일을 관리하고 상태를 추적하는 방법입니다.
 
-## 1. Phase: Ambiguity Reduction (The Seniority Test)
+## 태스크 파일 구조
 
-True seniority is defined by the ability to take abstract/fuzzy requirements and turn them into concrete plans. Before execution, you must define the problem, not just the solution.
+### 위치
+- 활성 태스크: `./tasks/TASK-{ID}.md`
+- 아카이브: `./tasks/archive/TASK-{ID}.md`
 
-**Diagnostic Questions:**
+### 기본 형식
 
-1. **What is the underlying problem?** (Separate the requested solution from the actual pain point).
-2. **Who is the specific user?** (Be specific; "the team" or "users" is insufficient).
-3. **The "Why" Test:** Can the engineer explain *why* this feature exists in the product vision? If the answer is "because PM asked," the context is broken.
-4. **Risk Assessment:** What happens if we are wrong?
+```markdown
+# TASK-{ID}: {제목}
 
-**Output Required:**
+## 상태
+- 현재: {status}
+- 생성일: {created_at}
+- 마지막 업데이트: {updated_at}
 
-- A **Problem Statement** that replaces the original vague request.
-- **Clarification Action Items** (e.g., "Sync with stakeholders regarding naming conventions") [Conversation History].
+## 요청 내용
+{사용자 요청 원문}
 
-## 2. Phase: Strategic Positioning (Command & Control)
+## Steps
+### Step 1: {제목} [S/M/L]
+- 설명: {상세 설명}
+- 상태: pending | in_progress | completed
+- 관련 파일: {파일 목록}
 
-Do not blindly "work hard." Determine your optimal positioning based on **Situational Awareness** (knowing what/why is happening) and **Operational Clarity** (team knows what to do).
+## 에이전트 결과
+### codebase_search_result
+{결과}
 
-**Select Your Mode:**
+## 테스트 결과
+### [TASK-ID-T01] {테스트명}
+- 결과: PASSED | FAILED
+- 일시: {timestamp}
 
-- **Crisis Mode** (Low Awareness, Low Clarity): **Learn & Stabilise.** Prioritize coding/investigation to regain control immediately.
-- **Ambiguity** (High Awareness, Low Clarity): **Lead by Example.** Code alongside the team to set standards and build shared understanding.
-- **Flying Blind** (Low Awareness, High Clarity): **Passive Coding.** Trust the team's direction but do targeted contributions (e.g., bug fixes) to ramp up context.
-- **Clarity** (High Awareness, High Clarity): **Strategic Direction.** Step back from coding. Focus on long-term planning, risk mitigation, and "Wolf Time" (71/29 rule) allocation.
+## User Interactions
+{사용자 입력 기록}
+```
 
-## 3. Phase: Definition of "Done" (Artifacts over Efforts)
+## 태스크 상태
 
-"Done" is not a feeling or an effort; it is a social construct defined by the satisfaction of the stakeholder/company. Work is only complete when it produces readable results.
+| 상태 | 설명 |
+|------|------|
+| pending | 생성됨, 작업 미시작 |
+| in_progress | 작업 진행 중 |
+| completed | 모든 Step 완료 |
+| pending_test | 테스트 대기 중 |
+| archived | 아카이브됨 |
 
-**Standard for Engineering Completion:**
+## 조회 작업
 
-Development is effectively "Done" only when the following artifacts exist:
+### 목록 조회
 
-1. **PR Merged**: Code review passed and merged.
-2. **CD Image**: A deployable image generated via CI/CD.
-3. **Versioned Helm Chart**: A chart capable of running the image.
-4. **End-to-End Validation**: Proof that it works in the target environment (e.g., specific GPU targeting confirmed).
+```bash
+# 모든 활성 태스크
+ls ./tasks/TASK-*.md
 
-**The "Done" Manifesto:**
+# 상태별 필터링 (Grep 사용)
+grep -l "현재: pending" ./tasks/TASK-*.md
+grep -l "현재: in_progress" ./tasks/TASK-*.md
+grep -l "현재: pending_test" ./tasks/TASK-*.md
+```
 
-- Do not report "Investigation" as a result. Report the **Document** produced.
-- Do not report "Refactoring" as a result. Report the **Performance Metric** improved or **Tech Debt** removed.
-- **Declare Victory and Leave:** When the criteria are met, explicitly state "This task is complete" and move to the next challenge. Do not get trapped in infinite gardening.
+### ID별 조회
 
-## 4. Phase: Execution & Communication
+```
+Read: ./tasks/TASK-001.md
+```
 
-Communication must bridge the gap between technical facts and business decisions.
+## 상태 업데이트
 
-**Implication-Based Communication:**
+### Edit 도구 사용
 
-- **BAD (Fact-only):** "OOM occurred." / "Cache hit rate changed."
-- **GOOD (Implication):** "OOM occurred, which implies we cannot support the target batch size. Recommendation: Decrease batch size or increase GPU memory request."
+```
+old_string: "- 현재: in_progress"
+new_string: "- 현재: completed"
+```
 
-**Risk Management:**
+### 타임스탬프 포함
 
-If the "Expected Result" and the "Schedule" are misaligned:
+```markdown
+- 현재: completed
+- 마지막 업데이트: 2024-01-15T10:30:00
+```
 
-1. **Acknowledge** the gap immediately.
-2. **Identify** the cause.
-3. **Propose** a mitigation plan (e.g., "Draft by Jan 7, Final by Jan 14").
+## 테스트 결과 기록
 
-## Example Usage
+### 새 테스트 결과 추가
 
-**Input Task:** "Action item: Please actually write the templates and validate that they work end-to-end."
+Task 파일의 `## 테스트 결과` 섹션에 추가:
 
-**Applied Framework:**
+```markdown
+## 테스트 결과
 
-1. **Ambiguity:** Clarified "Write templates" -> "Create Odin presets for specific GPU models." Synced on naming conventions.
-2. **Positioning:** **Ambiguity Mode**. The manager/senior engineer will write the initial templates (Lead by Example) to set the standard for the Hanoi team.
-3. **Definition of Done:** Artifacts = Preset File + Doc + Validation Log + Versioned Chart.
-4. **Closing:** "Task Complete. Hanoi team can now target GPUs using label `x`. Documentation is at `link`."
+### [TASK-001-T01] 사용자 인증 테스트
+- 결과: PASSED
+- 일시: 2024-01-15T14:30:00
+- 테스터: {user}
+- 비고: 모든 케이스 통과
+
+### [TASK-001-T02] 권한 검증 테스트
+- 결과: FAILED
+- 일시: 2024-01-15T14:45:00
+- 에러: 관리자 권한 검증 실패
+- 로그: ./logs/test-error-001.txt
+```
+
+### 테스트 상태 집계
+
+```markdown
+## 테스트 요약
+- 총 테스트: 5개
+- 통과: 4개
+- 실패: 1개
+- 마지막 실행: 2024-01-15T14:45:00
+```
+
+## 아카이빙
+
+### 아카이브 조건
+
+모든 조건 충족 시에만 아카이브:
+1. 모든 Step: completed
+2. 모든 테스트: PASSED (또는 테스트 없음)
+
+### 아카이브 실행
+
+```bash
+# archive-task.py hook 사용
+python3 .claude/hooks/archive-task.py TASK-001
+
+# 미리보기
+python3 .claude/hooks/archive-task.py TASK-001 --dry-run
+```
+
+### 아카이브 동작
+
+1. `./tasks/TASK-001.md` → `./tasks/archive/TASK-001.md`
+2. `./Test/[TASK-001-*].md` → `./Test/Archive/`
+3. 상태를 `archived`로 변경
+
+## 내용 추가
+
+### 에이전트 결과 추가
+
+```markdown
+## 에이전트 결과
+
+### coder_agent_result (Step 1)
+- 상태: COMPLETED
+- 수정 파일: src/auth/login.ts, src/middleware/auth.ts
+- 변경 내용: JWT 인증 구현
+- 타임스탬프: 2024-01-15T10:30:00
+```
+
+### 사용자 코멘트 추가
+
+```markdown
+## User Interactions
+
+### [2024-01-15 10:30] 입력 요청 #1
+- 요청 출처: coder-agent (Step 2)
+- 유형: choice
+- 질문: "인증 방식 선택"
+- 선택지: ["JWT", "Session"]
+- **사용자 응답**: JWT
+```
+
+## 에러 처리
+
+### 파일 없음
+
+```
+Task 파일을 찾을 수 없습니다: TASK-999
+→ 올바른 TASK-ID 확인 필요
+```
+
+### 아카이브 실패
+
+```
+테스트가 완료되지 않았습니다.
+→ pending_test 상태 유지
+→ /test-report로 테스트 결과 보고 필요
+```
+
+---
+
+<!-- SKILL-PROJECT-CONFIG-START -->
+<!-- 프로젝트 특화 설정이 /orchestration-init에 의해 이 위치에 추가됩니다 -->
+<!-- SKILL-PROJECT-CONFIG-END -->

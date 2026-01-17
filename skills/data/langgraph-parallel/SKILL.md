@@ -3,6 +3,9 @@ name: langgraph-parallel
 description: LangGraph parallel execution patterns. Use when implementing fan-out/fan-in workflows, map-reduce over tasks, or running independent agents concurrently.
 context: fork
 agent: workflow-architect
+version: 1.0.0
+author: SkillForge
+user-invocable: false
 ---
 
 # LangGraph Parallel Execution

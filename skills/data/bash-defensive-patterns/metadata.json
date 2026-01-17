@@ -1,7 +1,7 @@
 {
   "name": "bash-defensive-patterns",
-  "repo": "vx-daniel/tb-docs-project",
-  "path": ".claude/skills/bash-defensive-patterns/SKILL.md",
-  "source": "github.com/vx-daniel/tb-docs-project",
-  "downloaded_at": "2026-01-14T03:42:24.712270Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/shell-scripting/skills/bash-defensive-patterns/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-01-17T03:59:17.309029Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "design-guide",
-  "repo": "arkcle83/crewdeck",
-  "path": ".claude/skills/design-guide/SKILL.md",
-  "source": "github.com/arkcle83/crewdeck",
-  "downloaded_at": "2026-01-14T02:10:57.735394Z"
+  "repo": "mosif16/codex-Skills",
+  "path": "skills/design-guide/SKILL.md",
+  "source": "github.com/mosif16/codex-Skills",
+  "downloaded_at": "2026-01-17T03:26:28.389272Z"
 }

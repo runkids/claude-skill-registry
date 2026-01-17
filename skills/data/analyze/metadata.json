@@ -1,7 +1,7 @@
 {
   "name": "analyze",
-  "repo": "ArvorCo/Relentless",
+  "repo": "rjmurillo/ai-agents",
   "path": ".claude/skills/analyze/SKILL.md",
-  "source": "github.com/ArvorCo/Relentless",
-  "downloaded_at": "2026-01-14T03:59:06.884252Z"
+  "source": "github.com/rjmurillo/ai-agents",
+  "downloaded_at": "2026-01-17T03:19:58.775554Z"
 }

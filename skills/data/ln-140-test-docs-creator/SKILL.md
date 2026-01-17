@@ -32,6 +32,9 @@ The skill follows a 3-phase workflow: **CREATE** → **VALIDATE STRUCTURE** → 
 **1.1 Check & create directories**:
 - Check if `docs/reference/guides/` exists → create if missing
 - Check if `tests/` exists → create if missing
+- Check if `tests/manual/` exists → create if missing
+- Check if `tests/manual/results/` exists → create if missing
+- Add `tests/manual/results/` to project `.gitignore` if not present
 - Log for each: "✓ Created [directory]/" or "✓ [directory]/ already exists"
 
 **1.2 Check & create documentation files**:
@@ -61,7 +64,9 @@ docs/reference/guides/
 └── testing-strategy.md           # Created or existing
 
 tests/
-└── README.md                     # Created or existing
+├── README.md                     # Created or existing
+└── manual/
+    └── results/                  # Created, added to .gitignore
 ```
 
 ---
@@ -398,6 +403,9 @@ Before completing work, verify ALL checkpoints:
 **✅ Structure Created (Phase 1):**
 - [ ] `docs/reference/guides/` directory exists
 - [ ] `tests/` directory exists
+- [ ] `tests/manual/` directory exists
+- [ ] `tests/manual/results/` directory exists
+- [ ] `tests/manual/results/` added to `.gitignore`
 - [ ] `testing-strategy.md` exists (created or existing)
 - [ ] `tests/README.md` exists (created or existing)
 
@@ -441,5 +449,5 @@ Before completing work, verify ALL checkpoints:
 
 ---
 
-**Version:** 7.1.0 (Added Documentation Standards section)
-**Last Updated:** 2025-01-12
+**Version:** 7.2.0 (Added tests/manual/results/ structure creation and .gitignore entry)
+**Last Updated:** 2026-01-15

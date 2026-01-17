@@ -1,8 +1,7 @@
 {
   "name": "managing-handoffs",
   "repo": "AJBcoding/claude-skill-eval",
-  "category": "data",
-  "description": "Create, update, and archive handoffs with proper metadata and verification",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:03:48.067219Z"
+  "path": ".claude/skills/managing-handoffs/SKILL.md",
+  "source": "github.com/AJBcoding/claude-skill-eval",
+  "downloaded_at": "2026-01-17T03:11:37.531688Z"
 }

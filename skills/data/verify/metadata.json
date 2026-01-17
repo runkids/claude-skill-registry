@@ -1,7 +1,7 @@
 {
   "name": "verify",
-  "repo": "maxritter/claude-codepro",
-  "path": ".claude/skills/verify/SKILL.md",
-  "source": "github.com/maxritter/claude-codepro",
-  "downloaded_at": "2026-01-14T03:18:10.090992Z"
+  "repo": "yonatangross/skillforge-claude-plugin",
+  "path": "skills/verify/SKILL.md",
+  "source": "github.com/yonatangross/skillforge-claude-plugin",
+  "downloaded_at": "2026-01-17T01:47:53.572762Z"
 }

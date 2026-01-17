@@ -1,7 +1,7 @@
 {
   "name": "gpui-action",
-  "repo": "longbridge/gpui-component",
-  "path": ".claude/skills/gpui-action/SKILL.md",
-  "source": "github.com/longbridge/gpui-component",
-  "downloaded_at": "2026-01-14T01:27:01.674683Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/gpui-action/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-17T02:27:15.345133Z"
 }

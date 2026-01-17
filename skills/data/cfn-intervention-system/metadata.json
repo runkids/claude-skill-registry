@@ -1,9 +1,7 @@
 {
   "name": "cfn-intervention-system",
-  "description": "Human intervention detection and orchestration for CFN Loop. Use when automated processes need human oversight, when escalation is required, or when managing intervention workflows and approval gates.",
   "repo": "masharratt/claude-flow-novice",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "GitHub Search API"
+  "path": ".claude/skills/cfn-intervention-system/SKILL.md",
+  "source": "github.com/masharratt/claude-flow-novice",
+  "downloaded_at": "2026-01-17T03:40:27.253262Z"
 }

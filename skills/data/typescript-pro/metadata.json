@@ -1,7 +1,7 @@
 {
   "name": "typescript-pro",
-  "repo": "kamushadenes/nix",
-  "path": "home/common/ai/resources/claude-code/skills/typescript-pro/SKILL.md",
-  "source": "github.com/kamushadenes/nix",
-  "downloaded_at": "2026-01-14T03:09:42.197566Z"
+  "repo": "rbergman/dark-matter-marketplace",
+  "path": "plugins/language-pro/skills/typescript-pro/SKILL.md",
+  "source": "github.com/rbergman/dark-matter-marketplace",
+  "downloaded_at": "2026-01-17T02:25:51.488339Z"
 }

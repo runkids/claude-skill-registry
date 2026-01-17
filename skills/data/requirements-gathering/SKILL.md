@@ -1,212 +1,240 @@
 ---
 name: requirements-gathering
-description: Discovery questions, checklists, and techniques for gathering requirements. Use during discovery to ensure thorough understanding before creating issues.
+description: Systematic requirements gathering through AskUserQuestion. Use when starting development to clarify app specifications.
 ---
 
 # Requirements Gathering Skill
 
-This skill provides guidance for thorough requirements gathering during discovery.
+Systematically gather requirements through AskUserQuestion to ensure clear specifications before implementation.
 
-## Core Principle
+## Trigger Conditions
 
-**The more we nail down upfront, the better the results.** Don't assume - ASK.
+Apply this skill when:
+- User invokes `/start-development` command
+- Starting development of a new feature or app
+- Requirements are unclear and need clarification
 
-## Your Job During Discovery
+## Gathering Process
 
-- Be thorough and inquisitive
-- Ask clarifying questions before creating any issues
-- Uncover hidden assumptions
-- Define the desired end state clearly
-- Identify edge cases early
-- Document what's in scope AND out of scope
+### Phase 1: Basic Information
 
----
-
-## Questions to Ask for Every Feature
-
-### Goals & Success
-
-- What problem are we solving?
-- What does success look like? How will we measure it?
-- What's the priority relative to other work?
-
-### Users & Personas
-
-- Who are the users of this feature?
-- Are there different user types with different needs?
-- What permissions/roles are involved?
-
-### Core Functionality
-
-- What is the primary goal?
-- Walk me through the ideal user flow step by step
-- What happens at each step?
-
-### Data & State
-
-- What data needs to be captured/stored?
-- What are the required fields vs optional?
-- Are there validation rules? (formats, lengths, ranges)
-- What's the initial/default state?
-
-### Edge Cases & Errors
-
-- What happens if [X] fails?
-- What if the user enters invalid data?
-- What about empty states? (no data yet)
-- What about concurrent access?
-- Rate limiting needed?
-
-### UI/UX (if applicable)
-
-- Is there a specific design or layout in mind?
-- Mobile responsive?
-- Accessibility requirements?
-- Loading states? Progress indicators?
-- Success/error feedback to user?
-
-### Integration
-
-- Does this connect to external services?
-- Are there existing patterns to follow?
-- API format preferences?
-
-### Security & Privacy
-
-- Is this data sensitive?
-- Authentication required?
-- Who can see/edit this data?
-
-### Architecture & Technical
-
-- What's the existing tech stack?
-- Are there performance requirements? (latency, throughput, scale)
-- What's the deployment environment?
-- Are there budget constraints?
-- What external services or APIs are involved?
-
-### Scope Boundaries
-
-- What is explicitly NOT included?
-- Are there future phases we should plan for but not build now?
-- What's the MVP vs nice-to-have?
-- What can we cut if we run short?
-
----
-
-## Red Flags to Probe
-
-When the user says something vague, dig deeper:
-
-| User Says | Ask About |
-|-----------|-----------|
-| "Simple login" | What's simple? OAuth? Email/password? Magic links? |
-| "Just like [X site]" | Which specific features? They have many |
-| "Standard CRUD" | What fields? Validation? Permissions? |
-| "Users can edit" | Edit what exactly? All fields? Their own only? |
-| "Normal validation" | What's normal? Email format? Required fields? |
-| "Handle errors" | Which errors? How? Messages? Retry? |
-| "Make it secure" | What threats? Auth? Encryption? Rate limiting? |
-| "Real-time updates" | WebSockets? SSE? Polling? How fresh? |
-| "Good performance" | What's good? <100ms? <1s? Specific benchmarks? |
-
----
-
-## Discovery Readiness Checklist
-
-**Don't move to issue creation until:**
-
-- [ ] You understand the complete user flow
-- [ ] You've identified all user types involved
-- [ ] You know what data is captured and validated
-- [ ] Edge cases and error handling are defined
-- [ ] Security/permission requirements are clear
-- [ ] You know what's explicitly OUT of scope
-- [ ] The user has confirmed your understanding
-- [ ] Architecture approach is validated
-- [ ] UI/UX requirements are captured (if applicable)
-
----
-
-## Example: Requirements Interview
-
-**User says:** "Add user authentication"
-
-**Good discovery response:**
-
+**Question 1: App Purpose**
 ```
-Before we design this, let me make sure I understand the full scope:
-
-**Users:**
-1. Is this for end-users, admins, or both?
-2. Will there be different roles/permissions?
-
-**Registration:**
-3. What fields are required? (email, password, name, etc.)
-4. Email verification required?
-5. Password requirements? (length, complexity)
-6. Terms of service acceptance?
-
-**Login:**
-7. Remember me / stay logged in option?
-8. Session timeout duration?
-9. Multiple device login allowed?
-
-**Password:**
-10. Password reset flow - email link or security questions?
-11. Password change when logged in?
-12. Account lockout after failed attempts?
-
-**Security:**
-13. Two-factor authentication needed?
-14. OAuth/social login? (Google, GitHub, etc.)
-15. Rate limiting on login attempts?
-
-**Edge cases:**
-16. What happens to existing data/users (if any)?
-17. Account deletion/deactivation?
-
-**Out of scope (confirm):**
-18. User profile editing - separate feature?
-19. Admin user management - separate feature?
+Header: "Purpose"
+Question: "What is the main purpose of this app?"
+Options:
+- "Productivity/Task management"
+- "E-commerce/Shopping"
+- "Social/Communication"
+- "Entertainment/Media"
+(User can also provide custom answer)
 ```
 
----
+**Question 2: Target Users**
+```
+Header: "Users"
+Question: "Who are the target users?"
+Options:
+- "General consumers (B2C)"
+- "Business users (B2B)"
+- "Internal company use"
+- "Specific community/group"
+```
 
-## Capturing Discovery Output
+**Question 3: Platform**
+```
+Header: "Platform"
+Question: "Which platforms do you want to support?"
+Options:
+- "iOS only"
+- "Android only"
+- "Both iOS and Android"
+- "iOS, Android, and Web"
+multiSelect: true
+```
 
-As you gather requirements, document findings in structured format:
+### Phase 2: Feature Requirements
+
+**Question 4: Core Features**
+```
+Header: "Features"
+Question: "What are the 3-5 main features you need? (Select all that apply)"
+Options:
+- "User authentication (login/signup)"
+- "Data listing and detail views"
+- "Create/Edit/Delete operations"
+- "Search and filtering"
+multiSelect: true
+```
+
+**Question 5: MVP Scope**
+```
+Header: "MVP"
+Question: "For the initial release (MVP), which feature is most critical?"
+Options:
+- "Core functionality working end-to-end"
+- "Beautiful UI/UX design"
+- "Performance and speed"
+- "Comprehensive feature set"
+```
+
+**Question 6: Data Storage**
+```
+Header: "Storage"
+Question: "How should data be stored?"
+Options:
+- "Local only (offline first)"
+- "Cloud/Server (Firebase, Supabase, etc.)"
+- "Hybrid (local + cloud sync)"
+- "No persistent storage needed"
+```
+
+### Phase 3: Screen Design
+
+**Question 7: Screen Count**
+```
+Header: "Screens"
+Question: "How many main screens do you expect?"
+Options:
+- "1-3 screens (simple app)"
+- "4-6 screens (medium complexity)"
+- "7-10 screens (complex app)"
+- "10+ screens (large app)"
+```
+
+**Question 8: Navigation Pattern**
+```
+Header: "Navigation"
+Question: "What navigation pattern do you prefer?"
+Options:
+- "Bottom navigation bar"
+- "Drawer/Side menu"
+- "Tab bar at top"
+- "Simple stack navigation"
+```
+
+### Phase 4: Technical Requirements
+
+**Question 9: External APIs**
+```
+Header: "APIs"
+Question: "Do you need external API integrations?"
+Options:
+- "No external APIs"
+- "REST APIs"
+- "GraphQL"
+- "Third-party services (maps, payment, etc.)"
+multiSelect: true
+```
+
+**Question 10: Authentication**
+```
+Header: "Auth"
+Question: "What authentication method do you need?"
+Options:
+- "No authentication needed"
+- "Email/Password"
+- "Social login (Google, Apple, etc.)"
+- "Phone number/OTP"
+multiSelect: true
+```
+
+**Question 11: Offline Support**
+```
+Header: "Offline"
+Question: "How important is offline functionality?"
+Options:
+- "Not needed (online only)"
+- "Basic offline viewing"
+- "Full offline support with sync"
+- "Offline-first architecture"
+```
+
+### Phase 5: Confirmation
+
+After gathering all responses, compile a summary and confirm with the user.
+
+**Question 12: Requirements Summary**
+```
+Header: "Confirm"
+Question: "Does this requirements summary look correct?"
+Options:
+- "Yes, proceed with planning"
+- "No, I need to modify some requirements"
+```
+
+## Output: REQUIREMENTS.md
+
+Generate a `REQUIREMENTS.md` file in the project root with the gathered information:
 
 ```markdown
-## Goals
-- [Primary goal]
-- [Success metrics]
+# Project Requirements
 
-## Users
-- [User type 1]: [needs]
-- [User type 2]: [needs]
+## Overview
+- **App Name**: [To be determined]
+- **Purpose**: [From Question 1]
+- **Target Users**: [From Question 2]
+- **Platforms**: [From Question 3]
 
-## Requirements
-### Must Have (MVP)
-- [Requirement 1]
-- [Requirement 2]
+## Features
 
-### Nice to Have
-- [Requirement 3]
+### Core Features
+[From Question 4]
 
-## Architecture Considerations
-- [Technical approach]
-- [Constraints]
+### MVP Scope
+[From Question 5]
 
-## UI/UX Requirements
-- [Design notes]
+## Data & Storage
+- **Storage Method**: [From Question 6]
+- **Offline Support**: [From Question 11]
 
-## Out of Scope
-- [Explicitly excluded item 1]
-- [Explicitly excluded item 2]
+## Screens & Navigation
+- **Expected Screens**: [From Question 7]
+- **Navigation Pattern**: [From Question 8]
 
-## Open Questions
-- [Any remaining unknowns]
+## Technical Requirements
+
+### Authentication
+[From Question 10]
+
+### External Integrations
+[From Question 9]
+
+## Next Steps
+1. Review and approve this requirements document
+2. Enter Plan Mode to design implementation
+3. Begin feature-by-feature development
+
+---
+Generated on: [Date]
 ```
 
-This structured output becomes the `discovery.md` document.
+## Integration with Workflow
+
+After requirements gathering:
+
+1. Save REQUIREMENTS.md
+2. Transition to Plan Mode (EnterPlanMode)
+3. Design implementation based on requirements
+4. User approves plan
+5. Begin implementation with TodoWrite tracking
+
+## Tips for Effective Gathering
+
+1. **Be Specific**: Ask for concrete details, not vague descriptions
+2. **Prioritize**: Help users identify MVP features vs nice-to-have
+3. **Validate**: Confirm understanding before proceeding
+4. **Iterate**: Allow users to modify answers as they think through requirements
+
+## Sample Workflow
+
+```
+1. User: "I want to build a todo app"
+2. Claude: Invokes requirements-gathering skill
+3. Claude: Asks Question 1-12 using AskUserQuestion
+4. Claude: Compiles responses into REQUIREMENTS.md
+5. Claude: Shows summary and asks for confirmation
+6. User: Confirms or requests modifications
+7. Claude: Saves REQUIREMENTS.md
+8. Claude: Enters Plan Mode for implementation design
+```

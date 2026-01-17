@@ -1,172 +1,177 @@
 ---
 name: sub-agents
-description: How to create and use specialized subagents in Claude Code for task delegation. Use when user asks about creating specialized agents, delegating tasks, agent configuration, or subagent features.
+description: Create and configure Claude Code sub-agents with custom prompts, tools, and models
+allowed-tools: [Read, Write, Bash]
+user-invocable: false
 ---
 
-# Subagents
+# Sub-Agents Reference
 
-## Overview
-Subagents are specialized AI assistants that Claude Code can delegate tasks to. Each operates with its own context window, custom system prompt, and configurable tool access.
+Create specialized AI agents with isolated contexts for specific tasks.
 
-## Key Features
+## When to Use
 
-**Context Management**: Each subagent operates in its own context, preventing pollution of the main conversation
-
-**Specialization**: Task-specific configurations enable higher success rates on designated work
-
-**Reusability**: Once created, subagents work across different projects and teams
-
-**Flexible Permissions**: Individual tool access control per subagent
+- "How do I create a sub-agent?"
+- "Configure agent tools"
+- "What built-in agents exist?"
+- "Agent model selection"
+- "Agent chaining patterns"
 
 ## Quick Start
 
-1. Run `/agents` command
-2. Select "Create New Agent"
-3. Choose project-level or user-level scope
-4. Define purpose, select tools, customize system prompt
-5. Save and invoke automatically or explicitly
+### Interactive (Recommended)
+```bash
+/agents
+```
+Opens menu to create, edit, and manage agents.
 
-## Configuration
+### Manual Creation
+```bash
+mkdir -p .claude/agents
+cat > .claude/agents/reviewer.md << 'EOF'
+---
+name: reviewer
+description: Code review specialist. Use proactively after code changes.
+tools: Read, Grep, Glob, Bash
+model: sonnet
+---
 
-### File Locations
-- **Project subagents**: `.claude/agents/`
-- **User subagents**: `~/.claude/agents/`
-- Project-level takes precedence over user-level
+You are a senior code reviewer focusing on quality and security.
 
-### File Format
-Markdown with YAML frontmatter containing:
-- `name`: Unique identifier
-- `description`: Purpose and invocation guidance
-- `tools`: Optional comma-separated list
-- `model`: Optional model alias (sonnet/opus/haiku) or 'inherit'
+## Review Checklist
+- Code clarity and naming
+- Error handling
+- Security vulnerabilities
+- Test coverage
+EOF
+```
 
-### Example Structure
+### CLI-Based
+```bash
+claude --agents '{
+  "reviewer": {
+    "description": "Code reviewer",
+    "prompt": "Review for quality and security",
+    "tools": ["Read", "Bash"],
+    "model": "sonnet"
+  }
+}'
+```
+
+## Agent File Format
+
+```yaml
+---
+name: agent-name
+description: When/why to use this agent
+tools: Read, Edit, Bash      # Optional, inherits all if omitted
+model: sonnet                 # sonnet, haiku, claude-opus-4-5-20251101, inherit
+---
+
+System prompt content here...
+```
+
+## Configuration Fields
+
+| Field | Required | Options |
+|-------|----------|---------|
+| `name` | Yes | lowercase, hyphens |
+| `description` | Yes | When to use |
+| `tools` | No | Tool list (inherits all if omitted) |
+| `model` | No | `sonnet`, `haiku`, `claude-opus-4-5-20251101`, `inherit` |
+
+## Built-In Agents
+
+| Agent | Model | Tools | Purpose |
+|-------|-------|-------|---------|
+| General-purpose | Sonnet | All | Complex multi-step tasks |
+| Plan | Sonnet | Read-only | Plan mode research |
+| Explore | Haiku | Read-only | Fast codebase search |
+
+## Model Selection
+
+| Model | Speed | Best For |
+|-------|-------|----------|
+| Haiku | Fastest | Search, quick lookups |
+| Sonnet | Fast | Most tasks (default) |
+| Opus | Slower | Complex reasoning |
+
+## Tool Combinations
+
+```yaml
+# Code Reviewer (read-only)
+tools: Read, Grep, Glob, Bash
+
+# Debugger
+tools: Read, Edit, Bash, Grep, Glob
+
+# Implementer
+tools: Read, Write, Edit, Bash, Glob
+```
+
+## Example Agents
+
+### Code Reviewer
 ```yaml
 ---
 name: code-reviewer
-description: Expert code review specialist. Use proactively after code changes.
+description: Reviews code for quality and security. Use after code changes.
 tools: Read, Grep, Glob, Bash
+model: sonnet
+---
+
+Review code for:
+- Security vulnerabilities
+- Code quality issues
+- Missing error handling
+- Test coverage gaps
+
+Output findings by priority: Critical > Warning > Suggestion
+```
+
+### Debugger
+```yaml
+---
+name: debugger
+description: Debug errors and test failures.
+tools: Read, Edit, Bash, Grep, Glob
 model: inherit
 ---
 
-Your system prompt explaining the subagent's role and approach...
+Debugging process:
+1. Capture error details
+2. Identify failure location
+3. Form hypotheses
+4. Test and verify
+5. Implement fix
 ```
 
-## Available Tools
+## File Locations
 
-When configuring subagents, you can grant access to these tools via the `tools` field in frontmatter:
+| Type | Location | Priority |
+|------|----------|----------|
+| Project | `.claude/agents/` | Highest |
+| User | `~/.claude/agents/` | Lower |
 
-### Tools That Require Permission
+## Advanced Patterns
 
-**Bash** - Executes shell commands in your environment
-- Use for: Running tests, git commands, build scripts
-- Example: `Bash`
+### Resumable Agents
+```
+[Agent returns agentId: "abc123"]
 
-**Edit** - Makes targeted edits to specific files
-- Use for: Code modifications, refactoring
-- Example: `Edit`
-
-**NotebookEdit** - Modifies Jupyter notebook cells
-- Use for: Data science workflows, notebook updates
-- Example: `NotebookEdit`
-
-**SlashCommand** - Runs a custom slash command
-- Use for: Invoking user-defined commands
-- Example: `SlashCommand`
-
-**WebFetch** - Fetches content from a specified URL
-- Use for: Documentation lookup, API calls
-- Example: `WebFetch`
-
-**WebSearch** - Performs web searches with domain filtering
-- Use for: Finding current information, research
-- Example: `WebSearch`
-
-**Write** - Creates or overwrites files
-- Use for: Generating new files, reports
-- Example: `Write`
-
-### Tools That Don't Require Permission
-
-**Glob** - Finds files based on pattern matching
-- Use for: Finding files by name pattern
-- Example: `Glob`
-
-**Grep** - Searches for patterns in file contents
-- Use for: Code search, pattern matching
-- Example: `Grep`
-
-**NotebookRead** - Reads and displays Jupyter notebook contents
-- Use for: Analyzing notebooks
-- Example: `NotebookRead`
-
-**Read** - Reads the contents of files
-- Use for: Code review, analysis
-- Example: `Read`
-
-**Task** - Runs a sub-agent to handle complex, multi-step tasks
-- Use for: Delegating to other specialized agents
-- Example: `Task`
-
-**TodoWrite** - Creates and manages structured task lists
-- Use for: Planning and tracking work
-- Example: `TodoWrite`
-
-### Configuring Tool Access
-
-**Grant all tools:**
-```yaml
-tools: Bash, Edit, Read, Write, Glob, Grep, WebFetch, WebSearch
+# Later: resume with context
+claude -r "abc123" "Continue analysis"
 ```
 
-**Grant minimal tools (read-only):**
-```yaml
-tools: Read, Glob, Grep
+### Agent Chaining
 ```
-
-**Grant specific tools for specialized tasks:**
-```yaml
-tools: Read, Bash, TodoWrite  # For a test runner agent
+Use code-analyzer to find issues,
+then use optimizer to fix them
 ```
-
-**Omit tools field to inherit from parent:**
-```yaml
-# No tools field - uses same tools as main Claude instance
-```
-
-## Usage Patterns
-
-**Automatic Delegation**: Claude recognizes matching tasks and invokes appropriate subagents
-
-**Explicit Invocation**: Request specific subagents via natural language commands like "Use the debugger subagent to investigate this error"
-
-## Example Subagents
-
-### Code Reviewer
-Reviews code for quality, security, and maintainability. Provides feedback categorized by priority (critical/warnings/suggestions).
-
-### Debugger
-Specializes in root cause analysis. Captures error messages, isolates failures, and implements minimal fixes.
-
-### Data Scientist
-Handles SQL queries and data analysis. Writes optimized queries and provides data-driven recommendations.
 
 ## Best Practices
 
-- Generate initial subagents with Claude, then customize
-- Design focused subagents with single responsibilities
-- Write detailed system prompts with specific instructions
-- Limit tool access to necessary functions only
-- Version control project-level subagents
-
-## Advanced Usage
-
-**Chaining**: Combine multiple subagents for complex workflows
-
-**Dynamic Selection**: Claude intelligently chooses subagents based on task context and description fields
-
-**Performance**: Subagents preserve main context but may add latency during initial context gathering
-
-## CLI Configuration
-
-Define subagents dynamically with `--agents` flag accepting JSON objects for session-specific or automation-based configurations.
+1. **Single responsibility** - One clear purpose per agent
+2. **Restrict tools** - Only grant what's needed
+3. **Clear descriptions** - Action-oriented, include "proactively"
+4. **Version control** - Check `.claude/agents/` into git

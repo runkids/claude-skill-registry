@@ -1,7 +1,7 @@
 {
   "name": "tdd-cycle",
-  "repo": "lwpk110/sprout-chat",
-  "path": ".claude/skills/tdd-cycle/SKILL.md",
-  "source": "github.com/lwpk110/sprout-chat",
-  "downloaded_at": "2026-01-14T03:56:21.132566Z"
+  "repo": "tikazyq/agentic-spec-forge",
+  "path": "AGENTIC_SPEC_FORGE/spec_stage_skill/execspec_fulfill/tdd-cycle/SKILL.md",
+  "source": "github.com/tikazyq/agentic-spec-forge",
+  "downloaded_at": "2026-01-17T01:47:02.685359Z"
 }

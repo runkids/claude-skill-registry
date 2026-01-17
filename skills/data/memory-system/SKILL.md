@@ -1,124 +1,141 @@
+# 🧠 Memory System Skill
+
 ---
 name: memory-system
-description: Automatic documentation memory system for AI agents. Ensures context is loaded at session start and documentation is updated after changes.
-autoload: true
+description: Manage AI context, memory persistence, and knowledge retention across sessions
 ---
 
-# Memory System Skill
+## 🎯 Purpose
 
-This skill implements an automatic "memory palace" for Claude Code by ensuring:
+Maintain context and knowledge across conversations, enabling continuity and learning from past interactions.
 
-1. Context is loaded at session start
-2. Documentation is checked before relevant tasks
-3. Documentation is updated after completing work
+## 📋 When to Use
 
-## Quick Reference Map
+- Starting new conversations (load context)
+- Completing tasks (save learnings)
+- Switching between projects
+- Referencing past decisions
 
-Before starting any task, check these files based on the work type:
-
-| Task Type       | Check First                                                       | Update After              |
-| --------------- | ----------------------------------------------------------------- | ------------------------- |
-| **Backend API** | `quikadmin/CLAUDE.md`, `docs/reference/api/endpoints.md`          | Same files                |
-| **Frontend**    | `quikadmin-web/CLAUDE.md`, `docs/reference/`                      | Same files                |
-| **Database**    | `prisma/schema.prisma`, `docs/reference/database/schema.md`       | Same files                |
-| **Auth**        | `docs/explanation/security-model.md`, `.claude/skills/auth-flow/` | Same files                |
-| **Deployment**  | `docs/how-to/deployment/`                                         | Same files                |
-| **New Feature** | `docs/tutorials/`, `docs/how-to/`                                 | Create new docs if needed |
-| **Bug Fix**     | `docs/how-to/troubleshooting/`                                    | Update if common issue    |
-
-## Documentation Update Triggers
-
-### ALWAYS Update Documentation When:
-
-1. **API Changes**
-   - Adding/modifying/removing endpoints
-   - Changing request/response schemas
-   - Update: `docs/reference/api/endpoints.md`
-
-2. **Environment Variables**
-   - Adding new env vars
-   - Update: `docs/reference/configuration/environment.md`, `.env.example`
-
-3. **Database Schema**
-   - Running migrations
-   - Update: `docs/reference/database/schema.md`
-
-4. **Architecture Changes**
-   - Modifying system structure
-   - Update: `docs/reference/architecture/system-overview.md`
-
-5. **New Patterns**
-   - Establishing new code patterns
-   - Update: Relevant `CLAUDE.md` file
-
-## Pre-Task Checklist (Mental Model)
-
-Before starting significant work, mentally run through:
+## 🗂️ Memory Structure
 
 ```
-□ Have I read the relevant CLAUDE.md?
-□ Do I know where to find related documentation?
-□ Will this change require doc updates?
-□ Is there existing documentation I should follow?
+📁 memory/
+├── 📄 active.md       ← Current task context
+├── 📄 summary.md      ← Project summaries
+├── 📄 decisions.md    ← Architecture decisions
+├── 📄 changelog.md    ← Changes history
+├── 📄 patterns.md     ← Reusable patterns
+├── 📄 snippets.md     ← Code templates
+└── 📄 lessons.md      ← Learnings from mistakes
 ```
 
-## Post-Task Checklist
+## 📝 Memory Types
 
-After completing work:
+### 1. Short-term Memory (Session)
+- Current task context
+- Recent files edited
+- Active decisions
 
-```
-□ Did I change any API endpoints? → Update endpoints.md
-□ Did I add environment variables? → Update environment.md
-□ Did I change database schema? → Update schema.md
-□ Did I establish new patterns? → Update CLAUDE.md
-□ Did I fix a common issue? → Consider adding to troubleshooting
-```
+### 2. Long-term Memory (Persistent)
+- Project architecture
+- Design decisions
+- Lessons learned
+- Code patterns
 
-## Documentation Links Index
+### 3. Episodic Memory (Events)
+- Bug fixes and solutions
+- Feature implementations
+- Deployment records
 
-### Essential Context (Read These First)
+## 🔧 Memory Operations
 
-- `CLAUDE.local.md` - Project overview, quick commands
-- `quikadmin/CLAUDE.md` - Backend context (optimized)
-- `quikadmin-web/CLAUDE.md` - Frontend context
+### Save Memory
+```markdown
+## Save Format
 
-### Reference (Look Up When Needed)
+### Context
+- Project: [name]
+- Date: [ISO date]
+- Task: [description]
 
-- `docs/reference/api/endpoints.md` - API documentation
-- `docs/reference/architecture/system-overview.md` - System design
-- `docs/reference/database/schema.md` - Database models
-- `docs/reference/configuration/environment.md` - All env vars
+### Key Decisions
+1. [Decision 1]: [Rationale]
+2. [Decision 2]: [Rationale]
 
-### How-To (Problem-Solving)
+### Lessons Learned
+- [Lesson 1]
+- [Lesson 2]
 
-- `docs/how-to/development/local-setup.md` - Setup guide
-- `docs/how-to/development/testing.md` - Testing guide
-- `docs/how-to/troubleshooting/` - Common issues
-
-### Understanding (Background)
-
-- `docs/explanation/security-model.md` - Auth architecture
-- `docs/explanation/data-flow.md` - Data pipeline
-- `docs/explanation/architecture-decisions.md` - Why decisions were made
-
-## Meta-Prompt: Self-Reminder
-
-When working on this project, I should:
-
-1. **Before starting**: Check if there's existing documentation for what I'm about to do
-2. **During work**: Note what documentation might need updating
-3. **After completing**: Update relevant documentation before marking task done
-4. **When unsure**: Check `docs/.meta/inventory.json` for documentation locations
-
-## Invocation
-
-This skill is designed to be automatically loaded. When you need documentation guidance:
-
-```
-/memory-system
+### Code Patterns Used
+- [Pattern]: [File reference]
 ```
 
-Or ask:
+### Load Memory
+```markdown
+## Load Checklist
 
-- "What documentation should I check for [task]?"
-- "What should I update after [change]?"
+1. [ ] Read project context.md
+2. [ ] Check active.md for ongoing tasks
+3. [ ] Review recent decisions.md entries
+4. [ ] Load relevant patterns
+```
+
+### Search Memory
+```markdown
+## Search Methods
+
+1. Keyword search in solutions.md
+2. Date-based filtering
+3. Project-specific lookup
+4. Tag-based retrieval
+```
+
+## 📊 Memory Metrics
+
+| Metric | Description |
+|--------|-------------|
+| Context loaded | Files read at session start |
+| Decisions made | Architecture choices recorded |
+| Patterns saved | Reusable code patterns |
+| Lessons recorded | Mistakes and learnings |
+
+## 🔄 Memory Lifecycle
+
+```
+┌─────────────┐
+│ Session     │
+│ Start       │──▶ LOAD context from memory files
+└─────────────┘
+       │
+       ▼
+┌─────────────┐
+│ During      │
+│ Work        │──▶ UPDATE active.md with progress
+└─────────────┘
+       │
+       ▼
+┌─────────────┐
+│ Task        │
+│ Complete    │──▶ SAVE learnings to appropriate files
+└─────────────┘
+       │
+       ▼
+┌─────────────┐
+│ Session     │
+│ End         │──▶ SUMMARIZE session in summary.md
+└─────────────┘
+```
+
+## 💡 Best Practices
+
+1. **Be Specific**: Save context with enough detail to understand later
+2. **Use Tags**: Add searchable tags to entries
+3. **Link Related**: Reference related decisions/patterns
+4. **Prune Regularly**: Archive old, irrelevant entries
+5. **Keep Active Current**: Update active.md frequently
+
+## 🔗 Related Skills
+
+- `session-recovery` - Recover from session interruptions
+- `documentation` - Document decisions properly
+- `progress-tracking` - Track ongoing work

@@ -1,7 +1,7 @@
 {
   "name": "gemini-image-gen",
-  "repo": "mrgoonie/xxxnaper",
-  "path": ".claude/skills/gemini-image-gen/SKILL.md",
-  "source": "github.com/mrgoonie/xxxnaper",
-  "downloaded_at": "2026-01-14T04:00:33.196749Z"
+  "repo": "einverne/dotfiles",
+  "path": "claude/skills/gemini-image-gen/SKILL.md",
+  "source": "github.com/einverne/dotfiles",
+  "downloaded_at": "2026-01-17T03:54:53.458385Z"
 }

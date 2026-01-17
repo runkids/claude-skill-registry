@@ -1,34 +1,67 @@
 ---
 name: accessibility-checker
-description: Verify accessibility (WCAG 2.1 Level AA) of React components. Use when creating UI components, forms, or when the user requests accessibility verification.
+description: Checks code for accessibility issues including missing alt text, poor color contrast, missing ARIA labels, keyboard navigation issues, screen reader compatibility, and focus management. Returns structured accessibility issue reports with WCAG compliance information.
 ---
 
-# Accessibility Checker
+# Accessibility Checker Skill
 
-You verify WCAG 2.1 Level AA accessibility of React and HTML components.
+## Instructions
 
-## Reference
+1. Analyze code for accessibility issues
+2. Check for missing or poor alt text on images
+3. Verify color contrast meets WCAG standards
+4. Check for missing ARIA labels and roles
+5. Verify keyboard navigation works
+6. Check screen reader compatibility
+7. Review focus management
+8. Return structured accessibility reports with:
+   - File path and line numbers
+   - Accessibility issue type
+   - WCAG guideline reference
+   - Current code
+   - Suggested fix
+   - Reason and impact
+   - Priority (Must-Fix for critical, Should-Fix for important)
 
-All accessibility rules (semantic HTML, ARIA attributes, forms, focus, dates) are documented in `.claude/rules/accessibility.md`.
+## Examples
 
-**You MUST read this file** to understand the exact criteria to verify.
+**Input:** Image without alt text
+**Output:**
+```markdown
+### A11Y-001
+- **File**: `index.html`
+- **Lines**: 25
+- **Priority**: Must-Fix
+- **Issue**: Image missing descriptive alt text
+- **WCAG Reference**: WCAG 2.1 Level A - 1.1.1 Non-text Content
+- **Current Code**:
+  ```html
+  <img src="dog.jpg" alt="">
+  ```
+- **Suggested Fix**:
+  ```html
+  <img src="dog.jpg" alt="Golden retriever puppy playing in a sunny park">
+  ```
+- **Reason**: Screen readers need descriptive alt text to convey image content to users
+- **Impact**: Users with visual impairments cannot understand the image content
+```
 
-## Your Role
+## Accessibility Issues to Detect
 
-1. Read the provided component
-2. Verify each criterion defined in `.claude/rules/accessibility.md`
-3. Generate a structured report with scoring
+- **Missing Alt Text**: Images without descriptive alt attributes
+- **Poor Color Contrast**: Text/background contrast below WCAG standards
+- **Missing ARIA Labels**: Interactive elements without proper ARIA labels
+- **Keyboard Navigation**: Elements not keyboard accessible
+- **Focus Management**: Missing or invisible focus indicators
+- **Screen Reader Issues**: Semantic HTML not used, missing landmarks
+- **Form Labels**: Missing or improperly associated form labels
+- **Heading Hierarchy**: Incorrect or missing heading structure
+- **Language Declaration**: Missing lang attribute on html element
+- **Text Resizing**: Content that breaks when text is resized
+- **Flashing Content**: Content that flashes more than 3 times per second
 
-## Analysis Report
+## Priority Guidelines
 
-After verification, generate a structured report. See [examples.md](./examples.md) for the complete template.
-
-## Resources
-
-- [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
-- [ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/)
-- See [CLAUDE.md](../../../CLAUDE.md) for complete project rules
-
-## See Also
-
-- **[test-writer](../test-writer/SKILL.md)** — Write accessibility tests (ARIA attributes, semantic HTML, keyboard navigation) to verify WCAG compliance automatically. Pair with accessibility-checker for comprehensive coverage.
+- **Must-Fix**: Critical accessibility issues (missing alt text, keyboard navigation, WCAG A violations)
+- **Should-Fix**: Important accessibility improvements (contrast, ARIA labels, WCAG AA)
+- **Nice-to-Have**: Enhancement accessibility features (WCAG AAA, advanced ARIA)

@@ -1,172 +1,83 @@
 ---
 name: context7
-description: Fetch up-to-date library documentation via Context7 REST API. Use when needing current API docs, framework patterns, or code examples for any library.
-version: 1.0.0
-triggers:
-  - documentation
-  - api
-  - libraries
-  - docs
-  - context7
+description: "Fetch up-to-date library documentation via Context7 REST API. Use when needing current API docs, framework patterns, or code examples for any library. Lightweight alternative to Context7 MCP with no persistent context overhead. By Netresearch."
 ---
 
 # Context7 Documentation Lookup Skill
 
-Fetch current library documentation, API references, and code examples via the Context7 REST API.
+Fetch current library documentation, API references, and code examples without MCP context overhead.
 
-## When to Use
+## When to Use This Skill
 
-Activate this skill when:
-- User asks about library APIs or framework patterns
-- Import statements suggest documentation needs: `import`, `require`, `from`
-- Questions about specific library versions or migration
-- Need for official documentation patterns vs generic solutions
-- "How do I use X library?", "What's the API for Y?"
+When the user asks about library APIs or framework patterns, use this skill to fetch current documentation.
 
-## Workflow
+When encountering import statements (`import`, `require`, `from`), use this skill to provide accurate API information.
 
-### Step 1: Search for Library ID
+When the user asks about specific library versions or "How do I use X library?", use this skill to get official patterns.
 
-Always search first to get the correct library ID:
+## Core Workflow
 
-```bash
-curl -s "https://context7.com/api/v1/search?q=library-name" | jq
-```
+To answer questions about library documentation, follow these steps:
 
-Example output shows library IDs you can use:
+1. Search for the library ID using `scripts/context7.sh search`
+2. Fetch documentation using `scripts/context7.sh docs`
+3. Apply returned documentation to provide accurate, version-specific answers
 
-```json
-{
-  "id": "/facebook/react",
-  "name": "React",
-  "snippets": 2135,
-  "score": 79.4
-}
-```
+## Running Scripts
 
-### Step 2: Fetch Documentation
+### Searching for Libraries
+
+To find a library ID for documentation lookup:
 
 ```bash
-curl -s "https://context7.com/api/v1/docs?library=<library-id>&topic=<topic>&mode=<mode>" | jq
+scripts/context7.sh search "library-name"
 ```
 
-**Parameters:**
-- `library`: Library ID from search results (e.g., `/facebook/react`)
-- `topic`: Optional focus area (e.g., `hooks`, `routing`)
-- `mode`: `code` (default) for API/examples, `info` for guides
+This returns library IDs in the format `/vendor/library` (e.g., `/facebook/react`).
 
-**Examples:**
+### Fetching Documentation
+
+To fetch documentation for a specific library:
 
 ```bash
-# Get React hooks documentation
-curl -s "https://context7.com/api/v1/docs?library=/facebook/react&topic=hooks" | jq
-
-# Get Next.js routing docs
-curl -s "https://context7.com/api/v1/docs?library=/vercel/next.js&topic=routing" | jq
-
-# Get conceptual guide (info mode)
-curl -s "https://context7.com/api/v1/docs?library=/vercel/next.js&topic=app%20router&mode=info" | jq
+scripts/context7.sh docs "<library-id>" "[topic]" "[mode]"
 ```
 
-### Step 3: Apply to User's Question
+Parameters:
+- `library-id` (required): From search result (e.g., `/facebook/react`)
+- `topic` (optional): Focus area (e.g., `hooks`, `routing`, `authentication`)
+- `mode` (optional): `code` for API references (default) or `info` for conceptual guides
 
-Use the returned documentation to:
-1. Provide accurate, version-specific answers
-2. Show official code patterns and examples
-3. Reference correct API signatures
-4. Include relevant caveats or deprecations
+### Examples
 
-## Common Library IDs
+To get React hooks documentation:
 
-| Library | ID |
-|---------|-----|
-| React | `/facebook/react` |
-| Next.js | `/vercel/next.js` |
-| Vue.js | `/vuejs/vue` |
-| Prisma | `/prisma/prisma` |
-| Laravel | `/laravel/laravel` |
-| Symfony | `/symfony/symfony` |
-| TYPO3 | `/typo3/typo3` |
-| Tailwind CSS | `/tailwindlabs/tailwindcss` |
-| TypeScript | `/microsoft/typescript` |
+```bash
+scripts/context7.sh search "react"
+scripts/context7.sh docs "/facebook/react" "hooks" "code"
+```
+
+To get Next.js routing guide:
+
+```bash
+scripts/context7.sh search "nextjs"
+scripts/context7.sh docs "/vercel/next.js" "routing" "info"
+```
 
 ## Documentation Modes
 
-| Mode | Use For |
-|------|---------|
-| `code` | API references, code examples, function signatures (default) |
-| `info` | Conceptual guides, tutorials, architecture docs |
+When fetching API references, examples, or code patterns, use `code` mode (default).
 
-## Example Workflow
+When fetching conceptual guides, tutorials, or explanations, use `info` mode.
 
-```bash
-# User asks: "How do I use React hooks?"
+## Environment Configuration
 
-# Step 1: Search for React
-curl -s "https://context7.com/api/v1/search?q=react" | jq '.results[0]'
-# Output shows: id: /facebook/react
-
-# Step 2: Fetch hooks docs
-curl -s "https://context7.com/api/v1/docs?library=/facebook/react&topic=hooks" | jq
-
-# Step 3: Use the returned documentation to answer
-```
-
-## TYPO3 Documentation Lookup
-
-For TYPO3-specific documentation:
+To use authenticated requests (optional), set the `CONTEXT7_API_KEY` environment variable:
 
 ```bash
-# Search for TYPO3
-curl -s "https://context7.com/api/v1/search?q=typo3" | jq
-
-# Get DataHandler docs
-curl -s "https://context7.com/api/v1/docs?library=/typo3/typo3&topic=DataHandler" | jq
-
-# Get Fluid ViewHelper docs
-curl -s "https://context7.com/api/v1/docs?library=/typo3/typo3&topic=ViewHelper" | jq
+export CONTEXT7_API_KEY="your-api-key"
 ```
-
-## Error Handling
-
-If requests fail:
-1. Verify `jq` and `curl` are installed
-2. Check the library ID format (`/org/project`)
-3. Try a broader topic or no topic filter
-4. Try `info` mode if `code` returns nothing
-5. Check network connectivity
-
-## MCP Alternative
-
-If you have the Context7 MCP server configured, you can use it directly:
-
-```json
-{
-  "mcpServers": {
-    "context7": {
-      "command": "npx",
-      "args": ["-y", "@context7/mcp-server"]
-    }
-  }
-}
-```
-
-## Notes
-
-- **No persistent context overhead**: Uses REST API directly
-- **API key optional**: Works without key, but rate-limited
-- **Topic filtering**: Use specific topics for focused results
-- **Search first**: Always search to find the correct library ID
-- **Fresh data**: Results are not cached; each call fetches fresh data
 
 ---
 
-## Credits & Attribution
-
-This skill is based on the excellent work by
-**[Netresearch DTT GmbH](https://www.netresearch.de/)**.
-
-Original repository: https://github.com/netresearch/context7-skill
-
-**Copyright (c) Netresearch DTT GmbH** - Methodology and best practices  
-Adapted by webconsulting.at for this skill collection
+> **Contributing:** https://github.com/netresearch/context7-skill

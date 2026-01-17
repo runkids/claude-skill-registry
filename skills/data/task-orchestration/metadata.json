@@ -1,7 +1,7 @@
 {
   "name": "task-orchestration",
   "repo": "NickCrew/claude-cortex",
-  "path": "claude_ctx_py/assets/skills/task-orchestration/SKILL.md",
+  "path": "skills/task-orchestration/SKILL.md",
   "source": "github.com/NickCrew/claude-cortex",
-  "downloaded_at": "2026-01-14T02:11:12.362305Z"
+  "downloaded_at": "2026-01-17T02:06:24.674152Z"
 }

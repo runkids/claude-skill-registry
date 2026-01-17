@@ -1,7 +1,7 @@
 {
   "name": "writing-clearly-and-concisely",
-  "repo": "mikeastock/agents",
-  "path": "skills/writing-clearly-and-concisely/SKILL.md",
-  "source": "github.com/mikeastock/agents",
-  "downloaded_at": "2026-01-14T03:42:42.258198Z"
+  "repo": "AJBcoding/claude-skill-eval",
+  "path": ".claude/skills/writing-clearly-and-concisely/SKILL.md",
+  "source": "github.com/AJBcoding/claude-skill-eval",
+  "downloaded_at": "2026-01-17T03:11:49.114727Z"
 }

@@ -1,10 +1,7 @@
 {
   "name": "runway",
-  "description": "Runway AI API for video generation via curl. Use this skill to generate videos from images, text, or other videos.",
-  "repo": "vm0-ai/vm0-skills",
-  "category": "data",
-  "tags": [
-    "runway"
-  ],
-  "stars": 8
+  "repo": "Andrejones92/canifi-life-os",
+  "path": "skills/runway/SKILL.md",
+  "source": "github.com/Andrejones92/canifi-life-os",
+  "downloaded_at": "2026-01-17T02:51:13.117406Z"
 }

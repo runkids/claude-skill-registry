@@ -1,12 +1,7 @@
 {
   "name": "backtest-expert",
-  "description": "Expert guidance for systematic backtesting of trading strategies. Use when developing, testing, stress-testing, or validating quantitative trading strategies. Covers \"beating ideas to death\" methodolo",
-  "repo": "tradermonty/claude-trading-skills",
-  "category": "testing",
-  "tags": [
-    "backtest",
-    "expert"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "repo": "nicepkg/ai-workflow",
+  "path": "stock-trader-workflow/.claude/skills/backtest-expert/SKILL.md",
+  "source": "github.com/nicepkg/ai-workflow",
+  "downloaded_at": "2026-01-17T02:05:43.109958Z"
 }

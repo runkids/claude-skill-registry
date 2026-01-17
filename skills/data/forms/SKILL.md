@@ -1,553 +1,568 @@
 ---
 name: forms
-description: HTML5 forms, Constraint Validation API, accessible form patterns, and modern input types
-sasmp_version: "1.3.0"
-bonded_agent: html-expert
-bond_type: PRIMARY_BOND
-version: "2.0.0"
-
-# Skill Metadata
-category: forms
-complexity: intermediate
-dependencies:
-  - html-basics
-  - accessibility
-
-# Parameter Validation
-parameters:
-  form_type:
-    type: string
-    required: true
-    enum: [contact, login, registration, search, checkout, survey, multi-step]
-  validation_mode:
-    type: string
-    default: "html5"
-    enum: [html5, javascript, hybrid]
-  accessibility_level:
-    type: string
-    default: "AA"
-    enum: ["A", "AA", "AAA"]
-
-# Retry Configuration
-retry:
-  max_attempts: 3
-  backoff_ms: [1000, 2000, 4000]
-  retryable_errors: [VALIDATION_ERROR, PARSE_ERROR]
+description: Build forms with FNForm component including validation, grid layouts, custom fields, and external control. Use when creating forms, adding validation, or building complex form UIs.
 ---
 
-# Forms Skill
+# Form Builder
 
-Production-grade HTML5 forms with Constraint Validation API and accessible patterns.
+Create forms using this project's centralized `FNForm` component.
 
-## 🎯 Purpose
-
-Provide atomic, single-responsibility operations for:
-- Form structure and layout
-- Input types and validation
-- Constraint Validation API usage
-- Accessible form patterns
-- Error handling and display
-- Multi-step form logic
-
----
-
-## 📥 Input Schema
+## Quick Start
 
 ```typescript
-interface FormsInput {
-  operation: 'create' | 'validate' | 'pattern' | 'convert';
-  form_type: FormType;
-  fields?: FieldDefinition[];
-  options?: {
-    validation_mode: 'html5' | 'javascript' | 'hybrid';
-    accessibility_level: 'A' | 'AA' | 'AAA';
-    autocomplete: boolean;
-    novalidate: boolean;
-  };
+import { FNForm, type FormDefinition } from '@/components/ui/fn-form'
+
+const formDefinition: FormDefinition = {
+  fields: [
+    { name: 'email', type: 'email', label: 'Email', required: true },
+    { name: 'name', type: 'text', label: 'Name' },
+  ],
 }
 
-type FormType =
-  | 'contact'       // Name, email, message
-  | 'login'         // Email/username, password
-  | 'registration'  // Full user signup
-  | 'search'        // Search input
-  | 'checkout'      // Payment form
-  | 'survey'        // Questions, ratings
-  | 'multi-step';   // Wizard-style form
+function MyForm() {
+  const handleSubmit = (values: Record<string, unknown>) => {
+    console.log(values)
+  }
 
+  return (
+    <FNForm
+      formDefinition={formDefinition}
+      onSubmit={handleSubmit}
+      submitButtonText="Save"
+    />
+  )
+}
+```
+
+## Field Types
+
+| Type       | Component             | Use Case                  |
+| ---------- | --------------------- | ------------------------- |
+| `text`     | Input                 | Single-line text          |
+| `email`    | Input type="email"    | Email addresses           |
+| `password` | Input type="password" | Passwords                 |
+| `number`   | Input type="number"   | Numeric values            |
+| `textarea` | Textarea              | Multi-line text           |
+| `select`   | Select dropdown       | Choose from options       |
+| `checkbox` | Checkbox              | Boolean with inline label |
+| `switch`   | Switch                | Toggle with inline label  |
+| `hidden`   | None (hidden)         | Hidden values             |
+| `custom`   | Your component        | Anything else             |
+
+## Field Definition
+
+```typescript
 interface FieldDefinition {
-  name: string;
-  type: InputType;
-  label: string;
-  required?: boolean;
-  pattern?: string;
-  validation?: ValidationRule[];
+  name: string // Form field name (required)
+  type: FieldType // Input type (required)
+  label: string // Display label (required)
+  placeholder?: string // Placeholder text
+  required?: boolean // Shows * and validates
+  optional?: boolean // Shows "(optional)"
+  disabled?: boolean // Disable input
+  options?: SelectOption[] // For select type
+  validate?: (value: unknown) => string | undefined
+  validateOnChange?: boolean // Validate as user types
+  className?: string // Wrapper class
+  inputClassName?: string // Input class
+  labelClassName?: string // Label class
+  prefix?: string // Input prefix (e.g., "$")
+  maxLength?: number // Shows character count
+  render?: (props: CustomFieldRenderProps) => ReactNode
 }
 ```
 
-## 📤 Output Schema
+## Grid Layouts
+
+Use `rows` with `columns` for multi-column forms:
 
 ```typescript
-interface FormsOutput {
-  success: boolean;
-  markup: string;
-  validation_script?: string;
-  accessibility_score: number;
-  issues: FormIssue[];
+const formDefinition: FormDefinition = {
+  rows: [
+    // Full width row
+    {
+      fields: [
+        { name: 'email', type: 'email', label: 'Email', required: true },
+      ],
+    },
+
+    // Two column row
+    {
+      columns: 2,
+      fields: [
+        {
+          name: 'firstName',
+          type: 'text',
+          label: 'First Name',
+          required: true,
+        },
+        { name: 'lastName', type: 'text', label: 'Last Name', required: true },
+      ],
+    },
+
+    // Three column row
+    {
+      columns: 3,
+      fields: [
+        { name: 'city', type: 'text', label: 'City', required: true },
+        { name: 'state', type: 'text', label: 'State' },
+        { name: 'zip', type: 'text', label: 'ZIP', required: true },
+      ],
+    },
+  ],
 }
 ```
 
----
+## Validation
 
-## 🛠️ Core Patterns
+### Required Fields
 
-### 1. Input Types Reference
-
-| Type | Purpose | Validation | Keyboard |
-|------|---------|------------|----------|
-| `text` | Generic text | pattern | text |
-| `email` | Email address | Built-in email | email |
-| `password` | Passwords | pattern | text |
-| `tel` | Phone numbers | pattern | tel |
-| `url` | URLs | Built-in URL | url |
-| `number` | Numeric values | min/max/step | numeric |
-| `date` | Date picker | min/max | date |
-| `time` | Time picker | min/max/step | time |
-| `datetime-local` | Date + time | min/max | datetime |
-| `search` | Search queries | None | search |
-| `color` | Color picker | None | - |
-| `range` | Slider | min/max/step | - |
-| `file` | File upload | accept | - |
-
-### 2. Complete Form Template
-
-```html
-<form id="contact-form"
-      action="/api/contact"
-      method="POST"
-      novalidate
-      aria-labelledby="form-title">
-
-  <h2 id="form-title">Contact Us</h2>
-
-  <!-- Error Summary (initially hidden) -->
-  <div id="error-summary"
-       role="alert"
-       aria-live="polite"
-       hidden>
-    <h3>Please fix the following errors:</h3>
-    <ul id="error-list"></ul>
-  </div>
-
-  <!-- Name Field -->
-  <div class="field">
-    <label for="name">
-      Full Name
-      <span class="required" aria-hidden="true">*</span>
-    </label>
-    <input type="text"
-           id="name"
-           name="name"
-           required
-           aria-required="true"
-           autocomplete="name"
-           aria-describedby="name-hint">
-    <p id="name-hint" class="hint">Enter your full name</p>
-    <p id="name-error" class="error" aria-live="polite"></p>
-  </div>
-
-  <!-- Email Field -->
-  <div class="field">
-    <label for="email">
-      Email
-      <span class="required" aria-hidden="true">*</span>
-    </label>
-    <input type="email"
-           id="email"
-           name="email"
-           required
-           aria-required="true"
-           autocomplete="email"
-           aria-describedby="email-hint email-error">
-    <p id="email-hint" class="hint">We'll never share your email</p>
-    <p id="email-error" class="error" aria-live="polite"></p>
-  </div>
-
-  <!-- Message Field -->
-  <div class="field">
-    <label for="message">
-      Message
-      <span class="required" aria-hidden="true">*</span>
-    </label>
-    <textarea id="message"
-              name="message"
-              rows="5"
-              required
-              aria-required="true"
-              minlength="10"
-              maxlength="1000"
-              aria-describedby="message-hint message-count"></textarea>
-    <p id="message-hint" class="hint">10-1000 characters</p>
-    <p id="message-count" class="hint" aria-live="polite">0/1000</p>
-    <p id="message-error" class="error" aria-live="polite"></p>
-  </div>
-
-  <button type="submit">Send Message</button>
-</form>
+```typescript
+{ name: 'email', type: 'email', label: 'Email', required: true }
+// Shows * after label, validates on submit
 ```
 
-### 3. Constraint Validation API
+### Custom Validation
 
-```javascript
-const form = document.getElementById('contact-form');
-const inputs = form.querySelectorAll('input, textarea, select');
-
-// Disable browser default validation UI
-form.setAttribute('novalidate', '');
-
-// Validate on submit
-form.addEventListener('submit', (e) => {
-  if (!validateForm()) {
-    e.preventDefault();
-    showErrorSummary();
-    focusFirstError();
-  }
-});
-
-// Validate on blur for immediate feedback
-inputs.forEach(input => {
-  input.addEventListener('blur', () => validateField(input));
-  input.addEventListener('input', () => {
-    if (input.classList.contains('invalid')) {
-      validateField(input);
+```typescript
+{
+  name: 'email',
+  type: 'email',
+  label: 'Email',
+  required: true,
+  validate: (value) => {
+    const email = value as string
+    if (!email.includes('@company.com')) {
+      return 'Must be a company email'
     }
-  });
-});
+    return undefined  // No error
+  },
+  validateOnChange: true,  // Validate as user types
+}
+```
 
-function validateForm() {
-  let isValid = true;
-  inputs.forEach(input => {
-    if (!validateField(input)) {
-      isValid = false;
+### Common Validators
+
+```typescript
+// Email format
+validate: (value) => {
+  const email = value as string
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return 'Invalid email format'
+  }
+}
+
+// Min length
+validate: (value) => {
+  if ((value as string).length < 8) {
+    return 'Must be at least 8 characters'
+  }
+}
+
+// Number range
+validate: (value) => {
+  const num = Number(value)
+  if (num < 0 || num > 100) {
+    return 'Must be between 0 and 100'
+  }
+}
+
+// Match another field (password confirmation)
+validate: (value, allValues) => {
+  if (value !== allValues.password) {
+    return 'Passwords do not match'
+  }
+}
+```
+
+## Select Dropdown
+
+```typescript
+{
+  name: 'status',
+  type: 'select',
+  label: 'Status',
+  placeholder: 'Select status',
+  required: true,
+  options: [
+    { value: 'draft', label: 'Draft' },
+    { value: 'active', label: 'Active' },
+    { value: 'archived', label: 'Archived' },
+  ],
+}
+```
+
+## Custom Fields
+
+For masked inputs, autocomplete, date pickers, or any special component:
+
+```typescript
+import { IMaskInput } from 'react-imask'
+
+{
+  name: 'phone',
+  type: 'custom',
+  label: 'Phone',
+  render: (props) => (
+    <IMaskInput
+      id={props.id}
+      mask="+{1} (000) 000-0000"
+      value={String(props.value ?? '')}
+      onAccept={(value) => props.onChange(value)}
+      onBlur={props.onBlur}
+      disabled={props.disabled}
+      placeholder={props.placeholder}
+      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+    />
+  ),
+}
+```
+
+### Custom Field Props
+
+```typescript
+interface CustomFieldRenderProps {
+  value: unknown // Current field value
+  onChange: (value: unknown) => void // Update value
+  onBlur: () => void // Trigger blur validation
+  error?: string // Current error message
+  id: string // Field ID for labels
+  disabled?: boolean // Disabled state
+  placeholder?: string // Placeholder text
+}
+```
+
+## Prefix Input
+
+```typescript
+{
+  name: 'price',
+  type: 'number',
+  label: 'Price',
+  prefix: '$',  // Shows "$" inside the input
+  required: true,
+}
+```
+
+## Character Counter
+
+```typescript
+{
+  name: 'description',
+  type: 'textarea',
+  label: 'Description',
+  maxLength: 500,  // Shows "0 / 500 characters"
+}
+```
+
+## External Form Control
+
+Use `formRef` to control the form from outside:
+
+```typescript
+import { useRef } from 'react'
+import { FNForm, type FNFormRef } from '@/components/ui/fn-form'
+
+function MyForm() {
+  const formRef = useRef<FNFormRef | null>(null)
+
+  return (
+    <div>
+      <FNForm
+        formRef={formRef}
+        hideSubmitButton  // We'll use our own button
+        formDefinition={formDefinition}
+        onSubmit={handleSubmit}
+      />
+
+      {/* External submit button */}
+      <Button onClick={() => formRef.current?.submit()}>
+        Save
+      </Button>
+
+      {/* External value access */}
+      <Button onClick={() => {
+        const values = formRef.current?.getValues()
+        console.log(values)
+      }}>
+        Log Values
+      </Button>
+    </div>
+  )
+}
+```
+
+### FormRef Methods
+
+```typescript
+interface FNFormRef {
+  submit: () => void // Trigger form submission
+  setFieldValue: (name: string, value: unknown) => void // Set a field value
+  getFieldValue: (name: string) => unknown // Get a field value
+  setFieldError: (name: string, error: string) => void // Set a field error
+  getValues: () => Record<string, unknown> // Get all values
+  isSubmitting: boolean // Submission state
+}
+```
+
+## Field Change Callbacks
+
+React to field changes and update other fields:
+
+```typescript
+<FNForm
+  formDefinition={formDefinition}
+  onSubmit={handleSubmit}
+  onFieldChange={(name, value, setFieldValue) => {
+    // When country changes, update country code
+    if (name === 'country') {
+      const countryCode = getCountryCode(value as string)
+      setFieldValue('countryCode', countryCode)
     }
-  });
-  return isValid;
+
+    // When "same as billing" is checked, copy address
+    if (name === 'sameAsBilling' && value === true) {
+      setFieldValue('shippingAddress', billingAddress)
+    }
+  }}
+/>
+```
+
+## Custom Submit Button
+
+```typescript
+<FNForm
+  formDefinition={formDefinition}
+  onSubmit={handleSubmit}
+  renderSubmitButton={(isSubmitting) => (
+    <Button type="submit" disabled={isSubmitting} className="w-full">
+      {isSubmitting ? (
+        <>
+          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          Saving...
+        </>
+      ) : (
+        'Save Changes'
+      )}
+    </Button>
+  )}
+/>
+```
+
+## Before Submit Content
+
+Add content above the submit button:
+
+```typescript
+<FNForm
+  formDefinition={formDefinition}
+  onSubmit={handleSubmit}
+  renderBeforeSubmit={(values) => (
+    <div className="rounded-lg bg-muted p-4">
+      <p className="text-sm text-muted-foreground">
+        Total: ${calculateTotal(values)}
+      </p>
+    </div>
+  )}
+/>
+```
+
+## Complete Examples
+
+### Address Form
+
+```typescript
+const addressForm: FormDefinition = {
+  rows: [
+    {
+      columns: 2,
+      fields: [
+        {
+          name: 'firstName',
+          type: 'text',
+          label: 'First Name',
+          required: true,
+        },
+        { name: 'lastName', type: 'text', label: 'Last Name', required: true },
+      ],
+    },
+    {
+      fields: [
+        { name: 'company', type: 'text', label: 'Company', optional: true },
+      ],
+    },
+    {
+      fields: [
+        { name: 'address1', type: 'text', label: 'Address', required: true },
+      ],
+    },
+    {
+      fields: [
+        {
+          name: 'address2',
+          type: 'text',
+          label: 'Apartment, suite, etc.',
+          optional: true,
+        },
+      ],
+    },
+    {
+      columns: 3,
+      fields: [
+        { name: 'city', type: 'text', label: 'City', required: true },
+        {
+          name: 'province',
+          type: 'text',
+          label: 'State/Province',
+          required: true,
+        },
+        { name: 'zip', type: 'text', label: 'ZIP/Postal', required: true },
+      ],
+    },
+    {
+      columns: 2,
+      fields: [
+        {
+          name: 'country',
+          type: 'select',
+          label: 'Country',
+          required: true,
+          options: [
+            { value: 'US', label: 'United States' },
+            { value: 'CA', label: 'Canada' },
+            { value: 'GB', label: 'United Kingdom' },
+          ],
+        },
+        { name: 'phone', type: 'text', label: 'Phone', optional: true },
+      ],
+    },
+  ],
 }
-
-function validateField(input) {
-  const errorEl = document.getElementById(`${input.id}-error`);
-
-  // Check validity using Constraint Validation API
-  if (!input.checkValidity()) {
-    const message = getErrorMessage(input);
-    showError(input, errorEl, message);
-    return false;
-  }
-
-  clearError(input, errorEl);
-  return true;
-}
-
-function getErrorMessage(input) {
-  const validity = input.validity;
-
-  if (validity.valueMissing) {
-    return `${input.labels[0].textContent} is required`;
-  }
-  if (validity.typeMismatch) {
-    return `Please enter a valid ${input.type}`;
-  }
-  if (validity.patternMismatch) {
-    return input.dataset.patternError || 'Please match the requested format';
-  }
-  if (validity.tooShort) {
-    return `Must be at least ${input.minLength} characters`;
-  }
-  if (validity.tooLong) {
-    return `Must be no more than ${input.maxLength} characters`;
-  }
-  if (validity.rangeUnderflow) {
-    return `Must be at least ${input.min}`;
-  }
-  if (validity.rangeOverflow) {
-    return `Must be no more than ${input.max}`;
-  }
-
-  return input.validationMessage;
-}
-
-function showError(input, errorEl, message) {
-  input.classList.add('invalid');
-  input.setAttribute('aria-invalid', 'true');
-  input.setAttribute('aria-errormessage', errorEl.id);
-  errorEl.textContent = message;
-  errorEl.hidden = false;
-}
-
-function clearError(input, errorEl) {
-  input.classList.remove('invalid');
-  input.removeAttribute('aria-invalid');
-  input.removeAttribute('aria-errormessage');
-  errorEl.textContent = '';
-  errorEl.hidden = true;
-}
-
-function focusFirstError() {
-  const firstError = form.querySelector('.invalid');
-  if (firstError) {
-    firstError.focus();
-  }
-}
 ```
-
----
-
-## ⚠️ Error Handling
-
-### Error Codes
-
-| Code | Description | Recovery |
-|------|-------------|----------|
-| `FORM001` | Missing form label | Add aria-labelledby or aria-label |
-| `FORM002` | Input without label | Add `<label>` element |
-| `FORM003` | Invalid pattern regex | Fix regex syntax |
-| `FORM004` | Missing required indicator | Add visual + aria indicator |
-| `FORM005` | No error message element | Add aria-live region |
-| `FORM006` | Autocomplete missing | Add autocomplete attribute |
-| `FORM007` | Submit without action | Add form action |
-| `FORM008` | Fieldset without legend | Add legend element |
-
-### ValidityState Properties
-
-| Property | True When |
-|----------|-----------|
-| `valid` | All constraints satisfied |
-| `valueMissing` | Required field is empty |
-| `typeMismatch` | Value doesn't match type (email, url) |
-| `patternMismatch` | Value doesn't match pattern |
-| `tooLong` | Value exceeds maxlength |
-| `tooShort` | Value below minlength |
-| `rangeUnderflow` | Value below min |
-| `rangeOverflow` | Value above max |
-| `stepMismatch` | Value doesn't match step |
-| `badInput` | Browser can't convert input |
-| `customError` | setCustomValidity() called |
-
----
-
-## 🔍 Troubleshooting
-
-### Problem: Form not validating
-
-```
-Debug Checklist:
-□ novalidate attribute set?
-□ JavaScript calling checkValidity()?
-□ Required attribute on mandatory fields?
-□ Pattern regex valid?
-□ Type attribute correct?
-□ Min/max values valid?
-```
-
-### Problem: Errors not announced
-
-```
-Debug Checklist:
-□ Error container has role="alert"?
-□ aria-live="polite" or "assertive" set?
-□ Error linked via aria-errormessage?
-□ aria-invalid="true" on field?
-□ Error content actually changing?
-```
-
-### Problem: Autocomplete not working
-
-```
-Debug Checklist:
-□ autocomplete attribute present?
-□ Correct autocomplete value?
-□ Input has name attribute?
-□ Form has action?
-□ Browser autocomplete enabled?
-```
-
-### Autocomplete Values
-
-| Value | Purpose |
-|-------|---------|
-| `name` | Full name |
-| `given-name` | First name |
-| `family-name` | Last name |
-| `email` | Email address |
-| `tel` | Phone number |
-| `street-address` | Street address |
-| `postal-code` | ZIP/Postal code |
-| `country` | Country |
-| `cc-number` | Credit card number |
-| `cc-exp` | Card expiration |
-| `cc-csc` | Security code |
-| `username` | Username |
-| `current-password` | Current password |
-| `new-password` | New password |
-
----
-
-## 📊 Form Types
 
 ### Login Form
 
-```html
-<form action="/login" method="POST" aria-labelledby="login-title">
-  <h2 id="login-title">Sign In</h2>
-
-  <div class="field">
-    <label for="username">Email or Username</label>
-    <input type="text"
-           id="username"
-           name="username"
-           required
-           autocomplete="username"
-           autofocus>
-  </div>
-
-  <div class="field">
-    <label for="password">Password</label>
-    <input type="password"
-           id="password"
-           name="password"
-           required
-           autocomplete="current-password"
-           minlength="8">
-    <a href="/forgot-password">Forgot password?</a>
-  </div>
-
-  <label class="checkbox">
-    <input type="checkbox" name="remember" value="1">
-    Remember me
-  </label>
-
-  <button type="submit">Sign In</button>
-
-  <p>Don't have an account? <a href="/register">Sign up</a></p>
-</form>
+```typescript
+const loginForm: FormDefinition = {
+  fields: [
+    {
+      name: 'email',
+      type: 'email',
+      label: 'Email',
+      required: true,
+      placeholder: 'you@example.com',
+    },
+    {
+      name: 'password',
+      type: 'password',
+      label: 'Password',
+      required: true,
+    },
+    {
+      name: 'remember',
+      type: 'checkbox',
+      label: 'Remember me',
+    },
+  ],
+}
 ```
 
-### Search Form
+### Product Form
 
-```html
-<form role="search"
-      action="/search"
-      method="GET"
-      aria-label="Site search">
-  <label for="search-input" class="visually-hidden">
-    Search
-  </label>
-  <input type="search"
-         id="search-input"
-         name="q"
-         placeholder="Search..."
-         autocomplete="off"
-         aria-describedby="search-hint">
-  <button type="submit" aria-label="Submit search">
-    <svg aria-hidden="true">...</svg>
-  </button>
-  <p id="search-hint" class="visually-hidden">
-    Enter keywords to search
-  </p>
-</form>
+```typescript
+const productForm: FormDefinition = {
+  rows: [
+    {
+      fields: [
+        {
+          name: 'name',
+          type: 'text',
+          label: 'Product Name',
+          required: true,
+          maxLength: 100,
+        },
+      ],
+    },
+    {
+      fields: [
+        {
+          name: 'description',
+          type: 'textarea',
+          label: 'Description',
+          maxLength: 500,
+        },
+      ],
+    },
+    {
+      columns: 2,
+      fields: [
+        {
+          name: 'price',
+          type: 'number',
+          label: 'Price',
+          prefix: '$',
+          required: true,
+          validate: (v) =>
+            Number(v) < 0 ? 'Price cannot be negative' : undefined,
+        },
+        {
+          name: 'compareAtPrice',
+          type: 'number',
+          label: 'Compare at Price',
+          prefix: '$',
+          optional: true,
+        },
+      ],
+    },
+    {
+      columns: 2,
+      fields: [
+        {
+          name: 'status',
+          type: 'select',
+          label: 'Status',
+          required: true,
+          options: [
+            { value: 'draft', label: 'Draft' },
+            { value: 'active', label: 'Active' },
+          ],
+        },
+        {
+          name: 'quantity',
+          type: 'number',
+          label: 'Quantity',
+          required: true,
+        },
+      ],
+    },
+  ],
+}
 ```
 
-### Multi-Step Form
+## FNForm Props
 
-```html
-<form id="wizard" aria-labelledby="wizard-title">
-  <h2 id="wizard-title">Registration</h2>
-
-  <!-- Progress indicator -->
-  <nav aria-label="Registration progress">
-    <ol>
-      <li aria-current="step">
-        <span class="step-number">1</span>
-        <span class="step-label">Account</span>
-      </li>
-      <li>
-        <span class="step-number">2</span>
-        <span class="step-label">Profile</span>
-      </li>
-      <li>
-        <span class="step-number">3</span>
-        <span class="step-label">Confirm</span>
-      </li>
-    </ol>
-  </nav>
-
-  <!-- Step 1: Account -->
-  <fieldset id="step-1" class="step active">
-    <legend>Account Information</legend>
-    <div class="field">
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" required>
-    </div>
-    <div class="field">
-      <label for="password">Password</label>
-      <input type="password"
-             id="password"
-             name="password"
-             required
-             minlength="8"
-             autocomplete="new-password">
-    </div>
-    <button type="button" onclick="nextStep(1)">Next</button>
-  </fieldset>
-
-  <!-- Step 2: Profile (hidden initially) -->
-  <fieldset id="step-2" class="step" hidden>
-    <legend>Profile Information</legend>
-    <!-- fields -->
-    <button type="button" onclick="prevStep(2)">Back</button>
-    <button type="button" onclick="nextStep(2)">Next</button>
-  </fieldset>
-
-  <!-- Step 3: Confirm (hidden initially) -->
-  <fieldset id="step-3" class="step" hidden>
-    <legend>Confirm Details</legend>
-    <!-- summary -->
-    <button type="button" onclick="prevStep(3)">Back</button>
-    <button type="submit">Create Account</button>
-  </fieldset>
-</form>
+```typescript
+interface FNFormProps {
+  formDefinition: FormDefinition
+  onSubmit: (values: Record<string, unknown>) => void | Promise<void>
+  defaultValues?: Record<string, unknown>
+  submitButtonText?: string
+  hideSubmitButton?: boolean
+  formRef?: React.RefObject<FNFormRef | null>
+  onFieldChange?: (
+    name: string,
+    value: unknown,
+    setFieldValue: (name: string, value: unknown) => void,
+  ) => void
+  className?: string
+  renderSubmitButton?: (isSubmitting: boolean) => React.ReactNode
+  renderBeforeSubmit?: (values: Record<string, unknown>) => React.ReactNode
+}
 ```
 
----
+## See Also
 
-## 📋 Usage Examples
-
-```yaml
-# Create contact form
-skill: forms
-operation: create
-form_type: contact
-options:
-  validation_mode: hybrid
-  accessibility_level: "AA"
-  autocomplete: true
-
-# Validate form markup
-skill: forms
-operation: validate
-markup: "<form>...</form>"
-
-# Get login form pattern
-skill: forms
-operation: pattern
-form_type: login
-```
-
----
-
-## 🔗 References
-
-- [MDN Form Validation](https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation)
-- [Constraint Validation API](https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation)
-- [HTML Autocomplete](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete)
-- [WCAG Forms](https://www.w3.org/WAI/tutorials/forms/)
+- `src/components/ui/fn-form.tsx` - Component source
+- `src/routes/$lang/account/addresses.tsx` - Address form example
+- `src/routes/admin/login.tsx` - Login form example
+- `admin-crud` skill - Forms in admin context

@@ -2,14 +2,11 @@
 name: pytest
 description: >
   Pytest testing patterns for Python.
-  Trigger: When writing or refactoring pytest tests (fixtures, mocking, parametrize, markers). For Prowler-specific API/SDK testing conventions, also use prowler-test-api or prowler-test-sdk.
+  Trigger: When writing Python tests - fixtures, mocking, markers.
 license: Apache-2.0
 metadata:
-  author: prowler-cloud
+  author: gentleman-programming
   version: "1.0"
-  scope: [root, sdk, api]
-  auto_invoke: "Writing Python tests with pytest"
-allowed-tools: Read, Edit, Write, Glob, Grep, Bash, WebFetch, WebSearch, Task
 ---
 
 ## Basic Test Structure
@@ -185,10 +182,5 @@ pytest -n auto                  # Parallel (pytest-xdist)
 pytest --tb=short               # Short traceback
 ```
 
-## References
-
-For general pytest documentation, see:
-- **Official Docs**: https://docs.pytest.org/en/stable/
-
-For Prowler SDK testing with provider-specific patterns (moto, MagicMock), see:
-- **Documentation**: [references/prowler-testing.md](references/prowler-testing.md)
+## Keywords
+pytest, python, testing, fixtures, mocking, parametrize, markers

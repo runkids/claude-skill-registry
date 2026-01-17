@@ -1,8 +1,7 @@
 {
   "name": "dimensional-modeling",
   "repo": "melodic-software/claude-code-plugins",
-  "category": "data",
-  "description": "Design Kimball star/snowflake schemas for analytics and data warehousing with fact/dimension tables and SCD patterns.",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:00:05.384525Z"
+  "path": "plugins/data-architecture/skills/dimensional-modeling/SKILL.md",
+  "source": "github.com/melodic-software/claude-code-plugins",
+  "downloaded_at": "2026-01-17T01:53:05.510017Z"
 }

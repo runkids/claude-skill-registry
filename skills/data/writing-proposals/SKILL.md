@@ -53,6 +53,8 @@ Invoke this skill when working with:
 
 ## Quick Start
 
+**NEW TO PROPOSALS?** Start with the [Proposal Workflow Guide](./PROPOSAL_WORKFLOW_GUIDE.md) for a complete walkthrough from project documentation to final Word document.
+
 ### Pricing a Service
 
 1. **Identify service type** - Audit? Benchmarking? Compliance pathway?
@@ -72,53 +74,90 @@ Invoke this skill when working with:
 
 ### Generating a Proposal
 
-#### Option 1: COM Automation (Recommended for Windows)
+#### Recommended Workflow: Markdown → Word Conversion
+
+This is the standard workflow for creating proposals. You write the proposal in markdown, then convert to Word using the template.
+
+##### Step 1: Draft Proposal in Markdown
+
+Create a markdown file with your proposal content following [best practices](./MARKDOWN_TO_WORD_BEST_PRACTICES.md):
+
+- Use blank lines between all sections
+- Full paragraphs (not line breaks)
+- Proper heading hierarchy
+- Clean table syntax
+- Simple bullet lists (avoid nesting)
+
+See the [markdown best practices guide](./MARKDOWN_TO_WORD_BEST_PRACTICES.md) for formatting tips.
+
+##### Step 2: Convert to Word
 
 ```bash
-# Interactive mode - guided workflow
-python tools/word-template-automation.py --interactive
-
-# With mapping file - best for complex proposals
-python tools/word-template-automation.py template.docx output.docx --mapping mapping.json
-
-# Quick command-line - simple replacements
-python tools/word-template-automation.py template.docx output.docx \
-  --replace "{{CLIENT}}" "Acme Corp" \
-  --replace "{{FEE}}" "$25,000"
+python tools/convert-proposal-to-docx.py proposal.md output.docx
 ```
 
-Why use COM automation?
+What this does:
 
-- ✅ Perfect formatting preservation
-- ✅ Works with any template structure
-- ✅ Handles headers, footers, tables, images automatically
-- ✅ Reliable find/replace using Word's engine
-- ⚠️ Windows only (requires Word installed)
+- ✅ Merges template cover pages (pages 1-2) with your proposal content
+- ✅ Applies template styles (headings, body text, tables, bullets)
+- ✅ Automatically applies learned corrections from previous proposals
+- ✅ Creates professional Word document ready for review
+
+Example:
+
+```bash
+python tools/convert-proposal-to-docx.py \
+  User-Files/Opportunities/Example-Client/proposal-draft.md \
+  User-Files/Opportunities/Example-Client/Example-Proposal.docx
+```
+
+Why this workflow?
+
+- Fast: Draft in markdown is faster than Word
+- Consistent: Template ensures company branding
+- Versioned: Markdown plays nice with git
+- Automated: Tool applies learned corrections automatically
+
+---
+
+#### Alternative: Placeholder-Based Automation (Advanced)
+
+Only use this if you have a template WITH placeholders like `{{CLIENT_NAME}}`
+
+Our standard template does NOT use placeholders - it uses cover pages + styles. This workflow is for custom templates with placeholders.
+
+##### Step 1: Check if template has placeholders
+
+```bash
+python tools/word-template-automation.py template.docx --list-placeholders
+```
+
+If no placeholders found → Use markdown workflow above instead
+
+##### Step 2: Create mapping file (if placeholders exist)
+
+```bash
+python tools/word-template-automation.py template.docx --create-mapping mapping.json
+```
+
+##### Step 3: Fill mapping file and process
+
+```bash
+python tools/word-template-automation.py template.docx output.docx --mapping mapping.json
+```
 
 See [./tools/README_COM_AUTOMATION.md](./tools/README_COM_AUTOMATION.md) for complete guide.
 
-#### Option 2: Python Script (Legacy)
+---
 
-```bash
-python scripts/generate-proposal.py --interactive
-```
-
-The script will prompt for:
-
-- Service type
-- Building information
-- Pricing model
-- Contact details
-- Output filename
-
-Note: This uses python-docx library with limitations. Consider COM automation for better reliability.
-
-#### Option 3: Manual Creation
+#### Manual Creation (Not Recommended)
 
 1. Use [./templates/proposal-template.docx](./templates/proposal-template.docx)
 2. Fill in service-specific scope from [./service-types.md](./service-types.md)
 3. Add pricing from [./pricing-guidelines.md](./pricing-guidelines.md)
 4. Customize for client situation
+
+**Why not recommended:** Manual editing is slower, inconsistent formatting, no version control
 
 ### Iterative Feedback System (NEW!)
 
@@ -431,23 +470,27 @@ ROI: 350:1
 
 ## Supporting Files
 
-**Detailed References**:
+**Workflow Guides**:
+
+- [./PROPOSAL_WORKFLOW_GUIDE.md](./PROPOSAL_WORKFLOW_GUIDE.md) - **START HERE** - Complete workflow from project docs to Word proposal
+- [./MARKDOWN_TO_WORD_BEST_PRACTICES.md](./MARKDOWN_TO_WORD_BEST_PRACTICES.md) - Markdown formatting best practices
+
+**Pricing & Service References**:
 
 - [./pricing-guidelines.md](./pricing-guidelines.md) - Complete pricing models, ranges, and market rates
 - [./service-types.md](./service-types.md) - Scope templates for each service offering
 
-**Tools**:
+**Tools** (in order of recommended use):
 
-- [./tools/word-template-automation.py](./tools/word-template-automation.py) - **COM automation for Word** (recommended, Windows)
+- [./tools/convert-proposal-to-docx.py](./tools/convert-proposal-to-docx.py) - **PRIMARY TOOL** - Convert markdown to Word with template
+- [./tools/word-template-automation.py](./tools/word-template-automation.py) - Advanced: COM automation for placeholder templates
   - [Complete Guide](./tools/README_COM_AUTOMATION.md)
-- [./tools/convert-proposal-to-docx.py](./tools/convert-proposal-to-docx.py) - Convert markdown to Word with template
+- [./tools/collect-feedback.py](./tools/collect-feedback.py) - Improve future conversions by learning from corrections
 - [./tools/extract-template-styles.py](./tools/extract-template-styles.py) - Analyze template styles
-- [./scripts/generate-proposal.py](./scripts/generate-proposal.py) - Automated proposal generation (legacy)
 
 **Templates**:
 
-- [./templates/proposal-template.docx](./templates/proposal-template.docx) - Microsoft Word template
-- [./templates/example-mapping.json](./templates/example-mapping.json) - Example placeholder mapping file
+- [./templates/proposal-template.docx](./templates/proposal-template.docx) - Microsoft Word template (cover pages + styles)
 
 ## Best Practices
 
@@ -500,3 +543,56 @@ ROI: 350:1
 - These pricing ranges are based on Denver 2025 market
 - Adjust for regional differences, company size, expertise level
 - Update based on actual wins/losses and market feedback
+
+---
+
+## Context Awareness
+
+This skill integrates with work-command-center session tracking:
+
+**Check Active Context:**
+
+```bash
+node .claude/skills/work-command-center/tools/session-state.js status
+```
+
+Returns: Project name, project number, duration, and deliverables context
+
+**Log Activity Checkpoints:**
+
+```bash
+node .claude/skills/work-command-center/tools/session-state.js checkpoint \
+  --activity "writing-proposals: Completed Level 2 audit proposal, total: $18,500"
+```
+
+**Signal Completion (called by WCC after skill returns):**
+
+```bash
+node .claude/skills/work-command-center/tools/session-state.js skill-complete \
+  --skill-name "writing-proposals" \
+  --summary "Proposal complete: Level 2 audit for 50k sf office, $18,500, 4-week timeline" \
+  --outcome "success"
+```
+
+**Benefits:**
+
+- WCC tracks time spent in this skill
+- Session logs include skill work breakdown
+- Context visible across skill transitions
+- Deliverables auto-update from skill outcomes
+
+
+## Saving Next Steps
+
+When writing-proposals work is complete or paused:
+
+```bash
+node .claude/skills/work-command-center/tools/add-skill-next-steps.js \
+  --skill "writing-proposals" \
+  --content "## Priority Tasks
+1. Draft ASHRAE Level 2 audit proposal
+2. Price commissioning services for RFP
+3. Generate cost estimate for energy study"
+```
+
+See: `.claude/skills/work-command-center/skill-next-steps-convention.md`

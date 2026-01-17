@@ -13,7 +13,30 @@ triggers:
 
 # Flashing INAV Firmware via DFU
 
-Flash compiled firmware to ARM flight controllers using DFU (Device Firmware Update).
+## IMPORTANT: Use the fc-flasher Agent
+
+**When this skill is invoked, you MUST immediately use the Task tool with `subagent_type=fc-flasher`.**
+
+The `fc-flasher` agent handles:
+- Automatic settings backup and restore
+- MSP reboot to DFU mode
+- Hex to bin conversion
+- DFU flashing
+- Verification
+
+**Example:**
+```
+User: "Flash inav_9.0.0_MATEKF405.hex"
+Assistant: [Immediately calls Task tool with subagent_type=fc-flasher and the hex file path]
+```
+
+**Do NOT use manual DFU steps unless the fc-flasher agent fails or you're troubleshooting.**
+
+---
+
+# Manual DFU Flashing (Troubleshooting Only)
+
+The information below is for troubleshooting when the automated agent doesn't work.
 
 ## Prerequisites
 
@@ -86,6 +109,37 @@ Connect with INAV Configurator or serial terminal and type:
 ```
 dfu
 ```
+
+### Method D: MSP Reboot Command (INAV 9.x+)
+
+**Using MSP to reboot to DFU (most reliable programmatic method):**
+
+```python
+# Using mspapi2
+from mspapi2 import MSPSerial
+
+serial = MSPSerial("/dev/ttyACM0", 115200)
+serial.open()
+
+# Send MSP_REBOOT (68) with DFU parameter (1)
+code, payload = serial.request(68, b'\x01')
+
+serial.close()
+
+# Wait for reboot
+import time
+time.sleep(2)
+```
+
+This is the most reliable programmatic method because it:
+- Doesn't require CLI prompt timing
+- Works through the MSP protocol
+- Is supported by configurator and tools
+- Provides proper backwards compatibility
+
+**Parameter values:**
+- `b'\x00'` or empty = normal reboot
+- `b'\x01'` = reboot to DFU mode
 
 ## Step 2: Verify DFU Mode
 
@@ -205,6 +259,7 @@ chmod +x flash-firmware.sh
 | `Permission denied` | Add udev rules or use `sudo` |
 | `Cannot open DFU device` | Check that no other program is accessing the device |
 | Flash succeeds but board doesn't boot | Wrong target or corrupted file - reflash |
+| Hardware doesn't work after flashing (gyro not detected, etc.) | May be target configuration issue - use **target-developer** agent |
 
 ### udev Rules (Avoid sudo)
 
@@ -333,11 +388,17 @@ dmesg | tail -50
 cat /sys/bus/usb/devices/*/product
 ```
 
-## Related Skills
+## Related Skills and Agents
 
+**Skills:**
 - **build-inav-target** - Build firmware before flashing
 - **build-sitl** - Test changes in SITL before flashing hardware
 - **msp-protocol** - MSP protocol reference
+
+**Agents:**
+- **fc-flasher** - Automated flashing with settings preservation (RECOMMENDED)
+- **inav-builder** - Build firmware for targets
+- **target-developer** - Fix target configuration issues if hardware doesn't work after flashing
 
 ## References
 

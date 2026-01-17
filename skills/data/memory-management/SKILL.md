@@ -1,332 +1,428 @@
 ---
 name: memory-management
-description: Guide for managing Claude Code memory effectively. Use when setting up project memory, optimizing CLAUDE.md files, configuring rules directories, or establishing cross-session knowledge patterns. Covers memory hierarchy, best practices, and context optimization.
-allowed-tools: ["Read", "Write", "Edit", "Glob"]
+version: "2.0.0"
+description: |
+  Game memory optimization, object pooling, garbage collection tuning,
+  and efficient resource management for target platforms.
+sasmp_version: "1.3.0"
+bonded_agent: 02-game-programmer
+bond_type: PRIMARY_BOND
+
+parameters:
+  - name: platform
+    type: string
+    required: false
+    validation:
+      enum: [pc, console, mobile, vr, web]
+  - name: issue_type
+    type: string
+    required: false
+    validation:
+      enum: [leak, fragmentation, gc_spikes, budget_exceeded]
+
+retry_policy:
+  enabled: true
+  max_attempts: 3
+  backoff: exponential
+
+observability:
+  log_events: [start, complete, error, gc_collect]
+  metrics: [heap_size_mb, gc_time_ms, allocation_rate, pool_usage]
 ---
 
 # Memory Management
 
-Master Claude Code's memory system for persistent context across sessions, projects, and teams.
-
-## Quick Reference
-
-| Memory Type | Location | Scope | Priority | Use For |
-|-------------|----------|-------|----------|---------|
-| Global | `~/.claude/CLAUDE.md` | All projects | Lowest | Personal preferences, global conventions |
-| Project Root | `./CLAUDE.md` | Project-wide | Medium | Project context, tech stack, conventions |
-| Project Config | `./.claude/CLAUDE.md` | Project-wide | Medium | Same as root (alternative location) |
-| Rules | `./.claude/rules/*.md` | Conditional | Highest | Modular, file-specific instructions |
-
-## Memory Hierarchy
-
-Claude Code reads memory files in this order (later overrides earlier):
+## Memory Architecture
 
 ```
-~/.claude/CLAUDE.md           # Your global preferences
-  |
-  v
-./CLAUDE.md                   # Project root instructions
-  |
-  v
-./.claude/CLAUDE.md           # Project config directory
-  |
-  v
-./.claude/rules/*.md          # Conditional rules (when matched)
+┌─────────────────────────────────────────────────────────────┐
+│                    GAME MEMORY LAYOUT                        │
+├─────────────────────────────────────────────────────────────┤
+│  STACK (Fast, Auto-managed):                                 │
+│  ├─ Local variables                                         │
+│  ├─ Function parameters                                     │
+│  └─ Return addresses                                        │
+│                                                              │
+│  HEAP (Slower, Manual/GC-managed):                           │
+│  ├─ Dynamic allocations (new/malloc)                        │
+│  ├─ Game objects                                            │
+│  └─ Asset data                                              │
+│                                                              │
+│  STATIC (Fixed at compile time):                             │
+│  ├─ Global variables                                        │
+│  ├─ Static class members                                    │
+│  └─ Constant data                                           │
+│                                                              │
+│  VRAM (GPU Memory):                                          │
+│  ├─ Textures                                                │
+│  ├─ Meshes                                                  │
+│  └─ Render targets                                          │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-### Priority Rules
+## Platform Memory Budgets
 
-1. **Rules always win** - When a rule file matches, its instructions take precedence
-2. **Project overrides global** - Project CLAUDE.md supersedes global settings
-3. **Later loads override earlier** - Last-loaded content has highest priority
-4. **Explicit beats implicit** - Specific rules override general guidelines
+```
+MEMORY BUDGET GUIDELINES:
+┌─────────────────────────────────────────────────────────────┐
+│  PLATFORM      │ TOTAL    │ GAME LOGIC │ ASSETS   │ BUFFER │
+├────────────────┼──────────┼────────────┼──────────┼────────┤
+│  Mobile Low    │ 512 MB   │ 50 MB      │ 350 MB   │ 112 MB │
+│  Mobile High   │ 2 GB     │ 200 MB     │ 1.5 GB   │ 300 MB │
+│  Console       │ 8 GB     │ 500 MB     │ 6 GB     │ 1.5 GB │
+│  PC Min        │ 4 GB     │ 300 MB     │ 3 GB     │ 700 MB │
+│  PC High       │ 16 GB    │ 1 GB       │ 12 GB    │ 3 GB   │
+│  VR            │ 8 GB     │ 400 MB     │ 6 GB     │ 1.6 GB │
+└────────────────┴──────────┴────────────┴──────────┴────────┘
 
-## When to Use Each Memory Type
-
-### Use Global Memory (`~/.claude/CLAUDE.md`) For
-
-- Personal coding preferences (tabs vs spaces, quote style)
-- Universal tool preferences (Bun over npm, rg over find)
-- Cross-project conventions you always follow
-- Personal workflow shortcuts
-
-**Example:**
-```markdown
-# Global Preferences
-
-## Code Style
-- Use single quotes for strings
-- Prefer for-loops over forEach
-- Use Bun instead of npm
-
-## Tools
-- Use ripgrep (rg) for searching, not grep
-- Prefer Edit over Write for modifications
+VRAM BUDGETS:
+┌─────────────────────────────────────────────────────────────┐
+│  Mobile:    512 MB - 1 GB                                   │
+│  Console:   8-12 GB (shared with RAM)                       │
+│  PC Low:    2-4 GB                                          │
+│  PC High:   8-16 GB                                         │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-### Use Project Memory (`./CLAUDE.md` or `./.claude/CLAUDE.md`) For
+## Object Pooling
 
-- Project-specific tech stack (React, Bun, Drizzle, etc.)
-- Build and test commands
-- Architecture overview
-- Team conventions
-- File structure explanations
+```csharp
+// ✅ Production-Ready: Generic Object Pool
+public class ObjectPool<T> where T : class
+{
+    private readonly Stack<T> _pool;
+    private readonly Func<T> _createFunc;
+    private readonly Action<T> _onGet;
+    private readonly Action<T> _onReturn;
+    private readonly int _maxSize;
 
-**Example:**
-```markdown
-# Project: E-Commerce API
+    public int CountActive { get; private set; }
+    public int CountInPool => _pool.Count;
 
-## Tech Stack
-- Runtime: Bun
-- Framework: Hono
-- Database: PostgreSQL with Drizzle ORM
-- Testing: Bun test
+    public ObjectPool(
+        Func<T> createFunc,
+        Action<T> onGet = null,
+        Action<T> onReturn = null,
+        int initialSize = 10,
+        int maxSize = 100)
+    {
+        _createFunc = createFunc;
+        _onGet = onGet;
+        _onReturn = onReturn;
+        _maxSize = maxSize;
+        _pool = new Stack<T>(initialSize);
 
-## Commands
-- `bun dev` - Start development server
-- `bun test` - Run all tests
-- `bun db:migrate` - Run database migrations
+        // Pre-warm pool
+        for (int i = 0; i < initialSize; i++)
+        {
+            _pool.Push(_createFunc());
+        }
+    }
 
-## Architecture
-- `/src/routes` - API route handlers
-- `/src/services` - Business logic
-- `/src/db` - Database schema and queries
+    public T Get()
+    {
+        T item = _pool.Count > 0 ? _pool.Pop() : _createFunc();
+        _onGet?.Invoke(item);
+        CountActive++;
+        return item;
+    }
+
+    public void Return(T item)
+    {
+        if (item == null) return;
+
+        _onReturn?.Invoke(item);
+        CountActive--;
+
+        if (_pool.Count < _maxSize)
+        {
+            _pool.Push(item);
+        }
+        // If pool is full, let GC collect the item
+    }
+
+    public void Clear()
+    {
+        _pool.Clear();
+        CountActive = 0;
+    }
+}
+
+// Usage Example: Bullet Pool
+public class BulletManager : MonoBehaviour
+{
+    private ObjectPool<Bullet> _bulletPool;
+
+    void Awake()
+    {
+        _bulletPool = new ObjectPool<Bullet>(
+            createFunc: () => Instantiate(bulletPrefab).GetComponent<Bullet>(),
+            onGet: bullet => bullet.gameObject.SetActive(true),
+            onReturn: bullet => bullet.gameObject.SetActive(false),
+            initialSize: 50,
+            maxSize: 200
+        );
+    }
+
+    public Bullet SpawnBullet(Vector3 position, Vector3 direction)
+    {
+        var bullet = _bulletPool.Get();
+        bullet.Initialize(position, direction);
+        bullet.OnDestroyed += () => _bulletPool.Return(bullet);
+        return bullet;
+    }
+}
 ```
 
-### Use Rules (`./.claude/rules/*.md`) For
+## Garbage Collection Optimization
 
-- File-type-specific instructions (TypeScript, React, SQL)
-- Conditional guidance based on file paths
-- Modular memory that loads only when relevant
-- Team standards that apply to specific areas
-
-**Example:**
 ```
-.claude/rules/
-  react-components.md     # Globs: src/components/**/*.tsx
-  api-routes.md           # Globs: src/routes/**/*.ts
-  database.md             # Globs: src/db/**/*.ts, *.sql
-  tests.md                # Globs: **/*.test.ts, **/*.spec.ts
-```
-
-## CLAUDE.md Structure
-
-A well-structured CLAUDE.md file includes:
-
-```markdown
-# Project Name
-
-Brief description (1-2 sentences).
-
-## Commands
-- `bun install` - Install dependencies
-- `bun dev` - Start development
-- `bun test` - Run tests
-- `bun build` - Build for production
-
-## Tech Stack
-- Runtime/Framework
-- Database
-- Key libraries
-
-## Architecture
-Brief overview of project structure.
-
-## Code Style
-Project-specific conventions.
-
-## Important Notes
-Critical information Claude should always know.
+GC SPIKE PREVENTION:
+┌─────────────────────────────────────────────────────────────┐
+│  AVOID IN UPDATE/HOT PATHS:                                  │
+│  ✗ new object()                                             │
+│  ✗ string concatenation ("a" + "b")                         │
+│  ✗ LINQ queries (ToList(), Where(), etc.)                   │
+│  ✗ Boxing value types                                       │
+│  ✗ Closures/lambdas capturing variables                     │
+│  ✗ foreach on non-struct enumerators                        │
+│                                                              │
+│  DO INSTEAD:                                                 │
+│  ✓ Object pooling                                           │
+│  ✓ StringBuilder for strings                                │
+│  ✓ Pre-allocated collections                                │
+│  ✓ Struct-based data                                        │
+│  ✓ Cache delegates                                          │
+│  ✓ for loops with index                                     │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-For detailed CLAUDE.md guidance, see [CLAUDE-MD.md](./CLAUDE-MD.md).
+```csharp
+// ✅ Production-Ready: Allocation-Free Patterns
+public class AllocationFreePatterns
+{
+    // ❌ BAD: Allocates every frame
+    void BadUpdate()
+    {
+        string status = "Health: " + health + "/" + maxHealth; // Allocates
+        var enemies = allEntities.Where(e => e.IsEnemy).ToList(); // Allocates
+        foreach (var enemy in enemies) { } // May allocate enumerator
+    }
 
-## Rules Directory
+    // ✓ GOOD: Zero allocations
+    private StringBuilder _sb = new StringBuilder(64);
+    private List<Entity> _enemyCache = new List<Entity>(100);
 
-The `.claude/rules/` directory contains modular memory files that load conditionally.
+    void GoodUpdate()
+    {
+        // Reuse StringBuilder
+        _sb.Clear();
+        _sb.Append("Health: ").Append(health).Append("/").Append(maxHealth);
 
-### Rule File Anatomy
+        // Reuse list, avoid LINQ
+        _enemyCache.Clear();
+        for (int i = 0; i < allEntities.Count; i++)
+        {
+            if (allEntities[i].IsEnemy)
+                _enemyCache.Add(allEntities[i]);
+        }
 
-```yaml
+        // Index-based iteration
+        for (int i = 0; i < _enemyCache.Count; i++)
+        {
+            ProcessEnemy(_enemyCache[i]);
+        }
+    }
+}
+```
+
+## Memory Profiling
+
+```
+PROFILING WORKFLOW:
+┌─────────────────────────────────────────────────────────────┐
+│  1. BASELINE: Measure memory at known state                 │
+│     → Startup, menu, gameplay, level transition            │
+│                                                              │
+│  2. MONITOR: Track over time                                │
+│     → Memory growth indicates leaks                         │
+│     → Spikes indicate heavy allocations                    │
+│                                                              │
+│  3. SNAPSHOT: Capture heap at suspicious moments            │
+│     → Compare snapshots to find what's growing             │
+│                                                              │
+│  4. TRACE: Find allocation source                           │
+│     → Stack trace shows where allocation happened          │
+│     → Identify hot paths                                   │
+│                                                              │
+│  5. FIX: Apply optimization                                 │
+│     → Pool, cache, or eliminate allocation                 │
+│                                                              │
+│  6. VERIFY: Confirm fix worked                              │
+│     → Re-profile same scenario                             │
+└─────────────────────────────────────────────────────────────┘
+
+PROFILING TOOLS:
+┌─────────────────────────────────────────────────────────────┐
+│  Unity:                                                      │
+│  • Memory Profiler (Package)                                │
+│  • Profiler window (Memory section)                         │
+│  • Deep Profile mode                                        │
+│                                                              │
+│  Unreal:                                                     │
+│  • Unreal Insights                                          │
+│  • memreport command                                        │
+│  • stat memory                                              │
+│                                                              │
+│  Native:                                                     │
+│  • Valgrind (Linux)                                         │
+│  • Instruments (macOS)                                      │
+│  • Visual Studio Diagnostic Tools                           │
+└─────────────────────────────────────────────────────────────┘
+```
+
+## Asset Streaming
+
+```
+STREAMING STRATEGY:
+┌─────────────────────────────────────────────────────────────┐
+│                    STREAMING ZONES                           │
+│                                                              │
+│     [Loaded]  [Loading...]  [Unloaded]  [Unloaded]         │
+│        ▲           ▲            │            │              │
+│        │           │            │            │              │
+│  ──────●───────────●────────────●────────────●──────        │
+│     Player      Trigger     Far Zone     Very Far           │
+│     Position                                                 │
+│                                                              │
+│  STREAMING RULES:                                            │
+│  • Load when player approaches (predictive)                 │
+│  • Unload when player far away + timeout                   │
+│  • Priority: Visible > Nearby > Background                 │
+│  • Async loading to avoid hitches                          │
+└─────────────────────────────────────────────────────────────┘
+```
+
+```csharp
+// ✅ Production-Ready: Asset Streaming Manager
+public class StreamingManager : MonoBehaviour
+{
+    [SerializeField] private float loadDistance = 50f;
+    [SerializeField] private float unloadDistance = 100f;
+    [SerializeField] private float unloadDelay = 5f;
+
+    private Dictionary<string, StreamingZone> _zones = new();
+    private Queue<AsyncOperation> _loadQueue = new();
+
+    void Update()
+    {
+        Vector3 playerPos = Player.Position;
+
+        foreach (var zone in _zones.Values)
+        {
+            float distance = Vector3.Distance(playerPos, zone.Center);
+
+            if (distance < loadDistance && !zone.IsLoaded)
+            {
+                StartCoroutine(LoadZoneAsync(zone));
+            }
+            else if (distance > unloadDistance && zone.IsLoaded)
+            {
+                StartCoroutine(UnloadZoneDelayed(zone, unloadDelay));
+            }
+        }
+    }
+
+    private IEnumerator LoadZoneAsync(StreamingZone zone)
+    {
+        zone.State = ZoneState.Loading;
+
+        var operation = SceneManager.LoadSceneAsync(zone.SceneName, LoadSceneMode.Additive);
+        operation.allowSceneActivation = false;
+
+        while (operation.progress < 0.9f)
+        {
+            yield return null;
+        }
+
+        operation.allowSceneActivation = true;
+        zone.State = ZoneState.Loaded;
+    }
+}
+```
+
+## 🔧 Troubleshooting
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ PROBLEM: Memory keeps growing over time (leak)              │
+├─────────────────────────────────────────────────────────────┤
+│ DEBUG:                                                       │
+│ → Take memory snapshots at intervals                        │
+│ → Compare snapshots to find growing objects                 │
+│ → Check for missing unsubscribes (events)                   │
+│ → Look for collections that never clear                     │
+├─────────────────────────────────────────────────────────────┤
+│ SOLUTIONS:                                                   │
+│ → Implement IDisposable pattern                             │
+│ → Use weak references for caches                            │
+│ → Clear collections when changing scenes                    │
+│ → Unsubscribe from events in OnDestroy                      │
+└─────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
+│ PROBLEM: GC causing frame spikes                            │
+├─────────────────────────────────────────────────────────────┤
+│ DEBUG:                                                       │
+│ → Profile with GC.Alloc markers                             │
+│ → Look for allocations in Update/FixedUpdate               │
+│ → Check for string operations in hot paths                  │
+├─────────────────────────────────────────────────────────────┤
+│ SOLUTIONS:                                                   │
+│ → Implement object pooling                                  │
+│ → Use structs instead of classes where possible             │
+│ → Pre-allocate collections with known capacity              │
+│ → Spread GC across frames (incremental GC)                  │
+└─────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
+│ PROBLEM: Out of memory on mobile                            │
+├─────────────────────────────────────────────────────────────┤
+│ DEBUG:                                                       │
+│ → Check texture memory usage                                │
+│ → Look for duplicate assets                                 │
+│ → Monitor during level transitions                          │
+├─────────────────────────────────────────────────────────────┤
+│ SOLUTIONS:                                                   │
+│ → Reduce texture resolution                                 │
+│ → Implement aggressive streaming                            │
+│ → Unload unused assets (Resources.UnloadUnusedAssets)       │
+│ → Use compressed texture formats                            │
+└─────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
+│ PROBLEM: Hitches during level loading                       │
+├─────────────────────────────────────────────────────────────┤
+│ SOLUTIONS:                                                   │
+│ → Use async loading (LoadSceneAsync)                        │
+│ → Spread instantiation across frames                        │
+│ → Pre-warm object pools during loading screen               │
+│ → Stream assets instead of loading all at once              │
+└─────────────────────────────────────────────────────────────┘
+```
+
+## Memory Optimization Checklist
+
+| Area | Technique | Impact | Effort |
+|------|-----------|--------|--------|
+| Objects | Object Pooling | High | Medium |
+| Strings | StringBuilder | Medium | Low |
+| Collections | Pre-allocation | Medium | Low |
+| Assets | Streaming | High | High |
+| Textures | Compression | High | Low |
+| GC | Incremental GC | Medium | Low |
+| Events | Weak References | Low | Medium |
+
 ---
-globs: ["src/components/**/*.tsx", "src/ui/**/*.tsx"]
-description: React component conventions for this project
-alwaysApply: false
----
 
-# React Components
-
-Follow these patterns for React components...
-```
-
-### Glob Matching
-
-- **Exact match**: `src/utils.ts`
-- **Directory**: `src/components/**/*`
-- **Extension**: `**/*.tsx`
-- **Multiple**: `["*.ts", "*.tsx"]`
-
-For complete rules documentation, see [RULES.md](./RULES.md).
-
-## Best Practices
-
-### Do Include
-
-- Commands with exact syntax
-- Tech stack overview
-- Key architectural decisions
-- Non-obvious conventions
-- Error-prone areas
-
-### Do NOT Include
-
-- Code that's easily discoverable (read the files instead)
-- Verbose documentation (link instead)
-- Information that changes frequently
-- Full API documentation
-
-### Keep Memory Focused
-
-```markdown
-## Good - Actionable and Specific
-
-- Use Drizzle ORM for database queries
-- Run `bun test` before committing
-- Components go in `src/components/{feature}/`
-
-## Avoid - Vague or Obvious
-
-- Write clean code
-- Test your changes
-- Follow best practices
-```
-
-### Reference, Don't Duplicate
-
-```markdown
-## Good - Reference External Docs
-
-See API documentation at `docs/api.md`.
-Architecture diagrams in `docs/architecture/`.
-
-## Avoid - Duplicating Content
-
-[Pasting entire API documentation here]
-```
-
-## Memory Strategies
-
-### Project Onboarding
-
-When starting with a new project:
-
-1. **Create minimal CLAUDE.md** with commands and tech stack
-2. **Add rules** for the main file types you work with
-3. **Expand gradually** as you discover project quirks
-4. **Update regularly** when conventions change
-
-### Team Conventions
-
-For team projects:
-
-1. **Commit CLAUDE.md** and `.claude/rules/` to version control
-2. **Keep personal preferences** in `~/.claude/CLAUDE.md`
-3. **Document decisions** in rules files, not code comments
-4. **Review memory files** during onboarding
-
-### Cross-Session Continuity
-
-To maintain context across sessions:
-
-1. **Session hooks** can inject recent context at start
-2. **Weave framework** captures learnings for future sessions
-3. **Project memory** persists architectural decisions
-4. **Rules files** encode learned patterns
-
-For advanced memory strategies, see [STRATEGIES.md](./STRATEGIES.md).
-
-## Common Patterns
-
-### Monorepo Pattern
-
-```
-project/
-  CLAUDE.md                    # Shared conventions
-  .claude/
-    rules/
-      frontend.md              # Globs: apps/web/**/*
-      backend.md               # Globs: apps/api/**/*
-      packages.md              # Globs: packages/**/*
-  apps/
-    web/
-      CLAUDE.md                # Web-specific context
-    api/
-      CLAUDE.md                # API-specific context
-```
-
-### Feature Flag Pattern
-
-```markdown
-# .claude/rules/feature-flags.md
----
-globs: ["src/**/*.ts", "src/**/*.tsx"]
----
-
-## Feature Flags
-
-Active flags:
-- `ENABLE_NEW_CHECKOUT` - New checkout flow (enabled in staging)
-- `DARK_MODE` - Dark mode support (enabled everywhere)
-
-Check flags with: `useFeatureFlag('FLAG_NAME')`
-```
-
-### Migration Pattern
-
-```markdown
-# .claude/rules/migrations.md
----
-globs: ["src/db/migrations/**/*.ts"]
----
-
-## Database Migrations
-
-1. Generate: `bun db:generate`
-2. Run: `bun db:migrate`
-3. Rollback: `bun db:rollback`
-
-Naming: `NNNN_description.ts`
-Always include down migration.
-```
-
-## Reference Files
-
-| File | Contents |
-|------|----------|
-| [CLAUDE-MD.md](./CLAUDE-MD.md) | Deep dive on CLAUDE.md structure and content |
-| [RULES.md](./RULES.md) | Complete rules directory documentation |
-| [STRATEGIES.md](./STRATEGIES.md) | Advanced memory strategies |
-
-## Validation Checklist
-
-Before finalizing memory setup:
-
-- [ ] Global preferences in `~/.claude/CLAUDE.md`
-- [ ] Project context in `./CLAUDE.md` or `./.claude/CLAUDE.md`
-- [ ] Modular rules for file-specific guidance
-- [ ] Commands section with exact syntax
-- [ ] Tech stack clearly documented
-- [ ] No duplicated documentation
-- [ ] Rules have appropriate glob patterns
-- [ ] Memory files committed to version control
-
-## Common Mistakes
-
-| Mistake | Fix |
-|---------|-----|
-| Putting everything in global | Use project memory for project-specific content |
-| Giant CLAUDE.md files | Split into rules files for modular loading |
-| Duplicating docs | Reference external documentation instead |
-| Vague instructions | Be specific and actionable |
-| Stale content | Review and update memory periodically |
-| Missing commands | Always include build/test/run commands |
+**Use this skill**: When optimizing memory usage, reducing frame stutters, or supporting mobile platforms.

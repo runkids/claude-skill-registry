@@ -1,7 +1,7 @@
 {
   "name": "security-audit",
-  "repo": "cpa03/blueprintify",
-  "path": ".opencode/skill/security-audit/SKILL.md",
-  "source": "github.com/cpa03/blueprintify",
-  "downloaded_at": "2026-01-14T04:04:19.773276Z"
+  "repo": "enoch-robinson/agent-skill-collection",
+  "path": "skills/security/security-audit/SKILL.md",
+  "source": "github.com/enoch-robinson/agent-skill-collection",
+  "downloaded_at": "2026-01-17T04:03:31.917711Z"
 }

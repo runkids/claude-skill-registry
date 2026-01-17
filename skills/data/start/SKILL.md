@@ -1,66 +1,180 @@
 ---
-name: start
-description: Lean session start. Asks focus area first, then loads only relevant context. Use when "start" is said at session beginning.
-allowed-tools: Read, Bash
+description: Initialize Clorch in a new or existing workspace
+invokes: orchestration
 ---
 
-# Start (Lean Session)
+# Start Clorch
 
-Minimal session start - ask focus first, load only relevant context.
+Initialize Clorch in a workspace - whether empty or with existing code.
 
-## When to Activate
+## Process
 
-- User says: "start"
-- Beginning of work session
-- When you want focused context
+### Step 0: Load Orchestration
 
-## Flow
+```
+Use Skill tool: skill="orchestration"
+```
 
-### 1. Ask Focus
+### Step 1: Detect Workspace State
 
-Ask the user:
-- What area are you working on? (creative, technical, content, strategy, system)
-- What's the specific task?
-
-### 2. Quick Context (Optional)
-
-**Only if relevant to stated topic:**
-
-If mentions "inbox" or "learning":
 ```bash
-ls inbox/session-summaries/ 2>/dev/null
+# Check if workspace has code
+file_count=$(find . -type f \( -name "*.py" -o -name "*.ts" -o -name "*.js" -o -name "*.go" -o -name "*.rs" -o -name "*.java" \) 2>/dev/null | head -100 | wc -l)
+
+# Check if Clorch already initialized
+has_clorch=$(ls -d .claude 2>/dev/null && echo "yes" || echo "no")
+
+echo "Files: $file_count, Clorch: $has_clorch"
 ```
 
-If mentions git:
+### Step 2: Route Based on State
+
+#### 2a. Empty Project (no code files)
+
+Display welcome banner and set up infrastructure:
+
+```
+   ─────────────────◆─────────────────
+           ░█████╗░██╗░░░░░░█████╗░██████╗░░█████╗░██╗░░██╗
+           ██╔══██╗██║░░░░░██╔══██╗██╔══██╗██╔══██╗██║░░██║
+           ██║░░╚═╝██║░░░░░██║░░██║██████╔╝██║░░╚═╝███████║
+           ██║░░██╗██║░░░░░██║░░██║██╔══██╗██║░░██╗██╔══██║
+           ╚█████╔╝███████╗╚█████╔╝██║░░██║╚█████╔╝██║░░██║
+           ░╚════╝░╚══════╝░╚════╝░╚═╝░░╚═╝░╚════╝░╚═╝░░╚═╝
+   ─────────────────◆─────────────────
+
+         Parallel agent orchestration for Claude Code
+
+   ─────────────────◆─────────────────
+```
+
+Then set up infrastructure:
+
 ```bash
-git status -sb
+# Create Clorch directories
+mkdir -p .claude/agents
+mkdir -p .claude/memory
+mkdir -p .claude/hooks
+mkdir -p thoughts/shared/handoffs
+mkdir -p thoughts/shared/plans
 ```
 
-Otherwise: skip context checks.
+Present:
+```
+Clorch initialized in empty workspace.
 
-### 3. Load Relevant Role
+Created:
+├── .claude/
+│   ├── agents/      (project-specific agents - empty for now)
+│   ├── memory/      (session state)
+│   └── hooks/       (project hooks)
+└── thoughts/
+    └── shared/
+        ├── handoffs/  (session handoffs)
+        └── plans/     (implementation plans)
 
-Based on answer, read only the relevant role file from `roles/`.
+Start coding! Once you have code, run `/start` again to generate
+project-specific agents based on your codebase.
 
-### 4. Begin
+What would you like to build?
+```
+
+#### 2b. Existing Codebase (has code files)
+
+Display banner, then run project-init:
 
 ```
-[Role] here.
+   ─────────────────◆─────────────────
+           ░█████╗░██╗░░░░░░█████╗░██████╗░░█████╗░██╗░░██╗
+           ██╔══██╗██║░░░░░██╔══██╗██╔══██╗██╔══██╗██║░░██║
+           ██║░░╚═╝██║░░░░░██║░░██║██████╔╝██║░░╚═╝███████║
+           ██║░░██╗██║░░░░░██║░░██║██╔══██╗██║░░██╗██╔══██║
+           ╚█████╔╝███████╗╚█████╔╝██║░░██║╚█████╔╝██║░░██║
+           ░╚════╝░╚══════╝░╚════╝░╚═╝░░╚═╝░╚════╝░╚═╝░░╚═╝
+   ─────────────────◆─────────────────
 
-[1-2 sentence acknowledgment]
+         Analyzing codebase...
 
-[First question or action]
+   ─────────────────◆─────────────────
 ```
 
-## What NOT to Do
+Then spawn project-init:
 
-- Don't load ALL roles
-- Don't run full context checks unless needed
-- Don't greet with wall of text
+```python
+Task(
+    subagent_type="project-init",
+    prompt="Analyze this codebase and generate project-specific agents in .claude/agents/",
+    run_in_background=False
+)
+```
 
-## Comparison
+#### 2c. Already Initialized (has .claude/)
 
-- **start:** Lean, ask first, minimal context
-- **help:** Deep assessment, suggest priorities
+First, check if project-specific agents exist:
 
-Use `start` for focused work without setup overhead.
+```bash
+# Check for project agents
+agent_count=$(ls .claude/agents/*.md 2>/dev/null | wc -l | tr -d ' ')
+echo "Project agents: $agent_count"
+```
+
+**If no agents (agent_count == 0):**
+
+```
+Clorch initialized, but no project agents found.
+Analyzing codebase to generate project-specific agents...
+```
+
+Then spawn project-init:
+
+```python
+Task(
+    subagent_type="project-init",
+    prompt="Analyze this codebase and generate project-specific agents in .claude/agents/",
+    run_in_background=False
+)
+```
+
+**If agents exist (agent_count > 0):**
+
+```
+Clorch already initialized in this workspace.
+
+Project agents found: [list agent names]
+
+Use:
+- /resume      - Resume from last session
+- /update-project - Update agents to latest standards
+- /help        - See available commands
+```
+
+## Parameters
+
+- `/start` - Auto-detect and initialize (runs project-init if agents missing)
+- `/start --force` - Re-run project-init even if agents exist (regenerate)
+- `/start --agents-only` - Skip infrastructure, just check/generate agents
+
+## What Gets Created
+
+### For Empty Projects
+| Path | Purpose |
+|------|---------|
+| `.claude/agents/` | Project-specific agents (empty) |
+| `.claude/memory/` | Session state files |
+| `.claude/hooks/` | Project-specific hooks |
+| `thoughts/shared/handoffs/` | Session handoffs |
+| `thoughts/shared/plans/` | Implementation plans |
+
+### For Existing Codebases
+All of the above, plus:
+- `stack-guardian.md` - Tech stack conventions
+- `api-guardian.md` - API design patterns (if applicable)
+- `domain-expert.md` - Business logic validation
+- `test-guardian.md` - Testing patterns
+- Additional agents based on codebase analysis
+
+## Post-Start
+
+After `/start`:
+1. **Empty project**: Start coding, run `/start` again when ready for agents
+2. **Existing codebase**: Restart Claude Code to load new agents, then work normally

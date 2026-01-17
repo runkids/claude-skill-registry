@@ -1,7 +1,7 @@
 {
   "name": "playwright-testing",
-  "repo": "artofrawr/claude-control",
-  "path": "skills/playwright-testing/SKILL.md",
-  "source": "github.com/artofrawr/claude-control",
-  "downloaded_at": "2026-01-14T03:44:43.763655Z"
+  "repo": "C0ntr0lledCha0s/claude-code-plugin-automations",
+  "path": "testing-expert/skills/playwright-testing/SKILL.md",
+  "source": "github.com/C0ntr0lledCha0s/claude-code-plugin-automations",
+  "downloaded_at": "2026-01-17T04:03:39.363798Z"
 }

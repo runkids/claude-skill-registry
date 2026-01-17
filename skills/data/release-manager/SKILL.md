@@ -1,174 +1,121 @@
 ---
 name: release-manager
-description: Ship features safely with progressive rollouts, feature flags, and canary deployments. Use when deploying risky features or need gradual rollouts.
-license: Complete terms in LICENSE.txt
+description: Build, package, tag, and release Naki app to GitHub. Use when the user asks to "release", "publish", "tag", "build DMG/ZIP", or "upgrade version". Handles the complete release workflow from build to GitHub release creation.
+allowed-tools: Read, Glob, Grep, Write, Edit, Bash
 ---
 
-# Release Manager
+# Release Manager Skill
 
-Ship features safely with progressive rollouts.
+Base directory: {baseDir}
 
-## Progressive Rollout Strategy
+## Quick Release
 
-```yaml
-Phase 1 - Internal (Day 1):
-  - 100% to internal team
-  - Test thoroughly
-  - Fix critical bugs
-
-Phase 2 - Beta (Day 2-3):
-  - 5% to beta users
-  - Monitor errors/performance
-  - Collect feedback
-
-Phase 3 - Gradual (Day 4-7):
-  - 25% of users
-  - Watch metrics closely
-  - 50% of users if good
-  - 100% if still good
-
-Phase 4 - Full Release:
-  - 100% of users
-  - Remove feature flag
-  - Announce publicly
+```bash
+# 完整發布腳本 (推薦)
+bash {baseDir}/scripts/release.sh <version>
+# Example: bash {baseDir}/scripts/release.sh 2.3.1
 ```
 
-## Feature Flags
+## Release Workflow
 
-```typescript
-// Feature flag implementation
-const featureFlags = {
-  newDashboard: {
-    enabled: true,
-    rollout: 0.25, // 25% of users
-    userGroups: ['beta-testers'], // Always on for beta
-  }
-}
-
-function isFeatureEnabled(feature, user) {
-  const flag = featureFlags[feature]
-
-  // Check user group
-  if (user.groups.some(g => flag.userGroups.includes(g))) {
-    return true
-  }
-
-  // Check rollout percentage
-  const hash = hashUserId(user.id)
-  return (hash % 100) < (flag.rollout * 100)
-}
-
-// Usage
-{isFeatureEnabled('newDashboard', user) ? (
-  <NewDashboard />
-) : (
-  <OldDashboard />
-)}
+```
+1. Generate Release Notes → git log $PREV_TAG..HEAD
+2. Build App             → xcodebuild -configuration Release
+3. Create Packages       → DMG + ZIP in dist/
+4. Update Version        → README.md, CLAUDE.md, project.pbxproj
+5. Create Git Tag        → git tag -a "v$VERSION"
+6. Push to Remote        → git push origin main && git push --tags
+7. GitHub Release        → gh release create with assets
 ```
 
-## Deployment Strategies
+## Step-by-Step Commands
 
-### Blue-Green Deployment
+### 1. Build Release App
 
-```yaml
-Process: 1. Deploy to "green" environment
-  2. Test green thoroughly
-  3. Switch traffic to green
-  4. Keep blue as rollback
-
-Pros: Instant rollback
-Cons: 2x infrastructure cost
+```bash
+xcodebuild clean build \
+  -project Naki.xcodeproj \
+  -scheme Naki \
+  -configuration Release \
+  -derivedDataPath ./build \
+  CODE_SIGN_IDENTITY="-" \
+  CODE_SIGNING_REQUIRED=NO
 ```
 
-### Canary Deployment
+### 2. Create Packages
 
-```yaml
-Process: 1. Deploy to 5% of servers
-  2. Monitor for 1 hour
-  3. If good, deploy to 25%
-  4. Monitor for 1 hour
-  5. If good, deploy to 100%
+```bash
+# Locate built app
+APP_PATH=$(find ./build -name "Naki.app" -type d | head -1)
 
-Pros: Gradual, safe
-Cons: Slower rollout
+# Create dist directory
+mkdir -p dist
+
+# ZIP
+cd "$(dirname "$APP_PATH")" && zip -r -y ../../../dist/Naki.zip Naki.app && cd -
+
+# DMG
+mkdir -p dmg_temp && cp -R "$APP_PATH" dmg_temp/
+hdiutil create -volname "Naki" -srcfolder dmg_temp -ov -format UDZO dist/Naki.dmg
+rm -rf dmg_temp
 ```
 
-## Rollback Plan
+### 3. Update Version & Tag
 
-```yaml
-Criteria for Rollback:
-  - Error rate > 1%
-  - Performance degradation > 20%
-  - Critical bug discovered
-  - Negative user feedback
+```bash
+VERSION="2.3.1"  # Set your version
 
-Rollback Process: 1. Disable feature flag immediately
-  2. Notify team
-  3. Investigate issue
-  4. Fix and redeploy
+# Update version in files
+sed -i '' "s/Version-[0-9.]*-green/Version-$VERSION-green/" README.md
+sed -i '' "s/| Version | [0-9.]* |/| Version | $VERSION |/" CLAUDE.md
+
+# Commit and tag
+git add README.md CLAUDE.md Naki.xcodeproj/project.pbxproj
+git commit -m "chore: Release v$VERSION"
+git tag -a "v$VERSION" -m "Release v$VERSION"
+git push origin main && git push origin "v$VERSION"
 ```
 
-## Release Checklist
+### 4. GitHub Release
 
-### Pre-Release
-
-- [ ] Code reviewed
-- [ ] Tests passing
-- [ ] Staging tested
-- [ ] Feature flag configured
-- [ ] Rollback plan ready
-- [ ] Monitoring alerts set
-
-### During Release
-
-- [ ] Deploy to 5% first
-- [ ] Watch error rate
-- [ ] Monitor performance
-- [ ] Check user feedback
-- [ ] Gradually increase
-
-### Post-Release
-
-- [ ] Monitor for 24 hours
-- [ ] Collect feedback
-- [ ] Remove feature flag
-- [ ] Document learnings
-
-## Monitoring
-
-```yaml
-Key Metrics During Release:
-  - Error rate
-  - Response time p95
-  - CPU/memory usage
-  - User-reported issues
-
-Alerts:
-  - Error rate > 1% → Pause rollout
-  - Response time > 2s → Investigate
-  - Memory spike > 90% → Rollback
+```bash
+gh release create "v$VERSION" \
+  --title "Naki v$VERSION" \
+  --generate-notes \
+  dist/Naki.dmg dist/Naki.zip
 ```
 
-## Communication
+## Version Guidelines (Semantic Versioning)
 
-```yaml
-Internal:
-  - Slack announcement
-  - Deploy log updated
-  - Engineering team notified
+| Type | When | Example |
+|------|------|---------|
+| PATCH | Bug 修復、小調整 | 2.3.0 → 2.3.1 |
+| MINOR | 新功能、新工具 | 2.3.0 → 2.4.0 |
+| MAJOR | 架構重構、不相容變更 | 2.3.0 → 3.0.0 |
 
-External:
-  - Changelog updated
-  - Email to power users (if major)
-  - Blog post (if significant)
-```
+## Pre-release Checklist
 
-## Summary
+- [ ] All changes committed: `git status`
+- [ ] Build succeeds without errors
+- [ ] On correct branch (usually `main`)
+- [ ] Previous tag exists: `git describe --tags --abbrev=0`
 
-Safe releases:
+## Resource Index
 
-- ✅ Start small (5%)
-- ✅ Monitor closely
-- ✅ Rollback readily
-- ✅ Feature flags everywhere
-- ✅ Document process
+| Resource | Purpose | Load When |
+|----------|---------|-----------|
+| `{baseDir}/scripts/release.sh` | 完整發布腳本 | 執行完整發布 |
+| `{baseDir}/references/reference.md` | 版本位置、構建配置詳情 | 需要詳細參數 |
+
+## Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| Build fails | `xcodebuild -project Naki.xcodeproj -list` |
+| DMG fails | Check disk space: `df -h` |
+| gh not authorized | `gh auth login` |
+| Tag exists | `git tag -d "v$VERSION"` then retry |
+
+---
+
+**Release Manager v1.1** - Streamlined Release Workflow

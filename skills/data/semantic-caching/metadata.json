@@ -1,9 +1,7 @@
 {
   "name": "semantic-caching",
-  "description": "Redis semantic caching for LLM applications. Use when implementing vector similarity caching, optimizing LLM costs through cached responses, or building multi-level cache hierarchies.",
   "repo": "yonatangross/skillforge-claude-plugin",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/semantic-caching/SKILL.md",
+  "source": "github.com/yonatangross/skillforge-claude-plugin",
+  "downloaded_at": "2026-01-17T01:47:42.659815Z"
 }

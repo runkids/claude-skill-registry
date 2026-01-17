@@ -1,12 +1,7 @@
 {
   "name": "loki-mode",
-  "description": "Multi-agent autonomous startup system for Claude Code. Triggers on \"Loki Mode\". Orchestrates 100+ specialized agents across engineering, QA, DevOps, security, data/ML, business operations, marketing, ",
-  "repo": "asklokesh/claudeskill-loki-mode",
-  "category": "devops",
-  "tags": [
-    "loki",
-    "mode"
-  ],
-  "stars": 330,
-  "source": "SkillsMP Synced Skills"
+  "repo": "lips85/antigravity-skills-bootstrap",
+  "path": "skills/loki-mode/SKILL.md",
+  "source": "github.com/lips85/antigravity-skills-bootstrap",
+  "downloaded_at": "2026-01-17T01:31:27.030705Z"
 }

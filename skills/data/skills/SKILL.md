@@ -1,245 +1,219 @@
 ---
-name: test-runner
-description: Executes test suites and analyzes results. Activates when user wants to run tests, check test coverage, or validate functionality. Runs appropriate test commands, parses output, identifies failures, and suggests fixes. Use when user mentions "run tests", "test suite", "test results", or "test coverage".
-allowed-tools: Read, Bash, Grep, Glob
+document_name: "gtm-planning.skill.md"
+location: ".claude/skills/gtm-planning.skill.md"
+codebook_id: "CB-SKILL-GTM-001"
+version: "1.0.0"
+date_created: "2026-01-04"
+date_last_edited: "2026-01-04"
+document_type: "skill"
+purpose: "Procedures for go-to-market planning"
+skill_metadata:
+  category: "marketing"
+  complexity: "advanced"
+  estimated_time: "varies"
+  prerequisites:
+    - "Positioning complete"
+    - "Messaging framework"
+category: "skills"
+status: "active"
+tags:
+  - "skill"
+  - "marketing"
+  - "gtm"
+  - "launch"
+ai_parser_instructions: |
+  This skill defines procedures for GTM planning.
+  Used by Product Marketing Manager agent.
 ---
 
-# Test Runner
+# GTM Planning Skill
 
-You are a specialized test execution and analysis expert for Claude Code.
+=== PURPOSE ===
 
-## Expertise
+Procedures for go-to-market strategy and launch planning.
 
-You specialize in:
-- Running test suites across different frameworks
-- Analyzing test output and failures
-- Identifying patterns in test failures
-- Suggesting fixes for failing tests
-- Measuring and improving test coverage
+=== USED BY ===
 
-## Test Execution Workflow
+| Agent | Purpose |
+|-------|---------|
+| @agent(pmm) @ref(CB-AGENT-PMM-001) | Primary skill for GTM |
 
-### Step 1: Identify Test Framework
+=== PROCEDURE: GTM Strategy ===
 
-Detect the testing framework from project files:
+**Components:**
+1. Target market definition
+2. Value proposition
+3. Pricing strategy
+4. Distribution channels
+5. Launch timeline
+6. Success metrics
 
-- **JavaScript/TypeScript**: Jest, Mocha, Jasmine, Vitest
-  - Check: `package.json` for test dependencies
-  - Run: `npm test`, `yarn test`, `pnpm test`
+=== PROCEDURE: Launch Tiers ===
 
-- **Python**: pytest, unittest, nose
-  - Check: `requirements.txt`, `pyproject.toml`
-  - Run: `pytest`, `python -m unittest`
+**Tier Definitions:**
+| Tier | Scope | Activities |
+|------|-------|------------|
+| Tier 1 | Major release | Full campaign, PR, events |
+| Tier 2 | Significant feature | Blog, email, social |
+| Tier 3 | Minor feature | Changelog, documentation |
+| Tier 4 | Bug fix/patch | Release notes only |
 
-- **Go**: go test
-  - Run: `go test ./...`
+**Tier Selection Criteria:**
+- Market impact
+- Revenue potential
+- Competitive response
+- Customer demand
+- Strategic importance
 
-- **Rust**: cargo test
-  - Run: `cargo test`
+=== PROCEDURE: Launch Checklist ===
 
-- **Java**: JUnit, TestNG
-  - Run: `mvn test`, `gradle test`
+**Pre-Launch (T-30 days):**
+- [ ] Positioning finalized
+- [ ] Messaging approved
+- [ ] Pricing confirmed
+- [ ] Launch tier determined
+- [ ] Assets list created
 
-### Step 2: Execute Tests
+**Pre-Launch (T-14 days):**
+- [ ] Landing page ready
+- [ ] Documentation complete
+- [ ] Demo/video ready
+- [ ] Email templates drafted
+- [ ] Social content planned
 
-Run the appropriate test command:
+**Pre-Launch (T-7 days):**
+- [ ] Sales enablement complete
+- [ ] Support briefed
+- [ ] Press release ready
+- [ ] Blog post drafted
+- [ ] Final QA of materials
 
-```bash
-# Run all tests
-npm test
+**Launch Day:**
+- [ ] Feature deployed
+- [ ] Documentation live
+- [ ] Landing page live
+- [ ] Email sent
+- [ ] Social posts published
+- [ ] Monitoring in place
 
-# Run specific test file
-npm test -- path/to/test.spec.ts
+**Post-Launch (T+7 days):**
+- [ ] Metrics reviewed
+- [ ] Customer feedback gathered
+- [ ] Issues addressed
+- [ ] Retro completed
 
-# Run with coverage
-npm test -- --coverage
-```
+=== PROCEDURE: GTM Document ===
 
-Capture both stdout and stderr for complete results.
+**Location:** `devdocs/marketing/gtm-plan.md`
 
-### Step 3: Analyze Results
-
-Parse test output to extract:
-
-**Summary Stats:**
-- Total tests run
-- Passed count
-- Failed count
-- Skipped count
-- Execution time
-
-**Failed Tests:**
-- Test name/description
-- Error message
-- Stack trace
-- File and line number
-
-**Coverage Metrics** (if available):
-- Line coverage percentage
-- Branch coverage
-- Uncovered files/functions
-
-### Step 4: Diagnose Failures
-
-For each failing test:
-
-1. **Read the test code**: Understand what's being tested
-2. **Read the error**: Identify the failure reason
-3. **Check the implementation**: Look at the code being tested
-4. **Identify root cause**: Bug in code vs bug in test
-
-Common failure patterns:
-- Assertion errors (expected vs actual)
-- Runtime errors (null reference, undefined)
-- Timeout errors (async operations)
-- Setup/teardown issues
-
-### Step 5: Report Results
-
-Provide structured results:
-
+**Structure:**
 ```markdown
-## Test Results
+# Go-to-Market Plan: [Feature/Product]
 
-### Summary
-- ✅ Passed: X
-- ❌ Failed: Y
-- ⏭️ Skipped: Z
-- ⏱️ Duration: Xs
+## Overview
+- Feature: [name]
+- Launch Date: [date]
+- Launch Tier: [1-4]
+- Owner: @pmm
 
-### Status: [✅ All Passed | ❌ Failures Detected]
+## Target Audience
+[Who this is for]
 
----
+## Key Messages
+[From messaging framework]
 
-### Failed Tests
+## Launch Activities
 
-#### 1. [Test Name]
-- **File**: path/to/test.ts:42
-- **Error**: [Error message]
-- **Cause**: [Diagnosis]
-- **Fix**: [Suggested solution]
+### Marketing
+- [ ] Blog post
+- [ ] Email campaign
+- [ ] Social media
+- [ ] Landing page
 
-#### 2. [Test Name]
-...
+### Sales
+- [ ] Sales deck updated
+- [ ] Battlecard created
+- [ ] Demo script ready
 
----
+### Support
+- [ ] Documentation
+- [ ] FAQ
+- [ ] Training
 
-### Coverage
-- Lines: X%
-- Branches: Y%
-- Functions: Z%
+## Timeline
+| Date | Activity | Owner | Status |
+|------|----------|-------|--------|
+| T-14 | Assets ready | PMM | Pending |
+| T-7 | Final review | All | Pending |
+| T-0 | Launch | DevOps | Pending |
 
-### Recommendations
-- [Suggestions for improving tests]
-- [Coverage improvements needed]
+## Success Metrics
+| Metric | Target | Measurement |
+|--------|--------|-------------|
+| Signups | X | Analytics |
+| Activation | Y% | Product |
+| Revenue | $Z | Finance |
+
+## Risks
+| Risk | Impact | Mitigation |
+|------|--------|------------|
+| [Risk] | [Impact] | [Plan] |
 ```
 
-### Step 6: Suggest Fixes
+=== PROCEDURE: Channel Strategy ===
 
-For failed tests, provide specific fixes:
+**Channel Mix:**
+```markdown
+## Distribution Channels
 
-**Bug in Implementation:**
-```typescript
-// Current (failing)
-function add(a, b) {
-  return a - b;  // Bug: should be +
-}
+### Owned
+- Website
+- Blog
+- Email list
+- Documentation
 
-// Fixed
-function add(a, b) {
-  return a + b;
-}
+### Earned
+- PR/Press
+- Reviews
+- Word of mouth
+- Community
+
+### Paid (if applicable)
+- Ads
+- Sponsorships
+- Events
 ```
 
-**Bug in Test:**
-```typescript
-// Current (incorrect expectation)
-expect(result).toBe(5);  // Wrong expectation
+**Channel Prioritization:**
+| Channel | Reach | Cost | Effort | Priority |
+|---------|-------|------|--------|----------|
+| Blog | Medium | Low | Low | High |
+| Email | High | Low | Medium | High |
+| Social | Medium | Low | Medium | Medium |
+| PR | High | Medium | High | For Tier 1 |
 
-// Fixed
-expect(result).toBe(3);  // Correct expectation
+=== PROCEDURE: Metrics Framework ===
+
+**Funnel Metrics:**
+```
+Awareness → Visits → Signups → Activation → Revenue
+    |          |        |          |           |
+  Impressions  Unique   Conv.     Active     MRR/ARR
+              visitors  rate      users
 ```
 
-## Test Framework Specifics
+**Launch KPIs:**
+| Phase | Metric | Definition |
+|-------|--------|------------|
+| Awareness | Reach | Unique impressions |
+| Interest | Traffic | Website visits |
+| Consideration | Signups | New accounts |
+| Decision | Activation | First value achieved |
+| Advocacy | NPS | Net promoter score |
 
-### Jest/Vitest
+=== RELATED SKILLS ===
 
-```bash
-# Run all tests
-npm test
-
-# Watch mode
-npm test -- --watch
-
-# Coverage
-npm test -- --coverage
-
-# Specific file
-npm test -- user.spec.ts
-```
-
-### pytest
-
-```bash
-# Run all
-pytest
-
-# Verbose
-pytest -v
-
-# Specific file
-pytest tests/test_user.py
-
-# Coverage
-pytest --cov=src
-```
-
-### Go
-
-```bash
-# All tests
-go test ./...
-
-# Verbose
-go test -v ./...
-
-# Coverage
-go test -cover ./...
-```
-
-## Best Practices
-
-- **Run tests before suggesting changes**: Understand current state
-- **Run tests after fixes**: Verify fixes work
-- **Check coverage**: Identify untested code
-- **Read test names**: They describe expected behavior
-- **Understand test structure**: Arrange-Act-Assert pattern
-- **Suggest improvements**: Better test coverage, edge cases
-
-## Coverage Analysis
-
-When analyzing coverage:
-
-1. **Identify uncovered files**: Which files have no tests?
-2. **Find uncovered lines**: What code paths are untested?
-3. **Suggest test cases**: What scenarios should be added?
-
-Example:
-```
-Uncovered lines in user-service.ts:
-- Lines 42-45: Error handling path (need error test case)
-- Lines 67-70: Edge case for empty input (need edge case test)
-
-Suggested tests:
-- Test error handling when database is unavailable
-- Test behavior with empty/null username
-```
-
-## Remember
-
-- **Tests are documentation**: They show how code should work
-- **Failures are information**: Each failure reveals something
-- **Coverage isn't everything**: Quality > quantity
-- **Fix root causes**: Don't just make tests pass
-
-You are ensuring code quality through rigorous testing. Be thorough and helpful.
+| Skill | Relationship |
+|-------|--------------|
+| @skill(positioning) | Strategy foundation |
+| @skill(messaging) | Content creation |

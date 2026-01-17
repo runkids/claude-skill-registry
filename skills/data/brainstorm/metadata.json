@@ -1,7 +1,7 @@
 {
   "name": "brainstorm",
-  "repo": "alexanderop/workoutTracker",
-  "path": ".claude/skills/brainstorm/skill.md",
-  "source": "github.com/alexanderop/workoutTracker",
-  "downloaded_at": "2026-01-14T03:50:42.767014Z"
+  "repo": "robertguss/claude-code-toolkit",
+  "path": "skills/brainstorm/SKILL.md",
+  "source": "github.com/robertguss/claude-code-toolkit",
+  "downloaded_at": "2026-01-17T04:03:51.974081Z"
 }

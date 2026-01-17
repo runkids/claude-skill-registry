@@ -1,170 +1,215 @@
 ---
 name: review
-description: Perform a code review on recent changes
+description: Comprehensive code review workflow - parallel specialized reviews → synthesis
 ---
 
 # /review - Code Review Workflow
 
-## Purpose
+Multi-perspective code review with parallel specialists.
 
-Performs a comprehensive code review of changes in the current branch compared to main. This skill combines:
-1. **CodeRabbit AI Review** - Automated AI-powered code analysis
-2. **Manual Review** - Claude's targeted review of Swift 6.0 compliance, accessibility, and testing
+## When to Use
 
-## Usage
+- "Review this code"
+- "Review my PR"
+- "Check this before I merge"
+- "Get feedback on implementation"
+- Before merging significant changes
+- Quality gates
+
+## Workflow Overview
 
 ```
-/review              # Full review: CodeRabbit + manual review
-/review staged       # Review only staged changes
-/review <file>       # Review specific file (manual only)
-/review --quick      # Quick review (CodeRabbit only)
-/review --manual     # Skip CodeRabbit, manual review only
+         ┌──────────┐
+         │  critic  │ ─┐
+         │ (code)   │  │
+         └──────────┘  │
+                       │
+         ┌──────────┐  │      ┌──────────────┐
+         │plan-reviewer│ ─┼────▶ │ review-agent │
+         │ (plan)   │  │      │ (synthesis)  │
+         └──────────┘  │      └──────────────┘
+                       │
+         ┌──────────┐  │
+         │plan-reviewer│ ─┘
+         │ (change) │
+         └──────────┘
+
+         Parallel                Sequential
+         perspectives            synthesis
 ```
 
-## Workflow
+## Agent Sequence
 
-### 1. Run CodeRabbit Automated Review
+| # | Agent | Focus | Execution |
+|---|-------|-------|-----------|
+| 1 | **critic** | Code quality, patterns, readability | Parallel |
+| 1 | **plan-reviewer** | Architecture, plan adherence | Parallel |
+| 1 | **plan-reviewer** | Change impact, risk assessment | Parallel |
+| 2 | **review-agent** | Synthesize all reviews, final verdict | After 1 |
 
-Always start with CodeRabbit for comprehensive AI analysis:
+## Review Perspectives
 
-```bash
-# For uncommitted changes (most common)
-/Users/ramerman/.local/bin/coderabbit review --prompt-only --type uncommitted
+- **critic**: Is this good code? (Style, patterns, readability)
+- **plan-reviewer**: Does this match the design? (Architecture, plan)
+- **plan-reviewer**: Is this change safe? (Risk, impact, regressions)
+- **review-agent**: Overall assessment and recommendations
 
-# For committed changes not yet merged
-/Users/ramerman/.local/bin/coderabbit review --prompt-only --type committed
+## Execution
 
-# For all changes
-/Users/ramerman/.local/bin/coderabbit review --prompt-only
+### Phase 1: Parallel Reviews
+
+```
+# Code quality review
+Task(
+  subagent_type="critic",
+  prompt="""
+  Review code quality: [SCOPE]
+
+  Evaluate:
+  - Code style and consistency
+  - Design patterns used
+  - Readability and maintainability
+  - Error handling
+  - Test coverage
+
+  Output: List of issues with severity (critical/major/minor)
+  """,
+  run_in_background=true
+)
+
+# Architecture review
+Task(
+  subagent_type="plan-reviewer",
+  prompt="""
+  Review architecture alignment: [SCOPE]
+
+  Check:
+  - Follows established patterns
+  - Matches implementation plan (if exists)
+  - Consistent with system design
+  - No architectural violations
+
+  Output: Alignment assessment with concerns
+  """,
+  run_in_background=true
+)
+
+# Change impact review
+Task(
+  subagent_type="plan-reviewer",
+  prompt="""
+  Review change impact: [SCOPE]
+
+  Assess:
+  - Risk level of changes
+  - Affected systems/components
+  - Backward compatibility
+  - Potential regressions
+  - Security implications
+
+  Output: Risk assessment with recommendations
+  """,
+  run_in_background=true
+)
+
+# Wait for all parallel reviews
+[Check TaskOutput for all three]
 ```
 
-CodeRabbit provides:
-- File-by-file analysis with line numbers
-- Issue severity classification (potential_issue, nitpick, refactor_suggestion)
-- AI agent prompts for automated fixes
-- Security and performance issue detection
+### Phase 2: Synthesis
 
-### 2. Fix Critical CodeRabbit Issues
+```
+Task(
+  subagent_type="review-agent",
+  prompt="""
+  Synthesize reviews for: [SCOPE]
 
-Address issues marked as `potential_issue` before proceeding:
-- These are bugs, security issues, or incorrect behavior
-- Use the provided "Prompt for AI Agent" as guidance
-- Run CodeRabbit again after fixes to verify
+  Reviews:
+  - critic: [code quality findings]
+  - plan-reviewer: [architecture findings]
+  - plan-reviewer: [change impact findings]
 
-### 3. Manual Review Checklist
+  Create final review:
+  - Overall verdict (APPROVE / REQUEST_CHANGES / NEEDS_DISCUSSION)
+  - Prioritized action items
+  - Blocking vs non-blocking issues
+  - Summary for PR description
+  """
+)
+```
 
-After CodeRabbit, perform manual checks for project-specific requirements:
+## Review Modes
 
-#### Swift 6.0 Concurrency Compliance
-- `@MainActor` annotations on UI code
-- Actor-based services for shared state
-- `@Sendable` types for cross-actor boundaries
-- No data races or concurrency warnings
-- Proper async/await usage
-
-#### Code Quality
-- No force unwraps (`!`) - use `guard`/`if-let`
-- Comprehensive error handling
-- Meaningful variable and function names
-- Functions under 50 lines where possible
-- No magic numbers or hardcoded strings
-- Proper use of access control (`private`, `internal`, `public`)
-
-#### Testing Requirements
-- Test coverage for new code
-- Tests follow "Real Over Mock" philosophy
-- Descriptive test names: `test<Feature>_<Scenario>_<Expected>`
-- Edge cases covered
-- Integration tests for complex flows
-
-#### iOS Standards
-- Accessibility labels on all interactive elements
-- `LocalizedStringKey` for user-facing text
-- Adherence to `docs/ios/IOS_STYLE_GUIDE.md`
-- Proper memory management (no retain cycles)
-- SwiftUI best practices
-
-### 4. Generate Report
-
-Combine CodeRabbit findings with manual review:
-
-**CodeRabbit Issues**
-- Count of potential_issue items
-- Count of nitpicks
-- Count of refactor_suggestions
-
-**Manual Review**
-- Critical Issues (must fix)
-- Suggestions (nice to have)
-- Positive Notes (well-done aspects)
-
-## Success Criteria
-
-- All CodeRabbit `potential_issue` items addressed
-- All manual critical issues identified and fixed
-- Clear, actionable feedback provided
-- `/validate` passes after all fixes
-
-## Examples
-
-**Full review with CodeRabbit:**
+### Full Review
 ```
 User: /review
-Claude: Running CodeRabbit review on uncommitted changes...
-
-[CodeRabbit Output]
-============================================================================
-File: UnaMentis/Core/Audio/AudioSegmentCache.swift
-Line: 61 to 70
-Type: potential_issue
-
-Prompt for AI Agent: Fix cache size calculation...
-============================================================================
-
-CodeRabbit found:
-- 2 potential_issue items
-- 5 nitpicks
-- 3 refactor_suggestions
-
-Fixing potential issues first...
-[Makes fixes]
-
-Running manual review checklist...
-
-## Summary
-- CodeRabbit issues fixed: 2
-- Nitpicks addressed: 3 (2 skipped as minor)
-- Manual issues found: 0
-- Status: READY FOR COMMIT
+→ All four agents, comprehensive review
 ```
 
-**Quick review (CodeRabbit only):**
+### Quick Review
 ```
 User: /review --quick
-Claude: Running quick CodeRabbit review...
-
-Found 2 potential issues:
-1. AudioSegmentCache.swift:61 - Cache size calculation bug
-2. SessionView.swift:2134 - AVAudioPlayer retention issue
-
-Run `/review` for full analysis including manual checks.
+→ critic only, fast feedback
 ```
 
-## CodeRabbit Authentication
-
-If CodeRabbit is not authenticated:
-```bash
-/Users/ramerman/.local/bin/coderabbit auth login
+### Security Focus
+```
+User: /review --security
+→ Add aegis (security agent) to parallel phase
 ```
 
-Follow the prompts to authenticate via browser.
+### PR Review
+```
+User: /review PR #123
+→ Fetch PR diff, review changes
+```
 
-## Integration
+## Example
 
-This skill should be run:
-- After completing any feature implementation
-- Before creating a pull request
-- After `/validate` passes
-- When reviewing changes
+```
+User: /review the authentication changes
 
-The workflow is: Code -> `/validate` -> `/review` -> Fix issues -> Commit
+Claude: Starting /review workflow...
+
+Phase 1: Running parallel reviews...
+┌────────────────────────────────────────────┐
+│ critic: Reviewing code quality...          │
+│ plan-reviewer: Checking architecture...         │
+│ plan-reviewer: Assessing change impact...         │
+└────────────────────────────────────────────┘
+
+critic: Found 2 issues
+- [minor] Inconsistent error messages in auth.ts
+- [major] Missing input validation in login()
+
+plan-reviewer: ✅ Matches authentication plan
+
+plan-reviewer: Medium risk
+- Affects: login, signup, password reset
+- Breaking change: session token format
+
+Phase 2: Synthesizing...
+
+┌─────────────────────────────────────────────┐
+│ Review Summary                              │
+├─────────────────────────────────────────────┤
+│ Verdict: REQUEST_CHANGES                    │
+│                                             │
+│ Blocking:                                   │
+│ 1. Add input validation to login()          │
+│                                             │
+│ Non-blocking:                               │
+│ 2. Standardize error messages               │
+│                                             │
+│ Notes:                                      │
+│ - Document session token format change      │
+│ - Consider migration path for existing      │
+│   sessions                                  │
+└─────────────────────────────────────────────┘
+```
+
+## Verdicts
+
+- **APPROVE**: Ready to merge, all issues are minor
+- **REQUEST_CHANGES**: Blocking issues must be fixed
+- **NEEDS_DISCUSSION**: Architectural decisions need input

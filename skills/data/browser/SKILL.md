@@ -1,66 +1,73 @@
 ---
 name: browser
-description: Minimal Chrome DevTools Protocol tools for browser automation and scraping. Use when you need to start Chrome, navigate pages, execute JavaScript, take screenshots, or interactively pick DOM elements.
+description: This skill should be used for browser automation tasks using Chrome DevTools Protocol (CDP). Triggers when users need to launch Chrome with remote debugging, navigate pages, execute JavaScript in browser context, capture screenshots, or interactively select DOM elements. No MCP server required.
 ---
 
-# Browser Tools
+# Browser Automation
 
-Minimal CDP tools for collaborative site exploration and scraping.
+Minimal Chrome DevTools Protocol (CDP) helpers for browser automation without MCP server setup.
 
-**IMPORTANT**: All scripts are located in `~/.factory/skills/browser/` and must be called with full paths.
+## Setup
 
-## Start Chrome
-
-```bash
-~/.factory/skills/browser/start.js              # Fresh profile
-~/.factory/skills/browser/start.js --profile    # Copy your profile (cookies, logins)
-```
-
-Start Chrome on `:9222` with remote debugging.
-
-## Navigate
+Install dependencies before first use:
 
 ```bash
-~/.factory/skills/browser/nav.js https://example.com
-~/.factory/skills/browser/nav.js https://example.com --new
+npm install --prefix ~/.claude/skills/browser/browser ws
 ```
 
-Navigate current tab or open new tab.
+## Scripts
 
-## Evaluate JavaScript
+All scripts connect to Chrome on `localhost:9222`.
+
+### start.js - Launch Chrome
 
 ```bash
-~/.factory/skills/browser/eval.js 'document.title'
-~/.factory/skills/browser/eval.js 'document.querySelectorAll("a").length'
+scripts/start.js              # Fresh profile
+scripts/start.js --profile    # Use persistent profile (keeps cookies/auth)
 ```
 
-Execute JavaScript in active tab (async context).
-
-**IMPORTANT**: The code must be a single expression or use IIFE for multiple statements:
-
-- Single expression: `'document.title'`
-- Multiple statements: `'(() => { const x = 1; return x + 1; })()'`
-- Avoid newlines in the code string - keep it on one line
-
-## Screenshot
+### nav.js - Navigate
 
 ```bash
-~/.factory/skills/browser/screenshot.js
+scripts/nav.js https://example.com        # Navigate current tab
+scripts/nav.js https://example.com --new  # Open in new tab
 ```
 
-Screenshot current viewport, returns temp file path.
-
-## Pick Elements
+### eval.js - Execute JavaScript
 
 ```bash
-~/.factory/skills/browser/pick.js "Click the submit button"
+scripts/eval.js 'document.title'
+scripts/eval.js '(() => { const x = 1; return x + 1; })()'
 ```
 
-Interactive element picker. Click to select, Cmd/Ctrl+Click for multi-select, Enter to finish.
+Use single expressions or IIFE for multiple statements.
 
-## Usage Notes
+### screenshot.js - Capture Screenshot
 
-- Start Chrome first before using other tools
-- The `--profile` flag syncs your actual Chrome profile so you're logged in everywhere
-- JavaScript evaluation runs in an async context in the page
-- Pick tool allows you to visually select DOM elements by clicking on them
+```bash
+scripts/screenshot.js
+```
+
+Returns `{ path, filename }` of saved PNG in temp directory.
+
+### pick.js - Visual Element Picker
+
+```bash
+scripts/pick.js "Click the submit button"
+```
+
+Returns element metadata: tag, id, classes, text, href, selector, rect.
+
+## Workflow
+
+1. Launch Chrome: `scripts/start.js --profile` for authenticated sessions
+2. Navigate: `scripts/nav.js <url>`
+3. Inspect: `scripts/eval.js 'document.querySelector(...)'`
+4. Capture: `scripts/screenshot.js` or `scripts/pick.js`
+5. Return gathered data
+
+## Key Points
+
+- All operations run locally - credentials never leave the machine
+- Use `--profile` flag to preserve cookies and auth tokens
+- Scripts return structured JSON for agent consumption

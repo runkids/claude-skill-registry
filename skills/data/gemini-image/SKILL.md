@@ -1,128 +1,131 @@
 ---
 name: gemini-image
-description: Generate images from text prompts using fal.ai Gemini 3 Pro. Use when the user asks to create, generate, or make an image from a text description. Supports multiple aspect ratios and resolutions up to 4K.
-allowed-tools: Bash, Read, Write
+description: Reference guide for using google-genai Python library to generate images with gemini-3-pro-image-preview model. Use this skill when building new projects that need Gemini image generation capabilities, to understand the correct API patterns, configuration options, and best practices.
 ---
 
-# Gemini Image Generation
+# Gemini Image Generation Guide
 
-Generate high-quality images from text prompts using Google's Gemini 3 Pro model via fal.ai.
+Reference for generating images with Google's `gemini-3-pro-image-preview` model.
 
-## Prerequisites
+## Language References
 
-- `FAL_KEY` environment variable must be set (typically in `~/.zshrc`)
+Load the appropriate reference based on the project's language:
 
-## API Endpoint
+| Language | Reference File         |
+|----------|------------------------|
+| Python   | `references/python.md` |
 
-`POST https://fal.run/fal-ai/gemini-3-pro-image-preview`
+**Instructions:** When implementing Gemini image generation, read the corresponding language reference file for complete code patterns and examples.
 
-## Parameters
+---
 
-### Required
-- `prompt` (string): The text description of the image to generate
+## Model Information
 
-### Optional
-| Parameter | Type | Default | Options |
-|-----------|------|---------|---------|
-| `num_images` | integer | 1 | 1-4 |
-| `aspect_ratio` | string | "1:1" | "21:9", "16:9", "3:2", "4:3", "5:4", "1:1", "4:5", "3:4", "2:3", "9:16" |
-| `output_format` | string | "png" | "jpeg", "png", "webp" |
-| `resolution` | string | "1K" | "1K", "2K", "4K" |
-| `sync_mode` | boolean | false | Returns data URI when true |
-| `enable_web_search` | boolean | false | Uses current web data for generation |
-| `limit_generations` | boolean | false | Restricts to 1 image per prompt round |
+| Property             | Value                        |
+|----------------------|------------------------------|
+| Model ID             | `gemini-3-pro-image-preview` |
+| Cost                 | ~$0.134 per image (2K)       |
+| Max Reference Images | 5+ (high fidelity)           |
+| Resolutions          | 1K, 2K, 4K                   |
 
-## Usage
+## Supported Aspect Ratios
 
-### cURL
+| Ratio  | Use Case                   |
+|--------|----------------------------|
+| `1:1`  | Square, social media posts |
+| `2:3`  | Portrait photos            |
+| `3:2`  | Landscape photos           |
+| `3:4`  | Portrait, mobile screens   |
+| `4:3`  | Standard display           |
+| `4:5`  | Instagram portrait         |
+| `5:4`  | Large format               |
+| `9:16` | Vertical video, stories    |
+| `16:9` | Widescreen, presentations  |
+| `21:9` | Ultra-wide, cinematic      |
+
+## Image Sizes
+
+| Size | Resolution | Use Case                      |
+|------|------------|-------------------------------|
+| `1K` | ~1024px    | Thumbnails, previews          |
+| `2K` | ~2048px    | Standard output (recommended) |
+| `4K` | ~4096px    | High-quality prints           |
+
+**Important:** Use uppercase "K" (not "1k", "2k", "4k").
+
+---
+
+## Environment Setup
+
 ```bash
-curl --request POST \
-  --url https://fal.run/fal-ai/gemini-3-pro-image-preview \
-  --header "Authorization: Key $FAL_KEY" \
-  --header "Content-Type: application/json" \
-  --data '{
-    "prompt": "A serene mountain landscape at sunset with golden light",
-    "num_images": 1,
-    "aspect_ratio": "16:9",
-    "resolution": "2K",
-    "output_format": "png"
-  }'
+export GOOGLE_API_KEY='your-api-key-here'
 ```
 
-### Python
-```python
-import fal_client
+---
 
-result = fal_client.subscribe(
-    "fal-ai/gemini-3-pro-image-preview",
-    arguments={
-        "prompt": "A serene mountain landscape at sunset with golden light",
-        "num_images": 1,
-        "aspect_ratio": "16:9",
-        "resolution": "2K"
-    }
-)
+## Core Capabilities
 
-# Access the generated image URL
-image_url = result["images"][0]["url"]
-print(f"Generated image: {image_url}")
+### 1. Text-to-Image Generation
+
+Generate images from text descriptions with configurable aspect ratio and resolution.
+
+### 2. Style Transfer with Reference Images
+
+Pass reference images to maintain consistent style across generations. Supports up to 5+ images for high fidelity.
+
+### 3. Image Editing
+
+Modify existing images based on text instructions (add/remove elements, style changes).
+
+### 4. Batch Generation
+
+Generate multiple style candidates or variations.
+
+---
+
+## Prompt Engineering Tips
+
+### Be Descriptive
+
+```
+Bad:  "cat, sunset"
+Good: "A fluffy orange tabby cat sitting on a wooden fence,
+       watching a vibrant sunset over rolling hills.
+       Warm golden and pink light illuminates the scene.
+       Photorealistic style with soft focus background."
 ```
 
-### JavaScript
-```javascript
-import { fal } from "@fal-ai/client";
+### Specify Visual Elements
 
-const result = await fal.subscribe("fal-ai/gemini-3-pro-image-preview", {
-  input: {
-    prompt: "A serene mountain landscape at sunset with golden light",
-    num_images: 1,
-    aspect_ratio: "16:9",
-    resolution: "2K"
-  }
-});
+- **Lighting:** "soft morning light", "dramatic side lighting", "golden hour"
+- **Style:** "oil painting", "watercolor", "3D render", "photorealistic"
+- **Mood:** "serene", "dramatic", "whimsical", "mysterious"
+- **Composition:** "close-up portrait", "wide landscape", "bird's eye view"
+- **Camera:** "35mm lens", "shallow depth of field", "wide angle"
 
-console.log("Generated image:", result.images[0].url);
-```
+### For Style Transfer
 
-## Response Format
+When using reference images, be explicit about what to transfer:
 
-```json
-{
-  "images": [
-    {
-      "file_name": "generated_image.png",
-      "content_type": "image/png",
-      "url": "https://storage.googleapis.com/..."
-    }
-  ],
-  "description": "A description of the generated image"
-}
-```
+- "Match the color palette and brushstroke style of the reference"
+- "Keep the artistic mood and lighting from the reference image"
 
-## Examples
+---
 
-1. **Simple image generation**:
-   - Prompt: "Generate an image of a futuristic city at night"
+## Common Issues
 
-2. **Specific aspect ratio**:
-   - Prompt: "Create a portrait-oriented image of a forest path" with `aspect_ratio: "9:16"`
+| Issue                | Solution                                                    |
+|----------------------|-------------------------------------------------------------|
+| "No image generated" | Check prompt for content policy violations; simplify prompt |
+| "Invalid image_size" | Use uppercase: `"1K"`, `"2K"`, `"4K"`                       |
+| "API key not found"  | Set `GOOGLE_API_KEY` environment variable                   |
+| Rate limits          | Add delays between requests; use exponential backoff        |
 
-3. **High resolution**:
-   - Prompt: "Generate a detailed 4K image of a coral reef" with `resolution: "4K"`
+---
 
-## Tips
+## Pricing Comparison
 
-- Be specific in your prompts for better results
-- Include lighting, mood, and style descriptors
-- Use appropriate aspect ratios for your use case (16:9 for landscapes, 9:16 for portraits)
-- Higher resolution takes longer to generate
-
-## Error Handling
-
-| Error | Cause | Solution |
-|-------|-------|----------|
-| `401 Unauthorized` | Invalid FAL_KEY | Verify key at fal.ai dashboard |
-| `429 Too Many Requests` | Rate limit exceeded | Wait 60 seconds, retry |
-| `400 Bad Request` | Invalid parameters | Check aspect_ratio, resolution values |
-| `500 Server Error` | API temporary issue | Retry after 30 seconds |
-| `Timeout` | Generation taking too long | Reduce resolution or simplify prompt |
+| Model                      | Cost per Image |
+|----------------------------|----------------|
+| gemini-3-pro-image-preview | ~$0.134        |
+| gemini-2.5-flash-image     | ~$0.039        |

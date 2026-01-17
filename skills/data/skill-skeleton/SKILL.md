@@ -1,285 +1,183 @@
 ---
-name: [TODO: lowercase-hyphen-case-name]
-description: |
-  [TODO: Action verb + what you build with technology. 250-350 chars total. Example: "Build type-safe APIs with Hono - fast routing for Cloudflare Workers. Includes middleware, validation (Zod), and RPC with full type inference."]
-
-  Use when: [TODO: 3-5 specific scenarios], or troubleshooting [TODO: 2-3 distinctive errors].
-
-  [GUIDELINES: Active voice (NOT "This skill provides..."). Two-paragraph format. Cap features at 5 max. Preserve USPs. No meta-commentary. Max 1024 chars. See planning/claude-code-skill-standards.md]
+name: {{SKILL_NAME}}
+description: {{DESCRIPTION}}
+# allowed-tools: Read, Grep, Glob  # Uncomment to restrict tool access
 ---
 
-# [TODO: Skill Display Name]
+# {{SKILL_TITLE}}
 
-**Status**: [TODO: Production Ready / Beta / Experimental]
-**Last Updated**: [TODO: YYYY-MM-DD]
-**Dependencies**: [TODO: List prerequisite skills or tools, or write "None"]
-**Latest Versions**: [TODO: package@version, package2@version]
+> {{ONE_LINE_DESCRIPTION}}
 
----
+## ⚠️ BEFORE YOU START
 
-## Quick Start ([TODO: X] Minutes)
+**This skill prevents {{ERROR_COUNT}} common errors and saves ~{{TOKEN_SAVINGS}}% tokens.**
 
-### 1. [TODO: First Major Step]
+| Metric | Without Skill | With Skill |
+|--------|--------------|------------|
+| Setup Time | {{MANUAL_TIME}} | {{SKILL_TIME}} |
+| Common Errors | {{ERROR_COUNT}} | 0 |
+| Token Usage | {{MANUAL_TOKENS}} | {{SKILL_TOKENS}} |
 
-[TODO: Provide clear, actionable instructions]
+### Known Issues This Skill Prevents
+
+1. {{PREVENTED_ISSUE_1}}
+2. {{PREVENTED_ISSUE_2}}
+3. {{PREVENTED_ISSUE_3}}
+
+## Quick Start
+
+### Step 1: {{FIRST_STEP_TITLE}}
 
 ```bash
-# [TODO: Example command]
+{{FIRST_STEP_CODE}}
 ```
 
-**Why this matters:**
-- [TODO: Explain the reasoning]
-- [TODO: Key benefits]
+**Why this matters:** {{FIRST_STEP_EXPLANATION}}
 
-### 2. [TODO: Second Major Step]
+### Step 2: {{SECOND_STEP_TITLE}}
 
-[TODO: Continue with step-by-step instructions]
-
-```typescript
-// [TODO: Code example with comments]
+```bash
+{{SECOND_STEP_CODE}}
 ```
 
-**CRITICAL:**
-- [TODO: Important notes that prevent common mistakes]
+**Why this matters:** {{SECOND_STEP_EXPLANATION}}
 
-### 3. [TODO: Third Major Step]
+### Step 3: {{THIRD_STEP_TITLE}}
 
-[TODO: Keep going until setup is complete]
-
----
-
-## The [TODO: Number]-Step Setup Process
-
-### Step 1: [TODO: First Step Name]
-
-[TODO: Detailed instructions]
-
-```
-[TODO: Code examples, configurations, etc.]
+```bash
+{{THIRD_STEP_CODE}}
 ```
 
-**Key Points:**
-- [TODO: Important details]
-- [TODO: What to avoid]
-
-### Step 2: [TODO: Second Step Name]
-
-[TODO: Continue with detailed steps]
-
----
+**Why this matters:** {{THIRD_STEP_EXPLANATION}}
 
 ## Critical Rules
 
-### Always Do
+### ✅ Always Do
 
-✅ [TODO: Best practice #1]
-✅ [TODO: Best practice #2]
-✅ [TODO: Best practice #3]
+- ✅ {{DO_1}}
+- ✅ {{DO_2}}
+- ✅ {{DO_3}}
 
-### Never Do
+### ❌ Never Do
 
-❌ [TODO: Anti-pattern #1]
-❌ [TODO: Anti-pattern #2]
-❌ [TODO: Anti-pattern #3]
+- ❌ {{DONT_1}}
+- ❌ {{DONT_2}}
+- ❌ {{DONT_3}}
 
----
+### Common Mistakes
+
+**❌ Wrong:**
+```{{LANG}}
+{{WRONG_CODE}}
+```
+
+**✅ Correct:**
+```{{LANG}}
+{{CORRECT_CODE}}
+```
+
+**Why:** {{EXPLANATION}}
 
 ## Known Issues Prevention
 
-This skill prevents **[TODO: number]** documented issues:
+| Issue | Root Cause | Solution |
+|-------|-----------|----------|
+| {{ISSUE_1}} | {{CAUSE_1}} | {{SOLUTION_1}} |
+| {{ISSUE_2}} | {{CAUSE_2}} | {{SOLUTION_2}} |
+| {{ISSUE_3}} | {{CAUSE_3}} | {{SOLUTION_3}} |
 
-### Issue #1: [TODO: Issue Name]
-**Error**: [TODO: Exact error message or description]
-**Source**: [TODO: GitHub issue link, Stack Overflow link, or official docs]
-**Why It Happens**: [TODO: Root cause]
-**Prevention**: [TODO: How this skill fixes it]
+## Configuration Reference
 
-### Issue #2: [TODO: Issue Name]
-[TODO: Repeat pattern for each issue]
+### {{CONFIG_FILE_NAME}}
 
----
-
-## Configuration Files Reference
-
-### [TODO: config-file.ext] (Full Example)
-
-```[language]
-[TODO: Complete, working configuration file]
+```{{CONFIG_FORMAT}}
+{{CONFIG_EXAMPLE}}
 ```
 
-**Why these settings:**
-- [TODO: Explain key configuration decisions]
-
----
+**Key settings:**
+- `{{SETTING_1}}`: {{SETTING_1_DESCRIPTION}}
+- `{{SETTING_2}}`: {{SETTING_2_DESCRIPTION}}
 
 ## Common Patterns
 
-### Pattern 1: [TODO: Pattern Name]
+### {{PATTERN_1_NAME}}
 
-```typescript
-// [TODO: Code example]
+```{{PATTERN_1_LANGUAGE}}
+{{PATTERN_1_CODE}}
 ```
 
-**When to use**: [TODO: Specific scenarios]
+### {{PATTERN_2_NAME}}
 
-### Pattern 2: [TODO: Pattern Name]
-
-[TODO: More examples]
-
----
-
-## Using Bundled Resources
-
-[TODO: Only include this section if you have scripts/, references/, or assets/]
-
-### Scripts (scripts/)
-
-[TODO: List and explain any executable scripts]
-
-**Example Usage:**
-```bash
-./scripts/[TODO: script-name].sh
+```{{PATTERN_2_LANGUAGE}}
+{{PATTERN_2_CODE}}
 ```
 
-### References (references/)
+## Bundled Resources
 
-[TODO: List documentation files that Claude can load when needed]
+### Scripts
 
-- `references/[TODO: filename].md` - [TODO: What it contains]
+Located in `scripts/`:
+- `{{SCRIPT_1}}` - {{SCRIPT_1_DESCRIPTION}}
 
-**When Claude should load these**: [TODO: Specific scenarios]
+### References
 
-### Assets (assets/)
+Located in `references/`:
+- [`{{REFERENCE_1}}`](references/{{REFERENCE_1}}) - {{REFERENCE_1_DESCRIPTION}}
+- [`{{REFERENCE_2}}`](references/{{REFERENCE_2}}) - {{REFERENCE_2_DESCRIPTION}}
 
-[TODO: List template files, images, etc. that get used in output]
+> **Note:** For deep dives on specific topics, see the reference files above.
 
-- `assets/[TODO: filename]` - [TODO: What it's for]
+### Templates
 
----
+Located in `assets/`:
+- [`{{TEMPLATE_1}}`](assets/{{TEMPLATE_1}}) - {{TEMPLATE_1_DESCRIPTION}}
 
-## Advanced Topics
-
-### [TODO: Advanced Topic 1]
-
-[TODO: Deep dive into complex scenarios]
-
-### [TODO: Advanced Topic 2]
-
-[TODO: Additional advanced content]
-
----
+Copy these templates as starting points for your implementation.
 
 ## Dependencies
 
-**Required**:
-- [TODO: package@version] - [TODO: What it's used for]
-- [TODO: package@version] - [TODO: What it's used for]
+### Required
 
-**Optional**:
-- [TODO: package@version] - [TODO: What it's used for]
+| Package | Version | Purpose |
+|---------|---------|---------|
+| {{PACKAGE_1}} | {{VERSION_1}} | {{PURPOSE_1}} |
 
----
+### Optional
+
+| Package | Version | Purpose |
+|---------|---------|---------|
+| {{OPT_PACKAGE_1}} | {{OPT_VERSION_1}} | {{OPT_PURPOSE_1}} |
 
 ## Official Documentation
 
-- **[TODO: Technology Name]**: [TODO: Official docs URL]
-- **[TODO: Related Tool]**: [TODO: Official docs URL]
-- **Context7 Library ID**: [TODO: /org/project if applicable]
-
----
-
-## Package Versions (Verified [TODO: YYYY-MM-DD])
-
-```json
-{
-  "dependencies": {
-    "[TODO: package]": "^[TODO: version]"
-  },
-  "devDependencies": {
-    "[TODO: package]": "^[TODO: version]"
-  }
-}
-```
-
----
-
-## Production Example
-
-[TODO: Optional - provide evidence of production usage]
-
-This skill is based on [TODO: project name]:
-- **Live**: [TODO: URL if applicable]
-- **Build Time**: [TODO: time]
-- **Errors**: 0 (all [TODO: number] known issues prevented)
-- **Validation**: ✅ [TODO: What was tested]
-
----
+- [{{DOC_1_NAME}}]({{DOC_1_URL}})
+- [{{DOC_2_NAME}}]({{DOC_2_URL}})
 
 ## Troubleshooting
 
-### Problem: [TODO: Common issue]
-**Solution**: [TODO: How to fix]
+### {{PROBLEM_1}}
 
-### Problem: [TODO: Another issue]
-**Solution**: [TODO: How to fix]
+**Symptoms:** {{SYMPTOMS_1}}
 
----
-
-## Complete Setup Checklist
-
-Use this checklist to verify your setup:
-
-- [ ] [TODO: First verification step]
-- [ ] [TODO: Second verification step]
-- [ ] [TODO: Third verification step]
-- [ ] [TODO: All package versions correct]
-- [ ] [TODO: Dev server runs without errors]
-- [ ] [TODO: Production build succeeds]
-- [ ] [TODO: Deployed successfully (if applicable)]
-
----
-
-**Questions? Issues?**
-
-1. Check [TODO: reference/common-issues.md] if you created one
-2. Verify all steps in the setup process
-3. Check official docs: [TODO: URL]
-4. Ensure [TODO: critical requirement] is configured
-
----
-
-## INSTRUCTIONS FOR USING THIS TEMPLATE
-
-1. **Search for [TODO:**** - Replace every [TODO: ...] with actual content
-2. **Delete this section** when done
-3. **Remove sections** that don't apply to your skill
-4. **Add sections** as needed for your specific use case
-5. **Test everything** before committing
-6. **Verify against** ONE_PAGE_CHECKLIST.md
-
-**Key Reminders:**
-- Use third-person for description: "This skill provides..." not "This skill helps you..."
-- Write in imperative form: "To do X, run Y" not "You should run Y to do X"
-- Include actual error messages and GitHub issue links
-- Document all package versions with verification date
-- Test all code examples
-- Remove all [TODO:] markers before committing
-
-**Example Good Description:**
-```yaml
-description: |
-  This skill provides comprehensive knowledge for building React applications with
-  Vite and TypeScript. It should be used when scaffolding new Vite projects,
-  configuring TypeScript settings, or encountering HMR issues.
-
-  Keywords: vite, react, typescript, hmr, vite config, react setup
+**Solution:**
+```bash
+{{SOLUTION_CODE_1}}
 ```
 
-**Example Bad Description:**
-```yaml
-description: "A skill for Vite and React"  # ❌ Too vague, no keywords
+### {{PROBLEM_2}}
+
+**Symptoms:** {{SYMPTOMS_2}}
+
+**Solution:**
+```bash
+{{SOLUTION_CODE_2}}
 ```
 
----
+## Setup Checklist
 
-**Ready to build?** Fill in all [TODO:] markers and create an amazing skill!
+Before using this skill, verify:
+
+- [ ] {{CHECK_1}}
+- [ ] {{CHECK_2}}
+- [ ] {{CHECK_3}}
+- [ ] {{CHECK_4}}

@@ -1,18 +1,33 @@
 ---
+source: skills/claude-code/commit-standards/SKILL.md
+source_version: 1.0.0
+translation_version: 1.0.0
+last_synced: 2025-12-25
+status: current
 name: commit-standards
 description: |
-  Format commit messages following conventional commits standard.
-  Use when: writing commit messages, git commit, reviewing commit history.
-  Keywords: commit, git, message, conventional, 提交, 訊息, feat, fix, refactor.
+  遵循約定式提交標準格式化提交訊息。
+  使用時機：撰寫提交訊息、git commit、檢視提交歷史。
+  關鍵字：commit、git、message、conventional、feat、fix、refactor。
 ---
 
-# Commit Message Standards
+# 提交訊息標準
 
-This skill ensures consistent, meaningful commit messages following conventional commits.
+> **語言**: [English](../../../../../skills/claude-code/commit-standards/SKILL.md) | 繁體中文
 
-## Quick Reference
+**版本**: 1.0.0
+**最後更新**: 2025-12-24
+**適用範圍**: Claude Code Skills
 
-### Basic Format
+---
+
+## 目的
+
+此技能確保遵循約定式提交標準，撰寫一致且有意義的提交訊息。
+
+## 快速參考
+
+### 基本格式
 
 ```
 <type>(<scope>): <subject>
@@ -22,39 +37,39 @@ This skill ensures consistent, meaningful commit messages following conventional
 <footer>
 ```
 
-### Commit Types
+### 提交類型
 
-| English | 中文 | When to Use |
-|---------|------|-------------|
-| `feat` | `新增` | New feature |
-| `fix` | `修正` | Bug fix |
-| `refactor` | `重構` | Code refactoring (no functional change) |
-| `docs` | `文件` | Documentation only |
-| `style` | `樣式` | Formatting (no code logic change) |
-| `test` | `測試` | Adding or updating tests |
-| `perf` | `效能` | Performance improvement |
-| `build` | `建置` | Build system or dependencies |
-| `ci` | `整合` | CI/CD pipeline changes |
-| `chore` | `維護` | Maintenance tasks |
-| `revert` | `回退` | Revert previous commit |
-| `security` | `安全` | Security vulnerability fix |
+| English | 使用時機 |
+|---------|----------|
+| `feat` | 新功能 |
+| `fix` | 錯誤修正 |
+| `refactor` | 程式碼重構（無功能變更） |
+| `docs` | 僅文件變更 |
+| `style` | 格式調整（無程式碼邏輯變更） |
+| `test` | 新增或更新測試 |
+| `perf` | 效能改善 |
+| `build` | 建置系統或依賴項目 |
+| `ci` | CI/CD 流程變更 |
+| `chore` | 維護任務 |
+| `revert` | 還原先前的提交 |
+| `security` | 安全漏洞修正 |
 
-### Subject Line Rules
+### 主旨行規則
 
-1. **Length**: ≤72 characters (50 ideal)
-2. **Tense**: Imperative mood ("Add feature" not "Added feature")
-3. **Capitalization**: First letter capitalized
-4. **No period**: Don't end with a period
+1. **長度**: ≤72 字元（50 為理想）
+2. **時態**: 祈使語氣（使用 "Add feature" 而非 "Added feature"）
+3. **大小寫**: 首字母大寫
+4. **無句點**: 結尾不加句點
 
-## Detailed Guidelines
+## 詳細指南
 
-For complete standards, see:
-- [Conventional Commits Guide](./conventional-commits.md)
-- [Language Options](./language-options.md)
+完整標準請參考：
+- [約定式提交指南](./conventional-commits.md)
+- [語言選項](./language-options.md)
 
-## Examples
+## 範例
 
-### ✅ Good Examples (English)
+### ✅ 良好範例
 
 ```
 feat(auth): Add OAuth2 Google login support
@@ -63,38 +78,18 @@ refactor(database): Extract query builder to separate class
 docs(readme): Update installation instructions for Node 20
 ```
 
-### ✅ Good Examples (中文)
+### ❌ 不良範例
 
 ```
-新增(認證): 實作 OAuth2 Google 登入支援
-修正(API): 解決使用者 session 快取記憶體洩漏
-重構(資料庫): 提取查詢建構器為獨立類別
+fixed bug                    # 太模糊，無範圍
+feat(auth): added google login  # 過去式
+Update stuff.                # 有句點，模糊
+WIP                          # 不具描述性
 ```
 
-### ✅ Good Example (Bilingual)
+## 主體內容指南
 
-```
-feat(auth): Add OAuth2 Google login support. 新增 OAuth2 Google 登入支援。
-
-Implement Google OAuth2 authentication flow for user login.
-
-實作 Google OAuth2 認證流程供使用者登入。
-
-Closes #123
-```
-
-### ❌ Bad Examples
-
-```
-fixed bug                    # Too vague, no scope
-feat(auth): added google login  # Past tense
-Update stuff.                # Period, vague
-WIP                          # Not descriptive
-```
-
-## Body Guidelines
-
-Use the body to explain **WHY** the change was made:
+使用主體內容說明變更的**原因（WHY）**：
 
 ```
 fix(api): Resolve race condition in concurrent user updates
@@ -110,9 +105,9 @@ What this fix does:
 Fixes #789
 ```
 
-## Breaking Changes
+## 破壞性變更
 
-Always document breaking changes in footer:
+務必在頁腳記錄破壞性變更：
 
 ```
 feat(api): Change user endpoint response format
@@ -124,32 +119,32 @@ Migration guide:
 2. Use created_at instead of createdAt
 ```
 
-## Issue References
+## 議題參照
 
 ```
-Closes #123    # Automatically closes issue
-Fixes #456     # Automatically closes issue
-Refs #789      # Links without closing
+Closes #123    # 自動關閉議題
+Fixes #456     # 自動關閉議題
+Refs #789      # 連結但不關閉
 ```
 
 ---
 
-## Configuration Detection
+## 配置檢測
 
-This skill supports project-specific language configuration.
+此技能支援專案特定的語言配置。
 
-### Detection Order
+### 檢測順序
 
-1. Check `CONTRIBUTING.md` for "Commit Message Language" section
-2. If found, use the specified option (English / Traditional Chinese / Bilingual)
-3. If not found, **default to English** for maximum tool compatibility
+1. 檢查 `CONTRIBUTING.md` 中的「Commit Message Language」區段
+2. 若找到，使用指定的選項（English / Traditional Chinese / Bilingual）
+3. 若未找到，**預設使用 English** 以獲得最大工具相容性
 
-### First-Time Setup
+### 首次設定
 
-If no configuration found and context is unclear:
+若未找到配置且情境不明確：
 
-1. Ask the user: "This project hasn't configured commit message language preference. Which option would you like to use? (English / 中文 / Bilingual)"
-2. After user selection, suggest documenting in `CONTRIBUTING.md`:
+1. 詢問使用者：「此專案尚未配置提交訊息語言偏好。您想使用哪個選項？（English / 中文 / Bilingual）」
+2. 使用者選擇後，建議記錄於 `CONTRIBUTING.md`：
 
 ```markdown
 ## Commit Message Language
@@ -158,9 +153,9 @@ This project uses **[chosen option]** commit types.
 <!-- Options: English | Traditional Chinese | Bilingual -->
 ```
 
-### Configuration Example
+### 配置範例
 
-In project's `CONTRIBUTING.md`:
+在專案的 `CONTRIBUTING.md` 中：
 
 ```markdown
 ## Commit Message Language
@@ -173,4 +168,24 @@ feat, fix, refactor, docs, style, test, perf, build, ci, chore, revert, security
 
 ---
 
-**License**: CC BY 4.0 | **Source**: [universal-dev-standards](https://github.com/AsiaOstrich/universal-dev-standards)
+## 相關標準
+
+- [提交訊息指南](../../../../../core/commit-message-guide.md)
+- [Git 工作流程](../../../../../core/git-workflow.md)
+- [變更日誌標準](../../../../../core/changelog-standards.md)
+
+---
+
+## 版本歷史
+
+| 版本 | 日期 | 變更內容 |
+|------|------|----------|
+| 1.0.0 | 2025-12-24 | 新增：標準區段（目的、相關標準、版本歷史、授權） |
+
+---
+
+## 授權
+
+此技能以 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 釋出。
+
+**來源**: [universal-dev-standards](https://github.com/AsiaOstrich/universal-dev-standards)

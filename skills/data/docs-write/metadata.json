@@ -1,7 +1,7 @@
 {
   "name": "docs-write",
-  "repo": "vx-daniel/tb-docs-project",
-  "path": ".claude/skills/docs-write/SKILL.md",
-  "source": "github.com/vx-daniel/tb-docs-project",
-  "downloaded_at": "2026-01-14T03:42:22.735182Z"
+  "repo": "kiet-ta/AI_Docs",
+  "path": "docs/copilot_skill/skills/docs-write/docs-write/SKILL.md",
+  "source": "github.com/kiet-ta/AI_Docs",
+  "downloaded_at": "2026-01-17T04:00:37.489289Z"
 }

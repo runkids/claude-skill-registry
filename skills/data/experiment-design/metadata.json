@@ -1,12 +1,7 @@
 {
   "name": "experiment-design",
-  "description": "\"Design rigorous experiments following best practices. Use when: (1) Planning research studies, (2) Grant proposal development, (3) Pre-registration, (4) Ensuring internal validity, (5) Meeting NIH ri",
-  "repo": "astoreyai/ai_scientist",
-  "category": "development",
-  "tags": [
-    "experiment",
-    "design"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "product-on-purpose/pm-skills",
+  "path": "skills/measure/experiment-design/SKILL.md",
+  "source": "github.com/product-on-purpose/pm-skills",
+  "downloaded_at": "2026-01-17T01:50:51.252924Z"
 }

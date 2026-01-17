@@ -1,16 +1,9 @@
 ---
 name: documentation-criteria
-description: Documentation creation criteria including PRD, ADR, Design Doc, and Work Plan requirements with templates. Use when creating or reviewing technical documents, or determining which documents are required.
+description: "Guides PRD, ADR, Design Doc, and Work Plan creation. Use when: planning features, writing specs, or creating technical documents."
 ---
 
 # Documentation Creation Criteria
-
-## Templates
-
-- **[prd-template.md](references/prd-template.md)** - Product Requirements Document template
-- **[adr-template.md](references/adr-template.md)** - Architecture Decision Record template
-- **[design-template.md](references/design-template.md)** - Technical Design Document template
-- **[plan-template.md](references/plan-template.md)** - Work Plan template
 
 ## Creation Decision Matrix
 
@@ -24,19 +17,19 @@ description: Documentation creation criteria including PRD, ADR, Design Doc, and
 
 ## ADR Creation Conditions (Required if Any Apply)
 
-### 1. Contract System Changes
-- **Adding nested contracts with 3+ levels**: `Contract A { Contract B { Contract C { field: T } } }`
+### 1. Type System Changes
+- **Adding nested types/structures with 3+ levels**: e.g., `A { B { C { D } } }`
   - Rationale: Deep nesting has high complexity and wide impact scope
-- **Changing/deleting contracts used in 3+ locations**
+- **Changing/deleting types used in 3+ locations**
   - Rationale: Multiple location impacts require careful consideration
-- **Contract responsibility changes** (e.g., DTO→Entity, Request→Domain)
+- **Data representation responsibility changes** (e.g., transfer object→domain model)
   - Rationale: Conceptual model changes affect design philosophy
 
 ### 2. Data Flow Changes
 - **Storage location changes** (DB→File, Memory→Cache)
 - **Processing order changes with 3+ steps**
   - Example: "Input→Validation→Save" to "Input→Save→Async Validation"
-- **Data passing method changes** (parameter passing→shared state, direct reference→event-based communication)
+- **Data passing method changes** (props→Context, direct reference→events)
 
 ### 3. Architecture Changes
 - Layer addition, responsibility changes, component relocation
@@ -60,8 +53,8 @@ description: Documentation creation criteria including PRD, ADR, Design Doc, and
 - User stories and use cases
 - MoSCoW prioritization (Must/Should/Could/Won't)
 - MVP and Future phase separation
-- User journey diagram (required)
-- Scope boundary diagram (required)
+- User journey diagram
+- Scope boundary diagram
 
 **Excludes**:
 - Technical implementation details (→Design Doc)
@@ -71,14 +64,14 @@ description: Documentation creation criteria including PRD, ADR, Design Doc, and
 
 ### ADR (Architecture Decision Record)
 
-**Purpose**: Record technical decision rationale and background
+**Purpose**: Record technical decisions
 
 **Includes**:
 - Decision (what was selected)
 - Rationale (why that selection was made)
 - Option comparison (minimum 3 options) and trade-offs
 - Architecture impact
-- Principled implementation guidelines (e.g., "Use dependency injection")
+- Principled implementation guidelines
 
 **Excludes**:
 - Implementation schedule, duration (→Work Plan)
@@ -88,7 +81,7 @@ description: Documentation creation criteria including PRD, ADR, Design Doc, and
 
 ### Design Document
 
-**Purpose**: Define technical implementation methods in detail
+**Purpose**: Define technical implementation
 
 **Includes**:
 - **Existing codebase analysis** (required)
@@ -96,7 +89,7 @@ description: Documentation creation criteria including PRD, ADR, Design Doc, and
   - Integration point clarification (connection points with existing code even for new implementations)
 - Technical implementation approach (vertical/horizontal/hybrid)
 - **Technical dependencies and implementation constraints** (required implementation order)
-- Interface and contract definitions
+- Interface and type definitions
 - Data flow and component design
 - **E2E verification procedures at integration points**
 - **Acceptance criteria (measurable format)**
@@ -114,11 +107,11 @@ Change Impact Map:
   Indirect Impact: [Data format/Processing time]
   No Ripple Effect: [Unaffected features]
 
-Interface Change Matrix:
-  Existing: [Function/method/operation name]
-  New: [Function/method/operation name]
+API Contract Change Matrix:
+  Existing: [Function/operation signature]
+  New: [Function/operation signature]
   Conversion Required: [Yes/No]
-  Compatibility Method: [Approach]
+  Compatibility Strategy: [Approach]
 ```
 
 **Excludes**:
@@ -134,22 +127,22 @@ Interface Change Matrix:
 - Task breakdown and dependencies (maximum 2 levels)
 - Schedule and duration estimates
 - **Copy E2E verification procedures from Design Doc** (cannot delete, can add)
-- **Phase 4 Quality Assurance Phase (required)**
+- **Stage 4 Quality Assurance Stage (required)**
 - Progress records (checkbox format)
 
 **Excludes**:
 - Technical rationale (→ADR)
 - Design details (→Design Doc)
 
-**Phase Division Criteria**:
-1. **Phase 1: Foundation Implementation** - Contract definitions, interfaces/signatures, test preparation
-2. **Phase 2: Core Feature Implementation** - Business logic, unit tests
-3. **Phase 3: Integration Implementation** - External connections, presentation layer
-4. **Phase 4: Quality Assurance (Required)** - Acceptance criteria achievement, all tests passing, quality checks
+**Stage Division Criteria**:
+1. **Stage 1: Foundation Implementation** - Type definitions, interfaces, test preparation
+2. **Stage 2: Core Feature Implementation** - Business logic, unit tests
+3. **Stage 3: Integration Implementation** - External connections, presentation layer
+4. **Stage 4: Quality Assurance (Required)** - Acceptance criteria achievement, all tests passing, quality checks
 
 **Three Elements of Task Completion Definition**:
 1. **Implementation Complete**: Code is functional
-2. **Quality Complete**: Tests, static checks, linting pass
+2. **Quality Complete**: Tests, type checks, linting pass
 3. **Integration Complete**: Verified connection with other components
 
 ## Creation Process
@@ -163,19 +156,19 @@ Interface Change Matrix:
 
 | Document | Path | Naming Convention | Template |
 |----------|------|------------------|----------|
-| PRD | `docs/prd/` | `[feature-name]-prd.md` | [prd-template.md](references/prd-template.md) |
-| ADR | `docs/adr/` | `ADR-[4-digits]-[title].md` | [adr-template.md](references/adr-template.md) |
-| Design Doc | `docs/design/` | `[feature-name]-design.md` | [design-template.md](references/design-template.md) |
-| Work Plan | `docs/plans/` | `YYYYMMDD-{type}-{description}.md` | [plan-template.md](references/plan-template.md) |
+| PRD | `docs/prd/` | `[feature-name]-prd.md` | `template-en.md` |
+| ADR | `docs/adr/` | `ADR-[4-digits]-[title].md` | `template-en.md` |
+| Design Doc | `docs/design/` | `[feature-name]-design.md` | `template-en.md` |
+| Work Plan | `docs/plans/` | `YYYYMMDD-{type}-{description}.md` | `template-en.md` |
 
-*Note: Work plans are excluded by `.gitignore`
+*Note: Work plans are stored in `docs/plans/` and excluded by `.gitignore`
 
 ## ADR Status
 `Proposed` → `Accepted` → `Deprecated`/`Superseded`/`Rejected`
 
 ## AI Automation Rules
 - 5+ files: Suggest ADR creation
-- Contract/data flow change detected: ADR mandatory
+- Type/data flow change detected: ADR mandatory
 - Check existing ADRs before implementation
 
 ## Diagram Requirements

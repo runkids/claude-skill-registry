@@ -1,208 +1,98 @@
 ---
 name: api-documentation-generator
-description: Automated API documentation generation with support for OpenAPI/Swagger specifications, endpoint analysis, request/response examples, authentication methods, rate limiting, and integration guides. Use when Claude needs to generate API documentation, analyze existing APIs, create specification files, or produce developer-friendly documentation.
+description: Generates OpenAPI/Swagger documentation from API route files. Use when working with REST APIs, Express routes, FastAPI endpoints, or when user requests API documentation.
+allowed-tools: Read, Grep, Glob, Write, Edit
 ---
 
 # API Documentation Generator
 
-## Overview
-This skill automates the creation and maintenance of comprehensive API documentation with support for industry-standard formats and developer-friendly presentation. It intelligently analyzes source code to extract API contracts and generates complete, accurate documentation.
+This skill automatically generates OpenAPI 3.0 (Swagger) documentation from API route files in your codebase.
 
 ## When to Use This Skill
-- Generating OpenAPI/Swagger specifications from code
-- Creating API documentation from existing endpoints
-- Updating documentation to match API changes
-- Producing developer guides and integration tutorials
-- Analyzing API contracts and dependencies
-- Converting API specifications between formats
-- Reverse-engineering undocumented APIs
-- Generating client SDK documentation
-- Creating interactive API explorers
 
-## Supported Languages & Frameworks
-### REST APIs
-- Express.js / Fastify (Node.js)
-- Flask / Django (Python)
-- Spring Boot (Java)
-- ASP.NET Core (C#)
-- Ruby on Rails
-- Laravel (PHP)
+- User asks to generate API documentation
+- Working with REST API endpoints
+- Need to create or update OpenAPI/Swagger specs
+- Setting up API documentation for Express, FastAPI, Flask, NestJS, or similar frameworks
 
-### GraphQL APIs
-- Schema introspection
-- Query/mutation/subscription documentation
-- Type definitions and relationships
+## Instructions
 
-### Other API Types
-- gRPC services and protobuf definitions
-- SOAP web services
-- Webhook documentation
+### 1. Discover API Routes
 
-## Supported Formats
-- OpenAPI 3.0/3.1 (formerly Swagger)
-- Swagger 2.0
-- AsyncAPI 2.x (for event-driven APIs)
-- RAML 1.0
-- API Blueprint
-- Postman Collections
-- GraphQL Schema Definition Language (SDL)
-- JSON Schema
-- HAR (HTTP Archive format)
+Search the codebase for API route definitions:
 
-## Documentation Components
+- **Express/Node.js**: Look for `app.get()`, `app.post()`, `router.get()`, etc.
+- **FastAPI/Python**: Look for `@app.get()`, `@router.post()`, decorators
+- **Flask**: Look for `@app.route()` decorators
+- **NestJS**: Look for `@Get()`, `@Post()`, `@Controller()` decorators
+- **Rails**: Look for routes in `config/routes.rb`
 
-### API Information
-- Title, description, and version
-- Contact details and support information
-- License information and terms of service
-- External documentation links
-- API lifecycle stage (development, beta, stable, deprecated)
+Use Glob to find route files (e.g., `**/*routes*.{js,ts,py}`, `**/controllers/**/*.{js,ts}`)
 
-### Endpoints & Operations
-- HTTP methods and paths
-- Path, query, header, and cookie parameters
-- Request body schemas with validation rules
-- Response schemas for all status codes
-- Example requests and responses
-- Deprecation notices and migration guidance
+### 2. Analyze Route Patterns
 
-### Security Definitions
-- API key authentication
-- OAuth 2.0 flows (Authorization Code, Client Credentials, etc.)
-- JWT/Token authentication
-- Basic/Digest authentication
-- Mutual TLS
-- Custom authentication schemes
-- Security requirement mappings per endpoint
+For each discovered route, extract:
 
-### Advanced Features
-- Server definitions with variables
-- Tags for logical grouping
-- External documentation
-- Callback definitions
-- Link relations
-- Webhooks and event documentation
-- Discriminator objects for polymorphism
+- **HTTP Method**: GET, POST, PUT, PATCH, DELETE
+- **Path**: The endpoint URL (e.g., `/api/users/:id`)
+- **Parameters**: Path params, query params, request body
+- **Response**: Expected response structure
+- **Authentication**: Whether auth is required
+- **Description**: Comments or docstrings near the route
 
-## Analysis Capabilities
+### 3. Generate OpenAPI Specification
 
-### Code Analysis
-- Framework-specific route detection
-- Parameter and schema inference
-- Authentication method identification
-- Error response pattern recognition
-- Validation rule extraction
+Create or update an OpenAPI 3.0 specification file (typically `openapi.yaml` or `swagger.json`):
 
-### Schema Detection
-- Request/response schema analysis
-- Type inference from code
-- Validation constraints mapping
-- Default value extraction
-- Enum value detection
+- Start with the template from `templates/openapi-3.0.yaml`
+- Map each route to an OpenAPI path object
+- Define request/response schemas using JSON Schema
+- Include parameter definitions (path, query, body)
+- Add authentication schemes if detected (Bearer, API Key, OAuth2)
+- Group endpoints by tags (e.g., "Users", "Products", "Auth")
 
-### Security Analysis
-- Authentication scheme identification
-- Permission/role mapping
-- Security requirement inference
-- Credential location detection
+### 4. Validate Completeness
+
+Check that the generated documentation includes:
+
+- All discovered endpoints
+- Accurate HTTP methods and paths
+- Request/response examples where possible
+- Error responses (400, 401, 404, 500, etc.)
+- Security requirements
+
+### 5. Output Location
+
+- Save as `openapi.yaml` in the project root, or
+- Place in `docs/` or `api/` directory if those exist
+- Ask user for preferred location if unclear
+
+## Framework-Specific Notes
+
+### Express/Node.js
+- Check for route middleware that might affect auth/validation
+- Look for request validators (Joi, express-validator, etc.)
+- Extract JSDoc comments for endpoint descriptions
+
+### FastAPI
+- FastAPI auto-generates OpenAPI docs, but this skill can enhance them
+- Extract Pydantic models for request/response schemas
+- Check for `response_model` and `status_code` parameters
+
+### NestJS
+- Look for DTOs (Data Transfer Objects) for schemas
+- Check for Swagger decorators (`@ApiOperation`, `@ApiResponse`)
+- Extract metadata from controller and method decorators
 
 ## Best Practices
 
-### Writing Effective Descriptions
-- Use clear, concise language
-- Explain purpose and behavior
-- Document side effects
-- Specify business context
-- Include usage examples
-- Define business terminology
+1. **Use existing schemas**: If the codebase has TypeScript interfaces, Pydantic models, or similar, use them for accurate schemas
+2. **Include examples**: Add request/response examples from tests if available
+3. **Group logically**: Organize endpoints by resource or feature area using tags
+4. **Version appropriately**: Use the API version from the codebase (e.g., "1.0.0")
+5. **Add descriptions**: Use code comments/docstrings for endpoint descriptions
 
-### Parameter Documentation
-- Specify data types and constraints
-- Indicate required vs optional
-- Document default values
-- Explain validation rules
-- Include example values
-- Describe inter-parameter relationships
+## Supporting Files
 
-### Response Documentation
-- Detail all possible status codes
-- Document error response formats
-- Specify success and failure cases
-- Include example payloads
-- Explain response headers
-- Describe pagination patterns
-
-### Security Documentation
-- Document authentication requirements
-- Explain authorization scopes
-- Specify rate limiting policies
-- Detail security headers
-- Provide security best practices
-
-## Generation Process
-
-### 1. API Discovery
-- Scan source code for API endpoints
-- Extract route definitions and HTTP methods
-- Identify API framework and patterns
-- Map endpoint relationships
-
-### 2. Schema Analysis
-- Analyze request/response structures
-- Infer data types and validation rules
-- Extract example values
-- Map relationships between entities
-
-### 3. Security Mapping
-- Identify authentication methods
-- Map authorization requirements
-- Document security schemes
-- Extract API key locations
-
-### 4. Specification Creation
-- Generate OpenAPI specification
-- Validate against standards
-- Add descriptions and examples
-- Organize endpoints by tags
-- Include server definitions
-
-### 5. Documentation Generation
-- Create human-readable documentation
-- Generate interactive API explorer
-- Produce client SDK documentation
-- Build integration guides
-- Export in multiple formats
-
-## Quality Assurance
-- Verify all endpoints are documented
-- Check for consistent naming
-- Validate example requests/responses
-- Ensure security schemes are clear
-- Confirm all parameters are documented
-- Test generated documentation usability
-- Validate against OpenAPI specification
-
-## Integration Guides
-- Authentication setup
-- Error handling patterns
-- Rate limiting considerations
-- Common use case examples
-- Troubleshooting tips
-- Migration guides for version changes
-- Performance optimization recommendations
-
-## Scripts Available
-- `scripts/generate-openapi.js` - Generate OpenAPI spec from code
-- `scripts/validate-spec.js` - Validate API specification
-- `scripts/export-docs.js` - Export documentation in various formats
-- `scripts/check-completeness.js` - Verify documentation completeness
-- `scripts/analyze-endpoints.js` - Deep endpoint analysis
-- `scripts/extract-schemas.js` - Extract and document data schemas
-- `scripts/generate-sdk-docs.js` - Generate client SDK documentation
-
-## References
-- `references/openapi-specification.md` - Complete OpenAPI specification guidelines and best practices
-- `references/documentation-best-practices.md` - API documentation best practices and writing guidelines
-- `references/framework-patterns.md` - Framework-specific API patterns and conventions
-- `references/security-schemes.md` - Comprehensive security scheme documentation
-- `references/error-handling.md` - API error handling patterns and documentation
+- `templates/openapi-3.0.yaml`: Base OpenAPI template
+- `examples.md`: Framework-specific examples

@@ -1,206 +1,279 @@
 ---
 name: python-fastapi-patterns
-description: "FastAPI web framework patterns. Triggers on: fastapi, api endpoint, dependency injection, pydantic model, openapi, swagger, starlette, async api, rest api, uvicorn."
-compatibility: "FastAPI 0.100+, Pydantic v2, Python 3.10+. Requires uvicorn for production."
-allowed-tools: "Read Write Bash"
-depends-on: [python-typing-patterns, python-async-patterns]
-related-skills: [python-database-patterns, python-observability-patterns, python-pytest-patterns]
+description: FastAPI best practices, async patterns, and Pydantic validation
+license: MIT
+compatibility: python 3.11+, fastapi 0.100+, pydantic 2+
+allowed-tools: read_file write_file apply_patch run_command
 ---
 
-# FastAPI Patterns
+# Python FastAPI Patterns
 
-Modern async API development with FastAPI.
+## Project Structure
 
-## Basic Application
+```
+src/
+├── main.py           # App entry point
+├── config.py         # Settings management
+├── dependencies.py   # Shared dependencies
+├── models/           # Pydantic models
+├── routes/           # API endpoints
+├── services/         # Business logic
+├── repositories/     # Data access
+└── utils/            # Helpers
+```
+
+## Basic Setup
 
 ```python
+# main.py
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Application lifespan - startup and shutdown."""
     # Startup
-    app.state.db = await create_db_pool()
+    await init_db()
     yield
     # Shutdown
-    await app.state.db.close()
+    await close_db()
 
 app = FastAPI(
     title="My API",
     version="1.0.0",
     lifespan=lifespan,
 )
-
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
 ```
 
-## Request/Response Models
+## Pydantic Models
 
 ```python
 from pydantic import BaseModel, Field, EmailStr
 from datetime import datetime
+from typing import Optional
 
-class UserCreate(BaseModel):
-    """Request model with validation."""
-    name: str = Field(..., min_length=1, max_length=100)
+class UserBase(BaseModel):
     email: EmailStr
-    age: int = Field(..., ge=0, le=150)
+    name: str = Field(min_length=2, max_length=100)
 
-class UserResponse(BaseModel):
-    """Response model."""
+class UserCreate(UserBase):
+    password: str = Field(min_length=8)
+
+class UserResponse(UserBase):
     id: int
-    name: str
-    email: EmailStr
     created_at: datetime
 
-    model_config = {"from_attributes": True}  # Enable ORM mode
+    model_config = {"from_attributes": True}
 
-@app.post("/users", response_model=UserResponse, status_code=201)
-async def create_user(user: UserCreate):
-    db_user = await create_user_in_db(user)
-    return db_user
+class UserUpdate(BaseModel):
+    email: Optional[EmailStr] = None
+    name: Optional[str] = Field(None, min_length=2, max_length=100)
 ```
 
-## Path and Query Parameters
+## Route Organization
 
 ```python
-from fastapi import Query, Path
+# routes/users.py
+from fastapi import APIRouter, Depends, HTTPException, status
 from typing import Annotated
 
-@app.get("/users/{user_id}")
-async def get_user(
-    user_id: Annotated[int, Path(..., ge=1, description="User ID")],
-):
-    return await fetch_user(user_id)
+router = APIRouter(prefix="/users", tags=["users"])
 
-@app.get("/users")
+@router.get("/", response_model=list[UserResponse])
 async def list_users(
-    skip: Annotated[int, Query(ge=0)] = 0,
-    limit: Annotated[int, Query(ge=1, le=100)] = 10,
-    search: str | None = None,
+    skip: int = 0,
+    limit: int = Query(20, le=100),
+    db: Session = Depends(get_db),
 ):
-    return await fetch_users(skip=skip, limit=limit, search=search)
+    return await user_service.get_all(db, skip=skip, limit=limit)
+
+@router.get("/{user_id}", response_model=UserResponse)
+async def get_user(
+    user_id: int,
+    db: Session = Depends(get_db),
+):
+    user = await user_service.get_by_id(db, user_id)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    return user
+
+@router.post("/", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
+async def create_user(
+    user_in: UserCreate,
+    db: Session = Depends(get_db),
+):
+    return await user_service.create(db, user_in)
 ```
 
 ## Dependency Injection
 
 ```python
-from fastapi import Depends
-from typing import Annotated
+# dependencies.py
+from fastapi import Depends, HTTPException, Security
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+
+security = HTTPBearer()
 
 async def get_db():
-    """Database session dependency."""
-    async with async_session() as session:
-        yield session
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        await db.close()
 
 async def get_current_user(
-    token: Annotated[str, Depends(oauth2_scheme)],
-    db: Annotated[AsyncSession, Depends(get_db)],
+    credentials: HTTPAuthorizationCredentials = Security(security),
+    db: Session = Depends(get_db),
 ) -> User:
-    """Authenticate and return current user."""
-    user = await authenticate_token(db, token)
-    if not user:
+    token = credentials.credentials
+    payload = decode_token(token)
+    if not payload:
         raise HTTPException(status_code=401, detail="Invalid token")
+
+    user = await user_service.get_by_id(db, payload["sub"])
+    if not user:
+        raise HTTPException(status_code=401, detail="User not found")
     return user
 
-# Annotated types for reuse
-DB = Annotated[AsyncSession, Depends(get_db)]
+# Type alias for cleaner signatures
 CurrentUser = Annotated[User, Depends(get_current_user)]
-
-@app.get("/me")
-async def get_me(user: CurrentUser):
-    return user
 ```
 
-## Exception Handling
+## Async Patterns
 
 ```python
-from fastapi import HTTPException
+import asyncio
+from httpx import AsyncClient
+
+# Parallel requests
+async def fetch_all_data(user_id: int):
+    async with AsyncClient() as client:
+        tasks = [
+            client.get(f"/api/user/{user_id}"),
+            client.get(f"/api/user/{user_id}/posts"),
+            client.get(f"/api/user/{user_id}/stats"),
+        ]
+        results = await asyncio.gather(*tasks)
+        return {
+            "user": results[0].json(),
+            "posts": results[1].json(),
+            "stats": results[2].json(),
+        }
+
+# Background tasks
+from fastapi import BackgroundTasks
+
+@router.post("/notify")
+async def send_notification(
+    email: str,
+    background_tasks: BackgroundTasks,
+):
+    background_tasks.add_task(send_email, email)
+    return {"message": "Notification queued"}
+```
+
+## Error Handling
+
+```python
+from fastapi import Request
 from fastapi.responses import JSONResponse
 
-# Built-in HTTP exceptions
-@app.get("/items/{item_id}")
-async def get_item(item_id: int):
-    item = await fetch_item(item_id)
-    if not item:
-        raise HTTPException(status_code=404, detail="Item not found")
-    return item
+class AppException(Exception):
+    def __init__(self, code: str, message: str, status_code: int = 400):
+        self.code = code
+        self.message = message
+        self.status_code = status_code
 
-# Custom exception handler
-class ItemNotFoundError(Exception):
-    def __init__(self, item_id: int):
-        self.item_id = item_id
-
-@app.exception_handler(ItemNotFoundError)
-async def item_not_found_handler(request, exc: ItemNotFoundError):
+@app.exception_handler(AppException)
+async def app_exception_handler(request: Request, exc: AppException):
     return JSONResponse(
-        status_code=404,
-        content={"detail": f"Item {exc.item_id} not found"},
+        status_code=exc.status_code,
+        content={
+            "success": False,
+            "error": {"code": exc.code, "message": exc.message}
+        },
+    )
+
+@app.exception_handler(Exception)
+async def generic_exception_handler(request: Request, exc: Exception):
+    return JSONResponse(
+        status_code=500,
+        content={
+            "success": False,
+            "error": {"code": "INTERNAL_ERROR", "message": "Something went wrong"}
+        },
     )
 ```
 
-## Router Organization
+## Settings Management
 
 ```python
-from fastapi import APIRouter
+# config.py
+from pydantic_settings import BaseSettings
+from functools import lru_cache
 
-# users.py
-router = APIRouter(prefix="/users", tags=["users"])
+class Settings(BaseSettings):
+    app_name: str = "My API"
+    debug: bool = False
+    database_url: str
+    secret_key: str
 
-@router.get("/")
-async def list_users():
-    return []
+    model_config = {"env_file": ".env"}
 
-@router.get("/{user_id}")
-async def get_user(user_id: int):
-    return {"id": user_id}
-
-# main.py
-from app.routers import users, items
-
-app.include_router(users.router)
-app.include_router(items.router, prefix="/api/v1")
+@lru_cache
+def get_settings() -> Settings:
+    return Settings()
 ```
 
-## Quick Reference
+## Middleware
 
-| Feature | Usage |
-|---------|-------|
-| Path param | `@app.get("/items/{id}")` |
-| Query param | `def f(q: str = None)` |
-| Body | `def f(item: ItemCreate)` |
-| Dependency | `Depends(get_db)` |
-| Auth | `Depends(get_current_user)` |
-| Response model | `response_model=ItemResponse` |
-| Status code | `status_code=201` |
+```python
+from fastapi import Request
+from time import time
+import logging
 
-## Additional Resources
+logger = logging.getLogger(__name__)
 
-- `./references/dependency-injection.md` - Advanced DI patterns, scopes, caching
-- `./references/middleware-patterns.md` - Middleware chains, CORS, error handling
-- `./references/validation-serialization.md` - Pydantic v2 patterns, custom validators
-- `./references/background-tasks.md` - Background tasks, async workers, scheduling
+@app.middleware("http")
+async def log_requests(request: Request, call_next):
+    start = time()
+    response = await call_next(request)
+    duration = time() - start
 
-## Scripts
+    logger.info(
+        f"{request.method} {request.url.path} "
+        f"status={response.status_code} duration={duration:.3f}s"
+    )
+    return response
+```
 
-- `./scripts/scaffold-api.sh` - Generate API endpoint boilerplate
+## Testing
 
-## Assets
+```python
+import pytest
+from httpx import AsyncClient
+from main import app
 
-- `./assets/fastapi-template.py` - Production-ready FastAPI app skeleton
+@pytest.fixture
+async def client():
+    async with AsyncClient(app=app, base_url="http://test") as ac:
+        yield ac
 
----
+@pytest.mark.asyncio
+async def test_create_user(client: AsyncClient):
+    response = await client.post(
+        "/users/",
+        json={"email": "test@example.com", "name": "Test", "password": "password123"}
+    )
+    assert response.status_code == 201
+    assert response.json()["email"] == "test@example.com"
+```
 
-## See Also
+## Best Practices
 
-**Prerequisites:**
-- `python-typing-patterns` - Pydantic models and type hints
-- `python-async-patterns` - Async endpoint patterns
-
-**Related Skills:**
-- `python-database-patterns` - SQLAlchemy integration
-- `python-observability-patterns` - Logging, metrics, tracing middleware
-- `python-pytest-patterns` - API testing with TestClient
+1. **Use type hints everywhere** for auto-documentation
+2. **Validate at boundaries** with Pydantic models
+3. **Inject dependencies** for testability
+4. **Handle errors consistently** with custom exceptions
+5. **Use async/await** for I/O operations
+6. **Keep routes thin** - business logic in services
+7. **Document with OpenAPI** annotations

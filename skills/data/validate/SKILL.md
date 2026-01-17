@@ -1,113 +1,131 @@
 ---
 name: validate
-description: Pre-commit validation ensuring lint and tests pass
+description: Validate iPlug2 plugin builds using format-specific validators (auval, pluginval, vstvalidator, clap-validator) (project)
 ---
 
-# /validate - Pre-Commit Validation
+# Validate iPlug2 Plugin
 
-## Purpose
+Validate a built plugin using format-specific validation tools. Plugin must have been built prior to using this skill.
 
-Enforces the "Definition of Done" mandate by running all quality checks before work is marked complete. This skill ensures that no code is considered "done" until it compiles, lints, and tests successfully.
+## Arguments
 
-**Critical Rule:** NO IMPLEMENTATION IS COMPLETE UNTIL THIS SKILL REPORTS PASS.
+- `PROJECT_NAME` (required): Name of the project (e.g., `IPlugEffect`)
+- `FORMAT` (optional): Specific format to validate (`AU`, `AUv3`, `VST3`, `CLAP`, `all`). Default: `all`
 
-## Usage
+## Validation Workflow
+
+### Step 1: Read config.h to extract plugin identifiers
+
+Read `Examples/[PROJECT_NAME]/config.h` or `Tests/[PROJECT_NAME]/config.h` and extract:
+- `PLUG_NAME` - Plugin display name
+- `PLUG_UNIQUE_ID` - 4-char subtype (e.g., `'Ipef'` → `Ipef`)
+- `PLUG_MFR_ID` - 4-char manufacturer code (e.g., `'Acme'` → `Acme`)
+- `PLUG_MFR` - Manufacturer display name
+- `PLUG_TYPE` - 0=effect (aufx), 1=instrument (aumu), 2=MIDI effect (aumf)
+
+### Step 2: Determine AU type from PLUG_TYPE
 
 ```
-/validate           # Run lint + quick tests (default)
-/validate --full    # Run lint + full test suite with coverage
+PLUG_TYPE 0 → aufx
+PLUG_TYPE 1 → aumu
+PLUG_TYPE 2 → aumf
 ```
 
-## Workflow
+### Step 3: Validate each format
 
-### 1. Lint Check
+#### AUv2 (macOS) - auval
+
 ```bash
-./scripts/lint.sh
+# Restart audio server first to pick up changes
+sudo killall -9 AudioComponentRegistrar 2>/dev/null; sleep 1
+
+# Run validation
+auval -v [AU_TYPE] [PLUG_UNIQUE_ID] [PLUG_MFR_ID]
 ```
-- SwiftLint strict mode must pass
-- Zero violations required
-- If violations found, report them with file:line and stop
 
-### 2. Test Execution
+Example: `auval -v aufx Ipef Acme`
 
-**Default (quick):**
+Look for `AU VALIDATION SUCCEEDED` at the end.
+
+**Useful auval options:**
+- `-strict` - Enforce strict checks (recommended for release)
+- `-r N` - Repeat validation N times
+- `-o` - Quick open/init test only (faster debugging)
+- `-q` - Quiet mode (errors/warnings only)
+
+#### AUv3 (macOS) - auval
+
+**Note:** The host app must be built codesigned and launched at least once to register the AUv3 extension. AUv2 plugin should be removed to avoid conflict. Auval usage the same as AUv2, but should see "This AudioUnit is a version 3 implementation." 
+
+#### VST3 - vstvalidator
+
+**Build vstvalidator if not present:**
 ```bash
-./scripts/test-quick.sh
-```
-- Unit tests only
-- Faster validation for routine checks
+# macOS/Linux
+cd Dependencies/IPlug && ./download-vst3-sdk.sh master build-validator
 
-**Full suite (--full):**
+# Windows (use Git Bash or WSL)
+cd Dependencies/IPlug && ./download-vst3-sdk.sh master build-validator
+```
+
+The validator binary will be at `Dependencies/IPlug/VST3_SDK/validator` (or `validator.exe` on Windows).
+
+**Run validation:**
 ```bash
-./scripts/test-all.sh
-```
-- Complete test suite (unit + integration)
-- Includes code coverage with **80% threshold enforcement**
-- Matches CI behavior exactly
-- Use for significant changes and before PR
+# macOS
+Dependencies/IPlug/VST3_SDK/validator ~/Library/Audio/Plug-Ins/VST3/[PLUG_NAME].vst3
 
-### 3. Report Results
-- Summary of lint status (pass/fail, violation count)
-- Test results (pass/fail count)
-- Clear PASS or FAIL verdict
-- Specific failure details if any
-
-## Success Criteria
-
-- **PASS:** Lint clean + all tests green + (for --full) coverage >= 80%
-- **FAIL:** Any lint violation OR any test failure OR (for --full) coverage below 80%
-
-Exit codes:
-- `0` = All checks passed
-- `1` = One or more checks failed
-
-## When to Run
-
-- Before marking any task "complete"
-- Before staging changes for commit
-- After making code modifications
-- When the pre-commit hook runs (automatic)
-
-## Examples
-
-**Successful validation:**
-```
-User: /validate
-Claude: Running pre-commit validation...
-
-Lint Check: PASSED (0 violations)
-Tests: PASSED (47/47 tests)
-
-VALIDATION PASSED - Ready for commit
+# Windows
+Dependencies\IPlug\VST3_SDK\validator.exe "C:\Program Files\Common Files\VST3\[PLUG_NAME].vst3"
 ```
 
-**Failed validation (lint):**
-```
-User: /validate
-Claude: Running pre-commit validation...
+#### CLAP - clap-validator
 
-Lint Check: FAILED (2 violations)
-- UnaMentis/Services/AudioEngine.swift:42: Line length exceeds 120 characters
-- UnaMentis/Views/SessionView.swift:18: Unused import 'Foundation'
+**Install clap-validator:**
+Download from https://github.com/free-audio/clap-validator/releases
 
-VALIDATION FAILED - Fix lint violations before proceeding
-```
+**Run validation:**
+```bash
+# macOS
+clap-validator validate ~/Library/Audio/Plug-Ins/CLAP/[PLUG_NAME].clap
 
-**Failed validation (tests):**
-```
-User: /validate
-Claude: Running pre-commit validation...
-
-Lint Check: PASSED (0 violations)
-Tests: FAILED (45/47 tests passed, 2 failed)
-
-Failed tests:
-- SessionManagerTests.testSessionTimeout
-- AudioEngineTests.testBufferOverflow
-
-VALIDATION FAILED - Fix failing tests before proceeding
+# Windows
+clap-validator.exe validate "C:\Program Files\Common Files\CLAP\[PLUG_NAME].clap"
 ```
 
-## Integration
+Look for `X tests run, Y passed, 0 failed` at the end.
 
-This skill replaces `.claude/commands/pre-commit.md` and complements the pre-commit hook in `.claude/hooks/pre-commit-check.sh`.
+**Useful options:**
+- `--in-process` - Run in-process (faster)
+- `--only-failed` - Show only failed tests
+
+#### Multi-format: pluginval
+
+```bash
+# macOS
+brew install --cask pluginval
+/Applications/pluginval.app/Contents/MacOS/pluginval --strictness-level 5 --validate ~/Library/Audio/Plug-Ins/VST3/[PLUG_NAME].vst3
+
+# Windows (download from https://github.com/Tracktion/pluginval/releases)
+pluginval.exe --strictness-level 5 --validate "C:\Program Files\Common Files\VST3\[PLUG_NAME].vst3"
+```
+
+## Plugin Locations
+
+| Format | macOS | Windows |
+|--------|-------|---------|
+| AUv2 | `~/Library/Audio/Plug-Ins/Components/[NAME].component` | N/A |
+| AUv3 | `~/Applications/[NAME].app/Contents/PlugIns/[NAME].appex` | N/A |
+| VST3 | `~/Library/Audio/Plug-Ins/VST3/[NAME].vst3` | `C:\Program Files\Common Files\VST3\[NAME].vst3` |
+| CLAP | `~/Library/Audio/Plug-Ins/CLAP/[NAME].clap` | `C:\Program Files\Common Files\CLAP\[NAME].clap` |
+
+## Expected Output
+
+Report validation results in a table:
+
+| Format | Status | Details |
+|--------|--------|---------|
+| AUv2 | PASS/FAIL | Brief summary |
+| AUv3 | PASS/FAIL/SKIP | Reason if skipped |
+| VST3 | PASS/FAIL/SKIP | Reason if skipped |
+| CLAP | PASS/FAIL/SKIP | Reason if skipped |

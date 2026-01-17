@@ -1,7 +1,7 @@
 {
   "name": "quality",
-  "repo": "mgreenly/ikigai",
-  "path": ".claude/library/quality/SKILL.md",
-  "source": "github.com/mgreenly/ikigai",
-  "downloaded_at": "2026-01-14T03:06:57.538912Z"
+  "repo": "jwwelbor/shark-task-manager",
+  "path": ".claude/skills/quality/SKILL.md",
+  "source": "github.com/jwwelbor/shark-task-manager",
+  "downloaded_at": "2026-01-17T01:58:20.149495Z"
 }

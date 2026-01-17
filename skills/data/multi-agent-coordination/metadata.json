@@ -1,7 +1,7 @@
 {
   "name": "multi-agent-coordination",
-  "repo": "involvex/involvex-claude-marketplace",
-  "path": "plugins/orchestration/skills/multi-agent-coordination/SKILL.md",
-  "source": "github.com/involvex/involvex-claude-marketplace",
-  "downloaded_at": "2026-01-14T02:54:03.035115Z"
+  "repo": "CULPRITCHAOS/Interlock",
+  "path": ".claude/skills/multi-agent-coordination/SKILL.md",
+  "source": "github.com/CULPRITCHAOS/Interlock",
+  "downloaded_at": "2026-01-17T04:04:49.845068Z"
 }

@@ -228,6 +228,7 @@ When submitting PRs to external repos, use this format for quality & maintainer-
 # Example
 command example
 ```
+````
 
 ## Feature intent (maintainer-friendly)
 [Why useful, how it fits, workflows it enables]
@@ -263,7 +264,7 @@ command example
 
 ---
 *Submitted by Razor 🥷 - Mariano's AI agent*
-````
+```
 
 **Key principles:**
 1. Human-written description (no AI slop)

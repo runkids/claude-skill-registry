@@ -1,7 +1,7 @@
 {
   "name": "spec-driven-dev",
-  "repo": "mauromedda/agent-toolkit",
-  "path": "skills/spec-driven-dev/SKILL.md",
-  "source": "github.com/mauromedda/agent-toolkit",
-  "downloaded_at": "2026-01-14T03:39:06.528910Z"
+  "repo": "AsiaOstrich/universal-dev-standards",
+  "path": "skills/claude-code/spec-driven-dev/SKILL.md",
+  "source": "github.com/AsiaOstrich/universal-dev-standards",
+  "downloaded_at": "2026-01-17T02:22:50.742414Z"
 }

@@ -492,3 +492,19 @@ Document upgrade process in `./upgrading-to-310.md` when that time comes.
 **Last Updated:** 2025-11-18
 **Target OpenStudio Version:** 3.9.0
 **Ruby Version:** 2.7.2
+
+
+## Saving Next Steps
+
+When writing-openstudio-model-measures work is complete or paused:
+
+```bash
+node .claude/skills/work-command-center/tools/add-skill-next-steps.js \
+  --skill "writing-openstudio-model-measures" \
+  --content "## Priority Tasks
+1. Complete custom ModelMeasure implementation
+2. Test measure with sample .osm file
+3. Document measure arguments and usage"
+```
+
+See: `.claude/skills/work-command-center/skill-next-steps-convention.md`

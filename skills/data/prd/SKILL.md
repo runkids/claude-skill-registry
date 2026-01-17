@@ -1,242 +1,130 @@
 ---
 name: prd
-description: "Generate a Product Requirements Document (PRD) for a new feature. Use when planning a feature, starting a new project, or when asked to create a PRD. Triggers on: create a prd, write prd for, plan this feature, requirements for, spec out."
+description: Create and manage Product Requirements Documents (PRDs). Use when: (1) Creating structured task lists with user stories, (2) Specifying features with acceptance criteria, (3) Planning feature implementation for AI agents or human developers.
+author: Benjamin Jesuiter <bjesuiter@gmail.com>
+metadata:
+  clawdbot:
+    emoji: "📋"
+    os: ["darwin", "linux"]
 ---
 
-# PRD Generator
+# PRD Skill
 
-Create detailed Product Requirements Documents that are clear, actionable, and suitable for implementation.
+Create and manage Product Requirements Documents (PRDs) for feature planning.
 
----
+## What is a PRD?
 
-## The Job
+A **PRD (Product Requirements Document)** is a structured specification that:
 
-1. Receive a feature description from the user
-2. Ask 3-5 essential clarifying questions (with lettered options)
-3. Generate a structured PRD based on answers
-4. Save to `relentless/features/[feature-name]/prd.md`
+1. Breaks a feature into **small, independent user stories**
+2. Defines **verifiable acceptance criteria** for each story
+3. Orders tasks by **dependency** (schema → backend → UI)
 
-**Important:** Do NOT start implementing. Just create the PRD.
+## Quick Start
 
----
+1. Create/edit `agents/prd.json` in the project
+2. Define user stories with acceptance criteria
+3. Track progress by updating `passes: false` → `true`
 
-## Step 1: Clarifying Questions
+## prd.json Format
 
-Ask only critical questions where the initial prompt is ambiguous. Focus on:
-
-- **Problem/Goal:** What problem does this solve?
-- **Core Functionality:** What are the key actions?
-- **Scope/Boundaries:** What should it NOT do?
-- **Success Criteria:** How do we know it's done?
-
-### Format Questions Like This:
-
-```
-1. What is the primary goal of this feature?
-   A. Improve user onboarding experience
-   B. Increase user retention
-   C. Reduce support burden
-   D. Other: [please specify]
-
-2. Who is the target user?
-   A. New users only
-   B. Existing users only
-   C. All users
-   D. Admin users only
-
-3. What is the scope?
-   A. Minimal viable version
-   B. Full-featured implementation
-   C. Just the backend/API
-   D. Just the UI
-```
-
-This lets users respond with "1A, 2C, 3B" for quick iteration.
-
----
-
-## Step 2: PRD Structure
-
-Generate the PRD with these sections:
-
-### 1. Introduction/Overview
-Brief description of the feature and the problem it solves.
-
-### 2. Goals
-Specific, measurable objectives (bullet list).
-
-### 3. User Stories
-Each story needs:
-- **Title:** Short descriptive name
-- **Description:** "As a [user], I want [feature] so that [benefit]"
-- **Acceptance Criteria:** Verifiable checklist of what "done" means
-
-Each story should be small enough to implement in one focused session.
-
-**Format:**
-```markdown
-### US-001: [Title]
-**Description:** As a [user], I want [feature] so that [benefit].
-
-**Acceptance Criteria:**
-- [ ] Specific verifiable criterion
-- [ ] Another criterion
-- [ ] Typecheck/lint passes
-- [ ] **[UI stories only]** Verify in browser using dev-browser skill
+```json
+{
+  "project": "MyApp",
+  "branchName": "ralph/feature-name",
+  "description": "Short description of the feature",
+  "userStories": [
+    {
+      "id": "US-001",
+      "title": "Add priority field to database",
+      "description": "As a developer, I need to store task priority.",
+      "acceptanceCriteria": [
+        "Add priority column: 'high' | 'medium' | 'low'",
+        "Generate and run migration",
+        "Typecheck passes"
+      ],
+      "priority": 1,
+      "passes": false,
+      "notes": ""
+    }
+  ]
+}
 ```
 
-**Important:** 
-- Acceptance criteria must be verifiable, not vague. "Works correctly" is bad. "Button shows confirmation dialog before deleting" is good.
-- **For any story with UI changes:** Always include "Verify in browser using dev-browser skill" as acceptance criteria. This ensures visual verification of frontend work.
+### Field Descriptions
 
-### 4. Functional Requirements
-Numbered list of specific functionalities:
-- "FR-1: The system must allow users to..."
-- "FR-2: When a user clicks X, the system must..."
+| Field | Description |
+|-------|-------------|
+| `project` | Project name for context |
+| `branchName` | Git branch for this feature (prefix with `ralph/`) |
+| `description` | One-line feature summary |
+| `userStories` | List of stories to complete |
+| `userStories[].id` | Unique identifier (US-001, US-002) |
+| `userStories[].title` | Short descriptive title |
+| `userStories[].description` | "As a [user], I want [feature] so that [benefit]" |
+| `userStories[].acceptanceCriteria` | Verifiable checklist items |
+| `userStories[].priority` | Execution order (1 = first) |
+| `userStories[].passes` | Completion status (`false` → `true` when done) |
+| `userStories[].notes` | Runtime notes added by agent |
 
-Be explicit and unambiguous.
+## Story Sizing
 
-### 5. Non-Goals (Out of Scope)
-What this feature will NOT include. Critical for managing scope.
+**Each story should be completable in one context window.**
 
-### 6. Design Considerations (Optional)
-- UI/UX requirements
-- Link to mockups if available
-- Relevant existing components to reuse
+### ✅ Right-sized:
+- Add a database column and migration
+- Add a UI component to an existing page
+- Update a server action with new logic
+- Add a filter dropdown to a list
 
-### 7. Technical Considerations (Optional)
-- Known constraints or dependencies
-- Integration points with existing systems
-- Performance requirements
+### ❌ Too large (split these):
+- "Build the entire dashboard" → Split into: schema, queries, UI, filters
+- "Add authentication" → Split into: schema, middleware, login UI, session
 
-### 8. Success Metrics
-How will success be measured?
-- "Reduce time to complete X by 50%"
-- "Increase conversion rate by 10%"
+## Story Ordering
 
-### 9. Open Questions
-Remaining questions or areas needing clarification.
+Stories execute in priority order. Earlier stories must NOT depend on later ones.
 
----
+**Correct order:**
+1. Schema/database changes (migrations)
+2. Server actions / backend logic
+3. UI components that use the backend
+4. Dashboard/summary views
 
-## Writing for Junior Developers
+## Acceptance Criteria
 
-The PRD reader may be a junior developer or AI agent. Therefore:
+Must be verifiable, not vague.
 
-- Be explicit and unambiguous
-- Avoid jargon or explain it
-- Provide enough detail to understand purpose and core logic
-- Number requirements for easy reference
-- Use concrete examples where helpful
+### ✅ Good:
+- "Add `status` column to tasks table with default 'pending'"
+- "Filter dropdown has options: All, Active, Completed"
+- "Typecheck passes"
 
----
+### ❌ Bad:
+- "Works correctly"
+- "User can do X easily"
 
-## Output
+**Always include:** `"Typecheck passes"`
 
-- **Format:** Markdown (`.md`)
-- **Location:** `relentless/features/[feature-name]/`
-- **Filename:** `prd.md`
+## Progress Tracking
 
-**Note:** Create the feature directory first if it doesn't exist: `mkdir -p relentless/features/[feature-name]`
+Update `passes: true` when a story is complete. Use `notes` field for runtime observations:
 
----
-
-## Example PRD
-
-```markdown
-# PRD: Task Priority System
-
-## Introduction
-
-Add priority levels to tasks so users can focus on what matters most. Tasks can be marked as high, medium, or low priority, with visual indicators and filtering to help users manage their workload effectively.
-
-## Goals
-
-- Allow assigning priority (high/medium/low) to any task
-- Provide clear visual differentiation between priority levels
-- Enable filtering and sorting by priority
-- Default new tasks to medium priority
-
-## User Stories
-
-### US-001: Add priority field to database
-**Description:** As a developer, I need to store task priority so it persists across sessions.
-
-**Acceptance Criteria:**
-- [ ] Add priority column to tasks table: 'high' | 'medium' | 'low' (default 'medium')
-- [ ] Generate and run migration successfully
-- [ ] Typecheck passes
-
-### US-002: Display priority indicator on task cards
-**Description:** As a user, I want to see task priority at a glance so I know what needs attention first.
-
-**Acceptance Criteria:**
-- [ ] Each task card shows colored priority badge (red=high, yellow=medium, gray=low)
-- [ ] Priority visible without hovering or clicking
-- [ ] Typecheck passes
-- [ ] Verify in browser using dev-browser skill
-
-### US-003: Add priority selector to task edit
-**Description:** As a user, I want to change a task's priority when editing it.
-
-**Acceptance Criteria:**
-- [ ] Priority dropdown in task edit modal
-- [ ] Shows current priority as selected
-- [ ] Saves immediately on selection change
-- [ ] Typecheck passes
-- [ ] Verify in browser using dev-browser skill
-
-### US-004: Filter tasks by priority
-**Description:** As a user, I want to filter the task list to see only high-priority items when I'm focused.
-
-**Acceptance Criteria:**
-- [ ] Filter dropdown with options: All | High | Medium | Low
-- [ ] Filter persists in URL params
-- [ ] Empty state message when no tasks match filter
-- [ ] Typecheck passes
-- [ ] Verify in browser using dev-browser skill
-
-## Functional Requirements
-
-- FR-1: Add `priority` field to tasks table ('high' | 'medium' | 'low', default 'medium')
-- FR-2: Display colored priority badge on each task card
-- FR-3: Include priority selector in task edit modal
-- FR-4: Add priority filter dropdown to task list header
-- FR-5: Sort by priority within each status column (high to medium to low)
-
-## Non-Goals
-
-- No priority-based notifications or reminders
-- No automatic priority assignment based on due date
-- No priority inheritance for subtasks
-
-## Technical Considerations
-
-- Reuse existing badge component with color variants
-- Filter state managed via URL search params
-- Priority stored in database, not computed
-
-## Success Metrics
-
-- Users can change priority in under 2 clicks
-- High-priority tasks immediately visible at top of lists
-- No regression in task list performance
-
-## Open Questions
-
-- Should priority affect task ordering within a column?
-- Should we add keyboard shortcuts for priority changes?
+```json
+"notes": "Used IF NOT EXISTS for migrations"
 ```
 
----
+## Quick Reference
 
-## Checklist
+| Action | Command |
+|--------|---------|
+| Create PRD | Save to `agents/prd.json` |
+| Check status | `cat prd.json | jq '.userStories[] | {id, passes}'` |
+| View incomplete | `jq '.userStories[] | select(.passes == false)' prd.json` |
 
-Before saving the PRD:
+## Resources
 
-- [ ] Asked clarifying questions with lettered options
-- [ ] Incorporated user's answers
-- [ ] User stories are small and specific
-- [ ] Functional requirements are numbered and unambiguous
-- [ ] Non-goals section defines clear boundaries
-- [ ] Saved to `relentless/features/[feature-name]/prd.md`
+See `references/` for detailed documentation:
+- `agent-usage.md` - How AI agents execute PRDs (Claude Code, OpenCode, etc.)
+- `workflows.md` - Sequential workflow patterns
+- `output-patterns.md` - Templates and examples

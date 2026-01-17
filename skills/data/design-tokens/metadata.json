@@ -1,7 +1,7 @@
 {
   "name": "design-tokens",
-  "repo": "phrazzld/claude-config",
-  "path": "skills/design-tokens/SKILL.md",
-  "source": "github.com/phrazzld/claude-config",
-  "downloaded_at": "2026-01-14T03:03:35.136676Z"
+  "repo": "djimontyp/task-tracker",
+  "path": ".claude/skills/design-tokens/SKILL.md",
+  "source": "github.com/djimontyp/task-tracker",
+  "downloaded_at": "2026-01-17T01:03:29.790378Z"
 }

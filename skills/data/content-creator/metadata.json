@@ -1,7 +1,7 @@
 {
   "name": "content-creator",
-  "repo": "alex-tgk/claude-init",
-  "path": ".claude/skills/marketing-skill/content-creator/SKILL.md",
-  "source": "github.com/alex-tgk/claude-init",
-  "downloaded_at": "2026-01-14T03:41:40.429153Z"
+  "repo": "alirezarezvani/claude-skills",
+  "path": "marketing-skill/content-creator/SKILL.md",
+  "source": "github.com/alirezarezvani/claude-skills",
+  "downloaded_at": "2026-01-17T04:00:47.510378Z"
 }

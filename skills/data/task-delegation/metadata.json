@@ -1,12 +1,7 @@
 {
   "name": "task-delegation",
-  "description": "Delegate user stories with complete context, clear acceptance criteria, and validation",
-  "repo": "vineethsoma/agent-packages",
-  "category": "productivity",
-  "tags": [
-    "task",
-    "delegation"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "Cantara/lib-electronic-components",
+  "path": ".claude/skills/task-delegation/SKILL.md",
+  "source": "github.com/Cantara/lib-electronic-components",
+  "downloaded_at": "2026-01-17T02:42:11.401299Z"
 }

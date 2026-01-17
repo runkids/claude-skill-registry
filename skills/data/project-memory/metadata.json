@@ -1,7 +1,7 @@
 {
   "name": "project-memory",
-  "repo": "nethercore-systems/nethercore-ai-plugins",
-  "path": "creative-direction/skills/project-memory/SKILL.md",
-  "source": "github.com/nethercore-systems/nethercore-ai-plugins",
-  "downloaded_at": "2026-01-14T02:26:43.718834Z"
+  "repo": "BerryKuipers/claude-code-toolkit",
+  "path": ".claude/skills/memory/project-memory/SKILL.md",
+  "source": "github.com/BerryKuipers/claude-code-toolkit",
+  "downloaded_at": "2026-01-17T03:32:46.689304Z"
 }

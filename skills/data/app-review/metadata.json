@@ -1,7 +1,7 @@
 {
   "name": "app-review",
-  "repo": "pollinations/pollinations",
-  "path": ".claude/skills/app-review/SKILL.md",
-  "source": "github.com/pollinations/pollinations",
-  "downloaded_at": "2026-01-14T02:03:34.575632Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/app-review/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-17T02:27:13.897636Z"
 }

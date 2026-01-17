@@ -1,11 +1,7 @@
 {
   "name": "containerization",
-  "description": "Docker, Kubernetes, and container orchestration for data applications",
-  "repo": "pluginagentmarketplace/custom-plugin-data-engineer",
-  "category": "data",
-  "tags": [
-    "containerization"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "lovedragonball/power-ranger-toolkit",
+  "path": "src/skills/containerization/SKILL.md",
+  "source": "github.com/lovedragonball/power-ranger-toolkit",
+  "downloaded_at": "2026-01-17T03:14:55.887928Z"
 }

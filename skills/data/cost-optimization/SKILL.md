@@ -1,393 +1,274 @@
 ---
 name: cost-optimization
-description: Manage Claude Code API costs - token strategies, model selection, monitoring. Use when concerned about API spend, optimizing token usage, choosing models for tasks, or setting up cost monitoring. Covers /cost command, batching strategies, and budget management.
-version: 1.0.0
-author: Claude Code SDK
-tags: [cost, optimization, tokens, budget]
+description: Optimize cloud costs through resource rightsizing, tagging strategies, reserved instances, and spending analysis. Use when reducing cloud expenses, analyzing infrastructure costs, or implementing cost governance policies.
 ---
 
-# Cost Optimization
+# Cloud Cost Optimization
 
-Reduce Claude Code API costs while maintaining quality through smart token management, model selection, and monitoring.
+Strategies and patterns for optimizing cloud costs across AWS, Azure, and GCP.
 
-## Quick Reference
+## Purpose
 
-| Strategy | Impact | Effort |
-|----------|--------|--------|
-| Use Haiku for simple tasks | High | Low |
-| Batch related operations | Medium | Low |
-| Use /compact strategically | Medium | Low |
-| Reduce context size | High | Medium |
-| Efficient prompting | Medium | Medium |
+Implement systematic cost optimization strategies to reduce cloud spending while maintaining performance and reliability.
 
-## Understanding Costs
+## When to Use
 
-### How API Costs Work
+- Reduce cloud spending
+- Right-size resources
+- Implement cost governance
+- Optimize multi-cloud costs
+- Meet budget constraints
 
-Claude Code costs are based on tokens:
-- **Input tokens**: Everything Claude reads (prompts, files, context)
-- **Output tokens**: Everything Claude generates (responses, code)
-- **Cached tokens**: Reduced rate for repeated context
+## Cost Optimization Framework
 
-### Model Pricing (Relative)
+### 1. Visibility
+- Implement cost allocation tags
+- Use cloud cost management tools
+- Set up budget alerts
+- Create cost dashboards
 
-| Model | Input Cost | Output Cost | Best For |
-|-------|------------|-------------|----------|
-| Haiku | $ | $ | Simple tasks, exploration |
-| Sonnet | $$ | $$ | General development (default) |
-| Opus | $$$$$ | $$$$$ | Complex reasoning, architecture |
+### 2. Right-Sizing
+- Analyze resource utilization
+- Downsize over-provisioned resources
+- Use auto-scaling
+- Remove idle resources
 
-**Rule of thumb**: Opus is ~15x more expensive than Haiku for the same tokens.
+### 3. Pricing Models
+- Use reserved capacity
+- Leverage spot/preemptible instances
+- Implement savings plans
+- Use committed use discounts
 
-### What Consumes Tokens
+### 4. Architecture Optimization
+- Use managed services
+- Implement caching
+- Optimize data transfer
+- Use lifecycle policies
 
-| Activity | Token Impact | Optimization |
-|----------|--------------|--------------|
-| Reading files | High | Read selectively, use grep |
-| Long conversations | Cumulative | Use /compact regularly |
-| Tool outputs | Variable | Request summaries |
-| Code generation | Medium | Be specific in requests |
-| Error messages | Low | N/A |
+## AWS Cost Optimization
 
-## The /cost Command
-
-### Basic Usage
-
+### Reserved Instances
 ```
-> /cost
-```
-
-Shows:
-- Session token usage (input/output)
-- Estimated cost for current session
-- Context window usage percentage
-
-### When to Check
-
-- Before starting large tasks
-- After reading multiple files
-- When responses slow down
-- Every 15-20 exchanges
-- Before deciding to /compact vs /clear
-
-### Interpreting Results
-
-| Metric | Good | Concern | Action |
-|--------|------|---------|--------|
-| Context usage | <50% | >70% | Consider /compact |
-| Session cost | Varies | Unexpected spike | Review recent operations |
-| Output ratio | Balanced | Output >> Input | Responses too verbose |
-
-## The /stats Command
-
-View usage statistics over time:
-
-```
-> /stats
+Savings: 30-72% vs On-Demand
+Term: 1 or 3 years
+Payment: All/Partial/No upfront
+Flexibility: Standard or Convertible
 ```
 
-**Date Range Filtering (2.1.6+):** Press `r` to cycle between:
-- Last 7 days
-- Last 30 days
-- All time
-
-Shows:
-- Total tokens used (input/output)
-- Number of sessions
-- Cost breakdown by period
-- Model usage distribution
-
-## Token Reduction Strategies
-
-### 1. Selective File Reading
-
-**Expensive:**
+### Savings Plans
 ```
-> Read the entire src/ directory to understand the codebase
+Compute Savings Plans: 66% savings
+EC2 Instance Savings Plans: 72% savings
+Applies to: EC2, Fargate, Lambda
+Flexible across: Instance families, regions, OS
 ```
 
-**Efficient:**
+### Spot Instances
 ```
-> @src/api/users.ts @src/types/user.ts - I need to modify the user API
-```
-
-### 2. Use Grep Before Read
-
-**Expensive:**
-```
-> Find all files that use the AuthService class
-[Claude reads many files to find them]
+Savings: Up to 90% vs On-Demand
+Best for: Batch jobs, CI/CD, stateless workloads
+Risk: 2-minute interruption notice
+Strategy: Mix with On-Demand for resilience
 ```
 
-**Efficient:**
-```
-> grep for "AuthService" in src/, then I'll look at the most relevant ones
-```
+### S3 Cost Optimization
+```hcl
+resource "aws_s3_bucket_lifecycle_configuration" "example" {
+  bucket = aws_s3_bucket.example.id
 
-### 3. Targeted @ Mentions
+  rule {
+    id     = "transition-to-ia"
+    status = "Enabled"
 
-| Pattern | Token Cost | Use Case |
-|---------|------------|----------|
-| `@src/` | Very High | Avoid unless necessary |
-| `@src/api/` | High | When exploring a module |
-| `@src/api/users.ts` | Low | Specific file work |
-| `@src/api/users.ts:50-100` | Very Low | Specific section |
+    transition {
+      days          = 30
+      storage_class = "STANDARD_IA"
+    }
 
-### 4. Limit Output Verbosity
+    transition {
+      days          = 90
+      storage_class = "GLACIER"
+    }
 
-```
-> Analyze this file and give me a brief summary of the key functions
-```
-
-vs
-
-```
-> Explain every line of this file
-```
-
-### 5. Batch Related Operations
-
-**Expensive (multiple turns):**
-```
-> Read file A
-> Now modify line 10
-> Now read file B
-> Modify line 20
+    expiration {
+      days = 365
+    }
+  }
+}
 ```
 
-**Efficient (single turn):**
-```
-> In file A, update the getUserById function to handle null.
-> In file B, add the new UserNotFound error type.
-> Run the tests after both changes.
-```
+## Azure Cost Optimization
 
-## /compact vs /clear
+### Reserved VM Instances
+- 1 or 3 year terms
+- Up to 72% savings
+- Flexible sizing
+- Exchangeable
 
-### When to /compact
+### Azure Hybrid Benefit
+- Use existing Windows Server licenses
+- Up to 80% savings with RI
+- Available for Windows and SQL Server
 
-Use `/compact` when:
-- Context is 70%+ full
-- You want to continue the same task
-- Need to preserve decisions and progress
-- Responses are slowing down
+### Azure Advisor Recommendations
+- Right-size VMs
+- Delete unused resources
+- Use reserved capacity
+- Optimize storage
 
-**Cost impact**: Reduces ongoing costs by 50-80%
+## GCP Cost Optimization
 
-### When to /clear
+### Committed Use Discounts
+- 1 or 3 year commitment
+- Up to 57% savings
+- Applies to vCPUs and memory
+- Resource-based or spend-based
 
-Use `/clear` when:
-- Switching to unrelated task
-- Previous context is irrelevant
-- Starting fresh approach
-- Maximum cost savings needed
+### Sustained Use Discounts
+- Automatic discounts
+- Up to 30% for running instances
+- No commitment required
+- Applies to Compute Engine, GKE
 
-**Cost impact**: Resets to zero (but loses all context)
+### Preemptible VMs
+- Up to 80% savings
+- 24-hour maximum runtime
+- Best for batch workloads
 
-### Decision Matrix
+## Tagging Strategy
 
-| Situation | Command | Reasoning |
-|-----------|---------|-----------|
-| Same task, full context | /compact | Preserve progress |
-| Different project | /clear | Irrelevant context |
-| Stuck on approach | /clear | Fresh perspective |
-| After major milestone | /compact | Keep decisions |
-| Testing something new | /clear | Clean state |
+### AWS Tagging
+```hcl
+locals {
+  common_tags = {
+    Environment = "production"
+    Project     = "my-project"
+    CostCenter  = "engineering"
+    Owner       = "team@example.com"
+    ManagedBy   = "terraform"
+  }
+}
 
-## Model Selection
+resource "aws_instance" "example" {
+  ami           = "ami-12345678"
+  instance_type = "t3.medium"
 
-### Quick Guide
-
-| Task Type | Recommended Model | Why |
-|-----------|-------------------|-----|
-| File exploration | Haiku | Fast, cheap, sufficient |
-| Simple edits | Haiku | Straightforward |
-| General coding | Sonnet | Balanced (default) |
-| Bug fixing | Sonnet | Needs reasoning |
-| Architecture design | Opus | Deep analysis |
-| Security review | Opus | Critical thinking |
-| Complex refactoring | Opus | Multi-file reasoning |
-
-### Switching Models
-
-Set model in skill frontmatter:
-```yaml
----
-model: haiku
----
-```
-
-Or request model in prompt:
-```
-> Using Haiku, list all TypeScript files in src/
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "web-server"
+    }
+  )
+}
 ```
 
-### Cost Comparison Example
+**Reference:** See `references/tagging-standards.md`
 
-**Task**: Review 10 files for security issues
+## Cost Monitoring
 
-| Approach | Estimated Cost |
-|----------|---------------|
-| Opus reviews all | $$$$$ |
-| Haiku scans, Opus reviews flagged | $$ |
-| Sonnet reviews all | $$$ |
+### Budget Alerts
+```hcl
+# AWS Budget
+resource "aws_budgets_budget" "monthly" {
+  name              = "monthly-budget"
+  budget_type       = "COST"
+  limit_amount      = "1000"
+  limit_unit        = "USD"
+  time_period_start = "2024-01-01_00:00"
+  time_unit         = "MONTHLY"
 
-**Best strategy**: Use Haiku for initial scan, escalate to Opus for detailed review of potential issues.
-
-## Efficient Prompting
-
-### Reduce Token Count
-
-| Verbose | Concise | Savings |
-|---------|---------|---------|
-| "Could you please" | [Just ask] | 3-4 tokens |
-| "I want you to" | [State task] | 4-5 tokens |
-| Long explanations | Bullet points | 20-50% |
-| Repeated context | @ mentions | Significant |
-
-### Be Specific
-
-**Token-heavy:**
-```
-> I have this function that gets users from the database and I want
-> to add some caching because it's being called too often and making
-> the app slow. Can you help me figure out a good caching strategy?
+  notification {
+    comparison_operator        = "GREATER_THAN"
+    threshold                  = 80
+    threshold_type            = "PERCENTAGE"
+    notification_type         = "ACTUAL"
+    subscriber_email_addresses = ["team@example.com"]
+  }
+}
 ```
 
-**Efficient:**
+### Cost Anomaly Detection
+- AWS Cost Anomaly Detection
+- Azure Cost Management alerts
+- GCP Budget alerts
+
+## Architecture Patterns
+
+### Pattern 1: Serverless First
+- Use Lambda/Functions for event-driven
+- Pay only for execution time
+- Auto-scaling included
+- No idle costs
+
+### Pattern 2: Right-Sized Databases
 ```
-> Add Redis caching to getUserById in @src/api/users.ts.
-> TTL: 5 minutes. Invalidate on user update.
-```
-
-### Use Checklists
-
-```
-> Implement user search:
-> - [ ] Add search endpoint
-> - [ ] Add debounced input
-> - [ ] Handle empty results
-> Run tests when done.
-```
-
-Clearer than long paragraph descriptions.
-
-## Batching Strategies
-
-### Batch Similar Operations
-
-Instead of multiple turns:
-```
-> Add logging to function A
-[response]
-> Add logging to function B
-[response]
-> Add logging to function C
+Development: t3.small RDS
+Staging: t3.large RDS
+Production: r6g.2xlarge RDS with read replicas
 ```
 
-Single turn:
+### Pattern 3: Multi-Tier Storage
 ```
-> Add consistent logging to functions A, B, and C in @src/utils.ts
-> Use format: logger.info("[FunctionName] action", { params })
-```
-
-### Batch Read-Modify Cycles
-
-```
-> Review @src/api/*.ts for missing error handling.
-> Add try-catch with proper logging to any functions that need it.
-> Summarize changes made.
+Hot data: S3 Standard
+Warm data: S3 Standard-IA (30 days)
+Cold data: S3 Glacier (90 days)
+Archive: S3 Deep Archive (365 days)
 ```
 
-### When NOT to Batch
+### Pattern 4: Auto-Scaling
+```hcl
+resource "aws_autoscaling_policy" "scale_up" {
+  name                   = "scale-up"
+  scaling_adjustment     = 2
+  adjustment_type        = "ChangeInCapacity"
+  cooldown              = 300
+  autoscaling_group_name = aws_autoscaling_group.main.name
+}
 
-- Complex, interdependent changes
-- When you need to verify each step
-- Exploratory work
-- Learning a new codebase
-
-## Budget Management
-
-### Setting Expectations
-
-| Session Type | Typical Cost Range |
-|--------------|-------------------|
-| Quick fix | $ |
-| Feature implementation | $$-$$$ |
-| Large refactor | $$$-$$$$ |
-| Architecture session (Opus) | $$$$$ |
-
-### Cost Controls
-
-1. **Monitor actively**: Check /cost regularly
-2. **Set mental limits**: "I'll compact at $X"
-3. **Use appropriate models**: Haiku for exploration
-4. **Plan sessions**: Know scope before starting
-
-### Daily/Weekly Tracking
-
-```
-> /cost
-[Note the total]
+resource "aws_cloudwatch_metric_alarm" "cpu_high" {
+  alarm_name          = "cpu-high"
+  comparison_operator = "GreaterThanThreshold"
+  evaluation_periods  = "2"
+  metric_name         = "CPUUtilization"
+  namespace           = "AWS/EC2"
+  period              = "60"
+  statistic           = "Average"
+  threshold           = "80"
+  alarm_actions       = [aws_autoscaling_policy.scale_up.arn]
+}
 ```
 
-Track across sessions to understand your patterns.
+## Cost Optimization Checklist
 
-## Subagent Cost Efficiency
+- [ ] Implement cost allocation tags
+- [ ] Delete unused resources (EBS, EIPs, snapshots)
+- [ ] Right-size instances based on utilization
+- [ ] Use reserved capacity for steady workloads
+- [ ] Implement auto-scaling
+- [ ] Optimize storage classes
+- [ ] Use lifecycle policies
+- [ ] Enable cost anomaly detection
+- [ ] Set budget alerts
+- [ ] Review costs weekly
+- [ ] Use spot/preemptible instances
+- [ ] Optimize data transfer costs
+- [ ] Implement caching layers
+- [ ] Use managed services
+- [ ] Monitor and optimize continuously
 
-### Why Subagents Help
+## Tools
 
-Subagents have isolated context:
-- Main context stays lean
-- Exploratory work doesn't pollute
-- Can use cheaper models
-
-### Cost-Efficient Agent Pattern
-
-```yaml
----
-name: explorer
-model: haiku
-tools: Read, Glob, Grep
----
-Explore and summarize. Return only key findings.
-```
-
-### Delegation Examples
-
-| Task | Agent Model | Return |
-|------|-------------|--------|
-| Find all API routes | Haiku | Route list |
-| Analyze dependencies | Haiku | Summary |
-| Review for patterns | Sonnet | Findings |
-| Deep security review | Opus | Detailed report |
-
-## Common Wasteful Patterns
-
-| Pattern | Why Wasteful | Better Approach |
-|---------|--------------|-----------------|
-| Reading entire directories | Massive token cost | Grep first, read specific |
-| Verbose explanations | Unnecessary output | Request concise |
-| Repeating context | Already in history | Use @ mentions |
-| Not using /compact | Growing costs | Compact at 70% |
-| Opus for everything | Expensive overkill | Match model to task |
-| Long debugging sessions | Cumulative cost | Clear and restart |
+- **AWS:** Cost Explorer, Cost Anomaly Detection, Compute Optimizer
+- **Azure:** Cost Management, Advisor
+- **GCP:** Cost Management, Recommender
+- **Multi-cloud:** CloudHealth, Cloudability, Kubecost
 
 ## Reference Files
 
-| File | Contents |
-|------|----------|
-| [TOKEN-STRATEGIES.md](./TOKEN-STRATEGIES.md) | Detailed token reduction techniques |
-| [MODEL-SELECTION.md](./MODEL-SELECTION.md) | Model comparison and selection guide |
-| [MONITORING.md](./MONITORING.md) | Cost tracking and budget management |
+- `references/tagging-standards.md` - Tagging conventions
+- `assets/cost-analysis-template.xlsx` - Cost analysis spreadsheet
 
-## Quick Decisions
+## Related Skills
 
-| Situation | Action |
-|-----------|--------|
-| Context at 70% | /compact |
-| Simple file exploration | Use Haiku |
-| Need deep analysis | Use Opus (worth the cost) |
-| Unexpected high cost | Check recent operations |
-| Switching tasks | /clear to save costs |
-| Debugging loop | Clear and try fresh approach |
+- `terraform-module-library` - For resource provisioning
+- `multi-cloud-architecture` - For cloud selection

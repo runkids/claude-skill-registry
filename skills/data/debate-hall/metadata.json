@@ -1,9 +1,7 @@
 {
   "name": "debate-hall",
-  "description": "Wind/Wall/Door multi-perspective debate orchestration using debate-hall-mcp tools. Use when facilitating structured debates, architectural decisions, or multi-perspective analysis.",
   "repo": "elevanaltd/debate-hall-mcp",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/debate-hall/SKILL.md",
+  "source": "github.com/elevanaltd/debate-hall-mcp",
+  "downloaded_at": "2026-01-17T02:17:42.149795Z"
 }

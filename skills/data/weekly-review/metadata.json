@@ -1,12 +1,7 @@
 {
   "name": "weekly-review",
-  "description": "Conduct User's weekly review when he says \"weekly review\", \"week in review\", or \"end of week review\". Synthesizes the week's progress, analyzes what worked/didn't, updates project priorities, and plan",
-  "repo": "kcwoodfield/LifeOS-OSS",
-  "category": "development",
-  "tags": [
-    "weekly",
-    "review"
-  ],
-  "stars": 2,
-  "source": "local"
+  "repo": "alexanderop/second-brain-nuxt",
+  "path": ".claude/skills/weekly-review/SKILL.md",
+  "source": "github.com/alexanderop/second-brain-nuxt",
+  "downloaded_at": "2026-01-17T01:28:06.938807Z"
 }

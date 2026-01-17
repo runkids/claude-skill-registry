@@ -1,12 +1,7 @@
 {
   "name": "testing-principles",
-  "description": "Language-agnostic testing principles including TDD, test quality, coverage standards, and test design patterns. Use when writing tests, designing test strategies, or reviewing test quality.",
   "repo": "shinpr/claude-code-workflows",
-  "category": "testing",
-  "tags": [
-    "testing",
-    "principles"
-  ],
-  "stars": 44,
-  "source": "local"
+  "path": "skills/testing-principles/SKILL.md",
+  "source": "github.com/shinpr/claude-code-workflows",
+  "downloaded_at": "2026-01-17T01:29:16.968767Z"
 }

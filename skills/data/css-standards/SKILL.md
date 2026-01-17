@@ -1,488 +1,309 @@
 ---
 name: css-standards
-description: CSS, SCSS, and styling conventions. Use when writing, reviewing, or debugging styles and layouts.
+description: CSS coding standards for Oh My Brand! theme. BEM methodology, custom properties, theme.json integration, responsive design, and accessibility. Use when styling blocks, templates or components.
+metadata:
+  author: Wesley Smits
+  version: "1.0.0"
 ---
 
-# CSS/SCSS Coding Standards
+# CSS Standards
 
-## General Preferences
+CSS coding standards and patterns for the Oh My Brand! WordPress FSE theme.
 
-- **CSS Modules** or **Tailwind CSS** for component styling
-- **SCSS** for complex stylesheets when needed
-- **CSS Custom Properties** (variables) for theming
-- **Mobile-first** responsive design
-- **BEM naming** for traditional CSS (when not using modules)
+---
 
-## Naming Conventions
+## When to Use
 
-### BEM (Block Element Modifier)
-```css
-/* Block: standalone component */
-.card {}
+- Styling block components
+- Writing responsive layouts
+- Defining CSS custom properties
+- Implementing accessible focus states
+- Working with WordPress design tokens
 
-/* Element: part of a block (double underscore) */
-.card__header {}
-.card__body {}
-.card__footer {}
+---
 
-/* Modifier: variation of block/element (double hyphen) */
-.card--featured {}
-.card--compact {}
-.card__header--large {}
+## Reference Files
 
-/* Example usage */
-.user-profile {}
-.user-profile__avatar {}
-.user-profile__name {}
-.user-profile--verified {}
+| File | Purpose |
+|------|---------|
+| [gallery-block.css](references/gallery-block.css) | Complete block styling example |
+| [theme-json-tokens.css](references/theme-json-tokens.css) | WordPress design token usage |
+| [accessibility.css](references/accessibility.css) | Focus, reduced motion, contrast |
+
+---
+
+## BEM Naming
+
+BEM (Block, Element, Modifier) naming convention:
+
+```
+.block                    → Component container
+.block__element           → Child element
+.block--modifier          → Block variation
+.block__element--modifier → Element variation
 ```
 
-### CSS Modules
-```css
-/* UserCard.module.css */
-.container {}
-.header {}
-.avatar {}
-.name {}
+### Block Class Prefix
 
-/* Composes for shared styles */
-.primaryButton {
-  composes: button from './shared.module.css';
-  background: var(--color-primary);
-}
+| Block Type | Prefix | Example |
+|------------|--------|---------|
+| Native blocks | `wp-block-theme-oh-my-brand-` | `.wp-block-theme-oh-my-brand-gallery` |
+| ACF blocks | `wp-block-acf-` | `.wp-block-acf-gallery` |
+
+### BEM Examples
+
+```css
+/* Block */
+.wp-block-theme-oh-my-brand-gallery { }
+
+/* Elements */
+.wp-block-theme-oh-my-brand-gallery__track { }
+.wp-block-theme-oh-my-brand-gallery__slide { }
+.wp-block-theme-oh-my-brand-gallery__button { }
+
+/* Block modifiers */
+.wp-block-theme-oh-my-brand-gallery--fullwidth { }
+
+/* Element modifiers */
+.wp-block-theme-oh-my-brand-gallery__button--prev { }
+.wp-block-theme-oh-my-brand-gallery__slide--active { }
 ```
 
-### Utility Classes (Tailwind-style)
-```css
-/* When creating custom utilities */
-.text-center { text-align: center; }
-.mt-4 { margin-top: 1rem; }
-.flex { display: flex; }
-.hidden { display: none; }
-```
+---
 
-## CSS Custom Properties
+## Custom Properties
+
+Define custom properties at the block root:
 
 ```css
-/* Define in :root for global variables */
-:root {
-  /* Colors */
-  --color-primary: #0066cc;
-  --color-primary-hover: #0052a3;
-  --color-secondary: #6c757d;
-  --color-success: #28a745;
-  --color-error: #dc3545;
-  --color-warning: #ffc107;
+.wp-block-theme-oh-my-brand-gallery {
+    /* Layout */
+    --visible-images: 3;
+    --block-gap: 1rem;
 
-  /* Text colors */
-  --color-text: #1a1a1a;
-  --color-text-muted: #6c757d;
-  --color-text-inverse: #ffffff;
+    /* Animation */
+    --transition-duration: 300ms;
+    --transition-timing: ease-out;
 
-  /* Backgrounds */
-  --color-bg: #ffffff;
-  --color-bg-secondary: #f8f9fa;
-  --color-bg-tertiary: #e9ecef;
-
-  /* Spacing scale */
-  --space-xs: 0.25rem;   /* 4px */
-  --space-sm: 0.5rem;    /* 8px */
-  --space-md: 1rem;      /* 16px */
-  --space-lg: 1.5rem;    /* 24px */
-  --space-xl: 2rem;      /* 32px */
-  --space-2xl: 3rem;     /* 48px */
-
-  /* Typography */
-  --font-family: system-ui, -apple-system, sans-serif;
-  --font-family-mono: 'SF Mono', Consolas, monospace;
-
-  --font-size-xs: 0.75rem;   /* 12px */
-  --font-size-sm: 0.875rem;  /* 14px */
-  --font-size-md: 1rem;      /* 16px */
-  --font-size-lg: 1.125rem;  /* 18px */
-  --font-size-xl: 1.25rem;   /* 20px */
-  --font-size-2xl: 1.5rem;   /* 24px */
-
-  --line-height-tight: 1.25;
-  --line-height-normal: 1.5;
-  --line-height-relaxed: 1.75;
-
-  /* Borders */
-  --border-radius-sm: 0.25rem;
-  --border-radius-md: 0.5rem;
-  --border-radius-lg: 1rem;
-  --border-radius-full: 9999px;
-
-  /* Shadows */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
-
-  /* Transitions */
-  --transition-fast: 150ms ease;
-  --transition-normal: 250ms ease;
-  --transition-slow: 350ms ease;
-
-  /* Z-index scale */
-  --z-dropdown: 100;
-  --z-sticky: 200;
-  --z-modal: 300;
-  --z-tooltip: 400;
-}
-
-/* Dark mode override */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-text: #f0f0f0;
-    --color-bg: #1a1a1a;
-    --color-bg-secondary: #2d2d2d;
-  }
-}
-
-/* Or with class toggle */
-.dark {
-  --color-text: #f0f0f0;
-  --color-bg: #1a1a1a;
+    /* Colors (use theme tokens) */
+    --button-bg: var(--wp--preset--color--primary);
+    --button-text: var(--wp--preset--color--base);
 }
 ```
 
-## Layout
+See [gallery-block.css](references/gallery-block.css) for complete example.
 
-### Flexbox
-```css
-/* Common flex patterns */
-.flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+---
 
-.flex-between {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+## Theme.json Tokens
 
-.flex-column {
-  display: flex;
-  flex-direction: column;
-}
+Use WordPress design tokens from `theme.json`:
 
-/* Gap for spacing (preferred over margins) */
-.flex-row {
-  display: flex;
-  gap: var(--space-md);
-}
-```
+| Token Type | CSS Variable Pattern |
+|------------|---------------------|
+| Colors | `var(--wp--preset--color--{slug})` |
+| Spacing | `var(--wp--preset--spacing--{size})` |
+| Font Family | `var(--wp--preset--font-family--{slug})` |
+| Font Size | `var(--wp--preset--font-size--{slug})` |
+| Layout | `var(--wp--style--global--content-size)` |
 
-### Grid
-```css
-/* Auto-fit responsive grid */
-.grid-auto {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: var(--space-lg);
-}
+See [theme-json-tokens.css](references/theme-json-tokens.css) for examples.
 
-/* Fixed columns */
-.grid-3 {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-md);
-}
-
-/* Named areas for complex layouts */
-.page-layout {
-  display: grid;
-  grid-template-areas:
-    "header header"
-    "sidebar main"
-    "footer footer";
-  grid-template-columns: 250px 1fr;
-  grid-template-rows: auto 1fr auto;
-  min-height: 100vh;
-}
-
-.header { grid-area: header; }
-.sidebar { grid-area: sidebar; }
-.main { grid-area: main; }
-.footer { grid-area: footer; }
-```
+---
 
 ## Responsive Design
 
+Mobile-first approach using `min-width` breakpoints:
+
+| Name | Width | Target |
+|------|-------|--------|
+| Mobile | < 768px | Phones (base styles) |
+| Tablet | ≥ 768px | Tablets |
+| Desktop | ≥ 1024px | Laptops |
+| Large | ≥ 1280px | Desktops |
+
+### Example
+
 ```css
-/* Mobile-first breakpoints */
-/* Base styles = mobile */
-.container {
-  padding: var(--space-md);
+/* Base (mobile) styles */
+.wp-block-theme-oh-my-brand-gallery {
+    grid-template-columns: 1fr;
 }
 
-/* Tablet and up */
+/* Tablet */
 @media (min-width: 768px) {
-  .container {
-    padding: var(--space-lg);
-  }
+    .wp-block-theme-oh-my-brand-gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
-/* Desktop and up */
+/* Desktop */
 @media (min-width: 1024px) {
-  .container {
-    padding: var(--space-xl);
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-}
-
-/* Large desktop */
-@media (min-width: 1280px) {
-  .container {
-    max-width: 1400px;
-  }
-}
-
-/* Custom properties for breakpoint-aware values */
-:root {
-  --container-padding: var(--space-md);
-}
-
-@media (min-width: 768px) {
-  :root {
-    --container-padding: var(--space-lg);
-  }
+    .wp-block-theme-oh-my-brand-gallery {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 ```
 
-## Components
-
-### Buttons
-```css
-.button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-xs);
-
-  padding: var(--space-sm) var(--space-md);
-  font-size: var(--font-size-md);
-  font-weight: 500;
-  line-height: 1;
-
-  border: none;
-  border-radius: var(--border-radius-md);
-  cursor: pointer;
-
-  transition: background-color var(--transition-fast),
-              transform var(--transition-fast);
-}
-
-.button:hover {
-  transform: translateY(-1px);
-}
-
-.button:active {
-  transform: translateY(0);
-}
-
-.button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  transform: none;
-}
-
-.button--primary {
-  background-color: var(--color-primary);
-  color: var(--color-text-inverse);
-}
-
-.button--primary:hover {
-  background-color: var(--color-primary-hover);
-}
-
-.button--secondary {
-  background-color: transparent;
-  border: 1px solid var(--color-primary);
-  color: var(--color-primary);
-}
-```
-
-### Form Inputs
-```css
-.input {
-  width: 100%;
-  padding: var(--space-sm) var(--space-md);
-
-  font-size: var(--font-size-md);
-  line-height: var(--line-height-normal);
-
-  background-color: var(--color-bg);
-  border: 1px solid var(--color-bg-tertiary);
-  border-radius: var(--border-radius-md);
-
-  transition: border-color var(--transition-fast),
-              box-shadow var(--transition-fast);
-}
-
-.input:focus {
-  outline: none;
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
-}
-
-.input:invalid {
-  border-color: var(--color-error);
-}
-
-.input::placeholder {
-  color: var(--color-text-muted);
-}
-```
-
-### Cards
-```css
-.card {
-  background-color: var(--color-bg);
-  border-radius: var(--border-radius-lg);
-  box-shadow: var(--shadow-md);
-  overflow: hidden;
-}
-
-.card__header {
-  padding: var(--space-md) var(--space-lg);
-  border-bottom: 1px solid var(--color-bg-tertiary);
-}
-
-.card__body {
-  padding: var(--space-lg);
-}
-
-.card__footer {
-  padding: var(--space-md) var(--space-lg);
-  background-color: var(--color-bg-secondary);
-}
-```
+---
 
 ## Accessibility
 
+### Focus Styles
+
 ```css
-/* Focus styles - never remove, only enhance */
-:focus-visible {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 2px;
+.wp-block-theme-oh-my-brand-gallery__button:focus-visible {
+    outline: 2px solid var(--wp--preset--color--primary);
+    outline-offset: 2px;
 }
+```
 
-/* Skip link for keyboard navigation */
-.skip-link {
-  position: absolute;
-  top: -100%;
-  left: 0;
-  padding: var(--space-sm) var(--space-md);
-  background: var(--color-primary);
-  color: var(--color-text-inverse);
-  z-index: var(--z-tooltip);
-}
+### Reduced Motion
 
-.skip-link:focus {
-  top: 0;
-}
-
-/* Visually hidden but accessible */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-/* Reduced motion */
+```css
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-/* High contrast mode support */
-@media (prefers-contrast: high) {
-  .button {
-    border: 2px solid currentColor;
-  }
+    .wp-block-theme-oh-my-brand-gallery__track {
+        transition: none;
+    }
 }
 ```
 
-## SCSS Patterns
+### Screen Reader Only
 
-```scss
-// Variables (or use CSS custom properties)
-$breakpoint-tablet: 768px;
-$breakpoint-desktop: 1024px;
-
-// Mixins
-@mixin respond-to($breakpoint) {
-  @if $breakpoint == tablet {
-    @media (min-width: $breakpoint-tablet) { @content; }
-  } @else if $breakpoint == desktop {
-    @media (min-width: $breakpoint-desktop) { @content; }
-  }
-}
-
-@mixin flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-// Usage
-.hero {
-  padding: var(--space-lg);
-  @include flex-center;
-
-  @include respond-to(tablet) {
-    padding: var(--space-xl);
-  }
-}
-
-// Nesting (keep shallow - max 3 levels)
-.card {
-  background: var(--color-bg);
-
-  &__header {
-    padding: var(--space-md);
-  }
-
-  &--featured {
-    border: 2px solid var(--color-primary);
-  }
-
-  &:hover {
-    box-shadow: var(--shadow-lg);
-  }
+```css
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
 ```
 
-## Project Commands
+See [accessibility.css](references/accessibility.css) for complete patterns.
 
-Check `.claude/commands.md` for project-specific commands. Common CSS commands:
+### Color Contrast (WCAG 2.1 AA)
+
+| Content Type | Minimum Ratio |
+|--------------|---------------|
+| Normal text | 4.5:1 |
+| Large text (18px+ bold, 24px+) | 3:1 |
+| UI components | 3:1 |
+
+---
+
+## Stylelint Rules
+
+This project uses Stylelint for CSS linting. Key rules to follow:
+
+### No Empty Blocks
+
+Stylelint disallows empty rule blocks. Never create a rule with only a comment:
+
+```css
+/* ❌ Bad - empty block causes stylelint error */
+@media (prefers-reduced-motion: reduce) {
+    .my-component {
+        /* No styles needed */
+    }
+}
+
+/* ❌ Bad - empty block */
+.my-component__element {
+}
+
+/* ✅ Good - omit the rule entirely if no styles needed */
+/* (Simply don't include the rule) */
+
+/* ✅ Good - if you need the media query, include actual styles */
+@media (prefers-reduced-motion: reduce) {
+    .my-component {
+        transition: none;
+        animation: none;
+    }
+}
+```
+
+### No Duplicate Selectors
+
+Stylelint disallows duplicate selectors within a stylesheet. Consolidate all styles for a selector in one place:
+
+```css
+/* ❌ Bad - duplicate selector causes stylelint error */
+.my-component__number {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.my-component__label {
+    font-size: 1rem;
+}
+
+.my-component__number {
+    order: 0;  /* This duplicates the selector above! */
+}
+
+/* ✅ Good - all styles consolidated in one selector */
+.my-component__number {
+    font-size: 2rem;
+    font-weight: 700;
+    order: 0;
+}
+
+.my-component__label {
+    font-size: 1rem;
+}
+```
+
+### Hex Color Length
+
+Use shorthand hex colors when possible:
+
+```css
+/* ❌ Bad - can be shortened */
+color: #0066cc;
+background: #ffffff;
+
+/* ✅ Good - use shorthand */
+color: #06c;
+background: #fff;
+```
+
+### Key Principles
+
+1. If a rule block would be empty (even with just a comment), **do not include it**
+2. Consolidate all styles for a selector in **one place** - no duplicate selectors
+3. Use **shorthand hex colors** when all pairs are identical (e.g., `#aabbcc` → `#abc`)
+
+---
+
+## Validation
+
+**Always run stylelint after making CSS changes:**
 
 ```bash
-# Build CSS
-npm run build:css
-
-# Watch for changes
-npm run watch:css
-
-# Lint CSS
-npx stylelint "**/*.css"
-npx stylelint "**/*.scss"
-
-# Format
-npx prettier --write "**/*.css"
+pnpm run lint:css
 ```
+
+Fix any issues before committing. This ensures consistent code style and catches common errors.
+
+---
+
+## Related Skills
+
+- [html-standards](../html-standards/SKILL.md) - Semantic HTML structure
+- [web-components](../web-components/SKILL.md) - Frontend Web Components
+- [native-block-development](../native-block-development/SKILL.md) - Block styling
+
+---
+
+## References
+
+- [BEM Methodology](https://getbem.com/)
+- [WordPress Global Styles](https://developer.wordpress.org/themes/global-settings-and-styles/)
+- [WCAG 2.1 Quick Reference](https://www.w3.org/WAI/WCAG21/quickref/)
+- [CSS Custom Properties](https://css-tricks.com/a-complete-guide-to-custom-properties/)

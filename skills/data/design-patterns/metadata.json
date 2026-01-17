@@ -1,7 +1,7 @@
 {
   "name": "design-patterns",
-  "repo": "mauromedda/agent-toolkit",
-  "path": "skills/design-patterns/SKILL.md",
-  "source": "github.com/mauromedda/agent-toolkit",
-  "downloaded_at": "2026-01-14T03:39:06.448623Z"
+  "repo": "NmBoyd/claude_setup",
+  "path": ".claude/skills/design-patterns/SKILL.md",
+  "source": "github.com/NmBoyd/claude_setup",
+  "downloaded_at": "2026-01-17T02:20:29.346525Z"
 }

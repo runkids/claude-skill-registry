@@ -1,12 +1,7 @@
 {
   "name": "quality-checks",
-  "description": "Run formatting, lint, typecheck, and tests for this repo; use when validating changes or investigating CI failures.",
-  "repo": "proompteng/lab",
-  "category": "testing",
-  "tags": [
-    "quality",
-    "checks"
-  ],
-  "stars": 4,
-  "source": "local"
+  "repo": "MakFly/superpowers-symfony",
+  "path": "skills/quality-checks/SKILL.md",
+  "source": "github.com/MakFly/superpowers-symfony",
+  "downloaded_at": "2026-01-17T01:40:18.117912Z"
 }

@@ -1,271 +1,162 @@
 ---
 name: react-debugging
-description: Debug React components, fix hooks errors, resolve TypeScript issues, handle state management bugs, and fix rendering problems. Use when encountering React errors, hooks violations, type errors, or component rendering issues.
-allowed-tools: Read, Edit, Grep, Glob, Bash
+description: Debugging React render loops, infinite re-renders, and performance issues in Next.js. Use when encountering "Maximum update depth exceeded", useMemo/useCallback issues, useEffect dependency problems, or useSearchParams loops. Keywords: infinite loop, re-render, useMemo, useCallback, useEffect, Maximum update depth, React error 185.
+compatibility: Antigravity, Claude Code, Cursor
+metadata:
+  version: "1.0"
+  project: "stepleague"
 ---
 
-# React Component Debugging
+# React Debugging Skill
 
-Expert assistance for debugging React components and hooks in the MantisNXT Next.js project.
+## Overview
 
-## Capabilities
+React's render cycle can cause infinite loops and performance issues. This skill covers the most common patterns that cause problems in StepLeague.
 
-- **Component Error Debugging**: Fix runtime errors in React components
-- **Hooks Troubleshooting**: Resolve issues with useState, useEffect, useQuery, etc.
-- **TypeScript Error Resolution**: Fix type mismatches and inference issues
-- **State Management**: Debug Zustand stores and React Query caches
-- **Rendering Issues**: Fix hydration errors, infinite loops, and performance problems
+---
 
-## Common Errors & Solutions
+## ⚠️ Most Common Issues
 
-### "X.map is not a function"
+### 1. "Maximum update depth exceeded" (React Error #185)
 
-**Cause**: Variable expected to be an array is not an array (undefined, null, or object)
+**Symptoms:**
+- Page freezes or crashes
+- Console shows "Maximum update depth exceeded"
+- 1000s of re-renders before crash
 
-**Solution**:
+**Root Causes:**
+
+| Cause | Example | Fix |
+|-------|---------|-----|
+| Unstable dependency | `useEffect(() => {}, [searchParams])` | `useSearchParams()` returns new object each render |
+| Missing memoization | `const items = data.filter(...)` | Wrap in `useMemo` |
+| State update in render | `setCount(count + 1)` in component body | Move to `useEffect` |
+| Object/array in deps | `useEffect(() => {}, [{ foo }])` | Destructure or use `.length` |
+
+---
+
+## Fix Patterns
+
+### Pattern 1: useSearchParams Loops (REAL EXAMPLE)
+
+**File:** `src/hooks/useFilterPersistence.ts`
+
+**Problem:** `useSearchParams()` returns a new `URLSearchParams` object every render.
+
 ```typescript
-// ❌ Unsafe
-const items = data;
-items.map(item => ...)
+// ❌ WRONG - This was causing infinite loops on /league/[id]/leaderboard
+const searchParams = useSearchParams();
 
-// ✅ Safe - ensure it's always an array
-const items = Array.isArray(data) ? data : [];
-items.map(item => ...)
-
-// ✅ Alternative - provide default
-const items = data || [];
-const items = data ?? [];
-```
-
-### "Cannot read property 'X' of undefined"
-
-**Cause**: Accessing property on undefined/null object
-
-**Solution**:
-```typescript
-// ❌ Unsafe
-const name = user.profile.name;
-
-// ✅ Optional chaining
-const name = user?.profile?.name;
-
-// ✅ With default
-const name = user?.profile?.name ?? 'Unknown';
-```
-
-### "Rendered more hooks than during previous render"
-
-**Cause**: Conditional hooks usage violates Rules of Hooks
-
-**Solution**:
-```typescript
-// ❌ Wrong - conditional hook
-if (condition) {
-  const [state, setState] = useState(0);
-}
-
-// ✅ Correct - hook always called
-const [state, setState] = useState(0);
-if (condition) {
-  // use state here
-}
-```
-
-### "Hydration failed"
-
-**Cause**: Server-rendered HTML doesn't match client render
-
-**Solution**:
-```typescript
-// ❌ Causes hydration mismatch
-<div>{Math.random()}</div>
-
-// ✅ Use client-only rendering
-const [mounted, setMounted] = useState(false);
-useEffect(() => setMounted(true), []);
-if (!mounted) return null;
-
-// ✅ Or mark component as client-side
-'use client'
-```
-
-### "Maximum update depth exceeded"
-
-**Cause**: Infinite loop in useEffect or state updates
-
-**Solution**:
-```typescript
-// ❌ Wrong - infinite loop
 useEffect(() => {
-  setState(newValue); // triggers re-render → triggers effect again
-});
+  syncFilters(searchParams);
+}, [searchParams]);  // New object every render = 7000+ renders → crash!
+```
 
-// ✅ Correct - proper dependencies
+**Fix (from our codebase):**
+
+```typescript
+// ✅ CORRECT - Hydrate-once pattern (useFilterPersistence.ts lines 77-110)
+const hasHydratedRef = useRef(false);
+
 useEffect(() => {
-  setState(newValue);
-}, [dependency]); // only runs when dependency changes
+  if (hasHydratedRef.current) return;  // Skip if already done
+  hasHydratedRef.current = true;
+
+  // Hydrate from URL/localStorage ONLY ONCE on mount
+  const result = { ...defaults };
+  syncKeys.forEach((key) => {
+    const urlValue = searchParams.get(String(key));
+    if (urlValue !== null) result[key] = urlValue;
+  });
+  
+  setFiltersState(result);
+  setIsHydrated(true);
+}, []); // Empty deps - only run once on mount
 ```
 
-## React Query Issues
+---
 
-### Stale Data
+### Pattern 2: Unstable Array References (REAL EXAMPLE)
+
+**File:** `src/app/(dashboard)/submit-steps/page.tsx`
+
+**Problem:** Creating new arrays in render causes infinite useEffect loops.
 
 ```typescript
-// Force refetch
-const { data, refetch } = useQuery(...);
-refetch();
+// ❌ WRONG - This caused infinite loops (new array each render)
+const adminLeagues = leagues.filter(l => l.role === "owner" || l.role === "admin");
 
-// Invalidate cache
-queryClient.invalidateQueries(['key']);
-
-// Set stale time
-useQuery(['key'], fetcher, {
-  staleTime: 5 * 60 * 1000, // 5 minutes
-});
+useEffect(() => {
+  loadProxies(adminLeagues);
+}, [adminLeagues]);  // Infinite loop!
 ```
 
-### Loading States
+**Fix (from our codebase):**
 
 ```typescript
-const { data, isLoading, error } = useQuery(...);
-
-// ✅ Handle all states
-if (isLoading) return <Loading />;
-if (error) return <Error error={error} />;
-if (!data) return <Empty />;
-
-return <Content data={data} />;
-```
-
-## Component File Locations
-
-```
-src/
-├── components/
-│   ├── dashboard/         # Dashboard components
-│   ├── suppliers/         # Supplier management
-│   ├── spp/              # Supplier pricelist processing
-│   ├── layout/           # Layout components
-│   └── ui/               # Shadcn UI components
-├── hooks/
-│   └── useNeonSpp.ts     # React Query hooks
-└── lib/
-    ├── stores/           # Zustand stores
-    └── services/         # API services
-```
-
-## Debugging Workflow
-
-1. **Read the error message** carefully - it often tells you exactly what's wrong
-2. **Check the stack trace** to find the exact line causing the issue
-3. **Inspect the component** where the error occurs
-4. **Verify data types** - ensure variables are what you expect (array vs object vs null)
-5. **Check dependencies** - verify useEffect/useCallback dependencies are correct
-6. **Add console.logs** strategically to track data flow
-7. **Test incrementally** - fix one issue at a time
-
-## Type Safety Best Practices
-
-```typescript
-// ✅ Define proper interfaces
-interface Upload {
-  upload_id: string;
-  filename: string;
-  status: string;
-  row_count: number;
-}
-
-// ✅ Type hook data
-const { data } = useQuery<Upload[]>(...);
-
-// ✅ Ensure array type
-const uploads = Array.isArray(data) ? data : [];
-
-// ✅ Type props
-interface Props {
-  uploads: Upload[];
-  onRefresh: () => void;
-}
-```
-
-## Common Hook Patterns
-
-### Safe Data Fetching
-
-```typescript
-const { data, isLoading, error } = useQuery(
-  ['key'],
-  fetchFn,
-  {
-    staleTime: 5 * 60 * 1000,
-    retry: 3,
-    onError: (err) => console.error(err)
-  }
+// ✅ CORRECT - Memoize the filtered array (submit-steps/page.tsx lines 78-82)
+// Comment in code: "Memoize to prevent new array reference each render 
+// (which would cause infinite useEffect loops)"
+const adminLeagues = useMemo(() =>
+  leagues.filter(l => l.role === "owner" || l.role === "admin"),
+  [leagues]
 );
 
-// Safely handle data
-const items = Array.isArray(data) ? data : [];
-```
-
-### Conditional Effects
-
-```typescript
+// Now this is safe - adminLeagues only changes when leagues changes
 useEffect(() => {
-  if (!condition) return; // early exit
-
-  // effect logic
-
-  return () => {
-    // cleanup
-  };
-}, [condition]);
+  loadProxies(adminLeagues);
+}, [adminLeagues.length]); // Use .length for extra stability
 ```
 
-### Memoization
+---
+
+### Pattern 3: Callback Stability
+
+**Problem:** Inline callbacks cause child re-renders.
 
 ```typescript
-// Expensive computation
-const result = useMemo(() => {
-  return expensiveOperation(data);
-}, [data]);
-
-// Callback stability
-const handleClick = useCallback(() => {
-  doSomething(value);
-}, [value]);
+// ❌ WRONG - New function every render
+<ChildComponent onSelect={(item) => handleSelect(item)} />
 ```
 
-## Performance Optimization
-
-- Use `React.memo` for expensive components
-- Implement virtualization for long lists (react-window)
-- Lazy load heavy components with `React.lazy`
-- Debounce search inputs
-- Optimize re-renders with proper dependency arrays
-
-## Testing Components
+**Fix:** Use `useCallback`:
 
 ```typescript
-// Check component renders without errors
-npm run dev
-// Visit page in browser
+// ✅ CORRECT
+const handleSelectMemo = useCallback((item) => {
+  handleSelect(item);
+}, [handleSelect]);
 
-// Type checking
-npm run type-check
-
-// Build check (catches many issues)
-npm run build
+<ChildComponent onSelect={handleSelectMemo} />
 ```
 
-## Best Practices
+---
 
-1. **Always handle loading and error states**
-2. **Ensure data is the expected type** before using array/object methods
-3. **Follow Rules of Hooks** - call hooks at top level, consistently
-4. **Use TypeScript properly** - don't use `any`, define proper types
-5. **Add null checks** for optional data
-6. **Use optional chaining** (?.) and nullish coalescing (??)
-7. **Test edge cases** - empty arrays, null values, loading states
-8. **Keep components focused** - single responsibility
-9. **Extract custom hooks** for reusable logic
-10. **Clean up effects** - return cleanup functions
+## Debugging Checklist
+
+When you hit a render loop:
+
+- [ ] Check `useEffect` dependencies for objects/arrays
+- [ ] Check for `useSearchParams()` in dependencies
+- [ ] Check for inline object/array creation in render
+- [ ] Add `console.log` at top of component to see render count
+- [ ] Use React DevTools Profiler to identify re-renders
+
+---
+
+## Project-Specific Issues
+
+### StepLeague Known Patterns
+
+| File | Issue | Fix Applied |
+|------|-------|-------------|
+| `useFilterPersistence` | useSearchParams loop | Hydrate-once pattern |
+| `submit-steps/page.tsx` | adminLeagues loop | useMemo for array |
+| `LeagueInviteControl` | Dropdown not closing | useCallback for handlers |
+
+---
+
+## Related Skills
+
+- `typescript-debugging` - Type errors that can cause render issues
+- `architecture-philosophy` - When to extract to custom hooks

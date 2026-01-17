@@ -1,135 +1,145 @@
 ---
 name: event-driven-architecture
-description: Event-driven architecture patterns with event sourcing, CQRS, and message-driven communication. Use when designing distributed systems, microservices communication, or systems requiring eventual consistency and scalability.
+description: |
+  イベント駆動アーキテクチャの設計・実装スキル。メッセージングパターン、Event Sourcing、CQRS、Sagaを活用し、
+  スケーラブルで疎結合なシステムを構築する。
+
+  Anchors:
+  • Enterprise Integration Patterns (Gregor Hohpe) / 適用: メッセージングパターン / 目的: 疎結合な統合設計
+  • Designing Event-Driven Systems (Ben Stopford) / 適用: EDAアーキテクチャ / 目的: スケーラブルな非同期処理
+  • Domain-Driven Design (Eric Evans) / 適用: ドメインイベント / 目的: ビジネスイベントの表現
+
+  Trigger:
+  Use when designing event-driven systems, implementing event sourcing, CQRS, message brokers, saga patterns, or asynchronous service integration.
+  event-driven, messaging, pub/sub, event sourcing, cqrs, saga, kafka, rabbitmq, async
+
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Bash
+  - Glob
+  - Grep
 ---
 
-# Event-Driven Architecture Patterns
+# Event-Driven Architecture
 
-Expert guidance for designing, implementing, and operating event-driven systems with proven patterns for event sourcing, CQRS, message brokers, saga coordination, and eventual consistency management.
+## 概要
 
-## When to Use This Skill
+イベント駆動アーキテクチャ（EDA）の設計・実装を支援するスキル。疎結合、スケーラビリティ、レジリエンスを実現するイベントベースシステムを構築する。
 
-- Designing systems with asynchronous, decoupled communication
-- Implementing event sourcing and CQRS patterns
-- Building systems requiring eventual consistency and high scalability
-- Managing distributed transactions across microservices
-- Processing real-time event streams and data pipelines
-- Implementing publish-subscribe or message queue architectures
-- Designing reactive systems with complex event flows
+## ワークフロー
 
-## Core Principles
+### Phase 1: イベントモデリング
 
-### 1. Events as First-Class Citizens
-Events represent immutable facts that have occurred in the system. Use past tense naming (OrderCreated, PaymentProcessed) and include all necessary context.
+**目的**: ドメインイベントとフローの設計
 
-### 2. Eventual Consistency
-Systems achieve consistency over time rather than immediately. Trade strong consistency for higher availability and scalability.
+**アクション**:
 
-### 3. Loose Coupling
-Services communicate through events without direct dependencies, enabling independent evolution and deployment.
+1. ビジネスイベントの特定
+2. イベントスキーマの定義
+3. イベントフローのマッピング
+4. 時系列順序の要件定義
 
-### 4. Asynchronous Communication
-Operations don't block waiting for responses, improving system responsiveness and resilience.
+**Task**: `agents/event-modeling.md` を参照
 
-### 5. Event-Driven Thinking
-Design around what happened (events) rather than what to do (commands).
+### Phase 2: アーキテクチャ設計
 
-## Quick Reference
+**目的**: EDAシステム構造の設計
 
-| Topic | Load reference |
-| --- | --- |
-| Event structure, types, and characteristics | `skills/event-driven-architecture/references/event-fundamentals.md` |
-| Event sourcing pattern and implementation | `skills/event-driven-architecture/references/event-sourcing.md` |
-| CQRS pattern with read/write separation | `skills/event-driven-architecture/references/cqrs.md` |
-| Message brokers (RabbitMQ, Kafka, SQS/SNS) | `skills/event-driven-architecture/references/message-brokers.md` |
-| Saga pattern for distributed transactions | `skills/event-driven-architecture/references/saga-pattern.md` |
-| Choreography vs orchestration patterns | `skills/event-driven-architecture/references/choreography-orchestration.md` |
-| Eventual consistency and conflict resolution | `skills/event-driven-architecture/references/eventual-consistency.md` |
-| Best practices, anti-patterns, testing | `skills/event-driven-architecture/references/best-practices.md` |
+**アクション**:
 
-## Workflow
+1. メッセージングパターン選択
+2. ブローカー/イベントストア選定
+3. スキーマバージョニング戦略
+4. 整合性パターンの決定
 
-### 1. Design Phase
-- **Identify Events**: What business facts need to be captured?
-- **Define Boundaries**: Which events are domain vs integration events?
-- **Choose Patterns**: Event sourcing? CQRS? Sagas? Choreography or orchestration?
-- **Select Technology**: Kafka for high throughput? RabbitMQ for routing? AWS managed services?
+**Task**: `agents/architecture-design.md` を参照
 
-### 2. Implementation Phase
-- **Event Schema**: Define versioned event structures with correlation IDs
-- **Event Store**: Implement append-only storage with optimistic concurrency
-- **Projections**: Create read models from events for query optimization
-- **Handlers**: Ensure idempotent, at-least-once delivery handling
-- **Sagas**: Implement compensating transactions for failures
+### Phase 3: 実装
 
-### 3. Operation Phase
-- **Monitoring**: Track event lag, processing time, failure rates
-- **Replay**: Build capability to replay events for debugging/recovery
-- **Versioning**: Support multiple event schema versions simultaneously
-- **Scaling**: Partition by aggregate ID, scale consumers horizontally
-- **Testing**: Test handlers in isolation with contract testing
+**目的**: イベント駆動コンポーネントの実装
 
-## Common Mistakes
+**アクション**:
 
-### Event Design Errors
-- ❌ Using commands instead of events (CreateOrder vs OrderCreated)
-- ❌ Mutable events or missing versioning
-- ❌ Events without correlation/causation IDs
-- ✓ Immutable, past-tense, self-contained events
+1. パブリッシャー/サブスクライバー実装
+2. 冪等ハンドラの実装
+3. DLQ（Dead Letter Queue）設定
+4. 監視・トレーシング統合
 
-### Consistency Issues
-- ❌ Assuming immediate consistency across services
-- ❌ Not handling duplicate event delivery
-- ❌ Missing idempotency in handlers
-- ✓ Design for eventual consistency, idempotent handlers
+**Task**: `agents/implementation.md` を参照
 
-### Architecture Mistakes
-- ❌ Synchronous event chains (waiting for responses)
-- ❌ Events coupled to specific service implementations
-- ❌ No compensation strategy for sagas
-- ✓ Async fire-and-forget, domain-focused events, compensating transactions
+### Phase 4: テスト・検証
 
-### Operational Gaps
-- ❌ No event replay capability
-- ❌ Missing monitoring for event lag
-- ❌ No schema registry or version management
-- ✓ Replay-ready, monitored, schema-managed events
+**目的**: システムの信頼性確認
 
-## Pattern Selection Guide
+**アクション**:
 
-### Use Event Sourcing When:
-- Need complete audit trail of all changes
-- Temporal queries required ("state at time T")
-- Multiple projections from same events
-- Event replay for debugging/recovery
+1. エンドツーエンドテスト
+2. 冪等性・整合性検証
+3. 障害シナリオテスト
+4. パフォーマンステスト
 
-### Use CQRS When:
-- High read:write ratio (10:1+)
-- Complex query requirements
-- Need to scale reads independently
-- Different databases for read/write optimal
+**Task**: `agents/testing.md` を参照
 
-### Use Sagas When:
-- Distributed transactions across services
-- Need atomicity without 2PC
-- Complex multi-step workflows
-- Compensation logic required
+## Task仕様（ナビゲーション）
 
-### Choose Choreography When:
-- Simple workflows (2-4 steps)
-- High service autonomy desired
-- Event-driven culture established
-- No complex dependencies
+| Task                | 起動タイミング | 入力               | 出力                 |
+| ------------------- | -------------- | ------------------ | -------------------- |
+| event-modeling      | Phase 1開始時  | ビジネス要件       | イベントカタログ     |
+| architecture-design | Phase 2開始時  | イベントカタログ   | アーキテクチャ設計書 |
+| implementation      | Phase 3開始時  | アーキテクチャ設計 | 実装済みコード       |
+| testing             | Phase 4開始時  | 実装コード         | テスト結果レポート   |
 
-### Choose Orchestration When:
-- Complex workflows (5+ steps)
-- Sequential dependencies
-- Need centralized visibility
-- Business logic in workflow
+**詳細仕様**: 各Taskの詳細は `agents/` ディレクトリの対応ファイルを参照
 
-## Resources
+## ベストプラクティス
 
-- **Books**: "Designing Event-Driven Systems" (Stopford), "Versioning in an Event Sourced System" (Young)
-- **Sites**: eventuate.io, event-driven.io, Martin Fowler's event sourcing articles
-- **Tools**: Kafka, EventStoreDB, RabbitMQ, Axon Framework, MassTransit
-- **Patterns**: Event Sourcing, CQRS, Saga, Outbox, CDC, Event Streaming
+### すべきこと
+
+- イベントは不変（発行済みイベントは変更しない）
+- スキーマバージョニングを初日から計画
+- すべてのハンドラを冪等に実装
+- Dead Letter Queueを必ず設定
+- 相関IDと分散トレーシングを追加
+- At-least-once配信 + 冪等ハンドラを採用
+
+### 避けるべきこと
+
+- 大きなペイロード（参照を使用）
+- イベントにビジネスロジックを含める
+- サービス間でデータベースを共有
+- リクエスト/レスポンスパスで同期待機
+- 長いイベントチェーン（デバッグ困難）
+- リトライロジックの欠如
+
+## リソース参照
+
+### references/（詳細知識）
+
+| リソース               | パス                                                                       | 用途                    |
+| ---------------------- | -------------------------------------------------------------------------- | ----------------------- |
+| メッセージングパターン | See [references/messaging-patterns.md](references/messaging-patterns.md)   | Pub/Sub、ブローカー選定 |
+| Event Sourcing & CQRS  | See [references/event-sourcing-cqrs.md](references/event-sourcing-cqrs.md) | ES、CQRS、Saga実装      |
+
+### scripts/（決定論的処理）
+
+| スクリプト                  | 用途                 | 使用例                                                 |
+| --------------------------- | -------------------- | ------------------------------------------------------ |
+| `validate_event_schema.mjs` | イベントスキーマ検証 | `node scripts/validate_event_schema.mjs <schema-file>` |
+| `log_usage.mjs`             | フィードバック記録   | `node scripts/log_usage.mjs --result success`          |
+
+### assets/（テンプレート）
+
+| テンプレート                 | 用途                     |
+| ---------------------------- | ------------------------ |
+| `event-schema-template.json` | イベントスキーマ雛形     |
+| `publisher-template.ts`      | パブリッシャー実装雛形   |
+| `subscriber-template.ts`     | サブスクライバー実装雛形 |
+
+## 変更履歴
+
+| Version | Date       | Changes                            |
+| ------- | ---------- | ---------------------------------- |
+| 2.0.0   | 2026-01-01 | 18-skills.md完全準拠版として再構築 |
+| 1.0.0   | 2025-12-31 | 初版作成                           |

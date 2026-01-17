@@ -1,56 +1,134 @@
 ---
 name: documentation-standards
-description: How user-facing and internal documentation should be written and maintained.
+description: Markdownドキュメントの記述規約、スタイルガイド、markdownlint検証ルールを定義する。Markdownファイル作成時、README作成時、ドキュメント編集時、またはユーザーがドキュメント標準、Markdown形式、markdownlint、ドキュメントスタイルに言及した際に使用する。
 ---
 
 # Documentation Standards
 
-## Types of Documentation
+## 概要
 
-- **User-facing docs**
-  - Explain features, configuration, and usage.
-  - Assume no access to source code.
+このSkillは、作成されるすべてのMarkdownドキュメントに適用される記述標準を定義します。一貫性のあるドキュメント作成を実現し、可読性と保守性を向上させることを目的としています。
 
-- **Internal docs**
-  - Capture system behavior, architecture, and decisions for developers.
-  - Include rationale and trade-offs.
+## 責任範囲
 
-- **Inline docs / comments**
-  - Explain non-obvious implementation details or constraints.
+このSkillは以下の範囲をカバーします：
 
-## Style & Tone
+- Markdownドキュメントの記述スタイル（言語、敬体/常体、箇条書き形式など）
+- ドキュメント構造と見出しの使用方法
+- 簡潔で明確な文章表現の原則
+- コードとドキュメントの分離方針
+- 用語の統一と一貫性の維持
+- markdownlint-cli2を使用したドキュメント検証プロセス
+- 頻出するmarkdownlintルール違反とその対処方法
 
-- Clear, concise, and concrete.
-- Prefer active voice and simple sentences.
-- Avoid unexplained acronyms and internal-only jargon.
+## 基本方針
 
-## Structure Guidelines
+### スタイル
 
-### Feature Docs
+- 日本語で記述する
+- 常体で記述する
+- 一貫性のあるドキュメント構造にする
+- インデントはスペース2個で統一する
+- 絵文字の使用は以下の場合に限定する
+  - ユーザーから絵文字の使用指示があった場合
+  - ドキュメントの見出し（H1〜H3）で視認性を高める目的で使用する場合
+- 絵文字を使用する場合は、見出し（H1〜H3）のみに使用し、本文中では使用しない
+- 図は`Mermaid`を使用して作成し、外部画像の埋め込みは避ける
 
-- Overview
-- Use cases
-- Configuration and defaults
-- Examples
-- Limitations and edge cases
-- Troubleshooting
+### 簡潔に記述する
 
-### Architecture Docs
+- 冗長な表現を避け、必要な情報のみを提供する
+- 一文を短くし、明確な主語と述語を使用する
+- 繰り返しを避け、同じ情報を複数回記載しない
+- 箇条書きや表を活用して、情報を整理する
+- 情報を削らず、表現を工夫する
 
-- High-level diagram (or description)
-- Components and responsibilities
-- Data flows and interactions
-- Trade-offs and constraints
-- Links to related RFCs or ADRs
+### 要件定義書や仕様書にコード・疑似コードを含めない
 
-## Maintenance Rules
+- ドキュメントはあくまで要件や仕様を伝えるものであり、実装コードを含めない
+- コード例が必要な場合は、別途コードリポジトリやサンプルコードとして提供する
+- コード例をドキュメントに含めると、ドキュメントの保守性が低下し、内容が古くなるリスクがある
+- ドキュメントは技術的な詳細よりも、要件や仕様の理解に焦点を当てる
 
-- Documentation must be updated as part of behavior changes.
-- Prefer small, incremental doc updates rather than large rewrites.
-- Link docs to relevant issues or tickets where useful.
+### 用語の統一
 
-## Formatting
+- 同じ意味を持つ用語は一貫して同じ表現を使用する
+- 専門用語や略語は初出時に定義し、必要に応じて注釈を付ける
+- ユーザーが必要だと判断した場合は用語集を作成し、ドキュメント全体で参照できるようにする
 
-- Use Markdown (`.md`) for text docs.
-- Use consistent heading levels and lists.
-- Include code blocks with language tags.
+## ドキュメント検証
+
+- ドキュメントの作成後、`markdownlint-cli2`を使用してドキュメントを検証する
+- ユーザーが明示的に指示をしない限り、`--fix`の自動修正オプションは使用しない
+- 次のコマンドでMarkdownファイルを検証する
+- markdownlint-cli2がインストールされていない場合は、`npx`を使用して実行する
+- パスは相対パスを使用すること
+
+**検証コマンド例1:**
+
+```bash
+npm markdownlint-cli2 **/*.md
+```
+
+**検証コマンド例2:**
+
+```bash
+npx markdownlint-cli2 **/*.md
+```
+
+### 発生頻度の高いエラー
+
+- 次のルール違反が特に多く発生するため、注意して確認すること
+
+#### 見出し (Headers)
+
+- **MD025 (H1は1ファイルに1つ)**: `H1` (#) はファイルの先頭に1回だけ使用する
+- **MD001 (レベルは飛ばさない)**: `H1` → `H2` → `H3` のようにレベルを順に使用する
+- **MD003 (スタイルの統一)**: `#` スタイル（ATX）に統一する
+- **MD022 (前後に空行)**: 見出し（H1以外）の前後に空行を1行入れる
+- **MD024 (同一内容の見出し重複禁止)**: 同じテキストの見出しを複数回使用しないようにする
+
+#### 空行 (Blank Lines)
+
+- **MD012 (連続した空行は不可)**: 空行は1行だけにする
+- **MD031, MD032 (ブロック要素の前後)**: コードブロック、リスト、引用などの前後には空行を1行入れる
+
+#### リスト (Lists)
+
+- **MD004 (マーカーの統一)**: 順序なしリストは`-`に統一
+- **MD007, MD005 (インデントの統一)**: リストのインデントはスペース2個に統一
+
+#### 書式とスタイル (Formatting)
+
+- **MD010 (タブ不使用)**: インデントにはタブではなくスペースを使用する
+- **MD034 (URLの書式)**: URLは `<https://example.com>` のように山括弧で囲む
+- **MD047 (ファイル末尾の改行)**: ファイルの末尾は単一の改行で終わらる
+
+### 除外
+
+以下のエラーは無視する:
+
+- **MD013 (行の長さ)**: 行の長さ上限の設定は無制限とする
+- **MD033 (HTML不使用)**: `<br />` などのインラインHTMLは使用可
+
+## チェックリスト
+
+### ドキュメント作成前
+
+- [ ] ドキュメントの目的と対象読者が明確になっている
+- [ ] 使用する用語の定義が明確で、一貫性がある
+- [ ] ドキュメント構造（見出し階層）が論理的に整理されている
+
+### ドキュメント作成中
+
+- [ ] 日本語・常体で記述しているか
+- [ ] 絵文字は見出し（H1〜H3）にのみ使用し、本文中には使用していない
+- [ ] 一文が短く、明確な主語と述語を含んでいる
+- [ ] 冗長な表現を避け、必要な情報のみを提供している
+- [ ] 同じ意味を持つ用語を一貫して使用している
+- [ ] 図はMermaidを使用して作成し、外部画像の埋め込みを避けている
+
+### ドキュメント作成後
+
+- [ ] `markdownlint-cli2`を使用してドキュメントを検証した
+- [ ] 除外ルール以外のエラーがないか確認した

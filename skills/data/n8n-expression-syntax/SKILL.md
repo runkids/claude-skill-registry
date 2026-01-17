@@ -514,3 +514,11 @@ For more details, see:
 ---
 
 **Need Help?** Reference the n8n expression documentation or use n8n-mcp validation tools to check your expressions.
+
+## When to use this skill
+
+Validate n8n expression syntax and fix common errors. Use when writing n8n expressions, using {{}} syntax, accessing $json/$node variables, troubleshooting expression errors, or working with webhook data in workflows.
+
+## How to use this skill
+
+Refer to the instructions above or standard agent usage for this skill type.

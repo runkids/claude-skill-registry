@@ -5,7 +5,7 @@ description: Create or refine a concise, normative security policy ("Blue Book")
 
 # Security Bluebook Builder
 
-## Overview
+## When to use this skill
 Build a minimal but real security policy for sensitive apps. The output is a single, coherent Blue Book document using MUST/SHOULD/CAN language, with explicit assumptions, scope, and security gates.
 
 ## Workflow
@@ -44,3 +44,7 @@ Confirm the Blue Book includes:
 
 ## Resources
 - `references/bluebook_template.md`
+
+## How to use this skill
+
+Refer to the instructions above or standard agent usage for this skill type.

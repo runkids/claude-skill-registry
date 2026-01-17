@@ -1,39 +1,69 @@
----
-name: templates
-description: Project scaffolding templates for new applications. Use when creating new projects from scratch. Contains 12 templates for various tech stacks.
-allowed-tools: Read, Glob, Grep
----
+# Simple Skill Template
 
-# Project Templates
-
-> Quick-start templates for scaffolding new projects.
+코드 없이 지침만 제공하는 단순 스킬용
 
 ---
 
-## 🎯 Selective Reading Rule
+## SKILL.md 예시
 
-**Read ONLY the template matching user's project type!**
+```markdown
+---
+name: writing-commit-messages
+description: "Generates descriptive commit messages from git diffs. Use when writing commits or reviewing staged changes."
+allowed-tools:
+  - Bash
+  - Read
+---
 
-| Template | Tech Stack | When to Use |
-|----------|------------|-------------|
-| [nextjs-fullstack](nextjs-fullstack/TEMPLATE.md) | Next.js + Prisma | Full-stack web app |
-| [nextjs-saas](nextjs-saas/TEMPLATE.md) | Next.js + Stripe | SaaS product |
-| [nextjs-static](nextjs-static/TEMPLATE.md) | Next.js + Framer | Landing page |
-| [express-api](express-api/TEMPLATE.md) | Express + JWT | REST API |
-| [python-fastapi](python-fastapi/TEMPLATE.md) | FastAPI | Python API |
-| [react-native-app](react-native-app/TEMPLATE.md) | Expo + Zustand | Mobile app |
-| [flutter-app](flutter-app/TEMPLATE.md) | Flutter + Riverpod | Cross-platform |
-| [electron-desktop](electron-desktop/TEMPLATE.md) | Electron + React | Desktop app |
-| [chrome-extension](chrome-extension/TEMPLATE.md) | Chrome MV3 | Browser extension |
-| [cli-tool](cli-tool/TEMPLATE.md) | Node.js + Commander | CLI app |
-| [monorepo-turborepo](monorepo-turborepo/TEMPLATE.md) | Turborepo + pnpm | Monorepo |
-| [astro-static](astro-static/TEMPLATE.md) | Astro + MDX | Blog / Docs |
+# Commit Message Generator
+
+## Quick start
+
+1. Stage your changes: `git add .`
+2. Review diff: `git diff --staged`
+3. Generate message following the format below
+
+## Message format
+
+```
+type(scope): brief description
+
+Detailed explanation of changes
+```
+
+**Types**: feat, fix, docs, style, refactor, test, chore
+
+## Examples
+
+**Input**: Added user authentication with JWT
+**Output**:
+```
+feat(auth): implement JWT-based authentication
+
+Add login endpoint and token validation middleware
+```
+
+**Input**: Fixed date display bug in reports
+**Output**:
+```
+fix(reports): correct date formatting in timezone conversion
+
+Use UTC timestamps consistently across report generation
+```
+
+## Guidelines
+
+- First line: 50 chars max
+- Body: 72 chars per line
+- Use imperative mood ("Add" not "Added")
+- Explain why, not just what
+```
 
 ---
 
-## Usage
+## 핵심 포인트
 
-1. User says "create [type] app"
-2. Match to appropriate template
-3. Read ONLY that template's TEMPLATE.md
-4. Follow its tech stack and structure
+1. **Quick start**: 핵심 사용법 바로 보여주기
+2. **Format**: 기대하는 형식 명확히
+3. **Examples**: Input/Output 쌍으로 제시
+4. **Guidelines**: 간결한 규칙

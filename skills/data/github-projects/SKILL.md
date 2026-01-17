@@ -1,224 +1,182 @@
 ---
 name: github-projects
-description: GitHub Projects management via gh CLI for creating projects, managing items, fields, and workflows. Use when working with GitHub Projects (v2), adding issues/PRs to projects, creating custom fields, tracking project items, or automating project workflows. Triggers on gh project, project board, kanban, GitHub project, project items.
+description: |
+  Gerencia GitHub Projects V2 via GraphQL API.
+  Cria projects, configura campos customizados e views.
+  Use quando: iniciar projeto SDLC, mover issues entre fases.
+allowed-tools:
+  - Read
+  - Write
+  - Bash
+user-invocable: false
+version: "1.0.0"
 ---
 
-# GitHub Projects CLI
+# GitHub Projects Skill
 
-GitHub Projects (v2) management via `gh project` commands. Requires the `project` scope which can be added with `gh auth refresh -s project`.
+Skill para gerenciamento de GitHub Projects V2 usando GraphQL API.
 
-## Prerequisites
+## Objetivo
 
-Verify authentication includes project scope:
+Automatizar criacao e gerenciamento de GitHub Projects V2 para projetos SDLC,
+incluindo configuracao de campos customizados, views e sincronizacao de issues.
 
-```bash
-gh auth status  # Check current scopes
-gh auth refresh -s project  # Add project scope if missing
-```
+## Pre-requisitos
 
-## Quick Reference
+- GitHub CLI (`gh`) instalado e autenticado
+- Scope `project` habilitado: `gh auth refresh -s project`
 
-### List & View Projects
+## Scripts Disponiveis
 
-```bash
-# List your projects
-gh project list
+### project_manager.py
 
-# List org projects (including closed)
-gh project list --owner ORG_NAME --closed
-
-# View project details
-gh project view PROJECT_NUM --owner OWNER
-
-# Open in browser
-gh project view PROJECT_NUM --owner OWNER --web
-
-# JSON output with jq filtering
-gh project list --format json | jq '.projects[] | {number, title}'
-```
-
-### Create & Edit Projects
+Gerencia Projects V2 via GraphQL.
 
 ```bash
-# Create project
-gh project create --owner OWNER --title "Project Title"
+# Criar project
+python3 .claude/skills/github-projects/scripts/project_manager.py create \
+  --title "SDLC: Feature X" \
+  --description "Projeto para feature X"
 
-# Edit project
-gh project edit PROJECT_NUM --owner OWNER --title "New Title"
-gh project edit PROJECT_NUM --owner OWNER --description "New description"
-gh project edit PROJECT_NUM --owner OWNER --visibility PUBLIC
+# Obter project por titulo
+python3 .claude/skills/github-projects/scripts/project_manager.py get --title "SDLC: Feature X"
 
-# Close/reopen project
-gh project close PROJECT_NUM --owner OWNER
-gh project close PROJECT_NUM --owner OWNER --undo  # Reopen
+# Listar projects
+python3 .claude/skills/github-projects/scripts/project_manager.py list
+
+# Adicionar issue ao project
+python3 .claude/skills/github-projects/scripts/project_manager.py add-item \
+  --project-number 1 \
+  --issue-url "https://github.com/owner/repo/issues/123"
+
+# Atualizar campo de um item
+python3 .claude/skills/github-projects/scripts/project_manager.py update-field \
+  --project-number 1 \
+  --item-id "PVTI_xxx" \
+  --field "Phase" \
+  --value "Implementation"
+
+# Configurar campos customizados SDLC
+python3 .claude/skills/github-projects/scripts/project_manager.py configure-fields \
+  --project-number 1
 ```
 
-### Link Projects to Repos
+### project_views.py
+
+Gerencia views (Kanban, Timeline, Table) do Project.
 
 ```bash
-# Link to repo
-gh project link PROJECT_NUM --owner OWNER --repo REPO_NAME
+# Criar view Kanban por fase
+python3 .claude/skills/github-projects/scripts/project_views.py create-kanban \
+  --project-number 1
 
-# Link to team
-gh project link PROJECT_NUM --owner ORG --team TEAM_NAME
+# Criar view Timeline
+python3 .claude/skills/github-projects/scripts/project_views.py create-timeline \
+  --project-number 1
 
-# Unlink
-gh project unlink PROJECT_NUM --owner OWNER --repo REPO_NAME
+# Listar views
+python3 .claude/skills/github-projects/scripts/project_views.py list \
+  --project-number 1
 ```
 
-## Project Items
+## Campos Customizados SDLC
 
-### Add Existing Issues/PRs
+| Campo | Tipo | Valores |
+|-------|------|---------|
+| Phase | SingleSelect | Backlog, Requirements, Architecture, Planning, In Progress, QA, Release, Done |
+| Sprint | Iteration | Sprints configurados |
+| Story Points | Number | 1, 2, 3, 5, 8, 13, 21 |
+| Priority | SingleSelect | Critical, High, Medium, Low |
+
+## Colunas do Kanban (por fase SDLC)
+
+1. **Backlog** - Phases 0-1 (Preparation, Discovery)
+2. **Requirements** - Phase 2
+3. **Architecture** - Phase 3
+4. **Planning** - Phase 4
+5. **In Progress** - Phase 5 (Implementation)
+6. **QA** - Phase 6 (Quality)
+7. **Release** - Phase 7
+8. **Done** - Completed
+
+## GraphQL Queries Utilizadas
+
+### Criar Project
+```graphql
+mutation CreateProject($ownerId: ID!, $title: String!) {
+  createProjectV2(input: {ownerId: $ownerId, title: $title}) {
+    projectV2 { id number url }
+  }
+}
+```
+
+### Adicionar Item
+```graphql
+mutation AddItem($projectId: ID!, $contentId: ID!) {
+  addProjectV2ItemById(input: {projectId: $projectId, contentId: $contentId}) {
+    item { id }
+  }
+}
+```
+
+### Atualizar Campo
+```graphql
+mutation UpdateField($projectId: ID!, $itemId: ID!, $fieldId: ID!, $value: ProjectV2FieldValue!) {
+  updateProjectV2ItemFieldValue(
+    input: {projectId: $projectId, itemId: $itemId, fieldId: $fieldId, value: $value}
+  ) { item { id } }
+}
+```
+
+## Integracao SDLC
+
+### Ao iniciar workflow (Phase 0)
+```bash
+# 1. Criar project
+PROJECT=$(python project_manager.py create --title "SDLC: $FEATURE_NAME" --json)
+
+# 2. Configurar campos
+python project_manager.py configure-fields --project-number $PROJECT_NUMBER
+
+# 3. Criar views
+python project_views.py create-kanban --project-number $PROJECT_NUMBER
+```
+
+### Ao transicionar de fase
+```bash
+# Atualizar campo Phase de todas as issues do sprint
+python project_manager.py update-phase \
+  --project-number $PROJECT_NUMBER \
+  --from-phase 5 \
+  --to-phase 6
+```
+
+## Exemplo de Uso Completo
 
 ```bash
-# Add issue to project
-gh project item-add PROJECT_NUM --owner OWNER --url https://github.com/OWNER/REPO/issues/123
+# Criar project para nova feature
+python project_manager.py create \
+  --title "SDLC: Sistema de Autenticacao" \
+  --description "Implementacao de autenticacao OAuth2"
 
-# Add PR to project
-gh project item-add PROJECT_NUM --owner OWNER --url https://github.com/OWNER/REPO/pull/456
+# Configurar campos SDLC
+python project_manager.py configure-fields --project-number 1
+
+# Adicionar issue existente
+python project_manager.py add-item \
+  --project-number 1 \
+  --issue-url "https://github.com/arbgjr/sdlc_agentico/issues/123"
+
+# Atualizar fase da issue
+python project_manager.py update-field \
+  --project-number 1 \
+  --item-id "PVTI_xxx" \
+  --field "Phase" \
+  --value "In Progress"
 ```
 
-### Create Draft Items
+## Limitacoes
 
-```bash
-gh project item-create PROJECT_NUM --owner OWNER --title "Draft item" --body "Description"
-```
-
-### List Items
-
-```bash
-# List items (default 30)
-gh project item-list PROJECT_NUM --owner OWNER
-
-# List more items
-gh project item-list PROJECT_NUM --owner OWNER --limit 100
-
-# JSON output
-gh project item-list PROJECT_NUM --owner OWNER --format json
-```
-
-### Edit Items
-
-Items are edited by their ID (obtained from `item-list --format json`).
-
-```bash
-# Edit draft issue title/body
-gh project item-edit --id ITEM_ID --title "New Title" --body "New body"
-
-# Update field value (requires field-id and project-id)
-gh project item-edit --id ITEM_ID --project-id PROJECT_ID --field-id FIELD_ID --text "value"
-gh project item-edit --id ITEM_ID --project-id PROJECT_ID --field-id FIELD_ID --number 42
-gh project item-edit --id ITEM_ID --project-id PROJECT_ID --field-id FIELD_ID --date "2024-12-31"
-gh project item-edit --id ITEM_ID --project-id PROJECT_ID --field-id FIELD_ID --single-select-option-id OPTION_ID
-gh project item-edit --id ITEM_ID --project-id PROJECT_ID --field-id FIELD_ID --iteration-id ITER_ID
-
-# Clear field value
-gh project item-edit --id ITEM_ID --project-id PROJECT_ID --field-id FIELD_ID --clear
-```
-
-### Archive/Delete Items
-
-```bash
-gh project item-archive PROJECT_NUM --owner OWNER --id ITEM_ID
-gh project item-delete PROJECT_NUM --owner OWNER --id ITEM_ID
-```
-
-## Project Fields
-
-### List Fields
-
-```bash
-gh project field-list PROJECT_NUM --owner OWNER
-gh project field-list PROJECT_NUM --owner OWNER --format json
-```
-
-### Create Fields
-
-```bash
-# Text field
-gh project field-create PROJECT_NUM --owner OWNER --name "Notes" --data-type TEXT
-
-# Number field
-gh project field-create PROJECT_NUM --owner OWNER --name "Points" --data-type NUMBER
-
-# Date field
-gh project field-create PROJECT_NUM --owner OWNER --name "Due Date" --data-type DATE
-
-# Single select with options
-gh project field-create PROJECT_NUM --owner OWNER --name "Priority" \
-  --data-type SINGLE_SELECT \
-  --single-select-options "Low,Medium,High,Critical"
-```
-
-### Delete Fields
-
-```bash
-gh project field-delete --id FIELD_ID
-```
-
-## Common Workflows
-
-### Add Issue and Set Status
-
-```bash
-# 1. Add issue to project
-gh project item-add 1 --owner "@me" --url https://github.com/owner/repo/issues/123
-
-# 2. Get item ID and field IDs
-gh project item-list 1 --owner "@me" --format json | jq '.items[-1]'
-gh project field-list 1 --owner "@me" --format json
-
-# 3. Update status field
-gh project item-edit --id ITEM_ID --project-id PROJECT_ID \
-  --field-id STATUS_FIELD_ID --single-select-option-id OPTION_ID
-```
-
-### Bulk Add Issues
-
-```bash
-# Add all open issues from a repo
-gh issue list --repo owner/repo --state open --json url -q '.[].url' | \
-  xargs -I {} gh project item-add 1 --owner "@me" --url {}
-```
-
-## JSON Output & jq Patterns
-
-```bash
-# Get project IDs
-gh project list --format json | jq '.projects[] | {number, id, title}'
-
-# Get field IDs and options
-gh project field-list 1 --owner "@me" --format json | jq '.fields[] | {id, name, options}'
-
-# Get item IDs with field values
-gh project item-list 1 --owner "@me" --format json | jq '.items[] | {id, title, fieldValues}'
-
-# Filter items by status
-gh project item-list 1 --owner "@me" --format json | \
-  jq '.items[] | select(.status == "In Progress")'
-```
-
-## Reference Files
-
-- **[items.md](references/items.md)**: Item management, editing field values, bulk operations
-- **[fields.md](references/fields.md)**: Field types, creating custom fields, option management
-
-## Command Summary
-
-| Command | Purpose |
-|---------|---------|
-| `project list` | List projects |
-| `project view` | View project details |
-| `project create` | Create new project |
-| `project edit` | Modify project settings |
-| `project close` | Close/reopen project |
-| `project link/unlink` | Connect to repo/team |
-| `project item-add` | Add existing issue/PR |
-| `project item-create` | Create draft item |
-| `project item-list` | List project items |
-| `project item-edit` | Update item fields |
-| `project item-archive` | Archive item |
-| `project item-delete` | Remove item |
-| `project field-list` | List project fields |
-| `project field-create` | Add custom field |
-| `project field-delete` | Remove field |
+- Projects V2 requer scope `project` no token
+- Alguns campos (Iteration) tem API limitada
+- Views customizadas tem suporte parcial via API

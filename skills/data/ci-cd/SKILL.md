@@ -1,151 +1,349 @@
 ---
 name: ci-cd
-description: How to use Claude Code with GitHub Actions and GitLab CI/CD for automated workflows. Use when user asks about CI/CD integration, GitHub Actions, GitLab pipelines, or automated development workflows.
+description: Designs and implements CI/CD pipelines for automated testing, building, and deployment. Trigger keywords: ci/cd, pipeline, github actions, gitlab ci, jenkins, deployment, workflow, automation.
+allowed-tools: Read, Grep, Glob, Edit, Write, Bash
 ---
 
-# Claude Code CI/CD Integration
+# CI/CD
 
 ## Overview
 
-Claude Code integrates with CI/CD platforms to enable AI-powered automation within development workflows. By mentioning `@claude` in pull requests, merge requests, or issues, you can leverage Claude to analyze code, create PRs/MRs, implement features, and fix bugs while adhering to project standards.
+This skill covers continuous integration and deployment pipeline design across various platforms including GitHub Actions, GitLab CI, and Jenkins. It focuses on automation, testing, and reliable deployments.
 
-## GitHub Actions
+## Instructions
 
-### Key Capabilities
+### 1. Analyze Requirements
 
-**Core Features:**
-- Instant PR creation with complete code changes from descriptions
-- Automated issue-to-code implementation
-- Adherence to project guidelines via `CLAUDE.md` files
-- Secure execution on GitHub runners
+- Identify build and test requirements
+- Determine deployment targets
+- Plan environment strategy
+- Define quality gates
 
-### Setup Methods
+### 2. Design Pipeline
 
-**Quick Installation:**
-Run `/install-github-app` in Claude Code for guided setup and secret configuration. This approach is limited to direct Claude API users.
+- Structure stages logically
+- Optimize for speed (parallelization)
+- Handle secrets securely
+- Plan for rollbacks
 
-**Manual Setup Requirements:**
-1. Install the Claude GitHub app with read/write permissions for Contents, Issues, and Pull Requests
-2. Add `ANTHROPIC_API_KEY` to repository secrets
-3. Copy the workflow file from official examples into `.github/workflows/`
+### 3. Implement Automation
 
-### Configuration
+- Write pipeline configuration
+- Set up testing stages
+- Configure deployment steps
+- Add notifications
 
-**Example Workflow:**
+### 4. Ensure Reliability
+
+- Add retry logic
+- Implement health checks
+- Configure alerts
+- Document procedures
+
+## Best Practices
+
+1. **Fail Fast**: Run quick checks early
+2. **Parallelize**: Run independent jobs concurrently
+3. **Cache Dependencies**: Speed up builds
+4. **Secure Secrets**: Use vault/secret managers
+5. **Environment Parity**: Keep environments similar
+6. **Immutable Artifacts**: Build once, deploy everywhere
+7. **Automated Rollback**: Have recovery procedures
+
+## Examples
+
+### Example 1: GitHub Actions Workflow
+
 ```yaml
-- uses: anthropics/claude-code-action@v1
-  with:
-    prompt: "Your instructions"
-    anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-    claude_args: "--max-turns 5"
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+env:
+  NODE_VERSION: "20"
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run linter
+        run: npm run lint
+
+  test:
+    runs-on: ubuntu-latest
+    needs: lint
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test -- --coverage
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/test
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage/lcov.info
+
+  build:
+    runs-on: ubuntu-latest
+    needs: test
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=sha,prefix=
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  deploy-staging:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/develop'
+    environment: staging
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy to staging
+        uses: azure/k8s-deploy@v4
+        with:
+          namespace: staging
+          manifests: |
+            k8s/deployment.yaml
+            k8s/service.yaml
+          images: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+
+  deploy-production:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    environment: production
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy to production
+        uses: azure/k8s-deploy@v4
+        with:
+          namespace: production
+          manifests: |
+            k8s/deployment.yaml
+            k8s/service.yaml
+          images: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          strategy: canary
+          percentage: 20
 ```
 
-**Version Migration (v1.0):**
-- Replace `mode` configuration (now auto-detected)
-- Change `direct_prompt` to `prompt`
-- Move CLI options into `claude_args` parameter
+### Example 2: GitLab CI Pipeline
 
-### Common Use Cases
+```yaml
+stages:
+  - validate
+  - test
+  - build
+  - deploy
 
-**In comments:**
+variables:
+  DOCKER_TLS_CERTDIR: "/certs"
+  IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+
+.node-base:
+  image: node:20-alpine
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - node_modules/
+
+lint:
+  stage: validate
+  extends: .node-base
+  script:
+    - npm ci
+    - npm run lint
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == "main"
+
+test:
+  stage: test
+  extends: .node-base
+  services:
+    - postgres:16
+  variables:
+    POSTGRES_DB: test
+    POSTGRES_USER: runner
+    POSTGRES_PASSWORD: runner
+    DATABASE_URL: postgresql://runner:runner@postgres:5432/test
+  script:
+    - npm ci
+    - npm test -- --coverage
+  coverage: '/Lines\s*:\s*(\d+\.?\d*)%/'
+  artifacts:
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage/cobertura-coverage.xml
+      junit: junit.xml
+
+build:
+  stage: build
+  image: docker:24
+  services:
+    - docker:24-dind
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -t $IMAGE_TAG .
+    - docker push $IMAGE_TAG
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+    - if: $CI_COMMIT_BRANCH == "develop"
+
+deploy-staging:
+  stage: deploy
+  image: bitnami/kubectl:latest
+  script:
+    - kubectl set image deployment/app app=$IMAGE_TAG -n staging
+    - kubectl rollout status deployment/app -n staging --timeout=300s
+  environment:
+    name: staging
+    url: https://staging.example.com
+  rules:
+    - if: $CI_COMMIT_BRANCH == "develop"
+
+deploy-production:
+  stage: deploy
+  image: bitnami/kubectl:latest
+  script:
+    - kubectl set image deployment/app app=$IMAGE_TAG -n production
+    - kubectl rollout status deployment/app -n production --timeout=300s
+  environment:
+    name: production
+    url: https://example.com
+  when: manual
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
 ```
-@claude implement this feature
-@claude fix the TypeError in the dashboard
-@claude how should I handle authentication?
+
+### Example 3: Reusable Workflow (GitHub Actions)
+
+```yaml
+# .github/workflows/reusable-deploy.yml
+name: Reusable Deploy Workflow
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+      image-tag:
+        required: true
+        type: string
+    secrets:
+      KUBE_CONFIG:
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v3
+
+      - name: Configure kubeconfig
+        run: |
+          mkdir -p ~/.kube
+          echo "${{ secrets.KUBE_CONFIG }}" | base64 -d > ~/.kube/config
+
+      - name: Deploy
+        run: |
+          kubectl set image deployment/app \
+            app=${{ inputs.image-tag }} \
+            -n ${{ inputs.environment }}
+
+          kubectl rollout status deployment/app \
+            -n ${{ inputs.environment }} \
+            --timeout=300s
+
+      - name: Verify deployment
+        run: |
+          kubectl get pods -n ${{ inputs.environment }} -l app=app
+          kubectl logs -n ${{ inputs.environment }} -l app=app --tail=50
 ```
-
-### Best Practices
-
-**Project Guidelines:** Create a `CLAUDE.md` file defining coding standards and review criteria that Claude will follow.
-
-**Security:** Always use GitHub Secrets rather than hardcoding credentials. Store API keys as `ANTHROPIC_API_KEY`.
-
-**Cost Management:** Configure `--max-turns` limits and use specific commands to minimize unnecessary API calls.
-
-### Enterprise Deployment
-
-AWS Bedrock and Google Vertex AI integration requires:
-- OIDC configuration for authentication
-- Service account setup with appropriate permissions
-- Repository secrets for credentials
-
-Both approaches eliminate need for static credentials through temporary token rotation.
-
-### Troubleshooting
-
-**No Response:** Verify GitHub app installation, workflow enablement, and use of `@claude` (not `/claude`).
-
-**CI Not Running:** Confirm app usage instead of default Actions user and verify webhook trigger configuration.
-
-**Authentication Issues:** Validate API key permissions and confirm secret naming in workflows.
-
-## GitLab CI/CD
-
-### Overview
-Claude Code integrates with GitLab CI/CD to enable AI-powered development workflows. The integration is currently in beta and maintained by GitLab.
-
-### Key Capabilities
-- **Automated MR Creation**: Describe what you need, and Claude proposes a complete MR with changes and explanation
-- **Issue-to-Code**: Transform issue descriptions into working implementations
-- **Code Review & Iteration**: Respond to follow-up comments to refine proposed changes
-- **Bug Fixes**: Identify and resolve issues identified through tests or comments
-
-### Quick Setup
-
-**1. Add CI/CD Variable:**
-Store `ANTHROPIC_API_KEY` as a masked variable in **Settings → CI/CD → Variables**
-
-**2. Configure .gitlab-ci.yml:**
-Add a Claude job stage that:
-- Uses Node.js Alpine image
-- Installs Claude Code CLI via npm
-- Executes Claude with appropriate prompts
-- Allows tools: Bash, Read, Edit, Write, and mcp__gitlab
-
-**3. Trigger Methods:**
-- Manual pipeline runs
-- Merge request events
-- Web/API triggers when comments mention `@claude`
-
-### Provider Options
-
-**Claude API (SaaS):** Use `ANTHROPIC_API_KEY`
-
-**AWS Bedrock:** Configure OIDC authentication with:
-- `AWS_ROLE_TO_ASSUME` variable
-- `AWS_REGION` variable
-- IAM role with Bedrock permissions
-
-**Google Vertex AI:** Set up Workload Identity Federation with:
-- `GCP_WORKLOAD_IDENTITY_PROVIDER`
-- `GCP_SERVICE_ACCOUNT`
-- `CLOUD_ML_REGION`
-
-### Best Practices
-
-- **CLAUDE.md**: Define project conventions and coding standards for Claude to follow
-- **Security**: Never commit credentials; use masked CI/CD variables and OIDC where possible
-- **Performance**: Keep guidelines concise; provide clear issue descriptions to minimize iterations
-- **Governance**: All changes flow through MRs for review; branch protection rules apply
-
-### Cost Considerations
-- GitLab runner compute minutes consumed by Claude jobs
-- Anthropic API token usage (varies by task complexity and codebase size)
-- Optimize by using specific commands and setting appropriate timeouts
-
-### Use Case Examples
-
-**Convert Issues to MRs:** Comment `@claude implement this feature based on the issue description`
-
-**Get Implementation Help:** In MR discussions: `@claude suggest a concrete approach to [task]`
-
-**Fix Bugs:** `@claude fix the [error type] in [component]`
-
-## General CI/CD Best Practices
-
-1. **Define clear guidelines** in `CLAUDE.md` for consistent behavior
-2. **Use secrets management** for all credentials
-3. **Set cost controls** with turn limits and specific prompts
-4. **Review all changes** - Claude creates PRs/MRs for human approval
-5. **Monitor usage** to track API consumption and optimize workflows
-6. **Test in non-production** environments first

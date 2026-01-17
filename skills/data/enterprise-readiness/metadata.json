@@ -1,7 +1,7 @@
 {
   "name": "enterprise-readiness",
-  "repo": "dirnbauer/claude-cursor-typo3-skills",
-  "path": "skills/enterprise-readiness/SKILL.md",
-  "source": "github.com/dirnbauer/claude-cursor-typo3-skills",
-  "downloaded_at": "2026-01-14T03:08:56.618600Z"
+  "repo": "netresearch/claude-code-marketplace",
+  "path": "skills/enterprise-readiness/skills/enterprise-readiness/SKILL.md",
+  "source": "github.com/netresearch/claude-code-marketplace",
+  "downloaded_at": "2026-01-17T03:31:25.171816Z"
 }

@@ -1,4 +1,5 @@
 ---
+name: continuity_ledger
 description: Create or update continuity ledger for state preservation across clears
 ---
 

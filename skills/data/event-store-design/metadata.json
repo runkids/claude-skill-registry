@@ -1,7 +1,7 @@
 {
   "name": "event-store-design",
-  "repo": "GaitanS/AI-Mancare",
-  "path": ".claude/skills/plugins/backend-development/skills/event-store-design/SKILL.md",
-  "source": "github.com/GaitanS/AI-Mancare",
-  "downloaded_at": "2026-01-14T03:16:29.551117Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/backend-development/skills/event-store-design/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-01-17T03:59:15.382793Z"
 }

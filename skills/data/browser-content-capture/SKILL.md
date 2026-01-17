@@ -1,11 +1,12 @@
 ---
 name: browser-content-capture
-description: Capture content from JavaScript-rendered pages, login-protected sites, and multi-page documentation using Playwright MCP tools or Claude Chrome extension. Use when WebFetch fails on SPAs, dynamic content, or auth-required pages. Integrates with SkillForge's analysis pipeline for automatic content processing.
+description: Capture content from JavaScript-rendered pages, login-protected sites, and multi-page documentation using Playwright MCP tools or Claude Chrome extension. Use when capturing browser content, extracting web data, saving page content.
 context: fork
 agent: data-pipeline-engineer
 version: 1.0.0
 author: SkillForge AI Agent Hub
 tags: [browser, playwright, mcp, scraping, spa, authentication, chrome-extension, 2025]
+user-invocable: false
 ---
 
 # Browser Content Capture

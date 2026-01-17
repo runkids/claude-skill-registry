@@ -56,8 +56,8 @@ The skill includes three reference OPR examples covering different building type
   - Occupant comfort and IAQ focus
   - Energy efficiency requirements
 
-- **references/SECC-2025-OPR-fixed.md**: Community center (specific example)
-  - Fort Collins project - working test case
+- **references/Example-Project-2025-OPR-fixed.md**: Community center (specific example)
+  - Example project - working test case
   - Mixed-use facility with pool and multipurpose spaces
   - Xcel Energy program requirements
 
@@ -135,3 +135,19 @@ For detailed guidance on specific sections or systems, ask:
 - "What should I include in the HVAC systems narrative?"
 - "How do I document energy efficiency requirements?"
 - "What level of detail is appropriate for [specific system]?"
+
+
+## Saving Next Steps
+
+When writing-oprs work is complete or paused:
+
+```bash
+node .claude/skills/work-command-center/tools/add-skill-next-steps.js \
+  --skill "writing-oprs" \
+  --content "## Priority Tasks
+1. Complete OPR Section 3 - Performance Requirements
+2. Review OPR with stakeholders
+3. Finalize OPR deliverable for commissioning project"
+```
+
+See: `.claude/skills/work-command-center/skill-next-steps-convention.md`

@@ -1,641 +1,760 @@
 ---
 name: google-calendar-sync
-description: Manages Google Calendar through the Calendar API. Create, read, update, and delete events, manage multiple calendars, set reminders, handle recurring events, and sync with local schedules. Use when working with Google Calendar, scheduling events, checking availability, managing meetings, or automating calendar workflows.
+description: Wizard to set up Google Calendar API integration with service account authentication and domain-wide delegation
+license: MIT
+compatibility: opencode
+metadata:
+  category: integration
+  provider: google
+  requires-human: "true"
 ---
 
-# Google Calendar Sync
+# Google Calendar Sync Setup Wizard
 
-Comprehensive Google Calendar integration enabling event management, calendar organization, availability checking, recurring event handling, and workflow automation through the Google Calendar API v3.
+This skill guides you through configuring a Google Cloud service account to sync events with Google Calendar. It uses `gcloud` CLI to automate most Google Cloud steps.
 
-## Quick Start
+## How This Works
 
-When asked to work with Google Calendar:
+This is a **guided wizard** with two types of steps:
 
-1. **Authenticate**: Set up OAuth2 credentials (one-time setup)
-2. **List events**: View upcoming events and meetings
-3. **Create events**: Schedule new meetings and appointments
-4. **Update events**: Modify existing events
-5. **Check availability**: Find free time slots
-6. **Manage calendars**: Work with multiple calendars
+- **AGENT ACTION** - Steps the agent performs automatically via `gcloud` CLI or code
+- **HUMAN ACTION REQUIRED** - Steps requiring manual intervention (browser auth, Admin Console)
 
-## Prerequisites
+## State Detection
 
-### One-Time Setup
-
-**1. Enable Calendar API:**
-```bash
-# Visit Google Cloud Console
-# https://console.cloud.google.com/
-
-# Enable Calendar API for your project
-# APIs & Services > Enable APIs and Services > Google Calendar API
-```
-
-**2. Create OAuth2 Credentials:**
-```bash
-# In Google Cloud Console:
-# APIs & Services > Credentials > Create Credentials > OAuth client ID
-# Application type: Desktop app
-# Download credentials as credentials.json
-```
-
-**3. Install Dependencies:**
-```bash
-pip install google-auth google-auth-oauthlib google-auth-httplib2 google-api-python-client python-dateutil pytz --break-system-packages
-```
-
-**4. Initial Authentication:**
-```bash
-python scripts/authenticate.py
-# Opens browser for Google sign-in
-# Saves token.json for future use
-```
-
-See [reference/setup-guide.md](reference/setup-guide.md) for detailed setup.
-
-## Core Operations
-
-### List Events
-
-**View upcoming events:**
-```bash
-# Today's events
-python scripts/list_events.py --today
-
-# This week
-python scripts/list_events.py --days 7
-
-# Specific date range
-python scripts/list_events.py \
-  --start 2025-01-01 \
-  --end 2025-01-31
-
-# Next N events
-python scripts/list_events.py --limit 10
-```
-
-**Filter events:**
-```bash
-# By search term
-python scripts/list_events.py --query "team meeting"
-
-# By calendar
-python scripts/list_events.py --calendar "Work"
-
-# Only free/busy
-python scripts/list_events.py --show-deleted false
-```
-
-**Get event details:**
-```bash
-# Get specific event
-python scripts/get_event.py --event-id EVENT_ID
-
-# Export to file
-python scripts/get_event.py --event-id EVENT_ID --output event.json
-```
-
-### Create Events
-
-**Simple event:**
-```bash
-# Basic event
-python scripts/create_event.py \
-  --summary "Team Meeting" \
-  --start "2025-01-20 14:00" \
-  --end "2025-01-20 15:00"
-
-# With description
-python scripts/create_event.py \
-  --summary "Project Review" \
-  --start "2025-01-21 10:00" \
-  --end "2025-01-21 11:00" \
-  --description "Q4 project review meeting"
-
-# With location
-python scripts/create_event.py \
-  --summary "Client Meeting" \
-  --start "2025-01-22 14:00" \
-  --end "2025-01-22 15:00" \
-  --location "Conference Room A"
-```
-
-**All-day event:**
-```bash
-python scripts/create_event.py \
-  --summary "Conference" \
-  --start "2025-02-15" \
-  --end "2025-02-17" \
-  --all-day
-```
-
-**With attendees:**
-```bash
-python scripts/create_event.py \
-  --summary "Team Standup" \
-  --start "2025-01-20 09:00" \
-  --duration 30 \
-  --attendees "alice@company.com,bob@company.com" \
-  --send-notifications
-```
-
-**With reminders:**
-```bash
-python scripts/create_event.py \
-  --summary "Important Meeting" \
-  --start "2025-01-20 14:00" \
-  --duration 60 \
-  --reminders "popup:10,email:60"  # 10 min popup, 60 min email
-```
-
-**Video conference:**
-```bash
-# Add Google Meet link
-python scripts/create_event.py \
-  --summary "Virtual Meeting" \
-  --start "2025-01-20 14:00" \
-  --duration 60 \
-  --add-meet-link
-```
-
-### Recurring Events
-
-**Create recurring:**
-```bash
-# Daily standup
-python scripts/create_recurring.py \
-  --summary "Daily Standup" \
-  --start "2025-01-20 09:00" \
-  --duration 15 \
-  --rule "FREQ=DAILY;COUNT=30"
-
-# Weekly meeting
-python scripts/create_recurring.py \
-  --summary "Team Meeting" \
-  --start "2025-01-20 14:00" \
-  --duration 60 \
-  --rule "FREQ=WEEKLY;BYDAY=MO,WE,FR;UNTIL=20251231"
-
-# Monthly review
-python scripts/create_recurring.py \
-  --summary "Monthly Review" \
-  --start "2025-01-15 10:00" \
-  --duration 120 \
-  --rule "FREQ=MONTHLY;BYMONTHDAY=15"
-```
-
-**Recurrence rule examples:**
-```python
-# Every weekday
-"FREQ=DAILY;BYDAY=MO,TU,WE,TH,FR"
-
-# Every Monday and Wednesday
-"FREQ=WEEKLY;BYDAY=MO,WE"
-
-# First Monday of every month
-"FREQ=MONTHLY;BYDAY=1MO"
-
-# Every 2 weeks
-"FREQ=WEEKLY;INTERVAL=2"
-
-# Until specific date
-"FREQ=DAILY;UNTIL=20251231T235959Z"
-
-# Specific number of occurrences
-"FREQ=WEEKLY;COUNT=10"
-```
-
-See [reference/recurrence-rules.md](reference/recurrence-rules.md) for complete RRULE syntax.
-
-### Update Events
-
-**Modify event:**
-```bash
-# Update time
-python scripts/update_event.py \
-  --event-id EVENT_ID \
-  --start "2025-01-20 15:00" \
-  --end "2025-01-20 16:00"
-
-# Update summary and description
-python scripts/update_event.py \
-  --event-id EVENT_ID \
-  --summary "Updated Meeting Title" \
-  --description "New description"
-
-# Add attendees
-python scripts/update_event.py \
-  --event-id EVENT_ID \
-  --add-attendees "new@company.com"
-
-# Move to different calendar
-python scripts/move_event.py \
-  --event-id EVENT_ID \
-  --destination-calendar "Personal"
-```
-
-**Update recurring instance:**
-```bash
-# Update single instance
-python scripts/update_event.py \
-  --event-id EVENT_ID \
-  --instance-date "2025-01-20" \
-  --start "2025-01-20 16:00"
-
-# Update all future instances
-python scripts/update_event.py \
-  --event-id EVENT_ID \
-  --start "2025-01-20 16:00" \
-  --update-following
-```
-
-### Delete Events
-
-**Delete event:**
-```bash
-# Delete single event
-python scripts/delete_event.py --event-id EVENT_ID
-
-# Delete recurring instance
-python scripts/delete_event.py \
-  --event-id EVENT_ID \
-  --instance-date "2025-01-20"
-
-# Delete all future instances
-python scripts/delete_event.py \
-  --event-id EVENT_ID \
-  --delete-following
-```
-
-### Check Availability
-
-**Find free time:**
-```bash
-# Check availability
-python scripts/check_availability.py \
-  --start "2025-01-20 09:00" \
-  --end "2025-01-20 17:00" \
-  --duration 60
-
-# Check multiple calendars
-python scripts/check_availability.py \
-  --calendars "Work,Personal" \
-  --date "2025-01-20" \
-  --duration 30
-
-# Find next available slot
-python scripts/find_next_slot.py \
-  --duration 60 \
-  --business-hours-only
-```
-
-**FreeBusy query:**
-```bash
-# Check if people are free
-python scripts/check_freebusy.py \
-  --emails "alice@company.com,bob@company.com" \
-  --start "2025-01-20 14:00" \
-  --end "2025-01-20 15:00"
-```
-
-### Calendar Management
-
-**List calendars:**
-```bash
-# Get all calendars
-python scripts/list_calendars.py
-
-# Get calendar details
-python scripts/get_calendar.py --calendar-id "primary"
-```
-
-**Create calendar:**
-```bash
-# Create new calendar
-python scripts/create_calendar.py \
-  --summary "Project Alpha" \
-  --description "Project Alpha team calendar" \
-  --timezone "America/New_York"
-```
-
-**Share calendar:**
-```bash
-# Share with user
-python scripts/share_calendar.py \
-  --calendar-id CALENDAR_ID \
-  --email "user@company.com" \
-  --role writer
-
-# Make public
-python scripts/share_calendar.py \
-  --calendar-id CALENDAR_ID \
-  --public \
-  --role reader
-```
-
-**Calendar roles:**
-- `owner` - Full control
-- `writer` - Create/modify events
-- `reader` - View only
-- `freeBusyReader` - See free/busy only
-
-## Common Workflows
-
-### Workflow 1: Schedule Meeting with Attendees
-
-**Scenario:** Find time and schedule meeting
+**AGENT ACTION** - Run this at the start to determine current progress:
 
 ```bash
-# 1. Check availability
-python scripts/check_freebusy.py \
-  --emails "alice@company.com,bob@company.com" \
-  --date "2025-01-20" \
-  --duration 60
+echo "=== GOOGLE CALENDAR SYNC STATE CHECK ==="
 
-# 2. Create meeting
-python scripts/create_event.py \
-  --summary "Project Discussion" \
-  --start "2025-01-20 14:00" \
-  --duration 60 \
-  --attendees "alice@company.com,bob@company.com" \
-  --add-meet-link \
-  --send-notifications
+# Check 1: gcloud installed?
+if command -v gcloud &> /dev/null; then
+  echo "gcloud: INSTALLED"
+else
+  echo "gcloud: MISSING -> Start at Step 0.1"
+fi
+
+# Check 2: gcloud authenticated?
+if gcloud auth list --filter="status:ACTIVE" --format="value(account)" 2>/dev/null | grep -q "@"; then
+  echo "gcloud_auth: AUTHENTICATED as $(gcloud auth list --filter='status:ACTIVE' --format='value(account)' | head -1)"
+else
+  echo "gcloud_auth: NOT_AUTHENTICATED -> Complete Step 0.2"
+fi
+
+# Check 3: Project configured?
+PROJECT=$(gcloud config get-value project 2>/dev/null)
+if [ -n "$PROJECT" ] && [ "$PROJECT" != "(unset)" ]; then
+  echo "project: CONFIGURED as $PROJECT"
+else
+  echo "project: NOT_SET -> Start at Phase 2"
+fi
+
+# Check 4: Calendar API enabled?
+if [ -n "$PROJECT" ] && [ "$PROJECT" != "(unset)" ]; then
+  if gcloud services list --enabled --filter="name:calendar" --format="value(name)" 2>/dev/null | grep -q "calendar"; then
+    echo "calendar_api: ENABLED"
+  else
+    echo "calendar_api: NOT_ENABLED -> Complete Step 2.2"
+  fi
+fi
+
+# Check 5: Service account exists?
+if [ -n "$PROJECT" ] && [ "$PROJECT" != "(unset)" ]; then
+  SA_EMAIL="calendar-sync@${PROJECT}.iam.gserviceaccount.com"
+  if gcloud iam service-accounts describe "$SA_EMAIL" &>/dev/null; then
+    echo "service_account: EXISTS ($SA_EMAIL)"
+  else
+    echo "service_account: NOT_FOUND -> Complete Step 2.3"
+  fi
+fi
+
+# Check 6: Credentials file exists?
+if [ -f "google-credentials.json" ]; then
+  echo "credentials_file: EXISTS (needs base64 encoding)"
+elif [ -f "google-credentials.b64" ]; then
+  echo "credentials_b64: EXISTS"
+else
+  echo "credentials: NOT_FOUND -> Complete Step 2.5"
+fi
+
+# Check 7: Environment variables?
+echo "=== ENV VAR CHECK ==="
+if [ -f ".env.local" ]; then
+  grep -q "GOOG_CREDENTIALS_JSON" .env.local 2>/dev/null && echo "GOOG_CREDENTIALS_JSON: SET in .env.local" || echo "GOOG_CREDENTIALS_JSON: MISSING"
+  grep -q "GOOG_CALENDAR_IMPERSONATE_USER" .env.local 2>/dev/null && echo "GOOG_CALENDAR_IMPERSONATE_USER: SET in .env.local" || echo "GOOG_CALENDAR_IMPERSONATE_USER: MISSING"
+  grep -q "GOOG_CALENDAR_ID" .env.local 2>/dev/null && echo "GOOG_CALENDAR_ID: SET in .env.local" || echo "GOOG_CALENDAR_ID: MISSING"
+elif [ -f ".env" ]; then
+  grep -q "GOOG_CREDENTIALS_JSON" .env 2>/dev/null && echo "GOOG_CREDENTIALS_JSON: SET in .env" || echo "GOOG_CREDENTIALS_JSON: MISSING"
+  grep -q "GOOG_CALENDAR_IMPERSONATE_USER" .env 2>/dev/null && echo "GOOG_CALENDAR_IMPERSONATE_USER: SET in .env" || echo "GOOG_CALENDAR_IMPERSONATE_USER: MISSING"
+  grep -q "GOOG_CALENDAR_ID" .env 2>/dev/null && echo "GOOG_CALENDAR_ID: SET in .env" || echo "GOOG_CALENDAR_ID: MISSING"
+else
+  echo "env_file: NOT_FOUND -> Complete Phase 5"
+fi
+
+# Check 8: googleapis package?
+if [ -f "package.json" ]; then
+  grep -q "googleapis" package.json && echo "googleapis: INSTALLED" || echo "googleapis: NOT_INSTALLED -> Complete Step 5.4"
+fi
+
+echo "=== END STATE CHECK ==="
 ```
 
-### Workflow 2: Sync with Local Calendar
+Based on the state check output, skip to the appropriate phase or step.
 
-**Scenario:** Export/import events
+---
+
+## Prerequisites (Agent Checks + Human Installs)
+
+The agent will check for required tools and guide you through installing anything that's missing.
+
+### Step 0.1: Check for gcloud CLI
+
+**AGENT ACTION** - Run this check:
 
 ```bash
-# Export to ICS
-python scripts/export_calendar.py \
-  --calendar-id "primary" \
-  --output calendar.ics \
-  --start "2025-01-01" \
-  --end "2025-12-31"
-
-# Import from ICS
-python scripts/import_calendar.py \
-  --file events.ics \
-  --calendar-id "primary"
+if command -v gcloud &> /dev/null; then
+  echo "INSTALLED: gcloud $(gcloud --version 2>/dev/null | head -1)"
+else
+  echo "NOT_INSTALLED: gcloud"
+fi
 ```
 
-### Workflow 3: Daily Schedule Summary
+**If NOT_INSTALLED:**
 
-**Scenario:** Get morning email with day's schedule
+> **HUMAN ACTION REQUIRED**
+>
+> Install the Google Cloud CLI:
+>
+> **macOS (Homebrew):**
+> ```bash
+> brew install google-cloud-sdk
+> ```
+>
+> **macOS (Manual):**
+> ```bash
+> curl https://sdk.cloud.google.com | bash
+> exec -l $SHELL
+> ```
+>
+> **Linux (Debian/Ubuntu):**
+> ```bash
+> sudo apt-get install apt-transport-https ca-certificates gnupg curl
+> curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
+> echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+> sudo apt-get update && sudo apt-get install google-cloud-cli
+> ```
+>
+> **Linux (Other):**
+> ```bash
+> curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-linux-x86_64.tar.gz
+> tar -xf google-cloud-cli-linux-x86_64.tar.gz
+> ./google-cloud-sdk/install.sh
+> ```
+>
+> **Windows:**
+> Download installer from: https://cloud.google.com/sdk/docs/install
+>
+> Reply "gcloud installed" when complete.
+
+### Step 0.2: Check gcloud authentication
+
+**AGENT ACTION** - Run this check:
 
 ```bash
-# Generate daily summary
-python scripts/daily_summary.py \
-  --send-email \
-  --to "me@company.com"
+if gcloud auth list --filter="status:ACTIVE" --format="value(account)" 2>/dev/null | head -1 | grep -q "@"; then
+  echo "AUTHENTICATED: $(gcloud auth list --filter='status:ACTIVE' --format='value(account)' | head -1)"
+else
+  echo "NOT_AUTHENTICATED"
+fi
 ```
 
-### Workflow 4: Recurring Task Events
+**If NOT_AUTHENTICATED:**
 
-**Scenario:** Create recurring reminders
+> **HUMAN ACTION REQUIRED**
+>
+> Authenticate with your Google account:
+>
+> ```bash
+> gcloud auth login
+> ```
+>
+> This will open a browser window. Sign in with the Google account that has access to your Google Cloud projects.
+>
+> Reply "authenticated" when complete.
+
+### Step 0.3: Check for Node.js (for testing)
+
+**AGENT ACTION** - Run this check:
 
 ```bash
-# Create recurring task
-python scripts/create_recurring.py \
-  --summary "Submit Weekly Report" \
-  --start "2025-01-20 16:00" \
-  --duration 30 \
-  --rule "FREQ=WEEKLY;BYDAY=FR" \
-  --reminders "popup:0"
+if command -v node &> /dev/null; then
+  echo "INSTALLED: node $(node --version)"
+else
+  echo "NOT_INSTALLED: node"
+fi
 ```
 
-### Workflow 5: Event Analytics
+**If NOT_INSTALLED:**
 
-**Scenario:** Analyze calendar usage
+> **HUMAN ACTION REQUIRED**
+>
+> Install Node.js (required for the googleapis package and testing):
+>
+> **macOS:**
+> ```bash
+> brew install node
+> ```
+>
+> **Linux:**
+> ```bash
+> curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+> sudo apt-get install -y nodejs
+> ```
+>
+> Or use nvm: https://github.com/nvm-sh/nvm
+>
+> Reply "node installed" when complete.
+
+### Step 0.4: Check for pnpm (optional, for monorepos)
+
+**AGENT ACTION** - Run this check:
 
 ```bash
-# Generate statistics
-python scripts/calendar_stats.py \
-  --start "2025-01-01" \
-  --end "2025-01-31" \
-  --output stats.json
-
-# Meeting time analysis
-python scripts/meeting_analysis.py --days 30
+if command -v pnpm &> /dev/null; then
+  echo "INSTALLED: pnpm $(pnpm --version)"
+elif command -v npm &> /dev/null; then
+  echo "FALLBACK: npm $(npm --version)"
+else
+  echo "NOT_INSTALLED: package manager"
+fi
 ```
 
-## Event Colors
+The skill will use `pnpm` if available, otherwise `npm`.
 
-**Color IDs:**
-```python
-COLORS = {
-    '1': 'Lavender',
-    '2': 'Sage',
-    '3': 'Grape',
-    '4': 'Flamingo',
-    '5': 'Banana',
-    '6': 'Tangerine',
-    '7': 'Peacock',
-    '8': 'Graphite',
-    '9': 'Blueberry',
-    '10': 'Basil',
-    '11': 'Tomato'
+---
+
+## Phase 1: Project Discovery (Agent Actions)
+
+### Step 1.1: Check existing Google credentials
+
+```bash
+# Check .env files for existing Google config
+grep -r "GOOG_" .env* 2>/dev/null || echo "No existing Google config found"
+grep -r "GOOGLE_" .env* 2>/dev/null || echo "No existing Google config found"
+```
+
+### Step 1.2: List existing gcloud projects
+
+```bash
+gcloud projects list --format="table(projectId,name,createTime)"
+```
+
+Ask user: **Use an existing project or create a new one?**
+
+---
+
+## Phase 2: Google Cloud Setup (Mostly Automated)
+
+### Step 2.1: Create or select project
+
+**AGENT ACTION** - Create new project:
+
+```bash
+# Generate a unique project ID
+PROJECT_ID="calendar-sync-$(date +%s | tail -c 7)"
+PROJECT_NAME="Calendar Sync"
+
+gcloud projects create "$PROJECT_ID" --name="$PROJECT_NAME"
+gcloud config set project "$PROJECT_ID"
+```
+
+Or select existing:
+
+```bash
+gcloud config set project YOUR_PROJECT_ID
+```
+
+### Step 2.2: Enable Google Calendar API
+
+**AGENT ACTION**
+
+```bash
+gcloud services enable calendar-json.googleapis.com
+```
+
+Verify it's enabled:
+
+```bash
+gcloud services list --enabled --filter="name:calendar"
+```
+
+### Step 2.3: Create service account
+
+**AGENT ACTION**
+
+```bash
+SERVICE_ACCOUNT_NAME="calendar-sync"
+PROJECT_ID=$(gcloud config get-value project)
+
+gcloud iam service-accounts create "$SERVICE_ACCOUNT_NAME" \
+  --display-name="Calendar Sync Service" \
+  --description="Manages calendar events for the application"
+```
+
+Get the service account email:
+
+```bash
+SERVICE_ACCOUNT_EMAIL="${SERVICE_ACCOUNT_NAME}@${PROJECT_ID}.iam.gserviceaccount.com"
+echo "Service Account: $SERVICE_ACCOUNT_EMAIL"
+```
+
+### Step 2.4: Grant permissions to service account
+
+**AGENT ACTION**
+
+```bash
+PROJECT_ID=$(gcloud config get-value project)
+SERVICE_ACCOUNT_EMAIL="calendar-sync@${PROJECT_ID}.iam.gserviceaccount.com"
+
+gcloud projects add-iam-policy-binding "$PROJECT_ID" \
+  --member="serviceAccount:${SERVICE_ACCOUNT_EMAIL}" \
+  --role="roles/owner"
+```
+
+### Step 2.5: Create service account key
+
+**AGENT ACTION** (may require org policy override)
+
+```bash
+PROJECT_ID=$(gcloud config get-value project)
+SERVICE_ACCOUNT_EMAIL="calendar-sync@${PROJECT_ID}.iam.gserviceaccount.com"
+
+gcloud iam service-accounts keys create ./google-credentials.json \
+  --iam-account="$SERVICE_ACCOUNT_EMAIL"
+```
+
+If this fails with "Key creation is not allowed":
+
+**HUMAN ACTION REQUIRED**
+
+Disable the org policy constraint:
+
+```bash
+# Requires org admin permissions
+gcloud org-policies reset iam.disableServiceAccountKeyCreation --project="$PROJECT_ID"
+```
+
+Or do it via Console: [Organization Policies](https://console.cloud.google.com/iam-admin/orgpolicies) > search `iam.disableServiceAccountKeyCreation` > Override > Not enforced.
+
+Then retry the key creation command.
+
+### Step 2.6: Base64 encode the credentials
+
+**AGENT ACTION**
+
+```bash
+# Encode and display (copy this for GOOG_CREDENTIALS_JSON)
+cat google-credentials.json | base64 -w 0
+echo ""
+
+# Or save to a file
+cat google-credentials.json | base64 -w 0 > google-credentials.b64
+```
+
+### Step 2.7: Get the Client ID (for domain-wide delegation)
+
+**AGENT ACTION**
+
+```bash
+PROJECT_ID=$(gcloud config get-value project)
+SERVICE_ACCOUNT_EMAIL="calendar-sync@${PROJECT_ID}.iam.gserviceaccount.com"
+
+gcloud iam service-accounts describe "$SERVICE_ACCOUNT_EMAIL" \
+  --format="value(uniqueId)"
+```
+
+Save this Client ID for the next phase.
+
+---
+
+## Phase 3: Domain-Wide Delegation (Human Action Required)
+
+> **Note:** Only required for Google Workspace. Skip if using personal Gmail with calendar sharing.
+
+### Step 3.1: Configure Domain-Wide Delegation
+
+**HUMAN ACTION REQUIRED** - This cannot be automated via CLI.
+
+1. Go to [Google Admin Console](https://admin.google.com)
+2. Navigate to **Security > Access and data control > API controls**
+3. Click **Manage Domain Wide Delegation**
+4. Click **Add new**
+5. Enter the **Client ID** from Step 2.7
+6. Add OAuth scope:
+   ```
+   https://www.googleapis.com/auth/calendar.events
+   ```
+7. Click **Authorize**
+
+**Confirm:** Reply "Delegation configured" when complete.
+
+### Step 3.2: Identify Impersonation User
+
+**HUMAN ACTION REQUIRED**
+
+Provide the email of a Google Workspace user who has access to the target calendar.
+This will be `GOOG_CALENDAR_IMPERSONATE_USER`.
+
+---
+
+## Phase 4: Get Calendar ID (Agent + Human)
+
+### Step 4.1: Find the calendar ID
+
+**Option A - Primary calendar:** The calendar ID is the user's email address.
+
+**Option B - Shared/secondary calendar:**
+
+**HUMAN ACTION REQUIRED**
+
+1. Open [Google Calendar](https://calendar.google.com)
+2. Find your calendar in the left sidebar
+3. Click the three dots > **Settings and sharing**
+4. Scroll to **Integrate calendar**
+5. Copy the **Calendar ID** (looks like `abc123@group.calendar.google.com`)
+
+---
+
+## Phase 5: Environment Configuration (Agent Actions)
+
+### Step 5.1: Add environment variables
+
+```bash
+# Read the base64 credentials
+CREDS_B64=$(cat google-credentials.json | base64 -w 0)
+
+# Append to .env.local (or .env)
+cat >> .env.local << EOF
+
+# Google Calendar Integration
+GOOG_CREDENTIALS_JSON="$CREDS_B64"
+GOOG_CALENDAR_IMPERSONATE_USER="user@yourdomain.com"
+GOOG_CALENDAR_ID="calendar-id@group.calendar.google.com"
+EOF
+```
+
+### Step 5.2: Add to .env.example
+
+```bash
+cat >> .env.example << 'EOF'
+
+# Google Calendar Integration
+# See: .opencode/skill/google-calendar-sync/SKILL.md
+GOOG_CREDENTIALS_JSON=
+GOOG_CALENDAR_IMPERSONATE_USER=
+GOOG_CALENDAR_ID=
+EOF
+```
+
+### Step 5.3: Add google-credentials.json to .gitignore
+
+```bash
+echo "google-credentials.json" >> .gitignore
+echo "google-credentials.b64" >> .gitignore
+```
+
+### Step 5.4: Install googleapis package
+
+**AGENT ACTION** - Use detected package manager:
+
+```bash
+# Detect and use the right package manager
+if command -v pnpm &> /dev/null; then
+  pnpm add googleapis
+elif command -v yarn &> /dev/null; then
+  yarn add googleapis
+else
+  npm install googleapis
+fi
+```
+
+### Step 5.5: Create calendar utility module
+
+Create `lib/google-calendar.ts`:
+
+```typescript
+import { google } from 'googleapis'
+
+function getCalendarClient() {
+  const credentials = JSON.parse(
+    Buffer.from(process.env.GOOG_CREDENTIALS_JSON!, 'base64').toString()
+  )
+
+  const auth = new google.auth.GoogleAuth({
+    credentials,
+    scopes: ['https://www.googleapis.com/auth/calendar.events'],
+    clientOptions: {
+      subject: process.env.GOOG_CALENDAR_IMPERSONATE_USER,
+    },
+  })
+
+  return google.calendar({ version: 'v3', auth })
+}
+
+export async function createCalendarEvent(event: {
+  summary: string
+  description?: string
+  start: Date
+  end: Date
+  location?: string
+}) {
+  const calendar = getCalendarClient()
+  const calendarId = process.env.GOOG_CALENDAR_ID!
+
+  return calendar.events.insert({
+    calendarId,
+    requestBody: {
+      summary: event.summary,
+      description: event.description,
+      location: event.location,
+      start: {
+        dateTime: event.start.toISOString(),
+        timeZone: 'UTC',
+      },
+      end: {
+        dateTime: event.end.toISOString(),
+        timeZone: 'UTC',
+      },
+    },
+  })
+}
+
+export async function updateCalendarEvent(
+  eventId: string,
+  event: {
+    summary?: string
+    description?: string
+    start?: Date
+    end?: Date
+    location?: string
+  }
+) {
+  const calendar = getCalendarClient()
+  const calendarId = process.env.GOOG_CALENDAR_ID!
+
+  return calendar.events.patch({
+    calendarId,
+    eventId,
+    requestBody: {
+      ...(event.summary && { summary: event.summary }),
+      ...(event.description && { description: event.description }),
+      ...(event.location && { location: event.location }),
+      ...(event.start && {
+        start: { dateTime: event.start.toISOString(), timeZone: 'UTC' },
+      }),
+      ...(event.end && {
+        end: { dateTime: event.end.toISOString(), timeZone: 'UTC' },
+      }),
+    },
+  })
+}
+
+export async function deleteCalendarEvent(eventId: string) {
+  const calendar = getCalendarClient()
+  const calendarId = process.env.GOOG_CALENDAR_ID!
+
+  return calendar.events.delete({
+    calendarId,
+    eventId,
+  })
+}
+
+export async function listCalendarEvents(options?: {
+  timeMin?: Date
+  timeMax?: Date
+  maxResults?: number
+}) {
+  const calendar = getCalendarClient()
+  const calendarId = process.env.GOOG_CALENDAR_ID!
+
+  return calendar.events.list({
+    calendarId,
+    timeMin: options?.timeMin?.toISOString(),
+    timeMax: options?.timeMax?.toISOString(),
+    maxResults: options?.maxResults ?? 10,
+    singleEvents: true,
+    orderBy: 'startTime',
+  })
 }
 ```
 
-**Set event color:**
+---
+
+## Phase 6: Verification (Agent Actions)
+
+### Step 6.1: Verify environment variables are set
+
+**AGENT ACTION** - Check required env vars:
+
 ```bash
-python scripts/update_event.py \
-  --event-id EVENT_ID \
-  --color-id 9  # Blueberry
+echo "=== VERIFYING ENV VARS ==="
+
+# Source the env file to check
+if [ -f ".env.local" ]; then
+  source .env.local 2>/dev/null
+elif [ -f ".env" ]; then
+  source .env 2>/dev/null
+fi
+
+MISSING=""
+[ -z "$GOOG_CREDENTIALS_JSON" ] && MISSING="$MISSING GOOG_CREDENTIALS_JSON"
+[ -z "$GOOG_CALENDAR_IMPERSONATE_USER" ] && MISSING="$MISSING GOOG_CALENDAR_IMPERSONATE_USER"
+[ -z "$GOOG_CALENDAR_ID" ] && MISSING="$MISSING GOOG_CALENDAR_ID"
+
+if [ -n "$MISSING" ]; then
+  echo "MISSING ENV VARS:$MISSING"
+  echo "Please complete Phase 5 before testing."
+  exit 1
+else
+  echo "All required env vars are set!"
+fi
 ```
 
-## Reminder Options
+### Step 6.2: Test the connection
 
-**Reminder methods:**
-- `popup` - In-app notification
-- `email` - Email reminder
+**AGENT ACTION** - Run connection test:
 
-**Reminder timing:**
-```python
-# Minutes before event
-reminders = [
-    {'method': 'popup', 'minutes': 10},
-    {'method': 'email', 'minutes': 60},
-    {'method': 'popup', 'minutes': 1440}  # 1 day
-]
-```
-
-**Use default reminders:**
-```python
-# Use calendar's default reminders
-'useDefault': True
-```
-
-## Time Zones
-
-**Specify timezone:**
 ```bash
-# Event in specific timezone
-python scripts/create_event.py \
-  --summary "Meeting" \
-  --start "2025-01-20 14:00" \
-  --timezone "America/Los_Angeles" \
-  --duration 60
+# Load env vars first
+if [ -f ".env.local" ]; then
+  export $(grep -v '^#' .env.local | xargs)
+elif [ -f ".env" ]; then
+  export $(grep -v '^#' .env | xargs)
+fi
+
+# Quick Node.js test script
+node -e "
+const { google } = require('googleapis');
+
+if (!process.env.GOOG_CREDENTIALS_JSON) {
+  console.error('ERROR: GOOG_CREDENTIALS_JSON not set');
+  process.exit(1);
+}
+
+const creds = JSON.parse(Buffer.from(process.env.GOOG_CREDENTIALS_JSON, 'base64').toString());
+const auth = new google.auth.GoogleAuth({
+  credentials: creds,
+  scopes: ['https://www.googleapis.com/auth/calendar.events'],
+  clientOptions: { subject: process.env.GOOG_CALENDAR_IMPERSONATE_USER }
+});
+const calendar = google.calendar({ version: 'v3', auth });
+
+console.log('Testing connection to calendar:', process.env.GOOG_CALENDAR_ID);
+console.log('Impersonating user:', process.env.GOOG_CALENDAR_IMPERSONATE_USER);
+
+calendar.events.list({
+  calendarId: process.env.GOOG_CALENDAR_ID,
+  maxResults: 5,
+  timeMin: new Date().toISOString(),
+  singleEvents: true,
+  orderBy: 'startTime'
+}).then(r => {
+  console.log('SUCCESS! Connection working.');
+  console.log('Found', r.data.items?.length || 0, 'upcoming events');
+  if (r.data.items?.length > 0) {
+    console.log('Next event:', r.data.items[0].summary);
+  }
+}).catch(e => {
+  console.error('ERROR:', e.message);
+  if (e.message.includes('insufficient')) {
+    console.error('-> Check domain-wide delegation is configured correctly');
+  }
+  if (e.message.includes('not found')) {
+    console.error('-> Check GOOG_CALENDAR_ID is correct');
+  }
+  process.exit(1);
+});
+"
 ```
 
-**Common timezones:**
-```python
-'America/New_York'
-'America/Chicago'
-'America/Denver'
-'America/Los_Angeles'
-'Europe/London'
-'Europe/Paris'
-'Asia/Tokyo'
-'Australia/Sydney'
-'UTC'
-```
+**If the test fails**, check the Troubleshooting section below.
 
-## Event Status
+### Step 6.2: Cleanup sensitive files
 
-**Status values:**
-- `confirmed` - Event is confirmed (default)
-- `tentative` - Event is tentative
-- `cancelled` - Event is cancelled
-
-**Set status:**
 ```bash
-python scripts/update_event.py \
-  --event-id EVENT_ID \
-  --status tentative
+# Delete the JSON key file (you have it base64-encoded in .env now)
+rm -f google-credentials.json google-credentials.b64
 ```
 
-## Visibility Settings
-
-**Visibility options:**
-- `default` - Default visibility
-- `public` - Public event
-- `private` - Private event
-- `confidential` - Only time shown, details hidden
-
-**Set visibility:**
-```bash
-python scripts/update_event.py \
-  --event-id EVENT_ID \
-  --visibility private
-```
-
-## API Rate Limits
-
-**Calendar API quotas:**
-- **Queries per day:** 1,000,000
-- **Queries per 100 seconds per user:** 500
-
-**Best practices:**
-- Batch operations when possible
-- Cache calendar data
-- Use incremental sync for updates
-- Implement exponential backoff
-
-## OAuth Scopes
-
-```python
-# Full access
-'https://www.googleapis.com/auth/calendar'
-
-# Read-only
-'https://www.googleapis.com/auth/calendar.readonly'
-
-# Events only
-'https://www.googleapis.com/auth/calendar.events'
-
-# Events read-only
-'https://www.googleapis.com/auth/calendar.events.readonly'
-
-# Settings only
-'https://www.googleapis.com/auth/calendar.settings.readonly'
-```
-
-## Scripts Reference
-
-**Authentication:**
-- `authenticate.py` - OAuth setup
-- `refresh_token.py` - Refresh token
-
-**Events:**
-- `list_events.py` - List events
-- `get_event.py` - Get event details
-- `create_event.py` - Create event
-- `create_recurring.py` - Create recurring event
-- `update_event.py` - Update event
-- `delete_event.py` - Delete event
-- `move_event.py` - Move to different calendar
-
-**Availability:**
-- `check_availability.py` - Check free time
-- `find_next_slot.py` - Find next available
-- `check_freebusy.py` - FreeBusy query
-
-**Calendars:**
-- `list_calendars.py` - List all calendars
-- `get_calendar.py` - Get calendar details
-- `create_calendar.py` - Create calendar
-- `share_calendar.py` - Share calendar
-
-**Import/Export:**
-- `export_calendar.py` - Export to ICS
-- `import_calendar.py` - Import from ICS
-
-**Automation:**
-- `daily_summary.py` - Daily schedule email
-- `weekly_report.py` - Weekly calendar report
-- `sync_calendar.py` - Sync with external source
-
-**Analytics:**
-- `calendar_stats.py` - Usage statistics
-- `meeting_analysis.py` - Meeting patterns
-- `time_tracking.py` - Track time allocation
-
-## Best Practices
-
-1. **Use RFC3339 format:** For dates/times (2025-01-20T14:00:00-08:00)
-2. **Specify timezones:** Avoid ambiguity
-3. **Send notifications:** When adding/updating attendees
-4. **Use batch requests:** For multiple operations
-5. **Handle recurring events carefully:** Understand instance vs series
-6. **Cache calendar lists:** Reduce API calls
-7. **Implement sync tokens:** For incremental updates
-8. **Respect quotas:** Monitor usage
-
-## Integration Examples
-
-See [examples/](examples/) for complete workflows:
-- [examples/meeting-scheduler.md](examples/meeting-scheduler.md) - Automated meeting scheduling
-- [examples/calendar-sync.md](examples/calendar-sync.md) - Multi-calendar synchronization
-- [examples/reminder-system.md](examples/reminder-system.md) - Custom reminder workflows
-- [examples/analytics.md](examples/analytics.md) - Calendar analytics and insights
+---
 
 ## Troubleshooting
 
-**"Invalid time zone"**
-- Use IANA timezone names
-- Check spelling
-- Reference: https://www.iana.org/time-zones
+### "Insufficient Permission" errors
+- Verify domain-wide delegation uses correct Client ID
+- Scope must match exactly: `https://www.googleapis.com/auth/calendar.events`
+- Impersonation user must have calendar access
 
-**"Invalid recurrence rule"**
-- Verify RRULE syntax
-- Use FREQ, COUNT/UNTIL, and optional parameters
-- See [reference/recurrence-rules.md](reference/recurrence-rules.md)
+### "Key creation is not allowed"
+```bash
+gcloud org-policies reset iam.disableServiceAccountKeyCreation --project="$(gcloud config get-value project)"
+```
 
-**"Event not found"**
-- Event may be deleted
-- Check calendar ID
-- Verify event ID
+### Find calendar ID via API
+```bash
+# List all calendars the impersonation user can access
+node -e "
+const { google } = require('googleapis');
+const creds = JSON.parse(Buffer.from(process.env.GOOG_CREDENTIALS_JSON, 'base64').toString());
+const auth = new google.auth.GoogleAuth({
+  credentials: creds,
+  scopes: ['https://www.googleapis.com/auth/calendar.readonly'],
+  clientOptions: { subject: process.env.GOOG_CALENDAR_IMPERSONATE_USER }
+});
+const calendar = google.calendar({ version: 'v3', auth });
+calendar.calendarList.list().then(r => {
+  r.data.items?.forEach(c => console.log(c.id, '-', c.summary));
+}).catch(e => console.error('Error:', e.message));
+"
+```
 
-**"Insufficient permissions"**
-- Check OAuth scopes
-- Re-authenticate with needed scopes
+---
 
-## Reference Documentation
+## Quick Reference: gcloud Commands
 
-- [reference/setup-guide.md](reference/setup-guide.md) - Setup instructions
-- [reference/recurrence-rules.md](reference/recurrence-rules.md) - RRULE reference
-- [reference/api-reference.md](reference/api-reference.md) - API documentation
-- [reference/timezone-reference.md](reference/timezone-reference.md) - Timezone list
+```bash
+# Auth
+gcloud auth login
+gcloud auth list
+
+# Projects
+gcloud projects list
+gcloud projects create PROJECT_ID --name="Name"
+gcloud config set project PROJECT_ID
+
+# APIs
+gcloud services enable calendar-json.googleapis.com
+gcloud services list --enabled
+
+# Service Accounts
+gcloud iam service-accounts list
+gcloud iam service-accounts create NAME --display-name="Display Name"
+gcloud iam service-accounts keys create output.json --iam-account=EMAIL
+gcloud iam service-accounts describe EMAIL --format="value(uniqueId)"
+```
+
+---
+
+## Checklist
+
+- [ ] `gcloud` CLI installed and authenticated
+- [ ] Google Cloud project created/selected
+- [ ] Google Calendar API enabled
+- [ ] Service account created
+- [ ] Service account key generated and base64-encoded
+- [ ] Domain-wide delegation configured (Workspace only)
+- [ ] Environment variables added to `.env`
+- [ ] `googleapis` package installed
+- [ ] Calendar utility module created
+- [ ] Connection tested
+- [ ] Sensitive files cleaned up

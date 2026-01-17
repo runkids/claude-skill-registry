@@ -1,12 +1,7 @@
 {
   "name": "braiins-insights",
-  "description": "Braiins Learn - Bitcoin mining profitability calculators, charts, and data dashboard",
   "repo": "enuno/claude-command-and-control",
-  "category": "data",
-  "tags": [
-    "braiins",
-    "insights"
-  ],
-  "stars": 3,
-  "source": "SkillsMP Synced Skills"
+  "path": "skills/braiins-insights/SKILL.md",
+  "source": "github.com/enuno/claude-command-and-control",
+  "downloaded_at": "2026-01-17T02:12:19.482920Z"
 }

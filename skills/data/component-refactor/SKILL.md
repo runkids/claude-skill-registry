@@ -1,328 +1,359 @@
 ---
 name: component-refactor
-description: Guia refatoração de componentes React seguindo padrões do Ultrathink, reduzindo duplicação e criando componentes genéricos reutilizáveis
-allowed-tools: [Read, Edit, Grep, Bash]
+description: Break down large React components, extract hooks, and improve component architecture. Use when components exceed 300 lines, have too many responsibilities, or need restructuring.
 ---
 
-# Component Refactor Skill - Ultrathink
+# Component Refactoring Guide
 
-## Objetivo
+## When to Use
+- Component exceeds 300 lines
+- Component has more than 5-7 useState calls
+- Multiple unrelated features in one component
+- Prop drilling more than 2 levels deep
+- Difficult to test or reason about
+- Performance issues from re-renders
 
-Esta skill ativa automaticamente para ajudar na **refatoração inteligente de componentes React**, especialmente focada em:
-
-- Eliminar duplicação de código (meta: reduzir de 25% para <10%)
-- Criar componentes genéricos (ex: BaseLearningSystem)
-- Extrair lógica comum em hooks customizados
-- Padronizar estrutura de componentes
-
-## Contexto do Projeto
-
-### Problema Atual (Débito Técnico)
-
-**Duplicação:** ~25% do código (~800 linhas)
-
-**Componentes Duplicados:**
+## Quick Decision Tree
 
 ```
-src/components/
-├── BashLearningSystem.jsx      ← ~160 linhas (similar)
-├── CLearningSystem.jsx          ← ~170 linhas (similar)
-├── RustLearningSystem.jsx       ← ~165 linhas (similar)
-├── VSCodeLearningSystem.jsx     ← ~150 linhas (similar)
-└── ClaudeCodeLearningSystem.jsx ← ~155 linhas (similar)
-
-Total: ~800 linhas com lógica repetida
+Is component > 300 lines?
+├── Yes → Consider splitting
+│   ├── Multiple UI sections? → Extract subcomponents
+│   ├── Complex state logic? → Extract custom hook
+│   └── Shared behavior? → Extract utility function
+└── No
+    ├── Too many props (>7)? → Use composition or context
+    └── Hard to test? → Extract logic to hooks
 ```
 
-**Padrões Comuns:**
+## Refactoring Patterns
 
-1. **Estado:** progresso, notas, currentModule
-2. **LocalStorage:** save/load de notas
-3. **Layout:** header, vídeo, notas, fases/módulos
-4. **Navegação:** voltar ao hub, abrir notas de módulo
-5. **Progresso:** barra visual, percentual
+### 1. Extract Subcomponents
 
-### Solução Proposta (US-043)
-
-Criar `BaseLearningSystem.jsx` - componente genérico com props:
-
-```jsx
-<BaseLearningSystem
-  technology="Bash"
-  title="Curso de Bash Shell Scripting"
-  subtitle="Shell Scripting Robusto → Unix Tools → Pipelines"
-  videoId="fAgz66M4aNc"
-  videoStart={415}
-  phases={bashPhases}
-  modules={bashModules}
-  flashCards={bashFlashCards}
-  notesKey="bash-learning-notes"
-  icon="🐚"
-  onBack={() => setView('hub')}
-  onOpenModule={(moduleId) => setView('module', moduleId)}
-/>
-```
-
-## Padrões de Refatoração
-
-### 1. Extrair Lógica Comum em Hooks
-
-```jsx
-// ❌ ANTES: Lógica repetida em cada componente
-const [notes, setNotes] = useState('')
-const [saveStatus, setSaveStatus] = useState('')
-
-useEffect(() => {
-  const saved = localStorage.getItem('bash-notes')
-  if (saved) setNotes(saved)
-}, [])
-
-const handleNotesChange = (e) => {
-  const value = e.target.value
-  setNotes(value)
-  localStorage.setItem('bash-notes', value)
-  setSaveStatus('Salvo!')
-  setTimeout(() => setSaveStatus(''), 2000)
-}
-
-// ✅ DEPOIS: Hook reutilizável
-const [notes, handleNotesChange, saveStatus] = useAutoSaveNotes('bash')
-```
-
-**Criar:** `src/hooks/useAutoSaveNotes.js`
-
-```jsx
-export function useAutoSaveNotes(key) {
-  const [notes, setNotes] = useState('')
-  const [saveStatus, setSaveStatus] = useState('')
-
-  useEffect(() => {
-    const saved = localStorage.getItem(`${key}-learning-notes`)
-    if (saved) setNotes(saved)
-  }, [key])
-
-  const handleChange = useCallback((e) => {
-    const value = e.target.value
-    setNotes(value)
-    try {
-      localStorage.setItem(`${key}-learning-notes`, value)
-      setSaveStatus('Salvo!')
-      setTimeout(() => setSaveStatus(''), 2000)
-    } catch (error) {
-      setSaveStatus('Erro ao salvar')
-    }
-  }, [key])
-
-  return [notes, handleChange, saveStatus]
-}
-```
-
-### 2. Extrair Gerenciamento de Progresso
-
-```jsx
-// ✅ Criar: src/hooks/useModuleProgress.js
-export function useModuleProgress(key, totalModules) {
-  const [completedModules, setCompletedModules] = useState(new Set())
-
-  useEffect(() => {
-    const saved = localStorage.getItem(`${key}-progress`)
-    if (saved) {
-      setCompletedModules(new Set(JSON.parse(saved)))
-    }
-  }, [key])
-
-  const toggleModule = useCallback((moduleId) => {
-    setCompletedModules(prev => {
-      const newSet = new Set(prev)
-      if (newSet.has(moduleId)) {
-        newSet.delete(moduleId)
-      } else {
-        newSet.add(moduleId)
-      }
-      localStorage.setItem(`${key}-progress`, JSON.stringify([...newSet]))
-      return newSet
-    })
-  }, [key])
-
-  const progress = Math.round((completedModules.size / totalModules) * 100)
-
-  return [completedModules, toggleModule, progress]
-}
-```
-
-### 3. Componente Genérico BaseLearningSystem
-
-**Estrutura Proposta:**
-
-```jsx
-// src/components/BaseLearningSystem.jsx
-export function BaseLearningSystem({
-  // Identificação
-  technology,      // "Bash", "C", "Rust", etc.
-  title,           // "Curso de Bash Shell Scripting"
-  subtitle,        // "Shell Scripting Robusto → ..."
-  icon,            // "🐚"
-
-  // Conteúdo
-  videoId,         // "fAgz66M4aNc"
-  videoStart,      // 415 (segundos)
-  sections,        // Array de seções/fases
-  modules,         // Array de módulos/aulas
-
-  // Dados
-  flashCards,      // Array de flash cards
-  notesKey,        // "bash" (para localStorage)
-
-  // Callbacks
-  onBack,          // () => setView('hub')
-  onOpenModule,    // (moduleId) => setView('module', moduleId)
-}) {
-  // Hooks customizados
-  const [notes, handleNotesChange, saveStatus] = useAutoSaveNotes(notesKey)
-  const [completed, toggle, progress] = useModuleProgress(notesKey, modules.length)
+**Before: Monolithic component**
+```tsx
+function JournalPage() {
+  const [entries, setEntries] = useState([]);
+  const [filter, setFilter] = useState('all');
+  const [search, setSearch] = useState('');
+  // ... 50 more lines of state and handlers
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
-      {/* Header com breadcrumb */}
-      <header>
-        <Breadcrumb items={[
-          { label: 'Hub', onClick: onBack },
-          { label: `Curso de ${technology}`, current: true }
-        ]} />
-        <button onClick={onBack}>← Voltar ao Hub</button>
-        <h1>{title}</h1>
-        <p>{subtitle}</p>
+    <div>
+      {/* Header - 50 lines */}
+      <header className="...">
+        <h1>Journal</h1>
+        <input value={search} onChange={...} />
+        <select value={filter} onChange={...}>...</select>
       </header>
 
-      {/* Progresso */}
-      <ProgressBar progress={progress} total={modules.length} />
+      {/* Entry List - 100 lines */}
+      <div className="grid">
+        {entries.map(entry => (
+          <div key={entry.id} className="...">
+            {/* 50 lines of entry card markup */}
+          </div>
+        ))}
+      </div>
 
-      {/* Vídeo */}
-      {videoId && (
-        <VideoSection videoId={videoId} start={videoStart} />
-      )}
-
-      {/* Caderno de Notas */}
-      <NotesSection
-        notes={notes}
-        onChange={handleNotesChange}
-        status={saveStatus}
-        placeholder={`Minhas anotações pessoais sobre ${technology}...`}
-      />
-
-      {/* Estrutura do Curso */}
-      <CourseStructure
-        sections={sections}
-        modules={modules}
-        completed={completed}
-        onToggle={toggle}
-        onOpenModule={onOpenModule}
-      />
+      {/* Composer - 80 lines */}
+      <form onSubmit={...}>
+        {/* Complex form markup */}
+      </form>
     </div>
-  )
+  );
 }
 ```
 
-### 4. Subcomponentes Reutilizáveis
+**After: Composed components**
+```tsx
+function JournalPage() {
+  const [entries, setEntries] = useState([]);
+  const [filter, setFilter] = useState('all');
+  const [search, setSearch] = useState('');
 
-**Criar estrutura modular:**
+  const filteredEntries = useMemo(() =>
+    entries.filter(e => matchesFilter(e, filter, search)),
+    [entries, filter, search]
+  );
 
-```
-src/components/shared/
-├── Breadcrumb.jsx           # Navegação hierárquica
-├── ProgressBar.jsx          # Barra de progresso visual
-├── VideoSection.jsx         # Embed YouTube
-├── NotesSection.jsx         # Caderno de notas com auto-save
-├── CourseStructure.jsx      # Seções e aulas
-├── ModuleCard.jsx           # Card de aula individual
-└── FlashCardTrigger.jsx     # Botão "Praticar com Flash Cards"
-```
+  return (
+    <div>
+      <JournalHeader
+        search={search}
+        onSearchChange={setSearch}
+        filter={filter}
+        onFilterChange={setFilter}
+      />
+      <EntryGrid entries={filteredEntries} />
+      <JournalComposer onSubmit={handleSubmit} />
+    </div>
+  );
+}
 
-## Estratégia de Refatoração
+// components/journal/journal-header.tsx
+function JournalHeader({ search, onSearchChange, filter, onFilterChange }) {
+  return (
+    <header className="...">
+      <h1>Journal</h1>
+      <SearchInput value={search} onChange={onSearchChange} />
+      <FilterSelect value={filter} onChange={onFilterChange} />
+    </header>
+  );
+}
 
-### Passo 1: Criar Hooks (Primeira Semana)
-
-1. `useAutoSaveNotes.js` - Notas com auto-save
-2. `useModuleProgress.js` - Progresso de módulos
-3. `useLocalStorage.js` - Wrapper genérico localStorage
-
-### Passo 2: Criar Subcomponentes (Segunda Semana)
-
-1. `Breadcrumb.jsx` - US-061
-2. `ProgressBar.jsx`
-3. `VideoSection.jsx`
-4. `NotesSection.jsx`
-5. `CourseStructure.jsx`
-
-### Passo 3: BaseLearningSystem (Terceira Semana)
-
-1. Criar componente genérico
-2. Migrar `BashLearningSystem` primeiro (piloto)
-3. Testar extensivamente
-4. Migrar demais sistemas
-
-### Passo 4: Validação (Quarta Semana)
-
-1. Testes unitários para hooks
-2. Testes de integração para BaseLearningSystem
-3. Validar funcionalidade idêntica
-4. Remover código duplicado
-
-## Checklist de Refatoração
-
-Ao refatorar um componente:
-
-- [ ] Identificar lógica duplicada
-- [ ] Verificar se hook customizado já existe
-- [ ] Extrair para hook se repetido 3+ vezes
-- [ ] Criar subcomponente se bloco JSX > 50 linhas
-- [ ] Props bem tipadas (considerar PropTypes ou TypeScript)
-- [ ] Testes escritos antes de remover código antigo
-- [ ] Validar que comportamento é idêntico
-- [ ] Atualizar imports em todos os arquivos
-- [ ] Remover código morto
-
-## Métricas de Sucesso
-
-| Métrica | Antes | Meta |
-|---------|-------|------|
-| Duplicação | 25% (~800 linhas) | <10% (~300 linhas) |
-| Componentes LearningSystem | 5 × 160 linhas | 1 × 250 + 5 × 30 |
-| Hooks Customizados | 0 | 3+ |
-| Subcomponentes Shared | 1 (AreaCard) | 10+ |
-| Linhas de Código | ~5.500 | ~4.700 |
-| Manutenibilidade | 6/10 | 9/10 |
-
-## Referências
-
-- **PRODUCT-CENTRAL-DOCUMENT.md**: US-043 (Refatorar BaseLearningSystem)
-- **ÉPICO 10**: Débito Técnico (linha 690-794)
-- **Arquivos Afetados**:
-  - `src/components/*LearningSystem.jsx` (5 arquivos)
-  - `src/components/*NotesView.jsx` (5 arquivos)
-
-## Comandos Úteis
-
-```bash
-# Analisar duplicação
-npx jscpd src/components/
-
-# Contar linhas por componente
-wc -l src/components/*LearningSystem.jsx
-
-# Encontrar padrões comuns
-grep -r "useState.*completedModules" src/
-
-# Identificar imports duplicados
-grep -r "import.*useState" src/components/ | sort | uniq -c | sort -rn
+// components/journal/entry-grid.tsx
+function EntryGrid({ entries }) {
+  return (
+    <div className="grid">
+      {entries.map(entry => (
+        <EntryCard key={entry.id} entry={entry} />
+      ))}
+    </div>
+  );
+}
 ```
 
-## Ativação Automática
+### 2. Extract Custom Hooks
 
-Esta skill ativa quando você:
-- Refatora componentes React
-- Cria hooks customizados
-- Implementa US-043 (BaseLearningSystem)
-- Trabalha com arquivos em `src/components/`
-- Reduz duplicação de código
-- Extrai lógica comum
+**Before: Logic mixed with UI**
+```tsx
+function WorkflowCanvas() {
+  const [nodes, setNodes] = useState([]);
+  const [edges, setEdges] = useState([]);
+  const [selectedNode, setSelectedNode] = useState(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+
+  const handleNodeDragStart = (nodeId, e) => {
+    setIsDragging(true);
+    setSelectedNode(nodeId);
+    setDragOffset({
+      x: e.clientX - nodes.find(n => n.id === nodeId).x,
+      y: e.clientY - nodes.find(n => n.id === nodeId).y,
+    });
+  };
+
+  const handleNodeDrag = (e) => {
+    if (!isDragging) return;
+    setNodes(nodes.map(n =>
+      n.id === selectedNode
+        ? { ...n, x: e.clientX - dragOffset.x, y: e.clientY - dragOffset.y }
+        : n
+    ));
+  };
+
+  // ... 200 more lines of drag/drop, edge connection, etc.
+
+  return (
+    <div onMouseMove={handleNodeDrag}>
+      {/* Canvas rendering */}
+    </div>
+  );
+}
+```
+
+**After: Logic in hook**
+```tsx
+// hooks/use-canvas-interactions.ts
+function useCanvasInteractions(initialNodes, initialEdges) {
+  const [nodes, setNodes] = useState(initialNodes);
+  const [edges, setEdges] = useState(initialEdges);
+  const [selectedNode, setSelectedNode] = useState(null);
+
+  const { isDragging, handlers: dragHandlers } = useNodeDrag(nodes, setNodes);
+  const { isConnecting, handlers: connectHandlers } = useEdgeConnect(edges, setEdges);
+
+  return {
+    nodes,
+    edges,
+    selectedNode,
+    setSelectedNode,
+    isDragging,
+    isConnecting,
+    handlers: {
+      ...dragHandlers,
+      ...connectHandlers,
+    },
+  };
+}
+
+// hooks/use-node-drag.ts
+function useNodeDrag(nodes, setNodes) {
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragState, setDragState] = useState({ nodeId: null, offset: { x: 0, y: 0 } });
+
+  const handleDragStart = useCallback((nodeId, e) => {
+    const node = nodes.find(n => n.id === nodeId);
+    setIsDragging(true);
+    setDragState({
+      nodeId,
+      offset: { x: e.clientX - node.x, y: e.clientY - node.y },
+    });
+  }, [nodes]);
+
+  const handleDrag = useCallback((e) => {
+    if (!isDragging) return;
+    setNodes(prev => prev.map(n =>
+      n.id === dragState.nodeId
+        ? { ...n, x: e.clientX - dragState.offset.x, y: e.clientY - dragState.offset.y }
+        : n
+    ));
+  }, [isDragging, dragState, setNodes]);
+
+  const handleDragEnd = useCallback(() => {
+    setIsDragging(false);
+    setDragState({ nodeId: null, offset: { x: 0, y: 0 } });
+  }, []);
+
+  return {
+    isDragging,
+    handlers: { handleDragStart, handleDrag, handleDragEnd },
+  };
+}
+
+// Component is now clean
+function WorkflowCanvas({ initialNodes, initialEdges }) {
+  const canvas = useCanvasInteractions(initialNodes, initialEdges);
+
+  return (
+    <div
+      onMouseMove={canvas.handlers.handleDrag}
+      onMouseUp={canvas.handlers.handleDragEnd}
+    >
+      {canvas.nodes.map(node => (
+        <CanvasNode
+          key={node.id}
+          node={node}
+          isSelected={node.id === canvas.selectedNode}
+          onDragStart={canvas.handlers.handleDragStart}
+          onClick={() => canvas.setSelectedNode(node.id)}
+        />
+      ))}
+    </div>
+  );
+}
+```
+
+### 3. Compound Components Pattern
+
+**Before: Prop explosion**
+```tsx
+<Modal
+  isOpen={isOpen}
+  onClose={onClose}
+  title="Edit Entry"
+  showCloseButton={true}
+  footer={<Button onClick={save}>Save</Button>}
+  headerExtra={<Badge>Draft</Badge>}
+  size="large"
+  // ... 10 more props
+>
+  {content}
+</Modal>
+```
+
+**After: Compound components**
+```tsx
+<Modal isOpen={isOpen} onClose={onClose} size="large">
+  <Modal.Header>
+    <Modal.Title>Edit Entry</Modal.Title>
+    <Badge>Draft</Badge>
+    <Modal.CloseButton />
+  </Modal.Header>
+  <Modal.Body>
+    {content}
+  </Modal.Body>
+  <Modal.Footer>
+    <Button onClick={save}>Save</Button>
+  </Modal.Footer>
+</Modal>
+```
+
+### 4. Render Props / Children as Function
+
+**Before: Complex conditional rendering**
+```tsx
+function DataLoader({ url, render }) {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => { /* fetch logic */ }, [url]);
+
+  if (loading) return <Spinner />;
+  if (error) return <ErrorDisplay error={error} />;
+  return render(data);
+}
+
+// Usage is inflexible
+<DataLoader url="/api/data" render={(data) => <DataView data={data} />} />
+```
+
+**After: Flexible children pattern**
+```tsx
+function DataLoader({ url, children }) {
+  const { data, loading, error, refetch } = useFetch(url);
+
+  return children({ data, loading, error, refetch });
+}
+
+// Usage is flexible
+<DataLoader url="/api/data">
+  {({ data, loading, error, refetch }) => (
+    <>
+      {loading && <Spinner />}
+      {error && <ErrorBanner error={error} onRetry={refetch} />}
+      {data && <DataView data={data} />}
+    </>
+  )}
+</DataLoader>
+```
+
+## File Organization
+
+```
+components/
+├── journal/
+│   ├── index.ts              # Exports
+│   ├── journal-page.tsx      # Main container
+│   ├── journal-header.tsx    # Header subcomponent
+│   ├── journal-composer.tsx  # Composer subcomponent
+│   ├── entry-grid.tsx        # List/grid view
+│   └── entry-card.tsx        # Single entry card
+│
+├── workflow/
+│   ├── index.ts
+│   ├── workflow-canvas.tsx   # Main canvas
+│   ├── canvas-node.tsx       # Single node
+│   ├── canvas-edge.tsx       # Connection line
+│   └── node-types/           # Node type components
+│       ├── rectangle-node.tsx
+│       ├── diamond-node.tsx
+│       └── index.ts
+```
+
+## Refactoring Checklist
+
+- [ ] Identify the primary responsibility
+- [ ] Extract unrelated UI into subcomponents
+- [ ] Extract complex state logic into custom hooks
+- [ ] Move shared utilities to lib/utils
+- [ ] Update imports to use index exports
+- [ ] Add/update tests for extracted pieces
+- [ ] Verify no regression in functionality
+
+## Warning Signs
+
+| Smell | Solution |
+|-------|----------|
+| File > 500 lines | Split into multiple components |
+| > 7 useState calls | Extract to custom hook |
+| > 7 props | Use composition or context |
+| Deeply nested JSX | Extract subcomponents |
+| Duplicated logic | Extract to shared hook |
+| Hard to name component | It's doing too much |
+
+## See Also
+- [patterns.md](patterns.md) - More refactoring patterns
+- [checklist.md](checklist.md) - Pre-refactor checklist

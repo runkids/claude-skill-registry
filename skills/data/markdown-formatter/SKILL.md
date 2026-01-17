@@ -1,73 +1,74 @@
 ---
 name: markdown-formatter
-description: Format and structure content as clean, well-organized Markdown. Use when asked to create documentation, format text, or generate Markdown output.
-version: 1.0.0
+description: Format and lint Markdown documents with consistent style, proper heading hierarchy, link validation, and code block formatting. Use when working with Markdown files, documentation, README files, or technical writing. Checks for common issues like broken links, inconsistent formatting, and missing alt text. Triggers on "format markdown", "lint markdown", "markdown style", ".md file", "documentation formatting".
 ---
 
 # Markdown Formatter
 
-## Overview
+## Purpose
 
-Transforms unstructured content into clean, well-organized Markdown with proper headings, lists, code blocks, and formatting.
+Format and lint Markdown documents to ensure consistent style, proper structure, and best practices.
 
-## Instructions
+## When to Use
 
-When formatting content to Markdown:
+- Formatting Markdown documentation
+- Linting README files
+- Checking markdown syntax
+- Validating links in documentation
+- Ensuring consistent style across docs
 
-1. **Analyze the content** to identify structure (headings, lists, code, etc.)
-2. **Apply hierarchy** using appropriate heading levels (H1 for title, H2 for sections)
-3. **Format code** with proper language-specific syntax highlighting
-4. **Create lists** for related items (bullet for unordered, numbers for sequential)
-5. **Add tables** for structured data comparisons
+## Core Instructions
 
-## Formatting Rules
+1. **Read File**: Load the Markdown file
+2. **Check Syntax**: Validate Markdown syntax
+3. **Format**: Apply consistent formatting
+   - Heading hierarchy (h1 -> h2 -> h3, no skips)
+   - List indentation (2 spaces)
+   - Code block language tags
+   - Link format consistency
+4. **Validate**: Check for common issues
+   - Broken internal links
+   - Missing alt text on images
+   - Empty links
+5. **Output**: Write formatted file or report issues
 
-### Headings
-- H1 (`#`) - Document title only
-- H2 (`##`) - Major sections
-- H3 (`###`) - Subsections
-- H4+ - Avoid unless necessary
+### Formatting Rules
 
-### Code Blocks
-- Inline code: Single backticks for short references
-- Fenced blocks: Triple backticks with language identifier
+- Headings: ATX style (`#`, `##`, `###`)
+- Lists: 2-space indentation for nested items
+- Code blocks: Always specify language
+- Links: Use reference style for repeated links
+- Line length: 80-120 characters (guidance)
 
-### Lists
-- Bullet lists: Related but unordered items
-- Numbered lists: Sequential steps or ranked items
-- Nested lists: Maximum 2 levels deep
+### Example Pattern
 
-## Examples
-
-### Example: Format API Documentation
-
-**Input:**
-"Document the getUser function that takes userId string and returns User object with name email and createdAt fields"
-
-**Output:**
 ```markdown
-## `getUser(userId)`
+# Main Title
 
-Retrieves a user by their unique identifier.
+## Section
 
-### Parameters
+### Subsection
 
-| Name | Type | Description |
-|------|------|-------------|
-| `userId` | `string` | The unique user identifier |
+Regular paragraph text.
 
-### Returns
+- List item 1
+  - Nested item
+- List item 2
 
-`User` object with the following properties:
-
-- `name` - User's display name
-- `email` - User's email address
-- `createdAt` - Account creation timestamp
+```python
+def example():
+    return "formatted"
 ```
 
-## Guidelines
+[Link text](https://example.com)
+```
 
-- Keep line length under 100 characters
-- Use blank lines to separate sections
-- Prefer ATX-style headings (`#`) over Setext
-- Use reference-style links for repeated URLs
+## Dependencies
+
+- Markdown parser (built-in)
+- No external dependencies required
+
+## Version
+
+v1.0.0
+

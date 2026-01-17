@@ -1,6 +1,5 @@
 ---
 name: raffle-winner-picker
-category: business-productivity
 description: Picks random winners from lists, spreadsheets, or Google Sheets for giveaways, raffles, and contests. Ensures fair, unbiased selection with transparency.
 ---
 

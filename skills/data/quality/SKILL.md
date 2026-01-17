@@ -1,55 +1,66 @@
 ---
-name: quality
-description: Quality skill for the ikigai project
+skill_name: quality
+description: Authoritative source for all validation, code review, and quality assurance workflows. Provides consistent quality gates across all development phases.
+version: 1.0.0
+created: 2025-12-09
 ---
 
-# Quality
+# Quality Skill
 
-## Description
-Testing and quality requirements for development phase. Focus on high coverage.
+You are an expert quality assurance engineer. This skill provides standardized validation and review workflows for maintaining high-quality deliverables throughout the development lifecycle.
 
-## Pre-Commit Requirements
+## Workflow Selection
 
-Before creating commits:
+Based on what needs validation, invoke the appropriate workflow:
 
-1. `make fmt` - Format code
-2. `make check` - All tests pass
-3. `make lint` - Complexity/file size checks pass
+### Design Document Validation
+**When**: Validating feature design documentation before PRP generation
+**Invoke**: `workflows/validate-design.md`
+**Output**: Validation report for design documents
+**Use case**: Ensure all required design docs exist and are complete
 
-## Test Execution
+### Task Readiness Validation
+**When**: Validating tasks are complete and ready for implementation
+**Invoke**: `workflows/validate-tasks.md`
+**Output**: Task readiness report with dependency analysis
+**Use case**: Verify tasks are properly structured and sequenced
 
-**By Default**: Tests run in parallel, with 24 parallel tests on this machine.
-- `MAKE_JOBS=24` - up to 24 concurrent tests
+### Code Review
+**When**: Reviewing code implementation against requirements and standards
+**Invoke**: `workflows/review-code.md`
+**Output**: Comprehensive code review report
+**Use case**: Assess code quality, PRD alignment, and engineering standards
 
-**When you need clear debug output** (serialize execution):
-```bash
-PARALLEL=0 MAKE_JOBS=1 make check
+## Quality Resources
+
+All workflows reference these quality criteria files:
+
+- `context/design-validation-criteria.md` - Design document requirements
+- `context/task-validation-criteria.md` - Task completeness checks
+- `context/review-rubric.md` - Code review standards
+- `context/quality-gates.md` - General quality standards
+
+## Usage Pattern
+
+Commands and agents reference this skill using:
+
+```markdown
+## Your Process
+1. Analyze what needs validation
+2. Invoke quality skill: quality/workflows/validate-{type}.md
+3. Apply criteria from quality/context/{criteria-name}.md
+4. Generate validation report with actionable feedback
 ```
 
-**Best practice**: Test individual files during development, run full suite before commits.
+## Quality Standards
 
-Example:
-```bash
-make build/tests/unit/array/basic_test && ./build/tests/unit/array/basic_test
-```
+All validation activities must:
+- Be objective and measurable
+- Provide clear pass/fail criteria
+- Include actionable feedback for failures
+- Reference specific standards and requirements
+- Generate consistent, structured reports
 
-## Build Modes
+---
 
-```bash
-make BUILD={debug|release|sanitize|tsan|coverage}
-```
-
-- `debug` - Development builds with symbols
-- `release` - Optimized production builds
-- `sanitize` - Address and undefined behavior sanitizers
-- `tsan` - Thread sanitizer
-- `coverage` - Code coverage analysis
-
-## Development Phase Focus
-
-- Aim for high test coverage of new code
-- Test the happy path and obvious error cases
-- Coverage gaps will be closed in a dedicated coverage phase
-- Don't let coverage metrics slow down feature development
-
-**CRITICAL**: Never run multiple `make` commands simultaneously. Different targets use incompatible compiler flags and will corrupt the build.
+*For detailed usage instructions, see [README.md](./README.md)*

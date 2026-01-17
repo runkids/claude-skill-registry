@@ -1,7 +1,7 @@
 {
   "name": "api-designer",
-  "repo": "gaebalai/itda-sdd",
-  "path": "src/templates/agents/claude-code/skills/api-designer/SKILL.md",
-  "source": "github.com/gaebalai/itda-sdd",
-  "downloaded_at": "2026-01-14T03:55:16.299767Z"
+  "repo": "nahisaho/CodeGraphMCPServer",
+  "path": ".claude/skills/api-designer/SKILL.md",
+  "source": "github.com/nahisaho/CodeGraphMCPServer",
+  "downloaded_at": "2026-01-17T03:42:15.607150Z"
 }

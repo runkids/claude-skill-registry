@@ -1,238 +1,145 @@
 ---
 name: logging
-description: Unified logging infrastructure for script execution and work progress tracking
-allowed-tools: Read, Bash
+description: Implement structured logging with log levels, formatting, and debugging. Use when adding logs to applications or debugging issues.
 ---
 
-# Logging Skill
+# 📋 Logging Skill
 
-Unified logging infrastructure providing script execution logging and semantic work progress tracking.
+## Log Levels
 
-## Overview
-
-This skill provides a single unified API for two logging concerns:
-
-1. **Script Execution Logging**: Tracking of script executor invocations (type: `script`)
-2. **Work Logging**: Semantic tracking of work progress (type: `work`)
-
-## Log Files
-
-### Script Execution Log
-
-**File**: `.plan/plans/{plan-id}/script-execution.log` (plan-scoped)
-**Fallback**: `.plan/logs/script-execution-YYYY-MM-DD.log` (global)
-
-### Work Log
-
-**File**: `.plan/plans/{plan-id}/work.log`
-
----
-
-## CLI Script Usage
-
-Script: `plan-marshall:logging:manage-log`
-
-### Write API (Positional)
-
-```bash
-python3 .plan/execute-script.py plan-marshall:logging:manage-log \
-  {type} {plan_id} {level} "{message}"
-```
-
-**Arguments** (all positional, all required):
-
-| Argument | Values | Description |
-|----------|--------|-------------|
-| `type` | `script`, `work` | Log type (determines output file) |
-| `plan_id` | kebab-case | Plan identifier |
-| `level` | `INFO`, `WARN`, `ERROR` | Log level |
-| `message` | string | Log message |
-
-**Output**: None (exit code only)
-
-### Read API
-
-```bash
-python3 .plan/execute-script.py plan-marshall:logging:manage-log \
-  read --plan-id {plan_id} --type {work|script} [--limit N] [--phase PHASE]
-```
-
-**Arguments**:
-
-| Argument | Required | Description |
-|----------|----------|-------------|
-| `--plan-id` | Yes | Plan identifier |
-| `--type` | Yes | Log type: `work` or `script` |
-| `--limit` | No | Max entries to return (most recent) |
-| `--phase` | No | Filter by phase (work logs only) |
-
-**Output** (TOON):
-
-```toon
-status: success
-plan_id: my-plan
-log_type: work
-total_entries: 5
-showing: 3
-
-entries:
-  - timestamp: 2025-12-11T11:14:30Z
-    level: INFO
-    category: DECISION
-    message: Detected domain: java
-    phase: init
-  - timestamp: 2025-12-11T11:15:20Z
-    level: INFO
-    category: ARTIFACT
-    message: Created deliverable: auth module
-```
-
-### Examples
-
-```bash
-# Write: Script execution logging
-python3 .plan/execute-script.py plan-marshall:logging:manage-log \
-  script my-plan INFO "pm-workflow:manage-task:manage-task add (0.15s)"
-
-python3 .plan/execute-script.py plan-marshall:logging:manage-log \
-  script my-plan ERROR "pm-workflow:manage-task:manage-task add failed (exit 1)"
-
-# Write: Work logging (include [TAG] (caller) prefix)
-python3 .plan/execute-script.py plan-marshall:logging:manage-log \
-  work my-plan INFO "[ARTIFACT] (pm-workflow:phase-1-init) Created deliverable: auth module"
-
-python3 .plan/execute-script.py plan-marshall:logging:manage-log \
-  work my-plan WARN "[STATUS] (pm-workflow:phase-4-execute) Skipped validation step"
-
-# Read: All work log entries
-python3 .plan/execute-script.py plan-marshall:logging:manage-log \
-  read --plan-id my-plan --type work
-
-# Read: Last 5 work log entries
-python3 .plan/execute-script.py plan-marshall:logging:manage-log \
-  read --plan-id my-plan --type work --limit 5
-
-# Read: Work log entries for 1-init phase only
-python3 .plan/execute-script.py plan-marshall:logging:manage-log \
-  read --plan-id my-plan --type work --phase 1-init
-```
-
----
-
-## Log Format
-
-### Standard Entry Structure
-
-```
-[{timestamp}] [{level}] {message}
-```
-
-Since entries go to separate files (`script-execution.log` vs `work.log`), redundant type tags are omitted.
-
-### Example Output
-
-**script-execution.log**:
-```
-[2025-12-11T12:14:26Z] [INFO] pm-workflow:manage-files:manage-files create (0.19s)
-[2025-12-11T12:17:50Z] [ERROR] pm-workflow:manage-task:manage-task add failed (exit 1)
-```
-
-**work.log**:
-```
-[2025-12-11T11:14:30Z] [INFO] [STATUS] (pm-workflow:phase-1-init) Starting init phase
-[2025-12-11T11:14:48Z] [INFO] [DECISION] (pm-workflow:phase-1-init) Detected domain: java (pom.xml found)
-[2025-12-11T11:15:20Z] [INFO] [ARTIFACT] (pm-workflow:phase-1-init) Created deliverable: auth module
-```
-
-### Log Levels
-
-| Level | Description |
+| Level | When to Use |
 |-------|-------------|
-| `INFO` | Progress, informational, or successful completion message |
-| `WARN` | Warning (non-fatal issue) |
-| `ERROR` | Error with details |
+| ERROR | Failures that need attention |
+| WARN | Potential issues, degraded |
+| INFO | Normal operations |
+| DEBUG | Detailed debugging |
+| TRACE | Very detailed (rarely) |
 
 ---
 
-## Python Import (from scripts run via executor)
+## JavaScript Logging
 
-Scripts run via the executor have PYTHONPATH set up for cross-skill imports:
+### Console with Labels
+```javascript
+const log = {
+  error: (...args) => console.error('[ERROR]', new Date().toISOString(), ...args),
+  warn: (...args) => console.warn('[WARN]', new Date().toISOString(), ...args),
+  info: (...args) => console.log('[INFO]', new Date().toISOString(), ...args),
+  debug: (...args) => console.debug('[DEBUG]', new Date().toISOString(), ...args)
+};
+
+// Usage
+log.info('Upload started', { file: 'video.mp4', size: 1024 });
+log.error('Upload failed', { error: err.message });
+```
+
+### Structured Logger
+```javascript
+class Logger {
+  constructor(name, level = 'info') {
+    this.name = name;
+    this.levels = ['error', 'warn', 'info', 'debug'];
+    this.minLevel = this.levels.indexOf(level);
+  }
+
+  _log(level, message, data = {}) {
+    if (this.levels.indexOf(level) > this.minLevel) return;
+    
+    const entry = {
+      timestamp: new Date().toISOString(),
+      level: level.toUpperCase(),
+      logger: this.name,
+      message,
+      ...data
+    };
+    
+    console[level === 'error' ? 'error' : 'log'](JSON.stringify(entry));
+  }
+
+  error(msg, data) { this._log('error', msg, data); }
+  warn(msg, data) { this._log('warn', msg, data); }
+  info(msg, data) { this._log('info', msg, data); }
+  debug(msg, data) { this._log('debug', msg, data); }
+}
+
+const logger = new Logger('uploader', 'debug');
+logger.info('Processing file', { filename: 'video.mp4' });
+```
+
+---
+
+## Python Logging
 
 ```python
-from plan_logging import log_entry
+import logging
 
-# Log to global script log
-log_entry('script', 'global', 'INFO', '[MY-COMPONENT] Processing started')
+# Setup
+logging.basicConfig(
+    level=logging.DEBUG,
+    format='%(asctime)s [%(levelname)s] %(name)s: %(message)s'
+)
 
-# Log to plan-specific log
-log_entry('work', 'my-plan', 'INFO', '[ARTIFACT] Created deliverable')
-```
+logger = logging.getLogger('psi-engine')
 
-**Note**: IDE warnings about unresolved imports are expected - PYTHONPATH is set at runtime by the executor.
-
----
-
-## Storage Locations
-
-### Plan-Scoped Logs
-
-```
-.plan/plans/{plan-id}/
-├── script-execution.log    # Script execution tracking
-└── work.log                # Work progress tracking
-```
-
-### Global Logs
-
-```
-.plan/logs/
-├── script-execution-YYYY-MM-DD.log    # Daily global script logs
-└── work-YYYY-MM-DD.log                # Daily global work logs (when no plan)
-```
-
-**Scope Selection**:
-- If `plan_id` is provided and plan directory exists: plan-scoped log
-- Otherwise: global log (both script and work types supported)
-
----
-
-## Environment Variables
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `PLAN_BASE_DIR` | Base directory for .plan structure | `.plan` |
-| `LOG_MAX_OUTPUT` | Max chars to capture from stdout/stderr | `2000` |
-| `LOG_RETENTION_DAYS` | Days to keep global logs | `7` |
-
----
-
-## Integration Points
-
-### With Script Executor
-
-The executor automatically calls `log_script_execution()` after each script run.
-
-### With Planning Skills
-
-Planning skills call the simplified API:
-
-```bash
-python3 .plan/execute-script.py plan-marshall:logging:manage-log \
-  work my-plan INFO "[ARTIFACT] (pm-workflow:phase-3-plan) Created task: implement auth module"
+# Usage
+logger.info('Agent spawned', extra={'agent_id': 'agent_001'})
+logger.error('Task failed', exc_info=True)  # Include stack trace
 ```
 
 ---
 
-## Scripts
+## Chrome Extension Logging
 
-| Script | Notation | Description |
-|--------|----------|-------------|
-| `manage-log.py` | `plan-marshall:logging:manage-log` | CLI for logging operations (write and read) |
-| `plan_logging.py` | - | Python module (imported, not executed) |
+```javascript
+// Filter Auto Accept logs
+function log(msg, data = {}) {
+  console.log(
+    '%c[AA v30]%c ' + msg,
+    'color: #10b981; font-weight: bold',
+    'color: inherit',
+    data
+  );
+}
 
-### Script Commands
+// Remote logging (to server)
+function remoteLog(level, message, data) {
+  fetch('/api/logs', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ level, message, data, timestamp: Date.now() })
+  }).catch(() => {}); // Silent fail
+}
+```
 
-| Command | Parameters | Description |
-|---------|------------|-------------|
-| (positional) | `{type} {plan_id} {level} "{message}"` | Write log entry |
-| `read` | `--plan-id --type [--limit] [--phase]` | Read log entries (TOON output) |
+---
+
+## Best Practices
+
+| ✅ Do | ❌ Don't |
+|-------|---------|
+| Include context (ids, values) | Log sensitive data |
+| Use appropriate level | Use console.log everywhere |
+| Structure as JSON | Log entire objects |
+| Add timestamps | Leave debug logs in prod |
+| Log errors with stack | Ignore error logging |
+
+---
+
+## Debug Patterns
+
+```javascript
+// Conditional debug
+const DEBUG = process.env.DEBUG === 'true';
+if (DEBUG) console.log('Detail:', data);
+
+// Performance timing
+console.time('upload');
+await uploadFile(file);
+console.timeEnd('upload');
+
+// Group related logs
+console.group('Upload Process');
+console.log('File:', file.name);
+console.log('Size:', file.size);
+console.groupEnd();
+```

@@ -1,225 +1,503 @@
 ---
-name: Security Scanning Patterns
-description: Security vulnerability scanning, secret detection, dependency auditing, and OWASP best practices. Use when performing security audits, scanning for vulnerabilities, detecting exposed secrets, checking dependencies, validating security headers, implementing OWASP patterns, or when user mentions security, vulnerabilities, secrets, CVE, OWASP, npm audit, security headers, or penetration testing.
-allowed-tools:
-  - Bash
-  - Read
-  - Write
-  - Edit
-  - Glob
-  - Grep
+name: security-patterns
+type: knowledge
+description: Security best practices, API key management, input validation. Use when handling secrets, user input, or security-sensitive code.
+keywords: security, api key, secret, validation, injection, owasp
+auto_activate: true
 ---
 
-# Security Scanning Patterns
+# Security Patterns Skill
 
-**CRITICAL: The description field above controls when Claude auto-loads this skill.**
+Security best practices and patterns for [PROJECT_NAME] project.
 
-## Overview
+## When This Activates
 
-Comprehensive security scanning capabilities including secret detection, dependency vulnerability scanning, OWASP Top 10 pattern detection, security header validation, and automated security reporting. Supports multiple languages (JavaScript, TypeScript, Python, Go, Rust, Java) and provides actionable remediation guidance.
+- API key handling
+- User input validation
+- File operations
+- Security-sensitive code
+- Keywords: "security", "api key", "secret", "validate", "input"
 
-## Instructions
+## API Keys & Secrets
 
-### 1. Secret Detection
+### Environment Variables (REQUIRED)
 
-Scan codebases for exposed credentials, API keys, tokens, and sensitive data:
+```python
+import os
+from pathlib import Path
+from dotenv import load_dotenv
 
-**Process:**
-1. Use `bash scripts/scan-secrets.sh <target-directory>` to scan for secrets
-2. Reference `templates/secret-patterns.json` for comprehensive regex patterns
-3. Check for AWS keys, GitHub tokens, API keys, passwords, private keys, certificates
-4. Scan git history for previously committed secrets
-5. Generate detailed findings with file paths and line numbers
 
-**Patterns Detected:**
-- AWS Access Keys (AKIA..., ASIA...)
-- GitHub Personal Access Tokens (ghp_, gho_, ghs_)
-- API Keys (generic patterns, vendor-specific)
-- Private Keys (RSA, SSH, PGP)
-- Database Connection Strings
-- OAuth Tokens and Secrets
-- JWT Tokens with sensitive data
-- Hardcoded passwords and credentials
+# ✅ CORRECT: Load from environment
+load_dotenv()
+api_key = os.getenv("ANTHROPIC_API_KEY")
 
-**Output:** JSON report with severity, location, and remediation steps
+if not api_key:
+    raise ValueError(
+        "ANTHROPIC_API_KEY not set\n"
+        "Add to .env file: ANTHROPIC_API_KEY=sk-ant-...\n"
+        "See: docs/guides/setup.md"
+    )
 
-### 2. Dependency Vulnerability Scanning
 
-Scan project dependencies for known CVEs across multiple ecosystems:
+# ❌ WRONG: Hardcoded secret
+api_key = "sk-ant-1234567890abcdef"  # NEVER DO THIS!
+```
 
-**Process:**
-1. Use `bash scripts/scan-dependencies.sh <project-directory>` for multi-language scanning
-2. Auto-detects package managers: npm, pip, cargo, go.mod, Maven, Gradle
-3. Queries vulnerability databases (NVD, GitHub Advisory, OSV)
-4. Reports CVE-IDs, CVSS scores, and affected versions
+### .env File Setup
 
-**Supported Ecosystems:**
-- JavaScript/TypeScript: npm audit, yarn audit, pnpm audit
-- Python: safety check, pip-audit
-- Rust: cargo audit
-- Go: govulncheck
-- Java: Maven dependency-check, OWASP dependency-check
-- Ruby: bundle audit
+```bash
+# .env (must be in .gitignore!)
+ANTHROPIC_API_KEY=sk-ant-your-key-here
+OPENAI_API_KEY=sk-your-key-here
+HUGGINGFACE_TOKEN=hf_your-token-here
+```
 
-**Output:** Vulnerability report with severity ratings and upgrade paths
+### .gitignore MUST Include
 
-### 3. OWASP Top 10 Pattern Detection
+```
+# .gitignore
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+secrets/
+```
 
-Scan code for common OWASP Top 10 vulnerabilities:
+### Secure API Key Validation
 
-**Process:**
-1. Use `bash scripts/scan-owasp.sh <codebase-directory>` to detect patterns
-2. Checks for SQL injection risks, XSS vulnerabilities, insecure deserialization
-3. Identifies authentication/authorization flaws
-4. Detects security misconfigurations and sensitive data exposure
+```python
+import re
 
-**OWASP Categories Covered:**
-- A01:2021 - Broken Access Control
-- A02:2021 - Cryptographic Failures
-- A03:2021 - Injection (SQL, NoSQL, Command, LDAP)
-- A04:2021 - Insecure Design
-- A05:2021 - Security Misconfiguration
-- A06:2021 - Vulnerable and Outdated Components
-- A07:2021 - Identification and Authentication Failures
-- A08:2021 - Software and Data Integrity Failures
-- A09:2021 - Security Logging and Monitoring Failures
-- A10:2021 - Server-Side Request Forgery (SSRF)
 
-**Output:** Categorized findings with OWASP reference links
+def validate_anthropic_key(api_key: str) -> bool:
+    """Validate Anthropic API key format.
 
-### 4. Security Header Validation
+    Args:
+        api_key: API key to validate
 
-Validate HTTP security headers for web applications:
+    Returns:
+        True if valid format
 
-**Process:**
-1. Use `bash scripts/check-security-headers.sh <url-or-config>` to validate headers
-2. Reference `templates/security-headers-config.json` for recommended settings
-3. Checks for missing or misconfigured security headers
-4. Provides configuration examples for common web servers
+    Raises:
+        ValueError: If invalid format
+    """
+    if not api_key:
+        raise ValueError("API key is empty")
 
-**Headers Validated:**
-- Content-Security-Policy (CSP)
-- Strict-Transport-Security (HSTS)
-- X-Frame-Options
-- X-Content-Type-Options
-- X-XSS-Protection
-- Referrer-Policy
-- Permissions-Policy
-- Cross-Origin-Opener-Policy (COOP)
-- Cross-Origin-Resource-Policy (CORP)
-- Cross-Origin-Embedder-Policy (COEP)
+    if not api_key.startswith("sk-ant-"):
+        raise ValueError(
+            "Invalid Anthropic API key format\n"
+            "Expected: sk-ant-...\n"
+            "See: docs/guides/api-keys.md"
+        )
 
-**Output:** Header compliance report with configuration recommendations
+    # Check length (Anthropic keys are ~40 chars)
+    if len(api_key) < 20:
+        raise ValueError("API key too short")
 
-### 5. Comprehensive Security Reporting
+    return True
+```
 
-Generate aggregated security reports combining all scan results:
+## Input Validation
 
-**Process:**
-1. Use `bash scripts/generate-security-report.sh <scan-results-directory>` to aggregate
-2. Choose output format: HTML (`templates/security-report-html.template`) or JSON (`templates/security-report-json.template`)
-3. Includes executive summary, detailed findings, risk ratings, remediation priorities
-4. Reference `templates/vulnerability-remediation.md` for fix guidance
+### Path Traversal Prevention
 
-**Report Sections:**
-- Executive Summary (critical findings count, risk score)
-- Secret Detection Results
-- Dependency Vulnerabilities
-- OWASP Compliance Status
-- Security Header Analysis
-- Detailed Findings (sorted by severity)
-- Remediation Roadmap (prioritized action items)
-- Compliance Mapping (OWASP, CWE, CVE references)
+```python
+from pathlib import Path
 
-**Output Formats:** HTML dashboard, JSON data, Markdown summary, SARIF format
 
-### 6. Security Checklist Validation
+def load_safe_file(filename: str, base_dir: Path) -> str:
+    """Load file with path traversal protection.
 
-Use `templates/security-checklist.md` for comprehensive security reviews:
+    Args:
+        filename: Requested filename
+        base_dir: Base directory (files must be within this)
 
-**Categories:**
-- Authentication & Authorization
-- Input Validation & Sanitization
-- Data Protection & Encryption
-- Session Management
-- API Security
-- Infrastructure Security
-- Logging & Monitoring
-- Incident Response Readiness
+    Returns:
+        File contents
 
-## Available Scripts
+    Raises:
+        ValueError: If path traversal detected
+        FileNotFoundError: If file doesn't exist
+    """
+    # Resolve to absolute path
+    base_dir = base_dir.resolve()
+    file_path = (base_dir / filename).resolve()
 
-- **scripts/scan-secrets.sh**: Comprehensive secret and credential detection (100+ patterns)
-- **scripts/scan-dependencies.sh**: Multi-language dependency vulnerability scanner
-- **scripts/check-security-headers.sh**: HTTP security header validator
-- **scripts/scan-owasp.sh**: OWASP Top 10 vulnerability pattern detector
-- **scripts/generate-security-report.sh**: Aggregated security report generator
+    # Check file is within base_dir (prevents ../ attacks)
+    if not file_path.is_relative_to(base_dir):
+        raise ValueError(
+            f"Invalid file path: {filename}\n"
+            f"Path traversal detected (../ not allowed)\n"
+            f"Allowed directory: {base_dir}"
+        )
 
-## Templates
+    if not file_path.exists():
+        raise FileNotFoundError(f"File not found: {file_path}")
 
-- **templates/secret-patterns.json**: Comprehensive regex patterns for 50+ secret types
-- **templates/security-report-html.template**: Professional HTML security report template
-- **templates/security-report-json.template**: Structured JSON report schema
-- **templates/security-checklist.md**: Comprehensive OWASP-based security checklist
-- **templates/security-headers-config.json**: Recommended security header configurations
-- **templates/vulnerability-remediation.md**: Remediation guides for common vulnerabilities
+    return file_path.read_text()
 
-## Examples
 
-- **examples/basic-secret-scanning.md**: Step-by-step secret scanning walkthrough
-- **examples/dependency-scanning.md**: Multi-language dependency scanning examples
-- **examples/owasp-compliance.md**: OWASP Top 10 compliance validation
-- **examples/ci-cd-security-integration.md**: CI/CD pipeline security automation
-- **examples/security-report-interpretation.md**: How to read and act on security reports
+# ✅ SAFE: Validates path
+content = load_safe_file("config.yaml", Path("/data"))
 
-## Workflow
+# ❌ BLOCKED: Path traversal attempt
+content = load_safe_file("../../etc/passwd", Path("/data"))  # ValueError!
+```
 
-**Typical Security Audit Process:**
+### Command Injection Prevention
 
-1. **Initial Scan:** Run all scanners against the codebase
-   ```bash
-   bash scripts/scan-secrets.sh ./project
-   bash scripts/scan-dependencies.sh ./project
-   bash scripts/scan-owasp.sh ./project
-   bash scripts/check-security-headers.sh https://example.com
-   ```
+```python
+import subprocess
+import shlex
 
-2. **Generate Report:** Aggregate results into comprehensive report
-   ```bash
-   bash scripts/generate-security-report.sh ./scan-results --format html
-   ```
 
-3. **Review Findings:** Analyze security-report.html, prioritize critical issues
+# ✅ CORRECT: Shell=False with list arguments
+def run_command_safe(command: str, args: list[str]) -> str:
+    """Run command safely without shell injection.
 
-4. **Remediate:** Use `templates/vulnerability-remediation.md` for fix guidance
+    Args:
+        command: Command to run
+        args: List of arguments
 
-5. **Validate:** Re-scan after fixes to confirm remediation
+    Returns:
+        Command output
+    """
+    result = subprocess.run(
+        [command] + args,  # List, not string
+        shell=False,  # CRITICAL: Never use shell=True
+        capture_output=True,
+        text=True,
+        timeout=30
+    )
 
-6. **CI/CD Integration:** Add security scans to pipeline (see `examples/ci-cd-security-integration.md`)
+    if result.returncode != 0:
+        raise RuntimeError(f"Command failed: {result.stderr}")
 
-## Best Practices
+    return result.stdout
 
-- Run security scans before every release
-- Integrate scans into CI/CD pipelines
-- Treat critical vulnerabilities as build-breaking
-- Maintain a security baseline and track improvements
-- Review security checklists during code reviews
-- Keep secret patterns updated with new services
-- Subscribe to security advisories for dependencies
-- Perform regular security audits (quarterly minimum)
 
-## Requirements
+# ✅ SAFE: No injection possible
+output = run_command_safe("ls", ["-la", "/tmp"])
 
-- Bash 4.0+ for script execution
-- curl or wget for HTTP header validation
-- jq for JSON processing
-- grep with PCRE support for pattern matching
-- Language-specific tools: npm/yarn, pip, cargo, go (if scanning those languages)
-- Internet connection for CVE database queries
 
-## Integration Points
+# ❌ WRONG: Shell injection risk
+def run_command_unsafe(user_input: str):
+    # User could input: "; rm -rf /"
+    subprocess.run(f"ls {user_input}", shell=True)  # NEVER DO THIS!
+```
 
-- Works with CI/CD tools: GitHub Actions, GitLab CI, Jenkins, CircleCI
-- Exports to SARIF format for GitHub Security tab
-- JSON output compatible with security dashboards
-- Can trigger alerts via webhooks on critical findings
+### SQL Injection Prevention
+
+```python
+import sqlite3
+
+
+# ✅ CORRECT: Parameterized queries
+def get_user_safe(db, username: str):
+    """Safe database query with parameters."""
+    cursor = db.cursor()
+    cursor.execute(
+        "SELECT * FROM users WHERE username = ?",  # Parameterized
+        (username,)
+    )
+    return cursor.fetchone()
+
+
+# ❌ WRONG: String interpolation
+def get_user_unsafe(db, username):
+    # User could input: "admin' OR '1'='1"
+    cursor = db.cursor()
+    cursor.execute(f"SELECT * FROM users WHERE username = '{username}'")
+```
+
+## File Operations Security
+
+### Secure File Permissions
+
+```python
+from pathlib import Path
+import os
+
+
+def create_secure_file(path: Path, content: str) -> None:
+    """Create file with restricted permissions.
+
+    Args:
+        path: File path
+        content: File content
+    """
+    # Write file
+    path.write_text(content)
+
+    # Set permissions to owner-only (0o600 = rw-------)
+    path.chmod(0o600)
+
+
+def create_secure_directory(path: Path) -> None:
+    """Create directory with restricted permissions."""
+    path.mkdir(parents=True, exist_ok=True)
+
+    # Owner only (0o700 = rwx------)
+    path.chmod(0o700)
+
+
+# Usage
+cache_dir = Path.home() / ".cache" / "[project_name]"
+create_secure_directory(cache_dir)
+
+config_file = cache_dir / "api_key.txt"
+create_secure_file(config_file, api_key)
+```
+
+### File Upload Validation
+
+```python
+from pathlib import Path
+
+
+ALLOWED_EXTENSIONS = {".json", ".yaml", ".yml", ".txt", ".csv"}
+MAX_FILE_SIZE = 10 * 1024 * 1024  # 10MB
+
+
+def validate_upload(file_path: Path) -> None:
+    """Validate uploaded file.
+
+    Args:
+        file_path: Path to uploaded file
+
+    Raises:
+        ValueError: If file invalid
+    """
+    # Check extension
+    if file_path.suffix.lower() not in ALLOWED_EXTENSIONS:
+        raise ValueError(
+            f"Invalid file type: {file_path.suffix}\n"
+            f"Allowed: {ALLOWED_EXTENSIONS}"
+        )
+
+    # Check size
+    size = file_path.stat().st_size
+    if size > MAX_FILE_SIZE:
+        raise ValueError(
+            f"File too large: {size / 1024 / 1024:.1f}MB\n"
+            f"Maximum: {MAX_FILE_SIZE / 1024 / 1024}MB"
+        )
+
+    # Check not executable
+    if os.access(file_path, os.X_OK):
+        raise ValueError("Executable files not allowed")
+```
+
+## Cryptographic Operations
+
+### Secure Random Generation
+
+```python
+import secrets
+
+
+# ✅ CORRECT: Cryptographically secure
+def generate_token() -> str:
+    """Generate secure random token."""
+    return secrets.token_hex(32)  # 64 characters
+
+
+def generate_session_id() -> str:
+    """Generate secure session ID."""
+    return secrets.token_urlsafe(32)
+
+
+# ❌ WRONG: Not cryptographically secure
+import random
+token = str(random.randint(0, 999999))  # NEVER for security!
+```
+
+### Password Hashing (if needed)
+
+```python
+import hashlib
+import secrets
+
+
+def hash_password(password: str) -> tuple[str, str]:
+    """Hash password with salt.
+
+    Args:
+        password: Plain text password
+
+    Returns:
+        Tuple of (salt, hashed_password)
+    """
+    # Generate random salt
+    salt = secrets.token_hex(16)
+
+    # Hash with salt
+    hashed = hashlib.pbkdf2_hmac(
+        'sha256',
+        password.encode('utf-8'),
+        salt.encode('utf-8'),
+        100000  # iterations
+    )
+
+    return salt, hashed.hex()
+
+
+def verify_password(
+    password: str,
+    salt: str,
+    expected_hash: str
+) -> bool:
+    """Verify password against hash."""
+    hashed = hashlib.pbkdf2_hmac(
+        'sha256',
+        password.encode('utf-8'),
+        salt.encode('utf-8'),
+        100000
+    )
+
+    return hashed.hex() == expected_hash
+```
+
+## Model Download Security
+
+### Validate HuggingFace Repo
+
+```python
+import re
+
+
+def validate_repo_id(repo_id: str) -> bool:
+    """Validate HuggingFace repository ID.
+
+    Args:
+        repo_id: Repository ID (org/model)
+
+    Returns:
+        True if valid
+
+    Raises:
+        ValueError: If invalid format
+    """
+    # Expected format: org/model-name
+    pattern = r'^[a-zA-Z0-9_-]+/[a-zA-Z0-9_.-]+$'
+
+    if not re.match(pattern, repo_id):
+        raise ValueError(
+            f"Invalid repo ID: {repo_id}\n"
+            f"Expected format: organization/model-name\n"
+            f"Example: [model_repo]/Llama-3.2-1B-Instruct-4bit"
+        )
+
+    # Prevent malicious patterns
+    if '..' in repo_id or '/' * 2 in repo_id:
+        raise ValueError("Invalid characters in repo ID")
+
+    return True
+
+
+# ✅ SAFE
+validate_repo_id("[model_repo]/Llama-3.2-1B-Instruct-4bit")
+
+# ❌ BLOCKED
+validate_repo_id("../../../etc/passwd")  # ValueError!
+```
+
+## Logging Security
+
+### Never Log Secrets
+
+```python
+import logging
+
+
+# ✅ CORRECT: Redact sensitive data
+def log_api_call(api_key: str, endpoint: str):
+    """Log API call without exposing key."""
+    masked_key = api_key[:7] + "***" + api_key[-4:]
+    logging.info(f"API call to {endpoint} with key {masked_key}")
+
+
+# ❌ WRONG: Logs full API key
+def log_api_call_unsafe(api_key, endpoint):
+    logging.info(f"API call: {endpoint} | Key: {api_key}")  # NEVER!
+```
+
+## Dependencies Security
+
+### Check for Vulnerabilities
+
+```bash
+# Install safety
+pip install safety
+
+# Check dependencies
+safety check
+
+# Check specific requirements
+safety check -r requirements.txt
+
+# Alternative: pip-audit
+pip install pip-audit
+pip-audit
+```
+
+## Security Checklist
+
+### Code Review
+
+- [ ] No hardcoded API keys/secrets
+- [ ] All secrets in .env (gitignored)
+- [ ] .env file in .gitignore
+- [ ] Input validation on user data
+- [ ] Path traversal prevention
+- [ ] No shell=True in subprocess
+- [ ] Parameterized database queries
+- [ ] Secure file permissions
+- [ ] Cryptographically secure random
+- [ ] No secrets in logs
+- [ ] Dependencies scanned for vulnerabilities
+
+### File Operations
+
+- [ ] Validate file extensions
+- [ ] Check file size limits
+- [ ] Prevent path traversal
+- [ ] Restrict file permissions
+- [ ] Validate before deserialize
+
+### API Operations
+
+- [ ] API keys from environment
+- [ ] Keys validated before use
+- [ ] Keys masked in logs
+- [ ] Rate limiting considered
+- [ ] Error messages don't expose secrets
+
+## Common Vulnerabilities (OWASP Top 10)
+
+1. **Injection** → Use parameterized queries
+2. **Authentication** → Use secure tokens (secrets module)
+3. **Sensitive Data** → Never hardcode, use .env
+4. **XXE** → Disable external entities in XML
+5. **Access Control** → Validate file paths
+6. **Security Config** → Secure defaults
+7. **XSS** → Sanitize output (if web)
+8. **Deserialization** → Don't unpickle untrusted data
+9. **Components** → Keep dependencies updated
+10. **Logging** → Don't log secrets
+
+## Key Takeaways
+
+1. **Never hardcode secrets** - Use environment variables
+2. **Validate all inputs** - User data, file paths, commands
+3. **Prevent path traversal** - Use `is_relative_to()`
+4. **No shell=True** - Use list arguments with subprocess
+5. **Parameterized queries** - Never string interpolation
+6. **Secure random** - Use `secrets` module
+7. **Restrict permissions** - Files 0o600, dirs 0o700
+8. **Mask secrets in logs** - Show only first/last few chars
+9. **Scan dependencies** - Use safety/pip-audit
+10. **.gitignore secrets** - .env, _.key, _.pem

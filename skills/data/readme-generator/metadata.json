@@ -1,7 +1,7 @@
 {
   "name": "readme-generator",
-  "repo": "dongjin-ml/strands-skill-system",
-  "path": "skills/readme-generator/SKILL.md",
-  "source": "github.com/dongjin-ml/strands-skill-system",
-  "downloaded_at": "2026-01-14T03:11:55.311811Z"
+  "repo": "jeremylongshore/claude-code-plugins-plus-skills",
+  "path": "planned-skills/generated/17-technical-docs/readme-generator/SKILL.md",
+  "source": "github.com/jeremylongshore/claude-code-plugins-plus-skills",
+  "downloaded_at": "2026-01-17T04:00:13.394610Z"
 }

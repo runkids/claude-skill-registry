@@ -1,7 +1,7 @@
 {
   "name": "deep-analysis",
-  "repo": "pianzhu/my-claude-skills",
-  "path": "skills/deep-analysis/SKILL.md",
-  "source": "github.com/pianzhu/my-claude-skills",
-  "downloaded_at": "2026-01-14T03:20:15.925758Z"
+  "repo": "involvex/involvex-claude-marketplace",
+  "path": "plugins/code-analysis/skills/deep-analysis/SKILL.md",
+  "source": "github.com/involvex/involvex-claude-marketplace",
+  "downloaded_at": "2026-01-17T03:58:50.763629Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "langchain-architecture",
-  "repo": "camoneart/claude-code",
-  "path": "skills/langchain-architecture/SKILL.md",
-  "source": "github.com/camoneart/claude-code",
-  "downloaded_at": "2026-01-14T03:37:02.558488Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/llm-application-dev/skills/langchain-architecture/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-01-17T03:59:19.347296Z"
 }

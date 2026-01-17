@@ -171,7 +171,7 @@ This is particularly important when the agent cannot distinguish essential compl
 
 The 0.7% additional tokens retained by structured summarization buys 0.35 quality points. For any task where re-fetching costs matter, this trade-off favors structured approaches.
 
-## Examples
+## How to use this skill
 
 **Example 1: Debugging Session Compression**
 

@@ -1,121 +1,270 @@
 ---
 name: migrate
-description: 生成数据库迁移文件。当用户需要创建表、修改表结构、添加索引等数据库变更时使用此 skill。
+description: Migration workflow - research → analyze → plan → implement → review
 ---
 
-# Database Migration Skill
+# /migrate - Migration Workflow
 
-生成符合项目规范的 golang-migrate 迁移文件。
+Safe migrations for frameworks, languages, and infrastructure.
 
-## 工作流程
+## When to Use
 
-1. 询问用户迁移需求（创建表/修改表/添加索引等）
-2. 读取 `migrations/` 目录，确定下一个可用序号
-3. 生成 up.sql 和 down.sql 文件对
-4. 提示用户使用 `make migrate-up` 执行迁移
+- "Migrate to X"
+- "Upgrade framework"
+- "Move from X to Y"
+- "Upgrade Python/Node/etc."
+- "Migrate database"
+- Framework version upgrades
+- Language migrations
+- Infrastructure changes
 
-## 命名规范
+## Workflow Overview
 
-```text
-migrations/{yyyymmddhhiiss}{3位序号}_{snake_case描述}.up.sql
-migrations/{yyyymmddhhiiss}{3位序号}_{snake_case描述}.down.sql
+```
+┌──────────┐    ┌──────────┐    ┌────────────┐    ┌──────────┐    ┌───────────┐
+│  oracle  │───▶│ phoenix  │───▶│   plan-    │───▶│  kraken  │───▶│ surveyor  │
+│          │    │          │    │   agent    │    │          │    │           │
+└──────────┘    └──────────┘    └────────────┘    └──────────┘    └───────────┘
+  Research       Analyze          Plan             Implement       Review
+  target         current          migration        changes         migration
 ```
 
-格式说明：
-- `yyyymmddhhiiss` - 年月日时分秒（14位）
-- `3位序号` - 同一秒内的序号（001-999）
+## Agent Sequence
 
-示例：`20251229035300001_create_users_table.up.sql`
+| # | Agent | Role | Output |
+|---|-------|------|--------|
+| 1 | **oracle** | Research target framework/version | Research report |
+| 2 | **phoenix** | Analyze current codebase for migration impact | Impact analysis |
+| 3 | **plan-agent** | Create phased migration plan | Migration plan |
+| 4 | **kraken** | Implement migration changes | Code changes |
+| 5 | **surveyor** | Review migration for completeness | Migration review |
 
-## SQL 规范
+## Why Extra Gates?
 
-### 创建表 (up.sql)
+Migrations are high-risk:
+- Breaking changes between versions
+- Dependency conflicts
+- Data format changes
+- API deprecations
 
-```sql
-CREATE TABLE IF NOT EXISTS `table_name` (
-    `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键ID',
-    `name` VARCHAR(100) NOT NULL COMMENT '名称',
-    `status` TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '状态: 0-禁用, 1-正常',
-    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    PRIMARY KEY (`id`),
-    KEY `idx_status` (`status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='表注释';
+The extra research and review phases catch issues early.
+
+## Execution
+
+### Phase 1: Research Target
+
+```
+Task(
+  subagent_type="oracle",
+  prompt="""
+  Research migration target: [TARGET]
+
+  Investigate:
+  - Breaking changes from current version
+  - New APIs and patterns
+  - Deprecated features we use
+  - Migration guides from official docs
+  - Common pitfalls and solutions
+
+  Output: Migration research report
+  """
+)
 ```
 
-### 删除表 (down.sql)
+### Phase 2: Analyze Current State
 
-```sql
-DROP TABLE IF EXISTS `table_name`;
+```
+Task(
+  subagent_type="phoenix",
+  prompt="""
+  Analyze codebase for migration: [FROM] → [TO]
+
+  Identify:
+  - Files using deprecated APIs
+  - Dependency conflicts
+  - Patterns that need updating
+  - Test coverage of affected areas
+  - Risk areas (critical paths)
+
+  Output: Impact analysis with affected files
+  """
+)
 ```
 
-### 添加字段 (up.sql)
+### Phase 3: Plan Migration
 
-```sql
-ALTER TABLE `table_name` ADD COLUMN `field_name` VARCHAR(100) NOT NULL DEFAULT '' COMMENT '字段说明' AFTER `existing_field`;
+```
+Task(
+  subagent_type="plan-agent",
+  prompt="""
+  Create migration plan: [FROM] → [TO]
+
+  Research: [from oracle]
+  Impact: [from phoenix]
+
+  Plan should:
+  - Be phased (incremental if possible)
+  - Each phase independently testable
+  - Include rollback strategy
+  - Prioritize critical path stability
+
+  Output: Phased migration plan
+  """
+)
 ```
 
-### 删除字段 (down.sql)
+### Phase 4: Implement
 
-```sql
-ALTER TABLE `table_name` DROP COLUMN `field_name`;
+```
+Task(
+  subagent_type="kraken",
+  prompt="""
+  Implement migration phase: [PHASE_N]
+
+  Plan: [from plan-agent]
+
+  Requirements:
+  - Follow plan exactly
+  - Run tests after each change
+  - Document any deviations
+  - Stop if tests fail
+
+  Output: Completed phase with test results
+  """
+)
 ```
 
-### 添加索引 (up.sql)
+### Phase 5: Review Migration
 
-```sql
-ALTER TABLE `table_name` ADD INDEX `idx_field` (`field_name`);
--- 或唯一索引
-ALTER TABLE `table_name` ADD UNIQUE KEY `uk_field` (`field_name`);
+```
+Task(
+  subagent_type="surveyor",
+  prompt="""
+  Review migration: [FROM] → [TO]
+
+  Check:
+  - All deprecated APIs replaced
+  - No remaining compatibility shims
+  - Tests passing
+  - Performance acceptable
+  - No security regressions
+
+  Output: Migration review report
+  """
+)
 ```
 
-### 删除索引 (down.sql)
+## Migration Types
 
-```sql
-ALTER TABLE `table_name` DROP INDEX `idx_field`;
+### Framework Upgrade
+```
+User: /migrate React 17 → 18
+→ Full workflow with hooks/concurrent mode changes
 ```
 
-## 字段类型规范
-
-| 用途     | 类型                              | 示例                              |
-| -------- | --------------------------------- | --------------------------------- |
-| 主键     | `BIGINT UNSIGNED AUTO_INCREMENT`  | `id`                              |
-| 外键     | `BIGINT UNSIGNED`                 | `user_id`                         |
-| 短字符串 | `VARCHAR(n)`                      | `name VARCHAR(100)`               |
-| 长文本   | `TEXT`                            | `content`                         |
-| 枚举状态 | `TINYINT UNSIGNED`                | `status TINYINT UNSIGNED DEFAULT 1` |
-| 金额     | `DECIMAL(10,2)`                   | `price`                           |
-| 时间戳   | `TIMESTAMP`                       | `created_at`, `updated_at`        |
-| 日期     | `DATE`                            | `birth_date`                      |
-| 布尔     | `TINYINT(1)`                      | `is_active TINYINT(1) DEFAULT 1`  |
-| JSON     | `JSON`                            | `metadata`                        |
-
-## 索引命名规范
-
-| 类型     | 前缀   | 示例             |
-| -------- | ------ | ---------------- |
-| 普通索引 | `idx_` | `idx_user_id`    |
-| 唯一索引 | `uk_`  | `uk_email`       |
-| 联合索引 | `idx_` | `idx_user_status`|
-
-## 必要规则
-
-1. 所有字段必须有 COMMENT
-2. 表必须有表级 COMMENT
-3. up.sql 使用 `IF NOT EXISTS` / `IF EXISTS`
-4. down.sql 必须能完全回滚 up.sql 的更改
-5. 使用 InnoDB 引擎
-6. 使用 utf8mb4 字符集
-
-## 执行迁移
-
-```bash
-# 执行所有迁移
-make migrate-up
-
-# 回滚上一个
-make migrate-down
-
-# 查看当前版本
-make migrate-version
+### Language Version
 ```
+User: /migrate Python 3.9 → 3.12
+→ Focus on new syntax, removed features
+```
+
+### Database Migration
+```
+User: /migrate MongoDB → PostgreSQL
+→ Schema design, data transformation, query rewrite
+```
+
+### Infrastructure
+```
+User: /migrate AWS → GCP
+→ Service mapping, config translation
+```
+
+## Example
+
+```
+User: /migrate from Express to Fastify
+
+Claude: Starting /migrate workflow: Express → Fastify
+
+Phase 1: Researching Fastify...
+[Spawns oracle]
+Key differences:
+- Schema-based validation (vs middleware)
+- Plugin architecture
+- Async/await native
+- Different middleware pattern
+
+Phase 2: Analyzing current Express usage...
+[Spawns phoenix]
+Impact analysis:
+- 23 route files to update
+- 8 middleware to convert
+- 3 plugins need Fastify equivalents
+- Test coverage: 78%
+
+Phase 3: Creating migration plan...
+[Spawns plan-agent]
+
+Migration Plan: Express → Fastify
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Phase 1: Setup & Core
+- Add Fastify alongside Express
+- Migrate core server setup
+- Run both in parallel
+
+Phase 2: Routes (by domain)
+- Migrate auth routes
+- Migrate user routes
+- Migrate product routes
+- ...
+
+Phase 3: Middleware
+- Convert error handler
+- Convert auth middleware
+- Convert logging
+
+Phase 4: Cleanup
+- Remove Express
+- Remove compatibility layer
+- Final testing
+
+Rollback: Keep Express until Phase 4 complete
+
+Phase 4: Implementing Phase 1...
+[Spawns kraken]
+✅ Fastify server running alongside Express
+✅ Core routes migrated
+✅ Tests passing
+
+[Continues through phases...]
+
+Phase 5: Reviewing migration...
+[Spawns surveyor]
+✅ All Express code removed
+✅ 23/23 routes migrated
+✅ Performance improved (2.1x faster)
+✅ No security regressions
+
+Migration complete! Express → Fastify
+```
+
+## Incremental Migration
+
+For large codebases, run one phase at a time:
+
+```
+User: /migrate React 17 → 18 --phase 1
+[Runs only Phase 1]
+
+User: /migrate React 17 → 18 --phase 2
+[Runs Phase 2, reads previous handoff]
+```
+
+## Flags
+
+- `--phase N`: Run specific phase only
+- `--dry-run`: Plan without implementing
+- `--rollback`: Execute rollback plan
+- `--parallel`: Run new alongside old (strangler fig)

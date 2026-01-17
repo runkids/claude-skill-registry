@@ -1,322 +1,308 @@
 ---
 name: frontend-testing
-description: Generate Vitest + React Testing Library tests for Dify frontend components, hooks, and utilities. Triggers on testing, spec files, coverage, Vitest, RTL, unit tests, integration tests, or write/review test requests.
+description: |
+  Testa aplicacoes web usando Playwright. Captura screenshots, executa E2E tests,
+  analisa logs do browser. Integrado com qa-analyst para Phase 6.
+  Use quando: testar frontend, capturar screenshots, validar UI, executar E2E.
+allowed-tools:
+  - Read
+  - Write
+  - Bash
+  - Glob
+user-invocable: true
 ---
 
-# Dify Frontend Testing Skill
+# Frontend Testing Skill
 
-This skill enables Claude to generate high-quality, comprehensive frontend tests for the Dify project following established conventions and best practices.
+## Proposito
 
-> **⚠️ Authoritative Source**: This skill is derived from `web/testing/testing.md`. Use Vitest mock/timer APIs (`vi.*`).
+Testa aplicacoes web locais e remotas usando Playwright:
+- **Screenshots**: Captura visual para validacao
+- **E2E Tests**: Testes end-to-end automatizados
+- **Browser Logs**: Analise de erros e warnings
+- **Accessibility**: Validacao basica de a11y
 
-## When to Apply This Skill
+## Principios de Design
 
-Apply this skill when the user:
+### 1. Reconnaissance-Then-Action
 
-- Asks to **write tests** for a component, hook, or utility
-- Asks to **review existing tests** for completeness
-- Mentions **Vitest**, **React Testing Library**, **RTL**, or **spec files**
-- Requests **test coverage** improvement
-- Uses `pnpm analyze-component` output as context
-- Mentions **testing**, **unit tests**, or **integration tests** for frontend code
-- Wants to understand **testing patterns** in the Dify codebase
+Baseado no padrao do webapp-testing da Anthropic:
 
-**Do NOT apply** when:
+```
+1. Navigate  → Ir para a pagina
+2. Wait      → Aguardar network idle
+3. Capture   → Screenshot ou DOM
+4. Discover  → Identificar seletores do DOM renderizado
+5. Interact  → Executar acoes com seletores descobertos
+```
 
-- User is asking about backend/API tests (Python/pytest)
-- User is asking about E2E tests (Playwright/Cypress)
-- User is only asking conceptual questions without code context
+### 2. Server Lifecycle Management
 
-## Quick Reference
-
-### Tech Stack
-
-| Tool | Version | Purpose |
-|------|---------|---------|
-| Vitest | 4.0.16 | Test runner |
-| React Testing Library | 16.0 | Component testing |
-| jsdom | - | Test environment |
-| nock | 14.0 | HTTP mocking |
-| TypeScript | 5.x | Type safety |
-
-### Key Commands
+Gerenciar servidor local automaticamente:
 
 ```bash
-# Run all tests
-pnpm test
-
-# Watch mode
-pnpm test:watch
-
-# Run specific file
-pnpm test path/to/file.spec.tsx
-
-# Generate coverage report
-pnpm test:coverage
-
-# Analyze component complexity
-pnpm analyze-component <path>
-
-# Review existing test
-pnpm analyze-component <path> --review
+# Inicia servidor, executa teste, encerra servidor
+python scripts/with_server.py --server "npm run dev" --port 3000 -- pytest tests/
 ```
 
-### File Naming
+### 3. Never Hardcode Selectors
 
-- Test files: `ComponentName.spec.tsx` (same directory as component)
-- Integration tests: `web/__tests__/` directory
+Sempre descobrir seletores do DOM real, nunca assumir.
 
-## Test Structure Template
+## Comandos
 
-```typescript
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
-import Component from './index'
+### /frontend-test {url}
 
-// ✅ Import real project components (DO NOT mock these)
-// import Loading from '@/app/components/base/loading'
-// import { ChildComponent } from './child-component'
+Executa suite de testes E2E.
 
-// ✅ Mock external dependencies only
-vi.mock('@/service/api')
-vi.mock('next/navigation', () => ({
-  useRouter: () => ({ push: vi.fn() }),
-  usePathname: () => '/test',
-}))
-
-// Shared state for mocks (if needed)
-let mockSharedState = false
-
-describe('ComponentName', () => {
-  beforeEach(() => {
-    vi.clearAllMocks()  // ✅ Reset mocks BEFORE each test
-    mockSharedState = false  // ✅ Reset shared state
-  })
-
-  // Rendering tests (REQUIRED)
-  describe('Rendering', () => {
-    it('should render without crashing', () => {
-      // Arrange
-      const props = { title: 'Test' }
-      
-      // Act
-      render(<Component {...props} />)
-      
-      // Assert
-      expect(screen.getByText('Test')).toBeInTheDocument()
-    })
-  })
-
-  // Props tests (REQUIRED)
-  describe('Props', () => {
-    it('should apply custom className', () => {
-      render(<Component className="custom" />)
-      expect(screen.getByRole('button')).toHaveClass('custom')
-    })
-  })
-
-  // User Interactions
-  describe('User Interactions', () => {
-    it('should handle click events', () => {
-      const handleClick = vi.fn()
-      render(<Component onClick={handleClick} />)
-      
-      fireEvent.click(screen.getByRole('button'))
-      
-      expect(handleClick).toHaveBeenCalledTimes(1)
-    })
-  })
-
-  // Edge Cases (REQUIRED)
-  describe('Edge Cases', () => {
-    it('should handle null data', () => {
-      render(<Component data={null} />)
-      expect(screen.getByText(/no data/i)).toBeInTheDocument()
-    })
-
-    it('should handle empty array', () => {
-      render(<Component items={[]} />)
-      expect(screen.getByText(/empty/i)).toBeInTheDocument()
-    })
-  })
-})
+```bash
+/frontend-test http://localhost:3000
+/frontend-test https://staging.example.com
 ```
 
-## Testing Workflow (CRITICAL)
+### /frontend-screenshot {url} {nome}
 
-### ⚠️ Incremental Approach Required
+Captura screenshot de uma pagina.
 
-**NEVER generate all test files at once.** For complex components or multi-file directories:
-
-1. **Analyze & Plan**: List all files, order by complexity (simple → complex)
-1. **Process ONE at a time**: Write test → Run test → Fix if needed → Next
-1. **Verify before proceeding**: Do NOT continue to next file until current passes
-
-```
-For each file:
-  ┌────────────────────────────────────────┐
-  │ 1. Write test                          │
-  │ 2. Run: pnpm test <file>.spec.tsx      │
-  │ 3. PASS? → Mark complete, next file    │
-  │    FAIL? → Fix first, then continue    │
-  └────────────────────────────────────────┘
+```bash
+/frontend-screenshot http://localhost:3000 homepage
+/frontend-screenshot http://localhost:3000/login login-page
 ```
 
-### Complexity-Based Order
+**Output**: `.agentic_sdlc/projects/{id}/screenshots/{nome}.png`
 
-Process in this order for multi-file testing:
+### /frontend-check {url}
 
-1. 🟢 Utility functions (simplest)
-1. 🟢 Custom hooks
-1. 🟡 Simple components (presentational)
-1. 🟡 Medium components (state, effects)
-1. 🔴 Complex components (API, routing)
-1. 🔴 Integration tests (index files - last)
+Verifica saude basica da aplicacao.
 
-### When to Refactor First
-
-- **Complexity > 50**: Break into smaller pieces before testing
-- **500+ lines**: Consider splitting before testing
-- **Many dependencies**: Extract logic into hooks first
-
-> 📖 See `references/workflow.md` for complete workflow details and todo list format.
-
-## Testing Strategy
-
-### Path-Level Testing (Directory Testing)
-
-When assigned to test a directory/path, test **ALL content** within that path:
-
-- Test all components, hooks, utilities in the directory (not just `index` file)
-- Use incremental approach: one file at a time, verify each before proceeding
-- Goal: 100% coverage of ALL files in the directory
-
-### Integration Testing First
-
-**Prefer integration testing** when writing tests for a directory:
-
-- ✅ **Import real project components** directly (including base components and siblings)
-- ✅ **Only mock**: API services (`@/service/*`), `next/navigation`, complex context providers
-- ❌ **DO NOT mock** base components (`@/app/components/base/*`)
-- ❌ **DO NOT mock** sibling/child components in the same directory
-
-> See [Test Structure Template](#test-structure-template) for correct import/mock patterns.
-
-## Core Principles
-
-### 1. AAA Pattern (Arrange-Act-Assert)
-
-Every test should clearly separate:
-
-- **Arrange**: Setup test data and render component
-- **Act**: Perform user actions
-- **Assert**: Verify expected outcomes
-
-### 2. Black-Box Testing
-
-- Test observable behavior, not implementation details
-- Use semantic queries (getByRole, getByLabelText)
-- Avoid testing internal state directly
-- **Prefer pattern matching over hardcoded strings** in assertions:
-
-```typescript
-// ❌ Avoid: hardcoded text assertions
-expect(screen.getByText('Loading...')).toBeInTheDocument()
-
-// ✅ Better: role-based queries
-expect(screen.getByRole('status')).toBeInTheDocument()
-
-// ✅ Better: pattern matching
-expect(screen.getByText(/loading/i)).toBeInTheDocument()
+```bash
+/frontend-check http://localhost:3000
 ```
 
-### 3. Single Behavior Per Test
+**Verifica**:
+- Pagina carrega sem erros
+- Console sem erros criticos
+- Links nao quebrados
+- Performance basica
 
-Each test verifies ONE user-observable behavior:
+## Workflow de Testes
 
-```typescript
-// ✅ Good: One behavior
-it('should disable button when loading', () => {
-  render(<Button loading />)
-  expect(screen.getByRole('button')).toBeDisabled()
-})
+### Setup com Servidor Local
 
-// ❌ Bad: Multiple behaviors
-it('should handle loading state', () => {
-  render(<Button loading />)
-  expect(screen.getByRole('button')).toBeDisabled()
-  expect(screen.getByText('Loading...')).toBeInTheDocument()
-  expect(screen.getByRole('button')).toHaveClass('loading')
-})
+```bash
+# Single server
+python scripts/with_server.py \
+  --server "npm run dev" \
+  --port 5173 \
+  -- python scripts/run_tests.py
+
+# Multiple servers (frontend + backend)
+python scripts/with_server.py \
+  --server "cd backend && python server.py" --port 3000 \
+  --server "cd frontend && npm run dev" --port 5173 \
+  -- python scripts/run_tests.py
 ```
 
-### 4. Semantic Naming
+### Captura de Screenshot
 
-Use `should <behavior> when <condition>`:
+```python
+from playwright.sync_api import sync_playwright
 
-```typescript
-it('should show error message when validation fails')
-it('should call onSubmit when form is valid')
-it('should disable input when isReadOnly is true')
+with sync_playwright() as p:
+    browser = p.chromium.launch()
+    page = browser.new_page()
+
+    page.goto("http://localhost:3000")
+    page.wait_for_load_state("networkidle")
+
+    page.screenshot(path="screenshot.png", full_page=True)
+    browser.close()
 ```
 
-## Required Test Scenarios
+### Teste E2E Basico
 
-### Always Required (All Components)
+```python
+def test_login_flow(page):
+    page.goto("http://localhost:3000/login")
+    page.wait_for_load_state("networkidle")
 
-1. **Rendering**: Component renders without crashing
-1. **Props**: Required props, optional props, default values
-1. **Edge Cases**: null, undefined, empty values, boundary conditions
+    # Descobrir seletores do DOM real
+    page.fill('[data-testid="email"]', 'test@example.com')
+    page.fill('[data-testid="password"]', 'password123')
+    page.click('[data-testid="submit"]')
 
-### Conditional (When Present)
+    # Verificar redirecionamento
+    page.wait_for_url("**/dashboard")
+    assert "dashboard" in page.url
+```
 
-| Feature | Test Focus |
-|---------|-----------|
-| `useState` | Initial state, transitions, cleanup |
-| `useEffect` | Execution, dependencies, cleanup |
-| Event handlers | All onClick, onChange, onSubmit, keyboard |
-| API calls | Loading, success, error states |
-| Routing | Navigation, params, query strings |
-| `useCallback`/`useMemo` | Referential equality |
-| Context | Provider values, consumer behavior |
-| Forms | Validation, submission, error display |
+## Integracao com SDLC
 
-## Coverage Goals (Per File)
+### Phase 6 (Quality) - qa-analyst
 
-For each test file generated, aim for:
+```yaml
+quality_gate:
+  frontend_tests:
+    required: true
+    criteria:
+      - "E2E tests passing"
+      - "No console errors"
+      - "Screenshots captured for review"
 
-- ✅ **100%** function coverage
-- ✅ **100%** statement coverage
-- ✅ **>95%** branch coverage
-- ✅ **>95%** line coverage
+  commands:
+    - "/frontend-test http://localhost:3000"
+    - "/frontend-screenshot http://localhost:3000 homepage"
+```
 
-> **Note**: For multi-file directories, process one file at a time with full coverage each. See `references/workflow.md`.
+### Phase 7 (Release) - Evidencias
 
-## Detailed Guides
+```yaml
+release_artifacts:
+  screenshots:
+    - homepage.png
+    - login-page.png
+    - dashboard.png
+  test_reports:
+    - e2e-results.json
+```
 
-For more detailed information, refer to:
+## Dependencias
 
-- `references/workflow.md` - **Incremental testing workflow** (MUST READ for multi-file testing)
-- `references/mocking.md` - Mock patterns and best practices
-- `references/async-testing.md` - Async operations and API calls
-- `references/domain-components.md` - Workflow, Dataset, Configuration testing
-- `references/common-patterns.md` - Frequently used testing patterns
-- `references/checklist.md` - Test generation checklist and validation steps
+### Obrigatorias
 
-## Authoritative References
+```bash
+# Python
+pip install playwright pytest-playwright
 
-### Primary Specification (MUST follow)
+# Browser
+playwright install chromium
+```
 
-- **`web/testing/testing.md`** - The canonical testing specification. This skill is derived from this document.
+### Opcionais
 
-### Reference Examples in Codebase
+```bash
+# Para testes visuais
+pip install pixelmatch pillow
 
-- `web/utils/classnames.spec.ts` - Utility function tests
-- `web/app/components/base/button/index.spec.tsx` - Component tests
-- `web/__mocks__/provider-context.ts` - Mock factory example
+# Para acessibilidade
+pip install axe-playwright-python
+```
 
-### Project Configuration
+### Verificar Instalacao
 
-- `web/vitest.config.ts` - Vitest configuration
-- `web/vitest.setup.ts` - Test environment setup
-- `web/scripts/analyze-component.js` - Component analysis tool
-- Modules are not mocked automatically. Global mocks live in `web/vitest.setup.ts` (for example `react-i18next`, `next/image`); mock other modules like `ky` or `mime` locally in test files.
+```bash
+python scripts/check_deps.py
+```
+
+## Boas Praticas
+
+### 1. Sempre Aguardar Network Idle
+
+```python
+page.goto(url)
+page.wait_for_load_state("networkidle")  # OBRIGATORIO
+```
+
+### 2. Usar data-testid
+
+Preferir seletores `data-testid` sobre classes CSS:
+
+```html
+<!-- BOM -->
+<button data-testid="submit-btn">Submit</button>
+
+<!-- EVITAR -->
+<button class="btn btn-primary submit">Submit</button>
+```
+
+### 3. Capturar Logs do Browser
+
+```python
+page.on("console", lambda msg: print(f"[{msg.type}] {msg.text}"))
+page.on("pageerror", lambda err: print(f"[ERROR] {err}"))
+```
+
+### 4. Organizar Screenshots
+
+```
+.agentic_sdlc/projects/{id}/
+└── screenshots/
+    ├── before/           # Estado inicial
+    ├── after/            # Apos mudancas
+    └── regression/       # Comparacao visual
+```
+
+## Anti-Patterns
+
+### NAO Fazer
+
+```python
+# ❌ Hardcoded selectors sem verificar DOM
+page.click("#submit-btn")
+
+# ❌ Sleep ao inves de wait
+import time
+time.sleep(5)
+
+# ❌ Ignorar erros de console
+# (nao configurar handler)
+```
+
+### Fazer
+
+```python
+# ✅ Descobrir seletor do DOM
+submit = page.locator('[data-testid="submit"]')
+if submit.count() > 0:
+    submit.click()
+
+# ✅ Wait explicito
+page.wait_for_selector('[data-testid="result"]')
+
+# ✅ Capturar todos os logs
+errors = []
+page.on("pageerror", lambda e: errors.append(e))
+```
+
+## Troubleshooting
+
+### "Browser nao instalado"
+
+```bash
+playwright install chromium
+# Ou todos os browsers
+playwright install
+```
+
+### "Timeout ao carregar pagina"
+
+Aumentar timeout:
+
+```python
+page.goto(url, timeout=60000)  # 60 segundos
+```
+
+### "Servidor nao iniciou"
+
+Verificar porta:
+
+```bash
+lsof -i :3000
+# Se ocupada, usar outra porta
+python scripts/with_server.py --server "npm run dev" --port 3001 ...
+```
+
+### "Screenshot em branco"
+
+Aguardar conteudo:
+
+```python
+page.wait_for_selector("main", state="visible")
+page.screenshot(path="screenshot.png")
+```
+
+## Referencias
+
+- [Playwright Python docs](https://playwright.dev/python/)
+- [pytest-playwright](https://playwright.dev/python/docs/test-runners)
+- [Anthropic webapp-testing](https://github.com/anthropics/skills/tree/main/skills/webapp-testing)

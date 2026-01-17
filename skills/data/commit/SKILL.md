@@ -1,50 +1,50 @@
 ---
-name: commit
-description: Generates commit messages and creates commits. Use when writing commit messages, committing changes, or reviewing staged changes.
+description: Create git commits with user approval and no Claude attribution
 ---
 
-# Commit Messages
+# Commit Changes
 
-Use [Conventional Commits](https://www.conventionalcommits.org/) format.
+You are tasked with creating git commits for the changes made during this session.
 
-## Format
+## Process:
 
-```text
-<type>(<scope>): <description>
+1. **Think about what changed:**
+   - Review the conversation history and understand what was accomplished
+   - Run `git status` to see current changes
+   - Run `git diff` to understand the modifications
+   - Consider whether changes should be one commit or multiple logical commits
 
-[optional body]
-```
+2. **Plan your commit(s):**
+   - Identify which files belong together
+   - Draft clear, descriptive commit messages
+   - Use imperative mood in commit messages
+   - Focus on why the changes were made, not just what
 
-## Types
+3. **Present your plan to the user:**
+   - List the files you plan to add for each commit
+   - Show the commit message(s) you'll use
+   - Ask: "I plan to create [N] commit(s) with these changes. Shall I proceed?"
 
-- `feat`: User-facing features or behavior changes (must change production code)
-- `fix`: Bug fixes (must change production code)
-- `docs`: Documentation only
-- `style`: Code style/formatting (no logic changes)
-- `refactor`: Code restructuring without behavior change
-- `test`: Adding or updating tests
-- `chore`: CI/CD, tooling, dependency bumps, configs (no production code)
+4. **Execute upon confirmation:**
+   - Use `git add` with specific files (never use `-A` or `.`)
+   - Create commits with your planned messages
+   - Show the result with `git log --oneline -n [number]`
 
-## Scopes
+5. **Generate reasoning (after each commit):**
+   - Run: `bash .claude/scripts/generate-reasoning.sh <commit-hash> "<commit-message>"`
+   - This captures what was tried during development (build failures, fixes)
+   - The reasoning file helps future sessions understand past decisions
+   - Stored in `.git/claude/commits/<hash>/reasoning.md`
 
-Optional. Use when it adds clarity. Examples: `cloudfront`, `s3`, `ci`.
+## Important:
+- **NEVER add co-author information or Claude attribution**
+- Commits should be authored solely by the user
+- Do not include any "Generated with Claude" messages
+- Do not add "Co-Authored-By" lines
+- Write commit messages as if the user wrote them
 
-## Breaking Changes
-
-Use `!` suffix: `feat!: remove deprecated resource`
-
-## Examples
-
-```text
-feat(cloudfront): add immutable cache headers
-fix: correct CloudFront Function ARN attribute
-chore: add husky pre-commit hooks
-docs: update architecture documentation
-```
-
-## Instructions
-
-1. Run `git diff --staged` to see staged changes
-2. Analyze the changes and determine the appropriate type
-3. Write a concise description (under 72 characters)
-4. Add body only if the "why" isn't obvious from the description
+## Remember:
+- You have the full context of what was done in this session
+- Group related changes together
+- Keep commits focused and atomic when possible
+- The user trusts your judgment - they asked you to commit

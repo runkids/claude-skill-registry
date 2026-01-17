@@ -1,7 +1,7 @@
 {
   "category": "productivity",
-  "count": 748,
-  "updated_at": "2026-01-14T04:12:18.378256Z",
+  "count": 727,
+  "updated_at": "2026-01-17T04:12:07.207254Z",
   "skills": [
     {
       "name": "positron-intake-rotation",
@@ -971,19 +971,6 @@
       "source": "local"
     },
     {
-      "name": "commit-push-pr",
-      "description": "Automate the workflow from creating a branch to opening a GitHub pull request. Use when the user says \"create a PR\", \"commit and push\", \"push changes and create PR\", or \"open a pull request\".",
-      "repo": "nozomi-koborinai/koborin-ai",
-      "path": "data/commit-push-pr",
-      "category": "productivity",
-      "tags": [
-        "commit",
-        "push"
-      ],
-      "stars": 6,
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "get-and-manage-things-tasks",
       "description": "Get and manage tasks from Things.app.",
       "repo": "mybuddymichael/dotfiles",
@@ -1200,19 +1187,6 @@
       ],
       "stars": 4,
       "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "github-projects",
-      "description": "GitHub Projects management via gh CLI for creating projects, managing items, fields, and workflows. Use when working with GitHub Projects (v2), adding issues/PRs to projects, creating custom fields, t",
-      "repo": "existential-birds/beagle",
-      "path": "data/github-projects",
-      "category": "productivity",
-      "tags": [
-        "github",
-        "projects"
-      ],
-      "stars": 4,
-      "source": "local"
     },
     {
       "name": "memories",
@@ -1582,18 +1556,6 @@
       "source": "local"
     },
     {
-      "name": "gitlab",
-      "description": "GitLab workflow best practices and glab CLI usage. Use when working with GitLab repositories, merge requests, issues, pipelines, or GitLab API interactions.",
-      "repo": "bendrucker/claude",
-      "path": "productivity/gitlab",
-      "category": "productivity",
-      "tags": [
-        "gitlab"
-      ],
-      "stars": 2,
-      "source": "local"
-    },
-    {
       "name": "graphite-workflow",
       "description": "Use this skill when working with Graphite (gt) for stacked PRs, when the user mentions pull requests, Graphite, stacking, or gt commands. Ensures proper use of gt commands instead of raw git for stack",
       "repo": "narrowstacks/dorkroom",
@@ -1949,19 +1911,6 @@
       ],
       "stars": 1,
       "source": "local"
-    },
-    {
-      "name": "deployment-workflow",
-      "description": "Staging and production deployment using Laravel Deployer with health checks, cache management, and rollback support (HUMAN-ONLY execution)",
-      "repo": "hackur/web-standards-playground-showcase",
-      "path": "productivity/deployment-workflow",
-      "category": "productivity",
-      "tags": [
-        "deployment",
-        "workflow"
-      ],
-      "stars": 1,
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "find-related-work",
@@ -4143,16 +4092,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "embedding-generator",
-      "description": "Generate and manage text embeddings for semantic search, clustering, and similarity tasks",
-      "repo": "eddiebe147/claude-settings",
-      "path": "data/embedding-generator",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "source": "GitHub Search API"
-    },
-    {
       "name": "emotion-engine",
       "description": "Manage emotion detection, LED responses, and mood-based automations for Ezra. Use when working on emotional regulation features, smart home responses, or the Chaos Orb.",
       "repo": "dragonbornjedi-code/phoenix-forge-ecosystem",
@@ -5086,16 +5025,6 @@
       "source": "local"
     },
     {
-      "name": "jira-workflow",
-      "description": "Manage J4C project tasks via Jira API. Use for ALL Jira project management tasks including creating tasks, checking ready work, linking dependencies, transitioning status, or adding comments.",
-      "repo": "fwojciec/jira4claude",
-      "path": "data/jira-workflow",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "jira-workflow-creator",
       "description": "Jira Workflow Creator - Auto-activating skill for Enterprise Workflows.Triggers on: jira workflow creator, jira workflow creatorPart of the Enterprise Workflows skill category.",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -5275,26 +5204,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "langgraph-parallel",
-      "description": "LangGraph parallel execution patterns. Use when implementing fan-out/fan-in workflows, map-reduce over tasks, or running independent agents concurrently.",
-      "repo": "yonatangross/skillforge-claude-plugin",
-      "path": "data/langgraph-parallel",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "learning-capture",
-      "description": "Recognize and capture reusable patterns, workflows, and domain knowledge from work sessions into new skills. Use when completing tasks that involve novel approaches repeated 2+ times, synthesizing com",
-      "repo": "Exploration-labs/Nates-Substack-Skills",
-      "path": "data/learning-capture",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "lesson-plan-generator",
       "description": "[TODO: Complete and informative explanation of what the skill does and when to use it. Include WHEN to use this skill - specific scenarios, file types, or tasks that trigger it.]",
       "repo": "Sallvainian/School-Year-25-26",
@@ -5313,16 +5222,6 @@
       "description": "Task management and workflow patterns using liaison. Use when managing tasks, creating workflows, or working with task-driven automation.",
       "repo": "pwarnock/liaison-toolkit",
       "path": "productivity/liaison-workflows",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "license-compliance",
-      "description": "Open source license compliance including compatibility analysis, obligations tracking, and compliance workflows",
-      "repo": "melodic-software/claude-code-plugins",
-      "path": "productivity/license-compliance",
       "category": "productivity",
       "tags": [],
       "stars": 0,
@@ -5652,40 +5551,10 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "metacognition",
-      "description": "Validates approach and checks assumptions before/after tasks. Use when: starting work, encountering errors, or switching phases.",
-      "repo": "shinpr/agentic-code",
-      "path": "productivity/metacognition",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "mise",
-      "description": "Expert in mise—a fast, flexible polyglot runtime and task manager. Specializes in tool version management, environment variable control, task automation, and shell integration across development workf",
-      "repo": "zenobi-us/dotfiles",
-      "path": "productivity/mise",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "mise-tasks",
       "description": "Orchestrate workflows with mise [tasks]. TRIGGERS - mise tasks, mise run, task runner, depends, depends_post, workflow automation, task dependencies.",
       "repo": "terrylica/cc-skills",
       "path": "productivity/mise-tasks",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "moc-curator",
-      "description": "Suggest MOC updates and new MOCs based on semantic clustering.Use when asked to \"curate MOCs\", \"update maps\", \"find clusters\",\"what MOCs need updating\", or \"organize my notes\".",
-      "repo": "alexanderop/second-brain-nuxt",
-      "path": "data/moc-curator",
       "category": "productivity",
       "tags": [],
       "stars": 0,
@@ -5788,20 +5657,6 @@
         "n8n",
         "skills",
         "catalog"
-      ],
-      "stars": 0,
-      "source": "local"
-    },
-    {
-      "name": "n8n-workflow-builder",
-      "description": "Build n8n automation workflows using MCP tools. Use when creating workflows, configuring nodes, validating configurations, deploying templates, or integrating n8n with Rails apps. Supports Israeli mar",
-      "repo": "dvorkinguy/claude-skills-agents",
-      "path": "data/n8n-workflow-builder",
-      "category": "productivity",
-      "tags": [
-        "n8n",
-        "workflow",
-        "builder"
       ],
       "stars": 0,
       "source": "local"
@@ -6438,16 +6293,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "principal-workflow",
-      "description": "Run the AWK principal workflow (awkit kickoff, principal loop, dispatch worker, check results, review/merge PR). Triggers: awkit kickoff, start-work, NEXT_ACTION, review pr, dispatch worker, autonomou",
-      "repo": "silver2dream/ai-workflow-kit",
-      "path": "productivity/principal-workflow",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "procedural-memory-system",
       "description": "This skill should be used when the user asks to \"reflect on patterns\", \"generate rules from sessions\", \"consolidate memory\", \"analyze session patterns\", \"learn procedures and workflows\", \"create proce",
       "repo": "jcmrs/jcmrs-plugins",
@@ -6594,16 +6439,6 @@
       "source": "local"
     },
     {
-      "name": "python-repl",
-      "description": "Interactive Python REPL automation with common helpers and best practices",
-      "repo": "gptme/gptme",
-      "path": "productivity/python-repl",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "quantum-research",
       "description": "Comprehensive research combining web search, quantum analysis, and persistent memory. Use when researching topics that need current information plus deep cognitive analysis.",
       "repo": "ExpressedAi/Cli",
@@ -6693,19 +6528,6 @@
       "tags": [],
       "stars": 0,
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "release-automation",
-      "description": "Automate library releases, NuGet package publishing, and API versioning. Use when working with NuGet releases, package versioning, API compatibility checks, library releases, or semantic versioning fo",
-      "repo": "RicherTunes/Lidarr.Plugin.Common",
-      "path": "data/release-automation",
-      "category": "productivity",
-      "tags": [
-        "release",
-        "automation"
-      ],
-      "stars": 0,
-      "source": "local"
     },
     {
       "name": "release-npm-trustme",
@@ -7308,16 +7130,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "slack-bot-creator",
-      "description": "Slack Bot Creator - Auto-activating skill for Business Automation.Triggers on: slack bot creator, slack bot creatorPart of the Business Automation skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "productivity/slack-bot-creator",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "slipstream-workflows",
       "description": "Multi-step workflows user does frequently",
       "repo": "rothnic/slipstream",
@@ -7379,16 +7191,6 @@
       "description": "Answer questions about Speck specs, plans, tasks, requirements, progress, architecture, user stories, feature status, and constitution. Interprets spec.md, plan.md, tasks.md files. Use when users ask ",
       "repo": "nprbst/speck",
       "path": "productivity/speck-help",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "speckit-workflow",
-      "description": "GitHub Spec Kit 5-phase workflow. Use when following the Constitution → Specify → Plan → Tasks → Implement cycle. Provides phase guidance, file templates, and workflow orchestration.",
-      "repo": "melodic-software/claude-code-plugins",
-      "path": "productivity/speckit-workflow",
       "category": "productivity",
       "tags": [],
       "stars": 0,
@@ -7636,19 +7438,6 @@
       "tags": [],
       "stars": 0,
       "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "task-delegation",
-      "description": "Delegate user stories with complete context, clear acceptance criteria, and validation",
-      "repo": "vineethsoma/agent-packages",
-      "path": "data/task-delegation",
-      "category": "productivity",
-      "tags": [
-        "task",
-        "delegation"
-      ],
-      "stars": 0,
-      "source": "local"
     },
     {
       "name": "task-delegator",
@@ -7921,16 +7710,6 @@
       "source": "local"
     },
     {
-      "name": "todo-management",
-      "description": "Use this skill when working on project tasks, planning work, or when the user asks about todos. Always use todo.md as the source of truth for project tasks.",
-      "repo": "jeremydiviney/vibe",
-      "path": "productivity/todo-management",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "todo-sync",
       "description": "Synchronize sprint tasks with the TodoWrite tool to provide real-time visibility into task progress. Use when starting a sprint task (create todos), breaking down work (add sub-tasks), or completing w",
       "repo": "AlexBaum-ai/NEURM",
@@ -7945,16 +7724,6 @@
       "description": "Branch-scoped task system for persistent task management across sessions.",
       "repo": "settlemint/agent-marketplace",
       "path": "productivity/todo-tracking",
-      "category": "productivity",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "token-budget-advisor",
-      "description": "Proactive token budget assessment and task chunking strategy. Use this skill when queries involve multiple large file uploads, requests for comprehensive multi-document analysis, complex multi-step wo",
-      "repo": "Exploration-labs/Nates-Substack-Skills",
-      "path": "data/token-budget-advisor",
       "category": "productivity",
       "tags": [],
       "stars": 0,

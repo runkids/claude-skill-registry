@@ -1,7 +1,7 @@
 {
   "name": "tech-debt-analyzer",
-  "repo": "ntaksh42/agents",
-  "path": ".claude/skills/tech-debt-analyzer/SKILL.md",
-  "source": "github.com/ntaksh42/agents",
-  "downloaded_at": "2026-01-14T03:51:01.262478Z"
+  "repo": "lovedragonball/power-ranger-toolkit",
+  "path": "src/skills/tech-debt-analyzer/SKILL.md",
+  "source": "github.com/lovedragonball/power-ranger-toolkit",
+  "downloaded_at": "2026-01-17T03:14:58.144963Z"
 }

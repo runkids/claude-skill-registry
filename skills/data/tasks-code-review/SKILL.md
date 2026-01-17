@@ -1,11 +1,13 @@
 ---
 name: code-review
-description: Use when reviewing code changes, pull requests, or performing refactoring analysis with focus on patterns, security, and performance.
+description: Use for QUICK PR reviews with structured checklists (architecture, patterns, security, performance). Provides step-by-step review process, git diff commands, and review report templates. Best for pull request reviews and pre-commit checks. NOT for deep refactoring analysis (use code-review instead).
+allowed-tools: Read, Write, Edit, Grep, Glob, Bash, Task
 ---
 
 # Code Review Workflow
 
 ## When to Use This Skill
+
 - Reviewing pull requests
 - Analyzing code for refactoring
 - Pre-commit code quality check
@@ -14,30 +16,35 @@ description: Use when reviewing code changes, pull requests, or performing refac
 ## Review Dimensions
 
 ### 1. Architecture Compliance
+
 - [ ] Follows Clean Architecture layers
 - [ ] Uses correct repository pattern
 - [ ] No cross-service boundary violations
 - [ ] Proper separation of concerns
 
 ### 2. Pattern Adherence
+
 - [ ] CQRS patterns followed (Command/Query/Handler in ONE file)
 - [ ] Entity patterns correct (expressions, computed properties)
 - [ ] Frontend component hierarchy respected
 - [ ] Platform base classes used correctly
 
 ### 3. Code Quality
+
 - [ ] Single Responsibility Principle
 - [ ] No code duplication
 - [ ] Meaningful naming
 - [ ] Appropriate abstractions
 
 ### 4. Security
+
 - [ ] No SQL injection vulnerabilities
 - [ ] Authorization checks present
 - [ ] Sensitive data handling
 - [ ] Input validation
 
 ### 5. Performance
+
 - [ ] N+1 query prevention (eager loading)
 - [ ] Proper paging for large datasets
 - [ ] Parallel operations where applicable
@@ -46,6 +53,7 @@ description: Use when reviewing code changes, pull requests, or performing refac
 ## Review Process
 
 ### Step 1: Understand Context
+
 ```bash
 # Get changed files
 git diff --name-only main...HEAD
@@ -58,19 +66,24 @@ git log main...HEAD --oneline
 ```
 
 ### Step 2: Categorize Changes
+
 ```markdown
 ## Files Changed
 
 ### Domain Layer
+
 - `Entity.cs` - New entity
 
 ### Application Layer
+
 - `SaveEntityCommand.cs` - New command
 
 ### Persistence Layer
+
 - `EntityConfiguration.cs` - EF configuration
 
 ### Frontend
+
 - `entity-list.component.ts` - List component
 ```
 
@@ -80,6 +93,7 @@ git log main...HEAD --oneline
 
 ```markdown
 ## Entity Review
+
 - [ ] Inherits from correct base (RootEntity/RootAuditedEntity)
 - [ ] Static expressions for queries
 - [ ] Computed properties have empty `set { }`
@@ -87,6 +101,7 @@ git log main...HEAD --oneline
 - [ ] `[TrackFieldUpdatedDomainEvent]` on tracked fields
 
 ## Command/Query Review
+
 - [ ] Command + Handler + Result in ONE file
 - [ ] Uses service-specific repository
 - [ ] Validation uses fluent API
@@ -94,12 +109,14 @@ git log main...HEAD --oneline
 - [ ] DTO mapping in DTO class, not handler
 
 ## Repository Usage Review
+
 - [ ] Uses `GetQueryBuilder` for reusable queries
 - [ ] Uses `WhereIf` for optional filters
 - [ ] Parallel tuple queries for count + data
 - [ ] Proper eager loading
 
 ## Event Handler Review
+
 - [ ] In `UseCaseEvents/` folder
 - [ ] Uses `PlatformCqrsEntityEventApplicationHandler<T>`
 - [ ] `HandleWhen` is `public override async Task<bool>`
@@ -110,6 +127,7 @@ git log main...HEAD --oneline
 
 ```markdown
 ## Component Review
+
 - [ ] Correct base class for use case
 - [ ] Store provided at component level
 - [ ] Loading/error states handled
@@ -117,18 +135,21 @@ git log main...HEAD --oneline
 - [ ] Track-by in `@for` loops
 
 ## Store Review
+
 - [ ] State interface defined
 - [ ] `vmConstructor` provides defaults
 - [ ] Effects use `observerLoadingErrorState`
 - [ ] Immutable state updates
 
 ## Form Review
+
 - [ ] `validateForm()` before submit
 - [ ] Async validators conditional
 - [ ] Dependent validations configured
 - [ ] Error messages for all rules
 
 ## API Service Review
+
 - [ ] Extends `PlatformApiService`
 - [ ] Typed responses
 - [ ] Caching where appropriate
@@ -140,16 +161,19 @@ git log main...HEAD --oneline
 ## Security Checklist
 
 ### Authorization
+
 - [ ] `[PlatformAuthorize]` on controllers
 - [ ] Role checks in handlers
 - [ ] Data filtered by company/user context
 
 ### Input Validation
+
 - [ ] All inputs validated
 - [ ] No raw SQL strings
 - [ ] File upload validation
 
 ### Sensitive Data
+
 - [ ] No secrets in code
 - [ ] Passwords hashed
 - [ ] PII handled correctly
@@ -161,16 +185,19 @@ git log main...HEAD --oneline
 ## Performance Checklist
 
 ### Database
+
 - [ ] Indexes on filtered columns
 - [ ] Eager loading for N+1 prevention
 - [ ] Paging for large datasets
 
 ### API
+
 - [ ] Response size reasonable
 - [ ] Parallel operations used
 - [ ] Caching for static data
 
 ### Frontend
+
 - [ ] Lazy loading for routes
 - [ ] Track-by for lists
 - [ ] OnPush change detection
@@ -212,31 +239,38 @@ this.data$.subscribe(...);  // Missing untilDestroyed()
 # Code Review Report
 
 ## Summary
+
 - **PR/Changes**: [Description]
 - **Reviewer**: AI
 - **Date**: [Date]
 
 ## Overall Assessment
+
 [APPROVED | APPROVED WITH COMMENTS | CHANGES REQUESTED]
 
 ## Strengths
+
 1. [Positive point 1]
 2. [Positive point 2]
 
 ## Issues Found
 
 ### Critical (Must Fix)
+
 1. **[File:Line]**: [Description]
-   - Problem: [Explanation]
-   - Suggestion: [Fix]
+    - Problem: [Explanation]
+    - Suggestion: [Fix]
 
 ### Major (Should Fix)
+
 1. **[File:Line]**: [Description]
 
 ### Minor (Consider Fixing)
+
 1. **[File:Line]**: [Description]
 
 ## Recommendations
+
 1. [Recommendation 1]
 2. [Recommendation 2]
 ```
@@ -255,6 +289,7 @@ grep -r "untilDestroyed" --include="*.ts"  # Subscription cleanup
 ```
 
 ## Verification Checklist
+
 - [ ] All changed files reviewed
 - [ ] Architecture compliance verified
 - [ ] Platform patterns followed

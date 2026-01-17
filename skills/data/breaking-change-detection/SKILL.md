@@ -1,271 +1,482 @@
 ---
 name: breaking-change-detection
-description: OpenAPI diff tools, schema comparison, and migration guide templates for detecting breaking changes in APIs, databases, and contracts. Use when analyzing API changes, comparing OpenAPI specs, detecting breaking changes, validating backward compatibility, creating migration guides, analyzing database schema changes, or when user mentions breaking changes, API diff, schema comparison, migration guide, backward compatibility, contract validation, or API versioning.
-allowed-tools: Bash, Read, Write, Edit
+description: Detect and analyze breaking changes in API contracts
+allowed-tools: Read, Glob, Grep, Write, Edit
 ---
 
-# Breaking Change Detection
+# Breaking Change Detection Skill
 
-Comprehensive patterns, scripts, and templates for detecting and documenting breaking changes across APIs, databases, and contracts during version bumps.
+## When to Use This Skill
+
+Use this skill when:
+
+- **Breaking Change Detection tasks** - Working on detect and analyze breaking changes in api contracts
+- **Planning or design** - Need guidance on Breaking Change Detection approaches
+- **Best practices** - Want to follow established patterns and standards
 
 ## Overview
 
-This skill provides functional tools for detecting breaking changes in:
-- **OpenAPI/REST APIs**: Endpoint changes, request/response schema modifications
-- **Database schemas**: Table structure, column types, constraints
-- **GraphQL schemas**: Type changes, field modifications, directive updates
-- **gRPC/Protobuf**: Message structure, field number changes
-- **Library contracts**: Public API changes, function signatures
+Detect, analyze, and manage breaking changes in API contracts.
 
-All scripts include proper error handling, diff algorithms, and detailed reporting.
+## MANDATORY: Documentation-First Approach
 
-## Instructions
+Before analyzing breaking changes:
 
-### 1. Detecting API Breaking Changes
+1. **Invoke `docs-management` skill** for compatibility patterns
+2. **Verify change detection patterns** via MCP servers (perplexity)
+3. **Base guidance on API compatibility best practices**
 
-**Analyze OpenAPI Specification Changes:**
-1. Use `scripts/openapi-diff.sh` to compare two OpenAPI spec versions
-2. Identifies removed endpoints, changed response codes, modified schemas
-3. Generates detailed diff with breaking/non-breaking classifications
-4. Use `templates/breaking-change-report.md` for documentation
+## Breaking Change Categories
 
-**Common Breaking Changes Detected:**
-- Removed endpoints or operations
-- Changed HTTP methods
-- Removed or renamed request/response properties
-- Changed property types (string to number, etc.)
-- Added required fields without defaults
-- Changed authentication requirements
-- Modified error response formats
+```text
+BREAKING CHANGE TAXONOMY:
 
-### 2. Database Schema Comparison
-
-**Detect Database Migration Issues:**
-1. Use `scripts/schema-compare.sh` to compare database schemas
-2. Identifies table drops, column removals, type changes
-3. Detects constraint modifications (foreign keys, unique constraints)
-4. Flags backward-incompatible changes
-
-**Breaking Changes in Databases:**
-- Dropped tables or views
-- Removed columns
-- Changed column types (especially narrowing: int to smallint)
-- Added NOT NULL constraints to existing columns
-- Removed or modified foreign key relationships
-- Changed primary key structure
-
-### 3. Comprehensive Breaking Change Analysis
-
-**Analyze All Changes Across Systems:**
-1. Use `scripts/analyze-breaking.sh` as orchestrator script
-2. Runs all detection scripts (API, schema, contract)
-3. Aggregates results into unified report
-4. Assigns severity levels (CRITICAL, HIGH, MEDIUM, LOW)
-5. Generates migration guide template
-
-**Analysis Process:**
-```bash
-# Run comprehensive analysis
-bash scripts/analyze-breaking.sh \
-  --old-api old-spec.yaml \
-  --new-api new-spec.yaml \
-  --old-schema old-schema.sql \
-  --new-schema new-schema.sql \
-  --output breaking-changes-report.md
+┌─────────────────────────────────────────────────────────────────┐
+│                    BREAKING CHANGES                             │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  STRUCTURAL CHANGES                                             │
+│  ├── Remove endpoint                                            │
+│  ├── Remove field from response                                 │
+│  ├── Remove query/path parameter                                │
+│  ├── Change field type (string → number)                        │
+│  ├── Change array to single value (or vice versa)               │
+│  └── Change object structure (flatten/nest)                     │
+│                                                                 │
+│  SEMANTIC CHANGES                                               │
+│  ├── Change field meaning (same name, different data)           │
+│  ├── Change enum values (remove options)                        │
+│  ├── Change date/time format                                    │
+│  ├── Change numeric precision                                   │
+│  └── Change null handling                                       │
+│                                                                 │
+│  CONTRACT CHANGES                                               │
+│  ├── Make optional field required                               │
+│  ├── Tighten validation rules                                   │
+│  ├── Reduce allowed values                                      │
+│  ├── Add required headers                                       │
+│  └── Change authentication requirements                         │
+│                                                                 │
+│  BEHAVIORAL CHANGES                                             │
+│  ├── Change response codes (200 → 201)                          │
+│  ├── Change error response format                               │
+│  ├── Change pagination behavior                                 │
+│  ├── Change sorting default                                     │
+│  └── Change rate limiting                                       │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
-### 4. Creating Migration Guides
+## Breaking vs Non-Breaking Changes
 
-**Document Breaking Changes for Users:**
-1. Use `templates/migration-guide.md` as starting template
-2. Use `templates/migration-guide-api.md` for API-specific changes
-3. Use `templates/migration-guide-database.md` for schema changes
-4. Include before/after code examples
-5. Provide step-by-step migration instructions
-6. Document workarounds and alternatives
+```text
+CHANGE CLASSIFICATION:
 
-**Migration Guide Structure:**
-- **Summary**: Overview of breaking changes
-- **Impact**: Who is affected and how
-- **Migration Steps**: Step-by-step instructions
-- **Code Examples**: Before and after
-- **Timeline**: Deprecation schedule if applicable
-- **Support**: Where to get help
+BREAKING (❌ Requires consumer update):
+┌────────────────────────────────────────────────────────────────┐
+│ • Remove field: { name, email } → { name }                     │
+│ • Change type: { age: "25" } → { age: 25 }                     │
+│ • Remove endpoint: DELETE /v1/users                            │
+│ • Required field: { email? } → { email }                       │
+│ • Rename field: { user_name } → { username }                   │
+│ • Change path: /users/{id} → /customers/{id}                   │
+│ • Remove enum: ["A","B","C"] → ["A","B"]                        │
+│ • Change code: 200 OK → 201 Created                            │
+└────────────────────────────────────────────────────────────────┘
 
-### 5. Automated Detection in CI/CD
+NON-BREAKING (✓ Safe to deploy):
+┌────────────────────────────────────────────────────────────────┐
+│ • Add optional field: { name } → { name, bio? }                │
+│ • Add endpoint: POST /users/bulk                               │
+│ • Add enum value: ["A","B"] → ["A","B","C"]                     │
+│ • Relax validation: maxLength 50 → maxLength 100               │
+│ • Add optional query param: ?filter=                           │
+│ • Widen type: int → int|null                                   │
+│ • Add response header: X-Request-Id                            │
+└────────────────────────────────────────────────────────────────┘
 
-**Integrate Breaking Change Detection:**
-1. Use `templates/ci-cd-breaking-check.yaml` for GitHub Actions/GitLab CI
-2. Run detection on every PR that modifies API specs or schemas
-3. Fail builds if breaking changes detected without proper versioning
-4. Generate automated migration guide drafts
-5. Post results as PR comments
+POTENTIALLY BREAKING (⚠️ Context-dependent):
+┌────────────────────────────────────────────────────────────────┐
+│ • Change default value                                          │
+│ • Change order of array items                                   │
+│ • Change precision of numbers                                   │
+│ • Change date format (ISO 8601 variant)                         │
+│ • Add required response field (may break lenient parsers)       │
+└────────────────────────────────────────────────────────────────┘
+```
 
-**CI/CD Integration Pattern:**
+## Detection with Contract Tests
+
+```text
+PACT-BASED DETECTION:
+
+How Pact Catches Breaking Changes:
+
+1. CONSUMER DEFINES EXPECTATIONS
+   Consumer test: "I expect { id, name, email }"
+
+2. PROVIDER REMOVES FIELD
+   Provider response: { id, name }
+
+3. VERIFICATION FAILS
+   Error: $.email was not found in response
+
+4. DEPLOYMENT BLOCKED
+   can-i-deploy returns: ❌ Cannot deploy
+
+DETECTION MATRIX:
+┌────────────────────────┬─────────────────────────────────────────┐
+│ Change                 │ How Pact Catches It                     │
+├────────────────────────┼─────────────────────────────────────────┤
+│ Remove field           │ Response body mismatch                  │
+│ Change type            │ Type mismatch in matching rules         │
+│ Remove endpoint        │ 404 instead of expected status          │
+│ Required field added   │ Request validation fails                │
+│ Auth change            │ 401/403 instead of expected status      │
+│ Enum removed           │ Regex match fails                       │
+│ Path change            │ 404 on old path                         │
+└────────────────────────┴─────────────────────────────────────────┘
+```
+
+## Impact Analysis
+
+```csharp
+// Breaking change impact analyzer
+// File: ContractAnalyzer/BreakingChangeAnalyzer.cs
+
+public class BreakingChangeAnalyzer
+{
+    private readonly IPactBrokerClient _broker;
+
+    public async Task<ImpactAnalysis> AnalyzeChange(
+        string provider,
+        string affectedEndpoint,
+        BreakingChangeType changeType)
+    {
+        // Get all consumers of this provider
+        var pacts = await _broker.GetLatestPactsForProvider(provider);
+
+        var impactedConsumers = new List<ImpactedConsumer>();
+
+        foreach (var pact in pacts)
+        {
+            // Check if consumer uses the affected endpoint
+            var interactions = pact.Interactions
+                .Where(i => InteractionAffected(i, affectedEndpoint, changeType))
+                .ToList();
+
+            if (interactions.Any())
+            {
+                impactedConsumers.Add(new ImpactedConsumer
+                {
+                    ConsumerName = pact.Consumer.Name,
+                    ConsumerVersion = pact.Consumer.Version,
+                    AffectedInteractions = interactions.Select(i => i.Description),
+                    DeployedEnvironments = await GetDeployedEnvironments(pact.Consumer),
+                    ContactTeam = await GetTeamContact(pact.Consumer.Name)
+                });
+            }
+        }
+
+        return new ImpactAnalysis
+        {
+            Provider = provider,
+            ChangeType = changeType,
+            AffectedEndpoint = affectedEndpoint,
+            ImpactedConsumers = impactedConsumers,
+            TotalConsumers = pacts.Count,
+            ImpactedConsumerCount = impactedConsumers.Count,
+            SafeToDeploy = impactedConsumers.Count == 0,
+            Recommendation = GenerateRecommendation(impactedConsumers)
+        };
+    }
+
+    private bool InteractionAffected(
+        Interaction interaction,
+        string endpoint,
+        BreakingChangeType changeType)
+    {
+        // Check if this interaction uses the affected endpoint
+        if (!interaction.Request.Path.Contains(endpoint))
+            return false;
+
+        // For field removal, check if response uses the field
+        if (changeType == BreakingChangeType.FieldRemoval)
+        {
+            // Parse interaction to check field usage
+            return true; // Simplified - real implementation parses body
+        }
+
+        return true;
+    }
+
+    private string GenerateRecommendation(List<ImpactedConsumer> impacted)
+    {
+        if (!impacted.Any())
+            return "Safe to deploy. No consumers affected.";
+
+        var inProduction = impacted.Where(c =>
+            c.DeployedEnvironments.Contains("production")).ToList();
+
+        if (inProduction.Any())
+        {
+            return $"BLOCKED: {inProduction.Count} consumers in production affected. " +
+                   $"Coordinate with: {string.Join(", ", inProduction.Select(c => c.ContactTeam))}";
+        }
+
+        return $"WARNING: {impacted.Count} consumers affected (not in production). " +
+               "Coordinate migration before their deployment.";
+    }
+}
+
+public record ImpactAnalysis
+{
+    public string Provider { get; init; }
+    public BreakingChangeType ChangeType { get; init; }
+    public string AffectedEndpoint { get; init; }
+    public List<ImpactedConsumer> ImpactedConsumers { get; init; }
+    public int TotalConsumers { get; init; }
+    public int ImpactedConsumerCount { get; init; }
+    public bool SafeToDeploy { get; init; }
+    public string Recommendation { get; init; }
+}
+
+public enum BreakingChangeType
+{
+    FieldRemoval,
+    TypeChange,
+    EndpointRemoval,
+    RequiredFieldAddition,
+    AuthenticationChange,
+    ResponseCodeChange
+}
+```
+
+## OpenAPI Diff Detection
+
+```text
+OPENAPI-BASED DETECTION:
+
+Tools:
+• openapi-diff (Java)
+• oasdiff (Go)
+• optic (Node.js)
+• Swagger Compare
+
+Example with oasdiff:
+┌─────────────────────────────────────────────────────────────────┐
+│ oasdiff breaking original.yaml updated.yaml                    │
+│                                                                 │
+│ Output:                                                         │
+│ ❌ GET /orders/{id}                                             │
+│    - removed property: 'legacy_id' from response                │
+│ ❌ POST /orders                                                  │
+│    - property 'metadata' changed from optional to required      │
+│ ✓ GET /orders                                                   │
+│    - added optional property: 'page_token' to response          │
+└─────────────────────────────────────────────────────────────────┘
+
+CI Integration:
+┌─────────────────────────────────────────────────────────────────┐
+│ - name: Check for breaking changes                              │
+│   run: |                                                        │
+│     oasdiff breaking \                                          │
+│       --base main:api/openapi.yaml \                           │
+│       --revision HEAD:api/openapi.yaml \                       │
+│       --fail-on ERR                                             │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+## Breaking Change Response Workflow
+
+```text
+BREAKING CHANGE RESPONSE:
+
+When Breaking Change is Detected:
+┌─────────────────────────────────────────────────────────────────┐
+│                                                                 │
+│  1. IDENTIFY IMPACT                                             │
+│     ├── Which consumers affected?                               │
+│     ├── Which environments?                                     │
+│     └── How critical is each consumer?                          │
+│                                                                 │
+│  2. CHOOSE STRATEGY                                             │
+│     ├── A) Don't make the change                                │
+│     ├── B) Version the API (v1 → v2)                            │
+│     ├── C) Coordinate consumer migration                        │
+│     └── D) Feature flag the change                              │
+│                                                                 │
+│  3. EXECUTE STRATEGY                                            │
+│     ├── If B: Create new version, maintain old                  │
+│     ├── If C: Contact teams, set timeline                       │
+│     └── If D: Roll out gradually                                │
+│                                                                 │
+│  4. VERIFY RESOLUTION                                           │
+│     ├── All consumers migrated                                  │
+│     ├── can-i-deploy passes                                     │
+│     └── Old version deprecated                                  │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+## Compatibility Strategies
+
+```text
+MAINTAINING COMPATIBILITY:
+
+1. ADDITIVE CHANGES ONLY
+   - Only add new fields, endpoints, options
+   - Never remove or rename
+   - Old consumers ignore new fields
+
+2. VERSIONED ENDPOINTS
+   - /v1/orders continues to work
+   - /v2/orders has breaking changes
+   - Support both during migration
+
+3. EXPAND-CONTRACT PATTERN
+   Phase 1: Add new field alongside old
+   Phase 2: Migrate consumers to new field
+   Phase 3: Remove old field
+
+   Example:
+   Phase 1: { user_name: "x", username: "x" }
+   Phase 2: Consumers switch to username
+   Phase 3: { username: "x" }
+
+4. TOLERANT READER PATTERN
+   - Consumers ignore unknown fields
+   - Consumers handle missing optional fields
+   - Reduces breaking change surface
+
+5. FEATURE FLAGS
+   - New behavior behind flag
+   - Enable per-consumer or gradually
+   - Rollback if issues
+```
+
+## Detection Checklist
+
+```markdown
+# Breaking Change Detection Checklist
+
+## Before Making API Changes
+
+### Structural Changes
+- [ ] Are any fields being removed?
+- [ ] Are any fields being renamed?
+- [ ] Are any types being changed?
+- [ ] Are any endpoints being removed?
+- [ ] Are any paths being changed?
+
+### Contract Changes
+- [ ] Are any optional fields becoming required?
+- [ ] Are any validation rules being tightened?
+- [ ] Are any allowed values being reduced?
+- [ ] Are any new required headers being added?
+
+### Behavioral Changes
+- [ ] Are any response codes changing?
+- [ ] Are any default values changing?
+- [ ] Are any sorting/ordering behaviors changing?
+- [ ] Are any pagination behaviors changing?
+
+## Impact Analysis
+- [ ] Run oasdiff/openapi-diff against main
+- [ ] Query Pact Broker for affected consumers
+- [ ] Identify consumers in production
+- [ ] Document affected teams and contacts
+
+## Mitigation Planning
+- [ ] Chosen strategy: [Version/Migrate/Feature Flag]
+- [ ] Migration timeline defined
+- [ ] Consumer teams notified
+- [ ] Deprecation schedule set
+
+## Verification
+- [ ] All affected consumers updated
+- [ ] can-i-deploy passes for all environments
+- [ ] Old version deprecated (if applicable)
+- [ ] Documentation updated
+```
+
+## CI Pipeline Integration
+
 ```yaml
-# Detect breaking changes before merge
-- name: Check for breaking changes
-  run: bash scripts/analyze-breaking.sh --old $BASE_BRANCH --new $HEAD_BRANCH
+# Breaking change detection in CI
+# .github/workflows/api-changes.yml
 
-- name: Fail if breaking changes without major version bump
-  if: breaking_detected && !major_version_bump
-  run: exit 1
+name: API Change Detection
+
+on:
+  pull_request:
+    paths:
+      - 'api/**'
+      - 'src/**/*.cs'
+
+jobs:
+  detect-breaking:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get base OpenAPI spec
+        run: git show origin/main:api/openapi.yaml > base.yaml
+
+      - name: Detect breaking changes
+        id: detect
+        run: |
+          oasdiff breaking base.yaml api/openapi.yaml --format json > changes.json
+          BREAKING=$(jq '.breaking | length' changes.json)
+          echo "breaking_count=$BREAKING" >> $GITHUB_OUTPUT
+
+      - name: Comment on PR
+        if: steps.detect.outputs.breaking_count > 0
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const changes = JSON.parse(fs.readFileSync('changes.json'));
+            const body = `## ⚠️ Breaking API Changes Detected
+
+            ${changes.breaking.map(c => `- ${c.path}: ${c.message}`).join('\n')}
+
+            Please ensure:
+            1. These changes are intentional
+            2. Consumer teams have been notified
+            3. Migration plan is documented`;
+
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body
+            });
+
+      - name: Fail if breaking
+        if: steps.detect.outputs.breaking_count > 0
+        run: |
+          echo "::error::${{ steps.detect.outputs.breaking_count }} breaking changes detected"
+          exit 1
 ```
 
-### 6. Severity Classification
+## Workflow
 
-**Classify Breaking Changes by Impact:**
+When detecting breaking changes:
 
-**CRITICAL (Immediate user impact):**
-- Removed API endpoints
-- Dropped database tables
-- Changed authentication requirements
+1. **Integrate Detection**: Add oasdiff/Pact to CI
+2. **Block on Breaking**: Fail builds that introduce breaks
+3. **Analyze Impact**: Query broker for affected consumers
+4. **Plan Mitigation**: Version, migrate, or feature flag
+5. **Coordinate Migration**: Work with consumer teams
+6. **Verify Safety**: Can-i-deploy before release
 
-**HIGH (Requires code changes):**
-- Renamed fields/properties
-- Changed data types
-- Added required parameters
+## References
 
-**MEDIUM (Behavior changes):**
-- Modified validation rules
-- Changed default values
-- Updated error messages
-
-**LOW (Documentation updates):**
-- Deprecated but still functional
-- Added optional fields
-- Changed response ordering
-
-### 7. Backward Compatibility Strategies
-
-**Minimize Breaking Changes:**
-1. Add new fields instead of modifying existing
-2. Deprecate before removing (gradual migration)
-3. Support multiple versions simultaneously
-4. Use feature flags for behavioral changes
-5. Provide adapter/shim layers
-6. Document deprecation timelines clearly
-
-**Non-Breaking Alternatives:**
-- Add new v2 endpoints instead of modifying v1
-- Add optional fields instead of required
-- Expand types instead of narrowing (accept more)
-- Add database columns as nullable
-
-## Available Scripts
-
-1. **openapi-diff.sh**: Compare two OpenAPI/Swagger specifications and identify breaking changes
-   - Detects endpoint changes, schema modifications, authentication changes
-   - Classifies changes as breaking/non-breaking
-   - Generates detailed diff report with examples
-
-2. **schema-compare.sh**: Compare database schemas (SQL, migrations, Prisma, etc.)
-   - Identifies table/column drops, type changes, constraint modifications
-   - Works with PostgreSQL, MySQL, SQLite schemas
-   - Detects data migration requirements
-
-3. **analyze-breaking.sh**: Orchestrator script that runs all detection tools
-   - Unified interface for comprehensive analysis
-   - Aggregates results across API, database, and contract changes
-   - Generates prioritized action items
-   - Creates migration guide template
-
-4. **graphql-diff.sh**: Compare GraphQL schemas for breaking changes
-   - Type changes, field removals, directive modifications
-   - Argument type changes, nullability changes
-
-5. **proto-diff.sh**: Compare Protobuf definitions for gRPC services
-   - Field number changes, message structure modifications
-   - Service method signature changes
-
-## Available Templates
-
-1. **breaking-change-report.md**: Comprehensive report template with sections for each change type
-2. **migration-guide.md**: General migration guide template with step-by-step structure
-3. **migration-guide-api.md**: API-specific migration guide with code examples
-4. **migration-guide-database.md**: Database migration guide with SQL snippets
-5. **ci-cd-breaking-check.yaml**: GitHub Actions/GitLab CI workflow template
-6. **deprecation-notice.md**: Deprecation announcement template for gradual migrations
-
-## Available Examples
-
-1. **api-contract-analysis.md**: Real-world example of OpenAPI diff analysis with breaking changes identified
-2. **database-migration-detection.md**: Database schema comparison example with migration steps
-3. **graphql-schema-changes.md**: GraphQL type evolution example with client impact analysis
-4. **versioning-strategy.md**: Complete versioning strategy example integrating breaking change detection
-5. **ci-cd-integration.md**: Full CI/CD pipeline integration with automated detection and reporting
-
-## Requirements
-
-**Core Requirements:**
-- `jq` - JSON parsing and manipulation
-- `yq` - YAML parsing (for OpenAPI specs)
-- `diff` - File comparison utility
-- `git` - Version control for diff context
-
-**Optional Requirements:**
-- `openapi-diff` - Enhanced OpenAPI comparison (npm package)
-- `oasdiff` - Alternative OpenAPI diff tool
-- `schemacrawler` - Database schema analysis
-- `protoc` - Protocol buffer compiler (for gRPC)
-- `rover` - GraphQL schema tooling (Apollo)
-
-**Installation Commands:**
-```bash
-# Core tools (usually pre-installed)
-apt-get install jq diffutils git
-
-# YAML parsing
-pip install yq
-
-# Optional OpenAPI tools
-npm install -g openapi-diff oasdiff
-
-# Database tools
-brew install schemacrawler  # macOS
-apt-get install schemacrawler  # Linux
-```
-
-## Exit Codes
-
-All scripts follow standard exit code conventions:
-
-- `0` - No breaking changes detected
-- `1` - Breaking changes detected (see report)
-- `2` - Invalid arguments or missing dependencies
-- `3` - File read/parse errors
-- `4` - Comparison failed (incompatible formats)
-
-## Best Practices
-
-1. **Run detection on every PR** - Catch breaking changes before merge
-2. **Version appropriately** - Breaking changes require major version bump
-3. **Document thoroughly** - Create comprehensive migration guides
-4. **Test migrations** - Validate migration steps in staging environment
-5. **Communicate early** - Announce breaking changes well in advance
-6. **Provide alternatives** - Document workarounds and migration paths
-7. **Support multiple versions** - Allow gradual migration when possible
-8. **Use deprecation periods** - Give users time to adapt
-9. **Automate detection** - Integrate into CI/CD pipelines
-10. **Archive breaking changes** - Keep historical record for reference
-
-## Integration with Versioning Commands
-
-This skill is used by versioning plugin commands:
-
-- **/versioning:bump** - Runs breaking change detection before version bump
-- **/versioning:info** - Shows breaking changes in current version
-- **/versioning:validate** - Validates breaking changes match version bump type
-
-## Progressive Disclosure
-
-For additional reference material:
-- Read `examples/api-contract-analysis.md` for OpenAPI diff examples
-- Read `examples/database-migration-detection.md` for schema change patterns
-- Read `examples/ci-cd-integration.md` for pipeline integration
-- Read `examples/versioning-strategy.md` for complete workflow
+For detailed guidance:
 
 ---
 
-**Skill Location**: plugins/versioning/skills/breaking-change-detection/SKILL.md
-**Version**: 1.0.0
+**Last Updated:** 2025-12-26

@@ -237,7 +237,7 @@ Event Storming (design "how it happens")
 Bounded Contexts → Modular Architecture
 ```
 
-**To proceed to event storming:** Invoke the `event-storming` skill with collected stories as input.
+**To proceed to event storming:** Invoke the `enterprise-architecture:event-storming` skill with collected stories as input.
 
 ## Facilitation Modes
 

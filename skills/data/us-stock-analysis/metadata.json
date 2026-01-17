@@ -1,12 +1,7 @@
 {
   "name": "us-stock-analysis",
-  "description": "Comprehensive US stock analysis including fundamental analysis (financial metrics, business quality, valuation), technical analysis (indicators, chart patterns, support/resistance), stock comparisons,",
-  "repo": "tradermonty/claude-trading-skills",
-  "category": "devops",
-  "tags": [
-    "stock",
-    "analysis"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "nicepkg/ai-workflow",
+  "path": "stock-trader-workflow/.claude/skills/weekly-trade-strategy/.claude/skills/us-stock-analysis/SKILL.md",
+  "source": "github.com/nicepkg/ai-workflow",
+  "downloaded_at": "2026-01-17T02:05:52.730885Z"
 }

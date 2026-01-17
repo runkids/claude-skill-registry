@@ -15,13 +15,14 @@ description: |
 
 | Item | Value |
 |------|-------|
-| Version | Brand Scout v3.7 |
+| Version | Brand Scout v3.8 |
 | Time/Report | 25-35 minutes (standard), 15 min (quick) |
 | Report Sections | 9 comprehensive sections |
 | Confidence Target | 80%+ (HIGH) |
+| **Shipping Validation** | **5/5 REQUIRED** |
 | Contacts Required | 2+ verified per report |
 | Weekly Capacity | 15-20 reports |
-| Output Location | `.claude/brand_scout/output/` |
+| Output Location | `Brand Scout Reports/` |
 | Owner ID | `699257003` |
 
 ## Execution Modes
@@ -56,6 +57,37 @@ description: |
 - ALWAYS use exact industry values (CONSUMER_GOODS not "consumer goods")
 - ALWAYS set hubspot_owner_id = "699257003"
 - ALWAYS create Company THEN Contact(s) THEN Associate
+
+## Shipping Validation Quality Gate (v3.8)
+
+**MANDATORY**: Every Brand Scout report MUST validate 5 shipping criteria before completion.
+
+### 5-Point Checklist
+
+| # | Criterion | Required Value | Confidence Marker |
+|---|-----------|----------------|-------------------|
+| 1 | Shipping Page URL | Exact URL or "Not found" | Confirmed/Not found |
+| 2 | Free Shipping Threshold | $X+ or "No free shipping" | Confirmed/Inferred/Not found |
+| 3 | Standard Delivery Window | X-Y business days | Confirmed/Inferred/Not found |
+| 4 | Carrier/Fulfillment Info | Names or "Not disclosed" | Confirmed/Inferred/Not found |
+| 5 | Expedited Options | Service names or "Not offered" | Confirmed/Inferred/Not found |
+
+### Research Sequence (try in order)
+
+1. `/shipping` or `/pages/shipping`
+2. `/policies/shipping-policy` (Shopify standard)
+3. `/shipping-returns` or `/delivery`
+4. `/faq` (search for shipping section)
+5. `/help` or help center subdomain
+6. **Return Policy Page** - Often reveals 3PL/warehouse address
+7. **FALLBACK**: Coupon sites (Knoji, SimplyCodes) for free threshold
+
+### Validation Rules
+
+- Report is **INCOMPLETE** until all 5 criteria have explicit values
+- "Not found" is a valid value (means data is unavailable, not missing research)
+- Every report MUST include `## SHIPPING VALIDATION STATUS` table
+- Score of 5/5 required for report completion
 
 ## Report Structure (9 Sections)
 
@@ -137,6 +169,7 @@ After each Brand Scout execution:
 
 ## Version History
 
-- **v3.7** (Current): Full Chrome DevTools integration, 9-section template
+- **v3.8** (Current): 5-Point Shipping Validation Quality Gate - mandatory checklist, research sequence, confidence markers
+- **v3.7**: Full Chrome DevTools integration, 9-section template
 - **v3.5**: Added email sequence generation
 - **v3.0**: HubSpot Lead object support

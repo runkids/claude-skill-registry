@@ -1,7 +1,7 @@
 {
   "name": "complete-skill",
-  "repo": "parcadei/Continuous-Claude-v3",
-  "path": ".claude/skills/complete-skill/SKILL.md",
-  "source": "github.com/parcadei/Continuous-Claude-v3",
-  "downloaded_at": "2026-01-14T01:18:49.046626Z"
+  "repo": "namesreallyblank/Clorch",
+  "path": "skills/complete-skill/SKILL.md",
+  "source": "github.com/namesreallyblank/Clorch",
+  "downloaded_at": "2026-01-17T04:07:11.202241Z"
 }

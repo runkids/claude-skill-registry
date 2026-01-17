@@ -1,7 +1,7 @@
 {
   "name": "error-handling-patterns",
-  "repo": "spences10/devhub-crm",
-  "path": ".claude/skills/error-handling-patterns/SKILL.md",
-  "source": "github.com/spences10/devhub-crm",
-  "downloaded_at": "2026-01-14T03:17:21.711854Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/developer-essentials/skills/error-handling-patterns/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-01-17T03:59:22.288279Z"
 }

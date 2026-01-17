@@ -1,72 +1,185 @@
 ---
 name: github-sync
-description: 规范 GitHub 操作与 Taskmaster 任务同步规则，确保所有 GitHub 动作与任务管理同步。
+description: |
+  Skill base para sincronizacao com GitHub.
+  Gerencia issues, labels e milestones de forma automatica.
+  Use quando: criar issues, sincronizar milestones, gerenciar labels SDLC.
+allowed-tools:
+  - Read
+  - Write
+  - Bash
+  - Glob
+user-invocable: false
+version: "1.0.0"
 ---
 
-# GitHub 同步技能
+# GitHub Sync Skill
 
-## 核心原则
+Skill base que fornece utilitarios para sincronizacao com GitHub Issues, Labels e Milestones.
 
-> **"所有 GitHub 操作完成后必须同步更新 Taskmaster"**
+## Objetivo
 
----
+Prover uma camada de abstracao sobre a API do GitHub para que outros agentes e skills
+possam gerenciar issues, labels e milestones de forma consistente e automatizada.
 
-## 同步规则表
+## Scripts Disponiveis
 
-| GitHub 操作 | Taskmaster 动作 | 优先级 |
-|-------------|-----------------|--------|
-| 创建 Issue | 创建对应任务 | P0 |
-| 关闭 Issue | 更新任务状态为 done | P0 |
-| 合并 PR | 更新任务状态为 done | P0 |
-| 创建 Commit | 记录任务进度（可选） | P1 |
+### label_manager.py
 
----
-
-## 场景：创建 Issue
+Gerencia labels SDLC no repositorio.
 
 ```bash
-# 1. 创建 Issue
-gh issue create --title "功能描述" --body "详细描述"
+# Criar todos os labels SDLC se nao existem
+python3 .claude/skills/github-sync/scripts/label_manager.py ensure
 
-# 2. 创建 Taskmaster 任务
-task-master add-task --prompt="功能描述 (Issue #123)
+# Listar labels existentes
+python3 .claude/skills/github-sync/scripts/label_manager.py list
 
-详细说明...
-
-Ref: https://github.com/lwpk110/sprout-chat/issues/123" --priority=P1
-
-# 3. 提交同步记录
-git commit --allow-empty -m "docs: Issue #123 已同步到 Taskmaster"
+# Verificar se labels SDLC existem
+python3 .claude/skills/github-sync/scripts/label_manager.py check
 ```
 
----
+**Labels criados:**
+- `phase:0` a `phase:8` - fase atual do SDLC
+- `complexity:0` a `complexity:3` - nivel de complexidade
+- `type:story`, `type:task`, `type:epic` - tipo de item
+- `sdlc:auto` - criado automaticamente pelo SDLC
 
-## 场景：关闭 Issue
+### milestone_sync.py
+
+Gerencia milestones (sprints) no repositorio.
 
 ```bash
-# 1. 关闭 Issue
-gh issue close 123
+# Criar milestone
+python3 .claude/skills/github-sync/scripts/milestone_sync.py create \
+  --title "Sprint 1" \
+  --description "Sprint goal" \
+  --due-date "2026-01-28"
 
-# 2. 更新 Taskmaster 任务状态
-task-master set-status --id=LWP-X --status=done
+# Fechar milestone
+python3 .claude/skills/github-sync/scripts/milestone_sync.py close --title "Sprint 1"
 
-# 3. 提交关闭记录
-git commit --allow-empty -m "docs: Issue #123 已关闭，任务完成"
+# Listar milestones
+python3 .claude/skills/github-sync/scripts/milestone_sync.py list
+
+# Obter milestone por titulo
+python3 .claude/skills/github-sync/scripts/milestone_sync.py get --title "Sprint 1"
 ```
 
----
+### issue_sync.py
 
-## 优先级映射
+Gerencia issues com integracao SDLC.
 
-| Issue 标签 | 任务优先级 |
-|------------|-----------|
-| bug, critical | P0 |
-| enhancement, feature | P1 |
-| documentation | P2 |
-| backlog | P3 |
+```bash
+# Criar issue com labels SDLC
+python3 .claude/skills/github-sync/scripts/issue_sync.py create \
+  --title "[TASK-001] Implementar feature X" \
+  --body-file task.md \
+  --phase 5 \
+  --type task \
+  --milestone "Sprint 1"
 
----
+# Atualizar issue
+python3 .claude/skills/github-sync/scripts/issue_sync.py update \
+  --number 123 \
+  --phase 6 \
+  --state open
 
-## 相关技能
-- `git-commit` - 提交信息规范
-- `tdd-cycle` - TDD 开发流程
+# Sincronizar task YAML para issue
+python3 .claude/skills/github-sync/scripts/issue_sync.py sync-task \
+  --task-path .agentic_sdlc/projects/xxx/tasks/task-001.yml
+
+# Buscar issue por titulo
+python3 .claude/skills/github-sync/scripts/issue_sync.py find --title "[TASK-001]"
+```
+
+## Mapeamento SDLC <-> GitHub
+
+| SDLC Agentico | GitHub |
+|---------------|--------|
+| Sprint | Milestone |
+| Sprint goal | Milestone description |
+| Sprint end date | Milestone due_on |
+| Task | Issue |
+| Story | Issue (type:story) |
+| Epic | Issue (type:epic) |
+| Phase | Label (phase:N) |
+| Complexity | Label (complexity:N) |
+
+## Labels por Cor
+
+| Label | Cor | Descricao |
+|-------|-----|-----------|
+| `phase:0` | #0E8A16 | Preparation |
+| `phase:1` | #1D76DB | Discovery |
+| `phase:2` | #5319E7 | Requirements |
+| `phase:3` | #FBCA04 | Architecture |
+| `phase:4` | #F9D0C4 | Planning |
+| `phase:5` | #C5DEF5 | Implementation |
+| `phase:6` | #BFD4F2 | Quality |
+| `phase:7` | #D4C5F9 | Release |
+| `phase:8` | #0052CC | Operations |
+| `complexity:0` | #C2E0C6 | Quick Flow |
+| `complexity:1` | #FEF2C0 | Feature |
+| `complexity:2` | #F9D0C4 | BMAD Method |
+| `complexity:3` | #E99695 | Enterprise |
+| `type:story` | #D93F0B | User Story |
+| `type:task` | #0075CA | Task |
+| `type:epic` | #7057FF | Epic |
+| `sdlc:auto` | #EDEDED | Auto-generated |
+
+## Integracao com Outros Skills
+
+Esta skill e usada por:
+- `github-projects` - Para criar issues e adicionar ao project
+- `orchestrator` - Para sincronizar estado do SDLC com GitHub
+- `delivery-planner` - Para criar milestones de sprints
+
+## Pre-requisitos
+
+- GitHub CLI (`gh`) instalado e autenticado
+- Permissoes de escrita no repositorio
+- Scope `project` para integracao com Projects V2
+
+```bash
+# Verificar autenticacao
+gh auth status
+
+# Adicionar scope project se necessario
+gh auth refresh -s project
+```
+
+## Exemplos de Uso
+
+### Preparar repositorio para SDLC
+
+```bash
+# 1. Criar labels
+python3 .claude/skills/github-sync/scripts/label_manager.py ensure
+
+# 2. Criar primeiro milestone
+python3 .claude/skills/github-sync/scripts/milestone_sync.py create \
+  --title "Sprint 1" \
+  --description "Inicio do projeto" \
+  --due-date "$(date -d '+14 days' +%Y-%m-%d)"
+```
+
+### Criar issue para task
+
+```bash
+python3 .claude/skills/github-sync/scripts/issue_sync.py create \
+  --title "[TASK-001] Implementar autenticacao" \
+  --body "## Descricao\n\nImplementar sistema de autenticacao OAuth2.\n\n## Acceptance Criteria\n\n- [ ] Login funcional\n- [ ] Logout funcional" \
+  --phase 5 \
+  --type task \
+  --milestone "Sprint 1"
+```
+
+### Transicao de fase
+
+```bash
+# Atualizar issue para nova fase
+python3 .claude/skills/github-sync/scripts/issue_sync.py update \
+  --number 123 \
+  --phase 6
+```

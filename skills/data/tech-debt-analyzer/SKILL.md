@@ -1,75 +1,104 @@
+# 💳 Tech Debt Analyzer Skill
+
 ---
 name: tech-debt-analyzer
-description: Analyze and prioritize technical debt with refactoring recommendations. Use when evaluating code quality or planning debt reduction.
+description: Identify, measure, and prioritize technical debt for strategic remediation
 ---
 
-# Tech Debt Analyzer Skill
+## 🎯 Purpose
 
-技術的負債を分析し、優先順位を付けるスキルです。
+วิเคราะห์ technical debt ใน codebase เพื่อวางแผนการแก้ไขอย่างมีกลยุทธ์
 
-## 主な機能
+## 📋 When to Use
 
-- **コード複雑度**: サイクロマティック複雑度
-- **重複コード**: コピペ検出
-- **古い依存関係**: アップデート必要な dependencies
-- **TODO/FIXME**: 未解決タスク
-- **テストカバレッジ**: カバレッジ不足箇所
-- **優先順位付け**: 影響度とコストで評価
+- Sprint planning
+- Refactoring decisions
+- Code quality audits
+- Resource allocation
+- Risk assessment
 
-## 分析レポート例
+## 🔧 Debt Categories
 
-```markdown
-# 技術的負債分析レポート
+| Category | Examples | Impact |
+|----------|----------|--------|
+| **Code** | Duplication, complexity | Maintainability |
+| **Architecture** | Tight coupling, monolith | Scalability |
+| **Testing** | Low coverage | Reliability |
+| **Dependencies** | Outdated packages | Security |
+| **Documentation** | Missing docs | Onboarding |
+| **Infrastructure** | Manual processes | Efficiency |
 
-## サマリー
-- **総負債スコア**: 157ポイント
-- **推定解消時間**: 8週間
-- **Critical**: 3件
-- **High**: 12件
-- **Medium**: 25件
+## 📊 Debt Metrics
 
-## Critical 負債 (即時対応必須)
+### Code Quality
+```bash
+# Complexity (ESLint)
+npx eslint --ext .ts,.tsx src/ --format json
 
-### 1. 古いNode.jsバージョン (v14)
-- **影響**: セキュリティリスク、パフォーマンス低下
-- **コスト**: 2日
-- **優先度**: 🔴 Critical
-- **アクション**: Node.js 18にアップグレード
+# Duplication
+npx jscpd src/
 
-### 2. テストカバレッジ不足 (42%)
-- **影響**: バグリスク増加
-- **コスト**: 2週間
-- **優先度**: 🔴 Critical
-- **アクション**: カバレッジ80%を目標にテスト追加
-
-### 3. 脆弱な依存関係 (lodash 4.17.15)
-- **影響**: CVE-2020-8203
-- **コスト**: 1時間
-- **優先度**: 🔴 Critical
-- **アクション**: npm update lodash
-
-## High 負債
-
-### コード複雑度
-- **ファイル**: `src/order/processor.ts`
-- **複雑度**: 45 (推奨: <10)
-- **コスト**: 3日
-- **アクション**: リファクタリング
-
-### 重複コード
-- **箇所**: 15箇所
-- **重複率**: 23%
-- **コスト**: 1週間
-- **アクション**: 共通化
-
-## 推奨実行順序
-
-1. 脆弱性修正 (1時間)
-2. Node.jsアップグレード (2日)
-3. Critical な複雑コードのリファクタリング (1週間)
-4. テストカバレッジ向上 (2週間)
-5. 重複コード解消 (1週間)
+# Test coverage
+npm run test -- --coverage
 ```
 
-## バージョン情報
-- Version: 1.0.0
+### Scoring
+| Metric | Good | Moderate | High Debt |
+|--------|------|----------|-----------|
+| Coverage | >80% | 50-80% | <50% |
+| Complexity | <10 | 10-20 | >20 |
+| Duplication | <3% | 3-5% | >5% |
+
+## 📝 Debt Analysis Template
+
+```markdown
+## 💳 Tech Debt Report
+
+### Summary
+- **Total Items**: 23
+- **High Priority**: 5
+- **Estimated Effort**: 40 hours
+
+### By Category
+| Category | Count | Priority |
+|----------|-------|----------|
+| Code | 10 | Medium |
+| Testing | 8 | High |
+| Deps | 5 | High |
+
+### Top Items
+
+#### 1. Low Test Coverage in Auth Module
+- **Impact**: High (security critical)
+- **Effort**: 8 hours
+- **Risk**: Bugs in production
+
+#### 2. Outdated React Version
+- **Impact**: Medium (missing features)
+- **Effort**: 16 hours
+- **Risk**: Security vulnerabilities
+```
+
+## 🔄 Remediation Process
+
+```
+1. IDENTIFY debt
+2. MEASURE impact
+3. PRIORITIZE by ROI
+4. ALLOCATE (20% sprint capacity)
+5. TRACK progress
+```
+
+## ✅ Debt Prevention
+
+- [ ] Code reviews
+- [ ] Test requirements
+- [ ] Dependency updates
+- [ ] Documentation standards
+- [ ] Refactoring time
+
+## 🔗 Related Skills
+
+- `code-review` - Prevent debt
+- `refactoring` - Pay down debt
+- `testing` - Reduce test debt

@@ -1,6 +1,6 @@
 ---
 name: policyengine-us
-description: PolicyEngine-US tax and benefit microsimulation patterns, situation creation, and common workflows
+description: PolicyEngine-US federal and state tax/benefit rules - variables, parameters, household situations. For national/state microsimulation see policyengine-microsimulation; for district-level see policyengine-district-analysis.
 ---
 
 # PolicyEngine-US
@@ -118,10 +118,12 @@ The household ID represents a situation dictionary. To replicate in Python, you'
 ### When to Use This Skill
 
 - Creating household situations for tax/benefit calculations
-- Running microsimulations with PolicyEngine-US
-- Analyzing policy reforms and their impacts
+- Understanding variables, parameters, and policy reforms
 - Building tools that use PolicyEngine-US (calculators, analysis notebooks)
 - Debugging PolicyEngine-US calculations
+
+**For microsimulation/population analysis**, see the `policyengine-microsimulation` skill.
+**For congressional district analysis**, see the `policyengine-district-analysis` skill.
 
 ## For Contributors 💻
 

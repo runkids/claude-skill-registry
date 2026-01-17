@@ -1,9 +1,7 @@
 {
   "name": "error-fixer",
-  "description": "Systematic error fixing workflow for Dashboard Link SaaS. Use when user says \"fix all errors\", \"resolve errors\", \"fix the build\", \"make it work\", \"troubleshoot\", or when encountering TypeScript errors",
-  "repo": "SlySlayer32/dashboard-link-saas",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "shiiman/claude-code-plugins",
+  "path": "plugins/shiiman-go/skills/error-fixer/SKILL.md",
+  "source": "github.com/shiiman/claude-code-plugins",
+  "downloaded_at": "2026-01-17T03:40:09.009672Z"
 }

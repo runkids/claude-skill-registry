@@ -1,130 +1,136 @@
+# 📸 Screenshot to Code Skill
+
 ---
 name: screenshot-to-code
-description: Convert UI screenshots into working HTML/CSS/React/Vue code. Detects design patterns, components, and generates responsive layouts. Use this when users provide screenshots of websites, apps, or UI designs and want code implementation.
+description: Convert UI screenshots or design mockups into working code
 ---
 
-# Screenshot to Code
+## 🎯 Purpose
 
-Convert UI screenshots into production-ready code with accurate styling and structure.
+แปลง screenshots หรือ design mockups เป็น working code (HTML/CSS/React)
 
-## How This Works
+## 📋 When to Use
 
-When a user provides a screenshot of a UI design:
-1. Analyze the visual design thoroughly
-2. Generate clean, modern code that recreates it
-3. Provide complete, runnable implementation
+- Implement designs from Figma/Sketch
+- Clone existing UI
+- Rapid prototyping
+- Design handoff
 
-## Instructions
+## 🔧 Process
 
-### 1. Analyze the Screenshot
+```
+1. ANALYZE screenshot
+   - Layout structure
+   - Components
+   - Colors, fonts
+   - Spacing
 
-Examine the image carefully and identify:
-- **Layout structure**: Grid, flexbox, or custom positioning
-- **Components**: Buttons, inputs, cards, navigation, modals, etc.
-- **Visual details**: Colors, fonts, spacing, borders, shadows, borders-radius
-- **Responsive considerations**: Mobile vs. desktop layout cues
+2. IDENTIFY patterns
+   - Grid/Flexbox
+   - Component library matches
+   - Responsive behavior
 
-### 2. Determine the Framework
+3. GENERATE code
+   - HTML structure
+   - CSS/Tailwind styles
+   - React components
 
-Ask the user which framework they prefer:
-- React (with Tailwind CSS or styled-components)
-- Vue.js
-- Plain HTML/CSS
-- Next.js
+4. REFINE
+   - Pixel perfect adjustments
+   - Responsive tweaks
+   - Interactions
+```
 
-**Default**: If not specified, use **React with Tailwind CSS** for modern designs, or **plain HTML/CSS** for simple pages.
+## 📝 Example Workflow
 
-### 3. Generate Complete Code
+### Input: Card Component Screenshot
 
-Create the implementation:
-
-**For React/Vue:**
-- Build component hierarchy (break into logical components)
-- Use semantic HTML elements
-- Implement modern CSS (flexbox, grid, custom properties)
-- Include prop types and sensible defaults
-
-**For HTML/CSS:**
-- Use semantic HTML5 structure
-- Write clean, organized CSS (consider using BEM naming)
-- Make it responsive by default
-
-**Critical requirements:**
-- Match colors EXACTLY (extract hex codes from screenshot)
-- Match spacing and proportions as closely as possible
-- Use appropriate semantic elements (header, nav, main, section, etc.)
-- Include accessibility attributes (alt text, ARIA labels where needed)
-
-### 4. Make It Responsive
-
-- Use responsive units (rem, em, %, vw/vh) rather than fixed pixels
-- Add breakpoints for mobile, tablet, desktop if the design suggests it
-- Use `min()`, `max()`, `clamp()` for fluid typography where appropriate
-
-### 5. Deliver Complete Implementation
-
-Provide:
-1. **Complete code** (all files needed, fully functional)
-2. **File structure** (explain what each file does)
-3. **Usage instructions** (how to run/use the code)
-4. **Notes on design decisions** (any assumptions or interpretations)
-
-## Output Format
-
+### Output:
 ```jsx
-// Example structure for React + Tailwind
-import React from 'react';
-
-export default function ComponentName() {
+function ProductCard({ product }) {
   return (
-    <div className="...">
-      {/* Component structure */}
+    <div className="card">
+      <img 
+        src={product.image} 
+        alt={product.name}
+        className="card-image"
+      />
+      <div className="card-content">
+        <h3 className="card-title">{product.name}</h3>
+        <p className="card-price">฿{product.price}</p>
+        <button className="card-button">
+          Add to Cart
+        </button>
+      </div>
     </div>
   );
 }
 ```
 
-Always include:
-- All necessary imports
-- Any required dependencies
-- Clear comments for complex sections
-- Suggestions for improvements or next steps
+```css
+.card {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  background: white;
+}
 
-## Best Practices
+.card-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
 
-- **Accuracy**: Match the design as closely as possible
-- **Modern CSS**: Prefer Grid/Flexbox over floats or tables
-- **Accessibility**: Include ARIA labels, alt text, semantic HTML
-- **Performance**: Optimize images, use efficient selectors
-- **Maintainability**: Write clean, well-organized code with comments
-- **Responsiveness**: Design mobile-first when possible
+.card-content {
+  padding: 16px;
+}
 
-## Common Patterns
+.card-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
 
-**Navigation Bars**: Flexbox with space-between, sticky positioning
-**Card Grids**: CSS Grid with auto-fit/auto-fill for responsiveness
-**Hero Sections**: Full-height with centered content, background images
-**Forms**: Proper labels, validation states, accessible inputs
-**Modals**: Fixed positioning, backdrop, focus management
+.card-price {
+  color: #10b981;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
 
-## When You Can't Match Exactly
+.card-button {
+  width: 100%;
+  padding: 12px;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+```
 
-If the screenshot is unclear or ambiguous:
-- Make reasonable assumptions based on common UI patterns
-- Note your interpretation in comments
-- Suggest alternatives the user might prefer
-- Ask for clarification on critical decisions
+## 📊 Analysis Checklist
 
-## Example Workflow
+| Element | Extract |
+|---------|---------|
+| Layout | Grid, Flex, positioning |
+| Colors | Primary, secondary, text |
+| Typography | Fonts, sizes, weights |
+| Spacing | Margins, padding, gaps |
+| Borders | Radius, width, color |
+| Shadows | Box-shadow values |
+| Images | Aspect ratios, fit |
 
-**User provides**: Screenshot of a landing page with hero section, feature cards, and footer
+## ✅ Quality Checklist
 
-**Your response**:
-1. Analyze: Hero with large headline, 3-column feature grid, simple footer
-2. Ask: "Would you like this in React with Tailwind or plain HTML/CSS?"
-3. Generate: Complete implementation with responsive design
-4. Deliver: All code files with clear structure and usage instructions
+- [ ] Matches original visually
+- [ ] Responsive behavior
+- [ ] Semantic HTML
+- [ ] Accessible
+- [ ] Clean code structure
+- [ ] Reusable components
 
----
+## 🔗 Related Skills
 
-**Remember**: The goal is to produce code so clean and accurate that it could be deployed immediately with minimal modifications.
+- `vision-to-code` - Similar, image input
+- `design-mastery` - Premium designs
+- `ui-first-builder` - UI development

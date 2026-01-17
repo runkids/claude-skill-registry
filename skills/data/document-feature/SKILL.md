@@ -1,113 +1,85 @@
 ---
-name: document-feature
-description: Generate standardized feature documentation using Good Docs templates. Use when documenting a feature, creating feature docs, or writing technical documentation for a specific capability.
+skill: document-feature
+description: Generate technical and user documentation for a feature
+location: project
 ---
 
-# Feature Documentation Skill
+# Document Feature: $ARGUMENTS
 
-## Diátaxis Framework
+Generate comprehensive documentation for a feature in both developer and user-friendly formats.
 
-This skill supports three documentation types. **When creating a NEW document**, ask the user which type they need:
+## Process
 
-| Type          | Template                 | Purpose                               | Audience   |
-| ------------- | ------------------------ | ------------------------------------- | ---------- |
-| **Tutorial**  | `templates/tutorial.md`  | Learning-focused, step-by-step guide  | Beginners  |
-| **How-To**    | `templates/how-to.md`    | Task-focused, solve specific problems | Developers |
-| **Reference** | `templates/reference.md` | Technical specs, API docs             | Developers |
+### Phase 1: Feature Analysis
 
-> **Note**: For admin/non-technical users, use the `document-admin-guide` skill instead.
+1. **Identify feature type**: Frontend, Backend, or Full-stack
+2. **Gather technical context**: Files, types, dependencies, data flow
+3. **Analyze user interaction**: UI elements, step-by-step journey
 
-## Smart Interaction
+Search in: `/components/`, `/app/`, `/lib/`, `/types/`, `/contexts/`
 
-### ASK the User When:
+### Phase 2: Developer Documentation
 
-- **Creating new doc**: Confirm doc type (Tutorial/How-To/Reference), audience, and output location
-- **Deleting a doc**: Always confirm before deletion
-- **Major restructure**: Moving multiple docs or changing navigation
-- **Ambiguous request**: Can't determine intent from context
+Create: `docs/dev/$ARGUMENTS-implementation.md`
 
-### PROCEED Autonomously When:
+**Required sections:**
+1. Overview and quick reference
+2. Architecture (component structure, data flow, types)
+3. Implementation details (core logic, state, events)
+4. Code examples (basic and advanced)
+5. Testing (coverage, manual checklist)
+6. Integration guide (config, dependencies)
+7. API reference (if applicable)
+8. Maintenance (known issues, future work)
 
-- **Updating existing doc**: Use best judgment, preserve existing structure
-- **Adding content**: Follow existing template/format
-- **Fixing errors/typos**: Non-destructive improvements
-- **Adding diagrams**: Enhancement to existing doc
-- **Updating code examples**: Keep docs in sync with codebase
+### Phase 3: User Documentation
 
-## Documentation Principles (CRITICAL)
+Create: `docs/user/how-to-$ARGUMENTS.md`
 
-**Before writing ANY documentation**, review `../DOCUMENTATION_PRINCIPLES.md` for:
+**Required sections:**
+1. Overview (what it does, benefits)
+2. Getting started (prerequisites, access)
+3. Step-by-step instructions with screenshot placeholders
+4. Common use cases/scenarios
+5. Tips and best practices (do's, don'ts, pro tips)
+6. Troubleshooting (common problems + solutions)
+7. FAQ
+8. Related features
 
-1. **Ground Truth Only** - Document what exists in code, no speculation
-2. **Writing Tone** - Clear and educational without audience labels
-3. **Code Examples** - Real files with paths and line numbers
-4. **Performance Docs** - Techniques + measurement methods, NOT estimated timings
-5. **What NOT to include** - No troubleshooting, future work, or meta-commentary
-6. **Diagrams** - Use when they clarify technicals, not for decoration
+### Phase 4: Screenshot List
 
-These principles override any template suggestions that conflict with them.
+Create: `docs/screenshots/$ARGUMENTS-screenshots-needed.txt`
 
-## Instructions
+List all screenshots needed with:
+- Filename
+- What to show
+- What to highlight
 
-When documenting a feature:
+### Phase 5: Cross-References
 
-1. **Determine doc type** - Ask user if creating new doc; infer from existing if updating
-2. **Explore the codebase** to find all related files for this feature
-3. **Use the appropriate template** from `templates/` folder
-4. **Generate Mermaid diagrams** for architecture (when they clarify complex concepts)
-5. **Include real code examples** from the codebase (not hypothetical)
-6. **Check for existing ADRs** in `/docs/decisions/` related to this feature
-7. **Output to** appropriate location based on doc type
+- Update main documentation index
+- Add links to related docs
+- Update CLAUDE.md if new patterns introduced
 
-## Output Locations
+## Naming Conventions
 
-| Doc Type  | Output Path                               |
-| --------- | ----------------------------------------- |
-| Tutorial  | `/docs/getting-started/[feature-name].md` |
-| How-To    | `/docs/developer-guide/[task-name].md`    |
-| Reference | `/docs/reference/[component-name].md`     |
+| Type | Pattern | Example |
+|------|---------|---------|
+| Dev docs | `[feature]-implementation.md` | `dark-mode-implementation.md` |
+| User docs | `how-to-[feature].md` | `how-to-dark-mode.md` |
+| Screenshots | `[feature]-[context].png` | `dark-mode-toggle.png` |
 
-## Templates
+## Quality Standards
 
-All templates are located in `.claude/skills/document-feature/templates/`:
+**Developer docs**: Technically accurate, includes file paths and line numbers, proper terminology
 
-- **tutorial.md** - For learning-focused beginner guides
-- **how-to.md** - For task-focused developer guides
-- **reference.md** - For API/component technical reference
+**User docs**: Non-technical language, visual aids, clear actionable steps, scannable formatting
 
-## Diagram Standards
+## Output Checklist
 
-- Use Mermaid for all diagrams
-- C4-style naming: System, Container, Component
-- Sequence diagrams for data flows
-- Include legends for complex diagrams
-
-## Quality Checklist
-
-Before completing:
-
-- [ ] Correct template used for doc type
-- [ ] At least one architecture diagram (if applicable)
-- [ ] Real code examples from codebase
-- [ ] File paths verified to exist
-- [ ] Links to related docs included
-- [ ] Prerequisites section included (for tutorials/how-tos)
-
-## Examples
-
-### Creating New Docs (Will Ask User)
-
-- "Document the search feature" → Ask: Tutorial, How-To, or Reference?
-- "Create docs for Excel import" → Ask: What type and audience?
-
-### Updating Existing Docs (Autonomous)
-
-- "Update the search docs with new API endpoint" → Updates existing doc
-- "Add error handling examples to API reference" → Adds to existing doc
-- "Fix outdated code example in tutorial" → Fixes without asking
-
-### Routing by Request Type
-
-- "Help new devs understand search" → Tutorial
-- "How to implement search filtering" → How-To
-- "Document the search API" → Reference
+- [ ] Dev doc at correct path with all sections
+- [ ] User doc at correct path with all sections
+- [ ] Screenshot placeholder list generated
+- [ ] Code examples syntactically correct
+- [ ] Cross-references added
+- [ ] Technical accuracy verified against code

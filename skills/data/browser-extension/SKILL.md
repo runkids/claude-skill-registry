@@ -1,630 +1,648 @@
 ---
 name: browser-extension
-description: |
-  Build browser extensions with Manifest V3, content scripts, and service workers.
-  Use when: creating Chrome extension, Firefox addon, browser plugin.
-  Triggers: "extension", "browser extension", "chrome extension", "firefox addon", "manifest v3".
+description: Cross-browser extension development with manifest V3, TypeScript, and modern APIs
+license: MIT
+compatibility: opencode
 ---
 
-# Browser Extension Development
+# Browser Extension Skill
 
-## Project Protection Setup
+Comprehensive patterns and best practices for cross-browser extension development with Manifest V3.
 
-**MANDATORY before writing any code:**
-
-```bash
-# 1. Create .gitignore
-cat >> .gitignore << 'EOF'
-# Build
-dist/
-node_modules/
-*.zip
-
-# Secrets
-.env
-api_keys.js
-config.local.ts
-
-# IDE
-.idea/
-.vscode/
-.DS_Store
-
-# Extension artifacts
-*.crx
-*.pem
-EOF
-
-# 2. Setup pre-commit hooks
-cat > .pre-commit-config.yaml << 'EOF'
-repos:
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
-    hooks:
-      - id: detect-private-key
-      - id: check-added-large-files
-  - repo: https://github.com/gitleaks/gitleaks
-    rev: v8.21.2
-    hooks:
-      - id: gitleaks
-EOF
-
-pre-commit install
-```
-
----
-
-## Overview
-
-Browser extensions extend browser functionality using web technologies (HTML, CSS, JS/TS).
-
-| Browser | Manifest | Store |
-|---------|----------|-------|
-| Chrome | V3 (required) | Chrome Web Store |
-| Firefox | V2/V3 | Firefox Add-ons |
-| Edge | V3 | Edge Add-ons |
-
----
-
-## Quick Start
+## What I Know
 
 ### Project Structure
 
 ```
-my-extension/
-├── manifest.json       # Extension config
-├── src/
-│   ├── background.ts   # Service worker
-│   ├── content.ts      # Page injection
-│   ├── popup/
-│   │   ├── popup.html
-│   │   ├── popup.ts
-│   │   └── popup.css
-│   └── options/
-│       ├── options.html
-│       └── options.ts
-├── icons/
-│   ├── icon-16.png
-│   ├── icon-48.png
-│   └── icon-128.png
-├── package.json
-├── tsconfig.json
-└── vite.config.ts
+src/
+├── manifest.json           # Extension manifest
+├── background/             # Service workers (background scripts)
+│   └── service-worker.ts
+├── content/               # Content scripts
+│   ├── script.ts
+│   └── styles.css
+├── popup/                 # Extension popup UI
+│   ├── index.html
+│   ├── popup.tsx
+│   └── styles.css
+├── options/               # Options/settings page
+│   ├── index.html
+│   └── options.tsx
+├── sidepanel/             # Side panel (Chrome 114+)
+│   ├── index.html
+│   └── sidepanel.tsx
+├── devtools/              # DevTools panels
+│   ├── main.html
+│   └── main.ts
+├── icons/                 # Extension icons (16, 48, 128)
+└── shared/                # Shared utilities
+    ├── types.ts
+    └── utils.ts
 ```
 
-### manifest.json (V3)
+### Manifest V3
 
+**Basic Manifest**
 ```json
 {
   "manifest_version": 3,
   "name": "My Extension",
   "version": "1.0.0",
-  "description": "A sample browser extension",
-
+  "description": "Description of my extension",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup/index.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png"
+    }
+  },
   "permissions": [
     "storage",
-    "activeTab"
+    "activeTab",
+    "scripting"
   ],
-
   "host_permissions": [
-    "https://*.example.com/*"
+    "https://api.example.com/*"
   ],
-
   "background": {
-    "service_worker": "background.js",
-    "type": "module"
+    "service_worker": "background/service-worker.js"
   },
-
   "content_scripts": [
     {
-      "matches": ["https://*.example.com/*"],
-      "js": ["content.js"],
-      "css": ["content.css"]
+      "matches": ["<all_urls>"],
+      "js": ["content/script.js"],
+      "css": ["content/styles.css"]
     }
-  ],
-
-  "action": {
-    "default_popup": "popup/popup.html",
-    "default_icon": {
-      "16": "icons/icon-16.png",
-      "48": "icons/icon-48.png",
-      "128": "icons/icon-128.png"
-    }
-  },
-
-  "options_page": "options/options.html",
-
-  "icons": {
-    "16": "icons/icon-16.png",
-    "48": "icons/icon-48.png",
-    "128": "icons/icon-128.png"
-  }
-}
-```
-
----
-
-## Service Worker (Background)
-
-The background script runs in a service worker (V3) - it's event-driven and doesn't persist.
-
-```typescript
-// background.ts
-
-// Listen for extension install
-chrome.runtime.onInstalled.addListener((details) => {
-  if (details.reason === 'install') {
-    console.log('Extension installed');
-    // Set default settings
-    chrome.storage.sync.set({ enabled: true });
-  }
-});
-
-// Listen for messages from content scripts or popup
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.type === 'GET_DATA') {
-    fetchData().then(sendResponse);
-    return true; // Keep channel open for async response
-  }
-});
-
-// Listen for tab updates
-chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-  if (changeInfo.status === 'complete' && tab.url?.includes('example.com')) {
-    // Tab loaded, do something
-  }
-});
-
-// Context menu
-chrome.contextMenus.create({
-  id: 'my-action',
-  title: 'Do Something',
-  contexts: ['selection'],
-});
-
-chrome.contextMenus.onClicked.addListener((info, tab) => {
-  if (info.menuItemId === 'my-action') {
-    const selectedText = info.selectionText;
-    // Process selection
-  }
-});
-```
-
----
-
-## Content Scripts
-
-Content scripts run in the context of web pages.
-
-```typescript
-// content.ts
-
-// DOM manipulation
-const button = document.createElement('button');
-button.textContent = 'My Extension';
-button.onclick = () => {
-  chrome.runtime.sendMessage({ type: 'BUTTON_CLICKED' });
-};
-document.body.appendChild(button);
-
-// Listen for messages from background
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.type === 'HIGHLIGHT') {
-    document.body.style.backgroundColor = 'yellow';
-    sendResponse({ success: true });
-  }
-});
-
-// Send data to background
-const pageData = document.title;
-chrome.runtime.sendMessage({ type: 'PAGE_DATA', data: pageData });
-```
-
-### Isolated World
-
-Content scripts run in an isolated world - they can access the DOM but not page JS variables.
-
-```typescript
-// To access page context, inject a script
-const script = document.createElement('script');
-script.src = chrome.runtime.getURL('injected.js');
-document.head.appendChild(script);
-
-// Communication via custom events
-window.addEventListener('from-page', (e: CustomEvent) => {
-  console.log('Data from page:', e.detail);
-});
-
-// In injected.js (runs in page context)
-window.dispatchEvent(new CustomEvent('from-page', {
-  detail: { data: window.somePageVariable }
-}));
-```
-
----
-
-## Popup
-
-```html
-<!-- popup/popup.html -->
-<!DOCTYPE html>
-<html>
-<head>
-  <link rel="stylesheet" href="popup.css">
-</head>
-<body>
-  <div class="container">
-    <h1>My Extension</h1>
-    <label>
-      <input type="checkbox" id="enabled">
-      Enabled
-    </label>
-    <button id="action">Do Something</button>
-  </div>
-  <script src="popup.js" type="module"></script>
-</body>
-</html>
-```
-
-```typescript
-// popup/popup.ts
-
-const enabledCheckbox = document.getElementById('enabled') as HTMLInputElement;
-const actionButton = document.getElementById('action') as HTMLButtonElement;
-
-// Load saved state
-chrome.storage.sync.get(['enabled'], (result) => {
-  enabledCheckbox.checked = result.enabled ?? true;
-});
-
-// Save state on change
-enabledCheckbox.addEventListener('change', () => {
-  chrome.storage.sync.set({ enabled: enabledCheckbox.checked });
-});
-
-// Send message to background
-actionButton.addEventListener('click', async () => {
-  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-  if (tab.id) {
-    chrome.tabs.sendMessage(tab.id, { type: 'HIGHLIGHT' });
-  }
-});
-```
-
----
-
-## Storage
-
-### Local vs Sync
-
-```typescript
-// Local storage (per-device, larger quota)
-chrome.storage.local.set({ key: 'value' });
-chrome.storage.local.get(['key'], (result) => {
-  console.log(result.key);
-});
-
-// Sync storage (synced across devices, smaller quota)
-chrome.storage.sync.set({ setting: true });
-chrome.storage.sync.get(['setting'], (result) => {
-  console.log(result.setting);
-});
-
-// Listen for changes
-chrome.storage.onChanged.addListener((changes, area) => {
-  if (area === 'sync' && changes.setting) {
-    console.log('Setting changed:', changes.setting.newValue);
-  }
-});
-```
-
----
-
-## Message Passing
-
-### Content <-> Background
-
-```typescript
-// From content script
-chrome.runtime.sendMessage({ type: 'GET_DATA' }, (response) => {
-  console.log('Response:', response);
-});
-
-// From background (to specific tab)
-chrome.tabs.sendMessage(tabId, { type: 'UPDATE' }, (response) => {
-  console.log('Response:', response);
-});
-```
-
-### Long-lived Connections
-
-```typescript
-// Content script
-const port = chrome.runtime.connect({ name: 'my-channel' });
-port.postMessage({ type: 'INIT' });
-port.onMessage.addListener((msg) => {
-  console.log('Received:', msg);
-});
-
-// Background
-chrome.runtime.onConnect.addListener((port) => {
-  if (port.name === 'my-channel') {
-    port.onMessage.addListener((msg) => {
-      port.postMessage({ response: 'ok' });
-    });
-  }
-});
-```
-
----
-
-## Permissions
-
-### Required vs Optional
-
-```json
-{
-  "permissions": [
-    "storage",      // Always needed
-    "activeTab"     // Safe, no warning
-  ],
-  "optional_permissions": [
-    "tabs",         // Request when needed
-    "history"
-  ],
-  "host_permissions": [
-    "https://*.example.com/*"
-  ],
-  "optional_host_permissions": [
-    "https://*/*"   // Request for all sites
   ]
 }
 ```
 
-### Requesting Optional Permissions
-
-```typescript
-async function requestPermission() {
-  const granted = await chrome.permissions.request({
-    permissions: ['tabs'],
-    origins: ['https://other-site.com/*']
-  });
-
-  if (granted) {
-    console.log('Permission granted');
-  }
-}
-```
-
----
-
-## Build Setup (Vite)
-
-```typescript
-// vite.config.ts
-import { defineConfig } from 'vite';
-import { resolve } from 'path';
-
-export default defineConfig({
-  build: {
-    rollupOptions: {
-      input: {
-        background: resolve(__dirname, 'src/background.ts'),
-        content: resolve(__dirname, 'src/content.ts'),
-        popup: resolve(__dirname, 'src/popup/popup.html'),
-        options: resolve(__dirname, 'src/options/options.html'),
-      },
-      output: {
-        entryFileNames: '[name].js',
-      },
-    },
-    outDir: 'dist',
-    emptyOutDir: true,
-  },
-});
-```
-
+**Manifest with MV3 Features**
 ```json
-// package.json
 {
-  "scripts": {
-    "dev": "vite build --watch",
-    "build": "vite build",
-    "zip": "cd dist && zip -r ../extension.zip ."
+  "manifest_version": 3,
+  "name": "Advanced Extension",
+  "version": "1.0.0",
+  "description": "Advanced browser extension",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
   },
-  "devDependencies": {
-    "@types/chrome": "^0.0.260",
-    "typescript": "^5",
-    "vite": "^5"
+  "action": {
+    "default_popup": "popup/index.html",
+    "default_title": "Click to open"
+  },
+  "permissions": [
+    "storage",
+    "tabs",
+    "activeTab",
+    "scripting",
+    "alarms",
+    "notifications"
+  ],
+  "host_permissions": [
+    "https://*/*",
+    "http://localhost:*/*"
+  ],
+  "background": {
+    "service_worker": "background/service-worker.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://example.com/*"],
+      "js": ["content/content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "side_panel": {
+    "default_path": "sidepanel/index.html"
+  },
+  "options_page": "options/index.html",
+  "devtools_page": "devtools/index.html",
+  "web_accessible_resources": [
+    {
+      "resources": ["assets/*", "icons/*"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
+```
+
+### Content Scripts
+
+**Basic Content Script**
+```ts
+// content/content.ts
+console.log('Content script loaded!')
+
+// Inject UI into page
+function createWidget() {
+  const widget = document.createElement('div')
+  widget.id = 'my-extension-widget'
+  widget.innerHTML = `
+    <div class="widget-container">
+      <button id="widget-btn">Click me</button>
+    </div>
+  `
+  document.body.appendChild(widget)
+
+  document.getElementById('widget-btn')?.addEventListener('click', () => {
+    chrome.runtime.sendMessage({ action: 'widget-clicked' })
+  })
+}
+
+// Initialize when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', createWidget)
+} else {
+  createWidget()
+}
+
+// Listen for messages from background/popup
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.action === 'getPageData') {
+    const data = {
+      title: document.title,
+      url: window.location.href,
+    }
+    sendResponse(data)
+  }
+  return true // For async response
+})
+```
+
+**Programmatic Content Script Injection**
+```ts
+// In background or popup
+async function injectContentScript(tabId: number) {
+  try {
+    await chrome.scripting.executeScript({
+      target: { tabId },
+      files: ['content/content.js'],
+    })
+  } catch (error) {
+    console.error('Failed to inject content script:', error)
   }
 }
 ```
 
----
+### Background Service Worker
 
-## Firefox Compatibility
+**Service Worker**
+```ts
+// background/service-worker.ts
+console.log('Service worker starting...')
 
-### Manifest Differences
+// Handle extension installation
+chrome.runtime.onInstalled.addListener((details) => {
+  if (details.reason === 'install') {
+    console.log('Extension installed')
+    // Set default settings
+    chrome.storage.local.set({
+      settings: { enabled: true, theme: 'dark' }
+    })
+  } else if (details.reason === 'update') {
+    console.log('Extension updated')
+  }
+})
 
+// Handle messages from content scripts and popup
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  switch (message.action) {
+    case 'getData':
+      handleGetData().then(sendResponse)
+      return true // Keep channel open for async response
+
+    case 'widget-clicked':
+      console.log('Widget was clicked!')
+      break
+  }
+})
+
+// Handle alarms
+chrome.alarms.onAlarm.addListener((alarm) => {
+  if (alarm.name === 'sync-data') {
+    syncData()
+  }
+})
+
+// Tab updates
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+  if (changeInfo.status === 'complete' && tab.url) {
+    console.log('Tab loaded:', tab.url)
+  }
+})
+
+async function handleGetData() {
+  const result = await chrome.storage.local.get(['data'])
+  return result.data || null
+}
+
+function syncData() {
+  // Sync logic here
+}
+
+// Create context menu
+chrome.runtime.onInstalled.addListener(() => {
+  chrome.contextMenus.create({
+    id: 'my-menu',
+    title: 'My Extension Action',
+    contexts: ['selection', 'link'],
+  })
+})
+
+chrome.contextMenus.onClicked.addListener((info, tab) => {
+  if (info.menuItemId === 'my-menu') {
+    console.log('Context menu clicked:', info.selectionText)
+  }
+})
+```
+
+### Popup
+
+**Popup HTML**
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Extension</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div id="app">
+    <h1>My Extension</h1>
+    <button id="action-btn">Do Something</button>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
+```
+
+**Popup Script**
+```ts
+// popup/popup.ts
+document.addEventListener('DOMContentLoaded', () => {
+  const actionBtn = document.getElementById('action-btn')
+
+  actionBtn?.addEventListener('click', async () => {
+    // Get current tab
+    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true })
+
+    if (tab.id) {
+      // Send message to content script
+      chrome.tabs.sendMessage(tab.id, { action: 'highlight' })
+
+      // Or inject script
+      await chrome.scripting.executeScript({
+        target: { tabId: tab.id },
+        func: highlightElements,
+      })
+    }
+  })
+})
+
+// Function to be injected
+function highlightElements() {
+  document.querySelectorAll('p').forEach(p => {
+    p.style.background = 'yellow'
+  })
+}
+
+// Load settings
+chrome.storage.local.get(['settings'], (result) => {
+  console.log('Settings:', result.settings)
+})
+```
+
+### Options Page
+
+**Options with React**
+```tsx
+// options/options.tsx
+import { useEffect, useState } from 'react'
+import { createRoot } from 'react-dom/client'
+
+interface Settings {
+  enabled: boolean
+  theme: 'light' | 'dark'
+}
+
+function OptionsApp() {
+  const [settings, setSettings] = useState<Settings>({
+    enabled: true,
+    theme: 'light',
+  })
+
+  useEffect(() => {
+    // Load settings
+    chrome.storage.local.get(['settings'], (result) => {
+      if (result.settings) {
+        setSettings(result.settings)
+      }
+    })
+  }, [])
+
+  const saveSettings = () => {
+    chrome.storage.local.set({ settings })
+  }
+
+  return (
+    <div className="options-container">
+      <h1>Extension Options</h1>
+      <label>
+        <input
+          type="checkbox"
+          checked={settings.enabled}
+          onChange={(e) => setSettings({ ...settings, enabled: e.target.checked })}
+        />
+        Enable extension
+      </label>
+      <select
+        value={settings.theme}
+        onChange={(e) => setSettings({ ...settings, theme: e.target.value as any })}
+      >
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+      </select>
+      <button onClick={saveSettings}>Save</button>
+    </div>
+  )
+}
+
+const container = document.getElementById('app')
+if (container) {
+  createRoot(container).render(<OptionsApp />)
+}
+```
+
+### Storage API
+
+**chrome.storage**
+```ts
+// Local storage (unlimited)
+await chrome.storage.local.set({ key: 'value' })
+const result = await chrome.storage.local.get(['key'])
+
+// Sync storage (syncs across devices, 100KB limit)
+await chrome.storage.sync.set({ preferences: { theme: 'dark' } })
+const syncData = await chrome.storage.sync.get(['preferences'])
+
+// Listen for changes
+chrome.storage.onChanged.addListener((changes, areaName) => {
+  if (areaName === 'local' && changes.key) {
+    console.log('Key changed:', changes.key.newValue)
+  }
+})
+
+// Session storage (in-memory, cleared on browser close)
+await chrome.storage.session.set({ tempData: 'value' })
+```
+
+### Messaging API
+
+**Communication Patterns**
+```ts
+// From content script to background
+chrome.runtime.sendMessage({ action: 'getData' }, (response) => {
+  console.log('Response:', response)
+})
+
+// From background to content script
+chrome.tabs.sendMessage(tabId, { action: 'update' })
+
+// From popup to background
+chrome.runtime.sendMessage({ action: 'openOptions' })
+
+// Broadcast to all content scripts
+chrome.runtime.sendMessage({ action: 'broadcast', data: 'hello' })
+
+// Long-lived connection (port)
+const port = chrome.runtime.connect({ name: 'my-connection' })
+port.postMessage({ action: 'init' })
+port.onMessage.addListener((msg) => console.log(msg))
+```
+
+### Cross-Browser Compatibility
+
+**Browser Detection**
+```ts
+// Get the browser API
+const browserAPI = (() => {
+  if (typeof chrome !== 'undefined' && chrome.runtime) {
+    return chrome
+  }
+  if (typeof browser !== 'undefined' && browser.runtime) {
+    return browser
+  }
+  throw new Error('Browser API not available')
+})()
+
+// Use browserAPI instead of chrome/browser
+browserAPI.runtime.sendMessage({ action: 'test' })
+```
+
+**Polyfill with webextension-polyfill**
+```ts
+import browser from 'webextension-polyfill'
+
+// Works across Chrome, Firefox, Edge, Safari
+browser.storage.local.set({ key: 'value' })
+browser.tabs.query({ active: true })
+```
+
+**Manifest Differences**
 ```json
+// Firefox supports some extra features
 {
   "browser_specific_settings": {
     "gecko": {
-      "id": "my-extension@example.com",
+      "id": "extension@example.com",
       "strict_min_version": "109.0"
     }
-  },
-  "background": {
-    "scripts": ["background.js"]  // Firefox V2 style
   }
 }
 ```
 
-### API Differences
+### TypeScript Setup
 
-```typescript
-// Use browser namespace (Firefox) with chrome fallback
-const api = typeof browser !== 'undefined' ? browser : chrome;
-
-// Or use webextension-polyfill
-import browser from 'webextension-polyfill';
+**tsconfig.json**
+```json
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "lib": ["ES2020", "DOM"],
+    "types": ["chrome"],
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
+}
 ```
 
----
+**Chrome Types**
+```bash
+npm install --save-dev @types/chrome
+```
 
-## Common Pitfalls
+**Custom Type Definitions**
+```ts
+// types/index.d.ts
+declare global {
+  interface Window {
+    myExtensionData?: {
+      version: string
+    }
+  }
+}
 
-| Pitfall | Solution |
-|---------|----------|
-| Service worker dies | Re-register listeners, use alarms |
-| CORS in content scripts | Make requests from background |
-| DOM not ready | Use DOMContentLoaded or MutationObserver |
-| CSP blocks inline scripts | Use external script files |
-| Storage quota exceeded | Use local storage for large data |
+// Message types
+interface Message {
+  action: string
+  data?: unknown
+}
 
----
+interface WidgetClickMessage extends Message {
+  action: 'widget-clicked'
+  element: string
+}
 
-## Testing
+chrome.runtime.onMessage.addListener(
+  (message: Message, sender, sendResponse) => {
+    if (message.action === 'widget-clicked') {
+      const msg = message as WidgetClickMessage
+      console.log(msg.element)
+    }
+  }
+)
+```
 
-### Manual Loading
+### Build Setup
 
-1. Chrome: `chrome://extensions/` -> Developer mode -> Load unpacked
-2. Firefox: `about:debugging` -> This Firefox -> Load Temporary Add-on
+**Vite Config**
+```ts
+// vite.config.ts
+import { defineConfig } from 'vite'
+import { crx } from '@crxjs/vite-plugin'
+import manifest from './manifest.json'
 
-### Automated Testing
-
-```typescript
-// Use puppeteer with extension
-import puppeteer from 'puppeteer';
-
-const browser = await puppeteer.launch({
-  headless: false,
-  args: [
-    `--disable-extensions-except=${extensionPath}`,
-    `--load-extension=${extensionPath}`,
+export default defineConfig({
+  plugins: [
+    crx({ manifest }),
   ],
-});
-```
-
----
-
-## Publishing
-
-### Chrome Web Store
-1. Create developer account ($5 one-time)
-2. Create ZIP of extension
-3. Submit for review (1-3 days)
-
-### Firefox Add-ons
-1. Create developer account (free)
-2. Submit XPI or ZIP
-3. Review (1-7 days)
-
----
-
-## Testing
-
-### Unit Tests (Vitest)
-
-```typescript
-import { describe, it, expect, vi } from 'vitest';
-
-// Mock chrome API
-const chrome = {
-  storage: {
-    sync: {
-      get: vi.fn(),
-      set: vi.fn(),
+  build: {
+    rollupOptions: {
+      input: {
+        popup: 'src/popup/index.html',
+        options: 'src/options/index.html',
+        background: 'src/background/service-worker.ts',
+        content: 'src/content/content.ts',
+      },
     },
   },
-  runtime: {
-    sendMessage: vi.fn(),
+})
+```
+
+**Webpack Config**
+```js
+// webpack.config.js
+const path = require('path')
+const CopyPlugin = require('copy-webpack-plugin')
+
+module.exports = {
+  entry: {
+    popup: path.resolve(__dirname, 'src/popup/popup.ts'),
+    background: path.resolve(__dirname, 'src/background/service-worker.ts'),
+    content: path.resolve(__dirname, 'src/content/content.ts'),
   },
-};
-global.chrome = chrome;
-
-describe('Storage helpers', () => {
-  it('saves settings', async () => {
-    await saveSettings({ enabled: true });
-    expect(chrome.storage.sync.set).toHaveBeenCalledWith({ enabled: true });
-  });
-
-  it('loads settings with defaults', async () => {
-    chrome.storage.sync.get.mockResolvedValue({});
-    const settings = await loadSettings();
-    expect(settings.enabled).toBe(true); // default
-  });
-});
-
-describe('Content script', () => {
-  it('highlights elements', () => {
-    document.body.innerHTML = '<div class="target">Test</div>';
-    highlightTargets();
-    expect(document.querySelector('.target')?.style.backgroundColor).toBe('yellow');
-  });
-});
-```
-
-### Integration Tests (Puppeteer)
-
-```typescript
-import puppeteer from 'puppeteer';
-
-describe('Extension E2E', () => {
-  let browser;
-
-  beforeAll(async () => {
-    browser = await puppeteer.launch({
-      headless: false,
-      args: [
-        `--disable-extensions-except=${extensionPath}`,
-        `--load-extension=${extensionPath}`,
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].js',
+    clean: true,
+  },
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
+  },
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js'],
+  },
+  plugins: [
+    new CopyPlugin({
+      patterns: [
+        { from: 'public', to: '.' },
+        { from: 'src/manifest.json', to: 'manifest.json' },
       ],
-    });
-  });
-
-  it('popup opens', async () => {
-    const page = await browser.newPage();
-    await page.goto(`chrome-extension://${extensionId}/popup/popup.html`);
-    const title = await page.$eval('h1', el => el.textContent);
-    expect(title).toBe('My Extension');
-  });
-
-  afterAll(async () => {
-    await browser.close();
-  });
-});
+    }),
+  ],
+}
 ```
+
+### Debugging
+
+**Chrome DevTools**
+```bash
+# Open background script console
+1. Go to chrome://extensions
+2. Enable Developer Mode
+3. Click "service worker" link
+
+# Debug popup
+1. Right-click popup icon
+2. Select "Inspect"
+
+# Debug content script
+1. Open page DevTools (F12)
+2. Check Sources > Content scripts
+```
+
+### Common Pitfalls
+
+1. **Not handling async properly** → Always handle promises and callbacks
+2. **Missing permissions** → Add required permissions in manifest
+3. **CSP violations** → Be careful with inline scripts
+4. **Service worker limitations** → No DOM access, terminates when idle
+5. **Cross-browser differences** → Test on all target browsers
+6. **MV2 to MV3 migration** → Use chrome.scripting instead of tabs.executeScript
+7. **Not cleaning up** → Remove listeners and connections
+
+### Best Practices
+
+1. **Use Manifest V3** → Required for Chrome Web Store
+2. **TypeScript** → Type safety catches errors early
+3. **Minimal permissions** → Only request what you need
+4. **Content Security Policy** → Secure your extension
+5. **Error handling** → Handle all edge cases
+6. **Background persistence** → Service workers can terminate
+7. **Cross-browser testing** → Test on Chrome, Firefox, Edge, Safari
+8. **Extension security** → Validate all inputs
+9. **User privacy** → Don't collect unnecessary data
+10. **Regular updates** → Keep dependencies and manifest updated
 
 ---
 
-## TDD Workflow
-
-```
-1. Task[tdd-test-writer]: "Create settings storage"
-   → Writes test for save/load settings
-   → npm test → FAILS (RED)
-
-2. Task[rust-developer]: "Implement storage helpers"
-   → Implements with chrome.storage API
-   → npm test → PASSES (GREEN)
-
-3. Repeat for each feature
-
-4. Task[code-reviewer]: "Review extension"
-   → Checks permissions, CSP, security
-```
-
----
-
-## Security Checklist
-
-- [ ] Minimal permissions (request only what's needed)
-- [ ] No `eval()` or inline scripts
-- [ ] Validate all external data
-- [ ] Use HTTPS only
-- [ ] Content Security Policy defined
-- [ ] No sensitive data in storage.sync (visible across devices)
-- [ ] No API keys in source (use environment or user input)
-- [ ] Input sanitization in content scripts
-- [ ] pre-commit hooks with gitleaks
+*Part of SuperAI GitHub - Centralized OpenCode Configuration*

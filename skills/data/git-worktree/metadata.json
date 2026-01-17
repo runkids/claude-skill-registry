@@ -1,7 +1,7 @@
 {
   "name": "git-worktree",
-  "repo": "alexanderop/workoutTracker",
-  "path": ".claude/skills/git-worktree/SKILL.md",
-  "source": "github.com/alexanderop/workoutTracker",
-  "downloaded_at": "2026-01-14T03:50:43.132063Z"
+  "repo": "RBozydar/rbw-claude-code",
+  "path": "plugins/core/skills/git-worktree/SKILL.md",
+  "source": "github.com/RBozydar/rbw-claude-code",
+  "downloaded_at": "2026-01-17T03:15:59.914053Z"
 }

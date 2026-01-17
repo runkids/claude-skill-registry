@@ -1,7 +1,7 @@
 {
   "name": "version-bump",
-  "repo": "rust-works/omni-dev",
-  "path": ".claude/skills/version-bump/SKILL.md",
-  "source": "github.com/rust-works/omni-dev",
-  "downloaded_at": "2026-01-14T02:52:02.651740Z"
+  "repo": "gahoccode/PRDs",
+  "path": "skills/version-bump/SKILL.md",
+  "source": "github.com/gahoccode/PRDs",
+  "downloaded_at": "2026-01-17T03:37:12.344296Z"
 }

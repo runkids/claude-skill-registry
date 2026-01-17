@@ -1,7 +1,7 @@
 {
   "name": "gitops-workflow",
-  "repo": "camoneart/claude-code",
-  "path": "skills/gitops-workflow/SKILL.md",
-  "source": "github.com/camoneart/claude-code",
-  "downloaded_at": "2026-01-14T03:37:00.242847Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/kubernetes-operations/skills/gitops-workflow/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-01-17T03:59:14.496200Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "web-artifacts-builder",
-  "repo": "archubbuck/workspace-architect",
-  "path": "assets/skills/web-artifacts-builder/SKILL.md",
-  "source": "github.com/archubbuck/workspace-architect",
-  "downloaded_at": "2026-01-14T04:03:36.809187Z"
+  "repo": "hongbietcode/synthetic-claude",
+  "path": "plugins/content-creation/skills/web-artifacts-builder/SKILL.md",
+  "source": "github.com/hongbietcode/synthetic-claude",
+  "downloaded_at": "2026-01-17T04:07:17.952600Z"
 }

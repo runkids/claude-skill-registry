@@ -1,15 +1,5 @@
 ---
-name: apps-ayokoding-web__developing-content
 description: Comprehensive guide for creating content on ayokoding-web Hugo site using Hextra theme. Covers bilingual content strategy (default English), level-based weight ordering system, by-example tutorial annotation standards (1-2.25 comments per code line), absolute path linking requirements, and ayokoding-web specific frontmatter patterns. Essential for content creation tasks on ayokoding-web
-allowed-tools: [Read, Write, Edit, Glob, Grep, Bash]
-tags:
-  - hugo
-  - ayokoding-web
-  - hextra
-  - bilingual-content
-  - weight-system
-  - by-example-tutorials
-  - absolute-paths
 ---
 
 # Hugo ayokoding-web Development Skill
@@ -431,14 +421,14 @@ Vercel automatically:
 
 ## References
 
-**Primary Convention**: [Hugo Content Convention - ayokoding-web](../../../governance/conventions/hugo/ayokoding.md)
+**Primary Convention**: [Hugo Content Convention - ayokoding-web](../../../../governance/conventions/hugo/ayokoding.md)
 
 **Related Conventions**:
 
-- [Programming Language Tutorial Structure](../../../governance/conventions/tutorial/programming-language-structure.md) - Dual-path organization
-- [By Example Tutorial Convention](../../../governance/conventions/tutorial/by-example.md) - Annotation standards
-- [Hugo Content Shared](../../../governance/conventions/hugo/shared.md) - Shared Hugo patterns
-- [Content Quality Principles](../../../governance/conventions/content/quality.md) - Universal quality standards
+- [Programming Language Tutorial Structure](../../../../governance/conventions/tutorial/programming-language-structure.md) - Dual-path organization
+- [By Example Tutorial Convention](../../../../governance/conventions/tutorial/by-example.md) - Annotation standards
+- [Hugo Content Shared](../../../../governance/conventions/hugo/shared.md) - Shared Hugo patterns
+- [Content Quality Principles](../../../../governance/conventions/content/quality.md) - Universal quality standards
 
 **Related Skills**:
 

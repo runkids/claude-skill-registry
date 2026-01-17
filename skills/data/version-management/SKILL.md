@@ -1,107 +1,378 @@
 ---
-name: Version Management
-description: Semantic versioning helpers and release scripts. Use when managing versions, bumping version numbers, creating releases, generating changelogs, or when user mentions versioning, semantic versioning, release management, version bumps, or semver.
-allowed-tools: Read, Write, Edit, Bash
+name: version-management
+description: Technology-agnostic version management system with Git tags as source of truth
+category: general
+version: 1.0.0
+inputs:
+  - project_path: Path to project root
+  - platform: Platform adapter (gradle, npm, python)
+outputs:
+  - scripts/version-manager.sh
+  - scripts/{platform}-version.sh
+  - version.properties (for gradle)
+verify: "bash scripts/version-manager.sh latest"
 ---
 
 # Version Management
 
-This skill provides semantic versioning helpers, version bump scripts, changelog generation, and release management tools.
+A technology-agnostic version management system using Git tags as the source of truth, with platform-specific adapters.
 
-## What This Skill Provides
+## Overview
 
-### 1. Version Bump Scripts
-- `bump-version.sh` - Increment version (major/minor/patch)
-- `get-version.sh` - Extract current version from project files
-- `set-version.sh` - Update version across all files
+**Design Philosophy:**
+- Git tags are the **source of truth** for versions
+- Committed version files (`version.properties`, `package.json`, etc.) cache the version for fast builds
+- Release workflows update both git tags and version files
+- Supports semantic versioning (major.minor.patch)
 
-### 2. Changelog Generation
-- `generate-changelog.sh` - Create changelog from git commits
-- Conventional commit parsing
-- Categorized changes (feat, fix, docs, etc.)
+## Prerequisites
 
-### 3. Release Scripts
-- `create-release.sh` - Tag and prepare release
-- `validate-release.sh` - Check release readiness
-- Git tag creation with annotations
+- Git repository initialized
+- Git tags enabled
+- Bash shell available
+- Write access to project directory
 
-### 4. Version File Templates
-- package.json version field
-- pyproject.toml version field
-- Cargo.toml version field
-- VERSION file template
+## Inputs
 
-## Instructions
+| Input | Required | Default | Description |
+|-------|----------|---------|-------------|
+| project_path | Yes | . | Project root directory |
+| platform | Yes | gradle | Platform adapter: gradle, npm, python |
 
-### Bumping Version
+## Process
 
-When user wants to increment version:
+### Step 1: Create Core Version Manager Script
 
-1. Detect current version from project files
-2. Parse semantic version (MAJOR.MINOR.PATCH)
-3. Increment appropriate component:
-   - major: Breaking changes (1.0.0 → 2.0.0)
-   - minor: New features (1.0.0 → 1.1.0)
-   - patch: Bug fixes (1.0.0 → 1.0.1)
-4. Update all version files
+Create `scripts/version-manager.sh` (technology-agnostic):
 
-Execute:
+```bash
+#!/bin/bash
+# Core version manager - technology agnostic
+# Handles: tag parsing, semver calculation, version bumping
 
-!{bash plugins/01-core/skills/version-management/scripts/bump-version.sh major}
-!{bash plugins/01-core/skills/version-management/scripts/bump-version.sh minor}
-!{bash plugins/01-core/skills/version-management/scripts/bump-version.sh patch}
+set -euo pipefail
 
-### Generating Changelog
+# === CONFIGURATION ===
+BASE_VERSION="${BASE_VERSION:-1.0}"
+TAG_PREFIX="${TAG_PREFIX:-v}"
 
-When user wants changelog:
+# === CORE FUNCTIONS ===
 
-1. Get commits since last tag
-2. Parse conventional commit messages
-3. Categorize by type (feat, fix, docs, etc.)
-4. Format as markdown with links
+get_latest_version() {
+    local prefix="${1:-$TAG_PREFIX}"
+    git tag -l "${prefix}*" 2>/dev/null |
+        sed "s/^${prefix}//" |
+        sort -V |
+        tail -1 || echo "0.0.0"
+}
 
-Execute:
+bump_version() {
+    local version="$1"
+    local bump_type="${2:-patch}"
 
-!{bash plugins/01-core/skills/version-management/scripts/generate-changelog.sh}
+    IFS='.' read -r major minor patch <<< "$version"
+    major="${major:-0}"; minor="${minor:-0}"; patch="${patch:-0}"
 
-### Creating Release
+    case "$bump_type" in
+        major) major=$((major + 1)); minor=0; patch=0 ;;
+        minor) minor=$((minor + 1)); patch=0 ;;
+        patch) patch=$((patch + 1)) ;;
+    esac
 
-When user wants to create release:
+    echo "${major}.${minor}.${patch}"
+}
 
-1. Validate no uncommitted changes
-2. Bump version
-3. Update changelog
-4. Create git commit
-5. Create git tag
-6. Display next steps (push, publish)
+generate_version() {
+    local bump_type="${1:-patch}"
+    local latest
+    latest=$(get_latest_version)
 
-## Semantic Versioning Rules
+    if [[ "$latest" == "0.0.0" ]]; then
+        echo "${BASE_VERSION}.0"
+    else
+        bump_version "$latest" "$bump_type"
+    fi
+}
 
-**MAJOR** (X.0.0):
-- Breaking changes
-- Incompatible API changes
-- Major refactoring
+output_version() {
+    local version="$1"
+    local is_prerelease="${2:-false}"
 
-**MINOR** (x.Y.0):
-- New features
-- Backward-compatible additions
-- Deprecations
+    if [[ -n "${GITHUB_OUTPUT:-}" ]]; then
+        echo "version=$version" >> "$GITHUB_OUTPUT"
+        echo "is-prerelease=$is_prerelease" >> "$GITHUB_OUTPUT"
+        echo "tag=${TAG_PREFIX}${version}" >> "$GITHUB_OUTPUT"
+    fi
 
-**PATCH** (x.y.Z):
-- Bug fixes
-- Performance improvements
-- Documentation updates
+    echo "$version"
+}
 
-## Success Criteria
+main() {
+    local command="${1:-generate}"
+    local arg="${2:-patch}"
 
-- ✅ Version follows semver format
-- ✅ All version files updated consistently
-- ✅ Changelog generated from commits
-- ✅ Git tag created with version
-- ✅ Release is reproducible
+    case "$command" in
+        generate) output_version "$(generate_version "$arg")" "false" ;;
+        latest)   get_latest_version ;;
+        bump)     bump_version "$(get_latest_version)" "$arg" ;;
+        *)        echo "Usage: $0 {generate|latest|bump} [patch|minor|major]" >&2; exit 1 ;;
+    esac
+}
 
----
+main "$@"
+```
 
-**Plugin**: 01-core
-**Skill Type**: Helper + Generator
-**Auto-invocation**: Yes (via description matching)
+Make it executable:
+
+```bash
+chmod +x scripts/version-manager.sh
+```
+
+### Step 2: Create Platform Adapter
+
+#### For Gradle/Android Projects
+
+Create `scripts/gradle-version.sh`:
+
+```bash
+#!/bin/bash
+# Gradle/Android version adapter
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/version-manager.sh"
+
+# Convert semver to Android versionCode: "1.2.34" → 1002034
+semver_to_version_code() {
+    local version="$1"
+    IFS='.' read -r major minor patch <<< "$version"
+    echo $((major * 1000000 + minor * 1000 + patch))
+}
+
+# Update version.properties
+update_version_properties() {
+    local version="$1"
+    local version_code
+    version_code=$(semver_to_version_code "$version")
+
+    cat > version.properties << VERSIONEOF
+# Auto-generated by release workflow - do not edit manually
+VERSION_NAME=$version
+VERSION_CODE=$version_code
+VERSIONEOF
+    echo "Updated version.properties: VERSION_NAME=$version, VERSION_CODE=$version_code"
+}
+
+# Output Android-specific values to GitHub Actions
+output_android_version() {
+    local version="$1"
+    local version_code
+    version_code=$(semver_to_version_code "$version")
+
+    if [[ -n "${GITHUB_OUTPUT:-}" ]]; then
+        echo "version-code=$version_code" >> "$GITHUB_OUTPUT"
+    fi
+}
+
+main() {
+    local command="${1:-generate}"
+    shift || true
+
+    case "$command" in
+        generate)
+            local version
+            version=$(generate_version "${1:-patch}")
+            output_version "$version" "false"
+            output_android_version "$version"
+            ;;
+        update)
+            local version="${1:-}"
+            [[ -z "$version" ]] && version=$(get_latest_version)
+            update_version_properties "$version"
+            ;;
+        version-code)
+            local version="${1:-}"
+            [[ -z "$version" ]] && version=$(get_latest_version)
+            semver_to_version_code "$version"
+            ;;
+        *)
+            # Delegate to core
+            source "$SCRIPT_DIR/version-manager.sh"
+            main "$command" "$@"
+            ;;
+    esac
+}
+
+main "$@"
+```
+
+Make it executable:
+
+```bash
+chmod +x scripts/gradle-version.sh
+```
+
+### Step 3: Create Initial Version File
+
+For Gradle projects, create `version.properties`:
+
+```bash
+cat > version.properties << 'EOF'
+# Auto-generated by release workflow - do not edit manually
+VERSION_NAME=1.0.0
+VERSION_CODE=1000000
+EOF
+```
+
+### Step 4: Update Build Configuration
+
+#### For Gradle Projects
+
+Update `app/build.gradle.kts` to read from version.properties:
+
+```kotlin
+import java.util.Properties
+
+// Read version from version.properties (fast, no git commands)
+val versionProps = Properties().apply {
+    val versionFile = rootProject.file("version.properties")
+    if (versionFile.exists()) {
+        versionFile.inputStream().use { load(it) }
+    }
+}
+
+android {
+    defaultConfig {
+        versionName = versionProps.getProperty("VERSION_NAME", "0.0.1-dev")
+        versionCode = versionProps.getProperty("VERSION_CODE", "1")?.toIntOrNull() ?: 1
+    }
+}
+```
+
+**Detection logic:**
+- Check if versionName/versionCode already set in build.gradle.kts
+- If using a different version scheme, ask user if they want to migrate
+
+### Step 5: Commit Version File
+
+```bash
+git add version.properties scripts/
+git commit -m "chore: add version management system"
+```
+
+## Usage Examples
+
+### Local Development
+
+```bash
+# Get current version
+./scripts/version-manager.sh latest
+
+# Generate next patch version
+./scripts/version-manager.sh generate patch
+
+# Generate next minor version
+./scripts/version-manager.sh generate minor
+
+# Generate next major version
+./scripts/version-manager.sh generate major
+```
+
+### For Gradle Projects
+
+```bash
+# Generate version and update version.properties
+./scripts/gradle-version.sh generate patch
+
+# Update version.properties with specific version
+./scripts/gradle-version.sh update 1.2.3
+
+# Get version code for a version
+./scripts/gradle-version.sh version-code 1.2.3
+```
+
+### In GitHub Actions
+
+See the release workflow created by `android-playstore-setup` skill for full integration example.
+
+## Verification
+
+**MANDATORY:** Run these commands:
+
+```bash
+# Verify scripts exist
+test -f scripts/version-manager.sh && echo "✓ Core script exists"
+test -f scripts/gradle-version.sh && echo "✓ Gradle adapter exists"
+
+# Verify scripts are executable
+test -x scripts/version-manager.sh && echo "✓ Core script is executable"
+test -x scripts/gradle-version.sh && echo "✓ Gradle adapter is executable"
+
+# Test version generation
+./scripts/version-manager.sh latest
+./scripts/version-manager.sh generate patch
+```
+
+**Expected output:**
+- ✓ Core script exists
+- ✓ Gradle adapter exists
+- ✓ Core script is executable
+- ✓ Gradle adapter is executable
+- Version numbers displayed
+
+## Outputs
+
+| Output | Location | Description |
+|--------|----------|-------------|
+| Core script | scripts/version-manager.sh | Technology-agnostic version logic |
+| Gradle adapter | scripts/gradle-version.sh | Android-specific version handling |
+| Version cache | version.properties | Cached version for fast builds |
+| Build config | app/build.gradle.kts | Updated to read from version file |
+
+## Troubleshooting
+
+### "No tags found"
+**Cause:** No git tags exist yet
+**Fix:** First version will be 1.0.0 (or BASE_VERSION.0)
+
+### "version.properties not found"
+**Cause:** File not created or committed
+**Fix:** Run `./scripts/gradle-version.sh update 1.0.0` to create it
+
+### "Permission denied"
+**Cause:** Scripts not executable
+**Fix:** `chmod +x scripts/*.sh`
+
+## Platform Adapters
+
+### NPM (Future)
+
+For npm projects, create `scripts/npm-version.sh` that updates `package.json`:
+
+```bash
+# Updates package.json with new version
+update_package_json() {
+    local version="$1"
+    npm version "$version" --no-git-tag-version
+}
+```
+
+### Python (Future)
+
+For Python projects, create `scripts/python-version.sh` that updates `__version__`:
+
+```bash
+# Updates __init__.py with new version
+update_python_version() {
+    local version="$1"
+    sed -i "s/__version__ = .*/__version__ = \"$version\"/" src/__init__.py
+}
+```
+
+## Completion Criteria
+
+- [ ] `scripts/version-manager.sh` exists and is executable
+- [ ] Platform adapter script exists and is executable
+- [ ] Version file created (e.g., `version.properties`)
+- [ ] Build configuration updated to read from version file
+- [ ] Scripts can generate and bump versions correctly
+- [ ] `git tag -l` shows version tags (after first release)

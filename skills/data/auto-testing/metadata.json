@@ -1,7 +1,7 @@
 {
   "name": "auto-testing",
-  "repo": "timequity/plugins",
-  "path": "vibe-coder/skills/auto-testing/SKILL.md",
-  "source": "github.com/timequity/plugins",
-  "downloaded_at": "2026-01-14T03:41:20.878724Z"
+  "repo": "lawless-m/claude-skills",
+  "path": ".claude/skills/auto-testing/SKILL.md",
+  "source": "github.com/lawless-m/claude-skills",
+  "downloaded_at": "2026-01-17T02:34:16.016428Z"
 }

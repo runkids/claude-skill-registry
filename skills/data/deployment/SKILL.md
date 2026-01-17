@@ -1,244 +1,375 @@
 ---
 name: deployment
-description: How to deploy Claude Code with Amazon Bedrock, Google Vertex AI, and other cloud providers. Use when user asks about AWS Bedrock, GCP Vertex AI, cloud deployment, or enterprise deployment.
+description: Serverless deployment with zero-downtime, multi-environment strategies, and infrastructure validation. Use when deploying Lambda functions, managing environments, or troubleshooting deployment failures.
 ---
 
-# Claude Code Deployment
+# Deployment Skill
 
-## Overview
+**Tech Stack**: AWS Lambda, Docker, Terraform, GitHub Actions, Doppler (secrets)
 
-Claude Code supports deployment through multiple providers beyond the direct Claude API, including Amazon Bedrock and Google Vertex AI for enterprise cloud deployment.
+**Source**: Extracted from CLAUDE.md deployment principles and production deployment patterns.
 
-## Amazon Bedrock Integration
+---
 
-### Overview
-Claude Code integrates with Amazon Bedrock to enable deployment through AWS infrastructure using Claude models available in your AWS account.
+## When to Use This Skill
 
-### Prerequisites
-- Active AWS account with Bedrock access enabled
-- Access to desired Claude models (e.g., Claude Sonnet 4.5)
-- AWS CLI installed (optional)
-- Appropriate IAM permissions
+Use the deployment skill when:
+- ✓ Deploying Lambda functions to AWS
+- ✓ Managing multi-environment deployments (dev/staging/production)
+- ✓ Implementing zero-downtime deployments
+- ✓ Troubleshooting deployment failures
+- ✓ Validating infrastructure configuration
+- ✓ Setting up CI/CD pipelines
+- ✓ Pre-deployment validation (see [lambda-deployment checklist](../../checklists/lambda-deployment.md))
 
-### Setup Process
+**DO NOT use this skill for:**
+- ✗ Local development setup (use project README instead)
+- ✗ Running tests (use testing-workflow skill)
+- ✗ Code refactoring (use refactor skill)
 
-#### 1. Model Access
-Navigate to the Amazon Bedrock console, access Model access settings, and request Claude model availability in your region.
+**Quick Links**:
+- **Pre-deployment checklist**: [lambda-deployment.md](../../checklists/lambda-deployment.md) - Systematic verification before deploying Lambda
+- **Error investigation**: [error-investigation skill](../error-investigation/) - AWS-specific troubleshooting
+- **Testing workflow**: [testing-workflow skill](../testing-workflow/) - Docker-based testing for deployment fidelity
 
-#### 2. AWS Credentials Configuration
-Multiple authentication methods are supported:
+---
 
-**AWS CLI:**
+## Quick Deployment Decision Tree
+
+```
+What are you deploying?
+├─ Lambda function update?
+│  ├─ Code change only? → Update function code, wait for update
+│  ├─ Config change (env vars, memory)? → Update configuration, wait
+│  ├─ Zero-downtime required? → Use versioning + alias pattern
+│  └─ Rollback needed? → Point alias to previous version
+│
+├─ New environment?
+│  ├─ Branch-based (dev/staging/prod)? → Follow multi-env guide
+│  ├─ Secrets setup? → Configure Doppler + GitHub secrets
+│  └─ Infrastructure? → Terraform apply
+│
+├─ Deployment failed?
+│  ├─ Check CloudWatch logs → Filter ERROR level
+│  ├─ Validate secrets → Run validation script
+│  ├─ Check resource state → AWS CLI describe commands
+│  └─ Verify permissions → IAM policy validation
+│
+└─ CI/CD pipeline setup?
+   ├─ Define environments → dev/staging/prod
+   ├─ Configure artifact promotion → Immutable images
+   ├─ Add validation gates → Pre-deploy checks
+   └─ Setup monitoring → CloudWatch + smoke tests
+```
+
+---
+
+## Core Deployment Patterns
+
+### Pattern 1: Zero-Downtime Lambda Deployment
+
+**Problem:** Updating Lambda function causes brief unavailability during deployment.
+
+**Solution:** Version + Alias pattern
+
+```
+$LATEST (mutable, testing)
+   ↓ publish version
+Version N (immutable snapshot)
+   ↓ update alias
+live (production pointer) → Version N
+```
+
+**Benefits:**
+- Zero downtime (alias swap is atomic)
+- Instant rollback (point alias to previous version)
+- Test before promotion ($LATEST → Version)
+
+See [ZERO_DOWNTIME.md](ZERO_DOWNTIME.md) for detailed patterns.
+
+### Pattern 2: Multi-Environment Strategy
+
+**Branch-Based Deployment:**
+
+```
+dev branch → dev environment (~8 min)
+    ↓ PR
+main branch → staging environment (~10 min)
+    ↓ Tag v*.*.*
+production environment (~12 min)
+```
+
+**Artifact Promotion:**
+- Build once in dev
+- Same immutable Docker image promoted to staging/prod
+- What you test is what you deploy
+
+See [MULTI_ENV.md](MULTI_ENV.md) for environment separation patterns.
+
+> **Note**: Deployment verification applies **Progressive Evidence Strengthening** (CLAUDE.md Principle #2). We verify from weak evidence (exit codes) to strong evidence (actual traffic metrics).
+
+### Pattern 3: Deployment Validation
+
+**Multi-Layer Verification (Deployment Application):**
+
+1. **Status Code** (weakest signal)
+   ```bash
+   aws lambda invoke --function-name worker --payload '{}' /tmp/response.json
+   # Exit code 0 only means "invocation succeeded", not "function worked"
+   ```
+
+2. **Response Payload** (stronger signal)
+   ```bash
+   if grep -q "errorMessage" /tmp/response.json; then
+     echo "❌ Lambda returned error"
+     exit 1
+   fi
+   ```
+
+3. **CloudWatch Logs** (strongest signal)
+   ```bash
+   ERROR_COUNT=$(aws logs filter-log-events \
+     --log-group-name /aws/lambda/worker \
+     --filter-pattern "ERROR" \
+     --query 'length(events)' --output text)
+
+   if [ "$ERROR_COUNT" -gt 0 ]; then
+     echo "❌ Found errors in logs"
+     exit 1
+   fi
+   ```
+
+**Principle:** AWS services returning 200 OK doesn't guarantee error-free execution. Always validate logs.
+
+See [MONITORING.md](MONITORING.md) for comprehensive validation patterns.
+
+### Pattern 4: Secret Management by Consumer
+
+**Doppler (Runtime Secrets)**
+- Who needs it: Lambda functions during execution
+- Examples: `AURORA_HOST`, `OPENROUTER_API_KEY`
+- Access: Doppler → Terraform → Lambda env vars
+
+**GitHub Secrets (Deployment Secrets)**
+- Who needs it: CI/CD pipeline during deployment
+- Examples: `CLOUDFRONT_DISTRIBUTION_ID`, `AWS_ACCESS_KEY_ID`
+- Access: `${{ secrets.SECRET_NAME }}` in workflows
+
+**The Deciding Question:** "Does the Lambda function running in production need this value?"
+- YES → Doppler (runtime secret)
+- NO → GitHub Secrets (deployment secret)
+
+See [MULTI_ENV.md#secret-management](MULTI_ENV.md#secret-management) for detailed patterns.
+
+---
+
+## Pre-Deployment Validation
+
+**Principle:** Validate configuration BEFORE deployment, not during.
+
+### Validation Script
+
 ```bash
-aws configure
+# Run before every deployment
+scripts/validate_deployment_ready.sh
+
+# Checks:
+# 1. Doppler configuration exists
+# 2. Required environment variables set
+# 3. AWS resources exist (S3 buckets, DynamoDB tables)
+# 4. Lambda function dependencies available
 ```
 
-**Environment variables:**
-```bash
-export AWS_ACCESS_KEY_ID=your-key
-export AWS_SECRET_ACCESS_KEY=your-secret
-export AWS_SESSION_TOKEN=your-token  # Optional
-```
+**Why This Matters:**
+- Distinguishes config failures from logic failures
+- Fails fast (30 seconds vs 8 minute deploy)
+- Prevents partial deployments
 
-**SSO profile:**
-```bash
-aws sso login --profile=<name>
-export AWS_PROFILE=your-profile
-```
+### Infrastructure-Deployment Contract Validation
 
-**Bedrock API keys:**
-```bash
-export AWS_BEARER_TOKEN_BEDROCK=your-token
-```
+**Pattern:** Query AWS infrastructure, validate secrets match reality.
 
-#### 3. Claude Code Configuration
-Enable Bedrock integration:
-```bash
-export CLAUDE_CODE_USE_BEDROCK=1
-export AWS_REGION=us-east-1  # Or preferred region
-```
-
-Optional override for Haiku region:
-```bash
-export ANTHROPIC_SMALL_FAST_MODEL_AWS_REGION=us-west-2
-```
-
-#### 4. Model Selection
-Default models include Claude Sonnet 4.5 and Claude Haiku 4.5.
-
-Customize via:
-```bash
-export ANTHROPIC_MODEL='model-id'
-export ANTHROPIC_SMALL_FAST_MODEL='haiku-model-id'
-```
-
-#### 5. Token Configuration
-Recommended settings:
-```bash
-export CLAUDE_CODE_MAX_OUTPUT_TOKENS=4096
-export MAX_THINKING_TOKENS=1024
-```
-
-### IAM Permissions
-
-Required actions:
-- `bedrock:InvokeModel`
-- `bedrock:InvokeModelWithResponseStream`
-- `bedrock:ListInferenceProfiles`
-
-Example IAM policy:
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "bedrock:InvokeModel",
-        "bedrock:InvokeModelWithResponseStream",
-        "bedrock:ListInferenceProfiles"
-      ],
-      "Resource": "*"
-    }
-  ]
-}
-```
-
-### Advanced Features
-
-Automatic credential refresh supports corporate identity providers through `awsAuthRefresh` and `awsCredentialExport` configuration options.
-
-### Key Limitations
-- Login/logout commands disabled (AWS credentials handle authentication)
-- Uses Bedrock's Invoke API, not Converse API
-
-## Google Vertex AI Integration
-
-### Overview
-Claude Code integrates with Google Vertex AI to enable deployment through Google Cloud Platform. The service supports both global and regional endpoints for model access.
-
-### Prerequisites
-- Active GCP account with billing enabled
-- A project with Vertex AI API access
-- Google Cloud SDK (`gcloud`) installed
-- Appropriate quota allocation in your chosen region
-
-### Setup Process
-
-#### 1. Enable Vertex AI API
-Enable the Vertex AI API in your GCP project:
-```bash
-gcloud config set project YOUR-PROJECT-ID
-gcloud services enable aiplatform.googleapis.com
-```
-
-#### 2. Request Model Access
-Navigate to Vertex AI Model Garden to search for and request access to Claude models like Claude Sonnet 4.5.
-
-**Approval time:** Typically 24-48 hours
-
-#### 3. Configure GCP Credentials
-Claude Code uses standard Google Cloud authentication and automatically detects the project ID from environment variables.
-
-```bash
-gcloud auth application-default login
-```
-
-#### 4. Configure Claude Code
-Set environment variables:
-```bash
-export CLAUDE_CODE_USE_VERTEX=1
-export CLOUD_ML_REGION=global  # Or specify regional endpoints
-export ANTHROPIC_VERTEX_PROJECT_ID=YOUR-PROJECT-ID
-```
-
-#### 5. Model Configuration
-Default models include Claude Sonnet 4.5 as the primary model and Claude Haiku 4.5 as the fast model.
-
-Customize through environment variables:
-```bash
-export ANTHROPIC_MODEL='model-id'
-export ANTHROPIC_SMALL_FAST_MODEL='haiku-model-id'
-```
-
-### Key Features
-
-**Prompt Caching:**
-Automatically supported via `cache_control` flags
-
-**1M Token Context:**
-Available in beta for Sonnet 4 and 4.5
-
-**IAM Requirements:**
-Assign `roles/aiplatform.user` role for necessary permissions:
-```bash
-gcloud projects add-iam-policy-binding YOUR-PROJECT-ID \
-  --member="user:email@example.com" \
-  --role="roles/aiplatform.user"
-```
-
-### Troubleshooting
-
-**Quota limitations:**
-- Check quota in GCP Console
-- Request increases if needed
-
-**Unsupported models in specific regions:**
-- Verify model availability in Model Garden
-- Switch to supported regional endpoints
-
-**429 rate-limit errors:**
-- Implement retry logic
-- Request quota increases
-- Spread requests across regions
-
-## Comparison: Bedrock vs Vertex AI vs Claude API
-
-| Feature | Claude API | AWS Bedrock | Google Vertex AI |
-|---------|-----------|-------------|------------------|
-| **Setup Complexity** | Simple | Moderate | Moderate |
-| **Authentication** | API key | AWS credentials | GCP credentials |
-| **Regional Options** | Global | AWS regions | GCP regions |
-| **Billing** | Direct | AWS billing | GCP billing |
-| **Enterprise Features** | Basic | Advanced | Advanced |
-| **Compliance** | Standard | AWS compliance | GCP compliance |
-
-## Best Practices for Enterprise Deployment
-
-1. **Use OIDC/Workload Identity** for credential management
-2. **Implement quota monitoring** to avoid service interruptions
-3. **Set up proper IAM roles** with least privilege access
-4. **Configure region preferences** based on data residency requirements
-5. **Enable logging and monitoring** for audit trails
-6. **Use environment-specific configurations** for dev/staging/prod
-7. **Implement cost controls** with budget alerts
-8. **Test failover scenarios** between regions
-9. **Document credential rotation procedures**
-10. **Review security policies** regularly
-
-## CI/CD Integration
-
-Both Bedrock and Vertex AI support automated workflows:
-
-**GitHub Actions with Bedrock:**
 ```yaml
-- name: Configure AWS Credentials
-  uses: aws-actions/configure-aws-credentials@v1
-  with:
-    role-to-assume: arn:aws:iam::ACCOUNT:role/ROLE
-    aws-region: us-east-1
+jobs:
+  validate-deployment-config:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate CloudFront Distributions
+        run: |
+          # Query actual infrastructure
+          ACTUAL=$(aws cloudfront list-distributions \
+            --query 'DistributionList.Items[?Comment==`app-dev`].Id' \
+            --output text)
 
-- name: Run Claude Code
-  run: |
-    export CLAUDE_CODE_USE_BEDROCK=1
-    claude -p "task" --output-format json
+          # Compare to GitHub secret
+          if [ "$ACTUAL" != "${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}" ]; then
+            echo "❌ Secret mismatch detected"
+            exit 1
+          fi
+
+  build:
+    needs: validate-deployment-config  # Won't run if validation fails
 ```
 
-**GitLab CI with Vertex AI:**
-```yaml
-script:
-  - gcloud auth activate-service-account --key-file=$GCP_KEY_FILE
-  - export CLAUDE_CODE_USE_VERTEX=1
-  - export ANTHROPIC_VERTEX_PROJECT_ID=$PROJECT_ID
-  - claude -p "task"
+**Benefits:**
+- Catches configuration drift automatically
+- No manual checklist needed
+- Single source of truth (AWS infrastructure is reality)
+
+See [MONITORING.md#infrastructure-validation](MONITORING.md#infrastructure-validation).
+
+---
+
+## Common Deployment Scenarios
+
+### Scenario 1: Deploy Code Change to Dev
+
+```bash
+# 1. Commit to dev branch
+git add .
+git commit -m "feat: Add new feature"
+git push origin dev
+
+# 2. GitHub Actions automatically:
+#    - Builds Docker image
+#    - Pushes to ECR
+#    - Updates Lambda function code
+#    - Waits for function update (no sleep!)
+#    - Runs smoke tests
+#    - Validates CloudWatch logs
+
+# 3. Manual verification (optional)
+just test-dev-api  # Test deployed function
 ```
+
+**Time:** ~8 minutes
+
+### Scenario 2: Promote Dev → Staging
+
+```bash
+# 1. Create PR from dev → main
+gh pr create --base main --head dev --title "Release: v1.2.0"
+
+# 2. Review and merge
+gh pr merge --squash
+
+# 3. GitHub Actions automatically:
+#    - Uses SAME Docker image from dev (artifact promotion)
+#    - Updates staging Lambda with promoted image
+#    - Runs integration tests
+#    - Validates staging environment
+```
+
+**Time:** ~10 minutes (faster because no rebuild)
+
+### Scenario 3: Deploy to Production
+
+```bash
+# 1. Tag release on main branch
+git tag v1.2.0
+git push origin v1.2.0
+
+# 2. GitHub Actions automatically:
+#    - Uses SAME Docker image from staging
+#    - Publishes new Lambda version (immutable)
+#    - Updates 'live' alias to new version (zero-downtime)
+#    - Runs smoke tests
+#    - Validates production logs
+```
+
+**Time:** ~12 minutes
+
+### Scenario 4: Rollback Production
+
+```bash
+# Find previous version
+aws lambda list-versions-by-function \
+  --function-name worker \
+  --query 'Versions[-2].Version'  # Previous version
+
+# Update alias to previous version (instant rollback)
+aws lambda update-alias \
+  --function-name worker \
+  --name live \
+  --function-version 42  # Previous working version
+
+# Verify rollback
+aws lambda get-alias --function-name worker --name live
+```
+
+**Time:** < 30 seconds (instant)
+
+---
+
+## Deployment Principles
+
+**From CLAUDE.md global instructions:**
+> "Deployment Philosophy: Serverless AWS Lambda with immutable container images, zero-downtime promotion via versioning."
+
+### Core Principles
+
+1. **Immutability**: Build once, promote same artifact through all environments
+2. **Zero-Downtime**: Version + Alias pattern for atomic updates
+3. **Fail Fast**: Validate before deployment, not during
+4. **Multi-Layer Verification**: Status code + Payload + Logs
+5. **Artifact Promotion**: Dev image → Staging image → Prod image (same hash)
+6. **Secret Separation**: Runtime secrets (Doppler) vs Deployment secrets (GitHub)
+
+### When NOT to Deploy
+
+- ❌ Tests failing (run `just test-deploy` first)
+- ❌ Secrets not configured (run validation script)
+- ❌ Infrastructure not created (run `terraform apply` first)
+- ❌ No PR review for staging/prod (require approval)
+
+### AWS CLI Waiter Pattern
+
+**DO:**
+```bash
+aws lambda update-function-code --function-name worker --image-uri $IMAGE
+aws lambda wait function-updated --function-name worker  # Blocks until ready
+```
+
+**DON'T:**
+```bash
+aws lambda update-function-code --function-name worker --image-uri $IMAGE
+sleep 30  # ❌ Arbitrary delay, might be too short or too long
+```
+
+**Why Waiters:**
+- Precise timing (returns immediately when ready)
+- Handles variability (cold start vs warm container)
+- Prevents race conditions
+
+---
+
+## File Organization
+
+```
+.claude/skills/deployment/
+├── SKILL.md                       # This file (entry point)
+├── ZERO_DOWNTIME.md               # Lambda versioning patterns
+├── MULTI_ENV.md                   # Environment strategy
+├── MONITORING.md                  # Validation and monitoring
+└── scripts/
+    └── validate_deployment_ready.sh  # Pre-deployment validation
+```
+
+---
+
+## Next Steps
+
+- **For zero-downtime patterns**: See [ZERO_DOWNTIME.md](ZERO_DOWNTIME.md)
+- **For multi-environment setup**: See [MULTI_ENV.md](MULTI_ENV.md)
+- **For deployment monitoring**: See [MONITORING.md](MONITORING.md)
+- **For complete runbook**: See `docs/deployment/TELEGRAM_DEPLOYMENT_RUNBOOK.md`
+
+---
+
+## References
+
+- [AWS Lambda Versioning and Aliases](https://docs.aws.amazon.com/lambda/latest/dg/configuration-aliases.html)
+- [AWS CLI Waiters](https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-wait.html)
+- [Doppler Documentation](https://docs.doppler.com/)
+- [GitHub Actions: AWS Credentials](https://github.com/aws-actions/configure-aws-credentials)
+- [Terraform AWS Provider](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)

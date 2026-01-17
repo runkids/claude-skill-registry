@@ -1,7 +1,7 @@
 {
   "name": "faiss",
-  "repo": "majiayu000/claude-skill-registry",
-  "path": "skills/data/faiss/SKILL.md",
-  "source": "github.com/majiayu000/claude-skill-registry",
-  "downloaded_at": "2026-01-14T01:56:14.118991Z"
+  "repo": "zechenzhangAGI/AI-research-SKILLs",
+  "path": "15-rag/faiss/SKILL.md",
+  "source": "github.com/zechenzhangAGI/AI-research-SKILLs",
+  "downloaded_at": "2026-01-17T02:53:58.347347Z"
 }

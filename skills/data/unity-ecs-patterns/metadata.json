@@ -1,7 +1,7 @@
 {
   "name": "unity-ecs-patterns",
-  "repo": "GaitanS/AI-Mancare",
-  "path": ".claude/skills/plugins/game-development/skills/unity-ecs-patterns/SKILL.md",
-  "source": "github.com/GaitanS/AI-Mancare",
-  "downloaded_at": "2026-01-14T03:16:27.782576Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/game-development/skills/unity-ecs-patterns/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-01-17T03:59:13.209007Z"
 }

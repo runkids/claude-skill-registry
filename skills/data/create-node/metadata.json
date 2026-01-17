@@ -1,7 +1,7 @@
 {
   "name": "create-node",
-  "repo": "bytedance/flowgram.ai",
-  "path": ".claude/skills/create-node/SKILL.md",
-  "source": "github.com/bytedance/flowgram.ai",
-  "downloaded_at": "2026-01-14T01:41:34.762122Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/create-node/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-17T02:27:15.668031Z"
 }

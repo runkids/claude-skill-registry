@@ -1,148 +1,268 @@
 ---
 name: atomic-commits
-description: Creates semantic atomic commits using Conventional Commits. Use always when committing changes, staging files, or when asked to commit code. Analyzes diffs, suggests scope, and can split changes into granular commits.
-allowed-tools: Bash, Read, Glob, Grep, AskUserQuestion
+description: Create small, focused, revertable commits. Master git add -p for interactive staging and keep commits meaningful.
+context: inherit
+version: 1.0.0
+author: SkillForge
+tags: [git, commits, best-practices, version-control, atomic]
+user-invocable: false
 ---
 
 # Atomic Commits
 
-Creates well-structured, semantic commits following [Conventional Commits](https://www.conventionalcommits.org/) specification. Automatically analyzes changes and creates atomic, focused commits.
+An atomic commit is the smallest possible meaningful change. It does ONE thing and leaves the codebase in a working state.
 
-## Core Principles
+## When to Use
 
-1. **Atomic**: Each commit represents ONE logical change
-2. **Semantic**: Type prefix describes the nature of the change
-3. **Scoped**: Optional scope indicates the affected module/component
-4. **Descriptive**: Message explains WHAT and WHY, not HOW
+- Before committing any changes
+- When reviewing your own staged changes
+- When commits feel "too big"
+- When commit message needs "and"
 
-## Workflow
+## The Atomic Commit Checklist
 
-### Step 1: Analyze Changes
+```
+[ ] Does ONE logical thing
+[ ] Leaves codebase working (tests pass)
+[ ] Message doesn't need "and" in title
+[ ] Can be reverted independently
+[ ] Title < 50 chars, body wraps at 72
+```
 
-Run these commands to understand the current state:
+## Quick Reference
+
+### Interactive Staging (Key Technique)
 
 ```bash
+# Stage changes hunk-by-hunk
+git add -p
+
+# Options when prompted:
+# y - stage this hunk
+# n - skip this hunk
+# s - split into smaller hunks
+# e - manually edit the hunk
+# q - quit (staged hunks remain staged)
+
+# Stage specific file interactively
+git add -p src/auth/login.ts
+
+# Review what's staged vs unstaged
+git diff --staged    # What will be committed
+git diff             # What won't be committed
+```
+
+### Commit Size Guidelines
+
+```
+ATOMIC (Good)                    MONOLITHIC (Bad)
+-----------------------------------------
+feat: Add User model             feat: Add auth system with
+                                 tests, fix bug, update deps,
+Files: 2                         and refactor utils
+Lines: +45 -0
+                                 Files: 47
+                                 Lines: +2,341 -892
+```
+
+### Detecting Non-Atomic Commits
+
+Your commit is NOT atomic if:
+- Message title needs "and" or ","
+- Message describes multiple effects
+- Includes unrelated formatting changes
+- Mixes feature code with test code
+- Combines refactoring with new features
+
+---
+
+## Workflow: Breaking Up Work
+
+### After Coding (Recommended)
+
+```bash
+# 1. See all changes
 git status
-git diff --staged
 git diff
+
+# 2. Stage related changes only
+git add -p
+
+# 3. Commit one logical change
+git commit -m "feat(#123): Add User model with validation"
+
+# 4. Repeat for remaining changes
+git add -p
+git commit -m "test(#123): Add User model unit tests"
+
+git add -p
+git commit -m "docs(#123): Add User model API documentation"
 ```
 
-### Step 2: Identify Commit Types
-
-For each logical change, determine the appropriate type:
-
-| Type       | When to Use                                             |
-| ---------- | ------------------------------------------------------- |
-| `feat`     | New feature for the user                                |
-| `fix`      | Bug fix for the user                                    |
-| `docs`     | Documentation only changes                              |
-| `style`    | Formatting, missing semicolons (no code change)         |
-| `refactor` | Code change that neither fixes a bug nor adds a feature |
-| `perf`     | Performance improvement                                 |
-| `test`     | Adding or fixing tests                                  |
-| `build`    | Build system or external dependencies                   |
-| `ci`       | CI configuration files and scripts                      |
-| `chore`    | Other changes that don't modify src or test files       |
-| `revert`   | Reverts a previous commit                               |
-
-### Step 3: Determine Scope
-
-Analyze changed files to suggest scope:
-
-- `api/` → scope: `api`
-- `core/database.py` → scope: `db`
-- `agents/faq_agent/` → scope: `faq-agent`
-- `tests/` → scope: `tests`
-- Multiple areas → consider splitting into multiple commits
-
-### Step 4: Create Atomic Commits
-
-If changes span multiple concerns, split them:
+### During Development (Advanced)
 
 ```bash
-git add -p  # Stage hunks interactively (but explain to user)
+# Commit frequently as you go
+# Each save point = potential commit
+
+# Work on feature
+# ... make changes ...
+git add -p && git commit -m "feat: Add login form UI"
+
+# ... make more changes ...
+git add -p && git commit -m "feat: Add login validation"
+
+# ... make more changes ...
+git add -p && git commit -m "feat: Connect login to auth API"
 ```
 
-Or stage specific files:
+---
+
+## Common Patterns
+
+### Separate Formatting from Logic
 
 ```bash
-git add <specific-files>
-git commit -m "<type>(<scope>): <description>"
+# BAD: One commit with both
+git commit -m "feat: Add auth and fix formatting"
+
+# GOOD: Two commits
+git add -p  # Stage only formatting
+git commit -m "style: Fix indentation in auth module"
+
+git add -p  # Stage only logic
+git commit -m "feat(#123): Add JWT token validation"
 ```
 
-### Step 5: Validate Message Format
-
-Before committing, validate the message follows the pattern:
-
-```
-<type>(<scope>): <description>
-
-[optional body]
-
-[optional footer(s)]
-```
-
-Rules:
-
-- Type is required and lowercase
-- Scope is optional, lowercase, in parentheses
-- Description starts lowercase, no period at end
-- Max 72 characters for first line
-- Body wrapped at 72 characters
-- Breaking changes: add "!" after type/scope or "BREAKING CHANGE:" in footer
-- **NEVER add auto-generated labels** like "Generated with Claude Code", "Co-Authored-By", or any AI attribution
-- Commit messages must be clean and professional, as if written by the developer
-
-## Commit Message Template
-
-```
-<type>(<scope>): <short description>
-
-<body - explain WHAT and WHY>
-
-<footer>
-```
-
-## Breaking Changes
-
-For breaking changes, use one of:
+### Separate Refactoring from Features
 
 ```bash
-feat(api)!: change authentication method
+# BAD: Refactor + feature together
+git commit -m "feat: Add caching and refactor database layer"
 
-feat(api): change authentication method
-
-BREAKING CHANGE: API now requires Bearer token instead of API key
+# GOOD: Refactor first, then feature
+git commit -m "refactor: Extract database connection pool"
+git commit -m "feat(#456): Add query result caching"
 ```
 
-## Multi-Commit Strategy
+### Separate Tests from Implementation
 
-When changes are complex, create separate commits for:
+```bash
+# Option A: Implementation first
+git commit -m "feat(#789): Add password strength validator"
+git commit -m "test(#789): Add password validator tests"
 
-1. **Preparation**: Refactoring needed before the feature
-2. **Core**: The main feature/fix implementation
-3. **Tests**: New or updated tests
-4. **Docs**: Documentation updates
-
-Example sequence:
-
-```
-refactor(auth): extract token validation to separate function
-feat(auth): add OAuth2 support
-test(auth): add OAuth2 integration tests
-docs(auth): update authentication guide
+# Option B: Tests first (TDD)
+git commit -m "test(#789): Add failing password validator tests"
+git commit -m "feat(#789): Implement password strength validator"
 ```
 
-## Interactive Mode
+---
 
-When asked to commit, always:
+## Recovery: Splitting Bad Commits
 
-1. Show the user what will be committed (files and diff summary)
-2. Suggest the commit type and scope
-3. Propose a commit message
-4. Ask for confirmation before executing
+### Before Pushing
+
+```bash
+# Undo last commit, keep changes
+git reset --soft HEAD~1
+
+# Now re-commit atomically
+git add -p
+git commit -m "feat: First logical change"
+git add -p
+git commit -m "feat: Second logical change"
+```
+
+### After Pushing (Use with caution)
+
+```bash
+# Interactive rebase to split
+git rebase -i HEAD~3
+
+# Mark commit as 'edit'
+# When stopped at commit:
+git reset HEAD~1
+git add -p && git commit -m "First part"
+git add -p && git commit -m "Second part"
+git rebase --continue
+
+# Force push (only on feature branches!)
+git push --force-with-lease
+```
+
+---
+
+## Benefits of Atomic Commits
+
+| Benefit | Why It Matters |
+|---------|----------------|
+| **Easy revert** | `git revert <sha>` undoes exactly one thing |
+| **Better bisect** | `git bisect` finds bugs faster |
+| **Clear history** | Future you understands what happened |
+| **Easier review** | Reviewers can follow logic step-by-step |
+| **AI-friendly** | AI tools understand focused changes better |
+| **Conflict resolution** | Smaller changes = fewer conflicts |
+
+---
+
+## When to Deviate
+
+Atomic commits are ideal, but some exceptions:
+
+- **Initial project setup** - First commit can be larger
+- **Emergency hotfix** - Speed over perfection
+- **Generated code** - Migrations, lockfiles, etc.
+- **Vendor updates** - Package-lock.json, etc.
+
+Even then, try to keep commit messages clear about what's included.
+
+---
+
+## Tooling
+
+### Git Config for Better Diffs
+
+```bash
+# Better diff algorithm
+git config --global diff.algorithm histogram
+
+# Show moved lines
+git config --global diff.colorMoved zebra
+
+# Ignore whitespace in diffs
+git diff -w
+```
+
+### VS Code Integration
+
+```json
+// settings.json
+{
+  "git.enableSmartCommit": false,
+  "git.suggestSmartCommit": false,
+  "git.promptToSaveFilesBeforeCommit": "always"
+}
+```
+
+---
+
+## Best Practices Summary
+
+1. **Stage interactively** - Always use `git add -p`
+2. **One thing per commit** - If you say "and", split it
+3. **Tests pass** - Never commit broken code
+4. **Clear messages** - Subject < 50, body at 72
+5. **Commit often** - Small and frequent beats large and rare
+6. **Review before push** - `git log --oneline -10`
+
+## Related Skills
+
+- commit: Conventional commit format
+- git-recovery: Fix commit mistakes
+- branch-strategy: Commit workflow in branches
 
 ## References
 
-See [CONVENTIONS.md](CONVENTIONS.md) for detailed type definitions.
-See [EXAMPLES.md](EXAMPLES.md) for real-world examples.
+- [Interactive Staging](references/interactive-staging.md)
+- [Splitting Commits](references/splitting-commits.md)

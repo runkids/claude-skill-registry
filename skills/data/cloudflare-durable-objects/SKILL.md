@@ -1,220 +1,282 @@
 ---
 name: cloudflare-durable-objects
-description: |
-  Build stateful Durable Objects for real-time apps, WebSocket servers, coordination, and persistent state. Use when: implementing chat rooms, multiplayer games, rate limiting, session management, WebSocket hibernation, or troubleshooting class export, migration, WebSocket state loss, or binding errors.
-user-invocable: true
+description: Cloudflare Durable Objects for stateful coordination and real-time apps. Use for chat, multiplayer games, WebSocket hibernation, or encountering class export, migration, alarm errors.
+
+  Keywords: durable objects, cloudflare do, DurableObject class, do bindings, websocket hibernation, do state api, ctx.storage.sql, ctx.acceptWebSocket, webSocketMessage, alarm() handler, storage.setAlarm, idFromName, newUniqueId, getByName, DurableObjectStub, serializeAttachment, real-time cloudflare, multiplayer cloudflare, chat room workers, coordination cloudflare, stateful workers, new_sqlite_classes, do migrations, location hints, RPC methods, blockConcurrencyWhile, "do class export", "new_sqlite_classes", "migrations required", "websocket hibernation", "alarm api error", "global uniqueness", "binding not found"
+license: MIT
 ---
 
 # Cloudflare Durable Objects
 
 **Status**: Production Ready ✅
-**Last Updated**: 2026-01-09
+**Last Updated**: 2025-11-25
 **Dependencies**: cloudflare-worker-base (recommended)
-**Latest Versions**: wrangler@4.58.0, @cloudflare/workers-types@4.20260109.0
+**Latest Versions**: wrangler@4.50.0+, @cloudflare/workers-types@4.20251125.0+
 **Official Docs**: https://developers.cloudflare.com/durable-objects/
 
-**Recent Updates (2025)**:
-- **Oct 2025**: WebSocket message size 1 MiB → 32 MiB, Data Studio UI for SQLite DOs (view/edit storage in dashboard)
-- **Aug 2025**: `getByName()` API shortcut for named DOs
-- **June 2025**: @cloudflare/actors library (beta) - recommended SDK with migrations, alarms, Actor class pattern
-- **May 2025**: Python Workers support for Durable Objects
-- **April 2025**: SQLite GA with 10GB storage (beta → GA, 1GB → 10GB), Free tier access
-- **Feb 2025**: PRAGMA optimize support, improved error diagnostics with reference IDs
+## Table of Contents
+[What are Durable Objects?](#what-are-durable-objects) • [Quick Start](#quick-start-10-minutes) • [When to Load References](#when-to-load-references) • [Class Structure](#durable-object-class-structure) • [State API](#state-api---persistent-storage) • [WebSocket Hibernation](#websocket-hibernation-api) • [Alarms](#alarms-api---scheduled-tasks) • [RPC vs HTTP](#rpc-vs-http-fetch) • [Stubs & Routing](#creating-durable-object-stubs-and-routing) • [Migrations](#migrations---managing-do-classes) • [Common Patterns](#common-patterns) • [Critical Rules](#critical-rules) • [Known Issues](#known-issues-prevention)
+## What are Durable Objects?
 
+**Globally unique, stateful objects** with single-point coordination, strong consistency (ACID), WebSocket Hibernation (thousands of connections), SQLite storage (1GB), and alarms API.
+
+**Use for:** Chat rooms, multiplayer games, rate limiting, session management, leader election, stateful workflows
 ---
+## Quick Start (10 Minutes)
 
-## Quick Start
+### Option 1: Scaffold New DO Project
 
-**Scaffold new DO project:**
 ```bash
-npm create cloudflare@latest my-durable-app -- --template=cloudflare/durable-objects-template --ts
+npm create cloudflare@latest my-durable-app -- \
+  --template=cloudflare/durable-objects-template --ts --git --deploy false
+cd my-durable-app && bun install && npm run dev
 ```
 
-**Or add to existing Worker:**
+### Option 2: Add to Existing Worker
 
+**1. Install types:**
+```bash
+bun add -d @cloudflare/workers-types
+```
+
+**2. Create DO class** (`src/counter.ts`):
 ```typescript
-// src/counter.ts - Durable Object class
 import { DurableObject } from 'cloudflare:workers';
 
 export class Counter extends DurableObject {
   async increment(): Promise<number> {
-    let value = (await this.ctx.storage.get<number>('value')) || 0;
+    let value: number = (await this.ctx.storage.get('value')) || 0;
     await this.ctx.storage.put('value', ++value);
     return value;
   }
 }
-export default Counter;  // CRITICAL: Export required
+
+export default Counter;  // CRITICAL
 ```
 
+**3. Configure** (`wrangler.jsonc`):
 ```jsonc
-// wrangler.jsonc - Configuration
 {
   "durable_objects": {
     "bindings": [{ "name": "COUNTER", "class_name": "Counter" }]
   },
   "migrations": [
-    { "tag": "v1", "new_sqlite_classes": ["Counter"] }  // SQLite backend (10GB limit)
+    { "tag": "v1", "new_sqlite_classes": ["Counter"] }
   ]
 }
 ```
 
+**4. Call from Worker** (`src/index.ts`):
 ```typescript
-// src/index.ts - Worker
 import { Counter } from './counter';
+
+interface Env {
+  COUNTER: DurableObjectNamespace<Counter>;
+}
+
 export { Counter };
 
 export default {
-  async fetch(request: Request, env: { COUNTER: DurableObjectNamespace<Counter> }) {
-    const stub = env.COUNTER.getByName('global-counter');  // Aug 2025: getByName() shortcut
+  async fetch(request: Request, env: Env): Promise<Response> {
+    const stub = env.COUNTER.getByName('global-counter');
     return new Response(`Count: ${await stub.increment()}`);
-  }
+  },
 };
+```
+
+**Deploy:**
+
+```bash
+bunx wrangler deploy
 ```
 
 ---
 
-## DO Class Essentials
+## Available Commands
+
+Use these interactive commands for guided workflows:
+
+- **`/do-setup`** - Initialize new DO project with interactive setup wizard
+  - Choose storage backend (SQL, KV, both)
+  - Select use case pattern (WebSocket, Sessions, Rate Limiting, etc.)
+  - Optional Vitest testing setup
+  - Generates complete DO implementation
+
+- **`/do-migrate`** - Interactive migration assistant
+  - New class creation (new_sqlite_classes, new_classes)
+  - Rename existing classes (renamed_classes)
+  - Delete classes with safety confirmations (deleted_classes)
+  - Transfer classes between scripts (transferred_classes)
+  - Auto-increments migration tags (v1, v2, v3...)
+
+- **`/do-debug`** - Step-by-step debugging workflow
+  - Detects error categories (deployment, runtime, performance, etc.)
+  - Runs diagnostic checks on configuration and code
+  - Provides specific fixes with code examples
+  - Guides local testing and production verification
+
+- **`/do-patterns`** - Pattern selection wizard
+  - Recommends DO pattern based on use case
+  - Supports WebSocket, Rate Limiting, Sessions, Analytics, Leader Election
+  - Generates complete pattern implementation
+  - Provides best practices and optimization tips
+
+- **`/do-optimize`** - Performance optimization assistant
+  - Analyzes existing DO code for bottlenecks
+  - Provides targeted optimization recommendations
+  - Covers constructor, queries, WebSocket, memory, alarms
+  - Measures performance improvements
+
+## Autonomous Agents
+
+These agents work autonomously without user interaction:
+
+- **`do-debugger`** - Automatic error detection and fixing
+  - Validates wrangler.jsonc configuration
+  - Detects 16+ common DO errors
+  - Applies fixes automatically with backups
+  - Tests fixes before reporting
+
+- **`do-setup-assistant`** - Automatic project scaffolding
+  - Analyzes user requirements from natural language
+  - Generates complete DO implementation
+  - Creates tests, documentation, validation
+  - Supports all use case patterns
+
+- **`do-pattern-implementer`** - Production pattern implementation
+  - Analyzes existing DO code
+  - Recommends patterns by priority
+  - Implements TTL cleanup, RPC metadata, SQL indexes, etc.
+  - Generates pattern-specific tests
+
+---
+
+## When to Load References
+
+**Load immediately when user mentions:**
+- **`state-api-reference.md`** → "storage", "sql", "database", "query", "get/put", "KV", "1GB limit"
+- **`websocket-hibernation.md`** → "websocket", "real-time", "chat", "hibernation", "serializeAttachment"
+- **`alarms-api.md`** → "alarms", "scheduled tasks", "cron", "periodic", "batch processing"
+- **`rpc-patterns.md`** → "RPC", "fetch", "HTTP", "methods", "routing"
+- **`rpc-metadata.md`** → "RpcTarget", "metadata", "DO name", "idFromName access"
+- **`stubs-routing.md`** → "stubs", "idFromName", "newUniqueId", "location hints", "jurisdiction"
+- **`migrations-guide.md`** → "migrations", "rename", "delete", "transfer", "schema changes"
+- **`migration-cheatsheet.md`** → "migration quick reference", "migration types", "common migrations"
+- **`common-patterns.md`** → "patterns", "examples", "rate limiting", "sessions", "leader election"
+- **`vitest-testing.md`** → "test", "testing", "vitest", "unit test", "@cloudflare/vitest-pool-workers"
+- **`gradual-deployments.md`** → "gradual", "deployment", "traffic split", "rollout", "canary"
+- **`typescript-config.md`** → "TypeScript", "types", "tsconfig", "wrangler.jsonc", "bindings"
+- **`advanced-sql-patterns.md`** → "CTE", "window functions", "FTS5", "full-text search", "JSON functions", "complex SQL"
+- **`security-best-practices.md`** → "security", "authentication", "authorization", "SQL injection", "CORS", "encryption", "rate limiting"
+- **`error-codes.md`** → "error codes", "error catalog", "specific error", "E001", "troubleshooting"
+- **`top-errors.md`** → errors, "not working", debugging, "binding not found"
+
+**Load proactively when:**
+- Building new feature → Load relevant pattern from `common-patterns.md`
+- Debugging issue → Load `error-codes.md` for specific errors, then `top-errors.md`
+- Implementing WebSocket → Load `websocket-hibernation.md` before coding
+- Setting up storage → Load `state-api-reference.md` for SQL/KV APIs
+- Complex SQL queries → Load `advanced-sql-patterns.md` for CTEs, window functions, FTS5
+- Security review → Load `security-best-practices.md` for authentication, authorization, SQL injection prevention
+- Creating first DO → Load `stubs-routing.md` for ID methods
+- Writing tests → Load `vitest-testing.md` for testing patterns
+- Planning deployment → Load `gradual-deployments.md` for rollout strategy
+- Migration needed → Load `migration-cheatsheet.md` for quick reference
+- Using DO name inside DO → Load `rpc-metadata.md` for RpcTarget pattern
+- TypeScript configuration → Load `typescript-config.md` for setup
+
+---
+
+## Durable Object Class Structure
+
+All DOs extend `DurableObject` and **MUST be exported**:
 
 ```typescript
 import { DurableObject } from 'cloudflare:workers';
 
 export class MyDO extends DurableObject {
   constructor(ctx: DurableObjectState, env: Env) {
-    super(ctx, env);  // REQUIRED first line
-
-    // Load state before requests (optional)
+    super(ctx, env);  // Required first line
+    // Keep minimal - heavy work blocks hibernation
     ctx.blockConcurrencyWhile(async () => {
-      this.value = await ctx.storage.get('key') || defaultValue;
+      // Load from storage before handling requests
     });
   }
 
-  // RPC methods (recommended)
-  async myMethod(): Promise<string> { return 'Hello'; }
-
-  // HTTP fetch handler (optional)
-  async fetch(request: Request): Promise<Response> { return new Response('OK'); }
+  async myMethod(): Promise<string> {  // RPC method (recommended)
+    return 'Hello!';
+  }
 }
 
-export default MyDO;  // CRITICAL: Export required
-
-// Worker must export DO class too
-import { MyDO } from './my-do';
-export { MyDO };
+export default MyDO;  // CRITICAL: Must export
 ```
 
-**Constructor Rules:**
-- ✅ Call `super(ctx, env)` first
-- ✅ Keep minimal - heavy work blocks hibernation wake
-- ✅ Use `ctx.blockConcurrencyWhile()` for storage initialization
-- ❌ Never `setTimeout`/`setInterval` (use alarms)
-- ❌ Don't rely on in-memory state with WebSockets (persist to storage)
+**`this.ctx` provides:** `storage` (SQL/KV), `id` (unique ID), `waitUntil()`, `acceptWebSocket()`
 
 ---
 
-## Storage API
+## State API - Persistent Storage
 
-**Two backends available:**
-- **SQLite** (recommended): 10GB storage, SQL queries, atomic operations, PITR
-- **KV**: 128MB storage, key-value only
+Durable Objects provide two storage options:
 
-**Enable SQLite in migrations:**
-```jsonc
-{ "migrations": [{ "tag": "v1", "new_sqlite_classes": ["MyDO"] }] }
-```
+**SQL API** (SQLite backend, **recommended**):
+- Access via `ctx.storage.sql`
+- Up to 1GB storage per instance
+- SQL queries with transactions, indexes, cursors
+- Atomic operations (deleteAll is all-or-nothing)
+- Use `new_sqlite_classes` in migrations
 
-### SQL API (SQLite backend)
+**Key-Value API** (available on both backends):
+- Access via `ctx.storage` (get/put/delete/list)
+- Simple key-value operations
+- Async transactions supported
+- 128MB limit on KV backend, 1GB on SQLite
 
+**Quick example**:
 ```typescript
-export class MyDO extends DurableObject {
+export class Counter extends DurableObject {
   sql: SqlStorage;
 
   constructor(ctx: DurableObjectState, env: Env) {
     super(ctx, env);
     this.sql = ctx.storage.sql;
-
-    this.sql.exec(`
-      CREATE TABLE IF NOT EXISTS messages (id INTEGER PRIMARY KEY, text TEXT, created_at INTEGER);
-      CREATE INDEX IF NOT EXISTS idx_created ON messages(created_at);
-      PRAGMA optimize;  // Feb 2025: Query performance optimization
-    `);
+    this.sql.exec('CREATE TABLE IF NOT EXISTS counts (key TEXT PRIMARY KEY, value INTEGER)');
   }
 
-  async addMessage(text: string): Promise<number> {
-    const cursor = this.sql.exec('INSERT INTO messages (text, created_at) VALUES (?, ?) RETURNING id', text, Date.now());
-    return cursor.one<{ id: number }>().id;
-  }
-
-  async getMessages(limit = 50): Promise<any[]> {
-    return this.sql.exec('SELECT * FROM messages ORDER BY created_at DESC LIMIT ?', limit).toArray();
+  async increment(): Promise<number> {
+    this.sql.exec('INSERT OR REPLACE INTO counts (key, value) VALUES (?, ?)', 'count', 1);
+    return this.sql.exec('SELECT value FROM counts WHERE key = ?', 'count').one<{value: number}>().value;
   }
 }
 ```
 
-**SQL Methods:**
-- `sql.exec(query, ...params)` → cursor
-- `cursor.one<T>()` → single row (throws if none)
-- `cursor.one<T>({ allowNone: true })` → row or null
-- `cursor.toArray<T>()` → all rows
-- `ctx.storage.transactionSync(() => { ... })` → atomic multi-statement
-
-**Rules:** Always use `?` placeholders, create indexes, use PRAGMA optimize after schema changes
-
-### Key-Value API (both backends)
-
-```typescript
-// Single operations
-await this.ctx.storage.put('key', value);
-const value = await this.ctx.storage.get<T>('key');
-await this.ctx.storage.delete('key');
-
-// Batch operations
-await this.ctx.storage.put({ key1: val1, key2: val2 });
-const map = await this.ctx.storage.get(['key1', 'key2']);
-await this.ctx.storage.delete(['key1', 'key2']);
-
-// List and delete all
-const map = await this.ctx.storage.list({ prefix: 'user:', limit: 100 });
-await this.ctx.storage.deleteAll();  // Atomic on SQLite only
-
-// Transactions
-await this.ctx.storage.transaction(async (txn) => {
-  await txn.put('key1', val1);
-  await txn.put('key2', val2);
-});
-```
-
-**Storage Limits:** SQLite 10GB (April 2025 GA) | KV 128MB
+**Load `references/state-api-reference.md` for complete SQL and KV API documentation, cursor operations, transactions, parameterized queries, storage limits, and migration patterns.**
 
 ---
 
 ## WebSocket Hibernation API
 
-**Capabilities:**
-- Thousands of WebSocket connections per instance
-- Hibernate when idle (~10s no activity) to save costs
-- Auto wake-up when messages arrive
-- **Message size limit**: 32 MiB (Oct 2025, up from 1 MiB)
+Handle **thousands of WebSocket connections** per DO instance with automatic hibernation when idle (~10s no activity), saving duration costs. Connections stay open at the edge while DO sleeps.
 
-**How it works:**
-1. Active → handles messages
-2. Idle → ~10s no activity
-3. Hibernation → in-memory state **cleared**, WebSockets stay connected
-4. Wake → message arrives → constructor runs → handler called
+**CRITICAL Rules**:
+- ✅ Use `ctx.acceptWebSocket(server)` (enables hibernation)
+- ✅ Use `ws.serializeAttachment(data)` to persist metadata across hibernation
+- ✅ Restore connections in constructor with `ctx.getWebSockets()`
+- ❌ Don't use `ws.accept()` (standard API, no hibernation)
+- ❌ Don't use `setTimeout`/`setInterval` (prevents hibernation)
 
-**CRITICAL:** In-memory state is **lost on hibernation**. Use `serializeAttachment()` to persist per-WebSocket metadata.
+**Handler methods**: `webSocketMessage()`, `webSocketClose()`, `webSocketError()`
 
-### Hibernation-Safe Pattern
-
+**Quick pattern**:
 ```typescript
 export class ChatRoom extends DurableObject {
-  sessions: Map<WebSocket, { userId: string; username: string }>;
+  sessions: Map<WebSocket, any>;
 
   constructor(ctx: DurableObjectState, env: Env) {
     super(ctx, env);
     this.sessions = new Map();
-
-    // CRITICAL: Restore WebSocket metadata after hibernation
-    ctx.getWebSockets().forEach((ws) => {
+    // Restore connections after hibernation
+    ctx.getWebSockets().forEach(ws => {
       this.sessions.set(ws, ws.deserializeAttachment());
     });
   }
@@ -223,550 +285,262 @@ export class ChatRoom extends DurableObject {
     const pair = new WebSocketPair();
     const [client, server] = Object.values(pair);
 
-    const url = new URL(request.url);
-    const metadata = { userId: url.searchParams.get('userId'), username: url.searchParams.get('username') };
-
-    // CRITICAL: Use ctx.acceptWebSocket(), NOT ws.accept()
-    this.ctx.acceptWebSocket(server);
-    server.serializeAttachment(metadata);  // Persist across hibernation
-    this.sessions.set(server, metadata);
+    this.ctx.acceptWebSocket(server);  // ← Enables hibernation
+    server.serializeAttachment({ userId: 'alice' });  // ← Persists across hibernation
+    this.sessions.set(server, { userId: 'alice' });
 
     return new Response(null, { status: 101, webSocket: client });
   }
 
-  async webSocketMessage(ws: WebSocket, message: string | ArrayBuffer): Promise<void> {
+  async webSocketMessage(ws: WebSocket, message: string): Promise<void> {
     const session = this.sessions.get(ws);
-    // Handle message (max 32 MiB since Oct 2025)
-  }
-
-  async webSocketClose(ws: WebSocket, code: number, reason: string, wasClean: boolean): Promise<void> {
-    this.sessions.delete(ws);
-    ws.close(code, 'Closing');
-  }
-
-  async webSocketError(ws: WebSocket, error: any): Promise<void> {
-    this.sessions.delete(ws);
+    // Broadcast to all
+    this.sessions.forEach((_, w) => w.send(message));
   }
 }
 ```
 
-**Hibernation Rules:**
-- ✅ `ctx.acceptWebSocket(ws)` - enables hibernation
-- ✅ `ws.serializeAttachment(data)` - persist metadata
-- ✅ `ctx.getWebSockets().forEach()` - restore in constructor
-- ✅ Use alarms instead of `setTimeout`/`setInterval`
-- ❌ `ws.accept()` - standard API, no hibernation
-- ❌ `setTimeout`/`setInterval` - prevents hibernation
-- ❌ In-progress `fetch()` - blocks hibernation
+**Load `references/websocket-hibernation.md` for complete handler patterns, hibernation lifecycle, serializeAttachment API, connection management, broadcasting patterns, and hibernation troubleshooting.**
 
 ---
 
-## Alarms API
+## Alarms API - Scheduled Tasks
 
-Schedule DO to wake at future time. **Use for:** batching, cleanup, reminders, periodic tasks.
+Schedule DO to wake up at a future time for batching, cleanup, reminders, or periodic tasks.
 
+**Core API**:
+- `await ctx.storage.setAlarm(timestamp)` - Schedule alarm
+- `await ctx.storage.getAlarm()` - Get current alarm time (null if not set)
+- `await ctx.storage.deleteAlarm()` - Cancel alarm
+- `async alarm(info)` - Handler called when alarm fires
+
+**Key Features**:
+- ✅ Guaranteed at-least-once execution with automatic retries (up to 6)
+- ✅ Survives hibernation and eviction
+- ✅ Deleted automatically after successful execution
+- ⚠️ Only ONE alarm per DO (setting new one overwrites previous)
+
+**Quick pattern**:
 ```typescript
 export class Batcher extends DurableObject {
   async addItem(item: string): Promise<void> {
-    // Add to buffer
-    const buffer = await this.ctx.storage.get<string[]>('buffer') || [];
-    buffer.push(item);
-    await this.ctx.storage.put('buffer', buffer);
+    await this.ctx.storage.put('items', [...existingItems, item]);
 
-    // Schedule alarm if not set
-    if ((await this.ctx.storage.getAlarm()) === null) {
+    // Schedule batch processing if not already scheduled
+    if (await this.ctx.storage.getAlarm() === null) {
       await this.ctx.storage.setAlarm(Date.now() + 10000);  // 10 seconds
     }
   }
 
   async alarm(info: { retryCount: number; isRetry: boolean }): Promise<void> {
-    if (info.retryCount > 3) return;  // Give up after 3 retries
-
-    const buffer = await this.ctx.storage.get<string[]>('buffer') || [];
-    await this.processBatch(buffer);
-    await this.ctx.storage.put('buffer', []);
-    // Alarm auto-deleted after success
+    const items = await this.ctx.storage.get('items');
+    await this.processBatch(items);  // Send to API, write to DB, etc.
+    await this.ctx.storage.put('items', []);  // Clear buffer
   }
 }
 ```
 
-**API Methods:**
-- `await ctx.storage.setAlarm(Date.now() + 60000)` - set alarm (overwrites existing)
-- `await ctx.storage.getAlarm()` - get timestamp or null
-- `await ctx.storage.deleteAlarm()` - cancel alarm
-- `async alarm(info)` - handler called when alarm fires
-
-**Behavior:**
-- ✅ At-least-once execution, auto-retries (up to 6x, exponential backoff)
-- ✅ Survives hibernation/eviction
-- ✅ Auto-deleted after success
-- ⚠️ One alarm per DO (new alarm overwrites)
+**Load `references/alarms-api.md` for periodic alarms pattern, retry handling, error scenarios, cleanup jobs, and batching strategies.**
 
 ---
 
 ## RPC vs HTTP Fetch
 
-**RPC (Recommended):** Direct method calls, type-safe, simple
+**RPC (Recommended)**: Call DO methods directly like `await stub.increment()`. Type-safe, simple, auto-serialization. Requires `compatibility_date >= 2024-04-03`.
 
+**HTTP Fetch**: Traditional HTTP request/response with `async fetch(request)` handler. Required for WebSocket upgrades.
+
+**Quick comparison**:
 ```typescript
-// DO class
+// RPC Pattern (simpler)
 export class Counter extends DurableObject {
-  async increment(): Promise<number> {
-    let value = (await this.ctx.storage.get<number>('count')) || 0;
-    await this.ctx.storage.put('count', ++value);
-    return value;
+  async increment(): Promise<number> {  // ← Direct method
+    let value = await this.ctx.storage.get<number>('count') || 0;
+    return ++value;
   }
 }
+const count = await stub.increment();  // ← Direct call
 
-// Worker calls
-const stub = env.COUNTER.getByName('my-counter');
-const count = await stub.increment();  // Type-safe!
-```
-
-**HTTP Fetch:** Request/response pattern, required for WebSocket upgrades
-
-```typescript
-// DO class
+// HTTP Fetch Pattern
 export class Counter extends DurableObject {
-  async fetch(request: Request): Promise<Response> {
+  async fetch(request: Request): Promise<Response> {  // ← HTTP handler
     const url = new URL(request.url);
-    if (url.pathname === '/increment') {
-      let value = (await this.ctx.storage.get<number>('count')) || 0;
-      await this.ctx.storage.put('count', ++value);
-      return new Response(JSON.stringify({ count: value }));
-    }
-    return new Response('Not found', { status: 404 });
+    if (url.pathname === '/increment') { /* ... */ }
   }
 }
-
-// Worker calls
-const stub = env.COUNTER.getByName('my-counter');
-const response = await stub.fetch('https://fake-host/increment', { method: 'POST' });
-const data = await response.json();
+const response = await stub.fetch('/increment', { method: 'POST' });
 ```
 
-**When to use:** RPC for new projects (simpler), HTTP Fetch for WebSocket upgrades or complex routing
+**Use RPC for**: New projects, type safety, simple method calls
+**Use HTTP Fetch for**: WebSocket upgrades, complex routing, legacy code
+
+**Load `references/rpc-patterns.md` for complete RPC vs Fetch comparison, migration guide, error handling patterns, and method visibility control.**
 
 ---
 
-## Getting DO Stubs
+## Creating Durable Object Stubs and Routing
 
-**Three ways to get IDs:**
+To interact with a Durable Object from a Worker: **get an ID** → **create a stub** → **call methods**.
 
-1. **`idFromName(name)`** - Consistent routing (same name = same DO)
+**Three ID creation methods:**
+
+1. **`idFromName(name)`** - Named DOs (most common): Deterministic routing to same instance globally
+2. **`newUniqueId()`** - Random IDs: New unique instance, must store ID for future access
+3. **`idFromString(idString)`** - Recreate from saved ID string
+
+**Getting stubs:**
+
 ```typescript
-const stub = env.CHAT_ROOM.getByName('room-123');  // Aug 2025: Shortcut for idFromName + get
-// Use for: chat rooms, user sessions, per-tenant logic, singletons
+// Method 1: From ID
+const id = env.CHAT_ROOM.idFromName('room-123');
+const stub = env.CHAT_ROOM.get(id);
+
+// Method 2: Shortcut for named DOs (recommended)
+const stub = env.CHAT_ROOM.getByName('room-123');
+
+await stub.myMethod();
 ```
 
-2. **`newUniqueId()`** - Random unique ID (must store for reuse)
-```typescript
-const id = env.MY_DO.newUniqueId({ jurisdiction: 'eu' });  // Optional: EU compliance
-const idString = id.toString();  // Save to KV/D1 for later
-```
+**Geographic routing with location hints:**
+- Set `locationHint` option when creating stub: `{ locationHint: 'enam' }`
+- 9 regions: wnam, enam, sam, weur, eeur, apac, oc, afr, me
+- Best-effort (not guaranteed), only affects first creation
 
-3. **`idFromString(idString)`** - Recreate from saved ID
-```typescript
-const id = env.MY_DO.idFromString(await env.KV.get('session:123'));
-const stub = env.MY_DO.get(id);
-```
+**Data residency with jurisdiction restrictions:**
+- Use `newUniqueId({ jurisdiction: 'eu' })` or `{ jurisdiction: 'fedramp' }`
+- Strictly enforced (DO never leaves jurisdiction)
+- Cannot combine with location hints
+- Required for GDPR/FedRAMP compliance
 
-**Location hints (best-effort):**
-```typescript
-const stub = env.MY_DO.get(id, { locationHint: 'enam' });  // wnam, enam, sam, weur, eeur, apac, oc, afr, me
-```
-
-**Jurisdiction (strict enforcement):**
-```typescript
-const id = env.MY_DO.newUniqueId({ jurisdiction: 'eu' });  // Options: 'eu', 'fedramp'
-// Cannot combine with location hints, higher latency outside jurisdiction
-```
+**Load `references/stubs-routing.md` for complete guide to ID methods, stub management, location hints, jurisdiction restrictions, use cases, best practices, and error handling patterns.**
 
 ---
 
-## Migrations
+## Migrations - Managing DO Classes
 
-**Required for:** create, rename, delete, transfer DO classes
+**Migrations are REQUIRED** when creating, renaming, deleting, or transferring DO classes between Workers.
 
-**1. Create:**
+**Four migration types:**
+
+1. **Create New DO**: Use `new_sqlite_classes` (recommended, 1GB) or `new_classes` (legacy KV, 128MB)
+2. **Rename DO**: Use `renamed_classes` with `from`/`to` mapping (data preserved, bindings forward)
+3. **Delete DO**: Use `deleted_classes` (⚠️ immediate deletion, cannot undo, all storage lost)
+4. **Transfer DO**: Use `transferred_classes` with `from_script` (moves instances to new Worker)
+
+**Quick example - Create new DO with SQLite:**
+
 ```jsonc
-{ "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Counter"] }] }  // SQLite 10GB
-// Or: "new_classes": ["Counter"]  // KV 128MB (legacy)
+{
+  "durable_objects": {
+    "bindings": [{ "name": "COUNTER", "class_name": "Counter" }]
+  },
+  "migrations": [
+    {
+      "tag": "v1",                    // Unique identifier (append-only)
+      "new_sqlite_classes": ["Counter"]
+    }
+  ]
+}
 ```
 
-**2. Rename:**
-```jsonc
-{ "migrations": [
-  { "tag": "v1", "new_sqlite_classes": ["OldName"] },
-  { "tag": "v2", "renamed_classes": [{ "from": "OldName", "to": "NewName" }] }
-]}
-```
+**CRITICAL rules:**
+- ❌ Migrations are ATOMIC (all instances migrate at once, no gradual rollout)
+- ❌ Cannot enable SQLite on existing KV-backed DOs (must create new class)
+- ❌ Migration tags must be unique (cannot reuse, append-only)
+- ✅ Code changes don't need migrations (only schema changes do)
+- ✅ DO class names are unique per account (across all Workers)
 
-**3. Delete:**
-```jsonc
-{ "migrations": [
-  { "tag": "v1", "new_sqlite_classes": ["Counter"] },
-  { "tag": "v2", "deleted_classes": ["Counter"] }  // Immediate deletion, cannot undo
-]}
-```
-
-**4. Transfer:**
-```jsonc
-{ "migrations": [{ "tag": "v1", "transferred_classes": [
-  { "from": "OldClass", "from_script": "old-worker", "to": "NewClass" }
-]}]}
-```
-
-**Migration Rules:**
-- ❌ Atomic (all instances migrate at once, no gradual rollout)
-- ❌ Tags are unique and append-only
-- ❌ Cannot enable SQLite on existing KV-backed DOs
-- ✅ Code changes don't need migrations (only schema changes)
-- ✅ Class names globally unique per account
+**Load `references/migrations-guide.md` for complete migration patterns, rename/delete/transfer procedures, rollback strategies, and migration gotchas.**
 
 ---
 
 ## Common Patterns
 
-**Rate Limiting:**
-```typescript
-async checkLimit(userId: string, limit: number, window: number): Promise<boolean> {
-  const requests = (await this.ctx.storage.get<number[]>(`rate:${userId}`)) || [];
-  const valid = requests.filter(t => Date.now() - t < window);
-  if (valid.length >= limit) return false;
-  valid.push(Date.now());
-  await this.ctx.storage.put(`rate:${userId}`, valid);
-  return true;
-}
-```
+**Four production-ready patterns for Cloudflare Durable Objects:**
 
-**Session Management with TTL:**
-```typescript
-async set(key: string, value: any, ttl?: number): Promise<void> {
-  const expiresAt = ttl ? Date.now() + ttl : null;
-  this.sql.exec('INSERT OR REPLACE INTO session (key, value, expires_at) VALUES (?, ?, ?)',
-    key, JSON.stringify(value), expiresAt);
-}
+1. **Rate Limiting** - Per-user rate limiting with sliding window, KV storage for request tracking
+2. **Session Management** - User sessions with TTL, SQL storage, automatic cleanup via alarms
+3. **Leader Election** - Single leader guarantee using SQL constraints, heartbeat mechanism
+4. **Multi-DO Coordination** - Game coordinator + game rooms pattern, parent-child DO relationships
 
-async alarm(): Promise<void> {
-  this.sql.exec('DELETE FROM session WHERE expires_at < ?', Date.now());
-  await this.ctx.storage.setAlarm(Date.now() + 3600000);  // Hourly cleanup
-}
-```
+**Quick example - Rate limiter:**
 
-**Leader Election:**
 ```typescript
-async electLeader(workerId: string): Promise<boolean> {
-  try {
-    this.sql.exec('INSERT INTO leader (id, worker_id, elected_at) VALUES (1, ?, ?)', workerId, Date.now());
+export class RateLimiter extends DurableObject {
+  async checkLimit(userId: string, limit: number, window: number): Promise<boolean> {
+    const requests = await this.ctx.storage.get<number[]>(`rate:${userId}`) || [];
+    const validRequests = requests.filter(t => Date.now() - t < window);
+
+    if (validRequests.length >= limit) return false;
+
+    validRequests.push(Date.now());
+    await this.ctx.storage.put(`rate:${userId}`, validRequests);
     return true;
-  } catch { return false; }  // Already has leader
+  }
 }
 ```
 
-**Multi-DO Coordination:**
-```typescript
-// Coordinator delegates to child DOs
-const gameRoom = env.GAME_ROOM.getByName(gameId);
-await gameRoom.initialize();
-await this.ctx.storage.put(`game:${gameId}`, { created: Date.now() });
-```
+**Load `references/common-patterns.md` for complete implementations of all 4 patterns with full code examples, SQL schemas, alarm usage, error handling, and best practices.**
 
 ---
 
 ## Critical Rules
 
-### Always Do
+**✅ Always:**
+- Export DO class: `export default MyDO`
+- Call `super(ctx, env)` first in constructor
+- Use `new_sqlite_classes` in migrations (1GB vs 128MB KV)
+- Use `ctx.acceptWebSocket()` for hibernation (not `ws.accept()`)
+- Persist state to storage (not just memory)
+- Use alarms instead of setTimeout/setInterval
+- Use parameterized SQL: `sql.exec('... WHERE id = ?', id)`
+- Minimize constructor work, use `blockConcurrencyWhile()`
 
-✅ **Export DO class** from Worker
-```typescript
-export class MyDO extends DurableObject { }
-export default MyDO;  // Required
-```
-
-✅ **Call `super(ctx, env)`** in constructor
-```typescript
-constructor(ctx: DurableObjectState, env: Env) {
-  super(ctx, env);  // Required first line
-}
-```
-
-✅ **Use `new_sqlite_classes`** for new DOs
-```jsonc
-{ "tag": "v1", "new_sqlite_classes": ["MyDO"] }
-```
-
-✅ **Use `ctx.acceptWebSocket()`** for hibernation
-```typescript
-this.ctx.acceptWebSocket(server);  // Enables hibernation
-```
-
-✅ **Persist critical state** to storage (not just memory)
-```typescript
-await this.ctx.storage.put('important', value);
-```
-
-✅ **Use alarms** instead of setTimeout/setInterval
-```typescript
-await this.ctx.storage.setAlarm(Date.now() + 60000);
-```
-
-✅ **Use parameterized SQL queries**
-```typescript
-this.sql.exec('SELECT * FROM table WHERE id = ?', id);
-```
-
-✅ **Minimize constructor work**
-```typescript
-constructor(ctx, env) {
-  super(ctx, env);
-  // Minimal initialization only
-  ctx.blockConcurrencyWhile(async () => {
-    // Load from storage
-  });
-}
-```
-
-### Never Do
-
-❌ **Create DO without migration**
-```jsonc
-// Missing migrations array = error
-```
-
-❌ **Forget to export DO class**
-```typescript
-class MyDO extends DurableObject { }
-// Missing: export default MyDO;
-```
-
-❌ **Use `setTimeout` or `setInterval`**
-```typescript
-setTimeout(() => {}, 1000);  // Prevents hibernation
-```
-
-❌ **Rely only on in-memory state** with WebSockets
-```typescript
-// ❌ WRONG: this.sessions will be lost on hibernation
-// ✅ CORRECT: Use serializeAttachment()
-```
-
-❌ **Deploy migrations gradually**
-```bash
-# Migrations are atomic - cannot use gradual rollout
-```
-
-❌ **Enable SQLite on existing KV-backed DO**
-```jsonc
-// Not supported - must create new DO class instead
-```
-
-❌ **Use standard WebSocket API** expecting hibernation
-```typescript
-ws.accept();  // ❌ No hibernation
-this.ctx.acceptWebSocket(ws);  // ✅ Hibernation enabled
-```
-
-❌ **Assume location hints are guaranteed**
-```typescript
-// Location hints are best-effort only
-```
+**❌ Never:**
+- Create DO without migration (error)
+- Forget to export class (binding not found)
+- Use setTimeout/setInterval (prevents hibernation)
+- Rely only on in-memory state for WebSockets (use serializeAttachment)
+- Deploy migrations gradually (migrations are atomic)
+- Enable SQLite on existing KV-backed DO (must create new class)
+- Assume location hints are guaranteed (best-effort only)
 
 ---
 
 ## Known Issues Prevention
 
-This skill prevents **15+ documented issues**:
+This skill prevents **15+ documented issues**. Top 3 most critical:
 
 ### Issue #1: Class Not Exported
-**Error**: `"binding not found"` or `"Class X not found"`
-**Source**: https://developers.cloudflare.com/durable-objects/get-started/
-**Why It Happens**: DO class not exported from Worker
-**Prevention**:
-```typescript
-export class MyDO extends DurableObject { }
-export default MyDO;  // ← Required
-```
+**Error**: `"binding not found"` | **Why**: DO class not exported
+**Fix**: `export default MyDO;`
 
 ### Issue #2: Missing Migration
-**Error**: `"migrations required"` or `"no migration found for class"`
-**Source**: https://developers.cloudflare.com/durable-objects/reference/durable-objects-migrations/
-**Why It Happens**: Created DO class without migration entry
-**Prevention**: Always add migration when creating new DO class
-```jsonc
-{
-  "migrations": [
-    { "tag": "v1", "new_sqlite_classes": ["MyDO"] }
-  ]
-}
-```
+**Error**: `"migrations required"` | **Why**: Created DO without migration entry
+**Fix**: Add `{ "tag": "v1", "new_sqlite_classes": ["MyDO"] }` to migrations
 
-### Issue #3: Wrong Migration Type (KV vs SQLite)
-**Error**: Schema errors, storage API mismatch
-**Source**: https://developers.cloudflare.com/durable-objects/api/sqlite-storage-api/
-**Why It Happens**: Used `new_classes` instead of `new_sqlite_classes`
-**Prevention**: Use `new_sqlite_classes` for SQLite backend (recommended)
+### Issue #3: setTimeout Breaks Hibernation
+**Error**: DO never hibernates, high charges | **Why**: `setTimeout` prevents hibernation
+**Fix**: Use `await ctx.storage.setAlarm(Date.now() + 1000)` instead
 
-### Issue #4: Constructor Overhead Blocks Hibernation Wake
-**Error**: Slow hibernation wake-up times
-**Source**: https://developers.cloudflare.com/durable-objects/best-practices/access-durable-objects-storage/
-**Why It Happens**: Heavy work in constructor
-**Prevention**: Minimize constructor, use `blockConcurrencyWhile()`
-```typescript
-constructor(ctx, env) {
-  super(ctx, env);
-  ctx.blockConcurrencyWhile(async () => {
-    // Load from storage
-  });
-}
-```
+**12 more issues covered**: Wrong migration type, constructor overhead, in-memory state lost, outgoing WebSocket no hibernation, global uniqueness confusion, partial deleteAll, binding mismatch, state size exceeded, migration not atomic, location hint ignored, alarm retry failures, fetch blocks hibernation.
 
-### Issue #5: setTimeout Breaks Hibernation
-**Error**: DO never hibernates, high duration charges
-**Source**: https://developers.cloudflare.com/durable-objects/concepts/durable-object-lifecycle/
-**Why It Happens**: `setTimeout`/`setInterval` prevents hibernation
-**Prevention**: Use alarms API instead
-```typescript
-// ❌ WRONG
-setTimeout(() => {}, 1000);
-
-// ✅ CORRECT
-await this.ctx.storage.setAlarm(Date.now() + 1000);
-```
-
-### Issue #6: In-Memory State Lost on Hibernation
-**Error**: WebSocket metadata lost, state reset unexpectedly
-**Source**: https://developers.cloudflare.com/durable-objects/best-practices/websockets/
-**Why It Happens**: Relied on in-memory state that's cleared on hibernation
-**Prevention**: Use `serializeAttachment()` for WebSocket metadata
-```typescript
-ws.serializeAttachment({ userId, username });
-
-// Restore in constructor
-ctx.getWebSockets().forEach(ws => {
-  const metadata = ws.deserializeAttachment();
-  this.sessions.set(ws, metadata);
-});
-```
-
-### Issue #7: Outgoing WebSocket Cannot Hibernate
-**Error**: High charges despite hibernation API
-**Source**: https://developers.cloudflare.com/durable-objects/best-practices/websockets/
-**Why It Happens**: Outgoing WebSockets don't support hibernation
-**Prevention**: Only use hibernation for server-side (incoming) WebSockets
-
-### Issue #8: Global Uniqueness Confusion
-**Error**: Unexpected DO class name conflicts
-**Source**: https://developers.cloudflare.com/durable-objects/platform/known-issues/#global-uniqueness
-**Why It Happens**: DO class names are globally unique per account
-**Prevention**: Understand DO class names are shared across all Workers in account
-
-### Issue #9: Partial deleteAll on KV Backend
-**Error**: Storage not fully deleted, billing continues
-**Source**: https://developers.cloudflare.com/durable-objects/api/legacy-kv-storage-api/
-**Why It Happens**: KV backend `deleteAll()` can fail partially
-**Prevention**: Use SQLite backend for atomic deleteAll
-
-### Issue #10: Binding Name Mismatch
-**Error**: Runtime error accessing DO binding
-**Source**: https://developers.cloudflare.com/durable-objects/get-started/
-**Why It Happens**: Binding name in wrangler.jsonc doesn't match code
-**Prevention**: Ensure consistency
-```jsonc
-{ "bindings": [{ "name": "MY_DO", "class_name": "MyDO" }] }
-```
-```typescript
-env.MY_DO.getByName('instance');  // Must match binding name
-```
-
-### Issue #11: State Size Exceeded
-**Error**: `"state limit exceeded"` or storage errors
-**Source**: https://developers.cloudflare.com/durable-objects/platform/pricing/
-**Why It Happens**: Exceeded 1GB (SQLite) or 128MB (KV) limit
-**Prevention**: Monitor storage size, implement cleanup with alarms
-
-### Issue #12: Migration Not Atomic
-**Error**: Gradual deployment blocked
-**Source**: https://developers.cloudflare.com/workers/configuration/versions-and-deployments/gradual-deployments/
-**Why It Happens**: Tried to use gradual rollout with migrations
-**Prevention**: Migrations deploy atomically across all instances
-
-### Issue #13: Location Hint Ignored
-**Error**: DO created in wrong region
-**Source**: https://developers.cloudflare.com/durable-objects/reference/data-location/
-**Why It Happens**: Location hints are best-effort, not guaranteed
-**Prevention**: Use jurisdiction for strict requirements
-
-### Issue #14: Alarm Retry Failures
-**Error**: Tasks lost after alarm failures
-**Source**: https://developers.cloudflare.com/durable-objects/api/alarms/
-**Why It Happens**: Alarm handler throws errors repeatedly
-**Prevention**: Implement idempotent alarm handlers
-```typescript
-async alarm(info: { retryCount: number }): Promise<void> {
-  if (info.retryCount > 3) {
-    console.error('Giving up after 3 retries');
-    return;
-  }
-  // Idempotent operation
-}
-```
-
-### Issue #15: Fetch Blocks Hibernation
-**Error**: DO never hibernates despite using hibernation API
-**Source**: https://developers.cloudflare.com/durable-objects/concepts/durable-object-lifecycle/
-**Why It Happens**: In-progress `fetch()` requests prevent hibernation
-**Prevention**: Ensure all async I/O completes before idle period
+**Load `references/top-errors.md` for complete error catalog with all 15+ issues, detailed prevention strategies, debugging steps, and resolution patterns.**
 
 ---
 
-## Configuration & Types
+## Configuration & TypeScript
 
-**wrangler.jsonc:**
-```jsonc
-{
-  "compatibility_date": "2025-11-23",
-  "durable_objects": {
-    "bindings": [{ "name": "COUNTER", "class_name": "Counter" }]
-  },
-  "migrations": [
-    { "tag": "v1", "new_sqlite_classes": ["Counter"] },
-    { "tag": "v2", "renamed_classes": [{ "from": "Counter", "to": "CounterV2" }] }
-  ]
-}
-```
+Configure wrangler.jsonc with DO bindings and migrations, set up TypeScript types with proper exports.
 
-**TypeScript:**
-```typescript
-import { DurableObject, DurableObjectState, DurableObjectNamespace } from 'cloudflare:workers';
-
-interface Env { MY_DO: DurableObjectNamespace<MyDurableObject>; }
-
-export class MyDurableObject extends DurableObject<Env> {
-  constructor(ctx: DurableObjectState, env: Env) {
-    super(ctx, env);
-    this.sql = ctx.storage.sql;
-  }
-}
-```
+**Load `references/typescript-config.md` for**: wrangler.jsonc structure, TypeScript types, Env interface, tsconfig.json, common type issues
 
 ---
 
-## Official Documentation
-
-- **Durable Objects**: https://developers.cloudflare.com/durable-objects/
+**Official Docs**: https://developers.cloudflare.com/durable-objects/
 - **State API (SQL)**: https://developers.cloudflare.com/durable-objects/api/sqlite-storage-api/
 - **WebSocket Hibernation**: https://developers.cloudflare.com/durable-objects/best-practices/websockets/
 - **Alarms API**: https://developers.cloudflare.com/durable-objects/api/alarms/
 - **Migrations**: https://developers.cloudflare.com/durable-objects/reference/durable-objects-migrations/
-- **Best Practices**: https://developers.cloudflare.com/durable-objects/best-practices/
-- **Pricing**: https://developers.cloudflare.com/durable-objects/platform/pricing/
-
----
-
-**Questions? Issues?**
-
-1. Check `references/top-errors.md` for common problems
-2. Review `templates/` for working examples
-3. Consult official docs: https://developers.cloudflare.com/durable-objects/
-4. Verify migrations configuration carefully
+- **Best Practices**: https://developers.cloudflare.com/durable-objects/best-practices/ 
+**Questions?** Load `references/top-errors.md` for common problems or check `templates/` for working examples

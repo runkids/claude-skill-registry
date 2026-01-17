@@ -12,6 +12,11 @@ Analyzes Done implementation tasks for code-quality issues and reports findings 
 - Check for DRY/KISS/YAGNI violations, architecture boundary breaks, guide non-compliance, and obvious config/hardcode problems.
 - Produce a verdict and structured issue list; never edits Linear or kanban.
 
+## When to Use
+- **Invoked by ln-500-story-quality-gate** Pass 1 (first gate)
+- All implementation tasks in Story status = Done
+- Before regression testing (ln-502) and test planning (ln-510)
+
 ## Workflow (concise)
 1) Load Story (full) and Done implementation tasks (full descriptions) via Linear; skip tasks with label "tests".
 2) Collect affected files from tasks (Affected Components/Existing Code Impact) and recent commits/diffs if noted.

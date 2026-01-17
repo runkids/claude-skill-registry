@@ -1,7 +1,7 @@
 {
   "name": "doc-writer",
-  "repo": "fwdslsh/crosstrain",
-  "path": "src/tests/fixtures/skills/doc-writer/SKILL.md",
-  "source": "github.com/fwdslsh/crosstrain",
-  "downloaded_at": "2026-01-14T01:04:07.842019Z"
+  "repo": "hnabyz-bot/fpga-work",
+  "path": ".claude/skills/doc-writer/SKILL.md",
+  "source": "github.com/hnabyz-bot/fpga-work",
+  "downloaded_at": "2026-01-17T03:09:49.960249Z"
 }

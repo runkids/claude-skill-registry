@@ -1,9 +1,7 @@
 {
   "name": "docs-creating-by-example-tutorials",
-  "description": "Comprehensive guide for creating by-example tutorials - code-first learning path with 75-90 heavily annotated examples achieving 95% language coverage. Covers five-part example structure, annotation d",
   "repo": "wahidyankf/open-sharia-enterprise",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".opencode/skill/docs-creating-by-example-tutorials/SKILL.md",
+  "source": "github.com/wahidyankf/open-sharia-enterprise",
+  "downloaded_at": "2026-01-17T03:27:15.642662Z"
 }

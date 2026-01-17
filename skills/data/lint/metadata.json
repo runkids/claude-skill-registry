@@ -1,7 +1,7 @@
 {
   "name": "lint",
-  "repo": "DataDog/dd-trace-py",
-  "path": ".claude/skills/lint/SKILL.md",
-  "source": "github.com/DataDog/dd-trace-py",
-  "downloaded_at": "2026-01-14T03:53:57.964572Z"
+  "repo": "Activer007/ordinary-claude-skills",
+  "path": "skills_all/lint/SKILL.md",
+  "source": "github.com/Activer007/ordinary-claude-skills",
+  "downloaded_at": "2026-01-17T02:06:01.417748Z"
 }

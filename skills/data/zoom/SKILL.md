@@ -1,216 +1,142 @@
 ---
 name: zoom
-description: Create and manage Zoom meetings and access cloud recordings via the Zoom API. Use for queries like "create a Zoom meeting", "list my Zoom meetings", "show my Zoom recordings", or "schedule a meeting for tomorrow".
+description: Enables Claude to schedule meetings, manage recordings, handle webinars, and automate Zoom workspace operations
+version: 1.0.0
+author: Canifi
+category: communication
 ---
 
 # Zoom Skill
 
-Manage Zoom meetings and cloud recordings via the Zoom API.
+## Overview
+Automates Zoom operations including meeting scheduling, recording management, webinar setup, and account administration through the Zoom web portal.
 
-## Features
-
-- **Meetings**: List, create, update, delete scheduled meetings
-- **Recordings**: List cloud recordings with transcripts, summaries, and download links
-
-**Note:** All times passed to create/update commands are interpreted as **local time**. The script auto-detects your timezone if not explicitly specified with `--timezone`.
-
-## Prerequisites
-
-This skill uses two authentication methods:
-
-| Feature | Auth Type | Credentials File |
-|---------|-----------|------------------|
-| Meetings | Server-to-Server OAuth | `~/.zoom_credentials/credentials.json` |
-| Recordings | User OAuth (General App) | `~/.zoom_credentials/oauth_token.json` |
-
-Check status:
+## Quick Install
 
 ```bash
-python3 scripts/zoom_meetings.py setup
+curl -sSL https://canifi.com/skills/zoom/install.sh | bash
+```
+
+Or manually:
+```bash
+cp -r skills/zoom ~/.canifi/skills/
 ```
 
 ## Setup
 
-### Part 1: Server-to-Server OAuth (for Meetings)
-
-1. Go to [marketplace.zoom.us](https://marketplace.zoom.us/) → Develop → Build App
-2. Select **Server-to-Server OAuth**
-3. Name it (e.g., "Claude Zoom Meetings")
-4. Copy **Account ID**, **Client ID**, **Client Secret**
-5. Add scopes:
-   - `meeting:read:meeting:admin`
-   - `meeting:read:list_meetings:admin`
-   - `meeting:write:meeting:admin`
-   - `user:read:user:admin`
-6. Activate the app
-7. Save credentials:
+Configure via [canifi-env](https://canifi.com/setup/scripts):
 
 ```bash
-mkdir -p ~/.zoom_credentials
-cat > ~/.zoom_credentials/credentials.json << 'EOF'
-{
-  "account_id": "YOUR_ACCOUNT_ID",
-  "client_id": "YOUR_CLIENT_ID",
-  "client_secret": "YOUR_CLIENT_SECRET"
-}
-EOF
+# First, ensure canifi-env is installed:
+# curl -sSL https://canifi.com/install.sh | bash
+
+canifi-env set ZOOM_EMAIL "your-email@example.com"
+canifi-env set ZOOM_PASSWORD "your-password"
 ```
 
-### Part 2: General App OAuth (for Recordings)
+## Privacy & Authentication
 
-Server-to-Server apps cannot access cloud recordings. You need a separate General App:
+**Your credentials, your choice.** Canifi LifeOS respects your privacy.
 
-1. Go to [marketplace.zoom.us](https://marketplace.zoom.us/) → Develop → Build App
-2. Select **General App**
-3. Set redirect URL: `http://localhost:8888/callback`
-4. Copy **Client ID** and **Client Secret**
-5. Add scopes:
-   - `cloud_recording:read:list_user_recordings`
-   - `cloud_recording:read:list_recording_files`
-6. Activate the app
-7. Authorize (one-time browser flow):
+### Option 1: Manual Browser Login (Recommended)
+If you prefer not to share credentials with Claude Code:
+1. Complete the [Browser Automation Setup](/setup/automation) using CDP mode
+2. Login to the service manually in the Playwright-controlled Chrome window
+3. Claude will use your authenticated session without ever seeing your password
 
+### Option 2: Environment Variables
+If you're comfortable sharing credentials, you can store them locally:
 ```bash
-# Open this URL in browser (replace CLIENT_ID):
-https://zoom.us/oauth/authorize?response_type=code&client_id=YOUR_CLIENT_ID&redirect_uri=http://localhost:8888/callback
-
-# After authorizing, you'll be redirected to:
-# http://localhost:8888/callback?code=AUTHORIZATION_CODE
-
-# Exchange the code for tokens (replace values):
-python3 -c "
-import requests, json
-resp = requests.post('https://zoom.us/oauth/token',
-    auth=('CLIENT_ID', 'CLIENT_SECRET'),
-    data={'grant_type': 'authorization_code', 'code': 'AUTH_CODE', 'redirect_uri': 'http://localhost:8888/callback'})
-data = resp.json()
-data['client_id'] = 'CLIENT_ID'
-data['client_secret'] = 'CLIENT_SECRET'
-data['expires_at'] = __import__('time').time() + data.get('expires_in', 3600)
-with open(__import__('pathlib').Path.home() / '.zoom_credentials/oauth_token.json', 'w') as f:
-    json.dump(data, f, indent=2)
-print('Saved!')
-"
+canifi-env set SERVICE_EMAIL "your-email"
+canifi-env set SERVICE_PASSWORD "your-password"
 ```
 
-## Quick Start
+**Note**: Credentials stored in canifi-env are only accessible locally on your machine and are never transmitted.
 
-```bash
-# Check setup
-python3 scripts/zoom_meetings.py setup
+## Capabilities
+- Schedule and manage meetings
+- Access and download cloud recordings
+- Create and configure webinars
+- Manage meeting settings and security
+- Generate meeting reports and analytics
+- Handle waiting room and participant management
+- Configure virtual backgrounds and settings
+- Manage Zoom Phone settings (if enabled)
 
-# List upcoming meetings
-python3 scripts/zoom_meetings.py list
+## Usage Examples
 
-# Create a meeting
-python3 scripts/zoom_meetings.py create "Team Standup" --start "2025-01-15T10:00:00" --duration 30
-
-# List recordings
-python3 scripts/zoom_meetings.py recordings --start 2025-01-01
+### Example 1: Schedule a Meeting
+```
+User: "Schedule a Zoom meeting for tomorrow at 2pm with the marketing team"
+Claude: I'll schedule that Zoom meeting.
+- Navigate to Zoom web portal
+- Click Schedule Meeting
+- Set topic: "Marketing Team Meeting"
+- Set date/time: Tomorrow 2pm
+- Enable waiting room and passcode
+- Copy meeting link for sharing
 ```
 
-## Commands
-
-### Meetings
-
-```bash
-# List meetings
-python3 scripts/zoom_meetings.py list                      # upcoming
-python3 scripts/zoom_meetings.py list --type previous      # past
-python3 scripts/zoom_meetings.py list --limit 10 --json
-
-# Get meeting details
-python3 scripts/zoom_meetings.py get MEETING_ID
-
-# Create meeting (times are treated as LOCAL time)
-python3 scripts/zoom_meetings.py create "Topic"                              # instant
-python3 scripts/zoom_meetings.py create "Topic" --start "2025-01-15T14:00:00" # scheduled (local time)
-python3 scripts/zoom_meetings.py create "Topic" --duration 60 --timezone "Europe/Berlin"
-python3 scripts/zoom_meetings.py create "Topic" --agenda "Discussion points" --waiting-room
-python3 scripts/zoom_meetings.py create "Topic" --invite "user@example.com"  # send invite
-python3 scripts/zoom_meetings.py create "Topic" --invite "a@x.com" --invite "b@x.com"  # multiple
-
-# Update meeting
-python3 scripts/zoom_meetings.py update MEETING_ID --topic "New Topic"
-python3 scripts/zoom_meetings.py update MEETING_ID --start "2025-01-16T10:00:00"
-
-# Delete meeting (requires meeting:delete:meeting:admin scope)
-python3 scripts/zoom_meetings.py delete MEETING_ID
+### Example 2: Access Recordings
+```
+User: "Download the recording from yesterday's client call"
+Claude: I'll find and download that recording.
+- Navigate to Recordings section
+- Locate yesterday's client call recording
+- Initiate download of video file
+- Confirm download location
 ```
 
-### Recordings
-
-```bash
-# List all recordings (default: last 30 days)
-python3 scripts/zoom_meetings.py recordings
-
-# With date range
-python3 scripts/zoom_meetings.py recordings --start 2025-01-01 --end 2025-01-31
-
-# Show download URLs
-python3 scripts/zoom_meetings.py recordings --show-downloads
-
-# Get specific meeting's recordings
-python3 scripts/zoom_meetings.py recording MEETING_ID
-
-# JSON output
-python3 scripts/zoom_meetings.py recordings --json
+### Example 3: Create a Webinar
+```
+User: "Set up a webinar for next Friday called 'Product Launch'"
+Claude: I'll create the webinar.
+- Navigate to Webinars section
+- Create new webinar "Product Launch"
+- Configure date, time, and duration
+- Set registration options
+- Generate registration link
 ```
 
-## Output Formats
-
-### Markdown (default)
-
-```markdown
-# Zoom Meetings (3 upcoming)
-
-## Weekly Team Sync
-**ID:** 123456789
-**Start:** 2025-01-15 14:00:00 UTC
-**Duration:** 60 minutes
-**Join URL:** https://zoom.us/j/123456789
+### Example 4: Check Meeting Reports
+```
+User: "Get attendance report for last week's all-hands meeting"
+Claude: I'll pull that attendance report.
+- Navigate to Reports section
+- Find all-hands meeting from last week
+- Export participant report
+- Summarize attendance data
 ```
 
-### JSON
+## Authentication Flow
+1. Navigate to zoom.us/signin via Playwright MCP
+2. Enter email and password from canifi-env
+3. Handle SSO redirect if configured
+4. Complete 2FA if enabled (notify user via iMessage)
+5. Verify dashboard access
+6. Maintain session for subsequent operations
 
-Add `--json` for structured output suitable for piping to other tools.
+## Error Handling
+- **Login Failed**: Retry with fresh context, check SSO settings
+- **Session Expired**: Re-authenticate automatically
+- **Rate Limited**: Wait and retry with exponential backoff
+- **2FA Required**: iMessage notification for code
+- **Meeting Not Found**: Search by date range and title
+- **Recording Unavailable**: Check processing status, retry later
+- **Insufficient License**: Notify user of plan limitations
+- **Webinar Limit Reached**: Notify user of capacity limits
 
-## Recording File Types
+## Self-Improvement Instructions
+When encountering new Zoom features:
+1. Document new UI elements and selectors
+2. Add new meeting types to capabilities
+3. Log successful scheduling patterns
+4. Update skill with new webinar features
 
-| Type | Description |
-|------|-------------|
-| MP4 | Video recording |
-| M4A | Audio only |
-| TRANSCRIPT | Text transcript (VTT) |
-| CHAT | Chat messages |
-| TIMELINE | Speaker timeline |
-| SUMMARY | AI meeting summary |
-
-## Example User Requests
-
-| User says | Command |
-|-----------|---------|
-| "List my Zoom meetings" | `list` |
-| "Show past meetings" | `list --type previous` |
-| "Create a meeting for tomorrow at 2pm" | `create "Meeting" --start "2025-01-15T14:00:00"` |
-| "Show my Zoom recordings" | `recordings --start 2025-01-01` |
-| "Get the recording for meeting X" | `recording MEETING_ID` |
-
-## Dependencies
-
-```bash
-pip install requests
-```
-
-## Files
-
-| File | Purpose |
-|------|---------|
-| `~/.zoom_credentials/credentials.json` | S2S OAuth credentials |
-| `~/.zoom_credentials/token.json` | S2S cached token |
-| `~/.zoom_credentials/oauth_token.json` | User OAuth tokens (auto-refreshes) |
-
-## API Reference
-
-- [Zoom Meeting APIs](https://developers.zoom.us/docs/api/meetings/)
-- [Zoom API Reference](https://developers.zoom.us/docs/api/rest/reference/zoom-api/methods/)
+## Notes
+- Cloud recordings may take time to process
+- Some features require Pro/Business licenses
+- Webinars require additional add-on license
+- Large meetings have different participant limits
+- SSO configurations vary by organization
+- Phone features require Zoom Phone license

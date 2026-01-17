@@ -1,7 +1,7 @@
 {
   "name": "video-comparer",
-  "repo": "nguyendinhquocx/code-ai",
-  "path": "skills/video-comparer/SKILL.md",
-  "source": "github.com/nguyendinhquocx/code-ai",
-  "downloaded_at": "2026-01-14T01:13:39.606262Z"
+  "repo": "nicepkg/ai-workflow",
+  "path": "video-creator-workflow/.claude/skills/video-comparer/SKILL.md",
+  "source": "github.com/nicepkg/ai-workflow",
+  "downloaded_at": "2026-01-17T02:05:42.812867Z"
 }

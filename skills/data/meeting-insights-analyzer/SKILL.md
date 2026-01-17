@@ -1,6 +1,5 @@
 ---
 name: meeting-insights-analyzer
-category: business-productivity
 description: Analyzes meeting transcripts and recordings to uncover behavioral patterns, communication insights, and actionable feedback. Identifies when you avoid conflict, use filler words, dominate conversations, or miss opportunities to listen. Perfect for professionals seeking to improve their communication and leadership skills.
 ---
 
@@ -45,7 +44,7 @@ This skill transforms your meeting transcripts into actionable insights about yo
 ### Basic Setup
 
 1. Download your meeting transcripts to a folder (e.g., `~/meetings/`)
-2. Navigate to that folder in Claude Code
+2. Navigate to that folder in Codex
 3. Ask for the analysis you want
 
 ### Quick Start Examples
@@ -280,7 +279,7 @@ today."
 **From Granola** (free with Lenny's newsletter subscription):
 - Granola auto-transcribes your meetings
 - Export transcripts to a folder: [Instructions on how]
-- Point Claude Code to that folder
+- Point Codex to that folder
 
 **From Zoom**:
 - Enable cloud recording with transcription
@@ -290,7 +289,7 @@ today."
 **From Google Meet**:
 - Use Google Docs auto-transcription
 - Save transcript docs to a folder
-- Download as .txt files or give Claude Code access
+- Download as .txt files or give Codex access
 
 **From Fireflies.ai, Otter.ai, etc.**:
 - Export transcripts in bulk
@@ -325,4 +324,3 @@ today."
 - Coaching direct reports on their communication
 - Analyzing customer calls for sales or support patterns
 - Studying negotiation tactics and outcomes
-

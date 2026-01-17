@@ -1,7 +1,7 @@
 {
   "name": "changelog",
-  "repo": "kasperjunge/agent-resources-legacy",
-  "path": ".claude/skills/changelog/SKILL.md",
-  "source": "github.com/kasperjunge/agent-resources-legacy",
-  "downloaded_at": "2026-01-14T03:25:47.971571Z"
+  "repo": "masharratt/claude-flow-novice",
+  "path": ".claude/skills/cfn-project-management/lib/changelog/SKILL.md",
+  "source": "github.com/masharratt/claude-flow-novice",
+  "downloaded_at": "2026-01-17T03:40:32.146898Z"
 }

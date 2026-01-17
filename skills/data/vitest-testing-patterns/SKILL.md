@@ -1,494 +1,392 @@
 ---
 name: vitest-testing-patterns
-description: Use when vitest testing patterns including unit tests, mocks, spies, and browser mode testing.
-allowed-tools: [Read, Write, Edit, Bash, Glob, Grep]
+description: Write tests using Vitest and React Testing Library. Use when creating unit tests, component tests, integration tests, or mocking dependencies. Activates for test file creation, mock patterns, coverage, and testing best practices.
+allowed-tools: Read,Write,Edit,Bash(npm:*,npx:*)
+category: Code Quality & Testing
+tags:
+  - testing
+  - code
+  - automation
+  - jest
+  - react
 ---
 
-# vitest testing patterns
+# Vitest Testing Patterns
 
-Master Vitest testing patterns including unit tests, mocks, spies, and browser mode testing. This skill provides comprehensive coverage of essential concepts, patterns, and best practices for professional Vitest development.
+This skill helps you write effective tests using Vitest and React Testing Library following project conventions.
 
-## Overview
+## When to Use
 
-Vitest is a powerful tool for typescript development, providing robust capabilities for maintaining code quality and ensuring reliable software delivery. This skill covers the fundamental through advanced aspects of working with Vitest.
+✅ **USE this skill for:**
+- Writing unit tests for utilities and functions
+- Creating component tests with React Testing Library
+- Setting up mocks for API calls, databases, or external services
+- Integration testing patterns
+- Understanding test coverage and CI setup
 
-## Installation and Setup
+❌ **DO NOT use for:**
+- Jest-specific patterns → similar but check Jest docs for differences
+- End-to-end testing → use Playwright or Cypress skills
+- Performance testing → use dedicated performance tools
+- API contract testing → use OpenAPI/Pact patterns
 
-### Basic Installation
+## Test Infrastructure
 
-Setting up Vitest requires proper installation and configuration in your development environment.
+**Configuration**: `vitest.config.ts`
+- Environment: jsdom
+- Setup file: `src/test/setup.ts`
+- Coverage: v8 provider
 
+**Commands**:
 ```bash
-# Installation command specific to Vitest
-# Follow official documentation for latest version
+npm test              # Watch mode
+npm run test:run      # Single run
+npm run test:coverage # With coverage
 ```
 
-### Project Configuration
+## File Organization
 
-Create appropriate configuration files and setup for your project structure:
+```
+src/
+├── app/api/__tests__/        # API route tests
+├── components/__tests__/     # Component tests
+├── lib/__tests__/            # Library/utility tests
+└── lib/{feature}/__tests__/  # Feature-specific tests
+```
 
-- Configuration file setup
-- Project structure organization
-- Team collaboration setup
-- CI/CD integration preparation
+Name tests as `{name}.test.ts` or `{name}.test.tsx`.
 
-## Core Concepts
+## Core Testing Patterns
 
-### Fundamental Principles
-
-Understanding the core principles of Vitest is essential for effective usage:
-
-1. **Architecture** - How Vitest is structured and operates
-2. **Configuration** - Setting up and customizing behavior
-3. **Integration** - Working with other tools and frameworks
-4. **Best Practices** - Industry-standard approaches
-
-### Key Features
-
-Vitest provides several key features that make it valuable:
-
-- Feature 1: Core functionality
-- Feature 2: Advanced capabilities  
-- Feature 3: Integration options
-- Feature 4: Performance optimization
-- Feature 5: Extensibility
-
-### Configuration Strategy
-
-Proper configuration ensures Vitest works optimally:
-
-- Environment-specific setup
-- Team standards enforcement
-- Performance tuning
-- Error handling configuration
-
-### Advanced Usage
-
-For complex scenarios, Vitest offers advanced capabilities:
-
-- Custom extensions
-- Advanced patterns
-- Performance optimization
-- Scalability considerations
-
-## Code Examples
-
-### Example 1: Basic Setup
+### 1. API Route Tests
 
 ```typescript
-// Basic Vitest setup
-// Demonstrates fundamental usage patterns
-// Shows proper initialization and configuration
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { GET, POST } from '../route';
+import { NextRequest } from 'next/server';
 
-// Core setup code
-function basicSetup() {
-  // Initialize framework
-  // Configure basic options
-  // Return configured instance
-}
+// Mock dependencies
+vi.mock('@/lib/auth', () => ({
+  getSession: vi.fn(),
+}));
 
-// Usage example
-const instance = basicSetup();
+vi.mock('@/db', () => ({
+  db: {
+    select: vi.fn().mockReturnThis(),
+    from: vi.fn().mockReturnThis(),
+    where: vi.fn().mockResolvedValue([]),
+  },
+}));
+
+describe('GET /api/feature', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it('returns 401 when not authenticated', async () => {
+    vi.mocked(getSession).mockResolvedValue(null);
+
+    const request = new NextRequest('http://localhost/api/feature');
+    const response = await GET(request);
+
+    expect(response.status).toBe(401);
+  });
+
+  it('returns data when authenticated', async () => {
+    vi.mocked(getSession).mockResolvedValue({ userId: 'user-123' });
+    vi.mocked(db.select).mockReturnValue({
+      from: vi.fn().mockReturnValue({
+        where: vi.fn().mockResolvedValue([{ id: '1', name: 'Test' }]),
+      }),
+    });
+
+    const request = new NextRequest('http://localhost/api/feature');
+    const response = await GET(request);
+    const data = await response.json();
+
+    expect(response.status).toBe(200);
+    expect(data).toHaveLength(1);
+  });
+});
 ```
 
-### Example 2: Configuration
+### 2. Component Tests
 
 ```typescript
-// Configuration example for Vitest
-// Shows how to properly configure
-// Includes common options and patterns
+import { describe, it, expect, vi } from 'vitest';
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { FeatureComponent } from '../FeatureComponent';
 
-// Configuration object
-const config = {
-  option1: 'value1',
-  option2: 'value2',
-  advanced: {
-    setting1: true,
-    setting2: false
-  }
-};
+// Mock hooks
+vi.mock('@/hooks/useAuth', () => ({
+  useAuth: vi.fn().mockReturnValue({
+    user: { id: 'user-123', name: 'Test User' },
+    isLoading: false,
+  }),
+}));
 
-// Apply configuration
-function applyConfig(config) {
-  // Validation logic
-  // Application logic
-  // Return result
-}
+describe('FeatureComponent', () => {
+  it('renders loading state', () => {
+    vi.mocked(useAuth).mockReturnValueOnce({
+      user: null,
+      isLoading: true,
+    });
+
+    render(<FeatureComponent />);
+    expect(screen.getByText(/loading/i)).toBeInTheDocument();
+  });
+
+  it('handles user interaction', async () => {
+    const user = userEvent.setup();
+    const onSubmit = vi.fn();
+
+    render(<FeatureComponent onSubmit={onSubmit} />);
+
+    await user.type(screen.getByRole('textbox'), 'Test input');
+    await user.click(screen.getByRole('button', { name: /submit/i }));
+
+    expect(onSubmit).toHaveBeenCalledWith('Test input');
+  });
+
+  it('displays error state', async () => {
+    vi.mocked(fetch).mockRejectedValueOnce(new Error('Network error'));
+
+    render(<FeatureComponent />);
+
+    await waitFor(() => {
+      expect(screen.getByRole('alert')).toHaveTextContent(/error/i);
+    });
+  });
+});
 ```
 
-### Example 3: Advanced Pattern
+### 3. Library/Utility Tests
 
 ```typescript
-// Advanced usage pattern
-// Demonstrates sophisticated techniques
-// Shows best practices in action
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { processData, formatDate } from '../utils';
 
-function advancedPattern() {
-  // Setup phase
-  // Execution phase
-  // Cleanup phase
-}
+describe('processData', () => {
+  it('transforms input correctly', () => {
+    const input = { raw: 'data' };
+    const result = processData(input);
+
+    expect(result).toEqual({
+      processed: true,
+      data: 'DATA',
+    });
+  });
+
+  it('throws on invalid input', () => {
+    expect(() => processData(null)).toThrow('Invalid input');
+  });
+});
+
+describe('formatDate', () => {
+  beforeEach(() => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date('2025-01-15T10:00:00Z'));
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
+  it('formats relative dates', () => {
+    const yesterday = new Date('2025-01-14T10:00:00Z');
+    expect(formatDate(yesterday)).toBe('yesterday');
+  });
+});
 ```
 
-### Example 4: Integration
+## Mocking Patterns
+
+### Module Mocking
 
 ```typescript
-// Integration with other tools
-// Shows real-world usage
-// Demonstrates interoperability
+// Mock entire module
+vi.mock('@/lib/auth', () => ({
+  getSession: vi.fn(),
+  requireAuth: vi.fn(),
+}));
 
-function integrationExample() {
-  // Setup integration
-  // Execute workflow
-  // Handle results
-}
+// Mock with partial implementation
+vi.mock('date-fns', async () => {
+  const actual = await vi.importActual('date-fns');
+  return {
+    ...actual,
+    format: vi.fn(() => '2025-01-15'),
+  };
+});
+
+// Mock default export (like Anthropic SDK)
+vi.mock('@anthropic-ai/sdk', () => ({
+  default: class MockAnthropic {
+    messages = {
+      create: vi.fn().mockResolvedValue({
+        content: [{ type: 'text', text: 'Mock response' }],
+        usage: { input_tokens: 10, output_tokens: 20 },
+      }),
+    };
+  },
+}));
 ```
 
-### Example 5: Error Handling
+### Function Mocking
 
 ```typescript
-// Proper error handling approach
-// Defensive programming patterns
-// Graceful degradation
+// Create mock function
+const mockFn = vi.fn();
 
-function withErrorHandling() {
-  try {
-    // Main logic
-  } catch (error) {
-    // Error recovery
-  } finally {
-    // Cleanup
-  }
-}
+// Set return values
+mockFn.mockReturnValue('sync value');
+mockFn.mockResolvedValue('async value');
+mockFn.mockRejectedValue(new Error('Failed'));
+
+// One-time behavior
+mockFn.mockReturnValueOnce('first call only');
+
+// Custom implementation
+mockFn.mockImplementation((arg) => arg.toUpperCase());
+
+// Verify calls
+expect(mockFn).toHaveBeenCalled();
+expect(mockFn).toHaveBeenCalledTimes(2);
+expect(mockFn).toHaveBeenCalledWith('expected', 'args');
 ```
 
-### Example 6: Performance Optimization
+### Chained Mock Pattern (Drizzle ORM)
 
 ```typescript
-// Performance-optimized implementation
-// Shows efficiency techniques
-// Demonstrates best practices
-
-function optimizedApproach() {
-  // Efficient implementation
-  // Resource management
-  // Performance monitoring
-}
+vi.mock('@/db', () => ({
+  db: {
+    select: vi.fn().mockReturnValue({
+      from: vi.fn().mockReturnValue({
+        where: vi.fn().mockReturnValue({
+          orderBy: vi.fn().mockReturnValue({
+            limit: vi.fn().mockResolvedValue([{ id: '1' }]),
+          }),
+        }),
+      }),
+    }),
+    insert: vi.fn().mockReturnValue({
+      values: vi.fn().mockReturnValue({
+        returning: vi.fn().mockResolvedValue([{ id: 'new-1' }]),
+      }),
+    }),
+  },
+}));
 ```
 
-### Example 7: Testing
+### Timer Mocking
 
 ```typescript
-// Testing approach for Vitest
-// Unit test examples
-// Integration test patterns
+describe('debounced function', () => {
+  beforeEach(() => {
+    vi.useFakeTimers();
+  });
 
-function testExample() {
-  // Test setup
-  // Execution
-  // Assertions
-  // Teardown
-}
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
+  it('debounces calls', async () => {
+    const callback = vi.fn();
+    const debounced = debounce(callback, 300);
+
+    debounced();
+    debounced();
+    debounced();
+
+    expect(callback).not.toHaveBeenCalled();
+
+    vi.advanceTimersByTime(300);
+
+    expect(callback).toHaveBeenCalledTimes(1);
+  });
+});
 ```
 
-### Example 8: Production Usage
+## Query Priorities
+
+Use queries in this order (most to least preferred):
+
+1. **getByRole** - Accessible queries (buttons, links, headings)
+2. **getByLabelText** - Form fields with labels
+3. **getByPlaceholderText** - Inputs with placeholders
+4. **getByText** - Non-interactive elements
+5. **getByTestId** - Last resort (data-testid)
 
 ```typescript
-// Production-ready implementation
-// Includes monitoring and logging
-// Error recovery and resilience
+// Preferred
+screen.getByRole('button', { name: /submit/i });
+screen.getByRole('heading', { level: 1 });
+screen.getByLabelText(/email/i);
 
-function productionExample() {
-  // Production configuration
-  // Monitoring setup
-  // Error handling
-  // Logging
-}
+// Avoid unless necessary
+screen.getByTestId('submit-button');
 ```
 
-## Best Practices
+## Async Patterns
 
-1. **Follow conventions** - Adhere to established naming and structural patterns for consistency
-2. **Configure appropriately** - Set up framework configuration that matches project requirements
-3. **Validate inputs** - Always validate and sanitize inputs before processing
-4. **Handle errors gracefully** - Implement comprehensive error handling and recovery
-5. **Document decisions** - Comment configuration choices and non-obvious implementations
-6. **Test thoroughly** - Write comprehensive tests for all functionality
-7. **Optimize performance** - Profile and optimize critical paths
-8. **Maintain security** - Follow security best practices and guidelines
-9. **Keep updated** - Regularly update framework and dependencies
-10. **Monitor production** - Implement logging and monitoring for production systems
+```typescript
+// Wait for element to appear
+await waitFor(() => {
+  expect(screen.getByText('Loaded')).toBeInTheDocument();
+});
 
-## Common Pitfalls
+// Find (built-in waitFor)
+const element = await screen.findByText('Loaded');
 
-1. **Incorrect configuration** - Misconfiguration leads to unexpected behavior and bugs
-2. **Missing error handling** - Not handling edge cases causes production issues
-3. **Poor performance** - Not optimizing leads to scalability problems
-4. **Inadequate testing** - Insufficient test coverage misses bugs
-5. **Security vulnerabilities** - Not following security best practices exposes risks
-6. **Tight coupling** - Poor architecture makes maintenance difficult
-7. **Ignoring warnings** - Dismissing framework warnings leads to future problems
-8. **Outdated dependencies** - Using old versions exposes security risks
-9. **No monitoring** - Lack of observability makes debugging difficult
-10. **Inconsistent standards** - Team inconsistency reduces code quality
-
-## Advanced Topics
-
-### Customization
-
-Vitest allows extensive customization for specific needs:
-
-- Custom plugins and extensions
-- Behavior modification
-- Integration adapters
-- Domain-specific adaptations
-
-### Performance Tuning
-
-Optimize Vitest performance for production:
-
-- Profiling and benchmarking
-- Resource optimization
-- Caching strategies
-- Parallel execution
-
-### CI/CD Integration
-
-Integrate Vitest into continuous integration pipelines:
-
-- Automated execution
-- Result reporting
-- Quality gates
-- Deployment integration
-
-### Troubleshooting
-
-Common issues and their solutions:
-
-- Configuration errors
-- Integration problems
-- Performance issues
-- Unexpected behavior
-
-## When to Use This Skill
-
-- Setting up Vitest in new projects
-- Configuring Vitest for specific requirements
-- Migrating to Vitest from alternatives
-- Optimizing Vitest performance
-- Implementing advanced patterns
-- Troubleshooting Vitest issues
-- Integrating Vitest with CI/CD
-- Training team members on Vitest
-- Establishing team standards
-- Maintaining existing Vitest implementations
-
-## Additional Resources
-
-### Documentation
-
-- Official Vitest documentation
-- Community guides and tutorials
-- API reference materials
-- Migration guides
-
-### Tools and Utilities
-
-- Development tools
-- Testing utilities
-- Monitoring solutions
-- Helper libraries
-
-### Community
-
-- Online forums and communities
-- Open source contributions
-- Best practice repositories
-- Example implementations
-
-## Conclusion
-
-Mastering Vitest requires understanding both fundamentals and advanced concepts. This skill provides the foundation for professional-grade usage, from initial setup through production deployment. Apply these principles consistently for best results.
-
-## Detailed Configuration Examples
-
-### Configuration Option 1
-
-Comprehensive configuration example demonstrating best practices and common patterns used in production environments.
-
-```bash
-# Detailed configuration setup
-# Includes all necessary options
-# Optimized for production use
+// Wait for element to disappear
+await waitFor(() => {
+  expect(screen.queryByText('Loading')).not.toBeInTheDocument();
+});
 ```
 
-### Configuration Option 2
+## Test Cleanup
 
-Alternative configuration approach for different use cases, showing flexibility and adaptability of the framework.
+```typescript
+import { cleanup } from '@testing-library/react';
 
-```bash
-# Alternative configuration
-# Different optimization strategy
-# Suitable for specific scenarios
+afterEach(() => {
+  cleanup();            // React cleanup (automatic with setup.ts)
+  vi.clearAllMocks();   // Reset mock call counts
+  vi.resetAllMocks();   // Reset mocks to initial state
+  vi.restoreAllMocks(); // Restore original implementations
+});
 ```
 
-### Configuration Option 3
+## Accessibility Testing
 
-Advanced configuration for complex environments with multiple requirements and constraints.
+```typescript
+import { axe, toHaveNoViolations } from 'jest-axe';
 
-```bash
-# Advanced configuration
-# Handles complex scenarios
-# Production-ready setup
+expect.extend(toHaveNoViolations);
+
+it('has no accessibility violations', async () => {
+  const { container } = render(<Component />);
+  const results = await axe(container);
+  expect(results).toHaveNoViolations();
+});
 ```
 
-## Advanced Usage Patterns
+## Common Matchers
 
-### Pattern 1: Modular Organization
+```typescript
+// jest-dom matchers (from setup.ts)
+expect(element).toBeInTheDocument();
+expect(element).toBeVisible();
+expect(element).toBeDisabled();
+expect(element).toHaveTextContent('text');
+expect(element).toHaveAttribute('href', '/path');
+expect(element).toHaveClass('active');
+expect(input).toHaveValue('input value');
+```
 
-Organize your setup in a modular way to improve maintainability and scalability across large projects.
+## References
 
-Implementation details:
-
-- Separate concerns appropriately
-- Use composition over inheritance
-- Follow single responsibility principle
-- Maintain clear interfaces
-
-### Pattern 2: Performance Optimization
-
-Optimize for performance in production environments with proven strategies and techniques.
-
-Key considerations:
-
-- Profile before optimizing
-- Focus on bottlenecks
-- Cache appropriately
-- Monitor in production
-
-### Pattern 3: Error Recovery
-
-Implement robust error recovery mechanisms to handle failures gracefully.
-
-Recovery strategies:
-
-- Graceful degradation
-- Retry with backoff
-- Circuit breaker pattern
-- Comprehensive logging
-
-### Pattern 4: Testing Strategy
-
-Comprehensive testing approach ensuring code quality and reliability.
-
-Testing layers:
-
-- Unit tests for components
-- Integration tests for workflows
-- End-to-end tests for user scenarios
-- Performance tests for scalability
-
-## Integration Strategies
-
-### Integration with CI/CD
-
-Seamless integration into continuous integration and deployment pipelines.
-
-Steps:
-
-1. Configure pipeline
-2. Set up automation
-3. Define quality gates
-4. Monitor execution
-
-### Integration with Development Tools
-
-Connect with popular development tools and IDEs for improved workflow.
-
-Tools:
-
-- IDE plugins and extensions
-- CLI tools and utilities
-- Build system integration
-- Version control hooks
-
-### Integration with Monitoring
-
-Implement monitoring and observability for production systems.
-
-Monitoring aspects:
-
-- Performance metrics
-- Error tracking
-- Usage analytics
-- Health checks
-
-## Team Practices
-
-### Establishing Standards
-
-Create and maintain consistent standards across the team.
-
-Standards to define:
-
-- Naming conventions
-- Code organization
-- Documentation requirements
-- Review processes
-
-### Onboarding Process
-
-Streamline onboarding for new team members.
-
-Onboarding steps:
-
-- Initial setup guide
-- Training materials
-- Practice exercises
-- Mentorship program
-
-### Code Review Guidelines
-
-Effective code review practices for quality assurance.
-
-Review checklist:
-
-- Correctness
-- Performance
-- Security
-- Maintainability
-
-## Troubleshooting Guide
-
-### Common Issue 1
-
-Detailed troubleshooting steps for frequently encountered problem.
-
-Resolution steps:
-
-1. Identify symptoms
-2. Check configuration
-3. Verify dependencies
-4. Test solution
-
-### Common Issue 2
-
-Another common issue with comprehensive resolution approach.
-
-Diagnostic steps:
-
-1. Reproduce issue
-2. Gather logs
-3. Analyze data
-4. Apply fix
-
-### Common Issue 3
-
-Third common scenario with clear resolution path.
-
-Investigation process:
-
-1. Understand context
-2. Review recent changes
-3. Test hypotheses
-4. Implement solution
+- [Vitest Mocking Guide](https://vitest.dev/guide/mocking)
+- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)
+- [Testing Library Queries](https://testing-library.com/docs/queries/about)

@@ -1,7 +1,7 @@
 {
   "name": "skill-manager",
-  "repo": "oimiragieo/agent-studio",
-  "path": ".claude/skills/skill-manager/SKILL.md",
-  "source": "github.com/oimiragieo/agent-studio",
-  "downloaded_at": "2026-01-14T03:17:04.818325Z"
+  "repo": "Interstellar-code/claud-skills",
+  "path": "generic-claude-framework/skills/skill-manager/skill.md",
+  "source": "github.com/Interstellar-code/claud-skills",
+  "downloaded_at": "2026-01-17T03:32:29.021771Z"
 }

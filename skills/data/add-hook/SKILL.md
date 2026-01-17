@@ -1,78 +1,146 @@
 ---
-name: add-hook
-description: 새 커스텀 훅을 생성합니다. TanStack Query 패턴을 적용합니다. 사용법: /add-hook useXxx [--mutation]
+skill: add-hook
+description: Create a custom React hook with TypeScript and tests
+arguments: hook name and purpose
 ---
 
-# Add Hook
+# Add Hook: $ARGUMENTS
 
-TanStack Query 패턴을 적용한 커스텀 훅을 생성합니다.
+Create a custom React hook with proper typing and tests.
 
-## Instructions
+## Process
 
-1. 사용자로부터 훅 이름(use 접두사 + camelCase)을 받습니다
-2. `--mutation` 플래그가 있으면 mutation 훅도 포함합니다
-3. 파일 위치: `src/hooks/useXxx.ts`
-4. 해당 서비스 파일이 존재하는지 확인합니다
+### 1. Plan the Hook
 
-## Template
+Determine:
+- What state does it manage?
+- What side effects does it handle?
+- What does it return?
 
-```typescript
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { xxxService } from "@/services/xxxService";
+### 2. Create Hook File
 
-// Query Keys
-export const xxxKeys = {
-  all: ["xxx"] as const,
-  lists: () => [...xxxKeys.all, "list"] as const,
-  list: (filters: Record<string, unknown>) =>
-    [...xxxKeys.lists(), filters] as const,
-  details: () => [...xxxKeys.all, "detail"] as const,
-  detail: (id: string) => [...xxxKeys.details(), id] as const,
-};
-
-export function useXxxList(options?: { enabled?: boolean }) {
-  return useQuery({
-    queryKey: xxxKeys.lists(),
-    queryFn: () => xxxService.getAll(),
-    enabled: options?.enabled !== false,
-    staleTime: 1000 * 60 * 5,
-  });
-}
-
-export function useXxx(id: string, options?: { enabled?: boolean }) {
-  return useQuery({
-    queryKey: xxxKeys.detail(id),
-    queryFn: () => xxxService.getById(id),
-    enabled: !!id && options?.enabled !== false,
-  });
-}
-```
-
-## Mutation Template (--mutation)
+Location: `hooks/use[HookName].ts`
 
 ```typescript
-export function useCreateXxx() {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: (payload: CreateXxxInput) => xxxService.create(payload),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: xxxKeys.lists() });
-    },
-  });
+import { useState, useEffect, useCallback } from 'react';
+
+interface UseHookNameOptions {
+  // configuration options
+  initialValue?: string;
+}
+
+interface UseHookNameReturn {
+  // return type
+  value: string;
+  setValue: (value: string) => void;
+  isLoading: boolean;
+  error: Error | null;
+}
+
+export function useHookName(options: UseHookNameOptions = {}): UseHookNameReturn {
+  const { initialValue = '' } = options;
+
+  const [value, setValue] = useState(initialValue);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+
+  const handleSetValue = useCallback((newValue: string) => {
+    setValue(newValue);
+  }, []);
+
+  useEffect(() => {
+    // Side effects here
+  }, []);
+
+  return {
+    value,
+    setValue: handleSetValue,
+    isLoading,
+    error,
+  };
 }
 ```
 
-## Checklist
+### 3. Add to Exports
 
-- queryKey 상수 정의
-- staleTime 설정
-- enabled 옵션 지원
-- invalidateQueries on mutation success
-
-## Examples
-
-```
-/add-hook useItems --mutation
+```typescript
+// hooks/index.ts
+export { useHookName } from './useHookName';
 ```
 
-→ `src/hooks/useItems.ts` 생성 (query + mutation)
+### 4. Create Tests
+
+```typescript
+// hooks/useHookName.test.ts
+import { renderHook, act } from '@testing-library/react';
+import { useHookName } from './useHookName';
+
+describe('useHookName', () => {
+  test('returns initial value', () => {
+    const { result } = renderHook(() => useHookName());
+    expect(result.current.value).toBe('');
+  });
+
+  test('updates value', () => {
+    const { result } = renderHook(() => useHookName());
+    act(() => {
+      result.current.setValue('new value');
+    });
+    expect(result.current.value).toBe('new value');
+  });
+
+  test('accepts initial value option', () => {
+    const { result } = renderHook(() =>
+      useHookName({ initialValue: 'custom' })
+    );
+    expect(result.current.value).toBe('custom');
+  });
+});
+```
+
+### 5. Validate
+
+```bash
+npm run build
+npm run lint
+npm test
+```
+
+## Common Hook Patterns
+
+**Data fetching:**
+```typescript
+export function useFetch<T>(url: string) {
+  const [data, setData] = useState<T | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+  // ...
+}
+```
+
+**Local storage:**
+```typescript
+export function useLocalStorage<T>(key: string, initialValue: T) {
+  const [value, setValue] = useState<T>(() => {
+    const stored = localStorage.getItem(key);
+    return stored ? JSON.parse(stored) : initialValue;
+  });
+  // ...
+}
+```
+
+**Debounce:**
+```typescript
+export function useDebounce<T>(value: T, delay: number): T {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+  // ...
+}
+```
+
+**Media query:**
+```typescript
+export function useMediaQuery(query: string): boolean {
+  const [matches, setMatches] = useState(false);
+  // ...
+}
+```

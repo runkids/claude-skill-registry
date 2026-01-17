@@ -1,375 +1,290 @@
 ---
 name: data-visualization
-description: Create data visualizations using various charting libraries. Use when visualizing data or creating interactive charts.
+description: Creates effective data visualizations using various libraries and tools, with focus on clarity and insight communication. Trigger keywords: chart, graph, plot, visualization, dashboard, matplotlib, d3, plotly, visualization.
+allowed-tools: Read, Grep, Glob, Edit, Write, Bash
 ---
 
-# Data Visualization Skill
+# Data Visualization
 
-データ可視化スキルは、Chart.jsを使用したインタラクティブなグラフやチャートをHTMLで生成します。
+## Overview
 
-## 概要
+This skill focuses on creating effective data visualizations that communicate insights clearly. It covers various visualization libraries, chart selection, and design principles for impactful data presentation.
 
-このスキルを使用すると、データセットから美しく、レスポンシブで、インタラクティブなグラフを自動生成できます。ビジネスレポート、データ分析結果、ダッシュボードなどに最適です。
+## Instructions
 
-## 主な機能
+### 1. Understand the Data
 
-- **豊富なグラフタイプ**: 折れ線、棒、円、ドーナツ、レーダー、散布図、バブル、極座標など
-- **インタラクティブ**: ホバー時の詳細表示、クリックイベント、ズーム、パン
-- **レスポンシブデザイン**: あらゆる画面サイズに自動対応
-- **アニメーション**: スムーズなグラフ描画アニメーション
-- **カスタマイズ可能**: 色、フォント、スタイル、軸ラベルなど細かく調整可能
-- **複数グラフ対応**: 1つのページに複数のグラフを配置可能
-- **エクスポート**: PNG/JPEG画像としてダウンロード可能
+- Analyze data structure and types
+- Identify key metrics and dimensions
+- Determine the story to tell
+- Consider the target audience
 
-## 使用方法
+### 2. Select Appropriate Visualization
 
-### 基本的な使い方
+- Match chart type to data relationship
+- Consider data volume and complexity
+- Plan for interactivity needs
+- Account for accessibility
 
-```
-データ可視化HTMLを作成してください。
-データ: 売上データ（1月: 120万, 2月: 150万, 3月: 180万, 4月: 140万）
-グラフタイプ: 折れ線グラフ
-タイトル: "2024年売上推移"
-```
+### 3. Design for Clarity
 
-### 複数グラフの生成
+- Choose effective color schemes
+- Label axes and data clearly
+- Remove chart junk
+- Highlight key insights
 
-```
-以下のデータでダッシュボードを作成:
-1. 月別売上（折れ線グラフ）
-2. 商品カテゴリ別売上（円グラフ）
-3. 地域別売上（棒グラフ）
-4. 顧客満足度（レーダーチャート）
-```
+### 4. Implement and Iterate
 
-### カスタマイズ例
+- Build visualization with chosen tool
+- Test with real data
+- Gather feedback
+- Refine based on usage
 
-```
-データ可視化を作成:
-- データ: [10, 20, 30, 40, 50]
-- グラフタイプ: 棒グラフ
-- 色: グラデーション（青から緑）
-- アニメーション: バウンス
-- 凡例: 下部に配置
-```
+## Best Practices
 
-## サポートするグラフタイプ
+1. **Right Chart for Data**: Match visualization to data type
+2. **Less is More**: Remove unnecessary elements
+3. **Consistent Styling**: Use coherent color schemes
+4. **Accessible Design**: Consider colorblind users
+5. **Clear Labels**: Descriptive titles and axis labels
+6. **Context Matters**: Include reference points
+7. **Interactive When Helpful**: Add tooltips and filters
 
-### 1. 折れ線グラフ (Line Chart)
-時系列データや傾向の可視化に最適
-- 単一/複数ライン
-- エリアチャート（塗りつぶし）
-- ステップラインチャート
+## Examples
 
-### 2. 棒グラフ (Bar Chart)
-カテゴリ別の比較に最適
-- 縦棒グラフ
-- 横棒グラフ
-- 積み上げ棒グラフ
-- グループ化棒グラフ
+### Example 1: Python with Matplotlib/Seaborn
 
-### 3. 円グラフ (Pie Chart)
-全体に対する割合の表示
-- 円グラフ
-- ドーナツグラフ
-- セミサークルグラフ
+```python
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+import numpy as np
 
-### 4. レーダーチャート (Radar Chart)
-多次元データの比較
-- スパイダーチャート
-- ポーラーエリアチャート
+# Set style for professional look
+plt.style.use('seaborn-v0_8-whitegrid')
+sns.set_palette("husl")
 
-### 5. 散布図 (Scatter Plot)
-相関関係の可視化
-- 基本的な散布図
-- バブルチャート
+# Create figure with subplots
+fig, axes = plt.subplots(2, 2, figsize=(14, 10))
 
-### 6. 混合チャート (Mixed Charts)
-複数のグラフタイプを組み合わせ
-- 折れ線 + 棒グラフ
-- カスタム組み合わせ
+# Example 1: Line chart for time series
+df_sales = pd.DataFrame({
+    'date': pd.date_range('2024-01-01', periods=12, freq='M'),
+    'revenue': [100, 120, 115, 140, 155, 170, 165, 180, 195, 210, 225, 250],
+    'target': [110, 115, 120, 130, 145, 160, 175, 185, 200, 215, 230, 245]
+})
 
-## データ形式
+ax1 = axes[0, 0]
+ax1.plot(df_sales['date'], df_sales['revenue'], marker='o', linewidth=2, label='Actual')
+ax1.plot(df_sales['date'], df_sales['target'], linestyle='--', linewidth=2, label='Target')
+ax1.fill_between(df_sales['date'], df_sales['revenue'], df_sales['target'],
+                  alpha=0.3, where=(df_sales['revenue'] >= df_sales['target']), color='green')
+ax1.fill_between(df_sales['date'], df_sales['revenue'], df_sales['target'],
+                  alpha=0.3, where=(df_sales['revenue'] < df_sales['target']), color='red')
+ax1.set_title('Monthly Revenue vs Target', fontsize=14, fontweight='bold')
+ax1.set_xlabel('Month')
+ax1.set_ylabel('Revenue ($K)')
+ax1.legend()
+ax1.tick_params(axis='x', rotation=45)
 
-### CSVデータからの変換
+# Example 2: Bar chart for comparison
+df_products = pd.DataFrame({
+    'product': ['Product A', 'Product B', 'Product C', 'Product D', 'Product E'],
+    'sales': [45, 32, 28, 22, 18]
+})
 
-```
-CSVデータを可視化:
-日付,売上,利益
-2024-01,1000,200
-2024-02,1200,250
-2024-03,1100,220
-```
+ax2 = axes[0, 1]
+colors = sns.color_palette("Blues_r", len(df_products))
+bars = ax2.barh(df_products['product'], df_products['sales'], color=colors)
+ax2.bar_label(bars, padding=3, fmt='$%.0fK')
+ax2.set_title('Sales by Product', fontsize=14, fontweight='bold')
+ax2.set_xlabel('Sales ($K)')
+ax2.invert_yaxis()
 
-### JSONデータ
+# Example 3: Scatter plot with regression
+np.random.seed(42)
+df_scatter = pd.DataFrame({
+    'ad_spend': np.random.uniform(10, 100, 50),
+    'conversions': lambda x: x['ad_spend'] * 2.5 + np.random.normal(0, 15, 50)
+}.__class__.__call__(pd.DataFrame({'ad_spend': np.random.uniform(10, 100, 50)})))
+df_scatter['conversions'] = df_scatter['ad_spend'] * 2.5 + np.random.normal(0, 15, 50)
 
-```json
-{
-  "labels": ["1月", "2月", "3月", "4月"],
-  "datasets": [{
-    "label": "売上",
-    "data": [100, 120, 110, 140]
-  }]
-}
-```
+ax3 = axes[1, 0]
+sns.regplot(data=df_scatter, x='ad_spend', y='conversions', ax=ax3,
+            scatter_kws={'alpha': 0.6}, line_kws={'color': 'red'})
+ax3.set_title('Ad Spend vs Conversions', fontsize=14, fontweight='bold')
+ax3.set_xlabel('Ad Spend ($K)')
+ax3.set_ylabel('Conversions')
 
-### テーブルデータ
+# Example 4: Pie/Donut chart for composition
+df_channels = pd.DataFrame({
+    'channel': ['Organic', 'Paid Search', 'Social', 'Email', 'Direct'],
+    'traffic': [35, 25, 20, 12, 8]
+})
 
-```
-| 商品    | 売上 | シェア |
-|---------|------|--------|
-| 商品A   | 500  | 35%    |
-| 商品B   | 400  | 28%    |
-| 商品C   | 300  | 21%    |
-| 商品D   | 200  | 14%    |
-```
+ax4 = axes[1, 1]
+wedges, texts, autotexts = ax4.pie(
+    df_channels['traffic'],
+    labels=df_channels['channel'],
+    autopct='%1.1f%%',
+    pctdistance=0.75,
+    wedgeprops=dict(width=0.5)
+)
+ax4.set_title('Traffic by Channel', fontsize=14, fontweight='bold')
 
-## カスタマイズオプション
-
-### 色とテーマ
-
-```
-カラースキーム:
-- default: Chart.jsデフォルト
-- blue: 青系グラデーション
-- green: 緑系グラデーション
-- warm: 暖色系
-- cool: 寒色系
-- pastel: パステルカラー
-- vibrant: ビビッドカラー
-- monochrome: モノクローム
+plt.tight_layout()
+plt.savefig('dashboard.png', dpi=150, bbox_inches='tight')
+plt.show()
 ```
 
-### アニメーション
+### Example 2: Interactive Visualization with Plotly
 
-```
-アニメーションタイプ:
-- linear: リニア
-- easeInQuad: イーズインクアッド
-- easeOutQuad: イーズアウトクアッド
-- easeInOutQuad: イーズインアウトクアッド
-- easeInCubic: イーズインキュービック
-- bounce: バウンス
-```
+```python
+import plotly.express as px
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+import pandas as pd
 
-### レイアウト
+# Create interactive time series
+df = pd.DataFrame({
+    'date': pd.date_range('2024-01-01', periods=365, freq='D'),
+    'value': (pd.Series(range(365)) * 0.1 +
+              np.sin(pd.Series(range(365)) * 0.1) * 20 +
+              np.random.normal(0, 5, 365)).cumsum()
+})
 
-```
-レイアウトオプション:
-- 凡例位置: top, bottom, left, right
-- グラフサイズ: small, medium, large, custom
-- グリッド線: 表示/非表示
-- 軸ラベル: カスタマイズ可能
-```
+fig = go.Figure()
 
-## 実装例
+fig.add_trace(go.Scatter(
+    x=df['date'],
+    y=df['value'],
+    mode='lines',
+    name='Daily Value',
+    line=dict(color='#1f77b4', width=1.5),
+    hovertemplate='%{x|%B %d, %Y}<br>Value: %{y:.2f}<extra></extra>'
+))
 
-### 例1: 売上ダッシュボード
+# Add moving average
+df['ma_7'] = df['value'].rolling(7).mean()
+fig.add_trace(go.Scatter(
+    x=df['date'],
+    y=df['ma_7'],
+    mode='lines',
+    name='7-day MA',
+    line=dict(color='#ff7f0e', width=2, dash='dash')
+))
 
-**入力:**
-```
-2024年Q1の売上ダッシュボードを作成。
-含めるグラフ:
-1. 月別売上推移（折れ線）
-2. 商品カテゴリ別内訳（円グラフ）
-3. 週別売上比較（棒グラフ）
-テーマ: ビジネス（青系）
-```
+fig.update_layout(
+    title='Daily Performance with Moving Average',
+    xaxis_title='Date',
+    yaxis_title='Value',
+    hovermode='x unified',
+    template='plotly_white',
+    xaxis=dict(
+        rangeselector=dict(
+            buttons=list([
+                dict(count=7, label="1w", step="day", stepmode="backward"),
+                dict(count=1, label="1m", step="month", stepmode="backward"),
+                dict(count=3, label="3m", step="month", stepmode="backward"),
+                dict(step="all")
+            ])
+        ),
+        rangeslider=dict(visible=True)
+    )
+)
 
-**生成されるもの:**
-- レスポンシブな3つのグラフを含むHTMLページ
-- インタラクティブな凡例とツールチップ
-- 印刷用CSS
-
-### 例2: KPIダッシュボード
-
-**入力:**
-```
-KPIダッシュボード作成:
-- 目標達成率（ゲージチャート）
-- 月次トレンド（折れ線グラフ）
-- 部門別パフォーマンス（レーダーチャート）
-- 前年比較（棒グラフ）
-```
-
-**生成されるもの:**
-- 4つのグラフを含む完全なダッシュボード
-- リアルタイム更新対応
-- エクスポート機能付き
-
-### 例3: データ分析レポート
-
-**入力:**
-```
-データ分析結果の可視化:
-相関分析: 散布図
-分布: ヒストグラム
-時系列: 折れ線グラフ
-統計サマリー: 箱ひげ図
+fig.write_html('interactive_chart.html')
+fig.show()
 ```
 
-**生成されるもの:**
-- 統計的なグラフセット
-- データテーブル併記
-- 統計値の表示
+### Example 3: Chart Type Selection Guide
 
-## グラフの表示
+```markdown
+## Chart Selection by Data Type
 
-生成されたHTMLファイルは:
+### Comparison
 
-```bash
-# ブラウザで直接開く
-open visualization.html
+- **Bar Chart**: Compare values across categories
+- **Grouped Bar**: Compare multiple series across categories
+- **Bullet Chart**: Show performance against target
 
-# またはローカルサーバーで
-python -m http.server 8000
-# http://localhost:8000/visualization.html
+### Distribution
+
+- **Histogram**: Show frequency distribution
+- **Box Plot**: Show distribution summary statistics
+- **Violin Plot**: Show distribution shape
+
+### Composition
+
+- **Pie/Donut Chart**: Show parts of a whole (< 6 categories)
+- **Stacked Bar**: Show composition across categories
+- **Treemap**: Show hierarchical composition
+
+### Relationship
+
+- **Scatter Plot**: Show correlation between two variables
+- **Bubble Chart**: Add third dimension via size
+- **Heatmap**: Show correlation matrix
+
+### Time Series
+
+- **Line Chart**: Show trends over time
+- **Area Chart**: Show cumulative trends
+- **Candlestick**: Show OHLC financial data
+
+### Geographic
+
+- **Choropleth**: Show values by region
+- **Point Map**: Show locations with values
+- **Flow Map**: Show movement between locations
 ```
 
-## インタラクション機能
+### Example 4: Dashboard Layout Principles
 
-- **ホバー**: データポイントの詳細表示
-- **クリック**: データセットの表示/非表示切り替え
-- **ズーム**: マウスホイールでズームイン/アウト
-- **パン**: ドラッグでグラフ移動
-- **凡例**: クリックでデータセット切り替え
-- **エクスポート**: PNG/JPEG画像としてダウンロード
+```python
+# Streamlit Dashboard Example
+import streamlit as st
+import pandas as pd
+import plotly.express as px
 
-## 応用例
+st.set_page_config(page_title="Sales Dashboard", layout="wide")
 
-### ビジネス分析
-- 売上レポート
-- KPIダッシュボード
-- 財務分析
-- 市場分析
+# Header
+st.title("Sales Performance Dashboard")
+st.markdown("---")
 
-### 科学データ
-- 実験結果の可視化
-- 統計分析
-- 時系列データ
-- 相関分析
+# KPI Row
+col1, col2, col3, col4 = st.columns(4)
+with col1:
+    st.metric("Total Revenue", "$1.2M", "+12%")
+with col2:
+    st.metric("Orders", "8,543", "+8%")
+with col3:
+    st.metric("Avg Order Value", "$140", "+3%")
+with col4:
+    st.metric("Conversion Rate", "3.2%", "-0.5%")
 
-### Webアプリケーション
-- リアルタイムモニタリング
-- ユーザーダッシュボード
-- アナリティクス
-- パフォーマンスメトリクス
+st.markdown("---")
 
-## ベストプラクティス
+# Filters
+with st.sidebar:
+    st.header("Filters")
+    date_range = st.date_input("Date Range", [])
+    region = st.multiselect("Region", ["North", "South", "East", "West"])
+    category = st.selectbox("Category", ["All", "Electronics", "Clothing", "Home"])
 
-1. **適切なグラフタイプ選択**: データの性質に合ったグラフを選ぶ
-   - 時系列 → 折れ線グラフ
-   - 比較 → 棒グラフ
-   - 割合 → 円グラフ
-   - 相関 → 散布図
+# Main Charts
+left_col, right_col = st.columns([2, 1])
 
-2. **色使い**:
-   - カラーブラインドに配慮
-   - 適切なコントラスト
-   - 意味のある色分け
+with left_col:
+    st.subheader("Revenue Trend")
+    # Line chart here
 
-3. **データラベル**:
-   - 軸ラベルを明確に
-   - 単位を表示
-   - 適切なフォーマット
+with right_col:
+    st.subheader("Sales by Region")
+    # Pie chart here
 
-4. **パフォーマンス**:
-   - 大量データは集約
-   - アニメーション最適化
-   - レスポンシブ対応
-
-5. **アクセシビリティ**:
-   - 代替テキスト
-   - キーボード操作対応
-   - スクリーンリーダー対応
-
-## トラブルシューティング
-
-### グラフが表示されない
-
-**原因**: Chart.jsが読み込まれていない
-**解決**: インターネット接続確認、CDNのURL確認
-
-### データが正しく表示されない
-
-**原因**: データ形式が不正
-**解決**: コンソールエラー確認、データ構造確認
-
-### レスポンシブが機能しない
-
-**原因**: コンテナサイズの問題
-**解決**: `maintainAspectRatio` オプション確認
-
-## 高度な機能
-
-### プラグイン
-
-```javascript
-// データラベルプラグイン
-plugins: {
-  datalabels: {
-    display: true,
-    color: 'white'
-  }
-}
+# Detail Table
+st.subheader("Recent Orders")
+# Data table here
 ```
-
-### カスタムツールチップ
-
-```javascript
-tooltip: {
-  callbacks: {
-    label: function(context) {
-      return context.label + ': ' + context.formattedValue + '万円';
-    }
-  }
-}
-```
-
-### アニメーションコールバック
-
-```javascript
-animation: {
-  onComplete: function() {
-    console.log('アニメーション完了');
-  }
-}
-```
-
-## 参考リンク
-
-- [Chart.js 公式ドキュメント](https://www.chartjs.org/)
-- [Chart.js サンプル集](https://www.chartjs.org/samples/)
-- [Chart.js GitHub](https://github.com/chartjs/Chart.js)
-
-## 制限事項
-
-- 3D グラフは非対応（2Dのみ）
-- 非常に大量のデータポイント（10000+）はパフォーマンス低下の可能性
-- 古いブラウザ（IE11以前）は非対応
-
-## バージョン情報
-
-- Chart.js: 4.4.0
-- スキルバージョン: 1.0.0
-
----
-
-**使用例:**
-
-```
-月別売上データを折れ線グラフで可視化してください。
-データ:
-1月: 250万円
-2月: 280万円
-3月: 320万円
-4月: 290万円
-5月: 350万円
-6月: 380万円
-
-タイトル: "2024年上半期売上推移"
-色: 青系グラデーション
-アニメーション: スムーズ
-```
-
-このプロンプトで、完全なインタラクティブHTMLグラフが生成されます！

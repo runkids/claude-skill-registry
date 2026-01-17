@@ -1,337 +1,231 @@
 ---
-name: 人事評価モジュール
-description: 評価重み設定、役職グループ管理、成長・プロセス評価カテゴリ。評価機能の実装・設定時に使用。
+name: evaluation
+description: Build evaluation frameworks for agent systems. Use when testing agent performance, validating context engineering choices, or measuring improvements over time.
 ---
 
-# 人事評価モジュール（HR Evaluation）
+# Evaluation Methods for Agent Systems
 
-## 概要
+Evaluation of agent systems requires different approaches than traditional software or even standard language model applications. Agents make dynamic decisions, are non-deterministic between runs, and often lack single correct answers. Effective evaluation must account for these characteristics while providing actionable feedback. A robust evaluation framework enables continuous improvement, catches regressions, and validates that context engineering choices achieve intended effects.
 
-人事評価システムを提供するアドオンモジュール。評価期間ごとに役職×等級別の重み設定、評価カテゴリの管理を行う。
+## When to Activate
 
-## ディレクトリ構成
+Activate this skill when:
+- Testing agent performance systematically
+- Validating context engineering choices
+- Measuring improvements over time
+- Catching regressions before deployment
+- Building quality gates for agent pipelines
+- Comparing different agent configurations
+- Evaluating production systems continuously
 
-```
-lib/addon-modules/evaluation/
-├── index.ts              # エクスポート
-├── module.tsx            # モジュール定義
-└── weight-helper.ts      # 重み取得ユーティリティ
+## Core Concepts
 
-app/admin/evaluation-master/
-├── page.tsx              # 評価マスタページ
-├── translations.ts       # 翻訳定義
-└── components/
-    ├── PeriodsSection.tsx          # 評価期間管理
-    ├── WeightsSection.tsx          # 重み設定
-    ├── GrowthCategoriesSection.tsx # 成長評価カテゴリ
-    └── ProcessCategoriesSection.tsx # プロセス評価カテゴリ
+Agent evaluation requires outcome-focused approaches that account for non-determinism and multiple valid paths. Multi-dimensional rubrics capture various quality aspects: factual accuracy, completeness, citation accuracy, source quality, and tool efficiency. LLM-as-judge provides scalable evaluation while human evaluation catches edge cases.
 
-app/api/evaluation/
-├── periods/              # 評価期間API
-├── weights/              # 重み設定API
-├── position-groups/      # 役職グループAPI
-├── growth-categories/    # 成長評価カテゴリAPI
-└── process-categories/   # プロセス評価カテゴリAPI
-```
+The key insight is that agents may find alternative paths to goals—the evaluation should judge whether they achieve right outcomes while following reasonable processes.
 
-## 評価重み設定
+**Performance Drivers: The 95% Finding**
+Research on the BrowseComp evaluation (which tests browsing agents' ability to locate hard-to-find information) found that three factors explain 95% of performance variance:
 
-### 重み構成
+| Factor | Variance Explained | Implication |
+|--------|-------------------|-------------|
+| Token usage | 80% | More tokens = better performance |
+| Number of tool calls | ~10% | More exploration helps |
+| Model choice | ~5% | Better models multiply efficiency |
 
-| 評価項目 | デフォルト | 説明 |
-|---------|----------|------|
-| 成果評価（resultsWeight） | 30% | 業績・目標達成度 |
-| プロセス評価（processWeight） | 40% | 業務遂行プロセス |
-| 成長評価（growthWeight） | 30% | スキル・能力向上 |
+This finding has significant implications for evaluation design:
+- **Token budgets matter**: Evaluate agents with realistic token budgets, not unlimited resources
+- **Model upgrades beat token increases**: Upgrading to Claude Sonnet 4.5 or GPT-5.2 provides larger gains than doubling token budgets on previous versions
+- **Multi-agent validation**: The finding validates architectures that distribute work across agents with separate context windows
 
-**合計は必ず100%** になる必要がある。
+## Detailed Topics
 
-### 重み取得の優先順位（フォールバック）
+### Evaluation Challenges
 
-```typescript
-// lib/addon-modules/evaluation/weight-helper.ts
-1. 役職×等級別の重み（periodId + positionCode + gradeCode）
-2. 役職のデフォルト（periodId + positionCode + "ALL"）
-3. 等級のデフォルト（periodId + "DEFAULT" + gradeCode）
-4. グローバルデフォルト（periodId + "DEFAULT" + "ALL"）
-5. ハードコーディングされたデフォルト値（30/40/30）
-```
+**Non-Determinism and Multiple Valid Paths**
+Agents may take completely different valid paths to reach goals. One agent might search three sources while another searches ten. They might use different tools to find the same answer. Traditional evaluations that check for specific steps fail in this context.
 
-### 使用方法
+The solution is outcome-focused evaluation that judges whether agents achieve right outcomes while following reasonable processes.
 
-```typescript
-import { getWeightsForPositionGrade } from "@/lib/addon-modules/evaluation";
+**Context-Dependent Failures**
+Agent failures often depend on context in subtle ways. An agent might succeed on simple queries but fail on complex ones. It might work well with one tool set but fail with another. Failures may emerge only after extended interaction when context accumulates.
 
-const weights = await getWeightsForPositionGrade(
-  periodId,
-  employee.positionCode,
-  employee.qualificationGradeCode
-);
+Evaluation must cover a range of complexity levels and test extended interactions, not just isolated queries.
 
-// weights: { resultsWeight: 30, processWeight: 40, growthWeight: 30 }
-```
+**Composite Quality Dimensions**
+Agent quality is not a single dimension. It includes factual accuracy, completeness, coherence, tool efficiency, and process quality. An agent might score high on accuracy but low in efficiency, or vice versa.
 
-## 役職グループ（Position Groups）
+Evaluation rubrics must capture multiple dimensions with appropriate weighting for the use case.
 
-役職の表示順序と結合を管理する機能。
+### Evaluation Rubric Design
 
-### 機能
+**Multi-Dimensional Rubric**
+Effective rubrics cover key dimensions with descriptive levels:
 
-| 機能 | 説明 |
-|------|------|
-| 表示順序変更 | 上下ボタンでアコーディオンの順序を変更 |
-| 役職結合 | 複数の役職を1つのグループにまとめる（例：部長・次長→上級管理職） |
-| 役職分離 | 結合したグループから役職を分離 |
-| 一括設定 | 結合グループ内の全重みを同じ値に一括更新 |
-| 空グループ削除 | 設定が0件のグループを削除 |
+Factual accuracy: Claims match ground truth (excellent to failed)
 
-### API
+Completeness: Output covers requested aspects (excellent to failed)
 
-```typescript
-// GET: グループ一覧取得
-GET /api/evaluation/position-groups?periodId={periodId}
+Citation accuracy: Citations match claimed sources (excellent to failed)
 
-// POST: 各種操作
-POST /api/evaluation/position-groups
-{
-  action: "merge" | "split" | "save-all" | "reorder" | "initialize",
-  periodId: string,
-  // action別のパラメータ
-}
+Source quality: Uses appropriate primary sources (excellent to failed)
 
-// DELETE: グループ削除
-DELETE /api/evaluation/position-groups?id={groupId}
-```
+Tool efficiency: Uses right tools reasonable number of times (excellent to failed)
 
-## 評価カテゴリ
+**Rubric Scoring**
+Convert dimension assessments to numeric scores (0.0 to 1.0) with appropriate weighting. Calculate weighted overall scores. Determine passing threshold based on use case requirements.
 
-### 成長評価カテゴリ（Growth Categories）
+### Evaluation Methodologies
 
-スキル・能力向上を評価するカテゴリ。
+**LLM-as-Judge**
+LLM-based evaluation scales to large test sets and provides consistent judgments. The key is designing effective evaluation prompts that capture the dimensions of interest.
 
-| フィールド | 型 | 説明 |
-|-----------|-----|------|
-| name | string | カテゴリ名（日本語） |
-| nameEn | string | カテゴリ名（英語） |
-| description | string | 説明 |
-| coefficient | number | 係数（難易度調整、デフォルト: 1.0） |
-| scoreT4 | number | T4（大きく上回った）のスコア |
-| scoreT3 | number | T3（上回った）のスコア |
-| scoreT2 | number | T2（達成）のスコア |
-| scoreT1 | number | T1（未達成）のスコア |
-| sortOrder | number | 表示順序 |
-| isActive | boolean | 有効/無効 |
+Provide clear task description, agent output, ground truth (if available), evaluation scale with level descriptions, and request structured judgment.
 
-#### 係数（Coefficient）による難易度調整
+**Human Evaluation**
+Human evaluation catches what automation misses. Humans notice hallucinated answers on unusual queries, system failures, and subtle biases that automated evaluation misses.
 
-カテゴリごとの難易度差を調整するため、係数を設定できる。
+Effective human evaluation covers edge cases, samples systematically, tracks patterns, and provides contextual understanding.
 
-```
-最終成長スコア = 達成度スコア × 係数
-```
+**End-State Evaluation**
+For agents that mutate persistent state, end-state evaluation focuses on whether the final state matches expectations rather than how the agent got there.
 
-例：
-- 資格取得（難しい）: 係数 1.2 → T3達成時 100.0 × 1.2 = 120.0
-- 業務改善（標準）: 係数 1.0 → T3達成時 100.0 × 1.0 = 100.0
+### Test Set Design
 
-### プロセス評価カテゴリ（Process Categories）
+**Sample Selection**
+Start with small samples during development. Early in agent development, changes have dramatic impacts because there is abundant low-hanging fruit. Small test sets reveal large effects.
 
-業務遂行プロセスを評価するカテゴリ。
+Sample from real usage patterns. Add known edge cases. Ensure coverage across complexity levels.
 
-| フィールド | 型 | 説明 |
-|-----------|-----|------|
-| name | string | カテゴリ名 |
-| nameEn | string | カテゴリ名（英語） |
-| categoryCode | string | クラス（A/B/C/D） |
-| description | string | 説明 |
-| minItemCount | number | 最小選択項目数 |
-| scores | JSON | ティア別スコア `{T4, T3, T2, T1}` |
-| sortOrder | number | 表示順序 |
-| isActive | boolean | 有効/無効 |
+**Complexity Stratification**
+Test sets should span complexity levels: simple (single tool call), medium (multiple tool calls), complex (many tool calls, significant ambiguity), and very complex (extended interaction, deep reasoning).
 
-### ティアの意味（T4が最高、T1が最低）
+### Context Engineering Evaluation
 
-| ティア | 説明 |
-|--------|------|
-| T4 | 大きく上回った（Significantly Exceeded） |
-| T3 | 上回った（Exceeded） |
-| T2 | 達成（Met） |
-| T1 | 未達成（Not Met） |
+**Testing Context Strategies**
+Context engineering choices should be validated through systematic evaluation. Run agents with different context strategies on the same test set. Compare quality scores, token usage, and efficiency metrics.
 
-## Prismaモデル
+**Degradation Testing**
+Test how context degradation affects performance by running agents at different context sizes. Identify performance cliffs where context becomes problematic. Establish safe operating limits.
 
-```prisma
-model EvaluationPeriod {
-  id            String   @id @default(cuid())
-  name          String
-  year          Int
-  term          Int      // 1: 上期, 2: 下期
-  startDate     DateTime
-  endDate       DateTime
-  status        String   @default("draft")
-  weights       EvaluationWeight[]
-  positionGroups PositionGroup[]
-}
+### Continuous Evaluation
 
-model EvaluationWeight {
-  id            String   @id @default(cuid())
-  periodId      String
-  positionCode  String
-  positionName  String?
-  gradeCode     String
-  resultsWeight Int      @default(30)
-  processWeight Int      @default(40)
-  growthWeight  Int      @default(30)
+**Evaluation Pipeline**
+Build evaluation pipelines that run automatically on agent changes. Track results over time. Compare versions to identify improvements or regressions.
 
-  @@unique([periodId, positionCode, gradeCode])
-}
+**Monitoring Production**
+Track evaluation metrics in production by sampling interactions and evaluating randomly. Set alerts for quality drops. Maintain dashboards for trend analysis.
 
-model PositionGroup {
-  id            String   @id @default(cuid())
-  periodId      String
-  name          String
-  nameEn        String?
-  displayOrder  Int      @default(0)
-  positionCodes Json     // ["100", "103", "002"]
+## Practical Guidance
 
-  @@unique([periodId, name])
-}
+### Building Evaluation Frameworks
 
-model GrowthCategory {
-  id          String   @id @default(cuid())
-  name        String
-  nameEn      String?
-  description String?
-  scoreT1     Float    @default(0.5)
-  scoreT2     Float    @default(1.0)
-  scoreT3     Float    @default(1.5)
-  scoreT4     Float    @default(2.0)
-  sortOrder   Int      @default(0)
-  isActive    Boolean  @default(true)
-}
+1. Define quality dimensions relevant to your use case
+2. Create rubrics with clear, actionable level descriptions
+3. Build test sets from real usage patterns and edge cases
+4. Implement automated evaluation pipelines
+5. Establish baseline metrics before making changes
+6. Run evaluations on all significant changes
+7. Track metrics over time for trend analysis
+8. Supplement automated evaluation with human review
 
-model ProcessCategory {
-  id           String   @id @default(cuid())
-  name         String
-  nameEn       String?
-  categoryCode String   @default("A")
-  description  String?
-  minItemCount Int      @default(0)
-  scores       Json     @default("{\"T4\":110,\"T3\":100,\"T2\":80,\"T1\":60}")
-  sortOrder    Int      @default(0)
-  isActive     Boolean  @default(true)
-}
+### Avoiding Evaluation Pitfalls
+
+Overfitting to specific paths: Evaluate outcomes, not specific steps.
+Ignoring edge cases: Include diverse test scenarios.
+Single-metric obsession: Use multi-dimensional rubrics.
+Neglecting context effects: Test with realistic context sizes.
+Skipping human evaluation: Automated evaluation misses subtle issues.
+
+## Examples
+
+**Example 1: Simple Evaluation**
+```python
+def evaluate_agent_response(response, expected):
+    rubric = load_rubric()
+    scores = {}
+    for dimension, config in rubric.items():
+        scores[dimension] = assess_dimension(response, expected, dimension)
+    overall = weighted_average(scores, config["weights"])
+    return {"passed": overall >= 0.7, "scores": scores}
 ```
 
-## UI/UXパターン
+**Example 2: Test Set Structure**
 
-### アコーディオン2段レイアウト
+Test sets should span multiple complexity levels to ensure comprehensive evaluation:
 
-役職グループのアコーディオンは2段構成：
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│ 1段目: グループ名 (コード)  [結合Badge] [設定数] [人数] [↑↓] [分離] [削除] │
-├─────────────────────────────────────────────────────────────┤
-│ 2段目（結合グループのみ）: 一括設定 [成果%] [プロセス%] [成長%] [合計] [適用] │
-└─────────────────────────────────────────────────────────────┘
-```
-
-### 固定幅によるアライメント
-
-右側の要素は固定幅で揃える：
-
-```tsx
-<div className="w-20 text-right"><Badge>設定数</Badge></div>
-<div className="w-16 text-right"><Badge>人数</Badge></div>
-<div className="w-9">{/* 分離ボタン */}</div>
-<div className="w-9">{/* 削除ボタン（0設定時のみ） */}</div>
-```
-
-## 評価AIサポート
-
-評価者を支援するAIアシスタント機能。RAGによるナレッジベース参照とシステムプロンプトのカスタマイズが可能。
-
-### ディレクトリ構成
-
-```
-app/admin/evaluation-rag/
-├── page.tsx                    # 評価AIサポートページ
-└── EvaluationRagClient.tsx     # クライアントコンポーネント
-
-app/(menus)/(manager)/manager/evaluations/components/
-└── EvaluationAIAssistant.tsx   # AIアシスタントUI
+```python
+test_set = [
+    {
+        "name": "simple_lookup",
+        "input": "What is the capital of France?",
+        "expected": {"type": "fact", "answer": "Paris"},
+        "complexity": "simple",
+        "description": "Single tool call, factual lookup"
+    },
+    {
+        "name": "medium_query",
+        "input": "Compare the revenue of Apple and Microsoft last quarter",
+        "complexity": "medium",
+        "description": "Multiple tool calls, comparison logic"
+    },
+    {
+        "name": "multi_step_reasoning",
+        "input": "Analyze sales data from Q1-Q4 and create a summary report with trends",
+        "complexity": "complex",
+        "description": "Many tool calls, aggregation, analysis"
+    },
+    {
+        "name": "research_synthesis",
+        "input": "Research emerging AI technologies, evaluate their potential impact, and recommend adoption strategy",
+        "complexity": "very_complex",
+        "description": "Extended interaction, deep reasoning, synthesis"
+    }
+]
 ```
 
-### フレームタブ構成
+## Guidelines
 
-`/admin/evaluation-rag` ページはフレームヘッダーにタブを表示：
+1. Use multi-dimensional rubrics, not single metrics
+2. Evaluate outcomes, not specific execution paths
+3. Cover complexity levels from simple to complex
+4. Test with realistic context sizes and histories
+5. Run evaluations continuously, not just before release
+6. Supplement LLM evaluation with human review
+7. Track metrics over time for trend detection
+8. Set clear pass/fail thresholds based on use case
 
-| タブ | URLパラメータ | 説明 |
-|------|---------------|------|
-| ナレッジベース | `?tab=knowledge-base` | RAGドキュメント管理 |
-| システムプロンプト | `?tab=system-prompt` | AIアシスタントの動作設定 |
+## Integration
 
-### ナレッジベース管理
+This skill connects to all other skills as a cross-cutting concern:
 
-RAGバックエンド（Python FastAPI + ChromaDB）と連携し、評価関連ドキュメントを管理。
+- context-fundamentals - Evaluating context usage
+- context-degradation - Detecting degradation
+- context-optimization - Measuring optimization effectiveness
+- multi-agent-patterns - Evaluating coordination
+- tool-design - Evaluating tool effectiveness
+- memory-systems - Evaluating memory quality
 
-```typescript
-// ドキュメント登録
-POST /api/rag-backend/documents
-{
-  content: "マークダウン形式のコンテンツ",
-  metadata: {
-    title: "評価ガイドライン",
-    category: "evaluation"
-  }
-}
+## References
 
-// ドキュメント一覧取得
-GET /api/rag-backend/documents/list
+Internal reference:
+- [Metrics Reference](./references/metrics.md) - Detailed evaluation metrics and implementation
 
-// ドキュメント削除
-DELETE /api/rag-backend/documents/{filename}
-```
+## References
 
-### システムプロンプト設定
+Internal skills:
+- All other skills connect to evaluation for quality measurement
 
-AIアシスタントの動作を定義するシステムプロンプトをカスタマイズ可能。
+External resources:
+- LLM evaluation benchmarks
+- Agent evaluation research papers
+- Production monitoring practices
 
-**保存先**: `localStorage` (キー: `evaluation-ai-system-prompt`)
+---
 
-```typescript
-// 保存形式
-{
-  ja: "日本語プロンプト",
-  en: "English prompt"
-}
-```
+## Skill Metadata
 
-**デフォルトプロンプト**:
-```
-あなたは人事評価の専門アシスタントです。評価者が適切な評価を行えるようサポートします。
-回答は具体的かつ実践的なアドバイスを心がけてください。
-- 評価のポイントや基準について説明できます
-- フィードバックの書き方をアドバイスできます
-- 成長目標の設定をサポートできます
-回答は日本語で簡潔に行ってください。
-```
-
-### AIアシスタント
-
-人事評価画面（`/manager/evaluations`）の右サイドパネルに表示されるAIチャット機能。
-
-**機能**:
-- RAGによるナレッジベース参照（トグルで有効/無効切り替え可能）
-- SSEストリーミングレスポンス
-- マークダウンレンダリング
-- クイックアクション（評価のポイント、フィードバック例、成長目標設定）
-- システムプロンプトのカスタマイズ反映
-
-## 注意事項
-
-- **DEFAULTエントリは不要**: フォールバックはコード内のハードコード値で対応
-- **空グループの削除**: 全ての重みを削除した役職グループは手動で削除可能
-- **評価期間ごとに独立**: 重み設定・役職グループは評価期間に紐づく
-- **システムプロンプト**: localStorageに保存されるため、ブラウザごとに設定が必要
+**Created**: 2025-12-20
+**Last Updated**: 2025-12-20
+**Author**: Agent Skills for Context Engineering Contributors
+**Version**: 1.0.0

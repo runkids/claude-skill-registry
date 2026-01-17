@@ -16,9 +16,9 @@ Build and deploy unikernels with the `kraft` CLI.
 When working with kraft CLI commands:
 
 1. **Always show the commands first** - Tell the developer what commands to run before executing them
-2. **Format for copy-paste** - Display commands in a code block ready to copy-paste into the terminal
-3. **Ask before running** - Ask if the developer wants you to run the commands, as there can be authentication issues when `UKC_TOKEN` is not set in the AI's terminal session
-4. **Let developer run if needed** - If commands fail due to missing tokens, provide the commands for the developer to run manually
+1. **Format for copy-paste** - Display commands in a code block ready to copy-paste into the terminal
+1. **Ask before running** - Ask if the developer wants you to run the commands, as there can be authentication issues when `UKC_TOKEN` is not set in the AI's terminal session
+1. **Let developer run if needed** - If commands fail due to missing tokens, provide the commands for the developer to run manually
 
 ## Environment Setup
 
@@ -209,9 +209,180 @@ kraft cloud compose ls      # List service deployments at a given path
 --help                      # Help for any command
 ```
 
+______________________________________________________________________
+
+## Xiroi Server Deployment
+
+### Project Structure
+
+Both `Kraftfile` and `Dockerfile.server` **MUST be at repository root**:
+
+```
+/xiroi (repo root)
+├── Kraftfile              # Unikraft config (rootfs: ./Dockerfile.server)
+├── Dockerfile.server      # FROM scratch optimized image
+└── xiroi-apps/server/
+    ├── Dockerfile.local       # Alpine-based for local debugging
+    └── run_server_docker.sh   # Local Docker testing script
+```
+
+**Why at root?** Kraft CLI doesn't support parent directory references (`../`) in `rootfs` path, and Docker needs repo root as build context to COPY `xiroi-apps/`, `xiroi-packages/`, etc.
+
+### Kraftfile Configuration
+
+```yaml
+spec: v0.6
+name: xiroi-server
+runtime: base-compat:latest
+
+labels:
+  cloud.unikraft.v1.instances/scale_to_zero.policy: "on"
+  cloud.unikraft.v1.instances/scale_to_zero.stateful: "false"
+  cloud.unikraft.v1.instances/scale_to_zero.cooldown_time_ms: 1000
+
+rootfs: ./Dockerfile.server
+
+cmd: ["/usr/bin/node", "/app/dist/index.js"]
+```
+
+### Dockerfile.server Key Features
+
+The production Dockerfile uses `FROM scratch` for minimal Unikraft compatibility:
+
+1. **Multi-stage build** - Builder stage uses `node:24-alpine`
+1. **FROM scratch runtime** - Copies only required binaries/libraries
+1. **Manual library copying** - Must copy `ld-musl`, `libgcc_s`, `libstdc++`
+1. **SSL certificates** - Required for HTTPS connections (Neon DB, etc.)
+1. **Empty .env files** - Dotenv needs files to exist even if env vars come from `-e` flags
+
+### Deploy Commands
+
+**Manual deployment:**
+
+```bash
+source .env.github
+export UKC_TOKEN="$KRAFTCLOUD_TOKEN"
+
+kraft cloud --metro fra deploy \
+  --name xiroi-server-prod \
+  -M 1024 \
+  -p 443:4000 \
+  --scale-to-zero off \
+  -e NODE_ENV=production \
+  -e SERVER_PORT=4000 \
+  -e ALLOWED_ORIGINS="${ALLOWED_ORIGINS}" \
+  # ... other env vars
+  .
+```
+
+**Delete and redeploy (if instance exists):**
+
+```bash
+kraft cloud --metro fra instance delete xiroi-server-prod
+# Then run deploy command again
+```
+
+### Rolling Updates (Zero-Downtime)
+
+After the first deployment, KraftCloud creates a **Service** (load balancer) that owns the domain and port. Subsequent deployments can use rolling updates for zero downtime.
+
+**Architecture:**
+
+```
+Service (load balancer)
+  └── Instance (old) ──┐
+  └── Instance (new) ──┘  ← Rolling update adds new, then removes old
+```
+
+**Key constraints for rolling updates:**
+
+1. `--service <name>` is **mutually exclusive** with `-p` and `-d` (service already owns these)
+1. `--name` must be **omitted** (kraft auto-generates unique names so new instance can spin up while old exists)
+
+**Rolling update command:**
+
+```bash
+kraft cloud --metro fra deploy \
+  --service <service-name> \
+  --rollout remove_sequential \
+  --rollout-wait 30s \
+  -M 1024 \
+  --scale-to-zero off \
+  -e NODE_ENV=production \
+  # ... other env vars
+  .
+```
+
+**Get service name after first deployment:**
+
+```bash
+kraft cloud --metro fra service list
+# Look for FQDN matching your domain (e.g., api.xiroi.cat)
+```
+
+**Rollout strategies:**
+
+| Strategy            | Behavior                                      |
+| ------------------- | --------------------------------------------- |
+| `remove_sequential` | Start new → wait → remove old (zero downtime) |
+| `remove`            | Remove old immediately after new starts       |
+| `stop`              | Stop old (don't remove) after new starts      |
+| `keep`              | Keep old running alongside new                |
+| `abort`             | Cancel if old exists                          |
+
+### Critical Flags
+
+| Flag              | Value      | Purpose                                     |
+| ----------------- | ---------- | ------------------------------------------- |
+| `--metro`         | `fra`      | Frankfurt region                            |
+| `-M`              | `1024`     | Memory in MiB                               |
+| `-p`              | `443:4000` | HTTPS → app port                            |
+| `--scale-to-zero` | `off`      | Keep always running (avoids wake-up issues) |
+
+### Scale-to-Zero Considerations
+
+**Why `--scale-to-zero off`?**
+
+- Node.js server has slow cold starts (267ms+)
+- Database connections need to stay alive
+- Wake-up mechanism can cause 504 timeouts
+
+**If you want scale-to-zero later:**
+
+```bash
+--scale-to-zero on --scale-to-zero-cooldown 300000ms  # 5 min cooldown
+```
+
+### Troubleshooting
+
+| Error                                      | Cause                                  | Fix                                                |
+| ------------------------------------------ | -------------------------------------- | -------------------------------------------------- |
+| `ErrorDotenv`                              | `process.cwd()` returns `/` on scratch | Use `/app` as base dir in production               |
+| `instance already exists`                  | Previous deployment                    | Delete first: `kraft cloud instance delete <name>` |
+| `instance already exists` (rolling update) | `--name` specified with `--rollout`    | Omit `--name` flag for rolling updates             |
+| `cannot use --service and --port`          | Flags are mutually exclusive           | Use `--service` without `-p` or `-d`               |
+| `504 Gateway Timeout`                      | Scale-to-zero wake-up failing          | Use `--scale-to-zero off`                          |
+| `could not build initrd from: ../..`       | Relative path in rootfs                | Keep Kraftfile at repo root                        |
+
+### Verify Deployment
+
+```bash
+# List instances
+kraft cloud --metro fra instance list | grep xiroi
+
+# Check health
+curl -s https://<your-domain>.fra.unikraft.app/api/health
+# Returns: {"message":"OK"}
+
+# View logs
+kraft cloud --metro fra instance logs xiroi-server-prod
+```
+
+______________________________________________________________________
+
 ## Examples Repository
 
-Reference examples: https://github.com/unikraft-cloud/examples
+Reference examples: <https://github.com/unikraft-cloud/examples>
 
 ### All Example Folders
 

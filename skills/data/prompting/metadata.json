@@ -1,7 +1,7 @@
 {
   "name": "prompting",
-  "repo": "danielmiessler/PAIPlugin",
-  "path": "skills/prompting/SKILL.md",
-  "source": "github.com/danielmiessler/PAIPlugin",
-  "downloaded_at": "2026-01-14T03:39:26.222199Z"
+  "repo": "hongbietcode/synthetic-claude",
+  "path": "plugins/content-creation/skills/prompting/SKILL.md",
+  "source": "github.com/hongbietcode/synthetic-claude",
+  "downloaded_at": "2026-01-17T04:07:21.640067Z"
 }

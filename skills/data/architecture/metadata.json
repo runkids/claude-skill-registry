@@ -1,7 +1,7 @@
 {
   "name": "architecture",
-  "repo": "TheBeardedBearSAS/claude-craft",
-  "path": "Dev/i18n/en/Python/skills/architecture/SKILL.md",
-  "source": "github.com/TheBeardedBearSAS/claude-craft",
-  "downloaded_at": "2026-01-14T03:43:29.423270Z"
+  "repo": "terraphim/codex-skills",
+  "path": "skills/architecture/SKILL.md",
+  "source": "github.com/terraphim/codex-skills",
+  "downloaded_at": "2026-01-17T04:02:52.688047Z"
 }

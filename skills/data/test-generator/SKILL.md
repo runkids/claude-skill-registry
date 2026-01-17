@@ -1,727 +1,435 @@
 ---
 name: test-generator
-description: Generate comprehensive unit, integration, and E2E tests with edge cases, mocks, and assertions. Use when writing tests for functions, classes, APIs, or implementing TDD.
+description: Generate comprehensive pytest test suites for CasareRPA components, including nodes, controllers, use cases, and domain entities, following the project's testing patterns.
+license: MIT
+compatibility: opencode
+metadata:
+  audience: developers
+  workflow: testing
 ---
 
-# Test Generator Skill
+When generating tests, follow these established patterns for each component type:
 
-包括的なテストコードを自動生成するスキルです。
+## Test File Structure
 
-## 概要
-
-このスキルは、ソースコードから高品質なユニットテスト、統合テスト、E2Eテストを自動生成します。テスト駆動開発（TDD）をサポートし、エッジケース、モック、アサーションを適切に含んだテストコードを作成します。
-
-## 主な機能
-
-- **ユニットテスト生成**: 関数・メソッド単位の詳細なテスト
-- **統合テスト生成**: モジュール間の連携テスト
-- **E2Eテスト生成**: エンドツーエンドのシナリオテスト
-- **エッジケース網羅**: 境界値、null、例外ケース等を自動検出
-- **モック生成**: 外部依存のモックオブジェクト作成
-- **アサーション充実**: 期待値と実際の値の包括的な検証
-- **テストデータ生成**: リアルなテストデータとフィクスチャ
-- **カバレッジ最適化**: 高いコードカバレッジを達成
-- **AAA パターン**: Arrange-Act-Assert の明確な構造
-- **ドキュメント**: テストの目的と意図を説明するコメント
-
-## サポートフレームワーク
-
-### JavaScript/TypeScript
-- **Jest**: React, Node.js の標準
-- **Vitest**: Vite ベースの高速テスト
-- **Mocha + Chai**: 柔軟な設定
-- **Jasmine**: Angular の標準
-- **Cypress**: E2E テスト
-- **Playwright**: クロスブラウザテスト
-- **Testing Library**: React Testing Library, Vue Testing Library
-
-### Python
-- **pytest**: モダンで強力
-- **unittest**: 標準ライブラリ
-- **doctest**: ドキュメント内テスト
-- **nose2**: 拡張テストランナー
-- **Robot Framework**: キーワード駆動テスト
-
-### Java
-- **JUnit 5**: 最新標準
-- **TestNG**: 強力な設定
-- **Mockito**: モックフレームワーク
-- **AssertJ**: 流暢なアサーション
-- **Spring Test**: Spring Boot テスト
-
-### Go
-- **testing**: 標準ライブラリ
-- **testify**: アサーションとモック
-- **ginkgo**: BDD スタイル
-- **gomock**: モックジェネレーター
-
-### その他
-- **Rust**: cargo test
-- **C#**: xUnit, NUnit, MSTest
-- **Ruby**: RSpec, Minitest
-- **PHP**: PHPUnit
-- **Swift**: XCTest
-
-## 使用方法
-
-### 基本的なテスト生成
-
-```
-この関数のテストを生成してください：
-
-function calculateTotal(items, taxRate) {
-  return items.reduce((sum, item) => sum + item.price, 0) * (1 + taxRate);
-}
-
-フレームワーク: Jest
-```
-
-### クラス全体のテスト
-
-```
-このクラスの包括的なテストスイートを作成：
-- すべてのメソッドをカバー
-- エッジケースを含む
-- モックを適切に使用
-
-[クラスコード]
-```
-
-### APIエンドポイントのテスト
-
-```
-以下のAPIエンドポイントのテストを生成：
-
-POST /api/users
-- 成功ケース
-- バリデーションエラー
-- 認証エラー
-- データベースエラー
-```
-
-### TDD スタイル
-
-```
-以下の要件からテストを先に生成（TDD）：
-
-要件:
-- ユーザー登録機能
-- メールアドレスの検証
-- パスワードのハッシュ化
-- 重複登録の防止
-
-フレームワーク: pytest
-```
-
-## テスト生成パターン
-
-### 1. ユニットテスト
-
-**入力**:
-```typescript
-export function formatCurrency(amount: number, currency: string = 'USD'): string {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: currency
-  }).format(amount);
-}
-```
-
-**生成されるテスト**:
-```typescript
-import { formatCurrency } from './currency';
-
-describe('formatCurrency', () => {
-  describe('正常系', () => {
-    it('デフォルトでUSD形式でフォーマットする', () => {
-      const result = formatCurrency(1234.56);
-      expect(result).toBe('$1,234.56');
-    });
-
-    it('指定された通貨でフォーマットする', () => {
-      const result = formatCurrency(1234.56, 'EUR');
-      expect(result).toBe('€1,234.56');
-    });
-
-    it('整数もフォーマットする', () => {
-      const result = formatCurrency(1000);
-      expect(result).toBe('$1,000.00');
-    });
-
-    it('小数点以下を適切に処理する', () => {
-      const result = formatCurrency(1234.567);
-      expect(result).toBe('$1,234.57'); // 四捨五入
-    });
-  });
-
-  describe('エッジケース', () => {
-    it('0をフォーマットする', () => {
-      const result = formatCurrency(0);
-      expect(result).toBe('$0.00');
-    });
-
-    it('負の数をフォーマットする', () => {
-      const result = formatCurrency(-1234.56);
-      expect(result).toBe('-$1,234.56');
-    });
-
-    it('非常に大きな数をフォーマットする', () => {
-      const result = formatCurrency(1234567890.12);
-      expect(result).toBe('$1,234,567,890.12');
-    });
-
-    it('非常に小さな数をフォーマットする', () => {
-      const result = formatCurrency(0.01);
-      expect(result).toBe('$0.01');
-    });
-  });
-
-  describe('異常系', () => {
-    it('無効な通貨コードでエラーをスローする', () => {
-      expect(() => formatCurrency(100, 'INVALID')).toThrow();
-    });
-
-    it('NaNを適切に処理する', () => {
-      expect(() => formatCurrency(NaN)).toThrow();
-    });
-
-    it('Infinityを適切に処理する', () => {
-      expect(() => formatCurrency(Infinity)).toThrow();
-    });
-  });
-});
-```
-
-### 2. 統合テスト（API）
-
-**入力**:
 ```python
-@app.route('/api/orders', methods=['POST'])
-def create_order():
-    data = request.json
-    user_id = get_current_user_id()
-    order = Order.create(user_id, data['items'])
-    return jsonify(order.to_dict()), 201
-```
-
-**生成されるテスト**:
-```python
+# Standard imports
 import pytest
-from app import app, db
-from models import User, Order, OrderItem
+from unittest.mock import MagicMock, AsyncMock, patch
+from typing import Any
+
+# Component under test
+from casare_rpa.{module}.{component} import {Component}
+
+# Domain objects
+from casare_rpa.domain.value_objects import ExecutionResult, DataType, Port
+
+# Fixtures
+@pytest.fixture
+def component():
+    """Create component instance for testing."""
+    return {Component}()
 
 @pytest.fixture
-def client():
-    app.config['TESTING'] = True
-    with app.test_client() as client:
-        with app.app_context():
-            db.create_all()
-        yield client
-        with app.app_context():
-            db.drop_all()
+def mock_context():
+    """Create mock execution context."""
+    context = MagicMock()
+    context.get_variable = MagicMock(return_value="test_value")
+    context.set_variable = MagicMock()
+    return context
 
-@pytest.fixture
-def auth_headers(client):
-    """認証済みユーザーのヘッダー"""
-    user = User.create(email='test@example.com', password='password123')
-    token = user.generate_token()
-    return {'Authorization': f'Bearer {token}'}
+# Test class
+class Test{Component}:
+    """Test suite for {Component}."""
 
-class TestCreateOrder:
-    """POST /api/orders のテスト"""
-
-    def test_正常に注文を作成できる(self, client, auth_headers):
-        """正常系: 有効なデータで注文を作成"""
-        # Arrange
-        order_data = {
-            'items': [
-                {'product_id': 1, 'quantity': 2, 'price': 1000},
-                {'product_id': 2, 'quantity': 1, 'price': 2000}
-            ]
-        }
-
-        # Act
-        response = client.post(
-            '/api/orders',
-            json=order_data,
-            headers=auth_headers
-        )
-
-        # Assert
-        assert response.status_code == 201
-        data = response.json
-        assert 'id' in data
-        assert 'created_at' in data
-        assert len(data['items']) == 2
-        assert data['total'] == 4000
-
-    def test_認証なしで401エラー(self, client):
-        """異常系: 認証ヘッダーなし"""
-        response = client.post('/api/orders', json={'items': []})
-        assert response.status_code == 401
-
-    def test_空の注文でバリデーションエラー(self, client, auth_headers):
-        """異常系: 注文アイテムが空"""
-        response = client.post(
-            '/api/orders',
-            json={'items': []},
-            headers=auth_headers
-        )
-        assert response.status_code == 400
-        assert 'items' in response.json['errors']
-
-    def test_無効な商品IDでエラー(self, client, auth_headers):
-        """異常系: 存在しない商品ID"""
-        order_data = {
-            'items': [{'product_id': 99999, 'quantity': 1, 'price': 100}]
-        }
-        response = client.post(
-            '/api/orders',
-            json=order_data,
-            headers=auth_headers
-        )
-        assert response.status_code == 404
-
-    def test_負の数量でバリデーションエラー(self, client, auth_headers):
-        """エッジケース: 負の数量"""
-        order_data = {
-            'items': [{'product_id': 1, 'quantity': -1, 'price': 100}]
-        }
-        response = client.post(
-            '/api/orders',
-            json=order_data,
-            headers=auth_headers
-        )
-        assert response.status_code == 400
-
-    def test_在庫不足の場合のエラー(self, client, auth_headers):
-        """ビジネスロジック: 在庫不足"""
-        order_data = {
-            'items': [{'product_id': 1, 'quantity': 1000, 'price': 100}]
-        }
-        response = client.post(
-            '/api/orders',
-            json=order_data,
-            headers=auth_headers
-        )
-        assert response.status_code == 409
-        assert 'stock' in response.json['message'].lower()
-
-    def test_データベースエラーの処理(self, client, auth_headers, monkeypatch):
-        """エラーハンドリング: DB接続エラー"""
-        def mock_create(*args, **kwargs):
-            raise DatabaseError("Connection failed")
-
-        monkeypatch.setattr(Order, 'create', mock_create)
-
-        response = client.post(
-            '/api/orders',
-            json={'items': [{'product_id': 1, 'quantity': 1, 'price': 100}]},
-            headers=auth_headers
-        )
-        assert response.status_code == 500
+    # Tests go here
 ```
 
-### 3. E2Eテスト
-
-**入力**:
-```
-ユーザー登録からログインまでのE2Eテストを生成：
-フレームワーク: Playwright
-```
-
-**生成されるテスト**:
-```typescript
-import { test, expect } from '@playwright/test';
-
-test.describe('ユーザー認証フロー', () => {
-  test('新規ユーザー登録からログインまで', async ({ page }) => {
-    // 1. 登録ページに移動
-    await page.goto('/signup');
-    await expect(page).toHaveTitle(/Sign Up/);
-
-    // 2. 登録フォームに入力
-    const timestamp = Date.now();
-    const email = `test${timestamp}@example.com`;
-    const password = 'SecurePassword123!';
-
-    await page.fill('input[name="email"]', email);
-    await page.fill('input[name="password"]', password);
-    await page.fill('input[name="confirmPassword"]', password);
-    await page.fill('input[name="name"]', 'Test User');
-
-    // 3. 登録を実行
-    await page.click('button[type="submit"]');
-
-    // 4. 成功メッセージを確認
-    await expect(page.locator('.success-message')).toBeVisible();
-    await expect(page.locator('.success-message')).toContainText(
-      'Registration successful'
-    );
-
-    // 5. 確認メールの検証（モック）
-    // 実際の実装ではメールサービスのAPIをチェック
-
-    // 6. ログインページに移動
-    await page.goto('/login');
-
-    // 7. ログイン情報を入力
-    await page.fill('input[name="email"]', email);
-    await page.fill('input[name="password"]', password);
-    await page.click('button[type="submit"]');
-
-    // 8. ダッシュボードにリダイレクトされることを確認
-    await expect(page).toHaveURL(/\/dashboard/);
-    await expect(page.locator('.user-name')).toContainText('Test User');
-
-    // 9. ユーザーメニューが表示されることを確認
-    await page.click('.user-menu-toggle');
-    await expect(page.locator('.user-menu')).toBeVisible();
-    await expect(page.locator('.user-email')).toContainText(email);
-  });
-
-  test('無効なメールアドレスでエラー表示', async ({ page }) => {
-    await page.goto('/signup');
-
-    await page.fill('input[name="email"]', 'invalid-email');
-    await page.fill('input[name="password"]', 'Password123!');
-    await page.click('button[type="submit"]');
-
-    await expect(page.locator('.error-message')).toBeVisible();
-    await expect(page.locator('.error-message')).toContainText(
-      'Invalid email address'
-    );
-  });
-
-  test('既存メールアドレスで登録エラー', async ({ page }) => {
-    await page.goto('/signup');
-
-    // 既に存在するメールアドレスを使用
-    await page.fill('input[name="email"]', 'existing@example.com');
-    await page.fill('input[name="password"]', 'Password123!');
-    await page.fill('input[name="confirmPassword"]', 'Password123!');
-    await page.click('button[type="submit"]');
-
-    await expect(page.locator('.error-message')).toContainText(
-      'Email already registered'
-    );
-  });
-});
-```
-
-### 4. モックの生成
-
-**入力**:
-```java
-public class UserService {
-    private UserRepository repository;
-    private EmailService emailService;
-
-    public User createUser(UserDto dto) {
-        User user = repository.save(new User(dto));
-        emailService.sendWelcomeEmail(user.getEmail());
-        return user;
-    }
-}
-```
-
-**生成されるテスト**:
-```java
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-
-import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
-
-@ExtendWith(MockitoExtension.class)
-class UserServiceTest {
-
-    @Mock
-    private UserRepository repository;
-
-    @Mock
-    private EmailService emailService;
-
-    @InjectMocks
-    private UserService userService;
-
-    @Test
-    void createUser_正常系_ユーザーを作成しウェルカムメールを送信() {
-        // Arrange
-        UserDto dto = new UserDto("test@example.com", "John Doe");
-        User savedUser = new User(1L, "test@example.com", "John Doe");
-
-        when(repository.save(any(User.class))).thenReturn(savedUser);
-        doNothing().when(emailService).sendWelcomeEmail(anyString());
-
-        // Act
-        User result = userService.createUser(dto);
-
-        // Assert
-        assertNotNull(result);
-        assertEquals(1L, result.getId());
-        assertEquals("test@example.com", result.getEmail());
-        assertEquals("John Doe", result.getName());
-
-        // Verify interactions
-        verify(repository, times(1)).save(any(User.class));
-        verify(emailService, times(1)).sendWelcomeEmail("test@example.com");
-    }
-
-    @Test
-    void createUser_異常系_リポジトリエラーでメール送信しない() {
-        // Arrange
-        UserDto dto = new UserDto("test@example.com", "John Doe");
-        when(repository.save(any(User.class)))
-            .thenThrow(new DatabaseException("Connection failed"));
-
-        // Act & Assert
-        assertThrows(DatabaseException.class, () -> {
-            userService.createUser(dto);
-        });
-
-        // メールサービスが呼ばれないことを確認
-        verify(emailService, never()).sendWelcomeEmail(anyString());
-    }
-
-    @Test
-    void createUser_異常系_メール送信失敗時の処理() {
-        // Arrange
-        UserDto dto = new UserDto("test@example.com", "John Doe");
-        User savedUser = new User(1L, "test@example.com", "John Doe");
-
-        when(repository.save(any(User.class))).thenReturn(savedUser);
-        doThrow(new EmailException("SMTP error"))
-            .when(emailService).sendWelcomeEmail(anyString());
-
-        // Act & Assert
-        // メール送信失敗でもユーザーは作成される想定
-        User result = userService.createUser(dto);
-        assertNotNull(result);
-
-        // または、メール送信失敗時に例外をスローする実装の場合
-        // assertThrows(EmailException.class, () -> userService.createUser(dto));
-    }
-}
-```
-
-## テスト戦略
-
-### テストピラミッド
-
-```
-        /\
-       /E2E\       少数: 重要なユーザーフロー
-      /------\
-     /統合テスト\     中程度: モジュール間連携
-    /----------\
-   /ユニットテスト\   多数: 個別関数・メソッド
-  /--------------\
-```
-
-### カバレッジ目標
-
-- **ユニットテスト**: 80-90% のコードカバレッジ
-- **統合テスト**: 主要なエンドポイント、モジュール連携
-- **E2Eテスト**: クリティカルなユーザージャーニー
-
-## テストデータ生成
-
-### ファクトリーパターン
+## Node Tests Template
 
 ```python
-# pytest fixture
+# File: tests/nodes/{category}/test_{node_name}_node.py
+
+import pytest
+from unittest.mock import MagicMock, AsyncMock, patch
+from casare_rpa.nodes.{category}.{node_name}_node import {NodeName}Node
+from casare_rpa.domain.value_objects import ExecutionResult, DataType
+
+
 @pytest.fixture
-def user_factory():
-    """ユーザーテストデータのファクトリー"""
-    def _create_user(**kwargs):
-        defaults = {
-            'email': f'user{random.randint(1000, 9999)}@example.com',
-            'name': 'Test User',
-            'age': 25,
-            'active': True
-        }
-        defaults.update(kwargs)
-        return User(**defaults)
-    return _create_user
+def node():
+    """Create {NodeName}Node instance."""
+    return {NodeName}Node()
 
-def test_user_creation(user_factory):
-    user1 = user_factory()
-    user2 = user_factory(email='specific@example.com', age=30)
-    assert user1.email != user2.email
-    assert user2.age == 30
+
+@pytest.fixture
+def mock_context():
+    """Create mock execution context with test data."""
+    context = MagicMock()
+    context.get_variable = MagicMock(side_effect=lambda x: {
+        'input_port_1': 'test_value_1',
+        'input_port_2': 'test_value_2',
+    }.get(x))
+    context.set_variable = MagicMock()
+    return context
+
+
+class Test{NodeName}Node:
+    """Comprehensive test suite for {NodeName}Node."""
+
+    # 1. Initialization Tests
+
+    def test_initialization(self, node):
+        """Test node initializes with correct properties."""
+        assert node.id == "{node_id}"
+        assert node.name == "{Node Display Name}"
+        assert node.category == "{category}"
+
+    def test_has_correct_input_ports(self, node):
+        """Test node has all required input ports with correct types."""
+        assert "input_port_1" in node.inputs
+        assert node.inputs["input_port_1"].data_type == DataType.STRING
+
+    def test_has_correct_output_ports(self, node):
+        """Test node has all required output ports with correct types."""
+        assert "output_port_1" in node.outputs
+        assert node.outputs["output_port_1"].data_type == DataType.STRING
+
+    # 2. Execution Tests - Success Cases
+
+    @pytest.mark.asyncio
+    async def test_execute_success(self, node, mock_context):
+        """Test successful execution returns ExecutionResult."""
+        result = await node.execute(mock_context)
+
+        assert isinstance(result, ExecutionResult)
+        assert result.success is True
+        assert result.error is None
+        assert "output_port_1" in result.output
+
+    @pytest.mark.asyncio
+    async def test_execute_with_valid_input(self, node, mock_context):
+        """Test execution with valid input produces expected output."""
+        result = await node.execute(mock_context)
+
+        # Verify context was queried for input
+        mock_context.get_variable.assert_called()
+
+        # Verify output is correct
+        assert result.success is True
+        # Add specific output assertions based on node logic
+
+    # 3. Execution Tests - Error Cases
+
+    @pytest.mark.asyncio
+    async def test_execute_with_missing_input(self, node, mock_context):
+        """Test execution fails gracefully when input is missing."""
+        mock_context.get_variable.return_value = None
+
+        result = await node.execute(mock_context)
+
+        assert result.success is False
+        assert result.error is not None
+
+    @pytest.mark.asyncio
+    async def test_execute_with_invalid_input_type(self, node, mock_context):
+        """Test execution fails with appropriate error for invalid input type."""
+        mock_context.get_variable.return_value = 12345  # Wrong type
+
+        result = await node.execute(mock_context)
+
+        assert result.success is False
+        assert "type" in result.error.lower() or "invalid" in result.error.lower()
+
+    @pytest.mark.asyncio
+    async def test_execute_handles_exception(self, node, mock_context):
+        """Test execution catches and handles exceptions properly."""
+        mock_context.get_variable.side_effect = RuntimeError("Test error")
+
+        result = await node.execute(mock_context)
+
+        assert result.success is False
+        assert "Test error" in result.error
+
+    # 4. Edge Cases
+
+    @pytest.mark.asyncio
+    async def test_execute_with_empty_string(self, node, mock_context):
+        """Test execution handles empty string input."""
+        mock_context.get_variable.return_value = ""
+
+        result = await node.execute(mock_context)
+
+        # Behavior depends on node - might succeed or fail
+        assert isinstance(result, ExecutionResult)
+
+    @pytest.mark.asyncio
+    async def test_execute_with_special_characters(self, node, mock_context):
+        """Test execution handles special characters in input."""
+        mock_context.get_variable.return_value = "test\n\t\\\"special"
+
+        result = await node.execute(mock_context)
+
+        assert isinstance(result, ExecutionResult)
+
+    # 5. Integration with External Resources (if applicable)
+
+    @pytest.mark.asyncio
+    @patch('casare_rpa.infrastructure.resources.browser_manager.BrowserResourceManager')
+    async def test_execute_with_browser_resource(self, mock_browser_manager, node, mock_context):
+        """Test node correctly uses browser resource manager."""
+        # Setup mock browser
+        mock_page = AsyncMock()
+        mock_browser_manager.get_page.return_value = mock_page
+
+        result = await node.execute(mock_context)
+
+        # Verify browser was acquired and used
+        mock_browser_manager.get_page.assert_called_once()
+        assert result.success is True
+
+    # 6. Logging Tests
+
+    @pytest.mark.asyncio
+    async def test_execute_logs_info_on_success(self, node, mock_context, caplog):
+        """Test successful execution logs info message."""
+        result = await node.execute(mock_context)
+
+        assert result.success is True
+        # Verify info log was created
+        assert any("completed" in record.message.lower() for record in caplog.records)
+
+    @pytest.mark.asyncio
+    async def test_execute_logs_error_on_failure(self, node, mock_context, caplog):
+        """Test failed execution logs error message."""
+        mock_context.get_variable.side_effect = ValueError("Test error")
+
+        result = await node.execute(mock_context)
+
+        assert result.success is False
+        # Verify error log was created
+        assert any(record.levelname == "ERROR" for record in caplog.records)
 ```
 
-### フィクスチャ
-
-```typescript
-// Jest fixture
-export const testUsers = {
-  admin: {
-    id: 1,
-    email: 'admin@example.com',
-    role: 'admin',
-    permissions: ['read', 'write', 'delete']
-  },
-  regularUser: {
-    id: 2,
-    email: 'user@example.com',
-    role: 'user',
-    permissions: ['read']
-  },
-  inactiveUser: {
-    id: 3,
-    email: 'inactive@example.com',
-    role: 'user',
-    active: false
-  }
-};
-```
-
-## ベストプラクティス
-
-### 1. テストの独立性
-
-```typescript
-// ❌ 悪い例: テスト間で状態を共有
-let sharedUser;
-
-test('create user', () => {
-  sharedUser = createUser();
-});
-
-test('update user', () => {
-  updateUser(sharedUser); // 前のテストに依存
-});
-
-// ✅ 良い例: 各テストが独立
-test('create user', () => {
-  const user = createUser();
-  expect(user).toBeDefined();
-});
-
-test('update user', () => {
-  const user = createUser(); // 独自にセットアップ
-  updateUser(user);
-  expect(user.updatedAt).toBeDefined();
-});
-```
-
-### 2. 明確なテスト名
+## Controller Tests Template
 
 ```python
-# ❌ 悪い例
-def test_user():
-    pass
+# File: tests/presentation/canvas/controllers/test_{controller_name}.py
 
-# ✅ 良い例
-def test_create_user_with_valid_email_succeeds():
-    pass
+import pytest
+from unittest.mock import MagicMock, patch
+from PySide6.QtCore import Qt
+from casare_rpa.presentation.canvas.controllers.{controller_name} import {ControllerName}
 
-def test_create_user_with_invalid_email_raises_validation_error():
-    pass
+
+@pytest.fixture
+def mock_graph():
+    """Create mock node graph."""
+    graph = MagicMock()
+    graph.add_node = MagicMock()
+    graph.remove_node = MagicMock()
+    graph.selected_nodes = MagicMock(return_value=[])
+    return graph
+
+
+@pytest.fixture
+def mock_event_bus():
+    """Create mock event bus."""
+    bus = MagicMock()
+    bus.emit = MagicMock()
+    bus.subscribe = MagicMock()
+    return bus
+
+
+@pytest.fixture
+def controller(mock_graph, mock_event_bus):
+    """Create controller instance."""
+    return {ControllerName}(mock_graph, mock_event_bus)
+
+
+class Test{ControllerName}:
+    """Test suite for {ControllerName}."""
+
+    def test_initialization(self, controller, mock_graph, mock_event_bus):
+        """Test controller initializes with correct dependencies."""
+        assert controller.graph == mock_graph
+        assert controller.event_bus == mock_event_bus
+
+    def test_subscribes_to_events(self, mock_event_bus):
+        """Test controller subscribes to required events."""
+        controller = {ControllerName}(MagicMock(), mock_event_bus)
+
+        # Verify subscriptions
+        assert mock_event_bus.subscribe.call_count > 0
+
+    def test_handle_primary_action(self, controller, mock_graph):
+        """Test primary action handler."""
+        # Trigger action
+        controller.handle_action("test_data")
+
+        # Verify graph interaction
+        mock_graph.some_method.assert_called_once()
+
+    def test_emits_event_on_action(self, controller, mock_event_bus):
+        """Test controller emits events on actions."""
+        controller.handle_action("test_data")
+
+        # Verify event emission
+        mock_event_bus.emit.assert_called()
+        call_args = mock_event_bus.emit.call_args[0]
+        assert call_args[0] == "expected_event_name"
+
+    def test_error_handling(self, controller, mock_graph):
+        """Test controller handles errors gracefully."""
+        mock_graph.some_method.side_effect = RuntimeError("Test error")
+
+        # Should not raise, should handle internally
+        controller.handle_action("test_data")
+
+        # Verify error was logged or event emitted
 ```
 
-### 3. AAA パターン
+## Use Case Tests Template
 
-```javascript
-test('calculateDiscount applies 10% discount for premium users', () => {
-  // Arrange (準備)
-  const user = { type: 'premium' };
-  const price = 1000;
+```python
+# File: tests/application/use_cases/test_{use_case_name}.py
 
-  // Act (実行)
-  const result = calculateDiscount(user, price);
+import pytest
+from unittest.mock import MagicMock, AsyncMock
+from casare_rpa.application.use_cases.{use_case_name} import {UseCaseName}
+from casare_rpa.domain.entities import Workflow
+from casare_rpa.domain.value_objects import ExecutionResult
 
-  // Assert (検証)
-  expect(result).toBe(900);
-});
+
+@pytest.fixture
+def mock_workflow_repository():
+    """Create mock workflow repository."""
+    repo = MagicMock()
+    repo.get = AsyncMock(return_value=Workflow(...))
+    repo.save = AsyncMock()
+    return repo
+
+
+@pytest.fixture
+def use_case(mock_workflow_repository):
+    """Create use case instance."""
+    return {UseCaseName}(workflow_repository=mock_workflow_repository)
+
+
+class Test{UseCaseName}:
+    """Test suite for {UseCaseName}."""
+
+    @pytest.mark.asyncio
+    async def test_execute_success(self, use_case, mock_workflow_repository):
+        """Test successful use case execution."""
+        result = await use_case.execute(workflow_id="test_id")
+
+        assert isinstance(result, ExecutionResult)
+        assert result.success is True
+        mock_workflow_repository.get.assert_called_once_with("test_id")
+
+    @pytest.mark.asyncio
+    async def test_execute_with_invalid_workflow(self, use_case, mock_workflow_repository):
+        """Test execution fails with invalid workflow."""
+        mock_workflow_repository.get.return_value = None
+
+        result = await use_case.execute(workflow_id="invalid_id")
+
+        assert result.success is False
+        assert "not found" in result.error.lower()
+
+    @pytest.mark.asyncio
+    async def test_coordinates_dependencies(self, use_case):
+        """Test use case coordinates multiple dependencies correctly."""
+        result = await use_case.execute(workflow_id="test_id")
+
+        # Verify all dependencies were called in correct order
+        assert result.success is True
 ```
 
-### 4. 適切なアサーション
+## Domain Entity Tests Template
 
-```typescript
-// ❌ 悪い例: 曖昧なアサーション
-expect(result).toBeTruthy();
+```python
+# File: tests/domain/entities/test_{entity_name}.py
 
-// ✅ 良い例: 具体的なアサーション
-expect(result).toBe(true);
-expect(result.status).toBe('success');
-expect(result.data).toHaveLength(5);
-expect(result.error).toBeUndefined();
+import pytest
+from casare_rpa.domain.entities.{entity_name} import {EntityName}
+
+
+class Test{EntityName}:
+    """Test suite for {EntityName} entity."""
+
+    def test_create_entity(self):
+        """Test entity creation with valid data."""
+        entity = {EntityName}(id="test_id", name="Test")
+
+        assert entity.id == "test_id"
+        assert entity.name == "Test"
+
+    def test_entity_validation(self):
+        """Test entity validates required fields."""
+        with pytest.raises(ValueError):
+            {EntityName}(id="", name="Test")  # Empty ID should fail
+
+    def test_entity_immutability(self):
+        """Test entity value objects are immutable (if applicable)."""
+        entity = {EntityName}(id="test_id", name="Test")
+
+        with pytest.raises(AttributeError):
+            entity.id = "new_id"  # Should not allow modification
+
+    def test_entity_equality(self):
+        """Test entity equality comparison."""
+        entity1 = {EntityName}(id="test_id", name="Test")
+        entity2 = {EntityName}(id="test_id", name="Test")
+        entity3 = {EntityName}(id="other_id", name="Test")
+
+        assert entity1 == entity2
+        assert entity1 != entity3
 ```
 
-## カスタマイズオプション
+## Test Coverage Checklist
 
-### テスト生成の詳細設定
+For comprehensive test coverage, ensure tests include:
 
-```
-以下の設定でテストを生成：
+- [ ] **Initialization**: Constructor, default values
+- [ ] **Happy Path**: Expected usage with valid inputs
+- [ ] **Error Cases**: Invalid inputs, missing data, exceptions
+- [ ] **Edge Cases**: Empty values, special characters, boundary conditions
+- [ ] **Integration**: External resources, dependencies
+- [ ] **Logging**: Info logs on success, error logs on failure
+- [ ] **Type Safety**: Correct data types for inputs/outputs
+- [ ] **Async Behavior**: Proper async/await usage (for async methods)
+- [ ] **Mocking**: External dependencies properly mocked
+- [ ] **Events**: Event emission and subscription (for event-driven code)
 
-- フレームワーク: Jest
-- カバレッジ目標: 90%
-- エッジケース: 徹底的に
-- モック: 外部API、データベース
-- アサーションスタイル: expect
-- ファイル命名: *.test.ts
-- テストデータ: ファクトリーパターン使用
-```
+## Running Tests
 
-## 統合とCI/CD
+```bash
+# Run all tests
+pytest tests/ -v
 
-### GitHub Actions
+# Run specific category
+pytest tests/nodes/browser/ -v
 
-```yaml
-name: Tests
-on: [push, pull_request]
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-      - run: npm install
-      - run: npm test
-      - run: npm run test:coverage
-      - uses: codecov/codecov-action@v3
+# Run with coverage
+pytest tests/ --cov=casare_rpa --cov-report=html
+
+# Run only specific test
+pytest tests/nodes/browser/test_click_node.py::TestClickNode::test_execute_success -v
 ```
 
-## 制限事項
+## Usage
 
-- **ビジネスロジックの理解**: 要件の深い理解が必要なテストは人間の補完が必要
-- **外部依存**: 実際の外部サービスとの統合テストは設定が必要
-- **UI/UXテスト**: ビジュアル回帰テストは専用ツールが必要
-- **パフォーマンステスト**: 負荷テストは別のツールが推奨
+When user requests test generation:
 
-## バージョン情報
-
-- スキルバージョン: 1.0.0
-- 最終更新: 2025-01-22
-
----
-
-**使用例**:
-
-```
-この関数の包括的なテストスイートを生成してください：
-
-function validatePassword(password) {
-  if (password.length < 8) return false;
-  if (!/[A-Z]/.test(password)) return false;
-  if (!/[a-z]/.test(password)) return false;
-  if (!/[0-9]/.test(password)) return false;
-  if (!/[!@#$%^&*]/.test(password)) return false;
-  return true;
-}
-
-要件:
-- フレームワーク: Jest
-- エッジケースを網羅
-- 各条件の境界値テスト
-- わかりやすいテスト名
-```
-
-このプロンプトで、完全なテストスイートが生成されます！
+1. Identify component type (node, controller, use case, entity)
+2. Analyze component code to understand:
+   - Inputs and outputs
+   - External dependencies
+   - Error conditions
+   - Edge cases
+3. Generate test file with appropriate template
+4. Include 10-15 tests minimum covering all checklist items
+5. Ensure all tests use proper async patterns if testing async code
+6. Provide instructions for running the tests

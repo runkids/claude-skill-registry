@@ -1,120 +1,198 @@
+# 🔍 Code Search Skill
+
 ---
 name: code-search
-description: Token-efficient codebase exploration using MCP-first approach. Locates functions, classes, patterns, and traces dependencies with 80-90% token savings. Use when searching code, finding implementations, or tracing call chains.
+description: Efficiently search through codebases to find patterns, usages, and references
 ---
 
-# Code Search
+## 🎯 Purpose
 
-Explores codebases efficiently using MCP tools before falling back to file reads.
+ค้นหา code patterns, usages, และ references ใน codebase อย่างมีประสิทธิภาพ
 
-## When to Use
+## 📋 When to Use
 
-- Finding functions, classes, or patterns
-- Understanding feature implementation
-- Tracing dependencies and call chains
-- Architecture boundary verification
-- Gathering context for documentation
+- หาว่า function ถูกใช้ที่ไหน
+- หา pattern ที่คล้ายกัน
+- Refactor และต้องหาทุกที่ที่ใช้
+- หา TODO/FIXME comments
+- หา import/export relationships
 
-## MCP Workflow
+## 🔧 Search Methods
 
+### 1. grep_search (Tool)
 ```
-# 1. Check past context
-claude-mem.search(query="<keyword>", project="<project>")
-
-# 2. Get file overview
-serena.get_symbols_overview(relative_path="target/directory")
-
-# 3. Find symbol (signature only first)
-serena.find_symbol(name_path="ClassName", depth=1, include_body=False)
-
-# 4. Get body only when needed
-serena.find_symbol(name_path="ClassName/method", include_body=True)
-
-# 5. Trace dependencies
-serena.find_referencing_symbols(name_path="ClassName/method")
-
-# 6. Framework patterns
-context7.get-library-docs("<framework>", topic="<topic>")
-```
-
-## Search Patterns
-
-### By Name
-```
-serena.find_symbol("*Service", include_kinds=[5])      # Classes
-serena.find_symbol("UserService/create", include_body=True)  # Method
-```
-
-### By Pattern (TOKEN CRITICAL - Always Scope!)
-
-```python
-# WRONG - Will return 20k+ tokens:
-serena.search_for_pattern("@Cacheable|@cached")
-
-# CORRECT - Scoped and limited:
-serena.search_for_pattern(
-    substring_pattern="@Cacheable",
-    relative_path="module-core-domain/",
-    context_lines_after=1,
-    max_answer_chars=3000
+grep_search(
+  Query="functionName",
+  SearchPath="./src",
+  MatchPerLine=true
 )
 ```
 
-### Dependencies
-```
-serena.find_referencing_symbols("UserService/create")  # Who calls this?
+### 2. PowerShell Select-String
+```powershell
+# ค้นหาใน file เดียว
+Select-String -Path "file.ts" -Pattern "searchTerm"
+
+# ค้นหาในหลาย files
+Select-String -Path "src/*.ts" -Pattern "searchTerm" -Recurse
+
+# Case insensitive
+Select-String -Path "src/*.ts" -Pattern "searchTerm" -CaseSensitive:$false
 ```
 
-### Architecture
-```
-serena.search_for_pattern("import.*infra", relative_path="src/domain/")
+### 3. ripgrep (rg)
+```bash
+# Basic search
+rg "pattern" ./src
+
+# With file type
+rg "pattern" --type ts
+
+# With context
+rg -C 3 "pattern"
+
+# Ignore case
+rg -i "pattern"
+
+# Fixed string (no regex)
+rg -F "exact.string"
 ```
 
-### For Documentation
-```
-# Public APIs (classes, methods)
-serena.get_symbols_overview(depth=1)                    # Module structure
-serena.find_symbol("*Service", depth=1, include_body=False)  # Signatures
+### 4. Git grep
+```bash
+# Search in tracked files
+git grep "pattern"
 
-# Find existing docs
-serena.find_file(file_mask="*.md", relative_path=".")
-serena.find_file(file_mask="README*", relative_path=".")
+# With line numbers
+git grep -n "pattern"
+
+# Only filenames
+git grep -l "pattern"
 ```
 
-## Output Format
+## 📊 Search Patterns
+
+### Find Function Usage
+```bash
+# Find function calls
+rg "functionName\(" --type ts
+
+# Find function definition
+rg "function functionName|const functionName" --type ts
+```
+
+### Find Component Usage
+```bash
+# Find JSX usage
+rg "<ComponentName" --type tsx
+
+# Find import
+rg "import.*ComponentName" --type ts
+```
+
+### Find TODOs and FIXMEs
+```bash
+rg "TODO:|FIXME:|HACK:|XXX:" --type ts
+```
+
+### Find Console Logs
+```bash
+rg "console\.(log|warn|error)" --type ts
+```
+
+### Find Hardcoded Values
+```bash
+# Find hardcoded URLs
+rg "https?://[^\s]+" --type ts
+
+# Find hardcoded credentials
+rg "(password|secret|api_key)\s*[:=]\s*['\"]" -i --type ts
+```
+
+## 📝 Search Results Template
 
 ```markdown
-## Search: [Target]
+## 🔍 Search Results: `{pattern}`
 
-| File | Symbol | Line | Type |
-|------|--------|------|------|
-| path/file | Class.method | 45 | function |
+### Summary
+- **Files matched**: 12
+- **Lines matched**: 45
+- **Pattern**: `{regex or string}`
 
-### Key Code
-[Relevant snippet - max 20 lines]
+### Results by File
 
-### Dependencies
-- Calls: [list]
-- Called By: [list]
+#### `src/components/UserCard.tsx`
+- Line 15: `const user = useUser(userId);`
+- Line 23: `return <UserCard user={user} />;`
+
+#### `src/hooks/useUser.ts`
+- Line 8: `export function useUser(id: string) {`
+
+### Suggestions
+- Consider extracting common pattern to shared utility
+- 3 instances could be simplified
 ```
 
-## Symbol Kinds
+## 🔧 Advanced Search Patterns
 
-| Kind | Number | Description |
-|------|--------|-------------|
-| Class | 5 | Class definition |
-| Method | 6 | Class method |
-| Function | 12 | Standalone function |
-| Interface | 11 | Interface |
+### Regex Patterns
+| Pattern | Matches |
+|---------|---------|
+| `\bword\b` | Whole word only |
+| `func\(.*\)` | Function calls |
+| `import.*from` | Import statements |
+| `useState<.*>` | Generic useState |
+| `// TODO:.*` | TODO comments |
 
-## Efficiency Rules
+### Multi-term Search
+```bash
+# OR patterns
+rg "pattern1|pattern2"
 
-**Do:**
-- Start with `get_symbols_overview` before reading files
-- Use `include_body=False` first
-- Limit searches with `relative_path`
+# AND patterns (in same file)
+rg "pattern1" | xargs rg "pattern2"
 
-**Avoid:**
-- Reading entire files before symbol search
-- Fetching bodies for signature checks
-- Broad searches without scope restriction
+# NOT pattern
+rg "pattern1" --invert-match "pattern2"
+```
+
+## 📋 Common Searches
+
+| Purpose | Pattern |
+|---------|---------|
+| Find imports | `import.*{name}` |
+| Find exports | `export.*{name}` |
+| Find hooks | `use[A-Z]\w+` |
+| Find components | `<[A-Z]\w+` |
+| Find API calls | `fetch\(|axios\.|api\.` |
+| Find types | `interface\|type\s+\w+` |
+| Find console | `console\.` |
+| Find comments | `//.*\|/\*.*\*/` |
+
+## 🛠️ IDE Search Features
+
+### VS Code
+- `Ctrl+Shift+F` - Search in files
+- `Ctrl+Shift+H` - Search and replace
+- `F12` - Go to definition
+- `Shift+F12` - Find all references
+
+### Antigravity
+- `grep_search` - Search patterns
+- `find_by_name` - Find files
+- `view_file_outline` - See structure
+
+## ✅ Search Best Practices
+
+- [ ] Use word boundaries `\b` for precision
+- [ ] Start narrow, expand if needed
+- [ ] Exclude node_modules, dist
+- [ ] Use file type filters
+- [ ] Save common searches
+- [ ] Check both singular/plural
+
+## 🔗 Related Skills
+
+- `codebase-understanding` - Understand project
+- `refactoring` - After finding usages
+- `code-review` - Review patterns

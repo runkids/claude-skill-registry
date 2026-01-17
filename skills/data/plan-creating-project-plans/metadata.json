@@ -1,9 +1,7 @@
 {
   "name": "plan-creating-project-plans",
-  "description": "Comprehensive project planning standards for plans/ directory including folder structure (ideas.md, backlog/, in-progress/, done/), naming convention (YYYY-MM-DD__identifier/), file organization (READ",
   "repo": "wahidyankf/open-sharia-enterprise",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".opencode/skill/plan-creating-project-plans/SKILL.md",
+  "source": "github.com/wahidyankf/open-sharia-enterprise",
+  "downloaded_at": "2026-01-17T03:27:13.592084Z"
 }

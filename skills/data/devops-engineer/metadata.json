@@ -1,7 +1,7 @@
 {
   "name": "devops-engineer",
-  "repo": "gaebalai/itda-sdd",
-  "path": "src/templates/agents/claude-code/skills/devops-engineer/SKILL.md",
-  "source": "github.com/gaebalai/itda-sdd",
-  "downloaded_at": "2026-01-14T03:55:14.525769Z"
+  "repo": "nahisaho/CodeGraphMCPServer",
+  "path": ".claude/skills/devops-engineer/SKILL.md",
+  "source": "github.com/nahisaho/CodeGraphMCPServer",
+  "downloaded_at": "2026-01-17T03:42:16.359257Z"
 }

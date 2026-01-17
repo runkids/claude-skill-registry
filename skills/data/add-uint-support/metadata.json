@@ -1,7 +1,7 @@
 {
   "name": "add-uint-support",
-  "repo": "danielzayas/pytorch__pytorch.c8a37a2d",
+  "repo": "teddytennant/rusttorch",
   "path": ".claude/skills/add-uint-support/SKILL.md",
-  "source": "github.com/danielzayas/pytorch__pytorch.c8a37a2d",
-  "downloaded_at": "2026-01-14T02:42:23.639435Z"
+  "source": "github.com/teddytennant/rusttorch",
+  "downloaded_at": "2026-01-17T03:19:08.314159Z"
 }

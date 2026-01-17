@@ -1,316 +1,575 @@
 ---
 name: memory-manager
-description: Manages memory tool integration with CLAUDE.md files for dual persistence and redundancy. Handles cross-conversation learning, memory sync, and context persistence.
-allowed-tools: read, write, memory, grep, glob
-version: 1.0
-best_practices:
-  - Use memory tool for learned patterns and insights
-  - Keep CLAUDE.md for static rules and standards
-  - Sync important patterns from memory to CLAUDE.md
-  - Validate memory file paths for security
-error_handling: graceful
-streaming: supported
+description: |
+  Gerencia persistencia de contexto, decisoes e learnings do projeto.
+  Armazena e recupera informacoes entre sessoes para manter continuidade.
+  Use quando: salvar decisoes, recuperar contexto, persistir learnings.
+allowed-tools:
+  - Read
+  - Write
+  - Glob
+  - Bash
+user-invocable: false
 ---
 
 # Memory Manager Skill
 
-## Identity
+## Proposito
 
-Memory Manager - Provides dual persistence (CLAUDE.md + Memory Tool) for redundancy and cross-conversation learning.
+Esta skill gerencia a memoria persistente do projeto, incluindo:
 
-## Capabilities
+1. **Contexto de projeto** - Estado atual, fase, configuracoes
+2. **Decisoes** - ADRs, escolhas tecnicas, trade-offs
+3. **Learnings** - Licoes aprendidas, padroes identificados
+4. **Artefatos** - Referencias a documentos gerados
 
-- **Memory Tool Integration**: Store and retrieve learned patterns via memory tool
-- **CLAUDE.md Sync**: Sync important patterns from memory to CLAUDE.md
-- **Cross-Conversation Learning**: Enable agents to learn from previous sessions
-- **Dual Persistence**: Maintain knowledge in both memory tool and CLAUDE.md
-- **Security Validation**: Validate memory file paths to prevent memory poisoning
+## Estrutura de Armazenamento
 
-## Dual Persistence Strategy
-
-### CLAUDE.md Files (Primary - Version-Controlled)
-
-- Hierarchical context loading (root → subdirectories)
-- Version-controlled in git
-- Project-specific, structured knowledge
-- Loaded automatically by Claude Code
-- Best for: Static rules, project structure, coding standards
-
-### Memory Tool (Secondary - Dynamic Learning)
-
-- Cross-conversation pattern persistence
-- Dynamic knowledge accumulation
-- Session-specific learnings
-- File-based storage under `/memories/` directory
-- Best for: Learned patterns, user preferences, task-specific insights
-
-### How They Work Together
-
-1. **CLAUDE.md**: Provides foundational context (rules, structure, standards)
-2. **Memory Tool**: Captures learned patterns and insights from interactions
-3. **Redundancy**: If one fails, the other provides backup context
-4. **Synergy**: Memory tool can reference CLAUDE.md patterns, CLAUDE.md can reference memory insights
-
-## Usage Patterns
-
-### Storing Learned Patterns
-
-**When to Store in Memory**:
-
-- User preferences discovered during interaction
-- Task-specific insights and solutions
-- Patterns learned from codebase analysis
-- Workflow optimizations discovered
-- Common mistakes to avoid
-
-**How to Store**:
+**IMPORTANTE:** A partir da v1.2.0, todos os artefatos devem ser salvos em `.agentic_sdlc/`.
+O diretorio `.claude/memory/` e legado e sera migrado automaticamente.
 
 ```
-Use memory tool to store: "User prefers TypeScript over JavaScript for new features"
+.agentic_sdlc/
+├── projects/
+│   └── {project-id}/
+│       ├── manifest.yml         # Estado do projeto (antigo project.yml)
+│       ├── decisions/           # ADRs e decisoes
+│       │   ├── adr-001.yml
+│       │   ├── adr-002.yml
+│       │   └── index.yml
+│       ├── phases/              # Contexto por fase
+│       │   ├── phase-0.yml
+│       │   ├── phase-1.yml
+│       │   └── ...
+│       ├── specs/               # Especificacoes
+│       ├── security/            # Threat models, scans
+│       └── docs/                # Documentacao gerada
+├── corpus/
+│   ├── decisions/               # Decisoes indexadas para RAG
+│   ├── learnings/               # Licoes aprendidas
+│   ├── docs/                    # Documentacao pesquisavel
+│   └── research/                # Pesquisas de dominio
+├── sessions/                    # Historico de sessoes analisadas
+├── references/                  # Documentos de referencia externos
+└── templates/                   # Templates reutilizaveis
 ```
 
-### Reading from Memory
+### Migracao Automatica
 
-**When to Read from Memory**:
+O hook `auto-migrate.sh` migra automaticamente de `.claude/memory/` para `.agentic_sdlc/` na primeira execucao de cada dia.
 
-- Starting a new task (check for relevant patterns)
-- Encountering similar problems (look for previous solutions)
-- User preferences (check for known preferences)
-- Workflow patterns (check for optimized approaches)
+## Schema de Dados
 
-**How to Read**:
+### Project State
 
-```
-Use memory tool to read: "What patterns do we have for authentication implementation?"
-```
+```yaml
+# project.yml
+project:
+  id: string
+  name: string
+  created_at: datetime
+  updated_at: datetime
 
-### Syncing to CLAUDE.md
+  current_phase: number (0-8)
+  complexity_level: number (0-3)
+  status: [active | paused | completed]
 
-**When to Sync**:
+  team:
+    - name: string
+      role: string
 
-- Pattern is project-wide and should be version-controlled
-- Rule discovered that applies to all future work
-- Standard that should be part of project documentation
-- Important decision that affects project structure
+  metrics:
+    phase_durations: object
+    decisions_count: number
+    odrs_count: number       # ODRs organizacionais
+    learnings_count: number
 
-**How to Sync**:
-
-1. Read pattern from memory tool
-2. Determine if it should be in CLAUDE.md
-3. Add to appropriate CLAUDE.md file (root or phase-specific)
-4. Keep in memory tool for redundancy
-
-## Memory File Organization
-
-### Directory Structure
-
-Memory files are stored in the run directory structure:
-
-```
-.claude/context/runs/{run-id}/
-├── memory/
-│   ├── patterns/
-│   │   ├── authentication-patterns.md
-│   │   ├── api-design-patterns.md
-│   │   └── testing-patterns.md
-│   ├── preferences/
-│   │   ├── user-preferences.md
-│   │   └── coding-style.md
-│   └── insights/
-│       ├── performance-insights.md
-│       └── security-insights.md
+  tags: list[string]
 ```
 
-**Note**: Use `path-resolver.mjs` to resolve memory paths within a run directory.
+### Organizational Decision Record (ODR)
 
-### Naming Conventions
+ODRs documentam decisões organizacionais/negócio, diferente de ADRs que são técnicos.
+Veja `.docs/guides/adr-vs-odr.md` para guia completo.
 
-- **Patterns**: `{category}-patterns.md` (e.g., `authentication-patterns.md`)
-- **Preferences**: `{type}-preferences.md` (e.g., `user-preferences.md`)
-- **Insights**: `{domain}-insights.md` (e.g., `performance-insights.md`)
+```yaml
+# decisions/odr-NNN.yml
+odr:
+  id: string               # ODR-001, ODR-002, etc
+  title: string
+  created_at: datetime
+  updated_at: datetime
+  status: [draft | pending_input | pending_approval | approved | rejected | superseded]
+  deadline: datetime | null
 
-## Security Best Practices
+  business_context: string
 
-### Path Validation (Production-Ready)
+  stakeholders:
+    decision_maker:
+      name: string
+      role: string
+    consulted:
+      - name: string
+        role: string
+        input_status: [pending | received | waived]
+        input: string
+    informed:
+      - name: string
+        role: string
 
-Based on Claude Cookbooks patterns, always validate memory file paths:
+  alternatives:
+    - id: string           # A, B, C, etc
+      title: string
+      description: string
+      pros: list[string]
+      cons: list[string]
+      estimated_cost: string
+      risk_level: [low | medium | high]
 
-**Required Validation:**
+  trade_offs:
+    - description: string
+      gain: string
+      loss: string
+      assessment: [acceptable | unacceptable | requires_mitigation]
+      mitigation: string | null
 
-- Path must start with `/memories` prefix
-- Reject paths with `..` (directory traversal attacks)
-- Verify resolved path is within memory_root directory
-- Validate file extensions (`.txt`, `.md`, `.json`, `.py`, `.yaml`, `.yml`)
+  decision:
+    chosen_alternative: string
+    description: string
+    rationale: string
 
-**Implementation:**
-See `.claude/skills/memory-manager/memory_tool_handler.py` for production-ready handler with:
+  consequences:
+    positive: list[string]
+    negative: list[string]
+    risks:
+      - description: string
+        probability: [low | medium | high]
+        impact: [low | medium | high]
+        mitigation: string
 
-- Path validation and sanitization
-- Directory traversal protection
-- Comprehensive error handling
-- Security checks for all operations
-- File operation security (view, create, str_replace, insert, delete, rename)
+  approvals:
+    - stakeholder: string
+      approved: boolean | null
+      approved_at: datetime | null
+      comments: string
 
-**Example Validation:**
+  relationships:
+    related_odrs: list[string]
+    derived_adrs: list[string]  # ADRs técnicos que derivam deste ODR
+    related_issues: list[string]
+    sdlc_phase: number | null
+
+  metadata:
+    category: [business | resource | timeline | scope | strategic]
+    impact_level: [low | medium | high | critical]
+    reversible: boolean
+    project_id: string | null
+    tags: list[string]
+```
+
+### Decision Record (ADR)
+
+ADRs documentam decisões técnicas/arquiteturais.
+
+```yaml
+# decisions/adr-NNN.yml
+decision:
+  id: string
+  type: [architectural | technical | process | tool]
+  title: string
+  created_at: datetime
+  status: [proposed | accepted | rejected | superseded]
+
+  context: string
+  decision: string
+  consequences:
+    positive: list[string]
+    negative: list[string]
+    risks: list[string]
+
+  related_decisions: list[string]
+  phase: number
+  author: string
+  approvers: list[string]
+
+  metadata:
+    complexity: [low | medium | high]
+    reversible: boolean
+    cost_impact: string
+```
+
+### Learning Record
+
+```yaml
+# learnings/learning-NNN.yml
+learning:
+  id: string
+  type: [incident | retrospective | discovery | pattern]
+  title: string
+  created_at: datetime
+
+  source:
+    type: [incident | project | research]
+    reference: string
+
+  insight: string
+  actions:
+    - action: string
+      status: [pending | in_progress | completed]
+      owner: string
+
+  applicable_to: list[string]
+  tags: list[string]
+```
+
+### Phase Context
+
+```yaml
+# context/phase-N.yml
+phase_context:
+  phase: number
+  name: string
+  started_at: datetime
+  completed_at: datetime
+
+  inputs:
+    - type: string
+      source: string
+
+  outputs:
+    - type: string
+      path: string
+
+  decisions: list[string]
+  blockers: list[string]
+  notes: string
+
+  gate_result:
+    passed: boolean
+    score: float
+    issues: list[string]
+```
+
+## Operacoes
+
+### Salvar Contexto
 
 ```python
-def _validate_path(self, path: str) -> Path:
-    """Validate and resolve memory paths to prevent directory traversal attacks."""
-    if not path.startswith("/memories"):
-        raise ValueError("Path must start with /memories")
-
-    # Remove /memories prefix and resolve
-    relative_path = path[len("/memories"):].lstrip("/")
-    full_path = (self.memory_root / relative_path).resolve()
-
-    # Verify path is still within memory_root
-    try:
-        full_path.relative_to(self.memory_root.resolve())
-    except ValueError:
-        raise ValueError("Path would escape /memories directory")
-
-    return full_path
+save_context(
+    phase=2,
+    data={
+        "inputs": [...],
+        "outputs": [...],
+        "decisions": ["adr-001"],
+        "notes": "Requisitos definidos com stakeholders"
+    }
+)
 ```
 
-**Using the Handler:**
+### Recuperar Contexto
 
 ```python
-from .claude.skills.memory_manager.memory_tool_handler import MemoryToolHandler
-
-handler = MemoryToolHandler(base_path="./memory_storage")
-result = handler.execute(command="view", path="/memories/patterns/auth.md")
+context = load_context(phase=2)
+# Retorna o contexto completo da fase 2
 ```
 
-### Memory Poisoning Prevention
+### Registrar Decisao
 
-**Prevent malicious memory content**:
-
-- Validate memory content before storing
-- Sanitize user input in memory files
-- Review memory files periodically
-- Use structured formats (JSON, YAML) when possible
-- Restrict file types to text-based formats only
-- Validate string uniqueness for replacements (prevent ambiguous edits)
-
-### Security Features
-
-**Production-Ready Handler Includes:**
-
-- ✅ Path validation with directory traversal protection
-- ✅ File extension validation
-- ✅ Root directory protection (cannot delete `/memories`)
-- ✅ String uniqueness validation for replacements
-- ✅ Comprehensive error handling
-- ✅ UTF-8 encoding validation
-
-## Integration with Agents
-
-### All Agents Use Both
-
-Every agent should:
-
-1. **Load CLAUDE.md files** automatically (via Claude Code)
-2. **Use memory tool** for learned patterns
-3. **Store insights** in memory tool
-4. **Sync important patterns** to CLAUDE.md when appropriate
-
-### Agent-Specific Memory
-
-- **Orchestrator**: Workflow patterns, routing decisions, coordination strategies
-- **Developer**: Implementation patterns, code solutions, debugging insights
-- **Architect**: Design patterns, technology choices, architecture decisions
-- **QA**: Testing patterns, quality insights, bug patterns
-
-## Memory Sync Utility
-
-### Automatic Sync
-
-The memory sync utility (`memory-sync.mjs`) can:
-
-- Sync important patterns from memory to CLAUDE.md
-- Merge memory insights into project documentation
-- Archive old memory files
-- Validate memory file integrity
-
-### Manual Sync
-
-Agents can manually sync:
-
-1. Identify pattern in memory that should be in CLAUDE.md
-2. Read pattern from memory tool
-3. Add to appropriate CLAUDE.md file
-4. Keep in memory for redundancy
-
-## Examples
-
-### Example 1: Storing User Preference
-
-```
-User: "I prefer using async/await over promises"
-
-Agent stores in memory:
-- File: `.claude/context/runs/{run-id}/memory/preferences/coding-style.md`
-- Content: "User prefers async/await syntax over Promise chains for asynchronous code"
+```python
+decision_id = save_decision(
+    type="architectural",
+    title="Usar PostgreSQL como banco principal",
+    context="Precisamos de um banco relacional com suporte a JSON",
+    decision="PostgreSQL com extensao JSONB",
+    consequences={
+        "positive": ["Flexibilidade de schema", "Boa performance"],
+        "negative": ["Curva de aprendizado"],
+        "risks": ["Lock-in no PostgreSQL"]
+    }
+)
 ```
 
-### Example 2: Storing Learned Pattern
+### Registrar Learning
 
-```
-Agent discovers: "Using Zod for validation reduces bugs by 40%"
-
-Agent stores in memory:
-- File: `.claude/context/runs/{run-id}/memory/patterns/validation-patterns.md`
-- Content: "Zod validation pattern: Use Zod schemas for all API input validation. Reduces bugs by 40%."
-```
-
-### Example 3: Reading from Memory
-
-```
-Agent needs to implement authentication
-
-Agent reads from memory:
-- Query: "authentication implementation patterns"
-- Returns: Relevant patterns from memory files
-- Uses patterns to guide implementation
+```python
+learning_id = save_learning(
+    type="incident",
+    title="Timeout em queries complexas",
+    source={"type": "incident", "reference": "INC-123"},
+    insight="Queries com mais de 3 joins precisam de indices compostos",
+    actions=[
+        {"action": "Criar indice composto", "owner": "DBA"}
+    ]
+)
 ```
 
-### Example 4: Syncing to CLAUDE.md
+### Buscar Decisoes
 
+```python
+decisions = search_decisions(
+    phase=3,
+    type="architectural",
+    status="accepted"
+)
 ```
-Agent discovers important pattern: "Always use TypeScript strict mode"
 
-Agent syncs:
-1. Reads from memory: "typescript-strict-mode-pattern.md"
-2. Adds to .claude/CLAUDE.md: "TypeScript Configuration: Always use strict mode"
-3. Keeps in memory for redundancy
+### Buscar Learnings
+
+```python
+learnings = search_learnings(
+    type="incident",
+    tags=["performance"]
+)
 ```
 
-## Best Practices
+## Integracao com RAG
 
-1. **Store Frequently**: Store patterns as you discover them
-2. **Read Before Starting**: Check memory for relevant patterns before new tasks
-3. **Sync Important Patterns**: Move project-wide patterns to CLAUDE.md
-4. **Organize by Category**: Use directory structure for organization
-5. **Validate Paths**: Always validate memory file paths
-6. **Review Periodically**: Clean up old or outdated memory files
-7. **Maintain Redundancy**: Keep important patterns in both systems
+O memory-manager alimenta o corpus RAG:
 
-## Troubleshooting
+1. Novas decisoes sao indexadas automaticamente
+2. Learnings sao adicionados ao corpus
+3. Contexto de fases fica disponivel para consulta
 
-### Memory Tool Not Available
+## Scripts Utilitarios
 
-- Check that memory tool is enabled in `.claude/config.yaml`
-- Verify memory tool is available in agent's tool list
-- Ensure memory directory exists and is writable
+### memory_ops.py
 
-### Memory Files Not Persisting
+```python
+#!/usr/bin/env python3
+"""
+Operacoes de memoria para o SDLC.
+v1.2.0 - Usa .agentic_sdlc como diretorio principal
+"""
+import yaml
+from pathlib import Path
+from datetime import datetime
+from typing import Optional, Dict, List, Any
+import os
 
-- Check file permissions on memory directory
-- Verify memory tool is writing to correct location
-- Check for errors in memory tool execution
+# Diretorio principal (v1.2.0+)
+AGENTIC_SDLC_DIR = Path(".agentic_sdlc")
+# Diretorio legado (para compatibilidade)
+LEGACY_MEMORY_DIR = Path(".claude/memory")
 
-### CLAUDE.md Sync Fails
+def get_project_dir(project_id: str = None) -> Path:
+    """Retorna diretorio do projeto atual."""
+    if project_id is None:
+        # Tentar obter do manifest ou project.yml
+        project_id = get_current_project_id()
+    return AGENTIC_SDLC_DIR / "projects" / project_id
 
-- Verify CLAUDE.md file is writable
-- Check that pattern is appropriate for CLAUDE.md
-- Ensure proper formatting when adding to CLAUDE.md
+def get_current_project_id() -> str:
+    """Obtem ID do projeto atual."""
+    # Verificar .agentic_sdlc primeiro
+    current_file = AGENTIC_SDLC_DIR / ".current-project"
+    if current_file.exists():
+        return current_file.read_text().strip()
+
+    # Fallback para .claude/memory
+    if (LEGACY_MEMORY_DIR / "project.yml").exists():
+        with open(LEGACY_MEMORY_DIR / "project.yml") as f:
+            data = yaml.safe_load(f)
+            return data.get("project", {}).get("id", "default")
+
+    return "default"
+
+def get_memory_dir(project_id: str = None) -> Path:
+    """Retorna diretorio de memoria do projeto."""
+    return get_project_dir(project_id)
+
+def ensure_structure():
+    """Garante que a estrutura de diretorios existe."""
+    dirs = ["decisions", "learnings", "context", "sessions"]
+    for d in dirs:
+        (MEMORY_DIR / d).mkdir(parents=True, exist_ok=True)
+
+def load_project() -> Dict[str, Any]:
+    """Carrega estado do projeto."""
+    project_file = MEMORY_DIR / "project.yml"
+    if not project_file.exists():
+        return {
+            "project": {
+                "id": None,
+                "current_phase": 0,
+                "complexity_level": 2,
+                "status": "active",
+                "metrics": {}
+            }
+        }
+    with open(project_file) as f:
+        return yaml.safe_load(f)
+
+def save_project(data: Dict[str, Any]):
+    """Salva estado do projeto."""
+    ensure_structure()
+    data["project"]["updated_at"] = datetime.now().isoformat()
+    with open(MEMORY_DIR / "project.yml", "w") as f:
+        yaml.dump(data, f, default_flow_style=False)
+
+def get_next_decision_id() -> str:
+    """Gera proximo ID de decisao."""
+    index_file = MEMORY_DIR / "decisions" / "index.yml"
+    if index_file.exists():
+        with open(index_file) as f:
+            index = yaml.safe_load(f) or {"last_id": 0}
+    else:
+        index = {"last_id": 0}
+    next_id = index["last_id"] + 1
+    index["last_id"] = next_id
+    with open(index_file, "w") as f:
+        yaml.dump(index, f)
+    return f"adr-{next_id:03d}"
+
+def save_decision(
+    type: str,
+    title: str,
+    context: str,
+    decision: str,
+    consequences: Dict[str, List[str]],
+    phase: int,
+    author: str = "claude"
+) -> str:
+    """Salva uma nova decisao."""
+    ensure_structure()
+    decision_id = get_next_decision_id()
+
+    data = {
+        "decision": {
+            "id": decision_id,
+            "type": type,
+            "title": title,
+            "created_at": datetime.now().isoformat(),
+            "status": "proposed",
+            "context": context,
+            "decision": decision,
+            "consequences": consequences,
+            "phase": phase,
+            "author": author,
+            "related_decisions": [],
+            "approvers": [],
+            "metadata": {
+                "complexity": "medium",
+                "reversible": True
+            }
+        }
+    }
+
+    with open(MEMORY_DIR / "decisions" / f"{decision_id}.yml", "w") as f:
+        yaml.dump(data, f, default_flow_style=False)
+
+    return decision_id
+
+def load_decision(decision_id: str) -> Optional[Dict]:
+    """Carrega uma decisao por ID."""
+    decision_file = MEMORY_DIR / "decisions" / f"{decision_id}.yml"
+    if not decision_file.exists():
+        return None
+    with open(decision_file) as f:
+        return yaml.safe_load(f)
+
+def save_phase_context(phase: int, data: Dict[str, Any]):
+    """Salva contexto de uma fase."""
+    ensure_structure()
+    context_file = MEMORY_DIR / "context" / f"phase-{phase}.yml"
+
+    context = {
+        "phase_context": {
+            "phase": phase,
+            "updated_at": datetime.now().isoformat(),
+            **data
+        }
+    }
+
+    with open(context_file, "w") as f:
+        yaml.dump(context, f, default_flow_style=False)
+
+def load_phase_context(phase: int) -> Optional[Dict]:
+    """Carrega contexto de uma fase."""
+    context_file = MEMORY_DIR / "context" / f"phase-{phase}.yml"
+    if not context_file.exists():
+        return None
+    with open(context_file) as f:
+        return yaml.safe_load(f)
+
+def save_learning(
+    type: str,
+    title: str,
+    insight: str,
+    source: Dict[str, str],
+    actions: List[Dict] = None,
+    tags: List[str] = None
+) -> str:
+    """Salva um novo learning."""
+    ensure_structure()
+
+    learnings_dir = MEMORY_DIR / "learnings"
+    existing = list(learnings_dir.glob("learning-*.yml"))
+    next_num = len(existing) + 1
+    learning_id = f"learning-{next_num:03d}"
+
+    data = {
+        "learning": {
+            "id": learning_id,
+            "type": type,
+            "title": title,
+            "created_at": datetime.now().isoformat(),
+            "source": source,
+            "insight": insight,
+            "actions": actions or [],
+            "applicable_to": [],
+            "tags": tags or []
+        }
+    }
+
+    with open(learnings_dir / f"{learning_id}.yml", "w") as f:
+        yaml.dump(data, f, default_flow_style=False)
+
+    return learning_id
+
+if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("action", choices=["init", "status", "list-decisions"])
+    args = parser.parse_args()
+
+    if args.action == "init":
+        ensure_structure()
+        print("Memory structure initialized")
+    elif args.action == "status":
+        project = load_project()
+        print(yaml.dump(project, default_flow_style=False))
+    elif args.action == "list-decisions":
+        decisions_dir = MEMORY_DIR / "decisions"
+        for f in decisions_dir.glob("adr-*.yml"):
+            d = yaml.safe_load(f.read_text())
+            print(f"{d['decision']['id']}: {d['decision']['title']}")
+```
+
+## Checklist de Uso
+
+### Ao Iniciar Sessao
+- [ ] Carregar project.yml
+- [ ] Identificar fase atual
+- [ ] Carregar contexto da fase
+
+### Ao Tomar Decisao
+- [ ] Registrar decisao com contexto
+- [ ] Vincular a fase atual
+- [ ] Notificar para aprovacao se necessario
+
+### Ao Aprender Algo
+- [ ] Registrar learning com fonte
+- [ ] Definir acoes se aplicavel
+- [ ] Adicionar tags para busca
+
+### Ao Mudar de Fase
+- [ ] Salvar contexto da fase atual
+- [ ] Atualizar project.yml
+- [ ] Inicializar contexto da nova fase
+
+## Pontos de Pesquisa
+
+Para melhorar esta skill:
+- "knowledge management systems for software development"
+- "organizational memory patterns"
+- "decision tracking software engineering"

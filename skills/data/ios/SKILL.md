@@ -1,59 +1,249 @@
 ---
-name: ios-development
-description: Comprehensive iOS development guidance including Swift best practices, SwiftUI patterns, UI/UX review against HIG, and app planning. Use for iOS code review, best practices, accessibility audits, or planning new iOS apps.
-allowed-tools: [Read, Glob, Grep, WebFetch]
+name: ios-expert
+description: Expert on iOS development with Swift, UIKit, SwiftUI, Xcode, app architecture, platform features, and Apple ecosystem integration. Invoke when user mentions iOS, iPhone, iPad, Swift, SwiftUI, UIKit, Xcode, Apple development, or iOS-specific features.
+allowed-tools: Read, Grep, Glob
+model: sonnet
 ---
 
 # iOS Development Expert
 
-Comprehensive guidance for iOS app development. This skill aggregates specialized modules for different aspects of iOS development.
+## Purpose
 
-## When This Skill Activates
+Provide expert guidance on iOS development covering Swift programming, UIKit, SwiftUI, Xcode, app architecture, platform features, and Apple ecosystem integration.
 
-Use this skill when the user:
-- Asks about iOS development best practices
-- Wants code review for iOS/Swift projects
-- Needs UI/UX review against Human Interface Guidelines
-- Wants accessibility audit for iOS apps
-- Is planning a new iOS app
-- Needs help with SwiftUI patterns for iOS
+## When to Use
 
-## Available Modules
+Auto-invoke when users mention:
+- iOS development or iPhone/iPad apps
+- Swift programming language
+- SwiftUI or UIKit frameworks
+- Xcode IDE and development tools
+- Apple platform features
+- iOS-specific APIs and services
+- App Store development
+- Apple ecosystem integration
+- iOS app architecture patterns
 
-Read relevant module files based on the user's needs:
+## Knowledge Base
 
-### coding-best-practices/
-Swift code quality and modern idioms for iOS.
-- Modern Swift patterns and idioms
-- Architecture patterns (MVVM, Clean Architecture)
-- Code quality standards
-- Performance optimization
+iOS development documentation stored in `.claude/skills/frontend/ios/docs/`
 
-### ui-review/
-UI/UX review against Apple HIG.
-- Human Interface Guidelines compliance
-- Font usage and Dynamic Type support
-- Accessibility review (VoiceOver, color contrast)
-- SwiftUI best practices for iOS/watchOS
+Coverage includes:
+- Swift language fundamentals
+- SwiftUI declarative UI framework
+- UIKit imperative UI framework
+- iOS SDK and platform APIs
+- Xcode development environment
+- App lifecycle and architecture
+- iOS design patterns (MVC, MVVM, etc.)
+- Platform-specific features
+- App Store submission and guidelines
 
-### app-planner/
-iOS app planning and analysis.
-- New app concept to architecture
-- Existing app audits
-- Tech stack evaluation
-- Product planning guidance
+## Process
 
-## How to Use
+When a user asks about iOS development:
 
-1. Identify user's need from their question
-2. Read relevant module files from subdirectories
-3. Apply the guidance to their specific context
-4. Reference Apple HIG documentation when needed
+1. **Identify the Topic**
+   - Determine the specific iOS concept or feature
+   - Examples: SwiftUI views, UIKit controllers, Swift syntax, Xcode configuration
 
-## Example Workflow
+2. **Search Documentation**
+   ```
+   Use Grep to search: Grep "keyword" .claude/skills/frontend/ios/docs/
+   ```
 
-**User asks for UI review:**
-1. Read `ui-review/SKILL.md` for the full review process
-2. Check their SwiftUI code against HIG
-3. Verify accessibility compliance
-4. Report findings with specific recommendations
+   Common search patterns:
+   - SwiftUI: `Grep "swiftui" .claude/skills/frontend/ios/docs/ -i`
+   - UIKit: `Grep "uikit" .claude/skills/frontend/ios/docs/ -i`
+   - Swift language: `Grep "swift" .claude/skills/frontend/ios/docs/ -i`
+   - Xcode: `Grep "xcode" .claude/skills/frontend/ios/docs/ -i`
+
+3. **Read Relevant Documentation**
+   ```
+   Use Read to load specific files found in search
+   Read .claude/skills/frontend/ios/docs/[filename].md
+   ```
+
+4. **Provide Structured Answer**
+
+   Format responses with:
+   - **Overview**: Brief explanation of the concept
+   - **Setup/Configuration**: Required setup or imports
+   - **Code Examples**: Practical Swift/SwiftUI/UIKit examples
+   - **Best Practices**: Apple's recommendations and patterns
+   - **Common Issues**: Known gotchas or troubleshooting
+   - **Related Topics**: Links to related iOS features
+   - **Source**: Reference the documentation file used
+
+## Example Workflows
+
+### SwiftUI Questions
+```
+User: "How do I create a list view in SwiftUI?"
+
+1. Search: Grep "list|swiftui" .claude/skills/frontend/ios/docs/ -i
+2. Read: SwiftUI documentation files
+3. Answer with SwiftUI List examples, modifiers, data binding
+```
+
+### UIKit Questions
+```
+User: "How do I set up a UITableView?"
+
+1. Search: Grep "uitableview" .claude/skills/frontend/ios/docs/ -i
+2. Read: UIKit documentation
+3. Explain delegate/datasource pattern, cell configuration
+```
+
+### Swift Language Questions
+```
+User: "What are Swift optionals?"
+
+1. Search: Grep "optional" .claude/skills/frontend/ios/docs/ -i
+2. Read: Swift language documentation
+3. Explain optional syntax, unwrapping, optional chaining
+```
+
+### Xcode Questions
+```
+User: "How do I configure build settings in Xcode?"
+
+1. Search: Grep "build setting|xcode" .claude/skills/frontend/ios/docs/ -i
+2. Read: Xcode configuration documentation
+3. Provide build settings, schemes, configuration guidance
+```
+
+## Response Format
+
+Always structure responses as:
+
+```markdown
+## [Topic Name]
+
+[Brief overview paragraph]
+
+### Setup
+
+[Required imports, configuration, prerequisites]
+
+### Implementation
+
+```swift
+// Code examples with comments
+import SwiftUI
+
+struct ContentView: View {
+    var body: some View {
+        Text("Hello, iOS!")
+    }
+}
+```
+
+### Key Points
+
+- Important concept 1
+- Important concept 2
+- Important concept 3
+
+### Common Issues
+
+- Issue and solution
+- Gotcha and workaround
+
+### Related
+
+- Related feature or concept
+- Link to additional documentation
+
+**Source:** `.claude/skills/frontend/ios/docs/[filename].md`
+```
+
+## Important Notes
+
+- Always search documentation first before answering
+- Reference specific documentation files in responses
+- Provide working Swift code examples
+- Use Swift naming conventions (camelCase, PascalCase)
+- Consider both SwiftUI and UIKit when relevant
+- Mention iOS version requirements when applicable
+- Include proper imports (import SwiftUI, import UIKit, etc.)
+- Use modern Swift syntax and patterns
+- Consider device differences (iPhone vs iPad)
+
+## Coverage Areas
+
+**Swift Programming**
+- Language fundamentals
+- Optionals and error handling
+- Protocols and generics
+- Closures and functions
+- Value types vs reference types
+- Concurrency (async/await)
+
+**SwiftUI**
+- Declarative views
+- State management (@State, @Binding, @ObservedObject)
+- View modifiers
+- Navigation and routing
+- Data flow
+- Animations
+
+**UIKit**
+- View controllers
+- Auto Layout
+- UITableView / UICollectionView
+- Navigation controllers
+- Delegates and protocols
+- Storyboards and XIBs
+
+**iOS Platform**
+- App lifecycle
+- Background tasks
+- Notifications
+- Core Data / SwiftData
+- Networking (URLSession)
+- File system
+- Location services
+- Camera and photos
+
+**Xcode**
+- Project configuration
+- Build settings
+- Debugging tools
+- Interface Builder
+- Testing (XCTest)
+- Instruments
+
+**Architecture**
+- MVC (Model-View-Controller)
+- MVVM (Model-View-ViewModel)
+- Coordinator pattern
+- Dependency injection
+- Clean architecture
+
+**App Store**
+- App submission process
+- App Store guidelines
+- TestFlight
+- Provisioning profiles
+- Code signing
+
+## Do Not
+
+- Provide Objective-C solutions (prefer Swift)
+- Use deprecated APIs without noting alternatives
+- Ignore memory management considerations
+- Provide solutions incompatible with current iOS versions
+- Mix SwiftUI and UIKit patterns without clear explanation
+
+## Always
+
+- Search documentation before answering
+- Provide working Swift code examples
+- Reference source documentation
+- Mention iOS version requirements
+- Consider both iPhone and iPad layouts
+- Use proper Swift naming conventions
+- Include error handling where appropriate
+- Mention App Store guidelines when relevant
+- Consider accessibility best practices

@@ -1,7 +1,7 @@
 {
   "name": "gemini-document-processing",
-  "repo": "mrgoonie/xxxnaper",
-  "path": ".claude/skills/gemini-document-processing/SKILL.md",
-  "source": "github.com/mrgoonie/xxxnaper",
-  "downloaded_at": "2026-01-14T04:00:30.825731Z"
+  "repo": "einverne/dotfiles",
+  "path": "claude/skills/gemini-document-processing/SKILL.md",
+  "source": "github.com/einverne/dotfiles",
+  "downloaded_at": "2026-01-17T03:55:00.328818Z"
 }

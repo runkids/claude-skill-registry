@@ -121,6 +121,16 @@ From the chart image, identify:
 
 **This step is MANDATORY to avoid misreading recent trend changes.**
 
+**CRITICAL WARNING**: Charts can be deceptive. The MAJORITY of analysis errors occur because the analyst:
+1. Confuses the 8MA (orange) with the 200MA (green)
+2. Reads historical trends instead of the CURRENT rightmost data points
+3. Misidentifies which line is rising vs falling
+
+**BEFORE analyzing trend direction, FIRST confirm line colors**:
+- ✓ **8MA = ORANGE line** (fast-moving, more volatile)
+- ✓ **200MA = GREEN line** (slow-moving, smoother)
+- If unsure which is which, STOP and re-examine the chart legend/colors
+
 Focus intensively on the **rightmost 3-5 data points** of the chart (most recent weeks):
 
 **For 8MA (Orange Line) - Analyze the very latest trajectory**:
@@ -171,6 +181,19 @@ Analysis: 8MA is FALLING. It rose from 50% to 55% (weeks 3-2), but has since dec
 This shows a failed reversal pattern - bounce was temporary, downtrend has resumed.
 SLOPE: Falling (not rising!)
 ```
+
+**MANDATORY CROSS-CHECK** (to catch misreadings):
+After determining the trend, ask yourself:
+- [ ] "If I claimed 8MA is RISING, but it's actually been FALLING for weeks, what would that look like?"
+  - Answer: The rightmost data points would be LOWER than previous points (confirming FALLING)
+- [ ] "Does my analysis match the visual slope of the orange line at the rightmost edge?"
+  - If orange line visually slopes DOWN at the right edge → It's FALLING
+  - If orange line visually slopes UP at the right edge → It's RISING
+- [ ] "Is there any pink background shading (downtrend) near the rightmost edge?"
+  - If YES → This confirms downtrend conditions, 8MA is likely FALLING
+- [ ] "Are the 8MA and 200MA converging (getting closer) or diverging?"
+  - Converging from below → Potential death cross forming → BEARISH
+  - Converging from above → Potential golden cross forming → BULLISH
 
 #### 4.2 Identify Signal Markers
 
@@ -370,16 +393,24 @@ The report structure varies based on which chart(s) are analyzed:
 Before finalizing the report, verify:
 
 1. ✓ **Language**: All content is in English (thinking and output)
-2. ✓ **Latest Data Trend Analysis**: Step 4.1.5 was thoroughly completed - the most recent 3-5 data points were analyzed to determine CURRENT trend direction
-3. ✓ **Trend Direction Accuracy**: The stated 8MA slope (Rising/Falling/Flat) accurately reflects the RIGHTMOST data points, not historical movement
-4. ✓ **Failed Reversal Check**: If a trough was identified, explicitly verified whether the reversal sustained or failed by analyzing latest trajectory
-5. ✓ **Specific Values**: All readings include specific percentages/levels, not vague descriptions
-6. ✓ **Signal Status**: Clear identification of active signals (CONFIRMED BUY / DEVELOPING / FAILED / SELL / WAIT)
-7. ✓ **Strategy Alignment**: Recommendations align with backtested strategies and confirmation requirements
-8. ✓ **Probabilities**: Scenario probabilities sum to 100%
-9. ✓ **Actionable**: Clear positioning recommendations for different trader types
-10. ✓ **Context**: Historical comparison and reference to similar past situations
-11. ✓ **Risk Management**: Invalidation levels and risk factors clearly stated
+2. ✓ **Line Color Verification**: Explicitly confirmed 8MA = ORANGE, 200MA = GREEN before trend analysis
+3. ✓ **Latest Data Trend Analysis**: Step 4.1.5 was thoroughly completed - the most recent 3-5 data points were analyzed to determine CURRENT trend direction
+4. ✓ **Trend Direction Accuracy**: The stated 8MA slope (Rising/Falling/Flat) accurately reflects the RIGHTMOST data points, not historical movement
+5. ✓ **Cross-Check Completed**: MANDATORY CROSS-CHECK questions were answered to confirm trend direction matches visual slope
+6. ✓ **Death/Golden Cross Check**: If 8MA and 200MA are converging, explicitly identified whether death cross or golden cross is forming
+7. ✓ **Failed Reversal Check**: If a trough was identified, explicitly verified whether the reversal sustained or failed by analyzing latest trajectory
+8. ✓ **Specific Values**: All readings include specific percentages/levels, not vague descriptions
+9. ✓ **Signal Status**: Clear identification of active signals (CONFIRMED BUY / DEVELOPING / FAILED / SELL / WAIT)
+10. ✓ **Strategy Alignment**: Recommendations align with backtested strategies and confirmation requirements
+11. ✓ **Probabilities**: Scenario probabilities sum to 100%
+12. ✓ **Actionable**: Clear positioning recommendations for different trader types
+13. ✓ **Context**: Historical comparison and reference to similar past situations
+14. ✓ **Risk Management**: Invalidation levels and risk factors clearly stated
+
+**FINAL SANITY CHECK**:
+- [ ] If report claims "BUY signal" or "8MA rising", confirm this doesn't contradict user's chart showing death cross or downtrend
+- [ ] If report claims "bullish", confirm there's no pink background shading or death cross visible
+- [ ] If unsure about ANY trend direction, explicitly state uncertainty rather than guessing
 
 ## Quality Standards
 
@@ -504,6 +535,54 @@ Breadth Analyst (thinking in English):
 8. Develops integrated scenarios with probabilities
 9. Generates comprehensive combined report in English: breadth_combined_analysis_2025-11-02.md
 ```
+
+## Common Analysis Errors and How to Avoid Them
+
+### Error 1: Confusing 8MA with 200MA
+
+**Symptom**: Report claims 8MA is rising when it's actually the 200MA that's rising
+
+**Prevention**:
+- ALWAYS verify: 8MA = ORANGE, 200MA = GREEN
+- Check line volatility: 8MA moves faster with more volatility
+- If unsure, state: "Based on line color, I identify the [orange/green] line as [8MA/200MA]"
+
+### Error 2: Reading Historical Trends Instead of Current Direction
+
+**Symptom**: Report describes what happened 1-2 months ago, not what's happening NOW
+
+**Prevention**:
+- Focus ONLY on rightmost 3-5 data points
+- Explicitly write: "At the CURRENT rightmost edge, 8MA is at X% and is [rising/falling]"
+- Ignore what happened in September if we're analyzing November
+
+### Error 3: Missing Death Cross or Golden Cross Formation
+
+**Symptom**: Report is bullish when 8MA and 200MA are about to death cross (bearish)
+
+**Prevention**:
+- ALWAYS check: "Are 8MA and 200MA getting closer (converging) or further apart (diverging)?"
+- If converging with 8MA above 200MA → Potential death cross → BEARISH
+- If converging with 8MA below 200MA → Potential golden cross → BULLISH
+- Explicitly state: "8MA is currently [above/below] 200MA, and they are [converging/diverging]"
+
+### Error 4: Ignoring Pink Background Shading
+
+**Symptom**: Report claims bullish setup when chart shows pink downtrend background
+
+**Prevention**:
+- Check for pink shading at the rightmost edge
+- Pink background = Downtrend period = Bearish conditions
+- If pink shading present, report MUST acknowledge bearish conditions
+
+### Error 5: Claiming Reversal Too Early
+
+**Symptom**: Report says "BUY signal confirmed" after only 1 week of increase
+
+**Prevention**:
+- Require 2-3 CONSECUTIVE weeks of 8MA increase for confirmation
+- If only 1 week: Signal is "DEVELOPING", not "CONFIRMED"
+- If 8MA rises then falls again: Signal is "FAILED", not valid
 
 ## Resources
 

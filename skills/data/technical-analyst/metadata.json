@@ -1,11 +1,7 @@
 {
   "name": "technical-analyst",
-  "description": "This skill should be used when analyzing weekly price charts for stocks, stock indices, cryptocurrencies, or forex pairs. Use this skill when the user provides chart images and requests technical anal",
-  "repo": "tradermonty/claude-trading-skills",
-  "category": "data",
-  "tags": [
-    "technical",
-    "analyst"
-  ],
-  "stars": 1
+  "repo": "nicepkg/ai-workflow",
+  "path": "stock-trader-workflow/.claude/skills/weekly-trade-strategy/.claude/skills/technical-analyst/SKILL.md",
+  "source": "github.com/nicepkg/ai-workflow",
+  "downloaded_at": "2026-01-17T02:05:53.025418Z"
 }

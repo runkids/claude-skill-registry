@@ -276,21 +276,21 @@ What's the primary need?
 
 ---
 
-## SECC Project Context
+## Example Project Context
 
-**Current Project:** Fort Collins SECC v3 Model
+**Current Project:** Example Recreation Center Model
 **Deadline:** 2025-11-27 (Pre-Thanksgiving)
 **Deliverables:** EUI, GHG, Utility Cost
 
 **Model Location:**
 ```
-Local: C:\Users\mcoalson\Documents\WorkPath\User-Files\work-tracking\secc-fort-collins\energy-model\
+Local: C:\Users\mcoalson\Documents\WorkPath\User-Files\work-tracking\example-recreation-center\energy-model\
 Container: /workspace/models/ (when using Docker)
 ```
 
 **Key Files:**
-- `SECC_WSHP_ProposedModel_v3_WaterLoop_RTUHP_DOAS_Pool/run/in.idf`
-- `SECC_WSHP_ProposedModel_v3_WaterLoop_RTUHP_DOAS_Pool/run/in_cleaned.idf` ✓ QA/QC passed
+- `Example_Model_v3_WaterLoop_RTUHP_DOAS_Pool/run/in.idf`
+- `Example_Model_v3_WaterLoop_RTUHP_DOAS_Pool/run/in_cleaned.idf` ✓ QA/QC passed
 
 **Recent Work:**
 - ✓ QA/QC completed on in_cleaned.idf (2025-11-24)
@@ -337,7 +337,7 @@ pip install eppy
 ## Integration with Work Command Center
 
 This skill can be invoked from `work-command-center` when:
-- User mentions "SECC energy model"
+- User mentions "recreation center energy model"
 - User requests "energy model QA/QC"
 - User asks to "validate EnergyPlus model"
 - User needs "HVAC topology analysis"
@@ -352,6 +352,43 @@ This skill can be invoked from `work-command-center` when:
 
 ---
 
+## Context Awareness
+
+This skill integrates with work-command-center session tracking:
+
+**Check Active Context:**
+
+```bash
+node .claude/skills/work-command-center/tools/session-state.js status
+```
+
+Returns: Project name, project number, duration, and deliverables context
+
+**Log Activity Checkpoints:**
+
+```bash
+node .claude/skills/work-command-center/tools/session-state.js checkpoint \
+  --activity "energyplus-assistant: QA/QC validation complete, found 3 warnings"
+```
+
+**Signal Completion (called by WCC after skill returns):**
+
+```bash
+node .claude/skills/work-command-center/tools/session-state.js skill-complete \
+  --skill-name "energyplus-assistant" \
+  --summary "Model validation: 3 warnings, 0 errors. HVAC topology verified." \
+  --outcome "success"
+```
+
+**Benefits:**
+
+- WCC tracks time spent in this skill
+- Session logs include skill work breakdown
+- Context visible across skill transitions
+- Deliverables auto-update from skill outcomes
+
+---
+
 ## Version History
 
 - **v1.0** (2025-11-23): Initial release - MCP-focused
@@ -359,3 +396,19 @@ This skill can be invoked from `work-command-center` when:
 
 **Last Updated:** 2025-11-24
 **Status:** Active - Replaces `diagnosing-energy-models` skill
+
+
+## Saving Next Steps
+
+When energyplus-assistant work is complete or paused:
+
+```bash
+node .claude/skills/work-command-center/tools/add-skill-next-steps.js \
+  --skill "energyplus-assistant" \
+  --content "## Priority Tasks
+1. Complete QA/QC validation on IDF model
+2. Run simulation and extract results
+3. Analyze HVAC topology for ECM opportunities"
+```
+
+See: `.claude/skills/work-command-center/skill-next-steps-convention.md`

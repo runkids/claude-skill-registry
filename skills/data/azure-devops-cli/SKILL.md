@@ -1,151 +1,349 @@
----
-name: azure-devops-cli
-description: Generate Azure DevOps CLI commands for automation and scripting. Use when automating Azure DevOps operations via CLI.
----
-
 # Azure DevOps CLI Skill
 
-Azure DevOps CLIの使用を支援するスキルです。
+---
 
-## 主な機能
+name: azure-devops-cli
+description: Expert guidance for Azure DevOps CLI (az devops) - automation, pipelines, repos, boards, and artifacts management. Use when working with Azure DevOps, managing pipelines, creating work items, or when user mentions ADO, builds, releases, or Azure repos.
+keywords:
 
-- **CLI コマンド生成**: よく使うコマンド
-- **認証設定**: PAT、OAuth
-- **パイプライン操作**: 実行、キャンセル
-- **リポジトリ操作**: クローン、PR作成
-- **ワークアイテム**: 作成、更新、クエリ
+- azure devops
+- az devops
+- ado cli
+- pipelines
+- azure pipelines
+- boards
+- azure boards
+- repos
+- azure repos
+- artifacts
+- azure artifacts
+- yaml pipeline
+- build pipeline
+- release pipeline
+- work items
+- pull requests
+- git repos
+- artifacts feed
 
-## セットアップ
+<!-- prettier-ignore-start -->
+auto_activate: true
+version: 1.0.0
+token_budget: 1800
+<!-- prettier-ignore-end -->
+
+---
+
+## Quick Start
+
+### Installation & Authentication
 
 ```bash
-# Azure DevOps拡張インストール
+# Install Azure DevOps CLI extension
 az extension add --name azure-devops
 
-# デフォルト組織・プロジェクト設定
-az devops configure --defaults organization=https://dev.azure.com/myorg project=MyProject
+# Authenticate (choose one method)
+az login                                    # Interactive browser login
+az devops login --organization https://dev.azure.com/YOUR_ORG  # PAT token login
 
-# PAT認証
-export AZURE_DEVOPS_EXT_PAT=your-personal-access-token
+# Configure defaults (recommended)
+az devops configure --defaults organization=https://dev.azure.com/YOUR_ORG project=YOUR_PROJECT
+
+# Verify setup
+az devops project list
 ```
 
-## パイプライン操作
+### Configuration Patterns
 
 ```bash
-# パイプライン一覧
-az pipelines list --output table
+# Set defaults to avoid repeating --organization and --project
+az devops configure --defaults organization=https://dev.azure.com/myorg project=myproject
 
-# パイプライン実行
+# List current configuration
+az devops configure --list
+
+# Use Git aliases for common commands
+az devops configure --defaults use-git-aliases=true
+
+# Common output formats
+--output table    # Human-readable tables (default)
+--output json     # JSON for scripting
+--output tsv      # Tab-separated values
+```
+
+## Essential Commands by Group
+
+### 1. DevOps (Organization & Projects)
+
+```bash
+# List projects
+az devops project list --organization https://dev.azure.com/myorg
+
+# Create project
+az devops project create --name "MyProject" --visibility private
+
+# Show project details
+az devops project show --project MyProject
+
+# Delete project
+az devops project delete --id PROJECT_ID --yes
+
+# Manage users/teams
+az devops user list
+az devops team list --project MyProject
+```
+
+### 2. Pipelines (Build & Release)
+
+```bash
+# List pipelines
+az pipelines list --project MyProject
+
+# Run a pipeline
 az pipelines run --name "MyPipeline" --branch main
 
-# ビルド一覧
-az pipelines build list --status inProgress --output table
+# Show pipeline runs
+az pipelines runs list --pipeline-ids 123
 
-# ビルド詳細
-az pipelines build show --id 123
+# Show run details
+az pipelines runs show --id RUN_ID
 
-# ビルドキャンセル
-az pipelines build cancel --id 123
-
-# ビルドログ
-az pipelines runs artifact download --artifact-name logs --path ./logs --run-id 123
+# Create pipeline from YAML
+az pipelines create --name "NewPipeline" --repository myrepo --branch main --yml-path azure-pipelines.yml
 ```
 
-## リポジトリ操作
+### 3. Boards (Work Items & Sprints)
 
 ```bash
-# リポジトリ一覧
-az repos list --output table
+# List work items
+az boards query --wiql "SELECT [System.Id], [System.Title] FROM WorkItems WHERE [System.State] = 'Active'"
 
-# リポジトリ作成
-az repos create --name "new-repo"
+# Create work item
+az boards work-item create --type "User Story" --title "New Feature" --assigned-to me@example.com
 
-# PR作成
-az repos pr create \
-  --source-branch feature/new-feature \
-  --target-branch main \
-  --title "Add new feature" \
-  --description "Implements feature XYZ"
+# Update work item
+az boards work-item update --id 123 --state "In Progress"
 
-# PR一覧
-az repos pr list --status active
+# Show work item
+az boards work-item show --id 123
 
-# PRレビュー
-az repos pr reviewers add --id 123 --reviewers user@example.com
-
-# PRマージ
-az repos pr update --id 123 --status completed
+# List iterations/sprints
+az boards iteration project list
 ```
 
-## ワークアイテム操作
+### 4. Repos (Git Repositories)
 
 ```bash
-# ワークアイテム作成
-az boards work-item create \
-  --title "Implement login feature" \
-  --type "User Story" \
-  --assigned-to user@example.com \
-  --fields "System.Tags=authentication;security"
+# List repositories
+az repos list --project MyProject
 
-# ワークアイテム更新
-az boards work-item update --id 123 --state Active
+# Create repository
+az repos create --name "myrepo" --project MyProject
 
-# クエリ実行
-az boards query --wiql "SELECT [System.Id], [System.Title] FROM WorkItems WHERE [System.WorkItemType] = 'Bug'"
+# List pull requests
+az repos pr list --repository myrepo --status active
 
-# 関連
-付け
-az boards work-item relation add --id 123 --relation-type "Related" --target-id 456
+# Create pull request
+az repos pr create --repository myrepo --source-branch feature/new --target-branch main --title "New Feature"
+
+# Show PR details
+az repos pr show --id PR_ID
 ```
 
-## アーティファクト操作
+### 5. Artifacts (Package Management)
 
 ```bash
-# Feedリスト
-az artifacts universal list --feed MyFeed
+# List feeds
+az artifacts feed list
 
-# パッケージアップロード
-az artifacts universal publish \
-  --organization https://dev.azure.com/myorg \
-  --feed MyFeed \
-  --name my-package \
-  --version 1.0.0 \
-  --description "Package description" \
-  --path ./dist
+# Create feed
+az artifacts feed create --name "myfeed" --project MyProject
 
-# パッケージダウンロード
-az artifacts universal download \
-  --organization https://dev.azure.com/myorg \
-  --feed MyFeed \
-  --name my-package \
-  --version 1.0.0 \
-  --path ./downloads
+# List packages
+az artifacts universal list --feed myfeed --project MyProject
+
+# Publish package
+az artifacts universal publish --feed myfeed --name mypackage --version 1.0.0 --path ./dist
+
+# Download package
+az artifacts universal download --feed myfeed --name mypackage --version 1.0.0 --path ./download
 ```
 
-## 便利なスクリプト
+## Common Workflows
 
-### 失敗したビルドを再実行
+### Workflow 1: CI/CD Pipeline Automation
 
 ```bash
-#!/bin/bash
-FAILED_BUILDS=$(az pipelines build list --status failed --query "[].id" -o tsv)
+# Create pipeline, run it, and monitor
+az pipelines create --name "API-Build" --repository myrepo --yml-path ci/azure-pipelines.yml
+az pipelines run --name "API-Build" --branch main
+az pipelines runs show --id RUN_ID --open  # Opens in browser
+```
 
-for BUILD_ID in $FAILED_BUILDS; do
-  echo "Retrying build $BUILD_ID"
-  az pipelines build queue --definition-id $(az pipelines build show --id $BUILD_ID --query "definition.id" -o tsv)
+### Workflow 2: Pull Request Review Automation
+
+```bash
+# List active PRs, show details, add comment
+az repos pr list --repository myrepo --status active --output table
+az repos pr show --id 456 --open
+az repos pr update --id 456 --status approved
+```
+
+### Workflow 3: Work Item Batch Creation
+
+```bash
+# Create multiple work items from template
+for title in "Feature A" "Feature B" "Feature C"; do
+  az boards work-item create --type "User Story" --title "$title" --assigned-to team@example.com
 done
 ```
 
-### PRの自動承認（条件付き）
+### Workflow 4: Pipeline Status Dashboard
 
 ```bash
-#!/bin/bash
-PRS=$(az repos pr list --status active --query "[?sourceRefName=='refs/heads/dependabot/*'].pullRequestId" -o tsv)
+# Get recent pipeline runs with status
+az pipelines runs list --top 10 --query "[].{Name:pipeline.name, Status:status, Result:result, Started:startTime}" --output table
+```
 
-for PR_ID in $PRS; do
-  echo "Auto-approving PR $PR_ID"
-  az repos pr update --id $PR_ID --vote approve
+### Workflow 5: Repository Clone Automation
+
+```bash
+# List all repos and clone them
+az repos list --query "[].{Name:name, URL:remoteUrl}" --output tsv | while IFS=$'\t' read -r name url; do
+  git clone "$url" "./$name"
 done
 ```
 
-## バージョン情報
-- Version: 1.0.0
+### Workflow 6: Sprint Planning Helper
+
+```bash
+# List current sprint work items
+az boards query --wiql "SELECT [System.Id], [System.Title], [System.State] FROM WorkItems WHERE [System.IterationPath] = @CurrentIteration" --output table
+```
+
+### Workflow 7: Release Gate Checking
+
+```bash
+# Check if all PRs are approved before release
+PENDING=$(az repos pr list --status active --query "length([?status!='approved'])")
+if [ "$PENDING" -eq 0 ]; then
+  az pipelines run --name "Release-Pipeline"
+fi
+```
+
+### Workflow 8: Artifact Versioning
+
+```bash
+# Publish versioned artifact with timestamp
+VERSION="1.0.$(date +%Y%m%d%H%M%S)"
+az artifacts universal publish --feed myfeed --name myapp --version "$VERSION" --path ./build
+```
+
+### Workflow 9: Team Dashboard Data
+
+```bash
+# Export team metrics to JSON
+az devops project show --project MyProject > project.json
+az pipelines runs list --top 50 > recent-runs.json
+az repos pr list --status all > all-prs.json
+```
+
+### Workflow 10: Environment Sync
+
+```bash
+# Copy pipeline variables across environments
+az pipelines variable list --pipeline-name "MyPipeline" --output json > vars.json
+# Edit vars.json as needed
+az pipelines variable-group create --name "Production" --variables @vars.json
+```
+
+## Troubleshooting
+
+### Common Issues
+
+**Authentication Failures:**
+
+```bash
+# Clear cached credentials
+az account clear
+az login
+
+# Use PAT token directly
+export AZURE_DEVOPS_EXT_PAT=your_personal_access_token
+az devops login
+```
+
+**Default Configuration:**
+
+```bash
+# Reset defaults if commands fail
+az devops configure --defaults organization="" project=""
+# Then set explicitly in each command
+az pipelines list --organization https://dev.azure.com/myorg --project MyProject
+```
+
+**Extension Issues:**
+
+```bash
+# Update Azure DevOps extension
+az extension update --name azure-devops
+
+# Check extension version
+az extension show --name azure-devops
+```
+
+**Query Syntax:**
+
+```bash
+# WIQL queries require proper escaping
+az boards query --wiql "SELECT [System.Id] FROM WorkItems WHERE [System.State] = 'Active' AND [System.AssignedTo] = 'me@example.com'"
+```
+
+## Advanced Patterns
+
+### REST API Access
+
+```bash
+# Direct REST API calls for unsupported operations
+az devops invoke --area build --resource builds --route-parameters project=MyProject --api-version 6.0 --http-method GET
+
+# POST with JSON body
+az devops invoke --area git --resource repositories --route-parameters project=MyProject --http-method POST --in-file payload.json
+```
+
+### Scripting with JMESPath
+
+```bash
+# Complex queries using JMESPath
+az pipelines runs list --query "[?result=='failed'].{Pipeline:pipeline.name, Branch:sourceBranch, Time:finishedDate}" --output table
+
+# Filter and transform data
+az repos pr list --query "[?targetRefName=='refs/heads/main' && status=='active'].{ID:pullRequestId, Title:title, Author:createdBy.displayName}"
+```
+
+### Aliases and Functions
+
+```bash
+# Create shell aliases for common commands
+alias azdo-pipelines="az pipelines list --output table"
+alias azdo-prs="az repos pr list --status active --output table"
+alias azdo-builds="az pipelines runs list --top 20 --output table"
+
+# Function for quick PR creation
+azdo-pr() {
+  az repos pr create --source-branch "$(git branch --show-current)" --target-branch main --title "$1" --open
+}
+```
+
+## Extended Content
+
+For comprehensive command references and advanced workflows, see:
+
+- **Complete Command References**: `examples/pipelines-reference.md`, `examples/boards-reference.md`, `examples/repos-reference.md`, `examples/artifacts-reference.md`
+- **Advanced Workflows**: `examples/workflows/ci-cd-automation.md`, `examples/workflows/release-management.md`, `examples/workflows/team-collaboration.md`
+- **Testing Scenarios**: `tests/test-scenarios.md`
+
+## References
+
+- Azure DevOps CLI Documentation: https://learn.microsoft.com/en-us/cli/azure/devops
+- WIQL Syntax: https://learn.microsoft.com/en-us/azure/devops/boards/queries/wiql-syntax
+- REST API: https://learn.microsoft.com/en-us/rest/api/azure/devops

@@ -1,11 +1,7 @@
 {
   "name": "think",
-  "description": "Deep multi-framework reasoning using Gemini. Use for complex problem analysis, challenging ideas, and evaluating multiple options with structured thinking.",
-  "repo": "johnlindquist/claude",
-  "category": "development",
-  "tags": [
-    "think"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "duong/dotfiles",
+  "path": "config/agents/skills/think/SKILL.md",
+  "source": "github.com/duong/dotfiles",
+  "downloaded_at": "2026-01-17T01:51:58.356364Z"
 }

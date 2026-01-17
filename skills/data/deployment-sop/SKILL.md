@@ -11,12 +11,10 @@ Route to existing deployment SOPs and provide checklists for safe, validated dep
 
 ## When This Skill Applies
 
-Invoke this skill when:
-
 - Deploying to staging or production
 - Running pre-deploy validation
 - Executing post-deploy smoke tests
-- Accessing Linux dev machine for deployment
+- Accessing development machines for deployment
 - Coordinating release activities
 
 ## Authoritative References (MUST READ)
@@ -25,7 +23,7 @@ Invoke this skill when:
 | ------------------------ | ------------------------------------------------- | --------------------------- |
 | Semantic Release SOP     | `docs/ci-cd/Semantic-Release-Deployment-SOP.md`   | Release automation workflow |
 | Staging/UAT Release SOP  | `docs/sop/STAGING-UAT-RELEASE-SOP.md`             | UAT validation process      |
-| Linux Dev Machine Access | `docs/deployment/LINUX-DEV-MACHINE-ACCESS-SOP.md` | Pop OS dev server access    |
+| Linux Dev Machine Access | `docs/deployment/LINUX-DEV-MACHINE-ACCESS-SOP.md` | Dev server access           |
 | Production Server Access | `docs/deployment/PRODUCTION-SERVER-ACCESS-SOP.md` | Production deployment       |
 
 ## Pre-Deployment Checklist
@@ -33,7 +31,7 @@ Invoke this skill when:
 Before ANY deployment:
 
 - [ ] All CI checks pass (GitHub Actions green)
-- [ ] PR merged to target branch (`dev` for staging, `master` for prod)
+- [ ] PR merged to target branch
 - [ ] No unresolved blockers in Linear
 - [ ] Database migrations tested locally
 - [ ] Environment variables verified
@@ -52,7 +50,7 @@ After deployment completes:
 - [ ] Database connection verified (check health response)
 - [ ] Authentication flow works (sign-in/sign-up)
 - [ ] Critical user flows functional
-- [ ] No new errors in logs (PostHog/Coolify)
+- [ ] No new errors in logs
 
 ```bash
 # Smoke test commands
@@ -95,7 +93,7 @@ curl -s https://{domain}/api/health
 
 If deployment fails:
 
-1. **Identify failure** - Check Coolify logs, PostHog errors
+1. **Identify failure** - Check logs, monitoring dashboards
 2. **Revert commit** - `git revert {commit_sha}`
 3. **Push revert** - Triggers automatic rollback deployment
 4. **Verify rollback** - Run smoke tests again
@@ -118,9 +116,9 @@ If deployment fails:
 
 ## Branch → Environment Mapping
 
-| Branch   | Environment          | Auto-Deploy |
-| -------- | -------------------- | ----------- |
-| `dev`    | Staging (Pop OS)     | Manual pull |
-| `master` | Production (Coolify) | Automatic   |
+| Branch   | Environment | Auto-Deploy |
+| -------- | ----------- | ----------- |
+| `dev`    | Staging     | Manual pull |
+| `main`   | Production  | Automatic   |
 
-**Note**: Merging to `dev` builds Docker image but requires manual `./scripts/dev-docker.sh pull` on Pop OS.
+**Note**: Merging to `dev` builds Docker image but requires manual pull on staging server.

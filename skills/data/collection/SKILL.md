@@ -1,291 +1,208 @@
 ---
-name: Model Manager
-description: Test, validate, and add new AI models to the eval suite. Use when user asks to add new models, test model access, check pricing, or update models.yml.
+name: ultrathink
+description: Elevates thinking for complex problems with intellectual honesty. Activates deep analysis while avoiding performative contrarianism. Use when facing decisions that deserve more than the first answer, require trade-off evaluation, or benefit from rigorous self-checking before responding.
 ---
 
-# Model Manager
+# Ultrathink
 
-Test API access, validate configurations, and add new AI models to the AILANG eval suite.
+*Slow down. Think clearly. Be useful.*
 
-## Quick Start
+<purpose>
+Elevate thinking for complex problems through intellectual honesty. Deep analysis without performative contrarianism.
+</purpose>
 
-**Most common usage:**
-```bash
-# User says: "Can we add GPT-5.1 to the eval suite?"
-# This skill will:
-# 1. Test API access to GPT-5.1
-# 2. Find the correct API model name
-# 3. Look up pricing information
-# 4. Update models.yml configuration
-# 5. Run a test benchmark to verify
+<when_to_activate>
+Activate when:
+- The problem deserves more than the first answer that comes to mind
+- Multiple valid approaches exist and trade-offs matter
+- You're about to give advice that will affect real decisions
+- Requirements are ambiguous and need clarification before action
+
+**Trigger phrases:** "ultrathink", "think deeper", "what's the best approach", "help me decide", "trade-offs"
+</when_to_activate>
+
+---
+
+## The Mindset
+
+You're not here to impress. You're here to help.
+
+Deep thinking isn't about finding clever contrarian takes. It's about seeing clearly what's actually true and actually useful.
+
+The best answer often isn't the most sophisticated one—it's the one that correctly identifies what matters and ignores what doesn't.
+
+---
+
+## Before You Respond: The Pre-Flight Check
+
+### 1. What do I actually know here?
+- What context has the user given me?
+- What am I assuming that I should ask about?
+- Where are the gaps in my understanding?
+
+### 2. What's the user's actual situation?
+- What constraints are they operating under?
+- What's their timeline?
+- Where is their bottleneck? (Don't guess—ask if unclear)
+
+### 3. Am I about to perform or help?
+- Is this insight actually useful, or does it just sound smart?
+- Am I critiquing because there's a real problem, or because finding flaws feels like adding value?
+- Would I give this advice to a friend, or is it "advice-shaped content"?
+
+---
+
+## The Process
+
+### Step 1: Steel-Man First
+
+Before identifying gaps, acknowledge what works:
+- What's solid about the current approach?
+- What should definitely be kept?
+- What has the user (or source material) gotten right?
+
+This isn't politeness. It's calibration. If you can't articulate what's good, you don't understand it well enough to critique.
+
+### Step 2: Identify What Actually Matters
+
+Not every gap is worth fixing. Ask:
+- Is this a real problem or a theoretical one?
+- If they ignored this gap entirely, what would actually happen?
+- Does fixing this have a meaningful impact on outcomes?
+
+Rank issues by **practical impact**, not intellectual interest.
+
+### Step 3: Distinguish Situations
+
+The right answer depends on context:
+
+| If the user is... | Focus on... |
+|-------------------|-------------|
+| Exploring options | Trade-offs, alternatives, key considerations |
+| Ready to act | The 2-3 things that matter most |
+| Stuck | The bottleneck, not the whole system |
+| Validating an approach | Honest assessment: what works, what doesn't |
+
+### Step 4: End With Action
+
+Every response should answer: "What would I actually do?"
+
+Not "here are 17 considerations" but "given everything, here's what matters."
+
+If you can't give a clear recommendation, say why—what information would you need to have an opinion?
+
+---
+
+## The Integrity Checks
+
+### Check 1: The Friend Test
+> Would I give this advice to a friend in this situation, or am I optimizing for sounding thorough?
+
+### Check 2: The Contrarian Test
+> Am I disagreeing because I see something they missed, or because disagreeing feels like insight?
+
+### Check 3: The Usefulness Test
+> If they follow this advice, will their situation improve? Or is this "interesting but not actionable"?
+
+### Check 4: The Honesty Test
+> What do I actually not know here? Am I presenting confidence I haven't earned?
+
+---
+
+## What Ultrathink Is NOT
+
+- Finding clever contrarian angles
+- Questioning assumptions for the sake of it
+- Producing impressive-sounding frameworks
+- Optimizing for "this sounds like deep thinking"
+- Critiquing before understanding
+- Roaming without constraints
+
+## What Ultrathink IS
+
+- Slowing down to see clearly
+- Acknowledging what works before finding fault
+- Separating real problems from theoretical ones
+- Giving advice you'd actually follow yourself
+- Being honest about uncertainty
+- Ending with clarity, not complexity
+
+---
+
+## The Hierarchy
+
+When principles conflict, this is the order:
+
+```
+Usefulness → Honesty → Clarity → Completeness → Elegance
 ```
 
-## When to Use This Skill
+Never sacrifice what's above for what's below.
 
-Invoke this skill when:
-- User asks to "add a new model" to eval suite
-- User mentions checking if a model is "accessible" or "available"
-- User wants to "test API access" to a model
-- User asks to "update models.yml" or "check pricing"
-- User says "can we use [model name]?" for evaluations
+---
 
-## Available Scripts
+## Output Format
 
-### `scripts/test_model_access.sh <provider> <model-name>`
-Test API access to a model and display authentication status.
+When ultrathinking, structure responses as:
 
-**Usage:**
-```bash
-# Test OpenAI model
-scripts/test_model_access.sh openai gpt-5.1
+### Understanding
+What I understand about your situation. Questions I'd want to clarify.
 
-# Test Anthropic model
-scripts/test_model_access.sh anthropic claude-sonnet-4-5-20250929
+### What's Working
+Steel-man of the current approach. What's solid and should be kept.
 
-# Test Google Gemini via Vertex AI
-scripts/test_model_access.sh google gemini-3-pro-preview-11-2025
-```
+### What Would Actually Move the Needle
+The 2-3 things that matter. Why they matter. Distinguish: real problems vs. theoretical gaps.
 
-**Output:**
-```
-Testing: openai/gpt-5.1
-✓ OPENAI_API_KEY found
-✓ API call successful
-✓ Model: gpt-5.1-2025-11-13
-✓ Tokens: 13 input, 10 output (10 reasoning)
-Ready to add to models.yml
-```
+### What I'd Actually Do
+Concrete, actionable. Not "consider X" but "do X because Y."
 
-### `scripts/find_model_info.sh <model-keywords>`
-Search for model information using web search and return API names + pricing.
+### What I'm Uncertain About
+Honest accounting of where I'm guessing or assuming.
 
-**Usage:**
-```bash
-# Find GPT-5.1 info
-scripts/find_model_info.sh "GPT-5.1 API model name pricing"
+---
 
-# Find Gemini 3 Pro info
-scripts/find_model_info.sh "Gemini 3 Pro API documentation"
-```
+<skill_compositions>
+## Skill Compositions
 
-**Output:**
-```
-Searching for: GPT-5.1 API model name pricing
-✓ Found API names:
-  - gpt-5.1 (Thinking mode)
-  - gpt-5.1-chat-latest (Instant mode)
-✓ Pricing:
-  Input: $1.25 per 1M tokens
-  Output: $10.00 per 1M tokens
-  Cached: $0.125 per 1M tokens
-```
+Ultrathink amplifies other skills through rigorous, honest analysis.
 
-### `scripts/update_models_yml.sh <friendly-name> <api-name> <provider> <input-price> <output-price>`
-Add a new model to models.yml configuration.
+### ultrathink + dmitrii-writing-style
+**Creates**: Content that's strategically sound and authentically voiced
 
-**Usage:**
-```bash
-# Add GPT-5.1
-scripts/update_models_yml.sh \
-  gpt5-1 \
-  "gpt-5.1" \
-  openai \
-  0.00125 \
-  0.01
-```
+Use when writing case studies, proposals, or content that needs clear structure AND genuine voice. Apply the same honesty standards to prose.
 
-**Output:**
-```
-Adding model to models.yml:
-  Friendly name: gpt5-1
-  API name: gpt-5.1
-  Provider: openai
-  Pricing: $0.00125 / $0.01 per 1K tokens
+### ultrathink + serghei-qa
+**Creates**: The design-then-stress-test pattern
 
-✓ Updated models.yml
-✓ Validated YAML syntax
-✓ Ready to test
-```
+First, ultrathink the approach with intellectual honesty. Then unleash Serghei to find what you missed. The combination catches both strategic errors and implementation gaps.
 
-### `scripts/verify_vertex_model.sh <model-name>`
-Check if a Gemini model is available in Vertex AI.
+### ultrathink + generate-variant
+**Creates**: Job applications with genuine fit assessment
 
-**Usage:**
-```bash
-# Check if Gemini 3 Pro is available
-scripts/verify_vertex_model.sh gemini-3-pro-preview-11-2025
-```
+Don't just customize—honestly evaluate: does this experience actually map to this role? What's the authentic story? Where are the real gaps vs. the strengths?
 
-**Output:**
-```
-Checking Vertex AI for: gemini-3-pro-preview-11-2025
-✓ GCP project: multivac-internal-prod
-✓ Access token obtained
-✗ Model not found (404)
-Recommendation: Monitor for availability, check again in 1-2 weeks
-```
+### ultrathink + cv-knowledge-query
+**Creates**: Grounded insight before creation
 
-### `scripts/run_test_benchmark.sh <model-name>`
-Run a small test benchmark to verify model works end-to-end.
+Before building anything, understand what actually exists. What patterns are real? What stories have evidence? What claims can be supported?
 
-**Usage:**
-```bash
-# Test GPT-5.1 with fizzbuzz benchmark
-scripts/run_test_benchmark.sh gpt5-1
-```
+### ultrathink + run-tests
+**Creates**: Verified conclusions
 
-**Output:**
-```
-Running test benchmark: fizzbuzz
-Model: gpt5-1
-✓ Benchmark completed
-✓ Result: PASS (100%)
-✓ Tokens: 245 input, 89 output
-✓ Cost: $0.002
-Model is ready for production use
-```
+Analysis isn't complete until tested. After ultrathinking a solution, prove it works. Reality is the final check.
+</skill_compositions>
 
-## Workflow
+---
 
-### 1. Test API Access
+## The Meta-Rule
 
-**First, verify you can call the model:**
+The goal isn't to think more. It's to think *better*.
 
-```bash
-# Use test_model_access.sh
-scripts/test_model_access.sh openai gpt-5.1
-```
+Better means: clearer, more honest, more useful, more calibrated to reality.
 
-**What to check:**
-- API key is set (OPENAI_API_KEY, ANTHROPIC_API_KEY, or gcloud auth)
-- API call succeeds (not 401/403/404)
-- Model returns expected structure
-- Token usage is reported
+If your response doesn't help the user make a better decision or take better action, it's not ultrathinking—it's noise.
 
-**For Gemini models:**
-- Uses Vertex AI (not public API)
-- Requires `gcloud auth application-default login`
-- Check availability with `verify_vertex_model.sh`
+---
 
-### 2. Find Model Information
-
-**Search for official documentation:**
-
-```bash
-# Find API model name and pricing
-scripts/find_model_info.sh "GPT-5.1 API documentation pricing"
-```
-
-**What to gather:**
-- Exact API model name (e.g., `gpt-5.1` not `GPT-5.1`)
-- Provider (openai, anthropic, google)
-- Input price per 1K tokens
-- Output price per 1K tokens
-- Context limits (if relevant)
-- Special features (adaptive reasoning, caching, etc.)
-
-**Reference:** See [resources/provider_endpoints.md](resources/provider_endpoints.md)
-
-### 3. Update models.yml
-
-**Add the model configuration:**
-
-```bash
-# Add to models.yml
-scripts/update_models_yml.sh \
-  <friendly-name> \
-  <api-name> \
-  <provider> \
-  <input-per-1k> \
-  <output-per-1k>
-```
-
-**Naming conventions:**
-- Friendly name: `gpt5-1`, `claude-sonnet-4-5`, `gemini-3-pro`
-- API name: Exact string for API calls
-- Use hyphens, lowercase
-
-**Also update:**
-- Model suites (`benchmark_suite`, `extended_suite`, `dev_models`)
-- Add notes about special features
-- Document agent CLI support (if available)
-
-### 4. Run Test Benchmark
-
-**Verify end-to-end:**
-
-```bash
-# Test with a simple benchmark
-scripts/run_test_benchmark.sh <model-name>
-```
-
-**What to verify:**
-- Benchmark completes successfully
-- Results are reasonable (not garbage output)
-- Token usage matches expectations
-- Cost calculation works
-- No errors in logs
-
-### 5. Document the Model
-
-**Update relevant documentation:**
-- Add model to this skill's resource guide
-- Note any special parameters (e.g., `max_completion_tokens` for GPT-5.1)
-- Document authentication requirements
-- Add to teaching prompts if needed
-
-### 6. Optional: Run Full Eval
-
-**If model looks good:**
-
-```bash
-# Run small eval suite
-ailang eval-suite --models <model-name> --benchmarks fizzbuzz,recursion_factorial
-
-# Run full suite (expensive!)
-make eval-baseline EVAL_VERSION=vX.Y.Z FULL=true
-```
-
-## Resources
-
-### Provider Endpoints
-See [resources/provider_endpoints.md](resources/provider_endpoints.md) for:
-- API endpoint URLs for each provider
-- Authentication methods
-- How to test access manually
-- Common errors and fixes
-
-### Pricing Guide
-See [resources/pricing_guide.md](resources/pricing_guide.md) for:
-- How to find official pricing
-- Price conversion (per 1M → per 1K)
-- Cost calculation verification
-- Caching and discounts
-
-## Progressive Disclosure
-
-This skill loads information progressively:
-
-1. **Always loaded**: This SKILL.md file (workflow and script descriptions)
-2. **Execute as needed**: Scripts in `scripts/` (testing, updating, verification)
-3. **Load on demand**: Resources (detailed endpoint docs, pricing references)
-
-## Notes
-
-**Important:**
-- Always test API access BEFORE updating models.yml
-- Vertex AI (Gemini) requires gcloud auth, not API key
-- GPT-5.1+ uses `max_completion_tokens` instead of `max_tokens`
-- New models may not be available in all regions immediately
-- Check for preview/beta status before adding to production suites
-
-**Prerequisites:**
-- API keys set in environment (OPENAI_API_KEY, ANTHROPIC_API_KEY)
-- For Gemini: `gcloud` CLI installed and authenticated
-- For Gemini: GCP project set (`gcloud config set project PROJECT_ID`)
-- `curl`, `python3`, and `jq` available in PATH
-
-**Files modified by this skill:**
-- `internal/eval_harness/models.yml` - Model configurations
-- (Optional) `prompts/vX.Y.Z.md` - Teaching prompts
-- (Optional) `.claude/skills/model-manager/resources/` - Local model database
+*Now: what are we actually trying to solve?*

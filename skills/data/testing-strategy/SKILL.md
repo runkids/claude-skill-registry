@@ -1,92 +1,193 @@
 ---
 name: testing-strategy
-description: Comprehensive testing workflow combining TDD, real implementations (no mocking), and E2E testing. Use when implementing features, writing tests, or setting up test infrastructure.
-allowed-tools: Read, Glob, Grep, Edit, Write, Bash
-license: MIT
-metadata:
-  author: obra/superpowers
-  version: "2.0"
+description: Designs comprehensive testing strategies for any codebase. Use when adding tests, improving coverage, setting up testing infrastructure, or when asked about testing approaches.
 ---
 
-# Testing Strategy
+# Testing Strategy Skill
 
-TDD와 실제 구현 기반 테스트를 결합한 통합 테스트 스킬입니다.
+## Testing Pyramid Approach
 
-## Iron Law
+Apply the testing pyramid for balanced coverage:
 
-> **"NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST"**
-
-## RED-GREEN-REFACTOR Cycle
-
-### 1. RED - 실패하는 테스트 작성
 ```
-- 원하는 동작을 보여주는 최소한의 테스트 작성
-- 테스트가 실패하는지 반드시 확인
-```
-
-### 2. GREEN - 테스트 통과시키기
-```
-- 테스트를 통과시키는 가장 단순한 코드 작성
-- 완벽한 코드 X, 동작하는 코드 O
+        /\
+       /  \     E2E Tests (10%)
+      /----\    - Critical user journeys
+     /      \   - Slow but comprehensive
+    /--------\  Integration Tests (20%)
+   /          \ - Component interactions
+  /------------\ - API contracts
+ /              \ Unit Tests (70%)
+/________________\ - Fast, isolated
+                   - Business logic focus
 ```
 
-### 3. REFACTOR - 리팩토링
-```
-- 코드 정리 (중복 제거, 명명 개선)
-- 테스트가 계속 통과하는지 확인
-```
+## Framework Selection by Language
 
----
+### JavaScript/TypeScript
+| Type | Recommended | Alternative |
+|------|-------------|-------------|
+| Unit | Vitest | Jest |
+| Integration | Vitest + MSW | Jest + SuperTest |
+| E2E | Playwright | Cypress |
+| Component | Testing Library | Enzyme |
 
-## No Mocking Policy
+### Python
+| Type | Recommended | Alternative |
+|------|-------------|-------------|
+| Unit | pytest | unittest |
+| Integration | pytest + httpx | pytest + requests |
+| E2E | Playwright | Selenium |
+| API | pytest + FastAPI TestClient | - |
 
-> **실제 구현을 테스트하라**
+### Go
+| Type | Recommended |
+|------|-------------|
+| Unit | testing + testify |
+| Integration | testing + httptest |
+| E2E | testing + chromedp |
 
-### ❌ 금지
-```typescript
-jest.mock('./database');
-jest.mock('./api');
-```
+## Test Structure Templates
 
-### ✅ 허용
-```typescript
-// 실제 테스트 DB 또는 인메모리 DB 사용
-const db = await createTestDatabase();
-
-// MSW로 실제 HTTP 계층 테스트
-const server = setupServer(
-  rest.get('/api/users', (req, res, ctx) => {
-    return res(ctx.json([{ id: 1, name: 'Test' }]));
-  })
-);
-```
-
----
-
-## E2E Testing (Playwright)
-
-```typescript
-test('user can complete checkout', async ({ page }) => {
-  await page.goto('/products');
-  await page.click('[data-testid="add-to-cart"]');
-  await page.click('[data-testid="checkout"]');
-  await expect(page.locator('.confirmation')).toBeVisible();
+### Unit Test
+```javascript
+describe('[Unit] ComponentName', () => {
+  describe('methodName', () => {
+    it('should [expected behavior] when [condition]', () => {
+      // Arrange
+      const input = createTestInput();
+      
+      // Act
+      const result = methodName(input);
+      
+      // Assert
+      expect(result).toEqual(expectedOutput);
+    });
+    
+    it('should throw error when [invalid condition]', () => {
+      expect(() => methodName(invalidInput)).toThrow(ExpectedError);
+    });
+  });
 });
 ```
 
----
+### Integration Test
+```javascript
+describe('[Integration] API /users', () => {
+  beforeAll(async () => {
+    await setupTestDatabase();
+  });
+  
+  afterAll(async () => {
+    await teardownTestDatabase();
+  });
+  
+  it('should create user and return 201', async () => {
+    const response = await request(app)
+      .post('/users')
+      .send({ name: 'Test', email: 'test@example.com' });
+    
+    expect(response.status).toBe(201);
+    expect(response.body.id).toBeDefined();
+  });
+});
+```
 
-## Test Categories
+### E2E Test
+```javascript
+describe('[E2E] User Registration Flow', () => {
+  it('should complete registration successfully', async ({ page }) => {
+    await page.goto('/register');
+    
+    await page.fill('[data-testid="email"]', 'new@example.com');
+    await page.fill('[data-testid="password"]', 'SecurePass123!');
+    await page.click('[data-testid="submit"]');
+    
+    await expect(page.locator('.welcome-message')).toBeVisible();
+    await expect(page).toHaveURL('/dashboard');
+  });
+});
+```
 
-| 유형 | 범위 | 도구 |
-|------|------|------|
-| Unit | 함수/클래스 | Vitest, Jest |
-| Integration | 모듈 간 연동 | 실제 DB, MSW |
-| E2E | 전체 사용자 흐름 | Playwright |
+## Coverage Strategy
 
-## Checklist
+### What to Cover
+- ✅ Business logic (100%)
+- ✅ Edge cases and error handling (90%+)
+- ✅ API contracts (100%)
+- ✅ Critical user paths (E2E)
+- ⚠️ UI components (snapshot + interaction)
+- ❌ Third-party library internals
+- ❌ Simple getters/setters
 
-- [ ] 모든 함수가 테스트됨
-- [ ] 테스트가 먼저 실패하는 것을 확인
-- [ ] Mock 사용 없음 (MSW 허용)
-- [ ] E2E로 핵심 흐름 검증
+### Coverage Thresholds
+```json
+{
+  "coverageThreshold": {
+    "global": {
+      "branches": 80,
+      "functions": 80,
+      "lines": 80,
+      "statements": 80
+    },
+    "src/core/": {
+      "branches": 95,
+      "functions": 95
+    }
+  }
+}
+```
+
+## Test Data Management
+
+### Factories/Builders
+```javascript
+// factories/user.js
+export const userFactory = (overrides = {}) => ({
+  id: faker.string.uuid(),
+  name: faker.person.fullName(),
+  email: faker.internet.email(),
+  createdAt: new Date(),
+  ...overrides,
+});
+
+// Usage
+const admin = userFactory({ role: 'admin' });
+```
+
+### Fixtures
+```javascript
+// fixtures/users.json
+{
+  "validUser": { "name": "Test", "email": "test@example.com" },
+  "invalidUser": { "name": "", "email": "invalid" }
+}
+```
+
+## Mocking Strategy
+
+### When to Mock
+- ✅ External APIs and services
+- ✅ Database in unit tests
+- ✅ Time/Date for determinism
+- ✅ Random values
+- ❌ Internal modules (usually)
+- ❌ The code under test
+
+### Mock Examples
+```javascript
+// API mocking with MSW
+import { http, HttpResponse } from 'msw';
+
+export const handlers = [
+  http.get('/api/users', () => {
+    return HttpResponse.json([
+      { id: 1, name: 'John' },
+    ]);
+  }),
+];
+
+// Time mocking
+vi.useFakeTimers();
+vi.setSystemTime(new Date('2024-01-01'));
+```

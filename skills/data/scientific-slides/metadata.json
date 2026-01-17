@@ -1,7 +1,7 @@
 {
   "name": "scientific-slides",
-  "repo": "davila7/claude-code-templates",
-  "path": "cli-tool/components/skills/scientific/scientific-slides/SKILL.md",
-  "source": "github.com/davila7/claude-code-templates",
-  "downloaded_at": "2026-01-14T02:44:48.507016Z"
+  "repo": "K-Dense-AI/claude-scientific-skills",
+  "path": "scientific-skills/scientific-slides/SKILL.md",
+  "source": "github.com/K-Dense-AI/claude-scientific-skills",
+  "downloaded_at": "2026-01-17T03:59:38.508806Z"
 }

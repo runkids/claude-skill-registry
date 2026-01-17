@@ -1,7 +1,7 @@
 {
   "name": "mcp-code-execution",
-  "repo": "linus-mcmanamey/multi-agent-user-story-development",
-  "path": ".claude/skills/mcp-code-execution/SKILL.md",
-  "source": "github.com/linus-mcmanamey/multi-agent-user-story-development",
-  "downloaded_at": "2026-01-14T02:43:40.976355Z"
+  "repo": "athola/claude-night-market",
+  "path": "plugins/conserve/skills/mcp-code-execution/SKILL.md",
+  "source": "github.com/athola/claude-night-market",
+  "downloaded_at": "2026-01-17T01:37:34.927263Z"
 }

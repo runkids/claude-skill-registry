@@ -1,237 +1,227 @@
----
-description: Review pull requests including bot suggestions and CI checks
-triggers:
-  - review pr
-  - check pr
-  - review pull request
-  - checkout pr
-  - check pull request
-  - review github pr
----
-
-# Pull Request Review Workflow
-
-Complete workflow for reviewing pull requests, including checking out the code, reviewing bot suggestions, and verifying builds.
-
-## Quick PR Checkout
-
-```bash
-# Checkout a PR by number
-gh pr checkout <PR_NUMBER>
-
-# View PR details
-gh pr view <PR_NUMBER>
-
-# Check CI/build status
-gh pr checks <PR_NUMBER>
-```
-
-## Full Review Process
-
-### 1. Fetch PR Information
-
-```bash
-# View PR description and metadata
-gh pr view <PR_NUMBER>
-
-# View PR diff
-gh pr diff <PR_NUMBER>
-
-# List all PR comments
-gh pr view <PR_NUMBER> --comments
-```
-
-### 2. Checkout PR Code
-
-```bash
-# Checkout the PR branch
-gh pr checkout <PR_NUMBER>
-
-# Verify you're on the correct branch
-git branch --show-current
-```
-
-### 3. Review Bot Comments **CAREFULLY**
-
-**CRITICAL:** Bot suggestions require careful human evaluation.
-
-When reviewing bot comments (from GitHub bots, linters, or AI assistants):
-
-#### DO:
-- ✅ Read each suggestion carefully and understand what it's proposing
-- ✅ Evaluate whether the suggestion improves code quality
-- ✅ Check if the suggestion aligns with project coding standards
-- ✅ Verify the suggestion doesn't break functionality
-- ✅ Test changes if accepting bot suggestions
-- ✅ Consider context the bot might not understand
-
-#### DON'T:
-- ❌ Accept all bot suggestions blindly
-- ❌ Assume the bot understands project-specific conventions
-- ❌ Let the bot override your engineering judgment
-- ❌ Accept suggestions that reduce code clarity
-- ❌ Apply suggestions without understanding them
-
-#### Common Bot Suggestion Categories:
-
-1. **Code Style/Formatting**
-   - Usually safe to accept if consistent with project style
-   - Verify it doesn't conflict with existing patterns
-
-2. **Performance Optimizations**
-   - Evaluate whether the optimization is meaningful
-   - Check for potential side effects or edge cases
-
-3. **Security/Bug Fixes**
-   - These are high-priority but verify the fix is correct
-   - Ensure the fix doesn't introduce new issues
-
-4. **Refactoring Suggestions**
-   - Consider whether the refactoring improves readability
-   - Check if it aligns with project architecture
-
-5. **Dependency Updates**
-   - Verify compatibility with existing code
-   - Check for breaking changes in changelogs
-
-### 4. Check Build Status
-
-```bash
-# Check all CI checks
-gh pr checks <PR_NUMBER>
-
-# List recent workflow runs
-gh run list --limit 5
-
-# View specific workflow run
-gh run view <RUN_ID>
-```
-
-### 5. Test Locally
-
-**For firmware changes:**
-```bash
-cd inav
-./build.sh SITL  # or specific target
-```
-
-**For configurator changes:**
-```bash
-cd inav-configurator
-NODE_ENV=development npm start
-```
-
-### 6. Review Checklist
-
-Use this checklist when reviewing PRs:
-
-- [ ] Code follows project conventions and style
-- [ ] Changes are well-documented (comments, commit messages)
-- [ ] No unnecessary or debug code left in
-- [ ] All CI checks passing
-- [ ] Bot suggestions reviewed and valid ones addressed
-- [ ] Invalid bot suggestions documented/dismissed
-- [ ] Changes tested locally if significant
-- [ ] No breaking changes (or properly documented if unavoidable)
-- [ ] Related issues/PRs referenced
-
-## Viewing PR Comments
-
-```bash
-# View all comments including bot suggestions
-gh api repos/iNavFlight/inav/pulls/<PR_NUMBER>/comments
-
-# For configurator repo
-gh api repos/iNavFlight/inav-configurator/pulls/<PR_NUMBER>/comments
-```
-
-## Adding Review Comments
-
-```bash
-# Leave a review comment
-gh pr review <PR_NUMBER> --comment -b "Your comment here"
-
-# Approve PR
-gh pr review <PR_NUMBER> --approve -b "LGTM! Changes look good."
-
-# Request changes
-gh pr review <PR_NUMBER> --request-changes -b "Please address..."
-```
-
-## Common Review Scenarios
-
-### Bot Suggested Too Many Changes
-
-If a bot has suggested many changes:
-1. Group suggestions by category (style, performance, bugs)
-2. Evaluate each category separately
-3. Accept valid categories as a group
-4. Document why certain suggestions were rejected
-5. Provide clear feedback to PR author
-
-### Build Failures
-
-If CI checks are failing:
-1. Check `gh pr checks <PR_NUMBER>` for specific failures
-2. View workflow logs: `gh run view <RUN_ID> --log`
-3. Reproduce locally if needed
-4. Provide specific guidance on fixes
-
-### Merge Conflicts
-
-If PR has conflicts:
-1. PR author should resolve conflicts
-2. Verify conflict resolution doesn't break functionality
-3. Re-test after conflicts are resolved
-
-## After Review
-
-```bash
-# Return to your working branch
-git checkout <YOUR_BRANCH>
-
-# Or return to master
-git checkout master
-```
-
-## Example Review Workflow
-
-```bash
-# 1. Check out PR #2433
-gh pr checkout 2433
-
-# 2. View PR and comments
-gh pr view 2433 --comments
-
-# 3. Review bot suggestions carefully
-# (Read through comments, evaluate each suggestion)
-
-# 4. Check builds
-gh pr checks 2433
-
-# 5. Test locally
-cd inav-configurator
-NODE_ENV=development npm start
-
-# 6. Leave review
-gh pr review 2433 --approve -b "Reviewed bot suggestions. Accepted valid ones, documented rejected ones. Code looks good!"
-
-# 7. Return to your branch
-git checkout master
-```
-
-## Resources
-
-- **GitHub CLI docs:** `gh pr --help`
-- **Project review guidelines:** Check `claude/COMMUNICATION.md` for standards
-- **Recent PR reviews:** See `claude/projects/review-pr*/` for examples
+# 🔍 PR Review Skill
 
 ---
+name: pr-review
+description: Automatically review Pull Requests for code quality, bugs, security issues, and best practices
+---
 
-## Related Skills
+## 🎯 Purpose
 
-- **git-workflow** - Checkout PR branches and manage git operations
-- **create-pr** - Create your own pull requests
-- **check-builds** - Check CI build status for PRs under review
-- **run-configurator** - Test configurator PRs locally
-- **build-sitl** - Build and test firmware PRs
+Review Pull Requests อัตโนมัติ ตรวจสอบ code quality, potential bugs, security issues, และ best practices
+
+## 📋 When to Use
+
+- Review PRs ก่อน merge
+- Assist human reviewers
+- Enforce coding standards
+- Catch common issues
+- Improve code quality
+
+## 🔧 Review Dimensions
+
+### 1. Code Quality
+| Check | Description |
+|-------|-------------|
+| Readability | Code easy to understand |
+| Complexity | Functions not too complex |
+| Duplication | No copy-paste code |
+| Naming | Variables/functions named well |
+| Comments | Complex logic documented |
+
+### 2. Correctness
+| Check | Description |
+|-------|-------------|
+| Logic errors | Conditions correct |
+| Edge cases | Null checks, empty arrays |
+| Error handling | Try-catch where needed |
+| Type safety | No `any`, proper types |
+| Async handling | Await, error boundaries |
+
+### 3. Security
+| Check | Description |
+|-------|-------------|
+| Input validation | User input sanitized |
+| SQL injection | Parameterized queries |
+| XSS | Output encoded |
+| Secrets | No hardcoded credentials |
+| CORS | Properly configured |
+
+### 4. Performance
+| Check | Description |
+|-------|-------------|
+| N+1 queries | Batch database calls |
+| Memoization | Avoid re-computation |
+| Bundle size | No large dependencies |
+| Rendering | Minimize re-renders |
+
+### 5. Testing
+| Check | Description |
+|-------|-------------|
+| Test coverage | New code tested |
+| Edge cases | Tests cover edge cases |
+| Mocking | External deps mocked |
+
+## 📝 Review Process
+
+```
+1. UNDERSTAND context
+   - Read PR description
+   - Check linked issues
+   - Understand the goal
+
+2. ANALYZE changes
+   - File by file review
+   - Check diff context
+   - Identify patterns
+
+3. CHECK each dimension
+   - Quality
+   - Correctness
+   - Security
+   - Performance
+   - Testing
+
+4. PROVIDE feedback
+   - Clear comments
+   - Suggest improvements
+   - Explain WHY
+   - Offer alternatives
+
+5. SUMMARIZE
+   - Overall assessment
+   - Blocking issues
+   - Nice-to-haves
+```
+
+## 📋 Review Comment Templates
+
+### Bug Found
+```markdown
+🐛 **Potential Bug**
+
+This code will throw an error when `user` is null:
+```js
+const name = user.name; // Error if user is null
+```
+
+**Suggestion:**
+```js
+const name = user?.name ?? 'Unknown';
+```
+```
+
+### Security Issue
+```markdown
+🔐 **Security Concern**
+
+User input is used directly in the query without sanitization:
+```js
+const result = db.query(`SELECT * FROM users WHERE id = ${userId}`);
+```
+
+**Suggestion:** Use parameterized queries:
+```js
+const result = db.query('SELECT * FROM users WHERE id = ?', [userId]);
+```
+```
+
+### Performance Issue
+```markdown
+⚡ **Performance Improvement**
+
+This component re-renders on every parent update:
+```jsx
+const result = heavyCalculation(data);
+```
+
+**Suggestion:** Use memoization:
+```jsx
+const result = useMemo(() => heavyCalculation(data), [data]);
+```
+```
+
+### Style Suggestion
+```markdown
+💡 **Suggestion**
+
+Consider extracting this logic to a custom hook for reusability:
+```jsx
+const [data, setData] = useState(null);
+const [loading, setLoading] = useState(true);
+useEffect(() => { ... }, []);
+```
+
+Could become:
+```jsx
+const { data, loading } = useDataFetch(url);
+```
+```
+
+## 📊 Review Summary Template
+
+```markdown
+## 📋 PR Review Summary
+
+### Overview
+- **Files changed**: 12
+- **Lines added**: 234
+- **Lines removed**: 56
+
+### Assessment: ✅ Approve with suggestions
+
+### 🔴 Blocking Issues
+None
+
+### 🟡 Should Fix
+1. Add null check in `UserCard.tsx` (line 45)
+2. Remove console.log in `api.ts` (line 23)
+
+### 🟢 Suggestions (Nice-to-have)
+1. Consider extracting validation to separate function
+2. Add loading skeleton for better UX
+
+### 💬 Comments
+Great implementation overall! The new auth flow is well-structured.
+Just a few minor issues to address before merging.
+```
+
+## 🔧 Automated Checks
+
+```yaml
+# .github/workflows/pr-review.yml
+name: PR Review
+on: [pull_request]
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run linter
+        run: npm run lint
+      - name: Run type check
+        run: npm run type-check
+      - name: Run tests
+        run: npm test
+      - name: Check bundle size
+        run: npm run analyze
+```
+
+## ✅ Review Checklist
+
+- [ ] PR description is clear
+- [ ] Changes match the description
+- [ ] No obvious bugs
+- [ ] Error handling present
+- [ ] No security vulnerabilities
+- [ ] No performance issues
+- [ ] Tests added/updated
+- [ ] Documentation updated
+- [ ] No console.logs or debug code
+- [ ] Types are correct
+
+## 🔗 Related Skills
+
+- `code-review` - General code review
+- `security-audit` - Security analysis
+- `testing` - Test coverage

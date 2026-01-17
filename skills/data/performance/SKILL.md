@@ -1,33 +1,84 @@
 ---
 name: performance
-description: Performance - Core Web Vitals, bundle size. Use when optimizing speed.
+description: Performance optimization with async patterns, caching, and connection pooling
+license: MIT
+compatibility: opencode
+metadata:
+  audience: developers
+  workflow: optimization
 ---
 
-# Performance Guideline
+## What I do
 
-## Tech Stack
+- Optimize code for performance using async patterns
+- Implement caching strategies (lru_cache, Redis)
+- Configure connection pooling for HTTP clients
+- Profile and measure performance improvements
 
-* **Framework**: Next.js (with Turbopack)
-* **Platform**: Vercel
-* **Tooling**: Bun
+## When to use me
 
-## Non-Negotiables
+Use this when you need to:
+- Optimize slow API calls
+- Add caching to expensive operations
+- Configure connection pooling
+- Profile code performance
 
-* Core Web Vitals must meet thresholds (LCP < 2.5s, CLS < 0.1, INP < 200ms)
-* Performance regressions must be detectable
-* JavaScript bundle size must be monitored and optimized
+## MCP-First Workflow
 
-## Context
+Always use MCP servers in this order:
 
-Performance is a feature. Slow products feel broken, even when they're correct. Users don't read loading spinners — they leave. Every 100ms of latency costs engagement.
+1. **codebase** - Search for performance patterns
+   ```python
+   search_codebase("async performance patterns caching", top_k=10)
+   ```
 
-Don't just measure — understand. Where does time go? What's blocking the critical path? What would make the product feel instant? Sometimes small architectural changes have bigger impact than optimization.
+2. **filesystem** - view_file the code to optimize
+   ```python
+   read_file("src/module.py")
+   ```
 
-## Driving Questions
+3. **git** - Check for performance-related changes
+   ```python
+   git_diff("HEAD~10..HEAD", path="src/")
+   ```
 
-* What makes the product feel slow to users?
-* Where are the biggest bottlenecks in the critical user journeys?
-* What's in the critical rendering path that shouldn't be?
-* How large is the JavaScript bundle, and what's bloating it?
-* What database queries are slow, and why?
-* If we could make one thing 10x faster, what would have the most impact?
+## Optimization Techniques
+
+### Async Patterns
+```python
+# BEFORE (blocking)
+def fetch_data(url):
+    return requests.get(url).json()
+
+# AFTER (async)
+async def fetch_data(url: str) -> dict:
+    async with httpx.AsyncClient() as client:
+        return (await client.get(url)).json()
+```
+
+### Caching
+```python
+from functools import lru_cache
+
+@lru_cache(maxsize=128)
+def expensive_computation(input: str) -> dict:
+    return result
+```
+
+### Connection Pooling
+```python
+async with httpx.AsyncClient(
+    limits=httpx.Limits(max_keepalive_connections=5, max_connections=10)
+) as client:
+    pass
+```
+
+## Common Optimizations
+
+| Issue | Solution |
+|-------|----------|
+| Blocking I/O | Convert to async with `httpx.AsyncClient` |
+| Repeated computation | Add `@lru_cache` or use Redis cache |
+| N+1 queries | Batch queries or use `asyncio.gather()` |
+| Large data transfers | Stream data, use pagination |
+| Slow regex | Compile patterns with `re.compile()` |

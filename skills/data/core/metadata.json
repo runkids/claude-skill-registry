@@ -1,11 +1,7 @@
 {
   "name": "core",
-  "description": "Core development principles and guidelines covering security, QA, performance, documentation, and coding standards. Used by all agents to ensure consistent quality across the Orchestra system.",
-  "repo": "tstomtimes/orchestra",
-  "category": "documents",
-  "tags": [
-    "core"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "homecity/langchain-forum",
+  "path": "skills/core/development-workflow-SKILL.md",
+  "source": "github.com/homecity/langchain-forum",
+  "downloaded_at": "2026-01-17T04:06:39.979903Z"
 }

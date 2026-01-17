@@ -1,8 +1,7 @@
 {
   "name": "notion-api",
-  "repo": "BLTGV/agent-skills",
-  "category": "data",
-  "description": "This skill should be used when the user asks to \"search Notion\", \"find in Notion\", \"search my Notion workspace\", \"create Notion page\", \"make a Notion page\", \"update Notion page\", \"edit Notion page\", \"",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T09:04:13.604875Z"
+  "repo": "aiskillstore/marketplace",
+  "path": "skills/bltgv/notion-api/SKILL.md",
+  "source": "github.com/aiskillstore/marketplace",
+  "downloaded_at": "2026-01-17T01:04:40.778550Z"
 }

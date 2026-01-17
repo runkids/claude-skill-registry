@@ -1,7 +1,7 @@
 {
   "name": "env-config",
-  "repo": "sgcarstrends/sgcarstrends",
-  "path": ".claude/skills/env-config/SKILL.md",
-  "source": "github.com/sgcarstrends/sgcarstrends",
-  "downloaded_at": "2026-01-14T02:59:19.416896Z"
+  "repo": "AutumnsGrove/ClaudeSkills",
+  "path": "env-config/SKILL.md",
+  "source": "github.com/AutumnsGrove/ClaudeSkills",
+  "downloaded_at": "2026-01-17T03:35:45.790808Z"
 }

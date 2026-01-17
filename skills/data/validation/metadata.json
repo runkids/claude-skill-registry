@@ -1,7 +1,7 @@
 {
   "name": "validation",
-  "repo": "matteocervelli/llms",
-  "path": "src/tools/skill_builder/templates/validation/SKILL.md",
-  "source": "github.com/matteocervelli/llms",
-  "downloaded_at": "2026-01-14T03:06:51.584208Z"
+  "repo": "masharratt/claude-flow-novice",
+  "path": ".claude/skills/cfn-loop-orchestration-v2/lib/validation/SKILL.md",
+  "source": "github.com/masharratt/claude-flow-novice",
+  "downloaded_at": "2026-01-17T03:40:33.429556Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "ultrathink",
-  "repo": "marcusgoll/Spec-Flow",
-  "path": ".claude/skills/ultrathink/SKILL.md",
-  "source": "github.com/marcusgoll/Spec-Flow",
-  "downloaded_at": "2026-01-14T04:06:32.246531Z"
+  "repo": "shiiman/claude-code-plugins",
+  "path": "plugins/shiiman-claude/skills/ultrathink/SKILL.md",
+  "source": "github.com/shiiman/claude-code-plugins",
+  "downloaded_at": "2026-01-17T03:40:04.844827Z"
 }

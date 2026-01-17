@@ -1,7 +1,7 @@
 {
   "name": "api-pagination",
-  "repo": "aj-geddes/useful-ai-prompts",
-  "path": "skills/api-pagination/SKILL.md",
-  "source": "github.com/aj-geddes/useful-ai-prompts",
-  "downloaded_at": "2026-01-14T03:31:04.622166Z"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/api-pagination/skills/api-pagination/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-17T03:58:32.950317Z"
 }

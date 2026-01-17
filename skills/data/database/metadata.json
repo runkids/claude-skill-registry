@@ -1,7 +1,7 @@
 {
   "name": "database",
-  "repo": "SylphxAI/flow",
-  "path": "packages/flow/assets/skills/database/SKILL.md",
-  "source": "github.com/SylphxAI/flow",
-  "downloaded_at": "2026-01-14T03:51:24.540026Z"
+  "repo": "markus41/lobbi-design-system",
+  "path": ".claude/skills/database/SKILL.md",
+  "source": "github.com/markus41/lobbi-design-system",
+  "downloaded_at": "2026-01-17T03:57:13.085129Z"
 }

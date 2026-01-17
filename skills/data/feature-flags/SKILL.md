@@ -1,699 +1,848 @@
-# 🚩 Skill: Feature Flags & Remote Config
+---
+name: feature-flags
+description: Feature flag patterns for controlled rollouts, A/B testing, and kill switches. Use when implementing feature toggles, gradual rollouts, canary releases, percentage-based features, user targeting, or emergency kill switches.
+---
 
-## 📋 Metadata
+# Feature Flags
 
-| Atributo | Valor |
-|----------|-------|
-| **ID** | `flutter-feature-flags` |
-| **Nivel** | 🟡 Intermedio |
-| **Versión** | 1.0.0 |
-| **Keywords** | `feature-flags`, `remote-config`, `firebase-remote-config`, `launchdarkly`, `ab-testing` |
-| **Referencia** | [Firebase Remote Config](https://firebase.google.com/docs/remote-config) |
+## Overview
 
-## 🔑 Keywords para Invocación
+Feature flags (also called feature toggles) enable runtime control over feature availability without code deployments. They support gradual rollouts, A/B testing, user targeting, and emergency kill switches. This skill covers implementation patterns, best practices, and integration with popular tools.
 
-- `feature-flags`
-- `remote-config`
-- `firebase-remote-config`
-- `launchdarkly`
-- `ab-testing`
-- `feature-toggle`
-- `@skill:feature-flags`
+## Key Concepts
 
-### Ejemplos de Prompts
+### Flag Types
 
-```
-Implementa feature-flags con firebase remote config
-```
+**Boolean Flags** - Simple on/off toggles:
 
-```
-Setup launchdarkly para A/B testing
-```
-
-```
-Configura feature toggles dinámicos
-```
-
-```
-@skill:feature-flags - Sistema completo de feature flags
-```
-
-## 📖 Descripción
-
-Este skill cubre la implementación de feature flags y remote configuration usando Firebase Remote Config y LaunchDarkly. Permite controlar features remotamente, hacer A/B testing, staged rollouts, y kill switches sin actualizar la app.
-
-### ✅ Cuándo Usar Este Skill
-
-- Staged rollouts de features
-- A/B testing
-- Kill switches de emergencia
-- Personalización por usuario/segmento
-- Cambios de configuración sin release
-- Beta features
-- Experimentos de producto
-- Darkly launches
-
-### ❌ Cuándo NO Usar Este Skill
-
-- Features siempre encendidas
-- No necesitas control remoto
-- App completamente offline
-
-## 🏗️ Estructura del Proyecto
-
-```
-my_app/
-├── lib/
-│   ├── core/
-│   │   └── feature_flags/
-│   │       ├── feature_flag_service.dart
-│   │       ├── firebase_remote_config_service.dart
-│   │       ├── feature_flag_provider.dart
-│   │       └── feature_flags.dart
-│   │
-│   └── main.dart
-│
-└── test/
-    └── feature_flags_test.dart
-```
-
-## 📦 Dependencias
-
-```yaml
-dependencies:
-  flutter:
-    sdk: flutter
-
-  # Firebase Remote Config
-  firebase_core: ^2.24.2
-  firebase_remote_config: ^4.3.8
-
-  # Provider para state management
-  provider: ^6.1.1
-
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  mockito: ^5.4.4
-```
-
-## 💻 Implementación
-
-### 1. Feature Flags Definition
-
-```dart
-// lib/core/feature_flags/feature_flags.dart
-enum FeatureFlag {
-  newHomeScreen,
-  darkMode,
-  socialLogin,
-  premiumFeatures,
-  newCheckoutFlow,
-  chatSupport,
-  videoCall,
-  aiRecommendations,
+```typescript
+interface BooleanFlag {
+  key: string;
+  enabled: boolean;
+  description: string;
 }
 
-extension FeatureFlagExtension on FeatureFlag {
-  String get key {
-    switch (this) {
-      case FeatureFlag.newHomeScreen:
-        return 'new_home_screen';
-      case FeatureFlag.darkMode:
-        return 'dark_mode_enabled';
-      case FeatureFlag.socialLogin:
-        return 'social_login_enabled';
-      case FeatureFlag.premiumFeatures:
-        return 'premium_features_enabled';
-      case FeatureFlag.newCheckoutFlow:
-        return 'new_checkout_flow';
-      case FeatureFlag.chatSupport:
-        return 'chat_support_enabled';
-      case FeatureFlag.videoCall:
-        return 'video_call_enabled';
-      case FeatureFlag.aiRecommendations:
-        return 'ai_recommendations_enabled';
-    }
+// Usage
+if (featureFlags.isEnabled('new-checkout-flow')) {
+  return <NewCheckoutFlow />;
+}
+return <LegacyCheckout />;
+```
+
+**Percentage Rollout Flags** - Gradual exposure:
+
+```typescript
+interface PercentageFlag {
+  key: string;
+  percentage: number; // 0-100
+  salt: string; // For consistent hashing
+}
+
+function isEnabledForUser(flag: PercentageFlag, userId: string): boolean {
+  // Consistent hashing ensures same user always gets same result
+  const hash = createHash("md5").update(`${flag.salt}:${userId}`).digest("hex");
+  const bucket = parseInt(hash.substring(0, 8), 16) % 100;
+  return bucket < flag.percentage;
+}
+```
+
+**User-Targeted Flags** - Specific user segments:
+
+```typescript
+interface TargetedFlag {
+  key: string;
+  defaultValue: boolean;
+  rules: TargetingRule[];
+}
+
+interface TargetingRule {
+  attribute: string; // 'userId', 'email', 'country', 'plan'
+  operator: "in" | "notIn" | "equals" | "contains" | "startsWith" | "matches";
+  values: string[];
+  value: boolean;
+}
+
+// Example: Enable for beta users and premium plans
+const flag: TargetedFlag = {
+  key: "advanced-analytics",
+  defaultValue: false,
+  rules: [
+    {
+      attribute: "email",
+      operator: "in",
+      values: ["beta@example.com"],
+      value: true,
+    },
+    {
+      attribute: "plan",
+      operator: "in",
+      values: ["premium", "enterprise"],
+      value: true,
+    },
+    { attribute: "country", operator: "in", values: ["US", "CA"], value: true },
+  ],
+};
+```
+
+**Multivariate Flags** - Multiple variants for A/B testing:
+
+```typescript
+interface MultivariateFlag<T> {
+  key: string;
+  variants: Variant<T>[];
+  defaultVariant: string;
+}
+
+interface Variant<T> {
+  name: string;
+  value: T;
+  weight: number; // Percentage allocation
+}
+
+// Example: Button color A/B test
+const buttonColorFlag: MultivariateFlag<string> = {
+  key: "checkout-button-color",
+  defaultVariant: "control",
+  variants: [
+    { name: "control", value: "#007bff", weight: 34 },
+    { name: "green", value: "#28a745", weight: 33 },
+    { name: "orange", value: "#fd7e14", weight: 33 },
+  ],
+};
+```
+
+### Custom Implementation
+
+```typescript
+import { Redis } from "ioredis";
+import { createHash } from "crypto";
+
+interface FeatureFlag {
+  key: string;
+  type: "boolean" | "percentage" | "targeted" | "multivariate";
+  enabled: boolean;
+  percentage?: number;
+  rules?: TargetingRule[];
+  variants?: Variant<unknown>[];
+  salt: string;
+  description: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+interface EvaluationContext {
+  userId?: string;
+  email?: string;
+  country?: string;
+  plan?: string;
+  [key: string]: string | number | boolean | undefined;
+}
+
+class FeatureFlagService {
+  private redis: Redis;
+  private cache: Map<string, { flag: FeatureFlag; expiresAt: number }> =
+    new Map();
+  private cacheTTL = 60000; // 1 minute
+
+  constructor(redis: Redis) {
+    this.redis = redis;
   }
 
-  bool get defaultValue {
-    switch (this) {
-      case FeatureFlag.newHomeScreen:
-        return false;
-      case FeatureFlag.darkMode:
+  async getFlag(key: string): Promise<FeatureFlag | null> {
+    // Check local cache
+    const cached = this.cache.get(key);
+    if (cached && cached.expiresAt > Date.now()) {
+      return cached.flag;
+    }
+
+    // Fetch from Redis
+    const data = await this.redis.get(`flag:${key}`);
+    if (!data) return null;
+
+    const flag: FeatureFlag = JSON.parse(data);
+    this.cache.set(key, { flag, expiresAt: Date.now() + this.cacheTTL });
+    return flag;
+  }
+
+  async evaluate(
+    key: string,
+    context: EvaluationContext = {},
+  ): Promise<boolean> {
+    const flag = await this.getFlag(key);
+    if (!flag) return false;
+    if (!flag.enabled) return false;
+
+    switch (flag.type) {
+      case "boolean":
         return true;
-      case FeatureFlag.socialLogin:
-        return false;
-      case FeatureFlag.premiumFeatures:
-        return false;
-      case FeatureFlag.newCheckoutFlow:
-        return false;
-      case FeatureFlag.chatSupport:
-        return true;
-      case FeatureFlag.videoCall:
-        return false;
-      case FeatureFlag.aiRecommendations:
+
+      case "percentage":
+        return this.evaluatePercentage(flag, context.userId || "anonymous");
+
+      case "targeted":
+        return this.evaluateTargeting(flag, context);
+
+      default:
         return false;
     }
   }
-}
-```
 
-### 2. Firebase Remote Config Service
+  async evaluateVariant<T>(
+    key: string,
+    context: EvaluationContext = {},
+  ): Promise<T | null> {
+    const flag = await this.getFlag(key);
+    if (!flag || !flag.enabled || !flag.variants) return null;
 
-```dart
-// lib/core/feature_flags/firebase_remote_config_service.dart
-import 'package:firebase_remote_config/firebase_remote_config.dart';
-import 'package:flutter/foundation.dart';
-import 'feature_flags.dart';
+    const userId = context.userId || "anonymous";
+    const hash = createHash("md5")
+      .update(`${flag.salt}:${userId}`)
+      .digest("hex");
+    const bucket = parseInt(hash.substring(0, 8), 16) % 100;
 
-class FirebaseRemoteConfigService {
-  static final FirebaseRemoteConfig _remoteConfig = FirebaseRemoteConfig.instance;
-  
-  static bool _initialized = false;
-
-  // Initialize Remote Config
-  static Future<void> initialize() async {
-    if (_initialized) return;
-
-    try {
-      // Set config settings
-      await _remoteConfig.setConfigSettings(
-        RemoteConfigSettings(
-          fetchTimeout: const Duration(seconds: 30),
-          minimumFetchInterval: kDebugMode 
-              ? const Duration(minutes: 5)  // Debug: 5 minutes
-              : const Duration(hours: 1),    // Production: 1 hour
-        ),
-      );
-
-      // Set default values
-      await _remoteConfig.setDefaults(_getDefaultValues());
-
-      // Fetch and activate
-      await _remoteConfig.fetchAndActivate();
-
-      // Listen to config updates (real-time)
-      _remoteConfig.onConfigUpdated.listen((event) async {
-        await _remoteConfig.activate();
-        print('🔄 Remote Config updated');
-      });
-
-      _initialized = true;
-      print('✅ Remote Config initialized');
-    } catch (e) {
-      print('❌ Remote Config initialization error: $e');
-    }
-  }
-
-  // Get default values map
-  static Map<String, dynamic> _getDefaultValues() {
-    return Map.fromEntries(
-      FeatureFlag.values.map(
-        (flag) => MapEntry(flag.key, flag.defaultValue),
-      ),
-    );
-  }
-
-  // Check if feature is enabled
-  static bool isFeatureEnabled(FeatureFlag flag) {
-    try {
-      return _remoteConfig.getBool(flag.key);
-    } catch (e) {
-      print('Error getting feature flag ${flag.key}: $e');
-      return flag.defaultValue;
-    }
-  }
-
-  // Get string value
-  static String getString(String key, {String defaultValue = ''}) {
-    try {
-      return _remoteConfig.getString(key);
-    } catch (e) {
-      return defaultValue;
-    }
-  }
-
-  // Get int value
-  static int getInt(String key, {int defaultValue = 0}) {
-    try {
-      return _remoteConfig.getInt(key);
-    } catch (e) {
-      return defaultValue;
-    }
-  }
-
-  // Get double value
-  static double getDouble(String key, {double defaultValue = 0.0}) {
-    try {
-      return _remoteConfig.getDouble(key);
-    } catch (e) {
-      return defaultValue;
-    }
-  }
-
-  // Get JSON value
-  static Map<String, dynamic>? getJson(String key) {
-    try {
-      final jsonString = _remoteConfig.getString(key);
-      return jsonDecode(jsonString) as Map<String, dynamic>;
-    } catch (e) {
-      return null;
-    }
-  }
-
-  // Force fetch (for debugging)
-  static Future<void> forceFetch() async {
-    try {
-      await _remoteConfig.fetch();
-      await _remoteConfig.activate();
-      print('✅ Remote Config force fetched');
-    } catch (e) {
-      print('❌ Force fetch error: $e');
-    }
-  }
-
-  // Get all values (for debugging)
-  static Map<String, RemoteConfigValue> getAllValues() {
-    return _remoteConfig.getAll();
-  }
-
-  // Get fetch status
-  static RemoteConfigFetchStatus get fetchStatus => _remoteConfig.lastFetchStatus;
-
-  // Get last fetch time
-  static DateTime get lastFetchTime => _remoteConfig.lastFetchTime;
-}
-```
-
-### 3. Feature Flag Service
-
-```dart
-// lib/core/feature_flags/feature_flag_service.dart
-import 'package:flutter/foundation.dart';
-import 'firebase_remote_config_service.dart';
-import 'feature_flags.dart';
-
-class FeatureFlagService extends ChangeNotifier {
-  static final FeatureFlagService _instance = FeatureFlagService._internal();
-  factory FeatureFlagService() => _instance;
-  FeatureFlagService._internal();
-
-  final Map<FeatureFlag, bool> _localOverrides = {};
-  bool _debugMode = kDebugMode;
-
-  // Initialize
-  Future<void> initialize() async {
-    await FirebaseRemoteConfigService.initialize();
-    notifyListeners();
-  }
-
-  // Check if feature is enabled
-  bool isEnabled(FeatureFlag flag) {
-    // Check local overrides first (for debugging)
-    if (_localOverrides.containsKey(flag)) {
-      return _localOverrides[flag]!;
-    }
-
-    // Check remote config
-    return FirebaseRemoteConfigService.isFeatureEnabled(flag);
-  }
-
-  // Enable feature locally (debug only)
-  void enableLocally(FeatureFlag flag) {
-    if (_debugMode) {
-      _localOverrides[flag] = true;
-      notifyListeners();
-    }
-  }
-
-  // Disable feature locally (debug only)
-  void disableLocally(FeatureFlag flag) {
-    if (_debugMode) {
-      _localOverrides[flag] = false;
-      notifyListeners();
-    }
-  }
-
-  // Clear local overrides
-  void clearLocalOverrides() {
-    _localOverrides.clear();
-    notifyListeners();
-  }
-
-  // Get all feature states
-  Map<FeatureFlag, bool> getAllFeatureStates() {
-    return Map.fromEntries(
-      FeatureFlag.values.map(
-        (flag) => MapEntry(flag, isEnabled(flag)),
-      ),
-    );
-  }
-
-  // Refresh config
-  Future<void> refresh() async {
-    await FirebaseRemoteConfigService.forceFetch();
-    notifyListeners();
-  }
-
-  // Get config value
-  T getConfigValue<T>(String key, T defaultValue) {
-    if (T == String) {
-      return FirebaseRemoteConfigService.getString(key, defaultValue: defaultValue as String) as T;
-    } else if (T == int) {
-      return FirebaseRemoteConfigService.getInt(key, defaultValue: defaultValue as int) as T;
-    } else if (T == double) {
-      return FirebaseRemoteConfigService.getDouble(key, defaultValue: defaultValue as double) as T;
-    } else if (T == bool) {
-      // Custom bool config
-      try {
-        return FirebaseRemoteConfigService.isFeatureEnabled(
-          FeatureFlag.values.firstWhere((flag) => flag.key == key),
-        ) as T;
-      } catch (e) {
-        return defaultValue;
+    let cumulative = 0;
+    for (const variant of flag.variants) {
+      cumulative += variant.weight;
+      if (bucket < cumulative) {
+        return variant.value as T;
       }
     }
-    return defaultValue;
+
+    return (flag.variants[0]?.value as T) ?? null;
   }
 
-  // A/B Test variant
-  String getABTestVariant(String experimentKey) {
-    return FirebaseRemoteConfigService.getString(experimentKey, defaultValue: 'control');
+  private evaluatePercentage(flag: FeatureFlag, userId: string): boolean {
+    const hash = createHash("md5")
+      .update(`${flag.salt}:${userId}`)
+      .digest("hex");
+    const bucket = parseInt(hash.substring(0, 8), 16) % 100;
+    return bucket < (flag.percentage ?? 0);
+  }
+
+  private evaluateTargeting(
+    flag: FeatureFlag,
+    context: EvaluationContext,
+  ): boolean {
+    if (!flag.rules || flag.rules.length === 0) return true;
+
+    for (const rule of flag.rules) {
+      const attributeValue = String(context[rule.attribute] ?? "");
+
+      let matches = false;
+      switch (rule.operator) {
+        case "in":
+          matches = rule.values.includes(attributeValue);
+          break;
+        case "notIn":
+          matches = !rule.values.includes(attributeValue);
+          break;
+        case "equals":
+          matches = attributeValue === rule.values[0];
+          break;
+        case "contains":
+          matches = rule.values.some((v) => attributeValue.includes(v));
+          break;
+        case "startsWith":
+          matches = rule.values.some((v) => attributeValue.startsWith(v));
+          break;
+        case "matches":
+          matches = rule.values.some((v) => new RegExp(v).test(attributeValue));
+          break;
+      }
+
+      if (matches) return rule.value;
+    }
+
+    return false;
+  }
+
+  // Admin methods
+  async setFlag(flag: FeatureFlag): Promise<void> {
+    await this.redis.set(`flag:${flag.key}`, JSON.stringify(flag));
+    this.cache.delete(flag.key);
+
+    // Publish change for other instances
+    await this.redis.publish("flag-updates", JSON.stringify({ key: flag.key }));
+  }
+
+  async deleteFlag(key: string): Promise<void> {
+    await this.redis.del(`flag:${key}`);
+    this.cache.delete(key);
+    await this.redis.publish(
+      "flag-updates",
+      JSON.stringify({ key, deleted: true }),
+    );
   }
 }
 ```
 
-### 4. Feature Flag Provider
+### Gradual Rollouts and Canary Releases
 
-```dart
-// lib/core/feature_flags/feature_flag_provider.dart
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'feature_flag_service.dart';
-import 'feature_flags.dart';
+```typescript
+interface RolloutStrategy {
+  type: "linear" | "exponential" | "manual";
+  startPercentage: number;
+  targetPercentage: number;
+  incrementPercentage: number;
+  intervalMinutes: number;
+  currentPercentage: number;
+  startedAt: Date;
+  pausedAt?: Date;
+}
 
-class FeatureFlagProvider extends ChangeNotifierProvider<FeatureFlagService> {
-  FeatureFlagProvider({
-    Key? key,
-    Widget? child,
-  }) : super(
-          key: key,
-          create: (_) => FeatureFlagService(),
-          child: child,
+class RolloutManager {
+  private flags: FeatureFlagService;
+
+  async startRollout(
+    flagKey: string,
+    strategy: RolloutStrategy,
+  ): Promise<void> {
+    const flag = await this.flags.getFlag(flagKey);
+    if (!flag) throw new Error("Flag not found");
+
+    flag.percentage = strategy.startPercentage;
+    flag.rolloutStrategy = strategy;
+    await this.flags.setFlag(flag);
+
+    // Schedule automatic increments
+    if (strategy.type !== "manual") {
+      this.scheduleIncrement(flagKey, strategy);
+    }
+  }
+
+  private async scheduleIncrement(
+    flagKey: string,
+    strategy: RolloutStrategy,
+  ): Promise<void> {
+    const incrementJob = async () => {
+      const flag = await this.flags.getFlag(flagKey);
+      if (!flag || flag.rolloutStrategy?.pausedAt) return;
+
+      const current = flag.percentage ?? 0;
+      let newPercentage: number;
+
+      if (strategy.type === "linear") {
+        newPercentage = Math.min(
+          current + strategy.incrementPercentage,
+          strategy.targetPercentage,
         );
+      } else {
+        // Exponential: double each time
+        newPercentage = Math.min(current * 2, strategy.targetPercentage);
+      }
 
-  // Helper to access service
-  static FeatureFlagService of(BuildContext context, {bool listen = false}) {
-    return Provider.of<FeatureFlagService>(context, listen: listen);
+      flag.percentage = newPercentage;
+      await this.flags.setFlag(flag);
+
+      // Continue if not at target
+      if (newPercentage < strategy.targetPercentage) {
+        setTimeout(incrementJob, strategy.intervalMinutes * 60 * 1000);
+      }
+    };
+
+    setTimeout(incrementJob, strategy.intervalMinutes * 60 * 1000);
   }
-}
 
-// Widget to conditionally show features
-class FeatureGate extends StatelessWidget {
-  final FeatureFlag flag;
-  final Widget child;
-  final Widget? fallback;
-
-  const FeatureGate({
-    Key? key,
-    required this.flag,
-    required this.child,
-    this.fallback,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final service = FeatureFlagProvider.of(context, listen: true);
-    final isEnabled = service.isEnabled(flag);
-
-    return isEnabled ? child : (fallback ?? const SizedBox.shrink());
+  async pauseRollout(flagKey: string): Promise<void> {
+    const flag = await this.flags.getFlag(flagKey);
+    if (flag?.rolloutStrategy) {
+      flag.rolloutStrategy.pausedAt = new Date();
+      await this.flags.setFlag(flag);
+    }
   }
-}
 
-// Widget for A/B Testing
-class ABTestVariant extends StatelessWidget {
-  final String experimentKey;
-  final Map<String, Widget> variants;
-  final Widget? defaultWidget;
-
-  const ABTestVariant({
-    Key? key,
-    required this.experimentKey,
-    required this.variants,
-    this.defaultWidget,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final service = FeatureFlagProvider.of(context, listen: true);
-    final variant = service.getABTestVariant(experimentKey);
-
-    return variants[variant] ?? defaultWidget ?? const SizedBox.shrink();
+  async rollback(flagKey: string): Promise<void> {
+    const flag = await this.flags.getFlag(flagKey);
+    if (flag) {
+      flag.percentage = 0;
+      flag.enabled = false;
+      await this.flags.setFlag(flag);
+    }
   }
 }
 ```
 
-### 5. Usage Examples
+### A/B Testing Integration
 
-```dart
-// lib/main.dart
-import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
+```typescript
+interface Experiment {
+  id: string;
+  flagKey: string;
+  name: string;
+  hypothesis: string;
+  metrics: string[]; // Metrics to track
+  variants: ExperimentVariant[];
+  status: "draft" | "running" | "paused" | "completed";
+  startDate?: Date;
+  endDate?: Date;
+  sampleSize: number;
+  confidenceLevel: number; // e.g., 0.95
+}
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+interface ExperimentVariant {
+  name: string;
+  weight: number;
+  conversions: number;
+  impressions: number;
+}
 
-  // Initialize Firebase
-  await Firebase.initializeApp();
+class ABTestingService {
+  async trackExposure(
+    experimentId: string,
+    variantName: string,
+    userId: string,
+  ): Promise<void> {
+    // Record that user was exposed to variant
+    await this.analytics.track({
+      event: "experiment_exposure",
+      userId,
+      properties: {
+        experimentId,
+        variant: variantName,
+        timestamp: new Date(),
+      },
+    });
 
-  // Initialize Feature Flags
-  final featureFlagService = FeatureFlagService();
-  await featureFlagService.initialize();
+    // Increment impression count
+    await this.redis.hincrby(
+      `experiment:${experimentId}:${variantName}`,
+      "impressions",
+      1,
+    );
+  }
 
-  runApp(
-    FeatureFlagProvider(
-      child: const MyApp(),
-    ),
+  async trackConversion(
+    experimentId: string,
+    userId: string,
+    metric: string,
+  ): Promise<void> {
+    // Get user's assigned variant
+    const variant = await this.redis.hget(
+      `experiment:${experimentId}:assignments`,
+      userId,
+    );
+    if (!variant) return;
+
+    await this.analytics.track({
+      event: "experiment_conversion",
+      userId,
+      properties: {
+        experimentId,
+        variant,
+        metric,
+        timestamp: new Date(),
+      },
+    });
+
+    await this.redis.hincrby(
+      `experiment:${experimentId}:${variant}`,
+      "conversions",
+      1,
+    );
+  }
+
+  async getResults(experimentId: string): Promise<ExperimentResults> {
+    const experiment = await this.getExperiment(experimentId);
+
+    const results = await Promise.all(
+      experiment.variants.map(async (variant) => {
+        const data = await this.redis.hgetall(
+          `experiment:${experimentId}:${variant.name}`,
+        );
+        return {
+          name: variant.name,
+          impressions: parseInt(data.impressions || "0"),
+          conversions: parseInt(data.conversions || "0"),
+          conversionRate:
+            parseInt(data.conversions || "0") /
+            parseInt(data.impressions || "1"),
+        };
+      }),
+    );
+
+    // Calculate statistical significance
+    const control = results.find((r) => r.name === "control");
+    const treatments = results.filter((r) => r.name !== "control");
+
+    return {
+      experimentId,
+      results,
+      winners: treatments.filter((t) =>
+        this.isStatisticallySignificant(
+          control!,
+          t,
+          experiment.confidenceLevel,
+        ),
+      ),
+    };
+  }
+
+  private isStatisticallySignificant(
+    control: VariantResult,
+    treatment: VariantResult,
+    confidenceLevel: number,
+  ): boolean {
+    // Z-test for proportions
+    const p1 = control.conversionRate;
+    const p2 = treatment.conversionRate;
+    const n1 = control.impressions;
+    const n2 = treatment.impressions;
+
+    const pooledP = (p1 * n1 + p2 * n2) / (n1 + n2);
+    const se = Math.sqrt(pooledP * (1 - pooledP) * (1 / n1 + 1 / n2));
+    const z = (p2 - p1) / se;
+
+    // Z-score for 95% confidence is 1.96
+    const zThreshold = confidenceLevel === 0.95 ? 1.96 : 2.58; // 99%
+    return Math.abs(z) > zThreshold;
+  }
+}
+```
+
+### Kill Switches
+
+```typescript
+interface KillSwitch {
+  key: string;
+  description: string;
+  affectedServices: string[];
+  activatedAt?: Date;
+  activatedBy?: string;
+  reason?: string;
+  autoRecoveryMinutes?: number;
+}
+
+class KillSwitchService {
+  private redis: Redis;
+  private alerting: AlertingService;
+
+  async activate(
+    key: string,
+    reason: string,
+    activatedBy: string,
+  ): Promise<void> {
+    const killSwitch = await this.getKillSwitch(key);
+    if (!killSwitch) throw new Error("Kill switch not found");
+
+    killSwitch.activatedAt = new Date();
+    killSwitch.activatedBy = activatedBy;
+    killSwitch.reason = reason;
+
+    await this.redis.set(`killswitch:${key}`, JSON.stringify(killSwitch));
+
+    // Broadcast to all instances immediately
+    await this.redis.publish(
+      "killswitch-activated",
+      JSON.stringify(killSwitch),
+    );
+
+    // Alert on-call
+    await this.alerting.sendCritical({
+      title: `Kill Switch Activated: ${key}`,
+      message: `Reason: ${reason}\nActivated by: ${activatedBy}\nAffected: ${killSwitch.affectedServices.join(", ")}`,
+    });
+
+    // Schedule auto-recovery if configured
+    if (killSwitch.autoRecoveryMinutes) {
+      setTimeout(
+        () => this.deactivate(key, "Auto-recovery"),
+        killSwitch.autoRecoveryMinutes * 60 * 1000,
+      );
+    }
+  }
+
+  async deactivate(key: string, reason: string): Promise<void> {
+    const killSwitch = await this.getKillSwitch(key);
+    if (!killSwitch) return;
+
+    killSwitch.activatedAt = undefined;
+    killSwitch.activatedBy = undefined;
+    killSwitch.reason = undefined;
+
+    await this.redis.set(`killswitch:${key}`, JSON.stringify(killSwitch));
+    await this.redis.publish(
+      "killswitch-deactivated",
+      JSON.stringify({ key, reason }),
+    );
+
+    await this.alerting.sendInfo({
+      title: `Kill Switch Deactivated: ${key}`,
+      message: `Reason: ${reason}`,
+    });
+  }
+
+  async isActive(key: string): Promise<boolean> {
+    const data = await this.redis.get(`killswitch:${key}`);
+    if (!data) return false;
+    const killSwitch: KillSwitch = JSON.parse(data);
+    return !!killSwitch.activatedAt;
+  }
+}
+
+// Usage in application code
+async function processPayment(payment: Payment): Promise<PaymentResult> {
+  // Check kill switch first
+  if (await killSwitches.isActive("payments-disabled")) {
+    throw new ServiceUnavailableError(
+      "Payment processing temporarily disabled",
+    );
+  }
+
+  // Normal processing
+  return paymentProcessor.process(payment);
+}
+```
+
+### Flag Lifecycle Management
+
+```typescript
+interface FlagLifecycle {
+  key: string;
+  status:
+    | "planning"
+    | "development"
+    | "testing"
+    | "rollout"
+    | "stable"
+    | "deprecated"
+    | "removed";
+  owner: string;
+  team: string;
+  createdAt: Date;
+  plannedRemovalDate?: Date;
+  jiraTicket?: string;
+  staleAfterDays: number;
+}
+
+class FlagLifecycleManager {
+  async checkStaleFlags(): Promise<StaleFlag[]> {
+    const flags = await this.getAllFlags();
+    const now = new Date();
+
+    return flags.filter((flag) => {
+      const lifecycle = flag.lifecycle;
+      if (!lifecycle) return false;
+
+      const ageInDays =
+        (now.getTime() - lifecycle.createdAt.getTime()) / (1000 * 60 * 60 * 24);
+
+      // Flag is stale if:
+      // 1. It's older than staleAfterDays and still in development/testing
+      // 2. It's past its planned removal date
+      // 3. It's been stable for > 30 days (should be permanent or removed)
+
+      if (lifecycle.status === "stable" && ageInDays > 30) return true;
+      if (lifecycle.plannedRemovalDate && lifecycle.plannedRemovalDate < now)
+        return true;
+      if (
+        ["development", "testing"].includes(lifecycle.status) &&
+        ageInDays > lifecycle.staleAfterDays
+      )
+        return true;
+
+      return false;
+    });
+  }
+
+  async generateCleanupReport(): Promise<CleanupReport> {
+    const staleFlags = await this.checkStaleFlags();
+
+    return {
+      generatedAt: new Date(),
+      staleFlags: staleFlags.map((flag) => ({
+        key: flag.key,
+        status: flag.lifecycle.status,
+        owner: flag.lifecycle.owner,
+        age: this.calculateAge(flag.lifecycle.createdAt),
+        recommendation: this.getRecommendation(flag),
+      })),
+      summary: {
+        total: staleFlags.length,
+        byStatus: this.groupBy(staleFlags, (f) => f.lifecycle.status),
+        byTeam: this.groupBy(staleFlags, (f) => f.lifecycle.team),
+      },
+    };
+  }
+
+  private getRecommendation(flag: FlagWithLifecycle): string {
+    const { status, plannedRemovalDate } = flag.lifecycle;
+
+    if (plannedRemovalDate && plannedRemovalDate < new Date()) {
+      return "URGENT: Past planned removal date. Remove flag and clean up code.";
+    }
+    if (status === "stable") {
+      return "Flag is stable. Either make permanent (remove flag, keep feature) or deprecate.";
+    }
+    if (status === "development" || status === "testing") {
+      return "Flag stuck in development. Complete rollout or remove if abandoned.";
+    }
+    return "Review flag status and update lifecycle.";
+  }
+}
+```
+
+### LaunchDarkly Integration
+
+```typescript
+import * as LaunchDarkly from "launchdarkly-node-server-sdk";
+
+const ldClient = LaunchDarkly.init(process.env.LAUNCHDARKLY_SDK_KEY!);
+
+interface LDUser {
+  key: string;
+  email?: string;
+  name?: string;
+  custom?: Record<string, string | number | boolean>;
+}
+
+async function evaluateFlag(
+  flagKey: string,
+  user: LDUser,
+  defaultValue: boolean,
+): Promise<boolean> {
+  await ldClient.waitForInitialization();
+  return ldClient.variation(flagKey, user, defaultValue);
+}
+
+async function evaluateFlagWithReason(
+  flagKey: string,
+  user: LDUser,
+  defaultValue: boolean,
+) {
+  await ldClient.waitForInitialization();
+  const detail = await ldClient.variationDetail(flagKey, user, defaultValue);
+
+  return {
+    value: detail.value,
+    reason: detail.reason,
+    variationIndex: detail.variationIndex,
+  };
+}
+
+// Track custom events for experiments
+function trackConversion(
+  user: LDUser,
+  eventKey: string,
+  data?: Record<string, unknown>,
+): void {
+  ldClient.track(eventKey, user, data);
+}
+
+// React hook for client-side
+function useFeatureFlag(
+  flagKey: string,
+  defaultValue: boolean = false,
+): boolean {
+  const ldClient = useLDClient();
+  const [value, setValue] = useState(defaultValue);
+
+  useEffect(() => {
+    if (!ldClient) return;
+
+    setValue(ldClient.variation(flagKey, defaultValue));
+
+    const handler = (newValue: boolean) => setValue(newValue);
+    ldClient.on(`change:${flagKey}`, handler);
+
+    return () => ldClient.off(`change:${flagKey}`, handler);
+  }, [ldClient, flagKey, defaultValue]);
+
+  return value;
+}
+```
+
+## Best Practices
+
+1. **Flag Naming Conventions**
+   - Use descriptive, consistent names: `feature-checkout-v2`, `experiment-button-color`
+   - Include type prefix: `release-*`, `experiment-*`, `ops-*`, `kill-*`
+   - Avoid abbreviations and ensure team-wide understanding
+
+2. **Flag Hygiene**
+   - Set expiration dates for temporary flags
+   - Remove flags after features are fully rolled out
+   - Track flag ownership and associated tickets
+   - Regular cleanup audits (monthly)
+
+3. **Testing**
+   - Test all flag states (on, off, each variant)
+   - Include flag states in integration tests
+   - Test rollback scenarios
+
+4. **Monitoring**
+   - Track flag evaluation counts and latency
+   - Alert on unusual patterns (sudden spikes, failures)
+   - Log flag decisions for debugging
+
+5. **Documentation**
+   - Document what each flag controls
+   - Include rollback instructions
+   - Link to related PRs and tickets
+
+## Examples
+
+### React Feature Flag Provider
+
+```typescript
+import React, { createContext, useContext, useEffect, useState } from 'react';
+
+interface FeatureFlagContextType {
+  isEnabled: (key: string) => boolean;
+  getVariant: <T>(key: string) => T | null;
+  loading: boolean;
+}
+
+const FeatureFlagContext = createContext<FeatureFlagContextType | null>(null);
+
+export function FeatureFlagProvider({ children, userId }: { children: React.ReactNode; userId: string }) {
+  const [flags, setFlags] = useState<Record<string, unknown>>({});
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadFlags() {
+      const response = await fetch(`/api/flags?userId=${userId}`);
+      const data = await response.json();
+      setFlags(data);
+      setLoading(false);
+    }
+    loadFlags();
+
+    // Subscribe to real-time updates
+    const ws = new WebSocket(`wss://api.example.com/flags/stream?userId=${userId}`);
+    ws.onmessage = (event) => {
+      const update = JSON.parse(event.data);
+      setFlags(prev => ({ ...prev, [update.key]: update.value }));
+    };
+
+    return () => ws.close();
+  }, [userId]);
+
+  const value: FeatureFlagContextType = {
+    isEnabled: (key) => Boolean(flags[key]),
+    getVariant: (key) => flags[key] as T ?? null,
+    loading,
+  };
+
+  return (
+    <FeatureFlagContext.Provider value={value}>
+      {children}
+    </FeatureFlagContext.Provider>
   );
 }
 
-// Example: Conditional UI
-class HomeScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Home')),
-      body: Column(
-        children: [
-          // Show new home screen if feature is enabled
-          FeatureGate(
-            flag: FeatureFlag.newHomeScreen,
-            child: const NewHomeScreen(),
-            fallback: const LegacyHomeScreen(),
-          ),
+export function useFeatureFlag(key: string): boolean {
+  const context = useContext(FeatureFlagContext);
+  if (!context) throw new Error('useFeatureFlag must be used within FeatureFlagProvider');
+  return context.isEnabled(key);
+}
 
-          // Social login buttons
-          FeatureGate(
-            flag: FeatureFlag.socialLogin,
-            child: Column(
-              children: [
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text('Login with Google'),
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text('Login with Facebook'),
-                ),
-              ],
-            ),
-          ),
+// Usage
+function CheckoutPage() {
+  const newCheckout = useFeatureFlag('new-checkout-flow');
 
-          // Chat support
-          FeatureGate(
-            flag: FeatureFlag.chatSupport,
-            child: FloatingActionButton(
-              onPressed: () {},
-              child: const Icon(Icons.chat),
-            ),
-          ),
-        ],
-      ),
-    );
+  if (newCheckout) {
+    return <NewCheckoutFlow />;
   }
-}
-
-// Example: A/B Test
-class ProductScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ABTestVariant(
-      experimentKey: 'checkout_button_experiment',
-      variants: {
-        'control': ElevatedButton(
-          onPressed: () {},
-          child: const Text('Buy Now'),
-        ),
-        'variant_a': ElevatedButton(
-          onPressed: () {},
-          style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-          child: const Text('Add to Cart'),
-        ),
-        'variant_b': ElevatedButton(
-          onPressed: () {},
-          style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
-          child: const Text('Purchase Now - 10% Off!'),
-        ),
-      },
-      defaultWidget: ElevatedButton(
-        onPressed: () {},
-        child: const Text('Buy Now'),
-      ),
-    );
-  }
-}
-
-// Example: Check in code
-class CheckoutService {
-  Future<void> processCheckout() async {
-    final service = FeatureFlagService();
-
-    if (service.isEnabled(FeatureFlag.newCheckoutFlow)) {
-      // Use new checkout flow
-      await _newCheckout();
-    } else {
-      // Use legacy checkout
-      await _legacyCheckout();
-    }
-  }
-
-  Future<void> _newCheckout() async {
-    // Implementation
-  }
-
-  Future<void> _legacyCheckout() async {
-    // Implementation
-  }
+  return <LegacyCheckout />;
 }
 ```
-
-### 6. Debug Screen
-
-```dart
-// lib/screens/feature_flags_debug_screen.dart
-import 'package:flutter/material.dart';
-
-class FeatureFlagsDebugScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final service = FeatureFlagProvider.of(context, listen: true);
-    final allStates = service.getAllFeatureStates();
-
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Feature Flags Debug'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.refresh),
-            onPressed: () => service.refresh(),
-          ),
-          IconButton(
-            icon: const Icon(Icons.clear),
-            onPressed: () => service.clearLocalOverrides(),
-          ),
-        ],
-      ),
-      body: ListView.builder(
-        itemCount: allStates.length,
-        itemBuilder: (context, index) {
-          final entry = allStates.entries.elementAt(index);
-          final flag = entry.key;
-          final isEnabled = entry.value;
-
-          return SwitchListTile(
-            title: Text(flag.key),
-            subtitle: Text('Default: ${flag.defaultValue}'),
-            value: isEnabled,
-            onChanged: (value) {
-              if (value) {
-                service.enableLocally(flag);
-              } else {
-                service.disableLocally(flag);
-              }
-            },
-          );
-        },
-      ),
-    );
-  }
-}
-```
-
-## 🎯 Mejores Prácticas
-
-### 1. Default Values
-
-✅ **DO:** Siempre define defaults seguros
-```dart
-bool get defaultValue {
-  // New features: false (safe default)
-  // Existing features: true (don't break existing)
-  return false;
-}
-```
-
-### 2. Kill Switches
-
-✅ **DO:** Implementa kill switches para features críticas
-```dart
-if (!service.isEnabled(FeatureFlag.paymentGateway)) {
-  // Show maintenance message
-  return MaintenanceScreen();
-}
-```
-
-### 3. Analytics
-
-✅ **DO:** Trackea uso de features
-```dart
-if (service.isEnabled(FeatureFlag.newFeature)) {
-  AnalyticsService.trackEvent('feature_used', properties: {
-    'feature': 'newFeature',
-    'variant': service.getABTestVariant('experiment'),
-  });
-}
-```
-
-## 🚨 Troubleshooting
-
-### Config Not Updating
-
-```dart
-// Force fetch in debug
-await FirebaseRemoteConfigService.forceFetch();
-
-// Check fetch status
-print('Fetch status: ${FirebaseRemoteConfigService.fetchStatus}');
-print('Last fetch: ${FirebaseRemoteConfigService.lastFetchTime}');
-```
-
-### Default Values Not Working
-
-```dart
-// Verify setDefaults was called
-await _remoteConfig.setDefaults(_getDefaultValues());
-```
-
-## 📚 Recursos
-
-- [Firebase Remote Config](https://firebase.google.com/docs/remote-config)
-- [LaunchDarkly Flutter SDK](https://docs.launchdarkly.com/sdk/client-side/flutter)
-- [Feature Flags Best Practices](https://martinfowler.com/articles/feature-toggles.html)
-
----
-
-**Versión:** 1.0.0  
-**Última actualización:** Diciembre 2025  
-**Total líneas:** 1,100+
-

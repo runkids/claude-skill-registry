@@ -1,7 +1,7 @@
 {
   "name": "moai-workflow-spec",
-  "repo": "windysky/claude_notification_wsl2",
+  "repo": "zellycloud/zyflow",
   "path": ".claude/skills/moai-workflow-spec/SKILL.md",
-  "source": "github.com/windysky/claude_notification_wsl2",
-  "downloaded_at": "2026-01-14T04:03:30.887796Z"
+  "source": "github.com/zellycloud/zyflow",
+  "downloaded_at": "2026-01-17T03:46:33.132214Z"
 }

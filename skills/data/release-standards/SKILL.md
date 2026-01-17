@@ -1,18 +1,33 @@
 ---
+source: skills/claude-code/release-standards/SKILL.md
+source_version: 1.1.0
+translation_version: 1.1.0
+last_synced: 2026-01-02
+status: current
 name: release-standards
 description: |
-  Semantic versioning and changelog formatting for software releases.
-  Use when: preparing releases, updating version numbers, writing changelogs.
-  Keywords: version, release, changelog, semver, major, minor, patch, 版本, 發布, 變更日誌.
+  語意化版本控制和变更日誌格式化的软体發布标准。
+  使用时机：准备發布、更新版本号、撰写变更日誌。
+  关鍵字：version, release, changelog, semver, major, minor, patch, 版本, 發布, 变更日誌。
 ---
 
-# Release Standards
+# 發布标准
 
-This skill provides semantic versioning and changelog formatting standards.
+> **语言**: [English](../../../../../skills/claude-code/release-standards/SKILL.md) | 简体中文
 
-## Quick Reference
+**版本**: 1.1.0
+**最後更新**: 2026-01-02
+**適用範圍**: Claude Code Skills
 
-### Semantic Versioning Format
+---
+
+## 目的
+
+本技能提供語意化版本控制和变更日誌格式化标准。
+
+## 快速參考
+
+### 語意化版本格式
 
 ```
 MAJOR.MINOR.PATCH[-PRERELEASE][+BUILD]
@@ -23,40 +38,41 @@ Examples:
 3.2.0-beta.2+20250112
 ```
 
-### Version Incrementing Rules
+### 版本递增規則
 
-| Component | When to Increment | Example |
+| 組成部分 | 何时递增 | 範例 |
 |-----------|-------------------|----------|
-| **MAJOR** | Breaking changes | 1.9.5 → 2.0.0 |
-| **MINOR** | New features (backward-compatible) | 2.3.5 → 2.4.0 |
-| **PATCH** | Bug fixes (backward-compatible) | 3.1.2 → 3.1.3 |
+| **MAJOR** | 重大变更 | 1.9.5 → 2.0.0 |
+| **MINOR** | 新功能（向後相容） | 2.3.5 → 2.4.0 |
+| **PATCH** | 错误修復（向後相容） | 3.1.2 → 3.1.3 |
 
-### Pre-release Identifiers
+### 预發布識别符
 
-| Identifier | Stability | Audience |
+| 識别符 | 穩定性 | 目標受眾 |
 |------------|-----------|----------|
-| `alpha` | Unstable | Internal team |
-| `beta` | Mostly stable | Early adopters |
-| `rc` | Stable | Beta testers |
+| `alpha` | 不穩定 | 內部团队 |
+| `beta` | 大致穩定 | 早期採用者 |
+| `rc` | 穩定 | Beta 测试者 |
 
-### CHANGELOG Categories
+### CHANGELOG 分类
 
-| Category | Usage |
+| 分类 | 用途 |
 |----------|-------|
-| **Added** | New features |
-| **Changed** | Changes in existing functionality |
-| **Deprecated** | Soon to be removed |
-| **Removed** | Removed features |
-| **Fixed** | Bug fixes |
-| **Security** | Vulnerability fixes |
+| **Added** | 新功能 |
+| **Changed** | 現有功能的变更 |
+| **Deprecated** | 即將移除的功能 |
+| **Removed** | 已移除的功能 |
+| **Fixed** | 错误修復 |
+| **Security** | 安全性漏洞修復 |
 
-## Detailed Guidelines
+## 详细指南
 
-For complete standards, see:
-- [Semantic Versioning Guide](./semantic-versioning.md)
-- [Changelog Format](./changelog-format.md)
+完整标准請參阅：
+- [語意化版本控制指南](./semantic-versioning.md)
+- [变更日誌格式](./changelog-format.md)
+- [發布流程指南](./release-workflow.md) - 本项目完整發布流程
 
-## CHANGELOG Entry Format
+## CHANGELOG 条目格式
 
 ```markdown
 ## [VERSION] - YYYY-MM-DD
@@ -74,16 +90,16 @@ For complete standards, see:
 - Fix SQL injection vulnerability (CVE-2025-12345)
 ```
 
-## Breaking Changes
+## 重大变更
 
-Mark breaking changes with **BREAKING** prefix:
+使用 **BREAKING** 前綴標记重大变更：
 
 ```markdown
 ### Changed
 - **BREAKING**: Remove deprecated `getUserById()`, use `getUser()` instead
 ```
 
-## Git Tagging
+## Git 标签
 
 ```bash
 # Create annotated tag (recommended)
@@ -93,7 +109,7 @@ git tag -a v1.2.0 -m "Release version 1.2.0"
 git push origin v1.2.0
 ```
 
-## Version Ordering
+## 版本排序
 
 ```
 1.0.0-alpha.1 < 1.0.0-alpha.2 < 1.0.0-beta.1 < 1.0.0-rc.1 < 1.0.0
@@ -101,23 +117,23 @@ git push origin v1.2.0
 
 ---
 
-## Configuration Detection
+## 配置檢测
 
-This skill supports project-specific configuration.
+本技能支援项目特定配置。
 
-### Detection Order
+### 檢测順序
 
-1. Check `CONTRIBUTING.md` for "Disabled Skills" section
-   - If this skill is listed, it is disabled for this project
-2. Check `CONTRIBUTING.md` for "Release Standards" section
-3. If not found, **default to Semantic Versioning and Keep a Changelog format**
+1. 检查 `CONTRIBUTING.md` 中的「Disabled Skills」段落
+   - 如果列出此技能，則該项目停用此技能
+2. 检查 `CONTRIBUTING.md` 中的「Release Standards」段落
+3. 如果未找到，**预设使用語意化版本控制和 Keep a Changelog 格式**
 
-### First-Time Setup
+### 首次设置
 
-If no configuration found and context is unclear:
+如果未找到配置且上下文不明确：
 
-1. Ask the user: "This project hasn't configured release standards. Would you like to use Semantic Versioning?"
-2. After user selection, suggest documenting in `CONTRIBUTING.md`:
+1. 詢問使用者：「此项目尚未配置發布标准。您想使用語意化版本控制嗎？」
+2. 使用者选择後，建议在 `CONTRIBUTING.md` 中记录：
 
 ```markdown
 ## Release Standards
@@ -129,9 +145,9 @@ This project uses **Semantic Versioning** (MAJOR.MINOR.PATCH).
 This project follows **Keep a Changelog** format.
 ```
 
-### Configuration Example
+### 配置範例
 
-In project's `CONTRIBUTING.md`:
+在项目的 `CONTRIBUTING.md` 中：
 
 ```markdown
 ## Release Standards
@@ -151,4 +167,25 @@ This project follows **Keep a Changelog** format.
 
 ---
 
-**License**: CC BY 4.0 | **Source**: [universal-dev-standards](https://github.com/AsiaOstrich/universal-dev-standards)
+## 相关标准
+
+- [版本控制](../../core/versioning.md)
+- [变更日誌标准](../../core/changelog-standards.md)
+- [Git 工作流程](../../core/git-workflow.md)
+
+---
+
+## 版本历史
+
+| 版本 | 日期 | 变更内容 |
+|---------|------|---------|
+| 1.1.0 | 2026-01-02 | 新增：發布流程指南，包含完整發布流程 |
+| 1.0.0 | 2025-12-24 | 新增：标准段落（目的、相关标准、版本历史、授权条款） |
+
+---
+
+## 授权条款
+
+本技能依据 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 授权發布。
+
+**來源**: [universal-dev-standards](https://github.com/AsiaOstrich/universal-dev-standards)

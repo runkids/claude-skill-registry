@@ -1,7 +1,7 @@
 {
   "name": "memory",
-  "repo": "reggiechan74/claude-plugins",
-  "path": "plugins/claude-code-metaskill/skills/memory/SKILL.md",
-  "source": "github.com/reggiechan74/claude-plugins",
-  "downloaded_at": "2026-01-14T03:58:20.880438Z"
+  "repo": "rjmurillo/ai-agents",
+  "path": ".claude/skills/memory/SKILL.md",
+  "source": "github.com/rjmurillo/ai-agents",
+  "downloaded_at": "2026-01-17T03:19:54.355992Z"
 }

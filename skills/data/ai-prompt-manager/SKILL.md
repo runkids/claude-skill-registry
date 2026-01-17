@@ -5,12 +5,6 @@ description: Expert assistant for managing AI prompts, features, and configurati
 
 # AI Prompt Manager
 
-## Context Files (Read First)
-
-For AI schema and structure, read from `Docs/context/`:
-- `Docs/context/db-schema-short.md` - AI tables schema
-- `Docs/context/supabase-map.md` - AI Edge Functions
-
 ## Capabilities
 - Create new AI prompt templates with proper structure
 - Generate prompt versions with variable substitution

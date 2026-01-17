@@ -3,6 +3,7 @@ name: aws-serverless-eda
 description: AWS serverless and event-driven architecture expert based on Well-Architected Framework. Use when building serverless APIs, Lambda functions, REST APIs, microservices, or async workflows. Covers Lambda with TypeScript/Python, API Gateway (REST/HTTP), DynamoDB, Step Functions, EventBridge, SQS, SNS, and serverless patterns. Essential when user mentions serverless, Lambda, API Gateway, event-driven, async processing, queues, pub/sub, or wants to build scalable serverless applications with AWS best practices.
 context: fork
 skills:
+  - aws-mcp-setup
   - aws-cdk-development
 allowed-tools:
   - mcp__aws-mcp__*
@@ -41,7 +42,7 @@ This skill provides comprehensive guidance for building serverless applications 
    - `mcp__aws-mcp__aws___get_regional_availability` - Check service availability
 
 2. **If AWS MCP tools are unavailable**:
-   - Guide user to configure AWS MCP: See [AWS MCP Setup Guide](../../docs/aws-mcp-setup.md)
+   - Guide user to configure AWS MCP using the `aws-mcp-setup` skill (auto-loaded as dependency)
    - Help determine which option fits their environment:
      - Has uvx + AWS credentials → Full AWS MCP Server
      - No Python/credentials → AWS Documentation MCP (no auth)

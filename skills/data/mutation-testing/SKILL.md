@@ -1,303 +1,141 @@
 ---
 name: mutation-testing
-description: |
-  Mutation testing patterns for verifying test effectiveness. Use when analyzing branch code
-  to find weak or missing tests. Triggers: "mutation testing", "test effectiveness",
-  "would tests catch this bug", "weak tests", "are my tests good enough", "surviving mutants".
+description: 在單元測試通過後觸發。透過引入人工錯誤（Mutants）來「測試你的測試」，確保測試案例具有足夠的錯誤偵測能力，建立對驗證機制的信任（Trust the Verification）。
 ---
 
-# Mutation Testing
+# Mutation Testing Skill
 
-Mutation testing answers: **"Would my tests catch this bug?"** by actually introducing bugs and running tests.
+## 觸發時機
 
----
+- 單元測試覆蓋率達標（如 > 80%）但仍需確認測試品質時
+- 核心演算法或高風險模組開發完成後
+- CI/CD 流程中的品質閘門（Quality Gate）階段
+- 使用者要求「驗證測試有效性」時
 
-## Execution Workflow
+## 核心任務
 
-**CRITICAL**: This skill actually mutates code and runs tests. Follow this exact process:
-
-### Step 1: Identify Target Code
-
-```bash
-# Get changed files on the branch
-git diff main...HEAD --name-only | grep -E '\.(ts|js|tsx|jsx|vue)$' | grep -v '\.test\.' | grep -v '\.spec\.'
-```
-
-### Step 2: For Each Function to Test
-
-Execute this loop for each mutation:
-
-```
-1. READ the original file and note exact content
-2. APPLY one mutation (edit the code)
-3. RUN tests: pnpm test --run (or specific test file)
-4. RECORD result: KILLED (test failed) or SURVIVED (test passed)
-5. RESTORE original code immediately
-6. Repeat for next mutation
-```
-
-### Step 3: Report Results
-
-After all mutations, provide a summary table:
-
-```
-| Mutation | Location | Result | Action Needed |
-|----------|----------|--------|---------------|
-| `>` → `>=` | file.ts:42 | SURVIVED | Add boundary test |
-| `&&` → `||` | file.ts:58 | KILLED | None |
-```
+執行變異測試（Mutation Testing），量化測試套件的品質，找出「倖存的變異體（Surviving Mutants）」，並據此強化測試案例。
 
 ---
 
-## Mutation Operators to Apply
+## 為什麼需要變異測試？
 
-### Priority 1: Boundary Mutations (Most Likely to Survive)
+單元測試覆蓋率（Line Check）只能告訴你「程式碼被執行到了」，但無法告訴你「測試是否驗證了正確的行為」。
 
-| Original | Mutate To | Why It Matters |
-|----------|-----------|----------------|
-| `<` | `<=` | Boundary not tested |
-| `>` | `>=` | Boundary not tested |
-| `<=` | `<` | Equality case missed |
-| `>=` | `>` | Equality case missed |
+> **"Coverage only checks if the code is executed, Mutation Testing checks if the code is verified."**
 
-### Priority 2: Boolean Logic Mutations
+### 運作原理
 
-| Original | Mutate To | Why It Matters |
-|----------|-----------|----------------|
-| `&&` | `\|\|` | Only tested when both true |
-| `\|\|` | `&&` | Only tested when both false |
-| `!condition` | `condition` | Negation not verified |
-
-### Priority 3: Arithmetic Mutations
-
-| Original | Mutate To | Why It Matters |
-|----------|-----------|----------------|
-| `+` | `-` | Tested with 0 only |
-| `-` | `+` | Tested with 0 only |
-| `*` | `/` | Tested with 1 only |
-
-### Priority 4: Return/Early Exit Mutations
-
-| Original | Mutate To | Why It Matters |
-|----------|-----------|----------------|
-| `return x` | `return null` | Return value not asserted |
-| `return true` | `return false` | Boolean return not checked |
-| `if (cond) return` | `// removed` | Early exit not tested |
-
-### Priority 5: Statement Removal
-
-| Original | Mutate To | Why It Matters |
-|----------|-----------|----------------|
-| `array.push(x)` | `// removed` | Side effect not verified |
-| `await save(x)` | `// removed` | Async operation not verified |
-| `emit('event')` | `// removed` | Event emission not tested |
+1.  **變異 (Mutate)**：工具自動修改原始碼的一小部分（例如將 `a + b` 改為 `a - b`，或將 `return true` 改為 `return false`），產生一個「變異體 (Mutant)」。
+2.  **測試 (Test)**：針對這個變異體執行現有的測試套件。
+3.  **判定 (Verdict)**：
+    *   **Killed (殺死)**：如果測試失敗（紅燈），表示測試成功偵測到了這個變異，這是**好事**。
+    *   **Survived (倖存)**：如果測試仍然通過（綠燈），表示測試**無法偵測**這個錯誤，這是**壞事**。
 
 ---
 
-## Practical Execution Example
+## 工具選擇
 
-### Example: Testing a Validation Function
+### Java (主要支援)
 
-**Original code** (`src/utils/validation.ts:15`):
-```typescript
-export function isValidAge(age: number): boolean {
-  return age >= 18 && age <= 120;
-}
+使用 **PITest (PIT)**，這是目前 Java 生態系最成熟的變異測試工具。
+
+```xml
+<!-- pom.xml configuration example -->
+<plugin>
+    <groupId>org.pitest</groupId>
+    <artifactId>pitest-maven</artifactId>
+    <version>1.15.0</version>
+    <dependencies>
+        <dependency>
+            <groupId>org.pitest</groupId>
+            <artifactId>pitest-junit5-plugin</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+    </dependencies>
+    <configuration>
+        <targetClasses>
+            <param>com.yourdomain.core.*</param>
+        </targetClasses>
+        <targetTests>
+            <param>com.yourdomain.core.*Test</param>
+        </targetTests>
+        <mutators>
+            <mutator>STRONGER</mutator> <!-- 使用更強的變異算子 -->
+        </mutators>
+    </configuration>
+</plugin>
 ```
 
-**Mutation 1**: Change `>=` to `>`
-```typescript
-export function isValidAge(age: number): boolean {
-  return age > 18 && age <= 120;  // MUTATED
-}
-```
+### 其他語言建議
 
-**Run tests**:
-```bash
-pnpm test --run src/__tests__/validation.test.ts
-```
-
-**Result**: Tests PASS → **SURVIVED** (Bad! Need test for `isValidAge(18)`)
-
-**Restore original code immediately**
-
-**Mutation 2**: Change `&&` to `||`
-```typescript
-export function isValidAge(age: number): boolean {
-  return age >= 18 || age <= 120;  // MUTATED
-}
-```
-
-**Run tests**:
-```bash
-pnpm test --run src/__tests__/validation.test.ts
-```
-
-**Result**: Tests FAIL → **KILLED** (Good! Tests catch this bug)
-
-**Restore original code immediately**
+- **JavaScript/TypeScript**: Stryker Mutator
+- **Python**: Mutmut / Cosmic Ray
+- **Go**: Gremlins
 
 ---
 
-## Results Interpretation
+## 變異算子 (Mutators)
 
-### Mutant States
+常見的變異類型包括：
 
-| State | Meaning | Action |
-|-------|---------|--------|
-| **KILLED** | Test failed with mutant | Tests are effective |
-| **SURVIVED** | Tests passed with mutant | **Add or strengthen test** |
-| **TIMEOUT** | Tests hung (infinite loop) | Counts as detected |
-
-### Mutation Score
-
-```
-Score = (Killed + Timeout) / Total Mutations * 100
-```
-
-| Score | Quality |
-|-------|---------|
-| < 60% | Weak - significant test gaps |
-| 60-80% | Moderate - improvements needed |
-| 80-90% | Good - minor gaps |
-| > 90% | Strong test suite |
+1.  **Conditionals Boundary**：`i < 10` → `i <= 10`
+2.  **Math**：`a + b` → `a - b`
+3.  **Increments**：`i++` → `i--`
+4.  **Invert Negatives**：`-i` → `i`
+5.  **Return Values**：`return true` → `return false` / `return object` → `return null`
+6.  **Void Method Calls**：移除對無回傳值方法的呼叫
 
 ---
 
-## Fixing Surviving Mutants
+## 分析流程
 
-When a mutant survives, add a test that would catch it:
-
-### Surviving: Boundary mutation (`>=` → `>`)
-
-```typescript
-// Add boundary test
-it('accepts exactly 18 years old', () => {
-  expect(isValidAge(18)).toBe(true);  // Would fail if >= became >
-});
+```
+1. 執行單元測試 (必須全數通過)
+       ↓
+2. 執行變異測試 (mvn pitest:mutationCoverage)
+       ↓
+3. 產生報告 (target/pit-reports/index.html)
+       ↓
+4. 分析倖存變異體 (Analyze Surviving Mutants)
+       ↓
+5. 強化測試案例 (Add/Refine Test Cases)
+       ↓
+6. 重複直到 Mutation Score 達標
 ```
 
-### Surviving: Logic mutation (`&&` → `||`)
+### 判定標準
 
-```typescript
-// Add test with mixed conditions
-it('rejects when only one condition met', () => {
-  expect(isValidAge(15)).toBe(false);  // Would pass if && became ||
-});
-```
-
-### Surviving: Statement removal
-
-```typescript
-// Add side effect verification
-it('saves to database', async () => {
-  await processOrder(order);
-  expect(db.save).toHaveBeenCalledWith(order);  // Would fail if save removed
-});
-```
+| 指標 | 建議閾值 | 說明 |
+|------|---------|------|
+| **Line Coverage** | > 85% | 基礎要求 |
+| **Mutation Score** | > 80% | 殺死的變異體 / 總變異體 |
+| **Test Strength** | > 80% | 只計算有被覆蓋到的程式碼的變異分數 |
 
 ---
 
-## Quick Checklist During Mutation
+## 常見的倖存原因與對策
 
-For each mutation, ask:
+### 1. 缺乏斷言 (Missing Assertion)
+測試執行了代碼，但沒有檢查結果。
+*   **對策**：補上 `assertEquals` 或 `verify`。
 
-1. **Before mutating**: Does a test exist for this code path?
-2. **After running tests**: Did any test actually fail?
-3. **If survived**: What specific test would catch this?
-4. **After fixing**: Re-run mutation to confirm killed
+### 2. 斷言過於寬鬆 (Weak Assertion)
+只檢查了部分狀態（例如只檢查 List 不為空，沒檢查內容）。
+*   **對策**：檢查具體的值和屬性。
 
----
-
-## Common Surviving Mutation Patterns
-
-### Tests Only Check Happy Path
-
-```typescript
-// WEAK: Only tests success case
-it('validates', () => {
-  expect(validate(goodInput)).toBe(true);
-});
-
-// STRONG: Tests both cases
-it('validates good input', () => {
-  expect(validate(goodInput)).toBe(true);
-});
-it('rejects bad input', () => {
-  expect(validate(badInput)).toBe(false);
-});
-```
-
-### Tests Use Identity Values
-
-```typescript
-// WEAK: Mutation survives
-expect(multiply(5, 1)).toBe(5);  // 5*1 = 5/1 = 5
-
-// STRONG: Mutation detected
-expect(multiply(5, 3)).toBe(15);  // 5*3 ≠ 5/3
-```
-
-### Tests Don't Assert Return Values
-
-```typescript
-// WEAK: No return value check
-it('processes', () => {
-  process(data);  // No assertion!
-});
-
-// STRONG: Asserts outcome
-it('processes', () => {
-  const result = process(data);
-  expect(result).toEqual(expected);
-});
-```
+### 3. 等價變異 (Equivalent Mutant)
+變異後的代碼在邏輯上與原代碼等價（例如 `i < 10` 在迴圈中改成 `i != 10`）。
+*   **對策**：這是工具限制，標記為 False Positive 或忽略。
 
 ---
 
-## Important Rules
+## 交付產物
 
-1. **ALWAYS restore original code** after each mutation
-2. **Run tests immediately** after applying mutation
-3. **One mutation at a time** - don't combine mutations
-4. **Focus on changed code** - prioritize branch diff
-5. **Track all results** - report full mutation summary
+執行此 Skill 後，應產出：
 
----
+1.  **Mutation Report Analysis**：分析主要倖存原因。
+2.  **Improved Test Suite**：新增或修改的測試案例，能殺死之前的倖存者。
+3.  **Confidence Assessment**：對該模組品質的信心評估。
 
-## Summary Report Template
-
-After completing mutation testing, provide:
-
-```markdown
-## Mutation Testing Results
-
-**Target**: `src/features/workout/utils.ts` (functions: X, Y, Z)
-**Total Mutations**: 12
-**Killed**: 9
-**Survived**: 3
-**Score**: 75%
-
-### Surviving Mutants (Action Required)
-
-| # | Location | Original | Mutated | Suggested Test |
-|---|----------|----------|---------|----------------|
-| 1 | line 42 | `>=` | `>` | Test boundary value |
-| 2 | line 58 | `&&` | `\|\|` | Test mixed conditions |
-| 3 | line 71 | `emit()` | removed | Verify event emission |
-
-### Killed Mutants (Tests Effective)
-
-- Line 35: `+` → `-` killed by `calculation.test.ts`
-- Line 48: `true` → `false` killed by `validate.test.ts`
-- ...
-```
-
----
-
-## Related Skills
-
-- `systematic-debugging` - Root cause analysis
-- `testing-conventions` - Query priority, expect.poll()
-- `vue-integration-testing` - Page objects, browser mode
-- `vitest-mocking` - Test doubles and mocking patterns
+> **注意**：變異測試極其耗時。建議只針對核心 Domain Logic (Entities, Value Objects, Domain Services) 執行，避免對整個專案執行。

@@ -1,12 +1,7 @@
 {
   "name": "spec-writing",
-  "description": "Use during Phase 3 of spec creation to create specification document - searches codebase for reusable patterns, presents spec in validated 150-200 word sections, and saves complete specification follo",
-  "repo": "marcos-abreu/connect_kit",
-  "category": "development",
-  "tags": [
-    "spec",
-    "writing"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "vasic-digital/SuperAgent",
+  "path": "skills/plugins/community/sprint/spec-writing/SKILL.md",
+  "source": "github.com/vasic-digital/SuperAgent",
+  "downloaded_at": "2026-01-17T01:41:45.649247Z"
 }

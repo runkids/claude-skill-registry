@@ -1,11 +1,7 @@
 {
   "name": "tailwind-ui",
-  "description": "Tailwind CSS v4.1 best practices with WCAG 2.1 AA accessibility, theming, and dark mode support. Use when working with HTML, CSS, styling components, accessibility (a11y), WCAG compliance, color contr",
-  "repo": "Boise-State-Development/agentcore-public-stack",
-  "category": "design",
-  "tags": [
-    "tailwind"
-  ],
-  "stars": 2,
-  "source": "local"
+  "repo": "JuanDiego30/cermont_aplicativo",
+  "path": "SKILLS/tailwind-ui/SKILL.md",
+  "source": "github.com/JuanDiego30/cermont_aplicativo",
+  "downloaded_at": "2026-01-17T03:52:04.246851Z"
 }

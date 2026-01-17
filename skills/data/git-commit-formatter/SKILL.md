@@ -1,192 +1,52 @@
 ---
 name: git-commit-formatter
-description: Format git commits with proper standards, signatures, and conventional commit format. Use when user says "commit", "create commit", "format commit message", or when staging changes for commit.
-allowed-tools: Bash, Read
+description: 生成符合 Conventional Commits 规范的 Git 提交信息。当用户要求生成提交、创建 commit 或写提交信息时使用
 ---
 
-# Git Commit Formatter
+# Git 提交信息格式化器
 
-## When to Use
+## 任务说明
 
-Activate this skill when:
-- User requests to "commit" changes
-- User asks to "create a commit message"
-- User says "stage and commit"
-- User mentions "git commit" or "commit with message"
-- User wants to follow commit message standards
-- User needs a properly formatted commit signature
+分析暂存区的代码变更，生成符合 Conventional Commits 规范的提交信息。
 
-## Instructions
+## 规范说明
 
-### Step 1: Gather Context
-1. Run `git status` to see all untracked and modified files
-2. Run `git diff` to see unstaged changes
-3. Run `git diff --staged` to see already staged changes
-4. Run `git log --oneline -5` to see recent commit message style
+提交信息格式：`<type>(<scope>): <subject>`
 
-### Step 2: Analyze Changes
-1. Review all changes comprehensively
-2. Identify the type of change:
-   - `feat:` - New feature
-   - `fix:` - Bug fix
-   - `docs:` - Documentation only
-   - `style:` - Code style/formatting
-   - `refactor:` - Code refactoring
-   - `test:` - Adding/updating tests
-   - `chore:` - Build process, dependencies
-   - `perf:` - Performance improvement
+类型定义：
+- feat: 新功能
+- fix: 修复缺陷
+- docs: 文档更新
+- style: 代码格式调整（不影响逻辑）
+- refactor: 重构代码
+- perf: 性能优化
+- test: 测试相关
+- build: 构建系统或依赖更新
+- ci: CI 配置更新
+- chore: 其他不修改源代码的更改
 
-### Step 3: Draft Commit Message
-Format:
+## 执行步骤
+
+1. 运行 `git diff --cached` 查看暂存的变更
+2. 分析文件变更，识别主要修改类型
+3. 确定影响范围（scope）
+4. 生成简洁的主题（subject），限制在 50 字符内
+5. 如有重大变更，添加 BREAKING CHANGE 说明
+
+## 质量标准
+
+必须遵守：
+- subject 使用动词开头，现在时态
+- subject 不以句号结尾
+- scope 用括号包裹，可选但建议提供
+- 如有详细说明，body 每行不超过 72 字符
+
+## 示例输出
+
 ```
-<type>: <short summary>
+feat(auth): 实现 JWT 令牌认证
 
-<detailed explanation if needed>
-
-🤖 Generated with [Claude Code](https://claude.com/claude-code)
-
-Co-Authored-By: Claude <noreply@anthropic.com>
+- 添加 JWT 生成和验证逻辑
+- 实现令牌刷新机制
+- 添加相关单元测试
 ```
-
-### Step 4: Stage and Commit
-1. Stage relevant files: `git add <files>`
-2. Commit with message using heredoc:
-```bash
-git commit -m "$(cat <<'EOF'
-feat: add user authentication
-
-Implement OAuth 2.0 flow with Google provider
-- Add login/logout buttons
-- Store user session in Firebase
-- Protect authenticated routes
-
-🤖 Generated with [Claude Code](https://claude.com/claude-code)
-
-Co-Authored-By: Claude <noreply@anthropic.com>
-EOF
-)"
-```
-3. Run `git status` to verify
-
-### Step 5: Handle Pre-commit Hooks
-If commit fails due to pre-commit hook changes:
-1. Check authorship: `git log -1 --format='%an %ae'`
-2. Check not pushed: `git status` shows "Your branch is ahead"
-3. If both true: amend the commit
-4. Otherwise: create NEW commit
-
-## Examples
-
-### Example 1: Feature Addition
-```bash
-# Context: Added new search functionality
-git commit -m "$(cat <<'EOF'
-feat: implement search functionality
-
-Add full-text search across posts and comments
-- Integrate Algolia search API
-- Add search bar to navigation
-- Display results with highlighting
-
-🤖 Generated with [Claude Code](https://claude.com/claude-code)
-
-Co-Authored-By: Claude <noreply@anthropic.com>
-EOF
-)"
-```
-
-### Example 2: Bug Fix
-```bash
-# Context: Fixed authentication redirect
-git commit -m "$(cat <<'EOF'
-fix: resolve authentication redirect loop
-
-Prevent infinite redirect when session expires
-- Check token validity before redirect
-- Clear stale session data
-- Add error boundary
-
-🤖 Generated with [Claude Code](https://claude.com/claude-code)
-
-Co-Authored-By: Claude <noreply@anthropic.com>
-EOF
-)"
-```
-
-### Example 3: Documentation
-```bash
-# Context: Updated README
-git commit -m "$(cat <<'EOF'
-docs: update installation instructions
-
-Add troubleshooting section and environment setup guide
-
-🤖 Generated with [Claude Code](https://claude.com/claude-code)
-
-Co-Authored-By: Claude <noreply@anthropic.com>
-EOF
-)"
-```
-
-## Best Practices
-
-### ✅ DO:
-- Always check `git status` and `git diff` first
-- Use conventional commit format (`type: description`)
-- Focus on "why" rather than "what" in detailed explanation
-- Include Claude Code signature
-- Use heredoc for multi-line messages
-- Ask before committing if unclear about changes
-- Keep first line under 72 characters
-- Verify commit with `git status` after
-
-### ❌ DON'T:
-- Never commit without reviewing changes first
-- Never commit files with secrets (.env, credentials.json)
-- Never use `git commit --amend` unless fixing pre-commit hook changes
-- Never commit unless explicitly requested by user
-- Don't use vague messages like "update files" or "fix stuff"
-- Don't commit generated files (node_modules, dist, build)
-
-### Conventional Commit Types:
-- **feat**: New feature for user
-- **fix**: Bug fix
-- **docs**: Documentation changes
-- **style**: Formatting, missing semicolons (no code change)
-- **refactor**: Code restructuring (no behavior change)
-- **perf**: Performance improvement
-- **test**: Adding/updating tests
-- **build**: Build system changes
-- **ci**: CI/CD changes
-- **chore**: Maintenance tasks, dependencies
-
-### Commit Message Guidelines:
-1. First line: Imperative mood ("add" not "added")
-2. First line: No period at end
-3. Body: Wrap at 72 characters
-4. Body: Explain what and why, not how
-5. Always include Claude signature block
-
-## Safety Checks
-
-Before committing:
-- [ ] No sensitive data (API keys, passwords, tokens)
-- [ ] No large binary files
-- [ ] No node_modules or dist folders
-- [ ] Changes align with commit message
-- [ ] User explicitly requested commit
-- [ ] Pre-commit hooks passed (or handled)
-
-## Troubleshooting
-
-**Issue**: Pre-commit hook modified files
-**Solution**: Check authorship and amend if safe, otherwise create new commit
-
-**Issue**: Large diff, unclear what to commit
-**Solution**: Ask user which changes to include
-
-**Issue**: Multiple unrelated changes
-**Solution**: Suggest separate commits for different concerns
-
-**Issue**: Unclear commit type
-**Solution**: Default to `chore:` or ask user for clarification

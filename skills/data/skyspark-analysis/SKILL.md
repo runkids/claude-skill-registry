@@ -47,3 +47,56 @@ This skill provides expertise in SkySpark analytics platform for building automa
 - "Identify equipment with scheduling issues in SkySpark"
 - "Create a dashboard for chiller plant efficiency"
 - "Analyze energy consumption patterns from BAS data"
+
+---
+
+## Context Awareness
+
+This skill integrates with work-command-center session tracking:
+
+**Check Active Context:**
+
+```bash
+node .claude/skills/work-command-center/tools/session-state.js status
+```
+
+Returns: Project name, project number, duration, and deliverables context
+
+**Log Activity Checkpoints:**
+
+```bash
+node .claude/skills/work-command-center/tools/session-state.js checkpoint \
+  --activity "skyspark-analysis: Created AHU efficiency dashboard, identified 3 scheduling faults"
+```
+
+**Signal Completion (called by WCC after skill returns):**
+
+```bash
+node .claude/skills/work-command-center/tools/session-state.js skill-complete \
+  --skill-name "skyspark-analysis" \
+  --summary "Completed fault detection analysis. Found 3 scheduling issues and 2 setpoint deviations." \
+  --outcome "success"
+```
+
+**Benefits:**
+
+- WCC tracks time spent in this skill
+- Session logs include skill work breakdown
+- Context visible across skill transitions
+- Deliverables auto-update from skill outcomes
+
+
+## Saving Next Steps
+
+When skyspark-analysis work is complete or paused:
+
+```bash
+node .claude/skills/work-command-center/tools/add-skill-next-steps.js \
+  --skill "skyspark-analysis" \
+  --content "## Priority Tasks
+1. Write Axon query for fault detection
+2. Analyze trend data for HVAC optimization
+3. Create SkySpark dashboard for building analytics"
+```
+
+See: `.claude/skills/work-command-center/skill-next-steps-convention.md`

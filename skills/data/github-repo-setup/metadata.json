@@ -1,9 +1,7 @@
 {
   "name": "github-repo-setup",
-  "description": "Use PROACTIVELY when user needs to create a new GitHub repository or set up a project with best practices. Automates repository creation with four modes - quick public repos (~30s), enterprise-grade w",
-  "repo": "cskiro/claudex",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "0GiS0/ghcp-agent-skills",
+  "path": "personal-skills/github-repo-setup/SKILL.md",
+  "source": "github.com/0GiS0/ghcp-agent-skills",
+  "downloaded_at": "2026-01-17T03:59:06.479761Z"
 }

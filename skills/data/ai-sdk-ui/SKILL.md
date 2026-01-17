@@ -1,159 +1,232 @@
 ---
 name: ai-sdk-ui
-description: |
-  Build React chat interfaces with Vercel AI SDK v6. Covers useChat/useCompletion/useObject hooks, message parts structure, tool approval workflows, and 12 UI error solutions.
+description: Vercel AI SDK v5 React hooks (useChat, useCompletion, useObject) for AI chat interfaces. Use for React/Next.js AI apps or encountering parse stream errors, no response, streaming issues.
 
-  Use when: implementing AI chat UIs, migrating v5→v6, troubleshooting "useChat failed to parse stream", "stale body values", or React update depth errors.
-user-invocable: true
+  Keywords: ai sdk ui, useChat hook, useCompletion hook, useObject hook, react ai chat, ai chat interface,
+  streaming ai ui, nextjs ai chat, vercel ai ui, react streaming, ai sdk react, chat message state,
+  ai file attachments, message persistence, useChat error, streaming failed ui, parse stream error,
+  useChat no response, react ai hooks, nextjs app router ai, nextjs pages router ai
+license: MIT
 ---
 
 # AI SDK UI - Frontend React Hooks
 
-Frontend React hooks for AI-powered user interfaces with Vercel AI SDK v6.
+Frontend React hooks for AI-powered user interfaces with Vercel AI SDK v5.
 
-**Version**: AI SDK v6.0.23 (Stable)
-**Framework**: React 18+/19, Next.js 14+/15+
-**Last Updated**: 2026-01-09
+**Version**: AI SDK v5.0.116 (Stable)
+**Framework**: React 18+, Next.js 15+
+**Last Updated**: 2025-12-22
+
+## Table of Contents
+1. [Quick Start](#quick-start-5-minutes)
+2. [When to Load References](#when-to-load-references)
+3. [useChat Hook](#usechat-hook---complete-reference)
+4. [useCompletion Hook](#usecompletion-hook---complete-reference)
+5. [useObject Hook](#useobject-hook---complete-reference)
+6. [Next.js Integration](#nextjs-integration)
+7. [Top UI Errors & Solutions](#top-ui-errors--solutions)
+8. [Streaming Best Practices](#streaming-best-practices)
+9. [When to Use This Skill](#when-to-use-this-skill)
+10. [Package Versions](#package-versions)
 
 ---
 
-## AI SDK v6 Stable (January 2026)
+## Quick Start (5 Minutes)
 
-**Status:** Stable Release
-**Latest:** ai@6.0.23, @ai-sdk/react@3.0.23, @ai-sdk/openai@3.0.7
-**Migration:** Minimal breaking changes from v5 → v6
+### Installation
 
-### New UI Features in v6
-
-**1. Message Parts Structure (Breaking Change)**
-In v6, message content is now accessed via `.parts` array instead of `.content`:
-
-```tsx
-// ❌ v5 (OLD)
-{messages.map(m => (
-  <div key={m.id}>{m.content}</div>
-))}
-
-// ✅ v6 (NEW)
-{messages.map(m => (
-  <div key={m.id}>
-    {m.parts.map((part, i) => {
-      if (part.type === 'text') return <span key={i}>{part.text}</span>;
-      if (part.type === 'tool-invocation') return <ToolCall key={i} tool={part} />;
-      if (part.type === 'file') return <FilePreview key={i} file={part} />;
-      return null;
-    })}
-  </div>
-))}
+```bash
+bun add ai @ai-sdk/openai  # preferred
+# or: bun add ai @ai-sdk/openai
 ```
 
-**Part Types:**
-- `text` - Text content with `.text` property
-- `tool-invocation` - Tool calls with `.toolName`, `.args`, `.result`
-- `file` - File attachments with `.mimeType`, `.data`
-- `reasoning` - Model reasoning (when available)
-- `source` - Source citations
-
-**3. Agent Integration**
-Type-safe messaging with agents using `InferAgentUIMessage<typeof agent>`:
+### Basic Chat Component (v5)
 
 ```tsx
-import { useChat } from '@ai-sdk/react';
-import type { InferAgentUIMessage } from 'ai';
-import { myAgent } from './agent';
+// app/chat/page.tsx
+'use client';
+import { useChat } from 'ai/react';
+import { useState, FormEvent } from 'react';
 
-export default function AgentChat() {
-  const { messages, sendMessage } = useChat<InferAgentUIMessage<typeof myAgent>>({
+export default function Chat() {
+  const { messages, sendMessage, isLoading } = useChat({
     api: '/api/chat',
   });
-  // messages are now type-checked against agent schema
-}
-```
+  const [input, setInput] = useState('');
 
-**4. Tool Approval Workflows (Human-in-the-Loop)**
-Request user confirmation before executing tools:
-
-```tsx
-import { useChat } from '@ai-sdk/react';
-import { useState } from 'react';
-
-export default function ChatWithApproval() {
-  const { messages, sendMessage, addToolApprovalResponse } = useChat({
-    api: '/api/chat',
-  });
-
-  const handleApprove = (toolCallId: string) => {
-    addToolApprovalResponse({
-      toolCallId,
-      approved: true,  // or false to deny
-    });
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    sendMessage({ content: input });
+    setInput('');
   };
 
   return (
     <div>
-      {messages.map(message => (
-        <div key={message.id}>
-          {message.toolInvocations?.map(tool => (
-            tool.state === 'awaiting-approval' && (
-              <div key={tool.toolCallId}>
-                <p>Approve tool call: {tool.toolName}?</p>
-                <button onClick={() => handleApprove(tool.toolCallId)}>
-                  Approve
-                </button>
-                <button onClick={() => addToolApprovalResponse({
-                  toolCallId: tool.toolCallId,
-                  approved: false
-                })}>
-                  Deny
-                </button>
-              </div>
-            )
-          ))}
-        </div>
-      ))}
+      <div>
+        {messages.map(m => (
+          <div key={m.id}>
+            <strong>{m.role}:</strong> {m.content}
+          </div>
+        ))}
+      </div>
+      <form onSubmit={handleSubmit}>
+        <input
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Type a message..."
+          disabled={isLoading}
+        />
+      </form>
     </div>
   );
 }
 ```
 
-**5. Auto-Submit Capability**
-Automatically continue conversation after handling approvals:
+### API Route (Next.js App Router)
 
-```tsx
-import { useChat, lastAssistantMessageIsCompleteWithApprovalResponses } from '@ai-sdk/react';
+```typescript
+// app/api/chat/route.ts
+import { streamText } from 'ai';
+import { openai } from '@ai-sdk/openai';
 
-export default function AutoSubmitChat() {
-  const { messages, sendMessage } = useChat({
-    api: '/api/chat',
-    sendAutomaticallyWhen: lastAssistantMessageIsCompleteWithApprovalResponses,
-    // Automatically resubmit after all approval responses provided
+export async function POST(req: Request) {
+  const { messages } = await req.json();
+
+  const result = streamText({
+    model: openai('gpt-4-turbo'),
+    messages,
   });
+
+  return result.toDataStreamResponse();
 }
 ```
 
-**6. Structured Output in Chat**
-Generate structured data alongside tool calling (previously only available in `useObject`):
-
-```tsx
-import { useChat } from '@ai-sdk/react';
-import { z } from 'zod';
-
-const schema = z.object({
-  summary: z.string(),
-  sentiment: z.enum(['positive', 'neutral', 'negative']),
-});
-
-export default function StructuredChat() {
-  const { messages, sendMessage } = useChat({
-    api: '/api/chat',
-    // Server can now stream structured output with chat messages
-  });
-}
-```
+**Result**: A functional chat interface with streaming AI responses in ~10 lines of frontend code.
 
 ---
 
-## useChat Hook - v4 → v5 Breaking Changes
+## When to Load References
+
+For detailed implementation guides, API references, and advanced patterns, load the following reference files:
+
+| Reference File | Load When... |
+|----------------|--------------|
+| `references/use-chat-migration.md` | Migrating from v4 to v5, understanding breaking changes |
+| `references/streaming-patterns.md` | UI streaming best practices, performance optimization |
+| `references/top-ui-errors.md` | Debugging common UI errors, error prevention |
+| `references/nextjs-integration.md` | Next.js setup patterns, App vs Pages Router differences |
+| `references/links-to-official-docs.md` | Finding official Vercel AI SDK documentation |
+| `references/tool-calling-ui.md` | Implementing tool/function calling in chat UI |
+| `references/file-attachments-guide.md` | Adding file upload/attachment support to chat |
+| `references/message-persistence.md` | Persisting chat history with localStorage |
+| `references/use-completion-full-reference.md` | Complete useCompletion API and examples |
+| `references/use-object-full-reference.md` | Complete useObject API with Zod schemas |
+| `references/nextjs-app-router-full.md` | Full Next.js App Router implementation |
+| `references/nextjs-pages-router-full.md` | Full Next.js Pages Router implementation |
+
+---
+
+## useChat Hook - Complete Reference
+
+### Basic Usage (v5 Pattern)
+
+```tsx
+'use client';
+import { useChat } from 'ai/react';
+import { useState, FormEvent } from 'react';
+
+export default function ChatComponent() {
+  const { messages, sendMessage, isLoading, error } = useChat({
+    api: '/api/chat',
+  });
+  const [input, setInput] = useState('');
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    if (!input.trim()) return;
+
+    sendMessage({ content: input });
+    setInput('');
+  };
+
+  return (
+    <div className="flex flex-col h-screen">
+      {/* Messages */}
+      <div className="flex-1 overflow-y-auto p-4">
+        {messages.map(message => (
+          <div
+            key={message.id}
+            className={message.role === 'user' ? 'text-right' : 'text-left'}
+          >
+            <div className="inline-block p-2 rounded bg-gray-100">
+              {message.content}
+            </div>
+          </div>
+        ))}
+        {isLoading && <div className="text-gray-500">AI is thinking...</div>}
+      </div>
+
+      {/* Input */}
+      <form onSubmit={handleSubmit} className="p-4 border-t">
+        <input
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Type a message..."
+          disabled={isLoading}
+          className="w-full p-2 border rounded"
+        />
+      </form>
+
+      {/* Error */}
+      {error && <div className="text-red-500 p-4">{error.message}</div>}
+    </div>
+  );
+}
+```
+
+### Full API Reference
+
+```typescript
+const {
+  // Messages
+  messages,           // Message[] - Chat history
+  setMessages,        // (messages: Message[]) => void - Update messages
+
+  // Actions
+  sendMessage,        // (message: { content: string }) => void - Send message (v5)
+  reload,             // () => void - Reload last response
+  stop,               // () => void - Stop current generation
+
+  // State
+  isLoading,          // boolean - Is AI responding?
+  error,              // Error | undefined - Error if any
+
+  // Data
+  data,               // any[] - Custom data from stream
+  metadata,           // object - Response metadata
+} = useChat({
+  // Required
+  api: '/api/chat',   // API endpoint
+
+  // Optional
+  id: 'chat-1',       // Chat ID for persistence
+  initialMessages: [], // Initial messages (controlled mode)
+
+  // Callbacks
+  onFinish: (message, options) => {},  // Called when response completes
+  onError: (error) => {},              // Called on error
+
+  // Configuration
+  headers: {},        // Custom headers
+  body: {},           // Additional body data
+  credentials: 'same-origin', // Fetch credentials
+
+  // Streaming
+  streamProtocol: 'data', // 'data' | 'text' (default: 'data')
+});
+```
+
+### v4 → v5 Breaking Changes
 
 **CRITICAL: useChat no longer manages input state in v5!**
 
@@ -189,66 +262,28 @@ const [input, setInput] = useState('');
 
 See `references/use-chat-migration.md` for complete migration guide.
 
+**Advanced Features:** useChat supports tool calling (display `message.toolInvocations`), file attachments (`experimental_attachments`), and message persistence (localStorage with `id` + `initialMessages`). See [official docs](https://sdk.vercel.ai/docs/ai-sdk-ui/chatbot) for implementation examples.
+
 ---
 
-## useAssistant Hook (Deprecated)
+## useCompletion & useObject Hooks
 
-> **⚠️ Deprecation Notice**: `useAssistant` is deprecated as of AI SDK v5. OpenAI Assistants API v2
-> will sunset on August 26, 2026. For new projects, use `useChat` with custom backend logic instead.
-> See the **openai-assistants** skill for migration guidance.
+**useCompletion**: For single-prompt completions (not multi-turn chat). Returns `{ completion, complete, isLoading }`. Call `complete(prompt)` to generate. API route uses `streamText()`.
 
-Interact with OpenAI-compatible assistant APIs with automatic UI state management.
+**useObject**: Stream structured JSON with live updates using Zod schemas. Returns `{ object, submit, isLoading }` where `object` is `Partial<T>` that updates progressively. API route uses `streamObject()`.
 
-**Import:**
-```tsx
-import { useAssistant } from '@ai-sdk/react';
-```
+See [official docs](https://sdk.vercel.ai/docs/ai-sdk-ui/overview) for complete API references and examples.
 
-**Basic Usage:**
-```tsx
-'use client';
-import { useAssistant } from '@ai-sdk/react';
-import { useState, FormEvent } from 'react';
+---
 
-export default function AssistantChat() {
-  const { messages, sendMessage, isLoading, error } = useAssistant({
-    api: '/api/assistant',
-  });
-  const [input, setInput] = useState('');
+## Next.js Integration
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    sendMessage({ content: input });
-    setInput('');
-  };
+Complete working examples for both App Router and Pages Router with full chat UI components, API routes, and proper streaming setup.
 
-  return (
-    <div>
-      {messages.map(m => (
-        <div key={m.id}>
-          <strong>{m.role}:</strong> {m.content}
-        </div>
-      ))}
-      <form onSubmit={handleSubmit}>
-        <input
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          disabled={isLoading}
-        />
-      </form>
-      {error && <div>{error.message}</div>}
-    </div>
-  );
-}
-```
-
-**Use Cases:**
-- Building OpenAI Assistant-powered UIs
-- Managing assistant threads and runs
-- Streaming assistant responses with UI state management
-- File search and code interpreter integrations
-
-See official docs for complete API reference: https://ai-sdk.dev/docs/reference/ai-sdk-ui/use-assistant
+**📖 Load `references/nextjs-integration.md`** for complete implementation code including:
+- **App Router**: Full chat page with auto-scroll, loading states, error handling, and API route
+- **Pages Router**: Complete chat implementation with proper streaming setup
+- **Key Differences**: `toDataStreamResponse()` vs `pipeDataStreamToResponse()`
 
 ---
 
@@ -407,36 +442,35 @@ See `references/streaming-patterns.md` for comprehensive best practices.
 
 ## Package Versions
 
-**Stable (v6 - Recommended):**
+**Required:**
 ```json
 {
   "dependencies": {
-    "ai": "^6.0.8",
-    "@ai-sdk/react": "^3.0.6",
-    "@ai-sdk/openai": "^3.0.2",
-    "react": "^18.3.0",
-    "zod": "^3.24.2"
+    "ai": "^5.0.116",
+    "@ai-sdk/openai": "^2.0.88",
+    "react": "^18.2.0",
+    "zod": "^3.23.8",
+    "isomorphic-dompurify": "^2.16.0"
   }
 }
 ```
 
-**Legacy (v5):**
+**Next.js:**
 ```json
 {
   "dependencies": {
-    "ai": "^5.0.99",
-    "@ai-sdk/react": "^1.0.0",
-    "@ai-sdk/openai": "^2.0.68"
+    "next": "^14.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }
 ```
 
 **Version Notes:**
-- AI SDK v6.0.6 (stable, Jan 2026) - recommended for new projects
-- AI SDK v5.x (legacy) - still supported but not receiving new features
-- React 18.3+ / React 19 supported
-- Next.js 14+/15+ recommended
-- Zod 3.24.2+ for schema validation
+- AI SDK v5.0.116+ (stable)
+- React 18+ (React 19 supported)
+- Next.js 14+ recommended (13.4+ works)
+- Zod 3.23.8+ for schema validation
 
 ---
 
@@ -497,4 +531,4 @@ See `references/` for:
 ---
 
 **Production Tested**: WordPress Auditor (https://wordpress-auditor.webfonts.workers.dev)
-**Last Updated**: 2026-01-06
+**Last Updated**: 2025-10-22

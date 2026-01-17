@@ -6,9 +6,9 @@ metadata: {"clawdbot":{"emoji":"🧵","os":["darwin","linux"],"requires":{"bins"
 
 # tmux Skill (Clawdbot)
 
-Use tmux only when you need an interactive TTY. Prefer exec background mode for long-running, non-interactive tasks.
+Use tmux only when you need an interactive TTY. Prefer bash background mode for long-running, non-interactive tasks.
 
-## Quickstart (isolated socket, exec tool)
+## Quickstart (isolated socket, bash tool)
 
 ```bash
 SOCKET_DIR="${CLAWDBOT_TMUX_SOCKET_DIR:-${TMPDIR:-/tmp}/clawdbot-tmux-sockets}"

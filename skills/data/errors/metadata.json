@@ -1,7 +1,7 @@
 {
   "name": "errors",
-  "repo": "mgreenly/ikigai",
-  "path": ".claude/library/errors/SKILL.md",
-  "source": "github.com/mgreenly/ikigai",
-  "downloaded_at": "2026-01-14T03:06:56.951799Z"
+  "repo": "yonatangross/skillforge-claude-plugin",
+  "path": "skills/errors/SKILL.md",
+  "source": "github.com/yonatangross/skillforge-claude-plugin",
+  "downloaded_at": "2026-01-17T01:47:52.445870Z"
 }

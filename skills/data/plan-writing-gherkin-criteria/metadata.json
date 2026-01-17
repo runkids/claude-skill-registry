@@ -1,9 +1,7 @@
 {
   "name": "plan-writing-gherkin-criteria",
-  "description": "Guide for writing Gherkin acceptance criteria using Given-When-Then syntax for testable requirements. Covers scenario structure, background blocks, scenario outlines with examples tables, common patte",
   "repo": "wahidyankf/open-sharia-enterprise",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/plan-writing-gherkin-criteria/SKILL.md",
+  "source": "github.com/wahidyankf/open-sharia-enterprise",
+  "downloaded_at": "2026-01-17T03:27:17.904378Z"
 }

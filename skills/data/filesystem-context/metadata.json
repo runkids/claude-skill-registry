@@ -1,7 +1,7 @@
 {
   "name": "filesystem-context",
-  "repo": "muratcankoylan/Agent-Skills-for-Context-Engineering",
-  "path": "skills/filesystem-context/SKILL.md",
-  "source": "github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
-  "downloaded_at": "2026-01-14T01:40:44.896420Z"
+  "repo": "jdeweedata/circletel",
+  "path": ".claude/skills/filesystem-context/SKILL.md",
+  "source": "github.com/jdeweedata/circletel",
+  "downloaded_at": "2026-01-17T01:36:33.589388Z"
 }

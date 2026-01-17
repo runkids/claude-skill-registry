@@ -1,564 +1,347 @@
 ---
 name: supabase-cli
-description: Comprehensive guide for Supabase CLI usage covering database initialization, migrations, type generation, API key management, and direct query execution. Use this skill when working with Supabase local development, database schema management, or any CLI command usage.
+description: Supabase CLI commands for local development, migrations, project management, and deployment. Use when working with Supabase CLI, starting local dev, managing migrations, or deploying changes.
 ---
 
-# Supabase CLI
+# Supabase CLI Skill
 
-## Overview
+Complete CLI command reference for Supabase development.
 
-This skill provides complete guidance for using Supabase CLI across all development workflows. It covers database initialization, migration management, type generation, API key retrieval, direct database access, and deployment strategies.
+## Quick Reference
 
-Use this skill when:
+| Task | Command |
+|------|---------|
+| Install CLI | `npm install supabase --save-dev` |
+| Login | `supabase login` |
+| Init project | `supabase init` |
+| Link to remote | `supabase link --project-ref <ref>` |
+| Start local stack | `supabase start` |
+| Stop local stack | `supabase stop` |
+| Check status | `supabase status` |
+| Create migration | `supabase migration new <name>` |
+| Push to remote | `supabase db push` |
+| Pull from remote | `supabase db pull` |
+| Reset local DB | `supabase db reset` |
+| Generate types | `supabase gen types typescript --local > types.ts` |
 
-- Setting up new Supabase projects
-- Managing database migrations
-- Generating TypeScript types from database schema
-- Retrieving API keys and connection details
-- Executing SQL queries directly
-- Troubleshooting local development issues
-- Deploying schema changes to production
+## Installation
 
-## Quick Start
+```bash
+# NPM (recommended for projects)
+npm install supabase --save-dev
+npx supabase [command]
 
-### Initial Project Setup
+# Homebrew (macOS/Linux)
+brew install supabase/tap/supabase
 
-Initialize a new Supabase project:
+# Scoop (Windows)
+scoop bucket add supabase https://github.com/supabase/scoop-bucket.git
+scoop install supabase
+```
+
+**Prerequisites**: Docker (required for local development)
+
+## Project Setup
+
+### Initialize Project
 
 ```bash
 supabase init
 ```
 
-Start local development stack:
+Creates:
+- `supabase/config.toml` - Configuration file
+- `supabase/migrations/` - Migration files
+- `supabase/seed.sql` - Seed data
+
+### Link to Remote Project
+
+```bash
+supabase link --project-ref <project-ref>
+```
+
+Get project ref from: Dashboard → Project Settings → General
+
+## Local Development
+
+### Start Local Stack
 
 ```bash
 supabase start
 ```
 
-Get connection details and API keys:
+Starts:
+- PostgreSQL database
+- PostgREST API
+- GoTrue Auth
+- Realtime server
+- Storage service
+- Studio dashboard
+- Inbucket (email testing)
+
+**Output URLs**:
+```
+API URL: http://localhost:54321
+DB URL: postgresql://postgres:postgres@localhost:54322/postgres
+Studio URL: http://localhost:54323
+Inbucket URL: http://localhost:54324
+```
+
+### Stop Local Stack
+
+```bash
+# Stop and save data
+supabase stop
+
+# Stop and delete all data
+supabase stop --no-backup
+```
+
+### Check Status
 
 ```bash
 supabase status
 ```
 
-Link to remote project:
+Shows URLs, API keys, and service status.
 
-```bash
-supabase link --project-ref PROJECT_REF
-```
+## Database Commands
 
----
-
-## Database Initialization
-
-### Creating New Local Database
-
-Start fresh local Supabase instance:
-
-```bash
-supabase init
-supabase start
-```
-
-This creates:
-
-- Local PostgreSQL database on port 54322
-- Studio dashboard at http://localhost:54323
-- API server on port 54321
-- All Supabase services (Auth, Storage, Realtime, etc.)
-
-### Resetting Database
-
-Reset database to clean state with all migrations applied:
-
-```bash
-supabase db reset
-```
-
-Reset without running seed data:
-
-```bash
-supabase db reset --no-seed
-```
-
-### Checking Status
-
-View all running services and connection details:
-
-```bash
-supabase status
-```
-
-Export connection details as environment variables:
-
-```bash
-supabase status -o env > .env.local
-```
-
----
-
-## Migration Management
-
-### Creating Migrations
-
-**Method 1: Manual SQL File**
-
-Create new migration file:
+### Create Migration
 
 ```bash
 supabase migration new create_users_table
 ```
 
-Edit `supabase/migrations/<timestamp>_create_users_table.sql`:
+Creates: `supabase/migrations/<timestamp>_create_users_table.sql`
 
-```sql
-CREATE TABLE users (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  email TEXT UNIQUE NOT NULL,
-  created_at TIMESTAMPTZ DEFAULT now()
-);
+### Generate Migration from Changes
+
+```bash
+# Make changes locally, then generate migration
+supabase db diff -f my_schema_changes
+
+# Diff against specific schemas
+supabase db diff -f changes --schema public,extensions
 ```
 
-Apply migration:
+### Apply Migrations
+
+```bash
+# Apply pending migrations locally
+supabase migration up
+
+# Push to remote
+supabase db push
+
+# Preview what would be pushed
+supabase db push --dry-run
+```
+
+### Pull Remote Changes
+
+```bash
+supabase db pull
+```
+
+Creates migration from Dashboard changes.
+
+### Reset Local Database
 
 ```bash
 supabase db reset
 ```
 
-**Method 2: Auto-Generate from Diff**
+Recreates database and applies all migrations.
 
-Make schema changes in Studio (http://localhost:54323), then generate migration:
-
-```bash
-supabase db diff -f add_users_table
-```
-
-Review generated file at `supabase/migrations/<timestamp>_add_users_table.sql`, then apply:
+### List Migrations
 
 ```bash
-supabase db reset
+supabase migration list
 ```
 
-### Deploying Migrations
+Shows local vs remote migration status.
 
-Preview changes before deployment:
+### Rollback Migrations
 
 ```bash
-supabase db push --linked --dry-run
+# Rollback last n migrations
+supabase migration down --count 1
+
+# Rollback specific number
+supabase migration down --count 3
 ```
 
-Deploy to remote:
+### Squash Migrations
 
 ```bash
-supabase db push --linked
+# Combine multiple migrations into one
+supabase migration squash --version 20240101000000
+
+# Squash all migrations up to version
+supabase migration squash --version <target_version>
 ```
 
-Deploy with seed data:
-
-```bash
-supabase db push --linked --include-seed
-```
-
-Deploy with custom roles:
-
-```bash
-supabase db push --linked --include-roles
-```
-
-### Pulling Remote Schema
-
-Import existing remote schema to local:
-
-```bash
-supabase link --project-ref PROJECT_REF
-supabase db pull initial_schema
-supabase db reset
-```
-
-Pull specific schemas only:
-
-```bash
-supabase db pull -s public,extensions
-```
-
-### Migration Best Practices
-
-Always follow this workflow:
-
-1. Create migration locally
-2. Apply with `supabase db reset`
-3. Generate types
-4. Test application
-5. Commit migration file
-6. Deploy with `supabase db push --linked --dry-run` first
-7. Deploy with `supabase db push --linked`
-
----
+Useful for cleaning up migration history before release.
 
 ## Type Generation
 
-### TypeScript Types
-
-Generate types from local database:
+### Generate TypeScript Types
 
 ```bash
-supabase gen types typescript --local > src/lib/types/database.types.ts
+# From local database
+supabase gen types typescript --local > database.types.ts
+
+# From linked remote
+supabase gen types typescript --linked > database.types.ts
+
+# From specific project
+supabase gen types typescript --project-id "your-id" > database.types.ts
 ```
 
-Generate from remote:
+## Edge Functions
+
+### Create Function
 
 ```bash
-supabase gen types typescript --linked > src/lib/types/database.types.ts
+supabase functions new hello-world
 ```
 
-Generate specific schemas:
+Creates: `supabase/functions/hello-world/index.ts`
+
+### Serve Locally
 
 ```bash
-supabase gen types typescript --local --schema public,extensions > src/lib/types/database.types.ts
+# Serve all functions
+supabase functions serve
+
+# Serve specific function
+supabase functions serve hello-world
+
+# With env file and no JWT
+supabase functions serve --env-file .env --no-verify-jwt
 ```
 
-### Other Languages
-
-Generate Go types:
+### Deploy
 
 ```bash
-supabase gen types go --local > types/database.go
+# Deploy all functions
+supabase functions deploy
+
+# Deploy specific function
+supabase functions deploy hello-world
+
+# Deploy without JWT verification (for webhooks)
+supabase functions deploy webhook-handler --no-verify-jwt
 ```
 
-Generate Swift types:
+### Test Function
 
 ```bash
-supabase gen types swift --local --swift-access-control public > Types/Database.swift
+curl -i --request POST \
+  'http://localhost:54321/functions/v1/hello-world' \
+  --header 'Authorization: Bearer <ANON_KEY>' \
+  --header 'Content-Type: application/json' \
+  --data '{"name":"Functions"}'
 ```
 
-### Automation
-
-Regenerate types after every schema change:
+## Secrets Management
 
 ```bash
-supabase db reset && supabase gen types typescript --local > src/lib/types/database.types.ts
+# Set secret
+supabase secrets set API_KEY=abc123
+
+# Set multiple secrets
+supabase secrets set API_KEY=abc123 DB_PASSWORD=secret
+
+# Set from .env file
+supabase secrets set --env-file .env
+
+# List secrets
+supabase secrets list
+
+# Remove secret
+supabase secrets unset API_KEY
 ```
 
----
-
-## API Key Management
-
-### Getting Local Keys
-
-View all local API keys:
+## Project Management
 
 ```bash
-supabase status
+# List organizations
+supabase orgs list
+
+# List projects
+supabase projects list
+
+# Create project
+supabase projects create <name> --org-id <id> --region <region>
+
+# Delete project
+supabase projects delete --project-ref <ref>
+
+# Update remote config from local
+supabase projects update-config
 ```
 
-Extract keys to environment file:
+## Database Inspection
 
 ```bash
-supabase status -o env > .env.local
+# Cache hit ratio
+supabase inspect db cache-hit --linked
+
+# Unused indexes
+supabase inspect db unused-indexes --local
+
+# Table bloat
+supabase inspect db bloat --linked
+
+# Long running queries
+supabase inspect db long-running-queries --linked
+
+# Active connections
+supabase inspect db role-connections --linked
 ```
 
-Result includes:
+## Backup & Restore
 
-- `SUPABASE_URL` - API endpoint
-- `SUPABASE_ANON_KEY` - Client-side public key
-- `SUPABASE_SERVICE_ROLE_KEY` - Server-side admin key
-- `DATABASE_URL` - Direct database connection
-
-### Getting Remote Keys
-
-Authenticate first:
+### Backup
 
 ```bash
-supabase login
+# Dump roles
+supabase db dump --linked -f roles.sql --role-only
+
+# Dump schema
+supabase db dump --linked -f schema.sql
+
+# Dump data
+supabase db dump --linked -f data.sql --use-copy --data-only
 ```
 
-Link to project:
+### Restore
 
 ```bash
-supabase link --project-ref PROJECT_REF
+psql --single-transaction \
+  --file roles.sql \
+  --file schema.sql \
+  --command 'SET session_replication_role = replica' \
+  --file data.sql \
+  --dbname [CONNECTION_STRING]
 ```
 
-Retrieve API keys:
-
-```bash
-supabase projects api-keys --project-ref PROJECT_REF
-```
-
----
-
-## Direct Database Access
-
-### Using psql
-
-Connect to local database:
-
-```bash
-psql postgresql://postgres:postgres@localhost:54322/postgres
-```
-
-Execute single query:
-
-```bash
-psql postgresql://postgres:postgres@localhost:54322/postgres -c "SELECT * FROM users;"
-```
-
-Run SQL file:
-
-```bash
-psql postgresql://postgres:postgres@localhost:54322/postgres -f query.sql
-```
-
-### Connection Details
-
-Get database URL from status:
-
-```bash
-supabase status
-```
-
-Extract only database URL:
-
-```bash
-supabase status | grep "DB URL"
-```
-
-### Running Migrations Manually
-
-Apply specific SQL file:
-
-```bash
-psql postgresql://postgres:postgres@localhost:54322/postgres -f supabase/migrations/20230101_my_migration.sql
-```
-
----
-
-## Common Workflows
-
-### Standard Development Cycle
-
-**Daily workflow:**
-
-```bash
-# Morning: Start stack
-supabase start
-
-# Make schema changes in Studio or create migration
-supabase migration new add_feature
-
-# Apply changes
-supabase db reset
-
-# Regenerate types
-supabase gen types typescript --local > src/lib/types/database.types.ts
-
-# Test application
-npm run dev
-
-# Commit changes
-git add supabase/migrations/ src/lib/types/database.types.ts
-git commit -m "feat: add new feature schema"
-
-# Deploy to production
-supabase db push --linked --dry-run
-supabase db push --linked
-```
-
-### Team Collaboration
-
-**New developer setup:**
-
-```bash
-# Clone repository
-git clone REPO_URL
-
-# Install CLI
-npm install
-
-# Login to Supabase
-supabase login
-
-# Start local development
-supabase start
-
-# Apply all migrations
-supabase db reset
-
-# Generate types
-supabase gen types typescript --local > src/lib/types/database.types.ts
-```
-
-**After pulling teammate's changes:**
-
-```bash
-git pull
-supabase db reset
-supabase gen types typescript --local > src/lib/types/database.types.ts
-```
-
-### Production Deployment
-
-**Safe deployment pattern:**
-
-```bash
-# Link to production project
-supabase link --project-ref PRODUCTION_REF
-
-# Preview changes
-supabase db push --linked --dry-run
-
-# Review output carefully
-
-# Deploy
-supabase db push --linked
-
-# Verify deployment
-supabase db pull verify_deployment
-```
-
----
-
-## Troubleshooting
-
-### Port Conflicts
-
-If ports are already in use, edit `supabase/config.toml`:
-
-```toml
-[api]
-port = 55321
-
-[db]
-port = 55322
-
-[studio]
-port = 55323
-```
-
-Then restart:
-
-```bash
-supabase stop
-supabase start
-```
-
-### Database in Bad State
-
-Reset completely:
-
-```bash
-supabase stop
-docker volume prune
-supabase start
-supabase db reset
-```
-
-### Migration Conflicts
-
-Pull remote changes first:
-
-```bash
-supabase db pull remote_changes
-```
-
-Resolve conflicts in migration files, then:
-
-```bash
-supabase db reset
-supabase db push --linked
-```
-
-### Type Mismatches
-
-Regenerate types from current schema:
-
-```bash
-supabase gen types typescript --local > src/lib/types/database.types.ts
-```
-
----
-
-## Command Reference
-
-For complete CLI command reference with all flags and options, see `references/cli-commands.md`.
-
-For detailed workflow examples and patterns, see `references/workflows.md`.
-
-### Most Used Commands
-
-**Setup:**
-
-- `supabase init` - Initialize project
-- `supabase login` - Authenticate
-- `supabase link` - Link to remote project
-- `supabase start` - Start local stack
-- `supabase status` - View connection details
-
-**Database:**
-
-- `supabase db reset` - Reset database with migrations
-- `supabase db diff -f NAME` - Generate migration from diff
-- `supabase db push --linked` - Deploy migrations
-- `supabase db pull` - Import remote schema
-
-**Migrations:**
-
-- `supabase migration new NAME` - Create new migration
-- `supabase migration list` - List all migrations
-
-**Types:**
-
-- `supabase gen types typescript --local` - Generate TypeScript types
-
-**Keys:**
-
-- `supabase status` - Get local keys
-- `supabase projects api-keys` - Get remote keys
-
-**Cleanup:**
-
-- `supabase stop` - Stop local stack
-
----
-
-## Resources
-
-### references/cli-commands.md
-
-Complete command reference with all flags, options, and examples for every Supabase CLI command. Load this when:
-
-- Need detailed flag information for specific command
-- Looking up exact syntax
-- Exploring advanced command options
-
-**Search patterns:**
-
-```bash
-# Find commands related to migrations
-grep -i "migration" references/cli-commands.md
-
-# Find commands for type generation
-grep -i "gen types" references/cli-commands.md
-
-# Find database commands
-grep -i "supabase db" references/cli-commands.md
-```
-
-### references/workflows.md
-
-Comprehensive workflow guides covering:
-
-- Initial setup patterns
-- Schema development workflows
-- Migration management strategies
-- Type generation automation
-- Team collaboration patterns
-- CI/CD integration
-- Troubleshooting common issues
-
-Load this when:
-
-- Planning complex workflow
-- Setting up team collaboration
-- Configuring CI/CD pipelines
-- Solving workflow-specific problems
-- Looking for best practices
+## Common Flags
+
+| Flag | Description |
+|------|-------------|
+| `--debug` | Verbose output |
+| `--local` | Use local database |
+| `--linked` | Use linked remote |
+| `--project-ref <ref>` | Specific project |
+| `--db-url <url>` | Connection string |
+| `--dry-run` | Preview without executing |
+| `-f <file>` | Output to file |
+
+## References
+
+- [local-development.md](references/local-development.md) - Local stack setup
+- [migrations.md](references/migrations.md) - Migration workflow
+- [config-toml.md](references/config-toml.md) - Configuration options

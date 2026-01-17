@@ -1,7 +1,7 @@
 {
   "name": "deployment-sop",
   "repo": "bybren-llc/wtfb-safe-agentic-workflow",
-  "path": ".claude/skills/deployment-sop/SKILL.md",
+  "path": ".gemini/skills/deployment-sop/SKILL.md",
   "source": "github.com/bybren-llc/wtfb-safe-agentic-workflow",
-  "downloaded_at": "2026-01-14T02:13:28.564117Z"
+  "downloaded_at": "2026-01-17T03:12:37.184390Z"
 }

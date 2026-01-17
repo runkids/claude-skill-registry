@@ -11,58 +11,48 @@ Guide consistent Linear ticket management. Provides evidence templates for the m
 
 ## When This Skill Applies
 
-Invoke this skill when:
-
 - Creating new Linear issues
 - Updating ticket status
 - Attaching evidence to tickets
 - Parsing acceptance criteria
 - Working with UUIDs and issue IDs
 
-## Linear MCP Tools
+## Linear Operations (Manual Process)
+
+Since Gemini CLI doesn't have native Linear integration, use the Linear web UI or CLI for these operations:
 
 ### Reading Issues
 
-```text
-# Get issue by identifier
-mcp__linear-mcp__get_issue({ id: "{TICKET_PREFIX}-459" })
+```bash
+# Via Linear Web UI
+# Navigate to: https://linear.app/team/{PROJECT_TEAM_NAME}/issue/{TICKET_PREFIX}-XXX
 
-# List issues with filters
-mcp__linear-mcp__list_issues({
-  team: "{PROJECT_TEAM_NAME}",
-  state: "In Progress",
-  assignee: "me",
-})
+# Or use Linear CLI if installed
+linear issue view {TICKET_PREFIX}-XXX
 ```
 
 ### Creating Issues
 
-```text
-mcp__linear-mcp__create_issue({
-  title: "feat(scope): description",
-  team: "{PROJECT_TEAM_NAME}",
-  description: "## Summary\n\n...",
-  labels: ["feature", "sprint-1"],
-  parentId: "parent-uuid",  // Optional - for sub-issues
-})
+```bash
+# Via Linear Web UI: Click "New Issue" or press C
+# Or use Linear CLI:
+linear issue create --title "feat(scope): description" --team {PROJECT_TEAM_NAME}
 ```
 
 ### Updating Issues
 
-```text
-mcp__linear-mcp__update_issue({
-  id: "{TICKET_PREFIX}-459",
-  state: "Done",
-})
+```bash
+# Via Linear Web UI: Open issue and update status
+# Or use Linear CLI:
+linear issue update {TICKET_PREFIX}-XXX --state "Done"
 ```
 
 ### Adding Comments
 
-```text
-mcp__linear-mcp__create_comment({
-  issueId: "{TICKET_PREFIX}-459",
-  body: "**Dev Evidence**\n\n...",
-})
+```bash
+# Via Linear Web UI: Open issue and add comment
+# Or use Linear CLI:
+linear issue comment {TICKET_PREFIX}-XXX "**Dev Evidence**\n\n..."
 ```
 
 ## Evidence Policy (MUST)
@@ -185,9 +175,8 @@ const issueId = "{TICKET_PREFIX}-459";
 // UUIDs (API operations)
 const uuid = "ef6a5fa0-2b46-417f-8266-dea2d187b10a";
 
-// Get UUID from identifier via MCP tool
-// mcp__linear-mcp__get_issue({ id: "{TICKET_PREFIX}-459" })
-// Returns issue object with .id property containing UUID
+// Get UUID from identifier via Linear web UI or API
+// The issue URL contains the UUID
 ```
 
 ## Common Operations
@@ -201,25 +190,17 @@ PRs are automatically linked when:
 
 ### Create Sub-Issue
 
-```text
-mcp__linear-mcp__create_issue({
-  title: "Sub-task description",
-  team: "{PROJECT_TEAM_NAME}",
-  parentId: "parent-issue-uuid",
-})
-```
+Use Linear web UI: Click "Add sub-issue" on parent issue
 
 ### Query by Label
 
-```text
-mcp__linear-mcp__list_issues({
-  label: "sprint-1",
-  team: "{PROJECT_TEAM_NAME}",
-})
-```
+Use Linear web UI filters:
+1. Open team view
+2. Click "Filter"
+3. Select label (e.g., "sprint-1")
 
-## Authoritative References
+## Reference
 
 - **Agent Workflow SOP**: `docs/sop/AGENT_WORKFLOW_SOP.md`
-- **Linear MCP Docs**: Built into Claude Code
+- **Linear Documentation**: https://linear.app/docs
 - **CONTRIBUTING.md**: Workflow documentation

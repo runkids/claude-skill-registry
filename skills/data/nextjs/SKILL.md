@@ -1,125 +1,317 @@
 ---
 name: nextjs
-description: |
-  Provides Next.js project architecture expertise and implementation patterns. Enforces BFF (Backend for Frontend) pattern, Server Components strategy, and data fetching policies. Specializes in App Router architecture, Server Actions, streaming SSR, incremental static regeneration, and route handlers. Ensures optimal performance through proper component boundaries and caching strategies.
-  Use when: developing Next.js applications, implementing App Router patterns, creating Server Components and Client Components, designing Server Actions for mutations, implementing data fetching with fetch API, configuring BFF architecture, optimizing page performance with streaming and suspense, handling routing and navigation, implementing middleware, or setting up API route handlers.
+description: Next.js development including App Router, Server Components, API routes, and deployment. Activate for Next.js apps, SSR, SSG, and React Server Components.
+allowed-tools:
+  - Bash
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
 ---
 
-# Next.js Project Architecture Rules
+# Next.js Skill
 
-**Scope**: Project-specific policies and architecture decisions only.
+Provides comprehensive Next.js development capabilities for modern web applications.
 
-**Version**: Next.js 15.5+ with App Router
+## When to Use This Skill
 
----
+Activate this skill when working with:
+- Next.js App Router
+- Server Components and Client Components
+- API Routes and Server Actions
+- Static Site Generation (SSG)
+- Server-Side Rendering (SSR)
 
-## 1. BFF Architecture (Mandatory)
+## Project Structure (App Router)
 
-### Absolute Rules
+\`\`\`
+app/
+├── layout.tsx              # Root layout
+├── page.tsx                # Home page
+├── loading.tsx             # Loading UI
+├── error.tsx               # Error handling
+├── not-found.tsx           # 404 page
+├── globals.css
+├── agents/
+│   ├── page.tsx           # /agents
+│   ├── [id]/
+│   │   ├── page.tsx       # /agents/[id]
+│   │   └── edit/
+│   │       └── page.tsx   # /agents/[id]/edit
+│   └── new/
+│       └── page.tsx       # /agents/new
+├── api/
+│   └── agents/
+│       ├── route.ts       # /api/agents
+│       └── [id]/
+│           └── route.ts   # /api/agents/[id]
+└── (dashboard)/           # Route group
+    ├── layout.tsx
+    └── settings/
+        └── page.tsx
+\`\`\`
 
-Next.js serves ONLY as a thin Backend for Frontend (BFF) layer:
+## Server Components (Default)
 
-```
-Browser ↔ Next.js Server ↔ Backend API ↔ Database
-```
+\`\`\`tsx
+// app/agents/page.tsx - Server Component
+async function AgentsPage() {
+  // Direct database access (no API needed)
+  const agents = await db.query('SELECT * FROM agents');
 
-**NEVER**:
+  return (
+    <div>
+      <h1>Agents</h1>
+      <ul>
+        {agents.map(agent => (
+          <li key={agent.id}>{agent.name}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 
-- ❌ Direct database access from Next.js (no Prisma, no ORMs)
-- ❌ Business logic implementation in Next.js
-- ❌ Data validation beyond input sanitization
+export default AgentsPage;
+\`\`\`
 
-**ALWAYS**:
+## Client Components
 
-- ✅ All business logic in separate backend service
-- ✅ All database operations via backend API
-- ✅ Next.js for: SSR/SSG, API aggregation, session management, caching
+\`\`\`tsx
+// components/AgentSelector.tsx
+'use client';
 
----
+import { useState } from 'react';
 
-## 2. Component Strategy (Enforced)
+export function AgentSelector({ agents }: { agents: Agent[] }) {
+  const [selected, setSelected] = useState<string | null>(null);
 
-### Server Components First
+  return (
+    <select
+      value={selected || ''}
+      onChange={(e) => setSelected(e.target.value)}
+    >
+      <option value="">Select an agent</option>
+      {agents.map(agent => (
+        <option key={agent.id} value={agent.id}>
+          {agent.name}
+        </option>
+      ))}
+    </select>
+  );
+}
+\`\`\`
 
-**Rule**: Default to Server Components. `'use client'` only at leaf nodes.
+## Data Fetching
 
-**Client Component allowed for**:
+### Server Component Data Fetching
+\`\`\`tsx
+// Automatic request deduplication
+async function getAgent(id: string) {
+  const res = await fetch(`${process.env.API_URL}/agents/${id}`, {
+    cache: 'force-cache',      // Default: cache forever
+    // cache: 'no-store',      // Never cache
+    // next: { revalidate: 60 } // Revalidate every 60s
+  });
+  return res.json();
+}
 
-- Event handlers (onClick, onChange)
-- Browser APIs (localStorage, window)
-- React hooks (useState, useEffect)
+export default async function AgentPage({ params }: { params: { id: string } }) {
+  const agent = await getAgent(params.id);
+  return <AgentDetails agent={agent} />;
+}
+\`\`\`
 
-**Violation**: Client Component wrapping Server Components
+### Revalidation
+\`\`\`tsx
+// Time-based revalidation
+export const revalidate = 60; // Revalidate every 60 seconds
 
----
+// On-demand revalidation
+import { revalidatePath, revalidateTag } from 'next/cache';
 
-## 3. Rendering Strategy (Explicit Declaration Required)
+async function updateAgent(id: string, data: FormData) {
+  'use server';
+  await db.update('agents', id, data);
+  revalidatePath('/agents');
+  revalidateTag('agents');
+}
+\`\`\`
 
-### Mandatory Export
+## Server Actions
 
-Every page MUST explicitly declare rendering intent:
+\`\`\`tsx
+// app/agents/new/page.tsx
+import { redirect } from 'next/navigation';
 
-```typescript
-// Required - choose one:
-export const dynamic = "force-static"; // SSG
-export const dynamic = "force-dynamic"; // SSR
-export const revalidate = 3600; // ISR
-```
+async function createAgent(formData: FormData) {
+  'use server';
 
-**No implicit rendering**. Always be explicit about caching behavior.
+  const name = formData.get('name') as string;
+  const type = formData.get('type') as string;
 
----
+  await db.insert('agents', { name, type });
 
-## 4. Data Fetching (Server Actions vs API Routes)
+  revalidatePath('/agents');
+  redirect('/agents');
+}
 
-### Server Actions (Default for Internal Operations)
+export default function NewAgentPage() {
+  return (
+    <form action={createAgent}>
+      <input name="name" placeholder="Agent name" required />
+      <select name="type">
+        <option value="claude">Claude</option>
+        <option value="gpt">GPT</option>
+      </select>
+      <button type="submit">Create Agent</button>
+    </form>
+  );
+}
+\`\`\`
 
-**Use for**:
+## API Routes
 
-- Form submissions
-- Data mutations
-- Internal Next.js operations
+\`\`\`tsx
+// app/api/agents/route.ts
+import { NextRequest, NextResponse } from 'next/server';
 
-**Location**: `app/actions/*.ts` or inline with `'use server'`
+export async function GET(request: NextRequest) {
+  const searchParams = request.nextUrl.searchParams;
+  const type = searchParams.get('type');
 
-### API Routes (External Integration ONLY)
+  const agents = await db.query(
+    'SELECT * FROM agents WHERE type = $1',
+    [type]
+  );
 
-**Use for**:
+  return NextResponse.json(agents);
+}
 
-- Webhooks (Stripe, GitHub, etc.)
-- OAuth callbacks
-- Mobile app endpoints
-- Third-party service integrations
+export async function POST(request: NextRequest) {
+  const body = await request.json();
 
-**Location**: `app/api/*/route.ts`
+  const agent = await db.insert('agents', body);
 
-**NEVER**: API routes for internal Next.js-to-Next.js communication
+  return NextResponse.json(agent, { status: 201 });
+}
 
----
+// app/api/agents/[id]/route.ts
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const agent = await db.query('SELECT * FROM agents WHERE id = $1', [params.id]);
 
-## 5. Caching Policy (Explicit Intent Required)
+  if (!agent) {
+    return NextResponse.json({ error: 'Not found' }, { status: 404 });
+  }
 
-### Mandatory Cache Declaration
+  return NextResponse.json(agent);
+}
+\`\`\`
 
-All fetch calls MUST explicitly specify caching:
+## Layouts and Loading States
 
-```typescript
-// Required - choose one:
-fetch(url, { next: { revalidate: 3600 } }); // Time-based
-fetch(url, { cache: "no-store" }); // Dynamic
-```
+\`\`\`tsx
+// app/layout.tsx
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en">
+      <body>
+        <nav>Navigation</nav>
+        <main>{children}</main>
+        <footer>Footer</footer>
+      </body>
+    </html>
+  );
+}
 
-**Use React `cache()`** to prevent duplicate requests within render cycle.
+// app/agents/loading.tsx
+export default function Loading() {
+  return <div className="spinner">Loading agents...</div>;
+}
 
-**No implicit caching**. Always declare intent.
+// app/agents/error.tsx
+'use client';
 
----
+export default function Error({
+  error,
+  reset,
+}: {
+  error: Error;
+  reset: () => void;
+}) {
+  return (
+    <div>
+      <h2>Something went wrong!</h2>
+      <button onClick={() => reset()}>Try again</button>
+    </div>
+  );
+}
+\`\`\`
 
-## Critical Violations
+## Middleware
 
-1. **Direct DB access from Next.js** → Architecture violation
-2. **API Routes for internal mutations** → Use Server Actions
-3. **Missing rendering strategy declaration** → Add explicit export
-4. **Client Component not at leaf** → Move `'use client'` down
-5. **Implicit caching** → Add explicit cache declaration
-6. **Backend not separated** → Mandatory separate service
+\`\`\`tsx
+// middleware.ts
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+
+export function middleware(request: NextRequest) {
+  // Authentication check
+  const token = request.cookies.get('token');
+
+  if (!token && request.nextUrl.pathname.startsWith('/dashboard')) {
+    return NextResponse.redirect(new URL('/login', request.url));
+  }
+
+  // Add headers
+  const response = NextResponse.next();
+  response.headers.set('x-custom-header', 'value');
+
+  return response;
+}
+
+export const config = {
+  matcher: ['/dashboard/:path*', '/api/:path*'],
+};
+\`\`\`
+
+## Environment Variables
+
+\`\`\`bash
+# .env.local
+DATABASE_URL=postgresql://...
+API_URL=http://localhost:8000
+
+# Public (exposed to browser)
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+\`\`\`
+
+\`\`\`tsx
+// Server-only
+const dbUrl = process.env.DATABASE_URL;
+
+// Client-accessible
+const appUrl = process.env.NEXT_PUBLIC_APP_URL;
+\`\`\`
+
+## Build Commands
+
+\`\`\`bash
+# Development
+npm run dev
+
+# Production build
+npm run build
+npm start
+
+# Static export
+npm run build
+# next.config.js: output: 'export'
+\`\`\`

@@ -1,7 +1,7 @@
 {
   "name": "helm-chart-scaffolding",
-  "repo": "camoneart/claude-code",
-  "path": "skills/helm-chart-scaffolding/SKILL.md",
-  "source": "github.com/camoneart/claude-code",
-  "downloaded_at": "2026-01-14T03:37:02.402475Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/kubernetes-operations/skills/helm-chart-scaffolding/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-01-17T03:59:21.797864Z"
 }

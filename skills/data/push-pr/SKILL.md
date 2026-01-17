@@ -1,69 +1,143 @@
 ---
 name: push-pr
-description: Push branch and create GitHub PR
-user-invocable: true
+description: >
+  Push commits and create or update pull requests with smart branch management.
+  Use when user says "push this", "push my changes", "create a PR", "open a pull request",
+  "make a PR", "submit for review", or mentions pushing code or creating PRs.
+  Also triggers on "send this up", "open PR", "pr please".
+model: claude-sonnet-4-5
+context: fork
+allowed-tools:
+  - Bash
+  - Read
+  - Grep
+  - Glob
+  - Skill
+  - AskUserQuestion
 ---
 
-# Push Branch and Create Pull Request
+# Push & PR
 
-## Steps
+Push commits and create/update pull requests with automatic branch management.
 
-1. **Get current feature from branch**:
+## Arguments
 
-   ```bash
-   BRANCH=$(git rev-parse --abbrev-ref HEAD)
-   NUM=$(echo "$BRANCH" | grep -oE 'alg-([0-9]+)' | grep -oE '[0-9]+')
-   ```
+Parse flexibly:
+- **status**: `1`=opened, `2`=draft, `3`=ready (default: new=opened, update=draft)
+- **base-branch**: Target branch (default: `main`)
 
-2. **Run verification**:
+## Workflow
 
-   ```bash
-   npm run type-check --workspaces --if-present
-   npm test --workspaces --if-present
-   ```
+### 1. Pre-Flight
 
-3. **If verification fails**, stop and report errors.
-   Do NOT proceed to create a PR with failing checks.
+```bash
+git status --porcelain
+git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null
+git fetch origin
+```
 
-4. **Push branch to remote**:
+If uncommitted changes detected, use `Skill: commit` to commit first.
 
-   ```bash
-   git push -u origin $BRANCH
-   ```
+### 2. Branch Management (Critical)
 
-5. **Generate PR title** using [Conventional Commits](https://www.conventionalcommits.org/):
-   - Read `specs/alg-${NUM}-*/spec.md` to understand the feature
-   - Generate a title like: `feat(scope): short description`
-   - **Types**: `feat` (new feature), `fix` (bug fix), `refactor`, `perf`, `docs`, `chore`
-   - **Scope**: optional component name, e.g. `feat(search):`, `fix(auth):`
+**Detect situation:**
+```bash
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+UNPUSHED=$(git rev-list origin/$CURRENT_BRANCH..HEAD --count 2>/dev/null || echo "0")
+```
 
-6. **Create PR with gh CLI** (following `.github/PULL_REQUEST_TEMPLATE.md`):
+**If on main/master with unpushed commits → CUT FEATURE BRANCH:**
 
-   ```bash
-   gh pr create \
-     --title "${TITLE}" \
-     --body "## Summary
+1. Analyze commits to generate descriptive branch name (e.g., `feat/add-user-auth`)
+2. Create feature branch from HEAD
+3. Reset main to origin
+4. Switch to feature branch
 
-   Resolves [ALG-${NUM}](https://linear.app/algojuke/issue/ALG-${NUM})
+```bash
+git log origin/main..HEAD --oneline
+git checkout -b feat/descriptive-name
+git checkout main && git reset --hard origin/main
+git checkout feat/descriptive-name
+```
 
-   See [spec.md](specs/alg-${NUM}-*/spec.md) for full specification.
+**If already on feature branch:** Skip, proceed to PR.
 
-   ## Changes
+### 3. PR Status
 
-   $(git log main..HEAD --oneline)
+```bash
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+gh pr list --head "$BRANCH" --json number,state
+```
 
-   ## Verification
+Use provided status argument, or default: new PR=opened, update=draft.
 
-   - [x] Type check passes
-   - [x] Tests pass
-   "
-   ```
+### 4. Context Gathering
 
-7. **Output the PR URL** for the user.
+```bash
+BASE=${BASE_BRANCH:-main}
+git log $BASE..HEAD --oneline
+git diff $BASE...HEAD --stat
+git diff $BASE...HEAD
+```
 
-## Notes
+### 5. Push
 
-- The PR body uses "Resolves [ALG-XX](url)" to link the Linear issue
-- Linear automation will automatically update the issue status to "In Review" when the PR is created
-- If the branch already has a PR, `gh pr create` will fail - use `gh pr view` instead
-- Always run verification before pushing to catch issues early
+```bash
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+if git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null; then
+    git push
+else
+    git push -u origin "$BRANCH"
+fi
+```
+
+### 6. PR Creation/Update
+
+**New PR:** Generate concise title and description from commits and diff.
+
+```bash
+gh pr create --title "title" --body "description" --base main
+# If status=ready: gh pr ready
+```
+
+**Existing PR:** Add comment with new commits, update status if needed.
+
+```bash
+PR_NUM=$(gh pr list --head "$BRANCH" --json number -q '.[0].number')
+gh pr comment $PR_NUM --body "New commits..."
+```
+
+## Constraints
+
+- NO Co-authored-by or AI signatures
+- NO "Generated with Claude Code"
+- NO emojis in title/description
+- Use existing git user config only
+
+## PR Format
+
+```markdown
+## Summary
+[2-3 bullets: what and why]
+
+## Changes
+- Key change 1
+- Key change 2
+
+## Commits
+- `abc1234` - message 1
+
+## Files Changed
+[Significant files with notes]
+```
+
+## Edge Cases
+
+- No remote → suggest `git remote add origin <url>`
+- No gh CLI → report requirement
+- Branch behind → pull/rebase first
+- No commits → report nothing to push
+
+## Output
+
+Report: branch pushed, PR URL, status (opened/draft/ready).

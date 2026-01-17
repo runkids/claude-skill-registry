@@ -1,7 +1,7 @@
 {
   "name": "pinme",
-  "repo": "majiayu000/claude-skill-registry",
-  "path": "skills/design/pinme/SKILL.md",
-  "source": "github.com/majiayu000/claude-skill-registry",
-  "downloaded_at": "2026-01-14T01:56:17.363011Z"
+  "repo": "glitternetwork/pinme",
+  "path": ".claude/skills/pinme/SKILL.md",
+  "source": "github.com/glitternetwork/pinme",
+  "downloaded_at": "2026-01-17T03:25:27.400560Z"
 }

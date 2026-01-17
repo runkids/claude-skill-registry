@@ -1,259 +1,345 @@
 ---
 name: supabase-patterns
-description: Patterns for Supabase integration in Battery. Use this skill when working with database schemas, row-level security policies, edge functions, or Supabase client usage in Next.js.
+description: Supabase client patterns for StepLeague, including MCP server usage, auth deadlock prevention, admin client usage, and session handling. Use when working with database queries, authentication, MCP tools, or Supabase client code. Keywords: database, MCP, auth, session, RLS, deadlock, timeout, query, migration.
+compatibility: Antigravity, Claude Code, Cursor
+metadata:
+  version: "1.1"
+  project: "stepleague"
 ---
 
-# Supabase Patterns
+# Supabase Patterns Skill
 
-## Database Schema Conventions
+## Overview
 
-### Naming
+StepLeague uses Supabase for:
+- PostgreSQL database with Row Level Security (RLS)
+- Authentication (email, Google OAuth)
+- Storage (images, attachments)
 
-- Tables: `snake_case`, plural (e.g., `organizations`, `deployed_apps`)
-- Columns: `snake_case`
-- Primary keys: `id` (UUID)
-- Foreign keys: `{table_singular}_id`
+---
 
-### Standard Columns
+## Supabase MCP Server (CRITICAL)
 
-Every table should include:
+> **This project has MCP access to Supabase.** Use it for queries, migrations, and verification.
 
-```sql
-CREATE TABLE deployed_apps (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  -- domain columns here
-  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
-  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
-);
+### Available MCP Tools
 
--- Auto-update updated_at
-CREATE TRIGGER update_deployed_apps_updated_at
-  BEFORE UPDATE ON deployed_apps
-  FOR EACH ROW
-  EXECUTE FUNCTION update_updated_at_column();
-```
+| Tool | Purpose |
+|------|---------|
+| `mcp_supabase-mcp-server_list_projects` | List all Supabase projects |
+| `mcp_supabase-mcp-server_list_tables` | List tables in a schema |
+| `mcp_supabase-mcp-server_execute_sql` | Run SQL queries |
+| `mcp_supabase-mcp-server_apply_migration` | Apply DDL migrations |
+| `mcp_supabase-mcp-server_list_migrations` | List existing migrations |
+| `mcp_supabase-mcp-server_get_logs` | Get service logs |
+| `mcp_supabase-mcp-server_search_docs` | Search Supabase documentation |
+| `mcp_supabase-mcp-server_get_project` | Get project details |
 
-### Update Trigger Function
+### ⚠️ Common MCP Failures & Solutions (EXPANDED)
 
-```sql
-CREATE OR REPLACE FUNCTION update_updated_at_column()
-RETURNS TRIGGER AS $$
-BEGIN
-  NEW.updated_at = now();
-  RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-```
+| Problem | Cause | Solution |
+|---------|-------|----------|
+| **"Connection refused"** | MCP server not running | Restart Antigravity IDE, check `mcp_config.json` |
+| **"Timeout" / No response** | Query too complex, large result | Add `LIMIT 10`, simplify query, break into parts |
+| **"Project not found"** | Wrong project_id | Run `list_projects` first to get correct ID |
+| **"Permission denied"** | RLS blocking | Use `execute_sql` (bypasses RLS) |
+| **SQL syntax error** | Wrong SQL dialect | Use PostgreSQL syntax (e.g., `ILIKE` not `LIKE`, `::text` casts) |
+| **Migration conflicts** | Duplicate migration name | Check `list_migrations` first, use unique timestamps |
+| **No output returned** | Query executed but empty | Query succeeded - data may not exist, verify table |
+| **"Invalid API key"** | Token expired/wrong | Check Supabase dashboard for new API key |
+| **Intermittent failures** | Network/rate limits | Retry after 30s, reduce query frequency |
 
-## Row-Level Security (RLS)
-
-### Enable RLS
-
-```sql
-ALTER TABLE deployed_apps ENABLE ROW LEVEL SECURITY;
-```
-
-### Organization-Based Access
-
-Battery uses organizations for multi-tenancy:
-
-```sql
--- Users can only see apps in their organization
-CREATE POLICY "Users can view org apps"
-  ON deployed_apps
-  FOR SELECT
-  USING (
-    org_id IN (
-      SELECT org_id FROM org_members WHERE user_id = auth.uid()
-    )
-  );
-
--- Only admins can delete apps
-CREATE POLICY "Admins can delete org apps"
-  ON deployed_apps
-  FOR DELETE
-  USING (
-    EXISTS (
-      SELECT 1 FROM org_members
-      WHERE user_id = auth.uid()
-        AND org_id = deployed_apps.org_id
-        AND role = 'admin'
-    )
-  );
-```
-
-### Service Role Bypass
-
-For server-side operations that need to bypass RLS:
-
-```typescript
-import { createClient } from '@supabase/supabase-js'
-
-// Use service role key (server-side only!)
-const supabaseAdmin = createClient(
-  process.env.SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-)
-
-// This bypasses RLS
-await supabaseAdmin.from('deployed_apps').insert({ ... })
-```
-
-## Client Usage in Next.js
-
-### Server Components
-
-```typescript
-// lib/supabase/server.ts
-import { createServerClient } from '@supabase/ssr'
-import { cookies } from 'next/headers'
-
-export async function createClient() {
-  const cookieStore = await cookies()
-
-  return createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll() {
-          return cookieStore.getAll()
-        },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) => {
-            cookieStore.set(name, value, options)
-          })
-        },
-      },
-    }
-  )
-}
-```
-
-### Client Components
-
-```typescript
-// lib/supabase/client.ts
-import { createBrowserClient } from '@supabase/ssr'
-
-export function createClient() {
-  return createBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  )
-}
-```
-
-### Route Handlers
-
-```typescript
-// app/api/apps/route.ts
-import { createClient } from '@/lib/supabase/server'
-import { NextResponse } from 'next/server'
-
-export async function GET() {
-  const supabase = await createClient()
-
-  const { data, error } = await supabase
-    .from('deployed_apps')
-    .select('*')
-    .order('created_at', { ascending: false })
-
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 })
-  }
-
-  return NextResponse.json(data)
-}
-```
-
-## Edge Functions
-
-### Structure
+### MCP Troubleshooting Flowchart
 
 ```
-supabase/
-  functions/
-    deploy-webhook/
-      index.ts
-    scan-credentials/
-      index.ts
+MCP Tool Not Working?
+├─ No response at all
+│  ├─ Check: Is Antigravity MCP enabled? (Settings → MCP)
+│  ├─ Check: Is `mcp_config.json` correct?
+│  └─ Try: Restart Antigravity IDE
+├─ Returns error message
+│  ├─ "project not found" → Run list_projects first
+│  ├─ "permission denied" → Use execute_sql, not user queries
+│  └─ "timeout" → Add LIMIT, break query into parts
+└─ Returns empty
+   ├─ Query succeeded, no matching data
+   └─ Verify table exists with list_tables
 ```
 
-### Basic Edge Function
+### Best Practices for MCP
 
-```typescript
-// supabase/functions/deploy-webhook/index.ts
-import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+1. **Always list projects first** to get the correct project_id
+2. **Use LIMIT 10** on SELECT queries to avoid timeouts
+3. **For DDL changes, use apply_migration** not execute_sql
+4. **Check existing migrations** before creating new ones
+5. **If MCP fails, document what you tried** and fallback to manual options
+6. **Verify changes after making them** - query the data to confirm
 
-serve(async (req) => {
-  const supabase = createClient(
-    Deno.env.get('SUPABASE_URL')!,
-    Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
-  )
+### Example: Safe MCP Query
 
-  const { deployment_id, status } = await req.json()
+```
+// Step 1: List projects to get ID
+mcp_supabase-mcp-server_list_projects
 
-  const { error } = await supabase
-    .from('deployments')
-    .update({ status })
-    .eq('id', deployment_id)
+// Step 2: Query with LIMIT (avoid timeouts)
+mcp_supabase-mcp-server_execute_sql({
+  project_id: "your-project-id",
+  query: "SELECT * FROM users LIMIT 10"
+})
 
-  if (error) {
-    return new Response(JSON.stringify({ error: error.message }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    })
-  }
-
-  return new Response(JSON.stringify({ success: true }), {
-    headers: { 'Content-Type': 'application/json' },
-  })
+// Step 3: Verify data after insert/update
+mcp_supabase-mcp-server_execute_sql({
+  project_id: "your-project-id",
+  query: "SELECT id, subject, board_status FROM feedback WHERE id = 'uuid-here'"
 })
 ```
 
-## Type Generation
+### When MCP Fails Completely
 
-Generate TypeScript types from your schema:
+If MCP is unavailable:
 
-```bash
-pnpm supabase gen types typescript --project-id $PROJECT_ID > lib/database.types.ts
-```
+1. **Document the issue** - Note error message and what you tried
+2. **Use API endpoints** - Many operations can be done via app APIs:
+   - `/api/admin/kanban` for feedback/roadmap
+   - `/api/admin/settings` for app settings
+3. **Provide SQL for user** - Write the SQL and ask user to run in Supabase dashboard
 
-### Using Generated Types
+---
+
+## Critical Rules
+
+### 1. NEVER Use `<Database>` Generics
 
 ```typescript
-import { Database } from '@/lib/database.types'
+// ❌ WRONG - causes cascading 'never' type errors
+const supabase = createServerClient<Database>(...);
 
-type DeployedApp = Database['public']['Tables']['deployed_apps']['Row']
-type InsertApp = Database['public']['Tables']['deployed_apps']['Insert']
-
-// Typed client
-const supabase = createClient<Database>(url, key)
-
-const { data } = await supabase
-  .from('deployed_apps')
-  .select('id, name, status')
-  .returns<Pick<DeployedApp, 'id' | 'name' | 'status'>[]>()
+// ✅ CORRECT - untyped
+const supabase = await createServerSupabaseClient();
+const { data } = await supabase.from("leagues").select("*");
+const leagues = (data || []).map((l: any) => ({ ... }));
 ```
 
-## Vault for Credentials
+### 2. Use adminClient in API Routes
 
-Battery stores extracted credentials in Supabase Vault:
+```typescript
+import { createServerSupabaseClient, createAdminClient } from "@/lib/supabase/server";
 
-```sql
--- Store a secret
-SELECT vault.create_secret('snowflake_password', 'secret_value', 'Snowflake password for app X');
-
--- Retrieve a secret (in edge function or with service role)
-SELECT vault.decrypted_secrets WHERE name = 'snowflake_password';
+export async function POST(request: Request) {
+  // Regular client for auth only
+  const supabase = await createServerSupabaseClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  
+  // Admin client for database operations (bypasses RLS)
+  const adminClient = createAdminClient();
+  const { data } = await adminClient.from("table").select("*");
+}
 ```
 
-## Patterns to Follow
+### 3. Use withApiHandler (Preferred)
 
-1. **Always enable RLS** on tables with user data
-2. **Use server components** for initial data fetching
-3. **Type everything** with generated types
-4. **Use transactions** for multi-table operations
-5. **Service role** only on server, never expose to client
+Reference the `api-handler` skill - it handles all client creation for you.
+
+---
+
+## Auth Deadlocks (CRITICAL)
+
+> **For detailed auth patterns, see the [`auth-patterns`](../auth-patterns/SKILL.md) skill.**
+
+### Quick Reminder
+
+| Method | Safety |
+|--------|--------|
+| `getSession()` on client | ❌ **NEVER** - Can deadlock |
+| `getUser()` on server | ✅ Safe |
+| `onAuthStateChange` | ✅ Safe for client |
+| Cookie parsing | ✅ Safe fallback |
+
+The `auth-patterns` skill covers:
+- getUser vs getSession decision flowchart
+- Client-side auth patterns (onAuthStateChange)
+- Background task fallbacks (cookie parsing)
+- Token expiry validation
+- Session timeout handling
+- Debugging auth issues
+
+---
+
+## Client Types
+
+| Client | Location | Use Case |
+|--------|----------|----------|
+| `createServerSupabaseClient` | `@/lib/supabase/server` | Server-side, respects RLS |
+| `createAdminClient` | `@/lib/supabase/server` | Server-side, bypasses RLS |
+| `createBrowserClient` | `@/lib/supabase/client` | Client-side components |
+
+### When to Use Each
+
+| Scenario | Client |
+|----------|--------|
+| API route - auth check | `createServerSupabaseClient` |
+| API route - database ops | `createAdminClient` |
+| Server component data fetching | `createServerSupabaseClient` |
+| Client component | `createBrowserClient` |
+| Background job / admin task | `createAdminClient` |
+
+---
+
+## RLS (Row Level Security)
+
+### The Rule
+
+**All application queries in API routes should use `adminClient`** to bypass RLS.
+
+**Why?** RLS adds complexity and potential for access issues. Server-side code should handle authorization explicitly.
+
+### When RLS Still Applies
+
+- Direct Supabase client calls from browser (realtime, etc.)
+- Supabase Edge Functions
+
+### Pattern
+
+```typescript
+export const POST = withApiHandler({
+  auth: 'required',  // Handler verifies auth
+}, async ({ user, adminClient }) => {
+  // Admin client bypasses RLS - we already verified auth above
+  const { data } = await adminClient
+    .from("submissions")
+    .insert({ user_id: user.id, ... })
+    .select()
+    .single();
+  
+  return { data };
+});
+```
+
+---
+
+## Migrations
+
+### File Naming
+
+```
+supabase/migrations/YYYYMMDDHHMMSS_description.sql
+```
+
+Example: `20260116114200_add_skills_reference.sql`
+
+### Migration via MCP
+
+```typescript
+mcp_supabase-mcp-server_apply_migration({
+  project_id: "your-project-id",
+  name: "add_skills_reference",
+  query: "ALTER TABLE users ADD COLUMN skills_enabled BOOLEAN DEFAULT true;"
+})
+```
+
+### Best Practices
+
+1. **Always check existing migrations first** with `list_migrations`
+2. **Use descriptive names** - what the migration does
+3. **Include both UP and DOWN** logic in comments
+4. **Test locally first** if possible
+
+---
+
+## Session Handling
+
+### The Problem
+
+Long-running operations (batch uploads, image processing) can cause session timeouts.
+
+### Solution: Session Caching
+
+```typescript
+// Don't call getUser() repeatedly in loops
+const user = context.user; // Already resolved by withApiHandler
+
+for (const item of items) {
+  // Use cached user, not new auth call
+  await processItem(item, user.id);
+}
+```
+
+### Timeout Prevention
+
+```typescript
+// Add timeout wrapper
+const withTimeout = <T>(promise: Promise<T>, ms: number): Promise<T> => {
+  return Promise.race([
+    promise,
+    new Promise<T>((_, reject) => 
+      setTimeout(() => reject(new Error('Timeout')), ms)
+    )
+  ]);
+};
+
+const result = await withTimeout(
+  supabase.from("table").select("*"),
+  5000 // 5 second timeout
+);
+```
+
+---
+
+## Reference Files
+
+| File | Purpose |
+|------|---------|
+| `src/lib/supabase/server.ts` | Server client creation |
+| `src/lib/supabase/client.ts` | Browser client creation |
+| `src/lib/auth/sessionCache.ts` | Session caching utilities |
+| `src/components/providers/AuthProvider.tsx` | Auth state management |
+| `supabase/migrations/` | All database migrations |
+
+---
+
+## Common Queries
+
+### Get User Profile
+
+```typescript
+const { data: profile } = await adminClient
+  .from("users")
+  .select("*")
+  .eq("id", userId)
+  .single();
+```
+
+### Check Membership
+
+```typescript
+const { data: membership } = await adminClient
+  .from("memberships")
+  .select("role")
+  .eq("user_id", userId)
+  .eq("league_id", leagueId)
+  .single();
+```
+
+### Insert with Return
+
+```typescript
+const { data, error } = await adminClient
+  .from("submissions")
+  .insert({ user_id, for_date, steps })
+  .select()
+  .single();
+
+if (error) throw new AppError({
+  code: ErrorCode.DB_INSERT_FAILED,
+  message: error.message,
+  context: { table: 'submissions' }
+});
+```
+
+---
+
+## Related Skills
+
+- `api-handler` - Uses adminClient automatically
+- `error-handling` - Database error codes
+- `architecture-philosophy` - Why we bypass RLS in API routes

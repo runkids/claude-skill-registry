@@ -1,7 +1,7 @@
 {
   "name": "claude-api",
-  "repo": "jezweb/claude-skills",
-  "path": "skills/claude-api/SKILL.md",
-  "source": "github.com/jezweb/claude-skills",
-  "downloaded_at": "2026-01-14T04:01:47.008746Z"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/claude-api/skills/claude-api/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-17T03:58:33.362086Z"
 }

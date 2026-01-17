@@ -1,11 +1,40 @@
 ---
-name: prisma-v7
-description: Expert guidance for Prisma ORM v7 (7.0+). Use when working with Prisma schema files, migrations, Prisma Client queries, database setup, or when the user mentions Prisma, schema.prisma, @prisma/client, database models, or ORM. Covers ESM modules, driver adapters, prisma.config.ts, Rust-free client, and migration from v6.
+name: cermont.backend.prisma-v7
+description: Expert guidance for Prisma ORM v7 (7.0+). Use when working with Prisma schema files, migrations, Prisma Client queries, database setup. Covers ESM modules, driver adapters, prisma.config.ts, Rust-free client.
+triggers:
+  - Prisma
+  - schema.prisma
+  - "@prisma/client"
+  - database models
+  - ORM
+  - migrations
+role: secondary
+scope: backend
 ---
 
-# Prisma ORM v7 Expert Skill
+<!-- Cermont Project Fit -->
+## Project Fit
 
-Comprehensive guidance for working with Prisma ORM version 7.x and later.
+| Attribute | Value |
+|-----------|-------|
+| **Applies to** | backend |
+| **Requires** | NestJS, Prisma, pnpm |
+| **Not for this repo** | TypeORM, Sequelize |
+| **Status** | Active (v7 patterns for future upgrade) |
+
+> [!NOTE]
+> Cermont currently uses Prisma v6. This skill documents v7 patterns for future migration.
+
+### Guardrails
+
+**Safety Checklist:**
+```bash
+pnpm --filter @cermont/backend prisma validate
+pnpm --filter @cermont/backend prisma generate
+pnpm --filter @cermont/backend test
+# Rollback: git restore -SW .
+```
+<!-- End Project Fit -->
 
 ## Core v7 Changes
 

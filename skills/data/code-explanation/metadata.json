@@ -1,7 +1,7 @@
 {
   "name": "code-explanation",
-  "repo": "NickCrew/claude-cortex",
-  "path": "claude_ctx_py/assets/skills/code-explanation/SKILL.md",
-  "source": "github.com/NickCrew/claude-cortex",
-  "downloaded_at": "2026-01-14T02:11:12.020344Z"
+  "repo": "lovedragonball/power-ranger-toolkit",
+  "path": "src/skills/code-explanation/SKILL.md",
+  "source": "github.com/lovedragonball/power-ranger-toolkit",
+  "downloaded_at": "2026-01-17T03:14:56.743289Z"
 }

@@ -1,89 +1,124 @@
 ---
 name: dialogue-log-decision
-description: Log an operational or tactical decision. Use when recording a decision made by human or AI, capturing rationale, outcome, and context. Triggers on "log decision", "record decision", "document choice".
+description: Log a decision to the decision log. Supports OPERATIONAL, TACTICAL, DESIGN, and ADR types. Use when recording decisions made by human or AI. Triggers on "decision", "decided", "log decision", "record decision", "document choice".
 allowed-tools: Bash
 ---
 
 # Dialogue: Decision Logger
 
-Log an operational or tactical decision to the decision log.
+Log a decision to the decision log. The decision log is a chronological audit trail of all decisions, from routine operational choices to architectural decisions.
 
-## When to Use
+## Decision Type Hierarchy
 
-Use this skill when you need to record:
-- A decision you (AI) made during task execution
-- A decision the user made that you should capture
-- A tactical choice affecting approach or method
+| Type | When to Use | Required Fields | Framework Grounding |
+|------|-------------|-----------------|---------------------|
+| **OPERATIONAL** | Routine choices during task execution | outcome, rationale | WRK domain, Ephemeral, documentable knowledge |
+| **TACTICAL** | Approach changes affecting method | outcome, rationale | WRK domain, Ephemeral-Dynamic, elicitable knowledge |
+| **DESIGN** | Component/schema decisions with rationale | outcome, rationale, **context** | STR domain, Dynamic-Standing, elicitable with rationale |
+| **ADR** | Cross-reference to Architecture Decision Record | outcome, rationale, **context**, ref | STR domain, Standing, formal alternatives analysis |
 
-**Do NOT use for architecture decisions** — those should be ADRs.
+### Choosing the Right Type
+
+```
+Did you formally evaluate multiple alternatives with trade-offs?
+  YES → Use ADR type (create ADR document first, then log with ref)
+  NO  → Continue...
+
+Does this affect how a component or schema works?
+  YES → Use DESIGN
+  NO  → Continue...
+
+Does this change your approach to the current task?
+  YES → Use TACTICAL
+  NO  → Use OPERATIONAL
+```
 
 ## How to Log a Decision
 
 Execute the following bash command:
 
 ```bash
-.claude/skills/dialogue-log-decision/scripts/log-decision.sh <type> <actor> <subject> <outcome> <rationale> [context] [tags]
+${CLAUDE_PLUGIN_ROOT}/skills/dialogue-log-decision/scripts/log-decision.sh <type> <actor> <subject> <outcome> <rationale> [context] [tags] [ref]
 ```
 
 ### Required Parameters
 
 | Parameter | Values | Description |
 |-----------|--------|-------------|
-| `type` | `OPERATIONAL` or `TACTICAL` | OPERATIONAL for routine choices; TACTICAL for approach changes |
+| `type` | `OPERATIONAL`, `TACTICAL`, `DESIGN`, or `ADR` | Decision significance level |
 | `actor` | `ai:claude` or `human:<id>` | Who made the decision |
 | `subject` | text | Brief description of what the decision concerns |
 | `outcome` | text | What was decided or done |
 | `rationale` | text | Single-line reasoning (why this choice) |
 
+### Conditionally Required Parameters
+
+| Parameter | Required For | Description |
+|-----------|--------------|-------------|
+| `context` | DESIGN, ADR | Additional surrounding situation—what led to this decision |
+
 ### Optional Parameters
 
 | Parameter | Description |
 |-----------|-------------|
-| `context` | Additional surrounding situation |
+| `context` | Additional context (optional for OPERATIONAL/TACTICAL) |
 | `tags` | Comma-separated categorisation tags |
+| `ref` | Reference to related document (e.g., `ADR-001` for ADR type) |
 
 ## Examples
 
-### AI Operational Decision
+### OPERATIONAL Decision
 ```bash
-.claude/skills/dialogue-log-decision/scripts/log-decision.sh OPERATIONAL "ai:claude" "Test failure response" "Added null check to validateInput()" "TypeError indicated undefined parameter" "During PR #47 review" "fix,validation"
+${CLAUDE_PLUGIN_ROOT}/skills/dialogue-log-decision/scripts/log-decision.sh OPERATIONAL "ai:claude" "Test failure response" "Added null check to validateInput()" "TypeError indicated undefined parameter" "" "fix,validation"
 ```
 
-### Human Tactical Decision
+### TACTICAL Decision
 ```bash
-.claude/skills/dialogue-log-decision/scripts/log-decision.sh TACTICAL "human:pidster" "Refactoring approach" "Refactor auth module before adding feature" "Reduce complexity before extending" "" "refactor,auth"
+${CLAUDE_PLUGIN_ROOT}/skills/dialogue-log-decision/scripts/log-decision.sh TACTICAL "human:pidster" "Refactoring approach" "Refactor auth module before adding feature" "Reduce complexity before extending" "" "refactor,auth"
+```
+
+### DESIGN Decision
+```bash
+${CLAUDE_PLUGIN_ROOT}/skills/dialogue-log-decision/scripts/log-decision.sh DESIGN "human:pidster" "Information reference schema approach" "Simplified from URI format to self-describing IDs" "Simpler format reduces cognitive load, maintains backward compatibility" "Initial v1 had complex URI format; user directed simplification" "schema,simplification"
+```
+
+### ADR Cross-Reference
+```bash
+${CLAUDE_PLUGIN_ROOT}/skills/dialogue-log-decision/scripts/log-decision.sh ADR "human:pidster" "Graph storage approach" "Created ADR-001 for filesystem-first strategy" "Architectural decision requiring formal alternatives analysis" "Evaluated Kuzu, Neo4j, filesystem options" "architecture,storage" "ADR-001"
 ```
 
 ## Output
 
 The script returns the generated decision ID (e.g., `DEC-20260113-143215`).
 
+## When to Use ADR vs DESIGN
+
+**Use DESIGN when:**
+- You chose an approach but didn't formally document alternatives
+- The decision affects a component but not the whole system
+- Rationale matters but a full ADR would be overkill
+
+**Use ADR when:**
+- You formally evaluated 2+ alternatives with pros/cons
+- The decision has system-wide architectural impact
+- You need to document consequences and trade-offs
+- Future developers will need to understand why
+
+**Process for ADR:**
+1. Create ADR document using `dialogue-create-adr` skill
+2. Log cross-reference using this skill with type=ADR and ref=ADR-NNN
+
 ## Granularity Guidelines
 
 ### One Decision Per Distinct Choice
 
-Log **one decision entry per distinct choice**. Do not batch multiple decisions into a single entry, even if they seem related.
-
-**Correct** — separate entries for each pattern:
-```bash
-# PA-1 pattern
-.claude/skills/dialogue-log-decision/scripts/log-decision.sh OPERATIONAL "ai:claude" "PA-1 pattern" "Partnership" "Both actors essential for context gathering" "Process design" "pattern"
-
-# PA-2 pattern
-.claude/skills/dialogue-log-decision/scripts/log-decision.sh OPERATIONAL "ai:claude" "PA-2 pattern" "AI-Only" "Document review is mechanical" "Process design" "pattern"
-```
-
-**Incorrect** — batched into single entry:
-```bash
-# Don't do this
-.claude/skills/dialogue-log-decision/scripts/log-decision.sh OPERATIONAL "ai:claude" "PA-1 through PA-5 patterns" "Partnership, AI-Only, AI-Led, Partnership, AI-Led" "Various rationales" "Process design" "pattern"
-```
+Log **one decision entry per distinct choice**. Do not batch multiple decisions into a single entry.
 
 ### Why Granularity Matters
 
 - **Audit trail**: Each decision can be reviewed independently
 - **Traceability**: Specific rationale for each choice is preserved
-- **Search**: Can find all decisions about a specific step
+- **Search**: Can find all decisions about a specific subject
 - **Compliance verification**: Can count decisions against expected count
 
 ### When Batching Is Acceptable

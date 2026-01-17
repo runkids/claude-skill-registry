@@ -1,13 +1,7 @@
 {
   "name": "us-market-bubble-detector",
-  "description": "Evaluates market bubble risk through quantitative data-driven analysis using the revised Minsky/Kindleberger framework v2.1. Prioritizes objective metrics (Put/Call, VIX, margin debt, breadth, IPO dat",
-  "repo": "tradermonty/claude-trading-skills",
-  "category": "product",
-  "tags": [
-    "market",
-    "bubble",
-    "detector"
-  ],
-  "stars": 1,
-  "source": "local"
+  "repo": "nicepkg/ai-workflow",
+  "path": "stock-trader-workflow/.claude/skills/weekly-trade-strategy/.claude/skills/us-market-bubble-detector/SKILL.md",
+  "source": "github.com/nicepkg/ai-workflow",
+  "downloaded_at": "2026-01-17T02:05:54.459327Z"
 }

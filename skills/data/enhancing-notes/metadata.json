@@ -1,9 +1,7 @@
 {
   "name": "enhancing-notes",
-  "description": "Enhance book notes with Blinkist-style summaries. Use when asked to \"enhance notes\", \"improve book notes\", \"add key insights\", \"expand notes\", or \"make notes better\". Adds Core Message, Key Insights, ",
   "repo": "alexanderop/second-brain-nuxt",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/enhancing-notes/SKILL.md",
+  "source": "github.com/alexanderop/second-brain-nuxt",
+  "downloaded_at": "2026-01-17T01:28:05.499543Z"
 }

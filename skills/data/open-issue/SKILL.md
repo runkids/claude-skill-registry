@@ -85,42 +85,9 @@ The open-issue skill takes the following inputs:
    - Steps to reproduce (for bugs)
    - General requirements (for feature requests)
 
-3. **Optional flags** (via arguments):
-   - `--auto`: Skip user confirmation and create issue automatically (only used by ultra-planner)
-   - `--update <issue-number>`: Update an existing issue instead of creating a new one (e.g., `--update 42`)
-
 ## Workflow for AI Agents
 
 When this skill is invoked, the AI agent **MUST** follow these steps:
-
-### 0. Parse Arguments
-
-Check if optional flags are provided in arguments:
-
-```bash
-AUTO_MODE=false
-UPDATE_MODE=false
-UPDATE_ISSUE_NUMBER=""
-PLAN_FILE=""
-
-while [ $# -gt 0 ]; do
-  if [ "$1" = "--auto" ]; then
-    AUTO_MODE=true
-  elif [ "$1" = "--update" ]; then
-    UPDATE_MODE=true
-    shift
-    UPDATE_ISSUE_NUMBER="$1"
-  elif [ -f "$1" ]; then
-    PLAN_FILE="$1"
-  fi
-  shift
-done
-```
-
-- `AUTO_MODE=true`: Skip confirmation in Step 4
-- `UPDATE_MODE=true`: Update existing issue instead of creating new one
-- `UPDATE_ISSUE_NUMBER`: The issue number to update (e.g., "42")
-- `PLAN_FILE`: Path to plan file (if provided as argument)
 
 ### 1. Context Analysis Phase
 
@@ -155,7 +122,6 @@ Build the issue following the format specification:
 
 **Title:**
 - Format: `[prefix][tag]: Brief Summary`
-- For plan issues: `[plan][tag]: Brief Summary`
 - Keep summary concise (max 80 characters for the summary portion)
 - Ensure the summary clearly describes the issue
 
@@ -191,9 +157,7 @@ Build the issue following the format specification:
 ### 4. User Confirmation Phase
 
 **CRITICAL:** The AI agent **MUST** display the complete issue draft to the user
-and wait for explicit confirmation before creating the issue, **UNLESS** `AUTO_MODE=true`.
-
-**If `AUTO_MODE=false` (default):**
+and wait for explicit confirmation before creating the issue.
 
 Present the draft in a clear format:
 ```
@@ -210,38 +174,22 @@ Should I create this issue?
 - If the user requests modifications, update the draft and present again
 - If the user declines, abort issue creation gracefully
 
-**If `AUTO_MODE=true` (ultra-planner only):**
+### 5. GitHub Issue Creation
 
-- Skip user confirmation
-- Proceed directly to Step 5 (GitHub Issue Creation)
-- Display a brief summary instead of asking for confirmation
-
-### 5. GitHub Issue Creation or Update
-
-Once confirmed, create or update the issue using the GitHub CLI:
-
-**If `UPDATE_MODE=false` (default - create new issue):**
+Once confirmed, create the issue using the GitHub CLI:
 
 ```bash
-gh issue create --title "TITLE_HERE" --body-file - <<'EOF'
+gh issue create --title "TITLE_HERE" --body "$(cat <<'EOF'
 BODY_CONTENT_HERE
 EOF
-```
-
-**If `UPDATE_MODE=true` (update existing issue):**
-
-```bash
-gh issue edit "$UPDATE_ISSUE_NUMBER" --title "TITLE_HERE" --body-file - <<'EOF'
-BODY_CONTENT_HERE
-EOF
+)"
 ```
 
 **Important:**
-- Use `--body-file -` with heredoc to preserve markdown formatting and handle special characters safely
+- Use heredoc (`<<'EOF' ... EOF`) to preserve markdown formatting
 - The body should include all sections from Description onwards (not the title)
-- For updates: title formatting is applied the same way as for creates
-- After successful creation/update, display the issue URL to the user
-- Confirm: "GitHub issue created successfully: [URL]" or "GitHub issue #N updated successfully: [URL]"
+- After successful creation, display the issue URL to the user
+- Confirm: "GitHub issue created successfully: [URL]"
 
 ### 6. Error Handling
 
@@ -271,18 +219,6 @@ I don't have enough context to create an issue. Could you please provide:
 ```
 Failed to create GitHub issue: [error message]
 Please check your GitHub CLI configuration and try again.
-```
-
-**Issue update failed (--update mode):**
-```
-Failed to update GitHub issue #N: [error message]
-
-Possible causes:
-- Issue #N does not exist
-- Insufficient permissions to edit the issue
-- Network or GitHub CLI configuration issues
-
-Please check the issue number and try again.
 ```
 
 ## Ownership
@@ -334,7 +270,7 @@ test suite before allowing commits. This allows broken code to be committed.
 
 ## Steps to Reproduce
 
-1. Make changes to any Python file in `.claude/skills/`
+1. Make changes to any Python file in `claude/skills/`
 2. Run `git add .`
 3. Run `git commit -m "test"`
 4. Observe that no tests are executed before the commit succeeds
@@ -358,18 +294,3 @@ Add a plugin system that allows users to extend agentize functionality with
 custom plugins. This would enable community contributions and custom workflows
 without modifying core code.
 ```
-
-### Example 4: Update Existing Issue (--update mode)
-
-**Context:** Ultra-planner created a placeholder issue #42, then consensus plan is ready to update that same issue.
-
-**Invocation:**
-```bash
-open-issue --update 42 <plan-file>
-```
-
-**Behavior:**
-- Uses `gh issue edit 42` instead of `gh issue create`
-- Applies same title formatting logic (includes `[plan][tag]` prefix)
-- Updates issue body with final consensus plan
-- Preserves issue number (no duplicate issue created)

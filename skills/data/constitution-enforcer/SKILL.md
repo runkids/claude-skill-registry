@@ -376,90 +376,88 @@ Run all Phase -1 Gates:
 8. CLI Interface Gate
 9. Test-First Gate
 
-### Phase 4: 단계적 리포트 생성
+### Phase 4: 段階的レポート生成
 
-**CRITICAL: 컨텍스트 길이 초과(Overflow) 방지**
+**CRITICAL: コンテキスト長オーバーフロー防止**
 
-**출력 방식 원칙:**
-
-- ✅ 섹션을 1개씩 순서대로 생성·저장
-- ✅ 각 섹션 생성 후 진행 상황 공유
-- ✅ 오류 발생 시에도 부분 리포트가 유지됨
+**出力方式の原則:**
+- ✅ 1セクションずつ順番に生成・保存
+- ✅ 各セクション生成後に進捗を報告
+- ✅ エラー発生時も部分的なレポートが残る
 
 ```
-확인 감사합니다. 헌법 위반 리포트를 순차적으로 생성합니다.
+🤖 確認ありがとうございます。憲法違反レポートを順番に生成します。
 
-【생성 예정 섹션】
+【生成予定のセクション】
 1. Executive Summary
 2. Failed Gates
 3. Passed Gates
 4. Recommendations
 5. Approval Status
 
-총: 5개 섹션
+合計: 5セクション
 
-**중요: 단계적 생성 방식**
-각 섹션을 하나씩 생성·저장하고, 진행 상황을 공유합니다.
-이를 통해 중간 결과를 확인할 수 있으며,
-오류가 발생하더라도 이미 생성된 리포트는 그대로 유지됩니다.
+**重要: 段階的生成方式**
+各セクションを1つずつ生成・保存し、進捗を報告します。
+これにより、途中経過が見え、エラーが発生しても部分的なレポートが残ります。
 
-생성을 시작해도 될까요?
-👤 사용자: [응답 대기]
+生成を開始してよろしいですか?
+👤 ユーザー: [回答待ち]
 ```
 
-사용자 승인 후, **각 섹션을 순차적으로 생성**합니다.
+ユーザーが承認後、**各セクションを順番に生成**:
 
 **Step 1: Executive Summary**
 
 ```
-🤖 [1/5] Executive Summary를 생성하고 있습니다...
+🤖 [1/5] Executive Summaryを生成しています...
 
-📝 compliance/constitutional-compliance-report.md (섹션 1)
-✅ 저장이 완료되었습니다
+📝 compliance/constitutional-compliance-report.md (Section 1)
+✅ 保存が完了しました
 
-[1/5] 완료. 다음 섹션으로 진행합니다.
+[1/5] 完了。次のセクションに進みます。
 ```
 
 **Step 2: Failed Gates**
 
 ```
-🤖 [2/5] Failed Gates를 생성하고 있습니다...
+🤖 [2/5] Failed Gatesを生成しています...
 
-📝 compliance/constitutional-compliance-report.md (섹션 2)
-✅ 저장이 완료되었습니다
+📝 compliance/constitutional-compliance-report.md (Section 2)
+✅ 保存が完了しました
 
-[2/5] 완료. 다음 섹션으로 진행합니다.
+[2/5] 完了。次のセクションに進みます。
 ```
 
-**대규모 컴플라이언스 리포트(>300행)의 경우:**
+**大きなコンプライアンスレポート(>300行)の場合:**
 
 ```
-🤖 컴플라이언스 리포트 전체가 400행을 초과하므로, 섹션별로 저장합니다.
-⚠️ 상세 검증 결과를 2개 파트로 나누어 생성합니다.
+🤖 コンプライアンスレポート全体が400行超えるため、セクションごとに保存します。
+⚠️ 詳細な検証結果を2パートに分割して生成します。
 
-📝 Part 1/2: compliance/constitutional-compliance-report.md (Summary & Failed Gates 상세)
-✅ 저장이 완료되었습니다 (250행)
+📝 Part 1/2: compliance/constitutional-compliance-report.md (Summary & Failed Gates詳細)
+✅ 保存が完了しました (250行)
 
 📝 Part 2/2: compliance/constitutional-compliance-report.md (Passed Gates & Recommendations)
-✅ 저장이 완료되었습니다 (180행)
+✅ 保存が完了しました (180行)
 
-✅ 리포트 생성 완료: compliance/constitutional-compliance-report.md (430행)
+✅ レポート生成完了: compliance/constitutional-compliance-report.md (430行)
 
-모든 섹션 완료.
+全セクション完了。
 ```
 
-**Final: 리포트 생성 완료 요약**
+**Final: レポート生成完了サマリー**
 
 ```
-🤖 ✨ 헌법 위반 리포트 생성이 완료되었습니다!
+🤖 ✨ 憲法違反レポートの生成が完了しました！
 
-## 📊 컴플라이언스 요약
-- **통과 게이트**: 7/9 (77.8%)
-- **미통과 게이트**: 2/9 (22.2%)
-- **상태**: ❌ BLOCKED
+## 📊 コンプライアンスサマリー
+- **合格ゲート**: 7/9 (77.8%)
+- **不合格ゲート**: 2/9 (22.2%)
+- **ステータス**: ❌ BLOCKED
 
-## 📂 생성된 리포트
-✅ compliance/constitutional-compliance-report.md (5개 섹션)
+## 📂 生成されたレポート
+✅ compliance/constitutional-compliance-report.md (5セクション)
 
 ```
 
@@ -570,34 +568,6 @@ Once all gates pass:
 - [ ] Constitution Enforcer approval
 - [ ] Project Manager approval
 - [ ] Proceed to implementation
-```
-
-## Guardrails Commands (v3.9.0 NEW)
-
-Use these commands to enforce constitutional compliance programmatically:
-
-| Command                                                     | Purpose                                  | Example                                                                |
-| ----------------------------------------------------------- | ---------------------------------------- | ---------------------------------------------------------------------- |
-| `itda-validate guardrails --type safety`                  | Validate content against safety rules    | `npx itda-validate guardrails "content" --type safety`               |
-| `itda-validate guardrails --type safety --constitutional` | Full constitutional validation           | `npx itda-validate guardrails "code" --type safety --constitutional` |
-| `itda-validate guardrails --type input`                   | Validate input against injection attacks | `npx itda-validate guardrails "input" --type input`                  |
-| `itda-validate guardrails-chain`                          | Run full guardrail chain                 | `npx itda-validate guardrails-chain "content" --parallel`            |
-
-**Constitutional Safety Levels**:
-
-- `--level low` - Permissive (development)
-- `--level medium` - Balanced (default)
-- `--level high` - Strict (production)
-- `--level critical` - Maximum (security-critical)
-
-**Use with Constitution Validation**:
-
-```bash
-# Validate code against constitutional articles
-npx itda-validate guardrails "$(cat src/feature.js)" --type safety --constitutional --level high
-
-# Check multiple files
-npx itda-validate guardrails --type safety --constitutional --file src/**/*.js
 ```
 
 ## Project Memory Integration

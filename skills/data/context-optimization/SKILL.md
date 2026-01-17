@@ -1,353 +1,179 @@
 ---
 name: context-optimization
-description: Guide for managing and optimizing context in Claude Code. Use when experiencing slow responses, context warnings, or planning large tasks. Covers /compact, /clear, context budgeting, subagent delegation, and efficient session workflows.
-allowed-tools: ["Read"]
+description: This skill should be used when the user asks to "optimize context", "reduce token costs", "improve context efficiency", "implement KV-cache optimization", "partition context", or mentions context limits, observation masking, context budgeting, or extending effective context capacity.
 ---
 
-# Context Optimization
+# Context Optimization Techniques
 
-Manage Claude Code's context window efficiently for faster responses, better memory, and productive long sessions.
+Context optimization extends the effective capacity of limited context windows through strategic compression, masking, caching, and partitioning. The goal is not to magically increase context windows but to make better use of available capacity. Effective optimization can double or triple effective context capacity without requiring larger models or longer contexts.
 
-## Quick Reference
+## When to Activate
 
-| Command | Effect | When to Use |
-|---------|--------|-------------|
-| `/compact` | Compress context, preserve key info | Approaching limit, slow responses |
-| `/clear` | Reset to empty context | Fresh start, topic change |
-| `/cost` | Show token usage | Monitor consumption |
-| `/resume` | Continue previous session | Multi-session workflows |
-| `/rename` | Name current session | Session organization |
+Activate this skill when:
+- Context limits constrain task complexity
+- Optimizing for cost reduction (fewer tokens = lower costs)
+- Reducing latency for long conversations
+- Implementing long-running agent systems
+- Needing to handle larger documents or conversations
+- Building production systems at scale
 
-## Understanding Context
+## Core Concepts
 
-### What Is Context?
+Context optimization extends effective capacity through four primary strategies: compaction (summarizing context near limits), observation masking (replacing verbose outputs with references), KV-cache optimization (reusing cached computations), and context partitioning (splitting work across isolated contexts).
 
-Context is everything Claude "remembers" in your conversation:
-- Your messages and Claude's responses
-- Files read during the session
-- Tool outputs (bash results, search results)
-- System prompts and loaded skills
+The key insight is that context quality matters more than quantity. Optimization preserves signal while reducing noise. The art lies in selecting what to keep versus what to discard, and when to apply each technique.
 
-### Context Window Limits
+## Detailed Topics
 
-| Model | Context Window | Practical Limit |
-|-------|----------------|-----------------|
-| Claude Opus 4.5 | 200K tokens | ~150K usable |
-| Claude Sonnet 4 | 200K tokens | ~150K usable |
-| Claude Haiku | 200K tokens | ~150K usable |
+### Compaction Strategies
 
-**Note:** Reserve 20-30% for Claude's responses. Hitting the ceiling causes degraded performance before hard failures.
+**What is Compaction**
+Compaction is the practice of summarizing context contents when approaching limits, then reinitializing a new context window with the summary. This distills the contents of a context window in a high-fidelity manner, enabling the agent to continue with minimal performance degradation.
 
-### Token Estimation
+Compaction typically serves as the first lever in context optimization. The art lies in selecting what to keep versus what to discard.
 
-| Content Type | Approximate Tokens |
-|--------------|-------------------|
-| 1 line of code | 10-15 tokens |
-| 100 lines of code | 1,000-1,500 tokens |
-| Typical source file | 500-3,000 tokens |
-| Large file (1000+ lines) | 5,000-15,000 tokens |
-| Your message | ~1 token per word |
+**Compaction Implementation**
+Compaction works by identifying sections that can be compressed, generating summaries that capture essential points, and replacing full content with summaries. Priority for compression goes to tool outputs (replace with summaries), old turns (summarize early conversation), retrieved docs (summarize if recent versions exist), and never compress system prompt.
 
-## Context Pressure Indicators
+**Summary Generation**
+Effective summaries preserve different elements depending on message type:
 
-### Visual Indicators
+Tool outputs: Preserve key findings, metrics, and conclusions. Remove verbose raw output.
 
-1. **Token counter** - Watch the usage bar in the UI header
-2. **Response time** - Noticeably slower responses
-3. **Cost increase** - Higher per-turn costs (use `/cost`)
+Conversational turns: Preserve key decisions, commitments, and context shifts. Remove filler and back-and-forth.
 
-### Behavioral Signs
+Retrieved documents: Preserve key facts and claims. Remove supporting evidence and elaboration.
 
-| Sign | What's Happening |
-|------|------------------|
-| Claude "forgets" earlier discussion | Context truncation |
-| Repeated questions about context | Information pushed out |
-| Slower, choppier responses | Processing large context |
-| Incomplete tool outputs | Context conservation |
-| Asking to re-read files | File content evicted |
+### Observation Masking
 
-### When to Act
+**The Observation Problem**
+Tool outputs can comprise 80%+ of token usage in agent trajectories. Much of this is verbose output that has already served its purpose. Once an agent has used a tool output to make a decision, keeping the full output provides diminishing value while consuming significant context.
 
-| Usage Level | Recommendation |
-|-------------|----------------|
-| Under 50% | Continue normally |
-| 50-70% | Plan for compaction soon |
-| 70-85% | Compact now, consider task splitting |
-| 85%+ | Compact immediately or clear |
+Observation masking replaces verbose tool outputs with compact references. The information remains accessible if needed but does not consume context continuously.
 
-## /compact - Context Compression
+**Masking Strategy Selection**
+Not all observations should be masked equally:
 
-### What /compact Does
+Never mask: Observations critical to current task, observations from the most recent turn, observations used in active reasoning.
 
-1. Summarizes conversation history
-2. Preserves key decisions and context
-3. Maintains file awareness
-4. Keeps recent changes tracked
-5. Reduces token count by 50-80%
+Consider masking: Observations from 3+ turns ago, verbose outputs with key points extractable, observations whose purpose has been served.
 
-### When to Use /compact
+Always mask: Repeated outputs, boilerplate headers/footers, outputs already summarized in conversation.
 
-- Token usage exceeds 70%
-- Responses becoming slow
-- Before starting a new sub-task
-- Transitioning between phases
-- After completing a major task
+### KV-Cache Optimization
 
-### Compact Workflow
+**Understanding KV-Cache**
+The KV-cache stores Key and Value tensors computed during inference, growing linearly with sequence length. Caching the KV-cache across requests sharing identical prefixes avoids recomputation.
 
-```
-> /compact
-```
+Prefix caching reuses KV blocks across requests with identical prefixes using hash-based block matching. This dramatically reduces cost and latency for requests with common prefixes like system prompts.
 
-Claude compresses the conversation, keeping:
-- Current task objectives
-- Key decisions made
-- Files modified/created
-- Important constraints
-- Recent context (last few turns)
+**Cache Optimization Patterns**
+Optimize for caching by reordering context elements to maximize cache hits. Place stable elements first (system prompt, tool definitions), then frequently reused elements, then unique elements last.
 
-### Best Practices
+Design prompts to maximize cache stability: avoid dynamic content like timestamps, use consistent formatting, keep structure stable across sessions.
 
-1. **Compact at natural breaks** - Between tasks, not mid-implementation
-2. **State important context first** - Mention critical info before compacting
-3. **Verify understanding after** - Ask "What are we working on?" post-compact
-4. **Don't over-compact** - Once per major phase, not every few turns
+### When to use this skill Partitioning
 
-## /clear - Fresh Start
+**Sub-Agent Partitioning**
+The most aggressive form of context optimization is partitioning work across sub-agents with isolated contexts. Each sub-agent operates in a clean context focused on its subtask without carrying accumulated context from other subtasks.
 
-### What /clear Does
+This approach achieves separation of concerns—the detailed search context remains isolated within sub-agents while the coordinator focuses on synthesis and analysis.
 
-- Completely resets context to zero
-- No memory of previous conversation
-- Like starting a new session
+**Result Aggregation**
+Aggregate results from partitioned subtasks by validating all partitions completed, merging compatible results, and summarizing if still too large.
 
-### When to Use /clear
+### Budget Management
 
-| Scenario | Why Clear |
-|----------|-----------|
-| Switching projects | Different codebase, different context |
-| Major topic change | Unrelated to previous work |
-| Context too polluted | Too much irrelevant history |
-| Starting fresh approach | Previous direction was wrong |
-| Testing from scratch | Need clean state |
+**Context Budget Allocation**
+Design explicit context budgets. Allocate tokens to categories: system prompt, tool definitions, retrieved docs, message history, and reserved buffer. Monitor usage against budget and trigger optimization when approaching limits.
 
-### /clear vs /compact
+**Trigger-Based Optimization**
+Monitor signals for optimization triggers: token utilization above 80%, degradation indicators, and performance drops. Apply appropriate optimization techniques based on context composition.
 
-| Aspect | /compact | /clear |
-|--------|----------|--------|
-| Memory retained | Summarized | None |
-| Token usage after | ~20-50% | ~0% |
-| Context continuity | Preserved | Lost |
-| Use case | Continue work | Fresh start |
+## Practical Guidance
 
-### Clear Workflow
+### Optimization Decision Framework
 
-```
-> /clear
+When to optimize:
+- Context utilization exceeds 70%
+- Response quality degrades as conversations extend
+- Costs increase due to long contexts
+- Latency increases with conversation length
 
-Now starting fresh on [task description]...
+What to apply:
+- Tool outputs dominate: observation masking
+- Retrieved documents dominate: summarization or partitioning
+- Message history dominates: compaction with summarization
+- Multiple components: combine strategies
+
+### Performance Considerations
+
+Compaction should achieve 50-70% token reduction with less than 5% quality degradation. Masking should achieve 60-80% reduction in masked observations. Cache optimization should achieve 70%+ hit rate for stable workloads.
+
+Monitor and iterate on optimization strategies based on measured effectiveness.
+
+## How to use this skill
+
+**Example 1: Compaction Trigger**
+```python
+if context_tokens / context_limit > 0.8:
+    context = compact_context(context)
 ```
 
-**Always restate your objective after clearing.**
-
-## Context Budgeting
-
-### Planning Sessions
-
-Before starting work, estimate context needs:
-
-```
-Task: Implement user authentication
-Estimated reads: 10 files (~15,000 tokens)
-Expected tool use: High (~20,000 tokens)
-Conversation: Medium (~10,000 tokens)
-Buffer: 20% (~10,000 tokens)
-Total estimate: ~55,000 tokens (28% of window)
+**Example 2: Observation Masking**
+```python
+if len(observation) > max_length:
+    ref_id = store_observation(observation)
+    return f"[Obs:{ref_id} elided. Key: {extract_key(observation)}]"
 ```
 
-### Budget Allocation Strategy
-
-| Category | Allocation | Notes |
-|----------|------------|-------|
-| System prompt + skills | 5-10% | Fixed overhead |
-| File reads | 20-40% | Be selective |
-| Tool outputs | 15-25% | Limit verbose output |
-| Conversation | 20-30% | Your messages + responses |
-| Response buffer | 20% | Room for Claude's output |
-
-### Reducing Context Usage
-
-1. **Read selectively** - Request specific functions, not entire files
-2. **Use targeted searches** - `grep` patterns instead of reading files
-3. **Limit tool verbosity** - Ask for summaries, not full outputs
-4. **Break into sessions** - Split large tasks across multiple sessions
-5. **Use subagents** - Delegate to separate context windows
-
-## Subagent Delegation
-
-### Why Subagents Help
-
-Subagents have their own context window. Delegating tasks:
-- Preserves main conversation context
-- Allows parallel exploration
-- Isolates experimental changes
-- Returns only relevant results
-
-### Delegation Pattern
-
-```
-> Use a subagent to analyze the database schema and report the key tables
-
-[Subagent runs in separate context]
-[Returns summary to main conversation]
+**Example 3: Cache-Friendly Ordering**
+```python
+# Stable content first
+context = [system_prompt, tool_definitions]  # Cacheable
+context += [reused_templates]  # Reusable
+context += [unique_content]  # Unique
 ```
 
-### Good Candidates for Delegation
+## Guidelines
 
-| Task Type | Why Delegate |
-|-----------|--------------|
-| File exploration | Many reads, minimal output needed |
-| Code analysis | Deep dive, summary sufficient |
-| Test execution | Verbose output, pass/fail matters |
-| Documentation reading | Large content, key points needed |
-| Search tasks | Many grep/glob operations |
+1. Measure before optimizing—know your current state
+2. Apply compaction before masking when possible
+3. Design for cache stability with consistent prompts
+4. Partition before context becomes problematic
+5. Monitor optimization effectiveness over time
+6. Balance token savings against quality preservation
+7. Test optimization at production scale
+8. Implement graceful degradation for edge cases
 
-### Agent Definition for Context Efficiency
+## Integration
 
-```yaml
----
-name: explorer
-description: Explore codebase and return concise summaries
-tools: Read, Glob, Grep
-model: haiku
+This skill builds on context-fundamentals and context-degradation. It connects to:
+
+- multi-agent-patterns - Partitioning as isolation
+- evaluation - Measuring optimization effectiveness
+- memory-systems - Offloading context to memory
+
+## References
+
+Internal reference:
+- [Optimization Techniques Reference](./references/optimization_techniques.md) - Detailed technical reference
+
+Related skills in this collection:
+- context-fundamentals - Context basics
+- context-degradation - Understanding when to optimize
+- evaluation - Measuring optimization
+
+External resources:
+- Research on context window limitations
+- KV-cache optimization techniques
+- Production engineering guides
+
 ---
 
-You are a code explorer. Investigate thoroughly but report concisely.
-Return only essential findings. Summarize, don't quote entire files.
-```
+## Skill Metadata
 
-See [creating-subagents](../creating-subagents/SKILL.md) for full agent creation guide.
-
-## Session Management
-
-### Naming Sessions
-
-```
-> /rename authentication-feature
-```
-
-Benefits:
-- Easy to identify in history
-- Clear purpose documentation
-- Resumable with meaningful names
-
-### Resuming Sessions
-
-```
-> /resume
-```
-
-Shows recent sessions. Select one to continue where you left off.
-
-Or directly:
-```
-> /resume authentication-feature
-```
-
-### Multi-Session Workflows
-
-For large features, plan multiple sessions:
-
-| Session | Focus | Compact At |
-|---------|-------|------------|
-| Session 1 | Architecture design | End |
-| Session 2 | Backend implementation | 70% |
-| Session 3 | Frontend implementation | 70% |
-| Session 4 | Integration & testing | End |
-
-### Session Checkpoints
-
-Create natural checkpoints:
-
-1. **Before major changes** - Compact to preserve state
-2. **After milestones** - Document progress in conversation
-3. **At decision points** - State decisions clearly for post-compact memory
-
-## Efficient Workflows
-
-### Task Batching
-
-Instead of interleaving tasks:
-
-**Inefficient:**
-```
-> Read file A
-> Make change to A
-> Read file B
-> Make change to B
-> Read file A again
-```
-
-**Efficient:**
-```
-> Read files A and B
-> Make all changes to A
-> Make all changes to B
-```
-
-### Explicit Context Statements
-
-Help Claude remember across compactions:
-
-```
-> We're building a REST API for user management.
-> Key constraint: Must use existing auth middleware.
-> Files involved: src/api/users.ts, src/middleware/auth.ts
-```
-
-### Pre-Compact Checklist
-
-Before running `/compact`:
-- [ ] Stated current objective clearly
-- [ ] Mentioned key constraints
-- [ ] Listed important files/decisions
-- [ ] Completed current sub-task
-
-## Monitoring Usage
-
-### /cost Command
-
-```
-> /cost
-```
-
-Shows:
-- Total tokens used
-- Input vs output breakdown
-- Estimated cost
-
-### When to Check
-
-- After reading large files
-- After verbose tool operations
-- Every 10-15 exchanges
-- Before starting new task
-
-## Reference Files
-
-| File | Contents |
-|------|----------|
-| [STRATEGIES.md](./STRATEGIES.md) | Detailed optimization strategies |
-| [INDICATORS.md](./INDICATORS.md) | Context pressure indicators and monitoring |
-| [WORKFLOWS.md](./WORKFLOWS.md) | Efficient workflow patterns |
-
-## Quick Decisions
-
-| Situation | Action |
-|-----------|--------|
-| Slow responses | `/compact` |
-| Topic change | `/clear` |
-| Large task ahead | Plan sessions, use subagents |
-| Forgot earlier discussion | Restate context, consider clearing |
-| Mid-implementation | Avoid compacting, finish first |
-| Starting new feature | Name session, budget context |
+**Created**: 2025-12-20
+**Last Updated**: 2025-12-20
+**Author**: Agent Skills for Context Engineering Contributors
+**Version**: 1.0.0

@@ -1,117 +1,65 @@
 ---
-name: product-development
-description: End-to-end product development for iOS/macOS apps. Covers market research, competitive analysis, PRD generation, architecture specs, UX design, implementation guides, testing, and App Store release. Use for product planning, validation, or generating specification documents.
-allowed-tools: [Read, Write, Glob, Grep, WebFetch, WebSearch, AskUserQuestion]
+name: product
+description: Product workflows router. Use when user mentions "PRD", "competitive analysis", "metrics", "OKRs", "cohort", "requirements", or "technical debt". Triggers on product management and strategy tasks.
 ---
 
-# Product Development Expert
+# Product Skill
 
-Comprehensive product development guidance for iOS/macOS apps. This skill orchestrates the entire product lifecycle from idea validation to App Store release.
+Router skill for product management workflows. Detects task type and routes to appropriate workflow.
 
 ## When This Skill Activates
 
-Use this skill when the user:
-- Has an app idea and wants to validate it
-- Needs market research or competitive analysis
-- Wants to generate product specifications
-- Needs architecture or UX design documents
-- Is preparing for App Store submission
-- Wants end-to-end product planning
+You're working on:
 
-## Available Modules
+- Competitive analysis or market positioning
+- Product requirements documentation
+- Goal setting and metrics definition
+- User research synthesis
+- Cohort and retention analysis
+- PRD quality evaluation
+- Technical debt prioritization
 
-Read relevant module files based on the user's needs:
+## Workflow Selection
 
-### Discovery & Validation
+Announce which workflow you're using:
 
-**product-agent/**
-AI-powered product discovery and validation.
-- Idea validation and assessment
-- MVP scoping
-- Market opportunity analysis
+| Task Type                                   | Workflow             | Reference                |
+| ------------------------------------------- | -------------------- | ------------------------ |
+| Competitive analysis, market gaps, win/loss | Competitive Analysis | `references/compete.md`  |
+| Feature specs, requirements, MVP scoping    | PRD Generation       | `references/prd.md`      |
+| Goals, OKRs, KPIs, tracking systems         | Metrics & Goals      | `references/metrics.md`  |
+| User interviews, qualitative data, insights | Research Synthesis   | `references/research.md` |
+| Retention, LTV, churn, cohort data          | Cohort Analysis      | `references/cohort.md`   |
+| PRD review, completeness check, scoring     | PRD Evaluation       | `references/prd-eval.md` |
+| Tech debt triage, remediation planning      | Debt Prioritization  | `references/debt.md`     |
 
-**market-research/**
-Deep market analysis.
-- Market sizing (TAM/SAM/SOM)
-- Growth trends and maturity
-- Entry barriers and distribution channels
-- Revenue potential
+## Related Thinking Tools
 
-**competitive-analysis/**
-Competitor deep dive.
-- Feature comparison matrices
-- Pricing analysis
-- Strengths/weaknesses
-- Differentiation opportunities
+From `hope/skills/soul/references/tools/`:
 
-### Specification Generation
+| Tool                                                                                  | When to Use                               |
+| ------------------------------------------------------------------------------------- | ----------------------------------------- |
+| [Second-Order Thinking](../../hope/skills/soul/references/tools/second-order.md)      | Predict consequences of product decisions |
+| [Pre-Mortem](../../hope/skills/soul/references/tools/pre-mortem.md)                   | Anticipate launch failures                |
+| [Impact-Effort](../../hope/skills/soul/references/tools/impact-effort.md)             | Focus on high-impact, low-effort features |
 
-**prd-generator/**
-Product Requirements Document.
-- Features and user stories
-- Acceptance criteria
-- Success metrics
+From this skill's `references/`:
 
-**architecture-spec/**
-Technical architecture.
-- Architecture pattern selection
-- Tech stack decisions
-- Data models
-- App structure
+| Tool                                              | When to Use                             |
+| ------------------------------------------------- | --------------------------------------- |
+| [Jobs To Be Done](references/jobs-to-be-done.md)  | Understand what customers hire products for |
+| [Systems Archetypes](references/systems-archetypes.md) | Recognize "limits to growth", "shifting burden" patterns |
 
-**ux-spec/**
-UI/UX specifications.
-- Wireframes and user flows
-- Design system definition
-- Interaction patterns
+## Usage
 
-**implementation-guide/**
-Development roadmap.
-- Step-by-step instructions
-- Pseudo-code examples
-- Implementation priorities
+1. Detect which workflow applies based on user's task
+2. Announce: "I'm using the product skill for [workflow]"
+3. Load the appropriate reference file
+4. Execute the workflow exactly as written
 
-**test-spec/**
-QA and testing strategy.
-- Unit test coverage
-- UI testing plan
-- Accessibility testing
-- Beta testing strategy
+## Rules
 
-**release-spec/**
-App Store preparation.
-- Submission guide
-- Asset requirements
-- Privacy compliance
-- Marketing strategy
-
-### Orchestration
-
-**implementation-spec/**
-Master orchestrator.
-- Generates complete specification package
-- Coordinates all role-based agents
-- End-to-end spec generation
-
-**WORKFLOW.md**
-Product development workflow guide.
-
-## How to Use
-
-1. Identify where user is in product lifecycle
-2. Read relevant module SKILL.md for detailed process
-3. Generate requested specifications
-4. Save outputs to appropriate files
-
-## Example Workflows
-
-**User has new app idea:**
-1. Use `product-agent/` for initial validation
-2. Run `market-research/` for market sizing
-3. Run `competitive-analysis/` for competitor insights
-4. Generate PRD with `prd-generator/`
-
-**User wants full spec package:**
-1. Use `implementation-spec/` orchestrator
-2. It coordinates all spec generators
-3. Produces complete documentation set
+- Use Ask tool to gather input before proceeding
+- Ground recommendations in evidence
+- Use story points, never time estimates
+- Challenge assumptions and cut scope by default

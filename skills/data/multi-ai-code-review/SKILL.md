@@ -1,399 +1,536 @@
 ---
 name: multi-ai-code-review
-description: Run multi-provider code reviews over git diffs/PR changes using headless AI CLIs (Claude Code `claude`, Google `gemini`, optionally GitHub `copilot`) and output structured findings + an optional synthesized report; use for security/bug/perf review of recent changes and for generating PR-ready review comments.
-context:fork: true
-type: codex-adapter
-model: sonnet
-allowed-tools: bash, git
-version: 2.0
-best_practices:
-  - Use for PR reviews and security audits
-  - Run against staged changes or commit ranges
-  - Enable synthesis for consensus findings
-  - Use CI mode for automated pipelines
-error_handling: graceful
-streaming: not_supported
+description: Multi-perspective code review using Claude, Gemini, and Codex as specialized agents. 5-dimensional analysis (security, performance, maintainability, correctness, style) with LLM-as-judge consensus, quality scoring, and CI/CD integration. Use when reviewing PRs, auditing code quality, preparing production releases, or establishing code review workflows.
+allowed-tools: Task, Read, Write, Edit, Glob, Grep, Bash
 ---
 
-<identity>
-Multi-AI Code Review - Agent Studio adapter for Codex CLI skill that performs multi-provider code reviews using external AI CLIs.
-</identity>
+# Multi-AI Code Review
 
-<capabilities>
-- Multi-provider code review (Claude, Gemini, Copilot)
-- Git diff analysis (staged, unstaged, commit ranges)
-- Structured JSON output conforming to `.claude/schemas/multi-ai-review-report.schema.json`
-- Markdown PR comment generation
-- CI-friendly strict JSON mode
-- Consensus synthesis from multiple AI providers
-- Session-first or env-first authentication
-- Large diff sampling and truncation
-</capabilities>
+## Overview
 
-<instructions>
-<execution_process>
-## Adapter Pattern
+multi-ai-code-review provides comprehensive code review using multiple AI models as specialized agents, each analyzing code from a different perspective. Based on 2024-2025 best practices for AI-assisted code review.
 
-This is an **Agent Studio-compatible wrapper** for the Codex CLI skill located in `codex-skills/multi-ai-code-review/`.
+**Purpose**: Multi-perspective code quality assessment using AI ensemble with human oversight
 
-### Invocation Methods
+**Pattern**: Task-based (5 independent review dimensions + orchestration)
 
-**Natural Language**:
+**Key Principles** (validated by tri-AI research):
+1. **Multi-Agent Architecture** - Specialized agents for each review dimension
+2. **LLM-as-Judge Consensus** - Flag issues only when 2+ models agree
+3. **Progressive Severity** - Critical → High → Medium → Low prioritization
+4. **Human-in-Loop** - AI suggests, human decides
+5. **Quality Gates** - Block merges for critical unresolved issues
+6. **Actionable Feedback** - Every comment has What/Where/Why/How
 
-```
-Run multi-AI code review on these changes
-Review this PR with Claude and Gemini
-```
+**Quality Targets**:
+- False Positive Rate: <15%
+- Fix Acceptance Rate: >40%
+- Review Turnaround: <5 minutes
+- Bug Catch Rate: >30% pre-production
 
-**Direct Skill Invocation**:
+---
 
-```javascript
-// Via Agent Studio Skill tool
-{
-  "skill": "multi-ai-code-review",
-  "params": {
-    "providers": ["claude", "gemini"],
-    "output": "json",
-    "range": "origin/main...HEAD"
-  }
-}
-```
+## When to Use
 
-**Direct CLI (Codex pattern)**:
+Use multi-ai-code-review when:
 
-```bash
-node codex-skills/multi-ai-code-review/scripts/review.js --providers claude,gemini --range origin/main...HEAD
-```
+- Reviewing pull requests (any size)
+- Auditing code quality before release
+- Establishing consistent code review standards
+- Security auditing code changes
+- Performance profiling changes
+- Technical debt assessment
+- Onboarding reviews (mentorship mode)
 
-## Parameters
+**When NOT to Use**:
+- Trivial changes (typos, comments only)
+- Automated dependency updates (use dependabot labels)
+- Generated code (migrations, scaffolds)
+
+---
+
+## Prerequisites
 
 ### Required
+- Code to review (diff, file, or directory)
+- At least one AI available (Claude required, Gemini/Codex optional)
 
-- None (defaults to unstaged diff with claude,gemini)
+### Recommended
+- Gemini CLI for web research and fast analysis
+- Codex CLI for deep code reasoning
+- Git repository context
 
-### Optional
+### Integration
+- GitHub Actions (optional, for CI/CD)
+- Pre-commit hooks (optional, for local checks)
 
-- `providers` (Array|String): AI providers to use (default: `["claude", "gemini"]`)
-- `output` (String): Output format - `"json"` or `"markdown"` (default: `"json"`)
-- `staged` (Boolean): Review staged changes instead of unstaged (default: `false`)
-- `range` (String): Git commit range (e.g., `"origin/main...HEAD"`)
-- `diffFile` (String): Path to diff file instead of git diff
-- `authMode` (String): `"session-first"` or `"env-first"` (default: `"session-first"`)
-- `timeoutMs` (Number): Provider timeout in milliseconds (default: `240000`)
-- `synthesize` (Boolean): Enable consensus synthesis (default: `true`)
-- `synthesizeWith` (String): Provider for synthesis (default: first provider)
-- `maxDiffChars` (Number): Max diff characters before sampling (default: `220000`)
-- `ci` (Boolean): CI mode - implies `--no-synthesis`, `--output json`, strict JSON-only (default: `false`)
-- `strictJsonOnly` (Boolean): Strict JSON mode with non-zero exit on failure (default: `false`)
-- `dryRun` (Boolean): No network calls, prints collected diff stats (default: `false`)
+---
 
-## Output Schema
+## Review Dimensions
 
-All JSON output conforms to `.claude/schemas/multi-ai-review-report.schema.json`.
+### 5-Dimensional Analysis
 
-**Success Response**:
+| Dimension | Agent | Focus | Weight |
+|-----------|-------|-------|--------|
+| **Security** | Security Specialist | OWASP Top 10, secrets, injection | 25% |
+| **Performance** | Performance Engineer | Complexity, memory, latency | 20% |
+| **Maintainability** | Architect | Patterns, modularity, DRY | 25% |
+| **Correctness** | QA Engineer | Logic, edge cases, tests | 20% |
+| **Style** | Nitpicker | Naming, formatting, conventions | 10% |
 
-```json
-{
-  "success": true,
-  "data": {
-    "diffMeta": {
-      "bytes": 12345,
-      "sha256": "abc123...",
-      "staged": false,
-      "range": "origin/main...HEAD",
-      "truncated": false
-    },
-    "providers": [
-      { "provider": "claude", "ok": true },
-      { "provider": "gemini", "ok": true }
-    ],
-    "perProvider": [
-      {
-        "provider": "claude",
-        "ok": true,
-        "parsed": {
-          "overall_risk": "low",
-          "summary": "Code changes look good...",
-          "findings": [...]
-        }
-      }
-    ],
-    "synthesis": {
-      "provider": "claude",
-      "ok": true,
-      "parsed": {
-        "overall_risk": "low",
-        "summary": "Synthesized review...",
-        "findings": [...]
-      }
-    }
-  },
-  "format": "json"
-}
+### Severity Levels
+
+| Level | Action | Examples |
+|-------|--------|----------|
+| **Critical** | Block merge | SQL injection, exposed secrets, data loss |
+| **High** | Require fix | Race conditions, missing auth, memory leaks |
+| **Medium** | Suggest fix | Code duplication, missing tests, complexity |
+| **Low** | Optional | Style issues, naming, minor refactors |
+
+---
+
+## Operations
+
+### Operation 1: Quick Security Scan
+
+**Time**: 2-5 minutes
+**Automation**: 80%
+**Purpose**: Fast security-focused review
+
+**Process**:
+
+1. **Scan for Critical Issues**:
+```
+Review this code for security vulnerabilities:
+- SQL injection
+- XSS vulnerabilities
+- Hardcoded secrets/API keys
+- Authentication bypasses
+- Authorization flaws
+- Input validation gaps
+- Insecure dependencies
+
+Code:
+[PASTE CODE OR DIFF]
+
+For each issue found, provide:
+- Severity (Critical/High/Medium)
+- Location (file:line)
+- Description (what's wrong)
+- Fix (specific code change)
 ```
 
-**Error Response**:
-
-```json
-{
-  "success": false,
-  "error": "Codex CLI execution failed",
-  "exitCode": 1
-}
-```
-
-## Authentication
-
-### Session-First (Default)
-
-1. Try CLI using logged-in session (API keys hidden)
-2. If fails and env keys exist, retry with env keys
-
-### Environment Variables
-
-- Claude: `ANTHROPIC_API_KEY` (optional if logged in)
-- Gemini: `GEMINI_API_KEY` or `GOOGLE_API_KEY` (optional if logged in)
-- Copilot: Uses its own CLI auth flow
-
-### Override to Env-First
-
-```javascript
-{
-  "skill": "multi-ai-code-review",
-  "params": {
-    "authMode": "env-first"
-  }
-}
-```
-
-</execution_process>
-
-<usage_patterns>
-
-## Common Use Cases
-
-### PR Review (Standard)
-
-```javascript
-{
-  "skill": "multi-ai-code-review",
-  "params": {
-    "range": "origin/main...HEAD",
-    "providers": ["claude", "gemini"],
-    "output": "markdown"
-  }
-}
-```
-
-### Security Audit (High Stakes)
-
-```javascript
-{
-  "skill": "multi-ai-code-review",
-  "params": {
-    "providers": ["claude", "gemini", "copilot"],
-    "synthesize": true,
-    "output": "json"
-  }
-}
-```
-
-### CI Pipeline (Automated)
-
-```javascript
-{
-  "skill": "multi-ai-code-review",
-  "params": {
-    "ci": true,
-    "range": "origin/main...HEAD",
-    "providers": ["claude", "gemini"]
-  }
-}
-```
-
-### Quick Staged Review
-
-```javascript
-{
-  "skill": "multi-ai-code-review",
-  "params": {
-    "staged": true,
-    "providers": ["claude"]
-  }
-}
-```
-
-</usage_patterns>
-</instructions>
-
-<examples>
-<code_example>
-**Agent Studio Invocation**:
-
-```javascript
-// Via Skill tool in Agent Studio
-const result = await invoke({
-  skill: 'multi-ai-code-review',
-  params: {
-    providers: ['claude', 'gemini'],
-    range: 'origin/main...HEAD',
-    output: 'json',
-  },
-});
-
-console.log(result.data.synthesis.parsed.summary);
-```
-
-**Natural Language Invocation**:
-
-```
-Run multi-AI code review on the PR branch with Claude and Gemini
-```
-
-**Direct CLI (Codex Pattern)**:
-
+2. **Validate with Gemini** (optional):
 ```bash
-# Unstaged diff
-node codex-skills/multi-ai-code-review/scripts/review.js --providers claude,gemini
+gemini -p "Verify these security findings. Are any false positives?
+[PASTE CLAUDE FINDINGS]
 
-# Staged diff
-node codex-skills/multi-ai-code-review/scripts/review.js --staged --providers claude,gemini
-
-# PR branch
-node codex-skills/multi-ai-code-review/scripts/review.js --range origin/main...HEAD --providers claude,gemini
-
-# CI mode
-node codex-skills/multi-ai-code-review/scripts/review.js --ci --range origin/main...HEAD --providers claude,gemini > ai-review.json
+Code context:
+[PASTE RELEVANT CODE]"
 ```
 
-</code_example>
-</examples>
+3. **Output**: Security report with consensus findings
 
-## Implementation Details
+---
 
-### Adapter Architecture
+### Operation 2: Comprehensive PR Review
+
+**Time**: 10-30 minutes
+**Automation**: 60%
+**Purpose**: Full multi-dimensional review
+
+**Process**:
+
+**Step 1: Gather Context**
+```bash
+# Get PR diff
+git diff main...HEAD > /tmp/pr_diff.txt
+
+# Identify affected areas
+grep -E "^(\\+\\+\\+|---)" /tmp/pr_diff.txt | head -20
+```
+
+**Step 2: Run Parallel Agent Reviews**
+
+Use Task tool to launch parallel agents:
 
 ```
-Agent Studio Skill Invocation
-         ↓
-.claude/skills/multi-ai-code-review/invoke.mjs (Adapter)
-         ↓
-codex-skills/multi-ai-code-review/scripts/review.js (Codex CLI)
-         ↓
-External AI CLIs (claude, gemini, copilot)
-         ↓
-Structured JSON Output
+Launch 3 parallel review agents:
+
+Agent 1 (Security):
+"Review this diff for security issues. Focus on:
+- OWASP Top 10 vulnerabilities
+- Authentication/authorization
+- Input validation
+- Secrets exposure
+Diff: [DIFF]"
+
+Agent 2 (Maintainability):
+"Review this diff for maintainability. Focus on:
+- Design patterns used correctly
+- Code duplication (DRY)
+- Modularity and cohesion
+- Documentation quality
+Diff: [DIFF]"
+
+Agent 3 (Correctness):
+"Review this diff for correctness. Focus on:
+- Logic errors
+- Edge cases not handled
+- Test coverage gaps
+- Error handling
+Diff: [DIFF]"
 ```
 
-### Bridging Patterns
+**Step 3: Orchestrate & Deduplicate**
+```
+Synthesize findings from all agents:
+[PASTE ALL AGENT OUTPUTS]
 
-1. **Parameter Mapping**: Agent Studio params → CLI args
-2. **Output Formatting**: CLI stdout → Agent Studio response
-3. **Error Handling**: CLI errors → Agent Studio error format
-4. **Schema Validation**: Output conforms to `.claude/schemas/multi-ai-review-report.schema.json`
+Tasks:
+1. Remove duplicate findings
+2. Rank by severity (Critical > High > Medium > Low)
+3. Group by file
+4. Generate summary table
+5. Create final report with consensus issues only
+```
 
-### Codex CLI Location
+**Step 4: Generate Report**
 
-The underlying Codex CLI skill is located at:
+Output format:
+```markdown
+## PR Review Summary
 
-- **Script**: `codex-skills/multi-ai-code-review/scripts/review.js`
-- **Documentation**: `codex-skills/multi-ai-code-review/SKILL.md`
+| File | Risk | Issues | Critical | High | Medium |
+|------|------|--------|----------|------|--------|
+| auth.py | High | 3 | 1 | 2 | 0 |
+| api.py | Medium | 2 | 0 | 1 | 1 |
 
-### Windows Compatibility
+### Critical Issues (Block Merge)
+1. **[auth.py:45]** SQL Injection vulnerability
+   - Why: User input directly in query
+   - Fix: Use parameterized queries
 
-- Uses `spawn` with `shell: true` for Windows `.cmd` shims
-- Proper path resolution with `path.join()`
-- No path concatenation issues
+### High Issues (Require Fix)
+...
 
-## Integration with Workflows
+### Consensus Score: 72/100
+- Security: 65/100
+- Performance: 80/100
+- Maintainability: 70/100
+- Correctness: 75/100
+- Style: 85/100
+```
 
-### Step 0.1: Plan Rating (Multi-AI Fallback)
+---
 
-When high-stakes plans require multi-AI validation, this skill can be used as a fallback:
+### Operation 3: LLM-as-Judge Tribunal
+
+**Time**: 5-15 minutes
+**Automation**: 70%
+**Purpose**: High-confidence findings through consensus
+
+**Process**:
+
+1. **Run Code Through Multiple Models**:
+
+**Claude Analysis**:
+```
+Analyze this code for issues. Rate severity 1-10 for each:
+[CODE]
+```
+
+**Gemini Analysis** (via CLI):
+```bash
+gemini -p "Analyze this code for issues. Rate severity 1-10 for each:
+[CODE]"
+```
+
+**Codex Analysis** (via CLI):
+```bash
+codex "Analyze this code for issues. Rate severity 1-10 for each:
+[CODE]"
+```
+
+2. **Calculate Consensus**:
+```
+Given these analyses from 3 AI models:
+
+Claude: [FINDINGS]
+Gemini: [FINDINGS]
+Codex: [FINDINGS]
+
+Identify issues where at least 2 models agree:
+1. List consensus findings
+2. Average severity scores
+3. Note any disagreements
+4. Final verdict for each issue
+```
+
+3. **Output**: High-confidence issue list (≥67% agreement)
+
+---
+
+### Operation 4: Mentorship Review
+
+**Time**: 15-30 minutes
+**Automation**: 40%
+**Purpose**: Educational code review for learning
+
+**Process**:
+
+```
+Review this code in mentorship mode. For a developer learning [LANGUAGE/FRAMEWORK]:
+
+Code: [CODE]
+
+For each finding:
+1. **What's the issue** (be encouraging, not critical)
+2. **Why it matters** (explain the underlying concept)
+3. **How to improve** (show before/after with explanation)
+4. **Learn more** (link to relevant documentation)
+
+Also highlight:
+- What was done well
+- Good patterns to continue using
+- Growth opportunities
+
+Tone: Supportive and educational, never condescending.
+```
+
+---
+
+### Operation 5: Pre-Release Audit
+
+**Time**: 30-60 minutes
+**Automation**: 50%
+**Purpose**: Comprehensive review before production
+
+**Process**:
+
+1. **Full Codebase Scan**:
+```bash
+# Identify all changes since last release
+git diff v1.0.0...HEAD --stat
+git log v1.0.0...HEAD --oneline
+```
+
+2. **Security Deep Dive**:
+- Run all security checks
+- Verify no new vulnerabilities
+- Check dependency updates
+- Audit secrets management
+
+3. **Performance Review**:
+- Identify potential bottlenecks
+- Review database queries
+- Check for N+1 problems
+- Validate caching strategies
+
+4. **Test Coverage**:
+- Verify test coverage targets
+- Check critical path coverage
+- Validate edge case tests
+
+5. **Generate Release Report**:
+```markdown
+## Pre-Release Audit: v1.1.0
+
+### Security Clearance: PASS ✓
+- No critical vulnerabilities
+- All high issues resolved
+- Secrets audit: Clean
+
+### Performance Assessment: PASS ✓
+- No new N+1 queries
+- Response time within SLA
+- Memory usage stable
+
+### Test Coverage: 82% (target: 80%)
+- Critical paths: 95%
+- Edge cases: 78%
+
+### Release Recommendation: APPROVED
+```
+
+---
+
+## Multi-AI Coordination
+
+### Agent Assignment Strategy
+
+| Task | Primary | Verification | Speed |
+|------|---------|--------------|-------|
+| Security scan | Claude | Gemini | Fast |
+| Architecture review | Claude | Codex | Medium |
+| Logic validation | Codex | Claude | Medium |
+| Style checking | Gemini | Claude | Fast |
+| Performance analysis | Claude | Codex | Medium |
+
+### Coordination Commands
+
+**Launch Multi-Agent Review**:
+```bash
+# Using Task tool for parallel execution
+# Each agent reviews independently, orchestrator synthesizes
+```
+
+**Gemini Quick Check**:
+```bash
+gemini -p "Quick security scan of this code: [CODE]"
+```
+
+**Codex Deep Analysis**:
+```bash
+codex "Analyze this code architecture and suggest improvements: [CODE]"
+```
+
+---
+
+## CI/CD Integration
+
+### GitHub Actions Workflow
 
 ```yaml
-# In workflow YAML
-step: 0.1
-agent: planner
-validation:
-  multi_ai_rating:
-    enabled: true
-    skill: multi-ai-code-review
-    fallback_to_single_model: true
+# .github/workflows/ai-review.yml
+name: Multi-AI Code Review
+on: [pull_request]
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get PR Diff
+        run: |
+          git diff origin/main...HEAD > pr_diff.txt
+
+      - name: Claude Review
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          model: "claude-sonnet-4-5-20250929"
+          review_level: "detailed"
+
+      - name: Post Summary
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## AI Review Summary\n${process.env.REVIEW_SUMMARY}`
+            })
 ```
 
-### Step 6: Code Review
-
-Standard integration for code review steps:
+### Quality Gate Configuration
 
 ```yaml
-step: 6
-agent: code-reviewer
-tools:
-  - multi-ai-code-review
-params:
-  providers: ['claude', 'gemini']
-  range: 'origin/main...HEAD'
+# Block merge for critical issues
+quality_gates:
+  critical_issues: 0      # Must be zero
+  high_issues: 3          # Max allowed
+  coverage_minimum: 80    # Percent
+  score_minimum: 70       # Out of 100
 ```
 
-## Security
+---
 
-### API Key Protection
+## Quality Scoring
 
-This skill implements defense-in-depth for credential protection following OWASP A02:2021 guidelines.
+### Scoring Formula
 
-**Automatic Sanitization**:
-
-- All error messages are automatically sanitized to prevent API key leakage
-- Stack traces and stderr output are filtered before logging
-- Environment variable values are redacted in error contexts
-- CI/CD pipeline logs are protected from credential exposure
-
-**Sanitized Patterns**:
-
-- Anthropic API keys (`sk-ant-...`)
-- OpenAI API keys (`sk-...`)
-- Google/Gemini API keys (`AIza...`)
-- GitHub tokens (`ghp_`, `gho_`, `ghu_`, `ghs_`, `ghr_`)
-- JWT tokens
-- Authorization headers (Bearer, Basic)
-- Environment variable assignments (`KEY=value`)
-- Long alphanumeric tokens (40+ characters)
-
-**Best Practices**:
-
-1. **Use session-first authentication** - Avoids storing API keys in environment
-2. **Never commit API keys** - Use environment variables or secret managers
-3. **Rotate keys regularly** - Especially after suspected exposure
-4. **Monitor logs for `[REDACTED]` markers** - Indicates potential key exposure attempt was blocked
-5. **Use CI secrets** - Store keys in CI/CD secret management, not in code
-
-**Implementation**:
-
-```javascript
-// Error handling in review.js automatically sanitizes
-const { sanitize } = require('../../shared/sanitize-secrets.js');
-console.error(sanitize(error.message)); // Safe to log
+```
+Overall = (Security × 0.25) + (Performance × 0.20) +
+          (Maintainability × 0.25) + (Correctness × 0.20) +
+          (Style × 0.10)
 ```
 
-**Security Audit**:
+### Grade Mapping
 
-- Run `node .claude/tools/test-sanitization.mjs` to verify sanitization patterns
-- All 15 test cases must pass before deployment
+| Score | Grade | Status |
+|-------|-------|--------|
+| ≥90 | A | Excellent - Ship it |
+| 80-89 | B | Good - Minor fixes |
+| 70-79 | C | Acceptable - Address issues |
+| 60-69 | D | Needs work - Significant fixes |
+| <60 | F | Failing - Major revision needed |
 
-## Notes / Constraints
+---
 
-- **Network Access Required**: Contacts external AI provider APIs
-- **Large Diff Sampling**: For diffs > `maxDiffChars`, samples head+tail with marker
-- **Provider Availability**: Gracefully handles provider failures with per-provider status
-- **Retry Logic**: Automatic retry with exponential backoff (3 attempts per provider)
-- **Session vs API Keys**: Session-first auth avoids hitting API rate limits for logged-in users
-- **CI Mode**: Strict JSON-only mode for automated pipelines (non-zero exit on failure)
+## Anti-Patterns to Detect
+
+1. **Hardcoded Secrets** - API keys, passwords in code
+2. **SQL Injection** - Unparameterized queries
+3. **XSS Vulnerabilities** - Unsanitized output
+4. **Race Conditions** - Unprotected shared state
+5. **Memory Leaks** - Unclosed resources
+6. **N+1 Queries** - Loop database calls
+7. **Dead Code** - Unreachable branches
+8. **God Objects** - Classes doing too much
+9. **Copy-Paste Code** - Duplicated logic
+10. **Missing Error Handling** - Unhandled exceptions
+
+---
+
+## Example Review Session
+
+```
+User: Review this PR for my authentication module
+
+Claude: I'll perform a comprehensive multi-dimensional review.
+
+[Launches parallel agents for security, maintainability, correctness]
+
+## PR Review: Authentication Module
+
+### Critical Issues (1)
+1. **[auth.py:67]** Password stored in plaintext
+   - Severity: Critical
+   - Consensus: 3/3 models agree
+   - Fix: Use bcrypt hashing
+   ```python
+   # Before
+   user.password = request.password
+
+   # After
+   import bcrypt
+   user.password = bcrypt.hashpw(request.password.encode(), bcrypt.gensalt())
+   ```
+
+### High Issues (2)
+1. **[auth.py:45]** No rate limiting on login endpoint
+2. **[auth.py:89]** JWT secret hardcoded
+
+### Quality Score: 58/100 (Grade: F)
+- Security: 35/100 (Critical issues)
+- Performance: 70/100
+- Maintainability: 65/100
+- Correctness: 60/100
+- Style: 80/100
+
+### Recommendation: BLOCK MERGE
+Resolve critical security issues before merging.
+```
+
+---
 
 ## Related Skills
 
-- **response-rater**: Rate the quality of review outputs
-- **repo-rag**: Search codebase for context before review
-- **git**: Git operations for diff generation
-- **code-style-validator**: Style validation to complement review
+- **multi-ai-testing**: Generate tests for reviewed code
+- **multi-ai-verification**: Validate fixes
+- **multi-ai-implementation**: Implement suggested fixes
+- **codex-review**: Codex-specific review patterns
+- **review-multi**: Skill-specific reviews
+
+---
+
+## References
+
+- `references/security-checklist.md` - OWASP Top 10 checklist
+- `references/performance-patterns.md` - Performance anti-patterns
+- `references/ci-cd-integration.md` - Full CI/CD setup guide

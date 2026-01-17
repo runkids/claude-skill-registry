@@ -1,7 +1,7 @@
 {
   "name": "track-management",
-  "repo": "vinothpandian/v-marketplace",
-  "path": "plugins/claude-conductor/skills/track-management/SKILL.md",
-  "source": "github.com/vinothpandian/v-marketplace",
-  "downloaded_at": "2026-01-14T03:51:18.902240Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/conductor/skills/track-management/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-01-17T03:59:11.973410Z"
 }

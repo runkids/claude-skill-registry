@@ -1,42 +1,42 @@
 ---
 name: project-context
-description: Use before any development work. Ensures project patterns and documentation are consulted for consistent implementation.
+description: プロジェクト固有の技術スタック、アーキテクチャ、実装ルールを提供。プロジェクト構成確認時に使用。
 ---
 
-# Project Context
+# プロジェクトコンテキスト
 
-## Before Starting ANY Development Task
+## 基本設定
 
-**1. Activate Relevant Skills:**
+### プロジェクトの性質
+- **プロジェクト形態**: Claude Code専用TypeScriptプロジェクトテンプレート
+- **利用範囲**: プロジェクトの要件に応じて設定可能
+- **実装方針**: LLM主導実装、品質重視、YAGNI原則徹底
 
-Use the Skill tool for your task type:
+### 技術スタック
+- **基盤技術**: TypeScript、Node.js
+- **テストフレームワーク**: Vitest
+- **品質管理**: Biome、TypeScript strict mode
 
-- UI work → `Skill(ui-patterns)`
-- API work → `Skill(api-patterns)`
-- Auth work → `Skill(auth-patterns)`
+## 実装原則
 
-**2. Check Documentation:**
+### 実装方針の特徴
+- **LLM主導実装**: Claude Codeが主要な実装者として機能
+- **品質重視**: 速度より品質を優先する文化
+- **YAGNI原則**: 必要になるまで実装しない
+- **体系的な設計**: ADR/Design Doc/作業計画書による設計プロセス
 
-- `docs/README.md` - Project overview
-- `docs/architecture.md` - System design
+## カスタマイズガイド
 
-**3. Project Stack:**
+新しいプロジェクトでこのテンプレートを使用する場合：
 
-- **Framework**: [e.g., SvelteKit, Next.js]
-- **UI**: [e.g., shadcn, Tailwind]
-- **Database**: [e.g., SQLite, Postgres]
-- **Auth**: [e.g., Better-auth, NextAuth]
+1. **プロジェクト固有情報の追加**
+   - ターゲットユーザー特性
+   - ビジネス要件と制約
+   - 技術的制約事項
 
-**4. Critical Patterns:**
+2. **アーキテクチャの選択**
+   - アーキテクチャスキルから適切なパターンを選択
 
-[Add project-specific patterns that must always be followed]
-
-## Common Scenarios
-
-- "Add a route" → [guidance]
-- "Add a form" → [guidance]
-- "Create API" → [guidance]
-
-## Reference
-
-See `references/project-setup.md` for detailed conventions.
+3. **環境設定**
+   - プロジェクトに適した環境変数管理方法の実装
+   - プロジェクト固有の設定ファイル追加

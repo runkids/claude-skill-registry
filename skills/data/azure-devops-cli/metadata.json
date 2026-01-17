@@ -1,7 +1,7 @@
 {
   "name": "azure-devops-cli",
-  "repo": "ntaksh42/agents",
-  "path": ".claude/skills/azure-devops-cli/SKILL.md",
-  "source": "github.com/ntaksh42/agents",
-  "downloaded_at": "2026-01-14T03:51:00.638318Z"
+  "repo": "rysweet/azlin",
+  "path": ".claude/skills/azure-devops-cli/skill.md",
+  "source": "github.com/rysweet/azlin",
+  "downloaded_at": "2026-01-17T03:35:22.524355Z"
 }

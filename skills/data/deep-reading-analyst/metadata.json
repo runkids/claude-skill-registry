@@ -1,13 +1,7 @@
 {
   "name": "deep-reading-analyst",
-  "description": "Comprehensive framework for deep analysis of articles, papers, and long-form content using 10+ thinking models (SCQA, 5W2H, critical thinking, inversion, mental models, first principles, systems think",
-  "repo": "hacket/AICodingGuide",
-  "category": "devops",
-  "tags": [
-    "deep",
-    "reading",
-    "analyst"
-  ],
-  "stars": 12,
-  "source": "SkillsMP Synced Skills"
+  "repo": "ovachiever/droid-tings",
+  "path": "skills/deep-reading-analyst/SKILL.md",
+  "source": "github.com/ovachiever/droid-tings",
+  "downloaded_at": "2026-01-17T01:26:11.409794Z"
 }

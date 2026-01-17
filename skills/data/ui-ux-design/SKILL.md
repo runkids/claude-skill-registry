@@ -1,696 +1,397 @@
-# UI/UX Design Skill
-
-```yaml
-name: ui-ux-design-expert
-risk_level: MEDIUM
-description: Expert in interface design, spatial layouts, glass-morphism, attention management, and creating intuitive user experiences for AI assistants
-version: 1.0.0
-author: JARVIS AI Assistant
-tags: [design, ui, ux, interface, hud, jarvis]
-```
-
+---
+name: ui-ux-design
+description: UI/UX design patterns and best practices for the LMS. Activate when designing pages, creating layouts, working on user experience, or building navigation.
 ---
 
-## 1. Overview
+# UI/UX Design for DevOps LMS
 
-**Risk Level**: LOW-RISK
+## Activation Triggers
+- Designing new pages or layouts
+- Creating navigation structures
+- Working on user flows
+- Building responsive designs
+- Implementing accessibility features
+- Designing progress visualization
 
-**Justification**: UI/UX design produces visual assets and interface specifications without direct code execution or data processing.
+## Design System
 
-You are an expert in **UI/UX design** for AI assistants and futuristic interfaces. You create intuitive, accessible, and visually stunning interfaces that balance aesthetics with usability.
-
-### Core Expertise
-- Spatial layout and visual hierarchy
-- Glass-morphism and modern aesthetics
-- Attention management systems
-- HUD (Heads-Up Display) design
-- Responsive and adaptive interfaces
-
-### Primary Use Cases
-- Designing AI assistant interfaces
-- Creating HUD layouts
-- Information density optimization
-- Attention and notification design
-
----
-
-## 2. Core Principles
-
-1. **TDD First**: Write component tests before implementation
-2. **Performance Aware**: Optimize rendering, loading, and interactions
-3. **User-Centered Design**: Prioritize user needs and cognitive load
-4. **Visual Hierarchy**: Guide attention through design
-5. **Accessibility**: Ensure interfaces work for all users
-6. **Consistency**: Maintain design patterns throughout
-
-### Design Guidelines
-- **Clarity over cleverness**: Function before form
-- **Progressive disclosure**: Show what's needed when needed
-- **Feedback loops**: Users always know system state
-- **Forgiveness**: Allow easy recovery from errors
-
----
-
-## 3. Technical Foundation
-
-### Color System
+### Color Palette (Dark Mode)
 
 ```css
-/* JARVIS-inspired color palette */
-:root {
-  /* Primary - Cyan accent */
-  --color-primary-100: #e0f7fa;
-  --color-primary-500: #00bcd4;
-  --color-primary-900: #006064;
+/* Backgrounds */
+--bg-base: #111827;      /* gray-900 - Main background */
+--bg-elevated: #1f2937;  /* gray-800 - Cards, sidebars */
+--bg-hover: #374151;     /* gray-700 - Hover states */
 
-  /* Surface - Glass effect base */
-  --surface-glass: rgba(255, 255, 255, 0.08);
-  --surface-glass-hover: rgba(255, 255, 255, 0.12);
-  --surface-glass-active: rgba(255, 255, 255, 0.16);
+/* Text */
+--text-primary: #f9fafb;   /* gray-50 - Headings */
+--text-secondary: #e5e7eb; /* gray-200 - Body text */
+--text-muted: #9ca3af;     /* gray-400 - Secondary info */
+--text-disabled: #6b7280;  /* gray-500 - Disabled */
 
-  /* Status colors */
-  --color-success: #4caf50;
-  --color-warning: #ff9800;
-  --color-error: #f44336;
-  --color-info: #2196f3;
+/* Accent Colors */
+--primary: #6366f1;      /* indigo-500 - Primary actions */
+--success: #22c55e;      /* green-500 - Completed */
+--warning: #f59e0b;      /* amber-500 - In progress */
+--error: #ef4444;        /* red-500 - Failed/errors */
 
-  /* Text */
-  --text-primary: rgba(255, 255, 255, 0.95);
-  --text-secondary: rgba(255, 255, 255, 0.7);
-  --text-disabled: rgba(255, 255, 255, 0.38);
-}
+/* Borders */
+--border: #374151;       /* gray-700 */
 ```
 
 ### Typography Scale
 
 ```css
-/* Modular type scale (1.25 ratio) */
-:root {
-  --font-size-xs: 0.64rem;    /* 10.24px */
-  --font-size-sm: 0.8rem;     /* 12.8px */
-  --font-size-base: 1rem;     /* 16px */
-  --font-size-lg: 1.25rem;    /* 20px */
-  --font-size-xl: 1.563rem;   /* 25px */
-  --font-size-2xl: 1.953rem;  /* 31.25px */
-  --font-size-3xl: 2.441rem;  /* 39.06px */
+/* Headings */
+.text-4xl  /* 36px - Page titles */
+.text-2xl  /* 24px - Section headers */
+.text-xl   /* 20px - Card titles */
+.text-lg   /* 18px - Subsection headers */
+.text-base /* 16px - Body text */
+.text-sm   /* 14px - Secondary text */
+.text-xs   /* 12px - Badges, labels */
 
-  /* Line heights */
-  --line-height-tight: 1.25;
-  --line-height-normal: 1.5;
-  --line-height-relaxed: 1.75;
-}
-
-/* Font families */
-body {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-}
-
-code {
-  font-family: "JetBrains Mono", "Fira Code", monospace;
-}
+/* Font Weights */
+.font-bold     /* 700 - Headings */
+.font-semibold /* 600 - Subheadings */
+.font-medium   /* 500 - Emphasis */
+.font-normal   /* 400 - Body */
 ```
 
 ### Spacing System
 
 ```css
-/* 8px base grid */
-:root {
-  --space-1: 0.25rem;   /* 4px */
-  --space-2: 0.5rem;    /* 8px */
-  --space-3: 0.75rem;   /* 12px */
-  --space-4: 1rem;      /* 16px */
-  --space-5: 1.5rem;    /* 24px */
-  --space-6: 2rem;      /* 32px */
-  --space-8: 3rem;      /* 48px */
-  --space-10: 4rem;     /* 64px */
-}
+/* Use consistent spacing */
+.space-y-2  /* 8px - Tight grouping */
+.space-y-4  /* 16px - Related items */
+.space-y-6  /* 24px - Sections */
+.space-y-8  /* 32px - Major sections */
+
+/* Padding */
+.p-4   /* 16px - Card content */
+.p-6   /* 24px - Large cards */
+.px-4  /* Horizontal padding */
+.py-2  /* Vertical padding for buttons */
 ```
 
----
+## Page Layouts
 
-## 4. Implementation Patterns
-
-### 4.1 Glass-Morphism Card
-
-```css
-.glass-card {
-  /* Glass effect */
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-
-  /* Border for definition */
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 12px;
-
-  /* Subtle shadow */
-  box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-
-  /* Padding */
-  padding: var(--space-4);
-}
-
-.glass-card:hover {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.2);
-}
+### Dashboard Layout (Home Page)
+```
+┌─────────────────────────────────────────────────────────────┐
+│  Header: Logo + Navigation + Progress Summary               │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  Hero Section                                               │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │  Overall Progress: 45/527 lessons (8.5%)            │   │
+│  │  [████████░░░░░░░░░░░░░░░░░░░░░░░░░░] 8.5%          │   │
+│  │  [Continue Learning] [View Certificate]              │   │
+│  └─────────────────────────────────────────────────────┘   │
+│                                                             │
+│  Phase Grid (2-3 columns)                                   │
+│  ┌──────────────┐ ┌──────────────┐ ┌──────────────┐        │
+│  │ Phase 1      │ │ Phase 2      │ │ Phase 3      │        │
+│  │ SDLC         │ │ Foundations  │ │ Cloud        │        │
+│  │ ████░░ 80%   │ │ ██░░░░ 33%   │ │ ░░░░░░ 0%    │        │
+│  │ 4/5 topics   │ │ 2/6 topics   │ │ 0/9 topics   │        │
+│  └──────────────┘ └──────────────┘ └──────────────┘        │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-### 4.2 HUD Layout Structure
+### Lesson Layout
+```
+┌─────────────────────────────────────────────────────────────┐
+│  Breadcrumb: Home > Phase 1 > SDLC Models > Waterfall       │
+├──────────────┬──────────────────────────────────────────────┤
+│              │                                              │
+│  Sidebar     │  Lesson Content                              │
+│  (240px)     │                                              │
+│              │  ┌────────────────────────────────────────┐  │
+│  Phase 1 ▼   │  │  Waterfall Model                       │  │
+│  ├ SDLC      │  │  ⏱ 15 min • 🟢 Beginner               │  │
+│  │ Models ▼  │  └────────────────────────────────────────┘  │
+│  │ ├ ✓ Water │                                              │
+│  │ ├ ○ Agile │  ## What is Waterfall?                       │
+│  │ └ ○ Scrum │  The Waterfall model is a linear...          │
+│  └ Phases    │                                              │
+│              │  ## Key Phases                                │
+│  Phase 2     │  1. Requirements                              │
+│  Phase 3     │  2. Design                                    │
+│              │  ...                                          │
+│              │                                              │
+│              │  ┌────────────────────────────────────────┐  │
+│              │  │  [Mark Complete] [← Prev] [Next →]     │  │
+│              │  └────────────────────────────────────────┘  │
+│              │                                              │
+│              │  Quiz Section (collapsible)                  │
+│              │  ┌────────────────────────────────────────┐  │
+│              │  │  Question 1 of 4                        │  │
+│              │  │  What is the main characteristic...     │  │
+│              │  │  ○ Option A                             │  │
+│              │  │  ○ Option B                             │  │
+│              │  │  ● Option C ✓                           │  │
+│              │  │  ○ Option D                             │  │
+│              │  └────────────────────────────────────────┘  │
+│              │                                              │
+└──────────────┴──────────────────────────────────────────────┘
+```
 
-```html
-<!-- Main HUD container -->
-<div class="hud-container">
-  <!-- Top bar - status and controls -->
-  <header class="hud-header">
-    <div class="status-indicators">
-      <span class="indicator active">System Online</span>
-      <span class="indicator">Processing: 23%</span>
+### Progress Page Layout
+```
+┌─────────────────────────────────────────────────────────────┐
+│  Your Learning Progress                                     │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  Stats Cards (4 columns)                                    │
+│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐       │
+│  │ 45       │ │ 8.5%     │ │ 12h 30m  │ │ 3        │       │
+│  │ Completed│ │ Progress │ │ Time     │ │ Quizzes  │       │
+│  └──────────┘ └──────────┘ └──────────┘ └──────────┘       │
+│                                                             │
+│  Phase Progress (Accordion)                                 │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │ ▼ Phase 1: SDLC                           80% ████░ │   │
+│  │   ├ SDLC Models                           100% ████ │   │
+│  │   ├ SDLC Phases                           60%  ███░ │   │
+│  │   └ Development Workflows                 0%   ░░░░ │   │
+│  ├─────────────────────────────────────────────────────┤   │
+│  │ ▶ Phase 2: Foundations                    33% ██░░░ │   │
+│  └─────────────────────────────────────────────────────┘   │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+## Component Patterns
+
+### Phase Card
+```vue
+<UCard class="hover:ring-2 hover:ring-primary-500 transition-all cursor-pointer">
+  <div class="flex items-start justify-between mb-4">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-lg bg-primary-500/20 flex items-center justify-center">
+        <UIcon name="i-heroicons-academic-cap" class="w-5 h-5 text-primary-500" />
+      </div>
+      <div>
+        <h3 class="font-semibold">Phase 1: SDLC</h3>
+        <p class="text-sm text-gray-400">4 topics • 20 lessons</p>
+      </div>
     </div>
-    <nav class="quick-actions">
-      <button aria-label="Settings">⚙</button>
-      <button aria-label="Help">?</button>
-    </nav>
-  </header>
+    <UBadge :color="progress === 100 ? 'success' : 'warning'">
+      {{ progress }}%
+    </UBadge>
+  </div>
+  
+  <UProgress :value="progress" :color="progress === 100 ? 'success' : 'primary'" />
+  
+  <div class="mt-4 flex justify-between items-center">
+    <span class="text-sm text-gray-400">Est. 2h 30m</span>
+    <UButton size="sm" variant="soft">
+      {{ progress > 0 ? 'Continue' : 'Start' }}
+    </UButton>
+  </div>
+</UCard>
+```
 
-  <!-- Main content area -->
-  <main class="hud-main">
-    <!-- Primary interaction panel -->
-    <section class="primary-panel">
-      <div class="chat-interface">
-        <!-- Conversation display -->
-      </div>
-      <div class="input-area">
-        <!-- User input -->
-      </div>
-    </section>
-
-    <!-- Side panels for context -->
-    <aside class="context-panel">
-      <div class="data-widgets">
-        <!-- Status widgets -->
-      </div>
-    </aside>
-  </main>
-
-  <!-- Bottom bar - notifications -->
-  <footer class="hud-footer">
-    <div class="notifications">
-      <!-- System notifications -->
-    </div>
-  </footer>
+### Lesson Sidebar Item
+```vue
+<div 
+  class="flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer transition-colors"
+  :class="[
+    isActive ? 'bg-primary-500/20 text-primary-400' : 'hover:bg-gray-700',
+    isCompleted ? 'text-gray-400' : 'text-gray-200'
+  ]"
+>
+  <UIcon 
+    :name="isCompleted ? 'i-heroicons-check-circle-solid' : 'i-heroicons-circle'" 
+    :class="isCompleted ? 'text-success-500' : 'text-gray-500'"
+    class="w-5 h-5 flex-shrink-0"
+  />
+  <span class="truncate">{{ title }}</span>
+  <UBadge v-if="isActive" size="xs" color="primary">Current</UBadge>
 </div>
 ```
 
-### 4.3 Visual Hierarchy
+### Quiz Question Card
+```vue
+<UCard>
+  <div class="flex items-center justify-between mb-4">
+    <span class="text-sm text-gray-400">Question {{ current }} of {{ total }}</span>
+    <UBadge>{{ difficulty }}</UBadge>
+  </div>
+  
+  <h3 class="text-lg font-medium mb-6">{{ question }}</h3>
+  
+  <div class="space-y-3">
+    <div 
+      v-for="option in options" 
+      :key="option"
+      class="flex items-center gap-3 p-4 rounded-lg border cursor-pointer transition-all"
+      :class="[
+        selected === option 
+          ? 'border-primary-500 bg-primary-500/10' 
+          : 'border-gray-700 hover:border-gray-600'
+      ]"
+      @click="select(option)"
+    >
+      <div 
+        class="w-5 h-5 rounded-full border-2 flex items-center justify-center"
+        :class="selected === option ? 'border-primary-500' : 'border-gray-600'"
+      >
+        <div 
+          v-if="selected === option" 
+          class="w-2.5 h-2.5 rounded-full bg-primary-500"
+        />
+      </div>
+      <span>{{ option }}</span>
+    </div>
+  </div>
+  
+  <div class="flex justify-between mt-6">
+    <UButton variant="outline" @click="prev" :disabled="current === 1">
+      Previous
+    </UButton>
+    <UButton @click="next">
+      {{ current === total ? 'Finish' : 'Next' }}
+    </UButton>
+  </div>
+</UCard>
+```
 
+## Responsive Design
+
+### Breakpoints
 ```css
-/* Priority levels through visual weight */
-
-/* Critical - highest attention */
-.priority-critical {
-  color: var(--color-error);
-  font-weight: 700;
-  font-size: var(--font-size-lg);
-  animation: pulse 1s ease-in-out infinite;
-}
-
-/* High - significant attention */
-.priority-high {
-  color: var(--color-warning);
-  font-weight: 600;
-  font-size: var(--font-size-base);
-}
-
-/* Normal - default */
-.priority-normal {
-  color: var(--text-primary);
-  font-weight: 400;
-}
-
-/* Low - reduced attention */
-.priority-low {
-  color: var(--text-secondary);
-  font-size: var(--font-size-sm);
-}
-
-/* Ambient - minimal attention */
-.priority-ambient {
-  color: var(--text-disabled);
-  font-size: var(--font-size-xs);
-}
+sm: 640px   /* Mobile landscape */
+md: 768px   /* Tablet */
+lg: 1024px  /* Desktop */
+xl: 1280px  /* Large desktop */
 ```
 
-### 4.4 Attention Management
+### Mobile Patterns
+```vue
+<!-- Sidebar: Hidden on mobile, drawer on tablet, visible on desktop -->
+<div class="hidden lg:block w-64">
+  <LessonSidebar />
+</div>
 
-```typescript
-// Attention priority queue
-interface AttentionItem {
-  id: string;
-  priority: "critical" | "high" | "normal" | "low";
-  content: string;
-  duration?: number;
-}
+<!-- Mobile menu button -->
+<UButton 
+  class="lg:hidden" 
+  icon="i-heroicons-bars-3" 
+  variant="ghost"
+  @click="showMobileMenu = true"
+/>
 
-class AttentionManager {
-  private queue: AttentionItem[] = [];
+<!-- Mobile drawer -->
+<USlideover v-model:open="showMobileMenu">
+  <LessonSidebar @close="showMobileMenu = false" />
+</USlideover>
 
-  add(item: AttentionItem): void {
-    // Insert by priority
-    const index = this.queue.findIndex(i =>
-      this.getPriorityValue(i.priority) < this.getPriorityValue(item.priority)
-    );
-
-    if (index === -1) {
-      this.queue.push(item);
-    } else {
-      this.queue.splice(index, 0, item);
-    }
-
-    this.notify();
-  }
-
-  private getPriorityValue(priority: string): number {
-    const values = { critical: 4, high: 3, normal: 2, low: 1 };
-    return values[priority] || 0;
-  }
-}
+<!-- Grid: 1 column mobile, 2 tablet, 3 desktop -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  <PhaseCard v-for="phase in phases" :key="phase.id" :phase="phase" />
+</div>
 ```
 
-### 4.5 Responsive Breakpoints
+## Accessibility
 
-```css
-/* Mobile-first breakpoints */
-:root {
-  --breakpoint-sm: 640px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 1024px;
-  --breakpoint-xl: 1280px;
-  --breakpoint-2xl: 1536px;
-}
+### Focus States
+```vue
+<!-- All interactive elements need visible focus -->
+<UButton class="focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-gray-900">
+  Click me
+</UButton>
 
-/* Usage */
-.container {
-  padding: var(--space-4);
-}
-
-@media (min-width: 768px) {
-  .container {
-    padding: var(--space-6);
-  }
-}
-
-@media (min-width: 1024px) {
-  .container {
-    padding: var(--space-8);
-  }
-}
+<!-- Custom focusable elements -->
+<div 
+  tabindex="0"
+  class="focus:outline-none focus:ring-2 focus:ring-primary-500 rounded-lg"
+  @keydown.enter="handleClick"
+  @keydown.space.prevent="handleClick"
+>
+  Clickable content
+</div>
 ```
 
----
+### Screen Reader Support
+```vue
+<!-- Always add aria labels -->
+<UButton aria-label="Mark lesson as complete">
+  <UIcon name="i-heroicons-check" />
+</UButton>
 
-## 5. Implementation Workflow (TDD)
+<!-- Progress announcements -->
+<div role="progressbar" :aria-valuenow="progress" aria-valuemin="0" aria-valuemax="100">
+  <UProgress :value="progress" />
+</div>
 
-### Step 1: Write Failing Test First
-
-```typescript
-// tests/components/GlassCard.test.ts
-import { describe, it, expect } from 'vitest'
-import { mount } from '@vue/test-utils'
-import GlassCard from '@/components/ui/GlassCard.vue'
-
-describe('GlassCard', () => {
-  it('renders with default glass styling', () => {
-    const wrapper = mount(GlassCard)
-    expect(wrapper.classes()).toContain('glass-card')
-  })
-
-  it('applies hover state on mouse enter', async () => {
-    const wrapper = mount(GlassCard)
-    await wrapper.trigger('mouseenter')
-    expect(wrapper.emitted('hover')).toBeTruthy()
-  })
-
-  it('renders slot content correctly', () => {
-    const wrapper = mount(GlassCard, {
-      slots: { default: '<p>Test content</p>' }
-    })
-    expect(wrapper.text()).toContain('Test content')
-  })
-
-  it('meets accessibility requirements', () => {
-    const wrapper = mount(GlassCard, {
-      props: { role: 'region', ariaLabel: 'Card section' }
-    })
-    expect(wrapper.attributes('role')).toBe('region')
-    expect(wrapper.attributes('aria-label')).toBe('Card section')
-  })
-})
+<!-- Navigation landmarks -->
+<nav aria-label="Lesson navigation">
+  <LessonSidebar />
+</nav>
 ```
 
-### Step 2: Implement Minimum to Pass
+## Animation & Transitions
 
 ```vue
-<!-- components/ui/GlassCard.vue -->
-<template>
-  <div
-    class="glass-card"
-    :role="role"
-    :aria-label="ariaLabel"
-    @mouseenter="$emit('hover', true)"
-    @mouseleave="$emit('hover', false)"
-  >
-    <slot />
-  </div>
-</template>
+<!-- Hover effects -->
+<div class="transition-all duration-200 hover:scale-[1.02] hover:shadow-lg">
 
-<script setup lang="ts">
-defineProps<{
-  role?: string
-  ariaLabel?: string
-}>()
+<!-- Content transitions -->
+<Transition name="fade" mode="out-in">
+  <component :is="currentComponent" />
+</Transition>
 
-defineEmits<{
-  hover: [isHovered: boolean]
-}>()
-</script>
-```
-
-### Step 3: Refactor Following Design Patterns
-
-Apply glass-morphism styles, ensure spacing system compliance, add transitions.
-
-### Step 4: Run Full Verification
-
-```bash
-# Run component tests
-npm run test -- --filter=GlassCard
-
-# Check accessibility
-npm run test:a11y
-
-# Visual regression test
-npm run test:visual
-
-# Build verification
-npm run build
-```
-
----
-
-## 6. Performance Patterns
-
-### Pattern 1: Lazy Loading Components
-
-```typescript
-// Bad - loads all components upfront
-import HeavyWidget from '@/components/HeavyWidget.vue'
-import DataChart from '@/components/DataChart.vue'
-
-// Good - lazy load off-screen components
-const HeavyWidget = defineAsyncComponent(() =>
-  import('@/components/HeavyWidget.vue')
-)
-
-const DataChart = defineAsyncComponent({
-  loader: () => import('@/components/DataChart.vue'),
-  loadingComponent: ChartSkeleton,
-  delay: 200
-})
-```
-
-### Pattern 2: Image Optimization
-
-```vue
-<!-- Bad - unoptimized images -->
-<img src="/hero.png" />
-
-<!-- Good - optimized with lazy loading and sizing -->
-<template>
-  <picture>
-    <source
-      srcset="/hero.avif"
-      type="image/avif"
-    />
-    <source
-      srcset="/hero.webp"
-      type="image/webp"
-    />
-    <img
-      src="/hero.png"
-      alt="Hero image"
-      loading="lazy"
-      decoding="async"
-      width="800"
-      height="600"
-    />
-  </picture>
-</template>
-```
-
-### Pattern 3: Critical CSS Inlining
-
-```typescript
-// Bad - all styles in one bundle
-import './styles/all.css'
-
-// Good - inline critical, defer rest
-// In nuxt.config.ts
-export default defineNuxtConfig({
-  css: ['~/assets/css/critical.css'],
-  app: {
-    head: {
-      link: [
-        {
-          rel: 'preload',
-          href: '/styles/non-critical.css',
-          as: 'style',
-          onload: "this.onload=null;this.rel='stylesheet'"
-        }
-      ]
-    }
-  }
-})
-```
-
-### Pattern 4: Skeleton Screens
-
-```vue
-<!-- Bad - spinner or blank state -->
-<template>
-  <div v-if="loading">
-    <Spinner />
-  </div>
-</template>
-
-<!-- Good - skeleton matching content shape -->
-<template>
-  <div v-if="loading" class="skeleton-container">
-    <div class="skeleton skeleton-avatar" />
-    <div class="skeleton skeleton-text w-3/4" />
-    <div class="skeleton skeleton-text w-1/2" />
-  </div>
-  <div v-else>
-    <UserCard :user="data" />
-  </div>
-</template>
-
-<style scoped>
-.skeleton {
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.06) 25%,
-    rgba(255, 255, 255, 0.12) 50%,
-    rgba(255, 255, 255, 0.06) 75%
-  );
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-  border-radius: 4px;
+<!-- CSS -->
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease;
 }
-
-@keyframes shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
-```
 
-### Pattern 5: Progressive Enhancement
-
-```vue
-<!-- Bad - all-or-nothing rendering -->
-<template>
-  <ComplexAnimation v-if="supportsWebGL" />
-</template>
-
-<!-- Good - progressive enhancement -->
-<template>
-  <div class="hero-section">
-    <!-- Base: works everywhere -->
-    <StaticHero />
-
-    <!-- Enhanced: CSS animations -->
-    <CSSAnimatedHero v-if="prefersMotion" />
-
-    <!-- Premium: WebGL effects -->
-    <WebGLHero v-if="supportsWebGL && prefersMotion" />
+<!-- List transitions -->
+<TransitionGroup name="list" tag="div">
+  <div v-for="item in items" :key="item.id">
+    {{ item.name }}
   </div>
-</template>
-
-<script setup lang="ts">
-const prefersMotion = !window.matchMedia(
-  '(prefers-reduced-motion: reduce)'
-).matches
-
-const supportsWebGL = (() => {
-  try {
-    const canvas = document.createElement('canvas')
-    return !!canvas.getContext('webgl2')
-  } catch {
-    return false
-  }
-})()
-</script>
+</TransitionGroup>
 ```
 
----
+## Empty & Error States
 
-## 7. Quality Standards
-
-### 7.1 Accessibility Requirements
-
-- **Color Contrast**: Minimum 4.5:1 for normal text, 3:1 for large text
-- **Touch Targets**: Minimum 44x44px for interactive elements
-- **Focus Indicators**: Visible focus states for all interactive elements
-- **Motion**: Respect `prefers-reduced-motion` preference
-
-```css
-/* Focus visible */
-:focus-visible {
-  outline: 2px solid var(--color-primary-500);
-  outline-offset: 2px;
-}
-
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
+### Empty State
+```vue
+<div class="flex flex-col items-center justify-center py-16 text-center">
+  <div class="w-16 h-16 rounded-full bg-gray-800 flex items-center justify-center mb-4">
+    <UIcon name="i-heroicons-document-text" class="w-8 h-8 text-gray-500" />
+  </div>
+  <h3 class="text-lg font-medium mb-2">No lessons found</h3>
+  <p class="text-gray-400 mb-6 max-w-sm">
+    Start exploring the roadmap to begin your DevOps learning journey.
+  </p>
+  <UButton to="/">Explore Roadmap</UButton>
+</div>
 ```
 
-### 5.2 Performance
-
-- Keep DOM depth under 15 levels
-- Limit blur effects on low-end devices
-- Use `will-change` sparingly for animations
-- Lazy load off-screen content
-
----
-
-## 8. Common Mistakes
-
-### ❌ DON'T: Overuse Glass-Morphism
-
-```css
-/* ❌ Too many layers */
-.page {
-  background: rgba(255, 255, 255, 0.1);
-}
-.section {
-  background: rgba(255, 255, 255, 0.1);
-}
-.card {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-/* ✅ Strategic use */
-.page {
-  background: var(--bg-solid);
-}
-.card {
-  background: var(--surface-glass);
-  backdrop-filter: blur(20px);
-}
+### Error State
+```vue
+<UCard class="border-error-500/50 bg-error-500/10">
+  <div class="flex items-start gap-4">
+    <UIcon name="i-heroicons-exclamation-triangle" class="w-6 h-6 text-error-500 flex-shrink-0" />
+    <div>
+      <h3 class="font-medium text-error-400">Failed to load lesson</h3>
+      <p class="text-sm text-gray-400 mt-1">{{ error.message }}</p>
+      <UButton size="sm" variant="soft" color="error" class="mt-3" @click="retry">
+        Try Again
+      </UButton>
+    </div>
+  </div>
+</UCard>
 ```
-
-### ❌ DON'T: Ignore Information Density
-
-```css
-/* ❌ Wasted space */
-.widget {
-  padding: 48px;
-  margin: 32px;
-}
-
-/* ✅ Appropriate density */
-.widget {
-  padding: var(--space-4);
-  margin: var(--space-3);
-}
-```
-
-### ❌ DON'T: Neglect Loading States
-
-```jsx
-/* ❌ No feedback */
-{data && <Content data={data} />}
-
-/* ✅ Complete states */
-{loading && <Skeleton />}
-{error && <ErrorMessage error={error} />}
-{data && <Content data={data} />}
-{!data && !loading && !error && <EmptyState />}
-```
-
----
-
-## 10. Pre-Implementation Checklist
-
-### Phase 1: Before Writing Code
-- [ ] Component requirements documented
-- [ ] Write failing tests for component behavior
-- [ ] Write accessibility tests (ARIA, focus, contrast)
-- [ ] Design tokens identified from system
-- [ ] Performance budget defined
-
-### Phase 2: During Implementation
-- [ ] Tests passing incrementally
-- [ ] Color system applied consistently
-- [ ] Typography scale used correctly
-- [ ] Spacing follows 8px grid
-- [ ] Visual hierarchy guides attention
-- [ ] Loading states include skeletons
-- [ ] Images optimized (WebP/AVIF, lazy loading)
-
-### Phase 3: Before Committing
-- [ ] All component tests pass
-- [ ] Accessibility audit passes (WCAG AA)
-- [ ] Focus states visible on all interactive elements
-- [ ] Touch targets ≥44px
-- [ ] Reduced motion supported
-- [ ] Mobile/tablet/desktop layouts tested
-- [ ] Animations run at 60fps
-- [ ] No layout thrashing
-- [ ] Critical CSS inlined
-- [ ] Build completes without errors
-
----
-
-## 14. Summary
-
-Your goal is to create interfaces that are:
-- **Intuitive**: Users understand immediately how to interact
-- **Beautiful**: Aesthetically pleasing without sacrificing function
-- **Accessible**: Usable by everyone, regardless of ability
-- **Performant**: Fast and responsive on all devices
-
-You understand that great UI/UX design is invisible - users accomplish their goals without friction. Balance visual appeal with usability, and always prioritize the user's needs over aesthetic trends.
-
-Design interfaces that delight users while helping them succeed.

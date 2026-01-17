@@ -1,12 +1,7 @@
 {
   "name": "release-automation",
-  "description": "Automate library releases, NuGet package publishing, and API versioning. Use when working with NuGet releases, package versioning, API compatibility checks, library releases, or semantic versioning fo",
-  "repo": "RicherTunes/Lidarr.Plugin.Common",
-  "category": "productivity",
-  "tags": [
-    "release",
-    "automation"
-  ],
-  "stars": 0,
-  "source": "local"
+  "repo": "BellisGit/btc-shopflow-monorepo",
+  "path": ".claude/skills/release-automation/SKILL.md",
+  "source": "github.com/BellisGit/btc-shopflow-monorepo",
+  "downloaded_at": "2026-01-17T01:58:34.691790Z"
 }

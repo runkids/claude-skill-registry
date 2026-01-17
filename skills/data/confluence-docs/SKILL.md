@@ -11,8 +11,6 @@ Provide standardized templates for creating technical documentation. These templ
 
 ## When This Skill Applies
 
-Invoke this skill when:
-
 - Creating Architecture Decision Records (ADRs)
 - Writing operational runbooks
 - Documenting system architecture
@@ -273,4 +271,4 @@ Before publishing any documentation:
 - [ ] Author and date included
 - [ ] No sensitive data (secrets, passwords)
 - [ ] Spell-checked
-- [ ] Markdown lint passes (`yarn lint:md`)
+- [ ] Markdown lint passes

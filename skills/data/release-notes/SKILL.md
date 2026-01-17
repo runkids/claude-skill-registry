@@ -1,90 +1,67 @@
+<!-- PM-Skills | https://github.com/product-on-purpose/pm-skills | Apache 2.0 -->
 ---
 name: release-notes
-description: リリースノートの生成。「リリースノートを作成」「CHANGELOGを更新」「変更履歴をまとめて」などのリクエスト時に使用。
+description: Creates user-facing release notes that communicate new features, improvements, and fixes in clear, benefit-focused language. Use when shipping updates to communicate changes to users, customers, or stakeholders.
+license: Apache-2.0
+metadata:
+  category: coordination
+  frameworks: [triple-diamond, lean-startup, design-thinking]
+  author: product-on-purpose
+  version: "1.0.0"
 ---
 
 # Release Notes
 
-コミット履歴からリリースノートを生成するスキル。
+Release notes communicate product changes to users in a way that highlights value and builds excitement. Unlike changelogs (which document what changed technically), release notes translate changes into user benefits. Good release notes help users discover new capabilities, understand improvements, and trust that issues are being addressed.
 
-## 出力形式
+## When to Use
 
-日本語でリリースノートを生成する。
+- Shipping product updates to customers
+- Communicating changes to internal stakeholders
+- Preparing app store update descriptions
+- Writing customer-facing email announcements
+- Documenting changes for support and sales teams
 
-## カテゴリ分類
+## Instructions
 
-コミットメッセージのプレフィックスに基づいて分類:
+When asked to create release notes, follow these steps:
 
-| プレフィックス | カテゴリ       | 説明                     |
-| -------------- | -------------- | ------------------------ |
-| feat:          | 新機能         | 新しい機能の追加         |
-| fix:           | バグ修正       | バグの修正               |
-| docs:          | ドキュメント   | ドキュメントの変更       |
-| style:         | スタイル       | コードスタイルの変更     |
-| refactor:      | リファクタ     | リファクタリング         |
-| perf:          | パフォーマンス | パフォーマンス改善       |
-| test:          | テスト         | テストの追加・修正       |
-| chore:         | その他         | ビルド・設定等の変更     |
-| ci:            | CI             | CI/CD の変更             |
-| deps:          | 依存関係       | 依存パッケージの更新     |
+1. **Gather the Changelog**
+   Collect all changes included in this release: features, improvements, and bug fixes. Work from engineering changelogs, completed tickets, or pull request descriptions.
 
-## リリースノート テンプレート
+2. **Identify the Highlights**
+   Select 1-3 changes that deserve top billing. These should be changes users will notice and care about most. Lead with the most impactful change.
 
-```markdown
-# v{VERSION} リリースノート
+3. **Translate to Benefits**
+   Rewrite each change in terms of user value. Instead of "Added pagination to search results," write "Find what you need faster with improved search that handles large result sets." Focus on what users can now do or what's now better.
 
-リリース日: YYYY-MM-DD
+4. **Categorize Changes**
+   Group remaining changes into clear categories: New Features, Improvements, and Bug Fixes. Within each category, order by impact (most valuable first).
 
-## 新機能
+5. **Write Scannable Descriptions**
+   Each item should be 1-2 sentences. Lead with the benefit, optionally followed by the "how." Users scan release notes — make each line valuable.
 
-- 機能説明 (#PR番号)
+6. **Acknowledge Known Issues**
+   If there are known limitations or issues, be transparent. Users appreciate honesty, and it reduces support burden.
 
-## バグ修正
+7. **Tease Coming Soon (Optional)**
+   If appropriate, hint at what's coming next. This builds anticipation and shows momentum, but don't over-promise.
 
-- 修正内容 (#PR番号)
+## Output Format
 
-## その他の変更
+Use the template in `references/TEMPLATE.md` to structure the output.
 
-- 変更内容
+## Quality Checklist
 
-## 依存関係の更新
+Before finalizing, verify:
 
-- パッケージ名: バージョン → バージョン
-```
+- [ ] Highlights feature the 1-3 most impactful changes
+- [ ] Each item leads with user benefit, not technical description
+- [ ] Language is jargon-free and accessible to all users
+- [ ] Items are concise (1-2 sentences each)
+- [ ] Bug fixes mention the problem that was solved
+- [ ] Tone is positive and professional
 
-## 手順
+## Examples
 
-1. 対象範囲を確認（タグ間、日付範囲、コミット数）
-2. git log でコミット履歴を取得
-
-   ```bash
-   git log --oneline --no-merges {range}
-   ```
-
-3. コミットをカテゴリ別に分類
-4. 各カテゴリの変更をリスト化
-5. PR 番号があれば付記
-6. テンプレートに沿って出力
-
-## git コマンド例
-
-```bash
-# 最新タグから現在までの変更
-git log $(git describe --tags --abbrev=0)..HEAD --oneline --no-merges
-
-# 特定のタグ間
-git log v1.0.0..v1.1.0 --oneline --no-merges
-
-# 直近N件のコミット
-git log -n 20 --oneline --no-merges
-
-# 日付範囲
-git log --since="2025-01-01" --until="2025-01-31" --oneline --no-merges
-```
-
-## 注意事項
-
-- Renovate/Dependabot のコミットは「依存関係の更新」にまとめる
-- マージコミットは除外（`--no-merges`）
-- 重複する変更は統合
-- 破壊的変更がある場合は明記
+See `references/EXAMPLE.md` for a completed example.

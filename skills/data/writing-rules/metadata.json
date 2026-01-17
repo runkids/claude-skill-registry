@@ -1,7 +1,7 @@
 {
   "name": "writing-rules",
-  "repo": "jwynia/agent-skills",
-  "path": "collections/official-claude-code/hookify/skills/writing-rules/SKILL.md",
-  "source": "github.com/jwynia/agent-skills",
-  "downloaded_at": "2026-01-14T03:19:18.907846Z"
+  "repo": "arlenagreer/claude_configuration_docs",
+  "path": "plugins/marketplaces/claude-code-plugins/plugins/hookify/skills/writing-rules/SKILL.md",
+  "source": "github.com/arlenagreer/claude_configuration_docs",
+  "downloaded_at": "2026-01-17T03:56:21.064956Z"
 }

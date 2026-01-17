@@ -1,108 +1,63 @@
 ---
 name: skill-review
-description: |
-  Audit claude-skills with systematic 9-phase review: standards compliance, official docs verification, code accuracy, cross-file consistency, and version drift detection.
-
-  Use when investigating skill issues, major updates detected, skill not verified >90 days, or before marketplace submission.
-user-invocable: true
-allowed-tools:
-  - Read
-  - Bash
-  - Glob
-  - Grep
-  - WebFetch
-  - WebSearch
-  - Edit
-  - Write
+description: .github/skills 配下の Agent Skills（各SKILL.md）をレビューして改善提案を出す。name/description妥当性、簡潔さ、progressive disclosure、例の有無、参照の深さ、ツール制限、500行制限などのベストプラクティス観点でチェックする。新規作成/改修時に使う。
 ---
 
 # Skill Review Skill
 
-## Process
+このスキルは、あなた（ユーザー）が作った Agent Skills を「使われる/壊れない/育てやすい」状態に整えるためのレビュー手順です。
 
-Invoke: `/review-skill <skill-name>` or use this skill when detecting outdated patterns
+## When to use
+- 新しい Skill を追加した直後
+- 既存 Skill の description が効かない（発火しない）と感じたとき
+- SKILL.md が肥大化してきたとき（分割したいとき）
+- “他のSkillと被る/衝突する” 感じがするとき
 
-**Production evidence**: better-auth audit (2025-11-08) - found 6 critical issues including non-existent API imports, removed 665 lines incorrect code, implemented v2.0.0
+## Inputs
+- 対象パス（例: `.github/skills/prd-writing/`）または
+- `.github/skills/` 配下の全スキル
 
----
+## Output (必ずこの形式)
+`docs/skill-review-report.md` を作成/更新し、次の構成で出力する:
 
-## 9-Phase Audit
+1. Summary（全体所見 + 優先度P0/P1/P2の件数）
+2. Skill-by-skill findings（各Skillごとに）
+   - P0: 壊れている/読み込まれない/誤動作しうる
+   - P1: 使われにくい/品質が揺れる
+   - P2: 改善余地（読みやすさ/保守性）
+3. Recommended edits（具体的な修正案。必要なら差分形式）
 
-1. **Pre-Review**: Install skill, check version/date, test discovery
-2. **Standards**: Validate YAML, keywords, third-person style, directory structure
-3. **Official Docs**: WebFetch/Context7 verify API patterns, GitHub updates, npm versions, production repos
-4. **Code Examples**: Verify imports exist, API signatures match, schema consistency, templates work
-5. **Cross-File Consistency**: Compare SKILL.md vs README.md, bundled resources match files
-6. **Dependencies**: Run `./scripts/check-versions.sh`, check breaking changes, verify "Last Verified"
-7. **Categorize**: Severity (🔴 Critical / 🟡 High / 🟠 Medium / 🟢 Low) with evidence (GitHub/docs/npm)
-8. **Fix**: Auto-fix unambiguous, ask user for architectural, update all files, bump version
-9. **Verify**: Test discovery, templates work, no contradictions, commit with changelog
+## Review checklist（必須観点）
+### A. Metadata/format correctness
+- `name` は小文字・数字・ハイフンのみ、ディレクトリ名と一致（推奨）
+- `description` は「何ができる/いつ使う」を具体的に（スキル選択に使われる）
+- SKILL.md は過剰に長くない（目安: 500行以内）
 
-**Automated** (via `./scripts/review-skill.sh`): YAML syntax, package versions, broken links, TODOs, file org, staleness
+### B. Discoverability（発火しやすさ）
+- description に “ユーザーが言いそうな言葉” が入っている（例: PRD/要件定義/受け入れ条件 など）
+- 「他スキルと差別化できる境界（やらないこと）」が明確
 
-**Manual** (AI): API methods vs docs, GitHub issues, production comparisons, code correctness, schema consistency
+### C. Conciseness & progressive disclosure
+- SKILL.md は「手順の骨格」と「最低限の例」だけ
+- 詳細テンプレ/長い例は `reference.md` 等に退避し、SKILL.md からリンク
+- 参照は 1段で止める（SKILL.md → reference.md のように直リンク）
 
----
+### D. Procedural clarity
+- 手順が番号付きで、入力→処理→出力が明確
+- 出力フォーマットが固定されている（レビュー結果がブレない）
 
-## Severity Classification
+### E. Safety/tooling assumptions
+- 破壊的操作が必要か？必要なら明示し、原則 read-only を推奨
+- スクリプトがあるなら「読まずに実行」して結果だけ使う
 
-🔴 **CRITICAL**: Non-existent API/imports, invalid config, missing dependencies
+## Procedure
+1) `.github/skills/` を列挙し、対象Skillディレクトリを特定  
+2) 各 `SKILL.md` を読み、チェックリストA〜Eで評価  
+3) 可能なら `scripts/validate_skill.py` を実行し、機械チェック結果も取り込む  
+4) `docs/skill-review-report.md` を更新して提示  
+5) ユーザーが「修正して」と言った場合のみ、該当SKILLを直す（勝手に改変しない）
 
-🟡 **HIGH**: Contradictory examples, inconsistent patterns, outdated major versions
-
-🟠 **MEDIUM**: Stale minors (>90d), missing docs sections, incomplete errors
-
-🟢 **LOW**: Typos, formatting, missing optional metadata
-
-## Fix Decision
-
-**Auto-fix**: Unambiguous (correct import from docs), clear evidence, no architectural impact
-
-**Ask user**: Multiple valid approaches, breaking changes, architectural choices
-
-## Version Bumps
-
-- **Major** (v1→v2): API patterns change
-- **Minor** (v1.0→v1.1): New features, backward compatible
-- **Patch** (v1.0.0→v1.0.1): Bug fixes only
-
----
-
-## Example: better-auth Audit (2025-11-08)
-
-**🔴 CRITICAL #1**: Non-existent `d1Adapter` import from `'better-auth/adapters/d1'`
-- **Evidence**: Official docs show drizzleAdapter, GitHub has no d1Adapter export, 4 production repos use Drizzle/Kysely
-- **Fix**: Replaced with `drizzleAdapter` from `'better-auth/adapters/drizzle'`
-
-**Result**: 3 files deleted (obsolete), 3 created (correct patterns), +1,266 lines, v1.0→v2.0, 3.5 hours
-
----
-
-## Issues Prevented (10)
-
-1. **Fake API adapters** - Non-existent imports
-2. **Stale API methods** - Changed signatures
-3. **Schema inconsistency** - Different table names
-4. **Outdated scripts** - Deprecated approaches
-5. **Version drift** - Packages >90 days old
-6. **Contradictory examples** - Multiple conflicting patterns
-7. **Broken links** - 404 URLs
-8. **YAML errors** - Invalid frontmatter
-9. **Missing keywords** - Poor discoverability
-10. **Incomplete bundled resources** - Listed files don't exist
-
----
-
-## Bundled Resources
-
-**Planning**: `~/.claude/skills/../planning/SKILL_REVIEW_PROCESS.md` or repo `planning/SKILL_REVIEW_PROCESS.md` (complete 9-phase guide)
-
-**Scripts**: Repo root `scripts/review-skill.sh` (automated validation)
-
-**Commands**: Repo root `commands/review-skill.md` (slash command, symlinked to `~/.claude/commands/`)
-
-**References**: `references/audit-report-template.md` (output template)
-
----
-
-**Last Verified**: 2026-01-09 | **Version**: 1.0.1
+## Examples
+- 「.github/skills のSkillを全部レビューして」
+- 「prd-writing の description が発火しない。改善して」
+- 「このSkill、肥大化してきたので progressive disclosure に分割して」

@@ -23,8 +23,8 @@ Two-pass Story review that fails fast, creates needed fix/refactor/test tasks, a
   1) Invoke ln-501-code-quality-checker. If issues -> create refactor task (Backlog), stop.
   2) Run all linters from tech_stack.md. If fail -> create lint-fix task, stop.
   3) Invoke ln-502-regression-checker. If fail -> create regression-fix task, stop.
-  4) Invoke ln-503-manual-tester. If fail -> create bug-fix task, stop.
-  5) If all passed: if no test task exists, auto-call ln-510-test-planner (autoApprove) to create test task; if test task exists and Done, jump to Pass 2; if exists but not Done, report status and stop.
+  4) Invoke ln-510-test-planner (orchestrates: ln-511-test-researcher → ln-512-manual-tester → ln-513-auto-test-planner). If manual testing fails -> create bug-fix task, stop. If all passed -> test task created/updated.
+  5) If test task exists and Done, jump to Pass 2; if exists but not Done, report status and stop.
 - **Pass 2 flow (after test task Done):**
   1) Load Story/test task; read test plan/results and manual testing comment from Pass 1.
   2) Verify limits and priority: Priority ≤15; E2E 2-5, Integration 0-8, Unit 0-15, total 10-28; tests focus on business logic (no framework/DB/library tests).
@@ -38,8 +38,7 @@ Pass 1:
 - Invoke ln-501-code-quality-checker (in_progress)
 - Run linters from tech_stack.md (pending)
 - Invoke ln-502-regression-checker (pending)
-- Invoke ln-503-manual-tester (pending)
-- Create/verify test task via ln-510 (pending)
+- Invoke ln-510-test-planner (research + manual + auto tests) (pending)
 
 Pass 2:
 - Verify test task coverage (in_progress)
@@ -55,12 +54,13 @@ Mark each as in_progress when starting, completed when done. On failure, mark re
 |------|--------|---------------|
 | Code Quality | ln-501-code-quality-checker | `Skill(skill: "ln-501-code-quality-checker")` |
 | Regression | ln-502-regression-checker | `Skill(skill: "ln-502-regression-checker")` |
-| Manual Testing | ln-503-manual-tester | `Skill(skill: "ln-503-manual-tester")` |
 | Test Planning | ln-510-test-planner | `Skill(skill: "ln-510-test-planner")` |
+
+**Note:** ln-510 orchestrates the full test pipeline (ln-511 research → ln-512 manual → ln-513 auto tests).
 
 **❌ FORBIDDEN SHORTCUTS (Anti-Patterns):**
 - Running `mypy`, `ruff`, `pytest` directly instead of invoking ln-501/ln-502
-- Doing "minimal quality check" (just linters) and skipping ln-503 manual testing
+- Doing "minimal quality check" (just linters) and skipping ln-510 test planning
 - Asking user "Want me to run the full skill?" after doing partial checks
 - Marking steps as "completed" in todo without invoking the actual skill
 - Any command execution that should be delegated to a worker skill
@@ -81,15 +81,15 @@ Mark each as in_progress when starting, completed when done. On failure, mark re
 - Language preservation in comments (EN/RU).
 
 ## Definition of Done
-- Pass 1: 341 pass OR refactor task created; linters pass OR lint-fix task created; 342 pass OR regression-fix task created; 343 pass OR bug-fix task created; if all pass, test task created (if missing) or status reported; exits.
+- Pass 1: ln-501 pass OR refactor task created; linters pass OR lint-fix task created; ln-502 pass OR regression-fix task created; ln-510 pipeline pass (research + manual + auto tests) OR bug-fix task created; test task created/updated; exits.
 - Pass 2: test task verified (priority/limits/coverage/infra/docs); Story set to Done in Linear (if pass) or fix tasks created (if fail); kanban minimally cleaned if needed.
 - Summary/comment posted in Linear for actions taken.
 
 ## Reference Files
-- Workers: `../ln-501-code-quality-checker/SKILL.md`, `../ln-502-regression-checker/SKILL.md`, `../ln-503-manual-tester/SKILL.md`
-- Test planning: `../ln-510-test-planner/SKILL.md`
+- Workers: `../ln-501-code-quality-checker/SKILL.md`, `../ln-502-regression-checker/SKILL.md`
+- Test planning orchestrator: `../ln-510-test-planner/SKILL.md` (coordinates ln-511/512/513)
 - Tech stack/linters: `docs/project/tech_stack.md`
 
 ---
-**Version:** 3.1.0 (Added Worker Invocation MANDATORY section with FORBIDDEN SHORTCUTS)
-**Last Updated:** 2026-01-09
+**Version:** 4.0.0 (Simplified Pass 1: ln-510 now orchestrates full test pipeline - research/manual/auto)
+**Last Updated:** 2026-01-15

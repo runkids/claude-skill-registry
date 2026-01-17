@@ -2,22 +2,13 @@
 name: moai-workflow-templates
 aliases: [moai-workflow-templates]
 description: Enterprise template management with code boilerplates, feedback templates, and project optimization workflows
-version: 3.1.0
+version: 3.0.0
 category: workflow
 modularized: true
 user-invocable: false
-tags:
-  [
-    "workflow",
-    "templates",
-    "boilerplate",
-    "scaffolding",
-    "optimization",
-    "feedback",
-  ]
-status: "active"
+tags: ['workflow', 'templates', 'boilerplate', 'scaffolding', 'optimization', 'feedback']
 replaces: moai-core-code-templates, moai-core-feedback-templates, moai-project-template-optimizer
-updated: 2026-01-11
+updated: 2026-01-08
 allowed-tools:
   - Read
   - Write
@@ -32,47 +23,43 @@ allowed-tools:
 
 Unified template system combining code boilerplates, feedback templates, and project optimization workflows for rapid development and consistent patterns.
 
-## Quick Reference
+## Quick Reference (30 seconds)
 
 Core Capabilities:
-
-- Code template library for FastAPI, React, Vue, and Next.js
-- GitHub issue feedback templates covering 6 types
+- Code template library (FastAPI, React, Vue, Next.js)
+- GitHub issue feedback templates (6 types)
 - Project template optimization and smart merging
 - Template version management and history
 - Backup discovery and restoration
 - Pattern reusability and customization
 
 When to Use:
-
 - Scaffolding new projects or features
-- Creating GitHub issues with /moai:9-feedback
+- Creating GitHub issues with `/moai:9-feedback`
 - Optimizing template structures after MoAI-ADK updates
 - Restoring from project backups
 - Managing template versions and customizations
 - Generating boilerplate code
 
 Key Features:
+1. Code Templates: FastAPI, React, Vue, Docker, CI/CD
+2. Feedback Templates: 6 GitHub issue types (bug, feature, improvement, refactor, docs, question)
+3. Template Optimizer: Smart merge, backup restoration, version tracking
+4. Pattern Library: Reusable patterns for common scenarios
 
-- Code Templates: FastAPI, React, Vue, Docker, and CI/CD templates
-- Feedback Templates: 6 GitHub issue types including bug, feature, improvement, refactor, docs, and question
-- Template Optimizer: Smart merge, backup restoration, and version tracking
-- Pattern Library: Reusable patterns for common scenarios
+Quick Access:
+- Code Templates → [code-templates.md](modules/code-templates.md)
+- Feedback Templates → [feedback-templates.md](modules/feedback-templates.md)
+- Template Optimizer → [template-optimizer.md](modules/template-optimizer.md)
 
-Quick Access to Modules:
-
-- Code Templates documentation in modules/code-templates.md
-- Feedback Templates documentation in modules/feedback-templates.md
-- Template Optimizer documentation in modules/template-optimizer.md
-
-## Implementation Guide
+## Implementation Guide (5 minutes)
 
 ### Features
 
 - Project templates for common architectures
 - Boilerplate code generation with best practices
 - Configurable template variables and customization
-- Multi-framework support including React, FastAPI, and Spring
+- Multi-framework support (React, FastAPI, Spring, etc.)
 - Integrated testing and CI/CD configurations
 
 ### When to Use
@@ -85,27 +72,69 @@ Quick Access to Modules:
 
 ### Core Patterns
 
-Pattern 1 - Template Structure:
+Pattern 1: Template Structure
+```
+templates/
+ fastapi-backend/
+ template.json (variables)
+ src/
+ main.py
+ models/
+ tests/
+ nextjs-frontend/
+ template.json
+ app/
+ components/
+ fullstack/
+ backend/
+ frontend/
+```
 
-Templates are organized in a directory hierarchy. The top-level templates directory contains framework-specific subdirectories. A backend framework directory such as fastapi-backend contains template.json for variables and a src directory with main.py, models subdirectory, and tests subdirectory. A frontend framework directory such as nextjs-frontend contains template.json, app directory, and components directory. A fullstack template contains separate backend and frontend subdirectories.
+Pattern 2: Template Variables
+```json
+{
+ "variables": {
+ "PROJECT_NAME": "my-project",
+ "AUTHOR": "John Doe",
+ "LICENSE": "MIT",
+ "PYTHON_VERSION": "3.13"
+ },
+ "files": {
+ "pyproject.toml": "substitute",
+ "README.md": "substitute",
+ "src//*.py": "copy"
+ }
+}
+```
 
-Pattern 2 - Template Variables:
+Pattern 3: Template Generation
+```python
+def generate_from_template(template_name, variables):
+ 1. Load template directory
+ 2. Substitute variables in marked files
+ 3. Copy static files as-is
+ 4. Run post-generation hooks (install deps, init git)
+ 5. Validate generated project structure
+```
 
-Template variables are defined in a JSON configuration file with two main sections. The variables section defines key-value pairs such as PROJECT_NAME, AUTHOR, LICENSE, and PYTHON_VERSION. The files section maps file patterns to processing modes: files marked as substitute have variables replaced, while files marked as copy are transferred unchanged.
-
-Pattern 3 - Template Generation:
-
-The template generation process follows five steps. First, load the template directory structure. Second, substitute variables in files marked for substitution. Third, copy static files as-is. Fourth, run post-generation hooks such as dependency installation and git initialization. Fifth, validate the generated project structure.
-
-## Core Patterns in Detail
+## 5 Core Patterns (5-10 minutes each)
 
 ### Pattern 1: Code Template Scaffolding
 
 Concept: Rapidly scaffold projects with production-ready boilerplates.
 
-To generate a project, load the appropriate template such as backend/fastapi. Configure the scaffold with the project name, desired features such as auth, database, and celery, and customizations such as database type. Execute the scaffold to create the project structure.
+Usage Example:
+```python
+# Generate FastAPI project structure
+template = load_template("backend/fastapi")
+project = template.scaffold(
+ name="my-api",
+ features=["auth", "database", "celery"],
+ customizations={"db": "postgresql"}
+)
+```
 
-For complete library and examples, see the Code Templates module documentation.
+Details: See [Code Templates](modules/code-templates.md) for complete library and examples.
 
 ---
 
@@ -113,31 +142,67 @@ For complete library and examples, see the Code Templates module documentation.
 
 Concept: Structured templates for consistent GitHub issue creation.
 
-Six Template Types: Bug Report, Feature Request, Improvement, Refactor, Documentation, and Question/Discussion.
+6 Template Types: Bug Report, Feature Request, Improvement, Refactor, Documentation, Question/Discussion
 
-Integration: Auto-triggered by the /moai:9-feedback command.
+Integration: Auto-triggered by `/moai:9-feedback` command.
 
-For all template types and usage, see the Feedback Templates module documentation.
+Details: See [Feedback Templates](modules/feedback-templates.md) for all template types and usage.
 
 ---
 
-### Pattern 3: Template Optimization and Smart Merge
+### Pattern 3: Template Optimization & Smart Merge
 
 Concept: Intelligently merge template updates while preserving user customizations.
 
-Smart Merge Algorithm: The three-way merge process works as follows. First, extract user customizations from the backup. Second, get the latest template defaults from the current templates. Third, merge with appropriate priority where template_structure uses the latest defaults, user_config preserves user settings, and custom_content retains user modifications.
+Smart Merge Algorithm:
+```python
+def smart_merge(backup, template, current):
+ """Three-way merge with intelligence."""
 
-For complete workflow and examples, see the Template Optimizer module documentation.
+ # Extract user customizations from backup
+ user_content = extract_user_customizations(backup)
+
+ # Get latest template defaults
+ template_defaults = get_current_templates()
+
+ # Merge with priority
+ merged = {
+ "template_structure": template_defaults, # Always latest
+ "user_config": user_content, # Preserved
+ "custom_content": user_content # Extracted
+ }
+
+ return merged
+```
+
+Details: See [Template Optimizer](modules/template-optimizer.md) for complete workflow and examples.
 
 ---
 
-### Pattern 4: Backup Discovery and Restoration
+### Pattern 4: Backup Discovery & Restoration
 
 Concept: Automatic backup management with intelligent restoration.
 
-Restoration Process: The process follows four steps. First, load backup metadata using the backup identifier. Second, validate backup integrity and raise an error if the backup is corrupted. Third, extract customizations from the validated backup. Fourth, apply the extracted customizations to the current project.
+Restoration Process:
+```python
+def restore_from_backup(backup_id: str):
+ """Restore project from specific backup."""
 
-For complete implementation, see the Template Optimizer module section on Restoration Process.
+ # Load backup metadata
+ backup = load_backup(backup_id)
+
+ # Validate backup integrity
+ if not validate_backup_integrity(backup):
+ raise BackupIntegrityError("Backup corrupted")
+
+ # Extract user customizations
+ customizations = extract_customizations(backup)
+
+ # Apply to current project
+ apply_customizations(customizations)
+```
+
+Details: See [Template Optimizer - Backup Restoration](modules/template-optimizer.md#restoration-process) for complete implementation.
 
 ---
 
@@ -145,9 +210,23 @@ For complete implementation, see the Template Optimizer module section on Restor
 
 Concept: Track template versions and maintain update history.
 
-Version Tracking: The template_optimization configuration section stores last_optimized timestamp, backup_version identifier, template_version number, and customizations_preserved list containing items like language, team_settings, and domains.
+Version Tracking:
+```json
+{
+ "template_optimization": {
+ "last_optimized": "2025-11-24T12:00:00Z",
+ "backup_version": "backup-2025-10-15-v0.27.0",
+ "template_version": "0.28.2",
+ "customizations_preserved": [
+ "language",
+ "team_settings",
+ "domains"
+ ]
+ }
+}
+```
 
-For complete implementation, see the Template Optimizer module section on Version Tracking.
+Details: See [Template Optimizer - Version Tracking](modules/template-optimizer.md#version-tracking) for complete implementation.
 
 ---
 
@@ -155,21 +234,37 @@ For complete implementation, see the Template Optimizer module section on Versio
 
 ### Core Modules
 
-- Code Templates in modules/code-templates.md: Boilerplate library, scaffold patterns, and framework templates
-- Feedback Templates in modules/feedback-templates.md: 6 GitHub issue types, usage examples, and best practices
-- Template Optimizer in modules/template-optimizer.md: Smart merge algorithm, backup restoration, and version management
+- [Code Templates](modules/code-templates.md) - Boilerplate library, scaffold patterns, framework templates
+- [Feedback Templates](modules/feedback-templates.md) - 6 GitHub issue types, usage examples, best practices
+- [Template Optimizer](modules/template-optimizer.md) - Smart merge algorithm, backup restoration, version management
 
 ### Module Contents
 
-Code Templates include FastAPI REST API template, React component template, Docker and CI/CD templates, and template variables with scaffolding patterns.
+Code Templates:
+- FastAPI REST API template
+- React component template
+- Docker & CI/CD templates
+- Template variables and scaffolding
 
-Feedback Templates include Bug Report template, Feature Request template, Improvement template, Refactor template, Documentation template, Question template, and integration with /moai:9-feedback command.
+Feedback Templates:
+- Bug Report template
+- Feature Request template
+- Improvement, Refactor, Documentation, Question templates
+- Integration with `/moai:9-feedback`
 
-Template Optimizer includes 6-phase optimization workflow, smart merge algorithm, backup discovery and restoration, and version tracking with history.
+Template Optimizer:
+- 6-phase optimization workflow
+- Smart merge algorithm
+- Backup discovery and restoration
+- Version tracking and history
 
 ## Advanced Documentation
 
-For detailed patterns and implementation strategies, refer to the Code Templates Guide for complete template library, Feedback Templates for issue template reference, and Template Optimizer for optimization and merge strategies.
+For detailed patterns and implementation strategies:
+
+- [Code Templates Guide](modules/code-templates.md) - Complete template library
+- [Feedback Templates](modules/feedback-templates.md) - Issue template reference
+- [Template Optimizer](modules/template-optimizer.md) - Optimization and merge strategies
 
 ## Best Practices
 
@@ -221,35 +316,59 @@ IMPACT: Without version tracking, teams cannot determine which template features
 ## Works Well With
 
 Agents:
-
-- workflow-project: Project initialization
-- core-planner: Template planning
-- workflow-spec: SPEC template generation
+- workflow-project - Project initialization
+- core-planner - Template planning
+- workflow-spec - SPEC template generation
 
 Skills:
-
-- moai-project-config-manager: Configuration management and validation
-- moai-cc-configuration: Claude Code settings integration
-- moai-foundation-specs: SPEC template generation
-- moai-docs-generation: Documentation template scaffolding
-- moai-core-workflow: Template-driven workflows
+- moai-project-config-manager - Configuration management and validation
+- moai-cc-configuration - Claude Code settings integration
+- moai-foundation-specs - SPEC template generation
+- moai-docs-generation - Documentation template scaffolding
+- moai-core-workflow - Template-driven workflows
 
 Commands:
-
-- /moai:0-project: Project initialization with templates
-- /moai:9-feedback: Feedback template selection and issue creation
+- `/moai:0-project` - Project initialization with templates
+- `/moai:9-feedback` - Feedback template selection and issue creation
 
 ## Workflow Integration
 
-Project Initialization Workflow: Select code template using Pattern 1, scaffold project structure, apply customizations, and initialize version tracking using Pattern 5.
+Project Initialization:
+```
+1. Select code template (Pattern 1)
+ ↓
+2. Scaffold project structure
+ ↓
+3. Apply customizations
+ ↓
+4. Initialize version tracking (Pattern 5)
+```
 
-Feedback Submission Workflow: Execute /moai:9-feedback command, select issue type using Pattern 2, fill template fields, and auto-generate GitHub issue.
+Feedback Submission:
+```
+1. /moai:9-feedback execution
+ ↓
+2. Select issue type (Pattern 2)
+ ↓
+3. Fill template fields
+ ↓
+4. Auto-generate GitHub issue
+```
 
-Template Update Workflow: Detect template version change, create backup using Pattern 4, run smart merge using Pattern 3, and update version history using Pattern 5.
+Template Update:
+```
+1. Detect template version change
+ ↓
+2. Create backup (Pattern 4)
+ ↓
+3. Run smart merge (Pattern 3)
+ ↓
+4. Update version history (Pattern 5)
+```
 
 ## Success Metrics
 
-- Scaffold Time: 2 minutes for new projects compared to 30 minutes manual
+- Scaffold Time: 2 minutes for new projects (vs 30 minutes manual)
 - Template Adoption: 95% of projects use templates
 - Customization Preservation: 100% user content retained during updates
 - Feedback Completeness: 95% GitHub issues with complete information
@@ -257,8 +376,6 @@ Template Update Workflow: Detect template version change, create backup using Pa
 
 ## Changelog
 
-- v3.1.0 (2026-01-11): Converted to CLAUDE.md documentation standards, removed code blocks and tables
-- v3.0.0 (2026-01-08): Major version with modular architecture
 - v2.0.0 (2025-11-24): Unified moai-core-code-templates, moai-core-feedback-templates, and moai-project-template-optimizer into single skill with 5 core patterns
 - v1.0.0 (2025-11-22): Original individual skills
 

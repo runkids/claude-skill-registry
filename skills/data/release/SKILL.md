@@ -1,148 +1,242 @@
 ---
 name: release
-description: Generate release notes from git history. Use when preparing a release, creating a GitHub release, or when the user says "release", "/release", "release notes", or asks for help documenting what changed between versions. Analyzes commits since the last tag and produces categorized, human-readable release notes.
+description: Release preparation workflow - security audit → E2E tests → review → changelog → docs
 ---
 
-# Release Notes Generator
+# /release - Release Workflow
 
-Generate release notes that users actually want to read.
+Structured release preparation to ship with confidence.
 
-## Workflow
+## When to Use
 
-1. Find the last release (tag)
-2. Gather commits since then
-3. Categorize changes
-4. Generate formatted release notes
+- "Prepare a release"
+- "Ship version X"
+- "Release to production"
+- "Cut a release"
+- "Ready to deploy"
+- Before any production deployment
 
-## Step 1: Find Last Release
+## Workflow Overview
 
-```bash
-# Get the most recent tag
-git describe --tags --abbrev=0
-
-# List recent tags
-git tag --sort=-version:refname | head -5
-
-# If no tags, use first commit
-git rev-list --max-parents=0 HEAD
+```
+┌─────────┐    ┌─────────┐    ┌──────────────┐    ┌──────────┐    ┌─────────┐
+│  aegis  │───▶│  atlas  │───▶│ review-agent │───▶│  herald  │───▶│  scribe │
+│         │    │         │    │              │    │          │    │         │
+└─────────┘    └─────────┘    └──────────────┘    └──────────┘    └─────────┘
+  Security       E2E            Final              Version         Release
+  audit          tests          review             bump            notes
 ```
 
-## Step 2: Gather Commits
+## Agent Sequence
 
-```bash
-# Commits since last tag (replace v1.0.0 with actual tag)
-git log v1.0.0..HEAD --oneline
+| # | Agent | Role | Output |
+|---|-------|------|--------|
+| 1 | **aegis** | Security vulnerability scan | Security report |
+| 2 | **atlas** | Run full E2E test suite | Test report |
+| 3 | **review-agent** | Final release review | Release approval |
+| 4 | **herald** | Version bump, changelog generation | Updated version files |
+| 5 | **scribe** | Release notes, documentation | RELEASE.md, docs |
 
-# With full messages
-git log v1.0.0..HEAD --format="%h %s%n%b---"
+## Why This Order?
 
-# With file changes
-git log v1.0.0..HEAD --stat --oneline
+1. **Security first**: Catch vulnerabilities before they ship
+2. **E2E tests**: Verify full system works end-to-end
+3. **Final review**: Human-in-the-loop approval
+4. **Version bump**: Only after approval
+5. **Documentation**: Ship with proper release notes
+
+## Execution
+
+### Phase 1: Security Audit
+
+```
+Task(
+  subagent_type="aegis",
+  prompt="""
+  Security audit for release: [VERSION]
+
+  Scan for:
+  - Dependency vulnerabilities (npm audit, pip audit)
+  - Hardcoded secrets/credentials
+  - SQL injection, XSS, CSRF risks
+  - Authentication/authorization issues
+  - Insecure configurations
+
+  Output: Security report with severity levels
+  """
+)
 ```
 
-## Step 3: Categorize Changes
+### Phase 2: E2E Tests
 
-Analyze each commit and categorize:
+```
+Task(
+  subagent_type="atlas",
+  prompt="""
+  Run E2E tests for release: [VERSION]
 
-| Category | Prefix/Keywords | Example |
-|----------|-----------------|---------|
-| ✨ Features | `feat`, `add`, `new` | New dark mode |
-| 🐛 Bug Fixes | `fix`, `bug`, `patch` | Fix login crash |
-| 🔧 Improvements | `improve`, `update`, `enhance` | Faster startup |
-| 💥 Breaking | `BREAKING`, `!:` | API renamed |
-| 📦 Dependencies | `deps`, `bump`, `upgrade` | Update React 19 |
-| 📝 Docs | `docs`, `readme` | Update API docs |
-| 🧪 Tests | `test` | Add unit tests |
+  Execute:
+  - Full E2E test suite
+  - Critical path tests
+  - Integration tests
+  - Performance benchmarks (if applicable)
 
-Use conventional commit prefixes when available. Otherwise, infer from commit message content.
-
-## Step 4: Generate Release Notes
-
-Use this template:
-
-```markdown
-# v2.0.0 (YYYY-MM-DD)
-
-[Optional: One paragraph summary of the release theme/highlights]
-
-## ✨ New Features
-
-- Add dark mode support (#123)
-- New export to PDF functionality (#145)
-- Implement user preferences panel
-
-## 🐛 Bug Fixes
-
-- Fix memory leak in data processing (#134)
-- Resolve race condition in auth flow (#156)
-- Fix incorrect timezone handling in reports
-
-## 🔧 Improvements
-
-- 40% faster startup time
-- Reduced bundle size by 15%
-- Better error messages for API failures
-
-## 💥 Breaking Changes
-
-- `oldMethod()` has been renamed to `newMethod()`
-- Minimum Node.js version is now 18
-- Config file format changed (see migration guide)
-
-## 📦 Dependencies
-
-- Upgraded React from 18.2 to 19.0
-- Removed deprecated `moment` in favor of `date-fns`
-- Added `zod` for schema validation
-
-## 🙏 Contributors
-
-Thanks to @contributor1, @contributor2 for their contributions!
-
----
-
-**Full Changelog**: https://github.com/user/repo/compare/v1.0.0...v2.0.0
-
-<sub>📋 Release notes generated with [agent-resources](https://github.com/kasperjunge/agent-resources) • `uvx add-skill kasperjunge/release`</sub>
+  Output: Test report with pass/fail counts
+  """
+)
 ```
 
-## Formatting Guidelines
+### Phase 3: Final Review
 
-### Version Number
-- Use semantic versioning (vX.Y.Z)
-- Major: breaking changes
-- Minor: new features
-- Patch: bug fixes
-
-### Each Entry
-- Start with action verb (Add, Fix, Improve, Remove)
-- Include PR/issue number if available
-- Be specific but concise
-
-### Breaking Changes
-- Always highlight prominently
-- Include migration steps or link to guide
-- Explain what users need to do
-
-## Handling Edge Cases
-
-**No conventional commits**: Infer category from message content and changed files
-
-**Large releases**: Add a "Highlights" section at top with 3-5 key changes
-
-**Security fixes**: Always mention prominently, consider separate section
-
-**Contributors**: Extract from commit authors, mention significant contributors
-
-## Quick Commands
-
-```bash
-# Generate contributor list
-git log v1.0.0..HEAD --format="%an" | sort -u
-
-# Count commits by type (if using conventional commits)
-git log v1.0.0..HEAD --oneline | grep -c "^[a-f0-9]* feat"
-
-# Get PR numbers from commit messages
-git log v1.0.0..HEAD --oneline | grep -oE "#[0-9]+"
 ```
+Task(
+  subagent_type="review-agent",
+  prompt="""
+  Final release review: [VERSION]
+
+  Review:
+  - Security audit results
+  - E2E test results
+  - Changes since last release (git log)
+  - Breaking changes
+  - Migration requirements
+
+  Output: RELEASE_APPROVED or RELEASE_BLOCKED with reasons
+  """
+)
+```
+
+### Phase 4: Version Bump & Changelog
+
+```
+Task(
+  subagent_type="herald",
+  prompt="""
+  Prepare release: [VERSION]
+
+  Tasks:
+  - Bump version in package.json/pyproject.toml
+  - Generate CHANGELOG.md entry
+  - Update version constants in code
+  - Tag commit (don't push yet)
+
+  Follow semantic versioning.
+  """
+)
+```
+
+### Phase 5: Release Notes
+
+```
+Task(
+  subagent_type="scribe",
+  prompt="""
+  Write release notes: [VERSION]
+
+  Include:
+  - Summary of changes
+  - New features
+  - Bug fixes
+  - Breaking changes
+  - Migration guide (if needed)
+  - Contributors
+
+  Output: RELEASE.md or update docs
+  """
+)
+```
+
+## Release Types
+
+### Major Release (Breaking Changes)
+```
+/release --major
+→ Full workflow with migration guide
+```
+
+### Minor Release (New Features)
+```
+/release --minor
+→ Full workflow, lighter security review
+```
+
+### Patch Release (Bug Fixes)
+```
+/release --patch
+→ Security + tests + quick review
+```
+
+### Hotfix
+```
+/release --hotfix
+→ Expedited: aegis → atlas → herald
+```
+
+## Example
+
+```
+User: /release v2.0.0
+
+Claude: Starting /release workflow for v2.0.0...
+
+Phase 1: Security audit...
+[Spawns aegis]
+✅ No critical vulnerabilities
+⚠️ 2 low-severity issues (documented)
+
+Phase 2: E2E tests...
+[Spawns atlas]
+✅ 156/156 E2E tests passing
+
+Phase 3: Final review...
+[Spawns review-agent]
+✅ RELEASE_APPROVED
+- 47 commits since v1.9.0
+- 3 new features
+- 12 bug fixes
+- No breaking changes
+
+Phase 4: Version bump...
+[Spawns herald]
+✅ Version bumped to 2.0.0
+✅ CHANGELOG.md updated
+✅ Git tag created
+
+Phase 5: Release notes...
+[Spawns scribe]
+✅ RELEASE-v2.0.0.md created
+
+┌─────────────────────────────────────────┐
+│ Release v2.0.0 Ready                    │
+├─────────────────────────────────────────┤
+│ Security: ✅ Passed                     │
+│ Tests: ✅ 156/156                       │
+│ Review: ✅ Approved                     │
+│                                         │
+│ Next steps:                             │
+│ 1. git push origin v2.0.0              │
+│ 2. Create GitHub release               │
+│ 3. Deploy to production                │
+└─────────────────────────────────────────┘
+```
+
+## Blockers
+
+The workflow stops if:
+- Critical security vulnerability found
+- E2E tests failing
+- Review verdict is RELEASE_BLOCKED
+
+```
+Phase 1: Security audit...
+❌ CRITICAL: SQL injection in user.py:45
+
+Release blocked. Fix critical issues before proceeding.
+```
+
+## Flags
+
+- `--major/--minor/--patch`: Semantic version type
+- `--hotfix`: Expedited release path
+- `--skip-security`: Skip security audit (not recommended)
+- `--dry-run`: Run checks without bumping version

@@ -1,90 +1,164 @@
 ---
 name: github-repo-setup
-version: 0.2.1
-description: Use PROACTIVELY when user needs to create a new GitHub repository or set up a project with best practices. Automates repository creation with four modes - quick public repos (~30s), enterprise-grade with security and CI/CD (~120s), open-source community standards (~90s), and private team collaboration with governance (~90s). Not for existing repo configuration or GitHub Actions workflow debugging.
+description: Configure and initialize GitHub repositories with privacy settings, repository metadata, and feature toggles. Use when preparing repositories for publication on GitHub, including setting up private repositories, adding descriptions to repository about section, and disabling features like releases and environments.
 ---
 
 # GitHub Repository Setup
 
-## Overview
+Prepare GitHub repositories for publication with proper configuration including privacy settings, metadata, and feature management using GitHub CLI.
 
-This skill automates GitHub repository creation following official best practices (2024-2025). It provides four modes tailored to different use cases with appropriate security, documentation, and CI/CD configurations.
+⚠️ **Note**: This skill keeps repositories simple and minimal. It does NOT add LICENSE files, CODEOWNERS, CONTRIBUTING.md, SECURITY.md, or issue templates. It focuses only on core GitHub repository configuration.
 
-**Four Modes:**
-1. **Quick Mode** - Fast public repo with essentials (~30s)
-2. **Enterprise Mode** - Production-ready with full security and CI/CD (~120s)
-3. **Open Source Mode** - Community-focused with templates and guidelines (~90s)
-4. **Private/Team Mode** - Internal collaboration with CODEOWNERS and governance (~90s)
+## Prerequisites
 
-## When to Use This Skill
+- GitHub CLI (`gh`) installed and authenticated
+- Repository name defined
+- (Optional) Repository description for the about section
 
-**Trigger Phrases:**
-- "create a GitHub repository"
-- "set up a new GitHub repo"
-- "initialize GitHub repo with best practices"
-- "create an enterprise/open source/private repository"
+## Checking GitHub CLI
 
-**Use Cases:**
-- Starting new projects with GitHub best practices
-- Setting up open source projects with community health files
-- Creating team repositories with governance and security
+Before using this skill, verify that GitHub CLI is installed and authenticated:
 
-## Response Style
+```bash
+# Check if gh is installed
+which gh
 
-- **Efficient**: Automate repetitive setup tasks
-- **Guided**: Clear mode selection with trade-offs
-- **Security-first**: Enable protection features by default
+# If not installed, install it (macOS):
+brew install gh
 
-## Quick Decision Matrix
+# For other systems:
+# Windows: choco install gh
+# Linux: Follow https://github.com/cli/cli/blob/trunk/docs/install_linux.md
 
-| User Request | Mode | Setup Time | Key Features |
-|-------------|------|------------|--------------|
-| "quick repo", "experiment" | Quick | ~30s | README, LICENSE, .gitignore |
-| "production repo", "CI/CD" | Enterprise | ~120s | Security + CI/CD + protection |
-| "open source project" | Open Source | ~90s | Community templates |
-| "private team repo" | Private/Team | ~90s | CODEOWNERS + governance |
-
-## Mode Detection Logic
-
-```javascript
-if (userMentions("quick", "test", "experiment")) return "quick-mode";
-if (userMentions("enterprise", "production", "ci/cd")) return "enterprise-mode";
-if (userMentions("open source", "oss", "public")) return "open-source-mode";
-if (userMentions("private", "team", "internal")) return "private-team-mode";
-return askForModeSelection();
+# Authenticate with GitHub (if not already authenticated)
+gh auth login
 ```
 
-## Modes
+If `gh` is not installed, you'll see an error. Use the installation command for your operating system above.
 
-| Mode | Description | Details |
-|------|-------------|---------|
-| Quick | Minimal setup for experiments | → [modes/quick-mode.md](modes/quick-mode.md) |
-| Enterprise | Full security and CI/CD | → [modes/enterprise-mode.md](modes/enterprise-mode.md) |
-| Open Source | Community health files | → [modes/open-source-mode.md](modes/open-source-mode.md) |
-| Private/Team | CODEOWNERS and governance | → [modes/private-team-mode.md](modes/private-team-mode.md) |
+## Basic setup
 
-## Core Workflow
+Create and configure a new private GitHub repository (always private):
 
-1. **Mode Selection** - Detect intent or ask user
-2. **Prerequisites** - Validate gh CLI, auth, git config
-3. **Repository Creation** - Create via GitHub CLI
-4. **Security Setup** - Enable Dependabot, secret scanning
-5. **Documentation** - Generate README, LICENSE, .gitignore
-6. **CI/CD** - Configure workflows (enterprise/open-source)
-7. **Templates** - Add issue/PR templates
-8. **Protection** - Set branch rules (enterprise/team)
-9. **Validation** - Verify setup and provide next steps
+```bash
+# Create a private repository
+gh repo create <repo-name> --private --source=. --remote=origin --push
 
-## Reference Materials
+# Configure repository settings (add description)
+gh repo edit <owner>/<repo-name> --description="Your repository description"
+```
 
-- [Error Handling & Success Criteria](reference/error-handling.md)
+## Complete setup workflow
 
-## Important Reminders
+Use this comprehensive workflow to set up a private repository with all recommended settings:
 
-1. **Security first** - Enable Dependabot and secret scanning by default
-2. **Branch protection** - Protect main branch in production setups
-3. **Documentation** - Every repo needs README, LICENSE, and .gitignore
-4. **CODEOWNERS** - Use for critical files in team repositories
+```bash
+#!/bin/bash
 
-**Official Documentation**:
-- https://docs.github.com/en/repositories/creating-and-managing-repositories/best-practices-for-repositories
+# Variables
+REPO_NAME="my-repository"
+REPO_DESCRIPTION="Brief description of the repository"
+OWNER="your-github-username"  # or your organization
+
+# Step 0: Check if gh CLI is installed
+if ! command -v gh &> /dev/null; then
+    echo "GitHub CLI is not installed. Install it with:"
+    echo "  macOS: brew install gh"
+    echo "  Other systems: https://github.com/cli/cli#installation"
+    exit 1
+fi
+
+# Step 1: Create private repository (always private)
+gh repo create "${REPO_NAME}" \
+  --private \
+  --source=. \
+  --remote=origin \
+  --push \
+  --description="${REPO_DESCRIPTION}"
+
+# Step 2: Add description to about section (if needed)
+gh repo edit "${OWNER}/${REPO_NAME}" --description="${REPO_DESCRIPTION}"
+
+# Step 3: Disable wikis and discussions
+gh repo edit "${OWNER}/${REPO_NAME}" --enable-wiki=false --enable-discussions=false
+
+# Step 4: Open repository in browser
+gh repo view "${OWNER}/${REPO_NAME}" --web
+```
+
+## Configuration options
+
+### Repository type
+
+**Always private** (default for this skill):
+All repositories created with this skill are automatically set to private for security and control.
+
+If you need to change visibility later:
+```bash
+gh repo edit <owner>/<repo-name> --visibility private
+```
+
+### Repository description
+
+Set the description that appears in the repository's about section:
+
+```bash
+gh repo edit <owner>/<repo-name> --description "Your repository description"
+```
+
+The description should be concise and clearly communicate the repository's purpose.
+
+### Disable features
+
+**Disable releases**:
+Releases are managed via branch protection rules and GitHub Actions workflows. To prevent accidental releases:
+- Use branch protection on main/master
+- Limit who can create releases via repository permissions
+
+**Disable environments**:
+```bash
+# Environments are disabled by default for private repositories
+# For public repositories, restrict environment access:
+gh repo edit <owner>/<repo-name> --enable-discussions=false
+```
+
+### Additional settings
+
+**Branch protection** (protect main branch):
+```bash
+gh api repos/<owner>/<repo-name>/branches/main/protection \
+  -X PUT \
+  -F enforce_admins=true \
+  -F require_code_review_count=1 \
+  -F dismiss_stale_reviews=true
+```
+
+**Disable wikis and discussions**:
+```bash
+gh repo edit <owner>/<repo-name> --enable-wiki=false --enable-discussions=false
+```
+
+**Add topics** (optional):
+```bash
+gh repo edit <owner>/<repo-name> --add-topic python --add-topic github
+```
+
+## Verifying configuration
+
+Once setup is complete, your repository will open in the browser via `gh repo view --web`. You can also manually verify settings:
+
+```bash
+# View repository details
+gh repo view <owner>/<repo-name>
+
+# Check specific settings
+gh api repos/<owner>/<repo-name> --jq '.{name, private, description, has_releases, has_environments}'
+```
+
+## Tips
+
+- Test setup commands on a test repository first
+- Use environment variables for repetitive parameters
+- Automate setup with the provided script for consistency
+- Always verify settings after configuration
+- Use `gh repo edit --help` to see all available options

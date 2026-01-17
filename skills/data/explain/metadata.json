@@ -1,7 +1,7 @@
 {
   "name": "explain",
-  "repo": "pwittchen/varun.surf",
-  "path": ".claude/skills/explain/SKILL.md",
-  "source": "github.com/pwittchen/varun.surf",
-  "downloaded_at": "2026-01-14T02:48:58.944143Z"
+  "repo": "hereinthehive/gotrino-inclusion",
+  "path": "skills/explain/SKILL.md",
+  "source": "github.com/hereinthehive/gotrino-inclusion",
+  "downloaded_at": "2026-01-17T03:25:03.633939Z"
 }

@@ -1,79 +1,167 @@
 ---
 name: zustand-state-management
-description: |
-  Build type-safe global state in React with Zustand. Supports TypeScript, persist middleware, devtools, slices pattern, and Next.js SSR with hydration handling.
+description: Zustand state management for React with TypeScript. Use for global state, Redux/Context API migration, localStorage persistence, slices pattern, devtools, Next.js SSR, or encountering hydration errors, TypeScript inference issues, persist middleware problems, infinite render loops.
 
-  Use when setting up React state, migrating from Redux/Context, or troubleshooting hydration errors, TypeScript inference, or infinite render loops.
-user-invocable: true
+  Keywords: zustand, state management, React state, TypeScript state, persist middleware,
+  devtools, slices pattern, global state, React hooks, create store, useBoundStore,
+  StateCreator, hydration error, text content mismatch, infinite render, localStorage,
+  sessionStorage, immer middleware, shallow equality, selector pattern, zustand v5
+license: MIT
 ---
 
 # Zustand State Management
 
-**Last Updated**: 2026-01-09
-**Latest Version**: zustand@5.0.9 (current)
+**Status**: Production Ready ✅
+**Last Updated**: 2025-11-21
+**Latest Version**: zustand@5.0.8
 **Dependencies**: React 18+, TypeScript 5+
 
 ---
 
-## Quick Start
+## Quick Start (3 Minutes)
+
+### 1. Install Zustand
 
 ```bash
-npm install zustand
+bun add zustand  # preferred
+# or: npm install zustand
+# or: yarn add zustand
 ```
 
-**TypeScript Store** (CRITICAL: use `create<T>()()` double parentheses):
+**Why Zustand?**
+- Minimal API: Only 1 function to learn (`create`)
+- No boilerplate: No providers, reducers, or actions
+- TypeScript-first: Excellent type inference
+- Fast: Fine-grained subscriptions prevent unnecessary re-renders
+- Flexible: Middleware for persistence, devtools, and more
+
+### 2. Create Your First Store (TypeScript)
+
 ```typescript
 import { create } from 'zustand'
 
 interface BearStore {
   bears: number
   increase: (by: number) => void
+  reset: () => void
 }
 
 const useBearStore = create<BearStore>()((set) => ({
   bears: 0,
   increase: (by) => set((state) => ({ bears: state.bears + by })),
+  reset: () => set({ bears: 0 }),
 }))
 ```
 
-**Use in Components**:
+**CRITICAL**: Notice the **double parentheses** `create<T>()()` - this is required for TypeScript with middleware.
+
+### 3. Use Store in Components
+
 ```tsx
-const bears = useBearStore((state) => state.bears)  // Only re-renders when bears changes
-const increase = useBearStore((state) => state.increase)
+import { useBearStore } from './store'
+
+function BearCounter() {
+  const bears = useBearStore((state) => state.bears)
+  return <h1>{bears} around here...</h1>
+}
+
+function Controls() {
+  const increase = useBearStore((state) => state.increase)
+  return <button onClick={() => increase(1)}>Add bear</button>
+}
 ```
+
+**Why this works:**
+- Components only re-render when their selected state changes
+- No Context providers needed
+- Selector function extracts specific state slice
 
 ---
 
-## Core Patterns
+## The 3-Pattern Setup Process
 
-**Basic Store** (JavaScript):
+### Pattern 1: Basic Store (JavaScript)
+
+For simple use cases without TypeScript:
+
 ```javascript
+import { create } from 'zustand'
+
 const useStore = create((set) => ({
   count: 0,
   increment: () => set((state) => ({ count: state.count + 1 })),
+  decrement: () => set((state) => ({ count: state.count - 1 })),
 }))
 ```
 
-**TypeScript Store** (Recommended):
+**When to use:**
+- Prototyping
+- Small apps
+- No TypeScript in project
+
+### Pattern 2: TypeScript Store (Recommended)
+
+For production apps with type safety:
+
 ```typescript
-interface CounterStore { count: number; increment: () => void }
-const useStore = create<CounterStore>()((set) => ({
+import { create } from 'zustand'
+
+// Define store interface
+interface CounterStore {
+  count: number
+  increment: () => void
+  decrement: () => void
+}
+
+// Create typed store
+const useCounterStore = create<CounterStore>()((set) => ({
   count: 0,
   increment: () => set((state) => ({ count: state.count + 1 })),
+  decrement: () => set((state) => ({ count: state.count - 1 })),
 }))
 ```
 
-**Persistent Store** (survives page reloads):
+**Key Points:**
+- Separate interface for state + actions
+- Use `create<T>()()` syntax (currying for middleware)
+- Full IDE autocomplete and type checking
+
+### Pattern 3: Persistent Store
+
+For state that survives page reloads:
+
 ```typescript
+import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 
-const useStore = create<UserPreferences>()(
+interface UserPreferences {
+  theme: 'light' | 'dark' | 'system'
+  language: string
+  setTheme: (theme: UserPreferences['theme']) => void
+  setLanguage: (language: string) => void
+}
+
+const usePreferencesStore = create<UserPreferences>()(
   persist(
-    (set) => ({ theme: 'system', setTheme: (theme) => set({ theme }) }),
-    { name: 'user-preferences', storage: createJSONStorage(() => localStorage) },
+    (set) => ({
+      theme: 'system',
+      language: 'en',
+      setTheme: (theme) => set({ theme }),
+      setLanguage: (language) => set({ language }),
+    }),
+    {
+      name: 'user-preferences', // unique name in localStorage
+      storage: createJSONStorage(() => localStorage), // optional: defaults to localStorage
+    },
   ),
 )
 ```
+
+**Why this matters:**
+- State automatically saved to localStorage
+- Restored on page reload
+- Works with sessionStorage too
+- Handles serialization automatically
 
 ---
 
@@ -87,7 +175,7 @@ const useStore = create<UserPreferences>()(
 ✅ Use `set` with updater functions for derived state: `set((state) => ({ count: state.count + 1 }))`
 ✅ Use unique names for persist middleware storage keys
 ✅ Handle Next.js hydration with `hasHydrated` flag pattern
-✅ Use `useShallow` hook for selecting multiple values
+✅ Use `shallow` for selecting multiple values
 ✅ Keep actions pure (no side effects except state updates)
 
 ### Never Do
@@ -102,309 +190,125 @@ const useStore = create<UserPreferences>()(
 
 ---
 
-## Known Issues Prevention
+## Known Issues Prevention (5 Issues)
 
-This skill prevents **5** documented issues:
+| Issue | Error | Quick Fix |
+|-------|-------|-----------|
+| **#1 Hydration mismatch** | "Text content does not match" | Use `_hasHydrated` flag + `onRehydrateStorage` |
+| **#2 TypeScript inference** | Types break with middleware | Use `create<T>()()` double parentheses |
+| **#3 Import error** | "createJSONStorage not exported" | Upgrade to zustand@5.0.8+ |
+| **#4 Infinite loop** | Browser freezes | Use `shallow` or separate selectors |
+| **#5 Slices types** | StateCreator types fail | Explicit `StateCreator<Combined, [], [], Slice>` |
 
-### Issue #1: Next.js Hydration Mismatch
-
-**Error**: `"Text content does not match server-rendered HTML"` or `"Hydration failed"`
-
-**Source**:
-- [DEV Community: Persist middleware in Next.js](https://dev.to/abdulsamad/how-to-use-zustands-persist-middleware-in-nextjs-4lb5)
-- GitHub Discussions #2839
-
-**Why It Happens**:
-Persist middleware reads from localStorage on client but not on server, causing state mismatch.
-
-**Prevention**:
+**Most Critical** - TypeScript double parentheses:
 ```typescript
-import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
-
-interface StoreWithHydration {
-  count: number
-  _hasHydrated: boolean
-  setHasHydrated: (hydrated: boolean) => void
-  increase: () => void
-}
-
-const useStore = create<StoreWithHydration>()(
-  persist(
-    (set) => ({
-      count: 0,
-      _hasHydrated: false,
-      setHasHydrated: (hydrated) => set({ _hasHydrated: hydrated }),
-      increase: () => set((state) => ({ count: state.count + 1 })),
-    }),
-    {
-      name: 'my-store',
-      onRehydrateStorage: () => (state) => {
-        state?.setHasHydrated(true)
-      },
-    },
-  ),
-)
-
-// In component
-function MyComponent() {
-  const hasHydrated = useStore((state) => state._hasHydrated)
-
-  if (!hasHydrated) {
-    return <div>Loading...</div>
-  }
-
-  // Now safe to render with persisted state
-  return <ActualContent />
-}
+// ❌ WRONG: create<T>((set) => ...)
+// ✅ CORRECT: create<T>()((set) => ...)
 ```
 
-### Issue #2: TypeScript Double Parentheses Missing
-
-**Error**: Type inference fails, `StateCreator` types break with middleware
-
-**Source**: [Official Zustand TypeScript Guide](https://zustand.docs.pmnd.rs/guides/typescript)
-
-**Why It Happens**:
-The currying syntax `create<T>()()` is required for middleware to work with TypeScript inference.
-
-**Prevention**:
-```typescript
-// ❌ WRONG - Single parentheses
-const useStore = create<MyStore>((set) => ({
-  // ...
-}))
-
-// ✅ CORRECT - Double parentheses
-const useStore = create<MyStore>()((set) => ({
-  // ...
-}))
-```
-
-**Rule**: Always use `create<T>()()` in TypeScript, even without middleware (future-proof).
-
-### Issue #3: Persist Middleware Import Error
-
-**Error**: `"Attempted import error: 'createJSONStorage' is not exported from 'zustand/middleware'"`
-
-**Source**: GitHub Discussion #2839
-
-**Why It Happens**:
-Wrong import path or version mismatch between zustand and build tools.
-
-**Prevention**:
-```typescript
-// ✅ CORRECT imports for v5
-import { create } from 'zustand'
-import { persist, createJSONStorage } from 'zustand/middleware'
-
-// Verify versions
-// zustand@5.0.9 includes createJSONStorage
-// zustand@4.x uses different API
-
-// Check your package.json
-// "zustand": "^5.0.9"
-```
-
-### Issue #4: Infinite Render Loop
-
-**Error**: Component re-renders infinitely, browser freezes
-
-**Source**: GitHub Discussions #2642
-
-**Why It Happens**:
-Creating new object references in selectors causes Zustand to think state changed.
-
-**Prevention**:
-```typescript
-import { useShallow } from 'zustand/shallow'
-
-// ❌ WRONG - Creates new object every time
-const { bears, fishes } = useStore((state) => ({
-  bears: state.bears,
-  fishes: state.fishes,
-}))
-
-// ✅ CORRECT Option 1 - Select primitives separately
-const bears = useStore((state) => state.bears)
-const fishes = useStore((state) => state.fishes)
-
-// ✅ CORRECT Option 2 - Use useShallow hook for multiple values
-const { bears, fishes } = useStore(
-  useShallow((state) => ({ bears: state.bears, fishes: state.fishes }))
-)
-```
-
-### Issue #5: Slices Pattern TypeScript Complexity
-
-**Error**: `StateCreator` types fail to infer, complex middleware types break
-
-**Source**: [Official Slices Pattern Guide](https://github.com/pmndrs/zustand/blob/main/docs/guides/slices-pattern.md)
-
-**Why It Happens**:
-Combining multiple slices requires explicit type annotations for middleware compatibility.
-
-**Prevention**:
-```typescript
-import { create, StateCreator } from 'zustand'
-
-// Define slice types
-interface BearSlice {
-  bears: number
-  addBear: () => void
-}
-
-interface FishSlice {
-  fishes: number
-  addFish: () => void
-}
-
-// Create slices with proper types
-const createBearSlice: StateCreator<
-  BearSlice & FishSlice,  // Combined store type
-  [],                      // Middleware mutators (empty if none)
-  [],                      // Chained middleware (empty if none)
-  BearSlice               // This slice's type
-> = (set) => ({
-  bears: 0,
-  addBear: () => set((state) => ({ bears: state.bears + 1 })),
-})
-
-const createFishSlice: StateCreator<
-  BearSlice & FishSlice,
-  [],
-  [],
-  FishSlice
-> = (set) => ({
-  fishes: 0,
-  addFish: () => set((state) => ({ fishes: state.fishes + 1 })),
-})
-
-// Combine slices
-const useStore = create<BearSlice & FishSlice>()((...a) => ({
-  ...createBearSlice(...a),
-  ...createFishSlice(...a),
-}))
-```
+**See**: `references/known-issues.md` for complete solutions with code examples.
 
 ---
 
-## Middleware
+## Middleware Configuration
 
-**Persist** (localStorage):
 ```typescript
-import { persist, createJSONStorage } from 'zustand/middleware'
+import { create } from 'zustand'
+import { devtools, persist } from 'zustand/middleware'
 
 const useStore = create<MyStore>()(
-  persist(
-    (set) => ({ data: [], addItem: (item) => set((state) => ({ data: [...state.data, item] })) }),
-    {
-      name: 'my-storage',
-      partialize: (state) => ({ data: state.data }),  // Only persist 'data'
-    },
-  ),
-)
-```
-
-**Devtools** (Redux DevTools):
-```typescript
-import { devtools } from 'zustand/middleware'
-
-const useStore = create<CounterStore>()(
   devtools(
-    (set) => ({ count: 0, increment: () => set((s) => ({ count: s.count + 1 }), undefined, 'increment') }),
-    { name: 'CounterStore' },
+    persist(
+      (set) => ({ /* store definition */ }),
+      { name: 'my-storage' },
+    ),
+    { name: 'MyStore' },
   ),
 )
 ```
 
-**Combining Middlewares** (order matters):
-```typescript
-const useStore = create<MyStore>()(devtools(persist((set) => ({ /* ... */ }), { name: 'storage' }), { name: 'MyStore' }))
-```
+| Middleware | Purpose | Import |
+|------------|---------|--------|
+| `persist` | localStorage/sessionStorage | `zustand/middleware` |
+| `devtools` | Redux DevTools integration | `zustand/middleware` |
+| `immer` | Mutable update syntax | `zustand/middleware/immer` |
+
+**Order matters**: `devtools(persist(...))` shows persist actions in DevTools.
+
+**See**: `references/middleware-guide.md` for complete middleware documentation.
 
 ---
 
 ## Common Patterns
 
-**Computed/Derived Values** (in selector, not stored):
-```typescript
-const count = useStore((state) => state.items.length)  // Computed on read
-```
+| Pattern | Use Case | Key Technique |
+|---------|----------|---------------|
+| **Computed values** | Derived data | Compute in selector: `state.items.length` |
+| **Async actions** | API calls | `set({ isLoading: true })` + try/catch |
+| **Reset store** | Logout, form clear | `set(initialState)` |
+| **Selector with params** | Dynamic access | `state.todos.find(t => t.id === id)` |
+| **Multiple stores** | Separation of concerns | Create separate `create()` calls |
 
-**Async Actions**:
-```typescript
-const useAsyncStore = create<AsyncStore>()((set) => ({
-  data: null,
-  isLoading: false,
-  fetchData: async () => {
-    set({ isLoading: true })
-    const response = await fetch('/api/data')
-    set({ data: await response.text(), isLoading: false })
-  },
-}))
-```
-
-**Resetting Store**:
-```typescript
-const initialState = { count: 0, name: '' }
-const useStore = create<ResettableStore>()((set) => ({
-  ...initialState,
-  reset: () => set(initialState),
-}))
-```
-
-**Selector with Params**:
-```typescript
-const todo = useStore((state) => state.todos.find((t) => t.id === id))
-```
-
----
-
-## Bundled Resources
-
-**Templates**: `basic-store.ts`, `typescript-store.ts`, `persist-store.ts`, `slices-pattern.ts`, `devtools-store.ts`, `nextjs-store.ts`, `computed-store.ts`, `async-actions-store.ts`
-
-**References**: `middleware-guide.md` (persist/devtools/immer/custom), `typescript-patterns.md` (type inference issues), `nextjs-hydration.md` (SSR/hydration), `migration-guide.md` (from Redux/Context/v4)
-
-**Scripts**: `check-versions.sh` (version compatibility)
+**See**: `references/common-patterns.md` for complete implementations.
 
 ---
 
 ## Advanced Topics
 
-**Vanilla Store** (Without React):
-```typescript
-import { createStore } from 'zustand/vanilla'
+| Topic | Use Case | Key API |
+|-------|----------|---------|
+| **Vanilla store** | Non-React, testing | `createStore()` from `zustand/vanilla` |
+| **Custom middleware** | Logging, timestamps | Wrap `StateCreator` |
+| **Immer** | Mutable update syntax | `immer()` middleware |
+| **Subscriptions** | Side effects | `store.subscribe()` |
 
-const store = createStore<CounterStore>()((set) => ({ count: 0, increment: () => set((s) => ({ count: s.count + 1 })) }))
-const unsubscribe = store.subscribe((state) => console.log(state.count))
-store.getState().increment()
-```
-
-**Custom Middleware**:
-```typescript
-const logger: Logger = (f, name) => (set, get, store) => {
-  const loggedSet: typeof set = (...a) => { set(...a); console.log(`[${name}]:`, get()) }
-  return f(loggedSet, get, store)
-}
-```
-
-**Immer Middleware** (Mutable Updates):
-```typescript
-import { immer } from 'zustand/middleware/immer'
-
-const useStore = create<TodoStore>()(immer((set) => ({
-  todos: [],
-  addTodo: (text) => set((state) => { state.todos.push({ id: Date.now().toString(), text }) }),
-})))
-```
+**See**: `references/advanced-topics.md` for complete implementations.
 
 ---
 
-## Official Documentation
+## Bundled Resources
 
-- **Zustand**: https://zustand.docs.pmnd.rs/
-- **GitHub**: https://github.com/pmndrs/zustand
-- **TypeScript Guide**: https://zustand.docs.pmnd.rs/guides/typescript
-- **Context7 Library ID**: `/pmndrs/zustand`
+| Type | Files |
+|------|-------|
+| **Templates** | `basic-store.ts`, `typescript-store.ts`, `persist-store.ts`, `slices-pattern.ts`, `devtools-store.ts`, `nextjs-store.ts`, `computed-store.ts`, `async-actions-store.ts` |
+| **References** | `middleware-guide.md`, `typescript-patterns.md`, `nextjs-hydration.md`, `migration-guide.md`, `known-issues.md`, `common-patterns.md`, `advanced-topics.md` |
+
+---
+
+## When to Load References
+
+| Reference | Load When... |
+|-----------|--------------|
+| `known-issues.md` | Debugging hydration, TypeScript, infinite loop, or slices errors |
+| `common-patterns.md` | Implementing computed values, async actions, reset patterns |
+| `advanced-topics.md` | Vanilla stores, custom middleware, Immer, subscriptions |
+| `middleware-guide.md` | Configuring persist, devtools, or combining middlewares |
+| `typescript-patterns.md` | Complex type inference issues, StateCreator problems |
+| `nextjs-hydration.md` | Next.js SSR/hydration problems |
+| `migration-guide.md` | Migrating from Redux, Context API, or Zustand v4 |
+
+---
+
+## Quick Troubleshooting
+
+| Problem | Solution |
+|---------|----------|
+| Store updates don't trigger re-renders | Use selector: `useStore(state => state.value)` not destructuring |
+| TypeScript errors with middleware | Use `create<T>()()` double parentheses |
+| Hydration error with persist | Implement `_hasHydrated` flag pattern |
+| Actions not showing in DevTools | Pass action name: `set(newState, undefined, 'actionName')` |
+| Store resets unexpectedly | HMR causes reset in development |
+
+---
+
+## Dependencies
+
+```json
+{ "dependencies": { "zustand": "^5.0.8", "react": "^18.0.0+" } }
+```
+
+**Compatibility**: React 18+, React 19, TypeScript 5+, Next.js 14+, Vite 5+
+
+---
+
+**Official Docs**: https://zustand.docs.pmnd.rs/ | **GitHub**: https://github.com/pmndrs/zustand

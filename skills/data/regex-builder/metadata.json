@@ -1,12 +1,7 @@
 {
   "name": "regex-builder",
-  "description": "Build, test, and explain regular expressions against sample text or files using CLI tools (rg, python) and specific regex flavors. Use when asked to craft, debug, or validate regexes or search pattern",
-  "repo": "jMerta/codex-skills",
-  "category": "development",
-  "tags": [
-    "regex",
-    "builder"
-  ],
-  "stars": 90,
-  "source": "SkillsMP Synced Skills"
+  "repo": "lovedragonball/power-ranger-toolkit",
+  "path": "src/skills/regex-builder/SKILL.md",
+  "source": "github.com/lovedragonball/power-ranger-toolkit",
+  "downloaded_at": "2026-01-17T03:14:52.878891Z"
 }

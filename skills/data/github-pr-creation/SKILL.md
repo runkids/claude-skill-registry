@@ -13,7 +13,7 @@ Creates Pull Requests with task validation, test execution, and Conventional Com
 # 1. Verify GitHub CLI
 gh --version && gh auth status
 
-# 2. Gather information (Claude does this directly)
+# 2. Gather information (the AI Assistant does this directly)
 git log develop..HEAD --oneline        # Commits to include
 git diff develop --stat                 # Files changed
 git rev-parse --abbrev-ref HEAD        # Current branch
@@ -199,3 +199,11 @@ Before generating PR, ensure you have:
 
 - `references/pr_templates.md` - Complete PR templates for all types
 - `references/conventional_commits.md` - Commit format guide
+
+## When to use this skill
+
+Creates GitHub Pull Requests with automated validation and task tracking. Use when user wants to create PR, open pull request, submit for review, or check if ready for PR. Analyzes commits, validates task completion, generates Conventional Commits title and description, suggests labels. NOTE - for merging existing PRs, use github-pr-merge instead.
+
+## How to use this skill
+
+Refer to the instructions above or standard agent usage for this skill type.

@@ -8,6 +8,8 @@ description: |
 
 Run terminal-based AI agents in secure sandboxes with built-in observability.
 
+> **Repo:** https://github.com/brandomagnani/swarmkit — cookbooks in `cookbooks/`, skills in `skills/`
+
 ## SDK Choice
 
 | Language | Package | Syntax Reference |
@@ -39,7 +41,7 @@ SwarmKit → run() → getOutputFiles()
 
 **Key capabilities:**
 - Agent configuration (type, model, reasoning effort)
-- Skills (pdf, docx, dev-browser, etc.)
+- Skills (pdf, docx, pptx, etc.)
 - Composio integrations (GitHub, Gmail, Slack, etc.)
 - MCP servers for custom tools
 - Structured output via schema
@@ -82,19 +84,70 @@ Reusable across different data batches.
 
 ## Authentication
 
-| Mode | Setup | Use Case |
+API keys auto-resolve from environment variables.
+
+| Mode | Setup | Included |
 |------|-------|----------|
-| Gateway | `SWARMKIT_API_KEY` | Managed billing, observability |
-| BYOK | Provider keys + `E2B_API_KEY` | Direct provider access |
+| Gateway | `SWARMKIT_API_KEY` | E2B, browser-use, tracing |
+| BYOK | Provider key + `E2B_API_KEY` | Direct provider access |
+| Claude Max | `CLAUDE_CODE_OAUTH_TOKEN` + `E2B_API_KEY` | Use existing subscription |
+
+> **Note:** In Gateway mode, `SWARMKIT_API_KEY` is automatically injected into this sandbox by the parent SwarmKit process. The SDK picks it up from the environment—no manual configuration needed.
+
+### Gateway Mode
+
+```bash
+# .env
+SWARMKIT_API_KEY=sk-...
+```
+
+```
+SwarmKit().withAgent({ type: "claude", apiKey: SWARMKIT_API_KEY })
+```
+
+**Included:** E2B sandbox auto-provisioned, `browser-use` integrated, tracing at dashboard.swarmlink.ai
+
+### BYOK Mode
+
+```bash
+# .env
+ANTHROPIC_API_KEY=sk-...   # or OPENAI_API_KEY, GEMINI_API_KEY
+E2B_API_KEY=e2b_...
+```
+
+```
+sandbox = E2BProvider({ apiKey: E2B_API_KEY })
+SwarmKit().withAgent({ type: "claude", providerApiKey: ANTHROPIC_API_KEY }).withSandbox(sandbox)
+```
+
+### Claude Max (OAuth)
+
+```bash
+claude --setup-token  # Run in terminal → receive token
+```
+
+```bash
+# .env
+CLAUDE_CODE_OAUTH_TOKEN=sk-ant-...
+E2B_API_KEY=e2b_...
+```
+
+```
+SwarmKit().withAgent({ type: "claude", oauthToken: CLAUDE_CODE_OAUTH_TOKEN }).withSandbox(sandbox)
+```
+
+**Full docs:** See [references/typescript.md](references/typescript.md) or [references/python.md](references/python.md)
+
+**BYOK Mode**: Set provider env vars (see Agent Types table) + `E2B_API_KEY`.
 
 ## Agent Types
 
 | Type | Models | Default | Env Var |
 |------|--------|---------|---------|
-| `claude` | opus, sonnet, haiku | opus | `ANTHROPIC_API_KEY` |
-| `codex` | gpt-5.2, gpt-5.2-codex | gpt-5.2 | `OPENAI_API_KEY` |
-| `gemini` | gemini-3-pro-preview, etc. | gemini-3-flash-preview | `GEMINI_API_KEY` |
-| `qwen` | qwen3-coder-plus | qwen3-coder-plus | `OPENAI_API_KEY` |
+| `"claude"` | `"opus"` `"sonnet"` `"haiku"` | `"opus"` | `ANTHROPIC_API_KEY` |
+| `"codex"` | `"gpt-5.2"` `"gpt-5.2-codex"` | `"gpt-5.2"` | `OPENAI_API_KEY` |
+| `"gemini"` | `"gemini-3-pro-preview"` `"gemini-3-flash-preview"` | `"gemini-3-flash-preview"` | `GEMINI_API_KEY` |
+| `"qwen"` | `"qwen3-coder-plus"` | `"qwen3-coder-plus"` | `OPENAI_API_KEY` |
 
 ## Workspace Structure
 
@@ -121,10 +174,12 @@ withSchema(schema) → run() → getOutputFiles() → { files, data, error }
 ### Skills + Composio + MCP hierarchy
 
 ```
-.withSkills([...])           # Agent capabilities
+.withSkills([...])           # Agent capabilities (browser-use included by default with Gateway)
 .withComposio(userId, {...}) # 1000+ integrations
 .withMcpServers({...})       # Custom tools (advanced)
 ```
+
+> **Note:** With `SWARMKIT_API_KEY`, browser-use is already integrated. Additional browser skills (dev-browser, agent-browser) are optional.
 
 ### Streaming Events
 

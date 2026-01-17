@@ -1,7 +1,7 @@
 {
   "name": "vector-index-tuning",
-  "repo": "GaitanS/AI-Mancare",
-  "path": ".claude/skills/plugins/llm-application-dev/skills/vector-index-tuning/SKILL.md",
-  "source": "github.com/GaitanS/AI-Mancare",
-  "downloaded_at": "2026-01-14T03:16:29.955141Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/llm-application-dev/skills/vector-index-tuning/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-01-17T03:59:16.528297Z"
 }

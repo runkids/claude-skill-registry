@@ -1,7 +1,7 @@
 {
   "name": "pr-creator",
-  "repo": "matteocervelli/llms",
+  "repo": "shiiman/claude-code-plugins",
   "path": ".claude/skills/pr-creator/SKILL.md",
-  "source": "github.com/matteocervelli/llms",
-  "downloaded_at": "2026-01-14T03:06:47.292000Z"
+  "source": "github.com/shiiman/claude-code-plugins",
+  "downloaded_at": "2026-01-17T03:40:03.251850Z"
 }

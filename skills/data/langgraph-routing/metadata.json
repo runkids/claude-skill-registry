@@ -1,9 +1,7 @@
 {
   "name": "langgraph-routing",
-  "description": "LangGraph conditional routing patterns. Use when implementing dynamic routing based on state, creating branching workflows, or building retry loops with conditional edges.",
   "repo": "yonatangross/skillforge-claude-plugin",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/langgraph-routing/SKILL.md",
+  "source": "github.com/yonatangross/skillforge-claude-plugin",
+  "downloaded_at": "2026-01-17T01:47:44.421894Z"
 }

@@ -1,150 +1,363 @@
 ---
-name: craft-coder-help
-description: |
-  Help and documentation for Craft-Coder plugin.
-  Use when: user asks about available skills, commands, or how to use this plugin.
-  Triggers: "help", "what can you do", "craft help", "как пользоваться".
+name: help
+description: Interactive workspace discovery - learn what tools, workflows, agents, and hooks are available
+triggers: ["help", "what can you do", "show capabilities", "how do I"]
+allowed-tools: [AskUserQuestion, Bash, Read, Glob, Grep]
+priority: high
 ---
 
-# Craft-Coder: Pair Programming with a Senior Dev
+# /help - Workspace Discovery
 
-Master your craft through guided development, decision explanations, and TDD workflow.
+Guide users through the capabilities of this workspace setup.
 
-## Philosophy
-
-**vibe-coder:** "Describe what you want" → [magic] → "Done!"
-
-**craft-coder:** "Let's design together" → [dialogue] → "Here's why"
-
-We explain WHAT we're doing and WHY.
-
-## Commands
-
-| Command | Description |
-|---------|-------------|
-| `/craft {project}` | Guided project creation with explanations |
-| `/craft {project} --learn` | Learning mode (detailed explanations) |
-| `/craft {project} --fast` | Fast mode (minimal dialogue) |
-| `/why` | Explain the last decision |
-| `/why stack` | Why this technology stack? |
-| `/why architecture` | Why this project structure? |
-
-## Quick Start
-
-### Start a new project
-```
-/craft notes-app
-```
-5-step guided process:
-1. Requirements gathering
-2. Architecture design (with rationale)
-3. Stack selection (with tradeoffs)
-4. Project initialization
-5. First feature implementation
-
-### Understand decisions
-```
-/why
-```
-Explains the most recent architectural decision.
+## Usage
 
 ```
-/why stack
+/help                    # Interactive guided discovery
+/help workflows          # Workflow orchestration skills
+/help agents             # Specialist agents catalog
+/help tools              # CLI tools (tldr, prove, recall)
+/help hooks              # Active hooks and what they do
+/help advanced           # MCP, frontmatter, customization
+/help <name>             # Deep dive on specific skill/agent
 ```
-Shows why we chose this technology stack, what alternatives were considered, and trade-offs accepted.
 
-## Skills by Category
+## Behavior Based on Arguments
 
-### Backend
-| Skill | Description |
-|-------|-------------|
-| `backend-core` | API design, authentication, security, databases |
-| `backend-python` | FastAPI, Django, SQLAlchemy, async patterns |
-| `backend-nodejs` | Express, NestJS, Prisma, TypeScript backend |
-| `backend-rust` | Axum, Actix, SQLx, performance-critical services |
+### No Arguments: Interactive Discovery
 
-### Frontend
-| Skill | Description |
-|-------|-------------|
-| `frontend-react` | React 18+, hooks, state management, performance |
-| `frontend-design` | Distinctive UI avoiding "AI slop" aesthetics |
-| `theme-factory` | Color palettes, typography, design systems |
+Use AskUserQuestion to guide the user:
 
-### Quality & Testing
-| Skill | Description |
-|-------|-------------|
-| `code-review` | PR review workflow, technical feedback |
-| `testing-core` | Unit, integration, e2e testing strategies |
-| `test-driven-development` | TDD cycle: red → green → refactor |
-| `testing-anti-patterns` | Common testing mistakes to avoid |
+```
+question: "What are you trying to do?"
+header: "Goal"
+options:
+  - label: "Explore/understand a codebase"
+    description: "Find patterns, architecture, conventions"
+  - label: "Fix a bug"
+    description: "Investigate, diagnose, implement fix"
+  - label: "Build a feature"
+    description: "Plan, implement, test new functionality"
+  - label: "Prove something mathematically"
+    description: "Formal verification with Lean 4"
+```
 
-### Debugging
-| Skill | Description |
-|-------|-------------|
-| `systematic-debugging` | Methodical bug investigation |
-| `root-cause-tracing` | Find the actual source of issues |
-| `defense-in-depth` | Prevent bugs from reaching production |
+Based on response, show relevant tools:
 
-### Documentation
-| Skill | Description |
-|-------|-------------|
-| `decision-logger` | Log architectural decisions (ADR format) |
+| Goal | Show |
+|------|------|
+| Explore codebase | scout agent, tldr CLI, /explore workflow |
+| Fix a bug | /fix workflow, sleuth agent, debug-agent |
+| Build feature | /build workflow, architect agent, kraken agent |
+| Prove math | /prove skill, lean4 skill, Godel-Prover |
+| Research docs | oracle agent, nia-docs, perplexity |
+| Configure workspace | hooks, rules, settings, frontmatter |
 
-## Modes
+### /help workflows
 
-### Learning Mode (`--learn`)
-- Detailed explanations for every decision
-- "Why?" sections included
-- Links to learning resources
-- Best for juniors and those learning new tech
+Display workflow meta-skills:
 
-### Fast Mode (`--fast`)
-- Skip explanations
-- Use sensible defaults
-- Minimal questions
-- Best for experienced devs who want speed
-
-### Balanced Mode (default)
-- Key decisions explained briefly
-- `/why` available for details
-- Good speed/understanding balance
-- Best for most developers
-
-## Decision Records
-
-All architectural decisions are logged to `docs/DECISIONS.md` in ADR format.
-
-Example:
 ```markdown
-## ADR-001: Use Rust + Axum
+## Workflow Skills
 
-**Context:** Need fast API with single binary deployment
+Orchestrate multi-agent pipelines for complex tasks.
 
-**Decision:** Rust with Axum framework
+| Workflow | Purpose | Agents Used |
+|----------|---------|-------------|
+| /fix | Bug investigation → diagnosis → implementation | sleuth → kraken → arbiter |
+| /build | Feature planning → implementation → testing | architect → kraken → arbiter |
+| /debug | Deep investigation of issues | debug-agent, sleuth |
+| /tdd | Test-driven development cycle | arbiter → kraken → arbiter |
+| /refactor | Code transformation with safety | phoenix → kraken → judge |
+| /review | Code review and feedback | critic, judge |
+| /security | Vulnerability analysis | aegis |
+| /explore | Codebase discovery | scout |
+| /test | Test execution and validation | arbiter, atlas |
+| /release | Version bumps, changelog | herald |
+| /migrate | Framework/infrastructure changes | pioneer, phoenix |
 
-**Why:** Meets <50ms requirement, compiles to single binary
-
-**Alternatives:** Go (less type safety), Node (not single binary)
+**Usage**: Just describe your goal. Claude routes to the right workflow.
 ```
 
-## vs vibe-coder
+### /help agents
 
-| Aspect | vibe-coder | craft-coder |
-|--------|------------|-------------|
-| Decisions | Automatic | Explained |
-| Errors | Auto-fix | Dialogue + options |
-| Learning | Hidden | Built-in |
-| Control | Minimal | Full |
-| Speed | Maximum | Balanced |
-| Audience | Makers | Developers |
+Display agent catalog:
 
-Choose **craft-coder** when you want to:
-- Understand architectural decisions
-- Learn best practices
-- Have control over technology choices
-- Document decisions for your team
+```markdown
+## Specialist Agents
 
-Choose **vibe-coder** when you want:
-- Fastest path to MVP
-- No technical decisions
-- Just describe and ship
+Spawn via Task tool with subagent_type.
+
+### Exploration & Research
+| Agent | Purpose | Model |
+|-------|---------|-------|
+| scout | Codebase exploration, pattern finding | sonnet |
+| oracle | External research (web, docs, APIs) | sonnet |
+| pathfinder | External repository analysis | sonnet |
+
+### Planning & Architecture
+| Agent | Purpose | Model |
+|-------|---------|-------|
+| architect | Feature planning, design docs | sonnet |
+| plan-agent | Create implementation plans | sonnet |
+| phoenix | Refactoring & migration planning | sonnet |
+
+### Implementation
+| Agent | Purpose | Model |
+|-------|---------|-------|
+| kraken | TDD implementation, refactoring | sonnet |
+| spark | Quick fixes, lightweight changes | haiku |
+
+### Review & Validation
+| Agent | Purpose | Model |
+|-------|---------|-------|
+| arbiter | Test execution, validation | sonnet |
+| critic | Code review | sonnet |
+| judge | Refactoring review | sonnet |
+
+### Investigation
+| Agent | Purpose | Model |
+|-------|---------|-------|
+| sleuth | Bug investigation, root cause | sonnet |
+| debug-agent | Issue investigation with logs | sonnet |
+| profiler | Performance, race conditions | sonnet |
+
+### Documentation & Handoff
+| Agent | Purpose | Model |
+|-------|---------|-------|
+| scribe | Documentation, session summaries | sonnet |
+| chronicler | Session analysis, learning extraction | sonnet |
+```
+
+### /help tools
+
+Display CLI tools and capabilities:
+
+```markdown
+## Built-in Tools
+
+### TLDR Code Analysis
+Token-efficient code exploration (95% savings vs reading raw files).
+
+```bash
+tldr tree src/              # File tree
+tldr structure src/ --lang python  # Code structure (codemaps)
+tldr search "pattern" src/  # Search files
+tldr cfg file.py func       # Control flow graph
+tldr dfg file.py func       # Data flow graph
+tldr impact func src/       # Reverse call graph (who calls this?)
+tldr dead src/              # Find dead code
+tldr arch src/              # Detect architectural layers
+```
+
+### /prove - Formal Verification
+Machine-verified proofs without learning Lean syntax.
+
+```
+/prove every group homomorphism preserves identity
+/prove continuous functions on compact sets are uniformly continuous
+```
+
+Requires: LM Studio running Godel-Prover model locally.
+
+### Memory System
+Store and recall learnings across sessions.
+
+```bash
+# Recall past learnings
+(cd opc && uv run python scripts/recall_learnings.py --query "hook patterns")
+
+# Store new learning (via /remember skill)
+/remember "Hook X works by..."
+```
+
+### Premortem Risk Analysis
+Identify failure modes before they occur.
+
+```
+/premortem [plan-file]     # Analyze implementation plan for risks
+```
+```
+
+### /help hooks
+
+Display active hooks:
+
+```markdown
+## Active Hooks
+
+Hooks extend Claude's behavior at key lifecycle points.
+
+### Session Lifecycle
+| Hook | Event | Purpose |
+|------|-------|---------|
+| session-register | SessionStart | Register session in coordination DB |
+| session-start-recall | SessionStart | Auto-inject relevant learnings |
+| session-end-cleanup | SessionEnd | Cleanup temp files |
+| session-outcome | SessionEnd | Prompt for session outcome |
+
+### User Prompt Processing
+| Hook | Event | Purpose |
+|------|-------|---------|
+| skill-activation-prompt | UserPromptSubmit | Suggest relevant skills |
+| premortem-suggest | UserPromptSubmit | Suggest risk analysis for implementations |
+
+### Tool Interception
+| Hook | Event | Purpose |
+|------|-------|---------|
+| tldr-read-enforcer | PreToolUse:Read | Suggest tldr for large files |
+| smart-search-router | PreToolUse:Grep | Route to ast-grep for structural search |
+| file-claims | PreToolUse:Edit | Track which sessions edit which files |
+| signature-helper | PreToolUse:Edit | Inject function signatures |
+| import-validator | PostToolUse:Edit | Validate imports after edits |
+
+### Validation
+| Hook | Event | Purpose |
+|------|-------|---------|
+| typescript-preflight | PreToolUse:Bash | Type-check before running |
+| compiler-in-the-loop | Stop | Run Lean compiler for /prove |
+
+### Subagent Coordination
+| Hook | Event | Purpose |
+|------|-------|---------|
+| subagent-start | SubagentStart | Initialize agent context |
+| subagent-stop | SubagentStop | Extract learnings from agents |
+```
+
+### /help advanced
+
+Display advanced customization:
+
+```markdown
+## Advanced: Customization & Extension
+
+### Skill Frontmatter
+Skills use YAML frontmatter for metadata and tool restrictions:
+
+```yaml
+---
+name: my-skill
+description: What it does
+triggers: ["keyword1", "keyword2"]
+allowed-tools: [Bash, Read, Edit]
+priority: high
+skills: [other-skill]  # Auto-load dependencies
+---
+```
+
+### Agent Frontmatter
+Agents declare their capabilities:
+
+```yaml
+---
+name: my-agent
+description: Specialist for X
+model: sonnet|haiku|opus
+tools: [Read, Grep, Glob, Bash]
+---
+```
+
+### MCP Servers
+External tool integrations:
+
+| Server | Purpose |
+|--------|---------|
+| ast-grep | Structural code search/refactoring |
+| firecrawl | Web scraping |
+| github-search | Search GitHub code/issues |
+| morph | Fast file editing (10k tokens/sec) |
+| nia | Documentation search |
+| perplexity | AI-powered web research |
+
+### Rules (.claude/rules/*.md)
+Always-on instructions injected into context:
+
+- `claim-verification.md` - Verify before asserting
+- `dynamic-recall.md` - How to use memory system
+- `tldr-cli.md` - TLDR usage reference
+
+### Creating Custom Skills
+```bash
+mkdir -p .claude/skills/my-skill
+# Create .claude/skills/my-skill/SKILL.md with frontmatter
+```
+
+### Creating Custom Agents
+```bash
+# Create .claude/agents/my-agent.md with frontmatter
+```
+```
+
+### /help <specific-name>
+
+For specific skill/agent lookup:
+
+1. Search for matching skill: `.claude/skills/<name>/SKILL.md`
+2. Search for matching agent: `.claude/agents/<name>.md`
+3. Read the file and display:
+   - Description
+   - Usage examples
+   - When to use
+   - Related skills/agents
+
+## Dynamic Discovery
+
+To keep help current, dynamically read frontmatter:
+
+```bash
+# List all skills with descriptions
+for f in .claude/skills/*/SKILL.md; do
+  head -10 "$f" | grep -E "^(name|description):"
+done
+
+# List all agents
+for f in .claude/agents/*.md; do
+  head -10 "$f" | grep -E "^(name|description):"
+done
+```
+
+## Example Interaction
+
+**User**: `/help`
+
+**Claude**:
+```
+What are you trying to do?
+
+[ ] Explore/understand a codebase
+    Find patterns, architecture, conventions
+
+[ ] Fix a bug
+    Investigate, diagnose, implement fix
+
+[ ] Build a feature
+    Plan, implement, test new functionality
+
+[ ] Prove something mathematically
+    Formal verification with Lean 4
+
+[Other: describe your goal]
+```
+
+**User selects**: "Fix a bug"
+
+**Claude**:
+```
+## Bug Fixing Tools
+
+### Quick Path
+Just describe the bug. I'll use the /fix workflow automatically.
+
+### Manual Control
+- **sleuth** agent: Deep investigation, root cause analysis
+- **debug-agent**: Log analysis, state inspection
+- **kraken** agent: TDD implementation of fix
+
+### Commands
+- `/fix` - Full workflow (investigate → diagnose → implement → test)
+- `/debug` - Investigation only
+
+### Tips
+- Provide error messages, logs, reproduction steps
+- The premortem hook will suggest risk analysis before implementation
+```

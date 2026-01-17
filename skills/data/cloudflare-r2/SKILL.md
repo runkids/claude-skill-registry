@@ -1,233 +1,327 @@
 ---
 name: cloudflare-r2
-description: |
-  Store objects with R2's S3-compatible storage on Cloudflare's edge. Use when: uploading/downloading files, configuring CORS, generating presigned URLs, multipart uploads, managing metadata, or troubleshooting R2_ERROR, CORS failures, presigned URL issues, or quota errors.
-user-invocable: true
+description: Cloudflare R2 S3-compatible object storage. Use for buckets, uploads, CORS, presigned URLs, or encountering R2_ERROR, CORS failures, multipart issues.
+
+  Keywords: r2, r2 storage, cloudflare r2, r2 bucket, r2 upload, r2 download, r2 binding, object storage,
+  s3 compatible, r2 cors, presigned urls, multipart upload, r2 api, r2 workers, file upload, asset storage,
+  R2_ERROR, R2Bucket, r2 metadata, custom metadata, http metadata, content-type, cache-control,
+  aws4fetch, s3 client, bulk delete, r2 list, storage class
+license: MIT
+metadata:
+  version: "3.0.0"
+  last_verified: "2025-12-27"
+  production_tested: true
+  token_savings: "~65%"
+  errors_prevented: 12
+  templates_included: 5
+  references_included: 11
+  agents_included: 5
+  commands_included: 4
+  scripts_included: 3
+  wrangler_version: "4.50.0"
+  workers_types_version: "4.20251126.0"
+  aws4fetch_version: "1.0.20"
 ---
 
 # Cloudflare R2 Object Storage
 
-**Status**: Production Ready ✅
-**Last Updated**: 2026-01-09
-**Dependencies**: cloudflare-worker-base (for Worker setup)
-**Latest Versions**: wrangler@4.58.0, @cloudflare/workers-types@4.20260109.0, aws4fetch@1.0.20
+**Status**: Production Ready ✅ | **Last Verified**: 2025-12-27 | **v3.0.0**
 
-**Recent Updates (2025)**:
-- **September 2025**: R2 SQL open beta (serverless query engine for Apache Iceberg), Pipelines GA (real-time stream ingestion), Remote bindings GA (local dev connects to deployed R2)
-- **May 2025**: Dashboard redesign (deeplink support, bucket settings centralization), Super Slurper 5x faster (rebuilt with Workers/Queues/Durable Objects)
-- **April 2025**: R2 Data Catalog open beta (managed Apache Iceberg catalog), Event Notifications open beta (5,000 msg/s per Queue)
-- **2025**: Bucket limits increased (1 million max), CRC-64/NVME checksums, Server-side encryption with customer keys, Infrequent Access storage class (beta), Oceania region, S3 API enhancements (sha256/sha1 checksums, ListParts, conditional CopyObject)
+**Contents**: [Quick Start](#quick-start-5-minutes) • [New Features](#new-r2-features-2025) • [Core R2 API](#core-r2-workers-api-quick-reference) • [Critical Rules](#critical-rules) • [Agents & Commands](#available-agents--commands) • [References](#when-to-load-references)
 
 ---
 
 ## Quick Start (5 Minutes)
 
+### 1. Create R2 Bucket
+
 ```bash
-# 1. Create bucket
-npx wrangler r2 bucket create my-bucket
-
-# 2. Add binding to wrangler.jsonc
-# {
-#   "r2_buckets": [{
-#     "binding": "MY_BUCKET",
-#     "bucket_name": "my-bucket",
-#     "preview_bucket_name": "my-bucket-preview"  // Optional: separate dev/prod
-#   }]
-# }
-
-# 3. Upload/download from Worker
-type Bindings = { MY_BUCKET: R2Bucket };
-
-// Upload
-await env.MY_BUCKET.put('file.txt', data, {
-  httpMetadata: { contentType: 'text/plain' }
-});
-
-// Download
-const object = await env.MY_BUCKET.get('file.txt');
-if (!object) return c.json({ error: 'Not found' }, 404);
-
-return new Response(object.body, {
-  headers: {
-    'Content-Type': object.httpMetadata?.contentType || 'application/octet-stream',
-    'ETag': object.httpEtag,
-  },
-});
-
-# 4. Deploy
-npx wrangler deploy
+bunx wrangler r2 bucket create my-bucket
 ```
 
----
+**Bucket naming:** 3-63 chars, lowercase, numbers, hyphens only
 
-## R2 Workers API
+### 2. Configure Binding
 
-### Core Methods
+Add to `wrangler.jsonc`:
 
-```typescript
-// put() - Upload objects
-await env.MY_BUCKET.put('file.txt', data, {
-  httpMetadata: {
-    contentType: 'text/plain',
-    cacheControl: 'public, max-age=3600',
-  },
-  customMetadata: { userId: '123' },
-  md5: await crypto.subtle.digest('MD5', data),  // Checksum verification
-});
-
-// Conditional upload (prevent overwrites)
-const object = await env.MY_BUCKET.put('file.txt', data, {
-  onlyIf: { uploadedBefore: new Date('2020-01-01') }
-});
-if (!object) return c.json({ error: 'File already exists' }, 409);
-
-// get() - Download objects
-const object = await env.MY_BUCKET.get('file.txt');
-if (!object) return c.json({ error: 'Not found' }, 404);
-
-const text = await object.text();           // As string
-const json = await object.json();           // As JSON
-const buffer = await object.arrayBuffer();  // As ArrayBuffer
-
-// Range requests (partial downloads)
-const partial = await env.MY_BUCKET.get('video.mp4', {
-  range: { offset: 0, length: 1024 * 1024 }  // First 1MB
-});
-
-// head() - Get metadata only (no body download)
-const object = await env.MY_BUCKET.head('file.txt');
-console.log(object.size, object.etag, object.customMetadata);
-
-// delete() - Delete objects
-await env.MY_BUCKET.delete('file.txt');  // Single delete (idempotent)
-await env.MY_BUCKET.delete(['file1.txt', 'file2.txt']);  // Bulk delete (max 1000)
-
-// list() - List objects
-const listed = await env.MY_BUCKET.list({
-  prefix: 'images/',  // Filter by prefix
-  limit: 100,
-  cursor: cursor,     // Pagination
-  delimiter: '/',     // Folder-like listing
-});
-
-for (const object of listed.objects) {
-  console.log(`${object.key}: ${object.size} bytes`);
+```jsonc
+{
+  "name": "my-worker",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-10-11",
+  "r2_buckets": [
+    {
+      "binding": "MY_BUCKET",          // env.MY_BUCKET
+      "bucket_name": "my-bucket",      // Actual bucket
+      "preview_bucket_name": "my-bucket-preview"  // Optional: dev bucket
+    }
+  ]
 }
 ```
 
----
+**CRITICAL:** `binding` = code access name, `bucket_name` = actual R2 bucket
 
-## Multipart Uploads
-
-For files >100MB or resumable uploads. Use when: large files, browser uploads, parallelization needed.
+### 3. Basic Upload/Download
 
 ```typescript
-// 1. Create multipart upload
-const multipart = await env.MY_BUCKET.createMultipartUpload('large-file.zip', {
-  httpMetadata: { contentType: 'application/zip' }
+import { Hono } from 'hono';
+
+type Bindings = {
+  MY_BUCKET: R2Bucket;
+};
+
+const app = new Hono<{ Bindings: Bindings }>();
+
+// Upload
+app.put('/upload/:filename', async (c) => {
+  const filename = c.req.param('filename');
+  const body = await c.req.arrayBuffer();
+
+  const object = await c.env.MY_BUCKET.put(filename, body, {
+    httpMetadata: {
+      contentType: c.req.header('content-type') || 'application/octet-stream',
+    },
+  });
+
+  return c.json({
+    success: true,
+    key: object.key,
+    size: object.size,
+  });
 });
 
-// 2. Upload parts (5MB-100MB each, max 10,000 parts)
-const multipart = env.MY_BUCKET.resumeMultipartUpload(key, uploadId);
-const part1 = await multipart.uploadPart(1, chunk1);
-const part2 = await multipart.uploadPart(2, chunk2);
+// Download
+app.get('/download/:filename', async (c) => {
+  const object = await c.env.MY_BUCKET.get(c.req.param('filename'));
 
-// 3. Complete upload
-const object = await multipart.complete([
-  { partNumber: 1, etag: part1.etag },
-  { partNumber: 2, etag: part2.etag },
-]);
+  if (!object) {
+    return c.json({ error: 'Not found' }, 404);
+  }
 
-// 4. Abort if needed
-await multipart.abort();
+  return new Response(object.body, {
+    headers: {
+      'Content-Type': object.httpMetadata?.contentType || 'application/octet-stream',
+      'ETag': object.httpEtag,
+    },
+  });
+});
+
+export default app;
 ```
 
-**Limits**: Parts 5MB-100MB, max 10,000 parts per upload. Don't use for files <5MB (overhead).
+**Load `references/setup-guide.md` for complete setup walkthrough.**
 
 ---
 
-## Presigned URLs
+## New R2 Features (2025)
 
-Allow clients to upload/download directly to/from R2 (bypasses Worker). Use aws4fetch library.
+**🆕 R2 SQL Integration** - Query CSV/Parquet/JSON data with distributed SQL. Analytics without ETL. **Load `references/r2-sql-integration.md`**
+
+**🆕 Data Catalog (Apache Iceberg)** - Table versioning, time-travel queries, schema evolution. Spark/Snowflake integration. **Load `references/data-catalog-iceberg.md`**
+
+**🆕 Event Notifications** - Trigger Workers on object changes (upload/delete). Automate image processing, backups, webhooks. **Load `references/event-notifications.md`**
+
+**Advanced Features** - Storage classes, bucket locks (compliance), tus resumable uploads, SSE-C encryption. **Load `references/advanced-features.md`**
+
+**Zero Trust Security** - Cloudflare Access integration with SSO, MFA, identity policies, audit logging. **Load `references/cloudflare-access-integration.md`**
+
+**Performance Tuning** - Caching strategies, compression, range requests, ETags, monitoring best practices. **Load `references/performance-optimization.md`**
+
+---
+
+## Core R2 Workers API - Quick Reference
+
+### put() - Upload Objects
+```typescript
+await env.MY_BUCKET.put(key, data, options?)
+```
+Upload with metadata, prevent overwrites with `onlyIf`. **Load `references/workers-api.md`** for complete R2PutOptions.
+
+### get() - Download Objects
+```typescript
+const object = await env.MY_BUCKET.get(key, options?)
+```
+Returns `R2ObjectBody | null`. Supports range requests, conditional operations. **Load `references/workers-api.md`** for read methods (text(), json(), arrayBuffer(), blob()).
+
+### head() - Get Metadata Only
+```typescript
+const object = await env.MY_BUCKET.head(key)
+```
+Check existence, get size, etag, metadata without downloading body. Useful for validation and caching.
+
+### delete() - Delete Objects
+```typescript
+await env.MY_BUCKET.delete(key | keys[])  // Single or bulk (max 1000)
+```
+Bulk delete up to 1000 keys in single call. Always succeeds (idempotent).
+
+### list() - List Objects
+```typescript
+const listed = await env.MY_BUCKET.list(options?)
+```
+Pagination with cursor, prefix filtering, delimiter for folders. **Load `references/workers-api.md`** for R2ListOptions.
+
+### createMultipartUpload() - Large Files (>100MB)
+```typescript
+const multipart = await env.MY_BUCKET.createMultipartUpload(key, options?)
+```
+For files >100MB. **Load `references/common-patterns.md`** for complete multipart workflow with part upload and completion.
+
+**Load `references/workers-api.md` when**: Need complete API reference, interface definitions (R2Object, R2ObjectBody, R2PutOptions, R2GetOptions), conditional operations, checksums, or advanced options.
+
+---
+
+## Critical Rules
+
+### Always Do ✅
+
+1. **Set contentType on uploads** - Files will download as binary otherwise
+2. **Use batch delete** for multiple objects (up to 1000 keys)
+3. **Set cache headers** for static assets (`cacheControl`)
+4. **Use presigned URLs** for large client uploads
+5. **Use multipart upload** for files >100MB
+6. **Set CORS policy** before browser uploads
+7. **Set expiry times** on presigned URLs (1-24 hours)
+8. **Handle errors** with try/catch
+9. **Use head()** when you only need metadata (not get())
+10. **Use conditional operations** to prevent overwrites
+
+### Never Do ❌
+
+1. **Never expose R2 access keys** in client-side code
+2. **Never skip contentType** (files will download as binary)
+3. **Never delete in loops** (use batch delete)
+4. **Never upload without error handling**
+5. **Never skip CORS** for browser uploads
+6. **Never use multipart for small files** (<5MB overhead)
+7. **Never delete >1000 keys** in single call (will fail)
+8. **Never assume uploads succeed** (always check response)
+9. **Never skip presigned URL expiry** (security risk)
+10. **Never hardcode bucket names** (use bindings)
+
+---
+
+## Top Use Cases
+
+### Use Case 1: Image/Asset Storage
 
 ```typescript
-import { AwsClient } from 'aws4fetch';
+app.put('/api/upload/image', async (c) => {
+  const file = await c.req.parseBody();
+  const image = file['image'] as File;
 
-const r2Client = new AwsClient({
-  accessKeyId: env.R2_ACCESS_KEY_ID,
-  secretAccessKey: env.R2_SECRET_ACCESS_KEY,
+  await c.env.MY_BUCKET.put(`images/${image.name}`, image.stream(), {
+    httpMetadata: {
+      contentType: image.type,
+      cacheControl: 'public, max-age=31536000, immutable',
+    },
+  });
+
+  return c.json({ success: true });
 });
-
-const url = new URL(
-  `https://${bucketName}.${accountId}.r2.cloudflarestorage.com/${filename}`
-);
-url.searchParams.set('X-Amz-Expires', '3600');  // 1 hour expiry
-
-const signed = await r2Client.sign(
-  new Request(url, { method: 'PUT' }),  // or 'GET' for downloads
-  { aws: { signQuery: true } }
-);
-
-// Client uploads directly to R2
-await fetch(signed.url, { method: 'PUT', body: file });
 ```
 
-**CRITICAL Security:**
-- ❌ **NEVER** expose R2 access keys in client-side code
-- ✅ **ALWAYS** generate presigned URLs server-side
-- ✅ **ALWAYS** set expiry times (1-24 hours typical)
-- ✅ **ALWAYS** add authentication before generating URLs
-- ✅ **CONSIDER** scoping to user folders: `users/${userId}/${filename}`
+### Use Case 2: Direct Client Upload (Presigned URLs)
+
+Generate secure upload URLs for client-side uploads. See `templates/r2-presigned-urls.ts` for complete implementation using aws4fetch.
+
+### Additional Patterns in References
+
+**Load `references/common-patterns.md` for**:
+- Multipart upload (files >100MB) - Complete workflow with part management
+- Bulk operations - Batch delete, cleanup patterns with pagination
+- Custom metadata tracking - User files, versions, approval workflows
+- Versioned file storage - Version history with latest pointer pattern
+- Backup & archive patterns - Automated backups with retention policies
+- Thumbnail generation & caching - On-demand image processing
+- Static site hosting - SPA fallback and cache strategies
+- CDN with origin fallback - R2 as cache layer
+
+**Load `templates/r2-multipart-upload.ts`** for complete multipart example.
+
+---
+
+## Available Agents & Commands
+
+### Autonomous Agents
+
+Agents handle complex multi-step workflows automatically:
+
+- **r2-setup-automator** - Complete R2 setup (bucket creation → binding → TypeScript types → deployment)
+- **multipart-orchestrator** - Large file uploads with chunking, error recovery, and progress tracking
+- **cors-debugger** - Systematic CORS troubleshooting with configuration generation and testing
+- **s3-migration-planner** - AWS S3 to R2 migration planning, data transfer, and cost analysis
+- **event-notification-setup** - Event-driven workflows with Workers, Queues, and automation
+
+### Quick Commands
+
+Fast access to common R2 operations:
+
+- **/r2-setup** - Create bucket and configure binding in wrangler.jsonc
+- **/r2-presigned-url** - Generate presigned URLs for secure client-side uploads/downloads
+- **/r2-cors-debug** - Diagnose and fix CORS configuration issues
+- **/r2-multipart-init** - Initialize multipart upload workflow for large files
+
+---
+
+## When to Load References
+
+### Core References (Existing Features)
+
+**`references/setup-guide.md`** - First-time setup, binding configuration, TypeScript types, deployment walkthrough
+
+**`references/workers-api.md`** - Complete API reference (all methods + options), conditional operations, checksums
+
+**`references/common-patterns.md`** - Multipart uploads, retry logic with backoff, batch operations, cache strategies
+
+**`references/s3-compatibility.md`** - S3 migration guide, S3 client library usage, aws4fetch presigned URL signing
+
+**`references/cors-configuration.md`** - Browser access setup, CORS debugging, security policies, Dashboard configuration
+
+### New Features References (2025)
+
+**`references/event-notifications.md`** - Event-driven automation, Queue integration, image processing, webhook triggers
+
+**`references/advanced-features.md`** - Storage classes (cost optimization), bucket locks (compliance), tus resumable uploads, SSE-C encryption
+
+**`references/r2-sql-integration.md`** - SQL queries on R2 data (CSV/Parquet/JSON), analytics patterns, performance tuning
+
+**`references/data-catalog-iceberg.md`** - Apache Iceberg tables, time-travel queries, schema evolution, Spark/Snowflake integration
+
+**`references/cloudflare-access-integration.md`** - Zero Trust security, SSO (Google/Okta/Azure AD), identity policies, MFA, audit logging
+
+**`references/performance-optimization.md`** - Caching (browser/CDN/Workers), compression (gzip/Brotli), range requests, ETags, monitoring
+
+---
+
+## Using Bundled Resources
+
+### References (references/)
+
+- **setup-guide.md** - Complete setup walkthrough (bucket creation → deployment)
+- **workers-api.md** - Complete Workers API reference (all methods + options)
+- **common-patterns.md** - Advanced patterns (multipart, retry, batch, performance)
+- **s3-compatibility.md** - S3 compatibility guide (migration, aws4fetch, S3 clients)
+- **cors-configuration.md** - CORS setup guide (Dashboard, scenarios, troubleshooting, security)
+
+### Templates (templates/)
+
+- **r2-simple-upload.ts** - Basic upload/download Worker
+- **r2-multipart-upload.ts** - Complete multipart upload implementation
+- **r2-presigned-urls.ts** - Presigned URL generation (upload + download)
+- **r2-cors-config.json** - CORS configuration examples
+- **wrangler-r2-config.jsonc** - Complete wrangler.jsonc with R2 binding
 
 ---
 
 ## CORS Configuration
 
-Configure CORS in bucket settings (Dashboard → R2 → Bucket → Settings → CORS Policy) before browser access.
-
-```json
-{
-  "CORSRules": [{
-    "AllowedOrigins": ["https://app.example.com"],
-    "AllowedMethods": ["GET", "PUT", "POST", "DELETE", "HEAD"],
-    "AllowedHeaders": ["Content-Type", "Content-MD5", "x-amz-meta-*"],
-    "ExposeHeaders": ["ETag"],
-    "MaxAgeSeconds": 3600
-  }]
-}
-```
-
-**For presigned URLs**: CORS handled by R2 directly (configure on bucket, not Worker).
-
----
-
-## HTTP Metadata & Custom Metadata
-
-```typescript
-// HTTP metadata (standard headers)
-await env.MY_BUCKET.put('file.pdf', data, {
-  httpMetadata: {
-    contentType: 'application/pdf',
-    cacheControl: 'public, max-age=31536000, immutable',
-    contentDisposition: 'attachment; filename="report.pdf"',
-    contentEncoding: 'gzip',
-  },
-  customMetadata: {
-    userId: '12345',
-    version: '1.0',
-  }  // Max 2KB total, keys/values must be strings
-});
-
-// Read metadata
-const object = await env.MY_BUCKET.head('file.pdf');
-console.log(object.httpMetadata, object.customMetadata);
-```
+Configure CORS for browser uploads/downloads. **Load `references/cors-configuration.md`** for complete guide including Dashboard setup, common scenarios, troubleshooting, and security best practices.
 
 ---
 
 ## Error Handling
-
-### Common R2 Errors
 
 ```typescript
 try {
@@ -240,9 +334,7 @@ try {
   } else if (message.includes('exceeded')) {
     // Quota exceeded
   } else if (message.includes('precondition')) {
-    // Conditional operation failed
-  } else if (message.includes('multipart')) {
-    // Multipart upload error
+    // Conditional operation failed (onlyIf)
   }
 
   console.error('R2 Error:', message);
@@ -250,107 +342,24 @@ try {
 }
 ```
 
-### Retry Logic
-
-```typescript
-async function r2WithRetry<T>(
-  operation: () => Promise<T>,
-  maxRetries = 3
-): Promise<T> {
-  for (let attempt = 0; attempt < maxRetries; attempt++) {
-    try {
-      return await operation();
-    } catch (error: any) {
-      const message = error.message;
-
-      // Retry on transient errors
-      const isRetryable =
-        message.includes('network') ||
-        message.includes('timeout') ||
-        message.includes('temporarily unavailable');
-
-      if (!isRetryable || attempt === maxRetries - 1) {
-        throw error;
-      }
-
-      // Exponential backoff
-      const delay = Math.min(1000 * Math.pow(2, attempt), 5000);
-      await new Promise(resolve => setTimeout(resolve, delay));
-    }
-  }
-
-  throw new Error('Retry logic failed');
-}
-
-// Usage
-const object = await r2WithRetry(() =>
-  env.MY_BUCKET.get('important-file.txt')
-);
-```
-
----
-
-## Performance Optimization
-
-```typescript
-// Batch delete (up to 1000 keys)
-await env.MY_BUCKET.delete(['file1.txt', 'file2.txt', 'file3.txt']);
-
-// Range requests for large files
-const partial = await env.MY_BUCKET.get('video.mp4', {
-  range: { offset: 0, length: 10 * 1024 * 1024 }  // First 10MB
-});
-
-// Cache headers for immutable assets
-await env.MY_BUCKET.put('static/app.abc123.js', jsData, {
-  httpMetadata: { cacheControl: 'public, max-age=31536000, immutable' }
-});
-
-// Checksums for data integrity
-const md5Hash = await crypto.subtle.digest('MD5', fileData);
-await env.MY_BUCKET.put('important.dat', fileData, { md5: md5Hash });
-```
-
----
-
-## Best Practices Summary
-
-**Always Do:**
-- Set `contentType` for all uploads
-- Use batch delete for multiple objects (up to 1000)
-- Set cache headers for static assets
-- Use presigned URLs for large client uploads
-- Use multipart for files >100MB
-- Set CORS before browser uploads
-- Set expiry times on presigned URLs (1-24 hours)
-- Use `head()` when you only need metadata
-- Use conditional operations to prevent overwrites
-
-**Never Do:**
-- Never expose R2 access keys in client-side code
-- Never skip `contentType` (files download as binary)
-- Never delete in loops (use batch delete)
-- Never skip CORS for browser uploads
-- Never use multipart for small files (<5MB)
-- Never delete >1000 keys in single call
-- Never skip presigned URL expiry (security risk)
+**Load `references/common-patterns.md`** for retry logic with exponential backoff, circuit breaker patterns, and advanced error recovery.
 
 ---
 
 ## Known Issues Prevented
 
-| Issue | Description | How to Avoid |
-|-------|-------------|--------------|
-| **CORS errors in browser** | Browser can't upload/download due to missing CORS policy | Configure CORS in bucket settings before browser access |
-| **Files download as binary** | Missing content-type causes browsers to download files instead of display | Always set `httpMetadata.contentType` on upload |
-| **Presigned URL expiry** | URLs never expire, posing security risk | Always set `X-Amz-Expires` (1-24 hours typical) |
-| **Multipart upload limits** | Parts exceed 100MB or >10,000 parts | Keep parts 5MB-100MB, max 10,000 parts per upload |
-| **Bulk delete limits** | Trying to delete >1000 keys fails | Chunk deletes into batches of 1000 |
-| **Custom metadata overflow** | Metadata exceeds 2KB limit | Keep custom metadata under 2KB total |
+| Issue | Description | Solution |
+|-------|-------------|----------|
+| **CORS errors** | Browser can't upload/download | Configure CORS in bucket settings |
+| **Files download as binary** | Missing content-type | Always set `httpMetadata.contentType` |
+| **Presigned URL security** | URLs never expire | Always set `X-Amz-Expires` (1-24 hours) |
+| **Multipart limits** | Parts >100MB or >10,000 parts | Keep parts 5MB-100MB, max 10,000 |
+| **Bulk delete limits** | >1000 keys fails | Chunk deletes into batches of 1000 |
+| **Metadata overflow** | >2KB custom metadata | Keep total under 2KB |
 
 ---
 
-## Wrangler Commands Reference
+## Wrangler Commands
 
 ```bash
 # Bucket management
@@ -359,13 +368,13 @@ wrangler r2 bucket list
 wrangler r2 bucket delete <BUCKET_NAME>
 
 # Object management
-wrangler r2 object put <BUCKET_NAME>/<KEY> --file=<FILE_PATH>
-wrangler r2 object get <BUCKET_NAME>/<KEY> --file=<OUTPUT_PATH>
-wrangler r2 object delete <BUCKET_NAME>/<KEY>
+wrangler r2 object put <BUCKET>/<KEY> --file=<PATH>
+wrangler r2 object get <BUCKET>/<KEY> --file=<OUTPUT>
+wrangler r2 object delete <BUCKET>/<KEY>
 
 # List objects
-wrangler r2 object list <BUCKET_NAME>
-wrangler r2 object list <BUCKET_NAME> --prefix="folder/"
+wrangler r2 object list <BUCKET>
+wrangler r2 object list <BUCKET> --prefix="folder/"
 ```
 
 ---
@@ -373,13 +382,16 @@ wrangler r2 object list <BUCKET_NAME> --prefix="folder/"
 ## Official Documentation
 
 - **R2 Overview**: https://developers.cloudflare.com/r2/
-- **Get Started**: https://developers.cloudflare.com/r2/get-started/
 - **Workers API**: https://developers.cloudflare.com/r2/api/workers/workers-api-reference/
 - **Multipart Upload**: https://developers.cloudflare.com/r2/api/workers/workers-multipart-usage/
 - **Presigned URLs**: https://developers.cloudflare.com/r2/api/s3/presigned-urls/
 - **CORS Configuration**: https://developers.cloudflare.com/r2/buckets/cors/
-- **Public Buckets**: https://developers.cloudflare.com/r2/buckets/public-buckets/
 
 ---
 
-**Ready to store with R2!** 🚀
+**Questions? Issues?**
+
+1. Check `references/setup-guide.md` for setup walkthrough
+2. Review `references/workers-api.md` for API reference
+3. See `references/common-patterns.md` for advanced patterns
+4. Load `templates/` for working code examples

@@ -1,691 +1,564 @@
 ---
 name: reflect
-description: Self-improving AI memory system that learns from sessions. Stores learnings in skill-specific MEMORY.md files. Supports cross-platform Claude Code and non-Claude environments. Smart merging preserves user learnings during marketplace updates. Activates for reflect, remember, learn from session, memory, self-improvement, AI memory, correction patterns, skill learning, persistent memory.
+description: CRITICAL learning capture. Extracts HIGH/MED/LOW confidence patterns from conversations to prevent repeating mistakes and preserve what works. Use PROACTIVELY after user corrections ("no", "wrong"), after praise ("perfect", "exactly"), when discovering edge cases, or when skills are heavily used. Without reflection, valuable learnings are LOST forever. Acts as continuous improvement engine for all skills. Invoke EARLY and OFTEN - every correction is a learning opportunity.
+license: MIT
+model: claude-sonnet-4-5
+metadata:
+  version: 1.0.0
+  timelessness: 8/10
+  adr: ADR-007, ADR-017
 ---
 
-# Self-Improving Skills (Reflect) v4.0
+# Reflect Skill
 
-## Overview
+**Critical learning capture system** that prevents repeating mistakes and preserves successful patterns across sessions.
 
-The Reflect system enables **continual learning across sessions**. Instead of starting from zero every conversation, Claude learns from corrections, successful patterns, and user preferences - persisting knowledge in **skill-specific MEMORY.md files**.
-
-```
-Session 1: User corrects button style → Reflect captures learning → saves to frontend skill
-Session 2: Claude uses correct button style without being reminded
-Session 3+: Knowledge compounds, Claude gets smarter over time
-```
-
----
-
-## Architecture (v4.0)
-
-### Skill-Specific Memory
-
-Each skill has its own MEMORY.md file storing learned patterns:
-
-```
-# Claude Code Environment
-~/.claude/plugins/marketplaces/specweave/plugins/specweave/skills/
-├── architect/
-│   ├── SKILL.md              # Skill definition
-│   └── MEMORY.md             # User learnings for this skill
-├── frontend/
-│   ├── SKILL.md
-│   └── MEMORY.md             # Frontend-specific learnings
-├── tech-lead/
-│   ├── SKILL.md
-│   └── MEMORY.md
-└── ...
-
-# Non-Claude Environment (project-local)
-.specweave/plugins/specweave/skills/
-├── architect/
-│   ├── SKILL.md
-│   └── MEMORY.md
-└── ...
-
-# Category Memory (fallback for non-skill learnings)
-.specweave/memory/                  # Project learnings
-├── component-usage.md
-├── api-patterns.md
-├── testing.md
-├── deployment.md
-└── general.md
-
-~/.specweave/memory/                # Global learnings (all projects)
-```
-
-### Cross-Platform Support
-
-| Platform | Skills Location | Detection |
-|----------|-----------------|-----------|
-| **macOS/Linux** | `~/.claude/plugins/marketplaces/specweave/...` | `CLAUDE_CODE=1` or marketplace exists |
-| **Windows** | `%APPDATA%\Claude\plugins\marketplaces\specweave\...` | Same detection |
-| **Non-Claude** | `.specweave/plugins/specweave/skills/` | Fallback when Claude Code not detected |
-
-### Smart Memory Merging
-
-When running `specweave refresh-marketplace` or `specweave init --refresh`:
-
-1. **User learnings are ALWAYS preserved** (never overwritten)
-2. **New defaults from marketplace are merged in** (deduplicated)
-3. **Backup created before merge** (`.memory-backups/`)
-
-```
-User Memory + Default Memory → Merged Memory
-    │              │                │
-    │              │                └── Both preserved, deduped
-    │              └── New patterns from marketplace
-    └── Your corrections (ALWAYS kept)
-```
+Analyze the current conversation and propose improvements to skill-based memories based on what worked, what didn't, and edge cases discovered. **Every correction is a learning opportunity** - invoke proactively to build institutional knowledge.
 
 ---
 
-## The Problem
+## Triggers
 
-Every LLM session starts from zero:
+- `reflect` – explicit request to capture learnings
+- `learn from this` – user wants corrections documented
+- `improve skill {name}` – target a specific skill memory
 
-1. **Monday**: You correct Claude - "Use our primary button component, not a custom style"
-2. **Tuesday**: Claude makes the same mistake again
-3. **Wednesday**: Same correction, same frustration
-4. **Forever**: Without memory, you're repeating yourself indefinitely
+Also monitor user phrasing such as `what did we learn?`, "what if...", "ensure", or "don't forget"—these phrases should immediately route into the MEDIUM trigger tables below.
 
-This manifests as:
-- Wrong naming conventions
-- Incorrect logging patterns
-- Missing input validation
-- Wrong component usage
-- Forgotten architectural decisions
+### 🔴 HIGH Priority Triggers (Invoke Immediately)
 
----
+| Trigger | Example | Why Critical |
+|---------|---------|--------------|
+| User correction | "no", "wrong", "not like that", "never do" | Captures mistakes to prevent repetition |
+| Chesterton's Fence | "you removed that without understanding" | Documents architectural decisions |
+| Immediate fixes | "debug", "root cause", "fix all" | Learns from errors in real-time |
 
-## The Solution
+### 🟡 MEDIUM Priority Triggers (Invoke After Multiple)
 
-Reflect analyzes sessions and persists learnings in **skill-specific MEMORY.md files**:
+| Trigger | Example | Why Important |
+|---------|---------|---------------|
+| User praise | "perfect", "exactly", "great" | Reinforces successful patterns |
+| Tool preferences | "use X instead of Y", "prefer", "rather than" | Builds workflow preferences |
+| Edge cases | "what if X happens?", "don't forget", "ensure" | Captures scenarios to handle |
+| Questions | Short questions after output | May indicate confusion or gaps |
 
-```markdown
-# frontend skill's MEMORY.md
+### 🟢 LOW Priority Triggers (Invoke at Session End)
 
-# Skill Memory: frontend
-
-> Auto-generated by SpecWeave Reflect v4.0
-> Last updated: 2026-01-06T10:30:00Z
-> Skill: frontend
-
-## Learned Patterns
-
-### LRN-20260106-A1B2 (correction, high)
-**Content**: Always use `<Button variant='primary'>` from `@/components/ui/button` for primary actions. Never create custom button styles.
-**Context**: User corrected button component usage in settings page
-**Triggers**: button, primary, action, component
-**Added**: 2026-01-06
-**Source**: session:2026-01-06
-```
-
-**Key benefit**: Learnings are stored with the skill they apply to, automatically loaded when that skill activates.
+| Trigger | Example | Why Useful |
+|---------|---------|------------|
+| Repeated patterns | Frequent use of specific commands/tools | Identifies workflow preferences |
+| Session end | After skill-heavy work | Consolidates all session learnings |
 
 ---
 
-## How It Works
+## Original Triggers (Still Supported)
 
-### 1. Signal Detection (ENHANCED - v4.1)
-
-Reflect identifies signals in conversation and **captures FULL context**:
-
-**⚠️ CRITICAL: Context Must Include the PROBLEM, Not Just the Fix**
-
-When a user explains a problem like:
-```
-User: "When I use voice control, it always gives me 'command not recognized'"
-```
-
-The system MUST capture:
-- **CONTEXT**: "When using voice control with skill commands" (the circumstance)
-- **LEARNING**: "Voice dictation can mangle command syntax - type commands or use clipboard" (the fix)
-- **SKILL**: If a skill name is mentioned (e.g., "the detector skill"), route there
-
-**DO NOT** store just: `"always command not recognized"` ← This loses all meaning!
+| Phrase | Action |
+|--------|--------|
+| "reflect" | Full analysis of current session |
+| "improve skill" | Target specific skill for improvement |
+| "learn from this" | Extract learnings from recent interaction |
+| "what did we learn" | Summarize accumulated learnings |
 
 ---
 
-**Corrections (High Confidence)**
-```
-User: "No, don't use that button. Use our <Button variant='primary'> component."
-      → CONTEXT: User corrected button component usage in settings page
-      → LEARNING: Always use Button component with variant='primary' from design system
-      → SKILL: frontend (auto-detected)
-      → CONFIDENCE: high
-```
+## 🚨 Proactive Invocation Reminder
 
-**Rules (High Confidence)**
-```
-User: "Always use the logger module instead of console.log"
-      → CONTEXT: User established logging convention for the project
-      → LEARNING: Use logger module for all logging, never console.log
-      → SKILL: tech-lead (auto-detected)
-      → CONFIDENCE: high
-```
+**Don't wait for users to ask!** Invoke reflect immediately when you detect:
 
-**Problem Reports (High Confidence) - NEW!**
-```
-User: "The detector skill doesn't recognize commands when I use voice input"
-      → CONTEXT: Voice dictation causes command parsing issues
-      → LEARNING: Voice input mangles command syntax - recommend typing or clipboard
-      → SKILL: detector (explicit skill name detected!)
-      → CONFIDENCE: high
-```
+1. **User says "no"** → Invoke reflect NOW (captures correction)
+2. **User says "perfect"** → Invoke reflect NOW (captures success pattern)
+3. **User asks "what if"** → Invoke reflect NOW (captures edge case)
+4. **You used multiple skills** → Invoke reflect at END (captures all learnings)
+5. **User corrected your output** → Invoke reflect IMMEDIATELY (critical learning)
 
-**Approvals (Medium Confidence)**
-```
-User: "Perfect! That's exactly how our API patterns should look."
-      → CONTEXT: User approved API response structure pattern
-      → LEARNING: Continue using this API pattern structure with status, data, error fields
-      → SKILL: backend (auto-detected)
-      → CONFIDENCE: medium
-```
+**Why this matters**: Without proactive reflection, learnings are LOST. The Stop hook captures some patterns, but **manual reflection is MORE ACCURATE** because you have full conversation context.
 
-### 2. Skill Auto-Detection (ENHANCED - v4.1)
-
-Learnings are routed using a **priority-based detection system**:
-
-#### Priority 1: Explicit Skill Name Mention (Highest Priority)
-If the user mentions a skill by name, route directly to that skill:
-```
-"the detector skill doesn't work" → detector skill
-"increment-planner has a bug" → increment-planner skill
-"service-connect is failing" → service-connect skill
-```
-
-**Detection pattern**: `(the\s+)?(\w+[-\w]*)\s+(skill|command|agent)`
-
-#### Priority 2: Keyword-Based Detection
-If no explicit skill is mentioned, use keyword matching:
-
-| Skill | Keywords |
-|-------|----------|
-| `architect` | architecture, system design, adr, microservices, api design, schema |
-| `tech-lead` | code review, best practices, refactoring, technical debt, solid |
-| `qa-lead` | test strategy, qa, quality gates, regression, tdd, bdd |
-| `security` | security, owasp, authentication, authorization, encryption |
-| `frontend` | react, vue, component, ui, css, tailwind, button, form |
-| `backend` | api, endpoint, route, rest, graphql, server, middleware |
-| `database` | database, sql, query, schema, migration, prisma, postgres |
-| `testing` | test, spec, mock, vitest, jest, playwright, cypress |
-| `devops` | docker, kubernetes, ci/cd, pipeline, deploy, github actions |
-| `infrastructure` | terraform, iac, aws, azure, gcp, serverless |
-| `performance` | performance, optimization, profiling, caching, latency |
-| `docs-writer` | documentation, readme, api docs, technical writing |
-
-#### Priority 3: Category Fallback
-If no skill matches, route to category memory (`.specweave/memory/{category}.md`)
-
-### 3. Learning Format
-
-Each learning is structured:
-
-```typescript
-interface Learning {
-  id: string;           // LRN-YYYYMMDD-XXXX
-  timestamp: string;    // ISO 8601
-  type: 'correction' | 'rule' | 'approval';
-  confidence: 'high' | 'medium' | 'low';
-  content: string;      // The actual learning
-  context?: string;     // What triggered it
-  triggers: string[];   // Keywords for matching
-  source: string;       // session:YYYY-MM-DD
-}
-```
-
-### 4. Memory Persistence
-
-Learnings are written to skill-specific MEMORY.md files:
-
-```markdown
-# Skill Memory: frontend
-
-> Auto-generated by SpecWeave Reflect v4.0
-> Last updated: 2026-01-06T10:30:00Z
-> Skill: frontend
-
-## Learned Patterns
-
-### LRN-20260106-A1B2 (correction, high)
-**Content**: Always use `<Button variant='primary'>` from design system
-**Context**: User corrected button usage
-**Triggers**: button, primary, component
-**Added**: 2026-01-06
-**Source**: session:2026-01-06
-
-### LRN-20260105-C3D4 (rule, high)
-**Content**: Use PascalCase for component files: `UserProfile.tsx`
-**Triggers**: component, naming, file, tsx
-**Added**: 2026-01-05
-**Source**: session:2026-01-05
-```
+**Cost**: ~30 seconds of analysis. **Benefit**: Prevents repeating mistakes forever.
 
 ---
 
-## Usage
+## Process
 
-### Manual Reflection
+### Phase 1: Identify the Target Skill
 
-After completing work, manually trigger reflection:
+Locate the skill-based memory to update:
 
-```bash
-# Reflect on current session (auto-detects skills)
-/sw:reflect
+1. **Check Serena memories**: Look for files ending with `-observations.md` in `.serena/memories/`
+2. **Infer from context**: Identify which skill(s) were used in the conversation
+3. **Create if needed**: If missing, propose `{skill-name}-observations.md` (skill observations pattern)
 
-# Reflect targeting a specific skill
-/sw:reflect --skill frontend
+**Storage Locations**:
 
-# Reflect with focus prompt
-/sw:reflect "Focus on the database query patterns we discussed"
+- **Serena MCP (canonical)**: `.serena/memories/{skill-name}-observations.md` via `mcp__serena__write_memory`
+- **Contingency (Serena unavailable)**: Manually edit the same file in Git and note the manual update in the session log for later Serena sync
+
+### Phase 2: Analyze the Conversation
+
+Scan the conversation for learning signals with confidence levels:
+
+#### HIGH Confidence: Corrections
+
+User actively steered or corrected output. These are the most valuable signals.
+
+**Detection patterns**:
+
+- Explicit rejection: "no", "not like that", "that's wrong", "I meant"
+- Strong directives: "never do", "always do", "don't ever"
+- Immediate requests for changes after generation
+- User provided alternative implementation
+- User explicitly corrected output format/structure
+
+**Example**:
+
+```text
+User: "No, use the PowerShell skill script instead of raw gh commands"
+→ [HIGH] + Add constraint: "Use PowerShell skill scripts, never raw gh commands"
 ```
 
-### Skill-Specific Reflection
+#### MEDIUM Confidence: Success Patterns
 
-Route learnings directly to a skill:
+Output was accepted or praised. Good signals but may be context-specific.
 
-```bash
-# Add learning to frontend skill
-/sw:reflect --skill frontend "Always use shadcn Button component"
+**Detection patterns**:
 
-# Add learning to testing skill
-/sw:reflect --skill testing "Use vi.fn() not jest.fn() with Vitest"
+- Explicit praise: "perfect", "great", "yes", "exactly", "that's it"
+- Implicit acceptance: User built on top of output without modification
+- User proceeded to next step without corrections
+- Output was committed/merged without changes
 
-# Add learning to architect skill
-/sw:reflect --skill architect "Prefer event-driven over request-response"
+**Example**:
+
+```text
+User: "Perfect, that's exactly what I needed"
+→ [MED] + Add preference: "Include example usage in script headers"
 ```
 
-### View Skill Memories
+#### MEDIUM Confidence: Edge Cases
 
-```bash
-# List all skills with memory counts
-/sw:reflect-status
+Scenarios the skill didn't anticipate. Opportunities for improvement.
 
-# View specific skill's learnings
-cat ~/.claude/plugins/marketplaces/specweave/plugins/specweave/skills/frontend/MEMORY.md
+**Detection patterns**:
+
+- Questions skill didn't answer
+- Workarounds user had to apply
+- Features user asked for that weren't covered
+- Error handling gaps discovered
+
+**Example**:
+
+```text
+User: "What if the file doesn't exist?"
+→ [MED] ~ Add edge case: "Handle missing file scenario"
 ```
 
-### Status Dashboard Output (for `/sw:reflect-status`)
+#### LOW Confidence: Preferences
 
-When generating the reflect status dashboard, follow this enhanced format:
+Accumulated patterns over time. Need more evidence before formalizing.
 
-#### Section 1: Configuration (as before)
-Show reflection enabled status, auto-reflect, dates, thresholds.
+**Detection patterns**:
 
-#### Section 2: 🎯 LEARNING FOCUS - What Reflection Learns
+- Repeated choices in similar situations
+- Style preferences shown implicitly (formatting, naming)
+- Tool/framework preferences
+- Workflow preferences
 
-**CRITICAL**: This section must clearly show **WHAT** each category learns.
+**Example**:
 
-For each memory file in `.specweave/memory/`:
-1. **Count learnings** (lines starting with `- ` or `- ✗→✓`)
-2. **Calculate percentage** of total learnings
-3. **Generate visual bar** (10 blocks: `■` for filled, `□` for empty)
-4. **Add description** explaining what this category captures
-
-**Format**:
-```
-Project Skills (.specweave/memory/):
-  • general.md         12 learnings  ■■■■■■□□□□ 40%
-    └─ Project conventions, file organization, tooling preferences
-
-  • testing.md          8 learnings  ■■■■□□□□□□ 27%
-    └─ Test patterns, mocking, framework usage (Vitest, Playwright)
+```text
+User consistently uses `-Force` flag
+→ [LOW] ~ Note for review: "User prefers -Force flag for overwrites"
 ```
 
-**Category Descriptions** (use these exact descriptions):
+#### Confidence Threshold
 
-| File | Description |
-|------|-------------|
-| `general.md` | Project conventions, file organization, tooling preferences |
-| `testing.md` | Test patterns, mocking, framework usage (Vitest, Playwright) |
-| `api-patterns.md` | API design, endpoint patterns, REST/GraphQL conventions |
-| `database.md` | Query patterns, schema design, ORM usage, migrations |
-| `git.md` | Commit messages, branching, Git workflows |
-| `logging.md` | Logger usage, log levels, structured logging |
-| `component-usage.md` | UI component patterns, styling, component composition |
-| `deployment.md` | Deploy commands, CI/CD, service configuration |
-| `security.md` | Auth patterns, validation, secrets management |
-| `structure.md` | File/module organization, import patterns |
+Only propose changes when sufficient evidence exists:
 
-#### Section 3: Recent Activity
+| Threshold | Action |
+|-----------|--------|
+| ≥1 HIGH signal | Always propose (user explicitly corrected) |
+| ≥2 MED signals | Propose (sufficient pattern) |
+| ≥3 LOW signals | Propose (accumulated evidence) |
+| 1-2 LOW only | Skip (insufficient evidence), note for next session |
 
-Show last modified file and extract recent learnings with confidence levels.
+### Phase 3: Propose Learnings
 
-#### Section 4: Commands
+Present findings using WCAG AA accessible colors (4.5:1 contrast ratio):
 
-Show available commands with context-aware hints (e.g., "already on" when enabled).
-
-#### Section 5: Summary Paragraph
-
-End with a plain English summary like:
-```
-The reflection system is actively learning from your corrections. Auto-reflection
-is enabled, so learnings will be automatically captured when you end sessions.
-
-You have 30 learnings across 5 categories with recent activity in general
-project rules and API patterns.
-```
-
-### Automatic Reflection
-
-Enable auto-reflection on session end:
-
-```bash
-# Enable automatic reflection (via stop hook)
-/sw:reflect-on
-
-# Disable automatic reflection
-/sw:reflect-off
-
-# Check reflection status
-/sw:reflect-status
+```text
+┌─────────────────────────────────────────────────────────────┐
+│ SKILL REFLECTION: {skill-name}                              │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│ [HIGH] + Add constraint: "{specific constraint}"            │
+│   Source: "{quoted user correction}"                        │
+│                                                             │
+│ [MED]  + Add preference: "{specific preference}"            │
+│   Source: "{evidence from conversation}"                    │
+│                                                             │
+│ [MED]  + Add edge case: "{scenario}"                        │
+│   Source: "{question or workaround}"                        │
+│                                                             │
+│ [LOW]  ~ Note for review: "{observation}"                   │
+│   Source: "{pattern observed}"                              │
+│                                                             │
+├─────────────────────────────────────────────────────────────┤
+│ Apply changes? [Y/n/edit]                                   │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-When enabled, the stop hook automatically:
-1. Analyzes the session transcript
-2. Extracts corrections and approvals
-3. Auto-detects relevant skills
-4. Updates skill MEMORY.md files
-5. Falls back to category memory for non-skill learnings
+**Color Key** (accessible):
 
----
+- `[HIGH]` - Red/bold: Mandatory corrections (user explicitly said "no")
+- `[MED]` - Yellow/amber: Recommended additions
+- `[LOW]` - Blue/dim: Notes for later review
 
-## Memory Merging During Updates
+**User Response Handling**:
 
-### What Happens on `specweave refresh-marketplace`
-
-1. **Step 1**: Download latest marketplace
-2. **Step 2**: Install plugins
-3. **Step 3**: Copy skills to installed location
-4. **Step 4**: **Merge skill memories** (NEW in v4.0)
-   - Reads user's existing MEMORY.md files
-   - Reads any new default learnings from marketplace
-   - Merges: user learnings + new defaults (deduplicated)
-   - Writes merged result
-   - Creates backup in `.memory-backups/`
-5. **Step 5**: Update instruction files
-
-### Merge Rules
-
-| Scenario | Result |
+| Response | Action |
 |----------|--------|
-| User has learning, marketplace doesn't | **User learning preserved** |
-| Marketplace has learning, user doesn't | **Learning added** |
-| Both have similar learning | **User's version kept** (deduplication) |
-| Both have different learnings | **Both kept** |
+| **Y** (yes) | Proceed to Step 4 (update memory) |
+| **n** (no) | Abort update, ask "What would you like to change or was this not useful?" |
+| **edit** | Present each finding individually, allow user to modify/reject each one |
 
-### Deduplication Strategy
+**On rejection (n)**:
 
-Learnings are considered duplicates if:
-- Content is substring of the other (>50% overlap)
-- Triggers have >50% keyword overlap
-- Same ID (exact match)
+1. Log that reflection was declined (for future pattern analysis)
+2. Ask user if they want to revise the analysis or skip entirely
+3. If skip, end workflow without memory update
 
----
+**On edit**:
 
-## Configuration
+1. Present first finding with options: [keep/modify/remove]
+2. If modify, accept user's revised text
+3. Repeat for each finding
+4. Confirm final list before applying
 
-### Global Settings
+### Phase 4: Persist Learnings to Memory
 
-In `~/.claude/settings.json`:
+**ALWAYS show changes before applying.**
 
-```json
-{
-  "reflect": {
-    "enabled": true,
-    "autoReflect": false,
-    "confidenceThreshold": "medium",
-    "maxLearningsPerSession": 10,
-    "maxLearningsPerSkill": 50
-  }
-}
-```
+After user approval:
 
-### Project Settings
+1. **Read existing memory** (if exists)
+2. **Append new learnings** with timestamp and session reference
+3. **Preserve existing content** - never remove without explicit request
+4. **Write to file**: `.serena/memories/{skill-name}-observations.md`
 
-In `.specweave/config.json`:
+**Storage Strategy**:
 
-```json
-{
-  "reflect": {
-    "enabled": true,
-    "autoReflect": true,
-    "categories": [
-      "component-usage",
-      "api-patterns",
-      "testing",
-      "deployment",
-      "security",
-      "database"
-    ]
-  }
-}
-```
+1. **Serena MCP (canonical)**:
 
----
-
-## Confidence Levels
-
-| Level | Signal Type | Example | Action |
-|-------|------------|---------|--------|
-| **High** | Explicit correction | "No, use X instead of Y" | Auto-add to skill memory |
-| **High** | Explicit rule | "Always do X" | Auto-add to skill memory |
-| **Medium** | Approval/confirmation | "Perfect!" | Add with lower priority |
-| **Low** | Observation | Pattern worked well | Queue for review |
-
----
-
-## Category Fallback
-
-When a learning doesn't match any skill, it goes to category memory:
-
-| Category | Description | Triggers |
-|----------|-------------|----------|
-| `component-usage` | UI component patterns | button, component, ui, style |
-| `api-patterns` | API design and endpoints | api, endpoint, route, rest |
-| `database` | Query patterns, schema | query, database, sql, schema |
-| `testing` | Test patterns and coverage | test, spec, coverage, mock |
-| `deployment` | Deploy commands and config | deploy, wrangler, vercel, ci |
-| `security` | Auth, validation, secrets | auth, security, validation |
-| `structure` | File/module organization | file, path, import, module |
-| `general` | Everything else | (fallback) |
-
-Category memory location:
-- **Project**: `.specweave/memory/{category}.md`
-- **Global**: `~/.specweave/memory/{category}.md`
-
----
-
-## Integration with Auto Mode
-
-When `/sw:auto` runs with reflection enabled:
-
-```
-1. Start auto session
-      ↓
-2. Claude executes tasks
-      ↓
-3. User makes corrections (if any)
-      ↓
-4. Session completes (all tasks done)
-      ↓
-5. Stop hook triggers
-      ↓
-6. Reflect analyzes transcript
-      ↓
-7. Skills auto-detected from learnings
-      ↓
-8. MEMORY.md files updated per skill
-      ↓
-9. Session ends with summary
-```
-
----
-
-## API Reference (TypeScript)
-
-```typescript
-import {
-  // Path resolution
-  getSkillsDirectory,
-  getSkillMemoryPath,
-  listSkills,
-  skillExists,
-  isClaudeCodeEnvironment,
-
-  // Memory operations
-  readMemoryFile,
-  writeMemoryFile,
-  addLearning,
-  mergeMemoryFiles,
-
-  // Reflection management
-  detectSkill,
-  processSignals,
-  reflectOnSkill,
-  getSkillLearnings,
-  getReflectionStats,
-} from 'specweave/core/reflection';
-
-// Add learning to a skill
-reflectOnSkill('frontend', [
-  { content: 'Use Button component from design system', type: 'correction' }
-]);
-
-// Get all learnings for a skill
-const learnings = getSkillLearnings('frontend');
-
-// Get stats across all skills
-const stats = getReflectionStats();
-console.log(`Total learnings: ${stats.totalLearnings}`);
-```
-
----
-
-## Best Practices
-
-### For Corrections
-
-**Good corrections (high signal)**:
-```
-"Never use that approach. Always use X because..."
-"Don't create custom components. We have a design system..."
-"Wrong pattern. The correct way is..."
-```
-
-**Weak corrections (low signal)**:
-```
-"Hmm, maybe try something else?"
-"That doesn't look quite right"
-```
-
-### For Approvals
-
-**Strong approval (captured)**:
-```
-"Perfect! That's exactly how we do it."
-"This is the right pattern, well done."
-"Yes, always follow this approach."
-```
-
-**Neutral (not captured)**:
-```
-"OK"
-"Sure"
-"Proceed"
-```
-
-### Memory Organization
-
-1. **Skill-specific** learnings go to skill's MEMORY.md
-2. **Category** learnings go to `.specweave/memory/{category}.md`
-3. **Global** learnings go to `~/.specweave/memory/`
-
----
-
-## Privacy & Security
-
-- Memory files contain only **patterns and learnings**, not raw conversation
-- No sensitive data (credentials, keys) is ever stored
-- Memory files can be gitignored if needed
-- Clear commands available:
-  - `/sw:reflect-clear` - Clear all learnings
-  - `/sw:reflect-clear --skill frontend` - Clear specific skill
-  - `/sw:reflect-clear --learning LRN-XXX` - Remove specific learning
-
----
-
-## Troubleshooting
-
-### Learnings Not Persisting
-
-1. Check reflection is enabled: `/sw:reflect-status`
-2. Verify skills directory exists:
-   ```bash
-   # Claude Code
-   ls ~/.claude/plugins/marketplaces/specweave/plugins/specweave/skills/
-
-   # Non-Claude
-   ls .specweave/plugins/specweave/skills/
+   ```text
+   mcp__serena__write_memory(memory_file_name="{name}-observations", memory_content="...")
    ```
-3. Check file permissions
-4. Review logs: `.specweave/logs/reflect/`
 
-### Wrong Skill Detection
+2. **If Serena unavailable** (contingency):
 
-Force routing to specific skill:
-```bash
-/sw:reflect --skill frontend "Use Button component"
-```
+   ```powershell
+   $path = ".serena/memories/{name}-observations.md"
+   $existingContent = Get-Content $path -ErrorAction SilentlyContinue
+   $newContent = $existingContent + "`n" + $newLearnings
+   Set-Content $path -Value $newContent
+   git add $path
+   git commit -m "chore(memory): update {name} skill sidecar learnings"
+   ```
 
-### Memory Not Loading
+   Record the manual edit in the session log so Serena MCP can replay the update when the service is available again.
 
-1. Verify MEMORY.md exists for the skill
-2. Check skill is activated (keywords match)
-3. Restart Claude Code after marketplace refresh
+**Memory Format**:
 
-### Rollback a Learning
+```markdown
+# Skill Sidecar Learnings: {Skill Name}
 
-```bash
-# View backup
-ls ~/.claude/plugins/.../skills/frontend/.memory-backups/
+**Last Updated**: {ISO date}
+**Sessions Analyzed**: {count}
 
-# Restore from backup
-cp ~/.claude/plugins/.../skills/frontend/.memory-backups/MEMORY-2026-01-05T10-30-00.md \
-   ~/.claude/plugins/.../skills/frontend/MEMORY.md
-```
+## Constraints (HIGH confidence)
 
----
+- {constraint 1} (Session {N}, {date})
+- {constraint 2} (Session {N}, {date})
 
-## Migration from v3.0
+## Preferences (MED confidence)
 
-If you have learnings in the old centralized format:
+- {preference 1} (Session {N}, {date})
+- {preference 2} (Session {N}, {date})
 
-1. **Centralized memory files are still supported** as category fallback
-2. **New learnings go to skill-specific MEMORY.md** automatically
-3. **No migration required** - both systems work together
+## Edge Cases (MED confidence)
 
-To manually migrate old learnings:
-```bash
-# View old centralized memory
-cat .specweave/memory/component-usage.md
+- {edge case 1} (Session {N}, {date})
+- {edge case 2} (Session {N}, {date})
 
-# Add to specific skill
-/sw:reflect --skill frontend "Learning content from old file"
+## Notes for Review (LOW confidence)
+
+- {note 1} (Session {N}, {date})
+- {note 2} (Session {N}, {date})
 ```
 
 ---
 
-## Summary
+## Decision Tree
 
-Reflect v4.0 enables **correct once, apply everywhere**:
+```text
+User says "reflect" or similar?
+│
+├─► YES
+│   │
+│   ├─► Identify skill(s) used in conversation
+│   │   │
+│   │   └─► Skill identified?
+│   │       │
+│   │       ├─► YES → Analyze conversation for signals
+│   │       │   │
+│   │       │   └─► Meets confidence threshold?
+│   │       │       │
+│   │       │       ├─► YES → Present findings, await approval
+│   │       │       │   │
+│   │       │       │   ├─► User says Y → Update memory file
+│   │       │       │   │   │
+│   │       │       │   │   ├─► Serena available? → Use MCP write
+│   │       │       │   │   └─► Serena unavailable? → Use Git fallback
+│   │       │       │   │
+│   │       │       │   ├─► User says n → Ask for feedback
+│   │       │       │   │   │
+│   │       │       │   │   ├─► User wants revision → Re-analyze
+│   │       │       │   │   └─► User skips → End workflow
+│   │       │       │   │
+│   │       │       │   └─► User says edit → Interactive review
+│   │       │       │       │
+│   │       │       │       └─► Per-finding [keep/modify/remove]
+│   │       │       │
+│   │       │       └─► NO → Report "Insufficient evidence. Note for next session."
+│   │       │
+│   │       └─► NO → Ask user which skill to reflect on
+│   │           │
+│   │           ├─► User specifies skill → Continue with that skill
+│   │           └─► User says "none" → End workflow
+│   │
+│   └─► Multiple skills?
+│       │
+│       └─► Analyze each, group findings by skill, present together
+│
+└─► NO → This skill not invoked
+```
 
-1. Make correction during session
-2. Reflect captures and routes to skill
-3. Future sessions load skill memory
-4. Claude applies learned patterns automatically
-5. Marketplace updates preserve your learnings
+---
 
-**No embeddings. No vector databases.** Just markdown files that compound knowledge, organized by skill.
+## Examples
+
+### Example 1: Correction Detected
+
+```text
+Conversation:
+User: "Create a PR for this change"
+Agent: [runs gh pr create directly]
+User: "No, use the github skill script!"
+
+Analysis:
+[HIGH] + Add constraint: "Always use .claude/skills/github/ scripts for PR operations"
+  Source: User correction - "No, use the github skill script!"
+```
+
+### Example 2: Success Pattern
+
+```text
+Conversation:
+User: "Add error handling"
+Agent: [adds try/catch with specific error types]
+User: "Perfect! That's exactly what I wanted"
+
+Analysis:
+[MED] + Add preference: "Use specific error types in catch blocks, not generic [Exception]"
+  Source: User approval after seeing specific error types
+```
+
+### Example 3: Edge Case Discovery
+
+```text
+Conversation:
+User: "Run the build"
+Agent: [runs build command]
+User: "Wait, what if the node_modules folder doesn't exist?"
+
+Analysis:
+[MED] + Add edge case: "Check for node_modules existence before build"
+  Source: User question about missing dependencies
+```
+
+---
+
+## Use Cases
+
+### 1. Code Review Skills
+
+Capture learnings about code review patterns:
+
+- **Style guide rules**: User corrections on formatting, naming, structure
+- **Security patterns**: Security vulnerabilities caught, OWASP patterns enforced
+- **Severity levels**: When issues are P0 vs P1 vs P2
+- **False positives**: Patterns that look like issues but aren't
+
+**Example memory**: `.serena/memories/code-review-observations.md`
+
+### 2. API Design Skills
+
+Track API design decisions:
+
+- **Naming conventions**: REST endpoint patterns, verb choices
+- **Error formats**: HTTP status codes, error response structure
+- **Auth patterns**: OAuth, JWT, API key patterns
+- **Versioning style**: URL versioning, header versioning
+
+**Example memory**: `.serena/memories/api-design-observations.md`
+
+### 3. Testing Skills
+
+Remember testing preferences:
+
+- **Coverage targets**: Minimum % required, critical paths
+- **Mocking patterns**: When to mock vs integration test
+- **Assertion styles**: Preferred assertion libraries, patterns
+- **Test naming**: Convention for test method names
+
+**Example memory**: `.serena/memories/testing-observations.md`
+
+### 4. Documentation Skills
+
+Learn documentation patterns:
+
+- **Structure/format**: Section order, heading levels
+- **Code examples**: Real vs pseudo-code, language choice
+- **Tone preferences**: Formal vs casual, active vs passive voice
+- **Diagram styles**: Mermaid vs ASCII, detail level
+
+**Example memory**: `.serena/memories/documentation-observations.md`
+
+---
+
+## Anti-Patterns
+
+| Avoid | Why | Instead |
+|-------|-----|---------|
+| Applying without showing | User loses visibility | Always preview changes |
+| Overwriting existing learnings | Loses history | Append with timestamps |
+| Generic observations | Not actionable | Be specific and contextual |
+| Ignoring LOW confidence | Lose valuable patterns | Track for future validation |
+| Creating memory for one-off | Noise | Wait for repeated patterns |
+
+---
+
+## Integration
+
+### With Session Protocol
+
+Run reflection at session end as part of retrospective:
+
+```text
+## Session End Checklist
+- [ ] Complete session log
+- [ ] Run skill reflection (if skills were used)
+- [ ] Update Serena memory
+- [ ] Commit changes
+```
+
+### With Memory Skill
+
+Skill memories integrate with the memory system:
+
+```powershell
+# Search skill sidecar learnings
+pwsh .claude/skills/memory/scripts/Search-Memory.ps1 -Query "github-observations constraints"
+
+# Read specific skill sidecar
+Read .serena/memories/github-observations.md
+```
+
+### With Serena
+
+If Serena MCP is available:
+
+```text
+mcp__serena__read_memory(memory_file_name="github-observations")
+mcp__serena__write_memory(memory_file_name="github-observations", memory_content="...")
+```
+
+---
+
+## Verification
+
+| Action | Verification |
+|--------|--------------|
+| Analysis complete | Signals categorized by confidence |
+| User approved | Explicit Y or approval statement |
+| Memory updated | File written to `.serena/memories/` |
+| Changes preserved | Existing content not lost |
+| Commit ready | Changes staged, message drafted |
+
+---
+
+## Design Decisions
+
+### Agent Sidecar Naming: `{skill-name}-observations.md`
+
+**Decision**: Skill memories follow the ADR-007 sidecar pattern (e.g., `github-observations.md`).
+
+**Rationale**:
+
+- **ADR-007 Alignment**: Reuses the agent sidecar convention instead of inventing a parallel structure
+- **ADR-017 Compliance**: Keeps `{domain}-{description}` format while making "skill-sidecar" explicit
+- **Discovery**: Sidecars are now referenced in `memory-index.md`, preventing orphaned learnings
+- **Single Canonical Store**: Serena MCP and Git both write to the same file path, eliminating dual-governance ambiguity
+
+**Migration**: Rename `{skill}-observations.md` (or legacy `skill-{name}.md`) to `{skill}-observations.md` and update index references.
+
+### Serena vs Forgetful Roles
+
+- **Serena MCP** remains the canonical record. Every learning is persisted to the `{skill}-observations.md` file.
+- **Forgetful** is optional and used for semantic lookup only. When storing supporting context, tag the entry with `skill-{name}` and reference the Serena sidecar instead of duplicating the content.
+
+### Relationship to `curating-memories`
+
+- `curating-memories` = general-purpose maintenance of any memory artifact (linking, pruning, marking obsolete).
+- `reflect` = targeted retrospective that feeds those artifacts with new learnings.
+- When a sidecar accumulates conflicting guidance, route the file to `curating-memories` for cleanup.
+
+### Session Protocol Integration
+
+- Add "Run skill reflection if ≥3 distinct skills used" to the Session End checklist.
+- Document any manual sidecar edits (when Serena MCP is unavailable) in the session log before completion.
+- Invoke reflect immediately after the Stop hook highlights high-confidence learnings so the session log and sidecar stay in sync.
+
+---
+
+## Extension Points
+
+1. **Curating memories** – route conflicting or stale learnings to `curating-memories` for consolidation.
+2. **Memory skill** – use `memory` skill for search/recall before proposing redundant learnings.
+3. **Forgetful** – optionally mirror high-confidence learnings into Forgetful with `skill-{name}` tags for semantic recall.
+4. **Session log fixer** – after reflection, ensure the session log captures the learning summary via `session-log-fixer`.
+
+## Related
+
+| Skill | Relationship |
+|-------|--------------|
+| `memory` | Skill memories are part of Tier 1 |
+| `using-forgetful-memory` | Alternative storage for skill learnings |
+| `curating-memories` | For maintaining/pruning skill memories |
+| `retrospective` | Full session retrospective (this is mini version) |
+
+---
+
+## Commit Convention
+
+When committing skill observation updates:
+
+```text
+chore(memory): update {skill-name} skill sidecar learnings (session {N})
+
+- Added {count} constraints (HIGH confidence)
+- Added {count} preferences (MED confidence)
+- Added {count} edge cases (MED confidence)
+- Added {count} notes (LOW confidence)
+
+Session: {session-id}
+```

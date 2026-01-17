@@ -6,26 +6,30 @@ description: Create a development branch for a given GitHub issue with standardi
 # Fork Dev Branch
 
 This skill instructs AI agents on how to create a development branch for implementing
-a GitHub issue. The branch name follows the standard format: `issue-<number>`.
+a GitHub issue. The branch name follows the standard format: `issue-<number>-<brief-title>`.
 
 ## Branch Naming Convention
 
 Branches created by this skill must follow this exact format:
 
 ```
-issue-<number>
+issue-<number>-<brief-title>
 ```
 
 Where:
 - `<number>`: The GitHub issue number (without the `#` symbol)
+- `<brief-title>`: A brief, hyphen-separated description of the issue
+  - Lowercase only
+  - Use hyphens to separate words
+  - Maximum 5 words (preferably 3-4)
+  - No special characters except hyphens
+  - Must be meaningful and descriptive
 
 **Examples:**
-- `issue-42`
-- `issue-15`
-- `issue-67`
-- `issue-23`
-
-**Rationale:** GitHub issues provide full context (title, description, labels, etc.). Branch names only need the issue number for identification. This simplifies branch creation and treats issues as the single source of truth.
+- `issue-42-add-typescript-support`
+- `issue-15-fix-precommit-hook`
+- `issue-67-create-open-pr-skill`
+- `issue-23-refactor-sdk-templates`
 
 ## Workflow for AI Agents
 
@@ -46,17 +50,38 @@ gh issue view <issue-number> --json state,title
 
 If the issue is closed or doesn't exist, inform the user and abort.
 
-### 2. Create Branch
+### 2. Generate Branch Title
+
+Fetch the issue details and create a concise branch title:
+
+```bash
+gh issue view <issue-number>
+```
+
+Convert the issue title to branch format:
+- Remove tag prefix (e.g., `[plan][feat]:` → empty)
+- Convert to lowercase, replace spaces with hyphens
+- Remove special characters (except hyphens)
+- Keep 3-5 words maximum
+
+**Title conversion examples:**
+- `[plan][feat]: Add TypeScript SDK support` → `add-typescript-support`
+- `[bugfix]: Pre-commit hook fails` → `fix-precommit-hook`
+- `[agent.skill]: Create open-pr skill` → `create-open-pr-skill`
+
+If unclear or too long, confirm with user before proceeding.
+
+### 3. Create Branch
 
 Create and switch to the new branch:
 
 ```bash
-git checkout -b issue-<number>
+git checkout -b issue-<number>-<brief-title>
 ```
 
 Confirm success:
 ```
-Successfully created and switched to branch: issue-<number>
+Successfully created and switched to branch: issue-<number>-<brief-title>
 ```
 
 ## Examples
@@ -71,10 +96,12 @@ User: Create a dev branch for issue #42
 Agent: [Runs gh issue view 42]
 Agent: I'll create a branch for issue #42: "Add TypeScript SDK template support"
 
-Creating branch...
-[Runs: git checkout -b issue-42]
+Suggested branch name: issue-42-add-typescript-support
 
-Successfully created and switched to branch: issue-42
+Creating branch...
+[Runs: git checkout -b issue-42-add-typescript-support]
+
+Successfully created and switched to branch: issue-42-add-typescript-support
 ```
 
 ### Example 2: Bugfix Branch
@@ -87,10 +114,12 @@ User: fork a branch for #15
 Agent: [Runs gh issue view 15]
 Agent: I'll create a branch for issue #15: "Pre-commit hook fails to run tests"
 
-Creating branch...
-[Runs: git checkout -b issue-15]
+Suggested branch name: issue-15-fix-precommit-hook
 
-Successfully created and switched to branch: issue-15
+Creating branch...
+[Runs: git checkout -b issue-15-fix-precommit-hook]
+
+Successfully created and switched to branch: issue-15-fix-precommit-hook
 ```
 
 ### Example 3: Error - Invalid Issue Number

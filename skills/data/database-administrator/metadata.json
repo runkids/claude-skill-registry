@@ -1,7 +1,7 @@
 {
   "name": "database-administrator",
-  "repo": "gaebalai/itda-sdd",
-  "path": "src/templates/agents/claude-code/skills/database-administrator/SKILL.md",
-  "source": "github.com/gaebalai/itda-sdd",
-  "downloaded_at": "2026-01-14T03:55:15.977572Z"
+  "repo": "nahisaho/CodeGraphMCPServer",
+  "path": ".claude/skills/database-administrator/SKILL.md",
+  "source": "github.com/nahisaho/CodeGraphMCPServer",
+  "downloaded_at": "2026-01-17T03:42:18.217710Z"
 }

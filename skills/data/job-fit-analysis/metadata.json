@@ -1,9 +1,7 @@
 {
   "name": "job-fit-analysis",
-  "description": "Analyze fit between job requirements and background using lexicons - identifies gaps, develops reframing strategies, creates cover letter plan",
   "repo": "AJBcoding/claude-skill-eval",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".claude/skills/job-fit-analysis/SKILL.md",
+  "source": "github.com/AJBcoding/claude-skill-eval",
+  "downloaded_at": "2026-01-17T03:11:43.241424Z"
 }

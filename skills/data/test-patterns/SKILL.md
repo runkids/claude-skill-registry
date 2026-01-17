@@ -1,216 +1,159 @@
 ---
-name: test-patterns
-description: This skill provides patterns and best practices for generating and organizing tests. It covers unit testing, integration testing, test data factories, and coverage strategies across multiple languages and frameworks.
+description: Testing patterns for Ballee using Vitest E2E tests with dual-client architecture, RLS validation, and authentication patterns. Use when writing tests, validating RLS policies, or debugging test failures.
 ---
 
-# Test Patterns Skill
+# Test Patterns
 
-Generate and organize tests following project conventions and industry best practices.
-
-## When to Use
-
-- Generating unit tests for new or existing code
-- Creating integration/API tests
-- Setting up test data factories
-- Analyzing and improving test coverage
-- Establishing testing conventions in a project
-
-## Reference Documents
-
-- [Unit Test Patterns](./references/unit-test-patterns.md) - Patterns for unit tests including mocking, fixtures, and assertions
-- [Integration Test Patterns](./references/integration-test-patterns.md) - API and integration testing patterns
-- [Test Data Factories](./references/test-data-factories.md) - Factory patterns for generating test data
-- [Coverage Strategies](./references/coverage-strategies.md) - Approaches to meaningful test coverage
-
-## Core Principles
-
-### 1. Test Behavior, Not Implementation
-
-```
-WRONG: Testing internal method calls
-RIGHT: Testing observable behavior and outputs
-```
-
-Tests should verify what code does, not how it does it. This makes tests resilient to refactoring.
-
-### 2. Arrange-Act-Assert (AAA) Pattern
-
-Every test should have three distinct sections:
-
-```python
-# Arrange - Set up test data and conditions
-user = create_user(name="Alice")
-order = create_order(user=user, items=[item1, item2])
-
-# Act - Execute the behavior being tested
-result = order.calculate_total()
-
-# Assert - Verify the expected outcome
-assert result == 150.00
-```
-
-### 3. One Assertion Per Test (Logical)
-
-Each test should verify one logical concept, though it may have multiple assertions for that concept:
-
-```python
-def test_user_creation_sets_defaults():
-    user = User.create(email="test@example.com")
-
-    # Multiple assertions for one concept: default values
-    assert user.status == "pending"
-    assert user.role == "member"
-    assert user.created_at is not None
-```
-
-### 4. Descriptive Test Names
-
-Test names should describe the scenario and expected outcome:
-
-```python
-# WRONG
-def test_order():
-def test_calculate():
-
-# RIGHT
-def test_order_with_discount_applies_percentage_reduction():
-def test_calculate_total_includes_tax_for_taxable_items():
-```
-
-### 5. Test Independence
-
-Tests must not depend on each other or on execution order:
-
-- Each test sets up its own data
-- Each test cleans up after itself (or uses transactions)
-- No shared mutable state between tests
-
-## Workflow: Generating Tests
-
-### Step 1: Analyze the Code Under Test
-
-1. Read the file/function to be tested
-2. Identify public interfaces and behaviors
-3. List edge cases and error conditions
-4. Note dependencies that need mocking
-
-### Step 2: Determine Test Type
-
-| Code Type | Test Type | Focus |
-|-----------|-----------|-------|
-| Pure function | Unit test | Input/output |
-| Class with dependencies | Unit test with mocks | Behavior |
-| API endpoint | Integration test | Request/response |
-| Database operation | Integration test | Data persistence |
-| External service call | Unit test with mocks | Contract |
-
-### Step 3: Create Test Structure
-
-```
-tests/
-├── unit/
-│   └── [module]/
-│       └── test_[file].py
-├── integration/
-│   └── test_[feature].py
-└── fixtures/
-    └── [shared fixtures]
-```
-
-### Step 4: Write Tests
-
-Follow the patterns in reference documents for specific test types.
-
-### Step 5: Verify Coverage
-
-Run coverage analysis and add tests for uncovered critical paths.
-
-## Language-Specific Patterns
-
-### Python (pytest)
-
-```python
-import pytest
-from unittest.mock import Mock, patch
-
-class TestOrderCalculation:
-    @pytest.fixture
-    def order(self):
-        return Order(items=[Item(price=100), Item(price=50)])
-
-    def test_calculates_subtotal(self, order):
-        assert order.subtotal == 150
-
-    @pytest.mark.parametrize("discount,expected", [
-        (0, 150),
-        (10, 135),
-        (50, 75),
-    ])
-    def test_applies_discount(self, order, discount, expected):
-        order.apply_discount(discount)
-        assert order.total == expected
-```
-
-### TypeScript (Jest/Vitest)
+## Dual-Client Architecture
 
 ```typescript
-import { describe, it, expect, vi } from 'vitest';
+import { createAdminClient, createAuthenticatedClient } from '@/tests/utils/supabase';
 
-describe('OrderService', () => {
-  it('calculates total with tax', () => {
-    const order = new Order([
-      { price: 100 },
-      { price: 50 }
-    ]);
+describe('Feature Tests', () => {
+  let adminClient: SupabaseClient;  // Bypasses RLS - for seeding
+  let userClient: SupabaseClient;   // Respects RLS - for testing
 
-    expect(order.totalWithTax(0.1)).toBe(165);
-  });
-
-  it('sends confirmation email on completion', async () => {
-    const emailService = { send: vi.fn() };
-    const order = new Order([], { emailService });
-
-    await order.complete();
-
-    expect(emailService.send).toHaveBeenCalledWith(
-      expect.objectContaining({ type: 'confirmation' })
-    );
+  beforeAll(async () => {
+    adminClient = createAdminClient();
+    userClient = await createAuthenticatedClient('test@example.com');
   });
 });
 ```
 
-### Ruby (RSpec)
+## When to Use Each Client
 
-```ruby
-RSpec.describe Order do
-  subject(:order) { described_class.new(items: items) }
-  let(:items) { [Item.new(price: 100), Item.new(price: 50)] }
+| Client | Use For |
+|--------|---------|
+| `adminClient` | Seeding data, cleanup, verifying DB state |
+| `userClient` | Testing user-facing operations, RLS validation |
 
-  describe '#total' do
-    it 'sums item prices' do
-      expect(order.total).to eq(150)
-    end
+## RLS Validation Pattern
 
-    context 'with discount applied' do
-      before { order.apply_discount(10) }
+```typescript
+it('should allow access to own client data', async () => {
+  // Seed with admin
+  const { data: item } = await adminClient
+    .from('items')
+    .insert({ client_id: userClientId, name: 'Test' })
+    .select()
+    .single();
 
-      it 'reduces total by percentage' do
-        expect(order.total).to eq(135)
-      end
-    end
-  end
-end
+  // Verify user can access
+  const { data, error } = await userClient
+    .from('items')
+    .select()
+    .eq('id', item.id)
+    .single();
+
+  expect(error).toBeNull();
+  expect(data.id).toBe(item.id);
+});
+
+it('should deny access to other client data', async () => {
+  // Seed with different client
+  const { data: otherItem } = await adminClient
+    .from('items')
+    .insert({ client_id: otherClientId, name: 'Other' })
+    .select()
+    .single();
+
+  // Verify user CANNOT access
+  const { data, error } = await userClient
+    .from('items')
+    .select()
+    .eq('id', otherItem.id)
+    .single();
+
+  expect(data).toBeNull();
+});
 ```
 
-## Quick Reference
+## Super Admin Bypass Test
 
-| Pattern | When to Use |
-|---------|-------------|
-| Factory | Creating test objects with defaults |
-| Builder | Creating complex test objects step-by-step |
-| Mock | Replacing dependencies |
-| Stub | Providing canned responses |
-| Spy | Verifying method calls |
-| Fake | Lightweight implementation for testing |
-| Fixture | Shared test data setup |
-| Parametrize | Testing multiple inputs |
+```typescript
+it('super admin should access all data', async () => {
+  const superAdminClient = await createAuthenticatedClient('admin@ballee.io');
+
+  const { data, error } = await superAdminClient
+    .from('items')
+    .select()
+    .eq('id', otherClientItem.id)
+    .single();
+
+  expect(error).toBeNull();
+  expect(data).not.toBeNull();
+});
+```
+
+## Test File Structure
+
+```
+apps/web/__tests__/
+├── e2e/
+│   ├── events.test.ts        # E2E feature tests
+│   └── auth.test.ts
+├── unit/
+│   ├── services/             # Service unit tests
+│   └── utils/
+└── utils/
+    └── supabase.ts           # Test client utilities
+```
+
+## Common Test Patterns
+
+### Service Test
+```typescript
+describe('EventService', () => {
+  it('should create event and return Result.success', async () => {
+    const service = new EventService(userClient);
+    const result = await service.create({ name: 'Test Event' });
+
+    expect(result.success).toBe(true);
+    expect(result.data.name).toBe('Test Event');
+  });
+
+  it('should return Result.error on failure', async () => {
+    const service = new EventService(userClient);
+    const result = await service.create({ name: '' }); // Invalid
+
+    expect(result.success).toBe(false);
+    expect(result.error).toBeDefined();
+  });
+});
+```
+
+### Server Action Test
+```typescript
+it('should require authentication', async () => {
+  // Call without auth context
+  const result = await createEventAction(formData);
+  expect(result.error).toContain('Unauthorized');
+});
+```
+
+## Test Commands
+
+```bash
+pnpm test              # Run all tests
+pnpm test:e2e          # Run E2E tests only
+pnpm test:unit         # Run unit tests only
+pnpm test --coverage   # With coverage report
+```
+
+## Common Pitfalls
+
+| Issue | Fix |
+|-------|-----|
+| RLS blocking test data | Use adminClient for seeding |
+| Test pollution | Clean up in afterEach/afterAll |
+| Flaky auth tests | Use fresh authenticated client per test |
+| Missing test data | Seed required dependencies first |
+
+## Cleanup Pattern
+
+```typescript
+afterAll(async () => {
+  // Clean up test data (use admin to bypass RLS)
+  await adminClient.from('items').delete().eq('name', 'Test%');
+});
+```

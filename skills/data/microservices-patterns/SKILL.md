@@ -1,182 +1,227 @@
 ---
 name: microservices-patterns
-description: Implement microservices patterns including service decomposition, communication patterns, saga patterns, circuit breakers, and API gateways. Use when designing distributed systems or decomposing monoliths into microservices.
+description: Design microservices architectures with service boundaries, event-driven communication, and resilience patterns. Use when building distributed systems, decomposing monoliths, or implementing microservices.
 ---
 
 # Microservices Patterns
 
-Master proven microservices patterns to build scalable, resilient, and maintainable distributed systems that can evolve independently.
+Master microservices architecture patterns including service boundaries, inter-service communication, data management, and resilience patterns for building distributed systems.
 
 ## When to Use This Skill
 
-- Decomposing monolithic applications into microservices
-- Designing inter-service communication strategies
-- Implementing distributed transactions and data consistency
-- Building resilient systems with fault tolerance
-- Creating API gateways and service mesh architectures
-- Establishing service boundaries and ownership
-- Managing distributed data and eventual consistency
+- Decomposing monoliths into microservices
+- Designing service boundaries and contracts
+- Implementing inter-service communication
+- Managing distributed data and transactions
+- Building resilient distributed systems
+- Implementing service discovery and load balancing
+- Designing event-driven architectures
 
 ## Core Concepts
 
 ### 1. Service Decomposition Strategies
 
-**By Business Capability:**
-- Group services around business functions (orders, payments, inventory)
-- Each service owns its data and business logic
-- Aligned with organizational structure (Conway's Law)
+**By Business Capability**
 
-**By Subdomain (DDD):**
-- Identify bounded contexts
-- Core domain vs. supporting subdomains
-- Context mapping for service relationships
+- Organize services around business functions
+- Each service owns its domain
+- Example: OrderService, PaymentService, InventoryService
 
-**By Transaction Boundaries:**
-- Services that change together should be together
-- Minimize distributed transactions
-- Aggregate boundaries become service boundaries
+**By Subdomain (DDD)**
+
+- Core domain, supporting subdomains
+- Bounded contexts map to services
+- Clear ownership and responsibility
+
+**Strangler Fig Pattern**
+
+- Gradually extract from monolith
+- New functionality as microservices
+- Proxy routes to old/new systems
 
 ### 2. Communication Patterns
 
-**Synchronous (Request-Response):**
-- REST APIs over HTTP
-- gRPC for high-performance RPC
-- GraphQL for flexible queries
-- Use for queries and immediate responses
+**Synchronous (Request/Response)**
 
-**Asynchronous (Event-Driven):**
-- Message queues (RabbitMQ, AWS SQS)
-- Event streaming (Kafka, AWS Kinesis)
+- REST APIs
+- gRPC
+- GraphQL
+
+**Asynchronous (Events/Messages)**
+
+- Event streaming (Kafka)
+- Message queues (RabbitMQ, SQS)
 - Pub/Sub patterns
-- Use for eventual consistency and decoupling
 
-### 3. Data Management Patterns
+### 3. Data Management
 
-**Database per Service:**
-- Each service owns its database
-- No shared databases between services
-- Different storage technologies per service needs
+**Database Per Service**
 
-**Saga Pattern:**
-- Distributed transactions across services
-- Compensating transactions for rollback
-- Orchestration vs. Choreography
+- Each service owns its data
+- No shared databases
+- Loose coupling
 
-**CQRS (Command Query Responsibility Segregation):**
-- Separate read and write models
-- Optimized for different access patterns
-- Often paired with Event Sourcing
+**Saga Pattern**
 
-## Service Decomposition Pattern
+- Distributed transactions
+- Compensating actions
+- Eventual consistency
+
+### 4. Resilience Patterns
+
+**Circuit Breaker**
+
+- Fail fast on repeated errors
+- Prevent cascade failures
+
+**Retry with Backoff**
+
+- Transient fault handling
+- Exponential backoff
+
+**Bulkhead**
+
+- Isolate resources
+- Limit impact of failures
+
+## Service Decomposition Patterns
 
 ### Pattern 1: By Business Capability
 
-```
-# Service structure for e-commerce platform
+```python
+# E-commerce example
 
-services/
-├── user-service/           # User management
-│   ├── domain/
-│   │   ├── user.py
-│   │   └── profile.py
-│   └── api/
-│       └── user_api.py
-├── order-service/          # Order processing
-│   ├── domain/
-│   │   ├── order.py
-│   │   └── order_item.py
-│   └── api/
-│       └── order_api.py
-├── payment-service/        # Payment processing
-│   ├── domain/
-│   │   ├── payment.py
-│   │   └── transaction.py
-│   └── api/
-│       └── payment_api.py
-├── inventory-service/      # Inventory management
-│   ├── domain/
-│   │   ├── product.py
-│   │   └── stock.py
-│   └── api/
-│       └── inventory_api.py
-└── notification-service/   # Notifications
-    ├── domain/
-    │   └── notification.py
-    └── api/
-        └── notification_api.py
+# Order Service
+class OrderService:
+    """Handles order lifecycle."""
+
+    async def create_order(self, order_data: dict) -> Order:
+        order = Order.create(order_data)
+
+        # Publish event for other services
+        await self.event_bus.publish(
+            OrderCreatedEvent(
+                order_id=order.id,
+                customer_id=order.customer_id,
+                items=order.items,
+                total=order.total
+            )
+        )
+
+        return order
+
+# Payment Service (separate service)
+class PaymentService:
+    """Handles payment processing."""
+
+    async def process_payment(self, payment_request: PaymentRequest) -> PaymentResult:
+        # Process payment
+        result = await self.payment_gateway.charge(
+            amount=payment_request.amount,
+            customer=payment_request.customer_id
+        )
+
+        if result.success:
+            await self.event_bus.publish(
+                PaymentCompletedEvent(
+                    order_id=payment_request.order_id,
+                    transaction_id=result.transaction_id
+                )
+            )
+
+        return result
+
+# Inventory Service (separate service)
+class InventoryService:
+    """Handles inventory management."""
+
+    async def reserve_items(self, order_id: str, items: List[OrderItem]) -> ReservationResult:
+        # Check availability
+        for item in items:
+            available = await self.inventory_repo.get_available(item.product_id)
+            if available < item.quantity:
+                return ReservationResult(
+                    success=False,
+                    error=f"Insufficient inventory for {item.product_id}"
+                )
+
+        # Reserve items
+        reservation = await self.create_reservation(order_id, items)
+
+        await self.event_bus.publish(
+            InventoryReservedEvent(
+                order_id=order_id,
+                reservation_id=reservation.id
+            )
+        )
+
+        return ReservationResult(success=True, reservation=reservation)
 ```
 
-### Pattern 2: Service Implementation
+### Pattern 2: API Gateway
 
 ```python
-# order-service/domain/order.py
-from dataclasses import dataclass
-from typing import List
-from enum import Enum
-from datetime import datetime
-
-class OrderStatus(Enum):
-    PENDING = "pending"
-    CONFIRMED = "confirmed"
-    PAID = "paid"
-    SHIPPED = "shipped"
-    DELIVERED = "delivered"
-    CANCELLED = "cancelled"
-
-@dataclass
-class OrderItem:
-    product_id: str
-    quantity: int
-    price: float
-
-@dataclass
-class Order:
-    """Order aggregate - owns order lifecycle."""
-    id: str
-    user_id: str
-    items: List[OrderItem]
-    status: OrderStatus
-    total: float
-    created_at: datetime
-    updated_at: datetime
-
-    def calculate_total(self) -> float:
-        """Business logic within service."""
-        return sum(item.quantity * item.price for item in self.items)
-
-    def can_cancel(self) -> bool:
-        """Business rule: can only cancel pending/confirmed orders."""
-        return self.status in [OrderStatus.PENDING, OrderStatus.CONFIRMED]
-
-# order-service/api/order_api.py
 from fastapi import FastAPI, HTTPException, Depends
-from typing import List
+import httpx
+from circuitbreaker import circuit
 
 app = FastAPI()
 
-@app.post("/orders")
-async def create_order(order_data: dict):
-    """Create new order - may call other services."""
-    # 1. Validate inventory (call inventory-service)
-    inventory_available = await check_inventory(order_data["items"])
-    if not inventory_available:
-        raise HTTPException(400, "Insufficient inventory")
+class APIGateway:
+    """Central entry point for all client requests."""
 
-    # 2. Create order
-    order = await order_repository.create(order_data)
+    def __init__(self):
+        self.order_service_url = "http://order-service:8000"
+        self.payment_service_url = "http://payment-service:8001"
+        self.inventory_service_url = "http://inventory-service:8002"
+        self.http_client = httpx.AsyncClient(timeout=5.0)
 
-    # 3. Publish event (asynchronous communication)
-    await event_bus.publish("order.created", order)
+    @circuit(failure_threshold=5, recovery_timeout=30)
+    async def call_order_service(self, path: str, method: str = "GET", **kwargs):
+        """Call order service with circuit breaker."""
+        response = await self.http_client.request(
+            method,
+            f"{self.order_service_url}{path}",
+            **kwargs
+        )
+        response.raise_for_status()
+        return response.json()
 
-    return {"order_id": order.id}
+    async def create_order_aggregate(self, order_id: str) -> dict:
+        """Aggregate data from multiple services."""
+        # Parallel requests
+        order, payment, inventory = await asyncio.gather(
+            self.call_order_service(f"/orders/{order_id}"),
+            self.call_payment_service(f"/payments/order/{order_id}"),
+            self.call_inventory_service(f"/reservations/order/{order_id}"),
+            return_exceptions=True
+        )
 
-@app.get("/orders/{order_id}")
-async def get_order(order_id: str):
-    """Query order by ID."""
-    order = await order_repository.find_by_id(order_id)
-    if not order:
-        raise HTTPException(404, "Order not found")
-    return order
+        # Handle partial failures
+        result = {"order": order}
+        if not isinstance(payment, Exception):
+            result["payment"] = payment
+        if not isinstance(inventory, Exception):
+            result["inventory"] = inventory
+
+        return result
+
+@app.post("/api/orders")
+async def create_order(
+    order_data: dict,
+    gateway: APIGateway = Depends()
+):
+    """API Gateway endpoint."""
+    try:
+        # Route to order service
+        order = await gateway.call_order_service(
+            "/orders",
+            method="POST",
+            json=order_data
+        )
+        return {"order": order}
+    except httpx.HTTPError as e:
+        raise HTTPException(status_code=503, detail="Order service unavailable")
 ```
 
 ## Communication Patterns
@@ -184,140 +229,145 @@ async def get_order(order_id: str):
 ### Pattern 1: Synchronous REST Communication
 
 ```python
-# order-service calling inventory-service
+# Service A calls Service B
 import httpx
-from typing import List, Optional
+from tenacity import retry, stop_after_attempt, wait_exponential
 
-class InventoryClient:
-    """Client for synchronous inventory service calls."""
+class ServiceClient:
+    """HTTP client with retries and timeout."""
 
-    def __init__(self, base_url: str, timeout: int = 30):
+    def __init__(self, base_url: str):
         self.base_url = base_url
-        self.client = httpx.AsyncClient(timeout=timeout)
-
-    async def check_availability(
-        self,
-        items: List[dict]
-    ) -> dict:
-        """Check if products are available."""
-        try:
-            response = await self.client.post(
-                f"{self.base_url}/inventory/check",
-                json={"items": items}
-            )
-            response.raise_for_status()
-            return response.json()
-        except httpx.HTTPError as e:
-            # Handle failures gracefully
-            raise ServiceUnavailableError(f"Inventory service error: {e}")
-
-    async def reserve_inventory(
-        self,
-        order_id: str,
-        items: List[dict]
-    ) -> bool:
-        """Reserve inventory for order."""
-        response = await self.client.post(
-            f"{self.base_url}/inventory/reserve",
-            json={"order_id": order_id, "items": items}
+        self.client = httpx.AsyncClient(
+            timeout=httpx.Timeout(5.0, connect=2.0),
+            limits=httpx.Limits(max_keepalive_connections=20)
         )
-        return response.status_code == 200
+
+    @retry(
+        stop=stop_after_attempt(3),
+        wait=wait_exponential(multiplier=1, min=2, max=10)
+    )
+    async def get(self, path: str, **kwargs):
+        """GET with automatic retries."""
+        response = await self.client.get(f"{self.base_url}{path}", **kwargs)
+        response.raise_for_status()
+        return response.json()
+
+    async def post(self, path: str, **kwargs):
+        """POST request."""
+        response = await self.client.post(f"{self.base_url}{path}", **kwargs)
+        response.raise_for_status()
+        return response.json()
+
+# Usage
+payment_client = ServiceClient("http://payment-service:8001")
+result = await payment_client.post("/payments", json=payment_data)
 ```
 
-### Pattern 2: Asynchronous Event-Driven Communication
+### Pattern 2: Asynchronous Event-Driven
 
 ```python
-# Event publishing and consuming with Kafka
-from kafka import KafkaProducer, KafkaConsumer
+# Event-driven communication with Kafka
+from aiokafka import AIOKafkaProducer, AIOKafkaConsumer
 import json
-from typing import Callable, Dict
 from dataclasses import dataclass, asdict
 from datetime import datetime
 
 @dataclass
 class DomainEvent:
-    """Base domain event."""
     event_id: str
     event_type: str
-    timestamp: datetime
-    payload: dict
+    aggregate_id: str
+    occurred_at: datetime
+    data: dict
 
 class EventBus:
-    """Event bus for asynchronous communication."""
+    """Event publishing and subscription."""
 
     def __init__(self, bootstrap_servers: List[str]):
-        self.producer = KafkaProducer(
-            bootstrap_servers=bootstrap_servers,
-            value_serializer=lambda v: json.dumps(v).encode('utf-8')
-        )
-
-    async def publish(self, event_type: str, payload: dict):
-        """Publish event to Kafka topic."""
-        event = DomainEvent(
-            event_id=str(uuid.uuid4()),
-            event_type=event_type,
-            timestamp=datetime.now(),
-            payload=payload
-        )
-
-        topic = event_type.replace(".", "_")  # order.created -> order_created
-        self.producer.send(topic, value=asdict(event))
-        self.producer.flush()
-
-class EventConsumer:
-    """Event consumer for service-to-service communication."""
-
-    def __init__(self, bootstrap_servers: List[str], group_id: str):
-        self.handlers: Dict[str, Callable] = {}
-        self.consumer = KafkaConsumer(
-            bootstrap_servers=bootstrap_servers,
-            group_id=group_id,
-            value_deserializer=lambda m: json.loads(m.decode('utf-8'))
-        )
-
-    def subscribe(self, event_type: str, handler: Callable):
-        """Register event handler."""
-        self.handlers[event_type] = handler
-        topic = event_type.replace(".", "_")
-        self.consumer.subscribe([topic])
+        self.bootstrap_servers = bootstrap_servers
+        self.producer = None
 
     async def start(self):
-        """Start consuming events."""
-        for message in self.consumer:
-            event = message.value
-            handler = self.handlers.get(event["event_type"])
-            if handler:
-                await handler(event["payload"])
+        self.producer = AIOKafkaProducer(
+            bootstrap_servers=self.bootstrap_servers,
+            value_serializer=lambda v: json.dumps(v).encode()
+        )
+        await self.producer.start()
 
-# Usage in notification-service
-event_consumer = EventConsumer(
-    bootstrap_servers=["kafka:9092"],
-    group_id="notification-service"
-)
+    async def publish(self, event: DomainEvent):
+        """Publish event to Kafka topic."""
+        topic = event.event_type
+        await self.producer.send_and_wait(
+            topic,
+            value=asdict(event),
+            key=event.aggregate_id.encode()
+        )
 
-async def handle_order_created(payload: dict):
-    """Handle order.created event."""
-    order_id = payload["order_id"]
-    user_id = payload["user_id"]
+    async def subscribe(self, topic: str, handler: callable):
+        """Subscribe to events."""
+        consumer = AIOKafkaConsumer(
+            topic,
+            bootstrap_servers=self.bootstrap_servers,
+            value_deserializer=lambda v: json.loads(v.decode()),
+            group_id="my-service"
+        )
+        await consumer.start()
 
-    # Send notification to user
-    await send_notification(
-        user_id=user_id,
-        message=f"Order {order_id} created successfully"
+        try:
+            async for message in consumer:
+                event_data = message.value
+                await handler(event_data)
+        finally:
+            await consumer.stop()
+
+# Order Service publishes event
+async def create_order(order_data: dict):
+    order = await save_order(order_data)
+
+    event = DomainEvent(
+        event_id=str(uuid.uuid4()),
+        event_type="OrderCreated",
+        aggregate_id=order.id,
+        occurred_at=datetime.now(),
+        data={
+            "order_id": order.id,
+            "customer_id": order.customer_id,
+            "total": order.total
+        }
     )
 
-event_consumer.subscribe("order.created", handle_order_created)
-await event_consumer.start()
+    await event_bus.publish(event)
+
+# Inventory Service listens for OrderCreated
+async def handle_order_created(event_data: dict):
+    """React to order creation."""
+    order_id = event_data["data"]["order_id"]
+    items = event_data["data"]["items"]
+
+    # Reserve inventory
+    await reserve_inventory(order_id, items)
 ```
 
-## Saga Pattern (Distributed Transactions)
-
-### Pattern 1: Orchestration-Based Saga
+### Pattern 3: Saga Pattern (Distributed Transactions)
 
 ```python
+# Saga orchestration for order fulfillment
 from enum import Enum
-from typing import List, Callable, Optional
-from dataclasses import dataclass
+from typing import List, Callable
+
+class SagaStep:
+    """Single step in saga."""
+
+    def __init__(
+        self,
+        name: str,
+        action: Callable,
+        compensation: Callable
+    ):
+        self.name = name
+        self.action = action
+        self.compensation = compensation
 
 class SagaStatus(Enum):
     PENDING = "pending"
@@ -325,535 +375,221 @@ class SagaStatus(Enum):
     COMPENSATING = "compensating"
     FAILED = "failed"
 
-@dataclass
-class SagaStep:
-    """Single step in saga."""
-    name: str
-    action: Callable
-    compensation: Callable
-
 class OrderFulfillmentSaga:
     """Orchestrated saga for order fulfillment."""
 
-    def __init__(
-        self,
-        order_service,
-        inventory_service,
-        payment_service,
-        shipping_service
-    ):
-        self.order_service = order_service
-        self.inventory_service = inventory_service
-        self.payment_service = payment_service
-        self.shipping_service = shipping_service
-
-        # Define saga steps
+    def __init__(self):
         self.steps: List[SagaStep] = [
             SagaStep(
-                name="create_order",
+                "create_order",
                 action=self.create_order,
                 compensation=self.cancel_order
             ),
             SagaStep(
-                name="reserve_inventory",
+                "reserve_inventory",
                 action=self.reserve_inventory,
                 compensation=self.release_inventory
             ),
             SagaStep(
-                name="process_payment",
+                "process_payment",
                 action=self.process_payment,
                 compensation=self.refund_payment
             ),
             SagaStep(
-                name="arrange_shipping",
-                action=self.arrange_shipping,
-                compensation=self.cancel_shipping
-            ),
+                "confirm_order",
+                action=self.confirm_order,
+                compensation=self.cancel_order_confirmation
+            )
         ]
 
-    async def execute(self, order_data: dict) -> dict:
-        """Execute saga with automatic compensation on failure."""
+    async def execute(self, order_data: dict) -> SagaResult:
+        """Execute saga steps."""
         completed_steps = []
         context = {"order_data": order_data}
 
         try:
-            # Execute forward steps
             for step in self.steps:
-                print(f"Executing step: {step.name}")
+                # Execute step
                 result = await step.action(context)
-                context[step.name] = result
-                completed_steps.append(step)
+                if not result.success:
+                    # Compensate
+                    await self.compensate(completed_steps, context)
+                    return SagaResult(
+                        status=SagaStatus.FAILED,
+                        error=result.error
+                    )
 
-            return {"status": "success", "order_id": context["create_order"]["order_id"]}
+                completed_steps.append(step)
+                context.update(result.data)
+
+            return SagaResult(status=SagaStatus.COMPLETED, data=context)
 
         except Exception as e:
-            print(f"Saga failed at step: {step.name}, error: {e}")
+            # Compensate on error
+            await self.compensate(completed_steps, context)
+            return SagaResult(status=SagaStatus.FAILED, error=str(e))
 
-            # Execute compensation in reverse order
-            for step in reversed(completed_steps):
-                try:
-                    print(f"Compensating step: {step.name}")
-                    await step.compensation(context)
-                except Exception as comp_error:
-                    print(f"Compensation failed: {step.name}, error: {comp_error}")
-                    # Log and alert - manual intervention may be needed
+    async def compensate(self, completed_steps: List[SagaStep], context: dict):
+        """Execute compensating actions in reverse order."""
+        for step in reversed(completed_steps):
+            try:
+                await step.compensation(context)
+            except Exception as e:
+                # Log compensation failure
+                print(f"Compensation failed for {step.name}: {e}")
 
-            return {"status": "failed", "error": str(e)}
+    # Step implementations
+    async def create_order(self, context: dict) -> StepResult:
+        order = await order_service.create(context["order_data"])
+        return StepResult(success=True, data={"order_id": order.id})
 
-    # Forward actions
-    async def create_order(self, context: dict) -> dict:
-        """Step 1: Create order."""
-        order = await self.order_service.create(context["order_data"])
-        return {"order_id": order["id"]}
-
-    async def reserve_inventory(self, context: dict) -> dict:
-        """Step 2: Reserve inventory."""
-        order_id = context["create_order"]["order_id"]
-        items = context["order_data"]["items"]
-        result = await self.inventory_service.reserve(order_id, items)
-        return {"reservation_id": result["reservation_id"]}
-
-    async def process_payment(self, context: dict) -> dict:
-        """Step 3: Process payment."""
-        order_id = context["create_order"]["order_id"]
-        amount = context["order_data"]["total"]
-        result = await self.payment_service.charge(order_id, amount)
-        return {"transaction_id": result["transaction_id"]}
-
-    async def arrange_shipping(self, context: dict) -> dict:
-        """Step 4: Arrange shipping."""
-        order_id = context["create_order"]["order_id"]
-        result = await self.shipping_service.schedule(order_id)
-        return {"shipment_id": result["shipment_id"]}
-
-    # Compensating actions
     async def cancel_order(self, context: dict):
-        """Compensate: Cancel order."""
-        order_id = context["create_order"]["order_id"]
-        await self.order_service.cancel(order_id)
+        await order_service.cancel(context["order_id"])
+
+    async def reserve_inventory(self, context: dict) -> StepResult:
+        result = await inventory_service.reserve(
+            context["order_id"],
+            context["order_data"]["items"]
+        )
+        return StepResult(
+            success=result.success,
+            data={"reservation_id": result.reservation_id}
+        )
 
     async def release_inventory(self, context: dict):
-        """Compensate: Release inventory reservation."""
-        reservation_id = context["reserve_inventory"]["reservation_id"]
-        await self.inventory_service.release(reservation_id)
+        await inventory_service.release(context["reservation_id"])
+
+    async def process_payment(self, context: dict) -> StepResult:
+        result = await payment_service.charge(
+            context["order_id"],
+            context["order_data"]["total"]
+        )
+        return StepResult(
+            success=result.success,
+            data={"transaction_id": result.transaction_id},
+            error=result.error
+        )
 
     async def refund_payment(self, context: dict):
-        """Compensate: Refund payment."""
-        transaction_id = context["process_payment"]["transaction_id"]
-        await self.payment_service.refund(transaction_id)
-
-    async def cancel_shipping(self, context: dict):
-        """Compensate: Cancel shipment."""
-        shipment_id = context["arrange_shipping"]["shipment_id"]
-        await self.shipping_service.cancel(shipment_id)
-
-# Usage
-saga = OrderFulfillmentSaga(
-    order_service=order_service,
-    inventory_service=inventory_service,
-    payment_service=payment_service,
-    shipping_service=shipping_service
-)
-
-result = await saga.execute({
-    "user_id": "user-123",
-    "items": [{"product_id": "prod-1", "quantity": 2}],
-    "total": 99.99
-})
-```
-
-### Pattern 2: Choreography-Based Saga
-
-```python
-# Event-driven saga without central orchestrator
-
-# In order-service
-@event_consumer.subscribe("payment.completed")
-async def on_payment_completed(payload: dict):
-    """React to payment completion."""
-    order_id = payload["order_id"]
-
-    # Update order status
-    await order_repository.update_status(order_id, OrderStatus.PAID)
-
-    # Publish next event
-    await event_bus.publish("order.paid", {"order_id": order_id})
-
-@event_consumer.subscribe("payment.failed")
-async def on_payment_failed(payload: dict):
-    """React to payment failure - compensate."""
-    order_id = payload["order_id"]
-    reservation_id = payload["reservation_id"]
-
-    # Cancel order
-    await order_repository.update_status(order_id, OrderStatus.CANCELLED)
-
-    # Publish compensation event
-    await event_bus.publish("inventory.release", {"reservation_id": reservation_id})
-
-# In inventory-service
-@event_consumer.subscribe("order.created")
-async def on_order_created(payload: dict):
-    """Reserve inventory when order created."""
-    order_id = payload["order_id"]
-    items = payload["items"]
-
-    try:
-        reservation = await inventory_repository.reserve(order_id, items)
-        await event_bus.publish("inventory.reserved", {
-            "order_id": order_id,
-            "reservation_id": reservation.id
-        })
-    except InsufficientInventoryError:
-        await event_bus.publish("inventory.reservation_failed", {
-            "order_id": order_id,
-            "reason": "insufficient_inventory"
-        })
-
-# In payment-service
-@event_consumer.subscribe("inventory.reserved")
-async def on_inventory_reserved(payload: dict):
-    """Process payment when inventory reserved."""
-    order_id = payload["order_id"]
-    reservation_id = payload["reservation_id"]
-
-    try:
-        transaction = await payment_gateway.charge(order_id)
-        await event_bus.publish("payment.completed", {
-            "order_id": order_id,
-            "transaction_id": transaction.id
-        })
-    except PaymentError as e:
-        await event_bus.publish("payment.failed", {
-            "order_id": order_id,
-            "reservation_id": reservation_id,
-            "reason": str(e)
-        })
+        await payment_service.refund(context["transaction_id"])
 ```
 
 ## Resilience Patterns
 
-### Pattern 1: Circuit Breaker
+### Circuit Breaker Pattern
 
 ```python
 from enum import Enum
 from datetime import datetime, timedelta
-from typing import Callable, Optional
-import asyncio
+from typing import Callable, Any
 
 class CircuitState(Enum):
-    CLOSED = "closed"      # Normal operation
-    OPEN = "open"          # Failing - reject requests
-    HALF_OPEN = "half_open"  # Testing if service recovered
+    CLOSED = "closed"  # Normal operation
+    OPEN = "open"      # Failing, reject requests
+    HALF_OPEN = "half_open"  # Testing if recovered
 
 class CircuitBreaker:
-    """Circuit breaker pattern for resilient service calls."""
+    """Circuit breaker for service calls."""
 
     def __init__(
         self,
         failure_threshold: int = 5,
-        timeout_seconds: int = 60,
-        half_open_max_calls: int = 3
+        recovery_timeout: int = 30,
+        success_threshold: int = 2
     ):
         self.failure_threshold = failure_threshold
-        self.timeout_seconds = timeout_seconds
-        self.half_open_max_calls = half_open_max_calls
+        self.recovery_timeout = recovery_timeout
+        self.success_threshold = success_threshold
 
-        self.state = CircuitState.CLOSED
         self.failure_count = 0
-        self.last_failure_time: Optional[datetime] = None
-        self.half_open_calls = 0
+        self.success_count = 0
+        self.state = CircuitState.CLOSED
+        self.opened_at = None
 
-    async def call(self, func: Callable, *args, **kwargs):
-        """Execute function with circuit breaker protection."""
+    async def call(self, func: Callable, *args, **kwargs) -> Any:
+        """Execute function with circuit breaker."""
+
         if self.state == CircuitState.OPEN:
-            # Check if timeout expired
             if self._should_attempt_reset():
                 self.state = CircuitState.HALF_OPEN
-                self.half_open_calls = 0
             else:
-                raise CircuitBreakerOpenError("Circuit breaker is OPEN")
-
-        if self.state == CircuitState.HALF_OPEN:
-            if self.half_open_calls >= self.half_open_max_calls:
-                raise CircuitBreakerOpenError("Circuit breaker in HALF_OPEN, max calls reached")
+                raise CircuitBreakerOpenError("Circuit breaker is open")
 
         try:
             result = await func(*args, **kwargs)
             self._on_success()
             return result
+
         except Exception as e:
             self._on_failure()
-            raise e
+            raise
 
     def _on_success(self):
         """Handle successful call."""
+        self.failure_count = 0
+
         if self.state == CircuitState.HALF_OPEN:
-            self.half_open_calls += 1
-            if self.half_open_calls >= self.half_open_max_calls:
-                # Service recovered
+            self.success_count += 1
+            if self.success_count >= self.success_threshold:
                 self.state = CircuitState.CLOSED
-                self.failure_count = 0
-        else:
-            self.failure_count = 0
+                self.success_count = 0
 
     def _on_failure(self):
         """Handle failed call."""
         self.failure_count += 1
-        self.last_failure_time = datetime.now()
 
         if self.failure_count >= self.failure_threshold:
             self.state = CircuitState.OPEN
+            self.opened_at = datetime.now()
+
+        if self.state == CircuitState.HALF_OPEN:
+            self.state = CircuitState.OPEN
+            self.opened_at = datetime.now()
 
     def _should_attempt_reset(self) -> bool:
-        """Check if timeout expired to try half-open."""
-        if not self.last_failure_time:
-            return False
-
-        elapsed = datetime.now() - self.last_failure_time
-        return elapsed.total_seconds() >= self.timeout_seconds
-
-# Usage
-payment_circuit = CircuitBreaker(
-    failure_threshold=5,
-    timeout_seconds=60
-)
-
-async def call_payment_service(order_id: str):
-    """Call payment service with circuit breaker."""
-    try:
-        return await payment_circuit.call(
-            payment_service.charge,
-            order_id=order_id
+        """Check if enough time passed to try again."""
+        return (
+            datetime.now() - self.opened_at
+            > timedelta(seconds=self.recovery_timeout)
         )
-    except CircuitBreakerOpenError:
-        # Fallback: queue for later processing
-        await payment_queue.enqueue(order_id)
-        return {"status": "queued", "message": "Payment service unavailable"}
-```
-
-### Pattern 2: Retry with Exponential Backoff
-
-```python
-import asyncio
-from typing import TypeVar, Callable
-import random
-
-T = TypeVar('T')
-
-async def retry_with_backoff(
-    func: Callable[..., T],
-    max_retries: int = 3,
-    base_delay: float = 1.0,
-    max_delay: float = 60.0,
-    exponential_base: float = 2.0,
-    jitter: bool = True
-) -> T:
-    """Retry function with exponential backoff."""
-
-    for attempt in range(max_retries):
-        try:
-            return await func()
-        except Exception as e:
-            if attempt == max_retries - 1:
-                raise e
-
-            # Calculate delay with exponential backoff
-            delay = min(base_delay * (exponential_base ** attempt), max_delay)
-
-            # Add jitter to prevent thundering herd
-            if jitter:
-                delay = delay * (0.5 + random.random())
-
-            print(f"Attempt {attempt + 1} failed: {e}. Retrying in {delay:.2f}s...")
-            await asyncio.sleep(delay)
 
 # Usage
-async def call_external_api():
-    """Call external API with retry."""
-    return await retry_with_backoff(
-        lambda: httpx.get("https://api.example.com/data"),
-        max_retries=3,
-        base_delay=1.0
+breaker = CircuitBreaker(failure_threshold=5, recovery_timeout=30)
+
+async def call_payment_service(payment_data: dict):
+    return await breaker.call(
+        payment_client.process_payment,
+        payment_data
     )
 ```
 
-### Pattern 3: Bulkhead Pattern
+## Resources
 
-```python
-import asyncio
-from typing import Callable, TypeVar
-
-T = TypeVar('T')
-
-class Bulkhead:
-    """Bulkhead pattern to isolate resources."""
-
-    def __init__(self, max_concurrent_calls: int):
-        self.semaphore = asyncio.Semaphore(max_concurrent_calls)
-
-    async def call(self, func: Callable[..., T], *args, **kwargs) -> T:
-        """Execute function with concurrency limit."""
-        async with self.semaphore:
-            return await func(*args, **kwargs)
-
-# Create separate bulkheads for different services
-payment_bulkhead = Bulkhead(max_concurrent_calls=10)
-inventory_bulkhead = Bulkhead(max_concurrent_calls=20)
-notification_bulkhead = Bulkhead(max_concurrent_calls=50)
-
-# Usage
-async def process_order(order_id: str):
-    """Process order with bulkhead isolation."""
-    # Each service call is isolated
-    payment_result = await payment_bulkhead.call(
-        payment_service.charge,
-        order_id
-    )
-
-    inventory_result = await inventory_bulkhead.call(
-        inventory_service.reserve,
-        order_id
-    )
-
-    # Notification failures won't affect critical services
-    await notification_bulkhead.call(
-        notification_service.send,
-        order_id
-    )
-```
-
-## API Gateway Pattern
-
-```python
-from fastapi import FastAPI, Request, HTTPException
-from fastapi.responses import JSONResponse
-import httpx
-from typing import Optional
-
-app = FastAPI(title="API Gateway")
-
-# Service registry
-SERVICES = {
-    "users": "http://user-service:8001",
-    "orders": "http://order-service:8002",
-    "payments": "http://payment-service:8003",
-    "inventory": "http://inventory-service:8004"
-}
-
-class APIGateway:
-    """API Gateway with routing, auth, and rate limiting."""
-
-    def __init__(self):
-        self.client = httpx.AsyncClient()
-        self.circuit_breakers = {
-            service: CircuitBreaker() for service in SERVICES
-        }
-
-    async def route_request(
-        self,
-        service: str,
-        path: str,
-        method: str,
-        headers: dict,
-        body: Optional[dict] = None
-    ) -> dict:
-        """Route request to appropriate service."""
-
-        if service not in SERVICES:
-            raise HTTPException(404, f"Service {service} not found")
-
-        # Get service URL
-        base_url = SERVICES[service]
-        url = f"{base_url}{path}"
-
-        # Add correlation ID for tracing
-        headers["X-Correlation-ID"] = headers.get("X-Correlation-ID", str(uuid.uuid4()))
-
-        # Call service with circuit breaker
-        circuit = self.circuit_breakers[service]
-
-        try:
-            response = await circuit.call(
-                self._make_request,
-                method=method,
-                url=url,
-                headers=headers,
-                json=body
-            )
-            return response
-        except CircuitBreakerOpenError:
-            raise HTTPException(503, f"Service {service} unavailable")
-
-    async def _make_request(
-        self,
-        method: str,
-        url: str,
-        headers: dict,
-        json: Optional[dict]
-    ) -> dict:
-        """Make HTTP request to service."""
-        response = await self.client.request(
-            method=method,
-            url=url,
-            headers=headers,
-            json=json,
-            timeout=30.0
-        )
-        response.raise_for_status()
-        return response.json()
-
-gateway = APIGateway()
-
-# Gateway endpoints
-@app.api_route("/api/{service}/{path:path}", methods=["GET", "POST", "PUT", "PATCH", "DELETE"])
-async def gateway_route(
-    service: str,
-    path: str,
-    request: Request
-):
-    """Gateway entry point - route to services."""
-
-    # Authentication (simplified)
-    auth_header = request.headers.get("Authorization")
-    if not auth_header:
-        raise HTTPException(401, "Authentication required")
-
-    # Rate limiting (simplified)
-    # await rate_limiter.check(request.client.host)
-
-    # Get request body
-    body = await request.json() if request.method in ["POST", "PUT", "PATCH"] else None
-
-    # Route to service
-    result = await gateway.route_request(
-        service=service,
-        path=f"/{path}",
-        method=request.method,
-        headers=dict(request.headers),
-        body=body
-    )
-
-    return result
-```
+- **references/service-decomposition-guide.md**: Breaking down monoliths
+- **references/communication-patterns.md**: Sync vs async patterns
+- **references/saga-implementation.md**: Distributed transactions
+- **assets/circuit-breaker.py**: Production circuit breaker
+- **assets/event-bus-template.py**: Kafka event bus implementation
+- **assets/api-gateway-template.py**: Complete API gateway
 
 ## Best Practices
 
-1. **Service Boundaries**: Design services around business capabilities, not technical layers
-2. **Data Ownership**: Each service owns its data; no shared databases
-3. **Communication**: Use asynchronous messaging for loose coupling
-4. **Resilience**: Implement circuit breakers, retries, and bulkheads
-5. **Observability**: Distributed tracing, centralized logging, metrics
-6. **API Versioning**: Version APIs to allow independent evolution
-7. **Idempotency**: Design operations to be safely retryable
-8. **Backwards Compatibility**: Never break existing clients
+1. **Service Boundaries**: Align with business capabilities
+2. **Database Per Service**: No shared databases
+3. **API Contracts**: Versioned, backward compatible
+4. **Async When Possible**: Events over direct calls
+5. **Circuit Breakers**: Fail fast on service failures
+6. **Distributed Tracing**: Track requests across services
+7. **Service Registry**: Dynamic service discovery
+8. **Health Checks**: Liveness and readiness probes
 
 ## Common Pitfalls
 
-- **Distributed Monolith**: Too many dependencies between services
-- **Chatty Services**: Excessive inter-service communication
-- **Shared Database**: Services sharing same database violates autonomy
-- **Synchronous Chains**: Long chains of synchronous calls reduce resilience
-- **Missing Compensation**: Distributed transactions without rollback strategy
-- **Poor Service Boundaries**: Services too fine-grained or too coarse
-- **Neglecting Observability**: Can't debug what you can't see
+- **Distributed Monolith**: Tightly coupled services
+- **Chatty Services**: Too many inter-service calls
+- **Shared Databases**: Tight coupling through data
+- **No Circuit Breakers**: Cascade failures
+- **Synchronous Everything**: Tight coupling, poor resilience
+- **Premature Microservices**: Starting with microservices
+- **Ignoring Network Failures**: Assuming reliable network
+- **No Compensation Logic**: Can't undo failed transactions

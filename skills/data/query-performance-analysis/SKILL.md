@@ -1,6 +1,6 @@
 ---
 name: query-performance-analysis
-description: Detect N+1 queries, analyze slow queries with EXPLAIN, identify missing indexes, and ensure safe online index migrations. Use when optimizing query performance, preventing performance regressions, or debugging slow endpoints. Complements database-migrations skill which covers index creation syntax.
+description: Detect N+1 queries, analyze slow queries with EXPLAIN, identify missing indexes, and ensure safe online index migrations for MySQL/MariaDB. Use when optimizing query performance, preventing performance regressions, or debugging slow endpoints. Complements database-migrations skill which covers index creation syntax.
 ---
 
 # Query Performance Analysis & Index Management
@@ -13,7 +13,7 @@ Use this skill when:
 - Profiler shows many database queries for single operation
 - Need to detect N+1 query problems
 - Query execution time is high
-- Missing index warnings in MongoDB logs
+- Slow query warnings in MySQL logs
 - Performance regression after code changes
 - Planning safe index migrations for production
 - Need to verify index effectiveness
@@ -28,7 +28,7 @@ Analyze query performance, detect N+1 issues, identify missing indexes, and crea
 - Slow queries identified with EXPLAIN analysis
 - Missing indexes detected and added
 - Query performance meets acceptable thresholds (<100ms for reads, <500ms for writes)
-- Index migrations are safe for production (no downtime)
+- Index migrations are safe for production (minimal downtime)
 - Performance regression tests added
 
 ---
@@ -48,57 +48,46 @@ Analyze query performance, detect N+1 issues, identify missing indexes, and crea
 **When Adding Indexes:**
 
 - [ ] Index covers actual query patterns
-- [ ] Compound index field order correct
-- [ ] Index creation is safe for production
+- [ ] Composite index field order correct
+- [ ] Index creation uses ALGORITHM=INPLACE when possible
 - [ ] Verification steps included
-- [ ] Index usage confirmed with explain()
+- [ ] Index usage confirmed with EXPLAIN
 
 ---
 
 ## Quick Start: 5-Step Performance Analysis
 
-### Step 1: Enable MongoDB Profiler
+### Step 1: Enable MySQL Slow Query Log
 
 ```bash
-# Connect to MongoDB container
-docker compose exec database mongosh -u root -p secret --authenticationDatabase admin
+docker compose exec database mariadb -u root -proot
 ```
 
-```javascript
-// List all databases to find yours
-show dbs
+```sql
+-- Enable slow query log
+SET GLOBAL slow_query_log = 'ON';
+SET GLOBAL long_query_time = 0.1;  -- Log queries slower than 100ms
+SET GLOBAL log_queries_not_using_indexes = 'ON';
 
-// Switch to your application database (app for this project)
-use app
-
-// Enable profiler (level 2 = all operations)
-db.setProfilingLevel(2, { slowms: 100 })
-
-// Verify profiling is enabled
-db.getProfilingStatus()
+-- Verify settings
+SHOW VARIABLES LIKE 'slow_query%';
+SHOW VARIABLES LIKE 'long_query_time';
 ```
-
-**Note**: Use `show dbs` to see all databases. The application database is typically the one with data (not 'admin', 'config', or 'local'). This project uses `app` as the database name.
 
 ### Step 2: Run Your Endpoint
 
 ```bash
-# Test endpoint
-curl http://localhost/api/customers
+curl https://localhost/api/users
 ```
 
 ### Step 3: Analyze Query Patterns
 
-```javascript
-// View recent queries
-db.system.profile.find().sort({ ts: -1 }).limit(10).pretty();
+```sql
+-- View recent slow queries (MariaDB)
+SELECT * FROM mysql.slow_log ORDER BY start_time DESC LIMIT 10;
 
-// Find repeated queries (N+1 pattern)
-db.system.profile.aggregate([
-  { $group: { _id: '$command.filter', count: { $sum: 1 } } },
-  { $match: { count: { $gt: 10 } } },
-  { $sort: { count: -1 } },
-]);
+-- Or use Symfony Profiler for detailed query analysis
+-- Open: https://localhost/_profiler
 ```
 
 ### Step 4: Check for Performance Issues
@@ -111,18 +100,14 @@ db.system.profile.aggregate([
 
 **Slow Query Symptoms**:
 
-- `millis` field >100ms
-- `planSummary: "COLLSCAN"` (collection scan)
-- High `docsExamined` vs `nReturned`
+- Execution time >100ms
+- EXPLAIN shows `type: ALL` (full table scan)
+- High `rows` vs actual returned rows
 
-### Step 5: Disable Profiler (Important!)
+### Step 5: Disable Slow Query Log (Production)
 
-```javascript
-// After analysis, disable profiler to avoid overhead
-db.setProfilingLevel(0);
-
-// Or enable only slow query logging (production)
-db.setProfilingLevel(1, { slowms: 200 });
+```sql
+SET GLOBAL slow_query_log = 'OFF';
 ```
 
 ---
@@ -133,19 +118,20 @@ db.setProfilingLevel(1, { slowms: 200 });
 
 **Detection**: 100+ queries for 100 records
 
-**Fix**: Use eager loading
+**Fix**: Use eager loading with Doctrine
 
 ```php
 // ❌ BAD: N+1 problem
-$customers = $repository->findAll();  // 1 query
-foreach ($customers as $customer) {
-    $type = $typeRepository->find($customer->getTypeId());  // N queries!
+$users = $repository->findAll();  // 1 query
+foreach ($users as $user) {
+    $token = $user->getConfirmationToken();  // N queries if lazy loaded!
 }
 
-// ✅ GOOD: Eager loading
-$qb = $this->createQueryBuilder(Customer::class);
-$qb->field('type')->prime(true);  // Eager load
-$customers = $qb->getQuery()->execute();
+// ✅ GOOD: Eager loading with QueryBuilder
+$qb = $this->createQueryBuilder('u');
+$qb->leftJoin('u.confirmationToken', 't')
+   ->addSelect('t');  // Eager load tokens
+$users = $qb->getQuery()->getResult();
 ```
 
 **See**: [examples/n-plus-one-detection.md](examples/n-plus-one-detection.md) for complete guide
@@ -154,30 +140,34 @@ $customers = $qb->getQuery()->execute();
 
 ### Issue 2: Slow Queries (No Index)
 
-**Detection**: EXPLAIN shows `COLLSCAN`, execution time >100ms
+**Detection**: EXPLAIN shows `type: ALL`, execution time >100ms
 
 **Fix**: Add index
 
-```javascript
-// Check query performance
-db.customers.find({ email: 'test@example.com' }).explain('executionStats');
+```sql
+-- Check query performance
+EXPLAIN SELECT * FROM users WHERE email = 'test@example.com';
 
-// If stage: "COLLSCAN" → add index
+-- If type: ALL → add index
 ```
 
-**Add index in XML mapping**:
+**Add index in Doctrine migration**:
+
+```php
+// migrations/VersionXXX.php
+public function up(Schema $schema): void
+{
+    $this->addSql('CREATE INDEX idx_users_email ON users (email)');
+}
+```
+
+**Or in XML mapping**:
 
 ```xml
-<!-- config/doctrine/Customer.mongodb.xml -->
+<!-- config/doctrine/User.orm.xml -->
 <indexes>
-    <index><key name="email" order="asc"/></index>
+    <index name="idx_email" columns="email"/>
 </indexes>
-```
-
-**Apply schema update**:
-
-```bash
-docker compose exec php bin/console doctrine:mongodb:schema:update
 ```
 
 **See**: [examples/slow-query-analysis.md](examples/slow-query-analysis.md) for EXPLAIN interpretation
@@ -186,35 +176,24 @@ docker compose exec php bin/console doctrine:mongodb:schema:update
 
 ### Issue 3: Missing Indexes on Filtered Fields
 
-#### Cursor pagination + ULID (\_id) index strategy (this repo)
-
-This service uses **cursor pagination** on `ulid` via API Platform, and Doctrine ODM maps `ulid` as the MongoDB document identifier (`_id`) via:
-
-```xml
-<id field-name="ulid" type="ulid" strategy="NONE" />
-```
-
-**Best practice** for cursor pagination with filters is a **compound index** that starts with the filter field(s) and ends with the cursor field:
-
-- `{ phone: 1, _id: 1 }` (API Platform filter by `phone`, cursor by `ulid/_id`)
-- `{ createdAt: 1, _id: 1 }` (date filter + cursor)
-
-In XML mappings, you should still declare the cursor part as `ulid` (Doctrine will materialize it as `_id` in Mongo):
-
-```xml
-<index>
-  <key name="phone" order="asc" />
-  <key name="ulid" order="asc" />
-</index>
-```
-
 **Detection**: Queries filter/sort on fields without indexes
 
 **Common patterns needing indexes**:
 
-- WHERE clause fields: `status = 'active'`
-- ORDER BY fields: `createdAt DESC`
-- Compound filters: `status = 'active' AND type = 'premium'`
+- WHERE clause fields: `email = ?`, `status = ?`
+- ORDER BY fields: `created_at DESC`
+- Composite filters: `status = ? AND type = ?`
+- Foreign keys: `user_id`, `token_id`
+
+**Cursor pagination + UUID index strategy (this repo)**:
+
+This service uses **cursor pagination** on `id` (UUID). For pagination with filters, use a **composite index**:
+
+```xml
+<indexes>
+    <index name="idx_status_id" columns="status,id"/>
+</indexes>
+```
 
 **See**: [reference/index-strategies.md](reference/index-strategies.md) for index selection guide
 
@@ -235,40 +214,49 @@ In XML mappings, you should still declare the cursor part as `ulid` (Doctrine wi
 
 ## Safe Index Migrations
 
-**MongoDB 4.2+** uses an optimized hybrid index build approach:
+**MariaDB 11.4+** supports online DDL:
 
-- Obtains exclusive locks **only briefly** at start and end of the build
-- Allows concurrent reads and writes during most of the build process
-- **Note**: Brief locking at start/end can still impact write latency
+- Most index operations are **non-blocking** with `ALGORITHM=INPLACE`
+- InnoDB allows concurrent reads and writes during index builds
+- **Note**: Large tables may still cause brief locks at start/end
 
-**Recommendation**: For all production index builds, schedule index creation during low-traffic periods or maintenance windows to avoid latency spikes. This is important regardless of collection size, but exercise extra caution with large collections, as longer build times increase the risk and duration of impact.
+**Recommendation**: For production index builds, schedule during low-traffic periods for very large tables.
 
 ### Production Migration Strategy
 
-1. **Add index to XML mapping**
-2. **Schedule during low traffic** (or maintenance window for large collections)
-3. **Run schema update**: `doctrine:mongodb:schema:update`
-4. **Verify index created**: `db.collection.getIndexes()`
-5. **Verify index is used**: Run EXPLAIN on queries
-6. **Measure performance improvement**
+1. **Create Doctrine migration with index**
+2. **Use ALGORITHM=INPLACE** for non-blocking creation
+3. **Schedule during low traffic** for large tables
+4. **Run migration**: `make doctrine-migrations-migrate`
+5. **Verify index created**: `SHOW INDEX FROM table_name`
+6. **Verify index is used**: Run EXPLAIN on queries
+7. **Measure performance improvement**
+
+```php
+// Migration example with online DDL
+public function up(Schema $schema): void
+{
+    $this->addSql('CREATE INDEX idx_users_email ON users (email) ALGORITHM=INPLACE LOCK=NONE');
+}
+```
 
 ---
 
 ## Performance Testing
 
 ```php
-final class CustomerEndpointTest extends ApiTestCase
+final class UserEndpointPerformanceTest extends ApiTestCase
 {
     public function testNoN1Queries(): void
     {
         // Arrange: Create test data
         for ($i = 0; $i < 50; $i++) {
-            $this->createCustomer();
+            $this->createUser();
         }
 
         // Act: Enable query counter
         $this->enableQueryCounter();
-        $this->client->request('GET', '/api/customers');
+        $this->client->request('GET', '/api/users');
 
         // Assert: Should have minimal queries
         $queryCount = $this->getQueryCount();
@@ -279,7 +267,7 @@ final class CustomerEndpointTest extends ApiTestCase
     {
         // Measure response time
         $start = microtime(true);
-        $response = $this->client->request('GET', '/api/customers');
+        $response = $this->client->request('GET', '/api/users');
         $duration = (microtime(true) - $start) * 1000;
 
         // Assert: Should be fast
@@ -293,34 +281,40 @@ final class CustomerEndpointTest extends ApiTestCase
 ## Quick Commands Reference
 
 ```bash
-# Enable profiler
-docker compose exec database mongosh -u root -p secret --authenticationDatabase admin
+# Connect to MySQL
+docker compose exec database mariadb -u root -proot db
 ```
 
-```javascript
-// List databases, then use the one with your application data
-show dbs
-use app  // Application database name for this project
+```sql
+-- Enable slow query log
+SET GLOBAL slow_query_log = 'ON';
+SET GLOBAL long_query_time = 0.1;
 
-// Enable profiler
-db.setProfilingLevel(2, { slowms: 100 })
+-- View slow queries
+SELECT * FROM mysql.slow_log ORDER BY start_time DESC LIMIT 10;
 
-// View slow queries
-db.system.profile.find({ millis: { $gt: 100 } }).sort({ millis: -1 })
+-- Check indexes
+SHOW INDEX FROM users;
 
-// Check indexes
-db.customers.getIndexes()
+-- EXPLAIN query
+EXPLAIN SELECT * FROM users WHERE email = 'test@example.com';
 
-// EXPLAIN query
-db.customers.find({ email: "test@example.com" }).explain("executionStats")
+-- EXPLAIN with extended info
+EXPLAIN ANALYZE SELECT * FROM users WHERE email = 'test@example.com';
 
-// IMPORTANT: Disable profiler after analysis
-db.setProfilingLevel(0)
+-- IMPORTANT: Disable slow query log in production
+SET GLOBAL slow_query_log = 'OFF';
 ```
 
 ```bash
-# Update schema (creates indexes)
-docker compose exec php bin/console doctrine:mongodb:schema:update
+# Create migration
+make doctrine-migrations-generate
+
+# Run migration
+make doctrine-migrations-migrate
+
+# Validate schema
+docker compose exec php bin/console doctrine:schema:validate
 ```
 
 ---
@@ -357,7 +351,7 @@ docker compose exec php bin/console doctrine:mongodb:schema:update
 ### Reference Guides
 
 - **[reference/performance-thresholds.md](reference/performance-thresholds.md)** - Acceptable performance limits
-- **[reference/mongodb-profiler-guide.md](reference/mongodb-profiler-guide.md)** - Complete profiler documentation
+- **[reference/mysql-slow-query-guide.md](reference/mysql-slow-query-guide.md)** - Complete slow query log documentation
 - **[reference/index-strategies.md](reference/index-strategies.md)** - When to use which index type
 
 ---
@@ -368,71 +362,63 @@ docker compose exec php bin/console doctrine:mongodb:schema:update
 | ----------- | -------------------------- | ---------------------------- |
 | **Purpose** | **WHAT** indexes to add    | **HOW** to create indexes    |
 | **Focus**   | Performance analysis       | Schema definition            |
-| **Tools**   | EXPLAIN, profiler          | Doctrine ODM, XML mappings   |
+| **Tools**   | EXPLAIN, slow query log    | Doctrine migrations, XML     |
 | **When**    | Debugging slow queries     | Creating entities/migrations |
-| **Output**  | Performance insights       | XML configuration            |
+| **Output**  | Performance insights       | Migration files, XML config  |
 
-**Workflow**: Use this skill to **identify** needed indexes, then use database-migrations for **XML syntax**.
+**Workflow**: Use this skill to **identify** needed indexes, then use database-migrations for **migration syntax**.
 
 ---
 
 ## Troubleshooting
 
-**Issue**: Can't enable MongoDB profiler
+**Issue**: Can't enable slow query log
 
-**Solution**: Verify MongoDB version (4.0+), check permissions, ensure connected to correct database
+**Solution**: Verify MySQL permissions, ensure connected to correct database
 
 ---
 
-**Issue**: EXPLAIN shows COLLSCAN but index exists
+**Issue**: EXPLAIN shows ALL but index exists
 
 **Solution**:
 
 1. Verify index covers your query pattern
-2. Check compound index field order
+2. Check composite index field order
 3. Ensure query uses indexed fields exactly
+4. Check if optimizer chooses full scan for small tables
 
 ---
 
-**Issue**: Container name error: "service 'mongodb' not found"
+**Issue**: Container name error
 
-**Solution**: Use `database` as the service name (not `mongodb`):
+**Solution**: Use `database` as the service name:
 
 ```bash
-docker compose exec database mongosh  # ✅ Correct
-docker compose exec mongodb mongosh   # ❌ Wrong - service doesn't exist
+docker compose exec database mariadb -u root -proot  # ✅ Correct
+docker compose exec mysql mariadb -u root -proot     # ❌ Wrong
 ```
 
 ---
 
-**Issue**: Database name unknown
+**Issue**: Symfony Profiler not showing queries
 
-**Solution**: List databases to find the application database:
+**Solution**: Enable profiler in dev mode:
 
-```bash
-# Connect and list all databases
-docker compose exec database mongosh -u root -p secret --authenticationDatabase admin --eval "db.getMongo().getDBNames()"
-
-# Or interactively - identify your database first
-docker compose exec database mongosh -u root -p secret --authenticationDatabase admin
-```
-
-```javascript
-// Look for the database with your application data (not 'admin', 'config', or 'local')
-show dbs
-
-// Use your application database (app for this project, contains customers, customer_types, customer_statuses)
-use app
+```yaml
+# config/packages/dev/web_profiler.yaml
+web_profiler:
+  toolbar: true
+  intercept_redirects: false
 ```
 
 ---
 
 ## External Resources
 
-- **[MongoDB EXPLAIN Documentation](https://docs.mongodb.com/manual/reference/explain-results/)**
-- **[MongoDB Profiler](https://docs.mongodb.com/manual/tutorial/manage-the-database-profiler/)**
-- **[MongoDB Indexing Strategies](https://docs.mongodb.com/manual/applications/indexes/)**
-- **[Doctrine ODM Performance](https://www.doctrine-project.org/projects/doctrine-mongodb-odm/en/latest/reference/performance.html)**
+- **[MySQL EXPLAIN Documentation](https://dev.mysql.com/doc/refman/8.0/en/explain.html)**
+- **[MariaDB Query Optimization](https://mariadb.com/kb/en/query-optimization/)**
+- **[Doctrine Performance Tips](https://www.doctrine-project.org/projects/doctrine-orm/en/current/reference/improving-performance.html)**
+- **[Symfony Profiler](https://symfony.com/doc/current/profiler.html)**
 
 ---
 
@@ -440,19 +426,18 @@ use app
 
 ### DO ✅
 
-- Enable profiler in development for every new feature
+- Use Symfony Profiler in development for every new feature
 - Analyze queries before deploying to production
 - Add performance tests to prevent regressions
 - Use eager loading to prevent N+1 queries
 - Create indexes for frequently filtered/sorted fields
-- Disable profiler after analysis (avoid overhead)
+- Use EXPLAIN ANALYZE for detailed query plans
 
 ### DON'T ❌
 
-- Leave profiler level 2 enabled in production
+- Leave slow query log enabled in production at low threshold
 - Add indexes without analyzing query patterns
 - Ignore N+1 warnings (they compound quickly)
 - Skip EXPLAIN analysis before adding indexes
 - Forget to verify index is actually used after creation
-- Hardcode database names (use `DB_NAME` variable or identify from `show dbs` first)
-- Assume index creation is completely non-blocking (brief locks still occur at start/end)
+- Add indexes on every column (write overhead)

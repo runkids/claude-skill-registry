@@ -1,343 +1,302 @@
 ---
 name: prompt-engineering
-description: Crafting effective prompts for LLMs. Use when designing prompts, improving output quality, structuring complex instructions, or debugging poor model responses.
+category: backend
+tags: [prompt-engineering, few-shot-learning, chain-of-thought, optimization, templates, system-prompts, llm-performance, ai-patterns]
+version: 1.0.0
+description: This skill should be used when creating, optimizing, or implementing advanced prompt patterns including few-shot learning, chain-of-thought reasoning, prompt optimization workflows, template systems, and system prompt design. It provides comprehensive frameworks for building production-ready prompts with measurable performance improvements.
 ---
 
 # Prompt Engineering
 
-Prompt engineering is the practice of designing inputs that guide LLMs to produce desired outputs. Effective prompts reduce errors, improve consistency, and unlock model capabilities.
+This skill provides comprehensive frameworks for creating, optimizing, and implementing advanced prompt patterns that significantly improve LLM performance across various tasks and models.
 
-## Table of Contents
+## When to Use This Skill
 
-- [Core Principles](#core-principles)
-- [Be Clear and Direct](#be-clear-and-direct)
-- [Use Examples (Multishot)](#use-examples-multishot)
-- [Chain of Thought](#chain-of-thought)
-- [XML Tags](#xml-tags)
-- [Role Prompting](#role-prompting)
-- [Long Context](#long-context)
-- [Output Control](#output-control)
-- [Self-Verification](#self-verification)
-- [Best Practices](#best-practices)
-- [References](#references)
+Use this skill when:
+- Creating new prompts for complex reasoning or analytical tasks
+- Optimizing existing prompts for better accuracy or efficiency
+- Implementing few-shot learning with strategic example selection
+- Designing chain-of-thought reasoning for multi-step problems
+- Building reusable prompt templates and systems
+- Developing system prompts for consistent model behavior
+- Troubleshooting poor prompt performance or failure modes
+- Scaling prompt systems for production use cases
 
-## Core Principles
+## Core Prompt Engineering Patterns
 
-**Golden rule**: Show your prompt to a colleague with minimal context. If they're confused, the model will be too.
+### 1. Few-Shot Learning Implementation
 
-1. **Be explicit** - State exactly what you want; never assume the model knows your preferences
-2. **Provide context** - Include what the output is for, who the audience is, and what success looks like
-3. **Use structure** - Sequential steps, XML tags, and clear formatting reduce ambiguity
-4. **Show examples** - Demonstrations outperform descriptions for complex formats
+Select examples using semantic similarity and diversity sampling to maximize learning within context window constraints.
 
-## Be Clear and Direct
+#### Example Selection Strategy
+- Use `references/few-shot-patterns.md` for comprehensive selection frameworks
+- Balance example count (3-5 optimal) with context window limitations
+- Include edge cases and boundary conditions in example sets
+- Prioritize diverse examples that cover problem space variations
+- Order examples from simple to complex for progressive learning
 
-Treat the model as a capable but context-free collaborator. Specify:
-- What the task results will be used for
-- What audience the output is meant for
-- What a successful completion looks like
-
-### Vague vs Specific
-
+#### Few-Shot Template Structure
 ```
-# Vague
-Analyze this data and give insights.
+Example 1 (Basic case):
+Input: {representative_input}
+Output: {expected_output}
 
-# Specific
-Analyze this Q2 sales data for our board presentation.
-1. Identify the top 3 revenue trends
-2. Flag any anomalies exceeding 15% variance
-3. Recommend 2-3 actionable next steps
-Format as bullet points, max 200 words.
+Example 2 (Edge case):
+Input: {challenging_input}
+Output: {robust_output}
+
+Example 3 (Error case):
+Input: {problematic_input}
+Output: {corrected_output}
+
+Now handle: {target_input}
 ```
 
-### Sequential Steps
+### 2. Chain-of-Thought Reasoning
 
-Use numbered lists for multi-step tasks:
+Elicit step-by-step reasoning for complex problem-solving through structured thinking patterns.
 
+#### Implementation Patterns
+- Reference `references/cot-patterns.md` for detailed reasoning frameworks
+- Use "Let's think step by step" for zero-shot CoT initiation
+- Provide complete reasoning traces for few-shot CoT demonstrations
+- Implement self-consistency by sampling multiple reasoning paths
+- Include verification and validation steps in reasoning chains
+
+#### CoT Template Structure
 ```
-Your task is to anonymize customer feedback.
+Let's approach this step-by-step:
 
-Instructions:
-1. Replace customer names with "CUSTOMER_[ID]"
-2. Replace emails with "EMAIL_[ID]@example.com"
-3. Redact phone numbers as "PHONE_[ID]"
-4. Leave product names intact
-5. Output only processed messages, separated by "---"
-```
+Step 1: {break_down_the_problem}
+Analysis: {detailed_reasoning}
 
-## Use Examples (Multishot)
+Step 2: {identify_key_components}
+Analysis: {component_analysis}
 
-Provide 3-5 diverse examples to demonstrate expected behavior. Examples reduce misinterpretation and enforce consistent formatting.
+Step 3: {synthesize_solution}
+Analysis: {solution_justification}
 
-### Structure
-
-```
-Categorize customer feedback by issue type and sentiment.
-
-<examples>
-<example>
-Input: The dashboard loads slowly and the export button is hidden.
-Category: UI/UX, Performance
-Sentiment: Negative
-Priority: High
-</example>
-
-<example>
-Input: Love the Salesforce integration! Would be great to add Hubspot.
-Category: Integration, Feature Request
-Sentiment: Positive
-Priority: Medium
-</example>
-</examples>
-
-Now categorize: {{FEEDBACK}}
+Final Answer: {conclusion_with_confidence}
 ```
 
-### Tips
+### 3. Prompt Optimization Workflows
 
-- Make examples **relevant** to actual use cases
-- Include **edge cases** and potential challenges
-- Vary examples to prevent unintended pattern matching
-- Wrap in `<example>` tags for clarity
+Implement iterative refinement processes with measurable performance metrics and systematic A/B testing.
 
-## Chain of Thought
+#### Optimization Process
+- Use `references/optimization-frameworks.md` for comprehensive optimization strategies
+- Measure baseline performance before optimization attempts
+- Implement single-variable changes for accurate attribution
+- Track metrics: accuracy, consistency, latency, token efficiency
+- Use statistical significance testing for A/B validation
+- Document optimization iterations and their impacts
 
-Encourage step-by-step reasoning for complex tasks. This improves accuracy in math, logic, analysis, and multi-factor decisions.
+#### Performance Metrics Framework
+- **Accuracy**: Task completion rate and output correctness
+- **Consistency**: Response stability across multiple runs
+- **Efficiency**: Token usage and response time optimization
+- **Robustness**: Performance across edge cases and variations
+- **Safety**: Adherence to guidelines and harm prevention
 
-### Basic
+### 4. Template Systems Architecture
 
+Build modular, reusable prompt components with variable interpolation and conditional sections.
+
+#### Template Design Principles
+- Reference `references/template-systems.md` for modular template frameworks
+- Use clear variable naming conventions (e.g., `{user_input}`, `{context}`)
+- Implement conditional sections for different scenario handling
+- Design role-based templates for specific use cases
+- Create hierarchical template composition patterns
+
+#### Template Structure Example
 ```
-Determine the best investment option for this client. Think step-by-step.
-```
+# System Context
+You are a {role} with {expertise_level} expertise in {domain}.
 
-### Guided
+# Task Context
+{if background_information}
+Background: {background_information}
+{endif}
 
-Specify what steps to consider:
+# Instructions
+{task_instructions}
 
-```
-Think before answering:
-1. Consider the client's risk tolerance given their 5-year timeline
-2. Calculate potential returns for each option
-3. Factor in market volatility history
-4. Then provide your recommendation
-```
+# Examples
+{example_count}
 
-### Structured (Recommended)
+# Output Format
+{output_specification}
 
-Separate reasoning from output with tags:
-
-```
-Analyze this contract for legal risks.
-
-In <thinking> tags, work through:
-- Indemnification implications
-- Liability exposure
-- IP ownership concerns
-
-Then provide your recommendation in <answer> tags.
-```
-
-This makes reasoning visible for debugging and the answer extractable for post-processing.
-
-## XML Tags
-
-Use XML tags to separate prompt components. This prevents instruction/content confusion and improves parseability.
-
-### Common Tags
-
-```
-<instructions>Task steps and requirements</instructions>
-<context>Background information</context>
-<document>Source material to process</document>
-<example>Demonstration of expected behavior</example>
-<constraints>Boundaries and limitations</constraints>
-<output_format>Expected response structure</output_format>
+# Input
+{user_query}
 ```
 
-### Nested Structure
+### 5. System Prompt Design
 
+Design comprehensive system prompts that establish consistent model behavior, output formats, and safety constraints.
+
+#### System Prompt Components
+- Use `references/system-prompt-design.md` for detailed design guidelines
+- Define clear role specification and expertise boundaries
+- Establish output format requirements and structural constraints
+- Include safety guidelines and content policy adherence
+- Set context for background information and domain knowledge
+
+#### System Prompt Framework
 ```
-<documents>
-  <document index="1">
-    <source>annual_report_2023.pdf</source>
-    <content>{{REPORT_CONTENT}}</content>
-  </document>
-  <document index="2">
-    <source>competitor_analysis.xlsx</source>
-    <content>{{ANALYSIS_CONTENT}}</content>
-  </document>
-</documents>
+You are an expert {role} specializing in {domain} with {experience_level} of experience.
 
-<instructions>
-Compare revenue trends across both documents.
-Identify strategic advantages mentioned in the annual report.
-</instructions>
-```
+## Core Capabilities
+- List specific capabilities and expertise areas
+- Define scope of knowledge and limitations
 
-### Reference Tags in Instructions
+## Behavioral Guidelines
+- Specify interaction style and communication approach
+- Define error handling and uncertainty protocols
+- Establish quality standards and verification requirements
 
-Be explicit when referring to tagged content:
+## Output Requirements
+- Specify format expectations and structural requirements
+- Define content inclusion and exclusion criteria
+- Establish consistency and validation requirements
 
-```
-Using the contract in <contract> tags, identify all clauses
-related to termination.
-```
-
-## Role Prompting
-
-Set expertise context via system prompts to improve domain-specific performance.
-
-### System Prompt Pattern
-
-```python
-system = "You are a senior securities lawyer at a Fortune 500 company."
-user = "Review this acquisition agreement for regulatory risks."
+## Safety and Ethics
+- Include content policy adherence
+- Specify bias mitigation requirements
+- Define harm prevention protocols
 ```
 
-### Effective Roles
+## Implementation Workflows
 
+### Workflow 1: Create New Prompt from Requirements
+
+1. **Analyze Requirements**
+   - Identify task complexity and reasoning requirements
+   - Determine target model capabilities and limitations
+   - Define success criteria and evaluation metrics
+   - Assess need for few-shot learning or CoT reasoning
+
+2. **Select Pattern Strategy**
+   - Use few-shot learning for classification or transformation tasks
+   - Apply CoT for complex reasoning or multi-step problems
+   - Implement template systems for reusable prompt architecture
+   - Design system prompts for consistent behavior requirements
+
+3. **Draft Initial Prompt**
+   - Structure prompt with clear sections and logical flow
+   - Include relevant examples or reasoning demonstrations
+   - Specify output format and quality requirements
+   - Incorporate safety guidelines and constraints
+
+4. **Validate and Test**
+   - Test with diverse input scenarios including edge cases
+   - Measure performance against defined success criteria
+   - Iterate refinement based on testing results
+   - Document optimization decisions and their rationale
+
+### Workflow 2: Optimize Existing Prompt
+
+1. **Performance Analysis**
+   - Measure current prompt performance metrics
+   - Identify failure modes and error patterns
+   - Analyze token efficiency and response latency
+   - Assess consistency across multiple runs
+
+2. **Optimization Strategy**
+   - Apply systematic A/B testing with single-variable changes
+   - Use few-shot learning to improve task adherence
+   - Implement CoT reasoning for complex task components
+   - Refine template structure for better clarity
+
+3. **Implementation and Testing**
+   - Deploy optimized prompts with controlled rollout
+   - Monitor performance metrics in production environment
+   - Compare against baseline using statistical significance
+   - Document improvements and lessons learned
+
+### Workflow 3: Scale Prompt Systems
+
+1. **Modular Architecture Design**
+   - Decompose complex prompts into reusable components
+   - Create template inheritance hierarchies
+   - Implement dynamic example selection systems
+   - Build automated quality assurance frameworks
+
+2. **Production Integration**
+   - Implement prompt versioning and rollback capabilities
+   - Create performance monitoring and alerting systems
+   - Build automated testing frameworks for prompt validation
+   - Establish update and deployment workflows
+
+## Quality Assurance
+
+### Validation Requirements
+- Test prompts with at least 10 diverse scenarios
+- Include edge cases, boundary conditions, and failure modes
+- Verify output format compliance and structural consistency
+- Validate safety guideline adherence and harm prevention
+- Measure performance across multiple model runs
+
+### Performance Standards
+- Achieve >90% task completion for well-defined use cases
+- Maintain <5% variance across multiple runs for consistency
+- Optimize token usage without sacrificing accuracy
+- Ensure response latency meets application requirements
+- Demonstrate robust handling of edge cases and unexpected inputs
+
+## Integration with Other Skills
+
+This skill integrates seamlessly with:
+- **langchain4j-ai-services-patterns**: Interface-based prompt design
+- **langchain4j-rag-implementation-patterns**: Context-enhanced prompting
+- **langchain4j-testing-strategies**: Prompt validation frameworks
+- **unit-test-parameterized**: Systematic prompt testing approaches
+
+## Resources and References
+
+- `references/few-shot-patterns.md`: Comprehensive few-shot learning frameworks
+- `references/cot-patterns.md`: Chain-of-thought reasoning patterns and examples
+- `references/optimization-frameworks.md`: Systematic prompt optimization methodologies
+- `references/template-systems.md`: Modular template design and implementation
+- `references/system-prompt-design.md`: System prompt architecture and best practices
+
+## Usage Examples
+
+### Example 1: Classification Task with Few-Shot Learning
 ```
-# General
-You are a [role] at [organization type].
-
-# Specific (better)
-You are the General Counsel of a Fortune 500 tech company
-specializing in M&A transactions.
-
-# With behavioral guidance (best)
-You are a senior data scientist. You prioritize statistical
-rigor over speed. When uncertain, you state assumptions
-explicitly and suggest validation approaches.
-```
-
-### When to Use
-
-- Complex analysis requiring domain expertise
-- Tasks where tone/style matters (legal, medical, executive)
-- When a specific perspective would improve output quality
-
-## Long Context
-
-For prompts with large documents (20K+ tokens):
-
-### Document Placement
-
-Place long documents **at the top**, before instructions:
-
-```
-<documents>
-{{LARGE_DOCUMENT_CONTENT}}
-</documents>
-
-<instructions>
-Summarize the key findings from the document above.
-Focus on financial implications.
-</instructions>
-```
-
-### Quote Grounding
-
-Ask the model to cite sources before analyzing:
-
-```
-<documents>
-{{PATIENT_RECORDS}}
-</documents>
-
-First, find and quote the relevant sections in <quotes> tags.
-Then provide your diagnosis in <analysis> tags, referencing
-the quoted evidence.
-```
-
-### Multi-Document Metadata
-
-Include source information for attribution:
-
-```
-<documents>
-  <document index="1">
-    <source>quarterly_report_q2.pdf</source>
-    <date>2024-07-15</date>
-    <content>{{CONTENT}}</content>
-  </document>
-</documents>
-```
-
-## Output Control
-
-### Verbosity Specification
-
-```
-<output_format>
-- Default responses: 3-6 sentences or ≤5 bullets
-- Simple factual questions: ≤2 sentences
-- Complex analysis: 1 overview paragraph + ≤5 tagged bullets
-</output_format>
-```
-
-### Format Constraints
-
-```
-Output requirements:
-- Use markdown tables for comparisons
-- Code blocks for any technical content
-- No introductory phrases ("Here's...", "Sure...")
-- End with exactly 3 action items
-```
-
-### Scope Boundaries
-
-Prevent drift from original intent:
-
-```
-Implement EXACTLY and ONLY what is requested.
-- Do not add features beyond the specification
-- Do not refactor surrounding code
-- Choose the simplest valid interpretation
-- Ask for clarification rather than assuming
+Classify customer feedback into categories using semantic similarity for example selection and diversity sampling for edge case coverage.
 ```
 
-## Self-Verification
-
-For high-stakes outputs, include verification steps:
-
+### Example 2: Complex Reasoning with Chain-of-Thought
 ```
-<verification>
-Before finalizing your response:
-1. Re-read the original request
-2. Check that all requirements are addressed
-3. Verify any specific claims against provided documents
-4. Soften language where certainty is low
-5. Flag any assumptions you made
-</verification>
+Implement step-by-step reasoning for financial analysis with verification steps and confidence scoring.
 ```
 
-### Uncertainty Acknowledgment
-
+### Example 3: Template System for Customer Service
 ```
-When uncertain:
-- Explicitly state "Based on the provided context..."
-- Offer 2-3 plausible interpretations if ambiguous
-- Never fabricate specific details (dates, numbers, quotes)
-- Say "I don't have enough information to..." when applicable
+Create modular templates with role-based components and conditional sections for different inquiry types.
 ```
 
-## Best Practices
+### Example 4: System Prompt for Code Generation
+```
+Design comprehensive system prompt with behavioral guidelines, output requirements, and safety constraints.
+```
 
-1. **Start specific, then generalize** - Begin with detailed prompts; relax constraints only after validating output quality
-2. **Test with edge cases** - Include unusual inputs in your evaluation to catch failure modes
-3. **Iterate on examples** - When outputs miss the mark, add an example demonstrating the correct behavior
-4. **Separate instructions from content** - Use XML tags to prevent the model from confusing your instructions with input data
-5. **Put documents before queries** - For long context, place source material at the top of the prompt
-6. **Make reasoning visible** - Use `<thinking>` tags to debug why the model produces certain outputs
-7. **Constrain output format explicitly** - Specify structure, length, and style to reduce post-processing
-8. **Version your prompts** - Track changes to understand what modifications improved or degraded performance
-9. **Use system prompts for role, user prompts for task** - Keep role context stable; vary task instructions
-10. **Validate with fresh eyes** - Have someone unfamiliar with the task review your prompt for clarity
+## Common Pitfalls and Solutions
 
-## References
+- **Overfitting examples**: Use diverse example sets with semantic variety
+- **Context window overflow**: Implement strategic example selection and compression
+- **Inconsistent outputs**: Specify clear output formats and validation requirements
+- **Poor generalization**: Include edge cases and boundary conditions in training examples
+- **Safety violations**: Incorporate comprehensive content policies and harm prevention
 
-- [Claude Prompt Engineering Guide](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview)
-- [GPT-5 Prompting Guide](https://cookbook.openai.com/examples/gpt-5/gpt-5-2_prompting_guide)
-- [Anthropic Prompt Library](https://docs.anthropic.com/en/prompt-library)
+## Performance Optimization
+
+- Monitor token usage and implement compression strategies
+- Use caching for repeated prompt components
+- Optimize example selection for maximum learning efficiency
+- Implement progressive disclosure for complex prompt systems
+- Balance prompt complexity with response quality requirements
+
+This skill provides the foundational patterns and methodologies for building production-ready prompt systems that consistently deliver high performance across diverse use cases and model types.

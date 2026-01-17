@@ -1,368 +1,227 @@
 ---
 name: cli-reference
-description: Complete CLI command reference for Claude Code including flags, options, and usage patterns. Use when user asks about command-line options, flags, CLI usage, or command syntax.
+description: Claude Code CLI commands, flags, headless mode, and automation patterns
+allowed-tools: [Read]
 ---
 
-# Claude Code CLI Reference
+# CLI Reference
 
-## CLI Commands
+Complete reference for Claude Code command-line interface.
 
-### Interactive Mode
+## When to Use
 
-**Start interactive REPL:**
+- "What CLI flags are available?"
+- "How do I use headless mode?"
+- "Claude in automation/CI/CD"
+- "Output format options"
+- "System prompt via CLI"
+- "How do I spawn agents properly?"
+
+## Core Commands
+
+| Command | Description | Example |
+|---------|-------------|---------|
+| `claude` | Start interactive REPL | `claude` |
+| `claude "query"` | REPL with initial prompt | `claude "explain this project"` |
+| `claude -p "query"` | Headless mode (SDK) | `claude -p "explain function"` |
+| `cat file \| claude -p` | Process piped content | `cat logs.txt \| claude -p "explain"` |
+| `claude -c` | Continue most recent | `claude -c` |
+| `claude -c -p "query"` | Continue via SDK | `claude -c -p "check types"` |
+| `claude -r "id" "query"` | Resume session | `claude -r "auth" "finish PR"` |
+| `claude update` | Update version | `claude update` |
+| `claude mcp` | Configure MCP servers | See MCP docs |
+
+## Session Control
+
+| Flag | Description | Example |
+|------|-------------|---------|
+| `--continue, -c` | Load most recent conversation | `claude --continue` |
+| `--resume, -r` | Resume session by ID/name | `claude --resume auth-refactor` |
+| `--session-id` | Use specific UUID | `claude --session-id "550e8400-..."` |
+| `--fork-session` | Create new session on resume | `claude --resume abc --fork-session` |
+
+## Headless Mode (Critical for Agents)
+
+| Flag | Description | Example |
+|------|-------------|---------|
+| `--print, -p` | Non-interactive, exit after | `claude -p "query"` |
+| `--output-format` | `text`, `json`, `stream-json` | `claude -p --output-format json` |
+| `--max-turns` | Limit agentic turns | `claude -p --max-turns 100 "query"` |
+| `--verbose` | Full turn-by-turn output | `claude --verbose` |
+| `--dangerously-skip-permissions` | Skip permission prompts | `claude -p --dangerously-skip-permissions` |
+| `--include-partial-messages` | Include streaming events | `claude -p --output-format stream-json --include-partial-messages` |
+| `--input-format` | Input format (text/stream-json) | `claude -p --input-format stream-json` |
+
+## Tool Control
+
+| Flag | Description | Example |
+|------|-------------|---------|
+| `--allowedTools` | Auto-approve these tools | `"Bash(git log:*)" "Read"` |
+| `--disallowedTools` | Block these tools | `"Bash(rm:*)" "Edit"` |
+| `--tools` | Only allow these tools | `--tools "Bash,Edit,Read"` |
+
+## Subagent Definition (--agents flag)
+
+Define custom subagents inline via JSON:
+
 ```bash
-claude
+claude --agents '{
+  "code-reviewer": {
+    "description": "Expert code reviewer. Use proactively after code changes.",
+    "prompt": "You are a senior code reviewer. Focus on code quality and security.",
+    "tools": ["Read", "Grep", "Glob", "Bash"],
+    "model": "sonnet"
+  },
+  "debugger": {
+    "description": "Debugging specialist for errors and test failures.",
+    "prompt": "You are an expert debugger. Analyze errors and provide fixes."
+  }
+}'
 ```
 
-**Start with initial prompt:**
-```bash
-claude "query"
-```
+### Agent Fields
 
-### Non-Interactive Mode
+| Field | Required | Description |
+|-------|----------|-------------|
+| `description` | Yes | When to invoke this agent |
+| `prompt` | Yes | System prompt for behavior |
+| `tools` | No | Allowed tools (inherits all if omitted) |
+| `model` | No | `sonnet`, `opus`, or `haiku` |
 
-**Query via SDK, then exit:**
-```bash
-claude -p "query"
-claude --print "query"
-```
+### Key Insight
+When Lead uses Task tool, it auto-spawns from these definitions. No manual spawn needed.
 
-**Process piped content:**
-```bash
-cat file | claude -p "query"
-echo "content" | claude -p "analyze this"
-```
+## System Prompt Customization
 
-**Continue most recent conversation:**
-```bash
-claude -c
-claude --continue
-```
+| Flag | Behavior | Modes |
+|------|----------|-------|
+| `--system-prompt` | **Replace** entire prompt | Interactive + Print |
+| `--system-prompt-file` | **Replace** from file | Print only |
+| `--append-system-prompt` | **Append** to default (recommended) | Interactive + Print |
 
-**Continue via SDK:**
-```bash
-claude -c -p "query"
-```
+**Use `--append-system-prompt`** for most cases - preserves Claude Code capabilities.
 
-**Resume session by ID:**
-```bash
-claude -r "<session-id>" "query"
-claude --resume "<session-id>" "query"
-```
+## Model Selection
 
-### Maintenance
+| Flag | Description | Example |
+|------|-------------|---------|
+| `--model` | Set model for session | `--model claude-sonnet-4-5` |
+| `--fallback-model` | Fallback if default overloaded | `--fallback-model sonnet` |
 
-**Update to latest version:**
-```bash
-claude update
-```
+Aliases: `sonnet`, `opus`, `haiku`
 
-**Configure MCP servers:**
-```bash
-claude mcp
-```
+## MCP Configuration
 
-**Check installation health:**
-```bash
-claude --doctor
-```
+| Flag | Description | Example |
+|------|-------------|---------|
+| `--mcp-config` | Load MCP servers from JSON | `--mcp-config ./mcp.json` |
+| `--strict-mcp-config` | Only use these MCP servers | `--strict-mcp-config --mcp-config ./mcp.json` |
 
-**Migrate installer:**
-```bash
-claude migrate-installer
-```
+## Advanced Flags
 
-## Key CLI Flags
-
-### Essential Flags
-
-| Flag | Short | Purpose | Example |
-|------|-------|---------|---------|
-| `--print` | `-p` | Print response without interactive mode | `claude -p "task"` |
-| `--continue` | `-c` | Continue most recent conversation | `claude -c "follow up"` |
-| `--resume` | `-r` | Resume session by ID | `claude -r abc123 "task"` |
-| `--help` | `-h` | Show help information | `claude --help` |
-| `--version` | `-v` | Show version | `claude --version` |
-
-### Configuration Flags
-
-| Flag | Purpose | Example |
-|------|---------|---------|
-| `--add-dir` | Add working directories for access | `claude --add-dir /path/to/dir` |
-| `--agents` | Define custom subagents dynamically via JSON | `claude --agents '[{...}]'` |
-| `--model` | Set model with alias or full name | `claude --model opus` |
-| `--max-turns` | Limit agentic turns in non-interactive mode | `claude --max-turns 5` |
-| `--permission-mode` | Begin in specified permission mode | `claude --permission-mode acceptAll` |
-| `--allowedTools` | Specify permitted tools | `claude --allowedTools "Bash,Read"` |
-
-### Output & Format Flags
-
-| Flag | Purpose | Example |
-|------|---------|---------|
-| `--output-format` | Specify format (text, json, stream-json) | `claude -p --output-format json` |
-| `--input-format` | Specify input format | `claude --input-format stream-json` |
-| `--verbose` | Enable detailed logging for debugging | `claude --verbose` |
-| `--debug` | Enable debug mode | `claude --debug` |
-
-### Advanced Flags
-
-| Flag | Purpose | Example |
-|------|---------|---------|
-| `--mcp-config` | Load MCP servers from JSON file | `claude --mcp-config servers.json` |
-| `--append-system-prompt` | Append text to system prompt | `claude --append-system-prompt "Be concise"` |
-| `--compact` | Start with compacted context | `claude --compact` |
-| `--no-cache` | Disable prompt caching | `claude --no-cache` |
-
-## Agents Flag Format
-
-Custom subagents require JSON with:
-- `description`: Purpose of the subagent
-- `prompt`: System prompt for the subagent
-- `tools` (optional): Array of allowed tools
-- `model` (optional): Model to use
-
-**Example:**
-```bash
-claude --agents '[{
-  "description": "Code reviewer",
-  "prompt": "Review code for quality and security",
-  "tools": ["Read", "Grep", "Glob"],
-  "model": "sonnet"
-}]'
-```
-
-## Permission Modes
-
-| Mode | Description |
-|------|-------------|
-| `ask` | Ask for permission for each operation (default) |
-| `acceptAll` | Accept all operations automatically |
-| `acceptEdits` | Auto-accept file edits, ask for bash |
-| `acceptCommands` | Auto-accept bash, ask for edits |
-| `denyAll` | Deny all operations |
-
-**Example:**
-```bash
-claude --permission-mode acceptEdits -p "refactor the code"
-```
-
-## Model Aliases
-
-| Alias | Full Model Name |
-|-------|----------------|
-| `sonnet` | claude-sonnet-4-5-20250929 |
-| `opus` | claude-opus-4-5-20250514 |
-| `haiku` | claude-haiku-4-5-20250815 |
-
-**Example:**
-```bash
-claude --model opus "complex reasoning task"
-claude --model haiku -p "simple query"
-```
+| Flag | Description | Example |
+|------|-------------|---------|
+| `--add-dir` | Add working directories | `--add-dir ../apps ../lib` |
+| `--agent` | Specify agent for session | `--agent my-custom-agent` |
+| `--permission-mode` | Start in permission mode | `--permission-mode plan` |
+| `--permission-prompt-tool` | MCP tool for permissions | `--permission-prompt-tool mcp_auth` |
+| `--plugin-dir` | Load plugins from directory | `--plugin-dir ./my-plugins` |
+| `--settings` | Load settings from file/JSON | `--settings ./settings.json` |
+| `--setting-sources` | Which settings to load | `--setting-sources user,project` |
+| `--betas` | Beta API headers | `--betas interleaved-thinking` |
+| `--debug` | Enable debug mode | `--debug "api,hooks"` |
+| `--ide` | Auto-connect to IDE | `--ide` |
+| `--chrome` | Enable Chrome integration | `--chrome` |
+| `--no-chrome` | Disable Chrome for session | `--no-chrome` |
+| `--enable-lsp-logging` | Verbose LSP debugging | `--enable-lsp-logging` |
+| `--version, -v` | Output version | `claude -v` |
 
 ## Output Formats
 
-### Text (Default)
-
-Plain text output suitable for reading:
+### JSON (for parsing)
 ```bash
-claude -p "explain this code"
+claude -p "query" --output-format json
+# {"result": "...", "session_id": "...", "usage": {...}}
 ```
 
-### JSON
-
-Structured output with metadata:
+### Streaming (for real-time monitoring)
 ```bash
-claude -p --output-format json "analyze project"
+claude -p "query" --output-format stream-json
+# Newline-delimited JSON events
 ```
 
-**JSON structure:**
-```json
-{
-  "type": "result",
-  "subtype": "success",
-  "total_cost_usd": 0.003,
-  "duration_ms": 1234,
-  "num_turns": 6,
-  "result": "Response text...",
-  "session_id": "abc123"
-}
-```
-
-### Stream JSON
-
-JSONL format for real-time processing:
+### Structured Output (schema validation)
 ```bash
-claude -p --output-format stream-json --input-format stream-json
-```
-
-## Environment Variables
-
-Key environment variables affecting CLI behavior:
-
-| Variable | Purpose |
-|----------|---------|
-| `ANTHROPIC_API_KEY` | API authentication |
-| `CLAUDE_CODE_USE_BEDROCK` | Use AWS Bedrock |
-| `CLAUDE_CODE_USE_VERTEX` | Use Google Vertex AI |
-| `CLAUDE_CODE_ENABLE_TELEMETRY` | Enable telemetry |
-| `DISABLE_PROMPT_CACHING` | Disable caching |
-| `MAX_THINKING_TOKENS` | Enable extended thinking |
-| `BASH_MAX_OUTPUT_LENGTH` | Limit bash output |
-| `CLAUDE_CODE_MAX_OUTPUT_TOKENS` | Max output tokens |
-
-## Common Usage Patterns
-
-### Quick Query
-```bash
-claude -p "what does this project do?"
-```
-
-### Automated Task
-```bash
-claude -p "run tests and fix failures" \
-  --allowedTools "Bash,Read,Edit,Write" \
-  --max-turns 10 \
-  --permission-mode acceptAll
-```
-
-### Resume Previous Work
-```bash
-claude -c "continue the refactoring"
-```
-
-### Custom Configuration
-```bash
-claude \
-  --model sonnet \
-  --permission-mode acceptEdits \
-  --verbose \
-  --add-dir /path/to/project
-```
-
-### CI/CD Integration
-```bash
-claude -p "review PR changes" \
+claude -p "Extract data" \
   --output-format json \
-  --allowedTools "Read,Bash" \
-  --max-turns 5
+  --json-schema '{"type":"object","properties":{...}}'
 ```
 
-### MCP with Custom Servers
-```bash
-claude --mcp-config mcp-servers.json -p "fetch user data"
-```
+## Headless Agent Pattern (CRITICAL)
 
-## Exit Codes
-
-| Code | Meaning |
-|------|---------|
-| 0 | Success |
-| 1 | General error |
-| 2 | Configuration error |
-| 130 | Interrupted (Ctrl+C) |
-
-## Tips & Tricks
-
-### Piping Input
+Proper headless agent spawn:
 
 ```bash
-# Pipe file content
-cat script.py | claude -p "explain this code"
-
-# Pipe command output
-git diff | claude -p "review these changes"
-
-# Pipe from multiple sources
-cat file1.txt file2.txt | claude -p "summarize"
+claude -p "$TASK_PROMPT" \
+  --session-id "$UUID" \
+  --dangerously-skip-permissions \
+  --max-turns 100 \
+  --output-format stream-json \
+  --agents '{...}' \
+  --append-system-prompt "Context: ..."
 ```
 
-### Chaining Commands
+**Missing any of these causes hangs:**
+- `--session-id` - Track the session
+- `--dangerously-skip-permissions` - Headless requires this
+- `--max-turns` - Prevents infinite loops
 
+## Common Patterns
+
+### CI/CD Automation
 ```bash
-# With AND operator
-claude -p "task 1" && claude -p "task 2"
-
-# With OR operator
-claude -p "task" || echo "Failed"
+claude -p "Run tests and fix failures" \
+  --dangerously-skip-permissions \
+  --max-turns 50 \
+  --output-format json | jq '.result'
 ```
 
-### Background Execution
-
+### Piped Input
 ```bash
-# Run in background
-claude -p "long task" &
-
-# With output redirection
-claude -p "task" > output.txt 2>&1 &
+cat error.log | claude -p "Find root cause"
+gh pr diff | claude -p "Review for security"
 ```
 
-### Parsing JSON Output
-
+### Multi-turn Session
 ```bash
-# Extract specific field with jq
-claude -p "task" --output-format json | jq -r '.result'
-
-# Get session ID
-SESSION=$(claude -p "task" --output-format json | jq -r '.session_id')
-
-# Check cost
-claude -p "task" --output-format json | jq '.total_cost_usd'
+id=$(claude -p "Start task" --output-format json | jq -r '.session_id')
+claude -p "Continue" --resume "$id"
 ```
 
-### Using with Scripts
-
+### Stream Monitoring
 ```bash
-#!/bin/bash
-
-# Check if task succeeded
-RESULT=$(claude -p "run tests" --output-format json)
-STATUS=$(echo "$RESULT" | jq -r '.subtype')
-
-if [ "$STATUS" = "success" ]; then
-  echo "Tests passed"
-else
-  echo "Tests failed"
-  exit 1
-fi
+claude -p "Long task" \
+  --output-format stream-json \
+  --include-partial-messages | while read -r line; do
+    echo "$line" | jq '.type'
+done
 ```
 
-## Debugging
+## Keyboard Shortcuts (Interactive)
 
-### Enable Verbose Output
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl+C` | Cancel current |
+| `Ctrl+D` | Exit |
+| `Ctrl+R` | Reverse search history |
+| `Esc Esc` | Rewind changes |
+| `Shift+Tab` | Toggle permission mode |
 
-```bash
-claude --verbose -p "task"
-```
+## Quick Commands
 
-### Enable Debug Mode
-
-```bash
-claude --debug
-```
-
-### Check Version
-
-```bash
-claude --version
-```
-
-### View Help
-
-```bash
-claude --help
-claude -h
-```
-
-## Best Practices
-
-1. **Use specific flags** for automation and scripts
-2. **Enable JSON output** for programmatic parsing
-3. **Set max-turns** to prevent runaway operations
-4. **Configure permissions** appropriately for security
-5. **Use model aliases** for readability
-6. **Pipe stderr to logs** for error tracking
-7. **Check exit codes** in scripts
-8. **Use --allowedTools** to restrict capabilities
-9. **Set timeouts** for long-running tasks
-10. **Test with --verbose** before production use
+| Prefix | Action |
+|--------|--------|
+| `/` | Slash command |
+| `!` | Bash mode |
+| `#` | Add to memory |
+| `@` | File mention |

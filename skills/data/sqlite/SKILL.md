@@ -1,358 +1,460 @@
 ---
 name: sqlite
-description: SQLite problem-solving patterns for embedded/edge deployments. For basic syntax, use context7 MCP. This skill covers SQLite-specific constraints and workarounds.
+description: Integrates SQLite embedded database with Node.js using better-sqlite3 for synchronous operations or the native Node.js SQLite module. Use when building applications with local storage, embedded databases, or when user mentions SQLite, better-sqlite3, or embedded SQL.
 ---
 
-# SQLite Patterns
+# SQLite
 
-For basic DDL/DML syntax, use `context7` MCP. This skill focuses on **SQLite-specific problems and solutions**.
+Embedded SQL database for Node.js with zero configuration and serverless architecture.
 
----
+## Quick Start
 
-## Critical: Connection Setup
+```bash
+# Install better-sqlite3 (recommended)
+npm install better-sqlite3
+npm install -D @types/better-sqlite3
 
-**Every connection must run these pragmas** — they don't persist:
-
-```sql
-PRAGMA journal_mode = WAL;      -- Better concurrency
-PRAGMA synchronous = NORMAL;    -- Safe with WAL
-PRAGMA foreign_keys = ON;       -- ⚠️ OFF by default!
-PRAGMA busy_timeout = 5000;     -- Wait for locks
-PRAGMA cache_size = -64000;     -- 64MB cache
+# Or use native Node.js SQLite (experimental, Node 22.5+)
+# No installation needed, but requires --experimental-sqlite flag
 ```
 
-**Most common bug**: Foreign keys silently not enforced.
+## better-sqlite3
 
----
+### Connection
 
-## "Database is Locked" Errors
+```typescript
+import Database from 'better-sqlite3';
 
-**Problem**: SQLite has single-writer model.
+// Open database (creates if doesn't exist)
+const db = new Database('app.db');
 
-**Solution A**: WAL mode (readers don't block writer)
+// With options
+const db = new Database('app.db', {
+  readonly: false,
+  fileMustExist: false,
+  timeout: 5000,
+  verbose: console.log, // Log all queries
+});
 
-```sql
-PRAGMA journal_mode = WAL;  -- Run once, persists
+// In-memory database
+const memDb = new Database(':memory:');
+
+// Enable WAL mode for better concurrency
+db.pragma('journal_mode = WAL');
+
+// Close on exit
+process.on('exit', () => db.close());
+process.on('SIGHUP', () => process.exit(128 + 1));
+process.on('SIGINT', () => process.exit(128 + 2));
+process.on('SIGTERM', () => process.exit(128 + 15));
 ```
 
-**Solution B**: IMMEDIATE transactions for writes
+### Schema Setup
 
-```sql
--- ❌ DEFERRED can deadlock
-BEGIN; SELECT ...; UPDATE ...;  -- May fail on UPDATE
+```typescript
+// Create tables
+db.exec(`
+  CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    email TEXT UNIQUE NOT NULL,
+    password_hash TEXT NOT NULL,
+    role TEXT DEFAULT 'user' CHECK(role IN ('user', 'admin')),
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+    updated_at TEXT DEFAULT CURRENT_TIMESTAMP
+  );
 
--- ✅ IMMEDIATE acquires lock upfront
-BEGIN IMMEDIATE; SELECT ...; UPDATE ...; COMMIT;
+  CREATE TABLE IF NOT EXISTS posts (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    content TEXT,
+    author_id INTEGER NOT NULL,
+    published INTEGER DEFAULT 0,
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (author_id) REFERENCES users(id) ON DELETE CASCADE
+  );
+
+  CREATE INDEX IF NOT EXISTS idx_posts_author ON posts(author_id);
+  CREATE INDEX IF NOT EXISTS idx_posts_published ON posts(published);
+`);
+
+// Enable foreign keys
+db.pragma('foreign_keys = ON');
 ```
 
-**Solution C**: Retry logic in application
+### Basic CRUD
 
-```python
-for attempt in range(3):
-    try:
-        db.execute("UPDATE ...")
-        break
-    except sqlite3.OperationalError as e:
-        if "locked" in str(e) and attempt < 2:
-            time.sleep(0.1 * (attempt + 1))
-        else:
-            raise
+```typescript
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  password_hash: string;
+  role: 'user' | 'admin';
+  created_at: string;
+  updated_at: string;
+}
+
+// Insert
+const insertUser = db.prepare(`
+  INSERT INTO users (name, email, password_hash)
+  VALUES (@name, @email, @password_hash)
+`);
+
+const result = insertUser.run({
+  name: 'Alice',
+  email: 'alice@example.com',
+  password_hash: 'hashed_password',
+});
+
+console.log('Inserted ID:', result.lastInsertRowid);
+console.log('Rows affected:', result.changes);
+
+// Select one
+const getUser = db.prepare('SELECT * FROM users WHERE id = ?');
+const user = getUser.get(1) as User | undefined;
+
+// Select all
+const getAllUsers = db.prepare('SELECT * FROM users');
+const users = getAllUsers.all() as User[];
+
+// Select with named params
+const getUserByEmail = db.prepare('SELECT * FROM users WHERE email = @email');
+const user = getUserByEmail.get({ email: 'alice@example.com' }) as User | undefined;
+
+// Update
+const updateUser = db.prepare(`
+  UPDATE users
+  SET name = @name, updated_at = CURRENT_TIMESTAMP
+  WHERE id = @id
+`);
+
+updateUser.run({ id: 1, name: 'Alice Smith' });
+
+// Delete
+const deleteUser = db.prepare('DELETE FROM users WHERE id = ?');
+deleteUser.run(1);
+
+// Iterate (memory efficient for large results)
+const iterateUsers = db.prepare('SELECT * FROM users');
+for (const user of iterateUsers.iterate()) {
+  console.log((user as User).name);
+}
 ```
 
-**Pitfall**: WAL creates .db-wal, .db-shm files — must stay together.
+### Prepared Statements with Types
 
----
+```typescript
+interface CreateUserParams {
+  name: string;
+  email: string;
+  password_hash: string;
+}
 
-## ALTER TABLE Limitations
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  role: string;
+  created_at: string;
+}
 
-**What SQLite can't do**:
-- Add NOT NULL to existing column
-- Change column type
-- Add CHECK/UNIQUE constraint to existing column
+// Type-safe repository
+class UserRepository {
+  private insertStmt = db.prepare<CreateUserParams>(`
+    INSERT INTO users (name, email, password_hash)
+    VALUES (@name, @email, @password_hash)
+  `);
 
-**Solution**: Table rebuild
+  private getByIdStmt = db.prepare<[number], User>(`
+    SELECT id, name, email, role, created_at
+    FROM users WHERE id = ?
+  `);
 
-```sql
-PRAGMA foreign_keys = OFF;
-BEGIN;
+  private getByEmailStmt = db.prepare<{ email: string }, User>(`
+    SELECT id, name, email, role, created_at
+    FROM users WHERE email = @email
+  `);
 
--- 1. Create new table
-CREATE TABLE users_new (
-    id INTEGER PRIMARY KEY,
-    email TEXT NOT NULL UNIQUE,  -- Added constraint
-    age INTEGER NOT NULL DEFAULT 0
-);
+  private updateStmt = db.prepare<{ id: number; name: string }>(`
+    UPDATE users SET name = @name, updated_at = CURRENT_TIMESTAMP
+    WHERE id = @id
+  `);
 
--- 2. Copy data
-INSERT INTO users_new (id, email, age)
-SELECT id, email, COALESCE(age, 0) FROM users;
+  private deleteStmt = db.prepare<[number]>('DELETE FROM users WHERE id = ?');
 
--- 3. Swap
-DROP TABLE users;
-ALTER TABLE users_new RENAME TO users;
+  create(data: CreateUserParams): number {
+    const result = this.insertStmt.run(data);
+    return Number(result.lastInsertRowid);
+  }
 
--- 4. Recreate indexes
-CREATE INDEX users_email_idx ON users(email);
+  getById(id: number): User | undefined {
+    return this.getByIdStmt.get(id);
+  }
 
-PRAGMA foreign_key_check;
-COMMIT;
-PRAGMA foreign_keys = ON;
+  getByEmail(email: string): User | undefined {
+    return this.getByEmailStmt.get({ email });
+  }
+
+  update(id: number, name: string): boolean {
+    const result = this.updateStmt.run({ id, name });
+    return result.changes > 0;
+  }
+
+  delete(id: number): boolean {
+    const result = this.deleteStmt.run(id);
+    return result.changes > 0;
+  }
+}
+
+const userRepo = new UserRepository();
 ```
 
-**Pitfall**: Must recreate ALL indexes, triggers, views.
+### Transactions
 
----
+```typescript
+// Implicit transaction (single statement)
+db.prepare('INSERT INTO users (name, email) VALUES (?, ?)').run('Bob', 'bob@example.com');
 
-## No Native Date Type
+// Explicit transaction
+const insertMany = db.transaction((users: CreateUserParams[]) => {
+  for (const user of users) {
+    insertUser.run(user);
+  }
+  return users.length;
+});
 
-**Solution A**: TEXT (ISO8601) — recommended
+// Use transaction
+const count = insertMany([
+  { name: 'User 1', email: 'user1@example.com', password_hash: 'hash1' },
+  { name: 'User 2', email: 'user2@example.com', password_hash: 'hash2' },
+  { name: 'User 3', email: 'user3@example.com', password_hash: 'hash3' },
+]);
 
-```sql
-created_at TEXT DEFAULT (datetime('now'))
+// Transaction with rollback on error
+const transfer = db.transaction((fromId: number, toId: number, amount: number) => {
+  const from = db.prepare('SELECT balance FROM accounts WHERE id = ?').get(fromId);
+  if (!from || from.balance < amount) {
+    throw new Error('Insufficient funds');
+  }
 
--- Queries work naturally
-WHERE created_at > '2024-01-01'
-WHERE date(created_at) = '2024-01-15'
+  db.prepare('UPDATE accounts SET balance = balance - ? WHERE id = ?').run(amount, fromId);
+  db.prepare('UPDATE accounts SET balance = balance + ? WHERE id = ?').run(amount, toId);
 
--- Date math
-datetime(created_at, '+7 days')
-datetime('now', '-1 hour')
+  return { success: true };
+});
+
+try {
+  transfer(1, 2, 100);
+} catch (error) {
+  console.error('Transfer failed:', error.message);
+  // Transaction is automatically rolled back
+}
+
+// Nested transactions (savepoints)
+const outerTransaction = db.transaction(() => {
+  insertUser.run({ name: 'Outer', email: 'outer@example.com', password_hash: 'hash' });
+
+  try {
+    const innerTransaction = db.transaction(() => {
+      insertUser.run({ name: 'Inner', email: 'inner@example.com', password_hash: 'hash' });
+      throw new Error('Rollback inner');
+    });
+    innerTransaction();
+  } catch {
+    // Inner rolled back, outer continues
+  }
+
+  return 'completed';
+});
 ```
 
-**Solution B**: INTEGER (Unix timestamp)
+### Aggregates and Functions
 
-```sql
-created_at INTEGER DEFAULT (unixepoch())
+```typescript
+// Built-in aggregates
+const stats = db.prepare(`
+  SELECT
+    COUNT(*) as total,
+    COUNT(CASE WHEN role = 'admin' THEN 1 END) as admins,
+    MIN(created_at) as oldest,
+    MAX(created_at) as newest
+  FROM users
+`).get();
 
-WHERE created_at > unixepoch('2024-01-01')
-datetime(created_at, 'unixepoch')  -- Convert to readable
+// User-defined function
+db.function('lower_case', (str: string) => str?.toLowerCase());
+
+const result = db.prepare("SELECT lower_case(name) as name FROM users").all();
+
+// Aggregate function
+db.aggregate('concat_names', {
+  start: () => [],
+  step: (arr: string[], name: string) => { arr.push(name); return arr; },
+  result: (arr: string[]) => arr.join(', '),
+});
+
+const names = db.prepare('SELECT concat_names(name) as names FROM users').get();
 ```
 
-**Pitfall**: Pick ONE approach, use consistently. No timezone support — store UTC.
+### Migrations
 
----
+```typescript
+// Simple migration system
+interface Migration {
+  version: number;
+  name: string;
+  up: string;
+  down: string;
+}
 
-## Dynamic Typing Issues
+const migrations: Migration[] = [
+  {
+    version: 1,
+    name: 'create_users',
+    up: `
+      CREATE TABLE users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        email TEXT UNIQUE NOT NULL,
+        created_at TEXT DEFAULT CURRENT_TIMESTAMP
+      );
+    `,
+    down: 'DROP TABLE users;',
+  },
+  {
+    version: 2,
+    name: 'add_user_role',
+    up: `ALTER TABLE users ADD COLUMN role TEXT DEFAULT 'user';`,
+    down: `ALTER TABLE users DROP COLUMN role;`,
+  },
+];
 
-**Problem**: SQLite accepts wrong types silently.
+function migrate(db: Database.Database) {
+  // Create migrations table
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS migrations (
+      version INTEGER PRIMARY KEY,
+      name TEXT NOT NULL,
+      applied_at TEXT DEFAULT CURRENT_TIMESTAMP
+    );
+  `);
 
-```sql
-INSERT INTO users (age) VALUES ('not a number');  -- Works!
+  const applied = db.prepare('SELECT version FROM migrations').all() as { version: number }[];
+  const appliedVersions = new Set(applied.map(m => m.version));
+
+  const pending = migrations.filter(m => !appliedVersions.has(m.version));
+
+  if (pending.length === 0) {
+    console.log('No pending migrations');
+    return;
+  }
+
+  const applyMigration = db.transaction((migration: Migration) => {
+    console.log(`Applying migration ${migration.version}: ${migration.name}`);
+    db.exec(migration.up);
+    db.prepare('INSERT INTO migrations (version, name) VALUES (?, ?)').run(
+      migration.version,
+      migration.name
+    );
+  });
+
+  for (const migration of pending.sort((a, b) => a.version - b.version)) {
+    applyMigration(migration);
+  }
+
+  console.log(`Applied ${pending.length} migration(s)`);
+}
+
+migrate(db);
 ```
 
-**Solution**: STRICT tables (3.37+)
+### Backup and Restore
 
-```sql
-CREATE TABLE users (
-    id INTEGER PRIMARY KEY,
-    age INTEGER NOT NULL
-) STRICT;
+```typescript
+// Backup to file
+db.backup('backup.db')
+  .then(() => console.log('Backup complete'))
+  .catch((err) => console.error('Backup failed:', err));
 
-INSERT INTO users (age) VALUES ('text');  -- Error!
+// Backup with progress
+db.backup('backup.db').then((progress) => {
+  console.log(`${progress.totalPages} pages to copy`);
+}).progress(({ totalPages, remainingPages }) => {
+  console.log(`Progress: ${totalPages - remainingPages}/${totalPages}`);
+});
+
+// Vacuum (reclaim space)
+db.pragma('vacuum');
+
+// Integrity check
+const integrity = db.pragma('integrity_check');
+if (integrity[0].integrity_check !== 'ok') {
+  console.error('Database corruption detected!');
+}
 ```
 
-**Alternative**: CHECK constraints for older versions
+## Native Node.js SQLite (Experimental)
 
-```sql
-age INTEGER CHECK(typeof(age) = 'integer' OR age IS NULL)
+```typescript
+// Requires Node.js 22.5+ with --experimental-sqlite flag
+import { DatabaseSync } from 'node:sqlite';
+
+// Open database
+const db = new DatabaseSync(':memory:');
+
+// Execute SQL
+db.exec(`
+  CREATE TABLE users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL
+  )
+`);
+
+// Prepared statement
+const insert = db.prepare('INSERT INTO users (name) VALUES (?)');
+insert.run('Alice');
+
+const select = db.prepare('SELECT * FROM users WHERE id = ?');
+const user = select.get(1);
+
+// Close
+db.close();
 ```
 
----
+## Performance Tips
 
-## Full-Text Search
+```typescript
+// 1. Use WAL mode
+db.pragma('journal_mode = WAL');
 
-**Problem**: LIKE '%term%' is slow.
+// 2. Batch inserts in transactions
+const insertBatch = db.transaction((items: Item[]) => {
+  for (const item of items) {
+    insertStmt.run(item);
+  }
+});
+insertBatch(items); // Much faster than individual inserts
 
-**Solution**: FTS5
+// 3. Use EXPLAIN to analyze queries
+const plan = db.prepare('EXPLAIN QUERY PLAN SELECT * FROM users WHERE email = ?').all('test@example.com');
+console.log(plan);
 
-```sql
--- Create FTS table
-CREATE VIRTUAL TABLE posts_fts USING fts5(
-    title, content, content=posts, content_rowid=id
-);
+// 4. Create appropriate indexes
+db.exec('CREATE INDEX IF NOT EXISTS idx_users_email ON users(email)');
 
--- Sync triggers
-CREATE TRIGGER posts_ai AFTER INSERT ON posts BEGIN
-    INSERT INTO posts_fts(rowid, title, content)
-    VALUES (new.id, new.title, new.content);
-END;
+// 5. Use .pluck() for single column results
+const names = db.prepare('SELECT name FROM users').pluck().all();
+// ['Alice', 'Bob', 'Charlie'] instead of [{name: 'Alice'}, ...]
 
-CREATE TRIGGER posts_ad AFTER DELETE ON posts BEGIN
-    INSERT INTO posts_fts(posts_fts, rowid, title, content)
-    VALUES ('delete', old.id, old.title, old.content);
-END;
+// 6. Use .expand() for duplicate column names
+const expanded = db.prepare('SELECT u.*, p.* FROM users u JOIN posts p ON u.id = p.author_id').expand().all();
 
-CREATE TRIGGER posts_au AFTER UPDATE ON posts BEGIN
-    INSERT INTO posts_fts(posts_fts, rowid, title, content)
-    VALUES ('delete', old.id, old.title, old.content);
-    INSERT INTO posts_fts(rowid, title, content)
-    VALUES (new.id, new.title, new.content);
-END;
-
--- Query
-SELECT * FROM posts_fts WHERE posts_fts MATCH 'sqlite';
-SELECT * FROM posts_fts WHERE posts_fts MATCH '"exact phrase"';
-SELECT *, rank FROM posts_fts WHERE posts_fts MATCH 'term' ORDER BY rank;
+// 7. Disable synchronous for speed (less safe)
+db.pragma('synchronous = OFF'); // Only for non-critical data
 ```
 
-**Pitfall**: Must keep FTS in sync with triggers.
+## Reference Files
 
----
-
-## Hierarchical Queries
-
-```sql
-WITH RECURSIVE tree AS (
-    SELECT id, name, parent_id, 0 AS depth
-    FROM categories WHERE id = :root_id
-    UNION ALL
-    SELECT c.id, c.name, c.parent_id, t.depth + 1
-    FROM categories c JOIN tree t ON c.parent_id = t.id
-    WHERE t.depth < 10
-)
-SELECT * FROM tree;
-```
-
-**Pitfall**: Always add depth limit. Index `parent_id`.
-
----
-
-## JSON Handling
-
-```sql
--- Extract
-json_extract(data, '$.name')
-data->>'$.name'  -- 3.38+ (returns TEXT)
-
--- Query
-SELECT * FROM products WHERE json_extract(data, '$.price') > 100;
-
--- Index JSON paths
-CREATE INDEX idx ON products(json_extract(data, '$.price'));
-
--- Array iteration
-SELECT * FROM products, json_each(products.data, '$.tags') AS tag
-WHERE tag.value = 'sale';
-
--- Modify
-UPDATE products SET data = json_set(data, '$.price', 29.99);
-
--- Aggregate
-json_group_array(name)         -- ["Alice", "Bob"]
-json_group_object(id, name)    -- {"1": "Alice"}
-```
-
-**Pitfall**: `->` returns JSON, `->>` returns TEXT.
-
----
-
-## Partial Index Matching
-
-**Problem**: Query must exactly match partial index condition.
-
-```sql
-CREATE INDEX idx ON orders(created_at) WHERE status = 'pending';
-
--- ✅ Uses index
-SELECT * FROM orders WHERE status = 'pending' AND created_at > '2024-01-01';
-
--- ❌ Doesn't use index
-SELECT * FROM orders WHERE created_at > '2024-01-01';
-```
-
----
-
-## Query Optimization
-
-```sql
-EXPLAIN QUERY PLAN SELECT ...;
-```
-
-| Output | Meaning | Fix |
-|--------|---------|-----|
-| SCAN | Full table scan | Add index |
-| SEARCH USING INDEX | Good | — |
-| USE TEMP B-TREE | Sorting | Add index matching ORDER BY |
-
-**Covering indexes** (index-only scan):
-
-```sql
-CREATE INDEX idx ON orders(user_id, status, total);
-SELECT status, total FROM orders WHERE user_id = 1;  -- No table lookup
-```
-
----
-
-## Backup
-
-```sql
--- Hot backup
-.backup main backup.db
-
--- Or VACUUM INTO (3.27+)
-VACUUM INTO 'backup.db';
-```
-
-**Pitfall**: Never copy .db alone in WAL mode — must include .db-wal, .db-shm.
-
----
-
-## Database File Growing
-
-**Problem**: Space not returned after deletes.
-
-```sql
-VACUUM;  -- Rebuild (slow, needs 2x disk space)
-
--- Or auto-vacuum
-PRAGMA auto_vacuum = INCREMENTAL;
-PRAGMA incremental_vacuum(1000);
-```
-
----
-
-## Concurrency Pattern
-
-```python
-def get_db():
-    conn = sqlite3.connect('app.db')
-    conn.execute('PRAGMA journal_mode=WAL')
-    conn.execute('PRAGMA foreign_keys=ON')
-    conn.execute('PRAGMA busy_timeout=5000')
-    return conn
-```
-
-**Architecture**:
-- Multiple reader connections OK (concurrent)
-- Single writer (serialize writes)
-- For >100 writes/sec → use PostgreSQL
-
----
-
-## SQLite vs PostgreSQL
-
-| Scenario | SQLite | PostgreSQL |
-|----------|--------|------------|
-| Embedded/mobile | ✅ | ❌ |
-| Single-server (<100 writes/sec) | ✅ | ✅ |
-| Multi-server | ❌ | ✅ |
-| High concurrent writes | ❌ | ✅ |
-| Zero-config | ✅ | ❌ |
-
-**Rule**: If asking "should I use PostgreSQL?" — probably yes.
-
----
-
-## Quick Reference: SQLite Gotchas
-
-| Problem | Solution |
-|---------|----------|
-| FK not enforced | `PRAGMA foreign_keys = ON` every connection |
-| Database locked | WAL + busy_timeout + IMMEDIATE |
-| Can't add NOT NULL | Table rebuild |
-| Wrong types accepted | STRICT tables |
-| File growing | VACUUM |
-| Slow text search | FTS5 |
-| No boolean | INTEGER 0/1 |
-| Date handling | TEXT (ISO8601) or INTEGER (Unix) |
-| Backup corruption | Never copy .db alone in WAL mode |
+- [migrations.md](references/migrations.md) - Database migration patterns
+- [performance.md](references/performance.md) - Optimization strategies

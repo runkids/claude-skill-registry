@@ -1,208 +1,293 @@
 ---
 name: session-analyzer
-description: Discovers and lists Claude Code session transcripts from .claude/logs/ for analysis. Use when the user wants to find available sessions, view session timelines, identify which sessions to analyze for workflow improvements, or understand session history. Triggers when user mentions "what sessions do I have", "analyze my workflow", "show my recent sessions", "find transcripts from [date]", or similar session discovery requests.
+description: |
+  Analisa sessoes do Claude Code para extrair learnings e persistir conhecimento.
+  Le arquivos de sessao em ~/.claude/projects/ e extrai decisoes, bloqueios e resolucoes.
+  Invocado automaticamente pelo gate-check e orchestrator.
+  Use quando: fim de fase, retrospectiva, analise de progresso.
+allowed-tools:
+  - Read
+  - Write
+  - Bash
+  - Glob
+user-invocable: true
+version: "1.1.0"
 ---
 
 # Session Analyzer Skill
 
-Discovers and analyzes Claude Code session transcripts from `.claude/logs/` directory to help users understand their development workflow and identify optimization opportunities.
+## Proposito
 
-## When to Use This Skill
+Esta skill analisa sessoes do Claude Code para:
 
-Claude should invoke this skill when the user:
-- Wants to see available Claude Code sessions
-- Asks about recent development sessions or workflow history
-- Mentions analyzing workflow patterns or efficiency
-- Needs to find transcripts from a specific date
-- Wants to understand subagent usage across sessions
-- Requests session discovery or listing
+1. **Extrair decisoes** - Identificar escolhas feitas durante a sessao
+2. **Capturar bloqueios** - Registrar problemas encontrados e como foram resolvidos
+3. **Persistir learnings** - Salvar conhecimento em `.agentic_sdlc/sessions/`
+4. **Alimentar RAG** - Adicionar ao corpus para consultas futuras
 
-## Current Status
+## Scripts Disponíveis
 
-**Implemented Features:**
-- ✅ Auto-discovery of session logs from `.claude/logs/`
-- ✅ Date-based session listing and filtering
-- ✅ Session grouping (main + subagent transcripts)
-- ✅ Timeline display with start times
-- ✅ Colored terminal output
-- ✅ Date validation and formatting
-
-**Planned Features** (not yet implemented):
-- 🚧 Transcript parsing and correlation
-- 🚧 Workflow analysis (task decomposition, handoffs, bottlenecks)
-- 🚧 Metrics extraction (duration, success rate, tool usage)
-- 🚧 Subagent orchestration evaluation
-- 🚧 Code quality assessment
-- 🚧 Recommendation generation
-- 🚧 Report export (markdown format)
-
-## Key Capabilities
-
-### Session Discovery
-- Automatically scans `.claude/logs/` directory for session transcripts
-- Identifies and groups related main and subagent transcripts
-- Sorts sessions chronologically (newest first)
-- Displays human-readable date formatting
-
-### Session Information
-For each session, displays:
-- **Session ID**: Short identifier (first 8 chars of UUID)
-- **Start Time**: Precise timestamp (HH:MM:SS)
-- **Main Transcript**: Filename of primary session
-- **Subagent Count**: Number of related subagent transcripts
-
-### Date Filtering
-- Filter sessions by specific date (YYYYMMDD format)
-- View all sessions from a particular day
-- Navigate through session history by date
-
-## Usage Examples
-
-### List All Available Sessions
-```bash
-# Shows all dates with available sessions
-node .claude/skills/session-analyzer/analyze-session.js
-```
-
-Output:
-```
-Available Claude Code session logs:
-
-  1. October 17, 2025 (20251017)
-  2. October 12, 2025 (20251012)
-  3. October 7, 2025 (20251007)
-
-Run with date to analyze:
-  node analyze-session.js 20251017
-```
-
-### List Sessions for Specific Date
-```bash
-# Shows all sessions from October 17, 2025
-node .claude/skills/session-analyzer/analyze-session.js 20251017
-```
-
-Output:
-```
-Sessions for October 17, 2025:
-
-  1. Session abc123de
-     Time: 14:32:15
-     Main: transcript_abc123de_20251017_143215.json
-     Subagents: 8
-
-  2. Session def456gh
-     Time: 09:15:42
-     Main: transcript_def456gh_20251017_091542.json
-     Subagents: 3
-
-Run with session ID to analyze:
-  node analyze-session.js 20251017 abc123de
-```
-
-### Analyze Specific Session
-```bash
-# Analyzes session abc123de from October 17, 2025
-node .claude/skills/session-analyzer/analyze-session.js 20251017 abc123de
-```
-
-Output (current implementation shows basic info, detailed analysis coming):
-```
-Analyzing session: abc123de
-Date: October 17, 2025
-Main transcript: transcript_abc123de_20251017_143215.json
-Subagent transcripts: 8
-
-Subagent transcripts:
-  - transcript_subagent_backend_abc123de_20251017_143220.json
-  - transcript_subagent_frontend_abc123de_20251017_143245.json
-  ...
-
-Analysis complete! (Implementation pending)
-
-Next steps:
-  - Add transcript parsing logic
-  - Implement workflow analysis
-  - Generate metrics and recommendations
-```
-
-## Transcript File Patterns
-
-The script recognizes these filename patterns:
-- **Main transcripts**: `transcript_<sessionId>_<YYYYMMDD>_<HHMMSS>.json`
-- **Subagent transcripts**: `transcript_subagent_<sessionId>_<YYYYMMDD>_<HHMMSS>.json`
-
-Session grouping is based on the session ID portion of the filename.
-
-## Common Use Cases
-
-1. **Session Discovery**: "What sessions do I have from this week?"
-   - Use without arguments to list all dates
-   - Then specify date to see sessions
-
-2. **Recent Activity Review**: "Show me today's Claude sessions"
-   - Use with today's date in YYYYMMDD format
-
-3. **Workflow Analysis Prep**: "Find the session where I built the API"
-   - List sessions by date, identify by timestamp
-
-4. **Subagent Usage Tracking**: "How many subagents did I use yesterday?"
-   - View session list with subagent counts
-
-## Tips for Claude
-
-- Default logs directory is `.claude/logs/` in the current project
-- Date format must be YYYYMMDD (e.g., 20251017)
-- Session IDs are displayed as short 8-character identifiers (first part of UUID)
-- When user asks about "recent sessions", show the most recent date's sessions
-- Suggest running the transcript-condenser skill on specific sessions for detailed analysis
-- If logs directory doesn't exist, inform user that logging may not be enabled
-
-## Command Reference
-
-```
-node .claude/skills/session-analyzer/analyze-session.js [date] [sessionId]
-
-Arguments:
-  date       (optional) Session date in YYYYMMDD format (e.g., 20251017)
-  sessionId  (optional) Short session ID to analyze (requires date)
-
-Options:
-  --help, -h  Show help message
-
-Examples:
-  node analyze-session.js                  # List all available session dates
-  node analyze-session.js 20251017         # List sessions from Oct 17, 2025
-  node analyze-session.js 20251017 abc123  # Analyze specific session
-```
-
-## Integration with Other Skills
-
-**Workflow recommendation**: After discovering sessions with this skill, use the **transcript-condenser** skill to generate detailed reports:
+### analyze.sh (wrapper)
 
 ```bash
-# 1. Find sessions
-node .claude/skills/session-analyzer/analyze-session.js 20251017
+# Analisar sessão mais recente
+.claude/skills/session-analyzer/scripts/analyze.sh
 
-# 2. Condense specific session
-node .claude/skills/transcript-condenser/condense-transcript.js \
-  .claude/logs/20251017/transcript_abc123de_20251017_143215.json \
-  --output=session-report.md
+# Analisar e persistir
+.claude/skills/session-analyzer/scripts/analyze.sh --persist
+
+# Extrair learnings para RAG corpus
+.claude/skills/session-analyzer/scripts/analyze.sh --extract-learnings
+
+# Especificar projeto
+.claude/skills/session-analyzer/scripts/analyze.sh --project /path/to/project
 ```
 
-## Development Roadmap
+### extract_learnings.py
 
-Future enhancements will add:
-1. **Transcript Parsing**: Load and parse JSON session data
-2. **Correlation Engine**: Link subagent transcripts to main session events
-3. **Workflow Metrics**: Calculate efficiency metrics, tool usage patterns
-4. **Bottleneck Detection**: Identify slow operations and optimization opportunities
-5. **Quality Scoring**: Evaluate code quality and testing coverage
-6. **Actionable Recommendations**: Generate specific improvement suggestions
-7. **Report Generation**: Export findings as markdown reports
+```bash
+# Uso direto do Python
+python3 .claude/skills/session-analyzer/scripts/extract_learnings.py
 
-## Requirements
+# Com opções
+python3 .claude/skills/session-analyzer/scripts/extract_learnings.py \
+  --session-id <uuid> \
+  --persist \
+  --project /path/to/project
+```
 
-- Node.js 18.0.0 or higher
-- No external dependencies (uses built-in Node.js modules only)
-- Requires `.claude/logs/` directory with session transcripts
+## Integração Automática
+
+### Com gate-check
+
+O gate-check invoca session-analyzer automaticamente após aprovação:
+
+```bash
+# Em gate-check.md
+if [ $RESULT -eq 0 ]; then
+    # Extrair learnings
+    python3 .claude/skills/session-analyzer/scripts/analyze.py --extract-learnings
+fi
+```
+
+### Com orchestrator
+
+O orchestrator invoca ao fim de cada fase:
+
+```yaml
+on_phase_complete:
+  - call: session-analyzer
+    when: phase_completed
+    persist: true
+```
+
+### Com memory-manager
+
+Learnings são persistidos automaticamente:
+
+```yaml
+on_learning_found:
+  - persist_to: .agentic_sdlc/corpus/learnings/
+  - update: rag_index
+```
+
+## Localizacao das Sessoes
+
+Claude Code armazena sessoes em:
+
+```
+~/.claude/projects/{path-encoded}/{session-uuid}.jsonl
+```
+
+Onde `{path-encoded}` e o path do projeto com `/` substituido por `-`.
+
+Exemplo:
+- Projeto: `/home/user/source/repos/meu-projeto`
+- Encoded: `-home-user-source-repos-meu-projeto`
+
+## Formato dos Arquivos de Sessao
+
+Arquivos JSONL (uma linha JSON por evento):
+
+```json
+{"type": "user", "content": "mensagem do usuario"}
+{"type": "assistant", "content": "resposta do Claude"}
+{"type": "tool_use", "name": "Bash", "params": {...}}
+{"type": "tool_result", "output": "..."}
+{"type": "thinking", "content": "raciocinio interno"}
+```
+
+## Tipos de Eventos Relevantes
+
+| Tipo | O que Extrair |
+|------|---------------|
+| `user` | Requisitos, perguntas, contexto |
+| `assistant` | Decisoes, explicacoes, sugestoes |
+| `tool_use` | Comandos executados, arquivos criados |
+| `thinking` | Raciocinio, trade-offs considerados |
+
+## Processo de Analise
+
+```yaml
+session_analysis_process:
+  1_locate_session:
+    - Encontrar diretorio do projeto em ~/.claude/projects/
+    - Listar arquivos .jsonl
+    - Ordenar por data de modificacao
+
+  2_parse_session:
+    - Ler arquivo JSONL linha por linha
+    - Extrair eventos relevantes
+    - Agrupar por tipo
+
+  3_identify_patterns:
+    - Buscar decisoes (palavras-chave: "decidi", "escolhi", "vou usar")
+    - Buscar bloqueios (palavras-chave: "erro", "falhou", "problema")
+    - Buscar resolucoes (palavras-chave: "resolvido", "funcionou", "corrigido")
+
+  4_generate_summary:
+    - Criar resumo da sessao
+    - Listar decisoes tomadas
+    - Listar learnings identificados
+
+  5_persist_results:
+    - Salvar em .agentic_sdlc/sessions/
+    - Atualizar RAG corpus se relevante
+    - Vincular ao projeto/fase
+```
+
+## Formato de Output
+
+```yaml
+# .agentic_sdlc/sessions/session-{date}-{uuid-short}.yml
+session_analysis:
+  id: string
+  analyzed_at: datetime
+  source_file: string
+  project_path: string
+
+  summary:
+    duration_estimate: string
+    messages_count: number
+    tools_used: list[string]
+
+  decisions:
+    - type: [architectural | technical | process]
+      description: string
+      context: string
+      confidence: [high | medium | low]
+
+  blockers:
+    - description: string
+      resolution: string
+      time_to_resolve: string (estimated)
+
+  learnings:
+    - type: [pattern | anti-pattern | best-practice | gotcha]
+      description: string
+      applicable_to: list[string]
+
+  artifacts_created:
+    - path: string
+      type: string
+
+  next_steps:
+    - description: string
+      priority: [high | medium | low]
+```
+
+## Palavras-chave para Deteccao
+
+### Decisoes
+```python
+DECISION_KEYWORDS = [
+    "decidi", "escolhi", "vou usar", "optei por",
+    "a melhor opcao", "faz mais sentido", "vamos com",
+    "prefiro", "recomendo", "sugiro"
+]
+```
+
+### Bloqueios
+```python
+BLOCKER_KEYWORDS = [
+    "erro", "falhou", "problema", "nao funcionou",
+    "bug", "issue", "bloqueado", "travado",
+    "nao consegui", "impossivel"
+]
+```
+
+### Resolucoes
+```python
+RESOLUTION_KEYWORDS = [
+    "resolvido", "funcionou", "corrigido", "sucesso",
+    "consegui", "pronto", "finalizado", "ok"
+]
+```
+
+### Learnings
+```python
+LEARNING_KEYWORDS = [
+    "aprendi", "descobri", "percebi", "entendi",
+    "importante notar", "lembre-se", "dica",
+    "evite", "sempre", "nunca"
+]
+```
+
+## Integracao
+
+### Com Orchestrator
+```yaml
+on_phase_complete:
+  - call: session-analyzer
+    when: phase_completed
+    persist: true
+```
+
+### Com Memory Manager
+```yaml
+on_learning_found:
+  - persist_to: .agentic_sdlc/corpus/learnings/
+  - update: rag_index
+```
+
+### Com Gate Evaluator
+```yaml
+on_gate_pass:
+  - analyze_session: true
+  - extract_learnings: true
+```
+
+## Script Python
+
+O script `extract_learnings.py` implementa a logica de extracao.
+
+## Uso Manual
+
+```bash
+# Analisar sessao mais recente do projeto atual
+python3 .claude/skills/session-analyzer/extract_learnings.py
+
+# Analisar sessao especifica
+python3 .claude/skills/session-analyzer/extract_learnings.py --session-id <uuid>
+
+# Analisar e persistir
+python3 .claude/skills/session-analyzer/extract_learnings.py --persist
+```
+
+## Limitacoes
+
+- Sessoes grandes podem demorar para analisar
+- Deteccao de patterns e heuristica, nao 100% precisa
+- Informacoes sensiveis devem ser filtradas antes de persistir
+
+## Checklist
+
+### Antes da Analise
+- [ ] Verificar se sessao existe
+- [ ] Confirmar projeto correto
+- [ ] Verificar espaco em disco para output
+
+### Apos a Analise
+- [ ] Revisar learnings extraidos
+- [ ] Validar decisoes identificadas
+- [ ] Adicionar ao RAG se relevante

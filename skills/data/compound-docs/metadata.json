@@ -1,7 +1,7 @@
 {
   "name": "compound-docs",
-  "repo": "jayteealao/gitt-gaff",
-  "path": ".claude/skills/compound-docs/SKILL.md",
-  "source": "github.com/jayteealao/gitt-gaff",
-  "downloaded_at": "2026-01-14T03:27:08.989994Z"
+  "repo": "RBozydar/rbw-claude-code",
+  "path": "plugins/core/skills/compound-docs/SKILL.md",
+  "source": "github.com/RBozydar/rbw-claude-code",
+  "downloaded_at": "2026-01-17T03:16:00.053038Z"
 }

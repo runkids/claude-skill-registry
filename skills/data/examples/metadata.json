@@ -1,7 +1,7 @@
 {
   "name": "examples",
-  "repo": "ThamJiaHe/claude-prompt-engineering-guide",
-  "path": "skills/examples/performance-optimization-skill.md",
-  "source": "github.com/ThamJiaHe/claude-prompt-engineering-guide",
-  "downloaded_at": "2026-01-14T03:58:10.758362Z"
+  "repo": "alekspetrov/navigator",
+  "path": "skills/nav-skill-creator/examples/example-generated-skill.md",
+  "source": "github.com/alekspetrov/navigator",
+  "downloaded_at": "2026-01-17T03:31:07.020867Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "security-scan",
-  "repo": "muyen/vibe-to-prod",
-  "path": ".claude/skills/security-scan/SKILL.md",
-  "source": "github.com/muyen/vibe-to-prod",
-  "downloaded_at": "2026-01-14T03:35:59.357710Z"
+  "repo": "cosmix/loom",
+  "path": "skills/security-scan/SKILL.md",
+  "source": "github.com/cosmix/loom",
+  "downloaded_at": "2026-01-17T03:56:35.052861Z"
 }

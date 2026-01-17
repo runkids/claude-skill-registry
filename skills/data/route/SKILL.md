@@ -1,234 +1,76 @@
 ---
 name: route
-description: Analyze task complexity and route to appropriate workflow (oneoff-vibe for small changes, oneoff-spec for medium tasks, orchestrator for large multi-workstream efforts). Use when starting any new task to determine the right approach.
-allowed-tools: Read, Glob, Grep
+description: Manually route a query to the optimal Claude model (Haiku/Sonnet/Opus)
+user_invokable: true
 ---
 
-# Route Skill
+# Manual Model Router
 
-## Purpose
-Analyze the user request and determine the appropriate workflow path based on task complexity, scope, and estimated effort.
+Override automatic model selection and force a specific Claude model for your query.
 
-## Complexity Heuristics
+## Usage
 
-### Small (oneoff-vibe)
-Route to quick execution without formal spec:
-- Single file change or very localized modification
-- Bug fix with clear location and obvious solution
-- Documentation update or README change
-- Configuration change (environment, settings)
-- Typo fixes or simple refactoring
-- **Estimated effort**: < 30 minutes
-- **No spec needed**: Changes are self-documenting
-
-### Medium (oneoff-spec / TaskSpec)
-Route to TaskSpec workflow:
-- 2-5 files impacted
-- Single feature or enhancement with clear boundaries
-- Bug fix requiring investigation across multiple files
-- Adding new endpoint, component, or module
-- Clear scope, single workstream
-- **Estimated effort**: 30 minutes - 4 hours
-- **Needs light spec**: Requirements, acceptance criteria, task list
-
-### Large (orchestrator / MasterSpec)
-Route to multi-workstream orchestration with git worktrees:
-- 5+ files impacted across multiple layers
-- Multiple workstreams with interdependencies
-- Cross-cutting concerns (contracts, interfaces, shared state)
-- Impacts multiple services, layers, or subsystems
-- Requires parallel execution by multiple subagents
-- Complex coordination and integration needs
-- **Estimated effort**: 4+ hours
-- **Needs full spec**: ProblemBrief → WorkstreamSpecs → MasterSpec
-- **Parallel execution**: Workstreams execute in isolated git worktrees
-- **Dependency orchestration**: Facilitator manages merge order based on dependencies
-
-## Routing Process
-
-### Step 1: Load Context
-If the user references an existing spec:
-```bash
-# Check for active spec
-ls .claude/specs/active/<slug>.md 2>/dev/null
 ```
-Load the spec and continue from its current state.
-
-### Step 2: Analyze Scope
-Use Glob and Grep to understand impact:
-```bash
-# Find relevant files
-glob "**/*.ts" | grep -i "<keyword>"
-
-# Understand current architecture
-grep -r "class <Name>" --include="*.ts"
+/route <model> <query>
 ```
 
-### Step 3: Apply Heuristics
-Count impacted files and assess complexity:
-- **File count**: How many files need changes?
-- **Coupling**: Are changes isolated or cross-cutting?
-- **Unknowns**: How many open questions exist?
-- **Testing**: What test coverage is needed?
+Where `<model>` is one of:
+- `haiku` or `fast` - Use Haiku for simple, quick tasks
+- `sonnet` or `standard` - Use Sonnet for typical coding tasks
+- `opus` or `deep` - Use Opus for complex analysis
 
-### Step 4: Analyze Delegation Opportunities
+## Instructions
 
-**Delegation is the default.** Before making a routing decision, analyze whether the task can be decomposed into independent subtasks for parallel subagent execution:
+Parse $ARGUMENTS to extract the model and query:
 
-**Always delegate when**:
-- Task has 2+ independent components that can run in parallel
-- Exploration/research is needed before implementation
-- Multiple files need changes that don't depend on each other
-- Code review, security review, or testing can run in parallel
+1. **Extract model** - The first word should be the model name (haiku/fast, sonnet/standard, opus/deep)
+2. **Extract query** - Everything after the model name is the query to execute
+3. **Validate** - If no valid model is specified, show usage help
+4. **Route** - Use the Task tool to spawn the appropriate subagent:
+   - haiku/fast -> spawn "fast-executor" subagent with model: haiku
+   - sonnet/standard -> spawn "standard-executor" subagent with model: sonnet
+   - opus/deep -> spawn "deep-executor" subagent with model: opus
+5. **Return** - Prefix the response with the model override info
 
-**Delegation analysis checklist**:
-1. Can parts of this work run independently? → Dispatch parallel subagents
-2. Is exploration needed first? → Dispatch Explore subagent before deciding scope
-3. Are there isolated concerns? → Dispatch specialized subagents (impl, test, review)
-4. Would main-context benefit from delegation? → Always yes for non-trivial tasks
+## Model Mapping
 
-**Do NOT delegate only when**:
-- Single-file typo/config fix (oneoff-vibe)
-- Task requires tight coordination that subagents can't provide
-- User explicitly requests direct execution
-
-### Step 5: Make Routing Decision
-
-Produce a routing decision with delegation plan:
-
-```yaml
-workflow: oneoff-vibe | oneoff-spec | orchestrator
-rationale: <Brief explanation of why this workflow was chosen>
-estimated_scope: small | medium | large
-estimated_files: <N>
-delegation:
-  parallel_subtasks:
-    - <subtask 1>: <subagent type>
-    - <subtask 2>: <subagent type>
-  sequential_dependencies:
-    - <subtask that must complete first>
-  exploration_needed: true | false
-workstreams:
-  - <workstream 1> (for orchestrator only)
-  - <workstream 2>
-next_action: <Suggested next step>
-```
-
-### Step 6: Persist Decision
-Save routing decision to session state:
-```bash
-# Append to session context
-echo "{\"timestamp\": \"$(date -Iseconds)\", \"workflow\": \"oneoff-spec\", \"rationale\": \"...\"}" >> .claude/context/session.json
-```
-
-## Edge Cases
-
-### Ambiguous Complexity
-When a task could be either medium or large:
-- **Default to oneoff-spec** (safer than vibe, less overhead than orchestrator)
-- Can escalate to orchestrator if spec reveals hidden complexity
-- Better to discover scope during spec phase than during implementation
-
-### User Override
-If user explicitly requests a workflow:
-- "Just make the change" → oneoff-vibe (even if medium complexity)
-- "Write a full spec first" → oneoff-spec or orchestrator
-- Honor user preference and note in rationale
-
-### Existing Spec
-If `.claude/specs/active/<slug>.md` exists:
-- Check its `status` field
-- If `status: draft` → Continue spec authoring
-- If `status: approved` → Route to implementation
-- If `status: complete` → Suggest archiving or new task
-
-## Output Format
-
-Always output a clear routing decision:
-
-```markdown
-## Routing Decision
-
-**Workflow**: oneoff-spec
-
-**Rationale**: This task involves adding a new API endpoint with authentication, requiring changes to 3-4 files (route handler, service layer, tests). The scope is well-defined but needs formal requirements and test planning.
-
-**Estimated Scope**: medium
-
-**Estimated Files**: 4 (controller, service, tests, types)
-
-**Next Action**: Use `/pm` skill to interview user about endpoint requirements, then create TaskSpec.
-```
-
-## Integration with Other Skills
-
-After routing:
-- **oneoff-vibe**: Proceed directly to implementation
-- **oneoff-spec**: Use `/pm` to gather requirements, then `/spec` to author TaskSpec
-- **orchestrator**: Use `/pm` to create ProblemBrief, then `/spec` to coordinate WorkstreamSpecs
+| Argument | Executor | Model |
+|----------|----------|-------|
+| `haiku` or `fast` | fast-executor | Haiku |
+| `sonnet` or `standard` | standard-executor | Sonnet |
+| `opus` or `deep` | deep-executor | Opus |
 
 ## Examples
 
-### Example 1: Small Task (No Delegation)
-**Request**: "Fix the typo in README.md line 42"
+### Force Opus for a simple question
+```
+/route opus What's the syntax for a TypeScript interface?
+```
+Result: Routes to Opus (deep-executor) regardless of query complexity.
 
-**Routing**:
-- workflow: oneoff-vibe
-- rationale: Single file, single line change with no side effects
-- estimated_scope: small
-- delegation: none (trivial change)
-- next_action: Make the edit directly
+### Force Haiku for any task
+```
+/route haiku Fix the authentication bug in login.ts
+```
+Result: Routes to Haiku (fast-executor) for cost savings.
 
-### Example 2: Medium Task (Parallel Delegation)
-**Request**: "Add a logout button to the user dashboard"
+### Force Sonnet explicitly
+```
+/route sonnet Design a caching system
+```
+Result: Routes to Sonnet (standard-executor).
 
-**Routing**:
-- workflow: oneoff-spec
-- rationale: Requires UI component, event handler, API call, state management (3-4 files). Need to clarify placement, behavior on logout, error handling.
-- estimated_scope: medium
-- estimated_files: 4 (component, handler, API client, tests)
-- delegation:
-  - parallel_subtasks:
-    - implementation: implementer
-    - tests: test-writer
-  - sequential_dependencies:
-    - spec approval must complete before implementation
-- next_action: Use `/pm` to gather UI/UX requirements
+## Error Handling
 
-### Example 3: Large Task (Full Orchestration)
-**Request**: "Implement real-time notifications across the application"
+If the user doesn't provide a valid model, respond with:
 
-**Routing**:
-- workflow: orchestrator
-- rationale: Cross-cutting feature affecting multiple layers: WebSocket server, frontend client, database schema, auth middleware, notification service (8+ files, 3+ workstreams)
-- estimated_scope: large
-- workstreams:
-  - ws-1: WebSocket server infrastructure
-  - ws-2: Frontend notification client
-  - ws-3: Notification persistence and delivery
-- delegation:
-  - parallel_subtasks:
-    - ws-1 implementation: implementer (worktree)
-    - ws-2 implementation: implementer (worktree)
-    - ws-3 implementation: implementer (worktree)
-    - per-workstream tests: test-writer (parallel)
-  - sequential_dependencies:
-    - ws-1 must complete before ws-2 (client depends on server)
-  - exploration_needed: true (investigate WebSocket library options)
-- next_action: Use `/pm` to create ProblemBrief, dispatch Explore subagent for WebSocket research
+```
+Usage: /route <model> <query>
 
-### Example 4: Exploration-First (Delegation for Research)
-**Request**: "Improve performance of the search feature"
+Models:
+  haiku, fast     - Quick, simple tasks (cheapest)
+  sonnet, standard - Typical coding tasks (default)
+  opus, deep      - Complex analysis (most capable)
 
-**Routing**:
-- workflow: oneoff-spec (may escalate to orchestrator)
-- rationale: Requires investigation to understand bottlenecks before planning
-- estimated_scope: unknown (pending exploration)
-- delegation:
-  - exploration_needed: true
-  - parallel_subtasks:
-    - codebase analysis: Explore subagent
-    - performance profiling: Explore subagent (separate)
-  - sequential_dependencies:
-    - exploration must complete before spec authoring
-- next_action: Dispatch Explore subagent to profile current search implementation
+Example: /route opus Analyze the security of this authentication flow
+```

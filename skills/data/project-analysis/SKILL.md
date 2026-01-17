@@ -1,66 +1,112 @@
 ---
 name: project-analysis
-description: A specialist skill that analyses a codebase to understand its structure, dependencies, and architecture. This skill should be used at the start of a new project or when onboarding to an existing codebase.
-allowed-tools:
-  - Read
-  - Grep
-  - Glob
-  - Bash
+description: Analyzes any project to understand its structure, tech stack, patterns, and conventions. Use when starting work on a new codebase, onboarding, or when asked "how does this project work?" or "what's the architecture?"
 ---
 
 # Project Analysis Skill
 
-## Tooling Notes
+When analyzing a project, systematically gather and present information in this order:
 
-This skill should only use read-only commands and avoid modifying files.
+## 1. Quick Overview (30 seconds)
+```bash
+# Check for common project markers
+ls -la
+cat README.md 2>/dev/null | head -50
+```
 
-## Analysis Process
+## 2. Tech Stack Detection
 
-Copy this checklist and use it to track your progress through the analysis process:
+### Package Managers & Dependencies
+- `package.json` → Node.js/JavaScript/TypeScript
+- `requirements.txt` / `pyproject.toml` / `setup.py` → Python
+- `go.mod` → Go
+- `Cargo.toml` → Rust
+- `pom.xml` / `build.gradle` → Java
+- `Gemfile` → Ruby
+
+### Frameworks (from dependencies)
+- React, Vue, Angular, Next.js, Nuxt
+- Express, FastAPI, Django, Flask, Rails
+- Spring Boot, Gin, Echo
+
+### Infrastructure
+- `Dockerfile`, `docker-compose.yml` → Containerized
+- `kubernetes/`, `k8s/` → Kubernetes
+- `terraform/`, `.tf` files → IaC
+- `serverless.yml` → Serverless Framework
+- `.github/workflows/` → GitHub Actions
+
+## 3. Project Structure Analysis
+
+Present as a tree with annotations:
+```
+project/
+├── src/              # Source code
+│   ├── components/   # UI components (React/Vue)
+│   ├── services/     # Business logic
+│   ├── models/       # Data models
+│   └── utils/        # Shared utilities
+├── tests/            # Test files
+├── docs/             # Documentation
+└── config/           # Configuration
+```
+
+## 4. Key Patterns Identification
+
+Look for and report:
+- **Architecture**: Monolith, Microservices, Serverless, Monorepo
+- **API Style**: REST, GraphQL, gRPC, tRPC
+- **State Management**: Redux, Zustand, MobX, Context
+- **Database**: SQL, NoSQL, ORM used
+- **Authentication**: JWT, OAuth, Sessions
+- **Testing**: Jest, Pytest, Go test, etc.
+
+## 5. Development Workflow
+
+Check for:
+- `.eslintrc`, `.prettierrc` → Linting/Formatting
+- `.husky/` → Git hooks
+- `Makefile` → Build commands
+- `scripts/` in package.json → NPM scripts
+
+## 6. Output Format
 
 ```markdown
-Project Analysis Checklist
+# Project: [Name]
 
-- [ ] Gather a quick overview of the project by reading the README.md or equivalent documentation.
-- [ ] Identify the main programming languages and frameworks used in the codebase.
-- [ ] Map out the project structure, including key directories and files.
-- [ ] Analyze dependencies by reviewing package management files (e.g., package.json, requirements.txt).
-- [ ] Identify core modules and components of the application.
-- [ ] Understand the data flow and architecture patterns used in the project.
-- [ ] Review any existing tests to understand the testing strategy and coverage.
-- [ ] Document any areas of the codebase that may require further investigation or clarification.
+## Overview
+[1-2 sentence description]
+
+## Tech Stack
+| Category | Technology |
+|----------|------------|
+| Language | TypeScript |
+| Framework | Next.js 14 |
+| Database | PostgreSQL |
+| ...      | ...        |
+
+## Architecture
+[Description with simple ASCII diagram if helpful]
+
+## Key Directories
+- `src/` - [purpose]
+- `lib/` - [purpose]
+
+## Entry Points
+- Main: `src/index.ts`
+- API: `src/api/`
+- Tests: `npm test`
+
+## Conventions
+- [Naming conventions]
+- [File organization patterns]
+- [Code style preferences]
+
+## Quick Commands
+| Action | Command |
+|--------|---------|
+| Install | `npm install` |
+| Dev | `npm run dev` |
+| Test | `npm test` |
+| Build | `npm run build` |
 ```
-
-## Analysis Commands
-
-Here are some useful commands to help you analyze the codebase:
-
-```bash
-# List the main files and directories in the project
-ls -R
-
-# Check for package management files to identify dependencies
-ls | grep -E 'package\.json|requirements\.txt|Pipfile|Gemfile'
-
-# Display the contents of a package management file
-cat package.json
-cat requirements.txt
-
-# Search for key architecture patterns or components
-grep -r 'MVC\|Microservices\|Singleton\|Factory' .
-
-# Identify test files and directories
-find . -type f -name '*test*' -o -name '*spec*'
-```
-
-## Documentation of Findings
-
-After completing the analysis, document your findings in a structured format. Include sections such as:
-
-- **Project Overview**: A brief summary of the project, its purpose, and main features.
-- **Technologies Used**: A list of programming languages, frameworks, and libraries used in the project.
-- **Project Structure**: An outline of the key directories and files in the codebase.
-- **Dependencies**: A summary of the main dependencies and their roles in the project.
-- **Core Components**: A description of the main modules and components of the application.
-- **Architecture Patterns**: An overview of the architecture patterns and data flow used in the project.
-- **Testing Strategy**: A summary of the existing tests and their coverage.

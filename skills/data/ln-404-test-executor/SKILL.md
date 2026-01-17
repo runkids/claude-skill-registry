@@ -75,9 +75,37 @@ Runs a single Story final test task (label "tests") through implementation/execu
 - ✅ Fixing code to match AC requirements
 - ✅ Adding missing test setup step
 
+## Test Writing Principles
+
+### 1. Strict Assertions - Fail on Any Mismatch
+
+**Use exact match assertions by default:**
+
+| Strict (PREFER) | Loose (AVOID unless justified) |
+|-----------------|--------------------------------|
+| Exact equality check | Partial/substring match |
+| Exact length check | "Has any length" check |
+| Full object comparison | Partial object match |
+| Exact type check | Truthy/falsy check |
+
+**WARN-level assertions FORBIDDEN** - test either PASS or FAIL, no warnings.
+
+### 2. Expected-Based Testing for Deterministic Output
+
+**For deterministic responses (API, transformations):**
+- Use **snapshot/golden file testing** for complex deterministic output
+- Compare actual output vs expected reference file
+- Normalize dynamic data before comparison (timestamps → fixed, UUIDs → placeholder)
+
+### 3. Golden Rule
+
+> "If you know the expected value, assert the exact value."
+
+**Forbidden:** Using loose assertions to "make test pass" when exact value is known.
+
 ## Reference Files
 - Kanban format: `docs/tasks/kanban_board.md`
 
 ---
-**Version:** 3.1.0 (Added mandatory runbook.md reading for test environment setup)
-**Last Updated:** 2026-01-09
+**Version:** 3.2.0 (Added Test Writing Principles: strict assertions, expected-based testing, golden rule)
+**Last Updated:** 2026-01-15

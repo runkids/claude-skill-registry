@@ -1,7 +1,7 @@
 {
   "name": "golang-pro",
-  "repo": "kamushadenes/nix",
-  "path": "home/common/ai/resources/claude-code/skills/golang-pro/SKILL.md",
-  "source": "github.com/kamushadenes/nix",
-  "downloaded_at": "2026-01-14T03:09:41.512232Z"
+  "repo": "Jeffallan/claude-skills",
+  "path": "skills/golang-pro/SKILL.md",
+  "source": "github.com/Jeffallan/claude-skills",
+  "downloaded_at": "2026-01-17T00:59:15.239728Z"
 }

@@ -163,20 +163,19 @@ coverage_design = (requirements_with_design / requirements_total) * 100
 coverage_test = (requirements_with_tests / requirements_total) * 100
 ```
 
-### Phase 5: 단계적 보고서 생성
+### Phase 5: 段階的レポート生成
 
-**CRITICAL: 컨텍스트 길이 오버플로 방지**
+**CRITICAL: コンテキスト長オーバーフロー防止**
 
-**출력 방식의 원칙:**
-
-- ✅ 섹션을 하나씩 순차적으로 생성·저장
-- ✅ 각 섹션 생성 후 진행 상황 보고
-- ✅ 오류 발생 시에도 부분 보고서가 유지됨
+**出力方式の原則:**
+- ✅ 1セクションずつ順番に生成・保存
+- ✅ 各セクション生成後に進捗を報告
+- ✅ エラー発生時も部分的なレポートが残る
 
 ```
-🤖 확인 감사합니다. 트레이서빌리티 감사 보고서를 순차적으로 생성합니다.
+🤖 確認ありがとうございます。トレーサビリティ監査レポートを順番に生成します。
 
-【생성 예정 섹션】
+【生成予定のセクション】
 1. Executive Summary
 2. Traceability Matrix
 3. Coverage Analysis
@@ -184,69 +183,69 @@ coverage_test = (requirements_with_tests / requirements_total) * 100
 5. Recommendations
 6. Constitutional Compliance
 
-총합: 6개 섹션
+合計: 6セクション
 
-**중요: 단계적 생성 방식**
-각 섹션을 하나씩 생성·저장하고, 진행 상황을 보고합니다.
-이를 통해 중간 진행 상황을 확인할 수 있으며, 오류가 발생하더라도 부분 보고서가 남습니다.
+**重要: 段階的生成方式**
+各セクションを1つずつ生成・保存し、進捗を報告します。
+これにより、途中経過が見え、エラーが発生しても部分的なレポートが残ります。
 
-생성을 시작해도 될까요?
-👤 사용자: [응답 대기]
+生成を開始してよろしいですか?
+👤 ユーザー: [回答待ち]
 ```
 
-사용자 승인 후, **각 섹션을 순차적으로 생성**합니다:
+ユーザーが承認後、**各セクションを順番に生成**:
 
 **Step 1: Executive Summary**
 
 ```
-🤖 [1/6] Executive Summary를 생성 중입니다...
+🤖 [1/6] Executive Summaryを生成しています...
 
-📝 traceability/audit-report.md (섹션 1)
-✅ 저장이 완료되었습니다
+📝 traceability/audit-report.md (Section 1)
+✅ 保存が完了しました
 
-[1/6] 완료. 다음 섹션으로 진행합니다.
+[1/6] 完了。次のセクションに進みます。
 ```
 
 **Step 2: Traceability Matrix**
 
 ```
-🤖 [2/6] Traceability Matrix를 생성 중입니다...
+🤖 [2/6] Traceability Matrixを生成しています...
 
-📝 traceability/audit-report.md (섹션 2)
-✅ 저장이 완료되었습니다
+📝 traceability/audit-report.md (Section 2)
+✅ 保存が完了しました
 
-[2/6] 완료. 다음 섹션으로 진행합니다.
+[2/6] 完了。次のセクションに進みます。
 ```
 
-**대규모 트레이서빌리티 보고서(300줄 초과)인 경우:**
+**大きなトレーサビリティレポート(>300行)の場合:**
 
 ```
-🤖 트레이서빌리티 매트릭스가 대규모이므로, 2개 파트로 분할합니다.
-⚠️ 요구사항 수가 많아 분할하여 상세한 추적 정보를 생성합니다.
+🤖 トレーサビリティマトリクスが大規模なため、2パートに分割します。
+⚠️ 要件数が多いため、分割して詳細な追跡情報を生成します。
 
-📝 Part 1/2: traceability/audit-report.md (요구사항 1~50 추적 정보)
-✅ 저장이 완료되었습니다 (280줄)
+📝 Part 1/2: traceability/audit-report.md (要件1-50の追跡情報)
+✅ 保存が完了しました (280行)
 
-📝 Part 2/2: traceability/audit-report.md (요구사항 51~100 추적 정보)
-✅ 저장이 완료되었습니다 (250줄)
+📝 Part 2/2: traceability/audit-report.md (要件51-100の追跡情報)
+✅ 保存が完了しました (250行)
 
-✅ 보고서 생성 완료: traceability/audit-report.md (총 530줄)
+✅ レポート生成完了: traceability/audit-report.md (530行)
 
-모든 요구사항에 대한 추적이 완료되었습니다.
+全要件の追跡が完了しました。
 ```
 
-**Final: 보고서 생성 완료 요약**
+**Final: レポート生成完了サマリー**
 
 ```
-🤖 ✨ 트레이서빌리티 감사 보고서 생성이 완료되었습니다!
+🤖 ✨ トレーサビリティ監査レポートの生成が完了しました！
 
-## 📊 감사 요약
-- **전체 트레이서빌리티**: 66.7%
-- **구현 완료된 요구사항**: 2/3
-- **고립된 항목(Orphaned Items)**: 2건
+## 📊 監査サマリー
+- **全体トレーサビリティ**: 66.7%
+- **実装済み要件**: 2/3
+- **孤立アイテム**: 2件
 
-## 📂 생성된 보고서
-✅ traceability/audit-report.md (6개 섹션)
+## 📂 生成されたレポート
+✅ traceability/audit-report.md (6セクション)
 
 ```
 

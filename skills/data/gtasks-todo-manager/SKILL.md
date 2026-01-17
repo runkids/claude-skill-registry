@@ -23,6 +23,10 @@ The CLI is located in the `scripts` subdirectory of this skill's base directory.
 
 ## Before Any Operation
 
+**IMPORTANT**: Before performing any operation with this skill, you MUST complete the following checks in order:
+
+### 1. Verify Authentication
+
 Always verify authentication first:
 
 ```bash
@@ -31,10 +35,23 @@ node scripts/cli.js auth validate
 
 If this command fails, proceed to the **Setup** operation.
 
+### 2. Check for Config Migrations
+
+After authentication succeeds, check if the config needs migration:
+
+```bash
+cat ~/.config/gtasks-todo-manager/config.json | jq -r '.schemaVersion // "unversioned"'
+```
+
+**Current schema version**: `0.3.2`
+
+If the result is `unversioned` or an older version, proceed to the **Migrations** operation before continuing with the requested operation.
+
 ## Operations
 
 | User Intent | Operation Reference |
 |-------------|---------------------|
+| Migrate config schema after skill update | [Migrations](references/operations/migrations.md) |
 | Set up OAuth, add/remove accounts, fix auth issues | [Setup](references/operations/setup.md) |
 | Create, update, complete, delete, or move tasks | [Tasks](references/operations/tasks.md) |
 | Create, rename, delete, or list task lists | [Task Lists](references/operations/tasklists.md) |
@@ -51,8 +68,8 @@ If this command fails, proceed to the **Setup** operation.
 | **Authentication** | OAuth setup, credential validation, token refresh |
 | **Account Management** | Add, remove, list accounts; set default; check status |
 | **Task Lists** | List, create, rename, delete task lists |
-| **Tasks** | List, create, update, complete, delete, move tasks |
-| **Subtasks** | Create tasks as children of parent tasks |
+| **Tasks** | List, create, update, complete, delete, move, reparent tasks |
+| **Subtasks** | Create, reparent, view hierarchy, move with subtasks |
 | **Cross-Account** | Aggregate views, filter by account, summary statistics |
 | **Task Suggestions** | Prioritized task suggestions for daily focus |
 | **Projects** | Associate task lists with git repos, cross-workstation sync |

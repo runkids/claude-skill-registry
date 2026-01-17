@@ -1,7 +1,7 @@
 ---
 name: citation-management
 description: Comprehensive citation management for academic research. Search Google Scholar and PubMed for papers, extract accurate metadata, validate citations, and generate properly formatted BibTeX entries. This skill should be used when you need to find papers, verify citation information, convert DOIs to BibTeX, or ensure reference accuracy in scientific writing.
-allowed-tools: Read Write Edit Bash
+allowed-tools: [Read, Write, Edit, Bash]
 license: MIT License
 metadata:
     skill-author: K-Dense Inc.
@@ -533,7 +533,7 @@ MeSH (Medical Subject Headings) provides controlled vocabulary for precise searc
 **Building Complex Queries**:
 ```bash
 # Clinical trials on diabetes treatment published recently
-"Diabetes Mellitus, Type 2"[MeSH] AND "Drug Therapy"[MeSH]
+"Diabetes Mellitus, Type 2"[MeSH] AND "Drug Therapy"[MeSH] 
 AND "Clinical Trial"[Publication Type] AND 2020:2024[Publication Date]
 
 # Reviews on CRISPR in specific journal

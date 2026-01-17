@@ -1,7 +1,7 @@
 {
   "name": "vitest-testing-patterns",
-  "repo": "TheBushidoCollective/han",
-  "path": "jutsu/jutsu-vitest/skills/vitest-testing-patterns/SKILL.md",
-  "source": "github.com/TheBushidoCollective/han",
-  "downloaded_at": "2026-01-14T03:34:11.142698Z"
+  "repo": "erichowens/some_claude_skills",
+  "path": ".claude/skills/vitest-testing-patterns/SKILL.md",
+  "source": "github.com/erichowens/some_claude_skills",
+  "downloaded_at": "2026-01-17T03:02:45.909663Z"
 }

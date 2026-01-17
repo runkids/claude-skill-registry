@@ -1,7 +1,7 @@
 {
   "name": "hilbert-spaces",
-  "repo": "parcadei/Continuous-Claude-v3",
-  "path": ".claude/skills/math/functional-analysis/hilbert-spaces/SKILL.md",
-  "source": "github.com/parcadei/Continuous-Claude-v3",
-  "downloaded_at": "2026-01-14T01:18:46.509426Z"
+  "repo": "namesreallyblank/Clorch",
+  "path": "skills/math/functional-analysis/hilbert-spaces/SKILL.md",
+  "source": "github.com/namesreallyblank/Clorch",
+  "downloaded_at": "2026-01-17T04:07:07.666431Z"
 }

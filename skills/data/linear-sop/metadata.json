@@ -1,7 +1,7 @@
 {
   "name": "linear-sop",
   "repo": "bybren-llc/wtfb-safe-agentic-workflow",
-  "path": ".claude/skills/linear-sop/SKILL.md",
+  "path": ".gemini/skills/linear-sop/SKILL.md",
   "source": "github.com/bybren-llc/wtfb-safe-agentic-workflow",
-  "downloaded_at": "2026-01-14T02:13:27.983447Z"
+  "downloaded_at": "2026-01-17T03:12:36.606809Z"
 }

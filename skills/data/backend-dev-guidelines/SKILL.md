@@ -1,459 +1,458 @@
 ---
-name: backend-dev-guidelines
-description: Backend development guidelines for Node.js/Express/TypeScript applications. Layered architecture (Routes → Controllers → Services → Repositories), error handling, validation, middleware patterns, database access, and testing. Use when creating routes, endpoints, APIs, controllers, services, repositories, middleware, or working with backend code.
+description: Backend development guidelines for FastAPI + Python with PostgreSQL/pgvector and async patterns
+trigger_keywords: ["backend", "fastapi", "api", "endpoint", "router", "database", "postgresql"]
 ---
 
 # Backend Development Guidelines
 
-## Layered Architecture
+## Tech Stack
+
+- **Framework**: FastAPI
+- **Language**: Python 3.11+
+- **Database**: PostgreSQL with pgvector (vector search)
+- **ORM**: SQLAlchemy 2.0 (async)
+- **Validation**: Pydantic v2
+- **Task Queue**: Celery + Redis (optional)
+- **Caching**: Redis
+- **Monitoring**: Sentry
+- **Testing**: pytest + pytest-asyncio
+
+## Project Structure
 
 ```
-Request Flow:
-Client → Routes → Controllers → Services → Repositories → Database
-
-src/
-├── routes/           # Route definitions
-├── controllers/      # Request handling
-├── services/         # Business logic
-├── repositories/     # Data access
-├── middleware/       # Express middleware
-├── validators/       # Input validation
-├── types/           # TypeScript types
-├── utils/           # Utilities
-└── config/          # Configuration
+backend/
+├── api/
+│   ├── main.py                 # FastAPI application entry
+│   ├── config.py               # Settings and configuration
+│   ├── routers/               # API route handlers
+│   │   ├── __init__.py
+│   │   ├── users.py
+│   │   └── items.py
+│   ├── schemas/               # Pydantic models (request/response)
+│   │   ├── __init__.py
+│   │   ├── users.py
+│   │   └── items.py
+│   ├── models/                # SQLAlchemy models
+│   │   ├── __init__.py
+│   │   └── base.py
+│   ├── services/              # Business logic layer
+│   │   └── user_service.py
+│   ├── repositories/          # Data access layer
+│   │   └── user_repository.py
+│   ├── dependencies/          # FastAPI dependencies
+│   │   ├── auth.py
+│   │   └── database.py
+│   ├── middleware/            # Custom middleware
+│   └── utils/                 # Utility functions
+├── tests/
+│   ├── conftest.py
+│   └── routers/
+└── requirements.txt
 ```
 
-## Layer Responsibilities
+## Router Patterns
 
-### Routes Layer
-- Define endpoints
-- Apply middleware
-- Route to controllers
+### Basic Router Structure
 
-```typescript
-// routes/users.routes.ts
-import { Router } from 'express';
-import { UserController } from '../controllers/user.controller';
-import { validateRequest } from '../middleware/validate';
-import { createUserSchema, updateUserSchema } from '../validators/user.validator';
+```python
+from fastapi import APIRouter, Depends, HTTPException, status
+from typing import Annotated
 
-const router = Router();
-const controller = new UserController();
+from schemas.items import ItemCreate, ItemResponse, ItemList
+from services.item_service import ItemService
+from dependencies.auth import get_current_user
+from dependencies.database import get_db
 
-router.get('/', controller.getAll);
-router.get('/:id', controller.getById);
-router.post('/', validateRequest(createUserSchema), controller.create);
-router.put('/:id', validateRequest(updateUserSchema), controller.update);
-router.delete('/:id', controller.delete);
+router = APIRouter(prefix="/items", tags=["items"])
 
-export default router;
+@router.get("", response_model=ItemList)
+async def list_items(
+    db: Annotated[AsyncSession, Depends(get_db)],
+    current_user: Annotated[User, Depends(get_current_user)],
+    skip: int = 0,
+    limit: int = 100,
+):
+    """List all items for the current user."""
+    service = ItemService(db)
+    items = await service.get_items(user_id=current_user.id, skip=skip, limit=limit)
+    return ItemList(items=items, total=len(items))
+
+
+@router.post("", response_model=ItemResponse, status_code=status.HTTP_201_CREATED)
+async def create_item(
+    item_data: ItemCreate,
+    db: Annotated[AsyncSession, Depends(get_db)],
+    current_user: Annotated[User, Depends(get_current_user)],
+):
+    """Create a new item."""
+    service = ItemService(db)
+    item = await service.create_item(user_id=current_user.id, data=item_data)
+    return item
+
+
+@router.get("/{item_id}", response_model=ItemResponse)
+async def get_item(
+    item_id: str,
+    db: Annotated[AsyncSession, Depends(get_db)],
+    current_user: Annotated[User, Depends(get_current_user)],
+):
+    """Get a specific item by ID."""
+    service = ItemService(db)
+    item = await service.get_item(item_id=item_id, user_id=current_user.id)
+    if not item:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Item {item_id} not found"
+        )
+    return item
 ```
 
-### Controllers Layer
-- Handle HTTP request/response
-- Extract and validate input
-- Call services
-- Return responses
+## Pydantic Schemas
 
-```typescript
-// controllers/user.controller.ts
-import { Request, Response, NextFunction } from 'express';
-import { UserService } from '../services/user.service';
+### Request/Response Models
 
-export class UserController {
-  private userService = new UserService();
+```python
+from pydantic import BaseModel, Field, ConfigDict
+from datetime import datetime
+from typing import Optional
 
-  getAll = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const users = await this.userService.findAll();
-      res.json({ data: users });
-    } catch (error) {
-      next(error);
-    }
-  };
+# Base model with common config
+class BaseSchema(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
 
-  getById = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const { id } = req.params;
-      const user = await this.userService.findById(id);
-      
-      if (!user) {
-        return res.status(404).json({ error: 'User not found' });
-      }
-      
-      res.json({ data: user });
-    } catch (error) {
-      next(error);
-    }
-  };
+# Request schema (what client sends)
+class ItemCreate(BaseModel):
+    title: str = Field(..., min_length=1, max_length=200)
+    description: Optional[str] = Field(None, max_length=1000)
+    price: float = Field(..., gt=0)
 
-  create = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const user = await this.userService.create(req.body);
-      res.status(201).json({ data: user });
-    } catch (error) {
-      next(error);
-    }
-  };
-}
+# Response schema (what API returns)
+class ItemResponse(BaseSchema):
+    id: str
+    title: str
+    description: Optional[str]
+    price: float
+    created_at: datetime
+    updated_at: datetime
+
+# List response with pagination
+class ItemList(BaseModel):
+    items: list[ItemResponse]
+    total: int
+    page: int = 1
+    page_size: int = 100
+
+# Update schema (partial updates)
+class ItemUpdate(BaseModel):
+    title: Optional[str] = Field(None, min_length=1, max_length=200)
+    description: Optional[str] = Field(None, max_length=1000)
+    price: Optional[float] = Field(None, gt=0)
 ```
 
-### Services Layer
-- Business logic
-- Orchestrate operations
-- Transaction management
+## SQLAlchemy Models
 
-```typescript
-// services/user.service.ts
-import { UserRepository } from '../repositories/user.repository';
-import { CreateUserDto, UpdateUserDto } from '../types/user.types';
-import { AppError } from '../utils/errors';
+### Model Definition
 
-export class UserService {
-  private userRepository = new UserRepository();
+```python
+from sqlalchemy import Column, String, Float, DateTime, ForeignKey, Text
+from sqlalchemy.orm import relationship
+from sqlalchemy.sql import func
+from pgvector.sqlalchemy import Vector
 
-  async findAll() {
-    return this.userRepository.findAll();
-  }
+from models.base import Base
 
-  async findById(id: string) {
-    return this.userRepository.findById(id);
-  }
+class Item(Base):
+    __tablename__ = "items"
 
-  async create(data: CreateUserDto) {
-    // Business logic
-    const existingUser = await this.userRepository.findByEmail(data.email);
-    if (existingUser) {
-      throw new AppError('Email already exists', 409);
-    }
+    id = Column(String, primary_key=True, default=lambda: str(uuid4()))
+    title = Column(String(200), nullable=False, index=True)
+    description = Column(Text, nullable=True)
+    price = Column(Float, nullable=False)
+    user_id = Column(String, ForeignKey("users.id"), nullable=False)
 
-    // Hash password, etc.
-    const hashedPassword = await hashPassword(data.password);
-    
-    return this.userRepository.create({
-      ...data,
-      password: hashedPassword,
-    });
-  }
+    # Vector embedding for semantic search
+    embedding = Column(Vector(1536), nullable=True)
 
-  async update(id: string, data: UpdateUserDto) {
-    const user = await this.userRepository.findById(id);
-    if (!user) {
-      throw new AppError('User not found', 404);
-    }
+    # Timestamps
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
 
-    return this.userRepository.update(id, data);
-  }
-}
+    # Relationships
+    user = relationship("User", back_populates="items")
 ```
 
-### Repositories Layer
-- Database operations
-- Query building
-- Data mapping
+## Service Layer
 
-```typescript
-// repositories/user.repository.ts
-import { prisma } from '../config/database';
-import { User, CreateUserInput, UpdateUserInput } from '../types/user.types';
+### Business Logic
 
-export class UserRepository {
-  async findAll(): Promise<User[]> {
-    return prisma.user.findMany({
-      select: {
-        id: true,
-        email: true,
-        name: true,
-        createdAt: true,
-      },
-    });
-  }
+```python
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import select
+from typing import Optional
 
-  async findById(id: string): Promise<User | null> {
-    return prisma.user.findUnique({
-      where: { id },
-    });
-  }
+from models.item import Item
+from schemas.items import ItemCreate, ItemUpdate
 
-  async findByEmail(email: string): Promise<User | null> {
-    return prisma.user.findUnique({
-      where: { email },
-    });
-  }
+class ItemService:
+    def __init__(self, db: AsyncSession):
+        self.db = db
 
-  async create(data: CreateUserInput): Promise<User> {
-    return prisma.user.create({
-      data,
-    });
-  }
+    async def get_items(
+        self,
+        user_id: str,
+        skip: int = 0,
+        limit: int = 100
+    ) -> list[Item]:
+        query = (
+            select(Item)
+            .where(Item.user_id == user_id)
+            .offset(skip)
+            .limit(limit)
+        )
+        result = await self.db.execute(query)
+        return result.scalars().all()
 
-  async update(id: string, data: UpdateUserInput): Promise<User> {
-    return prisma.user.update({
-      where: { id },
-      data,
-    });
-  }
+    async def get_item(
+        self,
+        item_id: str,
+        user_id: str
+    ) -> Optional[Item]:
+        query = select(Item).where(
+            Item.id == item_id,
+            Item.user_id == user_id
+        )
+        result = await self.db.execute(query)
+        return result.scalar_one_or_none()
 
-  async delete(id: string): Promise<void> {
-    await prisma.user.delete({
-      where: { id },
-    });
-  }
-}
-```
+    async def create_item(
+        self,
+        user_id: str,
+        data: ItemCreate
+    ) -> Item:
+        item = Item(
+            user_id=user_id,
+            **data.model_dump()
+        )
+        self.db.add(item)
+        await self.db.commit()
+        await self.db.refresh(item)
+        return item
 
-## Middleware Patterns
-
-### Error Handling Middleware
-
-```typescript
-// middleware/error.middleware.ts
-import { Request, Response, NextFunction } from 'express';
-import { AppError } from '../utils/errors';
-
-export function errorHandler(
-  error: Error,
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
-  console.error('[Error]', {
-    message: error.message,
-    stack: error.stack,
-    path: req.path,
-    method: req.method,
-  });
-
-  if (error instanceof AppError) {
-    return res.status(error.statusCode).json({
-      error: error.message,
-      code: error.code,
-    });
-  }
-
-  // Don't expose internal errors
-  res.status(500).json({
-    error: 'Internal server error',
-  });
-}
-```
-
-### Validation Middleware
-
-```typescript
-// middleware/validate.middleware.ts
-import { Request, Response, NextFunction } from 'express';
-import { ZodSchema } from 'zod';
-
-export function validateRequest(schema: ZodSchema) {
-  return (req: Request, res: Response, next: NextFunction) => {
-    try {
-      schema.parse({
-        body: req.body,
-        query: req.query,
-        params: req.params,
-      });
-      next();
-    } catch (error) {
-      res.status(400).json({
-        error: 'Validation failed',
-        details: error.errors,
-      });
-    }
-  };
-}
-```
-
-### Authentication Middleware
-
-```typescript
-// middleware/auth.middleware.ts
-import { Request, Response, NextFunction } from 'express';
-import { verifyToken } from '../utils/jwt';
-
-export async function authenticate(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
-  try {
-    const token = req.headers.authorization?.replace('Bearer ', '');
-    
-    if (!token) {
-      return res.status(401).json({ error: 'No token provided' });
-    }
-
-    const payload = await verifyToken(token);
-    req.user = payload;
-    next();
-  } catch (error) {
-    res.status(401).json({ error: 'Invalid token' });
-  }
-}
-```
-
-## Input Validation
-
-```typescript
-// validators/user.validator.ts
-import { z } from 'zod';
-
-export const createUserSchema = z.object({
-  body: z.object({
-    email: z.string().email(),
-    password: z.string().min(8),
-    name: z.string().min(2).max(100),
-  }),
-});
-
-export const updateUserSchema = z.object({
-  params: z.object({
-    id: z.string().uuid(),
-  }),
-  body: z.object({
-    name: z.string().min(2).max(100).optional(),
-    email: z.string().email().optional(),
-  }),
-});
-
-export type CreateUserDto = z.infer<typeof createUserSchema>['body'];
-export type UpdateUserDto = z.infer<typeof updateUserSchema>['body'];
+    async def update_item(
+        self,
+        item: Item,
+        data: ItemUpdate
+    ) -> Item:
+        update_data = data.model_dump(exclude_unset=True)
+        for field, value in update_data.items():
+            setattr(item, field, value)
+        await self.db.commit()
+        await self.db.refresh(item)
+        return item
 ```
 
 ## Error Handling
 
-```typescript
-// utils/errors.ts
-export class AppError extends Error {
-  constructor(
-    message: string,
-    public statusCode: number = 500,
-    public code?: string
-  ) {
-    super(message);
-    this.name = 'AppError';
-  }
-}
+### Custom Exception Handler
 
-export class NotFoundError extends AppError {
-  constructor(resource: string) {
-    super(`${resource} not found`, 404, 'NOT_FOUND');
-  }
-}
+```python
+import logging
+import sentry_sdk
+from fastapi import Request, HTTPException
+from fastapi.responses import JSONResponse
 
-export class ValidationError extends AppError {
-  constructor(message: string) {
-    super(message, 400, 'VALIDATION_ERROR');
-  }
-}
+logger = logging.getLogger(__name__)
 
-export class UnauthorizedError extends AppError {
-  constructor(message = 'Unauthorized') {
-    super(message, 401, 'UNAUTHORIZED');
-  }
-}
+async def exception_handler(request: Request, exc: Exception):
+    # Log the error with context
+    logger.error(
+        "Unhandled exception",
+        extra={
+            "path": request.url.path,
+            "method": request.method,
+            "error": str(exc),
+        },
+        exc_info=True
+    )
+
+    # Capture in Sentry
+    sentry_sdk.capture_exception(exc)
+
+    return JSONResponse(
+        status_code=500,
+        content={"detail": "Internal server error"}
+    )
+
+# Register in main.py
+app.add_exception_handler(Exception, exception_handler)
+```
+
+### Service-Level Error Handling
+
+```python
+async def create_item(self, user_id: str, data: ItemCreate) -> Item:
+    try:
+        item = Item(user_id=user_id, **data.model_dump())
+        self.db.add(item)
+        await self.db.commit()
+        await self.db.refresh(item)
+        return item
+    except IntegrityError as e:
+        await self.db.rollback()
+        logger.error("Database integrity error", extra={"error": str(e)})
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="Item already exists"
+        )
+    except Exception as e:
+        await self.db.rollback()
+        logger.error("Failed to create item", extra={"error": str(e)}, exc_info=True)
+        sentry_sdk.capture_exception(e)
+        raise
+```
+
+## Dependencies
+
+### Database Session
+
+```python
+from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
+from sqlalchemy.orm import sessionmaker
+from typing import AsyncGenerator
+
+from config import settings
+
+engine = create_async_engine(settings.database_url, echo=settings.debug)
+AsyncSessionLocal = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
+
+async def get_db() -> AsyncGenerator[AsyncSession, None]:
+    async with AsyncSessionLocal() as session:
+        try:
+            yield session
+        finally:
+            await session.close()
+```
+
+### Authentication
+
+```python
+from fastapi import Depends, HTTPException, status
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from typing import Annotated
+
+security = HTTPBearer()
+
+async def get_current_user(
+    credentials: Annotated[HTTPAuthorizationCredentials, Depends(security)],
+    db: Annotated[AsyncSession, Depends(get_db)],
+) -> User:
+    token = credentials.credentials
+    try:
+        payload = decode_token(token)
+        user_id = payload.get("sub")
+        if not user_id:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid token"
+            )
+    except JWTError:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid token"
+        )
+
+    user = await UserService(db).get_user(user_id)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="User not found"
+        )
+    return user
+```
+
+## Vector Search with pgvector
+
+```python
+from pgvector.sqlalchemy import Vector
+from sqlalchemy import select
+
+class ItemService:
+    async def search_similar(
+        self,
+        embedding: list[float],
+        limit: int = 10
+    ) -> list[Item]:
+        """Find items similar to the given embedding."""
+        query = (
+            select(Item)
+            .order_by(Item.embedding.cosine_distance(embedding))
+            .limit(limit)
+        )
+        result = await self.db.execute(query)
+        return result.scalars().all()
 ```
 
 ## Testing
 
-### Unit Tests (Services)
+### pytest Setup
 
-```typescript
-// services/user.service.test.ts
-import { UserService } from './user.service';
-import { UserRepository } from '../repositories/user.repository';
+```python
+# conftest.py
+import pytest
+from httpx import AsyncClient
+from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 
-jest.mock('../repositories/user.repository');
+from main import app
+from dependencies.database import get_db
 
-describe('UserService', () => {
-  let service: UserService;
-  let mockRepository: jest.Mocked<UserRepository>;
+@pytest.fixture
+async def db_session():
+    engine = create_async_engine("sqlite+aiosqlite:///:memory:")
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
 
-  beforeEach(() => {
-    mockRepository = new UserRepository() as jest.Mocked<UserRepository>;
-    service = new UserService();
-    (service as any).userRepository = mockRepository;
-  });
+    async with AsyncSession(engine) as session:
+        yield session
 
-  describe('create', () => {
-    it('should throw if email exists', async () => {
-      mockRepository.findByEmail.mockResolvedValue({ id: '1', email: 'test@test.com' });
+@pytest.fixture
+async def client(db_session):
+    async def override_get_db():
+        yield db_session
 
-      await expect(service.create({
-        email: 'test@test.com',
-        password: 'password',
-        name: 'Test',
-      })).rejects.toThrow('Email already exists');
-    });
-
-    it('should create user if email is unique', async () => {
-      mockRepository.findByEmail.mockResolvedValue(null);
-      mockRepository.create.mockResolvedValue({
-        id: '1',
-        email: 'new@test.com',
-        name: 'Test',
-      });
-
-      const result = await service.create({
-        email: 'new@test.com',
-        password: 'password',
-        name: 'Test',
-      });
-
-      expect(result.email).toBe('new@test.com');
-    });
-  });
-});
+    app.dependency_overrides[get_db] = override_get_db
+    async with AsyncClient(app=app, base_url="http://test") as client:
+        yield client
+    app.dependency_overrides.clear()
 ```
 
-### Integration Tests (Routes)
+### Test Example
 
-```typescript
-// routes/users.routes.test.ts
-import request from 'supertest';
-import { app } from '../app';
+```python
+import pytest
 
-describe('Users API', () => {
-  describe('GET /api/users', () => {
-    it('should return all users', async () => {
-      const response = await request(app)
-        .get('/api/users')
-        .expect(200);
-
-      expect(response.body.data).toBeInstanceOf(Array);
-    });
-  });
-
-  describe('POST /api/users', () => {
-    it('should create a user', async () => {
-      const response = await request(app)
-        .post('/api/users')
-        .send({
-          email: 'test@test.com',
-          password: 'password123',
-          name: 'Test User',
-        })
-        .expect(201);
-
-      expect(response.body.data.email).toBe('test@test.com');
-    });
-
-    it('should validate input', async () => {
-      await request(app)
-        .post('/api/users')
-        .send({
-          email: 'invalid-email',
-        })
-        .expect(400);
-    });
-  });
-});
+@pytest.mark.asyncio
+async def test_create_item(client, auth_headers):
+    response = await client.post(
+        "/items",
+        json={"title": "Test Item", "price": 19.99},
+        headers=auth_headers
+    )
+    assert response.status_code == 201
+    data = response.json()
+    assert data["title"] == "Test Item"
+    assert data["price"] == 19.99
 ```
 
-## Resource Files
+## Best Practices
 
-For detailed patterns, see:
-- [database-patterns.md](resources/database-patterns.md)
-- [authentication.md](resources/authentication.md)
-- [error-handling.md](resources/error-handling.md)
-- [testing.md](resources/testing.md)
+1. **Always use async**: Use `async/await` for database operations
+2. **Type hints**: Add type hints to all functions
+3. **Validation**: Use Pydantic for request/response validation
+4. **Error handling**: Catch and log all exceptions
+5. **Logging**: Use structured logging with context
+6. **Testing**: Write tests for all endpoints
+7. **Security**: Never expose internal errors to clients
+
+---
+
+**CUSTOMIZE THIS FILE** for your specific database, authentication, and project conventions.

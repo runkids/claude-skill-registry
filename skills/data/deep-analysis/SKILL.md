@@ -1,156 +1,368 @@
 ---
 name: deep-analysis
-description: "Execute high-density analysis on complex ideas/tasks. Move from 'Vague' to 'Verified' by producing: constraints -> core modules -> facts vs assumptions -> ASCII flow maps (boundary + critical path) -> latticework lens sweep -> micro->macro causal chains -> pre-mortem failure modes. Use when analyzing system architecture, validating technical ideas, or decomposing a thorny problem before designing solutions."
+description: "⚡ PRIMARY SKILL for: 'how does X work', 'investigate', 'analyze architecture', 'trace flow', 'find implementations'. PREREQUISITE: code-search-selector must validate tool choice. Launches codebase-detective with claudemem INDEXED MEMORY."
+allowed-tools: Task
+prerequisites:
+  - code-search-selector  # Must run before this skill
+dependencies:
+  - claudemem must be indexed (claudemem status)
 ---
 
-# Architectural Analysis
+# Deep Code Analysis
 
-## Overview
+This Skill provides comprehensive codebase investigation capabilities using the codebase-detective agent with semantic search and pattern matching.
 
-Execute high-density analysis to transform vague ideas into a verified problem map: constraints, core modules, facts vs assumptions, relationship flows, causal chains, and failure modes. Focus on analysis artifacts that unlock the next workflow step, not a full design.
+## Prerequisites (MANDATORY)
 
-**Style:** Code-like, Concise, No "AI explaining itself". Pure signal.
+```
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                        BEFORE INVOKING THIS SKILL                             ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║                                                                              ║
+║  1. INVOKE code-search-selector skill FIRST                                  ║
+║     → Validates tool selection (claudemem vs grep)                           ║
+║     → Checks if claudemem is indexed                                         ║
+║     → Prevents tool familiarity bias                                         ║
+║                                                                              ║
+║  2. VERIFY claudemem status                                                  ║
+║     → Run: claudemem status                                                  ║
+║     → If not indexed: claudemem index -y                                     ║
+║                                                                              ║
+║  3. DO NOT start with Read/Glob                                              ║
+║     → Even if file paths are mentioned in the prompt                         ║
+║     → Semantic search first, Read specific lines after                       ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+```
 
-## Critical Rules
+## When to use this Skill
 
-- **NO FLUFF** - Output must be dense, actionable, and structured
-- **VISUALIZE** - Use terminal-friendly ASCII maps (`->`) for structural mappings
-- **ANALYZE, DON'T BUILD** - Prefer maps, drivers, and failure modes over implementation plans unless explicitly requested
-- **RUTHLESSNESS** - Challenge assumptions at every step. Never confirm user biases
-- **LATTICEWORK** - Validate the map with 3-5 lenses; look for convergence/tension/blind spots/surprises
-- **LANGUAGE** - Default output in Simplified Chinese; avoid English abbreviations in node names and labels
+Claude should invoke this Skill when:
 
-Output modes:
-- Default: produce sections 0-5.
-- Quick map (info-poor/time-boxed): produce 0/1/3/5 + top 3 unknowns that would change the map.
+- User asks "how does [feature] work?"
+- User wants to understand code architecture or patterns
+- User is debugging and needs to trace code flow
+- User asks "where is [functionality] implemented?"
+- User needs to find all usages of a component/service
+- User wants to understand dependencies between files
+- User mentions: "investigate", "analyze", "find", "trace", "understand"
+- User is exploring an unfamiliar codebase
+- User needs to understand complex multi-file functionality
 
-## NEVER
+## Instructions
 
-- NEVER ship a solution-first plan; produce a map that enables the next step.
-- NEVER mix facts and assumptions; label unknowns explicitly or the map lies.
-- NEVER include non-CORE modules in the flow map; it hides the real bottleneck.
-- NEVER write the flow map as a dense paragraph; it must be laid out line-by-line.
-- NEVER use English abbreviations for flow nodes; use clear Chinese nouns instead.
-- NEVER exceed terminal constraints (aim <= 80 cols, <= 20 lines) or it becomes unreadable.
+### Phase 1: Determine Investigation Scope
 
-## The Process
+Understand what the user wants to investigate:
 
-**PHASE 0: CALIBRATION (The Anchor)**
+1. **Specific Feature**: "How does user authentication work?"
+2. **Find Implementation**: "Where is the payment processing logic?"
+3. **Trace Flow**: "What happens when I click the submit button?"
+4. **Debug Issue**: "Why is the profile page showing undefined?"
+5. **Find Patterns**: "Where are all the API calls made?"
+6. **Analyze Architecture**: "What's the structure of the data layer?"
 
-- Bind constraints strictly.
-- If constraints are missing: assume "MVP/Prototype Stage" (low cost, high iteration) and proceed.
-- If the prompt starts with a solution: rewrite as "problem statement + constraints" before proceeding.
-- Output: One-sentence problem statement + constraint list (incl. explicit unknowns).
+### Phase 2: Invoke codebase-detective Agent
 
-**PHASE 1: DECOMPOSITION (The Pareto Slice)**
+Use the Task tool to launch the codebase-detective agent with comprehensive instructions:
 
-- Decompose into modules and interfaces (treat each module as a black box).
-- Identify the Pareto CORE (top risk/weight); mark the rest as later.
-- Output: CORE module list with 1-line rationale each.
+```
+Use Task tool with:
+- subagent_type: "code-analysis:detective"
+- description: "Investigate [brief summary]"
+- prompt: [Detailed investigation instructions]
+```
 
-**PHASE 2: EXCAVATION (First Principles)**
+**Prompt structure for codebase-detective**:
 
-For CORE modules identified in Phase 1:
-- Separate facts vs assumptions; name the irreducible constraints/invariants.
-- Locate the dominant bottleneck (ask "why not 10x?" to expose limits).
-- Output: Compact fact/assumption list per CORE module.
+```markdown
+# Code Investigation Task
 
-**PHASE 3: RE-ARCHITECTING (Structural Evolution)**
+## Investigation Target
+[What needs to be investigated - be specific]
 
-Reassemble components based on First Principles findings, NOT original assumptions:
-- Pipeline: CORE modules -> boundary context -> internal critical path -> prune -> output flow map
-- Prune redundant hops found in Phase 2 (keep it minimal, not exhaustive).
-- Output: Console-friendly flow map using `->` (CORE only, 6-15 lines):
-  - Boundary context (vertical chain)
-  - Internal critical path (one main chain)
+## Context
+- Working Directory: [current working directory]
+- Purpose: [debugging/learning/refactoring/etc]
+- User's Question: [original user question]
 
-Flow map conventions (ASCII only):
-- Use Chinese noun phrases for node names; avoid English abbreviations.
-- Prefer the single critical path over full coverage; do not force branches/merges.
-- Layout as a vertical chain: one node per line, connect with `->` on the next line.
-- Keep it readable: <= 80 cols per line, <= 20 lines total.
+## Investigation Steps
 
-Template (vertical chain):
-边界:
-参与者
- -> 入口
- -> 系统
- -> 外部依赖
+1. **Initial Search** (CLAUDEMEM REQUIRED):
+   - FIRST: Check `claudemem status` - is index available?
+   - ALWAYS: Use `claudemem search "semantic query"` for investigation
+   - NEVER: Use grep/glob for semantic understanding tasks
+   - Search for: [concepts, functionality, patterns by meaning]
 
-关键路径:
-输入
- -> 核心模块
- -> 状态/存储
- -> 输出
+2. **Code Location**:
+   - Find exact file paths and line numbers
+   - Identify entry points and main implementations
+   - Note related files and dependencies
 
-**PHASE 4: OSCILLATION (Zoom In/Out)**
+3. **Code Flow Analysis**:
+   - Trace how data/control flows through the code
+   - Identify key functions and their roles
+   - Map out component/service relationships
 
-- Pipeline: macro frame -> latticework check -> key drivers -> causal chains -> leverage points
-- Rule: derive top-down hypotheses, validate bottom-up via key driver mechanics
-- Macro frame: boundary + lifecycle + stakeholders + metrics + constraints
-  - Lifecycle stage: prototype -> growth -> scale -> decline (pick one)
-- Latticework check (internal, do NOT expand in output):
-  - Assume the role of 查理·芒格.
-  - Cross-check with at least 3 mental models: 激励机制, 二阶效应, 机会成本, 安全边际, 能力圈(认知边界).
-  - Extract only the synthesized signals for output: 收敛 / 张力 / 空白 / 惊喜
-- Key drivers (1-3): mechanism + invariants + stress failures + cost model
-- Output:
-  - 2-4 causal chains: `微观机制 -> 宏观结果` (标签: **收敛/张力/空白/惊喜**)
-  - Leverage points (micro changes that shift macro materially)
+4. **Pattern Recognition**:
+   - Identify architectural patterns used
+   - Note code conventions and styles
+   - Find similar implementations for reference
 
-**PHASE 5: INVERSION (The Pre-Mortem)**
+## Deliverables
 
-- Assume the proposed approach has FAILED CATASTROPHICALLY 6 months post-launch.
-- Ask "How exactly did it break?" (race conditions, cost explosion, user rejection).
-- Use Phase 0 constraints to sharpen the failure story.
-- Output: "致命点" (fatal flaws) + "缓解假设" (testable preventions).
+Provide a comprehensive report including:
+
+1. **📍 Primary Locations**:
+   - Main implementation files with line numbers
+   - Entry points and key functions
+   - Configuration and setup files
+
+2. **🔍 Code Flow**:
+   - Step-by-step flow explanation
+   - How components interact
+   - Data transformation points
+
+3. **🗺️ Architecture Map**:
+   - High-level structure diagram
+   - Component relationships
+   - Dependency graph
+
+4. **📝 Code Snippets**:
+   - Key implementations (show important code)
+   - Patterns and conventions used
+   - Notable details or gotchas
+
+5. **🚀 Navigation Guide**:
+   - How to explore the code further
+   - Related files to examine
+   - Commands to run for testing
+
+6. **💡 Insights**:
+   - Why the code is structured this way
+   - Potential issues or improvements
+   - Best practices observed
+
+## Search Strategy
+
+### ⚠️ CRITICAL: Tool Selection
+
+**BEFORE ANY SEARCH, CHECK CLAUDEMEM STATUS:**
+```bash
+claudemem status
+```
+
+### ✅ PRIMARY METHOD: claudemem (Indexed Memory)
+
+```bash
+# Index if needed
+claudemem index -y
+
+# Semantic search (ALWAYS use this for investigation)
+claudemem search "authentication login session" -n 15
+claudemem search "API endpoint handler route" -n 20
+claudemem search "data transformation pipeline" -n 10
+```
+
+**Why claudemem is REQUIRED for investigation:**
+- Understands code MEANING, not just text patterns
+- Finds related code even with different terminology
+- Returns ranked, relevant results
+- AST-aware (understands code structure)
+
+### ❌ WHEN NOT TO USE GREP
+
+| User Request | ❌ DON'T | ✅ DO |
+|-------------|----------|-------|
+| "How does auth work?" | `grep -r "auth" src/` | `claudemem search "authentication flow"` |
+| "Find API endpoints" | `grep -r "router" src/` | `claudemem search "API endpoint handler"` |
+| "Trace data flow" | `grep -r "transform" src/` | `claudemem search "data transformation"` |
+| "Audit architecture" | `ls -la src/` | `claudemem search "architecture layers"` |
+
+### ⚠️ DEGRADED FALLBACK (Only if claudemem unavailable)
+
+**Only use grep/find if:**
+1. claudemem is NOT installed, AND
+2. User explicitly accepts degraded mode
+
+```bash
+# DEGRADED MODE - inferior results expected
+grep -r "pattern" src/  # Text match only, no semantic understanding
+find . -name "*.ts"     # File discovery only
+```
+
+**Always warn user**: "Using grep fallback - results will be less accurate than semantic search."
 
 ## Output Format
 
-```
-### 0.约束条件 (假设/给定)
-问题: [一句话问题陈述]
-约束: [硬约束列表]
-未知: [会改变分析结论的关键未知]
-
-### 1.核心模块 (帕累托前 20%)
-[模块名]: [一句话说明为何这是核心]
-[模块名]: [一句话说明为何这是核心]
-
-### 2.第一性原理真相
-[模块A] [根本限制/真相]
-[模块B] [根本限制/真相]
-
-### 3.逻辑流程图
-控制台风格（使用 `->`，中文节点名，避免英文缩写；每行一个节点）:
-边界:
-参与者
- -> 入口
- -> 系统
- -> 外部依赖
-
-关键路径:
-输入
- -> 核心模块
- -> 状态/存储
- -> 输出
-
-### 4.对齐检查（格栅快速校验）
-宏观: [边界/生命周期/参与方/成功指标/硬约束]
-关键驱动: [1-3 个主导机制]
-格栅结论: 收敛[...]；张力[...]；空白[...]；惊喜[...]
-因果链: [微观机制 -> 宏观结果 | 标签: 收敛/张力/空白/惊喜 | 杠杆点: ...]
-
-### 5.事前验尸 (失败检查)
-* 最薄弱环节: [具体组件]
-* 失败模式: [如何崩溃] -> 缓解假设: [可验证的缓解假设]
+Structure your findings clearly with:
+- File paths using backticks: `src/auth/login.ts:45`
+- Code blocks for snippets
+- Clear headings and sections
+- Actionable next steps
 ```
 
-## Key Principles
+### Phase 3: Present Analysis Results
 
-- **Pareto Focus** - Keep CORE only; park the rest
-- **Fact vs Assumption** - Turn debates into checkable statements
-- **Latticework** - Cross-check with 3-5 lenses; synthesize signals
-- **Causal Mapping** - Express micro->macro via chains and leverage points
-- **Inversion Thinking** - Assume failure first, then work backwards
-- **Terminal First** - Use ASCII maps (`->`) only; no rich diagrams
+After the agent completes, present results to the user:
+
+1. **Executive Summary** (2-3 sentences):
+   - What was found
+   - Where it's located
+   - Key insight
+
+2. **Detailed Findings**:
+   - Primary file locations with line numbers
+   - Code flow explanation
+   - Architecture overview
+
+3. **Visual Structure** (if complex):
+   ```
+   EntryPoint (file:line)
+     ├── Validator (file:line)
+     ├── BusinessLogic (file:line)
+     │   └── DataAccess (file:line)
+     └── ResponseHandler (file:line)
+   ```
+
+4. **Code Examples**:
+   - Show key code snippets inline
+   - Highlight important patterns
+
+5. **Next Steps**:
+   - Suggest follow-up investigations
+   - Offer to dive deeper into specific parts
+   - Provide commands to test/run the code
+
+### Phase 4: Offer Follow-up
+
+Ask the user:
+- "Would you like me to investigate any specific part in more detail?"
+- "Do you want to see how [related feature] works?"
+- "Should I trace [specific function] further?"
+
+## Example Scenarios
+
+### Example 1: Understanding Authentication
+
+```
+User: "How does login work in this app?"
+
+Skill invokes codebase-detective agent with:
+"Investigate user authentication and login flow:
+1. Find login API endpoint or form handler
+2. Trace authentication logic
+3. Identify token generation/storage
+4. Find session management
+5. Locate authentication middleware"
+
+Agent provides:
+- src/api/auth/login.ts:34-78 (login endpoint)
+- src/services/authService.ts:12-45 (JWT generation)
+- src/middleware/authMiddleware.ts:23 (token validation)
+- Flow: Form → API → Service → Middleware → Protected Routes
+```
+
+### Example 2: Debugging Undefined Error
+
+```
+User: "The dashboard shows 'undefined' for user name"
+
+Skill invokes codebase-detective agent with:
+"Debug undefined user name in dashboard:
+1. Find Dashboard component
+2. Locate where user name is rendered
+3. Trace user data fetching
+4. Check data transformation/mapping
+5. Identify where undefined is introduced"
+
+Agent provides:
+- src/components/Dashboard.tsx:156 renders user.name
+- src/hooks/useUser.ts:45 fetches user data
+- Issue: API returns 'full_name' but code expects 'name'
+- Fix: Map 'full_name' to 'name' in useUser hook
+```
+
+### Example 3: Finding All API Calls
+
+```
+User: "Where are all the API calls made?"
+
+Skill invokes codebase-detective agent with:
+"Find all API call locations:
+1. Search for fetch, axios, http client usage
+2. Identify API client/service files
+3. List all endpoints used
+4. Note patterns (REST, GraphQL, etc)
+5. Find error handling approach"
+
+Agent provides:
+- 23 API calls across 8 files
+- Centralized in src/services/*
+- Using axios with interceptors
+- Base URL in src/config/api.ts
+- Error handling in src/utils/errorHandler.ts
+```
+
+## Success Criteria
+
+The Skill is successful when:
+
+1. ✅ User's question is comprehensively answered
+2. ✅ Exact code locations provided with line numbers
+3. ✅ Code relationships and flow clearly explained
+4. ✅ User can navigate to code and understand it
+5. ✅ Architecture patterns identified and explained
+6. ✅ Follow-up questions anticipated
+
+## Tips for Optimal Results
+
+1. **Be Comprehensive**: Don't just find one file, map the entire flow
+2. **Provide Context**: Explain why code is structured this way
+3. **Show Examples**: Include actual code snippets
+4. **Think Holistically**: Connect related pieces across files
+5. **Anticipate Questions**: Answer follow-up questions proactively
+
+## Integration with Other Tools
+
+This Skill works well with:
+
+- **claudemem CLI**: For local semantic code search with Tree-sitter parsing
+- **MCP gopls**: For Go-specific analysis
+- **Standard CLI tools**: grep, ripgrep, find, git
+- **Project-specific tools**: Use project's search/navigation tools
+
+## Notes
+
+- The codebase-detective agent uses extended thinking for complex analysis
+- **claudemem is REQUIRED** - grep/find produce inferior results
+- Fallback to grep ONLY if claudemem unavailable AND user accepts degraded mode
+- claudemem requires OpenRouter API key (https://openrouter.ai)
+- Default model: `voyage/voyage-code-3` (best code understanding)
+- Run `claudemem --models` to see all options and pricing
+- Results are actionable and navigable
+- Great for onboarding to new codebases
+- Helps prevent incorrect assumptions about code
+
+## Tool Selection Quick Reference
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│ BEFORE ANY CODE INVESTIGATION:                                       │
+│                                                                      │
+│ 1. INVOKE code-search-selector skill                                │
+│ 2. Run: claudemem status                                            │
+│ 3. If indexed → USE claudemem search                                │
+│ 4. If not indexed → Index first OR ask user                         │
+│ 5. NEVER default to grep when claudemem available                   │
+│ 6. NEVER start with Read/Glob for semantic questions                │
+│                                                                      │
+│ grep is for EXACT STRING MATCHES only, NOT semantic understanding   │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+**Maintained by:** MadAppGang
+**Plugin:** code-analysis v2.2.0
+**Last Updated:** December 2025

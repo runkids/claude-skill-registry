@@ -1,7 +1,7 @@
 {
   "name": "terraform-module-library",
-  "repo": "camoneart/claude-code",
-  "path": "skills/terraform-module-library/SKILL.md",
-  "source": "github.com/camoneart/claude-code",
-  "downloaded_at": "2026-01-14T03:37:03.219262Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/cloud-infrastructure/skills/terraform-module-library/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-01-17T03:59:22.938902Z"
 }

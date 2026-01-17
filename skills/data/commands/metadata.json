@@ -1,7 +1,7 @@
 {
   "name": "commands",
-  "repo": "jezweb/claude-skills",
-  "path": "commands/create-skill.md",
-  "source": "github.com/jezweb/claude-skills",
-  "downloaded_at": "2026-01-14T04:01:43.428516Z"
+  "repo": "giuseppe-trisciuoglio/developer-kit",
+  "path": "commands/devkit.verify-skill.md",
+  "source": "github.com/giuseppe-trisciuoglio/developer-kit",
+  "downloaded_at": "2026-01-17T04:08:12.465387Z"
 }

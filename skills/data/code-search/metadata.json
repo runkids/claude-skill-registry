@@ -1,7 +1,7 @@
 {
   "name": "code-search",
-  "repo": "1ambda/dataops-platform",
-  "path": ".copilot/skills/code-search/SKILL.md",
-  "source": "github.com/1ambda/dataops-platform",
-  "downloaded_at": "2026-01-14T03:12:18.342520Z"
+  "repo": "lovedragonball/power-ranger-toolkit",
+  "path": "src/skills/code-search/SKILL.md",
+  "source": "github.com/lovedragonball/power-ranger-toolkit",
+  "downloaded_at": "2026-01-17T03:14:51.988315Z"
 }

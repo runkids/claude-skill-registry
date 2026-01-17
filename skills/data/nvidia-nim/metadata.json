@@ -1,7 +1,7 @@
 {
   "name": "nvidia-nim",
-  "repo": "rish2jain/paperresearchagent",
-  "path": ".claude/skills/nvidia-nim/SKILL.md",
-  "source": "github.com/rish2jain/paperresearchagent",
-  "downloaded_at": "2026-01-14T04:02:36.754343Z"
+  "repo": "frankxai/ai-architect",
+  "path": "skills/nvidia-nim/SKILL.md",
+  "source": "github.com/frankxai/ai-architect",
+  "downloaded_at": "2026-01-17T04:08:34.509053Z"
 }

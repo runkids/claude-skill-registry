@@ -41,6 +41,28 @@ This info immediately narrows down the issue category.
 
 ## Error Categories & Fixes
 
+### Supabase Types Out of Sync
+
+**Error**: TypeScript errors referencing missing tables, RPC functions, or columns
+
+**Cause**: `types.ts` not regenerated after database migrations
+
+**Fix**:
+```bash
+npx supabase gen types typescript --project-id iryqgmjauybluwnqhxbg > apps/raamattu-nyt/src/integrations/supabase/types.ts
+git add apps/raamattu-nyt/src/integrations/supabase/types.ts
+git commit -m "chore: Regenerate Supabase types"
+git push
+```
+
+**Workaround** (when regeneration not possible):
+```typescript
+// biome-ignore lint/suspicious/noExplicitAny: RPC not in generated types
+const { data, error } = await supabase.rpc("new_function" as any, { p_id: id });
+```
+
+**See also**: `/supabase-migration-writer` skill for migration best practices.
+
 ### White Screen / Dynamic Import Failure
 
 **Error**: `Failed to fetch dynamically imported module: .../AppEntry.tsx`

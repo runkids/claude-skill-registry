@@ -1,174 +1,91 @@
 ---
-name: user_research
-router_kit: ManagementKit
-description: Kullanıcı araştırma metodları, interview teknikleri, persona oluşturma ve usability testing rehberi.
-metadata:
-  skillport:
-    category: research
-    tags: [architecture, automation, best practices, clean code, coding, collaboration, compliance, debugging, design patterns, development, documentation, efficiency, git, optimization, productivity, programming, project management, quality assurance, refactoring, software engineering, standards, testing, user research, utilities, version control, workflow]      - persona
+name: discovery.user_research
+phase: discovery
+roles:
+  - Product Designer
+  - Product Manager
+description: Plan and structure moderated or unmoderated user research sessions that target the given persona and objectives.
+variables:
+  required:
+    - name: persona
+      description: Primary persona or role for the research participants.
+    - name: research_method
+      description: Method such as interview, contextual inquiry, or usability test.
+    - name: key_questions
+      description: Comma-separated list of core learning goals to explore.
+  optional:
+    - name: product_area
+      description: Feature, workflow, or journey under investigation.
+    - name: success_metric
+      description: North-star metric the research should influence.
+outputs:
+  - Research brief summarizing goals, hypotheses, and logistics.
+  - Discussion guide with sections, timings, and probes.
+  - Capture template for observations, quotes, and insights.
 ---
 
-# 👥 User Research
+# Purpose
+Provide a consistent prompt that quickly produces a research-ready briefing pack aligned with the broader discovery strategy.
 
-> Kullanıcı araştırma ve UX metodolojileri rehberi.
+# Pre-run Checklist
+- ✅ Confirm recruiting pipeline or panel availability for the target persona.
+- ✅ Align with stakeholders on the primary learning goals.
+- ✅ Gather existing artifacts (journey maps, past studies) to inform prompts.
 
----
-
-## 📋 Araştırma Metodları
-
-| Metod | Ne Zaman | Çıktı |
-|-------|----------|-------|
-| **User Interview** | Keşif aşaması | Insights, quotes |
-| **Survey** | Geniş kitle | İstatistikler |
-| **Usability Test** | Prototip/product | Task success rate |
-| **Card Sorting** | IA tasarımı | Kategori yapısı |
-| **A/B Testing** | Optimizasyon | Conversion data |
-
----
-
-## 🎤 User Interview
-
-### Interview Guide Template
-```markdown
-## Intro (5 dk)
-- Kendini tanıt
-- Araştırma amacını açıkla
-- Consent al
-
-## Warm-up (5 dk)
-- Genel sorular
-- Rahatlatma
-
-## Core Questions (30 dk)
-1. [Ana soru 1]
-2. [Ana soru 2]
-3. ...
-
-## Wrap-up (5 dk)
-- Eklemek istediğin bir şey var mı?
-- Teşekkür
+# Invocation Guidance
+```bash
+codex run --skill discovery.user_research \
+  --vars "persona={{persona}}" \
+         "research_method={{research_method}}" \
+         "key_questions={{key_questions}}" \
+         "product_area={{product_area}}" \
+         "success_metric={{success_metric}}"
 ```
 
-### Soru Tipleri
-| Tip | Örnek | Amaç |
-|-----|-------|------|
-| **Açık uçlu** | "Bana son deneyimini anlat" | Hikaye |
-| **Takip** | "Neden böyle hissettin?" | Derinlik |
-| **Karşılaştırma** | "X ile Y'yi karşılaştır" | Tercih |
-| **Senaryo** | "Eğer...olsa ne yapardın?" | Davranış |
+# Recommended Input Attachments
+- Screens, prototypes, or scripts relevant to the study.
+- Current hypotheses or assumptions document.
 
-### Kaçınılması Gerekenler
-- ❌ Yönlendirici sorular
-- ❌ Evet/hayır soruları
-- ❌ Birden fazla soru aynı anda
-- ❌ Jargon kullanımı
+# Claude Workflow Outline
+1. Summarize the research context, including method and product area.
+2. Generate a research brief capturing purpose, hypotheses, participant criteria, logistics, and success measures.
+3. Create a timed discussion guide with introduction, warm-up, core tasks, and wrap-up.
+4. Provide an observation log template with slots for verbatim quotes and insights mapped to key questions.
+5. Suggest follow-up synthesis rituals and share-outs.
+
+# Output Template
+```
+# Research Brief
+## Purpose
+...
+
+## Hypotheses & Key Questions
+- Hypothesis:
+- Key Question:
+
+## Participant Criteria
+- Role / Persona:
+- Experience Level:
+- Recruitment Notes:
+
+## Logistics
+- Method:
+- Tools:
+- Timeline:
 
 ---
-
-## 👤 Persona Oluşturma
-
-### Persona Template
-```markdown
-## [Persona Adı]
-![Avatar]
-
-**Demographics**
-- Yaş: 
-- Meslek:
-- Konum:
-- Eğitim:
-
-**Goals**
-1. ...
-2. ...
-
-**Pain Points**
-1. ...
-2. ...
-
-**Behaviors**
-- Teknoloji kullanımı:
-- Alışveriş alışkanlıkları:
-
-**Quote**
-> "..."
-
-**Scenario**
-[Tipik bir gün/kullanım senaryosu]
-```
+# Discussion Guide
+| Section | Time | Moderator Notes |
+| --- | --- | --- |
+| Introduction | 5 min | ... |
 
 ---
-
-## 🗺️ Journey Mapping
-
-### Journey Map Template
-```
-Stage:     Awareness → Consideration → Purchase → Use → Loyalty
-
-Actions:   [Kullanıcı ne yapıyor]
-
-Thoughts:  [Ne düşünüyor]
-
-Emotions:  😊 → 😐 → 😟 → 😊 → 😍
-
-Pain:      [Sorunlar]
-
-Opp:       [Fırsatlar]
+# Observation Log Template
+| Participant | Scenario | Observation | Quote | Insight Tag |
+| --- | --- | --- | --- | --- |
 ```
 
----
-
-## 🧪 Usability Testing
-
-### Test Plan
-```markdown
-## Objectives
-- [Hedef 1]
-- [Hedef 2]
-
-## Participants
-- Sayı: 5-8
-- Kriterler: ...
-
-## Tasks
-1. [Task 1] - Success criteria: ...
-2. [Task 2] - Success criteria: ...
-
-## Metrics
-- Task success rate
-- Time on task
-- Error rate
-- SUS score
-```
-
-### Think Aloud Protocol
-> "Lütfen ekranda ne gördüğünü ve ne düşündüğünü sesli olarak anlat"
-
-## 🔄 Workflow
-
-> **Kaynak:** [Nielsen Norman Group - UX Research Methods](https://www.nngroup.com/articles/which-ux-research-methods/) & [The UX Research Field Guide](https://www.userinterviews.com/ux-research-field-guide)
-
-### Aşama 1: Research Planning & Alignment
-- [ ] **Objective Clarification**: Araştırmanın hangi soruyu cevaplaması gerektiğini (örn: "Neden kullanıcılar ödeme sayfasında ayrılıyor?") tanımla.
-- [ ] **Method Selection**: Hedefe göre nicel (Survey) veya nitel (Interview) metodları belirle.
-- [ ] **Participant Recruitment**: Hedef kullanıcı kitlesini (Persona) temsil eden 5-8 katılımcıyı organize et.
-
-### Aşama 2: Execution & Data Gathering
-- [ ] **Conducting Sessions**: Interview veya usability test oturumlarını "Think Aloud" protokolüyle gerçekleştir.
-- [ ] **Documentation**: Oturumları kaydet veya detaylı notlar alarak ham veri setini oluştur.
-- [ ] **Bias Management**: "Confirmation Bias"tan kaçınmak için tarafsız (Neutral) bir dil kullan.
-
-### Aşama 3: Analysis & Reporting
-- [ ] **Thematic Analysis**: Verilerdeki ortak sorunları ve kalıpları (Patterns) belirle.
-- [ ] **Insights Extraction**: Sadece bulguları değil, "Neden?" sorusuna cevap veren uygulanabilir (Actionable) öneriler üret.
-- [ ] **Artifact Update**: Araştırma sonuçlarını Persona dökümanına veya Journey Map'e yansıt.
-
-### Kontrol Noktaları
-| Aşama | Doğrulama |
-|-------|-----------|
-| 1 | Araştırma soruları yeterince spesifik mi? |
-| 2 | Katılımcılar hedef kitleyi (Target Audience) doğru yansıtıyor mu? |
-| 3 | Sunulan rapor sadece veri mi içeriyor yoksa çözüm önerisi sunuyor mu? |
-
----
-*User Research v1.5 - With Workflow*
+# Follow-up Actions
+- Create tasks in your research tracker for recruiting, incentives, and scheduling.
+- Set up a synthesis workshop with cross-functional partners.
+- Archive recordings and notes in the shared research repository.

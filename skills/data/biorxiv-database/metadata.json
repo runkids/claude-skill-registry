@@ -1,7 +1,7 @@
 {
   "name": "biorxiv-database",
-  "repo": "davila7/claude-code-templates",
-  "path": "cli-tool/components/skills/scientific/biorxiv-database/SKILL.md",
-  "source": "github.com/davila7/claude-code-templates",
-  "downloaded_at": "2026-01-14T02:44:48.275314Z"
+  "repo": "K-Dense-AI/claude-scientific-skills",
+  "path": "scientific-skills/biorxiv-database/SKILL.md",
+  "source": "github.com/K-Dense-AI/claude-scientific-skills",
+  "downloaded_at": "2026-01-17T03:59:35.179160Z"
 }

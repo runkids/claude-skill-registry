@@ -3,7 +3,7 @@ name: terraphim-hooks
 description: |
   Knowledge graph-based text replacement using Terraphim hooks.
   Intercepts commands and text to apply transformations defined in the knowledge graph.
-  Works with Claude Code PreToolUse hooks and Git prepare-commit-msg hooks.
+  Works with Codex CLI PreToolUse hooks and Git prepare-commit-msg hooks.
 license: Apache-2.0
 ---
 
@@ -17,7 +17,7 @@ Terraphim hooks intercept text at key points (CLI commands, commit messages) and
 
 **Key Components:**
 - `terraphim-agent replace` - CLI command for text replacement
-- PreToolUse hooks - Intercept Claude Code tool calls before execution
+- PreToolUse hooks - Intercept Codex CLI tool calls before execution
 - Git hooks - Transform commit messages using prepare-commit-msg
 
 ## Architecture
@@ -28,8 +28,8 @@ Terraphim hooks intercept text at key points (CLI commands, commit messages) and
 │  ┌──────────────┐  ┌──────────────────┐  ┌──────────────────┐  │
 │  │ bun.md       │  │ bun install.md   │  │ terraphim ai.md  │  │
 │  │ synonyms::   │  │ synonyms::       │  │ synonyms::       │  │
-│  │ npm, yarn,   │  │ npm install,     │  │ Claude Code,     │  │
-│  │ pnpm, npx    │  │ yarn install...  │  │ Claude Opus...   │  │
+│  │ npm, yarn,   │  │ npm install,     │  │ Codex CLI,     │  │
+│  │ pnpm, npx    │  │ yarn install...  │  │ Codex Opus...   │  │
 │  └──────────────┘  └──────────────────┘  └──────────────────┘  │
 └─────────────────────────────────────────────────────────────────┘
                               │
@@ -44,7 +44,7 @@ Terraphim hooks intercept text at key points (CLI commands, commit messages) and
               ▼                               ▼
    ┌──────────────────────┐       ┌──────────────────────┐
    │  PreToolUse Hook     │       │  Git Hook            │
-   │  (npm → bun)         │       │  (Claude → Terraphim)│
+   │  (npm → bun)         │       │  (Codex → Terraphim)│
    │                      │       │                      │
    │  Input: Bash command │       │  Input: Commit msg   │
    │  Output: Modified    │       │  Output: Modified    │
@@ -75,23 +75,23 @@ synonyms:: npm install, yarn install, pnpm install, npm i
 EOF
 
 # Create hooks directory and script
-mkdir -p ~/.claude/hooks
-cat > ~/.claude/hooks/pre_tool_use.sh << 'EOF'
+mkdir -p ~/.codex/hooks
+cat > ~/.codex/hooks/pre_tool_use.sh << 'EOF'
 #!/bin/bash
 INPUT=$(cat)
 cd ~/.config/terraphim 2>/dev/null || exit 0
 terraphim-agent hook --hook-type pre-tool-use --json <<< "$INPUT" 2>/dev/null
 EOF
-chmod +x ~/.claude/hooks/pre_tool_use.sh
+chmod +x ~/.codex/hooks/pre_tool_use.sh
 
 # Test replacement
-echo "npm install react" | ~/.claude/hooks/pre_tool_use.sh
+echo "npm install react" | ~/.codex/hooks/pre_tool_use.sh
 # Output: {"tool_input":{"command":"bun install react"},"tool_name":"Bash"}
 ```
 
-### Configure Claude Code Hook
+### Configure Codex CLI Hook
 
-Add to `~/.claude/settings.local.json`:
+Add to `~/.codex/settings.local.json`:
 ```json
 {
   "hooks": {
@@ -99,7 +99,7 @@ Add to `~/.claude/settings.local.json`:
       "matcher": "Bash",
       "hooks": [{
         "type": "command",
-        "command": "~/.claude/hooks/pre_tool_use.sh"
+        "command": "~/.codex/hooks/pre_tool_use.sh"
       }]
     }]
   }
@@ -298,17 +298,17 @@ Test your hooks:
 ./scripts/test-terraphim-hooks.sh
 
 # Manual test - PreToolUse
-echo '{"tool_name":"Bash","tool_input":{"command":"npm install"}}' | .claude/hooks/npm_to_bun_guard.sh
+echo '{"tool_name":"Bash","tool_input":{"command":"npm install"}}' | .codex/hooks/npm_to_bun_guard.sh
 
 # Manual test - Git hook
-echo "Claude Code generated this" | terraphim-agent replace
+echo "Codex CLI generated this" | terraphim-agent replace
 ```
 
 ## Troubleshooting
 
 | Issue | Solution |
 |-------|----------|
-| Hook not triggering | Check `.claude/settings.local.json` configuration |
+| Hook not triggering | Check `.codex/settings.local.json` configuration |
 | No replacement happening | Verify knowledge graph files exist in `docs/src/kg/` |
 | Agent not found | Build with `cargo build -p terraphim_agent --release` |
 | Permission denied | Run `chmod +x` on hook scripts |

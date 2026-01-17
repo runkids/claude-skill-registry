@@ -1,159 +1,219 @@
 ---
 name: monthly-review
-description: Conduct a monthly review of project alignment and progress toward aims. Use when the user types /monthly_review, at the start of a new month, after completing a major milestone, or when uncertain about project direction.
+description: Aggregate weekly summaries into a monthly overview. Use when asked to "monthly review", "review the month", "summarize this month", or "month summary".
+allowed-tools: Read, Write, Edit, Glob, Grep, AskUserQuestion
 ---
 
 # Monthly Review
 
-> Conduct a monthly review of project alignment and progress toward aims.
+Aggregate weekly summaries into a comprehensive monthly overview.
 
-## When to Use
-- First week of each month (RA will prompt)
-- After completing a major milestone
-- When feeling uncertain about direction
-- Before reporting to PI/collaborators
+## Location
 
-## Execution Steps
+All private notes live in `content/private/` with flat structure (no subfolders).
 
-### 1. Gather Context
+## Date Format
 
-Read these files:
-- `.research/project_telos.md` - Aims and goals
-- `.research/phase_checklist.md` - Phase progress
-- `.research/logs/weekly/*.md` - All weekly reviews this month
-- `.research/logs/monthly/` - Previous monthly reviews
-- `manuscript/` - Manuscript progress
-- Git log for the month
-
-### 2. Generate Monthly Review
-
-```markdown
-# Monthly Review: [MONTH YEAR]
-
-## Executive Summary
-
-**Project**: [Project name from project_telos.md]
-**Current Phase**: [PHASE]
-**Overall Health**: 🟢 On Track / 🟡 Needs Attention / 🔴 At Risk
-
-## Progress Against Aims
-
-### Aim 1: [Title]
-- **Status**: [Not started / In progress / Complete]
-- **Progress this month**: 
-  - [Specific accomplishment]
-  - [Specific accomplishment]
-- **Blockers**: [None / List]
-- **On track for completion?**: [Yes/No - by when]
-
-### Aim 2: [Title]
-- **Status**: 
-- **Progress this month**: 
-- **Blockers**: 
-- **On track?**: 
-
-### Aim 3: [Title]
-[Continue pattern]
-
-## Phase Progress
-
-| Phase | Last Month | This Month | Change |
-|-------|------------|------------|--------|
-| SETUP | ✅ | ✅ | - |
-| PLANNING | 80% | ✅ | Completed |
-| DEVELOPMENT | 20% | 60% | +40% |
-| ANALYSIS | 0% | 10% | Started |
-| WRITING | 0% | 0% | - |
-| REVIEW | 0% | 0% | - |
-
-## Manuscript Status
-
-| Section | Status | Last Updated |
-|---------|--------|--------------|
-| Background | [Draft/Revision/Complete] | [Date] |
-| Methods | [Draft/Revision/Complete] | [Date] |
-| Results | [Draft/Revision/Complete] | [Date] |
-| Discussion | [Not started/Draft/Complete] | [Date] |
-
-## Key Metrics
-
-### Productivity Dashboard
-| Metric | Target | Achieved | YTD Total |
-|--------|--------|----------|----------|
-| Weekly reviews completed | 4 | | |
-| Active coding days | 15 | | |
-| Commits | 20 | | |
-| Scripts documented | | | |
-| Figures generated | | | |
-| Manuscript sections drafted | | | |
-
-### Pipeline
-- DVC stages defined: [N]
-- Pipeline runs successfully: [Yes/No]
-- Figures generated: [N]
-
-### Off-Track Indicators
-
-Check for these warning signs:
-
-- [ ] Behind schedule by >2 weeks on milestones
-- [ ] Same blocker appearing across multiple weeks
-- [ ] Scope expanding without adjustment
-- [ ] Key decisions being deferred
-- [ ] Documentation falling behind
-
-## Next Month Goals
-
-### Must Complete
-1. [Critical goal]
-2. [Critical goal]
-
-### Should Complete
-1. [Important goal]
-2. [Important goal]
-
-### Stretch Goals
-1. [Ambitious goal]
-
-## Action Items
-
-- [ ] [Specific action from this review]
-- [ ] [Specific action]
+- Monthly reviews: `YYYY-MM.md`
+- Example: `2024-01.md` for January 2024
 
 ---
 
-*Review completed: [TIMESTAMP]*
-*Next monthly review: [DATE]*
+## Phase 1: Determine Month Boundaries
+
+Identify the month being reviewed (default: previous month if early in month, current month otherwise).
+
+Calculate:
+- Month start and end dates
+- ISO week numbers that fall within the month
+
+---
+
+## Phase 2: Gather Weekly Reviews
+
+### 2.1 Find Weekly Reviews
+
+Search for weekly reviews from the target month:
+
+```text
+Glob: content/private/YYYY-W*.md
 ```
 
-### 3. Save Review
+Filter to weeks where `week` frontmatter falls within the month.
 
-Save to `.research/logs/monthly/YYYY-MM.md`
+### 2.2 Load Content
 
-### 4. Suggest Next Steps
+Read each weekly review and extract:
+- Week summaries
+- Key events
+- Learnings
+- Public notes created
 
+### 2.3 Present Summary
+
+Display to user:
+- Number of weekly reviews found
+- Weeks covered (e.g., "W01-W04")
+- Major themes identified
+
+---
+
+## Phase 3: Generate Monthly Summary
+
+### 3.1 Ask for User Input
+
+```yaml
+question: "What were the big themes this month?"
+header: "Themes"
+options:
+  - label: "Auto-generate"
+    description: "Synthesize themes from weekly reviews"
+  - label: "Manual"
+    description: "I'll describe the month's themes"
 ```
-Monthly review saved!
 
-Based on your progress:
+If user chooses manual, gather their input.
 
-A) Adjust project timeline or scope
-   [If off-track indicators detected]
+### 3.2 Ask About Achievements
 
-B) Update aims or methodology
-   [If direction has shifted]
-
-C) Plan next month's priorities
-   Run /plan_week for immediate focus
-
-D) Continue with current work
-   You're on track!
-
-What would you like to focus on?
+```yaml
+question: "Any notable achievements to highlight?"
+header: "Wins"
+options:
+  - label: "Yes"
+    description: "I have achievements to add"
+  - label: "Extract from weeklies"
+    description: "Pull from key events"
 ```
 
-## Related Skills
+### 3.3 Create Monthly Note
 
-- `weekly-review` - Tactical progress
-- `quarterly-review` - Strategic alignment
-- `next` - Get next suggestion
+**Frontmatter:**
+```yaml
+---
+title: "{Month Name} {YYYY}"
+type: monthly
+month: YYYY-MM
+date: {first of next month YYYY-MM-DD}
+weeks:
+  - "[[YYYY-W01]]"
+  - "[[YYYY-W02]]"
+  - "[[YYYY-W03]]"
+  - "[[YYYY-W04]]"
+private: true
+---
+```
+
+**Body structure:**
+```markdown
+## Month Summary
+
+{user themes or auto-generated summary}
+
+## Themes
+
+- Theme 1: {description}
+- Theme 2: {description}
+
+## Achievements
+
+- Achievement 1
+- Achievement 2
+
+## Top Public Notes
+
+- [[most-linked-note]] - {why it was significant}
+- [[another-note]] - {context}
+```
+
+### 3.4 Review with User
+
+Present the generated monthly review:
+
+```yaml
+question: "Does this monthly summary look good?"
+header: "Review"
+options:
+  - label: "Save"
+    description: "Create the monthly review file"
+  - label: "Edit"
+    description: "Make changes before saving"
+```
+
+---
+
+## Phase 4: Save Monthly Review
+
+Save to `content/private/{YYYY-MM}.md`.
+
+Confirm with:
+- File path
+- Weeks covered
+- Key themes and achievements
+
+---
+
+## Template Reference
+
+Full monthly review template:
+
+```markdown
+---
+title: "January 2024"
+type: monthly
+month: 2024-01
+date: 2024-02-01
+weeks:
+  - "[[2024-W01]]"
+  - "[[2024-W02]]"
+  - "[[2024-W03]]"
+  - "[[2024-W04]]"
+private: true
+---
+
+## Month Summary
+
+Overview of the month's patterns, progress, and observations.
+
+## Themes
+
+- **Work:** Major project focus or accomplishments
+- **Learning:** Key topics studied or explored
+- **Personal:** Life events or milestones
+
+## Achievements
+
+- Completed X project
+- Published Y blog posts
+- Read Z books
+
+## Top Public Notes
+
+- [[book-title]] - Major influence on thinking this month
+- [[article-slug]] - Referenced multiple times in weeklies
+```
+
+---
+
+## Quality Checklist
+
+Before saving:
+- [ ] Filename matches `YYYY-MM.md` format
+- [ ] Frontmatter has `type: monthly` and `private: true`
+- [ ] Month in title and frontmatter match
+- [ ] `weeks` array lists all weekly reviews included
+- [ ] Themes synthesize patterns (not just aggregated lists)
+- [ ] Achievements are concrete and specific
+- [ ] Wiki-links use correct `[[slug]]` format
+
+---
+
+## Edge Cases
+
+| Situation | Handling |
+|-----------|----------|
+| No weekly reviews found | Offer to scan dailies directly |
+| Partial month (< 4 weeks) | Proceed with available entries |
+| Monthly review already exists | Offer to update or skip |
+| User wants different month | Allow specifying month |
+| Week spans two months | Include if majority in target month |

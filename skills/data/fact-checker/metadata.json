@@ -1,12 +1,7 @@
 {
   "name": "fact-checker",
-  "description": "Verify citations and factual claims in long-form content. Checks URLs for accessibility and accuracy, validates quotes, analyzes source credibility, and distinguishes facts from opinions. Use when fac",
-  "repo": "suchwow-sysadmin/claude-code-factchecker",
-  "category": "data",
-  "tags": [
-    "fact",
-    "checker"
-  ],
-  "stars": 2,
-  "source": "SkillsMP Synced Skills"
+  "repo": "nicepkg/ai-workflow",
+  "path": "content-creator-workflow/.claude/skills/fact-checker/SKILL.md",
+  "source": "github.com/nicepkg/ai-workflow",
+  "downloaded_at": "2026-01-17T02:05:43.236261Z"
 }

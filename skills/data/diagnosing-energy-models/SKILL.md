@@ -274,9 +274,9 @@ For comprehensive LEED procedures, see **[leed-compliance-procedures.md](./leed-
 
 ## Project-Specific Context
 
-### SECC Recreation Center (Fort Collins)
+### Example Recreation Center
 
-For detailed project context, see **[project-secc-recreation-center.md](./project-secc-recreation-center.md)**
+For detailed project context, see **[project-example-recreation-center.md](./project-example-recreation-center.md)**
 
 **Key Project Details**:
 - 92,000 sf rec center + pool + library
@@ -290,9 +290,9 @@ For detailed project context, see **[project-secc-recreation-center.md](./projec
 - WAHP systems: Water-to-air heat pumps with **fluid cooler** (NOT cooling tower)
 - 6 different RTU/DOAS systems + central plant
 
-**Before working on SECC**:
+**Before working on this project**:
 - Reference EOR equipment list: `11_10_2025_ZoneEquipList.pdf`
-- Check HVAC rebuild plan: `SECC_HVAC_Rebuild_Plan.md`
+- Check HVAC rebuild plan: `Example_HVAC_Rebuild_Plan.md`
 - Validate pool modeling approach with multiple sources
 - Verify fluid cooler (not cooling tower) for WAHP systems
 
@@ -497,7 +497,7 @@ All supporting files use progressive disclosure to keep this skill concise:
 - **[common-error-patterns.md](./common-error-patterns.md)**: Six major error patterns with symptoms, causes, and fixes
 - **[diagnostic-workflows.md](./diagnostic-workflows.md)**: Five detailed step-by-step diagnostic workflows
 - **[leed-compliance-procedures.md](./leed-compliance-procedures.md)**: Comprehensive LEED Appendix G procedures
-- **[project-secc-recreation-center.md](./project-secc-recreation-center.md)**: SECC project-specific context
+- **[project-example-recreation-center.md](./project-example-recreation-center.md)**: Example project-specific context
 
 ---
 
@@ -509,7 +509,7 @@ All supporting files use progressive disclosure to keep this skill concise:
 
 **Location:** `scripts/npv_analysis_email_generator.py`
 
-**Documentation:** [`docs/TOOL_SECC_NPV_Email_Generator.md`](../../docs/TOOL_SECC_NPV_Email_Generator.md)
+**Documentation:** [`docs/TOOL_NPV_Email_Generator.md`](../../docs/TOOL_NPV_Email_Generator.md)
 
 **When to Use:**
 
@@ -572,7 +572,60 @@ All supporting files use progressive disclosure to keep this skill concise:
 
 ---
 
+## Context Awareness
+
+This skill integrates with work-command-center session tracking:
+
+**Check Active Context:**
+
+```bash
+node .claude/skills/work-command-center/tools/session-state.js status
+```
+
+Returns: Project name, project number, duration, and deliverables context
+
+**Log Activity Checkpoints:**
+
+```bash
+node .claude/skills/work-command-center/tools/session-state.js checkpoint \
+  --activity "diagnosing-energy-models: Fixed 8 geometry errors, model ready for simulation"
+```
+
+**Signal Completion (called by WCC after skill returns):**
+
+```bash
+node .claude/skills/work-command-center/tools/session-state.js skill-complete \
+  --skill-name "diagnosing-energy-models" \
+  --summary "Diagnosed and repaired geometry errors. Model validates successfully." \
+  --outcome "success"
+```
+
+**Benefits:**
+
+- WCC tracks time spent in this skill
+- Session logs include skill work breakdown
+- Context visible across skill transitions
+- Deliverables auto-update from skill outcomes
+
+---
+
 **Last Updated**: 2025-11-20
 **Version**: 2.1 (Added EnergyPlus Results Analyzer tool)
 **Aligned with**: OpenStudio 3.9, EnergyPlus 24.2
-**Primary Use Cases**: SECC Recreation Center, LEED v4 projects, complex HVAC troubleshooting
+**Primary Use Cases**: Recreation center projects, LEED v4 projects, complex HVAC troubleshooting
+
+
+## Saving Next Steps
+
+When diagnosing-energy-models work is complete or paused:
+
+```bash
+node .claude/skills/work-command-center/tools/add-skill-next-steps.js \
+  --skill "diagnosing-energy-models" \
+  --content "## Priority Tasks
+1. Fix geometry errors in energy model
+2. Validate HVAC system against EOR specs
+3. Generate LEED Appendix G baseline model"
+```
+
+See: `.claude/skills/work-command-center/skill-next-steps-convention.md`

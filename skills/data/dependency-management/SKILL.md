@@ -1,51 +1,83 @@
 ---
 name: dependency-management
-description: Manage NuGet/.NET dependencies with enterprise-grade safety: versioning strategy, vulnerability awareness, licensing awareness, and minimizing supply-chain risk. Use when adding/updating packages or changing restore/build behavior.
+description: |
+  Enforces fixed version dependency installation across all package managers. Ensures reproducible builds, supply chain security, and stability.
+  Use when: installing packages, updating dependencies, working with package.json/requirements.txt/go.mod/Cargo.toml/pom.xml/build.gradle/composer.json/Gemfile/.csproj, reviewing dependency configurations, configuring CI/CD pipelines
 ---
 
 # Dependency Management
 
-## Overview
+## Basic Principles
 
-Dependencies are production code you did not write. Treat them as part of your threat and reliability surface.
+### Always Use Exact Versions
 
-## When to use
+- Use exact versions only: `package@1.2.3`
+- Forbid: `^1.2.3`, `~1.2.3`, `latest`, `*`, version ranges
+- Exception: Library peerDependencies only
 
-- Adding or upgrading any NuGet package
-- Changing target frameworks or runtime settings
-- Introducing SDKs (telemetry, auth, storage, sync)
+### Lock Files Are Mandatory
 
-## Definition of done (DoD)
+- Always commit to version control
+- Forbid manual editing
+- CI/CD must use frozen/locked mode
 
-- The dependency change is justified (why needed, why this package)
-- Version choice is intentional (no accidental floating versions)
-- No secrets/keys are introduced via packages or config templates
-- Tests/builds still pass, and the change is scoped to the minimal set of packages
+### Security Audit First
 
-## Practical checklist
+- Check vulnerabilities before installation
+- Automate regular audits
 
-### Selection
+## Installation Commands
 
-- Prefer well-maintained packages with clear ownership and release cadence
-- Avoid bringing in “kitchen sink” packages when a smaller one suffices
-- Prefer official Microsoft packages for platform primitives when available
+```bash
+# Node.js
+npm install --save-exact package@1.2.3
+pnpm add --save-exact package@1.2.3
+yarn add --exact package@1.2.3
 
-### Versioning
+# Python
+pip install package==1.2.3
+poetry add package@1.2.3
 
-- Avoid floating versions unless there’s an explicit policy
-- Keep transitive upgrades understandable (review `dotnet list package --include-transitive` when needed)
+# Go
+go get package@v1.2.3
 
-### Vulnerability and supply-chain awareness
+# Rust
+cargo add package@=1.2.3
 
-- For package upgrades/additions, run `dotnet list package --vulnerable` (or CI equivalent) when feasible
-- Avoid packages that require unsafe deserialization or reflection-heavy dynamic execution unless required
+# PHP
+composer require vendor/package:1.2.3
 
-### Licensing (lightweight)
+# Ruby (Gemfile)
+gem 'package', '1.2.3'
 
-- For new dependencies, do a quick license sanity check (at least “is it permissive?”)
+# Java/Kotlin
+implementation("group:artifact:1.2.3")  # Gradle
+<version>1.2.3</version>                # Maven
 
-## Common anti-patterns
+# .NET
+dotnet add package PackageName --version 1.2.3
+```
 
-- Adding a package to solve a problem that can be solved in BCL
-- Upgrading a large package graph without tests/verification
-- Relying on transitive dependencies without understanding who pulls them in
+## CI/CD Commands
+
+```bash
+npm ci                          # npm
+pnpm install --frozen-lockfile  # pnpm
+yarn install --frozen-lockfile  # yarn
+poetry install --no-update      # poetry
+go mod verify                   # go
+cargo build --locked            # rust
+composer install --no-update    # php
+bundle install --frozen         # ruby
+dotnet restore --locked-mode    # .NET
+```
+
+## Common Mistakes
+
+| ❌ Wrong                 | ✅ Correct                     |
+| ------------------------ | ------------------------------ |
+| `npm install` (CI)       | `npm ci`                       |
+| `package@latest`         | `package@1.2.3`                |
+| `package@^1.2.3`         | `package@1.2.3`                |
+| Lock file in .gitignore  | Commit lock file               |
+| Manual lock file editing | Regenerate via package manager |

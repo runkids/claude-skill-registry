@@ -1,490 +1,270 @@
 ---
-name: Python Best Practices
-description: Type hints, dataclasses, async patterns, testing with pytest, and modern Python tooling
-keywords:
-  - python
-  - type-hints
-  - async
-  - pytest
-  - dataclasses
-  - pydantic
+name: python-best-practices
+description: Provides Python patterns for type-first development with dataclasses, discriminated unions, NewType, and Protocol. Must use when reading or writing Python files.
 ---
 
 # Python Best Practices
 
-## When to Use
+## Type-First Development
 
-**Perfect for:**
-- Data processing and analysis (pandas, numpy)
-- Web backends and APIs (FastAPI, Django)
-- Automation and scripting
-- Machine learning and AI workflows
-- DevOps and infrastructure tooling
+Types define the contract before implementation. Follow this workflow:
 
-**Not ideal for:**
-- Hard real-time systems (use Rust/C++ instead)
-- Mobile app development (use Swift/Kotlin)
-- GUI applications (consider Qt, but weigh alternatives)
+1. **Define data models** - dataclasses, Pydantic models, or TypedDict first
+2. **Define function signatures** - parameter and return type hints
+3. **Implement to satisfy types** - let the type checker guide completeness
+4. **Validate at boundaries** - runtime checks where data enters the system
 
-## Quick Reference
+### Make Illegal States Unrepresentable
 
-### Type Hints
+Use Python's type system to prevent invalid states at type-check time.
+
+**Dataclasses for structured data:**
 ```python
-from typing import Optional, List, Dict, Union, Callable, TypeVar, Generic
-from collections.abc import Sequence, Mapping
+from dataclasses import dataclass
+from datetime import datetime
 
-# Function type hints
-def process_items(items: List[str], count: int = 10) -> Dict[str, int]:
-    """Process items and return counts."""
-    return {item: len(item) for item in items[:count]}
+@dataclass(frozen=True)
+class User:
+    id: str
+    email: str
+    name: str
+    created_at: datetime
 
-# Optional parameters
-def get_user(user_id: int, default: Optional[str] = None) -> Optional[str]:
-    return default
+@dataclass(frozen=True)
+class CreateUser:
+    email: str
+    name: str
 
-# Union types (Python 3.10+ use |)
-def handle_value(value: str | int | float) -> str:
-    return str(value)
-
-# Callable types
-def register_handler(callback: Callable[[int], str]) -> None:
-    result = callback(42)
-
-# TypeVar for generics
-T = TypeVar('T')
-
-def get_first(items: List[T]) -> T:
-    return items[0]
-
-# Type aliases
-UserID = int
-UserName = str
-UserData = Dict[UserID, UserName]
+# Frozen dataclasses are immutable - no accidental mutation
 ```
 
-### Dataclasses
+**Discriminated unions with Literal:**
 ```python
-from dataclasses import dataclass, field
-from typing import List
+from dataclasses import dataclass
+from typing import Literal
 
 @dataclass
-class User:
-    """User with type hints and validation."""
-    id: int
-    name: str
-    email: str
-    age: int = 0
-    tags: List[str] = field(default_factory=list)
+class Idle:
+    status: Literal["idle"] = "idle"
 
-    def __post_init__(self):
-        """Validate after initialization."""
-        if self.age < 0:
-            raise ValueError("Age cannot be negative")
+@dataclass
+class Loading:
+    status: Literal["loading"] = "loading"
 
-# Usage
-user = User(id=1, name="Alice", email="alice@example.com", age=30)
-print(user)  # User(id=1, name='Alice', email='alice@example.com', age=30, tags=[])
+@dataclass
+class Success:
+    status: Literal["success"] = "success"
+    data: str
+
+@dataclass
+class Failure:
+    status: Literal["error"] = "error"
+    error: Exception
+
+RequestState = Idle | Loading | Success | Failure
+
+def handle_state(state: RequestState) -> None:
+    match state:
+        case Idle():
+            pass
+        case Loading():
+            show_spinner()
+        case Success(data=data):
+            render(data)
+        case Failure(error=err):
+            show_error(err)
 ```
 
-### Pydantic Models
+**NewType for domain primitives:**
 ```python
-from pydantic import BaseModel, Field, field_validator
+from typing import NewType
 
-class User(BaseModel):
-    """User model with validation."""
-    id: int
-    name: str = Field(..., min_length=1, max_length=100)
-    email: str = Field(..., pattern=r'^[\w\.-]+@[\w\.-]+\.\w+$')
-    age: int = Field(default=0, ge=0, le=150)
-    tags: list[str] = Field(default_factory=list)
+UserId = NewType("UserId", str)
+OrderId = NewType("OrderId", str)
 
-    @field_validator('name')
-    def name_must_be_titlecase(cls, v):
-        if not v.istitle():
-            raise ValueError('Name must be title case')
-        return v
+def get_user(user_id: UserId) -> User:
+    # Type checker prevents passing OrderId here
+    ...
 
-    class Config:
-        json_schema_extra = {
-            "example": {
-                "id": 1,
-                "name": "John Doe",
-                "email": "john@example.com",
-                "age": 30,
-                "tags": ["admin", "user"]
-            }
-        }
-
-# Usage with validation
-try:
-    user = User(id=1, name="Alice Smith", email="alice@example.com")
-except ValueError as e:
-    print(f"Validation error: {e}")
-
-# JSON schema
-print(User.model_json_schema())
+def create_user_id(raw: str) -> UserId:
+    return UserId(raw)
 ```
 
-### Async/Await Patterns
+**Enums for constrained values:**
 ```python
-import asyncio
-from typing import Coroutine
+from enum import Enum, auto
 
-# Basic async function
-async def fetch_data(url: str) -> str:
-    """Simulate async data fetch."""
-    await asyncio.sleep(1)
-    return f"Data from {url}"
+class Role(Enum):
+    ADMIN = auto()
+    USER = auto()
+    GUEST = auto()
 
-# Concurrent execution
-async def fetch_multiple(urls: list[str]) -> list[str]:
-    tasks = [fetch_data(url) for url in urls]
-    return await asyncio.gather(*tasks)
-
-# Async context manager
-class Database:
-    async def __aenter__(self):
-        await asyncio.sleep(0.1)
-        return self
-
-    async def __aexit__(self, exc_type, exc, tb):
-        await asyncio.sleep(0.1)
-
-async def use_db():
-    async with Database() as db:
-        # Use database
-        pass
-
-# Run async code
-# asyncio.run(fetch_multiple(['url1', 'url2', 'url3']))
+def check_permission(role: Role) -> bool:
+    match role:
+        case Role.ADMIN:
+            return True
+        case Role.USER:
+            return limited_check()
+        case Role.GUEST:
+            return False
+    # Type checker warns if case is missing
 ```
 
-### Error Handling
-```python
-from contextlib import contextmanager
-from typing import Generator
-
-# Custom exceptions
-class ValidationError(Exception):
-    """Raised when validation fails."""
-    pass
-
-class DatabaseError(Exception):
-    """Raised when database operation fails."""
-    pass
-
-# Try/except pattern
-def process_data(data: dict) -> str:
-    try:
-        value = data['key']
-        if not isinstance(value, str):
-            raise ValidationError("Key must be string")
-        return value
-    except KeyError:
-        raise ValidationError("Missing required key") from None
-    except ValidationError:
-        raise  # Re-raise validation errors
-    except Exception as e:
-        raise DatabaseError(f"Unexpected error: {e}") from e
-
-# Context manager for resources
-@contextmanager
-def managed_resource() -> Generator:
-    """Context manager example."""
-    resource = None
-    try:
-        resource = "initialized"
-        yield resource
-    except Exception as e:
-        print(f"Error: {e}")
-        raise
-    finally:
-        print("Cleanup")
-```
-
-### Testing with Pytest
-```python
-import pytest
-from unittest.mock import Mock, patch
-
-# Simple test
-def test_add():
-    assert 2 + 2 == 4
-
-# Parametrized tests
-@pytest.mark.parametrize("input,expected", [
-    ([1, 2, 3], 6),
-    ([0], 0),
-    ([-1, 1], 0),
-])
-def test_sum(input, expected):
-    assert sum(input) == expected
-
-# Fixtures
-@pytest.fixture
-def sample_user():
-    return {"id": 1, "name": "Alice"}
-
-def test_user_name(sample_user):
-    assert sample_user["name"] == "Alice"
-
-# Async tests
-@pytest.mark.asyncio
-async def test_async_fetch():
-    result = await fetch_data("url")
-    assert "url" in result
-
-# Mocking
-@patch('requests.get')
-def test_with_mock(mock_get):
-    mock_get.return_value.text = "mocked"
-    result = fetch_url("url")
-    assert result == "mocked"
-
-# Exception testing
-def test_raises():
-    with pytest.raises(ValidationError, match="Invalid"):
-        process_data({})
-```
-
-## Deep Dive
-
-### Advanced Type Hints
-```python
-from typing import Protocol, TypedDict, Literal, Final
-from abc import ABC, abstractmethod
-
-# Protocol for structural typing
-class Drawable(Protocol):
-    def draw(self) -> None: ...
-
-# TypedDict for dictionaries with specific structure
-class UserDict(TypedDict):
-    id: int
-    name: str
-    email: str
-
-# Literal types for specific values
-def set_log_level(level: Literal["DEBUG", "INFO", "WARNING", "ERROR"]) -> None:
-    pass
-
-# Final for constants
-MAX_RETRIES: Final = 3
-MAX_TIMEOUT: Final[int] = 30
-
-# Abstract base classes
-class DataSource(ABC):
-    @abstractmethod
-    def fetch(self, query: str) -> str:
-        pass
-
-class APIDataSource(DataSource):
-    def fetch(self, query: str) -> str:
-        return f"API result: {query}"
-```
-
-### Modern Project Structure
-```
-my_project/
-├── pyproject.toml          # Project metadata and dependencies (uv)
-├── README.md
-├── src/
-│   └── my_package/
-│       ├── __init__.py
-│       ├── main.py
-│       └── utils/
-│           ├── __init__.py
-│           └── helpers.py
-├── tests/
-│   ├── conftest.py         # Pytest configuration
-│   ├── unit/
-│   │   └── test_main.py
-│   └── integration/
-│       └── test_api.py
-└── .gitignore
-```
-
-### pyproject.toml Example
-```toml
-[build-system]
-requires = ["setuptools>=68.0", "wheel"]
-build-backend = "setuptools.build_meta"
-
-[project]
-name = "my-package"
-version = "0.1.0"
-description = "My awesome package"
-requires-python = ">=3.9"
-dependencies = [
-    "requests>=2.31.0",
-    "pydantic>=2.0.0",
-]
-
-[project.optional-dependencies]
-dev = [
-    "pytest>=7.4.0",
-    "pytest-asyncio>=0.21.0",
-    "pytest-cov>=4.1.0",
-    "mypy>=1.5.0",
-    "ruff>=0.1.0",
-]
-
-[tool.mypy]
-python_version = "3.9"
-warn_return_any = true
-warn_unused_configs = true
-
-[tool.pytest.ini_options]
-minversion = "7.0"
-testpaths = ["tests"]
-asyncio_mode = "auto"
-
-[tool.ruff]
-line-length = 100
-target-version = "py39"
-```
-
-### Async Context Managers
-```python
-class AsyncResource:
-    """Async context manager for managing resources."""
-
-    def __init__(self, name: str):
-        self.name = name
-
-    async def __aenter__(self):
-        print(f"Opening {self.name}")
-        await asyncio.sleep(0.1)
-        return self
-
-    async def __aexit__(self, exc_type, exc, tb):
-        print(f"Closing {self.name}")
-        await asyncio.sleep(0.1)
-        if exc_type:
-            print(f"Error: {exc_type.__name__}: {exc}")
-        return False  # Don't suppress exceptions
-
-async def main():
-    async with AsyncResource("MyResource") as resource:
-        print(f"Using {resource.name}")
-```
-
-### Dependency Injection Pattern
+**Protocol for structural typing:**
 ```python
 from typing import Protocol
-from abc import ABC, abstractmethod
 
-# Define interfaces
-class Logger(Protocol):
-    def log(self, message: str) -> None: ...
+class Readable(Protocol):
+    def read(self, n: int = -1) -> bytes: ...
 
-class Repository(ABC):
-    @abstractmethod
-    async def get(self, id: int) -> dict:
-        pass
-
-# Implementations
-class ConsoleLogger:
-    def log(self, message: str) -> None:
-        print(message)
-
-class DatabaseRepository(Repository):
-    async def get(self, id: int) -> dict:
-        return {"id": id, "name": "Item"}
-
-# Service with dependency injection
-class UserService:
-    def __init__(self, logger: Logger, repository: Repository):
-        self.logger = logger
-        self.repository = repository
-
-    async def get_user(self, user_id: int) -> dict:
-        self.logger.log(f"Fetching user {user_id}")
-        return await self.repository.get(user_id)
-
-# Usage
-logger = ConsoleLogger()
-repo = DatabaseRepository()
-service = UserService(logger, repo)
+def process_input(source: Readable) -> bytes:
+    # Accepts any object with a read() method
+    return source.read()
 ```
 
-## Anti-Patterns
-
-### DON'T: Skip Type Hints
+**TypedDict for external data shapes:**
 ```python
-# Bad - no type information
-def process(items, count=10):
-    return {item: len(item) for item in items[:count]}
+from typing import TypedDict, Required, NotRequired
 
-# Good - clear types
-def process(items: list[str], count: int = 10) -> dict[str, int]:
-    return {item: len(item) for item in items[:count]}
+class UserResponse(TypedDict):
+    id: Required[str]
+    email: Required[str]
+    name: Required[str]
+    avatar_url: NotRequired[str]
+
+def parse_user(data: dict) -> UserResponse:
+    # Runtime validation needed - TypedDict is structural
+    return UserResponse(
+        id=data["id"],
+        email=data["email"],
+        name=data["name"],
+    )
 ```
 
-### DON'T: Use Bare Except
+## Module Structure
+
+Prefer smaller, focused files: one class or closely related set of functions per module. Split when a file handles multiple concerns or exceeds ~300 lines. Use `__init__.py` to expose public API; keep implementation details in private modules (`_internal.py`). Colocate tests in `tests/` mirroring the source structure.
+
+## Functional Patterns
+
+- Use list/dict/set comprehensions and generator expressions over explicit loops.
+- Prefer `@dataclass(frozen=True)` for immutable data; avoid mutable default arguments.
+- Use `functools.partial` for partial application; compose small functions over large classes.
+- Avoid class-level mutable state; prefer pure functions that take inputs and return outputs.
+
+## Instructions
+
+- Raise descriptive exceptions for unsupported cases; every code path returns a value or raises. This makes failures debuggable and prevents silent corruption.
+- Propagate exceptions with context using `from err`; catching requires re-raising or returning a meaningful result. Swallowed exceptions hide root causes.
+- Handle edge cases explicitly: empty inputs, `None`, boundary values. Include `else` clauses in conditionals where appropriate.
+- Use context managers for I/O; prefer `pathlib` and explicit encodings. Resource leaks cause production issues.
+- Add or adjust unit tests when touching logic; prefer minimal repros that isolate the failure.
+
+## Examples
+
+Explicit failure for unimplemented logic:
 ```python
-# Bad - catches all exceptions including KeyboardInterrupt
+def build_widget(widget_type: str) -> Widget:
+    raise NotImplementedError(f"build_widget not implemented for type: {widget_type}")
+```
+
+Propagate with context to preserve the original traceback:
+```python
 try:
-    do_something()
-except:
-    pass
-
-# Good - specific exception handling
-try:
-    do_something()
-except ValueError as e:
-    print(f"Invalid value: {e}")
-except Exception as e:
-    print(f"Unexpected error: {e}")
+    data = json.loads(raw)
+except json.JSONDecodeError as err:
+    raise ValueError(f"invalid JSON payload: {err}") from err
 ```
 
-### DON'T: Modify Loop Variables
+Exhaustive match with explicit default:
 ```python
-# Bad - confusing and error-prone
-items = [1, 2, 3]
-for i, item in enumerate(items):
-    items[i] = item * 2  # Modifying while iterating
-
-# Good - use list comprehension or copy
-items = [item * 2 for item in items]
+def process_status(status: str) -> str:
+    match status:
+        case "active":
+            return "processing"
+        case "inactive":
+            return "skipped"
+        case _:
+            raise ValueError(f"unhandled status: {status}")
 ```
 
-### DON'T: Use Mutable Default Arguments
+Debug-level tracing with namespaced logger:
 ```python
-# Bad - default list shared across calls
-def append_item(item, items=[]):
-    items.append(item)
-    return items
+import logging
 
-# Good - use None and create new list
-def append_item(item, items=None):
-    if items is None:
-        items = []
-    items.append(item)
-    return items
+logger = logging.getLogger("myapp.widgets")
+
+def create_widget(name: str) -> Widget:
+    logger.debug("creating widget: %s", name)
+    widget = Widget(name=name)
+    logger.debug("created widget id=%s", widget.id)
+    return widget
 ```
 
-### DON'T: Mix Sync and Async Without Care
+## Configuration
+
+- Load config from environment variables at startup; validate required values before use. Missing config should fail immediately.
+- Define a config dataclass or Pydantic model as single source of truth; avoid `os.getenv` scattered throughout code.
+- Use sensible defaults for development; require explicit values for production secrets.
+
+### Examples
+
+Typed config with dataclass:
 ```python
-# Bad - mixing sync and async
-async def mixed():
-    sync_result = slow_sync_operation()  # Blocks event loop
-    await async_operation()
-
-# Good - keep async clean
-async def async_only():
-    result = await async_fetch()
-    processed = await async_process(result)
-```
-
-### DON'T: Hardcode Configuration
-```python
-# Bad - hardcoded values
-DATABASE_URL = "postgresql://localhost/mydb"
-API_KEY = "sk_live_xxxxx"
-
-# Good - use environment variables
 import os
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://localhost/mydb")
-API_KEY = os.getenv("API_KEY")  # Fail if not set
+from dataclasses import dataclass
+
+@dataclass(frozen=True)
+class Config:
+    port: int = 3000
+    database_url: str = ""
+    api_key: str = ""
+    env: str = "development"
+
+    @classmethod
+    def from_env(cls) -> "Config":
+        database_url = os.environ.get("DATABASE_URL", "")
+        if not database_url:
+            raise ValueError("DATABASE_URL is required")
+        return cls(
+            port=int(os.environ.get("PORT", "3000")),
+            database_url=database_url,
+            api_key=os.environ["API_KEY"],  # required, will raise if missing
+            env=os.environ.get("ENV", "development"),
+        )
+
+config = Config.from_env()
 ```
+
+## Optional: ty
+
+For fast type checking, consider [ty](https://docs.astral.sh/ty/) from Astral (creators of ruff and uv). Written in Rust, it's significantly faster than mypy or pyright.
+
+**Installation and usage:**
+```bash
+# Run directly with uvx (no install needed)
+uvx ty check
+
+# Check specific files
+uvx ty check src/main.py
+
+# Install permanently
+uv tool install ty
+```
+
+**Key features:**
+- Automatic virtual environment detection (via `VIRTUAL_ENV` or `.venv`)
+- Project discovery from `pyproject.toml`
+- Fast incremental checking
+- Compatible with standard Python type hints
+
+**Configuration in `pyproject.toml`:**
+```toml
+[tool.ty]
+python-version = "3.12"
+```
+
+**When to use ty vs alternatives:**
+- `ty` - fastest, good for CI and large codebases (early stage, rapidly evolving)
+- `pyright` - most complete type inference, VS Code integration
+- `mypy` - mature, extensive plugin ecosystem

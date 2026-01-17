@@ -1,13 +1,5 @@
 ---
-name: apps-ose-platform-web__developing-content
 description: Guide for creating content on ose-platform-web Hugo site using PaperMod theme. Covers English-only landing page structure, update posts with date-prefixed filenames, PaperMod frontmatter (cover images, table of contents, author field), simple flat organization, and ose-platform-web specific conventions. Essential for ose-platform-web content creation tasks
-allowed-tools: [Read, Write, Edit, Glob, Grep, Bash]
-tags:
-  - hugo
-  - ose-platform-web
-  - papermod
-  - landing-page
-  - english-only
 ---
 
 # Hugo OSE Platform Development Skill
@@ -451,12 +443,12 @@ cover:
 
 ## Reference Documentation
 
-**Primary Convention**: [Hugo Content Convention - ose-platform-web](../../../governance/conventions/hugo/ose-platform.md)
+**Primary Convention**: [Hugo Content Convention - ose-platform-web](../../../../governance/conventions/hugo/ose-platform.md)
 
 **Related Conventions**:
 
-- [Hugo Content Shared](../../../governance/conventions/hugo/shared.md) - Shared Hugo patterns
-- [Content Quality Principles](../../../governance/conventions/content/quality.md) - Universal quality standards
+- [Hugo Content Shared](../../../../governance/conventions/hugo/shared.md) - Shared Hugo patterns
+- [Content Quality Principles](../../../../governance/conventions/content/quality.md) - Universal quality standards
 
 **Related Skills**:
 
@@ -543,12 +535,12 @@ Vercel automatically:
 
 ## References
 
-**Primary Convention**: [Hugo Content Convention - ose-platform-web](../../../governance/conventions/hugo/ose-platform.md)
+**Primary Convention**: [Hugo Content Convention - ose-platform-web](../../../../governance/conventions/hugo/ose-platform.md)
 
 **Related Conventions**:
 
-- [Hugo Content Shared](../../../governance/conventions/hugo/shared.md) - Shared Hugo patterns
-- [Content Quality Principles](../../../governance/conventions/content/quality.md) - Universal quality standards
+- [Hugo Content Shared](../../../../governance/conventions/hugo/shared.md) - Shared Hugo patterns
+- [Content Quality Principles](../../../../governance/conventions/content/quality.md) - Universal quality standards
 
 **Related Skills**:
 

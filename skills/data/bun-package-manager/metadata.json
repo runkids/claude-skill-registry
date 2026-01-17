@@ -1,7 +1,7 @@
 {
   "name": "bun-package-manager",
-  "repo": "TheBushidoCollective/han",
-  "path": "jutsu/jutsu-bun/skills/bun-package-manager/SKILL.md",
-  "source": "github.com/TheBushidoCollective/han",
-  "downloaded_at": "2026-01-14T03:34:13.162281Z"
+  "repo": "secondsky/claude-skills",
+  "path": "plugins/bun/skills/bun-package-manager/SKILL.md",
+  "source": "github.com/secondsky/claude-skills",
+  "downloaded_at": "2026-01-17T03:58:37.722492Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "quality-gates",
-  "repo": "ederheisler/agent-skills",
-  "path": "skills/quality-gates/SKILL.md",
-  "source": "github.com/ederheisler/agent-skills",
-  "downloaded_at": "2026-01-14T03:11:08.509920Z"
+  "repo": "involvex/involvex-claude-marketplace",
+  "path": "plugins/orchestration/skills/quality-gates/SKILL.md",
+  "source": "github.com/involvex/involvex-claude-marketplace",
+  "downloaded_at": "2026-01-17T03:58:51.172665Z"
 }

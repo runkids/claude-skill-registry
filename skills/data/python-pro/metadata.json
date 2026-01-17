@@ -1,7 +1,7 @@
 {
   "name": "python-pro",
-  "repo": "kamushadenes/nix",
-  "path": "home/common/ai/resources/claude-code/skills/python-pro/SKILL.md",
-  "source": "github.com/kamushadenes/nix",
-  "downloaded_at": "2026-01-14T03:09:41.598899Z"
+  "repo": "rbergman/dark-matter-marketplace",
+  "path": "plugins/language-pro/skills/python-pro/SKILL.md",
+  "source": "github.com/rbergman/dark-matter-marketplace",
+  "downloaded_at": "2026-01-17T02:25:51.360067Z"
 }

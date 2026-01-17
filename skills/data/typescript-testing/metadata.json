@@ -1,7 +1,7 @@
 {
   "name": "typescript-testing",
-  "repo": "ilude/claude-code-config",
-  "path": "skills/typescript-testing/SKILL.md",
-  "source": "github.com/ilude/claude-code-config",
-  "downloaded_at": "2026-01-14T01:02:38.642774Z"
+  "repo": "shinpr/ai-coding-project-boilerplate",
+  "path": ".claude/skills-ja/frontend/typescript-testing/SKILL.md",
+  "source": "github.com/shinpr/ai-coding-project-boilerplate",
+  "downloaded_at": "2026-01-17T02:32:28.057415Z"
 }

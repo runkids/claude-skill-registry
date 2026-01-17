@@ -2,6 +2,8 @@
 name: aws-cdk-development
 description: AWS Cloud Development Kit (CDK) expert for building cloud infrastructure with TypeScript/Python. Use when creating CDK stacks, defining CDK constructs, implementing infrastructure as code, or when the user mentions CDK, CloudFormation, IaC, cdk synth, cdk deploy, or wants to define AWS infrastructure programmatically. Covers CDK app structure, construct patterns, stack composition, and deployment workflows.
 context: fork
+skills:
+  - aws-mcp-setup
 allowed-tools:
   - mcp__cdk__*
   - mcp__aws-mcp__*
@@ -34,7 +36,7 @@ This skill provides comprehensive guidance for developing AWS infrastructure usi
    - `mcp__aws-mcp__aws___get_regional_availability` - Check service availability
 
 2. **If AWS MCP tools are unavailable**:
-   - Guide user to configure AWS MCP: See [AWS MCP Setup Guide](../../docs/aws-mcp-setup.md)
+   - Guide user to configure AWS MCP using the `aws-mcp-setup` skill (auto-loaded as dependency)
    - Help determine which option fits their environment:
      - Has uvx + AWS credentials → Full AWS MCP Server
      - No Python/credentials → AWS Documentation MCP (no auth)

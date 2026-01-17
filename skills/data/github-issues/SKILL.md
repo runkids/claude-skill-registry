@@ -1,144 +1,132 @@
 ---
 name: github-issues
-description: Best practices for breaking down work into GitHub issues, proper sizing, and milestone organization. Use during discovery/planning phases.
+description: 'Create, update, and manage GitHub issues using MCP tools. Use this skill when users want to create bug reports, feature requests, or task issues, update existing issues, add labels/assignees/milestones, or manage issue workflows. Triggers on requests like "create an issue", "file a bug", "request a feature", "update issue X", or any GitHub issue management task.'
 ---
 
-# GitHub Issue Creation Skill
+# GitHub Issues
 
-Guidelines for creating well-structured GitHub issues that enable efficient autonomous development.
+Manage GitHub issues using the `@modelcontextprotocol/server-github` MCP server.
 
-## Core Principles
+## Available MCP Tools
 
-1. **One PR Per Issue** - Each issue completable in a single pull request
-2. **Vertical Slices** - Prefer end-to-end functionality over horizontal layers
-3. **Testable Criteria** - Every issue must have objectively verifiable acceptance criteria
+| Tool | Purpose |
+|------|---------|
+| `mcp__github__create_issue` | Create new issues |
+| `mcp__github__update_issue` | Update existing issues |
+| `mcp__github__get_issue` | Fetch issue details |
+| `mcp__github__search_issues` | Search issues |
+| `mcp__github__add_issue_comment` | Add comments |
+| `mcp__github__list_issues` | List repository issues |
 
-## Issue Sizing
+## Workflow
 
-### Right-Sized
-- Completable in 1-4 hours
-- Single, clear objective
-- 3-7 acceptance criteria
+1. **Determine action**: Create, update, or query?
+2. **Gather context**: Get repo info, existing labels, milestones if needed
+3. **Structure content**: Use appropriate template from [references/templates.md](references/templates.md)
+4. **Execute**: Call the appropriate MCP tool
+5. **Confirm**: Report the issue URL to user
 
-### Too Large (Split It)
-- More than 7 acceptance criteria
-- Touches more than 3-4 files significantly
-- Requires "and" to describe
-- Split by: user action, data entity, happy path vs error handling
+## Creating Issues
 
-### Too Small (Combine It)
-- Less than 15 minutes of work
-- No meaningful acceptance criteria
+### Required Parameters
 
-## Issue Template
-
-```markdown
-**[Product Owner]**
-
-## User Story
-As a [user type],
-I want [action],
-So that [benefit].
-
-## Acceptance Criteria
-- [ ] Primary happy path works
-- [ ] Key error case handled
-- [ ] Edge case covered
-
-## Dependencies
-Depends on #X (reason)
--- OR --
-None - can be worked independently
-
-## Out of Scope
-- Explicitly list what this does NOT cover
+```
+owner: repository owner (org or user)
+repo: repository name  
+title: clear, actionable title
+body: structured markdown content
 ```
 
-### Do NOT Include
-- Implementation details (let Developer decide)
-- Specific file names or code structure
-- Time estimates
+### Optional Parameters
 
-## Dependency Management
-
-```markdown
-## Dependencies
-Depends on #12 (database schema must exist)
-Depends on #15 (auth middleware required)
+```
+labels: ["bug", "enhancement", "documentation", ...]
+assignees: ["username1", "username2"]
+milestone: milestone number (integer)
 ```
 
-An issue is "ready" when all dependencies are closed.
+### Title Guidelines
 
-## Milestone Organization
+- Start with type prefix when useful: `[Bug]`, `[Feature]`, `[Docs]`
+- Be specific and actionable
+- Keep under 72 characters
+- Examples:
+  - `[Bug] Login fails with SSO enabled`
+  - `[Feature] Add dark mode support`
+  - `Add unit tests for auth module`
 
-- **3-10 issues per milestone** - Small enough to feel achievable
-- **Ordered by value** - Earlier milestones = higher value/lower risk
-- **Clear definition of done** - What can users do when complete?
+### Body Structure
 
-### Creating Milestones
+Always use the templates in [references/templates.md](references/templates.md). Choose based on issue type:
 
-```bash
-gh api repos/{owner}/{repo}/milestones \
-  -f title="v1.0 - Basic Cart" \
-  -f description="Users can add items to cart and modify quantities"
+| User Request | Template |
+|--------------|----------|
+| Bug, error, broken, not working | Bug Report |
+| Feature, enhancement, add, new | Feature Request |
+| Task, chore, refactor, update | Task |
 
-gh issue edit {number} --milestone "v1.0 - Basic Cart"
+## Updating Issues
+
+Use `mcp__github__update_issue` with:
+
+```
+owner, repo, issue_number (required)
+title, body, state, labels, assignees, milestone (optional - only changed fields)
 ```
 
-## Issue Commands
+State values: `open`, `closed`
 
-### Before Creating an Issue
+## Examples
 
-**Always check for duplicates first:**
+### Example 1: Bug Report
 
-```bash
-# Search for existing issues with similar keywords
-gh issue list --state all --search "keyword1 keyword2"
+**User**: "Create a bug issue - the login page crashes when using SSO"
 
-# Check open issues
-gh issue list --state open --json number,title,body | jq '.[] | "\(.number): \(.title)"'
+**Action**: Call `mcp__github__create_issue` with:
+```json
+{
+  "owner": "github",
+  "repo": "awesome-copilot",
+  "title": "[Bug] Login page crashes when using SSO",
+  "body": "## Description\nThe login page crashes when users attempt to authenticate using SSO.\n\n## Steps to Reproduce\n1. Navigate to login page\n2. Click 'Sign in with SSO'\n3. Page crashes\n\n## Expected Behavior\nSSO authentication should complete and redirect to dashboard.\n\n## Actual Behavior\nPage becomes unresponsive and displays error.\n\n## Environment\n- Browser: [To be filled]\n- OS: [To be filled]\n\n## Additional Context\nReported by user.",
+  "labels": ["bug"]
+}
 ```
 
-If a similar issue exists:
-- Reference it instead of creating a duplicate
-- Add a comment to the existing issue if you have new context
-- Consider if the scope should be expanded vs. new issue
+### Example 2: Feature Request
 
-### Creating Issues
+**User**: "Create a feature request for dark mode with high priority"
 
-**Don't prefix titles with type** (e.g., "Feature:", "Bug:") - labels handle that and are more functional for filtering.
-
-```bash
-# Feature issue
-gh issue create \
-  --title "{Concise description of capability}" \
-  --label "feature" --label "ready" \
-  --milestone "v1.0" \
-  --body "..."
-
-# Bug issue
-gh issue create \
-  --title "{What's broken}" \
-  --label "bug" --label "ready" \
-  --body "..."
-
-# Assign labels
-gh issue edit {number} --add-label "priority:high"
+**Action**: Call `mcp__github__create_issue` with:
+```json
+{
+  "owner": "github",
+  "repo": "awesome-copilot",
+  "title": "[Feature] Add dark mode support",
+  "body": "## Summary\nAdd dark mode theme option for improved user experience and accessibility.\n\n## Motivation\n- Reduces eye strain in low-light environments\n- Increasingly expected by users\n- Improves accessibility\n\n## Proposed Solution\nImplement theme toggle with system preference detection.\n\n## Acceptance Criteria\n- [ ] Toggle switch in settings\n- [ ] Persists user preference\n- [ ] Respects system preference by default\n- [ ] All UI components support both themes\n\n## Alternatives Considered\nNone specified.\n\n## Additional Context\nHigh priority request.",
+  "labels": ["enhancement", "high-priority"]
+}
 ```
 
-## Breaking Down Features
+## Common Labels
 
-1. **Identify core user journey** - What's the minimum path?
-2. **Extract foundation work** - Database, APIs, shared utilities
-3. **Split by user action** - Each action = potential issue
-4. **Map dependencies** - What must come first?
-5. **Group into milestones** - What's usable together?
+Use these standard labels when applicable:
 
-## Common Anti-Patterns
+| Label | Use For |
+|-------|---------|
+| `bug` | Something isn't working |
+| `enhancement` | New feature or improvement |
+| `documentation` | Documentation updates |
+| `good first issue` | Good for newcomers |
+| `help wanted` | Extra attention needed |
+| `question` | Further information requested |
+| `wontfix` | Will not be addressed |
+| `duplicate` | Already exists |
+| `high-priority` | Urgent issues |
 
-| Anti-Pattern | Better Approach |
-|--------------|-----------------|
-| "User experience is good" | "Form shows validation errors within 100ms" |
-| Missing error cases | Include error handling in acceptance criteria |
-| Hidden dependencies | Always note "Depends on #X" |
-| Too much detail | Define what, not how |
+## Tips
+
+- Always confirm the repository context before creating issues
+- Ask for missing critical information rather than guessing
+- Link related issues when known: `Related to #123`
+- For updates, fetch current issue first to preserve unchanged fields

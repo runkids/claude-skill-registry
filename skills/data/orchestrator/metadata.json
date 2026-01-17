@@ -1,7 +1,7 @@
 {
   "name": "orchestrator",
-  "repo": "gaebalai/itda-sdd",
-  "path": "src/templates/agents/claude-code/skills/orchestrator/SKILL.md",
-  "source": "github.com/gaebalai/itda-sdd",
-  "downloaded_at": "2026-01-14T03:55:15.385504Z"
+  "repo": "nahisaho/CodeGraphMCPServer",
+  "path": ".claude/skills/orchestrator/SKILL.md",
+  "source": "github.com/nahisaho/CodeGraphMCPServer",
+  "downloaded_at": "2026-01-17T03:42:15.475265Z"
 }

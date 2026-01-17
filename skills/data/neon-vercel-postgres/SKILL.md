@@ -1,18 +1,47 @@
 ---
 name: neon-vercel-postgres
-description: |
-  Set up serverless Postgres with Neon or Vercel Postgres for Cloudflare Workers/Edge. Includes connection pooling, git-like branching, and Drizzle ORM integration.
-
-  Use when: setting up edge Postgres, troubleshooting "TCP not supported", connection pool exhausted, or SSL config errors.
-user-invocable: true
+description: Neon + Vercel serverless Postgres for edge and serverless environments. Use for Cloudflare Workers, Vercel Edge, Next.js apps with HTTP/WebSocket connections, database branching (git-like), Drizzle/Prisma ORM integration, migrations, PITR backups, or encountering connection pool exhausted errors, TCP connection issues, SSL config problems.
+keywords:
+  - neon postgres
+  - "@neondatabase/serverless"
+  - "@vercel/postgres"
+  - serverless postgres
+  - postgres edge
+  - neon branching
+  - vercel database
+  - http postgres
+  - websocket postgres
+  - pooled connection
+  - drizzle neon
+  - prisma neon
+  - postgres cloudflare
+  - postgres vercel edge
+  - sql template tag
+  - neonctl
+  - database branches
+  - point in time restore
+  - postgres migrations
+  - serverless sql
+  - edge database
+  - neon api
+  - vercel sql
+license: MIT
+metadata:
+  version: "2.0.0"
+  neon_serverless_version: "1.0.2"
+  vercel_postgres_version: "0.10.0"
+  drizzle_orm_version: "0.44.7"
+  errors_prevented: 15
+  templates_included: 5
+  references_included: 4
 ---
 
 # Neon & Vercel Serverless Postgres
 
 **Status**: Production Ready
-**Last Updated**: 2026-01-09
+**Last Updated**: 2025-11-21
 **Dependencies**: None
-**Latest Versions**: `@neondatabase/serverless@1.0.2`, `@vercel/postgres@0.10.0`, `drizzle-orm@0.45.1`, `drizzle-kit@0.31.8`, `neonctl@2.19.0`
+**Latest Versions**: `@neondatabase/serverless@1.0.2`, `@vercel/postgres@0.10.0`, `drizzle-orm@0.44.7`, `neonctl@2.16.1`
 
 ---
 
@@ -22,15 +51,13 @@ user-invocable: true
 
 **Option A: Neon Direct** (multi-cloud, Cloudflare Workers, any serverless)
 ```bash
-npm install @neondatabase/serverless
+bun add @neondatabase/serverless
 ```
 
 **Option B: Vercel Postgres** (Vercel-only, zero-config on Vercel)
 ```bash
-npm install @vercel/postgres
+bun add @vercel/postgres
 ```
-
-**Note**: Both use the same Neon backend. Vercel Postgres is Neon with Vercel-specific environment setup.
 
 **Why this matters:**
 - Neon direct gives you multi-cloud flexibility and access to branching API
@@ -43,7 +70,7 @@ npm install @vercel/postgres
 ```bash
 # Sign up at https://neon.tech
 # Create a project → Get connection string
-# Format: postgresql://user:password@ep-xyz.region.aws.neon.tech/dbname?sslmode=require
+# Format: postgresql://user:password@ep-xyz-pooler.region.aws.neon.tech/dbname?sslmode=require
 ```
 
 **For Vercel Postgres:**
@@ -60,7 +87,7 @@ vercel env pull .env.local  # Automatically creates POSTGRES_URL and other vars
 
 ### 3. Query Your Database
 
-**Neon Direct (Cloudflare Workers, Vercel Edge, Node.js):**
+**Neon Direct:**
 ```typescript
 import { neon } from '@neondatabase/serverless';
 
@@ -76,7 +103,7 @@ const result = await sql.transaction([
 ]);
 ```
 
-**Vercel Postgres (Next.js Server Actions, API Routes):**
+**Vercel Postgres:**
 ```typescript
 import { sql } from '@vercel/postgres';
 
@@ -97,272 +124,89 @@ try {
 **CRITICAL:**
 - Use template tag syntax (`` sql`...` ``) for automatic SQL injection protection
 - Never concatenate strings: `sql('SELECT * FROM users WHERE id = ' + id)` ❌
-- Template tags automatically escape values and prevent SQL injection
 
 ---
 
-## The 7-Step Setup Process
+## Critical Rules
 
-### Step 1: Install Package
+### Always Do
 
-Choose based on your deployment platform:
+✅ **Use pooled connection strings** for serverless environments (`-pooler.` in hostname)
 
-**Neon Direct** (Cloudflare Workers, multi-cloud, direct Neon access):
-```bash
-npm install @neondatabase/serverless
-```
+✅ **Use template tag syntax** for queries (`` sql`SELECT * FROM users` ``) to prevent SQL injection
 
-**Vercel Postgres** (Vercel-specific, zero-config):
-```bash
-npm install @vercel/postgres
-```
+✅ **Include `sslmode=require`** in connection strings
 
-**With ORM**:
-```bash
-# Drizzle ORM (recommended for edge compatibility)
-npm install drizzle-orm@0.45.1 @neondatabase/serverless@1.0.2
-npm install -D drizzle-kit@0.31.8
+✅ **Release connections** after transactions (Vercel Postgres manual transactions)
 
-# Prisma (Node.js only)
-npm install prisma @prisma/client @prisma/adapter-neon @neondatabase/serverless
-```
+✅ **Use Drizzle ORM** for edge-compatible TypeScript ORM (not Prisma in Cloudflare Workers)
 
-**Key Points:**
-- Both packages use HTTP/WebSocket (no TCP required)
-- Edge-compatible (works in Cloudflare Workers, Vercel Edge Runtime)
-- Connection pooling is built-in when using pooled connection strings
-- No need for separate connection pool libraries
+✅ **Set connection string as environment variable** (never hardcode)
 
----
+✅ **Use Neon branching** for preview environments and testing
 
-### Step 2: Create Neon Database
+✅ **Monitor connection pool usage** in Neon dashboard
 
-**Option A: Neon Dashboard**
-1. Sign up at https://neon.tech
-2. Create a new project
-3. Copy the **pooled connection string** (important!)
-4. Format: `postgresql://user:pass@ep-xyz-pooler.region.aws.neon.tech/db?sslmode=require`
+✅ **Handle errors** with try/catch blocks and rollback transactions on failure
 
-**Option B: Vercel Dashboard**
-1. Go to your Vercel project → Storage → Create Database → Postgres
-2. Vercel automatically creates a Neon database
-3. Run `vercel env pull` to get environment variables locally
+✅ **Use `RETURNING` clause for INSERT/UPDATE** to get created/updated data in one query
 
-**Option C: Neon CLI** (neonctl@2.19.0)
-```bash
-# Install CLI
-npm install -g neonctl@2.19.0
+### Never Do
 
-# Authenticate
-neonctl auth
+❌ **Never use non-pooled connections** in serverless functions (will exhaust connection pool)
 
-# Create project and get connection string
-neonctl projects create --name my-app
-neonctl connection-string main
-```
+❌ **Never concatenate SQL strings** (`'SELECT * FROM users WHERE id = ' + id`) - SQL injection risk
 
-**CRITICAL:**
-- Always use the **pooled connection string** (ends with `-pooler.region.aws.neon.tech`)
-- Non-pooled connections are for direct connections (not serverless)
-- Include `?sslmode=require` in connection string
+❌ **Never omit `sslmode=require`** - connections will fail or be insecure
+
+❌ **Never forget to `client.release()`** in manual Vercel Postgres transactions - connection leak
+
+❌ **Never use Prisma in Cloudflare Workers** - requires Node.js runtime (use Drizzle instead)
+
+❌ **Never hardcode connection strings** - use environment variables
+
+❌ **Never run migrations from edge functions** - use Node.js environment or Neon console
+
+❌ **Never commit `.env` files** - add to `.gitignore`
+
+❌ **Never use `POSTGRES_URL_NON_POOLING`** in serverless functions - defeats pooling
+
+❌ **Never exceed connection limits** - monitor usage and upgrade plan if needed
 
 ---
 
-### Step 3: Configure Environment Variables
+## Top 5 Errors (See references/error-catalog.md for all 15)
 
-**For Neon Direct:**
-```bash
-# .env or .env.local
-DATABASE_URL="postgresql://user:password@ep-xyz-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require"
-```
+### Error #1: Connection Pool Exhausted
+**Error**: `Error: connection pool exhausted` or `too many connections for role`
+**Solution**: Use pooled connection string (ends with `-pooler.region.aws.neon.tech`), not non-pooled
 
-**For Vercel Postgres:**
-```bash
-# Automatically created by `vercel env pull`
-POSTGRES_URL="..."               # Pooled connection (use this for queries)
-POSTGRES_PRISMA_URL="..."        # For Prisma migrations
-POSTGRES_URL_NON_POOLING="..."   # Direct connection (avoid in serverless)
-POSTGRES_USER="..."
-POSTGRES_HOST="..."
-POSTGRES_PASSWORD="..."
-POSTGRES_DATABASE="..."
-```
+### Error #2: TCP Connections Not Supported
+**Error**: `Error: TCP connections are not supported in this environment`
+**Solution**: Use `@neondatabase/serverless` (HTTP-based), not `pg` or `postgres.js` (TCP-based)
 
-**For Cloudflare Workers** (wrangler.jsonc):
-```json
-{
-  "vars": {
-    "DATABASE_URL": "postgresql://user:password@ep-xyz-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require"
-  }
-}
-```
+### Error #3: SQL Injection from String Concatenation
+**Error**: Successful SQL injection attack
+**Solution**: Always use template tags (`` sql`SELECT * FROM users WHERE id = ${id}` ``), never concatenate strings
 
-**Key Points:**
-- Use `POSTGRES_URL` (pooled) for queries
-- Use `POSTGRES_PRISMA_URL` for Prisma migrations
-- Never use `POSTGRES_URL_NON_POOLING` in serverless functions
-- Store secrets securely (Vercel env, Cloudflare secrets, etc.)
+### Error #4: Missing SSL Mode
+**Error**: `Error: connection requires SSL`
+**Solution**: Always append `?sslmode=require` to connection string
+
+### Error #5: Connection Leak (Vercel Postgres)
+**Error**: Gradually increasing memory usage
+**Solution**: Always call `client.release()` in finally block after manual transactions
+
+**Load `references/error-catalog.md` for all 15 errors with detailed solutions and troubleshooting guide.**
 
 ---
 
-### Step 4: Create Database Schema
+## Common Use Cases
 
-**Option A: Raw SQL**
+### Use Case 1: Cloudflare Worker with Neon
+**When**: Deploying serverless API with Postgres on Cloudflare Workers
+**Quick Pattern**:
 ```typescript
-// scripts/migrate.ts
-import { neon } from '@neondatabase/serverless';
-
-const sql = neon(process.env.DATABASE_URL!);
-
-await sql`
-  CREATE TABLE IF NOT EXISTS users (
-    id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL,
-    email TEXT UNIQUE NOT NULL,
-    created_at TIMESTAMP DEFAULT NOW()
-  )
-`;
-```
-
-**Option B: Drizzle ORM** (recommended)
-```typescript
-// db/schema.ts
-import { pgTable, serial, text, timestamp } from 'drizzle-orm/pg-core';
-
-export const users = pgTable('users', {
-  id: serial('id').primaryKey(),
-  name: text('name').notNull(),
-  email: text('email').notNull().unique(),
-  createdAt: timestamp('created_at').defaultNow()
-});
-```
-
-```typescript
-// db/index.ts
-import { drizzle } from 'drizzle-orm/neon-http';
-import { neon } from '@neondatabase/serverless';
-import * as schema from './schema';
-
-const sql = neon(process.env.DATABASE_URL!);
-export const db = drizzle(sql, { schema });
-```
-
-```bash
-# Run migrations
-npx drizzle-kit generate
-npx drizzle-kit migrate
-```
-
-**Option C: Prisma**
-```prisma
-// prisma/schema.prisma
-generator client {
-  provider = "prisma-client-js"
-}
-
-datasource db {
-  provider = "postgresql"
-  url      = env("POSTGRES_PRISMA_URL")
-}
-
-model User {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String   @unique
-  createdAt DateTime @default(now()) @map("created_at")
-
-  @@map("users")
-}
-```
-
-```bash
-npx prisma migrate dev --name init
-```
-
-**CRITICAL:**
-- Use Drizzle for edge-compatible ORM (works in Cloudflare Workers)
-- Prisma requires Node.js runtime (won't work in Cloudflare Workers)
-- Run migrations from Node.js environment, not from edge functions
-
----
-
-### Step 5: Query Patterns
-
-**CRITICAL - Template Tag Syntax Required:**
-```typescript
-// ✅ Correct: Template tag syntax (prevents SQL injection)
-const users = await sql`SELECT * FROM users WHERE email = ${email}`;
-
-// ❌ Wrong: String concatenation (SQL injection risk)
-const users = await sql('SELECT * FROM users WHERE email = ' + email);
-```
-
-**Neon Transaction API (Unique Features):**
-```typescript
-// Automatic transaction (array of queries)
-const results = await sql.transaction([
-  sql`INSERT INTO users (name) VALUES (${name})`,
-  sql`UPDATE accounts SET balance = balance - ${amount} WHERE id = ${accountId}`
-]);
-
-// Manual transaction with callback (for complex logic)
-const result = await sql.transaction(async (sql) => {
-  const [user] = await sql`INSERT INTO users (name) VALUES (${name}) RETURNING id`;
-  await sql`INSERT INTO profiles (user_id) VALUES (${user.id})`;
-  return user;
-});
-```
-
-**Vercel Postgres Transactions:**
-- Must use `sql.connect()` + manual `BEGIN`/`COMMIT`/`ROLLBACK`
-- Always call `client.release()` in `finally` block (prevents connection leaks)
-
-**Drizzle Transactions:**
-```typescript
-await db.transaction(async (tx) => {
-  await tx.insert(users).values({ name, email });
-  await tx.insert(profiles).values({ userId: user.id });
-});
-```
-
----
-
-### Step 6: Handle Connection Pooling
-
-**Connection String Format:**
-```
-Pooled (serverless):     postgresql://user:pass@ep-xyz-pooler.region.aws.neon.tech/db
-Non-pooled (direct):     postgresql://user:pass@ep-xyz.region.aws.neon.tech/db
-```
-
-**When to Use Each:**
-- **Pooled** (`-pooler.`): Serverless functions, edge functions, high-concurrency
-- **Non-pooled**: Long-running servers, migrations, admin tasks, connection limits not a concern
-
-**Automatic Pooling (Neon/Vercel):**
-```typescript
-// Both packages handle pooling automatically when using pooled connection string
-import { neon } from '@neondatabase/serverless';
-const sql = neon(process.env.DATABASE_URL!); // Pooling is automatic
-```
-
-**Connection Limits:**
-- **Neon Free Tier**: 100 concurrent connections
-- **Pooled Connection**: Shares connections across requests
-- **Non-Pooled**: Each request gets a new connection (exhausts quickly)
-
-**CRITICAL:**
-- Always use pooled connection strings in serverless environments
-- Non-pooled connections will cause "connection pool exhausted" errors
-- Monitor connection usage in Neon dashboard
-
----
-
-### Step 7: Deploy and Test
-
-**Cloudflare Workers:**
-```typescript
-// src/index.ts
 import { neon } from '@neondatabase/serverless';
 
 export default {
@@ -373,157 +217,62 @@ export default {
   }
 };
 ```
+**Load**: `references/common-patterns.md` → Pattern 1
 
-```bash
-# Deploy
-npx wrangler deploy
-```
-
-**Vercel (Next.js API Route):**
+### Use Case 2: Next.js Server Actions
+**When**: Building Next.js app with Vercel Postgres
+**Quick Pattern**:
 ```typescript
-// app/api/users/route.ts
+'use server';
 import { sql } from '@vercel/postgres';
 
-export async function GET() {
+export async function getUsers() {
   const { rows } = await sql`SELECT * FROM users`;
-  return Response.json(rows);
+  return rows;
 }
 ```
+**Load**: `references/common-patterns.md` → Pattern 2
 
-```bash
-# Deploy
-vercel deploy --prod
-```
+### Use Case 3: Type-Safe Queries with Drizzle
+**When**: Need full TypeScript type safety and edge compatibility
+**Load**: `references/common-patterns.md` → Pattern 3
 
-**Test Queries:**
-```bash
-# Local test
-curl http://localhost:8787/api/users
+### Use Case 4: Database Transactions
+**When**: Multiple operations must all succeed or all fail (e.g., money transfers)
+**Load**: `references/common-patterns.md` → Pattern 4
 
-# Production test
-curl https://your-app.workers.dev/api/users
-```
-
-**Key Points:**
-- Test locally before deploying
-- Monitor query performance in Neon dashboard
-- Set up alerts for connection pool exhaustion
-- Use Neon's query history for debugging
+### Use Case 5: Preview Environments with Branching
+**When**: Need isolated database for each pull request/preview deployment
+**Load**: `references/common-patterns.md` → Pattern 5
 
 ---
 
-## Critical Rules (Neon/Vercel-Specific)
+## When to Load References
 
-**✅ MUST DO:**
-- Use **pooled connection strings** (`-pooler.` in hostname) for serverless
-- Include **`?sslmode=require`** in connection strings
-- Use **template tag syntax** (`` sql`...` ``) to prevent SQL injection
-- Call **`client.release()`** in `finally` block (Vercel Postgres transactions only)
-- Use **Drizzle for Cloudflare Workers** (Prisma requires Node.js runtime)
-- Use **`POSTGRES_URL`** for queries, **`POSTGRES_PRISMA_URL`** for Prisma migrations
+**Load `references/setup-guide.md` when**:
+- User needs complete 7-step setup process
+- User asks about Drizzle ORM or Prisma integration
+- User needs help with environment variables or connection strings
+- User asks about deployment to Cloudflare Workers or Vercel
 
-**❌ NEVER DO:**
-- Use non-pooled connections or `POSTGRES_URL_NON_POOLING` in serverless
-- Concatenate SQL strings (use template tags only)
-- Omit `sslmode=require` (connections will fail)
-- Use Prisma in Cloudflare Workers (V8 isolates don't support it)
-- Run migrations from edge functions (use Node.js environment)
+**Load `references/error-catalog.md` when**:
+- Encountering any connection, query, or deployment errors
+- User reports "connection pool exhausted" or timeout errors
+- User asks about SQL injection prevention
+- User needs troubleshooting for Prisma or Drizzle issues
 
----
+**Load `references/common-patterns.md` when**:
+- User asks for code examples or templates
+- User needs to implement transactions, pagination, or search
+- User asks about Server Actions, Cloudflare Workers, or Drizzle patterns
+- User wants to see production-tested patterns
 
-## Known Issues Prevention
-
-This skill prevents **15 documented issues**:
-
-### Issue #1: Connection Pool Exhausted
-**Error**: `Error: connection pool exhausted` or `too many connections for role`
-**Source**: https://github.com/neondatabase/serverless/issues/12
-**Why It Happens**: Using non-pooled connection string in high-concurrency serverless environment
-**Prevention**: Always use pooled connection string (with `-pooler.` in hostname). Check your connection string format.
-
-### Issue #2: TCP Connections Not Supported
-**Error**: `Error: TCP connections are not supported in this environment`
-**Source**: Cloudflare Workers documentation
-**Why It Happens**: Traditional Postgres clients use TCP sockets, which aren't available in edge runtimes
-**Prevention**: Use `@neondatabase/serverless` (HTTP/WebSocket-based) instead of `pg` or `postgres.js` packages.
-
-### Issue #3: SQL Injection from String Concatenation
-**Error**: Successful SQL injection attack or unexpected query results
-**Source**: OWASP SQL Injection Guide
-**Why It Happens**: Concatenating user input into SQL strings: `sql('SELECT * FROM users WHERE id = ' + id)`
-**Prevention**: Always use template tag syntax: `` sql`SELECT * FROM users WHERE id = ${id}` ``. Template tags automatically escape values.
-
-### Issue #4: Missing SSL Mode
-**Error**: `Error: connection requires SSL` or `FATAL: no pg_hba.conf entry`
-**Source**: https://neon.tech/docs/connect/connect-securely
-**Why It Happens**: Connection string missing `?sslmode=require` parameter
-**Prevention**: Always append `?sslmode=require` to connection string.
-
-### Issue #5: Connection Leak (Vercel Postgres)
-**Error**: Gradually increasing memory usage, eventual timeout errors
-**Source**: https://github.com/vercel/storage/issues/45
-**Why It Happens**: Forgetting to call `client.release()` after manual transactions
-**Prevention**: Always use try/finally block and call `client.release()` in finally block.
-
-### Issue #6: Wrong Environment Variable (Vercel)
-**Error**: `Error: Connection string is undefined` or `connect ECONNREFUSED`
-**Source**: https://vercel.com/docs/storage/vercel-postgres/using-an-orm
-**Why It Happens**: Using `DATABASE_URL` instead of `POSTGRES_URL`, or vice versa
-**Prevention**: Use `POSTGRES_URL` for queries, `POSTGRES_PRISMA_URL` for Prisma migrations.
-
-### Issue #7: Transaction Timeout in Edge Functions
-**Error**: `Error: Query timeout` or `Error: transaction timeout`
-**Source**: https://neon.tech/docs/introduction/limits
-**Why It Happens**: Long-running transactions exceed edge function timeout (typically 30s)
-**Prevention**: Keep transactions short (<5s), batch operations, or move complex transactions to background workers.
-
-### Issue #8: Prisma in Cloudflare Workers
-**Error**: `Error: PrismaClient is unable to be run in the browser` or module resolution errors
-**Source**: https://github.com/prisma/prisma/issues/18765
-**Why It Happens**: Prisma requires Node.js runtime with filesystem access
-**Prevention**: Use Drizzle ORM for Cloudflare Workers. Prisma works in Vercel Edge/Node.js runtimes only.
-
-### Issue #9: Branch API Authentication Error
-**Error**: `Error: Unauthorized` when calling Neon API
-**Source**: https://neon.tech/docs/api/authentication
-**Why It Happens**: Missing or invalid `NEON_API_KEY` environment variable
-**Prevention**: Create API key in Neon dashboard → Account Settings → API Keys, set as environment variable.
-
-### Issue #10: Stale Connection After Branch Delete
-**Error**: `Error: database "xyz" does not exist` after deleting a branch
-**Source**: https://neon.tech/docs/guides/branching
-**Why It Happens**: Application still using connection string from deleted branch
-**Prevention**: Update `DATABASE_URL` when switching branches, restart application after branch changes.
-
-### Issue #11: Query Timeout on Cold Start
-**Error**: `Error: Query timeout` on first request after idle period
-**Source**: https://neon.tech/docs/introduction/auto-suspend
-**Why It Happens**: Neon auto-suspends compute after inactivity, ~1-2s to wake up
-**Prevention**: Expect cold starts, set query timeout >= 10s, or disable auto-suspend (paid plans).
-
-### Issue #12: Drizzle Schema Mismatch
-**Error**: TypeScript errors like `Property 'x' does not exist on type 'User'`
-**Source**: https://orm.drizzle.team/docs/generate
-**Why It Happens**: Database schema changed but Drizzle types not regenerated
-**Prevention**: Run `npx drizzle-kit generate` after schema changes, commit generated files.
-
-### Issue #13: Migration Conflicts Across Branches
-**Error**: `Error: relation "xyz" already exists` or migration version conflicts
-**Source**: https://neon.tech/docs/guides/branching#schema-migrations
-**Why It Happens**: Multiple branches with different migration histories
-**Prevention**: Create branches AFTER running migrations on main, or reset branch schema before merging.
-
-### Issue #14: PITR Timestamp Out of Range
-**Error**: `Error: timestamp is outside retention window`
-**Source**: https://neon.tech/docs/introduction/point-in-time-restore
-**Why It Happens**: Trying to restore from a timestamp older than retention period (7 days on free tier)
-**Prevention**: Check retention period for your plan, restore within allowed window.
-
-### Issue #15: Wrong Adapter for Prisma
-**Error**: `Error: Invalid connection string` or slow query performance
-**Source**: https://www.prisma.io/docs/orm/overview/databases/neon
-**Why It Happens**: Not using `@prisma/adapter-neon` for serverless environments
-**Prevention**: Install `@prisma/adapter-neon` and `@neondatabase/serverless`, configure Prisma to use HTTP-based connection.
+**Load `references/advanced-topics.md` when**:
+- User asks about Neon branching or database workflows
+- User needs connection pooling deep dive
+- User asks about performance optimization or query tuning
+- User needs security best practices (RLS, encryption, audit logging)
+- User asks about backups or disaster recovery
 
 ---
 
@@ -558,7 +307,7 @@ This skill prevents **15 documented issues**:
     "drizzle-orm": "^0.44.7"
   },
   "devDependencies": {
-    "drizzle-kit": "^0.31.7"
+    "drizzle-kit": "^0.31.0"
   },
   "scripts": {
     "db:generate": "drizzle-kit generate",
@@ -591,190 +340,41 @@ export default defineConfig({
 
 ---
 
-## Common Patterns
-
-### Pattern 1: Cloudflare Worker with Neon
-
-```typescript
-import { neon } from '@neondatabase/serverless';
-
-interface Env { DATABASE_URL: string; }
-
-export default {
-  async fetch(request: Request, env: Env) {
-    const sql = neon(env.DATABASE_URL);
-    const users = await sql`SELECT * FROM users`;
-    return Response.json(users);
-  }
-};
-```
-
-### Pattern 2: Vercel Postgres with Next.js
-
-```typescript
-'use server';
-import { sql } from '@vercel/postgres';
-
-export async function getUsers() {
-  const { rows } = await sql`SELECT * FROM users`;
-  return rows;
-}
-```
-
-### Pattern 3: Drizzle ORM Setup
-
-```typescript
-// db/index.ts
-import { drizzle } from 'drizzle-orm/neon-http';
-import { neon } from '@neondatabase/serverless';
-import * as schema from './schema';
-
-const sql = neon(process.env.DATABASE_URL!);
-export const db = drizzle(sql, { schema });
-
-// Usage: Type-safe queries with JOINs
-const postsWithAuthors = await db
-  .select({ postId: posts.id, authorName: users.name })
-  .from(posts)
-  .leftJoin(users, eq(posts.userId, users.id));
-```
-
----
-
-### Pattern 4: Neon Automatic Transactions
-
-See Step 5 for Neon's unique transaction API (array syntax or callback syntax)
-
----
-
-### Pattern 5: Neon Branching for Preview Environments
-
-```bash
-# Create branch for PR
-neonctl branches create --project-id my-project --name pr-123 --parent main
-
-# Get connection string for branch
-BRANCH_URL=$(neonctl connection-string pr-123)
-
-# Use in Vercel preview deployment
-vercel env add DATABASE_URL preview
-# Paste $BRANCH_URL
-
-# Delete branch when PR is merged
-neonctl branches delete pr-123
-```
-
-```yaml
-# .github/workflows/preview.yml
-name: Create Preview Database
-on:
-  pull_request:
-    types: [opened, synchronize]
-
-jobs:
-  preview:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Create Neon Branch
-        run: |
-          BRANCH_NAME="pr-${{ github.event.pull_request.number }}"
-          neonctl branches create --project-id ${{ secrets.NEON_PROJECT_ID }} --name $BRANCH_NAME
-          BRANCH_URL=$(neonctl connection-string $BRANCH_NAME)
-
-      - name: Deploy to Vercel
-        env:
-          DATABASE_URL: ${{ steps.branch.outputs.url }}
-        run: vercel deploy --env DATABASE_URL=$DATABASE_URL
-```
-
-**When to use**: Want isolated database for each PR/preview deployment
-
----
-
 ## Using Bundled Resources
 
-### Scripts (scripts/)
+### Templates (templates/)
 
-**setup-neon.sh** - Creates Neon database and outputs connection string
-```bash
-chmod +x scripts/setup-neon.sh
-./scripts/setup-neon.sh my-project-name
+**drizzle-schema.ts** - Complete Drizzle schema with users, posts, relations
+```typescript
+// See templates/drizzle-schema.ts for full example
 ```
 
-**test-connection.ts** - Verifies database connection and runs test query
-```bash
-npx tsx scripts/test-connection.ts
+**drizzle-queries.ts** - Common query patterns (SELECT, INSERT, UPDATE, DELETE, joins)
+```typescript
+// See templates/drizzle-queries.ts for full example
+```
+
+**drizzle-migrations-workflow.md** - Complete migration workflow guide
+```markdown
+// See templates/drizzle-migrations-workflow.md for full guide
+```
+
+**neon-basic-queries.ts** - Raw SQL query patterns with Neon
+```typescript
+// See templates/neon-basic-queries.ts for full example
+```
+
+**package.json** - Complete dependency configuration
+```json
+// See templates/package.json for full config
 ```
 
 ### References (references/)
 
-- `references/connection-strings.md` - Complete guide to connection string formats, pooled vs non-pooled
-- `references/drizzle-setup.md` - Step-by-step Drizzle ORM setup with Neon
-- `references/prisma-setup.md` - Prisma setup with Neon adapter
-- `references/branching-guide.md` - Comprehensive guide to Neon database branching
-- `references/migration-strategies.md` - Migration patterns for different ORMs and tools
-- `references/common-errors.md` - Extended troubleshooting guide
-
-**When Claude should load these**:
-- Load `connection-strings.md` when debugging connection issues
-- Load `drizzle-setup.md` when user wants to use Drizzle ORM
-- Load `prisma-setup.md` when user wants to use Prisma
-- Load `branching-guide.md` when user asks about preview environments or database branching
-- Load `common-errors.md` when encountering specific error messages
-
-### Assets (assets/)
-
-- `assets/schema-example.sql` - Example database schema with users, posts, comments
-- `assets/drizzle-schema.ts` - Complete Drizzle schema template
-- `assets/prisma-schema.prisma` - Complete Prisma schema template
-
----
-
-## Advanced Topics
-
-### Database Branching (Neon-Specific Feature)
-
-Neon provides git-like database branching:
-
-```bash
-# Create branch from main
-neonctl branches create --name dev --parent main
-
-# Create from point-in-time (PITR restore)
-neonctl branches create --name restore --parent main --timestamp "2025-10-28T10:00:00Z"
-
-# Get connection string for branch
-neonctl connection-string dev
-
-# Delete branch
-neonctl branches delete feature
-```
-
-**Key Features:**
-- **Copy-on-write**: Branch creation is instant (no data copying)
-- **Preview deployments**: Create branch per PR, delete on merge
-- **Point-in-time restore**: Restore to specific timestamp (7-day retention on free tier)
-- **Compute sharing**: Branches share compute limits (free tier) or independent compute (paid plans)
-
----
-
-### Performance & Security Notes
-
-**Connection Pool Monitoring:**
-- Check usage in Neon dashboard (connection limit: 100 free tier, ~10,000 with pooling)
-- Set alerts for >80% usage
-- Use pooled connection strings to avoid "connection pool exhausted" errors
-
-**Query Optimization:**
-- Use indexes for frequently queried columns
-- Avoid N+1 queries (use JOINs or Drizzle relations)
-- Use Drizzle prepared statements for repeated queries
-
-**Security:**
-- Never hardcode connection strings (use environment variables)
-- Template tag syntax prevents SQL injection
-- Use Row-Level Security (RLS) for multi-tenant apps
-- Validate input with Zod before queries
+- **setup-guide.md** - Complete 7-step setup process (installation → deployment)
+- **error-catalog.md** - All 15 errors with solutions and troubleshooting
+- **common-patterns.md** - 5+ production patterns (Cloudflare Workers, Next.js, Drizzle, transactions, branching)
+- **advanced-topics.md** - Branching workflows, connection pooling, performance, security
 
 ---
 
@@ -786,10 +386,10 @@ neonctl branches delete feature
 
 **Optional**:
 - `drizzle-orm@^0.44.7` - TypeScript ORM (edge-compatible, recommended)
-- `drizzle-kit@^0.31.7` - Drizzle schema migrations and introspection
+- `drizzle-kit@^0.31.0` - Drizzle schema migrations and introspection
 - `@prisma/client@^6.10.0` - Prisma ORM (Node.js only, not edge-compatible)
 - `@prisma/adapter-neon@^6.10.0` - Prisma adapter for Neon serverless
-- `neonctl@^2.19.0` - Neon CLI for database management
+- `neonctl@^2.16.1` - Neon CLI for database management
 - `zod@^3.24.0` - Schema validation for input sanitization
 
 ---
@@ -808,18 +408,18 @@ neonctl branches delete feature
 
 ---
 
-## Package Versions (Verified 2026-01-09)
+## Package Versions (Verified 2025-10-29)
 
 ```json
 {
   "dependencies": {
     "@neondatabase/serverless": "^1.0.2",
     "@vercel/postgres": "^0.10.0",
-    "drizzle-orm": "^0.45.1"
+    "drizzle-orm": "^0.44.7"
   },
   "devDependencies": {
-    "drizzle-kit": "^0.31.8",
-    "neonctl": "^2.19.0"
+    "drizzle-kit": "^0.31.0",
+    "neonctl": "^2.16.1"
   }
 }
 ```
@@ -850,48 +450,6 @@ This skill is based on production deployments of Neon and Vercel Postgres:
 
 ---
 
-## Troubleshooting
-
-### Problem: `Error: connection pool exhausted`
-**Solution**:
-1. Verify you're using pooled connection string (ends with `-pooler.region.aws.neon.tech`)
-2. Check connection usage in Neon dashboard
-3. Upgrade to higher tier if consistently hitting limits
-4. Optimize queries to reduce connection hold time
-
-### Problem: `Error: TCP connections are not supported`
-**Solution**:
-- Use `@neondatabase/serverless` instead of `pg` or `postgres.js`
-- Verify you're not importing traditional Postgres clients
-- Check bundle includes HTTP/WebSocket-based client
-
-### Problem: `Error: database "xyz" does not exist`
-**Solution**:
-- Verify `DATABASE_URL` points to correct database
-- If using Neon branching, ensure branch still exists
-- Check connection string format (no typos)
-
-### Problem: Slow queries on cold start
-**Solution**:
-- Neon auto-suspends after 5 minutes of inactivity (free tier)
-- First query after wake takes ~1-2 seconds
-- Set query timeout >= 10s to account for cold starts
-- Disable auto-suspend on paid plans for always-on databases
-
-### Problem: `PrismaClient is unable to be run in the browser`
-**Solution**:
-- Prisma doesn't work in Cloudflare Workers (V8 isolates)
-- Use Drizzle ORM for edge-compatible ORM
-- Prisma works in Vercel Edge/Node.js runtimes with `@prisma/adapter-neon`
-
-### Problem: Migration version conflicts across branches
-**Solution**:
-- Run migrations on main branch first
-- Create feature branches AFTER migrations
-- Or reset branch schema before merging: `neonctl branches reset feature --parent main`
-
----
-
 ## Complete Setup Checklist
 
 Use this checklist to verify your setup:
@@ -914,9 +472,9 @@ Use this checklist to verify your setup:
 
 **Questions? Issues?**
 
-1. Check `references/common-errors.md` for extended troubleshooting
-2. Verify all steps in the 7-step setup process
-3. Check official docs: https://neon.tech/docs
-4. Ensure you're using **pooled connection string** for serverless environments
-5. Verify `sslmode=require` is in connection string
-6. Test connection with `scripts/test-connection.ts`
+1. Check `references/error-catalog.md` for all 15 errors and troubleshooting
+2. Review `references/setup-guide.md` for complete 7-step setup process
+3. See `references/common-patterns.md` for production-tested code examples
+4. Check official docs: https://neon.tech/docs
+5. Ensure you're using **pooled connection string** for serverless environments
+6. Verify `sslmode=require` is in connection string

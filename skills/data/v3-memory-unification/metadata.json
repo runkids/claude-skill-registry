@@ -1,7 +1,7 @@
 {
   "name": "v3-memory-unification",
-  "repo": "ricable/ruvector-edge",
-  "path": "claude-flow-v3/v3/@claude-flow/cli/.claude/skills/v3-memory-unification/SKILL.md",
-  "source": "github.com/ricable/ruvector-edge",
-  "downloaded_at": "2026-01-14T03:16:21.422876Z"
+  "repo": "ruvnet/claude-flow",
+  "path": "v3/@claude-flow/mcp/.claude/skills/v3-memory-unification/SKILL.md",
+  "source": "github.com/ruvnet/claude-flow",
+  "downloaded_at": "2026-01-17T03:34:28.871911Z"
 }

@@ -1,8 +1,25 @@
 ---
 name: cloudflare-browser-rendering
-description: |
-  Add headless Chrome automation with Puppeteer/Playwright on Cloudflare Workers. Use when: taking screenshots, generating PDFs, web scraping, crawling sites, browser automation, or troubleshooting XPath errors, browser timeouts, binding not passed errors, or session limits.
-user-invocable: true
+description: Cloudflare Browser Rendering with Puppeteer/Playwright. Use for screenshots, PDFs, web scraping, or encountering rendering errors, timeout issues, memory exceeded.
+
+  Keywords: browser rendering cloudflare, @cloudflare/puppeteer, @cloudflare/playwright,
+  puppeteer workers, playwright workers, screenshot cloudflare, pdf generation workers,
+  web scraping cloudflare, headless chrome workers, browser automation, puppeteer.launch,
+  playwright.chromium.launch, browser binding, session management, puppeteer.sessions,
+  puppeteer.connect, browser.close, browser.disconnect, XPath not supported, browser timeout,
+  concurrency limit, keep_alive, page.screenshot, page.pdf, page.goto, page.evaluate,
+  incognito context, session reuse, batch scraping, crawling websites
+license: MIT
+metadata:
+  version: "1.0.0"
+  last_verified: "2025-11-27"
+  puppeteer_version: "1.0.4"
+  playwright_version: "1.0.0"
+  workers_types_version: "4.20251125.0"
+  wrangler_version: "4.50.0"
+  production_tested: true
+  errors_prevented: 6
+  references_included: 6
 ---
 
 # Cloudflare Browser Rendering - Complete Reference
@@ -10,16 +27,9 @@ user-invocable: true
 Production-ready knowledge domain for building browser automation workflows with Cloudflare Browser Rendering.
 
 **Status**: Production Ready ✅
-**Last Updated**: 2026-01-09
+**Last Updated**: 2025-11-25
 **Dependencies**: cloudflare-worker-base (for Worker setup)
-**Latest Versions**: @cloudflare/puppeteer@1.0.4, @cloudflare/playwright@1.1.0, wrangler@4.58.0
-
-**Recent Updates (2025)**:
-- **Sept 2025**: Playwright v1.55 GA, Stagehand framework support (Workers AI), /links excludeExternalLinks param
-- **Aug 2025**: Billing GA (Aug 20), /sessions endpoint in local dev, X-Browser-Ms-Used header
-- **July 2025**: Playwright v1.54.1 + MCP v0.0.30, Playwright local dev support (wrangler@4.26.0+), Puppeteer v22.13.1 sync, /content returns title, /json custom_ai param, /screenshot viewport 1920x1080 default
-- **June 2025**: Web Bot Auth headers auto-included
-- **April 2025**: Playwright support launched, free tier introduced
+**Latest Versions**: @cloudflare/puppeteer@1.0.4, @cloudflare/playwright@1.0.0, wrangler@4.50.0, @cloudflare/workers-types@4.20251125.0
 
 ---
 
@@ -59,7 +69,7 @@ Production-ready knowledge domain for building browser automation workflows with
 ### 2. Install Puppeteer
 
 ```bash
-npm install @cloudflare/puppeteer
+bun add @cloudflare/puppeteer
 ```
 
 ### 3. Take Your First Screenshot
@@ -97,7 +107,7 @@ export default {
 ### 4. Deploy
 
 ```bash
-npx wrangler deploy
+bunx wrangler deploy
 ```
 
 Test at: `https://your-worker.workers.dev/?url=https://example.com`
@@ -106,6 +116,26 @@ Test at: `https://your-worker.workers.dev/?url=https://example.com`
 - Always pass `env.MYBROWSER` to `puppeteer.launch()` (not undefined)
 - Always call `browser.close()` when done (or use `browser.disconnect()` for session reuse)
 - Use `nodejs_compat` compatibility flag
+
+---
+
+## When to Load References
+
+**Load immediately when user mentions**:
+
+- `puppeteer-api.md` → "API reference", "Puppeteer methods", "Browser class", "Page methods", "complete API"
+- `patterns.md` → "examples", "how to", "screenshot", "PDF", "scraping", "automation", "form filling"
+- `session-management.md` → "sessions", "hibernation", "connection pooling", "state management", "Durable Objects"
+- `pricing-and-limits.md` → "cost", "pricing", "limits", "quotas", "billing", "rate limits"
+- `common-errors.md` → errors, debugging, "not working", troubleshooting, "issue #4", "issue #5", "issue #6"
+- `puppeteer-vs-playwright.md` → "Playwright", "comparison", "which library", "differences"
+
+**Load proactively when**:
+- Building new automation → Load `patterns.md`
+- Debugging errors → Load `common-errors.md`
+- Optimizing costs → Load `pricing-and-limits.md`
+- Managing sessions → Load `session-management.md`
+- Need complete API → Load `puppeteer-api.md`
 
 ---
 
@@ -146,288 +176,130 @@ Cloudflare Browser Rendering provides headless Chromium browsers running on Clou
 
 ## Puppeteer API Reference
 
-**Core APIs** (complete reference: https://pptr.dev/api/):
+**Core classes for browser automation**:
 
-**Global Functions:**
-- `puppeteer.launch(env.MYBROWSER, options?)` - Launch new browser (CRITICAL: must pass binding)
-- `puppeteer.connect(env.MYBROWSER, sessionId)` - Connect to existing session
-- `puppeteer.sessions(env.MYBROWSER)` - List running sessions
-- `puppeteer.history(env.MYBROWSER)` - List recent sessions (open + closed)
-- `puppeteer.limits(env.MYBROWSER)` - Check account limits
+1. **Core Functions** - `launch()`, `connect()`, `sessions()`, `history()`, `limits()`
+2. **Browser API** - `newPage()`, `sessionId()`, `close()`, `disconnect()`, `createBrowserContext()`
+3. **Page API** - `goto()`, `screenshot()`, `pdf()`, `content()`, `setContent()`, `evaluate()`, `waitForSelector()`, `type()`, `click()`
 
-**Browser Methods:**
-- `browser.newPage()` - Create new tab (preferred over launching new browsers)
-- `browser.sessionId()` - Get session ID for reuse
-- `browser.close()` - Terminate session
-- `browser.disconnect()` - Keep session alive for reuse
-- `browser.createBrowserContext()` - Isolated incognito context (separate cookies/cache)
-
-**Page Methods:**
-- `page.goto(url, { waitUntil, timeout })` - Navigate (use `"networkidle0"` for dynamic content)
-- `page.screenshot({ fullPage, type, quality, clip })` - Capture image
-- `page.pdf({ format, printBackground, margin })` - Generate PDF
-- `page.evaluate(() => ...)` - Execute JS in browser (data extraction, XPath workaround)
-- `page.content()` / `page.setContent(html)` - Get/set HTML
-- `page.waitForSelector(selector)` - Wait for element
-- `page.type(selector, text)` / `page.click(selector)` - Form interaction
-
-**Critical Patterns:**
+**Quick Example:**
 ```typescript
-// Must pass binding
-const browser = await puppeteer.launch(env.MYBROWSER); // ✅
-// const browser = await puppeteer.launch(); // ❌ Error!
-
-// Session reuse for performance
-const sessions = await puppeteer.sessions(env.MYBROWSER);
-const freeSessions = sessions.filter(s => !s.connectionId);
-if (freeSessions.length > 0) {
-  browser = await puppeteer.connect(env.MYBROWSER, freeSessions[0].sessionId);
-}
-
-// Keep session alive
-await browser.disconnect(); // Don't close
-
-// XPath workaround (not directly supported)
-const data = await page.evaluate(() => {
-  return new XPathEvaluator()
-    .createExpression("/html/body/div/h1")
-    .evaluate(document, XPathResult.FIRST_ORDERED_NODE_TYPE)
-    .singleNodeValue.innerHTML;
-});
+const browser = await puppeteer.launch(env.MYBROWSER);
+const page = await browser.newPage();
+await page.goto("https://example.com");
+const screenshot = await page.screenshot({ fullPage: true });
+await browser.close();
 ```
+
+**Load `references/puppeteer-api.md` when implementing browser automation, scraping, debugging Puppeteer-specific issues, or needing complete API signatures and method details.**
 
 ---
 
 ## Playwright API Reference
 
-**Status**: GA (Sept 2025) - Playwright v1.55, MCP v0.0.30 support, local dev support (wrangler@4.26.0+)
+Playwright provides a similar API to Puppeteer with slight differences.
 
-**Installation:**
+### Installation
+
 ```bash
-npm install @cloudflare/playwright
+bun add @cloudflare/playwright
 ```
 
-**Configuration Requirements (2025 Update):**
-```jsonc
-{
-  "compatibility_flags": ["nodejs_compat"],
-  "compatibility_date": "2025-09-15"  // Required for Playwright v1.55
-}
-```
+### Basic Example
 
-**Basic Usage:**
 ```typescript
+import { env } from "cloudflare:test";
 import { chromium } from "@cloudflare/playwright";
 
-const browser = await chromium.launch(env.BROWSER);
-const page = await browser.newPage();
-await page.goto("https://example.com");
-const screenshot = await page.screenshot();
-await browser.close();
+interface Env {
+  BROWSER: Fetcher;
+}
+
+export default {
+  async fetch(request: Request, env: Env): Promise<Response> {
+    const browser = await chromium.launch(env.BROWSER);
+    const page = await browser.newPage();
+
+    await page.goto("https://example.com");
+    const screenshot = await page.screenshot();
+
+    await browser.close();
+
+    return new Response(screenshot, {
+      headers: { "content-type": "image/png" }
+    });
+  }
+};
 ```
 
-**Puppeteer vs Playwright:**
-- **Import**: `puppeteer` vs `{ chromium }` from "@cloudflare/playwright"
-- **Session API**: Puppeteer has advanced session management (sessions/history/limits), Playwright basic
-- **Auto-waiting**: Playwright has built-in auto-waiting, Puppeteer requires manual `waitForSelector()`
-- **MCP Support**: Playwright MCP v0.0.30 (July 2025), Playwright MCP server available
+### Key Differences from Puppeteer
 
-**Recommendation**: Use Puppeteer for session reuse patterns. Use Playwright if migrating existing tests or need MCP integration.
+| Feature | Puppeteer | Playwright |
+|---------|-----------|------------|
+| **Import** | `import puppeteer from "@cloudflare/puppeteer"` | `import { chromium } from "@cloudflare/playwright"` |
+| **Launch** | `puppeteer.launch(env.MYBROWSER)` | `chromium.launch(env.BROWSER)` |
+| **Session API** | ✅ Advanced (sessions, history, limits) | ⚠️ Basic |
+| **Auto-waiting** | Manual `waitForSelector()` | Built-in auto-waiting |
+| **Selectors** | CSS only | CSS, text, XPath (via evaluate workaround) |
 
-**Official Docs**: https://developers.cloudflare.com/browser-rendering/playwright/
+**Recommendation**: Stick with Puppeteer unless you have existing Playwright tests to migrate.
 
 ---
 
 ## Session Management
 
-**Why**: Launching new browsers is slow and consumes concurrency limits. Reuse sessions for faster response, lower concurrency usage, better resource utilization.
+Browser sessions are managed using Durable Objects for state persistence across multiple requests. Sessions support hibernation, automatic cleanup, and concurrent connection handling.
 
-### Session Reuse Pattern (Critical)
+**Key Patterns**:
+- **Session Reuse** - Use `puppeteer.sessions()` and `puppeteer.connect()` to reuse browsers
+- **Browser Contexts** - Isolate cookies/cache while sharing browser instance
+- **Multiple Tabs** - Use tabs (`newPage()`) instead of multiple browsers for batch operations
+- **Disconnect vs Close** - Use `disconnect()` to keep session alive, `close()` to terminate
 
-```typescript
-async function getBrowser(env: Env): Promise<Browser> {
-  const sessions = await puppeteer.sessions(env.MYBROWSER);
-  const freeSessions = sessions.filter(s => !s.connectionId);
-
-  if (freeSessions.length > 0) {
-    try {
-      return await puppeteer.connect(env.MYBROWSER, freeSessions[0].sessionId);
-    } catch (e) {
-      console.log("Failed to connect, launching new browser");
-    }
-  }
-
-  return await puppeteer.launch(env.MYBROWSER);
-}
-
-export default {
-  async fetch(request: Request, env: Env): Promise<Response> {
-    const browser = await getBrowser(env);
-
-    try {
-      const page = await browser.newPage();
-      await page.goto("https://example.com");
-      const screenshot = await page.screenshot();
-
-      await browser.disconnect(); // ✅ Keep alive for reuse
-
-      return new Response(screenshot, {
-        headers: { "content-type": "image/png" }
-      });
-    } catch (error) {
-      await browser.close(); // ❌ Close on error
-      throw error;
-    }
-  }
-};
-```
-
-**Key Rules:**
-- ✅ `browser.disconnect()` - Keep session alive for reuse
-- ❌ `browser.close()` - Only on errors or when truly done
-- ✅ Always handle connection failures
-
-### Browser Contexts (Cookie/Cache Isolation)
-
-Use `browser.createBrowserContext()` to share browser but isolate cookies/cache:
-
-```typescript
-const browser = await puppeteer.launch(env.MYBROWSER);
-const context1 = await browser.createBrowserContext(); // User 1
-const context2 = await browser.createBrowserContext(); // User 2
-
-const page1 = await context1.newPage();
-const page2 = await context2.newPage();
-// Separate cookies/cache per context
-```
-
-### Multiple Tabs Pattern
-
-**❌ Bad**: Launch 10 browsers for 10 URLs (wastes concurrency)
-**✅ Good**: 1 browser, 10 tabs via `Promise.all()` + `browser.newPage()`
-
-```typescript
-const browser = await puppeteer.launch(env.MYBROWSER);
-const results = await Promise.all(
-  urls.map(async (url) => {
-    const page = await browser.newPage();
-    await page.goto(url);
-    const data = await page.evaluate(() => ({ title: document.title }));
-    await page.close();
-    return { url, data };
-  })
-);
-await browser.close();
-```
+**Load `references/session-management.md` for complete session lifecycle management, hibernation patterns, connection pooling strategies, and production examples.**
 
 ---
 
 ## Common Patterns
 
-### Screenshot with KV Caching
+**6 production-ready browser automation patterns**:
 
-Cache screenshots to reduce browser usage and improve performance:
+1. **Screenshot with KV Caching** - Cache screenshots for high-traffic URLs, reduce browser usage
+2. **PDF Generation from HTML** - Convert custom HTML to PDF for invoices, reports, documents
+3. **Web Scraping with Structured Data** - Extract product information, prices, content from web pages
+4. **Batch Scraping Multiple URLs** - Efficiently scrape multiple sites using tabs in single browser
+5. **AI-Enhanced Scraping** - Combine Browser Rendering with Workers AI for adaptive data extraction
+6. **Form Filling and Automation** - Automate login flows, form submissions, multi-step workflows
 
+**Quick Example** (Screenshot with caching):
 ```typescript
-interface Env {
-  MYBROWSER: Fetcher;
-  CACHE: KVNamespace;
-}
-
-export default {
-  async fetch(request: Request, env: Env): Promise<Response> {
-    const { searchParams } = new URL(request.url);
-    const url = searchParams.get("url");
-    if (!url) return new Response("Missing ?url parameter", { status: 400 });
-
-    const normalizedUrl = new URL(url).toString();
-
-    // Check cache first
-    let screenshot = await env.CACHE.get(normalizedUrl, { type: "arrayBuffer" });
-
-    if (!screenshot) {
-      const browser = await puppeteer.launch(env.MYBROWSER);
-      const page = await browser.newPage();
-      await page.goto(normalizedUrl);
-      screenshot = await page.screenshot();
-      await browser.close();
-
-      // Cache for 24 hours
-      await env.CACHE.put(normalizedUrl, screenshot, { expirationTtl: 60 * 60 * 24 });
-    }
-
-    return new Response(screenshot, { headers: { "content-type": "image/png" } });
-  }
-};
+const browser = await puppeteer.launch(env.MYBROWSER);
+const page = await browser.newPage();
+await page.goto(url);
+const screenshot = await page.screenshot({ fullPage: true });
+await env.CACHE.put(url, screenshot, { expirationTtl: 86400 });
+await browser.close();
 ```
 
-### AI-Enhanced Scraping
-
-Combine Browser Rendering with Workers AI for structured data extraction:
-
-```typescript
-interface Env {
-  MYBROWSER: Fetcher;
-  AI: Ai;
-}
-
-export default {
-  async fetch(request: Request, env: Env): Promise<Response> {
-    const { searchParams } = new URL(request.url);
-    const url = searchParams.get("url");
-
-    // Scrape page content
-    const browser = await puppeteer.launch(env.MYBROWSER);
-    const page = await browser.newPage();
-    await page.goto(url!, { waitUntil: "networkidle0" });
-    const bodyContent = await page.$eval("body", el => el.innerHTML);
-    await browser.close();
-
-    // Extract structured data with AI
-    const response = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
-      messages: [{
-        role: "user",
-        content: `Extract product info as JSON from this HTML. Include: name, price, description.\n\nHTML:\n${bodyContent.slice(0, 4000)}`
-      }]
-    });
-
-    return Response.json({ url, product: JSON.parse(response.response) });
-  }
-};
-```
-
-**Other Common Patterns**: PDF generation (`page.pdf()`), structured scraping (`page.evaluate()`), form automation (`page.type()` + `page.click()`). See bundled `templates/` directory.
+**Load `references/patterns.md` when implementing browser automation patterns, scraping, PDF generation, or needing complete production examples with error handling and optimizations.**
 
 ---
 
 ## Pricing & Limits
 
-**Billing GA**: August 20, 2025
+Browser Rendering charges based on CPU time (paid plans only). Free tier: 10 minutes/day. Paid tier: 10 hours/month included, then $0.09 per browser hour + $2.00 per concurrent browser above 10.
 
-**Free Tier**: 10 min/day, 3 concurrent, 3 launches/min, 60s timeout
-**Paid Tier**: 10 hrs/month included ($0.09/hr after), 30 concurrent ($2.00/browser after), 30 launches/min, 60s-10min timeout
-
-**Concurrency Calculation**: Monthly average of daily peak usage (e.g., 15 browsers avg = (15 - 10 included) × $2.00 = $10.00/mo)
-
-**Rate Limiting**: Enforced per-second (180 req/min = 3 req/sec, not bursty). Check `puppeteer.limits(env.MYBROWSER)` before launching:
-
-```typescript
-const limits = await puppeteer.limits(env.MYBROWSER);
-if (limits.allowedBrowserAcquisitions === 0) {
-  const delay = limits.timeUntilNextAllowedBrowserAcquisition || 1000;
-  await new Promise(resolve => setTimeout(resolve, delay));
-}
-```
+**Load `references/pricing-and-limits.md` for complete pricing tiers, quota details, rate limiting strategies, and cost optimization techniques.**
 
 ---
 
 ## Known Issues Prevention
 
-This skill prevents **6 documented issues**:
+This skill prevents **6 documented issues**. Top 3 critical errors detailed below:
 
 ---
 
-### Issue #1: XPath Selectors Not Supported
+### Issue #1: XPath Selectors Not Supported ⚠️
 
 **Error:** "XPath selector not supported" or selector failures
 **Source:** https://developers.cloudflare.com/browser-rendering/faq/#why-cant-i-use-an-xpath-selector-when-using-browser-rendering-with-puppeteer
@@ -453,7 +325,7 @@ const innerHtml = await page.evaluate(() => {
 
 ---
 
-### Issue #2: Browser Binding Not Passed
+### Issue #2: Browser Binding Not Passed ⚠️
 
 **Error:** "Cannot read properties of undefined (reading 'fetch')"
 **Source:** https://developers.cloudflare.com/browser-rendering/faq/#cannot-read-properties-of-undefined-reading-fetch
@@ -471,7 +343,7 @@ const browser = await puppeteer.launch(env.MYBROWSER);
 
 ---
 
-### Issue #3: Browser Timeout (60 seconds)
+### Issue #3: Browser Timeout (60 seconds) ⚠️
 
 **Error:** Browser closes unexpectedly after 60 seconds
 **Source:** https://developers.cloudflare.com/browser-rendering/platform/limits/#note-on-browser-timeout
@@ -490,219 +362,36 @@ const browser = await puppeteer.launch(env.MYBROWSER, {
 
 ---
 
-### Issue #4: Concurrency Limits Reached
+### Additional Issues (4-6)
 
-**Error:** "Rate limit exceeded" or new browser launch fails
-**Source:** https://developers.cloudflare.com/browser-rendering/platform/limits/
-**Why It Happens:** Exceeded concurrent browser limit (3 free, 10-30 paid)
-**Prevention:** Reuse sessions, use tabs instead of multiple browsers, check limits before launching
+**Load `references/common-errors.md` for complete error catalog including**:
+- Issue #4: Concurrency limits and rate limiting
+- Issue #5: Local development request size limits
+- Issue #6: Bot protection and WAF bypass strategies
 
-**Solutions:**
-```typescript
-// 1. Check limits before launching
-const limits = await puppeteer.limits(env.MYBROWSER);
-if (limits.allowedBrowserAcquisitions === 0) {
-  return new Response("Concurrency limit reached", { status: 429 });
-}
-
-// 2. Reuse sessions
-const sessions = await puppeteer.sessions(env.MYBROWSER);
-const freeSessions = sessions.filter(s => !s.connectionId);
-if (freeSessions.length > 0) {
-  const browser = await puppeteer.connect(env.MYBROWSER, freeSessions[0].sessionId);
-}
-
-// 3. Use tabs instead of multiple browsers
-const browser = await puppeteer.launch(env.MYBROWSER);
-const page1 = await browser.newPage();
-const page2 = await browser.newPage(); // Same browser, different tabs
-```
-
----
-
-### Issue #5: Local Development Request Size Limit
-
-**Error:** Request larger than 1MB fails in `wrangler dev`
-**Source:** https://developers.cloudflare.com/browser-rendering/faq/#does-local-development-support-all-browser-rendering-features
-**Why It Happens:** Local development limitation
-**Prevention:** Use `remote: true` in browser binding for local dev
-
-**Solution:**
-```jsonc
-// wrangler.jsonc for local development
-{
-  "browser": {
-    "binding": "MYBROWSER",
-    "remote": true  // Use real headless browser during dev
-  }
-}
-```
-
----
-
-### Issue #6: Bot Protection Always Triggered
-
-**Error:** Website blocks requests as bot traffic
-**Source:** https://developers.cloudflare.com/browser-rendering/faq/#will-browser-rendering-bypass-cloudflares-bot-protection
-**Why It Happens:** Browser Rendering requests always identified as bots
-**Prevention:** Cannot bypass; if scraping your own zone, create WAF skip rule
-
-**Solution:**
-```typescript
-// ❌ Cannot bypass bot protection
-// Requests will always be identified as bots
-
-// ✅ If scraping your own Cloudflare zone:
-// 1. Go to Security > WAF > Custom rules
-// 2. Create skip rule with custom header:
-//    Header: X-Custom-Auth
-//    Value: your-secret-token
-// 3. Pass header in your scraping requests
-
-// Note: Automatic headers are included:
-// - cf-biso-request-id
-// - cf-biso-devtools
-```
+Plus solutions for page crashes, authentication issues, resource loading errors, and debugging strategies.
 
 ---
 
 ## Production Checklist
 
-Before deploying Browser Rendering Workers to production:
+**Critical Items Before Deployment:**
+- ✅ Browser binding + `nodejs_compat` flag configured
+- ✅ Error handling with try-finally cleanup
+- ✅ Rate limit checks and retry logic
+- ✅ Session reuse for performance
+- ✅ KV caching for repeated operations
+- ✅ Input validation (prevent SSRF)
+- ✅ Monitoring dashboard at https://dash.cloudflare.com
 
-### Configuration
-- [ ] **Browser binding configured** in wrangler.jsonc
-- [ ] **nodejs_compat flag enabled** (required for Browser Rendering)
-- [ ] **Keep-alive timeout set** if tasks take > 60 seconds
-- [ ] **Remote binding enabled** for local development if needed
-
-### Error Handling
-- [ ] **Retry logic implemented** for rate limits
-- [ ] **Timeout handling** for page.goto()
-- [ ] **Browser cleanup** in try-finally blocks
-- [ ] **Concurrency limit checks** before launching browsers
-- [ ] **Graceful degradation** when browser unavailable
-
-### Performance
-- [ ] **Session reuse implemented** for high-traffic routes
-- [ ] **Multiple tabs used** instead of multiple browsers
-- [ ] **Incognito contexts** for session isolation
-- [ ] **KV caching** for repeated screenshots/PDFs
-- [ ] **Batch operations** to maximize browser utilization
-
-### Monitoring
-- [ ] **Log browser session IDs** for debugging
-- [ ] **Track browser duration** for billing estimates
-- [ ] **Monitor concurrency usage** with puppeteer.limits()
-- [ ] **Alert on rate limit errors**
-- [ ] **Dashboard monitoring** at https://dash.cloudflare.com/?to=/:account/workers/browser-rendering
-
-### Security
-- [ ] **Input validation** for URLs (prevent SSRF)
-- [ ] **Timeout limits** to prevent abuse
-- [ ] **Rate limiting** on public endpoints
-- [ ] **Authentication** for sensitive scraping endpoints
-- [ ] **WAF rules** if scraping your own zone
-
-### Testing
-- [ ] **Test screenshot capture** with various page sizes
-- [ ] **Test PDF generation** with custom HTML
-- [ ] **Test scraping** with dynamic content (networkidle0)
-- [ ] **Test error scenarios** (invalid URLs, timeouts)
-- [ ] **Load test** concurrency limits
-
----
-
-## Error Handling Best Practices
-
-**Production Pattern** - Use try-catch with proper cleanup:
-
-```typescript
-async function withBrowser<T>(env: Env, fn: (browser: Browser) => Promise<T>): Promise<T> {
-  let browser: Browser | null = null;
-
-  try {
-    // 1. Check limits before launching
-    const limits = await puppeteer.limits(env.MYBROWSER);
-    if (limits.allowedBrowserAcquisitions === 0) {
-      throw new Error("Rate limit reached");
-    }
-
-    // 2. Try session reuse first
-    const sessions = await puppeteer.sessions(env.MYBROWSER);
-    const freeSessions = sessions.filter(s => !s.connectionId);
-    browser = freeSessions.length > 0
-      ? await puppeteer.connect(env.MYBROWSER, freeSessions[0].sessionId)
-      : await puppeteer.launch(env.MYBROWSER);
-
-    // 3. Execute user function
-    const result = await fn(browser);
-
-    // 4. Disconnect (keep alive)
-    await browser.disconnect();
-    return result;
-  } catch (error) {
-    // 5. Close on error
-    if (browser) await browser.close();
-    throw error;
-  }
-}
-```
-
-**Key Principles**: Check limits → Reuse sessions → Execute → Disconnect on success, close on error
-
----
-
-## Using Bundled Resources
-
-### Templates (templates/)
-
-Ready-to-use code templates for common patterns:
-
-- `basic-screenshot.ts` - Minimal screenshot example
-- `screenshot-with-kv-cache.ts` - Screenshot with KV caching
-- `pdf-generation.ts` - Generate PDFs from HTML or URLs
-- `web-scraper-basic.ts` - Basic web scraping pattern
-- `web-scraper-batch.ts` - Batch scrape multiple URLs
-- `session-reuse.ts` - Session reuse for performance
-- `ai-enhanced-scraper.ts` - Scraping with Workers AI
-- `playwright-example.ts` - Playwright alternative example
-- `wrangler-browser-config.jsonc` - Browser binding configuration
-
-**Usage:**
-```bash
-# Copy template to your project
-cp ~/.claude/skills/cloudflare-browser-rendering/templates/basic-screenshot.ts src/index.ts
-```
-
-### References (references/)
-
-Deep-dive documentation:
-
-- `session-management.md` - Complete session reuse guide
-- `pricing-and-limits.md` - Detailed pricing breakdown
-- `common-errors.md` - All known issues and solutions
-- `puppeteer-vs-playwright.md` - Feature comparison and migration
-
-**When to load:** Reference when implementing advanced patterns or debugging specific issues.
+**Load `references/patterns.md` for production-ready templates with complete error handling, monitoring, and security patterns.**
 
 ---
 
 ## Dependencies
 
-**Required:**
-- `@cloudflare/puppeteer@1.0.4` - Puppeteer for Workers
-- `wrangler@4.43.0+` - Cloudflare CLI
-
-**Optional:**
-- `@cloudflare/playwright@1.0.0` - Playwright for Workers (alternative)
-- `@cloudflare/workers-types@4.20251014.0+` - TypeScript types
-
-**Related Skills:**
-- `cloudflare-worker-base` - Worker setup with Hono
-- `cloudflare-kv` - KV caching for screenshots
-- `cloudflare-r2` - R2 storage for generated files
-- `cloudflare-workers-ai` - AI-enhanced scraping
+**Required**: `@cloudflare/puppeteer@1.0.4`, `wrangler@4.50.0`, `@cloudflare/workers-types@4.20251125.0`
+**Related Skills**: `cloudflare-worker-base` (Worker setup), `cloudflare-kv` (caching), `cloudflare-workers-ai` (AI scraping)
 
 ---
 
@@ -718,7 +407,7 @@ Deep-dive documentation:
 
 ---
 
-## Package Versions (Verified 2025-10-22)
+## Package Versions (Verified 2025-11-27)
 
 ```json
 {
@@ -726,8 +415,8 @@ Deep-dive documentation:
     "@cloudflare/puppeteer": "^1.0.4"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20251014.0",
-    "wrangler": "^4.54.0"
+    "@cloudflare/workers-types": "^4.20251125.0",
+    "wrangler": "^4.50.0"
   }
 }
 ```
@@ -736,7 +425,7 @@ Deep-dive documentation:
 ```json
 {
   "dependencies": {
-    "@cloudflare/playwright": "^1.1.0"
+    "@cloudflare/playwright": "^1.0.0"
   }
 }
 ```

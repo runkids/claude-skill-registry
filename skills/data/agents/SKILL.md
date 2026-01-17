@@ -1,348 +1,315 @@
 ---
 name: agents
-description: Patterns and architectures for building AI agents and workflows with LLMs. Use when designing systems that involve tool use, multi-step reasoning, autonomous decision-making, or orchestration of LLM-driven tasks.
+description: "Agent Skill: Generate and maintain AGENTS.md files following the public agents.md convention. Use when creating AI agent documentation, onboarding guides, or standardizing agent patterns. By Netresearch."
 ---
 
-# Building Agents
+# AGENTS.md Generator Skill
 
-Agents are systems where LLMs dynamically direct their own processes and tool usage. This skill covers when to use agents vs workflows, common architectural patterns, and practical implementation guidance.
+Generate and maintain AGENTS.md files following the public agents.md convention.
 
-## Table of Contents
+## When to Use This Skill
 
-- [Agents vs Workflows](#agents-vs-workflows)
-- [Workflow Patterns](#workflow-patterns)
-- [Agent Architectures](#agent-architectures)
-- [ReAct Pattern](#react-pattern)
-- [Tool Design](#tool-design)
-- [Best Practices](#best-practices)
-- [References](#references)
+When creating new projects, use this skill to establish baseline AGENTS.md structure.
 
-## Agents vs Workflows
+When standardizing existing projects, use this skill to generate consistent agent documentation.
 
-| Aspect | Workflows | Agents |
-|--------|-----------|--------|
-| **Control flow** | Predefined code paths | LLM determines next step |
-| **Predictability** | High - deterministic steps | Lower - dynamic decisions |
-| **Complexity** | Simpler to debug and test | More complex, harder to predict |
-| **Best for** | Well-defined, repeatable tasks | Open-ended, adaptive problems |
+When ensuring multi-repo consistency, use this skill to apply the same standards across repositories.
 
-**Key principle**: Start with the simplest solution. Use workflows when the task is predictable; use agents when flexibility is required.
+When checking if AGENTS.md files are up to date, use the freshness checking scripts to compare file timestamps with git commits.
 
-## Workflow Patterns
+## CRITICAL: Full Verification Required
 
-### 1. Prompt Chaining
+**NEVER trust existing AGENTS.md content as accurate.** Always verify documented information against the actual codebase:
 
-Decompose tasks into sequential LLM calls, where each step's output feeds the next.
+### Mandatory Verification Steps
 
-```python
-async def prompt_chain(input_text):
-    # Step 1: Extract key information
-    extracted = await llm.generate(
-        "Extract the main entities and relationships from: " + input_text
-    )
+1. **Extract actual state from source files:**
+   - List all modules/files with their actual docstrings
+   - List all scripts and their actual purposes
+   - Extract actual Makefile/package.json commands
+   - List actual test files and structure
 
-    # Step 2: Analyze
-    analysis = await llm.generate(
-        "Analyze these entities for patterns: " + extracted
-    )
+2. **Compare extracted state against documented state:**
+   - Check if documented files actually exist
+   - Check if documented commands actually work
+   - Check if module descriptions match actual docstrings
+   - Check if counts (modules, scripts, tests) are accurate
 
-    # Step 3: Generate output
-    return await llm.generate(
-        "Based on this analysis, provide recommendations: " + analysis
-    )
+3. **Identify and fix discrepancies:**
+   - Remove documentation for non-existent files
+   - Add documentation for undocumented files
+   - Correct inaccurate descriptions
+   - Update outdated counts and references
+
+4. **Preserve unverifiable content:**
+   - Keep manually-written context that can't be extracted
+   - Keep subjective guidance and best practices
+   - Mark preserved content appropriately
+
+### What to Verify
+
+| Category | Verification Method |
+|----------|---------------------|
+| Module list | `ls <dir>/*.py` + read docstrings |
+| Script list | `ls scripts/*.sh` + read headers |
+| Commands | `grep` Makefile targets |
+| Test files | `ls tests/*.py` |
+| Data files | `ls *.json` in project root |
+| Config files | Check actual existence |
+
+### Example Verification Commands
+
+```bash
+# Extract actual module docstrings
+for f in cli_audit/*.py; do head -20 "$f" | grep -A5 '"""'; done
+
+# List actual scripts
+ls scripts/*.sh
+
+# Extract Makefile targets
+grep -E '^[a-z_-]+:' Makefile*
+
+# List actual test files
+ls tests/*.py tests/**/*.py
 ```
 
-**Use when**: Tasks naturally decompose into fixed sequential steps.
+### Anti-Patterns to Avoid
 
-### 2. Routing
+- **WRONG:** Updating only dates and counts based on git commits
+- **WRONG:** Trusting that existing AGENTS.md was created correctly
+- **WRONG:** Copying file lists without verifying they exist
+- **WRONG:** Using extracted command output without running it
+- **RIGHT:** Extract → Compare → Fix discrepancies → Validate
 
-Classify inputs and direct them to specialized handlers.
+## Capabilities
 
-```python
-async def route_request(user_input):
-    # Classify the input
-    category = await llm.generate(
-        f"Classify this request into one of: [billing, technical, general]\n{user_input}"
-    )
+- **Thin root files** (~30 lines) with precedence rules and global defaults
+- **Scoped files** for subsystems (backend/, frontend/, internal/, cmd/)
+- **Auto-extracted commands** from Makefile, package.json, composer.json, go.mod
+- **Language-specific templates** for Go, PHP, TypeScript, Python, hybrid projects
+- **Freshness checking** - Detects if AGENTS.md files are outdated by comparing their "Last updated" date with git commits
+- **Automatic timestamps** - All generated files include creation/update dates in the header
+- **Documentation extraction** - Parses README.md, CONTRIBUTING.md, SECURITY.md, CHANGELOG.md
+- **Platform file extraction** - Parses .github/, .gitlab/ templates, CODEOWNERS, dependabot.yml
+- **IDE settings extraction** - Parses .editorconfig, .vscode/, .idea/, .phpstorm/
+- **AI agent config extraction** - Parses .cursor/, .claude/, .windsurf/, copilot-instructions.md
+- **Extraction summary** - Verbose mode shows all detected settings and their sources
 
-    handlers = {
-        "billing": handle_billing,
-        "technical": handle_technical,
-        "general": handle_general,
-    }
+## Running Scripts
 
-    return await handlers[category.strip()](user_input)
+### Generating AGENTS.md Files
+
+To generate AGENTS.md files for a project:
+
+```bash
+scripts/generate-agents.sh /path/to/project
 ```
 
-**Use when**: Different input types need fundamentally different processing.
+Options:
+- `--dry-run` - Preview changes without writing files
+- `--verbose` - Show detailed output
+- `--style=thin` - Use thin root template (~30 lines, default)
+- `--style=verbose` - Use verbose root template (~100-200 lines)
+- `--update` - Update existing files only
 
-### 3. Parallelization
+### Validating Structure
 
-Run multiple LLM calls concurrently for independent subtasks.
+To validate AGENTS.md structure compliance:
 
-```python
-import asyncio
-
-async def parallel_analysis(document):
-    # Run independent analyses in parallel
-    results = await asyncio.gather(
-        llm.generate(f"Summarize: {document}"),
-        llm.generate(f"Extract key facts: {document}"),
-        llm.generate(f"Identify sentiment: {document}"),
-    )
-
-    summary, facts, sentiment = results
-    return {"summary": summary, "facts": facts, "sentiment": sentiment}
+```bash
+scripts/validate-structure.sh /path/to/project
 ```
 
-**Variants**:
-- **Sectioning**: Break task into parallel subtasks
-- **Voting**: Run same prompt multiple times, aggregate results
+Options:
+- `--check-freshness, -f` - Also check if files are up to date with git commits
+- `--verbose, -v` - Show detailed output
 
-### 4. Orchestrator-Workers
+### Checking Freshness
 
-Central LLM decomposes tasks and delegates to worker LLMs.
+To check if AGENTS.md files are up to date with recent git commits:
 
-```python
-class Orchestrator:
-    async def run(self, task):
-        # Break down the task
-        subtasks = await self.plan(task)
-
-        # Delegate to workers
-        results = []
-        for subtask in subtasks:
-            worker_result = await self.delegate(subtask)
-            results.append(worker_result)
-
-        # Synthesize results
-        return await self.synthesize(results)
-
-    async def plan(self, task):
-        response = await llm.generate(
-            f"Break this task into subtasks:\n{task}\n\nReturn as JSON array."
-        )
-        return json.loads(response)
-
-    async def delegate(self, subtask):
-        return await llm.generate(f"Complete this subtask:\n{subtask}")
-
-    async def synthesize(self, results):
-        return await llm.generate(
-            f"Combine these results into a coherent response:\n{results}"
-        )
+```bash
+scripts/check-freshness.sh /path/to/project
 ```
 
-**Use when**: Tasks require dynamic decomposition that can't be predetermined.
+This script:
+- Extracts the "Last updated" date from the AGENTS.md header
+- Checks git commits since that date for files in the relevant scope
+- Reports if there are commits that might require AGENTS.md updates
 
-### 5. Evaluator-Optimizer
+Options:
+- `--verbose, -v` - Show commit details and changed files
+- `--threshold=DAYS` - Days threshold to consider stale (default: 7)
 
-One LLM generates, another evaluates and requests improvements.
-
-```python
-async def generate_with_feedback(task, max_iterations=3):
-    response = await llm.generate(f"Complete this task:\n{task}")
-
-    for _ in range(max_iterations):
-        evaluation = await llm.generate(
-            f"Evaluate this response for quality and correctness:\n{response}\n"
-            "If improvements needed, specify them. Otherwise respond 'APPROVED'."
-        )
-
-        if "APPROVED" in evaluation:
-            return response
-
-        response = await llm.generate(
-            f"Improve this response based on feedback:\n"
-            f"Original: {response}\nFeedback: {evaluation}"
-        )
-
-    return response
+Example with full validation:
+```bash
+scripts/validate-structure.sh /path/to/project --check-freshness --verbose
 ```
 
-**Use when**: Output quality is critical and can be objectively evaluated.
+### Detecting Project Type
 
-## Agent Architectures
+To detect project language, version, and build tools:
 
-### Autonomous Agent Loop
-
-Agents operate in a loop: observe, think, act, repeat.
-
-```python
-class Agent:
-    def __init__(self, tools: list, system_prompt: str):
-        self.tools = {t.name: t for t in tools}
-        self.system_prompt = system_prompt
-
-    async def run(self, task: str, max_steps: int = 10):
-        messages = [
-            {"role": "system", "content": self.system_prompt},
-            {"role": "user", "content": task},
-        ]
-
-        for step in range(max_steps):
-            response = await llm.generate(messages, tools=self.tools)
-            messages.append({"role": "assistant", "content": response})
-
-            if response.tool_calls:
-                for call in response.tool_calls:
-                    result = await self.execute_tool(call)
-                    messages.append({
-                        "role": "tool",
-                        "tool_call_id": call.id,
-                        "content": result
-                    })
-            else:
-                # No tool calls - agent is done
-                return response.content
-
-        return "Max steps reached"
-
-    async def execute_tool(self, call):
-        tool = self.tools[call.name]
-        return await tool.execute(**call.arguments)
+```bash
+scripts/detect-project.sh /path/to/project
 ```
 
-### Human-in-the-Loop
+### Detecting Scopes
 
-Pause for human approval at critical checkpoints.
+To identify directories that should have scoped AGENTS.md files:
 
-```python
-class HumanInLoopAgent(Agent):
-    def __init__(self, tools, system_prompt, approval_required: list):
-        super().__init__(tools, system_prompt)
-        self.approval_required = set(approval_required)
-
-    async def execute_tool(self, call):
-        if call.name in self.approval_required:
-            approved = await self.request_approval(call)
-            if not approved:
-                return "Action cancelled by user"
-
-        return await super().execute_tool(call)
-
-    async def request_approval(self, call):
-        print(f"Agent wants to execute: {call.name}({call.arguments})")
-        response = input("Approve? (y/n): ")
-        return response.lower() == "y"
+```bash
+scripts/detect-scopes.sh /path/to/project
 ```
 
-## ReAct Pattern
+### Extracting Commands
 
-ReAct (Reasoning and Acting) alternates between thinking and taking actions.
+To extract build commands from Makefile, package.json, composer.json, or go.mod:
 
-```python
-REACT_PROMPT = """Answer the question using the available tools.
-
-For each step:
-1. Thought: Reason about what to do next
-2. Action: Choose a tool and inputs
-3. Observation: See the result
-4. Repeat until you have the answer
-
-Available tools: {tools}
-
-Question: {question}
-"""
-
-async def react_agent(question, tools):
-    prompt = REACT_PROMPT.format(
-        tools=format_tools(tools),
-        question=question
-    )
-
-    messages = [{"role": "user", "content": prompt}]
-
-    while True:
-        response = await llm.generate(messages)
-        messages.append({"role": "assistant", "content": response})
-
-        if "Final Answer:" in response:
-            return extract_final_answer(response)
-
-        action = parse_action(response)
-        if action:
-            observation = await execute_tool(action, tools)
-            messages.append({
-                "role": "user",
-                "content": f"Observation: {observation}"
-            })
+```bash
+scripts/extract-commands.sh /path/to/project
 ```
 
-**Advantages**:
-- Explicit reasoning traces aid debugging
-- More interpretable decision-making
-- Better handling of complex multi-step tasks
+### Extracting Documentation
 
-## Tool Design
+To extract information from README.md, CONTRIBUTING.md, SECURITY.md, and other documentation:
 
-### Principles
-
-1. **Self-contained**: Tools return complete, usable information
-2. **Scoped**: Each tool does one thing well
-3. **Descriptive**: Clear names and descriptions guide the LLM
-4. **Error-robust**: Return informative errors, not exceptions
-
-### Tool Definition Pattern
-
-```python
-class Tool:
-    def __init__(self, name: str, description: str, parameters: dict, fn):
-        self.name = name
-        self.description = description
-        self.parameters = parameters
-        self.fn = fn
-
-    async def execute(self, **kwargs):
-        try:
-            return await self.fn(**kwargs)
-        except Exception as e:
-            return f"Error: {str(e)}"
-
-# Example tool
-search_tool = Tool(
-    name="search_database",
-    description="Search the database for records matching a query. "
-                "Returns up to 10 matching records with their IDs and summaries.",
-    parameters={
-        "query": {"type": "string", "description": "Search query"},
-        "limit": {"type": "integer", "description": "Max results (default 10)"},
-    },
-    fn=search_database
-)
+```bash
+scripts/extract-documentation.sh /path/to/project
 ```
 
-### Tool Interface Guidelines
+### Extracting Platform Files
 
-- Prefer text inputs/outputs over complex structured data
-- Include usage examples in descriptions for ambiguous tools
-- Return truncated results when output could be large
-- Provide clear feedback on what the tool did
+To extract information from .github/, .gitlab/, CODEOWNERS, dependabot.yml, etc.:
 
-## Best Practices
+```bash
+scripts/extract-platform-files.sh /path/to/project
+```
 
-1. **Start simple**: Begin with the simplest architecture that could work. Add complexity only when it demonstrably improves outcomes.
+### Extracting IDE Settings
 
-2. **Maintain transparency**: Ensure the agent's planning steps are visible. This aids debugging and builds user trust.
+To extract information from .editorconfig, .vscode/, .idea/, etc.:
 
-3. **Design for failure**: Agents will make mistakes. Include guardrails, retries, and graceful degradation.
+```bash
+scripts/extract-ide-settings.sh /path/to/project
+```
 
-4. **Test extensively**: Use sandboxed environments. Test edge cases and failure modes, not just happy paths.
+### Extracting AI Agent Configs
 
-5. **Limit tool proliferation**: More tools means more confusion. Keep the tool set focused and well-documented.
+To extract information from .cursor/, .claude/, copilot-instructions.md, etc.:
 
-6. **Implement checkpoints**: For long-running tasks, save state periodically to enable recovery.
+```bash
+scripts/extract-agent-configs.sh /path/to/project
+```
 
-7. **Set resource limits**: Cap iterations, token usage, and tool calls to prevent runaway agents.
+### Verifying Content Accuracy
 
-8. **Log everything**: Record all LLM calls, tool executions, and decisions for debugging and improvement.
+**CRITICAL: Always run this before considering AGENTS.md files complete.**
 
-9. **Handle ambiguity**: When uncertain, have the agent ask for clarification rather than guessing.
+To verify that AGENTS.md content matches actual codebase state:
 
-10. **Measure outcomes**: Track task completion rates, accuracy, and efficiency to guide improvements.
+```bash
+scripts/verify-content.sh /path/to/project
+```
 
-## References
+This script:
+- Checks if documented files actually exist
+- Verifies Makefile targets are real
+- Compares module/script counts against actual files
+- Reports undocumented files that should be added
+- Reports documented files that don't exist
 
-- [Building Effective Agents](https://www.anthropic.com/engineering/building-effective-agents) - Anthropic's guide to agent patterns and best practices
-- [LangGraph Workflows & Agents](https://docs.langchain.com/oss/javascript/langgraph/workflows-agents) - LangGraph documentation on agent architectures
-- [ReAct: Synergizing Reasoning and Acting](https://arxiv.org/abs/2210.03629) - Paper introducing the ReAct prompting pattern
+Options:
+- `--verbose, -v` - Show detailed verification output
+- `--fix` - Suggest fixes for common issues
+
+**This verification step is MANDATORY when updating existing AGENTS.md files.**
+
+## Using Reference Documentation
+
+### AGENTS.md Analysis
+
+When understanding best practices and patterns, consult `references/analysis.md` for analysis of 21 real-world AGENTS.md files.
+
+### Directory Coverage
+
+When determining which directories need AGENTS.md files, consult `references/directory-coverage.md` for guidance on PHP/TYPO3, Go, and TypeScript project structures.
+
+### Real-World Examples
+
+When needing concrete examples of AGENTS.md files, consult `references/examples/`:
+
+| Project | Files | Description |
+|---------|-------|-------------|
+| `coding-agent-cli/` | Root + scripts scope | CLI tool example |
+| `ldap-selfservice/` | Root + internal scopes | Go web app with multiple scopes |
+| `simple-ldap-go/` | Root + examples scope | Go library example |
+| `t3x-rte-ckeditor-image/` | Root + Classes scope | TYPO3 extension example |
+
+## Using Asset Templates
+
+### Root Templates
+
+When generating root AGENTS.md files, the scripts use these templates:
+
+- `assets/root-thin.md` - Minimal root template (~30 lines) with precedence rules and scope index
+- `assets/root-verbose.md` - Detailed root template (~100 lines) with architecture overview and examples
+
+### Scoped Templates
+
+When generating scoped AGENTS.md files, the scripts use language-specific templates:
+
+- `assets/scoped/backend-go.md` - Go backend patterns (packages, error handling, testing)
+- `assets/scoped/backend-php.md` - PHP backend patterns (PSR, DI, security)
+- `assets/scoped/cli.md` - CLI patterns (flags, output, error codes)
+- `assets/scoped/frontend-typescript.md` - TypeScript frontend patterns (components, state, testing)
+
+## Supported Project Types
+
+| Language | Project Types |
+|----------|---------------|
+| Go | Libraries, web apps (Fiber/Echo/Gin), CLI (Cobra/urfave) |
+| PHP | Composer packages, TYPO3, Laravel/Symfony |
+| TypeScript | React, Next.js, Vue, Node.js |
+| Python | pip, poetry, Django, Flask, FastAPI |
+| Hybrid | Multi-language projects (auto-creates scoped files per stack) |
+
+## Output Structure
+
+### Root File
+
+Root AGENTS.md (~30 lines) contains:
+- Precedence statement
+- Global rules
+- Pre-commit checks
+- Scope index
+
+### Scoped Files
+
+Scoped AGENTS.md files contain 9 sections:
+1. Overview
+2. Setup
+3. Build/tests
+4. Code style
+5. Security
+6. PR checklist
+7. Examples
+8. When stuck
+9. House Rules
+
+## Directory Coverage
+
+When creating AGENTS.md files, create them in ALL key directories:
+
+| Directory | Purpose |
+|-----------|---------|
+| Root | Precedence, architecture overview |
+| `Classes/` or `src/` | Source code patterns |
+| `Configuration/` or `config/` | Framework config |
+| `Documentation/` or `docs/` | Doc standards |
+| `Resources/` or `assets/` | Templates, assets |
+| `Tests/` | Testing patterns |
+
+---
+
+> **Contributing:** https://github.com/netresearch/agents-skill

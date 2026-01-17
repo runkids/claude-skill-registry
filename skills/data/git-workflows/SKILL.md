@@ -1,313 +1,241 @@
 ---
-name: git-workflows
-description: Guide for git operations with Claude Code. Commits, PRs, code review, branch management, and best practices. Use when committing changes, creating pull requests, reviewing code, or managing branches.
-allowed-tools: ["Read", "Bash"]
+name: gitworfkflows
+description: Git workflows including branching strategies, commits, merging, rebasing, and GitHub collaboration. Activate for git commands, version control, PRs, and repository management.
+allowed-tools:
+  - Bash
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
 ---
 
-# Git Workflows
+# Git Workflows Skill
 
-Master git operations with Claude Code. This skill covers commits, pull requests, code review, branch management, and best practices.
+Provides comprehensive Git version control capabilities for the Golden Armada AI Agent Fleet Platform.
+
+## When to Use This Skill
+
+Activate this skill when working with:
+- Git commands and operations
+- Branching strategies
+- Commit management
+- Pull requests and merges
+- Repository configuration
 
 ## Quick Reference
 
-| Operation | Command | Notes |
-|-----------|---------|-------|
-| Check status | `git status` | Always run before committing |
-| Stage files | `git add <files>` | Never use `-i` (interactive) |
-| Commit | `git commit -m "$(cat <<'EOF'...EOF)"` | Use heredoc for messages |
-| Create PR | `gh pr create --title "..." --body "..."` | Use gh CLI, not git |
-| View PR | `gh pr view <number>` | Get PR details |
-| Push | `git push -u origin <branch>` | Use `-u` for new branches |
-
-## Claude's Git Safety Rules
-
-Claude Code follows strict safety protocols for git operations:
-
-### Never Do
-- Force push to main/master
-- Run `git rebase -i` or `git add -i` (interactive mode unsupported)
-- Skip hooks with `--no-verify`
-- Update git config
-- Commit without explicit user request
-- Amend commits that have been pushed
-
-### Always Do
-- Check `git status` before committing
-- Verify changes with `git diff`
-- Use heredoc for multi-line commit messages
-- Include co-author attribution when appropriate
-- Verify branch is ahead before amending
-
-## Commit Message Format
-
-Claude uses conventional commits with heredoc syntax:
-
-```bash
-git commit -m "$(cat <<'EOF'
-type(scope): short description
-
-Longer explanation of changes if needed.
-Multiple paragraphs allowed.
-
-Co-authored-by: Name <email@example.com>
-EOF
-)"
-```
-
-### Commit Types
-
-| Type | When to Use |
-|------|-------------|
-| `feat` | New feature |
-| `fix` | Bug fix |
-| `docs` | Documentation only |
-| `style` | Formatting, no code change |
-| `refactor` | Code change, no feature/fix |
-| `test` | Adding/fixing tests |
-| `chore` | Maintenance tasks |
-
-### Scope Examples
-
-- `feat(auth)`: Authentication feature
-- `fix(api)`: API bug fix
-- `docs(readme)`: README update
-- `refactor(utils)`: Utility refactoring
-
-## Standard Commit Workflow
-
-When asked to commit, Claude follows this sequence:
-
-### 1. Gather Information (Parallel)
-
-```bash
-# Run these in parallel
-git status                           # See untracked files
-git diff --staged                    # See staged changes
-git diff                             # See unstaged changes
-git log --oneline -5                 # Recent commit style
-```
-
-### 2. Analyze Changes
-
-- Determine commit type (feat, fix, docs, etc.)
-- Identify scope from affected files
-- Focus on "why" not "what"
-- Check for sensitive files (.env, credentials)
-
-### 3. Create Commit
-
-```bash
-# Stage relevant files
-git add <files>
-
-# Commit with heredoc
-git commit -m "$(cat <<'EOF'
-type(scope): descriptive message
-
-Why this change was made.
-EOF
-)"
-
-# Verify success
+### Basic Commands
+\`\`\`bash
+# Status and info
 git status
-```
+git log --oneline -10
+git diff
+git diff --staged
 
-## Pull Request Workflow
+# Staging
+git add <file>
+git add .
+git add -p              # Interactive staging
 
-### Creating a PR
+# Committing
+git commit -m "message"
+git commit -am "message"  # Add and commit
+git commit --amend
 
-```bash
-# 1. Gather context (parallel)
-git status
-git diff main...HEAD
-git log main..HEAD --oneline
+# Branching
+git branch
+git branch <name>
+git checkout <branch>
+git checkout -b <branch>
+git switch <branch>
+git switch -c <branch>
 
-# 2. Push if needed
-git push -u origin $(git branch --show-current)
+# Merging
+git merge <branch>
+git merge --no-ff <branch>
+git rebase <branch>
 
-# 3. Create PR with heredoc
-gh pr create --title "feat: add user authentication" --body "$(cat <<'EOF'
-## Summary
-- Add login/logout functionality
-- Implement JWT token handling
-- Add protected route middleware
-
-## Test plan
-- [ ] Manual login flow test
-- [ ] Verify token expiration
-- [ ] Test protected routes
-EOF
-)"
-```
-
-### PR Description Template
-
-```markdown
-## Summary
-- Key change 1
-- Key change 2
-- Key change 3
-
-## Test plan
-- [ ] Test case 1
-- [ ] Test case 2
-
-## Notes
-Any additional context for reviewers.
-```
-
-## Amend Rules (Critical)
-
-Claude only amends when ALL conditions are met:
-
-1. User explicitly requested amend, OR commit succeeded but pre-commit hook auto-modified files
-2. HEAD commit was created by Claude in current conversation (verify with `git log -1 --format='%an %ae'`)
-3. Commit has NOT been pushed to remote (verify `git status` shows "Your branch is ahead")
-
-### When Commit Fails
-
-If a commit fails or is rejected by a hook:
-- NEVER amend
-- Fix the issue
-- Create a NEW commit
-
-### Safe Amend Pattern
-
-```bash
-# Verify conditions first
-git log -1 --format='%an %ae'    # Check author
-git status                        # Check not pushed
-
-# Only then amend
-git add <modified-files>
-git commit --amend --no-edit
-```
-
-## Branch Management
-
-### Feature Branch Workflow
-
-```bash
-# Create feature branch
-git checkout -b feature/user-auth
-
-# Work on feature...
-# Commit changes...
-
-# Push branch
-git push -u origin feature/user-auth
-
-# Create PR
-gh pr create --title "..." --body "..."
-```
-
-### Branch Naming Conventions
-
-| Pattern | Example | Use Case |
-|---------|---------|----------|
-| `feature/<name>` | `feature/user-auth` | New features |
-| `fix/<name>` | `fix/login-bug` | Bug fixes |
-| `hotfix/<name>` | `hotfix/security-patch` | Production fixes |
-| `chore/<name>` | `chore/update-deps` | Maintenance |
-| `docs/<name>` | `docs/api-guide` | Documentation |
-
-## Code Review Patterns
-
-### Viewing PR Changes
-
-```bash
-# View PR details
-gh pr view 123
-
-# View PR diff
-gh pr diff 123
-
-# View PR comments
-gh api repos/owner/repo/pulls/123/comments
-
-# Check PR status
-gh pr checks 123
-```
-
-### Addressing Review Feedback
-
-```bash
-# Make requested changes
-# ... edit files ...
-
-# Commit fixes
-git add <files>
-git commit -m "$(cat <<'EOF'
-fix: address review feedback
-
-- Fix issue mentioned in review
-- Add missing validation
-EOF
-)"
-
-# Push updates
+# Remote
+git fetch
+git pull
 git push
-```
+git push -u origin <branch>
+\`\`\`
 
-## GitHub CLI (gh) Commands
+## Branching Strategy (Git Flow)
 
-Claude uses `gh` CLI for all GitHub operations:
+\`\`\`
+main          ─────●─────────────●─────────────●───────
+                   │             │             │
+release       ─────┼─────●───────┼─────────────┼───────
+                   │     │       │             │
+develop       ─────●─────┼───────●─────────────●───────
+                   │     │       │             │
+feature       ─────●─────┘       │             │
+                                 │             │
+hotfix        ───────────────────●─────────────┘
+\`\`\`
 
-| Operation | Command |
-|-----------|---------|
-| Create PR | `gh pr create --title "..." --body "..."` |
-| View PR | `gh pr view <number>` |
-| List PRs | `gh pr list` |
-| Check PR status | `gh pr checks <number>` |
-| View issue | `gh issue view <number>` |
-| Create issue | `gh issue create --title "..." --body "..."` |
-| View comments | `gh api repos/o/r/pulls/N/comments` |
+### Branch Naming
+\`\`\`bash
+# Features
+feature/add-agent-api
+feature/GA-123-user-auth
 
-## Conflict Resolution
+# Bugfixes
+bugfix/fix-agent-timeout
+bugfix/GA-456-memory-leak
 
-When merge conflicts occur:
+# Hotfixes
+hotfix/critical-security-patch
 
-```bash
-# 1. Fetch latest
-git fetch origin main
+# Releases
+release/v1.0.0
+\`\`\`
 
-# 2. Merge or rebase
-git merge origin/main
-# OR
-git rebase origin/main
+## Commit Message Convention
 
-# 3. Resolve conflicts
-# Edit conflicting files...
-# Remove conflict markers (<<<<, ====, >>>>)
+\`\`\`bash
+# Format
+<type>(<scope>): <subject>
 
-# 4. Complete merge
-git add <resolved-files>
-git commit -m "Merge main into feature branch"
-```
+<body>
 
-## Common Issues
+<footer>
 
-| Issue | Solution |
-|-------|----------|
-| Detached HEAD | `git checkout <branch>` |
-| Wrong branch | `git stash && git checkout correct-branch && git stash pop` |
-| Committed to wrong branch | `git reset HEAD~1 --soft && git stash && git checkout correct && git stash pop` |
-| Need to undo last commit | `git reset HEAD~1 --soft` (keeps changes) |
-| Forgot to add file | Stage file, then amend (if safe) |
+# Types
+feat:     New feature
+fix:      Bug fix
+docs:     Documentation
+style:    Formatting (no code change)
+refactor: Code refactoring
+test:     Adding tests
+chore:    Maintenance
 
-## Environment Variables
+# Examples
+git commit -m "feat(agent): add Claude agent support"
+git commit -m "fix(api): resolve timeout in task processing"
+git commit -m "docs: update deployment instructions"
+\`\`\`
 
-| Variable | Description |
-|----------|-------------|
-| `GIT_AUTHOR_NAME` | Commit author name |
-| `GIT_AUTHOR_EMAIL` | Commit author email |
-| `GIT_COMMITTER_NAME` | Committer name |
-| `GIT_COMMITTER_EMAIL` | Committer email |
+## Common Workflows
 
-## Reference Files
+### Start Feature
+\`\`\`bash
+git checkout develop
+git pull origin develop
+git checkout -b feature/new-feature
+# ... work ...
+git add .
+git commit -m "feat: implement new feature"
+git push -u origin feature/new-feature
+# Create PR to develop
+\`\`\`
 
-| File | Contents |
-|------|----------|
-| [COMMITS.md](./COMMITS.md) | Detailed commit workflows and conventions |
-| [PULL-REQUESTS.md](./PULL-REQUESTS.md) | PR creation, review, and merge workflows |
-| [PATTERNS.md](./PATTERNS.md) | Branch strategies, hotfixes, and advanced patterns |
+### Sync Feature Branch
+\`\`\`bash
+git checkout develop
+git pull origin develop
+git checkout feature/my-feature
+git rebase develop
+# Resolve conflicts if any
+git push --force-with-lease
+\`\`\`
+
+### Squash Commits
+\`\`\`bash
+git rebase -i HEAD~3  # Interactive rebase last 3 commits
+# Change 'pick' to 'squash' for commits to combine
+\`\`\`
+
+### Undo Changes
+\`\`\`bash
+# Undo last commit (keep changes)
+git reset --soft HEAD~1
+
+# Undo last commit (discard changes)
+git reset --hard HEAD~1
+
+# Undo staged changes
+git restore --staged <file>
+
+# Discard working directory changes
+git restore <file>
+
+# Revert a commit (creates new commit)
+git revert <commit-hash>
+\`\`\`
+
+## GitHub CLI
+
+\`\`\`bash
+# PR Management
+gh pr create --title "Feature: Add agent API" --body "Description"
+gh pr list
+gh pr checkout <number>
+gh pr merge <number>
+gh pr review <number> --approve
+
+# Issues
+gh issue create --title "Bug: Agent timeout" --label bug
+gh issue list
+gh issue close <number>
+
+# Repository
+gh repo clone <owner>/<repo>
+gh repo view --web
+\`\`\`
+
+## .gitignore Patterns
+
+\`\`\`gitignore
+# Dependencies
+node_modules/
+venv/
+__pycache__/
+
+# Build outputs
+dist/
+build/
+*.egg-info/
+
+# Environment
+.env
+.env.local
+*.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Secrets (never commit!)
+*.pem
+*.key
+credentials.json
+\`\`\`
+
+## Git Hooks
+
+\`\`\`bash
+# .git/hooks/pre-commit
+#!/bin/sh
+npm run lint
+npm run test
+
+# .git/hooks/commit-msg
+#!/bin/sh
+if ! grep -qE "^(feat|fix|docs|style|refactor|test|chore)(\(.+\))?: .{1,50}" "$1"; then
+    echo "Invalid commit message format"
+    exit 1
+fi
+\`\`\`

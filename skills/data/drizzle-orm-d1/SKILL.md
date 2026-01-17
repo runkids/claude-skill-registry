@@ -1,30 +1,41 @@
 ---
 name: drizzle-orm-d1
 description: |
-  Build type-safe D1 databases with Drizzle ORM. Includes schema definition, migrations with Drizzle Kit, relations, and D1 batch API patterns. Prevents 12 errors including SQL BEGIN failures and foreign key issues.
+  Type-safe ORM for Cloudflare D1 databases using Drizzle. Use when: building D1 database schemas, writing type-safe SQL queries, managing migrations with Drizzle Kit, defining table relations, implementing prepared statements, using D1 batch API, or encountering D1_ERROR, transaction errors, foreign key constraint failures, or schema inference issues.
 
-  Use when: defining D1 schemas, managing migrations, or troubleshooting D1_ERROR, BEGIN TRANSACTION, foreign keys.
-user-invocable: true
+  Keywords: drizzle orm, drizzle d1, type-safe sql, drizzle schema, drizzle migrations,
+  drizzle kit, orm cloudflare, d1 orm, drizzle typescript, drizzle relations, drizzle transactions,
+  drizzle query builder, schema definition, prepared statements, drizzle batch, migration management,
+  relational queries, drizzle joins, D1_ERROR, BEGIN TRANSACTION d1, foreign key constraint,
+  migration failed, schema not found, d1 binding error, schema design, database indexes, soft deletes,
+  uuid primary keys, enum constraints, performance optimization, naming conventions, schema testing
+license: MIT
 ---
 
 # Drizzle ORM for Cloudflare D1
 
 **Status**: Production Ready ✅
-**Last Updated**: 2026-01-09
-**Latest Version**: drizzle-orm@0.45.1, drizzle-kit@0.31.8, better-sqlite3@12.5.0
+**Last Updated**: 2025-12-14
+**Latest Version**: drizzle-orm@0.44.7, drizzle-kit@0.31.7
 **Dependencies**: cloudflare-d1, cloudflare-worker-base
 
 ---
 
-## Quick Start (5 Minutes)
+## Quick Start (10 Minutes)
+
+### 1. Install Drizzle
 
 ```bash
-# 1. Install
-npm install drizzle-orm
-npm install -D drizzle-kit
+bun add drizzle-orm drizzle-kit
+```
 
-# 2. Configure drizzle.config.ts
+### 2. Configure Drizzle Kit
+
+Create `drizzle.config.ts`:
+
+```typescript
 import { defineConfig } from 'drizzle-kit';
+
 export default defineConfig({
   schema: './src/db/schema.ts',
   out: './migrations',
@@ -36,315 +47,191 @@ export default defineConfig({
     token: process.env.CLOUDFLARE_D1_TOKEN!,
   },
 });
+```
 
-# 3. Configure wrangler.jsonc
-{
-  "d1_databases": [{
-    "binding": "DB",
-    "database_name": "my-database",
-    "database_id": "your-database-id",
-    "migrations_dir": "./migrations"  // CRITICAL: Points to Drizzle migrations
-  }]
-}
+### 3. Define Schema
 
-# 4. Define schema (src/db/schema.ts)
+Create `src/db/schema.ts`:
+
+```typescript
 import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core';
+import { relations } from 'drizzle-orm';
+
 export const users = sqliteTable('users', {
   id: integer('id').primaryKey({ autoIncrement: true }),
   email: text('email').notNull().unique(),
+  name: text('name').notNull(),
   createdAt: integer('created_at', { mode: 'timestamp' }).$defaultFn(() => new Date()),
 });
 
-# 5. Generate & apply migrations
-npx drizzle-kit generate
-npx wrangler d1 migrations apply my-database --local   # Test first
-npx wrangler d1 migrations apply my-database --remote  # Then production
-
-# 6. Query in Worker
-import { drizzle } from 'drizzle-orm/d1';
-import { users } from './db/schema';
-const db = drizzle(env.DB);
-const allUsers = await db.select().from(users).all();
-```
-
----
-
-## D1-Specific Critical Rules
-
-✅ **Use `db.batch()` for transactions** - D1 doesn't support SQL BEGIN/COMMIT (see Issue #1)
-✅ **Test migrations locally first** - Always `--local` before `--remote`
-✅ **Use `integer` with `mode: 'timestamp'` for dates** - D1 has no native date type
-✅ **Use `.$defaultFn()` for dynamic defaults** - Not `.default()` for functions
-✅ **Set `migrations_dir` in wrangler.jsonc** - Points to `./migrations`
-
-❌ **Never use SQL `BEGIN TRANSACTION`** - D1 requires batch API
-❌ **Never use `drizzle-kit push` for production** - Use `generate` + `apply`
-❌ **Never mix wrangler.toml and wrangler.jsonc** - Use wrangler.jsonc only
-
----
-
-## Drizzle Kit Tools
-
-### Drizzle Studio (Visual Database Browser)
-
-```bash
-npx drizzle-kit studio
-# Opens http://local.drizzle.studio
-
-# For remote D1 database
-npx drizzle-kit studio --port 3001
-```
-
-**Features:**
-- Browse tables and data visually
-- Edit records inline
-- Run custom SQL queries
-- View schema relationships
-
-### Migration Commands
-
-| Command | Purpose |
-|---------|---------|
-| `drizzle-kit generate` | Generate SQL migrations from schema changes |
-| `drizzle-kit push` | Push schema directly (dev only, not for production) |
-| `drizzle-kit pull` | Introspect existing database → Drizzle schema |
-| `drizzle-kit check` | Validate migration integrity (race conditions) |
-| `drizzle-kit up` | Upgrade migration snapshots to latest format |
-
-```bash
-# Introspect existing D1 database
-npx drizzle-kit pull
-
-# Validate migrations haven't collided
-npx drizzle-kit check
-```
-
----
-
-## Advanced Query Patterns
-
-### Dynamic Query Building
-
-Build queries conditionally with `.$dynamic()`:
-
-```typescript
-import { eq, and, or, like, sql } from 'drizzle-orm';
-
-// Base query
-function getUsers(filters: { name?: string; email?: string; active?: boolean }) {
-  let query = db.select().from(users).$dynamic();
-
-  if (filters.name) {
-    query = query.where(like(users.name, `%${filters.name}%`));
-  }
-  if (filters.email) {
-    query = query.where(eq(users.email, filters.email));
-  }
-  if (filters.active !== undefined) {
-    query = query.where(eq(users.active, filters.active));
-  }
-
-  return query;
-}
-
-// Usage
-const results = await getUsers({ name: 'John', active: true });
-```
-
-### Upsert (Insert or Update on Conflict)
-
-```typescript
-import { users } from './schema';
-
-// Insert or ignore if exists
-await db.insert(users)
-  .values({ id: 1, email: 'test@example.com', name: 'Test' })
-  .onConflictDoNothing();
-
-// Insert or update specific fields on conflict
-await db.insert(users)
-  .values({ id: 1, email: 'test@example.com', name: 'Test' })
-  .onConflictDoUpdate({
-    target: users.email,  // Conflict on unique email
-    set: {
-      name: sql`excluded.name`,  // Use value from INSERT
-      updatedAt: new Date(),
-    },
-  });
-```
-
-**⚠️ D1 Upsert Caveat:** Target must be a unique column or primary key.
-
-### Debugging with Logging
-
-```typescript
-import { drizzle } from 'drizzle-orm/d1';
-
-// Enable query logging
-const db = drizzle(env.DB, { logger: true });
-
-// Custom logger
-const db = drizzle(env.DB, {
-  logger: {
-    logQuery(query, params) {
-      console.log('SQL:', query);
-      console.log('Params:', params);
-    },
-  },
+export const posts = sqliteTable('posts', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  title: text('title').notNull(),
+  content: text('content').notNull(),
+  authorId: integer('author_id')
+    .notNull()
+    .references(() => users.id, { onDelete: 'cascade' }),
 });
 
-// Get SQL without executing (for debugging)
-const query = db.select().from(users).where(eq(users.id, 1));
-const sql = query.toSQL();
-console.log(sql.sql, sql.params);
+export const usersRelations = relations(users, ({ many }) => ({
+  posts: many(posts),
+}));
+```
+
+### 4. Generate & Apply Migrations
+
+```bash
+bunx drizzle-kit generate                           # Generate SQL
+bunx wrangler d1 migrations apply my-database --local   # Apply local
+bunx wrangler d1 migrations apply my-database --remote  # Apply prod
+```
+
+### 5. Query in Worker
+
+```typescript
+import { drizzle } from 'drizzle-orm/d1';
+import { users } from './db/schema';
+import { eq } from 'drizzle-orm';
+
+export default {
+  async fetch(request: Request, env: { DB: D1Database }): Promise<Response> {
+    const db = drizzle(env.DB);
+    const allUsers = await db.select().from(users).all();
+    return Response.json(allUsers);
+  },
+};
 ```
 
 ---
 
-## Known Issues Prevention
+## Critical Rules
 
-This skill prevents **12** documented issues:
+### Always Do
 
-### Issue #1: D1 Transaction Errors
-**Error**: `D1_ERROR: Cannot use BEGIN TRANSACTION`
-**Source**: https://github.com/drizzle-team/drizzle-orm/issues/4212
-**Why**: Drizzle uses SQL `BEGIN TRANSACTION`, but D1 requires batch API instead.
-**Prevention**: Use `db.batch([...])` instead of `db.transaction()`
+| Rule | Why |
+|------|-----|
+| Use `drizzle-kit generate` for migrations | Never write SQL manually |
+| Test migrations locally first | `--local` before `--remote` |
+| Use `.get()` for single results | Returns first row or undefined |
+| Use `db.batch()` for transactions | D1 doesn't support SQL BEGIN/COMMIT |
+| Use `integer` with `mode: 'timestamp'` for dates | D1 has no native date type |
+| Use `.$defaultFn()` for dynamic defaults | Not `.default()` for functions |
 
-### Issue #2: Foreign Key Constraint Failures
-**Error**: `FOREIGN KEY constraint failed: SQLITE_CONSTRAINT`
-**Source**: https://github.com/drizzle-team/drizzle-orm/issues/4089
-**Why**: Drizzle uses `PRAGMA foreign_keys = OFF;` which causes migration failures.
-**Prevention**: Define foreign keys with cascading: `.references(() => users.id, { onDelete: 'cascade' })`
+### Never Do
 
-### Issue #3: Module Import Errors in Production
-**Error**: `Error: No such module "wrangler"`
-**Source**: https://github.com/drizzle-team/drizzle-orm/issues/4257
-**Why**: Importing from `wrangler` package in runtime code fails in production.
-**Prevention**: Use `import { drizzle } from 'drizzle-orm/d1'`, never import from `wrangler`
-
-### Issue #4: D1 Binding Not Found
-**Error**: `TypeError: Cannot read property 'prepare' of undefined`
-**Why**: Binding name in code doesn't match wrangler.jsonc configuration.
-**Prevention**: Ensure `"binding": "DB"` in wrangler.jsonc matches `env.DB` in code
-
-### Issue #5: Migration Apply Failures
-**Error**: `Migration failed to apply: near "...": syntax error`
-**Why**: Syntax errors or applying migrations out of order.
-**Prevention**: Test locally first (`--local`), review generated SQL, regenerate if needed
-
-### Issue #6: Schema TypeScript Inference Errors
-**Error**: `Type instantiation is excessively deep and possibly infinite`
-**Why**: Complex circular references in relations.
-**Prevention**: Use explicit types with `InferSelectModel<typeof users>`
-
-### Issue #7: Prepared Statement Caching Issues
-**Error**: Stale or incorrect query results
-**Why**: D1 doesn't cache prepared statements like traditional SQLite.
-**Prevention**: Always use `.all()` or `.get()` methods, don't reuse statements across requests
-
-### Issue #8: Transaction Rollback Patterns
-**Error**: Transaction doesn't roll back on error
-**Why**: D1 batch API doesn't support traditional rollback.
-**Prevention**: Implement error handling with manual cleanup in try/catch
-
-### Issue #9: TypeScript Strict Mode Errors
-**Error**: Type errors with `strict: true`
-**Why**: Drizzle types can be loose.
-**Prevention**: Use explicit return types: `Promise<User | undefined>`
-
-### Issue #10: Drizzle Config Not Found
-**Error**: `Cannot find drizzle.config.ts`
-**Why**: Wrong file location or name.
-**Prevention**: File must be `drizzle.config.ts` in project root
-
-### Issue #11: Remote vs Local D1 Confusion
-**Error**: Changes not appearing in dev or production
-**Why**: Applying migrations to wrong database.
-**Prevention**: Use `--local` for dev, `--remote` for production
-
-### Issue #12: wrangler.toml vs wrangler.jsonc
-**Error**: Configuration not recognized
-**Why**: Mixing TOML and JSON formats.
-**Prevention**: Use `wrangler.jsonc` consistently (supports comments)
+| Rule | Why |
+|------|-----|
+| Use SQL `BEGIN TRANSACTION` | D1 requires batch API (Error #1) |
+| Mix `drizzle-kit migrate` and `wrangler apply` | Use Wrangler only |
+| Use `drizzle-kit push` for production | Use `generate` + `apply` |
+| Commit credentials in drizzle.config.ts | Use env vars |
+| Use `.default()` for function calls | Use `.$defaultFn()` instead |
 
 ---
 
-## Batch API Pattern (D1 Transactions)
+## Top 5 Critical Errors
 
-```typescript
-// ❌ DON'T: Use traditional transactions (fails with D1_ERROR)
-await db.transaction(async (tx) => { /* ... */ });
+| # | Error | Solution |
+|---|-------|----------|
+| 1 | `D1_ERROR: Cannot use BEGIN TRANSACTION` | Use `db.batch([...])` instead of `db.transaction()` |
+| 2 | `FOREIGN KEY constraint failed` | Define cascading: `.references(() => users.id, { onDelete: 'cascade' })` |
+| 3 | `env.DB is undefined` | Ensure binding in `wrangler.jsonc` matches `env.DB` |
+| 4 | `No such module "wrangler"` | Use `import { drizzle } from 'drizzle-orm/d1'` |
+| 5 | `Type instantiation excessively deep` | Use `InferSelectModel<typeof users>` for explicit types |
 
-// ✅ DO: Use D1 batch API
-const results = await db.batch([
-  db.insert(users).values({ email: 'test@example.com', name: 'Test' }),
-  db.insert(posts).values({ title: 'Post', content: 'Content', authorId: 1 }),
-]);
+**See**: `references/error-catalog.md` for all 12 errors with complete solutions.
 
-// With error handling
-try {
-  await db.batch([...]);
-} catch (error) {
-  console.error('Batch failed:', error);
-  // Manual cleanup if needed
+---
+
+## Common Patterns Summary
+
+| Pattern | Use Case | Template |
+|---------|----------|----------|
+| **CRUD Operations** | Basic database operations | `templates/basic-queries.ts` |
+| **Relations & Joins** | Nested queries, manual joins | `templates/relations-queries.ts` |
+| **Batch Operations** | Transactions (D1 batch API) | `templates/transactions.ts` |
+| **Schema Design** | Naming, indexes, soft deletes | `references/schema-patterns.md` |
+
+---
+
+## Configuration Summary
+
+| File | Purpose | Template |
+|------|---------|----------|
+| `drizzle.config.ts` | Drizzle Kit configuration | `templates/drizzle.config.ts` |
+| `wrangler.jsonc` | D1 binding setup | `references/wrangler-setup.md` |
+| `package.json` | npm scripts for migrations | `templates/package.json` |
+
+**npm scripts:**
+```json
+{
+  "db:generate": "drizzle-kit generate",
+  "db:migrate:local": "wrangler d1 migrations apply my-database --local",
+  "db:migrate:remote": "wrangler d1 migrations apply my-database --remote"
 }
 ```
 
+---
+
+## Migration Workflow
+
+| Step | Command | Notes |
+|------|---------|-------|
+| 1. Edit schema | Edit `src/db/schema.ts` | Make changes |
+| 2. Generate | `npm run db:generate` | Creates SQL migration |
+| 3. Test local | `npm run db:migrate:local` | Verify locally |
+| 4. Deploy code | `npm run deploy` | Push to Cloudflare |
+| 5. Apply prod | `npm run db:migrate:remote` | Apply migration |
+
+**See**: `references/migration-workflow.md` for complete workflow.
 
 ---
 
-## Using Bundled Resources
+## TypeScript Type Inference
 
-### Scripts (scripts/)
+```typescript
+import { InferSelectModel, InferInsertModel } from 'drizzle-orm';
+import { users } from './db/schema';
 
-**check-versions.sh** - Verify package versions are up to date
-
-```bash
-./scripts/check-versions.sh
-```
-
-Output:
-```
-Checking Drizzle ORM versions...
-✓ drizzle-orm: 0.44.7 (latest)
-✓ drizzle-kit: 0.31.5 (latest)
+export type User = InferSelectModel<typeof users>;
+export type NewUser = InferInsertModel<typeof users>;
 ```
 
 ---
 
-### References (references/)
+## When to Load References
 
-Claude should load these when you need specific deep-dive information:
+| Reference | Load When... |
+|-----------|--------------|
+| `references/error-catalog.md` | Debugging D1 errors, transaction failures, binding issues |
+| `references/schema-patterns.md` | Designing schemas, naming conventions, indexes, soft deletes |
+| `references/migration-workflow.md` | Setting up or troubleshooting migrations |
+| `references/query-builder-api.md` | Complex queries, operators, joins syntax |
+| `references/wrangler-setup.md` | Configuring wrangler.jsonc for D1 |
+| `references/common-errors.md` | Quick error lookup |
 
-- **wrangler-setup.md** - Complete Wrangler configuration guide (local vs remote, env vars)
-- **schema-patterns.md** - All D1/SQLite column types, constraints, indexes
-- **migration-workflow.md** - Complete migration workflow (generate, test, apply)
-- **query-builder-api.md** - Full Drizzle query builder API reference
-- **common-errors.md** - All 12 errors with detailed solutions
-- **links-to-official-docs.md** - Organized links to official documentation
+---
 
-**When to load**:
-- User asks about specific column types → load schema-patterns.md
-- User encounters migration errors → load migration-workflow.md + common-errors.md
-- User needs complete API reference → load query-builder-api.md
+## Bundled Resources
 
+**Templates**: `basic-schema.ts`, `basic-queries.ts`, `transactions.ts`, `relations-queries.ts`, `prepared-statements.ts`, `drizzle.config.ts`, `package.json`
+
+**References**: `error-catalog.md`, `schema-patterns.md`, `migration-workflow.md`, `query-builder-api.md`, `wrangler-setup.md`, `common-errors.md`, `links-to-official-docs.md`
 
 ---
 
 ## Dependencies
 
-**Required**:
-- `drizzle-orm@0.45.1` - ORM runtime
-- `drizzle-kit@0.31.8` - CLI tool for migrations
-
-**Optional**:
-- `better-sqlite3@12.4.6` - For local SQLite development
-- `@cloudflare/workers-types@4.20251125.0` - TypeScript types
-
-**Skills**:
-- **cloudflare-d1** - D1 database creation and raw SQL queries
-- **cloudflare-worker-base** - Worker project structure and Hono setup
+```json
+{
+  "dependencies": {
+    "drizzle-orm": "^0.44.7"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.31.7"
+  }
+}
+```
 
 ---
 
@@ -353,41 +240,10 @@ Claude should load these when you need specific deep-dive information:
 - **Drizzle ORM**: https://orm.drizzle.team/
 - **Drizzle with D1**: https://orm.drizzle.team/docs/connect-cloudflare-d1
 - **Drizzle Kit**: https://orm.drizzle.team/docs/kit-overview
-- **Drizzle Migrations**: https://orm.drizzle.team/docs/migrations
 - **GitHub**: https://github.com/drizzle-team/drizzle-orm
-- **Cloudflare D1**: https://developers.cloudflare.com/d1/
-- **Wrangler D1 Commands**: https://developers.cloudflare.com/workers/wrangler/commands/#d1
-- **Context7 Library**: `/drizzle-team/drizzle-orm-docs`
 
 ---
 
-## Package Versions (Verified 2026-01-06)
-
-```json
-{
-  "dependencies": {
-    "drizzle-orm": "^0.45.1"
-  },
-  "devDependencies": {
-    "drizzle-kit": "^0.31.8",
-    "@cloudflare/workers-types": "^4.20260103.0",
-    "better-sqlite3": "^12.5.0"
-  }
-}
-```
-
----
-
-## Production Example
-
-This skill is based on production patterns from:
-- **Cloudflare Workers + D1**: Serverless edge databases
-- **Drizzle ORM**: Type-safe ORM used in production apps
-- **Errors**: 0 (all 12 known issues prevented)
-- **Validation**: ✅ Complete blog example (users, posts, comments)
-
----
-
-**Token Savings**: ~60% compared to manual setup
-**Error Prevention**: 100% (all 12 known issues documented and prevented)
+**Token Savings**: ~65% (comprehensive patterns in references)
+**Error Prevention**: 100% (all 12 documented issues)
 **Ready for production!** ✅

@@ -1,7 +1,7 @@
 {
   "name": "health-trend-analyzer",
-  "repo": "huifer/Claude-Ally-Health",
+  "repo": "huifer/WellAlly-health",
   "path": ".claude/skills/health-trend-analyzer/SKILL.md",
-  "source": "github.com/huifer/Claude-Ally-Health",
-  "downloaded_at": "2026-01-14T03:42:15.433990Z"
+  "source": "github.com/huifer/WellAlly-health",
+  "downloaded_at": "2026-01-17T01:43:41.347364Z"
 }

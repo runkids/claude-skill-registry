@@ -1,7 +1,7 @@
 {
   "name": "database-migration",
-  "repo": "Doyajin174/myskills",
-  "path": ".public/skills/database-migration/SKILL.md",
-  "source": "github.com/Doyajin174/myskills",
-  "downloaded_at": "2026-01-14T03:45:38.988083Z"
+  "repo": "wshobson/agents",
+  "path": "plugins/framework-migration/skills/database-migration/SKILL.md",
+  "source": "github.com/wshobson/agents",
+  "downloaded_at": "2026-01-17T03:59:15.806332Z"
 }

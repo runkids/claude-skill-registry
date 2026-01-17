@@ -1,7 +1,7 @@
 {
   "name": "codebase-explorer",
-  "repo": "chriskrycho/nova-rust-2",
-  "path": ".claude/skills/codebase-explorer/SKILL.md",
-  "source": "github.com/chriskrycho/nova-rust-2",
-  "downloaded_at": "2026-01-14T02:40:17.812628Z"
+  "repo": "Acurioustractor/empathy-ledger-v2",
+  "path": ".claude/skills/local/codebase-explorer/SKILL.md",
+  "source": "github.com/Acurioustractor/empathy-ledger-v2",
+  "downloaded_at": "2026-01-17T02:21:54.047689Z"
 }

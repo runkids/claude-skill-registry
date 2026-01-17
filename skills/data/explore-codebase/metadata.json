@@ -1,12 +1,7 @@
 {
   "name": "explore-codebase",
-  "description": "Autonomously explore unfamiliar codebases using Julie's code intelligence. Use semantic search, symbol navigation, and call path tracing to understand architecture without reading entire files. Activa",
-  "repo": "anortham/julie",
-  "category": "development",
-  "tags": [
-    "explore",
-    "codebase"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "repo": "Sun-Lab-NBB/sl-experiment",
+  "path": ".claude/skills/explore-codebase/SKILL.md",
+  "source": "github.com/Sun-Lab-NBB/sl-experiment",
+  "downloaded_at": "2026-01-17T01:12:56.555192Z"
 }

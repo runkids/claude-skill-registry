@@ -1,12 +1,7 @@
 {
   "name": "energy-optimizer",
-  "description": "\"RAN energy efficiency optimization with cognitive consciousness, predictive power management, and autonomous energy-saving strategies for sustainable network operations. Use when optimizing RAN energ",
-  "repo": "ricable/ericsson-ran-automation-agentdb",
-  "category": "data",
-  "tags": [
-    "energy",
-    "optimizer"
-  ],
-  "stars": 0,
-  "source": "SkillsMP Synced Skills"
+  "repo": "ricable/ultimate-ai-agent",
+  "path": "sources/ricable/agentdb/.claude/skills/energy-optimizer/SKILL.md",
+  "source": "github.com/ricable/ultimate-ai-agent",
+  "downloaded_at": "2026-01-17T03:30:20.749235Z"
 }

@@ -1,122 +1,360 @@
 ---
 name: changelog-updater
-description: 更新 CHANGELOG.md。觸發：changelog、變更、版本、發布、改了什麼。
+description: Maintain and update the CHANGELOG.md file following Keep a Changelog format, documenting features, fixes, breaking changes, and migrations for each release.
+license: MIT
+compatibility: opencode
+metadata:
+  audience: developers
+  workflow: documentation
 ---
 
-# CHANGELOG 更新技能
+When updating the changelog, follow the [Keep a Changelog](https://keepachangelog.com/) format:
 
-## 觸發條件
-
-| 用戶說法 | 觸發 |
-|----------|------|
-| 更新 changelog、紀錄變更 | ✅ |
-| 發布、新版本 | ✅ |
-| 被 git-precommit 調用 | ✅ 自動觸發 |
-
----
-
-## 可用工具
-
-此技能使用標準檔案操作：
-
-| 操作 | 工具 |
-|------|------|
-| 讀取 | `read_file("CHANGELOG.md")` |
-| 更新 | `replace_string_in_file()` |
-| Git diff | `get_changed_files()` |
-
----
-
-## 格式規範
-
-遵循 [Keep a Changelog](https://keepachangelog.com/) 格式：
+## CHANGELOG.md Structure
 
 ```markdown
 # Changelog
 
+All notable changes to CasareRPA will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
 ## [Unreleased]
 
 ### Added
-- 新增功能
+- New features that have been added
 
 ### Changed
-- 變更功能
+- Changes to existing functionality
+
+### Deprecated
+- Features that will be removed in upcoming releases
+
+### Removed
+- Features that have been removed
 
 ### Fixed
-- 修復問題
+- Bug fixes
 
-## [1.0.0] - 2025-12-22
+### Security
+- Security vulnerability fixes
+
+## [X.Y.Z] - YYYY-MM-DD
 
 ### Added
-- 初始版本
+- Feature description
+
+### Fixed
+- Bug fix description
+
+<!-- Older versions below -->
 ```
 
----
+## Update Process
 
-## 分類規則
+### 1. Analyze Recent Changes
 
-| 類型 | 關鍵字 | 說明 |
-|------|--------|------|
-| Added | feat, 新增, add | 新功能 |
-| Changed | change, update, 變更 | 修改現有功能 |
-| Deprecated | deprecate, 棄用 | 即將移除的功能 |
-| Removed | remove, delete, 移除 | 已移除的功能 |
-| Fixed | fix, bug, 修復 | Bug 修復 |
-| Security | security, 安全 | 安全性更新 |
+```bash
+# Get commits since last release
+git log v2.1.0..HEAD --oneline
 
----
+# Or since last changelog update
+git log --since="2025-11-01" --oneline
 
-## 版本號規則 (SemVer)
-
-```
-MAJOR.MINOR.PATCH
-
-MAJOR: Breaking Changes（不向下相容）
-MINOR: 新功能（向下相容）
-PATCH: Bug 修復
+# See detailed changes
+git log v2.1.0..HEAD --pretty=format:"%h - %s (%an, %ad)" --date=short
 ```
 
----
+### 2. Categorize Changes
 
-## 標準工作流程
+**Added** - New features:
+- `feat:` commits
+- New nodes, controllers, components
+- New capabilities or integrations
+
+**Changed** - Modifications to existing features:
+- `refactor:` commits that change public API
+- Behavior changes
+- Performance improvements
+- Dependency updates
+
+**Deprecated** - Features marked for removal:
+- Deprecation warnings added
+- Compatibility layers introduced
+- Migration guides provided
+
+**Removed** - Deleted features:
+- Breaking changes removing functionality
+- Deprecated code removed
+- Old compatibility layers removed
+
+**Fixed** - Bug fixes:
+- `fix:` commits
+- Resolved issues
+- Corrected behavior
+
+**Security** - Security-related changes:
+- Vulnerability patches
+- Security improvements
+- Authentication/authorization changes
+
+### 3. Write Changelog Entries
+
+**Entry Format**:
+```markdown
+### Category
+
+- Brief description of change in user-facing language
+- Reference issue/PR if applicable: #123, #456
+- Note breaking changes with migration guidance
+```
+
+**Good Examples**:
+```markdown
+### Added
+- Browser node connection pooling for 60% faster workflow execution
+- PostgreSQL and MySQL async database support with connection pooling
+- Event-driven trigger system with 10 trigger types (Manual, Scheduled, Webhook, etc.)
+- Project management system with hierarchical scoping (Projects → Scenarios → Workflows)
+- Performance dashboard showing execution metrics and resource usage
+
+### Changed
+- Refactored MainWindow to controller pattern, reducing complexity from 1,200 to 650 lines
+- Improved error handling in browser nodes with automatic retry on transient failures
+- Updated test coverage from 45% to 78% for desktop automation nodes
+- Migrated to strict type system with value objects (ExecutionResult, Port, DataType)
+
+### Deprecated
+- `casare_rpa.core.types` module - Use `casare_rpa.domain.value_objects.types` instead
+- Dict-based port access - Use `Port` value object (removed in v3.0)
+- See [MIGRATION_GUIDE.md](MIGRATION_GUIDE.md) for details
+
+### Fixed
+- Variable resolution in nested workflow scopes (#234)
+- Memory leak in browser resource manager when reusing contexts
+- Race condition in async node execution with parallel workflows
+- Incorrect error reporting in desktop element selection
+
+### Security
+- Updated asyncpg to 0.29.2 to patch SQL injection vulnerability (CVE-2024-XXXXX)
+- Implemented credential encryption for workflow variable storage
+- Added input validation to prevent XSS in workflow JSON
+```
+
+**Bad Examples** (too technical, not user-focused):
+```markdown
+### Changed
+- Refactored ExecutionOrchestrator.execute() method
+- Updated imports in 15 files
+- Changed variable name from `ctx` to `context`
+```
+
+### 4. Version and Date
+
+For released versions:
+```markdown
+## [2.1.1] - 2025-12-01
+```
+
+For unreleased changes (ongoing development):
+```markdown
+## [Unreleased]
+```
+
+### 5. Breaking Changes Section
+
+For major versions or significant breaking changes:
+
+```markdown
+## [3.0.0] - 2026-01-15
+
+### BREAKING CHANGES
+
+#### Removed Compatibility Layer
+
+The `casare_rpa.core` compatibility layer has been removed. All imports must use domain layer directly.
+
+**Migration Required**:
 
 ```python
-# 1. 讀取現有 CHANGELOG
-read_file("CHANGELOG.md")
+# OLD (no longer works):
+from casare_rpa.core.types import DataType, NodeId
+from casare_rpa.core import Port
 
-# 2. 分析 Git diff
-get_changed_files()
-
-# 3. 分類變更
-# - 新檔案 → Added
-# - 修改檔案 → Changed/Fixed
-# - 刪除檔案 → Removed
-
-# 4. 更新 [Unreleased] 區塊
-replace_string_in_file(
-    filePath="CHANGELOG.md",
-    oldString="## [Unreleased]\n",
-    newString="## [Unreleased]\n\n### Added\n- 新增用戶認證模組\n"
-)
+# NEW (required):
+from casare_rpa.domain.value_objects.types import DataType, NodeId
+from casare_rpa.domain.value_objects import Port
 ```
 
----
+**Migration Tool**: Run `python scripts/migrate_imports.py` to automatically update imports.
 
-## 輸出範例
+**Timeline**: Compatibility layer was deprecated in v2.1, showing warnings since 2025-11-27.
 
+#### Changed Port Data Structure
+
+Ports are now value objects instead of dictionaries.
+
+**Migration Required**:
+
+```python
+# OLD:
+port_type = node.inputs['input1']['type']
+port_data = node.inputs['input1']['data']
+
+# NEW:
+port_type = node.inputs['input1'].data_type
+port_data = node.inputs['input1'].default_value
 ```
-📋 CHANGELOG 更新
 
-偵測到的變更：
-  - [Added] 新增用戶認證模組
-  - [Fixed] 修復登入問題
+**Impact**: All custom nodes must update port access patterns.
 
-建議版本：0.2.0 (MINOR - 新功能)
+**Documentation**: See [Port Migration Guide](docs/migrations/port-value-objects.md)
+
+### Added
+- Complete async execution engine with connection pooling
+<!-- ... rest of changes ... -->
 ```
 
----
+## Release Checklist
 
-## 相關技能
+When preparing a release changelog entry:
 
-- `git-precommit` - 提交前自動調用
-- `roadmap-updater` - 同步里程碑狀態
+- [ ] Review all commits since last release
+- [ ] Categorize each significant change
+- [ ] Write user-facing descriptions (not technical implementation details)
+- [ ] Reference related issues/PRs
+- [ ] Document breaking changes with migration guidance
+- [ ] Update version number following semantic versioning
+- [ ] Add release date
+- [ ] Move entries from [Unreleased] to new version section
+- [ ] Create new empty [Unreleased] section for next development cycle
+- [ ] Update links at bottom of file
+
+## Version Number Guidelines
+
+Follow [Semantic Versioning](https://semver.org/):
+
+**MAJOR** version (X.0.0): Breaking changes
+- Removing features
+- Changing public APIs
+- Requiring user migration
+Example: `2.5.3` → `3.0.0`
+
+**MINOR** version (X.Y.0): New features, backwards compatible
+- Adding new nodes
+- New capabilities
+- Non-breaking improvements
+Example: `2.5.3` → `2.6.0`
+
+**PATCH** version (X.Y.Z): Bug fixes, backwards compatible
+- Fixing bugs
+- Security patches
+- Documentation updates
+Example: `2.5.3` → `2.5.4`
+
+## Full CHANGELOG.md Example
+
+```markdown
+# Changelog
+
+All notable changes to CasareRPA will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+### Added
+- In-progress features not yet released
+
+## [2.2.0] - 2025-12-15
+
+### Added
+- Advanced trigger system with 10 trigger types
+- Project management system with hierarchical scoping
+- Performance dashboard for monitoring workflow execution
+- Connection pooling for browsers, databases, and HTTP sessions
+- 25 new desktop automation nodes for Office integration
+
+### Changed
+- Improved async execution performance by 60% with connection pooling
+- Enhanced error reporting with detailed stack traces and screenshots
+- Updated test coverage to 78% (1,255 tests)
+
+### Fixed
+- Variable resolution in nested workflow scopes (#234)
+- Memory leak in browser resource manager (#267)
+- Race condition in parallel workflow execution (#289)
+
+### Security
+- Updated Playwright to 1.41.0 (security patches)
+- Implemented workflow JSON schema validation
+
+## [2.1.0] - 2025-11-27
+
+### Added
+- Clean architecture with domain, application, infrastructure, presentation layers
+- 141 visual nodes organized in 12 categories
+- EventBus system with 115+ event types for loose coupling
+- Controller pattern (9 controllers) for UI logic
+- Component pattern (9 components) for feature modules
+- Comprehensive test suite with 1,255 tests (60% coverage)
+
+### Changed
+- Refactored MainWindow using controller pattern (1,200 → 650 lines)
+- Migrated to domain layer with value objects (Port, ExecutionResult, DataType)
+- Organized visual nodes from 3,793 lines across 27 files to 141 nodes in 12 files
+
+### Deprecated
+- `casare_rpa.core.types` - Use `casare_rpa.domain.value_objects.types` (removed in v3.0)
+- `casare_rpa.core.base_node.Port` - Use `casare_rpa.domain.value_objects.port.Port`
+- `visual_nodes.py` (4,285 lines) - Use category-specific files in `visual_nodes/`
+
+### Fixed
+- Runtime errors in application startup
+- Encapsulation violations in Week 4 refactoring
+
+## [2.0.0] - 2025-10-15
+
+### Added
+- Initial clean architecture implementation
+- 242 automation nodes across 27 categories
+- Workflow JSON format
+- Visual node-based canvas editor
+
+### BREAKING CHANGES
+
+#### New Architecture
+Complete restructuring to clean architecture pattern. See [REFACTORING_ROADMAP.md](REFACTORING_ROADMAP.md) for migration guide.
+
+## [1.0.0] - 2025-09-01
+
+Initial release.
+
+### Added
+- Basic workflow automation capabilities
+- Browser automation with Playwright
+- Desktop automation with uiautomation
+- Visual workflow designer
+- 50+ automation nodes
+
+[Unreleased]: https://github.com/user/casare-rpa/compare/v2.2.0...HEAD
+[2.2.0]: https://github.com/user/casare-rpa/compare/v2.1.0...v2.2.0
+[2.1.0]: https://github.com/user/casare-rpa/compare/v2.0.0...v2.1.0
+[2.0.0]: https://github.com/user/casare-rpa/compare/v1.0.0...v2.0.0
+[1.0.0]: https://github.com/user/casare-rpa/releases/tag/v1.0.0
+```
+
+## Usage
+
+When user requests changelog update:
+
+1. Run `git log` to see recent changes
+2. Categorize each significant commit
+3. Write user-facing descriptions
+4. Determine version number based on change types
+5. Update CHANGELOG.md with new section
+6. Move unreleased items if releasing
+7. Update version links at bottom
+8. Commit with message: `docs: update CHANGELOG for vX.Y.Z release`

@@ -1,34 +1,28 @@
 ---
 name: native-modules
-description: Expert in React Native native modules with New Architecture, Turbo Modules with Codegen, Fabric renderer, JSI (JavaScript Interface), New Architecture migration, bridging JavaScript and native code, iOS Swift modules, Android Kotlin modules, expo config plugins. IMPORTANT - Use Context7 for version-specific APIs. Activates for native module, native code, bridge, turbo module, JSI, fabric, autolinking, custom native module, ios module, android module, swift, kotlin, objective-c, java native code, codegen, new architecture.
+description: Expert in React Native native modules, bridging JavaScript and native code, writing custom native modules, using Turbo Modules, Fabric, JSI, autolinking, module configuration, iOS Swift/Objective-C modules, Android Kotlin/Java modules. Activates for native module, native code, bridge, turbo module, JSI, fabric, autolinking, custom native module, ios module, android module, swift, kotlin, objective-c, java native code.
 ---
 
-# Native Modules Expert (New Architecture)
+# Native Modules Expert
 
-Specialized in React Native native module integration with New Architecture. Expert in Turbo Modules, JSI, Fabric, Codegen, and modern native development patterns. Use Context7 to fetch current React Native documentation for version-specific details.
+Specialized in React Native native module integration, including custom native module development, third-party native library integration, and troubleshooting native code issues.
 
 ## What I Know
 
 ### Native Module Fundamentals
 
 **What Are Native Modules?**
-- Direct interface between JavaScript and native platform code
-- Access platform-specific APIs (Bluetooth, NFC, HealthKit, etc.)
-- Performance-critical operations via JSI
+- Bridge between JavaScript and native platform code
+- Access platform-specific APIs (Bluetooth, NFC, etc.)
+- Performance-critical operations
 - Integration with existing native SDKs
 
-**New Architecture (Default in RN 0.76+)**
-- **JSI** (JavaScript Interface): Direct JS ↔ Native communication (no JSON serialization)
-- **Turbo Modules**: Lazy-loaded, type-safe native modules with Codegen
-- **Fabric**: New concurrent rendering engine
-- **Codegen**: TypeScript → Native type generation
-
-**Key Benefits of New Architecture**
-- 10-100x faster than old bridge
-- Synchronous method calls possible
-- Type safety across JS/Native boundary
-- Lazy module loading (better startup)
-- Concurrent rendering with Fabric
+**Modern Architecture**
+- **Old Architecture**: Bridge-based (React Native < 0.68)
+- **New Architecture** (React Native 0.68+):
+  - **JSI** (JavaScript Interface): Direct JS ↔ Native communication
+  - **Turbo Modules**: Lazy-loaded native modules
+  - **Fabric**: New rendering engine
 
 ### Using Third-Party Native Modules
 
@@ -247,146 +241,28 @@ function MyComponent() {
 }
 ```
 
-### Turbo Modules (New Architecture - Default in RN 0.76+)
+### Turbo Modules (New Architecture)
 
-**Creating a Turbo Module with Codegen**
-
-Step 1: Create the TypeScript spec (source of truth for types):
+**Creating a Turbo Module**
 
 ```typescript
-// specs/NativeCalendarModule.ts
+// NativeCalendarModule.ts (Codegen spec)
 import type { TurboModule } from 'react-native';
 import { TurboModuleRegistry } from 'react-native';
 
 export interface Spec extends TurboModule {
-  // Sync method (fast, blocks JS thread)
-  getConstants(): {
-    DEFAULT_REMINDER_MINUTES: number;
-  };
-
-  // Async methods (recommended for most cases)
-  createEvent(name: string, location: string, date: number): Promise<string>;
+  createEvent(name: string, location: string, date: number): void;
   findEvents(): Promise<string[]>;
-  deleteEvent(eventId: string): Promise<boolean>;
-
-  // Callback-based (legacy pattern, prefer Promise)
-  getEventsWithCallback(callback: (events: string[]) => void): void;
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>('CalendarModule');
 ```
 
-Step 2: Configure Codegen in package.json:
-
-```json
-{
-  "codegenConfig": {
-    "name": "CalendarModuleSpec",
-    "type": "modules",
-    "jsSrcsDir": "specs",
-    "android": {
-      "javaPackageName": "com.myapp.calendar"
-    }
-  }
-}
-```
-
-Step 3: Implement the native side (iOS - Swift):
-
-```swift
-// CalendarModule.swift
-import Foundation
-
-@objc(CalendarModule)
-class CalendarModule: NSObject {
-
-  @objc static func moduleName() -> String! {
-    return "CalendarModule"
-  }
-
-  @objc static func requiresMainQueueSetup() -> Bool {
-    return false
-  }
-
-  @objc func getConstants() -> [String: Any] {
-    return ["DEFAULT_REMINDER_MINUTES": 15]
-  }
-
-  @objc func createEvent(_ name: String, location: String, date: Double,
-                         resolve: @escaping RCTPromiseResolveBlock,
-                         reject: @escaping RCTPromiseRejectBlock) {
-    DispatchQueue.global().async {
-      // Native implementation
-      let eventId = UUID().uuidString
-      resolve(eventId)
-    }
-  }
-
-  @objc func findEvents(_ resolve: @escaping RCTPromiseResolveBlock,
-                        reject: @escaping RCTPromiseRejectBlock) {
-    DispatchQueue.global().async {
-      let events = ["Meeting", "Lunch", "Call"]
-      resolve(events)
-    }
-  }
-
-  @objc func deleteEvent(_ eventId: String,
-                         resolve: @escaping RCTPromiseResolveBlock,
-                         reject: @escaping RCTPromiseRejectBlock) {
-    resolve(true)
-  }
-}
-```
-
-Step 4: Implement the native side (Android - Kotlin):
-
-```kotlin
-// CalendarModule.kt
-package com.myapp.calendar
-
-import com.facebook.react.bridge.*
-import com.facebook.react.module.annotations.ReactModule
-
-@ReactModule(name = CalendarModule.NAME)
-class CalendarModule(reactContext: ReactApplicationContext) :
-    NativeCalendarModuleSpec(reactContext) {
-
-    companion object {
-        const val NAME = "CalendarModule"
-    }
-
-    override fun getName(): String = NAME
-
-    override fun getConstants(): MutableMap<String, Any> {
-        return mutableMapOf("DEFAULT_REMINDER_MINUTES" to 15)
-    }
-
-    override fun createEvent(name: String, location: String, date: Double, promise: Promise) {
-        val eventId = java.util.UUID.randomUUID().toString()
-        promise.resolve(eventId)
-    }
-
-    override fun findEvents(promise: Promise) {
-        val events = Arguments.createArray().apply {
-            pushString("Meeting")
-            pushString("Lunch")
-            pushString("Call")
-        }
-        promise.resolve(events)
-    }
-
-    override fun deleteEvent(eventId: String, promise: Promise) {
-        promise.resolve(true)
-    }
-}
-```
-
 **Benefits of Turbo Modules**
-- **Lazy loading**: Only loaded when first accessed
-- **Type safety**: Codegen generates native interfaces from TypeScript
-- **10x faster**: Direct JSI calls, no JSON serialization
-- **Synchronous calls**: getConstants() can be sync
-- **Better DX**: TypeScript errors caught at build time
+- Lazy loading: Loaded only when used
+- Type safety with TypeScript
+- Faster initialization
+- Better performance via JSI
 
 ### Native UI Components
 
@@ -521,11 +397,6 @@ Ask me when you need help with:
 - Creating custom native UI components
 - Handling platform-specific APIs
 - Resolving autolinking issues
-- **Setting up Codegen for type-safe modules**
-- **Creating Fabric components (New Architecture UI)**
-- **JSI bindings for synchronous native calls**
-- **Expo config plugins for native configuration**
-- **Interop layer for legacy Bridge modules**
 
 ## Essential Commands
 
@@ -682,78 +553,6 @@ console.log(deviceId);  // Returns immediately
 ```
 
 **Warning**: Synchronous methods block the JS thread. Use only for very fast operations (<5ms).
-
-### 5. Expo Config Plugins
-
-For Expo projects, use config plugins to modify native code:
-
-```typescript
-// plugins/withCalendarPermission.ts
-import { ConfigPlugin, withInfoPlist, withAndroidManifest } from '@expo/config-plugins';
-
-const withCalendarPermission: ConfigPlugin = (config) => {
-  // iOS: Modify Info.plist
-  config = withInfoPlist(config, (config) => {
-    config.modResults.NSCalendarsUsageDescription =
-      'This app needs calendar access to schedule events';
-    return config;
-  });
-
-  // Android: Modify AndroidManifest.xml
-  config = withAndroidManifest(config, (config) => {
-    const mainApplication = config.modResults.manifest.application?.[0];
-    if (mainApplication) {
-      // Add permissions
-      config.modResults.manifest['uses-permission'] = [
-        ...(config.modResults.manifest['uses-permission'] || []),
-        { $: { 'android:name': 'android.permission.READ_CALENDAR' } },
-        { $: { 'android:name': 'android.permission.WRITE_CALENDAR' } },
-      ];
-    }
-    return config;
-  });
-
-  return config;
-};
-
-export default withCalendarPermission;
-```
-
-```json
-// app.json
-{
-  "expo": {
-    "plugins": [
-      "./plugins/withCalendarPermission"
-    ]
-  }
-}
-```
-
-### 6. Interop Layer for Legacy Bridge Modules
-
-RN 0.76+ includes an interop layer for Bridge modules in New Architecture:
-
-```typescript
-// For legacy modules that don't support Turbo Modules yet
-import { NativeModules, TurboModuleRegistry } from 'react-native';
-
-// This works in New Architecture via interop layer
-const LegacyModule = NativeModules.LegacyBridgeModule;
-
-// Or use the Turbo Module if available
-const TurboModule = TurboModuleRegistry.get('ModernModule');
-
-// Recommended: Create a wrapper that handles both
-export function getCalendarModule() {
-  // Try Turbo Module first
-  const turbo = TurboModuleRegistry.get('CalendarModule');
-  if (turbo) return turbo;
-
-  // Fall back to Bridge module via interop
-  return NativeModules.CalendarModule;
-}
-```
 
 ## Integration with SpecWeave
 

@@ -1,463 +1,181 @@
 ---
 name: typo3-docs
-description: Create and maintain TYPO3 extension documentation following official docs.typo3.org standards. RST syntax, TYPO3 directives, rendering, and deployment.
-version: 1.0.0
-typo3_compatibility: "13.0 - 14.x"
-triggers:
-  - documentation
-  - rst
-  - docs
-  - readme
-  - typo3 documentation
+description: "Create and maintain TYPO3 extension documentation following official docs.typo3.org standards. Use when creating/editing Documentation/*.rst files or README.md, using TYPO3 directives (confval, versionadded, card-grid, accordion, tabs, admonitions), creating/adding screenshots, rendering/testing/viewing docs locally, or deploying to docs.typo3.org. By Netresearch."
 ---
 
 # TYPO3 Documentation Skill
 
 Create and maintain TYPO3 extension documentation following official docs.typo3.org standards.
 
-## When to Use
+## Core Workflow
 
-- Creating documentation from scratch (no `Documentation/` exists)
-- Editing `Documentation/**/*.rst` files
-- Using TYPO3 directives: `confval`, `versionadded`, `card-grid`, `tabs`
-- Creating/adding screenshots
-- Rendering and testing documentation locally
-- Deploying to docs.typo3.org
+To create or maintain TYPO3 documentation, follow these steps:
 
-## Documentation Structure
+1. Consult the appropriate reference file for the task
+2. Use TYPO3-specific directives, not plain text
+3. Run `scripts/validate_docs.sh` to check syntax
+4. Run `scripts/render_docs.sh` to build HTML output
+5. Verify rendered output visually in browser
+6. Keep README.md and Documentation/ synchronized
 
-```
-Documentation/
-├── Index.rst                 # Main entry point
-├── guides.xml                # Configuration file
-├── Introduction/
-│   └── Index.rst
-├── Installation/
-│   └── Index.rst
-├── Configuration/
-│   └── Index.rst
-├── Usage/
-│   └── Index.rst
-├── Developer/
-│   └── Index.rst
-└── Images/
-    └── screenshot.png
-```
+> **Critical**: When the user asks to "show docs", render and display HTML output, not raw RST.
 
-## Creating Documentation from Scratch
+## Using Reference Documentation
 
-When no `Documentation/` directory exists, use the init command:
+### File Structure and Setup
+
+When setting up documentation structure, consult `references/file-structure.md` for directory layout, file naming conventions, and required files.
+
+When configuring guides.xml, consult `references/guides-xml.md` for build configuration, project metadata, and interlink settings.
+
+When setting up editor configuration, consult `references/coding-guidelines.md` for .editorconfig requirements, indentation rules, and line length limits.
+
+### RST Syntax and Elements
+
+When writing RST content, consult `references/rst-syntax.md` for heading levels, lists, tables, and basic formatting.
+
+When using inline code references, consult `references/text-roles-inline-code.md` for text roles like `:php:`, `:file:`, `:guilabel:`, and `:ref:`.
+
+When documenting code, consult `references/code-structure-elements.md` for code blocks, literalinclude, confval directives, and PHP domain syntax.
+
+When using TYPO3-specific directives, consult `references/typo3-directives.md` for confval, versionadded, versionchanged, deprecated, and other TYPO3 directives.
+
+When creating interactive content, consult `references/content-directives.md` for accordion, tabs, card-grid, and admonition directives.
+
+### Images and Screenshots
+
+When adding screenshots, consult `references/screenshots.md` for image requirements, alt text, figure directives, and screenshot best practices.
+
+### Rendering and Deployment
+
+When rendering documentation locally, consult `references/rendering.md` for Docker commands, live preview, and troubleshooting.
+
+When deploying to docs.typo3.org, consult `references/intercept-deployment.md` for webhook configuration, build triggers, and deployment verification.
+
+### Advanced Topics
+
+When writing Architecture Decision Records, consult `references/architecture-decision-records.md` for ADR templates, directory structure, and RST formatting.
+
+When analyzing documentation coverage, consult `references/documentation-coverage-analysis.md` for feature coverage methodology and gap analysis.
+
+When extracting documentation from code, consult `references/extraction-patterns.md` for automated extraction workflows and data flow.
+
+When understanding TYPO3 extension structure, consult `references/typo3-extension-architecture.md` for file hierarchy and documentation priority weighting.
+
+## Running Scripts
+
+### Documentation Validation
+
+To validate RST syntax before committing:
 
 ```bash
-docker run --rm --pull always -v $(pwd):/project -it \
-  ghcr.io/typo3-documentation/render-guides:latest init
+scripts/validate_docs.sh /path/to/extension
 ```
 
-**Interactive prompts:**
-1. **Format**: Choose `rst` (ReStructuredText) for full TYPO3 theme features
-2. **Site Set**: Enter name/path if extension defines a Site set
+### Documentation Rendering
 
-## guides.xml Configuration
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<guides xmlns="https://www.phpdoc.org/guides" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="https://www.phpdoc.org/guides https://docs.typo3.org/render-guides/guides.xsd">
-    <project title="My Extension"/>
-    <extension name="my_extension"/>
-</guides>
-```
-
-### With GitHub Integration
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<guides xmlns="https://www.phpdoc.org/guides" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="https://www.phpdoc.org/guides https://docs.typo3.org/render-guides/guides.xsd">
-    <project title="My Extension" version="1.0.0"/>
-    <extension name="my_extension"/>
-    <inventory id="t3coreapi" url="https://docs.typo3.org/m/typo3/reference-coreapi/main/en-us/"/>
-    <settings>
-        <setting name="edit_on_github" value="https://github.com/vendor/my-extension/edit/main/Documentation/"/>
-        <setting name="edit_on_github_branch" value="main"/>
-    </settings>
-</guides>
-```
-
-## RST Syntax Reference
-
-### Headings
-
-```rst
-==========
-Page Title
-==========
-
-Section
-=======
-
-Subsection
-----------
-
-Subsubsection
-~~~~~~~~~~~~~
-```
-
-### Code Blocks
-
-```rst
-..  code-block:: php
-    :caption: Classes/Service/MyService.php
-
-    <?php
-    declare(strict_types=1);
-
-    namespace Vendor\MyExtension\Service;
-
-    final class MyService
-    {
-        // ...
-    }
-```
-
-### Inline Code and Text Roles
-
-```rst
-Use :php:`MyClass` for PHP references.
-The file :file:`ext_localconf.php` is loaded automatically.
-Click :guilabel:`Save` to apply changes.
-Press :kbd:`Ctrl+S` to save.
-```
-
-### Links and References
-
-```rst
-See :ref:`my-reference-label` for more information.
-
-External link: `TYPO3 Documentation <https://docs.typo3.org/>`__
-
-..  _my-reference-label:
-
-Section with Reference
-======================
-
-This section can be referenced from anywhere.
-```
-
-## TYPO3 Directives
-
-### confval (Configuration Values)
-
-```rst
-..  confval:: encryptionMethod
-    :name: ext-myext-encryptionMethod
-    :type: string
-    :default: 'aes-256-gcm'
-    :required: false
-
-    The encryption method to use for API keys.
-
-    Available options:
-
-    -   ``aes-256-gcm`` (recommended)
-    -   ``aes-256-cbc``
-```
-
-### versionadded / versionchanged / deprecated
-
-```rst
-..  versionadded:: 2.0.0
-    This feature was added in version 2.0.0.
-
-..  versionchanged:: 2.1.0
-    The default value was changed from ``false`` to ``true``.
-
-..  deprecated:: 3.0.0
-    Use :php:`newMethod()` instead.
-```
-
-### Admonitions
-
-```rst
-..  note::
-    Background information users should know.
-
-..  tip::
-    Helpful suggestion for better results.
-
-..  warning::
-    Potential issue or data loss risk.
-
-..  important::
-    Critical information that must not be missed.
-```
-
-### Tabs
-
-```rst
-..  tabs::
-
-    ..  group-tab:: Composer
-
-        Install via Composer:
-
-        ..  code-block:: bash
-
-            composer require vendor/my-extension
-
-    ..  group-tab:: TER
-
-        Download from the TYPO3 Extension Repository.
-```
-
-### Card Grid
-
-```rst
-..  card-grid::
-    :columns: 2
-    :card-height: 100
-
-    ..  card:: Installation
-
-        Learn how to install the extension.
-
-        :ref:`Read more <installation>`
-
-    ..  card:: Configuration
-
-        Configure the extension for your needs.
-
-        :ref:`Read more <configuration>`
-```
-
-### Accordion
-
-```rst
-..  accordion::
-
-    ..  accordion-item:: How do I install this extension?
-
-        See the :ref:`installation` chapter.
-
-    ..  accordion-item:: What PHP version is required?
-
-        PHP 8.2 or higher is required.
-```
-
-## Editor Configuration
-
-Create `Documentation/.editorconfig`:
-
-```editorconfig
-root = true
-
-[*]
-charset = utf-8
-end_of_line = lf
-indent_style = space
-indent_size = 4
-insert_final_newline = true
-trim_trailing_whitespace = true
-max_line_length = 80
-```
-
-## Rendering Documentation
-
-### Local Rendering
+To render documentation to HTML:
 
 ```bash
-# Render documentation
-docker run --rm --pull always -v $(pwd):/project -it \
-  ghcr.io/typo3-documentation/render-guides:latest
-
-# Output is in Documentation-GENERATED-temp/
+scripts/render_docs.sh /path/to/extension
 ```
 
-### With Live Preview
+### Documentation Extraction
+
+To extract documentation data from all sources:
 
 ```bash
-# Start watch mode for live preview
-docker run --rm --pull always -v $(pwd):/project -p 8080:8080 -it \
-  ghcr.io/typo3-documentation/render-guides:latest --watch
-
-# Open http://localhost:8080 in browser
+scripts/extract-all.sh /path/to/extension
 ```
 
-### Validation
+To extract from specific sources:
 
 ```bash
-# Validate RST syntax
-docker run --rm --pull always -v $(pwd):/project -it \
-  ghcr.io/typo3-documentation/render-guides:latest --no-progress --fail-on-log
+# Extract PHP API documentation
+scripts/extract-php.sh /path/to/extension
+
+# Extract extension configuration (ext_emconf.php, ext_localconf.php)
+scripts/extract-extension-config.sh /path/to/extension
+
+# Extract Composer metadata
+scripts/extract-composer.sh /path/to/extension
+
+# Extract build configurations (CI, testing)
+scripts/extract-build-configs.sh /path/to/extension
+
+# Extract project files (README, CHANGELOG)
+scripts/extract-project-files.sh /path/to/extension
+
+# Extract repository metadata (GitHub/GitLab)
+scripts/extract-repo-metadata.sh /path/to/extension
 ```
 
-## Screenshots
+### Documentation Analysis
 
-### Requirements
-- PNG format
-- 72 DPI
-- Appropriate size (not too large)
-- Always include `:alt:` text
+To analyze documentation coverage and identify gaps:
 
-### Adding Screenshots
-
-```rst
-..  figure:: /Images/BackendModule.png
-    :alt: Backend module screenshot
-    :class: with-shadow
-
-    The backend module provides an overview of all items.
+```bash
+scripts/analyze-docs.sh /path/to/extension
 ```
 
-### Screenshot Directory
+### AI Context Setup
 
-```
-Documentation/
-└── Images/
-    ├── BackendModule.png
-    ├── Configuration.png
-    └── Frontend.png
+To add AGENTS.md template to Documentation/ folder:
+
+```bash
+scripts/add-agents-md.sh /path/to/extension
 ```
 
-## Writing Guidelines
+## Using Asset Templates
 
-### General Rules
-- Use **American English** spelling (color, behavior, optimize)
-- Use **sentence case** for headings (not Title Case)
-- Maximum line length: **80 characters**
-- Use **4 spaces** for indentation (no tabs)
-- Add blank line before and after code blocks
-- Use present tense
+### AI Agent Context
 
-### CamelCase for Files
-- `Index.rst` (not `index.rst`)
-- `Configuration/` (not `configuration/`)
-- `BackendModule.png` (not `backend-module.png`)
+To provide AI assistants with documentation context, copy `assets/AGENTS.md` to the extension's `Documentation/` folder. This template includes:
+- Documentation type and strategy
+- Target audience definition
+- File structure overview
+- Style guidelines for AI-generated content
 
-### Example: Good Documentation
+## Critical Rules
 
-```rst
-============
-Installation
-============
+- **UTF-8** encoding, **4-space** indentation, **80 character** max line length, **LF** line endings
+- **CamelCase** for file and directory names, **sentence case** for headings
+- **Index.rst** required in every subdirectory
+- **PNG** format for screenshots with `:alt:` text
+- **.editorconfig** required in `Documentation/` directory
 
-This chapter explains how to install the extension.
+## Element Selection Guide
 
-Requirements
-============
+| Content Type | Directive to Use |
+|--------------|------------------|
+| Code (5+ lines) | `literalinclude` (preferred) |
+| Short code snippets | `code-block` with `:caption:` |
+| Configuration options | `confval` with `:type:`, `:default:` |
+| PHP API documentation | `php:class::`, `php:method::` |
+| Important notices | `note`, `tip`, `warning`, `important` |
+| Feature grids | `card-grid` |
+| Alternative approaches | `tabs` (synchronized) |
+| Collapsible content | `accordion` |
 
--   TYPO3 v13.4 or v14.x
--   PHP 8.2 or higher
+## Pre-Commit Checklist
 
-Installation via Composer
-=========================
+1. `.editorconfig` exists in `Documentation/`
+2. Every directory has `Index.rst` with CamelCase naming
+3. 4-space indentation, no tabs, max 80 characters per line
+4. Code blocks have `:caption:` and valid syntax highlighting
+5. Inline code uses appropriate roles (`:php:`, `:file:`, `:typoscript:`)
+6. `scripts/validate_docs.sh` passes without errors
+7. Visual verification of rendered HTML output
+8. README.md and Documentation/ content is consistent
 
-Run the following command:
+## External Resources
 
-..  code-block:: bash
+When understanding TYPO3 documentation standards, consult the [TYPO3 Documentation Writing Guide](https://docs.typo3.org/m/typo3/docs-how-to-document/main/en-us/).
 
-    composer require vendor/my-extension
+When seeking rendering tool documentation, consult the [TYPO3 Documentation Rendering](https://github.com/typo3-documentation/render-guides).
 
-After installation, activate the extension:
-
-..  code-block:: bash
-
-    vendor/bin/typo3 extension:activate my_extension
-```
-
-## Deployment to docs.typo3.org
-
-### Prerequisites
-1. Extension registered on extensions.typo3.org
-2. Documentation in `Documentation/` directory
-3. Valid `guides.xml` configuration
-
-### Webhook Setup
-
-1. Go to https://intercept.typo3.com/
-2. Login with TYPO3.org account
-3. Register your repository
-4. Add webhook to GitHub/GitLab
-
-### Trigger Rendering
-
-Documentation is automatically rendered when:
-- Webhook receives push event
-- Manual trigger via Intercept
-
-## Complete Index.rst Example
-
-```rst
-..  include:: /Includes.rst.txt
-
-.. _start:
-
-==============
-My Extension
-==============
-
-:Extension key:
-    my_extension
-
-:Package name:
-    vendor/my-extension
-
-:Version:
-    |release|
-
-:Language:
-    en
-
-:Author:
-    Your Name
-
-:License:
-    This document is published under the
-    `Creative Commons BY 4.0 <https://creativecommons.org/licenses/by/4.0/>`__
-    license.
-
-:Rendered:
-    |today|
-
-----
-
-This extension provides functionality for managing items.
-
-----
-
-**Table of Contents**
-
-..  toctree::
-    :maxdepth: 2
-    :titlesonly:
-
-    Introduction/Index
-    Installation/Index
-    Configuration/Index
-    Usage/Index
-    Developer/Index
-
-..  toctree::
-    :hidden:
-
-    Sitemap
-```
-
-## Resources
-
-- **TYPO3 Documentation Guide**: https://docs.typo3.org/m/typo3/docs-how-to-document/main/en-us/
-- **RST Primer**: https://docs.typo3.org/m/typo3/docs-how-to-document/main/en-us/WritingReST/
-- **Render Guides**: https://github.com/TYPO3-Documentation/render-guides
-- **Intercept**: https://intercept.typo3.com/
+When checking directive syntax, consult the [TYPO3 Documentation Reference](https://docs.typo3.org/m/typo3/docs-how-to-document/main/en-us/WritingReST/Reference/).
 
 ---
 
-## Credits & Attribution
-
-This skill is based on the excellent work by
-**[Netresearch DTT GmbH](https://www.netresearch.de/)**.
-
-Original repository: https://github.com/netresearch/typo3-docs-skill
-
-**Copyright (c) Netresearch DTT GmbH** - Methodology and best practices  
-Adapted by webconsulting.at for this skill collection
+> **Contributing:** https://github.com/netresearch/typo3-docs-skill

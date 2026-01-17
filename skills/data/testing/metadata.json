@@ -1,7 +1,7 @@
 {
   "name": "testing",
-  "repo": "sayali-ingle-pdl/adusa-ai-vuejs-app-template",
-  "path": ".github/agents/app-starter/agents-context/skills/testing/SKILL.md",
-  "source": "github.com/sayali-ingle-pdl/adusa-ai-vuejs-app-template",
-  "downloaded_at": "2026-01-14T04:00:39.295552Z"
+  "repo": "homecity/langchain-forum",
+  "path": "skills/testing/langsmith-testing-SKILL.md",
+  "source": "github.com/homecity/langchain-forum",
+  "downloaded_at": "2026-01-17T04:06:41.895029Z"
 }

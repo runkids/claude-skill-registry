@@ -1,9 +1,7 @@
 {
   "name": "langgraph-supervisor",
-  "description": "LangGraph supervisor-worker pattern. Use when building central coordinator agents that route to specialized workers, implementing round-robin or priority-based agent dispatch.",
   "repo": "yonatangross/skillforge-claude-plugin",
-  "category": "development",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": "skills/langgraph-supervisor/SKILL.md",
+  "source": "github.com/yonatangross/skillforge-claude-plugin",
+  "downloaded_at": "2026-01-17T01:47:49.722856Z"
 }

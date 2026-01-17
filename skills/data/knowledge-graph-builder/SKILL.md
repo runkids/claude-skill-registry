@@ -1,558 +1,426 @@
 ---
 name: Knowledge Graph Builder
-description: Design and build knowledge graphs. Use when modeling complex relationships, building semantic search, or creating knowledge bases. Covers schema design, entity relationships, and graph database selection.
-version: 1.0.0
+slug: knowledge-graph-builder
+description: Build knowledge graphs for support systems, connecting concepts, articles, and solutions
+category: customer-support
+complexity: complex
+version: "1.0.0"
+author: "ID8Labs"
+triggers:
+  - "knowledge graph"
+  - "knowledge mapping"
+  - "concept relationships"
+  - "support knowledge base"
+  - "semantic connections"
+  - "knowledge network"
+tags:
+  - knowledge-graph
+  - knowledge-management
+  - semantic-search
+  - support-systems
+  - content-architecture
 ---
 
 # Knowledge Graph Builder
 
-Build structured knowledge graphs for enhanced AI system performance through relational knowledge.
-
-## Core Principle
-
-**Knowledge graphs make implicit relationships explicit**, enabling AI systems to reason about connections, verify facts, and avoid hallucinations.
-
-## When to Use Knowledge Graphs
-
-### Use Knowledge Graphs When:
-
-- ✅ Complex entity relationships are central to your domain
-- ✅ Need to verify AI-generated facts against structured knowledge
-- ✅ Semantic search and relationship traversal required
-- ✅ Data has rich interconnections (people, organizations, products)
-- ✅ Need to answer "how are X and Y related?" queries
-- ✅ Building recommendation systems based on relationships
-- ✅ Fraud detection or pattern recognition across connected data
-
-### Don't Use Knowledge Graphs When:
-
-- ❌ Simple tabular data (use relational DB)
-- ❌ Purely document-based search (use RAG with vector DB)
-- ❌ No significant relationships between entities
-- ❌ Team lacks graph modeling expertise
-- ❌ Read-heavy workload with no traversal (use traditional DB)
-
----
-
-## 6-Phase Knowledge Graph Implementation
-
-### Phase 1: Ontology Design
-
-**Goal**: Define entities, relationships, and properties for your domain
-
-**Entity Types** (Nodes):
-
-- Person, Organization, Location, Product, Concept, Event, Document
-
-**Relationship Types** (Edges):
-
-- Hierarchical: IS_A, PART_OF, REPORTS_TO
-- Associative: WORKS_FOR, LOCATED_IN, AUTHORED_BY, RELATED_TO
-- Temporal: CREATED_ON, OCCURRED_BEFORE, OCCURRED_AFTER
-
-**Properties** (Attributes):
-
-- Node properties: id, name, type, created_at, metadata
-- Edge properties: type, confidence, source, timestamp
-
-**Example Ontology**:
-
-```turtle
-# RDF/Turtle format
-@prefix : <http://example.org/ontology#> .
-
-:Person a owl:Class ;
-    rdfs:label "Person" .
-
-:Organization a owl:Class ;
-    rdfs:label "Organization" .
-
-:worksFor a owl:ObjectProperty ;
-    rdfs:domain :Person ;
-    rdfs:range :Organization ;
-    rdfs:label "works for" .
-```
-
-**Validation**:
-
-- [ ] Entities cover all domain concepts
-- [ ] Relationships capture key connections
-- [ ] Ontology reviewed with domain experts
-- [ ] Classification hierarchy defined (is-a relationships)
-
----
-
-### Phase 2: Graph Database Selection
-
-**Decision Matrix**:
-
-**Neo4j** (Recommended for most):
-
-- Pros: Mature, Cypher query language, graph algorithms, excellent visualization
-- Cons: Licensing costs for enterprise, scaling complexity
-- Use when: Complex queries, graph algorithms, team can learn Cypher
-
-**Amazon Neptune**:
-
-- Pros: Managed service, supports Gremlin and SPARQL, AWS integration
-- Cons: Vendor lock-in, more expensive than self-hosted
-- Use when: AWS infrastructure, need managed service, compliance requirements
-
-**ArangoDB**:
-
-- Pros: Multi-model (graph + document + key-value), JavaScript queries
-- Cons: Smaller community, fewer graph-specific features
-- Use when: Need document DB + graph in one system
-
-**TigerGraph**:
-
-- Pros: Best performance for deep traversals, parallel processing
-- Cons: Complex setup, higher learning curve
-- Use when: Massive graphs (billions of edges), real-time analytics
-
-**Technology Stack**:
-
-```yaml
-graph_database: 'Neo4j Community' # or Enterprise for production
-vector_integration: 'Pinecone' # For hybrid search
-embeddings: 'text-embedding-3-large' # OpenAI
-etl: 'Apache Airflow' # For data pipelines
-```
-
-**Neo4j Schema Setup**:
-
-```cypher
-// Create constraints for uniqueness
-CREATE CONSTRAINT person_id IF NOT EXISTS
-FOR (p:Person) REQUIRE p.id IS UNIQUE;
-
-CREATE CONSTRAINT org_name IF NOT EXISTS
-FOR (o:Organization) REQUIRE o.name IS UNIQUE;
-
-// Create indexes for performance
-CREATE INDEX entity_search IF NOT EXISTS
-FOR (e:Entity) ON (e.name, e.type);
-
-CREATE INDEX relationship_type IF NOT EXISTS
-FOR ()-[r:RELATED_TO]-() ON (r.type, r.confidence);
-```
-
----
-
-### Phase 3: Entity Extraction & Relationship Building
-
-**Goal**: Extract entities and relationships from data sources
-
-**Data Sources**:
-
-- Structured: Databases, APIs, CSV files
-- Unstructured: Documents, web content, text files
-- Semi-structured: JSON, XML, knowledge bases
-
-**Entity Extraction Pipeline**:
-
-```python
-class EntityExtractionPipeline:
-    def __init__(self):
-        self.ner_model = load_ner_model()  # spaCy, Hugging Face
-        self.entity_linker = EntityLinker()
-        self.deduplicator = EntityDeduplicator()
-
-    def process_text(self, text: str) -> List[Entity]:
-        # 1. Extract named entities
-        entities = self.ner_model.extract(text)
-
-        # 2. Link to existing entities (entity resolution)
-        linked_entities = self.entity_linker.link(entities)
-
-        # 3. Deduplicate and resolve conflicts
-        resolved_entities = self.deduplicator.resolve(linked_entities)
-
-        return resolved_entities
-```
-
-**Relationship Extraction**:
-
-```python
-class RelationshipExtractor:
-    def extract_relationships(self, entities: List[Entity],
-                            text: str) -> List[Relationship]:
-        relationships = []
-
-        # Use dependency parsing or LLM for extraction
-        doc = self.nlp(text)
-        for sent in doc.sents:
-            rels = self.extract_from_sentence(sent, entities)
-            relationships.extend(rels)
-
-        # Validate against ontology
-        valid_relationships = self.validate_relationships(relationships)
-        return valid_relationships
-```
-
-**LLM-Based Extraction** (for complex relationships):
-
-```python
-def extract_with_llm(text: str) -> List[Relationship]:
-    prompt = f"""
-    Extract entities and relationships from this text:
-    {text}
-
-    Format: (Entity1, Relationship, Entity2, Confidence)
-    Only extract factual relationships.
-    """
-
-    response = llm.generate(prompt)
-    relationships = parse_llm_response(response)
-    return relationships
-```
-
-**Validation**:
-
-- [ ] Entity extraction accuracy >85%
-- [ ] Entity deduplication working
-- [ ] Relationships validated against ontology
-- [ ] Confidence scores assigned
-
----
-
-### Phase 4: Hybrid Knowledge-Vector Architecture
-
-**Goal**: Combine structured graph with semantic vector search
-
-**Architecture**:
-
-```python
-class HybridKnowledgeSystem:
-    def __init__(self):
-        self.graph_db = Neo4jConnection()
-        self.vector_db = PineconeClient()
-        self.embedding_model = OpenAIEmbeddings()
-
-    def store_entity(self, entity: Entity):
-        # Store structured data in graph
-        self.graph_db.create_node(entity)
-
-        # Store embeddings in vector database
-        embedding = self.embedding_model.embed(entity.description)
-        self.vector_db.upsert(
-            id=entity.id,
-            values=embedding,
-            metadata=entity.metadata
-        )
-
-    def hybrid_search(self, query: str, top_k: int = 10) -> SearchResults:
-        # 1. Vector similarity search
-        query_embedding = self.embedding_model.embed(query)
-        vector_results = self.vector_db.query(
-            vector=query_embedding,
-            top_k=100
-        )
-
-        # 2. Graph traversal from vector results
-        entity_ids = [r.id for r in vector_results.matches]
-        graph_results = self.graph_db.get_subgraph(entity_ids, max_hops=2)
-
-        # 3. Merge and rank results
-        merged = self.merge_results(vector_results, graph_results)
-        return merged[:top_k]
-```
-
-**Benefits of Hybrid Approach**:
-
-- Vector search: Semantic similarity, flexible queries
-- Graph traversal: Relationship-based reasoning, context expansion
-- Combined: Best of both worlds
-
----
-
-### Phase 5: Query Patterns & API Design
-
-**Common Query Patterns**:
-
-**1. Find Entity**:
-
-```cypher
-MATCH (e:Entity {id: $entity_id})
-RETURN e
-```
-
-**2. Find Relationships**:
-
-```cypher
-MATCH (source:Entity {id: $entity_id})-[r]-(target)
-RETURN source, r, target
-LIMIT 20
-```
-
-**3. Path Between Entities**:
-
-```cypher
-MATCH path = shortestPath(
-  (source:Person {id: $source_id})-[*..5]-(target:Person {id: $target_id})
-)
-RETURN path
-```
-
-**4. Multi-Hop Traversal**:
-
-```cypher
-MATCH (p:Person {name: $name})-[:WORKS_FOR]->(o:Organization)-[:LOCATED_IN]->(l:Location)
-RETURN p.name, o.name, l.city
-```
-
-**5. Recommendation Query**:
-
-```cypher
-// Find people similar to this person based on shared organizations
-MATCH (p1:Person {id: $person_id})-[:WORKS_FOR]->(o:Organization)<-[:WORKS_FOR]-(p2:Person)
-WHERE p1 <> p2
-RETURN p2, COUNT(o) AS shared_orgs
-ORDER BY shared_orgs DESC
-LIMIT 10
-```
-
-**Knowledge Graph API**:
-
-```python
-class KnowledgeGraphAPI:
-    def __init__(self, graph_db):
-        self.graph = graph_db
-
-    def find_entity(self, entity_name: str) -> Entity:
-        """Find entity by name with fuzzy matching"""
-        query = """
-        MATCH (e:Entity)
-        WHERE e.name CONTAINS $name
-        RETURN e
-        ORDER BY apoc.text.levenshtein(e.name, $name)
-        LIMIT 1
-        """
-        return self.graph.run(query, name=entity_name).single()
-
-    def find_relationships(self, entity_id: str,
-                         relationship_type: str = None,
-                         max_hops: int = 2) -> List[Relationship]:
-        """Find relationships within specified hops"""
-        query = f"""
-        MATCH (source:Entity {{id: $entity_id}})
-        MATCH path = (source)-[r*1..{max_hops}]-(target)
-        RETURN path, relationships(path) AS rels
-        LIMIT 100
-        """
-        return self.graph.run(query, entity_id=entity_id).data()
-
-    def get_subgraph(self, entity_ids: List[str],
-                    max_hops: int = 2) -> Subgraph:
-        """Get connected subgraph for multiple entities"""
-        query = f"""
-        MATCH (e:Entity)
-        WHERE e.id IN $entity_ids
-        CALL apoc.path.subgraphAll(e, {{maxLevel: {max_hops}}})
-        YIELD nodes, relationships
-        RETURN nodes, relationships
-        """
-        return self.graph.run(query, entity_ids=entity_ids).data()
-```
-
----
-
-### Phase 6: AI Integration & Hallucination Prevention
-
-**Goal**: Use knowledge graph to ground LLM responses and detect hallucinations
-
-**Knowledge Graph RAG**:
-
-```python
-class KnowledgeGraphRAG:
-    def __init__(self, kg_api, llm_client):
-        self.kg = kg_api
-        self.llm = llm_client
-
-    def retrieve_context(self, query: str) -> str:
-        # Extract entities from query
-        entities = self.extract_entities_from_query(query)
-
-        # Retrieve relevant subgraph
-        subgraph = self.kg.get_subgraph(
-            [e.id for e in entities],
-            max_hops=2
-        )
-
-        # Format subgraph for LLM
-        context = self.format_subgraph_for_llm(subgraph)
-        return context
-
-    def generate_with_grounding(self, query: str) -> GroundedResponse:
-        context = self.retrieve_context(query)
-
-        prompt = f"""
-        Context from knowledge graph:
-        {context}
-
-        User query: {query}
-
-        Answer based only on the provided context. Include source entities.
-        """
-
-        response = self.llm.generate(prompt)
-
-        return GroundedResponse(
-            response=response,
-            sources=self.extract_sources(context),
-            confidence=self.calculate_confidence(response, context)
-        )
-```
-
-**Hallucination Detection**:
-
-```python
-class HallucinationDetector:
-    def __init__(self, knowledge_graph):
-        self.kg = knowledge_graph
-
-    def verify_claim(self, claim: str) -> VerificationResult:
-        # Parse claim into (subject, predicate, object)
-        parsed_claim = self.parse_claim(claim)
-
-        # Query knowledge graph for evidence
-        evidence = self.kg.find_evidence(
-            parsed_claim.subject,
-            parsed_claim.predicate,
-            parsed_claim.object
-        )
-
-        if evidence:
-            return VerificationResult(
-                is_supported=True,
-                evidence=evidence,
-                confidence=evidence.confidence
-            )
-
-        # Check for contradictory evidence
-        contradiction = self.kg.find_contradiction(parsed_claim)
-
-        return VerificationResult(
-            is_supported=False,
-            is_contradicted=bool(contradiction),
-            contradiction=contradiction
-        )
-```
-
----
-
-## Key Principles
-
-### 1. Start with Ontology
-
-Define your schema before ingesting data. Changing ontology later is expensive.
-
-### 2. Entity Resolution is Critical
-
-Deduplicate entities aggressively. "Apple Inc", "Apple", "Apple Computer" → same entity.
-
-### 3. Confidence Scores on Everything
-
-Every relationship should have a confidence score (0.0-1.0) and source.
-
-### 4. Incremental Building
-
-Don't try to model entire domain at once. Start with core entities and expand.
-
-### 5. Hybrid Architecture Wins
-
-Combine graph traversal (structured) with vector search (semantic) for best results.
-
----
-
-## Common Use Cases
-
-**1. Question Answering**:
-
-- Extract entities from question
-- Traverse graph to find answer
-- Return path as explanation
-
-**2. Recommendation**:
-
-- Find similar entities via shared relationships
-- Rank by relationship strength
-- Return top-K recommendations
-
-**3. Fraud Detection**:
-
-- Model transactions as graph
-- Find suspicious patterns (cycles, anomalies)
-- Flag for review
-
-**4. Knowledge Discovery**:
-
-- Identify implicit relationships
-- Suggest missing connections
+Expert knowledge graph creation system that transforms disconnected support content into an interconnected web of concepts, relationships, and solutions. This skill provides structured workflows for mapping knowledge domains, defining relationships, and powering intelligent support experiences.
+
+Knowledge graphs enable support systems to understand context, not just keywords. When a customer asks about "billing issues," a knowledge graph knows this relates to invoices, payment methods, subscription plans, and potentially churn risk. This skill helps you build that connective intelligence.
+
+Built on semantic web principles and knowledge engineering best practices, this skill combines domain modeling, relationship mapping, and practical implementation to create knowledge graphs that power smarter support.
+
+## Core Workflows
+
+### Workflow 1: Domain Modeling
+**Define the concepts and entities in your knowledge domain**
+
+1. **Entity Identification**
+   - **Core Entities**: Products, features, concepts
+   - **Customer Entities**: Accounts, users, segments
+   - **Support Entities**: Issues, solutions, articles
+   - **Process Entities**: Workflows, procedures, steps
+   - **Context Entities**: Use cases, personas, scenarios
+
+2. **Entity Types for Support**
+   | Entity Type | Examples | Purpose |
+   |-------------|----------|---------|
+   | Product | App, Feature, Module | What customers use |
+   | Issue | Bug, Error, Question | What customers face |
+   | Solution | Fix, Workaround, Guide | How to resolve |
+   | Article | FAQ, How-to, Reference | Content resources |
+   | Concept | Term, Process, Capability | Understanding |
+   | Persona | Admin, User, Developer | Who needs help |
+
+3. **Entity Properties**
+   ```
+   Entity: Feature
+   Properties:
+   - id: unique identifier
+   - name: display name
+   - description: what it does
+   - status: active/deprecated/beta
+   - complexity: basic/intermediate/advanced
+   - related_persona: who uses it
+   - documentation_url: help article link
+   ```
+
+4. **Entity Extraction Sources**
+   - Product documentation
+   - Support ticket taxonomy
+   - FAQ categories
+   - Help center structure
+   - Feature specifications
+   - User research findings
+
+### Workflow 2: Relationship Mapping
+**Define how entities connect to each other**
+
+1. **Core Relationship Types**
+   | Relationship | From | To | Example |
+   |--------------|------|-----|---------|
+   | SOLVES | Solution | Issue | "Password reset SOLVES login failure" |
+   | PART_OF | Feature | Product | "Dashboard PART_OF Analytics" |
+   | REQUIRES | Feature | Feature | "Export REQUIRES Pro plan" |
+   | CAUSES | Issue | Issue | "API limit CAUSES sync failure" |
+   | DOCUMENTED_IN | Concept | Article | "Billing DOCUMENTED_IN pricing guide" |
+   | APPLIES_TO | Solution | Persona | "Workaround APPLIES_TO admin users" |
+
+2. **Relationship Properties**
+   ```
+   Relationship: SOLVES
+   Properties:
+   - confidence: how reliable (0-1)
+   - conditions: when this applies
+   - effectiveness: success rate
+   - last_verified: date checked
+   ```
+
+3. **Relationship Discovery**
+   - Analyze support ticket resolution paths
+   - Map help article cross-references
+   - Identify co-occurring issues
+   - Study user journey patterns
+   - Review expert knowledge
+
+4. **Relationship Strength**
+   - **Strong**: Always true, well documented
+   - **Moderate**: Usually true, common pattern
+   - **Weak**: Sometimes true, contextual
+   - **Suggested**: Possible, needs validation
+
+### Workflow 3: Graph Construction
+**Build the actual knowledge graph structure**
+
+1. **Graph Architecture**
+   ```
+   Nodes (Entities):
+   - Unique identifier
+   - Entity type
+   - Properties
+   - Metadata (created, updated, source)
+
+   Edges (Relationships):
+   - From node
+   - To node
+   - Relationship type
+   - Properties
+   - Metadata
+   ```
+
+2. **Implementation Options**
+   | Approach | Best For | Tools |
+   |----------|----------|-------|
+   | Graph Database | Complex queries, scale | Neo4j, Amazon Neptune |
+   | RDF Triple Store | Semantic web, standards | Apache Jena, Stardog |
+   | Property Graph | Flexible modeling | Neo4j, TigerGraph |
+   | Embedded | Simple use cases | NetworkX, GraphQL |
+
+3. **Schema Design**
+   - Define node labels/types
+   - Define relationship types
+   - Set required properties
+   - Define constraints (uniqueness, existence)
+   - Create indexes for query performance
+
+4. **Data Population**
+   - Bulk import from existing sources
+   - API ingestion from live systems
+   - Manual expert curation
+   - Automated extraction (NLP)
+   - Continuous updates from support activity
+
+### Workflow 4: Query & Inference
+**Extract value from the knowledge graph**
+
+1. **Query Patterns**
+   | Query Type | Use Case | Example |
+   |------------|----------|---------|
+   | Traversal | Find related content | "Articles related to X" |
+   | Path finding | Solution discovery | "Steps from issue to resolution" |
+   | Pattern matching | Similar issues | "Issues like X" |
+   | Aggregation | Analytics | "Most common issue per feature" |
+   | Recommendation | Suggestions | "Other users also viewed" |
+
+2. **Inference Rules**
+   - If A CAUSES B and B CAUSES C, suggest A might relate to C
+   - If Solution S SOLVES Issue I, suggest similar solutions for similar issues
+   - If Article A DOCUMENTED_IN B and B REQUIRES C, show C as prerequisite
+   - If many users navigate A → B → C, suggest shortcut
+
+3. **Semantic Search Enhancement**
+   - Expand search with related concepts
+   - Rank by graph centrality
+   - Surface related articles
+   - Suggest alternative terms
+   - Understand context from relationships
+
+4. **Conversational AI Integration**
+   - Map user intent to graph entities
+   - Follow relationships to find answers
+   - Generate responses from connected content
+   - Explain reasoning through graph path
+
+### Workflow 5: Maintenance & Evolution
+**Keep the knowledge graph accurate and growing**
+
+1. **Quality Monitoring**
+   - Track usage patterns
+   - Identify dead-end paths
+   - Find orphaned nodes
+   - Monitor relationship accuracy
+   - Measure search success rates
+
+2. **Update Triggers**
+   - New product releases
+   - Documentation changes
+   - Support ticket patterns
+   - User feedback
+   - Expert curation sessions
+
+3. **Validation Process**
+   - Expert review of new relationships
+   - A/B test graph-powered features
+   - Monitor accuracy metrics
+   - User feedback collection
+   - Regular audits
+
+4. **Growth Strategies**
+   - Automated entity extraction from tickets
+   - ML-based relationship suggestion
+   - User contribution mechanisms
+   - Expert knowledge capture sessions
+   - Cross-reference with external sources
+
+## Quick Reference
+
+| Action | Command/Trigger |
+|--------|-----------------|
+| Create entity | "Add entity [type] for [name]" |
+| Define relationship | "Create relationship [type] from [A] to [B]" |
+| Query graph | "Find [entity] related to [entity]" |
+| Find path | "Show path from [issue] to [solution]" |
+| Graph statistics | "Show knowledge graph metrics" |
+| Validate relationships | "Audit relationships for [entity]" |
+| Extract from tickets | "Extract entities from recent tickets" |
+| Generate documentation | "Export graph as documentation" |
+| Find gaps | "Identify missing relationships" |
+| Visualize graph | "Visualize graph around [entity]" |
+
+## Best Practices
+
+### Domain Modeling
+- Start with core product concepts
+- Model from customer perspective
+- Keep entity types focused
+- Document entity definitions clearly
+- Version your schema
+
+### Relationship Design
+- Use verb-based relationship names
+- Make relationships directional
+- Add confidence/strength properties
+- Avoid redundant relationships
+- Document relationship semantics
+
+### Graph Construction
+- Start small, grow iteratively
 - Validate with domain experts
+- Index frequently queried properties
+- Plan for scale from start
+- Maintain data lineage
 
-**5. Semantic Search**:
+### Query Optimization
+- Profile query performance
+- Create appropriate indexes
+- Cache common traversals
+- Paginate large results
+- Monitor query patterns
 
-- Hybrid vector + graph search
-- Expand context via relationships
-- Return rich connected results
+### Maintenance
+- Schedule regular audits
+- Track content freshness
+- Remove stale nodes/edges
+- Validate automated additions
+- Document changes
 
----
+## Knowledge Graph Schema
 
-## Technology Recommendations
+### Core Entities
+```yaml
+Product:
+  properties:
+    - id: string (required, unique)
+    - name: string (required)
+    - description: text
+    - version: string
+    - status: enum [active, deprecated, beta]
+    - tier: enum [free, pro, enterprise]
 
-**For MVPs (<10K entities)**:
+Feature:
+  properties:
+    - id: string (required, unique)
+    - name: string (required)
+    - description: text
+    - complexity: enum [basic, intermediate, advanced]
+    - introduced_version: string
+    - documentation_url: url
 
-- Neo4j Community Edition (free)
-- SQLite for metadata
-- OpenAI embeddings
-- FastAPI for API layer
+Issue:
+  properties:
+    - id: string (required, unique)
+    - title: string (required)
+    - description: text
+    - severity: enum [critical, high, medium, low]
+    - frequency: enum [common, occasional, rare]
+    - symptoms: array[string]
 
-**For Production (10K-1M entities)**:
+Solution:
+  properties:
+    - id: string (required, unique)
+    - title: string (required)
+    - steps: array[string]
+    - type: enum [fix, workaround, configuration]
+    - effectiveness: float [0-1]
+    - applies_to: array[string]
 
-- Neo4j Enterprise or ArangoDB
-- Pinecone for vector search
-- Airflow for ETL
-- GraphQL API
+Article:
+  properties:
+    - id: string (required, unique)
+    - title: string (required)
+    - url: url (required)
+    - type: enum [faq, how-to, reference, troubleshooting]
+    - audience: enum [all, admin, developer]
+    - last_updated: date
 
-**For Enterprise (1M+ entities)**:
+Concept:
+  properties:
+    - id: string (required, unique)
+    - term: string (required)
+    - definition: text (required)
+    - aliases: array[string]
+    - domain: string
+```
 
-- Neo4j Enterprise or TigerGraph
-- Distributed vector DB (Pinecone, Weaviate)
-- Kafka for streaming
-- Kubernetes deployment
+### Core Relationships
+```yaml
+PART_OF:
+  from: [Feature, Concept]
+  to: [Product, Feature, Concept]
+  properties:
+    - required: boolean
 
----
+SOLVES:
+  from: Solution
+  to: Issue
+  properties:
+    - confidence: float [0-1]
+    - conditions: text
+    - verified_date: date
 
-## Validation Checklist
+CAUSES:
+  from: Issue
+  to: Issue
+  properties:
+    - probability: float [0-1]
+    - mechanism: text
 
-- [ ] Ontology designed and validated with domain experts
-- [ ] Graph database selected and set up
-- [ ] Entity extraction pipeline tested (>85% accuracy)
-- [ ] Relationship extraction validated
-- [ ] Hybrid search (graph + vector) implemented
-- [ ] Query API created and documented
-- [ ] AI integration tested (RAG or hallucination detection)
-- [ ] Performance benchmarks met (query <100ms for common patterns)
-- [ ] Data quality monitoring in place
-- [ ] Backup and recovery tested
+DOCUMENTED_IN:
+  from: [Feature, Issue, Solution, Concept]
+  to: Article
+  properties:
+    - section: string
+    - is_primary: boolean
 
----
+REQUIRES:
+  from: [Feature, Solution]
+  to: [Feature, Permission, Plan]
+  properties:
+    - type: enum [prerequisite, dependency, permission]
 
-## Related Resources
+RELATED_TO:
+  from: [any]
+  to: [any]
+  properties:
+    - strength: float [0-1]
+    - type: enum [similar, alternative, complementary]
 
-**Related Skills**:
+APPLIES_TO:
+  from: [Solution, Article]
+  to: [Persona, Plan, Version]
+  properties:
+    - conditions: text
+```
 
-- `rag-implementer` - For hybrid KG+RAG systems
-- `multi-agent-architect` - For knowledge-graph-powered agents
-- `api-designer` - For KG API design
+## Implementation Guide
 
-**Related Patterns**:
+### Phase 1: Foundation (Week 1-2)
+1. Define core entity types
+2. Document property schemas
+3. Map primary relationships
+4. Choose technology stack
+5. Set up development environment
 
-- `META/DECISION-FRAMEWORK.md` - Graph DB selection
-- `STANDARDS/architecture-patterns/knowledge-graph-pattern.md` - KG architectures (when created)
+### Phase 2: Core Graph (Week 3-4)
+1. Extract entities from documentation
+2. Create initial relationships
+3. Import into graph database
+4. Build basic query interface
+5. Validate with domain experts
 
-**Related Playbooks**:
+### Phase 3: Integration (Week 5-6)
+1. Connect to support system
+2. Implement search enhancement
+3. Add content recommendation
+4. Create admin interface
+5. Set up monitoring
 
-- `PLAYBOOKS/deploy-neo4j.md` - Neo4j deployment (when created)
-- `PLAYBOOKS/build-kg-rag-system.md` - KG-RAG integration (when created)
+### Phase 4: Intelligence (Week 7-8)
+1. Add inference rules
+2. Implement similarity scoring
+3. Enable automated extraction
+4. Build feedback loops
+5. Deploy to production
+
+## Red Flags
+
+- **Disconnected nodes**: Entities without relationships
+- **Relationship soup**: Too many weak relationships
+- **Stale data**: Outdated information not updated
+- **Schema drift**: Inconsistent entity modeling
+- **Query complexity**: Simple questions need complex queries
+- **No validation**: Automated additions not verified
+- **Missing context**: Relationships without properties
+- **Poor coverage**: Key concepts not represented
+
+## Success Metrics
+
+| Metric | What It Measures | Target |
+|--------|------------------|--------|
+| Graph Coverage | % of concepts captured | 90%+ |
+| Search Improvement | Relevance vs. keyword | 2x+ |
+| Resolution Speed | Time to find answer | 50% reduction |
+| Relationship Accuracy | Expert validation rate | 95%+ |
+| Query Latency | Response time | < 100ms |
+| User Satisfaction | CSAT with graph features | 4.0/5.0+ |
+| Automation Rate | Auto-resolved with graph | 30%+ |
+| Graph Growth | New entities/month | Healthy growth |

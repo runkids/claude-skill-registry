@@ -1,7 +1,7 @@
 {
   "name": "commit-prepare",
-  "repo": "ByronWilliamsCPA/audio-processor",
+  "repo": "ByronWilliamsCPA/rag-processor",
   "path": ".claude/skills/commit-prepare/SKILL.md",
-  "source": "github.com/ByronWilliamsCPA/audio-processor",
-  "downloaded_at": "2026-01-14T03:49:50.046028Z"
+  "source": "github.com/ByronWilliamsCPA/rag-processor",
+  "downloaded_at": "2026-01-17T03:07:48.371937Z"
 }

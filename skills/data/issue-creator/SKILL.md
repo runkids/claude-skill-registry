@@ -1,154 +1,129 @@
 ---
 name: issue-creator
-description: >
-  Generate GitHub issues from an approved engineering specification.
-  Use to break down a spec into implementable, atomic tasks with
-  dependencies, sizing, and labels.
-allowed-tools: Read,Glob
+description: 計画から GitHub Issue を作成する。「Issue 作成」「Issue を作って」「Issue 作成して」「計画から Issue」「Issue 追加」「Issue を追加したい」「Issue 作りたい」などで起動。1つの計画を1つの Issue にまとめて作成。
+allowed-tools: [Read, Bash, Glob, Grep]
 ---
 
 # Issue Creator
 
-You are an expert at breaking down engineering specifications into well-structured GitHub issues for implementation.
+計画から GitHub Issue を作成します。1つの計画は1つの Issue にまとめます。
 
-## Instructions
+## ワークフロー
 
-1. **Read the spec** at the path provided in the context
-2. **Analyze** the implementation plan, architecture, and requirements
-3. **Generate** atomic GitHub issues that can be implemented independently (given dependencies)
-4. **Return** structured JSON with all issues
+### 1. 計画の確認
 
-## Analysis Process
+ユーザーに計画を確認。計画ファイルがある場合は Read ツールで参照。
 
-Before creating issues, identify:
+### 2. Issue 内容の整理
 
-1. **Implementation Order** - What must be built first?
-2. **Dependencies** - Which tasks depend on others?
-3. **Natural Boundaries** - Where can work be parallelized?
-4. **Size Estimates** - How long will each task take?
-5. **Labels** - What categories apply to each issue?
+計画から以下の情報を抽出：
 
-## Output Format
+- プラグイン名
+- 説明（概要）
+- 含まれるコマンド一覧
+- 含まれるスキル一覧
+- 含まれるサブエージェント一覧
+- 含まれるフック一覧
+- 各タスクの完了状態
 
-Return ONLY valid JSON (no markdown code fence) with this structure:
+### 3. ラベルの決定
 
-```json
-{
-  "feature_id": "feature-slug",
-  "generated_at": "2024-01-15T10:30:00Z",
-  "issues": [
-    {
-      "title": "Short, descriptive title",
-      "body": "## Description\n\nDetailed description...\n\n## Acceptance Criteria\n\n- [ ] Criterion 1\n- [ ] Criterion 2\n\n## Technical Notes\n\nAny relevant technical details...",
-      "labels": ["enhancement", "backend"],
-      "estimated_size": "medium",
-      "dependencies": [],
-      "order": 1
-    }
-  ]
-}
+計画に含まれる要素すべてにラベルを付与：
+
+| 要素 | ラベル |
+|------|--------|
+| 基本 | `enhancement` |
+| プラグイン | `plugin` |
+| コマンド | `command` |
+| スキル | `skill` |
+| サブエージェント | `subagent` |
+| フック | `hook` |
+
+**例**: プラグイン + コマンド + スキルを含む場合
+→ `enhancement,plugin,command,skill`
+
+### 4. Issue 作成
+
+`gh issue create` コマンドで **1つの Issue** を作成。
+
+**コマンドテンプレート**:
+
+```bash
+gh issue create \
+  --title "[Plugin] shiiman-{plugin-name}" \
+  --body "## 概要
+{description}
+
+## プラグイン名
+shiiman-{plugin-name}
+
+## コマンド
+| 状態 | コマンド | 説明 |
+|:----:|----------|------|
+| ✅ | {command1} | {description1} |
+|    | {command2} | {description2} |
+
+## スキル
+| 状態 | スキル | 説明 | 実装パターン |
+|:----:|--------|------|--------------|
+| ✅ | {skill1} | {description1} | SSOT |
+|    | {skill2} | {description2} | 独自実装 |
+
+## サブエージェント
+（なし）
+
+## フック
+（なし）
+" \
+  --label "enhancement,plugin,command,skill"
 ```
 
-## Issue Fields
+**状態の表現**:
 
-### title
-- Short, action-oriented (e.g., "Implement user registration endpoint")
-- Should be unique and descriptive
-- Max ~60 characters
+- `✅` - 実装済み（計画の status が completed）
+- 空欄 - 未実装（計画の status が pending/in_progress）
 
-### body
-Should include:
-- **Description**: What needs to be done and why
-- **Acceptance Criteria**: Checkboxes for completion criteria
-- **Technical Notes**: Implementation hints, file paths, patterns to follow
-- **References**: Links to relevant spec sections if helpful
+**セクションの省略**:
 
-### labels
-Common labels:
-- `enhancement` - New features
-- `bug` - Bug fixes
-- `backend` - Backend/server work
-- `frontend` - Frontend/client work
-- `api` - API endpoints
-- `database` - Database/schema changes
-- `security` - Security-related
-- `tests` - Test additions
-- `documentation` - Doc updates
+- コマンドがない場合: 「## コマンド」セクションを省略
+- スキルがない場合: 「## スキル」セクションを省略
+- サブエージェントがない場合: 「## サブエージェント」を「（なし）」
+- フックがない場合: 「## フック」を「（なし）」
 
-### estimated_size
-- `small` - 1-2 hours of work
-- `medium` - 2-4 hours (half day)
-- `large` - 4+ hours (full day or more)
+### 5. 結果報告
 
-### dependencies
-- Array of `order` numbers this issue depends on
-- Empty array if no dependencies
-- Example: `[1, 2]` means this depends on issues 1 and 2
+作成された Issue の番号と URL を報告。
 
-### order
-- Integer starting at 1
-- Represents implementation order
-- Issues with no dependencies should come first
+### 6. コミットコメントの提案
 
-## Best Practices
+Issue 作成後、以下のフォーマットでコミットコメントを表示：
 
-### Issue Decomposition
-- Each issue should be **atomic** - one clear deliverable
-- Prefer smaller issues over larger ones
-- A developer should be able to complete an issue in one session
-- Dependencies should form a **DAG** (no cycles)
-
-### Acceptance Criteria
-- Be specific and testable
-- Include both functional and non-functional criteria
-- Consider edge cases
-
-### Technical Context
-- Reference existing code patterns when relevant
-- Mention files to create or modify
-- Include error handling expectations
-
-## Example
-
-Given a spec for "User Authentication", issues might be:
-
-```json
-{
-  "feature_id": "user-auth",
-  "generated_at": "2024-01-15T10:30:00Z",
-  "issues": [
-    {
-      "title": "Create User model and database schema",
-      "body": "## Description\n\nCreate the core User model for authentication.\n\n## Acceptance Criteria\n\n- [ ] User model with id, email, password_hash, created_at\n- [ ] Database migration created\n- [ ] Model validates email format\n- [ ] Unit tests for model\n\n## Technical Notes\n\n- Use SQLAlchemy declarative base\n- Email should be unique and indexed\n- Password hash uses bcrypt",
-      "labels": ["enhancement", "backend", "database"],
-      "estimated_size": "medium",
-      "dependencies": [],
-      "order": 1
-    },
-    {
-      "title": "Implement password hashing utilities",
-      "body": "## Description\n\nCreate utility functions for secure password hashing.\n\n## Acceptance Criteria\n\n- [ ] hash_password(plain) function\n- [ ] verify_password(plain, hash) function\n- [ ] Uses bcrypt with appropriate work factor\n- [ ] Unit tests covering happy path and errors",
-      "labels": ["enhancement", "backend", "security"],
-      "estimated_size": "small",
-      "dependencies": [],
-      "order": 2
-    },
-    {
-      "title": "Create registration endpoint",
-      "body": "## Description\n\nImplement POST /api/auth/register endpoint.\n\n## Acceptance Criteria\n\n- [ ] Accepts email and password\n- [ ] Validates input (email format, password strength)\n- [ ] Creates user with hashed password\n- [ ] Returns user ID on success\n- [ ] Returns 400 for invalid input\n- [ ] Returns 409 for duplicate email\n- [ ] Integration tests",
-      "labels": ["enhancement", "api", "backend"],
-      "estimated_size": "medium",
-      "dependencies": [1, 2],
-      "order": 3
-    }
-  ]
-}
+```
+推奨コミットコメント:
+feat: {変更内容の要約} (#Issue番号)
 ```
 
-## Important Notes
+**例**:
 
-- **Return ONLY JSON** - No markdown formatting, no explanatory text
-- **Validate dependencies** - Ensure they reference valid order numbers
-- **Order matters** - Lower order numbers should be implementable first
-- **Be thorough** - Don't skip edge cases or error handling tasks
-- **Consider testing** - Include test-related issues or acceptance criteria
+```
+推奨コミットコメント:
+feat: shiiman-claude プラグインに設定スキルを追加 (#17)
+```
+
+### 7. PR 作成の促し
+
+Issue 作成後、ユーザーに PR 作成を促す：
+
+```
+Issue を作成しました。PR を作成しますか？
+「PR 作成」または「PR を作って」と言ってください。
+```
+
+## 重要な注意事項
+
+- ✅ 1つの計画は1つの Issue にまとめる
+- ✅ 含まれる要素すべてのラベルを付与
+- ✅ タスクの完了状態を表の先頭列に ✅ または空欄で表現
+- ✅ 計画の全体像が分かるように構造化して記載
+- ❌ 計画を複数の Issue に分割しない
+- ❌ 計画にない内容を含めない

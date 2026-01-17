@@ -1,14 +1,48 @@
 ---
-name: dependency-security
-description: Enforce dependency security scanning and SBOM generation. Use when adding dependencies, reviewing package.json, or during security audits. Covers OWASP dependency check, npm audit, and supply chain security.
+name: cermont.security.dependency-security
+description: Enforce dependency security scanning and SBOM generation. Use when adding dependencies, reviewing package.json, or during security audits. Covers OWASP dependency check, pnpm audit, and supply chain security.
+triggers:
+  - security audit
+  - npm audit
+  - pnpm audit
+  - SBOM
+  - vulnerability
+  - OWASP
+  - supply chain
 allowed-tools: Read, Glob, Grep, Edit, Write, Bash
+role: PRIMARY
+scope: security
 license: MIT
 metadata:
   author: antigravity-team
   version: "1.0"
 ---
 
-# Dependency Security
+<!-- Cermont Project Fit -->
+## Project Fit
+
+| Attribute | Value |
+|-----------|-------|
+| **Applies to** | monorepo (all packages) |
+| **Requires** | pnpm, turbo |
+| **Not for this repo** | npm, yarn |
+| **Status** | ✅ PRIMARY for Security family |
+
+### Guardrails
+
+**Does NOT do:**
+- Install dependencies without user approval
+- Modify pnpm-lock.yaml directly  
+- Run `pnpm audit fix --force` automatically
+
+**Safety Checklist:**
+```bash
+pnpm audit
+pnpm -r lint
+pnpm -r test
+# Rollback: git restore -SW .
+```
+<!-- End Project Fit -->
 
 의존성 보안 스캔 및 SBOM(Software Bill of Materials) 생성을 강제하는 스킬입니다.
 

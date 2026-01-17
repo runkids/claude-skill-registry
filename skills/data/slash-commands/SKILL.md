@@ -1,114 +1,191 @@
 ---
 name: slash-commands
-description: How to create, use, and manage custom slash commands in Claude Code. Use when user asks about creating custom commands, command arguments, command organization, or slash command features.
+description: Create and use Claude Code slash commands - quick prompts, bash execution, file references
+allowed-tools: [Read, Write, Bash]
+user-invocable: false
 ---
 
-# Slash Commands
+# Slash Commands Reference
 
-## Overview
+Create and use user-triggered prompts with `/command-name` syntax.
 
-Slash commands control Claude's behavior during interactive sessions. They're organized into built-in commands, custom commands defined by users, plugin commands, and MCP-exposed prompts.
+## When to Use
+
+- "How do I create a slash command?"
+- "What slash commands are available?"
+- "Add bash to my command"
+- "Use file references in commands"
+- "Slash commands vs skills"
 
 ## Built-in Commands
 
-Key built-in commands include:
+| Command | Purpose |
+|---------|---------|
+| `/clear` | Clear conversation history |
+| `/compact` | Compact conversation with focus |
+| `/config` | Open settings interface |
+| `/cost` | Show token usage |
+| `/agents` | Manage sub-agents |
+| `/mcp` | Manage MCP servers |
+| `/memory` | Edit CLAUDE.md files |
+| `/model` | Select AI model |
+| `/review` | Request code review |
+| `/resume` | Resume session |
+| `/help` | Get usage help |
 
-- `/help` - Get usage help
-- `/clear` - Clear conversation history
-- `/model` - Select or change the AI model
-- `/cost` - Show token usage statistics
-- `/memory` - Edit CLAUDE.md memory files
-- `/sandbox` - Enable sandboxed bash execution
-- `/rewind` - Rewind conversation and/or code
-- `/mcp` - Manage MCP server connections
+## Creating Commands
 
-## Custom Slash Commands
-
-### File Organization
-
-Custom commands are Markdown files stored in two locations:
-
-- **Project commands**: `.claude/commands/` (shared with team via git)
-- **Personal commands**: `~/.claude/commands/` (user-level only)
-
-### Basic Syntax
-
-```
-/<command-name> [arguments]
-```
-
-### Arguments
-
-Commands support two argument styles:
-
-**Capture all arguments:**
-```markdown
-Fix issue #$ARGUMENTS following coding standards
-```
-
-**Individual positional arguments:**
-```markdown
-Review PR #$1 with priority $2 and assign to $3
-```
-
-### Features
-
-**Namespacing**: Organize commands in subdirectories. A file at `.claude/commands/frontend/component.md` creates `/component` with description "(project:frontend)".
-
-**Bash execution**: Prefix commands with `!` to execute bash and include output:
-```markdown
+### Project Commands
+```bash
+mkdir -p .claude/commands
+cat > .claude/commands/optimize.md << 'EOF'
 ---
-allowed-tools: Bash(git status:*), Bash(git add:*)
+description: Analyze code for performance issues
 ---
-Current git status: ![git status]
+
+Review this code for:
+- Performance bottlenecks
+- Memory leaks
+- Caching opportunities
+EOF
 ```
 
-Note: Replace `[git status]` with the actual command in backticks when creating your slash command.
+### Personal Commands
+```bash
+mkdir -p ~/.claude/commands
+cat > ~/.claude/commands/review.md << 'EOF'
+---
+description: Security-focused code review
+---
 
-**File references**: Use `@` prefix to include file contents in commands:
+Check for vulnerabilities:
+- Input validation
+- SQL injection
+- XSS risks
+EOF
+```
+
+## Command File Format
+
+```yaml
+---
+description: Brief description for /help
+allowed-tools: [Bash, Read, Write]  # Optional
+argument-hint: "[file] [type]"       # Optional
+---
+
+Your markdown instructions here.
+Use $1, $2 for arguments or $ARGUMENTS for all.
+```
+
+## Bash Execution
+
+Run bash before loading prompt with `!` prefix:
+
+```yaml
+---
+allowed-tools: Bash(git:*), Bash(grep:*)
+description: Git commit helper
+---
+
+Current status: !`git status`
+Staged changes: !`git diff --staged`
+Recent commits: !`git log --oneline -5`
+
+Based on these changes, suggest a commit message.
+```
+
+**Rules:**
+- Must declare `allowed-tools: Bash(...)` in frontmatter
+- Use backticks: `` !`command` ``
+- Output is included in Claude's context
+
+## File References
+
+Include files with `@` prefix:
+
 ```markdown
-Review the implementation in @src/utils/helpers.js
+Review against @.claude/STYLE_GUIDE.md
+
+Compare:
+- @src/old.js
+- @src/new.js
+
+Refactor files matching @src/**/*.util.ts
 ```
 
-**Frontmatter metadata**:
-```markdown
+## Arguments
+
+```yaml
 ---
-description: Brief command description
-allowed-tools: Tool specifications
-argument-hint: [expected-args]
-model: specific-model-id
+argument-hint: "[pr-number] [priority]"
 ---
+
+Review PR #$1 with priority: $2
+
+# Or use all arguments:
+Fix issue #$ARGUMENTS
 ```
 
-## Plugin Commands
+**Usage:**
+```bash
+/review-pr 456 high
+# $1 = "456", $2 = "high"
+```
 
-Plugins distribute custom slash commands automatically. They use the format `/plugin-name:command-name` when disambiguation is needed, support all standard features (arguments, bash execution, file references), and appear in `/help` when installed.
+## Namespacing
+
+Organize with subdirectories:
+
+```
+.claude/commands/
+├── frontend/
+│   └── component.md    → /component (project:frontend)
+└── backend/
+    └── endpoint.md     → /endpoint (project:backend)
+```
 
 ## MCP Slash Commands
 
-MCP servers expose prompts as commands with the pattern:
+MCP servers expose prompts as commands:
 
+```bash
+/mcp__github__list_prs
+/mcp__github__pr_review 456
+/mcp__jira__create_issue "Bug" high
 ```
-/mcp__<server-name>__<prompt-name> [arguments]
+
+## Slash Commands vs Skills
+
+| Aspect | Slash Commands | Skills |
+|--------|----------------|--------|
+| Invocation | Explicit: `/command` | Auto-discovered |
+| Files | Single .md file | Directory with SKILL.md |
+| Use Case | Quick prompts | Complex workflows |
+
+**Use slash commands for:** Frequently typed prompts, simple templates
+**Use skills for:** Complex workflows, multiple files, auto-discovery
+
+## Example: Complete Git Commit Command
+
+```yaml
+---
+description: Generate semantic commit message
+allowed-tools: Bash(git:*), Read
+argument-hint: "[type]"
+---
+
+# Semantic Commit Generator
+
+Staged files: !`git diff --name-only --cached`
+
+Diff preview:
+!`git diff --cached | head -100`
+
+Generate a conventional commit message.
+Type: $1 (feat/fix/docs/style/refactor/perf/test/chore)
+
+Format: `<type>(<scope>): <subject>`
 ```
 
-These are dynamically discovered from connected MCP servers and automatically available when the server is active.
-
-## SlashCommand Tool
-
-The `SlashCommand` tool allows Claude to invoke custom commands programmatically during conversations. To encourage usage, reference commands in your instructions with their slash prefix (e.g., "Run `/write-unit-test`").
-
-**Limitations**: Only supports user-defined custom commands with a `description` field populated in frontmatter. Built-in commands like `/compact` cannot be invoked via the tool.
-
-**Management**:
-- Disable all: `/permissions` then add `SlashCommand` to deny rules
-- Disable specific commands: Add `disable-model-invocation: true` to frontmatter
-- Permission syntax: `SlashCommand:/commit` (exact match) or `SlashCommand:/review-pr:*` (prefix match)
-
-## Skills vs Slash Commands
-
-**Use slash commands for**: Simple, frequently-used prompts that fit in one file.
-
-**Use Skills for**: Complex capabilities requiring multiple files, scripts, or organizational structure.
-
-Key difference: Commands require explicit invocation; Skills are discovered automatically based on context.
+**Usage:** `/commit feat`

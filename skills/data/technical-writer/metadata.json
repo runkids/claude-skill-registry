@@ -1,7 +1,7 @@
 {
   "name": "technical-writer",
-  "repo": "gaebalai/itda-sdd",
-  "path": "src/templates/agents/claude-code/skills/technical-writer/SKILL.md",
-  "source": "github.com/gaebalai/itda-sdd",
-  "downloaded_at": "2026-01-14T03:55:16.555226Z"
+  "repo": "nahisaho/CodeGraphMCPServer",
+  "path": ".claude/skills/technical-writer/SKILL.md",
+  "source": "github.com/nahisaho/CodeGraphMCPServer",
+  "downloaded_at": "2026-01-17T03:42:16.763765Z"
 }

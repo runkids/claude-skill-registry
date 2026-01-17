@@ -1,7 +1,7 @@
 {
   "name": "push-pr",
-  "repo": "anton-pt/algojuke",
-  "path": ".claude/skills/push-pr/SKILL.md",
-  "source": "github.com/anton-pt/algojuke",
-  "downloaded_at": "2026-01-14T01:59:32.384498Z"
+  "repo": "gupsammy/Claude-setup",
+  "path": "skills/push-pr/SKILL.md",
+  "source": "github.com/gupsammy/Claude-setup",
+  "downloaded_at": "2026-01-17T01:11:36.678071Z"
 }

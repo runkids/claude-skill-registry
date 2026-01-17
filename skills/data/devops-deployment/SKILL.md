@@ -1,10 +1,14 @@
 ---
 name: DevOps & Deployment
-description: CI/CD pipelines, containerization, Kubernetes, and infrastructure as code patterns
+description: Use when setting up CI/CD pipelines, containerizing applications, deploying to Kubernetes, or writing infrastructure as code. Covers GitHub Actions, Docker, Helm, and Terraform patterns.
+context: fork
+agent: data-pipeline-engineer
 version: 1.0.0
 category: Infrastructure & Deployment
 agents: [backend-system-architect, code-quality-reviewer, studio-coach]
 keywords: [CI/CD, deployment, Docker, Kubernetes, pipeline, infrastructure, GitOps, container, automation, release]
+author: SkillForge
+user-invocable: false
 ---
 
 # DevOps & Deployment Skill
@@ -24,11 +28,11 @@ Comprehensive frameworks for CI/CD pipelines, containerization, deployment strat
 
 ```
 ┌─────────────┐   ┌─────────────┐   ┌─────────────┐   ┌─────────────┐
-│    Code     │──▶│    Build    │──▶│    Test     │──▶│   Deploy    │
+│    Code     │──>│    Build    │──>│    Test     │──>│   Deploy    │
 │   Commit    │   │   & Lint    │   │   & Scan    │   │  & Release  │
 └─────────────┘   └─────────────┘   └─────────────┘   └─────────────┘
        │                 │                 │                 │
-       ▼                 ▼                 ▼                 ▼
+       v                 v                 v                 v
    Triggers         Artifacts          Reports          Monitoring
 ```
 
@@ -43,8 +47,6 @@ Comprehensive frameworks for CI/CD pipelines, containerization, deployment strat
 5. **Deploy Staging** - Environment-gated deployment
 6. **Deploy Production** - Manual approval or automated
 
-> See `templates/github-actions-pipeline.yml` for complete GitHub Actions workflow
-
 ### Container Best Practices
 
 **Multi-stage builds** minimize image size:
@@ -56,8 +58,6 @@ Comprehensive frameworks for CI/CD pipelines, containerization, deployment strat
 - Non-root user (uid 1001)
 - Read-only filesystem where possible
 - Health checks for orchestrator integration
-
-> See `templates/Dockerfile` and `templates/docker-compose.yml`
 
 ### Kubernetes Deployment
 
@@ -72,12 +72,6 @@ Comprehensive frameworks for CI/CD pipelines, containerization, deployment strat
 - `allowPrivilegeEscalation: false`
 - `readOnlyRootFilesystem: true`
 - Drop all capabilities
-
-**Resource management**:
-- Always set requests and limits
-- Use `requests` for scheduling, `limits` for throttling
-
-> See `templates/k8s-manifests.yaml` and `templates/helm-values.yaml`
 
 ### Deployment Strategies
 
@@ -96,27 +90,6 @@ strategy:
     maxUnavailable: 0  # Zero downtime
 ```
 
-**Blue-Green**: Deploy to standby environment, switch service selector
-**Canary**: Use Istio VirtualService for traffic splitting (10% → 50% → 100%)
-
-### Infrastructure as Code
-
-**Terraform patterns**:
-- Remote state in S3 with DynamoDB locking
-- Module-based architecture (VPC, EKS, RDS)
-- Environment-specific tfvars files
-
-> See `templates/terraform-aws.tf` for AWS VPC + EKS + RDS example
-
-### GitOps with ArgoCD
-
-ArgoCD watches Git repository and syncs cluster state:
-- Automated sync with pruning
-- Self-healing (drift detection)
-- Retry policies for transient failures
-
-> See `templates/argocd-application.yaml`
-
 ### Secrets Management
 
 Use External Secrets Operator to sync from cloud providers:
@@ -125,7 +98,73 @@ Use External Secrets Operator to sync from cloud providers:
 - Azure Key Vault
 - GCP Secret Manager
 
-> See `templates/external-secrets.yaml`
+---
+
+## References
+
+### Docker Patterns
+**See: `references/docker-patterns.md`**
+
+Key topics covered:
+- Multi-stage build examples with 78% size reduction
+- Layer caching optimization
+- Security hardening (non-root, health checks)
+- Trivy vulnerability scanning
+- Docker Compose development setup
+
+### CI/CD Pipelines
+**See: `references/ci-cd-pipelines.md`**
+
+Key topics covered:
+- Branch strategy (Git Flow)
+- GitHub Actions caching (85% time savings)
+- Artifact management
+- Matrix testing
+- Complete backend CI/CD example
+
+### Kubernetes Basics
+**See: `references/kubernetes-basics.md`**
+
+Key topics covered:
+- Health probes (startup, liveness, readiness)
+- Security context configuration
+- PodDisruptionBudget
+- Resource quotas
+- StatefulSets for databases
+- Helm chart structure
+
+### Environment Management
+**See: `references/environment-management.md`**
+
+Key topics covered:
+- External Secrets Operator
+- GitOps with ArgoCD
+- Terraform patterns (remote state, modules)
+- Zero-downtime database migrations
+- Alembic migration workflow
+- Rollback procedures
+
+### Observability
+**See: `references/observability.md`**
+
+Key topics covered:
+- Prometheus metrics exposition
+- Grafana dashboard queries (PromQL)
+- Alerting rules for SLOs
+- Golden signals (SRE)
+- Structured logging
+- Distributed tracing (OpenTelemetry)
+
+### Deployment Strategies
+**See: `references/deployment-strategies.md`**
+
+Key topics covered:
+- Rolling deployment
+- Blue-green deployment
+- Canary releases
+- Traffic splitting with Istio
+
+---
 
 ## Deployment Checklist
 
@@ -144,6 +183,8 @@ Use External Secrets Operator to sync from cloud providers:
 - [ ] Verify metrics normal
 - [ ] Check logs for errors
 - [ ] Update status page
+
+---
 
 ## Helm Chart Structure
 
@@ -164,6 +205,8 @@ charts/app/
     └── production.yaml
 ```
 
+---
+
 ## Extended Thinking Triggers
 
 Use Opus 4.5 extended thinking for:
@@ -171,6 +214,8 @@ Use Opus 4.5 extended thinking for:
 - **Migration planning** - Moving between cloud providers
 - **Incident response** - Complex deployment failures
 - **Security design** - Zero-trust architecture
+
+---
 
 ## Templates Reference
 
@@ -184,3 +229,55 @@ Use Opus 4.5 extended thinking for:
 | `terraform-aws.tf` | VPC, EKS, RDS infrastructure |
 | `argocd-application.yaml` | GitOps application |
 | `external-secrets.yaml` | Secrets Manager integration |
+
+---
+
+## Capability Details
+
+### ci-cd
+**Keywords:** ci, cd, pipeline, github actions, gitlab ci, jenkins, workflow
+**Solves:**
+- How do I set up CI/CD?
+- GitHub Actions workflow patterns
+- Pipeline caching strategies
+- Matrix testing setup
+
+### docker
+**Keywords:** docker, dockerfile, container, image, build, compose, multi-stage
+**Solves:**
+- How do I containerize my app?
+- Multi-stage Dockerfile best practices
+- Docker Compose development setup
+- Container security hardening
+
+### kubernetes
+**Keywords:** kubernetes, k8s, deployment, service, ingress, helm, statefulset, pdb
+**Solves:**
+- How do I deploy to Kubernetes?
+- K8s health probes and resource limits
+- Helm chart structure
+- StatefulSet for databases
+
+### infrastructure-as-code
+**Keywords:** terraform, pulumi, iac, infrastructure, provision, gitops, argocd
+**Solves:**
+- How do I set up infrastructure as code?
+- Terraform AWS patterns (VPC, EKS, RDS)
+- GitOps with ArgoCD
+- Secrets management patterns
+
+### deployment-strategies
+**Keywords:** blue green, canary, rolling, deployment strategy, rollback, zero downtime
+**Solves:**
+- Which deployment strategy should I use?
+- Zero-downtime database migrations
+- Blue-green deployment setup
+- Canary release with traffic splitting
+
+### observability
+**Keywords:** prometheus, grafana, metrics, alerting, monitoring, health check
+**Solves:**
+- How do I add monitoring to my app?
+- Prometheus metrics exposition
+- Grafana dashboard queries
+- Alerting rules for SLOs

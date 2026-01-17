@@ -1,7 +1,7 @@
 {
   "name": "slack",
-  "repo": "clawdbot/clawdbot",
+  "repo": "arlenagreer/claude_configuration_docs",
   "path": "skills/slack/SKILL.md",
-  "source": "github.com/clawdbot/clawdbot",
-  "downloaded_at": "2026-01-14T04:05:30.837201Z"
+  "source": "github.com/arlenagreer/claude_configuration_docs",
+  "downloaded_at": "2026-01-17T03:56:18.350575Z"
 }

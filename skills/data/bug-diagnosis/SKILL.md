@@ -2,16 +2,13 @@
 name: bug-diagnosis
 description: Use when the user asks to debug, diagnose, fix a bug, troubleshoot errors, investigate issues, or pastes error messages/stack traces. Triggers on keywords like "bug", "error", "fix", "not working", "broken", "debug", "stack trace", "exception", "crash", "issue".
 allowed-tools: Read, Write, Edit, Bash, Grep, Glob, Task, WebFetch, WebSearch, TodoWrite
-infer: true
 ---
-
-> **Skill Variant:** Use this skill for **bug diagnosis, debugging, and fixing**. For feature investigation without fixes, use `feature-investigation`. For structured autonomous debugging workflows, use `tasks-bug-diagnosis`.
 
 # Bug Diagnosis & Debugging
 
-You are to operate as an expert full-stack dotnet angular debugging engineer to diagnose, debug, and fix the bug described in `[bug-description-or-bug-info-file-path]`.
+You are to operate as an expert full-stack dotnet angular debugging engineer to diagnose, debug, and fix bugs.
 
-**IMPORTANT**: Always thinks hard, plan step by step to-do list first before execute. Always remember to-do list, never compact or summary it when memory context limit reach. Always preserve and carry your to-do list through every operation. Todo list must cover all phases, from start to end, include child tasks in each phases too, everything is flatted out into a long detailed todo list.
+**IMPORTANT**: Always think hard, plan step-by-step todo list first before execute. Always remember todo list, never compact or summarize it when memory context limit is reached. Always preserve and carry your todo list through every operation. Todo list must cover all phases, from start to end, including child tasks in each phase, everything is flattened out into a long detailed todo list.
 
 ---
 
@@ -74,21 +71,57 @@ Emergency:
 
 ## PHASE 1: EXTERNAL MEMORY-DRIVEN BUG ANALYSIS
 
-Your sole objective is to build a structured knowledge model in a Markdown analysis file at `.ai/workspace/analysis/[some-sort-semantic-name-of-this-task].md` with systematic external memory management.
+Build a structured knowledge model in `ai_task_analysis_notes/[bug-name].ai_task_analysis_notes_temp.md`.
 
 ### PHASE 1A: INITIALIZATION AND DISCOVERY
 
-1. **Initialize** the analysis file with:
-    - `## Metadata` heading with original prompt in markdown box (use 5-6 backticks for proper nesting)
-    - Task description and `Source Code Structure` from `.ai/prompts/context.md`
-    - Create headings: `## Progress`, `## Errors`, `## Assumption Validations`, `## Performance Metrics`, `## Memory Management`, `## Processed Files`, `## File List`, `## Knowledge Graph`
+1. **Initialize** the analysis file with a `## Metadata` heading. Under it, add the full original prompt/error in a markdown box using 5 backticks:
 
-2. **Populate `## Progress`** with:
-    - **Phase**: 1
-    - **Items Processed**: 0
-    - **Total Items**: 0
-    - **Current Operation**: "initialization"
-    - **Current Focus**: "[original bug diagnosis task]"
+   ```markdown
+   [Full original prompt/error here]
+   ```
+
+2. **Continue adding** to the `## Metadata` section: the bug description and full details of the `Source Code Structure` from `ai-prompt-context.md`. Use 6 backticks for this nested markdown:
+
+   ```markdown
+   ## Bug Description
+
+   [Bug description here]
+
+   ## Source Code Structure
+
+   [Full details from ai-prompt-context.md]
+   ```
+
+3. **Create all required headings**:
+   - `## Progress`
+   - `## Errors`
+   - `## Assumption Validations`
+   - `## Performance Metrics`
+   - `## Memory Management`
+   - `## Processed Files`
+   - `## File List`
+   - `## Knowledge Graph`
+   - `## Error Boundaries` (debugging-specific)
+   - `## Interaction Map` (debugging-specific)
+   - `## Platform Error Patterns` (debugging-specific)
+
+4. **Populate `## Progress`** with:
+   - **Phase**: 1
+   - **Items Processed**: 0
+   - **Total Items**: 0
+   - **Current Operation**: "initialization"
+   - **Current Focus**: "[original bug diagnosis task]"
+
+5. **Additional searches to ensure no critical infrastructure is missed**:
+   - `grep search` patterns: `.*EventHandler.*{EntityName}|{EntityName}.*EventHandler`
+   - `grep search` patterns: `.*BackgroundJob.*{EntityName}|{EntityName}.*BackgroundJob`
+   - `grep search` patterns: `.*Consumer.*{EntityName}|{EntityName}.*Consumer`
+   - `grep search` patterns: `.*Service.*{EntityName}|{EntityName}.*Service`
+   - `grep search` patterns: `.*Helper.*{EntityName}|{EntityName}.*Helper`
+   - Include pattern: `**/*.{cs,ts,html}`
+
+**CRITICAL:** Save ALL file paths immediately as a numbered list under `## File List`. Update the `Total Items` count in `## Progress`.
 
 ### DEBUGGING-SPECIFIC DISCOVERY
 
@@ -101,87 +134,104 @@ Your sole objective is to build a structured knowledge model in a Markdown analy
 3. **Platform Debugging Intelligence**: Find platform error patterns (`PlatformValidationResult`, `PlatformException`), CQRS error paths, repository error patterns. Document under `## Platform Error Patterns`.
 
 4. **Discovery searches**:
-    - Semantic and grep search all error keywords from the task
-    - Prioritize: **Domain Entities, Commands, Queries, Event Handlers, Controllers, Background Jobs, Consumers, Frontend Components**
-    - Additional targeted searches:
-        - `.*EventHandler.*{EntityName}|{EntityName}.*EventHandler`
-        - `.*BackgroundJob.*{EntityName}|{EntityName}.*BackgroundJob`
-        - `.*Consumer.*{EntityName}|{EntityName}.*Consumer`
-        - `.*Service.*{EntityName}|{EntityName}.*Service`
-        - `.*Helper.*{EntityName}|{EntityName}.*Helper`
-        - All files with pattern: `**/*.{cs,ts,html}`
-    - Save ALL file paths to `## File List`
+   - Semantic and grep search all error keywords
+   - Prioritize: **Domain Entities, Commands, Queries, Event Handlers, Controllers, Background Jobs, Consumers**
+   - Save ALL file paths to `## File List`
 
 ### PHASE 1B: SYSTEMATIC FILE ANALYSIS FOR DEBUGGING
 
 **IMPORTANT: MUST DO WITH TODO LIST**
 
-1. Count total files in file list
-2. Split into batches of 10 files in priority order
-3. Each batch inserts new task in todo list for analysis
-4. **CRITICAL**: Analyze ALL high-priority files: Domain Entities, Commands, Queries, Event Handlers, Controllers, Background Jobs, Consumers, Frontend Components
+Count total files in file list, split it into many batches of 10 files in priority order. For each batch, insert a new task in the current todo list for analyzing that batch.
 
-For each file, document in `## Knowledge Graph`:
+**File Analysis Order (by priority)**:
 
-**Core Fields:**
+1. Domain Entities
+2. Commands
+3. Queries
+4. Event Handlers
+5. Controllers
+6. Background Jobs
+7. Consumers
+8. Frontend Components .ts
+
+**CRITICAL:** You must analyze ALL files in the file list identified as belonging to the highest priority categories.
+
+For each file, add results into `## Knowledge Graph` section. **The heading of each analyzed file must have the item order number in the heading.**
+
+**Core fields** for each file:
 
 - `filePath`: Full path to the file
-- `type`: Component classification (Entity, Command, Query, EventHandler, Controller, etc.)
+- `type`: Component classification
 - `architecturalPattern`: Design pattern used
-- `content`: Summary of purpose and logic
-- `symbols`: Important classes, interfaces, methods
-- `dependencies`: All imported modules or using statements
-- `businessContext`: Comprehensive detail all business logic, how it contributes to the requirements
-- `referenceFiles`: Other files that use this file's symbols
-- `relevanceScore`: Numerical score (1-10) for bug relevance
+- `content`: Purpose and logic summary
+- `symbols`: Classes, interfaces, methods
+- `dependencies`: Imports/using statements
+- `businessContext`: Comprehensive detail of all business logic, how it contributes to requirements
+- `referenceFiles`: Files using this file's symbols
+- `relevanceScore`: 1-10
 - `evidenceLevel`: "verified" or "inferred"
-- `uncertainties`: Any aspects you are unsure about
+- `uncertainties`: Unclear aspects
 - `platformAbstractions`: Platform base classes used
-- `serviceContext`: Which microservice this file belongs to
-- `dependencyInjection`: Any DI registrations
+- `serviceContext`: Microservice ownership
+- `dependencyInjection`: DI registrations
 - `genericTypeParameters`: Generic type relationships
 
-**Debugging-Specific Fields:**
+**Debugging-specific fields**:
 
 - `errorPatterns`: Exception handling, validation logic
-- `stackTraceRelevance`: Relation to any stack traces
+- `stackTraceRelevance`: Relation to stack traces
 - `debuggingComplexity`: Difficulty to debug (1-10)
-- `errorPropagation`: How errors flow through the component
+- `errorPropagation`: How errors flow through component
 - `platformErrorHandling`: Use of platform error patterns
-- `crossServiceErrors`: Any cross-service error scenarios
+- `crossServiceErrors`: Cross-service error scenarios
 - `validationLogic`: Business rule validation that could fail
 - `dependencyErrors`: Potential dependency failures
 
-**For Consumer Files (CRITICAL):**
+**Message Bus Analysis** (CRITICAL FOR CONSUMERS):
 
-- `messageBusMessage`: Message type consumed
-- `messageBusProducers`: grep search across ALL services to find files that send/publish this message
-- `crossServiceIntegration`: Cross-service data flow
-- `handleLogicWorkflow`: Processing workflow in HandleLogicAsync
+- `messageBusAnalysis`: When analyzing Consumer files (`*Consumer.cs` extending `PlatformApplicationMessageBusConsumer<T>`):
+  1. Identify the `*BusMessage` type used
+  2. Grep search ALL services to find files that send/publish this message
+  3. List all producer files and their service locations in `messageBusProducers`
 
-**Targeted Aspect Analysis:**
+**Targeted Aspect Analysis** (`targetedAspectAnalysis`):
 
-- **For Front-End:** `componentHierarchy`, `routeConfig`, `routeGuards`, `stateManagementStores`, `dataBindingPatterns`, `validationStrategies`
-- **For Back-End:** `authorizationPolicies`, `commands`, `queries`, `domainEntities`, `repositoryPatterns`, `businessRuleImplementations`
-- **For Consumers:** `messageBusMessage`, `messageBusProducers`, `crossServiceIntegration`, `handleLogicWorkflow`
+For **Front-End items**:
+
+- `componentHierarchy`, `routeConfig`, `routeGuards`
+- `stateManagementStores`, `dataBindingPatterns`, `validationStrategies`
+
+For **Back-End items**:
+
+- `authorizationPolicies`, `commands`, `queries`
+- `domainEntities`, `repositoryPatterns`, `businessRuleImplementations`
+
+For **Consumer items**:
+
+- `messageBusMessage`, `messageBusProducers`
+- `crossServiceIntegration`, `handleLogicWorkflow`
+
+**MANDATORY PROGRESS TRACKING**: After processing every 10 files, you **MUST** update `Items Processed` in `## Progress`, run a `CONTEXT_ANCHOR_CHECK`, and explicitly state your progress. After each file, add its path to the `## Processed Files` list.
 
 ### PHASE 1C: OVERALL ANALYSIS
 
-Write comprehensive `overallAnalysis` summary showing:
+Write comprehensive `overallAnalysis:` summary showing:
 
 - Complete end-to-end workflows discovered
-- Error propagation paths
 - Key architectural patterns and relationships
-- All business logic workflows:
-    - Front-end to back-end flow: Component => API Service => Controller => Command/Query => EventHandler => Others
-    - Background job flow: Job => EventHandler => Others
+- Error propagation paths
+- All business logic workflows: From front-end to back-end
+  - Example: Front-end Component => Controller Api Service => Command/Query => EventHandler => Others (Send email, producer bus message)
+  - Example: Background Job => Event Handler => Others
 - Integration points and failure points
+- Cross-service dependencies identified
 
 ---
 
-## PHASE 2: MULTI-DIMENSIONAL ROOT CAUSE ANALYSIS & COMPREHENSIVE FIX STRATEGY
+## PHASE 2: MULTI-DIMENSIONAL ROOT CAUSE ANALYSIS
 
-**IMPORTANT**: Ensure ALL files are analyzed before this phase. Read the ENTIRE Markdown analysis notes file.
+**Prerequisites**: Ensure ALL files are analyzed. Read the ENTIRE analysis notes file.
 
 Perform systematic analysis under `## Root Cause Analysis`:
 
@@ -197,66 +247,29 @@ Perform systematic analysis under `## Root Cause Analysis`:
 ### Document
 
 - `potentialRootCauses` ranked by probability
-- For each root cause:
-    - **Evidence**: file:line references supporting this hypothesis
-    - **Confidence**: percentage with justification
-    - **Impact**: what's affected if this is the cause
-
-### Generate Fix Strategy
-
-Under `## Fix Strategy`, document alternatives, each including:
-
-- `suggestedFix`: Detailed fix description with file:line targets
-- `riskAssessment`: Low/Medium/High with justification
-- `regressionMitigation`: Steps to prevent breaking existing functionality
-- `testingStrategy`: How to verify the fix works
-- `rollbackPlan`: How to undo if the fix causes issues
+- Generate `## Fix Strategy` with alternatives:
+  - `suggestedFix`
+  - `riskAssessment`
+  - `regressionMitigation`
+  - `testingStrategy`
+  - `rollbackPlan`
 
 ### PHASE 2.1: VERIFY AND REFACTOR
 
-Verify fix strategy follows code patterns from:
+First, verify and ensure your fix strategy follows code patterns and conventions from these files:
 
-- `.github/copilot-instructions.md`
-- `.github/instructions/frontend-angular.instructions.md`
-- `.github/instructions/backend-dotnet.instructions.md`
-- `.github/instructions/clean-code.instructions.md`
+- `.github/copilot-instructions.md` - Platform patterns
+- `.github/instructions/frontend-angular.instructions.md` - Frontend patterns
+- `.github/instructions/backend-dotnet.instructions.md` - Backend patterns
+- `.github/instructions/clean-code.instructions.md` - Clean code rules
+
+Then verify and ensure your fix satisfies clean code rules.
 
 ---
 
 ## PHASE 3: APPROVAL GATE
 
-**CRITICAL**: Present comprehensive root cause analysis and prioritized fix strategy for my explicit approval.
-
-**Format for Approval Request:**
-
-```markdown
-## Bug Analysis Complete - Approval Required
-
-### Root Cause Summary
-
-[Primary root cause with evidence]
-
-### Proposed Fix
-
-[Fix description with specific files and changes]
-
-### Risk Assessment
-
-- **Risk Level**: [Low/Medium/High]
-- **Regression Risk**: [assessment]
-- **Rollback Plan**: [summary]
-
-### Confidence Level: [X%]
-
-### Files to Modify:
-
-1. `path/to/file.cs:line` - [change description]
-2. `path/to/file.ts:line` - [change description]
-
-**Awaiting approval to proceed with implementation.**
-```
-
-**DO NOT** proceed with implementation without explicit user approval.
+**CRITICAL**: Present comprehensive root cause analysis and prioritized fix strategy for explicit approval. **DO NOT** proceed without it.
 
 ---
 
@@ -264,22 +277,24 @@ Verify fix strategy follows code patterns from:
 
 Once approved:
 
-1. **Execute the fix plan** following the approved strategy
-2. **Use DEBUGGING_SAFEGUARDS**:
-    - Make minimal, targeted changes
-    - Preserve existing behavior where possible
-    - Add comments for non-obvious fixes
-3. **Follow platform patterns** from documentation
+1. Before creating or modifying **ANY** file, you **MUST** first load its relevant entry from your `## Knowledge Graph`
+2. Execute the fix plan
+3. Use all DEBUGGING_SAFEGUARDS
+4. If any step fails, **HALT**, report the failure, and return to the APPROVAL GATE
+5. Test the fix thoroughly
 
 ---
 
 ## SUCCESS VALIDATION
 
-Verify fix resolves the bug without regressions. Document under `## Debugging Validation`:
+Before completion:
 
-- **Bug Reproduction Steps (Before)**: How to reproduce the original bug
-- **Fix Verification Steps (After)**: How to verify the fix works
-- **Regression Testing Results**: Confirmation no existing functionality broke
+1. Verify fix resolves the bug without regressions
+2. Document under `## Debugging Validation` heading:
+   - Bug reproduction steps (before)
+   - Fix verification steps (after)
+   - Regression testing results
+3. Summarize changes in `changelog.md`
 
 ---
 
@@ -290,127 +305,5 @@ Verify fix resolves the bug without regressions. Document under `## Debugging Va
 - **Hypothesis-driven approach**: Test one hypothesis at a time with evidence
 - **Minimal impact fixes**: Prefer targeted fixes over broad refactoring
 - **Verify before claiming**: Never assume - always trace the actual code path
-- **Service boundary awareness**: Understand which service owns what
-- **Cross-service tracing**: Follow message bus flows across services
-
----
-
-## Platform Error Patterns Reference
-
-### Backend Validation Patterns
-
-```csharp
-// Use platform validation fluent API
-return base.Validate()
-    .And(_ => condition, "Error message")
-    .AndAsync(async req => await ValidateAsync(req))
-    .AndNotAsync(async req => await CheckForbiddenAsync(req), "Not allowed");
-
-// Use EnsureFound for null checks
-await repository.GetByIdAsync(id).EnsureFound($"Not found: {id}");
-
-// Use EnsureValid for validation results
-await entity.ValidateAsync(repository, ct).EnsureValidAsync();
-
-// Use PlatformException for domain errors
-throw new PlatformDomainException("Business rule violated");
-```
-
-### Frontend Error Handling
-
-```typescript
-// Use platform loading/error state
-this.apiService
-    .getData()
-    .pipe(
-        this.observerLoadingErrorState('loadData'),
-        this.tapResponse(
-            data => this.updateState({ data }),
-            error => this.handleError(error)
-        ),
-        this.untilDestroyed()
-    )
-    .subscribe();
-```
-
----
-
-## Quick Verification Checklist
-
-Before removing/changing ANY code:
-
-- [ ] Searched static imports?
-- [ ] Searched string literals in code?
-- [ ] Checked dynamic invocations (attr, prop, runtime)?
-- [ ] Read actual implementations?
-- [ ] Traced who depends on this?
-- [ ] Assessed what breaks if removed?
-- [ ] Documented evidence clearly?
-- [ ] Declared confidence level?
-
-**If ANY unchecked → DO MORE INVESTIGATION**
-**If confidence < 90% → REQUEST USER CONFIRMATION**
-
----
-
-## Common Bug Categories
-
-### Data Issues
-
-- Missing null checks
-- Incorrect data transformations
-- Race conditions in async operations
-- Stale cache data
-
-### Validation Issues
-
-- Missing or incorrect validation rules
-- Validation bypassed in certain paths
-- Async validation not awaited
-
-### Cross-Service Issues
-
-- Message bus delivery failures
-- Entity sync out of order (check LastMessageSyncDate)
-- API contract mismatches
-- Missing dependency waits
-
-### Frontend Issues
-
-- Component lifecycle issues
-- State management bugs
-- Form validation not triggered
-- API error handling missing
-
-### Authorization Issues
-
-- Missing role checks
-- Incorrect company context
-- Permission not propagated across services
-
----
-
-## Red Flags & Warning Signs
-
-### Watch For
-
-- "Looks like..." or "Probably..." - These are assumptions, not facts
-- "Should be straightforward" - Famous last words
-- "Only used in one place" - Verify that place isn't critical
-- "Template doesn't use it" - Check for dynamic property access
-
-### Danger Zones
-
-- Modifying platform base classes
-- Changing cross-service contracts
-- Database schema changes
-- Entity event handlers (side effects)
-- Background job scheduling
-
----
-
-## See Also
-
-- `.github/AI-DEBUGGING-PROTOCOL.md` - Comprehensive debugging protocol
-- `.ai/prompts/context.md` - Platform patterns and context
-- `CLEAN-CODE-RULES.md` - Coding standards
+- **Service boundary discovery**: Find endpoints before assuming responsibilities
+- **Never assume service ownership**: Verify patterns with code evidence

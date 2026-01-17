@@ -1,11 +1,7 @@
 {
   "name": "worktrees",
-  "description": "Guide for using git worktrees to parallelize development with coding agents. Use this skill when the user requests to work in a new worktree or wants to work on a separate feature in isolation (e.g., ",
-  "repo": "maragudk/skills",
-  "category": "development",
-  "tags": [
-    "worktrees"
-  ],
-  "stars": 17,
-  "source": "local"
+  "repo": "rbergman/dark-matter-marketplace",
+  "path": "plugins/workflow/skills/worktrees/SKILL.md",
+  "source": "github.com/rbergman/dark-matter-marketplace",
+  "downloaded_at": "2026-01-17T02:25:49.736721Z"
 }

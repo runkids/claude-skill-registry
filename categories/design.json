@@ -1,7 +1,7 @@
 {
   "category": "design",
-  "count": 2545,
-  "updated_at": "2026-01-14T04:12:18.349527Z",
+  "count": 2482,
+  "updated_at": "2026-01-17T04:12:07.178706Z",
   "skills": [
     {
       "name": "benchmark-kernel",
@@ -57,20 +57,6 @@
         "meta"
       ],
       "stars": 2424,
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "prototype-prompt-generator",
-      "description": "This skill should be used when users need to generate detailed, structured prompts for creating UI/UX prototypes. Trigger when users request help with \"create a prototype prompt\", \"design a mobile app",
-      "repo": "cexll/myclaude",
-      "path": "design/prototype-prompt-generator",
-      "category": "design",
-      "tags": [
-        "prototype",
-        "prompt",
-        "generator"
-      ],
-      "stars": 1535,
       "source": "SkillsMP Synced Skills"
     },
     {
@@ -320,19 +306,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "browser-tools",
-      "description": "Interactive browser automation via Chrome DevTools Protocol. Use when you need to interact with web pages, test frontends, or when user interaction with a visible browser is required.",
-      "repo": "badlogic/pi-skills",
-      "path": "data/browser-tools",
-      "category": "design",
-      "tags": [
-        "browser",
-        "tools"
-      ],
-      "stars": 72,
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "code-connect-components",
       "description": "Connects Figma design components to code components using Code Connect. Use when user says \"code connect\", \"connect this component to code\", \"connect Figma to code\", \"map this component\", \"link compon",
       "repo": "figma/mcp-server-guide",
@@ -477,46 +450,6 @@
         "builder"
       ],
       "stars": 45,
-      "source": "local"
-    },
-    {
-      "name": "documentation-criteria",
-      "description": "Documentation creation criteria including PRD, ADR, Design Doc, and Work Plan requirements with templates. Use when creating or reviewing technical documents, or determining which documents are requir",
-      "repo": "shinpr/claude-code-workflows",
-      "path": "data/documentation-criteria",
-      "category": "design",
-      "tags": [
-        "documentation",
-        "criteria"
-      ],
-      "stars": 44,
-      "source": "SkillsMP Synced Skills"
-    },
-    {
-      "name": "frontend-ai-guide",
-      "description": "Frontend-specific technical decision criteria, anti-patterns, debugging techniques, and quality check workflow. Use when making frontend technical decisions or performing quality assurance.",
-      "repo": "shinpr/claude-code-workflows",
-      "path": "data/frontend-ai-guide",
-      "category": "design",
-      "tags": [
-        "frontend",
-        "guide"
-      ],
-      "stars": 44,
-      "source": "local"
-    },
-    {
-      "name": "subagents-orchestration-guide",
-      "description": "Guides subagent coordination through implementation workflows. Use when orchestrating multiple agents, managing workflow phases, or determining autonomous execution mode. Defines scale determination, ",
-      "repo": "shinpr/claude-code-workflows",
-      "path": "data/subagents-orchestration-guide",
-      "category": "design",
-      "tags": [
-        "subagents",
-        "orchestration",
-        "guide"
-      ],
-      "stars": 44,
       "source": "local"
     },
     {
@@ -1123,19 +1056,6 @@
       "source": "local"
     },
     {
-      "name": "screenshot-to-code",
-      "description": "Convert UI screenshots into working HTML/CSS/React/Vue code. Detects design patterns, components, and generates responsive layouts. Use this when users provide screenshots of websites, apps, or UI des",
-      "repo": "OneWave-AI/claude-skills",
-      "path": "data/screenshot-to-code",
-      "category": "design",
-      "tags": [
-        "screenshot",
-        "code"
-      ],
-      "stars": 10,
-      "source": "local"
-    },
-    {
       "name": "skill-navigator",
       "description": "The 100th skill! Your intelligent guide to all 99 other skills. Recommends the perfect skill for any task, creates skill combinations, and helps you discover capabilities you didn't know you had.",
       "repo": "OneWave-AI/claude-skills",
@@ -1424,19 +1344,6 @@
       ],
       "stars": 8,
       "source": "local"
-    },
-    {
-      "name": "api-contract",
-      "description": "This skill should be used when the user asks about \"API contract\", \"api-contract.md\", \"shared interface\", \"TypeScript interfaces\", \"request response schemas\", \"endpoint design\", or needs guidance on d",
-      "repo": "damienlaine/agentic-sprint",
-      "path": "data/api-contract",
-      "category": "design",
-      "tags": [
-        "api",
-        "contract"
-      ],
-      "stars": 7,
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "editor-panel-creation",
@@ -1797,19 +1704,6 @@
       ],
       "stars": 5,
       "source": "local"
-    },
-    {
-      "name": "add-component",
-      "description": "Add a new component following Next.js 15 and shadcn/ui best practices",
-      "repo": "gregsantos/nexturbo",
-      "path": "data/add-component",
-      "category": "design",
-      "tags": [
-        "add",
-        "component"
-      ],
-      "stars": 4,
-      "source": "SkillsMP Synced Skills"
     },
     {
       "name": "analyze-m1-module-for-migration",
@@ -2809,18 +2703,6 @@
       "source": "local"
     },
     {
-      "name": "tailwind-ui",
-      "description": "Tailwind CSS v4.1 best practices with WCAG 2.1 AA accessibility, theming, and dark mode support. Use when working with HTML, CSS, styling components, accessibility (a11y), WCAG compliance, color contr",
-      "repo": "Boise-State-Development/agentcore-public-stack",
-      "path": "data/tailwind-ui",
-      "category": "design",
-      "tags": [
-        "tailwind"
-      ],
-      "stars": 2,
-      "source": "local"
-    },
-    {
       "name": "using-tmux",
       "description": "Control interactive CLI tools that require a real terminal via tmux send-keys. Use for git rebase -i, git add -p, vim, nano, Python/Node REPLs, or any command that hangs waiting for terminal input.",
       "repo": "HTRamsey/claude-config",
@@ -3380,20 +3262,6 @@
       "source": "local"
     },
     {
-      "name": "market-news-analyst",
-      "description": "This skill should be used when analyzing recent market-moving news events and their impact on equity markets and commodities. Use this skill when the user requests analysis of major financial news fro",
-      "repo": "tradermonty/claude-trading-skills",
-      "path": "data/market-news-analyst",
-      "category": "design",
-      "tags": [
-        "market",
-        "news",
-        "analyst"
-      ],
-      "stars": 1,
-      "source": "local"
-    },
-    {
       "name": "motion-director",
       "description": "Animation specialist - handles Framer Motion patterns, motion tokens, transitions, and micro-interactions for the calm aesthetic.",
       "repo": "totalaudiopromo/totalaud.io",
@@ -3471,20 +3339,6 @@
       "tags": [
         "odoo",
         "upgrade"
-      ],
-      "stars": 1,
-      "source": "local"
-    },
-    {
-      "name": "options-strategy-advisor",
-      "description": "Options trading strategy analysis and simulation tool. Provides theoretical pricing using Black-Scholes model, Greeks calculation, strategy P/L simulation, and risk management guidance. Use when user ",
-      "repo": "tradermonty/claude-trading-skills",
-      "path": "data/options-strategy-advisor",
-      "category": "design",
-      "tags": [
-        "options",
-        "strategy",
-        "advisor"
       ],
       "stars": 1,
       "source": "local"
@@ -4333,16 +4187,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "agent-loops",
-      "description": "Agentic workflow patterns for autonomous LLM reasoning. Use when building ReAct agents, implementing reasoning loops, or creating LLMs that plan and execute multi-step tasks.",
-      "repo": "yonatangross/skillforge-claude-plugin",
-      "path": "data/agent-loops",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "agent-management",
       "description": "Use PROACTIVELY this agent when you need to design and create optimal Claude Code subagents, update existing agents with new capabilities, revise agent configurations, analyze project requirements to ",
       "repo": "Emz1998/avaris-ai",
@@ -4550,16 +4394,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "alpine-js",
-      "description": "Adds reactive and declarative behavior to HTML with minimal JavaScript using Alpine.js directives. Use when adding lightweight interactivity to server-rendered pages, building interactive components w",
-      "repo": "mgd34msu/goodvibes-plugin",
-      "path": "design/alpine-js",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "ambiguity-detection",
       "description": "Detects critical product, scope, data, risk, and success ambiguities in requirements or PRDs and expresses them as structured, decision-forcing clarification questions without proposing solutions or w",
       "repo": "Z1-Test/temp-shubh-st16",
@@ -4734,16 +4568,6 @@
       "description": "Create Angular 20 standalone components using modern patterns: Signals for state management, input()/output() functions (not decorators), @if/@for/@switch control flow (not *ngIf/*ngFor), inject() dep",
       "repo": "tw-lin/ng-lin",
       "path": "design/angular-20-standalone-component",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "angular-best-practices",
-      "description": "Angular 21 development with modern best practices including signals, standalone components, reactive patterns, and accessibility. Use when creating Angular components, services, templates, or performi",
-      "repo": "Boise-State-Development/agentcore-public-stack",
-      "path": "design/angular-best-practices",
       "category": "design",
       "tags": [],
       "stars": 0,
@@ -5431,16 +5255,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "ark-ui",
-      "description": "Builds accessible UI components with Ark UI headless primitives for React, Vue, Solid, and Svelte. Use when creating custom-styled components with robust state management and accessibility built-in.",
-      "repo": "mgd34msu/goodvibes-plugin",
-      "path": "design/ark-ui",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "article-writing",
       "description": "Structure and style guidance for law review articles",
       "repo": "donaldbraman/write-assist",
@@ -6095,16 +5909,6 @@
       "description": "Begin the interactive Elixir/Phoenix tutorial with guided sections and pauses for understanding",
       "repo": "spaceCabbage/elixir-phoenix-tutorial",
       "path": "design/begin",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "best-practices-checker",
-      "description": "Validates code against framework-specific best practices documented in docs/infrastructure/. Checks Effect usage patterns, React 19 conventions, Drizzle ORM patterns, Hono RPC implementations, and oth",
-      "repo": "sovrium/sovrium",
-      "path": "design/best-practices-checker",
       "category": "design",
       "tags": [],
       "stars": 0,
@@ -6872,30 +6676,10 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "cfn-intervention-system",
-      "description": "Human intervention detection and orchestration for CFN Loop. Use when automated processes need human oversight, when escalation is required, or when managing intervention workflows and approval gates.",
-      "repo": "masharratt/claude-flow-novice",
-      "path": "data/cfn-intervention-system",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "GitHub Search API"
-    },
-    {
       "name": "chain-of-thought-reasoning",
       "description": "推論パターンを選択し、根拠サマリーを短く提示するためのプロンプト設計スキル。自己一貫性の比較、推論パターンの適用、説明の明確化を通じて、再現性の高い結論を導く。Anchors:• The Pragmatic Programmer / 適用: 手順設計 / 目的: 実践的な整理• Reasoning and Logic / 適用: 推論パターン / 目的: 一貫性のある説明• Self-Consis",
       "repo": "daishiman/AIWorkflowOrchestrator",
       "path": "design/chain-of-thought-reasoning",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "chakra-ui",
-      "description": "Builds accessible React applications with Chakra UI v3 components, tokens, and recipes. Use when creating styled component systems, theming, or accessible form controls.",
-      "repo": "mgd34msu/goodvibes-plugin",
-      "path": "design/chakra-ui",
       "category": "design",
       "tags": [],
       "stars": 0,
@@ -7489,16 +7273,6 @@
       "source": "local"
     },
     {
-      "name": "command-documentation-patterns",
-      "description": "コマンドのドキュメント設計（セルフドキュメンティング構造/使用例/トラブルシューティング）を整理し、説明の一貫性と読みやすさを支援するスキル。章構成、記述ルール、検証手順を一貫して整理する。Anchors:• Software Requirements (Karl Wiegers) / 適用: 要求の言語化と構造化 / 目的: 説明品質の安定化Trigger:Use when documentin",
-      "repo": "daishiman/AIWorkflowOrchestrator",
-      "path": "design/command-documentation-patterns",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "command-error-handling",
       "description": "コマンドのエラーハンドリング（引数検証/事前チェック/ロールバック/ユーザー確認/エラーメッセージ設計）を整理し、失敗時の安全性と説明の一貫性を支援するスキル。パターン選定、検証手順、テンプレート運用を一貫して整理する。Anchors:• The Pragmatic Programmer (Andrew Hunt, David Thomas) / 適用: エラーハンドリング設計 / 目的: 安定し",
       "repo": "daishiman/AIWorkflowOrchestrator",
@@ -7764,16 +7538,6 @@
       "description": "Teaches component composition patterns in React 19 including children prop, compound components, and render props. Use when designing component APIs, creating reusable components, or avoiding prop dri",
       "repo": "djankies/claude-configs",
       "path": "design/composing-components",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "compound-components",
-      "description": "Build UI components using the compound component pattern. Use when creating new React components, building UI elements, refactoring components, or when the user mentions compound components, composabl",
-      "repo": "zoonk/zoonk",
-      "path": "data/compound-components",
       "category": "design",
       "tags": [],
       "stars": 0,
@@ -8080,16 +7844,6 @@
       ],
       "stars": 0,
       "source": "local"
-    },
-    {
-      "name": "convex-realtime",
-      "description": "Implement real-time features using Convex reactive queries that automatically update when data changes, enabling live collaboration, instant updates, and reactive UIs without manual polling. Use when ",
-      "repo": "korallis/Droidz",
-      "path": "design/convex-realtime",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "coordinate-lookup",
@@ -8611,18 +8365,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "css",
-      "description": "Use when writing CSS for Discourse core, themes, or plugins - handles BEM class naming, modifiers with double dashes, block__element structure, and is-/has- state prefixes",
-      "repo": "discourse/skills",
-      "path": "data/css",
-      "category": "design",
-      "tags": [
-        "css"
-      ],
-      "stars": 0,
-      "source": "SkillsMP Synced Skills"
-    },
-    {
       "name": "css-author",
       "description": "Modern CSS organization with native @import, @layer cascade control, CSS nesting, design tokens, and element-focused selectors. AUTO-INVOKED when editing .css files.",
       "repo": "ProfPowell/project-template",
@@ -8741,16 +8483,6 @@
       "description": "This skill provides prescriptive guidance for writing modern CSS layouts using intrinsic design principles, container queries, and fluid responsive techniques. When implementing CSS layouts, always co",
       "repo": "wernerglinka/metalsmith-components",
       "path": "design/css-layout-development",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "css-module-generator",
-      "description": "Css Module Generator - Auto-activating skill for Frontend Development.Triggers on: css module generator, css module generatorPart of the Frontend Development skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "design/css-module-generator",
       "category": "design",
       "tags": [],
       "stars": 0,
@@ -9037,16 +8769,6 @@
       "description": "Use when creating tree diagrams, force-directed networks, Voronoi diagrams, or hierarchical layouts. Invoke for org charts, node-link diagrams, treemaps, dendrograms, force simulations, spatial indexi",
       "repo": "zacharyr0th/next-starter",
       "path": "design/d3-layouts-hierarchies",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "dag-execution",
-      "description": "This skill should be used when the user asks about \"DAG execution\", \"directed acyclic graph\", \"task dependencies\", \"parallel task execution\", \"topological sort\", \"level-based execution\", \"dependency r",
-      "repo": "Lobbi-Docs/claude",
-      "path": "design/dag-execution",
       "category": "design",
       "tags": [],
       "stars": 0,
@@ -9618,16 +9340,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "design-mastery",
-      "description": "World-class design system with extensible business type registry. Automatically selects appropriate design patterns based on business context. Anti-AI detection, trend-aware, production-ready design d",
-      "repo": "wasintoh/toh-framework",
-      "path": "design/design-mastery",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "design-movements",
       "description": "Historical design movements and their enduring influence. Understand Bauhaus, Swiss International Style, Art Deco, Memphis, and more. Use when choosing an aesthetic direction, understanding cultural c",
       "repo": "HermeticOrmus/LibreUIUX-Claude-Code",
@@ -9675,16 +9387,6 @@
       "description": "7-phase frontend design review with accessibility (WCAG 2.1 AA), responsive testing, visual polish. Use for PR reviews, UI audits, or encountering contrast issues, broken layouts, accessibility violat",
       "repo": "secondsky/claude-skills",
       "path": "design/design-review",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "design-system-architecture",
-      "description": "一貫性と拡張性を両立するデザインシステムの基盤設計を支援するスキル。デザイントークン、コンポーネント規約、Figma/コード同期を体系化する。Anchors:• Atomic Design / 適用: コンポーネント階層設計 / 目的: 構造の一貫性確保• Design Tokens / 適用: トークン管理 / 目的: 再利用性の向上• Clean Architecture / 適用: 依存関係",
-      "repo": "daishiman/AIWorkflowOrchestrator",
-      "path": "design/design-system-architecture",
       "category": "design",
       "tags": [],
       "stars": 0,
@@ -10392,16 +10094,6 @@
       "source": "SkillsMP Synced Skills"
     },
     {
-      "name": "docs-creating-accessible-diagrams",
-      "description": "WCAG-compliant Mermaid diagrams using verified accessible color palette. Use when creating diagrams, flowcharts, or any color-dependent visualizations requiring accessibility compliance for color blin",
-      "repo": "wahidyankf/open-sharia-enterprise",
-      "path": "data/docs-creating-accessible-diagrams",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "documentation-wizard",
       "description": "Keeps documentation in perfect sync with code and knowledge. Integrates with Oracle to leverage learnings, Summoner for design docs, and Style Master for style guides. Auto-generates and updates READM",
       "repo": "Overlord-Z/ClaudeShack",
@@ -10913,16 +10605,6 @@
       "description": "Enhance frontend to pixel-perfect standards with mobile responsiveness and industry-leading design quality",
       "repo": "thoreinstein/opencode-config",
       "path": "design/enhance",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "enhancing-notes",
-      "description": "Enhance book notes with Blinkist-style summaries. Use when asked to \"enhance notes\", \"improve book notes\", \"add key insights\", \"expand notes\", or \"make notes better\". Adds Core Message, Key Insights, ",
-      "repo": "alexanderop/second-brain-nuxt",
-      "path": "data/enhancing-notes",
       "category": "design",
       "tags": [],
       "stars": 0,
@@ -12293,16 +11975,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "frontend-component-patterns",
-      "description": "Build reusable, composable, and maintainable React/Vue/Angular components following established design patterns like compound components, render props, custom hooks, and HOCs. Use when creating compon",
-      "repo": "korallis/Droidz",
-      "path": "design/frontend-component-patterns",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "frontend-debugging",
       "description": "Systematic 10-phase debugging procedure for SvelteKit 2 + Svelte 5 frontend issues. Use when components fail to render, routing breaks, runes throw errors, or Encore client calls fail.",
       "repo": "nirukk52/ScreenGraph",
@@ -12451,16 +12123,6 @@
       "description": "Image sourcing for UI. Free first (DiceBear avatars, Unsplash photos, unDraw illustrations). AI generation only for custom needs.",
       "repo": "petbrains/mvp-builder",
       "path": "data/frontend-image-generation",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "frontend-implementation",
-      "description": "Frontend development with React, Vue, Angular, modern web technologies. Use for frontend, ui, react, vue, angular, web, component tags. Provides validation commands, component patterns, accessibility ",
-      "repo": "jpicklyk/task-orchestrator",
-      "path": "design/frontend-implementation",
       "category": "design",
       "tags": [],
       "stars": 0,
@@ -12921,16 +12583,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "gatsby",
-      "description": "Builds static and hybrid sites with Gatsby, React, and GraphQL data layer. Use when creating content-heavy websites, blogs, e-commerce storefronts, or when user mentions Gatsby, static site generation",
-      "repo": "mgd34msu/goodvibes-plugin",
-      "path": "design/gatsby",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "gcp-cloud",
       "description": "Google Cloud Platform infrastructure patterns and best practices. Use when designing or implementing GCP solutions including Compute Engine, Cloud Functions, Cloud Storage, and BigQuery.",
       "repo": "jpoutrin/product-forge",
@@ -13041,16 +12693,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "genesis",
-      "description": "太初有道，道生代码。从零搭建 React19+TailwindV4+Vite 前端、FastAPI Python 后端、Go Gin 后端、Taro 4.x 小程序。用户说\"新建项目\"、\"初始化\"、\"从零开始\"、\"搭建项目\"、\"创建项目\"、\"生成落地页\"、\"生成官网\"、\"生成 Landing Page\"、\"动画提升\"、\"动效升级\"、\"新建小程序\"、\"创建小程序\"、\"Taro 项目\"时触发。",
-      "repo": "BellyBook/genesis",
-      "path": "data/genesis",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "gerar-quiz-rag",
       "description": "Gerador e executor de quiz sobre conhecimento RAG. Comandos: '/gerar-quiz-rag gerar' para gerar perguntas do banco RAG e salvar em JSON, '/gerar-quiz-rag iniciar' para executar quiz de 10 perguntas, '",
       "repo": "diegofornalha/plugin-rag-to-quiz",
@@ -13065,16 +12707,6 @@
       "description": "Expert in Gesttione Design System with deep knowledge of brand colors, metric tokens, typography, and component patterns. **ALWAYS use for Gesttione projects when applying brand colors, creating metri",
       "repo": "marcioaltoe/claude-craftkit",
       "path": "design/gesttione-design-system",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "ghe-design",
-      "description": "Reference material for Athena when writing requirements. NOT a template - Athena writes requirements freely based on the domain. This skill provides guidance patterns that may be useful, not constrain",
-      "repo": "Emasoft/ghe-marketplace",
-      "path": "design/ghe-design",
       "category": "design",
       "tags": [],
       "stars": 0,
@@ -13842,16 +13474,6 @@
       "source": "GitHub Search API"
     },
     {
-      "name": "i18n-manager",
-      "description": "Expert in internationalization (i18n) and localization (l10n) with i18next, react-intl, multi-language support, RTL layouts, locale-specific formatting, translation management, and automated text extr",
-      "repo": "deve1993/Quickfy-website",
-      "path": "design/i18n-manager",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "i18n-setup-wizard",
       "description": "Sets up complete internationalization infrastructure for React, Vue, Next.js, or vanilla JS with framework config, translation files, and language switching. Use when user asks to \"setup i18n\", \"add t",
       "repo": "Dexploarer/claudius-skills",
@@ -14615,16 +14237,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "jotai",
-      "description": "Manages React state with Jotai including atoms, derived atoms, async atoms, and utilities. Use when building React applications needing atomic state, bottom-up state management, or fine-grained update",
-      "repo": "mgd34msu/goodvibes-plugin",
-      "path": "design/jotai",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "jotai-patterns",
       "description": "Jotai atomic state management patterns. Use when implementing fine-grained reactive state.",
       "repo": "IvanTorresEdge/molcajete.ai",
@@ -15223,16 +14835,6 @@
       "description": "Multi-agent architectures with LangGraph. Use when building systems with multiple collaborating agents, implementing supervisor or swarm patterns, creating hierarchical agent workflows, or designing a",
       "repo": "rozwer/cross2B-Pro",
       "path": "data/langgraph-multi-agent",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "langgraph-state",
-      "description": "LangGraph state management patterns. Use when designing workflow state schemas, using TypedDict vs Pydantic, implementing accumulating state with Annotated operators, or managing shared state across n",
-      "repo": "yonatangross/skillforge-claude-plugin",
-      "path": "design/langgraph-state",
       "category": "design",
       "tags": [],
       "stars": 0,
@@ -15997,16 +15599,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "mantine",
-      "description": "Builds React applications with Mantine's 100+ components, hooks, and form library. Use when creating feature-rich UIs with built-in dark mode, accessibility, and TypeScript support.",
-      "repo": "mgd34msu/goodvibes-plugin",
-      "path": "design/mantine",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "manuscript-writing",
       "description": "Use when writing systematic review manuscript sections following PRISMA 2020 guidelines. Covers abstract, introduction, methods, results, and discussion drafting for medical journals. Invoke for acade",
       "repo": "matheus-rech/meta-agent",
@@ -16652,16 +16244,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "mobile-android",
-      "description": "Mobile-Android standards for mobile android in Frontend environments.",
-      "repo": "williamzujkowski/standards",
-      "path": "design/mobile-android",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "mobile-app-ux",
       "description": "Mobile app UX/UI best practices for smartphone interfaces. Use for designing touch-friendly interfaces, mobile navigation patterns, gesture handling, and optimizing user experience on small screens. T",
       "repo": "iButters/ClaudeCodePlugins",
@@ -16676,16 +16258,6 @@
       "description": "Approche Mobile-First avec Tailwind CSS, breakpoints, et progressive enhancement. MANDATORY pour toutes les pages. À utiliser lors de responsive design, layouts, ou quand l'utilisateur mentionne \"mobi",
       "repo": "RomualdP/hoki",
       "path": "design/mobile-first-responsive-design",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "mobile-ios",
-      "description": "Mobile-Ios standards for mobile ios in Frontend environments. Covers",
-      "repo": "williamzujkowski/standards",
-      "path": "design/mobile-ios",
       "category": "design",
       "tags": [],
       "stars": 0,
@@ -16877,16 +16449,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "motion-animation-patterns",
-      "description": "Use this skill for implementing Motion (Framer Motion) animations in React applications. Covers animation presets, page transitions, modal animations, list stagger effects, hover interactions, skeleto",
-      "repo": "yonatangross/skillforge-claude-plugin",
-      "path": "design/motion-animation-patterns",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "GitHub Search API"
-    },
-    {
       "name": "motion-designer",
       "description": "Use when designing visual motion systems, creating animation specifications, or when a designer needs guidance on crafting beautiful, meaningful movement.",
       "repo": "dylantarre/animation-principles",
@@ -16911,16 +16473,6 @@
       "description": "Motion for Vue animation library guidance. Use when building Vue animations with motion-v package, implementing gesture animations (hover, press, drag), scroll-linked animations, layout animations, ex",
       "repo": "akornmeier/claude-config",
       "path": "design/motion-vue",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "msw-mocking",
-      "description": "Mock Service Worker (MSW) for API mocking. Use when testing frontend components with network mocking, simulating API errors, or creating deterministic API responses in tests.",
-      "repo": "yonatangross/skillforge-claude-plugin",
-      "path": "data/msw-mocking",
       "category": "design",
       "tags": [],
       "stars": 0,
@@ -17108,16 +16660,6 @@
       ],
       "stars": 0,
       "source": "local"
-    },
-    {
-      "name": "nanostores",
-      "description": "Manages state with Nanostores using atoms, maps, computed stores, and framework integrations. Use when building framework-agnostic state, sharing state between islands/components, or needing tiny bund",
-      "repo": "mgd34msu/goodvibes-plugin",
-      "path": "design/nanostores",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "narrative-architect-korean-style",
@@ -18826,7 +18368,7 @@
       "name": "phoenix-brand-reporting",
       "description": "Press On Ventures brand-consistent reporting. Use when designing charts, dashboards, exports, or LP-facing documents.",
       "repo": "nikhillinit/Updog_restore",
-      "path": "design/phoenix-brand-reporting",
+      "path": "data/phoenix-brand-reporting",
       "category": "design",
       "tags": [
         "phoenix",
@@ -20390,16 +19932,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "react-context-setup",
-      "description": "React Context Setup - Auto-activating skill for Frontend Development.Triggers on: react context setup, react context setupPart of the Frontend Development skill category.",
-      "repo": "jeremylongshore/claude-code-plugins-plus-skills",
-      "path": "design/react-context-setup",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "react-dev",
       "description": "Type-safe React patterns for React 18-19 including generic components, proper event typing, Server Components, Actions, and TanStack Router integration. Use when building React components with TypeScr",
       "repo": "outfitter-dev/agents",
@@ -20652,16 +20184,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "react-vite",
-      "description": "React 18+ patterns with Vite bundler, TypeScript, hooks, component design, and state management. Activate for React apps, Vite configuration, TypeScript, frontend development, and modern React pattern",
-      "repo": "Lobbi-Docs/claude",
-      "path": "design/react-vite",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "react-web3-developer",
       "description": "Expert React frontend developer with advanced Web3/blockchain experience and pixel-perfect design implementation. Use when building UI components, implementing Web3 features, styling with CSS, creatin",
       "repo": "AnasShaikh/openwork-react-app",
@@ -20686,16 +20208,6 @@
       ],
       "stars": 0,
       "source": "local"
-    },
-    {
-      "name": "readme-writing-readme-files",
-      "description": "README quality standards for engaging, accessible, scannable content including problem-solution hooks, plain language (no unexplained jargon), acronym context, paragraph limits (≤5 lines), benefits-fo",
-      "repo": "wahidyankf/open-sharia-enterprise",
-      "path": "design/readme-writing-readme-files",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
     },
     {
       "name": "readwise-api",
@@ -20849,16 +20361,6 @@
       "description": "Use when building frontend Web apps that talk to CloudBase Relational Database via @cloudbase/js-sdk – provides the canonical init pattern so you can then use Supabase-style queries from the browser.",
       "repo": "TencentCloudBase/CloudBase-MCP",
       "path": "design/relational-database-web-cloudbase",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "remix",
-      "description": "Builds full-stack React applications with Remix using loaders, actions, nested routes, and progressive enhancement. Use when creating Remix projects, implementing data loading, form handling, error bo",
-      "repo": "mgd34msu/goodvibes-plugin",
-      "path": "design/remix",
       "category": "design",
       "tags": [],
       "stars": 0,
@@ -21235,16 +20737,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "reviewer",
-      "description": "代码审查员,守护质量闸口。对所有部门(Backend/Frontend/SCF/Deploy)的 PR 进行安全、性能、正确性、可维护性、可观测性的系统性审查。遵循证据先行、问题分级、签发修复卡、独立克制的工程基线。适用于收到任一部门提交 PR 或需要质量把关时使用。",
-      "repo": "lpding888/aiygw4.0",
-      "path": "design/reviewer",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "reviewing-component-architecture",
       "description": "Review component architecture for React 19 best practices including size, composition, Server/Client boundaries, and anti-patterns. Use when reviewing component design.",
       "repo": "djankies/claude-configs",
@@ -21448,16 +20940,6 @@
       "description": "Comprehensive guide to Object-Oriented Programming in Ruby and Rails covering classes, modules, design patterns, SOLID principles, and modern Ruby 3.x features",
       "repo": "Kaakati/rails-enterprise-dev",
       "path": "design/ruby-oop-patterns",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "rule-identifier",
-      "description": "This skill should be used when the user asks to \"create a hookify rule\", \"write a hook rule\", \"configure hookify\", \"add a hookify rule\", or needs guidance on hookify rule syntax and patterns.",
-      "repo": "anthropics/claude-code",
-      "path": "design/rule-identifier",
       "category": "design",
       "tags": [],
       "stars": 0,
@@ -21719,16 +21201,6 @@
       "description": "iOS画面実装のアーキテクチャ・設計思想スキル。Reduxパターンに基づくSingle Root State、Reducerによるビジネスロジック分離、テスタビリティを重視した実装を支援。使用シーン：(1)「このプロトタイプを本番実装にして」などの本格実装リクエスト (2)「状態管理を整理して」などのアーキテクチャ適用リクエスト (3) 画面の状態管理やテスト可能な設計が必要な場合 (4)「この画",
       "repo": "hiragram/claude-code-plugins",
       "path": "design/screen-architecture",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "scribe",
-      "description": "Deploy cross-session memory and pattern accumulation mode. Use when need to track breakthroughs across sessions, accumulate wisdom, or bridge session continuity.",
-      "repo": "nikhilvallishayee/universal-pattern-space",
-      "path": "design/scribe",
       "category": "design",
       "tags": [],
       "stars": 0,
@@ -22180,16 +21652,6 @@
       "source": "GitHub Search API"
     },
     {
-      "name": "shadcn-vue",
-      "description": "shadcn-vue for Vue/Nuxt with Reka UI components and Tailwind. Use for accessible UI, Auto Form, data tables, charts, or encountering component imports, dark mode, Reka UI errors.",
-      "repo": "secondsky/claude-skills",
-      "path": "design/shadcn-vue",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "shadcnui",
       "description": "A collection of beautifully designed, accessible UI components built with Radix UI and Tailwind CSS",
       "repo": "SlanyCukr/riot-api-project",
@@ -22484,16 +21946,6 @@
       "source": "local"
     },
     {
-      "name": "skill-architect",
-      "description": "Expert guide for creating OpenCode skills. Use when: (1) Creating new  skills with scripts and resources, (2) Learning skill design patterns, (3) Validating existing skills, (4) Choosing the right ski",
-      "repo": "walcon/opencode-example",
-      "path": "design/skill-architect",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "skill-capability-matcher",
       "description": "This skill should be used when the user wants to find the right looplia skills for a task,match requirements to available capabilities, or determine which skills should handle eachworkflow step. Use w",
       "repo": "memorysaver/looplia-core",
@@ -22588,16 +22040,6 @@
       "description": "Expert web designer for responsive, mobile-first websites. Specializes in landing pages using Astro, Tailwind CSS, and Cloudflare Pages. Enforces design consistency through style guides, semantic HTML",
       "repo": "raro123/fund-investigator",
       "path": "data/skill-webdesign",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "skills-eval",
-      "description": "Evaluate and improve Claude skill quality through auditing.Triggers: skill audit, quality review, compliance check, improvement suggestions,token usage analysis, skill evaluation, skill assessment, sk",
-      "repo": "athola/claude-night-market",
-      "path": "design/skills-eval",
       "category": "design",
       "tags": [],
       "stars": 0,
@@ -22741,16 +22183,6 @@
       "description": "Use when creating motion that needs dimensional grounding, designing transforms that maintain object integrity, or ensuring animations feel structurally sound.",
       "repo": "dylantarre/animation-principles",
       "path": "design/solid-drawing-mastery",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "solidjs",
-      "description": "SolidJS reactive UI framework development. Use when building interactive frontends, creating reactive components, managing state with signals/stores, handling async data fetching, or implementing fine",
-      "repo": "bout3fiddy/agents",
-      "path": "data/solidjs",
       "category": "design",
       "tags": [],
       "stars": 0,
@@ -24156,26 +23588,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "tailwind-css-v4-mastery",
-      "description": "Expert guidance for leveraging Tailwind CSS V4's new Oxide engine, CSS-first configuration, and modern styling paradigms. This skill transforms Claude into a Tailwind V4 architecture specialist, capab",
-      "repo": "Calel33/my-flash-ui-app--1-",
-      "path": "design/tailwind-css-v4-mastery",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "tailwind-design-system",
-      "description": "Build scalable design systems with Tailwind CSS, design tokens, component libraries, and responsive patterns. Use when creating component libraries, implementing design systems, or standardizing UI pa",
-      "repo": "wshobson/agents",
-      "path": "design/tailwind-design-system",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "tailwind-performance",
       "description": "Use when optimizing Tailwind CSS for production, reducing bundle size, and improving performance. Covers PurgeCSS, JIT mode, and build optimization.",
       "repo": "TheBushidoCollective/han",
@@ -24306,16 +23718,6 @@
       "description": "Quick, structured task capture with automatic processing. Use when user wants to capture a task, add a todo, or remember something. Auto-triggers on phrases like \"I need to...\", \"remind me to...\", \"ad",
       "repo": "Ninjasenap/AIDA",
       "path": "data/task-capture",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "task-details",
-      "description": "Enriches Jira tasks with comprehensive context, requirements analysis, and technical details through intelligent extraction, dependency mapping, and historical analysis",
-      "repo": "Lobbi-Docs/claude",
-      "path": "design/task-details",
       "category": "design",
       "tags": [],
       "stars": 0,
@@ -25403,16 +24805,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "ui-first-builder",
-      "description": "Creates production-ready UI immediately from any description. Generates complete  pages, components, and realistic mock data in FIRST response. Uses Next.js 14 +  Tailwind + shadcn/ui. Never asks ques",
-      "repo": "wasintoh/toh-framework",
-      "path": "design/ui-first-builder",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "ui-guidelines-applicator",
       "description": "Apply consistent UI design guidelines to components. Use this skill when building React/TypeScript components, designing UI patterns, or ensuring design system compliance. This skill provides comprehe",
       "repo": "menoncello/nimata",
@@ -25462,16 +24854,6 @@
       "description": "Use when refactoring existing React Native, Next.js, or TypeScript UI code to apply modern design principles and aesthetic excellence - analyzes current implementation, applies design presets, maintai",
       "repo": "apexscaleai/claude-ui-design-system",
       "path": "design/ui-refactoring-workflow",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "ui-style-guide",
-      "description": "Frontend coding standards, component patterns, and design system for the Guessimate Angular UI. Reference when writing or reviewing frontend code.",
-      "repo": "DavidOpDeBeeck/guessimate",
-      "path": "data/ui-style-guide",
       "category": "design",
       "tags": [],
       "stars": 0,
@@ -26240,16 +25622,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "valtio",
-      "description": "Manages state with Valtio using proxy-based reactivity, direct mutations, and automatic re-renders. Use when wanting mutable state syntax, fine-grained reactivity, or state management outside React co",
-      "repo": "mgd34msu/goodvibes-plugin",
-      "path": "design/valtio",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "value-chain-mapping",
       "description": "Map value chains from user needs to underlying components",
       "repo": "melodic-software/claude-code-plugins",
@@ -26334,16 +25706,6 @@
       "source": "SkillsMP + GitHub Raw"
     },
     {
-      "name": "vercel-design-guidelines",
-      "description": "Check web interfaces against Vercel's design guidelines. Use when asked to \"review my UI\", \"check accessibility\", \"audit design\", \"review UX\", \"check my site against best practices\", or \"apply Vercel ",
-      "repo": "vercel-labs/agent-skills",
-      "path": "design/vercel-design-guidelines",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "vercel-reference-architecture",
       "description": "Implement Vercel reference architecture with best-practice project layout.Use when designing new Vercel integrations, reviewing project structure,or establishing architecture standards for Vercel appl",
       "repo": "jeremylongshore/claude-code-plugins-plus-skills",
@@ -26414,16 +25776,6 @@
       "description": "Use this skill when discussing feature breakdown, PR structure, implementation ordering, or how to decompose work. Guides thinking about vertical slices (end-to-end functionality) rather than horizont",
       "repo": "jclfocused/claude-agents",
       "path": "design/vertical-slice-planning",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "vibe-orchestrator",
-      "description": "Master workflow controller for Lovable-style development. Creates working UI  immediately from ANY prompt - no questions asked, no choices given. Routes to  specialist sub-agents (ui-builder, dev-buil",
-      "repo": "wasintoh/toh-framework",
-      "path": "design/vibe-orchestrator",
       "category": "design",
       "tags": [],
       "stars": 0,
@@ -27078,16 +26430,6 @@
       "source": "local"
     },
     {
-      "name": "websocket-patterns",
-      "description": "WebSocketによる双方向リアルタイム通信パターン専門スキル。接続ライフサイクル管理、メッセージキューイング、ハートビート戦略、エラーリカバリーを提供する。Anchors:• RFC 6455 (WebSocket Protocol) / 適用: プロトコル仕様 / 目的: 標準準拠の実装• 『Designing Data-Intensive Applications』(Martin Klep",
-      "repo": "daishiman/AIWorkflowOrchestrator",
-      "path": "design/websocket-patterns",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
       "name": "webview-dev",
       "description": "Vue3 Webview 前端开发模块。当需要创建 Vue 组件、修改 UI、添加样式、使用 Vite 构建、与 Extension 通信时使用。涵盖组件开发、状态管理、样式系统、API 封装等。",
       "repo": "NAMEWTA/ai-omni",
@@ -27292,16 +26634,6 @@
       "description": "Design and implement multi-step automation workflows",
       "repo": "mindmorass/reflex",
       "path": "design/workflow-builder",
-      "category": "design",
-      "tags": [],
-      "stars": 0,
-      "source": "SkillsMP + GitHub Raw"
-    },
-    {
-      "name": "workflow-designer",
-      "description": "Designs and generates workflow components following Manager-as-Agent pattern with architectural compliance",
-      "repo": "fractary/claude-plugins",
-      "path": "design/workflow-designer",
       "category": "design",
       "tags": [],
       "stars": 0,

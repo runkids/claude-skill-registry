@@ -1,105 +1,254 @@
 ---
 name: security-scan
-description: Proactive security scanning. Triggers when modifying auth, API endpoints, user data, or sensitive operations.
+description: Quick routine security checks for secrets, dependencies, and common vulnerabilities. Run frequently during development. Triggers: security scan, quick scan, secrets check, vulnerability check, security check, pre-commit security, routine security.
+allowed-tools: Read, Grep, Glob, Bash
 ---
 
-# Security Scan Skill
+# Security Scan
 
-Automatically scans for security issues when security-sensitive code is modified.
+## Overview
 
-## When to Activate
+This skill provides quick, routine security checks that should be run frequently during development. These are lightweight scans designed to catch common issues early, not comprehensive audits.
 
-This skill should activate when:
-- Changes touch authentication or authorization
-- New API endpoints are added
-- User input handling is modified
-- Database queries are added/modified
-- File uploads or storage operations
-- Payment or financial operations
+## When to Use
 
-## Security Checklist
+- **Before commits**: Quick check for secrets and obvious issues
+- **During PR review**: Verify no new vulnerabilities introduced
+- **Regular intervals**: Daily/weekly automated checks
+- **After dependency updates**: Verify no new CVEs
+- **Quick sanity checks**: Fast verification during development
 
-### 1. Authentication & Authorization
-- [ ] Auth middleware applied to protected routes
-- [ ] Firebase Auth tokens properly validated
-- [ ] User can only access their own data
-- [ ] Admin endpoints properly restricted
+For comprehensive security work, use the `security-audit` skill or invoke the `security-engineer` agent.
 
-### 2. Input Validation
-- [ ] All user inputs validated
-- [ ] Request body size limits
-- [ ] File upload type/size restrictions
-- [ ] Path traversal prevention
+## Quick Scan Checklist
 
-### 3. Data Protection
-- [ ] No sensitive data in logs
-- [ ] No secrets in code
-- [ ] PII properly handled
-- [ ] Signed URLs used for private files
+Run these checks in order of priority:
 
-### 4. API Security
-- [ ] Rate limiting considered
-- [ ] CORS properly configured
-- [ ] Error messages don't leak info
-- [ ] Proper HTTP status codes
+### 1. Secret Detection (Critical)
 
-### 5. Firebase/Firestore Security
-- [ ] Security rules updated for new collections
-- [ ] Rules tested with Firebase emulator
-- [ ] No wildcard read/write rules
-- [ ] Proper field-level validation
-
-## OWASP Top 10 Quick Check
-
-1. **Injection** - Parameterized queries?
-2. **Broken Auth** - Session management secure?
-3. **Sensitive Data** - Encrypted at rest/transit?
-4. **XXE** - XML parsing disabled/secured?
-5. **Broken Access Control** - Authorization checked?
-6. **Misconfiguration** - Default configs changed?
-7. **XSS** - Output encoded?
-8. **Deserialization** - Untrusted data validated?
-9. **Components** - Dependencies up to date?
-10. **Logging** - Security events logged?
-
-## Platform-Specific Checks
-
-### Backend (Go)
 ```bash
-# Run security scan
-cd backend && make security-scan
+# Check for hardcoded secrets with grep patterns
+# API keys
+grep -rn --include="*.{js,ts,py,go,java,rb,php}" \
+  -E "(api[_-]?key|apikey)\s*[:=]\s*['\"][a-zA-Z0-9]{16,}" .
 
-# Check for vulnerabilities
-cd backend && make vuln-check
+# AWS credentials
+grep -rn --include="*.{js,ts,py,go,java,rb,php,env,yaml,yml,json}" \
+  -E "(AKIA|ABIA|ACCA|ASIA)[A-Z0-9]{16}" .
+
+# Private keys
+grep -rn --include="*.{pem,key,env}" \
+  -E "-----BEGIN (RSA |EC |DSA |OPENSSH )?PRIVATE KEY-----" .
+
+# Generic secrets
+grep -rn --include="*.{js,ts,py,go,java,rb,php}" \
+  -E "(password|secret|token)\s*[:=]\s*['\"][^'\"]{8,}" .
 ```
 
-### Web (Next.js)
-```bash
-# Check npm vulnerabilities
-cd web && npm audit
+**Better: Use dedicated tools**
 
-# Check for secrets
-grep -r "api_key\|secret\|password" web/src/
+```bash
+# TruffleHog (recommended)
+trufflehog filesystem --directory=. --only-verified --no-update
+
+# GitLeaks
+gitleaks detect --source=. --no-git
+
+# git-secrets (if installed)
+git secrets --scan
 ```
 
-## Output Format
+### 2. Dependency Vulnerabilities (High)
+
+```bash
+# Node.js
+npm audit --audit-level=high
+# or
+yarn audit --level high
+
+# Python
+pip-audit
+# or
+safety check
+
+# Go
+govulncheck ./...
+
+# Rust
+cargo audit
+
+# Ruby
+bundle audit check --update
+
+# .NET
+dotnet list package --vulnerable --include-transitive
+```
+
+### 3. Quick Static Analysis (Medium)
+
+```bash
+# Multi-language with Semgrep (fast defaults)
+semgrep --config=p/security-audit --config=p/secrets .
+
+# Python only
+bandit -r . -ll  # Only high severity
+
+# JavaScript/TypeScript
+npx eslint . --ext .js,.ts --no-eslintrc \
+  --plugin security --rule 'security/detect-object-injection: error'
+
+# Go
+gosec -severity high ./...
+```
+
+### 4. Configuration Checks (Medium)
+
+```bash
+# Docker
+hadolint Dockerfile
+
+# Terraform
+tfsec . --minimum-severity HIGH
+
+# Kubernetes
+kubesec scan deployment.yaml
+
+# General config
+checkov -f config.yaml --check HIGH
+```
+
+## Pre-Commit Hook Setup
+
+Add to `.pre-commit-config.yaml`:
+
+```yaml
+repos:
+  - repo: https://github.com/trufflesecurity/trufflehog
+    rev: v3.63.0
+    hooks:
+      - id: trufflehog
+        entry: trufflehog filesystem --no-update --fail --only-verified
+        args: ["--directory=."]
+
+  - repo: https://github.com/zricethezav/gitleaks
+    rev: v8.18.0
+    hooks:
+      - id: gitleaks
+
+  - repo: https://github.com/returntocorp/semgrep
+    rev: v1.52.0
+    hooks:
+      - id: semgrep
+        args: ["--config=p/secrets", "--error"]
+```
+
+## CI/CD Integration
+
+### GitHub Actions
+
+```yaml
+name: Security Scan
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Secret Scan
+        uses: trufflesecurity/trufflehog@main
+        with:
+          extra_args: --only-verified
+
+      - name: Dependency Scan
+        run: |
+          npm audit --audit-level=high || true
+          # Add other package managers as needed
+
+      - name: SAST
+        uses: returntocorp/semgrep-action@v1
+        with:
+          config: p/security-audit p/secrets
+```
+
+## Scan Result Interpretation
+
+### Severity Levels
+
+| Level | Action | Timeline |
+|-------|--------|----------|
+| **Critical** | Block merge, fix immediately | Hours |
+| **High** | Should fix before merge | Days |
+| **Medium** | Plan to fix | Sprint |
+| **Low** | Track, fix opportunistically | Backlog |
+
+### Common False Positives
+
+**Secret Detection**:
+- Test fixtures with fake keys
+- Documentation examples
+- Base64-encoded non-secrets
+- UUIDs and random IDs
+
+**Dependency Scans**:
+- Dev-only dependencies
+- Unused code paths
+- Already-mitigated issues
+
+### Triaging Results
 
 ```markdown
-## Security Scan Results
+## Scan Results Triage
 
-### Critical Vulnerabilities
-- [Immediate action required]
+### Confirmed Issues
+| Finding | Severity | File | Action |
+|---------|----------|------|--------|
+| Hardcoded API key | Critical | config.js:42 | Remove, rotate key |
+| lodash CVE | High | package.json | Update to 4.17.21 |
 
-### High Risk Issues
-- [Should be fixed before deploy]
+### False Positives
+| Finding | Reason | Action |
+|---------|--------|--------|
+| test_api_key | Test fixture | Add to .gitleaksignore |
+| dev dependency CVE | Not in prod | Document acceptance |
 
-### Medium Risk Issues
-- [Should be addressed soon]
-
-### Recommendations
-- [Security best practices]
+### Accepted Risks
+| Finding | Justification | Reviewer |
+|---------|---------------|----------|
+| Low CVE in CLI tool | Internal use only | @security |
 ```
 
-## Reference
+## Quick Commands Reference
 
-See `docs/SECURITY.md` for detailed security requirements.
+```bash
+# One-liner: Quick secret + dependency check
+npm audit --audit-level=high && gitleaks detect --no-git
+
+# Python projects
+pip-audit && bandit -r src/ -ll
+
+# Go projects
+govulncheck ./... && gosec -severity high ./...
+
+# Full quick scan (if tools installed)
+trufflehog filesystem . --only-verified && \
+npm audit --audit-level=high && \
+semgrep --config=p/security-audit --config=p/secrets .
+```
+
+## Escalation
+
+Escalate to full `security-audit` or `security-engineer` when:
+
+- Critical findings discovered
+- Unusual or complex vulnerabilities
+- Architecture-level security concerns
+- Compliance-related questions
+- Incident response needed

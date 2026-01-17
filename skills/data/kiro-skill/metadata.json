@@ -1,7 +1,7 @@
 {
   "name": "kiro-skill",
-  "repo": "feiskyer/codex-settings",
-  "path": "skills/kiro-skill/SKILL.md",
-  "source": "github.com/feiskyer/codex-settings",
-  "downloaded_at": "2026-01-14T03:40:14.689481Z"
+  "repo": "feiskyer/claude-code-settings",
+  "path": "plugins/kiro-skill/skills/kiro-skill/SKILL.md",
+  "source": "github.com/feiskyer/claude-code-settings",
+  "downloaded_at": "2026-01-17T03:52:10.212711Z"
 }

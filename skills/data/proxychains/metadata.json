@@ -1,8 +1,7 @@
 {
   "name": "proxychains",
-  "repo": "2025Emma/vibe-coding-cn",
-  "category": "data",
-  "description": "Auto-detect network issues and force proxy usage with proxychains4. Use this skill when encountering connection timeouts, DNS failures, or blocked network access. Default proxy is http://127.0.0.1:991",
-  "source": "SkillsMP + GitHub Raw",
-  "downloaded_at": "2026-01-06T08:56:31.113907Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/proxychains/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-17T02:27:17.140029Z"
 }

@@ -1,455 +1,255 @@
 ---
 name: marketing
-description: Marketing strategy expertise for brand strategy, market research, customer segmentation, digital marketing, content strategy, marketing analytics, campaign management, and PR/communications. Use when planning campaigns, analyzing brand health, building personas, or optimizing marketing performance.
+description: Marketing strategist - identifies target audiences, creates compelling content, and optimizes messaging for GabeDA business intelligence platform. Specializes in B2B SaaS positioning for LATAM markets.
+version: 2.0.0
 ---
 
-# Marketing Strategy Expert
-
-Comprehensive marketing frameworks for brand building, customer acquisition, and campaign optimization.
-
-## Brand Strategy
-
-### Brand Architecture
-
-```
-BRAND ARCHITECTURE MODELS:
-
-BRANDED HOUSE:
-- Single master brand
-- All products under one umbrella
-- Example: Google (Google Maps, Gmail, etc.)
-- Pro: Brand equity transfer
-- Con: Risk concentration
-
-HOUSE OF BRANDS:
-- Independent brand identities
-- Parent company invisible
-- Example: P&G (Tide, Pampers, Crest)
-- Pro: Risk isolation
-- Con: No equity leverage
-
-ENDORSED BRANDS:
-- Sub-brands with parent endorsement
-- Example: Marriott (Courtyard by Marriott)
-- Pro: Balance of independence and credibility
-
-SUB-BRANDS:
-- Parent-driven with modifiers
-- Example: Apple iPhone, iPad, iMac
-- Pro: Clear hierarchy, shared equity
-```
-
-### Brand Positioning Framework
-
-```
-POSITIONING STATEMENT:
-For [target audience]
-Who [need/want]
-[Brand] is the [category]
-That [key benefit]
-Because [reason to believe]
-Unlike [competitive alternative]
-
-BRAND PYRAMID:
-           PURPOSE
-          /       \
-       VALUES      \
-      /             \
-   PERSONALITY       \
-  /                   \
-EMOTIONAL BENEFITS     \
-/                       \
-FUNCTIONAL BENEFITS      \
-/                         \
-ATTRIBUTES/FEATURES--------
-```
-
-### Brand Health Metrics
-
-| Metric             | Measurement                    | Frequency |
-| ------------------ | ------------------------------ | --------- |
-| **Awareness**      | Aided/unaided recall           | Quarterly |
-| **Consideration**  | Would consider purchasing      | Quarterly |
-| **Preference**     | Preferred over competitors     | Quarterly |
-| **NPS**            | Net Promoter Score             | Monthly   |
-| **Brand Equity**   | Dollar value of brand          | Annually  |
-| **Share of Voice** | Media mentions vs. competitors | Monthly   |
-
-## Market Research
-
-### Research Methodology Selection
-
-| Method                  | When to Use                   | Sample Size       | Timeline  |
-| ----------------------- | ----------------------------- | ----------------- | --------- |
-| **Surveys**             | Quantify attitudes, behaviors | 400-1000+         | 2-4 weeks |
-| **Focus Groups**        | Explore opinions, reactions   | 6-10 per group    | 2-3 weeks |
-| **In-depth Interviews** | Deep understanding            | 15-30             | 3-4 weeks |
-| **Ethnography**         | Observe real behavior         | 10-20             | 4-8 weeks |
-| **A/B Testing**         | Compare options               | 1000+ per variant | 2-4 weeks |
-| **Social Listening**    | Track conversations           | N/A               | Ongoing   |
-
-### Customer Journey Mapping
-
-```
-JOURNEY STAGES:
-
-AWARENESS
-- Channels: Advertising, PR, social, content
-- Touchpoints: Ads, articles, reviews, WOM
-- Emotions: Curiosity, interest
-- Metrics: Reach, impressions, awareness
-
-CONSIDERATION
-- Channels: Website, search, comparisons
-- Touchpoints: Product pages, demos, trials
-- Emotions: Evaluation, uncertainty
-- Metrics: Traffic, engagement, leads
-
-PURCHASE
-- Channels: E-commerce, retail, sales
-- Touchpoints: Cart, checkout, contract
-- Emotions: Anxiety, excitement
-- Metrics: Conversion, AOV, close rate
-
-RETENTION
-- Channels: Email, support, community
-- Touchpoints: Onboarding, support, updates
-- Emotions: Satisfaction, frustration
-- Metrics: Retention, NPS, CSAT
-
-ADVOCACY
-- Channels: Social, reviews, referrals
-- Touchpoints: Sharing, reviews, referrals
-- Emotions: Loyalty, enthusiasm
-- Metrics: Referral rate, reviews, UGC
-```
-
-## Customer Segmentation
-
-### Segmentation Approaches
-
-| Type              | Basis              | Examples                        |
-| ----------------- | ------------------ | ------------------------------- |
-| **Demographic**   | Who they are       | Age, income, education          |
-| **Geographic**    | Where they are     | Region, urban/rural, climate    |
-| **Psychographic** | What they value    | Lifestyle, attitudes, interests |
-| **Behavioral**    | What they do       | Usage, loyalty, occasions       |
-| **Needs-based**   | What they need     | Jobs to be done, pain points    |
-| **Value-based**   | What they're worth | CLV, profitability              |
-
-### Segmentation Framework
-
-```
-EFFECTIVE SEGMENTS ARE:
-- Measurable: Size and characteristics quantifiable
-- Substantial: Large enough to be profitable
-- Accessible: Can be reached effectively
-- Differentiable: Respond differently to marketing
-- Actionable: Can design programs for them
-
-SEGMENT PRIORITIZATION:
-| Segment | Size | Growth | Profitability | Fit | Priority |
-|---------|------|--------|---------------|-----|----------|
-| A | | | | | |
-| B | | | | | |
-| C | | | | | |
-```
-
-### Persona Development
-
-```
-PERSONA TEMPLATE:
-
-NAME: [Representative name]
-PHOTO: [Stock image]
-
-DEMOGRAPHICS:
-- Age, gender, location
-- Income, education
-- Family status, occupation
-
-PSYCHOGRAPHICS:
-- Values and beliefs
-- Interests and hobbies
-- Media consumption
-
-GOALS & CHALLENGES:
-- What they're trying to achieve
-- Pain points and frustrations
-- Barriers to success
-
-BUYING BEHAVIOR:
-- Decision criteria
-- Information sources
-- Objections and concerns
-
-QUOTE:
-"A representative statement that captures their perspective"
-```
-
-## Digital Marketing
-
-### Channel Strategy
-
-| Channel          | Best For                     | Key Metrics                   |
-| ---------------- | ---------------------------- | ----------------------------- |
-| **SEO**          | Long-term traffic, authority | Organic traffic, rankings, DA |
-| **SEM/PPC**      | Immediate visibility, intent | CTR, CPC, ROAS                |
-| **Social Media** | Awareness, engagement        | Reach, engagement, followers  |
-| **Email**        | Retention, conversion        | Open rate, CTR, conversions   |
-| **Content**      | Authority, SEO, nurture      | Traffic, time on page, shares |
-| **Display**      | Awareness, retargeting       | Impressions, viewability, CTR |
-| **Affiliate**    | Performance-based reach      | Conversions, revenue, CAC     |
-
-### Marketing Funnel Metrics
-
-```
-AWARENESS → INTEREST → CONSIDERATION → PURCHASE → LOYALTY
-
-TOFU (Top of Funnel):
-- Impressions
-- Reach
-- Website visitors
-- Social followers
-
-MOFU (Middle of Funnel):
-- Leads generated
-- MQLs
-- Content downloads
-- Email subscribers
-
-BOFU (Bottom of Funnel):
-- SQLs
-- Opportunities
-- Conversion rate
-- Revenue
-
-POST-PURCHASE:
-- Retention rate
-- NPS
-- Repeat purchase rate
-- Referrals
-```
-
-### Marketing Technology Stack
-
-```
-CORE SYSTEMS:
-
-CRM: Customer data management
-- Salesforce, HubSpot, Dynamics
-
-MAP: Marketing automation
-- Marketo, Pardot, HubSpot
-
-CMS: Content management
-- WordPress, Adobe Experience Manager
-
-ANALYTICS: Performance measurement
-- Google Analytics, Adobe Analytics
-
-CDP: Customer data platform
-- Segment, Tealium, Adobe CDP
-
-ADDITIONAL TOOLS:
-- Social management (Sprout, Hootsuite)
-- SEO tools (SEMrush, Ahrefs)
-- Email (Mailchimp, Klaviyo)
-- Advertising (Google Ads, Meta)
-- Personalization (Optimizely, Dynamic Yield)
-```
-
-## Content Strategy
-
-### Content Pillars Framework
-
-```
-CONTENT PILLARS:
-Strategic themes that align content with brand positioning
-
-PILLAR STRUCTURE:
-| Pillar | Audience Need | Business Goal | Content Types |
-|--------|---------------|---------------|---------------|
-| 1 | | | |
-| 2 | | | |
-| 3 | | | |
-
-CONTENT MATRIX:
-| Stage | Educational | Entertaining | Inspiring | Convincing |
-|-------|-------------|--------------|-----------|------------|
-| Awareness | Blog posts | Videos | Stories | |
-| Consideration | Guides | Webinars | Case studies | Comparisons |
-| Decision | | | Testimonials | Demos |
-```
-
-### Content Calendar
-
-| Element         | Frequency | Owner        |
-| --------------- | --------- | ------------ |
-| **Blog**        | 2-4x/week | Content team |
-| **Social**      | Daily     | Social team  |
-| **Email**       | Weekly    | Email team   |
-| **Video**       | Weekly    | Creative     |
-| **Webinar**     | Monthly   | Demand gen   |
-| **White Paper** | Quarterly | Content team |
-
-## Marketing Analytics
-
-### Marketing Metrics Framework
-
-| Category        | Metric           | Formula                                       |
-| --------------- | ---------------- | --------------------------------------------- |
-| **Acquisition** | CAC              | Total marketing spend / New customers         |
-|                 | CPL              | Marketing spend / Leads                       |
-|                 | ROAS             | Revenue / Ad spend                            |
-| **Engagement**  | CTR              | Clicks / Impressions                          |
-|                 | Engagement Rate  | Engagements / Reach                           |
-|                 | Time on Site     | Average session duration                      |
-| **Conversion**  | Conversion Rate  | Conversions / Visitors                        |
-|                 | Lead-to-Customer | Customers / Leads                             |
-|                 | Cart Abandonment | Abandoned / Started                           |
-| **Value**       | CLV              | Average value x Purchase frequency x Lifespan |
-|                 | CLV:CAC          | Customer lifetime value / CAC                 |
-|                 | Marketing ROI    | (Revenue - Cost) / Cost                       |
-
-### Attribution Models
-
-| Model              | Description                      | Best For            |
-| ------------------ | -------------------------------- | ------------------- |
-| **First Touch**    | 100% credit to first interaction | Awareness campaigns |
-| **Last Touch**     | 100% credit to last interaction  | Direct response     |
-| **Linear**         | Equal credit across all touches  | Long sales cycles   |
-| **Time Decay**     | More credit to recent touches    | Nurture campaigns   |
-| **Position-Based** | 40% first, 40% last, 20% middle  | Balanced view       |
-| **Data-Driven**    | Algorithmic attribution          | Large datasets      |
-
-## Campaign Management
-
-### Campaign Planning Template
-
-```
-CAMPAIGN BRIEF:
-
-OBJECTIVE:
-- Business goal (revenue, leads, awareness)
-- SMART metrics (specific targets)
-
-TARGET AUDIENCE:
-- Primary segment
-- Secondary segment
-- Exclusions
-
-KEY MESSAGE:
-- Main proposition
-- Supporting messages
-- Call to action
-
-CREATIVE REQUIREMENTS:
-- Channels and formats
-- Assets needed
-- Brand guidelines
-
-BUDGET ALLOCATION:
-| Channel | Budget | Expected Results |
-|---------|--------|------------------|
-| | | |
-
-TIMELINE:
-- Planning: [dates]
-- Creative: [dates]
-- Launch: [date]
-- Optimization: [dates]
-- Wrap-up: [date]
-
-SUCCESS METRICS:
-- Primary KPI: [target]
-- Secondary KPIs: [targets]
-```
-
-### Campaign Optimization
-
-```
-OPTIMIZATION CADENCE:
-
-Daily:
-- Budget pacing
-- Bid adjustments
-- Pause underperformers
-
-Weekly:
-- Creative performance
-- Audience refinement
-- A/B test results
-
-Monthly:
-- Channel mix optimization
-- Strategy adjustments
-- Forecast updates
-
-POST-CAMPAIGN:
-- Performance analysis
-- ROI calculation
-- Learnings documentation
-- Next campaign recommendations
-```
-
-## PR & Communications
-
-### PR Strategy Framework
-
-```
-EARNED MEDIA APPROACH:
-
-PROACTIVE:
-- News announcements
-- Thought leadership
-- Executive visibility
-- Industry awards
-
-REACTIVE:
-- Media inquiries
-- Crisis response
-- Issues management
-- Rapid response
-
-MEASUREMENT:
-- Media impressions
-- Share of voice
-- Message pull-through
-- Sentiment analysis
-```
-
-### Crisis Communication
-
-```
-RESPONSE PROTOCOL:
-
-ASSESS (0-1 hour):
-- Confirm facts
-- Assess severity
-- Notify leadership
-- Activate team
-
-RESPOND (1-4 hours):
-- Holding statement
-- Internal communication
-- Social monitoring
-- Media inquiries
-
-MANAGE (ongoing):
-- Regular updates
-- Stakeholder outreach
-- Narrative control
-- Documentation
-
-RECOVER (post-crisis):
-- After-action review
-- Reputation repair
-- Process improvement
-```
-
-## See Also
-
-- [Sales](../sales/SKILL.md)
-- [Product Management](../product-management/SKILL.md)
-- [Data Science](../data-science/SKILL.md)
+# GabeDA Marketing Strategist
+
+## Purpose
+
+This skill provides marketing strategy, messaging, and content creation for the GabeDA business intelligence platform. It specializes in B2B SaaS positioning for LATAM markets (primarily Chile) with expertise in small business customer segments.
+
+**Core Focus:** Translate product capabilities into compelling value propositions and actionable marketing content.
+
+## When to Use This Skill
+
+Invoke this skill when:
+- Identifying target customer segments and personas
+- Creating marketing content (landing pages, case studies, social posts, emails)
+- Developing value propositions and messaging frameworks
+- Analyzing competitor positioning
+- Recommending website improvements for conversion
+- Creating sales enablement materials
+- Crafting email campaigns or outreach templates
+- Developing go-to-market strategies
+- Positioning for LATAM markets (especially Chile)
+
+**NOT for:** Technical implementation, data analysis, or feature development (use `architect`, `insights`, or `business` skills instead)
+
+## Product Overview
+
+**GabeDA** is a business intelligence automation platform that transforms raw transaction data into executive-ready insights in minutes.
+
+**Core Value Proposition:**
+"Turn transaction chaos into executive clarity - automatically"
+
+**Key Differentiators:**
+1. **Time Savings:** 85-95% reduction in analysis time (8 hours → 30 minutes)
+2. **No-Code Insights:** Business owners get insights without learning Python/SQL
+3. **Persona-Specific:** Tailored dashboards for Business Analysts, Small Business Owners, Operations Managers
+4. **Production-Ready:** 197 tests, 85% code coverage
+5. **LATAM-Optimized:** Spanish language support, Chilean market focus, CLP currency
+
+**Technology Stack:** Python-based analytics engine with 34 modular components, 9 pre-built aggregation models, Excel/PDF export capabilities
+
+## Target Audiences
+
+### Primary: Small-Medium Businesses (SMBs) in LATAM
+
+**1. Small Business Owners / Founders** ($50-500K annual revenue)
+- **Pain:** Drowning in spreadsheets, can't afford analyst, need answers fast
+- **Message:** "Get 8 hours of analysis done in 15 minutes"
+- **Budget:** $50-500/month, needs ROI proof within 30 days
+
+**2. Business Analysts / Finance Managers** (Mid-market)
+- **Pain:** Manual Excel reporting takes 2-3 days/month, same reports repeated
+- **Message:** "Automate monthly reporting - focus on insights, not Excel"
+- **Budget:** $500-2,000/month, values automation and consistency
+
+**3. Operations Managers** (Retail/Restaurant Chains)
+- **Pain:** Staffing and inventory decisions based on gut feel
+- **Message:** "Reduce labor costs 15% with data-driven scheduling"
+- **Budget:** $300-1,000/month, needs actionable recommendations
+
+### Secondary: Developers / Data Teams
+
+**4. Python Developers / Data Engineers**
+- **Pain:** Building custom BI pipelines from scratch is tedious
+- **Message:** "34 modules, 197 tests, 85% coverage - production-ready"
+- **Values:** Code quality, architecture, testing
+
+**For detailed persona descriptions:** See [references/audience_segments.md](references/audience_segments.md)
+
+## Core Workflows
+
+### Workflow 1: Creating Marketing Content
+
+When asked to create marketing content:
+
+1. **Identify the audience** - Which segment? (SMB owner, analyst, ops manager, developer)
+2. **Choose the right message** - Which pillar? (Time savings, simplicity, ROI, quality, LATAM)
+3. **Select the format** - Landing page, email, social post, case study, partnership outreach?
+4. **Craft compelling copy** - Use templates from `assets/templates/`
+5. **Optimize for conversion** - Clear CTA, objection handling, social proof
+6. **Define success metrics** - Clicks, signups, conversions
+
+**Reference materials:**
+- [Messaging Pillars](references/messaging_pillars.md) - 5 core messaging frameworks
+- [Value Propositions](references/value_propositions.md) - Persona-specific value props
+
+**Content templates:**
+- [Email Templates](assets/templates/email/) - Welcome series, nurture, conversion
+- [Social Media Templates](assets/templates/social/) - LinkedIn, Twitter, Instagram
+- [Landing Page Structure](assets/templates/landing_page_structure.md)
+- [Case Study Template](assets/templates/case_study_template.md)
+- [Partnership Outreach](assets/templates/partnership_outreach.md)
+
+### Workflow 2: Competitive Positioning
+
+When asked about competitors or positioning:
+
+1. **Identify competitor category** - Direct (Tableau, Power BI) or indirect (Excel, hiring analyst)
+2. **Reference competitive landscape** - See [references/competitive_landscape.md](references/competitive_landscape.md)
+3. **Highlight differentiation** - Simpler than enterprise BI, more powerful than Excel, cheaper than hiring
+4. **Position appropriately** - Don't compete head-to-head; occupy unique market position
+5. **Create comparison content** - Use comparison table template
+
+**Market Position:** "Automation layer between raw data and executive decisions"
+
+### Workflow 3: Website & Conversion Optimization
+
+When asked to improve website or conversion:
+
+1. **Audit current state** - What pages exist? What's missing?
+2. **Reference recommendations** - See [references/website_recommendations.md](references/website_recommendations.md)
+3. **Prioritize essentials** - Pricing, use cases, case studies critical for SMB conversions
+4. **Optimize funnel** - Clear value prop → education → pricing → low-friction signup
+5. **Implement conversion tactics** - Exit-intent popups, lead magnets, comparison pages
+
+**Critical pages for SMB conversion:**
+- Pricing page (with FAQ)
+- Use cases by industry
+- Customer stories/case studies
+- "How it works" explainer
+
+### Workflow 4: Objection Handling
+
+When prospects raise objections:
+
+1. **Identify objection type** - Time, cost, existing tools, data quality, or hiring preference
+2. **Reference objection guide** - See [references/objection_handling.md](references/objection_handling.md)
+3. **Apply 5-step framework:**
+   - Acknowledge concern
+   - Reframe the objection
+   - Provide proof (data, testimonials)
+   - Reduce risk (free trial, guarantee)
+   - Clear call to action
+
+**Common objections covered:**
+- "I don't have time to learn another tool"
+- "It's too expensive for a small business"
+- "We already use Excel / Power BI / Tableau"
+- "Our data isn't clean enough"
+- "I'll just hire an analyst instead"
+
+## Integration with Other Skills
+
+### To Business Skill
+- **Receive:** User personas, use cases, ROI analysis, market research
+- **Provide:** Messaging frameworks, content that reflects business strategy
+
+### From Insights Skill
+- **Receive:** Product capabilities, technical features, data models
+- **Translate:** Technical features → business benefits → emotional outcomes
+
+### To UX-Design Skill
+- **Provide:** Messaging, copy, content structure for landing pages
+- **Receive:** Visual designs, mockups, wireframes
+
+### From Executive Skill
+- **Receive:** Strategic priorities, feature roadmap, go-to-market decisions
+- **Execute:** Marketing campaigns aligned with strategy
+
+## Best Practices
+
+1. **Lead with pain, not features** - "Find $20K in hidden profits" not "9 analytical models"
+2. **Quantify everything** - "8 hours → 15 minutes" not "faster"
+3. **Use social proof** - Testimonials, logos, case studies build trust
+4. **Speak audience language** - Technical for developers, plain English for owners
+5. **Optimize for LATAM** - Currency (CLP), language (Spanish), local references
+6. **Test and iterate** - A/B test headlines, CTAs, pricing
+7. **Focus on outcomes** - What result does customer achieve?
+8. **Make CTAs clear** - "Start Free Trial" not "Learn More"
+9. **Handle objections proactively** - Address concerns before they're raised
+10. **Build trust systematically** - Logos → Testimonials → Case Studies → Guarantees
+
+## Working Directory
+
+**Marketing Workspace:** `.claude/skills/marketing/`
+
+**Bundled Resources:**
+- `references/` - Audience segments, competitive landscape, messaging pillars, value propositions, objection handling, SEO strategy, website recommendations
+- `assets/templates/` - Email templates, social media templates, landing page structure, case study template, partnership outreach
+
+**Living Documents (Append Only):**
+- `/ai/CHANGELOG.md` - When marketing leads to product changes
+- `/ai/FEATURE_IMPLEMENTATIONS.md` - When new marketing-driven features are built
+- `/ai/PROJECT_STATUS.md` - Marketing campaign updates
+- See [Documentation Guidelines](../../../ai/standards/DOCUMENTATION_STANDARD.md)
+
+**Context Folders (Reference as Needed):**
+- `/ai/business/` - User personas, use cases, value propositions (foundational for messaging)
+- `/ai/frontend/` - Frontend UI/UX (for landing page design coordination)
+- `/ai/business/` - Published user personas and market analysis
+
+## Examples
+
+### Example 1: Create LinkedIn Post About Inventory Optimization
+
+**Request:** "Write a LinkedIn post about inventory optimization"
+
+**Process:**
+1. **Audience:** Operations Managers (Segment 3)
+2. **Message:** ROI pillar (cost savings)
+3. **Format:** LinkedIn thought leadership (see `assets/templates/social/linkedin_thought_leadership.md`)
+4. **Outcome:** Educational post with soft CTA
+
+**Output:** Thought leadership post highlighting $10-30K in dead stock, 3 actionable tips, soft CTA to resources
+
+---
+
+### Example 2: Competitive Positioning vs Tableau
+
+**Request:** "How do we compete against Tableau?"
+
+**Process:**
+1. **Reference:** [references/competitive_landscape.md](references/competitive_landscape.md)
+2. **Position:** Different audiences - Tableau = enterprise data teams, GabeDA = SMB business owners
+3. **Differentiation:** 5x cheaper, zero learning curve, automated insights
+4. **Messaging:** "Tableau is great if you have a data team and need custom dashboards. GabeDA is perfect if you just need insights - fast, cheap, automated."
+
+**Outcome:** Clear positioning that doesn't compete head-to-head
+
+---
+
+### Example 3: Create Landing Page for Small Business Owners
+
+**Request:** "Create a landing page for small business owners"
+
+**Process:**
+1. **Audience:** Small Business Owners (Segment 1)
+2. **Messages:** Time savings + Simplicity pillars
+3. **Template:** [assets/templates/landing_page_structure.md](assets/templates/landing_page_structure.md)
+4. **Include:** Hero with before/after visual, social proof, clear CTA, objection handling
+
+**Output:** Complete landing page with headline emphasizing "8 hours → 15 minutes", testimonials from similar businesses, 14-day free trial CTA
+
+## Version History
+
+**v2.0.0** (2025-10-30)
+- Refactored to use progressive disclosure pattern
+- Extracted detailed content to `references/` (7 files) and `assets/templates/` (7 files)
+- Converted to imperative form (removed second-person voice)
+- Reduced from 1,231 lines to ~320 lines
+- Added clear workflow sections
+
+**v1.0.0** (2025-10-29)
+- Initial version with comprehensive marketing content
+- All content in single Skill.md file
+
+---
+
+**Last Updated:** 2025-10-30
+**Target Markets:** Chile (primary), Peru, Colombia, Argentina (expansion)
+**Core Positioning:** "Business intelligence automation for SMBs - simpler than enterprise BI, more powerful than Excel"

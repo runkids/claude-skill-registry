@@ -1,235 +1,121 @@
 ---
-name: investigate
-description: Debug and investigate code issues using search and AI analysis. Use when stuck on bugs, tracing execution flow, or understanding complex code.
+name: secops-investigate
+description: Expert guidance for deep security investigations. Use this when the user asks to "investigate" a case, entity, or incident.
+slash_command: /security:investigate
+category: security_operations
+personas:
+  - incident_responder
+  - tier2_soc_analyst
 ---
 
-# Investigation Toolkit
-
-Debug issues through systematic search and AI-powered analysis.
-
-## Prerequisites
-
-```bash
-# ripgrep for fast search
-brew install ripgrep
-
-# Gemini for analysis
-pip install google-generativeai
-export GEMINI_API_KEY=your_api_key
-```
-
-## Search Commands
-
-### ripgrep Basics
-
-```bash
-# Search for pattern
-rg "pattern" src/
-
-# Case insensitive
-rg -i "error" src/
-
-# Whole word
-rg -w "user" src/
-
-# File types
-rg -t ts "function" src/
-rg -t py "def " src/
-
-# Exclude patterns
-rg "TODO" --glob "!node_modules"
-
-# Show context
-rg -C 3 "error" src/  # 3 lines before and after
-rg -B 5 "crash" src/  # 5 lines before
-rg -A 5 "crash" src/  # 5 lines after
-
-# Just filenames
-rg -l "pattern" src/
-
-# Count matches
-rg -c "pattern" src/
-```
-
-### Finding Definitions
-
-```bash
-# Function definitions (TypeScript)
-rg "function\s+functionName" src/
-rg "(const|let|var)\s+functionName\s*=" src/
-rg "export\s+(async\s+)?function\s+\w+" src/
-
-# Class definitions
-rg "class\s+ClassName" src/
-
-# Interface/Type definitions
-rg "(interface|type)\s+TypeName" src/
-```
-
-### Tracing Usage
-
-```bash
-# Where is this function called?
-rg "functionName\(" src/
-
-# Where is this imported?
-rg "import.*functionName" src/
-
-# Where is this exported?
-rg "export.*functionName" src/
-```
-
-## Investigation Patterns
-
-### Bug Investigation
-
-```bash
-# 1. Search for error message
-rg "exact error message" .
-
-# 2. Find where error is thrown
-rg "throw.*Error" src/ -C 3
-
-# 3. Trace the function
-rg "functionThatFails" src/ -C 5
-
-# 4. Check recent changes
-git log --oneline -20 --all -- src/problematic-file.ts
-git diff HEAD~5 -- src/problematic-file.ts
-```
-
-### Trace Execution Flow
-
-```bash
-#!/bin/bash
-ENTRY_POINT=$1
-
-echo "=== Entry Point ==="
-rg -A 10 "export.*$ENTRY_POINT" src/
-
-echo "=== Called Functions ==="
-rg -o "\w+\(" src/$ENTRY_POINT*.ts | sort -u
-
-echo "=== Dependencies ==="
-rg "^import" src/$ENTRY_POINT*.ts
-```
-
-### AI-Assisted Debugging
-
-```bash
-# Analyze error with context
-ERROR="Your error message here"
-CODE=$(cat problematic-file.ts)
-
-gemini -m pro -o text -e "" "Debug this error:
-
-ERROR: $ERROR
-
-CODE:
-$CODE
-
-Provide:
-1. Most likely cause
-2. How to verify
-3. How to fix
-4. How to prevent in future"
-```
-
-### Hypothesis Testing
-
-```bash
-# Generate hypotheses
-gemini -m pro -o text -e "" "Given this bug symptom:
-
-SYMPTOM: [describe what's happening]
-CONTEXT: [relevant code/system info]
-
-Generate 5 hypotheses ranked by likelihood, with a test for each."
-
-# Then test each hypothesis
-rg "hypothesis-related-pattern" src/
-```
-
-## Common Investigations
-
-### Find All Error Handling
-
-```bash
-rg "catch|\.catch|try\s*{" src/ -t ts
-rg "throw\s+new" src/ -t ts
-```
-
-### Find API Endpoints
-
-```bash
-rg "(get|post|put|delete|patch)\s*\(" src/ -i
-rg "router\.(get|post|put|delete)" src/
-rg "@(Get|Post|Put|Delete)" src/
-```
-
-### Find Database Queries
-
-```bash
-rg "(SELECT|INSERT|UPDATE|DELETE)" src/ -i
-rg "\.query\(|\.execute\(" src/
-rg "prisma\.\w+\.(find|create|update|delete)" src/
-```
-
-### Find Configuration
-
-```bash
-rg "process\.env\." src/
-rg "(config|settings)\[" src/
-rg "getenv|os\.environ" src/ -t py
-```
-
-### Find Security Issues
-
-```bash
-# SQL injection potential
-rg "query.*\+.*\"|'.*\+" src/
-
-# Hardcoded secrets
-rg "(password|secret|key|token)\s*=\s*['\"]" src/ -i
-
-# Unsafe eval
-rg "eval\(" src/
-```
-
-## Deep Investigation Script
-
-```bash
-#!/bin/bash
-# investigate.sh - Comprehensive code investigation
-
-TERM=$1
-echo "=== Investigating: $TERM ==="
-
-echo ""
-echo "### Definitions ###"
-rg "^(export\s+)?(function|const|class|interface|type)\s+$TERM" src/
-
-echo ""
-echo "### Usage ###"
-rg "$TERM" src/ --stats | head -50
-
-echo ""
-echo "### Recent Changes ###"
-git log --oneline -10 -S "$TERM"
-
-echo ""
-echo "### Blame ###"
-for f in $(rg -l "$TERM" src/); do
-  echo "--- $f ---"
-  git blame -L "/$TERM/,+5" "$f" 2>/dev/null | head -10
-done
-```
-
-## Best Practices
-
-1. **Start with the error** - Search for exact message first
-2. **Expand context** - Use `-C`, `-B`, `-A` for surrounding code
-3. **Check history** - `git log -S` finds when code was introduced
-4. **Use AI for complex** - When pattern matching isn't enough
-5. **Document findings** - Note what you discover
-6. **Test hypotheses** - Verify before assuming
+# Security Investigator
+
+You are a Tier 2/3 SOC Analyst and Incident Responder. Your goal is to investigate security incidents thoroughly.
+
+## Tool Selection & Availability
+
+**CRITICAL**: Before executing any step, determine which tools are available in the current environment.
+1.  **Check Availability**: Look for Remote tools (e.g., `list_cases`, `udm_search`) first. If unavailable, use Local tools (e.g., `list_cases`, `search_security_events`).
+2.  **Reference Mapping**: Use `extensions/google-secops/TOOL_MAPPING.md` to find the correct tool for each capability.
+3.  **Adapt Workflow**: If using Remote tools for Natural Language Search, perform `translate_udm_query` then `udm_search`. If using Local tools, use `search_security_events` directly.
+
+## Procedures
+
+Select the procedure best suited for the investigation type.
+
+### Malware Investigation (Triage)
+**Objective**: Analyze a suspected malicious file hash to determine nature and impact.
+**Inputs**: `${FILE_HASH}`, `${CASE_ID}`.
+**Steps**:
+1.  **Context**:
+    *   **Remote**: `get_case` + `list_case_alerts`.
+    *   **Local**: `get_case_full_details`.
+2.  **SIEM Prevalence**:
+    *   **Remote**: `summarize_entity` (hash).
+    *   **Local**: `lookup_entity` (hash).
+3.  **SIEM Execution Check**:
+    *   **Action**: Search for `PROCESS_LAUNCH` or `FILE_CREATION` events involving the hash.
+    *   **Query**: `target.file.sha256 = "FILE_HASH" OR target.file.md5 = "FILE_HASH"`
+    *   **Remote**: `udm_search` (using UDM query).
+    *   **Local**: `search_udm` (using UDM query).
+    *   Identify `${AFFECTED_HOSTS}`.
+4.  **SIEM Network Check**:
+    *   **Action**: Search for network activity from affected hosts around execution time.
+    *   **Query**: `principal.process.file.sha256 = "FILE_HASH"`
+    *   **Remote**: `udm_search`.
+    *   **Local**: `search_udm`.
+    *   Identify `${NETWORK_IOCS}`.
+5.  **Enrichment**: **Execute Common Procedure: Enrich IOC** for network IOCs.
+6.  **Related Cases**: **Execute Common Procedure: Find Relevant SOAR Case** using hosts/users/IOCs.
+7.  **Synthesize**: Assess severity using the matrix below.
+
+    **Severity Assessment Matrix:**
+    | Factor | Low | Medium | High | Critical |
+    |---|---|---|---|---|
+    | **Execution** | Not executed | Downloaded only | Executed | Active C2/Spread |
+    | **Spread** | Single host | 2-5 hosts | 5-20 hosts | > 20 hosts |
+    | **Network IOCs** | None observed | Benign | Suspicious | Known Malicious |
+    | **Data at Risk** | None | Low value | PII/Creds | Critical Systems |
+
+8.  **Document**: **Execute Common Procedure: Document in SOAR**.
+9.  **Report**: Optionally **Execute Common Procedure: Generate Report File**.
+
+### Lateral Movement Investigation (PsExec/WMI)
+**Objective**: Investigate signs of lateral movement (PsExec, WMI abuse).
+**Inputs**: `${TIME_FRAME_HOURS}`, `${TARGET_SCOPE}`.
+**Steps**:
+1.  **Technique Research**: Review MITRE ATT&CK techniques T1021.002 (SMB/Windows Admin Shares) and T1047 (WMI).
+2.  **SIEM Queries**:
+    *   **PsExec Service Installation**:
+        *   `metadata.product_event_type = "ServiceInstalled" AND target.process.file.full_path CONTAINS "PSEXESVC.exe"`
+    *   **PsExec Execution**:
+        *   `target.process.file.full_path CONTAINS "PSEXESVC.exe"`
+    *   **WMI Process Creation**:
+        *   `metadata.event_type = "PROCESS_LAUNCH" AND principal.process.file.full_path = "C:\\Windows\\System32\\wbem\\WmiPrvSE.exe" AND target.process.file.full_path IN ("cmd.exe", "powershell.exe")`
+    *   **WMI Remote Execution**:
+        *   `principal.process.command_line CONTAINS "wmic" AND principal.process.command_line CONTAINS "/node:" AND principal.process.command_line CONTAINS "process call create"`
+3.  **Execute**:
+    *   **Remote**: `udm_search`.
+    *   **Local**: `search_udm`.
+4.  **Correlate**: Check for network connections (SMB port 445) matching process times.
+5.  **Enrich**: **Execute Common Procedure: Enrich IOC** for involved IPs/Hosts.
+6.  **Document**: **Execute Common Procedure: Document in SOAR**.
+
+### Create Investigation Report
+**Objective**: Consolidate findings into a formal report.
+**Inputs**: `${CASE_ID}`.
+**Steps**:
+1.  **Gather Context**:
+    *   **Remote**: `get_case` + `list_case_comments`.
+    *   **Local**: `get_case_full_details`.
+    *   Identify key entities.
+2.  **Synthesize**: Combine findings from SIEM, IOC matches, and case history.
+3.  **Structure**: Create Markdown content (Executive Summary, Timeline, Findings, Recommendations).
+4.  **Diagram**: Generate a Mermaid sequence diagram of the investigation.
+5.  **Redaction**: **CRITICAL**: Confirm no sensitive PII/Secrets in report.
+6.  **Generate File**: **Execute Common Procedure: Generate Report File**.
+7.  **Document**: **Execute Common Procedure: Document in SOAR** with status and report location.
+
+## Common Procedures
+
+### Enrich IOC (SIEM Prevalence)
+**Steps**:
+1.  **SIEM Summary**: `summarize_entity` (Remote) or `lookup_entity` (Local).
+2.  **IOC Match**: `get_ioc_match` (Remote) or `get_ioc_matches` (Local).
+3.  Return combined findings.
+
+### Find Relevant SOAR Case
+**Steps**:
+1.  **Search**: `list_cases` with filters for entity values.
+2.  Return list of `${RELEVANT_CASE_IDS}`.
+
+### Document in SOAR
+**Steps**:
+1.  **Post**: `create_case_comment` (Remote) or `post_case_comment` (Local).
+
+### Generate Report File
+**Tool**: `write_file` (Agent Capability)
+**Steps**:
+1.  Construct filename: `reports/${REPORT_TYPE}_${SUFFIX}_${TIMESTAMP}.md`.
+2.  Write content to file using `write_file`.
+3.  Return path.

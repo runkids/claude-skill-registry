@@ -18,7 +18,6 @@ A good plan is:
 - **Design-first TDD**: Follows strict ordering: Documentation → Tests → Implementation
 - **Interface-driven**: Documents API/interface changes before implementation
 - **Actionable**: Can be directly used to create a GitHub issue with `open-issue` skill
-- **Bug-aware**: For bug fixes, includes reproduction attempts and observations before design
 
 ### Development Workflow Order
 
@@ -60,43 +59,6 @@ Output signals:
 - Success criteria (what does "done" look like?)
 - Out of scope items (what are we explicitly NOT doing?)
 
-**Bug Fix-Specific Actions (conditional):**
-
-If the goal is a bug fix, attempt to reproduce the bug before designing a fix:
-
-**When to reproduce:**
-- Multi-file or unclear root cause bugs
-- Behavior-related bugs (crashes, incorrect output, unexpected state)
-- Bugs reported by users with reproduction steps
-
-**When to skip reproduction:**
-- Trivial single-file obvious fixes (e.g., typo, missing null check)
-- Bug already has a failing test case demonstrating the issue
-- Unsafe to run (e.g., requires production credentials, destructive commands)
-- User has already provided complete reproduction details with diagnosis
-
-**Reproduction process:**
-1. Review reported symptoms and any provided reproduction steps
-2. Identify minimal environment needed (files, dependencies, test data)
-3. Attempt safe, read-only or isolated reproduction steps (e.g., run tests, review logs)
-4. Document what was tried, what symptoms appeared, and environment snapshot
-5. Form hypothesis about root cause based on observations
-6. If unreproducible after reasonable attempts, document constraints and proceed with hypothesis
-
-**Safety rules:**
-- Only use read-only or safe commands (e.g., `cat`, `grep`, `git log`, `make test`)
-- Never run destructive commands without explicit user permission
-- Never access production systems or real user data
-- Ask user before running any command that modifies state or requires credentials
-
-**Output from reproduction (include in plan if attempted):**
-- Steps tried (commands run, files examined)
-- Observed symptoms (error messages, test failures, unexpected behavior)
-- Minimal environment snapshot (relevant file state, dependencies, configuration)
-- Root cause hypothesis based on observations
-- If skipped, document explicit skip reason
-- If unreproducible, document attempts and constraints
-
 ### 2. Codebase Audit Phase
 
 **Objective**: Thoroughly explore the codebase to understand current implementation.
@@ -120,7 +82,7 @@ Output from this phase:
 **Example of GOOD audit results in plan:**
 ```
 Files to modify:
-- `.claude/skills/commit-msg/SKILL.md:15-45` - Add milestone commit logic
+- `claude/skills/commit-msg/SKILL.md:15-45` - Add milestone commit logic
 - `tests/test_git_commit.sh:23-67` - Update test cases for milestones
 
 Files to create:
@@ -161,7 +123,7 @@ Modified interfaces:
 
 Documentation updates:
 - `docs/git-msg-tags.md:15-20` - Add milestone tag explanation
-- `.claude/skills/commit-msg/SKILL.md:40-60` - Add milestone section
+- `claude/skills/commit-msg/SKILL.md:40-60` - Add milestone section
 ```
 
 ### 4. Test Strategy Design Phase
@@ -174,18 +136,12 @@ Documentation updates:
 - Integration with existing functionality
 - Backward compatibility if applicable
 
-**Bug fix-specific guidance:**
-- If bug reproduction was attempted (see Goal Understanding Phase), translate reproduction steps into a failing test case when feasible
-- Adopt fail-to-pass test thinking: reproduction → failing test → implementation → passing test
-- If reproduction was unreproducible or skipped, document why a fail-to-pass test cannot be created
-
 Actions:
 - Identify existing test files that need updates
 - Design new test files for new functionality
 - Specify what each test validates
 - Consider test data requirements
 - Plan test execution order (unit -> integration -> e2e)
-- For bug fixes: map reproduction steps to test cases where possible
 
 Output:
 - Test files to modify (with specific test cases to add/update)
@@ -224,45 +180,32 @@ Complexity guidelines:
 **MANDATORY ORDERING**: Implementation steps **MUST** follow this sequence:
 
 **Phase 1: Documentation (always first)**
-- Which documentation files should be changed, created, or deleted.
-- Include the specific changes to make in the plan so that we can better understand:
-  - 1. The scope of changes of this plan
-  - 2. The specific design decisions to be applied
-- The old ones should include the file name and the sections. **DO NOT** include the line numbers as multiple changes may be ongoing, which leads to different line numbers.
-- The new ones should include the specific description of what to add, not just vague "add documentation for X".
-  - **DO NOT**: Update the documentation of `lol` usage.
-  - **DO**: In `docs/lol.md` the old usage is in Section X, update it to the new usage for `--init` is for initialization and `--update` is for updating existing installations.
-- Documentation change should include both specific source files and high-level design documents.
-- If it is a user-exposed interfaces, update usage examples.
+- Update interface documentation
+- Add/update design documents
+- Update API references
+- Add usage examples
 
 **Phase 2: Test Cases (always second)**
 - Create new test files
 - Update existing test cases
 - Add test fixtures/data
 - Document test scenarios
-- Make a correspondence to the documentation and interface changes from previous phases
 
 **Phase 3: Implementation (always last)**
 - Write the actual code
 - Implement the logic
 - Integrate with existing code
-- Make a correspondence to the documentation and test cases from previous phases
 
 Actions:
 - **NEVER** put implementation before documentation or tests
-- **NEVER** fuse multiple steps into one:
-  - **DO NOT**: Step 3-5: Implement feature X (Estimated: 300 LOC)
-  - **DO**: Step 3: Implement part A of feature X (Estimated: 35 LOC)
-            Step 4: Implement part B of feature X (Estimated: 63 LOC)
-            Step 5: Implement part C of feature X (Estimated: 111 LOC)
 - Group documentation updates into Step 1 (or Steps 1-N for large features)
 - Group test case work into the next step(s)
+- Only after docs and tests, begin implementation steps
 - For each step, specify:
-  - Exact files to change with specific sections and lines!
+  - Exact files to change (with line ranges if known)
   - What changes to make
   - Estimated lines of code
   - Dependencies on previous steps
-  - What the step accomplishes toward the goal
 - Break down steps larger than 400 LOC into substeps
 - Consider milestone commits for features beyond 800 LOC total
 
@@ -295,8 +238,8 @@ Dependencies: [List steps that must complete first]
 ```
 Step 1: Update documentation for milestone commits (Estimated: 60 LOC)
 - `docs/git-msg-tags.md:15-20` - Add milestone tag definition and usage
-- `.claude/skills/commit-msg/SKILL.md:14-20` - Add milestone to inputs section
-- `.claude/skills/commit-msg/SKILL.md:40-60` - Add milestone commit section with examples
+- `claude/skills/commit-msg/SKILL.md:14-20` - Add milestone to inputs section
+- `claude/skills/commit-msg/SKILL.md:40-60` - Add milestone commit section with examples
 Dependencies: None
 
 Step 2: Create test cases for milestone functionality (Estimated: 90 LOC)
@@ -309,8 +252,8 @@ Step 2: Create test cases for milestone functionality (Estimated: 90 LOC)
 Dependencies: Step 1 (documentation must be complete first)
 
 Step 3: Implement milestone detection and handling logic (Estimated: 100 LOC)
-- `.claude/skills/commit-msg/SKILL.md:25-35` - Add milestone input handling
-- `.claude/skills/commit-msg/SKILL.md:85-88` - Add pre-commit bypass logic
+- `claude/skills/commit-msg/SKILL.md:25-35` - Add milestone input handling
+- `claude/skills/commit-msg/SKILL.md:85-88` - Add pre-commit bypass logic
 Dependencies: Step 2 (tests must exist before implementation)
 
 Total estimated complexity: 250 LOC (Medium-Large feature)
@@ -334,29 +277,6 @@ The final plan should be structured as follows:
 
 **Out of scope:**
 - [What we're not doing]
-
-## Bug Reproduction
-*(Optional - include only for bug fixes where reproduction was attempted)*
-
-**Steps tried:**
-- [Command or action performed]
-- [Files examined]
-
-**Observed symptoms:**
-- [Error messages, test failures, unexpected behavior]
-
-**Environment snapshot:**
-- [Relevant file state, dependencies, configuration]
-
-**Root cause hypothesis:**
-- [Diagnosis based on observations]
-
-**Skip reason** *(if reproduction not attempted)*:
-- [Why reproduction was skipped - e.g., trivial fix, already has failing test, unsafe to run]
-
-**Unreproducible constraints** *(if reproduction failed)*:
-- [What was tried and why it didn't reproduce]
-- [Hypothesis for proceeding without reproduction]
 
 ## Codebase Analysis
 
@@ -461,8 +381,8 @@ bypass pre-commit hooks on development branches.
 ## Codebase Analysis
 
 **Files to modify:**
-- `.claude/skills/commit-msg/SKILL.md:14-20` - Add milestone input handling
-- `.claude/skills/commit-msg/SKILL.md:40-88` - Add milestone message format
+- `claude/skills/commit-msg/SKILL.md:14-20` - Add milestone input handling
+- `claude/skills/commit-msg/SKILL.md:40-88` - Add milestone message format
 - `tests/test_git_commit.sh:45-67` - Add milestone tests
 
 **Files to create:**
@@ -477,8 +397,8 @@ bypass pre-commit hooks on development branches.
 
 **Step 1: Update documentation** (Estimated: 60 LOC)
 - `docs/git-msg-tags.md:15-20` - Add milestone tag definition and usage rules
-- `.claude/skills/commit-msg/SKILL.md:14-20` - Add milestone to inputs section
-- `.claude/skills/commit-msg/SKILL.md:40-60` - Add milestone message format section
+- `claude/skills/commit-msg/SKILL.md:14-20` - Add milestone to inputs section
+- `claude/skills/commit-msg/SKILL.md:40-60` - Add milestone message format section
 Dependencies: None
 
 **Step 2: Create test cases** (Estimated: 85 LOC)
@@ -490,8 +410,8 @@ Dependencies: None
 Dependencies: Step 1 (documentation must define behavior first)
 
 **Step 3: Implement milestone commit logic** (Estimated: 95 LOC)
-- `.claude/skills/commit-msg/SKILL.md:25-35` - Add milestone input processing
-- `.claude/skills/commit-msg/SKILL.md:85-88` - Add pre-commit bypass logic
+- `claude/skills/commit-msg/SKILL.md:25-35` - Add milestone input processing
+- `claude/skills/commit-msg/SKILL.md:85-88` - Add pre-commit bypass logic
 Dependencies: Step 2 (tests must exist to validate implementation)
 
 **Total estimated complexity:** 240 LOC (Medium feature)
@@ -524,7 +444,7 @@ initialization in invalid locations and provide clear error messages.
 
 **Files to modify:**
 - `Makefile:45-67` - Add validation before template copying
-- `docs/lol.md:25-40` - Document validation behavior
+- `docs/OPTIONS.md:25-40` - Document validation behavior
 
 **Files to create:**
 - `scripts/validate_target_dir.sh` - Directory validation logic (Est: 120 LOC)
@@ -543,8 +463,8 @@ initialization in invalid locations and provide clear error messages.
 ## Implementation Steps
 
 **Step 1: Update documentation** (Estimated: 60 LOC)
-- `docs/lol.md:25-40` - Document validation behavior and error messages
-- `docs/lol.md:50-65` - Add examples of valid/invalid target directories
+- `docs/OPTIONS.md:25-40` - Document validation behavior and error messages
+- `docs/OPTIONS.md:50-65` - Add examples of valid/invalid target directories
 Dependencies: None
 
 **Step 2: Create test cases** (Estimated: 180 LOC)
@@ -583,93 +503,6 @@ Dependencies: Step 3 (validation script must exist)
 **Note:** Follows Design-first TDD strictly: Docs (Step 1) → Tests (Step 2) → Implementation (Steps 3-4)
 Tests are run at each milestone; failing tests are accepted temporarily as progress checkpoints.
 ```
-
-### Example 3: Bug Fix with Reproduction
-
-**User request:** "Fix the bug where milestone commits fail on feature branches"
-
-**Plan excerpt:**
-```markdown
-# Implementation Plan: Fix Milestone Commit Branch Detection
-
-## Goal
-Fix bug where milestone commits incorrectly fail on valid feature branches due to
-overly strict branch name pattern matching.
-
-**Success criteria:**
-- Milestone commits succeed on all non-main branches
-- Branch name pattern accepts common formats (issue-*, feature/*, fix/*)
-- Clear error message when attempted on main/master
-
-## Bug Reproduction
-
-**Steps tried:**
-1. Created test branch: `git checkout -b issue-42-test-feature`
-2. Attempted milestone commit: `claude /commit-msg milestone`
-3. Observed error: "Milestone commits only allowed on development branches"
-
-**Observed symptoms:**
-- Error appears despite being on `issue-42-test-feature` branch
-- Review of `.claude/skills/commit-msg/SKILL.md:78` shows pattern: `^issue-[0-9]+-.*$`
-- Regex escaping issue: dash not escaped, matches any character instead of literal dash
-
-**Environment snapshot:**
-- Git branch: `issue-42-test-feature`
-- Skill version: commit `a1b2c3d` (2024-01-15)
-- Regex engine: bash `[[ =~ ]]` operator
-
-**Root cause hypothesis:**
-Unescaped dash in regex pattern causes false negative matches. Pattern should be
-`^issue-[0-9]+-.*$` with escaped dash: `^issue-[0-9]+\-.*$`.
-
-## Implementation Steps
-
-**Step 1: Update documentation** (Estimated: 20 LOC)
-- `docs/git-msg-tags.md:45-50` - Clarify supported branch name patterns
-Dependencies: None
-
-**Step 2: Create test case** (Estimated: 35 LOC)
-- `tests/test_milestone_branches.sh` - New test for branch pattern matching
-  - Test: `issue-N-*` branches accept milestone commits
-  - Test: `feature/*` branches accept milestone commits
-  - Test: `main` branch rejects milestone commits
-Dependencies: Step 1
-
-**Step 3: Fix regex pattern** (Estimated: 15 LOC)
-- `.claude/skills/commit-msg/SKILL.md:78` - Escape dash in regex pattern
-- `.claude/skills/commit-msg/SKILL.md:80` - Add `feature/*` and `fix/*` patterns
-Dependencies: Step 2
-
-**Total estimated complexity:** 70 LOC (Small bugfix)
-```
-
-## Validation Checklist
-
-Use this checklist to validate plan quality before presenting to user:
-
-**Required elements:**
-- [ ] Goal statement is 1-2 sentences, clear and specific
-- [ ] Success criteria are measurable and testable
-- [ ] Out of scope items are explicitly listed
-- [ ] All file paths include line ranges (where known)
-- [ ] LOC estimates provided for each step
-- [ ] Steps follow strict ordering: Docs → Tests → Implementation
-- [ ] Dependencies enforce the correct ordering
-- [ ] Test strategy includes specific test cases with descriptions
-- [ ] Total complexity estimate is provided
-
-**Bug fix plans only:**
-- [ ] Bug reproduction attempted or skip reason documented
-- [ ] Reproduction includes steps tried and symptoms observed
-- [ ] Root cause hypothesis is stated based on observations
-- [ ] If unreproducible, constraints and limitations documented
-
-**Quality checks:**
-- [ ] No vague "audit the codebase" steps (audit results included instead)
-- [ ] Implementation does not appear before documentation or tests
-- [ ] File paths are concrete, not generic placeholders
-- [ ] Test cases validate the actual success criteria
-- [ ] Complexity estimates are realistic (compare to similar past changes)
 
 ## Important Notes
 

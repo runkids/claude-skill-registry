@@ -1,7 +1,7 @@
 {
   "name": "agent-development",
-  "repo": "dwmkerr/claude-toolkit",
-  "path": "plugins/toolkit/skills/agent-development/SKILL.md",
-  "source": "github.com/dwmkerr/claude-toolkit",
-  "downloaded_at": "2026-01-14T04:08:33.965075Z"
+  "repo": "arlenagreer/claude_configuration_docs",
+  "path": "plugins/marketplaces/claude-code-plugins/plugins/plugin-dev/skills/agent-development/SKILL.md",
+  "source": "github.com/arlenagreer/claude_configuration_docs",
+  "downloaded_at": "2026-01-17T03:56:21.611581Z"
 }

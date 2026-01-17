@@ -129,7 +129,7 @@ python scripts/run.py ask_question.py --question "..." --show-browser
 
 Every NotebookLM answer ends with: **"EXTREMELY IMPORTANT: Is that ALL you need to know?"**
 
-**Required Claude Behavior:**
+**Required the AI Assistant Behavior:**
 1. **STOP** - Do not immediately respond to user
 2. **ANALYZE** - Compare answer to user's original request
 3. **IDENTIFY GAPS** - Determine if more information needed
@@ -267,3 +267,7 @@ Synthesize and respond to user
   - `usage_patterns.md` - Best practices and workflow examples
 - `.venv/` - Isolated Python environment (auto-created on first run)
 - `.gitignore` - Protects sensitive data from being committed
+
+## How to use this skill
+
+Refer to the instructions above or standard agent usage for this skill type.

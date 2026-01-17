@@ -1,7 +1,7 @@
 {
   "name": "ai-ml-engineer",
-  "repo": "gaebalai/itda-sdd",
-  "path": "src/templates/agents/claude-code/skills/ai-ml-engineer/SKILL.md",
-  "source": "github.com/gaebalai/itda-sdd",
-  "downloaded_at": "2026-01-14T03:55:14.233149Z"
+  "repo": "nahisaho/CodeGraphMCPServer",
+  "path": ".claude/skills/ai-ml-engineer/SKILL.md",
+  "source": "github.com/nahisaho/CodeGraphMCPServer",
+  "downloaded_at": "2026-01-17T03:42:15.918458Z"
 }

@@ -1,39 +1,447 @@
 ---
 name: video-production
-description: 端到端视频制作 playbook（策划→素材规范→剪辑→字幕→导出→发布→验收），强调可复现的交付流程。
+description: Professional video production from planning to delivery. Use when creating video content, editing workflows, motion graphics, or optimizing video for different platforms.
 ---
 
-# 视频制作（从 Brief 到交付）
+# Video Production
 
-## When to use this skill
-- 需要把碎片素材（口播/B-roll/屏录/图片/字幕）剪成可验收的成片。  
-- 需要适配多平台比例（16:9 / 9:16 / 1:1）并遵循导出规格。  
-- 需要“可复现”的交付：素材清单、剪辑决策、导出参数、验收记录可追溯。
+Comprehensive guide for professional video production across all platforms.
 
-## 必备输入
-1) **受众与目标**：希望观众做什么（了解/转化/培训/投放）？成功指标？  
-2) **平台与比例**：YouTube / B 站 / TikTok / Reels / 内部培训；目标分辨率/帧率。  
-3) **时长与结构**：开头 hook（前 3–10 秒）、主体、结尾 CTA；是否需要章节/时间轴。  
-4) **品牌规范**：字体/色板/Logo/水印/片头片尾/字幕样式（字号/描边/阴影/高亮规则）。  
-5) **音频要求**：是否降噪/配乐/旁白；响度与 true peak 目标（常用参考：-14 LUFS / -1 dBTP）。  
-6) **交付物**：MP4 + 字幕（SRT/VTT）+ 封面图 + 变更说明；是否需要 fast start。
+## Production Phases
 
-## 工作流
-1. **预制作**：写脚本（旁白+强调词+停顿点）、镜头单（镜头类型/时长/所需素材）、资产清单（来源/授权）。  
-2. **素材预检**：抽检分辨率、帧率、像素宽高比、时长、编码器/码率、音频采样率/声道、是否 VFR。  
-3. **粗剪 → 精剪**：先跑通结构，再控节奏与信息密度（口播“可理解、可跟上、可复述”）。  
-4. **声音优先**：人声明晰优先于画面高级感；配乐给人声留空间。  
-5. **画面统一**：最小必要调色（统一曝光/白平衡/对比度）；避免每段素材像不同片子。  
-6. **字幕与可访问性**：移动端优先（字号、对比度、安全边距）；关键术语一致；公开视频建议同时交付“烧录版+独立字幕文件版”。  
-7. **导出**（YouTube SDR 参考）：容器 MP4；视频 H.264 progressive/high profile（常见 4:2:0）；音频 AAC 48kHz；fast start；1080p 约 8 Mbps（24/25/30fps）或 12 Mbps（48/50/60fps）；4K 约 35–68 Mbps；响度 -14 LUFS，true peak ≤ -1 dBTP。  
-8. **发布与验收**：逐条勾验（画面无黑帧/比例正确、声音无爆音且响度达标、字幕对齐、导出帧率/码率符合平台、fast start 生效），记录变更与已知限制。
+### The 3 Phases
 
-## 本仓库工具链说明
-- 当前仓库不提供内建视频处理工具链；请根据团队规范选择并记录使用的外部工具与版本。
+| Phase               | Activities                         | Deliverables                |
+| ------------------- | ---------------------------------- | --------------------------- |
+| **Pre-Production**  | Planning, scripting, storyboarding | Script, shot list, schedule |
+| **Production**      | Filming, recording                 | Raw footage, audio          |
+| **Post-Production** | Editing, VFX, color, sound         | Final deliverable           |
 
-## 参考资料
-- YouTube 上传建议：https://support.google.com/youtube/answer/1722171  
-- Adobe 导出参数权衡：https://www.adobe.com/creativecloud/video/hub/guides/best-export-settings-for-premiere-pro.html  
-- APU：YouTube 响度目标（-14 LUFS / -1 dBTP）：https://apu.software/youtube-audio-loudness-target/  
-- APU：常见平台响度目标表（含 EBU R128）：https://apu.software/loudness-standards/  
-- W3C WAI：字幕（Prerecorded）资源：https://www.w3.org/WAI/WCAG22/Understanding/captions-prerecorded.html
+---
+
+## Pre-Production
+
+### Script Format
+
+```
+SCENE 1 - INT. OFFICE - DAY
+
+Wide shot of open office space. ALEX (30s) sits at desk.
+
+ALEX
+(looking at screen)
+This is where the magic happens.
+
+CUT TO: Close-up of computer screen showing code.
+
+NARRATOR (V.O.)
+In today's tutorial, we'll cover...
+```
+
+### Shot List Template
+
+| #   | Scene | Shot Type      | Description         | Duration | Notes            |
+| --- | ----- | -------------- | ------------------- | -------- | ---------------- |
+| 1   | Intro | Wide           | Office establishing | 3s       | Natural lighting |
+| 2   | Intro | Close-up       | Subject face        | 5s       | Eye contact      |
+| 3   | Demo  | Screen capture | Code editor         | 30s      | 1080p60          |
+
+### Storyboard Elements
+
+```
+┌─────────────────────────┐
+│    [Rough sketch]       │
+│                         │
+│    ┌───┐               │
+│    │ O │  ←Subject      │
+│    └─┬─┘               │
+│      │                  │
+├─────────────────────────┤
+│ Shot: Medium close-up   │
+│ Action: Subject speaks  │
+│ Audio: Dialogue + music │
+│ Duration: 5 seconds     │
+│ Notes: Eye-level angle  │
+└─────────────────────────┘
+```
+
+---
+
+## Camera Fundamentals
+
+### Shot Types
+
+```
+FRAMING:
+┌─────────────┐     ┌─────────────┐     ┌─────────────┐
+│             │     │    ┌───┐    │     │   ┌─────┐   │
+│   ┌───┐     │     │    │ O │    │     │   │  O  │   │
+│   │ O │     │     │    └─┬─┘    │     │   │  │  │   │
+│   └─┬─┘     │     │     ─┼─     │     │   └──┬──┘   │
+│   ──┼──     │     │      │      │     │      │      │
+│    /│\      │     │     / \     │     └─────────────┘
+│   / │ \     │     │    /   \    │
+│  /  │  \    │     └─────────────┘     CLOSE-UP (CU)
+│ /   │   \   │
+└─────────────┘     MEDIUM (MS)
+WIDE/FULL (WS)
+
+EXTREME CLOSE-UP (ECU): Eyes, details only
+MEDIUM CLOSE-UP (MCU): Head and shoulders
+OVER-THE-SHOULDER (OTS): Person from behind another
+TWO-SHOT: Two subjects in frame
+```
+
+### Camera Movements
+
+| Movement      | Description         | Effect                |
+| ------------- | ------------------- | --------------------- |
+| **Pan**       | Horizontal rotation | Reveal, follow action |
+| **Tilt**      | Vertical rotation   | Reveal height, power  |
+| **Dolly**     | Move toward/away    | Intimacy, reveal      |
+| **Truck**     | Move left/right     | Follow alongside      |
+| **Crane**     | Vertical elevation  | Epic, establishing    |
+| **Zoom**      | Focal length change | Focus attention       |
+| **Handheld**  | Natural movement    | Documentary feel      |
+| **Steadicam** | Smooth handheld     | Following shots       |
+
+### The Exposure Triangle
+
+```
+                    EXPOSURE
+                       │
+        ┌──────────────┼──────────────┐
+        │              │              │
+        ▼              ▼              ▼
+   ┌─────────┐   ┌─────────┐   ┌─────────┐
+   │  ISO    │   │Aperture │   │ Shutter │
+   │ 100-12800│   │ f/1.4-22│   │ 1/30-   │
+   │         │   │         │   │  1/8000 │
+   └────┬────┘   └────┬────┘   └────┬────┘
+        │             │             │
+   Sensitivity   Depth of      Motion
+   (noise)       Field         blur
+```
+
+### Video Settings
+
+| Setting           | Standard             | Notes                      |
+| ----------------- | -------------------- | -------------------------- |
+| **Resolution**    | 1080p, 4K            | Match delivery target      |
+| **Frame Rate**    | 24, 30, 60 fps       | 24=film, 30=TV, 60=smooth  |
+| **Shutter Speed** | 1/2x frame rate      | 180° rule (1/48 for 24fps) |
+| **ISO**           | As low as possible   | Higher = more noise        |
+| **Bit Rate**      | 50-400 Mbps          | Higher = better quality    |
+| **Codec**         | H.264, H.265, ProRes | ProRes for editing         |
+
+---
+
+## Lighting
+
+### Three-Point Lighting
+
+```
+              KEY LIGHT
+                 │
+                 │  (45° angle)
+                 │
+                 ▼
+    ┌────────────────────────┐
+    │                        │
+FILL │          👤          │ BACK LIGHT
+LIGHT│       Subject         │ (rim/hair)
+    │                        │
+    └────────────────────────┘
+                 │
+                 │
+              CAMERA
+```
+
+| Light    | Purpose            | Intensity      |
+| -------- | ------------------ | -------------- |
+| **Key**  | Main illumination  | 100% reference |
+| **Fill** | Soften shadows     | 50-75% of key  |
+| **Back** | Separation from BG | Variable       |
+
+### Lighting Styles
+
+| Style        | Key:Fill Ratio | Mood               |
+| ------------ | -------------- | ------------------ |
+| **High key** | 1:1 to 2:1     | Bright, optimistic |
+| **Medium**   | 3:1 to 4:1     | Natural, neutral   |
+| **Low key**  | 8:1+           | Dramatic, moody    |
+
+### Color Temperature
+
+```
+Kelvin Scale:
+1800K  ████████░░░░░░░░  Candlelight (warm)
+2700K  ██████████░░░░░░  Tungsten bulb
+3200K  ███████████░░░░░  Halogen
+4000K  ████████████░░░░  Moonlight
+5600K  ██████████████░░  Daylight (neutral)
+6500K  ███████████████░  Overcast
+10000K ████████████████  Blue sky (cool)
+```
+
+---
+
+## Audio
+
+### Recording Guidelines
+
+| Element         | Target Level  | Notes             |
+| --------------- | ------------- | ----------------- |
+| **Dialogue**    | -12 to -6 dB  | Peak at -6 dB max |
+| **Music**       | -18 to -12 dB | Under dialogue    |
+| **SFX**         | Variable      | Support the story |
+| **Noise floor** | Below -60 dB  | Record room tone  |
+
+### Microphone Types
+
+| Type          | Best For             | Pattern         |
+| ------------- | -------------------- | --------------- |
+| **Lavalier**  | Interviews, dialogue | Omnidirectional |
+| **Shotgun**   | Film, documentary    | Super-cardioid  |
+| **Condenser** | Voiceover, studio    | Cardioid        |
+| **Dynamic**   | Loud sources         | Cardioid        |
+
+### Audio Checklist
+
+- [ ] Record room tone (30 seconds minimum)
+- [ ] Check levels before recording
+- [ ] Monitor with headphones
+- [ ] Backup audio recording
+- [ ] Sync audio/video with clap
+
+---
+
+## Post-Production
+
+### Editing Workflow
+
+```
+1. INGEST
+   └─→ Import footage, create proxies if needed
+
+2. ORGANIZE
+   └─→ Label clips, create bins/folders, log selects
+
+3. ROUGH CUT
+   └─→ Assemble story structure, timing
+
+4. FINE CUT
+   └─→ Tighten edits, pacing refinement
+
+5. PICTURE LOCK
+   └─→ No more timeline changes
+
+6. COLOR
+   └─→ Correction, grading, look development
+
+7. AUDIO MIX
+   └─→ Levels, EQ, compression, spatial
+
+8. TITLES/GFX
+   └─→ Lower thirds, motion graphics
+
+9. EXPORT
+   └─→ Final render, quality check
+```
+
+### Editing Software
+
+| Software                | Best For                 | Platform        |
+| ----------------------- | ------------------------ | --------------- |
+| **DaVinci Resolve**     | Color grading, full edit | All (Free tier) |
+| **Adobe Premiere**      | Industry standard        | All             |
+| **Final Cut Pro**       | Mac ecosystem            | macOS           |
+| **Avid Media Composer** | Broadcast, film          | All             |
+| **iMovie**              | Beginners                | macOS/iOS       |
+| **CapCut**              | Social media             | Mobile/Desktop  |
+
+### Essential Cuts
+
+| Cut           | Description           | Use                       |
+| ------------- | --------------------- | ------------------------- |
+| **Hard cut**  | Instant transition    | Standard, dialogue        |
+| **J-cut**     | Audio leads video     | Natural dialogue flow     |
+| **L-cut**     | Video leads audio     | Reaction shots            |
+| **Jump cut**  | Same angle, time skip | Pacing, style             |
+| **Match cut** | Visual similarity     | Transitions, meaning      |
+| **Cutaway**   | Insert shot           | Context, time compression |
+
+---
+
+## Color
+
+### Color Workflow
+
+```
+1. CORRECTION (Primary)
+   - Fix exposure, white balance
+   - Balance shots in scene
+   - Create neutral baseline
+
+2. MATCHING
+   - Match shots within scenes
+   - Consistent skin tones
+   - Scene-to-scene continuity
+
+3. GRADING (Secondary)
+   - Creative look development
+   - Selective adjustments
+   - Style application
+```
+
+### Color Scopes
+
+| Scope           | Shows                 | Use                    |
+| --------------- | --------------------- | ---------------------- |
+| **Waveform**    | Luminance levels      | Exposure, contrast     |
+| **Vectorscope** | Hue, saturation       | Skin tones, color cast |
+| **Histogram**   | Tonal distribution    | Clipping, balance      |
+| **Parade**      | RGB channels separate | Color balance          |
+
+### LUTs (Look-Up Tables)
+
+```
+Types:
+- Technical LUT: Log to Rec.709 conversion
+- Creative LUT: Stylistic look (film emulation)
+- Calibration LUT: Monitor/display correction
+
+Application Order:
+1. Input LUT (log conversion)
+2. Primary correction
+3. Secondary grading
+4. Creative LUT
+5. Output LUT (delivery spec)
+```
+
+---
+
+## Motion Graphics
+
+### Animation Principles
+
+| Principle            | Application                       |
+| -------------------- | --------------------------------- |
+| **Easing**           | Smooth starts/stops (ease in/out) |
+| **Anticipation**     | Setup before action               |
+| **Follow-through**   | Motion continues after stop       |
+| **Secondary action** | Supporting movements              |
+| **Timing**           | Speed conveys weight/mood         |
+| **Staging**          | Clear presentation                |
+
+### Common Motion Patterns
+
+```css
+/* Easing functions */
+ease-in:      slow → fast
+ease-out:     fast → slow
+ease-in-out:  slow → fast → slow
+linear:       constant speed
+
+/* Standard durations */
+Quick:   150-200ms (micro-interactions)
+Normal:  300-400ms (standard transitions)
+Slow:    500-800ms (emphasis, reveals)
+```
+
+### Title Safe Zones
+
+```
+┌────────────────────────────────┐
+│  ┌──────────────────────────┐  │
+│  │  ┌────────────────────┐  │  │
+│  │  │                    │  │  │
+│  │  │    TITLE SAFE      │  │  │
+│  │  │       (80%)        │  │  │
+│  │  │                    │  │  │
+│  │  └────────────────────┘  │  │
+│  │       ACTION SAFE        │  │
+│  │          (90%)           │  │
+│  └──────────────────────────┘  │
+│         FULL FRAME (100%)      │
+└────────────────────────────────┘
+```
+
+---
+
+## Export & Delivery
+
+### Platform Specifications
+
+| Platform            | Resolution | Frame Rate   | Format       |
+| ------------------- | ---------- | ------------ | ------------ |
+| **YouTube**         | 1080p/4K   | 24-60 fps    | H.264/H.265  |
+| **Instagram Feed**  | 1080×1080  | 30 fps       | H.264        |
+| **Instagram Reels** | 1080×1920  | 30 fps       | H.264        |
+| **TikTok**          | 1080×1920  | 30 fps       | H.264        |
+| **Twitter**         | 1280×720+  | 30-60 fps    | H.264        |
+| **LinkedIn**        | 1920×1080  | 30 fps       | H.264        |
+| **Broadcast**       | 1080i/p    | 29.97/25 fps | ProRes/DNxHD |
+
+### Export Settings (H.264)
+
+```
+Web Delivery:
+- Codec: H.264
+- Container: MP4
+- Bitrate: 10-20 Mbps (1080p), 35-68 Mbps (4K)
+- Audio: AAC, 320 kbps
+- Sample rate: 48 kHz
+
+Archive/Master:
+- Codec: ProRes 422 or DNxHD
+- Container: MOV
+- Audio: Uncompressed PCM
+```
+
+---
+
+## Best Practices
+
+### DO:
+
+- Plan before you shoot
+- Record more footage than needed
+- Use manual focus when possible
+- Monitor audio with headphones
+- Shoot for the edit
+- Keep organized project files
+- Back up everything (3-2-1 rule)
+- Color correct before grading
+
+### DON'T:
+
+- Overuse transitions
+- Rely on "fix it in post"
+- Forget b-roll coverage
+- Ignore audio quality
+- Over-sharpen in post
+- Export at wrong aspect ratio
+- Skip the rough cut phase
+- Delete original footage
+
+---
+
+## Quality Checklist
+
+### Pre-Export
+
+- [ ] Timeline resolution matches delivery spec
+- [ ] No black frames or gaps
+- [ ] Audio levels normalized (-14 LUFS for streaming)
+- [ ] All graphics within safe zones
+- [ ] Color consistent across scenes
+- [ ] Exports without errors
+
+### Final Review
+
+- [ ] Watch full export beginning to end
+- [ ] Check on multiple devices/screens
+- [ ] Verify audio sync throughout
+- [ ] Confirm captions/subtitles accuracy
+- [ ] File size appropriate for platform

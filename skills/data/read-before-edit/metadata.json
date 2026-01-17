@@ -1,13 +1,7 @@
 {
   "name": "read-before-edit",
-  "description": "強制執行「先讀後寫」規範，確保 Claude 在修改任何檔案前完整閱讀相關代碼。當需要修改檔案時自動使用。",
   "repo": "cityfish91159/maihouses",
-  "category": "development",
-  "tags": [
-    "read",
-    "before",
-    "edit"
-  ],
-  "stars": 0,
-  "source": "local"
+  "path": ".claude/skills/read-before-edit/SKILL.md",
+  "source": "github.com/cityfish91159/maihouses",
+  "downloaded_at": "2026-01-17T01:33:06.798835Z"
 }

@@ -1,6 +1,6 @@
 ---
 name: slash-command-creator
-description: Guide for creating Claude Code slash commands. Use when the user wants to create a new slash command, update an existing slash command, or asks about slash command syntax, frontmatter options, or best practices.
+description: Guide for creating Codex CLI slash commands. Use when the user wants to create a new slash command, update an existing slash command, or asks about slash command syntax, frontmatter options, or best practices.
 ---
 
 # Slash Command Creator

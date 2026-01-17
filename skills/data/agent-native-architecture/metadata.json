@@ -1,7 +1,7 @@
 {
   "name": "agent-native-architecture",
-  "repo": "jayteealao/gitt-gaff",
-  "path": ".claude/skills/agent-native-architecture/SKILL.md",
-  "source": "github.com/jayteealao/gitt-gaff",
-  "downloaded_at": "2026-01-14T03:27:10.629784Z"
+  "repo": "RBozydar/rbw-claude-code",
+  "path": "plugins/core/skills/agent-native-architecture/SKILL.md",
+  "source": "github.com/RBozydar/rbw-claude-code",
+  "downloaded_at": "2026-01-17T03:16:00.736517Z"
 }

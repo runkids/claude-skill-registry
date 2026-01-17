@@ -1,7 +1,7 @@
 {
   "name": "prd",
-  "repo": "ArvorCo/Relentless",
-  "path": ".claude/skills/prd/SKILL.md",
-  "source": "github.com/ArvorCo/Relentless",
-  "downloaded_at": "2026-01-14T03:59:06.606818Z"
+  "repo": "clawdbot/skills",
+  "path": "skills/bjesuiter/prd/SKILL.md",
+  "source": "github.com/clawdbot/skills",
+  "downloaded_at": "2026-01-17T03:30:44.180268Z"
 }

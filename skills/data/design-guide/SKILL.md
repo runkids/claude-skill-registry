@@ -1,366 +1,375 @@
 ---
 name: design-guide
-description: Modern UI design principles and guidelines for building clean, professional interfaces. Use when creating any UI components, layouts, web pages, or interactive elements including buttons, forms, cards, navigation, or complete applications. Applies to HTML, CSS, React, Vue, Svelte, and any frontend framework. Ensures consistent, minimal, and accessible design patterns.
+description: Ensures modern, professional UI design across SwiftUI, Android, and web platforms. Use when building ANY user interface components including buttons, forms, cards, layouts, navigation, or complete screens. Enforces clean minimal design, neutral color palettes with one accent color, 8px grid spacing system, proper typography hierarchy, and clear interactive states. Always reference before creating or modifying UI elements.
 ---
 
 # Design Guide
 
-## Core Philosophy
+Comprehensive design system ensuring every UI you build looks modern, professional, and consistent across all platforms (SwiftUI, Android Studio, web applications).
 
-Apply modern, minimal design principles focused on clarity, consistency, and professionalism. Every UI element should serve a purpose, with intentional use of space, color, and typography.
+## Bundled Resources
 
-## Design Principles
+This skill includes additional reference materials:
 
-### 1. Clean and Minimal Layout
+- **references/color-palettes.md** - Detailed color schemes, accent color options, and platform-specific color implementation examples. Reference when choosing or implementing colors.
+- **references/component-templates.md** - Ready-to-use code templates for buttons, cards, forms, and navigation across SwiftUI, Android Compose, and React. Reference when implementing specific components.
 
-**Whitespace is essential**
-- Use generous padding and margins
+## Core Design Principles
+
+### 1. Clean and Minimal
+- Embrace white space generously
 - Avoid cluttered interfaces
-- Group related elements with clear visual separation
+- One primary action per screen/section
 - Remove unnecessary decorative elements
+- Let content breathe
 
-**Visual hierarchy**
-- Establish clear content priority through size and spacing
-- Use whitespace to guide attention
-- Limit elements per section (3-7 items optimal)
+### 2. Color Palette
 
-### 2. Color System
+**Neutral Base:**
+- Use grays and off-whites as foundation
+- White: #FFFFFF
+- Light gray: #F5F5F5, #EEEEEE
+- Medium gray: #9E9E9E, #757575
+- Dark gray: #424242, #212121
+- True black sparingly: #000000
 
-**Base palette**
-- Primary background: Off-white (#FAFAFA, #F5F5F5) or pure white (#FFFFFF)
-- Text colors:
-  - Primary: Dark gray (#1A1A1A, #2D2D2D)
-  - Secondary: Medium gray (#6B6B6B, #737373)
-  - Tertiary: Light gray (#A0A0A0, #B3B3B3)
-- Borders and dividers: Very light gray (#E5E5E5, #EBEBEB)
+**Accent Color:**
+- Choose ONE accent color for your app
+- Use sparingly for CTAs, important actions, and key information
+- Good accent options: Emerald (#10B981), Indigo (#6366F1), Rose (#F43F5E), Amber (#F59E0B)
+- **NEVER use generic purple/blue gradients**
 
-**Accent color**
-- Choose ONE accent color for the entire interface
-- Use sparingly for CTAs, links, and important interactive elements
-- Recommended: Teal (#0D9488), Emerald (#059669), Indigo (#4F46E5), or custom brand color
-- Apply to: Primary buttons, active states, key icons
-
-**Forbidden patterns**
-- No purple-blue gradients
-- No rainbow or multi-color gradients
-- No more than 3 colors total (base grays + one accent)
-- No bright, saturated colors for large areas
+**Color Usage Rules:**
+- 80% neutral, 15% secondary neutral, 5% accent
+- Backgrounds: light grays or white
+- Text: dark grays on light backgrounds
+- Interactive elements: accent color
+- Borders/dividers: very light gray (#E5E5E5)
 
 ### 3. Spacing System (8px Grid)
 
-**Consistent spacing units**
-- 8px: Compact spacing (icon padding, tight elements)
-- 16px: Default spacing (between related elements, button padding)
-- 24px: Medium spacing (section padding, card content)
-- 32px: Large spacing (between sections)
-- 48px: XL spacing (major section breaks)
-- 64px: XXL spacing (page sections, hero spacing)
+**Always use multiples of 8:**
+- 8px: Tight spacing (icon padding, inline elements)
+- 16px: Standard spacing (button padding, form field gaps)
+- 24px: Section spacing (card internal padding)
+- 32px: Component spacing (between cards, sections)
+- 48px: Major section breaks
+- 64px: Screen-level spacing (margins)
 
-**Application**
-- All margins, padding, gaps use these values exclusively
-- Component dimensions follow 8px increments when possible
-- Line heights: 1.5 for body, 1.2 for headings
+**Application:**
+- Padding: 16px or 24px for most containers
+- Margins: 32px between major sections
+- Gap between elements: 16px standard, 8px for tight groups
+- Never use arbitrary values like 13px or 27px
 
 ### 4. Typography
 
-**Font selection**
-- Maximum 2 fonts: one for headings, one for body (or same for both)
-- System fonts acceptable: `-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif`
-- Web fonts: Inter, Poppins, Work Sans, DM Sans
+**Hierarchy:**
+- H1: 32px - 40px, bold, rare (page titles only)
+- H2: 24px - 28px, semibold (section headers)
+- H3: 20px - 24px, semibold (subsections)
+- Body: 16px - 18px, regular (MINIMUM 16px for readability)
+- Small: 14px, regular (captions, metadata)
+- Tiny: 12px, regular (legal text only, use rarely)
 
-**Size hierarchy**
-- Body text: 16px minimum (never below 14px)
-- Small text: 14px (metadata, captions)
-- Headings:
-  - H1: 32-48px
-  - H2: 24-32px
-  - H3: 20-24px
-  - H4: 18-20px
+**Font Rules:**
+- Maximum 2 font families per project
+- One for headings (can be display font)
+- One for body text (must be highly readable)
+- Recommended pairings:
+  - Inter + Inter (single family, different weights)
+  - SF Pro Display + SF Pro Text (Apple platforms)
+  - Roboto + Roboto (Android)
+  - System fonts always acceptable
 
-**Weight and style**
-- Avoid excessive bold text
-- Use weight variations (400, 500, 600, 700) for hierarchy
-- Letter-spacing: -0.02em for large headings, 0 for body
+**Line Height:**
+- Headings: 1.2 - 1.3
+- Body: 1.5 - 1.6
+- Small text: 1.4
 
-### 5. Shadows and Depth
+### 5. Shadows
 
-**Subtle elevation**
-- Light shadow: `box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.06)`
-- Medium shadow: `box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.05)`
-- Avoid heavy, dramatic shadows
+**Subtle, not heavy:**
+- Small shadow: `0 1px 3px rgba(0,0,0,0.12)`
+- Medium shadow: `0 4px 6px rgba(0,0,0,0.1)`
+- Large shadow: `0 10px 15px rgba(0,0,0,0.1)`
+- Floating shadow: `0 20px 25px rgba(0,0,0,0.1)`
 
-**When to use**
-- Cards and modals: light to medium shadow
-- Buttons: very subtle shadow on rest, slightly elevated on hover
-- Dropdowns and popovers: medium shadow
+**When to use:**
+- Cards: subtle shadow or border, not both
+- Buttons: very subtle shadow on hover
+- Modals/dialogs: medium shadow
+- Dropdowns: medium shadow
+- **Avoid:** heavy drop shadows, inner shadows, multiple shadows
 
-### 6. Borders and Corners
+### 6. Rounded Corners
 
-**Border radius**
-- Subtle rounding: 4-8px for most elements
-- Medium rounding: 12-16px for cards and large containers
-- Not everything needs rounding (tables, data grids can remain sharp)
+**Border Radius Guidelines:**
+- Small elements (buttons, inputs): 6px - 8px
+- Cards, containers: 8px - 12px
+- Large panels: 12px - 16px
+- Circular (avatars, icon buttons): 50% or 9999px
 
-**Border usage**
-- Use either borders OR shadows, not both on the same element
-- Thin borders: 1px solid with light gray (#E5E5E5)
-- Input focus: 2px solid with accent color
+**Don't overdo it:**
+- Not everything needs rounded corners
+- Sharp corners acceptable for:
+  - Screen edges
+  - Full-width sections
+  - Data tables
+  - Navigation bars
 
 ### 7. Interactive States
 
-**Required states for all interactive elements**
+**Every interactive element MUST have:**
 
-**Buttons**
-```css
-/* Default */
-background: accent-color;
-color: white;
-padding: 12px 24px;
-border-radius: 6px;
-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+**Buttons:**
+- Default: base color, subtle shadow
+- Hover: slightly darker (10%), lift shadow
+- Active: pressed appearance, darker (20%)
+- Disabled: 40% opacity, no hover, no pointer cursor
+- Focus: visible outline (2px accent color, 2px offset)
 
-/* Hover */
-background: slightly-darker-accent;
-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
-transform: translateY(-1px);
+**Form Fields:**
+- Default: light gray border (#E5E5E5)
+- Focus: accent color border (2px), remove shadow
+- Error: red border, error text below
+- Disabled: gray background, no interaction
+- Valid: subtle green checkmark (optional)
 
-/* Active */
-transform: translateY(0);
-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+**Links:**
+- Default: accent color, underline on hover
+- Visited: slightly muted accent
+- Never: blue #0000FF (unless that's your accent)
 
-/* Disabled */
-background: light-gray;
-color: medium-gray;
-cursor: not-allowed;
-opacity: 0.6;
-```
+**Cards:**
+- Default: subtle shadow or border
+- Hover: lift effect, slightly stronger shadow
+- Active: immediate feedback
 
-**Links**
-- Default: Accent color, no underline
-- Hover: Underline, slightly darker
-- Visited: Same as default (or slightly muted)
+### 8. Mobile-First Thinking
 
-**Form inputs**
-- Default: 1px border, light gray
-- Focus: 2px border, accent color, subtle glow
-- Error: Red border (#DC2626), error message below
-- Disabled: Gray background, reduced opacity
-
-### 8. Mobile-First Approach
-
-**Responsive thinking**
-- Design for mobile viewport first (320px-768px)
-- Scale up to tablet (768px-1024px) and desktop (1024px+)
-- Touch targets: Minimum 44x44px for buttons and interactive elements
-- Stack vertically on mobile, consider horizontal on desktop
-
-**Breakpoints**
-```css
-/* Mobile: base styles */
-/* Tablet: 768px */
-/* Desktop: 1024px */
-/* Large desktop: 1440px */
-```
+**Always design for mobile first, then scale up:**
+- Touch targets minimum 44x44px (iOS), 48x48px (Android)
+- Adequate spacing between tappable elements (min 8px)
+- Thumb-friendly navigation (bottom of screen)
+- Single column layouts on mobile
+- Responsive breakpoints:
+  - Mobile: < 640px
+  - Tablet: 640px - 1024px
+  - Desktop: > 1024px
 
 ## Component Patterns
 
 ### Buttons
 
-**Good example**
-```html
-<button class="btn-primary">
-  Save Changes
-</button>
-
-<style>
-.btn-primary {
-  background: #0D9488;
-  color: white;
-  padding: 12px 24px;
-  border-radius: 6px;
-  border: none;
-  font-size: 16px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.15s ease;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-
-.btn-primary:hover {
-  background: #0F766E;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transform: translateY(-1px);
-}
-
-.btn-primary:disabled {
-  background: #D1D5DB;
-  color: #9CA3AF;
-  cursor: not-allowed;
-  transform: none;
-}
-</style>
+**Primary Button (main action):**
+```
+Background: Accent color
+Text: White
+Padding: 12px 24px (vertical, horizontal)
+Border radius: 8px
+Shadow: 0 1px 3px rgba(0,0,0,0.12)
+Font: 16px, semibold
+Hover: Darken 10%, lift shadow
 ```
 
-**Bad example**
-```css
-/* Avoid */
-.btn-bad {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 5px 10px; /* Too small */
-  border-radius: 25px; /* Too rounded */
-  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.5); /* Too heavy */
-  text-transform: uppercase;
-  letter-spacing: 2px;
-}
+**Secondary Button (alternative action):**
 ```
+Background: White
+Text: Accent color
+Border: 1px solid accent color
+Padding: 12px 24px
+Border radius: 8px
+Hover: Light accent background (10% opacity)
+```
+
+**Ghost Button (tertiary action):**
+```
+Background: Transparent
+Text: Dark gray
+No border
+Padding: 12px 24px
+Hover: Light gray background
+```
+
+**Bad Button Examples:**
+- ❌ Gradient backgrounds
+- ❌ Multiple colors in one button
+- ❌ Tiny padding (looks cramped)
+- ❌ No hover state
+- ❌ Text too small (< 14px)
 
 ### Cards
 
-**Good example**
-```html
-<div class="card">
-  <h3 class="card-title">Dashboard</h3>
-  <p class="card-description">View your analytics and metrics</p>
-</div>
+**Standard Card:**
+```
+Background: White
+Border: 1px solid #E5E5E5 OR subtle shadow (not both)
+Border radius: 12px
+Padding: 24px
+Margin bottom: 16px
 
-<style>
-.card {
-  background: white;
-  border: 1px solid #E5E5E5;
-  border-radius: 8px;
-  padding: 24px;
-  transition: border-color 0.2s ease;
-}
+OR
 
-.card:hover {
-  border-color: #D1D5DB;
-}
-
-.card-title {
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 8px;
-  color: #1A1A1A;
-}
-
-.card-description {
-  font-size: 16px;
-  color: #6B6B6B;
-}
-</style>
+Background: White
+Shadow: 0 4px 6px rgba(0,0,0,0.1)
+Border radius: 12px
+Padding: 24px
+Margin bottom: 16px
 ```
 
-**Bad example**
-```css
-/* Avoid */
-.card-bad {
-  background: linear-gradient(to right, #fa709a, #fee140);
-  border: 3px solid purple;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
-  border-radius: 30px;
-}
-```
+**Card Content Spacing:**
+- Title to subtitle: 8px
+- Subtitle to content: 16px
+- Content sections: 24px
+- Content to actions: 24px
+
+**Bad Card Examples:**
+- ❌ Both border AND shadow
+- ❌ Heavy shadows
+- ❌ Inconsistent padding
+- ❌ Too many colors
 
 ### Forms
 
-**Good example**
-```html
-<form class="form">
-  <div class="form-group">
-    <label for="email">Email Address</label>
-    <input type="email" id="email" placeholder="you@example.com">
-    <span class="form-hint">We'll never share your email</span>
-  </div>
-  
-  <div class="form-group">
-    <label for="password">Password</label>
-    <input type="password" id="password" class="error">
-    <span class="form-error">Password must be at least 8 characters</span>
-  </div>
-</form>
-
-<style>
-.form-group {
-  margin-bottom: 24px;
-}
-
-label {
-  display: block;
-  font-size: 14px;
-  font-weight: 500;
-  color: #2D2D2D;
-  margin-bottom: 8px;
-}
-
-input {
-  width: 100%;
-  padding: 12px 16px;
-  border: 1px solid #D1D5DB;
-  border-radius: 6px;
-  font-size: 16px;
-  transition: border-color 0.2s ease;
-}
-
-input:focus {
-  outline: none;
-  border-color: #0D9488;
-  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1);
-}
-
-input.error {
-  border-color: #DC2626;
-}
-
-.form-hint {
-  font-size: 14px;
-  color: #6B6B6B;
-  margin-top: 4px;
-  display: block;
-}
-
-.form-error {
-  font-size: 14px;
-  color: #DC2626;
-  margin-top: 4px;
-  display: block;
-}
-</style>
+**Form Field:**
 ```
+Label: 14px, semibold, dark gray, margin bottom 8px
+Input: 
+  - Height: 44px minimum
+  - Padding: 12px 16px
+  - Border: 1px solid #E5E5E5
+  - Border radius: 8px
+  - Background: White
+  - Font: 16px
+  - Focus: Accent border, no shadow
+  
+Error state:
+  - Border: Red
+  - Helper text: Red, 14px, margin top 4px
+  
+Field spacing: 24px between fields
+```
+
+**Form Layout:**
+- Labels above inputs (not beside)
+- Clear required indicators
+- Group related fields
+- Adequate spacing (24px minimum)
+- Submit button: full width on mobile, auto on desktop
+
+**Bad Form Examples:**
+- ❌ Labels inside inputs (placeholder text is not a label)
+- ❌ Tiny text (< 16px)
+- ❌ Cramped spacing
+- ❌ No error states
+- ❌ Unclear required fields
+
+### Navigation
+
+**Top Navigation:**
+```
+Height: 64px
+Background: White
+Border bottom: 1px solid #E5E5E5
+Padding: 0 32px (desktop), 0 16px (mobile)
+Logo: 32px height
+Links: 16px, medium weight, dark gray
+Active link: Accent color
+```
+
+**Bottom Navigation (Mobile):**
+```
+Height: 56px
+Background: White
+Shadow: 0 -4px 6px rgba(0,0,0,0.1)
+Icons: 24px, centered
+Labels: 12px (optional)
+Active: Accent color
+```
+
+## Design Quality Checklist
+
+Before considering any UI complete, verify:
+
+**Layout:**
+- [ ] Adequate white space throughout
+- [ ] Consistent spacing using 8px grid
+- [ ] Not cluttered or cramped
+- [ ] Clear visual hierarchy
+
+**Colors:**
+- [ ] Neutral base colors (grays/whites)
+- [ ] Only ONE accent color
+- [ ] NO gradients (unless specifically requested)
+- [ ] Sufficient contrast (WCAG AA minimum)
+
+**Typography:**
+- [ ] Clear hierarchy (size + weight)
+- [ ] Body text minimum 16px
+- [ ] Maximum 2 font families
+- [ ] Readable line heights
+
+**Interactive Elements:**
+- [ ] Clear hover states
+- [ ] Clear active states
+- [ ] Clear disabled states
+- [ ] Clear focus states (keyboard navigation)
+
+**Components:**
+- [ ] Buttons have proper padding
+- [ ] Forms have clear labels and spacing
+- [ ] Cards use border OR shadow, not both
+- [ ] Shadows are subtle
+
+**Mobile:**
+- [ ] Touch targets minimum 44x44px
+- [ ] Works on small screens
+- [ ] Adequate spacing for touch
+
+## Platform-Specific Notes
+
+### SwiftUI
+- Use `.padding()` with explicit values from 8px grid
+- Use `Color` with hex initializers for consistent colors
+- Leverage `@Environment(\.colorScheme)` for dark mode
+- Use SF Symbols for icons (always consistent)
+
+### Android Studio
+- Use `dp` units (1dp ≈ 1px on mdpi)
+- Material Design 3 components acceptable but customize colors
+- Use `dimens.xml` for spacing constants
+- Leverage Compose for modern UI
+
+### Web (HTML/CSS/React)
+- Use CSS variables for colors and spacing
+- Mobile-first media queries
+- Use semantic HTML
+- Leverage Tailwind CSS classes following this guide
 
 ## Anti-Patterns to Avoid
 
-**Visual crimes**
-- Rainbow gradients or multiple bright colors
-- Text smaller than 14px (except in rare cases)
-- Inconsistent spacing (mixing random pixel values)
-- Every element in a different color
-- Heavy drop shadows everywhere
-- Over-animation and excessive transitions
-- Centered text for long paragraphs
-- Poor color contrast (text on similar-colored backgrounds)
+**NEVER do these:**
+- ❌ Rainbow gradients everywhere
+- ❌ Different colors on every element
+- ❌ Purple/blue gradients by default
+- ❌ Tiny unreadable text (< 16px body)
+- ❌ Inconsistent spacing (random values)
+- ❌ Heavy drop shadows
+- ❌ Overly rounded everything
+- ❌ Missing interactive states
+- ❌ Both borders AND shadows on same element
+- ❌ Cluttered layouts with no white space
+- ❌ More than 2 font families
+- ❌ Touch targets smaller than 44px
 
-**Structural issues**
-- No clear visual hierarchy
-- Cluttered layouts with no breathing room
-- Missing interactive states
-- Inconsistent component styling
-- Mixing design patterns (e.g., outlined buttons with filled buttons randomly)
+## Quick Reference
 
-## Implementation Checklist
+**Spacing:** 8, 16, 24, 32, 48, 64px
+**Typography:** 16px minimum body, max 2 fonts
+**Colors:** Neutral base + ONE accent
+**Shadows:** Subtle only
+**Border radius:** 6-12px most elements
+**Interactive states:** Always include hover, active, disabled, focus
 
-Before finalizing any UI component or page, verify:
-
-- [ ] Spacing follows 8px grid system
-- [ ] Maximum 3 colors used (grays + one accent)
-- [ ] All text is 16px minimum (14px acceptable for metadata)
-- [ ] Interactive elements have hover, active, and disabled states
-- [ ] Shadows are subtle (not heavy or dramatic)
-- [ ] No gradients used (unless explicitly requested)
-- [ ] Typography hierarchy is clear
-- [ ] Mobile viewport considered (touch targets 44px+)
-- [ ] Color contrast meets accessibility standards (4.5:1 minimum)
-- [ ] Consistent border radius values throughout
-
-## When to Break These Rules
-
-Rules can be broken with explicit user request or specific brand requirements. Document the deviation and ensure consistency in the exception.
+Always reference this guide before creating any UI component. Consistency is key to professional design.

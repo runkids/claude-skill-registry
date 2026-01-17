@@ -1,204 +1,212 @@
 ---
-name: Playwright E2E Testing
-description: Playwright end-to-end testing patterns including page object models, test scenarios, visual regression, and CI/CD integration. Use when building E2E tests, testing web applications, automating browser interactions, implementing page objects, running Playwright tests, debugging E2E failures, or when user mentions Playwright, E2E, browser automation, page object model, POM, visual regression, or end-to-end testing.
+name: Testing with Playwright
+description: Playwright end-to-end (e2e) testing best practices for user-centric testing using semantic locators. Use when writing E2E tests, integration tests, user flow tests, Playwright tests, test specs, or when the user mentions Playwright, e2e tests, getByRole, test flows, or user testing.
 ---
 
 # Playwright E2E Testing
 
-**CRITICAL: The description field above controls when Claude auto-loads this skill.**
-
 ## Overview
 
-Provides comprehensive Playwright end-to-end testing patterns including:
-- Page Object Model (POM) implementation
-- Test scenario scaffolding
-- Visual regression testing
-- CI/CD integration workflows
-- Debugging techniques
-- Browser automation patterns
+This project uses Playwright for E2E testing with a focus on user-centric testing that avoids implementation details.
 
-## Instructions
+## Test Configuration
 
-### 1. Initialize Playwright Project
+- **Unit tests**: Vitest for client components and synchronous server components
+- **E2E tests**: Playwright with automatic dev server startup
+- **Location**: `e2e/` directory
+- **HTML reporter**: Enabled with trace collection on retry
+- **Duration**: Full E2E suite takes ~15 minutes
 
-Use `scripts/init-playwright.sh` to set up a new Playwright project:
+## Core Philosophy: Test Like a User
 
-```bash
-bash scripts/init-playwright.sh [project-path]
-```
+**Users interact with what they see, not technical implementation details.**
 
-This will:
-- Install Playwright dependencies
-- Create playwright.config.ts from template
-- Set up test directory structure
-- Install browsers
-- Create initial test examples
+### ✅ Test User-Visible Behavior
 
-### 2. Generate Page Object Models
+- Wait for text to appear/disappear
+- Check for visible elements
+- Interact with labeled buttons and links
+- Verify content changes
 
-Use `scripts/generate-pom.sh` to create Page Object Model classes:
+### ❌ Avoid Testing Implementation Details
 
-```bash
-bash scripts/generate-pom.sh <page-name> <url> [output-dir]
-```
-
-This will:
-- Create page object class with base structure
-- Add common locators and methods
-- Generate TypeScript interface
-- Include usage examples
-
-### 3. Run Playwright Tests
-
-Use `scripts/run-playwright.sh` to execute tests:
-
-```bash
-bash scripts/run-playwright.sh [test-pattern] [browser] [options]
-```
-
-Options:
-- Test pattern: Specific test file or glob pattern
-- Browser: chromium, firefox, webkit, or all
-- Options: --headed, --debug, --trace, --ui
-
-### 4. Debug Test Failures
-
-Use `scripts/debug-playwright.sh` for debugging:
-
-```bash
-bash scripts/debug-playwright.sh <test-file>
-```
-
-This will:
-- Run test in headed mode with slowMo
-- Enable trace recording
-- Open Playwright Inspector
-- Generate debug screenshots
-
-### 5. Visual Regression Testing
-
-Use `scripts/run-visual-regression.sh` for visual testing:
-
-```bash
-bash scripts/run-visual-regression.sh [test-pattern] [update-snapshots]
-```
-
-This will:
-- Run visual regression tests
-- Compare against baseline snapshots
-- Generate diff images for failures
-- Update snapshots if requested
-
-## Available Scripts
-
-- **init-playwright.sh**: Initialize Playwright project with configuration
-- **run-playwright.sh**: Execute Playwright tests with various options
-- **generate-pom.sh**: Generate Page Object Model classes
-- **debug-playwright.sh**: Run tests in debug mode with inspector
-- **run-visual-regression.sh**: Execute visual regression tests
-
-## Templates
-
-### Configuration
-- **playwright.config.ts**: Comprehensive Playwright configuration with multiple browsers, reporters, and settings
-
-### Page Objects
-- **page-object-basic.ts**: Basic Page Object Model template
-- **page-object-advanced.ts**: Advanced POM with complex interactions and waiting strategies
-
-### Test Scenarios
-- **e2e-test-login.spec.ts**: Login flow E2E test with authentication
-- **e2e-test-form.spec.ts**: Form submission and validation test
-- **visual-regression.spec.ts**: Visual regression testing example
-
-## Examples
-
-- **basic-usage.md**: Simple Playwright setup and first test
-- **page-object-pattern.md**: Implementing Page Object Model pattern
-- **visual-regression-testing.md**: Setting up visual regression tests
-- **ci-cd-integration.md**: Configuring Playwright in CI/CD pipelines
-- **debugging-techniques.md**: Debugging failing E2E tests
-
-## Page Object Model Pattern
-
-### Structure
-```typescript
-class PageName {
-  readonly page: Page;
-  readonly locators: { /* selectors */ };
-
-  constructor(page: Page) { /* ... */ }
-
-  async navigateTo() { /* ... */ }
-  async performAction() { /* ... */ }
-  async verifyState() { /* ... */ }
-}
-```
-
-### Benefits
-- Separation of concerns (test logic vs page structure)
-- Reusability across multiple tests
-- Easier maintenance when UI changes
-- Clear test readability
+- Don't assert on URLs or pathnames
+- Don't check cookies or localStorage
+- Don't wait for `networkidle` or technical states
+- Don't verify internal state or data structures
 
 ## Best Practices
 
-### Test Organization
-- Use Page Object Model for maintainability
-- Group related tests in describe blocks
-- Keep tests independent and isolated
-- Use beforeEach for common setup
+### 1. Use Semantic Locators
 
-### Selectors
-- Prefer data-testid attributes
-- Use accessible roles when possible
-- Avoid fragile CSS selectors
-- Document selector strategies
+Always prefer role-based locators that match how users perceive the page.
 
-### Waiting Strategies
-- Use auto-waiting (built-in)
-- Explicit waits for dynamic content
-- waitForLoadState for navigation
-- waitForSelector for element visibility
+**✅ Good:**
 
-### Visual Regression
-- Create stable baseline snapshots
-- Use consistent viewport sizes
-- Mask dynamic content (dates, random IDs)
-- Update snapshots carefully
+```typescript
+page.getByRole("button", { name: "Submit" });
+page.getByRole("heading", { name: "Welcome" });
+page.getByRole("link", { name: "Learn More" });
+page.getByLabel("Email address");
+page.getByPlaceholder("Enter your name");
+page.getByText("Success!");
+```
 
-### CI/CD Integration
-- Run in headless mode
-- Parallelize tests across workers
-- Generate HTML reports
-- Upload trace files on failure
-- Cache browser binaries
+**❌ Bad:**
 
-## Debugging Tips
+```typescript
+page.locator('button[aria-label="Submit"]'); // CSS selector
+page.locator(".submit-btn"); // Class name
+page.locator("#submit"); // ID
+page.locator('[data-testid="submit"]'); // Test ID
+```
 
-### Playwright Inspector
-- Set PWDEBUG=1 environment variable
-- Use page.pause() in test code
-- Step through actions
-- Inspect element locators
+### 2. Wait for Visible Changes
 
-### Trace Viewer
-- Enable trace: 'on-first-retry'
-- View network activity
-- Inspect console logs
-- Review screenshots and video
+Wait for actual UI changes users would see, not technical state.
 
-### Screenshots and Videos
-- Take screenshots on failure
-- Record videos for flaky tests
-- Use fullPage screenshots
-- Compare visual differences
+**✅ Good:**
 
-## Requirements
+```typescript
+await page.getByRole("button", { name: "Load More" }).click();
+await expect(page.getByRole("heading", { name: "Results" })).toBeVisible();
+```
 
-- Node.js 18+ installed
-- Playwright 1.40+ recommended
-- TypeScript for type safety
-- Test files use .spec.ts extension
-- Page objects in separate files/directories
-- Clear naming conventions for tests and page objects
+**❌ Bad:**
+
+```typescript
+await page.waitForLoadState("networkidle");
+await page.waitForTimeout(500);
+await page.waitForFunction(() => window.location.pathname === "/results");
+```
+
+### 3. Simplify Test Setup
+
+Minimize beforeEach steps and avoid redundant operations.
+
+**✅ Good:**
+
+```typescript
+test("user can browse products", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.getByRole("heading", { name: "Products" })).toBeVisible();
+
+  // Test continues...
+});
+```
+
+**❌ Bad:**
+
+```typescript
+test.beforeEach(async ({ page }) => {
+  await page.goto("/");
+  await page.waitForLoadState("networkidle");
+  await page.context().clearCookies();
+  await page.reload();
+  await page.waitForLoadState("networkidle");
+});
+
+test("user can browse products", async ({ page }) => {
+  // Test continues...
+});
+```
+
+## Complete Example: Before & After
+
+### ❌ Bad: Testing Implementation Details
+
+```typescript
+test("language switch", async ({ page }) => {
+  await page.goto("/");
+  await page.waitForLoadState("networkidle"); // Technical state
+  await page.context().clearCookies();
+  await page.reload();
+  await page.waitForLoadState("networkidle");
+
+  const button = page.locator('button[aria-label="Select a language"]'); // CSS selector
+  await button.click();
+  await page.waitForTimeout(200); // Arbitrary wait
+
+  const option = page.locator('a[aria-label="切换至中文"]');
+  await option.click();
+  await page.waitForFunction(() => window.location.pathname.includes("/zh")); // URL check
+
+  const cookies = await page.context().cookies(); // Implementation detail
+  expect(cookies.find((c) => c.name === "NEXT_LOCALE")?.value).toBe("zh");
+});
+```
+
+### ✅ Good: Testing User-Visible Behavior
+
+```typescript
+test("language switch", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.getByRole("heading", { name: "Welcome" })).toBeVisible();
+
+  await page.getByRole("button", { name: "Select a language" }).click();
+  await page.getByRole("link", { name: "切换至中文" }).click();
+
+  // Wait for actual content to change
+  await expect(page.getByRole("heading", { name: "欢迎" })).toBeVisible();
+});
+```
+
+## Common Patterns
+
+### Navigation and Verification
+
+```typescript
+await page.goto("/products");
+await expect(page.getByRole("heading", { name: "Our Products" })).toBeVisible();
+```
+
+### Form Interaction
+
+```typescript
+await page.getByLabel("Email").fill("user@example.com");
+await page.getByLabel("Password").fill("secure123");
+await page.getByRole("button", { name: "Sign In" }).click();
+await expect(page.getByText("Welcome back!")).toBeVisible();
+```
+
+### List Interaction
+
+```typescript
+await page.getByRole("button", { name: "Action" }).first().click();
+await expect(page.getByText("Action completed")).toBeVisible();
+```
+
+### Conditional Elements
+
+```typescript
+if (await page.getByRole("button", { name: "Accept" }).isVisible()) {
+  await page.getByRole("button", { name: "Accept" }).click();
+}
+```
+
+## Running Tests
+
+```bash
+pnpm test:e2e                              # Run all E2E tests (auto-starts dev server)
+pnpm test:e2e e2e/some-file.spec.ts        # Run specific test file
+pnpm test:e2e --grep "test name"           # Run tests matching pattern
+pnpm test                                  # Run unit tests (Vitest)
+```
+
+## Verification Workflow
+
+**IMPORTANT: After writing or modifying E2E tests, YOU must run them to verify they pass.**
+
+1. Run the specific test file or use `--grep` to run just the new test
+2. If the test fails, fix the issue and re-run
+3. Only report completion after the test passes
+
+Do NOT tell the user to run the tests themselves - run them and report the results.
+
+## Key Reminders
+
+1. **Think like a user** - What would the user see and do?
+2. **Use semantic locators** - Roles, labels, text users see
+3. **Wait for content** - Visible elements, not technical state
+4. **Avoid implementation** - No URLs, cookies, localStorage assertions
+5. **Keep it simple** - Minimal setup, clear test flow

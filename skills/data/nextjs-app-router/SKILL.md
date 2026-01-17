@@ -1,147 +1,132 @@
 ---
 name: nextjs-app-router
-description: Apply when building Next.js 13-16 applications with App Router for routing, layouts, data fetching, and server components.
-version: 1.1.0
-tokens: ~950
-confidence: high
-sources:
-  - https://nextjs.org/docs/app/building-your-application/routing
-  - https://nextjs.org/docs/app/building-your-application/data-fetching
-  - https://nextjs.org/docs/messages/sync-dynamic-apis
-last_validated: 2025-12-10
-next_review: 2025-12-24
-tags: [nextjs, routing, frontend, ssr]
-nextjs_version: "13-16 (App Router)"
+description: |
+  Next.js App Routerのアーキテクチャと実装パターンを専門とするスキル。
+  ディレクトリベースルーティング、Server/Client Components分離、レンダリング戦略選択を支援。
+
+  Anchors:
+  • Guillermo Rauch "Server-First" / 適用: コンポーネント配置判断 / 目的: デフォルトサーバー・例外クライアントの徹底
+  • Learning React (Banks, Porcello) / 適用: コンポーネント設計 / 目的: 再利用性と単一責任の原則適用
+  • Next.js公式ドキュメント / 適用: 特殊ファイル規約・レンダリング戦略 / 目的: フレームワーク規約準拠
+
+  Trigger:
+  Use when designing Next.js routing structures, implementing app directory patterns, deciding Server vs Client Components, choosing rendering strategies (SSG, ISR, Dynamic), or structuring layouts and route groups.
+  Keywords: app router, server components, client components, dynamic routes, route groups, parallel routes, intercepting routes, layout, template, loading, error
+tags:
+  - nextjs
+  - react
+  - routing
+  - server-components
+  - app-router
 ---
 
-## When to Use
+# Next.js App Router
 
-Apply when building Next.js 13-16 applications with App Router for routing, layouts, data fetching, and server components.
+## 概要
 
-## Patterns
+Next.js App Routerのアーキテクチャと実装パターンを専門とするスキル。
+Guillermo Rauchの「Server-First」「Convention over Configuration」思想に基づき、
+高速で保守性の高いルーティング構造を設計・実装します。
 
-### Pattern 1: Route Structure
-```
-app/
-├── layout.tsx          # Root layout (required)
-├── page.tsx            # Home page (/)
-├── loading.tsx         # Loading UI
-├── error.tsx           # Error boundary
-├── dashboard/
-│   ├── layout.tsx      # Nested layout
-│   ├── page.tsx        # /dashboard
-│   └── [id]/
-│       └── page.tsx    # /dashboard/:id
-└── api/
-    └── users/
-        └── route.ts    # API route /api/users
-```
-Source: https://nextjs.org/docs/app/building-your-application/routing
+詳細な手順や背景は `references/basics.md` と `references/patterns.md` を参照してください。
 
-### Pattern 2: Server Component (Default)
-```typescript
-// Source: https://nextjs.org/docs/app/building-your-application/data-fetching
-// app/posts/page.tsx - Server Component (no 'use client')
-async function PostsPage() {
-  const posts = await db.posts.findMany(); // Direct DB access
+## ワークフロー
 
-  return (
-    <ul>
-      {posts.map(post => <li key={post.id}>{post.title}</li>)}
-    </ul>
-  );
-}
-export default PostsPage;
-```
+Next.js App Routerの設計・実装は以下の3フェーズで進めます。
+各フェーズで対応するTaskを実行します。
 
-### Pattern 3: Client Component
-```typescript
-// Source: https://nextjs.org/docs/app/building-your-application/rendering/client-components
-'use client'; // Mark as client component
+### Phase 1: ルーティング構造分析
 
-import { useState } from 'react';
+**目的**: 要件からルーティング構造とURL設計を導出する
 
-export function Counter() {
-  const [count, setCount] = useState(0);
-  return <button onClick={() => setCount(c => c + 1)}>{count}</button>;
-}
-```
+**Task仕様**: `agents/analyze-routing.md`
 
-### Pattern 4: Dynamic Routes with Params
-```typescript
-// Source: https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes
-// app/posts/[id]/page.tsx
-// Note: In Next.js 15+, params is a Promise and must be awaited.
-// Earlier versions used synchronous access (deprecated pattern).
-interface Props {
-  params: Promise<{ id: string }>;
-}
+**入力**: 要件定義、ユーザーストーリー、既存アプリ構造
+**出力**: ディレクトリ構造案、URL設計、Route Groups配置
 
-export default async function PostPage({ params }: Props) {
-  const { id } = await params;
-  const post = await getPost(id);
-  return <article>{post.content}</article>;
-}
-```
+**参照リソース**:
 
-### Pattern 5: Search Params (Query Strings)
-```typescript
-// Source: https://nextjs.org/docs/messages/sync-dynamic-apis
-// app/shop/page.tsx
-// Note: In Next.js 15+, searchParams is a Promise and must be awaited.
-interface Props {
-  searchParams: Promise<{ sort?: string; page?: string }>;
-}
+- `references/routing-patterns.md`: ルーティングパターン詳細
+- `references/basics.md`: 基礎概念
+- `scripts/analyze-routing-structure.mjs`: 既存構造解析
 
-export default async function ShopPage({ searchParams }: Props) {
-  const { sort, page } = await searchParams;
-  const products = await getProducts({ sort, page: Number(page) || 1 });
-  return <ProductList products={products} />;
-}
-```
+### Phase 2: コンポーネント設計
 
-### Pattern 6: API Route Handler
-```typescript
-// Source: https://nextjs.org/docs/app/building-your-application/routing/route-handlers
-// app/api/users/route.ts
-import { NextRequest, NextResponse } from 'next/server';
+**目的**: Server/Client Components分離とレンダリング戦略を決定する
 
-export async function GET(request: NextRequest) {
-  const users = await db.users.findMany();
-  return NextResponse.json(users);
-}
+**Task仕様**: `agents/design-components.md`
 
-export async function POST(request: NextRequest) {
-  const body = await request.json();
-  const user = await db.users.create({ data: body });
-  return NextResponse.json(user, { status: 201 });
-}
+**入力**: Phase 1のルーティング構造、パフォーマンス要件
+**出力**: コンポーネント配置案、レンダリング戦略、Layout階層
+
+**参照リソース**:
+
+- `references/server-client-decision.md`: Server/Client判断フロー
+- `references/rendering-strategies.md`: レンダリング戦略ガイド
+- `references/layout-hierarchy.md`: Layout階層設計
+- `references/patterns.md`: 実装パターン
+
+### Phase 3: 実装と検証
+
+**目的**: 設計をコードに落とし込み、規約準拠を検証する
+
+**Task仕様**: `agents/implement-validate.md`
+
+**入力**: Phase 2のコンポーネント設計
+**出力**: 実装コード、検証レポート
+
+**参照リソース**:
+
+- `assets/layout-template.md`: Layoutテンプレート
+- `assets/page-template.md`: Pageテンプレート
+- `references/patterns.md`: 応用パターン（並列ルート、インターセプト）
+- `scripts/validate-skill.mjs`: 構造検証
+
+**記録**: `scripts/log_usage.mjs` でフィードバックを記録
+
+## ベストプラクティス
+
+### すべきこと
+
+- Next.js App Routerのルーティング構造を設計する時
+- Server ComponentsとClient Componentsの使い分けを判断する時
+- 動的ルートやRoute Groupsを実装する時
+- レンダリング戦略（Static/Dynamic/ISR）を選択する時
+
+### 避けるべきこと
+
+- アンチパターンや注意点を確認せずに進めることを避ける
+
+## コマンドリファレンス
+
+### リソース読み取り
+
+```bash
+cat .claude/skills/nextjs-app-router/references/basics.md
+cat .claude/skills/nextjs-app-router/references/patterns.md
+cat .claude/skills/nextjs-app-router/references/layout-hierarchy.md
+cat .claude/skills/nextjs-app-router/references/rendering-strategies.md
+cat .claude/skills/nextjs-app-router/references/routing-patterns.md
+cat .claude/skills/nextjs-app-router/references/server-client-decision.md
 ```
 
-### Pattern 7: Metadata for SEO
-```typescript
-// Source: https://nextjs.org/docs/app/building-your-application/optimizing/metadata
-// app/posts/[id]/page.tsx
-export async function generateMetadata({ params }: Props) {
-  const { id } = await params;
-  const post = await getPost(id);
-  return { title: post.title, description: post.excerpt };
-}
+### スクリプト実行
+
+```bash
+node .claude/skills/nextjs-app-router/scripts/analyze-routing-structure.mjs --help
+node .claude/skills/nextjs-app-router/scripts/log_usage.mjs --help
+node .claude/skills/nextjs-app-router/scripts/validate-skill.mjs --help
 ```
 
-## Anti-Patterns
+### テンプレート参照
 
-- **'use client' everywhere** - Default to server, add client only when needed
-- **Fetching in client components** - Fetch in server components, pass as props
-- **Direct DB in client** - Use API routes or server actions
-- **Missing loading.tsx** - Always add for async pages
-- **Accessing params/searchParams without await** - Next.js 15+ requires async access
+```bash
+cat .claude/skills/nextjs-app-router/assets/layout-template.md
+cat .claude/skills/nextjs-app-router/assets/page-template.md
+```
 
-## Verification Checklist
+## 変更履歴
 
-- [ ] Server components for data fetching (no 'use client')
-- [ ] Client components only for interactivity
-- [ ] Dynamic routes use params correctly (awaited in Next.js 15+)
-- [ ] searchParams awaited for query string access
-- [ ] loading.tsx exists for async pages
-- [ ] Metadata defined for SEO
+| Version | Date       | Changes                                     |
+| ------- | ---------- | ------------------------------------------- |
+| 1.0.0   | 2025-12-24 | Spec alignment and required artifacts added |

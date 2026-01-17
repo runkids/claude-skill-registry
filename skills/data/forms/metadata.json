@@ -1,10 +1,7 @@
 {
   "name": "forms",
-  "description": "HTML5 forms, Constraint Validation API, accessible form patterns, and modern input types",
-  "repo": "pluginagentmarketplace/custom-plugin-html",
-  "category": "data",
-  "tags": [
-    "forms"
-  ],
-  "stars": 1
+  "repo": "Mavrick91/tanstack-start-app",
+  "path": ".claude/skills/forms/SKILL.md",
+  "source": "github.com/Mavrick91/tanstack-start-app",
+  "downloaded_at": "2026-01-17T02:14:42.163610Z"
 }

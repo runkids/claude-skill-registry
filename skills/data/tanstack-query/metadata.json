@@ -1,7 +1,7 @@
 {
   "name": "tanstack-query",
-  "repo": "jezweb/claude-skills",
-  "path": "skills/tanstack-query/SKILL.md",
-  "source": "github.com/jezweb/claude-skills",
-  "downloaded_at": "2026-01-14T04:01:47.793762Z"
+  "repo": "involvex/involvex-claude-marketplace",
+  "path": "plugins/frontend/skills/tanstack-query/SKILL.md",
+  "source": "github.com/involvex/involvex-claude-marketplace",
+  "downloaded_at": "2026-01-17T03:58:49.587354Z"
 }

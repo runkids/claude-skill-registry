@@ -1,581 +1,218 @@
 ---
 name: typo3-testing
-description: TYPO3 extension testing (unit, functional, E2E, architecture, mutation). Use when setting up test infrastructure, writing tests, or configuring CI/CD.
-version: 1.0.0
-typo3_compatibility: "13.0 - 14.x"
-triggers:
-  - testing
-  - phpunit
-  - playwright
-  - phpat
-  - unit test
-  - functional test
-  - e2e
-  - coverage
+description: "Agent Skill: TYPO3 extension testing (unit, functional, E2E, architecture, mutation). Use when setting up test infrastructure, writing tests, configuring PHPUnit, or CI/CD. By Netresearch."
 ---
 
 # TYPO3 Testing Skill
 
-Comprehensive testing infrastructure for TYPO3 extensions: unit, functional, E2E, architecture, and mutation testing.
+Templates, scripts, and references for comprehensive TYPO3 extension testing.
 
 ## Test Type Selection
 
-| Type | Use When | Speed | Framework |
-|------|----------|-------|-----------|
-| **Unit** | Pure logic, validators, utilities | Fast (ms) | PHPUnit |
-| **Functional** | DB interactions, repositories | Medium (s) | PHPUnit + TYPO3 |
-| **Architecture** | Layer constraints, dependencies | Fast (ms) | PHPat |
-| **E2E** | User workflows, browser | Slow (s-min) | Playwright |
-| **Mutation** | Test quality verification | CI only | Infection |
+To select the appropriate test type, use this decision table:
 
-## Test Infrastructure Setup
+| Type | Use When | Speed |
+|------|----------|-------|
+| **Unit** | Pure logic, no DB, validators, utilities | Fast (ms) |
+| **Functional** | DB interactions, repositories, controllers | Medium (s) |
+| **Architecture** | Layer constraints, dependency rules (phpat) | Fast (ms) |
+| **E2E (Playwright)** | User workflows, browser, accessibility | Slow (s-min) |
+| **Integration** | HTTP client, API mocking, OAuth flows | Medium (ms) |
+| **Fuzz** | Security, parsers, malformed input | Manual |
+| **Crypto** | Encryption, secrets, key management | Fast (ms) |
+| **Mutation** | Test quality verification, 70%+ coverage | CI/Release |
 
-### Directory Structure
+## Setting Up Test Infrastructure
 
-```
-Tests/
-├── Functional/
-│   ├── Controller/
-│   ├── Repository/
-│   └── Fixtures/
-├── Unit/
-│   ├── Service/
-│   └── Validator/
-├── Architecture/
-│   └── ArchitectureTest.php
-└── E2E/
-    └── playwright/
-```
-
-### PHPUnit Configuration
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
-         bootstrap="vendor/typo3/testing-framework/Resources/Core/Build/UnitTestsBootstrap.php"
-         colors="true"
-         cacheResult="false">
-    <testsuites>
-        <testsuite name="Unit">
-            <directory>Tests/Unit</directory>
-        </testsuite>
-        <testsuite name="Functional">
-            <directory>Tests/Functional</directory>
-        </testsuite>
-        <testsuite name="Architecture">
-            <directory>Tests/Architecture</directory>
-        </testsuite>
-    </testsuites>
-    
-    <coverage>
-        <report>
-            <clover outputFile="var/log/coverage.xml"/>
-            <html outputDirectory="var/log/coverage"/>
-        </report>
-    </coverage>
-    
-    <source>
-        <include>
-            <directory>Classes</directory>
-        </include>
-        <exclude>
-            <directory>Classes/Domain/Model</directory>
-        </exclude>
-    </source>
-</phpunit>
-```
-
-### Functional Test Configuration
-
-```xml
-<!-- FunctionalTests.xml -->
-<?xml version="1.0" encoding="UTF-8"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
-         bootstrap="vendor/typo3/testing-framework/Resources/Core/Build/FunctionalTestsBootstrap.php"
-         colors="true">
-    <testsuites>
-        <testsuite name="Functional">
-            <directory>Tests/Functional</directory>
-        </testsuite>
-    </testsuites>
-</phpunit>
-```
-
-## Unit Testing
-
-### Basic Unit Test
-
-```php
-<?php
-
-declare(strict_types=1);
-
-namespace Vendor\MyExtension\Tests\Unit\Service;
-
-use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\TestCase;
-use Vendor\MyExtension\Service\PriceCalculator;
-
-final class PriceCalculatorTest extends TestCase
-{
-    private PriceCalculator $subject;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $this->subject = new PriceCalculator();
-    }
-
-    #[Test]
-    public function calculateNetPriceReturnsCorrectValue(): void
-    {
-        $grossPrice = 119.00;
-        $taxRate = 19.0;
-
-        $netPrice = $this->subject->calculateNetPrice($grossPrice, $taxRate);
-
-        self::assertEqualsWithDelta(100.00, $netPrice, 0.01);
-    }
-
-    #[Test]
-    public function calculateNetPriceThrowsExceptionForNegativePrice(): void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionCode(1234567890);
-
-        $this->subject->calculateNetPrice(-10.00, 19.0);
-    }
-}
-```
-
-### Mocking Dependencies
-
-```php
-<?php
-
-declare(strict_types=1);
-
-namespace Vendor\MyExtension\Tests\Unit\Service;
-
-use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
-use Psr\Log\LoggerInterface;
-use Vendor\MyExtension\Service\ItemService;
-use Vendor\MyExtension\Domain\Repository\ItemRepository;
-
-final class ItemServiceTest extends TestCase
-{
-    private ItemRepository&MockObject $itemRepositoryMock;
-    private LoggerInterface&MockObject $loggerMock;
-    private ItemService $subject;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-        
-        $this->itemRepositoryMock = $this->createMock(ItemRepository::class);
-        $this->loggerMock = $this->createMock(LoggerInterface::class);
-        
-        $this->subject = new ItemService(
-            $this->itemRepositoryMock,
-            $this->loggerMock,
-        );
-    }
-
-    #[Test]
-    public function findActiveItemsReturnsFilteredItems(): void
-    {
-        $items = [/* mock items */];
-        $this->itemRepositoryMock
-            ->expects(self::once())
-            ->method('findByActive')
-            ->with(true)
-            ->willReturn($items);
-
-        $result = $this->subject->findActiveItems();
-
-        self::assertSame($items, $result);
-    }
-}
-```
-
-## Functional Testing
-
-### Repository Test
-
-```php
-<?php
-
-declare(strict_types=1);
-
-namespace Vendor\MyExtension\Tests\Functional\Repository;
-
-use PHPUnit\Framework\Attributes\Test;
-use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
-use Vendor\MyExtension\Domain\Repository\ItemRepository;
-
-final class ItemRepositoryTest extends FunctionalTestCase
-{
-    protected array $testExtensionsToLoad = [
-        'typo3conf/ext/my_extension',
-    ];
-
-    private ItemRepository $subject;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-        
-        $this->importCSVDataSet(__DIR__ . '/Fixtures/Items.csv');
-        $this->subject = $this->get(ItemRepository::class);
-    }
-
-    #[Test]
-    public function findByUidReturnsCorrectItem(): void
-    {
-        $item = $this->subject->findByUid(1);
-
-        self::assertNotNull($item);
-        self::assertSame('Test Item', $item->getTitle());
-    }
-
-    #[Test]
-    public function findAllReturnsAllItems(): void
-    {
-        $items = $this->subject->findAll();
-
-        self::assertCount(3, $items);
-    }
-}
-```
-
-### CSV Fixture Format
-
-```csv
-# Tests/Functional/Repository/Fixtures/Items.csv
-"tx_myext_items"
-,"uid","pid","title","active","deleted"
-,1,1,"Test Item",1,0
-,2,1,"Another Item",1,0
-,3,1,"Inactive Item",0,0
-```
-
-### Controller Functional Test
-
-```php
-<?php
-
-declare(strict_types=1);
-
-namespace Vendor\MyExtension\Tests\Functional\Controller;
-
-use PHPUnit\Framework\Attributes\Test;
-use TYPO3\CMS\Core\Http\ServerRequest;
-use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
-use Vendor\MyExtension\Controller\ItemController;
-
-final class ItemControllerTest extends FunctionalTestCase
-{
-    protected array $testExtensionsToLoad = [
-        'typo3conf/ext/my_extension',
-    ];
-
-    #[Test]
-    public function listActionReturnsHtmlResponse(): void
-    {
-        $this->importCSVDataSet(__DIR__ . '/Fixtures/Pages.csv');
-        $this->importCSVDataSet(__DIR__ . '/Fixtures/Items.csv');
-
-        $request = new ServerRequest('https://example.com/items', 'GET');
-        $controller = $this->get(ItemController::class);
-
-        $response = $controller->listAction();
-
-        self::assertSame(200, $response->getStatusCode());
-        self::assertStringContainsString('text/html', $response->getHeaderLine('Content-Type'));
-    }
-}
-```
-
-## Architecture Testing with PHPat
-
-### Installation
+To initialize testing infrastructure for an extension, run:
 
 ```bash
-composer require --dev phpat/phpat
+scripts/setup-testing.sh [--with-e2e]
 ```
 
-### Architecture Test
-
-```php
-<?php
-
-declare(strict_types=1);
-
-namespace Vendor\MyExtension\Tests\Architecture;
-
-use PHPat\Selector\Selector;
-use PHPat\Test\Builder\Rule;
-use PHPat\Test\PHPat;
-
-final class ArchitectureTest
-{
-    public function testDomainModelsShouldNotDependOnInfrastructure(): Rule
-    {
-        return PHPat::rule()
-            ->classes(Selector::inNamespace('Vendor\MyExtension\Domain\Model'))
-            ->shouldNotDependOn()
-            ->classes(
-                Selector::inNamespace('Vendor\MyExtension\Controller'),
-                Selector::inNamespace('Vendor\MyExtension\Infrastructure'),
-            );
-    }
-
-    public function testServicesShouldNotDependOnControllers(): Rule
-    {
-        return PHPat::rule()
-            ->classes(Selector::inNamespace('Vendor\MyExtension\Service'))
-            ->shouldNotDependOn()
-            ->classes(Selector::inNamespace('Vendor\MyExtension\Controller'));
-    }
-
-    public function testRepositoriesShouldImplementInterface(): Rule
-    {
-        return PHPat::rule()
-            ->classes(Selector::classname('/.*Repository$/', true))
-            ->excluding(Selector::classname('/.*Interface$/', true))
-            ->shouldImplement()
-            ->classes(Selector::classname('/.*RepositoryInterface$/', true));
-    }
-
-    public function testOnlyServicesCanAccessRepositories(): Rule
-    {
-        return PHPat::rule()
-            ->classes(Selector::inNamespace('Vendor\MyExtension\Domain\Repository'))
-            ->canOnlyBeAccessedBy()
-            ->classes(
-                Selector::inNamespace('Vendor\MyExtension\Service'),
-                Selector::inNamespace('Vendor\MyExtension\Tests'),
-            );
-    }
-}
-```
-
-### PHPat Configuration
-
-```neon
-# phpstan.neon
-includes:
-    - vendor/phpat/phpat/extension.neon
-
-parameters:
-    level: 9
-    paths:
-        - Classes
-        - Tests
-```
-
-## E2E Testing with Playwright
-
-### Setup
+To validate an existing setup, run:
 
 ```bash
-# Install Playwright
-npm init playwright@latest
-
-# Configure for TYPO3
-mkdir -p Tests/E2E/playwright
+scripts/validate-setup.sh
 ```
 
-### Playwright Configuration
-
-```typescript
-// playwright.config.ts
-import { defineConfig, devices } from '@playwright/test';
-
-export default defineConfig({
-  testDir: './Tests/E2E',
-  fullyParallel: true,
-  forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
-  reporter: 'html',
-  use: {
-    baseURL: process.env.BASE_URL || 'https://my-extension.ddev.site',
-    trace: 'on-first-retry',
-  },
-  projects: [
-    {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-    },
-  ],
-});
-```
-
-### E2E Test Example
-
-```typescript
-// Tests/E2E/item-list.spec.ts
-import { test, expect } from '@playwright/test';
-
-test.describe('Item List', () => {
-  test('displays items correctly', async ({ page }) => {
-    await page.goto('/items');
-
-    await expect(page.locator('h1')).toContainText('Items');
-    await expect(page.locator('.item-card')).toHaveCount(3);
-  });
-
-  test('filters items by category', async ({ page }) => {
-    await page.goto('/items');
-
-    await page.selectOption('[data-testid="category-filter"]', 'electronics');
-    await expect(page.locator('.item-card')).toHaveCount(1);
-  });
-
-  test('creates new item', async ({ page }) => {
-    await page.goto('/items/new');
-
-    await page.fill('[name="title"]', 'New Test Item');
-    await page.fill('[name="description"]', 'Test description');
-    await page.click('[type="submit"]');
-
-    await expect(page).toHaveURL(/\/items\/\d+/);
-    await expect(page.locator('h1')).toContainText('New Test Item');
-  });
-});
-```
-
-## Mutation Testing with Infection
-
-### Installation
+To generate a new test file, run:
 
 ```bash
-composer require --dev infection/infection
+scripts/generate-test.sh <TestType> <ClassName>
 ```
 
-### Configuration
+## Running Tests
 
-```json
-// infection.json5
-{
-    "$schema": "vendor/infection/infection/resources/schema.json",
-    "source": {
-        "directories": ["Classes"],
-        "excludes": ["Domain/Model"]
-    },
-    "logs": {
-        "text": "var/log/infection.log",
-        "html": "var/log/infection.html"
-    },
-    "mutators": {
-        "@default": true
-    },
-    "minMsi": 70,
-    "minCoveredMsi": 80
-}
-```
-
-### Run Mutation Tests
-
-```bash
-vendor/bin/infection --threads=4
-```
-
-## Test Commands
+To execute tests via the Docker-based runner, use these commands:
 
 ```bash
 # Unit tests
-vendor/bin/phpunit -c Tests/UnitTests.xml
+Build/Scripts/runTests.sh -s unit
 
 # Functional tests
-vendor/bin/phpunit -c Tests/FunctionalTests.xml
+Build/Scripts/runTests.sh -s functional
 
-# Architecture tests
-vendor/bin/phpstan analyse
+# Architecture tests (phpat)
+Build/Scripts/runTests.sh -s architecture
 
-# All tests with coverage
-vendor/bin/phpunit --coverage-html var/log/coverage
+# E2E tests (Playwright)
+Build/Scripts/runTests.sh -s e2e
 
-# E2E tests
-npx playwright test
-
-# Mutation tests
-vendor/bin/infection
-```
-
-## CI/CD Configuration
-
-```yaml
-# .github/workflows/tests.yml
-name: Tests
-
-on: [push, pull_request]
-
-jobs:
-  unit:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.3'
-          coverage: xdebug
-      - run: composer install
-      - run: vendor/bin/phpunit -c Tests/UnitTests.xml --coverage-clover coverage.xml
-
-  functional:
-    runs-on: ubuntu-latest
-    services:
-      mysql:
-        image: mysql:8.0
-        env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: test
-        ports:
-          - 3306:3306
-    steps:
-      - uses: actions/checkout@v4
-      - uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.3'
-      - run: composer install
-      - run: vendor/bin/phpunit -c Tests/FunctionalTests.xml
-
-  architecture:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.3'
-      - run: composer install
-      - run: vendor/bin/phpstan analyse
+# Quality tools
+Build/Scripts/runTests.sh -s lint
+Build/Scripts/runTests.sh -s phpstan
+Build/Scripts/runTests.sh -s mutation
 ```
 
 ## Scoring Requirements
+
+To achieve full conformance scores, ensure:
 
 | Criterion | Requirement |
 |-----------|-------------|
 | Unit tests | Required, 70%+ coverage |
 | Functional tests | Required for DB operations |
-| Architecture tests | **PHPat required** for full conformance |
-| PHPStan | Level 9+ (level 10 recommended) |
-| E2E tests | Optional, bonus points |
-| Mutation | 70%+ MSI for bonus points |
+| Architecture tests | **phpat required** for full points |
+| PHPStan | Level 10 (max) |
+
+> **Note:** Full conformance requires phpat architecture tests enforcing layer boundaries.
+
+## Using Reference Documentation
+
+### Core Testing References
+
+When writing unit tests, consult `references/unit-testing.md` for UnitTestCase patterns, mocking strategies, and assertion examples.
+
+When writing functional tests, consult `references/functional-testing.md` for FunctionalTestCase setup, CSV fixtures, and database testing patterns.
+
+When migrating to PHPUnit 10+ or fixing container issues, consult `references/functional-test-patterns.md` for container reset patterns and migration guides.
+
+When testing HTTP clients or external APIs, consult `references/integration-testing.md` for PSR-18 mocking, OAuth flow testing, and request capturing.
+
+When writing browser-based E2E tests, consult `references/e2e-testing.md` for Playwright setup, Page Object Model patterns, and PHP-based E2E alternatives.
+
+When setting up DDEV for testing, consult `references/ddev-testing.md` for multi-version matrix testing, Playwright integration, and CI/CD with DDEV.
+
+When configuring test runners, consult `references/test-runners.md` for runTests.sh customization and Docker orchestration.
+
+### Specialized Testing References
+
+When enforcing architecture rules, consult `references/architecture-testing.md` for phpat configuration, layer constraints, and dependency rules.
+
+When testing accessibility, consult `references/accessibility-testing.md` for axe-core integration and WCAG compliance testing.
+
+When testing parsers or security-critical code, consult `references/fuzz-testing.md` for nikic/php-fuzzer patterns and malformed input generation.
+
+When testing encryption or secrets, consult `references/crypto-testing.md` for sodium testing patterns and key management verification.
+
+When measuring test quality, consult `references/mutation-testing.md` for Infection configuration and MSI interpretation.
+
+When benchmarking performance, consult `references/performance-testing.md` for timing measurements, memory leak detection, and throughput testing.
+
+### TYPO3 Specific References
+
+When testing against TYPO3 v14 final/readonly classes, consult `references/typo3-v14-final-classes.md` for interface extraction and mock strategies.
+
+When writing JavaScript/TypeScript tests, consult `references/javascript-testing.md` for Jest and frontend testing patterns.
+
+### Quality & CI References
+
+When configuring static analysis, consult `references/quality-tools.md` for PHPStan, PHP-CS-Fixer, and Rector setup.
+
+When setting up CI/CD pipelines, consult `references/ci-cd.md` for GitHub Actions and GitLab CI workflows.
+
+When integrating SonarCloud, consult `references/sonarcloud.md` for quality gate configuration.
+
+## Using Asset Templates
+
+### Infrastructure Setup
+
+To set up Docker-based test orchestration, copy `assets/Build/Scripts/runTests.sh` to your extension. This is the **required** foundation for all test execution.
+
+To initialize test bootstrapping, use these templates:
+- `assets/bootstrap.php` - General test bootstrap with autoloader detection
+- `assets/UnitTestsBootstrap.php` - Unit test bootstrap with optional TYPO3 stub autoloader
+- `assets/FunctionalTestsBootstrap.php` - Functional test bootstrap for TYPO3 testing framework
+
+### PHPUnit Configuration
+
+To configure PHPUnit, copy and customize:
+- `assets/UnitTests.xml` - Unit test suite configuration
+- `assets/FunctionalTests.xml` - Functional test suite configuration
+
+### Code Quality Tools
+
+To set up static analysis and code style, use:
+- `assets/phpstan.neon` - PHPStan level 10 configuration
+- `assets/phpstan-baseline.neon` - Baseline template for legacy code migration
+- `assets/phpat.php` - Architecture test rules for layer enforcement
+- `assets/phpat.neon` - PHPat PHPStan extension configuration
+- `assets/.php-cs-fixer.dist.php` - PHP-CS-Fixer code style rules
+- `assets/rector.php` - Rector automated refactoring configuration
+
+### Mutation Testing & Coverage
+
+To configure mutation testing, copy `assets/infection.json5` and adjust mutator settings and MSI thresholds.
+
+To configure coverage reporting, copy `assets/codecov.yml` for Codecov integration.
+
+### CI/CD Workflows
+
+To set up GitHub Actions, use:
+- `assets/github-actions-tests.yml` - Main CI workflow (lint, phpstan, unit, functional tests)
+- `assets/github-actions-e2e.yml` - E2E workflow with DDEV and Playwright
+
+### E2E Testing Setup
+
+To set up Playwright E2E testing, copy the `assets/Build/playwright/` directory containing:
+- `package.json` - Node.js dependencies
+- `playwright.config.ts` - Playwright configuration
+- `tests/playwright/` - Test structure with login setup, fixtures, and example specs
+
+### Development Shortcuts
+
+To add common command shortcuts, copy `assets/Makefile` for make-based task execution.
+
+### Docker Services
+
+To configure additional Docker services for testing, use templates from `assets/docker/`:
+- `docker-compose.yml` - Base Docker Compose configuration
+- `codeception.yml` - Codeception-specific Docker setup
+
+### Example Tests
+
+To see test patterns in action, review examples in `assets/example-tests/`:
+- `ExampleUnitTest.php` - Unit test structure and assertions
+- `ExampleFunctionalTest.php` - Functional test with fixtures
+- `ExampleAcceptanceCest.php` - Codeception acceptance test
+
+### Database Fixtures
+
+To set up test data, use CSV fixtures from `assets/fixtures/`:
+- `be_users.csv` - Backend user fixture with password hashes
+- `pages.csv` - Page tree structure
+- `tt_content.csv` - Content elements
+- `sys_category.csv` - Category hierarchy
+
+Consult `assets/fixtures/README.md` for fixture format documentation.
+
+### AI Agent Documentation
+
+To document AI agent behavior for your extension, use `assets/AGENTS.md` as a template.
+
+## External Resources
+
+When understanding TYPO3 testing patterns, consult the [TYPO3 Testing Documentation](https://docs.typo3.org/m/typo3/reference-coreapi/main/en-us/Testing/).
+
+When seeking reference implementations, study the [Tea Extension](https://github.com/TYPO3BestPractices/tea).
+
+When implementing architecture tests, consult [phpat documentation](https://github.com/carlosas/phpat).
+
+When configuring mutation testing, consult [Infection PHP documentation](https://infection.github.io/).
+
+When setting up DDEV environments, consult [DDEV documentation](https://ddev.readthedocs.io/).
 
 ---
 
-## Credits & Attribution
-
-This skill is based on the excellent work by
-**[Netresearch DTT GmbH](https://www.netresearch.de/)**.
-
-Original repository: https://github.com/netresearch/typo3-testing-skill
-
-**Copyright (c) Netresearch DTT GmbH** - Methodology and best practices  
-Adapted by webconsulting.at for this skill collection
+> **Contributing:** https://github.com/netresearch/typo3-testing-skill

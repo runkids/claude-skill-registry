@@ -1,7 +1,7 @@
 {
   "name": "tdd-workflow",
-  "repo": "vinothpandian/v-marketplace",
-  "path": "plugins/claude-conductor/skills/tdd-workflow/SKILL.md",
-  "source": "github.com/vinothpandian/v-marketplace",
-  "downloaded_at": "2026-01-14T03:51:18.814023Z"
+  "repo": "xenitV1/claude-code-maestro",
+  "path": "skills/tdd-workflow/SKILL.md",
+  "source": "github.com/xenitV1/claude-code-maestro",
+  "downloaded_at": "2026-01-17T03:15:39.235062Z"
 }

@@ -1,9 +1,7 @@
 {
   "name": "requirement-assistant",
-  "description": "Guide requirement writing, user story creation, and feature specification.Use when: writing requirements, user stories, issues, feature planning.Keywords: requirement, user story, issue, feature, spec",
-  "repo": "AsiaOstrich/universal-dev-skills",
-  "category": "product",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "AsiaOstrich/universal-dev-standards",
+  "path": "locales/zh-CN/skills/claude-code/requirement-assistant/SKILL.md",
+  "source": "github.com/AsiaOstrich/universal-dev-standards",
+  "downloaded_at": "2026-01-17T02:22:49.676823Z"
 }

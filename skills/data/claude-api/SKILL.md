@@ -1,495 +1,456 @@
 ---
 name: claude-api
-description: |
-  Build with Claude Messages API using structured outputs for guaranteed JSON schema validation. Covers prompt caching (90% savings), streaming SSE, tool use, and model deprecations. Prevents 12 documented errors.
+description: Anthropic Messages API (Claude API) for integrations, streaming, prompt caching, tool use, vision. Use for chatbots, assistants, or encountering rate limits, 429 errors.
 
-  Use when: building chatbots/agents, troubleshooting rate_limit_error, prompt caching issues, or streaming SSE parsing errors.
-user-invocable: true
+  Keywords: claude api, anthropic api, messages api, @anthropic-ai/sdk, claude streaming, prompt caching, tool use, vision, extended thinking, claude 3.5 sonnet, claude 3.7 sonnet, claude sonnet 4, function calling, SSE, rate limits, 429 errors
+license: MIT
+metadata:
+  version: "2.0.0"
+  last_verified: "2025-11-21"
+  sdk_version: "@anthropic-ai/sdk@0.70.1"
+  templates_included: 12
+  references_included: 7
 ---
 
-# Claude API - Structured Outputs & Error Prevention Guide
+# Claude API (Anthropic Messages API)
 
-**Package**: @anthropic-ai/sdk@0.71.2
-**Breaking Changes**: Oct 2025 - Claude 3.5/3.7 models retired, Nov 2025 - Structured outputs beta
-**Last Updated**: 2026-01-09
+**Status**: Production Ready | **SDK**: @anthropic-ai/sdk@0.70.1
 
 ---
 
-## What's New in v0.69.0+ (Nov 2025)
+## Quick Start (5 Minutes)
 
-**Major Features:**
+### Node.js
 
-### 1. Structured Outputs (v0.69.0, Nov 14, 2025) - CRITICAL ⭐
-
-**Guaranteed JSON schema conformance** - Claude's responses strictly follow your JSON schema with two modes:
-
-**JSON Outputs (`output_format`)** - For data extraction and formatting:
 ```typescript
 import Anthropic from '@anthropic-ai/sdk';
 
-const anthropic = new Anthropic({
+const client = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
-const message = await anthropic.messages.create({
+const message = await client.messages.create({
   model: 'claude-sonnet-4-5-20250929',
   max_tokens: 1024,
-  messages: [{ role: 'user', content: 'Extract contact info: John Doe, john@example.com, 555-1234' }],
-  betas: ['structured-outputs-2025-11-13'],
-  output_format: {
-    type: 'json_schema',
-    json_schema: {
-      name: 'Contact',
-      strict: true,
-      schema: {
-        type: 'object',
-        properties: {
-          name: { type: 'string' },
-          email: { type: 'string' },
-          phone: { type: 'string' }
-        },
-        required: ['name', 'email', 'phone'],
-        additionalProperties: false
-      }
-    }
-  }
-});
-
-// Guaranteed valid JSON matching schema
-const contact = JSON.parse(message.content[0].text);
-console.log(contact.name); // "John Doe"
-```
-
-**Strict Tool Use (`strict: true`)** - For validated function parameters:
-```typescript
-const message = await anthropic.messages.create({
-  model: 'claude-sonnet-4-5-20250929',
-  max_tokens: 1024,
-  messages: [{ role: 'user', content: 'Get weather for San Francisco' }],
-  betas: ['structured-outputs-2025-11-13'],
-  tools: [{
-    name: 'get_weather',
-    description: 'Get current weather',
-    input_schema: {
-      type: 'object',
-      properties: {
-        location: { type: 'string' },
-        unit: { type: 'string', enum: ['celsius', 'fahrenheit'] }
-      },
-      required: ['location'],
-      additionalProperties: false
-    },
-    strict: true  // ← Guarantees schema compliance
-  }]
-});
-```
-
-**Requirements:**
-- **Beta header**: `structured-outputs-2025-11-13` (via `betas` array)
-- **Models**: Claude Sonnet 4.5, Claude Opus 4.1 only
-- **SDK**: v0.69.0+ required
-
-**Limitations:**
-- ❌ No recursive schemas
-- ❌ No numerical constraints (`minimum`, `maximum`)
-- ❌ Limited regex support (no backreferences/lookahead)
-- ❌ Incompatible with citations and message prefilling
-- ⚠️ Grammar compilation adds latency on first request (cached 24hrs)
-
-**When to Use:**
-- Data extraction from unstructured text
-- API response formatting
-- Agentic workflows requiring validated tool inputs
-- Eliminating JSON parse errors
-
-### 2. Model Changes (Oct 2025) - BREAKING
-
-**Retired (return errors):**
-- ❌ Claude 3.5 Sonnet (all versions)
-- ❌ Claude 3.7 Sonnet - DEPRECATED (Oct 28, 2025)
-
-**Active Models (Nov 2025):**
-
-| Model | ID | Context | Best For | Cost (per MTok) |
-|-------|-----|---------|----------|-----------------|
-| **Claude Sonnet 4.5** | claude-sonnet-4-5-20250929 | 200k | Balanced performance | $3/$15 (in/out) |
-| **Claude Opus 4** | claude-opus-4-20250514 | 200k | Highest capability | $15/$75 |
-| **Claude Haiku 4.5** | claude-3-5-haiku-20241022 | 200k | Near-frontier, fast | $1/$5 |
-
-### 3. Context Management (Oct 28, 2025)
-
-**Clear Thinking Blocks** - Automatic thinking block cleanup:
-```typescript
-const message = await anthropic.messages.create({
-  model: 'claude-sonnet-4-5-20250929',
-  max_tokens: 4096,
-  messages: [{ role: 'user', content: 'Solve complex problem' }],
-  betas: ['clear_thinking_20251015']
-});
-// Thinking blocks automatically managed
-```
-
-### 4. Agent Skills API (Oct 16, 2025)
-
-Pre-built skills for Office files (PowerPoint, Excel, Word, PDF):
-```typescript
-const message = await anthropic.messages.create({
-  model: 'claude-sonnet-4-5-20250929',
-  max_tokens: 1024,
-  messages: [{ role: 'user', content: 'Analyze this spreadsheet' }],
-  betas: ['skills-2025-10-02'],
-  // Requires code execution tool enabled
-});
-```
-
-📚 **Docs**: https://platform.claude.com/docs/en/build-with-claude/structured-outputs
-
----
-
-## Streaming Responses (SSE)
-
-**CRITICAL Error Pattern** - Errors occur AFTER initial 200 response:
-```typescript
-const stream = anthropic.messages.stream({
-  model: 'claude-sonnet-4-5-20250929',
-  max_tokens: 1024,
-  messages: [{ role: 'user', content: 'Hello' }],
-});
-
-stream
-  .on('error', (error) => {
-    // Error can occur AFTER stream starts
-    console.error('Stream error:', error);
-    // Implement fallback or retry logic
-  })
-  .on('abort', (error) => {
-    console.warn('Stream aborted:', error);
-  });
-```
-
-**Why this matters**: Unlike regular HTTP errors, SSE errors happen mid-stream after 200 OK, requiring error event listeners
-
----
-
-## Prompt Caching (⭐ 90% Cost Savings)
-
-**CRITICAL Rule** - `cache_control` MUST be on LAST block:
-```typescript
-const message = await anthropic.messages.create({
-  model: 'claude-sonnet-4-5-20250929',
-  max_tokens: 1024,
-  system: [
-    {
-      type: 'text',
-      text: 'System instructions...',
-    },
-    {
-      type: 'text',
-      text: LARGE_CODEBASE, // 50k tokens
-      cache_control: { type: 'ephemeral' }, // ← MUST be on LAST block
-    },
+  messages: [
+    { role: 'user', content: 'Hello, Claude!' },
   ],
-  messages: [{ role: 'user', content: 'Explain auth module' }],
 });
 
-// Monitor cache usage
-console.log('Cache reads:', message.usage.cache_read_input_tokens);
-console.log('Cache writes:', message.usage.cache_creation_input_tokens);
+console.log(message.content[0].text);
 ```
 
-**Minimum requirements:**
-- Claude Sonnet 4.5: 1,024 tokens minimum
-- Claude Haiku 4.5: 2,048 tokens minimum
-- 5-minute TTL (refreshes on each use)
-- Cache shared only with IDENTICAL content
+### Cloudflare Workers
 
----
-
-## Tool Use (Function Calling)
-
-**CRITICAL Patterns:**
-
-**Strict Tool Use** (with structured outputs):
 ```typescript
-const message = await anthropic.messages.create({
-  model: 'claude-sonnet-4-5-20250929',
-  max_tokens: 1024,
-  betas: ['structured-outputs-2025-11-13'],
-  tools: [{
-    name: 'get_weather',
-    description: 'Get weather data',
-    input_schema: {
-      type: 'object',
-      properties: {
-        location: { type: 'string' },
-        unit: { type: 'string', enum: ['celsius', 'fahrenheit'] }
-      },
-      required: ['location'],
-      additionalProperties: false
-    },
-    strict: true  // ← Guarantees schema compliance
-  }],
-  messages: [{ role: 'user', content: 'Weather in NYC?' }]
+const response = await fetch('https://api.anthropic.com/v1/messages', {
+  method: 'POST',
+  headers: {
+    'x-api-key': env.ANTHROPIC_API_KEY,
+    'anthropic-version': '2023-06-01',
+    'content-type': 'application/json',
+  },
+  body: JSON.stringify({
+    model: 'claude-sonnet-4-5-20250929',
+    max_tokens: 1024,
+    messages: [{ role: 'user', content: 'Hello!' }],
+  }),
 });
+
+const data = await response.json();
+console.log(data.content[0].text);
 ```
 
-**Tool Result Pattern** - `tool_use_id` MUST match:
-```typescript
-const toolResults = [];
-for (const block of response.content) {
-  if (block.type === 'tool_use') {
-    const result = await executeToolFunction(block.name, block.input);
-
-    toolResults.push({
-      type: 'tool_result',
-      tool_use_id: block.id,  // ← MUST match tool_use block id
-      content: JSON.stringify(result),
-    });
-  }
-}
-
-messages.push({
-  role: 'user',
-  content: toolResults,
-});
-```
-
-**Error Handling** - Handle tool execution failures:
-```typescript
-try {
-  const result = await executeToolFunction(block.name, block.input);
-  toolResults.push({
-    type: 'tool_result',
-    tool_use_id: block.id,
-    content: JSON.stringify(result),
-  });
-} catch (error) {
-  // Return error to Claude for handling
-  toolResults.push({
-    type: 'tool_result',
-    tool_use_id: block.id,
-    is_error: true,
-    content: `Tool execution failed: ${error.message}`,
-  });
-}
-```
+**Load `references/setup-guide.md` for complete setup with streaming, caching, and tools.**
 
 ---
 
-## Vision (Image Understanding)
+## Critical Rules
 
-**CRITICAL Rules:**
-- **Formats**: JPEG, PNG, WebP, GIF (non-animated)
-- **Max size**: 5MB per image
-- **Base64 overhead**: ~33% size increase
-- **Context impact**: Images count toward token limit
-- **Caching**: Consider for repeated image analysis
+### Always Do ✅
 
-**Format validation** - Check before encoding:
-```typescript
-const validFormats = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
-if (!validFormats.includes(mimeType)) {
-  throw new Error(`Unsupported format: ${mimeType}`);
-}
-```
+1. **Use environment variables** for API keys (NEVER hardcode)
+2. **Set max_tokens** explicitly (required parameter)
+3. **Pin model version** (`claude-sonnet-4-5-20250929`, not `claude-3-5-sonnet-latest`)
+4. **Enable prompt caching** for repeated content (90% cost savings)
+5. **Stream long responses** (`stream: true`) for better UX
+6. **Handle errors** - Implement retry logic for 429, 529 errors
+7. **Validate inputs** - Sanitize user messages before sending
+8. **Monitor costs** - Track token usage
+9. **Set timeouts** - Prevent hanging requests
+10. **Use tool use properly** - Return tool_result in follow-up message
 
----
+### Never Do ❌
 
-## Extended Thinking Mode
-
-**⚠️ Model Compatibility:**
-- ❌ Claude 3.7 Sonnet - DEPRECATED (Oct 28, 2025)
-- ❌ Claude 3.5 Sonnet - RETIRED (not supported)
-- ✅ Claude Sonnet 4.5 - Extended thinking supported
-- ✅ Claude Opus 4 - Extended thinking supported
-
-**CRITICAL:**
-- Thinking blocks are NOT cacheable
-- Requires higher `max_tokens` (thinking consumes tokens)
-- Check model before expecting thinking blocks
+1. **Never expose API key** in client-side code
+2. **Never skip max_tokens** - API will error without it
+3. **Never ignore stop_reason** - Check for `tool_use`, `end_turn`, `max_tokens`
+4. **Never assume single content block** - `content` is an array
+5. **Never use outdated models** - Pin to specific version
+6. **Never skip error handling** - API calls can fail
+7. **Never mix message roles** - Alternate user/assistant correctly
+8. **Never ignore rate limits** - Implement exponential backoff
+9. **Never store API keys** in logs or databases
+10. **Never skip input validation** - Prevent injection attacks
 
 ---
 
-## Rate Limits
+## Top 3 Errors (Prevent 80% of Issues)
 
-**CRITICAL Pattern** - Respect `retry-after` header with exponential backoff:
+### Error #1: Rate Limit 429
+
+**Symptom**: `429 Too Many Requests: Number of request tokens has exceeded your per-minute rate limit`
+
+**Solution**: Implement exponential backoff with retry-after header
+
 ```typescript
-async function makeRequestWithRetry(
-  requestFn: () => Promise<any>,
-  maxRetries = 3,
-  baseDelay = 1000
-): Promise<any> {
+async function handleRateLimit(requestFn, maxRetries = 3) {
   for (let attempt = 0; attempt < maxRetries; attempt++) {
     try {
       return await requestFn();
     } catch (error) {
       if (error.status === 429) {
-        // CRITICAL: Use retry-after header if present
         const retryAfter = error.response?.headers?.['retry-after'];
-        const delay = retryAfter
-          ? parseInt(retryAfter) * 1000
-          : baseDelay * Math.pow(2, attempt);
-
-        console.warn(`Rate limited. Retrying in ${delay}ms...`);
+        const delay = retryAfter ? parseInt(retryAfter) * 1000 : 1000 * Math.pow(2, attempt);
         await new Promise(resolve => setTimeout(resolve, delay));
       } else {
         throw error;
       }
     }
   }
-  throw new Error('Max retries exceeded');
 }
 ```
 
-**Rate limit headers:**
-- `anthropic-ratelimit-requests-limit` - Total RPM allowed
-- `anthropic-ratelimit-requests-remaining` - Remaining requests
-- `anthropic-ratelimit-requests-reset` - Reset timestamp
+**Prevention**: Monitor rate limit headers, upgrade tier, implement backoff
 
 ---
 
-## Error Handling
+### Error #2: Prompt Caching Not Activating
 
-**Common Error Codes:**
+**Symptom**: High costs despite `cache_control` blocks, `cache_read_input_tokens: 0`
 
-| Status | Error Type | Cause | Solution |
-|--------|-----------|-------|----------|
-| 400 | invalid_request_error | Bad parameters | Validate request body |
-| 401 | authentication_error | Invalid API key | Check env variable |
-| 403 | permission_error | No access to feature | Check account tier |
-| 404 | not_found_error | Invalid endpoint | Check API version |
-| 429 | rate_limit_error | Too many requests | Implement retry logic |
-| 500 | api_error | Internal error | Retry with backoff |
-| 529 | overloaded_error | System overloaded | Retry later |
+**Solution**: Place `cache_control` on LAST block with >= 1024 tokens
 
-**CRITICAL:**
-- Streaming errors occur AFTER initial 200 response
-- Always implement error event listeners for streams
-- Respect `retry-after` header on 429 errors
-- Have fallback strategies for critical operations
+```typescript
+// ❌ Wrong - cache_control not at end
+{
+  type: 'text',
+  text: DOCUMENT,
+  cache_control: { type: 'ephemeral' },  // Wrong position
+},
+{
+  type: 'text',
+  text: 'Additional text',
+}
+
+// ✅ Correct - cache_control at end
+{
+  type: 'text',
+  text: DOCUMENT + '\n\nAdditional text',
+  cache_control: { type: 'ephemeral' },  // Correct position
+}
+```
+
+**Prevention**: Ensure content >= 1024 tokens, keep cached content identical, monitor usage
+
+**Load `references/prompt-caching-guide.md` for complete caching strategy.**
 
 ---
 
-## Known Issues Prevention
+### Error #3: Tool Use Response Format Errors
 
-This skill prevents **12** documented issues:
+**Symptom**: `invalid_request_error: tools[0].input_schema is invalid`
 
-### Issue #1: Rate Limit 429 Errors Without Backoff
-**Error**: `429 Too Many Requests: Number of request tokens has exceeded your per-minute rate limit`
-**Source**: https://docs.claude.com/en/api/errors
-**Why It Happens**: Exceeding RPM, TPM, or daily token limits
-**Prevention**: Implement exponential backoff with `retry-after` header respect
+**Solution**: Valid tool schema with proper JSON Schema
 
-### Issue #2: Streaming SSE Parsing Errors
-**Error**: Incomplete chunks, malformed SSE events
-**Source**: Common SDK issue (GitHub #323)
-**Why It Happens**: Network interruptions, improper event parsing
-**Prevention**: Use SDK stream helpers, implement error event listeners
+```typescript
+// ✅ Valid tool schema
+{
+  name: 'get_weather',
+  description: 'Get current weather',
+  input_schema: {
+    type: 'object',           // Must be 'object'
+    properties: {
+      location: {
+        type: 'string',       // Valid JSON Schema types
+        description: 'City'   // Optional but recommended
+      }
+    },
+    required: ['location']    // List required fields
+  }
+}
 
-### Issue #3: Prompt Caching Not Activating
-**Error**: High costs despite cache_control blocks
-**Source**: https://platform.claude.com/docs/en/build-with-claude/prompt-caching
-**Why It Happens**: `cache_control` placed incorrectly (must be at END)
-**Prevention**: Always place `cache_control` on LAST block of cacheable content
+// ✅ Valid tool result
+{
+  type: 'tool_result',
+  tool_use_id: block.id,      // Must match tool_use id
+  content: JSON.stringify(result)  // Convert to string
+}
+```
 
-### Issue #4: Tool Use Response Format Errors
-**Error**: `invalid_request_error: tools[0].input_schema is invalid`
-**Source**: API validation errors
-**Why It Happens**: Invalid JSON Schema, missing required fields
-**Prevention**: Validate schemas with JSON Schema validator, test thoroughly
+**Prevention**: Validate schemas, match tool_use_id exactly, stringify results
 
-### Issue #5: Vision Image Format Issues
-**Error**: `invalid_request_error: image source must be base64 or url`
-**Source**: API documentation
-**Why It Happens**: Incorrect encoding, unsupported formats
-**Prevention**: Validate format (JPEG/PNG/WebP/GIF), proper base64 encoding
+**Load `references/tool-use-patterns.md` + `references/top-errors.md` for all 12 errors.**
 
-### Issue #6: Token Counting Mismatches for Billing
-**Error**: Unexpected high costs, context window exceeded
-**Source**: Token counting differences
-**Why It Happens**: Not accounting for special tokens, formatting
-**Prevention**: Use official token counter, monitor usage headers
+---
 
-### Issue #7: System Prompt Ordering Issues
-**Error**: System prompt ignored or overridden
-**Source**: API behavior
-**Why It Happens**: System prompt placed after messages array
-**Prevention**: ALWAYS place system prompt before messages
+## Common Use Cases (Quick Patterns)
 
-### Issue #8: Context Window Exceeded (200k)
-**Error**: `invalid_request_error: messages: too many tokens`
-**Source**: Model limits
-**Why It Happens**: Long conversations without pruning
-**Prevention**: Implement message history pruning, use caching
+### Streaming Responses
 
-### Issue #9: Extended Thinking on Wrong Model
-**Error**: No thinking blocks in response
-**Source**: Model capabilities
-**Why It Happens**: Using retired/deprecated models (3.5/3.7 Sonnet)
-**Prevention**: Only use extended thinking with Claude Sonnet 4.5 or Claude Opus 4
+```typescript
+const stream = await client.messages.stream({
+  model: 'claude-sonnet-4-5-20250929',
+  max_tokens: 1024,
+  messages: [{ role: 'user', content: 'Write a story.' }],
+});
 
-### Issue #10: API Key Exposure in Client Code
-**Error**: CORS errors, security vulnerability
-**Source**: Security best practices
-**Why It Happens**: Making API calls from browser
-**Prevention**: Server-side only, use environment variables
+for await (const event of stream) {
+  if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
+    process.stdout.write(event.delta.text);
+  }
+}
+```
 
-### Issue #11: Rate Limit Tier Confusion
-**Error**: Lower limits than expected
-**Source**: Account tier system
-**Why It Happens**: Not understanding tier progression
-**Prevention**: Check Console for current tier, auto-scales with usage
+**Load**: `templates/streaming-chat.ts`
 
-### Issue #12: Message Batches Beta Headers Missing
-**Error**: `invalid_request_error: unknown parameter: batches`
-**Source**: Beta API requirements
-**Why It Happens**: Missing `anthropic-beta` header
-**Prevention**: Include `anthropic-beta: message-batches-2024-09-24` header
+---
+
+### Prompt Caching (90% Cost Savings)
+
+```typescript
+const message = await client.messages.create({
+  model: 'claude-sonnet-4-5-20250929',
+  max_tokens: 1024,
+  system: [
+    {
+      type: 'text',
+      text: 'Long system prompt...',
+      cache_control: { type: 'ephemeral' },
+    },
+  ],
+  messages: [{ role: 'user', content: 'Question?' }],
+});
+```
+
+**Cache lasts 5 minutes, 90% savings on cached tokens**
+
+**Load**: `references/prompt-caching-guide.md` + `templates/prompt-caching.ts`
+
+---
+
+### Tool Use (Function Calling)
+
+```typescript
+const message = await client.messages.create({
+  model: 'claude-sonnet-4-5-20250929',
+  max_tokens: 1024,
+  tools: [{
+    name: 'get_weather',
+    description: 'Get weather for a location',
+    input_schema: {
+      type: 'object',
+      properties: { location: { type: 'string' } },
+      required: ['location'],
+    },
+  }],
+  messages: [{ role: 'user', content: 'Weather in SF?' }],
+});
+
+if (message.stop_reason === 'tool_use') {
+  const toolUse = message.content.find(b => b.type === 'tool_use');
+  // Execute tool and send result back...
+}
+```
+
+**Load**: `references/tool-use-patterns.md` + `templates/tool-use-basic.ts`
+
+---
+
+### Vision (Image Understanding)
+
+```typescript
+const message = await client.messages.create({
+  model: 'claude-sonnet-4-5-20250929',
+  max_tokens: 1024,
+  messages: [{
+    role: 'user',
+    content: [
+      {
+        type: 'image',
+        source: {
+          type: 'base64',
+          media_type: 'image/jpeg',
+          data: base64Image,
+        },
+      },
+      { type: 'text', text: 'What is in this image?' },
+    ],
+  }],
+});
+```
+
+**Supports**: JPEG, PNG, WebP, GIF (max 5MB)
+
+**Load**: `references/vision-capabilities.md` + `templates/vision-image.ts`
+
+---
+
+### Extended Thinking Mode
+
+```typescript
+const message = await client.messages.create({
+  model: 'claude-sonnet-4-5-20250929',
+  max_tokens: 4096,
+  thinking: {
+    type: 'enabled',
+    budget_tokens: 2000,
+  },
+  messages: [{ role: 'user', content: 'Solve complex problem...' }],
+});
+
+const thinking = message.content.find(b => b.type === 'thinking')?.thinking;
+const answer = message.content.find(b => b.type === 'text')?.text;
+```
+
+**Load**: `templates/extended-thinking.ts`
+
+---
+
+## Model Versions (Current)
+
+**Latest models:**
+- `claude-sonnet-4-5-20250929` - Recommended (best performance)
+- `claude-sonnet-4-20250514` - Stable version
+- `claude-3-7-sonnet-20250219` - Previous generation
+- `claude-3-5-sonnet-20241022` - Legacy
+
+**Always pin to specific version** (not `-latest` suffix)
+
+---
+
+## When to Load References
+
+### Load `references/setup-guide.md` when:
+- First-time Claude API user needing complete setup walkthrough
+- Setting up Node.js or Cloudflare Workers from scratch
+- Need production deployment checklist and platform-specific tips
+- Troubleshooting basic setup issues (API keys, authentication, environment)
+
+### Load `references/prompt-caching-guide.md` when:
+- Want to reduce costs by 90% on repeated content
+- Using large system prompts, documents, or codebases in context
+- Need detailed caching strategy with benchmarks and cost calculations
+- Optimizing multi-turn conversations with conversation history caching
+- Troubleshooting cache activation issues or cache misses
+
+### Load `references/tool-use-patterns.md` when:
+- Implementing function calling and tool definitions
+- Need tool execution loop patterns and multi-turn tool use
+- Want Zod validation examples for type-safe tools
+- Troubleshooting tool use response format errors
+
+### Load `references/vision-capabilities.md` when:
+- Processing images with Claude (OCR, analysis, description)
+- Need image format requirements and validation logic
+- Want vision use cases and best practices
+- Combining vision with tools or prompt caching
+
+### Load `references/api-reference.md` when:
+- Need complete API parameter reference and request/response schemas
+- Looking up specific fields or content block types
+- Want endpoint details, authentication headers, or model IDs
+- Need streaming event types and SSE format details
+
+### Load `references/top-errors.md` when:
+- Encountering API errors (all 12 documented errors with solutions)
+- Need error code reference (400, 401, 429, 529, etc.)
+- Want comprehensive prevention strategies
+- Implementing robust error handling and retry logic
+
+### Load `references/rate-limits.md` when:
+- Planning high-volume usage and scaling strategy
+- Encountering 429 rate limit errors repeatedly
+- Need tier limits information and upgrade path
+- Optimizing request patterns to stay within limits
+
+---
+
+## Using Bundled Resources
+
+### References (references/)
+
+- **setup-guide.md** - Complete setup (Node.js + Cloudflare Workers + Next.js)
+- **api-reference.md** - Complete API parameter reference + schemas
+- **prompt-caching-guide.md** - 90% cost savings guide + benchmarks
+- **tool-use-patterns.md** - Function calling patterns + Zod examples
+- **vision-capabilities.md** - Image understanding guide + validation
+- **top-errors.md** - All 12 errors with solutions + prevention
+- **rate-limits.md** - Limits by tier + best practices
+
+### Templates (templates/)
+
+- **basic-chat.ts** - Simple chat example
+- **streaming-chat.ts** - Streaming implementation with SSE
+- **prompt-caching.ts** - Caching example with benchmarks
+- **tool-use-basic.ts** - Basic tool use pattern
+- **tool-use-advanced.ts** - Advanced multi-turn tool patterns
+- **vision-image.ts** - Vision example with validation
+- **extended-thinking.ts** - Extended thinking mode
+- **error-handling.ts** - Complete error handling
+- **nodejs-example.ts** - Complete Node.js app
+- **cloudflare-worker.ts** - Complete CF Worker
+- **nextjs-api-route.ts** - Next.js API route
+- **package.json** - Dependencies
+
+---
+
+## Platform Integration
+
+**Node.js**: `bun add @anthropic-ai/sdk` → Use templates: `nodejs-example.ts`, `basic-chat.ts`
+
+**Cloudflare Workers**: Use fetch API → Use templates: `cloudflare-worker.ts`
+
+**Next.js**: `bun add @anthropic-ai/sdk` → Use templates: `nextjs-api-route.ts`
+
+---
+
+## Production Checklist
+
+- [ ] API key stored securely (environment variable)
+- [ ] Error handling implemented (401, 429, 400, 529)
+- [ ] Rate limiting with exponential backoff
+- [ ] Prompt caching enabled for repeated content
+- [ ] Streaming for long responses
+- [ ] Input validation + output sanitization
+- [ ] Monitoring and cost tracking
+- [ ] Timeouts configured
+- [ ] Model version pinned
+- [ ] max_tokens set appropriately
+
+---
+
+## Related Skills
+
+- **openai-api** - OpenAI Chat Completions for comparison
+- **claude-agent-sdk** - Higher-level Claude SDK
+- **ai-sdk-core** - Vercel AI SDK (supports Claude)
 
 ---
 
 ## Official Documentation
 
-- **Claude API**: https://platform.claude.com/docs/en/api
-- **Messages API**: https://platform.claude.com/docs/en/api/messages
-- **Structured Outputs**: https://platform.claude.com/docs/en/build-with-claude/structured-outputs
-- **Prompt Caching**: https://platform.claude.com/docs/en/build-with-claude/prompt-caching
-- **Tool Use**: https://platform.claude.com/docs/en/build-with-claude/tool-use
-- **Vision**: https://platform.claude.com/docs/en/build-with-claude/vision
-- **Rate Limits**: https://platform.claude.com/docs/en/api/rate-limits
-- **Errors**: https://platform.claude.com/docs/en/api/errors
-- **TypeScript SDK**: https://github.com/anthropics/anthropic-sdk-typescript
-- **Context7 Library ID**: /anthropics/anthropic-sdk-typescript
+- **Messages API**: https://docs.anthropic.com/en/api/messages
+- **Prompt Caching**: https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching
+- **Tool Use**: https://docs.anthropic.com/en/docs/build-with-claude/tool-use
+- **Vision**: https://docs.anthropic.com/en/docs/build-with-claude/vision
+- **Extended Thinking**: https://docs.anthropic.com/en/docs/build-with-claude/extended-thinking
 
 ---
 
-## Package Versions
+**Questions? Issues?**
 
-**Latest**: @anthropic-ai/sdk@0.71.2
-
-```json
-{
-  "dependencies": {
-    "@anthropic-ai/sdk": "^0.71.2"
-  },
-  "devDependencies": {
-    "@types/node": "^20.0.0",
-    "typescript": "^5.3.0",
-    "zod": "^3.23.0"
-  }
-}
-```
-
----
-
-**Token Efficiency**:
-- **Without skill**: ~8,000 tokens (basic setup, streaming, caching, tools, vision, errors)
-- **With skill**: ~4,200 tokens (knowledge gaps + error prevention + critical patterns)
-- **Savings**: ~48% (~3,800 tokens)
-
-**Errors prevented**: 12 documented issues with exact solutions
-**Key value**: Structured outputs (v0.69.0+), model deprecations (Oct 2025), prompt caching edge cases, streaming error patterns, rate limit retry logic
-
----
-
-**Last verified**: 2026-01-09 | **Skill version**: 2.0.1 | **Changes**: Updated SDK version to 0.71.2
+1. Check `references/top-errors.md` for error solutions
+2. Review `references/setup-guide.md` for complete setup
+3. See `references/prompt-caching-guide.md` for cost optimization
+4. Load templates from `templates/` for working examples

@@ -1,210 +1,162 @@
 ---
+source: skills/claude-code/refactoring-assistant/SKILL.md
+source_version: 1.0.0
+translation_version: 1.0.0
+last_synced: 2026-01-12
+status: current
 name: refactoring-assistant
-description: Assists with code refactoring by detecting code smells, suggesting improvements, and providing refactoring patterns. Activates when writing/editing code, explicitly requested refactoring, or when code quality issues are detected. Maintains awareness of core principles while providing detailed patterns and examples.
-allowed-tools: [Read, Grep, Glob, AskUserQuestion]
+description: |
+  引導重構决策和大規模程序码改进。
+  使用时机：重構程序码、遺留系统現代化、技術債、重写决策。
+  关鍵字：refactor, rewrite, legacy, strangler, technical debt, 重構, 重写, 技術債.
 ---
 
-# Refactoring Assistant Skill
+# 重構助手
 
-## Purpose
+> **语言**: [English](../../../../../skills/claude-code/refactoring-assistant/SKILL.md) | 简体中文
 
-Support code quality improvement through:
+**版本**: 1.0.0
+**最後更新**: 2026-01-12
+**適用範圍**: Claude Code Skills
 
-- Automatic code smell detection during development
-- Suggesting appropriate refactoring patterns
-- Providing tech-stack specific best practices
-- Maintaining code consistency and readability
+---
 
-## Activation Triggers
+## 目的
 
-### Automatic Activation
+本技能提供重構与重写的决策框架、大規模重構模式，以及技術債管理。
 
-- When writing or editing source code files
-- When file length exceeds thresholds
-- When code duplication is detected
-- When complex nesting is identified
+---
 
-### Manual Activation
+## 快速參考（YAML 壓縮格式）
 
-- User says "リファクタリング", "refactor", "code smell"
-- User asks about code quality improvement
-- User requests design pattern suggestions
+```yaml
+# === 决策：重構 vs 重写 ===
+decision_tree:
+  - q: "程序码在生产環境运行？"
+    n: "→ 考慮重写（風險較低）"
+    y: next
+  - q: "了解程序码的功能？"
+    n: "→ 先写特徵测试"
+    y: next
+  - q: "测试覆蓋率 >60%？"
+    n: "→ 先補测试"
+    y: next
+  - q: "核心架構可修復？"
+    n: "→ Strangler Fig 模式"
+    y: "→ 增量重構 ✓"
 
-## Core Principles (Always Active)
+comparison_matrix:
+  favor_refactor: [大型程序庫, 良好测试, 业务关鍵, 团队熟悉, 架構健全, 时间緊迫, 低風險]
+  favor_rewrite: [小型獨立, 無测试, 可容忍停机, 無人熟悉, 架構有缺陷, 时间充裕, 較高風險]
 
-These principles are always kept in mind during coding, regardless of Skill activation.
+# === 警告：第二系统效应 ===
+rewrite_antipatterns:
+  - "加入原本没有的功能"
+  - "为未來彈性過度抽象"
+  - "忽略現有系统的經驗教訓"
+quote: "第二个系统是一个人设计過最危險的系统。— Fred Brooks"
 
-### Code Smells to Detect
+# === 規模：重構策略 ===
+scales:
+  small:
+    duration: "5-15 分鐘"
+    scope: "单一方法/类别"
+    techniques: [提取方法, 重新命名, 內联变數, 替换魔術數字]
+  medium:
+    duration: "數小时到數天"
+    scope: "一个功能/模組"
+    checklist: [定義範圍, 識别入口点, "覆蓋率>80%", 增量提交, 与团队溝通]
+  large:
+    duration: "數周到數月"
+    scope: "多个模組/系统"
+    patterns: [strangler_fig, branch_by_abstraction, parallel_change]
 
-1. **Long Method** (関数が長すぎる)
-   - Threshold: > 50 lines
-   - Action: Suggest extraction into smaller functions
+# === 模式：大規模重構 ===
+strangler_fig:
+  phases:
+    1_攔截: "请求 → 外觀 → 舊系统(100%)"
+    2_迁移: "请求 → 外觀 → [新系统(功能A), 舊系统(其餘)]"
+    3_完成: "请求 → 新系统(100%) [舊系统除役]"
 
-2. **Duplicate Code** (重複コード)
-   - Threshold: Same code appears 3+ times
-   - Action: Extract to shared function/constant
+branch_by_abstraction:
+  steps:
+    1: "客户端 → 抽象层(界面) → 舊实作"
+    2: "客户端 → 抽象层 → [舊实作, 新实作(切换)]"
+    3: "客户端 → 新实作 [移除舊实作]"
 
-3. **Deep Nesting** (ネストが深すぎる)
-   - Threshold: > 3 levels
-   - Action: Use early return, extract conditions
+expand_migrate_contract:
+  phases:
+    expand: "新增新的，保留舊的，新程序用新的，舊程序仍可用"
+    migrate: "更新所有客户端使用新的，验证，数据迁移"
+    contract: "移除舊的，清理，更新文件"
 
-4. **Long Parameter List** (引数が多すぎる)
-   - Threshold: > 5 parameters
-   - Action: Use structured parameters (RORO pattern in TS, struct in Go)
+# === 遺留程序码：策略 ===
+legacy:
+  definition: "没有测试的程序码（不論年齡）"
+  dilemma: "安全修改需要测试 → 加测试需要修改程序码"
+  solution: "使用安全技術先加测试"
 
-5. **Large Class/Module** (クラス/モジュールが大きすぎる)
-   - Threshold: > 300 lines
-   - Action: Split into smaller modules
+characterization_tests:
+  purpose: "捕捉現有行为（非验证正确性）"
+  process:
+    1: "呼叫要理解的程序码"
+    2: "写预期会失败的斷言"
+    3: "执行，觀察实际結果"
+    4: "更新斷言以匹配实际行为"
+    5: "重複直到涵蓋需要修改的行为"
 
-6. **Complex Conditional** (複雑な条件式)
-   - Threshold: > 3 conditions in single expression
-   - Action: Extract to named function/variable
+# === 技術債管理 ===
+quadrant: # Martin Fowler
+  prudent_deliberate: "我們知道这是債务"
+  reckless_deliberate: "没时间做设计"
+  prudent_inadvertent: "現在知道应該怎麼做了"
+  reckless_inadvertent: "什麼是分层？"
 
-## Workflow
+priority:
+  high: {criteria: "阻塞开发，頻繁出錯", action: "立即处理"}
+  medium: {criteria: "拖慢开发，增加複雜度", action: "規划到下个迭代"}
+  low: {criteria: "小麻煩，影響局部", action: "有机会就处理"}
+```
 
-### Phase 1: Detection
+---
 
-1. **Read the code**
-   - Use Read tool to examine target files
-   - Identify patterns matching code smells
+## 配置偵测
 
-2. **Measure complexity**
-   - Count lines in functions
-   - Count nesting levels
-   - Count parameters
-   - Detect duplication patterns
+### 偵测順序
 
-3. **Prioritize issues**
-   - Critical: Security risks, bugs
-   - High: Code smells affecting readability
-   - Medium: Minor style inconsistencies
+1. 检查 `CONTRIBUTING.md` 中的「停用技能」區段
+2. 检查 `CONTRIBUTING.md` 中的「重構标准」區段
+3. 如果未找到，**预设使用标准重構实踐**
 
-### Phase 2: Analysis
+---
 
-1. **Check against tech-stack rules**
-   - TypeScript/React: Refer to `patterns/typescript-react.md`
-   - Go: Refer to `patterns/go.md`
+## 详细指南
 
-2. **Consider context**
-   - Is this a one-time case or recurring pattern?
-   - Is the complexity justified by business logic?
-   - Would refactoring improve or harm clarity?
+完整标准請參阅：
+- [重構标准](../../../core/refactoring-standards.md)
 
-3. **Review existing patterns**
-   - Check `~/.claude/knowledge/patterns/` for similar cases
-   - Ensure consistency with project CLAUDE.md
+---
 
-### Phase 3: Suggestion
+## 相关标准
 
-1. **Present findings**
-   - List detected code smells with severity
-   - Show specific locations (file:line)
-   - Explain why it's a problem
+- [重構标准](../../../core/refactoring-standards.md) - 核心标准
+- [测试驅动开发](../../../core/test-driven-development.md) - TDD 重構阶段
+- [程序码审查检查清单](../../../core/code-review-checklist.md) - 重構 PR 审查
+- [簽入标准](../../../core/checkin-standards.md) - 提交前要求
+- [TDD 助手](../tdd-assistant/SKILL.md) - TDD 工作流程
 
-2. **Propose solutions**
-   - Suggest appropriate refactoring pattern
-   - Show before/after code examples
-   - Explain benefits and trade-offs
+---
 
-3. **Ask for approval**
-   - Use AskUserQuestion for user decision
-   - Allow partial acceptance (fix some, not all)
+## 版本历史
 
-### Phase 4: Implementation
+| 版本 | 日期 | 变更 |
+|------|------|------|
+| 1.0.0 | 2026-01-12 | 初始發布 |
 
-1. **Apply refactoring**
-   - Make changes incrementally
-   - Maintain backward compatibility if needed
-   - Update tests accordingly
+---
 
-2. **Verify quality**
-   - Ensure tests still pass
-   - Run linter if available
-   - Check for new code smells
+## 授权
 
-3. **Document if needed**
-   - If this is a new pattern, suggest recording to Knowledge Base
-   - Update project CLAUDE.md if this establishes new standard
+本技能以 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 授权發布。
 
-## Code Smell Detection Details
-
-Refer to `rules/code-smells.md` for detailed detection criteria and refactoring patterns for each code smell.
-
-## Tech-Stack Specific Patterns
-
-### TypeScript/React
-
-See `patterns/typescript-react.md` for:
-
-- React component refactoring patterns
-- Hook extraction and optimization
-- State management improvements
-- CSS Modules organization
-
-### Go
-
-See `patterns/go.md` for:
-
-- Function extraction patterns
-- Interface design improvements
-- Error handling refactoring
-- Goroutine and channel optimization
-
-## Integration with Knowledge Base
-
-When discovering new refactoring patterns or solutions:
-
-1. **Record to Knowledge Base**
-   - Use knowledge-manager Skill to document
-   - Category: `patterns/refactoring-{tech-stack}.md`
-
-2. **Update INDEX**
-   - Ensure pattern is searchable
-   - Add relevant tags and categories
-
-## Guardrails
-
-### When NOT to Refactor
-
-1. **Working on tight deadline** - Defer to post-release
-2. **No test coverage** - Write tests first
-3. **Unclear requirements** - Clarify before refactoring
-4. **Code is working and stable** - If it ain't broke, consider carefully
-
-### Safety Checks
-
-1. **Always run tests** before and after refactoring
-2. **Make small, incremental changes** - easier to review and rollback
-3. **Preserve behavior** - refactoring should not change functionality
-4. **Document breaking changes** if unavoidable
-
-## Usage Tips
-
-### For User
-
-- This Skill helps detect code smells, but **core principles remain in Global CLAUDE.md**
-- You should always be aware of basic refactoring principles during coding
-- Use this Skill for **detailed patterns and examples**, not just principles
-
-### For Claude
-
-- **Always keep core principles in mind** regardless of Skill activation
-- Don't wait for explicit "refactor" request - suggest improvements during normal coding
-- Balance between code quality and practical constraints
-- Prefer incremental improvements over massive rewrites
-
-## Supporting Files
-
-- `rules/code-smells.md`: Detailed code smell detection and refactoring patterns
-- `patterns/typescript-react.md`: TypeScript/React specific refactoring patterns
-- `patterns/go.md`: Go specific refactoring patterns
-- `~/.claude/knowledge/patterns/`: Real-world refactoring examples
-
-## Maintenance
-
-Update this Skill when:
-
-- New code smells are discovered
-- New refactoring patterns are established
-- Tech-stack best practices evolve
-- Team coding standards change
+**來源**: [universal-dev-standards](https://github.com/AsiaOstrich/universal-dev-standards)

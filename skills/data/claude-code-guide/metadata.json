@@ -1,7 +1,7 @@
 {
   "name": "claude-code-guide",
-  "repo": "alexanderop/workoutTracker",
-  "path": ".claude/skills/claude-code-guide/skill.md",
-  "source": "github.com/alexanderop/workoutTracker",
-  "downloaded_at": "2026-01-14T03:50:43.473566Z"
+  "repo": "sickn33/antigravity-awesome-skills",
+  "path": "skills/claude-code-guide/SKILL.md",
+  "source": "github.com/sickn33/antigravity-awesome-skills",
+  "downloaded_at": "2026-01-17T01:12:09.269491Z"
 }

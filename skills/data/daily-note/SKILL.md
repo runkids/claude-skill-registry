@@ -1,165 +1,392 @@
 ---
 name: daily-note
-description: Create VP-level daily notes with quarter progress tracking and leadership-focused structure. Use when user asks to create a daily note, start the day, or invokes /daily. Generates notes in _Daily/ with Radar (issues tracking), Teams sections, and minimal task lists. Automatically analyzes the note for anti-patterns after creation.
+description: Create or update today's private journal entry. Use when asked to "daily note", "journal", "log today", "morning pages", or "capture thoughts".
+allowed-tools: Read, Write, Edit, Glob, Grep, AskUserQuestion
 ---
 
 # Daily Note
 
-Create a daily note for VP-level leadership work—focused on detection and delegation, not execution.
+Create or update today's private journal entry with guided prompts, habit tracking, and metrics.
 
-## Workflow
+## Location
 
-1. Get date: `date +"%Y-%m-%d %A"`
-2. Calculate quarter progress (see below)
-3. Pull due follow-ups from `_Followups.md` (see below)
-4. Find previous day's note in `_Daily/`
-5. Create new note with carryover items and follow-ups
-6. Analyze for anti-patterns and append recommendations
+All private notes live in `content/private/` with flat structure (no subfolders).
 
-## Quarter Progress Bar
+## Personal Config
 
-Calculate and render an 80-character progress bar:
+**IMPORTANT:** Read `.claude/skills/daily-note/habits-config.md` for Alexander's specific habits and metric targets. Use those instead of the generic defaults.
 
-```python
-import datetime
-today = datetime.date.today()
-quarter = (today.month - 1) // 3 + 1
-q_start = datetime.date(today.year, (quarter - 1) * 3 + 1, 1)
-q_end = datetime.date(today.year, quarter * 3 + 1, 1) if quarter < 4 else datetime.date(today.year + 1, 1, 1)
-progress = (today - q_start).days / (q_end - q_start).days
-filled = int(progress * 80)
-bar = '▓' * filled + '░' * (80 - filled)
-caret = ' ' * filled + '^'
-print(f"Q{quarter} {today.year}  {bar}  {int(progress * 100)}%")
-print(f"         {caret}")
+## Date Format
+
+- Daily notes: `YYYY-MM-DD.md` (ISO 8601)
+- Example: `2024-01-13.md`
+
+---
+
+## Phase 1: Check for Existing Note
+
+Get today's date and check if a note exists:
+
+```text
+Glob: content/private/{today YYYY-MM-DD}.md
 ```
 
-## Follow-ups
+**If exists:** Read the file and proceed to Phase 4 (Update Mode).
+**If missing:** Proceed to Phase 2 (Mode Selection).
 
-Read `_Followups.md` (markdown table format) and extract rows where:
-- Date <= today's date
-- Status = `pending`
+---
 
-Table format:
+## Phase 2: Mode Selection
+
+Ask user what kind of entry they want:
+
+```yaml
+question: "What would you like to do?"
+header: "Mode"
+options:
+  - label: "Quick capture"
+    description: "Just log something quickly (1 min)"
+  - label: "Morning check-in"
+    description: "Start your day with intentions + habits"
+  - label: "Evening reflection"
+    description: "Review your day + track metrics"
+  - label: "Full journal"
+    description: "Complete daily entry with all sections"
+```
+
+Branch based on selection:
+- **Quick capture** → Phase 3A
+- **Morning check-in** → Phase 3B
+- **Evening reflection** → Phase 3C
+- **Full journal** → Phase 3D
+
+---
+
+## Phase 3A: Quick Capture
+
+Simple and fast - just capture a thought:
+
+```yaml
+question: "What do you want to capture?"
+header: "Capture"
+options:
+  - label: "A thought"
+    description: "Something on your mind"
+  - label: "A win"
+    description: "Something good that happened"
+  - label: "A learning"
+    description: "Something you discovered"
+  - label: "A todo"
+    description: "Something to remember"
+```
+
+After user provides content, append to the appropriate section in the daily note.
+
+---
+
+## Phase 3B: Morning Check-in
+
+### Step 1: How are you feeling?
+
+```yaml
+question: "How are you feeling this morning?"
+header: "Mood"
+options:
+  - label: "Great 😊"
+    description: "Energized and ready"
+  - label: "Good 🙂"
+    description: "Steady and calm"
+  - label: "Okay 😐"
+    description: "Neutral"
+  - label: "Low 😔"
+    description: "Tired or down"
+```
+
+### Step 2: Track habits
+
+```yaml
+question: "Which habits did you complete?"
+header: "Habits"
+multiSelect: true
+options:
+  - label: "Morning walk"
+    description: "Morning movement"
+  - label: "Read (30 min)"
+    description: "Books or articles"
+  - label: "Workout"
+    description: "Strength or cardio"
+  - label: "Deep work (45 min)"
+    description: "Focused work block"
+```
+
+### Step 3: Intentions
+
+Ask: "What's your main focus for today?" (free text input)
+
+### Step 4: Generate morning entry
+
+Create/update the daily note with morning sections filled in.
+
+---
+
+## Phase 3C: Evening Reflection
+
+### Step 1: How was your day?
+
+```yaml
+question: "How did today go overall?"
+header: "Day Rating"
+options:
+  - label: "Excellent ⭐⭐⭐"
+    description: "Great day, accomplished a lot"
+  - label: "Good ⭐⭐"
+    description: "Solid day, decent progress"
+  - label: "Mixed ⭐"
+    description: "Some good, some challenges"
+  - label: "Tough"
+    description: "Difficult day"
+```
+
+### Step 2: Track daily metrics
+
+```yaml
+question: "Which metrics to log?"
+header: "Metrics"
+multiSelect: true
+options:
+  - label: "Steps"
+    description: "Target: 7000+"
+  - label: "Calories"
+    description: "Target: < 2800"
+  - label: "Protein"
+    description: "Target: 180g+"
+  - label: "Eating window"
+    description: "Nothing after 20:00"
+```
+
+If metrics selected, ask for values:
+- Steps: "How many steps today?"
+- Calories: "Total calories?"
+- Protein: "Total protein (g)?"
+- Eating window: "Did you respect the eating window (nothing after 20:00)?"
+
+### Step 3: Track habits (if not done in morning)
+
+```yaml
+question: "Which habits did you complete today?"
+header: "Habits"
+multiSelect: true
+options:
+  - label: "Morning walk"
+    description: "Morning movement"
+  - label: "Read (30 min)"
+    description: "Books or articles"
+  - label: "Workout"
+    description: "Strength or cardio"
+  - label: "Deep work (45 min)"
+    description: "Focused work block"
+```
+
+### Step 4: Wins and learnings
+
+Ask: "What's one win from today?" (free text)
+Ask: "Any learnings or insights?" (free text, optional)
+
+### Step 5: Gratitude
+
+```yaml
+question: "Want to capture gratitude?"
+header: "Gratitude"
+options:
+  - label: "Yes"
+    description: "Note what you're grateful for"
+  - label: "Skip"
+    description: "Not today"
+```
+
+If yes, ask: "What are you grateful for today?"
+
+### Step 6: Generate evening entry
+
+Update the daily note with evening sections filled in.
+
+---
+
+## Phase 3D: Full Journal
+
+Run both morning and evening flows sequentially, plus:
+
+### Additional: Tomorrow
+
+```yaml
+question: "Want to plan tomorrow?"
+header: "Tomorrow"
+options:
+  - label: "Yes"
+    description: "Set intentions for tomorrow"
+  - label: "Skip"
+    description: "Plan later"
+```
+
+If yes, ask: "What's your main priority for tomorrow?"
+
+### Additional: Links
+
+Search for public notes created/modified today and suggest wiki-links:
+
+```text
+Grep pattern: "date: {today}" glob: "content/*.md"
+```
+
+---
+
+## Phase 4: Update Mode (Existing Note)
+
+When a daily note already exists:
+
+### 4.1 Display Current State
+
+Read the file and show:
+- Current mood and ratings
+- Habits already tracked
+- Metrics logged
+- Sections with content
+
+### 4.2 Choose What to Update
+
+```yaml
+question: "What would you like to add?"
+header: "Update"
+options:
+  - label: "Quick thought"
+    description: "Add something to captures"
+  - label: "Track habits"
+    description: "Log completed habits"
+  - label: "Log metrics"
+    description: "Add weight, sleep, etc."
+  - label: "Evening review"
+    description: "Complete the day's reflection"
+```
+
+Proceed to appropriate phase based on selection.
+
+---
+
+## Daily Note Template
+
+Full template with all possible sections:
+
 ```markdown
-| Date | Description | Status |
-|------|-------------|--------|
-| 2025-12-20 | Check deployment status | pending |
+---
+title: "YYYY-MM-DD"
+type: daily
+date: YYYY-MM-DD
+mood: good | great | okay | low
+dayRating: 1 | 2 | 3
+private: true
+---
+
+## Habits
+
+- [ ] Morning walk
+- [ ] Read (30 min)
+- [ ] Workout
+- [ ] Deep work (45 min)
+
+## Metrics
+
+| Metric | Value | Target |
+|--------|-------|--------|
+| Steps | | 7000+ |
+| Calories | | < 2800 |
+| Protein | | 180g+ |
+| Eating window | | ✓ |
+
+## Morning Intentions
+
+{what to focus on today}
+
+## Captures
+
+- {quick thoughts throughout the day}
+
+## Wins
+
+- {good things that happened}
+
+## Learnings
+
+- {insights and discoveries}
+
+## Gratitude
+
+- {what you're thankful for}
+
+## Tomorrow
+
+- {priorities for the next day}
+
+## Links Captured
+
+- [[public-note-from-today]]
 ```
 
-Parse by splitting on `|` and trimming whitespace. Skip header rows.
+---
 
-After pulling follow-ups into the daily note, update their status to `done` in `_Followups.md`.
+## Habits Reference
 
-## Note Structure
+Alexander's daily habits:
 
-```markdown
-# YYYY-MM-DD Day
-```
+| Habit | Target |
+|-------|--------|
+| Morning walk | Daily |
+| Read | 30 min |
+| Workout | Daily |
+| Deep work | 45 min |
 
-QN YYYY ▓▓▓▓▓▓▓▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ XX%
-^
+---
 
-```
+## Metrics Reference
 
-# Radar
+Alexander's daily metrics:
 
-## 🔴 Needs Attention
+| Metric | Target | Format |
+|--------|--------|--------|
+| Steps | 7000+ | number |
+| Calories | < 2800 | number |
+| Protein | 180g+ | grams |
+| Eating window | Nothing after 20:00 | ✓ or ✗ |
 
-## 🟡 Watching
+---
 
-## 🟢 On Track
+## Quality Checklist
 
-# Teams
+Before saving:
+- [ ] Filename matches `YYYY-MM-DD.md` format
+- [ ] Frontmatter has `type: daily` and `private: true`
+- [ ] Date in title and frontmatter match
+- [ ] At least one section has content
+- [ ] Habits use checkbox format `- [x]` or `- [ ]`
+- [ ] Metrics table is properly formatted
+- [ ] Wiki-links use correct `[[slug]]` format
 
-## Platform & Infrastructure
+---
 
-## AI Platform & Research
+## Tips for Good Journaling
 
-## Internal Applications
+- **Consistency > Length**: A few bullet points daily beats long entries occasionally
+- **Capture immediately**: Log wins and learnings when they happen
+- **Be honest**: Track actual habits, not aspirational ones
+- **Review weekly**: Use `/weekly-review` to find patterns
 
-# Tasks
+---
 
-## Today
+## Error Recovery
 
-- [ ] FU : [follow-up items due today, one per line]
-
-## Later
-
-- [ ]
-
-# Notes
-
-```
-
-## File Location
-
-- Folder: `_Daily/` (quarter folders are used for archiving after the quarter ends)
-- Filename: `YYYY-MM-DD Day.md` (e.g., `2025-12-20 Friday.md`)
-
-## Carryover Rules
-
-From previous day's note, carry forward:
-
-- All 🔴 Needs Attention items (until resolved)
-- All 🟡 Watching items (until resolved or promoted to 🔴)
-- Incomplete tasks with links to original context: `[[2025-12-19 Thursday#Topic]]`
-- Team observations still relevant
-
-Do NOT carry over:
-
-- 🟢 On Track items (these are positive signals, not persistent)
-- Completed tasks
-
-## Anti-Pattern Analysis
-
-After creating the note, analyze and append a `# Review` section with findings:
-
-### Check for these anti-patterns:
-
-**Task overload**
-
-- More than 5 items in Today → Flag: "Heavy task list. Which require you specifically?"
-- Execution tasks (coding, fixing, building, writing) → Flag: "Execution work. Who should own this?"
-
-**Stale Radar items**
-Read previous 3-5 daily notes:
-
-- 🟡 item present 3+ days → Flag: "🟡 for N days. Escalate or resolve."
-- 🔴 item present 2+ days → Flag: "🔴 aging. What's blocking?"
-
-**Missing signals**
-
-- Empty Team sections → Flag: "No observations for [Team]. Connected to what's happening?"
-- Team items that read like tasks → Flag: "Reads like a task. Who owns it?"
-
-**Empty Radar**
-
-- All three sections empty → Flag: "Empty Radar. Things perfect or not looking?"
-
-### Review section format
-
-```markdown
-# Review
-
-**X anti-patterns detected**
-
-- [specific callout with quoted text and recommendation]
-- ...
-
-**Reflection:** [one key question based on findings]
-```
-
-If no anti-patterns found, write:
-
-```markdown
-# Review
-
-No anti-patterns detected.
-```
-
-## Radar Semantics
-
-- 🔴 Needs Attention: Requires your intervention—blockers, escalations, coordination failures, unclear priorities, resource gaps
-- 🟡 Watching: Potential issues—slipping timelines, team friction, unclear requirements, dependency risks
-- 🟢 On Track: Positive signals—milestones hit, good coordination, problems resolved
+| Error | Recovery |
+|-------|----------|
+| User wants different date | Allow specifying date, adjust filename |
+| Wants to customize habits | Accept custom habit names |
+| Metric format unclear | Accept any format, don't enforce |
+| Section too long | Accept without truncation |
+| Wiki-link target doesn't exist | Warn but allow |

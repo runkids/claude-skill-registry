@@ -1,285 +1,147 @@
 ---
 name: refactoring
-description: Use when restructuring code without changing behavior - extract method, extract class, rename, move, inline, introduce parameter object. Triggers on keywords like "extract", "rename", "move method", "inline", "restructure", "decompose".
-allowed-tools: Read, Write, Edit, Bash, Grep, Glob, Task, TodoWrite
-infer: true
+description: Restructures existing code to improve readability, maintainability, and performance without changing external behavior. Trigger keywords: refactor, restructure, clean up, improve code, simplify, extract, modernize.
+allowed-tools: Read, Grep, Glob, Edit, Write, Bash
 ---
 
-# Code Refactoring
+# Refactoring
 
-Expert code restructuring agent for EasyPlatform. Focuses on structural changes that improve code quality without modifying behavior.
+## Overview
 
-## Refactoring Catalog
+This skill focuses on improving code quality through systematic refactoring techniques. It identifies code smells and applies proven refactoring patterns to enhance maintainability while preserving functionality.
 
-### Extract Patterns
+## Instructions
 
-| Pattern                | When to Use                         | Platform Example                          |
-| ---------------------- | ----------------------------------- | ----------------------------------------- |
-| **Extract Method**     | Long method, duplicated code        | Move logic to private method              |
-| **Extract Class**      | Class has multiple responsibilities | Create Helper, Service, or Strategy class |
-| **Extract Interface**  | Need abstraction for testing/DI     | Create `I{ClassName}` interface           |
-| **Extract Expression** | Complex inline expression           | Move to Entity static expression          |
-| **Extract Validator**  | Repeated validation logic           | Create validator extension method         |
+### 1. Identify Refactoring Opportunities
 
-### Move Patterns
+- Search for code smells using pattern matching
+- Analyze cyclomatic complexity
+- Find duplicated code blocks
+- Identify long methods and large classes
 
-| Pattern               | When to Use                       | Platform Example                         |
-| --------------------- | --------------------------------- | ---------------------------------------- |
-| **Move Method**       | Method belongs to different class | Move from Handler to Helper/Entity       |
-| **Move to Extension** | Reusable repository logic         | Create `{Entity}RepositoryExtensions`    |
-| **Move to DTO**       | Mapping logic in handler          | Use `PlatformEntityDto.MapToEntity()`    |
-| **Move to Entity**    | Business logic in handler         | Add instance method or static expression |
+### 2. Plan the Refactoring
 
-### Simplify Patterns
+- List all changes to be made
+- Determine dependencies between changes
+- Establish rollback points
+- Ensure test coverage exists before starting
 
-| Pattern                     | When to Use                  | Platform Example                   |
-| --------------------------- | ---------------------------- | ---------------------------------- |
-| **Inline Variable**         | Temporary variable used once | Remove intermediate variable       |
-| **Inline Method**           | Method body is obvious       | Replace call with body             |
-| **Replace Conditional**     | Complex if/switch            | Use Strategy pattern or expression |
-| **Introduce Parameter Obj** | Method has many parameters   | Create Command/Query DTO           |
+### 3. Apply Refactoring Patterns
 
-## Workflow
+- Extract Method: Break down long functions
+- Extract Class: Split large classes
+- Rename: Improve naming clarity
+- Move Method/Field: Better organize code
+- Inline: Remove unnecessary indirection
+- Replace Conditional with Polymorphism
 
-### Phase 1: Analysis
+### 4. Verify Changes
 
-1. **Identify Target**: Locate code to refactor
-2. **Map Dependencies**: Find all usages with Grep
-3. **Assess Impact**: List affected files and tests
-4. **Verify Tests**: Ensure test coverage exists
+- Run existing tests after each change
+- Check for regressions
+- Validate performance hasn't degraded
 
-### Phase 2: Plan
+## Best Practices
 
-Document refactoring plan:
+1. **Small Steps**: Make incremental changes, not big bang rewrites
+2. **Test First**: Ensure tests exist before refactoring
+3. **One Thing at a Time**: Focus on single refactoring per commit
+4. **Preserve Behavior**: External behavior must remain unchanged
+5. **Keep It Working**: Code should pass tests after each step
+6. **Document Intent**: Explain why refactoring was needed
 
-```markdown
-## Refactoring Plan
+## Examples
 
-**Target**: [file:line_number]
-**Type**: [Extract Method | Move to Extension | etc.]
-**Reason**: [Why this refactoring improves code]
+### Example 1: Extract Method
 
-### Changes
+```python
+# Before: Long method with multiple responsibilities
+def process_order(order):
+    # Validate order
+    if not order.items:
+        raise ValueError("Empty order")
+    if order.total < 0:
+        raise ValueError("Invalid total")
 
-1. [ ] Create/modify [file]
-2. [ ] Update usages in [files]
-3. [ ] Run tests
+    # Calculate discount
+    discount = 0
+    if order.customer.is_premium:
+        discount = order.total * 0.1
+    if order.total > 1000:
+        discount += order.total * 0.05
 
-### Risks
+    # Apply discount and save
+    order.final_total = order.total - discount
+    order.save()
 
-- [Potential issues]
+# After: Extracted methods with single responsibility
+def process_order(order):
+    validate_order(order)
+    discount = calculate_discount(order)
+    finalize_order(order, discount)
+
+def validate_order(order):
+    if not order.items:
+        raise ValueError("Empty order")
+    if order.total < 0:
+        raise ValueError("Invalid total")
+
+def calculate_discount(order) -> float:
+    discount = 0
+    if order.customer.is_premium:
+        discount = order.total * 0.1
+    if order.total > 1000:
+        discount += order.total * 0.05
+    return discount
+
+def finalize_order(order, discount: float):
+    order.final_total = order.total - discount
+    order.save()
 ```
 
-### Phase 3: Execute
+### Example 2: Replace Magic Numbers with Constants
 
-```csharp
-// BEFORE: Logic in handler
-protected override async Task<Result> HandleAsync(Command req, CancellationToken ct)
-{
-    var isValid = entity.Status == Status.Active &&
-                  entity.User?.IsActive == true &&
-                  !entity.IsDeleted;
-    if (!isValid) throw new Exception();
+```javascript
+// Before
+if (response.status === 200) {
+  setTimeout(retry, 3000);
 }
 
-// AFTER: Extracted to entity static expression
-// In Entity.cs
-public static Expression<Func<Entity, bool>> IsActiveExpr()
-    => e => e.Status == Status.Active &&
-            e.User != null && e.User.IsActive &&
-            !e.IsDeleted;
+// After
+const HTTP_OK = 200;
+const RETRY_DELAY_MS = 3000;
 
-// In Handler
-var entity = await repository.FirstOrDefaultAsync(Entity.IsActiveExpr(), ct)
-    .EnsureFound("Entity not active");
-```
-
-### Phase 4: Verify
-
-1. Run affected tests
-2. Verify no behavior change
-3. Check code compiles
-4. Review for consistency
-
-## Platform-Specific Refactorings
-
-### Handler to Helper
-
-```csharp
-// BEFORE: Reused logic in multiple handlers
-var employee = await repo.FirstOrDefaultAsync(Employee.UniqueExpr(userId, companyId), ct)
-    ?? await CreateEmployeeAsync(userId, companyId, ct);
-
-// AFTER: Extracted to Helper
-// In EmployeeHelper.cs
-public async Task<Employee> GetOrCreateEmployeeAsync(string userId, string companyId, CancellationToken ct)
-{
-    return await repo.FirstOrDefaultAsync(Employee.UniqueExpr(userId, companyId), ct)
-        ?? await CreateEmployeeAsync(userId, companyId, ct);
+if (response.status === HTTP_OK) {
+  setTimeout(retry, RETRY_DELAY_MS);
 }
 ```
 
-### Handler to Repository Extension
+### Example 3: Replace Nested Conditionals with Guard Clauses
 
-```csharp
-// BEFORE: Query logic in handler
-var employees = await repo.GetAllAsync(
-    e => e.CompanyId == companyId && e.Status == Status.Active && e.DepartmentIds.Contains(deptId), ct);
+```python
+# Before
+def get_payment_amount(employee):
+    if employee.is_active:
+        if employee.is_full_time:
+            if employee.tenure > 5:
+                return employee.salary * 1.1
+            else:
+                return employee.salary
+        else:
+            return employee.hourly_rate * employee.hours
+    else:
+        return 0
 
-// AFTER: Extracted to extension
-// In EmployeeRepositoryExtensions.cs
-public static async Task<List<Employee>> GetActiveByDepartmentAsync(
-    this IPlatformQueryableRootRepository<Employee> repo, string companyId, string deptId, CancellationToken ct)
-{
-    return await repo.GetAllAsync(
-        Employee.OfCompanyExpr(companyId)
-            .AndAlso(Employee.IsActiveExpr())
-            .AndAlso(e => e.DepartmentIds.Contains(deptId)), ct);
-}
+# After
+def get_payment_amount(employee):
+    if not employee.is_active:
+        return 0
+
+    if not employee.is_full_time:
+        return employee.hourly_rate * employee.hours
+
+    if employee.tenure > 5:
+        return employee.salary * 1.1
+
+    return employee.salary
 ```
-
-### Mapping to DTO
-
-```csharp
-// BEFORE: Mapping in handler
-var config = new AuthConfig
-{
-    ClientId = req.Dto.ClientId,
-    Secret = encryptService.Encrypt(req.Dto.Secret)
-};
-
-// AFTER: DTO owns mapping
-// In AuthConfigDto.cs : PlatformDto<AuthConfig>
-public override AuthConfig MapToObject() => new AuthConfig
-{
-    ClientId = ClientId,
-    Secret = Secret  // Handler applies encryption
-};
-
-// In Handler
-var config = req.Dto.MapToObject()
-    .With(c => c.Secret = encryptService.Encrypt(c.Secret));
-```
-
-## Safety Checklist
-
-Before any refactoring:
-
-- [ ] Searched all usages (static + dynamic)?
-- [ ] Test coverage exists?
-- [ ] Documented in todo list?
-- [ ] Changes are incremental?
-- [ ] No behavior change verified?
-
-## Code Responsibility Refactoring (Priority Check)
-
-**Before any refactoring, verify logic is in the LOWEST appropriate layer:**
-
-```
-Entity/Model (Lowest)  →  Service  →  Component/Handler (Highest)
-```
-
-| Wrong Location | Move To           | Example                                     |
-| -------------- | ----------------- | ------------------------------------------- |
-| Component      | Entity/Model      | Dropdown options, display helpers, defaults |
-| Component      | Service (Factory) | Command building, data transformation       |
-| Handler        | Entity            | Business rules, static expressions          |
-| Handler        | Repository Ext    | Reusable query patterns                     |
-
-```typescript
-// Frontend: Component → Entity refactoring
-// BEFORE: Logic in component (causes duplication)
-readonly statusTypes = [{ value: 1, label: 'Active' }, { value: 2, label: 'Inactive' }];
-getStatusClass(config) { return !config.isEnabled ? 'disabled' : 'active'; }
-
-// AFTER: Logic in entity (enables reuse)
-readonly statusTypes = EntityConfiguration.getStatusTypeOptions();
-getStatusClass(config) { return config.getStatusCssClass(); }
-```
-
-## Component HTML Template Standard (BEM Classes)
-
-**All UI elements in component templates MUST have BEM classes, even without styling needs.** This makes HTML self-documenting like OOP class hierarchy.
-
-```html
-<!-- ✅ CORRECT: All elements have BEM classes -->
-<div class="settings-panel">
-    <div class="settings-panel__header">
-        <h2 class="settings-panel__title">Settings</h2>
-    </div>
-    <div class="settings-panel__body">
-        <div class="settings-panel__section">
-            <label class="settings-panel__label">Option</label>
-            <input class="settings-panel__input" formControlName="option" />
-        </div>
-    </div>
-</div>
-
-<!-- ❌ WRONG: Missing BEM classes -->
-<div class="settings-panel">
-    <div>
-        <h2>Settings</h2>
-    </div>
-    <div>
-        <div>
-            <label>Option</label>
-            <input formControlName="option" />
-        </div>
-    </div>
-</div>
-```
-
-**Refactoring Action**: When refactoring components, ensure all HTML elements have proper BEM classes.
-
-## Component SCSS Standard
-
-Always style both the **host element** (Angular selector) and the **main wrapper class**:
-
-```scss
-@import '~assets/scss/variables';
-
-// Host element styling - ensures Angular element is a proper block container
-my-component {
-    display: flex;
-    flex-direction: column;
-}
-
-// Main wrapper class with full styling
-.my-component {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    flex-grow: 1;
-
-    &__header {
-        // BEM child elements...
-    }
-
-    &__content {
-        flex: 1;
-        overflow-y: auto;
-    }
-}
-```
-
-**Why both?**
-
-- **Host element**: Makes the Angular element a real layout element (not an unknown element without display)
-- **Main class**: Contains the full styling, matches the wrapper div in HTML
-
-```csharp
-// Backend: Handler → Entity refactoring
-// BEFORE: Logic in handler
-var isValid = entity.Status == Status.Active && entity.User?.IsActive == true;
-
-// AFTER: Logic in entity
-var entity = await repository.FirstOrDefaultAsync(Entity.IsActiveExpr(), ct);
-```
-
-## Anti-Patterns
-
-- **Big Bang Refactoring**: Make small, incremental changes
-- **Refactoring Without Tests**: Ensure coverage first
-- **Mixing Refactoring with Features**: Do one or the other
-- **Breaking Public APIs**: Maintain backward compatibility
-- **Logic in Wrong Layer**: Leads to duplicated code - move to lowest appropriate layer

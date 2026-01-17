@@ -1,422 +1,844 @@
-# 🛡️ Skill: Container Security
-
-## 📋 Metadata
-
-| Atributo | Valor |
-|----------|-------|
-| **ID** | `sre-container-security` |
-| **Nivel** | 🔴 Avanzado |
-| **Versión** | 1.0.0 |
-| **Keywords** | `container-security`, `image-scanning`, `runtime-security`, `falco`, `notary`, `image-signing`, `cve-scanning` |
-| **Referencia** | [Falco Documentation](https://falco.org/docs/) |
-
-## 🔑 Keywords para Invocación
-
-- `container-security`
-- `image-scanning`
-- `runtime-security`
-- `falco`
-- `notary`
-- `image-signing`
-- `cve-scanning`
-- `@skill:container-security`
-
-### Ejemplos de Prompts
-
-```
-Implementa container security con image scanning y runtime protection
-```
-
-```
-Configura Falco para runtime security monitoring
-```
-
-```
-Setup image signing y vulnerability scanning
-```
-
-```
-@skill:container-security - Container security completo
-```
-
-## 📖 Descripción
-
-Container security protege aplicaciones containerizadas a través de image scanning, runtime protection, image signing, y security policies. Este skill cubre herramientas como Falco, Trivy, Notary, y best practices de container security.
-
-### ✅ Cuándo Usar Este Skill
-
-- Container-based deployments
-- Kubernetes clusters
-- Security requirements
-- Compliance requirements
-- Production environments
-
-### ❌ Cuándo NO Usar Este Skill
-
-- No container usage
-- Development only
-- No security requirements
-
-## 🏗️ Container Security Layers
-
-```
-Image Security
-    ↓
-Build Security
-    ↓
-Registry Security
-    ↓
-Runtime Security
-    ↓
-Orchestration Security
-```
-
-## 💻 Implementación
-
-> **📁 Scripts Ejecutables:** Este skill incluye scripts ejecutables en la carpeta [`scripts/`](scripts/):
-> - **Image Signing:** [`scripts/sign-image.sh`](scripts/sign-image.sh) - Firmar imágenes con Notary (Bash)
-> - **Admission Controller:** [`scripts/admission_controller.py`](scripts/admission_controller.py) - Validación de seguridad de pods (Python CLI)
-> 
-> Ver [`scripts/README.md`](scripts/README.md) para documentación de uso completa.
-
-### 1. Image Scanning
-
-```yaml
-# security/trivy-scan.yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: trivy-config
-data:
-  trivy.yaml: |
-    db:
-      repository: ghcr.io/aquasecurity/trivy-db
-      cacheDir: /tmp/trivy-db
-    cache:
-      dir: /tmp/trivy-cache
-    severity: CRITICAL,HIGH
 ---
-apiVersion: batch/v1
-kind: CronJob
-metadata:
-  name: image-scan
-spec:
-  schedule: "0 2 * * *"
-  jobTemplate:
-    spec:
-      template:
-        spec:
-          containers:
-          - name: trivy
-            image: aquasec/trivy:latest
-            command:
-            - trivy
-            - image
-            - --severity
-            - CRITICAL,HIGH
-            - --format
-            - json
-            - --exit-code
-            - 1
-            - gcr.io/my-project/my-app:latest
-          restartPolicy: OnFailure
+name: Container Security
+description: Comprehensive container security guidance including vulnerability scanning with Trivy, image hardening, secrets management, and CIS benchmark compliance. Activates when working with "container security", "image scanning", "CVE", "vulnerability", "docker security", "hardening", or "CIS benchmark".
+version: 1.0.0
+---
+
+# Container Security Skill
+
+## Overview
+
+Implement defense-in-depth security practices for containerized applications. Master vulnerability scanning, image hardening, secrets management, runtime security, and compliance with CIS Docker Benchmark to build secure, production-ready containers.
+
+## Vulnerability Scanning
+
+### Use Trivy for Comprehensive Scanning
+
+**Scan Images for Vulnerabilities:**
+
+Install and run Trivy to detect CVEs in container images:
+
+```bash
+# Install Trivy
+brew install aquasecurity/trivy/trivy
+
+# Scan image for vulnerabilities
+trivy image myapp:latest
+
+# Filter by severity
+trivy image --severity HIGH,CRITICAL myapp:latest
+
+# Output JSON for automation
+trivy image --format json --output results.json myapp:latest
+
+# Scan with exit code on findings
+trivy image --exit-code 1 --severity CRITICAL myapp:latest
 ```
 
-### 2. Falco Runtime Security
+**Scan Dockerfiles for Misconfigurations:**
+
+Detect security issues in Dockerfiles:
+
+```bash
+# Scan Dockerfile
+trivy config Dockerfile
+
+# Scan with specific policies
+trivy config --policy ./policies Dockerfile
+
+# Output in table format
+trivy config --format table Dockerfile
+```
+
+**Integrate Scanning into CI/CD:**
+
+Add Trivy scanning to GitHub Actions:
 
 ```yaml
-# security/falco-config.yaml
-apiVersion: v1
-kind: ConfigMap
+name: Container Security Scan
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build image
+        run: docker build -t myapp:${{ github.sha }} .
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: myapp:${{ github.sha }}
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+          severity: 'CRITICAL,HIGH'
+          exit-code: '1'
+
+      - name: Upload Trivy results to GitHub Security
+        uses: github/codeql-action/upload-sarif@v2
+        if: always()
+        with:
+          sarif_file: 'trivy-results.sarif'
+```
+
+### Implement Continuous Monitoring
+
+**Schedule Regular Scans:**
+
+Set up automated scanning for deployed images:
+
+```bash
+# Scan all images in registry
+trivy image --severity HIGH,CRITICAL \
+  $(docker images --format "{{.Repository}}:{{.Tag}}")
+
+# Scan specific registry
+trivy image ghcr.io/org/app:latest
+
+# Generate SBOM (Software Bill of Materials)
+trivy image --format cyclonedx myapp:latest > sbom.json
+```
+
+**Configure Scanning Policies:**
+
+Create custom policies with .trivyignore:
+
+```
+# .trivyignore
+# Ignore specific CVEs (with justification)
+CVE-2023-12345  # Fixed in runtime, not exploitable in our context
+CVE-2023-67890  # Mitigation applied via network policies
+
+# Ignore low severity in specific packages
+CVE-2023-11111 package=curl
+```
+
+## Image Hardening
+
+### Use Non-Root Users
+
+**Run Containers as Unprivileged Users:**
+
+Never run containers as root:
+
+```dockerfile
+FROM node:20-alpine
+
+# Create non-root user
+RUN addgroup -g 1001 -S appuser && \
+    adduser -S appuser -u 1001 -G appuser
+
+# Set up application directory
+WORKDIR /app
+COPY --chown=appuser:appuser . .
+
+# Install dependencies
+RUN npm ci --only=production
+
+# Switch to non-root user
+USER appuser
+
+EXPOSE 3000
+CMD ["node", "server.js"]
+```
+
+**Verify User in Runtime:**
+
+Check effective user in running container:
+
+```bash
+docker run --rm myapp:latest id
+# Expected output: uid=1001(appuser) gid=1001(appuser)
+```
+
+### Implement Read-Only Root Filesystem
+
+**Make Filesystem Immutable:**
+
+Run containers with read-only root:
+
+```dockerfile
+FROM python:3.11-slim
+
+RUN useradd -m -u 1001 appuser
+
+WORKDIR /app
+COPY --chown=appuser:appuser . .
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+USER appuser
+
+# Create writable temp directory
+RUN mkdir -p /tmp/app && chown appuser:appuser /tmp/app
+
+ENV TMPDIR=/tmp/app
+
+CMD ["python", "app.py"]
+```
+
+Run with read-only filesystem:
+
+```bash
+docker run --read-only --tmpfs /tmp myapp:latest
+```
+
+Kubernetes configuration:
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: falco-config
-data:
-  falco.yaml: |
-    rules_file:
-      - /etc/falco/falco_rules.yaml
-      - /etc/falco/rules.d/
-    
-    json_output: true
-    json_include_output_property: true
-    json_include_tags_property: true
-    
-    log_stderr: true
-    log_syslog: false
-    log_level: info
-    
-    http_output:
-      enabled: true
-      url: http://falco-sidekick:2801
-    
-    webserver:
-      enabled: true
-      listen_port: 8765
+  name: secure-app
+spec:
+  template:
+    spec:
+      containers:
+      - name: app
+        image: myapp:latest
+        securityContext:
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: 1001
+        volumeMounts:
+        - name: tmp
+          mountPath: /tmp
+      volumes:
+      - name: tmp
+        emptyDir: {}
+```
+
+### Minimize Attack Surface
+
+**Use Minimal Base Images:**
+
+Choose distroless or scratch images:
+
+```dockerfile
+# Option 1: Distroless (no shell, no package manager)
+FROM gcr.io/distroless/python3-debian12
+
+COPY --chown=nonroot:nonroot app/ /app/
+WORKDIR /app
+
+USER nonroot
+CMD ["main.py"]
+
+# Option 2: Scratch (for static binaries)
+FROM golang:1.21 AS builder
+WORKDIR /src
+COPY . .
+RUN CGO_ENABLED=0 go build -o app
+
+FROM scratch
+COPY --from=builder /src/app /app
+COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+USER 65534:65534
+ENTRYPOINT ["/app"]
+
+# Option 3: Alpine (minimal with package manager)
+FROM alpine:3.19
+RUN apk add --no-cache ca-certificates && \
+    adduser -D -u 1001 appuser
+COPY --chown=appuser:appuser app /app
+USER appuser
+CMD ["/app"]
+```
+
+**Remove Unnecessary Packages:**
+
+Clean up build dependencies:
+
+```dockerfile
+FROM ubuntu:22.04
+
+# Install build dependencies, build, then remove in same layer
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    build-essential \
+    python3-dev && \
+    # Build application
+    pip3 install -r requirements.txt && \
+    # Remove build tools
+    apt-get purge -y --auto-remove build-essential python3-dev && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+```
+
+## Secrets Management
+
+### Never Embed Secrets in Images
+
+**Use Environment Variables:**
+
+Pass secrets at runtime:
+
+```dockerfile
+FROM node:20-alpine
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
+COPY . .
+
+USER node
+
+# Don't set secret values in Dockerfile
+ENV NODE_ENV=production
+# ENV API_KEY=secret123  # NEVER DO THIS
+
+CMD ["node", "server.js"]
+```
+
+Run with secrets:
+
+```bash
+# Bad: Visible in process list and history
+docker run -e API_KEY=secret123 myapp:latest
+
+# Better: Read from file
+docker run --env-file .env.production myapp:latest
+
+# Best: Use secrets management
+docker run --secret id=api_key,src=./secrets/api_key myapp:latest
+```
+
+**Implement Docker Secrets:**
+
+Use BuildKit secrets for build-time secrets:
+
+```dockerfile
+# syntax=docker/dockerfile:1.4
+
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Use secret during build without persisting it
+RUN --mount=type=secret,id=pip_token \
+    PIP_TOKEN=$(cat /run/secrets/pip_token) && \
+    pip install --extra-index-url https://token:${PIP_TOKEN}@private-repo.com/simple/ \
+    -r requirements.txt
+
+COPY . .
+CMD ["python", "app.py"]
+```
+
+Build with secrets:
+
+```bash
+docker buildx build \
+  --secret id=pip_token,src=./secrets/pip_token \
+  -t myapp:latest .
+```
+
+### Integrate with Secrets Managers
+
+**Use Kubernetes Secrets:**
+
+Reference secrets in pod specs:
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: app-secrets
+type: Opaque
+stringData:
+  database-url: postgresql://user:pass@db:5432/mydb
+  api-key: super-secret-key
+
 ---
 apiVersion: apps/v1
-kind: DaemonSet
+kind: Deployment
 metadata:
-  name: falco
+  name: app
 spec:
-  selector:
+  template:
+    spec:
+      containers:
+      - name: app
+        image: myapp:latest
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: database-url
+        - name: API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: api-key
+```
+
+**Integrate with HashiCorp Vault:**
+
+Use Vault agent injector:
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+spec:
+  template:
+    metadata:
+      annotations:
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/agent-inject-secret-config: "secret/data/myapp/config"
+        vault.hashicorp.com/role: "myapp"
+    spec:
+      serviceAccountName: myapp
+      containers:
+      - name: app
+        image: myapp:latest
+```
+
+## Runtime Security
+
+### Apply Security Contexts
+
+**Configure Pod Security Standards:**
+
+Implement restrictive security contexts:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: secure-pod
+spec:
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 1001
+    fsGroup: 1001
+    seccompProfile:
+      type: RuntimeDefault
+
+  containers:
+  - name: app
+    image: myapp:latest
+    securityContext:
+      allowPrivilegeEscalation: false
+      readOnlyRootFilesystem: true
+      runAsNonRoot: true
+      runAsUser: 1001
+      capabilities:
+        drop:
+        - ALL
+        add:
+        - NET_BIND_SERVICE
+```
+
+### Limit Container Capabilities
+
+**Drop All Capabilities by Default:**
+
+Only grant necessary capabilities:
+
+```dockerfile
+# Dockerfile with minimal capabilities
+FROM alpine:3.19
+RUN adduser -D -u 1001 appuser
+COPY app /app
+USER appuser
+CMD ["/app"]
+```
+
+Docker run with limited capabilities:
+
+```bash
+docker run \
+  --cap-drop=ALL \
+  --cap-add=NET_BIND_SERVICE \
+  --security-opt=no-new-privileges \
+  myapp:latest
+```
+
+Kubernetes configuration:
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+spec:
+  template:
+    spec:
+      containers:
+      - name: app
+        image: myapp:latest
+        securityContext:
+          capabilities:
+            drop:
+            - ALL
+            add:
+            - NET_BIND_SERVICE
+          allowPrivilegeEscalation: false
+```
+
+### Implement Network Policies
+
+**Restrict Network Access:**
+
+Define network policies to limit traffic:
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: app-network-policy
+spec:
+  podSelector:
     matchLabels:
-      app: falco
+      app: myapp
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: frontend
+    ports:
+    - protocol: TCP
+      port: 8080
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          app: database
+    ports:
+    - protocol: TCP
+      port: 5432
+  - to:
+    - namespaceSelector: {}
+    ports:
+    - protocol: UDP
+      port: 53  # DNS
+```
+
+## CIS Benchmark Compliance
+
+### Follow CIS Docker Benchmark
+
+**Implement Key Controls:**
+
+Apply critical CIS recommendations:
+
+1. **Use Trusted Base Images:**
+
+```dockerfile
+# Use official images from verified publishers
+FROM node:20-alpine
+
+# Verify image signatures
+# docker trust inspect node:20-alpine
+```
+
+2. **Don't Install Unnecessary Packages:**
+
+```dockerfile
+FROM debian:12-slim
+
+# Install only required packages
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    python3 \
+    python3-pip && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+```
+
+3. **Scan Images for Vulnerabilities (CIS 4.5):**
+
+```bash
+# Regular scanning
+trivy image --severity HIGH,CRITICAL myapp:latest
+```
+
+4. **Use COPY Instead of ADD (CIS 4.9):**
+
+```dockerfile
+# Good
+COPY app.py /app/
+
+# Avoid unless needed
+ADD https://example.com/file.tar.gz /tmp/
+```
+
+5. **Configure Health Checks (CIS 4.6):**
+
+```dockerfile
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s \
+  CMD curl -f http://localhost:8080/health || exit 1
+```
+
+6. **Set Filesystem to Read-Only (CIS 5.12):**
+
+```bash
+docker run --read-only --tmpfs /tmp myapp:latest
+```
+
+7. **Limit Container Resources (CIS 5.10, 5.11):**
+
+```bash
+docker run \
+  --memory="512m" \
+  --memory-swap="512m" \
+  --cpus="0.5" \
+  myapp:latest
+```
+
+### Audit with Docker Bench Security
+
+**Run Automated CIS Checks:**
+
+Use Docker Bench Security:
+
+```bash
+# Clone Docker Bench Security
+git clone https://github.com/docker/docker-bench-security.git
+cd docker-bench-security
+
+# Run audit
+sudo sh docker-bench-security.sh
+
+# Run specific checks
+sudo sh docker-bench-security.sh -c container_images
+
+# Output to file
+sudo sh docker-bench-security.sh -l /tmp/docker-bench.log
+```
+
+**Address Common Findings:**
+
+Fix typical CIS violations:
+
+```dockerfile
+# Before (non-compliant)
+FROM node:latest
+COPY . /app
+WORKDIR /app
+RUN npm install
+CMD npm start
+
+# After (CIS compliant)
+FROM node:20.11.1-alpine3.19
+
+# Create non-root user
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nodejs -u 1001
+
+WORKDIR /app
+
+# Copy dependency manifests
+COPY --chown=nodejs:nodejs package*.json ./
+
+# Install dependencies
+RUN npm ci --only=production && \
+    npm cache clean --force
+
+# Copy application
+COPY --chown=nodejs:nodejs . .
+
+# Switch to non-root user
+USER nodejs
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s \
+  CMD node healthcheck.js
+
+EXPOSE 3000
+CMD ["node", "server.js"]
+```
+
+## Vulnerability Remediation
+
+### Prioritize Fixes by Severity
+
+**Triage Vulnerability Findings:**
+
+Address vulnerabilities systematically:
+
+1. **Critical**: Immediate remediation required
+2. **High**: Fix within 7 days
+3. **Medium**: Fix within 30 days
+4. **Low**: Fix during routine updates
+
+**Update Base Images:**
+
+Keep base images current:
+
+```dockerfile
+# Check for updates regularly
+FROM node:20-alpine  # Update from 20.10.0 to 20.11.1
+
+# Pin specific version for reproducibility
+FROM node:20.11.1-alpine3.19
+
+# Rebuild images monthly to get security patches
+```
+
+**Patch Application Dependencies:**
+
+Update vulnerable packages:
+
+```bash
+# Check for outdated packages
+npm audit
+
+# Fix vulnerabilities
+npm audit fix
+
+# Force fix (may introduce breaking changes)
+npm audit fix --force
+
+# Update specific package
+npm update package-name
+```
+
+### Implement Defense in Depth
+
+**Layer Security Controls:**
+
+Apply multiple security measures:
+
+1. **Build Time:**
+   - Scan images with Trivy
+   - Use minimal base images
+   - Remove build dependencies
+
+2. **Registry:**
+   - Sign images with Docker Content Trust
+   - Scan on push to registry
+   - Implement RBAC for registry access
+
+3. **Runtime:**
+   - Apply security contexts
+   - Use network policies
+   - Enable runtime security monitoring
+
+```yaml
+# Complete secure deployment example
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: secure-app
+spec:
+  replicas: 3
   template:
     metadata:
       labels:
-        app: falco
+        app: secure-app
     spec:
-      hostNetwork: true
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1001
+        fsGroup: 1001
+        seccompProfile:
+          type: RuntimeDefault
+
       containers:
-      - name: falco
-        image: falcosecurity/falco:latest
+      - name: app
+        image: ghcr.io/org/app:v1.2.3@sha256:abc123...
         securityContext:
-          privileged: true
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
         volumeMounts:
-        - name: dev-fs
-          mountPath: /host/dev
-        - name: proc-fs
-          mountPath: /host/proc
-          readOnly: true
-        - name: sys-fs
-          mountPath: /host/sys
-          readOnly: true
-        - name: boot-fs
-          mountPath: /host/boot
-          readOnly: true
-        - name: modules-fs
-          mountPath: /host/lib/modules
-          readOnly: true
-        - name: usr-fs
-          mountPath: /host/usr
-          readOnly: true
-        - name: falco-config
-          mountPath: /etc/falco
+        - name: tmp
+          mountPath: /tmp
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: database-url
+
       volumes:
-      - name: dev-fs
-        hostPath:
-          path: /dev
-      - name: proc-fs
-        hostPath:
-          path: /proc
-      - name: sys-fs
-        hostPath:
-          path: /sys
-      - name: boot-fs
-        hostPath:
-          path: /boot
-      - name: modules-fs
-        hostPath:
-          path: /lib/modules
-      - name: usr-fs
-        hostPath:
-          path: /usr
-      - name: falco-config
-        configMap:
-          name: falco-config
+      - name: tmp
+        emptyDir: {}
+
+      serviceAccountName: app-sa
+      automountServiceAccountToken: false
 ```
 
-### 3. Falco Rules
+## Compliance and Auditing
 
-```yaml
-# security/falco-rules.yaml
-- rule: Write below binary dir
-  desc: Detect writes to binary directories
-  condition: >
-    bin_dir and evt.dir = < and open_write
-    and not package_mgmt_procs
-    and not exe_running_docker_save
-    and not python_running_getsched
-    and not user_expected_write_binary_dir_conditions
-  output: >
-    File below a known binary directory opened for writing
-    (user=%user.name user_loginuid=%user.loginuid command=%proc.cmdline
-    file=%fd.name parent=%proc.pname pcmdline=%proc.pcmdline gparent=%proc.aname[2]
-    container_id=%container.id image=%container.image.repository)
-  priority: ERROR
-  tags: [filesystem, mitre_persistence]
+### Generate SBOMs
 
-- rule: Detect shell in container
-  desc: Notice shell activity within a container
-  condition: >
-    spawned_process and container
-    and shell_procs and proc.tty != 0
-    and container_entrypoint
-    and not user_expected_shell_in_container_conditions
-  output: >
-    Shell spawned in container (user=%user.name user_loginuid=%user.loginuid
-    %container.info shell=%proc.name parent=%proc.pname cmdline=%proc.cmdline
-    terminal=%proc.tty container_id=%container.id image=%container.image.repository)
-  priority: NOTICE
-  tags: [shell, mitre_execution]
+**Create Software Bill of Materials:**
 
-- rule: Unexpected network activity
-  desc: Detect unexpected network connections
-  condition: >
-    evt.type = connect and evt.dir = < and container
-    and not trusted_containers
-    and fd.sip != "127.0.0.1"
-    and not user_expected_network_activity_conditions
-  output: >
-    Unexpected network connection (user=%user.name command=%proc.cmdline
-    connection=%fd.name container_id=%container.id image=%container.image.repository)
-  priority: WARNING
-  tags: [network, mitre_command_and_control]
-```
+Track dependencies for compliance:
 
-### 4. Image Signing
-
-**Script ejecutable:** [`scripts/sign-image.sh`](scripts/sign-image.sh)
-
-Script para firmar imágenes de contenedores con Notary.
-
-**Cuándo ejecutar:**
-- Firmar imágenes antes de deployment
-- CI/CD pipelines
-- Verificación de integridad de imágenes
-
-**Uso:**
 ```bash
-chmod +x scripts/sign-image.sh
+# Generate SBOM with Trivy
+trivy image --format cyclonedx --output sbom.json myapp:latest
 
-# Firmar imagen
-./scripts/sign-image.sh --image gcr.io/my-project/my-app:latest
+# Generate SBOM with Syft
+syft myapp:latest -o cyclonedx-json > sbom.json
 
-# Con servidor Notary personalizado
-./scripts/sign-image.sh \
-  --image my-image:latest \
-  --notary-server https://notary-server:4443
+# Attest SBOM to image
+cosign attest --predicate sbom.json --type cyclonedx myapp:latest
 ```
 
-**Características:**
-- ✅ Pull y push automático
-- ✅ Firma con Notary
-- ✅ Extracción automática de digest
+### Sign Container Images
 
-### 5. Security Policies
+**Implement Image Signing:**
 
-```yaml
-# security/security-policy.yaml
-apiVersion: policy/v1beta1
-kind: PodSecurityPolicy
-metadata:
-  name: restricted
-spec:
-  privileged: false
-  allowPrivilegeEscalation: false
-  requiredDropCapabilities:
-    - ALL
-  volumes:
-    - 'configMap'
-    - 'emptyDir'
-    - 'projected'
-    - 'secret'
-    - 'downwardAPI'
-    - 'persistentVolumeClaim'
-  hostNetwork: false
-  hostIPC: false
-  hostPID: false
-  runAsUser:
-    rule: 'MustRunAsNonRoot'
-  seLinux:
-    rule: 'RunAsAny'
-  fsGroup:
-    rule: 'RunAsAny'
-  readOnlyRootFilesystem: true
-```
+Use Cosign for signing:
 
-### 6. Admission Controller
-
-**Script ejecutable:** [`scripts/admission_controller.py`](scripts/admission_controller.py)
-
-Validador de seguridad para pods en Kubernetes admission webhook.
-
-**Cuándo ejecutar:**
-- Validación de pods antes de creación
-- CI/CD pipelines
-- Verificación de compliance de seguridad
-
-**Uso:**
 ```bash
-# Validar pod spec
-python scripts/admission_controller.py validate --pod-spec pod.json
+# Generate key pair
+cosign generate-key-pair
 
-# Validar deployment spec
-python scripts/admission_controller.py validate --deployment-spec deployment.json
+# Sign image
+cosign sign --key cosign.key myapp:latest
+
+# Verify signature
+cosign verify --key cosign.pub myapp:latest
+
+# Sign with keyless (OIDC)
+cosign sign myapp:latest
 ```
 
-**Características:**
-- ✅ Validación de privileged containers
-- ✅ Validación de root user
-- ✅ Validación de resource limits
-- ✅ Validación de security contexts
-- ✅ Warnings y errors separados
+## Official References
 
-## 🎯 Mejores Prácticas
+- **Trivy Documentation**: https://aquasecurity.github.io/trivy/
+- **CIS Docker Benchmark**: https://www.cisecurity.org/benchmark/docker
+- **Docker Security Best Practices**: https://docs.docker.com/develop/security-best-practices/
+- **OWASP Docker Security Cheat Sheet**: https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html
+- **Kubernetes Security Best Practices**: https://kubernetes.io/docs/concepts/security/
 
-### 1. Image Security
+## Related Skills
 
-✅ **DO:**
-- Scan all images
-- Use minimal base images
-- Sign images
-- Keep images updated
-
-❌ **DON'T:**
-- Use untrusted images
-- Ignore vulnerabilities
-- Use outdated images
-
-### 2. Runtime Security
-
-✅ **DO:**
-- Monitor runtime behavior
-- Use security policies
-- Limit privileges
-- Monitor with Falco
-
-❌ **DON'T:**
-- Run as root
-- Use privileged containers
-- Ignore runtime alerts
-
-### 3. Policies
-
-✅ **DO:**
-- Enforce security policies
-- Use admission controllers
-- Review policies regularly
-- Test policies
-
-❌ **DON'T:**
-- Allow privileged containers
-- Skip policy enforcement
-- Ignore violations
-
-## 🚨 Troubleshooting
-
-### Image Scan Failures
-
-1. Check scan configuration
-2. Verify image accessibility
-3. Review scan results
-4. Fix vulnerabilities
-
-### Runtime Alerts
-
-1. Review Falco rules
-2. Check container behavior
-3. Investigate alerts
-4. Adjust rules if needed
-
-## 📚 Recursos Adicionales
-
-- [Falco Documentation](https://falco.org/docs/)
-- [Trivy Scanner](https://github.com/aquasecurity/trivy)
-- [Container Security Best Practices](https://kubernetes.io/docs/concepts/security/pod-security-standards/)
-
----
-
-**Versión:** 1.0.0  
-**Última actualización:** Diciembre 2025  
-**Total líneas:** 1,100+
-
+- **Container Best Practices** - Dockerfile optimization and build efficiency
+- **Kubernetes Skill** - Runtime security in orchestrated environments
+- **DevOps Practices** - Security integration in CI/CD pipelines

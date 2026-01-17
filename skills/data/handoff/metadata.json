@@ -1,7 +1,7 @@
 {
   "name": "handoff",
-  "repo": "web3dev1337/gastown-private",
-  "path": ".claude/skills/handoff/SKILL.md",
-  "source": "github.com/web3dev1337/gastown-private",
-  "downloaded_at": "2026-01-14T04:08:36.846573Z"
+  "repo": "robertguss/claude-code-toolkit",
+  "path": "skills/handoff/SKILL.md",
+  "source": "github.com/robertguss/claude-code-toolkit",
+  "downloaded_at": "2026-01-17T04:03:51.522784Z"
 }

@@ -1,275 +1,382 @@
 ---
-name: testing-strategies
-description: Comprehensive testing strategies with Vitest, Jest, and Testing Library
-license: MIT
-compatibility: vitest 1+, jest 29+, testing-library/react 14+
-allowed-tools: read_file write_file apply_patch search_with_context run_command
+name: [PROJECT]-testing-strategies
+description: [PROJECT] testing patterns and quality assurance strategies
+globs: ["**/*.{test,spec}.{ts,js,java,py,rb}", "**/test/**/*", "**/tests/**/*"]
 ---
 
 # Testing Strategies
 
-## Testing Pyramid
+> **Template for project-specific testing strategies skill**
+> Fill in [CUSTOMIZE] sections with your project's testing stack and patterns
 
+**Project**: [PROJECT NAME]
+**Last Updated**: [DATE]
+
+---
+
+## Testing Philosophy
+
+**Coverage Target**: [CUSTOMIZE: 80% / 85% / 90%]
+
+**Testing Pyramid**:
 ```
+[CUSTOMIZE: Adjust ratios for your project]
+
         /\
-       /  \      E2E Tests (few)
-      /----\     Integration Tests (some)
-     /      \    Unit Tests (many)
-    /________\
+       /E2E\      <- [5-10%] Critical flows
+      /------\
+     /Integr.\   <- [20%] API endpoints, DB
+    /----------\
+   /   Unit     \ <- [70%] Functions, components
+  /--------------\
 ```
 
-1. **Unit Tests** - Test isolated functions/components
-2. **Integration Tests** - Test modules working together
-3. **E2E Tests** - Test full user flows
+---
 
-## Vitest Configuration
+## Unit Testing (Backend)
 
-```typescript
-// vitest.config.ts
-import { defineConfig } from 'vitest/config';
+### Framework
 
-export default defineConfig({
-  test: {
-    globals: true,
-    environment: 'jsdom',
-    setupFiles: ['./tests/setup.ts'],
-    coverage: {
-      reporter: ['text', 'json', 'html'],
-      exclude: ['node_modules/', 'tests/'],
-    },
-  },
-});
+**Test Framework**: [CUSTOMIZE: JUnit 5 / Jest / Pytest / RSpec / Go testing]
+
+**Mocking Library**: [CUSTOMIZE: Mockito / sinon / unittest.mock / RSpec mocks / gomock]
+
+**Assertion Library**: [CUSTOMIZE: JUnit assertions / expect / assert / should]
+
+### Test Structure
+
+**Pattern**: [CUSTOMIZE: AAA / Given-When-Then / Arrange-Act-Assert]
+
+**Example - Service Test**:
+```[language]
+[CUSTOMIZE: Show service unit test pattern]
+
+Examples:
+- JUnit 5:
+  @Test
+  void getUserById_ExistingId_ReturnsUser() {
+    // Arrange
+    when(repository.findById(1L)).thenReturn(Optional.of(user));
+    // Act
+    UserDTO result = service.getUserById(1L);
+    // Assert
+    assertEquals("John", result.name());
+  }
+
+- Jest:
+  it('getUserById returns user when exists', async () => {
+    repository.findById.mockResolvedValue(user)
+    const result = await service.getUserById(1)
+    expect(result.name).toBe('John')
+  })
 ```
 
-## Unit Testing Functions
+### What to Test
 
-```typescript
-// utils/format.ts
-export function formatCurrency(amount: number, currency = 'USD'): string {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency,
-  }).format(amount);
-}
+**Service Layer**:
+- [ ] Happy path (successful operations)
+- [ ] Error cases (not found, validation errors)
+- [ ] Business rule validations
+- [ ] Edge cases (null, empty, boundary values)
+- [ ] [PROJECT-SPECIFIC REQUIREMENT]
 
-// utils/format.test.ts
-import { describe, it, expect } from 'vitest';
-import { formatCurrency } from './format';
+**Repository Layer**:
+- [ ] Custom query methods
+- [ ] [Only if complex logic, otherwise integration test]
 
-describe('formatCurrency', () => {
-  it('formats USD by default', () => {
-    expect(formatCurrency(1234.56)).toBe('$1,234.56');
-  });
+---
 
-  it('handles zero', () => {
-    expect(formatCurrency(0)).toBe('$0.00');
-  });
+## Unit Testing (Frontend)
 
-  it('supports other currencies', () => {
-    expect(formatCurrency(1000, 'EUR')).toBe('€1,000.00');
-  });
+### Framework
 
-  it('handles negative amounts', () => {
-    expect(formatCurrency(-50)).toBe('-$50.00');
-  });
-});
+**Test Framework**: [CUSTOMIZE: Jest / Vitest / Jasmine/Karma]
+
+**Component Testing**: [CUSTOMIZE: React Testing Library / Angular Testing Library / Vue Test Utils]
+
+**User Interaction**: [CUSTOMIZE: @testing-library/user-event / Jasmine click() / @testing-library/vue]
+
+### Test Pattern
+
+**Philosophy**: [CUSTOMIZE: Test user behavior / Test implementation / Test contracts]
+
+**Example - Component Test**:
+```[language]
+[CUSTOMIZE: Show component test pattern]
+
+Examples:
+- React Testing Library:
+  it('renders user list and handles click', async () => {
+    render(<UserList users={mockUsers} onSelect={mockFn} />)
+    await userEvent.click(screen.getByText('John'))
+    expect(mockFn).toHaveBeenCalledWith(mockUsers[0])
+  })
 ```
 
-## React Component Testing
+### What to Test
 
-```typescript
-// Button.tsx
-interface ButtonProps {
-  onClick: () => void;
-  disabled?: boolean;
-  children: React.ReactNode;
-}
+**Components**:
+- [ ] Renders with props
+- [ ] Loading state displays
+- [ ] Error state displays
+- [ ] Empty state displays
+- [ ] User interactions (clicks, typing, navigation)
+- [ ] Callbacks invoked correctly
+- [ ] [PROJECT-SPECIFIC REQUIREMENT]
 
-export function Button({ onClick, disabled, children }: ButtonProps) {
-  return (
-    <button onClick={onClick} disabled={disabled}>
-      {children}
-    </button>
-  );
-}
+---
 
-// Button.test.tsx
-import { render, screen, fireEvent } from '@testing-library/react';
-import { vi, describe, it, expect } from 'vitest';
-import { Button } from './Button';
+## Integration Testing
 
-describe('Button', () => {
-  it('renders children', () => {
-    render(<Button onClick={() => {}}>Click me</Button>);
-    expect(screen.getByText('Click me')).toBeInTheDocument();
-  });
+### Backend Integration Tests
 
-  it('calls onClick when clicked', () => {
-    const handleClick = vi.fn();
-    render(<Button onClick={handleClick}>Click</Button>);
-    fireEvent.click(screen.getByRole('button'));
-    expect(handleClick).toHaveBeenCalledTimes(1);
-  });
+**Framework**: [CUSTOMIZE: Spring Test / Supertest / TestClient / request specs]
 
-  it('does not call onClick when disabled', () => {
-    const handleClick = vi.fn();
-    render(<Button onClick={handleClick} disabled>Click</Button>);
-    fireEvent.click(screen.getByRole('button'));
-    expect(handleClick).not.toHaveBeenCalled();
-  });
-});
+**Database**: [CUSTOMIZE: TestContainers / In-memory H2 / Rollback / Test database]
+
+**Example - API Endpoint Test**:
+```[language]
+[CUSTOMIZE: Show API integration test]
+
+Examples:
+- Spring Boot:
+  @Test
+  void createUser_ValidData_Returns201() {
+    ResponseEntity<UserDTO> response = restTemplate.postForEntity(
+      "/api/users", request, UserDTO.class
+    );
+    assertEquals(HttpStatus.CREATED, response.getStatusCode());
+  }
+
+- Supertest:
+  it('POST /api/users creates user', async () => {
+    const res = await request(app).post('/api/users').send(data)
+    expect(res.status).toBe(201)
+  })
 ```
 
-## Testing Hooks
+### What to Test
 
-```typescript
-// useCounter.ts
-import { useState, useCallback } from 'react';
+**API Endpoints**:
+- [ ] All CRUD operations (GET, POST, PUT, DELETE)
+- [ ] Success cases (200, 201, 204)
+- [ ] Error cases (400, 404, 409, 500)
+- [ ] Validation errors
+- [ ] Authentication/Authorization (if applicable)
+- [ ] [PROJECT-SPECIFIC ENDPOINT]
 
-export function useCounter(initial = 0) {
-  const [count, setCount] = useState(initial);
-  const increment = useCallback(() => setCount(c => c + 1), []);
-  const decrement = useCallback(() => setCount(c => c - 1), []);
-  const reset = useCallback(() => setCount(initial), [initial]);
-  return { count, increment, decrement, reset };
-}
+---
 
-// useCounter.test.ts
-import { renderHook, act } from '@testing-library/react';
-import { useCounter } from './useCounter';
+## E2E Testing
 
-describe('useCounter', () => {
-  it('starts with initial value', () => {
-    const { result } = renderHook(() => useCounter(5));
-    expect(result.current.count).toBe(5);
-  });
+### Framework
 
-  it('increments count', () => {
-    const { result } = renderHook(() => useCounter());
-    act(() => result.current.increment());
-    expect(result.current.count).toBe(1);
-  });
+**E2E Framework**: [CUSTOMIZE: Playwright / Cypress / Selenium / Puppeteer]
 
-  it('resets to initial value', () => {
-    const { result } = renderHook(() => useCounter(10));
-    act(() => {
-      result.current.increment();
-      result.current.reset();
-    });
-    expect(result.current.count).toBe(10);
-  });
-});
+**Browser Coverage**: [CUSTOMIZE: Chrome / Chrome + Firefox + Safari / Chrome only]
+
+### Test Pattern
+
+**Organization**: [CUSTOMIZE: Page Object Model / Direct interaction / Custom abstraction]
+
+**Example - E2E Test**:
+```[language]
+[CUSTOMIZE: Show E2E test pattern]
+
+Examples:
+- Playwright:
+  test('user can create account', async ({ page }) => {
+    await page.goto('/signup')
+    await page.fill('[name="email"]', 'test@example.com')
+    await page.fill('[name="password"]', 'password123')
+    await page.click('button:has-text("Sign Up")')
+    await expect(page.locator('text=Welcome')).toBeVisible()
+  })
 ```
 
-## Mocking
+### Critical Flows
 
-```typescript
-// API mocking
-import { vi } from 'vitest';
+**[CUSTOMIZE - LIST PROJECT CRITICAL FLOWS]**
 
-vi.mock('./api', () => ({
-  fetchUser: vi.fn().mockResolvedValue({ id: 1, name: 'Test' }),
-}));
+1. **[Flow Name]**: [Description]
+   - Start: [Where user starts]
+   - Actions: [Key steps]
+   - Success: [Expected result]
 
-// Module mocking
-vi.mock('next/navigation', () => ({
-  useRouter: () => ({
-    push: vi.fn(),
-    replace: vi.fn(),
-  }),
-}));
+2. **[Flow Name]**: [Description]
 
-// Timer mocking
-vi.useFakeTimers();
-vi.advanceTimersByTime(1000);
-vi.useRealTimers();
+---
+
+## Test Data Management
+
+### Fixtures / Seeds
+
+**Location**: [CUSTOMIZE: src/test/resources / tests/fixtures / test/fixtures]
+
+**Format**: [CUSTOMIZE: JSON / YAML / SQL / Code]
+
+**Example**:
+```[format]
+[CUSTOMIZE: Show test data structure]
 ```
 
-## Async Testing
+### Database State
 
-```typescript
-import { waitFor, screen } from '@testing-library/react';
+**Strategy**: [CUSTOMIZE: Rollback / Clean + Seed / Snapshot + Restore]
 
-it('loads and displays user', async () => {
-  render(<UserProfile userId="123" />);
-
-  // Wait for loading to complete
-  await waitFor(() => {
-    expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
-  });
-
-  expect(screen.getByText('John Doe')).toBeInTheDocument();
-});
-
-it('handles error state', async () => {
-  vi.mocked(fetchUser).mockRejectedValueOnce(new Error('Not found'));
-
-  render(<UserProfile userId="invalid" />);
-
-  await waitFor(() => {
-    expect(screen.getByRole('alert')).toHaveTextContent('Error loading user');
-  });
-});
+**Example**:
+```[language]
+[CUSTOMIZE: Show database setup/teardown]
 ```
 
-## Integration Testing APIs
+---
 
-```typescript
-import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import request from 'supertest';
-import { app } from '../src/app';
-import { db } from '../src/db';
+## Mocking Strategy
 
-describe('POST /api/users', () => {
-  beforeAll(async () => {
-    await db.migrate.latest();
-  });
+### When to Mock
 
-  afterAll(async () => {
-    await db.destroy();
-  });
+**[CUSTOMIZE WITH PROJECT GUIDELINES]**
 
-  it('creates a new user', async () => {
-    const response = await request(app)
-      .post('/api/users')
-      .send({ email: 'test@example.com', name: 'Test User' })
-      .expect(201);
+**Always Mock**:
+- [ ] External APIs (third-party services)
+- [ ] File system operations
+- [ ] Time-dependent functions
+- [ ] [PROJECT-SPECIFIC]
 
-    expect(response.body.data).toMatchObject({
-      email: 'test@example.com',
-      name: 'Test User',
-    });
-  });
+**Never Mock** (use real):
+- [ ] Internal services (integration test)
+- [ ] Database (use test database)
+- [ ] [PROJECT-SPECIFIC]
 
-  it('returns 400 for invalid email', async () => {
-    const response = await request(app)
-      .post('/api/users')
-      .send({ email: 'invalid', name: 'Test' })
-      .expect(400);
+### Mock Patterns
 
-    expect(response.body.error.code).toBe('VALIDATION_ERROR');
-  });
-});
+**Backend**:
+```[language]
+[CUSTOMIZE: Show mocking pattern]
+
+Examples:
+- Mockito: when(service.getUser()).thenReturn(user)
+- Jest: service.getUser = jest.fn().mockResolvedValue(user)
 ```
 
-## Test Organization
-
-```
-tests/
-├── unit/           # Pure function tests
-├── integration/    # API/DB tests
-├── e2e/            # Full flow tests
-├── fixtures/       # Test data
-├── mocks/          # Mock implementations
-└── setup.ts        # Global test setup
+**Frontend API Mocking**:
+```[language]
+[CUSTOMIZE: MSW / nock / HttpClientTestingModule / fetch-mock]
 ```
 
-## Best Practices
+---
 
-1. **Follow AAA pattern** - Arrange, Act, Assert
-2. **One assertion per test** when possible
-3. **Test behavior, not implementation**
-4. **Use descriptive test names** that explain the scenario
-5. **Keep tests isolated** - no shared state
-6. **Mock external dependencies** but not the code under test
-7. **Aim for 80%+ coverage** but prioritize critical paths
+## Coverage Requirements
+
+### Targets
+
+**Overall**: [CUSTOMIZE: 80% / 85% / 90%]
+
+**Per Component Type**:
+- Services/Business Logic: [CUSTOMIZE: 90%+]
+- Controllers/Routes: [CUSTOMIZE: 80%+]
+- Components: [CUSTOMIZE: 80%+]
+- Utils: [CUSTOMIZE: 90%+]
+
+### What NOT to Cover
+
+**[CUSTOMIZE - AREAS TO SKIP]**
+
+Skip coverage for:
+- [ ] Generated code (if any)
+- [ ] Third-party integrations (mock instead)
+- [ ] Simple getters/setters (if trivial)
+- [ ] [PROJECT-SPECIFIC SKIP]
+
+---
+
+## Test Execution
+
+### Commands
+
+**Backend Unit Tests**:
+```bash
+[CUSTOMIZE: mvn test / npm test / pytest / rspec / go test]
+```
+
+**Frontend Unit Tests**:
+```bash
+[CUSTOMIZE: npm test / ng test / vitest]
+```
+
+**Integration Tests**:
+```bash
+[CUSTOMIZE: mvn verify / npm run test:integration / pytest tests/integration]
+```
+
+**E2E Tests**:
+```bash
+[CUSTOMIZE: npx playwright test / npm run e2e / cypress run]
+```
+
+**Coverage Report**:
+```bash
+[CUSTOMIZE: mvn jacoco:report / npm run test:coverage / pytest --cov]
+```
+
+---
+
+## Quality Gates
+
+**[CUSTOMIZE WITH PROJECT GATES]**
+
+Before deployment:
+- [ ] All unit tests pass
+- [ ] All integration tests pass
+- [ ] All E2E tests pass (critical flows)
+- [ ] Coverage >= [80]%
+- [ ] Build succeeds
+- [ ] No linting errors
+- [ ] [PROJECT-SPECIFIC GATE]
+
+---
+
+## CI/CD Integration
+
+### Test Execution in Pipeline
+
+**Where Tests Run**: [CUSTOMIZE: GitHub Actions / GitLab CI / Jenkins]
+
+**Parallelization**:
+```yaml
+[CUSTOMIZE: Show how tests run in parallel in CI]
+
+Example:
+jobs:
+  backend-tests:
+    runs-on: ubuntu-latest
+    steps: [...]
+  frontend-tests:
+    runs-on: ubuntu-latest
+    steps: [...]
+```
+
+### Failure Handling
+
+**Strategy**: [CUSTOMIZE: Fail fast / Retry / Notify]
+
+---
+
+## Project-Specific Testing Patterns
+
+**[CUSTOMIZE - ADD DETECTED OR CHOSEN PATTERNS]**
+
+### Flaky Test Handling
+- [CUSTOMIZE: Retry policy / Investigation process]
+
+### Test Performance
+- [CUSTOMIZE: Timeout thresholds / Parallel execution]
+
+### Custom Assertions
+- [CUSTOMIZE: Project-specific assertions or matchers]
+
+---
+
+**Customization Complete**: Replace all [CUSTOMIZE] sections with project-detected or chosen patterns.
+
+**Auto-generated by**: `/add-skill testing-strategies` command

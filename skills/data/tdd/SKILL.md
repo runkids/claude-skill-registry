@@ -1,439 +1,389 @@
 ---
 name: tdd
-description: |
-  Test-Driven Development facilitation using the red-green-refactor cycle. Guides users through
-  writing tests first, implementing minimal code to pass, and refactoring for quality. Use when
-  users want to practice TDD, need help writing tests before code, are developing new features
-  test-first, or want guidance on test structure and implementation. Triggers include 'use TDD,'
-  'test-driven development,' 'write tests first,' 'red-green-refactor,' or requests to develop
-  functionality with tests.
-allowed-tools: "*"
+description: Test-driven development workflow with philosophy guide - plan → write tests → implement → validate
+keywords: [tdd, test-driven, test-first, red-green-refactor]
 ---
 
-# Test-Driven Development (TDD) Skill
+# /tdd - Test-Driven Development Workflow
 
-Guide users through disciplined test-first development using the red-green-refactor cycle.
+Strict TDD workflow: tests first, then implementation.
 
-## Core TDD Workflow
+## When to Use
 
-**RED → GREEN → REFACTOR → REPEAT**
-
-### RED: Write a Failing Test
-1. Identify next small behavior to implement
-2. Write test that specifies that behavior
-3. Run test to verify it **fails for the right reason**
-4. If test passes unexpectedly, test is wrong
-
-### GREEN: Make It Pass
-1. Write **minimal** code to make test pass
-2. Don't worry about perfection yet
-3. Simplest solution that works
-4. Run test to verify it passes
-
-### REFACTOR: Improve the Code
-1. Improve code quality while keeping tests green
-2. Remove duplication
-3. Improve names and structure
-4. Run tests after each change to ensure still passing
-
-### REPEAT
-1. Commit when tests are green
-2. Identify next behavior
-3. Start cycle again with new test
-
-## TDD Discipline
-
-**Critical rules to follow:**
-
-### Test First (RED Phase)
-- **Always write test before implementation**
-- Resist urge to write code first
-- Test defines what "done" means
-- See test fail before making it pass
-
-### Minimal Implementation (GREEN Phase)
-- **Write simplest code to pass**
-- Don't over-engineer
-- Don't add features not tested
-- One test at a time
-
-### Refactor Only When Green
-- **Never refactor with failing tests**
-- Keep tests passing during refactoring
-- Small, incremental improvements
-- Run tests after each refactoring step
-
-### Run Tests Frequently
-- After writing test (should fail)
-- After writing implementation (should pass)
-- After each refactoring step (should stay green)
-- Before committing
-
-## When to Use This Skill
-
-Activate for requests involving:
-- "Use TDD for..." / "Test-driven development..."
-- "Write tests first..." / "Red-green-refactor..."
-- Developing new features test-first
-- Learning TDD practices
-- Setting up test infrastructure
-- Test design and organization
-
-## Test Structure Patterns
-
-### Arrange-Act-Assert (AAA)
-**Arrange** - Set up test data and environment
-**Act** - Execute the code under test
-**Assert** - Verify the results
-
-```python
-def test_add_two_numbers():
-    calculator = Calculator()           # Arrange
-    result = calculator.add(2, 3)      # Act
-    assert result == 5                  # Assert
-```
-
-### Given-When-Then (BDD Style)
-**Given** - Initial context/preconditions
-**When** - Action/event occurs
-**Then** - Expected outcome
-
-## Test Design Principles
-
-### What to Test
-- **Public interface** - Test behavior users depend on
-- **Edge cases** - Boundaries, empty inputs, max values
-- **Error conditions** - Invalid inputs, exceptions
-- **Business logic** - Core algorithms and rules
-- **Integration points** - Where components interact
-
-### What NOT to Test
-- **Private implementation details** - Test behavior, not internals
-- **Third-party libraries** - Trust they work, test your usage
-- **Simple getters/setters** - Unless they have logic
-- **Framework code** - Test your code, not the framework
-
-### One Behavior Per Test
-- Each test should verify single behavior
-- Makes failures easier to diagnose
-- Keeps tests focused and readable
-- Prefer multiple small tests over one large test
-
-### Make Tests Readable
-- **Descriptive names** - `test_add_returns_sum_of_two_positive_numbers`
-- **Clear structure** - AAA or Given-When-Then
-- **Self-documenting** - Test shows how code should be used
-- **Minimal setup** - Only what's needed for this test
-
-### Keep Tests Independent
-- Tests should not depend on each other
-- Tests can run in any order
-- Each test starts with clean state
-- No shared mutable state between tests
-
-See `references/test-design-patterns.md` for comprehensive guidance.
-
-## Language-Specific Guidance
-
-### For Python
-See `references/python-tdd.md` for:
-- pytest and unittest frameworks
-- Fixtures and parametrized tests
-- Mocking with unittest.mock
-- Testing async code
-- Coverage with pytest-cov
-- Running and organizing tests
-
-### For Emacs Lisp
-See `references/elisp-tdd.md` for:
-- ERT (Emacs Lisp Regression Testing)
-- Testing interactive functions
-- Buffer manipulation testing
-- Mocking with cl-letf
-- Buttercup (BDD alternative)
-- Running tests in Emacs and batch mode
-
-### For Other Languages
-See `references/general-tdd.md` for:
-- Finding testing frameworks
-- Universal test patterns
-- Common testing concepts
-- Build tool integration
-- Language-agnostic principles
-
-## Test Types and When to Use
-
-### Unit Tests
-**What:** Test individual functions/methods in isolation
-
-**When:**
-- Testing pure functions
-- Testing business logic
-- Testing algorithms
-- Fast, focused tests
-
-**Example:** `test_calculate_discount(price, percentage)`
-
-### Integration Tests
-**What:** Test multiple components working together
-
-**When:**
-- Testing database interactions
-- Testing API calls
-- Testing service integration
-- Verifying components connect correctly
-
-**Example:** `test_user_service_saves_to_database()`
-
-### End-to-End Tests
-**What:** Test complete user workflows
-
-**When:**
-- Testing critical user paths
-- Verifying system as a whole
-- Smoke tests for deployment
-
-**Example:** `test_user_can_register_and_login()`
-
-**Test Pyramid:**
-```
-      /\      ← Few E2E tests (slow, brittle)
-     /  \
-    / IT \    ← Some Integration tests
-   /______\
-  /  Unit  \  ← Many Unit tests (fast, focused)
- /__________\
-```
-
-## TDD Red-Green-Refactor Example
-
-**Goal:** Implement factorial function
-
-**Iteration 1 - Base case:**
-- RED: `test_factorial_of_zero_is_one()` → ❌ factorial not defined
-- GREEN: `def factorial(n): return 1` → ✅ Passes
-- REFACTOR: Nothing yet. Commit.
-
-**Iteration 2 - Positive numbers:**
-- RED: `test_factorial_of_five()` expects 120 → ❌ Got 1
-- GREEN: Implement loop to calculate factorial → ✅ Passes
-- REFACTOR: Use recursion for elegance → ✅ Still passes. Commit.
-
-**Iteration 3 - Error handling:**
-- RED: `test_factorial_negative_raises_error()` → ❌ No error raised
-- GREEN: Add if n < 0: raise ValueError → ✅ All tests pass
-- REFACTOR: Add docstring → ✅ Still passes. Commit.
-
-**Done!** Function is complete, fully tested, documented. Three test-driven iterations.
-
-## Mocking and Test Doubles
-
-### When to Mock
-- **External dependencies** - Databases, APIs, file systems
-- **Slow operations** - Network calls, large computations
-- **Unpredictable behavior** - Random, time-dependent, external state
-- **Hard to trigger scenarios** - Error conditions, edge cases
-
-### When NOT to Mock
-- **Your own code** - Prefer real objects for your code
-- **Simple objects** - Data classes, value objects
-- **Logic being tested** - Don't mock what you're testing
-
-### Types of Test Doubles
-
-**Mock** - Programmed with expectations, verifies interactions
-**Stub** - Provides canned responses, doesn't verify
-**Fake** - Working implementation, simpler than real
-**Spy** - Records calls, allows verification after
-
-See `references/test-design-patterns.md` for detailed mocking strategies.
-
-## Common TDD Anti-Patterns
-
-**Don't:**
-
-❌ **Write implementation before test** - Defeats TDD purpose
-
-❌ **Write multiple tests before making them pass** - Stay in rhythm (one test, make it pass, next test)
-
-❌ **Refactor with red tests** - Only refactor when green
-
-❌ **Test implementation details** - Test behavior, not internals
-
-❌ **Skip refactor step** - Technical debt accumulates
-
-❌ **Write tests that are hard to understand** - Tests are documentation
-
-❌ **Create dependencies between tests** - Tests must be independent
-
-❌ **Mock everything** - Use real objects when practical
-
-❌ **Fake it with hardcoded values forever** - "Fake it till you make it" is temporary
-
-❌ **Write slow tests** - Slow test suite won't be run frequently
-
-## Test Naming Conventions
-
-**Good test names are descriptive and specific:**
-
-### Pattern: `test_<function>_<scenario>_<expected_result>`
-```python
-test_add_two_positive_numbers_returns_sum()
-test_add_with_negative_number_returns_correct_result()
-test_add_with_zero_returns_other_number()
-```
-
-### Pattern: `should_<expected_behavior>_when_<condition>`
-```python
-should_return_empty_list_when_no_items_match()
-should_raise_error_when_input_is_null()
-should_calculate_discount_when_user_is_premium()
-```
-
-### Pattern: `<behavior>_<state>_<expected>`
-```elisp
-(ert-deftest save-buffer-modified-saves-to-file ())
-(ert-deftest load-file-missing-raises-error ())
-```
-
-**Test name should:**
-- Describe what's being tested
-- Describe the scenario/condition
-- Describe expected outcome
-- Be readable as documentation
-
-## Test Organization
-
-### Directory Structure
-
-**Python:**
-```
-project/
-├── src/
-│   └── calculator.py
-└── tests/
-    ├── __init__.py
-    ├── test_calculator.py
-    └── conftest.py  # pytest fixtures
-```
-
-**Elisp:**
-```
-package/
-├── my-package.el
-└── test/
-    └── test-my-package.el
-```
-
-### Naming Conventions
-- Test files: `test_*.py`, `*_test.py`, `test-*.el`
-- Test functions: Start with `test_` or `ert-deftest`
-- Test classes: `Test*` (if using classes)
-
-### Grouping Tests
-- One test file per source file (generally)
-- Group related tests in same file
-- Separate unit/integration/e2e tests
-
-See language-specific references for detailed organization patterns.
-
-## Refactoring with Tests
-
-### Safe Refactoring Process
-
-1. **Ensure all tests are green** before starting
-2. **Make small changes** - One refactoring at a time
-3. **Run tests after each change** - Catch breaks immediately
-4. **Commit frequently** - When tests pass
-5. **Don't add features while refactoring** - Separate concerns
-
-### Common Refactorings
-- Extract function (break up large functions)
-- Rename for clarity
-- Remove duplication (DRY)
-- Simplify conditional logic
-- Extract variable for readability
-- Inline unnecessary abstraction
-
-### When Tests Break During Refactoring
-
-**If test is testing implementation detail:**
-- Update test to test behavior instead
-- Make test more resilient to changes
-
-**If test is testing behavior:**
-- Fix the code, not the test
-- Behavior shouldn't change during refactoring
-
-**If too many tests break:**
-- Change is too large, revert
-- Make smaller incremental changes
-
-See `references/refactoring-with-tests.md` for detailed guidance.
-
-## Test Coverage
-
-**Coverage measures which code is executed by tests, not whether tests are good.**
-
-### Types of Coverage
-- **Line coverage** - Which lines executed
-- **Branch coverage** - Which paths taken
-- **Function coverage** - Which functions called
-
-### Coverage Goals
-- Aim for high coverage (80%+) but not 100%
-- 100% coverage doesn't mean bug-free
-- Focus on critical code paths
-- Don't test just to increase coverage
-
-### Using Coverage Tools
-- **Python:** pytest-cov, coverage.py
-- **JavaScript:** Jest with coverage
-- **Java:** JaCoCo
-- **Ruby:** SimpleCov
-
-Use `scripts/coverage_analyzer.py` to identify coverage gaps.
-
-## Using Supporting Resources
-
-Additional resources in this skill:
-
-- **references/python-tdd.md**: Comprehensive Python testing guide (pytest, unittest, mocking, async)
-- **references/elisp-tdd.md**: Comprehensive Elisp testing guide (ERT, Buttercup, interactive functions)
-- **references/general-tdd.md**: Universal TDD principles for any language
-- **references/test-design-patterns.md**: What to test, test organization, anti-patterns
-- **references/refactoring-with-tests.md**: Safe refactoring process and common refactorings
-- **scripts/test_template_generator.py**: Generate test file boilerplate
-- **scripts/coverage_analyzer.py**: Analyze coverage reports
-- **assets/templates/**: Test file templates for multiple languages
-
-## Quick Reference
-
-**TDD Cycle:**
-1. RED - Write failing test
-2. GREEN - Make it pass (minimal code)
-3. REFACTOR - Improve while keeping green
-4. REPEAT
-
-**Test Structure:**
-- Arrange (setup)
-- Act (execute)
-- Assert (verify)
-
-**Test Principles:**
-- Test first
-- One test at a time
-- One behavior per test
-- Independent tests
-- Fast tests
-- Readable tests
-
-**Refactoring Rules:**
-- Only refactor when green
-- Small changes
-- Run tests frequently
-- Don't add features
+- "Implement X using TDD"
+- "Build this feature test-first"
+- "Write tests for X then implement"
+- Any feature where test coverage is critical
+- Bug fixes that need regression tests
 
 ---
 
-**Remember:** TDD is a discipline. The value comes from following the cycle strictly. Test first. See it fail. Make it pass. Refactor. Repeat. The rhythm creates quality code.
+# TDD Philosophy
+
+## Overview
+
+Write the test first. Watch it fail. Write minimal code to pass.
+
+**Core principle:** If you didn't watch the test fail, you don't know if it tests the right thing.
+
+**Violating the letter of the rules is violating the spirit of the rules.**
+
+## The Iron Law
+
+```
+NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST
+```
+
+Write code before the test? Delete it. Start over.
+
+**No exceptions:**
+- Don't keep it as "reference"
+- Don't "adapt" it while writing tests
+- Don't look at it
+- Delete means delete
+
+Implement fresh from tests. Period.
+
+## Red-Green-Refactor
+
+### RED - Write Failing Test
+
+Write one minimal test showing what should happen.
+
+**Good:**
+```typescript
+test('retries failed operations 3 times', async () => {
+  let attempts = 0;
+  const operation = () => {
+    attempts++;
+    if (attempts < 3) throw new Error('fail');
+    return 'success';
+  };
+
+  const result = await retryOperation(operation);
+
+  expect(result).toBe('success');
+  expect(attempts).toBe(3);
+});
+```
+Clear name, tests real behavior, one thing.
+
+**Bad:**
+```typescript
+test('retry works', async () => {
+  const mock = jest.fn()
+    .mockRejectedValueOnce(new Error())
+    .mockResolvedValueOnce('success');
+  await retryOperation(mock);
+  expect(mock).toHaveBeenCalledTimes(3);
+});
+```
+Vague name, tests mock not code.
+
+**Requirements:**
+- One behavior
+- Clear name
+- Real code (no mocks unless unavoidable)
+
+### Verify RED - Watch It Fail
+
+**MANDATORY. Never skip.**
+
+```bash
+npm test path/to/test.test.ts
+# or
+pytest path/to/test_file.py
+```
+
+Confirm:
+- Test fails (not errors)
+- Failure message is expected
+- Fails because feature missing (not typos)
+
+**Test passes?** You're testing existing behavior. Fix test.
+**Test errors?** Fix error, re-run until it fails correctly.
+
+### GREEN - Minimal Code
+
+Write simplest code to pass the test.
+
+**Good:**
+```typescript
+async function retryOperation<T>(fn: () => Promise<T>): Promise<T> {
+  for (let i = 0; i < 3; i++) {
+    try {
+      return await fn();
+    } catch (e) {
+      if (i === 2) throw e;
+    }
+  }
+  throw new Error('unreachable');
+}
+```
+Just enough to pass.
+
+**Bad:**
+```typescript
+async function retryOperation<T>(
+  fn: () => Promise<T>,
+  options?: {
+    maxRetries?: number;
+    backoff?: 'linear' | 'exponential';
+    onRetry?: (attempt: number) => void;
+  }
+): Promise<T> {
+  // YAGNI - over-engineered
+}
+```
+
+Don't add features, refactor other code, or "improve" beyond the test.
+
+### Verify GREEN - Watch It Pass
+
+**MANDATORY.**
+
+```bash
+npm test path/to/test.test.ts
+```
+
+Confirm:
+- Test passes
+- Other tests still pass
+- Output pristine (no errors, warnings)
+
+**Test fails?** Fix code, not test.
+**Other tests fail?** Fix now.
+
+### REFACTOR - Clean Up
+
+After green only:
+- Remove duplication
+- Improve names
+- Extract helpers
+
+Keep tests green. Don't add behavior.
+
+## Common Rationalizations
+
+| Excuse | Reality |
+|--------|---------|
+| "Too simple to test" | Simple code breaks. Test takes 30 seconds. |
+| "I'll test after" | Tests passing immediately prove nothing. |
+| "Tests after achieve same goals" | Tests-after = "what does this do?" Tests-first = "what should this do?" |
+| "Already manually tested" | Ad-hoc ≠ systematic. No record, can't re-run. |
+| "Deleting X hours is wasteful" | Sunk cost fallacy. Keeping unverified code is technical debt. |
+| "Keep as reference, write tests first" | You'll adapt it. That's testing after. Delete means delete. |
+| "Need to explore first" | Fine. Throw away exploration, start with TDD. |
+| "Test hard = design unclear" | Listen to test. Hard to test = hard to use. |
+| "TDD will slow me down" | TDD faster than debugging. Pragmatic = test-first. |
+| "Manual test faster" | Manual doesn't prove edge cases. You'll re-test every change. |
+
+## Red Flags - STOP and Start Over
+
+- Code before test
+- Test after implementation
+- Test passes immediately
+- Can't explain why test failed
+- Tests added "later"
+- Rationalizing "just this once"
+- "I already manually tested it"
+- "Tests after achieve the same purpose"
+- "Keep as reference" or "adapt existing code"
+
+**All of these mean: Delete code. Start over with TDD.**
+
+## Verification Checklist
+
+Before marking work complete:
+
+- [ ] Every new function/method has a test
+- [ ] Watched each test fail before implementing
+- [ ] Each test failed for expected reason (feature missing, not typo)
+- [ ] Wrote minimal code to pass each test
+- [ ] All tests pass
+- [ ] Output pristine (no errors, warnings)
+- [ ] Tests use real code (mocks only if unavoidable)
+- [ ] Edge cases and errors covered
+
+Can't check all boxes? You skipped TDD. Start over.
+
+## When Stuck
+
+| Problem | Solution |
+|---------|----------|
+| Don't know how to test | Write wished-for API. Write assertion first. Ask your human partner. |
+| Test too complicated | Design too complicated. Simplify interface. |
+| Must mock everything | Code too coupled. Use dependency injection. |
+| Test setup huge | Extract helpers. Still complex? Simplify design. |
+
+---
+
+# Workflow Execution
+
+## Workflow Overview
+
+```
+┌────────────┐    ┌──────────┐    ┌──────────┐    ┌───────────┐
+│   plan-    │───▶│ arbiter  │───▶│  kraken  │───▶│ arbiter  │
+│   agent    │    │          │    │          │    │           │
+└────────────┘    └──────────┘    └──────────┘    └───────────┘
+   Design          Write           Implement        Verify
+   approach        failing         minimal          all tests
+                   tests           code             pass
+```
+
+## Agent Sequence
+
+| # | Agent | Role | Output |
+|---|-------|------|--------|
+| 1 | **plan-agent** | Design test cases and implementation approach | Test plan |
+| 2 | **arbiter** | Write failing tests (RED phase) | Test files |
+| 3 | **kraken** | Implement minimal code to pass (GREEN phase) | Implementation |
+| 4 | **arbiter** | Run all tests, verify nothing broken | Test report |
+
+## Core Principle
+
+```
+NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST
+```
+
+Each agent follows the TDD contract:
+- arbiter writes tests that MUST fail initially
+- kraken writes MINIMAL code to make tests pass
+- arbiter confirms the full suite passes
+
+## Execution
+
+### Phase 1: Plan Test Cases
+
+```
+Task(
+  subagent_type="plan-agent",
+  prompt="""
+  Design TDD approach for: [FEATURE_NAME]
+
+  Define:
+  1. What behaviors need to be tested
+  2. Edge cases to cover
+  3. Expected test structure
+
+  DO NOT write any implementation code.
+  Output: Test plan document
+  """
+)
+```
+
+### Phase 2: Write Failing Tests (RED)
+
+```
+Task(
+  subagent_type="arbiter",
+  prompt="""
+  Write failing tests for: [FEATURE_NAME]
+
+  Test plan: [from phase 1]
+
+  Requirements:
+  - Write tests FIRST
+  - Run tests to confirm they FAIL
+  - Tests must fail because feature is missing (not syntax errors)
+  - Create clear test names describing expected behavior
+
+  DO NOT write any implementation code.
+  """
+)
+```
+
+### Phase 3: Implement (GREEN)
+
+```
+Task(
+  subagent_type="kraken",
+  prompt="""
+  Implement MINIMAL code to pass tests: [FEATURE_NAME]
+
+  Tests location: [test file path]
+
+  Requirements:
+  - Write ONLY enough code to make tests pass
+  - No additional features beyond what tests require
+  - No "improvements" or "enhancements"
+  - Run tests after each change
+
+  Follow Red-Green-Refactor strictly.
+  """
+)
+```
+
+### Phase 4: Validate
+
+```
+Task(
+  subagent_type="arbiter",
+  prompt="""
+  Validate TDD implementation: [FEATURE_NAME]
+
+  - Run full test suite
+  - Verify all new tests pass
+  - Verify no existing tests broke
+  - Check test coverage if available
+  """
+)
+```
+
+## TDD Rules Enforced
+
+1. **arbiter** cannot write implementation code
+2. **kraken** cannot add untested features
+3. Tests must fail before implementation
+4. Tests must pass after implementation
+
+## Example
+
+```
+User: /tdd Add email validation to the signup form
+
+Claude: Starting /tdd workflow for email validation...
+
+Phase 1: Planning test cases...
+[Spawns plan-agent]
+Test plan:
+- Valid email formats
+- Invalid email formats
+- Empty email rejection
+- Edge cases (unicode, long emails)
+
+Phase 2: Writing failing tests (RED)...
+[Spawns arbiter]
+✅ 8 tests written, all failing as expected
+
+Phase 3: Implementing minimal code (GREEN)...
+[Spawns kraken]
+✅ All 8 tests now passing
+
+Phase 4: Validating...
+[Spawns arbiter]
+✅ 247 tests passing (8 new), 0 failing
+
+TDD workflow complete!
+```
+
+## Refactor Phase (Optional)
+
+After GREEN, you can add a refactor phase:
+
+```
+Task(
+  subagent_type="kraken",
+  prompt="""
+  Refactor: [FEATURE_NAME]
+
+  - Clean up code while keeping tests green
+  - Remove duplication
+  - Improve naming
+  - Extract helpers if needed
+
+  DO NOT add new behavior. Keep all tests passing.
+  """
+)
+```

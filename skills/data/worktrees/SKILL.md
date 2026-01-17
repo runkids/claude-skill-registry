@@ -1,79 +1,251 @@
 ---
 name: worktrees
-description: Guide for using git worktrees to parallelize development with coding agents. Use this skill when the user requests to work in a new worktree or wants to work on a separate feature in isolation (e.g., "Work in a new worktree", "Create a worktree for feature X").
+description: Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with beads integration via bd worktree commands
 ---
 
-# Git Worktrees for Parallel Development
+# Git Worktrees
 
-## Overview
+Git worktrees create isolated workspaces sharing the same repository, allowing work on multiple branches simultaneously without switching.
 
-This skill enables parallel development by using git worktrees. Each worktree provides an isolated working directory with its own branch, allowing multiple agents to work on different features simultaneously without conflicts.
+**Primary tool:** `bd worktree` — handles git worktree + beads integration automatically.
 
-## When to Use This Skill
+---
 
-Use this skill when:
-- User explicitly requests to work in a new worktree (e.g., "Work in a new worktree")
-- User wants to develop a feature in isolation while preserving the main working directory
-- Multiple agents need to work on different tasks in parallel
+## When to Use
 
-## Workflow
+- Parallel subagents need filesystem isolation
+- Feature work that shouldn't affect current workspace
+- Separate builds/servers running simultaneously
+- Before executing implementation plans
 
-### 1. Determine Branch Name
+---
 
-Choose a descriptive branch name for the feature or task to be worked on. The branch name should follow standard git naming conventions (lowercase, hyphen-separated, e.g., `add-user-authentication`, `fix-login-bug`).
+## Setup: Ensure .worktrees/ is Ignored
 
-### 2. Create Worktree
-
-Create a new worktree in the `.worktrees/` directory within the current project:
+**Before creating any worktrees**, ensure `.worktrees/` is in `.gitignore`. This is a one-time setup that covers all future worktrees:
 
 ```bash
-git worktree add .worktrees/<branch-name> -b <branch-name>
+# Check if .worktrees/ is already ignored
+git check-ignore -q .worktrees/ || echo '.worktrees/' >> .gitignore
 ```
 
-This command:
-- Creates a new directory at `.worktrees/<branch-name>`
-- Creates and checks out a new branch named `<branch-name>`
-- Links the worktree to the current repository
+If you added the line, commit it:
+```bash
+git add .gitignore && git commit -m "Ignore .worktrees/ directory"
+```
 
-### 3. Switch to Worktree
+**Why this matters:** Without this, beads adds each worktree individually to `.gitignore`, creating noise. With `.worktrees/` ignored, all worktrees underneath are automatically covered.
 
-Change the working directory to the newly created worktree:
+---
+
+## Creating a Worktree
+
+**All worktrees go under `.worktrees/` in the repo root.** This is the standard location.
 
 ```bash
-cd .worktrees/<branch-name>
+bd worktree create .worktrees/feature-auth
 ```
 
-### 4. Work in Isolation
+**What it does automatically:**
+1. Creates git worktree at the specified path
+2. Sets up `.beads/redirect` pointing to main repo's database
+3. Creates the branch (same name as the directory by default)
 
-Proceed with development tasks in the worktree. This environment is completely isolated from the main working directory, allowing independent work without interference.
+**With custom branch name:**
+```bash
+bd worktree create .worktrees/bugfix --branch fix-123
+```
 
-All standard git operations (commit, push, pull, etc.) work normally within the worktree.
+---
 
-**Note:** If this project runs services (web apps, docker-compose, etc.), see [apps.md](apps.md) for setup steps including environment file copying, port allocation, and service startup.
+## After Creation
 
-### 5. List Active Worktrees (Optional)
+### 1. Enter Worktree
 
-To view all active worktrees:
+```bash
+cd .worktrees/feature-auth
+```
 
+### 2. Run Project Setup
+
+```bash
+# Node.js
+[ -f package.json ] && npm install
+
+# Rust
+[ -f Cargo.toml ] && cargo build
+
+# Go
+[ -f go.mod ] && go mod download
+```
+
+### 3. Verify Baseline
+
+```bash
+npm test  # or cargo test, go test ./...
+```
+
+**If tests fail:** Report failures, ask whether to proceed.
+
+### 4. Verify Beads Shared
+
+```bash
+bd ready  # Should show same beads as main workspace
+```
+
+---
+
+## Listing Worktrees
+
+```bash
+bd worktree list
+```
+
+Or standard git:
 ```bash
 git worktree list
 ```
 
-This displays all worktrees, their paths, and the branches they're on.
+---
 
-### 6. Remove Worktree (Optional)
+## Removing a Worktree
 
-When you're done with a worktree, you can remove it:
+Use `bd worktree remove` — includes safety checks:
 
 ```bash
-git worktree remove .worktrees/<branch-name>
+bd worktree remove feature-auth
 ```
 
-**Note:** Don't automatically remove worktrees. Leave that decision to the user. If the worktree is running services (see [apps.md](apps.md)), make sure to stop those services first before removing the worktree.
+**Safety checks (automatic):**
+- Uncommitted changes
+- Unpushed commits
+- Stashes
 
-## Important Notes
+**Skip checks (not recommended):**
+```bash
+bd worktree remove feature-auth --force
+```
 
-- The `.worktrees/` directory should be added to `.gitignore` if not already present
-- Each worktree maintains its own working directory but shares the same git repository
-- Worktrees enable true parallel development without the need for stashing or branch switching
-- After creating and switching to a worktree, inform the user of the new working directory path
+---
+
+## Worktree Info
+
+Check current worktree status:
+
+```bash
+bd worktree info
+```
+
+---
+
+## Quick Reference
+
+| Task | Command |
+|------|---------|
+| Ensure .worktrees/ ignored | `git check-ignore -q .worktrees/ \|\| echo '.worktrees/' >> .gitignore` |
+| Create worktree | `bd worktree create .worktrees/<name>` |
+| Create with branch | `bd worktree create .worktrees/<name> --branch <branch>` |
+| List worktrees | `bd worktree list` |
+| Remove worktree | `bd worktree remove .worktrees/<name>` |
+| Check status | `bd worktree info` |
+| Verify beads sync | `bd ready` (in worktree) |
+
+---
+
+## Why bd worktree?
+
+| Manual git worktree | bd worktree |
+|---------------------|-------------|
+| Separate commands for git + beads | Single command |
+| No beads redirect setup | Automatic redirect to main DB |
+| No safety checks on remove | Checks for uncommitted/unpushed |
+
+---
+
+## Example Workflow
+
+```bash
+# One-time: ensure .worktrees/ is ignored
+git check-ignore -q .worktrees/ || echo '.worktrees/' >> .gitignore
+
+# Create isolated workspace
+bd worktree create .worktrees/feature-auth
+
+# Enter and setup
+cd .worktrees/feature-auth
+npm install
+npm test  # ✓ 47 passing
+
+# Verify beads shared
+bd ready  # Shows same issues as main
+
+# Work on feature...
+bd claim auth-001
+
+# When done
+cd ../..
+bd worktree remove .worktrees/feature-auth
+```
+
+---
+
+## Known Limitations
+
+### Daemon Mode
+
+Daemon mode does not work correctly with user-created git worktrees. Worktrees share the same `.git` directory and beads database, but the daemon doesn't track which branch each worktree has checked out.
+
+**Solution**: Use direct mode in worktrees:
+```bash
+bd --no-daemon <command>
+# Or set environment variable
+export BEADS_NO_DAEMON=1
+```
+
+### Two Types of Worktrees
+
+Don't confuse these:
+
+| Type | Location | Purpose |
+|------|----------|---------|
+| User worktrees | `.worktrees/<name>` | Parallel feature work (you create these) |
+| Beads internal | `.git/beads-worktrees/beads-sync` | Sync-branch commits (beads creates this) |
+
+The internal worktree is hidden and managed by beads for the sync-branch feature. Don't manually modify it.
+
+### SKIP_WORKTREE Issues
+
+If `git status` doesn't show changes to `.beads/*.jsonl` files, check for SKIP_WORKTREE flags:
+
+```bash
+git ls-files -v .beads/
+# 'h' prefix = SKIP_WORKTREE set (changes hidden)
+# 'H' prefix = normal tracking
+```
+
+**Fix**: Remove and re-add the files:
+```bash
+git rm --cached .beads/issues.jsonl
+git add .beads/issues.jsonl
+```
+
+Or run `bd sync` which sets the correct index flags.
+
+---
+
+## Fallback (No Beads)
+
+If beads isn't installed, use manual git worktree:
+
+```bash
+# Verify ignored
+git check-ignore -q .worktrees/ || echo '.worktrees/' >> .gitignore
+
+# Create
+git worktree add .worktrees/feature-auth -b feature-auth
+
+# Remove
+git worktree remove .worktrees/feature-auth
+```
+
+But you lose: automatic gitignore, beads sync, and safety checks.

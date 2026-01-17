@@ -75,3 +75,7 @@ Reply with: defaults (or 1a 2a)
 
 - Don't ask questions you can answer with a quick, low-risk discovery read (e.g., configs, existing patterns, docs).
 - Don't ask open-ended questions if a tight multiple-choice or yes/no would eliminate ambiguity faster.
+
+---
+
+*Originally created by [@thsottiaux](https://x.com/thsottiaux)*

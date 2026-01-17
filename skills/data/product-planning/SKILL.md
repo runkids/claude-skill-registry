@@ -1,317 +1,91 @@
 ---
 name: product-planning
-description: Use when specs/product/ is empty or incomplete to create mission.md, roadmap.md and tech-stack.md through incremental brainstorming and validation.
+description: |
+  Product Owner / Business Analyst toolkit for product planning tasks.
+  Use when the user wants to:
+  - Write or refine user stories, epics, or acceptance criteria
+  - Create or review PRDs (Product Requirement Documents)
+  - Prioritize backlog items (RICE scoring, MoSCoW, etc.)
+  - Plan sprints or releases
+  - Create or update product roadmaps
+  - Conduct competitive analysis or user research
+  - Write release notes or stakeholder updates
+
+  MANDATORY TRIGGERS: user story, epic, PRD, backlog, sprint planning, roadmap, acceptance criteria, product requirements, prioritize, story points, PO, BA, product owner, business analyst
 ---
 
-# Product Planning
-
-## What It Does
-
-Creates product foundation through collaborative dialogue:
-1. Explore product vision, mission and technical stack via existing documentation
-2. Explores product vision via brainstorming
-3. Extracts mission, users, problems, features
-4. Creates development roadmap with priorities
-5. Documents technical stack
-6. Saves to `specs/product/` folder
+# Product Planning Skill
 
-## The Process
-
-### Step 1: Check Existing Documentation
-
-```bash
-ls -la specs/product/ 2>/dev/null
+Help with Product Owner and Business Analyst tasks using the product planning artifacts in this project.
 
-for file in mission.md roadmap.md tech-stack.md; do
-  [ -f "specs/product/$file" ] && echo "Found: $file"
-done
-```
+## Context Files
 
-**If files exist:**
-```
-Found: [list files]
+Before responding to product planning requests, read the relevant context files in `product-planning/`:
 
-Options:
-1. Review and update
-2. Start fresh (backs up existing)
+| File | When to Read |
+|------|--------------|
+| `PRODUCT_VISION.md` | Always read first - provides product context |
+| `personas/PERSONAS.md` | When writing user stories or considering user needs |
+| `backlog/BACKLOG.md` | When prioritizing, planning sprints, or checking existing work |
+| `roadmap/ROADMAP.md` | When discussing timelines or release planning |
 
-Your preference?
-```
+## Templates
 
-**If option 1 (review and update) selected:**
-Use the current files as context for Step 2
+Use templates from `product-planning/templates/` when creating new artifacts:
 
-**If option 2 (Start fresh) selected:**
+- `USER_STORY_TEMPLATE.md` - For new user stories
+- `EPIC_TEMPLATE.md` - For new epics
+- `PRD_TEMPLATE.md` - For product requirement documents
+- `SPRINT_PLANNING_TEMPLATE.md` - For sprint planning
 
-```bash
-# Create backup with timestamp
-BACKUP_DIR="specs/product.backup.$(date +%Y%m%d-%H%M%S)"
-if [ -d "specs/product" ]; then
-  if ! cp -r specs/product "$BACKUP_DIR"; then
-    echo "Warning: Could not create backup. Proceeding anyway."
-  else
-    echo "✅ Backed up existing docs to $BACKUP_DIR"
-  fi
-fi
-```
+## Common Tasks
 
-### Step 2: Brainstorm Product Vision
+### Writing User Stories
 
-**Use brainstorming approach** - not rigid questions:
+1. Read `PRODUCT_VISION.md` and `personas/PERSONAS.md`
+2. Use the user story format: "As a [persona], I want [goal], so that [benefit]"
+3. Include 3-5 acceptance criteria in Given/When/Then format
+4. Reference which persona benefits most
+5. Suggest story points (1, 2, 3, 5, 8, 13)
 
-```
-Let's explore your product vision.
+### Prioritizing Backlog
 
-Start with the big picture - what are you building?
-```
+1. Read `backlog/BACKLOG.md` to see current items
+2. Apply RICE scoring:
+   - **R**each: How many users impacted?
+   - **I**mpact: How much value? (3=massive, 2=high, 1=medium, 0.5=low)
+   - **C**onfidence: How certain? (100%, 80%, 50%)
+   - **E**ffort: Person-weeks of work
+3. Score = (Reach × Impact × Confidence) / Effort
+4. Provide reasoning for priority order
 
-**Wait for response.**
+### Sprint Planning
 
-**Then explore naturally:**
-- Who needs this? (users)
-- What problem does it solve? (pain points)
-- What makes it different? (differentiators)
-- What can users do? (features)
-- How will you build it? (tech stack)
+1. Review backlog and identify ready items
+2. Consider team capacity (story points)
+3. Identify dependencies between items
+4. Create a cohesive sprint goal
+5. Balance feature work with tech debt
 
-**ONE question at a time. Follow the conversation.**
+### Creating PRDs
 
-**Present multiple choice when helpful:**
-```
-For your target users, which sounds right:
+1. Read product vision for alignment
+2. Use `PRD_TEMPLATE.md` structure
+3. Include measurable success metrics
+4. Document edge cases and error handling
+5. List dependencies and risks
 
-1. Individual developers (personal projects)
-2. Small teams 2-10 people (collaboration)
-3. Enterprise teams (complex workflows)
-4. Mix of these (describe)
-```
+## Best Practices
 
-**Or open-ended for exploration:**
-```
-Tell me about your users:
-- Who are they?
-- When do they use your product?
-- What frustrates them today?
-```
+- Always reference personas by name (e.g., "Casual Carl", "Serious Sarah")
+- Use INVEST criteria for stories: Independent, Negotiable, Valuable, Estimable, Small, Testable
+- Keep acceptance criteria specific and testable
+- Consider offline/PWA requirements for this app
+- Reference accessibility requirements
 
-**Continue until you understand:**
-- Core product concept
-- Target users (1-2 personas)
-- Main problem being solved
-- Key features (3-8 minimum)
-- Success criteria
-- Technical approach
+## Updating Artifacts
 
-### Step 3: Present Mission Document
-
-**Announce:**
-```
-Based on our conversation, here's the mission document.
-
-I'll show section by section - let me know if anything needs adjustment.
-```
-
-**Present in chunks (150-200 words each):**
-
-**Section 1: Pitch**
-```
-## Pitch
-[Product] is a [type] that helps [users] [solve problem]
-by providing [value proposition].
-
-[2-3 sentences expanding on this]
-
-Does this capture your vision?
-```
-
-**Wait. Adjust if needed.**
-
-**Section 2: Users**
-```
-## Users
-
-### Primary Customers
-[2-3 customer segments]
-
-### User Personas
-**[Persona]** ([context])
-- Role: [description]
-- Pain Points: [problems]
-- Goals: [outcomes]
-
-Accurate?
-```
-
-**Wait. Adjust if needed.**
-
-**Continue for remaining sections:**
-- The Problem
-- Key Features (grouped logically)
-
-### Step 4: Save Mission Document
-
-```bash
-mkdir -p specs/product
-
-cat > specs/product/mission.md <<'EOF'
-# Product Mission
-
-[Approved content from Step 3]
-EOF
-```
-
-### Step 5: Create a Development Roadmap
-
-**Propose feature ordering:**
-```
-Development roadmap - features ordered by:
-- Technical dependencies
-- Value delivery path
-- MVP to full product
-
-1. [ ] [Feature] — [Description] `[Effort]`
-   Why first: [Reasoning]
-
-2. [ ] [Feature] — [Description] `[Effort]`
-   Why next: [Reasoning]
-
-[Continue for all features]
-
-Does this ordering make sense?
-```
-
-**Effort scale:**
-- `XS`: 1 day
-- `S`: 2-3 days
-- `M`: 1 week
-- `L`: 2 weeks
-- `XL`: 3+ weeks
-
-**Wait. Adjust if needed.**
-
-### Step 6: Save Roadmap
-
-```bash
-cat > specs/product/roadmap.md <<'EOF'
-# Product Roadmap
-
-[Approved roadmap from Step 5]
-
-> Notes
-> - Ordered by dependencies and value
-> - Each item is complete, testable feature
-> - Check off as specs are implemented
-EOF
-```
-
-### Step 7: Document Tech Stack
-
-**Ask about technical approach:**
-First check if there's any existing tech stack information in CLAUDE.md or project docs that should be considered.
-
-```
-Tech stack - do you have preferences?
-
-1. Use my usual stack (check global CLAUDE.md)
-2. This project uses: [specify]
-3. Ask about each layer
-
-Which?
-```
-
-**If option 3, ask naturally:**
-```
-Frontend framework?
-1. React + TypeScript
-2. Vue + TypeScript
-3. Other (specify)
-```
-
-**Continue through layers as needed.**
-
-**Present tech stack:**
-```
-## Frontend
-[Technologies with purpose]
-
-## Backend
-[Technologies with purpose]
-
-## Database
-[Technologies with purpose]
-
-Complete and accurate?
-```
-
-### Step 8: Save Tech Stack
-
-```bash
-cat > specs/product/tech-stack.md <<'EOF'
-# Tech Stack
-
-[Approved tech stack from Step 7]
-EOF
-```
-
-### Step 9: Completion
-
-```
-🎉 Product documentation complete!
-
-Created:
-✅ specs/product/mission.md
-✅ specs/product/roadmap.md
-✅ specs/product/tech-stack.md
-
-Ready to create first spec: [First roadmap item]
-
-Continue?
-```
-
-## Validation Pattern
-
-After each section:
-```
-[Present content]
-
-Does this look right?
-
-✓ Yes, continue
-✎ Adjust [explain what]
-⟲ Rethink this section
-```
-
-**If adjustment needed:**
-- Ask clarifying question
-- Present revised version
-- Validate again
-
-## Red Flags
-
-**Never:**
-- Batch multiple questions in one message
-- Present entire document at once
-- Proceed without validation
-- Skip brainstorming - jump to templates
-
-**Always:**
-- Explore vision naturally first
-- ONE question at a time
-- Validate each section before next
-- Adapt to conversation flow
-
-## Integration
-
-**Called by:**
-- `sdd-orchestrator` when no product docs exist
-
-**May use:**
-- Brainstorming patterns (not formal skill call, just the approach)
-
-**Returns to:**
-- `sdd-orchestrator` after docs created
-
-**Creates:**
-- `specs/product/mission.md`
-- `specs/product/roadmap.md`
-- `specs/product/tech-stack.md`
+When creating new stories, epics, or other artifacts:
+1. Add them to the appropriate file in `product-planning/`
+2. Update `backlog/BACKLOG.md` with new items
+3. Maintain consistent ID numbering (US-XXX, E-XXX)

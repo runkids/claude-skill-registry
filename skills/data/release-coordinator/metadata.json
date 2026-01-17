@@ -1,7 +1,7 @@
 {
   "name": "release-coordinator",
-  "repo": "gaebalai/itda-sdd",
-  "path": "src/templates/agents/claude-code/skills/release-coordinator/SKILL.md",
-  "source": "github.com/gaebalai/itda-sdd",
-  "downloaded_at": "2026-01-14T03:55:16.741342Z"
+  "repo": "nahisaho/CodeGraphMCPServer",
+  "path": ".claude/skills/release-coordinator/SKILL.md",
+  "source": "github.com/nahisaho/CodeGraphMCPServer",
+  "downloaded_at": "2026-01-17T03:42:17.369048Z"
 }

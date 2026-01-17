@@ -185,7 +185,7 @@ Factors affecting pricing:
 
 ## Workflow Example
 
-1. **Receive Request**: Real Atlas needs Energize Denver audit pricing for two apartment buildings
+1. **Receive Request**: Example Client needs Energize Denver audit pricing for two apartment buildings
 2. **Gather Info**: Building IDs 15708 & 15118, square footages, addresses
 3. **Determine Service**: ASHRAE Level 2 Energy Audit (typical for compliance pathway)
 4. **Calculate Pricing**: Base on sq ft, # buildings, timeline (audits due 12/31/25)
@@ -200,3 +200,19 @@ Factors affecting pricing:
 - `./pricing-guidelines.md` - Pricing models and factors
 - `./templates/proposal-template.docx` - Base Iconergy proposal template
 - `./scripts/generate-proposal.py` - Proposal generation script
+
+
+## Saving Next Steps
+
+When energize-denver-proposals work is complete or paused:
+
+```bash
+node .claude/skills/work-command-center/tools/add-skill-next-steps.js \
+  --skill "energize-denver-proposals" \
+  --content "## Priority Tasks
+1. Generate Energize Denver compliance proposal
+2. Estimate benchmarking and audit costs
+3. Create timeline for compliance pathway"
+```
+
+See: `.claude/skills/work-command-center/skill-next-steps-convention.md`

@@ -1,7 +1,7 @@
 {
   "name": "project-setup",
-  "repo": "fltman/project-scaffolder",
-  "path": "skills/project-setup/SKILL.md",
-  "source": "github.com/fltman/project-scaffolder",
-  "downloaded_at": "2026-01-14T04:03:40.060306Z"
+  "repo": "lovedragonball/power-ranger-toolkit",
+  "path": "src/skills/project-setup/skill.md",
+  "source": "github.com/lovedragonball/power-ranger-toolkit",
+  "downloaded_at": "2026-01-17T03:14:53.330262Z"
 }

@@ -1,7 +1,7 @@
 {
   "name": "moai-baas-neon-ext",
-  "repo": "dolsoon/my-awesome-project",
-  "path": ".claude/skills/moai-baas-neon-ext/SKILL.md",
-  "source": "github.com/dolsoon/my-awesome-project",
-  "downloaded_at": "2026-01-14T03:37:23.986534Z"
+  "repo": "AJBcoding/claude-skill-eval",
+  "path": "skills/moai-baas-neon-ext/SKILL.md",
+  "source": "github.com/AJBcoding/claude-skill-eval",
+  "downloaded_at": "2026-01-17T03:11:42.338818Z"
 }

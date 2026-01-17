@@ -1,9 +1,7 @@
 {
   "name": "docs-creating-accessible-diagrams",
-  "description": "WCAG-compliant Mermaid diagrams using verified accessible color palette. Use when creating diagrams, flowcharts, or any color-dependent visualizations requiring accessibility compliance for color blin",
   "repo": "wahidyankf/open-sharia-enterprise",
-  "category": "design",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "path": ".opencode/skill/docs-creating-accessible-diagrams/SKILL.md",
+  "source": "github.com/wahidyankf/open-sharia-enterprise",
+  "downloaded_at": "2026-01-17T03:27:15.200901Z"
 }

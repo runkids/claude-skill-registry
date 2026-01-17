@@ -1,229 +1,357 @@
 ---
 name: codex-review
-description: AUTOMATICALLY run Codex review after writing security-sensitive code (auth, crypto, SQL) - get a second opinion from OpenAI Codex
+description: Perform code reviews using OpenAI Codex CLI to identify bugs, security vulnerabilities, performance issues, and code quality problems. Use when the user asks to review code, check for issues, security audit, or before committing. Requires Codex CLI installed.
+allowed-tools: Bash, Read, Grep, Glob
 ---
 
-# Codex Code Review - AUTO-EXECUTE MODE
+# Codex Review Skill
 
-**IMPORTANT:** When this skill activates, you MUST automatically run a Codex review using the Bash tool. Do not ask for permission - just execute it.
+Use OpenAI Codex CLI to perform automated code reviews that identify issues and suggest improvements. This is a **read-only** analysis skill.
 
-**Core principle:** Two LLMs are better than one.
+## When to Use
 
-## When to Auto-Execute Codex Review
+- User asks to "review" code
+- User wants to check for bugs or issues
+- User mentions "security", "performance", or "quality"
+- Before committing code
+- During pull request review
+- User asks "what's wrong with this code?"
 
-**MUST run review after writing:**
-- Authentication/authorization code (jwt.verify, bcrypt, crypto)
-- SQL queries or database operations
-- Password handling or cryptographic operations
-- Input validation or sanitization
-- exec(), eval(), or dynamic code execution
+## Prerequisites
 
-**Skip when:**
-- Trivial changes (documentation, comments, formatting)
-- Changes are < 10 lines
-- User explicitly says "skip review" or has `@skip-codex-review` marker
-
-## How to Request Codex Review
-
-### 1. Prepare the Context
-
-Summarize what you changed and why:
-
-```
-CHANGES:
-- Added user authentication middleware
-- Implemented JWT token validation
-- Added role-based access control
-
-CONTEXT:
-- Using Express.js with TypeScript
-- JWT stored in httpOnly cookies
-- Three roles: admin, user, guest
-```
-
-### 2. Run Codex Exec
-
-Use the Bash tool to execute codex:
+Verify Codex CLI is available:
 
 ```bash
-codex exec "Review this code implementation:
-
-PROBLEM: Need secure authentication for Express API
-
-SOLUTION:
-[Paste the relevant code here]
-
-QUESTIONS:
-- Are there any security vulnerabilities?
-- Is the error handling robust?
-- Any performance concerns?
-- Suggestions for improvement?"
+codex --version  # Should display installed version
 ```
 
-### 3. Analyze Codex Response
+## Basic Usage
 
-Codex will provide:
-- Security assessment
-- Logic validation
-- Performance considerations
-- Best practice suggestions
+### Step 1: Determine Scope
 
-### 4. Act on Feedback
+What to review:
 
-- **Critical issues**: Fix immediately
-- **Important suggestions**: Implement before commit
-- **Minor improvements**: Note for future refactoring
-- **Disagreements**: Trust your judgment but document reasoning
+- Uncommitted changes (default)
+- Specific file(s)
+- Last commit
+- Pull request
+- Entire codebase
 
-## Example Session
+### Step 2: Check Current State
 
-```
-[Just completed: JWT authentication middleware]
-
-You: Let me get Codex's opinion on this authentication implementation.
-
-codex exec "Review this authentication code:
-
-CONTEXT: Express.js API with JWT cookie-based auth
-
-CODE:
-export const authenticateJWT = async (req, res, next) => {
-  const token = req.cookies.jwt;
-  if (!token) return res.status(401).json({ error: 'Unauthorized' });
-
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = await User.findById(decoded.userId);
-    next();
-  } catch (err) {
-    return res.status(401).json({ error: 'Invalid token' });
-  }
-};
-
-QUESTIONS:
-- Security vulnerabilities?
-- Error handling sufficient?
-- Performance implications?
-"
-
-[Codex responds]:
-SECURITY:
-- ✅ Good: httpOnly cookies, JWT verification
-- ⚠️ Issue: No JWT_SECRET validation on startup
-- ⚠️ Issue: User query could fail, should handle null
-
-PERFORMANCE:
-- ⚠️ DB query on every request - consider caching decoded token
-
-SUGGESTIONS:
-- Add JWT_SECRET existence check at startup
-- Handle null user case
-- Consider Redis for token caching
-- Add rate limiting
-
-You: [Fix critical issues: JWT_SECRET check, null user handling]
-You: [Note for later: token caching, rate limiting]
-```
-
-## Integration with Existing Workflows
-
-**With code-reviewer subagent:**
-- Use code-reviewer for architectural review
-- Use codex-review for security/implementation details
-- Complementary perspectives
-
-**With TDD:**
-- Write tests first
-- Implement code
-- Run codex-review before commit
-- Fix issues, ensure tests still pass
-
-**With git workflow:**
-- Make changes
-- Run codex-review
-- Fix issues
-- Commit with confidence
-
-## Skip Conditions
-
-**Automatic skip:**
-- File contains `@skip-codex-review` comment
-- Environment variable: `SKIP_CODEX_REVIEW=1`
-- Session tracking: Won't nag repeatedly
-
-**Manual skip:**
-- Simply proceed without running codex
-- Skill is suggestive, not blocking
-
-## Tips for Effective Codex Reviews
-
-**1. Be specific in prompts:**
 ```bash
-# Good
-codex exec "Review for SQL injection vulnerabilities in this query builder"
-
-# Less effective
-codex exec "Review this code"
+git status          # See what's changed
+git diff --stat     # Summary of changes
+git diff            # Detailed changes
 ```
 
-**2. Provide context:**
-- What problem are you solving?
-- What constraints exist?
-- What specific concerns do you have?
+### Step 3: Execute Codex Review
 
-**3. Focus reviews:**
-- Security review
-- Performance review
-- Logic review
-- Best practices review
+Run Codex with review-focused prompt:
 
-**4. Batch related changes:**
-- Review 3-5 related files together
-- Show how they interact
-- Get holistic feedback
-
-## Common Patterns
-
-### Security Review
 ```bash
-codex exec "Security review for authentication code:
-[code]
-Focus on: injection attacks, token handling, timing attacks"
+codex --sandbox=read-only exec "Perform comprehensive code review of [SCOPE].
+
+Check for:
+1. CRITICAL ISSUES (must fix):
+   - Security vulnerabilities (SQL injection, XSS, CSRF, etc.)
+   - Potential runtime errors
+   - Data loss risks
+   - Breaking changes
+
+2. IMPORTANT ISSUES (should fix):
+   - Logic bugs
+   - Performance problems
+   - Type safety gaps
+   - Error handling issues
+
+3. SUGGESTIONS (consider):
+   - Code quality improvements
+   - Refactoring opportunities
+   - Better patterns
+   - Documentation needs
+
+4. POSITIVE OBSERVATIONS:
+   - Best practices followed
+   - Good patterns used
+
+For each issue:
+- Severity level (Critical/Important/Suggestion)
+- File path and line number
+- Clear description of the problem
+- Why it's a problem
+- How to fix it
+
+Do NOT make any changes - this is review only."
+```
+
+### Step 4: Present Findings
+
+Organize results by severity:
+
+- 🔴 Critical Issues
+- 🟡 Important Issues
+- 🟢 Suggestions
+- ✅ Positive Observations
+
+## Example Reviews
+
+### Review Uncommitted Changes
+
+```bash
+codex --sandbox=read-only exec "Review all uncommitted changes for:
+- Bugs and logic errors
+- Security vulnerabilities
+- Performance issues
+- Code quality problems
+- Missing error handling
+Do NOT modify code."
+```
+
+### Security-Focused Review
+
+```bash
+codex --sandbox=read-only exec "Security review of src/auth/*.ts:
+- SQL injection vulnerabilities
+- XSS vulnerabilities
+- Authentication bypass
+- Authorization flaws
+- Secrets in code
+- Input validation gaps
+Provide severity level and fix suggestions. Do NOT modify code."
 ```
 
 ### Performance Review
+
 ```bash
-codex exec "Performance review for data processing:
-[code]
-Focus on: algorithmic complexity, database queries, memory usage"
+codex --sandbox=read-only exec "Performance review of src/components/*.tsx:
+- Unnecessary re-renders
+- Missing React.memo, useMemo, useCallback
+- Inefficient algorithms
+- Memory leaks
+- Large bundle impacts
+Provide specific optimization suggestions. Do NOT modify code."
 ```
 
-### Logic Review
+### Pre-Commit Review
+
 ```bash
-codex exec "Logic review for workflow engine:
-[code]
-Focus on: edge cases, state transitions, error paths"
+codex --sandbox=read-only exec "Quick review of staged changes for:
+- console.log statements
+- Commented-out code
+- Unused imports
+- TODO comments
+- Missing error handling
+- Type errors
+Exit with error if critical issues found. Do NOT modify code."
 ```
 
-## Red Flags (When to ALWAYS use Codex)
+## Review Focus Areas
 
-- Authentication/authorization code
-- Data validation logic
-- SQL query construction
-- File system operations
-- Cryptographic operations
-- Regular expressions
-- Parsing user input
-- Rate limiting/throttling
+### General Review
 
-## Benefits
+```bash
+# Comprehensive review of all aspects
+codex --sandbox=read-only exec "Comprehensive review covering: security, performance, code quality, architecture, testing, accessibility. Do NOT modify code."
+```
 
-✅ **Catch blind spots**: Different LLM, different perspective
-✅ **No blocking**: Suggestion only, no workflow disruption
-✅ **Fast**: 2-10 seconds for review
-✅ **Cost-effective**: Single API call for entire changeset
-✅ **Learning**: See alternative approaches and patterns
+### Security Audit
+
+```bash
+# OWASP Top 10 and security best practices
+codex --sandbox=read-only exec "Security audit focusing on: SQL injection, XSS, CSRF, authentication, authorization, secrets, input validation. Do NOT modify code."
+```
+
+### Architecture Review
+
+```bash
+# SOLID principles and design patterns
+codex --sandbox=read-only exec "Architecture review: SOLID principles, separation of concerns, dependency management, code organization, design patterns. Do NOT modify code."
+```
+
+### Accessibility Review
+
+```bash
+# WCAG compliance
+codex --sandbox=read-only exec "Accessibility review: ARIA labels, keyboard navigation, screen reader support, color contrast, semantic HTML. Do NOT modify code."
+```
+
+## Output Format
+
+Structure review results:
+
+````markdown
+# Code Review: [Scope]
+
+## Summary
+
+- Files reviewed: 3
+- Issues found: 5 (Critical: 1, Important: 2, Suggestions: 2)
+- Estimated fix time: 2 hours
+
+## 🔴 Critical Issues (Fix Immediately)
+
+### src/auth/login.ts:45 - SQL Injection Vulnerability
+
+**Severity:** Critical
+**Category:** Security
+
+**Problem:**
+Direct string interpolation in SQL query allows SQL injection.
+
+**Why it matters:**
+Attacker can execute arbitrary SQL commands, steal data, or drop tables.
+
+**How to fix:**
+Use parameterized queries:
+
+```typescript
+// Before (vulnerable)
+db.query(`SELECT * FROM users WHERE email = '${email}'`);
+
+// After (safe)
+db.query("SELECT * FROM users WHERE email = ?", [email]);
+```
+````
 
 ---
 
-**Remember**: Codex review is advisory. Use your engineering judgment for final decisions.
+## 🟡 Important Issues (Should Fix)
+
+[Same format as critical]
+
+---
+
+## 🟢 Suggestions (Consider Improving)
+
+[Same format]
+
+---
+
+## ✅ Positive Observations
+
+- src/utils/validation.ts:23 - Excellent input sanitization
+- src/hooks/useAuth.ts:67 - Proper cleanup in useEffect
+
+---
+
+## Recommended Actions
+
+1. **Immediate:** Fix SQL injection in auth/login.ts:45
+2. **Soon:** Address performance issue in components/UserList.tsx
+3. **Consider:** Refactor large function at utils/helpers.ts:120
+
+```
+
+## Best Practices
+
+✅ **DO:**
+- Categorize by severity (Critical/Important/Suggestion)
+- Include specific file paths and line numbers
+- Explain WHY something is a problem
+- Provide clear fix suggestions
+- Note positive observations too
+
+❌ **DON'T:**
+- Make code modifications (use codex-exec for that)
+- Skip verification of findings
+- Report false positives without investigation
+- Be purely negative without noting good practices
+
+## Verification
+
+After getting Codex's review:
+1. Verify file paths and line numbers are correct
+2. Check if issues are real (not false positives)
+3. Assess severity appropriately
+4. Add context from your knowledge of the code
+
+## Error Handling
+
+**If Codex not found:**
+```
+
+Codex CLI is not available. Ensure it's installed and in your PATH.
+
+````
+
+**If too many issues:**
+- Focus on critical issues first
+- Group related issues
+- Break into multiple focused reviews
+
+**If false positives:**
+- Manually verify each issue
+- Filter out non-issues
+- Clarify with more specific review scope
+
+## Integration Patterns
+
+### Pre-Commit Hook
+```bash
+#!/bin/bash
+# .git/hooks/pre-commit
+codex --sandbox=read-only exec "Quick review of staged changes for critical issues" --yes
+exit $?
+````
+
+### CI/CD Pipeline
+
+```yaml
+# GitHub Actions example
+- name: Codex Review
+  run: |
+    codex --sandbox=read-only exec "Review PR changes for security and quality" > review.md
+```
+
+## Review Checklist Templates
+
+### General Checklist
+
+```
+- [ ] No console.log or debug statements
+- [ ] No commented-out code
+- [ ] All imports are used
+- [ ] No TODO comments (or tracked in issues)
+- [ ] Error handling present
+- [ ] TypeScript types complete
+- [ ] No security vulnerabilities
+- [ ] Tests pass
+```
+
+### Security Checklist
+
+```
+- [ ] No SQL injection risks
+- [ ] No XSS vulnerabilities
+- [ ] Input validation present
+- [ ] No secrets in code
+- [ ] Authentication/authorization correct
+- [ ] HTTPS enforced
+- [ ] CSRF protection enabled
+```
+
+## Related Skills
+
+- **codex-ask**: For understanding code before reviewing
+- **codex-exec**: For fixing issues found in review
+
+## Tips for Better Reviews
+
+1. **Be specific**: "Review src/auth.ts for security" vs "Review code"
+2. **Define scope**: Specific files > entire codebase
+3. **Choose focus**: Security audit vs general review
+4. **Iterate**: Review → Fix → Re-review
+5. **Combine skills**: codex-ask → codex-review → codex-exec
+
+## Limitations
+
+- Static analysis only (cannot run code)
+- May generate false positives
+- Cannot understand business logic
+- Cannot test runtime behavior
+- Limited by context window size
+
+---
+
+**Remember**: This skill is READ-ONLY. To fix issues found, use the `codex-exec` skill.

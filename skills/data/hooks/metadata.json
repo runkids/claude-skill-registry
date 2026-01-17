@@ -1,7 +1,7 @@
 {
   "name": "hooks",
-  "repo": "reggiechan74/claude-plugins",
-  "path": "plugins/claude-code-metaskill/skills/hooks/SKILL.md",
-  "source": "github.com/reggiechan74/claude-plugins",
-  "downloaded_at": "2026-01-14T03:58:20.803351Z"
+  "repo": "masharratt/claude-flow-novice",
+  "path": ".claude/skills/cfn-edit-safety/lib/hooks/SKILL.md",
+  "source": "github.com/masharratt/claude-flow-novice",
+  "downloaded_at": "2026-01-17T03:40:39.057125Z"
 }

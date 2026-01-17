@@ -1,74 +1,81 @@
 ---
 name: deploy
-description: Deploy or release the project. Use when releasing a new version.
-allowed-tools: Read, Edit, Bash
+description: Safe deployment workflow for Fly.io and infrastructure changes. Use before ANY deployment, config modification, or infrastructure change. Prevents panic-driven debugging and production incidents.
 ---
 
-# Deploy Skill
+# Deployment Discipline
 
-Steps to deploy/release a new version.
+## The Golden Rules
 
-## Pre-Deploy Checklist
+1. **LOCAL FIRST, ALWAYS** - Never deploy until local tests pass
+2. **ONE CHANGE AT A TIME** - Make one fix, test it, verify it works, then proceed
+3. **UNDERSTAND BEFORE FIXING** - Don't conflate unrelated errors
+4. **NOTIFICATIONS ARE PRODUCTION** - Failed deployments spam Slack
 
-- [ ] All tests pass
-- [ ] Linting/type checks pass (if applicable)
-- [ ] CHANGELOG.md updated with version changes
-- [ ] README.md updated if needed
-- [ ] All changes committed
+## Pre-Deployment Checklist
 
-## Version Update
-
-Update version in ALL relevant locations:
-
-Common locations:
-- `pyproject.toml` / `package.json` / `Cargo.toml`
-- Source code version constant (e.g., `__version__`)
-- Documentation
-
-## General Deploy Steps
+Before ANY deployment:
 
 ```bash
-# 1. Verify tests pass
-# Run your project's test command
+# 1. Test locally first
+source .venv/bin/activate
+python scripts/run_pipeline.py everflow
 
-# 2. Update version numbers (see above)
+# 2. Check what changed
+git diff
 
-# 3. Update CHANGELOG.md
-# Add new section for this version
-
-# 4. Build/package (project-specific)
-# e.g., python -m build, npm run build, cargo build --release
-
-# 5. Publish (project-specific)
-# e.g., twine upload, npm publish, cargo publish
-
-# 6. Git tag and push
-git add -A
-git commit -m "Release vX.Y.Z: Description"
-git tag vX.Y.Z
-git push origin main --tags
+# 3. Verify no broken imports
+python -c "from signalroom.workers.main import main; print('OK')"
 ```
 
-## Post-Deploy
+## Fly.io Deployment
 
-1. Verify deployment:
-   - Check package registry (PyPI, npm, crates.io)
-   - Test installation from registry
+```bash
+# Deploy (builds and pushes)
+fly deploy
 
-2. Update CONTINUITY.md:
-   - Mark deploy task as DONE
-   - Add session log entry with release URL
-   - Update CURRENT STATE version
+# Check status
+fly status
 
-## Version Numbering (SemVer)
+# View logs
+fly logs
 
-- **X.Y.Z**
-- **X** (Major): Breaking changes
-- **Y** (Minor): New features (backward compatible)
-- **Z** (Patch): Bug fixes
+# Check secrets are set
+fly secrets list
+```
 
-## Troubleshooting
+## Known Working Configuration
 
-**Build fails**: Check dependencies, run clean build
-**Upload fails**: Check credentials/API keys
-**Tests fail**: Fix tests before deploying
+**Supabase Pooler (REQUIRED for Fly.io):**
+- Host: `aws-0-us-east-1.pooler.supabase.com`
+- Port: `6543`
+- User: `postgres.{project_ref}` (NOT just `postgres`)
+
+**Temporal Cloud:**
+- Address: `ap-northeast-1.aws.api.temporal.io:7233`
+- Namespace: `signalroom-713.nzg5u`
+
+## If Something Breaks
+
+**STOP. Do not deploy again.**
+
+1. Check what you changed: `git diff`
+2. Revert if needed: `git checkout -- <file>`
+3. Test locally before any retry
+4. Ask: "What was working before, and what did I change?"
+
+## Secrets with Special Characters
+
+Passwords with backticks, quotes, or special chars:
+- **Do NOT use CLI** - shell escaping will break them
+- **Use Fly.io dashboard** - Settings > Secrets > Set manually
+
+## Rollback
+
+```bash
+# List recent deployments
+fly releases
+
+# Rollback to previous
+fly deploy --image <previous-image>
+```

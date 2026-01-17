@@ -1,7 +1,7 @@
 {
   "name": "git",
-  "repo": "oriolrius/nifi-cluster",
-  "path": ".claude/skills/git/SKILL.md",
-  "source": "github.com/oriolrius/nifi-cluster",
-  "downloaded_at": "2026-01-14T04:01:38.626751Z"
+  "repo": "EpicenterHQ/epicenter",
+  "path": "skills/git/SKILL.md",
+  "source": "github.com/EpicenterHQ/epicenter",
+  "downloaded_at": "2026-01-17T04:02:32.638705Z"
 }

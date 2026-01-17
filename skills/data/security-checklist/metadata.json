@@ -1,7 +1,7 @@
 {
   "name": "security-checklist",
-  "repo": "ArieGoldkin/ai-agent-hub",
-  "path": "skills/security-checklist/SKILL.md",
-  "source": "github.com/ArieGoldkin/ai-agent-hub",
-  "downloaded_at": "2026-01-14T03:52:04.209256Z"
+  "repo": "yebot/rad-cc-plugins",
+  "path": "plugins/webapp-team/skills/security-checklist/SKILL.md",
+  "source": "github.com/yebot/rad-cc-plugins",
+  "downloaded_at": "2026-01-17T00:51:19.405046Z"
 }

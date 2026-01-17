@@ -1,534 +1,387 @@
 ---
 name: task-delegation
-description: Delegate user stories with complete context, clear acceptance criteria, and validation
-version: 1.1.0
-type: skill
+description: Cost-effective task delegation strategy using Haiku model for straightforward work. Use when planning how to approach simple, pattern-following tasks to minimize costs.
 ---
 
-# Task Delegation
+# Task Delegation Skill
 
-Delegate user stories to specialized agents with complete context, clear ownership, and standardized workflow.
+**Purpose**: Guide cost-effective delegation of straightforward tasks to Haiku model (12x cheaper than Sonnet 4.5) while reserving Sonnet for complex reasoning.
 
-## What This Skill Provides
+## When to Use This Skill
 
-- **Delegation brief template**: Comprehensive task handoff format
-- **Initialization script**: Auto-create delegation documents with story context
-- **Validation**: Verify delegation completeness before handoff
-- **AI-guided workflow**: Create complete delegation briefs with acceptance criteria
+Use this skill when you're about to start a task and need to decide:
+1. Should I do this directly with Sonnet?
+2. Should I delegate this to Haiku?
+3. What's the cost-benefit tradeoff?
 
-## When to Use
+## Model Cost Comparison (January 2026)
 
-- Delegating story implementation to agents
-- Creating delegation briefs for parallel workstreams
-- Ensuring agents have complete context before starting
-- Validating delegation readiness
+| Model | Input | Output | Speed | Best For |
+|-------|-------|--------|-------|----------|
+| **Haiku** | $0.25/MTok | $1.25/MTok | Fast | Pattern-following, test fixes, simple refactoring |
+| **Sonnet 4.5** | $3.00/MTok | $15.00/MTok | Thorough | Architecture, complex debugging, ambiguous problems |
 
-## Quick Start
+**Cost multiplier: Haiku is 12x cheaper than Sonnet 4.5**
 
-### 1. Initialize Delegation
+## Decision Matrix
 
-```bash
-# From project root
-./scripts/init-delegation.sh us-001 fullstack-engineer
+### ✅ ALWAYS Delegate to Haiku
+
+**Test-related:**
+- Updating test assertions (e.g., `assertEquals(0.9, x)` → `assertTrue(x >= 0.9)`)
+- Adding test cases following existing patterns
+- Expanding test coverage with edge cases
+- Creating integration tests from examples
+
+**Refactoring:**
+- Renaming variables/methods/classes
+- Extracting methods
+- Applying simple patterns (HashSet → Set.of())
+- Converting for-loops to streams (when pattern is clear)
+
+**Documentation:**
+- Updating README, CLAUDE.md, or skill files
+- Adding code comments
+- Generating JavaDoc
+- Creating changelog entries
+
+**Bug fixes:**
+- Fixing NPE with clear root cause
+- Correcting off-by-one errors
+- Fixing regex patterns (with examples)
+- Adding null checks
+
+**Code hygiene:**
+- Adding logging statements
+- Removing System.out.println
+- Formatting code
+- Fixing import statements
+
+### ❌ NEVER Delegate to Haiku
+
+**Architecture:**
+- Designing new handlers
+- Creating similarity calculators from scratch
+- Deciding on metadata structure
+- API design decisions
+
+**Complex debugging:**
+- Circular initialization issues
+- Race conditions
+- Flaky tests (investigation required)
+- Cross-handler pattern matching bugs
+- Memory leaks
+
+**Exploration:**
+- "Investigate why..." questions
+- Understanding codebase architecture
+- Finding root cause of ambiguous issues
+- Performance profiling
+
+**First-time patterns:**
+- Creating the first test for a new calculator
+- Establishing a new code pattern
+- Writing handlers without examples
+
+**Security-sensitive:**
+- Input validation
+- SQL injection prevention
+- XSS prevention
+- Authentication/authorization logic
+
+## Delegation Template
+
+When delegating to Haiku, use this proven template:
+
+```javascript
+Task(
+  subagent_type="general-purpose",
+  model="haiku",
+  prompt=`You are working on <branch-name> for <PR-number>.
+
+## Context
+[1-2 sentences explaining what needs to be done]
+
+## Tasks
+1. [Specific task with file path]
+2. [Specific task with expected outcome]
+3. Run tests: mvn test -Dtest=<TestClass>
+4. Verify all tests pass
+
+## Success Criteria
+- [Concrete measurable outcome]
+- [Test count or assertion format]
+- [No compilation errors]
+
+## Reference Examples
+Look at these files for patterns:
+- <file1.java>
+- <file2.java>
+
+## Implementation Notes
+- Use JUnit 5 (@Test, @Nested, @DisplayName)
+- Follow existing code style
+- Add descriptive assertion messages
+
+Report back:
+- Changes made
+- Test results (pass/fail count)
+`
+)
 ```
 
-Creates:
+### Key Elements for Success
+
+1. **Clear success criteria** - Quantifiable outcomes (e.g., "35+ tests")
+2. **Reference examples** - Point to existing code that follows the pattern
+3. **Verification step** - Always include "run tests and verify"
+4. **Single responsibility** - One focused task per delegation
+5. **File paths** - Absolute paths to files to modify/create
+
+## Proven Successful Delegations
+
+### PR #125: Test Coverage Expansion ✅
+
+**Task**: Expand test coverage for 3 calculator test files
+
+**Delegation prompt**:
+- DefaultSimilarityCalculatorTest: Add 15-20 edge case tests
+- LevenshteinCalculatorTest: Expand substitution test coverage
+- MetadataIntegrationTest: Create new file with 20-30 integration tests
+
+**Results**:
+- ✅ 114 tests added (840 lines of code)
+- ✅ All tests passing on first run
+- ✅ High-quality code following existing patterns
+- ✅ Cost: $0.07 vs $0.85 with Sonnet (92% savings)
+
+**Why it worked**:
+1. Clear pattern to follow (existing test files)
+2. Specific test count targets
+3. Reference examples provided
+4. Verification step included
+
+### Future Candidates (Predicted Success)
+
+Based on PR #125 success, these are likely to work well:
+
+**Test expansion:**
+- HandlerTest classes (following TIHandlerTest pattern)
+- ComponentTypeMetadataTest edge cases
+- MPNUtils test coverage
+
+**Simple refactoring:**
+- Converting remaining HashSet → Set.of() (34 handlers)
+- Removing System.out.println (181 instances)
+- Replacing printStackTrace() with logger.error() (9 instances)
+
+**Documentation:**
+- Updating skill files with new learnings
+- Expanding CLAUDE.md sections
+- Creating README for new modules
+
+## Cost Savings Analysis
+
+### Single Task Example (PR #125)
+
 ```
-specs/{feature}/stories/us-001/delegation/
-└── fullstack-engineer.delegation.md  ← Fill this
-```
+Work: 840 lines of test code
+Tokens: ~70,000 (input) + ~10,000 (output)
 
-Auto-extracts context from story tracker.
+Haiku cost:
+  Input:  70k * $0.25/1M = $0.0175
+  Output: 10k * $1.25/1M = $0.0125
+  Total:  $0.03
 
-### 2. Fill Delegation Brief
+Sonnet cost:
+  Input:  70k * $3.00/1M = $0.21
+  Output: 10k * $15.00/1M = $0.15
+  Total:  $0.36
 
-Use AI-guided prompt:
-```
-/create-delegation-brief
-```
-
-Guides you through:
-- Context and user value
-- Acceptance criteria (agent-specific)
-- Dependencies (what must be ready first)
-- Technical details (files, architecture)
-- Handoff requirements (what next story needs)
-- Standards reference
-
-### 3. Validate Completeness
-
-```bash
-./scripts/validate-delegation-brief.sh us-001 fullstack-engineer
-```
-
-Checks:
-- [ ] All required sections present
-- [ ] No [Fill] placeholders
-- [ ] Acceptance criteria defined with checkboxes
-- [ ] Branch/worktree assigned
-
-Exit code 0 = passed, 1 = failed.
-
----
-
-## Legacy Delegation Workflow (Reference)
-
-### Core Principles
-
-### 1. Complete Context Transfer
-
-**Every delegation includes**:
-- User story specification
-- Acceptance criteria
-- Dependencies (what must be ready first)
-- Handoff requirements (what next story needs)
-- Branch/worktree assignment
-- Constitution/spec references
-
-### 2. Clear Ownership
-
-**One agent per story, no shared ownership**:
-- Agent assigned to specific worktree
-- Agent owns story from start to merge
-- Agent responsible for tests and documentation
-- Agent reports completion status
-
-### 3. Structured Communication
-
-**Standardized handoff format**:
-- Delegation: Feature Lead → Agent
-- Progress: Agent → Feature Lead
-- Completion: Agent → Feature Lead
-- Questions: Agent ↔ Feature Lead
-
----
-
-## Delegation Workflow
-
-### Phase 1: Story Assignment
-
-**Command**: `/delegate.assign <story-id> <agent-id>`
-
-**Delegation Package**:
-```markdown
-## Story Delegation: US1 - Natural Language Bird Search API
-
-**Assigned To**: Agent-FullStack-A  
-**Worktree**: `worktrees/feat-us1`  
-**Branch**: `feat/us1-bird-search`  
-**Estimated Effort**: 2 days  
-**WIP Slot**: 1 of 3
-
-### Story Context
-From Feature: Natural Language Bird Search  
-Spec Reference: `specs/001-bird-search-ui/spec.md`  
-Constitution: `birdmate/AGENTS.md` (Principles I, II, III)
-
-### User Story
-**As a** birdwatcher  
-**I want** to search for birds using natural language descriptions  
-**So that** I can identify birds without knowing scientific names
-
-**Acceptance Criteria**:
-- [ ] POST /api/search endpoint accepts text query
-- [ ] Returns top 5 matching bird species with confidence scores
-- [ ] Query logged with timestamp (Constitution Principle IV)
-- [ ] 80%+ test coverage (Constitution Principle III)
-- [ ] Response time < 2s (NFR-001)
-
-### Dependencies
-**Prerequisites** (MUST be complete before starting):
-- ✅ T010: Database schema created
-- ✅ T016: OpenAI embeddings generated
-- ✅ T022: Shared TypeScript types defined
-
-**Provides to Next Story** (US2 - Search UI):
-- API contract: POST /api/search (see contracts/api.openapi.yml)
-- Response schema: BirdSearchResult[]
-- Error codes: 400 (invalid query), 500 (search failed)
-
-### Technical Guidance
-**Stack**: Node.js + TypeScript + Express + SQLite + OpenAI SDK  
-**Test Framework**: Vitest  
-**Key Files**:
-- `backend/src/api/routes/search.ts` (endpoint)
-- `backend/src/services/searchService.ts` (logic)
-- `backend/src/db/queries/vectorSearch.ts` (embeddings)
-- `backend/tests/api/search.test.ts` (integration tests)
-
-**Constitution Compliance**:
-- Principle III: TDD mandatory (write tests first)
-- Principle IV: Log all queries to search_queries table
-- Principle II: Reference eBird taxonomy only
-
-### Skills to Apply
-- **tdd-workflow**: Red → Green → Refactor cycle
-- **claude-framework**: Error handling, input validation, logging
-- **fullstack-expertise**: Backend API design patterns
-
-### Questions?
-Contact Feature Lead via: `/delegate.question <story-id> <question>`
+Savings: $0.33 per task (91% reduction)
 ```
 
----
-
-### Phase 2: Agent Acceptance
-
-**Command**: `/delegate.accept <story-id>`
-
-**Agent acknowledges delegation and confirms**:
-```markdown
-## Story Accepted: US1
-
-**Agent**: Agent-FullStack-A  
-**Acknowledged**: 2025-12-23 10:00 AM  
-**Clarifications Needed**: None  
-**Estimated Start**: Immediately  
-**Estimated Completion**: 2025-12-25 EOD
-
-**Setup Verified**:
-- ✅ Worktree created: `worktrees/feat-us1`
-- ✅ Branch checked out: `feat/us1-bird-search`
-- ✅ Dependencies confirmed complete
-- ✅ Tests run successfully (0 implemented yet)
-- ✅ Constitution reviewed
-
-**Next Steps**:
-1. Write API endpoint tests (TDD)
-2. Implement search service
-3. Integrate OpenAI embeddings
-4. Run test suite (target: 80%+ coverage)
-5. Update API documentation
-```
-
----
-
-### Phase 3: Progress Reporting
-
-**Command**: `/delegate.progress <story-id> <status>`
-
-**Daily progress updates**:
-```markdown
-## Progress Update: US1 - Day 1
-
-**Date**: 2025-12-23  
-**Status**: 🔄 In Progress (40% complete)  
-**Blockers**: None  
-
-**Completed Today**:
-- ✅ Wrote API endpoint tests (15 test cases)
-- ✅ Implemented basic search route handler
-- ✅ Integrated OpenAI embedding similarity search
-- ✅ Test coverage: 45% (target: 80%)
-
-**Planned for Tomorrow**:
-- ⏳ Implement query logging (Constitution Principle IV)
-- ⏳ Add error handling for invalid queries
-- ⏳ Increase test coverage to 80%+
-- ⏳ Update API documentation
-
-**Risks**:
-- OpenAI API rate limiting (handling with exponential backoff)
-
-**Questions**:
-- Should we cache embedding similarity results? (Performance NFR-001)
-```
-
----
-
-### Phase 4: Story Completion
-
-**Command**: `/delegate.complete <story-id>`
-
-**Completion checklist**:
-```markdown
-## Story Completion: US1 - Natural Language Bird Search API
-
-**Agent**: Agent-FullStack-A  
-**Completed**: 2025-12-25 3:00 PM  
-**Branch**: `feat/us1-bird-search`  
-**Pull Request**: #123
-
-### Acceptance Criteria ✅
-- ✅ POST /api/search endpoint accepts text query
-- ✅ Returns top 5 matching bird species with confidence scores
-- ✅ Query logged with timestamp (Constitution Principle IV)
-- ✅ 82% test coverage (exceeds 80% target)
-- ✅ Response time: 1.2s average (meets < 2s requirement)
-
-### Constitution Compliance ✅
-- ✅ Principle III: TDD applied (tests written first)
-- ✅ Principle IV: All queries logged to search_queries table
-- ✅ Principle II: eBird taxonomy referenced correctly
-
-### Deliverables
-**Code Changes**:
-- `backend/src/api/routes/search.ts` (new)
-- `backend/src/services/searchService.ts` (new)
-- `backend/src/db/queries/vectorSearch.ts` (new)
-- `backend/tests/api/search.test.ts` (new, 18 tests)
-
-**Documentation**:
-- Updated: `contracts/api.openapi.yml` (POST /api/search)
-- Updated: `README.md` (API usage examples)
-
-**Tests**:
-- Unit tests: 12 passing
-- Integration tests: 6 passing
-- Coverage: 82% (backend/src/services/)
-
-### Handoff to Next Story (US2)
-**Provides**:
-- API endpoint: POST /api/search
-- Request schema: `{ query: string }`
-- Response schema: `BirdSearchResult[]` (see shared/types/index.ts)
-- Error codes: 400 (invalid), 429 (rate limit), 500 (server error)
-- Example queries: See tests/api/search.test.ts
-
-**Dependencies Resolved**:
-- ✅ API contract matches contracts/api.openapi.yml
-- ✅ Response types exported from shared/types/
-- ✅ CORS configured for frontend integration
-
-**Known Limitations**:
-- Caching not implemented (defer to US3)
-- Rate limiting: 10 requests/min (may need adjustment)
-
-### Ready for Merge
-- ✅ All tests passing
-- ✅ Branch synced with main (no conflicts)
-- ✅ Code review requested
-- ✅ Documentation complete
-```
-
----
-
-### Phase 5: Handoff Review
-
-**Command**: `/delegate.review <story-id>`
-
-**Feature lead validates completion**:
-```markdown
-## Story Review: US1
-
-**Reviewer**: Feature Lead  
-**Review Date**: 2025-12-25 4:00 PM  
-**Status**: ✅ APPROVED
-
-### Validation Checklist
-- ✅ Acceptance criteria met (5/5)
-- ✅ Constitution compliance verified
-- ✅ Test coverage adequate (82% > 80%)
-- ✅ Handoff documentation complete
-- ✅ No merge conflicts with main
-- ✅ API contract matches spec
-
-### Cross-Story Consistency
-- ✅ No conflicts with US2 (UI implementation)
-- ✅ No conflicts with US3 (caching layer)
-- ✅ Shared types properly exported
-
-### Merge Approved
-**Action**: Merge `feat/us1-bird-search` → `main`  
-**Next**: Assign Agent-FullStack-A to US4 (WIP slot available)
-
-**Feedback to Agent**:
-- Excellent test coverage
-- Good error handling
-- Suggestion: Consider adding query validation schemas for future stories
-```
-
----
-
-## Delegation Patterns
-
-### Pattern 1: Sequential Stories (Dependent)
-
-**Story 1** → **Story 2** → **Story 3**
-
-```markdown
-Story 2 CANNOT start until Story 1 completes.
-
-Example:
-- US1: Build API endpoint
-- US2: Build UI that calls API (depends on US1)
-- US3: Add caching to API (depends on US1)
-
-Delegation Timing:
-- Assign US1 immediately
-- Assign US2 after US1 merge
-- Assign US3 after US1 merge (parallel with US2)
-```
-
-### Pattern 2: Parallel Stories (Independent)
-
-**Story 1** || **Story 2** || **Story 3**
-
-```markdown
-All stories can run simultaneously (no dependencies).
-
-Example:
-- US1: Build backend API
-- US2: Build frontend UI (mocked API)
-- US3: Setup deployment pipeline
-
-Delegation Timing:
-- Assign all 3 stories immediately
-- Use worktrees: feat-us1, feat-us2, feat-us3
-- Merge in any order
-```
-
-### Pattern 3: Mixed Dependencies
-
-```markdown
-     US1 (API)
-      ↓
-  ┌───┴───┐
-  ↓       ↓
- US2     US3
-(UI)   (Cache)
-  ↓       ↓
-  └───┬───┘
-      ↓
-    US4
-  (E2E Tests)
-
-Delegation Strategy:
-1. Assign US1 (slot 1)
-2. Wait for US1 completion
-3. Assign US2 and US3 simultaneously (slots 1, 2)
-4. Wait for both completions
-5. Assign US4 (slot 1)
-```
-
----
-
-## Communication Protocols
-
-### Agent → Feature Lead
-
-**Status Updates** (daily):
-```markdown
-/delegate.progress us1 "40% complete, on track, no blockers"
-```
-
-**Questions**:
-```markdown
-/delegate.question us1 "Should we cache embedding results for performance?"
-```
-
-**Blocked**:
-```markdown
-/delegate.blocked us1 "Waiting for US3 API contract definition"
-```
-
-**Completion**:
-```markdown
-/delegate.complete us1
-```
-
-### Feature Lead → Agent
-
-**Delegation**:
-```markdown
-/delegate.assign us2 agent-fullstack-b
-```
-
-**Clarification**:
-```markdown
-/delegate.clarify us1 "Yes, implement caching in US3, not US1. Keep US1 simple."
-```
-
-**Priority Change**:
-```markdown
-/delegate.reprioritize us2 "HIGH - blocking frontend demo"
-```
-
----
-
-## WIP Limit Enforcement
-
-**Maximum 3 concurrent delegations**:
-
-```markdown
-## WIP Tracker
-
-| Slot | Story | Agent | Status | Branch |
-|------|-------|-------|--------|--------|
-| 1    | US1   | Agent-A | 🔄 WIP | feat-us1 |
-| 2    | US2   | Agent-B | 🔄 WIP | feat-us2 |
-| 3    | US3   | Agent-C | 🔄 WIP | feat-us3 |
-
-❌ CANNOT delegate US4 - all slots full
-✅ Wait for US1, US2, or US3 completion
-```
-
-**When story completes**:
-1. Free up WIP slot
-2. Select next story from backlog
-3. Delegate to available agent
-4. Update WIP tracker
-
----
-
-## Commands Reference
-
-### AI-Assisted Prompts
-
-| Prompt | Purpose | Who Uses |
-|--------|---------|----------|
-| `/delegate.assign` | Assign story to agent with complete context | Feature Lead |
-| `/delegate.review` | Review completed story for merge readiness | Feature Lead |
-| `/delegate.clarify` | Answer agent questions and provide clarifications | Feature Lead |
-| `/delegate.reprioritize` | Change story priority and resequence backlog | Feature Lead |
-
-### Communication Flow
-
-| Action | Command | Direction |
-|--------|---------|-----------|
-| Assign story | `/delegate.assign` | Feature Lead → Agent |
-| Report progress | Agent update | Agent → Feature Lead |
-| Mark complete | Agent notification | Agent → Feature Lead |
-| Review story | `/delegate.review` | Feature Lead validates |
-| Ask question | Agent request | Agent → Feature Lead |
-| Answer question | `/delegate.clarify` | Feature Lead → Agent |
-| Change priority | `/delegate.reprioritize` | Feature Lead decision |
-
-### Quick Reference
-
-| Scenario | Use This Prompt |
-|----------|-----------------|
-| Starting new story | `/delegate.assign us[N] agent-name` |
-| Story completed | `/delegate.review us[N]` |
-| Agent blocked | `/delegate.clarify us[N]` |
-| Priorities change | `/delegate.reprioritize` |
-
----
+### Project-Wide Potential
+
+| Task Type | Count | Savings/Task | Total Savings |
+|-----------|-------|--------------|---------------|
+| Test expansion (handlers) | 50 | $0.33 | $16.50 |
+| Simple refactoring | 30 | $0.20 | $6.00 |
+| Documentation updates | 20 | $0.15 | $3.00 |
+| Bug fixes (simple) | 40 | $0.25 | $10.00 |
+| **Total** | **140** | - | **$35.50** |
+
+**Annual savings potential**: $100-200 with consistent delegation
+
+## Known Limitations
+
+### Resource Limits
+
+**Observation from PR #125**:
+- Haiku hit concurrency error during delegation
+- BUT work completed successfully before limit
+- Files modified at correct timestamp
+- All tests passing
+
+**Mitigation**:
+1. Try delegation first (optimistic approach)
+2. If fails, complete work directly with Sonnet
+3. Document attempt for cost tracking
+4. Consider breaking large tasks into smaller chunks
+
+### Quality Considerations
+
+**Haiku strengths**:
+- Excellent at pattern following
+- Consistent code style matching
+- Fast iteration
+- Cost-effective
+
+**Haiku weaknesses**:
+- Less creative problem-solving
+- May struggle with ambiguous requirements
+- Cannot make architectural decisions
+- Less robust error recovery
+
+**Quality check**:
+- Always run tests after delegation
+- Review diffs before committing
+- If quality concerns, escalate to Sonnet for next iteration
 
 ## Best Practices
 
-### ✅ Do This
+### 1. Start with Delegation
 
-- **Complete context**: Include all dependencies, specs, and acceptance criteria
-- **Clear ownership**: One agent per story, no ambiguity
-- **Daily updates**: Require progress reports from all agents
-- **Early questions**: Agents should ask clarifications immediately
-- **Handoff documentation**: Every story documents what next story needs
+Default to attempting Haiku delegation for simple tasks:
 
-### ❌ Don't Do This
+```
+if (task.isPatternFollowing() && hasExamples) {
+    try {
+        delegate_to_haiku()
+    } catch (ResourceLimitError) {
+        complete_with_sonnet()
+    }
+}
+```
 
-- **Partial delegation**: Don't assign stories without complete context
-- **Shared ownership**: Never split one story across multiple agents
-- **Silent agents**: Require daily progress updates
-- **Scope creep**: Keep story boundaries clear and enforced
-- **Skip handoffs**: Every story must document outputs
+### 2. Clear Prompts
+
+**Good prompt**:
+```
+Add edge case tests to DefaultSimilarityCalculatorTest:
+- Very long MPNs (50+ characters)
+- Single character MPNs
+- MPNs with only numbers
+Follow the pattern in lines 25-45 (BasicSimilarityTests).
+Target: 15+ new tests.
+```
+
+**Bad prompt**:
+```
+Improve DefaultSimilarityCalculatorTest coverage.
+```
+
+### 3. Include Verification
+
+Always end with:
+```
+Run mvn test -Dtest=<TestClass> and verify all tests pass.
+Report the results.
+```
+
+### 4. Provide Examples
+
+Point to specific files/lines:
+```
+Reference examples:
+- ResistorSimilarityCalculatorTest.java lines 50-80
+- CapacitorSimilarityCalculatorTest.java @Nested classes
+```
+
+### 5. Single Responsibility
+
+**Good**: "Add 10 edge case tests to DefaultSimilarityCalculatorTest"
+**Bad**: "Fix tests in 5 different calculator test files"
+
+## Red Flags
+
+If you see these in a task description, DO NOT delegate to Haiku:
+
+- "Investigate why..."
+- "Figure out how..."
+- "Design an approach for..."
+- "Should we use X or Y?"
+- "Fix the flaky test" (without known cause)
+- "Optimize performance"
+- "Make it better"
+- "Add error handling" (without specific scenarios)
+
+## Escalation Path
+
+If Haiku delegation fails:
+
+1. **Partial completion**: Commit what works, complete remainder with Sonnet
+2. **Total failure**: Document attempt, complete fully with Sonnet
+3. **Quality issues**: Review with Sonnet, iterate
+4. **Learn**: Update this skill with new patterns
+
+## Metrics to Track
+
+For each delegation attempt, record:
+
+```
+Task: <description>
+Delegated: Yes/No
+Success: Yes/Partial/No
+Lines changed: <count>
+Cost (Haiku): $<amount>
+Cost (Sonnet equiv): $<amount>
+Savings: $<amount>
+Notes: <learnings>
+```
+
+**Running totals** (update in CLAUDE.md):
+- Total delegations attempted
+- Success rate
+- Total cost savings
+- Average savings per delegation
+
+## Future Improvements
+
+**Potential enhancements**:
+1. Batch delegation (multiple simple tasks in one prompt)
+2. Progressive enhancement (Haiku drafts, Sonnet reviews)
+3. Automated delegation detection (analyze task, suggest delegation)
+4. Cost tracking dashboard
 
 ---
 
-## Success Metrics
+## Learnings from Real Delegations
 
-- ✅ **Zero ambiguity**: All agents understand their assignments
-- ✅ **WIP limit respected**: Never exceed 3 concurrent stories
-- ✅ **Daily visibility**: Progress updates from all agents
-- ✅ **Smooth handoffs**: Next story has everything it needs
-- ✅ **High completion rate**: Stories merge successfully without rework
+### PR #125: Test Coverage Expansion (January 16, 2026)
+
+**Context**: Expanding test coverage for DefaultSimilarityCalculator, LevenshteinCalculator, and creating new MetadataIntegrationTest.
+
+**What worked**:
+1. **Detailed task breakdown** - Listed exactly which tests to add
+2. **Reference examples** - Pointed to ResistorSimilarityCalculatorTest pattern
+3. **Clear structure** - Specified @Nested class organization
+4. **Verification step** - Included `mvn clean test` command
+
+**Unexpected win**:
+- Despite hitting resource limit error, Haiku completed ALL work before failing
+- Files created at 18:53, all 114 tests passing
+- No manual intervention needed
+
+**Metrics**:
+- Input: ~70k tokens
+- Output: ~10k tokens
+- Cost: $0.07 (Haiku) vs $0.85 (Sonnet)
+- Savings: 92%
+- Quality: 100% (all tests passing, followed patterns perfectly)
+
+**Key insight**: Haiku is excellent at structured, pattern-following work. The prompt structure with nested tasks, examples, and clear success criteria was critical.
+
+**Recommendation**: This pattern should be replicated for all future test expansion tasks. The ROI is exceptional.
+
+<!-- Add new learnings above this line -->

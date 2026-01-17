@@ -1,9 +1,7 @@
 {
   "name": "speckit-constitution",
-  "description": "Create or update the project constitution from interactive or provided principle inputs, ensuring all dependent templates stay in sync.",
-  "repo": "dceoy/gh-actions-for-devops",
-  "category": "testing",
-  "tags": [],
-  "stars": 0,
-  "source": "SkillsMP + GitHub Raw"
+  "repo": "dceoy/pdmt5",
+  "path": ".claude/skills/speckit-constitution/SKILL.md",
+  "source": "github.com/dceoy/pdmt5",
+  "downloaded_at": "2026-01-17T03:18:48.798068Z"
 }

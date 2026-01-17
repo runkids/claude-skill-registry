@@ -1,7 +1,7 @@
 {
   "name": "pr-review",
-  "repo": "sensei-hacker/inav-claude",
-  "path": ".claude/skills/pr-review/SKILL.md",
-  "source": "github.com/sensei-hacker/inav-claude",
-  "downloaded_at": "2026-01-14T01:54:29.164806Z"
+  "repo": "lovedragonball/power-ranger-toolkit",
+  "path": "src/skills/pr-review/SKILL.md",
+  "source": "github.com/lovedragonball/power-ranger-toolkit",
+  "downloaded_at": "2026-01-17T03:14:51.087488Z"
 }

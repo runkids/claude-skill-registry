@@ -39,7 +39,7 @@ When invoked in **Plan Mode** (agent cannot execute actions), this skill operate
 
 **Phase 1-2:** Same as normal mode (Discovery + Load metadata)
 
-**Phase 3 (Plan Mode only):** Instead of executing, generate execution plan:
+**Phase 3-4 (Plan Mode only):** Instead of executing, generate execution plan:
 
 1) Build task execution sequence by priority (To Review → To Rework → Todo)
 2) For each task, show:
@@ -78,8 +78,35 @@ N+1. [Quality Gate Pass 2] → Story Done
   - **Linear Mode:** `list_issues(parentId=Story.id)`
   - **File Mode:** `Glob("docs/tasks/epics/*/stories/{story-slug}/tasks/*.md")` + parse `**Status:**` from each file
 
-  Summarize counts (e.g., "2 To Review, 1 To Rework, 3 Todo"). **NO analysis** — proceed immediately to Phase 3.
-- **Phase 3 Loop (immediate delegation via Skill tool, one task at a time):**
+  Summarize counts (e.g., "2 To Review, 1 To Rework, 3 Todo"). **NO analysis** — proceed immediately to Phase 3/4.
+
+- **Phase 3 Context Review (before each Todo task execution):**
+  Before delegating a Todo task to ln-401/ln-404, verify its plan against current codebase:
+
+  1) **Load task description** (get_issue or Read task file)
+  2) **Extract referenced files** from task plan (files to create/modify)
+  3) **Check current state:**
+     - Do referenced files still exist?
+     - Have related files changed significantly since task creation?
+     - Are patterns/approaches mentioned still valid in current code?
+  4) **Decision:**
+     - **No conflicts** → proceed to execution
+     - **Minor changes** → update task description with current context, then execute
+     - **Major conflicts** → flag task, ask user whether to replan or proceed
+
+  **What to check:**
+  - Files mentioned in "Files to modify" section
+  - Import patterns and dependencies
+  - Related tests and fixtures
+  - API contracts if integrating with other components
+
+  **Skip Context Review for:**
+  - To Review tasks (already executed, just need review)
+  - To Rework tasks (reviewer provided specific fixes)
+  - Test tasks (ln-404) when implementation tasks are freshly Done
+  - Tasks created in same session (< 24h ago)
+
+- **Phase 4 Loop (immediate delegation via Skill tool, one task at a time):**
   1) To Review → **Use Skill tool to invoke `ln-402-task-reviewer`**. Reload metadata after worker.
   2) To Rework → **Use Skill tool to invoke `ln-403-task-rework`**. After worker, verify status = To Review, then **MANDATORY: immediately use Skill tool to invoke `ln-402-task-reviewer`** on that same task. Reload metadata.
   3) Todo → pick first Todo; if label "tests" **use Skill tool to invoke `ln-404-test-executor`** else **use Skill tool to invoke `ln-401-task-executor`**. After worker, verify status = To Review (not Done/In Progress), then **MANDATORY: immediately use Skill tool to invoke `ln-402-task-reviewer`** on that same task. Reload metadata. Repeat loop; never queue multiple tasks in To Review—review right after each execution/rework.
@@ -104,7 +131,7 @@ Before starting any task execution, ensure working in correct branch:
    - If not: `git checkout -b feature/{identifier}-{slug}`
 5. Confirm branch before proceeding to Phase 2
 
-- **Phase 4 Quality Delegation:** Ensure all implementation tasks Done, then **use Skill tool to invoke `ln-500-story-quality-gate`** Pass 1. If it creates tasks (test/refactor/fix), return to Phase 3 to execute them. When test task is Done, set Story In Progress -> To Review and **use Skill tool to invoke `ln-500-story-quality-gate`** Pass 2. If Pass 2 fails and creates tasks, loop to Phase 3; if Pass 2 passes, Story goes To Review -> Done via ln-500.
+- **Phase 5 Quality Delegation:** Ensure all implementation tasks Done, then **use Skill tool to invoke `ln-500-story-quality-gate`** Pass 1. If it creates tasks (test/refactor/fix), return to Phase 4 to execute them. When test task is Done, set Story In Progress -> To Review and **use Skill tool to invoke `ln-500-story-quality-gate`** Pass 2. If Pass 2 fails and creates tasks, loop to Phase 4; if Pass 2 passes, Story goes To Review -> Done via ln-500.
 
 ## Critical Rules
 - Branch isolation: all Story work MUST happen in `feature/{story-id}-{story-slug}` branch. Never commit directly to main/master.
@@ -142,7 +169,7 @@ Before starting any task execution, ensure working in correct branch:
 - Use `Skill(skill: "ln-500-story-quality-gate")` — ALWAYS, NO EXCEPTIONS
 - Wait for skill completion before proceeding
 - Reload metadata after each skill invocation
-- If skill creates tasks → return to Phase 3 loop
+- If skill creates tasks → return to Phase 4 loop
 
 **ZERO TOLERANCE:** If you find yourself running commands (mypy, ruff, pytest) directly instead of invoking the appropriate skill, STOP immediately and use Skill tool instead.
 
@@ -168,7 +195,8 @@ Review delegation uses **isolated subagent context** for quality:
 ## Definition of Done
 - Working in correct feature branch `feature/{story-id}-{story-slug}` (verified in Phase 1).
 - Story metadata and task metadata loaded via list_issues (no get_issue in Phase 2); counts shown.
-- Loop executed: all To Review via ln-402; all To Rework via ln-403 then immediate ln-402 on the same task; all Todo via ln-401/ln-404 then immediate ln-402 on the same task (validated To Review after each worker).
+- Context Review (Phase 3) performed for each Todo task before execution (or skipped with justification for fresh tasks).
+- Loop executed (Phase 4): all To Review via ln-402; all To Rework via ln-403 then immediate ln-402 on the same task; all Todo via ln-401/ln-404 then immediate ln-402 on the same task (validated To Review after each worker).
 - If tasks were created by ln-500: executed through the loop.
 - ln-500 Pass 1 invoked when impl tasks Done; Pass 2 invoked when test task Done or not needed. Result handled (pass/fail -> loop).
 - Story status transitions applied (Todo -> In Progress -> To Review) and kanban updated by workers/ln-500.
@@ -180,5 +208,5 @@ Review delegation uses **isolated subagent context** for quality:
 - Auto-discovery: `CLAUDE.md`, `docs/tasks/kanban_board.md`
 
 ---
-**Version:** 3.2.0 (Added FORBIDDEN SHORTCUTS anti-patterns and ZERO TOLERANCE for self-service execution)
-**Last Updated:** 2026-01-09
+**Version:** 3.3.0 (Added Phase 3 Context Review to verify task plan against current codebase before execution)
+**Last Updated:** 2026-01-15

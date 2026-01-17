@@ -1,258 +1,206 @@
 ---
 name: youtube
-description: YouTube Data API v3 via curl. Use this skill to search videos, get video/channel info, list playlists, and fetch comments.
-vm0_secrets:
-  - YOUTUBE_API_KEY
+description: Handle YouTube links and transcripts. Use when the user (1) pastes a YouTube URL that needs cleaning to short form, (2) requests transcript fetching from YouTube videos, or (3) works with YouTube video content. Automatically cleans URLs to https://youtu.be/VIDEO_ID format and saves transcripts directly to Database/Bookmarks to avoid polluting chat context.
 ---
 
-# YouTube Data API
+# YouTube
 
-Use the YouTube Data API v3 via direct `curl` calls to **search videos, retrieve video details, get channel information, list playlist items, and fetch comments**.
+## Overview
 
-> Official docs: `https://developers.google.com/youtube/v3`
+This skill handles YouTube links and transcript operations. It automatically cleans YouTube URLs to canonical short form and fetches transcripts using the MCP YouTube transcript tool, saving them directly to the Bookmarks database to avoid filling up chat context.
 
----
+## Core Capabilities
 
-## When to Use
+### 1. URL Cleaning
 
-Use this skill when you need to:
+When YouTube URLs are encountered (pasted, mentioned, or used), automatically clean them:
 
-- **Search videos** by keywords or filters
-- **Get video details** (title, description, statistics, duration)
-- **Get channel info** (subscriber count, video count, description)
-- **List playlist items** (videos in a playlist)
-- **Fetch comments** on videos
-- **Get trending videos** by region
+**Always convert to short form:** `https://youtu.be/<id>`
 
----
+**Remove all:**
+- Query parameters (e.g., `?v=`, `?si=`, `&feature=`, etc.)
+- Tracking identifiers
+- Playlist parameters
+- Timestamp parameters
 
-## Prerequisites
+**Supported input formats:**
+- `https://www.youtube.com/watch?v=VIDEO_ID` (any query params)
+- `https://youtube.com/watch?v=VIDEO_ID`
+- `https://youtu.be/VIDEO_ID` (any query params)
+- `https://m.youtube.com/watch?v=VIDEO_ID`
+- `https://www.youtube.com/embed/VIDEO_ID`
 
-### 1. Create Google Cloud Project
+**Use the utility script:**
 
-1. Go to [Google Cloud Console](https://console.cloud.google.com/)
-2. Create a new project or select existing one
-3. Go to "APIs & Services" > "Library"
-4. Search for "YouTube Data API v3" and enable it
+```python
+from scripts.youtube_utils import clean_youtube_url, extract_video_id
 
-### 2. Get API Key
+# Clean any YouTube URL
+clean_url = clean_youtube_url(dirty_url)
+# Result: "https://youtu.be/eIoohUmYpGI"
 
-1. Go to "APIs & Services" > "Credentials"
-2. Click "Create Credentials" > "API Key"
-3. Copy the API key
-
-```bash
-export YOUTUBE_API_KEY="AIzaSy..."
+# Or just extract the ID
+video_id = extract_video_id(dirty_url)
+# Result: "eIoohUmYpGI"
 ```
 
-### 3. (Optional) Restrict API Key
+### 2. Transcript Fetching and Saving to Bookmarks
 
-For production use, restrict the key:
-- Application restrictions: HTTP referrers, IP addresses
-- API restrictions: YouTube Data API v3 only
+**Key principle:** Save transcripts directly to `Database/Bookmarks` to avoid polluting chat context with full transcript content. This allows handling multiple video links without context overflow.
 
----
+**Output location:** `Database/Bookmarks/youtube-{video_id}.md`
 
+**Caching:** The Database/Bookmarks directory acts as a cache. If a video already has a bookmark file with a valid transcript (not empty/failed), it won't be re-fetched unless forced.
 
-> **Important:** When using `$VAR` in a command that pipes to another command, wrap the command containing `$VAR` in `bash -c '...'`. Due to a Claude Code bug, environment variables are silently cleared when pipes are used directly.
-> ```bash
-> bash -c 'curl -s "https://api.example.com" -H "Authorization: Bearer $API_KEY" | jq .'
-> ```
+**Workflow:**
 
-## How to Use
+1. **Clean the URL** using `clean_youtube_url(url)` to get canonical short form
+2. **Check if bookmark exists** - if valid transcript exists, skip fetching
+3. **Fetch transcript** using `mcp__youtube-transcript__get_transcript` MCP tool (only if not cached)
+4. **Save directly to Bookmarks** using the `save_transcript.py` script
+5. **Return only success message** with `cached` flag (not the full transcript)
 
-Base URL: `https://www.googleapis.com/youtube/v3`
+**Simplified workflow for Claude:**
 
----
-
-### 1. Search Videos
+When a user provides a YouTube URL, use the `process_youtube_url.py` script which handles everything:
 
 ```bash
-bash -c 'curl -s "https://www.googleapis.com/youtube/v3/search?part=snippet&q=kubernetes+tutorial&type=video&maxResults=5&key=${YOUTUBE_API_KEY}"' | jq '.items[] | {videoId: .id.videoId, title: .snippet.title, channel: .snippet.channelTitle}'
+echo '{"url": "URL", "lang": "en", "force": false}' | \
+  python3 .claude/skills/youtube/scripts/process_youtube_url.py
 ```
 
----
+This single command:
+1. Checks if transcript is already cached in Bookmarks
+2. If cached, returns immediately with `cached: true`
+3. If not cached, fetches transcript directly using youtube-transcript-api (Python library)
+4. Saves to Database/Bookmarks with proper formatting
+5. Returns success status without showing full transcript content
 
-### 2. Search with Filters
-
-Search for videos uploaded this year, ordered by view count:
-
-```bash
-bash -c 'curl -s "https://www.googleapis.com/youtube/v3/search?part=snippet&q=react+hooks&type=video&order=viewCount&publishedAfter=2024-01-01T00:00:00Z&maxResults=10&key=${YOUTUBE_API_KEY}"' | jq '.items[] | {videoId: .id.videoId, title: .snippet.title}'
+**Output:**
+```json
+{
+  "success": true,
+  "video_id": "abc123",
+  "filepath": "Database/Bookmarks/youtube-abc123.md",
+  "url": "https://youtu.be/abc123",
+  "title": "Video Title",
+  "cached": false
+}
 ```
 
----
+**Benefits:**
+- No MCP tool needed - fetches transcripts directly
+- NO context pollution - transcript never appears in chat
+- Automatic caching - same video won't be fetched twice
+- Single command - no multi-step workflow needed
 
-### 3. Get Video Details
+**Important:**
+- **Check cache first** to avoid redundant API calls
+- DO NOT return the full transcript text in chat
+- Only inform the user that the transcript was saved/cached
+- Use the `cached` flag in output to inform user if existing bookmark was used
+- This prevents context pollution when handling multiple videos
+- Users can read the transcript from the bookmark file later
+- Failed/empty transcripts are NOT cached and will be retried on next request
 
-Replace `<your-video-id>` with an actual video ID:
+### 3. Language Support
 
-```bash
-bash -c 'curl -s "https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics,contentDetails&id=<your-video-id>&key=${YOUTUBE_API_KEY}"' | jq '.items[0] | {title: .snippet.title, views: .statistics.viewCount, likes: .statistics.likeCount, duration: .contentDetails.duration}'
+The MCP transcript tool supports multiple languages via the `lang` parameter:
+- Default: `"en"` (English)
+- Other examples: `"ko"` (Korean), `"es"` (Spanish), `"fr"` (French), etc.
+
+Always use `"en"` unless the user specifically requests a different language.
+
+## Resources
+
+### scripts/process_youtube_url.py
+
+**Primary entry point** - Use this script for all YouTube transcript operations.
+
+Handles the complete workflow: cache checking → fetching → saving.
+
+**Input (stdin JSON):**
+```json
+{
+  "url": "https://youtube.com/watch?v=...",
+  "lang": "en",  // Optional, defaults to "en"
+  "force": false  // Optional, force re-fetch even if cached
+}
 ```
 
----
-
-### 4. Get Multiple Videos
-
-Replace `<your-video-id-1>`, `<your-video-id-2>`, `<your-video-id-3>` with actual video IDs:
-
-```bash
-bash -c 'curl -s "https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=<your-video-id-1>,<your-video-id-2>,<your-video-id-3>&key=${YOUTUBE_API_KEY}"' | jq '.items[] | {id: .id, title: .snippet.title, views: .statistics.viewCount}'
+**Output (stdout JSON):**
+```json
+{
+  "success": true,
+  "video_id": "abc123",
+  "filepath": "Database/Bookmarks/youtube-abc123.md",
+  "url": "https://youtu.be/abc123",
+  "title": "Video Title",
+  "cached": false
+}
 ```
 
----
+### scripts/fetch_transcript.py
 
-### 5. Get Trending Videos
+Fetches YouTube transcripts using the `youtube-transcript-api` Python library.
 
-```bash
-bash -c 'curl -s "https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&chart=mostPopular&regionCode=US&maxResults=10&key=${YOUTUBE_API_KEY}"' | jq '.items[] | {title: .snippet.title, channel: .snippet.channelTitle, views: .statistics.viewCount}'
+Called internally by `process_youtube_url.py`. Uses YouTube's internal API to retrieve transcripts with language fallback support (requested lang → English → first available).
+
+### scripts/save_transcript.py
+
+Saves transcript data to Bookmarks database with proper formatting.
+
+**Purpose:** Write transcript content directly to `Database/Bookmarks/youtube-{video_id}.md` to avoid polluting chat context.
+
+**Input (stdin JSON):**
+```json
+{
+  "url": "https://youtube.com/watch?v=...",
+  "title": "Video Title",
+  "transcript": [{"text": "...", "start": 0.0, "duration": 1.5}, ...],
+  "force": false  // Optional: force re-fetch even if cached
+}
 ```
 
----
-
-### 6. Get Channel by ID
-
-Replace `<your-channel-id>` with an actual channel ID:
-
-```bash
-bash -c 'curl -s "https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=<your-channel-id>&key=${YOUTUBE_API_KEY}"' | jq '.items[0] | {title: .snippet.title, subscribers: .statistics.subscriberCount, videos: .statistics.videoCount}'
+**Output (stdout JSON):**
+```json
+{
+  "success": true,
+  "video_id": "abc123",
+  "filepath": "Database/Bookmarks/youtube-abc123.md",
+  "url": "https://youtu.be/abc123",
+  "title": "Video Title",
+  "cached": false  // True if existing valid transcript was found
+}
 ```
 
----
+**Key features:**
+- **Checks cache first** - if bookmark exists with valid transcript, returns immediately
+- Only re-fetches if bookmark doesn't exist, has empty/failed transcript, or `force: true`
+- Concatenates transcript segments into continuous text
+- Creates properly formatted bookmark markdown with frontmatter
+- Automatically creates `Database/Bookmarks` directory if needed
+- Returns only metadata (not full transcript) to avoid context pollution
+- `cached` flag indicates whether existing bookmark was used
 
-### 7. Get Channel by Handle
+### scripts/youtube_utils.py
 
-```bash
-bash -c 'curl -s "https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&forHandle=@GoogleDevelopers&key=${YOUTUBE_API_KEY}"' | jq '.items[0] | {id: .id, title: .snippet.title, subscribers: .statistics.subscriberCount}'
-```
+Python utility module providing URL manipulation functions:
 
----
+**URL utilities:**
+- `extract_video_id(url)`: Extract video ID from any YouTube URL format
+- `clean_youtube_url(url)`: Convert any URL to clean `https://youtu.be/<id>` form
 
-### 8. Get Channel by Username
+The script is self-contained and can be executed directly for testing URL cleaning functionality.
 
-```bash
-bash -c 'curl -s "https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&forUsername=GoogleDevelopers&key=${YOUTUBE_API_KEY}"' | jq '.items[0] | {id: .id, title: .snippet.title, description: .snippet.description}'
-```
+## Best Practices
 
----
-
-### 9. List Playlist Items
-
-Replace `<your-playlist-id>` with an actual playlist ID:
-
-```bash
-bash -c 'curl -s "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=<your-playlist-id>&maxResults=20&key=${YOUTUBE_API_KEY}"' | jq '.items[] | {position: .snippet.position, title: .snippet.title, videoId: .snippet.resourceId.videoId}'
-```
-
----
-
-### 10. Get Channel Uploads Playlist
-
-First get the channel's uploads playlist ID, then list videos. Replace `<your-channel-id>` with an actual channel ID:
-
-```bash
-bash -c 'curl -s "https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=<your-channel-id>&key=${YOUTUBE_API_KEY}"' | jq -r '.items[0].contentDetails.relatedPlaylists.uploads'
-```
-
----
-
-### 11. Get Video Comments
-
-Replace `<your-video-id>` with an actual video ID:
-
-```bash
-bash -c 'curl -s "https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=<your-video-id>&maxResults=20&order=relevance&key=${YOUTUBE_API_KEY}"' | jq '.items[] | {author: .snippet.topLevelComment.snippet.authorDisplayName, text: .snippet.topLevelComment.snippet.textDisplay, likes: .snippet.topLevelComment.snippet.likeCount}'
-```
-
----
-
-### 12. Search Comments
-
-Replace `<your-video-id>` with an actual video ID:
-
-```bash
-bash -c 'curl -s "https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=<your-video-id>&searchTerms=great+video&maxResults=10&key=${YOUTUBE_API_KEY}"' | jq '.items[] | {author: .snippet.topLevelComment.snippet.authorDisplayName, text: .snippet.topLevelComment.snippet.textDisplay}'
-```
-
----
-
-### 13. Get Video Categories
-
-```bash
-bash -c 'curl -s "https://www.googleapis.com/youtube/v3/videoCategories?part=snippet&regionCode=US&key=${YOUTUBE_API_KEY}"' | jq '.items[] | {id: .id, title: .snippet.title}'
-```
-
----
-
-### 14. Search Videos by Category
-
-```bash
-bash -c 'curl -s "https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&videoCategoryId=28&maxResults=10&key=${YOUTUBE_API_KEY}"' | jq '.items[] | {videoId: .id.videoId, title: .snippet.title}'
-```
-
-Note: Category 28 = Science & Technology
-
----
-
-### 15. Get Playlists from Channel
-
-Replace `<your-channel-id>` with an actual channel ID:
-
-```bash
-bash -c 'curl -s "https://www.googleapis.com/youtube/v3/playlists?part=snippet&channelId=<your-channel-id>&maxResults=20&key=${YOUTUBE_API_KEY}"' | jq '.items[] | {id: .id, title: .snippet.title, description: .snippet.description}'
-```
-
----
-
-## Common Video Categories
-
-| ID | Category |
-|----|----------|
-| 1 | Film & Animation |
-| 10 | Music |
-| 17 | Sports |
-| 20 | Gaming |
-| 22 | People & Blogs |
-| 24 | Entertainment |
-| 25 | News & Politics |
-| 26 | Howto & Style |
-| 27 | Education |
-| 28 | Science & Technology |
-
----
-
-## Part Parameter Options
-
-### Videos
-- `snippet` - Title, description, thumbnails, channel
-- `statistics` - Views, likes, comments count
-- `contentDetails` - Duration, definition, caption
-- `status` - Upload status, privacy, license
-- `player` - Embeddable player
-
-### Channels
-- `snippet` - Title, description, thumbnails
-- `statistics` - Subscribers, videos, views
-- `contentDetails` - Related playlists (uploads, likes)
-- `brandingSettings` - Channel customization
-
----
-
-## Pagination
-
-Use `nextPageToken` from response to get more results. Replace `<your-next-page-token>` with the actual token from the previous response:
-
-```bash
-bash -c 'curl -s "https://www.googleapis.com/youtube/v3/search?part=snippet&q=python&type=video&maxResults=50&pageToken=<your-next-page-token>&key=${YOUTUBE_API_KEY}"' | jq '.items[] | {title: .snippet.title}'
-```
-
----
-
-## Guidelines
-
-1. **Quota limits**: API has 10,000 units/day quota. Search costs 100 units, most others cost 1 unit
-2. **Rate limits**: Implement exponential backoff on 403/429 errors
-3. **API key security**: Never expose API keys in client-side code
-4. **Caching**: Cache responses to reduce quota usage
-5. **Video IDs**: Extract from URLs like `youtube.com/watch?v=VIDEO_ID` or `youtu.be/VIDEO_ID`
+1. **Always clean URLs** when YouTube links are pasted or referenced to canonical short form
+2. **Check cache first** before fetching transcripts to avoid redundant API calls
+3. **Save transcripts to Bookmarks** using `save_transcript.py` to avoid context pollution
+4. **DO NOT output full transcript** in chat - only inform user of saved/cached location
+5. **Use English by default** for transcripts unless user specifies otherwise
+6. **Handle multiple videos efficiently** - the Bookmarks approach allows processing many videos without context overflow
+7. **Inform user clearly** whether transcript was fetched or loaded from cache
+8. **Retry failed transcripts** - empty/failed transcripts are not cached and will be retried
+9. **Use `force: true`** only when user explicitly wants to re-fetch existing transcripts

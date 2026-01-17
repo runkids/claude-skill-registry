@@ -1,7 +1,7 @@
 {
   "name": "input-sanitization",
-  "repo": "dengineproblem/agents-monorepo",
-  "path": ".claude/skills/input-sanitization/SKILL.md",
-  "source": "github.com/dengineproblem/agents-monorepo",
-  "downloaded_at": "2026-01-14T02:08:00.693552Z"
+  "repo": "daishiman/AIWorkflowOrchestrator",
+  "path": "docs/99-claude/skills/input-sanitization/SKILL.md",
+  "source": "github.com/daishiman/AIWorkflowOrchestrator",
+  "downloaded_at": "2026-01-17T02:52:45.445990Z"
 }

@@ -1,658 +1,327 @@
 ---
 name: vue-nuxt
-description: Vue 3 and Nuxt 3 for JARVIS AI Assistant UI development with security-first patterns
-model: sonnet
-risk_level: MEDIUM
-version: 1.0.0
+description: This skill provides Vue 3 and Nuxt 4 best practices for the fitness app. Use when working with components, composables, data fetching, SSR, or handling async states.
 ---
 
-# Vue 3 / Nuxt 3 Development Skill
+# Vue 3 & Nuxt 4 Best Practices
 
-> **File Organization**: This skill uses split structure. See `references/` for advanced patterns and security examples.
+This skill provides guidance for using Vue 3 Composition API and Nuxt 4 patterns effectively in the fitness application.
 
-## 1. Overview
+## Core Principles
 
-This skill provides expertise for building the JARVIS AI Assistant user interface using Vue 3 and Nuxt 3. It focuses on creating responsive, performant 3D HUD interfaces with security-first development practices.
+**Always use Composition API**: Use `<script setup lang="ts">` for all components. Never use Options API.
 
-**Risk Level**: MEDIUM - Handles user input, renders dynamic content, potential XSS vectors
+**Component Structure**: Follow this order consistently:
+1. `<script setup lang="ts">`
+2. `<template>`
+3. `<style scoped>` (if needed)
 
-**Primary Use Cases**:
-- Building reactive 3D HUD components for JARVIS interface
-- Server-side rendering for initial load performance
-- Client-side state management integration
-- Secure handling of user inputs and API responses
+**Path Resolution**:
+- `~/` - Resolves to `app/` directory (frontend code: components, pages, composables)
+- `~~/` - Resolves to project root (server code: database, server utilities)
 
-## 2. Core Responsibilities
+## Data Fetching Patterns
 
-### 2.1 Fundamental Principles
+### Client-Side Mutations: toResult($api(...))
 
-1. **TDD First**: Write tests before implementation - red/green/refactor cycle
-2. **Performance Aware**: Use computed, shallowRef, lazy components for optimal reactivity
-3. **Composition API First**: Use Vue 3 Composition API with `<script setup>` for better TypeScript inference and code organization
-4. **Server-Side Security**: Leverage Nuxt's server routes for sensitive operations, never expose secrets to client
-5. **Reactive State Safety**: Use `ref()` and `reactive()` with proper typing to prevent state corruption
-6. **Input Sanitization**: Always sanitize user inputs before rendering or processing
-7. **Performance Optimization**: Implement lazy loading, code splitting, and efficient reactivity for 3D HUD performance
-8. **Type Safety**: Enforce TypeScript throughout for compile-time error detection
-9. **Secure Defaults**: Configure CSP headers, disable dangerous features by default
-
-## 3. Technology Stack & Versions
-
-### 3.1 Recommended Versions
-
-| Package | Version | Security Notes |
-|---------|---------|----------------|
-| Vue | ^3.4.0 | Latest stable with improved reactivity |
-| Nuxt | ^3.12.4+ | **CRITICAL**: Fixes CVE-2024-34344 RCE |
-| @nuxt/devtools | ^1.3.9+ | **CRITICAL**: Fixes CVE-2024-23657 |
-| vite | ^5.0.0 | Latest with security patches |
-
-### 3.2 Security-Critical Dependencies
-
-```json
-{
-  "dependencies": {
-    "nuxt": "^3.12.4",
-    "vue": "^3.4.0",
-    "dompurify": "^3.0.6",
-    "isomorphic-dompurify": "^2.0.0"
-  },
-  "devDependencies": {
-    "@nuxt/devtools": "^1.3.9",
-    "eslint-plugin-vue": "^9.0.0",
-    "eslint-plugin-security": "^2.0.0"
-  }
-}
-```
-
-## 4. Implementation Patterns
-
-### 4.1 Secure Component Structure
-
-```vue
-<script setup lang="ts">
-// ✅ Type-safe props with validation
-interface Props {
-  hudData: HUDDisplayData
-  userId: string
-}
-
-const props = defineProps<Props>()
-
-// ✅ Emit events with typed payloads
-const emit = defineEmits<{
-  'update:status': [status: string]
-  'command:execute': [command: JARVISCommand]
-}>()
-
-// ✅ Secure ref initialization
-const displayState = ref<HUDState>({
-  isActive: false,
-  securityLevel: 'standard'
-})
-</script>
-
-<template>
-  <!-- ✅ Use v-text for user content to prevent XSS -->
-  <div class="hud-panel">
-    <span v-text="props.hudData.title" />
-  </div>
-</template>
-```
-
-### 4.2 Input Sanitization Pattern
+Use for form submissions and user-initiated actions:
 
 ```typescript
-// composables/useSanitize.ts
-import DOMPurify from 'isomorphic-dompurify'
+async function createItem() {
+  const result = await toResult($api('/api/items', {
+    method: 'POST',
+    body: { name: 'New Item' }
+  }))
 
-export function useSanitize() {
-  const sanitizeHTML = (dirty: string): string => {
-    // ✅ Strict sanitization for any HTML content
-    return DOMPurify.sanitize(dirty, {
-      ALLOWED_TAGS: ['b', 'i', 'em', 'strong', 'span'],
-      ALLOWED_ATTR: ['class']
-    })
-  }
-
-  const sanitizeText = (input: string): string => {
-    // ✅ Strip all HTML for plain text
-    return DOMPurify.sanitize(input, { ALLOWED_TAGS: [] })
-  }
-
-  return { sanitizeHTML, sanitizeText }
-}
-```
-
-### 4.3 Secure API Route Pattern
-
-```typescript
-// server/api/jarvis/command.post.ts
-import { z } from 'zod'
-
-// ✅ Define strict schema for command validation
-const commandSchema = z.object({
-  action: z.enum(['status', 'control', 'query']),
-  target: z.string().max(100).regex(/^[a-zA-Z0-9-_]+$/),
-  parameters: z.record(z.string()).optional()
-})
-
-export default defineEventHandler(async (event) => {
-  const body = await readBody(event)
-
-  // ✅ Validate input against schema
-  const result = commandSchema.safeParse(body)
   if (!result.success) {
-    throw createError({
-      statusCode: 400,
-      message: 'Invalid command format'  // ✅ Generic error message
-    })
+    return toast.error('Error', { description: result.error.message })
   }
 
-  // ✅ Process validated command
-  const command = result.data
-
-  // Never log sensitive data
-  console.log(`Processing command: ${command.action}`)
-
-  return { success: true, commandId: generateSecureId() }
-})
-```
-
-### 4.4 Secure Environment Configuration
-
-```typescript
-// nuxt.config.ts
-export default defineNuxtConfig({
-  // ✅ Security headers
-  routeRules: {
-    '/**': {
-      headers: {
-        'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'",
-        'X-Content-Type-Options': 'nosniff',
-        'X-Frame-Options': 'DENY',
-        'X-XSS-Protection': '1; mode=block'
-      }
-    }
-  },
-
-  // ✅ Runtime config - secrets stay server-side
-  runtimeConfig: {
-    apiSecret: process.env.API_SECRET,  // Server only
-    public: {
-      apiBase: '/api'  // Client accessible
-    }
-  },
-
-  // ✅ Disable devtools in production
-  devtools: { enabled: process.env.NODE_ENV === 'development' }
-})
-```
-
-### 4.5 3D HUD Component Integration
-
-```vue
-<script setup lang="ts">
-// components/HUDDisplay.vue
-import { TresCanvas } from '@tresjs/core'
-
-const props = defineProps<{
-  metrics: SystemMetrics
-}>()
-
-// ✅ Validate metrics before rendering
-const validatedMetrics = computed(() => {
-  return {
-    cpu: Math.min(100, Math.max(0, props.metrics.cpu)),
-    memory: Math.min(100, Math.max(0, props.metrics.memory)),
-    status: sanitizeText(props.metrics.status)
-  }
-})
-</script>
-
-<template>
-  <TresCanvas>
-    <HUDMetricsDisplay :data="validatedMetrics" />
-  </TresCanvas>
-</template>
-```
-
-## 5. Implementation Workflow (TDD)
-
-### 5.1 Step 1: Write Failing Test First
-
-Always start by writing tests that define expected behavior:
-
-```typescript
-// tests/components/VoiceIndicator.test.ts
-import { describe, it, expect } from 'vitest'
-import { mount } from '@vue/test-utils'
-import VoiceIndicator from '@/components/VoiceIndicator.vue'
-
-describe('VoiceIndicator', () => {
-  it('displays idle state by default', () => {
-    const wrapper = mount(VoiceIndicator)
-    expect(wrapper.find('.indicator').classes()).toContain('idle')
-    expect(wrapper.text()).toContain('Ready')
-  })
-
-  it('shows listening state when active', async () => {
-    const wrapper = mount(VoiceIndicator, {
-      props: { isListening: true }
-    })
-    expect(wrapper.find('.indicator').classes()).toContain('listening')
-    expect(wrapper.find('.pulse-animation').exists()).toBe(true)
-  })
-
-  it('emits cancel event on escape key', async () => {
-    const wrapper = mount(VoiceIndicator, {
-      props: { isListening: true }
-    })
-    await wrapper.trigger('keydown.escape')
-    expect(wrapper.emitted('cancel')).toBeTruthy()
-  })
-})
-```
-
-### 5.2 Step 2: Implement Minimum to Pass
-
-Write only enough code to make the tests pass:
-
-```vue
-<script setup lang="ts">
-const props = defineProps<{ isListening?: boolean }>()
-const emit = defineEmits<{ 'cancel': [] }>()
-
-const handleKeydown = (e: KeyboardEvent) => {
-  if (e.key === 'Escape') emit('cancel')
+  await navigateTo(`/items/${result.data.id}`)
 }
-</script>
-
-<template>
-  <div
-    class="indicator"
-    :class="isListening ? 'listening' : 'idle'"
-    @keydown="handleKeydown"
-    tabindex="0"
-  >
-    <span v-if="!isListening">Ready</span>
-    <div v-else class="pulse-animation" />
-  </div>
-</template>
 ```
 
-### 5.3 Step 3: Refactor if Needed
+**Key points:**
+- `toResult` wraps any promise and returns `{ success: true, data: T } | { success: false, error: FetchError }`
+- Types are automatically inferred from `$api` route definitions
+- Never wrap in try/catch - `toResult` handles errors internally
+- Check `!result.success` before accessing data
+- Located in `app/utils/result.ts`
 
-After tests pass, improve code quality without changing behavior. Re-run tests after each refactor.
+### SSR Fetching: useBaseFetch
 
-### 5.4 Step 4: Run Full Verification
-
-```bash
-# Run all verification steps before committing
-npx vitest run                    # Unit tests
-npx eslint . --ext .vue,.ts       # Linting
-npx nuxi typecheck                # Type checking
-npm run build                     # Build verification
-```
-
-## 6. Performance Patterns
-
-### 6.1 Computed Properties for Derived State
+Use for SSR-compatible data fetching in components:
 
 ```typescript
-// ❌ BAD - Recalculates in template on every render
-<template>
-  <div>{{ items.filter(i => i.active).length }} active</div>
-</template>
-
-// ✅ GOOD - Cached until dependencies change
-const activeCount = computed(() => items.value.filter(i => i.active).length)
-<template>
-  <div>{{ activeCount }} active</div>
-</template>
-```
-
-### 6.2 shallowRef for Large Objects
-
-```typescript
-// ❌ BAD - Deep reactivity on large 3D data
-const meshData = ref<MeshData>({ vertices: new Float32Array(100000), ... })
-
-// ✅ GOOD - Shallow reactivity, manual trigger
-const meshData = shallowRef<MeshData>({ vertices: new Float32Array(100000), ... })
-// Trigger update explicitly
-meshData.value = { ...newData }
-triggerRef(meshData)
-```
-
-### 6.3 defineAsyncComponent for Lazy Loading
-
-```typescript
-// ❌ BAD - All components loaded upfront
-import HeavyChart from '@/components/HeavyChart.vue'
-
-// ✅ GOOD - Load only when needed
-const HeavyChart = defineAsyncComponent(() =>
-  import('@/components/HeavyChart.vue')
-)
-
-// With loading state
-const HeavyChart = defineAsyncComponent({
-  loader: () => import('@/components/HeavyChart.vue'),
-  loadingComponent: LoadingSpinner,
-  delay: 200
+const { data: trips, pending, status, refresh } = useBaseFetch('/api/trips', {
+  key: 'user-trips', // Required for caching
+  lazy: true, // Non-blocking navigation
+  transform: trips => trips.map(trip => ({
+    ...trip,
+    name: trip.name.toUpperCase()
+  })),
+  default: () => []
 })
 ```
 
-### 6.4 v-memo for List Optimization
+**Options:**
+- `key` - Cache key (required for proper caching)
+- `lazy` - Don't block navigation (use with loading states)
+- `transform` - Transform data before returning
+- `default` - Fallback value while loading
+- `watch` - Reactive dependencies to trigger refetch
 
-```vue
-<!-- ❌ BAD - Re-renders all items on any change -->
-<div v-for="item in items" :key="item.id">
-  <ExpensiveComponent :data="item" />
-</div>
+**Error Checking:**
+- Use `status` (not `error`) to check for errors
+- Status values: `'idle' | 'pending' | 'success' | 'error'`
+- Template: `v-else-if="status === 'error'"`
 
-<!-- ✅ GOOD - Skip re-render if item unchanged -->
-<div v-for="item in items" :key="item.id" v-memo="[item.id, item.updated]">
-  <ExpensiveComponent :data="item" />
-</div>
-```
+For complete data fetching patterns including `useAsyncData`, see `references/data-fetching.md`.
 
-### 6.5 Virtual Scrolling for Long Lists
+## Async State Handling
+
+**Always handle all async states**: loading, error, empty, and success.
 
 ```vue
 <script setup lang="ts">
-import { useVirtualList } from '@vueuse/core'
-
-const { list, containerProps, wrapperProps } = useVirtualList(
-  items,
-  { itemHeight: 50 }
-)
+const { data, pending, status } = useBaseFetch('/api/items', {
+  key: 'items',
+  lazy: true,
+  default: () => []
+})
 </script>
 
 <template>
-  <!-- ✅ Only renders visible items -->
-  <div v-bind="containerProps" class="h-[400px] overflow-auto">
-    <div v-bind="wrapperProps">
-      <div v-for="{ data, index } in list" :key="index">
-        {{ data.name }}
-      </div>
+  <div>
+    <!-- Loading state -->
+    <div v-if="pending" class="space-y-4">
+      <UISkeleton class="h-20 w-full" />
+      <UISkeleton class="h-20 w-full" />
+    </div>
+
+    <!-- Error state: Use status, not error -->
+    <UIAlert v-else-if="status === 'error'" variant="destructive">
+      <UIAlertTitle>Error</UIAlertTitle>
+      <UIAlertDescription>Failed to load items. Please try again.</UIAlertDescription>
+    </UIAlert>
+
+    <!-- Empty state -->
+    <div v-else-if="data.length === 0" class="text-center py-8">
+      <p class="text-muted-foreground">No items found</p>
+    </div>
+
+    <!-- Success state -->
+    <div v-else class="space-y-4">
+      <ItemCard v-for="item in data" :key="item.id" :item="item" />
     </div>
   </div>
 </template>
 ```
 
-### 6.6 Debounced Watchers
+**Important:** Use `status === 'error'` instead of checking the `error` object directly.
 
-```typescript
-// ❌ BAD - Fires on every keystroke
-watch(searchQuery, async (query) => {
-  results.value = await searchAPI(query)
-})
+## SSR & Hydration Rules
 
-// ✅ GOOD - Debounced to reduce API calls
-import { watchDebounced } from '@vueuse/core'
-
-watchDebounced(
-  searchQuery,
-  async (query) => {
-    results.value = await searchAPI(query)
-  },
-  { debounce: 300 }
-)
-
-// Alternative with manual debounce
-watch(searchQuery, useDebounceFn(async (query) => {
-  results.value = await searchAPI(query)
-}, 300))
-```
-
-## 7. Security Standards
-
-### 7.1 Known Vulnerabilities (CVE Research)
-
-| CVE | Severity | Description | Mitigation |
-|-----|----------|-------------|------------|
-| CVE-2024-34344 | HIGH | Nuxt RCE via test component | Update to Nuxt 3.12.4+ |
-| CVE-2024-23657 | HIGH | Devtools path traversal/RCE | Update devtools to 1.3.9+ |
-| CVE-2023-3224 | CRITICAL | Dev server code injection | Update to Nuxt 3.4.4+, never expose dev server |
-
-**See**: `references/security-examples.md` for detailed mitigation code
-
-### 5.2 OWASP Top 10 Coverage
-
-| OWASP Category | Risk | Mitigation Strategy |
-|----------------|------|---------------------|
-| A01 Broken Access Control | HIGH | Server-side route guards, middleware auth |
-| A03 Injection | HIGH | Input validation with Zod, parameterized queries |
-| A05 Security Misconfiguration | MEDIUM | CSP headers, secure nuxt.config |
-| A07 XSS | HIGH | v-text directive, DOMPurify sanitization |
-
-### 5.3 Input Validation Framework
-
-```typescript
-// ❌ DANGEROUS - Direct v-html with user input
-<div v-html="userMessage" />
-
-// ✅ SECURE - Sanitized HTML or plain text
-<div v-html="sanitizeHTML(userMessage)" />
-<span v-text="userMessage" />
-```
-
-### 5.4 Authentication Middleware
-
-```typescript
-// middleware/auth.ts
-export default defineNuxtRouteMiddleware((to) => {
-  const { authenticated } = useAuthState()
-
-  if (!authenticated.value && to.meta.requiresAuth) {
-    return navigateTo('/login')
-  }
-})
-```
-
-## 6. Testing & Quality
-
-### 6.1 Security Testing
-
-```typescript
-// tests/security/xss.test.ts
-import { describe, it, expect } from 'vitest'
-import { mount } from '@vue/test-utils'
-import HUDPanel from '@/components/HUDPanel.vue'
-
-describe('XSS Prevention', () => {
-  it('should sanitize malicious input', () => {
-    const wrapper = mount(HUDPanel, {
-      props: {
-        title: '<script>alert("xss")</script>Hello'
-      }
-    })
-
-    expect(wrapper.html()).not.toContain('<script>')
-    expect(wrapper.text()).toContain('Hello')
-  })
-})
-```
-
-### 6.2 Component Testing
-
-```typescript
-// tests/components/HUDDisplay.test.ts
-describe('HUDDisplay', () => {
-  it('validates metric bounds', () => {
-    const wrapper = mount(HUDDisplay, {
-      props: {
-        metrics: { cpu: 150, memory: -10, status: 'active' }
-      }
-    })
-
-    // Should clamp values to valid range
-    expect(wrapper.vm.validatedMetrics.cpu).toBe(100)
-    expect(wrapper.vm.validatedMetrics.memory).toBe(0)
-  })
-})
-```
-
-## 7. Common Patterns / Workflows
-
-### 7.1 JARVIS HUD Component Workflow
-
-1. **Define TypeScript interfaces** for all data structures
-2. **Create composable** for shared logic
-3. **Implement component** with Composition API
-4. **Add input validation** at component boundary
-5. **Write security tests** for XSS/injection
-6. **Integrate with 3D scene** via TresJS
-
-### 7.2 API Integration Workflow
-
-1. **Define Zod schema** for request/response
-2. **Create server route** with validation
-3. **Implement client composable** with error handling
-4. **Add loading/error states** to UI
-5. **Test error cases** and edge conditions
-
-## 8. Common Mistakes & Anti-Patterns
-
-### 8.1 Critical Security Anti-Patterns
-
-#### Never: Use v-html with Unsanitized Input
+### ❌ NEVER: Access browser APIs in script setup
 
 ```vue
-<!-- ❌ DANGEROUS - XSS vulnerability -->
-<div v-html="userProvidedContent" />
-
-<!-- ✅ SECURE - Sanitized content -->
-<div v-html="sanitizeHTML(userProvidedContent)" />
-
-<!-- ✅ BEST - Plain text when HTML not needed -->
-<span v-text="userProvidedContent" />
+<!-- ❌ Wrong: Fails during SSR -->
+<script setup lang="ts">
+const width = window.innerWidth // ERROR: window is not defined
+const element = document.getElementById('foo') // ERROR
+</script>
 ```
 
-#### Never: Expose Secrets in Client Code
+### ✅ DO: Use onMounted or ClientOnly
+
+```vue
+<!-- ✅ Correct: Wait for client-side mounting -->
+<script setup lang="ts">
+const width = ref(0)
+
+onMounted(() => {
+  width.value = window.innerWidth
+})
+</script>
+
+<template>
+  <ClientOnly>
+    <div>Client-only content: {{ width }}px</div>
+  </ClientOnly>
+</template>
+```
+
+### ❌ NEVER: Fetch data in lifecycle hooks
+
+```vue
+<!-- ❌ Wrong: Loses SSR benefits -->
+<script setup lang="ts">
+const data = ref([])
+
+onMounted(async () => {
+  data.value = await $fetch('/api/data')
+})
+</script>
+```
+
+### ✅ DO: Use useBaseFetch at top level
+
+```vue
+<!-- ✅ Correct: SSR-compatible -->
+<script setup lang="ts">
+const { data, pending, status } = useBaseFetch('/api/data', {
+  key: 'my-data',
+  lazy: true,
+  default: () => []
+})
+</script>
+```
+
+## Path Resolution (Critical)
+
+Nuxt 4 uses different aliases for different parts of the app:
 
 ```typescript
-// ❌ DANGEROUS - Secret in public config
-runtimeConfig: {
-  public: {
-    apiKey: process.env.API_KEY  // Exposed to client!
-  }
-}
+// ❌ WRONG: Server code using ~/
+import { users } from '~/server/database/schema/users'
+// Nitro looks in: /project/app/server/database/schema/users (doesn't exist!)
 
-// ✅ SECURE - Secrets stay server-side
-runtimeConfig: {
-  apiKey: process.env.API_KEY,  // Server only
-  public: {
-    apiBase: '/api'
-  }
+// ✅ CORRECT: Server code using ~~/
+import { users } from '~~/server/database/schema/users'
+// Nitro looks in: /project/server/database/schema/users (correct!)
+
+// ✅ CORRECT: Frontend code using ~/
+import MyComponent from '~/components/MyComponent.vue'
+// Resolves to: /project/app/components/MyComponent.vue
+```
+
+**Rule of thumb:**
+- Frontend imports (components, composables, pages) → `~/`
+- Server imports (database, server utils, shared) → `~~/`
+
+## Composables
+
+Extract reusable logic into composables with a `use` prefix:
+
+```typescript
+// composables/useMobileMode.ts
+export function useMobileMode() {
+  const isMobile = ref(false)
+
+  onMounted(() => {
+    const checkMobile = () => {
+      isMobile.value = window.innerWidth < 768
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+
+    onUnmounted(() => {
+      window.removeEventListener('resize', checkMobile)
+    })
+  })
+
+  return { isMobile }
 }
 ```
 
-#### Never: Trust Client-Side Validation Alone
+**Composable rules:**
+- Only for utility logic (NOT for state management/data fetching)
+- Must start with `use` prefix
+- Handle cleanup in `onUnmounted` when needed
+- Don't create data fetching composables - use `useFetch` in pages
+
+## Cleanup Logic
+
+Always clean up event listeners and subscriptions:
 
 ```typescript
-// ❌ DANGEROUS - Client-only validation
-const handleSubmit = () => {
-  if (isValidEmail(email.value)) {
-    $fetch('/api/subscribe', { body: { email: email.value } })
+onMounted(() => {
+  const handleResize = () => {
+    // Handle resize
   }
-}
 
-// ✅ SECURE - Server-side validation
-// server/api/subscribe.post.ts
-export default defineEventHandler(async (event) => {
-  const body = await readBody(event)
-  const result = emailSchema.safeParse(body)
-  if (!result.success) {
-    throw createError({ statusCode: 400, message: 'Invalid email' })
-  }
-  // Process validated email
+  window.addEventListener('resize', handleResize)
+
+  // Clean up when component unmounts
+  onUnmounted(() => {
+    window.removeEventListener('resize', handleResize)
+  })
 })
 ```
 
-### 8.2 Performance Anti-Patterns
+## Component Props & Emits
 
-#### Avoid: Reactive Arrays in Computed
+Always type props and emits explicitly:
 
-```typescript
-// ❌ BAD - Creates new array on every access
-const filtered = computed(() => {
-  return items.value.filter(i => i.active).sort()
+```vue
+<script setup lang="ts">
+interface Props {
+  title: string
+  count?: number
+  isActive?: boolean
+}
+
+const props = defineProps<Props>()
+
+// With defaults
+const props = withDefaults(defineProps<Props>(), {
+  count: 0,
+  isActive: false
 })
 
-// ✅ GOOD - Memoized with stable reference
-const filtered = computed(() => {
-  const result = items.value.filter(i => i.active)
-  result.sort((a, b) => a.name.localeCompare(b.name))
-  return result
-})
+// Emits
+const emit = defineEmits<{
+  update: [value: string]
+  delete: [id: string]
+  submit: [data: FormData]
+}>()
+</script>
 ```
 
-## 9. Quick Reference
+## Critical Rules
 
-### Essential Commands
+### ✅ MUST DO
+- Use `<script setup lang="ts">` for all components
+- Use `toResult($api(...))` for client-side mutations (forms, actions)
+- Use `useBaseFetch` for SSR-compatible data fetching
+- Always provide a `key` option when using `useBaseFetch`
+- Use `status === 'error'` for error checking (not the `error` object)
+- Handle all async states (loading, error, empty, success)
+- Use `onMounted` for browser API access
+- Extract reusable logic into composables
+- Implement cleanup in `onUnmounted` for listeners
+- Type all props and emits explicitly
+- Use `~~/` for server-side imports
 
-```bash
-# Development
-npx nuxi dev --host  # Never expose to public network!
+### ❌ NEVER DO
+- Use Options API
+- Wrap `toResult` in try/catch blocks
+- Check `error` directly from `useBaseFetch` (use `status === 'error'`)
+- Access `window` or `document` in `<script setup>`
+- Fetch data in `onMounted` (use `useBaseFetch` instead)
+- Mutate props directly
+- Write unscoped CSS
+- Forget cleanup for event listeners
+- Create state management composables (use page-level `useBaseFetch`)
+- Use `~/` for server-side imports
+- Skip loading/error/empty states
 
-# Security audit
-npm audit --audit-level=high
-npx nuxi typecheck
+## Reference Files
 
-# Production build
-npx nuxi build
-```
+For detailed patterns and examples:
+- `references/data-fetching.md` - Complete guide to useFetch, useAsyncData, and $fetchResult
+- `references/composables.md` - Composable patterns and when to use them
+- `references/ssr-hydration.md` - SSR pitfalls and solutions
 
-### Key Composables
+## Quick Reference: When to Use What
 
-```typescript
-// State management
-const state = useState<T>('key', () => initialValue)
-
-// Runtime config access
-const config = useRuntimeConfig()
-
-// Route navigation
-const router = useRouter()
-await navigateTo('/path')
-```
-
-## 13. Pre-Deployment Checklist
-
-### Security Verification
-
-- [ ] Nuxt version >= 3.12.4 (CVE-2024-34344 fix)
-- [ ] Devtools version >= 1.3.9 (CVE-2024-23657 fix)
-- [ ] CSP headers configured in nuxt.config
-- [ ] No secrets in `runtimeConfig.public`
-- [ ] All user inputs sanitized with DOMPurify
-- [ ] Server routes validate with Zod schemas
-- [ ] Authentication middleware on protected routes
-- [ ] Devtools disabled in production
-
-### Build Verification
-
-- [ ] `npm audit` shows no high/critical vulnerabilities
-- [ ] TypeScript compilation passes
-- [ ] All security tests pass
-- [ ] Production build completes without errors
-
-## 14. Summary
-
-This Vue/Nuxt skill provides secure patterns for building the JARVIS AI Assistant HUD interface:
-
-1. **Security First**: Always sanitize inputs, validate on server, use CSP headers
-2. **Type Safety**: TypeScript throughout with strict validation schemas
-3. **Performance**: Composition API, lazy loading, efficient reactivity
-4. **Maintainability**: Clear component structure, composables for reuse
-
-**Remember**: The JARVIS HUD handles sensitive system data. Every component must treat user input as potentially malicious and validate all data boundaries.
-
----
-
-**References**:
-- `references/advanced-patterns.md` - Complex component patterns
-- `references/security-examples.md` - Detailed security implementations
+| Scenario | Tool | Why |
+|----------|------|-----|
+| Page data loading | `useBaseFetch` | SSR support, automatic caching |
+| Form submission | `toResult($api(...))` | Simple error handling, no SSR needed |
+| User-triggered action | `toResult($api(...))` | Client-only, returns typed result |
+| Complex data transform | `useAsyncData` | Custom async function with caching |
+| Reusable utility logic | Composable | Share non-data logic |
+| Browser API access | `onMounted` | Avoid SSR errors |
+| Client-only rendering | `<ClientOnly>` | Skip SSR for specific parts |
+| Checking for errors | `status === 'error'` | Preferred over checking `error` object |

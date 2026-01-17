@@ -1,494 +1,1103 @@
 ---
 name: nodejs
-description: Core Node.js backend patterns for TypeScript applications including async/await error handling, middleware concepts, configuration management, testing strategies, and layered architecture principles. Use when building Node.js backend services, APIs, or microservices.
+description: Node.js and Express development patterns and best practices
+license: MIT
+compatibility: opencode
 ---
 
-# Node.js Backend Patterns
+# Node.js Skill
 
-## Purpose
+Comprehensive patterns and best practices for Node.js and Express development.
 
-Core patterns for building scalable Node.js backend applications with TypeScript, emphasizing clean architecture, error handling, and testability.
+## What I Know
 
-## When to Use This Skill
-
-- Building Node.js backend services
-- Implementing async/await patterns
-- Error handling and logging
-- Configuration management
-- Testing backend code
-- Layered architecture (routes → controllers → services → repositories)
-
----
-
-## Quick Start
-
-### Layered Architecture
+### Project Structure
 
 ```
 src/
-├── api/
-│   ├── routes/         # HTTP route definitions
-│   ├── controllers/    # Request/response handling
-│   ├── services/       # Business logic
-│   └── repositories/   # Data access
-├── middleware/         # Express middleware
-├── types/             # TypeScript types
+├── controllers/       # Request handlers
+├── services/          # Business logic
+├── repositories/      # Data access layer
+├── middleware/        # Express middleware
+├── routes/            # Route definitions
+├── models/            # Data models
+├── utils/             # Helper functions
 ├── config/            # Configuration
-└── utils/             # Utilities
+├── types/             # TypeScript types
+└── index.ts           # Application entry
 ```
 
-**Flow:** Route → Controller → Service → Repository → Database
+### Express Server Setup
 
----
+**TypeScript Setup**
+```ts
+// src/index.ts
+import express from 'express'
+import cors from 'cors'
+import helmet from 'helmet'
+import compression from 'compression'
+import { json } from 'body-parser'
+import { morganMiddleware } from './utils/logger'
+import { errorHandler } from './middleware/errorHandler'
+import { apiRouter } from './routes'
 
-## Async/Await Error Handling
+const app = express()
 
-### Basic Pattern
+// Security middleware
+app.use(helmet())
+app.use(cors())
+app.use(compression())
 
-```typescript
-async function fetchUser(id: string): Promise<User> {
-  try {
-    const user = await db.user.findUnique({ where: { id } });
-    if (!user) {
-      throw new Error('User not found');
-    }
-    return user;
-  } catch (error) {
-    console.error('Error fetching user:', error);
-    throw error;
-  }
-}
+// Body parsing
+app.use(json({ limit: '10mb' }))
+app.use(express.urlencoded({ extended: true }))
+
+// Logging
+app.use(morganMiddleware)
+
+// Routes
+app.use('/api', apiRouter)
+
+// Error handling (must be last)
+app.use(errorHandler)
+
+const PORT = process.env.PORT || 3000
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`)
+})
 ```
 
-### Async Controller Pattern
+### Controllers
 
-```typescript
-class UserController {
-  async getUser(req: Request, res: Response): Promise<void> {
-    try {
-      const { id } = req.params;
-      const user = await this.userService.getById(id);
+**Controller Pattern**
+```ts
+// src/controllers/user.controller.ts
+import { Request, Response, NextFunction } from 'express'
+import { UserService } from '../services/user.service'
+import { CreateUserDto, UpdateUserDto } from '../dto/user.dto'
 
-      res.json({
-        success: true,
-        data: user,
-      });
-    } catch (error) {
-      console.error('Error in getUser:', error);
-      res.status(500).json({
-        success: false,
-        error: 'Failed to fetch user',
-      });
-    }
-  }
-}
-```
-
-### Promise.all for Parallel Operations
-
-```typescript
-async function getUserDashboard(userId: string) {
-  try {
-    const [user, posts, followers] = await Promise.all([
-      userService.getById(userId),
-      postService.getByUser(userId),
-      followerService.getByUser(userId),
-    ]);
-
-    return { user, posts, followers };
-  } catch (error) {
-    console.error('Error loading dashboard:', error);
-    throw error;
-  }
-}
-```
-
----
-
-## TypeScript Patterns
-
-### Request/Response Types
-
-```typescript
-// Request body
-interface CreateUserRequest {
-  email: string;
-  name: string;
-  password: string;
-}
-
-// Response
-interface ApiResponse<T> {
-  success: boolean;
-  data?: T;
-  error?: string;
-  message?: string;
-}
-
-// Usage
-async function createUser(
-  req: Request<{}, {}, CreateUserRequest>,
-  res: Response<ApiResponse<User>>
-): Promise<void> {
-  const { email, name, password } = req.body;
-
-  const user = await userService.create({ email, name, password });
-
-  res.json({
-    success: true,
-    data: user,
-  });
-}
-```
-
-### Service Layer Types
-
-```typescript
-interface IUserService {
-  getById(id: string): Promise<User>;
-  create(data: CreateUserDto): Promise<User>;
-  update(id: string, data: UpdateUserDto): Promise<User>;
-  delete(id: string): Promise<void>;
-}
-
-class UserService implements IUserService {
-  async getById(id: string): Promise<User> {
-    // Implementation
-  }
-
-  async create(data: CreateUserDto): Promise<User> {
-    // Implementation
-  }
-
-  async update(id: string, data: UpdateUserDto): Promise<User> {
-    // Implementation
-  }
-
-  async delete(id: string): Promise<void> {
-    // Implementation
-  }
-}
-```
-
----
-
-## Configuration Management
-
-### Environment Variables
-
-```typescript
-// config/env.ts
-import { z } from 'zod';
-
-const envSchema = z.object({
-  NODE_ENV: z.enum(['development', 'production', 'test']),
-  PORT: z.string().transform(Number),
-  DATABASE_URL: z.string().url(),
-  JWT_SECRET: z.string().min(32),
-  LOG_LEVEL: z.enum(['error', 'warn', 'info', 'debug']).default('info'),
-});
-
-export const env = envSchema.parse(process.env);
-```
-
-### Unified Config
-
-```typescript
-// config/index.ts
-interface Config {
-  server: {
-    port: number;
-    host: string;
-  };
-  database: {
-    url: string;
-  };
-  auth: {
-    jwtSecret: string;
-    jwtExpiry: string;
-  };
-}
-
-export const config: Config = {
-  server: {
-    port: parseInt(process.env.PORT || '3000'),
-    host: process.env.HOST || 'localhost',
-  },
-  database: {
-    url: process.env.DATABASE_URL || '',
-  },
-  auth: {
-    jwtSecret: process.env.JWT_SECRET || '',
-    jwtExpiry: process.env.JWT_EXPIRY || '7d',
-  },
-};
-```
-
----
-
-## Layered Architecture
-
-### Controller Layer
-
-```typescript
-// controllers/UserController.ts
 export class UserController {
   constructor(private userService: UserService) {}
 
-  async getById(req: Request, res: Response): Promise<void> {
-    const { id } = req.params;
-    const user = await this.userService.getById(id);
-
-    res.json({
-      success: true,
-      data: user,
-    });
+  async findAll(req: Request, res: Response, next: NextFunction) {
+    try {
+      const users = await this.userService.findAll({
+        page: Number(req.query.page) || 1,
+        limit: Number(req.query.limit) || 20,
+      })
+      res.json(users)
+    } catch (error) {
+      next(error)
+    }
   }
 
-  async create(req: Request, res: Response): Promise<void> {
-    const userData = req.body;
-    const user = await this.userService.create(userData);
+  async findOne(req: Request, res: Response, next: NextFunction) {
+    try {
+      const user = await this.userService.findOne(Number(req.params.id))
+      res.json(user)
+    } catch (error) {
+      next(error)
+    }
+  }
 
-    res.status(201).json({
-      success: true,
-      data: user,
-    });
+  async create(req: Request, res: Response, next: NextFunction) {
+    try {
+      const user = await this.userService.create(req.body as CreateUserDto)
+      res.status(201).json(user)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async update(req: Request, res: Response, next: NextFunction) {
+    try {
+      const user = await this.userService.update(
+        Number(req.params.id),
+        req.body as UpdateUserDto
+      )
+      res.json(user)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async delete(req: Request, res: Response, next: NextFunction) {
+    try {
+      await this.userService.delete(Number(req.params.id))
+      res.status(204).send()
+    } catch (error) {
+      next(error)
+    }
   }
 }
 ```
 
-### Service Layer
+### Services (Business Logic)
 
-```typescript
-// services/UserService.ts
+```ts
+// src/services/user.service.ts
+import { UserRepository } from '../repositories/user.repository'
+import { User } from '../models/user.model'
+import { CreateUserDto, UpdateUserDto } from '../dto/user.dto'
+import { ConflictException, NotFoundException } from '../exceptions'
+
 export class UserService {
   constructor(private userRepository: UserRepository) {}
 
-  async getById(id: string): Promise<User> {
-    const user = await this.userRepository.findById(id);
-    if (!user) {
-      throw new Error('User not found');
+  async findAll(options: { page: number; limit: number }) {
+    const { page, limit } = options
+    const [data, total] = await Promise.all([
+      this.userRepository.findMany({ skip: (page - 1) * limit, take: limit }),
+      this.userRepository.count()
+    ])
+
+    return {
+      data,
+      meta: {
+        page,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit)
+      }
     }
-    return user;
   }
 
-  async create(data: CreateUserDto): Promise<User> {
-    // Business logic
-    const hashedPassword = await this.hashPassword(data.password);
+  async findOne(id: number): Promise<User> {
+    const user = await this.userRepository.findOne(id)
+    if (!user) {
+      throw new NotFoundException('User not found')
+    }
+    return user
+  }
 
-    return this.userRepository.create({
-      ...data,
-      password: hashedPassword,
-    });
+  async create(dto: CreateUserDto): Promise<User> {
+    const existing = await this.userRepository.findByEmail(dto.email)
+    if (existing) {
+      throw new ConflictException('Email already exists')
+    }
+    return this.userRepository.create(dto)
+  }
+
+  async update(id: number, dto: UpdateUserDto): Promise<User> {
+    const user = await this.findOne(id)
+    return this.userRepository.update(id, dto)
+  }
+
+  async delete(id: number): Promise<void> {
+    await this.findOne(id)
+    await this.userRepository.delete(id)
+  }
+}
+```
+
+### Repositories (Data Access)
+
+```ts
+// src/repositories/user.repository.ts
+import { PrismaClient, User } from '@prisma/client'
+import { CreateUserDto, UpdateUserDto } from '../dto/user.dto'
+
+export class UserRepository {
+  constructor(private prisma: PrismaClient) {}
+
+  async findMany(options: { skip?: number; take?: number }) {
+    return this.prisma.user.findMany({
+      skip: options.skip,
+      take: options.take,
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        createdAt: true,
+        password: false,
+      },
+    })
+  }
+
+  async findOne(id: number) {
+    return this.prisma.user.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        createdAt: true,
+        password: false,
+      },
+    })
+  }
+
+  async findByEmail(email: string) {
+    return this.prisma.user.findUnique({
+      where: { email },
+    })
+  }
+
+  async create(dto: CreateUserDto) {
+    return this.prisma.user.create({
+      data: {
+        email: dto.email,
+        name: dto.name,
+        password: await this.hashPassword(dto.password),
+      },
+    })
+  }
+
+  async update(id: number, dto: UpdateUserDto) {
+    return this.prisma.user.update({
+      where: { id },
+      data: dto,
+    })
+  }
+
+  async delete(id: number) {
+    return this.prisma.user.delete({
+      where: { id },
+    })
+  }
+
+  async count() {
+    return this.prisma.user.count()
   }
 
   private async hashPassword(password: string): Promise<string> {
-    // Hash implementation
-    return password; // Placeholder
+    const bcrypt = await import('bcrypt')
+    return bcrypt.hash(password, 10)
   }
 }
 ```
 
-### Repository Layer
+### Routes
 
-```typescript
-// repositories/UserRepository.ts
-export class UserRepository {
-  async findById(id: string): Promise<User | null> {
-    // Database query
-    return db.user.findUnique({ where: { id } });
+```ts
+// src/routes/index.ts
+import { Router } from 'express'
+import { UserController } from '../controllers/user.controller'
+import { authMiddleware } from '../middleware/auth.middleware'
+import { validateMiddleware } from '../middleware/validate.middleware'
+import { createUserSchema, updateUserSchema } from '../validators/user.validator'
+
+const router = Router()
+const controller = new UserController(/* inject dependencies */)
+
+router.get('/users', controller.findAll.bind(controller))
+router.get('/users/:id', controller.findOne.bind(controller))
+router.post('/users', validateMiddleware(createUserSchema), controller.create.bind(controller))
+router.patch('/users/:id', validateMiddleware(updateUserSchema), controller.update.bind(controller))
+router.delete('/users/:id', controller.delete.bind(controller))
+
+export function apiRouter(): Router {
+  return router
+}
+```
+
+### Middleware
+
+**Authentication**
+```ts
+// src/middleware/auth.middleware.ts
+import { Request, Response, NextFunction } from 'express'
+import jwt from 'jsonwebtoken'
+
+export interface AuthRequest extends Request {
+  userId?: number
+}
+
+export function authMiddleware(req: AuthRequest, res: Response, next: NextFunction) {
+  const authHeader = req.headers.authorization
+
+  if (!authHeader?.startsWith('Bearer ')) {
+    return res.status(401).json({ error: 'Unauthorized' })
   }
 
-  async create(data: CreateUserData): Promise<User> {
-    return db.user.create({ data });
-  }
+  const token = authHeader.split(' ')[1]
 
-  async update(id: string, data: UpdateUserData): Promise<User> {
-    return db.user.update({
-      where: { id },
-      data,
-    });
-  }
-
-  async delete(id: string): Promise<void> {
-    await db.user.delete({ where: { id } });
+  try {
+    const payload = jwt.verify(token, process.env.JWT_SECRET!) as { userId: number }
+    req.userId = payload.userId
+    next()
+  } catch {
+    return res.status(401).json({ error: 'Invalid token' })
   }
 }
 ```
 
----
+**Error Handler**
+```ts
+// src/middleware/errorHandler.ts
+import { Request, Response, NextFunction } from 'express'
+import { ZodError } from 'zod'
+import { AppError } from '../exceptions/app.error'
 
-## Dependency Injection
+export function errorHandler(err: Error, req: Request, res: Response, next: NextFunction) {
+  console.error(err)
 
-### Basic DI Pattern
-
-```typescript
-// Composition root
-const userRepository = new UserRepository();
-const userService = new UserService(userRepository);
-const userController = new UserController(userService);
-
-export { userController };
-```
-
-### Service Container
-
-```typescript
-// container.ts
-class Container {
-  private services: Map<string, any> = new Map();
-
-  register<T>(name: string, factory: () => T): void {
-    this.services.set(name, factory());
+  if (err instanceof AppError) {
+    return res.status(err.statusCode).json({
+      error: err.message,
+      ...(err.errors && { errors: err.errors }),
+    })
   }
 
-  get<T>(name: string): T {
-    const service = this.services.get(name);
-    if (!service) {
-      throw new Error(`Service ${name} not found`);
+  if (err instanceof ZodError) {
+    return res.status(400).json({
+      error: 'Validation error',
+      errors: err.errors,
+    })
+  }
+
+  res.status(500).json({ error: 'Internal server error' })
+}
+```
+
+### Validation (Zod)
+
+```ts
+// src/validators/user.validator.ts
+import { z } from 'zod'
+
+export const createUserSchema = z.object({
+  email: z.string().email('Invalid email format'),
+  name: z.string().min(2).max(100),
+  password: z.string().min(8).regex(/[A-Z]/).regex(/[0-9]/),
+})
+
+export const updateUserSchema = createUserSchema.partial()
+
+export type CreateUserDto = z.infer<typeof createUserSchema>
+export type UpdateUserDto = z.infer<typeof updateUserSchema>
+```
+
+### Dependency Injection
+
+**DI Container (Simple)**
+```ts
+// src/container.ts
+import { PrismaClient } from '@prisma/client'
+import { UserRepository } from './repositories/user.repository'
+import { UserService } from './services/user.service'
+import { UserController } from './controllers/user.controller'
+
+class DIContainer {
+  private static instances = new Map()
+
+  static register<T>(key: string, factory: () => T) {
+    this.instances.set(key, factory())
+  }
+
+  static resolve<T>(key: string): T {
+    const instance = this.instances.get(key)
+    if (!instance) {
+      throw new Error(`Dependency ${key} not found`)
     }
-    return service;
+    return instance as T
   }
 }
 
-export const container = new Container();
-
-// Register services
-container.register('userRepository', () => new UserRepository());
-container.register('userService', () => new UserService(
-  container.get('userRepository')
-));
-container.register('userController', () => new UserController(
-  container.get('userService')
-));
+// Initialize
+DIContainer.register('prisma', () => new PrismaClient())
+DIContainer.register('userRepo', () => new UserRepository(DIContainer.resolve('prisma')))
+DIContainer.register('userService', () => new UserService(DIContainer.resolve('userRepo')))
+DIContainer.register('userController', () => new UserController(DIContainer.resolve('userService')))
 ```
 
----
+### Async Patterns
 
-## Error Handling
+**Promises & Async/Await**
+```ts
+// Parallel execution
+async function getUserData(userId: number) {
+  const [user, posts, settings] = await Promise.all([
+    userRepository.findOne(userId),
+    postRepository.findByUser(userId),
+    settingsRepository.findByUser(userId),
+  ])
 
-### Custom Error Classes
+  return { user, posts, settings }
+}
 
-```typescript
-export class AppError extends Error {
-  constructor(
-    public message: string,
-    public statusCode: number = 500,
-    public isOperational: boolean = true
+// Error handling in async
+async function safeExecute<T>(
+  fn: () => Promise<T>
+): Promise<{ data?: T; error?: Error }> {
+  try {
+    const data = await fn()
+    return { data }
+  } catch (error) {
+    return { error: error as Error }
+  }
+}
+```
+
+### Environment Configuration
+
+```ts
+// src/config/index.ts
+import { z } from 'zod'
+
+const envSchema = z.object({
+  NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
+  PORT: z.string().transform(Number).default('3000'),
+  DATABASE_URL: z.string(),
+  JWT_SECRET: z.string(),
+  REDIS_URL: z.string().optional(),
+})
+
+export const env = envSchema.parse(process.env)
+```
+
+### Testing
+
+**Jest Setup**
+```ts
+// tests/unit/user.service.test.ts
+import { describe, it, expect, beforeEach } from '@jest/globals'
+import { UserService } from '../../src/services/user.service'
+import { MockUserRepository } from '../mocks/user.repository.mock'
+
+describe('UserService', () => {
+  let service: UserService
+  let mockRepo: MockUserRepository
+
+  beforeEach(() => {
+    mockRepo = new MockUserRepository()
+    service = new UserService(mockRepo)
+  })
+
+  it('should return all users with pagination', async () => {
+    mockRepo.mockFindMany([{ id: 1, email: 'test@example.com' }])
+    mockRepo.mockCount(10)
+
+    const result = await service.findAll({ page: 1, limit: 20 })
+
+    expect(result.data).toHaveLength(1)
+    expect(result.meta.total).toBe(10)
+  })
+
+  it('should throw NotFoundException when user not found', async () => {
+    mockRepo.mockFindOne(null)
+
+    await expect(service.findOne(999)).rejects.toThrow('User not found')
+  })
+})
+```
+
+### Common Pitfalls
+
+1. **Callback hell** → Use async/await
+2. **Mixing callbacks and promises** → Choose one approach
+3. **Not handling errors** → Always use try/catch
+4. **Blocking event loop** → Offload CPU-intensive work
+5. **Memory leaks** → Clean up listeners and timers
+6. **Ignoring TypeScript** → Use types for safety
+7. **Secrets in code** → Use environment variables
+
+### API Design Patterns
+
+**RESTful Conventions**
+```ts
+// Use proper HTTP methods and status codes
+export class UserController {
+  // GET /users - List with pagination
+  @Get()
+  async findAll(@Req() req: Request) {
+    const { page = 1, limit = 20, search } = req.query
+    const result = await this.userService.findAll({ page, limit, search })
+    res.json(result)
+  }
+
+  // GET /users/:id - Get single resource
+  @Get(':id')
+  async findOne(@Param('id') id: string) {
+    const user = await this.userService.findOne(id)
+    if (!user) throw new NotFoundException('User not found')
+    res.json(user)
+  }
+
+  // POST /users - Create resource
+  @Post()
+  async create(@Body() dto: CreateUserDto) {
+    const user = await this.userService.create(dto)
+    res.status(201).json(user)
+  }
+
+  // PATCH /users/:id - Partial update
+  @Patch(':id')
+  async update(@Param('id') id: string, @Body() dto: UpdateUserDto) {
+    const user = await this.userService.update(id, dto)
+    res.json(user)
+  }
+
+  // DELETE /users/:id - Delete resource
+  @Delete(':id')
+  async delete(@Param('id') id: string) {
+    await this.userService.delete(id)
+    res.status(204).send()
+  }
+}
+```
+
+**Standardized API Response**
+```ts
+// src/utils/response.ts
+export interface ApiResponse<T> {
+  success: boolean
+  data?: T
+  error?: {
+    code: string
+    message: string
+    details?: unknown
+  }
+  meta?: {
+    page: number
+    limit: number
+    total: number
+    totalPages: number
+  }
+}
+
+export function successResponse<T>(
+  data: T,
+  meta?: ApiResponse<T>['meta']
+): ApiResponse<T> {
+  return { success: true, data, meta }
+}
+
+export function errorResponse(
+  code: string,
+  message: string,
+  details?: unknown
+): ApiResponse<never> {
+  return { success: false, error: { code, message, details } }
+}
+```
+
+**API Versioning**
+```ts
+// src/routes/v1/index.ts
+const v1Router = Router()
+v1Router.use('/users', userRoutes)
+
+// src/routes/index.ts
+import { Router } from 'express'
+
+const apiRouter = Router()
+
+apiRouter.use('/v1', v1Router)
+// Future: apiRouter.use('/v2', v2Router)
+
+export { apiRouter }
+```
+
+**Rate Limiting**
+```ts
+// src/middleware/rateLimit.ts
+import rateLimit from 'express-rate-limit'
+
+export const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per window
+  message: 'Too many requests from this IP',
+  standardHeaders: true,
+  legacyHeaders: false,
+})
+
+export const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 5, // Stricter for auth endpoints
+  skipSuccessfulRequests: true,
+})
+```
+
+**Pagination Helper**
+```ts
+// src/utils/pagination.ts
+export interface PaginationOptions {
+  page: number
+  limit: number
+}
+
+export interface PaginatedResult<T> {
+  data: T[]
+  meta: {
+    page: number
+    limit: number
+    total: number
+    totalPages: number
+  }
+}
+
+export function createPagination<T>(
+  data: T[],
+  total: number,
+  options: PaginationOptions
+): PaginatedResult<T> {
+  const { page, limit } = options
+  return {
+    data,
+    meta: {
+      page,
+      limit,
+      total,
+      totalPages: Math.ceil(total / limit),
+    },
+  }
+}
+
+export function getPaginationParams(query: any): PaginationOptions {
+  const page = Math.max(1, Number(query.page) || 1)
+  const limit = Math.min(100, Math.max(1, Number(query.limit) || 20))
+  return { page, limit }
+}
+```
+
+### Database Patterns
+
+**Connection Pooling**
+```ts
+// src/config/database.ts
+import { Pool } from 'pg'
+
+export const pool = new Pool({
+  host: process.env.DB_HOST,
+  port: Number(process.env.DB_PORT),
+  database: process.env.DB_NAME,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  max: 20, // Maximum pool size
+  idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 2000,
+})
+
+pool.on('error', (err) => {
+  console.error('Unexpected database error', err)
+})
+```
+
+**Transaction Pattern**
+```ts
+// src/repositories/base.repository.ts
+export class BaseRepository {
+  async transaction<T>(
+    callback: (client: PoolClient) => Promise<T>
+  ): Promise<T> {
+    const client = await pool.connect()
+    try {
+      await client.query('BEGIN')
+      const result = await callback(client)
+      await client.query('COMMIT')
+      return result
+    } catch (error) {
+      await client.query('ROLLBACK')
+      throw error
+    } finally {
+      client.release()
+    }
+  }
+}
+
+// Usage
+await userRepository.transaction(async (client) => {
+  await createUser(client, userData)
+  await createProfile(client, profileData)
+})
+```
+
+**Query Builder Pattern**
+```ts
+// src/repositories/query-builder.ts
+export class QueryBuilder {
+  private query = ''
+  private params: any[] = []
+  private whereCount = 0
+
+  select(columns: string): this {
+    this.query = `SELECT ${columns}`
+    return this
+  }
+
+  from(table: string): this {
+    this.query += ` FROM ${table}`
+    return this
+  }
+
+  where(column: string, value: any): this {
+    this.whereCount++
+    const param = `$${this.params.length + 1}`
+    this.params.push(value)
+
+    if (this.whereCount === 1) {
+      this.query += ` WHERE ${column} = ${param}`
+    } else {
+      this.query += ` AND ${column} = ${param}`
+    }
+    return this
+  }
+
+  orderBy(column: string, direction: 'ASC' | 'DESC' = 'ASC'): this {
+    this.query += ` ORDER BY ${column} ${direction}`
+    return this
+  }
+
+  limit(count: number): this {
+    this.query += ` LIMIT $${this.params.length + 1}`
+    this.params.push(count)
+    return this
+  }
+
+  build(): { query: string; params: any[] } {
+    return { query: this.query, params: this.params }
+  }
+}
+```
+
+**Repository Pattern with Mongoose**
+```ts
+// src/repositories/user.repository.ts
+import { Model, Document, FilterQuery } from 'mongoose'
+
+export class BaseRepository<T extends Document> {
+  constructor(private model: Model<T>) {}
+
+  async findOne(id: string): Promise<T | null> {
+    return this.model.findById(id).exec()
+  }
+
+  async findOneBy(filter: FilterQuery<T>): Promise<T | null> {
+    return this.model.findOne(filter).exec()
+  }
+
+  async findMany(filter: FilterQuery<T> = {}): Promise<T[]> {
+    return this.model.find(filter).exec()
+  }
+
+  async create(data: Partial<T>): Promise<T> {
+    return this.model.create(data)
+  }
+
+  async update(id: string, data: Partial<T>): Promise<T | null> {
+    return this.model.findByIdAndUpdate(id, data, { new: true }).exec()
+  }
+
+  async delete(id: string): Promise<T | null> {
+    return this.model.findByIdAndDelete(id).exec()
+  }
+
+  async paginate(
+    filter: FilterQuery<T> = {},
+    options: { page: number; limit: number } = { page: 1, limit: 20 }
   ) {
-    super(message);
-    Object.setPrototypeOf(this, AppError.prototype);
-  }
-}
+    const { page, limit } = options
+    const skip = (page - 1) * limit
 
-export class NotFoundError extends AppError {
-  constructor(resource: string) {
-    super(`${resource} not found`, 404);
-  }
-}
+    const [data, total] = await Promise.all([
+      this.model.find(filter).skip(skip).limit(limit).exec(),
+      this.model.countDocuments(filter),
+    ])
 
-export class ValidationError extends AppError {
-  constructor(message: string) {
-    super(message, 400);
+    return { data, meta: { page, limit, total, totalPages: Math.ceil(total / limit) } }
   }
-}
-
-// Usage
-async function getUser(id: string): Promise<User> {
-  const user = await userRepository.findById(id);
-  if (!user) {
-    throw new NotFoundError('User');
-  }
-  return user;
 }
 ```
 
-### Async Error Wrapper
+### Security Patterns
 
-```typescript
-type AsyncHandler = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => Promise<void>;
+**Helmet (Security Headers)**
+```ts
+import helmet from 'helmet'
 
-export const asyncHandler = (fn: AsyncHandler) => {
-  return (req: Request, res: Response, next: NextFunction) => {
-    Promise.resolve(fn(req, res, next)).catch(next);
-  };
-};
-
-// Usage
-router.get('/users/:id', asyncHandler(async (req, res) => {
-  const user = await userService.getById(req.params.id);
-  res.json({ data: user });
-}));
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      scriptSrc: ["'self'"],
+      imgSrc: ["'self'", 'data:', 'https:'],
+    },
+  },
+  hsts: {
+    maxAge: 31536000,
+    includeSubDomains: true,
+    preload: true,
+  },
+}))
 ```
+
+**CORS Configuration**
+```ts
+import cors from 'cors'
+
+const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:3000']
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}))
+```
+
+**Input Sanitization**
+```ts
+// src/middleware/sanitize.ts
+import { body, param, query, validationResult } from 'express-validator'
+
+export const validate = (req: Request, res: Response, next: NextFunction) => {
+  const errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() })
+  }
+  next()
+}
+
+export const userValidation = {
+  create: [
+    body('email').isEmail().normalizeEmail(),
+    body('name').trim().escape().isLength({ min: 2, max: 100 }),
+    body('password').isStrongPassword(),
+    validate,
+  ],
+  update: [
+    param('id').isMongoId(),
+    body('email').optional().isEmail().normalizeEmail(),
+    body('name').optional().trim().escape().isLength({ min: 2, max: 100 }),
+    validate,
+  ],
+}
+```
+
+**JWT Authentication**
+```ts
+// src/utils/jwt.ts
+import jwt from 'jsonwebtoken'
+
+export function generateToken(payload: { userId: string }): string {
+  return jwt.sign(
+    payload,
+    process.env.JWT_SECRET!,
+    { expiresIn: process.env.JWT_EXPIRES_IN || '1h' }
+  )
+}
+
+export function verifyToken(token: string): { userId: string } {
+  return jwt.verify(token, process.env.JWT_SECRET!) as { userId: string }
+}
+
+export function generateRefreshToken(payload: { userId: string }): string {
+  return jwt.sign(
+    payload,
+    process.env.JWT_REFRESH_SECRET!,
+    { expiresIn: '7d' }
+  )
+}
+```
+
+**Password Hashing**
+```ts
+// src/utils/password.ts
+import bcrypt from 'bcrypt'
+
+export async function hashPassword(password: string): Promise<string> {
+  return bcrypt.hash(password, 12)
+}
+
+export async function verifyPassword(
+  password: string,
+  hash: string
+): Promise<boolean> {
+  return bcrypt.compare(password, hash)
+}
+```
+
+**XSS Protection**
+```ts
+// src/utils/sanitize.ts
+import createDOMPurify from 'dompurify'
+import { JSDOM } from 'jsdom'
+
+const window = new JSDOM('').window
+const DOMPurify = createDOMPurify(window)
+
+export function sanitizeHtml(html: string): string {
+  return DOMPurify.sanitize(html, { ALLOWED_TAGS: [] })
+}
+
+export function sanitizeUserInput(input: string): string {
+  return input.trim().replace(/[<>]/g, '')
+}
+```
+
+**SQL Injection Prevention**
+```ts
+// Use parameterized queries - NEVER concatenate user input
+// BAD:
+const query = `SELECT * FROM users WHERE id = '${userId}'`
+
+// GOOD:
+const query = 'SELECT * FROM users WHERE id = $1'
+await pool.query(query, [userId])
+
+// With Prisma/ORM:
+await prisma.user.findUnique({ where: { id: userId } })
+```
+
+### Performance Patterns
+
+**Response Compression**
+```ts
+import compression from 'compression'
+
+app.use(compression({
+  filter: (req, res) => {
+    if (req.headers['x-no-compression']) return false
+    return compression.filter(req, res)
+  },
+  threshold: 1024, // Only compress if payload > 1KB
+}))
+```
+
+**Caching Strategy**
+```ts
+// src/cache/redis.ts
+import { createClient } from 'redis'
+
+const redis = createClient({
+  url: process.env.REDIS_URL,
+})
+
+export class CacheService {
+  async get<T>(key: string): Promise<T | null> {
+    const data = await redis.get(key)
+    return data ? JSON.parse(data) : null
+  }
+
+  async set(key: string, value: any, ttl: number = 3600): Promise<void> {
+    await redis.setEx(key, ttl, JSON.stringify(value))
+  }
+
+  async delete(key: string): Promise<void> {
+    await redis.del(key)
+  }
+
+  async invalidatePattern(pattern: string): Promise<void> {
+    const keys = await redis.keys(pattern)
+    if (keys.length) await redis.del(keys)
+  }
+}
+
+// Caching middleware
+export function cacheMiddleware(ttl: number = 300) {
+  return async (req: Request, res: Response, next: NextFunction) => {
+    const key = `cache:${req.originalUrl}`
+    const cached = await cacheService.get(key)
+
+    if (cached) {
+      return res.json(cached)
+    }
+
+    // Capture original json method
+    const originalJson = res.json.bind(res)
+    res.json = (data) => {
+      cacheService.set(key, data, ttl)
+      return originalJson(data)
+    }
+
+    next()
+  }
+}
+```
+
+**Database Query Optimization**
+```ts
+// Use connection pooling
+// Select only needed columns
+const users = await prisma.user.findMany({
+  select: { id: true, name: true, email: true },
+})
+
+// Use pagination for large datasets
+const users = await prisma.user.findMany({
+  skip: (page - 1) * limit,
+  take: limit,
+})
+
+// Use indexes in database
+// Eager loading to prevent N+1 queries
+const users = await prisma.user.findMany({
+  include: { posts: true },
+})
+
+// Batch operations
+await prisma.user.createMany({
+  data: usersData,
+})
+```
+
+**Worker Threads for CPU Intensive Tasks**
+```ts
+// src/workers/heavy-task.ts
+import { Worker, isMainThread, parentPort, workerData } from 'worker_threads'
+
+export function runHeavyTask(data: any): Promise<any> {
+  return new Promise((resolve, reject) => {
+    const worker = new Worker(__filename, {
+      workerData: data,
+    })
+
+    worker.on('message', resolve)
+    worker.on('error', reject)
+    worker.on('exit', (code) => {
+      if (code !== 0) reject(new Error(`Worker stopped with exit code ${code}`))
+    })
+  })
+}
+
+if (!isMainThread) {
+  // CPU intensive work here
+  const result = heavyComputation(workerData)
+  parentPort?.postMessage(result)
+}
+```
+
+**Lazy Loading Routes**
+```ts
+// src/app.ts
+import express from 'express'
+
+const app = express()
+
+// Lazy load routes
+app.use('/api/users', (req, res, next) => {
+  import('./routes/user.routes').then((routes) => {
+    routes.default(req, res, next)
+  })
+})
+```
+
+### Best Practices
+
+1. **Use TypeScript** for type safety
+2. **Use async/await** for cleaner code
+3. **Validate input** with Zod or express-validator
+4. **Centralize error handling** in middleware
+5. **Use dependency injection** for testability
+6. **Keep controllers thin** - move logic to services
+7. **Use environment variables** for configuration
+8. **Handle promises properly** - no floating promises
+9. **Implement caching** for frequently accessed data
+10. **Sanitize all user input** to prevent XSS and injection attacks
+11. **Use parameterized queries** to prevent SQL injection
+12. **Set up rate limiting** to prevent abuse
+13. **Use connection pooling** for database connections
+14. **Implement proper logging** for debugging and monitoring
+15. **Use compression** to reduce response size
 
 ---
 
----
-
-## Best Practices
-
-### 1. Always Use Async/Await
-
-```typescript
-// ✅ Good: async/await
-async function getUser(id: string): Promise<User> {
-  const user = await userRepository.findById(id);
-  return user;
-}
-
-// ❌ Avoid: Promise chains
-function getUser(id: string): Promise<User> {
-  return userRepository.findById(id)
-    .then(user => user)
-    .catch(error => throw error);
-}
-```
-
-### 2. Layer Separation
-
-```typescript
-// ✅ Good: Separated layers
-// Controller handles HTTP
-// Service handles business logic
-// Repository handles data access
-
-// ❌ Avoid: Business logic in controllers
-class UserController {
-  async create(req: Request, res: Response) {
-    // ❌ Don't put business logic here
-    const hashedPassword = await hash(req.body.password);
-    const user = await db.user.create({...});
-    res.json(user);
-  }
-}
-```
-
-### 3. Type Everything
-
-```typescript
-// ✅ Good: Full type coverage
-async function updateUser(
-  id: string,
-  data: UpdateUserDto
-): Promise<User> {
-  return userService.update(id, data);
-}
-
-// ❌ Avoid: any types
-async function updateUser(id: any, data: any): Promise<any> {
-  return userService.update(id, data);
-}
-```
-
----
-
-## Additional Resources
-
-For more patterns, see:
-- [async-and-errors.md](resources/async-and-errors.md) - Advanced error handling
-- [testing-guide.md](resources/testing-guide.md) - Comprehensive testing
-- [architecture-patterns.md](resources/architecture-patterns.md) - Architecture details
+*Part of SuperAI GitHub - Centralized OpenCode Configuration*

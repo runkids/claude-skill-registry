@@ -1,7 +1,7 @@
 {
   "name": "telegram-bot",
-  "repo": "timequity/plugins",
-  "path": "vibe-coder/skills/telegram-bot/SKILL.md",
-  "source": "github.com/timequity/plugins",
-  "downloaded_at": "2026-01-14T03:41:20.786119Z"
+  "repo": "olivenet-iot/olivenet-social-bot",
+  "path": ".claude/skills/telegram-bot/SKILL.md",
+  "source": "github.com/olivenet-iot/olivenet-social-bot",
+  "downloaded_at": "2026-01-17T03:07:40.750550Z"
 }

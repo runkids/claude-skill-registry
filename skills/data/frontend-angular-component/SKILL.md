@@ -1,41 +1,57 @@
 ---
 name: angular-component
-description: Use when creating or modifying Angular components in PlatformExampleAppWeb (Angular 19) with proper base class inheritance, state management, and platform patterns.
+description: Use when creating or modifying Angular components in WebV2 (Angular 19) with proper base class inheritance, state management, and platform patterns.
+allowed-tools: Read, Write, Edit, Grep, Glob, Bash
 ---
 
 # Angular Component Development Workflow
 
 ## Pre-Flight Checklist
 
-- [ ] Identify correct app: `playground-text-snippet`, etc.
+- [ ] Identify correct app: `playground-text-snippet`, `employee`, etc.
+- [ ] **Read the design system docs** for the target application (see below)
 - [ ] Search for similar components: `grep "{FeatureName}Component" --include="*.ts"`
 - [ ] Determine component type (list, form, detail, dialog)
 - [ ] Check if store is needed (complex state)
 
+## 🎨 Design System Documentation (MANDATORY)
+
+**Before creating any component, read the design system documentation for your target application:**
+
+| Application                       | Design System Location                           |
+| --------------------------------- | ------------------------------------------------ |
+| **WebV2 Apps**                    | `docs/design-system/`                            |
+| **TextSnippetClient**             | `src/PlatformExampleAppWeb/apps/playground-text-snippet/docs/design-system/` |
+
+**Key docs to read:**
+
+- `README.md` - Component overview, base classes, library summary
+- `02-component-catalog.md` - Available components and usage examples
+- `01-design-tokens.md` - Colors, typography, spacing tokens
+- `07-technical-guide.md` - Implementation checklist
+
 ## Component Hierarchy
 
 ```
-PlatformComponent                    # Base: lifecycle, subscriptions, signals (from @libs/platform-core)
+PlatformComponent                    # Base: lifecycle, subscriptions, signals
 ├── PlatformVmComponent             # + ViewModel injection
 ├── PlatformFormComponent           # + Reactive forms integration
 └── PlatformVmStoreComponent        # + ComponentStore state management
 
-AppBaseComponent (optional)          # App-specific: + Auth, roles, company context
-├── AppBaseVmComponent              # + ViewModel + auth context (create in your app)
-├── AppBaseFormComponent            # + Forms + auth + validation (create in your app)
-└── AppBaseVmStoreComponent         # + Store + auth + loading/error (create in your app)
+AppBaseComponent                     # + Auth, roles, company context
+├── AppBaseVmComponent              # + ViewModel + auth context
+├── AppBaseFormComponent            # + Forms + auth + validation
+└── AppBaseVmStoreComponent         # + Store + auth + loading/error
 ```
-
-> **Note:** Platform classes are exported from `@libs/platform-core`. AppBase classes are optional app-specific extensions you can create to add auth context, company scope, and role-based access to your components.
 
 ## Component Type Decision
 
-| Scenario             | Base Class                 | Use When                      |
-| -------------------- | -------------------------- | ----------------------------- |
-| Simple display       | `PlatformComponent`        | Static content, no state      |
-| With ViewModel       | `PlatformVmComponent`      | Needs mutable view model      |
-| Form with validation | `PlatformFormComponent`    | User input forms              |
-| Complex state/CRUD   | `PlatformVmStoreComponent` | Lists, dashboards, multi-step |
+| Scenario             | Base Class                | Use When                      |
+| -------------------- | ------------------------- | ----------------------------- |
+| Simple display       | `AppBaseComponent`        | Static content, no state      |
+| With ViewModel       | `AppBaseVmComponent`      | Needs mutable view model      |
+| Form with validation | `AppBaseFormComponent`    | User input forms              |
+| Complex state/CRUD   | `AppBaseVmStoreComponent` | Lists, dashboards, multi-step |
 
 ## File Location
 
@@ -48,6 +64,92 @@ src/PlatformExampleAppWeb/apps/{app-name}/src/app/
         ├── {feature}.component.scss
         └── {feature}.store.ts (if using store)
 ```
+
+## Component HTML Template Standard (BEM Classes)
+
+**All UI elements in component templates MUST have BEM classes, even without styling needs.** This makes HTML self-documenting like OOP class hierarchy.
+
+```html
+<!-- ✅ CORRECT: All elements have BEM classes for structure clarity -->
+<div class="feature-list">
+    <div class="feature-list__header">
+        <h1 class="feature-list__title">Features</h1>
+        <button class="feature-list__btn --add" (click)="onAdd()">Add New</button>
+    </div>
+    <div class="feature-list__content">
+        @for (item of vm.items; track trackByItem) {
+        <div class="feature-list__item">
+            <span class="feature-list__item-name">{{ item.name }}</span>
+            <div class="feature-list__item-actions">
+                <button class="feature-list__item-btn" (click)="onDelete(item)">Delete</button>
+            </div>
+        </div>
+        } @empty {
+        <div class="feature-list__empty">No items found</div>
+        }
+    </div>
+</div>
+
+<!-- ❌ WRONG: Elements without classes - structure unclear -->
+<div class="feature-list">
+    <div>
+        <h1>Features</h1>
+        <button (click)="onAdd()">Add New</button>
+    </div>
+    <div>
+        @for (item of vm.items; track trackByItem) {
+        <div>
+            <span>{{ item.name }}</span>
+            <div>
+                <button (click)="onDelete(item)">Delete</button>
+            </div>
+        </div>
+        }
+    </div>
+</div>
+```
+
+**BEM Naming Convention:**
+
+- **Block**: Component name (e.g., `feature-list`)
+- **Element**: Child using `block__element` (e.g., `feature-list__header`)
+- **Modifier**: Separate class with `--` prefix (e.g., `feature-list__btn --add --large`)
+
+## Component SCSS Standard
+
+Always style both the **host element** (Angular selector) and the **main wrapper class**:
+
+```scss
+@import '~assets/scss/variables';
+
+// Host element styling - ensures Angular element is a proper block container
+my-component {
+    display: flex;
+    flex-direction: column;
+}
+
+// Main wrapper class with full styling
+.my-component {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex-grow: 1;
+
+    &__header {
+        // BEM child elements...
+    }
+
+    &__content {
+        flex: 1;
+        overflow-y: auto;
+    }
+}
+```
+
+**Why both?**
+
+- **Host element**: Makes the Angular element a real layout element (not an unknown element without display)
+- **Main class**: Contains the full styling, matches the wrapper div in HTML
 
 ## Pattern 1: List Component with Store
 
@@ -114,7 +216,7 @@ export class FeatureListStore extends PlatformVmStore<FeatureListState> {
 ```typescript
 // {feature}-list.component.ts
 import { Component, OnInit } from '@angular/core';
-import { PlatformVmStoreComponent } from '@libs/platform-core';
+import { AppBaseVmStoreComponent } from '@libs/apps-domains';
 import { FeatureListStore, FeatureListState } from './feature-list.store';
 
 @Component({
@@ -123,7 +225,7 @@ import { FeatureListStore, FeatureListState } from './feature-list.store';
     styleUrls: ['./feature-list.component.scss'],
     providers: [FeatureListStore] // Provide store at component level
 })
-export class FeatureListComponent extends PlatformVmStoreComponent<FeatureListState, FeatureListStore> implements OnInit {
+export class FeatureListComponent extends AppBaseVmStoreComponent<FeatureListState, FeatureListStore> implements OnInit {
     // Track-by for performance
     trackByItem = this.ngForTrackByItemProp<FeatureDto>('id');
 
@@ -183,7 +285,7 @@ export class FeatureListComponent extends PlatformVmStoreComponent<FeatureListSt
 // {feature}-form.component.ts
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { PlatformFormComponent } from '@libs/platform-core';
+import { AppBaseFormComponent } from '@libs/apps-domains';
 import { ifAsyncValidator, noWhitespaceValidator } from '@libs/platform-core';
 
 export interface FeatureFormVm {
@@ -198,7 +300,7 @@ export interface FeatureFormVm {
     selector: 'app-feature-form',
     templateUrl: './feature-form.component.html'
 })
-export class FeatureFormComponent extends PlatformFormComponent<FeatureFormVm> {
+export class FeatureFormComponent extends AppBaseFormComponent<FeatureFormVm> {
     // Form configuration
     protected initialFormConfig = () => ({
         controls: {
@@ -311,7 +413,7 @@ export class FeatureFormComponent extends PlatformFormComponent<FeatureFormVm> {
 ```typescript
 // {feature}-card.component.ts
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { PlatformComponent } from '@libs/platform-core';
+import { AppBaseComponent } from '@libs/apps-domains';
 
 @Component({
     selector: 'app-feature-card',
@@ -325,7 +427,7 @@ import { PlatformComponent } from '@libs/platform-core';
         </div>
     `
 })
-export class FeatureCardComponent extends PlatformComponent {
+export class FeatureCardComponent extends AppBaseComponent {
     @Input() feature!: FeatureDto;
     @Input() isSelected = false;
     @Output() onEdit = new EventEmitter<FeatureDto>();
@@ -388,37 +490,32 @@ trackByList = this.ngForTrackByImmutableList(this.items);
 
 ## Code Responsibility Hierarchy (CRITICAL)
 
-**Components should only handle UI events - delegate all logic to lower layers:**
+**Place logic in the LOWEST appropriate layer to enable reuse and prevent duplication:**
 
-| Layer            | Responsibility                                                      |
-| ---------------- | ------------------------------------------------------------------- |
-| **Entity/Model** | Display helpers, dropdown options, defaults, static factory methods |
-| **Service**      | API calls, command factories                                        |
-| **Component**    | UI event handling ONLY                                              |
+| Layer            | Responsibility                                                            |
+| ---------------- | ------------------------------------------------------------------------- |
+| **Entity/Model** | Display helpers, static factory methods, default values, dropdown options |
+| **Service**      | API calls, command factories, data transformation                         |
+| **Component**    | UI event handling ONLY - delegates all logic to lower layers              |
 
 ```typescript
-// ❌ WRONG: Logic in component (causes duplication)
-readonly statusOptions = [{ value: 1, label: 'Active' }, ...];
-getStatusClass(item) { return item.isActive ? 'active' : 'inactive'; }
+// ❌ WRONG: Logic in component (leads to duplication if another component needs it)
+readonly authTypes = [{ value: AuthType.OAuth2, label: 'OAuth2' }, ...];
+getDefaultBaseUrl(type) { return this.providerUrls[type] ?? ''; }
 
-// ✅ CORRECT: Delegate to entity
-readonly statusOptions = Entity.getStatusOptions();
-getStatusClass(item) { return item.getStatusCssClass(); }
+// ✅ CORRECT: Logic in entity/model (single source of truth, reusable)
+readonly authTypes = AuthConfigurationDisplay.getApiAuthTypeOptions();
+getDefaultBaseUrl(type) { return JobBoardProviderConfiguration.getDefaultBaseUrl(type); }
 ```
 
----
+**Common Refactoring Patterns:**
+
+- Dropdown options → static method in entity: `Entity.getOptions()`
+- Display logic (CSS class, text) → instance method in entity: `entity.getStatusCssClass()`
+- Default values → static method in entity: `Entity.getDefaultValue()`
+- Command building → factory class in service: `CommandFactory.buildSaveCommand(formValues)`
 
 ## Anti-Patterns to AVOID
-
-:x: **Putting reusable logic in component instead of entity/model**
-
-```typescript
-// WRONG - logic that should be in entity
-readonly options = [{ value: 1, label: 'Option 1' }];
-
-// CORRECT - delegate to entity
-readonly options = Entity.getDropdownOptions();
-```
 
 :x: **Using wrong base class**
 
@@ -463,163 +560,6 @@ constructor(private featureApi: FeatureApiService) { }
 </app-loading-and-error-indicator>
 ```
 
-## Component SCSS Standard
-
-Always style both the **host element** (Angular selector) and the **main wrapper class**:
-
-```scss
-@import '~assets/scss/variables';
-
-// Host element styling - ensures Angular element is a proper block container
-app-feature-list {
-    display: flex;
-    flex-direction: column;
-}
-
-// Main wrapper class with full styling
-.feature-list {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    flex-grow: 1;
-
-    &__header {
-        // BEM child elements...
-    }
-
-    &__content {
-        flex: 1;
-        overflow-y: auto;
-    }
-}
-```
-
-**Why both?**
-
-- **Host element**: Makes the Angular element a real layout element (not an unknown element without display)
-- **Main class**: Contains the full styling, matches the wrapper div in HTML
-
-## BEM Naming Convention (MANDATORY)
-
-### Rule: ALL UI Elements Must Have BEM Classes
-
-**CRITICAL:** Every UI element in a component template MUST have a BEM class, even if it doesn't need special styling. This follows OOP principles - treat CSS classes as object-oriented structure for readability and maintainability.
-
-### BEM Structure
-
-```
-block              → Component wrapper (e.g., .user-card)
-block__element     → Child element (e.g., .user-card__title)
-block__element --modifier → State/variant (e.g., .user-card__btn --primary --large)
-```
-
-### Modifier Convention
-
-**Use space-separated `--modifier` classes (NOT suffix style):**
-
-```html
-<!-- ✅ CORRECT: Space-separated modifiers -->
-<button class="user-card__btn --primary --large">Save</button>
-<div class="entity-list__item --selected --highlighted">Item</div>
-
-<!-- ❌ WRONG: Suffix-style modifiers -->
-<button class="user-card__btn--primary user-card__btn--large">Save</button>
-```
-
-### Complete Template Example
-
-```html
-<!-- ✅ CORRECT: Every element has a BEM class -->
-<div class="user-card">
-    <div class="user-card__header">
-        <img class="user-card__avatar" [src]="user.avatar" />
-        <h2 class="user-card__title">{{ user.name }}</h2>
-        <span class="user-card__subtitle">{{ user.role }}</span>
-    </div>
-    <div class="user-card__body">
-        <p class="user-card__description">{{ user.bio }}</p>
-        <ul class="user-card__stats">
-            @for (stat of user.stats; track stat.id) {
-            <li class="user-card__stat-item">
-                <span class="user-card__stat-label">{{ stat.label }}</span>
-                <span class="user-card__stat-value">{{ stat.value }}</span>
-            </li>
-            }
-        </ul>
-    </div>
-    <div class="user-card__footer">
-        <button class="user-card__btn --secondary" (click)="onCancel()">Cancel</button>
-        <button class="user-card__btn --primary" (click)="onSave()">Save</button>
-    </div>
-</div>
-
-<!-- ❌ WRONG: Elements without BEM classes -->
-<div class="user-card">
-    <div>
-        <!-- Missing class! -->
-        <img [src]="user.avatar" />
-        <!-- Missing class! -->
-        <h2>{{ user.name }}</h2>
-        <!-- Missing class! -->
-    </div>
-    <button (click)="onSave()">Save</button>
-    <!-- Missing class! -->
-</div>
-```
-
-### SCSS with Modifiers
-
-```scss
-.user-card {
-    &__btn {
-        padding: 0.5rem 1rem;
-        border: none;
-        cursor: pointer;
-
-        // Modifier styles
-        &.--primary {
-            background: $primary-color;
-            color: white;
-        }
-
-        &.--secondary {
-            background: transparent;
-            border: 1px solid $border-color;
-        }
-
-        &.--large {
-            padding: 1rem 2rem;
-            font-size: 1.2rem;
-        }
-
-        &.--disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-    }
-
-    &__item {
-        &.--selected {
-            background: $selected-bg;
-        }
-
-        &.--highlighted {
-            border-left: 3px solid $accent-color;
-        }
-    }
-}
-```
-
-### Why This Matters
-
-1. **Readability**: Template structure is immediately clear from class names
-2. **Maintainability**: Easy to find and update styles for any element
-3. **Consistency**: Uniform naming across all components
-4. **Debugging**: DevTools show meaningful class names
-5. **Refactoring**: Safe to move/copy HTML with self-documenting classes
-
----
-
 ## Verification Checklist
 
 - [ ] Correct base class selected for use case
@@ -630,4 +570,3 @@ block__element --modifier → State/variant (e.g., .user-card__btn --primary --l
 - [ ] Form validation configured properly
 - [ ] Auth checks use `hasRole()` from base class
 - [ ] API calls use service extending `PlatformApiService`
-- [ ] SCSS styles both host element and main wrapper class

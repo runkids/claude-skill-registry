@@ -1,7 +1,7 @@
 ---
 name: agentuity-cli-cloud-env-push
-description: Push environment variables from local .env file to cloud. Requires authentication. Use for Agentuity cloud platform operations
-version: "0.1.2"
+description: Push environment variables from local .env.production file to cloud. Requires authentication. Use for Agentuity cloud platform operations
+version: "0.0.103"
 license: Apache-2.0
 allowed-tools: "Bash(agentuity:*)"
 metadata:
@@ -11,7 +11,7 @@ metadata:
 
 # Cloud Env Push
 
-Push environment variables from local .env file to cloud
+Push environment variables from local .env.production file to cloud
 
 ## Prerequisites
 

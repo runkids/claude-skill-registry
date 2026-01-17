@@ -1,7 +1,7 @@
 {
   "name": "kubernetes",
-  "repo": "liauw-media/CodeAssist",
-  "path": "skills/infrastructure/kubernetes/SKILL.md",
-  "source": "github.com/liauw-media/CodeAssist",
-  "downloaded_at": "2026-01-14T03:27:46.247213Z"
+  "repo": "markus41/lobbi-design-system",
+  "path": ".claude/skills/kubernetes/SKILL.md",
+  "source": "github.com/markus41/lobbi-design-system",
+  "downloaded_at": "2026-01-17T03:57:12.209498Z"
 }

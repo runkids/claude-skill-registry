@@ -1,7 +1,7 @@
 {
   "name": "linear",
-  "repo": "openai/skills",
-  "path": "skills/.experimental/linear/SKILL.md",
-  "source": "github.com/openai/skills",
-  "downloaded_at": "2026-01-14T02:55:06.594862Z"
+  "repo": "ComposioHQ/awesome-codex-skills",
+  "path": "linear/SKILL.md",
+  "source": "github.com/ComposioHQ/awesome-codex-skills",
+  "downloaded_at": "2026-01-17T03:59:45.542576Z"
 }

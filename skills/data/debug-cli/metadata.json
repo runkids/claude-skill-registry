@@ -1,7 +1,7 @@
 {
   "name": "debug-cli",
-  "repo": "Activer007/ordinary-claude-skills",
-  "path": "skills_all/debug-cli/SKILL.md",
-  "source": "github.com/Activer007/ordinary-claude-skills",
-  "downloaded_at": "2026-01-14T03:21:35.340639Z"
+  "repo": "majiayu000/claude-skill-registry",
+  "path": "skills/data/debug-cli/SKILL.md",
+  "source": "github.com/majiayu000/claude-skill-registry",
+  "downloaded_at": "2026-01-17T02:27:10.568497Z"
 }

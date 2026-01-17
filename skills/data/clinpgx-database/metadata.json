@@ -1,7 +1,7 @@
 {
   "name": "clinpgx-database",
-  "repo": "x-cmd/skill",
-  "path": "data/k-dense-ai/clinpgx-database/SKILL.md",
-  "source": "github.com/x-cmd/skill",
-  "downloaded_at": "2026-01-14T02:45:42.185456Z"
+  "repo": "ricable/ultimate-ai-agent",
+  "path": "sources/ricable/claude-scientific-skills/scientific-skills/clinpgx-database/SKILL.md",
+  "source": "github.com/ricable/ultimate-ai-agent",
+  "downloaded_at": "2026-01-17T03:30:31.905283Z"
 }

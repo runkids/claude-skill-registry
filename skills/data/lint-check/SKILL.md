@@ -1,70 +1,331 @@
 ---
-description: Checks code for linting issues and style compliance before commits
-version: 1.0.0
-allowed-tools: [Bash, Grep, Glob]
+name: lint-check
+description: |
+  Run quick linting checks on changed files. MUST BE USED when user wants to check code quality.
+  Fast validation (<5s) following V3 trust-environments philosophy.
+  Use when user says "lint my code", "check formatting", or "run linters",
+  or when user mentions uncommitted changes, pre-commit state, formatting issues,
+  code quality, style checks, validation, prettier, eslint, pylint, or ruff.
+tags: [workflow, quality, linting, validation]
+allowed-tools:
+  - Bash(git:*)
+  - Bash(eslint:*)
+  - Bash(prettier:*)
+  - Bash(pylint:*)
+  - Bash(ruff:*)
+  - Read
 ---
 
 # Lint Check
 
-This skill performs linting and style checks on YARS code before committing, as required by project guidelines.
+Quick linting validation (<5 seconds).
 
-## Usage
+## Purpose
 
-Automatically invoked when:
-- User asks to check linting or code style
-- Before creating commits or pull requests
-- After writing new code
-- As part of pre-commit validation
+Run fast linting checks on changed files before commits.
 
-## Checks Performed
+**Philosophy:** Quick checks only (<5s) + Trust CI for comprehensive validation
 
-### 1. Compiler Warnings Check
+## When to Use This Skill
+
+**Trigger phrases:**
+- "lint my code"
+- "check formatting"
+- "run linters"
+- "check code quality"
+
+**Use when:**
+- Before committing changes
+- Quick validation during development
+- Checking specific files
+
+## Workflow
+
+### 1. Detect Changed Files
+
 ```bash
-cd build
-cmake .. && make -j4 2>&1 | tee build-warnings.txt
-grep -i "warning:" build-warnings.txt
+# Get staged and unstaged changes
+git diff --name-only HEAD
+git diff --name-only --cached
 ```
 
-### 2. Namespace Usage Check
+**File categories:**
+- Frontend: `*.ts`, `*.tsx`, `*.js`, `*.jsx`
+- Backend: `*.py`
+- Config: `*.json`, `*.yaml`, `*.yml`
+
+### 2. Run Linters by File Type
+
+**Frontend (TypeScript/JavaScript):**
 ```bash
-# Verify new files use namespace yars
-grep -r "namespace yars" src/ --include="*.h" --include="*.cpp"
+# ESLint for code quality
+npx eslint --max-warnings 0 <files>
+
+# Prettier for formatting
+npx prettier --check <files>
 ```
 
-### 3. Modern C++ Patterns
+**Backend (Python):**
 ```bash
-# Check for NULL usage (should use nullptr)
-grep -r "NULL" src/ --include="*.h" --include="*.cpp" | grep -v "nullptr"
+# Ruff for fast linting (replaces pylint/flake8/black)
+ruff check <files>
 
-# Check for raw pointer news that might need smart pointers
-grep -r "new " src/ --include="*.cpp" | grep -v "unique_ptr" | grep -v "shared_ptr"
+# Type checking (if mypy available)
+mypy <files> 2>/dev/null || true
 ```
 
-### 4. Observer Pattern Check
+**Config files:**
 ```bash
-# Track remaining observer pattern usage
-grep -r "Observable\|Observer" src/ --include="*.h" --include="*.cpp" | grep -v backup
+# JSON validation
+jq empty <file.json>
+
+# YAML validation
+yamllint <file.yaml> 2>/dev/null || true
 ```
 
-## Success Criteria
+### 3. Report Results
 
-- ✅ No compiler warnings
-- ✅ New code uses `namespace yars {}`
-- ✅ No NULL usage (nullptr instead)
-- ✅ Raw pointers properly justified
-- ✅ Observer pattern not introduced in new code
+**Success:**
+```
+✅ Linting passed!
+   Checked: 12 files
+   - 8 TypeScript files
+   - 3 Python files
+   - 1 JSON file
 
-## Reporting
+   No issues found.
+```
 
-Reports should include:
-- Count of any warnings found
-- Files with potential issues
-- Specific lines that need attention
-- Suggestions for fixes
+**Failure:**
+```
+❌ Linting failed!
+   Checked: 12 files
+   Found: 5 issues
 
-## Notes
+   frontend/src/App.tsx:
+     - Line 23: Missing semicolon (eslint)
+     - Line 45: Unused variable 'data' (eslint)
 
-- Must pass before code can be committed
-- Some warnings may be acceptable (document why)
-- Focus on new code, not legacy issues
-- Integrate with git pre-commit hooks if possible
+   backend/api/routes.py:
+     - Line 12: Line too long (89 > 88 characters) (ruff)
+
+   Fix these issues and run again.
+```
+
+### 4. Exit Fast
+
+**No auto-fixing:**
+- Report issues only
+- User fixes manually
+- Trust CI for comprehensive checks
+
+## Integration Points
+
+### With sync-feature-branch
+
+**Optional pre-commit check:**
+```bash
+# In sync-feature-branch skill
+if user wants quick lint:
+  lint-check skill
+  if fails:
+    echo "Fix linting issues before committing"
+    exit 1
+```
+
+### With Git
+
+**Staged files only:**
+```bash
+# Only lint what's about to be committed
+git diff --cached --name-only | xargs <linter>
+```
+
+## Linter Configuration
+
+### Frontend (package.json required)
+
+**ESLint:**
+```bash
+npx eslint --ext .ts,.tsx,.js,.jsx <files>
+```
+
+**Prettier:**
+```bash
+npx prettier --check <files>
+```
+
+### Backend (ruff preferred)
+
+**Ruff (fast):**
+```bash
+ruff check <files>
+```
+
+**Fallback to pylint:**
+```bash
+pylint <files>
+```
+
+## Best Practices
+
+### Do
+
+✅ Run on changed files only (fast)
+✅ Report issues clearly
+✅ Exit fast (<5s target)
+✅ Trust CI for full validation
+✅ Use project's linter config (.eslintrc, ruff.toml)
+
+### Don't
+
+❌ Auto-fix issues (user fixes manually)
+❌ Run on entire codebase (too slow)
+❌ Block commits (advisory only)
+❌ Run comprehensive type checking (CI does this)
+❌ Ignore project config
+
+## What This Skill Does
+
+✅ Detects changed files (git diff)
+✅ Runs appropriate linters (eslint, ruff, prettier)
+✅ Reports issues clearly
+✅ Exits fast (<5s)
+✅ Respects project linter config
+
+## What This Skill DOESN'T Do
+
+❌ Auto-fix issues
+❌ Run on entire codebase
+❌ Block commits
+❌ Run comprehensive type checking
+❌ Replace CI validation
+
+## Examples
+
+### Example 1: Clean Code
+
+```
+User: "lint my code"
+
+lint-check:
+
+1. Detect files:
+   - frontend/src/App.tsx
+   - frontend/src/utils.ts
+   - backend/api/routes.py
+
+2. Run linters:
+   - ESLint: ✓ pass (2 files)
+   - Ruff: ✓ pass (1 file)
+
+3. Report:
+   ✅ Linting passed!
+   Checked: 3 files
+   No issues found.
+```
+
+### Example 2: Issues Found
+
+```
+User: "check formatting"
+
+lint-check:
+
+1. Detect files:
+   - frontend/src/Dashboard.tsx
+   - backend/services/auth.py
+
+2. Run linters:
+   - ESLint: ✗ fail (1 issue)
+   - Ruff: ✗ fail (2 issues)
+
+3. Report:
+   ❌ Linting failed!
+
+   frontend/src/Dashboard.tsx:
+     Line 34: 'data' is assigned but never used (no-unused-vars)
+
+   backend/services/auth.py:
+     Line 12: Line too long (92 > 88 characters)
+     Line 45: Undefined name 'UserModel'
+
+   Fix these issues and run again.
+```
+
+### Example 3: No Changed Files
+
+```
+User: "lint my code"
+
+lint-check:
+
+1. Detect files:
+   (no changed files)
+
+2. Report:
+   ℹ️  No changed files to lint.
+
+   Stage changes first: git add <files>
+```
+
+## Troubleshooting
+
+### Linter Not Found
+
+**Symptom:** `eslint: command not found`
+
+**Fix:**
+```bash
+# Install linters
+cd frontend && npm install
+cd backend && pip install ruff
+```
+
+### Config Missing
+
+**Symptom:** Linter uses default config instead of project config
+
+**Check:**
+```bash
+ls -la .eslintrc* ruff.toml .prettierrc*
+```
+
+**Fix:** Use project config if present
+
+### Too Slow
+
+**Symptom:** Takes >5 seconds
+
+**Fix:** Reduce scope to staged files only
+```bash
+git diff --cached --name-only | xargs <linter>
+```
+
+## Related Skills
+
+- **sync-feature-branch**: May call lint-check before commit
+- **fix-pr-feedback**: May suggest running linters for CI failures
+
+## Resources
+
+**Linter docs:**
+- ESLint: https://eslint.org/docs/latest/
+- Prettier: https://prettier.io/docs/
+- Ruff: https://docs.astral.sh/ruff/
+- Pylint: https://pylint.readthedocs.io/
+
+**Project config:**
+- `.eslintrc.json` - ESLint rules
+- `.prettierrc` - Prettier config
+- `ruff.toml` - Ruff config
+- `pyproject.toml` - Python tools config
+
+---
+
+**Last Updated:** 2025-01-12
+**Skill Type:** Workflow
+**Average Duration:** <5 seconds
+**Related Docs:**
+- AGENTS.md (V3 trust environments)
+- .claude/skills/sync-feature-branch/SKILL.md

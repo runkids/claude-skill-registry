@@ -5,7 +5,7 @@ description: Drive implementation forward incrementally with automatic progress 
 
 # Milestone Skill
 
-This skill is a core component for implementing large features incrementally, providing transparent context through LOC tracking, test execution, and milestone checkpoint creation when the 800 LOC threshold is reached without completion.
+This skill instructs AI agents on how to drive implementation forward incrementally, tracking LOC count, running tests, and creating milestone checkpoints when the 800 LOC threshold is reached without completion.
 
 ## Skill Purpose
 
@@ -22,19 +22,10 @@ This skill is the core implementation driver used by `/issue-to-impl` and `/mile
 ## Philosophy
 
 - **Incremental progress over big bang**: Small, testable chunks beat large rewrites
-  - Provide unobvious technical insights and design decisions you made during this chunk of implementation
+- **Test-driven validation**: Run tests frequently to catch issues early
 - **Transparent checkpoints**: Milestone documents provide clear progress visibility
+- **Fail-fast on errors**: Stop and create milestone when blocked rather than pushing forward blindly
 - **LOC-based pacing**: Use lines of code (not time) to determine when to checkpoint
-- **Partially complete work:** You are allowed to have some test failures at milestones, which particularly means you **are REQUIRED** to run a thorough test suite after each chunk of implementation, and before creating a milestone.
-  - The milestone document will record the status of all the tests, including passed and failed tests.
-    - **Example**
-      - **Before:** 5/8 tests Passed
-      - **After:** 6/8 tests Passed
-      - **Next Steps:** Fix remaining 2 tests in next milestone
-  - You should dynamically adjust our plan with the whole plan and the current status of milestone.
-    - Did you incrementally finish some tests that were failing in the previous milestone?
-    - Did you find some new edge cases that require new tests to be written?
-    - Did you unexpectedly break some test cases that were passing before? Is it related or unrelated to the current implementation plan?
 
 ---
 
@@ -44,7 +35,7 @@ The milestone skill takes the following inputs (extracted from context):
 
 1. **Current branch context**
    - Branch name (extracted from: `git branch --show-current`)
-   - Must be a development branch matching pattern: `issue-{N}` or `issue-{N}-*` (wildcard for backward compatibility)
+   - Must be a development branch matching pattern: `issue-{N}-{brief-title}`
    - Issue number extracted from branch name
 
 2. **Plan reference**
@@ -57,12 +48,9 @@ The milestone skill takes the following inputs (extracted from context):
    - When starting fresh (first milestone), start from 0
 
 4. **Current test status** (determined by running tests)
-   - You do not need to pass all the tests before creating a milestone, but you **MUST** run the tests after each implementation chunk to determine current status.
-   - You should provide a summary of the test results in the milestone document, including:
-     - Test passed as expected by this chunk of implementation
-     - Test failed as expected by this chunk of implementation
-     - Test unexpectedly broken by this chunk of implementation
-     - What is planned to be worked on in the immediately next milestone
+   - Total test count
+   - Passed test count
+   - Failed test count (with failure details)
 
 ---
 
@@ -79,8 +67,8 @@ Use `git diff --stat` to measure code changes:
 git diff --stat
 
 # Example output:
-#  .claude/skills/milestone/SKILL.md | 156 ++++++++++++++++++++++++++++++++++++++
-#  docs/milestone-workflow.md         | 187 ++++++++++++++++++++++++++++++++++++++++++
+#  claude/skills/milestone/SKILL.md | 156 ++++++++++++++++++++++++++++++++++++++
+#  docs/milestone-workflow.md       | 187 ++++++++++++++++++++++++++++++++++++++++++
 #  2 files changed, 343 insertions(+)
 ```
 
@@ -155,7 +143,6 @@ From the plan or milestone:
 - Identify the next incomplete implementation step
 - Determine which files need changes
 - Understand what to implement in the next chunk
-- Provide unobvious technical insights and design decisions you made for this chunk of implementation
 
 **Chunk size guideline**: Aim for 100-200 LOC per chunk
 - If a step is > 200 LOC, break it into substeps
@@ -372,7 +359,7 @@ Create the file `.milestones/issue-{N}-milestone-{M}.md`:
 ```markdown
 # Milestone {M} for Issue #{N}
 
-**Branch:** issue-{N}
+**Branch:** issue-{N}-{brief-title}
 **Created:** {current-datetime}
 **LOC Implemented:** ~{cumulative_loc} lines
 **Test Status:** {passed}/{total} tests passed
@@ -384,52 +371,13 @@ Create the file `.milestones/issue-{N}-milestone-{M}.md`:
 [Test Status section from Step 4]
 ```
 
-**CRITICAL: Local-Only Checkpoint Files**
-
-Milestone documents in `.milestones/` are LOCAL CHECKPOINT FILES ONLY:
-
-- **DO NOT** stage these files: `git add .milestones/` is FORBIDDEN
-- **DO NOT** force-add these files: `git add -f .milestones/*` is FORBIDDEN
-- **DO NOT** commit these files under any circumstances
-- These files are automatically excluded by `.gitignore` when using `git add .`
-
-**Why `.milestones/` files must remain local:**
-1. They are working notes for resuming implementation between sessions
-2. They contain partial progress states not suitable for repository history
-3. `.gitignore` already excludes them to prevent accidental staging
-4. Only completed implementation code/tests/docs should be committed
-
-**Verification:** Before creating any commit, verify staged files:
-```bash
-git diff --cached --name-only
-```
-If you see any `.milestones/` files listed, **STOP** and unstage them:
-```bash
-git restore --staged .milestones/
-```
+**IMPORTANT**: This milestone document is for local checkpoint tracking only. It should NOT be committed to git (it's already excluded via `.gitignore`).
 
 ### Step 6: Create Milestone Commit
 
 Use the `commit-msg` skill with milestone flag:
 
-**CRITICAL - Pre-Commit Verification:**
-
-Before invoking `commit-msg`, verify what will be staged:
-```bash
-# Stage implementation changes only
-git add .
-
-# Verify staged files (milestone files should NOT appear)
-git diff --cached --name-only
-```
-
-**Requirements:**
-- **MUST stage**: Implementation code, tests, documentation
-- **MUST NOT stage**: `.milestones/issue-{N}-milestone-{M}.md` (local checkpoint only)
-- If `.milestones/` files appear in `git diff --cached`, unstage them immediately:
-  ```bash
-  git restore --staged .milestones/
-  ```
+**CRITICAL**: Only commit implementation changes (code, tests, docs), NOT the milestone report file.
 
 **Invoke commit-msg skill with:**
 - Purpose: milestone
@@ -448,7 +396,7 @@ The commit-msg skill will:
 ```
 [milestone][agent.skill]: Milestone 2 for issue #42
 
-.claude/skills/milestone/SKILL.md: Implement LOC tracking and test parsing logic
+claude/skills/milestone/SKILL.md: Implement LOC tracking and test parsing logic
 docs/milestone-workflow.md: Add workflow documentation
 
 Milestone progress: 820 LOC implemented, 5/8 tests passed.
@@ -464,19 +412,12 @@ Display message to user:
 ```
 Milestone {M} created at {cumulative_loc} LOC ({passed}/{total} tests passed).
 
+Next steps:
+1. Start a new session
+2. Run /miles2miles to resume implementation from this checkpoint
+
 Work remaining: ~{estimated_remaining_loc} LOC
 ```
-
-**Next Steps:**
-
-To resume implementation from this checkpoint, use natural language:
-```
-User: Resume from the latest milestone
-User: Continue implementation
-User: Continue from .milestones/issue-{N}-milestone-{M}.md
-```
-
-The system will auto-detect the latest milestone on the current branch.
 
 ---
 
@@ -490,46 +431,20 @@ All tests passed ({total}/{total})!
 Implementation complete:
 - Total LOC: ~{cumulative_loc}
 - All {total} tests passing
+- Ready for PR creation
 
 Next steps:
-1. Create a delivery commit (without [milestone] tag):
-   - Stage all changes: git add .
-   - Create commit with purpose=delivery (runs pre-commit hooks)
-   - All tests must pass for commit to succeed
-2. Review and create PR with /pull-request --open
-   - Or use /code-review then /open-pr for manual workflow
+1. Review the changes
+2. Use /open-pr to create a pull request
 ```
 
-**CRITICAL - Completion requires a delivery commit:**
+**Do NOT create a milestone** when all tests pass - this indicates completion.
 
-When all tests pass, **DO NOT create a milestone**. Instead:
-
-1. **Stage changes for delivery commit:**
-   ```bash
-   git add .
-   git diff --cached --name-only  # Verify staged files
-   ```
-
-2. **Create delivery commit using commit-msg skill:**
-   - Purpose: `delivery` (NOT milestone)
-   - No `--no-verify` flag (normal pre-commit hooks run)
-   - All tests must pass for commit to succeed
-   - Commit message has NO `[milestone]` tag
-
-3. **Delivery commit distinguishes completed work from checkpoints:**
-   - Milestone commits = intermediate checkpoints with incomplete tests
-   - Delivery commits = completed work with all tests passing
-   - Only delivery commits should be merged to main branch
-
-**Example delivery commit message:**
-```
-[feat][agent.command]: Add TypeScript support to build system
-
-src/build.ts: Implement TypeScript compilation pipeline
-tests/test-typescript.sh: Add TypeScript validation tests
-
-All 8 tests passing. Ready for code review.
-```
+The final commit should be a **delivery commit** (not a milestone):
+- Use commit-msg skill with purpose: delivery
+- No `--no-verify` flag
+- Normal pre-commit hooks will run
+- All tests must pass for commit to succeed
 
 ---
 
@@ -541,14 +456,14 @@ All 8 tests passing. Ready for code review.
 git branch --show-current
 ```
 
-If branch does not match pattern `issue-{N}` or `issue-{N}-*`:
+If branch does not match pattern `issue-{N}-*`:
 
 ```
 Error: Not on a development branch.
 
 Current branch: {branch-name}
 
-You must be on a development branch (issue-{N}) to use the milestone skill.
+You must be on a development branch (issue-{N}-{brief-title}) to use the milestone skill.
 
 Please run /issue-to-impl to start implementation on a proper development branch.
 ```
@@ -567,7 +482,7 @@ Checked:
 - Milestone files: No .milestones/issue-{N}-milestone-*.md found
 
 Please ensure:
-1. The issue has a plan
+1. The issue has a plan created with /make-a-plan
 2. You're running /issue-to-impl to start implementation
 
 Cannot proceed without a plan.
@@ -611,7 +526,7 @@ Errors:
 - Syntax error in src/core.py:45
 - Import error: module 'utils' not found
 
-Please fix these errors and resume with: "Continue from the latest milestone"
+Please fix these errors and run /miles2miles to resume.
 ```
 
 ### Milestone File Creation Fails
@@ -685,12 +600,14 @@ Milestone 2 created at 850 LOC (6/8 tests passed).
 Work remaining: ~100 LOC (Step 5 partial completion)
 Tests failing: Integration test, Performance test
 
-Resume with: "Continue from the latest milestone"
+Next steps:
+1. Start a new session
+2. Run /miles2miles to resume from Milestone 2
 ```
 
 ### Example 2: Resume from Milestone
 
-**Context:** User resumes after Milestone 2 was created.
+**Context:** User runs `/miles2miles` after Milestone 2 was created.
 
 **Agent behavior:**
 
@@ -766,19 +683,52 @@ Implementation complete:
 
 ---
 
-## Next Steps
+## Integration with Other Skills
 
-If milestone checkpoint is created it should hint the user to resume later:
-```
-Resume with: "Continue from the latest milestone"
-```
+### With `commit-msg` Skill
 
-If milestone successfully delivers its goal, it should direct user to opening a PR:
-```
-Next step: /pull-request --open
-```
-where `\pull-request` already have `/code-review` hooked, and will finally open the PR after review approval.
+The milestone skill invokes the `commit-msg` skill for:
 
-If milestone fails due to errors that cannot be fixed by AI alone, it should inform the user
-the phenomenon and suggest manual intervention to fix the issues before resuming, by creating
-a comment right below the Github issue.
+**Milestone commits:**
+- Purpose: milestone
+- Test status: included in commit message
+- Uses `--no-verify` to bypass pre-commit hooks
+
+**Delivery commits:**
+- Purpose: delivery (when all tests pass)
+- No test status needed (all tests pass)
+- Normal pre-commit hooks run
+
+### With `fork-dev-branch` Skill
+
+The `/issue-to-impl` command uses `fork-dev-branch` to create the development branch before invoking the milestone skill.
+
+### With `open-pr` Skill
+
+After milestone skill signals completion, user can invoke `/open-pr` to create a pull request.
+
+---
+
+## Important Notes
+
+1. **Always run tests**: Tests must be run after each chunk to track progress accurately
+
+2. **LOC is cumulative**: Track total LOC across all chunks, not just the current chunk
+
+3. **Milestone commits are temporary**: They allow bypassing hooks but should never be merged to main with incomplete tests
+
+4. **Chunk size matters**: Keep chunks at 100-200 LOC for manageable progress and frequent test validation
+
+5. **Parse test output carefully**: Accurate test status tracking is critical for milestone documents and decision-making
+
+6. **Handle errors gracefully**: If tests fail critically, create milestone with error notes rather than continuing blindly
+
+7. **Near-completion judgment**: Use discretion when close to 800 LOC with high test passage - sometimes better to finish than checkpoint
+
+8. **Milestone documents are immutable**: Once created, milestone documents are snapshots in time - never edit them, only create new ones
+
+9. **Trust the process**: The 800 LOC threshold is a guideline based on context window limits and maintainability - don't try to game it
+
+10. **Test status is gold**: Milestone documents exist primarily to track test progress toward completion
+
+11. **Milestone documents are local-only**: Milestone files in `.milestones/` are excluded from git (via `.gitignore`) and should NEVER be committed. They exist only as local checkpoints for resuming work.

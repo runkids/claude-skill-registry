@@ -1,187 +1,183 @@
 ---
 name: self-review
-description: タスク完了前のセルフレビュー。Gemini CLI + Claude subagentで多角的に検証。
+description: Self-review before completing tasks. Multi-perspective verification using Gemini CLI + Claude subagent.
 ---
 
 # Self Review Skill
 
-タスク完了マーク（TodoWrite completed）の前に実行するセルフレビュー手順。
+Execute this self-review procedure before marking tasks as completed (TodoWrite completed).
 
-## トリガー条件
+## Trigger Conditions
 
-以下の場合にこのスキルを適用:
-- TodoWriteでタスクを `completed` にマークする直前
-- ユーザーから `/self-review` コマンドで明示的に呼び出された場合
+Apply this skill when:
+- Just before marking a task as `completed` with TodoWrite
+- When explicitly invoked by the user with `/self-review` command
 
-## レビュー手順
+## Review Procedure
 
-### Phase 1: 変更差分の収集
+### Phase 1: Collect Change Diffs
 
 ```bash
-# 変更されたファイル一覧
+# List of changed files
 git diff --name-only HEAD
 
-# 変更内容の取得
+# Get change contents
 git diff HEAD
 ```
 
-### Phase 2: Gemini CLI レビュー（外部モデル視点）
+### Phase 2: Gemini CLI Review (External Model Perspective)
 
-変更されたDartファイルに対してGemini CLIでレビューを実行:
+Execute Gemini CLI review on changed Dart files:
 
 ```bash
 git diff HEAD -- "*.dart" | gemini -p "
-以下のコード変更をレビューしてください。
+Please review the following code changes.
 
-## 観点（すべてチェック）
+## Review Points (Check All)
 
-### 1. コード品質
-- 可読性（理解しやすいか）
-- 命名（適切な変数名・関数名）
-- 構造化（適切な分割・責務分離）
+### 1. Code Quality
+- Readability (is it easy to understand?)
+- Naming (appropriate variable/function names)
+- Structure (proper separation of concerns)
 
-### 2. バグ・エラー
-- null安全性
-- エッジケース
-- 例外処理
-- メモリリーク
+### 2. Bugs & Errors
+- Null safety
+- Edge cases
+- Exception handling
+- Memory leaks
 
-### 3. 設計パターン
-- アーキテクチャ整合性
-- 依存関係の適切さ
-- 重複コード
+### 3. Design Patterns
+- Architecture consistency
+- Appropriate dependencies
+- Duplicate code
 
-## 出力形式
-- 重大な問題: [ファイル:行] [問題の説明と修正提案]
-- 軽微な問題: [ファイル:行] [問題の説明]
-- 問題なし: 'LGTM'
-
-日本語で回答してください。
+## Output Format
+- Critical issues: [file:line] [description and fix suggestion]
+- Minor issues: [file:line] [description]
+- No issues: 'LGTM'
 "
 ```
 
-### Phase 3: Claude subagent レビュー（別コンテキスト視点）
+### Phase 3: Claude Subagent Review (Different Context Perspective)
 
-Task toolで別コンテキストのレビューエージェントを起動:
+Launch a review agent in a separate context using Task tool:
 
 ```
 subagent_type: general-purpose
 
-プロンプト例:
+Prompt example:
 ---
-以下のコード変更をレビューしてください。
+Please review the following code changes.
 
-## 変更ファイル
-[git diff --name-only HEADの結果]
+## Changed Files
+[Result of git diff --name-only HEAD]
 
-## 変更内容
-[git diff HEADの結果]
+## Change Contents
+[Result of git diff HEAD]
 
-## レビュー観点（すべてチェック）
+## Review Points (Check All)
 
-### 共通観点
-1. コード品質（可読性、命名、構造化）
-2. バグ・エラー（null安全性、エッジケース、例外処理、メモリリーク）
-3. 設計パターン（アーキテクチャ整合性、依存関係、重複コード）
+### Common Points
+1. Code quality (readability, naming, structure)
+2. Bugs & errors (null safety, edge cases, exception handling, memory leaks)
+3. Design patterns (architecture consistency, dependencies, duplicate code)
 
-### プロジェクト固有観点
-4. 命名規則（ファイル: snake_case、クラス: PascalCase、変数/関数: camelCase）
-5. アーキテクチャパターン（features/*/data/models/, repositories/, providers/, ui/）
-6. Flutter固有（Semantics対応、Riverpod AsyncNotifier使用）
+### Project-Specific Points
+4. Naming conventions (files: snake_case, classes: PascalCase, variables/functions: camelCase)
+5. Architecture patterns (features/*/data/models/, repositories/, providers/, ui/)
+6. Flutter-specific (Semantics support, Riverpod AsyncNotifier usage)
 
-## 出力形式
-- 重大な問題: [ファイル:行] [問題の説明と修正提案]
-- 軽微な問題: [ファイル:行] [問題の説明]
-- 問題なし: 'LGTM'
-
-日本語で回答してください。
+## Output Format
+- Critical issues: [file:line] [description and fix suggestion]
+- Minor issues: [file:line] [description]
+- No issues: 'LGTM'
 ---
 ```
 
-### Phase 4: 結果統合・比較
+### Phase 4: Result Integration & Comparison
 
-両方のレビュー結果を統合し、判定:
+Integrate both review results and make judgment:
 
-| 判定 | 条件 | アクション |
-|------|------|----------|
-| PASS | 両方LGTM | タスク完了可 |
-| MINOR | 軽微な問題のみ | 警告表示後、タスク完了可 |
-| FAIL | 重大な問題あり | 修正タスク追加、再レビュー必要 |
+| Judgment | Condition | Action |
+|----------|-----------|--------|
+| PASS | Both LGTM | Task can be completed |
+| MINOR | Only minor issues | Show warning, then task can be completed |
+| FAIL | Critical issues found | Add fix tasks, re-review required |
 
-### Phase 5: フィードバックループ
+### Phase 5: Feedback Loop
 
-FAIL判定の場合:
-1. 問題箇所を修正
-2. Phase 1-4 を再実行
-3. PASSになるまで繰り返し
+If FAIL judgment:
+1. Fix the problem areas
+2. Re-execute Phase 1-4
+3. Repeat until PASS
 
-## レビュー観点チェックリスト
+## Review Point Checklist
 
-### コード品質
+### Code Quality
 
-- [ ] 関数が単一責任原則に従っているか
-- [ ] 適切なエラーハンドリングがあるか
-- [ ] コメントは必要最小限で明確か
-- [ ] マジックナンバーが定数化されているか
+- [ ] Functions follow single responsibility principle
+- [ ] Appropriate error handling exists
+- [ ] Comments are minimal and clear
+- [ ] Magic numbers are defined as constants
 
-### バグ・エラー
+### Bugs & Errors
 
-- [ ] null許容型の安全な扱い
-- [ ] 非同期処理のエラーハンドリング
-- [ ] リソースの適切な解放（dispose）
-- [ ] 境界値・エッジケースの考慮
+- [ ] Safe handling of nullable types
+- [ ] Error handling for async operations
+- [ ] Proper resource cleanup (dispose)
+- [ ] Consideration of boundary values and edge cases
 
-### 設計パターン
+### Design Patterns
 
-- [ ] プロジェクト構造に従っているか
-- [ ] 既存のユーティリティ/ヘルパーを活用しているか
-- [ ] 重複コードがないか
-- [ ] テストしやすい設計か
+- [ ] Follows project structure
+- [ ] Utilizes existing utilities/helpers
+- [ ] No duplicate code
+- [ ] Design is testable
 
-### プロジェクト固有
+### Project-Specific
 
-- [ ] ファイル名: snake_case
-- [ ] クラス名: PascalCase
-- [ ] 変数/関数: camelCase
-- [ ] Semantics対応（E2Eテスト用）
-- [ ] Riverpod AsyncNotifierの適切な使用
+- [ ] File names: snake_case
+- [ ] Class names: PascalCase
+- [ ] Variables/functions: camelCase
+- [ ] Semantics support (for E2E testing)
+- [ ] Appropriate use of Riverpod AsyncNotifier
 
-## 出力テンプレート
+## Output Template
 
 ```markdown
 ## Self Review Result
 
-### Gemini Review (外部モデル)
-[Geminiからの出力]
+### Gemini Review (External Model)
+[Output from Gemini]
 
-### Claude subagent Review (別コンテキスト)
-[subagentからの出力]
+### Claude Subagent Review (Different Context)
+[Output from subagent]
 
-### 比較分析
-- 共通の指摘: [両方が指摘した問題]
-- Geminiのみの指摘: [Geminiだけが発見した問題]
-- subagentのみの指摘: [subagentだけが発見した問題]
+### Comparison Analysis
+- Common issues: [Issues identified by both]
+- Gemini-only issues: [Issues found only by Gemini]
+- Subagent-only issues: [Issues found only by subagent]
 
-### 判定: [PASS/MINOR/FAIL]
+### Judgment: [PASS/MINOR/FAIL]
 
-#### 問題点（該当する場合）
-- [ ] [ファイル:行] [問題の説明]
+#### Issues (if applicable)
+- [ ] [file:line] [description]
 
-#### 次のアクション
-- [タスク完了 / 修正必要]
+#### Next Action
+- [Complete task / Fix required]
 ```
 
-## 変更規模による調整
+## Adjustment by Change Size
 
-全タスクで完全なデュアルレビューを実行すると時間がかかる場合:
+If running full dual review for all tasks takes too long:
 
 ```bash
-# 変更行数で判定
+# Determine by number of changed lines
 git diff --stat HEAD | tail -1
 ```
 
-| 変更規模 | 行数目安 | レビュー方法 |
-|---------|---------|-------------|
-| 小 | ~30行 | Gemini CLIのみ（軽量） |
-| 中 | 31-100行 | デュアルレビュー |
-| 大 | 100行以上 | デュアルレビュー + 詳細分析 |
+| Change Size | Lines (approx) | Review Method |
+|-------------|----------------|---------------|
+| Small | ~30 lines | Gemini CLI only (lightweight) |
+| Medium | 31-100 lines | Dual review |
+| Large | 100+ lines | Dual review + detailed analysis |

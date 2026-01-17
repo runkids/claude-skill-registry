@@ -1,41 +1,17 @@
+<!-- AUTO-GENERATED FILE - DO NOT EDIT DIRECTLY -->
+<!-- Source: bitsoex/ai-code-instructions → global/skills/coding-standards/SKILL.md -->
+<!-- To modify, edit the source file and run the distribution workflow -->
+
 ---
 name: coding-standards
-description: Coding style and structural conventions for this codebase.
+description: Enforces consistent coding standards across the codebase including naming conventions, code organization, and documentation requirements. Use when writing new code, reviewing pull requests, or refactoring existing code.
+
 ---
 
-# Coding Standards
+> See [.agent-skills/coding-standards/](.agent-skills/coding-standards/) for full skill content.
 
-General principles that apply across all languages in this project.
-
-## Language-Specific Guidelines
-
-- **Python**: See [PYTHON.md](./PYTHON.md) for PEP 8 & PEP 20 conventions
-- **KQL**: See [KQL.md](./KQL.md) for Kusto Query Language conventions
-
-## Universal Principles
-
-### Structure & Modularity
-- **Single Responsibility**: Each function/module does one thing well
-- **Small units**: Keep functions focused and concise
-- **Avoid deep nesting**: Use early returns, guard clauses
-- **Extract reusable logic**: If you copy-paste, refactor
-
-### Comments & Documentation
-- Write comments to explain *why*, not *what*
-- Keep documentation in sync with behavior
-- Remove outdated comments promptly
-
-### Error Handling
-- Use specific error types, not generic catches
-- Fail fast with clear error messages
-- Log errors with context
-
-### Logging
-- Use structured logging with consistent fields
-- Never log secrets, tokens, or sensitive PII
-- Use appropriate log levels
-
-### TODOs
-- Include owner and context
-- Link to tickets when applicable
-- Clean up when resolved
+This is a placeholder that references the master skill location. The full skill includes:
+- **SKILL.md** - Complete instructions
+- **scripts/** - Executable automation scripts  
+- **references/** - Detailed documentation
+- **assets/** - Templates and resources

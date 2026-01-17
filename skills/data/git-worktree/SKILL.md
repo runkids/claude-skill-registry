@@ -1,209 +1,302 @@
 ---
 name: git-worktree
-description: Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with smart directory selection and safety verification
+description: This skill manages Git worktrees for isolated parallel development. It handles creating, listing, switching, and cleaning up worktrees with a simple interactive interface, following KISS principles.
 ---
 
-# Using Git Worktrees
+# Git Worktree Manager
 
-## Overview
+This skill provides a unified interface for managing Git worktrees across your development workflow. Whether you're reviewing PRs in isolation or working on features in parallel, this skill handles all the complexity.
 
-Git worktrees create isolated workspaces sharing the same repository, allowing work on multiple branches simultaneously without switching.
+## What This Skill Does
 
-**Core principle:** Systematic directory selection + safety verification = reliable isolation.
+- **Create worktrees** from main branch with clear branch names
+- **List worktrees** with current status
+- **Switch between worktrees** for parallel work
+- **Clean up completed worktrees** automatically
+- **Interactive confirmations** at each step
+- **Automatic .gitignore management** for worktree directory
+- **Automatic .env file copying** from main repo to new worktrees
 
-**Announce at start:** "I'm using the using-git-worktrees skill to set up an isolated workspace."
+## CRITICAL: Always Use the Manager Script
 
-## Directory Selection Process
+**NEVER call `git worktree add` directly.** Always use the `worktree-manager.sh` script.
 
-Follow this priority order:
-
-### 1. Check Existing Directories
-
-```bash
-# Check in priority order
-ls -d .worktrees 2>/dev/null     # Preferred (hidden)
-ls -d worktrees 2>/dev/null      # Alternative
-```
-
-**If found:** Use that directory. If both exist, `.worktrees` wins.
-
-### 2. Check CLAUDE.md
+The script handles critical setup that raw git commands don't:
+1. Copies `.env`, `.env.local`, `.env.test`, etc. from main repo
+2. Ensures `.worktrees` is in `.gitignore`
+3. Creates consistent directory structure
 
 ```bash
-grep -i "worktree.*directory" CLAUDE.md 2>/dev/null
+# ✅ CORRECT - Always use the script
+bash ${CLAUDE_PLUGIN_ROOT}/skills/git-worktree/scripts/worktree-manager.sh create feature-name
+
+# ❌ WRONG - Never do this directly
+git worktree add .worktrees/feature-name -b feature-name main
 ```
 
-**If preference specified:** Use it without asking.
+## When to Use This Skill
 
-### 3. Ask User
+Use this skill in these scenarios:
 
-If no directory exists and no CLAUDE.md preference:
+1. **Code Review (`/workflows:review`)**: If NOT already on the PR branch, offer worktree for isolated review
+2. **Feature Work (`/workflows:work`)**: Always ask if user wants parallel worktree or live branch work
+3. **Parallel Development**: When working on multiple features simultaneously
+4. **Cleanup**: After completing work in a worktree
+
+## How to Use
+
+### In Claude Code Workflows
+
+The skill is automatically called from `/workflows:review` and `/workflows:work` commands:
 
 ```
-No worktree directory found. Where should I create worktrees?
-
-1. .worktrees/ (project-local, hidden)
-2. ~/.config/superpowers/worktrees/<project-name>/ (global location)
-
-Which would you prefer?
+# For review: offers worktree if not on PR branch
+# For work: always asks - new branch or worktree?
 ```
 
-## Safety Verification
+### Manual Usage
 
-### For Project-Local Directories (.worktrees or worktrees)
-
-**MUST verify .gitignore before creating worktree:**
+You can also invoke the skill directly from bash:
 
 ```bash
-# Check if directory pattern in .gitignore
-grep -q "^\.worktrees/$" .gitignore || grep -q "^worktrees/$" .gitignore
+# Create a new worktree (copies .env files automatically)
+bash ${CLAUDE_PLUGIN_ROOT}/skills/git-worktree/scripts/worktree-manager.sh create feature-login
+
+# List all worktrees
+bash ${CLAUDE_PLUGIN_ROOT}/skills/git-worktree/scripts/worktree-manager.sh list
+
+# Switch to a worktree
+bash ${CLAUDE_PLUGIN_ROOT}/skills/git-worktree/scripts/worktree-manager.sh switch feature-login
+
+# Copy .env files to an existing worktree (if they weren't copied)
+bash ${CLAUDE_PLUGIN_ROOT}/skills/git-worktree/scripts/worktree-manager.sh copy-env feature-login
+
+# Clean up completed worktrees
+bash ${CLAUDE_PLUGIN_ROOT}/skills/git-worktree/scripts/worktree-manager.sh cleanup
 ```
 
-**If NOT in .gitignore:**
+## Commands
 
-Per Jesse's rule "Fix broken things immediately":
-1. Add appropriate line to .gitignore
-2. Commit the change
-3. Proceed with worktree creation
+### `create <branch-name> [from-branch]`
 
-**Why critical:** Prevents accidentally committing worktree contents to repository.
+Creates a new worktree with the given branch name.
 
-### For Global Directory (~/.config/superpowers/worktrees)
+**Options:**
+- `branch-name` (required): The name for the new branch and worktree
+- `from-branch` (optional): Base branch to create from (defaults to `main`)
 
-No .gitignore verification needed - outside project entirely.
+**Example:**
+```bash
+bash ${CLAUDE_PLUGIN_ROOT}/skills/git-worktree/scripts/worktree-manager.sh create feature-login
+```
 
-## Creation Steps
+**What happens:**
+1. Checks if worktree already exists
+2. Updates the base branch from remote
+3. Creates new worktree and branch
+4. **Copies all .env files from main repo** (.env, .env.local, .env.test, etc.)
+5. Shows path for cd-ing to the worktree
 
-### 1. Detect Project Name
+### `list` or `ls`
+
+Lists all available worktrees with their branches and current status.
+
+**Example:**
+```bash
+bash ${CLAUDE_PLUGIN_ROOT}/skills/git-worktree/scripts/worktree-manager.sh list
+```
+
+**Output shows:**
+- Worktree name
+- Branch name
+- Which is current (marked with ✓)
+- Main repo status
+
+### `switch <name>` or `go <name>`
+
+Switches to an existing worktree and cd's into it.
+
+**Example:**
+```bash
+bash ${CLAUDE_PLUGIN_ROOT}/skills/git-worktree/scripts/worktree-manager.sh switch feature-login
+```
+
+**Optional:**
+- If name not provided, lists available worktrees and prompts for selection
+
+### `cleanup` or `clean`
+
+Interactively cleans up inactive worktrees with confirmation.
+
+**Example:**
+```bash
+bash ${CLAUDE_PLUGIN_ROOT}/skills/git-worktree/scripts/worktree-manager.sh cleanup
+```
+
+**What happens:**
+1. Lists all inactive worktrees
+2. Asks for confirmation
+3. Removes selected worktrees
+4. Cleans up empty directories
+
+## Workflow Examples
+
+### Code Review with Worktree
 
 ```bash
-project=$(basename "$(git rev-parse --show-toplevel)")
+# Claude Code recognizes you're not on the PR branch
+# Offers: "Use worktree for isolated review? (y/n)"
+
+# You respond: yes
+# Script runs (copies .env files automatically):
+bash ${CLAUDE_PLUGIN_ROOT}/skills/git-worktree/scripts/worktree-manager.sh create pr-123-feature-name
+
+# You're now in isolated worktree for review with all env vars
+cd .worktrees/pr-123-feature-name
+
+# After review, return to main:
+cd ../..
+bash ${CLAUDE_PLUGIN_ROOT}/skills/git-worktree/scripts/worktree-manager.sh cleanup
 ```
 
-### 2. Create Worktree
+### Parallel Feature Development
 
 ```bash
-# Determine full path
-case $LOCATION in
-  .worktrees|worktrees)
-    path="$LOCATION/$BRANCH_NAME"
-    ;;
-  ~/.config/superpowers/worktrees/*)
-    path="$HOME/.config/superpowers/worktrees/$project/$BRANCH_NAME"
-    ;;
-esac
+# For first feature (copies .env files):
+bash ${CLAUDE_PLUGIN_ROOT}/skills/git-worktree/scripts/worktree-manager.sh create feature-login
 
-# Create worktree with new branch
-git worktree add "$path" -b "$BRANCH_NAME"
-cd "$path"
+# Later, start second feature (also copies .env files):
+bash ${CLAUDE_PLUGIN_ROOT}/skills/git-worktree/scripts/worktree-manager.sh create feature-notifications
+
+# List what you have:
+bash ${CLAUDE_PLUGIN_ROOT}/skills/git-worktree/scripts/worktree-manager.sh list
+
+# Switch between them as needed:
+bash ${CLAUDE_PLUGIN_ROOT}/skills/git-worktree/scripts/worktree-manager.sh switch feature-login
+
+# Return to main and cleanup when done:
+cd .
+bash ${CLAUDE_PLUGIN_ROOT}/skills/git-worktree/scripts/worktree-manager.sh cleanup
 ```
 
-### 3. Run Project Setup
+## Key Design Principles
 
-Auto-detect and run appropriate setup:
+### KISS (Keep It Simple, Stupid)
+
+- **One manager script** handles all worktree operations
+- **Simple commands** with sensible defaults
+- **Interactive prompts** prevent accidental operations
+- **Clear naming** using branch names directly
+
+### Opinionated Defaults
+
+- Worktrees always created from **main** (unless specified)
+- Worktrees stored in **.worktrees/** directory
+- Branch name becomes worktree name
+- **.gitignore** automatically managed
+
+### Safety First
+
+- **Confirms before creating** worktrees
+- **Confirms before cleanup** to prevent accidental removal
+- **Won't remove current worktree**
+- **Clear error messages** for issues
+
+## Integration with Workflows
+
+### `/workflows:review`
+
+Instead of always creating a worktree:
+
+```
+1. Check current branch
+2. If ALREADY on PR branch → stay there, no worktree needed
+3. If DIFFERENT branch → offer worktree:
+   "Use worktree for isolated review? (y/n)"
+   - yes → call git-worktree skill
+   - no → proceed with PR diff on current branch
+```
+
+### `/workflows:work`
+
+Always offer choice:
+
+```
+1. Ask: "How do you want to work?
+   1. New branch on current worktree (live work)
+   2. Worktree (parallel work)"
+
+2. If choice 1 → create new branch normally
+3. If choice 2 → call git-worktree skill to create from main
+```
+
+## Troubleshooting
+
+### "Worktree already exists"
+
+If you see this, the script will ask if you want to switch to it instead.
+
+### "Cannot remove worktree: it is the current worktree"
+
+Switch out of the worktree first (to main repo), then cleanup:
 
 ```bash
-# Node.js
-if [ -f package.json ]; then pnpm install; fi
-
-# Rust
-if [ -f Cargo.toml ]; then cargo build; fi
-
-# Python
-if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-if [ -f pyproject.toml ]; then poetry install; fi
-
-# Go
-if [ -f go.mod ]; then go mod download; fi
+cd $(git rev-parse --show-toplevel)
+bash ${CLAUDE_PLUGIN_ROOT}/skills/git-worktree/scripts/worktree-manager.sh cleanup
 ```
 
-### 4. Verify Clean Baseline
+### Lost in a worktree?
 
-Run tests to ensure worktree starts clean:
+See where you are:
 
 ```bash
-# Examples - use project-appropriate command
-pnpm test
-cargo test
-pytest
-go test ./...
+bash ${CLAUDE_PLUGIN_ROOT}/skills/git-worktree/scripts/worktree-manager.sh list
 ```
 
-**If tests fail:** Report failures, ask whether to proceed or investigate.
+### .env files missing in worktree?
 
-**If tests pass:** Report ready.
+If a worktree was created without .env files (e.g., via raw `git worktree add`), copy them:
 
-### 5. Report Location
-
-```
-Worktree ready at <full-path>
-Tests passing (<N> tests, 0 failures)
-Ready to implement <feature-name>
+```bash
+bash ${CLAUDE_PLUGIN_ROOT}/skills/git-worktree/scripts/worktree-manager.sh copy-env feature-name
 ```
 
-## Quick Reference
+Navigate back to main:
 
-| Situation | Action |
-|-----------|--------|
-| `.worktrees/` exists | Use it (verify .gitignore) |
-| `worktrees/` exists | Use it (verify .gitignore) |
-| Both exist | Use `.worktrees/` |
-| Neither exists | Check CLAUDE.md → Ask user |
-| Directory not in .gitignore | Add it immediately + commit |
-| Tests fail during baseline | Report failures + ask |
-| No package.json/Cargo.toml | Skip dependency install |
-
-## Common Mistakes
-
-**Skipping .gitignore verification**
-- **Problem:** Worktree contents get tracked, pollute git status
-- **Fix:** Always grep .gitignore before creating project-local worktree
-
-**Assuming directory location**
-- **Problem:** Creates inconsistency, violates project conventions
-- **Fix:** Follow priority: existing > CLAUDE.md > ask
-
-**Proceeding with failing tests**
-- **Problem:** Can't distinguish new bugs from pre-existing issues
-- **Fix:** Report failures, get explicit permission to proceed
-
-**Hardcoding setup commands**
-- **Problem:** Breaks on projects using different tools
-- **Fix:** Auto-detect from project files (package.json, etc.)
-
-## Example Workflow
-
-```
-You: I'm using the using-git-worktrees skill to set up an isolated workspace.
-
-[Check .worktrees/ - exists]
-[Verify .gitignore - contains .worktrees/]
-[Create worktree: git worktree add .worktrees/auth -b feature/auth]
-[Run npm install]
-[Run npm test - 47 passing]
-
-Worktree ready at /Users/jesse/myproject/.worktrees/auth
-Tests passing (47 tests, 0 failures)
-Ready to implement auth feature
+```bash
+cd $(git rev-parse --show-toplevel)
 ```
 
-## Red Flags
+## Technical Details
 
-**Never:**
-- Create worktree without .gitignore verification (project-local)
-- Skip baseline test verification
-- Proceed with failing tests without asking
-- Assume directory location when ambiguous
-- Skip CLAUDE.md check
+### Directory Structure
 
-**Always:**
-- Follow directory priority: existing > CLAUDE.md > ask
-- Verify .gitignore for project-local
-- Auto-detect and run project setup
-- Verify clean test baseline
+```
+.worktrees/
+├── feature-login/          # Worktree 1
+│   ├── .git
+│   ├── app/
+│   └── ...
+├── feature-notifications/  # Worktree 2
+│   ├── .git
+│   ├── app/
+│   └── ...
+└── ...
 
-## Integration
+.gitignore (updated to include .worktrees)
+```
 
-**Called by:**
-- **brainstorming** (Phase 4) - REQUIRED when design is approved and implementation follows
-- Any skill needing isolated workspace
+### How It Works
+
+- Uses `git worktree add` for isolated environments
+- Each worktree has its own branch
+- Changes in one worktree don't affect others
+- Share git history with main repo
+- Can push from any worktree
+
+### Performance
+
+- Worktrees are lightweight (just file system links)
+- No repository duplication
+- Shared git objects for efficiency
+- Much faster than cloning or stashing/switching

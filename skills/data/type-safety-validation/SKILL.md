@@ -1,28 +1,35 @@
 ---
 name: type-safety-validation
-description: Achieve end-to-end type safety with Zod runtime validation, tRPC type-safe APIs, Prisma ORM, and TypeScript 5.7+ features. Build fully type-safe applications from database to UI for 2025+ development.
-version: 1.0.0
+description: End-to-end type safety with Zod, tRPC, Prisma, and TypeScript 5.7+ patterns. Use when creating Zod schemas, setting up tRPC, validating input, implementing exhaustive switch statements, branded types, or type checking with ty.
+context: fork
+agent: frontend-ui-developer
+version: 1.1.0
 author: AI Agent Hub
-tags: [typescript, zod, trpc, prisma, type-safety, validation, 2025]
+tags: [typescript, zod, trpc, prisma, type-safety, validation, exhaustive-types, branded-types, 2025]
+user-invocable: false
 ---
 
 # Type Safety & Validation
 
 ## Overview
 
-End-to-end type safety ensures bugs are caught at compile time, not runtime. This skill covers Zod for runtime validation, tRPC for type-safe APIs, Prisma for type-safe database access, and modern TypeScript features.
-
 **When to use this skill:**
 - Building type-safe APIs (REST, RPC, GraphQL)
 - Validating user input and external data
 - Ensuring database queries are type-safe
 - Creating end-to-end typed full-stack applications
-- Migrating from JavaScript to TypeScript
 - Implementing strict validation rules
 
-## Core Stack
+## Core Stack Quick Reference
 
-### 1. Zod - Runtime Validation
+| Tool | Purpose | Key Pattern |
+|------|---------|-------------|
+| **Zod** | Runtime validation | `z.object({}).safeParse(data)` |
+| **tRPC** | Type-safe APIs | `t.procedure.input(schema).query()` |
+| **Prisma** | Type-safe ORM | Auto-generated types from schema |
+| **TypeScript 5.7+** | Compile-time safety | `satisfies`, const params, decorators |
+
+## Zod Essentials
 
 ```typescript
 import { z } from 'zod'
@@ -33,52 +40,26 @@ const UserSchema = z.object({
   email: z.string().email(),
   age: z.number().int().positive().max(120),
   role: z.enum(['admin', 'user', 'guest']),
-  metadata: z.record(z.string()).optional(),
   createdAt: z.date().default(() => new Date())
 })
 
-// Infer TypeScript type from schema
+// Infer TypeScript type
 type User = z.infer<typeof UserSchema>
 
-// Validate data
+// Validate with error handling
 const result = UserSchema.safeParse(data)
 if (result.success) {
   const user: User = result.data
 } else {
   console.error(result.error.issues)
 }
-
-// Transform data
-const EmailSchema = z.string().email().transform(email => email.toLowerCase())
 ```
 
-**Advanced Patterns**:
-```typescript
-// Refinements
-const PasswordSchema = z.string()
-  .min(8)
-  .refine((pass) => /[A-Z]/.test(pass), 'Must contain uppercase')
-  .refine((pass) => /[0-9]/.test(pass), 'Must contain number')
+**See:** `references/zod-patterns.md` for transforms, refinements, discriminated unions, and recursive types.
 
-// Discriminated Unions
-const EventSchema = z.discriminatedUnion('type', [
-  z.object({ type: z.literal('click'), x: z.number(), y: z.number() }),
-  z.object({ type: z.literal('scroll'), offset: z.number() })
-])
-
-// Recursive Types
-const CategorySchema: z.ZodType<Category> = z.lazy(() =>
-  z.object({
-    name: z.string(),
-    children: z.array(CategorySchema).optional()
-  })
-)
-```
-
-### 2. tRPC - Type-Safe APIs
+## tRPC Essentials
 
 ```typescript
-// Server: Define procedures
 import { initTRPC } from '@trpc/server'
 import { z } from 'zod'
 
@@ -92,230 +73,125 @@ export const appRouter = t.router({
     }),
 
   createUser: t.procedure
-    .input(z.object({
-      email: z.string().email(),
-      name: z.string()
-    }))
+    .input(z.object({ email: z.string().email(), name: z.string() }))
     .mutation(async ({ input }) => {
       return await db.user.create({ data: input })
     })
 })
 
 export type AppRouter = typeof appRouter
-
-// Client: Fully typed!
-import { createTRPCProxyClient, httpBatchLink } from '@trpc/client'
-import type { AppRouter } from './server'
-
-const client = createTRPCProxyClient<AppRouter>({
-  links: [httpBatchLink({ url: 'http://localhost:3000/api/trpc' })]
-})
-
-// TypeScript knows the exact shape!
-const user = await client.getUser.query({ id: '123' })
-//    ^? User | null
 ```
 
-### 3. Prisma - Type-Safe ORM
+**See:** `references/trpc-setup.md` for middleware, authentication, React integration, and error handling.
 
-```prisma
-// schema.prisma
-model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  posts     Post[]
-  profile   Profile?
-  createdAt DateTime @default(now())
-}
-
-model Post {
-  id        String   @id @default(cuid())
-  title     String
-  content   String?
-  published Boolean  @default(false)
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  String
-}
-```
+## Exhaustive Type Checking
 
 ```typescript
-import { PrismaClient } from '@prisma/client'
+// ALWAYS use assertNever for compile-time exhaustiveness
+function assertNever(x: never): never {
+  throw new Error("Unexpected value: " + x)
+}
 
-const prisma = new PrismaClient()
+type Status = 'pending' | 'running' | 'completed' | 'failed'
 
-// Fully typed queries
-const user = await prisma.user.findUnique({
-  where: { id: '123' },
-  include: {
-    posts: {
-      where: { published: true },
-      orderBy: { createdAt: 'desc' }
-    }
+function getStatusColor(status: Status): string {
+  switch (status) {
+    case 'pending': return 'gray'
+    case 'running': return 'blue'
+    case 'completed': return 'green'
+    case 'failed': return 'red'
+    default: return assertNever(status) // Compile-time check!
   }
-})
-// user is typed as: User & { posts: Post[] }
+}
 
-// Type-safe creates
-const newUser = await prisma.user.create({
-  data: {
-    email: 'user@example.com',
-    posts: {
-      create: [
-        { title: 'First Post', content: 'Hello world' }
-      ]
-    }
-  }
-})
+// Exhaustive record mapping
+const statusColors = {
+  pending: 'gray',
+  running: 'blue',
+  completed: 'green',
+  failed: 'red',
+} as const satisfies Record<Status, string>
 ```
 
-### 4. TypeScript 5.7+ Features
+**See:** `references/typescript-advanced.md` for handler objects, type guards, and anti-patterns.
 
+## Branded Types
+
+**TypeScript (with Zod):**
 ```typescript
-// Const type parameters (TS 5.0+)
-function firstElement<T extends readonly any[]>(arr: T) {
-  return arr[0]
-}
+const UserId = z.string().uuid().brand<'UserId'>()
+const AnalysisId = z.string().uuid().brand<'AnalysisId'>()
 
-const result = firstElement(['a', 'b'] as const)
-// result is typed as 'a'
+type UserId = z.infer<typeof UserId>
+type AnalysisId = z.infer<typeof AnalysisId>
 
-// Satisfies operator (TS 4.9+)
-const config = {
-  url: 'https://api.example.com',
-  timeout: 5000
-} satisfies Config  // Ensures config matches Config, but keeps literal types
-
-// Decorators (TS 5.0+)
-function logged(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
-  const original = descriptor.value
-  descriptor.value = function (...args: any[]) {
-    console.log(`Calling ${propertyKey}`)
-    return original.apply(this, args)
-  }
-}
-
-class API {
-  @logged
-  async fetchData() {}
-}
+function deleteAnalysis(id: AnalysisId): void { ... }
+deleteAnalysis(userId) // Error: UserId not assignable to AnalysisId
 ```
 
-## Full-Stack Example
+**Python (with NewType):**
+```python
+from typing import NewType
+from uuid import UUID
 
-```typescript
-// ===== BACKEND (Next.js API) =====
-// app/api/trpc/[trpc]/route.ts
-import { fetchRequestHandler } from '@trpc/server/adapters/fetch'
-import { appRouter } from '@/server/routers/_app'
+AnalysisID = NewType("AnalysisID", UUID)
+ArtifactID = NewType("ArtifactID", UUID)
 
-export async function GET(req: Request) {
-  return fetchRequestHandler({
-    endpoint: '/api/trpc',
-    req,
-    router: appRouter,
-    createContext: () => ({})
-  })
-}
-
-export const POST = GET
-
-// server/routers/_app.ts
-import { z } from 'zod'
-import { prisma } from '@/lib/prisma'
-import { publicProcedure, router } from '../trpc'
-
-export const appRouter = router({
-  posts: {
-    list: publicProcedure
-      .input(z.object({
-        limit: z.number().min(1).max(100).default(10),
-        cursor: z.string().optional()
-      }))
-      .query(async ({ input }) => {
-        const posts = await prisma.post.findMany({
-          take: input.limit + 1,
-          cursor: input.cursor ? { id: input.cursor } : undefined,
-          orderBy: { createdAt: 'desc' },
-          include: { author: true }
-        })
-
-        return {
-          items: posts.slice(0, input.limit),
-          nextCursor: posts[input.limit]?.id
-        }
-      }),
-
-    create: publicProcedure
-      .input(z.object({
-        title: z.string().min(1).max(200),
-        content: z.string().optional()
-      }))
-      .mutation(async ({ input }) => {
-        return await prisma.post.create({
-          data: input
-        })
-      })
-  }
-})
-
-// ===== FRONTEND (React) =====
-// lib/trpc.ts
-import { createTRPCReact } from '@trpc/react-query'
-import type { AppRouter } from '@/server/routers/_app'
-
-export const trpc = createTRPCReact<AppRouter>()
-
-// components/PostList.tsx
-'use client'
-
-import { trpc } from '@/lib/trpc'
-
-export function PostList() {
-  const { data, isLoading } = trpc.posts.list.useQuery({ limit: 10 })
-  const createPost = trpc.posts.create.useMutation()
-
-  if (isLoading) return <div>Loading...</div>
-
-  return (
-    <div>
-      {data?.items.map(post => (
-        <div key={post.id}>
-          <h2>{post.title}</h2>
-          <p>{post.content}</p>
-          <span>By {post.author.name}</span>
-        </div>
-      ))}
-
-      <button onClick={() => createPost.mutate({ title: 'New Post' })}>
-        Create Post
-      </button>
-    </div>
-  )
-}
+def delete_analysis(id: AnalysisID) -> None: ...
+delete_analysis(artifact_id)  # Error with mypy/ty
 ```
+
+**See:** `references/typescript-advanced.md` for factory patterns and pure TypeScript branding.
+
+## Python Type Safety with Ty
+
+```python
+from typing import cast
+
+# Type-safe extraction from untyped dict
+result = {"findings": {...}, "confidence_score": 0.85}
+
+findings_to_save: dict[str, object] | None = (
+    cast("dict[str, object]", result.get("findings"))
+    if isinstance(result.get("findings"), dict) else None
+)
+confidence_to_save: float | None = (
+    float(result.get("confidence_score"))
+    if isinstance(result.get("confidence_score"), (int, float)) else None
+)
+```
+
+**See:** `references/ty-type-checker-patterns.md` for mixed numeric handling and nested dict extraction.
+
+## References
+
+| Reference | Content |
+|-----------|---------|
+| `references/zod-patterns.md` | Schemas, transforms, refinements, unions, recursion, error handling |
+| `references/trpc-setup.md` | Server setup, middleware, routers, client integration, subscriptions |
+| `references/typescript-5-features.md` | TS 5.0-5.7 features, satisfies, decorators, strict config |
+| `references/typescript-advanced.md` | Exhaustive patterns, branded types, type guards |
+| `references/ty-type-checker-patterns.md` | Python ty compliance, dict extraction, type narrowing |
+| `references/prisma-types.md` | Prisma ORM types, queries, relations |
 
 ## Best Practices
 
 ### Validation
-- ✅ Validate at boundaries (API inputs, form submissions, external data)
-- ✅ Use `.safeParse()` to handle errors gracefully
-- ✅ Provide clear error messages for users
-- ✅ Validate environment variables at startup
-- ✅ Use branded types for IDs (`z.string().brand<'UserId'>()`)
+- Validate at boundaries (API inputs, form submissions, external data)
+- Use `.safeParse()` to handle errors gracefully
+- Use branded types for IDs (`z.string().brand<'UserId'>()`)
 
 ### Type Safety
-- ✅ Enable `strict: true` in `tsconfig.json`
-- ✅ Use `noUncheckedIndexedAccess` for safer array access
-- ✅ Prefer `unknown` over `any`
-- ✅ Use type guards for narrowing
-- ✅ Leverage inference with `typeof` and `ReturnType`
+- Enable `strict: true` in `tsconfig.json`
+- Use `noUncheckedIndexedAccess` for safer array access
+- Prefer `unknown` over `any`
+- **Exhaustive switches**: Always use `assertNever` in default case
+- **Exhaustive records**: Use `satisfies Record<UnionType, Value>`
 
 ### Performance
-- ✅ Reuse schemas (don't create inline)
-- ✅ Use `.parse()` for known-good data (faster than `.safeParse()`)
-- ✅ Enable Prisma query optimization
-- ✅ Use tRPC batching for multiple queries
-- ✅ Cache validation results when appropriate
+- Reuse schemas (don't create inline in hot paths)
+- Use `.parse()` for known-good data (faster than `.safeParse()`)
+- Use tRPC batching for multiple queries
 
 ## Resources
 
@@ -323,3 +199,60 @@ export function PostList() {
 - [tRPC Documentation](https://trpc.io)
 - [Prisma Documentation](https://www.prisma.io/docs)
 - [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html)
+
+---
+
+**Skill Version**: 1.2.0
+**Last Updated**: 2025-12-27
+**Maintained by**: AI Agent Hub Team
+
+## Capability Details
+
+### zod-schemas
+**Keywords:** zod, schema, validation, parse, safeParse, infer, refine, transform
+**Solves:**
+- How do I validate input with Zod?
+- Create runtime validation schema
+- Infer TypeScript types from Zod
+- Transform and refine data with Zod
+
+### exhaustive-types
+**Keywords:** exhaustive, assertNever, never assertion, switch exhaustive, compile-time exhaustiveness
+**Solves:**
+- How do I make switch statements exhaustive?
+- Compile-time check for missing union cases
+- assertNever pattern for TypeScript
+
+### branded-types
+**Keywords:** branded type, type branding, nominal type, NewType, brand, distinct types, id types
+**Solves:**
+- How do I prevent mixing different ID types?
+- Branded types with Zod
+- Python NewType for type safety
+
+### trpc
+**Keywords:** trpc, type-safe api, procedure, router, mutation, query, middleware
+**Solves:**
+- How do I set up tRPC?
+- Type-safe API calls
+- tRPC with React Query
+
+### prisma-types
+**Keywords:** prisma, orm, generated types, model, client, payload
+**Solves:**
+- How do I use Prisma types?
+- Type-safe database queries
+
+### typescript-5-features
+**Keywords:** typescript 5, const parameters, satisfies, decorators, template literals
+**Solves:**
+- Use TypeScript 5.x features
+- Const type parameters
+- Satisfies operator
+
+### ty-type-checker
+**Keywords:** ty, rust type checker, strict typing, isinstance, cast, type narrowing
+**Solves:**
+- How do I make ty type checker pass?
+- Extract values from untyped dicts safely
+- Type narrowing with isinstance checks

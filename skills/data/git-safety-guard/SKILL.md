@@ -4,13 +4,13 @@ description: |
   Blocks destructive git and filesystem commands before execution.
   Prevents accidental loss of uncommitted work from git checkout --,
   git reset --hard, rm -rf, and similar destructive operations.
-  Works as a Claude Code PreToolUse hook with fail-open semantics.
+  Works as a Codex CLI PreToolUse hook with fail-open semantics.
 license: Apache-2.0
 ---
 
 # Git Safety Guard
 
-Use this skill when setting up or configuring protection against destructive git/filesystem commands in Claude Code.
+Use this skill when setting up or configuring protection against destructive git/filesystem commands in Codex CLI.
 
 ## Overview
 
@@ -18,14 +18,14 @@ Git Safety Guard intercepts Bash commands before execution and blocks dangerous 
 
 **Key Features:**
 - `terraphim-agent guard` - CLI command for pattern checking
-- PreToolUse hook - Intercept Claude Code tool calls before execution
+- PreToolUse hook - Intercept Codex CLI tool calls before execution
 - Allowlist support - Safe patterns override dangerous patterns
 - Fail-open semantics - If guard fails, commands pass through
 
 ## Architecture
 
 ```
-Claude Code PreToolUse
+Codex CLI PreToolUse
       |
       v
 git_safety_guard.sh (shell wrapper)
@@ -94,23 +94,23 @@ echo "git checkout -b new-branch" | ./target/release/terraphim-agent guard --jso
 **Project-local installation:**
 ```bash
 # Copy hook script
-cp .claude/hooks/git_safety_guard.sh /your/project/.claude/hooks/
+cp .codex/hooks/git_safety_guard.sh /your/project/.codex/hooks/
 
-# Add to .claude/settings.local.json
+# Add to .codex/settings.local.json
 {
   "hooks": {
     "PreToolUse": [{
       "matcher": "Bash",
       "hooks": [{
         "type": "command",
-        "command": ".claude/hooks/git_safety_guard.sh"
+        "command": ".codex/hooks/git_safety_guard.sh"
       }]
     }]
   }
 }
 ```
 
-**Global installation (~/.claude/):**
+**Global installation (~/.codex/):**
 ```bash
 # Run install script with --global flag
 ./scripts/install-terraphim-hooks.sh --global
@@ -210,7 +210,7 @@ export TERRAPHIM_VERBOSE=1
 
 ## What Happens When Blocked
 
-When Claude tries to run a blocked command, it receives feedback like:
+When Codex tries to run a blocked command, it receives feedback like:
 
 ```
 BLOCKED by git_safety_guard
@@ -222,7 +222,7 @@ Command: git checkout -- file.txt
 If this operation is truly needed, ask the user for explicit permission and have them run the command manually.
 ```
 
-The command never executes. Claude sees this feedback and should ask the user for help.
+The command never executes. Codex sees this feedback and should ask the user for help.
 
 ## Testing
 
@@ -238,17 +238,17 @@ cargo test -p terraphim_agent guard_patterns
 
 # Test hook script
 echo '{"tool_name":"Bash","tool_input":{"command":"git reset --hard"}}' | \
-  .claude/hooks/git_safety_guard.sh
+  .codex/hooks/git_safety_guard.sh
 ```
 
 ## Troubleshooting
 
 | Issue | Solution |
 |-------|----------|
-| Hook not triggering | Check `.claude/settings.local.json` configuration |
+| Hook not triggering | Check `.codex/settings.local.json` configuration |
 | Command not blocked | Verify pattern matches with `terraphim-agent guard --json` |
 | Agent not found | Build with `cargo build -p terraphim_agent --release` |
-| Permission denied | Run `chmod +x .claude/hooks/git_safety_guard.sh` |
+| Permission denied | Run `chmod +x .codex/hooks/git_safety_guard.sh` |
 | jq not found | Install jq: `brew install jq` or `apt install jq` |
 
 ## The Incident That Prompted This

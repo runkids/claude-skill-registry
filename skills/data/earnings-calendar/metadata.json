@@ -1,12 +1,7 @@
 {
   "name": "earnings-calendar",
-  "description": "This skill retrieves upcoming earnings announcements for US stocks using the Financial Modeling Prep (FMP) API. Use this when the user requests earnings calendar data, wants to know which companies ar",
-  "repo": "tradermonty/claude-trading-skills",
-  "category": "data",
-  "tags": [
-    "earnings",
-    "calendar"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "repo": "nicepkg/ai-workflow",
+  "path": "stock-trader-workflow/.claude/skills/weekly-trade-strategy/.claude/skills/earnings-calendar/SKILL.md",
+  "source": "github.com/nicepkg/ai-workflow",
+  "downloaded_at": "2026-01-17T02:05:52.458025Z"
 }

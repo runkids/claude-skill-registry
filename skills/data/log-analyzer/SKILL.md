@@ -1,139 +1,438 @@
 ---
 name: log-analyzer
-description: Analyze application logs to detect errors, patterns, anomalies, and generate insights. Use when troubleshooting issues or analyzing system behavior.
+description: Parse and analyze application logs to identify errors, patterns, and insights.
 ---
 
 # Log Analyzer Skill
 
-アプリケーションログを分析し、問題を特定するスキルです。
+Parse and analyze application logs to identify errors, patterns, and insights.
 
-## 概要
+## Instructions
 
-大量のログファイルからエラー、警告、パターンを検出し、根本原因を分析します。
+You are a log analysis expert. When invoked:
 
-## 主な機能
+1. **Parse Log Files**:
+   - Identify log format (JSON, syslog, Apache, custom)
+   - Extract structured data from logs
+   - Handle multi-line stack traces
+   - Parse timestamps and normalize formats
 
-- **エラー検出**: 例外、スタックトレース、エラーメッセージ
-- **パターン認識**: 繰り返し発生する問題
-- **時系列分析**: エラーの発生傾向
-- **根本原因分析**: ログから問題の原因を推定
-- **統計情報**: エラー率、レスポンスタイム等
-- **アラート生成**: 異常検知と通知
-- **ログレベル分類**: ERROR、WARN、INFO、DEBUG
+2. **Analyze Patterns**:
+   - Identify error frequency and trends
+   - Detect error spikes or anomalies
+   - Find common error messages
+   - Track error patterns over time
+   - Identify correlation between events
 
-## 使用方法
+3. **Generate Insights**:
+   - Most frequent errors
+   - Error rate trends
+   - Performance metrics from logs
+   - User activity patterns
+   - System health indicators
 
+4. **Provide Recommendations**:
+   - Root cause analysis
+   - Suggested fixes for common errors
+   - Logging improvements
+   - Monitoring suggestions
+
+## Log Format Detection
+
+### JSON Logs
+```json
+{
+  "timestamp": "2024-01-15T10:30:00.000Z",
+  "level": "error",
+  "message": "Database connection failed",
+  "service": "api",
+  "userId": "12345",
+  "error": {
+    "code": "ECONNREFUSED",
+    "stack": "Error: connect ECONNREFUSED..."
+  }
+}
 ```
-以下のログを分析：
 
-[ログファイルの内容]
-
-分析項目:
-- エラーの種類と頻度
-- 根本原因の推定
-- 解決策の提案
+### Standard Format (Combined)
+```
+192.168.1.1 - - [15/Jan/2024:10:30:00 +0000] "GET /api/users HTTP/1.1" 500 1234 "-" "Mozilla/5.0..."
 ```
 
-## 分析例
-
-### エラーログ分析
-
-**入力ログ**:
+### Application Logs
 ```
-2024-06-15 10:23:45 ERROR [database] Connection timeout after 30s
-2024-06-15 10:23:50 ERROR [database] Connection timeout after 30s
-2024-06-15 10:24:12 ERROR [database] Connection timeout after 30s
-2024-06-15 10:25:33 ERROR [api] Failed to fetch user data: Database unavailable
-2024-06-15 10:25:34 ERROR [api] Failed to fetch user data: Database unavailable
+2024-01-15 10:30:00 ERROR [UserService] Failed to fetch user: User not found (ID: 12345)
+  at UserService.getUser (user-service.js:45:10)
+  at async API.handler (api.js:23:5)
 ```
 
-**分析結果**:
+## Analysis Patterns
+
+### Error Frequency Analysis
 ```markdown
-# ログ分析レポート
+## Top 10 Errors (Last 24h)
 
-## サマリー
-- **分析期間**: 2024-06-15 10:23:45 - 10:25:34 (2分間)
-- **総ログ数**: 450行
-- **エラー数**: 5件
-- **警告数**: 12件
+1. **Database connection timeout** (1,234 occurrences)
+   - First seen: 2024-01-15 08:00:00
+   - Last seen: 2024-01-15 10:30:00
+   - Peak: 2024-01-15 09:15:00 (234 errors in 1 min)
+   - Affected services: api, worker
+   - Impact: High
 
-## 検出された問題
+2. **User not found** (567 occurrences)
+   - Pattern: Regular distribution
+   - Likely cause: Normal user behavior
+   - Impact: Low
 
-### [CRITICAL] データベース接続タイムアウト
-**頻度**: 3回（10:23:45 - 10:24:12）
-**影響**: API リクエスト失敗（2件）
-
-**ログパターン**:
-```
-ERROR [database] Connection timeout after 30s
-```
-
-**根本原因（推定）**:
-1. データベースサーバーの過負荷
-2. ネットワーク接続の問題
-3. コネクションプールの枯渇
-
-**推奨アクション**:
-1. データベースのCPU/メモリ使用率を確認
-2. スロークエリログをチェック
-3. コネクションプールサイズを確認
-4. ネットワーク遅延を計測
-
-### [HIGH] API エラー連鎖
-**頻度**: 2回（DB タイムアウト後に発生）
-**原因**: データベース障害の波及
-
-## 時系列分析
-
-```
-10:23 ├─ DB接続タイムアウト開始
-10:24 ├─ DB接続タイムアウト継続
-10:25 ├─ API エラー発生（DB不可）
-      └─ ユーザーリクエスト失敗
+3. **Rate limit exceeded** (345 occurrences)
+   - Source IPs: 192.168.1.100, 10.0.0.50
+   - Pattern: Burst traffic
+   - Impact: Medium
 ```
 
-## 統計情報
+### Timeline Analysis
+```markdown
+## Error Timeline
 
-| メトリクス | 値 |
-|----------|-----|
-| エラー率 | 1.1% (5/450) |
-| 平均レスポンス | 245ms |
-| 最大レスポンス | 30,012ms (timeout) |
-| 成功率 | 98.9% |
+08:00 - Normal operations (5-10 errors/min)
+09:00 - Database connection errors spike (200+ errors/min)
+09:15 - Peak error rate (234 errors/min)
+09:30 - Database connection restored
+10:00 - Return to normal (8-12 errors/min)
 
-## 推奨対応
-
-### 即時対応
-1. データベース接続状況の確認
-2. アプリケーション再起動（接続プールリセット）
-3. データベースのパフォーマンス確認
-
-### 短期対応
-1. コネクションプールサイズの最適化
-2. タイムアウト値の見直し
-3. リトライロジックの実装
-
-### 長期対応
-1. データベースのスケーリング
-2. 読み取りレプリカの追加
-3. キャッシュ層の導入
+## Correlation
+- Traffic increased 300% at 09:00
+- Database CPU at 95% during incident
+- Connection pool exhausted
 ```
 
-## サポートログ形式
+### Performance Metrics
+```markdown
+## Response Times (from logs)
 
-- **一般形式**: syslog, Apache, Nginx
-- **アプリケーション**: Log4j, Winston, Python logging
-- **クラウド**: CloudWatch, Stackdriver
-- **JSON**: 構造化ログ
+**Average**: 234ms
+**P50**: 180ms
+**P95**: 450ms
+**P99**: 890ms
 
-## ベストプラクティス
+**Slow Requests** (>1s):
+- /api/search: 2.3s avg (45 requests)
+- /api/reports: 1.8s avg (23 requests)
 
-1. **構造化ログ**: JSON形式で統一
-2. **適切なレベル**: ERROR、WARN、INFO を使い分け
-3. **コンテキスト**: リクエストID、ユーザーIDを含める
-4. **集約**: ログ集約ツール（ELK、Splunk）使用
+**Fast Requests** (<100ms):
+- /api/health: 5ms avg
+- /api/status: 12ms avg
+```
 
-## バージョン情報
+## Usage Examples
 
-- スキルバージョン: 1.0.0
-- 最終更新: 2025-01-22
+```
+@log-analyzer
+@log-analyzer app.log
+@log-analyzer --errors-only
+@log-analyzer --time-range "last 24h"
+@log-analyzer --pattern "database"
+@log-analyzer --format json
+```
+
+## Report Format
+
+```markdown
+# Log Analysis Report
+**Period**: 2024-01-15 00:00:00 to 2024-01-15 23:59:59
+**Log File**: /var/log/app.log
+**Total Entries**: 145,678
+**Errors**: 2,345 (1.6%)
+**Warnings**: 8,901 (6.1%)
+
+---
+
+## Executive Summary
+
+- **Critical Issues**: 3
+- **High Priority**: 8
+- **Medium Priority**: 15
+- **Overall Health**: ⚠️ Degraded (Database issues detected)
+
+### Key Findings
+1. Database connection pool exhaustion at 09:00-09:30
+2. Rate limiting triggered for 2 IP addresses
+3. Slow query performance on search endpoint
+4. Memory leak warning in worker service
+
+---
+
+## Critical Issues
+
+### 1. Database Connection Pool Exhaustion
+**Severity**: Critical
+**Occurrences**: 1,234
+**Time Range**: 09:00:00 - 09:30:00
+**Impact**: Service degradation, failed requests
+
+**Error Pattern**:
+```
+Error: connect ETIMEDOUT
+Error: Too many connections
+Error: Connection pool timeout
+```
+
+**Root Cause Analysis**:
+- Traffic spike (300% increase)
+- Connection pool size: 10 (insufficient)
+- Connections not being released properly
+- No connection timeout configured
+
+**Recommendations**:
+1. Increase connection pool size to 50
+2. Implement connection timeout (30s)
+3. Review connection release logic
+4. Add connection pool monitoring
+5. Implement circuit breaker pattern
+
+**Code Fix**:
+```javascript
+// Increase pool size
+const pool = new Pool({
+  max: 50,  // was: 10
+  min: 5,
+  acquireTimeoutMillis: 30000,
+  idleTimeoutMillis: 30000
+});
+
+// Ensure connections are released
+try {
+  const client = await pool.connect();
+  const result = await client.query('SELECT * FROM users');
+  return result;
+} finally {
+  client.release(); // Always release!
+}
+```
+
+---
+
+### 2. Memory Leak in Worker Service
+**Severity**: Critical
+**First Detected**: 06:00:00
+**Pattern**: Memory usage increasing 50MB/hour
+
+**Evidence**:
+```
+06:00 - Memory: 512MB
+09:00 - Memory: 662MB
+12:00 - Memory: 812MB
+15:00 - Memory: 962MB (WARNING threshold)
+```
+
+**Likely Causes**:
+- Event listeners not cleaned up
+- Cached data not being cleared
+- Circular references
+
+**Recommendations**:
+1. Add heap snapshot analysis
+2. Review event listener cleanup
+3. Implement cache eviction policy
+4. Monitor with heap profiler
+
+---
+
+## High Priority Issues
+
+### 3. Slow Search Query Performance
+**Severity**: High
+**Endpoint**: /api/search
+**Occurrences**: 45 requests
+**Average Response**: 2.3s (target: <500ms)
+
+**Slow Query Examples**:
+```
+2024-01-15 10:15:23 WARN [SearchService] Query took 2,345ms
+  SELECT * FROM products WHERE name LIKE '%keyword%'
+  Rows examined: 1,234,567
+```
+
+**Recommendations**:
+1. Add full-text search index
+2. Implement pagination (limit results)
+3. Use Elasticsearch for search
+4. Add query result caching
+
+---
+
+### 4. Rate Limit Violations
+**Severity**: High
+**Affected IPs**: 2
+**Requests Blocked**: 345
+
+**Details**:
+- IP: 192.168.1.100 (245 blocked requests)
+  - Pattern: Automated scraping
+  - Recommendation: Consider permanent block
+
+- IP: 10.0.0.50 (100 blocked requests)
+  - Pattern: Burst traffic from legitimate user
+  - Recommendation: Increase rate limit for authenticated users
+
+---
+
+## Error Distribution
+
+### By Severity
+- **ERROR**: 2,345 (1.6%)
+- **WARN**: 8,901 (6.1%)
+- **INFO**: 134,432 (92.3%)
+
+### By Service
+- **api**: 1,567 errors
+- **worker**: 456 errors
+- **scheduler**: 234 errors
+- **auth**: 88 errors
+
+### By Error Type
+1. Database errors: 1,234 (52.6%)
+2. Validation errors: 567 (24.2%)
+3. Rate limit errors: 345 (14.7%)
+4. Authentication errors: 199 (8.5%)
+
+---
+
+## Performance Metrics
+
+### Response Times
+| Endpoint | Avg | P50 | P95 | P99 | Max |
+|----------|-----|-----|-----|-----|-----|
+| /api/users | 123ms | 95ms | 230ms | 450ms | 890ms |
+| /api/search | 2,300ms | 1,800ms | 4,500ms | 6,200ms | 8,900ms |
+| /api/posts | 156ms | 120ms | 280ms | 520ms | 780ms |
+| /api/health | 5ms | 4ms | 8ms | 12ms | 25ms |
+
+### Traffic Patterns
+- **Peak**: 09:15:00 (1,234 req/min)
+- **Average**: 410 req/min
+- **Quiet Period**: 02:00-05:00 (45 req/min)
+
+---
+
+## User Activity
+
+### Top Users by Request Count
+1. User ID 12345: 2,345 requests
+2. User ID 67890: 1,890 requests
+3. User ID 11111: 1,456 requests
+
+### Failed Authentication Attempts
+- Total: 199
+- Unique Users: 45
+- Suspicious Pattern: User 99999 (23 failed attempts)
+
+---
+
+## Recommendations
+
+### Immediate Actions (Today)
+1. ✓ Increase database connection pool
+2. ✓ Investigate memory leak in worker
+3. ✓ Block suspicious IP (192.168.1.100)
+4. ✓ Add monitoring for connection pool
+
+### Short Term (This Week)
+1. Optimize search queries
+2. Implement query result caching
+3. Review event listener cleanup
+4. Add circuit breaker for database
+5. Increase rate limits for authenticated users
+
+### Long Term (This Month)
+1. Migrate search to Elasticsearch
+2. Implement comprehensive APM
+3. Add automated log analysis
+4. Set up predictive alerting
+5. Improve error handling and logging
+
+---
+
+## Logging Improvements
+
+### Missing Information
+- Request IDs (for tracing)
+- User context in some services
+- Performance metrics in worker logs
+- Structured error codes
+
+### Suggested Log Format
+```json
+{
+  "timestamp": "2024-01-15T10:30:00.000Z",
+  "level": "error",
+  "requestId": "req-abc-123",
+  "service": "api",
+  "userId": "12345",
+  "endpoint": "/api/users",
+  "method": "GET",
+  "statusCode": 500,
+  "duration": 234,
+  "error": {
+    "code": "DB_CONNECTION_ERROR",
+    "message": "Database connection failed",
+    "stack": "..."
+  }
+}
+```
+
+---
+
+## Monitoring Alerts to Set Up
+
+1. **Database Connection Errors** > 10/min
+2. **Response Time P95** > 500ms
+3. **Error Rate** > 2%
+4. **Memory Usage** > 80%
+5. **Rate Limit Hits** > 100/hour from single IP
+```
+
+## Analysis Techniques
+
+### Regular Expression Patterns
+```bash
+# Find all errors
+grep -E "ERROR|Exception|Failed" app.log
+
+# Extract timestamps and errors
+grep "ERROR" app.log | awk '{print $1, $2, $4}'
+
+# Count error types
+grep "ERROR" app.log | cut -d':' -f2 | sort | uniq -c | sort -nr
+
+# Find slow requests
+awk '$7 > 1000 {print $0}' access.log  # Response time > 1s
+```
+
+### Time-Based Analysis
+```bash
+# Errors per hour
+awk '{print $1" "$2}' app.log | cut -d':' -f1 | uniq -c
+
+# Peak error times
+grep "ERROR" app.log | cut -d' ' -f2 | cut -d':' -f1 | sort | uniq -c | sort -nr
+```
+
+## Tools Integration
+
+- **Elasticsearch + Kibana**: Centralized logging and visualization
+- **Splunk**: Enterprise log management
+- **Datadog**: APM and log analysis
+- **CloudWatch**: AWS log aggregation
+- **Grafana Loki**: Open-source log aggregation
+- **Papertrail**: Simple log management
+
+## Notes
+
+- Always consider log volume and retention
+- Implement log rotation and archiving
+- Use structured logging (JSON) for easier parsing
+- Include request IDs for distributed tracing
+- Set up alerts for critical error patterns
+- Regular log analysis prevents incidents
+- Correlation with metrics provides better insights

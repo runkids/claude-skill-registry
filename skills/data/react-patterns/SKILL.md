@@ -1,198 +1,378 @@
 ---
 name: react-patterns
-description: Modern React patterns and principles. Hooks, composition, performance, TypeScript best practices.
-allowed-tools: Read, Write, Edit, Glob, Grep
+description: React 19 specific patterns including React Compiler optimization, Server Actions, Forms, and new hooks. Use when implementing React 19 features, optimizing components, or choosing between Actions vs TanStack Query for mutations.
 ---
 
-# React Patterns
+# React 19 Patterns and Best Practices
 
-> Principles for building production-ready React applications.
+Modern React 19 patterns leveraging the React Compiler, Server Actions, and new hooks.
 
----
+## Compiler-Friendly Code
 
-## 1. Component Design Principles
+The React Compiler automatically optimizes components for performance. Write code that works well with it:
 
-### Component Types
+**Best Practices:**
+- Keep components pure and props serializable
+- Derive values during render (don't stash in refs unnecessarily)
+- Keep event handlers inline unless they close over large mutable objects
+- Verify compiler is working (DevTools ✨ badge)
+- Opt-out problematic components with `"use no memo"` while refactoring
 
-| Type | Use | State |
-|------|-----|-------|
-| **Server** | Data fetching, static | None |
-| **Client** | Interactivity | useState, effects |
-| **Presentational** | UI display | Props only |
-| **Container** | Logic/state | Heavy state |
+**Example - Pure Component:**
+```typescript
+// ✅ Compiler-friendly - pure function
+function UserCard({ user }: { user: User }) {
+  const displayName = `${user.firstName} ${user.lastName}`
+  const isVIP = user.points > 1000
 
-### Design Rules
+  return (
+    <div>
+      <h2>{displayName}</h2>
+      {isVIP && <Badge>VIP</Badge>}
+    </div>
+  )
+}
 
-- One responsibility per component
-- Props down, events up
-- Composition over inheritance
-- Prefer small, focused components
+// ❌ Avoid - unnecessary effects
+function UserCard({ user }: { user: User }) {
+  const [displayName, setDisplayName] = useState('')
 
----
+  useEffect(() => {
+    setDisplayName(`${user.firstName} ${user.lastName}`)
+  }, [user])
 
-## 2. Hook Patterns
+  return <div><h2>{displayName}</h2></div>
+}
+```
 
-### When to Extract Hooks
+**Verification:**
+- Open React DevTools
+- Look for "Memo ✨" badge on components
+- If missing, component wasn't optimized (check for violations)
 
-| Pattern | Extract When |
-|---------|-------------|
-| **useLocalStorage** | Same storage logic needed |
-| **useDebounce** | Multiple debounced values |
-| **useFetch** | Repeated fetch patterns |
-| **useForm** | Complex form state |
+**Opt-Out When Needed:**
+```typescript
+'use no memo'
 
-### Hook Rules
+// Component code that can't be optimized yet
+function ProblematicComponent() {
+  // ... code with compiler issues
+}
+```
 
-- Hooks at top level only
-- Same order every render
-- Custom hooks start with "use"
-- Clean up effects on unmount
+## Actions & Forms
 
----
+For SPA mutations, choose **one approach per feature**:
+- **React 19 Actions:** `<form action={fn}>`, `useActionState`, `useOptimistic`
+- **TanStack Query:** `useMutation`
 
-## 3. State Management Selection
+Don't duplicate logic between both approaches.
 
-| Complexity | Solution |
-|------------|----------|
-| Simple | useState, useReducer |
-| Shared local | Context |
-| Server state | React Query, SWR |
-| Complex global | Zustand, Redux Toolkit |
+### React 19 Actions (Form-Centric)
 
-### State Placement
+**Best for:**
+- Form submissions
+- Simple CRUD operations
+- When you want form validation built-in
 
-| Scope | Where |
-|-------|-------|
-| Single component | useState |
-| Parent-child | Lift state up |
-| Subtree | Context |
-| App-wide | Global store |
+**Basic Action:**
+```typescript
+'use server' // Only if using SSR/RSC, omit for SPA
 
----
+async function createTodoAction(formData: FormData) {
+  const text = formData.get('text') as string
 
-## 4. React 19 Patterns
+  // Validation
+  if (!text || text.length < 3) {
+    return { error: 'Text must be at least 3 characters' }
+  }
 
-### New Hooks
+  // API call
+  await api.post('/todos', { text })
 
-| Hook | Purpose |
-|------|---------|
-| **useActionState** | Form submission state |
-| **useOptimistic** | Optimistic UI updates |
-| **use** | Read resources in render |
+  // Revalidation happens automatically
+  return { success: true }
+}
 
-### Compiler Benefits
+// Component
+function TodoForm() {
+  return (
+    <form action={createTodoAction}>
+      <input name="text" required />
+      <button type="submit">Add Todo</button>
+    </form>
+  )
+}
+```
 
-- Automatic memoization
-- Less manual useMemo/useCallback
-- Focus on pure components
+**With State (useActionState):**
+```typescript
+import { useActionState } from 'react'
 
----
+function TodoForm() {
+  const [state, formAction, isPending] = useActionState(
+    createTodoAction,
+    { error: null, success: false }
+  )
 
-## 5. Composition Patterns
+  return (
+    <form action={formAction}>
+      {state.error && <ErrorMessage>{state.error}</ErrorMessage>}
+      <input name="text" required />
+      <button type="submit" disabled={isPending}>
+        {isPending ? 'Adding...' : 'Add Todo'}
+      </button>
+    </form>
+  )
+}
+```
 
-### Compound Components
+**With Optimistic Updates (useOptimistic):**
+```typescript
+import { useOptimistic } from 'react'
 
-- Parent provides context
-- Children consume context
-- Flexible slot-based composition
-- Example: Tabs, Accordion, Dropdown
+function TodoList({ initialTodos }: { initialTodos: Todo[] }) {
+  const [optimisticTodos, addOptimisticTodo] = useOptimistic(
+    initialTodos,
+    (state, newTodo: string) => [
+      ...state,
+      { id: `temp-${Date.now()}`, text: newTodo, completed: false }
+    ]
+  )
 
-### Render Props vs Hooks
+  async function handleSubmit(formData: FormData) {
+    const text = formData.get('text') as string
+    addOptimisticTodo(text)
 
-| Use Case | Prefer |
-|----------|--------|
-| Reusable logic | Custom hook |
-| Render flexibility | Render props |
-| Cross-cutting | Higher-order component |
+    await createTodoAction(formData)
+  }
 
----
+  return (
+    <>
+      <ul>
+        {optimisticTodos.map(todo => (
+          <li key={todo.id} style={{ opacity: todo.id.startsWith('temp-') ? 0.5 : 1 }}>
+            {todo.text}
+          </li>
+        ))}
+      </ul>
+      <form action={handleSubmit}>
+        <input name="text" required />
+        <button type="submit">Add</button>
+      </form>
+    </>
+  )
+}
+```
 
-## 6. Performance Principles
+### TanStack Query Mutations (Preferred for SPAs)
 
-### When to Optimize
+**Best for:**
+- Non-form mutations (e.g., button clicks)
+- Complex optimistic updates with rollback
+- Integration with existing Query cache
+- More control over caching and invalidation
 
-| Signal | Action |
-|--------|--------|
-| Slow renders | Profile first |
-| Large lists | Virtualize |
-| Expensive calc | useMemo |
-| Stable callbacks | useCallback |
+See **tanstack-query** skill for comprehensive mutation patterns.
 
-### Optimization Order
+**Quick Example:**
+```typescript
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
-1. Check if actually slow
-2. Profile with DevTools
-3. Identify bottleneck
-4. Apply targeted fix
+function useCre
 
----
+ateTodo() {
+  const queryClient = useQueryClient()
 
-## 7. Error Handling
+  return useMutation({
+    mutationFn: (text: string) => api.post('/todos', { text }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['todos'] })
+    },
+  })
+}
 
-### Error Boundary Usage
+// Usage
+function TodoForm() {
+  const createTodo = useCreateTodo()
 
-| Scope | Placement |
-|-------|-----------|
-| App-wide | Root level |
-| Feature | Route/feature level |
-| Component | Around risky component |
+  return (
+    <form onSubmit={(e) => {
+      e.preventDefault()
+      const formData = new FormData(e.currentTarget)
+      createTodo.mutate(formData.get('text') as string)
+    }}>
+      <input name="text" required />
+      <button type="submit" disabled={createTodo.isPending}>
+        {createTodo.isPending ? 'Adding...' : 'Add Todo'}
+      </button>
+    </form>
+  )
+}
+```
 
-### Error Recovery
+## The `use` Hook
 
-- Show fallback UI
-- Log error
-- Offer retry option
-- Preserve user data
+The `use` hook unwraps Promises and Context, enabling new patterns.
 
----
+**With Promises:**
+```typescript
+import { use, Suspense } from 'react'
 
-## 8. TypeScript Patterns
+function UserProfile({ userPromise }: { userPromise: Promise<User> }) {
+  const user = use(userPromise)
 
-### Props Typing
+  return <div>{user.name}</div>
+}
 
-| Pattern | Use |
-|---------|-----|
-| Interface | Component props |
-| Type | Unions, complex |
-| Generic | Reusable components |
+// Usage
+function App() {
+  const userPromise = fetchUser(1)
 
-### Common Types
+  return (
+    <Suspense fallback={<Spinner />}>
+      <UserProfile userPromise={userPromise} />
+    </Suspense>
+  )
+}
+```
 
-| Need | Type |
-|------|------|
-| Children | ReactNode |
-| Event handler | MouseEventHandler |
-| Ref | RefObject<Element> |
+**With Context:**
+```typescript
+import { use, createContext } from 'react'
 
----
+const ThemeContext = createContext<string>('light')
 
-## 9. Testing Principles
+function Button() {
+  const theme = use(ThemeContext)
+  return <button className={theme}>Click me</button>
+}
+```
 
-| Level | Focus |
-|-------|-------|
-| Unit | Pure functions, hooks |
-| Integration | Component behavior |
-| E2E | User flows |
+**When to Use:**
+- Primarily useful with Suspense/data primitives and RSC (React Server Components)
+- **For SPA-only apps**, prefer **TanStack Query + Router loaders** for data fetching
+- `use` shines when you already have a Promise from a parent component
 
-### Test Priorities
+## Component Composition Patterns
 
-- User-visible behavior
-- Edge cases
-- Error states
-- Accessibility
+**Compound Components:**
+```typescript
+// ✅ Good - composable, flexible
+<Card>
+  <Card.Header>
+    <Card.Title>Dashboard</Card.Title>
+  </Card.Header>
+  <Card.Content>
+    {/* content */}
+  </Card.Content>
+</Card>
 
----
+// Implementation
+function Card({ children }: { children: React.ReactNode }) {
+  return <div className="card">{children}</div>
+}
 
-## 10. Anti-Patterns
+Card.Header = function CardHeader({ children }: { children: React.ReactNode }) {
+  return <header className="card-header">{children}</header>
+}
 
-| ❌ Don't | ✅ Do |
-|----------|-------|
-| Prop drilling deep | Use context |
-| Giant components | Split smaller |
-| useEffect for everything | Server components |
-| Premature optimization | Profile first |
-| Index as key | Stable unique ID |
+Card.Title = function CardTitle({ children }: { children: React.ReactNode }) {
+  return <h2 className="card-title">{children}</h2>
+}
 
----
+Card.Content = function CardContent({ children }: { children: React.ReactNode }) {
+  return <div className="card-content">{children}</div>
+}
+```
 
-> **Remember:** React is about composition. Build small, combine thoughtfully.
+**Render Props (when needed):**
+```typescript
+function DataLoader<T>({
+  fetch,
+  render
+}: {
+  fetch: () => Promise<T>
+  render: (data: T) => React.ReactNode
+}) {
+  const { data } = useQuery({ queryKey: ['data'], queryFn: fetch })
+
+  if (!data) return <Spinner />
+
+  return <>{render(data)}</>
+}
+
+// Usage
+<DataLoader
+  fetch={() => fetchUser(1)}
+  render={(user) => <UserCard user={user} />}
+/>
+```
+
+## Error Boundaries
+
+React 19 still requires class components for error boundaries (or use a library):
+
+```typescript
+import { Component, ReactNode } from 'react'
+
+class ErrorBoundary extends Component<
+  { children: ReactNode; fallback: ReactNode },
+  { hasError: boolean }
+> {
+  state = { hasError: false }
+
+  static getDerivedStateFromError() {
+    return { hasError: true }
+  }
+
+  componentDidCatch(error: Error, info: { componentStack: string }) {
+    console.error('Error caught:', error, info)
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return this.props.fallback
+    }
+
+    return this.props.children
+  }
+}
+
+// Usage
+<ErrorBoundary fallback={<ErrorFallback />}>
+  <App />
+</ErrorBoundary>
+```
+
+**Or use react-error-boundary library:**
+```typescript
+import { ErrorBoundary } from 'react-error-boundary'
+
+<ErrorBoundary
+  fallback={<div>Something went wrong</div>}
+  onError={(error, info) => console.error(error, info)}
+>
+  <App />
+</ErrorBoundary>
+```
+
+## Decision Guide: Actions vs Query Mutations
+
+| Scenario | Recommendation |
+|----------|---------------|
+| Form submission with validation | React Actions |
+| Button click mutation | TanStack Query |
+| Needs optimistic updates + rollback | TanStack Query |
+| Integrates with existing cache | TanStack Query |
+| SSR/RSC application | React Actions |
+| SPA with complex data flow | TanStack Query |
+| Simple CRUD with forms | React Actions |
+
+**Rule of Thumb:** For SPAs with TanStack Query already in use, prefer Query mutations for consistency. Only use Actions for form-heavy features where the form-centric API is beneficial.
+
+## Related Skills
+
+- **tanstack-query** - Server state with mutations and optimistic updates
+- **core-principles** - Overall project structure
+- **tooling-setup** - React Compiler configuration

@@ -1,12 +1,7 @@
 {
   "name": "add-hook",
-  "description": "새 커스텀 훅을 생성합니다. TanStack Query 패턴을 적용합니다. 사용법: /add-hook useXxx [--mutation]",
-  "repo": "stolink/stolink_frontend",
-  "category": "development",
-  "tags": [
-    "add",
-    "hook"
-  ],
-  "stars": 1,
-  "source": "SkillsMP Synced Skills"
+  "repo": "WhatIfWeDigDeeper/claude-template",
+  "path": ".claude/skills/add-hook/SKILL.md",
+  "source": "github.com/WhatIfWeDigDeeper/claude-template",
+  "downloaded_at": "2026-01-17T03:05:07.505967Z"
 }

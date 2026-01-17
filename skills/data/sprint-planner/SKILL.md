@@ -1,281 +1,207 @@
 ---
-name: Sprint Planner
-slug: sprint-planner
-description: Plan and execute Agile sprints with velocity tracking, capacity planning, and retrospective insights
-category: project
-complexity: complex
-version: "1.0.0"
-author: "ID8Labs"
-triggers:
-  - "plan sprint"
-  - "start sprint"
-  - "sprint planning"
-  - "create sprint"
-  - "sprint velocity"
-tags:
-  - agile
-  - scrum
-  - sprint
-  - velocity
-  - capacity
-  - backlog
+name: Game Sprint Planner
+description: Plan development sprints for Stapledons Voyage game features. Analyzes design docs, estimates effort considering AILANG constraints, and creates realistic sprint plans. Use when user asks to "plan sprint" or estimate game feature timelines.
 ---
 
-# Sprint Planner
+# Game Sprint Planner
 
-The Sprint Planner skill helps teams plan and execute effective Agile sprints using Scrum methodology. It focuses on capacity-based planning, velocity tracking, and continuous improvement through retrospectives. The skill ensures sprints are properly scoped, committed, and executed with clear goals and metrics.
+Create comprehensive sprint plans for Stapledons Voyage game development.
 
-This skill excels at breaking down epics and user stories into sprint-sized work, estimating effort using story points or hours, tracking team velocity, and facilitating sprint ceremonies (planning, daily standups, reviews, retrospectives).
+## Quick Start
 
-Sprint Planner emphasizes sustainable pace, predictable delivery, and team empowerment through data-driven planning and retrospective learning.
+**Most common usage:**
+```bash
+# User says: "Plan a sprint to implement NPC movement"
+# This skill will:
+# 1. Check current AILANG module status
+# 2. Review known limitations from CLAUDE.md
+# 3. Estimate effort (AILANG code + Go engine)
+# 4. Create day-by-day task breakdown
+# 5. Include AILANG feedback checkpoints
+```
 
-## Core Workflows
+## When to Use This Skill
 
-### Workflow 1: Sprint Planning
+Invoke this skill when:
+- User says "plan sprint", "estimate feature timeline"
+- User wants to prioritize game development work
+- Before starting a new game feature
+- Assessing scope of AILANG workarounds needed
 
-**Steps:**
-1. **Pre-Planning Preparation** (before ceremony)
-   - Ensure backlog is groomed and prioritized
-   - Verify user stories have acceptance criteria
-   - Review team capacity for upcoming sprint
-   - Gather velocity data from previous sprints
-   - Identify any holidays, PTO, or known interruptions
+## Project-Specific Context
 
-2. **Set Sprint Goal**
-   - Review product roadmap and priorities
-   - Define 1-2 sentence sprint goal
-   - Align with stakeholders on desired outcomes
-   - Ensure goal is measurable and achievable
+### Architecture (from CLAUDE.md)
+```
+sim/*.ail        → AILANG game logic (manually edit)
+sim_gen/*.go     → Generated Go (OK - contains game types)
+game_views/*.go  → Game-specific rendering helpers (NEW)
+engine/*.go      → Generic Go/Ebiten rendering (reusable)
+cmd/game/main.go → Game loop
+```
 
-3. **Calculate Team Capacity**
-   - List all team members and their availability
-   - Account for meetings, support rotation, planned time off
-   - Calculate total available hours or story points
-   - Apply 70% rule (plan for 70% of theoretical capacity)
+### ⚠️ Engine Genericization Rule
 
-4. **Select Stories from Backlog**
-   - Start with highest-priority items
-   - Review story details and acceptance criteria
-   - Estimate effort (if not already estimated)
-   - Pull stories until capacity is reached
-   - Ensure stories align with sprint goal
+**Before planning engine work, ask:** Could a different game use this unchanged?
 
-5. **Break Down Stories into Tasks**
-   - Decompose each story into technical tasks
-   - Estimate task hours (2-8 hour chunks)
-   - Identify dependencies between tasks
-   - Assign owners or leave for team self-organization
+| If YES | If NO |
+|--------|-------|
+| → OK for `engine/` | → Must go in `game_views/` or AILANG |
 
-6. **Sprint Commitment**
-   - Review total commitment vs. capacity
-   - Identify risks and mitigation strategies
-   - Get team agreement on sprint backlog
-   - Document sprint goal and commitment
+**sim_gen/ is fine** - Generated from AILANG, game-specific types belong there.
 
-**Output:** Sprint backlog with committed stories, tasks, capacity allocation, and sprint goal.
+**engine/ must be generic** - No deck names, planet names, crew roles, or game concepts.
 
-### Workflow 2: Daily Standup Facilitation
+**game_views/** - New layer for game-specific rendering (DomeRenderer, DeckStackRenderer).
 
-**15-minute time-boxed meeting:**
+### Engine Capabilities Reference
 
-Each team member answers:
-1. **Yesterday**: What did I complete?
-2. **Today**: What will I work on?
-3. **Blockers**: What's preventing progress?
+**IMPORTANT:** Before estimating effort, review what's already built:
 
-**As facilitator:**
-- Keep updates brief (2 minutes per person)
-- Note blockers for offline resolution
-- Update sprint board in real-time
-- Identify risks to sprint goal
-- Schedule necessary follow-up conversations
+| Reference | Contents |
+|-----------|----------|
+| [engine-capabilities.md](../../../design_docs/reference/engine-capabilities.md) | Complete engine reference (DrawCmd types, effects, shaders, physics) |
+| [gr-effects.md](../../../design_docs/implemented/v0_1_0/gr-effects.md) | GR physics, shader uniforms, danger levels |
+| [ai-handler-system.md](../../../design_docs/implemented/v0_1_0/ai-handler-system.md) | AI effect, multimodal APIs |
 
-**Output:** Updated sprint board and blocker resolution plan.
+**Key Available Capabilities:**
+- **DrawCmd**: Sprite, Rect, Text, IsoTile, IsoEntity, GalaxyBg, Star, Ui (Panel/Button/Label/Portrait/Slider/ProgressBar), Line, Circle, TextWrapped
+- **Effects**: Debug, Rand, Clock, AI (Claude/Gemini/stub)
+- **Assets**: Animated sprites, Audio (OGG/WAV), Fonts (TTF with scaling)
+- **Shaders**: SR warp, GR warp, bloom, vignette, CRT
+- **Physics**: Lorentz factor, time dilation, gravitational redshift
 
-### Workflow 3: Sprint Review
+### Current AILANG Limitations
+Before planning, check CLAUDE.md for:
+- Module imports not working
+- Recursion depth limits
+- No RNG effect documented
+- No Array type (O(1) access)
+- Record update syntax issues
 
-**Steps:**
-1. **Demo Completed Work**
-   - Show each completed story in action
-   - Demonstrate acceptance criteria met
-   - Gather stakeholder feedback
-   - Note any change requests or new ideas
+## Sprint Planning Workflow
 
-2. **Review Sprint Metrics**
-   - Completed vs. committed story points
-   - Burndown chart analysis
-   - Velocity trend
-   - Quality metrics (bugs, test coverage)
+### 1. Assess Current State
 
-3. **Capture Feedback**
-   - What did stakeholders like?
-   - What needs adjustment?
-   - New requirements or priorities?
-   - Add items to product backlog
+```bash
+# Check AILANG modules compile
+for f in sim/*.ail; do ailang check "$f"; done
 
-**Output:** Demo recording, stakeholder feedback, updated backlog.
+# Check for messages from AILANG team
+ailang messages list --unread
+```
 
-### Workflow 4: Sprint Retrospective
+### 2. Identify Work Scope
 
-**Steps:**
-1. **Set the Stage** (5 min)
-   - Review retrospective goals and norms
-   - Choose retro format (Start/Stop/Continue, etc.)
+For each game feature, estimate:
+- **AILANG code**: Types, functions needed in `sim/*.ail`
+- **game_views code**: Game-specific rendering helpers (if needed)
+- **Engine code**: Generic Go/Ebiten changes (should be rare!)
+- **Workarounds**: AILANG limitations to navigate
+- **Testing**: How to verify it works
 
-2. **Gather Data** (15 min)
-   - What went well?
-   - What didn't go well?
-   - What puzzles us?
-   - Review metrics and sprint data
+**Engine Genericization Check:**
+Before adding to `engine/`, verify it's not game-specific:
+- ❌ References decks, planets, crew roles → `game_views/`
+- ❌ Hardcodes game data → AILANG
+- ✅ Generic DrawCmd rendering → `engine/`
+- ✅ Asset loading, camera, shaders → `engine/`
 
-3. **Generate Insights** (15 min)
-   - Identify patterns and root causes
-   - Discuss why things happened
-   - Prioritize issues by impact
+### 3. Example Sprint Plan
 
-4. **Decide What to Do** (15 min)
-   - Choose 1-3 improvement actions
-   - Assign owners to each action
-   - Define success criteria
-   - Set follow-up date
+```markdown
+# Sprint: NPC Movement (3 days)
 
-5. **Close** (5 min)
-   - Summarize decisions
-   - Appreciate team contributions
-   - Document retro outcomes
+## Goal
+Implement basic NPC movement on the world grid.
 
-**Output:** Retrospective notes with 1-3 committed improvement actions.
+## Day 1: AILANG Types & Functions
+- [ ] Define Direction type in sim/world.ail
+- [ ] Add moveNpc function to sim/npc_ai.ail
+- [ ] Test with `ailang check`
+- [ ] Report any AILANG issues encountered
 
-### Workflow 5: Velocity Tracking
+## Day 2: Step Integration
+- [ ] Update step function to process NPC moves
+- [ ] Handle movement input from FrameInput
+- [ ] Test with `ailang run --entry step`
 
-**Steps:**
-1. Calculate completed story points per sprint
-2. Track velocity over rolling 3-sprint average
-3. Identify velocity trends (increasing, stable, declining)
-4. Analyze factors affecting velocity
-5. Use velocity for future sprint planning
+## Day 3: Engine Rendering
+- [ ] Update Go rendering to show NPCs
+- [ ] Test with `make run`
+- [ ] Document any performance issues
 
-## Quick Reference
+## AILANG Feedback Checkpoint
+After sprint, report:
+- Bugs encountered
+- Features that would have helped
+- Documentation gaps
+```
 
-| Action | Command/Trigger |
-|--------|-----------------|
-| Plan new sprint | "plan sprint [number]" |
-| Calculate capacity | "calculate team capacity" |
-| Check velocity | "what's our velocity" |
-| Create sprint goal | "set sprint goal" |
-| Daily standup | "daily standup update" |
-| Review sprint | "sprint review" |
-| Run retrospective | "facilitate retro" |
-| Burndown chart | "show sprint burndown" |
-| Add to sprint | "add story to sprint" |
-| Sprint health | "sprint health check" |
+### 4. AILANG Complexity Multipliers
+
+When estimating effort, consider these multipliers:
+
+| Factor | Multiplier | Example |
+|--------|------------|---------|
+| Module imports broken | 1.5x | Must duplicate types |
+| Deep recursion needed | 2x | Grid operations |
+| No RNG available | +0.5 days | Random behaviors |
+| New ADT types | 1.2x | Pattern matching complexity |
+
+### 5. Include Feedback Checkpoints
+
+Every sprint should include:
+1. **Start**: Check inbox for AILANG team responses
+2. **Mid-sprint**: Report blockers immediately
+3. **End**: Send summary of issues encountered
+
+## Handoff to sprint-executor
+
+After sprint plan is approved:
+
+```bash
+# Check and acknowledge any pending messages
+ailang messages list --unread
+ailang messages ack <msg-id>
+
+# Send plan ready notification (optional)
+ailang messages send sprint-executor '{
+  "type": "plan_ready",
+  "sprint_id": "npc-movement",
+  "days": 3,
+  "milestones": ["types", "step-integration", "rendering"]
+}'
+```
+
+## Available Scripts
+
+### `scripts/analyze_velocity.sh`
+Analyze recent development velocity from git commits.
+
+### `scripts/create_sprint_json.sh <sprint_id> <plan_md>`
+Create JSON progress file for multi-session execution.
 
 ## Best Practices
 
-- **Consistent sprint length**: Use 1-2 week sprints; consistency enables predictability
-- **Sprint goal clarity**: Every sprint needs a clear, measurable goal that guides decisions
-- **Capacity-based planning**: Never commit to more than 70% of theoretical capacity
-- **No scope changes mid-sprint**: Protect the sprint commitment; changes go to backlog
-- **Done means DONE**: Define "Definition of Done" and enforce it (coded, tested, reviewed, deployed)
-- **Track velocity honestly**: Don't manipulate story points; accurate data enables better planning
-- **Time-box ceremonies**: Sprint planning (2h), daily standup (15min), review (1h), retro (1h)
-- **Visualize progress**: Use burndown charts and sprint boards for transparency
-- **Address blockers daily**: Don't let blockers linger; escalate and resolve quickly
-- **Retrospect every sprint**: Continuous improvement is non-negotiable
-- **Protect team from interruptions**: Buffer capacity for support, bugs, and unplanned work
-- **Carry over sparingly**: If stories regularly carry over, you're over-committing
+### 1. Start Small
+- First sprint should be simple (1-2 days)
+- Build confidence with AILANG before complex features
 
-## Sprint Ceremonies Schedule
+### 2. Test AILANG Early
+- Run `ailang check` after every file change
+- Don't let compilation errors pile up
 
-| Ceremony | Duration | When | Purpose |
-|----------|----------|------|---------|
-| **Sprint Planning** | 2-4 hours | First day of sprint | Define sprint goal and commitment |
-| **Daily Standup** | 15 minutes | Every day, same time | Sync progress and blockers |
-| **Backlog Grooming** | 1 hour | Mid-sprint | Prepare upcoming work |
-| **Sprint Review** | 1 hour | Last day of sprint | Demo and gather feedback |
-| **Sprint Retrospective** | 1 hour | After review | Reflect and improve |
+### 3. Document Workarounds
+- When AILANG lacks a feature, document the workaround
+- Report to AILANG team so they know the pain points
 
-## Velocity Calculation
+### 4. Plan for Feedback Loop
+- Budget time for reporting issues
+- Check inbox for responses during sprint
 
-**Story Points Method:**
-```
-Velocity = Sum of completed story points
+## Notes
 
-Example:
-Sprint 1: 23 points
-Sprint 2: 27 points
-Sprint 3: 25 points
-Average Velocity = (23 + 27 + 25) / 3 = 25 points/sprint
-```
-
-**Hours Method:**
-```
-Velocity = Completed hours / Committed hours
-
-Example:
-Committed: 80 hours
-Completed: 68 hours
-Velocity = 68/80 = 85% completion rate
-```
-
-Use average velocity from last 3 sprints for planning next sprint.
-
-## Capacity Planning Formula
-
-```
-Team Capacity = Σ(Person Days Available) × Hours per Day × Utilization Factor
-
-Example:
-5 developers × 10 days × 6 hours/day × 0.7 = 210 hours
-
-Utilization Factor (0.7) accounts for:
-- Meetings and ceremonies (15%)
-- Context switching (10%)
-- Unplanned work (5%)
-```
-
-## Burndown Chart Analysis
-
-**Healthy Burndown:**
-- Steady downward trend
-- Work completed daily
-- Reaches zero by sprint end
-
-**Warning Signs:**
-- Flat line (no progress)
-- Upward trend (scope added)
-- Late drop (work completed last day)
-- Staying above zero (over-committed)
-
-## Retrospective Formats
-
-### Start/Stop/Continue
-- **Start**: What should we start doing?
-- **Stop**: What should we stop doing?
-- **Continue**: What should we keep doing?
-
-### 4 L's
-- **Liked**: What went well?
-- **Learned**: What did we learn?
-- **Lacked**: What was missing?
-- **Longed For**: What do we wish we had?
-
-### Mad/Sad/Glad
-- **Mad**: What frustrated us?
-- **Sad**: What disappointed us?
-- **Glad**: What made us happy?
-
-### Sailboat
-- **Wind**: What helped us move forward?
-- **Anchor**: What held us back?
-- **Rocks**: What risks did we face?
-- **Island**: What's our goal?
-
-## Integration Points
-
-- **Task Manager**: Daily task tracking and updates
-- **Project Planner**: Long-term roadmap alignment
-- **GitHub**: Issue and PR tracking
-- **Jira/Linear**: Sprint board management
-- **Slack**: Automated standup reminders and updates
-- **Calendar**: Sprint ceremony scheduling
+- This project tests AILANG as much as it builds a game
+- Sprint velocity includes AILANG issue reporting time
+- Use `ailang prompt` output as reference for planning
+- Check CLAUDE.md for known limitations before estimating

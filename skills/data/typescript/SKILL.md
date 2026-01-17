@@ -1,181 +1,293 @@
 ---
 name: typescript
-description: |
-  Provides comprehensive TypeScript development expertise and coding standards. Ensures type safety through strict type checking, implements clean code patterns, and maintains consistent architectural decisions. Specializes in advanced type system features including generics, conditional types, mapped types, and template literal types.
-  Use when: working with TypeScript files (.ts/.tsx), defining type definitions and interfaces, implementing generic programming patterns, designing type-safe APIs, handling complex type transformations, integrating TypeScript with React/Vue/Angular frameworks, configuring strict mode settings, resolving type errors, or optimizing type performance in large codebases.
+description: TypeScript code style, type co-location, constant naming conventions, and arktype patterns. Use when writing TypeScript code, defining types, creating constants, or working with arktype schemas.
 ---
 
-# TypeScript Coding Standards
+# TypeScript Guidelines
 
-## Basic Principles
+## Core Rules
 
-### One Function, One Responsibility
+- Always use `type` instead of `interface` in TypeScript.
+- TypeScript 5.5+ automatically infers type predicates in `.filter()` callbacks. Don't add manual type assertions:
+  ```typescript
+  // Good - TypeScript infers the narrowed type automatically
+  const filtered = items.filter((x) => x !== undefined);
 
-- If function name connects with "and" or "or", it's a signal to split
-- If test cases are needed for each if branch, it's a signal to split
+  // Bad - unnecessary type predicate
+  const filtered = items.filter((x): x is NonNullable<typeof x> => x !== undefined);
+  ```
+- When moving components to new locations, always update relative imports to absolute imports (e.g., change `import Component from '../Component.svelte'` to `import Component from '$lib/components/Component.svelte'`)
+- When functions are only used in the return statement of a factory/creator function, use object method shorthand syntax instead of defining them separately. For example, instead of:
+  ```typescript
+  function myFunction() {
+  	const helper = () => {
+  		/* ... */
+  	};
+  	return { helper };
+  }
+  ```
+  Use:
+  ```typescript
+  function myFunction() {
+  	return {
+  		helper() {
+  			/* ... */
+  		},
+  	};
+  }
+  ```
 
-### Conditional and Loop Depth Limited to 2 Levels
+# Type Co-location Principles
 
-- Minimize depth using early return whenever possible
-- If still heavy, extract into separate functions
+## Never Use Generic Type Buckets
 
-### Make Function Side Effects Explicit
+Don't create generic type files like `$lib/types/models.ts`. This creates unclear dependencies and makes code harder to maintain.
 
-- Example: If `getUser` also runs `updateLastAccess()`, specify it in the function name
+### Bad Pattern
 
-### Convert Magic Numbers/Strings to Constants When Possible
+```typescript
+// $lib/types/models.ts - Generic bucket for unrelated types
+export type LocalModelConfig = { ... };
+export type UserModel = { ... };
+export type SessionModel = { ... };
+```
 
-- Declare at the top of the file or class where used
-- Consider separating into a constants file if there are many
+### Good Pattern
 
-### Function Order by Call Order
+```typescript
+// $lib/services/transcription/local/types.ts - Co-located with service
+export type LocalModelConfig = { ... };
 
-- Follow class access modifier declaration order rules if clear
-- Otherwise, order top-to-bottom for easy reading by call order
+// $lib/services/user/types.ts - Co-located with user service
+export type UserModel = { ... };
+```
 
-### Review External Libraries for Complex Implementations
+## Co-location Rules
 
-- When logic is complex and tests become bloated
-- If industry-standard libraries exist, use them
-- When security, accuracy, or performance optimization is critical
-- When browser/platform compatibility or edge cases are numerous
+1. **Service-specific types**: Place in `[service-folder]/types.ts`
+2. **Component-specific types**: Define directly in the component file
+3. **Shared domain types**: Place in the domain folder's `types.ts`
+4. **Cross-domain types**: Only if truly shared across multiple domains, place in `$lib/types/[specific-name].ts`
 
-### Modularization (Prevent Code Duplication and Pattern Repetition)
+## Benefits
 
-- Absolutely forbid code repetition
-- Modularize similar patterns into reusable forms
-- Allow pre-modularization if reuse is confirmed
-- Avoid excessive abstraction
-- Modularization levels:
-  - Same file: Extract into separate function
-  - Multiple files: Separate into different file
-  - Multiple projects/domains: Separate into package
+- Clear ownership and dependencies
+- Easier refactoring and deletion
+- Better code organization
+- Reduces coupling between unrelated features
 
-### Variable and Function Names
+# Constant Array Naming Conventions
 
-- Clear purpose while being concise
-- Forbid abbreviations outside industry standards (id, api, db, err, etc.)
-- Don't repeat context from the parent scope
-- Boolean variables use `is`, `has`, `should` prefixes
-- Function names are verbs or verb+noun forms
-- Plural rules:
-  - Pure arrays: "s" suffix (`users`)
-  - Wrapped object: "list" suffix (`userList`)
-  - Specific data structure: Explicit (`userSet`, `userMap`)
-  - Already plural words: Use as-is
+## Pattern Summary
 
-### Field Order
+| Pattern | Suffix | Description | Example |
+|---------|--------|-------------|---------|
+| Simple values (source of truth) | Plural noun with unit | Raw values array | `BITRATES_KBPS`, `SAMPLE_RATES` |
+| Rich array (source of truth) | Plural noun | Contains all metadata | `PROVIDERS`, `RECORDING_MODE_OPTIONS` |
+| IDs only (for validation) | `_IDS` | Derived from rich array | `PROVIDER_IDS` |
+| UI options `{value, label}` | `_OPTIONS` | For dropdowns/selects | `BITRATE_OPTIONS`, `SAMPLE_RATE_OPTIONS` |
+| Label map | `_TO_LABEL` (singular) | `Record<Id, string>` | `LANGUAGES_TO_LABEL` |
 
-- Alphabetically ascending by default
-- Maintain consistency in usage
-- Also alphabetically ordered in destructuring assignment
+## When to Use Each Pattern
 
-### Error Handling
+### Pattern 1: Simple Values -> Derived Options
 
-- Error handling level: Handle where meaningful response is possible
-- Error messages: Technical details for logs, actionable guidance for users
-- Error classification: Distinguish between expected and unexpected errors
-- Error propagation: Add context when propagating up the call stack
-- Recovery vs. fast fail: Recover from expected errors with fallback
-- Error types: For domain-specific failures, create custom error classes extending `Error`. Never throw non-Error objects
-- Async errors: Always handle Promise rejection. Use try-catch for async/await, .catch() for promise chains
+Use when the label can be computed from the value:
 
-## Package Management
+```typescript
+// constants/audio/bitrate.ts
+export const BITRATES_KBPS = ['16', '32', '64', '128'] as const;
 
-### Package Manager
+export const BITRATE_OPTIONS = BITRATES_KBPS.map((bitrate) => ({
+  value: bitrate,
+  label: `${bitrate} kbps`,
+}));
+```
 
-- Use pnpm as default package manager
-- Forbid npm, yarn (prevent lock file conflicts)
+### Pattern 2: Simple Values + Metadata Object
 
-## File Structure
+Use when labels need richer information than the value alone:
 
-### Common for All Files
+```typescript
+// constants/audio/sample-rate.ts
+export const SAMPLE_RATES = ['16000', '44100', '48000'] as const;
 
-1. Import statements (grouped)
-2. Constant definitions (alphabetically ordered if multiple)
-3. Type/Interface definitions (alphabetically ordered if multiple)
-4. Main content (see below)
+const SAMPLE_RATE_METADATA: Record<SampleRate, { shortLabel: string; description: string }> = {
+  '16000': { shortLabel: '16 kHz', description: 'Optimized for speech' },
+  '44100': { shortLabel: '44.1 kHz', description: 'CD quality' },
+  '48000': { shortLabel: '48 kHz', description: 'Studio quality' },
+};
 
-### Inside Classes
+export const SAMPLE_RATE_OPTIONS = SAMPLE_RATES.map((rate) => ({
+  value: rate,
+  label: `${SAMPLE_RATE_METADATA[rate].shortLabel} - ${SAMPLE_RATE_METADATA[rate].description}`,
+}));
+```
 
-- Decorators
-- private readonly members
-- readonly members
-- constructor
-- public methods (alphabetically ordered)
-- protected methods (alphabetically ordered)
-- private methods (alphabetically ordered)
+### Pattern 3: Rich Array as Source of Truth
 
-### Function Placement in Function-Based Files
+Use when options have extra fields beyond `value`/`label` (e.g., `icon`, `desktopOnly`):
 
-- Main exported function
-- Additional exported functions (alphabetically ordered, avoid many)
-- Helper functions
+```typescript
+// constants/audio/recording-modes.ts
+export const RECORDING_MODES = ['manual', 'vad', 'upload'] as const;
+export type RecordingMode = (typeof RECORDING_MODES)[number];
 
-## Function Writing
+export const RECORDING_MODE_OPTIONS = [
+  { label: 'Manual', value: 'manual', icon: 'mic', desktopOnly: false },
+  { label: 'Voice Activated', value: 'vad', icon: 'mic-voice', desktopOnly: false },
+  { label: 'Upload File', value: 'upload', icon: 'upload', desktopOnly: false },
+] as const satisfies { label: string; value: RecordingMode; icon: string; desktopOnly: boolean }[];
 
-### Use Arrow Functions
+// Derive IDs for validation if needed
+export const RECORDING_MODE_IDS = RECORDING_MODE_OPTIONS.map(o => o.value);
+```
 
-- Always use arrow functions except for class methods
-- Forbid function keyword entirely (exceptions: generator function\*, function hoisting etc. technically impossible cases only)
+## Choosing a Pattern
 
-### Function Arguments: Flat vs Object
+| Scenario | Pattern |
+|----------|---------|
+| Label = formatted value (e.g., "128 kbps") | Simple Values -> Derived |
+| Label needs separate data (e.g., "16 kHz - Optimized for speech") | Values + Metadata |
+| Options have extra UI fields (icon, description, disabled) | Rich Array |
+| Platform-specific or runtime-conditional content | Keep inline in component |
 
-- Use flat if single argument or uncertain of future additions
-- Use object form for 2+ arguments in most cases. Allow flat form when:
-  - All required arguments without boolean arguments
-  - All required arguments with clear order (e.g., (width,height), (start,end), (min,max), (from,to))
+## Naming Rules
 
-## Type System
+### Source Arrays
+- Use **plural noun**: `PROVIDERS`, `MODES`, `LANGUAGES`
+- Add unit suffix when relevant: `BITRATES_KBPS`, `SAMPLE_RATES`
+- Avoid redundant `_VALUES` suffix
 
-### Type Safety
+### Derived/Options Arrays
+- Use **plural noun** + `_OPTIONS` suffix: `BITRATE_OPTIONS`, `SAMPLE_RATE_OPTIONS`
+- For IDs: **plural noun** + `_IDS` suffix: `PROVIDER_IDS`
 
-- Forbid unsafe type bypasses like any, as, !, @ts-ignore, @ts-expect-error
-- Exceptions: Missing or incorrect external library types, rapid development needed (clarify reason in comments)
-- Allow some unknown type when type guard is clear
-- Allow as assertion when literal type (as const) needed
-- Allow as assertion when widening literal/HTML types to broader types
-- Allow "!" assertion when type narrowing impossible after type guard due to TypeScript limitation
-- Allow @ts-ignore, @ts-expect-error in test code (absolutely forbid in production)
+### Label Maps
+- Use **singular** `_TO_LABEL` suffix: `LANGUAGES_TO_LABEL`
+- Describes the operation (id -> label), not the container
+- Reads naturally: `LANGUAGES_TO_LABEL[lang]` = "get the label for this language"
 
-### Interface vs Type
+### Constant Casing
+- Always use `SCREAMING_SNAKE_CASE` for exported constants
+- Never use `camelCase` for constant objects/arrays
 
-- Prioritize Type in all cases by default
-- Use Interface only for these exceptions:
-  - Public API provided to external users like library public API
-  - Need to extend existing interface like external libraries
-  - Designing OOP-style classes where implementation contract must be clearly defined
+## Co-location
 
-### null/undefined Handling
+Options arrays should be co-located with their source array in the same file. Avoid creating options inline in Svelte components; import pre-defined options instead.
 
-- Actively use Optional Chaining (`?.`)
-- Provide defaults with Nullish Coalescing (`??`)
-- Distinguish between `null` and `undefined` by semantic meaning:
-  - `undefined`: Uninitialized state, optional parameters, value not assigned yet
-  - `null`: Intentional absence of value (similar to Go's nil)
-- Examples:
-  - Optional field: `{ name?: string }` → can be `undefined`
-  - Intentionally cleared value: `user.profileImage = null`
-  - External API responses may use either convention
+Exception: Keep options inline when they have platform-specific or runtime-conditional content that would require importing platform constants into the data module.
 
-## Code Style
 
-### Maintain Immutability
+# Parameter Destructuring for Factory Functions
 
-- Use `const` whenever possible, minimize `let`
-- Create new values instead of directly modifying arrays/objects
-- Use `spread`, `filter`, `map` instead of `push`, `splice`
-- Exceptions: Extremely performance-critical cases
+## Prefer Parameter Destructuring Over Body Destructuring
 
-## Recommended Libraries
+When writing factory functions that take options objects, destructure directly in the function signature instead of in the function body. This is the established pattern in the codebase.
 
-- Testing: Jest, Playwright
-- Utilities: es-toolkit, dayjs
-- HTTP: ky, @tanstack/query, @apollo/client
-- Form: React Hook Form
-- Type validation: zod
-- UI: Tailwind + shadcn/ui
-- ORM: Prisma (Drizzle if edge support important)
-- State management: zustand
-- Code formatting: prettier, eslint
-- Build: tsup
+### Bad Pattern (Body Destructuring)
+
+```typescript
+// DON'T: Extra line of ceremony
+function createSomething(opts: { foo: string; bar?: number }) {
+  const { foo, bar = 10 } = opts;  // Unnecessary extra line
+  return { foo, bar };
+}
+```
+
+### Good Pattern (Parameter Destructuring)
+
+```typescript
+// DO: Destructure directly in parameters
+function createSomething({ foo, bar = 10 }: { foo: string; bar?: number }) {
+  return { foo, bar };
+}
+```
+
+### Why This Matters
+
+1. **Fewer lines**: Removes the extra destructuring statement
+2. **Defaults at API boundary**: Users see defaults in the signature, not hidden in the body
+3. **Works with `const` generics**: TypeScript literal inference works correctly:
+   ```typescript
+   function select<const TOptions extends readonly string[]>({
+     options,
+     nullable = false,
+   }: {
+     options: TOptions;
+     nullable?: boolean;
+   }) { ... }
+   ```
+4. **Closures work identically**: Inner functions capture the same variables either way
+
+### When Body Destructuring is Valid
+
+- Need to distinguish "property missing" vs "property is `undefined`" (`'key' in opts`)
+- Complex normalization/validation of the options object
+- Need to pass the entire `opts` object to other functions
+
+### Codebase Examples
+
+```typescript
+// From packages/epicenter/src/core/schema/columns.ts
+export function select<const TOptions extends readonly [string, ...string[]]>({
+  options,
+  nullable = false,
+  default: defaultValue,
+}: {
+  options: TOptions;
+  nullable?: boolean;
+  default?: TOptions[number];
+}): SelectColumnSchema<TOptions, boolean> {
+  return { type: 'select', nullable, options, default: defaultValue };
+}
+
+// From apps/whispering/.../create-key-recorder.svelte.ts
+export function createKeyRecorder({
+  pressedKeys,
+  onRegister,
+  onClear,
+}: {
+  pressedKeys: PressedKeys;
+  onRegister: (keyCombination: KeyboardEventSupportedKey[]) => void;
+  onClear: () => void;
+}) { ... }
+```
+# Arktype Optional Properties
+
+## Never Use `| undefined` for Optional Properties
+
+When defining optional properties in arktype schemas, always use the `'key?'` syntax instead of `| undefined` unions. This is critical for JSON Schema conversion (used by OpenAPI/MCP).
+
+### Bad Pattern
+
+```typescript
+// DON'T: Explicit undefined union - breaks JSON Schema conversion
+const schema = type({
+  window_id: 'string | undefined',
+  url: 'string | undefined',
+});
+```
+
+This produces invalid JSON Schema with `anyOf: [{type: "string"}, {}]` because `undefined` has no JSON Schema equivalent.
+
+### Good Pattern
+
+```typescript
+// DO: Optional property syntax - converts cleanly to JSON Schema
+const schema = type({
+  'window_id?': 'string',
+  'url?': 'string',
+});
+```
+
+This correctly omits properties from the `required` array in JSON Schema.
+
+### Why This Matters
+
+| Syntax | TypeScript Behavior | JSON Schema |
+|--------|---------------------|-------------|
+| `key: 'string \| undefined'` | Required prop, accepts string or undefined | Broken (triggers fallback) |
+| `'key?': 'string'` | Optional prop, accepts string | Clean (omitted from `required`) |
+
+Both behave similarly in TypeScript, but only the `?` syntax converts correctly to JSON Schema for OpenAPI documentation and MCP tool schemas.

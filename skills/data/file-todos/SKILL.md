@@ -1,13 +1,13 @@
 ---
 name: file-todos
-description: This skill should be used when managing the file-based todo tracking system in the .claude/todos/ directory. It provides workflows for creating todos, managing status and dependencies, conducting triage, and integrating with slash commands and code review processes.
+description: This skill should be used when managing the file-based todo tracking system in the todos/ directory. It provides workflows for creating todos, managing status and dependencies, conducting triage, and integrating with slash commands and code review processes.
 ---
 
 # File-Based Todo Tracking Skill
 
 ## Overview
 
-The `.claude/todos/` directory contains a file-based tracking system for managing code review feedback, technical debt, feature requests, and work items. Each todo is a markdown file with YAML frontmatter and structured sections.
+The `todos/` directory contains a file-based tracking system for managing code review feedback, technical debt, feature requests, and work items. Each todo is a markdown file with YAML frontmatter and structured sections.
 
 This skill should be used when:
 - Creating new todos from findings or feedback
@@ -72,8 +72,8 @@ dependencies: ["001"]     # Issue IDs this is blocked by
 
 **To create a new todo from findings or feedback:**
 
-1. Determine next issue ID: `ls .claude/todos/ | grep -o '^[0-9]\+' | sort -n | tail -1`
-2. Copy template: `cp assets/todo-template.md .claude/todos/{NEXT_ID}-pending-{priority}-{description}.md`
+1. Determine next issue ID: `ls todos/ | grep -o '^[0-9]\+' | sort -n | tail -1`
+2. Copy template: `cp assets/todo-template.md todos/{NEXT_ID}-pending-{priority}-{description}.md`
 3. Edit and fill required sections:
    - Problem Statement
    - Findings (if from investigation)
@@ -102,7 +102,7 @@ dependencies: ["001"]     # Issue IDs this is blocked by
 
 **To triage pending todos:**
 
-1. List pending items: `ls .claude/todos/*-pending-*.md`
+1. List pending items: `ls todos/*-pending-*.md`
 2. For each todo:
    - Read Problem Statement and Findings
    - Review Proposed Solutions
@@ -127,18 +127,18 @@ dependencies: []               # No blockers - can work immediately
 
 **To check what blocks a todo:**
 ```bash
-grep "^dependencies:" .claude/todos/003-*.md
+grep "^dependencies:" todos/003-*.md
 ```
 
 **To find what a todo blocks:**
 ```bash
-grep -l 'dependencies:.*"002"' .claude/todos/*.md
+grep -l 'dependencies:.*"002"' todos/*.md
 ```
 
 **To verify blockers are complete before starting:**
 ```bash
 for dep in 001 002 003; do
-  [ -f ".claude/todos/${dep}-complete-*.md" ] || echo "Issue $dep not complete"
+  [ -f "todos/${dep}-complete-*.md" ] || echo "Issue $dep not complete"
 done
 ```
 
@@ -177,7 +177,7 @@ Work logs serve as:
 2. Update Work Log with final session and results
 3. Rename file: `mv {file}-ready-{pri}-{desc}.md {file}-complete-{pri}-{desc}.md`
 4. Update frontmatter: `status: ready` → `status: complete`
-5. Check for unblocked work: `grep -l 'dependencies:.*"002"' .claude/todos/*-ready-*.md`
+5. Check for unblocked work: `grep -l 'dependencies:.*"002"' todos/*-ready-*.md`
 6. Commit with issue reference: `feat: resolve issue 002`
 
 ## Integration with Development Workflows
@@ -195,45 +195,45 @@ Work logs serve as:
 **Finding work:**
 ```bash
 # List highest priority unblocked work
-grep -l 'dependencies: \[\]' .claude/todos/*-ready-p1-*.md
+grep -l 'dependencies: \[\]' todos/*-ready-p1-*.md
 
 # List all pending items needing triage
-ls .claude/todos/*-pending-*.md
+ls todos/*-pending-*.md
 
 # Find next issue ID
-ls .claude/todos/ | grep -o '^[0-9]\+' | sort -n | tail -1 | awk '{printf "%03d", $1+1}'
+ls todos/ | grep -o '^[0-9]\+' | sort -n | tail -1 | awk '{printf "%03d", $1+1}'
 
 # Count by status
 for status in pending ready complete; do
-  echo "$status: $(ls -1 .claude/todos/*-$status-*.md 2>/dev/null | wc -l)"
+  echo "$status: $(ls -1 todos/*-$status-*.md 2>/dev/null | wc -l)"
 done
 ```
 
 **Dependency management:**
 ```bash
 # What blocks this todo?
-grep "^dependencies:" .claude/todos/003-*.md
+grep "^dependencies:" todos/003-*.md
 
 # What does this todo block?
-grep -l 'dependencies:.*"002"' .claude/todos/*.md
+grep -l 'dependencies:.*"002"' todos/*.md
 ```
 
 **Searching:**
 ```bash
 # Search by tag
-grep -l "tags:.*rails" .claude/todos/*.md
+grep -l "tags:.*rails" todos/*.md
 
 # Search by priority
-ls .claude/todos/*-p1-*.md
+ls todos/*-p1-*.md
 
 # Full-text search
-grep -r "payment" .claude/todos/
+grep -r "payment" todos/
 ```
 
 ## Key Distinctions
 
 **File-todos system (this skill):**
-- Markdown files in `.claude/todos/` directory
+- Markdown files in `todos/` directory
 - Development/project tracking
 - Standalone markdown files with YAML frontmatter
 - Used by humans and agents

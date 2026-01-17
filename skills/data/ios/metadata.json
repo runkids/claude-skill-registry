@@ -1,7 +1,7 @@
 {
   "name": "ios",
-  "repo": "rshankras/claude-code-apple-skills",
-  "path": "skills/ios/SKILL.md",
-  "source": "github.com/rshankras/claude-code-apple-skills",
-  "downloaded_at": "2026-01-14T02:22:08.851921Z"
+  "repo": "raintree-technology/claude-starter",
+  "path": "templates/.claude/skills/ios/skill.md",
+  "source": "github.com/raintree-technology/claude-starter",
+  "downloaded_at": "2026-01-17T02:20:53.235918Z"
 }

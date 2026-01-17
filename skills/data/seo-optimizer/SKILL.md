@@ -1,252 +1,200 @@
 ---
 name: seo-optimizer
-description: Analyze and optimize web pages for SEO including meta tags, structured data, and performance. Use when improving website SEO or analyzing search optimization.
+description: SEO optimization with keyword analysis, readability assessment, technical validation, content quality. Use for search rankings, blog posts, content audits, or encountering keyword density, readability scores, meta tags, schema markup errors.
 ---
 
-# SEO Optimizer Skill
+# SEO Optimizer
 
-SEO最適化の提案を行うスキルです。
+## Overview
 
-## 概要
+Perform comprehensive SEO analysis and optimization covering keyword placement, readability metrics, technical elements, and content quality to improve search engine rankings and user experience.
 
-Webページのメタデータ、構造化データ、コンテンツをSEOの観点から分析・最適化します。
+## When to Use
 
-## 主な機能
+- Optimizing blog posts or articles for search rankings
+- Conducting content audits
+- Improving existing content performance
+- Planning new content with SEO in mind
+- Analyzing competitor content strategies
+- Preparing content for publication
 
-- **メタタグ最適化**: title、description、OGタグ
-- **構造化データ**: JSON-LD、Schema.org
-- **セマンティックHTML**: 適切なタグ使用
-- **パフォーマンス**: Core Web Vitals
-- **モバイル対応**: レスポンシブデザイン
-- **内部リンク**: サイト構造の最適化
-- **画像最適化**: alt、サイズ、形式
+## Core Analysis Areas
 
-## 使用方法
+### 1. Target Keywords Analysis
 
-```
-以下のHTMLをSEO最適化：
-[HTML]
+- Identify primary and secondary keywords
+- Check placement in title, H1, first 100 words, subheadings
+- Calculate keyword density (target: 1-2%)
+- Identify LSI keywords and semantic variations
+- Flag keyword stuffing issues
 
-チェック項目:
-- メタタグ
-- 構造化データ
-- セマンティックHTML
-```
+### 2. Content Structure
 
-## 最適化例
+- Verify heading hierarchy (H1 → H2 → H3)
+- Check keyword usage in headings
+- Evaluate paragraph length (target: <150 words)
+- Assess overall scannability
+- Review content organization
 
-### メタタグ
+### 3. Readability Metrics
 
-**最適化前**:
-```html
-<head>
-  <title>Home</title>
-</head>
-```
-
-**最適化後**:
-```html
-<head>
-  <!-- 基本メタタグ -->
-  <title>高品質なWebサービス | 会社名 - 信頼できるソリューション</title>
-  <meta name="description" content="会社名では、高品質なWebサービスを提供しています。信頼性と使いやすさを兼ね備えた、お客様のビジネスを加速するソリューションです。">
-  <meta name="keywords" content="Webサービス, クラウド, SaaS, ビジネスツール">
-
-  <!-- Open Graph (Facebook, LinkedIn) -->
-  <meta property="og:title" content="高品質なWebサービス | 会社名">
-  <meta property="og:description" content="会社名では、高品質なWebサービスを提供しています。">
-  <meta property="og:image" content="https://example.com/og-image.jpg">
-  <meta property="og:url" content="https://example.com">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="会社名">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="高品質なWebサービス | 会社名">
-  <meta name="twitter:description" content="会社名では、高品質なWebサービスを提供しています。">
-  <meta name="twitter:image" content="https://example.com/twitter-image.jpg">
-  <meta name="twitter:site" content="@company">
-
-  <!-- その他 -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://example.com">
-</head>
+```javascript
+// Readability scoring example
+const readabilityMetrics = {
+  fleschScore: 65,           // Target: 60-70
+  gradeLevel: 8,             // Target: 7-9
+  avgSentenceLength: 18,     // Target: <20 words
+  passiveVoice: 5,           // Target: <10%
+  transitionWords: 30        // Target: >30%
+};
 ```
 
-### 構造化データ
+**Key Metrics:**
+- Flesch Reading Ease score (60-70 ideal)
+- Grade level estimation
+- Average sentence length (<20 words)
+- Passive voice percentage (minimize)
+- Transition word usage
 
-**記事ページ**:
-```html
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "初心者のためのSEO完全ガイド",
-  "description": "SEOの基礎から実践まで、初心者でもわかりやすく解説します。",
-  "image": "https://example.com/article-image.jpg",
-  "author": {
-    "@type": "Person",
-    "name": "山田太郎"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "会社名",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://example.com/logo.png"
-    }
-  },
-  "datePublished": "2024-06-15",
-  "dateModified": "2024-06-20"
-}
-</script>
+### 4. Technical SEO Elements
+
+| Element | Recommendation |
+|---------|----------------|
+| Meta Title | 50-60 characters with primary keyword |
+| Meta Description | 150-160 characters, compelling with keyword |
+| URL Slug | Short, keyword-rich, hyphen-separated |
+| Image Alt Text | Descriptive with natural keyword usage |
+| Internal Links | Link to related content with keyword anchors |
+| External Links | Quality outbound links to authoritative sources |
+
+### 5. Content Quality Assessment
+
+- Word count adequacy (1500+ for competitive topics)
+- Content depth and topic coverage
+- Unique value proposition
+- E-A-T signals (Expertise, Authority, Trustworthiness)
+- Content freshness (current examples, recent data)
+- Clear answer to user intent
+
+### 6. Provide Actionable Recommendations
+
+Organize findings into prioritized action items based on impact and implementation effort.
+
+## Priority Levels
+
+### Critical (Fix Immediately) 🚨
+- Missing or poor meta description
+- No keyword in title or H1
+- Broken internal links
+- Keyword density too high (stuffing) or too low
+
+### High Priority ⚠️
+- Poor readability score
+- Weak heading structure
+- Missing alt text on images
+- Content too thin for topic
+
+### Medium Priority 📋
+- Could add related keywords
+- Featured snippet opportunities
+- Additional internal linking
+- Schema markup opportunities
+
+## Analysis Report Structure
+
+```markdown
+# SEO Analysis Report
+
+## Overall Score: X/100
+
+### Quick Wins 🚀
+1. [Specific action with exact change]
+2. [Specific action with exact change]
+
+## Keyword Analysis
+- Primary keyword density
+- Placement verification
+- LSI keyword coverage
+
+## Readability Metrics
+- Flesch Reading Ease: XX/100
+- Grade Level: X
+- Sentence length assessment
+
+## Technical SEO
+- Meta tags analysis
+- URL optimization
+- Image optimization
+
+## Content Gaps
+- Missing subtopics
+- Coverage recommendations
+- Topic expansion opportunities
+
+## Competitor Insights
+- Top ranking pages analysis
+- Word count comparison
+- Unique angles they cover
+- Our competitive advantage
+
+## Implementation Checklist
+- [ ] Action item 1
+- [ ] Action item 2
+
+## Estimated Impact
+- **Time to Implement**: X hours
+- **Expected Improvement**: [Moderate/Significant] ranking boost
+- **Priority**: [High/Medium/Low]
+- **Timeframe**: [Weeks until results]
 ```
 
-**商品ページ**:
-```html
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Product",
-  "name": "高性能ノートPC",
-  "image": "https://example.com/laptop.jpg",
-  "description": "最新のプロセッサを搭載した高性能ノートパソコン",
-  "brand": {
-    "@type": "Brand",
-    "name": "ブランド名"
-  },
-  "offers": {
-    "@type": "Offer",
-    "url": "https://example.com/product/laptop",
-    "priceCurrency": "JPY",
-    "price": "128000",
-    "availability": "https://schema.org/InStock"
-  },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.5",
-    "reviewCount": "24"
-  }
-}
-</script>
-```
+## Best Practices
 
-### セマンティックHTML
+- **User experience first**: Prioritize readability and value over keyword density
+- **Write for humans**: Optimize for search engines second
+- **Be specific**: Provide exact changes, not vague suggestions
+- **Consider intent**: Match content to search intent (informational, commercial, transactional)
+- **E-A-T signals**: Include author credentials, sources, and expertise indicators
+- **Featured snippets**: Format content for definition boxes, lists, tables
+- **Schema markup**: Suggest structured data (FAQ, How-To, Review) where relevant
 
-**最適化前**:
-```html
-<div class="header">
-  <div class="nav">...</div>
-</div>
-<div class="main">
-  <div class="article">...</div>
-</div>
-```
+## Example Analysis Flow
 
-**最適化後**:
-```html
-<header>
-  <nav aria-label="メインナビゲーション">...</nav>
-</header>
-<main>
-  <article>
-    <h1>記事タイトル</h1>
-    <p>...</p>
-  </article>
-</main>
-<footer>...</footer>
-```
+1. **Identify keywords** → Extract from user input or content
+2. **Check placement** → Verify in title, H1, first 100 words
+3. **Calculate density** → Ensure 1-2% keyword density
+4. **Assess readability** → Calculate Flesch score and sentence length
+5. **Review structure** → Check heading hierarchy and paragraph length
+6. **Analyze technical** → Validate meta tags, URLs, alt text
+7. **Find gaps** → Identify missing topics and internal links
+8. **Prioritize fixes** → Sort by impact (critical > high > medium)
+9. **Generate checklist** → Create actionable implementation steps
 
-### 見出し構造
+## Output Guidelines
 
-**最適化前**:
-```html
-<h1>サイト名</h1>
-<h3>セクション1</h3>
-<h2>セクション2</h2>
-```
+- Provide **specific recommendations** with exact text changes
+- Show **before/after examples** for clarity
+- Include **keyword variations** naturally in suggestions
+- Estimate **time to implement** and **expected impact**
+- Format for **easy scanning** with headings and lists
+- Add **context** explaining why changes matter
 
-**最適化後**:
-```html
-<h1>ページタイトル（1ページに1つ）</h1>
-<h2>主要セクション1</h2>
-  <h3>サブセクション1-1</h3>
-  <h3>サブセクション1-2</h3>
-<h2>主要セクション2</h2>
-  <h3>サブセクション2-1</h3>
-```
+## Additional Resources
 
-### 画像最適化
+See [references/analysis-framework.md](references/analysis-framework.md) for:
+- Detailed analysis instructions for each area
+- Technical specifications and formulas
+- Competitor analysis guidelines
+- E-A-T evaluation criteria
 
-**最適化前**:
-```html
-<img src="photo.jpg">
-```
+See [references/output-templates.md](references/output-templates.md) for:
+- Complete SEO report template
+- Implementation checklist format
+- Example workflow with sample content
+- Featured snippet optimization templates
 
-**最適化後**:
-```html
-<img
-  src="photo-800w.webp"
-  srcset="photo-400w.webp 400w,
-          photo-800w.webp 800w,
-          photo-1200w.webp 1200w"
-  sizes="(max-width: 600px) 400px,
-         (max-width: 900px) 800px,
-         1200px"
-  alt="東京タワーの夜景写真"
-  width="800"
-  height="600"
-  loading="lazy">
-```
+## Core Philosophy
 
-## チェックリスト
+> "SEO is about creating valuable, well-optimized content that serves user intent better than competitors."
 
-### On-Page SEO
-
-- [ ] 適切なタイトルタグ（50-60文字）
-- [ ] メタディスクリプション（150-160文字）
-- [ ] H1タグ（1ページに1つ）
-- [ ] 見出し階層（H1 → H2 → H3）
-- [ ] 画像のalt属性
-- [ ] 内部リンク
-- [ ] Canonical URL
-- [ ] モバイルフレンドリー
-- [ ] ページ速度
-- [ ] HTTPS
-
-### 構造化データ
-
-- [ ] JSON-LD形式
-- [ ] 適切なスキーマタイプ
-- [ ] 必須プロパティ
-- [ ] バリデーション通過
-
-### コンテンツ
-
-- [ ] ユニークで価値あるコンテンツ
-- [ ] 適切なキーワード密度
-- [ ] 読みやすい文章
-- [ ] 内部リンク
-- [ ] 外部リンク（信頼できるソース）
-
-## バージョン情報
-
-- スキルバージョン: 1.0.0
-- 最終更新: 2025-01-22
-
----
-
-**使用例**:
-
-```
-このページをSEO最適化：
-[HTML]
-
-改善項目:
-- メタタグ
-- 構造化データ
-- 画像最適化
-```
-
-SEO最適化されたHTMLが生成されます！
+Focus on genuine value creation, not manipulation tactics. Quality content that helps users naturally attracts engagement signals that improve rankings.

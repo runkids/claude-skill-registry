@@ -1,37 +1,76 @@
 ---
 name: git-commit-helper
-description: 分析 Git diff 并生成符合规范的提交信息
-allowed-tools:
-  - Bash
+description: Generate well-structured git commit messages following conventional commits format. Use when committing changes, creating commit messages, or when commit history needs improvement. Ensures commits are clear, descriptive, and follow project conventions.
 ---
 
-# Git 提交助手
+# Git Commit Helper Skill
 
-帮助生成规范的 Git 提交信息。
+## Instructions
 
-## 工作流程
+1. Analyze the staged changes or diff to understand what was modified
+2. Determine the type of change:
+   - `feat`: New feature
+   - `fix`: Bug fix
+   - `docs`: Documentation changes
+   - `style`: Code style changes (formatting, no logic change)
+   - `refactor`: Code refactoring
+   - `perf`: Performance improvements
+   - `test`: Adding or updating tests
+   - `chore`: Maintenance tasks, build config, etc.
+   - `ci`: CI/CD changes
+   - `build`: Build system changes
+3. Write a clear, concise subject line (50 chars or less)
+4. Add a blank line, then detailed body if needed (wrap at 72 chars)
+5. Reference issues/PRs when applicable
+6. Use imperative mood: "Add feature" not "Added feature" or "Adds feature"
+7. Follow conventional commits format: `type(scope): subject`
 
-1. **检查 Git 仓库**
-   - 确认当前目录是 Git 仓库
-   - 检查是否有未提交的更改
+## Examples
 
-2. **分析变更**
-   - 运行 `git diff` 查看修改
-   - 识别变更的类型和范围
+**Input:** "I added a new login button and fixed the validation bug"
+**Output:**
+```
+feat(auth): add login button to header
 
-3. **生成提交信息**
-   - 遵循提交信息规范
-   - 包含类型、范围和描述
+- Add new login button component to navigation header
+- Implement click handler to open login modal
+- Add styling to match design system
 
-4. **确认并提交**
-   - 展示生成的提交信息
-   - 询问是否确认
-   - 如果确认，执行提交
+fix(validation): resolve email validation error
 
-## 提交信息规范
+- Fix regex pattern for email validation
+- Add test cases for edge cases
+- Update error message to be more user-friendly
 
-生成的提交信息遵循以下格式：
+Closes #123
+```
 
+**Input:** "Updated the README and fixed some typos"
+**Output:**
+```
+docs: update README with installation instructions
+
+- Add detailed installation steps for different platforms
+- Include troubleshooting section
+- Fix typos in existing documentation
+```
+
+**Input:** "Refactored the payment processing code"
+**Output:**
+```
+refactor(payments): improve payment processing logic
+
+- Extract payment validation into separate function
+- Simplify retry logic for failed transactions
+- Improve error handling and logging
+- Add unit tests for payment flow
+
+BREAKING CHANGE: PaymentProcessor constructor now requires config object
+```
+
+## Format Guidelines
+
+**Conventional Commits Format:**
 ```
 <type>(<scope>): <subject>
 
@@ -40,76 +79,18 @@ allowed-tools:
 <footer>
 ```
 
-### Type（类型）
+**Types:**
+- `feat`: New feature for users
+- `fix`: Bug fix for users
+- `docs`: Documentation only
+- `style`: Formatting, missing semicolons, etc.
+- `refactor`: Code change that neither fixes bug nor adds feature
+- `perf`: Performance improvement
+- `test`: Adding missing tests
+- `chore`: Changes to build process or auxiliary tools
 
-- `feat`: 新功能
-- `fix`: 修复 bug
-- `docs`: 文档变更
-- `style`: 代码格式（不影响功能）
-- `refactor`: 重构（既不是新功能也不是修复）
-- `perf`: 性能优化
-- `test`: 添加测试
-- `chore`: 构建或辅助工具的变更
-
-### Scope（范围）
-
-变更影响的模块或组件，例如：
-
-- `api`: API 相关
-- `ui`: 用户界面
-- `auth`: 认证相关
-- `config`: 配置文件
-
-### Subject（描述）
-
-- 使用现在时态（"add" 而不是 "added"）
-- 首字母小写
-- 不要以句号结尾
-
-## 输出格式
-
-生成的提交信息应该：
-
-```markdown
-# 建议的提交信息
-
-```
-
-feat(api): add user authentication endpoint
-
-- Add POST /api/auth/login endpoint
-- Implement JWT token generation
-- Add input validation for credentials
-
-Closes #123
-
-```
-
-## 分析结果
-
-**变更文件**：
-- [文件列表]
-
-**变更类型**：feat/fix/docs/etc
-**影响范围**：api/ui/etc
-**变更摘要**：[简短描述]
-
----
-
-是否确认使用这个提交信息？或者你想修改它？
-```
-
-## 使用示例
-
-查看 [examples.md](examples.md) 了解更多使用示例。
-
-## 注意事项
-
-- 如果没有未提交的更改，提示用户
-- 如果是首次提交，特殊处理
-- 提供修改提交信息的机会
-- 执行前再次确认
-
----
-
-开始分析当前的 Git 变更吧！
+**Best Practices:**
+- Subject line: imperative, lowercase, no period
+- Body: explain what and why, not how
+- Footer: reference issues, breaking changes
+- Use present tense: "Fix bug" not "Fixed bug"

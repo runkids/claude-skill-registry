@@ -1,313 +1,279 @@
 ---
 name: solidjs
-description: SolidJS reactive UI framework development. Use when building interactive frontends, creating reactive components, managing state with signals/stores, handling async data fetching, or implementing fine-grained reactivity. Covers best practices, DRY/SOLID principles, control flow components, and production patterns.
-metadata:
-  version: "1.0.0"
+description: Builds UIs with SolidJS including signals, effects, memos, and fine-grained reactivity. Use when creating high-performance reactive applications, building without virtual DOM, or needing granular updates.
 ---
 
-# SolidJS Development Skill
+# SolidJS
 
-A comprehensive guide to building reactive user interfaces with SolidJS, following DRY and SOLID principles for maintainable, scalable code.
+A declarative JavaScript library for building UIs with fine-grained reactivity.
 
-## Overview
+## Quick Start
 
-SolidJS is a reactive JavaScript library for building user interfaces with:
-- **Fine-grained reactivity**: Only the specific DOM nodes affected by state changes update
-- **No Virtual DOM**: Compiles to real DOM operations
-- **~7KB bundle size**: Minimal overhead
-- **Familiar syntax**: JSX like React, but fundamentally different execution model
+**Create project:**
+```bash
+npx degit solidjs/templates/ts my-app
+cd my-app
+npm install
+npm run dev
+```
 
-**Key Mental Model**: Components run **ONCE** to set up the view. Only reactive primitives (signals, memos, effects) update.
+## Signals
 
----
+### Basic Signal
 
-## Quick Reference
+```tsx
+import { createSignal } from 'solid-js';
 
-| What You Need | Solution |
-|---------------|----------|
-| Local state | `createSignal()` |
-| Complex nested state | `createStore()` |
-| Derived/computed values | `createMemo()` |
-| Side effects | `createEffect()` |
-| Async data fetching | `createResource()` |
-| Conditional rendering | `<Show when={...}>` |
-| List rendering | `<For each={...}>` |
-| Multiple conditions | `<Switch>` / `<Match>` |
-| Error boundaries | `<ErrorBoundary>` |
-| Loading states | `<Suspense>` |
-
----
-
-## Core Reactive Primitives
-
-### 1. Signals - Reactive State (SRP: Single source of truth)
-
-Signals are the foundation of SolidJS reactivity. Each signal has one responsibility: hold and notify about a single piece of state.
-
-```typescript
-import { createSignal } from "solid-js";
-
-// GOOD: Signal with clear, single purpose
 function Counter() {
   const [count, setCount] = createSignal(0);
 
-  const increment = () => setCount((prev) => prev + 1);
-  const decrement = () => setCount((prev) => prev - 1);
+  return (
+    <button onClick={() => setCount(count() + 1)}>
+      Count: {count()}
+    </button>
+  );
+}
+```
+
+### Signal Patterns
+
+```tsx
+import { createSignal } from 'solid-js';
+
+function App() {
+  // Primitive signal
+  const [name, setName] = createSignal('');
+
+  // Object signal
+  const [user, setUser] = createSignal({ name: 'John', age: 30 });
+
+  // Update primitives
+  setName('Jane');
+
+  // Update objects (replace entire object)
+  setUser({ ...user(), age: 31 });
+
+  // Functional update
+  setCount(prev => prev + 1);
 
   return (
     <div>
-      <span>Count: {count()}</span>
-      <button onClick={increment}>+</button>
-      <button onClick={decrement}>-</button>
+      <p>Name: {name()}</p>
+      <p>User: {user().name}</p>
     </div>
   );
 }
 ```
 
-**CRITICAL**: Always call signals with `()` to read their value:
+## Effects
 
-```typescript
-// GOOD: Signal called with ()
-<span>{count()}</span>
+### createEffect
 
-// BAD: Passing the getter function itself (won't update)
-<span>{count}</span>
-```
-
-### 2. Effects - Side Effects (SRP: Handle one side effect)
-
-Effects automatically track dependencies and re-run when those dependencies change.
-
-```typescript
-import { createSignal, createEffect } from "solid-js";
+```tsx
+import { createSignal, createEffect } from 'solid-js';
 
 function Logger() {
   const [count, setCount] = createSignal(0);
 
-  // GOOD: Effect with single responsibility - logging
+  // Runs on initial render and when count changes
   createEffect(() => {
-    console.log("Count changed to:", count());
+    console.log('Count changed:', count());
   });
 
-  // GOOD: Separate effect for different side effect - document title
+  // With cleanup
   createEffect(() => {
-    document.title = `Count: ${count()}`;
+    const handler = () => console.log('clicked');
+    document.addEventListener('click', handler);
+
+    // Cleanup function
+    onCleanup(() => {
+      document.removeEventListener('click', handler);
+    });
   });
 
-  return <button onClick={() => setCount((c) => c + 1)}>Increment</button>;
+  return <button onClick={() => setCount(c => c + 1)}>Increment</button>;
 }
 ```
 
-**WARNING**: Effects are synchronous. Async operations inside effects don't track dependencies:
+### onMount and onCleanup
 
-```typescript
-// BAD: Async code loses reactivity
-createEffect(() => {
-  setTimeout(() => {
-    console.log(count()); // NOT tracked - won't re-run on count change
-  }, 1000);
-});
+```tsx
+import { onMount, onCleanup } from 'solid-js';
 
-// GOOD: Read signal synchronously, then do async work
-createEffect(() => {
-  const currentCount = count(); // Tracked!
-  setTimeout(() => {
-    console.log("Count was:", currentCount);
-  }, 1000);
-});
+function Timer() {
+  const [time, setTime] = createSignal(0);
+
+  onMount(() => {
+    const interval = setInterval(() => {
+      setTime(t => t + 1);
+    }, 1000);
+
+    onCleanup(() => clearInterval(interval));
+  });
+
+  return <p>Time: {time()}s</p>;
+}
 ```
 
-### 3. Memos - Derived Values (DRY: Compute once, use everywhere)
+## Memos (Derived State)
 
-Memos cache computed values and only recompute when dependencies change.
+```tsx
+import { createSignal, createMemo } from 'solid-js';
 
-```typescript
-import { createSignal, createMemo } from "solid-js";
+function App() {
+  const [count, setCount] = createSignal(0);
+  const [multiplier, setMultiplier] = createSignal(2);
 
-function Cart() {
-  const [items, setItems] = createSignal([
-    { name: "Apple", price: 1.5, quantity: 3 },
-    { name: "Banana", price: 0.5, quantity: 6 },
-  ]);
+  // Computed value - only recalculates when dependencies change
+  const doubled = createMemo(() => count() * multiplier());
 
-  // GOOD: Derived value computed once, cached
-  const total = createMemo(() =>
-    items().reduce((sum, item) => sum + item.price * item.quantity, 0)
-  );
-
-  const itemCount = createMemo(() =>
-    items().reduce((sum, item) => sum + item.quantity, 0)
-  );
+  // Expensive computation
+  const filtered = createMemo(() => {
+    console.log('Computing filtered list...');
+    return items().filter(item => item.active);
+  });
 
   return (
     <div>
-      <p>Items: {itemCount()}</p>
-      <p>Total: ${total().toFixed(2)}</p>
+      <p>Count: {count()}</p>
+      <p>Doubled: {doubled()}</p>
     </div>
   );
 }
 ```
 
-### 4. Stores - Complex State (OCP: Extend without modifying)
+## Components
 
-Stores handle nested reactive state. Only accessed properties are tracked.
+### Basic Component
 
-```typescript
-import { createStore, produce } from "solid-js/store";
+```tsx
+import { Component } from 'solid-js';
 
-interface Task {
-  id: number;
-  text: string;
-  completed: boolean;
+interface Props {
+  name: string;
+  age?: number;
 }
 
-interface AppState {
-  tasks: Task[];
-  filter: "all" | "active" | "completed";
+const Greeting: Component<Props> = (props) => {
+  return (
+    <div>
+      <h1>Hello, {props.name}!</h1>
+      {props.age && <p>Age: {props.age}</p>}
+    </div>
+  );
+};
+
+// Usage
+<Greeting name="John" age={30} />
+```
+
+### Props with Defaults
+
+```tsx
+import { mergeProps } from 'solid-js';
+
+interface Props {
+  count?: number;
+  label?: string;
 }
 
-function TaskApp() {
-  const [state, setState] = createStore<AppState>({
-    tasks: [],
-    filter: "all",
-  });
-
-  // GOOD: Add new task (extending state)
-  const addTask = (text: string) => {
-    setState("tasks", (tasks) => [
-      ...tasks,
-      { id: Date.now(), text, completed: false },
-    ]);
-  };
-
-  // GOOD: Update specific task using path syntax
-  const toggleTask = (id: number) => {
-    setState(
-      "tasks",
-      (task) => task.id === id,
-      "completed",
-      (completed) => !completed
-    );
-  };
-
-  // GOOD: Use produce for complex mutations
-  const updateTask = (id: number, updates: Partial<Task>) => {
-    setState(
-      "tasks",
-      (task) => task.id === id,
-      produce((task) => {
-        Object.assign(task, updates);
-      })
-    );
-  };
+function Counter(props: Props) {
+  const merged = mergeProps({ count: 0, label: 'Count' }, props);
 
   return (
-    <ul>
-      <For each={state.tasks}>
-        {(task) => (
-          <li onClick={() => toggleTask(task.id)}>
-            {task.text} - {task.completed ? "Done" : "Pending"}
-          </li>
-        )}
-      </For>
-    </ul>
+    <p>{merged.label}: {merged.count}</p>
   );
 }
 ```
 
-**Store path syntax patterns:**
+### Splitting Props
 
-```typescript
-// Update single property
-setState("propertyName", newValue);
+```tsx
+import { splitProps } from 'solid-js';
 
-// Update nested property
-setState("user", "profile", "name", "New Name");
+interface Props {
+  name: string;
+  class?: string;
+  style?: string;
+}
 
-// Update array item by index
-setState("items", 0, "value", newValue);
+function Button(props: Props) {
+  const [local, others] = splitProps(props, ['name']);
 
-// Update array item by predicate
-setState("items", (item) => item.id === targetId, "value", newValue);
-
-// Append to array
-setState("items", (items) => [...items, newItem]);
+  return (
+    <button {...others}>
+      {local.name}
+    </button>
+  );
+}
 ```
 
----
+## Children
 
-## Control Flow Components
+```tsx
+import { ParentComponent, children } from 'solid-js';
 
-SolidJS uses components for control flow instead of JS expressions. This enables fine-grained updates.
+const Card: ParentComponent<{ title: string }> = (props) => {
+  return (
+    <div class="card">
+      <h2>{props.title}</h2>
+      <div class="content">
+        {props.children}
+      </div>
+    </div>
+  );
+};
 
-### Show - Conditional Rendering
+// With resolved children
+const List: ParentComponent = (props) => {
+  const resolved = children(() => props.children);
 
-```typescript
-import { Show, createSignal } from "solid-js";
+  createEffect(() => {
+    console.log('Children:', resolved());
+  });
 
-function UserProfile() {
-  const [user, setUser] = createSignal<User | null>(null);
-  const [loading, setLoading] = createSignal(true);
+  return <ul>{resolved()}</ul>;
+};
+```
+
+## Control Flow
+
+### Show
+
+```tsx
+import { Show } from 'solid-js';
+
+function App() {
+  const [loggedIn, setLoggedIn] = createSignal(false);
 
   return (
     <Show
-      when={!loading()}
-      fallback={<div>Loading...</div>}
+      when={loggedIn()}
+      fallback={<button onClick={() => setLoggedIn(true)}>Log in</button>}
     >
-      <Show
-        when={user()}
-        fallback={<div>No user found</div>}
-      >
-        {/* Access user safely with callback */}
-        {(userData) => (
-          <div>
-            <h1>{userData().name}</h1>
-            <p>{userData().email}</p>
-          </div>
-        )}
-      </Show>
+      <button onClick={() => setLoggedIn(false)}>Log out</button>
     </Show>
   );
 }
 ```
 
-**Keyed Show** - Force re-render when reference changes:
+### For
 
-```typescript
-// Re-renders entire child when user reference changes
-<Show when={user()} keyed>
-  <UserCard user={user()} />
-</Show>
-```
+```tsx
+import { For } from 'solid-js';
 
-### For - List Rendering
-
-```typescript
-import { For, createSignal } from "solid-js";
-
-interface Item {
-  id: number;
-  name: string;
-}
-
-function ItemList() {
-  const [items, setItems] = createSignal<Item[]>([
-    { id: 1, name: "Apple" },
-    { id: 2, name: "Banana" },
-    { id: 3, name: "Cherry" },
+function TodoList() {
+  const [todos, setTodos] = createSignal([
+    { id: 1, text: 'Learn Solid' },
+    { id: 2, text: 'Build app' },
   ]);
-
-  const removeItem = (id: number) => {
-    setItems((prev) => prev.filter((item) => item.id !== id));
-  };
 
   return (
     <ul>
-      <For each={items()}>
-        {(item, index) => (
+      <For each={todos()}>
+        {(todo, index) => (
           <li>
-            {index() + 1}. {item.name}
-            <button onClick={() => removeItem(item.id)}>Remove</button>
+            {index() + 1}. {todo.text}
           </li>
         )}
       </For>
@@ -316,643 +282,264 @@ function ItemList() {
 }
 ```
 
-**CRITICAL**: `For` provides `index` as a signal (call with `()`), but `item` is the raw value.
+### Index
 
-### Switch/Match - Multiple Conditions
+```tsx
+import { Index } from 'solid-js';
 
-```typescript
-import { Switch, Match, createSignal } from "solid-js";
+// For non-keyed lists where items may change but indices stay stable
+function Grid() {
+  const [cells, setCells] = createSignal(['A', 'B', 'C']);
 
-type Status = "idle" | "loading" | "success" | "error";
+  return (
+    <div>
+      <Index each={cells()}>
+        {(cell, index) => (
+          <div>{index}: {cell()}</div>
+        )}
+      </Index>
+    </div>
+  );
+}
+```
 
-function StatusDisplay() {
-  const [status, setStatus] = createSignal<Status>("idle");
-  const [data, setData] = createSignal<string | null>(null);
-  const [error, setError] = createSignal<Error | null>(null);
+### Switch/Match
+
+```tsx
+import { Switch, Match } from 'solid-js';
+
+function StatusMessage() {
+  const [status, setStatus] = createSignal('loading');
 
   return (
     <Switch fallback={<p>Unknown status</p>}>
-      <Match when={status() === "idle"}>
-        <p>Ready to load</p>
-      </Match>
-      <Match when={status() === "loading"}>
+      <Match when={status() === 'loading'}>
         <p>Loading...</p>
       </Match>
-      <Match when={status() === "error"}>
-        <p>Error: {error()?.message}</p>
+      <Match when={status() === 'success'}>
+        <p>Success!</p>
       </Match>
-      <Match when={status() === "success"}>
-        <p>Data: {data()}</p>
+      <Match when={status() === 'error'}>
+        <p>Error occurred</p>
       </Match>
     </Switch>
   );
 }
 ```
 
-### Dynamic - Runtime Component Selection
+### Dynamic
 
-```typescript
-import { Dynamic } from "solid-js/web";
-import { createSignal, For } from "solid-js";
+```tsx
+import { Dynamic } from 'solid-js/web';
 
-const RedDiv = () => <div style={{ color: "red" }}>Red</div>;
-const GreenDiv = () => <div style={{ color: "green" }}>Green</div>;
-const BlueDiv = () => <div style={{ color: "blue" }}>Blue</div>;
-
-const components = {
-  red: RedDiv,
-  green: GreenDiv,
-  blue: BlueDiv,
-};
-
-function ColorPicker() {
-  const [selected, setSelected] = createSignal<keyof typeof components>("red");
+function App() {
+  const [component, setComponent] = createSignal('div');
 
   return (
-    <>
-      <select
-        value={selected()}
-        onInput={(e) => setSelected(e.currentTarget.value as keyof typeof components)}
-      >
-        <For each={Object.keys(components)}>
-          {(color) => <option value={color}>{color}</option>}
-        </For>
-      </select>
-      <Dynamic component={components[selected()]} />
-    </>
+    <Dynamic component={component()} class="container">
+      Content
+    </Dynamic>
   );
 }
 ```
 
----
+## Stores (Complex State)
 
-## Data Fetching with createResource
+```tsx
+import { createStore, produce } from 'solid-js/store';
 
-`createResource` is SolidJS's primitive for async data fetching with automatic loading/error states.
-
-### Basic Usage
-
-```typescript
-import { createSignal, createResource, Show, Switch, Match } from "solid-js";
-
-interface User {
+interface Todo {
   id: number;
-  name: string;
-  email: string;
+  text: string;
+  completed: boolean;
 }
 
-const fetchUser = async (id: number): Promise<User> => {
-  const response = await fetch(`https://api.example.com/users/${id}`);
-  if (!response.ok) throw new Error("Failed to fetch user");
-  return response.json();
+function TodoApp() {
+  const [todos, setTodos] = createStore<Todo[]>([]);
+
+  const addTodo = (text: string) => {
+    setTodos(todos.length, {
+      id: Date.now(),
+      text,
+      completed: false,
+    });
+  };
+
+  const toggleTodo = (id: number) => {
+    setTodos(
+      todo => todo.id === id,
+      'completed',
+      completed => !completed
+    );
+  };
+
+  // Using produce for complex updates
+  const removeTodo = (id: number) => {
+    setTodos(produce(todos => {
+      const index = todos.findIndex(t => t.id === id);
+      if (index !== -1) todos.splice(index, 1);
+    }));
+  };
+
+  return (
+    <For each={todos}>
+      {todo => (
+        <div>
+          <span style={{ 'text-decoration': todo.completed ? 'line-through' : 'none' }}>
+            {todo.text}
+          </span>
+          <button onClick={() => toggleTodo(todo.id)}>Toggle</button>
+        </div>
+      )}
+    </For>
+  );
+}
+```
+
+## Context
+
+```tsx
+import { createContext, useContext, ParentComponent } from 'solid-js';
+
+interface ThemeContext {
+  theme: () => string;
+  setTheme: (theme: string) => void;
+}
+
+const ThemeContext = createContext<ThemeContext>();
+
+const ThemeProvider: ParentComponent = (props) => {
+  const [theme, setTheme] = createSignal('light');
+
+  return (
+    <ThemeContext.Provider value={{ theme, setTheme }}>
+      {props.children}
+    </ThemeContext.Provider>
+  );
 };
+
+function useTheme() {
+  const context = useContext(ThemeContext);
+  if (!context) {
+    throw new Error('useTheme must be used within ThemeProvider');
+  }
+  return context;
+}
+
+function ThemedButton() {
+  const { theme, setTheme } = useTheme();
+
+  return (
+    <button onClick={() => setTheme(theme() === 'light' ? 'dark' : 'light')}>
+      Theme: {theme()}
+    </button>
+  );
+}
+```
+
+## Resources (Async Data)
+
+```tsx
+import { createResource, Suspense, ErrorBoundary } from 'solid-js';
+
+async function fetchUser(id: string) {
+  const res = await fetch(`/api/users/${id}`);
+  return res.json();
+}
 
 function UserProfile() {
-  const [userId, setUserId] = createSignal(1);
-  const [user] = createResource(userId, fetchUser);
+  const [userId, setUserId] = createSignal('1');
+  const [user, { refetch, mutate }] = createResource(userId, fetchUser);
 
   return (
-    <div>
-      <input
-        type="number"
-        value={userId()}
-        onInput={(e) => setUserId(parseInt(e.currentTarget.value))}
-      />
-
-      <Show when={user.loading}>
-        <p>Loading...</p>
-      </Show>
-
-      <Switch>
-        <Match when={user.error}>
-          <p>Error: {(user.error as Error).message}</p>
-        </Match>
-        <Match when={user()}>
+    <ErrorBoundary fallback={<p>Error loading user</p>}>
+      <Suspense fallback={<p>Loading...</p>}>
+        <Show when={user()}>
           <div>
-            <h2>{user()!.name}</h2>
-            <p>{user()!.email}</p>
+            <h1>{user().name}</h1>
+            <button onClick={refetch}>Refresh</button>
           </div>
-        </Match>
-      </Switch>
-    </div>
-  );
-}
-```
-
-### With Suspense and ErrorBoundary (Recommended Pattern)
-
-```typescript
-import { createResource, Suspense, ErrorBoundary, For } from "solid-js";
-
-interface Post {
-  id: number;
-  title: string;
-  body: string;
-}
-
-const fetchPosts = async (): Promise<Post[]> => {
-  const response = await fetch("https://api.example.com/posts");
-  if (!response.ok) throw new Error("Failed to fetch posts");
-  return response.json();
-};
-
-function PostList() {
-  const [posts] = createResource(fetchPosts);
-
-  return (
-    <ErrorBoundary fallback={(err) => <div>Error: {err.message}</div>}>
-      <Suspense fallback={<div>Loading posts...</div>}>
-        <ul>
-          <For each={posts()}>
-            {(post) => (
-              <li>
-                <h3>{post.title}</h3>
-                <p>{post.body}</p>
-              </li>
-            )}
-          </For>
-        </ul>
+        </Show>
       </Suspense>
     </ErrorBoundary>
   );
 }
 ```
 
-### Resource Actions: Mutate and Refetch
+## Refs
 
-```typescript
-import { createResource, For, createSignal, onCleanup } from "solid-js";
+```tsx
+function TextInput() {
+  let inputRef: HTMLInputElement | undefined;
 
-interface Task {
-  id: number;
-  text: string;
-  completed: boolean;
+  onMount(() => {
+    inputRef?.focus();
+  });
+
+  return <input ref={inputRef} />;
 }
 
-const fetchTasks = async (): Promise<Task[]> => {
-  const response = await fetch("/api/tasks");
-  return response.json();
-};
+// Callback ref
+function CallbackRef() {
+  return (
+    <input ref={(el) => {
+      // Called when element is created
+      el.focus();
+    }} />
+  );
+}
+```
 
-function TaskList() {
-  const [tasks, { mutate, refetch }] = createResource(fetchTasks);
+## Directives
 
-  // Optimistic update
-  const toggleTask = async (id: number) => {
-    // Optimistically update UI
-    mutate((prev) =>
-      prev?.map((task) =>
-        task.id === id ? { ...task, completed: !task.completed } : task
-      )
-    );
-
-    // Then sync with server
-    try {
-      await fetch(`/api/tasks/${id}/toggle`, { method: "POST" });
-    } catch (error) {
-      // Revert on failure
-      refetch();
+```tsx
+// Define directive
+function clickOutside(el: Element, accessor: () => () => void) {
+  const onClick = (e: MouseEvent) => {
+    if (!el.contains(e.target as Node)) {
+      accessor()?.();
     }
   };
 
-  // Auto-refresh every 30 seconds
-  const timer = setInterval(() => refetch(), 30000);
-  onCleanup(() => clearInterval(timer));
-
-  return (
-    <ul>
-      <For each={tasks()}>
-        {(task) => (
-          <li
-            onClick={() => toggleTask(task.id)}
-            style={{ "text-decoration": task.completed ? "line-through" : "none" }}
-          >
-            {task.text}
-          </li>
-        )}
-      </For>
-    </ul>
-  );
-}
-```
-
----
-
-## Component Architecture (SOLID Principles)
-
-### Single Responsibility Principle (SRP)
-
-Each component should have one reason to change.
-
-```typescript
-// BAD: Component doing too many things
-function UserDashboard() {
-  const [user, setUser] = createSignal(null);
-  const [posts, setPosts] = createSignal([]);
-  const [notifications, setNotifications] = createSignal([]);
-
-  // Fetching logic, rendering logic, business logic all mixed
-  // ...
+  document.addEventListener('click', onClick);
+  onCleanup(() => document.removeEventListener('click', onClick));
 }
 
-// GOOD: Separated concerns
-function UserDashboard() {
+// Use directive
+function Dropdown() {
+  const [open, setOpen] = createSignal(false);
+
   return (
-    <div>
-      <UserHeader />
-      <UserPosts />
-      <NotificationList />
+    <div use:clickOutside={() => setOpen(false)}>
+      <button onClick={() => setOpen(true)}>Open</button>
+      <Show when={open()}>
+        <div>Dropdown content</div>
+      </Show>
     </div>
   );
 }
-
-function UserHeader() {
-  const [user] = createResource(fetchCurrentUser);
-  return <Show when={user()}>{(u) => <h1>Welcome, {u().name}</h1>}</Show>;
-}
-
-function UserPosts() {
-  const [posts] = createResource(fetchUserPosts);
-  return <For each={posts()}>{(post) => <PostCard post={post} />}</For>;
-}
-
-function NotificationList() {
-  const [notifications] = createResource(fetchNotifications);
-  return <For each={notifications()}>{(n) => <NotificationItem notification={n} />}</For>;
-}
 ```
 
-### Open/Closed Principle (OCP)
-
-Components should be open for extension but closed for modification.
-
-```typescript
-// GOOD: Extensible button component
-interface ButtonProps {
-  variant?: "primary" | "secondary" | "danger";
-  size?: "sm" | "md" | "lg";
-  onClick?: () => void;
-  disabled?: boolean;
-  children: JSX.Element;
-}
-
-function Button(props: ButtonProps) {
-  const classes = () => {
-    const base = "btn";
-    const variant = `btn-${props.variant ?? "primary"}`;
-    const size = `btn-${props.size ?? "md"}`;
-    return `${base} ${variant} ${size}`;
-  };
-
-  return (
-    <button
-      class={classes()}
-      onClick={props.onClick}
-      disabled={props.disabled}
-    >
-      {props.children}
-    </button>
-  );
-}
-
-// Extending without modifying original
-function IconButton(props: ButtonProps & { icon: string }) {
-  return (
-    <Button {...props}>
-      <span class={`icon-${props.icon}`} />
-      {props.children}
-    </Button>
-  );
-}
-```
-
-### Dependency Inversion Principle (DIP)
-
-Components depend on abstractions (props/context), not concrete implementations.
-
-```typescript
-// GOOD: Component depends on abstraction (fetcher function)
-interface DataListProps<T> {
-  fetcher: () => Promise<T[]>;
-  renderItem: (item: T) => JSX.Element;
-  fallback?: JSX.Element;
-}
-
-function DataList<T>(props: DataListProps<T>) {
-  const [data] = createResource(props.fetcher);
-
-  return (
-    <Suspense fallback={props.fallback ?? <div>Loading...</div>}>
-      <For each={data()}>{props.renderItem}</For>
-    </Suspense>
-  );
-}
-
-// Usage - inject dependencies
-<DataList
-  fetcher={fetchUsers}
-  renderItem={(user) => <UserCard user={user} />}
-/>
-
-<DataList
-  fetcher={fetchProducts}
-  renderItem={(product) => <ProductCard product={product} />}
-/>
-```
-
----
-
-## Context for Global State
-
-Context provides dependency injection for shared state across the component tree.
-
-```typescript
-import { createContext, useContext, ParentComponent } from "solid-js";
-import { createStore } from "solid-js/store";
-
-// Define context type
-interface AuthState {
-  user: { id: string; name: string } | null;
-  token: string | null;
-}
-
-interface AuthActions {
-  login: (email: string, password: string) => Promise<void>;
-  logout: () => void;
-}
-
-type AuthContextValue = [AuthState, AuthActions];
-
-// Create context with undefined default
-const AuthContext = createContext<AuthContextValue>();
-
-// Provider component
-export const AuthProvider: ParentComponent = (props) => {
-  const [state, setState] = createStore<AuthState>({
-    user: null,
-    token: null,
-  });
-
-  const actions: AuthActions = {
-    async login(email, password) {
-      const response = await fetch("/api/login", {
-        method: "POST",
-        body: JSON.stringify({ email, password }),
-      });
-      const data = await response.json();
-      setState({ user: data.user, token: data.token });
-    },
-    logout() {
-      setState({ user: null, token: null });
-    },
-  };
-
-  return (
-    <AuthContext.Provider value={[state, actions]}>
-      {props.children}
-    </AuthContext.Provider>
-  );
-};
-
-// Consumer hook
-export function useAuth() {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error("useAuth must be used within AuthProvider");
-  }
-  return context;
-}
-
-// Usage
-function App() {
-  return (
-    <AuthProvider>
-      <Header />
-      <Main />
-    </AuthProvider>
-  );
-}
-
-function Header() {
-  const [auth, { logout }] = useAuth();
-
-  return (
-    <header>
-      <Show when={auth.user} fallback={<LoginButton />}>
-        <span>Welcome, {auth.user!.name}</span>
-        <button onClick={logout}>Logout</button>
-      </Show>
-    </header>
-  );
-}
-```
-
----
-
-## Anti-Patterns to Avoid
-
-### 1. Destructuring Props (Breaks Reactivity)
-
-```typescript
-// BAD: Destructuring breaks reactivity
-function BadComponent({ count, name }) {
-  // count and name are static values, won't update
-  return <div>{count} - {name}</div>;
-}
-
-// GOOD: Access props directly
-function GoodComponent(props) {
-  return <div>{props.count} - {props.name}</div>;
-}
-
-// GOOD: Use splitProps for selective destructuring
-import { splitProps } from "solid-js";
-
-function BetterComponent(props) {
-  const [local, others] = splitProps(props, ["count", "name"]);
-  return <div {...others}>{local.count} - {local.name}</div>;
-}
-```
-
-### 2. Reading Signals Outside Tracking Scope
-
-```typescript
-// BAD: Reading outside reactive scope
-function BadComponent() {
-  const [count, setCount] = createSignal(0);
-
-  // This only runs once during component creation
-  const doubled = count() * 2; // Static value!
-
-  return <div>{doubled}</div>; // Never updates
-}
-
-// GOOD: Read inside JSX or memo
-function GoodComponent() {
-  const [count, setCount] = createSignal(0);
-
-  // Option 1: Inline in JSX
-  return <div>{count() * 2}</div>;
-
-  // Option 2: Use createMemo
-  const doubled = createMemo(() => count() * 2);
-  return <div>{doubled()}</div>;
-}
-```
-
-### 3. Using Array.map Instead of For
-
-```typescript
-// BAD: array.map() recreates all elements on any change
-function BadList() {
-  const [items, setItems] = createSignal(["a", "b", "c"]);
-
-  return (
-    <ul>
-      {items().map((item) => <li>{item}</li>)}
-    </ul>
-  );
-}
-
-// GOOD: For component has efficient reconciliation
-function GoodList() {
-  const [items, setItems] = createSignal(["a", "b", "c"]);
-
-  return (
-    <ul>
-      <For each={items()}>
-        {(item) => <li>{item}</li>}
-      </For>
-    </ul>
-  );
-}
-```
-
-### 4. Ternary Instead of Show
-
-```typescript
-// BAD: Ternary always evaluates both branches
-function BadConditional() {
-  const [show, setShow] = createSignal(false);
-
-  return show() ? <HeavyComponent /> : <Fallback />;
-}
-
-// GOOD: Show only renders the active branch
-function GoodConditional() {
-  const [show, setShow] = createSignal(false);
-
-  return (
-    <Show when={show()} fallback={<Fallback />}>
-      <HeavyComponent />
-    </Show>
-  );
-}
-```
-
-### 5. Mutating Signals Directly
-
-```typescript
-// BAD: Direct mutation doesn't trigger updates
-const [items, setItems] = createSignal([1, 2, 3]);
-items().push(4); // Won't trigger reactivity
-
-// GOOD: Create new reference
-setItems([...items(), 4]);
-
-// GOOD: Use setter function
-setItems((prev) => [...prev, 4]);
-```
-
----
-
-## File Structure
-
-```
-src/
-├── components/
-│   ├── ui/                    # Reusable UI components
-│   │   ├── Button.tsx
-│   │   ├── Input.tsx
-│   │   ├── Modal.tsx
-│   │   └── index.ts           # Barrel export
-│   ├── layout/                # Layout components
-│   │   ├── Header.tsx
-│   │   ├── Footer.tsx
-│   │   └── Sidebar.tsx
-│   └── features/              # Feature-specific components
-│       ├── auth/
-│       │   ├── LoginForm.tsx
-│       │   └── RegisterForm.tsx
-│       └── dashboard/
-│           ├── Stats.tsx
-│           └── Charts.tsx
-├── context/                   # Context providers
-│   ├── AuthContext.tsx
-│   └── ThemeContext.tsx
-├── hooks/                     # Custom reactive primitives
-│   ├── useLocalStorage.ts
-│   └── useMediaQuery.ts
-├── services/                  # API and external services
-│   ├── api.ts
-│   └── auth.ts
-├── utils/                     # Utility functions
-│   └── formatters.ts
-├── types/                     # TypeScript types
-│   └── index.ts
-├── App.tsx
-└── index.tsx
-```
-
----
-
-## Testing
-
-```typescript
-import { render, screen, fireEvent } from "@solidjs/testing-library";
-import { Counter } from "./Counter";
-
-describe("Counter", () => {
-  test("renders initial count", () => {
-    render(() => <Counter />);
-    expect(screen.getByText(/count: 0/i)).toBeInTheDocument();
-  });
-
-  test("increments on button click", async () => {
-    render(() => <Counter />);
-    const button = screen.getByRole("button", { name: /increment/i });
-
-    fireEvent.click(button);
-
-    expect(screen.getByText(/count: 1/i)).toBeInTheDocument();
-  });
-
-  test("accepts initial value prop", () => {
-    render(() => <Counter initialValue={10} />);
-    expect(screen.getByText(/count: 10/i)).toBeInTheDocument();
-  });
-});
-```
-
----
-
-## Checklist Before Writing SolidJS Code
-
-1. **Signals**: Am I calling signals with `()` to read values?
-2. **Props**: Am I avoiding destructuring props?
-3. **Effects**: Am I reading signals synchronously in effects?
-4. **Lists**: Am I using `<For>` instead of `.map()`?
-5. **Conditionals**: Am I using `<Show>` instead of ternary?
-6. **Memos**: Am I using `createMemo` for derived values?
-7. **DRY**: Is this logic duplicated? Should it be a shared hook/utility?
-8. **SRP**: Does this component have a single responsibility?
-9. **Testing**: Is this component testable in isolation?
-
----
-
-## Resources
-
-- [Official Docs](https://docs.solidjs.com)
-- [SolidJS GitHub](https://github.com/solidjs/solid)
-- [Solid Primitives](https://github.com/solidjs-community/solid-primitives)
-- [SolidStart (Meta-framework)](https://docs.solidjs.com/solid-start)
+## Best Practices
+
+1. **Call signals as functions** - Always use `count()` not `count`
+2. **Use For for keyed lists** - More efficient than map
+3. **Use stores for complex state** - Nested reactivity
+4. **Avoid destructuring props** - Breaks reactivity
+5. **Use createMemo for expensive computations** - Caches results
+
+## Common Mistakes
+
+| Mistake | Fix |
+|---------|-----|
+| Destructuring props | Access props.x directly |
+| Forgetting to call signal | Use count() not count |
+| Using map instead of For | Use For component |
+| Mutating signal objects | Replace entire object |
+| Missing Suspense for resources | Wrap in Suspense |
+
+## Reference Files
+
+- [references/reactivity.md](references/reactivity.md) - Reactivity deep dive
+- [references/stores.md](references/stores.md) - Store patterns
+- [references/router.md](references/router.md) - Solid Router

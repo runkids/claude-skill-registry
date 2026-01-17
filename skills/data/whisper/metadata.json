@@ -1,7 +1,7 @@
 {
   "name": "whisper",
-  "repo": "majiayu000/claude-skill-registry",
-  "path": "skills/data/whisper/SKILL.md",
-  "source": "github.com/majiayu000/claude-skill-registry",
-  "downloaded_at": "2026-01-14T01:56:17.185600Z"
+  "repo": "zechenzhangAGI/AI-research-SKILLs",
+  "path": "18-multimodal/whisper/SKILL.md",
+  "source": "github.com/zechenzhangAGI/AI-research-SKILLs",
+  "downloaded_at": "2026-01-17T02:53:59.587934Z"
 }

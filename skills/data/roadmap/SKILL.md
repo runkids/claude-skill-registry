@@ -1,104 +1,73 @@
 ---
-name: roadmap
-version: "1.0.0"
-triggers: ["/roadmap", "what should I work on", "show tasks", "what's next"]
-description: Display ROADMAP.md tasks and offer interactive task selection with sub-agent suggestions.
+name: delivery.roadmap
+phase: delivery
+roles:
+  - Product Manager
+  - Program Manager
+description: Create a delivery roadmap that translates strategy into sequenced releases with milestones and dependencies.
+variables:
+  required:
+    - name: product
+      description: Product or program to roadmap.
+    - name: horizon
+      description: Time horizon (e.g., next 2 quarters).
+  optional:
+    - name: themes
+      description: Strategic themes or pillars to organize work.
+    - name: dependencies
+      description: Known cross-team or platform dependencies.
+outputs:
+  - Timeline view of releases or increments with objectives and success metrics.
+  - Dependency and risk register with mitigation steps.
+  - Communication plan for stakeholders.
 ---
 
-# Roadmap Skill
+# Purpose
+Provide a roadmap artifact that balances ambition with delivery realism and gives stakeholders visibility into upcoming milestones.
 
-## Trigger
+# Pre-run Checklist
+- ✅ Align on strategic themes and investment mix with leadership.
+- ✅ Confirm engineering capacity and velocity assumptions.
+- ✅ Collect known dependencies, risks, and sequencing constraints.
 
-Use when:
-- User wants to see current tasks
-- Starting a work session
-- Deciding what to work on next
-
-## Process
-
-### Step 1: Read Roadmap
-
-Read `ROADMAP.md` from project root. Extract:
-- Active tasks (🔄 or unchecked)
-- Pending items (⬜)
-- Bugs/blockers
-
-### Step 2: Display Summary
-
-Present in scannable format:
-
-```markdown
-## Active Tasks
-
-### [Category 1]
-- [ ] Task A
-- [ ] Task B
-
-### [Category 2]
-- [ ] Task C
+# Invocation Guidance
+```bash
+codex run --skill delivery.roadmap \
+  --vars "product={{product}}" \
+         "horizon={{horizon}}" \
+         "themes={{themes}}" \
+         "dependencies={{dependencies}}"
 ```
 
-### Step 3: Interactive Menu
+# Recommended Input Attachments
+- OKR drafts or strategic plans.
+- Engineering capacity plans.
+- Dependency tracker or RAID log.
 
-Use `AskUserQuestion` to let user choose:
+# Claude Workflow Outline
+1. Summarize product vision, horizon, and strategic themes.
+2. Map releases or increments across the horizon with objectives, metrics, and target dates.
+3. Identify dependencies, risks, and mitigation strategies per increment.
+4. Provide stakeholder communication plan and review cadence.
+5. Suggest visualization tips for slides or shared docs.
 
+# Output Template
 ```
-"What would you like to work on?"
+## Roadmap Overview — {{product}} ({{horizon}})
+| Increment | Target Date | Theme | Objective | Success Metric | Key Dependencies |
+| --- | --- | --- | --- | --- | --- |
 
-Options:
-- [Task from roadmap]
-- [Another task]
-- [Multiple tasks] — "I'll suggest which can run in parallel"
-- [Something else] — Freeform input
-```
+## Risks & Mitigations
+| Risk | Impact | Likelihood | Mitigation | Owner | Review Date |
+| --- | --- | --- | --- | --- | --- |
 
-### Step 4: Sub-Agent Analysis
-
-When user selects tasks, analyze:
-
-| Task Type | Recommendation |
-|-----------|----------------|
-| Research/exploration | Can run as parallel Explore agents |
-| Independent file edits | Can run as parallel general-purpose agents |
-| Sequential dependencies | Run one at a time |
-| Interactive (interviews, Q&A) | Dedicated session, not sub-agent |
-| Builds/tests | Background task |
-
-**Suggest parallelization when:**
-- Tasks don't depend on each other
-- Tasks touch different files
-- Tasks are research/read-only
-
-**Avoid sub-agents when:**
-- Task requires user interaction (AskUserQuestion)
-- Task has complex decision points
-- Tasks share state or files
-
-### Step 5: Execute
-
-Based on selection:
-- Single task → Start working directly
-- Parallel tasks → Launch sub-agents, explain what each is doing
-- Sequential tasks → Create TodoWrite list, start first one
-
-## Output Format
-
-```markdown
-## Roadmap: [Project Name]
-
-**Active:**
-- 🔄 [Task in progress]
-- ⬜ [Pending task]
-
-**What would you like to tackle?**
-[Interactive menu]
-
-**Parallelization suggestion:**
-"Tasks X and Y can run simultaneously as sub-agents while you review Z."
+## Stakeholder Communication Plan
+- Audience:
+- Channel:
+- Cadence:
 ```
 
-## Notes
-
-- Always read fresh ROADMAP.md (don't cache)
-- Update ROADMAP.md when tasks complete
-- Respect user's choice even if sub-agents suggested
+# Follow-up Actions
+- Socialize roadmap with core stakeholders for feedback and sign-off.
+- Integrate roadmap milestones into project tracking tools.
+- Review and update monthly based on delivery progress and learnings.
