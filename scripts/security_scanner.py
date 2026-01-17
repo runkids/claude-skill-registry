@@ -182,10 +182,16 @@ class SecurityScanner:
         for pattern_name, pattern in DANGEROUS_PATTERNS.items():
             for line_num, line in enumerate(lines, 1):
                 if re.search(pattern, line, re.IGNORECASE):
-                    severity = 'error' if pattern_name in [
-                        'eval', 'exec', '__import__', 'os.system',
-                        'yaml.load', 'yaml.unsafe_load'
-                    ] else 'warning'
+                    critical_patterns = {
+                        'eval',
+                        'exec',
+                        '__import__',
+                        'os.system',
+                        'yaml.load',
+                        'yaml.unsafe_load',
+                        'shell=True',
+                    }
+                    severity = 'error' if pattern_name in critical_patterns else 'warning'
 
                     self.issues.append({
                         'severity': severity,
